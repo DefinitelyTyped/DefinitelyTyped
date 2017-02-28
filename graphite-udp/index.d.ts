@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-interface clientOptions {
+interface ClientOptions {
 	/**
 	 * graphite server host or ip
 	 * Defaults to 127.0.0.1
@@ -66,6 +66,8 @@ interface clientOptions {
 
 export class Client {
 
+	constructor(clientOptions?: ClientOptions);
+
 	/**
 	 * During the interval time option, if 2 or more metrics with the same name are sent, metrics will be added (summed)
 	 *
@@ -92,4 +94,4 @@ export class Client {
 	close(): void;
 }
 
-export function createClient(clientOptions?: clientOptions): Client;
+export function createClient(clientOptions?: ClientOptions): Client;
