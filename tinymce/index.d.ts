@@ -5,7 +5,7 @@
 
 // Work In Progress
 
-declare module TinyMce {
+declare namespace TinyMce {
 
   export interface Static extends TinyMce.EditorManager {
 
@@ -17,72 +17,72 @@ declare module TinyMce {
 
     ThemeManager: TinyMce.AddOnManager;
 
-    create(s: String, p: Object, root?: Object): void;
+    create(s: string, p: {}, root?: {}): void;
 
-    createNS(n: String, o: Object): Object;
+    createNS(n: string, o: {}): {};
 
-    each(o: Object, cb: () => void, s?: Object): void;
+    each(o: {}, cb: () => void, s?: {}): void;
 
-    explode(s: String, d: String): void;
+    explode(s: string, d: string): void;
 
-    grep(a: Array<any>, f: () => void): Array<any>;
+    grep(a: any[], f: () => void): any[];
 
-    inArray(item: any, arr: Array<any>): Number;
+    inArray(item: any, arr: any[]): number;
 
-    is(obj: Object, type?: String): Boolean;
+    is(obj: {}, type?: string): boolean;
 
-    isArray(obj: Object): Boolean;
+    isArray(obj: {}): boolean;
 
-    makeMap(items: Array<any>, delim?: String, map?: Object): Object;
+    makeMap(items: any[], delim?: string, map?: {}): {};
 
-    map(array: Array<any>, callback: () => void): Array<any>;
+    map(array: any[], callback: () => void): any[];
 
-    resolve(n: String, o?: Object): Object;
+    resolve(n: string, o?: {}): {};
 
-    toArray(obj: Object): Array<any>;
+    toArray(obj: {}): any[];
 
-    trim(s: String): String;
+    trim(s: string): string;
 
-    walk(o: Object, f: () => void, n?: String, s?: String): void;
+    walk(o: {}, f: () => void, n?: string, s?: string): void;
   }
 
   export interface Settings {
 
-    auto_focus?: String;
+    auto_focus?: string;
 
-    cache_suffix?: String;
+    cache_suffix?: string;
 
-    content_security_policy?: String;
+    content_security_policy?: string;
 
-    external_plugins?: Object;
+    external_plugins?: {};
 
-    hidden_input?: Boolean;
+    hidden_input?: boolean;
 
     init_instance_callback?: (editor: TinyMce.Editor) => void;
 
-    plugins?: String;
+    plugins?: string | string[];
 
-    selector?: String;
+    selector?: string;
 
     setup?: (edtor: TinyMce.Editor) => void;
 
     target?: Element;
 
-    color_picker_callback?: (callback: (hexColor: String) => void, value: String) => void;
+    color_picker_callback?: (callback: (hexColor: string) => void, value: string) => void;
 
-    elementpath?: Boolean;
+    elementpath?: boolean;
 
-    event_root?: Boolean;
+    event_root?: boolean;
 
-    fixed_toolbar_container?: String;
+    fixed_toolbar_container?: string;
 
     height?: number;
 
-    inline?: Boolean;
+    inline?: boolean;
 
-    insert_button_items?: String;
+    insert_button_items?: string;
 
-    insert_toolbar?: String;
+    insert_toolbar?: string;
 
     max_height?: number;
 
@@ -90,175 +90,175 @@ declare module TinyMce {
 
     menu?: settings.Menu;
 
-    menubar?: String | Boolean;
+    menubar?: string | boolean;
 
     min_height?: number;
 
     min_width?: number;
 
-    preview_styles?: Boolean | String;
+    preview_styles?: boolean | string;
 
-    removed_menuitems?: String;
+    removed_menuitems?: string;
 
-    resize?: Boolean | String;
+    resize?: boolean | string;
 
-    selection_toolbar?: String;
+    selection_toolbar?: string;
 
-    skin_url?: String;
+    skin_url?: string;
 
-    skin?: String;
+    skin?: string;
 
-    statusbar?: Boolean;
+    statusbar?: boolean;
 
-    theme_url?: String;
+    theme_url?: string;
 
-    theme?: String;
+    theme?: string;
 
-    toolbar?: Boolean | String | String[];
+    toolbar?: boolean | string | string[];
 
-    width?: Number;
+    width?: number;
 
-    body_class?: String;
+    body_class?: string;
 
-    body_id?: String;
+    body_id?: string;
 
-    content_css?: String;
+    content_css?: string;
 
-    content_style?: String;
+    content_style?: string;
 
-    visual_anchor_class?: String;
+    visual_anchor_class?: string;
 
-    visual_table_class?: String;
+    visual_table_class?: string;
 
-    visual?: Boolean;
+    visual?: boolean;
 
-    allow_conditional_comments?: Boolean;
+    allow_conditional_comments?: boolean;
 
-    allow_html_in_named_anchor?: Boolean;
+    allow_html_in_named_anchor?: boolean;
 
-    allow_unsafe_link_target?: Boolean;
+    allow_unsafe_link_target?: boolean;
 
-    convert_fonts_to_spans?: Boolean;
+    convert_fonts_to_spans?: boolean;
 
-    custom_elements?: String;
+    custom_elements?: string;
 
-    doctype?: String;
+    doctype?: string;
 
-    element_format?: String;
+    element_format?: string;
 
-    encoding?: String;
+    encoding?: string;
 
-    entities?: String;
+    entities?: string;
 
-    entity_encoding?: String;
+    entity_encoding?: string;
 
-    extended_valid_elements?: String;
+    extended_valid_elements?: string;
 
-    fix_list_elements?: Boolean;
+    fix_list_elements?: boolean;
 
-    force_hex_style_colors?: Boolean;
+    force_hex_style_colors?: boolean;
 
-    forced_root_block?: String;
+    forced_root_block?: string;
 
-    forced_root_block_attrs?: Object;
+    forced_root_block_attrs?: {};
 
-    invalid_elements?: String;
+    invalid_elements?: string;
 
-    invalid_styles?: String | Object;
+    invalid_styles?: string | {};
 
-    keep_styles?: Boolean;
+    keep_styles?: boolean;
 
-    protect?: Array<RegExp>;
+    protect?: RegExp[];
 
-    remove_trailing_brs?: Boolean;
+    remove_trailing_brs?: boolean;
 
-    schema?: String;
+    schema?: string;
 
-    valid_children?: String;
+    valid_children?: string;
 
-    valid_classes?: String | Object;
+    valid_classes?: string | {};
 
-    valid_elements?: String;
+    valid_elements?: string;
 
-    valid_styles?: Object;
+    valid_styles?: {};
 
-    block_formats?: String;
+    block_formats?: string;
 
-    font_formats?: String;
+    font_formats?: string;
 
-    fontsize_formats?: String;
+    fontsize_formats?: string;
 
-    formats?: Object;
+    formats?: {};
 
-    removeFormat?: Array<Object>;
+    removeFormat?: Array<{}>;
 
-    indentation?: String;
+    indentation?: string;
 
-    style_formats?: Array<Object>;
+    style_formats?: Array<{}>;
 
-    style_formats_autohide?: Boolean;
+    style_formats_autohide?: boolean;
 
-    style_formats_merge?: Boolean;
+    style_formats_merge?: boolean;
 
-    browser_spellcheck?: Boolean;
+    browser_spellcheck?: boolean;
 
-    gecko_spellcheck?: Boolean;
+    gecko_spellcheck?: boolean;
 
-    automatic_uploads?: Boolean;
+    automatic_uploads?: boolean;
 
-    file_browser_callback?: (field_name: String, url: String, type: String, win: Window) => void;
+    file_browser_callback?: (field_name: string, url: string, type: string, win: Window) => void;
 
-    file_browser_callback_types?: String;
+    file_browser_callback_types?: string;
 
-    file_picker_callback?: (callback: (filename: String, metadata: Object) => void, valud: String, meta: Object) => void;
+    file_picker_callback?: (callback: (filename: string, metadata: {}) => void, valud: string, meta: {}) => void;
 
-    file_picker_types?: String;
+    file_picker_types?: string;
 
     images_dataimg_filter?: (img: any) => void;
 
-    images_reuse_filename?: Boolean;
+    images_reuse_filename?: boolean;
 
-    images_upload_base_path?: String;
+    images_upload_base_path?: string;
 
-    images_upload_credentials?: Boolean;
+    images_upload_credentials?: boolean;
 
-    images_upload_handler?: (blobInfo: any, success: (msg: String) => void, failure: (msg: String) => void) => void;
+    images_upload_handler?: (blobInfo: any, success: (msg: string) => void, failure: (msg: string) => void) => void;
 
-    images_upload_url?: String;
+    images_upload_url?: string;
 
-    directionality?: String;
+    directionality?: string;
 
-    language?: String;
+    language?: string;
 
-    language_url?: String;
+    language_url?: string;
 
-    allow_script_urls?: Boolean;
+    allow_script_urls?: boolean;
 
-    convert_urls?: Boolean;
+    convert_urls?: boolean;
 
-    document_base_url?: String;
+    document_base_url?: string;
 
-    relative_urls?: Boolean;
+    relative_urls?: boolean;
 
-    remove_script_host?: Boolean;
+    remove_script_host?: boolean;
 
-    urlconverter_callback?: (url: String, node: HTMLElement, on_save: Boolean, name: String) => void;
+    urlconverter_callback?: (url: string, node: HTMLElement, on_save: boolean, name: string) => void;
 
-    anchor_bottom?: String;
+    anchor_bottom?: string;
 
-    anchor_top?: String;
+    anchor_top?: string;
 
-    br_in_pre?: Boolean;
+    br_in_pre?: boolean;
 
-    custom_undo_redo_levels?: Number;
+    custom_undo_redo_levels?: number;
 
-    end_container_on_empty_block?: Boolean;
+    end_container_on_empty_block?: boolean;
 
-    nowrap?: Boolean;
+    nowrap?: boolean;
 
-    object_resizing?: Boolean | String;
+    object_resizing?: boolean | string;
 
-    type_ahead_urls?: Boolean;
+    type_ahead_urls?: boolean;
 
   }
 
@@ -275,22 +275,22 @@ declare module TinyMce {
     }
 
     export interface MenuItem {
-      title: String;
-      items: String;
+      title: string;
+      items: string;
     }
   }
 
   export interface AddOnManager {
 
-    add(id: String, addOn: (editor: TinyMce.Editor, url: String) => void): Theme | Plugin;
+    add(id: string, addOn: (editor: TinyMce.Editor, url: string) => void): Theme | Plugin;
 
-    addComponents(pluginName: String, scripts: Array<String>): void;
+    addComponents(pluginName: string, scripts: string[]): void;
 
-    get(name: String): Theme | Plugin;
+    get(name: string): Theme | Plugin;
 
-    load(name: String, addOnUrl: String, success?: () => void, scope?: Object, failure?: () => void): void;
+    load(name: string, addOnUrl: string, success?: () => void, scope?: {}, failure?: () => void): void;
 
-    requireLangPack(name: String, languages?: String): void;
+    requireLangPack(name: string, languages?: string): void;
   }
 
   export interface Editor extends util.Observable {
@@ -299,9 +299,9 @@ declare module TinyMce {
 
     baseURI: util.URI;
 
-    contentCSS: Array<String>;
+    contentCSS: string[];
 
-    contentStyles: Array<String>;
+    contentStyles: string[];
 
     documentBaseURI: util.URI;
 
@@ -309,9 +309,9 @@ declare module TinyMce {
 
     formatter: Formatter;
 
-    id: String;
+    id: string;
 
-    initialized: Boolean;
+    initialized: boolean;
 
     notificationManager: notificationManager;
 
@@ -331,39 +331,39 @@ declare module TinyMce {
 
     WindowManager: WindowManager;
 
-    addButton(name: String, settings: Object): void;
+    addButton(name: string, settings: {}): void;
 
-    addCommand(name: String, callback: (ui: Boolean, value: Object) => Boolean, scope?: Object): void;
+    addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
 
-    addContextToolbar(predicate: () => void, items: String): void;
+    addContextToolbar(predicate: () => void, items: string): void;
 
-    addMenuItem(name: String, settings: Object): void;
+    addMenuItem(name: string, settings: {}): void;
 
-    addQueryStateHandler(name: String, callback: () => Boolean, scope?: Object): void;
+    addQueryStateHandler(name: string, callback: () => boolean, scope?: {}): void;
 
-    addQueryValueHandler(name: String, callback: () => Object, scope?: Object): void;
+    addQueryValueHandler(name: string, callback: () => {}, scope?: {}): void;
 
-    addShortcut(pattern: String, desc: String, cmdFunc: String, sc?: Object): Boolean;
+    addShortcut(pattern: string, desc: string, cmdFunc: string, sc?: {}): boolean;
 
-    addSidebar(name: String, settings: Object): void;
+    addSidebar(name: string, settings: {}): void;
 
     addVisual(elm?: Element): void;
 
-    convertURL(url: String, name: String, elm: String): String;
+    convertURL(url: string, name: string, elm: string): string;
 
-    destroy(automatic?: Boolean): void;
+    destroy(automatic?: boolean): void;
 
-    execCallback(name: String): Object;
+    execCallback(name: string): {};
 
-    execCommand(cmd: String, ui: Boolean, value?: any, args?: Object): void;
+    execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
 
-    focus(skipFocus: Boolean): void;
+    focus(skipFocus: boolean): void;
 
     getBody(): HTMLBodyElement;
 
     getContainer(): Element;
 
-    getContent(args?: Object): String;
+    getContent(args?: {}): string;
 
     getContentAreaContainer(): Element;
 
@@ -371,66 +371,66 @@ declare module TinyMce {
 
     getElement(): Element;
 
-    getLang(name: String, defaultVal?: String): void;
+    getLang(name: string, defaultVal?: string): void;
 
-    getParam(name: String, defaultVal?: String, type?: String): String;
+    getParam(name: string, defaultVal?: string, type?: string): string;
 
     getWin(): Window;
 
-    hasEventListeners(name: String): Boolean;
+    hasEventListeners(name: string): boolean;
 
     hide(): void;
 
     init(): void;
 
-    insertContent(content: String, args?: Object): void;
+    insertContent(content: string, args?: {}): void;
 
-    isDirty(): Boolean;
+    isDirty(): boolean;
 
-    isHidden(): Boolean;
+    isHidden(): boolean;
 
-    load(args?: Object): String;
+    load(args?: {}): string;
 
-    nodeChanged(args?: Object): void;
+    nodeChanged(args?: {}): void;
 
-    queryCommandState(cmd: String): Boolean;
+    queryCommandState(cmd: string): boolean;
 
-    queryCommandSupported(cmd: String): Boolean;
+    queryCommandSupported(cmd: string): boolean;
 
-    queryCommandValue(cmd: string): Object;
+    queryCommandValue(cmd: string): {};
 
     remove(): void;
 
     render(): void;
 
-    save(args: Object): String;
+    save(args: {}): string;
 
-    setContent(content: String, args?: Object): String;
+    setContent(content: string, args?: {}): string;
 
-    setDirty(state: Boolean): void;
+    setDirty(state: boolean): void;
 
-    setMode(mode: String): void;
+    setMode(mode: string): void;
 
-    setProgressState(state: Boolean, time: Number): Boolean;
+    setProgressState(state: boolean, time: number): boolean;
 
     show(): void;
 
-    translate(text: String): String;
+    translate(text: string): string;
 
-    uploadImages(callback: () => void): util.Promise<any>;
+    uploadImages(callback: () => void): Promise<any>;
   }
 
   export interface EditorCommands {
 
-    addCommands(command_list: Object, type?: String): void;
+    addCommands(command_list: {}, type?: string): void;
 
-    execCommand(command: String, ui?: Boolean, value?: Object, args?: Object): Boolean;
+    execCommand(command: string, ui?: boolean, value?: {}, args?: {}): boolean;
 
-    queryCommandState(command: String): Boolean | Number;
+    queryCommandState(command: string): boolean | number;
 
-    queryCommandSupported(command: String): Boolean;
+    queryCommandSupported(command: string): boolean;
 
-    queryCommandValue(command: String): Object;
+    queryCommandValue(command: string): {};
   }
 
   export interface EditorManager extends util.Observable {
@@ -441,76 +441,74 @@ declare module TinyMce {
 
     baseURI: TinyMce.util.URI;
 
-    baseURL: String;
+    baseURL: string;
 
-    documentBaseURL: String;
+    documentBaseURL: string;
 
-    editors: Array<TinyMce.Editor>;
+    editors: TinyMce.Editor[];
 
-    i18n: Object;
+    i18n: {};
 
-    majorVersion: String;
+    majorVersion: string;
 
-    minorVersion: String;
+    minorVersion: string;
 
-    releaseDate: String;
+    releaseDate: string;
 
-    suffix: String;
+    suffix: string;
 
     add(editor: TinyMce.Editor): TinyMce.Editor;
 
-    addI18n(code: String, items: Object): void;
+    addI18n(code: string, items: {}): void;
 
-    createEditor(id: String, settings: Object): TinyMce.Editor;
+    createEditor(id: string, settings: {}): TinyMce.Editor;
 
-    execCommand(cmd: String, ui?: Boolean, value?: String): Boolean;
+    execCommand(cmd: string, ui?: boolean, value?: string): boolean;
 
-    get(id: String): TinyMce.Editor;
+    get(id: string): TinyMce.Editor;
 
     init(settings: Settings): Promise<Editor>;
 
-    overrideDefaults(defaultSettings: Object): void;
+    overrideDefaults(defaultSettings: {}): void;
 
     remove(selector: TinyMce.Editor): TinyMce.Editor;
 
     setActive(editor: TinyMce.Editor): void;
 
-    translate(text: String): String;
+    translate(text: string): string;
 
     triggerSave(): void;
   }
 
-  export interface EditorObservable extends util.Observable { }
-
   export interface Env {
 
-    android: Boolean;
+    android: boolean;
 
-    ceFalse: Boolean;
+    ceFalse: boolean;
 
-    contentEditable: Boolean;
+    contentEditable: boolean;
 
-    documentMode: Boolean;
+    documentMode: boolean;
 
-    fileApi: Boolean;
+    fileApi: boolean;
 
-    gecko: Boolean;
+    gecko: boolean;
 
-    iOS: Boolean;
+    iOS: boolean;
 
-    ie: Boolean;
+    ie: boolean;
 
-    mac: Boolean;
+    mac: boolean;
 
-    noCaretAfter: Boolean;
+    noCaretAfter: boolean;
 
-    opera: Boolean;
+    opera: boolean;
 
-    range: Boolean;
+    range: boolean;
 
-    transparentSrc: Boolean;
+    transparentSrc: boolean;
 
-    webKit: Boolean;
+    webKit: boolean;
   }
 
   export namespace Events {
@@ -521,11 +519,11 @@ declare module TinyMce {
 
       target: string;
 
-      isDefaultPrevented(): Boolean;
+      isDefaultPrevented(): boolean;
 
-      isImmediatePropagationStopped(): Boolean;
+      isImmediatePropagationStopped(): boolean;
 
-      isPropagationStopped(): Boolean;
+      isPropagationStopped(): boolean;
 
       preventDefault(): void;
 
@@ -576,14 +574,14 @@ declare module TinyMce {
 
     export interface UndoRedoEvent extends Event {
 
-      level: Object;
+      level: {};
     }
 
     export interface ChangeEvent extends Event {
 
-      lastLevel: Object;
+      lastLevel: {};
 
-      level: Object;
+      level: {};
     }
 
     export interface CommandEvent extends Event {
@@ -598,443 +596,423 @@ declare module TinyMce {
 
   export interface FocusManager {
 
-    new (editorManager: TinyMce.EditorManager): FocusManager;
-
-    isEditorUIElement(elm: Element): Boolean;
+    isEditorUIElement(elm: Element): boolean;
   }
 
   export interface Formatter {
 
-    new (ed: Editor): Editor;
+    apply(name: string, vars?: {}, node?: html.Node): void;
 
-    apply(name: String, vars?: Object, node?: html.Node): void;
+    canApply(name: string): boolean;
 
-    canApply(name: String): boolean;
+    formatChanged(formats: string, callback: () => void, similar: boolean): void;
 
-    formatChanged(formats: String, callback: () => void, similar: Boolean): void;
+    get(name?: string): any[] | {};
 
-    get(name?: String): Array<any> | Object;
+    getCssText(format: string): string;
 
-    getCssText(format: String): String;
+    match(name: string, vars?: {}, node?: html.Node): boolean;
 
-    match(name: String, vars?: Object, node?: html.Node): boolean;
+    matchAll(names: any[], vars?: {}): any[];
 
-    matchAll(names: Array<any>, vars?: Object): Array<any>;
+    matchNode(node: html.Node, name: string, vars: {}, similar: boolean): {};
 
-    matchNode(node: html.Node, name: String, vars: Object, similar: Boolean): Object;
+    register(name: {}, format?: {}): void;
 
-    register(name: Object, format?: Object): void;
+    remove(name: string, vars?: {}, node?: html.Node): void;
 
-    remove(name: String, vars?: Object, node?: html.Node): void;
+    toggle(name: string, vars?: {}, node?: html.Node): void;
 
-    toggle(name: String, vars?: Object, node?: html.Node): void;
-
-    unregister(name: String): void;
+    unregister(name: string): void;
   }
-
-  export interface Plugin { }
 
   export interface Shortcuts {
 
-    add(pattern: String, desc: String, cmdFunc: String | Function, scope?: Object): Boolean;
+    add(pattern: string, desc: string, cmdFunc: () => void | string, scope?: {}): boolean;
 
-    remove(pattern: String): Boolean;
+    remove(pattern: string): boolean;
   }
 
   export interface Theme {
 
-    renderUI(obj: Object): Object;
+    renderUI(obj: {}): {};
   }
 
   export interface UndoManager {
 
-    add(level?: Object, event?: DocumentEvent): Object;
+    add(level?: {}, event?: DocumentEvent): {};
 
     beforeChange(): void;
 
     clear(): void;
 
-    extra(callback1: Function, callback2: Function): void;
+    extra(callback1: () => void, callback2: () => void): void;
 
-    hasRedo(): Boolean;
+    hasRedo(): boolean;
 
-    hasUndo(): Boolean;
+    hasUndo(): boolean;
 
-    redo(): Object;
+    redo(): {};
 
-    transact(callback: Function): Object;
+    transact(callback: () => void): {};
 
-    undo(): Object;
+    undo(): {};
   }
 
   export interface WindowManager {
 
-    alert(message: String, callback: Function, scope?: Object): void;
+    alert(message: string, callback: () => void, scope?: {}): void;
 
     close(): void;
 
-    confirm(message: String, callback: Function, scope?: Object): void;
+    confirm(message: string, callback: () => void, scope?: {}): void;
 
-    getParams(): Object;
+    getParams(): {};
 
-    getWindows(): Array<Window>;
+    getWindows(): Window[];
 
-    open(args: Object, params: Object): void;
+    open(args: {}, params: {}): void;
 
-    setParams(params: Object): void;
+    setParams(params: {}): void;
   }
 
   export interface notificationManager {
 
     close(): void;
 
-    getNotifications(): Array<Object>;
+    getNotifications(): Array<{}>;
 
-    open(args?: Object): void;
+    open(args?: {}): void;
   }
 
   export namespace dom {
 
     export interface BookmarkManager {
 
-      new (selection: Selection): BookmarkManager;
+      getBookmark(type?: number, normalized?: boolean): {};
 
-      getBookmark(type?: Number, normalized?: Boolean): Object;
+      isBookmarkNode(node: HTMLElement): boolean;
 
-      isBookmarkNode(node: HTMLElement): Boolean;
-
-      moveToBookmark(bookmark: Object): Boolean;
+      moveToBookmark(bookmark: {}): boolean;
     }
-
-    export interface ControlSelection { }
 
     export interface DOMUtils {
 
-      new (doc: Document, settings?: Object): void;
+      add<T>(parentElm: string, name: string, attrs?: {}, html?: string, create?: boolean): Element | T[];
 
-      add<T>(parentElm: String, name: String, attrs?: Object, html?: String, create?: Boolean): Element | Array<T>;
+      addClass<T>(elm: string, cls: string): string | T[];
 
-      addClass<T>(elm: String, cls: String): String | Array<T>;
+      addStyle(cssText: string): void;
 
-      addStyle(cssText: String): void;
+      bind(target: Element, name: string, func: () => void, scope?: {}): () => void;
 
-      bind(target: Element, name: String, func: Function, scope?: Object): Function;
+      create(name: string, attrs?: {}, html?: string): Element;
 
-      create(name: String, attrs?: Object, html?: String): Element;
+      createFragment(html: string): DocumentFragment;
 
-      createFragment(html: String): DocumentFragment;
-
-      createHTML(name: String, attrs?: Object, html?: String): String;
+      createHTML(name: string, attrs?: {}, html?: string): string;
 
       createRng(): Range;
 
-      decode(s: String): String;
+      decode(s: string): string;
 
       destroy(): void;
 
-      encode(text: String): String;
+      encode(text: string): string;
 
       findCommonAncestor(a: Element, b: Element): Element;
 
-      fire(target: Node, name: String, evt: Object): Event;
+      fire(target: Node, name: string, evt: {}): Event;
 
-      get(n: String): Element;
+      get(n: string): Element;
 
-      getAttrib(elm: String, name: String, defaultVal: String): String;
+      getAttrib(elm: string, name: string, defaultVal: string): string;
 
       getAttribs(elm?: HTMLElement): NodeList;
 
-      getNext(node: Node, selector: String): Node;
+      getNext(node: Node, selector: string): Node;
 
-      getOuterHTML(elm: String): String;
+      getOuterHTML(elm: string): string;
 
-      getParent(node: Node, selector: Function, root?: Node): Node;
+      getParent(node: Node, selector: () => void, root?: Node): Node;
 
-      getParents<T>(node: Node, selector: Function, root?: Node): Array<T>;
+      getParents<T>(node: Node, selector: () => void, root?: Node): T[];
 
-      getPos(elm: Element, rootElm?: Element): Object;
+      getPos(elm: Element, rootElm?: Element): {};
 
-      getPrev(node: Node, selector: String): Node;
+      getPrev(node: Node, selector: string): Node;
 
-      getRect(elm: Element): Object;
+      getRect(elm: Element): {};
 
       getRoot(): Element;
 
-      getSize(elm: Element): Object;
+      getSize(elm: Element): {};
 
-      getStyle(elm: String, name: String, computed: Boolean): String;
+      getStyle(elm: string, name: string, computed: boolean): string;
 
-      getViewPort(win?: Window): Object;
+      getViewPort(win?: Window): {};
 
-      hasClass(elm: String, cls: String): Boolean;
+      hasClass(elm: string, cls: string): boolean;
 
-      hide(elm: String): void;
+      hide(elm: string): void;
 
-      insertAfter<T>(node: Element, referenceNode: Element): Element | Array<T>;
+      insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
 
-      is(elm: Node, selector: String): void;
+      is(elm: Node, selector: string): void;
 
-      isBlock(node: Node): Boolean;
+      isBlock(node: Node): boolean;
 
-      isEmpty(elements?: Object): Boolean;
+      isEmpty(elements?: {}): boolean;
 
-      isHidden(elm: String): Boolean;
+      isHidden(elm: string): boolean;
 
-      loadCSS(url: String): void;
+      loadCSS(url: string): void;
 
-      nodeIndex(node: Node, normalized?: Boolean): Number;
+      nodeIndex(node: Node, normalized?: boolean): number;
 
-      parseStyle(cssText: String): Object;
+      parseStyle(cssText: string): {};
 
-      remove<T>(node: String, keepChildren?: Boolean): Element | Array<T>;
+      remove<T>(node: string, keepChildren?: boolean): Element | T[];
 
       removeAllAttribs(e: Element): void;
 
-      removeClass<T>(elm: String, cls: String): String | Array<T>;
+      removeClass<T>(elm: string, cls: string): string | T[];
 
-      rename(elm: Element, name: String): Element;
+      rename(elm: Element, name: string): Element;
 
-      replace(newElm: Element, oldElm: Element, keepChildren?: Boolean): void;
+      replace(newElm: Element, oldElm: Element, keepChildren?: boolean): void;
 
-      run<T>(elm: String, func: Function, scope?: Object): Object | Array<T>;
+      run<T>(elm: string, func: () => void, scope?: {}): {} | T[];
 
-      select<T>(selector: String, scope?: Object): Array<T>;
+      select<T>(selector: string, scope?: {}): T[];
 
-      serializeStyle(styles: Object, name?: String): String;
+      serializeStyle(styles: {}, name?: string): string;
 
-      setAttrib(elm: Element, name: String, value: String): void;
+      setAttrib(elm: Element, name: string, value: string): void;
 
-      setAttribs(elm: Element, attrs: Object): void;
+      setAttribs(elm: Element, attrs: {}): void;
 
-      setHTML(elm: Element, html: String): void;
+      setHTML(elm: Element, html: string): void;
 
-      setOuterHTML(elm: Element, html: Object): void;
+      setOuterHTML(elm: Element, html: {}): void;
 
-      setStyle(elm: String, name: String, value: String): void;
+      setStyle(elm: string, name: string, value: string): void;
 
-      setStyles(elm: Element, styles: Object): void;
+      setStyles(elm: Element, styles: {}): void;
 
-      show(elm: String): void;
+      show(elm: string): void;
 
       split(parentElm: Element, splitElm: Element, replacementElm?: Element): Element;
 
-      toHex(rgbVal: String): String;
+      toHex(rgbVal: string): string;
 
-      toggleClass(elm: Element, cls: String, state?: String): void;
+      toggleClass(elm: Element, cls: string, state?: string): void;
 
-      unbind<T>(target: Element, name: String, func: Function): Boolean | Array<T>;
+      unbind<T>(target: Element, name: string, func: () => void): boolean | T[];
 
-      uniqueId(prefix?: String): String;
+      uniqueId(prefix?: string): string;
     }
 
     export interface DomQuery {
 
-      new (selector?: String, context?: Document): DomQuery;
+      add<T>(items: T[], sort?: boolean): DomQuery;
 
-      add<T>(items: Array<T>, sort?: Boolean): DomQuery;
+      addClass(className: string): DomQuery;
 
-      addClass(className: String): DomQuery;
+      after(content: string): DomQuery;
 
-      after(content: String): DomQuery;
+      append(content: string): DomQuery;
 
-      append(content: String): DomQuery;
+      appendTo(val: string): DomQuery;
 
-      appendTo(val: String): DomQuery;
+      attr(name: string, value?: string): DomQuery | string;
 
-      attr(name: String, value?: String): DomQuery | String;
+      before(content: string): DomQuery;
 
-      before(content: String): DomQuery;
-
-      children(node: Element | String): DomQuery;
+      children(node: Element | string): DomQuery;
 
       clone(): DomQuery;
 
-      closest(selector: String): DomQuery;
+      closest(selector: string): DomQuery;
 
-      contents(node: Element | String): DomQuery;
+      contents(node: Element | string): DomQuery;
 
-      css(name: String, value?: String): DomQuery | String;
+      css(name: string, value?: string): DomQuery | string;
 
-      each(callback: Function): DomQuery;
+      each(callback: () => void): DomQuery;
 
-      each(obj: Object, callback: Function): void;
+      each(obj: {}, callback: () => void): void;
 
       empty(): DomQuery;
 
-      eq(index: Number): DomQuery;
+      eq(index: number): DomQuery;
 
-      extend(target: Object, object: Object): Object;
+      extend(target: {}, object: {}): {};
 
-      filter(selector: String): DomQuery;
+      filter(selector: string): DomQuery;
 
-      find(selector: String): DomQuery;
+      find(selector: string): DomQuery;
 
       first(): DomQuery;
 
-      grep<T>(array: Array<T>, callback: Function): Array<T>;
+      grep<T>(array: T[], callback: () => void): T[];
 
-      hasClass(className: String): Boolean;
+      hasClass(className: string): boolean;
 
       hide(): DomQuery;
 
-      html(value?: String): DomQuery | String;
+      html(value?: string): DomQuery | string;
 
-      inArray<T>(item: Object, array: Array<T>): Number;
+      inArray<T>(item: {}, array: T[]): number;
 
-      is(selector: String): Boolean;
+      is(selector: string): boolean;
 
-      isArray(array: Object): Boolean;
+      isArray(array: {}): boolean;
 
       last(): DomQuery;
 
-      makeArray<T>(object: Object): Array<T>;
+      makeArray<T>(object: {}): T[];
 
-      next(node: Element | String): DomQuery;
+      next(node: Element | string): DomQuery;
 
-      nextUntil(node: Element | String, until: String): DomQuery;
+      nextUntil(node: Element | string, until: string): DomQuery;
 
-      off(name?: String, callback?: Function): DomQuery;
+      off(name?: string, callback?: () => void): DomQuery;
 
-      offset(offset?: Object): Object | DomQuery;
+      offset(offset?: {}): {} | DomQuery;
 
-      on(name: String, callback: Function): DomQuery;
+      on(name: string, callback: () => void): DomQuery;
 
-      parent(node: Element | String): DomQuery;
+      parent(node: Element | string): DomQuery;
 
-      parents(node: Element | String): DomQuery;
+      parents(node: Element | string): DomQuery;
 
-      parentsUntil(node: Element | String, until: String): DomQuery;
+      parentsUntil(node: Element | string, until: string): DomQuery;
 
-      prepend(content: String): DomQuery;
+      prepend(content: string): DomQuery;
 
-      prependTo(val: String): DomQuery;
+      prependTo(val: string): DomQuery;
 
-      prev(node: Element | String): DomQuery;
+      prev(node: Element | string): DomQuery;
 
-      prevUntil(node: Element | String, until: String): DomQuery;
+      prevUntil(node: Element | string, until: string): DomQuery;
 
       remove(): DomQuery;
 
-      removeAttr(name: String): DomQuery | String;
+      removeAttr(name: string): DomQuery | string;
 
-      removeClass(className: String): DomQuery;
+      removeClass(className: string): DomQuery;
 
-      replaceWith(content: String): DomQuery;
+      replaceWith(content: string): DomQuery;
 
       show(): DomQuery;
 
-      slice(start: Number, end?: Number): DomQuery;
+      slice(start: number, end?: number): DomQuery;
 
-      text(value?: String): DomQuery | String;
+      text(value?: string): DomQuery | string;
 
-      toArray<T>(): Array<T>;
+      toArray<T>(): T[];
 
-      toggleClass(className: String, state?: Boolean): DomQuery;
+      toggleClass(className: string, state?: boolean): DomQuery;
 
-      trigger(name: String): DomQuery;
+      trigger(name: string): DomQuery;
 
-      trim(str: String): String;
+      trim(str: string): string;
 
       unwrap(): DomQuery;
 
-      wrap(content: String): DomQuery;
+      wrap(content: string): DomQuery;
 
-      wrapAll(content: String): DomQuery;
+      wrapAll(content: string): DomQuery;
 
-      wrapInner(content: String): DomQuery;
+      wrapInner(content: string): DomQuery;
     }
 
     export interface EventUtils {
 
-      bind(target: Object, names: String, callback: Function, scope: Object): Function;
+      bind(target: {}, names: string, callback: () => void, scope: {}): () => void;
 
-      clean(target: Object): EventUtils;
+      clean(target: {}): EventUtils;
 
-      fire(target: Object, name: String, args?: Object): EventUtils;
+      fire(target: {}, name: string, args?: {}): EventUtils;
 
-      unbind(target: Object, names?: String, callback?: Function): EventUtils;
+      unbind(target: {}, names?: string, callback?: () => void): EventUtils;
     }
 
     export interface RangeUtils {
 
-      compareRanges(rng1: Range, rng2: Range): Boolean;
+      compareRanges(rng1: Range, rng2: Range): boolean;
 
-      getCaretRangeFromPoint(clientX: Number, clientY: Number, doc: Document): Range;
+      getCaretRangeFromPoint(clientX: number, clientY: number, doc: Document): Range;
     }
 
     export interface ScriptLoader {
 
-      add(url: String, success?: Function, scope?: Object, failure?: Function): void;
+      add(url: string, success?: () => void, scope?: {}, failure?: () => void): void;
 
-      isDone(url: String): Boolean;
+      isDone(url: string): boolean;
 
-      load(url: String, callback1?: Function, callback2?: Function): void;
+      load(url: string, callback1?: () => void, callback2?: () => void): void;
 
-      loadQueue(success?: Function, failure?: Function, scope?: Object): void;
+      loadQueue(success?: () => void, failure?: () => void, scope?: {}): void;
 
-      loadScripts(scripts: Array<String>, callback1?: Function, scope?: Object, callback2?: Function): void;
+      loadScripts(scripts: string[], callback1?: () => void, scope?: {}, callback2?: () => void): void;
 
       markDone(url: string): void;
     }
 
     export interface Selection {
 
-      new (dom: DOMUtils, win: Window, editor: Editor, serializer: Serializer): Selection;
+      collapse(toStart?: boolean): void;
 
-      collapse(toStart?: Boolean): void;
+      getBookmark(type?: number, normalized?: boolean): {};
 
-      getBookmark(type?: Number, normalized?: Boolean): Object;
+      getContent(args?: {}): string;
 
-      getContent(args?: Object): String;
-
-      getEnd(real?: Boolean): Element;
+      getEnd(real?: boolean): Element;
 
       getNode(): Element;
 
-      getRng(w3c: Boolean): Range;
+      getRng(w3c: boolean): Range;
 
       getSel(): Selection;
 
-      getStart(real?: Boolean): Element;
+      getStart(real?: boolean): Element;
 
-      isCollapsed(): Boolean;
+      isCollapsed(): boolean;
 
-      moveToBookmark(bookmark: Object): Boolean;
+      moveToBookmark(bookmark: {}): boolean;
 
-      select(node: Element, content?: Boolean): Element;
+      select(node: Element, content?: boolean): Element;
 
-      selectorChanged(selector: String, callback: Function): void;
+      selectorChanged(selector: string, callback: () => void): void;
 
-      setContent(content: String, args?: Object): void;
+      setContent(content: string, args?: {}): void;
 
-      setCursorLocation(node?: html.Node, offset?: Number): void;
+      setCursorLocation(node?: html.Node, offset?: number): void;
 
       setNode(elm: Element): Element;
 
-      setRng(rng: Range, forward?: Boolean): void;
+      setRng(rng: Range, forward?: boolean): void;
     }
 
     export interface Serializer {
 
-      new (settings: Object, editor?: Editor): Serializer;
+      addAttributeFilter(callback: () => void): void;
 
-      addAttributeFilter(callback: Function): void;
+      addNodeFilter(callback: () => void): void;
 
-      addNodeFilter(callback: Function): void;
+      addRules(rules: string): void;
 
-      addRules(rules: String): void;
+      addTempAttr(name: string): void;
 
-      addTempAttr(name: String): void;
+      serialize(node: HTMLElement, args: {}): void;
 
-      serialize(node: HTMLElement, args: Object): void;
-
-      setRules(rules: String): void;
+      setRules(rules: string): void;
 
     }
 
     export interface TreeWalker {
-
-      new (startNode: html.Node, rootNode: html.Node): TreeWalker;
 
       current(): html.Node;
 
@@ -1048,19 +1026,19 @@ declare module TinyMce {
 
     export interface Rect {
 
-      clamp(rect: Rect, clampRect: Rect, fixedSize: Boolean): Rect;
+      clamp(rect: Rect, clampRect: Rect, fixedSize: boolean): Rect;
 
-      create(x: Number, y: Number, w: Number, h: Number): Rect;
+      create(x: number, y: number, w: number, h: number): Rect;
 
-      findBestRelativePosition(rect: Rect, targetRect: Rect, constrainRect: Rect, rels: Array<any>): void;
+      findBestRelativePosition(rect: Rect, targetRect: Rect, constrainRect: Rect, rels: any[]): void;
 
       fromClientRect(clientRect: ClientRect): Rect;
 
-      inflate(rect: Rect, w: Number, h: Number): Rect;
+      inflate(rect: Rect, w: number, h: number): Rect;
 
       intersect(rect: Rect, cropRect: Rect): Rect;
 
-      relativePosition(rect: Rect, targetRect: Rect, rel: String): void;
+      relativePosition(rect: Rect, targetRect: Rect, rel: string): void;
     }
   }
 
@@ -1068,51 +1046,47 @@ declare module TinyMce {
 
     export interface DomParser {
 
-      new (settings: Object, schema: TinyMce.html.Schema): DomParser;
+      addAttributeFilter(attributes: string, callback: () => void): void;
 
-      addAttributeFilter(attributes: string, callback: Function): void;
-
-      addNodeFilter(attributes: string, callback: Function): void;
+      addNodeFilter(attributes: string, callback: () => void): void;
 
       filterNode(node: TinyMce.html.Node): TinyMce.html.Node;
 
-      parse(html: String, args?: Object): TinyMce.html.Node;
+      parse(html: string, args?: {}): TinyMce.html.Node;
     }
 
     export interface Entities {
 
-      decode(text: String): String;
+      decode(text: string): string;
 
-      encodeAllRaw(text: String): String;
+      encodeAllRaw(text: string): string;
 
-      encodeNamed(text: String, attr?: Boolean, entities?: Object): String;
+      encodeNamed(text: string, attr?: boolean, entities?: {}): string;
 
-      encodeNumeric(text: String, attr?: Boolean): String;
+      encodeNumeric(text: string, attr?: boolean): string;
 
-      encodeRaw(text: String, attr?: Boolean): String;
+      encodeRaw(text: string, attr?: boolean): string;
 
-      getEncodeFunc(name: String, entities?: String): Function;
+      getEncodeFunc(name: string, entities?: string): () => void;
     }
 
     export interface Node {
 
-      new (name: String, type: Number): TinyMce.html.Node;
-
       append(node: TinyMce.html.Node): TinyMce.html.Node;
 
-      attr(name: String, value?: String): String | TinyMce.html.Node;
+      attr(name: string, value?: string): string | TinyMce.html.Node;
 
       clone(): TinyMce.html.Node;
 
-      create(name: String, attrs: Object): void;
+      create(name: string, attrs: {}): void;
 
       empty(): TinyMce.html.Node;
 
-      getAll(name: String): Array<TinyMce.html.Node>;
+      getAll(name: string): TinyMce.html.Node[];
 
-      insert(node: TinyMce.html.Node, ref_node: TinyMce.html.Node, before?: Boolean): TinyMce.html.Node;
+      insert(node: TinyMce.html.Node, ref_node: TinyMce.html.Node, before?: boolean): TinyMce.html.Node;
 
-      isEmpty(elements: Object): Boolean;
+      isEmpty(elements: {}): boolean;
 
       remove(): TinyMce.html.Node;
 
@@ -1120,633 +1094,260 @@ declare module TinyMce {
 
       unwrap(): void;
 
-      walk(prev?: Boolean): TinyMce.html.Node;
+      walk(prev?: boolean): TinyMce.html.Node;
 
       wrap(wrapperNode: TinyMce.html.Node): TinyMce.html.Node;
     }
 
     export interface SaxParser {
 
-      new (settings: Object, schema: TinyMce.html.Schema): SaxParser;
-
-      parse(html: String): void;
+      parse(html: string): void;
     }
 
     export interface Schema {
 
-      new (settings: Object): Schema;
+      addCustomElements(custom_elements: string): void;
 
-      addCustomElements(custom_elements: String): void;
+      addValidChildren(valid_children: string): void;
 
-      addValidChildren(valid_children: String): void;
+      addValidElements(valid_elements: string): void;
 
-      addValidElements(valid_elements: String): void;
+      getBlockElements(): {};
 
-      getBlockElements(): Object;
+      getBoolAttrs(): {};
 
-      getBoolAttrs(): Object;
+      getCustomElements(): {};
 
-      getCustomElements(): Object;
-
-      getElementRule(name: String): Object;
+      getElementRule(name: string): {};
 
       getInvalidStyles(): void;
 
-      getMoveCaretBeforeOnEnterElements(): Object;
+      getMoveCaretBeforeOnEnterElements(): {};
 
-      getNonEmptyElements(): Object;
+      getNonEmptyElements(): {};
 
-      getSelfClosingElements(): Object;
+      getSelfClosingElements(): {};
 
-      getShortEndedElements(): Object;
+      getShortEndedElements(): {};
 
-      getSpecialElements(): Object;
+      getSpecialElements(): {};
 
-      getTextBlockElements(): Object;
+      getTextBlockElements(): {};
 
-      getTextInlineElements(): Object;
+      getTextInlineElements(): {};
 
       getValidClasses(): void;
 
       getValidStyles(): void;
 
-      getWhiteSpaceElements(): Object;
+      getWhiteSpaceElements(): {};
 
-      isValid(name: String, attr?: String): Boolean;
+      isValid(name: string, attr?: string): boolean;
 
-      isValidChild(name: String, child: String): Boolean;
+      isValidChild(name: string, child: string): boolean;
 
-      setValidElements(valid_elements: String): void;
+      setValidElements(valid_elements: string): void;
     }
 
     export interface Serializer {
 
-      new (settings: Object, schema: TinyMce.html.Schema): Serializer;
-
-      serialize(node: TinyMce.html.Node): String;
+      serialize(node: TinyMce.html.Node): string;
     }
 
     export interface Styles {
 
-      parse(css: String): Object;
+      parse(css: string): {};
 
-      serialize(styles: Object, elementName: String): String;
+      serialize(styles: {}, elementName: string): string;
 
-      toHex(color: String): String;
+      toHex(color: string): string;
     }
 
     export interface Writer {
 
-      new (settings: Object): Writer;
+      cdata(text: string): void;
 
-      cdata(text: String): void;
+      doctype(text: string): void;
 
-      doctype(text: String): void;
+      end(name: string): void;
 
-      end(name: String): void;
+      getContent(): string;
 
-      getContent(): String;
-
-      pi(name: String, text: String): void;
+      pi(name: string, text: string): void;
 
       reset(): void;
 
-      start(name: String, attrs?: Array<any>, empty?: Boolean): void;
+      start(name: string, attrs?: any[], empty?: boolean): void;
 
-      text(text: String, raw: Boolean): void;
+      text(text: string, raw: boolean): void;
     }
-  }
-
-  export namespace ui {
-
-    export interface AbsoluteLayout extends Layout {
-
-      recalc(container: TinyMce.ui.Container): void;
-
-      renderHtml(container: TinyMce.ui.Container): void;
-    }
-
-    export interface Button extends Widget {
-
-      icon: String | TinyMce.ui.MenuButton;
-
-      image: String;
-
-      size: String;
-
-      new (settings: Object): Button;
-
-      renderHtml(): String;
-
-      repaint(): void;
-    }
-
-    export interface ButtonGroup extends Control {
-
-      renderHtml(): String;
-    }
-
-    export interface Checkbox extends Widget {
-
-      checked: Boolean | TinyMce.ui.Checkbox;
-
-      value: Boolean | TinyMce.ui.Checkbox
-
-      new (settings: Object): Checkbox;
-
-      renderHtml(): String;
-    }
-
-    export interface Collection<T> {
-
-      new (items?: Array<T>): Collection<T>;
-
-      active(): TinyMce.ui.Collection<T>;
-
-      add(items: Array<T>): TinyMce.ui.Collection<T>;
-
-      addClass(cls: String): TinyMce.ui.Collection<T>;
-
-      disabled(): TinyMce.ui.Collection<T>;
-
-      each(callback: Function): TinyMce.ui.Collection<T>;
-
-      eq(index: Number): TinyMce.ui.Collection<T>;
-
-      exec(name: String, args: Object): TinyMce.ui.Collection<T>;
-
-      filter(selector: String): TinyMce.ui.Collection<T>;
-
-      fire(name: String, args?: Object): TinyMce.ui.Collection<T>;
-
-      hasClass(cls: String): Boolean;
-
-      hide(): TinyMce.ui.Collection<T>;
-
-      indexOf(ctrl: Control): Number;
-
-      name(): TinyMce.ui.Collection<T>;
-
-      off(name?: String, callback?: Function): TinyMce.ui.Collection<T>;
-
-      on(name: String, callback: String): TinyMce.ui.Collection<T>;
-
-      prop(name: String, value?: Object): TinyMce.ui.Collection<T>;
-
-      remove(): TinyMce.ui.Collection<T>;
-
-      removeClass(cls: String): TinyMce.ui.Collection<T>;
-
-      reverse(): TinyMce.ui.Collection<T>;
-
-      selected(): TinyMce.ui.Collection<T>;
-
-      set(items: Array<T>): TinyMce.ui.Collection<T>;
-
-      show(): TinyMce.ui.Collection<T>;
-
-      slice(index: Number, len?: Number): TinyMce.ui.Collection<T>;
-
-      text(): TinyMce.ui.Collection<T>;
-
-      toArray(): Array<T>;
-
-      visible(): TinyMce.ui.Collection<T>;
-
-    }
-
-    export interface ColorBox { }
-
-    export interface ColorButton { }
-
-    export interface ColorPicker { }
-
-    export interface ComboBox { }
-
-    export interface Container extends Control {
-
-      defaults: Object;
-
-      items: TinyMce.ui.Collection<any>;
-
-      layout: String;
-
-      (settings: Object): void;
-
-      add<T>(items: Array<T>): TinyMce.ui.Collection<T>;
-
-      append<T>(items: Array<T>): TinyMce.ui.Container;
-
-      create<T>(items: Array<T>): Array<T>;
-
-      find<T>(selector: String): TinyMce.ui.Collection<T>;
-
-      focus<T>(keyboard?: Boolean): TinyMce.ui.Collection<T>;
-
-      fromJSON(data: Object): TinyMce.ui.Container;
-
-      initLayoutRect(): Object;
-
-      insert<T>(items: Array<T>, index: Number, before: Boolean): void;
-
-      postRender(): TinyMce.ui.Container;
-
-      prepend<T>(items: Array<T>): TinyMce.ui.Container;
-
-      recalc(): void;
-
-      reflow(): TinyMce.ui.Container;
-
-      renderHtml(): String;
-
-      replace(oldItem: TinyMce.ui.Control, newItem: TinyMce.ui.Control): void;
-
-      toJSON(): Object;
-
-    }
-
-    export interface Control {
-
-      border: String;
-
-      classes: String;
-
-      disabled: Boolean;
-
-      hidden: Boolean;
-
-      margin: String;
-
-      minHeight: Number;
-
-      minWidth: Number;
-
-      name: String;
-
-      padding: String;
-
-      role: String;
-
-      style: String;
-
-      new (settings: Object): Control;
-
-      active(state: Boolean): Boolean | TinyMce.ui.Control;
-
-      after<T>(items: Array<T>): TinyMce.ui.Control;
-
-      aria(name: String, value: String): TinyMce.ui.Control;
-
-      before<T>(items: Array<T>): TinyMce.ui.Control;
-
-      blur(): TinyMce.ui.Control;
-
-      encode(text: String, translate: Boolean): String;
-
-      fire(name: String, args: Object, bubble: Boolean): Object;
-
-      //focus(): TinyMce.ui.Control;
-
-      getContainerElm(): Element;
-
-      getEl(suffix: String): Element;
-
-      getParentCtrl(elm: Element): TinyMce.ui.Control;
-
-      hasEventListeners(name: String): Boolean;
-
-      hide(): TinyMce.ui.Control;
-
-      initLayoutRect(): Object;
-
-      innerHtml(html: String): TinyMce.ui.Control;
-
-      layoutRect(newRect?: Object): TinyMce.ui.Control | Object;
-
-      next(): TinyMce.ui.Control;
-
-      off(name: String, callback: Function): TinyMce.ui.Control;
-
-      on(name: String, callback: String): TinyMce.ui.Control;
-
-      parent(parent?: TinyMce.ui.Container): TinyMce.ui.Control;
-
-      parents<T>(selector?: String): TinyMce.ui.Collection<T>;
-
-      parentsAndSelf<T>(selector?: String): TinyMce.ui.Collection<T>;
-
-      postRender(): TinyMce.ui.Control;
-
-      prev(): TinyMce.ui.Control;
-
-      reflow(): TinyMce.ui.Control;
-
-      remove(): TinyMce.ui.Control;
-
-      renderBefore(elm: Element): TinyMce.ui.Control;
-
-      repaint(): void;
-
-      scrollIntoView(align: String): TinyMce.ui.Control;
-
-      show(): TinyMce.ui.Control;
-
-      text(value: String): String | TinyMce.ui.Control;
-
-      title(value: String): String | TinyMce.ui.Control;
-
-      translate(text: String): String;
-
-      visible(state: Boolean): Boolean | TinyMce.ui.Control;
-    }
-
-    export interface DragHelper { }
-
-    export interface ElementPath { }
-
-    export interface Factory { }
-
-    export interface FieldSet { }
-
-    export interface FilePicker { }
-
-    export interface FitLayout { }
-
-    export interface FlexLayout { }
-
-    export interface FloatPanel { }
-
-    export interface FlowLayout { }
-
-    export interface Form { }
-
-    export interface FormItem { }
-
-    export interface FormatControls { }
-
-    export interface GridLayout { }
-
-    export interface Iframe { }
-
-    export interface InfoBox { }
-
-    export interface KeyboardNavigation { }
-
-    export interface Label { }
-
-    export interface Layout {
-
-      new (settings: Object): Layout;
-
-      postRender(container: TinyMce.ui.Container): void;
-
-      preRender(container: TinyMce.ui.Container): void;
-
-      recalc(container: TinyMce.ui.Container): void;
-
-      renderHtml(container: TinyMce.ui.Container): void;
-    }
-
-    export interface ListBox { }
-
-    export interface Menu { }
-
-    export interface MenuBar { }
-
-    export interface MenuButton { }
-
-    export interface MenuItem { }
-
-    export interface MessageBox { }
-
-    export interface Movable { }
-
-    export interface Notification { }
-
-    export interface Panel { }
-
-    export interface PanelButton { }
-
-    export interface Path { }
-
-    export interface Progress { }
-
-    export interface Radio { }
-
-    export interface ReflowQueue { }
-
-    export interface Resizable { }
-
-    export interface ResizeHandle { }
-
-    export interface Scrollable { }
-
-    export interface SelectBox { }
-
-    export interface Selector { }
-
-    export interface Slider { }
-
-    export interface Spacer { }
-
-    export interface SplitButton { }
-
-    export interface StackLayout { }
-
-    export interface TabPanel { }
-
-    export interface TextBox { }
-
-    export interface Throbber { }
-
-    export interface ToolTip { }
-
-    export interface Toolbar { }
-
-    export interface Widget extends Control {
-
-      autofocus: Boolean;
-
-      tooltip: String | TinyMce.ui.ToolTip;
-
-      new (settings: Object): Widget;
-
-      remove(): TinyMce.ui.Control;
-    }
-
-    export interface Window { }
   }
 
   export namespace util {
 
     export interface Color {
 
-      new (value: String | Object): Color;
+      parse(value: {}): TinyMce.util.Color;
 
-      parse(value: Object): TinyMce.util.Color;
+      toHex(): string;
 
-      toHex(): String;
+      toHsv(): {};
 
-      toHsv(): Object;
-
-      toRgb(): Object;
+      toRgb(): {};
     }
 
     export interface Delay {
 
-      clearInterval(interval: Number): void;
+      clearInterval(interval: number): void;
 
-      clearTimeout(timeout: Number): void;
+      clearTimeout(timeout: number): void;
 
-      debounce(callback: Function, time: Number): Function;
+      debounce(callback: () => void, time: number): () => void;
 
-      requestAnimationFrame(callback: Function, element?: HTMLElement): void;
+      requestAnimationFrame(callback: () => void, element?: HTMLElement): void;
 
-      setEditorInterval(callback: Function, time: Number): Number;
+      setEditorInterval(callback: () => void, time: number): number;
 
-      setEditorTimeout(editor: TinyMce.Editor, callback: Function, time: Number): Number;
+      setEditorTimeout(editor: TinyMce.Editor, callback: () => void, time: number): number;
 
-      setInterval(callback: Function, time: Number): Number;
+      setInterval(callback: () => void, time: number): number;
 
-      setTimeout(callback: Function, time: Number): Number;
+      setTimeout(callback: () => void, time: number): number;
     }
 
     export interface EventDispatcher {
 
-      fire(name: String, args?: Object): Object;
+      fire(name: string, args?: {}): {};
 
-      has(name: String): Boolean;
+      has(name: string): boolean;
 
-      isNative(name: String): Boolean;
+      isNative(name: string): boolean;
 
-      off(name: String, callback?: Function): Object;
+      off(name: string, callback?: () => void): {};
 
-      on(name: String, callback: Function, first?: Boolean): Object;
+      on(name: string, callback: () => void, first?: boolean): {};
 
-      once(name: String, callback: Function, first: Boolean): Object;
+      once(name: string, callback: () => void, first: boolean): {};
     }
 
-    export interface I18n {
+    export interface i18n {
 
       rtl: boolean;
 
-      add(code: String, items: Array<Object>): void;
+      add(code: string, items: Array<{}>): void;
 
-      getCode(): String;
+      getCode(): string;
 
-      setCode(newCode: String): void;
+      setCode(newCode: string): void;
 
-      translate(text: String): String;
+      translate(text: string): string;
     }
 
     export interface JSON {
 
-      parse(s: string): Object;
+      parse(s: string): {};
 
-      serialize(obj: Object, quote?: String): string;
+      serialize(obj: {}, quote?: string): string;
     }
 
     export interface JSONRequest {
 
-      send(args: Object): void;
+      send(args: {}): void;
 
-      sendRPC(o: Object): void;
+      sendRPC(o: {}): void;
     }
 
     export interface LocalStorage {
 
-      length: Number;
+      length: number;
 
       clear(): void;
 
-      getItem(key: String): String;
+      getItem(key: string): string;
 
-      key(index: Number): String;
+      key(index: number): string;
 
-      removeItem(key: String): void;
+      removeItem(key: string): void;
 
-      setItem(key: String, value: String): void;
+      setItem(key: string, value: string): void;
     }
 
     export interface Observable {
 
-      fire(name: String, args?: Object, bubble?: Boolean): Object;
+      fire(name: string, args?: {}, bubble?: boolean): {};
 
-      hasEventListeners(name: String): Boolean;
+      hasEventListeners(name: string): boolean;
 
-      off(name?: String, callback?: () => void): Object;
+      off(name?: string, callback?: () => void): {};
 
-      on(name: String, callback: (event: any) => void, first?: Boolean): Object;
+      on(name: string, callback: (event: any) => void, first?: boolean): {};
 
-      once(name: String, callback: (event: any) => void): Object;
+      once(name: string, callback: (event: any) => void): {};
     }
 
     export interface Tools {
 
-      create(s: String, p: Object, root?: Object): void;
+      create(s: string, p: {}, root?: {}): void;
 
-      createNS(n: String, o?: Object): Object;
+      createNS(n: string, o?: {}): {};
 
-      each(o: Object, cb: Function, s?: Object): void;
+      each(o: {}, cb: () => void, s?: {}): void;
 
-      explode(s: String, d: String): void;
+      explode(s: string, d: string): void;
 
-      grep<T>(a: Array<T>, f: Function): Array<T>;
+      grep<T>(a: T[], f: () => void): T[];
 
-      inArray<T>(item: T, arr: Array<T>): Number;
+      inArray<T>(item: T, arr: T[]): number;
 
-      is(obj: Object, type: String): Boolean;
+      is(obj: {}, type: string): boolean;
 
-      isArray(obj: Object): Boolean;
+      isArray(obj: {}): boolean;
 
-      makeMap<T>(items: Array<T>, delim?: String, map?: Object): Object;
+      makeMap<T>(items: T[], delim?: string, map?: {}): {};
 
-      map<T, S>(array: Array<T>, callback: (c: T) => S): Array<S>;
+      map<T, S>(array: T[], callback: (c: T) => S): S[];
 
-      resolve(n: String, o?: Object): Object;
+      resolve(n: string, o?: {}): {};
 
-      toArray<T>(obj: Object): Array<T>;
+      toArray<T>(obj: {}): T[];
 
-      trim(s: String): String;
+      trim(s: string): string;
 
-      walk(o: Object, f: Function, n?: String, s?: String): void;
+      walk(o: {}, f: () => void, n?: string, s?: string): void;
     }
 
     export interface URI {
 
-      new (url: String, settings?: Object): URI;
+      getURI(noProtoHost: boolean): URI;
 
-      getURI(noProtoHost: Boolean): URI;
+      isSameOrigin(uri: TinyMce.util.URI): boolean;
 
-      isSameOrigin(uri: TinyMce.util.URI): Boolean;
+      setPath(path: string): void;
 
-      setPath(path: String): void;
+      toAbsPath(base: string, path: string): void;
 
-      toAbsPath(base: String, path: String): void;
+      toAbsolute(uri: string, noHost: boolean): string;
 
-      toAbsolute(uri: String, noHost: Boolean): String;
+      toRelPath(base: string, path: string): void;
 
-      toRelPath(base: String, path: String): void;
-
-      toRelative(uri: String): String;
+      toRelative(uri: string): string;
     }
 
     export interface XHR {
 
-      fire(name: String, args?: Object, bubble?: Boolean): Object;
+      fire(name: string, args?: {}, bubble?: boolean): {};
 
-      hasEventListeners(name: String): Boolean;
+      hasEventListeners(name: string): boolean;
 
-      off(name?: String, callback?: Function): Object;
+      off(name?: string, callback?: () => void): {};
 
-      on(name: String, callback: Function, first?: Boolean): Object;
+      on(name: string, callback: () => void, first?: boolean): {};
 
-      once(name: String, callback: Function): Object;
+      once(name: string, callback: () => void): {};
 
-      send(settings: Object): void;
+      send(settings: {}): void;
     }
 
-    export interface Promise<T> { }
   }
 }
 
