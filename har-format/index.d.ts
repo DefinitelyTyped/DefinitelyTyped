@@ -1,5 +1,5 @@
 // Type definitions for HAR 1.2
-// Project: https://github.com/beatgammit/base64-js
+// Project: https://w3c.github.io/web-performance/specs/HAR/Overview.html
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -11,7 +11,7 @@
  */
 export interface Har {
     /** This object represents the root of exported data. */
-    "log": Log
+    "log": Log;
 }
 /**
  * This object (`log`) represents the root of exported data.
@@ -294,161 +294,161 @@ export interface Entry {
     /**  A comment provided by the user or the application */
     comment?: string;
     /** _non-standard_  */
-    _all_end?: number | string
+    _all_end?: number | string;
     /** _non-standard_  */
-    _all_ms?: number | string
+    _all_ms?: number | string;
     /** _non-standard_  */
-    _all_start?: number | string
+    _all_start?: number | string;
     /** _non-standard_  */
-    _bytesIn?: number | string
+    _bytesIn?: number | string;
     /** _non-standard_  */
-    _bytesOut?: number | string
+    _bytesOut?: number | string;
     /** _non-standard_  */
-    _cacheControl?: string
+    _cacheControl?: string;
     /** _non-standard_  */
-    _cache_time?: number | string
+    _cache_time?: number | string;
     /** _non-standard_  */
-    _cdn_provider?: string
+    _cdn_provider?: string;
     /** _non-standard_  */
-    _certificate_bytes?: number | string
+    _certificate_bytes?: number | string;
     /** _non-standard_  */
-    _client_port?: number | string
+    _client_port?: number | string;
     /** _non-standard_  */
-    _connect_end?: number | string
+    _connect_end?: number | string;
     /** _non-standard_  */
-    _connect_ms?: number | string
+    _connect_ms?: number | string;
     /** _non-standard_  */
-    _connect_start?: number | string
+    _connect_start?: number | string;
     /** _non-standard_  */
-    _contentEncoding?: string
+    _contentEncoding?: string;
     /** _non-standard_  */
-    _contentType?: string
+    _contentType?: string;
     /** _non-standard_  */
-    _dns_end?: number | string
+    _dns_end?: number | string;
     /** _non-standard_  */
-    _dns_ms?: number | string
+    _dns_ms?: number | string;
     /** _non-standard_  */
-    _dns_start?: number | string
+    _dns_start?: number | string;
     /** _non-standard_  */
-    _download_end?: number | string
+    _download_end?: number | string;
     /** _non-standard_  */
-    _download_ms?: number | string
+    _download_ms?: number | string;
     /** _non-standard_  */
-    _download_start?: number | string
+    _download_start?: number | string;
     /** _non-standard_  */
-    _expires?: string
+    _expires?: string;
     /** _non-standard_  */
-    _full_url?: string
+    _full_url?: string;
     /** _non-standard_  */
-    _gzip_save?: number | string
+    _gzip_save?: number | string;
     /** _non-standard_  */
-    _gzip_total?: number | string
+    _gzip_total?: number | string;
     /** _non-standard_  */
-    _host?: string
+    _host?: string;
     /** _non-standard_  */
-    _http2_stream_dependency?: number | string
+    _http2_stream_dependency?: number | string;
     /** _non-standard_  */
-    _http2_stream_exclusive?: number | string
+    _http2_stream_exclusive?: number | string;
     /** _non-standard_  */
-    _http2_stream_id?: number | string
+    _http2_stream_id?: number | string;
     /** _non-standard_  */
-    _http2_stream_weight?: number | string
+    _http2_stream_weight?: number | string;
     /** _non-standard_  */
-    _image_save?: number | string
+    _image_save?: number | string;
     /** _non-standard_  */
-    _image_total?: number | string
+    _image_total?: number | string;
     /** _non-standard_  */
-    _index?: number
+    _index?: number;
     /** _non-standard_  */
-    _initiator?: string
+    _initiator?: string;
     /** _non-standard_  */
-    _initiator_column?: string
+    _initiator_column?: string;
     /** _non-standard_  */
-    _initiator_detail?: string
+    _initiator_detail?: string;
     /** _non-standard_  */
-    _initiator_function?: string
+    _initiator_function?: string;
     /** _non-standard_  */
-    _initiator_line?: string
+    _initiator_line?: string;
     /** _non-standard_  */
-    _initiator_type?: string
+    _initiator_type?: string;
     /** _non-standard_  */
-    _ip_addr?: string
+    _ip_addr?: string;
     /** _non-standard_  */
-    _is_secure?: number | string
+    _is_secure?: number | string;
     /** _non-standard_  */
-    _jpeg_scan_count?: number | string
+    _jpeg_scan_count?: number | string;
     /** _non-standard_  */
-    _load_end?: number | string
+    _load_end?: number | string;
     /** _non-standard_  */
-    _load_ms?: number | string
+    _load_ms?: number | string;
     /** _non-standard_  */
-    _load_start?: number | string
+    _load_start?: number | string;
     /** _non-standard_  */
-    _method?: string
+    _method?: string;
     /** _non-standard_  */
-    _minify_save?: number | string
+    _minify_save?: number | string;
     /** _non-standard_  */
-    _minify_total?: number | string
+    _minify_total?: number | string;
     /** _non-standard_  */
-    _number?: number
+    _number?: number;
     /** _non-standard_  */
-    _objectSize?: number | string
+    _objectSize?: number | string;
     /** _non-standard_  */
-    _objectSizeUncompressed?: number | string
+    _objectSizeUncompressed?: number | string;
     /** _non-standard_  */
-    _priority?: string
+    _priority?: string;
     /** _non-standard_  */
-    _protocol?: number | string
+    _protocol?: number | string;
     /** _non-standard_  */
-    _request_id?: number | string
+    _request_id?: number | string;
     /** _non-standard_  */
-    _responseCode?: number | string
+    _responseCode?: number | string;
     /** _non-standard_  */
-    _score_cache?: number | string
+    _score_cache?: number | string;
     /** _non-standard_  */
-    _score_cdn?: number | string
+    _score_cdn?: number | string;
     /** _non-standard_  */
-    _score_combine?: number | string
+    _score_combine?: number | string;
     /** _non-standard_  */
-    _score_compress?: number | string
+    _score_compress?: number | string;
     /** _non-standard_  */
-    _score_cookies?: number | string
+    _score_cookies?: number | string;
     /** _non-standard_  */
-    _score_etags?: number | string
+    _score_etags?: number | string;
     /** _non-standard_  */
-    _score_gzip?: number | string
+    _score_gzip?: number | string;
     /** _non-standard_  */
-    "_score_keep-alive"?: number | string
+    "_score_keep-alive"?: number | string;
     /** _non-standard_  */
-    _score_minify?: number | string
+    _score_minify?: number | string;
     /** _non-standard_  */
-    _score_progressive_jpeg?: number
+    _score_progressive_jpeg?: number;
     /** _non-standard_  */
-    _server_count?: number | string
+    _server_count?: number | string;
     /** _non-standard_  */
-    _server_rtt?: number | string
+    _server_rtt?: number | string;
     /** _non-standard_  */
-    _socket?: number | string
+    _socket?: number | string;
     /** _non-standard_  */
-    _ssl_end?: number | string
+    _ssl_end?: number | string;
     /** _non-standard_  */
-    _ssl_ms?: number | string
+    _ssl_ms?: number | string;
     /** _non-standard_  */
-    _ssl_start?: number | string
+    _ssl_start?: number | string;
     /** _non-standard_  */
-    _ttfb_end?: number | string
+    _ttfb_end?: number | string;
     /** _non-standard_  */
-    _ttfb_ms?: number | string
+    _ttfb_ms?: number | string;
     /** _non-standard_  */
-    _ttfb_start?: number | string
+    _ttfb_start?: number | string;
     /** _non-standard_  */
-    _type?: number | string
+    _type?: number | string;
     /** _non-standard_  */
-    _url?: string
+    _url?: string;
     /** _non-standard_  */
-    _was_pushed?: number | string
+    _was_pushed?: number | string;
     /** _non-standard_  */
-    _initialPriority?: string
+    _initialPriority?: string;
 }
 /**
  * This object contains detailed info about performed request.
@@ -536,23 +536,26 @@ export interface Cookie {
     /**  A comment provided by the user or the application */
     comment?: string;
 }
-export interface NameValuePair {
+
+/**
+ * This object represents a headers (used in `request` and `response` objects).
+ * http://www.softwareishard.com/blog/har-12-spec/#headers
+ */
+export interface Header {
     name: string;
     value: string;
     /**  A comment provided by the user or the application */
     comment?: string;
 }
 /**
- * This object represents a headers (used in `request` and `response` objects).
- * http://www.softwareishard.com/blog/har-12-spec/#headers
- */
-export interface Header extends NameValuePair {
-}
-/**
  *  This object represents a parameter & value parsed from a query string, if any (embedded in `request` object).
  * http://www.softwareishard.com/blog/har-12-spec/#queryString
  */
-export interface QueryString extends NameValuePair {
+export interface QueryString {
+    name: string;
+    value: string;
+    /**  A comment provided by the user or the application */
+    comment?: string;
 }
 /**
  * This object describes posted data, if any (embedded in `request` object).
