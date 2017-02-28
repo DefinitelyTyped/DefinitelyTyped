@@ -22,7 +22,7 @@ graphite.createClient({
 	suffix: 'suffix',
 	interval: 60 * 1000,
 	verbose: true,
-	callback: (error:Error, metrics:any):void => {
+	callback: (error: Error, metrics: any): void => {
 
 	}
 });

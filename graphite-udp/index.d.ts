@@ -1,9 +1,9 @@
-// Type definitions for graphite-udp 1.2.0
+// Type definitions for graphite-udp 1.2
 // Project: https://github.com/fermads/graphite-udp
 // Definitions by: Eric Byers <https://github.com/EricByers/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'graphite-udp' {
+declare namespace 'graphite-udp' {
 
 	interface clientOptions {
 		/**
@@ -62,7 +62,7 @@ declare module 'graphite-udp' {
 		 * @param {metrics}
 		 * @return void
 		 */
-		callback: (error:Error, metrics:any) => void;
+		callback: (error: Error, metrics: any) => void;
 	}
 
 	export class Client {
@@ -74,7 +74,7 @@ declare module 'graphite-udp' {
 		 * @param {value} number
 		 * @return void
 		 */
-		public add(name:string, value:number):void;
+		add(name: string, value: number): void;
 
 		/**
 		 * During the interval time option, if 2 or more metrics with the same name are sent, the last one will be used
@@ -83,15 +83,15 @@ declare module 'graphite-udp' {
 		 * @param {value} number
 		 * @return void
 		 */
-		public put(name:string, value:number):void;
+		put(name: string, value: number): void;
 
 		/**
 		 * Close the underlying UDP client socket
 		 *
 		 * @return void
 		 */
-		public close():void;
+		close(): void;
 	}
 
-	export function createClient(clientOptions?:clientOptions):Client;
+	export function createClient(clientOptions?: clientOptions): Client;
 }
