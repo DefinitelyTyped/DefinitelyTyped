@@ -8,7 +8,7 @@ declare var R: R.Static;
 declare namespace R {
     type Ord = number | string | boolean;
 
-    type Path = number | string;
+    type Path = (number | string)[];
 
     interface ListIterator<T, TResult> {
         (value: T, index: number, list: T[]): TResult;
@@ -223,9 +223,9 @@ declare namespace R {
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
          * placing the specific value at the tail end of that path.
          */
-        assocPath<T,U>(path: Path[], val: T, obj: U): U;
-        assocPath<T,U>(path: Path[], val: T): (obj: U) => U;
-        assocPath<T,U>(path: Path[]): CurriedFunction2<T, U, U>;
+        assocPath<T,U>(path: Path, val: T, obj: U): U;
+        assocPath<T,U>(path: Path, val: T): (obj: U) => U;
+        assocPath<T,U>(path: Path): CurriedFunction2<T, U, U>;
 
         /**
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
@@ -441,8 +441,8 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, omitting the property at the given path.
          */
-        dissocPath<T>(path: Path[], obj: any): T;
-        dissocPath<T>(path: Path[]): (obj: any) => T;
+        dissocPath<T>(path: Path, obj: any): T;
+        dissocPath<T>(path: Path): (obj: any) => T;
 
         /**
          * Divides two numbers. Equivalent to a / b.
@@ -840,7 +840,7 @@ declare namespace R {
          * Returns a lens whose focus is the specified path.
          * See also view, set, over.
          */
-        lensPath(path: Path[]): Lens;
+        lensPath(path: Path): Lens;
 
         /**
          * lensProp creates a lens that will focus on property k of the source object.
@@ -1131,24 +1131,24 @@ declare namespace R {
         /**
          * Retrieve the value at a given path.
          */
-        path<T>(path: Path[], obj: any): T;
-        path<T>(path: Path[]): (obj: any) => T;
+        path<T>(path: Path, obj: any): T;
+        path<T>(path: Path): (obj: any) => T;
 
         /**
         * Determines whether a nested path on an object has a specific value,
         * in `R.equals` terms. Most likely used to filter a list.
         */
-        pathEq(path: Path[], val: any, obj: any): boolean;
-        pathEq(path: Path[], val: any): (obj: any) => boolean;
-        pathEq(path: Path[]): CurriedFunction2<any, any, boolean>;
+        pathEq(path: Path, val: any, obj: any): boolean;
+        pathEq(path: Path, val: any): (obj: any) => boolean;
+        pathEq(path: Path): CurriedFunction2<any, any, boolean>;
 
         /**
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: T, p: Path[], obj: any): T|any;
-        pathOr<T>(d: T, p: Path[]): (obj: any) => T|any;
-        pathOr<T>(d: T): CurriedFunction2<Path[], any, T|any>;
+        pathOr<T>(d: T, p: Path, obj: any): T|any;
+        pathOr<T>(d: T, p: Path): (obj: any) => T|any;
+        pathOr<T>(d: T): CurriedFunction2<Path, any, T|any>;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
