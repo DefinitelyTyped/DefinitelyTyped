@@ -599,6 +599,11 @@ declare namespace TinyMce {
     isEditorUIElement(elm: Element): boolean;
   }
 
+  export class FocusManager implements FocusManager {
+
+    constructor(editorManager: TinyMce.EditorManager);
+  }
+
   export interface Formatter {
 
     apply(name: string, vars?: {}, node?: html.Node): void;
@@ -624,6 +629,11 @@ declare namespace TinyMce {
     toggle(name: string, vars?: {}, node?: html.Node): void;
 
     unregister(name: string): void;
+  }
+
+  export class Formatter implements Formatter {
+
+    constructor(ed: Editor);
   }
 
   export interface Shortcuts {
@@ -813,6 +823,11 @@ declare namespace TinyMce {
       uniqueId(prefix?: string): string;
     }
 
+    export class DOMUtils implements DOMUtils {
+
+      constructor(doc: Document, settings?: {});
+    }
+
     export interface DomQuery {
 
       add<T>(items: T[], sort?: boolean): DomQuery;
@@ -928,6 +943,11 @@ declare namespace TinyMce {
       wrapInner(content: string): DomQuery;
     }
 
+    export class DomQuery implements DomQuery {
+
+      constructor(selector?: string, context?: Document);
+    }
+
     export interface EventUtils {
 
       bind(target: {}, names: string, callback: () => void, scope: {}): () => void;
@@ -996,6 +1016,11 @@ declare namespace TinyMce {
       setRng(rng: Range, forward?: boolean): void;
     }
 
+    export class Selection implements Selection {
+
+      constructor(dom: DOMUtils, win: Window, editor: Editor, serializer: Serializer);
+    }
+
     export interface Serializer {
 
       addAttributeFilter(callback: () => void): void;
@@ -1012,6 +1037,11 @@ declare namespace TinyMce {
 
     }
 
+    export class Serializer implements Serializer {
+
+      constructor(settings: {}, editor?: Editor);
+    }
+
     export interface TreeWalker {
 
       current(): html.Node;
@@ -1020,6 +1050,11 @@ declare namespace TinyMce {
 
       prev(): html.Node;
     }
+  }
+
+  export class TreeWalker implements TreeWalker {
+
+    constructor(startNode: html.Node, rootNode: html.Node);
   }
 
   export namespace geom {
@@ -1053,6 +1088,11 @@ declare namespace TinyMce {
       filterNode(node: TinyMce.html.Node): TinyMce.html.Node;
 
       parse(html: string, args?: {}): TinyMce.html.Node;
+    }
+
+    export class DomParser implements DomParser {
+
+      constructor(settings: {}, schema: TinyMce.html.Schema);
     }
 
     export interface Entities {
@@ -1099,9 +1139,19 @@ declare namespace TinyMce {
       wrap(wrapperNode: TinyMce.html.Node): TinyMce.html.Node;
     }
 
+    export class Node implements Node {
+
+      constructor(name: string, type: number);
+    }
+
     export interface SaxParser {
 
       parse(html: string): void;
+    }
+
+    export class SaxParser implements SaxParser {
+
+      constructor(settings: {}, schema: TinyMce.html.Schema);
     }
 
     export interface Schema {
@@ -1149,9 +1199,19 @@ declare namespace TinyMce {
       setValidElements(valid_elements: string): void;
     }
 
+    export class Schema implements Schema {
+
+        constructor(settings: {});
+    }
+
     export interface Serializer {
 
       serialize(node: TinyMce.html.Node): string;
+    }
+
+    export class Serializer implements Serializer {
+
+      constructor(settings: {}, schema: TinyMce.html.Schema);
     }
 
     export interface Styles {
@@ -1183,6 +1243,11 @@ declare namespace TinyMce {
     }
   }
 
+  export class Writer implements Writer {
+
+    constructor(settings: {});
+  }
+
   export namespace util {
 
     export interface Color {
@@ -1194,6 +1259,11 @@ declare namespace TinyMce {
       toHsv(): {};
 
       toRgb(): {};
+    }
+
+    export class Color implements Color {
+
+      constructor(value: string | {});
     }
 
     export interface Delay {
@@ -1331,6 +1401,11 @@ declare namespace TinyMce {
       toRelPath(base: string, path: string): void;
 
       toRelative(uri: string): string;
+    }
+
+    export class URI implements URI {
+
+      constructor(url: string, settings?: {});
     }
 
     export interface XHR {
