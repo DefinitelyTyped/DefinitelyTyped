@@ -2,6 +2,7 @@
 // Project: https://github.com/tomkp/react-split-pane
 // Definitions by: Roger Chen <https://github.com/rcchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react"/>
 

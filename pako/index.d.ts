@@ -1,61 +1,84 @@
-// Type definitions for pako 0.2.8
+// Type definitions for pako 1.0.4
 // Project: https://github.com/nodeca/pako
-// Definitions by: Denis Cappellin <http://github.com/cappellin>
+// Definitions by: Denis Cappellin <https://github.com/cappellin>, Caleb Eggensperger <https://github.com/calebegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Pako;
 export as namespace pako;
 
 declare namespace Pako {
+	export interface DeflateOptions {
+		level?: number;
+		windowBits?: number;
+		memLevel?: number;
+		strategy?: number;
+		dictionary?: any;
+		raw?: boolean;
+		to?: 'string';
+	}
+
+	export interface InflateOptions {
+		windowBits?: number;
+		raw?: boolean;
+		to?: 'string';
+	}
+
+	export type Data = Uint8Array | Array<number> | string;
+
 	/**
 	 * Compress data with deflate algorithm and options.
 	 */
-	export function deflate( data: Uint8Array | Array<number> | string, options?: any ): string;
+	export function deflate( data: Data, options: DeflateOptions & {to: 'string'} ): string;
+	export function deflate( data: Data, options?: DeflateOptions ): Uint8Array;
+
 	/**
 	 * The same as deflate, but creates raw data, without wrapper (header and adler32 crc).
 	 */
-	export function deflateRaw( data: Uint8Array | Array<number> | string, options?: any ): string;
+	export function deflateRaw( data: Data, options: DeflateOptions & {to: 'string'} ): string;
+	export function deflateRaw( data: Data, options?: DeflateOptions ): Uint8Array;
+
 	/**
 	 * The same as deflate, but create gzip wrapper instead of deflate one.
 	 */
-	export function gzip( data: Uint8Array | Array<number> | string, options?: any ): string;
+	export function gzip( data: Data, options: DeflateOptions & {to: 'string'} ): string;
+	export function gzip( data: Data, options?: DeflateOptions ): Uint8Array;
+
 	/**
 	 * Decompress data with inflate/ungzip and options. Autodetect format via wrapper header
 	 * by default. That's why we don't provide separate ungzip method.
 	 */
-	export function inflate( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array;
-	export function inflate( data: Uint8Array | Array<number> | string, options?: any ): Array<number>;
-	export function inflate( data: Uint8Array | Array<number> | string, options?: any ): String;
+	export function inflate( data: Data, options: InflateOptions & {to: 'string'} ): string;
+	export function inflate( data: Data, options?: InflateOptions ): Uint8Array;
+
 	/**
 	 * The same as inflate, but creates raw data, without wrapper (header and adler32 crc).
 	 */
-	export function inflateRaw( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array;
-	export function inflateRaw( data: Uint8Array | Array<number> | string, options?: any ): Array<number>;
-	export function inflateRaw( data: Uint8Array | Array<number> | string, options?: any ): string;
+	export function inflateRaw( data: Data, options: InflateOptions & {to: 'string'} ): string;
+	export function inflateRaw( data: Data, options?: InflateOptions ): Uint8Array;
+
 	/**
 	 * Just shortcut to inflate, because it autodetects format by header.content. Done for convenience.
 	 */
-	export function ungzip( data: Uint8Array | Array<number> | string, options?: any ): Uint8Array;
-	export function ungzip( data: Uint8Array | Array<number> | string, options?: any ): Array<number>;
-	export function ungzip( data: Uint8Array | Array<number> | string, options?: any ): string;
+	export function ungzip( data: Data, options: InflateOptions & {to: 'string'} ): string;
+	export function ungzip( data: Data, options?: InflateOptions ): Uint8Array;
 
 	export class Deflate {
-		constructor( options?: any );
+		constructor( options?: DeflateOptions );
 		err: number;
 		msg: string;
 		result: Uint8Array | Array<number>;
-		onData( chunk: Uint8Array | Array<number> | string ): void;
+		onData( chunk: Data ): void;
 		onEnd( status: number ): void;
-		push( data: Uint8Array | Array<number> | ArrayBuffer | string, mode?: number | boolean ): boolean;
+		push( data: Data | ArrayBuffer, mode?: number | boolean ): boolean;
 	}
 
 	export class Inflate {
-		constructor( options?: any );
+		constructor( options?: InflateOptions );
 		err: number;
 		msg: string;
-		result: Uint8Array | Array<number> | string;
-		onData( chunk: Uint8Array | Array<number> | string ): void;
+		result: Data;
+		onData( chunk: Data ): void;
 		onEnd( status: number ): void;
-		push( data: Uint8Array | Array<number> | ArrayBuffer | string, mode?: number | boolean ): boolean;
+		push( data: Data | ArrayBuffer, mode?: number | boolean ): boolean;
 	}
 }

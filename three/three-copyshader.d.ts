@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-
 declare namespace THREE {
-	export var CopyShader: Shader;
+    export var CopyShader: Shader;
 }

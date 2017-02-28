@@ -232,7 +232,7 @@ declare namespace Rx {
         withLatestFrom<TOther, TResult>(souces: (Observable<TOther> | IPromise<TOther>)[], resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
         concat(...sources: (Observable<T> | IPromise<T>)[]): Observable<T>;
         concat(sources: (Observable<T> | IPromise<T>)[]): Observable<T>;
-        concatAll(): Observable<T>;
+        concatAll(): T;
         concatObservable(): Observable<T>;    // alias for concatAll
         concatMap<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;    // alias for selectConcat
         concatMap<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;    // alias for selectConcat

@@ -2,6 +2,7 @@
 // Project: https://github.com/leecade/react-native-swiper#readme
 // Definitions by: CaiHuan <https://github.com/CaiHuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 import {

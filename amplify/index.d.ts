@@ -162,7 +162,9 @@ declare namespace amplify {
         * Publish a message.
         * topic: The name of the message to publish.
         * Any additional parameters will be passed to the subscriptions.
-        * amplify.publish returns a boolean indicating whether any subscriptions returned false. The return value is true if none of the subscriptions returned false, and false otherwise. Note that only one subscription can return false because doing so will prevent additional subscriptions from being invoked.
+        * amplify.publish returns a boolean indicating whether any subscriptions returned false.
+        * The return value is true if none of the subscriptions returned false, and false otherwise.
+        * Note that only one subscription can return false because doing so will prevent additional subscriptions from being invoked.
         */
         publish(topic: string, ...args: any[]): boolean;
 

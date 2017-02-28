@@ -78,9 +78,9 @@ declare namespace SshPK {
     static formats: Formats;
     constructor(opts: any);
 
-    toBuffer(format: string, options: any): Buffer;
+    toBuffer(format: string, options?: any): Buffer;
 
-    toString(format: string, options: any): string;
+    toString(format: string, options?: any): string;
 
     fingerprint(algo: string): Fingerprint;
 
@@ -266,8 +266,8 @@ declare namespace SshPK {
 
     static formats: Formats;
 
-    toBuffer(format: string, options: any): Buffer;
-    toString(format: string, options: any): string;
+    toBuffer(format: string, options?: any): Buffer;
+    toString(format: string, options?: any): string;
     hash(algo: string): Buffer;
     fingerprint(algo: string): Fingerprint;
     defaultHashAlgorithm(): string;
@@ -365,7 +365,8 @@ declare namespace SshPK {
 
   export function parseCertificate(data: string|Buffer, format: string, options?: any): Certificate;
   export function createSelfSignedCertificate(subjectOrSubjects: string, key: Key, options?: any): Certificate;
-  export function createCertificate(subjectOrSubjects: string, key: Key, issuer: string,
+  export function createCertificate(
+    subjectOrSubjects: string, key: Key, issuer: string,
     issuerKey: PrivateKey, options?: any): Certificate;
 
   export function identityFromDN(dn: string): Identity;

@@ -1,17 +1,23 @@
-import * as H from 'history';
-import Router from './Router';
+import { Basename, History, LocationDescriptor } from "history";
+import { ParseQueryString, RouteConfig, StringifyQuery } from "react-router";
 
 interface MatchArgs {
-    routes?: Router.RouteConfig;
-    history?: H.History;
-    location?: H.Location | string;
-    parseQueryString?: Router.ParseQueryString;
-    stringifyQuery?: Router.StringifyQuery;
+    routes: RouteConfig;
+    basename?: Basename;
+    parseQueryString?: ParseQueryString;
+    stringifyQuery?: StringifyQuery;
 }
-interface MatchState extends Router.RouterState {
-    history: H.History;
-    router: Router;
-    createElement: (component: Router.RouteComponent, props: Object) => any;
-}
-export default function match(args: MatchArgs, cb: (error: any, nextLocation: H.Location, nextState: MatchState) => void): void;
 
+interface MatchLocationArgs extends MatchArgs {
+    location: LocationDescriptor;
+    history?: History;
+}
+
+interface MatchHistoryArgs extends MatchArgs {
+    location?: LocationDescriptor;
+    history: History;
+}
+
+export type MatchCallback = (error: any, redirectLocation: Location, renderProps: any) => any;
+
+export default function match(args: MatchLocationArgs | MatchHistoryArgs, cb: MatchCallback): undefined;

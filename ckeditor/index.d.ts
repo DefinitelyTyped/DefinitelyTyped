@@ -1318,6 +1318,7 @@ declare namespace CKEDITOR {
         modes?: Object;
         startDisabled?: boolean;
         exec(editor: editor, data?: Object): boolean;
+        readOnly?: boolean;
         refresh?(editor: editor, path: dom.elementPath): void;
     }
 

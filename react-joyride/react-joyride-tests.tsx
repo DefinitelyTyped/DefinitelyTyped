@@ -49,7 +49,7 @@ class NewComponent extends React.Component<undefined, undefined> {
             },
             name: "my-name",
             parent: "MyParent"
-        })
+        });
     }
 }
 

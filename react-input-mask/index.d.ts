@@ -2,6 +2,7 @@
 // Project: https://github.com/sanniassin/react-input-mask
 // Definitions by: Alexandre Paré <https://github.com/apare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from "react";
 
@@ -12,8 +13,9 @@ declare namespace reactInputMask {
          * * `9`: `0-9`
          * * `a`: `A-Z, a-z`
          * * `\*`: `A-Z, a-z, 0-9`
-         * 
-         * Any character can be escaped with backslash, which usually will appear as double backslash in JS strings. For example, German phone mask with unremoveable prefix +49 will look like `mask="+4\\9 99 999 99"` or `mask={"+4\\\\9 99 999 99"}`
+         *
+         * Any character can be escaped with backslash, which usually will appear as double backslash in JS strings.
+         * For example, German phone mask with unremoveable prefix +49 will look like `mask="+4\\9 99 999 99"` or `mask={"+4\\\\9 99 999 99"}`
          */
         mask: string;
         /**

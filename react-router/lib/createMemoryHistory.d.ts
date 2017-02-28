@@ -1,3 +1,2 @@
-import * as H from 'history';
-
-export default function createMemoryHistory(options?: H.HistoryOptions): H.History;
+import { default as createMemoryHistory } from "history/lib/createMemoryHistory";
+export default createMemoryHistory;

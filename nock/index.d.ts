@@ -34,7 +34,8 @@ declare namespace nock {
     type HttpHeaders = { [key: string]: string | { (req: any, res: any, body: string): any; }; };
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
-        requestBody?: string | RegExp | { (body: any): boolean; } | any
+        requestBody?: string | RegExp | { (body: any): boolean; } | any,
+        interceptorOptions?: Options
     ) => Interceptor;
     export type ReplyCallback = (err: any, result: ReplyCallbackResult) => void;
     type ReplyCallbackResult = string | [number, string | any] | [number, string | any, HttpHeaders] | any;
@@ -48,6 +49,7 @@ declare namespace nock {
         patch: InterceptFunction;
         merge: InterceptFunction;
         delete: InterceptFunction;
+        options: InterceptFunction;
 
         intercept: (
             uri: string | RegExp | { (uri: string): boolean; },

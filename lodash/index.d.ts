@@ -2,6 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -68,7 +69,7 @@ added 23 array methods:
 - [x] _.xorBy
 - [x] _.xorWith
 
-added 18 lang methods:
+added 20 lang methods:
 - [x] _.cloneDeepWith
 - [x] _.cloneWith
 - [x] _.eq
@@ -87,6 +88,8 @@ added 18 lang methods:
 - [x] _.toNumber
 - [x] _.toSafeInteger
 - [x] _.toString
+- [X] _.conforms
+- [X] _.conformsTo
 
 added 13 object methods:
 - [x] _.assignIn
@@ -225,7 +228,6 @@ Methods:
 - [ ] _.split
 
 - [ ] _.cond
-- [ ] _.conforms
 - [ ] _.nthArg
 - [ ] _.over
 - [ ] _.overEvery
@@ -241,7 +243,10 @@ export as namespace _;
 
 declare var _: _.LoDashStatic;
 
+type PartialObject<T> = Partial<T>;
+
 declare namespace _ {
+
     type Many<T> = T | T[];
 
     interface LoDashStatic {
@@ -6558,9 +6563,9 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}, T>(
+        every<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -6582,8 +6587,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every(
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -6605,8 +6610,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every<TResult>(
+            predicate?: PartialObject<TResult>
         ): boolean;
     }
 
@@ -6628,8 +6633,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every(
+            predicate?: PartialObject<T>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -6651,8 +6656,8 @@ declare namespace _ {
         /**
          * @see _.every
          */
-        every<TObject extends {}>(
-            predicate?: TObject
+        every<TResult>(
+            predicate?: PartialObject<TResult>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -6708,9 +6713,9 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W extends {}, T>(
+        filter<T>(
             collection: List<T>|Dictionary<T>,
-            predicate: W
+            predicate: PartialObject<T>
         ): T[];
     }
 
@@ -6741,7 +6746,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W>(predicate: W): LoDashImplicitArrayWrapper<T>;
+        filter(predicate: PartialObject<T>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -6762,7 +6767,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W, T>(predicate: W): LoDashImplicitArrayWrapper<T>;
+        filter<T>(predicate: PartialObject<T>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -6792,7 +6797,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W>(predicate: W): LoDashExplicitArrayWrapper<T>;
+        filter(predicate: PartialObject<T>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -6813,7 +6818,7 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter<W, T>(predicate: W): LoDashExplicitArrayWrapper<T>;
+        filter<T>(predicate: PartialObject<T>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.find
@@ -6863,9 +6868,9 @@ declare namespace _ {
         /**
          * @see _.find
          */
-        find<TObject extends {}, T>(
+        find<T>(
             collection: List<T>|Dictionary<T>,
-            predicate?: TObject,
+            predicate?: PartialObject<T>,
             fromIndex?: number
         ): T|undefined;
     }
@@ -6890,8 +6895,8 @@ declare namespace _ {
         /**
          * @see _.find
          */
-        find<TObject extends {}>(
-            predicate?: TObject,
+        find(
+            predicate?: PartialObject<T>,
             fromIndex?: number
         ): T|undefined;
     }
@@ -6916,8 +6921,8 @@ declare namespace _ {
         /**
          * @see _.find
          */
-        find<TObject extends {}, TResult>(
-            predicate?: TObject,
+        find<TResult>(
+            predicate?: PartialObject<TResult>,
             fromIndex?: number
         ): TResult|undefined;
     }
@@ -9204,9 +9209,9 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}, T>(
+        some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
 
         /**
@@ -9214,15 +9219,15 @@ declare namespace _ {
          */
         some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: Object
+            predicate?: PartialObject<T>
         ): boolean;
 
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
+        some<T>(
             collection: Object,
-            predicate?: TObject
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -9244,8 +9249,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some(
+            predicate?: PartialObject<T>
         ): boolean;
     }
 
@@ -9267,8 +9272,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some<TResult>(
+            predicate?: PartialObject<TResult>
         ): boolean;
     }
 
@@ -9290,8 +9295,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some(
+            predicate?: PartialObject<T>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -9313,8 +9318,8 @@ declare namespace _ {
         /**
          * @see _.some
          */
-        some<TObject extends {}>(
-            predicate?: TObject
+        some<TResult>(
+            predicate?: PartialObject<TResult>
         ): LoDashExplicitWrapper<boolean>;
     }
 
@@ -11432,6 +11437,33 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
+    /**
+     * An object containing predicate functions for each property of T
+     */
+    type ConformsPredicateObject<T> = {
+        [P in keyof T]: (val: T[P]) => boolean;
+    };
+
+    //_.conforms
+    interface LoDashStatic {
+        /**
+         * Creates a function that invokes the predicate properties of `source` with the corresponding
+         * property values of a given object, returning true if all predicates return truthy, else false.
+         */
+        conforms<T>(source: ConformsPredicateObject<T>): (Target: T) => boolean;
+    }
+
+    //_.conformsTo
+    interface LoDashStatic {
+        /**
+         * Checks if object conforms to source by invoking the predicate properties of source with the
+         * corresponding property values of object.
+         *
+         * Note: This method is equivalent to _.conforms when source is partially applied.
+         */
+        conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
+    }
+
     //_.eq
     interface LoDashStatic {
         /**
@@ -12669,7 +12701,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakMap<K, V>(value?: any): value is WeakMap<K, V>;
+        isWeakMap<K, V>(value?: any): boolean;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -19414,5 +19446,4 @@ declare global {
     interface Set<T> { }
     interface Map<K, V> { }
     interface WeakSet<T> { }
-    interface WeakMap<K, V> { }
 }

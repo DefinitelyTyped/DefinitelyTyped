@@ -1,8 +1,7 @@
 /// <reference types="jquery" />
-/// <reference types="jquery.dataTables" />
+/// <reference types="datatables.net"/>
 
-$(document).ready(function() {
-
+$(document).ready(() => {
     var config: DataTables.Settings = {
         // Select extension options
         select: {
