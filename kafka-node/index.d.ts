@@ -10,6 +10,7 @@ export declare class Client {
     close(callback?: Function): void;
     topicExists(topics: Array<string>, callback: Function): void;
     refreshMetadata(topics: Array<string>, cb?: (error: any, data: any) => any): void;
+    close(cb: (error: any) => any): void;
 }
 
 export declare class Producer {
@@ -18,6 +19,7 @@ export declare class Producer {
     on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
+    close(cb: (error: any) => any): void;
 }
 
 export declare class HighLevelProducer {
@@ -26,6 +28,7 @@ export declare class HighLevelProducer {
     on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
+    close(cb: (error: any) => any): void;
 }
 
 export declare class Consumer {
