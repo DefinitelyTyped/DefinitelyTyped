@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.1.33
+// Type definitions for ej.web.all 15.1
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
