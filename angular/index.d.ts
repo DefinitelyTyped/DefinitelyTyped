@@ -1326,7 +1326,7 @@ declare namespace angular {
          */
         isSlotFilled(slotName: string): boolean;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // ControllerService
     // see http://docs.angularjs.org/api/ng.$controller
