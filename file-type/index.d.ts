@@ -5,11 +5,13 @@
 
 /// <reference types="node" />
 
-interface FileTypeResult {
-    ext: string
-    mime: string
+export = FileType;
+
+declare function FileType(buf: Buffer): FileType.FileTypeResult;
+
+declare namespace FileType {
+    export interface FileTypeResult {
+        ext: string;
+        mime: string;
+    }
 }
-
-declare function FileType(buf: Buffer): FileTypeResult
-
-export = FileType
