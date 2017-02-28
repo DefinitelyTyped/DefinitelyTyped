@@ -10,10 +10,10 @@
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer, objects, controls;
-    var particleLight, pointLight;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, objects, controls: THREE.OrbitControls;
+    var particleLight, pointLight: THREE.PointLight;
     var trunk;
 
     var loader = new THREE.AWDLoader();

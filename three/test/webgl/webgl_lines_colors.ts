@@ -11,21 +11,21 @@
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var effectFXAA;
+    var effectFXAA: THREE.ShaderPass;
 
     var mouseX = 0, mouseY = 0,
 
         windowHalfX = window.innerWidth / 2,
         windowHalfY = window.innerHeight / 2,
 
-        camera, scene, renderer, material, composer;
+        camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, material: THREE.LineBasicMaterial, composer: THREE.EffectComposer;
 
     init();
     animate();
 
     function init() {
 
-        var i, container;
+        var i: number, container: HTMLDivElement;
 
         container = document.createElement('div');
         document.body.appendChild(container);
@@ -73,7 +73,7 @@
 
         material = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 1, linewidth: 3, vertexColors: THREE.VertexColors });
 
-        var line, scale = 0.3, d = 225;
+        var line: THREE.Line, scale = 0.3, d = 225;
         var parameters : [THREE.LineBasicMaterial, number, [number, number, number], THREE.Geometry][] = [
             [material, scale * 1.5, [-d, 0, 0], geometry],
             [material, scale * 1.5, [0, 0, 0], geometry2],

@@ -4,11 +4,11 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_geometry_cube.html
 
 () => {
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer;
 
-    var cube, plane;
+    var cube: THREE.Mesh, plane: THREE.Mesh;
 
     var targetRotation = 0;
     var targetRotationOnMouseDown = 0;

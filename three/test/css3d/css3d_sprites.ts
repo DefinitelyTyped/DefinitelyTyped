@@ -8,8 +8,8 @@
     // ------- variable definitions that does not exist in the original code. These are for typescript.
 
     // -------
-    var camera, scene, renderer;
-    var controls;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CSS3DRenderer;
+    var controls: THREE.TrackballControls;
 
     var particlesTotal = 512;
     var positions = [];

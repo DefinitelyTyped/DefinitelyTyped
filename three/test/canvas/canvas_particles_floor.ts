@@ -10,8 +10,8 @@
     var AMOUNTX = 50;
     var AMOUNTY = 50;
 
-    var container, stats;
-    var camera, scene, renderer, particle;
+    var container: HTMLDivElement, stats: Stats;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer, particle: THREE.Sprite;
     var mouseX = 0, mouseY = 0;
 
     var windowHalfX = window.innerWidth / 2;

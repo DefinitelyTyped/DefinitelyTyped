@@ -6,9 +6,9 @@
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
     // -------
-    var camera, scene, renderer,
-        light1, light2, light3,
-        loader, mesh;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer,
+        light1: THREE.PointLight, light2: THREE.PointLight, light3: THREE.PointLight,
+        loader: THREE.JSONLoader, mesh: THREE.Mesh;
 
     init();
     animate();

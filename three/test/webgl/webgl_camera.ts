@@ -14,9 +14,9 @@
     var renderer: THREE.WebGLRenderer;
     var mesh: THREE.Mesh;
 
-    var cameraRig, activeCamera, activeHelper;
-    var cameraPerspective, cameraOrtho;
-    var cameraPerspectiveHelper, cameraOrthoHelper;
+    var cameraRig: THREE.Group, activeCamera: THREE.PerspectiveCamera | THREE.OrthographicCamera, activeHelper: THREE.CameraHelper;
+    var cameraPerspective: THREE.PerspectiveCamera, cameraOrtho: THREE.OrthographicCamera;
+    var cameraPerspectiveHelper: THREE.CameraHelper, cameraOrthoHelper: THREE.CameraHelper;
 
     init();
     animate();
