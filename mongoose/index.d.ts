@@ -720,6 +720,8 @@ declare module "mongoose" {
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
     versionKey?: string|boolean;
+    /** defaults to false */
+    retainKeyOrder?: boolean;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
