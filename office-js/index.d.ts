@@ -1992,9 +1992,9 @@ declare namespace Office {
         itemId?: string;
     }
     export interface ReplyFormData {
-        htmlBody: string;
-        attachments: Array<ReplyFormAttachment>;
-        callback: (result: AsyncResult) => void;
+        htmlBody?: string;
+        attachments?: Array<ReplyFormAttachment>;
+        callback?: (result: AsyncResult) => void;
     }
     export interface RoamingSettings {
         /**
