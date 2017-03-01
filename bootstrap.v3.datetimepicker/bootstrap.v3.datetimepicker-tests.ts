@@ -1,36 +1,36 @@
 /// <reference types="jquery"/>
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
-const dp = $('#picker').datetimepicker().data("DateTimePicker");
+const dp = $("#picker").datetimepicker().data("DateTimePicker");
 
 function test_cases() {
-    $('#datetimepicker').datetimepicker();
-    $('#datetimepicker').datetimepicker({
-        minDate: '2012-12-31'
+    $("#datetimepicker").datetimepicker();
+    $("#datetimepicker").datetimepicker({
+        minDate: "2012-12-31"
     });
 
-    $('#datetimepicker').data("DateTimePicker").maxDate('2012-12-31');
+    $("#datetimepicker").data("DateTimePicker").maxDate("2012-12-31");
 
     let startDate = moment(new Date(2012, 1, 20));
     const endDate = moment(new Date(2012, 1, 25));
 
-    $('#datetimepicker2')
+    $("#datetimepicker2")
         .datetimepicker()
         .on("dp.change", ev => {
             if (ev.date.valueOf() > endDate.valueOf()) {
-                $('#alert').show().find('strong').text('The start date must be before the end date.');
+                $("#alert").show().find("strong").text("The start date must be before the end date.");
             } else {
-                $('#alert').hide();
+                $("#alert").hide();
                 startDate = ev.date;
-                $('#date-start-display').text($('#date-start').data('date'));
+                $("#date-start-display").text($("#date-start").data("date"));
             }
         })
         .on("dp.error", ev => {
-            console.log(`Error: ${ev.date.format('YYYY-MM-DD')}`);
+            console.log(`Error: ${ev.date.format("YYYY-MM-DD")}`);
         })
         .on("dp.update", ev => {
-            console.log(`Change: ${ev.change}, ${ev.viewDate.format('YYYY-MM-DD')}`);
+            console.log(`Change: ${ev.change}, ${ev.viewDate.format("YYYY-MM-DD")}`);
         });
 }
 
@@ -50,15 +50,15 @@ function test_format() {
     let strFormat = "YYYY-MM-DD";
     let momentFormat = moment.ISO_8601;
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         format: boolFormat
     });
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         format: strFormat
     });
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         format: momentFormat
     });
 
@@ -77,15 +77,15 @@ function test_extraFormats() {
     let strFormats = ["YYYYMMDD", "YYYY/MM/DD"];
     let mixFormats = ["YYYYMMDD", moment.ISO_8601];
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         extraFormats: boolFormat
     });
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         extraFormats: strFormats
     });
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         extraFormats: mixFormats
     });
 
@@ -103,11 +103,11 @@ function test_timeZone() {
     let nullTz = null;
     let strFormats = "Africa/Abidjan";
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         timeZone: nullTz
     });
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         timeZone: strFormats
     });
 
@@ -124,15 +124,15 @@ function test_widgetParent() {
     let str: string = "myId";
     let jquery = $("#element");
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         widgetParent: nullW
     });
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         widgetParent: str
     });
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         widgetParent: jquery
     });
 
@@ -154,8 +154,8 @@ function inputParser(inputDate: string | Date | moment.Moment) {
     } else {
         const relativeDate = inputDate.match(relativeDatePattern);
         if (relativeDate !== null) {
-            const subDays = +relativeDate[0].replace('days ago', '').trim();
-            return moment().subtract(subDays, 'day');
+            const subDays = +relativeDate[0].replace("days ago", "").trim();
+            return moment().subtract(subDays, "day");
         } else {
             return moment();
         }
@@ -166,9 +166,9 @@ function test_parseInputDate() {
     let undef: undefined;
     let parser: BootstrapV3DatetimePicker.InputParser;
 
-    $('#picker').datetimepicker();
+    $("#picker").datetimepicker();
 
-    $('#picker').datetimepicker({
+    $("#picker").datetimepicker({
         parseInputDate: inputParser
     });
 
