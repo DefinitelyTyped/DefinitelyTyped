@@ -1098,7 +1098,7 @@ declare module "react" {
         /**
          * Callback that is called when the text input's text changes.
          */
-        onChange?: (event: { nativeEvent: { text: string } }) => void
+        onChange?: (event: { nativeEvent: { text: string, contentSize: { width: number, height: number }, target: number, eventCount: number } }) => void
 
         /**
          * Callback that is called when the text input's text changes.
