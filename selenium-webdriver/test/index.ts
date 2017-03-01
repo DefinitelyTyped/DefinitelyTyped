@@ -518,10 +518,10 @@ function TestWebDriverOptions() {
 
     promise = options.deleteAllCookies();
     promise = options.deleteCookie('name');
-    options.getCookie('name').then(function (cookie: webdriver.IWebDriverCookie) {
+    options.getCookie('name').then((cookie: webdriver.IWebDriverCookie) => {
         var expiry: number = cookie.expiry;
      });
-    options.getCookies().then(function (cookies: webdriver.IWebDriverCookie[]) { });
+    options.getCookies().then((cookies: webdriver.IWebDriverCookie[]) => { });
 
     var logs: webdriver.Logs = options.logs();
     var timeouts: webdriver.Timeouts = options.timeouts();
@@ -852,7 +852,7 @@ function TestUntilModule() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var conditionB: webdriver.Condition<boolean> = new webdriver.Condition<boolean>('message', function (driver: webdriver.WebDriver) { return true; });
+    var conditionB: webdriver.Condition<boolean> = new webdriver.Condition<boolean>('message', (driver: webdriver.WebDriver) => true);
     var conditionBBase: webdriver.Condition<boolean> = conditionB;
     var conditionWebElement: webdriver.WebElementCondition;
     var conditionWebElements: webdriver.Condition<webdriver.WebElement[]>;

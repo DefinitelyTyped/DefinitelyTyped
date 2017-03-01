@@ -1,3 +1,4 @@
+/* tslint:disable */
 import * as chrome from 'selenium-webdriver/chrome';
 import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
