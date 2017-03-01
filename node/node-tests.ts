@@ -451,6 +451,7 @@ namespace url_tests {
 
         myURL = new url.URL('/foo', 'https://example.org/');
         assert.equal(myURL.href, 'https://example.org/foo');
+        assert.equal(myURL.toJSON(), myURL.href);
     }
 
     {
@@ -489,6 +490,8 @@ namespace url_tests {
         searchParams.delete('a');
         assert(!searchParams.has('a'));
         assert.equal(searchParams.get('a'), null);
+
+        searchParams.sort();
     }
 }
 
