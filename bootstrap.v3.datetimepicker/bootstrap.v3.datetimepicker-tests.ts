@@ -145,3 +145,33 @@ function test_widgetParent() {
     dp.widgetParent(jquery);
     jquery = dp.widgetParent() as JQuery;
 }
+
+function inputParser(inputDate: string | Date | moment.Moment) {
+    const relativeDatePattern = /[0-9]+\s+(days ago)/;
+
+    if (moment.isMoment(inputDate) || inputDate instanceof Date) {
+        return moment(inputDate);
+    } else {
+        const relativeDate = inputDate.match(relativeDatePattern);
+        if (relativeDate !== null) {
+            const subDays = +relativeDate[0].replace('days ago', '').trim();
+            return moment().subtract(subDays, 'day');
+        } else {
+            return moment();
+        }
+    }
+};
+
+function test_parseInputDate() {
+    let undef: undefined;
+    let parser: BootstrapV3DatetimePicker.InputParser;
+
+    $('#picker').datetimepicker();
+
+    $('#picker').datetimepicker({
+        parseInputDate: inputParser
+    });
+
+    undef = dp.parseInputDate() as undefined;
+    parser = dp.parseInputDate() as BootstrapV3DatetimePicker.InputParser;
+}

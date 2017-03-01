@@ -16,6 +16,8 @@ import * as moment from 'moment';
 
 export as namespace BootstrapV3DatetimePicker;
 
+type InputParser = (input: string | Date | moment.Moment) => moment.Moment;
+
 export interface Datetimepicker {
 	/**Clears the datepicker by setting the value to null */
 	clear(): void;
@@ -226,11 +228,11 @@ export interface Datetimepicker {
 	 */
 	minDate(date: moment.Moment | Date | string | boolean): void;
 	/**Returns the options.parseInputDate option */
-	parseInputDate(): (input: string) => moment.Moment;
+	parseInputDate(): InputParser | undefined;
 	/**Allows custom input formatting For example: the user can enter "yesterday"" or "30 days ago".
 	 * {@link http://eonasdan.github.io/bootstrap-datetimepicker/Functions/#parseinputdate}
 	 */
-	parseInputDate(value: (input: string) => moment.Moment): void;
+	parseInputDate(value: InputParser): void;
 	/**Returns the options.showClear option. */
 	showClear(): boolean;
 	/**Set if the clear date button will appear on the widget */
@@ -431,7 +433,7 @@ export interface DatetimepickerOptions {
 	/**Allows custom input formatting For example: the user can enter "yesterday"" or "30 days ago".
 	 * {@link http://eonasdan.github.io/bootstrap-datetimepicker/Functions/#parseinputdate}
 	 */
-	parseInputDate?: (input: string) => moment.Moment;
+	parseInputDate?: InputParser;
 	/**Show the "Clear" button in the icon toolbar.
 	 * Clicking the "Clear" button will set the calendar to null.
 	 * @default: false
