@@ -2679,6 +2679,57 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
+    //_.nth
+    interface LoDashStatic {
+        /**
+         * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
+         *
+         * @param array array The array to query.
+         * @param value The index of the element to return.
+         * @return Returns the nth element of `array`.
+         */
+        nth<T>(
+            array: List<T>,
+            n?: number
+        ): T;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth(
+            n?: number
+        ): T;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth<TResult>(
+            n?:number
+        ): TResult;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth(
+            n?:number
+        ): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth<TResult>(
+            n?:number
+        ): LoDashExplicitWrapper<TResult>;
+    }
+
     //_.pull
     interface LoDashStatic {
         /**
