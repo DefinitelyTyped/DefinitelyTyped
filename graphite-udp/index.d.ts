@@ -61,7 +61,7 @@ interface ClientOptions {
 	 * @param {metrics}
 	 * @return void
 	 */
-	callback: (error: Error, metrics: any) => void;
+	callback?: (error: Error, metrics: any) => void;
 }
 
 export class Client {
