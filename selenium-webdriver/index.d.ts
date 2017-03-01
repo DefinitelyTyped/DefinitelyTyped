@@ -1,6 +1,9 @@
-// Type definitions for Selenium WebDriverJS 3.0.1
+// Type definitions for Selenium WebDriverJS 3.0
 // Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>, Simon Gellis <https://github.com/SupernaviX>
+// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
+//   Yuki Kokubun <https://github.com/Kuniwak>,
+//   Craig Nishina <https://github.com/cnishina>,
+//   Simon Gellis <https://github.com/SupernaviX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -1307,7 +1310,7 @@ export class Condition<T> {
 export class WebElementCondition extends Condition<WebElement> {
   // add an unused private member so the compiler treats this
   // class distinct from other Conditions
-  private _nominal: void;
+  private _nominal: undefined;
 }
 
 export namespace until {
@@ -2113,9 +2116,9 @@ interface ProxyConfig {
   httpProxy?: string;
   sslProxy?: string;
   noProxy?: string;
-    socksProxy?: string,
-    socksUsername?: string,
-    socksPassword?: string
+  socksProxy?: string,
+  socksUsername?: string,
+  socksPassword?: string
 }
 
 /**
@@ -2348,15 +2351,15 @@ export class Builder {
   setScrollBehavior(behavior: number): Builder;
 
   /**
-     * Sets the http agent to use for each request.
-     * If this method is not called, the Builder will use http.globalAgent by default.
-     *
-     * @param {http.Agent} agent The agent to use for each request.
-     * @return {!Builder} A self reference.
-     */
-    usingHttpAgent(agent: any): Builder;
+   * Sets the http agent to use for each request.
+   * If this method is not called, the Builder will use http.globalAgent by default.
+   *
+   * @param {http.Agent} agent The agent to use for each request.
+   * @return {!Builder} A self reference.
+   */
+  usingHttpAgent(agent: any): Builder;
 
-    /**
+  /**
    * Sets the URL of a remote WebDriver server to use. Once a remote URL has been
    * specified, the builder direct all new clients to that server. If this method
    * is never called, the Builder will attempt to create all clients locally.
@@ -3910,10 +3913,10 @@ export class WebDriver {
    * whether the condition has been satisified. Note the resolution time for
    * a promise is factored into whether a wait has timed out.
    *
-     * Note, if the provided condition is a {@link WebElementCondition}, then
-     * the wait will return a {@link WebElementPromise} that will resolve to the
-     * element that satisified the condition.
-     *
+   * Note, if the provided condition is a {@link WebElementCondition}, then
+   * the wait will return a {@link WebElementPromise} that will resolve to the
+   * element that satisified the condition.
+   *
    * *Example:* waiting up to 10 seconds for an element to be present and visible
    * on the page.
    *

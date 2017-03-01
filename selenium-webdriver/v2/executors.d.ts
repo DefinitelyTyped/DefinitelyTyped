@@ -1,3 +1,4 @@
+/* tslint:disable */
 import * as webdriver from './index';
 
 declare namespace executors {

@@ -1,3 +1,4 @@
+/* tslint:disable */
 declare namespace testing {
     /**
     * Registers a new test suite.
