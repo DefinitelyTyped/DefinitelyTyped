@@ -856,6 +856,10 @@ interface RequestParamHandler {
     (req: Request, res: Response, next: NextFunction, value: any, name: string): any;
 }
 
+type ApplicaitonRequestHandler<T> =  IRouterHandler<T> & IRouterMatcher<T> & {
+  (...handlers: RequestHandlerParams[]): T;
+};
+
 interface Application extends IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
@@ -1096,6 +1100,8 @@ interface Application extends IRouter, Express.Application {
      * Used to get all registered routes in Express Application
      */
     _router: any;
+
+    use: ApplicaitonRequestHandler<this>;
 }
 
 interface Express extends Application {

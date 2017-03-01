@@ -1,8 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
+        "noImplicitThis": false,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -11,7 +15,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-
         "experimentalDecorators": true
     },
     "files": [

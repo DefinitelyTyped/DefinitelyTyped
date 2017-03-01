@@ -1,16 +1,24 @@
-import {Configuration} from "webpack";
-import HtmlWebpackPlugin = require("html-webpack-plugin");
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const a: Configuration = {
-    plugins: [
-        new HtmlWebpackPlugin()
-    ]
-};
+new HtmlWebpackPlugin();
 
-const b: Configuration = {
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: "test"
-        })
-    ]
-};
+const optionsArray: HtmlWebpackPlugin.Options[] = [
+	{
+		title: 'test',
+	},
+	{
+		minify: {
+			caseSensitive: true,
+		},
+	},
+	{
+		chunksSortMode: function compare(a, b) {
+			return 1;
+		},
+	},
+	{
+		arbitrary: 'data',
+	},
+];
+
+const plugins: HtmlWebpackPlugin[] = optionsArray.map(options => new HtmlWebpackPlugin(options));

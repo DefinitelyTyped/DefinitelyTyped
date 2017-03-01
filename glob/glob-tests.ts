@@ -1,4 +1,4 @@
-import glob = require("./");
+import glob = require("glob");
 var Glob = glob.Glob;
 
 (()=> {

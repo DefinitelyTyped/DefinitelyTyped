@@ -3,22 +3,41 @@
 // Definitions by: Greg Smith <https://github.com/smrq/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Fuse {
-	constructor(list: any[], options?: fuse.IFuseOptions);
-	search(pattern: string): any[];
+declare class Fuse<T> {
+	constructor(list: T[], options?: Fuse.Options<T>);
+	search(pattern: string): T[];
 }
 
-declare namespace fuse {
-	interface IFuseOptions {
+declare namespace Fuse {
+	interface SearchFnConstructor {
+		new (pattern: string, options?: SearchOptions): SearchFn;
+	}
+
+	interface SearchFn {
+		search(text: string): SearchResult;
+	}
+
+	interface SearchResult {
+		readonly isMatch: boolean;
+		readonly score: number;
+	}
+
+	interface SearchOptions {
+		location?: number;
+		distance?: number;
+		threshold?: number;
+		maxPatternLength?: number;
+	}
+
+	interface Options<T> {
 		id?: string;
 		caseSensitive?: boolean;
 		include?: string[];
 		shouldSort?: boolean;
-		searchFn?: any;
+		searchFn?: SearchFnConstructor;
 		sortFn?: (a: {score: number}, b: {score: number}) => number;
-		getFn?: (obj: any, path: string) => any;
 		keys?: string[] | { name:string; weight:number} [];
-        	verbose?:boolean;
+		verbose?:boolean;
 		tokenize?: boolean;
 		tokenSeparator? : RegExp;
 		matchAllTokens?: boolean;
@@ -26,5 +45,10 @@ declare namespace fuse {
 		distance?: number;
 		threshold?: number;
 		maxPatternLength?: number;
+		includeScore?: boolean;
+		getFn?: (obj: T, path: string) => string;
 	}
 }
+
+export = Fuse;
+export as namespace Fuse;

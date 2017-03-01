@@ -67,7 +67,64 @@ function test_fuse_deep_key_search() {
 
 	var options = {
 		keys: ['author.firstName']
-	}
+	};
 	var f = new Fuse(books, options);
 	var result = f.search('brwn');
+}
+
+interface Book {
+	id?: number;
+	title?: string;
+	author?: {firstName: string; lastName: string};
+}
+
+function test_generic_fuse() {
+	var books: Book[] = [{
+		id: 1,
+		title: 'The Great Gatsby',
+		author: {
+			firstName: 'F. Scott',
+			lastName: 'Fitzgerald'
+		}
+	}, {
+		title: 'The DaVinci Code',
+		author: {
+			firstName: 'Dan',
+			lastName: 'Brown'
+		}
+	}];
+
+	var options = {
+		keys: ["title", "author.firstName"]
+	};
+	var f = new Fuse<Book>(books, options);
+	var result = f.search('brwn');
+}
+
+function test_getFn() {
+	var books = [{
+		id: 1,
+		title: 'The Great Gatsby',
+		author: {
+			firstName: 'F. Scott',
+			lastName: 'Fitzgerald'
+		}
+	}, {
+		title: 'The DaVinci Code',
+		author: {
+			firstName: 'Dan',
+			lastName: 'Brown'
+		}
+	}];
+
+	var options = {
+		keys: ["title", "author.firstName"],
+		getFn: (obj: Book, path: string): string => {
+			if (!obj) {
+				return null;
+			}
+			return obj.author.firstName;
+		}
+	};
+	var f = new Fuse<Book>(books, options);
 }

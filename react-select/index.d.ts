@@ -1,7 +1,8 @@
 // Type definitions for react-select v1.0.0
 // Project: https://github.com/JedWatson/react-select
-// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>, Mark Vujevits <https://github.com/vujevits/>, Mike Deverell <https://github.com/devrelm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 
@@ -10,7 +11,7 @@ export = ReactSelectClass;
 declare namespace ReactSelectClass {
     export interface AutocompleteResult {
         /** the search-results to be displayed  */
-        data: Option[],
+        options: Option[],
         /** Should be set to true, if and only if a longer query with the same prefix
          * would return a subset of the results
          * If set to true, more specific queries will not be sent to the server.
@@ -28,6 +29,11 @@ declare namespace ReactSelectClass {
          * @default true
          */
         clearableValue?: boolean;
+        /**
+         * Do not allow this option to be selected
+         * @default false
+         */
+        disabled?: boolean;
     }
 
     export interface MenuRendererProps {
@@ -246,6 +252,10 @@ declare namespace ReactSelectClass {
          */
         onInputChange?: (inputValue: string) => void;
         /**
+         * onInputKeyDown handler: function (keyboardEvent) {}
+         */
+        onInputKeyDown?: (event: KeyboardEvent) => void;
+        /**
          * fires when the menu is scrolled to the bottom; can be used to paginate options
          */
         onMenuScrollToBottom?: () => void;
@@ -267,6 +277,10 @@ declare namespace ReactSelectClass {
          * @default false
          */
         openOnFocus?: boolean;
+        /**
+         * className to add to each option component
+         */
+        optionClassName?: string;
         /**
          * option component to render in dropdown
          */
@@ -438,10 +452,11 @@ declare namespace ReactSelectClass {
         searchingText?: string;
     }
 }
- 
+
 declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> { }
 
-declare module ReactSelectClass { 
+declare module ReactSelectClass {
     class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
-    class Async extends React.Component<ReactAsyncSelectProps, {}> { } 
-} 
+    class Async extends React.Component<ReactAsyncSelectProps, {}> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, {}> { }
+}

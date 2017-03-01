@@ -1,9 +1,5 @@
+import * as HapiES6 from 'hapi';
+import * as InertES6 from 'inert';
 
-const Inert = require('inert');
-const Hapi = require('hapi');
-
-
-const server = new Hapi.Server({});
-server.register(Inert, () => {});
-
-export var makeThisAModule: any;
+const server = new HapiES6.Server({});
+server.register(InertES6, () => {});

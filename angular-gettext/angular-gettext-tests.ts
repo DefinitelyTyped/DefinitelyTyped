@@ -1,4 +1,4 @@
-﻿
+
 
 namespace angular_gettext_tests {
 

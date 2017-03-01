@@ -2,6 +2,7 @@
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 
@@ -10,6 +11,7 @@ import * as React from "react";
 declare function ReactHelmet(): ReactHelmet.HelmetComponent;
 
 declare namespace ReactHelmet {
+    function peek(): ReactHelmet.HelmetData;
     function rewind(): ReactHelmet.HelmetData;
 
     interface HelmetProps {
@@ -19,6 +21,7 @@ declare namespace ReactHelmet {
         link?: Array<any>;
         meta?: Array<any>;
         script?: Array<any>;
+        style?: Array<any>;
         title?: string;
         titleTemplate?: string;
         onChangeClientState?: (newState: any) => void;
@@ -30,6 +33,7 @@ declare namespace ReactHelmet {
         link: HelmetDatum;
         meta: HelmetDatum;
         script: HelmetDatum;
+        style: HelmetDatum;
         title: HelmetDatum;
     }
 

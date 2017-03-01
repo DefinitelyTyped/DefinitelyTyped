@@ -1,10 +1,8 @@
-'use strict';
-
 /**
  * Created by Ivan Zubok <https://github.com/akaNightmare>.
  */
 
-import express = require('../express');
+import express = require('express');
 import passport = require('passport');
 import oauth2ClientPassword = require('passport-oauth2-client-password');
 

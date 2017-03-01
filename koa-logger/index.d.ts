@@ -7,5 +7,6 @@
 
 import * as Koa from 'koa';
 
-declare var KoaLogger: () => (ctx: Koa.Context, next: () => Promise<any>) => any;
+declare function KoaLogger(): Koa.Middleware;
+declare namespace KoaLogger {}
 export = KoaLogger;

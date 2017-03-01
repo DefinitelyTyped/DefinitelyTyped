@@ -1,4 +1,4 @@
-// Type definitions for html2canvas.js v0.5.0-bata.4
+// Type definitions for html2canvas.js 0.5
 // Project: https://github.com/niklasvh/html2canvas
 // Definitions by: Richard Hepburn <https://github.com/rwhepburn/>, Pei-Tang Huang <https://github.com/tan9/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -36,7 +36,7 @@ declare namespace Html2Canvas {
 
         /** Whether to attempt to load cross-origin images as CORS served, before reverting back to proxy. */
         useCORS?: boolean;
-        
+
         /** Use svg powered rendering where available (FF11+). */
         svgRendering?: boolean;
     }

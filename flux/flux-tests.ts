@@ -1,4 +1,4 @@
-﻿import flux = require('flux')
+import flux = require('flux')
 import FluxUtils = require('flux/utils')
 import React = require('react')
 

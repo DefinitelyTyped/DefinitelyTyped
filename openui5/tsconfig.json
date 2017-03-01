@@ -1,8 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
@@ -13,9 +17,10 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.ts",
         "jquery.sap.d.ts",
         "sap.m.d.ts",
         "sap.ui.d.ts",
-        "ui5-tests.ts"
+        "openui5-tests.ts"
     ]
 }

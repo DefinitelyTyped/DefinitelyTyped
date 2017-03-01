@@ -118,6 +118,8 @@ declare namespace CodeMirror {
         The other arguments and the returned value have the same interpretation as they have in findPosH. */
         findPosV(start: CodeMirror.Position, amount: number, unit: string): { line: number; ch: number; hitSide?: boolean; };
 
+        /** Returns the start and end of the 'word' (the stretch of letters, whitespace, or punctuation) at the given position. */
+        findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
         setOption(option: string, value: any): void;
@@ -177,6 +179,13 @@ declare namespace CodeMirror {
         where should be one of "text", "background", or "wrap"(see addLineClass).
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
         removeLineClass(line: any, where: string, class_: string): CodeMirror.LineHandle;
+
+        /**
+         * Compute the line at the given pixel height.
+         *
+         * `mode` is the relative element to use to compute this line - defaults to 'page' if not specified
+         */
+        lineAtHeight(height: number, mode?: 'window' | 'page' | 'local'): number
 
         /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
         lineInfo(line: any): {
@@ -665,9 +674,11 @@ declare namespace CodeMirror {
         (line: number, ch?: number): Position;
     }
 
-    interface Range{
-        from: CodeMirror.Position;
-        to: CodeMirror.Position;
+    interface Range {
+        anchor: CodeMirror.Position;
+        head: CodeMirror.Position;
+        from(): CodeMirror.Position;
+        to(): CodeMirror.Position;
     }
 
     interface Position {

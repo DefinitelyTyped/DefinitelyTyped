@@ -1,4 +1,4 @@
-﻿/// <reference types="d3" />
+/// <reference types="d3" />
 
   interface ICompTextSize{
     text:string;

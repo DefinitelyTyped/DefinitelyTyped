@@ -1,4 +1,4 @@
-// Type definitions for jsPlumb 1.3.16 jQuery adapter
+// Type definitions for jsPlumb jQuery adapter 1.3
 // Project: http://jsplumb.org
 // Definitions by: Steve Shearn <https://github.com/shearnie/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -38,7 +38,7 @@ interface jsPlumbInstance {
     	getInstance(): jsPlumbInstance;
 	getInstance(defaults: Defaults): jsPlumbInstance;
 	getInstanceIndex(): number;
-	
+
     SVG: string;
     CANVAS: string;
     VML: string;

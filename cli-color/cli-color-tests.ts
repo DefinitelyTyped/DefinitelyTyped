@@ -1,4 +1,4 @@
-﻿
+
 /// <reference types="node" />
 
 import clc = require('cli-color');

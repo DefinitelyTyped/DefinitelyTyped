@@ -1,6 +1,6 @@
-// Type definitions for angular-google-analytics v1.1.0
+// Type definitions for angular-google-analytics v1.1.8
 // Project: https://github.com/revolunet/angular-google-analytics
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Thomas Fuchs <https://github.com/Toxantron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
@@ -24,6 +24,18 @@ declare module 'angular' {
        * All calls queued to the offlineQueue are not outbound calls yet and hence do not show up in the log.
        */
       offlineQueue: Array<Object>;
+      
+      /**
+       * @summary If delayScriptTag(true) was set during configuration then manual script tag injection is required. 
+       * @return {boolean} True if scripts were registered.
+       */
+      registerScriptTags(): boolean;
+      
+      /**
+       * @summary If delayScriptTag(true) was set during configuration then manual tracker setup is required.
+       * @return {boolean} True if trackers were registered.
+       */
+      registerTrackers(): boolean;
 
       /**
        * @summary Returns the current URL that would be sent if a `trackPage` call was made.
@@ -166,6 +178,18 @@ declare module 'angular' {
        * @param {RegExp} regex The regex.
        */
       setRemoveRegExp(regex: RegExp): AnalyticsProvider;
+      
+      /**
+       * @summary Activate reading custom tracking urls from $routeProvider config (default is false)
+       * This is more flexible than using RegExp and easier to maintain for multiple parameters.
+       * It also reduces tracked pages to routes (only those with a templateUrl) defined in the
+       * $routeProvider and therefore reduces bounce rate created by redirects.
+       * See https://github.com/revolunet/angular-google-analytics#set-route-tracking-behaviors for details
+       * @param {boolean} val If true, the module tries to read tracking information from the 
+       * $routeProvider config.
+       * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
+       */
+      readFromRoute(useRoute: boolean): AnalyticsProvider;
 
       /**
        * @summary Starts the offline mode.

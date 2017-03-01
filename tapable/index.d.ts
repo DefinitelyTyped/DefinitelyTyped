@@ -1,11 +1,11 @@
-// Type definitions for tapable v0.2.4
+// Type definitions for tapable v0.2.5
 // Project: http://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare abstract class Tapable {
     private _plugins: {
-        [index: string]: Tapable.Handler[]
+        [propName: string]: Tapable.Handler[]
     }
 
     /**
@@ -36,6 +36,12 @@ declare abstract class Tapable {
      * @param args
      */
     applyPlugins(name: string, ...args: any[]): void;
+
+    applyPlugins0(name: string): void;
+
+    applyPlugins1(name: string, param: any): void;
+
+    applyPlugins2(name: string, param1: any, param2: any): void;
 
     /**
      * synchronously applies all registered handlers for target name(event id).
@@ -102,6 +108,8 @@ declare abstract class Tapable {
      * @param args
      */
     applyPluginsAsyncSeries(name: string, ...args: any[]): void;
+
+    applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void
 
     /**
      * asynchronously applies all registered handlers for target name(event id).

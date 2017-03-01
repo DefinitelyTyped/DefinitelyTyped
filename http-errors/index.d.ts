@@ -11,13 +11,16 @@ declare module 'http-errors' {
             status: number;
             statusCode: number;
             expose: boolean;
+            headers?: {
+                [key: string]: string
+            };
         }
 
         type HttpErrorConstructor = new(msg?: string) => HttpError;
 
         interface CreateHttpError {
             // See https://github.com/Microsoft/TypeScript/issues/227#issuecomment-50092674
-            [code: string]: new () => HttpError;
+            [code: string]: new (msg?: string) => HttpError;
 
             (...args: Array<Error | string | number | Object>): HttpError;
 

@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.18.2
+// Type definitions for OpenLayers v3.20.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2764,10 +2764,8 @@ declare module ol {
 
         }
 
-        module ogc {
-            module filter {
-                interface Filter { }
-            }
+        module filter {
+            interface Filter { }
         }
 
         /**
@@ -6669,20 +6667,22 @@ declare module ol {
          *     the {@link ol.layer.Layer layer} of the feature and will be null for
          *     unmanaged layers. To stop detection, callback functions can return a
          *     truthy value.
-         * @param {S=} opt_this Value to use as `this` when executing `callback`.
          * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
          *     filter function. The filter function will receive one argument, the
          *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
          *     value. Only layers which are visible and for which this function returns
          *     `true` will be tested for features. By default, all visible layers will
          *     be tested.
-         * @param {U=} opt_this2 Value to use as `this` when executing `layerFilter`.
          * @return {T|undefined} Callback result, i.e. the return value of last
          * callback execution, or the first truthy callback return value.
-         * @template S,T,U
+         * @template T
          * @api stable
          */
-        forEachFeatureAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachFeatureAtPixel<T>(
+            pixel: ol.Pixel,
+            callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T),
+            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+        ): (T);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -6719,12 +6719,13 @@ declare module ol {
          *     value. Only layers which are visible and for which this function returns
          *     `true` will be tested for features. By default, all visible layers will
          *     be tested.
-         * @param {U=} opt_this Value to use as `this` when executing `layerFilter`.
          * @return {boolean} Is there a feature at the given pixel?
-         * @template U
          * @api
          */
-        hasFeatureAtPixel<U>(pixel: ol.Pixel, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this?: U): boolean;
+        hasFeatureAtPixel(
+            pixel: ol.Pixel,
+            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+        ): boolean;
 
         /**
          * Returns the geographical coordinate for a browser event.
@@ -7909,6 +7910,23 @@ declare module ol {
          */
         function transformExtent(extent: ol.Extent, source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.Extent;
 
+        /**
+         * Get the resolution of the point in degrees or distance units. For
+         * projections with degrees as the unit this will simply return the
+         * provided resolution. For other projections the point resolution is
+         * estimated by transforming the 'point' pixel to EPSG:4326, measuring
+         * its width and height on the normal sphere, and taking the average of
+         * the width and height.
+         * @param {ol.proj.Projection} projection The projection.
+         * @param {number} resolution Nominal resolution in projection units.
+         * @param {ol.Coordinate} point Point to find adjusted resolution at.
+         * @return {number} Point to find adjusted resolution at.
+         */
+        function getPointResolution(
+            projection: ol.proj.Projection,
+            resolution: number,
+            point: ol.Coordinate
+        ): number;
     }
 
     /**
@@ -10029,6 +10047,14 @@ declare module ol {
              */
             getStroke(): ol.style.Stroke;
 
+            /**
+             * Set the circle radius.
+             *
+             * @param {number} radius Circle radius.
+             * @api
+             */
+            setRadius(radius: number): void;
+
         }
 
         /**
@@ -10522,6 +10548,13 @@ declare module ol {
             getZIndex(): (number);
 
             /**
+             * Set the fill style.
+             * @param {ol.style.Fill} fill Fill style.
+             * @api
+             */
+            setFill(fill: ol.style.Fill):void;
+
+            /**
              * Set a geometry that is rendered instead of the feature's geometry.
              *
              * @param {string|ol.geom.Geometry|ol.StyleGeometryFunction} geometry
@@ -10530,6 +10563,27 @@ declare module ol {
              * @api
              */
             setGeometry(geometry: (string | ol.geom.Geometry | ol.StyleGeometryFunction)): void;
+            
+            /**
+             * Set the image style.
+             * @param {ol.style.Image} image Image style.
+             * @api
+             */
+            setImage(image: ol.style.Image): void;
+
+            /**
+             * Set the stroke style.
+             * @param {ol.style.Stroke} stroke Stroke style.
+             * @api
+             */
+            setStroke(stroke: ol.style.Stroke): void;
+            
+            /**
+             * Set the text style.
+             * @param {ol.style.Text} text Text style.
+             * @api
+             */
+            setText(text: ol.style.Text): void;
 
             /**
              * Set the z-index.
@@ -11130,7 +11184,7 @@ declare module ol {
      * undefined.
      * @typedef {ol.proj.Projection|string|undefined} ol.ProjectionLike
      */
-    type ProjectionLike = (ol.proj.Projection | string);
+    type ProjectionLike = (ol.proj.Projection | string | undefined);
 
     /**
      * A function that takes an array of input data, performs some operation, and
@@ -11672,6 +11726,15 @@ declare module ol {
          */
         setZoom(zoom: number): void;
 
+        /**
+         * Animate the view. The view's center, zoom (or resolution), and
+         * rotation can be animated for smooth transitions between view states.
+         * @param {olx.AnimateOptions} var_args Animation options. 
+         * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
+         * @api experimental
+         */
+        animate(...var_args: Array<olx.animation.AnimateOptions|olx.animation.AnimateCallback>): void;
+
     }
 
 }
@@ -11695,7 +11758,7 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11709,7 +11772,7 @@ declare module olx {
             source: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11725,7 +11788,7 @@ declare module olx {
             anchor?: ol.Coordinate;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
 
@@ -11739,10 +11802,27 @@ declare module olx {
             resolution: number;
             start?: number;
             duration?: number;
-            easing: ((t: number) => number);
+            easing?: ((t: number) => number);
         }
 
+        /**
+         * Animation options. Multiple animations can be run in series by passing
+         * multiple options objects. To run multiple animations in parallel, call
+         * the method multiple times. An optional callback can be provided as a
+         * final argument. The callback will be called with a boolean indicating
+         * whether the animation completed without being cancelled.
+         */
+        interface AnimateOptions {
+            center?: ol.Coordinate | undefined;
+            zoom?: number | undefined;
+            resolution?: number | undefined;
+            rotation?: number | undefined;
+            anchor?: number | undefined;
+            duration?: number | undefined;
+            easing?: ((t: number) => number) | undefined;
+        }
 
+        type AnimateCallback = (completed: boolean) => void;
     }
 
     /**
@@ -11980,7 +12060,7 @@ declare module olx {
          */
         interface WriteOptions {
             dataProjection: ol.ProjectionLike;
-            featureProjection: ol.ProjectionLike;
+            featureProjection?: ol.ProjectionLike;
             rightHanded?: boolean;
             decimals?: number;
         }
@@ -11992,6 +12072,7 @@ declare module olx {
          */
         interface GeoJSONOptions {
             defaultDataProjection: ol.ProjectionLike;
+            featureProjection: ol.ProjectionLike;
             geometryName?: string;
         }
 
@@ -12133,7 +12214,7 @@ declare module olx {
             startIndex?: number;
             count?: number;
             bbox?: ol.Extent;
-            filter?: ol.format.ogc.filter.Filter;
+            filter?: ol.format.filter.Filter;
             resultType?: string;
         }
 
@@ -13742,7 +13823,17 @@ declare module olx {
         zoom?: number;
         zoomFactor?: number;
     }
-
+		
+    /**
+    * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
+    * {@link ol.Map#hasFeatureAtPixel} methods.
+    * @typedef {{layerFilter: ((function(ol.layer.Layer): boolean)|undefined),
+    *     hitTolerance: (number|undefined)}}
+    */
+    interface AtPixelOptions {
+        layerFilter?: ((layer: ol.layer.Layer) => boolean)
+        hitTolerance?: number
+    }
 
     /**
      * @typedef {{animate: boolean,

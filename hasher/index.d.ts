@@ -13,7 +13,7 @@ declare namespace HasherJs {
 
 		// {string} hasher.appendHash
 		// String that should always be added to the end of Hash value.
-		appendHash(): string;
+		appendHash: string;
 
 		// default value: '';
 		// will be automatically removed from `hasher.getHash()`

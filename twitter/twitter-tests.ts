@@ -1,4 +1,4 @@
-﻿
+
 
 function load() {
     twttr.widgets.load();

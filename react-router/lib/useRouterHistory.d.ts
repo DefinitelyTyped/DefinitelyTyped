@@ -1,7 +1,3 @@
-import { History, HistoryOptions, HistoryQueries, CreateHistory } from 'history';
+import { CreateHistory, HistoryBasename, HistoryBasenameOptions, HistoryQueries } from "history";
 
-interface CreateRouterHistory {
-    (options?: HistoryOptions): History & HistoryQueries;
-}
-
-export default function useRouterHistory<T>(createHistory: CreateHistory<T>): CreateRouterHistory;
+export default function useRouterHistory<O, H>(createHistory: CreateHistory<O, H>): CreateHistory<O & HistoryBasenameOptions, H & HistoryBasename & HistoryQueries>;

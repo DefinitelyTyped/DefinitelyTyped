@@ -1,5 +1,5 @@
 import React = require("react");
-import { create } from ".";
+import { create } from "react-test-renderer";
 
 const tree = create(React.createElement("div"), {
     createNodeMock: (el: React.ReactElement<any>) => {

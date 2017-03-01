@@ -1,4 +1,3 @@
-/// <reference types="assert" />
 /// <reference types="node" />
 
 import cbor = require('cbor');

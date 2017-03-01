@@ -109,6 +109,7 @@ declare namespace Sinon {
         callsArgOnAsync(index: number, context: any): SinonStub;
         callsArgWithAsync(index: number, ...args: any[]): SinonStub;
         callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
+        callsFake(func: (...args: any[]) => void): SinonStub;
         onCall(n: number): SinonStub;
         onFirstCall(): SinonStub;
         onSecondCall(): SinonStub;
@@ -427,7 +428,7 @@ declare namespace Sinon {
 
     // Utility overridables
     interface SinonStatic {
-        createStubInstance(constructor: any): SinonStub;
+        createStubInstance(constructor: any): any;
         format(obj: any): string;
         log(message: string): void;
         restore(object: any): void;

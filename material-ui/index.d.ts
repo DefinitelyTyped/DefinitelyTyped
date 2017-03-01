@@ -2,6 +2,7 @@
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
@@ -129,6 +130,7 @@ declare namespace __MaterialUI {
             accent2Color?: string;
             accent3Color?: string;
             textColor?: string;
+            secondaryTextColor?: string;
             alternateTextColor?: string;
             canvasColor?: string;
             borderColor?: string;
@@ -452,7 +454,10 @@ declare namespace __MaterialUI {
         var lightBaseTheme: RawTheme;
         var darkBaseTheme: RawTheme;
 
-        export function muiThemeable<TComponent extends React.Component<P, S>, P, S>(): (component: TComponent) => TComponent;
+        export function muiThemeable(): <
+            TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
+            P extends {muiTheme?: MuiTheme}
+        >(component: TComponent) => TComponent;
 
         interface MuiThemeProviderProps {
             muiTheme?: Styles.MuiTheme;
@@ -528,21 +533,19 @@ declare namespace __MaterialUI {
         type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
     }
 
-    type AutoCompleteDataItem = { text: string, value: React.ReactNode } | string;
-    type AutoCompleteDataSource = { text: string, value: React.ReactNode }[] | string[];
-    interface AutoCompleteProps {
+    interface AutoCompleteProps<DataItem> {
         anchorOrigin?: propTypes.origin;
         animated?: boolean;
         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
-        dataSource: AutoCompleteDataSource;
+        dataSource: DataItem[];
         dataSourceConfig?: { text: string; value: string; };
         disableFocusRipple?: boolean;
         errorStyle?: React.CSSProperties;
-        errorText?: string;
-        filter?: (searchText: string, key: string, item: AutoCompleteDataItem) => boolean;
+        errorText?: React.ReactNode;
+        filter?: (searchText: string, key: string, item: DataItem) => boolean;
         floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
-        hintText?: string;
+        hintText?: React.ReactNode;
         listStyle?: React.CSSProperties;
         maxSearchResults?: number;
         menuCloseDelay?: number;
@@ -551,8 +554,8 @@ declare namespace __MaterialUI {
         onBlur?: React.FocusEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;
-        onNewRequest?: (chosenRequest: string, index: number) => void;
-        onUpdateInput?: (searchText: string, dataSource: AutoCompleteDataSource) => void;
+        onNewRequest?: (chosenRequest: DataItem, index: number) => void;
+        onUpdateInput?: (searchText: string, dataSource: DataItem[]) => void;
         open?: boolean;
         openOnFocus?: boolean;
         popoverProps?: Popover.PopoverProps;
@@ -561,7 +564,7 @@ declare namespace __MaterialUI {
         targetOrigin?: propTypes.origin;
         textFieldStyle?: React.CSSProperties;
     }
-    export class AutoComplete extends React.Component<AutoCompleteProps, {}> {
+    export class AutoComplete extends React.Component<AutoCompleteProps<any>, {}> {
         static noFilter: () => boolean;
         static defaultFilter: (searchText: string, key: string) => boolean;
         static caseSensitiveFilter: (searchText: string, key: string) => boolean;
@@ -739,17 +742,17 @@ declare namespace __MaterialUI {
 
     namespace BottomNavigation {
         interface BottomNavigationProps {
-            selectedIndex?: number;
             className?: string;
+            selectedIndex?: number;
             style?: React.CSSProperties;
         }
 
         export class BottomNavigation extends React.Component<BottomNavigationProps, {}> { }
 
         interface BottomNavigationItemProps extends SharedEnhancedButtonProps<BottomNavigationItem> {
-            label?: string;
-            icon?: any;
             className?: string;
+            icon?: React.ReactNode;
+            label?: React.ReactNode;
         }
 
         export class BottomNavigationItem extends React.Component<BottomNavigationItemProps, {}> { }
@@ -1496,7 +1499,7 @@ declare namespace __MaterialUI {
         contentStyle?: React.CSSProperties;
         message: React.ReactNode;
         onActionTouchTap?: React.TouchEventHandler<{}>;
-        onRequestClose: (reason: string) => void;
+        onRequestClose?: (reason: string) => void;
         open: boolean;
         style?: React.CSSProperties;
     }
@@ -1736,6 +1739,7 @@ declare namespace __MaterialUI {
         }
 
         interface TabProps extends SharedEnhancedButtonProps<Tab> {
+            buttonStyle?: React.CSSProperties;
             className?: string;
             icon?: React.ReactNode;
             label?: React.ReactNode;
@@ -1767,7 +1771,7 @@ declare namespace __MaterialUI {
         multiLine?: boolean;
         name?: string;
         onBlur?: React.FocusEventHandler<{}>;
-        onChange?: React.FormEventHandler<{}>;
+        onChange?: (e: React.FormEvent<{}>, newValue: string) => void;
         onEnterKeyDown?: React.KeyboardEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;

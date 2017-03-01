@@ -1,6 +1,3 @@
-///<reference types="d3" />
-///<reference types="crossfilter" />
-
 interface IYelpData {
     city: string;
     review_count: number;
@@ -45,12 +42,12 @@ d3.json("data/yelp_test_set_business.json", (yelp_data:IYelpData[]) => {
      *   Step1: Create the dc.js chart objects & ling to div *
      *                           *
      ********************************************************/
-    var bubbleChart: DC.BubbleChart = dc.bubbleChart("#dc-bubble-graph");
-    var pieChart: DC.PieChart = dc.pieChart("#dc-pie-graph");
-    var volumeChart: DC.BarChart = dc.barChart("#dc-volume-chart");
-    var lineChart: DC.LineChart = dc.lineChart("#dc-line-chart");
-    var dataTable: DC.DataTableWidget = dc.dataTable("#dc-table-graph");
-    var rowChart: DC.RowChart = dc.rowChart("#dc-row-graph");
+    var bubbleChart: dc.BubbleChart = dc.bubbleChart("#dc-bubble-graph");
+    var pieChart: dc.PieChart = dc.pieChart("#dc-pie-graph");
+    var volumeChart: dc.BarChart = dc.barChart("#dc-volume-chart");
+    var lineChart: dc.LineChart = dc.lineChart("#dc-line-chart");
+    var dataTable: dc.DataTableWidget = dc.dataTable("#dc-table-graph");
+    var rowChart: dc.RowChart = dc.rowChart("#dc-row-graph");
 
     /********************************************************
      *                           *
@@ -125,8 +122,8 @@ d3.json("data/yelp_test_set_business.json", (yelp_data:IYelpData[]) => {
         .xAxisPadding(1)
         .label((p: any) => p.key)
         .renderLabel(true)
-        .renderlet((chart: DC.BubbleChart) => rowChart.filter(chart.filter()))
-        .on("postRedraw", (chart: DC.BubbleChart) => dc.events.trigger(() => rowChart.filter(chart.filter())));
+        .renderlet((chart: dc.BubbleChart) => rowChart.filter(chart.filter()))
+        .on("postRedraw", (chart: dc.BubbleChart) => dc.events.trigger(() => rowChart.filter(chart.filter())));
 
     pieChart
         .width(200)
@@ -137,7 +134,7 @@ d3.json("data/yelp_test_set_business.json", (yelp_data:IYelpData[]) => {
         .radius(90)
         .minAngleForLabel(0)
         .label((d: any) => d.data.key)
-        .on("filtered", (chart: DC.PieChart) =>
+        .on("filtered", (chart: dc.PieChart) =>
             dc.events.trigger(() => {
                 if (chart.filter()) {
                     console.log(chart.filter());
@@ -156,7 +153,7 @@ d3.json("data/yelp_test_set_business.json", (yelp_data:IYelpData[]) => {
         .gap(17)
         .x(d3.scale.linear().domain([0.5, 5.5]))
         .elasticY(true)
-        .on("filtered", (chart: DC.BarChart) =>
+        .on("filtered", (chart: dc.BarChart) =>
             dc.events.trigger(() => {
                 if(chart.filter()) {
                     console.log(chart.filter());
@@ -191,8 +188,8 @@ d3.json("data/yelp_test_set_business.json", (yelp_data:IYelpData[]) => {
         .renderLabel(true)
         .colors(["#a60000","#ff0000", "#ff4040","#ff7373","#67e667","#39e639","#00cc00"])
         .colorDomain([0, 0])
-        .renderlet((chart: DC.RowChart) => bubbleChart.filter(chart.filter()))
-        .on("filtered", (chart: DC.RowChart) =>
+        .renderlet((chart: dc.RowChart) => bubbleChart.filter(chart.filter()))
+        .on("filtered", (chart: dc.RowChart) =>
             dc.events.trigger(() =>
                 bubbleChart.filter(chart.filter())));
 

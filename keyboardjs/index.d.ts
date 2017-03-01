@@ -17,7 +17,7 @@ declare namespace keyboardjs {
     /**
 	 * Information and functions in the current callback.
 	 */
-    interface KeyEvent{
+    interface KeyEvent extends KeyboardEvent {
         preventRepeat(): void;
     }
 

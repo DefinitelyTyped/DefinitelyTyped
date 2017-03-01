@@ -42,7 +42,7 @@ declare namespace WebFont {
 		text?: string;
 	}
 	export interface Typekit {
-		id?:Array<string>;
+		id?:string;
 	}
 	export interface Custom {
 		families?:Array<string>;

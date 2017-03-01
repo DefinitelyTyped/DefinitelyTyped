@@ -1,4 +1,4 @@
-﻿let app = launchnavigator.APP["GOOGLE_MAPS"];
+let app = launchnavigator.APP["GOOGLE_MAPS"];
 let platform = launchnavigator.PLATFORM["ANDROID"];
 
 let destination = "Westminster, London, UK";

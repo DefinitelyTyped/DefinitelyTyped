@@ -1,4 +1,4 @@
-﻿
+
 
 var authProvider: auth0.angular.IAuth0ServiceProvider;
 

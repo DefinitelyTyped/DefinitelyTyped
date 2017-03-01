@@ -1,6 +1,6 @@
-// Type definitions for Angular JS 1.1.5+ (ui.router module)
+// Type definitions for Angular JS (ui.router module) 1.1.5
 // Project: https://github.com/angular-ui/ui-router
-// Definitions by: Michel Salib <https://github.com/michelsalib>
+// Definitions by: Michel Salib <https://github.com/michelsalib>, Ivan Matiishyn <https://github.com/matiishyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as angular from 'angular';
@@ -94,6 +94,13 @@ declare module 'angular' {
              * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
              */
             cache?: boolean;
+
+            /**
+             * string | function | object
+             * Synchronously or asynchronously redirects Transitions to a different state/params
+             */
+            redirectTo?: string | Function | IState;
+
         }
 
         interface IUnfoundState {

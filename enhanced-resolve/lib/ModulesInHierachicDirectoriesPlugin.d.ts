@@ -1,8 +1,8 @@
 import Resolver = require('./Resolver');
 declare class ModulesInHierachicDirectoriesPlugin {
+    directories: string[];
     source: string;
     target: string;
-    directories: string[];
 
     constructor(source: string, directories: string[], target: string);
 

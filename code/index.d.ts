@@ -1,4 +1,4 @@
-// Type definitions for code 4.0.0
+// Type definitions for code 4.0
 // Project: https://github.com/hapijs/code
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ export function fail(message: string): void;
 /** Returns the total number of assertions created using the expect() method. */
 export function count(): number;
 /** Returns an array of the locations where incomplete assertions were declared or null if no incomplete assertions found. */
-export function incomplete(): Array<string> | null;
+export function incomplete(): string[] | null;
 /** Returns the filename, line number, and column number of where the error was created. */
 export function thrownAt(error?: Error): CodeError;
 /** Configure code. */
@@ -18,9 +18,9 @@ export const settings: Settings;
 
 type AssertionChain<T> = Assertion<T> & Expectation<T>;
 
-interface Assertion<T> extends Grammar<T>, Flags<T> { }
+type Assertion<T> = Grammar<T> & Flags<T>;
 
-interface Expectation<T> extends Types<T>, Values<T> { }
+type Expectation<T> = Types<T> & Values<T>;
 
 interface Grammar<T> {
     /** Connecting word. */
@@ -78,7 +78,7 @@ interface Types<T> {
     /** Asserts that the reference value is a Date. */
     date(): AssertionChain<T>;
     /** Asserts that the reference value is an error. */
-    error(type?: Object, message?: string | RegExp): AssertionChain<T>;
+    error(type?: any, message?: string | RegExp): AssertionChain<T>;
     /** Asserts that the reference value is a function. */
     function(): AssertionChain<T>;
     /** Asserts that the reference value is a number. */
@@ -153,9 +153,9 @@ interface Values<T> {
     /** Asserts that the reference value is about the provided value within a delta margin of difference. */
     about(value: number, delta: number): AssertionChain<T>;
     /** Asserts that the reference value has the provided instanceof value. */
-    instanceof(type: Object): AssertionChain<T>;
+    instanceof(type: any): AssertionChain<T>;
     /** Asserts that the reference value has the provided instanceof value. */
-    instanceOf(type: Object): AssertionChain<T>;
+    instanceOf(type: any): AssertionChain<T>;
     /** Asserts that the reference value's toString() representation matches the provided regular expression. */
     match(regex: RegExp): AssertionChain<T>;
     /** Asserts that the reference value's toString() representation matches the provided regular expression. */
@@ -165,7 +165,9 @@ interface Values<T> {
     /** Asserts that the reference value satisfies the provided validator function. */
     satisfies(validator: (value: T) => boolean): AssertionChain<T>;
     /** Asserts that the function reference value throws an exception when called. */
-    throw(type: Object, message: string | RegExp): AssertionChain<T>;
+    throw(type?: any, message?: string | RegExp): AssertionChain<T>;
+    /** Asserts that the function reference value throws an exception when called. */
+    throws(type?: any, message?: string | RegExp): AssertionChain<T>;
 }
 
 interface Settings {

@@ -22,8 +22,8 @@ export type StorageAdapterCreator<A> = (storage: A) => StorageAdapter<A>;
 
 export interface StorageAdapterEnhancer {}
 
-export function mergePersistedState (merge?: <A1, A2>(initialState: A1, persistentState: A2) => A1 & A2): <A>(next: Redux.Reducer<A>) => Redux.Reducer<A>;
+export function mergePersistedState(merge?: <A1, A2>(initialState: A1, persistentState: A2) => A1 & A2): <A>(next: Redux.Reducer<A>) => Redux.Reducer<A>;
 
-export default function persistState<A> (storage?: StorageAdapter<A>, key?: string, callback?: Function): Redux.GenericStoreEnhancer;
+export default function persistState<A>(storage?: StorageAdapter<A>, key?: string, callback?: Function): Redux.GenericStoreEnhancer;
 
 export const actionTypes: ActionTypes;

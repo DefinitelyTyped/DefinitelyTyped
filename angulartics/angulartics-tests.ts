@@ -1,3 +1,6 @@
+import * as angular from 'angular';
+import { angulartics } from 'angulartics';
+
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])
         .config(["$analyticsProvider", ($analyticsProvider:angulartics.IAnalyticsServiceProvider) => {
@@ -36,3 +39,4 @@ namespace Analytics {
             $analytics.setSuperProperties({ role: 'admin' });
         });
 }
+

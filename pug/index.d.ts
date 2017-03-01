@@ -1,4 +1,4 @@
-// Type definitions for pug 2.0.0-beta6
+// Type definitions for pug 2.0
 // Project: https://github.com/pugjs/pug
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>, Michał Lytek <https://github.com/19majkel94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -125,12 +125,12 @@ declare module 'pug' {
     ///    Types    ///
     ///////////////////
 
-    /** 
+    /**
      * A function that can be use to render html string of compiled template.
      */
     export type compileTemplate = (locals?: LocalsObject) => string;
 
-    /** 
+    /**
      * An object that can have multiple properties of any type.
      */
     export interface LocalsObject {

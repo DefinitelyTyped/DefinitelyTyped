@@ -1,4 +1,4 @@
-﻿/// <reference types="knockout.punches" />
+/// <reference types="knockout.punches" />
 
 
 function test_enable() {

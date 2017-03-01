@@ -26,7 +26,7 @@ declare function favicon(path: string, options?: {
      */
     maxage?: number;
 
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 
 declare namespace favicon {}
 export = favicon;

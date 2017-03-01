@@ -1,17 +1,9 @@
-/// <reference types="react"/>
-/// <reference types="react-dom"/>
-/// <reference types="redux" />
-/// <reference types="history" />
-/// <reference types="react-router" />
-
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, RouterState } from 'react-router';
 import { Store, Dispatch, bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
 import objectAssign = require('object-assign');
-import * as History from 'history';
 
 //
 // Quick Start
@@ -107,8 +99,6 @@ ReactDOM.render((
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
 declare var store: Store<TodoState>;
-declare var routerState: RouterState;
-declare var history: History.History;
 class MyRootComponent extends Component<any, any> {
 
 }
@@ -154,15 +144,6 @@ ReactDOM.render(
 //        document.getElementById('root')
 //    );
 //});
-
-
-//TODO: for React Router 1.0
-ReactDOM.render(
-    <Provider store={store}>
-        {() => <Router history={history}>...</Router>}
-    </Provider>,
-    targetEl
-);
 
 // Inject just dispatch and don't listen to store
 

@@ -10,7 +10,7 @@
 import * as stream from 'stream';
 import { Stats } from 'fs';
 import * as Promise from 'bluebird';
-import { CopyFilter, CopyOptions, OpenOptions, MkdirOptions } from 'fs-extra';
+import { CopyFilter, CopyOptions, OpenOptions, MkdirOptions, MoveOptions } from 'fs-extra';
 
 export * from 'fs-extra';
 
@@ -23,6 +23,8 @@ export declare function createFileAsync(file: string): Promise<void>;
 
 export declare function mkdirsAsync(dir: string, options?: MkdirOptions): Promise<void>;
 export declare function mkdirpAsync(dir: string, options?: MkdirOptions): Promise<void>;
+
+export declare function moveAsync(src: string, dest: string, options?: MoveOptions): Promise<void>;
 
 export declare function outputFileAsync(file: string, data: any): Promise<void>;
 

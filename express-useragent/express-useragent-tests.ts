@@ -1,8 +1,4 @@
-
-
-
-
-import express = require("../express");
+import express = require("express");
 import useragent = require("express-useragent");
 
 var app = express();

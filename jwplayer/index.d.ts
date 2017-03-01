@@ -1,4 +1,4 @@
-// Type definitions for JW Player 6
+// Type definitions for JW Player 6.0
 // Project: http://developer.longtailvideo.com/trac/
 // Definitions by: Martin Duparc <https://github.com/martinduparc/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

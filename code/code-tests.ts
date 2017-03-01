@@ -16,7 +16,7 @@ expect([1, 2, 3]).to.part.include([1, 4]);
 
 expect(10, "Age").to.be.above(5);
 
-const func = function () { return arguments; };
+const func = function() { return arguments; };
 expect(func()).to.be.arguments();
 
 expect([1, 2]).to.be.an.array();
@@ -31,7 +31,7 @@ expect(err).to.be.an.error(Error);
 expect(err).to.be.an.error("Oops an error occured.");
 expect(err).to.be.an.error(Error, /occured/);
 
-expect(function () { }).to.be.a.function();
+expect(func).to.be.a.function();
 
 expect(123).to.be.a.number();
 
@@ -136,8 +136,7 @@ class CustomError extends Error {
     call: (message: string) => Error;
 }
 
-const throws = function () {
-
+const throws = () => {
     throw new CustomError("Oh no!");
 };
 
@@ -147,7 +146,7 @@ fail("This should not occur");
 
 expect(count()).to.be.a.number();
 
-expect(<null>incomplete()).to.be.null().and.not.be.an.array();
+expect(incomplete() as null).to.be.null().and.not.be.an.array();
 
 const error = thrownAt(new Error("oops"));
 expect(error).to.not.be.undefined();

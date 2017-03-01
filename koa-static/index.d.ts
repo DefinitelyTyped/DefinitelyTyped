@@ -42,6 +42,6 @@ declare function serve(root: string, opts?: {
      * Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with .gz extension exists. defaults to true.
      */
     gzip?: boolean;
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 declare namespace serve{}
 export = serve;

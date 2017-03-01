@@ -1,7 +1,8 @@
-// Type definitions for jasmine-ajax 3.1.1
+// Type definitions for jasmine-ajax 3.1
 // Project: https://github.com/jasmine/jasmine-ajax
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 interface JasmineAjaxResponse {
 	status?: number;
@@ -20,6 +21,7 @@ interface JasmineAjaxRequest extends XMLHttpRequest {
 	password: string;
 	requestHeaders: { [key: string]: string };
 	overriddenMimeType: string;
+	data: () => string;
 
 	respondWith(response: JasmineAjaxResponse): void;
 }
@@ -73,7 +75,7 @@ declare class MockAjax {
 
 	stubRequest(url: RegExp, data?: string, method?: string): JasmineAjaxRequestStub;
 	stubRequest(url: string, data?: string, method?: string): JasmineAjaxRequestStub;
-    
+
 	stubRequest(url: RegExp, data?: RegExp, method?: string): JasmineAjaxRequestStub;
 	stubRequest(url: string, data?: RegExp, method?: string): JasmineAjaxRequestStub;
 

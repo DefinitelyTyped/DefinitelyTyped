@@ -82,7 +82,7 @@ interface HammerDefaults extends HammerOptions
   touchAction:string;
   cssProps:CssProps;
 
-  inputClass:() => void;
+  inputClass:HammerInput;
   inputTarget:EventTarget;
 }
 
@@ -105,7 +105,7 @@ interface HammerOptions
   touchAction?:string;
   recognizers?:RecognizerTuple[];
 
-  inputClass?:() => void;
+  inputClass?:HammerInput;
   inputTarget?:EventTarget;
 }
 

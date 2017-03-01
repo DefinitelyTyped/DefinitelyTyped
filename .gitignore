@@ -9,7 +9,6 @@
 *.cs
 *.sln
 *.csproj
-*.txt
 *.map
 *.swp
 .DS_Store
@@ -39,5 +38,6 @@ node_modules
 .sublimets
 .settings/launch.json
 
+.vs
 .vscode
 yarn.lock

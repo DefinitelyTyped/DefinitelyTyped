@@ -1,4 +1,4 @@
-﻿/// <reference types="jquery"/>
+/// <reference types="jquery"/>
 
 //Image gallery
 var gallery : JQuery = $('a.gallery').colorbox({ rel: 'gal' });

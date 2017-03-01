@@ -1,4 +1,4 @@
-// Type definitions for React v0.14 (react-addons-perf)
+// Type definitions for React (react-addons-perf) 0.14
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

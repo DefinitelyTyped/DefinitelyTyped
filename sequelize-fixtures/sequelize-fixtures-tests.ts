@@ -1,4 +1,4 @@
-﻿import Sequelize = require('sequelize');
+import Sequelize = require('sequelize');
 import SequelizeFixtures = require('sequelize-fixtures');
 
 var sequelize = new Sequelize("", "");

@@ -118,9 +118,9 @@ export interface CompassOptions {
 
 export declare class Compass {
     constructor(option: CompassOptions);
-    on(event: string, cb: () => void): void;
-    on(event: "change", cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
 export interface ESCOption {
@@ -153,9 +153,9 @@ export interface GyroMPU6050Option extends GyroGeneralOption {
 
 export declare class Gyro {
     constructor(option: GyroGeneralOption | GyroAnalogOption | GyroMPU6050Option);
-    on(event: string, cb: () => void): void;
-    on(event: "change", cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
+    on(event: string, cb: () => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
     recalibrate(): void;
 }
 

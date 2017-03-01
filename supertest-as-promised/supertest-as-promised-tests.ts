@@ -10,13 +10,13 @@ var app = express();
 request(app)
   .get("/user")
   .expect(200)
-  .then(function (res) {
+  .then(res => {
     return request(app)
       .post("/kittens")
       .send({ userId: res})
       .expect(201);
   })
-  .then(function (res) {
+  .then(res => {
     // ...
   });
 
@@ -25,12 +25,12 @@ request(app)
 request(app)
   .get("/kittens")
   .expect(200)
-  .then(function (res) {
+  .then(res => {
     // ...
   });
 
-describe("GET /kittens", function () {
-  it("should work", function () {
+describe("GET /kittens", () => {
+  it("should work", () => {
     return request(app).get("/kittens").expect(200);
   });
 });
@@ -41,18 +41,18 @@ var agent = request.agent(app);
 agent
   .get("/ugly-kitteh")
   .expect(404)
-  .then(function () {
+  .then(() => {
     // ...
-  })
+  });
 
 
 // Promisey goodness
 request(app)
   .get("/kittens")
   .expect(201)
-  .then(function (res) { /* ... */ })
+  .then(res => { /* ... */ })
   // I'm a real promise now!
-  .catch(function (err) { /* ... */ })
+  .catch(err => { /* ... */ });
 
 request(app)
   .get("/kittens")
@@ -60,4 +60,4 @@ request(app)
   .toPromise()
   // I'm a real promise now!
   .delay(10)
-  .then(function (res) { /* ... */ })
+  .then(res => { /* ... */ });

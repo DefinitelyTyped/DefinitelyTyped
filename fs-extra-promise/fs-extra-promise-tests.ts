@@ -62,6 +62,8 @@ fs.mkdirsSync(dir);
 fs.mkdirp(dir, errorCallback);
 fs.mkdirpSync(dir);
 
+fs.move(src, dest, errorCallback);
+
 fs.outputFile(file, data, errorCallback);
 fs.outputFileSync(file, data);
 fs.outputJson(file, data, errorCallback);

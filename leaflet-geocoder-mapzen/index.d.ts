@@ -6,9 +6,6 @@
 /// <reference types="leaflet" />
 
 declare namespace L {
-    // TODO: This should be defined by leaflet itself, not by leaflet-geocoder-mapzen
-    type PositionString = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
-
     namespace Control {
         export interface GeocoderStatic extends ClassStatic {
             /**
@@ -80,7 +77,7 @@ declare namespace L {
              *
              * Default value: 'topleft'.
              */
-            position?: PositionString;
+            position?: L.PositionString;
 
             /**
              * Attribution text to include.

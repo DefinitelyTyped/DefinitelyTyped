@@ -114,4 +114,8 @@ var clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
 clock.setSystemTime(new Date());
 
+class TestCreateStubInstance {
+    someTestMethod(testArg : string) {};
+}
 
+sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');

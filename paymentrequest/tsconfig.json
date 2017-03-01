@@ -1,8 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "target": "es6",
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [

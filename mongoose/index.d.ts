@@ -1,10 +1,12 @@
 // Type definitions for Mongoose 4.7.0
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
+// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
+
 
 /*
  * Guidelines for maintaining these definitions:
@@ -718,6 +720,8 @@ declare module "mongoose" {
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
     versionKey?: string|boolean;
+    /** defaults to false */
+    retainKeyOrder?: boolean;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
@@ -748,6 +752,18 @@ declare module "mongoose" {
    *     ...
    *   }
    * });
+   *
+   * Note: the properties have Object as a fallback type: | Object
+   *   because this interface does not apply to a schematype that
+   *   does not have a type property. Ex:
+   * new Schema({
+   *   name: {
+   *     first: String,    // since name does not have a "type" property
+   *     last: String      //   first and last can have any valid type
+   *     ...
+   *   }
+   * });
+   *
    * References:
    * - http://mongoosejs.com/docs/schematypes.html
    * - http://mongoosejs.com/docs/api.html#schema_Schema.Types
@@ -763,7 +779,7 @@ declare module "mongoose" {
      * Getters allow you to transform the representation of the data as it travels
      * from the raw mongodb document to the value that you see.
      */
-    get?: (value: T, schematype?: this) => T;
+    get?: (value: T, schematype?: this) => T | Object;
 
     /** Declares the index options for this schematype. */
     index?: SchemaTypeOpts.IndexOpts | boolean | string;
@@ -774,7 +790,8 @@ declare module "mongoose" {
      */
     required?: SchemaTypeOpts.RequiredFn<T> |
       boolean | [boolean, string] |
-      string | [string, string];
+      string | [string, string] |
+      Object;
 
     /**
      * Sets default select() behavior for this path.
@@ -782,19 +799,19 @@ declare module "mongoose" {
      * if it should be excluded by default. This setting can be overridden at
      * the query level.
      */
-    select?: boolean;
+    select?: boolean | Object;
 
     /**
      * Setters allow you to transform the data before it gets to the raw mongodb
      * document and is set as a value on an actual key.
      */
-    set?: (value: T, schematype?: this) => T;
+    set?: (value: T, schematype?: this) => T | Object;
 
     /** Declares a sparse index. */
-    sparse?: boolean;
+    sparse?: boolean | Object;
 
     /** Declares a full text index. */
-    text?: boolean;
+    text?: boolean | Object;
 
     /**
      * Adds validator(s) for this document path.
@@ -803,50 +820,53 @@ declare module "mongoose" {
      */
     validate?: RegExp | [RegExp, string] |
       SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
-      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[];
+      SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.ValidateOpts[] |
+      Object;
 
     /** Declares an unique index. */
-    unique?: boolean;
+    unique?: boolean | Object;
 
 
     /* Options for specific schema types (String, Number, Date, etc.) */
     /** String only - Adds an enum validator */
-    enum?: T[] | SchemaTypeOpts.EnumOpts<T>;
+    enum?: T[] | SchemaTypeOpts.EnumOpts<T> | Object;
     /** String only - Adds a lowercase setter. */
-    lowercase?: boolean;
+    lowercase?: boolean | Object;
     /** String only - Sets a regexp validator. */
-    match?: RegExp | [RegExp, string];
+    match?: RegExp | [RegExp, string] | Object;
     /** String only - Sets a maximum length validator. */
-    maxlength?: number | [number, string];
+    maxlength?: number | [number, string] | Object;
     /** String only - Sets a minimum length validator. */
-    minlength?: number | [number, string];
+    minlength?: number | [number, string] | Object;
     /** String only - Adds a trim setter. */
-    trim?: boolean;
+    trim?: boolean | Object;
     /** String only - Adds an uppercase setter. */
-    uppercase?: boolean;
+    uppercase?: boolean | Object;
 
     /**
      * Date, Number only - Sets a minimum number validator.
      * Sets a minimum date validator.
      */
     min?: number | [number, string] |
-      Date | [Date, string];
+      Date | [Date, string] |
+      Object;
 
     /**
      * Date, Number only - Sets a maximum number validator.
      * Sets a maximum date validator.
      */
     max?: number | [number, string] |
-      Date | [Date, string];
+      Date | [Date, string] |
+      Object;
 
     /**
      * Date only - Declares a TTL index (rounded to the nearest second)
      * for Date types only.
      */
-    expires?: number | string;
+    expires?: number | string | Object;
 
     /** ObjectId only - Adds an auto-generated ObjectId default if turnOn is true. */
-    auto?: boolean;
+    auto?: boolean | Object;
 
     [other: string]: any;
   }
@@ -978,10 +998,12 @@ declare module "mongoose" {
      * call execPopulate(). Passing the same path a second time will overwrite
      * the previous path options. See Model.populate() for explaination of options.
      * @param path The path to populate or an options object
+     * @param names The properties to fetch from the populated document
      * @param callback When passed, population is invoked
      */
     populate(callback: (err: any, res: this) => void): this;
     populate(path: string, callback?: (err: any, res: this) => void): this;
+    populate(path: string, names: string, callback?: (err: any, res: this) => void): this;
     populate(options: ModelPopulateOptions | ModelPopulateOptions[], callback?: (err: any, res: this) => void): this;
 
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */
@@ -994,9 +1016,9 @@ declare module "mongoose" {
      * @param type optionally specify a type for "on-the-fly" attributes
      * @param options optionally specify options that modify the behavior of the set
      */
-    set(path: string, val: any, options?: Object): void;
-    set(path: string, val: any, type: any, options?: Object): void;
-    set(value: Object): void;
+    set(path: string, val: any, options?: Object): this;
+    set(path: string, val: any, type: any, options?: Object): this;
+    set(value: Object): this;
 
     /**
      * The return value of this method is used in calls to JSON.stringify(doc).
@@ -2143,6 +2165,11 @@ declare module "mongoose" {
      * @param fields the field(s) to unwind
      */
     unwind(...fields: string[]): this;
+    /**
+     * Appends new custom $unwind operator(s) to this aggregate pipeline
+     * new in mongodb 3.2
+     */
+    unwind(...opts: { path: string, includeArrayIndex?: string, preserveNullAndEmptyArrays?: boolean }[]): this;
   }
 
   /*

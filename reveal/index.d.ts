@@ -1,6 +1,6 @@
 // Type definitions for Reveal 3.3.0
 // Project: https://github.com/hakimel/reveal.js/
-// Definitions by: robertop87 <https://github.com/robertop87/>
+// Definitions by: robertop87 <https://github.com/robertop87/>, Nava2 <https://github.com/Nava2/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Reveal:RevealStatic;
@@ -30,19 +30,19 @@ interface RevealStatic {
 
 
     // Retrieves the previous and current slide elements
-    getPreviousSlide():Element;
-    getCurrentSlide():Element;
+    getPreviousSlide(): Element;
+    getCurrentSlide(): Element;
 
     getIndices(slide?:Element):{h:number; v:number;};
     getProgress():number;
     getTotalSlides():number;
 
     // Returns the speaker notes for the current slide
-    getSlideNotes(slide:any):string;
+    getSlideNotes(slide?:Element):string;
 
     // States
-    addEventListener(type:string, listener:Function, useCapture?:boolean):void;
-    removeEventListener(type:string, listener:Function, useCapture?:boolean):void;
+    addEventListener(type:string, listener:(event: any)=>void, useCapture?:boolean):void;
+    removeEventListener(type:string, listener:(event: any)=>void, useCapture?:boolean):void;
 
     // State Checks
     isFirstSlide():boolean;
@@ -70,8 +70,12 @@ interface RevealOptions {
     // Configuration
     controls?:boolean;
     progress?:boolean;
-    slideNumber?:boolean;
+    // https://github.com/hakimel/reveal.js/#slide-number
+    slideNumber?:boolean|string;
+   
     history?:boolean;
+
+    // https://github.com/hakimel/reveal.js/#keyboard-bindings
     keyboard?:any;
     overview?:boolean;
     center?:boolean;
@@ -93,27 +97,84 @@ interface RevealOptions {
     transitionSpeed?:string;
     backgroundTransition?:string;
     viewDistance?:number;
-    parallaxBackgroundImage?:string;
-    parallaxBackgroundSize?:string;
-    parallaxBackgroundHorizontal?:any;
-    parallaxBackgroundVertical?:any;
+
+    // https://github.com/hakimel/reveal.js/#parallax-background
+    // Parallax background image
+    parallaxBackgroundImage?: string;
+
+    // Parallax background size
+    parallaxBackgroundSize?: string; // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+    // Number of pixels to move the parallax background per slide
+    // - Calculated automatically unless specified
+    // - Set to 0 to disable movement along an axis
+    parallaxBackgroundHorizontal?: number;
+    parallaxBackgroundVertical?: number;
 
     rollingLinks?:boolean;
     theme?:string;
 
     // Presentation Size
-    width?:number;
-    height?:number;
-    margin?:number;
-    minScale?:number;
-    maxScale?:number;
+    // https://github.com/hakimel/reveal.js/#presentation-size
+    width?:number|string;
+    height?:number|string;
+    margin?:number|string;
+    minScale?:number|string;
+    maxScale?:number|string;
 
     // Dependencies
-    dependencies?:RevealDependency[];
+    // https://github.com/hakimel/reveal.js/#dependencies
+    dependencies?: RevealDependency[];
+
+    // Exposes the reveal.js API through window.postMessage
+    postMessage?: boolean;
+
+    // Dispatches all reveal.js events to the parent window through postMessage
+    postMessageEvents?: boolean;
+
+    // https://github.com/hakimel/reveal.js/#multiplexing
+    multiplex?: MultiplexConfig;
+
+    // https://github.com/hakimel/reveal.js/#mathjax
+    math?: MathConfig;
 }
 
+// https://github.com/hakimel/reveal.js/#slide-changed-event
+interface SlideEvent {
+    previousSlide?: Element;
+    currentSlide: Element;
+    indexh: number;
+    indexv?: number;
+}
+
+// https://github.com/hakimel/reveal.js/#fragment-events
+interface FragmentEvent {
+    fragment: Element;
+}
+
+// https://github.com/hakimel/reveal.js/#multiplexing
+interface MultiplexConfig {
+    // Obtained from the socket.io server. Gives this (the master) control of the presentation
+    secret?: string;
+    // Obtained from the socket.io server
+    id: string;
+
+    // Location of socket.io server
+    url: string;
+}
+
+// https://github.com/hakimel/reveal.js/#mathjax
+interface MathConfig {
+    // Obtained from the socket.io server. Gives this (the master) control of the presentation
+    mathjax: string;
+    // Obtained from the socket.io server
+    config: string;
+}
+
+// https://github.com/hakimel/reveal.js/#dependencies
 interface RevealDependency {
     src:string;
-    condition:()=>boolean;
+    condition?: ()=>boolean;
     async?:boolean;
+    callback?: ()=>void;
 }

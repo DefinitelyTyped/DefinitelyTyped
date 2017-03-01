@@ -24,6 +24,10 @@ declare module "koa" {
 
 declare function bodyParser(opts?: {
     /**
+     *  parser will only parse when request type hits enableTypes, default is ['json', 'form'].
+     */
+    enableTypes?: string[];
+    /**
      * requested encoding. Default is utf-8 by co-body
      */
     encode?: string;
@@ -55,13 +59,14 @@ declare function bodyParser(opts?: {
     extendTypes?: {
         json?: string[];
         form?: string[];
+        text?: string[];
     }
 
     /**
      * support custom error handle
      */
     onerror?: (err: Error, ctx: Koa.Context) => void;
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 
 declare namespace bodyParser { }
 export = bodyParser;

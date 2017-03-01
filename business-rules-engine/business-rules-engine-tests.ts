@@ -1,5 +1,5 @@
 /// <reference types="q" />
-import * as Validators from './node-validators';
+import * as Validators from 'business-rules-engine/node-validators';
 import Validation = require("business-rules-engine");
 
 export interface IPerson{

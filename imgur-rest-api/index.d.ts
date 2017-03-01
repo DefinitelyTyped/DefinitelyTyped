@@ -1,4 +1,4 @@
-// Type definitions for Imgur REST API v3
+// Type definitions for Imgur REST API 3.0
 // Project: https://api.imgur.com/
 // Definitions by: Luke William Westby <http://github.com/lukewestby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

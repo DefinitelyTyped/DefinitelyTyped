@@ -1,6 +1,4 @@
-/// <reference path="./index.d.ts" />
-
-import * as aws4 from ".";
+import * as aws4 from "aws4";
 
 let requestSigner = new aws4.RequestSigner({}, {});
 requestSigner.matchHost("");

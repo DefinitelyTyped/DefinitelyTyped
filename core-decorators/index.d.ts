@@ -1,8 +1,8 @@
-// Type definitions for core-decorators.js v0.10
+// Type definitions for core-decorators.js 0.10
 // Project: https://github.com/jayphelps/core-decorators.js
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.1
 
 export interface ClassDecorator {
     <TFunction extends Function>(target: TFunction): TFunction | void;

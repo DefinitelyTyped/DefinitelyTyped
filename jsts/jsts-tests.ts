@@ -1,4 +1,4 @@
-﻿
+
 
 import * as jsts from 'jsts';
 

@@ -20,7 +20,7 @@
 /// <reference path="google-apps-script.language.d.ts"/>
 /// <reference path="google-apps-script.lock.d.ts"/>
 /// <reference path="google-apps-script.mail.d.ts"/>
-/// reference path="google-apps-script.maps.d.ts"/>
+/// <reference path="google-apps-script.maps.d.ts"/>
 /// <reference path="google-apps-script.optimization.d.ts"/>
 /// <reference path="google-apps-script.properties.d.ts"/>
 /// <reference path="google-apps-script.script.d.ts"/>

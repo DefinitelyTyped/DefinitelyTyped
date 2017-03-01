@@ -1,7 +1,7 @@
 import Resolver = require('./Resolver');
 declare class AppendPlugin {
-    source: string;
     appending: string;
+    source: string;
     target: string;
 
     constructor(source: string, appending: string, target: string);

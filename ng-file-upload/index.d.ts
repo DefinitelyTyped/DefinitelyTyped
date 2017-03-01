@@ -41,7 +41,11 @@ declare module 'angular' {
              * Validate error name: minDuration
              * @type {(number|string)}
              */
-            ngfMinDuration: number | string;
+            ngfMinDuration?: number | string;
+            /**
+             * Validate error name: minSize
+             * @type {(number|string)}
+             */
             ngfMinSize?: number | string;
             /**
              * Validate error name: minRatio
@@ -92,20 +96,6 @@ declare module 'angular' {
             ngfValidateForce?: boolean;
         }
         
-        interface ResizeIfFunction {
-            (width: number, height: number): boolean;
-        }
-
-        interface FileResizeOptions {
-            centerCrop?: boolean;
-            height?: number;
-            ratio?: number;
-            resizeIf?: ResizeIfFunction;
-            restoreExif?: boolean;
-            quality?: number;
-            width?: number;
-        }
-
         interface ResizeIfFunction {
             (width: number, height: number): boolean;
         }

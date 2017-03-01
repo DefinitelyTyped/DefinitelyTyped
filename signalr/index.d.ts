@@ -170,6 +170,7 @@ declare namespace SignalR {
         waitForPageLoad?: boolean;
         jsonp?: boolean;
         pingInterval?: number;
+        withCredentials?: boolean;
     }
 
     interface SimplifyLocation {

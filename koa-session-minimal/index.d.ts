@@ -17,7 +17,7 @@ import * as Koa from "koa";
 import * as cookies from "cookies";
 
 declare module "koa" {
-    interface Request {
+    interface Context {
         session: any;
         sessionHandler: { regenerateId: () => void };
     }
@@ -38,7 +38,7 @@ declare function session(opts?: {
      * session store
      */
     store?: any;
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 
 declare namespace session {}
 export = session;

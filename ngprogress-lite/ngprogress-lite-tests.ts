@@ -1,4 +1,4 @@
-﻿///<reference types="angular" />
+///<reference types="angular" />
 
 
 var app = angular.module('testApp', ['ngProgressLite']);

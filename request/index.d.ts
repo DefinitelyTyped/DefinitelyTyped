@@ -50,6 +50,10 @@ declare namespace request {
         del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
         del(uri: string, callback?: RequestCallback): TRequest;
         del(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+            
+        delete(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        delete(uri: string, callback?: RequestCallback): TRequest;
+        delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(): CookieJar;
@@ -75,7 +79,7 @@ declare namespace request {
 
     interface CoreOptions {
         baseUrl?: string;
-        callback?: (error: any, response: http.IncomingMessage, body: any) => void;
+        callback?: (error: any, response: RequestResponse, body: any) => void;
         jar?: any; // CookieJar
         formData?: any; // Object
         form?: any; // Object or string
@@ -87,6 +91,8 @@ declare namespace request {
         qsStringifyOptions?: any;
         qsParseOptions?: any;
         json?: any;
+        jsonReviver?: (key: string, value: any) => any;
+        jsonReplacer?: (key: string, value: any) => any;
         multipart?: RequestPart[] | Multipart;
         agent?: http.Agent | https.Agent;
         agentOptions?: any;
@@ -134,8 +140,12 @@ declare namespace request {
     export type Options = OptionsWithUri | OptionsWithUrl;
 
     export interface RequestCallback {
-        (error: any, response: http.IncomingMessage, body: any): void;
+        (error: any, response: RequestResponse, body: any): void;
     }
+
+	export interface RequestResponse extends http.IncomingMessage {
+		request: Options;
+	}
 
     export interface HttpArchiveRequest {
         url?: string;
@@ -217,7 +227,7 @@ declare namespace request {
         pass?: string;
         password?: string;
         sendImmediately?: boolean;
-        bearer?: string;
+        bearer?: string | (() => string);
     }
 
     export interface OAuthOptions {

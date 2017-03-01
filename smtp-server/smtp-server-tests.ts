@@ -1,4 +1,4 @@
-import { SMTPServer, SMTPServerOptions } from './';
+import { SMTPServer, SMTPServerOptions } from 'smtp-server';
 
 function SMTPServerConnectTest() {
     let options: SMTPServerOptions = {

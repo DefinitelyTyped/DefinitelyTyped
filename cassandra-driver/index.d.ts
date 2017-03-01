@@ -147,7 +147,7 @@ export namespace types {
     three,
     quorum,
     all,
-    localQuorm,
+    localQuorum,
     eachQuorum,
     serial,
     localSerial,

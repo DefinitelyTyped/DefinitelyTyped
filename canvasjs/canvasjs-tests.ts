@@ -1,4 +1,4 @@
-﻿
+
 
 namespace CanvasJS.Tests {
     // Column Chart

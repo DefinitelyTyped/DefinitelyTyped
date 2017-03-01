@@ -7,7 +7,7 @@
 
     import * as Koa from 'koa';
     import * as json from 'koa-json';
-    
+
     const app = new Koa();
     app.use(json());
 
@@ -17,7 +17,7 @@ import * as Koa from "koa";
 
 declare function json(opts?: {
 
-    /** 
+    /**
      * default to pretty response [true]
     */
     pretty?: boolean,
@@ -31,6 +31,6 @@ declare function json(opts?: {
      * JSON spaces [2]
      */
     spaces?: number
-}): { (ctx: Koa.Context, next?: () => any): any };
+}): Koa.Middleware;
 declare namespace json { }
 export = json;

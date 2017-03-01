@@ -15,6 +15,9 @@ interface MousetrapStatic {
     unbind(keys: string|string[], action?: string): void;
     trigger(keys: string, action?: string): void;
     reset(): void;
+
+    /** https://craig.is/killing/mice#extensions.global */
+    bindGlobal(keyArray: string|string[], callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
 }
 
 interface MousetrapInstance {

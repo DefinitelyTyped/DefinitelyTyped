@@ -1,8 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -11,12 +15,11 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-
-         "jsx": "react",
-         "experimentalDecorators": true
+        "jsx": "react",
+        "experimentalDecorators": true
     },
     "files": [
         "index.d.ts",
-         "react-css-modules-tests.tsx"
+        "react-css-modules-tests.tsx"
     ]
 }

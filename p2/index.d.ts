@@ -520,7 +520,10 @@ declare namespace p2 {
         addShape(shape: Shape, offset?: number[], angle?: number): void;
         removeShape(shape: Shape): boolean;
         updateMassProperties(): void;
-        applyForce(force: number[], worldPoint: number[]): void;
+        applyForce(force: number[], relativePoint?: number[]): void;
+        applyForceLocal(localforce: number[], localPoint?: number[]): void;
+        applyImpulse(impulse: number[], relativePoint?: number[]): void;
+        applyImpulseLocal(impulse: number[], localPoint?: number[]): void;
         toLocalFrame(out: number[], worldPoint: number[]): void;
         toWorldFrame(out: number[], localPoint: number[]): void;
         fromPolygon(path: number[][], options?: {

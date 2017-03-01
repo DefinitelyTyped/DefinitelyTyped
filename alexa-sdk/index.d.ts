@@ -21,7 +21,7 @@ interface AlexaObject {
 }
 
 interface Handlers {
-    [intent: string]: () => void;
+    [intent: string]: (this: Handler) => void;
 }
 
 interface Handler {

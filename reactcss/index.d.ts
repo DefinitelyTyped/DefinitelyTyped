@@ -2,29 +2,28 @@
 // Project: http://reactcss.com/
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-declare namespace ReactCSS {
-    interface LoopableProps {
-        "first-child"?: boolean
-        "last-child"?: boolean
-        even?: boolean
-        odd?: boolean
-        [nthChild: string]: boolean
-    }
+import * as React from "react"
 
-    interface HoverProps {
-        hover?: boolean
-    }
 
-    interface Classes {
-        default: any
-        [scope: string]: any
-    }
+interface LoopableProps {
+    "first-child"?: boolean
+    "last-child"?: boolean
+    even?: boolean
+    odd?: boolean
+    [nthChild: string]: boolean
 }
 
-declare module "reactcss" {
-    export type LoopableProps = ReactCSS.LoopableProps
-    export function hover<A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A>
-    export function loop(i: number, length: number): ReactCSS.LoopableProps
-    export default function reactCSS (classes: ReactCSS.Classes, ...activations: Array<any>): any
+interface HoverProps {
+    hover?: boolean
 }
+
+interface Classes {
+    default: any
+    [scope: string]: any
+}
+
+export function hover<A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A>
+export function loop(i: number, length: number): LoopableProps
+export default function reactCSS(classes: Classes, ...activations: Array<any>): any

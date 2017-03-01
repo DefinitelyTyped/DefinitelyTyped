@@ -5,6 +5,8 @@
 
 ///<reference types="node" />
 
+import { Agent } from "http";
+
 export class Request extends Body {
 	constructor(input: string | Request, init?: RequestInit);
 	method: string;
@@ -12,20 +14,35 @@ export class Request extends Body {
 	headers: Headers;
 	context: RequestContext;
 	referrer: string;
-	mode: RequestMode;
 	redirect: RequestRedirect;
-	credentials: RequestCredentials;
-	cache: RequestCache;
+
+	//node-fetch extensions to the whatwg/fetch spec
+	compress: boolean;
+	agent?: Agent;
+	counter: number;
+	follow: number;
+	hostname: string;
+	protocol: string;
+	port?: number;
+	timeout: number;
+	size: number;
 }
 
 interface RequestInit {
+	//whatwg/fetch standard options
 	method?: string;
 	headers?: HeaderInit | { [index: string]: string };
 	body?: BodyInit;
-	mode?: RequestMode;
 	redirect?: RequestRedirect;
-	credentials?: RequestCredentials;
-	cache?: RequestCache;
+
+	//node-fetch extensions
+	timeout?: number; //=0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
+	compress?: boolean; //=true support gzip/deflate content encoding. false to disable
+	size?: number; //=0 maximum response body size in bytes. 0 to disable
+	agent?: Agent; //=null http.Agent instance, allows custom proxy, certificate etc.
+	follow?: number; //=20 maximum redirect count. 0 to not follow redirect
+
+	//node-fetch does not support mode, cache or credentials options
 }
 
 type RequestContext =
@@ -56,7 +73,6 @@ export class Headers {
 export class Body {
 	bodyUsed: boolean;
 	body: NodeJS.ReadableStream;
-	arrayBuffer(): Promise<ArrayBuffer>;
 	json(): Promise<any>;
 	json<T>(): Promise<T>;
 	text(): Promise<string>;
@@ -71,7 +87,9 @@ export class Response extends Body {
 	url: string;
 	status: number;
 	ok: boolean;
+	size: number;
 	statusText: string;
+	timeout: number;
 	headers: Headers;
 	clone(): Response;
 }

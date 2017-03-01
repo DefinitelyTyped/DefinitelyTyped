@@ -1,4 +1,4 @@
-﻿
+
 
 
 var ngProgress: NgProgress.INgProgress = <any> {};
