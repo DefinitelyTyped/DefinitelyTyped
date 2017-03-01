@@ -2042,6 +2042,8 @@ declare namespace React {
         // React-specific Attributes
         defaultChecked?: boolean;
         defaultValue?: string | string[];
+        jsx?: boolean;
+        global?: boolean;
 
         // Standard HTML Attributes
         accept?: string;
