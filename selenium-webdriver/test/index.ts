@@ -649,7 +649,6 @@ function TestWebDriver() {
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => Promise.resolve(true));
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => webdriver.promise.Promise.resolve(true));
-    booleanPromise = driver.wait(conditionFunction);
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
     let webElementCondition: webdriver.WebElementCondition;
