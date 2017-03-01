@@ -3224,7 +3224,7 @@ export class Options {
    *     invalid.
    * @throws {TypeError} if `spec` is not a cookie object.
    */
-  addCookie(spec: IWebDriverOptionsCookie): webdriver.promise.Promise<void>;
+  addCookie(spec: IWebDriverOptionsCookie): promise.Promise<void>;
 
   /**
    * Schedules a command to delete all cookies visible to the current page.
@@ -3945,7 +3945,7 @@ export class WebDriver {
    *     rejected if the condition times out.
    * @template T
    */
-  wait(condition: webdriver.WebElementCondition, opt_timeout?: number, opt_message?: string): WebElementPromise;
+  wait(condition: WebElementCondition, opt_timeout?: number, opt_message?: string): WebElementPromise;
 
   /**
    * Schedules a command to wait for a condition to hold. The condition may be
@@ -4158,7 +4158,7 @@ export class WebDriver {
    * @extends {promise.IThenable<!webdriver.IWebDriver>}
    * @interface
    */
-  interface ThenableWebDriver extends WebDriver, webdriver.promise.IThenable<WebDriver> { }
+  interface ThenableWebDriver extends WebDriver, promise.IThenable<WebDriver> { }
 
 interface IWebElementId {
   [ELEMENT: string]: string;
