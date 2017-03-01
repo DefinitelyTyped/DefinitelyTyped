@@ -3183,7 +3183,7 @@ declare namespace sequelize {
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions | Array<col | and | or | string>;
+        where?: WhereOptions | fn | Array<col | and | or | string>;
 
         /**
          * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
