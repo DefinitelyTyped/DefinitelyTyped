@@ -174,6 +174,7 @@ declare namespace __MaterialUI {
                 height?: number;
                 minWidth?: number;
                 iconButtonSize?: number;
+                textTransform?: string;
             };
             card?: {
                 titleColor?: string;
