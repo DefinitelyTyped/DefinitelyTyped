@@ -1849,6 +1849,7 @@ declare module "url" {
         has(name: string): boolean;
         keys(): Iterator<string>;
         set(name: string, value: string): void;
+        sort(): void;
         toString(): string;
         values(): Iterator<string>;
         [Symbol.iterator](): Iterator<string[]>;
@@ -1869,6 +1870,7 @@ declare module "url" {
         readonly searchParams: URLSearchParams;
         username: string;
         toString(): string;
+        toJSON(): string;
     }
 }
 
