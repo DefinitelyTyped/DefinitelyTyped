@@ -1,8 +1,8 @@
-/* tslint:disable */
 // Type definitions for Selenium WebDriverJS 2.53.1
 // Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/* tslint:disable */
 
 import * as chrome from './chrome';
 import * as edge from './edge';
