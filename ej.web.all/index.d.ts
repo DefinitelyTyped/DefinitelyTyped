@@ -1826,7 +1826,8 @@ export interface Model {
 	*/
 	addNewText?: boolean;
 
-	/** Allows new values to be added to the autocomplete input other than the values in the suggestion list. Normally, when there are no suggestions it will display â€œNo suggestionsâ€ label in the popup.
+	/** Allows new values to be added to the autocomplete input other than the values in the suggestion list.
+	*   Normally, when there are no suggestions it will display â€œNo suggestionsâ€ label in the popup.
 	*   @Default {false}
 	*/
 	allowAddNew?: boolean;
@@ -1891,7 +1892,9 @@ export interface Model {
 	*/
 	enableDistinct?: boolean;
 
-	/** Allows the current model values to be saved in local storage or browser cookies for state maintenance when it is set to true. While refreshing the page, it retains the model value from browser cookies or local storage.
+	/** Allows the current model values to be saved in local storage or browser cookies for state maintenance
+	*   when it is set to true.
+	*   While refreshing the page, it retains the model value from browser cookies or local storage.
 	*   @Default {false}
 	*/
 	enablePersistence?: boolean;
