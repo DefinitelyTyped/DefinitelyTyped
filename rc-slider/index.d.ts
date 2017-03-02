@@ -8,7 +8,7 @@ import * as React from 'react';
 
 declare namespace RcSliderClass {
     export interface Marks {
-        number: string | { style: string, label: string };
+        [number: number]: JSX.Element | string | { style: any, label: string | JSX.Element };
     }
 
     export interface CommonApiProps {
