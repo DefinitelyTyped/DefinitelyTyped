@@ -1,0 +1,7 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    // This package uses Function and Object types, and it will take effort to fix.
+    "forbidden-types": false
+  }
+}
