@@ -3,7 +3,7 @@
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
+/// <reference types="../jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
@@ -4670,7 +4670,8 @@ export interface Model {
 	*/
 	contextMenuSettings?: ContextMenuSettings;
 
-	/** Sets the root class for FileExplorer theme. This cssClass API allows to use custom skinning option for File Explorer control. By defining the root class by using this API, you have to include this root class in CSS.
+	/** Sets the root class for FileExplorer theme. This cssClass API allows to use custom skinning option for File Explorer control.
+	*   By defining the root class by using this API, you have to include this root class in CSS.
 	*/
 	cssClass?: string;
 
@@ -15612,11 +15613,14 @@ export interface Model {
 	tableRows?: number;
 
 	/** Sets the tools in the RTE and gets the inner display order of the corresponding group element. Tools are dependent on the toolsList property.
-	*   @Default {formatStyle: [format],style: [bold, italic, underline, strikethrough],alignment: [justifyLeft, justifyCenter, justifyRight, justifyFull],lists: [unorderedList, orderedList],indenting: [outdent, indent],doAction: [undo, redo],links: [createLink,removeLink],images: [image],media: [video],tables: [createTable, addRowAbove, addRowBelow, addColumnLeft, addColumnRight, deleteRow, deleteColumn, deleteTable]],view:[â€œfullScreenâ€,zoomIn,zoomOut],print:[print]}
+	*   @Default {formatStyle: [format],style: [bold, italic, underline, strikethrough],alignment: [justifyLeft, justifyCenter, justifyRight, justifyFull],lists: [unorderedList, orderedList],
+	*	indenting: [outdent, indent],doAction: [undo, redo],links: [createLink,removeLink],images: [image],media: [video],tables: [createTable, addRowAbove, addRowBelow,
+	*   addColumnLeft, addColumnRight, deleteRow, deleteColumn, deleteTable]],view:[â€œfullScreenâ€,zoomIn,zoomOut],print:[print]}
 	*/
 	tools?: Tools;
 
-	/** Specifies the list of groups and order of those groups displayed in the RTE toolbar.  The toolsList property is used to get the root group order and tools property is used to get the inner order of the corresponding groups displayed. When the value is not specified, it gets its default display order and tools.
+	/** Specifies the list of groups and order of those groups displayed in the RTE toolbar.  The toolsList property is used to get the root group order and tools property is used to get the
+	*   inner order of the corresponding groups displayed. When the value is not specified, it gets its default display order and tools.
 	*   @Default {[formatStyle, font, style, effects, alignment, lists, indenting, clipboard, doAction, clear, links, images, media, tables, casing,view, customTools,print,edit]}
 	*/
 	toolsList?: any[];
@@ -34810,7 +34814,8 @@ export interface Model {
 	*/
 	showColumnOptions?: boolean;
 
-	/** Controls the visibility of the menu button, which is displayed on the column header. Clicking on this button will show a popup menu. When you choose Columns item from this popup, a list box with column names will be shown, from which you can select/deselect a column name to control the visibility of the respective columns.
+	/** Controls the visibility of the menu button, which is displayed on the column header. Clicking on this button will show a popup menu. When you choose Columns item from this popup,
+	*   a list box with column names will be shown, from which you can select/deselect a column name to control the visibility of the respective columns.
 	*   @Default {false}
 	*/
 	showColumnChooser?: boolean;
@@ -51124,7 +51129,8 @@ export interface AxesStripLine {
 	*/
 	width?: number;
 
-	/** Specifies the order where the strip line and the series have to be rendered. When Z-order is â€œbehindâ€, strip line is rendered under the series and when it is â€œoverâ€, it is rendered above the series.
+	/** Specifies the order where the strip line and the series have to be rendered. When Z-order is â€œbehindâ€, strip line is rendered under the series and when it is â€œoverâ€,
+	*   it is rendered above the series.
 	*   @Default {over. See ZIndex}
 	*/
 	zIndex?: ej.datavisualization.Chart.ZIndex|string;
@@ -51218,7 +51224,8 @@ export interface Axis {
 	*/
 	alternateGridBand?: AxesAlternateGridBand;
 
-	/** Specifies where axis should intersect the vertical axis or vice versa. Value should be provided in axis co-ordinates. If provided value is greater than the maximum value of crossing axis, then axis will be placed at the opposite side.
+	/** Specifies where axis should intersect the vertical axis or vice versa. Value should be provided in axis co-ordinates. If provided value is greater than the maximum value of crossing axis,
+	*   then axis will be placed at the opposite side.
 	*   @Default {null}
 	*/
 	crossesAt?: number;
