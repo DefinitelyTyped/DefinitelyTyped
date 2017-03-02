@@ -3,8 +3,8 @@ import * as ReactModal from 'react-modal';
 
 class ExampleOfUsingReactModal extends React.Component<{}, {}> {
   render() {
-    var onAfterOpenFn = () => { }
-    var onRequestCloseFn = () => { }
+    var onAfterOpenFn = () => { };
+    var onRequestCloseFn = () => { };
     var customStyle = {
       overlay: {
         position: 'fixed',
@@ -29,7 +29,7 @@ class ExampleOfUsingReactModal extends React.Component<{}, {}> {
         padding: '20px'
 
       }
-    }
+    };
     return (
       <ReactModal
         isOpen={true}

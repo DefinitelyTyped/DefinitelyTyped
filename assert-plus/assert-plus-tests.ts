@@ -1,5 +1,5 @@
 import * as assert from 'assert-plus';
 
-let arr = ['one', 'two'];
+const arr = ['one', 'two'];
 
 assert.array(arr, '');

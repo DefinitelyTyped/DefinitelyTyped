@@ -1,13 +1,11 @@
-/// <reference path="../index.d.ts" />
-
 function sessionTest() {
-    type CustomHeader = {
+    interface CustomHeader {
         customHeader: string;
-    };
+    }
 
-    type CustomParam = {
+    interface CustomParam {
         customParam: boolean;
-    };
+    }
 
     const sessionOptions: qq.SessionOptions<CustomHeader, CustomParam> = {
         customHeaders: {

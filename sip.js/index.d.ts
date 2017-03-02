@@ -182,7 +182,10 @@ declare namespace sipjs {
             on(name: 'addStream' | 'userMedia', callback: (stream: any) => void): void;
             on(name: 'userMediaFailed', callback: (error: string) => void): void;
             on(name: 'iceCandidate', callback: (candidate: any) => void): void;
-            on(name: 'iceGathering' | 'iceGatheringComplete' | 'iceConnection' | 'iceConnectionChecking' | 'iceConnectionConnected' | 'iceConnectionCompleted' | 'iceConnectionFailed' | 'iceConnectionDisconnected' | 'iceConnectionClosed' | string, callback: () => void): void;
+            on(
+                name: 'iceGathering' | 'iceGatheringComplete' | 'iceConnection' | 'iceConnectionChecking' | 'iceConnectionConnected' | 'iceConnectionCompleted' | 'iceConnectionFailed' |
+                      'iceConnectionDisconnected' | 'iceConnectionClosed' | string,
+                callback: () => void): void;
             on(name: 'dataChannel' | 'getDescription' | 'setDescription', callback: (sdpWrapper: { type: string, sdp: string }) => void): void;
         }
     }
