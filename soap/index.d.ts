@@ -50,3 +50,11 @@ export interface Server extends events.EventEmitter {
 }
 export function listen(server: any, path: string, service: any, wsdl: string): Server;
 declare function createClient(wsdlPath: string, options: any, fn: (err: any, client: Client) => void): void;
+
+export class HttpClient {
+    constructor(options?: any);
+    buildRequest(rurl: string, data: any | string, exheaders?: any, exoptions?: any): any;
+    handleResponse(req: any, res: any, body: any | string): any | string;
+    request(rurl: string, data: any | string, callback: (err: any, res: any, body: any | string) => void, exheaders?: any, exoptions?: any): any;
+    requestStream(rurl: string, data: any | string, exheaders?: any, exoptions?: any): any;
+}
