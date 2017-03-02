@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.37
+// Type definitions for react-native 0.42
 // Project: https://github.com/facebook/react-native
 // Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
