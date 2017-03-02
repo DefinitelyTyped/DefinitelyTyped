@@ -1,20 +1,22 @@
-// Type definitions for 3d-bin-packing
+// Type definitions for 3d-bin-packing v1.1.2
 // Project: https://github.com/betterwaysystems/packer
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
-/// <reference types="typescript-stl" />
-/// <reference types="samchon-framework" />
-/// <reference types="react" />
-/// <reference types="react-data-grid" />
-/// <reference types="three" />
+/// <reference types="samchon" />
 
 declare module "3d-bin-packing"
 {
-        export = bws.packer;
+	export = bws.packer;
 }
-declare var ReactDataGrid: typeof AdazzleReactDataGrid.ReactDataGrid;
+
+/// <reference types="samchon" />
+/// <reference types="tstl" />
+declare namespace bws.packer {
+    export import library = samchon.library;
+    export import protocol = samchon.protocol;
+    function _Test(): void;
+}
 declare namespace boxologic {
     /**
      * <p> An abstract instance of boxologic. </p>
@@ -60,122 +62,6 @@ declare namespace boxologic {
          * @param length Length, length on the Z-axis in 3D.
          */
         constructor(width: number, height: number, length: number);
-    }
-}
-declare namespace bws.packer {
-    /**
-     * @brief Packer, a solver of 3d bin packing with multiple wrappers.
-     *
-     * @details
-     * <p> Packer is a facade class supporting packing operations in user side. You can solve a packing problem
-     * by constructing Packer class with {@link WrapperArray wrappers} and {@link InstanceArray instances} to
-     * pack and executing {@link optimize Packer.optimize()} method. </p>
-     *
-     * <p> In background side, deducting packing solution, those algorithms are used. </p>
-     * <ul>
-     *	<li> <a href="http://betterwaysystems.github.io/packer/reference/AirForceBinPacking.pdf" target="_blank">
-     *		Airforce Bin Packing; 3D pallet packing problem: A human intelligence-based heuristic approach </a>
-     *	</li>
-     *	<li> Genetic Algorithm </li>
-     *	<li> Greedy and Back-tracking algorithm </li>
-     * </ul>
-     *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class Packer extends samchon.protocol.Entity {
-        /**
-         * Candidate wrappers who can contain instances.
-         */
-        protected wrapperArray: WrapperArray;
-        /**
-         * Instances trying to pack into the wrapper.
-         */
-        protected instanceArray: InstanceArray;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        /**
-         * Construct from members.
-         *
-         * @param wrapperArray Candidate wrappers who can contain instances.
-         * @param instanceArray Instances to be packed into some wrappers.
-         */
-        constructor(wrapperArray: WrapperArray, instanceArray: InstanceArray);
-        /**
-         * @inheritdoc
-         */
-        construct(xml: samchon.library.XML): void;
-        /**
-         * Get wrapperArray.
-         */
-        getWrapperArray(): WrapperArray;
-        /**
-         * Get instanceArray.
-         */
-        getInstanceArray(): InstanceArray;
-        /**
-         * <p> Deduct
-         *
-         */
-        optimize(): WrapperArray;
-        /**
-         * @brief Initialize sequence list (gene_array).
-         *
-         * @details
-         * <p> Deducts initial sequence list by such assumption: </p>
-         *
-         * <ul>
-         *	<li> Cost of larger wrapper is less than smaller one, within framework of price per volume unit. </li>
-         *	<ul>
-         *		<li> Wrapper Larger: (price: $1,000, volume: 100cm^3 -> price per volume unit: $10 / cm^3) </li>
-         *		<li> Wrapper Smaller: (price: $700, volume: 50cm^3 -> price per volume unit: $14 / cm^3) </li>
-         *		<li> Larger's <u>cost</u> is less than Smaller, within framework of price per volume unit </li>
-         *	</ul>
-         * </ul>
-         *
-         * <p> Method {@link initGenes initGenes()} constructs {@link WrapperGroup WrapperGroups} corresponding
-         * with the {@link wrapperArray} and allocates {@link instanceArray instances} to a {@link WrapperGroup},
-         * has the smallest <u>cost</u> between containbles. </p>
-         *
-         * <p> After executing packing solution by {@link WrapperGroup.optimize WrapperGroup.optimize()}, trying to
-         * {@link repack re-pack} each {@link WrapperGroup} to another type of {@link Wrapper}, deducts the best
-         * solution between them. It's the initial sequence list of genetic algorithm. </p>
-         *
-         * @return Initial sequence list.
-         */
-        protected initGenes(): GAWrapperArray;
-        /**
-         * Try to repack each wrappers to another type.
-         *
-         * @param $wrappers Wrappers to repack.
-         * @return Re-packed wrappers.
-         */
-        protected repack($wrappers: WrapperArray): WrapperArray;
-        /**
-         * @inheritdoc
-         */
-        TAG(): string;
-        /**
-         * @inheritdoc
-         */
-        toXML(): samchon.library.XML;
-    }
-}
-declare namespace flex {
-    class TabNavigator extends React.Component<TabNavigatorProps, TabNavigatorProps> {
-        render(): JSX.Element;
-        private handle_change(index, event);
-    }
-    class NavigatorContent extends React.Component<NavigatorContentProps, NavigatorContentProps> {
-        render(): JSX.Element;
-    }
-    interface TabNavigatorProps extends React.Props<TabNavigator> {
-        selectedIndex?: number;
-        style?: React.CSSProperties;
-    }
-    interface NavigatorContentProps extends React.Props<NavigatorContent> {
-        label: string;
     }
 }
 declare namespace boxologic {
@@ -589,7 +475,7 @@ declare namespace bws.packer {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class PackerForm extends samchon.protocol.Entity {
+    class PackerForm extends protocol.Entity {
         /**
          * Form of Instances to pack.
          */
@@ -609,12 +495,12 @@ declare namespace bws.packer {
          * @param wrapperArray Type of Wrappers to be used.
          */
         constructor(instanceFormArray: InstanceFormArray, wrapperArray: WrapperArray);
-        construct(xml: samchon.library.XML): void;
+        construct(xml: library.XML): void;
         optimize(): WrapperArray;
         getInstanceFormArray(): InstanceFormArray;
         getWrapperArray(): WrapperArray;
         TAG(): string;
-        toXML(): samchon.library.XML;
+        toXML(): library.XML;
         toPacker(): Packer;
     }
     /**
@@ -622,12 +508,12 @@ declare namespace bws.packer {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class InstanceFormArray extends samchon.protocol.EntityArrayCollection<InstanceForm> {
+    class InstanceFormArray extends protocol.EntityArrayCollection<InstanceForm> {
         /**
          * Default Constructor.
          */
         constructor();
-        createChild(xml: samchon.library.XML): InstanceForm;
+        createChild(xml: library.XML): InstanceForm;
         TAG(): string;
         CHILD_TAG(): string;
         /**
@@ -645,7 +531,7 @@ declare namespace bws.packer {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class InstanceForm extends samchon.protocol.Entity {
+    class InstanceForm extends protocol.Entity {
         /**
          * A duplicated Instance.
          */
@@ -661,7 +547,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        construct(xml: samchon.library.XML): void;
+        construct(xml: library.XML): void;
         private createInstance(xml);
         key(): any;
         getInstance(): Instance;
@@ -679,7 +565,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        toXML(): samchon.library.XML;
+        toXML(): library.XML;
         /**
          * <p> Repeated {@link instance} to {@link InstanceArray}.
          *
@@ -694,7 +580,7 @@ declare namespace bws.packer {
     }
 }
 declare namespace bws.packer {
-    class WrapperArray extends samchon.protocol.EntityArrayCollection<Wrapper> {
+    class WrapperArray extends protocol.EntityArrayCollection<Wrapper> {
         /**
          * Default Constructor.
          */
@@ -702,7 +588,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        createChild(xml: samchon.library.XML): Wrapper;
+        createChild(xml: library.XML): Wrapper;
         /**
          * Get (calculate) price.
          */
@@ -756,7 +642,7 @@ declare namespace bws.packer {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    interface Instance extends samchon.protocol.IEntity {
+    interface Instance extends protocol.IEntity {
         /**
          * Get name.
          */
@@ -813,7 +699,7 @@ declare namespace bws.packer {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class InstanceArray extends samchon.protocol.EntityArray<Instance> {
+    class InstanceArray extends protocol.EntityArray<Instance> {
         /**
          * Default Constructor.
          */
@@ -821,7 +707,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        createChild(xml: samchon.library.XML): Instance;
+        createChild(xml: library.XML): Instance;
         /**
          * @inheritdoc
          */
@@ -834,11 +720,111 @@ declare namespace bws.packer {
 }
 declare namespace bws.packer {
     /**
+     * @brief Packer, a solver of 3d bin packing with multiple wrappers.
+     *
+     * @details
+     * <p> Packer is a facade class supporting packing operations in user side. You can solve a packing problem
+     * by constructing Packer class with {@link WrapperArray wrappers} and {@link InstanceArray instances} to
+     * pack and executing {@link optimize Packer.optimize()} method. </p>
+     *
+     * <p> In background side, deducting packing solution, those algorithms are used. </p>
+     * <ul>
+     *	<li> <a href="http://betterwaysystems.github.io/packer/reference/AirForceBinPacking.pdf" target="_blank">
+     *		Airforce Bin Packing; 3D pallet packing problem: A human intelligence-based heuristic approach </a>
+     *	</li>
+     *	<li> Genetic Algorithm </li>
+     *	<li> Greedy and Back-tracking algorithm </li>
+     * </ul>
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class Packer extends protocol.Entity {
+        /**
+         * Candidate wrappers who can contain instances.
+         */
+        protected wrapperArray: WrapperArray;
+        /**
+         * Instances trying to pack into the wrapper.
+         */
+        protected instanceArray: InstanceArray;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * Construct from members.
+         *
+         * @param wrapperArray Candidate wrappers who can contain instances.
+         * @param instanceArray Instances to be packed into some wrappers.
+         */
+        constructor(wrapperArray: WrapperArray, instanceArray: InstanceArray);
+        /**
+         * @inheritdoc
+         */
+        construct(xml: library.XML): void;
+        /**
+         * Get wrapperArray.
+         */
+        getWrapperArray(): WrapperArray;
+        /**
+         * Get instanceArray.
+         */
+        getInstanceArray(): InstanceArray;
+        /**
+         * <p> Deduct
+         *
+         */
+        optimize(): WrapperArray;
+        /**
+         * @brief Initialize sequence list (gene_array).
+         *
+         * @details
+         * <p> Deducts initial sequence list by such assumption: </p>
+         *
+         * <ul>
+         *	<li> Cost of larger wrapper is less than smaller one, within framework of price per volume unit. </li>
+         *	<ul>
+         *		<li> Wrapper Larger: (price: $1,000, volume: 100cm^3 -> price per volume unit: $10 / cm^3) </li>
+         *		<li> Wrapper Smaller: (price: $700, volume: 50cm^3 -> price per volume unit: $14 / cm^3) </li>
+         *		<li> Larger's <u>cost</u> is less than Smaller, within framework of price per volume unit </li>
+         *	</ul>
+         * </ul>
+         *
+         * <p> Method {@link initGenes initGenes()} constructs {@link WrapperGroup WrapperGroups} corresponding
+         * with the {@link wrapperArray} and allocates {@link instanceArray instances} to a {@link WrapperGroup},
+         * has the smallest <u>cost</u> between containbles. </p>
+         *
+         * <p> After executing packing solution by {@link WrapperGroup.optimize WrapperGroup.optimize()}, trying to
+         * {@link repack re-pack} each {@link WrapperGroup} to another type of {@link Wrapper}, deducts the best
+         * solution between them. It's the initial sequence list of genetic algorithm. </p>
+         *
+         * @return Initial sequence list.
+         */
+        protected initGenes(): GAWrapperArray;
+        /**
+         * Try to repack each wrappers to another type.
+         *
+         * @param $wrappers Wrappers to repack.
+         * @return Re-packed wrappers.
+         */
+        protected repack($wrappers: WrapperArray): WrapperArray;
+        /**
+         * @inheritdoc
+         */
+        TAG(): string;
+        /**
+         * @inheritdoc
+         */
+        toXML(): library.XML;
+    }
+}
+declare namespace bws.packer {
+    /**
      * A product.
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class Product extends samchon.protocol.Entity implements Instance {
+    class Product extends protocol.Entity implements Instance {
         /**
          * <p> Name, key of the Product. </p>
          *
@@ -921,7 +907,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        toXML(): samchon.library.XML;
+        toXML(): library.XML;
     }
 }
 declare namespace bws.packer {
@@ -937,7 +923,7 @@ declare namespace bws.packer {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class Wrap extends samchon.protocol.Entity {
+    class Wrap extends protocol.Entity {
         /**
          * A wrapper wrapping the {@link instance}.
          */
@@ -962,10 +948,6 @@ declare namespace bws.packer {
          * Placement orientation of wrapped {@link instance}.
          */
         protected orientation: number;
-        /**
-         *
-         */
-        protected color: number;
         /**
          * Construct from a Wrapper.
          *
@@ -996,7 +978,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        construct(xml: samchon.library.XML): void;
+        construct(xml: library.XML): void;
         /**
          * Factory method of wrapped Instance.
          *
@@ -1058,11 +1040,11 @@ declare namespace bws.packer {
         /**
          * Get width.
          */
-        getWidth(): number;
+        getLayoutWidth(): number;
         /**
          * Get height.
          */
-        getHeight(): number;
+        getLayoutHeight(): number;
         /**
          * Get length.
          */
@@ -1071,9 +1053,9 @@ declare namespace bws.packer {
          * Get volume.
          */
         getVolume(): number;
-        $instanceName: string;
-        $layoutScale: string;
-        $position: string;
+        readonly $instanceName: string;
+        readonly $layoutScale: string;
+        readonly $position: string;
         /**
          * @inheritdoc
          */
@@ -1081,19 +1063,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        toXML(): samchon.library.XML;
-        /**
-         * Thickness of boundary lines of a shape represents the {@link instance}.
-         */
-        private static BOUNDARY_THICKNESS;
-        /**
-         *
-         *
-         * @param geometry
-         *
-         * @return A shape and its boundary lines as 3D-objects.
-         */
-        toDisplayObjects(geometry: THREE.Geometry): std.Vector<THREE.Object3D>;
+        toXML(): library.XML;
     }
 }
 declare namespace bws.packer {
@@ -1102,7 +1072,7 @@ declare namespace bws.packer {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class Wrapper extends samchon.protocol.EntityDeque<Wrap> implements Instance {
+    class Wrapper extends protocol.EntityDeque<Wrap> implements Instance {
         /**
          * <p> Name, key of the Wrapper. </p>
          *
@@ -1151,11 +1121,10 @@ declare namespace bws.packer {
          * @param thickness A thickness causes shrinkness on containable volume.
          */
         constructor(name: string, price: number, width: number, height: number, length: number, thickness: number);
-        construct(xml: samchon.library.XML): void;
         /**
          * @inheritdoc
          */
-        createChild(xml: samchon.library.XML): Wrap;
+        createChild(xml: library.XML): Wrap;
         /**
          * Key of a Wrapper is its name.
          */
@@ -1232,7 +1201,7 @@ declare namespace bws.packer {
          * @return utilization ratio.
          */
         getUtilization(): number;
-        equal_to(obj: Wrapper): boolean;
+        equals(obj: Wrapper): boolean;
         /**
          * <p> Wrapper is enough greater? </p>
          *
@@ -1272,8 +1241,8 @@ declare namespace bws.packer {
         $height: string;
         $length: string;
         $thickness: string;
-        $scale: string;
-        $spaceUtilization: string;
+        readonly $scale: string;
+        readonly $spaceUtilization: string;
         /**
          * @inheritdoc
          */
@@ -1289,25 +1258,7 @@ declare namespace bws.packer {
         /**
          * @inheritdoc
          */
-        toXML(): samchon.library.XML;
-        private static scene;
-        private static renderer;
-        private static camera;
-        private static trackball;
-        private static mouse;
-        private static BOUNDARY_THICKNESS;
-        /**
-         * <p> Convert to a canvas containing 3D elements. </p>
-         *
-         * @param endIndex
-         *
-         * @return A 3D-canvans printing the Wrapper and its children {@link Wrap wrapped}
-         *						{@link Instance instances} with those boundary lines.
-         */
-        toCanvas(endIndex?: number): HTMLCanvasElement;
-        private static handleMouseMove(event);
-        private static animate();
-        private static render();
+        toXML(): library.XML;
     }
 }
 declare namespace bws.packer {
@@ -1428,74 +1379,5 @@ declare namespace bws.packer {
          * @inheritdoc
          */
         TAG(): string;
-    }
-}
-declare namespace bws.packer {
-    abstract class Editor<T extends samchon.protocol.IEntity> extends React.Component<{
-        dataProvider: samchon.protocol.EntityArrayCollection<T>;
-    }, {}> {
-        private columns;
-        private selected_index;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        protected abstract createColumns(): AdazzleReactDataGrid.Column[];
-        private get_row(index);
-        private insert_instance(event);
-        private erase_instances(event);
-        private handle_data_change(event);
-        private handle_row_change(event);
-        private handle_select(event);
-        render(): JSX.Element;
-    }
-}
-declare namespace bws.packer {
-    interface ItemEditorProps extends React.Props<ItemEditor> {
-        application: PackerApplication;
-        instances: InstanceFormArray;
-        wrappers: WrapperArray;
-    }
-    class ItemEditor extends React.Component<ItemEditorProps, {}> {
-        private clear(event);
-        private open(event);
-        private save(event);
-        private pack(event);
-        render(): JSX.Element;
-    }
-    class InstanceEditor extends Editor<InstanceForm> {
-        protected createColumns(): AdazzleReactDataGrid.Column[];
-    }
-    class WrapperEditor extends Editor<Wrapper> {
-        protected createColumns(): AdazzleReactDataGrid.Column[];
-    }
-}
-declare namespace bws.packer {
-    class PackerApplication extends React.Component<{}, {}> {
-        private instances;
-        private wrappers;
-        private result;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        pack(): void;
-        drawWrapper(wrapper: Wrapper, index?: number): void;
-        render(): JSX.Element;
-        static main(): void;
-    }
-}
-declare namespace bws.packer {
-    class ResultViewer extends React.Component<WrapperViewerProps, {}> {
-        drawWrapper(wrapper: Wrapper, index?: number): void;
-        private clear(event);
-        private open(event);
-        private save(event);
-        refresh(): void;
-        render(): JSX.Element;
-    }
-    interface WrapperViewerProps extends React.Props<ResultViewer> {
-        application: PackerApplication;
-        wrappers: WrapperArray;
     }
 }
