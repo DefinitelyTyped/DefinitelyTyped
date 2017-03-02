@@ -1,8 +1,8 @@
 import * as SwaggerExpress from "swagger-express-mw";
 import * as express from "express";
 
-let app = express();
-let config: SwaggerExpress.Config = {
+const app = express();
+const config: SwaggerExpress.Config = {
     appRoot: __dirname
 };
 
@@ -17,12 +17,12 @@ SwaggerExpress.create(config, (err, middleware) => {
 });
 
 
-let swaggerSecurityHandlerCb = (err: Error) => {
-    //do nothing
+const swaggerSecurityHandlerCb = (err: Error) => {
+    // do nothing
 };
 
 
-let configComplex: SwaggerExpress.Config = {
+const configComplex: SwaggerExpress.Config = {
     appRoot: __dirname,
     configDir: "some/directory",
     controllersDirs: ["some/directory"],
@@ -32,7 +32,7 @@ let configComplex: SwaggerExpress.Config = {
     swaggerSecurityHandlers: {
         // did not manage to research the typings of first 3 arguments
         someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
-            //do nothing
+            // do nothing
         }
     },
     validateResponse: true

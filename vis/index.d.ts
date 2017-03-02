@@ -1,6 +1,10 @@
 // Type definitions for vis.js 4.17
 // Project: https://github.com/almende/vis
-// Definitions by: Michaël Bitard <https://github.com/MichaelBitard>, Adrian Caballero <https://github.com/adripanico>, Severin <https://github.com/seveves>, kaktus40 <https://github.com/kaktus40>, Matthieu Maitre <https://github.com/mmaitre314>
+// Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
+//                 Adrian Caballero <https://github.com/adripanico>
+//                 Severin <https://github.com/seveves>
+//                 kaktus40 <https://github.com/kaktus40>
+//                 Matthieu Maitre <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type IdType = string | number;
@@ -1497,6 +1501,7 @@ export interface Data {
 }
 
 export interface Node {
+  group?: string;
   id?: IdType;
   label?: string;
   x?: number;
@@ -1568,13 +1573,13 @@ export interface NodeOptions {
   };
 
   font?: string | {
-    color: string,
-    size: number, // px
-    face: string,
-    background: string,
-    strokeWidth: number, // px
-    strokeColor: string,
-    align: string,
+    color?: string,
+    size?: number, // px
+    face?: string,
+    background?: string,
+    strokeWidth?: number, // px
+    strokeColor?: string,
+    align?: string,
   };
 
   group?: string;

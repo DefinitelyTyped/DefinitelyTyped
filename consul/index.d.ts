@@ -951,10 +951,14 @@ declare namespace Consul {
     }
 
     namespace Watch {
+        
+        interface WatchOptions {
+            key?: string;
+        }
 
         interface Options {
             method: Function;
-            options?: CommonOptions;
+            options?: CommonOptions & WatchOptions;
         }
     }
 

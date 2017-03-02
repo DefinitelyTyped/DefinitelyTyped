@@ -2,6 +2,7 @@
 /// <reference types="node" />
 
 import fs = require('fs-extra');
+import * as Path from 'path'
 
 var src: string;
 var dest: string;
@@ -110,3 +111,26 @@ fs.walk("my-path")
   .on('end', function () {
     console.dir(items);
   });
+
+const ignoreHiddenFiles = (item: string): boolean => {
+  const basename = Path.basename(item)
+  return basename === '.' || basename[0] !== '.'
+}
+
+const sortPaths = (left: string, right: string) => left.localeCompare(right);
+
+const options = {
+  filter: ignoreHiddenFiles,
+  pathSorter: sortPaths
+}
+
+fs.walk(path, options)
+  .on('readable', function (this: fs.PathEntryStream) {
+    let item: fs.PathEntry | undefined
+    while ((item = this.read())) {
+      items.push(item.path)
+    }
+  })
+  .on('end', function () {
+
+  })

@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": true,
@@ -15,7 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "tests/knockout-templatingBehaviors-tests.ts",
-        "tests/knockout-tests.ts"
+        "test/templatingBehaviors.ts",
+        "test/index.ts"
     ]
 }

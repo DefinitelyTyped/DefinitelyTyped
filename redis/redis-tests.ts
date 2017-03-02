@@ -31,10 +31,10 @@ client = redis.createClient(num, str, options);
 function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
   // Ensure that the properties of RetryStrategyOptions are resilient to breaking change.
   // If the properties of the interface changes, the variables below will also need to be adapted.
-  var error:            Error  = options.error;
+  var error: Error = options.error;
   var total_retry_time: number = options.total_retry_time;
-  var times_connected:  number = options.times_connected;
-  var attempt:          number = options.attempt;
+  var times_connected: number = options.times_connected;
+  var attempt: number = options.attempt;
   return 5000;
 }
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
@@ -57,7 +57,7 @@ info = client.server_info;
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-client.end();
+client.end(true);
 
 // Connection (http://redis.io/commands#connection)
 client.auth(str, resCallback);
@@ -98,11 +98,11 @@ client.subscribe(str);
 
 // Multi
 client.multi()
-    .scard(str)
-    .smembers(str)
-    .keys('*', resCallback)
-    .dbsize()
-    .exec(resCallback);
+  .scard(str)
+  .smembers(str)
+  .keys('*', resCallback)
+  .dbsize()
+  .exec(resCallback);
 
 client.multi(commandArr).exec();
 
@@ -113,3 +113,9 @@ client.monitor(resCallback);
 client.send_command(str, args, resCallback);
 // Duplicate
 client.duplicate();
+
+// Pipeline
+client.cork();
+client.set("abc", "fff", strCallback);
+client.get("abc", resCallback);
+client.uncork();

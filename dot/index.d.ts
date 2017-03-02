@@ -1,50 +1,42 @@
-// Type definitions for doT v1.0.1
+// Type definitions for doT 1.1
 // Project: https://github.com/olado/doT
 // Definitions by: ZombieHunter <https://github.com/ZombieHunter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var doT: doT.doTStatic;
+export as namespace doT;
 
-declare namespace doT {
+/** Version number */
+export const version: string;
 
-	interface doTStatic {
-		/**
-	* Version number
-	*/
-		version: string;
-		/**
-	* Default template settings
-	*/
-		templateSettings: TemplateSettings;
+/** Default template settings */
+export const templateSettings: TemplateSettings;
 
-		/**
-	* Compile template
-	*/
-		template(tmpl: string, c?: TemplateSettings, def?: Object): Function;
+type RenderFunction = (...args: any[]) => string;
 
-		/**
-	* For express
-	*/
-		compile(tmpl: string, def?: Object): Function;
-	}
+/** Compile template */
+export function template(tmpl: string, c?: TemplateSettings, def?: {}): RenderFunction;
 
-	interface TemplateSettings {
-		evaluate: RegExp;
-		interpolate: RegExp;
-		encode: RegExp;
-		use: RegExp;
-		useParams: RegExp;
-		define: RegExp;
-		defineParams: RegExp;
-		conditional: RegExp;
-		iterate: RegExp;
-		varname: string;
-		strip: boolean;
-		append: boolean;
-		selfcontained: boolean;
-	}
+/** For express */
+export function compile(tmpl: string, def?: {}): RenderFunction;
+
+interface TemplateSettings {
+	evaluate: RegExp;
+	interpolate: RegExp;
+	encode: RegExp;
+	use: RegExp;
+	useParams: RegExp;
+	define: RegExp;
+	defineParams: RegExp;
+	conditional: RegExp;
+	iterate: RegExp;
+	varname: string;
+	strip: boolean;
+	append: boolean;
+	selfcontained: boolean;
 }
 
-interface String {
-	encodeHTML(): string;
+declare global {
+	interface String {
+		encodeHTML(): string;
+	}
 }

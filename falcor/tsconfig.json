@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -15,7 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "falcor-tests.ts",
-        "falcor-browser-tests.ts"
+        "test/index.ts",
+        "test/browser.ts"
     ]
 }

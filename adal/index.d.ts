@@ -1,4 +1,4 @@
-// Type definitions for ADAL.JS 1.0.8
+// Type definitions for ADAL.JS 1.0.13
 // Project: https://github.com/AzureAD/azure-activedirectory-library-for-js
 // Definitions by: mmaitre314 <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,14 +16,19 @@ declare namespace adal {
         tenant?: string;
         clientId: string;
         redirectUri?: string;
-        cacheLocation?: string;
+        instance?: string;
+        endpoints?: any;  // If you need to send CORS api requests.
+        popUp?: boolean;
+        localLoginUrl?: string;
         displayCall?: (urlNavigate: string) => any;
+        postLogoutRedirectUri?: string; // redirect url after succesful logout operation
+        cacheLocation?: string;
+        anonymousEndpoints?: string[];
+        expireOffsetSeconds?: number;
         correlationId?: string;
         loginResource?: string;
         resource?: string;
-        endpoints?: any;  // If you need to send CORS api requests.
         extraQueryParameter?: string;
-        postLogoutRedirectUri?: string; // redirect url after succesful logout operation
     }
 
     interface User {

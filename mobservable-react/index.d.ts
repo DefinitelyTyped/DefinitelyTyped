@@ -2,6 +2,7 @@
 // Project: https://github.com/mweststrate/mobservable-react
 // Definitions by: Michel Weststrate <https://github.com/mweststrate/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 

@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": true,
@@ -16,8 +19,8 @@
     "files": [
         "index.d.ts",
         "chrome-app.d.ts",
-        "chrome-app-tests.ts",
         "chrome-cast.d.ts",
-        "chrome-tests.ts"
+        "test/index.ts",
+        "test/chrome-app.ts"
     ]
 }

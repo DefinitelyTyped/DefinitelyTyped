@@ -31,6 +31,12 @@ world.addBody(groundBody);
 // This is done using a fixed time step size.
 var timeStep = 1 / 60; // seconds
 
+// Apply a force to the circle
+circleBody.applyForce([10, 0]);
+
+// Apply an impulse to the circle
+circleBody.applyImpulse([0, 50]);
+
 // The "Game loop". Could be replaced by, for example, requestAnimationFrame.
 setInterval(function(){
 

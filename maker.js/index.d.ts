@@ -1,4 +1,4 @@
-// Type definitions for Maker.js
+// Type definitions for Maker.js 0.9.31
 // Project: https://github.com/Microsoft/maker.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,23 @@
  *
  */
 declare namespace MakerJs {
+    /**
+     * Version info
+     */
+    var version: string;
+    /**
+     * Enumeration of environment types.
+     */
+    var environmentTypes: {
+        BrowserUI: string;
+        NodeJs: string;
+        WebWorker: string;
+        Unknown: string;
+    };
+    /**
+     * Current execution environment type, should be one of environmentTypes.
+     */
+    var environment: string;
     /**
      * String-based enumeration of unit types: imperial, metric or otherwise.
      * A model may specify the unit system it is using, if any. When importing a model, it may have different units.
@@ -543,6 +560,10 @@ declare namespace MakerJs {
          * The endpoints of the path, in absolute coords.
          */
         endPoints: IPoint[];
+        /**
+         * Length of the path.
+         */
+        pathLength: number;
     }
     /**
      * A chain of paths which connect end to end.
@@ -556,7 +577,17 @@ declare namespace MakerJs {
          * Flag if this chain forms a loop end to end.
          */
         endless?: boolean;
+        /**
+         * Total length of all paths in the chain.
+         */
+        pathLength: number;
     }
+    /**
+     * Test to see if an object implements the required properties of a chain.
+     *
+     * @param item The item to test.
+     */
+    function isChain(item: any): boolean;
     /**
      * Callback to model.findChains() with resulting array of chains and unchained paths.
      */
@@ -839,7 +870,7 @@ declare namespace MakerJs.point {
      * @param rotationOrigin The center point of rotation.
      * @returns A new point.
      */
-    function rotate(pointToRotate: IPoint, angleInDegrees: number, rotationOrigin: IPoint): IPoint;
+    function rotate(pointToRotate: IPoint, angleInDegrees: number, rotationOrigin?: IPoint): IPoint;
     /**
      * Scale a point's coordinates.
      *
@@ -923,7 +954,7 @@ declare namespace MakerJs.path {
      * @param rotationOrigin The center point of rotation.
      * @returns The original path (for chaining).
      */
-    function rotate(pathToRotate: IPath, angleInDegrees: number, rotationOrigin: IPoint): IPath;
+    function rotate(pathToRotate: IPath, angleInDegrees: number, rotationOrigin?: IPoint): IPath;
     /**
      * Scale a path.
      *
@@ -950,6 +981,34 @@ declare namespace MakerJs.path {
      * @param useOriginB Optional flag to converge the origin point of lineB instead of the end point.
      */
     function converge(lineA: IPathLine, lineB: IPathLine, useOriginA?: boolean, useOriginB?: boolean): IPoint;
+    /**
+     * Get points along a path.
+     *
+     * @param pathContext Path to get points from.
+     * @param numberOfPoints Number of points to divide the path.
+     * @returns Array of points which are on the path spread at a uniform interval.
+     */
+    function toPoints(pathContext: IPath, numberOfPoints: number): IPoint[];
+    /**
+     * Get key points (a minimal a number of points) along a path.
+     *
+     * @param pathContext Path to get points from.
+     * @param maxArcFacet Optional maximum length between points on an arc or circle.
+     * @returns Array of points which are on the path.
+     */
+    function toKeyPoints(pathContext: IPath, maxArcFacet?: number): IPoint[];
+    /**
+     * Center a path at [0, 0].
+     *
+     * @param pathToCenter The path to center.
+     */
+    function center(pathToCenter: IPath): IPath;
+    /**
+     * Move a path so its bounding box begins at [0, 0].
+     *
+     * @param pathToZero The path to zero.
+     */
+    function zero(pathToZero: IPath): IPath;
 }
 declare namespace MakerJs.path {
     /**
@@ -1141,6 +1200,12 @@ declare namespace MakerJs.model {
      */
     function originate(modelToOriginate: IModel, origin?: IPoint): IModel;
     /**
+     * Center a model at [0, 0].
+     *
+     * @param modelToCenter The model to center.
+     */
+    function center(modelToCenter: IModel): IModel;
+    /**
      * Create a clone of a model, mirrored on either or both x and y axes.
      *
      * @param modelToMirror The model to mirror.
@@ -1181,7 +1246,7 @@ declare namespace MakerJs.model {
      * @param rotationOrigin The center point of rotation.
      * @returns The original model (for chaining).
      */
-    function rotate(modelToRotate: IModel, angleInDegrees: number, rotationOrigin: IPoint): IModel;
+    function rotate(modelToRotate: IModel, angleInDegrees: number, rotationOrigin?: IPoint): IModel;
     /**
      * Scale a model.
      *
@@ -1215,6 +1280,12 @@ declare namespace MakerJs.model {
      * @param modelCallbackAfterWalk Callback for each model after recursion.
      */
     function walk(modelContext: IModel, options: IWalkOptions): void;
+    /**
+     * Move a model so its bounding box begins at [0, 0].
+     *
+     * @param modelToZero The model to zero.
+     */
+    function zero(modelToZero: IModel): IModel;
 }
 declare namespace MakerJs.model {
     /**
@@ -1321,10 +1392,11 @@ declare namespace MakerJs.path {
      *
      * @param arc Arc to straighten.
      * @param bevel Optional flag to bevel the angle to prevent it from being too sharp.
-     * @param prefix Optional prefix to apply to path ids.
+     * @param prefix Optional string prefix to apply to path ids.
+     * @param close Optional flag to make a closed geometry by connecting the endpoints.
      * @returns Model of straight lines with same endpoints as the arc.
      */
-    function straighten(arc: IPathArc, bevel?: boolean, prefix?: string): IModel;
+    function straighten(arc: IPathArc, bevel?: boolean, prefix?: string, close?: boolean): IModel;
 }
 declare namespace MakerJs.model {
     /**
@@ -1423,7 +1495,7 @@ declare namespace MakerJs.measure {
      * @param arcA The arc to test.
      * @param arcB The arc to check for overlap.
      * @param excludeTangents Boolean to exclude exact endpoints and only look for deep overlaps.
-     * @returns Boolean true if arc1 is overlapped with arcB.
+     * @returns Boolean true if arcA is overlapped with arcB.
      */
     function isArcOverlapping(arcA: IPathArc, arcB: IPathArc, excludeTangents: boolean): boolean;
     /**
@@ -1467,7 +1539,7 @@ declare namespace MakerJs.measure {
      * @param lineA The line to test.
      * @param lineB The line to check for overlap.
      * @param excludeTangents Boolean to exclude exact endpoints and only look for deep overlaps.
-     * @returns Boolean true if line1 is overlapped with lineB.
+     * @returns Boolean true if lineA is overlapped with lineB.
      */
     function isLineOverlapping(lineA: IPathLine, lineB: IPathLine, excludeTangents: boolean): boolean;
     /**
@@ -1475,7 +1547,7 @@ declare namespace MakerJs.measure {
      *
      * @param measureA The measurement to test.
      * @param measureB The measurement to check for overlap.
-     * @returns Boolean true if measure1 is overlapped with measureB.
+     * @returns Boolean true if measureA is overlapped with measureB.
      */
     function isMeasurementOverlapping(measureA: IMeasure, measureB: IMeasure): boolean;
     /**
@@ -1665,9 +1737,21 @@ declare namespace MakerJs.path {
      *
      * @param pathA First path to fillet, which will be modified to fit the fillet.
      * @param pathB Second path to fillet, which will be modified to fit the fillet.
+     * @param filletRadius Radius of the fillet.
+     * @param options Optional IPointMatchOptions object to specify pointMatchingDistance.
      * @returns Arc path object of the new fillet.
      */
     function fillet(pathA: IPath, pathB: IPath, filletRadius: number, options?: IPointMatchOptions): IPathArc;
+}
+declare namespace MakerJs.chain {
+    /**
+     * Adds a fillet between each link in a chain. Each path will be cropped to fit a fillet, and all fillets will be returned as paths in a returned model object.
+     *
+     * @param chainToFillet The chain to add fillets to.
+     * @param filletRadius Radius of the fillet.
+     * @returns Model object containing paths which fillet the joints in the chain.
+     */
+    function fillet(chainToFillet: IChain, filletRadius: number): IModel;
 }
 declare namespace MakerJs.kit {
     /**
@@ -1688,12 +1772,38 @@ declare namespace MakerJs.kit {
 }
 declare namespace MakerJs.model {
     /**
+     * Find a single chain within a model, across all layers. Shorthand of findChains; useful when you know there is only one chain to find in your model.
+     *
+     * @param modelContext The model to search for a chain.
+     * @returns A chain object or null if chains were not found.
+     */
+    function findSingleChain(modelContext: IModel): IChain;
+    /**
      * Find paths that have common endpoints and form chains.
      *
      * @param modelContext The model to search for chains.
      * @param options Optional options object.
      */
     function findChains(modelContext: IModel, callback: IChainCallback, options?: IFindChainsOptions): void;
+}
+declare namespace MakerJs.chain {
+    /**
+     * Get points along a chain of paths.
+     *
+     * @param chainContext Chain of paths to get points from.
+     * @param distance Distance along the chain between points.
+     * @param maxPoints Maximum number of points to retrieve.
+     * @returns Array of points which are on the chain spread at a uniform interval.
+     */
+    function toPoints(chainContext: IChain, distance: number, maxPoints?: number): IPoint[];
+    /**
+     * Get key points (a minimal a number of points) along a chain of paths.
+     *
+     * @param chainContext Chain of paths to get points from.
+     * @param maxArcFacet The maximum length between points on an arc or circle.
+     * @returns Array of points which are on the chain.
+     */
+    function toKeyPoints(chainContext: IChain, maxArcFacet?: number): IPoint[];
 }
 declare namespace MakerJs.model {
     /**
@@ -1837,13 +1947,28 @@ declare namespace MakerJs.exporter {
 }
 declare namespace MakerJs.exporter {
     /**
+     * Map of SVG Path Data by layer name.
+     */
+    interface IPathDataByLayerMap {
+        [layer: string]: string;
+    }
+    /**
      * Convert a chain to SVG path data.
      */
-    function chainToSVGPathData(chain: IChain, offset: IPoint, scale: number): string;
+    function chainToSVGPathData(chain: IChain, offset: IPoint): string;
     /**
      * Convert a path to SVG path data.
      */
-    function pathToSVGPathData(pathToExport: IPath, offset: IPoint, offset2: IPoint, scale: number): string;
+    function pathToSVGPathData(pathToExport: IPath, offset: IPoint, offset2: IPoint): string;
+    /**
+     * Convert a model to SVG path data.
+     *
+     * @param modelToExport Model to export.
+     * @param byLayers Boolean flag (default true) to return a map of path data by layer.
+     * @param origin Optional reference origin.
+     * @returns String of SVG path data (if byLayers is false) or an object map of path data by layer .
+     */
+    function toSVGPathData(modelToExport: IModel, byLayers?: boolean, origin?: IPoint): IPathDataByLayerMap | string;
     function toSVG(modelToExport: IModel, options?: ISVGRenderOptions): string;
     function toSVG(pathsToExport: IPath[], options?: ISVGRenderOptions): string;
     function toSVG(pathToExport: IPath, options?: ISVGRenderOptions): string;
@@ -1925,6 +2050,7 @@ declare namespace MakerJs.models {
         constructor(origin: IPoint, control1: IPoint, control2: IPoint, end: IPoint, accuracy?: number);
         static typeName: string;
         static getBezierSeeds(curve: BezierCurve, options?: IFindChainsOptions): IPathBezierSeed[];
+        static computeLength(seed: IPathBezierSeed): number;
         static computePoint(seed: IPathBezierSeed, t: number): IPoint;
     }
 }
@@ -2031,6 +2157,28 @@ declare namespace MakerJs.models {
     }
 }
 declare namespace MakerJs.models {
+    class Holes implements IModel {
+        paths: IPathMap;
+        /**
+         * Create an array of circles of the same radius from an array of center points.
+         *
+         * Example:
+         * ```
+         * //Create some holes from an array of points
+         * var makerjs = require('makerjs');
+         * var model = new makerjs.models.Holes(10, [[0, 0],[50, 0],[25, 40]]);
+         * var svg = makerjs.exporter.toSVG(model);
+         * document.write(svg);
+         * ```
+         *
+         * @param holeRadius Hole radius.
+         * @param points Array of points for origin of each hole.
+         * @param ids Optional array of corresponding path ids for the holes.
+         */
+        constructor(holeRadius: number, points: IPoint[], ids?: string[]);
+    }
+}
+declare namespace MakerJs.models {
     class BoltCircle implements IModel {
         paths: IPathMap;
         constructor(boltRadius: number, holeRadius: number, boltCount: number, firstBoltAngleInDegrees?: number);
@@ -2040,6 +2188,26 @@ declare namespace MakerJs.models {
     class BoltRectangle implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number, holeRadius: number);
+    }
+}
+declare namespace MakerJs.models {
+    class Dogbone implements IModel {
+        paths: IPathMap;
+        /**
+         * Create a dogbone from width, height, corner radius, style, and bottomless flag.
+         *
+         * Example:
+         * ```
+         * var d = new makerjs.models.Dogbone(50, 100, 5);
+         * ```
+         *
+         * @param width Width of the rectangle.
+         * @param height Height of the rectangle.
+         * @param radius Corner radius.
+         * @param style Optional corner style: 0 (default) for dogbone, 1 for vertical, -1 for horizontal.
+         * @param bottomless Optional flag to omit the bottom line and bottom corners (default false).
+         */
+        constructor(width: number, height: number, radius: number, style?: number, bottomless?: boolean);
     }
 }
 declare namespace MakerJs.models {
@@ -2102,7 +2270,11 @@ declare namespace MakerJs.models {
          *
          * Example:
          * ```
-         * var r = new makerjs.models.Rectangle(100, 50);
+         * //Create a rectangle from width and height
+         * var makerjs = require('makerjs');
+         * var model = new makerjs.models.Rectangle(50, 100);
+         * var svg = makerjs.exporter.toSVG(model);
+         * document.write(svg);
          * ```
          *
          * @param width Width of the rectangle.
@@ -2114,8 +2286,12 @@ declare namespace MakerJs.models {
          *
          * Example:
          * ```
+         * //Create a rectangle which will surround a model
+         * var makerjs = require('makerjs');
          * var e = new makerjs.models.Ellipse(17, 10); // draw an ellipse so we have something to surround.
          * var r = new makerjs.models.Rectangle(e, 3); // draws a rectangle surrounding the ellipse by 3 units.
+         * var svg = makerjs.exporter.toSVG({ models: { e: e, r: r }});
+         * document.write(svg);
          * ```
          *
          * @param modelToSurround IModel object.
@@ -2127,9 +2303,13 @@ declare namespace MakerJs.models {
          *
          * Example:
          * ```
+         * //Create a rectangle from a measurement.
+         * var makerjs = require('makerjs');
          * var e = new makerjs.models.Ellipse(17, 10); // draw an ellipse so we have something to measure.
          * var m = makerjs.measure.modelExtents(e);    // measure the ellipse.
          * var r = new makerjs.models.Rectangle(m);    // draws a rectangle surrounding the ellipse.
+         * var svg = makerjs.exporter.toSVG({ models: { e: e, r: r }});
+         * document.write(svg);
          * ```
          *
          * @param measurement IMeasure object. See http://microsoft.github.io/maker.js/docs/api/modules/makerjs.measure.html#pathextents and http://microsoft.github.io/maker.js/docs/api/modules/makerjs.measure.html#modelextents to get measurements of paths and models.
@@ -2173,6 +2353,6 @@ declare namespace MakerJs.models {
 declare namespace MakerJs.models {
     class Text implements IModel {
         models: IModelMap;
-        constructor(font: opentype.Font, text: string, fontSize: number, combine?: boolean);
+        constructor(font: opentype.Font, text: string, fontSize: number, combine?: boolean, centerCharacterOrigin?: boolean, bezierAccuracy?: number);
     }
 }

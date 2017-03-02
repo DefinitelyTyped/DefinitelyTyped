@@ -118,6 +118,8 @@ declare namespace CodeMirror {
         The other arguments and the returned value have the same interpretation as they have in findPosH. */
         findPosV(start: CodeMirror.Position, amount: number, unit: string): { line: number; ch: number; hitSide?: boolean; };
 
+        /** Returns the start and end of the 'word' (the stretch of letters, whitespace, or punctuation) at the given position. */
+        findWordAt(pos: CodeMirror.Position): CodeMirror.Range;
 
         /** Change the configuration of the editor. option should the name of an option, and value should be a valid value for that option. */
         setOption(option: string, value: any): void;
@@ -672,9 +674,11 @@ declare namespace CodeMirror {
         (line: number, ch?: number): Position;
     }
 
-    interface Range{
-        from: CodeMirror.Position;
-        to: CodeMirror.Position;
+    interface Range {
+        anchor: CodeMirror.Position;
+        head: CodeMirror.Position;
+        from(): CodeMirror.Position;
+        to(): CodeMirror.Position;
     }
 
     interface Position {

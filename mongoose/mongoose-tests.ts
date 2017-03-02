@@ -449,10 +449,7 @@ doc.populate(function (err, doc) {
   });
 });
 doc.populated('path');
-doc.set('path', 999, {});
-doc.set({
-  path: 999
-});
+doc.set('path', 999, {}).set({ path: 999 });
 doc.toJSON({
   getters: true,
   virtuals: false
@@ -1019,7 +1016,41 @@ aggregate.sort('field -test');
 aggregate.then(cb).catch(cb);
 aggregate.unwind("tags").unwind('tags');
 aggregate.unwind("a", "b", "c").unwind('tag1', 'tag2');
-
+aggregate.unwind(
+  {
+    path: "tags",
+    includeArrayIndex: "idx",
+    preserveNullAndEmptyArrays: true
+  })
+  .unwind({
+    path: "tags",
+    includeArrayIndex: "idx",
+    preserveNullAndEmptyArrays: true
+  });
+aggregate.unwind(
+  {
+    path: "a",
+    includeArrayIndex: "idx",
+    preserveNullAndEmptyArrays: true
+  }, {
+    path: "b",
+    includeArrayIndex: "idx",
+    preserveNullAndEmptyArrays: true
+  }, {
+    path: "c",
+    includeArrayIndex: "idx",
+    preserveNullAndEmptyArrays: true
+  })
+  .unwind({
+    path: "tag1",
+    includeArrayIndex: "idx",
+    preserveNullAndEmptyArrays: true
+  }, {
+    path: "tag2",
+    includeArrayIndex: "idx",
+    preserveNullAndEmptyArrays: true
+  });
+  
 /*
  * section schematype.js
  * http://mongoosejs.com/docs/api.html#schematype-js

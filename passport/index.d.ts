@@ -1,6 +1,6 @@
 // Type definitions for Passport 0.3
 // Project: http://passportjs.org
-// Definitions by: Horiuchi_H <https://github.com/horiuchi/>
+// Definitions by: Horiuchi_H <https://github.com/horiuchi/>, Eric Naeseth <https://github.com/enaeseth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Express {
@@ -55,9 +55,14 @@ declare module 'passport' {
             authenticate(strategy: string|string[], options: AuthenticateOptions, callback?: Function): express.Handler;
             authorize(strategy: string|string[], callback?: Function): express.Handler;
             authorize(strategy: string|string[], options: any, callback?: Function): express.Handler;
-            serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id: TID) => void) => void): void;
-            deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user: TUser) => void) => void): void;
+            serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id?: TID) => void) => void): void;
+            deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user?: TUser) => void) => void): void;
             transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
+        }
+
+        interface PassportStatic extends Passport {
+            Passport: {new(): Passport};
+            Authenticator: {new(): Passport};
         }
 
         interface Strategy {
@@ -91,7 +96,7 @@ declare module 'passport' {
         }
     }
 
-    const passport: passport.Passport;
+    const passport: passport.PassportStatic;
     export = passport;
 }
 

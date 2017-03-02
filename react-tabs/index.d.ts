@@ -2,6 +2,7 @@
 // Project: https://github.com/reactjs/react-tabs/
 // Definitions by: Yuu Igarashi <https://github.com/yu-i9/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as React from 'react';
 

@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
@@ -16,6 +18,6 @@
     "files": [
         "index.d.ts",
         "node-ffi-buffer.d.ts",
-        "node-ffi-tests.ts"
+        "ffi-tests.ts"
     ]
 }

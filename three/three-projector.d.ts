@@ -4,14 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-
 declare namespace THREE {
     // Renderers / Renderables /////////////////////////////////////////////////////////////////////
     export class RenderableObject {
         constructor();
 
         id: number;
-        object: Object;
+        object: any;
         z: number;
     }
 
@@ -58,7 +57,7 @@ declare namespace THREE {
         constructor();
 
         id: number;
-        object: Object;
+        object: any;
         x: number;
         y: number;
         z: number;

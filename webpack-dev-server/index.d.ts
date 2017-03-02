@@ -21,7 +21,7 @@ declare module "webpack-dev-server" {
             quiet?: boolean;
             noInfo?: boolean;
             lazy?: boolean;
-            filename?: string;
+            filename?: string| RegExp;
             watchOptions?: webpack.WatchOptions;
             publicPath: string;
             headers?: any;

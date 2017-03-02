@@ -1,6 +1,6 @@
-// Type definitions for bcryptjs v2.3.0
+// Type definitions for bcryptjs v2.4.0
 // Project: https://github.com/dcodeIO/bcrypt.js
-// Definitions by: Joshua Filby <https://github.com/Joshua-F/>
+// Definitions by: Joshua Filby <https://github.com/Joshua-F/>, Rafael Kraut <https://github.com/RafaelKr/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -16,8 +16,16 @@ export declare function setRandomFallback(random: (random: number) => number[]):
  * Synchronously generates a salt.
  * @param  rounds Number of rounds to use, defaults to 10 if omitted
  * @return Resulting salt
+ * @throws If a random fallback is required but not set
  */
 export declare function genSaltSync(rounds?: number): string;
+
+/**
+ * Asynchronously generates a salt.
+ * @param  rounds  Number of rounds to use, defaults to 10 if omitted
+ * @return Promise with resulting salt, if callback has been omitted
+ */
+export declare function genSalt(rounds?: number): Promise<string>;
 
 /**
  * Asynchronously generates a salt.
@@ -44,10 +52,18 @@ export declare function hashSync(s: string, salt?: number | string): string;
  * Asynchronously generates a hash for the given string.
  * @param s                String to hash
  * @param salt             Salt length to generate or salt to use
+ * @return Promise with resulting hash, if callback has been omitted
+ */
+export declare function hash(s: string, salt: number | string): Promise<string>;
+
+/**
+ * Asynchronously generates a hash for the given string.
+ * @param s                String to hash
+ * @param salt             Salt length to generate or salt to use
  * @param callback         Callback receiving the error, if any, and the resulting hash
  * @param progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
  */
-export declare function hash(s: string, salt: number | string, callback: (err: Error, hash: string) => void, progressCallback?: (percent: number) => void): void;
+export declare function hash(s: string, salt: number | string, callback?: (err: Error, hash: string) => void, progressCallback?: (percent: number) => void): void;
 
 /**
  * Synchronously tests a string against a hash.
@@ -61,10 +77,18 @@ export declare function compareSync(s: string, hash: string): boolean;
  * Asynchronously compares the given data against the given hash.
  * @param  s                Data to compare
  * @param  hash             Data to be compared to
+ * @return Promise, if callback has been omitted
+ */
+export declare function compare(s: string, hash: string): Promise<boolean>;
+
+/**
+ * Asynchronously compares the given data against the given hash.
+ * @param  s                Data to compare
+ * @param  hash             Data to be compared to
  * @param  callback         Callback receiving the error, if any, otherwise the result
  * @param  progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
  */
-export declare function compare(s: string, hash: string, callback: (err: Error, success: boolean) => void, progressCallback?: (percent: number) => void): void;
+export declare function compare(s: string, hash: string, callback?: (err: Error, success: boolean) => void, progressCallback?: (percent: number) => void): void;
 
 /**
  * Gets the number of rounds used to encrypt the specified hash.

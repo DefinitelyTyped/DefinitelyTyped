@@ -2,6 +2,7 @@
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -3318,38 +3319,25 @@ declare namespace sequelize {
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindOrInitializeOptions<TAttributes> extends LoggingOptions {
-
-        /**
-         * A hash of search attributes.
-         */
-        where: string | WhereOptions;
+    interface FindOrInitializeOptions<TAttributes> extends FindOptions {
 
         /**
          * Default values to use if building a new instance
          */
         defaults?: TAttributes;
 
-        /**
-         * Transaction to run query under
-         */
-        transaction?: Transaction;
     }
 
     /**
-         * Options for Model.findOrInitialize method
+     * Options for Model.findOrInitialize method
      */
-    interface FindCreateFindOptions<TAttributes> {
+    interface FindCreateFindOptions<TAttributes> extends FindOptions {
 
         /**
-             * A hash of search attributes.
-         */
-        where: string | WhereOptions;
-
-        /**
-             * Default values to use if building a new instance
+         * Default values to use if building a new instance
          */
         defaults?: TAttributes;
+
     }
 
     /**
@@ -4780,6 +4768,16 @@ declare namespace sequelize {
          */
         fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
 
+        /**
+         * Method the index should use, for example 'gin' index.
+         */
+        using?: string;
+
+        /**
+         * Operator that should be used by gin index, see Built-in GIN Operator Classes
+         */
+        operator?: string;
+
     }
 
     /**
@@ -4877,6 +4875,11 @@ declare namespace sequelize {
          * Converts camelCased model names to underscored tablenames if true. Default false.
          */
         underscoredAll?: boolean;
+
+        /**
+         * Indicates if the model's table has a trigger associated with it. Default false.
+         */
+        hasTrigger?: boolean;
 
         /**
          * If freezeTableName is true, sequelize will not try to alter the DAO name to get the table name.

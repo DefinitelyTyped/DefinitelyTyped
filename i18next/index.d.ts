@@ -63,8 +63,8 @@ declare namespace i18n {
         lowerCaseLng?: boolean;
         load?: string
         preload?: string[];
-        keySeparator?: string;
-        nsSeparator?: string;
+        keySeparator?: string | false;
+        nsSeparator?: string | false;
         pluralSeparator?: string;
         contextSeparator?: string;
         saveMissing?: boolean;

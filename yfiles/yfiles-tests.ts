@@ -122,6 +122,15 @@ namespace yfilesTest {
             let a22 = new yfiles.tree.AspectRatioTreeLayout();
             let a23 = new yfiles.view.GraphComponent();
         }
+
+        testsForVersion2001() {            
+            var element:SVGElement;
+            yfiles.view.SvgVisual.setScale(element, 4, 2);
+            yfiles.view.SvgVisual.setTranslate(element, 4, 2);
+            
+            var args = new yfiles.lang.EventArgs();
+            yfiles.input.KeyEventRecognizers.META_PRESSED(null, args);
+        }
     }
 
     class MyHitTestable extends yfiles.lang.BaseClass<Object>(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {

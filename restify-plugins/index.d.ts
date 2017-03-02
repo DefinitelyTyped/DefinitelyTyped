@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import {RequestHandler, Server, Request, Response, Route} from 'restify';
-import * as bunyan from 'bunyan';
+import Logger = require('bunyan');
 
-//*************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
+// *************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
 
 export namespace pre {
   /**
@@ -15,7 +15,7 @@ export namespace pre {
   function context(): RequestHandler;
 
   /**
-   * 
+   *
    */
   function dedupeSlashes(): RequestHandler;
 
@@ -45,7 +45,7 @@ export namespace pre {
   function userAgentConnection( options?: {userAgentRegExp: any} ): RequestHandler;
 }
 
-//*************** This module includes the following header parser plugins:
+// *************** This module includes the following header parser plugins:
 
 /**
  * Check the client's Accept header can be handled by this server.
@@ -56,7 +56,7 @@ interface AuditLoggerOptions {
   /**
    * Bunyan logger
    */
-  log: bunyan.Logger;
+  log: Logger;
 
   /**
    * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
@@ -74,7 +74,7 @@ interface AuditLoggerOptions {
   printLog?: boolean;
 
   /**
-   * 
+   *
    */
   body?: boolean;
 }
@@ -106,7 +106,7 @@ export function conditionalRequest(): RequestHandler[];
  */
 export function fullResponse(): RequestHandler;
 
-//************ This module includes the following data parsing plugins:
+// ************ This module includes the following data parsing plugins:
 
 interface BodyParserOptions {
   /**
@@ -120,22 +120,30 @@ interface BodyParserOptions {
   mapParams?: boolean;
 
   /**
-   * If req.params should be filled with the contents of files sent through a multipart request. Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition. This will only be performed if mapParams is true.
+   * If req.params should be filled with the contents of files sent through a multipart request.
+   * Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition.
+   * This will only be performed if mapParams is true.
    */
   mapFiles?: boolean;
 
   /**
-   * If an entry in req.params should be overwritten by the value in the body if the names are the same. For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad, the value will be happy if overrideParams is true, sad otherwise.
+   * If an entry in req.params should be overwritten by the value in the body if the names are the same.
+   * For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad,
+   * the value will be happy if overrideParams is true, sad otherwise.
    */
   overrideParams?: boolean;
 
   /**
-   * A callback to handle any multipart part which is not a file. If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
+   * A callback to handle any multipart part which is not a file.
+   * If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
    */
   multipartHandler?: () => void;
 
   /**
-   * A callback to handle any multipart file. It will be a file if the part have a Content-Disposition with the filename parameter set. This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />. If this is not provided, the default behaviour is to map the contents into req.params.
+   * A callback to handle any multipart file.
+   * It will be a file if the part have a Content-Disposition with the filename parameter set.
+   * This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />.
+   * If this is not provided, the default behaviour is to map the contents into req.params.
    */
   multipartFileHandler?: () => void;
 
@@ -165,12 +173,12 @@ interface BodyParserOptions {
   rejectUnknown?: boolean;
 
   /**
-   * 
+   *
    */
   reviver?: any;
 
   /**
-   * 
+   *
    */
   maxFieldsSize?: number;
 }
@@ -192,7 +200,7 @@ interface UrlEncodedBodyParser {
 
 /**
  * Parse the HTTP request body IFF the contentType is application/x-www-form-urlencoded.
- * 
+ *
  * If req.params already contains a given key, that key is skipped and an
  * error is logged.
  */
@@ -263,7 +271,8 @@ interface QueryParserOptions {
   parseArrays?: boolean;
 
   /**
-   * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`. This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
+   * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`.
+   * This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
    */
   plainObjects?: boolean;
 
@@ -287,12 +296,12 @@ interface RequestLogger {
 
 /**
  * Adds timers for each handler in your request chain
- * 
+ *
  * `options.properties` properties to pass to bunyan's `log.child()` method
  */
 export function requestLogger(options?: RequestLogger): RequestHandler;
 
-//******************** The module includes the following response plugins:
+// ******************** The module includes the following response plugins:
 
 /**
  * expires requests based on current time + delta
@@ -341,7 +350,7 @@ interface MetricsCallback {
   err: Error;
 
   /**
-   * 
+   *
    */
   metrics: MetricsCallbackOptions;
 
@@ -380,7 +389,7 @@ interface MetricsCallbackOptions {
 
   /**
    * If this value is set, err will be a corresponding `RequestCloseError` or `RequestAbortedError`.
-   * 
+   *
    * If connectionState is either 'close' or 'aborted', then the statusCode is not applicable since the connection was severed before a response was written.
    */
   connectionState: TMetricsCallback;
@@ -395,7 +404,7 @@ interface MetricsReturns {
 
 /**
  * Listens to the server's after event and emits information about that request (5.x compatible only).
- * 
+ *
  * ```
  * server.on('after', plugins.metrics( (err, metrics) =>
  * {
@@ -407,7 +416,7 @@ export function metrics(opts: {server: Server}, callback: (options: MetricsCallb
 
 /**
  * Parse the client's request for an OAUTH2 access tokensTable
- * 
+ *
  * Subsequent handlers will see `req.oauth2`, which looks like:
  * ```
  * {
@@ -441,7 +450,7 @@ interface RequestExpiryOptions {
 
 /**
  * A request expiry will use headers to tell if the incoming request has expired or not.
- * 
+ *
  * There are two options for this plugin:
  *   1. Absolute Time
  *     * Time in Milliseconds since the Epoch when this request should be considered expired

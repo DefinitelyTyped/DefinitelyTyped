@@ -1,4 +1,4 @@
-// Type definitions for Flux Utils
+// Type definitions for Flux Utils 3.0
 // Project: http://facebook.github.io/flux/
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,12 +6,10 @@
 /// <reference types="react" />
 /// <reference types="flux" />
 /// <reference types="fbemitter" />
-/// <reference types="immutable" />
 
 import * as React from 'react';
 import * as Flux from 'flux';
 import * as fbEmitter from 'fbemitter';
-import * as immutable from 'immutable';
 
 export = FluxUtils;
 
@@ -34,6 +32,12 @@ declare namespace FluxUtils {
          * @type {boolean}
          */
         withProps?: boolean;
+        /**
+         * Default value: false
+         *
+         * @type {boolean}
+         */
+        withContext?: boolean;
     }
 
     export class Container {
@@ -44,35 +48,18 @@ declare namespace FluxUtils {
         * The provided base class must have static methods getStores() and calculateState().
         */
         static create<TComponent>(base: React.ComponentClass<TComponent>, options?: RealOptions): React.ComponentClass<TComponent>;
-    }
 
-    /**
-    * This class extends ReduceStore and defines the state as an immutable map.
-    */
-    export class MapStore<K extends string | number, V, TPayload> extends ReduceStore<immutable.Map<K, V>, TPayload> {
-        /**
-        * Access the value at the given key.
-        * Throws an error if the key does not exist in the cache.
-        */
-        at(key: K): V;
+
 
         /**
-        *  Check if the cache has a particular key
-        */
-        has(key: K): boolean;
-
-        /**
-        * Get the value of a particular key.
-        * Returns undefined if the key does not exist in the cache.
-        */
-        get(key: K): V;
-
-        /**
-        * Gets an array of keys and puts the values in a map if they exist,
-        * it allows providing a previous result to update instead of generating a new map.
-        * Providing a previous result allows the possibility of keeping the same reference if the keys did not change.
-        */
-        getAll(keys: immutable.Iterable.Indexed<K>, prev?: immutable.Map<K, V>): immutable.Map<K, V>;
+         * This is a way to connect stores to a functional stateless view
+         */
+        static createFunctional<Props, State>(
+            viewFn: (props: State) => React.ReactElement<State>,
+            getStores: (props?: Props, context?: any) => FluxUtils.Store<any>[],
+            calculateState: (prevState?: State, props?: Props, context?: any) => State,
+            options?: RealOptions
+        ): React.ComponentClass<Props>;
     }
 
     export class ReduceStore<T, TPayload> extends Store<TPayload> {

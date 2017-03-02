@@ -18,7 +18,8 @@ JL.setOptions({
 		defaultAjaxUrl: '/jsnlog.logger',
 		clientIP: '0.0.0.0',
 		requestId: 'a reuest id',
-		defaultBeforeSend: null
+		defaultBeforeSend: null,
+		serialize: (obj) => JSON.stringify(obj)
 });
 
 // ----------------------------------------------------------
@@ -69,7 +70,7 @@ var logger1: JL.JSNLogLogger = JL('mylogger');
 var exception = {};
 
 logger1.trace('log message').debug({ x: 1, y: 2});
-logger1.info(function() { return 5; });
+logger1.info(() => 5);
 logger1.warn('log message');
 logger1.error('log message');
 logger1.fatal('log message');

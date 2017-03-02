@@ -2,6 +2,7 @@
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -35,7 +36,7 @@ interface DoneFn extends Function {
     fail: (message?: Error|string) => void;
 }
 
-declare function spyOn(object: any, method: string): jasmine.Spy;
+declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
@@ -370,13 +371,18 @@ declare namespace jasmine {
     }
 
     interface CustomReporterResult {
-      description: string,
-      failedExpectations?: FailedExpectation[],
-      fullName: string,
-      id: string;
-      passedExpectations?: PassedExpectation[],
-      pendingReason?: string;
-      status?: string;
+        description: string,
+        failedExpectations?: FailedExpectation[],
+        fullName: string,
+        id: string;
+        passedExpectations?: PassedExpectation[],
+        pendingReason?: string;
+        status?: string;
+    }
+
+    interface RunDetails {
+        failedExpectations: ExpectationResult[];
+        order: jasmine.Order
     }
 
     interface CustomReporter {
@@ -385,7 +391,7 @@ declare namespace jasmine {
         specStarted?(result: CustomReporterResult): void;
         specDone?(result: CustomReporterResult): void;
         suiteDone?(result: CustomReporterResult): void;
-        jasmineDone?(): any;
+        jasmineDone?(runDetails: RunDetails): void;
     }
 
     interface Runner {
@@ -549,10 +555,7 @@ declare namespace jasmine {
         finished: boolean;
         result: any;
         messages: any;
-        runDetails: {
-            failedExpectations: ExpectationResult[];
-            order: jasmine.Order
-        }
+        runDetails: RunDetails
 
         new (): any;
 

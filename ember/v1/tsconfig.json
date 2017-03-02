@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
@@ -11,7 +14,9 @@
         ],
         "types": [],
         "paths": {
-            "ember": ["ember/v0"]
+            "ember": [
+                "ember/v1"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

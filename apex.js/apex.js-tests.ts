@@ -1,5 +1,8 @@
-import λ from "apex.js";
+import * as λ from "apex.js";
 
-const handler = λ(event => {
-    console.log("Invoked with event " + JSON.stringify(event));
+const handler = λ((event, context) => {
+    console.log("Event: " + JSON.stringify(event));
+    console.log("Context: " + JSON.stringify(context));
+
+    return {event, context};
 });
