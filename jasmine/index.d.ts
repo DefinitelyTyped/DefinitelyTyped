@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.5
+// Type definitions for Jasmine 2.5.2
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
