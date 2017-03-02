@@ -13,7 +13,7 @@ ReactDOM.render(
         className="bottomRight"
         min={0.01}
         max={1}
-        marks={{number: "1"}}
+        marks={{1: "1"}}
         step={0.01}
         vertical={true}
         handle={() => { return <Slider /> }}
