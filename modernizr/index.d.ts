@@ -1,19 +1,19 @@
-// Type definitions for Modernizr 3.2
+// Type definitions for Modernizr 3.3
 // Project: http://modernizr.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>, Leon Yu <https://github.com/leonyu/>, Luca Trazzi <https://github.com/lucax88x/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AudioBoolean {
-    ogg: boolean;
-    mp3: boolean;
-    wav: boolean;
-    m4a: boolean;
+    ogg: string;
+    mp3: string;
+    wav: string;
+    m4a: string;
 }
 
 interface VideoBoolean {
-    ogg: boolean;
-    h264: boolean;
-    webm: boolean;
+    ogg: string;
+    h264: string;
+    webm: string;
 }
 
 interface InputBoolean {
@@ -45,6 +45,66 @@ interface InputTypesBoolean {
     week: boolean;
 }
 
+interface CssColumnsBoolean extends Boolean {
+    breakafter: boolean;
+    breakbefore: boolean;
+    breakinside: boolean;
+    fill: boolean;
+    gap: boolean;
+    rule: boolean;
+    rulecolor: boolean;
+    rulestyle: boolean;
+    rulewidth: boolean;
+    span: boolean;
+    width: boolean;
+}
+
+interface FlashBoolean extends Boolean {
+    blocked: boolean;
+}
+
+interface IndexeddbBoolean extends Boolean {
+    deletedatabase: boolean;
+}
+
+interface WebglextensionsBoolean extends Boolean {
+    ANGLE_instanced_arrays: boolean;
+    EXT_blend_minmax: boolean;
+    EXT_disjoint_timer_query: boolean;
+    EXT_frag_depth: boolean;
+    EXT_sRGB: boolean;
+    EXT_shader_texture_lod: boolean;
+    EXT_texture_filter_anisotropic: boolean;
+    OES_element_index_uint: boolean;
+    OES_standard_derivatives: boolean;
+    OES_texture_float: boolean;
+    OES_texture_float_linear: boolean;
+    OES_texture_half_float: boolean;
+    OES_texture_half_float_linear: boolean;
+    OES_vertex_array_object: boolean;
+    WEBGL_compressed_texture_etc1: boolean;
+    WEBGL_compressed_texture_s3tc: boolean;
+    WEBGL_debug_renderer_info: boolean;
+    WEBGL_debug_shaders: boolean;
+    WEBGL_depth_texture: boolean;
+    WEBGL_draw_buffers: boolean;
+    WEBGL_lose_context: boolean;
+    WEBKIT_EXT_texture_filter_anisotropic: boolean;
+    WEBKIT_WEBGL_compressed_texture_s3tc: boolean;
+    WEBKIT_WEBGL_depth_texture: boolean;
+    WEBKIT_WEBGL_lose_context: boolean;
+}
+
+interface WebpBoolean extends Boolean {
+    alpha: boolean;
+    animation: boolean;
+    lossless: boolean;
+}
+
+interface DatauriBoolean extends Boolean {
+    over32kb: boolean;
+}
+
 interface FeatureDetects {
     // Documented
 
@@ -67,7 +127,7 @@ interface FeatureDetects {
     emoji: boolean;
     eventlistener: boolean;
     exiforientation: boolean;
-    flash: boolean;
+    flash: false | FlashBoolean;
     forcetouch: boolean;
     fullscreen: boolean;
     gamepads: boolean;
@@ -77,7 +137,7 @@ interface FeatureDetects {
     history: boolean;
     htmlimports: boolean;
     ie8compat: boolean;
-    indexeddb: boolean;
+    indexeddb: false | IndexeddbBoolean;
     indexeddbblob: boolean;
     input: InputBoolean;
     search: boolean;
@@ -143,7 +203,7 @@ interface FeatureDetects {
     csscalc: boolean;
     checked: boolean;
     csschunit: boolean;
-    csscolumns: boolean;
+    csscolumns: false | CssColumnsBoolean;
     cubicbezierrange: boolean;
     "display-runin": boolean;
     displaytable: boolean;
@@ -266,8 +326,7 @@ interface FeatureDetects {
     webpalpha: boolean;
     webpanimation: boolean;
     webplossless: boolean;
-    "webp-lossless": boolean;
-    webp: boolean;
+    webp: false | WebpBoolean;
     inputformaction: boolean;
     inputformenctype: boolean;
     inputformmethod: boolean;
@@ -299,12 +358,12 @@ interface FeatureDetects {
     smil: boolean;
     textareamaxlength: boolean;
     bloburls: boolean;
-    datauri: boolean;
+    datauri: false | DatauriBoolean;
     urlparser: boolean;
     videoautoplay: boolean;
     videoloop: boolean;
     videopreload: boolean;
-    webglextensions: boolean;
+    webglextensions: false | WebglextensionsBoolean;
     datachannel: boolean;
     getusermedia: boolean;
     peerconnection: boolean;
@@ -344,8 +403,8 @@ interface Dictionary<T> {
 interface ModernizrAPI {
     on(feature: string, cb: (result: boolean) => any): void;
 
-    addTest(feature: string, test: (() => boolean) | boolean): void;
-    addTest(feature: Dictionary<any>): void;
+    addTest(feature: string, test: (() => boolean) | boolean): ModernizrStatic;
+    addTest(feature: Dictionary<any>): ModernizrStatic;
 
     atRule(prop: string): boolean;
 
@@ -360,7 +419,7 @@ interface ModernizrAPI {
 
     prefixedCSS(prop: string): string;
 
-    prefixedCSSValue(prop: string, value: string): string;
+    prefixedCSSValue(prop: string, value: string): boolean;
 
     _prefixes: string[];
 
