@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as http from "http";
 
 const url = 'http://example.com/wsdl?wsdl';
-const wsdlOptions = { name: 'value', httpRequest: new soap.HttpClient() };
+const wsdlOptions = { name: 'value', httpClient: new soap.HttpClient() };
 
 soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     let securityOptions = { hasTimeStamp: false };
