@@ -410,16 +410,16 @@ declare namespace Chart {
     }
 
     export interface TimeScale extends ChartScales {
-        format?: string;
         displayFormats?: TimeDisplayFormat;
         isoWeekday?: boolean;
         max?: string;
         min?: string;
         parser?: string | ((arg: any) => any);
-        round?: string;
+        round?: TimeUnit;
         tooltipFormat?: string;
         unit?: TimeUnit;
         unitStepSize?: number;
+        minUnit?: TimeUnit;
     }
 
     export interface RadialLinearScale {
