@@ -7,7 +7,16 @@
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
     var container: HTMLDivElement, stats: Stats;
-    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, particles: THREE.Points, geometry: THREE.Geometry, material: THREE.PointsMaterial, i: number, h: number, color, sprite: THREE.Texture, size;
+    var camera: THREE.PerspectiveCamera,
+        scene: THREE.Scene,
+        renderer: THREE.WebGLRenderer,
+        particles: THREE.Points,
+        geometry: THREE.Geometry,
+        material: THREE.PointsMaterial,
+        i: number,
+        h: number,
+        color: THREE.Color,
+        sprite: THREE.Texture;
     var mouseX = 0, mouseY = 0;
 
     var windowHalfX = window.innerWidth / 2;

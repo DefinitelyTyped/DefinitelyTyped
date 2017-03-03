@@ -12,8 +12,8 @@
 
     var container: HTMLDivElement, stats: Stats;
 
-    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, objects, controls: THREE.OrbitControls;
-    var particleLight, pointLight: THREE.PointLight;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, controls: THREE.OrbitControls;
+    var pointLight: THREE.PointLight;
     var trunk: THREE.Object3D;
 
     var loader = new THREE.AWDLoader();

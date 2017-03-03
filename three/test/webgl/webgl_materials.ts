@@ -96,11 +96,11 @@
 
         objects = [];
 
-        var sphere: THREE.Mesh, geometry: THREE.Geometry, material;
+        var sphere: THREE.Mesh, geometry: THREE.Geometry;
 
         for (var i = 0, l = materials.length; i < l; i++) {
 
-            material = materials[i];
+            let material = materials[i];
 
             geometry = material instanceof THREE.MeshFaceMaterial ? geometry_pieces :
             (material.shading == THREE.FlatShading ? geometry_flat : geometry_smooth);

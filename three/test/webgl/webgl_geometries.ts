@@ -79,7 +79,7 @@
 
         //
 
-        var points = [];
+        var points: THREE.Vector3[] = [];
 
         for (var i = 0; i < 50; i++) {
 
