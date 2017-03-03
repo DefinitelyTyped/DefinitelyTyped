@@ -4060,7 +4060,7 @@ declare namespace THREE {
 
         toArray(xy?: number[], offset?: number): number[];
 
-        fromAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector2;
+        fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector2;
 
         rotateAround( center: Vector2, angle: number ): Vector2;
     }
@@ -4155,7 +4155,6 @@ declare namespace THREE {
         applyAxisAngle(axis: Vector3, angle: number): Vector3;
         applyMatrix3(m: Matrix3): Vector3;
         applyMatrix4(m: Matrix4): Vector3;
-        applyProjection(m: Matrix4): Vector3;
         applyQuaternion(q: Quaternion): Vector3;
         project(camrea: Camera): Vector3;
         unproject(camera: Camera): Vector3;
@@ -4253,7 +4252,7 @@ declare namespace THREE {
 
         fromArray(xyz: number[], offset?: number): Vector3;
         toArray(xyz?: number[], offset?: number): number[];
-        fromAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector3;
+        fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector3;
 
         // deprecated
         getPositionFromMatrix(m: Matrix4): Vector3;
@@ -4419,7 +4418,7 @@ declare namespace THREE {
 
         toArray(xyzw?: number[], offset?: number): number[];
 
-        fromAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector4;
+        fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector4;
     }
 
     export abstract class Interpolant {
