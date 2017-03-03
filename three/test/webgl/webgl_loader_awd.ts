@@ -14,12 +14,12 @@
 
     var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, objects, controls: THREE.OrbitControls;
     var particleLight, pointLight: THREE.PointLight;
-    var trunk;
+    var trunk: THREE.Object3D;
 
     var loader = new THREE.AWDLoader();
 
     loader.materialFactory = createMaterial;
-    loader.load('./models/awd/simple/simple.awd', function (_trunk) {
+    loader.load('./models/awd/simple/simple.awd', function (_trunk: THREE.Object3D) {
 
         trunk = _trunk;
 
@@ -29,15 +29,13 @@
     });
 
 
-    function createMaterial(name) {
-        // console.log( name );
-        // var mat = new THREE.MeshPhongMaterial({
-        // 	color: 0xaaaaaa,
-        // 	shininess: 20
-
-        // });
-        // return mat;
-        return null;
+    function createMaterial(name: string) {
+        console.log( name );
+        var mat = new THREE.MeshPhongMaterial({
+            color: 0xaaaaaa,
+            shininess: 20
+        });
+        return mat;
     }
 
 
@@ -106,7 +104,7 @@
 
         pointLight.position.x = Math.sin(timer * 4) * 3000;
         pointLight.position.y = 600
-				pointLight.position.z = Math.cos(timer * 4) * 3000;
+        pointLight.position.z = Math.cos(timer * 4) * 3000;
 
         renderer.render(scene, camera);
 

@@ -12,8 +12,8 @@
     var controls: THREE.TrackballControls;
 
     var particlesTotal = 512;
-    var positions = [];
-    var objects = [];
+    var positions: number[] = [];
+    var objects: THREE.CSS3DSprite[] = [];
     var current = 0;
 
     init();
@@ -28,7 +28,7 @@
         scene = new THREE.Scene();
 
         var image = document.createElement('img');
-        image.addEventListener('load', function (event) {
+        image.addEventListener('load', function (event: Event) {
 
             for (var i = 0; i < particlesTotal; i++) {
 
@@ -36,7 +36,7 @@
                 object.position.x = Math.random() * 4000 - 2000,
                 object.position.y = Math.random() * 4000 - 2000,
                 object.position.z = Math.random() * 4000 - 2000
-						scene.add(object);
+                scene.add(object);
 
                 objects.push(object);
 

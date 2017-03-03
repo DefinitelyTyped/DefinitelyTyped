@@ -128,7 +128,7 @@
 
     //
 
-    function onKeyDown ( event ) {
+    function onKeyDown ( event: KeyboardEvent ) {
 
         switch( event.keyCode ) {
 
@@ -152,7 +152,7 @@
 
     //
 
-    function onWindowResize( event ) {
+    function onWindowResize( event: Event ) {
 
         SCREEN_WIDTH = window.innerWidth;
         SCREEN_HEIGHT = window.innerHeight;

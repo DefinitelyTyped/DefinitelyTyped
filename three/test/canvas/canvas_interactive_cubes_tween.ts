@@ -85,17 +85,17 @@
 
     }
 
-    function onDocumentTouchStart(event) {
+    function onDocumentTouchStart(event: TouchEvent) {
 
         event.preventDefault();
-
-        event.clientX = event.touches[0].clientX;
-        event.clientY = event.touches[0].clientY;
-        onDocumentMouseDown(event);
+        let usurpedEvent = event as any;
+        usurpedEvent.clientX = event.touches[0].clientX;
+        usurpedEvent.clientY = event.touches[0].clientY;
+        onDocumentMouseDown(usurpedEvent);
 
     }
 
-    function onDocumentMouseDown(event) {
+    function onDocumentMouseDown(event: MouseEvent) {
 
         event.preventDefault();
 

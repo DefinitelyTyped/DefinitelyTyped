@@ -104,7 +104,7 @@
 
     //
 
-    function onDocumentMouseDown(event) {
+    function onDocumentMouseDown(event: MouseEvent) {
 
         event.preventDefault();
 
@@ -117,7 +117,7 @@
 
     }
 
-    function onDocumentMouseMove(event) {
+    function onDocumentMouseMove(event: MouseEvent) {
 
         mouseX = event.clientX - windowHalfX;
 
@@ -125,7 +125,7 @@
 
     }
 
-    function onDocumentMouseUp(event) {
+    function onDocumentMouseUp(event: MouseEvent) {
 
         document.removeEventListener('mousemove', onDocumentMouseMove, false);
         document.removeEventListener('mouseup', onDocumentMouseUp, false);
@@ -133,7 +133,7 @@
 
     }
 
-    function onDocumentMouseOut(event) {
+    function onDocumentMouseOut(event: MouseEvent) {
 
         document.removeEventListener('mousemove', onDocumentMouseMove, false);
         document.removeEventListener('mouseup', onDocumentMouseUp, false);
@@ -141,7 +141,7 @@
 
     }
 
-    function onDocumentTouchStart(event) {
+    function onDocumentTouchStart(event: TouchEvent) {
 
         if (event.touches.length === 1) {
 
@@ -154,7 +154,7 @@
 
     }
 
-    function onDocumentTouchMove(event) {
+    function onDocumentTouchMove(event: TouchEvent) {
 
         if (event.touches.length === 1) {
 

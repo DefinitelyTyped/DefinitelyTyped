@@ -86,14 +86,14 @@
 
     }
 
-    function onDocumentMouseMove( event ) {
+    function onDocumentMouseMove( event: MouseEvent ) {
 
         mouseX = event.clientX - windowHalfX;
         mouseY = event.clientY - windowHalfY;
 
     }
 
-    function onDocumentTouchStart( event ) {
+    function onDocumentTouchStart( event: TouchEvent ) {
 
         if ( event.touches.length == 1 ) {
 
@@ -105,7 +105,7 @@
         }
     }
 
-    function onDocumentTouchMove( event ) {
+    function onDocumentTouchMove( event: TouchEvent ) {
 
         if ( event.touches.length == 1 ) {
 
