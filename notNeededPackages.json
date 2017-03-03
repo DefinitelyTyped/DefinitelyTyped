@@ -323,6 +323,12 @@
             "typingsPackageName": "antd",
             "sourceRepoURL": "https://github.com/ant-design/ant-design",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "FineUploader",
+            "typingsPackageName": "fine-uploader",
+            "sourceRepoURL": "http://fineuploader.com/",
+            "asOfVersion": "5.14.0"
         }
     ]
 }
