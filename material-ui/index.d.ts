@@ -723,6 +723,7 @@ declare namespace __MaterialUI {
         className?: string;
         disableTouchRipple?: boolean;
         disabled?: boolean;
+        hoveredStyle?: React.CSSProperties;
         iconClassName?: string;
         iconStyle?: React.CSSProperties;
         onBlur?: React.FocusEventHandler<{}>;
