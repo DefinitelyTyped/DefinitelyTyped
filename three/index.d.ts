@@ -3771,53 +3771,6 @@ declare namespace THREE {
         z: number;
     }
 
-    /**
-     * Represents a spline.
-     *
-     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Spline.js">src/math/Spline.js</a>
-     */
-    export class Spline {
-        /**
-         * Initialises the spline with points, which are the places through which the spline will go.
-         */
-        constructor(points: SplineControlPoint[]);
-
-        points: SplineControlPoint[];
-
-        /**
-         * Initialises using the data in the array as a series of points. Each value in a must be another array with three values, where a[n] is v, the value for the nth point, and v[0], v[1] and v[2] are the x, y and z coordinates of that point n, respectively.
-         *
-         * @param a array of triplets containing x, y, z coordinates
-         */
-        initFromArray(a: number[][]): void;
-
-        /**
-         * Return the interpolated point at k.
-         *
-         * @param k point index
-         */
-        getPoint(k: number): SplineControlPoint;
-
-        /**
-         * Returns an array with triplets of x, y, z coordinates that correspond to the current control points.
-         */
-        getControlPointsArray(): number[][];
-
-        /**
-         * Returns the length of the spline when using nSubDivisions.
-         * @param nSubDivisions number of subdivisions between control points. Default is 100.
-         */
-        getLength(nSubDivisions?: number): { chunks: number[]; total: number; };
-
-        /**
-         * Modifies the spline so that it looks similar to the original but has its points distributed in such way that moving along the spline it's done at a more or less constant speed. The points should also appear more uniformly spread along the curve.
-         * This is done by resampling the original spline, with the density of sampling controlled by samplingCoef. Here it's interesting to note that denser sampling is not necessarily better: if sampling is too high, you may get weird kinks in curvature.
-         *
-         * @param samplingCoef how many intermediate values to use between spline points
-         */
-        reparametrizeByArcLength(samplingCoef: number): void;
-    }
-
     class Triangle {
         constructor(a?: Vector3, b?: Vector3, c?: Vector3);
 
@@ -6048,9 +6001,6 @@ declare namespace THREE {
 
         getPoint(t: number): Vector3;
     }
-
-    export class ClosedSplineCurve3 extends CatmullRomCurve3 {} // deprecated, use CatmullRomCurve3
-    export class SplineCurve3 extends CatmullRomCurve3 {} // will be deprecated, use CatmullRomCurve3
 
     export class CubicBezierCurve extends Curve<Vector2> {
         constructor(v0: Vector2, v1: Vector2, v2: Vector2, v3: Vector2);
