@@ -18,7 +18,7 @@
     var raycaster: THREE.Raycaster;
     var mouse = new THREE.Vector2();
     var intersection = null;
-    var spheres = [];
+    var spheres: THREE.Mesh[] = [];
     var spheresIndex = 0;
     var clock: THREE.Clock;
 
@@ -31,7 +31,7 @@
     init();
     animate();
 
-    function generatePointCloudGeometry(color, width, length) {
+    function generatePointCloudGeometry(color: THREE.Color, width: number, length: number) {
 
         var geometry = new THREE.BufferGeometry();
         var numPoints = width * length;
@@ -74,7 +74,7 @@
 
     }
 
-    function generatePointcloud(color, width, length) {
+    function generatePointcloud(color: THREE.Color, width: number, length: number) {
 
         var geometry = generatePointCloudGeometry(color, width, length);
 
@@ -85,7 +85,7 @@
 
     }
 
-    function generateIndexedPointcloud(color, width, length) {
+    function generateIndexedPointcloud(color: THREE.Color, width: number, length: number) {
 
         var geometry = generatePointCloudGeometry(color, width, length);
         var numPoints = width * length;
@@ -113,7 +113,7 @@
 
     }
 
-    function generateIndexedWithOffsetPointcloud(color, width, length) {
+    function generateIndexedWithOffsetPointcloud(color: THREE.Color, width: number, length: number) {
 
         var geometry = generatePointCloudGeometry(color, width, length);
         var numPoints = width * length;
@@ -142,11 +142,11 @@
 
     }
 
-    function generateRegularPointcloud(color, width, length) {
+    function generateRegularPointcloud(color: THREE.Color, width: number, length: number) {
 
         var geometry = new THREE.Geometry();
 
-        var colors = [];
+        var colors: THREE.Color[] = [];
 
         var k = 0;
 
@@ -160,15 +160,9 @@
                 var y = ( Math.cos(u * Math.PI * 8) + Math.sin(v * Math.PI * 8) ) / 20;
                 var z = v - 0.5;
                 var v2 = new THREE.Vector3(x, y, z);
-
-                var intensity = ( y + 0.1 ) * 7;
-                colors[3 * k] = color.r * intensity;
-                colors[3 * k + 1] = color.g * intensity;
-                colors[3 * k + 2] = color.b * intensity;
-
                 geometry.vertices.push(v2);
+                var intensity = ( y + 0.1 ) * 7;
                 colors[k] = ( color.clone().multiplyScalar(intensity) );
-
                 k++;
 
             }
@@ -260,7 +254,7 @@
 
     }
 
-    function onDocumentMouseMove(event) {
+    function onDocumentMouseMove(event: MouseEvent) {
 
         event.preventDefault();
 

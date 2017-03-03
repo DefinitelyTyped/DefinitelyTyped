@@ -34,7 +34,7 @@
         scene.add(light3);
 
         var PI2 = Math.PI * 2;
-        var program = function (context) {
+        var program = function (context: CanvasRenderingContext2D) {
 
             context.beginPath();
             context.arc(0, 0, 0.5, 0, PI2, true);

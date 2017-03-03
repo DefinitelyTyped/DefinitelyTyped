@@ -96,7 +96,7 @@
 
     }
 
-    function createHUDSprites ( texture ) {
+    function createHUDSprites ( texture: THREE.Texture ) {
 
         var material = new THREE.SpriteMaterial( { map: texture } );
 

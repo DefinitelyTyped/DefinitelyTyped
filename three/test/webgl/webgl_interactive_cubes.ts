@@ -87,7 +87,7 @@
 
     }
 
-    function onDocumentMouseMove(event) {
+    function onDocumentMouseMove(event: MouseEvent) {
 
         event.preventDefault();
 

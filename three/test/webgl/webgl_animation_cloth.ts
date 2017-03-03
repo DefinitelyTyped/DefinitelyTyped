@@ -15,8 +15,8 @@
     // -------
 
     /* testing cloth simulation */
-    var pinsFormation = [];
-    var pins = [6];
+    var pinsFormation: number[][] = [];
+    var pins: number[] = [6];
 
     pinsFormation.push(pins);
 

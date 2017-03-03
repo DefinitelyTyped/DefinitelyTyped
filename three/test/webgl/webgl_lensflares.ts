@@ -94,7 +94,7 @@
         addLight(0.08, 0.8, 0.5, 0, 0, -1000);
         addLight(0.995, 0.5, 0.9, 5000, 5000, -1000);
 
-        function addLight(h, s, l, x, y, z) {
+        function addLight(h: number, s: number, l: number, x: number, y: number, z: number) {
 
             var light = new THREE.PointLight(0xffffff, 1.5, 4500);
             light.color.setHSL(h, s, l);
@@ -148,7 +148,7 @@
 
     //
 
-    function lensFlareUpdateCallback(object) {
+    function lensFlareUpdateCallback(object: THREE.LensFlare) {
 
         var f: number, fl = object.lensFlares.length;
         var flare;
@@ -174,7 +174,7 @@
 
     //
 
-    function onWindowResize(event) {
+    function onWindowResize(event: Event) {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
 

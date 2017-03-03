@@ -45,8 +45,8 @@
 
         var geometry = new THREE.SphereBufferGeometry( radius, segments, rings );
 
-        displacement = new Float32Array( geometry.attributes["position"].count );
-        noise = new Float32Array( geometry.attributes["position"].count );
+        displacement = new Float32Array( geometry.getAttribute('position').count );
+        noise = new Float32Array( geometry.getAttribute('position').count );
 
         for ( var i = 0; i < displacement.length; i ++ ) {
 
