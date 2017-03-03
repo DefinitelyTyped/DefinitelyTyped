@@ -5953,6 +5953,9 @@ declare namespace THREE {
          */
         getTangentAt(u: number): T;
 
+        /**
+         * @deprecated since r84.
+         */
         static create(constructorFunc: Function, getPointFunc: Function): Function;
     }
 
