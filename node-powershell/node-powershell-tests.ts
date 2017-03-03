@@ -10,12 +10,11 @@ var ps = new nodePowershell(options);
 // Methods
 ps.addCommand('Write-Host node-powershell', [
     { name: 'foregroundcolor', value: 'red' },
-    { name: 'nonewline', value: null } //switch
+    { name: 'nonewline' } //switch
 ]).then((cmdsArr: string[]) => { }).catch((err: any) => { });
 
 ps.addCommand('Write-Host node-powershell', [
-    { foregroundcolor: 'red' },
-    { nonewline: null } //switch
+    { foregroundcolor: 'red' }
 ]);
 
 ps.invoke().then((output: string) => { }).catch((err: any) => { });
