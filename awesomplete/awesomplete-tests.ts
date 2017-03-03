@@ -1,3 +1,5 @@
+import * as Awesomplete from 'awesomplete';
+
 var input = document.getElementById("myinput");
 new Awesomplete(input, {list: "#mylist"});
 

@@ -1,10 +1,10 @@
 // Type definitions for Awesomplete v1.1.0
 // Project: https://leaverou.github.io/awesomplete/
-// Definitions by: webbiesdk <https://github.com/webbiesdk/>, Ben Dixon <https://github.com/bmdixon/>
+// Definitions by: webbiesdk <https://github.com/webbiesdk/>, Ben Dixon <https://github.com/bmdixon/>, Trevor Bekolay <https://github.com/tbekolay/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Awesomplete {
-	constructor(input: Element | HTMLElement | string, o?: AwesompleteOptions);
+	constructor(input: Element | HTMLElement | string, o?: Awesomplete.Options);
 	static all: Array<any>;
 	static $$: (expr: string | NodeSelector, con?: any) => NodeList;
 	static ITEM: (text: string, input: string) => HTMLElement;
@@ -36,14 +36,19 @@ declare class Awesomplete {
 	status: HTMLElement;
 }
 
-interface AwesompleteOptions {
-	list?: string | string[] | Element | { label: string, value: any }[] | [string, string][];
-	minChars?: Number;
-	maxItems?: Number;
-	autoFirst?: boolean;
-    data?: Function;
-	filter?: Function;
-	sort?: Function;
-	item?: Function;
-	replace?: Function;
+declare namespace Awesomplete {
+	interface Options {
+		list?: string | string[] | Element | { label: string, value: any }[] | [string, string][];
+		minChars?: Number;
+		maxItems?: Number;
+		autoFirst?: boolean;
+		data?: Function;
+		filter?: Function;
+		sort?: Function;
+		item?: Function;
+		replace?: Function;
+	}
 }
+
+export = Awesomplete;
+export as namespace Awesomplete;
