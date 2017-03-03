@@ -3345,7 +3345,6 @@ declare namespace THREE {
         clone(): this;
         copy(m: this): this;
         setFromMatrix4(m: Matrix4): Matrix3;
-        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
@@ -3445,7 +3444,6 @@ declare namespace THREE {
          * Multiplies this matrix by s.
          */
         multiplyScalar(s: number): Matrix4;
-        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer( buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         /**
          * Computes determinant of this matrix.
@@ -3532,7 +3530,7 @@ declare namespace THREE {
         /**
          * Creates a frustum matrix.
          */
-        makeFrustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4;
+        makePerspective(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4;
 
         /**
          * Creates a perspective projection matrix.
