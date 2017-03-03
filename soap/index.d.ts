@@ -49,12 +49,31 @@ export interface Server extends events.EventEmitter {
     log(type: any, data: any): any;
 }
 export function listen(server: any, path: string, service: any, wsdl: string): Server;
-declare function createClient(wsdlPath: string, options: any, fn: (err: any, client: Client) => void): void;
+declare function createClient(wsdlPath: string, options: Option, fn: (err: any, client: Client) => void): void;
+
+export interface Option {
+    attributesKey?: string;
+    disableCache?: boolean;
+    endpoint?: string;
+    envelopeKey?: string;
+    escapeXML?: boolean;
+    forceSoap12Headers?: boolean;
+    httpClient?: HttpClient;
+    ignoreBaseNameSpaces?: boolean,
+    ignoredNamespaces?: string[] | {namespaces: string[], override: boolean};
+    overrideRootElement?: {namespace: string, xmlnsAttributes?: string[]};
+    request?: (options: any, callback?: (error: any, res: any, body: any) => void) => void;
+    stream?: boolean;
+    valueKey?: string;
+    wsdl_headers?: { [key: string]: any };
+    wsdl_options?: { [key: string]: any };
+    xmlKey?: string;
+}
 
 export class HttpClient {
-    constructor(options?: any);
-    buildRequest(rurl: string, data: any | string, exheaders?: any, exoptions?: any): any;
+    constructor(options?: Option);
+    buildRequest(rurl: string, data: any | string, exheaders?: { [key: string]: any }, exoptions?: { [key: string]: any }): any;
     handleResponse(req: any, res: any, body: any | string): any | string;
-    request(rurl: string, data: any | string, callback: (err: any, res: any, body: any | string) => void, exheaders?: any, exoptions?: any): any;
-    requestStream(rurl: string, data: any | string, exheaders?: any, exoptions?: any): any;
+    request(rurl: string, data: any | string, callback: (err: any, res: any, body: any | string) => void, exheaders?: { [key: string]: any }, exoptions?: { [key: string]: any }): any;
+    requestStream(rurl: string, data: any | string, exheaders?: { [key: string]: any }, exoptions?: { [key: string]: any }): any;
 }
