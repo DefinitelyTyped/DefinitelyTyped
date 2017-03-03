@@ -2851,6 +2851,7 @@ declare namespace THREE {
         expandByPoint(point: Vector3): Box3;
         expandByVector(vector: Vector3): Box3;
         expandByScalar(scalar: number): Box3;
+        expandByObject(object: Object3D): Box3;
         containsPoint(point: Vector3): boolean;
         containsBox(box: Box3): boolean;
         getParameter(point: Vector3): Vector3;
