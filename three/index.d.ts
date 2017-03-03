@@ -1,6 +1,6 @@
 // Type definitions for three.js 0.83
 // Project: http://mrdoob.github.com/three.js/
-// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>
+// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>, David Asmuth <https://github.com/piranha771>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="detector.d.ts" />
@@ -2161,14 +2161,18 @@ declare namespace THREE {
         setPath(path: string): CubeTextureLoader;
     }
 
-    export class BinaryTextureLoader {
+    export class DataTextureLoader {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
 
         load(url: string, onLoad: (dataTexture: DataTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     }
-    export class DataTextureLoader extends BinaryTextureLoader {}
+
+    /**
+     * @deprecated since 0.84.0. Use DataTextureLoader (renamed)
+     */
+    export class BinaryTextureLoader extends DataTextureLoader {}
 
     export class CompressedTextureLoader {
         constructor(manager?: LoadingManager);
