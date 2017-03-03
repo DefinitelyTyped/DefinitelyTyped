@@ -14,8 +14,6 @@
 
     var clock = new THREE.Clock();
 
-    var composer;
-
     init();
     animate();
 
@@ -37,9 +35,9 @@
         controls.autoForward = false;
         controls.dragToLook = false
 
-				// scene
+        // scene
 
-				scene = new THREE.Scene();
+        scene = new THREE.Scene();
         scene.fog = new THREE.Fog(0x000000, 3500, 15000);
         scene.fog.color.setHSL(0.51, 0.4, 0.01);
 
@@ -151,7 +149,7 @@
     function lensFlareUpdateCallback(object: THREE.LensFlare) {
 
         var f: number, fl = object.lensFlares.length;
-        var flare;
+        var flare: THREE.LensFlareProperty;
         var vecX = -object.positionScreen.x * 2;
         var vecY = -object.positionScreen.y * 2;
 

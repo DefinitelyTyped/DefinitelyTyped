@@ -52,7 +52,7 @@
     var sphere: THREE.Mesh;
     var object: THREE.Mesh;
     var arrow: THREE.ArrowHelper;
-    var light:  THREE.DirectionalLight, materials;
+    var light:  THREE.DirectionalLight;
     var rotate = true;
 
     init();

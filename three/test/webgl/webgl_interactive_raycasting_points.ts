@@ -17,7 +17,7 @@
     var pointclouds: THREE.Points[];
     var raycaster: THREE.Raycaster;
     var mouse = new THREE.Vector2();
-    var intersection = null;
+    var intersection: THREE.Intersection | null = null;
     var spheres: THREE.Mesh[] = [];
     var spheresIndex = 0;
     var clock: THREE.Clock;

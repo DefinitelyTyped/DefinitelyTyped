@@ -46,7 +46,9 @@
             geometry2 = new THREE.Geometry(),
             geometry3 = new THREE.Geometry(),
             points = hilbert3D(new THREE.Vector3(0, 0, 0), 200.0, 2, 0, 1, 2, 3, 4, 5, 6, 7),
-            colors = [], colors2 = [], colors3 = [];
+            colors: THREE.Color[] = [],
+            colors2: THREE.Color[] = [],
+            colors3: THREE.Color[] = [];
 
         for (i = 0; i < points.length; i++) {
 
