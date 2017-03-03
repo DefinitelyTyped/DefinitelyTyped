@@ -1027,9 +1027,6 @@ declare namespace THREE {
          * @param type The type of event that gets fired.
          */
         dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
-
-        // deprecated
-        apply(target: any): void;
     }
 
     export interface Event {
@@ -5785,8 +5782,6 @@ declare namespace THREE {
         export function triangulate(contour: number[], indices: boolean): number[];
         export function triangulateShape(contour: number[], holes: any[]): number[];
         export function isClockWise(pts: number[]): boolean;
-        export function b2(t: number, p0: number, p1: number, p2: number): number;
-        export function b3(t: number, p0: number, p1: number, p2: number, p3: number): number;
     }
 
     // Extras / Audio /////////////////////////////////////////////////////////////////////
@@ -6041,6 +6036,13 @@ declare namespace THREE {
     }
 
     // Extras / Curves /////////////////////////////////////////////////////////////////////
+    export namespace CurveUtils {
+        export function tangentQuadraticBezier(t: number, p0: number, p1: number, p2: number): number;
+        export function tangentCubicBezier(t: number, p0: number, p1: number, p2: number, p3: number): number;
+        export function tangentSpline(t: number, p0: number, p1: number, p2: number, p3: number): number;
+        export function interpolate(p0: number, p1: number, p2: number, p3: number, t: number): number;
+    }
+
     export class CatmullRomCurve3 extends Curve<Vector3> {
         constructor(points?: Vector3[]);
 
