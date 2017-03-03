@@ -1,4 +1,4 @@
-// Type definitions for three.js 0.83
+// Type definitions for three.js 0.84
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
