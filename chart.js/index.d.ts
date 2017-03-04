@@ -365,31 +365,25 @@ declare namespace Chart {
         yAxes?: ChartYAxe[];
     }
 
-    export interface ChartXAxe {
+    export interface CommonAxe {
         type?: ScaleType | string;
         display?: boolean;
         id?: string;
         stacked?: boolean;
-        categoryPercentage?: number;
-        barPercentage?: number;
-        barThickness?: number;
-        gridLines?: GridLineOptions;
         position?: string;
         ticks?: TickOptions;
-        time?: TimeScale;
+        gridLines?: GridLineOptions;
+        barThickness?: number;
         scaleLabel?: ScaleTitleOptions;
     }
 
-    export interface ChartYAxe {
-        type?: ScaleType | string;
-        display?: boolean;
-        id?: string;
-        stacked?: boolean;
-        position?: string;
-        ticks?: TickOptions;
-        scaleLabel?: ScaleTitleOptions;
-        gridLines?: GridLineOptions;
-        barThickness?: number;
+    export interface ChartXAxe extends CommonAxe {
+        categoryPercentage?: number;
+        barPercentage?: number;
+        time?: TimeScale;
+    }
+
+    export interface ChartYAxe extends CommonAxe {
     }
 
     export interface LinearScale extends ChartScales {
