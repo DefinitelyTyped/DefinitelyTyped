@@ -32,6 +32,8 @@ declare namespace Chart {
 
     export type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
 
+    export type PositionType = 'left' | 'right' | 'top' | 'bottom';
+
     export interface ChartLegendItem {
         text?: string;
         fillStyle?: string;
@@ -341,7 +343,7 @@ declare namespace Chart {
     export interface ChartScales {
         type?: ScaleType | string;
         display?: boolean;
-        position?: string;
+        position?: PositionType | string;
         beforeUpdate?: (scale?: any) => void;
         beforeSetDimension?: (scale?: any) => void;
         beforeDataLimits?: (scale?: any) => void;
@@ -387,6 +389,7 @@ declare namespace Chart {
         ticks?: TickOptions;
         scaleLabel?: ScaleTitleOptions;
         gridLines?: GridLineOptions;
+        barThickness?: number;
     }
 
     export interface LinearScale extends ChartScales {
