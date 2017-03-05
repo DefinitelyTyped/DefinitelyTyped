@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "datatables-buttons-tests.ts"
+        "datatables.net-buttons-tests.ts"
     ]
 }

@@ -27,7 +27,8 @@ server = restify.createServer({
     spdy: {},
     version: "",
     responseTimeHeader: "",
-    responseTimeFormatter : (durationInMilliseconds: number) => {}
+    responseTimeFormatter : (durationInMilliseconds: number) => {},
+	socketio: false
 });
 
 server.pre(restify.pre.sanitizePath());

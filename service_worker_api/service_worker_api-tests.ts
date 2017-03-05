@@ -191,3 +191,16 @@ self.addEventListener('notificationclick', (event: NotificationEvent) => {
             return self.clients.openWindow('/');
     }));
 });
+
+navigator.serviceWorker.ready.then(function(registration) {
+    registration.showNotification('Notification Sample', {
+        body: 'This is a sample notification!',
+        icon: '/sw-test/star-wars-logo.jpg',
+        tag: 'notification-sample'
+    });
+});
+
+self.registration.getNotifications({tag: 'notification-sample'})
+    .then(function(notifications) {
+        console.log(notifications);
+    });

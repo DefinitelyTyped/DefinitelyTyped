@@ -242,10 +242,10 @@ declare namespace React {
     interface ComponentLifecycle<P, S> {
         componentWillMount?(): void;
         componentDidMount?(): void;
-        componentWillReceiveProps?(nextProps: P, nextContext: any): void;
-        shouldComponentUpdate?(nextProps: P, nextState: S, nextContext: any): boolean;
-        componentWillUpdate?(nextProps: P, nextState: S, nextContext: any): void;
-        componentDidUpdate?(prevProps: P, prevState: S, prevContext: any): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, prevContext: any): void;
         componentWillUnmount?(): void;
     }
 
@@ -1296,7 +1296,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
 
         layoutGrid?: CSSWideKeyword | any;
 
