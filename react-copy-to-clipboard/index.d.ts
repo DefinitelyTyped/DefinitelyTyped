@@ -19,6 +19,7 @@ declare namespace CopyToClipboard {
 
   export interface Props {
     text: string;
+    onCopy: (a: string) => void,
     options?: Options;
   }
 
