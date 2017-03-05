@@ -661,7 +661,18 @@ declare namespace webpack {
      */
 
     class BannerPlugin extends Plugin {
-        constructor(banner: any, options: any);
+        constructor(options: BannerPlugin.Options);
+    }
+
+    namespace BannerPlugin {
+        interface Options {
+            banner: string, // the banner as string, it will be wrapped in a comment
+            raw?: boolean, // if true, banner will not be wrapped in a comment
+            entryOnly?: boolean, // if true, the banner will only be added to the entry chunks
+            test?: string | RegExp | Array<string|RegExp>,
+            include?: string | RegExp | Array<string|RegExp>,
+            exclude?: string | RegExp | Array<string|RegExp>
+        }
     }
 
     class ContextReplacementPlugin extends Plugin {
