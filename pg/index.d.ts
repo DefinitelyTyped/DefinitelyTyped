@@ -51,13 +51,13 @@ export interface QueryConfig {
 }
 
 export interface Field {
-    columnID?: number;
-    dataTypeID?: number;
-    dataTypeModifier?: number;
-    dataTypeSize?: number;
-    format?: string;
-    name?: string;
-    tableID?: number;
+    columnID: number;
+    dataTypeID: number;
+    dataTypeModifier: number;
+    dataTypeSize: number;
+    format: string;
+    name: string;
+    tableID: number;
 }
 
 export interface QueryResult {
