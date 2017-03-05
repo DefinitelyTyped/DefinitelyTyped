@@ -1269,7 +1269,7 @@ s.define( 'UserWithUniqueUsername', {
     username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
     email : { type : Sequelize.STRING, unique : 'user_and_email' }
 } );
-/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
+
 s.define( 'UserWithUniqueUsername', {
     user_id : { type : Sequelize.INTEGER },
     email : { type : Sequelize.STRING }
@@ -1277,13 +1277,18 @@ s.define( 'UserWithUniqueUsername', {
     indexes : [
         {
             name : 'user_and_email_index',
-            msg : 'User and email must be unique',
             unique : true,
             method : 'BTREE',
             fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }]
-        }]
+        },
+        {
+            fields: ['data'],
+            using: 'gin',
+            operator: 'jsonb_path_ops'
+        }
+    ]
 } );
- */
+
 s.define( 'TaskBuild', {
     title : { type : Sequelize.STRING, defaultValue : 'a task!' },
     foo : { type : Sequelize.INTEGER, defaultValue : 2 },
@@ -1527,6 +1532,27 @@ s.define( 'User', {
 }, {
     timestamps : true,
     paranoid : true
+} );
+
+s.define( 'TriggerTest', {
+    id : {
+        type : Sequelize.INTEGER,
+        field : 'test_id',
+        autoIncrement : true,
+        primaryKey : true,
+        validate : {
+            min : 1
+        }
+    },
+    title : {
+        allowNull : false,
+        type : Sequelize.STRING( 255 ),
+        field : 'test_title'
+    }
+}, {
+    timestamps : false,
+    underscored : true,
+    hasTrigger : true
 } );
 
 //
