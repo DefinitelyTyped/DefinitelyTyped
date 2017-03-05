@@ -908,7 +908,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      * this method first computes the area of the exterior ring, and then subtracts the area of any interior holes.
      * This method observes any clipping performed by the projection; see projection.clipAngle and projection.clipExtent.
      *
-     * @param An object for which the area is to be calculated.
+     * @param object An object for which the area is to be calculated.
      */
     area(object: DatumObject): number;
 
@@ -921,7 +921,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      * the minimum latitude is typically the maximum y-value, and the maximum latitude is typically the minimum y-value.)
      * This method observes any clipping performed by the projection; see projection.clipAngle and projection.clipExtent.
      *
-     * @param An object for which the bounds are to be calculated.
+     * @param object An object for which the bounds are to be calculated.
      */
     bounds(object: DatumObject): [[number, number], [number, number]];
 
@@ -931,7 +931,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      * For example, a noncontiguous cartogram might scale each state around its centroid.
      * This method observes any clipping performed by the projection; see projection.clipAngle and projection.clipExtent.
      *
-     * @param An object for which the centroid is to be calculated.
+     * @param pbject An object for which the centroid is to be calculated.
      */
     centroid(object: DatumObject): [number, number];
 
@@ -941,7 +941,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      *
      * This method observes any clipping performed by the projection.
      *
-     * @param object GeoJSON object to measure.
+     * @param object An object for which the measure is to be calculated.
      */
     measure(object: DatumObject): number;
 
