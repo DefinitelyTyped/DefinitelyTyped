@@ -212,7 +212,7 @@ interface Family {
 	name: string;
 	relation: string;
 }
-var isUncleMoe = _.matches<Family, boolean>({ name: 'moe', relation: 'uncle' });
+var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
 _.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
 
 
