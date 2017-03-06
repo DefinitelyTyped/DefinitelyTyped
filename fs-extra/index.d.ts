@@ -1,4 +1,4 @@
-// Type definitions for fs-extra
+// Type definitions for fs-extra v2.0.0
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: midknight41 <https://github.com/midknight41>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
