@@ -4,72 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare var BigNumber: bignumber.BigNumberStatic;
+declare var BigNumber: BigNumber.BigNumberStatic;
 
 export as namespace BigNumber;
 export = BigNumber;
 
-declare namespace bignumber {
-
-    const enum RoundingMode {
-
-        /**
-         * Rounds away from zero
-         */
-        ROUND_UP = 0,
-
-        /**
-         * Rounds towards zero
-         */
-        ROUND_DOWN = 1,
-
-        /**
-         * Rounds towards `Infinity`
-         */
-        ROUND_CEIL = 2,
-
-        /**
-         * Rounds towards `-Infinity`
-         */
-        ROUND_FLOOR = 3,
-
-        /**
-         * Rounds towards nearest neighbour.
-         * If equidistant, rounds away from zero.
-         */
-        ROUND_HALF_UP = 4,
-
-        /**
-         * Rounds towards nearest neighbour.
-         * If equidistant, rounds towards zero.
-         */
-        ROUND_HALF_DOWN = 5,
-
-        /**
-         * Rounds towards nearest neighbour.
-         * If equidistant, rounds towards even neighbour.
-         */
-        ROUND_HALF_EVEN = 6,
-
-        /**
-         * Rounds towards nearest neighbour.
-         * If equidistant, rounds towards `Infinity`.
-         */
-        ROUND_HALF_CEIL = 7,
-
-        /**
-         * Rounds towards nearest neighbour.
-         * If equidistant, rounds towards `-Infinity`.
-         */
-        ROUND_HALF_FLOOR = 8,
-
-        /**
-         * The remainder is always positive. 
-         * 
-         * Euclidian division: `q = sign(n) * floor(a / abs(n))`
-         */
-        EUCLID = 9,
-    }
+declare namespace BigNumber {
 
     interface FormatConfig {
 
@@ -164,7 +104,7 @@ declare namespace bignumber {
          * 
          * The remainder, `r`, is calculated as: `r = a - n * q`.
          */
-        MODULO_MODE: RoundingMode;
+        MODULO_MODE: ModuloMode;
 
         /**
          * The maximum number of significant digits of the result of the power operation (unless a modulus is specified).
@@ -180,6 +120,8 @@ declare namespace bignumber {
     }
 
     type NumberLike = number | string | BigNumber;
+    type RoundingMode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+    type ModuloMode = RoundingMode | 9
 
     interface BigNumberStatic {
 
@@ -214,7 +156,7 @@ declare namespace bignumber {
             RANGE?: number | number[],
             ERRORS?: boolean | 0 | 1,
             CRYPTO?: boolean | 0 | 1,
-            MODULO_MODE?: RoundingMode,
+            MODULO_MODE?: ModuloMode,
             POW_PRECISION?: number
         ): BigNumberConfig;
 
@@ -233,7 +175,7 @@ declare namespace bignumber {
             RANGE?: number | number[],
             ERRORS?: boolean | 0 | 1,
             CRYPTO?: boolean | 0 | 1,
-            MODULO_MODE?: RoundingMode,
+            MODULO_MODE?: ModuloMode,
             POW_PRECISION?: number
         ): BigNumberConfig;
 
@@ -274,15 +216,61 @@ declare namespace bignumber {
          */
         random(dp?: number): BigNumber;
 
+        /**
+         * Rounds away from zero
+         */
         ROUND_UP: 0;
+
+        /**
+         * Rounds towards zero
+         */
         ROUND_DOWN: 1;
+
+        /**
+         * Rounds towards `Infinity`
+         */
         ROUND_CEIL: 2;
+
+        /**
+         * Rounds towards `-Infinity`
+         */
         ROUND_FLOOR: 3;
+
+        /**
+         * Rounds towards nearest neighbour.
+         * If equidistant, rounds away from zero.
+         */
         ROUND_HALF_UP: 4;
+
+        /**
+         * Rounds towards nearest neighbour.
+         * If equidistant, rounds towards zero.
+         */
         ROUND_HALF_DOWN: 5;
+
+        /**
+         * Rounds towards nearest neighbour.
+         * If equidistant, rounds towards even neighbour.
+         */
         ROUND_HALF_EVEN: 6;
+
+        /**
+         * Rounds towards nearest neighbour.
+         * If equidistant, rounds towards `Infinity`.
+         */
         ROUND_HALF_CEIL: 7;
+
+        /**
+         * Rounds towards nearest neighbour.
+         * If equidistant, rounds towards `-Infinity`.
+         */
         ROUND_HALF_FLOOR: 8;
+
+        /**
+         * The remainder is always positive. 
+         * 
+         * Euclidian division: `q = sign(n) * floor(a / abs(n))`
+         */
         EUCLID: 9;
     }
 
@@ -497,7 +485,7 @@ declare namespace bignumber {
          * Returns a BigNumber whose value is the value of this BigNumber plus `n`.
          */
         plus(n: NumberLike, base?: number): BigNumber;
-        
+
         /**
          * Returns a BigNumber whose value is the value of this BigNumber plus `n`.
          */
