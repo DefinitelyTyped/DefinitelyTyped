@@ -1,3 +1,8 @@
+// Type definitions for Lowdb 0.15
+// Project: https://github.com/typicode/lowdb
+// Definitions by: typicode, <https://github.com/typicode>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace lowdb {
 
     interface PromiseLike<T> {
@@ -167,7 +172,7 @@ declare namespace lowdb {
         /**
          * @see _.get
          */
-        get<TResult>(object: Object,
+        get<TResult>(object: any,
             path: string | number | boolean | Array<string | number | boolean>,
             defaultValue?: TResult
         ): LoDashWrapper;
@@ -184,7 +189,7 @@ declare namespace lowdb {
          * @see _.mixin
          */
         mixin<TResult>(
-            source: Dictionary<Function>,
+            source: Dictionary<() => void>,
             options?: MixinOptions
         ): LoDashWrapper;
 
@@ -370,12 +375,12 @@ declare namespace lowdb {
         /**
          * @see _.sortBy
          */
-        sortBy<T>(...iteratees: (ListIterator<T, boolean> | Object | string)[]): LoDashWrapper;
+        sortBy<T>(...iteratees: (ListIterator<T, boolean> | any | string)[]): LoDashWrapper;
 
         /**
          * @see _.sortBy
          */
-        sortBy<T>(iteratees: (ListIterator<T, any> | string | Object)[]): LoDashWrapper;
+        sortBy<T>(iteratees: (ListIterator<T, any> | string | any)[]): LoDashWrapper;
 
         /**
          * @see _.slice
@@ -441,7 +446,7 @@ declare namespace lowdb {
           * @param deserialize The deserialize function to apply.
           * @return Returns the deserialized db object.
         */
-        read?(source: string, deserialize: any): Object
+        read?(source: string, deserialize: any): {}
 
         /**
           * Writes to the database.
@@ -470,7 +475,7 @@ declare namespace lowdb {
           * @param obj The object to serialize.
           * @return Returns the serialized object string.
         */
-        serialize(obj: Object): string
+        serialize(obj: any): string
 
         /**
           * Writes to the database.
@@ -478,7 +483,7 @@ declare namespace lowdb {
           * @param data The object to deserialize.
           * @return Returns the deserialized object.
         */
-        deserialize(data: string): Object
+        deserialize(data: string): any
     }
 
     export interface Options {
@@ -508,13 +513,13 @@ declare namespace lowdb {
          * Access current database state.
          * Returns Returns the database state.
          */
-        getState(): Object
+        getState(): any
 
         /**
          * Drop or reset database state.
          * @param newState New state of the database
          */
-        setState(newState: Object): void
+        setState(newState: any): void
 
         /**
          * Persist database.
@@ -532,13 +537,13 @@ declare namespace lowdb {
          * Read database.
          * @param source The source location.
          */
-        read(source?: string): Object
+        read(source?: string): any
 
         /**
          * Read database.
          * @param source The source location.
          */
-        read(source?: string): PromiseLike<Object>
+        read(source?: string): PromiseLike<any>
 
   }
 
