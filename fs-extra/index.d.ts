@@ -1,6 +1,6 @@
 // Type definitions for fs-extra v2.0.0
 // Project: https://github.com/jprichardson/node-fs-extra
-// Definitions by: midknight41 <https://github.com/midknight41>
+// Definitions by: midknight41 <https://github.com/midknight41>, Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/fs-extra.d.ts
