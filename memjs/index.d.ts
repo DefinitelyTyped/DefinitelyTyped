@@ -3,30 +3,35 @@
 // Definitions by: Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface Memjs {
-    Client: {
-        create(serversStr: string, options?: MemjsClient.Options): MemjsClient.Instance;
-    }
-}
-/**
- * Client Namespace
- */
-declare namespace MemjsClient {
+declare let memjs: MemJS.Static;
 
-    interface Instance {
+// Support AMD require
+declare module 'memjs' {
+    export = memjs;
+}
+
+declare namespace MemJS {
+    interface Static {
+        Client: { create(serversStr: string, options?: ClientOptions): Client; };
+    }
+
+    /**
+     * Client Instance
+     */
+    interface Client {
         /**
          * Creates a new client given an optional config string and optional hash of options
          * @param servers
          * @param options
          */
-        (servers: string, options: Options): Instance;
+        (servers: string, options: ClientOptions): Client;
 
         /**
          * Retrieves the value at the given key in memcache.
          * @param key
          * @param callback
          */
-        get(key: string, callback: GetCallback): void;
+        get(key: string, callback: (err: Error, value: any, extras: any) => any): void;
 
         /**
          * Sets the given key_ and _value_ in memcache.
@@ -35,34 +40,37 @@ declare namespace MemjsClient {
          * @param options
          * @param callback
          */
-        set(key: string, value: any, options: any, callback: Callback): void;
+        set(key: string, value: any, options: any, callback: (err: Error, success: boolean) => any): void;
 
         /**
-         * Adds the given _key_ and _value_ to memcache. The operation only succeeds if the key is not already set.
+         * Adds the given _key_ and _value_ to memcache.
+         * The operation only succeeds if the key is not already set.
          * @param key
          * @param value
          * @param options
          * @param callback
          */
-        add(key: string, value: any, options: any, callback: Callback): void;
+        add(key: string, value: any, options?: any, callback?: (err: Error, success: boolean) => any): void;
 
         /**
-         * Replaces the given _key_ and _value_ to memcache. The operation only succeeds if the key is already present.
+         * Replaces the given _key_ and _value_ to memcache.
+         * The operation only succeeds if the key is already present.
          * @param key
          * @param value
          * @param options
          * @param callback
          */
-        replace(key: string, value: any, options: any, callback: Callback): void;
+        replace(key: string, value: any, options: any, callback: (err: Error, success: boolean) => any): void;
 
         /**
-         * Deletes the given _key_ from memcache. The operation only succeeds if the key is already present.
+         * Deletes the given _key_ from memcache.
+         * The operation only succeeds if the key is already present.
          * @param key
          * @param value
          * @param options
          * @param callback
          */
-        delete(key: string, value: any, options: any, callback: Callback): void;
+        delete(key: string, value: any, options: any, callback: (err: Error, success: boolean) => any): void;
 
         /**
          * Increments the given _key_ in memcache.
@@ -71,7 +79,7 @@ declare namespace MemjsClient {
          * @param options
          * @param callback
          */
-        increment(key: string, amount: number, options: any, callback: CrementCallback): void;
+        increment(key: string, amount: number, options: any, callback: (err: Error, success: boolean, value: any) => any): void;
 
         /**
          * Decrements the given _key_ in memcache.
@@ -80,7 +88,7 @@ declare namespace MemjsClient {
          * @param options
          * @param callback
          */
-        decrement(key: string, amount: number, options: any, callback: CrementCallback): void;
+        decrement(key: string, amount: number, options: any, callback: (err: Error, success: boolean, value: any) => any): void;
 
         /**
          * Append the given _value_ to the value associated with the given _key_ in memcache.
@@ -89,7 +97,7 @@ declare namespace MemjsClient {
          * @param value
          * @param callback
          */
-        append(key: string, value: any, callback: Callback): void;
+        append(key: string, value: any, callback: (err: Error, success: boolean) => any): void;
 
         /**
          * Prepend the given _value_ to the value associated with the given _key_ in memcache.
@@ -98,7 +106,7 @@ declare namespace MemjsClient {
          * @param value
          * @param callback
          */
-        prepend(key: string, value: any, callback: Callback): void;
+        prepend(key: string, value: any, callback: (err: Error, success: boolean) => any): void;
 
         /**
          * Touch sets an expiration value, given by _expires_, on the given _key_ in memcache.
@@ -107,32 +115,32 @@ declare namespace MemjsClient {
          * @param expires
          * @param callback
          */
-        touch(key: string, expires: number, callback: Callback): void;
+        touch(key: string, expires: number, callback: (err: Error, success: boolean) => any): void;
 
         /**
          * Flushes the cache on each connected server.
          * @param callback
          */
-        flush(callback: CallbackWithResults): void;
+        flush(callback: (lastErr: Error, results: any) => any): void;
 
         /**
          * Sends a memcache stats command with a key to each connected server.
          * @param key
          * @param callback
          */
-        statsWithKey(key: string, callback: StatsCallback): void;
+        statsWithKey(key: string, callback: (err: Error, server: any, stats: any) => any): void;
 
         /**
          * Fetches memcache stats from each connected server.
          * @param callback
          */
-        stats(callback: StatsCallback): void;
+        stats(callback: (err: Error, server: any, stats: any) => any): void;
 
         /**
          *
          * @param callback
          */
-        resetStats(callback: ServerCallback): void;
+        resetStats(callback: (err: Error, server: string) => any): void;
 
         /**
          * Closes the connection to each server, notifying them of this intention.
@@ -147,56 +155,11 @@ declare namespace MemjsClient {
         close(): void;
     }
 
-    /**
-     * @param err
-     * @param value
-     * @param extras
-     */
-    interface GetCallback {
-        (err: Error, value: any, extras: any): void;
+    interface ClientOptions {
+        retries?: number;
+        expires?: number;
+        logger?: any;
+        failover?: boolean;
+        failoverTime?: number;
     }
-
-    /**
-     * @param err
-     * @param success
-     */
-    interface Callback { (err: Error, success: boolean): void; }
-
-    /**
-     * @param err
-     * @param success
-     * @param value
-     */
-    interface CrementCallback { (err: Error, success: boolean, value: any): void; }
-
-    /**
-     * @param lastErr
-     * @param results
-     */
-    interface CallbackWithResults { (lastErr: Error, results: any): void; }
-
-    /**
-     * @param err
-     * @param server
-     * @param stats
-     */
-    interface StatsCallback { (err: Error, server: any, stats: any): void; }
-
-    /**
-     * @param err
-     * @param server
-     */
-    interface ServerCallback { (err: Error, server: string): void; }
-
-    interface Options {
-        retries?: number,
-        expires?: number,
-        logger?: any,
-        failover?: boolean,
-        failoverTime?: number
-    }
-}
-declare module 'memjs' {
-    let memjs = Memjs;
-    export = memjs;
 }
