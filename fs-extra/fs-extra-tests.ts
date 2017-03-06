@@ -2,7 +2,7 @@
 /// <reference types="node" />
 
 import fs = require('fs-extra');
-import * as Path from 'path'
+import * as Path from 'path';
 
 var src: string;
 var dest: string;
@@ -22,7 +22,7 @@ fs.copy(src, dest,
 	{
 		clobber: true,
 		preserveTimestamps: true,
-		filter: (src: string) => {return false}
+		filter: (src: string) => { return false; }
 	},
 	errorCallback
 );
@@ -43,7 +43,7 @@ fs.copySync(src, dest,
 	{
 		clobber: true,
 		preserveTimestamps: true,
-		filter: (src: string) => {return false}
+		filter: (src: string) => { return false; }
 	}
 );
 fs.copySync(src, dest,
