@@ -120,9 +120,6 @@ export type PathEntryStream = {
   read(): PathEntry | null
 }
 
-export function walk(path: string, options?: WalkOptions): WalkEventEmitter;
-export function walkSync(path: string): ReadonlyArray<string>;
-
 export interface CopyFilterFunction {
     (src: string): boolean
 }
