@@ -1,4 +1,4 @@
-var x = new BigNumber(9)
+var x: BigNumber.BigNumber = new BigNumber(9)
 var y = new BigNumber(x)
 
 BigNumber(435.345)
