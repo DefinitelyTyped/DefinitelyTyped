@@ -6,6 +6,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "lib": ["es6"],
         "typeRoots": [
             "../"
         ],

@@ -1,4 +1,4 @@
-// Type definitions for memjs v0.10.0
+// Type definitions for memjs 0.10
 // Project: https://github.com/alevy/memjs
 // Definitions by: Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
