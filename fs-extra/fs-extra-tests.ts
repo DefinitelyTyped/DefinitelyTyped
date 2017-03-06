@@ -102,35 +102,3 @@ fs.ensureSymlink(path, errorCallback);
 fs.ensureSymlinkSync(path);
 fs.emptyDir(path, errorCallback);
 fs.emptyDirSync(path);
-
-var items: string[];
-fs.walk("my-path")
-  .on('data', function (item) {
-    items.push(item.path);
-  })
-  .on('end', function () {
-    console.dir(items);
-  });
-
-const ignoreHiddenFiles = (item: string): boolean => {
-  const basename = Path.basename(item)
-  return basename === '.' || basename[0] !== '.'
-}
-
-const sortPaths = (left: string, right: string) => left.localeCompare(right);
-
-const options = {
-  filter: ignoreHiddenFiles,
-  pathSorter: sortPaths
-}
-
-fs.walk(path, options)
-  .on('readable', function (this: fs.PathEntryStream) {
-    let item: fs.PathEntry | undefined
-    while ((item = this.read())) {
-      items.push(item.path)
-    }
-  })
-  .on('end', function () {
-
-  })
