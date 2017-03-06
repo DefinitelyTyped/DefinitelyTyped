@@ -19,10 +19,10 @@ export class Message {
                     oneofFields?: number[][] | null): void;
   static toObjectList<T extends Message>(field: T[],
                                          toObjectFn: (includeInstance: boolean,
-                                                      data: T) => object,
-                                         includeInstance?: boolean): object[];
+                                                      data: T) => {},
+                                         includeInstance?: boolean): {}[];
   static toObjectExtension(msg: Message,
-                           obj: object,
+                           obj: {},
                            extensions: {[key: number]: ExtensionFieldInfo<Message>},
                            getExtensionFn: (fieldInfo: ExtensionFieldInfo<Message>) => Message,
                            includeInstance?: boolean): void;
@@ -100,8 +100,8 @@ export class Message {
                                        m2: T): T;
   static equals(m1: Message,
                 m2: Message): boolean;
-  static compareExtensions(extension1: object,
-                           extension2: object): boolean;
+  static compareExtensions(extension1: {},
+                           extension2: {}): boolean;
   static compareFields(field1: any,
                        field2: any): boolean;
   cloneMessage(): Message;
@@ -118,7 +118,7 @@ export namespace Message {
   export type MessageArray = any[]; // This type needs to reference itself
   interface StaticToObject {
     (includeInstance: boolean,
-     msg: Message): object;
+     msg: Message): {};
   }
 }
 
@@ -172,7 +172,7 @@ export class Map<K, V> {
   keys(): Map.Iterator<K>;
   forEach(callback: (entry: V,
                      key: K) => void,
-          thisArg?: object): void;
+          thisArg?: {}): void;
   set(key: K,
       value: V): void;
   get(key: K): (V | undefined);
