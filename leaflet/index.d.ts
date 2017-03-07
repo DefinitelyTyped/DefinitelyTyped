@@ -146,6 +146,7 @@ declare namespace L {
     export class LatLngBounds {
         constructor(southWest: LatLngExpression, northEast: LatLngExpression);
         constructor(latlngs: LatLngBoundsLiteral);
+        constructor();
         extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
         pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
         getCenter(): LatLng;
@@ -1419,7 +1420,7 @@ declare namespace L {
     }
 
     export interface IconOptions extends BaseIconOptions {
-        iconUrl: string;
+        iconUrl?: string;
     }
 
     // This class does not exist in reality, it's just a way to provide
