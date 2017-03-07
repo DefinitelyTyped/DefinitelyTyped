@@ -156,6 +156,15 @@ declare namespace joint {
             findView(paper: Paper): ElementView;
             isElement(): boolean;
             scale(scaleX: number, scaleY: number, origin?: Point, options?: any): this;
+            addPort(port: any, opt?: any): this;
+            addPorts(ports: any[], opt?: any): this;
+            removePort(port: any, opt?: any): this;
+            hasPorts(): boolean;
+            hasPort(id: string): boolean;
+            getPorts(): any[];
+            getPort(id: string): any;
+            getPortIndex(port: any): number;
+            portProp(portId: string, path: any, value?: any, opt?: any): joint.dia.Element;
         }
 
         interface CSSSelector {
