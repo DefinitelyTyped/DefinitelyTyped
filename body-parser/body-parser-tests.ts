@@ -8,15 +8,15 @@ import {
 
 const app = express();
 
-express.use(json());
-express.use(raw());
-express.use(text());
-express.use(urlencoded());
+app.use(json());
+app.use(raw());
+app.use(text());
+app.use(urlencoded());
 
 // send any data, it should be parsed and printed
-express.all('/', (req, res, next) => {
+app.all('/', (req, res, next) => {
     console.log(req.body);
     res.json(req.body);
 });
 
-express.listen(8080);
+app.listen(8080);

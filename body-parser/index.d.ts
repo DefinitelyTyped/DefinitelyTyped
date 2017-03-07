@@ -41,7 +41,7 @@ declare namespace bodyParser {
 
     export function text(options?: OptionsText): RequestHandler;
 
-    export function urlencoded(options: OptionsUrlencoded): RequestHandler;
+    export function urlencoded(options?: OptionsUrlencoded): RequestHandler;
 }
 
 export = bodyParser;
