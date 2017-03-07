@@ -257,7 +257,7 @@ declare namespace Showdown {
         removeExtension(extensions: ShowdownExtension[] | ShowdownExtension): void;
         
         /**
-         * Setting a "local" flavor affects all instances of showdown
+         * Set a "local" flavor for THIS Converter instance
          *
          * @param flavor name
          */
