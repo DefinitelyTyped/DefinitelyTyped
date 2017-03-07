@@ -180,6 +180,8 @@ d3.json("data/yelp_test_set_business.json", (yelp_data:IYelpData[]) => {
         .xAxis()
             .tickFormat((v: string) => v);
 
+    lineChart.legend(dc.legend().x(200).y(10).itemHeight(13).gap(5));
+
     rowChart
         .width(340)
         .height(850)
