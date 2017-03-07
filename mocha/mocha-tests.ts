@@ -9,9 +9,7 @@ function test_describe() {
     describe.skip('something', () => { });
 
     describe('something', function () {
-        this.retries(3);
-        this.slow(1000);
-        this.timeout(2000);
+        this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
 
@@ -23,9 +21,7 @@ function test_context() {
     context.skip('some context', () => { });
 
     context('some context', function () {
-        this.retries(3);
-        this.slow(1000);
-        this.timeout(2000);
+        this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
 
@@ -37,9 +33,7 @@ function test_suite() {
     suite.skip('some context', () => { });
 
     suite('some context', function () {
-        this.retries(3);
-        this.slow(1000);
-        this.timeout(2000);
+        this.retries(3).slow(1000).timeout(2000).retries(3);
     });
 }
 
@@ -56,9 +50,7 @@ function test_it() {
     it.skip('does something', () => { });
 
     it('does something', function () {
-        this.skip();
-        this.retries(3);
-        this.timeout(2000);
+        this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
 
@@ -75,9 +67,7 @@ function test_test() {
     test.skip('does something', () => { });
 
     test('does something', function () {
-        this.skip();
-        this.retries(3);
-        this.timeout(2000);
+        this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
 
@@ -94,9 +84,7 @@ function test_specify() {
     specify.skip('does something', () => { });
 
     specify('does something', function () {
-        this.skip();
-        this.retries(3);
-        this.timeout(2000);
+        this.skip().retries(3).slow(1000).timeout(2000).skip();
     });
 }
 
@@ -112,8 +100,7 @@ function test_before() {
     before("my description", done => { });
 
     before("my description", function () {
-        this.skip();
-        this.timeout(2000);
+        this.skip().timeout(2000).skip();
     });
 }
 
