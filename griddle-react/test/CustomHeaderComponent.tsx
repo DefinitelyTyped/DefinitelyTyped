@@ -12,12 +12,12 @@ interface MoreCustomHeaderComponentProps extends CustomHeaderComponentProps {
 }
 
 class HeaderComponent extends React.Component<MoreCustomHeaderComponentProps, any> {
-  textOnClick(e) {
+  textOnClick(e: React.FormEvent<HTMLInputElement>) {
     e.stopPropagation();
   }
 
-  filterText(e) {
-    this.props.filterByColumn(e.target.value, this.props.columnName)
+  filterText(e: React.FormEvent<HTMLInputElement>) {
+    this.props.filterByColumn(e.currentTarget.value, this.props.columnName)
   }
 
   render() {
