@@ -1,6 +1,5 @@
+import * as md5 from "blueimp-md5";
 
-import blueimp = require('blueimp-md5');
-
-function hash(): boolean {
-    return blueimp.md5('hello world') === '5eb63bbbe01eeed093cb22bb8f5acdc3';
+function hash1(): string {
+    return md5('hello world');
 }
