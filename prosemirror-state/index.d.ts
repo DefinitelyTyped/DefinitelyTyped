@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-state 0.18.0
+// Type definitions for prosemirror-state 0.18
 // Project: https://github.com/ProseMirror/prosemirror-state
 // Definitions by: David Hahn <https://github.com/davidka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

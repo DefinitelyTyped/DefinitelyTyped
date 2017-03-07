@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-menu 0.18.0
+// Type definitions for prosemirror-menu 0.18
 // Project: https://github.com/ProseMirror/prosemirror-menu
 // Definitions by: David Hahn <https://github.com/davidka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

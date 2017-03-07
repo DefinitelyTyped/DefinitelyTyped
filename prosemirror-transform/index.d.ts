@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-transform 0.18.0
+// Type definitions for prosemirror-transform 0.18
 // Project: https://github.com/ProseMirror/prosemirror-transform
 // Definitions by: David Hahn <https://github.com/davidka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
