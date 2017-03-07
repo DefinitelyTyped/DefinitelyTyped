@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>, Cheng Sieu Ly <https://github.com/chengsieuly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -866,6 +866,15 @@ declare namespace ReactBootstrap {
     }
     type Image = React.ClassicComponent<ImageProps, {}>;
     var Image: React.ClassicComponentClass<ImageProps>;
+
+    // <ResponsiveEmbed />
+    interface ResponsiveEmbedProps extends React.HTMLProps<ResponsiveEmbed> {
+        a16by9?: boolean;
+        a4by3?: boolean;
+        bsClass?: string;
+    }
+    class ResponsiveEmbed extends React.Component<ResponsiveEmbedProps, {}> {
+    }
 
     // <PageHeader />
     interface PageHeaderProps extends React.HTMLProps<PageHeader> {
