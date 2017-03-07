@@ -67,3 +67,6 @@ acorn.getLineInfo('string', 56);
 
 acorn.plugins['test'] = function (p: acorn.Parser, config: any) {
 }
+
+acorn.tokenizer('console.log("hello world)', {locations: true}).getToken();
+acorn.tokenizer('console.log("hello world)', {locations: true})[Symbol.iterator]().next();

@@ -1,14 +1,14 @@
-// Type definitions for tedious-connection-pool
+// Type definitions for tedious-connection-pool 1.0
 // Project: https://github.com/pekim/tedious-connection-pool
 // Definitions by: Cyprien Autexier <https://github.com/sandorfr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="tedious" />
+/// <reference types="node" />
 
+import events = require('events');
 import tedious = require('tedious');
 
 declare namespace tcp {
-
     /**
      * Extends Tedious Connection with release function
      */
@@ -20,22 +20,16 @@ declare namespace tcp {
     }
 
     /**
-     * Acquire function callback signature
+     * Provides a connection or an error
+     * @param err error if any
+     * @param connection issued from the pool
      */
-    export interface ConnectionCallback {
-        /**
-         * Provides a connection or an error
-         * @param err error if any
-         * @param connection issued from the pool
-         */
-        (err: Error, connection: PooledConnection): void;
-    }
+    export type ConnectionCallback = (err: Error, connection: PooledConnection) => void;
 
     /**
      *  Pool Configuration interface
      */
     export interface PoolConfig {
-
         /**
          * Minimum concurrent connections
          */
@@ -66,15 +60,12 @@ declare namespace tcp {
          */
         acquireTimeout?: number;
     }
-
-
 }
 
 /**
  * Tedious Connection Pool Class
  */
-declare class tcp {
-
+declare class tcp extends events.EventEmitter {
     /**
      * Connection Pool constructor
      * @param poolConfig the pool configuration
@@ -89,19 +80,9 @@ declare class tcp {
     acquire(callback: tcp.ConnectionCallback): void;
 
     /**
-     * listens for a specific connection pool event
-     * @param event the event name
-     * @param callback invoked when the event is raised
-     */
-    on(event: string, callback: Function): void;
-
-    /**
      * closes opened connections
      */
     drain(): void;
 }
-
-
-
 
 export = tcp;

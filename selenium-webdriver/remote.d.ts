@@ -65,3 +65,41 @@ export class DriverService {
      */
     stop(): webdriver.promise.Promise<any>;
 }
+
+/**
+ * A {@link webdriver.FileDetector} that may be used when running
+ * against a remote
+ * [Selenium server](http://selenium-release.storage.googleapis.com/index.html).
+ *
+ * When a file path on the local machine running this script is entered with
+ * {@link webdriver.WebElement#sendKeys WebElement#sendKeys}, this file detector
+ * will transfer the specified file to the Selenium server's host; the sendKeys
+ * command will be updated to use the transfered file's path.
+ *
+ * __Note:__ This class depends on a non-standard command supported on the
+ * Java Selenium server. The file detector will fail if used with a server that
+ * only supports standard WebDriver commands (such as the ChromeDriver).
+ *
+ * @final
+ */
+export class FileDetector extends webdriver.FileDetector {
+    /**
+     * @constructor
+     **/
+    constructor();
+
+    /**
+     * Prepares a `file` for use with the remote browser. If the provided path
+     * does not reference a normal file (i.e. it does not exist or is a
+     * directory), then the promise returned by this method will be resolved with
+     * the original file path. Otherwise, this method will upload the file to the
+     * remote server, which will return the file's path on the remote system so
+     * it may be referenced in subsequent commands.
+     *
+     * @param {!webdriver.WebDriver} driver The driver for the current browser.
+     * @param {string} file The path of the file to process.
+     * @return {!webdriver.promise.Promise<string>} A promise for the processed
+     *     file path.
+     */
+    handleFile(driver: webdriver.WebDriver, file: string): webdriver.promise.Promise<string>;
+}

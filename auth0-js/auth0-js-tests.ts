@@ -1,4 +1,4 @@
-import 'auth0-js';
+import * as auth0 from 'auth0-js';
 
 let webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
