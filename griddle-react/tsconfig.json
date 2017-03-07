@@ -1,14 +1,27 @@
 {
   "compilerOptions": {
-    "module": "es2015",
-    "outDir": "./target",
+    "module": "commonjs",
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "jsx": "preserve",
-    "target": "es6"
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "strictNullChecks": false,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "exclude": [
-    "node_modules",
-    "griddle-react.d.ts",
-    "typings/main",
-    "typings/main.d.ts"
+  "files": [
+    "index.d.ts",
+    "griddle-react-tests.tsx",
+    "test/CustomColumnComponent.tsx",
+    "test/CustomFilterComponent.tsx",
+    "test/CustomHeaderComponent.tsx"
   ]
 }
