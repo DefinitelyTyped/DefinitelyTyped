@@ -993,7 +993,7 @@ declare namespace L {
 
         // Extension methods
         onAdd?: (map: Map) => HTMLElement;
-        onRemove?: (map: Map)=> void;
+        onRemove?: (map: Map) => void;
 
         options: ControlOptions;
     }
@@ -1175,8 +1175,8 @@ declare namespace L {
         enabled(): boolean;
 
         // Extension methods
-        addHooks?:() => void;
-        removeHooks?:()=> void;
+        addHooks?: () => void;
+        removeHooks?: () => void;
     }
 
     interface Event {
