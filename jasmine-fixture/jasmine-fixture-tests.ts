@@ -1,7 +1,5 @@
-/// <reference types="jasmine" />
 /// <reference types="jquery" />
 /// <reference types="jasmine-jquery" />
-
 
 describe("Jasmine fixture extension", () => {
     describe("Affixes dom elements to body", () => {
