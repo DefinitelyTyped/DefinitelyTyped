@@ -30,6 +30,7 @@
         "testing.d.ts",
         "test/index.ts",
         "test/chrome.ts",
-        "test/firefox.ts"
+        "test/firefox.ts",
+        "test/remote.ts"
     ]
 }
