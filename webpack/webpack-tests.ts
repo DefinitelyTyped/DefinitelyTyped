@@ -257,7 +257,18 @@ plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 
 plugin = new webpack.PrefetchPlugin(context, request);
 plugin = new webpack.PrefetchPlugin(request);
-plugin = new webpack.BannerPlugin(banner, options);
+plugin = new webpack.BannerPlugin('banner');
+plugin = new webpack.BannerPlugin({
+    banner: 'banner'
+});
+plugin = new webpack.BannerPlugin({
+    banner: 'banner',
+    entryOnly: true,
+    exclude: /index/,
+    include: 'test',
+    raw: false,
+    test: ['test', /index/]
+});
 plugin = new webpack.optimize.DedupePlugin();
 plugin = new webpack.optimize.LimitChunkCountPlugin(options);
 plugin = new webpack.optimize.MinChunkSizePlugin(options);

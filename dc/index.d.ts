@@ -111,14 +111,14 @@ declare namespace dc {
     }
 
     export interface Legend {
-        x: IGetSet<number, number>;
-        y: IGetSet<number, number>;
-        gap: IGetSet<number, number>;
-        itemHeight: IGetSet<number, number>;
-        horizontal: IGetSet<boolean, boolean>;
-        legendWidth: IGetSet<number, number>;
-        itemWidth: IGetSet<number, number>;
-        autoItemWidth: IGetSet<boolean, boolean>;
+        x: IGetSet<number, Legend>;
+        y: IGetSet<number, Legend>;
+        gap: IGetSet<number, Legend>;
+        itemHeight: IGetSet<number, Legend>;
+        horizontal: IGetSet<boolean, Legend>;
+        legendWidth: IGetSet<number, Legend>;
+        itemWidth: IGetSet<number, Legend>;
+        autoItemWidth: IGetSet<boolean, Legend>;
         render: () => void;
     }
 

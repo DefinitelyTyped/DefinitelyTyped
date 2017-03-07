@@ -2,12 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "raven-js-tests.ts"
+        "b_-tests.ts"
     ]
 }
