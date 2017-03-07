@@ -1,6 +1,7 @@
-/// <reference types="jasmine" />
-
 import * as ga from "react-ga";
+
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
 
 describe("Testing react-ga initialize object", () => {
     it("Able to initialize react-ga object", () => {
