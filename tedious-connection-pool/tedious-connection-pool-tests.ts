@@ -30,6 +30,12 @@ pool.on('error', (err: Error) => {
 	console.error(err);
 });
 
+pool.once('error', (err: Error) => {
+	console.error(err);
+});
+
+pool.removeAllListeners();
+
 pool.acquire((err: Error, connection: ConnectionPool.PooledConnection) =>{
 	console.log("hurray");
 	connection.beginTransaction((error: Error): void => {}, "some name");

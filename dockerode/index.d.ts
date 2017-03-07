@@ -184,6 +184,7 @@ declare namespace Dockerode {
     Created: number;
     Ports: Port[];
     Labels: { [label: string]: string };
+    State: string;
     Status: string;
     HostConfig: {
       NetworkMode: string;
