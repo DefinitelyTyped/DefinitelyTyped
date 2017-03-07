@@ -151,6 +151,10 @@ var BlueBird: typeof Promise;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+var version: string = Promise.version;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 var nodeCallbackFunc = (callback: (err: any, result: string) => void) => {}
 var nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {}
 

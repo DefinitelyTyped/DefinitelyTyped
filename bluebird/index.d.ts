@@ -639,6 +639,11 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
     /** Enable monitoring */
     monitoring?: boolean;
   }): void;
+
+  /**
+   * The version number of the library
+   */
+  static version: string;
 }
 
 declare namespace Bluebird {
