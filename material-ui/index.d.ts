@@ -723,6 +723,7 @@ declare namespace __MaterialUI {
         className?: string;
         disableTouchRipple?: boolean;
         disabled?: boolean;
+        hoveredStyle?: React.CSSProperties;
         iconClassName?: string;
         iconStyle?: React.CSSProperties;
         onBlur?: React.FocusEventHandler<{}>;
@@ -1331,6 +1332,9 @@ declare namespace __MaterialUI {
         className?: string;
         maxHeight?: number;
         menuStyle?: any;
+        listStyle?: React.CSSProperties;
+        menuItemStyle?: React.CSSProperties;
+        selectedMenuItemStyle?: React.CSSProperties;
         openImmediately?: boolean;
     }
     export class SelectField extends React.Component<SelectFieldProps, {}> {
