@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-geo module v1.4.0
+// Type definitions for D3JS d3-geo module v1.5.0
 // Project: https://github.com/d3/d3-geo/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -908,7 +908,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      * this method first computes the area of the exterior ring, and then subtracts the area of any interior holes.
      * This method observes any clipping performed by the projection; see projection.clipAngle and projection.clipExtent.
      *
-     * @param An object for which the area is to be calculated.
+     * @param object An object for which the area is to be calculated.
      */
     area(object: DatumObject): number;
 
@@ -921,7 +921,7 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      * the minimum latitude is typically the maximum y-value, and the maximum latitude is typically the minimum y-value.)
      * This method observes any clipping performed by the projection; see projection.clipAngle and projection.clipExtent.
      *
-     * @param An object for which the bounds are to be calculated.
+     * @param object An object for which the bounds are to be calculated.
      */
     bounds(object: DatumObject): [[number, number], [number, number]];
 
@@ -931,9 +931,19 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      * For example, a noncontiguous cartogram might scale each state around its centroid.
      * This method observes any clipping performed by the projection; see projection.clipAngle and projection.clipExtent.
      *
-     * @param An object for which the centroid is to be calculated.
+     * @param pbject An object for which the centroid is to be calculated.
      */
     centroid(object: DatumObject): [number, number];
+
+    /**
+     * Returns the projected planar length (typically in pixels) for the specified GeoJSON object.
+     * Point and MultiPoint features have zero length. For Polygon and MultiPolygon features, this method computes the summed length of all rings.
+     *
+     * This method observes any clipping performed by the projection.
+     *
+     * @param object An object for which the measure is to be calculated.
+     */
+    measure(object: DatumObject): number;
 
     /**
      * Returns the current render context which defaults to null.
