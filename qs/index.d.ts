@@ -1,6 +1,7 @@
 // Type definitions for qs 6.2.0
 // Project: https://github.com/hapijs/qs
-// Definitions by: Roman Korneev <https://github.com/RWander>, Leon Yu <https://github.com/leonyu>
+// Definitions by: Roman Korneev <https://github.com/RWander>, Leon Yu <https://github.com/leonyu>,
+//     Belinda Teh <https://github.com/tehbelinda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = QueryString;
@@ -16,6 +17,7 @@ declare namespace QueryString {
         filter?: Array<string | number> | ((prefix: string, value: any) => any);
         arrayFormat?: 'indices' | 'brackets' | 'repeat';
         indices?: boolean;
+        sort?: (a: any, b: any) => number;
     }
 
     interface IParseOptions {

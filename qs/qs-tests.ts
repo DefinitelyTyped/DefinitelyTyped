@@ -249,3 +249,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
   var obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I', { decoder: decoder });
   assert.deepEqual(obj, { a: 'こんにちは！' });
 }
+
+() => {
+  var sorted = qs.stringify({ a: 1, c: 3, b: 2 }, { sort: (a, b) => a.localeCompare(b) })
+  assert.equal(sorted, 'a=1&b=2&c=3')
+}
