@@ -324,6 +324,13 @@ export class Popup {
     constructor(client: any, options: any);
 
     /**
+     * Returns a new instance of the popup handler
+     *
+     * @method buildPopupHandler
+     */
+    buildPopupHandler(): any;
+
+    /**
      * Initializes the popup window and returns the instance to be used later in order to avoid being blocked by the browser.
      *
      * @method preload
@@ -396,6 +403,7 @@ interface AuthOptions {
     scope?: string;
     audience?: string;
     leeway?: number;
+    plugins?: any[];
     _disableDeprecationWarnings?: boolean;
     _sendTelemetry?: boolean;
     _telemetryInfo?: any;
@@ -409,8 +417,15 @@ interface PasswordlessAuthOptions {
 }
 
 interface Auth0Error {
-    error: any;
-    errorDescription: string;
+    error?: any;
+    errorDescription?: string;
+    code?: string;
+    description?: string;
+    name?: string;
+    policy?: string;
+    original?: any;
+    statusCode?: number;
+    statusText?: string;
 }
 
 interface Auth0DecodedHash {
@@ -452,4 +467,45 @@ interface PasswordlessVerifyOptions {
     verificationCode: string;
     phoneNumber?: string;
     email?: string;
+}
+
+interface Auth0UserProfile {
+	name: string;
+	nickname: string;
+	picture: string;
+	user_id: string;
+	username?: string;
+	given_name?: string;
+	family_name?: string;
+	email?: string;
+	email_verified?: string;
+	clientID: string;
+	gender?: string;
+	locale?: string;
+	identities: Auth0Identity[];
+	created_at: string;
+	updated_at: string;
+	sub: string;
+	user_metadata?: any;
+	app_metadata?: any;
+}
+
+interface MicrosoftUserProfile extends Auth0UserProfile {
+	emails?: string[]; //optional depending on whether email addresses permission is granted
+}
+
+interface Office365UserProfile extends Auth0UserProfile {
+	tenantid: string;
+	upn: string;
+}
+
+interface AdfsUserProfile extends Auth0UserProfile {
+	issuer?: string;
+}
+
+interface Auth0Identity {
+	connection: string;
+	isSocial: boolean;
+	provider: string;
+	user_id: string;
 }
