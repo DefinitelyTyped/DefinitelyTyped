@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 8.1
+// Type definitions for Auth0.js 8.2
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
