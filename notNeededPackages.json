@@ -305,6 +305,12 @@
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
             "asOfVersion": "0.0.0"
+        },
+        {
+            "libraryName": "Raven JS",
+            "typingsPackageName": "raven-js",
+            "sourceRepoURL": "https://github.com/getsentry/raven-js",
+            "asOfVersion": "3.10.0"
         }
     ]
 }
