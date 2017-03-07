@@ -145,8 +145,7 @@ declare namespace L {
 
     export class LatLngBounds {
         constructor(southWest: LatLngExpression, northEast: LatLngExpression);
-        constructor(latlngs: LatLngBoundsLiteral);
-        constructor();
+        constructor(latlngs?: LatLngBoundsLiteral);
         extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
         pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
         getCenter(): LatLng;
