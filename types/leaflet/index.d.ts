@@ -1277,7 +1277,7 @@ declare namespace L {
 
         function stop(ev: Event): typeof DomEvent;
 
-        function getMousePosition(ev: MouseEvent, container?: HTMLElement): Point;
+        function getMousePosition(ev: {clientX: number, clientY: number} /*MouseEvent from lib.d.ts*/, container?: HTMLElement): Point;
 
         function getWheelDelta(ev: Event): number;
 
