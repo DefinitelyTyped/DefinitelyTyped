@@ -83,7 +83,7 @@ declare namespace PIXI {
     export function autoDetectRenderer(width: number, height: number, options?: PIXI.RendererOptions, noWebGL?: boolean): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     export var loader: PIXI.loaders.Loader;
 
-    //https://github.com/primus/eventemitter3
+    // https://github.com/primus/eventemitter3
     export class EventEmitter {
 
         listeners(event: string): Function[];
@@ -102,11 +102,11 @@ declare namespace PIXI {
     ////////////////////////////////CORE//////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
 
-    //display
+    // display
 
     export class DisplayObject extends EventEmitter implements interaction.InteractiveTarget {
 
-        //begin extras.cacheAsBitmap see https://github.com/pixijs/pixi-typescript/commit/1207b7f4752d79a088d6a9a465a3ec799906b1db
+        // begin extras.cacheAsBitmap see https://github.com/pixijs/pixi-typescript/commit/1207b7f4752d79a088d6a9a465a3ec799906b1db
         protected _originalRenderWebGL: WebGLRenderer;
         protected _originalRenderCanvas: CanvasRenderer;
         protected _originalUpdateTransform: boolean;
@@ -123,7 +123,7 @@ declare namespace PIXI {
         protected _getCachedBounds(): Rectangle;
         protected _destroyCachedDisplayObject(): void;
         protected _cacheAsBitmapDestroy(): void;
-        //end extras.cacheAsBitmap
+        // end extras.cacheAsBitmap
 
         protected _sr: number;
         protected _cr: number;
@@ -246,7 +246,7 @@ declare namespace PIXI {
 
     }
 
-    //graphics
+    // graphics
 
     export class GraphicsData {
 
@@ -297,7 +297,7 @@ declare namespace PIXI {
         drawEllipse(x: number, y: number, width: number, height: number): Graphics;
         drawPolygon(path: number[] | Point[]): Graphics;
         clear(): Graphics;
-        //todo
+        // todo
         generateTexture(renderer: WebGLRenderer | CanvasRenderer, resolution?: number, scaleMode?: number): Texture;
         getBounds(matrix?: Matrix): Rectangle;
         containsPoint(point: Point): boolean;
@@ -306,13 +306,13 @@ declare namespace PIXI {
 
     }
     export interface GraphicsRenderer extends ObjectRenderer {
-        //yikes todo
+        // yikes todo
     }
     export interface WebGLGraphicsData {
-        //yikes todo!
+        // yikes todo!
     }
 
-    //math
+    // math
 
     export class Point {
 
@@ -442,7 +442,7 @@ declare namespace PIXI {
 
     }
 
-    //particles
+    // particles
 
     export interface ParticleContainerProperties {
 
@@ -500,7 +500,7 @@ declare namespace PIXI {
 
     }
 
-    //renderers
+    // renderers
 
     export interface RendererOptions {
 
@@ -533,7 +533,7 @@ declare namespace PIXI {
         resolution: number;
         transparent: boolean;
         autoResize: boolean;
-        blendModes: any; //todo?
+        blendModes: any; // todo?
         preserveDrawingBuffer: boolean;
         clearBeforeRender: boolean;
         roundPixels: boolean;
@@ -856,7 +856,7 @@ declare namespace PIXI {
 
     }
 
-    //sprites
+    // sprites
 
     export class Sprite extends Container {
 
@@ -909,7 +909,7 @@ declare namespace PIXI {
 
     }
 
-    //text
+    // text
 
     export interface TextStyle {
 
@@ -959,7 +959,7 @@ declare namespace PIXI {
 
     }
 
-    //textures
+    // textures
 
     export class BaseTexture extends EventEmitter {
 
@@ -1100,7 +1100,7 @@ declare namespace PIXI {
 
     }
 
-    //utils
+    // utils
 
     export class utils {
 
@@ -1203,9 +1203,9 @@ declare namespace PIXI {
         }
         export class TilingSprite extends Sprite {
 
-            //This is really unclean but is the only way :(
-            //See http://stackoverflow.com/questions/29593905/typescript-declaration-extending-class-with-static-method/29595798#29595798
-            //Thanks bas!
+            // This is really unclean but is the only way :(
+            // See http://stackoverflow.com/questions/29593905/typescript-declaration-extending-class-with-static-method/29595798#29595798
+            // Thanks bas!
             static fromFrame(frameId: string): Sprite;
             static fromFrame(frameId: string, width?: number, height?: number): TilingSprite;
 
@@ -1531,7 +1531,7 @@ declare namespace PIXI {
     //////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////LOADER/////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
-    //https://github.com/englercj/resource-loader/blob/master/src/Loader.js
+    // https://github.com/englercj/resource-loader/blob/master/src/Loader.js
 
     export namespace loaders {
         export interface LoaderOptions {
@@ -1556,7 +1556,7 @@ declare namespace PIXI {
 
             add(name: string, url: string, options?: LoaderOptions, cb?: () => void): Loader;
             add(url: string, options?: LoaderOptions, cb?: () => void): Loader;
-            //todo I am not sure of object literal notional (or its options) so just allowing any but would love to improve this
+            // todo I am not sure of object literal notional (or its options) so just allowing any but would love to improve this
             add(obj: any, options?: LoaderOptions, cb?: () => void): Loader;
 
             on(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): EventEmitter;

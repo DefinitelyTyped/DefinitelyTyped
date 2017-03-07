@@ -1986,7 +1986,9 @@ declare namespace SemanticUI {
          */
         allowTab?: boolean;
         /**
-         * Named transition to use when animating menu in and out. Defaults to slide down or slide up depending on dropdown direction. Fade and slide down are available without including ui transitions
+         * Named transition to use when animating menu in and out.
+         * Defaults to slide down or slide up depending on dropdown direction.
+         * Fade and slide down are available without including ui transitions
          *
          * @default 'auto'
          * @see {@link http://semantic-ui.com/modules/transition.html}

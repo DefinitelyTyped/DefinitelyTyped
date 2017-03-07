@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 function retryTest() {
 
     const retryOptions: qq.RetryOptions = {

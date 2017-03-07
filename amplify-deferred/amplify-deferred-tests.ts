@@ -1,5 +1,5 @@
 amplify.request({
     resourceId: "statusExample1"
-}).done(function (data, status) {
-}).fail(function (data, status) {
-}).always(function (data, status) { });
+}).done((data, status) => {
+}).fail((data, status) => {
+}).always((data, status) => { });

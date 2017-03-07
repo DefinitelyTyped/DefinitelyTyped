@@ -5,8 +5,7 @@
 // TypeScript Version: 2.1
 
 import { Action, Middleware, Store } from "redux";
-import { History } from "history";
-import { Location, LocationDescriptor } from "react-router";
+import { History, Location, LocationDescriptor } from "history";
 
 export const CALL_HISTORY_METHOD: string;
 export const LOCATION_CHANGE: string;
@@ -52,7 +51,7 @@ export interface SyncHistoryWithStoreOptions {
 }
 
 export interface HistoryUnsubscribe {
-    unsubscribe(): void;
+    unsubscribe(): undefined;
 }
 
 export function routerReducer(state?: RouterState, action?: Action): RouterState;

@@ -130,6 +130,7 @@ declare namespace __MaterialUI {
             accent2Color?: string;
             accent3Color?: string;
             textColor?: string;
+            secondaryTextColor?: string;
             alternateTextColor?: string;
             canvasColor?: string;
             borderColor?: string;
@@ -532,7 +533,7 @@ declare namespace __MaterialUI {
         type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
     }
 
-    interface AutoCompleteProps<DataItem> {
+    interface AutoCompleteProps<DataItem> extends TextFieldProps {
         anchorOrigin?: propTypes.origin;
         animated?: boolean;
         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;

@@ -180,7 +180,7 @@ declare namespace SocketIO {
 		/**
 		 * Closes the server connection
 		 */
-		close():void;
+		close( fn ?: () => void ):void;
 
 		/**
 		 * The event fired when we get a new connection

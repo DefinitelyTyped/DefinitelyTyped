@@ -17,7 +17,10 @@ declare namespace MockRaf {
   /** Creates a mockRaf instance, exposing the functions you'll use to interact with the mock. */
   interface Creator {
 
-    /** Returns the current now value of the mock. Starts at 0 and increases with each step() taken. Useful for stubbing out performance.now() or a polyfill when using requestAnimationFrame with timers. */
+    /**
+     * Returns the current now value of the mock. Starts at 0 and increases with each step() taken.
+     * Useful for stubbing out performance.now() or a polyfill when using requestAnimationFrame with timers.
+     */
     now(): number;
 
     /** Replacement for requestAnimationFrame or a polyfill.Adds a callback to be fired on the next step. */

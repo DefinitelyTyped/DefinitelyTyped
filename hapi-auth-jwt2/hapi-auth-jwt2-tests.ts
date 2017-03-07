@@ -10,17 +10,17 @@ interface User {
 }
 
 interface Users {
-  [id: number]: User
+  [id: number]: User;
 }
 
-var users:Users = {
+var users: Users = {
   1: {
     id: 1,
     name: 'Test User'
   }
 };
 
-var validate = function(decoded: User, request: Hapi.Request, callback: hapiAuthJwt2.ValidateCallback) {
+function validate(decoded: User, request: Hapi.Request, callback: hapiAuthJwt2.ValidateCallback) {
   if (!users[decoded.id]) {
     return callback(null, false);
   }
@@ -28,8 +28,8 @@ var validate = function(decoded: User, request: Hapi.Request, callback: hapiAuth
   return callback(null, true);
 }
 
-server.register(hapiAuthJwt2, function(err) {
-  server.auth.strategy('jwt', 'jwt', <hapiAuthJwt2.Options>{
+server.register(hapiAuthJwt2, err => {
+  server.auth.strategy('jwt', 'jwt', <hapiAuthJwt2.Options> {
     key: 'NeverShareYourSecret',
     validateFunc: validate,
     verifyOptions: {

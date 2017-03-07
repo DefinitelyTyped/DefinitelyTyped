@@ -91,6 +91,12 @@ var options: request.Options = {
 	aws: aws,
 	qs: obj,
 	json: value,
+	jsonReviver: (key: string, value: any) => {
+
+	},
+	jsonReplacer: (key: string, value: any) => {
+
+	},
 	multipart: value,
 	agent: new http.Agent(),
 	agentOptions: value,

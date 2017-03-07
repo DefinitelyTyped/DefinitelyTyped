@@ -8,7 +8,6 @@ import OpticsAgent, {
 import { GraphQLSchema } from 'graphql';
 import * as express from 'express';
 import * as hapi from 'hapi';
-var OpticsAgentRequired = require('optics-agent');
 
 const configOptions = {
   apiKey: "",
@@ -20,18 +19,18 @@ const configOptions = {
   proxyUrl: "",
   reportIntervalMs: 1,
 };
-OpticsAgent.configureAgent(configOptions)
+OpticsAgent.configureAgent(configOptions);
 
-let expressServer = express();
+const expressServer = express();
 expressServer.use(OpticsAgent.middleware());
 
-let hapiServer = new hapi.Server();
+const hapiServer = new hapi.Server();
 OpticsAgent.instrumentHapiServer(hapiServer);
 
-let req = {} as express.Request;
+const req = {} as express.Request;
 OpticsAgent.context(req);
 
 const agent = new OpticsAgent.Agent({ apiKey: '1234' });
 
-let schema = {} as GraphQLSchema;
+const schema = {} as GraphQLSchema;
 agent.instrumentSchema(schema);
