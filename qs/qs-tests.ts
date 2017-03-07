@@ -147,8 +147,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     var encoded = qs.stringify({ a: { b: 'c' } }, {
         encoder: function (str) {
-          // Passed in values `a`, `b`, `c`
-          return // Return encoded string
+            // Passed in values `a`, `b`, `c`
+            return // Return encoded string
         }
     })
 }
@@ -156,8 +156,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     var decoded = qs.parse('x=z', {
         decoder: function (str) {
-          // Passed in values `x`, `z`
-          return // Return decoded string
+            // Passed in values `x`, `z`
+            return // Return decoded string
         }
     })
 }
