@@ -601,7 +601,7 @@ declare namespace joint {
                 constructor(attributes?: ModelAttributes, options?: Object);
             }
             class Link extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
@@ -643,7 +643,7 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<ISAAttrs>, options?: Object);
             }
             class Line extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
                 cardinality(value: string | number): void;
             }
         }
@@ -659,7 +659,7 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class Arrow extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
@@ -751,7 +751,7 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<MemberAttrs>, options?: Object);
             }
             class Arrow extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
@@ -766,7 +766,7 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<basic.RectAttrs>, options?: Object);
             }
             class Link extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
@@ -796,19 +796,19 @@ declare namespace joint {
                 constructor(attributes?: ClassAttributes, options?: Object);
             }
             class Generalization extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Implementation extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Aggregation extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Composition extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Association extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             interface StateAttributes extends GenericAttributes<ShapeAttrs> {
                 events?: string[];
@@ -826,7 +826,7 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class Transition extends dia.Link {
-                constructor(attributes?: LinkAttributes, options?: Object);
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
     }
