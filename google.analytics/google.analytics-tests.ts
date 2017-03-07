@@ -1,5 +1,5 @@
-
-/// <reference types="jasmine" />
+declare function describe(desc: string, fn: () => void): void;
+declare function it(desc: string, fn: () => void): void;
 
 describe("tester Google Analytics Tracker _gat object", () => {
     it("can set ga script element", () => {

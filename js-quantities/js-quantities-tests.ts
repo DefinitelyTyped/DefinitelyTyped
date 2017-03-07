@@ -1,5 +1,20 @@
-/// <reference types="jasmine" />
 import Qty from "js-quantities";
+
+declare function describe(desc: string, fn: () => void): void;
+declare function it(desc: string, fn: () => void): void;
+interface Expect<T> {
+  not: this;
+  toBe(y: T): void;
+  toEqual(y: T): void;
+  toBeTruthy(): void;
+  toBeNull(): void;
+  toBeCloseTo(this: Expect<number>, x: number, sigFigs: number): void;
+  toThrow(this: Expect<() => void>, msg?: string): void;
+  toContain<U>(this: Expect<U[]>, x: U): void;
+};
+declare function expect<T>(x: T): Expect<T>;
+declare function beforeEach(f: () => void): void;
+declare function afterEach(f: () => void): void;
 
 // From project readme
 

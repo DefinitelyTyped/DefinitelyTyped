@@ -64,7 +64,7 @@ webAuth.signupAndAuthorize({
 
 
 webAuth.client.login({
-    ealm: 'Username-Password-Authentication', //connection name or HRD domain
+    realm: 'Username-Password-Authentication', //connection name or HRD domain
     username: 'info@auth0.com',
     password: 'areallystrongpassword',
     audience: 'https://mystore.com/api/v2',
