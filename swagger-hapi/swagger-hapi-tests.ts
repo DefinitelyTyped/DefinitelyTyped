@@ -9,7 +9,7 @@ var config = {
   appRoot: __dirname // required config
 } as SwaggerHapi.Config;
 
-SwaggerHapi.create(config, function(err, swaggerHapi) {
+SwaggerHapi.create(config, (err, swaggerHapi) => {
   if (err) { throw err; }
 
   var port = process.env.PORT || 10010;
@@ -19,22 +19,22 @@ SwaggerHapi.create(config, function(err, swaggerHapi) {
   // };
 
   if (swaggerHapi.config.swagger !== undefined) {
-    let appRootFromMw = swaggerHapi.config.swagger.appRoot;
+    const appRootFromMw = swaggerHapi.config.swagger.appRoot;
   }
 
-  app.register(swaggerHapi.plugin, function(err) {
+  app.register(swaggerHapi.plugin, err => {
     if (err) { return console.error("Failed to load plugin:", err); }
     // stat app etc..
   });
 });
 
 
-let swaggerSecurityHandlerCb = (err: Error) => {
-    //do nothing
+const swaggerSecurityHandlerCb = (err: Error) => {
+    // do nothing
 };
 
 
-let configComplex: SwaggerHapi.Config = {
+const configComplex: SwaggerHapi.Config = {
     appRoot: __dirname,
     configDir: "some/directory",
     controllersDirs: ["some/directory"],
@@ -44,7 +44,7 @@ let configComplex: SwaggerHapi.Config = {
     swaggerSecurityHandlers: {
         // did not manage to research the typings of first 3 arguments
         someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
-            //do nothing
+            // do nothing
         }
     },
     validateResponse: true

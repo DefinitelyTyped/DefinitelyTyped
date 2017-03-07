@@ -6,7 +6,7 @@
 import {RequestHandler, Server, Request, Response, Route} from 'restify';
 import Logger = require('bunyan');
 
-//*************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
+// *************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
 
 export namespace pre {
   /**
@@ -45,7 +45,7 @@ export namespace pre {
   function userAgentConnection( options?: {userAgentRegExp: any} ): RequestHandler;
 }
 
-//*************** This module includes the following header parser plugins:
+// *************** This module includes the following header parser plugins:
 
 /**
  * Check the client's Accept header can be handled by this server.
@@ -106,7 +106,7 @@ export function conditionalRequest(): RequestHandler[];
  */
 export function fullResponse(): RequestHandler;
 
-//************ This module includes the following data parsing plugins:
+// ************ This module includes the following data parsing plugins:
 
 interface BodyParserOptions {
   /**
@@ -120,22 +120,30 @@ interface BodyParserOptions {
   mapParams?: boolean;
 
   /**
-   * If req.params should be filled with the contents of files sent through a multipart request. Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition. This will only be performed if mapParams is true.
+   * If req.params should be filled with the contents of files sent through a multipart request.
+   * Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition.
+   * This will only be performed if mapParams is true.
    */
   mapFiles?: boolean;
 
   /**
-   * If an entry in req.params should be overwritten by the value in the body if the names are the same. For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad, the value will be happy if overrideParams is true, sad otherwise.
+   * If an entry in req.params should be overwritten by the value in the body if the names are the same.
+   * For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad,
+   * the value will be happy if overrideParams is true, sad otherwise.
    */
   overrideParams?: boolean;
 
   /**
-   * A callback to handle any multipart part which is not a file. If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
+   * A callback to handle any multipart part which is not a file.
+   * If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
    */
   multipartHandler?: () => void;
 
   /**
-   * A callback to handle any multipart file. It will be a file if the part have a Content-Disposition with the filename parameter set. This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />. If this is not provided, the default behaviour is to map the contents into req.params.
+   * A callback to handle any multipart file.
+   * It will be a file if the part have a Content-Disposition with the filename parameter set.
+   * This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />.
+   * If this is not provided, the default behaviour is to map the contents into req.params.
    */
   multipartFileHandler?: () => void;
 
@@ -263,7 +271,8 @@ interface QueryParserOptions {
   parseArrays?: boolean;
 
   /**
-   * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`. This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
+   * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`.
+   * This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
    */
   plainObjects?: boolean;
 
@@ -292,7 +301,7 @@ interface RequestLogger {
  */
 export function requestLogger(options?: RequestLogger): RequestHandler;
 
-//******************** The module includes the following response plugins:
+// ******************** The module includes the following response plugins:
 
 /**
  * expires requests based on current time + delta

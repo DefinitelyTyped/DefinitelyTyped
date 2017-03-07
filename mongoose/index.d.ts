@@ -385,6 +385,9 @@ declare module "mongoose" {
      * If connecting to multiple mongos servers, set the mongos option to true.
      */
     mongos?: boolean;
+
+    /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
+    promiseLibrary?: any;
   }
 
   interface ConnectionOptions extends
@@ -720,6 +723,8 @@ declare module "mongoose" {
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
     versionKey?: string|boolean;
+    /** defaults to false */
+    retainKeyOrder?: boolean;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
@@ -2163,6 +2168,11 @@ declare module "mongoose" {
      * @param fields the field(s) to unwind
      */
     unwind(...fields: string[]): this;
+    /**
+     * Appends new custom $unwind operator(s) to this aggregate pipeline
+     * new in mongodb 3.2
+     */
+    unwind(...opts: { path: string, includeArrayIndex?: string, preserveNullAndEmptyArrays?: boolean }[]): this;
   }
 
   /*

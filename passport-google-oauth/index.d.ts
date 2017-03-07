@@ -22,7 +22,7 @@ interface IOAuthStrategyOption {
     consumerSecret: string;
     callbackURL: string;
 
-    reguestTokenURL?: string;
+    requestTokenURL?: string;
     accessTokenURL?: string;
     userAuthorizationURL?: string;
     sessionKey?: string;

@@ -11,14 +11,14 @@ declare module "react-sticky" {
     export var StickyContainer: React.ComponentClass<React.HTMLAttributes<HTMLDivElement>>;
 
     export interface StickyProps {
-        isActive: boolean;
-        className: string;
-        style: any;
-        stickyClassName: string;
-        stickyStyle: any;
-        topOffset: number;
-        bottomOffset: number;
-        onStickyStateChange: (isSticky: boolean) => void;
+        isActive?: boolean;
+        className?: string;
+        style?: any;
+        stickyClassName?: string;
+        stickyStyle?: any;
+        topOffset?: number;
+        bottomOffset?: number;
+        onStickyStateChange?: (isSticky: boolean) => void;
     }
 
     export var Sticky: React.ComponentClass<StickyProps>;

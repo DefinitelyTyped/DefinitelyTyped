@@ -8,8 +8,6 @@ const data = [
   ['john', 'doe']
 ];
 
-const config: table.TableUserConfig = {
-  border: border
-};
+const config: table.TableUserConfig = { border };
 
 table.table(data, config);

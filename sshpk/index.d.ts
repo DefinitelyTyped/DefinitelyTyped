@@ -365,7 +365,8 @@ declare namespace SshPK {
 
   export function parseCertificate(data: string|Buffer, format: string, options?: any): Certificate;
   export function createSelfSignedCertificate(subjectOrSubjects: string, key: Key, options?: any): Certificate;
-  export function createCertificate(subjectOrSubjects: string, key: Key, issuer: string,
+  export function createCertificate(
+    subjectOrSubjects: string, key: Key, issuer: string,
     issuerKey: PrivateKey, options?: any): Certificate;
 
   export function identityFromDN(dn: string): Identity;

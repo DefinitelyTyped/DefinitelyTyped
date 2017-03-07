@@ -91,6 +91,8 @@ declare namespace request {
         qsStringifyOptions?: any;
         qsParseOptions?: any;
         json?: any;
+        jsonReviver?: (key: string, value: any) => any;
+        jsonReplacer?: (key: string, value: any) => any;
         multipart?: RequestPart[] | Multipart;
         agent?: http.Agent | https.Agent;
         agentOptions?: any;
@@ -143,6 +145,7 @@ declare namespace request {
 
 	export interface RequestResponse extends http.IncomingMessage {
 		request: Options;
+		body: any;
 	}
 
     export interface HttpArchiveRequest {

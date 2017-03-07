@@ -10,7 +10,7 @@ import { Request, RequestHandler, Response } from 'express';
 // for docs go to https://github.com/expressjs/body-parser/tree/1.16.0#body-parser
 
 // @deprecated
-declare function bodyParser(options?: bodyParser.OptionsJson | bodyParser.OptionsText | bodyParser.OptionsUrlencoded): RequestHandler;
+declare function bodyParser(options?: bodyParser.OptionsJson & bodyParser.OptionsText & bodyParser.OptionsUrlencoded): RequestHandler;
 
 declare namespace bodyParser {
 
@@ -42,6 +42,7 @@ declare namespace bodyParser {
     export function text(options?: OptionsText): RequestHandler;
 
     export function urlencoded(options?: OptionsUrlencoded): RequestHandler;
+
 }
 
 export = bodyParser;

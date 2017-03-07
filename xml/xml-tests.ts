@@ -85,7 +85,9 @@ test('supports cdata', t => {
             _cdata: 'This is some <strong>CDATA</strong>'
         }
     }]), '<a attribute1="some value" attribute2="12345"><![CDATA[This is some <strong>CDATA</strong>]]></a>');
-    t.is(xml([{a: {_cdata: 'This is some <strong>CDATA</strong> with ]]> and then again ]]>'}}]), '<a><![CDATA[This is some <strong>CDATA</strong> with ]]]]><![CDATA[> and then again ]]]]><![CDATA[>]]></a>');
+    t.is(
+        xml([{a: {_cdata: 'This is some <strong>CDATA</strong> with ]]> and then again ]]>'}}]),
+        '<a><![CDATA[This is some <strong>CDATA</strong> with ]]]]><![CDATA[> and then again ]]]]><![CDATA[>]]></a>');
 });
 
 test('supports encoding', t => {
@@ -132,7 +134,7 @@ test('streams end properly', t => {
 
     elem.push({ toy: 'Transformers' });
     elem.push({ toy: 'GI Joe' });
-    elem.push({ toy: [{name:'He-man'}] });
+    elem.push({ toy: [{name: 'He-man'}] });
     elem.close();
 
     xmlStream.on('data',  (data: any) => {
