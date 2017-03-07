@@ -26,8 +26,8 @@ var customFilterFunction = function(items: ResultType[], query: string): ResultT
 class CustomFilterComponent extends React.Component<CustomFilterComponentProps, any> {
   query: string = '';
 
-  searchChange(event) {
-    this.query = event.target.value;
+  searchChange(event: React.FormEvent<HTMLInputElement>) {
+    this.query = event.currentTarget.value;
     this.props.changeFilter(this.query);
   }
 

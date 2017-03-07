@@ -6,7 +6,7 @@
       "dom"
     ],
     "jsx": "preserve",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": false,
     "baseUrl": "../",
