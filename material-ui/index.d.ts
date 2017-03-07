@@ -1332,6 +1332,9 @@ declare namespace __MaterialUI {
         className?: string;
         maxHeight?: number;
         menuStyle?: any;
+        listStyle?: React.CSSProperties;
+        menuItemStyle?: React.CSSProperties;
+        selectedMenuItemStyle?: React.CSSProperties;
         openImmediately?: boolean;
     }
     export class SelectField extends React.Component<SelectFieldProps, {}> {
