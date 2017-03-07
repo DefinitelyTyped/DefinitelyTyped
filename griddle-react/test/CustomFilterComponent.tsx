@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import Griddle, { CustomFilterComponentProps } from 'griddle-react';
 
-var customFilterFunction = function(items: ResultType[], query: string): ResultType[] {
+const CustomFilterFunction = (items: ResultType[], query: string): ResultType[] => {
   return _.filter(items, (item) => {
 
     let match = false;
@@ -82,7 +82,7 @@ class CustomFilterComponentGrid extends React.Component<any, any> {
 
     return (
       <TypedGriddle results={someData} showFilter={true}
-                    useCustomFilterer={true} customFilterer={customFilterFunction}
+                    useCustomFilterer={true} customFilterer={CustomFilterFunction}
                     useCustomFilterComponent={true} customFilterComponent={CustomFilterComponent}/>
     );
   }
