@@ -333,7 +333,23 @@ declare namespace ht {
 declare var Handsontable: {
   new (element: Element, options: ht.Options): ht.Methods;
   renderers: {
-    TextRenderer(
+    AutocompleteRenderer(
+      instance: any,
+      td: HTMLTableCellElement,
+      row: number,
+      col: number,
+      prop: string,
+      value: any,
+      cellProperties: any): void;
+    CheckboxRenderer(
+      instance: any,
+      td: HTMLTableCellElement,
+      row: number,
+      col: number,
+      prop: string,
+      value: any,
+      cellProperties: any): void;
+    HtmlRenderer(
       instance: any,
       td: HTMLTableCellElement,
       row: number,
@@ -342,6 +358,22 @@ declare var Handsontable: {
       value: any,
       cellProperties: any): void;
     NumericRenderer(
+      instance: any,
+      td: HTMLTableCellElement,
+      row: number,
+      col: number,
+      prop: string,
+      value: any,
+      cellProperties: any): void;
+    PasswordRenderer(
+      instance: any,
+      td: HTMLTableCellElement,
+      row: number,
+      col: number,
+      prop: string,
+      value: any,
+      cellProperties: any): void;
+    TextRenderer(
       instance: any,
       td: HTMLTableCellElement,
       row: number,
