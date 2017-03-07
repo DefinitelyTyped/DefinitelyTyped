@@ -2,26 +2,31 @@
 
 class Server implements App {
 
-	private usersPlaying: {[nick: string]: number} = {};
+	private usersPlaying: { [nick: string]: number } = {};
 	private isShuttingDown: boolean = false;
 
 	private htmlFile: HTMLFile = new HTMLFile('start.html');
 	private appContent: AppContent = AppContent.overlayContent(this.htmlFile, 243, 266);
 
 	onAppStart() {
-		KnuddelsServer.getChannel().getOnlineUsers(UserType.Human).forEach((user) => {
-			this.onUserJoined(user)
-		});
+		KnuddelsServer.getChannel()
+			.getOnlineUsers(UserType.Human)
+			.forEach((user) => {
+				this.onUserJoined(user)
+			});
 	};
 
 	onUserJoined(user: User) {
-		const botNick = KnuddelsServer.getDefaultBotUser().getNick().escapeKCode();
+		const botNick = KnuddelsServer.getDefaultBotUser()
+			.getNick()
+			.escapeKCode();
 		user.sendPrivateMessage('Lust auf ne Runde Ziegenphobie? Mit nur _°BB>_h1 Knuddel|/appknuddel ' + botNick + '<°°°_ bist du dabei!');
 	};
 
 	onUserLeft(user: User) {
 		if (this.usersPlaying[user.getNick()] == 1) {
-			KnuddelsServer.getDefaultBotUser().transferKnuddel(user, new KnuddelAmount(1), 'Du hast den Channel verlassen.');
+			KnuddelsServer.getDefaultBotUser()
+				.transferKnuddel(user, new KnuddelAmount(1), 'Du hast den Channel verlassen.');
 
 			delete this.usersPlaying[user.getNick()];
 		}
@@ -32,13 +37,17 @@ class Server implements App {
 			this.isShuttingDown = true;
 
 			for (let key in this.usersPlaying) {
-				const userId = KnuddelsServer.getUserAccess().getUserId(key);
-				const user = KnuddelsServer.getUserAccess().getUserById(userId);
+				const userId = KnuddelsServer.getUserAccess()
+					.getUserId(key);
+				const user = KnuddelsServer.getUserAccess()
+					.getUserById(userId);
 
-				KnuddelsServer.getDefaultBotUser().transferKnuddel(user, new KnuddelAmount(1), 'Die App fährt gleich herunter.');
-				user.getAppContentSessions().forEach((session: AppContentSession) => {
-					session.remove();
-				});
+				KnuddelsServer.getDefaultBotUser()
+					.transferKnuddel(user, new KnuddelAmount(1), 'Die App fährt gleich herunter.');
+				user.getAppContentSessions()
+					.forEach((session: AppContentSession) => {
+						session.remove();
+					});
 
 				delete this.usersPlaying[key];
 			}
@@ -50,21 +59,20 @@ class Server implements App {
 
 		if (!sender.canSendAppContent(this.appContent)) {
 			knuddelTransfer.reject('Sorry, mit diesem Gerät kannst du gerade nicht spielen.');
-		}
-		else if (sender.isChannelOwner() && knuddelTransfer.getKnuddelAmount().asNumber() != 1) {
+		} else if (sender.isChannelOwner() && knuddelTransfer.getKnuddelAmount()
+				.asNumber() != 1) {
 			knuddelTransfer.accept();
-		}
-		else if (this.isShuttingDown) {
+		} else if (this.isShuttingDown) {
 			knuddelTransfer.reject('Du App nimmt gerade keine neuen Spieler an.');
-		}
-		else if (this.usersPlaying[sender.getNick()]) {
+		} else if (this.usersPlaying[sender.getNick()]) {
 			knuddelTransfer.reject('Du spielst bereits.');
-		}
-		else if (knuddelTransfer.getKnuddelAmount().asNumber() != 1) {
-			const botNick = KnuddelsServer.getDefaultBotUser().getNick().escapeKCode();
+		} else if (knuddelTransfer.getKnuddelAmount()
+				.asNumber() != 1) {
+			const botNick = KnuddelsServer.getDefaultBotUser()
+				.getNick()
+				.escapeKCode();
 			knuddelTransfer.reject('Du musst genau _°BB>_h1 Knuddel senden|/appknuddel ' + botNick + '<°°°_...');
-		}
-		else {
+		} else {
 			knuddelTransfer.accept();
 		}
 	};
@@ -73,8 +81,7 @@ class Server implements App {
 		if (knuddelAmount.asNumber() == 1) {
 			this.usersPlaying[user.getNick()] = 1;
 			user.sendAppContent(this.appContent);
-		}
-		else {
+		} else {
 			user.sendPrivateMessage('Vielen Dank für die Einzahlung.');
 		}
 	};
@@ -91,24 +98,32 @@ class Server implements App {
 
 				let hasWon = winningDoorNumber == doorNumber;
 
-				let text = hasWon ? 'Richtig getippt' : 'Knapp daneben';
+				let text = hasWon
+					? 'Richtig getippt'
+					: 'Knapp daneben';
 
-				user.getAppContentSession(AppViewMode.Overlay).getAppContent().sendEvent('openDoor', {
-					'door': doorNumber,
-					'winningDoor': winningDoorNumber,
-					'text': text,
-				});
+				user.getAppContentSession(AppViewMode.Overlay)
+					.getAppContent()
+					.sendEvent('openDoor', {
+						'door': doorNumber,
+						'winningDoor': winningDoorNumber,
+						'text': text,
+					});
 
 				if (hasWon) {
-					KnuddelsServer.getDefaultBotUser().transferKnuddel(user, new KnuddelAmount(2), 'Richtig getippt...');
+					KnuddelsServer.getDefaultBotUser()
+						.transferKnuddel(user, new KnuddelAmount(2), 'Richtig getippt...');
 				}
 
 				setTimeout(() => {
-					const botNick = KnuddelsServer.getDefaultBotUser().getNick().escapeKCode();
+					const botNick = KnuddelsServer.getDefaultBotUser()
+						.getNick()
+						.escapeKCode();
 					user.sendPrivateMessage('Na, Lust auf _°BB>_hnoch eine Runde|/appknuddel ' + botNick + '<°°°_?');
-					user.getAppContentSessions().forEach((session: AppContentSession) => {
-						session.remove();
-					});
+					user.getAppContentSessions()
+						.forEach((session: AppContentSession) => {
+							session.remove();
+						});
 					delete this.usersPlaying[user.getNick()];
 				}, 4000);
 			}, 1500);
@@ -117,6 +132,6 @@ class Server implements App {
 
 }
 
-declare let App: Server;// tell the compiler that "App" will be available
+declare let App: Server; // tell the compiler that "App" will be available
 
 App = new Server();
