@@ -91,6 +91,12 @@ export interface IpOptions {
     cidr?: string;
 }
 
+export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
+
+export interface GuidOptions {
+    version: GuidVersions[] | GuidVersions
+}
+
 export interface UriOptions {
     /**
      * Specifies one or more acceptable Schemes, should only include the scheme name.
@@ -443,7 +449,7 @@ export interface StringSchema extends AnySchema<StringSchema> {
     /**
      * Requires the string value to be a valid GUID.
      */
-    guid(): StringSchema;
+    guid(options?: GuidOptions): StringSchema;
 
     /**
      * Requires the string value to be a valid hexadecimal string.
