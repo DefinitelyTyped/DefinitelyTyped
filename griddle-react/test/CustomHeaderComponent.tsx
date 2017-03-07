@@ -1,3 +1,9 @@
+/*
+Licensed under the MIT License (MIT)
+
+Copyright (c) 2016 David Hara
+*/
+
 import * as React from 'react';
 import Griddle, { ColumnMetaData, CustomHeaderComponentProps } from 'griddle-react';
 

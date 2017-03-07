@@ -1,6 +1,15 @@
+/*
+Licensed under the MIT License (MIT)
+
+Copyright (c) 2016 David Hara
+*/
+
 import * as React from 'react';
 import { render } from 'react-dom';
 import Griddle, { CustomColumnComponentProps } from 'griddle-react';
+import CustomColumnComponentGrid from './test/CustomColumnComponent';
+import CustomHeaderComponentGrid from './test/CustomHeaderComponent';
+import CustomFilterComponentGrid from './test/CustomFilterComponent';
 
 interface MyCustomResult {
   name: string,
@@ -50,6 +59,12 @@ const TypedGriddle = Griddle as TypedGriddle;
 
 render(
   <div>
+    <h1>Custom Column Component Grid</h1>
+    <CustomColumnComponentGrid />
+    <h1>Custom Header Component Grid</h1>
+    <CustomHeaderComponentGrid />
+    <h1>Custom Filter Component Grid</h1>
+    <CustomFilterComponentGrid />
     <TypedGriddle
       results={results}
       columnMetadata={columnMeta}
