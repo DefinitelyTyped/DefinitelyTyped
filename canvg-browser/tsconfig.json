@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "canvg-tests.ts"
+        "canvg-browser-tests.ts"
     ]
 }
