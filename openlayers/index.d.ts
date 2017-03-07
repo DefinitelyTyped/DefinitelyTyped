@@ -4713,50 +4713,6 @@ declare module ol {
     function inherits(childCtor: (() => any), parentCtor: (() => any)): void;
 
     /**
-     * @classdesc
-     * Events emitted by {@link ol.interaction.DragBox} instances are instances of
-     * this type.
-     *
-     * @param {string} type The event type.
-     * @param {ol.Coordinate} coordinate The event coordinate.
-     * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
-     * @extends {ol.events.Event}
-     * @constructor
-     * @implements {oli.DragBoxEvent}
-     */
-    class DragBoxEvent extends ol.events.Event {
-        /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.DragBox} instances are instances of
-         * this type.
-         *
-         * @param {string} type The event type.
-         * @param {ol.Coordinate} coordinate The event coordinate.
-         * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
-         * @extends {ol.events.Event}
-         * @constructor
-         * @implements {oli.DragBoxEvent}
-         */
-        constructor(type: string, coordinate: ol.Coordinate, mapBrowserEvent: ol.MapBrowserEvent);
-
-        /**
-         * The coordinate of the drag event.
-         * @const
-         * @type {ol.Coordinate}
-         * @api stable
-         */
-        coordinate: ol.Coordinate;
-
-        /**
-         * @const
-         * @type {ol.MapBrowserEvent}
-         * @api
-         */
-        mapBrowserEvent: ol.MapBrowserEvent;
-
-    }
-
-    /**
      * @namespace ol.interaction
      */
     module interaction {
@@ -4829,19 +4785,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
-         * of this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.interaction.DragAndDropEvent}
-         * @param {ol.interaction.DragAndDropEventType} type Type.
-         * @param {File} file File.
-         * @param {Array.<ol.Feature>=} opt_features Features.
-         * @param {ol.proj.Projection=} opt_projection Projection.
+         * @namespace ol.interaction.DragAndDrop
          */
-        class DragAndDropEvent extends ol.events.Event {
+        module DragAndDrop {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
@@ -4855,28 +4801,44 @@ declare module ol {
              * @param {Array.<ol.Feature>=} opt_features Features.
              * @param {ol.proj.Projection=} opt_projection Projection.
              */
-            constructor(type: ol.interaction.DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
-
-            /**
-             * The features parsed from dropped data.
-             * @type {Array.<ol.Feature>|undefined}
-             * @api stable
-             */
-            features: ol.Feature[];
-
-            /**
-             * The dropped file.
-             * @type {File}
-             * @api stable
-             */
-            file: File;
-
-            /**
-             * The feature projection.
-             * @type {ol.proj.Projection|undefined}
-             * @api
-             */
-            projection: ol.proj.Projection;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
+                 * of this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.interaction.DragAndDropEvent}
+                 * @param {ol.interaction.DragAndDropEventType} type Type.
+                 * @param {File} file File.
+                 * @param {Array.<ol.Feature>=} opt_features Features.
+                 * @param {ol.proj.Projection=} opt_projection Projection.
+                 */
+                constructor(type: ol.interaction.DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
+    
+                /**
+                 * The features parsed from dropped data.
+                 * @type {Array.<ol.Feature>|undefined}
+                 * @api stable
+                 */
+                features: ol.Feature[];
+    
+                /**
+                 * The dropped file.
+                 * @type {File}
+                 * @api stable
+                 */
+                file: File;
+    
+                /**
+                 * The feature projection.
+                 * @type {ol.proj.Projection|undefined}
+                 * @api
+                 */
+                projection: ol.proj.Projection;
+    
+            }
 
         }
 
@@ -4927,6 +4889,58 @@ declare module ol {
             getGeometry(): ol.geom.Polygon;
 
         }
+
+        /**
+         * @namespace ol.interaction.DragBox
+         */
+        module DragBox {
+            /**
+             * @classdesc
+             * Events emitted by {@link ol.interaction.DragBox} instances are instances of
+             * this type.
+             *
+             * @param {string} type The event type.
+             * @param {ol.Coordinate} coordinate The event coordinate.
+             * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
+             * @extends {ol.events.Event}
+             * @constructor
+             * @implements {oli.DragBoxEvent}
+             */
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.DragBox} instances are instances of
+                 * this type.
+                 *
+                 * @param {string} type The event type.
+                 * @param {ol.Coordinate} coordinate The event coordinate.
+                 * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
+                 * @extends {ol.events.Event}
+                 * @constructor
+                 * @implements {oli.DragBoxEvent}
+                 */
+                constructor(type: string, coordinate: ol.Coordinate, mapBrowserEvent: ol.MapBrowserEvent);
+        
+                /**
+                 * The coordinate of the drag event.
+                 * @const
+                 * @type {ol.Coordinate}
+                 * @api stable
+                 */
+                coordinate: ol.Coordinate;
+        
+                /**
+                 * @const
+                 * @type {ol.MapBrowserEvent}
+                 * @api
+                 */
+                mapBrowserEvent: ol.MapBrowserEvent;
+        
+            }
+
+        }
+
+        type DragBoxEventType = string;
 
         /**
          * @classdesc
@@ -5051,17 +5065,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Draw} instances are instances of
-         * this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.DrawEvent}
-         * @param {ol.interaction.DrawEventType} type Type.
-         * @param {ol.Feature} feature The feature drawn.
+         * @namespace ol.interaction.Draw
          */
-        class DrawEvent extends ol.events.Event {
+        module Draw {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Draw} instances are instances of
@@ -5073,14 +5079,28 @@ declare module ol {
              * @param {ol.interaction.DrawEventType} type Type.
              * @param {ol.Feature} feature The feature drawn.
              */
-            constructor(type: ol.interaction.DrawEventType, feature: ol.Feature);
-
-            /**
-             * The feature being drawn.
-             * @type {ol.Feature}
-             * @api stable
-             */
-            feature: ol.Feature;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Draw} instances are instances of
+                 * this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.DrawEvent}
+                 * @param {ol.interaction.DrawEventType} type Type.
+                 * @param {ol.Feature} feature The feature drawn.
+                 */
+                constructor(type: ol.interaction.DrawEventType, feature: ol.Feature);
+    
+                /**
+                 * The feature being drawn.
+                 * @type {ol.Feature}
+                 * @api stable
+                 */
+                feature: ol.Feature;
+    
+            }
 
         }
 
@@ -5337,19 +5357,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Modify} instances are instances of
-         * this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.ModifyEvent}
-         * @param {ol.ModifyEventType} type Type.
-         * @param {ol.Collection.<ol.Feature>} features The features modified.
-         * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
-         *     {@link ol.MapBrowserPointerEvent}.
+         * @namespace ol.interaction.Modify
          */
-        class ModifyEvent extends ol.events.Event {
+        module Modify {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Modify} instances are instances of
@@ -5363,21 +5373,37 @@ declare module ol {
              * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
              *     {@link ol.MapBrowserPointerEvent}.
              */
-            constructor(type: ol.ModifyEventType, features: ol.Collection<ol.Feature>, mapBrowserPointerEvent: ol.MapBrowserPointerEvent);
-
-            /**
-             * The features being modified.
-             * @type {ol.Collection.<ol.Feature>}
-             * @api
-             */
-            features: ol.Collection<ol.Feature>;
-
-            /**
-             * Associated {@link ol.MapBrowserEvent}.
-             * @type {ol.MapBrowserEvent}
-             * @api
-             */
-            mapBrowserEvent: ol.MapBrowserEvent;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Modify} instances are instances of
+                 * this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.ModifyEvent}
+                 * @param {ol.ModifyEventType} type Type.
+                 * @param {ol.Collection.<ol.Feature>} features The features modified.
+                 * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
+                 *     {@link ol.MapBrowserPointerEvent}.
+                 */
+                constructor(type: ol.ModifyEventType, features: ol.Collection<ol.Feature>, mapBrowserPointerEvent: ol.MapBrowserPointerEvent);
+    
+                /**
+                 * The features being modified.
+                 * @type {ol.Collection.<ol.Feature>}
+                 * @api
+                 */
+                features: ol.Collection<ol.Feature>;
+    
+                /**
+                 * Associated {@link ol.MapBrowserEvent}.
+                 * @type {ol.MapBrowserEvent}
+                 * @api
+                 */
+                mapBrowserEvent: ol.MapBrowserEvent;
+    
+            }
 
         }
 
@@ -5551,20 +5577,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Select} instances are instances of
-         * this type.
-         *
-         * @param {string} type The event type.
-         * @param {Array.<ol.Feature>} selected Selected features.
-         * @param {Array.<ol.Feature>} deselected Deselected features.
-         * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
-         *     {@link ol.MapBrowserEvent}.
-         * @implements {oli.SelectEvent}
-         * @extends {ol.events.Event}
-         * @constructor
+         * @namespace ol.interaction.Select
          */
-        class SelectEvent extends ol.events.Event {
+        module Select {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Select} instances are instances of
@@ -5579,28 +5594,45 @@ declare module ol {
              * @extends {ol.events.Event}
              * @constructor
              */
-            constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
-
-            /**
-             * Selected features array.
-             * @type {Array.<ol.Feature>}
-             * @api
-             */
-            selected: ol.Feature[];
-
-            /**
-             * Deselected features array.
-             * @type {Array.<ol.Feature>}
-             * @api
-             */
-            deselected: ol.Feature[];
-
-            /**
-             * Associated {@link ol.MapBrowserEvent}.
-             * @type {ol.MapBrowserEvent}
-             * @api
-             */
-            mapBrowserEvent: ol.MapBrowserEvent;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Select} instances are instances of
+                 * this type.
+                 *
+                 * @param {string} type The event type.
+                 * @param {Array.<ol.Feature>} selected Selected features.
+                 * @param {Array.<ol.Feature>} deselected Deselected features.
+                 * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
+                 *     {@link ol.MapBrowserEvent}.
+                 * @implements {oli.SelectEvent}
+                 * @extends {ol.events.Event}
+                 * @constructor
+                 */
+                constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
+    
+                /**
+                 * Selected features array.
+                 * @type {Array.<ol.Feature>}
+                 * @api
+                 */
+                selected: ol.Feature[];
+    
+                /**
+                 * Deselected features array.
+                 * @type {Array.<ol.Feature>}
+                 * @api
+                 */
+                deselected: ol.Feature[];
+    
+                /**
+                 * Associated {@link ol.MapBrowserEvent}.
+                 * @type {ol.MapBrowserEvent}
+                 * @api
+                 */
+                mapBrowserEvent: ol.MapBrowserEvent;
+    
+            }
 
         }
 
@@ -5749,18 +5781,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Translate} instances are instances of
-         * this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.interaction.TranslateEvent}
-         * @param {ol.interaction.TranslateEventType} type Type.
-         * @param {ol.Collection.<ol.Feature>} features The features translated.
-         * @param {ol.Coordinate} coordinate The event coordinate.
+         * @namespace ol.interaction.Translate
          */
-        class TranslateEvent extends ol.events.Event {
+        module Translate {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Translate} instances are instances of
@@ -5773,22 +5796,37 @@ declare module ol {
              * @param {ol.Collection.<ol.Feature>} features The features translated.
              * @param {ol.Coordinate} coordinate The event coordinate.
              */
-            constructor(type: ol.interaction.TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
-
-            /**
-             * The features being translated.
-             * @type {ol.Collection.<ol.Feature>}
-             * @api
-             */
-            features: ol.Collection<ol.Feature>;
-
-            /**
-             * The coordinate of the drag event.
-             * @const
-             * @type {ol.Coordinate}
-             * @api
-             */
-            coordinate: ol.Coordinate;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Translate} instances are instances of
+                 * this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.interaction.TranslateEvent}
+                 * @param {ol.interaction.TranslateEventType} type Type.
+                 * @param {ol.Collection.<ol.Feature>} features The features translated.
+                 * @param {ol.Coordinate} coordinate The event coordinate.
+                 */
+                constructor(type: ol.interaction.TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
+    
+                /**
+                 * The features being translated.
+                 * @type {ol.Collection.<ol.Feature>}
+                 * @api
+                 */
+                features: ol.Collection<ol.Feature>;
+    
+                /**
+                 * The coordinate of the drag event.
+                 * @const
+                 * @type {ol.Coordinate}
+                 * @api
+                 */
+                coordinate: ol.Coordinate;
+    
+            }
 
         }
 
