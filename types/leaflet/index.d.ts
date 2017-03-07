@@ -38,60 +38,60 @@ declare namespace L {
     }
 
     namespace LineUtil {
-        function simplify(points: PointExpression[], tolerance: number): Point[];
+        function simplify(points: Point[], tolerance: number): Point[];
 
-        function pointToSegmentDistance(p: PointExpression, p1: PointExpression, p2: PointExpression): number;
+        function pointToSegmentDistance(p: Point, p1: Point, p2: Point): number;
 
-        function closestPointOnSegment(p: PointExpression, p1: PointExpression, p2: PointExpression): Point;
+        function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
     }
 
     namespace PolyUtil {
-        function clipPolygon(points: PointExpression[], bounds: BoundsExpression, round?: boolean): Point[];
+        function clipPolygon(points: Point[], bounds: BoundsExpression, round?: boolean): Point[];
     }
 
-    class DomUtil {
+    module DomUtil {
         /**
          * Get Element by its ID or with the given HTML-Element
          */
-        static get(element: string | HTMLElement): HTMLElement;
-        static getStyle(el: HTMLElement, styleAttrib: string): string;
-        static create(tagName: string, className?: string, container?: HTMLElement): HTMLElement;
-        static remove(el: HTMLElement): void;
-        static empty(el: HTMLElement): void;
-        static toFront(el: HTMLElement): void;
-        static toBack(el: HTMLElement): void;
-        static hasClass(el: HTMLElement, name: string): boolean;
-        static addClass(el: HTMLElement, name: string): void;
-        static removeClass(el: HTMLElement, name: string): void;
-        static setClass(el: HTMLElement, name: string): void;
-        static getClass(el: HTMLElement): string;
-        static setOpacity(el: HTMLElement, opacity: number): void;
-        static testProp(props: string[]): string | boolean/*=false*/;
-        static setTransform(el: HTMLElement, offset: Point, scale?: number): void;
-        static setPosition(el: HTMLElement, position: Point): void;
-        static getPosition(el: HTMLElement): Point;
-        static disableTextSelection(): void;
-        static enableTextSelection(): void;
-        static disableImageDrag(): void;
-        static enableImageDrag(): void;
-        static preventOutline(el: HTMLElement): void;
-        static restoreOutline(): void;
+        function get(element: string | HTMLElement): HTMLElement | null;
+        function getStyle(el: HTMLElement, styleAttrib: string): string | null;
+        function create(tagName: string, className?: string, container?: HTMLElement): HTMLElement;
+        function remove(el: HTMLElement): void;
+        function empty(el: HTMLElement): void;
+        function toFront(el: HTMLElement): void;
+        function toBack(el: HTMLElement): void;
+        function hasClass(el: HTMLElement, name: string): boolean;
+        function addClass(el: HTMLElement, name: string): void;
+        function removeClass(el: HTMLElement, name: string): void;
+        function setClass(el: HTMLElement, name: string): void;
+        function getClass(el: HTMLElement): string;
+        function setOpacity(el: HTMLElement, opacity: number): void;
+        function testProp(props: string[]): string | false;
+        function setTransform(el: HTMLElement, offset: Point, scale?: number): void;
+        function setPosition(el: HTMLElement, position: Point): void;
+        function getPosition(el: HTMLElement): Point;
+        function disableTextSelection(): void;
+        function enableTextSelection(): void;
+        function disableImageDrag(): void;
+        function enableImageDrag(): void;
+        function preventOutline(el: HTMLElement): void;
+        function restoreOutline(): void;
     }
 
-    abstract class CRS {
+    interface CRS {
         latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
         pointToLatLng(point: PointExpression, zoom: number): LatLng;
-        project(latlng: LatLngExpression): Point;
+        project(latlng: LatLng | LatLngLiteral): Point;
         unproject(point: PointExpression): LatLng;
         scale(zoom: number): number;
         zoom(scale: number): number;
         getProjectedBounds(zoom: number): Bounds;
         distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
-        wrapLatLng(latlng: LatLngExpression): LatLng;
+        wrapLatLng(latlng: LatLng | LatLngLiteral): LatLng;
 
-        code: string;
-        wrapLng: [number, number];
-        wrapLat: [number, number];
+        code?: string;
+        wrapLng?: [number, number];
+        wrapLat?: [number, number];
         infinite: boolean;
     }
 
@@ -104,10 +104,10 @@ declare namespace L {
     }
 
     interface Projection {
-        project(latlng: LatLngExpression): Point;
+        project(latlng: LatLng | LatLngLiteral): Point;
         unproject(point: PointExpression): LatLng;
 
-        bounds: LatLngBounds;
+        bounds: Bounds;
     }
 
     namespace Projection {
@@ -118,7 +118,6 @@ declare namespace L {
 
     class LatLng {
         constructor(latitude: number, longitude: number, altitude?: number);
-        constructor(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number});
         equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
         toString(): string;
         distanceTo(otherLatLng: LatLngExpression): number;
@@ -127,7 +126,7 @@ declare namespace L {
 
         lat: number;
         lng: number;
-        alt: number;
+        alt?: number;
     }
 
     interface LatLngLiteral {
@@ -177,9 +176,8 @@ declare namespace L {
 
     class Point {
         constructor(x: number, y: number, round?: boolean);
-        constructor(coords: PointTuple | {x: number, y: number});
         clone(): Point;
-        add(otherPoint: PointExpression): Point; // investigate if this mutates or returns a new instance
+        add(otherPoint: PointExpression): Point; // non-destructive, returns a new point
         subtract(otherPoint: PointExpression): Point;
         divideBy(num: number): Point;
         multiplyBy(num: number): Point;
@@ -216,8 +214,8 @@ declare namespace L {
         intersects(otherBounds: BoundsExpression): boolean;
         overlaps(otherBounds: BoundsExpression): boolean;
 
-        min: Point;
-        max: Point;
+        min?: Point;
+        max?: Point;
     }
 
     type BoundsExpression = Bounds | BoundsLiteral;
@@ -403,7 +401,7 @@ declare namespace L {
         addTo(map: Map): this;
         remove(): this;
         removeFrom(map: Map): this;
-        getPane(name?: string): HTMLElement;
+        getPane(name?: string): HTMLElement | undefined;
 
         // Popup methods
         bindPopup(content: ((layer: Layer) => Content) | Content | Popup, options?: PopupOptions): this;
@@ -413,7 +411,7 @@ declare namespace L {
         togglePopup(): this;
         isPopupOpen(): boolean;
         setPopupContent(content: Content | Popup): this;
-        getPopup(): Popup;
+        getPopup(): Popup | undefined;
 
         // Tooltip methods
         bindTooltip(content: ((layer: Layer) => Content) | Tooltip | Content, options?: TooltipOptions): this;
@@ -423,14 +421,14 @@ declare namespace L {
         toggleTooltip(): this;
         isTooltipOpen(): boolean;
         setTooltipContent(content: Content | Tooltip): this;
-        getTooltip(): Tooltip;
+        getTooltip(): Tooltip | undefined;
 
         // Extension methods
-        onAdd(map: Map): this;
-        onRemove(map: Map): this;
-        getEvents(): {[name: string]: (event: Event) => void};
-        getAttribution(): string;
-        beforeAdd(map: Map): this;
+        onAdd?: (map: Map) => this;
+        onRemove?: (map: Map) => this;
+        getEvents?: () => {[name: string]: (event: Event) => void};
+        getAttribution?: () => string | null;
+        beforeAdd?: (map: Map) => this;
     }
 
     interface GridLayerOptions {
@@ -454,8 +452,7 @@ declare namespace L {
         constructor(options?: GridLayerOptions);
         bringToFront(): this;
         bringToBack(): this;
-        getAttribution(): string;
-        getContainer(): HTMLElement;
+        getContainer(): HTMLElement | null;
         setOpacity(opacity: number): this;
         setZIndex(zIndex: number): this;
         isLoading(): boolean;
@@ -500,7 +497,7 @@ declare namespace L {
     }
 
     interface WMSOptions extends TileLayerOptions {
-        layers: string;
+        layers?: string;
         styles?: string;
         format?: string;
         transparent?: boolean;
@@ -547,7 +544,7 @@ declare namespace L {
         getBounds(): LatLngBounds;
 
         /** Get the img element that represents the ImageOverlay on the map */
-        getElement(): HTMLImageElement;
+        getElement(): HTMLImageElement | undefined;
 
         options: ImageOverlayOptions;
     }
@@ -582,7 +579,7 @@ declare namespace L {
         setStyle(style: PathOptions): this;
         bringToFront(): this;
         bringToBack(): this;
-        getElement(): HTMLElement;
+        getElement(): Element | undefined;
 
         options: PathOptions;
     }
@@ -607,7 +604,7 @@ declare namespace L {
         constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONLineString | GeoJSONMultiLineString>;
 
-        feature: GeoJSONFeature<GeoJSONLineString | GeoJSONMultiLineString>;
+        feature?: GeoJSONFeature<GeoJSONLineString | GeoJSONMultiLineString>;
     }
 
     function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
@@ -616,7 +613,7 @@ declare namespace L {
         constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
 
-        feature: GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
+        feature?: GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
     }
 
     function polygon(latlngs: LatLngExpression[], options?: PolylineOptions): Polygon;
@@ -641,7 +638,7 @@ declare namespace L {
         getRadius(): number;
 
         options: CircleMarkerOptions;
-        feature: GeoJSONFeature<GeoJSONPoint>;
+        feature?: GeoJSONFeature<GeoJSONPoint>;
     }
 
     function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
@@ -726,7 +723,7 @@ declare namespace L {
         /**
          * Returns the layer with the given internal ID.
          */
-        getLayer(id: number): Layer;
+        getLayer(id: number): Layer | undefined;
 
         /**
          * Returns an array of all the layers added to the group.
@@ -743,7 +740,7 @@ declare namespace L {
          */
         getLayerId(layer: Layer): number;
 
-        feature: GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONMultiPoint> | GeoJSONGeometryCollection;
+        feature?: GeoJSONFeatureCollection<GeoJSONGeometryObject> | GeoJSONFeature<GeoJSONMultiPoint> | GeoJSONGeometryCollection;
     }
 
     /**
@@ -783,7 +780,7 @@ declare namespace L {
      */
     function featureGroup(layers?: Layer[]): FeatureGroup;
 
-    type StyleFunction = (feature: GeoJSONFeature<GeoJSONGeometryObject>) => PathOptions;
+    type StyleFunction = (feature?: GeoJSONFeature<GeoJSONGeometryObject>) => PathOptions;
 
     interface GeoJSONOptions extends LayerOptions {
         /**
@@ -878,7 +875,7 @@ declare namespace L {
         /**
          * Reverse of coordsToLatLng
          */
-        static latLngToCoords(latlng: LatLng): [number, number, number]; // A three tuple can be assigned to a two or three tuple
+        static latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
 
         /**
          * Reverse of coordsToLatLngs closed determines whether the first point should be
@@ -990,13 +987,13 @@ declare namespace L {
         constructor(options?: ControlOptions);
         getPosition(): ControlPosition;
         setPosition(position: ControlPosition): this;
-        getContainer(): HTMLElement;
+        getContainer(): HTMLElement | undefined;
         addTo(map: Map): this;
         remove(): this;
 
         // Extension methods
-        onAdd(map: Map): HTMLElement;
-        onRemove(map: Map): void;
+        onAdd?: (map: Map) => HTMLElement;
+        onRemove?: (map: Map)=> void;
 
         options: ControlOptions;
     }
@@ -1094,11 +1091,11 @@ declare namespace L {
 
     class Popup extends Layer {
         constructor(options?: PopupOptions, source?: Layer);
-        getLatLng(): LatLng;
+        getLatLng(): LatLng | undefined;
         setLatLng(latlng: LatLngExpression): this;
-        getContent(): Content;
+        getContent(): Content | ((source: Layer) => Content) | undefined;
         setContent(htmlContent: ((source: Layer) => Content) | Content): this;
-        getElement(): HTMLElement;
+        getElement(): HTMLElement | undefined;
         update(): void;
         isOpen(): boolean;
         bringToFront(): this;
@@ -1125,11 +1122,11 @@ declare namespace L {
     class Tooltip extends Layer {
         constructor(options?: TooltipOptions, source?: Layer);
         setOpacity(val: number): void;
-        getLatLng(): LatLng;
+        getLatLng(): LatLng | undefined;
         setLatLng(latlng: LatLngExpression): this;
-        getContent(): Content;
+        getContent(): Content | undefined;
         setContent(htmlContent: ((source: Layer) => Content) | Content): this;
-        getElement(): HTMLElement;
+        getElement(): HTMLElement | undefined;
         update(): void;
         isOpen(): boolean;
         bringToFront(): this;
@@ -1178,8 +1175,8 @@ declare namespace L {
         enabled(): boolean;
 
         // Extension methods
-        addHooks(): void;
-        removeHooks(): void;
+        addHooks?:() => void;
+        removeHooks?:()=> void;
     }
 
     interface Event {
@@ -1280,7 +1277,7 @@ declare namespace L {
 
         function stop(ev: Event): typeof DomEvent;
 
-        function getMousePosition(ev: Event, container?: HTMLElement): Point;
+        function getMousePosition(ev: MouseEvent, container?: HTMLElement): Point;
 
         function getWheelDelta(ev: Event): number;
 
@@ -1350,7 +1347,7 @@ declare namespace L {
         /**
          * Name of the pane or the pane as HTML-Element
          */
-        getPane(pane: string | HTMLElement): HTMLElement;
+        getPane(pane: string | HTMLElement): HTMLElement | undefined;
         getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
         getContainer(): HTMLElement;
         whenReady(fn: () => void, context?: any): this;
@@ -1393,7 +1390,7 @@ declare namespace L {
         dragging: Handler;
         keyboard: Handler;
         scrollWheelZoom: Handler;
-        tap: Handler;
+        tap?: Handler;
         touchZoom: Handler;
 
         options: MapOptions;
@@ -1449,7 +1446,7 @@ declare namespace L {
     function icon(options: IconOptions): Icon;
 
     interface DivIconOptions extends BaseIconOptions {
-        html?: string;
+        html?: string | false;
         bgPos?: PointExpression;
         iconSize?: PointExpression;
         iconAnchor?: PointExpression;
@@ -1484,11 +1481,11 @@ declare namespace L {
         setZIndexOffset(offset: number): this;
         setIcon(icon: Icon | DivIcon): this;
         setOpacity(opacity: number): this;
-        getElement(): HTMLElement;
+        getElement(): HTMLElement | undefined;
 
         // Properties
         options: MarkerOptions;
-        dragging: Handler;
+        dragging?: Handler;
     }
 
     function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
@@ -1511,7 +1508,7 @@ declare namespace L {
         const any3d: boolean;
         const mobile: boolean;
         const mobileWebkit: boolean;
-        const mobiWebkit3d: boolean;
+        const mobileWebkit3d: boolean;
         const mobileOpera: boolean;
         const mobileGecko: boolean;
         const touch: boolean;
@@ -1530,7 +1527,7 @@ declare namespace L {
         function stamp(obj: any): number;
         function throttle(fn: () => void, time: number, context: any): () => void;
         function wrapNum(num: number, range: number[], includeMax?: boolean): number;
-        function falseFn(): () => false;
+        function falseFn(): false;
         function formatNum(num: number, digits?: number): number;
         function trim(str: string): string;
         function splitWords(str: string): string[];
@@ -1541,7 +1538,7 @@ declare namespace L {
         function indexOf(array: any[], el: any): number;
         function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
         function cancelAnimFrame(id: number): void;
-        let lastId: string;
+        let lastId: number;
         let emptyImageUrl: string;
     }
 }
