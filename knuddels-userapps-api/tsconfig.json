@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"noImplicitAny": true,
+		"baseUrl": "../",
+		"typeRoots": [
+			"../"
+		],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": [
+		"index.d.ts",
+		"knuddels-userapps-api-tests.ts"
+	]
+}
