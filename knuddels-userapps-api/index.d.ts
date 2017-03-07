@@ -1,4 +1,4 @@
-// Type definitions for Knuddels UserApps API
+// Type definitions for Knuddels UserApps API 1.0
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,7 +26,9 @@ declare interface App {
 	 * Dieses Methode wird aufgerufen, sobald ein Nutzer versucht den Channel zu betreten.
 	 * Die App kann nun entscheiden, ob der Nutzer den Channel betreten darf.
 	 *
-	 * <b style="color:red;">Hinweis:</b> Um ein responsives User Interface für den Nutzer, der den Channel betreten möchte zu garantieren, muss die App innerhalb von einer Sekunde auf diese Anfrage reagieren, damit ihre Antwort in das Ergebnis einfliesst.
+	 * <b style="color:red;">Hinweis:</b> Um ein responsives User Interface für den Nutzer,
+	 * der den Channel betreten möchte zu garantieren, muss die App innerhalb von einer Sekunde auf diese Anfrage reagieren,
+	 * damit ihre Antwort in das Ergebnis einfliesst.
 	 *
 	 * Mit bestimmten Smileyfeatures ist es derzeit trotzdem möglich, den Channel zu betreten.
 	 * Diese Nutzer können nicht ausgesperrt werden:
@@ -176,7 +178,7 @@ declare interface App {
 	 * <li><code>command</code> ist der Name des Befehl selbst (beispielsweise commandName)</li>
 	 * </ul>
 	 */
-	chatCommands?: { [commandName:string]: (user:User, params:string, command:string) => void };
+	chatCommands?: { [commandName: string]: (user: User, params: string, command: string) => void };
 }
 
 /**
@@ -189,17 +191,17 @@ declare class AppAccess {
 	/**
 	 * Liefert die Instanz der eigenen App.
 	 */
-	public getOwnInstance(): AppInstance;
+	getOwnInstance(): AppInstance;
 	/**
 	 * Liefert die Instanzen aller anderen Apps, die gerade in diesem Channel laufen.
 	 * @since AppServer 82904
 	 */
-	public getAllRunningAppsInChannel(includeSelf?: boolean): AppInstance[];
+	getAllRunningAppsInChannel(includeSelf?: boolean): AppInstance[];
 	/**
 	 * Liefert die Instanzen aller anderen Apps, die gerade in diesem Channel laufen.
 	 * @since AppServer 82904
 	 */
-	public getRunningAppInChannel(appId: string): (AppInstance|null);
+	getRunningAppInChannel(appId: string): (AppInstance|null);
 }
 
 /**
@@ -209,56 +211,56 @@ declare class AppContent {
 	/**
 	 * Liefert den AppViewMode.
 	 */
-	public getAppViewMode(): AppViewMode;
+	getAppViewMode(): AppViewMode;
 	/**
 	 * Liefert das HTMLFile, das beim Anlegen des AppContents
 	 * genutzt wurde.
 	 */
-	public getHTMLFile(): HTMLFile;
+	getHTMLFile(): HTMLFile;
 	/**
 	 * Liefert die Breite des AppContent.
 	 */
-	public getWidth(): number;
+	getWidth(): number;
 	/**
 	 * Liefert die Höhe des AppContent.
 	 */
-	public getHeight(): number;
+	getHeight(): number;
 	/**
 	 * Liefert die LoadConfiguration, mit der die Optik beim Laden des HTML User Interface beeinflusst werden kann.
 	 */
-	public getLoadConfiguration(): LoadConfiguration;
+	getLoadConfiguration(): LoadConfiguration;
 	/**
 	 * Liefert einen AppContent, der das HTMLFile als Overlay oben rechts im Channel anzeigt.
 	 */
-	public static overlayContent(htmlFile: HTMLFile, width: number, height: number): AppContent;
+	static overlayContent(htmlFile: HTMLFile, width: number, height: number): AppContent;
 	/**
 	 * Liefert einen AppContent, der das HTMLFile als Overlay (200x350) oben rechts im Channel anzeigt.
 	 */
-	public static overlayContent(htmlFile: HTMLFile): AppContent;
+	static overlayContent(htmlFile: HTMLFile): AppContent;
 	/**
 	 * Liefert einen AppContent, der das HTMLFile im Applet/HTML-Chat
 	 * als Popup (300x400) und auf Android als Fullscreen-View anzeigt.
 	 */
-	public static popupContent(htmlFile: HTMLFile): AppContent;
+	static popupContent(htmlFile: HTMLFile): AppContent;
 	/**
 	 * Liefert einen AppContent, der das HTMLFile im Applet/HTML-Chat
 	 * als Popup und auf Android als Fullscreen-View anzeigt.
 	 */
-	public static popupContent(htmlFile: HTMLFile, width: number, height: number): AppContent;
+	static popupContent(htmlFile: HTMLFile, width: number, height: number): AppContent;
 	/**
 	 * Sendet Daten an alle Nutzer, die diesen AppContent geöffnet haben.
 	 */
-	public sendEvent(type: string, data?: KnuddelsEvent): void;
+	sendEvent(type: string, data?: KnuddelsEvent): void;
 	/**
 	 * Liefert eine Liste aller User, die diesen AppContent
 	 * geöffnet haben.
 	 */
-	public getUsers(): User[];
+	getUsers(): User[];
 	/**
 	 * Liefert eine Liste aller AppContentSessions, die dieses AppContent,
 	 * die User gerade geöffnet haben.
 	 */
-	public getSessions(): AppContentSession[];
+	getSessions(): AppContentSession[];
 	/**
 	 * Ersetzt den AppContent, bei allen Usern, die diesen AppContent
 	 * geöffnet haben durch den neuen AppContent.
@@ -266,16 +268,16 @@ declare class AppContent {
 	 * <br /><br /><b><font color="red">Hinweis:</font></b> Es können nur AppContent mit demselben AppViewMode
 	 * zum Ersetzen genutzt werden.
 	 */
-	public replaceWithAppContent(newAppContent: AppContent): void;
+	replaceWithAppContent(newAppContent: AppContent): void;
 	/**
 	 * Entfernt diesen AppContent, bei allen Usern, die diesen AppContent
 	 * geöffnet haben.
 	 */
-	public remove(): void;
+	remove(): void;
 	/**
 	 * Fügt einen Listener hinzu, der aufgerufen wird, wenn jemand den AppContent schließt.
 	 */
-	public addCloseListener(callback: { user: User; appContent: AppContent; }): void;
+	addCloseListener(callback: { user: User; appContent: AppContent; }): void;
 }
 
 /**
@@ -285,23 +287,23 @@ declare class AppContentSession {
 	/**
 	 * Sendet Daten an den verbundenen Client.
 	 */
-	public sendEvent(type: string, data?: KnuddelsEvent): void;
+	sendEvent(type: string, data?: KnuddelsEvent): void;
 	/**
 	 * Liefert den AppViewMode.
 	 */
-	public getAppViewMode(): AppViewMode;
+	getAppViewMode(): AppViewMode;
 	/**
 	 * Entfernt die AppContentSession beim verbundenen User.
 	 */
-	public remove(): void;
+	remove(): void;
 	/**
 	 * Liefert den User.
 	 */
-	public getUser(): User;
+	getUser(): User;
 	/**
 	 * Liefert den verbundenen AppContent.
 	 */
-	public getAppContent(): AppContent;
+	getAppContent(): AppContent;
 }
 
 /**
@@ -314,7 +316,7 @@ declare class AppInfo {
 	 * Diese ist für jede Sub-Channel Instanz der App unterschiedlich.
 	 * Wenn RootAppUid == AppUid dann ist dies die Root-App-Instanz.
 	 */
-	public getAppUid(): number;
+	getAppUid(): number;
 	/**
 	 * Liefert die RootAppUid.
 	 * Diese ist für jede Sub-Channel Instanz der App gleich.
@@ -322,15 +324,15 @@ declare class AppInfo {
 	 *
 	 * Sie wird für den Link für Auszahlungen aus einem Knuddel-Account benötigt: <code>/knuddelaccount payout:&lt;RootAppUid&gt;:&lt;BETRAG&gt;</code>
 	 */
-	public getRootAppUid(): number;
+	getRootAppUid(): number;
 	/**
 	 * Liefert den in der Konfiguration eingestellten Namen der App.
 	 */
-	public getAppName(): string;
+	getAppName(): string;
 	/**
 	 * Liefert die Version der App, die in der Konfiguration eingestellt wurde.
 	 */
-	public getAppVersion(): string;
+	getAppVersion(): string;
 	/**
 	 * Liefert die eindeutige Id der App.
 	 * Die appId setzt sich zusammen aus
@@ -340,39 +342,39 @@ declare class AppInfo {
 	 * 	<li>Ordnername der App -> appKey</li>
 	 * </ul>
 	 */
-	public getAppId(): string;
+	getAppId(): string;
 	/**
 	 * Liefert den eindeutigen Key der App.
 	 * Der appKey ist der Ordnername, in dem die App liegt.
 	 */
-	public getAppKey(): string;
+	getAppKey(): string;
 	/**
 	 * Liefert den Entwickler der App, falls die serverId knuddelsDE oder knuddelsDEV ist, ansonsten null.
 	 */
-	public getAppDeveloper(): User;
+	getAppDeveloper(): User;
 	/**
 	 * Liefert die Liste der AppManager für diese App. Die Channelbesitzer zählen automatisch auch als AppManager.
 	 */
-	public getAppManagers(): User[];
+	getAppManagers(): User[];
 	/**
 	 * Liefert den Steuersatz, der bei Auszahlung bereits genutzer Knuddel von einem
 	 * KnuddelAccount an einen User
 	 * anfällt. Die anfallenden Steuern werden bei Auszahlung vom BotUser
 	 * abgezogen.
 	 */
-	public getTaxRate(): number;
+	getTaxRate(): number;
 	/**
 	 * Liefert den KnuddelAmount, der an Steuern anfallen würde,
 	 * wenn alle User jetzt all ihre Knuddel aus ihrem
 	 * KnuddelAccount abheben würden.
 	 */
-	public getTotalTaxKnuddelAmount(): KnuddelAmount;
+	getTotalTaxKnuddelAmount(): KnuddelAmount;
 	/**
 	 * Liefert den KnuddelAmount, der jetzt noch vom
 	 * BotUser an KnuddelAccounts
 	 * übertragen werden kann, so dass für alle Knuddel noch die Steuern bezahlt werden können.
 	 */
-	public getMaxPayoutKnuddelAmount(): KnuddelAmount;
+	getMaxPayoutKnuddelAmount(): KnuddelAmount;
 }
 
 /**
@@ -385,36 +387,36 @@ declare class AppInstance {
 	/**
 	 * Liefert die AppInfo.
 	 */
-	public getAppInfo(): AppInfo;
+	getAppInfo(): AppInfo;
 	/**
 	 * Sendet ein App-Event an diese App-Instanz.
 	 */
-	public sendAppEvent(type: string, data: KnuddelsEvent): void;
+	sendAppEvent(type: string, data: KnuddelsEvent): void;
 	/**
 	 * Informiert, ob die aktuelle AppInstanz eine Root-Instanz ist.
 	 */
-	public isRootInstance(): boolean;
+	isRootInstance(): boolean;
 	/**
 	 * Liefert die Root-Instanz der aktuellen App-Instanz.
 	 */
-	public getRootInstance(): RootAppInstance;
+	getRootInstance(): RootAppInstance;
 	/**
 	 * Liefert alle App-Instanzen dieser App in diesem Channel und Subchannels.
 	 * Mit <code>includeSelf = false</code> kann man die eigene Instanz ausschließen.
 	 */
-	public getAllInstances(includeSelf?: boolean): AppInstance[];
+	getAllInstances(includeSelf?: boolean): AppInstance[];
 	/**
 	 * Liefert den Startzeitpunkt dieser AppInstance.
 	 */
-	public getStartDate(): Date;
+	getStartDate(): Date;
 	/**
 	 * Liefert die Namen der ChatCommands, die diese AppInstnce derzeit registriert hat.
 	 */
-	public getRegisteredChatCommandNames(): (string[]|null);
+	getRegisteredChatCommandNames(): (string[]|null);
 	/**
 	 * Liefert den Namen des Channels in dem diese AppInstance läuft.
 	 */
-	public getChannelName(): string;
+	getChannelName(): string;
 }
 
 /**
@@ -432,15 +434,15 @@ declare class AppProfileEntry {
 	/**
 	 * Liefert den key für den die Topliste, die den Profileintrag erzeugt angelegt wurde.
 	 */
-	public getKey(): string;
+	getKey(): string;
 	/**
 	 * Liefert den getDisplayType
 	 */
-	public getDisplayType(): ToplistDisplayType;
+	getDisplayType(): ToplistDisplayType;
 	/**
 	 * Liefert das Toplist-Objekt.
 	 */
-	public getToplist(): Toplist;
+	getToplist(): Toplist;
 }
 
 /**
@@ -457,22 +459,22 @@ declare class AppProfileEntryAccess {
 	/**
 	 * Liefert die Liste aller AppProfileEntry-Objekte, die diese App erzeugt hat.
 	 */
-	public getAllProfileEntries(): AppProfileEntry[];
+	getAllProfileEntries(): AppProfileEntry[];
 	/**
 	 * Liefert den AppProfileEntry für den übergebenen userPersistenceNumberKey.
 	 */
-	public getAppProfileEntry(userPersistenceNumberKey: string): AppProfileEntry;
+	getAppProfileEntry(userPersistenceNumberKey: string): AppProfileEntry;
 	/**
 	 * Erzeugt oder aktualisiert ein AppProfileEntry anhand der übergebenen Toplist
 	 * und dem ToplistDisplayType und liefert den AppProfileEntry im Anschluss zurück.
 	 *
 	 * Profileinträge, die erzeugt werden, sind nur sichtbar, solange die App läuft und werden im Profil ausgeblendet, sofern die App aus ist.
 	 */
-	public createOrUpdateEntry(toplist: Toplist, toplistDisplayType: ToplistDisplayType): AppProfileEntry;
+	createOrUpdateEntry(toplist: Toplist, toplistDisplayType: ToplistDisplayType): AppProfileEntry;
 	/**
 	 * Löscht den übergebenen AppProfileEntry.
 	 */
-	public removeEntry(appProfileEntry: AppProfileEntry): void;
+	removeEntry(appProfileEntry: AppProfileEntry): void;
 }
 
 /**
@@ -491,11 +493,11 @@ declare class AppViewMode {
 	/**
 	 *
 	 */
-	public static readonly Overlay: AppViewMode;
+	static readonly Overlay: AppViewMode;
 	/**
 	 * Zum Öffnen eines Popups durch das HTML User Interface
 	 */
-	public static readonly Popup: AppViewMode;
+	static readonly Popup: AppViewMode;
 }
 
 /**
@@ -508,20 +510,20 @@ declare class BotUser extends User {
 	/**
 	 * Sendet eine öffentliche Nachricht in den Channel.
 	 */
-	public sendPublicMessage(message: string): void;
+	sendPublicMessage(message: string): void;
 	/**
 	 * Sendet eine öffentliche Handlung in den Channel.
 	 * Dies funktioniert so, als ob der BotUser /me TEXT im Chat eingeben würde.
 	 */
-	public sendPublicActionMessage(actionMessage: string): void;
+	sendPublicActionMessage(actionMessage: string): void;
 	/**
 	 * Sendet eine private Nachricht an bestimmte Nutzer.
 	 */
-	public sendPrivateMessage(message: string, users?: User[]): void;
+	sendPrivateMessage(message: string, users?: User[]): void;
 	/**
 	 * Sendet eine persistente Nachricht an einen bestimmten Nutzer.
 	 */
-	public sendPostMessage(topic: string, text: string, receivingUser?: User): void;
+	sendPostMessage(topic: string, text: string, receivingUser?: User): void;
 	/**
 	 * Transferiert eine bestimmte Anzahl Knuddel an einen Zielnutzer oder KnuddelAccount.<br /><br />
 	 * <b style="color:red;">Wichtiger Hinweis:</b> Sollte die App versuchen mehr Knuddel zu transferieren,
@@ -531,7 +533,9 @@ declare class BotUser extends User {
 	 * Hat ein Channelbesitzer eine gewisse Menge Schulden angesammelt, so schalten wir alle Apps in diesem Channel ab.
 	 * <br />Es können nur Knuddel transferiert werden zu Nutzern mit <code>UserType.Human</code>.
 	 */
-	public transferKnuddel(receivingUserOrAccount: (User|KnuddelAccount), knuddelAmount: KnuddelAmount, parameters?: { displayReasonText?: string; transferDisplayType?: KnuddelTransferDisplayType; onSuccess?: () => void; onError?: (message: string) => void; }): void;
+	transferKnuddel(receivingUserOrAccount: (User|KnuddelAccount), knuddelAmount: KnuddelAmount,
+					parameters?: { displayReasonText?: string; transferDisplayType?: KnuddelTransferDisplayType;
+	onSuccess?: () => void; onError?: (message: string) => void; }): void;
 }
 
 /**
@@ -544,49 +548,49 @@ declare class Channel {
 	/**
 	 * Gibt Zugriff auf das ChannelConfiguration-Objekt des Channels.
 	 */
-	public getChannelConfiguration(): ChannelConfiguration;
+	getChannelConfiguration(): ChannelConfiguration;
 	/**
 	 * Gibt Zugriff auf das ChannelRestrictions-Objekt des Channels.
 	 */
-	public getChannelRestrictions(): ChannelRestrictions;
+	getChannelRestrictions(): ChannelRestrictions;
 	/**
 	 * Gibt Zugriff auf das ChannelDesign-Objekt des Channels.
 	 * @since AppServer 87470, ChatServer 87470
 	 */
-	public getChannelDesign(): ChannelDesign;
+	getChannelDesign(): ChannelDesign;
 	/**
 	 * Gibt Zugriff auf Nutzer, die gerade im Channel online sind.
 	 */
-	public getOnlineUsers(...userType: UserType[]): User[];
+	getOnlineUsers(...userType: UserType[]): User[];
 	/**
 	 * Liefert die Information, ob in diesem Channel Videos gestreamt werden können.
 	 */
-	public isVideoChannel(): boolean;
+	isVideoChannel(): boolean;
 	/**
 	 * Liefert die VideoChannelData des Channels.
 	 */
-	public getVideoChannelData(): VideoChannelData;
+	getVideoChannelData(): VideoChannelData;
 	/**
 	 * Liefert den Namen des Channels.
 	 */
-	public getChannelName(): string;
+	getChannelName(): string;
 	/**
 	 * Liefert den Namen des Root-Channels (nur relevant, falls die App Tochterchannel haben kann).
 	 */
-	public getRootChannelName(): string;
+	getRootChannelName(): string;
 	/**
 	 * Liefert den ChannelTalkMode, in dem sich der Channel gerade befindet.
 	 */
-	public getTalkMode(): ChannelTalkMode;
+	getTalkMode(): ChannelTalkMode;
 	/**
 	 * Liefert alle User, die bestimmte ChannelTalkPermissions haben.
 	 */
-	public getAllUsersWithTalkPermission(...channelTalkPermission: ChannelTalkPermission[]): User[];
+	getAllUsersWithTalkPermission(...channelTalkPermission: ChannelTalkPermission[]): User[];
 	/**
 	 * Liefert die Information, ob der Channel sichtbar (<code>true</code>) oder unsichtbar (<code>false</code>) ist.
 	 * @since AppServer 82202
 	 */
-	public isVisible(): boolean;
+	isVisible(): boolean;
 }
 
 /**
@@ -600,11 +604,11 @@ declare class ChannelConfiguration {
 	/**
 	 * Liefert das ChannelRights-Objekt des Channels.
 	 */
-	public getChannelRights(): ChannelRights;
+	getChannelRights(): ChannelRights;
 	/**
 	 * Liefert das ChannelInformation-Objekt des Channels.
 	 */
-	public getChannelInformation(): ChannelInformation;
+	getChannelInformation(): ChannelInformation;
 }
 
 /**
@@ -616,17 +620,17 @@ declare class ChannelDesign {
 	 * Liefert die eingestellte Standard-Schriftgröße des Channels.
 	 * @since AppServer 87470, ChatServer 87470
 	 */
-	public getDefaultFontSize(): number;
+	getDefaultFontSize(): number;
 	/**
 	 * Liefert die eingestellte Standard-Schriftfarbe des Channels.
 	 * @since AppServer 87470, ChatServer 87470
 	 */
-	public getDefaultFontColor(): Color;
+	getDefaultFontColor(): Color;
 	/**
 	 * Liefert die eingestellte Hintergrundfarbe des Channels.
 	 * @since AppServer 87470, ChatServer 87470
 	 */
-	public getBackgroundColor(): Color;
+	getBackgroundColor(): Color;
 }
 
 /**
@@ -636,11 +640,11 @@ declare class ChannelInformation {
 	/**
 	 * Liefert das eingestellte Thema des Channels.
 	 */
-	public getTopic(): string;
+	getTopic(): string;
 	/**
 	 * Aktualisiert das Thema das Channels.
 	 */
-	public setTopic(topic: string, showMessage: boolean): void;
+	setTopic(topic: string, showMessage: boolean): void;
 }
 
 /**
@@ -656,11 +660,11 @@ declare class ChannelJoinPermission {
 	/**
 	 * Erzeugt ein ChannelJoinPermission-Objekt, das den Zugriff in den Channel erlaubt.
 	 */
-	public static accepted(): ChannelJoinPermission;
+	static accepted(): ChannelJoinPermission;
 	/**
 	 * Erzeugt ein ChannelJoinPermission-Objekt, das den Zugriff in den Channel verbietet.
 	 */
-	public static denied(denyReason: string): ChannelJoinPermission;
+	static denied(denyReason: string): ChannelJoinPermission;
 }
 
 /**
@@ -673,16 +677,16 @@ declare class ChannelRestrictions {
 	/**
 	 * Liefert alle User die im Channel derzeit für das Schreiben öffentlicher Nachrichten gesperrt sind.
 	 */
-	public getMutedUsers(): User[];
+	getMutedUsers(): User[];
 	/**
 	 * Liefert alle User die im Channel derzeit für das Nutzen
 	 * von Farben, Textformatierung und Smileys in öffentlichen Nachrichten gesperrt sind.
 	 */
-	public getColorMutedUsers(): User[];
+	getColorMutedUsers(): User[];
 	/**
 	 * Liefert alle User die für das Betreten des Channel derzeit gesperrt sind.
 	 */
-	public getLockedUsers(): User[];
+	getLockedUsers(): User[];
 }
 
 /**
@@ -693,15 +697,15 @@ declare class ChannelRights {
 	/**
 	 * Liefert die Liste aller Channelbesitzer. In öffentlichen Channels sind dies alle hauptzuständigen betreuenden Mitglieder. (HZA/HZE)
 	 */
-	public getChannelOwners(): User[];
+	getChannelOwners(): User[];
 	/**
 	 * Liefert die Liste aller Channel-Moderatoren.
 	 */
-	public getChannelModerators(): User[];
+	getChannelModerators(): User[];
 	/**
 	 * Liefert die Liste aller Event-Moderatoren.
 	 */
-	public getEventModerators(): User[];
+	getEventModerators(): User[];
 }
 
 /**
@@ -714,16 +718,16 @@ declare class ChannelTalkMode {
 	/**
 	 * Jeder darf gerade im Channel schreiben.
 	 */
-	public static readonly Everyone: ChannelTalkMode;
+	static readonly Everyone: ChannelTalkMode;
 	/**
 	 * Nur Personen, die besondere Rederechte haben dürfen gerade im Channel schreiben.
 	 */
-	public static readonly OnlyWithTalkPermission: ChannelTalkMode;
+	static readonly OnlyWithTalkPermission: ChannelTalkMode;
 	/**
 	 * Nur Personen, die besondere Rederechte haben dürfen gerade im Channel schreiben.
 	 * Die Nachrichten aller anderen Nutzer werden gefiltert und ggf. von den Moderatoren zugelassen.
 	 */
-	public static readonly FilteredByModerators: ChannelTalkMode;
+	static readonly FilteredByModerators: ChannelTalkMode;
 }
 
 /**
@@ -735,34 +739,34 @@ declare class ChannelTalkPermission {
 	 * Der User ist gerade nicht im Channel,
 	 * daher ist die ChannelTalkPermission nicht bekannnt.
 	 */
-	public static readonly NotInChannel: ChannelTalkPermission;
+	static readonly NotInChannel: ChannelTalkPermission;
 	/**
 	 * Der User hat keine speziellen Rederechte.
 	 * Beim ChannelTalkMode Default können diese User
 	 * Nachrichten verfassen:
 	 */
-	public static readonly Default: ChannelTalkPermission;
+	static readonly Default: ChannelTalkPermission;
 	/**
 	 * Der User kann eine öffentliche Nachricht verfassen. Danach wechselt die
 	 * ChannelTalkPermission automatisch auf Default.
 	 */
-	public static readonly TalkOnce: ChannelTalkPermission;
+	static readonly TalkOnce: ChannelTalkPermission;
 	/**
 	 * Der User kann permanent öffentliche Nachrichten verfassen.
 	 */
-	public static readonly TalkPermanent: ChannelTalkPermission;
+	static readonly TalkPermanent: ChannelTalkPermission;
 	/**
 	 * Der User ist VIP und kann öffentliche Nachrichten verfassen,
 	 * die farbig und groß dargestellt werden.
 	 */
-	public static readonly VIP: ChannelTalkPermission;
+	static readonly VIP: ChannelTalkPermission;
 	/**
 	 * Der User ist VIP und kann öffentliche Nachrichten verfassen,
 	 * die farbig und groß dargestellt werden. Moderatoren haben zudem weitere Möglichkeiten, die in der
 	 * <a href="http://knuddels.de/doku/Moderationssystem.pdf" target="_blank">Anleitung zum Moderationssystem</a>
 	 * nachgelesen werden können.
 	 */
-	public static readonly Moderator: ChannelTalkPermission;
+	static readonly Moderator: ChannelTalkPermission;
 }
 
 /**
@@ -775,7 +779,7 @@ declare class ChatServerInfo extends ServerInfo {
 	/**
 	 * Liefert die Information, ob dieser Chat-Server ein Test-System ist.
 	 */
-	public isTestSystem(): boolean;
+	isTestSystem(): boolean;
 }
 
 /**
@@ -785,12 +789,12 @@ declare class Client {
 	/**
 	 * Schließt das HTML User Interface.
 	 */
-	public static close(): void;
+	static close(): void;
 	/**
 	 * Sendet ein Event zum Server, das mit dem AppHook onEventReceived in der App
 	 * abgefangen werden kann.
 	 */
-	public static sendEvent(type: string, data: KnuddelsEvent): void;
+	static sendEvent(type: string, data: KnuddelsEvent): void;
 	/**
 	 * Sagt dem Chatserver, dass dieser Befehl für den Nutzer, der das HTML User Interface sieht, ausgeführt werden soll.
 	 * Ist der Befehl auf einer Whitelist vom Server, so wird er sofort ausgeführt. Im anderen Falle sieht der Nutzer einen
@@ -799,67 +803,67 @@ declare class Client {
 	 * Derzeit sind diese Befehle auf der Whitelist: w, info, wc, top, h, dice, d, diceo, w2, serverpp, knuddelaccount,
 	 * /tf-insert, /tf-inserts, /tf-insertb, /tf-insertsb, /tf-override, /tf-overrides, /tf-overrideb, /tf-overridesb, /autotype
 	 */
-	public static executeSlashCommand(command: string): void;
+	static executeSlashCommand(command: string): void;
 	/**
 	 * Bindet eine Javascript-Datei ein und sorgt dafür, dass immer die aktuellste Version vom Server geladen wird.
 	 */
-	public static includeJS(...files: string[]): void;
+	static includeJS(...files: string[]): void;
 	/**
 	 * Registriert sich für ein bestimmtes Event, das vom Server mittels User/sendEvent:method oder vom Client via Client/dispatchEvent:method verschickt wurde.
 	 */
-	public static addEventListener(type: string, callback: (event: {type: string, data: KnuddelsEvent}) => void): void;
+	static addEventListener(type: string, callback: (event: {type: string, data: KnuddelsEvent}) => void): void;
 	/**
 	 * Sendet ein bestimmtes Event, so dass alle mit Client/addEventListener:method registrierten Listener aufgerufen werden.
 	 */
-	public static dispatchEvent(event: Client.Event): void;
+	static dispatchEvent(event: Client.Event): void;
 	/**
 	 * Entfernt alle Event-Listener für einen bestimmten Event-Typ.
 	 */
-	public static removeEventListener(type: string): void;
+	static removeEventListener(type: string): void;
 	/**
 	 * Bindet eine CSS-Datei ein und sorgt dafür, dass immer die aktuellste Version vom Server geladen wird.
 	 */
-	public static includeCSS(...files: string[]): void;
+	static includeCSS(...files: string[]): void;
 	/**
 	 * Spielt einen Sound ab. Der angegebene Dateiname kann hierbei entweder absolut oder relativ zur angezeigten HTML-Datei sein.
 	 * Bisher können nur Dateien mit Wave-Format zuverlässig abgespielt werden.
 	 */
-	public static playSound(fileName: string): void;
+	static playSound(fileName: string): void;
 	/**
 	 * Lädt einen Sound herunter, damit die Datei später ohne Wartezeit abgespielt werden kann.
 	 * (Android only)
 	 * Der angegebene Dateiname kann hierbei entweder absolut oder relativ zur angezeigten HTML-Datei sein.
 	 */
-	public static prefetchSound(fileName: string): void;
+	static prefetchSound(fileName: string): void;
 	/**
 	 * Gibt einen Sound wieder frei, der in nächster Zeit vom Client nicht mehr gebraucht wird.
 	 * (Android only)
 	 * Der angegebene Dateiname kann hierbei entweder absolut oder relativ zur angezeigten HTML-Datei sein.
 	 */
-	public static freeSound(fileName: string): void;
+	static freeSound(fileName: string): void;
 	/**
 	 * Liefert den HostFrame des aktuellen Inhalts.
 	 */
-	public static getHostFrame(): Client.HostFrame;
+	static getHostFrame(): Client.HostFrame;
 	/**
 	 * Liefert den Nicknamen des Users, der gerade dieses HTML User Interface angezeigt bekommt.
 	 */
-	public static getNick(): string;
+	static getNick(): string;
 	/**
 	 * Liefert den aktuellen ClientType des Nutzers, der gerade dieses HTML User Interface angezeigt bekommt.
 	 */
-	public static getClientType(): ClientType;
+	static getClientType(): ClientType;
 	/**
 	 * Liefert die Id, die beim Laden von Skripten und Stylesheets an die URL angehängt wird, um sicherzustellen, dass eine neue Version
 	 * der Datei vom Server geholt wird, statt die Datei aus dem Cache zu laden.
 	 *
 	 * Diese Id kann beim Einbinden eigener Ressourcen zum selben Zweck genutzt werden.
 	 */
-	public static getCacheInvalidationId(): string;
+	static getCacheInvalidationId(): string;
 	/**
 	 * Beinhaltet die JSON-Daten, die beim Erstellen des HTMLFile übergeben wurden.
 	 */
-	public static pageData: Json;
+	static pageData: Json;
 }
 
 /**
@@ -870,27 +874,27 @@ declare module Client {
 		/**
 		 * Erzeugt ein Color-Objekt mit RGB-Werten.
 		 */
-		public static fromRGB(red: number, green: number, blue: number): Color;
+		static fromRGB(red: number, green: number, blue: number): Color;
 		/**
 		 * Erzeugt ein Color-Objekt aus einem HexString.
 		 */
-		public static fromHexString(colorString: string): Color;
+		static fromHexString(colorString: string): Color;
 		/**
 		 * Liefert den Rot-Anteil der Farbe als Zahl zwischen 0 und 255.
 		 */
-		public getRed(): number;
+		getRed(): number;
 		/**
 		 * Liefert den Grün-Anteil der Farbe als Zahl zwischen 0 und 255.
 		 */
-		public getGreen(): number;
+		getGreen(): number;
 		/**
 		 * Liefert den Blau-Anteil der Farbe als Zahl zwischen 0 und 255.
 		 */
-		public getBlue(): number;
+		getBlue(): number;
 		/**
 		 * Liefert die Farbe als in CSS nutzbaren HexString.
 		 */
-		public asHexString(): string;
+		asHexString(): string;
 	}
 }
 
@@ -902,7 +906,7 @@ declare module Client {
 		/**
 		 * Erzeugt ein Event.
 		 */
-		public constructor(type: string, data: KnuddelsEvent);
+		constructor(type: string, data: KnuddelsEvent);
 	}
 }
 
@@ -914,32 +918,32 @@ declare module Client {
 		/**
 		 * Setzt den Titel der Seite im gezoomten Modus (nur Android).
 		 */
-		public setTitle(newTitle: string): void;
+		setTitle(newTitle: string): void;
 		/**
 		 * Ändert die sichtbare Hintergrundfarbe des Hostframes animiert. (Android-only)
 		 */
-		public setBackgroundColor(newColor: Color, durationMillis?: number): void;
+		setBackgroundColor(newColor: Color, durationMillis?: number): void;
 		/**
 		 * Setzt die Icons, die als Fenster-Icon angezeigt werden sollen. (Applet-only, nur mit AppViewMode.Popup)
 		 * Die Bilder müssen von groß nach klein sortiert sein. Die größeren Bilder werden (je nach System) automatisch dann eingesetzt,
 		 * wenn größere Bilder benötigt werden (z.B. in der Task-Leiste, oder beim Alt+Tab Fenster-Wechsel).
 		 * @since Applet: 9.0bwj, AppServer: 84904
 		 */
-		public setIcons(...path: string[]): void;
+		setIcons(...path: string[]): void;
 		/**
 		 * Setzt, ob das Fenster resizable ist. (Applet-only, nur mit AppViewMode.Popup)
 		 */
-		public setResizable(resizable: boolean): void;
+		setResizable(resizable: boolean): void;
 		/**
 		 * Bringt das Fenster der App (App-Popup bzw. Chat-Fenster) in den Vordergrund. (Applet-only)
 		 * @since Applet: 9.0bwj, AppServer: 84904
 		 */
-		public focus(): void;
+		focus(): void;
 		/**
 		 * Ändert die Größe des App-Fensters (AppViewMode.Popup) bzw. App-Overlays (AppViewMode.Overlay).
 		 * @since Applet: 9.0bwj, AppServer: 84516
 		 */
-		public setSize(width: number, height: number): void;
+		setSize(width: number, height: number): void;
 	}
 }
 
@@ -953,23 +957,23 @@ declare class ClientType {
 	/**
 	 * Der User ist mit dem Java Applet im Chat.
 	 */
-	public static readonly Applet: ClientType;
+	static readonly Applet: ClientType;
 	/**
 	 * Der User ist mit dem Browser im Chat (Mini-Chat, HTML-Chat).
 	 */
-	public static readonly Browser: ClientType;
+	static readonly Browser: ClientType;
 	/**
 	 * Der User ist mit der Android-App im Chat.
 	 */
-	public static readonly Android: ClientType;
+	static readonly Android: ClientType;
 	/**
 	 * Der User ist mit der iOS-App im Chat.
 	 */
-	public static readonly IOS: ClientType;
+	static readonly IOS: ClientType;
 	/**
 	 * Der User ist nicht im Chat.
 	 */
-	public static readonly Offline: ClientType;
+	static readonly Offline: ClientType;
 }
 
 /**
@@ -980,39 +984,39 @@ declare class Color {
 	 * Erzeugt ein serverseitiges Color-Objekt mit RGB-Werten.
 	 * Als Alpha-Wert wird automatisch 255 genutzt.
 	 */
-	public static fromRGB(red: number, green: number, blue: number): Color;
+	static fromRGB(red: number, green: number, blue: number): Color;
 	/**
 	 * Erzeugt ein serverseitiges Color-Objekt mit RGBA-Werten.
 	 */
-	public static fromRGBA(red: number, green: number, blue: number, alpha: number): Color;
+	static fromRGBA(red: number, green: number, blue: number, alpha: number): Color;
 	/**
 	 * Liefert den Alpha-Wert der Farbe als Zahl zwischen 0 und 255.
 	 */
-	public getAlpha(): number;
+	getAlpha(): number;
 	/**
 	 * Liefert den Blau-Anteil der Farbe als Zahl zwischen 0 und 255.
 	 */
-	public getBlue(): number;
+	getBlue(): number;
 	/**
 	 * Liefert den Grün-Anteil der Farbe als Zahl zwischen 0 und 255.
 	 */
-	public getGreen(): number;
+	getGreen(): number;
 	/**
 	 * Liefert den Rot-Anteil der Farbe als Zahl zwischen 0 und 255.
 	 */
-	public getRed(): number;
+	getRed(): number;
 	/**
 	 * Liefert die Farbe als KCode zurück.
 	 */
-	public toKCode(): string;
+	toKCode(): string;
 	/**
 	 * Liefert die numerische Repräsentation der Farbe zurück.
 	 */
-	public asNumber(): number;
+	asNumber(): number;
 	/**
 	 * Erzeugt ein serverseitiges Color-Objekt aus der numerischen Repräsentation einer Farbe.
 	 */
-	public static fromNumber(value: number): Color;
+	static fromNumber(value: number): Color;
 }
 
 /**
@@ -1022,15 +1026,15 @@ declare class Dice {
 	/**
 	 * Erzeugt ein Dice-Objekt mit der übergebenen Anzahl Würfel und Augenzahl.
 	 */
-	public constructor(count: number /* optional */, value: number);
+	constructor(count: number /* optional */, value: number);
 	/**
 	 * Liefert die Anzahl der Würfel.
 	 */
-	public getAmount(): number;
+	getAmount(): number;
 	/**
 	 * Liefert die Anzahl der Seiten der Würfel.
 	 */
-	public getNumberOfSides(): number;
+	getNumberOfSides(): number;
 }
 
 /**
@@ -1047,27 +1051,27 @@ declare class DiceConfiguration {
 	 *
 	 * <b>Beispiel:</b> /diceo 1w4 -> 4 -> 4 -> 3 = 11
 	 */
-	public isUsingOpenThrow(): boolean;
+	isUsingOpenThrow(): boolean;
 	/**
 	 * Informiert darüber, ob die Würfel privat geworfen worden sind.
 	 * Würfelwürfe zählen als privat, wenn am Ende des Würfelbefehls ein Ausrufezeichen steht.
 	 * <b>Beispiel:</b> /dice 10w2!
 	 */
-	public isUsingPrivateThrow(): boolean;
+	isUsingPrivateThrow(): boolean;
 	/**
 	 * Liefert ein Array mit Würfeln, mit denen gewürfelt wurde.
 	 */
-	public getDices(): Dice[];
+	getDices(): Dice[];
 	/**
 	 * Vergleicht, ob zwei Konfigurationen inhaltlich identisch sind
 	 */
-	public equals(diceConfiguration: DiceConfiguration): boolean;
+	equals(diceConfiguration: DiceConfiguration): boolean;
 	/**
 	 * Liefert den Befehl, der im Chat eingegeben werden kann, um einen Wurf auszuführen,
 	 * der zur DiceConfiguration passt.
 	 * @since AppServer 82248
 	 */
-	public getChatCommand(): string;
+	getChatCommand(): string;
 }
 
 /**
@@ -1078,11 +1082,11 @@ declare class DiceConfigurationFactory {
 	/**
 	 * Fügt der Konfiguration einen Würfel hinzu.
 	 */
-	public addDice(dice: Dice): void;
+	addDice(dice: Dice): void;
 	/**
 	 * Liefert die Anzahl der Würfel, die zur Konfiguration gehören.
 	 */
-	public computeCurrentDiceCount(): number;
+	computeCurrentDiceCount(): number;
 	/**
 	 * Setzt die Information, ob ein offener Wurf oder ein normaler Wurf stattfinden soll.
 	 * Offene Würfelwürfe sind speziell. Falls die Augenzahl des Würfels die Maximalsumme zeigt,
@@ -1091,19 +1095,19 @@ declare class DiceConfigurationFactory {
 	 *
 	 * <b>Beispiel:</b> /diceo 1w4 -> 4 -> 4 -> 3 = 11
 	 */
-	public setUseOpenThrow(shouldUseOpenThrow: boolean): void;
+	setUseOpenThrow(shouldUseOpenThrow: boolean): void;
 	/**
 	 * Setzt die Information, ob der Würfelwurf privat stattfinden soll.
 	 */
-	public setShouldUsePrivateThrow(shouldUsePrivateThrow: boolean): void;
+	setShouldUsePrivateThrow(shouldUsePrivateThrow: boolean): void;
 	/**
 	 * Liefert die erzeugte Würfelkonfiguration.
 	 */
-	public getDiceConfiguration(): DiceConfiguration;
+	getDiceConfiguration(): DiceConfiguration;
 	/**
 	 * Erzeugt eine Würfelkonfiguration.
 	 */
-	public static fromString(diceConfigurationString: string): DiceConfiguration;
+	static fromString(diceConfigurationString: string): DiceConfiguration;
 }
 
 /**
@@ -1114,11 +1118,11 @@ declare class DiceEvent {
 	/**
 	 * Liefert den Nutzer, der gewürfelt hat.
 	 */
-	public getUser(): User;
+	getUser(): User;
 	/**
 	 * Liefert das DiceResult des Würfelwurfs.
 	 */
-	public getDiceResult(): DiceResult;
+	getDiceResult(): DiceResult;
 }
 
 /**
@@ -1128,15 +1132,15 @@ declare class DiceResult {
 	/**
 	 * Liefert die Konfiguration mit der gewürfelt wurde.
 	 */
-	public getDiceConfiguration(): DiceConfiguration;
+	getDiceConfiguration(): DiceConfiguration;
 	/**
 	 * Liefert ein Array mit Details zu den einzelnen Ergebnissen pro Würfeltyp.
 	 */
-	public getSingleDiceResults(): SingleDiceResult[];
+	getSingleDiceResults(): SingleDiceResult[];
 	/**
 	 * Liefert die Summe der Augenzahlen aller  Würfel
 	 */
-	public totalSum(): number;
+	totalSum(): number;
 }
 
 /**
@@ -1146,7 +1150,7 @@ declare class Domain {
 	/**
 	 * Liefert ein den Domain-Namen der aktuellen Domain.
 	 */
-	public getDomainName(): string;
+	getDomainName(): string;
 }
 
 /**
@@ -1157,32 +1161,36 @@ declare class ExternalServerAccess {
 	/**
 	 * Liefert eine Liste aller zugreifbaren Domains
 	 */
-	public getAllAccessibleDomains(): Domain[];
+	getAllAccessibleDomains(): Domain[];
 	/**
 	 * Prüft den Zugriff auf eine bestimmte URL. Wird je Kombination von "Protokoll + Host + Port" geprüft.<br>
 	 * Beispiel: http://www.example.de:8080
 	 */
-	public canAccessURL(urlString: string): boolean;
+	canAccessURL(urlString: string): boolean;
 	/**
 	 * Macht einen GET-Request auf die übergebene URL und liefert den Inhalt zurück.
 	 * Diese Methode ist eine Convenience-Methode für externalServerAccess.callURL().
 	 */
-	public getURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; }): void;
+	getURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; }): void;
 	/**
 	 * Macht einen POST-Request auf die übergebene URL und liefert den Inhalt zurück.
 	 * Diese Methode ist eine Convenience-Methode für externalServerAccess.callURL().
 	 */
-	public postURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; data?: Json; }): void;
+	postURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; data?: Json; }): void;
 	/**
 	 * Macht einen GET-Request auf die übergebene URL. Im Gegensatz zum GET-Request wird der Inhalt der Webseite wird nicht ausgelesen.
 	 * Aus diesem Grund ist diese Methode schneller.
 	 * Diese Methode ist eine Convenience-Methode für externalServerAccess.callURL().
 	 */
-	public touchURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; }): void;
+	touchURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; }): void;
 	/**
 	 * Macht einen Request auf die übergebene URL.
 	 */
-	public callURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; method?: ("GET" | "POST"); data?: Json; }): void;
+	callURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
+	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; method?: ("GET" | "POST"); data?: Json; }): void;
 }
 
 /**
@@ -1193,15 +1201,15 @@ declare class ExternalServerResponse {
 	/**
 	 * Liefert die abgefragte URL.
 	 */
-	public getURLString(): string;
+	getURLString(): string;
 	/**
 	 * Liefert den <a href="https://de.wikipedia.org/wiki/HTTP-Statuscode" target="_blank">HTTP-Statuscode</a> der Seite.
 	 */
-	public getResponseCode(): number;
+	getResponseCode(): number;
 	/**
 	 * Liefert ein Objekt, das die Headerdaten der Antwort enthält.
 	 */
-	public getHeaderFields(): { [key: string]: string[] };
+	getHeaderFields(): { [key: string]: string[] };
 }
 
 /**
@@ -1211,15 +1219,15 @@ declare class Gender {
 	/**
 	 * Das Geschlecht ist männlich.
 	 */
-	public static readonly Male: Gender;
+	static readonly Male: Gender;
 	/**
 	 * Das Geschlecht ist weiblich.
 	 */
-	public static readonly Female: Gender;
+	static readonly Female: Gender;
 	/**
 	 * Das Geschlecht ist nicht bekannt.
 	 */
-	public static readonly Unknown: Gender;
+	static readonly Unknown: Gender;
 }
 
 /**
@@ -1229,15 +1237,15 @@ declare class HTMLFile {
 	/**
 	 *
 	 */
-	public constructor(assetPath: string, pageData?: Json);
+	constructor(assetPath: string, pageData?: Json);
 	/**
 	 * Liefert den Pfad, der beim Anlegen der HTMLFile-Instanz genutzt wurde.
 	 */
-	public getAssetPath(): string;
+	getAssetPath(): string;
 	/**
 	 * Liefert die pageData, die beim Anlegen der HTMLFile-Instanz genutzt wurden.
 	 */
-	public getPageData(): Json;
+	getPageData(): Json;
 }
 
 /**
@@ -1249,37 +1257,37 @@ declare class KnuddelAccount {
 	 * Liefert den KnuddelAmount eines Users,
 	 * über den die App gerade frei verfügen kann.
 	 */
-	public getKnuddelAmount(): KnuddelAmount;
+	getKnuddelAmount(): KnuddelAmount;
 	/**
 	 * Liefert den KnuddelAmount aus dem KnuddelAccount,
 	 * der bereits von der App genutzt wurde.
 	 * Beim Auszahlen dieser Knuddel aus dem KnuddelAccount an den
 	 * User fallen Steuern an.
 	 */
-	public getKnuddelAmountUsed(): KnuddelAmount;
+	getKnuddelAmountUsed(): KnuddelAmount;
 	/**
 	 * Liefert den KnuddelAmount aus dem KnuddelAccount,
 	 * der noch nicht von der App genutzt wurde.
 	 * Beim Auszahlen dieser Knuddel aus dem KnuddelAccount an den
 	 * User fallen <strong>keine</strong> Steuern an.
 	 */
-	public getKnuddelAmountUnused(): KnuddelAmount;
+	getKnuddelAmountUnused(): KnuddelAmount;
 	/**
 	 * Liefert die Summe aller Transfers, die die App an diesen KnuddelAccount bzw. User überwiesen hat.
 	 */
-	public getTotalKnuddelAmountAppToUser(): KnuddelAmount;
+	getTotalKnuddelAmountAppToUser(): KnuddelAmount;
 	/**
 	 * Liefert die Summe aller Transfers, die die App von diesem KnuddelAccount bzw. User abgebucht/erhalten hat.
 	 */
-	public getTotalKnuddelAmountUserToApp(): KnuddelAmount;
+	getTotalKnuddelAmountUserToApp(): KnuddelAmount;
 	/**
 	 * Liefert die Information, ob in diesem Moment genug Knuddel verfügbar sind.
 	 */
-	public hasEnough(knuddelAmount: KnuddelAmount): boolean;
+	hasEnough(knuddelAmount: KnuddelAmount): boolean;
 	/**
 	 * Liefert den Nutzer, dem der KnuddelAccount gehört.
 	 */
-	public getUser(): User;
+	getUser(): User;
 	/**
 	 * Versucht eine bestimmte Menge Knuddel zu verwenden. Dies ist nur möglich, wenn der User auf seinem KnuddelAccount
 	 * genug Knuddel besitzt <strong>und</strong> online im Channel ist.
@@ -1290,7 +1298,7 @@ declare class KnuddelAccount {
 	 *
 	 * <br ><br ><b>Hinweis:</b> Knuddel an einen Nutzer senden kannst du mit der Methode BotUser/transferKnuddel:method.
 	 */
-	public use(knuddelAmount: KnuddelAmount, displayReasonText: string, parameters?: { transferReason?: string; onError?: (message: string) => void; onSuccess?: () => void; }): void;
+	use(knuddelAmount: KnuddelAmount, displayReasonText: string, parameters?: { transferReason?: string; onError?: (message: string) => void; onSuccess?: () => void; }): void;
 }
 
 /**
@@ -1300,31 +1308,31 @@ declare class KnuddelAmount {
 	/**
 	 * Erzeugt eine Instanz von KnuddelAmount mit der Anzahl Knuddel.
 	 */
-	public constructor(knuddel: number);
+	constructor(knuddel: number);
 	/**
 	 * Erzeugt eine Instanz von KnuddelAmount mit einer bestimmten Cent-Anzahl.
 	 */
-	public static fromCents(knuddel: number): KnuddelAmount;
+	static fromCents(knuddel: number): KnuddelAmount;
 	/**
 	 * Erzeugt eine Instanz von KnuddelAmount mit einer bestimmten Knuddel-Anzahl.
 	 */
-	public static fromKnuddel(knuddel: number): KnuddelAmount;
+	static fromKnuddel(knuddel: number): KnuddelAmount;
 	/**
 	 * Liefert die Anzahl der Knuddel in KnuddelCent zurück.
 	 */
-	public getKnuddelCents(): number;
+	getKnuddelCents(): number;
 	/**
 	 * Gibt den Wert der Knuddel als Zahl zurück.
 	 */
-	public asNumber(): number;
+	asNumber(): number;
 	/**
 	 * Liefert eine negierte Kopie des KnuddelAmount zurück.
 	 */
-	public negate(): KnuddelAmount;
+	negate(): KnuddelAmount;
 	/**
 	 * Liefert die Information, ob der Knuddelwert unter 0 ist.
 	 */
-	public isNegative(): boolean;
+	isNegative(): boolean;
 }
 
 /**
@@ -1338,59 +1346,59 @@ declare class KnuddelPot {
 	/**
 	 * Liefert die id des KnuddelPot.
 	 */
-	public getId(): number;
+	getId(): number;
 	/**
 	 * Liefert den Status des KnuddelPot.
 	 */
-	public getState(): KnuddelPotState;
+	getState(): KnuddelPotState;
 	/**
 	 * Liefert den beim Kreieren des KnuddelPots festgelegten KnuddelAmount, den jeder Teilnehmer zahlen muss.
 	 */
-	public getKnuddelAmountPerParticipant(): KnuddelAmount;
+	getKnuddelAmountPerParticipant(): KnuddelAmount;
 	/**
 	 * Liefert den KnuddelAmount, der bisher insgesamt in den KnuddelPot eingezahlt wurde.
 	 */
-	public getKnuddelAmountTotal(): KnuddelAmount;
+	getKnuddelAmountTotal(): KnuddelAmount;
 	/**
 	 * Liefert die Liste der Teilnehmer, die bisher in den KnuddelPot eingezahlt haben.
 	 */
-	public getParticipants(): User[];
+	getParticipants(): User[];
 	/**
 	 * Liefert den höchsten Multiplikator, der gültig ist.
 	 */
-	public getMaxFeeMultiplier(): number;
+	getMaxFeeMultiplier(): number;
 	/**
 	 * Setzt den BotUser, der den Anteil der Einzahlungen nach dem Spiel erhält
 	 * und den Anteil, vom Gesamtpot, den er erhalten soll.
 	 */
-	public setFee(feeUser: BotUser, feeMultiplier: number): void;
+	setFee(feeUser: BotUser, feeMultiplier: number): void;
 	/**
 	 * Liefert den mit KnuddelPot/setFee:method gesetzten BotUser an den die Gebühr ausbezahlt wird.
 	 */
-	public getFeeUser(): User;
+	getFeeUser(): User;
 	/**
 	 * Liefert den mit KnuddelPot/setFee:method gesetzten Multiplikator der Gebühr.
 	 */
-	public getFeeMultiplier(): number;
+	getFeeMultiplier(): number;
 	/**
 	 * Versiegelt den KnuddelPot, sodass keine weiteren Einzahlungen vorgenommen
 	 * werden können und Gewinne ausgeschüttet werden können.
 	 */
-	public seal(): void;
+	seal(): void;
 	/**
 	 * Bezahlt alle Einsätze an die Teilnehmer zurück und informiert mit dem übergeben Text über den Grund.
 	 */
-	public refund(reason?: string): void;
+	refund(reason?: string): void;
 	/**
 	 * Fügt einen Gewinner in die Liste der Gewinner hinzu.
 	 * Der zweite Parameter ist die Gewichtung mit der ausgezahlt werden soll.
 	 * Wird der Parameter weggelassen, so ist er automatisch 1.
 	 */
-	public addWinner(user: User, weight?: number): void;
+	addWinner(user: User, weight?: number): void;
 	/**
 	 * Zahlt den KnuddelPot an die mit addWinner gesetzten Gewinner aus.
 	 */
-	public payout(text?: string): void;
+	payout(text?: string): void;
 }
 
 /**
@@ -1400,15 +1408,15 @@ declare class KnuddelPotState {
 	/**
 	 * Der KnuddelPot ist geöffnet und kann neue Teilnehmer annehmen.
 	 */
-	public static readonly Open: KnuddelPotState;
+	static readonly Open: KnuddelPotState;
 	/**
 	 * Der KnuddelPot ist versiegelt und kann keine neuen Teilnehmer annehmen.
 	 */
-	public static readonly Sealed: KnuddelPotState;
+	static readonly Sealed: KnuddelPotState;
 	/**
 	 * Der KnuddelPot ist beendet und die Knuddel bereits ausgezahlt.
 	 */
-	public static readonly Closed: KnuddelPotState;
+	static readonly Closed: KnuddelPotState;
 }
 
 /**
@@ -1422,21 +1430,21 @@ declare class KnuddelTransfer {
 	/**
 	 * Liefert den User, der den KnuddelTransfer ausgelöst hat.
 	 */
-	public getSender(): User;
+	getSender(): User;
 	/**
 	 * Liefert den BotUser, der die Knuddel des KnuddelTransfer erhält,
 	 * wenn dieser mit accept()</code> angenommen wurde.
 	 */
-	public getReceiver(): BotUser;
+	getReceiver(): BotUser;
 	/**
 	 * Liefert die Anzahl der Knuddel, die mit diesem Transfer überwiesen werden.
 	 */
-	public getKnuddelAmount(): KnuddelAmount;
+	getKnuddelAmount(): KnuddelAmount;
 	/**
 	 * Liefert den Grund für den Transfer, der bei der Überweisung angegeben wurde mit
 	 * <code>/appknuddel BOTNICK:KNUDDEL:GRUND</code>.
 	 */
-	public getTransferReason(): string;
+	getTransferReason(): string;
 	/**
 	 * Lehnt die Knuddel aus dem KnuddelTransfer ab und sendet sie zurück an den Absender.
 	 * Als Grund sieht der Absender den übergebenen <code>reason</code>.
@@ -1449,7 +1457,7 @@ declare class KnuddelTransfer {
 	 * KnuddelTransfer/addToPot:method,
 	 * KnuddelTransfer/reject:method
 	 */
-	public reject(reason: string): void;
+	reject(reason: string): void;
 	/**
 	 * Nimmt die Knuddel aus dem KnuddelTransfer an und übergibt sie an den BotUser,
 	 * der mit <code>getReceiver()</code> abgefragt werden kann.
@@ -1462,11 +1470,11 @@ declare class KnuddelTransfer {
 	 * KnuddelTransfer/addToPot:method,
 	 * KnuddelTransfer/reject:method
 	 */
-	public accept(): void;
+	accept(): void;
 	/**
 	 * Liefert die Information, ob ein bestimmter KnuddelTransfer zu einem KnuddelPot hinzugefügt werden kann.
 	 */
-	public canAddToPot(pot: KnuddelPot): boolean;
+	canAddToPot(pot: KnuddelPot): boolean;
 	/**
 	 * Nimmt die Knuddel aus dem KnuddelTransfer an und übergibt sie an den übergebenen KnuddelPot.
 	 *
@@ -1480,13 +1488,13 @@ declare class KnuddelTransfer {
 	 * KnuddelTransfer/addToPot:method,
 	 * KnuddelTransfer/reject:method
 	 */
-	public addToPot(knuddelPot: KnuddelPot): void;
+	addToPot(knuddelPot: KnuddelPot): void;
 	/**
 	 * Liefert die Information, ob der KnuddelTransfer bereits verarbeitet wurde.
 	 * Falls die Methode <code>false</code> zurückliefert muss noch entschieden werden, ob der
 	 * KnuddelTransfer angenommen oder abgelehnt wird.
 	 */
-	public isProcessed(): boolean;
+	isProcessed(): boolean;
 }
 
 /**
@@ -1496,15 +1504,15 @@ declare class KnuddelTransferDisplayType {
 	/**
 	 * Nachricht wird öffentlich angezeigt.
 	 */
-	public static readonly Public: KnuddelTransferDisplayType;
+	static readonly Public: KnuddelTransferDisplayType;
 	/**
 	 * Nachricht wird privat angezeigt.
 	 */
-	public static readonly Private: KnuddelTransferDisplayType;
+	static readonly Private: KnuddelTransferDisplayType;
 	/**
 	 * Nachricht wird als /m zugestellt.
 	 */
-	public static readonly Post: KnuddelTransferDisplayType;
+	static readonly Post: KnuddelTransferDisplayType;
 }
 
 /**
@@ -1515,82 +1523,82 @@ declare class KnuddelsServer {
 	/**
 	 * Liefert den BotUser, der standardmäßig zur App gehört.
 	 */
-	public static getDefaultBotUser(): BotUser;
+	static getDefaultBotUser(): BotUser;
 	/**
 	 * Liefert die AppPersistence, mit der sich Zahlen, Strings und Javascript-Objekte langfristig und über die Session einer App hinaus gespeichert werden können.
 	 */
-	public static getPersistence(): AppPersistence;
+	static getPersistence(): AppPersistence;
 	/**
 	 * Liefert den Channel in dem die App läuft.
 	 */
-	public static getChannel(): Channel;
+	static getChannel(): Channel;
 	/**
 	 * Liefert das UserAccess-Objekt, über das
 	 * User zugreifbar werden.
 	 */
-	public static getUserAccess(): UserAccess;
+	static getUserAccess(): UserAccess;
 	/**
 	 * Liefert ein ExternalServerAccess-Objekt, mit dem
 	 * andere Server angesteuert werden können.
 	 */
-	public getExternalServerAccess(): ExternalServerAccess;
+	getExternalServerAccess(): ExternalServerAccess;
 	/**
 	 * Aktualisiert die Liste der genutzten Hooks. Werden zur Laufzeit chatCommands oder App-Hooks (wie mayJoinChannel) dynamisch erzeugt oder gelöscht, so muss danach <code>refreshHooks()</code>
 	 * aufgerufen werden, damit diese Änderung wirksam wird.
 	 */
-	public static refreshHooks(): void;
+	static refreshHooks(): void;
 	/**
 	 * Liefert den Standard-Logger für diese App. Alles, was geloggt wird, wird vom Nutzer "App-Logs" als private Nachricht zugestellt.
 	 */
-	public static getDefaultLogger(): Logger;
+	static getDefaultLogger(): Logger;
 	/**
 	 * Liefert den Pfad eines Bildes zur Integration in der eigenen App.
 	 * Alle Bilder, die im Ordner /www in der App abgelegt werden können hier referenziert werden.
 	 */
-	public static getFullImagePath(imageName: string): string;
+	static getFullImagePath(imageName: string): string;
 	/**
 	 * Liefert den Pfad eines <b>Systembildes</b> zur Integration in der eigenen App.
 	 * Alle Bilder, die unter <a href="http://apps4.knuddels.biz/kimg/" target="_blank">http://apps4.knuddels.biz/kimg/</a>
 	 * erreichbar sind können hier referenziert werden.
 	 */
-	public static getFullSystemImagePath(imageName: string): string;
+	static getFullSystemImagePath(imageName: string): string;
 	/**
 	 * Liefert die Informationen über den ChatServer auf dem die App läuft.
 	 */
-	public static getChatServerInfo(): ChatServerInfo;
+	static getChatServerInfo(): ChatServerInfo;
 	/**
 	 * Liefert die Informationen über den AppServer auf dem die App läuft.
 	 */
-	public static getAppServerInfo(): AppServerInfo;
+	static getAppServerInfo(): AppServerInfo;
 	/**
 	 * Liefert das AppAccess-Object.
 	 */
-	public static getAppAccess(): AppAccess;
+	static getAppAccess(): AppAccess;
 	/**
 	 * Erzeugt einen KnuddelPot.
 	 *
 	 * Ist ein KnuddelPot 30 Minuten nach dem Erzeugen noch nicht gesealt,
 	 * so wird vom Server automatisch ein KnuddelPot/refund:method ausgelöst.
 	 */
-	public static createKnuddelPot(knuddelAmount: KnuddelAmount, params?: { payoutTimeoutMinutes?: number; shouldSealPot?: (pot: KnuddelPot) => boolean; onPotSealed?: (pot: KnuddelPot) => void; }): KnuddelPot;
+	static createKnuddelPot(knuddelAmount: KnuddelAmount, params?: { payoutTimeoutMinutes?: number; shouldSealPot?: (pot: KnuddelPot) => boolean; onPotSealed?: (pot: KnuddelPot) => void; }): KnuddelPot;
 	/**
 	 * Liefert den KnuddelPot mit der angegeben id.
 	 */
-	public static getKnuddelPot(id: number): (KnuddelPot|null);
+	static getKnuddelPot(id: number): (KnuddelPot|null);
 	/**
 	 * Liefert alle für die App noch verwaltbaren KnuddelPot-Objekte.
 	 */
-	public static getAllKnuddelPots(): KnuddelPot[];
+	static getAllKnuddelPots(): KnuddelPot[];
 	/**
 	 * Liefert das ToplistAccess-Objekt, über das
 	 * Toplisten erzeugt und verwaltet werden können.
 	 */
-	public static getToplistAccess(): ToplistAccess;
+	static getToplistAccess(): ToplistAccess;
 	/**
 	 * Liefert das AppProfileEntryAccess-Objekt, über das
 	 * App-Profileinträge erzeugt und verwaltet werden können.
 	 */
-	public static getAppProfileEntryAccess(): AppProfileEntryAccess;
+	static getAppProfileEntryAccess(): AppProfileEntryAccess;
 }
 
 /**
@@ -1600,30 +1608,30 @@ declare class LoadConfiguration {
 	/**
 	 * Setzt die Farbe des Hintergrundes vom Loading-View, der angezeigt wird, während das HTML User Interface lädt. (standardmäßig weiß)
 	 */
-	public setBackgroundColor(color: Color): void;
+	setBackgroundColor(color: Color): void;
 	/**
 	 * Setzt das Hintergrundbild vom Loading-View, das angezeigt wird, während das HTML User Interface lädt. (standardmäßig nicht gesetzt)
 	 */
-	public setBackgroundImage(imageUrl: string): void;
+	setBackgroundImage(imageUrl: string): void;
 	/**
 	 * Setzt den Text des Ladehinweiseses im Loading-View, der angezeigt wird, während das HTML User Interface lädt. (standardmäßig "Lädt...")
 	 * Hinweis: Wird mit setLoadingIndicatorImage ein Loaading-Indicator-Bild gesetzt, so wird der mit setText gesetzte Texte ignoriert.
 	 */
-	public setText(text: string): void;
+	setText(text: string): void;
 	/**
 	 * Setzt ein Loading-Indicator-Bild im Loading-View, das angezeigt wird, während das HTML User Interface lädt. (standardmäßig nicht gesetzt)
 	 * Hinweis: Wird mit setLoadingIndicatorImage ein Loaading-Indicator-Bild gesetzt, so wird der mit setText gesetzte Texte ignoriert.
 	 */
-	public setLoadingIndicatorImage(imageUrl: string): void;
+	setLoadingIndicatorImage(imageUrl: string): void;
 	/**
 	 * Setzt die Farbe des Textes im Loading-View, der angezeigt wird, während das HTML User Interface lädt. (standardmäßig schwarz)
 	 */
-	public setForegroundColor(color: Color): void;
+	setForegroundColor(color: Color): void;
 	/**
 	 * Aktiviert/Deaktiviert die Nutzung vom Loading-View. (standardmäßig aktiviert)
 	 * Es kann sinnvoll sein, den Loading-View zu deaktivieren, wenn man selbst einen komplett eigenen Loading-View in seine App einbauen möchte.
 	 */
-	public setEnabled(enabled: boolean): void;
+	setEnabled(enabled: boolean): void;
 }
 
 /**
@@ -1641,31 +1649,31 @@ declare class Logger {
 	 *
 	 * Die Methode erwartet beliebig viele Strings als Parameter. Diese werden vor dem Logging mit einem Leerzeichen gejoint.
 	 */
-	public debug(...msg: any[]): void;
+	debug(...msg: any[]): void;
 	/**
 	 * Logge einen Text mit Level INFO. Dieser wird im Chat allen dafür registrierten AppManagern per /p vom App-Logs-User zugestellt. Siehe: /apps, Tab: Logs.
 	 *
 	 * Die Methode erwartet beliebig viele Strings als Parameter. Diese werden vor dem Logging mit einem Leerzeichen gejoint.
 	 */
-	public info(...msg: any[]): void;
+	info(...msg: any[]): void;
 	/**
 	 * Logge einen Text mit Level WARN. Dieser wird im Chat allen dafür registrierten AppManagern per /p vom App-Logs-User zugestellt, sowie im /apps Fenster im Log angezeigt. Siehe: /apps, Tab: Logs.
 	 *
 	 * Die Methode erwartet beliebig viele Strings als Parameter. Diese werden vor dem Logging mit einem Leerzeichen gejoint.
 	 */
-	public warn(...msg: any[]): void;
+	warn(...msg: any[]): void;
 	/**
 	 * Logge einen Text mit Level ERROR. Dieser wird im Chat allen dafür registrierten AppManagern per /p vom App-Logs-User zugestellt, sowie im /apps Fenster im Log angezeigt. Siehe: /apps, Tab: Logs.
 	 *
 	 * Die Methode erwartet beliebig viele Strings als Parameter. Diese werden vor dem Logging mit einem Leerzeichen gejoint.
 	 */
-	public error(...msg: any[]): void;
+	error(...msg: any[]): void;
 	/**
 	 * Logge einen Text mit Level FATAL. Dieser wird im Chat allen dafür registrierten AppManagern per /p vom App-Logs-User zugestellt, sowie im /apps Fenster im Log angezeigt. Siehe: /apps, Tab: Logs.
 	 *
 	 * Die Methode erwartet beliebig viele Strings als Parameter. Diese werden vor dem Logging mit einem Leerzeichen gejoint.
 	 */
-	public fatal(...msg: any[]): void;
+	fatal(...msg: any[]): void;
 }
 
 /**
@@ -1675,15 +1683,15 @@ declare class Message {
 	/**
 	 * Liefert den User, der die Nachricht verfasst hat.
 	 */
-	public getAuthor(): User;
+	getAuthor(): User;
 	/**
 	 * Liefert den Inhalt der Nachricht.
 	 */
-	public getText(): string;
+	getText(): string;
 	/**
 	 * Liefert den genauen Zeitpunkt, zu dem die Nachricht erstellt wurde.
 	 */
-	public getCreationDate(): Date;
+	getCreationDate(): Date;
 }
 
 /**
@@ -1697,7 +1705,7 @@ declare class OwnAppInstance {
 	 * Gibt Zugriff auf Nutzer, die gerade im Channel dieser AppInstance online sind.
 	 * @since AppServer 82560
 	 */
-	public getOnlineUsers(otherAppInstance: AppInstance, ...userType: UserType[]): User[];
+	getOnlineUsers(otherAppInstance: AppInstance, ...userType: UserType[]): User[];
 }
 
 /**
@@ -1714,67 +1722,67 @@ declare class Persistence {
 	/**
 	 * Informiert darüber, ob unter dem <code>key</code> ein String abgespeichert ist.
 	 */
-	public hasString(key: string): boolean;
+	hasString(key: string): boolean;
 	/**
 	 * Setzt die Zeichenkette <code>value</code> für den <code>key</code>.
 	 * Falls bereits eine Zeichenkette für den <code>key</code> existiert, so wird diese überschrieben.
 	 */
-	public setString(key: string, value: string): void;
+	setString(key: string, value: string): void;
 	/**
 	 * Liefert die Zeichenkette, die für den <code>key</code> gespeichert ist.
 	 * Falls für <code>key</code> keine Zeichenkette gespeichert ist, so gibt die Methode
 	 * den <code>defaultValue</code> zurück.
 	 */
-	public getString(key: string, defaultValue?: string): string;
+	getString(key: string, defaultValue?: string): string;
 	/**
 	 * Löscht die Zeichenkette, die unter <code>key</code> gespeichert ist.
 	 */
-	public deleteString(key: string): void;
+	deleteString(key: string): void;
 	/**
 	 * Informiert darüber, ob unter dem <code>key</code> eine Zahl abgespeichert ist.
 	 */
-	public hasNumber(key: string): boolean;
+	hasNumber(key: string): boolean;
 	/**
 	 * Setzt die Zahl <code>value</code> für den <code>key</code>.
 	 * Falls bereits eine Zahl für den <code>key</code> existiert, so wird diese überschrieben.
 	 */
-	public setNumber(key: string, value: number): void;
+	setNumber(key: string, value: number): void;
 	/**
 	 * Addiert den übergebenen <code>value</code> auf die unter dem Key <code>key</code> vorhandenen Wert drauf.
 	 * Value kann auch negativ sein um eine Subtraktion durchzuführen.
 	 * Falls keine Zahl für den <code>key</code> existiert, so wird der <code>value</code> für <code>key</code> gespeichert.
 	 */
-	public addNumber(key: string, value: number): number;
+	addNumber(key: string, value: number): number;
 	/**
 	 * Liefert die Zahl, die für den <code>key</code> gespeichert ist.
 	 * Falls für <code>key</code> keine Zahl gespeichert ist, so gibt die Methode
 	 * den <code>defaultValue</code> zurück.
 	 */
-	public getNumber(key: string, defaultValue?: number): number;
+	getNumber(key: string, defaultValue?: number): number;
 	/**
 	 * Löscht die Zahl, die unter <code>key</code> gespeichert ist.
 	 */
-	public deleteNumber(key: string): void;
+	deleteNumber(key: string): void;
 	/**
 	 * Informiert darüber, ob unter dem <code>key</code> ein Objekt abgespeichert ist.
 	 */
-	public hasObject(key: string): boolean;
+	hasObject(key: string): boolean;
 	/**
 	 * Setzt das Objekt <code>value</code> für den <code>key</code>.
 	 * Falls bereits ein Objekt für den <code>key</code> existiert, so wird dieses überschrieben.
 	 * Das als JSON serialisierte Objekt darf maximal 100kb groß sein.
 	 */
-	public setObject(key: string, object: (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable)): void;
+	setObject(key: string, object: (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable)): void;
 	/**
 	 * Liefert das Objekt, das für den <code>key</code> gespeichert ist.
 	 * Falls für <code>key</code> kein Objekt gespeichert ist, so gibt die Methode
 	 * den <code>defaultValue</code> zurück.
 	 */
-	public getObject(key: string, defaultValue?: (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable)): (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable);
+	getObject(key: string, defaultValue?: (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable)): (KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable);
 	/**
 	 * Löscht das Objekt, das unter <code>key</code> gespeichert ist.
 	 */
-	public deleteObject(key: string): void;
+	deleteObject(key: string): void;
 }
 
 /**
@@ -1789,11 +1797,11 @@ declare class PrivateMessage extends Message {
 	/**
 	 * Liefert die Liste der Empfänger der Nachricht.
 	 */
-	public getReceivingUsers(): User[];
+	getReceivingUsers(): User[];
 	/**
 	 * Sendet eine private Nachricht an alle Beteiligten des Gespräches.
 	 */
-	public sendReply(text: string): void;
+	sendReply(text: string): void;
 }
 
 /**
@@ -1828,12 +1836,12 @@ declare class Quest {
 	 * Löst ein Quest-Event aus.
 	 * @since AppServer 82290, ChatServer 82290
 	 */
-	public setSolved(count?: number): void;
+	setSolved(count?: number): void;
 	/**
 	 * Liefert den Key der Quest.
 	 * @since AppServer 82290, ChatServer 82290
 	 */
-	public getQuestKey(): string;
+	getQuestKey(): string;
 }
 
 /**
@@ -1848,22 +1856,22 @@ declare class QuestAccess {
 	 * für diesen Nutzer in dieser App.
 	 * @since AppServer 82290, ChatServer 82290
 	 */
-	public getQuests(): Quest[];
+	getQuests(): Quest[];
 	/**
 	 * Liefert die Information, ob eine bestimmte Quest offen ist.
 	 * @since AppServer 82290, ChatServer 82290
 	 */
-	public hasQuest(questKey: string): boolean;
+	hasQuest(questKey: string): boolean;
 	/**
 	 * Liefert eine bestimmte Quest, falls vorhanden.
 	 * @since AppServer 82290, ChatServer 82290
 	 */
-	public getQuest(questKey: string): (Quest|null);
+	getQuest(questKey: string): (Quest|null);
 	/**
 	 * Liefert den User, der zu diesem QuestAccess-Objekt gehört.
 	 * @since AppServer 82290, ChatServer 82290
 	 */
-	public getUser(): User;
+	getUser(): User;
 }
 
 /**
@@ -1873,29 +1881,29 @@ declare class RandomOperations {
 	/**
 	 * Liefert eine Zufallszahl zwischen <code>minValue</code> (inklusiv) und <code>maxValue</code> (exklusiv).
 	 */
-	public static nextInt(minValue: number /* optional */, maxValue: number): number;
+	static nextInt(minValue: number /* optional */, maxValue: number): number;
 	/**
 	 * Liefert ein Array mit Zufallszahlen zwischen minValue (inklusiv) und <code>n</code> (exklusiv).
 	 */
-	public static nextInts(minValue: number /* optional */, maxValue: number, count: number, onlyDifferentNumbers: boolean): number[];
+	static nextInts(minValue: number /* optional */, maxValue: number, count: number, onlyDifferentNumbers: boolean): number[];
 	/**
 	 * Liefert <code>true</code> in <code>truePropability</code>/1 Fällen
 	 */
-	public static flipTrue(truePropability: number): boolean;
+	static flipTrue(truePropability: number): boolean;
 	/**
 	 * Liefert ein zufälliges Objekt aus einem Array.
 	 * Falls das Array leer ist, wird <code>null</code> zurückgeliefert.
 	 */
-	public static getRandomObject<T>(objects: T[]): T;
+	static getRandomObject<T>(objects: T[]): T;
 	/**
 	 * Mischt das Array der übergebenen Objekte und liefert es zurück.
 	 */
-	public static shuffleObjects<T>(objects: T[]): T[];
+	static shuffleObjects<T>(objects: T[]): T[];
 	/**
 	 * Liefert einen zufälligen String zurück.
 	 * @since AppServer 92699
 	 */
-	public static getRandomString(length: number, allowedCharacters?: string): string;
+	static getRandomString(length: number, allowedCharacters?: string): string;
 }
 
 /**
@@ -1908,11 +1916,11 @@ declare class RootAppInstance extends AppInstance {
 	/**
 	 * Aktualisiert diese App im Channel (und ggf. vorhandenen Tochterchanneln) auf die neueste Version.
 	 */
-	public updateApp(message: string /* optional */, logMessage?: string): void;
+	updateApp(message: string /* optional */, logMessage?: string): void;
 	/**
 	 * Stoppt diese App.
 	 */
-	public stopApp(message: string /* optional */, logMessage?: string): void;
+	stopApp(message: string /* optional */, logMessage?: string): void;
 }
 
 /**
@@ -1922,11 +1930,11 @@ declare class ServerInfo {
 	/**
 	 * Liefert die interne ServerId des Servers.
 	 */
-	public getServerId(): string;
+	getServerId(): string;
 	/**
 	 * Liefert die Code-Revision des Servers.
 	 */
-	public getRevision(): number;
+	getRevision(): number;
 }
 
 /**
@@ -1938,15 +1946,15 @@ declare class SingleDiceResult {
 	/**
 	 * Liefert den Würfel zurück, durch den dieses SingleDiceResult erzeugt wurde.
 	 */
-	public getDice(): Dice;
+	getDice(): Dice;
 	/**
 	 * Liefert die Ziffern, die gewürfelt wurden.
 	 */
-	public valuesRolled(): number[];
+	valuesRolled(): number[];
 	/**
 	 * Liefert die Summe der Augenzahlen des SingleDiceResult.
 	 */
-	public sum(): number;
+	sum(): number;
 }
 
 /**
@@ -2026,12 +2034,7 @@ declare interface String {
 	 * Erstellt eine Kopie des  <code>String</code>, in dem alle Vorkommnisse des  <code>String</code> <code>search</code> in <code>replacement</code>
 	 * ersetzt werden und liefert diesen zurück.
 	 */
-	replaceAll(search: string, replacement: string): string;
-	/**
-	 * Erstellt eine Kopie des <code>String</code>, in dem alle Vorkommnisse des regulären Ausdrucks <code>regexp</code> in <code>replacement</code>
-	 * ersetzt werden und liefert diesen zurück.
-	 */
-	replaceAll(regexp: RegExp, replacement: string): string;
+	replaceAll(search: string | RegExp, replacement: string): string;
 	/**
 	 * Prüft primitiv, ob der <code>String</code> laut Knuddels-Filterregeln ok ist.
 	 * @since ChatServer 82262, AppServer 82262
@@ -2046,37 +2049,37 @@ declare class Toplist {
 	/**
 	 * Liefert den userPersistenceNumberKey mit dem die Topliste erzeugt wurde.
 	 */
-	public getUserPersistenceNumberKey(): string;
+	getUserPersistenceNumberKey(): string;
 	/**
 	 * Liefert den Anzeigenamen der Topliste.
 	 */
-	public getDisplayName(): string;
+	getDisplayName(): string;
 	/**
 	 * Liefert den Befehl, der im Chat eingegeben werden kann, um diese Topliste zu öffnen.
 	 * Wird ein User oder eine userId übergeben, so öffnet sich die Topliste mit diesem Nutzer im Fokus.
 	 */
-	public getChatCommand(user_or_userId?: (User|number)): string;
+	getChatCommand(user_or_userId?: (User|number)): string;
 	/**
 	 * Liefert den Anzeigenamen für den übergebenen User oder eine userId.
 	 */
-	public getLabel(user_or_userId: (User|number)): string;
+	getLabel(user_or_userId: (User|number)): string;
 	/**
 	 * Legt einen Change-Listener an, der jedes mal aufgerufen wird, wenn ein User
 	 * einen neuen Anzeigenamen erhält.
 	 */
-	public addLabelChangeListener(listener: (labelChangeEvent: ToplistLabelChangeEvent) => void): void;
+	addLabelChangeListener(listener: (labelChangeEvent: ToplistLabelChangeEvent) => void): void;
 	/**
 	 * Löscht einen LabelChangeListener, der mit Toplist/addLabelChangeListener:method erzeugt wurde.
 	 */
-	public removeLabelChangeListener(listener: (labelChangeEvent: ToplistLabelChangeEvent) => void): void;
+	removeLabelChangeListener(listener: (labelChangeEvent: ToplistLabelChangeEvent) => void): void;
 	/**
 	 * Legt einen Change-Listener an, der jedes mal aufgerufen wird, wenn ein sich der Rang User eines Nutzers ändert.
 	 */
-	public addRankChangeListener(listener: (rankChangeEvent: ToplistRankChangeEvent) => void): void;
+	addRankChangeListener(listener: (rankChangeEvent: ToplistRankChangeEvent) => void): void;
 	/**
 	 * Löscht einen RankChangeListener, der mit Toplist/addRankChangeListener:method erzeugt wurde.
 	 */
-	public removeRankChangeListener(listener: (rankChangeEvent: ToplistRankChangeEvent) => void): void;
+	removeRankChangeListener(listener: (rankChangeEvent: ToplistRankChangeEvent) => void): void;
 }
 
 /**
@@ -2090,19 +2093,19 @@ declare class ToplistAccess {
 	/**
 	 * Liefert die Liste aller Toplisten, die diese App erzeugt hat.
 	 */
-	public getAllToplists(): Toplist[];
+	getAllToplists(): Toplist[];
 	/**
 	 * Liefert die Toplist mit dem Persistenz-Key zurück.
 	 */
-	public getToplist(userPersistenceNumberKey: string): Toplist;
+	getToplist(userPersistenceNumberKey: string): Toplist;
 	/**
 	 * Löscht die übergebene Toplist oder die Toplist mit dem Persistenz-Key.
 	 */
-	public removeToplist(toplist: Toplist): void;
+	removeToplist(toplist: Toplist): void;
 	/**
 	 * Erzeugt oder aktualisiert die Toplist für den übergebenen userPersistenceNumberKey.
 	 */
-	public createOrUpdateToplist(userPersistenceNumberKey: string, displayName: string, parameters?: { labelMapping?: { [minValue: string]: string }; ascending?: boolean; }): Toplist;
+	createOrUpdateToplist(userPersistenceNumberKey: string, displayName: string, parameters?: { labelMapping?: { [minValue: string]: string }; ascending?: boolean; }): Toplist;
 }
 
 /**
@@ -2112,19 +2115,19 @@ declare class ToplistDisplayType {
 	/**
 	 * Nur Anzeigename anzeigen.
 	 */
-	public static readonly Label: ToplistDisplayType;
+	static readonly Label: ToplistDisplayType;
 	/**
 	 * Gespeicherten Wert anzeigen.
 	 */
-	public static readonly Value: ToplistDisplayType;
+	static readonly Value: ToplistDisplayType;
 	/**
 	 * Anzeigename und Rang anzeigen.
 	 */
-	public static readonly LabelAndRank: ToplistDisplayType;
+	static readonly LabelAndRank: ToplistDisplayType;
 	/**
 	 * Wert und Rang anzeigen.
 	 */
-	public static readonly ValueAndRank: ToplistDisplayType;
+	static readonly ValueAndRank: ToplistDisplayType;
 }
 
 /**
@@ -2139,29 +2142,29 @@ declare class ToplistLabelChangeEvent {
 	/**
 	 * Liefert die zugehörige Toplist.
 	 */
-	public getToplist(): Toplist;
+	getToplist(): Toplist;
 	/**
 	 * Liefert den vorherigen Anzeigenamen. Hatte der User vorher keinen
 	 * Anzeigenamen, so ist dieser Wert <code>null</code>.
 	 */
-	public getOldLabel(): string;
+	getOldLabel(): string;
 	/**
 	 * Liefert den neuen Anzeigenamen. Hatte der User nun keinen
 	 * Anzeigenamen mehr, so ist dieser Wert <code>null</code>.
 	 */
-	public getNewLabel(): string;
+	getNewLabel(): string;
 	/**
 	 * Liefert den User für den das Event ausgelöst wurde.
 	 */
-	public getUser(): User;
+	getUser(): User;
 	/**
 	 * Liefert den Wert, der vor der Änderung gespeichert war.
 	 */
-	public getOldValue(): number;
+	getOldValue(): number;
 	/**
 	 * Liefert den neuen Wert.
 	 */
-	public getNewValue(): number;
+	getNewValue(): number;
 }
 
 /**
@@ -2176,33 +2179,33 @@ declare class ToplistRankChangeEvent {
 	/**
 	 * Liefert die zugehörige Toplist.
 	 */
-	public getToplist(): Toplist;
+	getToplist(): Toplist;
 	/**
 	 * Liefert den Toplisten-Rang, den der User vor der Änderung hatte.
 	 */
-	public getOldRank(): number;
+	getOldRank(): number;
 	/**
 	 * Liefert den neuen Toplisten-Rang, des Users.
 	 */
-	public getNewRank(): number;
+	getNewRank(): number;
 	/**
 	 * Liefert den User für den das Event ausgelöst wurde.
 	 */
-	public getUser(): User;
+	getUser(): User;
 	/**
 	 * Liefert die User, die bei dieser Änderung überholt worden sind.
 	 * <br><br><b style="color:red;">Achtung:</b> Wenn mehr als <b>10 User</b>
 	 * überholt wurden, so liefert die Methode die besten 10 überholten User.
 	 */
-	public getUsersOvertook(): User[];
+	getUsersOvertook(): User[];
 	/**
 	 * Liefert den Wert, der vor der Änderung gespeichert war.
 	 */
-	public getOldValue(): number;
+	getOldValue(): number;
 	/**
 	 * Liefert den neuen Wert.
 	 */
-	public getNewValue(): number;
+	getNewValue(): number;
 }
 
 /**
@@ -2212,43 +2215,43 @@ declare class User {
 	/**
 	 * Liefert die eindeutige Nutzerkennung des Nutzers.
 	 */
-	public getUserId(): number;
+	getUserId(): number;
 	/**
 	 * Liefert den Nicknamen des Nutzers.
 	 */
-	public getNick(): string;
+	getNick(): string;
 	/**
 	 * Liefert das Alter des Nutzers. Bei Nutzern, die bereits sehr lange in der Plattform sind kann es vorkommen, dass kein Alter angegeben wurde. In diesem Fall ist das Alter <code>0</code>.
 	 */
-	public getAge(): number;
+	getAge(): number;
 	/**
 	 * Liefert das Geschlecht des Nutzers.
 	 */
-	public getGender(): Gender;
+	getGender(): Gender;
 	/**
 	 * Liefert den Zeitpunkt der Registrierung des Nutzers.
 	 */
-	public getRegDate(): Date;
+	getRegDate(): Date;
 	/**
 	 * Liefert den UserStatus des Nutzers.
 	 */
-	public getUserStatus(): UserStatus;
+	getUserStatus(): UserStatus;
 	/**
 	 * Liefert den UserType des Nutzers.
 	 */
-	public getUserType(): UserType;
+	getUserType(): UserType;
 	/**
 	 * Liefert den aktuellen ClientType des Nutzers oder Offline wenn er nicht im Chat online ist.
 	 */
-	public getClientType(): ClientType;
+	getClientType(): ClientType;
 	/**
 	 * Prüft ob der Client des Users den übergebenen AppViewMode (für User/sendAppContent:method) anzeigen kann.
 	 */
-	public canShowAppViewMode(mode: AppViewMode): boolean;
+	canShowAppViewMode(mode: AppViewMode): boolean;
 	/**
 	 * Prüft ob der Client des User's den übergebenen AppContent anzeigen kann.
 	 */
-	public canSendAppContent(appContent: AppContent): boolean;
+	canSendAppContent(appContent: AppContent): boolean;
 	/**
 	 * Prüft, ob der User in dem angegebenen Team ist.
 	 * Dies funktioniert derzeit nur für Teams, die eine eigene /fa haben.
@@ -2256,164 +2259,164 @@ declare class User {
 	 * <b style="color:red;">Achtung:</b> Bei Nutzern, die neu in ein Team kommen, funktioniert die Abfrage erst dann korrekt,
 	 * wenn er sich neu in den Channel eingeloggt hat.
 	 */
-	public isInTeam(teamName: string, subTeamName?: string): boolean;
+	isInTeam(teamName: string, subTeamName?: string): boolean;
 	/**
 	 * Liefert ein UserPersistence-Objekt für diesen Nutzer. Mit diesem Objekt kann eine App sich Dinge über diesen speziellen Nutzer merken.
 	 */
-	public getPersistence(): UserPersistence;
+	getPersistence(): UserPersistence;
 	/**
 	 * Shortcut-Funktion um mit dem DefaultBotUser eine private Nachricht zu versenden.
 	 */
-	public sendPrivateMessage(message: string): void;
+	sendPrivateMessage(message: string): void;
 	/**
 	 * Shortcut-Funktion um mit dem DefaultBotUser eine /m zu versenden.
 	 */
-	public sendPostMessage(topic: string, text: string): void;
+	sendPostMessage(topic: string, text: string): void;
 	/**
 	 * Liefert die Information, ob dieser Nutzer Channelbesitzer im Channel der App ist.
 	 */
-	public isChannelOwner(): boolean;
+	isChannelOwner(): boolean;
 	/**
 	 * Liefert die Information, ob der Channel der App
 	 *  ein Lieblingschannel des Nutzers ist.
 	 */
-	public isLikingChannel(): boolean;
+	isLikingChannel(): boolean;
 	/**
 	 * Liefert die Information, ob der Nutzer im harten Kern des Channels der App ist.
 	 * @since AppServer 92701, ChatServer 92701
 	 */
-	public isChannelCoreUser(): boolean;
+	isChannelCoreUser(): boolean;
 	/**
 	 * Liefert die Information, ob dieser Nutzer ein AppManager für diese App ist. Die Channelbesitzer zählen automatisch auch als AppManager.
 	 */
-	public isAppManager(): boolean;
+	isAppManager(): boolean;
 	/**
 	 * Liefert Information, ob dieser Nutzer derzeit für das Schreiben öffentlicher Nachrichten im Channel gesperrt ist.
 	 */
-	public isMuted(): boolean;
+	isMuted(): boolean;
 	/**
 	 * Liefert Information, ob dieser Nutzer beim Schreiben öffentlicher Nachrichten im Channel
 	 * derzeit für die Verwendung von Textformatierungen, Farben und Smileys gesperrt ist.
 	 */
-	public isColorMuted(): boolean;
+	isColorMuted(): boolean;
 	/**
 	 * Liefert Information, ob dieser Nutzer derzeit für das Betreten des Channel gesperrt ist.
 	 */
-	public isLocked(): boolean;
+	isLocked(): boolean;
 	/**
 	 * Liefert Information, ob dieser Nutzer Channelmoderator im Channel der App ist.
 	 */
-	public isChannelModerator(): boolean;
+	isChannelModerator(): boolean;
 	/**
 	 * Liefert Information, ob dieser Nutzer Eventmoderator im Channel der App ist.
 	 */
-	public isEventModerator(): boolean;
+	isEventModerator(): boolean;
 	/**
 	 * Liefert Information, ob dieser Nutzers der Entwickler der App ist.
 	 */
-	public isAppDeveloper(): boolean;
+	isAppDeveloper(): boolean;
 	/**
 	 * Liefert einen Link zum Profil des Nutzers, den man im Chat anzeigen kann.
 	 */
-	public getProfileLink(displayText?: string): string;
+	getProfileLink(displayText?: string): string;
 	/**
 	 * Liefert die Information, ob der Nutzer online im Channel der App ist.
 	 */
-	public isOnlineInChannel(): boolean;
+	isOnlineInChannel(): boolean;
 	/**
 	 * Liefert die Anzahl der Knuddel, die der Nutzer besitzt.
 	 */
-	public getKnuddelAmount(): KnuddelAmount;
+	getKnuddelAmount(): KnuddelAmount;
 	/**
 	 * Liefert die Information, ob der Nutzer irgendwo im Chat online ist.
 	 */
-	public isOnline(): boolean;
+	isOnline(): boolean;
 	/**
 	 * Liefert die Readme des Nutzers, die er mit /readme TEXT in sein Profil gesetzt hat.
 	 */
-	public getReadme(): string;
+	getReadme(): string;
 	/**
 	 * Liefert die vom Nutzer verbrachte Zeit im gesamten Chatsystem In Minuten.
 	 * <b>Hinweis:</b> Die Minutenzahl wird derzeit immer nur zu dem Zeitpunkt aktualisiert,
 	 * wenn der Nutzer offline geht.
 	 */
-	public getOnlineMinutes(): number;
+	getOnlineMinutes(): number;
 	/**
 	 * Liefert die Information, ob der Nutzer sich mittels /away-Funktion kurz abgemeldet hat.
 	 */
-	public isAway(): boolean;
+	isAway(): boolean;
 	/**
 	 * Liefert die Information, ob der Nutzer ein Profilfoto hat.
 	 */
-	public hasProfilePhoto(): boolean;
+	hasProfilePhoto(): boolean;
 	/**
 	 * (Er)setzt den übergebenen AppContent beim Nutzer.
 	 */
-	public sendAppContent(appContent: AppContent): AppContentSession;
+	sendAppContent(appContent: AppContent): AppContentSession;
 	/**
 	 * Liefert alle AppContentSession, die der User
 	 * aktuell geöffnet hat.
 	 */
-	public getAppContentSessions(): AppContentSession[];
+	getAppContentSessions(): AppContentSession[];
 	/**
 	 * Liefert die AppContentSession, die der User
 	 * mit einem bestimmten AppViewMode aktuell geöffnet hat.
 	 */
-	public getAppContentSession(appViewMode: AppViewMode): AppContentSession;
+	getAppContentSession(appViewMode: AppViewMode): AppContentSession;
 	/**
 	 * Vergleicht den übergebenen Nutzer und liefert <code>true</code>, falls der übergebene Nutzer
 	 * identisch ist mit dem aktuellen Nutzer.
 	 */
-	public equals(user: User): boolean;
+	equals(user: User): boolean;
 	/**
 	 * Liefert die URL zum Profilfoto des Nutzers. Die übergebene Breite und Höhe
 	 * liefern dem Server einen Anhaltswert, um das bestmögliche Foto zu finden,
 	 * sind aber keine Garantie, dass das Foto diese Ausmaße haben wird.
 	 */
-	public getProfilePhoto(width: number, height: number): string;
+	getProfilePhoto(width: number, height: number): string;
 	/**
 	 * Liefert das QuestAccess-Objekt
 	 * für diesen Nutzer in dieser App.
 	 * @since AppServer 82290, ChatServer 82290
 	 */
-	public getQuestAccess(): QuestAccess;
+	getQuestAccess(): QuestAccess;
 	/**
 	 * Liefert die Information, ob der Nutzer gerade sein Video streamt.
 	 */
-	public isStreamingVideo(): boolean;
+	isStreamingVideo(): boolean;
 	/**
 	 * Liefert den KnuddelAccount des Nutzers.
 	 */
-	public getKnuddelAccount(): KnuddelAccount;
+	getKnuddelAccount(): KnuddelAccount;
 	/**
 	 * Liefert die ChannelTalkPermission für diesen Nutzer in diesem
 	 * Channel.
 	 */
-	public getChannelTalkPermission(): ChannelTalkPermission;
+	getChannelTalkPermission(): ChannelTalkPermission;
 	/**
 	 * Liefert die Information, ob der User ein verifiziertes Profilbild hat.
 	 */
-	public isProfilePhotoVerified(): boolean;
+	isProfilePhotoVerified(): boolean;
 	/**
 	 * Liefert die Information, ob das Alter des Users verifiziert ist.
 	 */
-	public isAgeVerified(): boolean;
+	isAgeVerified(): boolean;
 	/**
 	 * Setzt dem Nutzer ein Icon in die Nickliste, das auf der rechten Seite seines Nicks angezeigt wird.
 	 * Der Eintrag wird automatisch entfernt, sobald der Nutzer den Channel verlässt,
 	 * kann aber auch mit User/removeNicklistIcon:method
 	 * entfernt werden.
 	 */
-	public addNicklistIcon(imagePath: string, imageWidth: number): void;
+	addNicklistIcon(imagePath: string, imageWidth: number): void;
 	/**
 	 * Entfernt dem Nutzer ein über die API gesetztes Icon in die Nickliste.
 	 */
-	public removeNicklistIcon(imagePath: string): void;
+	removeNicklistIcon(imagePath: string): void;
 	/**
 	 * Startet einen Würfelwurf für den Nutzer, falls er online im Channel ist und er nicht gemuted ist.
 	 * @since AppServer 89159, ChatServer 89159
 	 */
-	public triggerDice(diceConfiguration: DiceConfiguration): void;
+	triggerDice(diceConfiguration: DiceConfiguration): void;
 }
 
 /**
@@ -2428,30 +2431,32 @@ declare class UserAccess {
 	/**
 	 * Liefert die userId des Nutzers mit dem übergebenen Nicknamen.
 	 */
-	public getUserId(nick: string): number;
+	getUserId(nick: string): number;
 	/**
 	 * Informiert darüber, ob ein Nutzer mit dem übergebenen Nicknamen existiert.
 	 */
-	public exists(nick: string): boolean;
+	exists(nick: string): boolean;
 	/**
 	 * Informiert darüber, ob der Nutzer mit der übergebenen userId geladen werden darf. Neben dem AppDeveloper können nur Nutzer geladen werden, die sich einmal im Channel befanden, als die App
 	 * lief.
 	 */
-	public mayAccess(userId: number): boolean;
+	mayAccess(userId: number): boolean;
 	/**
 	 * Liefert den Nutzer mit der übergebenen userId. Neben dem AppDeveloper können nur Nutzer geladen werden, die sich einmal im Channel befanden, als die App lief. Es wird empfohlen vor der
 	 * Abfrage von <code>getUserById(userId)</code> mit UserAccess/mayAccess:method abzufragen, ob dies funktionieren wird.
 	 */
-	public getUserById(userId: number): User;
+	getUserById(userId: number): User;
 	/**
 	 * Liefert den Nicknamen des Nutzers mit der übergebenen userId in der korrekten Schreibweise.
 	 */
-	public getNick(userId: number): string;
+	getNick(userId: number): string;
 	/**
 	 * Loopt über alle zugreifbaren User sortiert nach Registrierzeitpunkt und
 	 * führt für jeden User das übergebene Callback aus.
 	 */
-	public eachAccessibleUser(callback: (user: User, index: number, accessibleUserCount: number, key?: string) => boolean, parameters?: { onStart?: (accessibleUserCount: number, key?: string) => void; onEnd?: (accessibleUserCount: number, key?: string) => void; }): void;
+	eachAccessibleUser(callback: (user: User, index: number, accessibleUserCount: number, key?: string) => boolean,
+					   parameters?: { onStart?: (accessibleUserCount: number, key?: string) => void;
+	onEnd?: (accessibleUserCount: number, key?: string) => void; }): void;
 }
 
 /**
@@ -2463,22 +2468,22 @@ declare class UserPersistence extends Persistence {
 	 * Löscht alle Zahlenwerte, die in dieser UserPersistence gespeichert sind.
 	 * @since AppServer 88569
 	 */
-	public deleteAllNumbers(): number;
+	deleteAllNumbers(): number;
 	/**
 	 * Löscht alle Objekte, die in dieser UserPersistence gespeichert sind.
 	 * @since AppServer 88569
 	 */
-	public deleteAllObjects(): number;
+	deleteAllObjects(): number;
 	/**
 	 * Löscht alle Zeichenketten, die in dieser UserPersistence gespeichert sind.
 	 * @since AppServer 88569
 	 */
-	public deleteAllStrings(): number;
+	deleteAllStrings(): number;
 	/**
 	 * Löscht alle Daten, die in dieser UserPersistence gespeichert sind.
 	 * @since AppServer 88569
 	 */
-	public deleteAll(): number;
+	deleteAll(): number;
 }
 
 /**
@@ -2488,19 +2493,19 @@ declare class UserPersistenceNumberEntry {
 	/**
 	 * Liefert den Nutzer.
 	 */
-	public getUser(): User;
+	getUser(): User;
 	/**
 	 * Liefert den Wert.
 	 */
-	public getValue(): number;
+	getValue(): number;
 	/**
 	 * Liefert den Rang des Elements in der Persistenz.
 	 */
-	public getRank(): number;
+	getRank(): number;
 	/**
 	 * Liefert die Position des Elements in der Persistenz.
 	 */
-	public getPosition(): number;
+	getPosition(): number;
 }
 
 /**
@@ -2510,35 +2515,35 @@ declare class UserPersistenceNumbers {
 	/**
 	 * Liefert die Summe aller via <code>UserPersistence</code> gespeicherten Zahlen für den übergebenen <code>key</code>.
 	 */
-	public static getSum(key: string): number;
+	static getSum(key: string): number;
 	/**
 	 * Löscht alle gespeicherten Zahlen-Werte für den übergebenen <code>key</code>.
 	 */
-	public static deleteAll(key: string): number;
+	static deleteAll(key: string): number;
 	/**
 	 * Liefert die Anzahl aller unterschiedlichen Nutzer, die Werte für einen bestimmten <code>key</code> gespeichert haben.
 	 * Hierbei kann optional der Wertebereich über die <code>parameters</code> eingegrenzt werden.
 	 */
-	public static getCount(key: string, parameters?: { minimumValue?: number; maximumValue?: number; }): number;
+	static getCount(key: string, parameters?: { minimumValue?: number; maximumValue?: number; }): number;
 	/**
 	 * Ändert einen bestimmten <code>key</code> bei allen UserPersistence.
 	 */
-	public static updateKey(oldKeyName: string, newKeyName: string): number;
+	static updateKey(oldKeyName: string, newKeyName: string): number;
 	/**
 	 * Ändert alle Werte für einen bestimmten <code>key</code>, die vorher einen bestimmten anderen Wert hatten in der UserPersistence.
 	 * <br /><strong>Hinweis:</strong> Da diese Methode ein Batch-Update ist werden keine Change-Listener (ToplistRankChangeEvent, ToplistLabelChangeEvent) ausgelöst.
 	 */
-	public static updateValue(key: string, oldValue: number, newValue: number): number;
+	static updateValue(key: string, oldValue: number, newValue: number): number;
 	/**
 	 * Addiert einen Wert für Einträge mit einem bestimmten <code>key</code> in der UserPersistence.
 	 * <br /><strong>Hinweis:</strong> Da diese Methode ein Batch-Update ist werden keine Change-Listener (ToplistRankChangeEvent, ToplistLabelChangeEvent) ausgelöst.
 	 */
-	public static addNumber(key: string, value: number, parameters?: { minimumValue?: number; maximumValue?: number; targetUsers?: User[]; }): number;
+	static addNumber(key: string, value: number, parameters?: { minimumValue?: number; maximumValue?: number; targetUsers?: User[]; }): number;
 	/**
 	 * Liefert ein Array mit <code>UserPersistenceNumberEntry</code>-Objekten für einen bestimmten <code>key</code>.
 	 * Hierdurch kann beispielsweise eine blätterbare Topliste abgebildet werden.
 	 */
-	public static getSortedEntries(key: string, parameters?: { ascending?: boolean; count?: number; page?: number; minimumValue?: number; maximumValue?: number; }): UserPersistenceNumberEntry[];
+	static getSortedEntries(key: string, parameters?: { ascending?: boolean; count?: number; page?: number; minimumValue?: number; maximumValue?: number; }): UserPersistenceNumberEntry[];
 	/**
 	 * Liefert ein Array mit <code>UserPersistenceNumberEntry</code>-Objekten für einen bestimmten <code>key</code>. Hierbei werden die nähesten Elemente gewählt,
 	 * die am übergebenen User/UserId liegen.
@@ -2546,7 +2551,7 @@ declare class UserPersistenceNumbers {
 	 * Beispiel: Der Nutzer ist in der Liste auf Position 20, dann werden die Resultate von 14-24 bei einem Count von 10 ausgegeben.
 	 * Beispiel: Der Nutzer ist in der Liste auf Position 3, dann werden die Resultate von 1-10 bei einem Count von 10 ausgegeben.
 	 */
-	public static getSortedEntriesAdjacent(key: string, user_or_userId: (User|number), parameters?: { ascending?: boolean; count?: number; }): UserPersistenceNumberEntry[];
+	static getSortedEntriesAdjacent(key: string, user_or_userId: (User|number), parameters?: { ascending?: boolean; count?: number; }): UserPersistenceNumberEntry[];
 	/**
 	 * Liefert die absolute Position des Nutzers in der Liste. Die Position ist im Gegensatz zum Rang immer eindeutig.
 	 *
@@ -2555,23 +2560,25 @@ declare class UserPersistenceNumbers {
 	 * Mit der Methode UserPersistenceNumbers/getRank:method kann man den Rang des Nutzers herausfinden. Dieser ist identisch, wenn
 	 * unterschiedliche Nutzer denselben Wert haben.
 	 */
-	public static getPosition(key: string, user_or_userId: (User|number), parameters?: { ascending?: boolean; minimumValue?: number; }): number;
+	static getPosition(key: string, user_or_userId: (User|number), parameters?: { ascending?: boolean; minimumValue?: number; }): number;
 	/**
 	 * Liefert den Rang des Nutzers. Der Rang ist nicht eindeutig. Bei gleicher Punktzahl haben Nutzer denselben Rang.
 	 * Mit der Methode UserPersistenceNumbers/getPosition:method kann man die Position eindeutige Position, statt des Ranges herausfinden.
 	 */
-	public static getRank(key: string, user_or_userId: (User|number), parameters?: { ascending?: boolean; minimumValue?: number; }): number;
+	static getRank(key: string, user_or_userId: (User|number), parameters?: { ascending?: boolean; minimumValue?: number; }): number;
 	/**
 	 * Ruft eine Funktion für alle Nutzer auf, die einen bestimmten <code>key</code> in der <code>UserPersistence</code> gesetzt haben.
 	 * Hierbei greifen die übergebenen Filter.
 	 */
-	public static each(key: string, callback: { user: User; value: number; index: number; totalCount: number; key: string; }, parameters?: { ascending?: boolean; minimumValue?: number; maximumValue?: number; maximumCount?: number; onStart?: (totalCount: number, key: string) => void; onEnd?: (totalCount: number, key: string) => void; }): void;
+	static each(key: string, callback: { user: User; value: number; index: number; totalCount: number; key: string; },
+				parameters?: { ascending?: boolean; minimumValue?: number; maximumValue?: number; maximumCount?: number;
+	onStart?: (totalCount: number, key: string) => void; onEnd?: (totalCount: number, key: string) => void; }): void;
 	/**
 	 * Liefert alle keys, die für User in der Persistence
 	 * gespeichert wurden.
 	 * @since AppServer 82483
 	 */
-	public static getAllKeys(filterKey?: string): string[];
+	static getAllKeys(filterKey?: string): string[];
 }
 
 /**
@@ -2582,13 +2589,13 @@ declare class UserPersistenceObjects {
 	 * Löscht alle gespeicherten Objekte für den übergebenen <code>key</code>.
 	 * @since AppServer 82478
 	 */
-	public static deleteAll(key: string): number;
+	static deleteAll(key: string): number;
 	/**
 	 * Liefert alle keys, die für User in der Persistence
 	 * gespeichert wurden.
 	 * @since AppServer 82483
 	 */
-	public static getAllKeys(filterKey?: string): string[];
+	static getAllKeys(filterKey?: string): string[];
 }
 
 /**
@@ -2599,18 +2606,18 @@ declare class UserPersistenceStrings {
 	 * Liefert die Information, ob für einen bestimmten key und value bei einem beliebigen Nutzer eine Paarung existiert.
 	 * @since AppServer 88571
 	 */
-	public static exists(key: string, value: string, ignoreCase?: boolean): boolean;
+	static exists(key: string, value: string, ignoreCase?: boolean): boolean;
 	/**
 	 * Löscht alle gespeicherten Strings für den übergebenen <code>key</code>.
 	 * @since AppServer 82478
 	 */
-	public static deleteAll(key: string): number;
+	static deleteAll(key: string): number;
 	/**
 	 * Liefert alle keys, die für User in der Persistence
 	 * gespeichert wurden.
 	 * @since AppServer 82483
 	 */
-	public static getAllKeys(filterKey?: string): string[];
+	static getAllKeys(filterKey?: string): string[];
 }
 
 /**
@@ -2620,39 +2627,39 @@ declare class UserStatus {
 	/**
 	 * Liefert den numerischen Wert das UserStatus.
 	 */
-	public getNumericStatus(): number;
+	getNumericStatus(): number;
 	/**
 	 * Liefert die Information ob der aktuelle UserStatus mindestens so hoch ist, wie der übergebene UserStatus.
 	 */
-	public isAtLeast(otherUserStatus: UserStatus): boolean;
+	isAtLeast(otherUserStatus: UserStatus): boolean;
 	/**
 	 *
 	 */
-	public static readonly Newbie: UserStatus;
+	static readonly Newbie: UserStatus;
 	/**
 	 *
 	 */
-	public static readonly Family: UserStatus;
+	static readonly Family: UserStatus;
 	/**
 	 *
 	 */
-	public static readonly Stammi: UserStatus;
+	static readonly Stammi: UserStatus;
 	/**
 	 *
 	 */
-	public static readonly HonoryMember: UserStatus;
+	static readonly HonoryMember: UserStatus;
 	/**
 	 *
 	 */
-	public static readonly Admin: UserStatus;
+	static readonly Admin: UserStatus;
 	/**
 	 *
 	 */
-	public static readonly SystemBot: UserStatus;
+	static readonly SystemBot: UserStatus;
 	/**
 	 *
 	 */
-	public static readonly Sysadmin: UserStatus;
+	static readonly Sysadmin: UserStatus;
 }
 
 /**
@@ -2662,15 +2669,15 @@ declare class UserType {
 	/**
 	 * Bot der App.
 	 */
-	public static readonly AppBot: UserType;
+	static readonly AppBot: UserType;
 	/**
 	 * Bot des Knuddels-Chatsystems.
 	 */
-	public static readonly SystemBot: UserType;
+	static readonly SystemBot: UserType;
 	/**
 	 * Menschlicher User.
 	 */
-	public static readonly Human: UserType;
+	static readonly Human: UserType;
 }
 
 /**
@@ -2680,6 +2687,6 @@ declare class VideoChannelData {
 	/**
 	 * Liefert alle User die im Channel derzeit ihr Video streamen.
 	 */
-	public getStreamingVideoUsers(): User[];
+	getStreamingVideoUsers(): User[];
 }
 
