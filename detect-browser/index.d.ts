@@ -1,4 +1,4 @@
-// Type definitions for detect-browser v1.3.3
+// Type definitions for detect-browser v1.6.2
 // Project: https://github.com/DamonOehlman/detect-browser
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
