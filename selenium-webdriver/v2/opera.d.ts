@@ -1,3 +1,4 @@
+/* tslint:disable */
 import * as webdriver from './index';
 import * as remote from './remote';
 
@@ -155,17 +156,14 @@ export class Options {
 
 export class Driver extends webdriver.WebDriver {
     /**
-     * Creates a new session for Opera.
-     *
      * @param {(capabilities.Capabilities|Options)=} opt_config The configuration
      *     options.
      * @param {remote.DriverService=} opt_service The session to use; will use
      *     the {@link getDefaultService default service} by default.
      * @param {promise.ControlFlow=} opt_flow The control flow to use,
      *     or {@code null} to use the currently active flow.
-     * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: webdriver.Capabilities | Options, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    constructor(opt_config?: webdriver.Capabilities | Options, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
 
     /**
      * This function is a no-op as file detectors are not supported by this

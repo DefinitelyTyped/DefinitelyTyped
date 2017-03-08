@@ -1,6 +1,6 @@
+/* tslint:disable */
 import * as webdriver from './index';
 import * as remote from './remote';
-import * as http from './http';
 
 /**
  * Creates a new WebDriver client for Chrome.
@@ -9,19 +9,15 @@ import * as http from './http';
  */
 export class Driver extends webdriver.WebDriver {
     /**
-     * Creates a new session with the ChromeDriver.
-     *
-     * @param {(Capabilities|Options)=} opt_config The configuration options.
-     * @param {(remote.DriverService|http.Executor)=} opt_serviceExecutor Either
-     *     a  DriverService to use for the remote end, or a preconfigured executor
-     *     for an externally managed endpoint. If neither is provided, the
-     *     {@linkplain ##getDefaultService default service} will be used by
-     *     default.
-     * @param {promise.ControlFlow=} opt_flow The control flow to use, or `null`
-     *     to use the currently active flow.
-     * @return {!Driver} A new driver instance.
+     * @param {(webdriver.Capabilities|Options)=} opt_config The configuration
+     *     options.
+     * @param {remote.DriverService=} opt_service The session to use; will use
+     *     the {@link getDefaultService default service} by default.
+     * @param {webdriver.promise.ControlFlow=} opt_flow The control flow to use, or
+     *     {@code null} to use the currently active flow.
+     * @constructor
      */
-    static createSession(opt_config?: Options | webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService | http.Executor, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    constructor(opt_config?: Options | webdriver.Capabilities, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
 }
 
 interface IOptionsValues {
@@ -309,7 +305,7 @@ export class Options {
  * Creates {@link remote.DriverService} instances that manage a ChromeDriver
  * server.
  */
-export class ServiceBuilder extends remote.DriverService.Builder {
+export class ServiceBuilder {
     /**
      * @param {string=} opt_exe Path to the server executable to use. If omitted,
      *     the builder will attempt to locate the chromedriver on the current
@@ -321,6 +317,15 @@ export class ServiceBuilder extends remote.DriverService.Builder {
     constructor(opt_exe?: string);
 
     /**
+     * Sets the port to start the ChromeDriver on.
+     * @param {number} port The port to use, or 0 for any free port.
+     * @return {!ServiceBuilder} A self reference.
+     * @throws {Error} If the port is invalid.
+     */
+    usingPort(port: number): ServiceBuilder;
+
+
+    /**
      * Sets which port adb is listening to. _The ChromeDriver will connect to adb
      * if an {@linkplain Options#androidPackage Android session} is requested, but
      * adb **must** be started beforehand._
@@ -328,7 +333,7 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {number} port Which port adb is running on.
      * @return {!ServiceBuilder} A self reference.
      */
-    setAdbPort(port: number): this;
+    setAdbPort(port: number): ServiceBuilder;
 
 
     /**
@@ -337,14 +342,14 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {string} path Path of the log file to use.
      * @return {!ServiceBuilder} A self reference.
      */
-    loggingTo(path: string): this;
+    loggingTo(path: string): ServiceBuilder;
 
 
     /**
      * Enables verbose logging.
      * @return {!ServiceBuilder} A self reference.
      */
-    enableVerboseLogging(): this;
+    enableVerboseLogging(): ServiceBuilder;
 
 
     /**
@@ -353,7 +358,45 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {number} n The number of threads to use.
      * @return {!ServiceBuilder} A self reference.
      */
-    setNumHttpThreads(n: number): this;
+    setNumHttpThreads(n: number): ServiceBuilder;
+
+
+    /**
+     * Sets the base path for WebDriver REST commands (e.g. '/wd/hub').
+     * By default, the driver will accept commands relative to '/'.
+     * @param {string} path The base path to use.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    setUrlBasePath(path: string): ServiceBuilder;
+
+
+    /**
+     * Defines the stdio configuration for the driver service. See
+     * {@code child_process.spawn} for more information.
+     * @param {(string|!Array.<string|number|!Stream|null|undefined>)} config The
+     *     configuration to use.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    setStdio(config: string | Array<string | number | any>): ServiceBuilder;
+
+
+    /**
+     * Defines the environment to start the server under. This settings will be
+     * inherited by every browser session started by the server.
+     * @param {!Object.<string, string>} env The environment to use.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    withEnvironment(env: { [key: string]: string }): ServiceBuilder;
+
+
+    /**
+     * Creates a new DriverService using this instance's current configuration.
+     * @return {remote.DriverService} A new driver service using this instance's
+     *     current configuration.
+     * @throws {Error} If the driver exectuable was not specified and a default
+     *     could not be found on the current PATH.
+     */
+    build(): remote.DriverService;
 }
 
 /**

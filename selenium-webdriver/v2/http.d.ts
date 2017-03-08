@@ -1,3 +1,4 @@
+/* tslint:disable */
 import * as webdriver from './index';
 
 /**
@@ -13,7 +14,7 @@ export function headersToString(headers: any): string;
  * responsibility to build the full URL for the final request.
  * @final
  */
-export class Request {
+export class HttpRequest {
     /**
      * @param {string} method The HTTP method to use for the request.
      * @param {string} path The path on the server to send the request to.
@@ -29,7 +30,7 @@ export class Request {
  * Represents a HTTP response message.
  * @final
  */
-export class Response {
+export class HttpResponse {
     /**
      * @param {number} status The response code.
      * @param {!Object<string>} headers The response headers. All header names
@@ -70,7 +71,7 @@ export class HttpClient {
      * @return {!promise.Promise<HttpResponse>} A promise that will be fulfilled
      *     with the server's response.
      */
-    send(httpRequest: Request): webdriver.promise.Promise<Response>;
+    send(httpRequest: HttpRequest): webdriver.promise.Promise<HttpResponse>;
 }
 
 /**
@@ -99,11 +100,10 @@ export function sendRequest(options: Object, onOk: any, onError: any, opt_data?:
  */
 export class Executor {
     /**
-     * @param {!(HttpClient|IThenable<!HttpClient>)} client The client to use for sending
-     *     requests to the server, or a promise-like object that will resolve to
-     *     to the client.
+     * @param {!HttpClient} client The client to use for sending requests to the
+     *     server.
      */
-    constructor(client: HttpClient | webdriver.promise.IThenable<HttpClient>);
+    constructor(client: HttpClient);
 
     /**
      * Defines a new command for use with this executor. When a command is sent,
@@ -139,7 +139,7 @@ export function tryParse(str: string): any;
  * @return {{value: ?}} The parsed response.
  * @throws {WebDriverError} If the HTTP response is an error.
  */
-export function parseHttpResponse(httpResponse: Response, w3c: boolean): any;
+export function parseHttpResponse(httpResponse: HttpResponse, w3c: boolean): any;
 
 /**
  * Builds a fully qualified path using the given set of command parameters. Each

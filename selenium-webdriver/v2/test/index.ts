@@ -1,9 +1,16 @@
+/* tslint:disable */
 import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 import * as firefox from 'selenium-webdriver/firefox';
-import * as http from 'selenium-webdriver/http';
 import * as remote from 'selenium-webdriver/remote';
+import * as executors from 'selenium-webdriver/executors';
 import * as testing from 'selenium-webdriver/testing';
+
+function TestExecutors() {
+    var exec: webdriver.Executor = executors.createExecutor('url');
+    var promise: webdriver.promise.Promise<string>;
+    exec = executors.createExecutor(promise);
+}
 
 function TestBuilder() {
     var builder: webdriver.Builder = new webdriver.Builder();
@@ -211,6 +218,11 @@ function TestCommand() {
 
     command = command.setParameter('param', 123);
     command = command.setParameters({ param: 123 });
+}
+
+function TestDeferredExecutor() {
+    var promise: webdriver.promise.Promise<webdriver.Executor>;
+    var executor: webdriver.DeferredExecutor = new webdriver.DeferredExecutor(promise);
 }
 
 function TestCommandName() {
@@ -458,6 +470,14 @@ function TestSession() {
     var data: string = session.toJSON();
 }
 
+function TestUnhandledAlertError() {
+    var someFunc = (error: webdriver.UnhandledAlertError) => {
+        var baseError: Error = error;
+        var str: string = error.getAlertText();
+        str = error.toString();
+    };
+}
+
 function TestWebDriverFileDetector() {
     var driver: webdriver.WebDriver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
@@ -500,28 +520,18 @@ function TestWebDriverOptions() {
     var options: webdriver.Options = new webdriver.Options(driver);
     var promise: webdriver.promise.Promise<void>;
 
-    var name: string = 'name';
-    var value: string = 'value';
-    var path: string = 'path';
-    var domain: string = 'domain';
-    var secure: boolean = true;
-    var httpOnly: boolean = true;
-
     // Add Cookie
-    promise = options.addCookie({ name, value });
-    promise = options.addCookie({ name, value, path });
-    promise = options.addCookie({ name, value, path, domain });
-    promise = options.addCookie({ name, value, path, domain, secure });
-    promise = options.addCookie({ name, value, path, domain, secure, httpOnly });
-    promise = options.addCookie({ name, value, path, domain, secure, httpOnly, expiry: 123 });
-    promise = options.addCookie({ name, value, path, domain, secure, httpOnly, expiry: Date.now() });
+    promise = options.addCookie('name', 'value');
+    promise = options.addCookie('name', 'value', 'path');
+    promise = options.addCookie('name', 'value', 'path', 'domain');
+    promise = options.addCookie('name', 'value', 'path', 'domain', true);
+    promise = options.addCookie('name', 'value', 'path', 'domain', true, 123);
+    promise = options.addCookie('name', 'value', 'path', 'domain', true, Date.now());
 
     promise = options.deleteAllCookies();
     promise = options.deleteCookie('name');
-    options.getCookie('name').then((cookie: webdriver.IWebDriverCookie) => {
-        var expiry: number = cookie.expiry;
-     });
-    options.getCookies().then((cookies: webdriver.IWebDriverCookie[]) => { });
+    options.getCookie('name').then((cookies: webdriver.IWebDriverOptionsCookie) => {});
+    options.getCookies().then((cookies: webdriver.IWebDriverOptionsCookie[]) => {});
 
     var logs: webdriver.Logs = options.logs();
     var timeouts: webdriver.Timeouts = options.timeouts();
@@ -576,8 +586,7 @@ function TestWebDriverWindow() {
 function TestWebDriver() {
     var session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
     var sessionPromise: webdriver.promise.Promise<webdriver.Session>;
-    var httpClient: http.HttpClient = new http.HttpClient('http://someserver');
-    var executor: http.Executor = new http.Executor(httpClient);
+    var executor: webdriver.Executor = executors.createExecutor('http://someserver');
     var flow: webdriver.promise.ControlFlow = new webdriver.promise.ControlFlow();
     var driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
     driver = new webdriver.WebDriver(session, executor, flow);
@@ -587,7 +596,6 @@ function TestWebDriver() {
     var voidPromise: webdriver.promise.Promise<void>;
     var stringPromise: webdriver.promise.Promise<string>;
     var booleanPromise: webdriver.promise.Promise<boolean>;
-    var webElementPromise: webdriver.WebElementPromise;
 
     var actions: webdriver.ActionSequence = driver.actions();
     var touchActions: webdriver.TouchSequence = driver.touchActions();
@@ -631,6 +639,9 @@ function TestWebDriver() {
     stringPromise = driver.getTitle();
     stringPromise = driver.getWindowHandle();
 
+    booleanPromise = driver.isElementPresent(webdriver.By.className('ABC'));
+    booleanPromise = driver.isElementPresent(webdriver.By.js('function(){}'));
+
     var options: webdriver.Options = driver.manage();
     var navigation: webdriver.Navigation = driver.navigate();
     var locator: webdriver.TargetLocator = driver.switchTo();
@@ -643,17 +654,14 @@ function TestWebDriver() {
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
 
-    var booleanCondition: webdriver.Condition<boolean>;
+    var booleanCondition: webdriver.until.Condition<boolean>;
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
-    booleanPromise = driver.wait((driver: webdriver.WebDriver) => Promise.resolve(true));
-    booleanPromise = driver.wait((driver: webdriver.WebDriver) => webdriver.promise.Promise.resolve(true));
+    let conditionFunction: Function; // tslint:disable-line:prefer-const
+    booleanPromise = driver.wait(conditionFunction);
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
-    let webElementCondition: webdriver.WebElementCondition;
-    webElementPromise = driver.wait(webElementCondition);
-    voidPromise = driver.wait(webElementCondition).click();
 
     driver = webdriver.WebDriver.attachToSession(executor, 'ABC');
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.android());
@@ -683,13 +691,15 @@ function TestWebElement() {
     voidPromise = element.click();
 
     element = element.findElement(webdriver.By.id('ABC'));
-    element = element.findElement({id: 'ABC'});
-    element.findElements({className: 'ABC'}).then((elements: webdriver.WebElement[]) => { });
+    element.findElements(webdriver.By.className('ABC')).then((elements: webdriver.WebElement[]) => {});
+    booleanPromise = element.isElementPresent(webdriver.By.className('ABC'));
 
     stringPromise = element.getAttribute('class');
     stringPromise = element.getCssValue('display');
     driver = element.getDriver();
+    stringPromise = element.getInnerHtml();
     element.getLocation().then((location: webdriver.ILocation) => {});
+    stringPromise = element.getOuterHtml();
     element.getSize().then((size: webdriver.ISize) => {});
     stringPromise = element.getTagName();
     stringPromise = element.getText();
@@ -703,6 +713,7 @@ function TestWebElement() {
     voidPromise = element.sendKeys('A', 1, webdriver.Key.BACK_SPACE, stringPromise);
     voidPromise = element.submit();
     element.getId().then((id: string) => {});
+    element.getRawId().then((id: string) => {});
     element.serialize().then((id: webdriver.IWebElementId) => {});
 
     booleanPromise = webdriver.WebElement.equals(element, new webdriver.WebElement(driver, 'elementId'));
@@ -715,10 +726,19 @@ function TestWebElementPromise() {
 
     var elementPromise: webdriver.WebElementPromise = driver.findElement(webdriver.By.id('id'));
 
+    elementPromise.cancel();
+    elementPromise.cancel('reason');
+
+    var bool: boolean = elementPromise.isPending();
+
     elementPromise.then();
     elementPromise.then((element: webdriver.WebElement) => {});
     elementPromise.then((element: webdriver.WebElement) => {}, (error: any) => {});
     elementPromise.then((element: webdriver.WebElement) => 'foo', (error: any) => {}).then((result: string) => {});
+
+    elementPromise.thenCatch((error: any) => {}).then((value: any) => {});
+
+    elementPromise.thenFinally(() => {});
 }
 
 function TestLogging() {
@@ -852,32 +872,29 @@ function TestUntilModule() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    var conditionB: webdriver.Condition<boolean> = new webdriver.Condition<boolean>('message', (driver: webdriver.WebDriver) => true);
-    var conditionBBase: webdriver.Condition<boolean> = conditionB;
-    var conditionWebElement: webdriver.WebElementCondition;
-    var conditionWebElements: webdriver.Condition<webdriver.WebElement[]>;
+    var conditionB: webdriver.until.Condition<boolean> = new webdriver.until.Condition<boolean>('message', (driver: webdriver.WebDriver) => true);
+    var conditionBBase: webdriver.until.Condition<boolean> = conditionB;
+    var conditionWebElement: webdriver.until.Condition<webdriver.WebElement>;
+    var conditionWebElements: webdriver.until.Condition<webdriver.WebElement[]>;
 
     conditionB = webdriver.until.ableToSwitchToFrame(5);
-    var conditionAlert: webdriver.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
+    var conditionAlert: webdriver.until.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
     var el: webdriver.WebElement = driver.findElement(webdriver.By.id('id'));
+    conditionB = webdriver.until.elementIsDisabled(el);
+    conditionB = webdriver.until.elementIsEnabled(el);
+    conditionB = webdriver.until.elementIsNotSelected(el);
+    conditionB = webdriver.until.elementIsNotVisible(el);
+    conditionB = webdriver.until.elementIsSelected(el);
+    conditionB = webdriver.until.elementIsVisible(el);
+    conditionB = webdriver.until.elementTextContains(el, 'text');
+    conditionB = webdriver.until.elementTextIs(el, 'text');
+    conditionB = webdriver.until.elementTextMatches(el, /text/);
     conditionB = webdriver.until.stalenessOf(el);
     conditionB = webdriver.until.titleContains('text');
     conditionB = webdriver.until.titleIs('text');
     conditionB = webdriver.until.titleMatches(/text/);
-    conditionB = webdriver.until.urlContains('text');
-    conditionB = webdriver.until.urlIs('text');
-    conditionB = webdriver.until.urlMatches(/text/);
 
-    conditionWebElement = webdriver.until.elementIsDisabled(el);
-    conditionWebElement = webdriver.until.elementIsEnabled(el);
-    conditionWebElement = webdriver.until.elementIsNotSelected(el);
-    conditionWebElement = webdriver.until.elementIsNotVisible(el);
-    conditionWebElement = webdriver.until.elementIsSelected(el);
-    conditionWebElement = webdriver.until.elementIsVisible(el);
     conditionWebElement = webdriver.until.elementLocated(webdriver.By.id('id'));
-    conditionWebElement = webdriver.until.elementTextContains(el, 'text');
-    conditionWebElement = webdriver.until.elementTextIs(el, 'text');
-    conditionWebElement = webdriver.until.elementTextMatches(el, /text/);
     conditionWebElements = webdriver.until.elementsLocated(webdriver.By.className('class'));
 }
 
@@ -939,10 +956,18 @@ function TestPromiseClass() {
     promise = new webdriver.promise.Promise<string>((resolve: (value: webdriver.promise.Promise<string>) => void, reject: () => void) => {});
     promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {}, controlFlow);
 
+    promise.cancel('Abort');
+
+    var isPending: boolean = promise.isPending();
+
     promise = promise.then();
     promise = promise.then((a: string) => 'cde');
     promise = promise.then((a: string) => 'cde', (e: any) => {});
     promise = promise.then((a: string) => 'cde', (e: any) => 123);
+
+    promise = promise.thenCatch((error: any) => {});
+
+    promise.thenFinally(() => {});
 }
 
 function TestThenableClass() {
@@ -950,9 +975,46 @@ function TestThenableClass() {
         resolve('a');
     });
 
+    thenable.cancel('Abort');
+
+    var isPending: boolean = thenable.isPending();
+
     thenable = thenable.then((a: string) => 'cde');
     thenable = thenable.then((a: string) => 'cde', (e: any) => {});
     thenable = thenable.then((a: string) => 'cde', (e: any) => 123);
+
+    thenable = thenable.thenCatch((error: any) => {});
+
+    thenable.thenFinally(() => {});
+}
+
+function TestErrorCode() {
+    var errorCode: number;
+
+    errorCode = new webdriver.error.ElementNotSelectableError().code();
+    errorCode = new webdriver.error.ElementNotVisibleError().code();
+    errorCode = new webdriver.error.InvalidArgumentError().code();
+    errorCode = new webdriver.error.InvalidCookieDomainError().code();
+    errorCode = new webdriver.error.InvalidElementCoordinatesError().code();
+    errorCode = new webdriver.error.InvalidElementStateError().code();
+    errorCode = new webdriver.error.InvalidSelectorError().code();
+    errorCode = new webdriver.error.NoSuchSessionError().code();
+    errorCode = new webdriver.error.JavascriptError().code();
+    errorCode = new webdriver.error.MoveTargetOutOfBoundsError().code();
+    errorCode = new webdriver.error.NoSuchAlertError().code();
+    errorCode = new webdriver.error.NoSuchElementError().code();
+    errorCode = new webdriver.error.NoSuchFrameError().code();
+    errorCode = new webdriver.error.NoSuchWindowError().code();
+    errorCode = new webdriver.error.ScriptTimeoutError().code();
+    errorCode = new webdriver.error.SessionNotCreatedError().code();
+    errorCode = new webdriver.error.StaleElementReferenceError().code();
+    errorCode = new webdriver.error.TimeoutError().code();
+    errorCode = new webdriver.error.UnableToSetCookieError().code();
+    errorCode = new webdriver.error.UnableToCaptureScreenError().code();
+    errorCode = new webdriver.error.UnexpectedAlertOpenError().code();
+    errorCode = new webdriver.error.UnknownCommandError().code();
+    errorCode = new webdriver.error.UnknownMethodError().code();
+    errorCode = new webdriver.error.UnsupportedOperationError().code();
 }
 
 async function TestAsyncAwaitable() {

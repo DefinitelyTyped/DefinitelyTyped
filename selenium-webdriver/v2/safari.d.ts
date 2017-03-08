@@ -1,3 +1,4 @@
+/* tslint:disable */
 import * as webdriver from './index';
 
 export class Server { }
@@ -65,7 +66,7 @@ export class Options {
      *     merge these options into, if any.
      * @return {!Capabilities} The capabilities.
      */
-    toCapabilities(opt_capabilities?: webdriver.Capabilities): webdriver.Capabilities;
+    toCapabilities(opt_capabilities: webdriver.Capabilities): webdriver.Capabilities;
 }
 
 /**
@@ -79,13 +80,11 @@ export class Options {
  */
 export class Driver extends webdriver.WebDriver {
     /**
-     * Creates a new Safari session.
-     *
      * @param {(Options|Capabilities)=} opt_config The configuration
      *     options for the new session.
      * @param {promise.ControlFlow=} opt_flow The control flow to create
      *     the driver under.
-     * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: Options | webdriver.Capabilities, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    constructor(opt_config?: Options | webdriver.Capabilities, opt_flow?: webdriver.promise.ControlFlow);
+
 }
