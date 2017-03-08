@@ -1,11 +1,3 @@
-// Type definitions for tedious-connection-pool
-// Project: https://github.com/pekim/tedious-connection-pool
-// Definitions by: Cyprien Autexier <https://github.com/sandorfr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-"use strict";
-
 import ConnectionPool = require("tedious-connection-pool");
 import tedious = require("tedious");
 
@@ -36,7 +28,7 @@ pool.once('error', (err: Error) => {
 
 pool.removeAllListeners();
 
-pool.acquire((err: Error, connection: ConnectionPool.PooledConnection) =>{
+pool.acquire((err: Error, connection: ConnectionPool.PooledConnection) => {
 	console.log("hurray");
 	connection.beginTransaction((error: Error): void => {}, "some name");
 	connection.rollbackTransaction((error: Error): void => {});
