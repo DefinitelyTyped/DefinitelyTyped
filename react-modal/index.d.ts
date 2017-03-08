@@ -1,6 +1,6 @@
 // Type definitions for react-modal 1.6
 // Project: https://github.com/reactjs/react-modal
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>, Drew Noakes <https://github.com/drewnoakes>
+// Definitions by: Rajab Shakirov <https://github.com/radziksh>, Drew Noakes <https://github.com/drewnoakes>, Thomas B Homburg <https://github.com/homburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,7 +32,7 @@ declare namespace ReactModal {
         /* Function that will be run after the modal has opened. */
         onAfterOpen?: () => void;
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        onRequestClose?: () => void;
+        onRequestClose?: (event: (MouseEvent | KeyboardEvent)) => void;
         /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
         closeTimeoutMS?: number;
         /* Boolean indicating if the appElement should be hidden. Defaults to true. */
