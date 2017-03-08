@@ -1,4 +1,4 @@
-/// <reference path="./atom-keymap.d.ts" />
+
 
 import { KeymapManager, ICompleteMatchEvent } from "atom-keymap";
 

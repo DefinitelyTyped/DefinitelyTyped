@@ -1,12 +1,13 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="./atom.d.ts" />
-/// <reference path="../pathwatcher/pathwatcher.d.ts" />
+/// <reference types="node" />
+/// <reference types="pathwatcher" />
 
 import path = require("path");
 import _atom = require("atom");
 
-import pathwatcher = require("pathwatcher");
-var File = pathwatcher.File;
+import PathWatcher = require("pathwatcher");
+var File = PathWatcher.File;
+
+const jq: JQuery = $("selector");
 
 class SampleView extends _atom.ScrollView {
 
@@ -34,11 +35,6 @@ class SampleView extends _atom.ScrollView {
 		}
 	}
 
-	get jq():JQuery {
-		// dirty hack
-		return <any>this;
-	}
-
 	serialize() {
 		return {
 			deserializer: 'SampleView',
@@ -53,9 +49,9 @@ class SampleView extends _atom.ScrollView {
 	resolveEditor(editorId:string) {
 		var resolve = ()=> {
 			if (this.editor) {
-				this.jq.trigger("title-changed");
+				jq.trigger("title-changed");
 			} else {
-				var view = this.jq.parents('.pane').view();
+				var view = jq.parents('.pane').view();
 				if (view) {
 					view.destroyItem(this);
 				}

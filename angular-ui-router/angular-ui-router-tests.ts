@@ -1,4 +1,5 @@
-/// <reference path="angular-ui-router.d.ts" />
+import * as ng from 'angular';
+import * as angular from 'angular';
 
 import uiRouterModule from "angular-ui-router";
 var myApp = angular.module("testModule", [uiRouterModule]);
@@ -156,8 +157,8 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 
             // Note that we do not concern ourselves with what to do if this request fails,
             // because if it fails, the web page will be redirected away to the login screen.
-            this.$http({ url: "/api/me", method: "GET" }).success((user: any) => {
-                this.currentUser = user;
+            this.$http({ url: "/api/me", method: "GET" }).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+                this.currentUser = response.data;
 
                 // sync the ui-state with the location in the browser, which effectively
                 // restarts the state change that was stopped previously

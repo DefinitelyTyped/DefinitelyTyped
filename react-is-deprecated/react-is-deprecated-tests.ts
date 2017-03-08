@@ -1,6 +1,3 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./react-is-deprecated.d.ts"/>
-
 import { PropTypes } from 'react';
 import { deprecate, addIsDeprecated } from 'react-is-deprecated';
 

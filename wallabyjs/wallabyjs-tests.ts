@@ -1,5 +1,3 @@
-/// <reference path="wallabyjs.d.ts" />
-
 import * as wallabyjs from 'wallabyjs';
 
 export class WallabyConfig implements wallabyjs.IWallabyConfig {
@@ -33,6 +31,9 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
     params:  {
       env: 'KEY1=value1;KEY2=value2',
       runner: '--arg1;--arg2;'
+    },
+    viewportSize: {
+      width: 800
     }
   };
 

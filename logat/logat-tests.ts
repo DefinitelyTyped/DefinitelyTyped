@@ -1,4 +1,3 @@
-/// <reference path="logat.d.ts" />
 
 import logat = require('logat');
 

@@ -1,4 +1,3 @@
-/// <reference path="./camelcase.d.ts" />
 
 import camelCase = require('camelcase');
 

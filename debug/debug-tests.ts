@@ -1,4 +1,4 @@
-/// <reference path="debug.d.ts" />
+
 
 import debug = require("debug");
 

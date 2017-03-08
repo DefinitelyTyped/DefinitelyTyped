@@ -1,22 +1,22 @@
 // adapted from `cat wu.js/test/* |sed '/= require/d'> wu-tests.ts`
-///<reference path="wu.d.ts" />
+
 declare var describe: any, it: any, mocha: any, assert: {
-  iterable:any;
-  eqSet<T>(expected:Set<T>, actual: Iterable<T>): any;
-  ok:any;
-  equal<T>(x:T, y:T): any;
-  eqArray<T>(x:T[], y:Iterable<T>): any;
-  deepEqual<T>(x:T, y:T): any;
-}
+  iterable: any;
+  eqSet<T>(expected: Set<T>, actual: Iterable<T>): any;
+  ok: any;
+  equal<T>(x: T, y: T): any;
+  eqArray<T>(x: T[], y: Iterable<T>): any;
+  deepEqual<T>(x: T, y: T): any;
+};
 
 // Helper for asserting that the given thing is iterable.
-assert.iterable = thing => {
+assert.iterable = (thing: any) => {
   assert.ok(wu(thing));
 };
 
 // Helper for asserting that all the elements yielded from the |actual|
 // iterator are in the |expected| set.
-assert.eqSet = (expected, actual) => {
+assert.eqSet = (expected: any, actual: any) => {
   assert.iterable(actual);
   for (var x of actual) {
     assert.ok(expected.has(x));
@@ -27,7 +27,7 @@ assert.eqSet = (expected, actual) => {
 // Helper for asserting that all the elements yielded from the |actual|
 // iterator are equal to and in the same order as the elements of the
 // |expected| array.
-assert.eqArray = (expected, actual) => {
+assert.eqArray = (expected: any, actual: any) => {
   assert.iterable(actual);
   assert.deepEqual(expected, [...actual]);
 };
@@ -59,8 +59,8 @@ describe("wu.chain", () => {
 });
 describe("wu.chunk", () => {
   it("should chunk items into tuples", () => {
-    assert.eqArray([[1,2,3], [4,5,6]],
-                   wu.chunk(3, [1,2,3,4,5,6]));
+    assert.eqArray([[1, 2, 3], [4, 5, 6]],
+                   wu.chunk(3, [1, 2, 3, 4, 5, 6]));
   });
 });
 describe("wu.concatMap", () => {
@@ -121,7 +121,7 @@ describe("wu.cycle", () => {
   it("should keep yielding items from the original iterable", () => {
     let i = 0;
     const arr = [1, 2, 3];
-    for (let x of wu.cycle(arr)) {
+    for (const x of wu.cycle(arr)) {
       assert.equal(x, arr[i % 3]);
       if (i++ > 9) {
         break;
@@ -144,7 +144,7 @@ describe("wu.dropWhile", () => {
 describe("wu.entries", () => {
   it("should iterate over entries", () => {
     const expected = new Map([["foo", 1], ["bar", 2], ["baz", 3]]);
-    for (let [k, v] of wu.entries({ foo: 1, bar: 2, baz: 3 })) {
+    for (const [k, v] of wu.entries({ foo: 1, bar: 2, baz: 3 })) {
       assert.equal(expected.get(k), v);
     }
   });
@@ -183,7 +183,7 @@ describe("wu.find", () => {
 
   it("should return undefined if no items match the predicate", () => {
     assert.equal(undefined,
-                 wu.find(x => (<any>x) === "raekwon",
+                 wu.find(x => (<any> x) === "raekwon",
                          [{ name: "odb" },
                           { name: "method man" },
                           { name: "rza" },
@@ -203,31 +203,31 @@ describe("wu.flatten", () => {
 });
 describe("wu.forEach", () => {
   it("should iterate over every item", () => {
-    const items = [];
-    wu.forEach(x => items.push(x), [1,2,3]);
-    assert.eqArray([1,2,3], items);
+    const items: any[] = [];
+    wu.forEach(x => items.push(x), [1, 2, 3]);
+    assert.eqArray([1, 2, 3], items);
   });
 });
 describe("wu.has", () => {
   it("should return true if the item is in the iterable", () => {
-    assert.ok(wu.has(3, [1,2,3]));
+    assert.ok(wu.has(3, [1, 2, 3]));
   });
 
   it("should return false if the item is not in the iterable", () => {
-    assert.ok(!wu.has(<any>"36 chambers", [1,2,3]));
+    assert.ok(!wu.has(<any> "36 chambers", [1, 2, 3]));
   });
 });
 describe("wu.invoke", () => {
   it("should yield the method invokation on each item", () => {
-    function Greeter(name) {
-      this.name = name
+    function Greeter(name: string) {
+      this.name = name;
     }
-    Greeter.prototype.greet = function (tail) {
+    Greeter.prototype.greet = function(tail: string) {
       return "hello " + this.name + tail;
     };
     assert.eqArray(["hello world!", "hello test!"],
                    wu.invoke("greet", "!",
-                             [new Greeter("world"), new Greeter("test")]));
+                             [Greeter("world"), Greeter("test")]));
   });
 });
 describe("wu.keys", () => {
@@ -250,11 +250,11 @@ describe("wu.pluck", () => {
 });
 describe("wu.reduce", () => {
   it("should reduce the iterable with the function", () => {
-    assert.equal(6, wu([1,2,3]).reduce((x, y) => x + y));
+    assert.equal(6, wu([1, 2, 3]).reduce((x, y) => x + y));
   });
 
   it("should accept an initial state for the reducer function", () => {
-    assert.equal(16, wu.reduce((x, y) => x + y, 10, [1,2,3]));
+    assert.equal(16, wu.reduce((x, y) => x + y, 10, [1, 2, 3]));
   });
 });
 describe("wu.reductions", () => {
@@ -305,11 +305,11 @@ describe("wu.slice", () => {
 });
 describe("wu.some", () => {
   it("should return true if any item matches the predicate", () => {
-    assert.ok(wu.some(x => x % 2 === 0, [1,2,3]));
+    assert.ok(wu.some(x => x % 2 === 0, [1, 2, 3]));
   });
 
   it("should return false if no items match the predicate", () => {
-    assert.ok(!wu.some(x => x % 5 === 0, [1,2,3]));
+    assert.ok(!wu.some(x => x % 5 === 0, [1, 2, 3]));
   });
 });
 describe("wu.spreadMap", () => {
@@ -357,7 +357,7 @@ describe("wu.tee", () => {
 describe("wu.unique", () => {
   it("should yield only the unique items from the iterable", () => {
     assert.eqArray([1, 2, 3],
-                   wu.unique([1,1,2,2,1,1,3,3]));
+                   wu.unique([1, 1, 2, 2, 1, 1, 3, 3]));
   });
 });
 describe("wu.unzip", () => {
@@ -391,9 +391,9 @@ describe("wu.zip", () => {
 });
 describe("wu.zipLongest", () => {
   it("should stop with the longer iterable", () => {
-    const arr1 = [];
+    const arr1: any[] = [];
     arr1[1] = 2;
-    const arr2 = [];
+    const arr2: any[] = [];
     arr2[1] = 3;
     assert.eqArray([["a", 1], arr1, arr2],
                    wu.zipLongest("a", [1, 2, 3]));
@@ -401,7 +401,7 @@ describe("wu.zipLongest", () => {
 });
 describe("wu.zipWith", () => {
   it("should spread map over the zipped iterables", () => {
-    const add3 = (a, b, c) => a + b + c;
+    const add3 = (a: any, b: any, c: any) => a + b + c;
     assert.eqArray([12, 15, 18],
                    wu.zipWith(add3,
                               [1, 2, 3],

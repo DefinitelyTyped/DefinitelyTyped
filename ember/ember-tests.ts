@@ -1,8 +1,4 @@
-/// <reference path="ember.d.ts" />
-/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
-
-
-var App : any;
+var App: any;
 
 App = Em.Application.create<Em.Application>();
 
@@ -16,7 +12,7 @@ App.country.get('presidentName');
 App.president = Em.Object.create({
     firstName: 'Barack',
     lastName: 'Obama',
-    fullName: function () {
+    fullName: function() {
         return this.get('firstName') + ' ' + this.get('lastName');
     }.property()
 });
@@ -37,7 +33,7 @@ declare class MyPerson2 extends Em.Object {
 }
 var tom = Person1.create<MyPerson2>({
     name: 'Tom Dale',
-    helloWorld: function() {
+    helloWorld() {
         this.say('Hi my name is ' + this.get('name'));
     }
 });
@@ -110,14 +106,13 @@ App.userController = Em.Object.create({
     })
 });
 
-Handlebars.registerHelper('highlight', function(property: string, options: any) {
-    return new Handlebars.SafeString('<span class="highlight">' + "some value" + '</span>');
-});
+Handlebars.registerHelper('highlight', (property: string, options: any) =>
+    new Handlebars.SafeString('<span class="highlight">' + "some value" + '</span>'));
 
 var coolView = App.CoolView.create();
 
 var Person2 = Em.Object.extend<typeof Em.Object>({
-    sayHello: function() {
+    sayHello() {
         console.log('Hello from ' + this.get('name'));
     }
 });
@@ -150,7 +145,7 @@ people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-var promise = new Em.RSVP.Promise(function(resolve: Function, reject: Function) {
+var promise = new Em.RSVP.Promise<string, string>((resolve: Function, reject: Function) => {
   // on success
   resolve('ok!');
 
@@ -158,8 +153,21 @@ var promise = new Em.RSVP.Promise(function(resolve: Function, reject: Function) 
   reject('no-k!');
 });
 
-promise.then(function(value: any) {
+promise.then((value: any) => {
   // on fulfillment
-}, function(reason: any) {
+}, (reason: any) => {
   // on rejection
+});
+
+var mix1 = Ember.Mixin.create({
+  foo: 1
+});
+
+var mix2 = Ember.Mixin.create({
+  bar: 2
+});
+
+var component1 = Ember.Component.extend( mix1, mix2, {
+  lyft: Ember.inject.service(),
+  cars: Ember.computed.readOnly('lyft.cars')
 });

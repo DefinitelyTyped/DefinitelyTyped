@@ -1,8 +1,3 @@
-
-/// <reference path="tedious.d.ts" />
-
-"use strict";
-
 import tedious = require("tedious");
 
 var config: tedious.ConnectionConfig = {

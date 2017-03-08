@@ -1,5 +1,3 @@
-﻿/// <reference path="./bytes.d.ts"/>
-
 import bytes = require('bytes');
 
 // 1024*1024 = 1048576

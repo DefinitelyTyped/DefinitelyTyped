@@ -1,5 +1,3 @@
-/// <reference path="leaflet.d.ts" />
-
 import L = require('leaflet');
 
 const latLngLiteral: L.LatLngLiteral = {lat: 12, lng: 13};
@@ -13,12 +11,23 @@ latLng = L.latLng({lat: 12, lng: 13, alt: 0});
 latLng = L.latLng(latLngTuple);
 latLng = L.latLng([12, 13, 0]);
 
+latLng = new L.LatLng(12, 13);
+latLng = new L.LatLng(12, 13, 0);
+latLng = new L.LatLng(latLngLiteral);
+latLng = new L.LatLng({lat: 12, lng: 13, alt: 0});
+latLng = new L.LatLng(latLngTuple);
+latLng = new L.LatLng([12, 13, 0]);
+
 const latLngBoundsLiteral: L.LatLngBoundsLiteral = [[12, 13], latLngTuple];
 
 let latLngBounds: L.LatLngBounds;
 latLngBounds = L.latLngBounds(latLng, latLng);
 latLngBounds = L.latLngBounds(latLngLiteral, latLngLiteral);
 latLngBounds = L.latLngBounds(latLngTuple, latLngTuple);
+
+latLngBounds = new L.LatLngBounds(latLng, latLng);
+latLngBounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
+latLngBounds = new L.LatLngBounds(latLngTuple, latLngTuple);
 
 const pointTuple: L.PointTuple = [0, 0];
 
@@ -28,6 +37,21 @@ point = L.point(12, 13, true);
 point = L.point(pointTuple);
 point = L.point({x: 12, y: 13});
 
+point = new L.Point(12, 13);
+point = new L.Point(12, 13, true);
+point = new L.Point(pointTuple);
+point = new L.Point({x: 12, y: 13});
+
+let distance: number;
+point.distanceTo(point);
+point.distanceTo(pointTuple);
+
+const transformation = new L.Transformation(1, 2, 3, 4);
+point = transformation.transform(point);
+point = transformation.transform(point, 2);
+point = transformation.untransform(point);
+point = transformation.untransform(point, 2);
+
 const boundsLiteral: L.BoundsLiteral = [[1, 1], pointTuple];
 
 let bounds: L.Bounds;
@@ -35,6 +59,26 @@ bounds = L.bounds(point, point);
 bounds = L.bounds(pointTuple, pointTuple);
 bounds = L.bounds([point, point]);
 bounds = L.bounds(boundsLiteral);
+
+bounds = new L.Bounds(point, point);
+bounds = new L.Bounds(pointTuple, pointTuple);
+bounds = new L.Bounds([point, point]);
+bounds = new L.Bounds(boundsLiteral);
+
+let points: L.Point[];
+points = L.LineUtil.simplify([point, point], 1);
+points = L.LineUtil.simplify([pointTuple, pointTuple], 2);
+
+distance = L.LineUtil.pointToSegmentDistance(point, point, point);
+distance = L.LineUtil.pointToSegmentDistance(pointTuple, pointTuple, pointTuple);
+
+point = L.LineUtil.closestPointOnSegment(point, point, point);
+point = L.LineUtil.closestPointOnSegment(pointTuple, pointTuple, pointTuple);
+
+points = L.PolyUtil.clipPolygon(points, bounds);
+points = L.PolyUtil.clipPolygon(points, bounds, true);
+points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral);
+points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral, true);
 
 let mapOptions: L.MapOptions = {};
 mapOptions = {
@@ -97,9 +141,9 @@ let layer: L.Layer;
 
 const htmlElement = document.getElementById('foo');
 
-let popupOptions: L.PopupOptions = {};
+const popupOptions: L.PopupOptions = {};
 
-let tooltipOptions: L.TooltipOptions = {};
+const tooltipOptions: L.TooltipOptions = {};
 
 let zoomPanOptions: L.ZoomPanOptions = {};
 zoomPanOptions = {
@@ -109,16 +153,20 @@ zoomPanOptions = {
 	noMoveStart: true
 };
 
-let zoomOptions: L.ZoomOptions = {};
+const zoomOptions: L.ZoomOptions = {};
 
-let panOptions: L.PanOptions = {};
+const panOptions: L.PanOptions = {};
 
-let fitBoundsOptions: L.FitBoundsOptions = {};
+const fitBoundsOptions: L.FitBoundsOptions = {};
 
 let map = L.map('foo');
 map = L.map('foo', mapOptions);
 map = L.map(htmlElement);
 map = L.map(htmlElement, mapOptions);
+
+map = new L.Map('foo', mapOptions);
+map = new L.Map(htmlElement);
+map = new L.Map(htmlElement, mapOptions);
 
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
@@ -127,7 +175,7 @@ doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
 let html: HTMLElement;
 html = map.createPane('foo');
-html = map.createPane('foo', htmlElement)
+html = map.createPane('foo', htmlElement);
 html = map.getPane('foo');
 html = map.getPane(htmlElement);
 html = map.getContainer();
@@ -166,11 +214,76 @@ mapPixelBounds = map.getPixelBounds();
 mapPixelBounds = map.getPixelWorldBounds();
 mapPixelBounds = map.getPixelWorldBounds(12);
 
+let tileLayerOptions: L.TileLayerOptions = {};
+tileLayerOptions = {
+    minZoom: 0,
+    maxZoom: 18,
+    maxNativeZoom: 2,
+    errorTileUrl: '',
+    zoomOffset: 0,
+    tms: true,
+    zoomReverse: true,
+    detectRetina: true,
+    crossOrigin: false,
+    opacity: 1,
+    updateWhenIdle: true,
+    updateWhenZooming: true,
+    updateInterval: 500,
+    attribution: '',
+    zIndex: 1,
+    noWrap: true,
+    pane: '',
+    className: '',
+    keepBuffer: 1,
+    foo: 'bar',
+    bar: () => 'foo',
+    abc: (data: any) => 'foobar'
+};
+
+tileLayerOptions.subdomains = 'a';
+tileLayerOptions.subdomains = ['a', 'b'];
+
+tileLayerOptions.tileSize = 256;
+tileLayerOptions.tileSize = point;
+// tileLayerOptions.tileSize = pointTuple; investigate if this is valid
+
+tileLayerOptions.bounds = latLngBounds;
+tileLayerOptions.bounds = latLngBoundsLiteral;
+
+let tileLayer: L.TileLayer;
+tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
+tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
+
+tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
+tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
+
+const eventHandler = () => {};
+const domEvent: Event = {} as Event;
+L.DomEvent
+	.on(htmlElement, 'click', eventHandler)
+	.addListener(htmlElement, 'click', eventHandler)
+	.off(htmlElement, 'click', eventHandler)
+	.removeListener(htmlElement, 'click', eventHandler)
+	.on(htmlElement, {click: eventHandler})
+	.addListener(htmlElement, {click: eventHandler})
+	.off(htmlElement, {click: eventHandler}, eventHandler)
+	.removeListener(htmlElement, {click: eventHandler}, eventHandler)
+	.stopPropagation(domEvent)
+	.disableScrollPropagation(htmlElement)
+	.disableClickPropagation(htmlElement)
+	.preventDefault(domEvent)
+	.stop(domEvent);
+point = L.DomEvent.getMousePosition(domEvent);
+point = L.DomEvent.getMousePosition(domEvent, htmlElement);
+const wheelDelta: number = L.DomEvent.getWheelDelta(domEvent);
+
 map = map
 	// addControl
 	// removeControl
-	.addLayer(L.tileLayer(''))
-	.removeLayer(L.tileLayer('')) // use a different type of layer
+	.addLayer(tileLayer)
+	.removeLayer(tileLayer) // use a different type of layer
 	.eachLayer((currentLayer) => {
 		layer = currentLayer;
 	})
@@ -213,6 +326,7 @@ map = map
 	.setView(latLngLiteral, 12, zoomPanOptions)
 	.setView(latLngTuple, 12)
 	.setView(latLngTuple, 12, zoomPanOptions)
+	.setZoom(11)
 	.setZoom(12, zoomPanOptions) // investigate if zoomPanOptions are really required
 	.zoomIn()
 	.zoomIn(1)
@@ -225,6 +339,7 @@ map = map
 	.setZoomAround(latLngTuple, 12, zoomOptions)
 	.setZoomAround(point, 12, zoomOptions)
 	.setZoomAround(pointTuple, 11, zoomOptions)
+	.fitBounds(latLngBounds)
 	.fitBounds(latLngBounds, fitBoundsOptions) // investigate if fit bounds options are really required
 	.fitBounds(latLngBoundsLiteral, fitBoundsOptions)
 	.fitWorld()
@@ -265,3 +380,101 @@ map = map
 	.remove()
 	.whenReady(() => {})
 	.whenReady(() => {}, {});
+
+const elementToDrag = document.createElement('div');
+const draggable = new L.Draggable(elementToDrag);
+draggable.enable();
+draggable.disable();
+draggable.on('drag', () => {});
+
+let twoCoords: [number, number] = [1, 2];
+latLng = L.GeoJSON.coordsToLatLng(twoCoords);
+twoCoords = L.GeoJSON.latLngToCoords(latLng);
+
+let threeCoords: [number, number, number] = [1, 2, 3];
+latLng = L.GeoJSON.coordsToLatLng(threeCoords);
+threeCoords = L.GeoJSON.latLngToCoords(latLng);
+
+let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
+const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
+nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
+
+class MyMarker extends L.Marker {
+	constructor() {
+		super([12, 13]);
+	}
+}
+
+class MyLayer extends L.Layer {
+	constructor() {
+		super();
+	}
+}
+
+class MyIcon extends L.Icon {
+	constructor() {
+		super({iconUrl: 'icon.png'});
+	}
+}
+
+class MyDivIcon extends L.DivIcon {
+	constructor() {
+		super();
+	}
+}
+
+const divIcon = L.divIcon({html: ''});
+let defaultIcon = new L.Icon.Default();
+defaultIcon = new L.Icon.Default({imagePath: 'apath'});
+
+const myControlClass = L.Control.extend({});
+const myControl = new myControlClass();
+
+L.Control.include({});
+L.Control.mergeOptions({});
+L.Control.addInitHook(() => {});
+
+export class MyNewControl extends L.Control {
+	constructor() {
+		super({
+			position: 'topleft'
+		});
+	}
+}
+
+L.marker([1, 2], {
+	icon: L.icon({
+		iconUrl: 'my-icon.png'
+	})
+}).bindPopup('<p>Hi</p>');
+
+L.marker([1, 2], {
+	icon: L.divIcon({
+		className: 'my-icon-class'
+	})
+}).setIcon(L.icon({
+	iconUrl: 'my-icon.png'
+})).setIcon(L.divIcon({
+	className: 'my-div-icon'
+}));;
+
+
+L.Util.extend({});
+L.Util.create({});
+L.Util.bind(() => {}, {});
+L.Util.stamp({});
+L.Util.throttle(() => {}, 123, {});
+L.Util.wrapNum(123, []);
+L.Util.falseFn();
+L.Util.formatNum(123);
+L.Util.trim('word   ');
+L.Util.splitWords('word word');
+L.Util.setOptions({}, {});
+L.Util.getParamString({});
+L.Util.template('template', {});
+L.Util.isArray({});
+L.Util.indexOf([], {});
+L.Util.requestAnimFrame(() => {});
+L.Util.cancelAnimFrame(1);
+L.Util.emptyImageUrl;
+

@@ -1,5 +1,3 @@
-/// <reference path="jasmine.d.ts" />
-
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
 describe("A suite", function () {
@@ -874,6 +872,14 @@ var customMatchers: jasmine.CustomMatcherFactories = {
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
+// if your test files import or export anything, you'll want to use:
+// declare global {
+//     namespace jasmine {
+//         interface Matchers {
+//             ...
+//         }
+//     }
+// }
 declare namespace jasmine {
     interface Matchers {
         toBeGoofy(expected?: any): boolean;
@@ -903,6 +909,47 @@ describe("Custom matcher: 'toBeGoofy'", function () {
         }).not.toBeGoofy();
     });
 });
+
+// test based on http://jasmine.github.io/2.5/custom_reporter.html
+var myReporter: jasmine.CustomReporter = {
+    jasmineStarted: function (suiteInfo: jasmine.SuiteInfo ) {
+        console.log("Running suite with " + suiteInfo.totalSpecsDefined);
+    },
+
+    suiteStarted: function (result: jasmine.CustomReporterResult) {
+        console.log("Suite started: " + result.description + " whose full description is: " + result.fullName);
+    },
+
+    specStarted: function (result: jasmine.CustomReporterResult) {
+        console.log("Spec started: " + result.description + " whose full description is: " + result.fullName);
+    },
+
+    specDone: function (result: jasmine.CustomReporterResult) {
+        console.log("Spec: " + result.description + " was " + result.status);
+        for (var i = 0; i < result.failedExpectations.length; i++) {
+            console.log("Failure: " + result.failedExpectations[i].message);
+            console.log("Actual: " + result.failedExpectations[i].actual);
+            console.log("Expected: " + result.failedExpectations[i].expected);
+            console.log(result.failedExpectations[i].stack);
+        }
+        console.log(result.passedExpectations.length);
+    },
+
+    suiteDone: function (result: jasmine.CustomReporterResult) {
+        console.log('Suite: ' + result.description + ' was ' + result.status);
+        for (var i = 0; i < result.failedExpectations.length; i++) {
+            console.log('AfterAll ' + result.failedExpectations[i].message);
+            console.log(result.failedExpectations[i].stack);
+        }
+    },
+
+    jasmineDone: function(runDetails: jasmine.RunDetails) {
+        console.log('Finished suite');
+        console.log('Random:', runDetails.order.random);
+    }
+};
+
+jasmine.getEnv().addReporter(myReporter);
 
 describe("Randomize Tests", function() {
 	it("should allow randomization of the order of tests", function() {
@@ -936,7 +983,7 @@ describe("Randomize Tests", function() {
     var currentWindowOnload = window.onload;
     window.onload = function () {
         if (currentWindowOnload) {
-            currentWindowOnload(null);
+            (<any>currentWindowOnload)(null);
         }
         htmlReporter.initialize();
         env.execute();

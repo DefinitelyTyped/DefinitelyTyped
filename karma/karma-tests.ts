@@ -1,5 +1,5 @@
-/// <reference path="karma.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import gulp = require('gulp');
 import karma = require('karma');
@@ -54,7 +54,7 @@ server.on('run_complete', (browsers, results) => {
    results.error = false;
    results.exitCode = 0;
    results.failed = 9;
-   results.success = 10;
+   results.success = 10; 
 });
 
 //var runner = require('karma').runner; => cannot use this syntax otherwise runner is of type any

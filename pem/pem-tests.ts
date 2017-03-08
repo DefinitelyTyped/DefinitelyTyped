@@ -1,5 +1,3 @@
-/// <reference path="pem.d.ts" />
-
 import * as pem from 'pem';
 
 const tests = {
@@ -57,7 +55,7 @@ const tests = {
   },
 
   'Create 2048bit Private key with Password': (test: any) => {
-    pem.createPrivateKey(2048,{cipher:'des',password:'TestMe'}, (error: any, data: any) => {
+    pem.createPrivateKey(2048, {cipher: 'des', password: 'TestMe'}, (error: any, data: any) => {
       var key = (data && data.key || '').toString();
       test.ifError(error);
       test.ok(key);
@@ -139,7 +137,7 @@ const tests = {
 
   'Create CSR with own encrypted key': (test: any) => {
     var password = 'my:secure! "password\'s\nawesome';
-    pem.createPrivateKey(2048, { cipher: 'des3', password: password }, (error: any, data: any) => {
+    pem.createPrivateKey(2048, { cipher: 'des3', password }, (error: any, data: any) => {
       var key = (data && data.key || '').toString();
 
       pem.createCSR({
@@ -516,7 +514,7 @@ const tests = {
                               selfSigned: true
                             }, (error: any, csr: any) => {
 
-        pem.createPkcs12(csr.clientKey, csr.certificate, 'mypassword', function(err: any, pkcs12: any){
+        pem.createPkcs12(csr.clientKey, csr.certificate, 'mypassword', (err: any, pkcs12: any) => {
           test.ifError(err);
           test.ok(pkcs12);
 
@@ -527,7 +525,7 @@ const tests = {
     });
   },
   'Create PKCS12 with key password': (test: any) => {
-    pem.createPrivateKey({cipher:'aes128',password:'xxx'}, (error: any, data: any) => {
+    pem.createPrivateKey({cipher: 'aes128', password: 'xxx'}, (error: any, data: any) => {
       var key = (data && data.key || '').toString();
 
       pem.createCertificate({
@@ -535,7 +533,7 @@ const tests = {
                               selfSigned: true
                             }, (error: any, csr: any) => {
 
-        pem.createPkcs12(csr.clientKey, csr.certificate, 'mypassword', {cipher: 'aes256', clientKeyPassword: 'xxx'}, function(err: any, pkcs12: any){
+        pem.createPkcs12(csr.clientKey, csr.certificate, 'mypassword', {cipher: 'aes256', clientKeyPassword: 'xxx'}, (err: any, pkcs12: any) => {
           test.ifError(err);
           test.ok(pkcs12);
 

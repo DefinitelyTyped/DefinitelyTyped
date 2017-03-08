@@ -1,6 +1,3 @@
-/// <reference path="gulp-cache.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
-
 import * as fs from "fs";
 import * as gulp from "gulp";
 import * as cache from "gulp-cache";
@@ -29,7 +26,7 @@ var jsHintVersion = '2.4.1',
     jshintOptions = fs.readFileSync('.jshintrc');
 
 function makeHashKey(file: File) {
-    return [file.contents.toString('utf8'), jsHintVersion, jshintOptions].join('');
+    return [(file.contents as Buffer).toString('utf8'), jsHintVersion, jshintOptions].join('');
 }
 
 gulp.task('clear', function (done: any) {

@@ -1,5 +1,4 @@
-/// <reference path="highcharts-ng.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference types="angular" />
 
 var app = angular.module('app', ['highcharts-ng']);
 
@@ -34,7 +33,8 @@ class AppController {
         title: {
             text: 'My Awesome Chart'
         },
-        loading: true
+        loading: true,
+        noData: 'No data here'
     };
     constructor($timeout: ng.ITimeoutService) {
         var vm = this;

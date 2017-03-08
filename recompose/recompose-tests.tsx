@@ -1,5 +1,3 @@
-///<reference path='recompose.d.ts' />
-
 import * as React from "react";
 import {
     Component,
@@ -65,7 +63,7 @@ function testWithPropsOnChange() {
 }
 
 function testWithHandlers() {
-    interface InnerProps { onSubmit: Function; onChange: Function; }
+    interface InnerProps { onSubmit: React.MouseEventHandler<HTMLDivElement>; onChange: Function; }
     interface OutterProps { out: string }
     const innerComponent = ({onChange, onSubmit}: InnerProps) =>
       <div onClick={onSubmit}></div>;
@@ -150,13 +148,19 @@ function testBranch() {
 
     const innerComponent: React.StatelessComponent<InnerProps> = (props: InnerProps) =>
       <div onClick={() => props.update()}>{props.count}</div>;
+    const innerComponent2 = () => <div>Hello</div>;
 
     const enhancer = branch(
       (props: OutterProps) => props.toggled,
       withState("count", "update", 0),
       withState("count", "update", 100)
     );
+    const enhancer2 = branch(
+      (props: OutterProps) => props.toggled,
+      renderComponent(innerComponent),
+    )
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
+    const enhanced2: React.ComponentClass<OutterProps> = enhancer2(innerComponent);
 }
 
 function testRenderComponent() {

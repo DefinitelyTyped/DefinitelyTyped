@@ -1,15 +1,6 @@
-/// <reference path="react-redux.d.ts" />
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../history/history.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
-/// <reference path="../object-assign/object-assign.d.ts" />
-
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, RouterState } from 'react-router';
 import { Store, Dispatch, bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
 import objectAssign = require('object-assign');
@@ -108,8 +99,6 @@ ReactDOM.render((
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
 declare var store: Store<TodoState>;
-declare var routerState: RouterState;
-declare var history: HistoryModule.History;
 class MyRootComponent extends Component<any, any> {
 
 }
@@ -155,15 +144,6 @@ ReactDOM.render(
 //        document.getElementById('root')
 //    );
 //});
-
-
-//TODO: for React Router 1.0
-ReactDOM.render(
-    <Provider store={store}>
-        {() => <Router history={history}>...</Router>}
-    </Provider>,
-    targetEl
-);
 
 // Inject just dispatch and don't listen to store
 
@@ -278,8 +258,9 @@ function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProp
 connect(mapStateToProps2, actionCreators, mergeProps)(TodoApp);
 
 
-
-
+//https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14622#issuecomment-279820358
+//Allow for undefined mapStateToProps
+connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;

@@ -1,4 +1,3 @@
-/// <reference path="./fast-json-patch.d.ts" />
 import * as jsonpatch from 'fast-json-patch'
 
 var myobj:{

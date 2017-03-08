@@ -1,6 +1,3 @@
-/// <reference path="../koa/koa.d.ts" />
-/// <reference path="koa-bodyparser.d.ts" />
-
 import * as Koa from "koa";
 import bodyParser = require("koa-bodyparser");
 

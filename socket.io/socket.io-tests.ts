@@ -1,5 +1,3 @@
-/// <reference path="socket.io.d.ts"/>
-
 import socketIO = require('socket.io');
 
 function testUsingWithNodeHTTPServer() {
@@ -144,4 +142,15 @@ function testUsingItJustAsACrossBrowserWebSocket() {
         socket.on('message', function () { });
         socket.on('disconnect', function () { });
     });
+}
+
+function testClosingServerWithCallback() {
+    var io = socketIO.listen(80);
+    io.close(function() {
+    });
+}
+
+function testClosingServerWithoutCallback() {
+    var io = socketIO.listen(80);
+    io.close();
 }

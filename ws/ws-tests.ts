@@ -1,4 +1,3 @@
-/// <reference path="ws.d.ts" />
 
 import * as WebSocket from 'ws';
 import * as http from'http';

@@ -1,5 +1,3 @@
-/// <reference path="jquery.simulate.d.ts"/>
-
 var $element = $("body");
 
 $element.simulate("click");

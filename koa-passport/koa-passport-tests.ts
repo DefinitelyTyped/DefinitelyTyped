@@ -1,6 +1,3 @@
-/// <reference path="../koa/koa.d.ts"/>
-/// <reference path="./koa-passport.d.ts"/>
-
 import * as Koa from 'koa';
 import * as passport from 'koa-passport';
 

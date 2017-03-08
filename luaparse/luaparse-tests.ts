@@ -1,4 +1,3 @@
-/// <reference path="luaparse.d.ts" />
 
 import luaparse = require('luaparse');
 

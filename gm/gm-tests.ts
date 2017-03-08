@@ -1,5 +1,5 @@
-/// <reference path="gm.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import gm = require('gm');
 import stream = require('stream');
@@ -78,6 +78,7 @@ gm(src)
 	.authenticate(password)
 	.autoOrient()
 	.backdrop()
+	.background(color)
 	.bitdepth(bits)
 	.blackThreshold(intensity)
 	.blackThreshold(r, g, b)
