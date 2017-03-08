@@ -1,4 +1,4 @@
-/// <reference path="angular-dialog-service.d.ts" />
+
 
 
 var options : angular.dialogservice.IDialogOptions = {};

@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.pnotify.d.ts" />
+/// <reference types="jquery"/>
+
 
 function test_pnotify() {
 
@@ -223,7 +223,7 @@ function test_pnotify() {
     });
 
     var type = "error";
-    var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
+    var stack_bottomright = { "dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25 };
 
     var opts = {
         title: "Over Here",
@@ -233,14 +233,33 @@ function test_pnotify() {
         width: "100%",
         stack: stack_bottomright,
         type: "error"
+    } as PNotifyOptions;
 
-    };
     new PNotify(opts);
 
     new PNotify({
         title: 'Show Effect',
         text: 'I use a different effect.',
         animation: 'show'
+    });
+
+    new PNotify({
+        title: 'Custom styling',
+        text: 'Test all custom styling properties',
+        styling: {
+            container: "alert",
+            notice: "alert-warning",
+            notice_icon: "fa fa-exclamation-circle",
+            info: "alert-info",
+            info_icon: "fa fa-info",
+            success: "alert-success",
+            success_icon: "fa fa-check",
+            error: "alert-danger",
+            error_icon: "fa fa-warning",
+            closer: "fa fa-times",
+            pin_up: "fa fa-pause",
+            pin_down: "fa fa-play"
+        }
     });
 
     PNotify.removeAll();

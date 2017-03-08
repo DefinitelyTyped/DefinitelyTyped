@@ -1,11 +1,10 @@
-///<reference path='./node-fibers.d.ts'/>
 // node-fibers tests
 // compile with --module=common
 
 import Fiber = require("fibers");
 import Future = require("fibers/future");
 
-function sleep(ms) {
+function sleep(ms: number) {
     var fiber = Fiber.current;
     setTimeout(function() {
         fiber.run();
@@ -20,7 +19,7 @@ Fiber(function() {
 }).run();
 console.log('back in main');
 
-var inc = Fiber(function(start) {
+var inc = Fiber(function(start: any) {
     var total = start;
     while (true) {
         total += Fiber.yield(total);
@@ -80,7 +79,7 @@ console.log('done!');
 
 // This function returns a future which resolves after a timeout. This
 // demonstrates manually resolving futures.
-function sleep2(ms) {
+function sleep2(ms: number) {
     var future = new Future();
     setTimeout(function() {
         future.return();

@@ -1,5 +1,4 @@
-///<reference path="dotdotdot.d.ts" />
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 $("span").dotdotdot({ ellipsis: ":::" });
 $("span").dotdotdot({ wrap: "letter" });

@@ -1,6 +1,9 @@
-﻿/// <reference path="lscache.d.ts" />
+
 
 // Copied examples directly from lscache github site with slight modifications
+alert(lscache.supported());
+
+lscache.enableWarnings(true);
 
 lscache.set('greeting', 'Hello World!', 2);
 

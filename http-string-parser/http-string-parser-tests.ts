@@ -1,5 +1,3 @@
-﻿/// <reference path="http-string-parser.d.ts" />
-
 import parser = require("http-string-parser");
 
 function test_request(): void {

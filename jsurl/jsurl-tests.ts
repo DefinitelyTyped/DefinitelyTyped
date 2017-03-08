@@ -1,4 +1,4 @@
-/// <reference path="jsurl.d.ts" />
+
 
 interface UModel extends UrlQuery {
     a: any;

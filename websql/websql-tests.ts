@@ -1,4 +1,4 @@
-/// <reference path="websql.d.ts" />
+
 
 interface DbState {
     database: Database;

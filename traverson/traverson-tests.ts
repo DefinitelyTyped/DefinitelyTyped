@@ -1,4 +1,4 @@
-/// <reference path="traverson.d.ts" />
+
 
 import traverson = require('traverson');
 

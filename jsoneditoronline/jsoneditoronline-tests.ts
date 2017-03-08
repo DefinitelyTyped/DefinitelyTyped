@@ -1,5 +1,4 @@
 // Tests for JSONEditorOnline type definitions
-///<reference path="jsoneditoronline.d.ts" />
 
 var container: HTMLElement;
 
@@ -10,7 +9,7 @@ var editor:JSONEditor = new JSONEditor(container, options);
 var json = {
     "Array": [1, 2, 3],
     "Boolean": true, 
-    "Null": null, 
+    "Null": <any>null, 
     "Number": 123, 
     "Object": {"a": "b", "c": "d"},
     "String": "Hello World"
@@ -28,7 +27,7 @@ var formatter: JSONFormatter = new JSONFormatter(container, options);
 var json2 = {
     "Array": [1, 2, 3],
     "Boolean": true, 
-    "Null": null, 
+    "Null": <any>null, 
     "Number": 123, 
     "Object": {"a": "b", "c": "d"},
     "String": "Hello World"

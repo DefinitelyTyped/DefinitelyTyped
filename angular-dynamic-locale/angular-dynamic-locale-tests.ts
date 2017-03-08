@@ -1,5 +1,4 @@
-/// <reference path='../angularjs/angular.d.ts' />
-/// <reference path='angular-dynamic-locale.d.ts' />
+import * as angular from 'angular';
 
 var app = angular.module('testModule', ['tmh.dynamicLocale']);
 app.config((localStorageServiceProvider: angular.dynamicLocale.tmhDynamicLocaleProvider) => {

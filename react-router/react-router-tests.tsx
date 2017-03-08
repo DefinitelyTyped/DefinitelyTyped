@@ -1,25 +1,59 @@
+import * as React from "react";
+import { Component, ValidationMap } from "react";
+import * as ReactDOM from "react-dom";
+import { renderToString } from "react-dom/server";
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./history.d.ts" />
-/// <reference path="./react-router.d.ts" />
+import {
+	applyRouterMiddleware,
+	browserHistory,
+	hashHistory,
+	match,
+	createMemoryHistory,
+	useRouterHistory,
+	withRouter,
+	routerShape,
+	Router,
+	Route,
+	IndexRoute,
+	InjectedRouter,
+	Link,
+	RouterContext,
+	LinkProps,
+	RedirectFunction,
+	RouteComponentProps
+} from "react-router";
+import { createHistory, History } from "history";
 
+const routerHistory = useRouterHistory(createHistory)({ basename: "/test" });
 
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-
-import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link} from "react-router"
-import { routerShape, locationShape } from "react-router/lib/PropTypes"
-
-interface MasterContext {
-	router: ReactRouter.RouterOnContext;
+interface CustomHistory {
+	test(): undefined;
 }
 
-class Master extends React.Component<React.Props<{}>, {}> {
+type CombinedHistory = History & CustomHistory;
 
-	static contextTypes: React.ValidationMap<any> = {
+function createCustomHistory(history: History): CombinedHistory {
+	return {
+		...history,
+		test() {}
+	} as CombinedHistory;
+}
+const customHistory = createCustomHistory(browserHistory);
+
+const NavLink = (props: LinkProps) => (
+	<Link {...props} activeClassName="active" />
+);
+
+interface MasterContext {
+	router: InjectedRouter;
+}
+
+class Master extends Component<any, any> {
+
+	static contextTypes: ValidationMap<any> = {
 		router: routerShape
 	};
+
 	context: MasterContext;
 
 	navigate() {
@@ -35,41 +69,58 @@ class Master extends React.Component<React.Props<{}>, {}> {
 	render() {
 		return <div>
 			<h1>Master</h1>
-			<Link to="/">Dashboard</Link> <Link to="/users">Users</Link>
+			<Link to="/">Dashboard</Link> <NavLink to="/users">Users</NavLink>
 			<p>{this.props.children}</p>
-		</div>
+		</div>;
 	}
 
 }
 
+interface DashboardProps {
+	router: InjectedRouter;
+}
 
-class Dashboard extends React.Component<{}, {}> {
+class Dashboard extends React.Component<DashboardProps, {}> {
+
+	navigate() {
+		var router = this.props.router;
+		router.push("/users");
+		router.push({
+			pathname: "/users/12",
+			query: { modal: true },
+			state: { fromDashboard: true }
+		});
+	}
 
 	render() {
 		return <div>
 			This is a dashboard
-		</div>
+		</div>;
 	}
 
 }
+
+const DashboardWithRouter = withRouter(Dashboard);
 
 class NotFound extends React.Component<{}, {}> {
 
 	render() {
 		return <div>
 			This path does not exists
-		</div>
+		</div>;
 	}
 
 }
 
+type UsersProps = RouteComponentProps<{}, {}>;
 
-class Users extends React.Component<{}, {}> {
+class Users extends React.Component<UsersProps, {}> {
 
 	render() {
+		const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
-		</div>
+		</div>;
 	}
 
 }
@@ -78,9 +129,48 @@ class Users extends React.Component<{}, {}> {
 ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
-			<IndexRoute component={Dashboard} />
+			<IndexRoute component={DashboardWithRouter} />
 			<Route path="users" component={Users}/>
 			<Route path="*" component={NotFound}/>
 		</Route>
 	</Router>
-), document.body)
+), document.body);
+
+ReactDOM.render((
+	<Router history={ routerHistory }>
+		<Route path="/" component={Master} />
+	</Router>
+), document.body);
+
+ReactDOM.render((
+	<Router history={ customHistory }>
+		<Route path="/" component={Master} />
+	</Router>
+), document.body);
+
+const history = createMemoryHistory("baseurl");
+const routes = (
+	<Route path="/" component={Master}>
+		<IndexRoute component={DashboardWithRouter} />
+		<Route path="users" component={Users}/>
+	</Route>
+);
+
+match({ routes, location: "baseurl" }, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});
+
+match({ history, routes }, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});
+
+ReactDOM.render((
+	<Router
+		history={history}
+		routes={routes}
+		render={applyRouterMiddleware({
+			renderRouteComponent: child => child
+		})}
+	>
+	</Router>
+), document.body);

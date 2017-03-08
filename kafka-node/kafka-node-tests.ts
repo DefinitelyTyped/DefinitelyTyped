@@ -1,5 +1,3 @@
-/// <reference path="kafka-node.d.ts" />
-
 import kafka = require('kafka-node');
 
 var basicClient = new kafka.Client('localhost:2181/', 'sendMessage');
@@ -139,6 +137,24 @@ hlConsumer.resumeTopics([
 
 hlConsumer.close(true, function () {});
 
+var ackBatchOptions = {'noAckBatchSize': 1024, 'noAckBatchAge': 10};
+var cgOptions: kafka.ConsumerGroupOptions = {
+    host: 'localhost:2181/',
+    batch: ackBatchOptions,
+    groupId: 'groupID',
+    id: 'consumerID',
+    sessionTimeout: 15000,
+    protocol: ["roundrobin"],
+    fromOffset: "latest",
+    migrateHLC: false,
+    migrateRolling: true
+};
+
+var consumerGroup = new kafka.ConsumerGroup( cgOptions, ['topic1']);
+consumerGroup.on('error', (err) => {});
+consumerGroup.on('message', (msg) => {});
+consumerGroup.close(true, () => {});
+
 var offset = new kafka.Offset(basicClient);
 
 offset.on('ready', function(){});
@@ -155,3 +171,6 @@ offset.commit('groupId', [
 offset.fetchCommits('groupId', [
     { topic: 't', partition: 0 }
 ], function (err, data) {});
+
+offset.fetchLatestOffsets(['t'], (err, offsets) => {})
+offset.fetchEarliestOffsets(['t'], (err, offsets) => {})

@@ -1,5 +1,4 @@
-﻿/// <reference path="../pixi.js/pixi.js.d.ts" />
-/// <reference path="pixi-spine.d.ts" />
+import * as PIXI from "pixi.js";
 
 namespace Spine {
 
@@ -25,13 +24,13 @@ namespace Spine {
 
         private onAssetsLoaded = (loader: PIXI.loaders.Loader, res: any): void => {
 
-            //initiate the spine animation
+            // initiate the spine animation
             this.dragon = new PIXI.spine.Spine(res.dragon.spineData);
             this.dragon.skeleton.setToSetupPose();
             this.dragon.update(0);
             this.dragon.autoUpdate = false;
 
-            //create a container for the spin animation and add the animation to it
+            // create a container for the spin animation and add the animation to it
             var dragonCage: PIXI.Container = new PIXI.Container();
             dragonCage.addChild(this.dragon);
 
@@ -48,7 +47,7 @@ namespace Spine {
             this.stage.addChild(dragonCage);
 
             // once position and scaled, set the animation to play
-            this.dragon.state.setAnimationByName(0, 'flying', true);
+            this.dragon.state.setAnimation(0, 'flying', true);
 
             this.animate();
 
@@ -94,7 +93,7 @@ namespace Spine {
 
         private onAssetsLoaded = (loader: PIXI.loaders.Loader, res: any): void => {
 
-            //initiate the spine animation
+            // initiate the spine animation
             this.goblin = new PIXI.spine.Spine(res.goblins.spineData);
             this.goblin.skeleton.setSkinByName('goblin');
             this.goblin.skeleton.setSlotsToSetupPose();
@@ -186,10 +185,10 @@ namespace Spine {
 
             this.stage.addChild(this.pixie);
 
-            this.pixie.stateData.setMixByName('running', 'jump', 0.2);
-            this.pixie.stateData.setMixByName('jump', 'running', 0.4);
+            this.pixie.stateData.setMix('running', 'jump', 0.2);
+            this.pixie.stateData.setMix('jump', 'running', 0.4);
 
-            this.pixie.state.setAnimationByName(0, 'running', true);
+            this.pixie.state.setAnimation(0, 'running', true);
 
             this.stage.on('mousedown', this.onTouchStart);
             this.stage.on('touchstart', this.onTouchStart);
@@ -200,8 +199,8 @@ namespace Spine {
 
         private onTouchStart = (): void => {
 
-            this.pixie.state.setAnimationByName(0, 'jump', false);
-            this.pixie.state.addAnimationByName(0, 'running', true, 0);
+            this.pixie.state.setAnimation(0, 'jump', false);
+            this.pixie.state.addAnimation(0, 'running', true, 0);
 
         }
 
@@ -270,26 +269,26 @@ namespace Spine {
 
             private onAssetsLoaded = (loader: PIXI.loaders.Loader, res: any): void => {
 
-                //initiate the spine animation
+                // initiate the spine animation
                 this.spineboy = new PIXI.spine.Spine(res.spineboy.spineData);
                 this.spineboy.position.x = this.renderer.width / 2;
                 this.spineboy.position.y = this.renderer.height;
                 this.spineboy.scale.set(1.5);
 
                 // set up the mixes!
-                this.spineboy.stateData.setMixByName('walk', 'jump', 0.2);
-                this.spineboy.stateData.setMixByName('jump', 'walk', 0.4);
+                this.spineboy.stateData.setMix('walk', 'jump', 0.2);
+                this.spineboy.stateData.setMix('jump', 'walk', 0.4);
 
                 // play animation
-                this.spineboy.state.setAnimationByName(0, 'walk', true);
+                this.spineboy.state.setAnimation(0, 'walk', true);
 
                 this.stage.addChild(this.spineboy);
 
 
                 this.stage.on('click', () => {
 
-                    this.spineboy.state.setAnimationByName(0, 'jump', false);
-                    this.spineboy.state.addAnimationByName(0, 'walk', true, 0);
+                    this.spineboy.state.setAnimation(0, 'jump', false);
+                    this.spineboy.state.addAnimation(0, 'walk', true, 0);
 
                 });
 

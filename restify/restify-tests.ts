@@ -1,4 +1,4 @@
-/// <reference path="restify.d.ts" />
+
 
 import restify = require("restify");
 import url = require("url");
@@ -18,6 +18,7 @@ var server = restify.createServer({
 });
 
 server = restify.createServer({
+    ca: "test",
     certificate: "test",
     key: "test",
     formatters: {},
@@ -26,7 +27,8 @@ server = restify.createServer({
     spdy: {},
     version: "",
     responseTimeHeader: "",
-    responseTimeFormatter : (durationInMilliseconds: number) => {}
+    responseTimeFormatter : (durationInMilliseconds: number) => {},
+	socketio: false
 });
 
 server.pre(restify.pre.sanitizePath());
@@ -312,6 +314,7 @@ client = restify.createStringClient({
 
 client.head('test', function(err: any, req: restify.Request, res: restify.Response) { });
 client.put('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
+client.patch('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
 client.del('path', function(err: any, req: restify.Request, res: restify.Response) { });
 
 client.post('/foo', { hello: 'world' }, function(err: any, req: restify.Request, res: restify.Response, obj: any) {
