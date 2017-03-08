@@ -83,7 +83,7 @@ export class Authentication {
      * @param {String} accessToken
      * @param {Function} callback
      */
-    userInfo(token: string, callback: Auth0Callback<any>): void;
+    userInfo(token: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Makes a call to the `/delegation` endpoint
@@ -100,7 +100,7 @@ export class Authentication {
      * @method getUserCountry
      * @param {Function} callback
      */
-    getUserCountry(callback: Auth0Callback<any>): void;
+    getUserCountry(callback: Auth0Callback<{ countryCode: string }>): void;
 }
 
 export class PasswordlessAuthentication {
@@ -166,7 +166,7 @@ export class Management {
      * @param {String} userId
      * @param {Function} callback
      */
-    getUser(userId: string, callback: Auth0Callback<any>): void;
+    getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Updates the user metdata. It will patch the user metdata with the attributes sent.
@@ -177,7 +177,7 @@ export class Management {
      * @param {Object} userMetadata
      * @param {Function} callback
      */
-    patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<any>): void;
+    patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
@@ -213,12 +213,13 @@ export class WebAuth {
      *
      * @method parseHash
      * @param {Object} options:
+     * @param {String} options._idTokenVerification [OPTIONAL] Default: true
      * @param {String} options.state [OPTIONAL] to verify the response
      * @param {String} options.nonce [OPTIONAL] to verify the id_token
      * @param {String} options.hash [OPTIONAL] the url hash. If not provided it will extract from window.location.hash
      * @param {Function} callback: any(err, token_payload)
      */
-    parseHash(options: any, callback: Auth0Callback<any>): void;
+    parseHash(options: any, callback: Auth0Callback<Auth0DecodedHash>): void;
 
     /**
      * Decodes the id_token and verifies  the nonce.
@@ -276,6 +277,18 @@ export class WebAuth {
      */
     logout(options: any): void;
 
+    /**
+     * Initialices a passwordless authentication transaction
+     *
+     * @method passwordlessStart
+     * @param {Object} options: https://auth0.com/docs/api/authentication#passwordless
+     * @param {Object} options.send: `link` or `code`
+     * @param {Object} options.phoneNumber: send should be code and email not set
+     * @param {Object} options.email: phoneNumber should be ignored
+     * @param {Object} options.connection
+     * @param {Object} options.authParams
+     * @param {Function} callback
+     */
     passwordlessStart(options: PasswordlessStartOptions, callback: Auth0Callback<any>): void;
 
     /**
