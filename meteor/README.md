@@ -1,13 +1,4 @@
-# Meteor Type Definitions [DEPRECATED]
-
-## Deprecated
-
-These definitions for Meteor are now deprecated.  They should still work for versions of Meteor up to 1.2.1.
-
-The canonical TypeScript definitions for Meteor can now be found using the NPM [Typings definition manager](https://www.npmjs.com/package/typings).  If you prefer to view the definitions directly, or contribute to them, they can be found here: <https://github.com/meteor-typings/meteor>.
-
-
-## Description
+# Meteor Type Definitions
 
 ## Description
 
