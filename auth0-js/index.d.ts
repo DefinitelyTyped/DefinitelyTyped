@@ -35,7 +35,7 @@ export class Authentication {
      * @param {Object} options: https://auth0.com/docs/api-auth/grant/password
      * @param {Function} callback
      */
-    loginWithDefaultDirectory(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    loginWithDefaultDirectory(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/ro` endpoint
@@ -43,21 +43,21 @@ export class Authentication {
      * @param {Function} callback
      * @deprecated `loginWithResourceOwner` will be soon deprecated, user `login` instead.
      */
-    loginWithResourceOwner(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    loginWithResourceOwner(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint with `password-realm` grant type
      * @param {any}     options
      * @param {Function} callback
      */
-    login(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    login(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint
      * @param {any}      options
      * @param {Function} callback
      */
-    oauthToken(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    oauthToken(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
@@ -65,7 +65,7 @@ export class Authentication {
      * @method getSSOData
      * @param {Function} callback
      */
-    getSSOData(callback?: (error?: Auth0Error, authResult?: any) => void): void;
+    getSSOData(callback?: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
@@ -74,7 +74,7 @@ export class Authentication {
      * @param {Boolean} withActiveDirectories
      * @param {Function} callback
      */
-    getSSOData(withActiveDirectories: boolean, callback?: (error?: Auth0Error, authResult?: any) => void): void;
+    getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
@@ -83,7 +83,7 @@ export class Authentication {
      * @param {String} accessToken
      * @param {Function} callback
      */
-    userInfo(token: string, callback: (error?: Auth0Error, user?: any) => void): void;
+    userInfo(token: string, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/delegation` endpoint
@@ -92,7 +92,7 @@ export class Authentication {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--delegation
      * @param {Function} callback
      */
-    delegation(options: any, callback: (error?: Auth0Error, authResult?: Auth0DelegationToken) => void): any;
+    delegation(options: any, callback: Auth0Callback<Auth0DelegationToken>): any;
 
     /**
      * Fetches the user country based on the ip.
@@ -100,7 +100,7 @@ export class Authentication {
      * @method getUserCountry
      * @param {Function} callback
      */
-    getUserCountry(callback: (error?: Auth0Error, result?: any) => void): void;
+    getUserCountry(callback: Auth0Callback<any>): void;
 }
 
 export class PasswordlessAuthentication {
@@ -122,7 +122,7 @@ export class PasswordlessAuthentication {
      * @param {Object} options: https://auth0.com/docs/api/authentication#passwordless
      * @param {Function} callback
      */
-    start(options: PasswordlessStartOptions, callback: any): void;
+    start(options: PasswordlessStartOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Verifies the passwordless TOTP and returns an error if any.
@@ -131,7 +131,7 @@ export class PasswordlessAuthentication {
      * @param {Object} options
      * @param {Function} callback
      */
-    verify(options: any, callback: any): void;
+    verify(options: any, callback: Auth0Callback<any>): void;
 }
 
 export class DBConnection {
@@ -144,7 +144,7 @@ export class DBConnection {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} calback
      */
-    signup(options: any, callback: any): void;
+    signup(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Initializes the change password flow
@@ -153,7 +153,7 @@ export class DBConnection {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
      * @param {Function} callback
      */
-    changePassword(options: ChangePasswordOptions, callback: any): void;
+    changePassword(options: ChangePasswordOptions, callback: Auth0Callback<any>): void;
 }
 
 export class Management {
@@ -166,7 +166,7 @@ export class Management {
      * @param {String} userId
      * @param {Function} callback
      */
-    getUser(userId: string, callback: (error?: Auth0Error, user?: any) => void): void;
+    getUser(userId: string, callback: Auth0Callback<any>): void;
 
     /**
      * Updates the user metdata. It will patch the user metdata with the attributes sent.
@@ -177,7 +177,7 @@ export class Management {
      * @param {Object} userMetadata
      * @param {Function} callback
      */
-    patchUserMetadata(userId: string, userMetadata: any, callback: (error?: Auth0Error, user?: any) => void): void;
+    patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<any>): void;
 
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
@@ -187,7 +187,7 @@ export class Management {
      * @param {String} secondaryUserToken
      * @param {Function} callback
      */
-    linkUser(userId: string, secondaryUserToken: string, callback: (error?: Auth0Error, user?: any) => void): void;
+    linkUser(userId: string, secondaryUserToken: string, callback: Auth0Callback<any>): void;
 }
 
 export class WebAuth {
@@ -218,7 +218,7 @@ export class WebAuth {
      * @param {String} options.hash [OPTIONAL] the url hash. If not provided it will extract from window.location.hash
      * @param {Function} callback: any(err, token_payload)
      */
-    parseHash(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    parseHash(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Decodes the id_token and verifies  the nonce.
@@ -229,7 +229,7 @@ export class WebAuth {
      * @param {String} nonce
      * @param {Function} callback: function(err, {payload, transaction})
      */
-    validateToken(token: string, state: string, nonce: string, callback: any): void;
+    validateToken(token: string, state: string, nonce: string, callback: Auth0Callback<any>): void;
 
     /**
      * Executes a silent authentication transaction under the hood in order to fetch a new token.
@@ -238,7 +238,7 @@ export class WebAuth {
      * @param {Object} options: any valid oauth2 parameter to be sent to the `/authorize` endpoint
      * @param {Function} callback
      */
-    renewAuth(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    renewAuth(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Initialices a change password transaction
@@ -247,7 +247,7 @@ export class WebAuth {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
      * @param {Function} callback
      */
-    changePassword(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    changePassword(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user
@@ -256,7 +256,7 @@ export class WebAuth {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-    signup(options: any, callback: any): void;
+    signup(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user, automatically logs the user in after the signup and returns the user token.
@@ -266,7 +266,7 @@ export class WebAuth {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-    signupAndAuthorize(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
+    signupAndAuthorize(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Redirects to the auth0 logout page
@@ -276,7 +276,7 @@ export class WebAuth {
      */
     logout(options: any): void;
 
-    passwordlessStart(options: PasswordlessStartOptions, callback: (error?: Auth0Error, data?: any) => void): void;
+    passwordlessStart(options: PasswordlessStartOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Verifies the passwordless TOTP and redirects to finish the passwordless transaction
@@ -290,7 +290,7 @@ export class WebAuth {
      * @param {Object} options.verificationCode: the TOTP code
      * @param {Function} callback
      */
-    passwordlessVerify(options: any, callback: any): void;
+    passwordlessVerify(options: any, callback: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -304,7 +304,7 @@ export class Redirect {
      * @param {Function} callback
      * @deprecated `webauth.popup.loginWithCredentials` will be soon deprecated, use `webauth.client.login` instead.
      */
-    loginWithCredentials(options: any, callback: any): void;
+    loginWithCredentials(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user and automatically logs the user in after the signup.
@@ -313,7 +313,7 @@ export class Redirect {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-    signupAndLogin(options: any, callback: any): void;
+    signupAndLogin(options: any, callback: Auth0Callback<any>): void;
 }
 
 export class Popup {
@@ -347,7 +347,7 @@ export class Popup {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#get--authorize_db
      * @param {Function} callback
      */
-    authorize(options: any, callback: any): void;
+    authorize(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Initializes the legacy Lock login flow in a popup
@@ -357,7 +357,7 @@ export class Popup {
      * @param {Function} callback
      * @deprecated `webauth.popup.loginWithCredentials` will be soon deprecated, use `webauth.client.login` instead.
      */
-    loginWithCredentials(options: any, callback: any): void;
+    loginWithCredentials(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Verifies the passwordless TOTP and returns the requested token
@@ -371,7 +371,7 @@ export class Popup {
      * @param {Object} options.verificationCode: the TOTP code
      * @param {Function} callback
      */
-    passwordlessVerify(options: any, callback: any): void;
+    passwordlessVerify(options: any, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user and automatically logs the user in after the signup.
@@ -380,8 +380,10 @@ export class Popup {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-    signupAndLogin(options: any, callback: any): void;
+    signupAndLogin(options: any, callback: Auth0Callback<any>): void;
 }
+
+type Auth0Callback<T> = (error: null | Auth0Error, result: T) => void;
 
 interface ManagementOptions {
     domain: string;
