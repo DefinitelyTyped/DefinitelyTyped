@@ -63,9 +63,7 @@ export class Authentication {
      * Makes a call to the `/ssodata` endpoint
      *
      * @method getSSOData
-     * @param {Boolean} withActiveDirectories
      * @param {Function} callback
-     * @deprecated `getSSOData` will be soon deprecated.
      */
     getSSOData(callback?: (error?: Auth0Error, authResult?: any) => any): void;
 
@@ -75,7 +73,6 @@ export class Authentication {
      * @method getSSOData
      * @param {Boolean} withActiveDirectories
      * @param {Function} callback
-     * @deprecated `getSSOData` will be soon deprecated.
      */
     getSSOData(withActiveDirectories: boolean, callback?: (error?: Auth0Error, authResult?: any) => any): void;
 
@@ -94,7 +91,6 @@ export class Authentication {
      * @method delegation
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--delegation
      * @param {Function} callback
-     * @deprecated `delegation` will be soon deprecated.
      */
     delegation(options: any, callback: (error?: Auth0Error, authResult?: Auth0DelegationToken) => any): any;
 
