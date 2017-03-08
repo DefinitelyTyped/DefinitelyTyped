@@ -1,4 +1,3 @@
-/// <reference path="index.d.ts" />
 import * as loopback from 'loopback';
 import * as boot from 'loopback-boot';
 import * as cookieParser from 'cookie-parser';

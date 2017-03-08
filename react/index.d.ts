@@ -1,6 +1,6 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -242,10 +242,10 @@ declare namespace React {
     interface ComponentLifecycle<P, S> {
         componentWillMount?(): void;
         componentDidMount?(): void;
-        componentWillReceiveProps?(nextProps: P, nextContext: any): void;
-        shouldComponentUpdate?(nextProps: P, nextState: S, nextContext: any): boolean;
-        componentWillUpdate?(nextProps: P, nextState: S, nextContext: any): void;
-        componentDidUpdate?(prevProps: P, prevState: S, prevContext: any): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, prevContext: any): void;
         componentWillUnmount?(): void;
     }
 
@@ -1296,7 +1296,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
 
         layoutGrid?: CSSWideKeyword | any;
 
@@ -2146,6 +2146,7 @@ declare namespace React {
         shape?: string;
         size?: number;
         sizes?: string;
+        slot?: string;
         span?: number;
         spellCheck?: boolean;
         src?: string;
@@ -2568,6 +2569,7 @@ declare namespace React {
 
         // SVG
         svg: SVGFactory;
+        animate: SVGFactory;
         circle: SVGFactory;
         defs: SVGFactory;
         ellipse: SVGFactory;
@@ -2795,6 +2797,7 @@ declare global {
             // SVG
             svg: React.SVGProps;
 
+            animate: React.SVGProps;
             circle: React.SVGProps;
             clipPath: React.SVGProps;
             defs: React.SVGProps;

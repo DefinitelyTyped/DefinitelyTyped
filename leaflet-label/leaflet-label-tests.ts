@@ -23,7 +23,7 @@ circleMarker.showLabel();
 circleMarker.hideLabel();
 circleMarker.setLabelNoHide(true);
 circleMarker.updateLabelContent('test2');
-label = circleMarker.getLabel()
+label = circleMarker.getLabel();
 circleMarker = circleMarker.unbindLabel();
 
 // Marker
@@ -43,7 +43,7 @@ marker.showLabel();
 marker.hideLabel();
 marker.setLabelNoHide(true);
 marker.updateLabelContent('test2');
-label = marker.getLabel()
+label = marker.getLabel();
 marker = marker.unbindLabel();
 marker.setOpacity(0.5);
 marker.setOpacity(0.5, true);

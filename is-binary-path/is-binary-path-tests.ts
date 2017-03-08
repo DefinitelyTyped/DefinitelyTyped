@@ -1,5 +1,5 @@
 import isBinaryPath = require("is-binary-path");
 
-let a: boolean = isBinaryPath("src/unicorn.png");
+const a: boolean = isBinaryPath("src/unicorn.png");
 
-let b: boolean = isBinaryPath("src/unicorn.txt");
+const b: boolean = isBinaryPath("src/unicorn.txt");

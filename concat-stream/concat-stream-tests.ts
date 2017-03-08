@@ -1,4 +1,4 @@
-import concat = require("concat-stream")
+import concat = require("concat-stream");
 
 import { Readable } from "stream";
 
@@ -14,7 +14,7 @@ class MyReadable extends Readable {
   }
 }
 
-let myReadable = new MyReadable();
+const myReadable = new MyReadable();
 
 myReadable.pipe(concat((buf) => console.log(buf.toString())));
 myReadable.pipe(concat({}, (buf) => console.log(buf.toString())));

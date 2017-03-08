@@ -1,7 +1,7 @@
 import * as extract from 'extract-zip';
 
-let str = 'str';
-let num = 0;
+const str = 'str';
+const num = 0;
 
 let options: extract.Options = {
     dir: str,

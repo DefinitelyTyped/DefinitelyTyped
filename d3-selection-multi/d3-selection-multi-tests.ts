@@ -34,10 +34,10 @@ selection = selection.attrs({
 });
 
 // Function that returns a map
-selection = selection.attrs(function (d, i, g) {
-    let that: HTMLAnchorElement = this;
-    let index: number = i;
-    let group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
+selection = selection.attrs(function(d, i, g) {
+    const that: HTMLAnchorElement = this;
+    const index: number = i;
+    const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
     return this.id ? {} : { id: d };
 });
 
@@ -67,11 +67,11 @@ selection = selection.styles({
 }, 'important');
 
 // Functions that return a map
-selection.styles(function (d) {
+selection.styles(function(d) {
     return this.id ? { color: 'red' } : { color: d };
 });
 
-selection = selection.styles(function (d) {
+selection = selection.styles(function(d) {
     return this.id ? { color: 'red' } : { color: d };
 }, 'important');
 
@@ -89,10 +89,10 @@ selection = selection.properties({
 });
 
 // Function that returns an object
-selection = selection.properties(function (d, i, g) {
-    let that: HTMLAnchorElement = this;
-    let index: number = i;
-    let group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
+selection = selection.properties(function(d, i, g) {
+    const that: HTMLAnchorElement = this;
+    const index: number = i;
+    const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
     return that.href ? {} : { href: d };
 });
 
@@ -112,16 +112,16 @@ transition = transition.attrs({
     foo: () => 1,
     bar: (d) => d,
     baz: (d, i) => i !== 0,
-    bat: function () {
+    bat() {
         return this.href;
     },
 });
 
 // Function that returns a map
-transition = transition.attrs(function (d, i, g) {
-    let that: HTMLAnchorElement = this;
-    let index: number = i;
-    let group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
+transition = transition.attrs(function(d, i, g) {
+    const that: HTMLAnchorElement = this;
+    const index: number = i;
+    const group: HTMLAnchorElement[] | ArrayLike<HTMLAnchorElement> = g;
     return this.id ? {} : { id: d };
 });
 
@@ -151,11 +151,11 @@ transition = transition.styles({
 }, 'important');
 
 // Function that returns a map
-transition = transition.styles(function (d) {
+transition = transition.styles(function(d) {
     return this.id ? { color: 'red' } : { color: d };
 });
 
-transition = transition.styles(function (d) {
+transition = transition.styles(function(d) {
     return this.id ? { color: 'red' } : { color: d };
 }, 'important');
 
@@ -174,22 +174,22 @@ valueMap = {
     foo2: 2,
     foo3: true,
     foo4: null,
-    bar1: function (d) {
-        let that: SVGCircleElement = this;
-        let datum: SampleDatum = d;
+    bar1(d) {
+        const that: SVGCircleElement = this;
+        const datum: SampleDatum = d;
         return d.name;
     },
-    bar2: function (d, i) {
-        let that: SVGCircleElement = this;
-        let datum: SampleDatum = d;
-        let index: number = i;
+    bar2(d, i) {
+        const that: SVGCircleElement = this;
+        const datum: SampleDatum = d;
+        const index: number = i;
         return d.r;
     },
-    bar3: function (d, i, g) {
-        let that: SVGCircleElement = this;
-        let datum: SampleDatum = d;
-        let index: number = i;
-        let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+    bar3(d, i, g) {
+        const that: SVGCircleElement = this;
+        const datum: SampleDatum = d;
+        const index: number = i;
+        const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
         return d.filled;
     }
 };
@@ -200,7 +200,7 @@ valueMap = {
 
 // valueMap = { // fails, as a ValueFunction returning an array is not a permissible value type
 //     foo1: function (d) {
-//         let that: SVGCircleElement = this;
+//         const that: SVGCircleElement = this;
 //         let datum: SampleDatum = d;
 //         return [1, 2];
 //     }
