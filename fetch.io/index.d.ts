@@ -107,21 +107,15 @@
        */
       then(resolve: (value?: Response) => void, reject?: (reason?: any) => void): Promise<any>
 
-      then<T>(resolve: (value?: Response) => void, reject?: (reason?: any) => void): Promise<T>
-
       /**
        * Make Response to JSON
        */
       json(strict?: boolean): Promise<any>
 
-      json<T>(strict?: boolean): Promise<T>
-
       /**
        * Make Response to string
        */
       text(): Promise<string>
-
-      text<T>(): Promise<T>
     }
 
   class Fetch extends Request {
