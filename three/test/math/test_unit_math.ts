@@ -981,7 +981,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     });
 
     test( "setFromMatrix/makeFrustum/containsPoint", function() {
-        var m = new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 100 )
+        var m = new THREE.Matrix4().makePerspective( -1, 1, -1, 1, 1, 100 )
         var a = new THREE.Frustum().setFromMatrix( m );
 
         ok( ! a.containsPoint( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
@@ -1000,7 +1000,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     });
 
     test( "setFromMatrix/makeFrustum/intersectsSphere", function() {
-        var m = new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 100 )
+        var m = new THREE.Matrix4().makePerspective( -1, 1, -1, 1, 1, 100 )
         var a = new THREE.Frustum().setFromMatrix( m );
 
         ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, 0 ), 0 ) ), "Passed!" );
@@ -1500,8 +1500,8 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
             new THREE.Matrix4().makeRotationZ( -0.3 ),
             new THREE.Matrix4().makeScale( 1, 2, 3 ),
             new THREE.Matrix4().makeScale( 1/8, 1/2, 1/3 ),
-            new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 1000 ),
-            new THREE.Matrix4().makeFrustum( -16, 16, -9, 9, 0.1, 10000 ),
+            new THREE.Matrix4().makePerspective( -1, 1, -1, 1, 1, 1000 ),
+            new THREE.Matrix4().makePerspective( -16, 16, -9, 9, 0.1, 10000 ),
             new THREE.Matrix4().makeTranslation( 1, 2, 3 )
         ];
 
