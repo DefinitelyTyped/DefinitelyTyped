@@ -6,7 +6,7 @@
 /**
  * Browser name
  */
-export const name: string;
+export const name: "edge" | "yandexbrowser" | "chrome" | "crios" | "firefox" | "opera" | "ie" | "bb10" | "android" | "ios" | "safari";
 
 /**
  * Browser version
