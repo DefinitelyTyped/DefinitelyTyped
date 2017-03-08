@@ -3,7 +3,7 @@ import * as msgpack from 'msgpack-lite';
 // https://github.com/kawanet/msgpack-lite#encoding-and-decoding-messagepack
 function encodingAndDecoding() {
   // encode from JS Object to MessagePack (Buffer)
-  var buffer = msgpack.encode({"foo": "bar"});
+  var buffer = msgpack.encode({foo: "bar"});
 
   // decode from MessagePack (Buffer) to JS Object
   var data = msgpack.decode(buffer); // => {"foo": "bar"}
@@ -55,8 +55,8 @@ function customExtensionTypes() {
   codec.addExtUnpacker(0x3F, myVectorUnpacker);
 
   var data = new MyVector(1, 2);
-  var encoded = msgpack.encode(data, {codec: codec});
-  var decoded = msgpack.decode(encoded, {codec: codec});
+  var encoded = msgpack.encode(data, {codec});
+  var decoded = msgpack.decode(encoded, {codec});
 
   class MyVector {
     constructor(public x: number, public y: number) {}

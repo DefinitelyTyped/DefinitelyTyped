@@ -18,9 +18,9 @@ bResult = globule.isMatch('*.js', '/home/code');
 bResult = globule.isMatch('*.js', '/home/code', { matchBase: true });
 
 let mappings = globule.mapping(['*.js']);
-let len = mappings.length;
-let src = mappings[0].src;
-let dest = mappings[0].dest;
+const len = mappings.length;
+const src = mappings[0].src;
+const dest = mappings[0].dest;
 
 mappings = globule.mapping(['*.js'], { srcBase: '/home/code' });
 mappings = globule.mapping(['*.js', '*.less']);

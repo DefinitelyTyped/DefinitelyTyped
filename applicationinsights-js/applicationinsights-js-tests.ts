@@ -1,4 +1,3 @@
-
 // More samples on: https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md
 
 var config: Microsoft.ApplicationInsights.IConfig = {
@@ -24,7 +23,11 @@ var config: Microsoft.ApplicationInsights.IConfig = {
     disableCorrelationHeaders: true,
     disableFlushOnBeforeUnload: false,
     enableSessionStorageBuffer: false,
-    cookieDomain: ""
+    cookieDomain: "",
+    isCookieUseDisabled: true,
+    isRetryDisabled: true,
+    isPerfAnalyzerEnabled: true,
+    isStorageUseDisabled: true
 };
 
 var appInsights: Microsoft.ApplicationInsights.IAppInsights = {
@@ -35,17 +38,17 @@ var appInsights: Microsoft.ApplicationInsights.IAppInsights = {
     startTrackPage(name?: string) { return null; },
     stopTrackPage(name?: string, url?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
     trackPageView(name?: string, url?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, duration?: number) { return null; },
-    startTrackEvent(name: string) { return null },
-    stopTrackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null },
-    trackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null },
-    trackAjax(id: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number, method?: string) { return null },
-    trackException(exception: Error, handledAt?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, severityLevel?: AI.SeverityLevel) { return null },
-    trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: { [name: string]: string; }) { return null },
-    trackTrace(message: string, properties?: { [name: string]: string; }) { return null },
-    flush() { return null },
-    setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string) { return null },
-    clearAuthenticatedUserContext() { return null },
-    _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error) { return null }
+    startTrackEvent(name: string) { return null; },
+    stopTrackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
+    trackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
+    trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number) { return null; },
+    trackException(exception: Error, handledAt?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, severityLevel?: AI.SeverityLevel) { return null; },
+    trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: { [name: string]: string; }) { return null; },
+    trackTrace(message: string, properties?: { [name: string]: string; }) { return null; },
+    flush() { return null; },
+    setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string) { return null; },
+    clearAuthenticatedUserContext() { return null; },
+    _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error) { return null; }
 };
 
 // trackPageView
@@ -74,6 +77,9 @@ appInsights.trackException(new Error("sample error"), "handledAt", null, null);
 // trackTrace
 appInsights.trackTrace("message");
 appInsights.trackTrace("message", null);
+
+// trackDependency
+appInsights.trackDependency("id", "POST", "http://example.com/test/abc", "/test/abc", null, true, null);
 
 // flush
 appInsights.flush();

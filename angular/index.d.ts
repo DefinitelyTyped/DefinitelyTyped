@@ -411,8 +411,8 @@ declare namespace angular {
         $invalid: boolean;
     }
 
-    //Allows tuning how model updates are done.
-    //https://docs.angularjs.org/api/ng/directive/ngModelOptions
+    // Allows tuning how model updates are done.
+    // https://docs.angularjs.org/api/ng/directive/ngModelOptions
     interface INgModelOptions {
         updateOn?: string;
         debounce?: any;
@@ -1192,7 +1192,7 @@ declare namespace angular {
              */
             size: number;
 
-            //...: any additional properties from the options object when creating the cache.
+            // ...: any additional properties from the options object when creating the cache.
         };
 
         /**
@@ -2035,7 +2035,7 @@ declare namespace angular {
 declare global {
     interface JQuery {
         // TODO: events, how to define?
-        //$destroy
+        // $destroy
 
         find(element: any): JQuery;
         find(obj: JQuery): JQuery;

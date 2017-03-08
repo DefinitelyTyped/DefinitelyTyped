@@ -2078,7 +2078,15 @@ namespace demos {
             this.spinningText.position.y = 200;
 
             // create a text object that will be updated...
-            this.countingText = new PIXI.Text('COUNT 4EVAR: 0', { fontWeight: 'bold', fontStyle: 'italic', fontSize: 60, fontFamily: 'Arvo', fill: '#3e1707', align: 'center', stroke: '#a4410e', strokeThickness: 7 });
+            this.countingText = new PIXI.Text('COUNT 4EVAR: 0', {
+                fontWeight: 'bold',
+                fontStyle: 'italic',
+                fontSize: 60, fontFamily:
+                'Arvo', fill: '#3e1707',
+                align: 'center',
+                stroke: '#a4410e',
+                strokeThickness: 7
+            });
 
             this.countingText.position.x = 310;
             this.countingText.position.y = 320;

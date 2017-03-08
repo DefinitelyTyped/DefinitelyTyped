@@ -1,4 +1,4 @@
-// Type definitions for Web MIDI API
+// Type definitions for Web MIDI API 2.0
 // Project: http://www.w3.org/TR/webmidi/
 // Definitions by: six a <https://github.com/lostfictions>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@ interface Navigator {
    * When invoked, returns a Promise object representing a request for access to MIDI
    * devices on the user's system.
    */
-  requestMIDIAccess(options?: WebMidi.MIDIOptions) : Promise<WebMidi.MIDIAccess>;
+  requestMIDIAccess(options?: WebMidi.MIDIOptions): Promise<WebMidi.MIDIAccess>;
 }
 
 declare namespace WebMidi {
@@ -17,7 +17,7 @@ declare namespace WebMidi {
      * This member informs the system whether the ability to send and receive system
      * exclusive messages is requested or allowed on a given MIDIAccess object.
      */
-    sysex : boolean;
+    sysex: boolean;
   }
 
   /**
@@ -36,24 +36,24 @@ declare namespace WebMidi {
     /**
      * The MIDI input ports available to the system.
      */
-    inputs : MIDIInputMap;
+    inputs: MIDIInputMap;
 
     /**
      * The MIDI output ports available to the system.
      */
-    outputs : MIDIOutputMap;
+    outputs: MIDIOutputMap;
 
     /**
      * The handler called when a new port is connected or an existing port changes the
      * state attribute.
      */
-    onstatechange : (e : MIDIConnectionEvent) => void;
+    onstatechange: (e: MIDIConnectionEvent) => void;
 
     /**
      * This attribute informs the user whether system exclusive support is enabled on
      * this MIDIAccess.
      */
-    sysexEnabled : boolean;
+    sysexEnabled: boolean;
   }
 
   export type MIDIPortType = "input" | "output";
@@ -67,44 +67,44 @@ declare namespace WebMidi {
      * A unique ID of the port. This can be used by developers to remember ports the
      * user has chosen for their application.
      */
-    id : string;
+    id: string;
 
     /**
      * The manufacturer of the port.
      */
-    manufacturer? : string;
+    manufacturer?: string;
 
     /**
      * The system name of the port.
      */
-    name? : string;
+    name?: string;
 
     /**
      * A descriptor property to distinguish whether the port is an input or an output
      * port.
      */
-    type : MIDIPortType;
+    type: MIDIPortType;
 
     /**
      * The version of the port.
      */
-    version? : string;
+    version?: string;
 
     /**
      * The state of the device.
      */
-    state : MIDIPortDeviceState;
+    state: MIDIPortDeviceState;
 
     /**
      * The state of the connection to the device.
      */
-    connection : MIDIPortConnectionState;
+    connection: MIDIPortConnectionState;
 
     /**
      * The handler called when an existing port changes its state or connection
      * attributes.
      */
-    onstatechange : (e : MIDIConnectionEvent) => void;
+    onstatechange: (e: MIDIConnectionEvent) => void;
 
     /**
      * Makes the MIDI device corresponding to the MIDIPort explicitly available. Note
@@ -115,7 +115,7 @@ declare namespace WebMidi {
      * When invoked, this method returns a Promise object representing a request for
      * access to the given MIDI port on the user's system.
      */
-    open() : Promise<MIDIPort>;
+    open(): Promise<MIDIPort>;
 
     /**
      * Makes the MIDI device corresponding to the MIDIPort
@@ -130,11 +130,11 @@ declare namespace WebMidi {
      * other applications), the vended Promise is resolved. If the port is
      * disconnected, the Promise is rejected.
      */
-    close() : Promise<MIDIPort>;
+    close(): Promise<MIDIPort>;
   }
 
   export interface MIDIInput extends MIDIPort {
-    onmidimessage : (e : MIDIMessageEvent) => void;
+    onmidimessage: (e: MIDIMessageEvent) => void;
   }
 
   export interface MIDIOutput extends MIDIPort {
@@ -145,7 +145,7 @@ declare namespace WebMidi {
      * to zero (or another time in the past), the data is to be sent as soon as
      * possible.
      */
-    send(data : number[], timestamp? : number) : void;
+    send(data: number[], timestamp?: number): void;
 
     /**
      * Clears any pending send data that has not yet been sent from the MIDIOutput 's
@@ -153,44 +153,44 @@ declare namespace WebMidi {
      * state, so if the output port is in the middle of a sysex message, a sysex
      * termination byte (0xf7) should be sent.
      */
-    clear() : void;
+    clear(): void;
   }
 
   export interface MIDIMessageEvent extends Event {
     /**
      * A timestamp specifying when the event occurred.
      */
-    receivedTime : number;
+    receivedTime: number;
 
     /**
      * A Uint8Array containing the MIDI data bytes of a single MIDI message.
      */
-    data : Uint8Array;
+    data: Uint8Array;
   }
 
   export interface MIDIMessageEventInit extends EventInit {
     /**
      * A timestamp specifying when the event occurred.
      */
-    receivedTime : number;
+    receivedTime: number;
 
     /**
      * A Uint8Array containing the MIDI data bytes of a single MIDI message.
      */
-    data : Uint8Array;
+    data: Uint8Array;
   }
 
   export interface MIDIConnectionEvent extends Event {
     /**
      * The port that has been connected or disconnected.
      */
-    port : MIDIPort;
+    port: MIDIPort;
   }
 
   export interface MIDIConnectionEventInit extends EventInit {
     /**
      * The port that has been connected or disconnected.
      */
-    port : MIDIPort;
+    port: MIDIPort;
   }
 }
