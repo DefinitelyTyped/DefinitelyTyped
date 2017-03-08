@@ -348,12 +348,6 @@ export class Popup {
     preload(options: any): any;
 
     /**
-     * Internal use.
-     *
-     * @method getPopupHandler
-     */
-    getPopupHandler(options: any, preload: boolean): any;
-    /**
      * Opens in a popup the hosted login page (`/authorize`) in order to initialize a new authN/authZ transaction
      *
      * @method authorize
