@@ -2493,7 +2493,7 @@ declare namespace THREE {
         constructor(parameters?: MeshLambertMaterialParameters);
 
         color: Color;
-        emissive: number|string;
+        emissive: Color;
         emissiveIntensity: number;
         emissiveMap: Texture;
         map: Texture;
