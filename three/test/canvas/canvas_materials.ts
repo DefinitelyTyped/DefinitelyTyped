@@ -5,10 +5,10 @@
 
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer, objects;
-    var pointLight;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer, objects: THREE.Mesh[];
+    var pointLight: THREE.PointLight;
 
     init();
     animate();
@@ -90,7 +90,7 @@
         }
 
         var PI2 = Math.PI * 2;
-        var program = function (context) {
+        var program = function (context: CanvasRenderingContext2D) {
 
             context.beginPath();
             context.arc(0, 0, 0.5, 0, PI2, true);
@@ -98,9 +98,9 @@
 
         }
 
-				// Lights
+        // Lights
 
-				scene.add(new THREE.AmbientLight(Math.random() * 0x202020));
+        scene.add(new THREE.AmbientLight(Math.random() * 0x202020));
 
         var directionalLight = new THREE.DirectionalLight(Math.random() * 0xffffff);
         directionalLight.position.x = Math.random() - 0.5;
@@ -154,12 +154,12 @@
 
     }
 
-    function loadImage(path) {
+    function loadImage(path: string) {
 
         var image = document.createElement('img');
         var texture = new THREE.Texture(image, THREE.UVMapping)
 
-				image.onload = function () { texture.needsUpdate = true; };
+        image.onload = function () { texture.needsUpdate = true; };
         image.src = path;
 
         return texture;

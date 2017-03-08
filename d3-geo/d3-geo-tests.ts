@@ -537,6 +537,19 @@ geoPathCentroid = geoPathCanvas.centroid(sampleExtendedFeatureCollection);
 
 // geoPathCentroid = geoPathSVG.centroid(sampleExtendedFeatureCollection); // fails, wrong data object type
 
+
+// measure(...) ------------------------------------------------------
+
+let geoPathMeasure: number = geoPathCanvas.measure(samplePolygon);
+geoPathMeasure = geoPathCanvas.measure(sampleSphere);
+geoPathMeasure = geoPathCanvas.measure(sampleGeometryCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedGeometryCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleFeature);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeature1);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeature2);
+geoPathMeasure = geoPathCanvas.measure(sampleFeatureCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeatureCollection);
+
 // render path to context of get path string----------------------------
 
 // render to GeoContext/Canvas

@@ -1,4 +1,4 @@
-import 'auth0-js';
+import * as auth0 from 'auth0-js';
 
 let webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
@@ -64,7 +64,7 @@ webAuth.signupAndAuthorize({
 
 
 webAuth.client.login({
-    ealm: 'Username-Password-Authentication', //connection name or HRD domain
+    realm: 'Username-Password-Authentication', //connection name or HRD domain
     username: 'info@auth0.com',
     password: 'areallystrongpassword',
     audience: 'https://mystore.com/api/v2',
