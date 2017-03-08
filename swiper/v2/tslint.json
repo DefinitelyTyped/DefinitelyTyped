@@ -1,0 +1,7 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "no-single-declare-module": false,
+        "dt-header": false
+    }
+}

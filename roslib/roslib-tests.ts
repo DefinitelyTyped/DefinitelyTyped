@@ -1,4 +1,4 @@
-/// <reference path="roslib.d.ts" />
+import ROSLIB = require("roslib");
 
 var ros = new ROSLIB.Ros({
 	url: 'ws://localhost:9090'
@@ -48,10 +48,13 @@ var listener = new ROSLIB.Topic({
 	messageType: 'std_msgs/String'
 });
 
-listener.subscribe(function (message:any) {
-	console.log('Received message on ' + listener.name + ': ' + message.data);
+let subscription_callback = function (message:ROSLIB.Message) {
+	console.log('Received message on ' + listener.name + ': ' + message);
 	listener.unsubscribe();
-});
+}
+
+listener.subscribe(subscription_callback);
+listener.unsubscribe(subscription_callback);
 
 // Calling a service
 // -----------------

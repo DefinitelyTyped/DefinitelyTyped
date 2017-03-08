@@ -1,15 +1,6 @@
-/// <reference path="react-redux.d.ts" />
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../history/history.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
-/// <reference path="../object-assign/object-assign.d.ts" />
-
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, RouterState } from 'react-router';
 import { Store, Dispatch, bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
 import objectAssign = require('object-assign');
@@ -41,7 +32,7 @@ function mapStateToProps(state: CounterState) {
 }
 
 // Which action creators does it want to receive by props?
-function mapDispatchToProps(dispatch: Dispatch) {
+function mapDispatchToProps(dispatch: Dispatch<CounterState>) {
     return {
         onIncrement: () => dispatch(increment())
     };
@@ -57,6 +48,36 @@ connect(
 class CounterContainer extends Component<any, any> {
 
 }
+
+// Ensure connect's first two arguments can be replaced by wrapper functions
+interface ICounterStateProps {
+    value: number
+}
+interface ICounterDispatchProps {
+    onIncrement: () => void
+}
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
+    () => mapStateToProps,
+    () => mapDispatchToProps
+)(Counter);
+// only first argument
+connect<ICounterStateProps, {}, {}>(
+    () => mapStateToProps
+)(Counter);
+// wrap only one argument
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
+    mapStateToProps,
+    () => mapDispatchToProps
+)(Counter);
+// with extra arguments
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
+    () => mapStateToProps,
+    () => mapDispatchToProps,
+    (s: ICounterStateProps, d: ICounterDispatchProps) =>
+        objectAssign({}, s, d),
+    { pure: true }
+)(Counter);
+
 
 class App extends Component<any, any> {
     render(): JSX.Element {
@@ -77,9 +98,7 @@ ReactDOM.render((
 // API
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
-declare var store: Store;
-declare var routerState: RouterState;
-declare var history: HistoryModule.History;
+declare var store: Store<TodoState>;
 class MyRootComponent extends Component<any, any> {
 
 }
@@ -126,15 +145,6 @@ ReactDOM.render(
 //    );
 //});
 
-
-//TODO: for React Router 1.0
-ReactDOM.render(
-    <Provider store={store}>
-        {() => <Router history={history}>...</Router>}
-    </Provider>,
-    targetEl
-);
-
 // Inject just dispatch and don't listen to store
 
 connect()(TodoApp);
@@ -165,7 +175,7 @@ connect(mapStateToProps2, actionCreators)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps2(dispatch: Dispatch) {
+function mapDispatchToProps2(dispatch: Dispatch<TodoState>) {
     return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
@@ -177,7 +187,7 @@ connect(mapStateToProps2, mapDispatchToProps2)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps3(dispatch: Dispatch) {
+function mapDispatchToProps3(dispatch: Dispatch<TodoState>) {
     return bindActionCreators({ addTodo }, dispatch);
 }
 
@@ -189,7 +199,7 @@ connect(mapStateToProps2, mapDispatchToProps3)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps4(dispatch: Dispatch) {
+function mapDispatchToProps4(dispatch: Dispatch<TodoState>) {
     return {
         todoActions: bindActionCreators(todoActionCreators, dispatch),
         counterActions: bindActionCreators(counterActionCreators, dispatch)
@@ -204,7 +214,7 @@ connect(mapStateToProps2, mapDispatchToProps4)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps5(dispatch: Dispatch) {
+function mapDispatchToProps5(dispatch: Dispatch<TodoState>) {
     return {
         actions: bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch)
     };
@@ -218,7 +228,7 @@ connect(mapStateToProps2, mapDispatchToProps5)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps6(dispatch: Dispatch) {
+function mapDispatchToProps6(dispatch: Dispatch<TodoState>) {
     return bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch);
 }
 
@@ -238,8 +248,8 @@ connect(mapStateToProps3)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProps: TodoProps): DispatchProps & TodoState {
-    return objectAssign({}, ownProps, {
+function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProps: TodoProps): DispatchProps & TodoState & TodoProps {
+    return objectAssign({}, ownProps, dispatchProps, {
         todos: stateProps.todos[ownProps.userId],
         addTodo: (text: string) => dispatchProps.addTodo(ownProps.userId, text)
     });
@@ -248,8 +258,9 @@ function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProp
 connect(mapStateToProps2, actionCreators, mergeProps)(TodoApp);
 
 
-
-
+//https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14622#issuecomment-279820358
+//Allow for undefined mapStateToProps
+connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;
@@ -302,7 +313,7 @@ namespace TestStatelessFunctionWithMapArguments {
         };
     };
 
-    const mapDispatchToProps = (dispatch: Dispatch, ownProps: GreetingProps) => {
+    const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: GreetingProps) => {
         return {
             onClick: () => {
                 dispatch({ type: 'GREETING', name: ownProps.name });

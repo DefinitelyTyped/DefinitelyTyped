@@ -1,5 +1,3 @@
-/// <reference path="phonegap-nfc.d.ts"/>
-
 import nfc = require('nfc');
 import ndef = require('ndef');
 import NdefRecord = PhoneGapNfc.NdefRecord;
@@ -99,7 +97,7 @@ let eventTarget: EventTarget = {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean) { return; }
 }
 
-let ndefTagEvent: NdefTagEvent = {
+let ndefTagEvent = {
     bubbles: false,
     cancelBubble: false,
     cancelable: false,
@@ -119,6 +117,9 @@ let ndefTagEvent: NdefTagEvent = {
     AT_TARGET: 0,
     BUBBLING_PHASE: 0,
     CAPTURING_PHASE: 0,
-
+    scoped: false,
+    deepPath(): any { },
     tag: ndefTag
 };
+
+let event: NdefTagEvent = ndefTagEvent;

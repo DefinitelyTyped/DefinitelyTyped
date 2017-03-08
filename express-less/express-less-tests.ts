@@ -1,4 +1,3 @@
-/// <reference path="./express-less.d.ts" />
 
 import express = require('express');
 import expressLess = require('express-less');

@@ -2,15 +2,14 @@
 // Project: http://flickity.metafizzy.co/
 // Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
 // Definitions: https://github.com/clmcgrath/
-///<reference path="../jquery/jquery.d.ts"/>
-///<reference path="FlickityEvents.ts"/>
-///<reference path="flickity.d.ts"/>
 
+///<reference types="jquery"/>
+///<reference path="FlickityEvents.ts"/>
 
 //jQuery tests
 
 
-    var $flickity : JQuery = $("#flickity-selector").flickity(
+var $flickity: JQuery = $("#flickity-selector").flickity(
     {
         initialIndex: 0,
         accessibility: true,
@@ -30,21 +29,21 @@
         percentPosition: false,
         prevNextButtons: false,
         selectedAttraction: 0.050,
-        useSetGallerySize: true,
+        setGallerySize: true,
         watchCSS: true,
         wrapAround: true,
         resize: true,
         rightToLeft: false
     });
 
-    $flickity.flickity("next")
-        .flickity('select', 4);
+$flickity.flickity("next")
+    .flickity('select', 4);
 
-    //Vanilla jQuery tests
-    var flikty : Flickity = new Flickity("#flickity-gallery");
+//Vanilla jQuery tests
+var flikty: Flickity = new Flickity("#flickity-gallery");
 
-    var flikty2: Flickity =
-        new Flickity("#flickity-gallery",
+var flikty2: Flickity =
+    new Flickity("#flickity-gallery",
         {
             initialIndex: 0,
             accessibility: true,
@@ -64,74 +63,74 @@
             percentPosition: false,
             prevNextButtons: false,
             selectedAttraction: 0.050,
-            useSetGallerySize: true,
+            setGallerySize: true,
             watchCSS: true,
             wrapAround: true,
             resize: true,
             rightToLeft: false
         });
 
-        //ES6 element selector for tests
-        var element = document.querySelector("#gallery");
-        var nodeList = document.querySelectorAll("#gallery");
-        var cellElements: Array<Element> = flikty2.getCellElements();
+//ES6 element selector for tests
+var element = document.querySelector("#gallery");
+var nodeList = document.querySelectorAll("#gallery");
+var cellElements: Array<Element> = flikty2.getCellElements();
 
-        flikty2.select(1, true);
-        flikty2.select(1);
+flikty2.select(1, true);
+flikty2.select(1);
 
-        flikty2.previous();
-        flikty2.previous(true);
+flikty2.previous();
+flikty2.previous(true);
 
-        flikty2.next();
-        flikty2.next(true);
+flikty2.next();
+flikty2.next(true);
 
-        flikty2.resize();
-        flikty2.reposition();
+flikty2.resize();
+flikty2.reposition();
 
-        flikty2.prepend(element);
+flikty2.prepend(element);
 
-        flikty2.append(element);
-        flikty2.append(nodeList);
+flikty2.append(element);
+flikty2.append(nodeList);
 
-        flikty2.insert(element, 0);
-        flikty2.insert(nodeList, 0);
-        flikty2.insert(new Array<Element>(), 0);
+flikty2.insert(element, 0);
+flikty2.insert(nodeList, 0);
+flikty2.insert(new Array<Element>(), 0);
 
-        flikty2.remove(element);
-        flikty2.remove(nodeList);
-        flikty2.remove(new Array<Element>());
+flikty2.remove(element);
+flikty2.remove(nodeList);
+flikty2.remove(new Array<Element>());
 
-        flikty2.destroy();
+flikty2.destroy();
 
-        flikty2.reloadCells();
+flikty2.reloadCells();
 
-        //event handlers
-        flikty2.on(FlickityEvents.cellSelect, (evt, ele) => {
-            //do something
-        });
+//event handlers
+flikty2.on(FlickityEvents.cellSelect, (evt, ele) => {
+    //do something
+});
 
-        flikty2.off(FlickityEvents.cellSelect, (evt, ele, pntr , vctr) => {
-            //do something
-        });
+flikty2.off(FlickityEvents.cellSelect, (evt, ele, pntr, vctr) => {
+    //do something
+});
 
-        flikty2.once(FlickityEvents.cellSelect, (evt, ele, pntr) => {
-            //do something
-        });
+flikty2.once(FlickityEvents.cellSelect, (evt, ele, pntr) => {
+    //do something
+});
 
-        flikty2.listener("myCustomEvent", (evt : Event) => {
-            //do something
-        });
+flikty2.listener("myCustomEvent", (evt: Event) => {
+    //do something
+});
 
-        //static get data methods
+//static get data methods
 
-        var jQdata = jQuery.fn.data('flickity')();
-            jQdata = $.fn.data('flickity')();
+var jQdata = jQuery.fn.data('flickity')();
+jQdata = $.fn.data('flickity')();
 
-        var jsData = Flickity.data("#gallery");
-            jsData = Flickity.data("#gallery");
+var jsData = Flickity.data("#gallery");
+jsData = Flickity.data("#gallery");
 
-        //property tests
-        var selectedIndex : number = flikty2.selectedIndex;
+//property tests
+var selectedIndex: number = flikty2.selectedIndex;
 
-        var selectedElement: Element = flikty2.selectedElement;
-        var cells : Array<Element> = flikty2.cells;
+var selectedElement: Element = flikty2.selectedElement;
+var cells: Array<Element> = flikty2.cells;

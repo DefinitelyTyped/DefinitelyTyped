@@ -1,8 +1,6 @@
-///<reference path="json-stable-stringify.d.ts"/>
-
 import stringify = require('json-stable-stringify');
 
-var obj = { c: 8, b: [{z:6,y:5,x:4},7], a: 3 };
+var obj = { c: 8, b: [{z: 6, y: 5, x: 4}, 7], a: 3 };
 
 {
   console.log(stringify(obj));

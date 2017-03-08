@@ -1,16 +1,21 @@
-/// <reference path="./react-router-redux.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
-
-
-
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer, routerMiddleware, push, replace, go, goForward, goBack } from 'react-router-redux';
+import { createHistory } from 'history';
+import {
+    syncHistoryWithStore,
+    routerReducer,
+    routerMiddleware,
+    push,
+    replace,
+    go,
+    goForward,
+    goBack,
+    routerActions
+} from 'react-router-redux';
 
 const reducer = combineReducers({ routing: routerReducer });
 
 // Apply the middleware to the store
+const browserHistory = createHistory();
 const middleware = routerMiddleware(browserHistory);
 const store = createStore(
     reducer,
@@ -28,3 +33,8 @@ store.dispatch(replace('/foo'));
 store.dispatch(go(1));
 store.dispatch(goForward());
 store.dispatch(goBack());
+store.dispatch(routerActions.push('/foo'));
+store.dispatch(routerActions.replace('/foo'));
+store.dispatch(routerActions.go(1));
+store.dispatch(routerActions.goForward());
+store.dispatch(routerActions.goBack());

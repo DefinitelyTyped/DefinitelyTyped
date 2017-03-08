@@ -1,16 +1,5 @@
-///<reference path="commander.d.ts"/>
-
 // NOTE: import statement can not use in TypeScript 1.0.1
-var program:commander.IExportedCommand = require('commander');
-
-declare namespace commander {
-    interface IExportedCommand {
-        peppers:boolean;
-        pineapple:boolean;
-        bbq:boolean;
-        cheese:string;
-    }
-}
+import program = require('commander');
 
 program
     .version('0.0.1')
@@ -21,10 +10,10 @@ program
     .parse(process.argv);
 
 console.log('you ordered a pizza with:');
-if (program.peppers) console.log('  - peppers');
-if (program.pineapple) console.log('  - pineapple');
-if (program.bbq) console.log('  - bbq');
-console.log('  - %s cheese', program.cheese);
+if (program['peppers']) console.log('  - peppers');
+if (program['pineapple']) console.log('  - pineapple');
+if (program['bbq']) console.log('  - bbq');
+console.log('  - %s cheese', program['cheese']);
 
 function range(val:string) {
     return val.split('..').map(Number);
@@ -43,18 +32,6 @@ function increaseVerbosity(v:any, total:number) {
     return total + 1;
 }
 
-declare namespace commander {
-    interface IExportedCommand {
-        integer:number;
-        float:number;
-        optional:string;
-        range:number[];
-        list:string[];
-        collect:string[];
-        verbose:number;
-    }
-}
-
 program
     .version('0.0.1')
     .usage('[options] <file ...>')
@@ -67,15 +44,15 @@ program
     .option('-v, --verbose', 'A value that can be increased', increaseVerbosity, 0)
     .parse(process.argv);
 
-console.log(' int: %j', program.integer);
-console.log(' float: %j', program.float);
-console.log(' optional: %j', program.optional);
-program.range = program.range || [];
-console.log(' range: %j..%j', program.range[0], program.range[1]);
-console.log(' list: %j', program.list);
-console.log(' collect: %j', program.collect);
-console.log(' verbosity: %j', program.verbose);
-console.log(' args: %j', program.args);
+console.log(' int: %j', program['integer']);
+console.log(' float: %j', program['float']);
+console.log(' optional: %j', program['optional']);
+program['range'] = program['range'] || [];
+console.log(' range: %j..%j', program['range'][0], program['range'][1]);
+console.log(' list: %j', program['list']);
+console.log(' collect: %j', program['collect']);
+console.log(' verbosity: %j', program['verbose']);
+console.log(' args: %j', program['args']);
 
 
 program
@@ -101,6 +78,13 @@ program
     .action(() => {
         console.log('unknown option is allowed');
     });
+
+program
+  .version('0.0.1')
+  .arguments('<cmd> [env]')
+  .action(function (cmd, env) {
+     console.log(cmd, env);
+  });
 
 program.parse(process.argv);
 

@@ -1,7 +1,5 @@
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../jasmine-jquery/jasmine-jquery.d.ts" />
-/// <reference path="jasmine-fixture.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="jasmine-jquery" />
 
 describe("Jasmine fixture extension", () => {
     describe("Affixes dom elements to body", () => {

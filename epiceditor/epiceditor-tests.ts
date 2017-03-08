@@ -1,4 +1,4 @@
-/// <reference path="epiceditor.d.ts" />
+
 
 var editor = new EpicEditor().load();
 
@@ -45,10 +45,10 @@ editor.exitFullscreen();
 editor.reflow();
 editor.reflow('height');
 
-var marked;
+var marked: any;
 var opts = {
     container: 'epiceditor',
-    textarea: null,
+    textarea: <any>null,
     basePath: 'epiceditor',
     clientSideStorage: true,
     localStorageName: 'epiceditor',

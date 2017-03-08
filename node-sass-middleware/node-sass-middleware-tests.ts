@@ -1,4 +1,3 @@
-/// <reference path="node-sass-middleware.d.ts" />
 
 import * as express from "express";
 import * as sassMiddleware from "node-sass-middleware";

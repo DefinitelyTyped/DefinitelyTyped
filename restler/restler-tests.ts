@@ -1,5 +1,3 @@
-/// <reference path="restler.d.ts" />
-
 import rest = require("restler");
 
 rest.get("http://google.com").on("complete", function(result) {
@@ -33,14 +31,28 @@ rest.post("http://user:pass@service.com/action", {
     }
 });
 
-// post JSON
+// post JSON with no options
 var jsonData = { id: 334 };
 rest.postJson("http://example.com/action", jsonData).on("complete", function(data, response) {
     // handle response
 });
 
-// put JSON
+// put JSON with no options
 var jsonData = { id: 334 };
 rest.putJson("http://example.com/action", jsonData).on("complete", function(data, response) {
+    // handle response
+});
+
+// post JSON with options
+var jsonData = { id: 334 };
+var options = { query: {"api-version": "1.0"}};
+rest.postJson("http://example.com/action", jsonData, options).on("complete", function(data, response) {
+    // handle response
+});
+
+// put JSON with options
+var jsonData = { id: 334 };
+var options = { query: {"api-version": "1.0"}};
+rest.putJson("http://example.com/action", jsonData, options).on("complete", function(data, response) {
     // handle response
 });

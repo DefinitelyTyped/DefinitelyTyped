@@ -1,6 +1,4 @@
-/// <reference path="react-day-picker.d.ts" />
-/// <reference path="../react/react-global.d.ts" />
-
+import * as React from 'react';
 import * as DayPicker2 from "react-day-picker";
 
 function isSunday(day: Date) {
@@ -26,6 +24,11 @@ interface MyCaptionProps extends ReactDayPicker.CaptionElementProps { }
 class Caption extends React.Component<MyCaptionProps, {}> {
     render() {
         const { date, locale, localeUtils, onClick } = this.props;
+
+        if (!date || !localeUtils || typeof locale === 'undefined') {
+            return null
+        }
+
         return (
             <div className="DayPicker-Caption" onClick={ onClick }>
               { localeUtils.formatMonthTitle(date, locale) }
