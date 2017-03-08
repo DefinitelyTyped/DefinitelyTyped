@@ -3,7 +3,7 @@
 // Definitions by: typicode, <https://github.com/typicode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace lowdb {
+declare namespace Lowdb {
 
     interface PromiseLike<T> {
         /**
@@ -45,24 +45,24 @@ declare namespace lowdb {
         chain?: boolean;
     }
 
-    class LoDashWrapper {
+    class LoDashWrapper<LowEntryClass extends LoDashWrapper<any>> {
 
         /**
          * @see  _.has
          */
-        has(path: StringRepresentable | StringRepresentable[]): LoDashWrapper;
+        has(path: StringRepresentable | StringRepresentable[]): LowEntryClass;
 
         /**
          * @see  _.hasIn
          */
-        hasIn(path: StringRepresentable | StringRepresentable[]): LoDashWrapper;
+        hasIn(path: StringRepresentable | StringRepresentable[]): LowEntryClass;
 
         /**
          * @see _.assign
          */
         assign<TSource extends {}, TResult extends {}>(
             source: TSource
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.assign
@@ -70,7 +70,7 @@ declare namespace lowdb {
         assign<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.assign
@@ -79,7 +79,7 @@ declare namespace lowdb {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see  _.assign
@@ -89,37 +89,37 @@ declare namespace lowdb {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.assign
          */
-        assign(): LoDashWrapper;
+        assign(): LowEntryClass;
 
         /**
          * @see _.assign
          */
-        assign<TResult extends {}>(...otherArgs: any[]): LoDashWrapper;
+        assign<TResult extends {}>(...otherArgs: any[]): LowEntryClass;
 
         /**
          * @see _.cloneDeep
          */
-        cloneDeep<T>(): LoDashWrapper;
+        cloneDeep<T>(): LowEntryClass;
 
         /**
          * @see _.cloneDeep
          */
-        cloneDeep<T>(): LoDashWrapper;
+        cloneDeep<T>(): LowEntryClass;
 
         /**
          * @see _.cloneDeep
          */
-        cloneDeepWith<T>(customizer: (value: any) => any): LoDashWrapper[];
+        cloneDeepWith<T>(customizer: (value: any) => any): LowEntryClass[];
 
         /**
          * @see _.cloneDeep
          */
-        cloneDeepWith<T>(customizer: (value: any) => any): LoDashWrapper;
+        cloneDeepWith<T>(customizer: (value: any) => any): LowEntryClass;
 
         /**
        * @see _.defaults
@@ -127,7 +127,7 @@ declare namespace lowdb {
         defaults<S1 extends {}, TResult extends {}>(
             source1: S1,
             ...sources: {}[]
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.defaults
@@ -136,7 +136,7 @@ declare namespace lowdb {
             source1: S1,
             source2: S2,
             ...sources: {}[]
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.defaults
@@ -146,7 +146,7 @@ declare namespace lowdb {
             source2: S2,
             source3: S3,
             ...sources: {}[]
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.defaults
@@ -157,17 +157,17 @@ declare namespace lowdb {
             source3: S3,
             source4: S4,
             ...sources: {}[]
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.defaults
          */
-        defaults(): LoDashWrapper;
+        defaults(): LowEntryClass;
 
         /**
          * @see _.defaults
          */
-        defaults<TResult>(...sources: {}[]): LoDashWrapper;
+        defaults<TResult>(...sources: {}[]): LowEntryClass;
 
         /**
          * @see _.get
@@ -175,14 +175,14 @@ declare namespace lowdb {
         get<TResult>(object: any,
             path: string | number | boolean | Array<string | number | boolean>,
             defaultValue?: TResult
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.get
          */
         get<TResult>(path: string | number | boolean | Array<string | number | boolean>,
             defaultValue?: TResult
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
 
         /**
@@ -191,14 +191,14 @@ declare namespace lowdb {
         mixin<TResult>(
             source: Dictionary<() => void>,
             options?: MixinOptions
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.mixin
          */
         mixin<TResult>(
             options?: MixinOptions
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.set
@@ -206,7 +206,7 @@ declare namespace lowdb {
         set<TResult>(
             path: StringRepresentable | StringRepresentable[],
             value: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.set
@@ -214,7 +214,7 @@ declare namespace lowdb {
         set<V, TResult>(
             path: StringRepresentable | StringRepresentable[],
             value: V
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.find
@@ -222,7 +222,7 @@ declare namespace lowdb {
         find<T>(
             predicate?: ListIterator<T, boolean>,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.find
@@ -230,21 +230,21 @@ declare namespace lowdb {
         find(
             predicate?: string,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.find
          */
         find<TObject extends {}>(
             predicate?: TObject
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.find
          */
         filter<TObject extends {}>(
             predicate?: TObject
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.filter
@@ -252,7 +252,7 @@ declare namespace lowdb {
         filter<T>(
             predicate?: ListIterator<T, boolean>,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.filter
@@ -260,7 +260,7 @@ declare namespace lowdb {
         filter(
             predicate: string,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.filter
@@ -268,7 +268,7 @@ declare namespace lowdb {
         filter<T>(
             predicate: ListIterator<T, boolean> | DictionaryIterator<T, boolean>,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.filter
@@ -276,40 +276,40 @@ declare namespace lowdb {
         filter(
             predicate?: StringIterator<boolean>,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.filter
          */
-        filter<W>(predicate: W): LoDashWrapper;
+        filter<W>(predicate: W): LowEntryClass;
         /**
          * @see _.map
          */
         map<T, TResult>(
             iteratee?: ListIterator<T, TResult>,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.map
          */
         map<TResult>(
             iteratee?: string
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.map
          */
         map<TObject extends {}>(
             iteratee?: TObject
-        ): LoDashWrapper;
+        ): LowEntryClass;
         /**
          * @see _.map
          */
         map<TValue, TResult>(
             iteratee?: ListIterator<TValue, TResult> | DictionaryIterator<TValue, TResult>,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.range
@@ -317,7 +317,7 @@ declare namespace lowdb {
         range(
             end?: number,
             step?: number
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.rangeRight
@@ -325,7 +325,7 @@ declare namespace lowdb {
         rangeRight(
             end?: number,
             step?: number
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
        * @see _.remove
@@ -333,7 +333,7 @@ declare namespace lowdb {
         remove<T>(
             predicate?: ListIterator<T, boolean>,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.remove
@@ -341,46 +341,46 @@ declare namespace lowdb {
         remove(
             predicate?: string,
             thisArg?: any
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.remove
          */
         remove<W>(
             predicate?: W
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
        * @see _.sortBy
        */
         sortBy<T, TSort>(
             iteratee?: ListIterator<T, TSort>
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.sortBy
          */
-        sortBy(iteratee: string): LoDashWrapper;
+        sortBy(iteratee: string): LowEntryClass;
 
         /**
          * @see _.sortBy
          */
-        sortBy<W extends {}>(whereValue: W): LoDashWrapper;
+        sortBy<W extends {}>(whereValue: W): LowEntryClass;
 
         /**
          * @see _.sortBy
          */
-        sortBy(): LoDashWrapper;
+        sortBy(): LowEntryClass;
 
         /**
          * @see _.sortBy
          */
-        sortBy<T>(...iteratees: (ListIterator<T, boolean> | any | string)[]): LoDashWrapper;
+        sortBy<T>(...iteratees: (ListIterator<T, boolean> | any | string)[]): LowEntryClass;
 
         /**
          * @see _.sortBy
          */
-        sortBy<T>(iteratees: (ListIterator<T, any> | string | any)[]): LoDashWrapper;
+        sortBy<T>(iteratees: (ListIterator<T, any> | string | any)[]): LowEntryClass;
 
         /**
          * @see _.slice
@@ -388,44 +388,44 @@ declare namespace lowdb {
         slice(
             start?: number,
             end?: number
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.size
          */
-        size(): LoDashWrapper;
+        size(): LowEntryClass;
 
         /**
          * @see _.take
          */
-        take(n?: number): LoDashWrapper;
+        take(n?: number): LowEntryClass;
 
         /**
          * @see _.times
          */
         times<TResult>(
           iteratee: (num: number) => TResult
-        ): LoDashWrapper;
+        ): LowEntryClass;
 
         /**
          * @see _.times
          */
-        times(): LoDashWrapper;
+        times(): LowEntryClass;
 
         /**
          * @see _.uniqueId
          */
-        uniqueId(): LoDashWrapper;
+        uniqueId(): LowEntryClass;
 
         value<T>(): T;
 
         pop<T>(): T;
-        push<T>(...items: T[]): LoDashWrapper;
+        push<T>(...items: T[]): LowEntryClass;
         shift<T>(): T;
-        sort<T>(compareFn?: (a: T, b: T) => number): LoDashWrapper;
-        splice<T>(start: number): LoDashWrapper;
-        splice<T>(start: number, deleteCount: number, ...items: any[]): LoDashWrapper;
-        unshift<T>(...items: T[]): LoDashWrapper;
+        sort<T>(compareFn?: (a: T, b: T) => number): LowEntryClass;
+        splice<T>(start: number): LowEntryClass;
+        splice<T>(start: number, deleteCount: number, ...items: any[]): LowEntryClass;
+        unshift<T>(...items: T[]): LowEntryClass;
     }
 
     export interface Storage {
@@ -505,7 +505,7 @@ declare namespace lowdb {
 
     }
 
-    export class Low extends LoDashWrapper {
+    export class Lowdb extends LoDashWrapper<Lowdb> {
 
         constructor(filePath: string, options?: Options);
 
@@ -525,13 +525,13 @@ declare namespace lowdb {
          * Persist database.
          * @param source The source location.
          */
-        write(source: string): void
+        write(source?: string): void
 
         /**
          * Persist database.
          * @param source The source location.
          */
-        write(source: string): PromiseLike<any>
+        write(source?: string): PromiseLike<any>
 
         /**
          * Read database.
@@ -554,5 +554,5 @@ declare namespace lowdb {
 }
 
 declare module "lowdb" {
-    export = lowdb.Low;
+    export = Lowdb.Lowdb;
 }
