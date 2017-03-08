@@ -114,14 +114,14 @@ export abstract class Message {
                              constructor: typeof Message): void;
 
   abstract serializeBinary(): Uint8Array;
-  abstract toObject(includeInstance?: boolean): Object;
+  abstract toObject(includeInstance?: boolean): {};
 
   // These are `abstract static`, but that isn't allowed. Subclasses of Message will have these methods and properties
   // and not having them on Message makes using this class for its intended purpose quite difficult.
   static deserializeBinary(bytes: Uint8Array): Message;
   static deserializeBinaryFromReader(message: Message, reader: BinaryReader): Message;
   static serializeBinaryToWriter(message: Message, writer: BinaryWriter): void;
-  static toObject(includeInstance: boolean, msg: Message): Object;
+  static toObject(includeInstance: boolean, msg: Message): {};
   static extensions: {[key: number]: ExtensionFieldInfo<Message>};
   static extensionsBinary: {[key: number]: ExtensionFieldBinaryInfo<Message>};
 }
