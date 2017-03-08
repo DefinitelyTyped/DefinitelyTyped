@@ -1,5 +1,32 @@
-
 import * as webpack from 'webpack';
+
+const {
+    optimize,
+} = webpack;
+
+let plugins: webpack.Plugin[];
+
+/**
+ * Plugins
+ */
+
+/**
+ * optimize
+ */
+
+const {
+    AggressiveMergingPlugin,
+} = optimize;
+
+plugins = [
+    new AggressiveMergingPlugin(),
+    new AggressiveMergingPlugin({}),
+    new AggressiveMergingPlugin({
+        entryChunkMultiplicator: 10,
+        minSizeReduce: 1.5,
+        moveToParents: false,
+    }),
+];
 
 let configuration: webpack.Configuration;
 let rule: webpack.Rule;
@@ -236,7 +263,6 @@ declare const context: any;
 declare const request: any;
 declare const types: any;
 declare const banner: any;
-const plugins: webpack.Plugin[] = [];
 
 plugin = new webpack.NormalModuleReplacementPlugin(resourceRegExp, newResource);
 plugin = new webpack.ContextReplacementPlugin(
@@ -334,7 +360,6 @@ plugin = new CommonsChunkPlugin({
     // minChunks: 3,
     // (3 children must share the module before it's separated)
 });
-plugin = new webpack.optimize.AggressiveMergingPlugin(options);
 plugin = new webpack.DefinePlugin(definitions);
 plugin = new webpack.DefinePlugin({
     "VERSION": JSON.stringify("5fa3b9"),
