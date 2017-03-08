@@ -35,7 +35,7 @@ export class Authentication {
      * @param {Object} options: https://auth0.com/docs/api-auth/grant/password
      * @param {Function} callback
      */
-    loginWithDefaultDirectory(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    loginWithDefaultDirectory(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Makes a call to the `/ro` endpoint
@@ -43,21 +43,21 @@ export class Authentication {
      * @param {Function} callback
      * @deprecated `loginWithResourceOwner` will be soon deprecated, user `login` instead.
      */
-    loginWithResourceOwner(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    loginWithResourceOwner(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint with `password-realm` grant type
      * @param {any}     options
      * @param {Function} callback
      */
-    login(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    login(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint
      * @param {any}      options
      * @param {Function} callback
      */
-    oauthToken(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    oauthToken(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
@@ -65,7 +65,7 @@ export class Authentication {
      * @method getSSOData
      * @param {Function} callback
      */
-    getSSOData(callback?: (error?: Auth0Error, authResult?: any) => any): void;
+    getSSOData(callback?: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
@@ -74,7 +74,7 @@ export class Authentication {
      * @param {Boolean} withActiveDirectories
      * @param {Function} callback
      */
-    getSSOData(withActiveDirectories: boolean, callback?: (error?: Auth0Error, authResult?: any) => any): void;
+    getSSOData(withActiveDirectories: boolean, callback?: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
@@ -83,7 +83,7 @@ export class Authentication {
      * @param {String} accessToken
      * @param {Function} callback
      */
-    userInfo(token: string, callback: (error?: Auth0Error, user?: any) => any): void;
+    userInfo(token: string, callback: (error?: Auth0Error, user?: any) => void): void;
 
     /**
      * Makes a call to the `/delegation` endpoint
@@ -92,7 +92,7 @@ export class Authentication {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--delegation
      * @param {Function} callback
      */
-    delegation(options: any, callback: (error?: Auth0Error, authResult?: Auth0DelegationToken) => any): any;
+    delegation(options: any, callback: (error?: Auth0Error, authResult?: Auth0DelegationToken) => void): any;
 
     /**
      * Fetches the user country based on the ip.
@@ -100,7 +100,7 @@ export class Authentication {
      * @method getUserCountry
      * @param {Function} callback
      */
-    getUserCountry(callback: (error?: Auth0Error, result?: any) => any): void;
+    getUserCountry(callback: (error?: Auth0Error, result?: any) => void): void;
 }
 
 export class PasswordlessAuthentication {
@@ -166,7 +166,7 @@ export class Management {
      * @param {String} userId
      * @param {Function} callback
      */
-    getUser(userId: string, callback: (error?: Auth0Error, user?: any) => any): void;
+    getUser(userId: string, callback: (error?: Auth0Error, user?: any) => void): void;
 
     /**
      * Updates the user metdata. It will patch the user metdata with the attributes sent.
@@ -177,7 +177,7 @@ export class Management {
      * @param {Object} userMetadata
      * @param {Function} callback
      */
-    patchUserMetadata(userId: string, userMetadata: any, callback: (error?: Auth0Error, user?: any) => any): void;
+    patchUserMetadata(userId: string, userMetadata: any, callback: (error?: Auth0Error, user?: any) => void): void;
 
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
@@ -187,7 +187,7 @@ export class Management {
      * @param {String} secondaryUserToken
      * @param {Function} callback
      */
-    linkUser(userId: string, secondaryUserToken: string, callback: (error?: Auth0Error, user?: any) => any): void;
+    linkUser(userId: string, secondaryUserToken: string, callback: (error?: Auth0Error, user?: any) => void): void;
 }
 
 export class WebAuth {
@@ -218,7 +218,7 @@ export class WebAuth {
      * @param {String} options.hash [OPTIONAL] the url hash. If not provided it will extract from window.location.hash
      * @param {Function} callback: any(err, token_payload)
      */
-    parseHash(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    parseHash(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Decodes the id_token and verifies  the nonce.
@@ -238,7 +238,7 @@ export class WebAuth {
      * @param {Object} options: any valid oauth2 parameter to be sent to the `/authorize` endpoint
      * @param {Function} callback
      */
-    renewAuth(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    renewAuth(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Initialices a change password transaction
@@ -247,7 +247,7 @@ export class WebAuth {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
      * @param {Function} callback
      */
-    changePassword(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    changePassword(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Signs up a new user
@@ -266,7 +266,7 @@ export class WebAuth {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-    signupAndAuthorize(options: any, callback: (error?: Auth0Error, authResult?: any) => any): void;
+    signupAndAuthorize(options: any, callback: (error?: Auth0Error, authResult?: any) => void): void;
 
     /**
      * Redirects to the auth0 logout page
@@ -276,7 +276,7 @@ export class WebAuth {
      */
     logout(options: any): void;
 
-    passwordlessStart(options: PasswordlessStartOptions, callback: (error?: Auth0Error, data?: any) => any): void;
+    passwordlessStart(options: PasswordlessStartOptions, callback: (error?: Auth0Error, data?: any) => void): void;
 
     /**
      * Verifies the passwordless TOTP and redirects to finish the passwordless transaction
@@ -380,7 +380,7 @@ export class Popup {
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-        signupAndLogin(options: any, callback: any): void;
+    signupAndLogin(options: any, callback: any): void;
 }
 
 interface ManagementOptions {
@@ -466,42 +466,42 @@ interface PasswordlessVerifyOptions {
 }
 
 interface Auth0UserProfile {
-	name: string;
-	nickname: string;
-	picture: string;
-	user_id: string;
-	username?: string;
-	given_name?: string;
-	family_name?: string;
-	email?: string;
-	email_verified?: string;
-	clientID: string;
-	gender?: string;
-	locale?: string;
-	identities: Auth0Identity[];
-	created_at: string;
-	updated_at: string;
-	sub: string;
-	user_metadata?: any;
-	app_metadata?: any;
+    name: string;
+    nickname: string;
+    picture: string;
+    user_id: string;
+    username?: string;
+    given_name?: string;
+    family_name?: string;
+    email?: string;
+    email_verified?: string;
+    clientID: string;
+    gender?: string;
+    locale?: string;
+    identities: Auth0Identity[];
+    created_at: string;
+    updated_at: string;
+    sub: string;
+    user_metadata?: any;
+    app_metadata?: any;
 }
 
 interface MicrosoftUserProfile extends Auth0UserProfile {
-	emails?: string[]; //optional depending on whether email addresses permission is granted
+    emails?: string[]; //optional depending on whether email addresses permission is granted
 }
 
 interface Office365UserProfile extends Auth0UserProfile {
-	tenantid: string;
-	upn: string;
+    tenantid: string;
+    upn: string;
 }
 
 interface AdfsUserProfile extends Auth0UserProfile {
-	issuer?: string;
+    issuer?: string;
 }
 
 interface Auth0Identity {
-	connection: string;
-	isSocial: boolean;
-	provider: string;
-	user_id: string;
+    connection: string;
+    isSocial: boolean;
+    provider: string;
+    user_id: string;
 }
