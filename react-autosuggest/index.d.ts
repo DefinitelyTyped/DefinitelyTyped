@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from 'react';
+declare module 'react-autosuggest' {
+  import * as React from 'react';
 
   interface SuggestionsFetchRequest {
     value: string;
@@ -71,4 +72,11 @@ import * as React from 'react';
     id?: string;
   }
 
-  export class Autosuggest extends React.Component<any, any> {}
+  class Autosuggest extends React.Component<any, any> {}
+
+  /* This enables 'import * as Autosuggest' syntax when compiling to es2015 */
+  namespace Autosuggest {}
+
+  /* react-autosuggest is exported as a commonjs module (it uses babel-preset-jason) */
+  export = Autosuggest;
+}
