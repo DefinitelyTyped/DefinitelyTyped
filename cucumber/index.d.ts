@@ -75,7 +75,7 @@ declare namespace cucumber {
 		After(code: HookCode): void;
 		Around(code: AroundCode):void;
 		setDefaultTimeout(time:number): void;
-		setWorldConstructor(world: () => void): void;
+		setWorldConstructor(world: (() => void) | ({})): void;
 		registerHandler(handlerOption:string, code:(event:any, callback:CallbackStepDefinition) =>void): void;
 		registerListener(listener: EventListener): void;
 		addTransform(transform: Transform): void;
