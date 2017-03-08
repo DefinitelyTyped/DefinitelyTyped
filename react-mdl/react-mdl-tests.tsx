@@ -1,5 +1,5 @@
-﻿// Test file for react-mdl Definition file
-/// <reference path="react-mdl.d.ts" />
+// Test file for react-mdl Definition file
+
 
 import * as React from 'react';
 import {Chip, ChipContact,
@@ -195,7 +195,7 @@ React.createClass({
                 <Card shadow={0} style={{width: '256px', height: '256px', background: 'url(http://www.getmdl.io/assets/demos/image_card.jpg) center / cover', margin: 'auto'}}>
                     <CardTitle expand />
                     <CardActions style={{height: '52px', padding: '16px', background: 'rgba(0,0,0,0.2)'}}>
-                        <span style={{color: '#fff', fontSize: '14px', fontWeight: '500'}}>
+                        <span style={{color: '#fff', fontSize: '14px', fontWeight: 500 }}>
                             Image.jpg
                         </span>
                     </CardActions>
@@ -339,8 +339,8 @@ React.createClass({
                 </div>
                 
                 <div>
-                    <Button colored onClick={this.handleOpenDialog} onCancel={this.handleCloseDialog} raised ripple>Show Dialog</Button>
-                    <Dialog open={this.state.openDialog} onCancel={this.handleCloseDialog}>
+                    <Button colored onClick={this.handleOpenDialog} onAbort={this.handleCloseDialog} raised ripple>Show Dialog</Button>
+                    <Dialog open={this.state.openDialog} onAbort={this.handleCloseDialog}>
                     <DialogTitle>Allow data collection?</DialogTitle>
                     <DialogContent>
                         <p>Allowing us to collect data will let us get you the information you want faster.</p>

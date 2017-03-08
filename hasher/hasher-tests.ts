@@ -1,4 +1,4 @@
-/// <reference path="hasher.d.ts" />
+
 
 //handle hash changes
 function handleChanges(newHash: any, oldHash: any) {
@@ -10,5 +10,7 @@ hasher.initialized.add(handleChanges); //add initialized listener (to grab initi
 hasher.init(); //initialize hasher (start listening for history changes)
 
 hasher.setHash('foo'); //change hash value (generates new history record)
+
+hasher.appendHash = '?test=true';
 
 hasher.prependHash = '!'; //default value is "/"

@@ -1,6 +1,3 @@
-/// <reference path='../node/node.d.ts' />
-/// <reference path='seneca.d.ts' />
-
 /*
 * This file contains all of the example code that was on http://senecajs.org as of Mon June 16, 2016.
 */

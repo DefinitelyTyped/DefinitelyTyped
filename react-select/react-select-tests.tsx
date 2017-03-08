@@ -1,12 +1,8 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./react-select.d.ts" />
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Option, ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, MenuRendererProps } from "react-select-props";
 import Select = require("react-select");
+import { Option, ReactSelectProps, ReactCreatableSelectProps, ReactAsyncSelectProps, MenuRendererProps, AutocompleteResult } from "react-select";
 
 const CustomOption = React.createClass({
     propTypes: {
@@ -103,6 +99,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             className: "test-select",
             key: "1",
             options: options,
+            optionClassName: 'test-select-option',
             optionRenderer: optionRenderer,
             autofocus: true,
             autosize: true,
@@ -143,7 +140,15 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
 class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
-        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const options: Option[] = [{
+            label: "Foo",
+            value: "bar",
+        }, {
+            label: "Foo2",
+            value: "bar2",
+            clearableValue: false,
+            disabled: true
+        }];
         const onChange = (value: any) => console.log(value);
 
         const selectProps: ReactSelectProps = {
@@ -162,9 +167,12 @@ class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
 class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
-        const getOptions = (input: string, callback: Function) => {
+        const getOptions = (input: string, callback: (err: any, result: AutocompleteResult) => any) => {
             setTimeout(function() {
-                callback(null, options);
+                callback(null, {
+                    options: options,
+                    complete: true
+                });
             }, 500);
         };
         const options: Option[] = [{ label: "Foo", value: "bar" }];
@@ -220,6 +228,52 @@ class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
 
         return <div>
             <Select.Creatable {...creatableSelectProps} />
+        </div>
+    }
+
+}
+
+class SelectAsyncCreatableTest extends React.Component<React.Props<{}>, {}> {
+
+    render() {
+        const getOptions = (input: string, callback: Function) => {
+            setTimeout(function() {
+                callback(null, options);
+            }, 500);
+        };
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const onChange = (value: any) => console.log(value);
+
+        const asyncCreatableSelectProps: ReactCreatableSelectProps & ReactAsyncSelectProps = {
+            name: "test-select-async-creatable",
+            className: "test-select-async-creatable",
+            key: "1",
+            matchPos: "any",
+            matchProp: "any",
+            multi: true,
+            onValueClick: onChange,
+            valueKey: "github",
+            labelKey: "name",
+            onChange: onChange,
+            simpleValue: undefined,
+            value: options,
+            loadOptions: getOptions,
+            cache: {},
+            ignoreAccents: false,
+            ignoreCase: true,
+            isLoading: false,
+            minimumInput: 5,
+            searchPromptText: "search...",
+            searchingText: "searching...",
+            isOptionUnique: () => { return true; },
+            isValidNewOption: () => { return true; },
+            newOptionCreator: () => { return { label: "NewFoo", value: "newBar" }; },
+            promptTextCreator: () => { return ""; },
+            shouldKeyDownEventCreateNewOption: () => { return true; }
+        };
+
+        return <div>
+            <Select.AsyncCreatable {...asyncCreatableSelectProps} />
         </div>
     }
 

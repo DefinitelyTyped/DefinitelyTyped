@@ -1,5 +1,3 @@
-/// <reference path="clipboard-js.d.ts" />
-
 clipboard.copy("Hello World");
 clipboard.copy(document.body).then(() => console.log("success"));
 

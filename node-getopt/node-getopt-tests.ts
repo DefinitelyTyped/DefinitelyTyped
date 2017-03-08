@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="node-getopt.d.ts" />
+/// <reference types="node" />
 
 import Getopt = require('node-getopt');
 

@@ -1,4 +1,4 @@
-/// <reference path="./angular-idle.d.ts" />
+
 
 angular.module('app', ['ngIdle'])
 	.config(['KeepaliveProvider', 'IdleProvider', 'TitleProvider',

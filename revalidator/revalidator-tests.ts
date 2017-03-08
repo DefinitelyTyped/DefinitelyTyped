@@ -1,4 +1,3 @@
-/// <reference path="./revalidator.d.ts" />
 import revalidator = require('revalidator');
 
 let someObject = {

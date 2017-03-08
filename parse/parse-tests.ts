@@ -1,4 +1,4 @@
-/// <reference path="parse.d.ts" />
+
 
 function test_events() {
 

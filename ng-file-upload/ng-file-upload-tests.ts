@@ -1,4 +1,4 @@
-﻿/// <reference path="ng-file-upload.d.ts" />
+import * as angular from 'angular';
 
 "use strict";
 
@@ -26,7 +26,7 @@ class UploadController {
 			ngfValidateForce: true
 		});
 	}
-	
+
 	onFileSelect(files: Array<File>) {
 
 		this.Upload
@@ -44,11 +44,11 @@ class UploadController {
 			}).progress((evt: angular.angularFileUpload.IFileProgressEvent) => {
 				let percent = parseInt((100.0 * evt.loaded / evt.total).toString(), 10);
 				console.log("upload progress: " + percent + "% for " + evt.config.data.media[0]);
-			}).error((data: any, status: number, response: any, headers: any) => {
-				console.error(data, status, response, headers);
-			}).success((data: any, status: number, headers: any, config: angular.angularFileUpload.IFileUploadConfigFile) => {
+			}).catch((response: ng.IHttpPromiseCallbackArg<any>) => {
+				console.error(response.data, response.status, response.statusText, response.headers);
+			}).then((response: ng.IHttpPromiseCallbackArg<any>) => {
 				// file is uploaded successfully
-				console.log("Success!", data, status, headers, config);
+				console.log("Success!", response.data, response.status, response.headers, response.config);
 			});
 
 		this.Upload
@@ -72,20 +72,20 @@ class UploadController {
 		this.Upload.isResizeSupported();
 		this.Upload.isResumeSupported();
 		this.Upload.isUploadInProgress();
-		
+
 		let json = this.Upload.json({ test: true }),
 			jsonBlob = this.Upload.jsonBlob({ test: true }),
 			fileWithNewName = this.Upload.rename(files[0], "newName.jpg");
 
 		this.Upload
-			.resize(files[0], { 
+			.resize(files[0], {
 				height: 1024,
 				width: 1024,
-				quality: 0.7, 
+				quality: 0.7,
 				ratio: 0.9,
 				centerCrop: true,
 				restoreExif: true,
-				resizeIf: (width, height) => {
+                                resizeIf: (width: number, height: number) => {
 					return true;
 				}
 			})

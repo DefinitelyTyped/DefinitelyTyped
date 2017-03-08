@@ -1,6 +1,4 @@
-/// <reference path="../backbone/backbone.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
-/// <reference path="backbone-relational.d.ts" />
+import * as Backbone from 'backbone';
 
 class House extends Backbone.RelationalModel {
     // The 'relations' property, on the House's prototype. Initialized separately for each

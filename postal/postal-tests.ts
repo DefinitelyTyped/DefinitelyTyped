@@ -1,5 +1,5 @@
 
-/// <reference path="postal.d.ts" />
+
 
 var channel = postal.channel("test");
 

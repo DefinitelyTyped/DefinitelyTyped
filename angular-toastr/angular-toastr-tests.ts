@@ -1,7 +1,3 @@
-/// <reference path='../angularjs/angular.d.ts' />
-/// <reference path='angular-toastr.d.ts' />
-
-
 angular
     .module('toastr-tests', ['toastr'])
     .config(function(toastrConfig: angular.toastr.IToastrConfig) {

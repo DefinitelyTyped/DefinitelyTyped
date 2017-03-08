@@ -1,6 +1,3 @@
-/// <reference path="../googlemaps/google.maps.d.ts" />
-/// <reference path='./marker-animate-unobtrusive.d.ts' />
-
 function test_init() {
     SlidingMarker.initializeGlobally();
     MarkerWithGhost.initializeGlobally();
@@ -43,7 +40,7 @@ function test_marker_with_ghost() {
 
     var g = new MarkerWithGhost();
     slidingMarker = g;
-    
+
     g.setGhostPosition(p);
     p = g.getGhostPosition();
     p = g.getGhostAnimationPosition();

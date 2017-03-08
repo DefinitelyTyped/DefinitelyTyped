@@ -1,4 +1,4 @@
-/// <reference path="restify.d.ts" />
+
 
 import restify = require("restify");
 import url = require("url");
@@ -18,6 +18,7 @@ var server = restify.createServer({
 });
 
 server = restify.createServer({
+    ca: "test",
     certificate: "test",
     key: "test",
     formatters: {},
@@ -26,7 +27,8 @@ server = restify.createServer({
     spdy: {},
     version: "",
     responseTimeHeader: "",
-    responseTimeFormatter : (durationInMilliseconds: number) => {}
+    responseTimeFormatter : (durationInMilliseconds: number) => {},
+	socketio: false
 });
 
 server.pre(restify.pre.sanitizePath());
