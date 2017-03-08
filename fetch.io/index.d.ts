@@ -123,4 +123,4 @@
   }
 }
 
-export = FetchIo.Fetch;
+export default FetchIo.Fetch;
