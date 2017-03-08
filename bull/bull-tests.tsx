@@ -98,3 +98,18 @@ videoQueue.process( ( job: VideoJob ) => { // don't forget to remove the done ca
     // If the job throws an unhandled exception it is also handled correctly
     throw new Error( 'some unexpected error' );
 } );
+
+
+var addVideo1Job = videoQueue.add( { video: 'http://example.com/video1.mov' } );
+
+addVideo1Job.then((video1Job) => {
+    // When job has successfully be placed in the queue the job is returned
+    // then wait for completion
+    return video1Job.finished();
+})
+.then(() => {
+    // video1Job completed successfully
+})
+.catch((err) => {
+    // error
+});
