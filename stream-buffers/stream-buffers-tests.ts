@@ -39,7 +39,7 @@ var myReadableStreamBuffer = new streamBuffers.ReadableStreamBuffer({
 myReadableStreamBuffer.put('A String', 'utf8');
 myReadableStreamBuffer.put(buffer);
 
-myReadableStreamBuffer.on('data', function(data) {
+myReadableStreamBuffer.on('data', (data) => {
   // streams1.x style data
   // assert.isTrue(data instanceof Buffer);
 });
