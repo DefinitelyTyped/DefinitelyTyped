@@ -334,9 +334,15 @@ mergedArray = d3Array.merge<MixedObject>(testArrays); // explicit type
 
 let crossed: Array<[string, number]>;
 
+crossed = d3Array.cross(['x', 'y'], [1, 2]);
 crossed = d3Array.cross<string, number>(['x', 'y'], [1, 2]);
 
-let strArray: string[] = d3Array.cross<number, number, string>([2, 3], [5, 6], (a, b) => (a + b) + 'px')
+let strArray: string[] = d3Array.cross<number, number, string>([2, 3], [5, 6], (a, b) => (a + b) + 'px');
+strArray = d3Array.cross([2, 3], [5, 6], function(a, b) {
+    let aa: number = a;
+    let bb: number = b;
+    return (aa + bb) + 'px';
+});
 
 
 // pairs() ---------------------------------------------------------------------
@@ -345,7 +351,12 @@ let pairs: Array<[MixedObject, MixedObject]>;
 
 pairs = d3Array.pairs(mergedArray);
 
-numbersArray = d3Array.pairs(mergedArray, (a, b) => b.num - a.num);
+numbersArray = d3Array.pairs<MixedObject, number>(mergedArray, (a, b) => b.num - a.num);
+numbersArray = d3Array.pairs(mergedArray, function(a, b) {
+    let aa: MixedObject = a;
+    let bb: MixedObject = b;
+    return bb.num - aa.num;
+});
 
 // permute() -------------------------------------------------------------------
 
