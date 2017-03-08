@@ -6,16 +6,16 @@
 /// <reference types="node" />
 
 interface Option {
-  /** 
-   * String used for tab, defaults to no tabs (compressed) 
+  /**
+   * String used for tab, defaults to no tabs (compressed)
    */
   indent?: string;
   /**
-   * Return the result as a `stream` (default false) 
+   * Return the result as a `stream` (default false)
    */
   stream?: boolean;
   /**
-   * Add default xml declaration (default false) 
+   * Add default xml declaration (default false)
    */
   declaration?: boolean | {
     encoding?: string;

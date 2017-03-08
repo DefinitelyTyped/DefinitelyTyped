@@ -88,7 +88,7 @@ declare namespace l {
              * @returns {any} http.Server A node `http.Server` with this application configured
              *   as the request handle
              * listen(cb?: () => void):http.Serve
-             * 
+             *
             */
 
             // listen(port?: number, cb?: () => void): any;
@@ -203,16 +203,16 @@ declare namespace l {
 
             /**
              * Register (new) middleware phases.
-             * 
+             *
              * If all names are new, then the phases are added just before "routes" phase.
              * Otherwise the provided list of names is merged with the existing phases
              * in such way that the order of phases is preserved
-             * 
+             *
              * **Examples*
              * ```js
              * // built-in phases:
              * // initial, session, auth, parse, routes, files, fina
-             * 
+             *
              * app.defineMiddlewarePhases('custom');
              * // new list of phases
              * // initial, session, auth, parse, custom, routes, files, fina
@@ -245,7 +245,7 @@ declare namespace l {
              * @header app.middleware(name, handler
              */
 
-            middleware(name: string, paths?: any[]|string|RegExp, handler?: () => void): any;
+            middleware(name: string, paths?: any[]|string|RegExp, handler?: core.Handler): any;
       }
 
       // interface CookieOptions extends core.CookieOptions { }
@@ -340,7 +340,7 @@ declare namespace l {
              * In the second variant, the parameters `name`, `properties` and `options`
              * are provided in the config object. Any additional config entries are
              * interpreted as `options`, i.e. the following two configs are identical
-             * 
+             *
              * ```js
              * { name: 'Customer', base: 'User' }
              * { name: 'Customer', options: { base: 'User' } }
@@ -792,7 +792,7 @@ declare namespace l {
        *   // => model with id 1 has been changed
        * });
        * ``
-       * 
+       *
        * #### Event: `deleted
        * Emitted after an individual model has been deleted.
        * Argument: `id`, model ID (number)
@@ -803,7 +803,7 @@ declare namespace l {
        * });
        * ``
        * #### Event: `deletedAll
-       * 
+       *
        * Emitted after an individual model has been deleted.
        * Argument: `where` (optional), where filter, JSON object
        * ```js
@@ -816,7 +816,7 @@ declare namespace l {
        *   }
        * });
        * ``
-       * 
+       *
        * #### Event: `attached
        * Emitted after a `Model` has been attached to an `app`
        * #### Event: `dataSourceAttached
@@ -830,7 +830,7 @@ declare namespace l {
        *   // => model with id 1 has been changed
        * });
        * ``
-       * 
+       *
        * @param {any} data
        * @property {string} Model.modelName The name of the model. Static property.
        * @property {DataSource} Model.dataSource Data source to which the model is connected, if any. Static property.
@@ -912,8 +912,15 @@ declare namespace l {
              * @param {any} SharedMethod object. See [here](apidocs.strongloop.com/strong-remoting/#sharedmethod).
              * @param {any} RelationDefinition object which includes relation `type`, `ModelConstructor` of `modelFrom`, `modelTo`, `keyFrom`, `keyTo` and more relation definitions
              */
-
-            static nestRemoting(relationName: string, pathName: string, filterMethod: string, paramName: string, getterName: string, hooks: boolean, options?: {}, filterCallback?: (SharedMethod: any, RelationDefinition: any) => void): void;
+            static nestRemoting(
+                  relationName: string,
+                  pathName: string,
+                  filterMethod: string,
+                  paramName: string,
+                  getterName: string,
+                  hooks: boolean,
+                  options?: {},
+                  filterCallback?: (SharedMethod: any, RelationDefinition: any) => void): void;
 
             /**
              * Enable remote invocation for the specified method.
@@ -943,12 +950,12 @@ declare namespace l {
        * SharedClass
        * Create a new SharedClass with the given options.
        * **NOTE** TODO : exported from another module type definition called strong-remoting
-       * 
+       *
        * @param {string} name The SharedClass name
        * @param {() => void} constructor The constructor the SharedClass represents
        * @param {any} options Additional options.
        * @property {() => void } ctor The constructor
-       * @property {any} http The HTTP settings 
+       * @property {any} http The HTTP settings
        */
 
       class SharedClass {
@@ -1013,7 +1020,7 @@ declare namespace l {
 
             /**
              * Get all shared methods belonging to this shared class.
-             * @param {any} options 
+             * @param {any} options
              * @return {any[]} An array of shared methods SharedMethod[]
              */
 
@@ -1034,7 +1041,7 @@ declare namespace l {
              * cb(null, str);
              * }
              * ```
-             * 
+             *
              * @param {() => void} resolver The resolver function.
              */
 
@@ -1053,14 +1060,14 @@ declare namespace l {
        * **Change Event*
        * Listen for model changes using the `change` event
        * ```js
-       * MyPersistedModel.on('changed', function(obj) 
+       * MyPersistedModel.on('changed', function(obj)
        *    console.log(obj) // => the changed model
        * });
        * ```
        * @class PersistedModel
        */
 
-      class PersistedModel {
+      class PersistedModel extends Model {
 
             /**
              * Apply an update list
@@ -1116,10 +1123,10 @@ declare namespace l {
 
             static create(data?: any|any[], callback?: (err: Error, models: any) => void): void;
 
-            /** 
+            /**
              * Create a change stream. See here for more info http://loopback.io/doc/en/lb2/Realtime-server-sent-events.html
              * @param {any} options Only changes to models matching this where filter will be included in the ChangeStream.
-             * @param {() => void} callback 
+             * @param {() => void} callback
              */
 
             static createChangeStream(options: {where: any}, callback: (err: Error, changes: any) => void): void;
@@ -1150,7 +1157,7 @@ declare namespace l {
              * ```
              * <br/>See
              * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods)
-             * 
+             *
              * @callback {() => void} callback Optional callback function called with `(err, info)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} info Additional information about the command outcome.
@@ -1220,8 +1227,9 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} models Model instances matching the filter, or null if none found
              */
-
-            static find(filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; }, callback?: (err: Error, models: any[]) => void): void;
+            static find(
+                  filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; },
+                  callback?: (err: Error, models: any[]) => void): void;
 
             /**
              * Find object by ID with an optional filter for include/fields
@@ -1262,7 +1270,7 @@ declare namespace l {
              * @param {Array} model First model instance that matches the filter or null if none found
              */
 
-            static findOne(filter?: {fields: string|any|any[]; include: string|any|any[]; order: string; skip: number; where: any; }, callback?: (err: Error, model: any[]) => void): void;
+            static findOne(filter?: {fields?: string|any|any[]; include?: string|any|any[]; order?: string; skip?: number; where?: any; }, callback?: (err: Error, model: any) => void): void;
 
             /**
              * Finds one record matching the optional filter object. If not found, creates
@@ -1270,7 +1278,7 @@ declare namespace l {
              * the same as `find`, but limited to one object. Returns an object, not
              * collection. If you don't provide the filter object argument, it tries to
              * locate an existing object that matches the `data` argument
-             * 
+             *
              * @options {any} [filter] Optional Filter object; see below.
              * @property {string|any|Array} fields Identify fields to include in return result.
              * <br/>See [Fields filter](docs.strongloop.com/display/LB/Fields+filter).
@@ -1295,7 +1303,17 @@ declare namespace l {
              * @param {boolean} created True if the instance matching the `where` filter was created
              */
 
-            static findOrCreate(data: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; }, callback?: (err: Error, instance: any, created: boolean) => void): void;
+            static findOrCreate(
+                  data: any,
+                  filter?: {
+                        fields?: string | any | any[];
+                        include?: string | any | any[];
+                        limit?: number;
+                        order?: string;
+                        skip?: number;
+                        where?: any;
+                  },
+                  callback?: (err: Error, instance: any, created: boolean) => void): void;
 
             /**
              * Get the `Change` model.
@@ -1627,7 +1645,7 @@ declare namespace l {
       function static(root: string, options: any): void;
 
       /**
-       * Return HTTP response with basic application status information: 
+       * Return HTTP response with basic application status information:
        * date the application was started and uptime, in JSON format. For example:
        * ```
        * {
@@ -1651,7 +1669,7 @@ declare namespace l {
        * - `access_token` (params only)
        * - `X-Access-Token` (headers only)
        * - `authorization` (headers and cookies
-       * 
+       *
        * It checks for these values in cookies, headers, and query string parameters _in addition_ to the items
        * specified in the options parameter
        * **NOTE:** This function only checks for [signed cookies](expressjs.com/api.html#req.signedCookies)
@@ -1664,7 +1682,7 @@ declare namespace l {
        *   params: ['foo-auth', 'foo_auth']
        * }));
        * ```
-       * 
+       *
        * @options {any} [options] Each option Array is used to add additional keys to find an `accessToken` for a `request`.
        * @property {Array} [cookies] Array of cookie names.
        * @property {Array} [headers] Array of header names.
@@ -1676,8 +1694,17 @@ declare namespace l {
        * @property {string} [currentUserLiteral] string literal for the current user.
        * @header loopback.token([options])
        */
-
-      function token(options?: {cookies?: any[], headers?: any[], params?: any[], searchDefaultTokenKeys?: boolean, enableDoublecheck?: boolean, overwriteExistingToken?: boolean, model?: () => void|string, currentUserLiteral?: string}): void;
+      function token(
+            options?: {
+                  cookies?: any[],
+                  headers?: any[],
+                  params?: any[],
+                  searchDefaultTokenKeys?: boolean,
+                  enableDoublecheck?: boolean,
+                  overwriteExistingToken?: boolean,
+                  model?: () => void|string,
+                  currentUserLiteral?: string
+            }): void;
 
       /**
        * Convert any request not handled so far to a 404 error
@@ -1714,7 +1741,7 @@ declare namespace l {
             created: Date;
 
             /** Extends the `Model.settings` object. */
-            settings: { http: { path: string }; acls: ACL, accessTokenIdLength: number};
+            settings: { http: { path: string }; acls: ACL[], accessTokenIdLength: number};
 
             /**
              * Create a cryptographically random access token id
@@ -1811,7 +1838,7 @@ declare namespace l {
             principalId: string;
 
             /** settings Extends the `Model.settings` object. */
-            settings: { http: { path: string }; acls: ACL, defaultPermission: 'DENY'};
+            settings: { http: { path: string }; acls: ACL[], defaultPermission: 'DENY'};
 
             /**
              * Check if the request has the permission to access.
@@ -1985,7 +2012,7 @@ declare namespace l {
              *  pushSettings.apns.feedbackOptions.port (APNS).
              *  pushSettings.apns.feedbackOptions.batchFeedback (APNS).
              *  pushSettings.apns.feedbackOptions.interval (APNS).
-             *  pushSettings.gcm.serverApiKey: Google Cloud Messaging API key. 
+             *  pushSettings.gcm.serverApiKey: Google Cloud Messaging API key.
             */
             pushSetings: {
                   apns: {
@@ -2091,14 +2118,14 @@ declare namespace l {
             /** Model ID. */
             modelId: string;
 
-            /** 
+            /**
              * settings Extends the `Model.settings` object.
              * settings.hashAlgorithm Algorithm used to create cryptographic hash, used as argument
              * to [crypto.createHash](nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm).Default is sha1.
              * settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
              * However, if this setting is true, then errors will not throw exceptions.
              */
-            settings: { http: { path: string }; acls: ACL; hashAlgorithm: string; ignoreErrors: boolean; };
+            settings: { http: { path: string }; acls: ACL[]; hashAlgorithm: string; ignoreErrors: boolean; };
 
             /**
              * Are both changes deletes?
@@ -2260,7 +2287,7 @@ declare namespace l {
       /**
        * When two changes conflict a conflict is created
        * **Note**: call `conflict.fetch()` to get the `target` and `source` models
-       * 
+       *
        * @param {*} modelId
        * @param {PersistedModel} SourceModel
        * @param {PersistedModel} TargetModel
@@ -2337,7 +2364,7 @@ declare namespace l {
              * Return a new Conflict instance with swapped Source and Target models
              * This is useful when resolving a conflict in one-way
              * replication, where the source data must not be changed
-             * 
+             *
              * ```js
              * conflict.swapParties().resolveUsingTarget(cb);
              * ```
@@ -2349,11 +2376,11 @@ declare namespace l {
             /**
              * Determine the conflict type
              * Possible results ar
-             * 
+             *
              * - `Change.UPDATE`: Source and target models were updated
              * - `Change.DELETE`: Source and or target model was deleted.
              * - `Change.UNKNOWN`: the conflict type is uknown or due to an erro
-             * 
+             *
              * @callback {() => void} callback
              * @param {Error} err
              * @param {string} type The conflict type
@@ -2402,7 +2429,7 @@ declare namespace l {
              * }
              * ``
              * See github.com/andris9/Nodemailer for other supported options
-             * 
+             *
              * @options {any} options See below
              * @prop {string} from Senders's email address
              * @prop {string} to List of one or more recipient email addresses (comma-delimited)
@@ -2424,19 +2451,19 @@ declare namespace l {
 
       /**
        * Data model for key-value databases.
-       * @class 
+       * @class
        */
       class KeyValueModel {
 
             /**
-             * Set the TTL (time to live) in ms (milliseconds) for a given key. 
+             * Set the TTL (time to live) in ms (milliseconds) for a given key.
              * TTL is the remaining time before a key-value pair is discarded from the database.
-             * 
-             * Callback (Optional) Optional callback. 
+             *
+             * Callback (Optional) Optional callback.
              * When the callback function is not provided, a promise is returned instead (see below).
-             * 
-             * Promise 
-             * this method supports both callback-based and promise-based invocation. 
+             *
+             * Promise
+             * this method supports both callback-based and promise-based invocation.
              * Call this method with no callback argument to get back a promise instead.
              * @param {string} key Key to use when searching the database.
              * @param {number} ttl TTL in ms to set for the key.
@@ -2448,14 +2475,14 @@ declare namespace l {
 
             /**
              * Return the value associated with a given key.
-             * 
+             *
              * Callback (Optional)
              * Optional callback. When the callback function is not provided, a promise is returned instead (see below).
-             * 
+             *
              * Promise
-             * This method supports both callback-based and promise-based invocation. 
+             * This method supports both callback-based and promise-based invocation.
              * Call this method with no callback argument to get back a promise instead.
-             * 
+             *
              * @param {string} key Key to use when searching the database.
              * @param {any} options
              * @param {() => void} callback
@@ -2464,8 +2491,8 @@ declare namespace l {
             static get(key: string, option?: any, callback?: (err: Error, result: any) => void): PromiseLike<any>;
 
             /**
-             * Asynchronously iterate all keys in the database. Similar to .keys() 
-             * but instead allows for iteration over large data sets without having 
+             * Asynchronously iterate all keys in the database. Similar to .keys()
+             * but instead allows for iteration over large data sets without having
              * to load everything into memory at once.
              * Callback example:
              * ```
@@ -2478,7 +2505,7 @@ declare namespace l {
              *          });
              *    });
              * ```
-             * 
+             *
              * Promise example:
              * ```
              * // Given a model named `Color` with two keys `red` and `blue`
@@ -2494,10 +2521,10 @@ declare namespace l {
              *   // key contains `blue`
              * });
              * ```
-             * 
+             *
              * @param {any} filter An optional filter object with the following
              * @param {string} filter.match Glob string to use to filter returned keys (i.e. userid.*).
-             *  All connectors are required to support * and ?. 
+             *  All connectors are required to support * and ?.
              * They may also support additional special characters that are specific to the backing database.
              * @param {any} filter.options
              * @return {any} result AsyncIterator An Object implementing next(cb) -> Promise function that can be used to iterate all keys.
@@ -2509,33 +2536,33 @@ declare namespace l {
              * Return all keys in the database.
              * WARNING: This method is not suitable for large data sets as all key-values pairs
              * are loaded into memory at once. For large data sets, use iterateKeys() instead.
-             * 
-             * This method supports both callback-based and promise-based invocation. 
+             *
+             * This method supports both callback-based and promise-based invocation.
              * Call this method with no callback argument to get back a promise instead
-             * 
+             *
              * WARNING: this promise implementation will not resolve according to the callback function.
-             * 
+             *
              * @param {any} filter An optional filter object with the following
-             * @param {string} filter.match Glob string used to filter returned keys (i.e. userid.*). 
-             * All connectors are required to support * and ?, but may also support additional special 
+             * @param {string} filter.match Glob string used to filter returned keys (i.e. userid.*).
+             * All connectors are required to support * and ?, but may also support additional special
              * characters specific to the database.
-             * @param {any} filter.options 
+             * @param {any} filter.options
              * @param {() => void} callback
-             * @return {PromiseLike<any>} 
+             * @return {PromiseLike<any>}
              */
 
             static keys(filter: {match: string; options: any}, callback: () => void): PromiseLike<any>;
 
             /**
              * Persist a value and associate it with the given key.
-             * 
+             *
              * Callback (Optional)
              * Optional callback. When the callback function is not provided, a promise is returned instead (see below).
-             * 
+             *
              * Promise
-             * This method supports both callback-based and promise-based invocation. 
+             * This method supports both callback-based and promise-based invocation.
              * Call this method with no callback argument to get back a promise instead.
-             * 
+             *
              * @param {string} key Key to associate with the given value.
              * @param {any} value Value to persist.
              * @param {number|any} Optional settings for the key-value pair. If a Number is provided, it is set as the TTL (time to live) in ms (milliseconds) for the key-value pair.
@@ -2545,15 +2572,15 @@ declare namespace l {
             static set(key: string, value: any, options?: number|any, callback?: (err: Error) => void): PromiseLike<any>;
 
             /**
-             * Return the TTL (time to live) for a given key. 
+             * Return the TTL (time to live) for a given key.
              * TTL is the remaining time before a key-value pair is discarded from the database.
-             * 
+             *
              * Callback (Optional)
-             * Optional callback. When the callback function is not provided, 
+             * Optional callback. When the callback function is not provided,
              * a promise is returned instead (see below).
-             * 
+             *
              * @param {string} key Key to use when searching the database.
-             * @param {any} options 
+             * @param {any} options
              * @param {() => void} callback
              */
 
@@ -2702,7 +2729,7 @@ declare namespace l {
        * - ALLOW EVERYONE `logout`
        * - ALLOW OWNER `findById`
        * - ALLOW OWNER `updateAttributes`
-       * 
+       *
        * @property {string} username Must be unique.
        * @property {string} password Hidden from remote clients.
        * @property {string} email Must be valid email.
@@ -2724,7 +2751,7 @@ declare namespace l {
        * @property {number} settings.resetPasswordTokenTTL Time to live for password reset `AccessToken`. Default is `900` (15 minutes).
        * @property {number} settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
        * @property {boolean} settings.caseSensitiveEmail Enable case sensitive email.
-       * 
+       *
        * @class User
        * @inherits {PersistedModel}
        */
@@ -2771,7 +2798,18 @@ declare namespace l {
              * settings.saltWorkFactor The `bcrypt` salt work factor. Default is `10`.
              * settings.caseSensitiveEmail Enable case sensitive email.
              */
-            settings: { http: { path: string }; acls: ACL; emailVerificationRequired: boolean; ttl: number; maxTTL: number; realmRequired: boolean; realmDelimiter: string; resetPasswordTokenTTL: number; saltWorkFactor: number; caseSensitiveEmail: boolean; };
+            settings: {
+                  http: { path: string };
+                  acls: ACL[];
+                  emailVerificationRequired: boolean;
+                  ttl: number;
+                  maxTTL: number;
+                  realmRequired: boolean;
+                  realmDelimiter: string;
+                  resetPasswordTokenTTL: number;
+                  saltWorkFactor: number;
+                  caseSensitiveEmail: boolean;
+            };
 
             /**
              * Confirm the user's identity
@@ -2798,13 +2836,13 @@ declare namespace l {
 
             /**
              * Login a user by with the given `credentials`
-             * 
+             *
              * ```js
              *    User.login({username: 'foo', password: 'bar'}, function (err, token) {
              *          console.log(token.id);
              *    });
              * ```
-             * 
+             *
              * @param {any} credentials username/password or email/password
              * @param {string[]|string} [include] Optionally set it to "user" to include
              * the user info
@@ -2817,13 +2855,13 @@ declare namespace l {
 
             /**
              * Logout a user with the given accessToken id
-             * 
+             *
              * ```js
              *    User.logout('asd0a9f8dsj9s0s3223mk', function (err) {
              *     console.log(err || 'Logged out');
              *   });
              * ```
-             * 
+             *
              * @param {string} accessTokenID
              * @callback {() => void} callback
              * @param {Error} er
@@ -2884,10 +2922,10 @@ declare namespace l {
              *     redirect: '/',
              *     tokenGenerator: function (user, cb) { cb("random-token"); }
              *   };
-             * 
+             *
              *   user.verify(options, next);
              * ```
-             * 
+             *
              * @options {any} options
              * @property {string} type Must be 'email'.
              * @property {string} to Email address to which verification email is sent.

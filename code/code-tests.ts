@@ -16,7 +16,7 @@ expect([1, 2, 3]).to.part.include([1, 4]);
 
 expect(10, "Age").to.be.above(5);
 
-const func = function () { return arguments; };
+const func = function() { return arguments; };
 expect(func()).to.be.arguments();
 
 expect([1, 2]).to.be.an.array();
@@ -136,8 +136,7 @@ class CustomError extends Error {
     call: (message: string) => Error;
 }
 
-const throws = function () {
-
+const throws = () => {
     throw new CustomError("Oh no!");
 };
 

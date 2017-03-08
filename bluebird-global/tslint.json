@@ -1,9 +1,10 @@
 {
-  "extends": "../tslint.json",
-  "rules": {
-    "no-empty-interface": false,
-    "array-type": false,
-    "unified-signatures": false,
-    "forbidden-types": false
-  }
+    "extends": "../tslint.json",
+    "rules": {
+        "max-line-length": false,
+        "no-empty-interface": false,
+        "array-type": false,
+        "unified-signatures": false,
+        "forbidden-types": false
+    }
 }
