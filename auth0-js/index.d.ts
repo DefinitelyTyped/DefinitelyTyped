@@ -437,7 +437,7 @@ interface Auth0DecodedHash {
 /** Represents the response from an API Token Delegation request. */
 interface Auth0DelegationToken {
     /** The length of time in seconds the token is valid for. */
-    ExpiresIn: number;
+    expiresIn: number;
     /** The JWT for delegated access.  */
     idToken: string;
     /** The type of token being returned. Possible values: "Bearer"  */
