@@ -1,4 +1,4 @@
-// Type definitions for react-day-picker 1.2
+// Type definitions for react-day-picker 5.1
 // Project: https://github.com/gpbl/react-day-picker
 // Definitions by: Giampaolo Bellavite <https://github.com/gpbl>, Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
