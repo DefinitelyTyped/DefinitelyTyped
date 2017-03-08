@@ -21,7 +21,7 @@ interface Knex extends Knex.QueryInterface {
     __knex__: string;
 
     raw: Knex.RawBuilder;
-    transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
+    transaction: (transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
     // TODO: no examples of this in the docs, maybe better type info?
     destroy(callback: (...args: any[]) =>  any): void;
     destroy(): Promise<void>;
@@ -262,10 +262,12 @@ declare namespace Knex {
     type UnionFunction = (this: QueryBuilder) => void;
 
     interface Union {
+        // the below is the "true" method signature but is incompatible with current typescript
+        // typescript does not support spread operator with optional types in this order
+        // (...callbacks: Function[], wrap?: boolean): QueryInterface;
+        // we can cover most of the use case of the function with the below types
         (callback: UnionFunction | UnionFunction[], wrap?: boolean): QueryBuilder;
         (...callbacks: UnionFunction[]): QueryBuilder;
-        // no way to specifiy this siganiture in the current typescript version
-        // (...callbacks: Function[], wrap?: boolean): QueryInterface;
     }
 
     interface Having extends RawQueryBuilder, WhereWrapped {
