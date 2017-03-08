@@ -45,12 +45,12 @@ declare module 'node-powershell' {
         /**
          * An array containing the command history ever added to the shell instance.
          */
-        public history: string[];
+        history: string[];
 
         /**
          * An object containing the sdtio (in,out,err) [stream.Readable] of the PowerShell Instance.
          */
-        public streams: NodePowershell.ShellStream;
+        streams: NodePowershell.ShellStream;
 
         /**
          * Creates a new Shell instance.
