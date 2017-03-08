@@ -13,9 +13,7 @@
     "typeRoots": [
       "../"
     ],
-    "types": [
-      "react"
-    ],
+    "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
