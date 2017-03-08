@@ -1938,7 +1938,7 @@ declare module "net" {
         bufferSize: number;
         setEncoding(encoding?: string): this;
         write(data: any, encoding?: string, callback?: Function): void;
-        destroy(): void;
+        destroy(err?: any): void;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: Function): void;
