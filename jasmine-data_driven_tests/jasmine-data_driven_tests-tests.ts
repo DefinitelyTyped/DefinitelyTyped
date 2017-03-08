@@ -1,9 +1,8 @@
-
 /// <reference types="jasmine" />
 
 all("A data driven test is a suite with multiple specs",
     ['a', 'b', 'c'],
-    (value: string) => {
+    value => {
         expect(value).not.toBe('d');
     }
 );
@@ -13,7 +12,7 @@ all("A data driven test can have many arguments",
         [1, 2, 3],
         [2, 4, 6]
     ],
-    (a: number, b: number, c: number) => {
+    (a, b, c) => {
         expect(c - (a + b)).toBe(0);
     }
 );
@@ -23,7 +22,7 @@ all("A data driven test can be asynchronous",
         [3, 1],
         [5, 2]
     ],
-    (a: number, b: number, done: () => void) => {
+    (a, b, done) => {
         setTimeout(() => {
             expect(a - b > 0).toBe(true);
             done();
@@ -33,7 +32,7 @@ all("A data driven test can be asynchronous",
 
 xall("A data driven test can be pending",
     [1, 2, 3],
-    (value: number) => {
+    value => {
         expect(value < 4).toBe(true);
     }
 );
@@ -47,7 +46,7 @@ describe("A suite", () => {
 
     all("can contain data driven tests",
         [1, 2, 3],
-        (b: number) => {
+        b => {
             expect(a - b > 0).toBe(true);
         }
     );

@@ -6,8 +6,17 @@
 () => {
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-    var container, stats;
-    var camera, scene, renderer, particles, geometry, material, i, h, color, sprite, size;
+    var container: HTMLDivElement, stats: Stats;
+    var camera: THREE.PerspectiveCamera,
+        scene: THREE.Scene,
+        renderer: THREE.WebGLRenderer,
+        particles: THREE.Points,
+        geometry: THREE.Geometry,
+        material: THREE.PointsMaterial,
+        i: number,
+        h: number,
+        color: THREE.Color,
+        sprite: THREE.Texture;
     var mouseX = 0, mouseY = 0;
 
     var windowHalfX = window.innerWidth / 2;
@@ -86,14 +95,14 @@
 
     }
 
-    function onDocumentMouseMove( event ) {
+    function onDocumentMouseMove( event: MouseEvent ) {
 
         mouseX = event.clientX - windowHalfX;
         mouseY = event.clientY - windowHalfY;
 
     }
 
-    function onDocumentTouchStart( event ) {
+    function onDocumentTouchStart( event: TouchEvent ) {
 
         if ( event.touches.length == 1 ) {
 
@@ -105,7 +114,7 @@
         }
     }
 
-    function onDocumentTouchMove( event ) {
+    function onDocumentTouchMove( event: TouchEvent ) {
 
         if ( event.touches.length == 1 ) {
 

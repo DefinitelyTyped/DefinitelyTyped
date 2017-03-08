@@ -22,18 +22,18 @@ configuration = {
             // Extract css files
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader",
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader",
                 })
             },
             // Optionally extract less files
             // or any other compile-to-css language
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: ["css-loader", "less-loader"],
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ["css-loader", "less-loader"],
                 })
             }
             // You could also use other loaders the same way. I. e. the autoprefixer-loader
@@ -70,10 +70,13 @@ configuration = {
     // ...
     module: {
         rules: [
-            { test: /\.css$/, loader: ExtractTextPlugin.extract({
-                fallbackLoader: "style-loader",
-                loader: "css-loader"
-            }) }
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            }
         ]
     },
     plugins: [
@@ -89,8 +92,8 @@ configuration = {
     // ...
     module: {
         rules: [
-            { test: /\.scss$/i, loader: extractCSS.extract(['css','sass']) },
-            { test: /\.less$/i, loader: extractLESS.extract(['css','less']) },
+            { test: /\.scss$/i, use: extractCSS.extract(['css','sass']) },
+            { test: /\.less$/i, use: extractLESS.extract(['css','less']) },
         ]
     },
     plugins: [

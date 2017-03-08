@@ -1,6 +1,10 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Matt Lewis <https://github.com/mattlewis92>
+//                 Benjamin Lim <https://github.com/bumbleblym>
+//                 Boris Cherny <https://github.com/bcherny>
+//                 Tommy Troy Lin <https://github.com/tommytroylin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -661,7 +665,20 @@ declare namespace webpack {
      */
 
     class BannerPlugin extends Plugin {
-        constructor(banner: any, options: any);
+        constructor(options: string | BannerPlugin.Options);
+    }
+
+    namespace BannerPlugin {
+        type Filter = string | RegExp;
+
+        interface Options {
+            banner: string;
+            entryOnly?: boolean;
+            exclude?: Filter | Filter[];
+            include?: Filter | Filter[];
+            raw?: boolean;
+            test?: Filter | Filter[];
+        }
     }
 
     class ContextReplacementPlugin extends Plugin {
