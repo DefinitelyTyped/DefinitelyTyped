@@ -298,7 +298,7 @@ declare type RoughEaseConfig = {
 declare class RoughEase extends Ease {
     public static ease: RoughEase;
     constructor(vars: RoughEaseConfig);
-    public config(steps: number): SteppedEase;
+    public config(steps: RoughEaseConfig): RoughEase;
 }
 
 //com.greensock.plugins
