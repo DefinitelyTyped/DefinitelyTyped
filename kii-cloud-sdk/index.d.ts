@@ -254,7 +254,9 @@ declare namespace KiiCloud {
          * @example
          *     Kii.setAccessTokenExpiration(3600);
          */
-        static setAccessTokenExpiration(expiresIn: number): void;
+        static setAccessTokenExpiration(
+          expiresIn: number
+        ): void;
 
         /**
          * Returns access token lifetime in seconds.
@@ -275,7 +277,9 @@ declare namespace KiiCloud {
          * @param appID The application ID found in your Kii developer console
          * @param appKey The application key found in your Kii developer console
          * @param site Can be one of the constants KiiSite.US, KiiSite.JP, KiiSite.CN or KiiSite.SG depending on your location.
-         * @param analyticsOption An object used for initializing KiiAnalytics, If not provided or invalid object provided, KiiAnalytics won't be initialized. If provided, it can be empty object or with analyticsOption.deviceId.<br> If provided, but deviceId is not provided, SDK generates a new deviceId and use it when upload events. It can be retrieved by {@link KiiAnalytics.getDeviceId()}. It is recommended to retrieve the deviceId and store it to identify the device properly.
+         * @param analyticsOption An object used for initializing KiiAnalytics, If not provided or invalid object provided, KiiAnalytics won't be initialized. If provided, it can be empty object or
+         * with analyticsOption.deviceId.<br> If provided, but deviceId is not provided, SDK generates a new deviceId and use it when upload events. It can be retrieved by {@link
+         * KiiAnalytics.getDeviceId()}. It is recommended to retrieve the deviceId and store it to identify the device properly.
          *
          * @example
          *     // Disable KiiAnalytics
@@ -288,7 +292,12 @@ declare namespace KiiCloud {
          *     // Enable KiiAnalytics without deviceId
          *     Kii.initializeWithSite("my-app-id", "my-app-key", KiiSite.JP, {});
          */
-        static initializeWithSite(appID: string, appKey: string, site: KiiSite, analyticsOption?: any): void;
+        static initializeWithSite(
+          appID: string,
+          appKey: string,
+          site: KiiSite,
+          analyticsOption?: any
+        ): void;
 
         /**
          * Initialize the Kii SDK
@@ -298,7 +307,9 @@ declare namespace KiiCloud {
          *
          * @param appID The application ID found in your Kii developer console
          * @param appKey The application key found in your Kii developer console
-         * @param analyticsOption An object used for initializing KiiAnalytics, If not provided or invalid object provided, KiiAnalytics won't be initialized. If provided, it can be empty object or with analyticsOption.deviceId. <br> If provided, but deviceId is not provided, SDK generates a new deviceId and use it when upload events. It can be retrieved by {@link KiiAnalytics.getDeviceId()}. It is recommended to retrieve the deviceId and store it to identify the device properly.
+         * @param analyticsOption An object used for initializing KiiAnalytics, If not provided or invalid object provided, KiiAnalytics won't be initialized. If provided, it can be empty object or
+         * with analyticsOption.deviceId. <br> If provided, but deviceId is not provided, SDK generates a new deviceId and use it when upload events. It can be retrieved by {@link
+         * KiiAnalytics.getDeviceId()}. It is recommended to retrieve the deviceId and store it to identify the device properly.
          *
          * @example
          *     // Disable KiiAnalytics
@@ -311,7 +322,11 @@ declare namespace KiiCloud {
          *     // Enable KiiAnalytics without deviceId
          *     Kii.initialize("my-app-id", "my-app-key", {});
          */
-        static initialize(appID: string, appKey: string, analyticsOption?: any): void;
+        static initialize(
+          appID: string,
+          appKey: string,
+          analyticsOption?: any
+        ): void;
 
         /**
          * Creates a reference to a bucket for this app
@@ -325,7 +340,9 @@ declare namespace KiiCloud {
          * @example
          *         var bucket = Kii.bucketWithName("myBucket");
          */
-        static bucketWithName(bucketName: string): KiiBucket;
+        static bucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a　encrypted bucket for this app
@@ -339,7 +356,9 @@ declare namespace KiiCloud {
          * @example
          *         var bucket = Kii.encryptedBucketWithName("myBucket");
          */
-        static encryptedBucketWithName(bucketName: string): KiiBucket;
+        static encryptedBucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a group with the given name
@@ -351,7 +370,9 @@ declare namespace KiiCloud {
          * @example
          *         var group = new Kii.groupWithName("myGroup");
          */
-        static groupWithName(groupName: string): KiiGroup;
+        static groupWithName(
+          groupName: string
+        ): KiiGroup;
 
         /**
          * Creates a reference to a group with the given name and a list of default members
@@ -364,7 +385,10 @@ declare namespace KiiCloud {
          * @example
          *         var group = new KiiGroup.groupWithName("myGroup", members);
          */
-        static groupWithNameAndMembers(groupName: string, members: KiiUser[]): KiiGroup;
+        static groupWithNameAndMembers(
+          groupName: string,
+          members: KiiUser[]
+        ): KiiGroup;
 
         /**
          * Authenticate as app admin.
@@ -414,7 +438,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static authenticateAsAppAdmin(clientId: string, clientSecret: string, callbacks?: { success(adminContext: KiiAppAdminContext): any; failure(error: string, statusCode: number): any; }): Promise<KiiAppAdminContext>;
+        static authenticateAsAppAdmin(
+          clientId: string,
+          clientSecret: string,
+          callbacks?: { success(adminContext: KiiAppAdminContext): any; failure(error: string, statusCode: number): any; }
+        ): Promise<KiiAppAdminContext>;
 
         /**
          * Instantiate KiiServerCodeEntry with specified entry name.
@@ -431,7 +459,9 @@ declare namespace KiiCloud {
          * @example
          *         var entry = Kii.serverCodeEntry("main");
          */
-        static serverCodeEntry(entryName: string): KiiServerCodeEntry;
+        static serverCodeEntry(
+          entryName: string
+        ): KiiServerCodeEntry;
 
         /**
          * Instantiate serverCodeEntryWithVersion with specified entry name and version.
@@ -449,7 +479,10 @@ declare namespace KiiCloud {
          * @example
          *         var entry = Kii.serverCodeEntryWithVersion("main", "gulsdf6ful8jvf8uq6fe7vjy6");
          */
-        static serverCodeEntryWithVersion(entryName: string, version: string): KiiServerCodeEntry;
+        static serverCodeEntryWithVersion(
+          entryName: string,
+          version: string
+        ): KiiServerCodeEntry;
 
         /**
          * Instantiate topic belongs to application.
@@ -458,13 +491,16 @@ declare namespace KiiCloud {
          *
          * @return topic instance.
          */
-        static topicWithName(topicName: string): KiiTopic;
+        static topicWithName(
+          topicName: string
+        ): KiiTopic;
 
         /**
          * Gets a list of topics in app scope
          *
          * @param callbacks An object with callback methods defined
-         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success or fullfill callback of promise. If empty string or no string object is provided, this API regards no paginationKey specified.
+         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success or fullfill callback of promise. If empty string or no string object is
+         * provided, this API regards no paginationKey specified.
          *
          * @return return promise object.
          *     <ul>
@@ -522,7 +558,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+        static listTopics(
+          callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; },
+          paginationKey?: string
+        ): Promise<[KiiTopic[], string]>;
 
         /**
          * Authenticate as Thing.
@@ -571,7 +610,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static authenticateAsThing(vendorThingID: string, password: string, callbacks?: { success(thingAuthContext: KiiThingContext): any; failure(error: Error): any; }): Promise<KiiThingContext>;
+        static authenticateAsThing(
+          vendorThingID: string,
+          password: string,
+          callbacks?: { success(thingAuthContext: KiiThingContext): any; failure(error: Error): any; }
+        ): Promise<KiiThingContext>;
 
         /**
          * Create a KiiThingContext reference
@@ -620,7 +663,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static authenticateAsThingWithToken(thingID: string, token: string, callbacks?: { success(thingContext: KiiThingContext): any; failure(error: Error): any; }): Promise<KiiThingContext>;
+        static authenticateAsThingWithToken(
+          thingID: string,
+          token: string,
+          callbacks?: { success(thingContext: KiiThingContext): any; failure(error: Error): any; }
+        ): Promise<KiiThingContext>;
     }
 
     /**
@@ -675,10 +722,13 @@ declare namespace KiiCloud {
          *         		// do something with the error response
          *     });
          */
-        listACLEntries(callbacks?: { success(theACL: KiiACL, theEntries: KiiACLEntry[]): any; failure(theACL: KiiACL, anErrorString: string): any; }): Promise<[KiiACL, KiiACLEntry[]]>;
+        listACLEntries(
+          callbacks?: { success(theACL: KiiACL, theEntries: KiiACLEntry[]): any; failure(theACL: KiiACL, anErrorString: string): any; }
+        ): Promise<[KiiACL, KiiACLEntry[]]>;
 
         /**
-         * Add a KiiACLEntry to the local object, if not already present. This does not explicitly grant any permissions, which should be done through the KiiACLEntry itself. This method simply adds the entry to the local ACL object so it can be saved to the server.
+         * Add a KiiACLEntry to the local object, if not already present. This does not explicitly grant any permissions, which should be done through the KiiACLEntry itself. This method simply adds
+         * the entry to the local ACL object so it can be saved to the server.
          *
          * @param entry The KiiACLEntry to add
          *
@@ -689,10 +739,13 @@ declare namespace KiiCloud {
          *     var acl = . . .; // a KiiACL object
          *     acl.putACLEntry(aclEntry);
          */
-        putACLEntry(entry: KiiACLEntry): void;
+        putACLEntry(
+          entry: KiiACLEntry
+        ): void;
 
         /**
-         * Remove a KiiACLEntry to the local object. This does not explicitly revoke any permissions, which should be done through the KiiACLEntry itself. This method simply removes the entry from the local ACL object and will not be saved to the server.
+         * Remove a KiiACLEntry to the local object. This does not explicitly revoke any permissions, which should be done through the KiiACLEntry itself. This method simply removes the entry from the
+         * local ACL object and will not be saved to the server.
          *
          * @param entry The KiiACLEntry to remove
          *
@@ -703,7 +756,9 @@ declare namespace KiiCloud {
          *     var acl = . . .; // a KiiACL object
          *     acl.removeACLEntry(aclEntry);
          */
-        removeACLEntry(entry: KiiACLEntry): void;
+        removeACLEntry(
+          entry: KiiACLEntry
+        ): void;
 
         /**
          * Save the list of ACLEntry objects associated with this ACL object to the server
@@ -746,7 +801,9 @@ declare namespace KiiCloud {
          *             // do something with the error response
          *     });
          */
-        save(callbacks?: { success(theSavedACL: KiiACL): any; failure(theACL: KiiACL, anErrorString: string): any; }): Promise<KiiACL>;
+        save(
+          callbacks?: { success(theSavedACL: KiiACL): any; failure(theACL: KiiACL, anErrorString: string): any; }
+        ): Promise<KiiACL>;
     }
 
     /**
@@ -769,7 +826,9 @@ declare namespace KiiCloud {
          *
          * @throws If the value is not one of the permitted values
          */
-        setAction(value: KiiACLAction): void;
+        setAction(
+          value: KiiACLAction
+        ): void;
 
         /**
          * Get the action that is being permitted/restricted in this entry
@@ -785,7 +844,9 @@ declare namespace KiiCloud {
          *
          * @throws If the value is not one of the permitted values
          */
-        setSubject(subject: KiiACLSubject): void;
+        setSubject(
+          subject: KiiACLSubject
+        ): void;
 
         /**
          * Get the subject that is being permitted/restricted in this entry
@@ -801,7 +862,9 @@ declare namespace KiiCloud {
          *
          * @throws If the value is not a boolean type
          */
-        setGrant(value: boolean): void;
+        setGrant(
+          value: boolean
+        ): void;
 
         /**
          * Get whether or not the action is being permitted to the subject
@@ -826,7 +889,10 @@ declare namespace KiiCloud {
          * @throws If specified subject is invalid.
          * @throws If the specified action is invalid.
          */
-        static entryWithSubject(Subject: KiiACLSubject, action: KiiACLAction): KiiACLEntry;
+        static entryWithSubject(
+          Subject: KiiACLSubject,
+          action: KiiACLAction
+        ): KiiACLEntry;
     }
 
     /**
@@ -848,7 +914,8 @@ declare namespace KiiCloud {
         static getAppKey(): string;
 
         /**
-         * Get the deviceId. If deviceId has not specified while initialization, it returns SDK generated deviceId.It is recommended to retrieve the deviceId and store it to identify the device properly.
+         * Get the deviceId. If deviceId has not specified while initialization, it returns SDK generated deviceId.It is recommended to retrieve the deviceId and store it to identify the device
+         * properly.
          *
          * @return deviceId.
          */
@@ -871,7 +938,9 @@ declare namespace KiiCloud {
          * @example
          *         KiiAnalytics.setLogging(true);
          */
-        static setLogging(True: boolean): void;
+        static setLogging(
+          True: boolean
+        ): void;
 
         /**
          *
@@ -883,7 +952,8 @@ declare namespace KiiCloud {
          * @param appID The application ID found in your Kii developer console
          * @param appKey The application key found in your Kii developer console
          * @param site Can be one of the constants KiiAnalyticsSite.US, KiiAnalyticsSite.JP, KiiAnalyticsSite.CN, KiiAnalyticsSite.CN3 or KiiAnalyticsSite.SG depending on your location.
-         * @param deviceid If deviceId is not provided, SDK generates a new deviceId and use it when upload events.deviceId can be retrieved by {@link KiiAnalytics.getDeviceId()}.It is recommended to retrieve the deviceId and store it to identify the device properly.
+         * @param deviceid If deviceId is not provided, SDK generates a new deviceId and use it when upload events.deviceId can be retrieved by {@link KiiAnalytics.getDeviceId()}.It is recommended to
+         * retrieve the deviceId and store it to identify the device properly.
          *
          * @example
          *     // initialize without deviceId
@@ -891,7 +961,12 @@ declare namespace KiiCloud {
          *     // initialize with deviceId
          *     Kii.initializeWithSite("my-app-id", "my-app-key", KiiAnalyticsSite.JP, "my-device-id");
          */
-        static initializeWithSite(appID: string, appKey: string, site: KiiAnalyticsSite, deviceid: string): void;
+        static initializeWithSite(
+          appID: string,
+          appKey: string,
+          site: KiiAnalyticsSite,
+          deviceid: string
+        ): void;
 
         /**
          *
@@ -902,7 +977,8 @@ declare namespace KiiCloud {
          *
          * @param appID The application ID found in your Kii developer console
          * @param appKey The application key found in your Kii developer console
-         * @param deviceid If deviceId is not provided, SDK generates a new deviceId and use it when upload events. deviceId can be retrieved by {@link KiiAnalytics.getDeviceId()}.It is recommended to retrieve the deviceId and store it to identify the device properly.
+         * @param deviceid If deviceId is not provided, SDK generates a new deviceId and use it when upload events. deviceId can be retrieved by {@link KiiAnalytics.getDeviceId()}.It is recommended to
+         * retrieve the deviceId and store it to identify the device properly.
          *
          * @example
          *     // initialize without deviceId
@@ -910,7 +986,11 @@ declare namespace KiiCloud {
          *     // initialize with deviceId
          *     Kii.initializeWithSite("my-app-id", "my-app-key", KiiAnalyticsSite.JP, "my-device-id");
          */
-        static initialize(appID: string, appKey: string, deviceid: string): void;
+        static initialize(
+          appID: string,
+          appKey: string,
+          deviceid: string
+        ): void;
 
         /**
          * Utilize the KiiAnalytics logger to track SDK-specific actions
@@ -922,7 +1002,9 @@ declare namespace KiiCloud {
          * @example
          *         KiiAnalytics.logger("My message");
          */
-        static logger(message: string): void;
+        static logger(
+          message: string
+        ): void;
 
         /**
          * Log a single event to be uploaded to KiiAnalytics
@@ -941,7 +1023,9 @@ declare namespace KiiCloud {
          *       </li>
          *     </ul>
          */
-        static trackEvent(eventName: string): Promise<void>;
+        static trackEvent(
+          eventName: string
+        ): Promise<void>;
 
         /**
          * Log a single event to be uploaded to KiiAnalytics
@@ -964,7 +1048,10 @@ declare namespace KiiCloud {
          *       </li>
          *     </ul>
          */
-        static trackEventWithExtras(eventName: string, extras: any): Promise<void>;
+        static trackEventWithExtras(
+          eventName: string,
+          extras: any
+        ): Promise<void>;
 
         /**
          * Log a single event to be uploaded to KiiAnalytics
@@ -988,7 +1075,11 @@ declare namespace KiiCloud {
          *       </li>
          *     </ul>
          */
-        static trackEventWithExtrasAndCallbacks(eventName: string, extras: any, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
+        static trackEventWithExtrasAndCallbacks(
+          eventName: string,
+          extras: any,
+          callbacks?: { success(): any; failure(error: Error): any; }
+        ): Promise<void>;
 
         /**
          *
@@ -997,7 +1088,9 @@ declare namespace KiiCloud {
          *
          * @param url A string containing the desired endpoint
          */
-        static setBaseURL(url: string): void;
+        static setBaseURL(
+          url: string
+        ): void;
 
         /**
          *
@@ -1063,7 +1156,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        bucketWithName(bucketName: string): KiiBucket;
+        bucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a encrypted bucket operated by app admin.
@@ -1084,7 +1179,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        encryptedBucketWithName(bucketName: string): KiiBucket;
+        encryptedBucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a group operated by app admin.
@@ -1108,7 +1205,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        groupWithName(group: string): KiiGroup;
+        groupWithName(
+          group: string
+        ): KiiGroup;
 
         /**
          * Creates a reference to a user operated by app admin.
@@ -1128,7 +1227,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        userWithID(user: string): KiiUser;
+        userWithID(
+          user: string
+        ): KiiUser;
 
         /**
          * Creates a reference to an object operated by app admin using object`s URI.
@@ -1139,7 +1240,9 @@ declare namespace KiiCloud {
          *
          * @throws If the URI is null, empty or does not have correct format.
          */
-        objectWithURI(object: string): KiiObject;
+        objectWithURI(
+          object: string
+        ): KiiObject;
 
         /**
          * Creates a reference to a group operated by app admin using group's ID.
@@ -1166,7 +1269,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        groupWithID(group: string): KiiGroup;
+        groupWithID(
+          group: string
+        ): KiiGroup;
 
         /**
          * Register new group own by specified user on Kii Cloud with specified ID.
@@ -1225,7 +1330,13 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        registerGroupWithOwnerAndID(groupID: string, groupName: string, user: string, members: KiiUser[], callbacks?: { success(adminContext: KiiAppAdminContext): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiAppAdminContext>;
+        registerGroupWithOwnerAndID(
+          groupID: string,
+          groupName: string,
+          user: string,
+          members: KiiUser[],
+          callbacks?: { success(adminContext: KiiAppAdminContext): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }
+        ): Promise<KiiAppAdminContext>;
 
         /**
          * Creates a reference to a group operated by app admin using group's URI.
@@ -1252,7 +1363,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        groupWithURI(group: string): KiiGroup;
+        groupWithURI(
+          group: string
+        ): KiiGroup;
 
         /**
          * Find registered KiiUser with the email.<br>
@@ -1326,7 +1439,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        findUserByEmail(email: string, callbacks?: { success(adminContext: KiiAppAdminContext, theMatchedUser: KiiUser): any; failure(adminContext: KiiAppAdminContext, anErrorString: string): any; }): Promise<[KiiAppAdminContext, KiiUser]>;
+        findUserByEmail(
+          email: string,
+          callbacks?: { success(adminContext: KiiAppAdminContext, theMatchedUser: KiiUser): any; failure(adminContext: KiiAppAdminContext, anErrorString: string): any; }
+        ): Promise<[KiiAppAdminContext, KiiUser]>;
 
         /**
          * Find registered KiiUser with the phone.<br>
@@ -1400,7 +1516,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        findUserByPhone(phone: string, callbacks?: { success(adminContext: KiiAppAdminContext, theMatchedUser: KiiUser): any; failure(adminContext: KiiAppAdminContext, anErrorString: string): any; }): Promise<[KiiAppAdminContext, KiiUser]>;
+        findUserByPhone(
+          phone: string,
+          callbacks?: { success(adminContext: KiiAppAdminContext, theMatchedUser: KiiUser): any; failure(adminContext: KiiAppAdminContext, anErrorString: string): any; }
+        ): Promise<[KiiAppAdminContext, KiiUser]>;
 
         /**
          * Find registered KiiUser with the user name.<br>
@@ -1472,7 +1591,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        findUserByUsername(username: string, callbacks?: { success(adminContext: KiiAppAdminContext, theMatchedUser: KiiUser): any; failure(adminContext: KiiAppAdminContext, anErrorString: string): any; }): Promise<[KiiAppAdminContext, KiiUser]>;
+        findUserByUsername(
+          username: string,
+          callbacks?: { success(adminContext: KiiAppAdminContext, theMatchedUser: KiiUser): any; failure(adminContext: KiiAppAdminContext, anErrorString: string): any; }
+        ): Promise<[KiiAppAdminContext, KiiUser]>;
 
         /**
          * Register thing by app admin.
@@ -1542,7 +1664,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        registerThing(fields: KiiThingFields, callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        registerThing(
+          fields: KiiThingFields,
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Creates a reference to a thing operated by app admin.
@@ -1555,7 +1680,9 @@ declare namespace KiiCloud {
          *         // Assume you already have adminContext instance.
          *         adminContext.thingWithID(thingID);
          */
-        thingWithID(thing: string): KiiThing;
+        thingWithID(
+          thing: string
+        ): KiiThing;
 
         /**
          * Register user/group as owner of specified thing by app admin.
@@ -1608,7 +1735,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        registerOwnerWithThingID<T extends KiiUser | KiiGroup>(thingID: string, owner: T, callbacks?: { success(group: T): any; failure(error: Error): any; }): Promise<T>;
+        registerOwnerWithThingID<T extends KiiUser | KiiGroup>(
+          thingID: string,
+          owner: T,
+          callbacks?: { success(group: T): any; failure(error: Error): any; }
+        ): Promise<T>;
 
         /**
          * Register user/group as owner of specified thing by app admin.
@@ -1660,7 +1791,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        registerOwnerWithVendorThingID<T extends KiiUser | KiiGroup>(vendorThingID: string, owner: T, callbacks?: { success(group: T): any; failure(error: Error): any; }): Promise<T>;
+        registerOwnerWithVendorThingID<T extends KiiUser | KiiGroup>(
+          vendorThingID: string,
+          owner: T,
+          callbacks?: { success(group: T): any; failure(error: Error): any; }
+        ): Promise<T>;
 
         /**
          * Load thing with vendor thing ID by app admin.
@@ -1707,7 +1842,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        loadThingWithVendorThingID(vendorThingID: string, callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        loadThingWithVendorThingID(
+          vendorThingID: string,
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Load thing with thing ID by app admin.
@@ -1754,7 +1892,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        loadThingWithThingID(thingID: string, callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        loadThingWithThingID(
+          thingID: string,
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Creates a reference to a topic operated by app admin
@@ -1763,13 +1904,16 @@ declare namespace KiiCloud {
          *
          * @return topic instance.
          */
-        topicWithName(topicName: string): KiiTopic;
+        topicWithName(
+          topicName: string
+        ): KiiTopic;
 
         /**
          * Gets a list of topics in app scope
          *
          * @param callbacks An object with callback methods defined
-         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no paginationKey specified.
+         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no
+         * paginationKey specified.
          *
          * @return return promise object.
          *     <ul>
@@ -1830,7 +1974,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+        listTopics(
+          callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; },
+          paginationKey?: string
+        ): Promise<[KiiTopic[], string]>;
     }
 
     /**
@@ -1860,7 +2007,8 @@ declare namespace KiiCloud {
         /**
          * Create a KiiObject within the current bucket, with type
          *
-         * <br><br>The object will not be created on the server until the KiiObject is explicitly saved. This method simply returns an empty working KiiObject with a specified type. The type allows for better indexing and improved query results. It is recommended to use this method - but for lazy creation, the createObject method is also available.
+         * <br><br>The object will not be created on the server until the KiiObject is explicitly saved. This method simply returns an empty working KiiObject with a specified type. The type allows
+         * for better indexing and improved query results. It is recommended to use this method - but for lazy creation, the createObject method is also available.
          *
          * @param type A string representing the desired object type
          *
@@ -1870,7 +2018,9 @@ declare namespace KiiCloud {
          *     var bucket = . . .; // a KiiBucket
          *     var object = bucket.createObjectWithType("scores");
          */
-        createObjectWithType(type: string): KiiObject;
+        createObjectWithType(
+          type: string
+        ): KiiObject;
 
         /**
          * Create a KiiObject within the current bucket, specifying its ID.
@@ -1892,7 +2042,9 @@ declare namespace KiiCloud {
          *      var bucket = . . .; // KiiBucket
          *      var object = bucket.createObjectWithID('__OBJECT_ID_');
          */
-        createObjectWithID(objectID: string): KiiObject;
+        createObjectWithID(
+          objectID: string
+        ): KiiObject;
 
         /**
          * Get the ACL handle for this bucket
@@ -1994,7 +2146,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        executeQuery<T>(query: KiiQuery, callbacks?: { success(queryPerformed: KiiQuery, resultSet: T[], nextQuery: KiiQuery): any; failure(bucket: KiiBucket, anErrorString: string): any; }): Promise<[KiiQuery, T[], KiiQuery]>;
+        executeQuery<T>(
+          query: KiiQuery,
+          callbacks?: { success(queryPerformed: KiiQuery, resultSet: T[], nextQuery: KiiQuery): any; failure(bucket: KiiBucket, anErrorString: string): any; }
+        ): Promise<[KiiQuery, T[], KiiQuery]>;
 
         /**
          * Execute count aggregation of specified query on current bucket.
@@ -2057,7 +2212,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        countWithQuery(query: KiiQuery, callbacks?: { success(bucket: KiiBucket, query: KiiQuery, count: number): any; failure(bucket: KiiBucket, errorString: string): any; }): Promise<[KiiBucket, KiiQuery, number]>;
+        countWithQuery(
+          query: KiiQuery,
+          callbacks?: { success(bucket: KiiBucket, query: KiiQuery, count: number): any; failure(bucket: KiiBucket, errorString: string): any; }
+        ): Promise<[KiiBucket, KiiQuery, number]>;
 
         /**
          * Execute count aggregation of all clause query on current bucket.
@@ -2114,7 +2272,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        count(callbacks?: { success(bucket: KiiBucket, query: KiiQuery, count: number): any; failure(bucket: KiiBucket, errorString: string): any; }): Promise<[KiiBucket, KiiQuery, number]>;
+        count(
+          callbacks?: { success(bucket: KiiBucket, query: KiiQuery, count: number): any; failure(bucket: KiiBucket, errorString: string): any; }
+        ): Promise<[KiiBucket, KiiQuery, number]>;
 
         /**
          * Delete the given bucket from the server
@@ -2164,7 +2324,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        delete(callbacks?: { success(deletedBucket: KiiBucket): any; failure(bucketToDelete: KiiBucket, anErrorString: string): any; }): Promise<KiiBucket>;
+        delete(
+          callbacks?: { success(deletedBucket: KiiBucket): any; failure(bucketToDelete: KiiBucket, anErrorString: string): any; }
+        ): Promise<KiiBucket>;
     }
 
     /**
@@ -2179,7 +2341,9 @@ declare namespace KiiCloud {
          * @example
          *     KiiClause clause = KiiClause.and(clause1, clause2, clause3, . . .)
          */
-        static and(...A: KiiClause[]): KiiClause;
+        static and(
+          ...A: KiiClause[]
+        ): KiiClause;
 
         /**
          * Create a KiiClause with the OR operator concatenating multiple KiiClause objects
@@ -2192,7 +2356,9 @@ declare namespace KiiCloud {
          * @example
          *     KiiClause clause = KiiClause.or(clause1, clause2, clause3, . . .)
          */
-        static or(...A: KiiClause[]): KiiClause;
+        static or(
+          ...A: KiiClause[]
+        ): KiiClause;
 
         /**
          * Create a KiiClause with the NOT operator concatenating a KiiClause object
@@ -2202,7 +2368,9 @@ declare namespace KiiCloud {
          *
          * @param clause KiiClause object to negate
          */
-        static not(clause: KiiClause): KiiClause;
+        static not(
+          clause: KiiClause
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key == value)
@@ -2210,7 +2378,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param value the value to compare
          */
-        static equals(key: string, value: any): KiiClause;
+        static equals(
+          key: string,
+          value: any
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key != value)
@@ -2218,7 +2389,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param value the value to compare
          */
-        static notEquals(key: string, value: any): KiiClause;
+        static notEquals(
+          key: string,
+          value: any
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key > value)
@@ -2226,7 +2400,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param value the value to compare
          */
-        static greaterThan(key: string, value: any): KiiClause;
+        static greaterThan(
+          key: string,
+          value: any
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key >= value)
@@ -2234,7 +2411,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param value the value to compare
          */
-        static greaterThanOrEqual(key: string, value: any): KiiClause;
+        static greaterThanOrEqual(
+          key: string,
+          value: any
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key < value)
@@ -2242,7 +2422,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param value the value to compare
          */
-        static lessThan(key: string, value: any): KiiClause;
+        static lessThan(
+          key: string,
+          value: any
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key <= value)
@@ -2250,7 +2433,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param value the value to compare
          */
-        static lessThanOrEqual(key: string, value: any): KiiClause;
+        static lessThanOrEqual(
+          key: string,
+          value: any
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key in values)
@@ -2258,7 +2444,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param values to compare
          */
-        static inClause(key: string, values: any[]): KiiClause;
+        static inClause(
+          key: string,
+          values: any[]
+        ): KiiClause;
 
         /**
          * Create an expression of the form (key STARTS WITH value)
@@ -2266,7 +2455,10 @@ declare namespace KiiCloud {
          * @param key The key to compare
          * @param value the value to compare
          */
-        static startsWith(key: string, value: any): KiiClause;
+        static startsWith(
+          key: string,
+          value: any
+        ): KiiClause;
 
         /**
          * Create a clause of geo distance. This clause inquires objects in the specified circle.
@@ -2309,7 +2501,12 @@ declare namespace KiiCloud {
          *             };
          *             bucket.executeQuery(query, queryCallback);
          */
-        static geoDistance(key: string, center: KiiGeoPoint, radius: number, putDistanceInto: string): KiiClause;
+        static geoDistance(
+          key: string,
+          center: KiiGeoPoint,
+          radius: number,
+          putDistanceInto: string
+        ): KiiClause;
 
         /**
          * Create a clause of geo box. This clause inquires objects in the specified rectangle.
@@ -2324,7 +2521,11 @@ declare namespace KiiCloud {
          * @throws <li> Specified key is not a string or is an empty string.</li>
          *             <li>northEast or southWest is not a reference of KiiGeoPoint.</li>
          */
-        static geoBox(key: string, northEast: KiiGeoPoint, southWest: KiiGeoPoint): KiiClause;
+        static geoBox(
+          key: string,
+          northEast: KiiGeoPoint,
+          southWest: KiiGeoPoint
+        ): KiiClause;
 
         /**
          * Create an expression to returns all entities that have a specified field and type.
@@ -2332,7 +2533,10 @@ declare namespace KiiCloud {
          * @param key name of the specified field.
          * @param fieldType The type of the content of the field. The type of the content of the field must be provided, possible values are "STRING", "INTEGER", "DECIMAL" and "BOOLEAN".
          */
-        static hasField(key: string, fieldType: string): KiiClause;
+        static hasField(
+          key: string,
+          fieldType: string
+        ): KiiClause;
     }
 
     /**
@@ -2362,7 +2566,9 @@ declare namespace KiiCloud {
          *     var errorCode = err.code;
          *     var errorMessage = err.message;
          */
-        static parse<T extends string | Error>(error: T): KiiError;
+        static parse<T extends string | Error>(
+          error: T
+        ): KiiError;
     }
 
     /**
@@ -2392,7 +2598,10 @@ declare namespace KiiCloud {
          * @example
          *         var point = KiiGeoPoint.geoPoint(35.07, 139.02);
          */
-        static geoPoint(latitude: number, longitude: number): KiiGeoPoint;
+        static geoPoint(
+          latitude: number,
+          longitude: number
+        ): KiiGeoPoint;
     }
 
     /**
@@ -2505,7 +2714,12 @@ declare namespace KiiCloud {
          *             // do something with the error response
          *     });
          */
-        static registerGroupWithID(groupID: string, groupName: string, members: KiiUser[], callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
+        static registerGroupWithID(
+          groupID: string,
+          groupName: string,
+          members: KiiUser[],
+          callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }
+        ): Promise<KiiGroup>;
 
         /**
          * Creates a reference to a bucket for this group
@@ -2520,7 +2734,9 @@ declare namespace KiiCloud {
          *     var group = . . .; // a KiiGroup
          *     var bucket = group.bucketWithName("myBucket");
          */
-        bucketWithName(bucketName: string): KiiBucket;
+        bucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a encrypted bucket for this group
@@ -2535,7 +2751,9 @@ declare namespace KiiCloud {
          *     var group = . . .; // a KiiGroup
          *     var bucket = group.encryptedBucketWithName("myBucket");
          */
-        encryptedBucketWithName(bucketName: string): KiiBucket;
+        encryptedBucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Adds a user to the given group
@@ -2550,7 +2768,9 @@ declare namespace KiiCloud {
          *     group.addUser(user);
          *     group.save(callbacks);
          */
-        addUser(member: KiiUser): void;
+        addUser(
+          member: KiiUser
+        ): void;
 
         /**
          * Removes a user from the given group
@@ -2565,7 +2785,9 @@ declare namespace KiiCloud {
          *     group.removeUser(user);
          *     group.save(callbacks);
          */
-        removeUser(member: KiiUser): void;
+        removeUser(
+          member: KiiUser
+        ): void;
 
         /**
          * Gets a list of all current members of a group
@@ -2620,7 +2842,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        getMemberList(callbacks?: { success(theGroup: KiiGroup, memberList: KiiUser[]): any; failure(theGroup: KiiGroup, anErrorString: string): any; }): Promise<[KiiGroup, KiiUser[]]>;
+        getMemberList(
+          callbacks?: { success(theGroup: KiiGroup, memberList: KiiUser[]): any; failure(theGroup: KiiGroup, anErrorString: string): any; }
+        ): Promise<[KiiGroup, KiiUser[]]>;
 
         /**
          * Updates the group name on the server
@@ -2663,12 +2887,16 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        changeGroupName(newName: string, callbacks?: { success(theRenamedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string): any; }): Promise<KiiGroup>;
+        changeGroupName(
+          newName: string,
+          callbacks?: { success(theRenamedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string): any; }
+        ): Promise<KiiGroup>;
 
         /**
          * Saves the latest group values to the server
          *
-         * <br><br>If the group does not yet exist, it will be created. If the group already exists, the members that have changed will be updated accordingly. If the group already exists and there is no updates of members, it will allways succeed but does not execute update. To change the name of group, use {@link #changeGroupName}.
+         * <br><br>If the group does not yet exist, it will be created. If the group already exists, the members that have changed will be updated accordingly. If the group already exists and there is
+         * no updates of members, it will allways succeed but does not execute update. To change the name of group, use {@link #changeGroupName}.
          *
          * @param callbacks An object with callback methods defined
          *
@@ -2712,13 +2940,16 @@ declare namespace KiiCloud {
          *             // do something with the error response
          *     });
          */
-        save(callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
+        save(
+          callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }
+        ): Promise<KiiGroup>;
 
         /**
          * Saves the latest group values to the server with specified owner.
          * This method can be used only by the group owner or app admin.
          *
-         * <br><br>If the group does not yet exist, it will be created. If the group already exists, the members and owner that have changed will be updated accordingly. If the group already exists and there is no updates of members and owner, it will allways succeed but does not execute update. To change the name of group, use {@link #changeGroupName}.
+         * <br><br>If the group does not yet exist, it will be created. If the group already exists, the members and owner that have changed will be updated accordingly. If the group already exists
+         * and there is no updates of members and owner, it will allways succeed but does not execute update. To change the name of group, use {@link #changeGroupName}.
          *
          * @param user id of owner
          * @param callbacks An object with callback methods defined
@@ -2763,7 +2994,10 @@ declare namespace KiiCloud {
          *             // do something with the error response
          *     });
          */
-        saveWithOwner(user: string, callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
+        saveWithOwner(
+          user: string,
+          callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }
+        ): Promise<KiiGroup>;
 
         /**
          * Updates the local group's data with the group data on the server
@@ -2807,7 +3041,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        refresh(callbacks?: { success(theRefreshedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string): any; }): Promise<KiiGroup>;
+        refresh(
+          callbacks?: { success(theRefreshedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string): any; }
+        ): Promise<KiiGroup>;
 
         /**
          * Delete the group from the server
@@ -2855,7 +3091,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        delete(callbacks?: { success(theDeletedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string): any; }): Promise<KiiGroup>;
+        delete(
+          callbacks?: { success(theDeletedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string): any; }
+        ): Promise<KiiGroup>;
 
         /**
          * Gets the owner of the associated group
@@ -2904,7 +3142,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        getOwner(callbacks?: { success(theGroup: KiiGroup, theOwner: KiiUser): any; failure(theGroup: KiiGroup, anErrorString: string): any; }): Promise<[KiiGroup, KiiUser]>;
+        getOwner(
+          callbacks?: { success(theGroup: KiiGroup, theOwner: KiiUser): any; failure(theGroup: KiiGroup, anErrorString: string): any; }
+        ): Promise<[KiiGroup, KiiUser]>;
 
         /**
          * Creates a reference to a group with the given name
@@ -2920,7 +3160,9 @@ declare namespace KiiCloud {
          * @example
          *     var group = new KiiGroup.groupWithName("myGroup");
          */
-        static groupWithName(groupName: string): KiiGroup;
+        static groupWithName(
+          groupName: string
+        ): KiiGroup;
 
         /**
          * Creates a reference to a group with the given name and a list of default members
@@ -2937,7 +3179,10 @@ declare namespace KiiCloud {
          * @example
          *     var group = new KiiGroup.groupWithName("myGroup", members);
          */
-        static groupWithNameAndMembers(groupName: string, members: KiiUser[]): KiiGroup;
+        static groupWithNameAndMembers(
+          groupName: string,
+          members: KiiUser[]
+        ): KiiGroup;
 
         /**
          * Instantiate KiiGroup that refers to existing group which has specified ID.
@@ -2955,7 +3200,9 @@ declare namespace KiiCloud {
          * @example
          *     var group = new KiiUser.groupWithID("__GROUP_ID__");
          */
-        static groupWithID(groupId: string): KiiGroup;
+        static groupWithID(
+          groupId: string
+        ): KiiGroup;
 
         /**
          * Generate a new KiiGroup based on a given URI
@@ -2973,7 +3220,9 @@ declare namespace KiiCloud {
          * @example
          *     var group = new KiiGroup.groupWithURI("kiicloud://myuri");
          */
-        static groupWithURI(uri: string): KiiGroup;
+        static groupWithURI(
+          uri: string
+        ): KiiGroup;
 
         /**
          * Instantiate topic belongs to this group.
@@ -2982,13 +3231,16 @@ declare namespace KiiCloud {
          *
          * @return topic instance.
          */
-        topicWithName(topicName: string): KiiTopic;
+        topicWithName(
+          topicName: string
+        ): KiiTopic;
 
         /**
          * Gets a list of topics in this group scope
          *
          * @param callbacks An object with callback methods defined
-         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no paginationKey specified.
+         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no
+         * paginationKey specified.
          *
          * @return return promise object.
          *     <ul>
@@ -3049,7 +3301,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+        listTopics(
+          callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; },
+          paginationKey?: string
+        ): Promise<[KiiTopic[], string]>;
     }
 
     /**
@@ -3108,7 +3363,8 @@ declare namespace KiiCloud {
          * The reason is:
          *  <li>Will dramatically improve the performance of bucket query.</li>
          *  <li>Bucket query does not support the mixed result of integer and floating point.
-         *  ex.) If you use same key for integer and floating point and inquire object with the integer value, objects which has floating point value with the key would not be evaluated in the query. (and vice versa)</li>
+         *  ex.) If you use same key for integer and floating point and inquire object with the integer value, objects which has floating point value with the key would not be evaluated in the
+         *  query. (and vice versa)</li>
          *
          * @param key The key to set.
          *   if null, empty string or string prefixed with '_' is specified, silently ignored and have no effect.
@@ -3120,7 +3376,10 @@ declare namespace KiiCloud {
          *     var obj = . . .; // a KiiObject
          *     obj.set("score", 4298);
          */
-        set(key: string, value: any): void;
+        set(
+          key: string,
+          value: any
+        ): void;
 
         /**
          * Gets the value associated with the given key
@@ -3133,7 +3392,9 @@ declare namespace KiiCloud {
          *     var obj = . . .; // a KiiObject
          *     var score = obj.get("score");
          */
-        get<T>(key: string): T;
+        get<T>(
+          key: string
+        ): T;
 
         /**
          * Gets the array object that contains all keys of custom field.
@@ -3160,7 +3421,9 @@ declare namespace KiiCloud {
          *     var obj = . . .; // a KiiObject
          *     obj.remove("score");
          */
-        remove(key: string): void;
+        remove(
+          key: string
+        ): void;
 
         /**
          * Set Geo point to this object with the specified key.
@@ -3170,7 +3433,10 @@ declare namespace KiiCloud {
          *
          * @throws Specified kiiGeoPint is not an instance of KiiGeoPoint.
          */
-        setGeoPoint(key: string, KiiGeoPoint: KiiGeoPoint): void;
+        setGeoPoint(
+          key: string,
+          KiiGeoPoint: KiiGeoPoint
+        ): void;
 
         /**
          * Gets the geo point associated with the given key.
@@ -3179,7 +3445,9 @@ declare namespace KiiCloud {
          *
          * @return KiiGeoPoint tied to the key. null if null exists.
          */
-        getGeoPoint(key: string): KiiGeoPoint;
+        getGeoPoint(
+          key: string
+        ): KiiGeoPoint;
 
         /**
          * Get the ACL handle for this file
@@ -3262,7 +3530,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        saveAllFields(callbacks?: { success(theSavedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; }, overwrite?: boolean): Promise<KiiObject>;
+        saveAllFields(
+          callbacks?: { success(theSavedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; },
+          overwrite?: boolean
+        ): Promise<KiiObject>;
 
         /**
          * Create or update the KiiObject on KiiCloud.
@@ -3320,7 +3591,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        save(callbacks?: { success(theSavedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; }, overwrite?: boolean): Promise<KiiObject>;
+        save(
+          callbacks?: { success(theSavedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; },
+          overwrite?: boolean
+        ): Promise<KiiObject>;
 
         /**
          * Updates the local object's data with the user data on the server
@@ -3364,7 +3638,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        refresh(callbacks?: { success(theRefreshedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; }): Promise<KiiObject>;
+        refresh(
+          callbacks?: { success(theRefreshedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; }
+        ): Promise<KiiObject>;
 
         /**
          * Delete the object from the server
@@ -3406,7 +3682,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        delete(callbacks?: { success(theDeletedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; }): Promise<KiiObject>;
+        delete(
+          callbacks?: { success(theDeletedObject: KiiObject): any; failure(theObject: KiiObject, anErrorString: string): any; }
+        ): Promise<KiiObject>;
 
         /**
          * Generate a new KiiObject based on a given URI
@@ -3420,7 +3698,9 @@ declare namespace KiiCloud {
          * @example
          *     var group = new KiiObject.objectWithURI("kiicloud://myuri");
          */
-        static objectWithURI(uri: string): KiiObject;
+        static objectWithURI(
+          uri: string
+        ): KiiObject;
 
         /**
          * Move KiiObject body from an object to another object.
@@ -3479,7 +3759,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        moveBody(targetObjectUri: string, callbacks?: { success(theSrcObject: KiiObject, theTgtObjectUri: string): any; failure(theSrcObject: KiiObject, theTgtObjectUri: string, anErrorString: string): any; }): Promise<[KiiObject, string]>;
+        moveBody(
+          targetObjectUri: string,
+          callbacks?: { success(theSrcObject: KiiObject, theTgtObjectUri: string): any; failure(theSrcObject: KiiObject, theTgtObjectUri: string, anErrorString: string): any; }
+        ): Promise<[KiiObject, string]>;
 
         /**
          * Upload body data of this object.<br>
@@ -3559,7 +3842,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        uploadBody(srcDataBlob: Blob, callbacks?: { success(obj: KiiObject): any; failure(obj: KiiObject, anErrorString: string): any; }): Promise<KiiObject>;
+        uploadBody(
+          srcDataBlob: Blob,
+          callbacks?: { success(obj: KiiObject): any; failure(obj: KiiObject, anErrorString: string): any; }
+        ): Promise<KiiObject>;
 
         /**
          * Download body data of this object.<br>
@@ -3634,7 +3920,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        downloadBody(callbacks?: { success(obj: KiiObject, bodyBlob: Blob): any; failure(obj: KiiObject, anErrorString: string): any; }): Promise<[KiiObject, Blob]>;
+        downloadBody(
+          callbacks?: { success(obj: KiiObject, bodyBlob: Blob): any; failure(obj: KiiObject, anErrorString: string): any; }
+        ): Promise<[KiiObject, Blob]>;
 
         /**
          * Publish object body.<br>
@@ -3687,7 +3975,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        publishBody(callbacks?: { success(obj: KiiObject, publishedUrl: string): any; failure(obj: KiiObject, anErrorString: string): any; }): Promise<[KiiObject, string]>;
+        publishBody(
+          callbacks?: { success(obj: KiiObject, publishedUrl: string): any; failure(obj: KiiObject, anErrorString: string): any; }
+        ): Promise<[KiiObject, string]>;
 
         /**
          * Publish object body with expiration date.<br>
@@ -3743,7 +4033,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        publishBodyExpiresAt(expiresAt: Date, callbacks?: { success(obj: KiiObject, publishedUrl: string): any; failure(obj: KiiObject, anErrorString: string): any; }): Promise<[KiiObject, string]>;
+        publishBodyExpiresAt(
+          expiresAt: Date,
+          callbacks?: { success(obj: KiiObject, publishedUrl: string): any; failure(obj: KiiObject, anErrorString: string): any; }
+        ): Promise<[KiiObject, string]>;
 
         /**
          * Publish object body with expiration duration.<br>
@@ -3799,7 +4092,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        publishBodyExpiresIn(expiresIn: number, callbacks?: { success(obj: KiiObject, publishedUrl: string): any; failure(obj: KiiObject, anErrorString: string): any; }): Promise<[KiiObject, string]>;
+        publishBodyExpiresIn(
+          expiresIn: number,
+          callbacks?: { success(obj: KiiObject, publishedUrl: string): any; failure(obj: KiiObject, anErrorString: string): any; }
+        ): Promise<[KiiObject, string]>;
 
         /**
          * Delete the object body from the server.<br>
@@ -3844,7 +4140,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        deleteBody(callbacks?: { success(theDeletedObject: KiiObject): any; failure(obj: KiiObject, anErrorString: string): any; }): Promise<KiiObject>;
+        deleteBody(
+          callbacks?: { success(theDeletedObject: KiiObject): any; failure(obj: KiiObject, anErrorString: string): any; }
+        ): Promise<KiiObject>;
 
         /**
          * Check if given ID is valid for object ID.
@@ -3854,7 +4152,9 @@ declare namespace KiiCloud {
          *
          * @return true if given ID is valid, false otherwise.
          */
-        static isValidObjectID(objectID: string): boolean;
+        static isValidObjectID(
+          objectID: string
+        ): boolean;
     }
 
     /**
@@ -3885,7 +4185,11 @@ declare namespace KiiCloud {
          * @example
          *
          */
-        installGcm(installationRegistrationID: string, development: boolean, callbacks?: { success(response: KiiGcmInstallationResponse): any; failure(error: Error): any; }): Promise<KiiGcmInstallationResponse>;
+        installGcm(
+          installationRegistrationID: string,
+          development: boolean,
+          callbacks?: { success(response: KiiGcmInstallationResponse): any; failure(error: Error): any; }
+        ): Promise<KiiGcmInstallationResponse>;
 
         /**
          * Register a MQTT installation to the Kii cloud for current logged in user.
@@ -3911,7 +4215,10 @@ declare namespace KiiCloud {
          * @example
          *
          */
-        installMqtt(development: boolean, callbacks?: { success(response: KiiMqttInstallationResponse): any; failure(error: Error): any; }): Promise<KiiMqttInstallationResponse>;
+        installMqtt(
+          development: boolean,
+          callbacks?: { success(response: KiiMqttInstallationResponse): any; failure(error: Error): any; }
+        ): Promise<KiiMqttInstallationResponse>;
 
         /**
          * Get MQTT endpoint.
@@ -3949,7 +4256,10 @@ declare namespace KiiCloud {
          * @example
          *
          */
-        getMqttEndpoint(installationID: string, callbacks?: { success(response: KiiMqttEndpoint): any; failure(error: Error): any; }): Promise<KiiMqttEndpoint>;
+        getMqttEndpoint(
+          installationID: string,
+          callbacks?: { success(response: KiiMqttEndpoint): any; failure(error: Error): any; }
+        ): Promise<KiiMqttEndpoint>;
 
         /**
          * Unregister the push settings by the id(issued by push provider) that is used for installation.
@@ -3971,7 +4281,11 @@ declare namespace KiiCloud {
          * @example
          *
          */
-        uninstall(installationRegistrationID: string, deviceType: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
+        uninstall(
+          installationRegistrationID: string,
+          deviceType: string,
+          callbacks?: { success(): any; failure(error: Error): any; }
+        ): Promise<void>;
 
         /**
          * Unregister the push settings by the id(issued by KiiCloud) that is used for installation.
@@ -3992,7 +4306,10 @@ declare namespace KiiCloud {
          * @example
          *
          */
-        uninstallByInstallationID(installationID: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
+        uninstallByInstallationID(
+          installationID: string,
+          callbacks?: { success(): any; failure(error: Error): any; }
+        ): Promise<void>;
     }
 
     /**
@@ -4009,7 +4326,9 @@ declare namespace KiiCloud {
          *
          * @param data sent to all push channels (gcm, apns, jpush, mqtt).
          */
-        constructor(data: any);
+        constructor(
+          data: any
+        );
 
         /**
          * build push message.
@@ -4026,7 +4345,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        setSendToDevelopment(flag: boolean): KiiPushMessageBuilder;
+        setSendToDevelopment(
+          flag: boolean
+        ): KiiPushMessageBuilder;
 
         /**
          * Indicate whether send this message to production environment.
@@ -4036,7 +4357,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        setSendToProduction(flag: boolean): KiiPushMessageBuilder;
+        setSendToProduction(
+          flag: boolean
+        ): KiiPushMessageBuilder;
 
         /**
          * Enable/ Disable message distribution via GCM.
@@ -4046,7 +4369,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        enableGcm(enable: boolean): KiiPushMessageBuilder;
+        enableGcm(
+          enable: boolean
+        ): KiiPushMessageBuilder;
 
         /**
          * Enable/ Disable message distribution via APNS.
@@ -4056,7 +4381,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        enableApns(enable: boolean): KiiPushMessageBuilder;
+        enableApns(
+          enable: boolean
+        ): KiiPushMessageBuilder;
 
         /**
          * Enable/ Disable message distribution via JPush.
@@ -4066,7 +4393,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        enableJpush(enable: boolean): KiiPushMessageBuilder;
+        enableJpush(
+          enable: boolean
+        ): KiiPushMessageBuilder;
 
         /**
          * Enable/ Disable message distribution via MQTT.
@@ -4076,7 +4405,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        enableMqtt(enable: boolean): KiiPushMessageBuilder;
+        enableMqtt(
+          enable: boolean
+        ): KiiPushMessageBuilder;
 
         /**
          * Set specific data for GCM subscribers.
@@ -4089,7 +4420,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        gcmData(data: { [key: string]: string }): KiiPushMessageBuilder;
+        gcmData(
+          data: { [key: string]: string }
+        ): KiiPushMessageBuilder;
 
         /**
          * Set collapse_key for GCM subscribers.
@@ -4100,7 +4433,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        gcmCollapseKey(collapseKey: string): KiiPushMessageBuilder;
+        gcmCollapseKey(
+          collapseKey: string
+        ): KiiPushMessageBuilder;
 
         /**
          * Set delay_while_idle for GCM subscribers.
@@ -4111,7 +4446,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        gcmDelayWhileIdle(delayWhileIdle: boolean): KiiPushMessageBuilder;
+        gcmDelayWhileIdle(
+          delayWhileIdle: boolean
+        ): KiiPushMessageBuilder;
 
         /**
          * Set time_to_live for GCM subscribers.
@@ -4122,7 +4459,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        gcmTimeToLive(timeToLive: number): KiiPushMessageBuilder;
+        gcmTimeToLive(
+          timeToLive: number
+        ): KiiPushMessageBuilder;
 
         /**
          * Set restricted_package_name for GCM subscribers.
@@ -4133,7 +4472,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        gcmRestrictedPackageName(restrictedPackageName: string): KiiPushMessageBuilder;
+        gcmRestrictedPackageName(
+          restrictedPackageName: string
+        ): KiiPushMessageBuilder;
 
         /**
          * Set specific data for APNS subscribers.
@@ -4146,7 +4487,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        apnsData(data: { [key: string]: string | number | boolean }): KiiPushMessageBuilder;
+        apnsData(
+          data: { [key: string]: string | number | boolean }
+        ): KiiPushMessageBuilder;
 
         /**
          * Set alert for APNS subscribers.
@@ -4157,7 +4500,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        apnsAlert(alert: string | APNSAlert): KiiPushMessageBuilder;
+        apnsAlert(
+          alert: string | APNSAlert
+        ): KiiPushMessageBuilder;
 
         /**
          * Set sound for APNS subscribers.
@@ -4168,7 +4513,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        apnsSound(sound: string): KiiPushMessageBuilder;
+        apnsSound(
+          sound: string
+        ): KiiPushMessageBuilder;
 
         /**
          * Set badge for APNS subscribers.
@@ -4179,7 +4526,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        apnsBadge(badge: number): KiiPushMessageBuilder;
+        apnsBadge(
+          badge: number
+        ): KiiPushMessageBuilder;
 
         /**
          * Set content-available for APNS subscribers.
@@ -4191,7 +4540,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        apnsContentAvailable(contentAvailable: number): KiiPushMessageBuilder;
+        apnsContentAvailable(
+          contentAvailable: number
+        ): KiiPushMessageBuilder;
 
         /**
          * Set category for APNS subscribers.
@@ -4202,7 +4553,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        apnsCategory(category: string): KiiPushMessageBuilder;
+        apnsCategory(
+          category: string
+        ): KiiPushMessageBuilder;
 
         /**
          * Set specific data for JPush subscribers.
@@ -4215,7 +4568,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        jpushData(data: { [name: string]: string | number | boolean }): KiiPushMessageBuilder;
+        jpushData(
+          data: { [name: string]: string | number | boolean }
+        ): KiiPushMessageBuilder;
 
         /**
          * Set specific data for MQTT subscribers.
@@ -4228,7 +4583,9 @@ declare namespace KiiCloud {
          *
          * @return builder instance.
          */
-        mqttData(data: { [key: string]: string }): KiiPushMessageBuilder;
+        mqttData(
+          data: { [key: string]: string }
+        ): KiiPushMessageBuilder;
     }
 
     /**
@@ -4284,7 +4641,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        subscribe<T extends KiiBucket | KiiTopic>(target: T, callbacks?: { success(subscription: KiiPushSubscription, topic: T): any; failure(error: Error): any; }): Promise<[KiiPushSubscription, T]>;
+        subscribe<T extends KiiBucket | KiiTopic>(
+          target: T,
+          callbacks?: { success(subscription: KiiPushSubscription, topic: T): any; failure(error: Error): any; }
+        ): Promise<[KiiPushSubscription, T]>;
 
         /**
          * Unsubscribe to bucket or topic.
@@ -4335,7 +4695,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        unsubscribe<T extends KiiBucket | KiiTopic>(target: T, callbacks?: { success(subscription: KiiPushSubscription, topic: T): any; failure(error: Error): any; }): Promise<[KiiPushSubscription, T]>;
+        unsubscribe<T extends KiiBucket | KiiTopic>(
+          target: T,
+          callbacks?: { success(subscription: KiiPushSubscription, topic: T): any; failure(error: Error): any; }
+        ): Promise<[KiiPushSubscription, T]>;
 
         /**
          * Check subscription of bucket, topic.
@@ -4398,7 +4761,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        isSubscribed<T extends KiiBucket | KiiTopic>(target: T, callbacks?: { success(subscription: KiiPushSubscription, topic: T, isSubscribed: boolean): any; failure(error: Error): any; }): Promise<[KiiPushSubscription, T, boolean]>;
+        isSubscribed<T extends KiiBucket | KiiTopic>(
+          target: T,
+          callbacks?: { success(subscription: KiiPushSubscription, topic: T, isSubscribed: boolean): any; failure(error: Error): any; }
+        ): Promise<[KiiPushSubscription, T, boolean]>;
     }
 
     /**
@@ -4419,7 +4785,9 @@ declare namespace KiiCloud {
          *
          * @throws InvalidLimitException
          */
-        setLimit(value: number): void;
+        setLimit(
+          value: number
+        ): void;
 
         /**
          * Create a KiiQuery object based on a KiiClause
@@ -4428,7 +4796,9 @@ declare namespace KiiCloud {
          *
          * @param clause The KiiClause to be executed with the query
          */
-        static queryWithClause(clause: KiiClause): KiiQuery;
+        static queryWithClause(
+          clause: KiiClause
+        ): KiiQuery;
 
         /**
          * Set the query to sort by a field in descending order
@@ -4437,7 +4807,9 @@ declare namespace KiiCloud {
          *
          * @param field The key that should be used to sort
          */
-        sortByDesc(field: string): void;
+        sortByDesc(
+          field: string
+        ): void;
 
         /**
          * Set the query to sort by a field in ascending order
@@ -4446,7 +4818,9 @@ declare namespace KiiCloud {
          *
          * @param field The key that should be used to sort
          */
-        sortByAsc(field: string): void;
+        sortByAsc(
+          field: string
+        ): void;
     }
 
     /**
@@ -4519,7 +4893,12 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        execute<T>(argument: T, callbacks?: { success(entry: KiiServerCodeEntry, argument: T, execResult: KiiServerCodeExecResult): any; failure(entry: KiiServerCodeEntry, argument: T, execResult: KiiServerCodeExecResult, anErrorString: string): any; }): Promise<[KiiServerCodeEntry, T, KiiServerCodeExecResult]>;
+        execute<T>(
+          argument: T,
+          callbacks?: {
+              success(entry: KiiServerCodeEntry, argument: T, execResult: KiiServerCodeExecResult): any;
+              failure(entry: KiiServerCodeEntry, argument: T, execResult: KiiServerCodeExecResult, anErrorString: string): any; }
+        ): Promise<[KiiServerCodeEntry, T, KiiServerCodeExecResult]>;
 
         /**
          * Get the entryName of this server code entry.
@@ -4679,7 +5058,12 @@ declare namespace KiiCloud {
          *
          * @throws For details refer to the table above
          */
-        static setupNetwork(networkName: KiiSocialNetworkName, apiKey: string, apiSecret: string, extras: any): void;
+        static setupNetwork(
+          networkName: KiiSocialNetworkName,
+          apiKey: string,
+          apiSecret: string,
+          extras: any
+        ): void;
 
         /**
          * Log a user into the social network provided
@@ -4848,12 +5232,17 @@ declare namespace KiiCloud {
          *          }
          *      );
          */
-        static logIn(networkName: KiiSocialNetworkName, options: KiiSocialConnectOptions, callbacks?: { success(user: KiiUser, network: KiiSocialNetworkName): any; failure(user: KiiUser, network: KiiSocialNetworkName, anErrorString: string): any; }): Promise<[KiiUser, KiiSocialNetworkName]>;
+        static logIn(
+          networkName: KiiSocialNetworkName,
+          options: KiiSocialConnectOptions,
+          callbacks?: { success(user: KiiUser, network: KiiSocialNetworkName): any; failure(user: KiiUser, network: KiiSocialNetworkName, anErrorString: string): any; }
+        ): Promise<[KiiUser, KiiSocialNetworkName]>;
 
         /**
          * Link the currently logged in user with a social network
          *
-         *  This will initiate the login process for the given network, which for SSO-enabled services like Facebook, will send the user to the Facebook site for authentication. There must be a currently authenticated KiiUser. Otherwise, you can use the logIn: method to create and log in a KiiUser using a network. The network must already be set up via setupNetwork<br>
+         *  This will initiate the login process for the given network, which for SSO-enabled services like Facebook, will send the user to the Facebook site for authentication. There must be a
+         *  currently authenticated KiiUser. Otherwise, you can use the logIn: method to create and log in a KiiUser using a network. The network must already be set up via setupNetwork<br>
          *  If there is not logged-in user to link with, callbacks.failure or reject callback of promise will be called. <br>
          *  If the opitons is invalid, callbacks.failure or reject callback of promise will be called. <br>
          *
@@ -5014,7 +5403,11 @@ declare namespace KiiCloud {
          *          }
          *      );
          */
-        static linkCurrentUserWithNetwork(networkName: KiiSocialNetworkName, options: KiiSocialConnectOptions, callbacks?: { success(user: KiiUser, network: KiiSocialNetworkName): any; failure(user: KiiUser, network: KiiSocialNetworkName, anErrorString: string): any; }): Promise<[KiiUser, KiiSocialNetworkName]>;
+        static linkCurrentUserWithNetwork(
+          networkName: KiiSocialNetworkName,
+          options: KiiSocialConnectOptions,
+          callbacks?: { success(user: KiiUser, network: KiiSocialNetworkName): any; failure(user: KiiUser, network: KiiSocialNetworkName, anErrorString: string): any; }
+        ): Promise<[KiiUser, KiiSocialNetworkName]>;
 
         /**
          * Unlink the currently logged in user with a social network
@@ -5065,7 +5458,10 @@ declare namespace KiiCloud {
          *          }
          *      );
          */
-        static unLinkCurrentUserFromNetwork(networkName: KiiSocialNetworkName, callbacks?: { success(user: KiiUser, network: KiiSocialNetworkName): any; failure(user: KiiUser, network: KiiSocialNetworkName, anErrorString: string): any; }): Promise<[KiiUser, KiiSocialNetworkName]>;
+        static unLinkCurrentUserFromNetwork(
+          networkName: KiiSocialNetworkName,
+          callbacks?: { success(user: KiiUser, network: KiiSocialNetworkName): any; failure(user: KiiUser, network: KiiSocialNetworkName, anErrorString: string): any; }
+        ): Promise<[KiiUser, KiiSocialNetworkName]>;
 
         /**
          * Retrieve the current user's access token from a social network
@@ -5077,7 +5473,9 @@ declare namespace KiiCloud {
          *
          * @return The current access token, null if unavailable
          */
-        static getAccessTokenForNetwork(networkName: KiiSocialNetworkName): string;
+        static getAccessTokenForNetwork(
+          networkName: KiiSocialNetworkName
+        ): string;
 
         /**
          * Retrieve the current user's access token expiration date from a social network
@@ -5090,7 +5488,9 @@ declare namespace KiiCloud {
          *
          * @return The current access token expiration date, null if unavailable
          */
-        static getAccessTokenExpirationForNetwork(networkName: KiiSocialNetworkName): string;
+        static getAccessTokenExpirationForNetwork(
+          networkName: KiiSocialNetworkName
+        ): string;
 
         /**
          * Retrieve the current user's access token object from a social network
@@ -5125,7 +5525,9 @@ declare namespace KiiCloud {
          *
          * @return tokenObject The current access token object, null if unavailable.
          */
-        static getAccessTokenObjectForNetwork(networkName: KiiSocialNetworkName): any;
+        static getAccessTokenObjectForNetwork(
+          networkName: KiiSocialNetworkName
+        ): any;
     }
 
     /**
@@ -5263,7 +5665,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static register(fields: KiiThingFields, callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        static register(
+          fields: KiiThingFields,
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Retrieve the latest thing information from KiiCloud.
@@ -5309,7 +5714,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        refresh(callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        refresh(
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Update registered thing information in Kii Cloud
@@ -5367,7 +5774,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        update(callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        update(
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Delete registered thing in Kii Cloud.
@@ -5417,7 +5826,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        deleteThing(callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        deleteThing(
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Check if user/ group is owner of the thing.
@@ -5483,7 +5894,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        isOwner<T extends KiiUser | KiiGroup>(owner: T, callbacks?: { success(thing: KiiThing, user: T, isOwner: boolean): any; failure(error: Error): any; }): Promise<[KiiThing, T, boolean]>;
+        isOwner<T extends KiiUser | KiiGroup>(
+          owner: T,
+          callbacks?: { success(thing: KiiThing, user: T, isOwner: boolean): any; failure(error: Error): any; }
+        ): Promise<[KiiThing, T, boolean]>;
 
         /**
          * Register user/group as owner of this thing.
@@ -5537,7 +5951,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        registerOwner<T extends KiiUser | KiiGroup>(owner: T, callbacks?: { success(thing: KiiThing, group: T): any; failure(error: Error): any; }): Promise<[KiiThing, T]>;
+        registerOwner<T extends KiiUser | KiiGroup>(
+          owner: T,
+          callbacks?: { success(thing: KiiThing, group: T): any; failure(error: Error): any; }
+        ): Promise<[KiiThing, T]>;
 
         /**
          * Register user/group as owner of specified thing.
@@ -5589,7 +6006,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static registerOwnerWithThingID<T extends KiiUser | KiiGroup>(thingID: string, owner: T, callbacks?: { success(group: T): any; failure(error: Error): any; }): Promise<T>;
+        static registerOwnerWithThingID<T extends KiiUser | KiiGroup>(
+          thingID: string,
+          owner: T,
+          callbacks?: { success(group: T): any; failure(error: Error): any; }
+        ): Promise<T>;
 
         /**
          * Register user/group as owner of specified thing.
@@ -5640,7 +6061,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static registerOwnerWithVendorThingID<T extends KiiUser | KiiGroup>(vendorThingID: string, owner: T, callbacks?: { success(group: T): any; failure(error: Error): any; }): Promise<T>;
+        static registerOwnerWithVendorThingID<T extends KiiUser | KiiGroup>(
+          vendorThingID: string,
+          owner: T,
+          callbacks?: { success(group: T): any; failure(error: Error): any; }
+        ): Promise<T>;
 
         /**
          * Remove ownership of thing from specified user/group.
@@ -5693,7 +6118,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        unregisterOwner<T extends KiiUser | KiiGroup>(owner: T, callbacks?: { success(thing: KiiThing, group: T): any; failure(error: Error): any; }): Promise<[KiiThing, T]>;
+        unregisterOwner<T extends KiiUser | KiiGroup>(
+          owner: T,
+          callbacks?: { success(thing: KiiThing, group: T): any; failure(error: Error): any; }
+        ): Promise<[KiiThing, T]>;
 
         /**
          * Disable the thing.
@@ -5744,7 +6172,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        disable(callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        disable(
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Enable the thing.
@@ -5795,7 +6225,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        enable(callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        enable(
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Load thing with given vendor thing id.
@@ -5839,7 +6271,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static loadWithVendorThingID(vendorThingID: string, callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        static loadWithVendorThingID(
+          vendorThingID: string,
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Load thing with thing id given by Kii Cloud.
@@ -5885,7 +6320,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static loadWithThingID(thingID: string, callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }): Promise<KiiThing>;
+        static loadWithThingID(
+          thingID: string,
+          callbacks?: { success(thing: KiiThing): any; failure(error: Error): any; }
+        ): Promise<KiiThing>;
 
         /**
          * Instantiate bucket belongs to this thing.
@@ -5894,7 +6332,9 @@ declare namespace KiiCloud {
          *
          * @return bucket instance.
          */
-        bucketWithName(bucketName: string): KiiBucket;
+        bucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a encrypted bucket for this thing
@@ -5909,7 +6349,9 @@ declare namespace KiiCloud {
          *     var thing = . . .; // a KiiThing
          *     var bucket = thing.encryptedBucketWithName("myBucket");
          */
-        encryptedBucketWithName(bucketName: string): KiiBucket;
+        encryptedBucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Instantiate topic belongs to this thing.
@@ -5918,13 +6360,16 @@ declare namespace KiiCloud {
          *
          * @return topic instance.
          */
-        topicWithName(topicName: string): KiiTopic;
+        topicWithName(
+          topicName: string
+        ): KiiTopic;
 
         /**
          * Gets a list of topics in this thing scope
          *
          * @param callbacks An object with callback methods defined
-         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no paginationKey specified.
+         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no
+         * paginationKey specified.
          *
          * @return return promise object.
          *     <ul>
@@ -5985,7 +6430,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+        listTopics(
+          callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; },
+          paginationKey?: string
+        ): Promise<[KiiTopic[], string]>;
 
         /**
          * Instantiate push subscription for this thing.
@@ -6016,7 +6464,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        bucketWithName(bucketName: string): KiiBucket;
+        bucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a encrypted bucket in App scope operated by thing.
@@ -6036,7 +6486,9 @@ declare namespace KiiCloud {
          *             }
          *         });
          */
-        encryptedBucketWithName(bucketName: string): KiiBucket;
+        encryptedBucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to an object operated by thing using object`s URI.
@@ -6047,7 +6499,9 @@ declare namespace KiiCloud {
          *
          * @throws If the URI is null, empty or does not have correct format.
          */
-        objectWithURI(object: string): KiiObject;
+        objectWithURI(
+          object: string
+        ): KiiObject;
 
         /**
          * Creates a reference to a topic in App scope operated by thing.
@@ -6057,13 +6511,16 @@ declare namespace KiiCloud {
          *
          * @return topic instance.
          */
-        topicWithName(topicName: string): KiiTopic;
+        topicWithName(
+          topicName: string
+        ): KiiTopic;
 
         /**
          * Gets a list of topics in app scope
          *
          * @param callbacks An object with callback methods defined
-         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no paginationKey specified.
+         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no
+         * paginationKey specified.
          *
          * @return return promise object.
          *     <ul>
@@ -6124,7 +6581,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+        listTopics(
+          callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; },
+          paginationKey?: string
+        ): Promise<[KiiTopic[], string]>;
 
         /**
          * Gets authenticated KiiThing instance.
@@ -6192,7 +6652,9 @@ declare namespace KiiCloud {
          *             // Handle error.
          *         });
          */
-        exists(callbacks?: { success(existed: boolean): any; failure(error: Error): any; }): Promise<boolean>;
+        exists(
+          callbacks?: { success(existed: boolean): any; failure(error: Error): any; }
+        ): Promise<boolean>;
 
         /**
          * Save this topic on Kii Cloud.
@@ -6234,7 +6696,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        save(callbacks?: { success(topic: KiiTopic): any; failure(error: Error): any; }): Promise<KiiTopic>;
+        save(
+          callbacks?: { success(topic: KiiTopic): any; failure(error: Error): any; }
+        ): Promise<KiiTopic>;
 
         /**
          * Send message to the topic.
@@ -6289,7 +6753,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        sendMessage<T>(message: T, callbacks?: { success(topic: KiiTopic, message: T): any; failure(error: Error): any; }): Promise<[KiiTopic, T]>;
+        sendMessage<T>(
+          message: T,
+          callbacks?: { success(topic: KiiTopic, message: T): any; failure(error: Error): any; }
+        ): Promise<[KiiTopic, T]>;
 
         /**
          * Delete the topic.
@@ -6330,7 +6797,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        deleteTopic(callbacks?: { success(topic: KiiTopic): any; failure(error: Error): any; }): Promise<KiiTopic>;
+        deleteTopic(
+          callbacks?: { success(topic: KiiTopic): any; failure(error: Error): any; }
+        ): Promise<KiiTopic>;
 
         /**
          * Get ACL object of this topic.
@@ -6392,7 +6861,9 @@ declare namespace KiiCloud {
          *
          * @throws If the displayName is not a valid format
          */
-        setDisplayName(value: string): void;
+        setDisplayName(
+          value: string
+        ): void;
 
         /**
          * Get whether or not the user is pseudo user.
@@ -6455,7 +6926,9 @@ declare namespace KiiCloud {
          *
          * @throws If the country code is not a valid format
          */
-        setCountry(value: string): void;
+        setCountry(
+          value: string
+        ): void;
 
         /**
          * Get the locale associated with this user
@@ -6474,7 +6947,9 @@ declare namespace KiiCloud {
          *
          * @param value The locale to set.
          */
-        setLocale(value: string): void;
+        setLocale(
+          value: string
+        ): void;
 
         /**
          * Get the server's creation date of this user
@@ -6575,7 +7050,10 @@ declare namespace KiiCloud {
          *     var user = . . .; // a KiiUser
          *     user.set("score", 4298);
          */
-        set(key: string, value: any): void;
+        set(
+          key: string,
+          value: any
+        ): void;
 
         /**
          * Gets the value associated with the given key
@@ -6588,7 +7066,9 @@ declare namespace KiiCloud {
          *     var user = . . .; // a KiiUser
          *     var score = user.get("score");
          */
-        get<T>(key: string): T;
+        get<T>(
+          key: string
+        ): T;
 
         /**
          * The currently authenticated user
@@ -6603,7 +7083,8 @@ declare namespace KiiCloud {
         /**
          * Create a user object to prepare for registration with credentials pre-filled
          *
-         * <br><br>Creates an pre-filled user object for manipulation. This user will not be authenticated until one of the authentication methods are called on it. It can be treated as any other KiiObject before it is authenticated.
+         * <br><br>Creates an pre-filled user object for manipulation. This user will not be authenticated until one of the authentication methods are called on it. It can be treated as any other
+         * KiiObject before it is authenticated.
          *
          * @param username The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
          * @param password The user's password. Must be between 4-50 characters, made up of ascii characters excludes control characters.
@@ -6616,12 +7097,16 @@ declare namespace KiiCloud {
          * @example
          *     var user = KiiUser.userWithUsername("myusername", "mypassword");
          */
-        static userWithUsername(username: string, password: string): KiiUser;
+        static userWithUsername(
+          username: string,
+          password: string
+        ): KiiUser;
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
          *
-         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
+         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before
+         * it is registered.
          *
          * @param phoneNumber The user's phone number
          * @param password The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
@@ -6634,12 +7119,16 @@ declare namespace KiiCloud {
          * @example
          *     var user = KiiUser.userWithPhoneNumber("+874012345678", "mypassword");
          */
-        static userWithPhoneNumber(phoneNumber: string, password: string): KiiUser;
+        static userWithPhoneNumber(
+          phoneNumber: string,
+          password: string
+        ): KiiUser;
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
          *
-         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
+         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before
+         * it is registered.
          *
          * @param phoneNumber The user's phone number
          * @param username The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
@@ -6654,12 +7143,17 @@ declare namespace KiiCloud {
          * @example
          *     var user = KiiUser.userWithPhoneNumberAndUsername("+874012345678", "johndoe", "mypassword");
          */
-        static userWithPhoneNumberAndUsername(phoneNumber: string, username: string, password: string): KiiUser;
+        static userWithPhoneNumberAndUsername(
+          phoneNumber: string,
+          username: string,
+          password: string
+        ): KiiUser;
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
          *
-         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
+         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before
+         * it is registered.
          *
          * @param emailAddress The user's email address
          * @param password The user's password. Must be at least 4 characters, made up of alphanumeric and/or: @,#,$,%,^,&
@@ -6672,12 +7166,16 @@ declare namespace KiiCloud {
          * @example
          *     var user = KiiUser.userWithEmailAddress("johndoe@example.com", "mypassword");
          */
-        static userWithEmailAddress(emailAddress: string, password: string): KiiUser;
+        static userWithEmailAddress(
+          emailAddress: string,
+          password: string
+        ): KiiUser;
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
          *
-         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
+         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before
+         * it is registered.
          *
          * @param emailAddress The user's email address
          * @param username The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
@@ -6692,12 +7190,17 @@ declare namespace KiiCloud {
          * @example
          *     var user = KiiUser.userWithEmailAddressAndUsername("johndoe@example.com", "johndoe", "mypassword");
          */
-        static userWithEmailAddressAndUsername(emailAddress: string, username: string, password: string): KiiUser;
+        static userWithEmailAddressAndUsername(
+          emailAddress: string,
+          username: string,
+          password: string
+        ): KiiUser;
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
          *
-         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
+         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before
+         * it is registered.
          *
          * @param emailAddress The user's email address
          * @param phoneNumber The user's phone number
@@ -6712,12 +7215,17 @@ declare namespace KiiCloud {
          * @example
          *     var user = KiiUser.userWithEmailAddressAndPhoneNumber("johndoe@example.com", "+874012345678", "mypassword");
          */
-        static userWithEmailAddressAndPhoneNumber(emailAddress: string, phoneNumber: string, password: string): KiiUser;
+        static userWithEmailAddressAndPhoneNumber(
+          emailAddress: string,
+          phoneNumber: string,
+          password: string
+        ): KiiUser;
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
          *
-         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
+         * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before
+         * it is registered.
          *
          * @param emailAddress The user's email address
          * @param phoneNumber The user's phone number
@@ -6734,7 +7242,12 @@ declare namespace KiiCloud {
          * @example
          *     var user = KiiUser.userWithCredentials("johndoe@example.com", "+874012345678", "johndoe", "mypassword");
          */
-        static userWithCredentials(emailAddress: string, phoneNumber: string, username: string, password: string): KiiUser;
+        static userWithCredentials(
+          emailAddress: string,
+          phoneNumber: string,
+          username: string,
+          password: string
+        ): KiiUser;
 
         /**
          * Instantiate KiiUser that refers to existing user which has specified ID.
@@ -6752,7 +7265,9 @@ declare namespace KiiCloud {
          * @example
          *     var user = new KiiUser.userWithID("__USER_ID__");
          */
-        static userWithID(userID: string): KiiUser;
+        static userWithID(
+          userID: string
+        ): KiiUser;
 
         /**
          * Generate a new KiiUser based on a given URI
@@ -6766,7 +7281,9 @@ declare namespace KiiCloud {
          * @example
          *     var user = new KiiUser.userWithURI("kiicloud://myuri");
          */
-        static userWithURI(uri: string): KiiUser;
+        static userWithURI(
+          uri: string
+        ): KiiUser;
 
         /**
          * Creates a reference to a bucket for this user
@@ -6781,7 +7298,9 @@ declare namespace KiiCloud {
          *     var user = . . .; // a KiiUser
          *     var bucket = user.bucketWithName("myBucket");
          */
-        bucketWithName(bucketName: string): KiiBucket;
+        bucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Creates a reference to a encrypted bucket for this user
@@ -6796,7 +7315,9 @@ declare namespace KiiCloud {
          *     var user = . . .; // a KiiUser
          *     var bucket = user.encryptedBucketWithName("myBucket");
          */
-        encryptedBucketWithName(bucketName: string): KiiBucket;
+        encryptedBucketWithName(
+          bucketName: string
+        ): KiiBucket;
 
         /**
          * Authenticates a user with the server.
@@ -6843,7 +7364,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static authenticate(userIdentifier: string, password: string, callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        static authenticate(
+          userIdentifier: string,
+          password: string,
+          callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Asynchronously authenticates a user with the server using specified access token.
@@ -6909,7 +7434,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static authenticateWithToken(accessToken: string, callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }, expiresAt?: Date): Promise<KiiUser>;
+        static authenticateWithToken(
+          accessToken: string,
+          callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; },
+          expiresAt?: Date
+        ): Promise<KiiUser>;
 
         /**
          * Registers a user with the server
@@ -6953,7 +7482,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        register(callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        register(
+          callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Registers a user as pseudo user with the server
@@ -6996,7 +7527,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static registerAsPseudoUser(callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }, userFields?: any): Promise<KiiUser>;
+        static registerAsPseudoUser(
+          callbacks?: { success(theAuthenticatedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; },
+          userFields?: any
+        ): Promise<KiiUser>;
 
         /**
          * Sets credentials data and custom fields to pseudo user.
@@ -7062,7 +7596,13 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        putIdentity(identityData: identityData, password: string, callbacks?: { success(user: KiiUser): any; failure(user: KiiUser, errorString: string): any; }, userFields?: any, removeFields?: string[]): Promise<KiiUser>;
+        putIdentity(
+          identityData: identityData,
+          password: string,
+          callbacks?: { success(user: KiiUser): any; failure(user: KiiUser, errorString: string): any; },
+          userFields?: any,
+          removeFields?: string[]
+        ): Promise<KiiUser>;
 
         /**
          * Update user attributes.
@@ -7124,7 +7664,12 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        update(identityData: identityData, callbacks?: { success(user: KiiUser): any; failure(user: KiiUser, errorString: string): any; }, userFields?: any, removeFields?: string[]): Promise<KiiUser>;
+        update(
+          identityData: identityData,
+          callbacks?: { success(user: KiiUser): any; failure(user: KiiUser, errorString: string): any; },
+          userFields?: any,
+          removeFields?: string[]
+        ): Promise<KiiUser>;
 
         /**
          * Update a user's password on the server
@@ -7170,12 +7715,17 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        updatePassword(fromPassword: string, toPassword: string, callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        updatePassword(
+          fromPassword: string,
+          toPassword: string,
+          callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Reset a user's password on the server
          *
-         * <br><br>Reset a user's password on the server. The user is determined by the specified userIdentifier - which is an email address that has already been associated with an account. Reset instructions will be sent to that identifier.
+         * <br><br>Reset a user's password on the server. The user is determined by the specified userIdentifier - which is an email address that has already been associated with an account. Reset
+         * instructions will be sent to that identifier.
          * <br><br><b>Please Note:</b> This will reset the user's access token, so if they are currently logged in - their session will no longer be valid.
          *
          * @param userIdentifier The user's email address
@@ -7213,7 +7763,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static resetPassword(userIdentifier: string, callbacks?: { success(): any; failure(anErrorString: string): any; }): Promise<void>;
+        static resetPassword(
+          userIdentifier: string,
+          callbacks?: { success(): any; failure(anErrorString: string): any; }
+        ): Promise<void>;
 
         /**
          * Reset the password of user <br>
@@ -7266,7 +7819,11 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static resetPasswordWithNotificationMethod(userIdentifier: string, notificationMethod: string, callbacks?: { success(): any; failure(errString: string): any; }): Promise<void>;
+        static resetPasswordWithNotificationMethod(
+          userIdentifier: string,
+          notificationMethod: string,
+          callbacks?: { success(): any; failure(errString: string): any; }
+        ): Promise<void>;
 
         /**
          * Reset password with the PIN code in receipt SMS
@@ -7315,7 +7872,12 @@ declare namespace KiiCloud {
          *             // Handle error here.
          *         });
          */
-        static completeResetPassword(userIdentifier: string, pinCode: string, newPassword?: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
+        static completeResetPassword(
+          userIdentifier: string,
+          pinCode: string,
+          newPassword?: string,
+          callbacks?: { success(): any; failure(error: Error): any; }
+        ): Promise<void>;
 
         /**
          * Verify the current user's phone number
@@ -7371,7 +7933,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        verifyPhoneNumber(verificationCode: string, callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        verifyPhoneNumber(
+          verificationCode: string,
+          callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Resend the email verification code to the user
@@ -7415,7 +7980,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        resendEmailVerification(callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        resendEmailVerification(
+          callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Resend the SMS verification code to the user
@@ -7459,7 +8026,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        resendPhoneNumberVerification(callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        resendPhoneNumberVerification(
+          callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Retrieve a list of groups which the user is a member of
@@ -7514,7 +8083,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        memberOfGroups(callbacks?: { success(theUser: KiiUser, groupList: KiiGroup[]): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<[KiiUser, KiiGroup[]]>;
+        memberOfGroups(
+          callbacks?: { success(theUser: KiiUser, groupList: KiiGroup[]): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<[KiiUser, KiiGroup[]]>;
 
         /**
          * Retrieve the groups owned by this user. Group in the groupList
@@ -7571,7 +8142,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        ownerOfGroups(callbacks?: { success(theUser: KiiUser, groupList: KiiGroup[]): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<[KiiUser, KiiGroup[]]>;
+        ownerOfGroups(
+          callbacks?: { success(theUser: KiiUser, groupList: KiiGroup[]): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<[KiiUser, KiiGroup[]]>;
 
         /**
          * Change phone number of logged in user.
@@ -7619,7 +8192,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        changePhone(newPhoneNumber: string, callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        changePhone(
+          newPhoneNumber: string,
+          callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Change email of logged in user.
@@ -7667,7 +8243,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        changeEmail(newEmail: string, callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        changeEmail(
+          newEmail: string,
+          callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Saves the latest user values to the server
@@ -7711,7 +8290,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        save(callbacks?: { success(theSavedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        save(
+          callbacks?: { success(theSavedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Updates the local user's data with the user data on the server
@@ -7755,7 +8336,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        refresh(callbacks?: { success(theRefreshedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        refresh(
+          callbacks?: { success(theRefreshedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Delete the user from the server
@@ -7797,7 +8380,9 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        delete(callbacks?: { success(theDeletedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
+        delete(
+          callbacks?: { success(theDeletedUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Logs the currently logged-in user out of the KiiSDK
@@ -7864,7 +8449,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static findUserByEmail(email: string, callbacks?: { success(theMatchedUser: KiiUser): any; failure(anErrorString: string): any; }): Promise<KiiUser>;
+        static findUserByEmail(
+          email: string,
+          callbacks?: { success(theMatchedUser: KiiUser): any; failure(anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Find registered KiiUser with the phone.<br>
@@ -7913,7 +8501,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static findUserByPhone(phone: string, callbacks?: { success(theMatchedUser: KiiUser): any; failure(anErrorString: string): any; }): Promise<KiiUser>;
+        static findUserByPhone(
+          phone: string,
+          callbacks?: { success(theMatchedUser: KiiUser): any; failure(anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Find registered KiiUser with the user name.<br>
@@ -7961,7 +8552,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        static findUserByUsername(username: string, callbacks?: { success(theMatchedUser: KiiUser): any; failure(anErrorString: string): any; }): Promise<KiiUser>;
+        static findUserByUsername(
+          username: string,
+          callbacks?: { success(theMatchedUser: KiiUser): any; failure(anErrorString: string): any; }
+        ): Promise<KiiUser>;
 
         /**
          * Instantiate topic belongs to this user.
@@ -7970,13 +8564,16 @@ declare namespace KiiCloud {
          *
          * @return topic instance.
          */
-        topicWithName(topicName: string): KiiTopic;
+        topicWithName(
+          topicName: string
+        ): KiiTopic;
 
         /**
          * Gets a list of topics in this user scope
          *
          * @param callbacks An object with callback methods defined
-         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no paginationKey specified.
+         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no
+         * paginationKey specified.
          *
          * @return return promise object.
          *     <ul>
@@ -8037,7 +8634,10 @@ declare namespace KiiCloud {
          *         }
          *     );
          */
-        listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+        listTopics(
+          callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; },
+          paginationKey?: string
+        ): Promise<[KiiTopic[], string]>;
 
         /**
          * Instantiate push subscription for this user.
@@ -8084,7 +8684,10 @@ declare namespace KiiCloud {
          * @throws If the password is not in the
          *     proper format
          */
-        static builderWithIdentifier(identifier: string, password: string): KiiUserBuilder;
+        static builderWithIdentifier(
+          identifier: string,
+          password: string
+        ): KiiUserBuilder;
 
         /**
          * Create KiiUser builder with email address
@@ -8101,7 +8704,10 @@ declare namespace KiiCloud {
          * @throws If the password is not in the
          *     proper format
          */
-        static builderWithEmailAddress(emailAddress: string, password: string): KiiUserBuilder;
+        static builderWithEmailAddress(
+          emailAddress: string,
+          password: string
+        ): KiiUserBuilder;
 
         /**
          * Create KiiUser builder with global phone number
@@ -8115,7 +8721,10 @@ declare namespace KiiCloud {
          *
          * @throws If the phone number is not in the proper format
          */
-        static builderWithGlobalPhoneNumber(phoneNumber: string, password: string): KiiUserBuilder;
+        static builderWithGlobalPhoneNumber(
+          phoneNumber: string,
+          password: string
+        ): KiiUserBuilder;
 
         /**
          * Create KiiUser builder with local phone number
@@ -8134,7 +8743,11 @@ declare namespace KiiCloud {
          * @throws If the password is not in the
          *     proper format
          */
-        static builderWithLocalPhoneNumber(phoneNumber: string, country: string, password: string): KiiUserBuilder;
+        static builderWithLocalPhoneNumber(
+          phoneNumber: string,
+          country: string,
+          password: string
+        ): KiiUserBuilder;
 
         /**
          * Create KiiUser builder with user name
@@ -8151,7 +8764,10 @@ declare namespace KiiCloud {
          * @throws If the password is not in the
          *     proper format
          */
-        static builderWithUsername(username: string, password: string): KiiUserBuilder;
+        static builderWithUsername(
+          username: string,
+          password: string
+        ): KiiUserBuilder;
 
         /**
          * Set user name.
@@ -8166,7 +8782,9 @@ declare namespace KiiCloud {
          * @throws If the username is not in the
          *     proper format
          */
-        setUsername(username: string): KiiUserBuilder;
+        setUsername(
+          username: string
+        ): KiiUserBuilder;
 
         /**
          * Set email address.
@@ -8181,7 +8799,9 @@ declare namespace KiiCloud {
          * @throws If the email address is not in the
          *     proper format
          */
-        setEmailAddress(emailAddress: string): KiiUserBuilder;
+        setEmailAddress(
+          emailAddress: string
+        ): KiiUserBuilder;
 
         /**
          * Set global phone number.
@@ -8196,7 +8816,9 @@ declare namespace KiiCloud {
          * @throws If the phone number is not
          *     in the proper format
          */
-        setGlobalPhoneNumber(phoneNumber: string): KiiUserBuilder;
+        setGlobalPhoneNumber(
+          phoneNumber: string
+        ): KiiUserBuilder;
 
         /**
          * Set local phone number.
@@ -8213,7 +8835,10 @@ declare namespace KiiCloud {
          *     in the proper format
          * @throws If the country code is not a valid format
          */
-        setLocalPhoneNumber(phoneNumber: string, country: string): KiiUserBuilder;
+        setLocalPhoneNumber(
+          phoneNumber: string,
+          country: string
+        ): KiiUserBuilder;
 
         /**
          * Build KiiUser object.
