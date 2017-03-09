@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.20.0
+// Type definitions for OpenLayers v4.0.1
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,55 +10,6 @@ declare type GlobalObject = Object;
  * @namespace ol
  */
 declare module ol {
-    /**
-     * The animation static methods are designed to be used with the
-     * {@link ol.Map#beforeRender} method.  For example:
-     *
-     *     var map = new ol.Map({ ... });
-     *     var zoom = ol.animation.zoom({
-     *       resolution: map.getView().getResolution()
-     *     });
-     *     map.beforeRender(zoom);
-     *     map.getView().setResolution(map.getView().getResolution() * 2);
-     *
-     * @namespace ol.animation
-     */
-    module animation {
-        /**
-         * Generate an animated transition that will "bounce" the resolution as it
-         * approaches the final value.
-         * @param {olx.animation.BounceOptions} options Bounce options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function bounce(options: olx.animation.BounceOptions): ol.PreRenderFunction;
-
-        /**
-         * Generate an animated transition while updating the view center.
-         * @param {olx.animation.PanOptions} options Pan options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function pan(options: olx.animation.PanOptions): ol.PreRenderFunction;
-
-        /**
-         * Generate an animated transition while updating the view rotation.
-         * @param {olx.animation.RotateOptions} options Rotate options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function rotate(options: olx.animation.RotateOptions): ol.PreRenderFunction;
-
-        /**
-         * Generate an animated transition while updating the view resolution.
-         * @param {olx.animation.ZoomOptions} options Zoom options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function zoom(options: olx.animation.ZoomOptions): ol.PreRenderFunction;
-
-    }
-
     /**
       * Error object thrown when an assertion failed. This is an ECMA-262 Error,
       * extended with a `code` property.
@@ -6684,15 +6635,6 @@ declare module ol {
         addOverlay(overlay: ol.Overlay): void;
 
         /**
-         * Add functions to be called before rendering. This can be used for attaching
-         * animations before updating the map's view.  The {@link ol.animation}
-         * namespace provides several static methods for creating prerender functions.
-         * @param {...ol.PreRenderFunction} var_args Any number of pre-render functions.
-         * @api
-         */
-        beforeRender(var_args: ol.PreRenderFunction): void;
-
-        /**
          * Detect features that intersect a pixel on the viewport, and execute a
          * callback with each intersecting feature. Layers included in the detection can
          * be configured through `opt_layerFilter`.
@@ -7405,18 +7347,6 @@ declare module ol {
          * @api stable
          */
         un(type: (string | string[]), listener: Function, opt_this?: GlobalObject): void;
-
-        /**
-         * Removes an event listener using the key returned by `on()` or `once()`.
-         * Note that using the {@link ol.Observable.unByKey} static function is to
-         * be preferred.
-         * @param {ol.EventsKey|Array.<ol.EventsKey>} key The key returned by `on()`
-         *     or `once()` (or an array of keys).
-         * @function
-         * @api stable
-         */
-        unByKey(key: (ol.EventsKey | ol.EventsKey[])): void;
-
     }
 
     /**
@@ -11710,11 +11640,10 @@ declare module ol {
          * In most cases you will want to use the map size, that is `map.getSize()`.
          * Takes care of the map angle.
          * @param {ol.geom.SimpleGeometry|ol.Extent} geometry Geometry.
-         * @param {ol.Size} size Box pixel size.
          * @param {olx.view.FitOptions=} opt_options Options.
          * @api
          */
-        fit(geometry: (ol.geom.SimpleGeometry | ol.Extent), size: ol.Size, opt_options?: olx.view.FitOptions): void;
+        fit(geometry: (ol.geom.SimpleGeometry | ol.Extent), opt_options?: olx.view.FitOptions): void;
 
         /**
          * Center on coordinate and view position.
@@ -13573,6 +13502,7 @@ declare module olx {
             offsetX?: number;
             offsetY?: number;
             scale?: number;
+            rotateWithView?: boolean;
             rotation?: number;
             text?: string;
             textAlign?: string;
@@ -13813,18 +13743,24 @@ declare module olx {
     module view {
         /**
          * @typedef {{
+         *     size: (ol.Size|undefined),
          *     padding: (!Array.<number>|undefined),
          *     constrainResolution: (boolean|undefined),
+         *     duration: (number|undefined),
          *     nearest: (boolean|undefined),
          *     maxZoom: (number|undefined),
-         *     minResolution: (number|undefined)}}
+         *     minResolution: (number|undefined),
+         *     easing: (function(t: number) => number) }}
          */
         interface FitOptions {
+            size?: ol.Size,
             padding?: number[];
             constrainResolution?: boolean;
             nearest?: boolean;
-            maxZoom?: number;
             minResolution?: number;
+            maxZoom?: number;
+            duration?: number;
+            easing?: ((t: number) => number);
         }
     }
 
