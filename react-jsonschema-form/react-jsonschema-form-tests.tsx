@@ -78,6 +78,7 @@ export class Example extends React.Component<any, IExampleState> {
                         uiSchema={uiSchema}
                         showErrorList={false}
                         noValidate={false}
+                        noHtml5Validate={false}
                         formData={this.state}
                         onChange={(formData) => this.setState({formData})} /> }
           </div>

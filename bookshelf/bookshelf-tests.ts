@@ -1330,3 +1330,50 @@ new User({name: 'John'}).fetchAll({require: true})
 /* events.trigger(), see http://bookshelfjs.org/#Events-instance-trigger */
 
 /* events.triggerThen(), see http://bookshelfjs.org/#Events-instance-triggerThen */
+
+
+/* model - foreignKey and foreignKeyTarget, see http://bookshelfjs.org/#Model-instance-hasOne */
+
+{
+	class Capital extends bookshelf.Model<Capital> {
+		get tableName() { return 'capitals'; }
+	}
+
+	class City extends bookshelf.Model<City> {
+		get tableName() { return 'cities'; }
+
+		country(): Country {
+			return this.belongsTo(Country, 'key1', 'key2');
+		}
+	}
+
+	class Language extends bookshelf.Model<Language> {
+		get tableName() { return 'languages'; }
+
+		countries(): Bookshelf.Collection<Country> {
+			return this.belongsToMany(Country, 'languages_countries', 'lang_id', 'country_id');
+		}
+	}
+
+	class Country extends bookshelf.Model<Country> {
+		get tableName() { return 'countries'; }
+		capital(): Capital {
+			return this.hasOne(Capital, 'id', 'capital_id');
+		}
+
+		cities(): Bookshelf.Collection<City> {
+			return this.hasMany(City, 'key2', 'key1');
+		}
+	}
+
+	// select * from `health_records` where `patient_id` = 1;
+	const capital = <Capital> new Country({id: 1}).related('capital');
+	capital.fetch().then(model => {
+		// ...
+	});
+
+	// alternatively, if you don't need the relation loaded on the patient's relations hash:
+	new Country({id: 1}).capital().fetch().then(model => {
+		// ...
+	});
+}

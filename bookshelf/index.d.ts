@@ -92,14 +92,14 @@ declare namespace Bookshelf {
 		static where<T>(properties: { [key: string]: any }): T;
 		static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
 
-		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string): R;
+		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
 		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string): Collection<R>;
 		count(column?: string, options?: SyncOptions): BlueBird<number>;
 		destroy(options?: DestroyOptions): BlueBird<T>;
 		fetch(options?: FetchOptions): BlueBird<T>;
 		fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
-		hasMany<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string): Collection<R>;
-		hasOne<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string): R;
+		hasMany<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): Collection<R>;
+		hasOne<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
 		load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
 		morphMany<R extends Model<any>>(target: { new (...args: any[]): R }, name?: string, columnNames?: string[], morphValue?: string): Collection<R>;
 		morphOne<R extends Model<any>>(target: { new (...args: any[]): R }, name?: string, columnNames?: string[], morphValue?: string): R;

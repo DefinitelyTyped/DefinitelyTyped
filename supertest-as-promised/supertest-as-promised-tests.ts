@@ -1,8 +1,8 @@
-
-/// <reference types="jasmine" />
-
 import * as request from 'supertest-as-promised';
 import * as express from 'express';
+
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
 
 var app = express();
 
