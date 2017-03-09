@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Navigator {
-  readonly mediaSession: MediaSession;
+  readonly mediaSession?: MediaSession;
 }
 
 interface Window {
-  MediaSession: MediaSession;
+  MediaSession?: MediaSession;
 }
 
 type MediaSessionPlaybackState = 'none' | 'paused' | 'playing';
