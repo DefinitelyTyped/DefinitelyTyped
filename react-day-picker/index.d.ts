@@ -1,4 +1,4 @@
-// Type definitions for react-day-picker 5.1
+// Type definitions for react-day-picker 5.2
 // Project: https://github.com/gpbl/react-day-picker
 // Definitions by: Giampaolo Bellavite <https://github.com/gpbl>, Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,30 +28,34 @@ declare namespace DayPicker {
     }
 
     export interface CaptionElementProps {
-        date?: Date;
-        localeUtils?: LocaleUtils;
-        locale?: string;
-        onClick?(month: Date, e: React.MouseEvent<HTMLDivElement>): void;
+        date: Date;
+        classNames: ClassNames,
+        localeUtils: LocaleUtils;
+        locale: string;
+        months: undefined;
+        onClick?: React.MouseEventHandler<HTMLElement>;
     }
 
     export interface NavbarElementProps {
-        className?: string;
-        previousMonth?: Date;
-        nextMonth?: Date;
-        showPreviousButton?: boolean;
-        showNextButton?: boolean;
-        onPreviousClick?(): void;
-        onNextClick?(): void;
+        className: string;
+        classNames: ClassNames;
+        previousMonth: Date;
+        nextMonth: Date;
+        showPreviousButton: boolean;
+        showNextButton: boolean;
+        onPreviousClick(callback?: () => void): void;
+        onNextClick(callback?: () => void): void;
         dir?: string;
-        localeUtils?: LocaleUtils;
-        locale?: string;
+        labels: { previousMonth: string; nextMonth: string; };
+        localeUtils: LocaleUtils;
+        locale: string;
     }
 
     export interface WeekdayElementProps {
-        weekday?: number;
-        className?: string;
-        localeUtils?: LocaleUtils;
-        locale?: string;
+        weekday: number;
+        className: string;
+        localeUtils: LocaleUtils;
+        locale: string;
     }
 
     export interface ClassNames {
@@ -89,7 +93,7 @@ declare namespace DayPicker {
     export interface FunctionModifier {
         (date: Date): boolean;
     }
-    export type Modifier = RangeModifier | BeforeModifier | AfterModifier | FunctionModifier;
+    export type Modifier = Date | RangeModifier | BeforeModifier | AfterModifier | FunctionModifier;
 
     export interface Modifiers {
         today: Modifier | Modifier[];
@@ -99,7 +103,9 @@ declare namespace DayPicker {
 
     export interface Props {
         canChangeMonth?: boolean;
-        captionElement?: React.ReactElement<CaptionElementProps>;
+        captionElement?: React.ReactElement<Partial<CaptionElementProps>> |
+            React.ComponentClass<CaptionElementProps> |
+            React.SFC<CaptionElementProps>;
         className?: string;
         classNames?: ClassNames;
         containerProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -115,7 +121,9 @@ declare namespace DayPicker {
         modifiers?: Partial<Modifiers>;
         month?: Date;
         months?: [string, string, string, string, string, string, string, string, string, string, string, string];
-        navbarElement?: React.ReactElement<NavbarElementProps>;
+        navbarElement?: React.ReactElement<Partial<NavbarElementProps>> |
+            React.ComponentClass<NavbarElementProps> |
+            React.SFC<NavbarElementProps>;
         numberOfMonths?: number;
         onBlur?(e: React.FocusEvent<HTMLDivElement>): void;
         onCaptionClick?(month: Date, e: React.MouseEvent<HTMLDivElement>): void;
@@ -133,7 +141,9 @@ declare namespace DayPicker {
         reverseMonths?: boolean;
         selectedDays?: Modifier | Modifier[];
         toMonth?: Date;
-        weekdayElement?: React.ReactElement<WeekdayElementProps>;
+        weekdayElement?: React.ReactElement<Partial<WeekdayElementProps>> |
+            React.ComponentClass<WeekdayElementProps> |
+            React.SFC<WeekdayElementProps>;
         weekdaysLong?: [string, string, string, string, string, string, string];
         weekdaysShort?: [string, string, string, string, string, string, string];
     }
