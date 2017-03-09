@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JQuery {
-    gridstack (options: IGridstackOptions):GridStack
+    gridstack (options: IGridstackOptions): JQuery;
+    data(key: "gridstack"): GridStack;
 }
 
 interface GridStack {
