@@ -97,6 +97,24 @@ function StepSample() {
 		} )
 	});
 
+	cucumber.defineSupportCode(function(hook: cucumber.Hooks){
+		hook.addTransform({
+			captureGroupRegexps: ['red|blue|green'],
+			transformer: (arg: string) => arg,
+			typeName: 'color'
+		});
+	});
+
+	cucumber.defineSupportCode(function({After, Given}) {
+		Given( /^a variable set to (\d+)$/, (x:string) => {
+			console.log("the number is: " + x);
+		});
+		After((scenario: HookScenario, callback?: Callback) => {
+			console.log("After");
+			callback();
+		});
+	});
+
 	let fns : cucumber.SupportCodeConsumer[] = cucumber.getSupportCodeFns()
 
 	cucumber.clearSupportCodeFns();

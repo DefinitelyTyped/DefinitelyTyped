@@ -81,7 +81,15 @@ declare function watch(globs: string|string[], cb?: (outEvt: { type: any; path: 
 * Globs are executed in order, so negations should follow positive globs
 * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
 */
-declare function watch(globs: string|string[], opt?: { interval?: number; debounceDelay?: number; cwd?: string; maxListeners?: () => number; }, cb?: (outEvt: { type: any; path: any; old: any; }) => void): _events.EventEmitter;
+declare function watch(
+    globs: string|string[],
+    opt?: {
+        interval?: number;
+        debounceDelay?: number;
+        cwd?: string;
+        maxListeners?: () => number;
+    },
+    cb?: (outEvt: { type: any; path: any; old: any; }) => void): _events.EventEmitter;
 
 /**
 * On write the stream will save the vinyl File to disk at the folder/cwd specified.

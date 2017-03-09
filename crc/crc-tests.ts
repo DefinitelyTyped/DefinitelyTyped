@@ -1,5 +1,5 @@
-import * as crc from "crc"
-import * as fs from "fs" 
+import * as crc from "crc";
+import * as fs from "fs";
 
 // tests move from the readme of the module
 

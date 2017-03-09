@@ -50,8 +50,16 @@ declare namespace Rx {
         distinct<TKey>(keySelector?: (value: T) => TKey, keySerializer?: (key: TKey) => string): Observable<T>;
         groupBy<TKey, TElement>(keySelector: (value: T) => TKey, skipElementSelector?: boolean, keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, T>>;
         groupBy<TKey, TElement>(keySelector: (value: T) => TKey, elementSelector: (value: T) => TElement, keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, TElement>>;
-        groupByUntil<TKey, TDuration>(keySelector: (value: T) => TKey, skipElementSelector: boolean, durationSelector: (group: GroupedObservable<TKey, T>) => Observable<TDuration>, keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, T>>;
-        groupByUntil<TKey, TElement, TDuration>(keySelector: (value: T) => TKey, elementSelector: (value: T) => TElement, durationSelector: (group: GroupedObservable<TKey, TElement>) => Observable<TDuration>, keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, TElement>>;
+        groupByUntil<TKey, TDuration>(
+            keySelector: (value: T) => TKey,
+            skipElementSelector: boolean,
+            durationSelector: (group: GroupedObservable<TKey, T>) => Observable<TDuration>,
+            keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, T>>;
+        groupByUntil<TKey, TElement, TDuration>(
+            keySelector: (value: T) => TKey,
+            elementSelector: (value: T) => TElement,
+            durationSelector: (group: GroupedObservable<TKey, TElement>) => Observable<TDuration>,
+            keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, TElement>>;
     }
 
     interface ObservableStatic {

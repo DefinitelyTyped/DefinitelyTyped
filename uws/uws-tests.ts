@@ -1,11 +1,13 @@
 import * as WebSocket from 'uws';
-import * as fs from'fs';
+import {Buffer} from 'buffer';
+import * as http from'http';
 import * as https from'https';
+import * as fs from'fs';
 
 const WebSocketServer = WebSocket.Server;
 const non_ssl = new WebSocketServer({ port: 3000 });
 
-var non_ssl_disconnections = 0;
+let non_ssl_disconnections = 0;
 non_ssl.on('connection', function(ws) {
     ws.on('message', function(message) {
         ws.send(message);
@@ -30,7 +32,7 @@ const httpsServer = https.createServer(options, (req: any, res: any) => {
 
 const ssl = new WebSocketServer({ server: httpsServer });
 
-var ssl_disconnections = 0;
+let ssl_disconnections = 0;
 ssl.on('connection', function(ws) {
     ws.on('message', function(message) {
       ws.send(message);
@@ -44,3 +46,29 @@ ssl.on('connection', function(ws) {
 });
 
 httpsServer.listen(3001);
+
+/**
+ * HTTP module.
+ */
+
+const document: Buffer = Buffer.from('Hello world!');
+
+const server: http.Server = WebSocket.http.createServer(
+    (req: http.IncomingMessage, res: http.ServerResponse): void => {
+    if (req.method === 'POST') {
+        const body: Buffer[] = [];
+
+        req.on('data', (chunk: Buffer) => {
+            body.push(Buffer.from(chunk));
+        }).on('end', () => {
+            res.end('You posted me this: ' + Buffer.concat(body).toString());
+        });
+        // handle some GET url
+    } else if (req.url === '/') {
+        res.end(document);
+    } else {
+        res.end('Unknown request by: ' + req.headers['user-agent']);
+    }
+});
+
+server.listen(3002);

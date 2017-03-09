@@ -44,8 +44,8 @@ function insertRows() {
 
 function readAllRows() {
     console.log("readAllRows lorem");
-    db.all("SELECT rowid AS id, info FROM lorem", function(err, rows) {
-        rows.forEach(function (row) {
+    db.all("SELECT rowid AS id, info FROM lorem", (err, rows) => {
+        rows.forEach(row => {
             console.log(row.id + ": " + row.info);
         });
         readSomeRows();
@@ -54,7 +54,7 @@ function readAllRows() {
 
 function readSomeRows() {
     console.log("readAllRows lorem");
-    db.each("SELECT rowid AS id, info FROM lorem WHERE rowid < ? ", 5, function(err, row) {
+    db.each("SELECT rowid AS id, info FROM lorem WHERE rowid < ? ", 5, (err, row) => {
         console.log(row.id + ": " + row.info);
     }, closeDb);
 }
@@ -70,7 +70,7 @@ function runChainExample() {
 
 runChainExample();
 
-db.serialize(function() {
+db.serialize(() => {
   db.run("CREATE TABLE lorem (info TEXT)");
 
   var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
@@ -79,15 +79,15 @@ db.serialize(function() {
   }
   stmt.finalize();
 
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+  db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
       console.log(row.id + ": " + row.info);
   });
 });
 
-db.serialize(function() {
+db.serialize(() => {
   // These two queries will run sequentially.
   db.run("CREATE TABLE foo (num)");
-  db.run("INSERT INTO foo VALUES (?)", 1, function(err) {
+  db.run("INSERT INTO foo VALUES (?)", 1, err => {
     // These queries will run in parallel and the second query will probably
     // fail because the table might not exist yet.
     db.run("CREATE TABLE bar (num)");
@@ -107,7 +107,7 @@ db.run("UPDATE tbl SET name = $name WHERE id = $id", {
   $name: "bar"
 });
 db.run("UPDATE tbl SET name = $name WHERE id = $id", { $id: 2, $name: "bar" },
-  function(err) { }
+  err => { }
 );
 
 db.run("UPDATE tbl SET name = ?5 WHERE id = ?", {

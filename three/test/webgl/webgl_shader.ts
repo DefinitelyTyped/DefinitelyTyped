@@ -6,11 +6,11 @@
 () => {
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLElement, stats: Stats;
 
-    var camera, scene, renderer;
+    var camera: THREE.Camera, scene: THREE.Scene, renderer: THREE.WebGLRenderer;
 
-    var uniforms;
+    var uniforms: { time: { type: string; value: number; }; resolution: { type: string; value: THREE.Vector2; }; };
 
     init();
     animate();

@@ -37,7 +37,7 @@ declare namespace Hbs {
         layoutsPath?: string,
         contentHelperName?: string,
         blockHelperName?: string,
-        disableCache?: boolean 
+        disableCache?: boolean
     }
 }
 
@@ -50,7 +50,7 @@ declare const hbs: Hbs;
 export = hbs;
 
 declare module "koa" {
-    export interface Context extends Request, Response {
+    export interface Context {
         render(tpl: string, locals?: {[key: string]: any}): Promise<void>;
     }
 }

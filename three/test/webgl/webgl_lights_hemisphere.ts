@@ -10,9 +10,9 @@
 
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-    var camera, scene, renderer, dirLight, hemiLight;
-    var mixers = [];
-    var stats;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, dirLight: THREE.DirectionalLight, hemiLight: THREE.HemisphereLight;
+    var mixers: THREE.AnimationMixer[] = [];
+    var stats: Stats;
 
     var clock = new THREE.Clock();
 
@@ -169,7 +169,7 @@
 
     }
 
-    function onKeyDown ( event ) {
+    function onKeyDown ( event: KeyboardEvent ) {
 
         switch ( event.keyCode ) {
 
