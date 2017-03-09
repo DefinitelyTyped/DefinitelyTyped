@@ -26,7 +26,7 @@ export interface EmailTemplates {
     verifyEmail: EmailFields;
 }
 
-export module Accounts {
+export declare module Accounts {
     let urls: URLS;
 
     function user(): Meteor.User;
