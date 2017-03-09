@@ -66,6 +66,12 @@ export interface Config<FormData extends DataShape, P, S> {
     destroyOnUnmount?: boolean;
 
     /**
+     * Whether or not to force unregistration of fields -- use in conjunction
+     * with destroyOnUnmount.
+     */
+    forceUnregisterOnUnmount?: boolean;
+
+    /**
      * A function that takes the entire Redux state and returns the state slice
      * which corresponds to where the redux-form reducer was mounted. This
      * functionality is rarely needed, and defaults to assuming that the reducer
