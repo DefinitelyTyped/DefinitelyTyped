@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Q;
-export as namespace Q;
 
 /**
  * If value is a Q promise, returns the promise.
