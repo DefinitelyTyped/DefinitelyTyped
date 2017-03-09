@@ -1,4 +1,4 @@
-// Type definitions for json-stable-stringify 1.0.0
+// Type definitions for json-stable-stringify 1.0
 // Project: https://github.com/substack/json-stable-stringify
 // Definitions by: Matt Frantz <https://github.com/mhfrantz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,13 +14,9 @@ declare namespace stringify {
         value: any;
     }
 
-    interface Comparator {
-        (a: Element, b: Element): number;
-    }
+    type Comparator = (a: Element, b: Element) => number;
 
-    interface Replacer {
-        (key: string, value: any): any;
-    }
+    type Replacer = (key: string, value: any) => any;
 
     interface Options {
         cmp?: Comparator;

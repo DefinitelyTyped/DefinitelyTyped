@@ -4,8 +4,8 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_helpers.html
 
 () => {
-    var scene, renderer;
-    var camera, light;
+    var scene: THREE.Scene, renderer: THREE.WebGLRenderer;
+    var camera: THREE.PerspectiveCamera, light: THREE.PointLight;
 
     init();
     animate();

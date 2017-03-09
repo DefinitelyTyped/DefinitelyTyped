@@ -63,17 +63,26 @@ num = d3Format.precisionRound(0.0005, 3000);
 // Test Locale Definition
 // ----------------------------------------------------------------------
 
-let decimal: '.' | ',' = localeDef.decimal;
-let thousands: '.' | ',' | '\u00a0' | "'" = localeDef.thousands;
-let grouping: Array<number> = localeDef.grouping;
-let currency: [string, string] = localeDef.currency;
-
 localeDef = {
     decimal: ',',
     thousands: '.',
     grouping: [3],
     currency: ['EUR', '']
 };
+
+localeDef = {
+  decimal: "\u066b",
+  thousands: "\u066c",
+  grouping: [3],
+  currency: ["", ""],
+  numerals : ["\u0660", "\u0661", "\u0662", "\u0663", "\u0664", "\u0665", "\u0666", "\u0667", "\u0668", "\u0669"]
+}
+
+let decimal: string = localeDef.decimal;
+let thousands: string = localeDef.thousands;
+let grouping: Array<number> = localeDef.grouping;
+let currency: [string, string] = localeDef.currency;
+let numerals: string[] | undefined = localeDef.numerals;
 
 localeObj = d3Format.formatLocale(localeDef);
 

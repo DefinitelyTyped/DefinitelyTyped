@@ -68,46 +68,46 @@ var uploadBegin: RNFS.UploadCallbackBegin = (response) => {
 };
 
 var uploadProgress: RNFS.UploadCallbackProgress = (response) => {
-  var percentage = Math.floor((response.totalBytesSent/response.totalBytesExpectedToSend) * 100);
+  var percentage = Math.floor((response.totalBytesSent / response.totalBytesExpectedToSend) * 100);
   console.log('UPLOAD IS ' + percentage + '% DONE!');
 };
 
 // upload files
 RNFS.uploadFiles({
   toUrl: uploadUrl,
-  files: files,
+  files,
   method: 'POST',
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
   },
   fields: {
-    'hello': 'world',
+    hello: 'world',
   },
   begin: uploadBegin,
   progress: uploadProgress
 }).promise.then((response) => {
-    if (response.statusCode == 200) {
+    if (response.statusCode === 200) {
       console.log('FILES UPLOADED!'); // response.statusCode, response.headers, response.body
     } else {
       console.log('SERVER ERROR');
     }
   })
   .catch((err) => {
-    if(err.description === "cancelled") {
+    if (err.description === "cancelled") {
       // cancelled by user
     }
     console.log(err);
   });
 
 var downloadProgress: RNFS.DownloadCallbackProgress = (result) => {
-  result.bytesWritten === 0
-  result.contentLength > 10
-  result.jobId
-}
+  result.bytesWritten === 0;
+  result.contentLength > 10;
+  result.jobId;
+};
 
 var downloadBegin: RNFS.DownloadCallbackBegin = (result) => {
-  result.headers === {}
-}
+  result.headers === {};
+};
 
 RNFS.downloadFile({
   fromUrl: 'http://.txt',
@@ -115,5 +115,5 @@ RNFS.downloadFile({
   begin: downloadBegin,
   progress: downloadProgress
 }).promise.then((response) => {
-  response.statusCode === 200
-})
+  response.statusCode === 200;
+});

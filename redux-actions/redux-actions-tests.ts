@@ -26,7 +26,7 @@ const actionHandlerWithReduceMap = ReduxActions.handleAction<number, number>(
         next(state: number, action: ReduxActions.Action<number>) {
             return state * action.payload;
         },
-        throw(state: number) { return state }
+        throw(state: number) { return state; }
     },
     0
 );
@@ -34,17 +34,17 @@ const actionHandlerWithReduceMap = ReduxActions.handleAction<number, number>(
 state = actionHandlerWithReduceMap(0, multiplyAction(10));
 
 const actionsHandler = ReduxActions.handleActions<number, number>({
-    'INCREMENT': (state: number, action: ReduxActions.Action<number>) => state + action.payload,
-    'MULTIPLY': (state: number, action: ReduxActions.Action<number>) => state * action.payload
+    INCREMENT: (state: number, action: ReduxActions.Action<number>) => state + action.payload,
+    MULTIPLY: (state: number, action: ReduxActions.Action<number>) => state * action.payload
 }, 0);
 
 state = actionsHandler(0, { type: 'INCREMENT' });
 
 const actionsHandlerWithInitialState = ReduxActions.handleActions<number, number>({
-    'INCREMENT': {
+    INCREMENT: {
         next: (state: number, action: ReduxActions.Action<number>) => state + action.payload,
     },
-    'MULTIPLY': {
+    MULTIPLY: {
         next: (state: number, action: ReduxActions.Action<number>) => state * action.payload
     }
 }, 0);
@@ -53,17 +53,17 @@ state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
 
 // ----------------------------------------------------------------------------------------------------
 
-type TypedState = {
+interface TypedState {
     value: number;
-};
+}
 
-type TypedPayload = {
+interface TypedPayload {
     increase: number;
 }
 
-type MetaType = {
-    remote: boolean
-};
+interface MetaType {
+    remote: boolean;
+}
 
 let typedState: TypedState;
 
@@ -103,37 +103,37 @@ const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState, Ty
         next(state: TypedState, action: ReduxActions.Action<TypedPayload>) {
             return { value: state.value + action.payload.increase };
         },
-        throw(state: TypedState) { return state }
+        throw(state: TypedState) { return state; }
     },
     {value: 1}
 );
 
 typedState = typedActionHandlerWithReduceMap({ value: 0 }, typedIncrementByActionWithMeta(10));
 
-const act = ReduxActions.createAction<string>('ACTION1')
-act('hello').payload === 'hello'
+const act = ReduxActions.createAction<string>('ACTION1');
+act('hello').payload === 'hello';
 
-const act2 = ReduxActions.createAction('ACTION2', (s: {load: boolean}) => s)
-act2({load: true}).payload.load == true
+const act2 = ReduxActions.createAction('ACTION2', (s: {load: boolean}) => s);
+act2({load: true}).payload.load === true;
 
-const act3 = ReduxActions.createAction('ACTION3', (s: string) => ({s}))
-act3('hello').payload.s == 'hello'
+const act3 = ReduxActions.createAction('ACTION3', (s: string) => ({s}));
+act3('hello').payload.s === 'hello';
 
 ReduxActions.handleAction<{ hello: string }, string>(act, (state, action) => {
-    return { hello: action.payload }
-}, {hello: 'greetings'})
+    return { hello: action.payload };
+}, {hello: 'greetings'});
 
 ReduxActions.handleAction<{ hello: { load: boolean } }, { load: boolean }>(act2, (state, action) => {
-    return { hello: action.payload }
-}, {hello: {load: true}})
+    return { hello: action.payload };
+}, {hello: {load: true}});
 
 ReduxActions.handleAction(act3, (state, action) => {
-    return { hello: action.payload.s }
-}, {hello: 'greetings'})
+    return { hello: action.payload.s };
+}, {hello: 'greetings'});
 
 ReduxActions.handleAction(ReduxActions.combineActions(act, act3, act2), (state, action) => {
 
-}, 0)
+}, 0);
 
 /* can't do this until it lands in 2.2, HKTs
 ReduxActions.handleAction(act, (state, action) => {

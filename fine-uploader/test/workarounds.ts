@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 function workaroundsTest() {
     const workaroundOptions: qq.WorkaroundOptions = {
         iosEmptyVideos: false,

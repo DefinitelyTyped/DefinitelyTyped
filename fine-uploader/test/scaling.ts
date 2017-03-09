@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 function scalingTest() {
     const scalingOptions: qq.ScalingOptions = {
         customResizer: (blob, height, image, sourceCanvas, targetCanvas, width) => {

@@ -1,15 +1,13 @@
-/// <reference path="../index.d.ts" />
-
 function formTest() {
-    let formOptions: qq.FormOptions = {
+    const formOptions: qq.FormOptions = {
         element: "qq-form",
         autoUpload: true,
         interceptSubmit: true
     };
 
-    let config: qq.BasicOptions = {
+    const config: qq.BasicOptions = {
         form: formOptions
     };
 
-    let uploader = new qq.FineUploaderBasic(config);
+    const uploader = new qq.FineUploaderBasic(config);
 }

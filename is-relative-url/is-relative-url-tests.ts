@@ -1,10 +1,10 @@
 import isRelativeUrl = require('is-relative-url');
 
 isRelativeUrl('foo/bar');
-//=> true
+// => true
 
 isRelativeUrl('http://sindresorhus.com/foo/bar');
-//=> false
+// => false
 
 isRelativeUrl('//sindresorhus.com');
-//=> true
+// => true
