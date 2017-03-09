@@ -88,7 +88,7 @@ declare namespace RcSliderClass {
         tipFormatter?: ((value: any) => any | undefined) | null;
     }
 
-    export interface SliderProps extends CommonApiProps {
+    interface SliderProps extends CommonApiProps {
         /**
          * Set initial value of slider.
          *  @default 0
@@ -137,7 +137,7 @@ declare namespace RcSliderClass {
          * Styling if true, then bottom: {offset} else left: {offset}
          * @default False
          */
-        verical: boolean;
+        vertical: boolean;
         /**
          * Styling option offset
          */
