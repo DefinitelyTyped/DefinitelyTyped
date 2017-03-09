@@ -19,9 +19,23 @@
     "files": [
         "index.d.ts",
         "meteor-tests.ts",
-        "accounts-base/index.d.ts"
-    ],
-    "filesGlob": [
-        "**/*"
+        "accounts-base/index.d.ts",
+        "blaze/index.d.ts",
+        "browser-policy-common/index.d.ts",
+        "check/index.d.ts",
+        "ddp/index.d.ts",
+        "ddp-rate-limiter/index.d.ts",
+        "ejson/index.d.ts",
+        "email/index.d.ts",
+        "http/index.d.ts",
+        "meteor/index.d.ts",
+        "mongo/index.d.ts",
+        "random/index.d.ts",
+        "reactive-var/index.d.ts",
+        "session/index.d.ts",
+        "templating/index.d.ts",
+        "tiny-test/index.d.ts",
+        "tools/index.d.ts",
+        "tracker/index.d.ts"
     ]
 }
