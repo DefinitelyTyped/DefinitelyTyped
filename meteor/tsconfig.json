@@ -22,6 +22,6 @@
         "accounts-base/index.d.ts"
     ],
     "filesGlob": [
-        "meteor/**/*"
+        "**/*"
     ]
 }
