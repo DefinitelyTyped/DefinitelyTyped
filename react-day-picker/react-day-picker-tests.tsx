@@ -8,7 +8,7 @@ function isSunday(day: Date) {
 function MyComponent() {
     return (
         <DayPicker
-            ref="foo" initialMonth={ new Date(2016, 1) } localeUtils={DayPicker.LocaleUtils} modifiers={{ isSunday }}
+            initialMonth={ new Date(2016, 1) } localeUtils={DayPicker.LocaleUtils} modifiers={{ isSunday }}
         />
     );
 }
@@ -26,10 +26,27 @@ class Caption extends React.Component<MyCaptionProps, {}> {
         }
 
         return (
-            <div className="DayPicker-Caption" onClick={ (e) => onClick(date, e) }>
+            <div className="DayPicker-Caption" onClick={ onClick }>
                 { localeUtils.formatMonthTitle(date, locale) }
             </div>
         );
     }
 }
-<DayPicker captionElement={<Caption/>}/>
+<DayPicker captionElement={ Caption }/>
+
+
+type CaptionElementProps = Partial<DayPicker.CaptionElementProps>;
+class CaptionElement extends React.Component<CaptionElementProps, {}> {
+    render() {
+        const { date, locale, localeUtils, onClick } = this.props;
+        if (!date || !locale || !localeUtils || !onClick) {
+            return <div/>;
+        }
+        return (
+            <div onClick={ onClick }>
+                { localeUtils.formatMonthTitle(date, locale) }
+            </div>
+        )
+    }
+}
+<DayPicker captionElement={ <CaptionElement /> }/>
