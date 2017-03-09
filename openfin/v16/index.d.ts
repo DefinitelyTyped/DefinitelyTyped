@@ -63,7 +63,7 @@ declare namespace fin {
 		 */
 		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array of wrapped fin.desktop.Windows for each of the application�s child windows.
+		 * Retrieves an array of wrapped fin.desktop.Windows for each of the application's child windows.
 		 */
 		getChildWindows(callback?: (children: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -95,7 +95,7 @@ declare namespace fin {
 		 */
 		removeEventListener(type: OpenFinApplicationEventType, previouslyRegisteredListener: (event: ApplicationBaseEvent | TrayIconClickedEvent | WindowEvent | WindowAlertRequestedEvent | WindowAuthRequested | WindowNavigationRejectedEvent | WindowEndLoadEvent) => any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Removes the application�s icon from the tray.
+		 * Removes the application's icon from the tray.
 		 */
 		removeTrayIcon(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -989,7 +989,7 @@ declare namespace fin {
 		bringToFront(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the window.
-		 * @param {force} Close will be prevented from closing when force is false and �close-requested� has been subscribed to for application�s main window.
+		 * @param {force} Close will be prevented from closing when force is false and 'close-requested' has been subscribed to for application's main window.
 		 */
 		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1009,7 +1009,7 @@ declare namespace fin {
 		 */
 		enableFrame(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Flashes the window�s frame and taskbar icon until the window is activated.
+		 * Flashes the window's frame and taskbar icon until the window is activated.
 		 */
 		flash(options?: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1106,7 +1106,7 @@ declare namespace fin {
 		setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the window if it is hidden.
-		 * @param {force} Show will be prevented from closing when force is false and �show-requested� has been subscribed to for application�s main window.
+		 * @param {force} Show will be prevented from closing when force is false and 'show-requested' has been subscribed to for application's main window.
 		 */
 		show(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
