@@ -1,5 +1,6 @@
 import {
     Component,
+    StatelessComponent,
     ReactElement,
     SyntheticEvent,
     ReactEventHandler,
@@ -20,7 +21,8 @@ export function reduxForm(
 ): FormDecorator<any, any, any>;
 
 export interface FormDecorator<FormData extends DataShape, P, S> {
-    <T extends (typeof Component)>(component: T): T & Form<FormData, P, S>;
+    <T extends (typeof Component | StatelessComponent<any>)>(component: T): 
+        T & Form<FormData, P, S>;
 }
 
 export interface Config<FormData extends DataShape, P, S> {
