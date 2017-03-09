@@ -18,6 +18,10 @@
     },
     "files": [
         "index.d.ts",
-        "meteor-tests.ts"
+        "meteor-tests.ts",
+        "accounts-base/index.d.ts"
+    ],
+    "filesGlob": [
+        "meteor/**/*"
     ]
 }
