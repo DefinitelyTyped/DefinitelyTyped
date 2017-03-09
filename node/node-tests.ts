@@ -520,7 +520,7 @@ function stream_readable_pipe_test() {
 
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
-    assert(typeof rs.path === 'Buffer');
+    assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
@@ -2159,7 +2159,7 @@ namespace v8_tests {
 
     const heapStats = v8.getHeapStatistics();
     const heapSpaceStats = v8.getHeapSpaceStatistics();
-    
+
     const zapsGarbage: number = heapStats.does_zap_garbage;
 
     v8.setFlagsFromString('--collect_maps');
