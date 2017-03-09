@@ -107,6 +107,12 @@ declare namespace Chai {
         text(str?: string): Assertion;
 
         /**
+         * Assert that the given wrapper has a given type:
+         * @param func
+         */
+        type(func: EnzymeSelector): Assertion;
+
+        /**
          * Assert that the given wrapper has given value:
          * @param str
          */
