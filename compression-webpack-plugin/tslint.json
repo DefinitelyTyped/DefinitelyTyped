@@ -1,7 +1,4 @@
 { 
-    "extends": "../tslint.json",
-    "rules": {
-        "dt-header": false
-    }
- }
+    "extends": "../tslint.json"
+}
  
