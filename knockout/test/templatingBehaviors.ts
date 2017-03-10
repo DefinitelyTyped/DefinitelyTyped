@@ -2,6 +2,9 @@
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
+declare function beforeEach(action: (done: DoneFn) => void, timeout?: number): void;
+declare function expect(spy: Function): jasmine.Matchers;
+declare function expect(actual: any): jasmine.Matchers;
 
 declare namespace jasmine {
   interface Matchers {
