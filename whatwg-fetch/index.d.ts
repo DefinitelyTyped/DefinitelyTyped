@@ -8,7 +8,8 @@
 interface Window {
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
-declare let fetch: typeof window.fetch;
+                                         // See https://github.com/github/fetch/blob/v2.0.2/fetch.js#L457
+declare let fetch: typeof window.fetch & { polyfill?: true };
 
 declare type HeadersInit = Headers | string[][] | { [key: string]: string };
 declare class Headers {

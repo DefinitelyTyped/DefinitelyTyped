@@ -108,3 +108,8 @@ function test_Body_json() {
 			//console.log(fooBar.bar);
 		});
 }
+
+// See https://github.com/github/fetch/blob/v2.0.2/fetch.js#L457
+function test_fetch_polyfill() {
+	console.log(fetch.polyfill);
+}
