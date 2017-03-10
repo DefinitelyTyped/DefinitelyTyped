@@ -1541,7 +1541,7 @@ declare class KnuddelsServer {
 	 * Liefert ein ExternalServerAccess-Objekt, mit dem
 	 * andere Server angesteuert werden können.
 	 */
-	getExternalServerAccess(): ExternalServerAccess;
+	static getExternalServerAccess(): ExternalServerAccess;
 	/**
 	 * Aktualisiert die Liste der genutzten Hooks. Werden zur Laufzeit chatCommands oder App-Hooks (wie mayJoinChannel) dynamisch erzeugt oder gelöscht, so muss danach <code>refreshHooks()</code>
 	 * aufgerufen werden, damit diese Änderung wirksam wird.
