@@ -153,5 +153,6 @@ declare module "react-relay" {
         forceFetch(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
         hasOptimisticUpdate(record?: any): boolean;
         getPendingTransactions(record?: any): RelayMutationTransaction[];
+        commitUpdate?: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
     }
 }
