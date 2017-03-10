@@ -1123,11 +1123,16 @@ declare namespace google.maps {
         types: string[];
     }
 
+    export interface viewPortObject {
+        northeast: LatLngLiteral,
+        southwest: LatLngLiteral
+    }
+
     export interface GeocoderGeometry {
         bounds: LatLngBounds;
-        location: LatLng;
+        location: LatLngLiteral;
         location_type: GeocoderLocationType;
-        viewport: LatLngBounds;
+        viewport: viewPortObject;
     }
 
     export enum GeocoderLocationType {
