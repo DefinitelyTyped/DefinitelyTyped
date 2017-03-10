@@ -31,6 +31,24 @@ declare module "react-relay" {
         response: any
     }
 
+    type RelayMutationStatus =
+      'UNCOMMITTED' | // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
+      'COMMIT_QUEUED' | // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
+      'COLLISION_COMMIT_FAILED' | //Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue, including this one, have been failed. Transaction can be recommitted or rolled back.
+      'COMMITTING' | // Transaction is waiting for the server to respond.
+      'COMMIT_FAILED';
+
+    class RelayMutationTransaction {
+      applyOptimistic(): RelayMutationTransaction;
+      commit(): RelayMutationTransaction;
+      recommit(): void;
+      rollback(): void;
+      getError(): Error;
+      getStatus(): RelayMutationStatus;
+      getHash(): string;
+      getID(): string;
+    }
+
     interface RelayMutationRequest {
         getQueryString(): string
         getVariables(): RelayVariables
@@ -104,7 +122,7 @@ declare module "react-relay" {
         renderFailure?(error: Error, retry: Function): JSX.Element
     }
 
-    type ReadyStateEvent = 
+    type ReadyStateEvent =
         'ABORT' |
         'CACHE_RESTORED_REQUIRED' |
         'CACHE_RESTORE_FAILED' |
@@ -128,7 +146,12 @@ declare module "react-relay" {
     }
 
     interface RelayProp {
-        variables: any
-        setVariables(variables: Object, onReadyStateChange?: OnReadyStateChange): void
+        route: { name: string; }; // incomplete, also has params and queries
+        variables: any;
+        pendingVariables?: any;
+        setVariables(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
+        forceFetch(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
+        hasOptimisticUpdate(record: any): boolean;
+        getPendingTransactions(record: any): RelayMutationTransaction[];
     }
 }
