@@ -15,7 +15,7 @@ declare module "react-relay" {
     }
 
     interface CreateContainerOpts {
-        initialVariables?: Object
+        initialVariables?: any
         fragments: Fragments
         prepareVariables?(prevVariables: RelayVariables): RelayVariables
     }
@@ -148,13 +148,13 @@ declare module "react-relay" {
     }
 
     interface RelayProp {
-        route: { name: string; }; // incomplete, also has params and queries
-        variables: Object;
-        pendingVariables?: Object | null;
-        setVariables(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
-        forceFetch(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
-        hasOptimisticUpdate(record: Object): boolean;
-        getPendingTransactions(record: Object): RelayMutationTransaction[];
+        readonly route: { name: string; }; // incomplete, also has params and queries
+        readonly variables: any;
+        readonly pendingVariables?: any | null;
+        setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
+        forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
+        hasOptimisticUpdate(record: any): boolean;
+        getPendingTransactions(record: any): RelayMutationTransaction[];
         commitUpdate: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
     }
 }
