@@ -4917,7 +4917,7 @@ declare module "react" {
 
     interface PlatformStatic {
         OS: PlatformOSType
-        Version?: number
+        Version: number
 
         /**
          * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
