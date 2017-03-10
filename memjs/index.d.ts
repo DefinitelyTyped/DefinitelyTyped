@@ -3,17 +3,8 @@
 // Definitions by: Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare let memjs: MemJS.Static;
-
-// Support AMD require
-declare module 'memjs' {
-    export = memjs;
-}
-
 declare namespace MemJS {
-    interface Static {
-        Client: { create(serversStr: string, options?: ClientOptions): Client; };
-    }
+    export let Client: { create(serversStr: string, options?: ClientOptions): Client; };
 
     /**
      * Client Instance
