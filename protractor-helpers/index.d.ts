@@ -5,6 +5,7 @@
 // TypeScript Version: 2.1
 
 /// <reference types="selenium-webdriver" />
+/// <reference types="jasmine" />
 
 // ElementArrayFinder
 
