@@ -13,7 +13,6 @@ import {
     InjectedIntl,
     InjectedIntlProps,
     addLocaleData,
-    hasLocaleData,
     injectIntl,
     intlShape,
     defineMessages,
@@ -29,9 +28,8 @@ import {
 import reactIntlEn = require("react-intl/locale-data/en");
 
 addLocaleData(reactIntlEn);
-console.log(hasLocaleData("en"));
 
-interface SomeComponentProps {
+interface SomeComponentProps extends InjectedIntlProps {
     className: string
 }
 
