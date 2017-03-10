@@ -975,24 +975,22 @@ namespace net_tests {
 /////////////////////////////////////////////////////
 
 namespace dns_tests {
-    {
-        dns.lookup("nodejs.org", (err, address, family) => {});
-        dns.lookup("nodejs.org", 4, (err, address, family) => {});
-        dns.lookup("nodejs.org", 6, (err, address, family) => {});
-        dns.lookup("nodejs.org", {}, (err, address, family) => {});
-        dns.lookup(
-            "nodejs.org",
-            {
-                family: 4,
-                hints: dns.ADDRCONFIG | dns.V4MAPPED,
-                all: false
-            },
-            (err, address, family) => {}
-        );
-        dns.lookup(
-            "nodejs.org",
-            {all: true},
-            (err, addresses) => {}
-        );
-    }
+    dns.lookup("nodejs.org", (err, address, family) => {});
+    dns.lookup("nodejs.org", 4, (err, address, family) => {});
+    dns.lookup("nodejs.org", 6, (err, address, family) => {});
+    dns.lookup("nodejs.org", {}, (err, address, family) => {});
+    dns.lookup(
+        "nodejs.org",
+        {
+            family: 4,
+            hints: dns.ADDRCONFIG | dns.V4MAPPED,
+            all: false
+        },
+        (err, address, family) => {}
+    );
+    dns.lookup(
+        "nodejs.org",
+        {all: true},
+        (err, addresses) => {}
+    );
 }
