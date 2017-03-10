@@ -2065,6 +2065,7 @@ declare module "net" {
         unref(): Server;
         maxConnections: number;
         connections: number;
+        listening: boolean;
 
         /**
          * events.EventEmitter
