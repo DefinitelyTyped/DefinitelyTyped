@@ -261,7 +261,7 @@ declare module "node-forge" {
                 safeBags: Bag[];
             }];
             getBags: (filter: BagsFilter) => {
-                [key: string]: Bag[];
+                [key: string]: Bag[]|undefined;
                 localKeyId?: Bag[];
                 friendlyName?: Bag[];
             };
