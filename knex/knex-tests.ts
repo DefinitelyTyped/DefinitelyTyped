@@ -285,6 +285,8 @@ knex('books')
   .returning('id')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
 
+knex.batchInsert('books', [{title:'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
+
 knex('books').where('published_date', '<', 2000).update({status: 'archived'});
 knex('books').where('published_date', '<', 2000).update({status: 'archived'}, 'id');
 knex('books').where('published_date', '<', 2000).update({status: 'archived'}, ['id', 'title']);
