@@ -84,6 +84,7 @@ class StubbedArtwork extends React.Component<null, null> {
                 forceFetch: () => {},
                 hasOptimisticUpdate: () => false,
                 getPendingTransactions: (): Relay.RelayMutationTransaction[] => undefined,
+                commitUpdate: () => {},
             }
         }
         return <ArtworkContainer {...props} />

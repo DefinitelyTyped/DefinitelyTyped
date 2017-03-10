@@ -7,6 +7,8 @@
 declare module "react-relay" {
     import * as React from "react";
 
+    type ClientMutationID = string;
+
     /** Fragments are a hash of functions */
     interface Fragments {
         [query: string]: ((variables?: RelayVariables) => string)
@@ -40,13 +42,13 @@ declare module "react-relay" {
 
     class RelayMutationTransaction {
       applyOptimistic(): RelayMutationTransaction;
-      commit(): RelayMutationTransaction;
+      commit(): RelayMutationTransaction | null;
       recommit(): void;
       rollback(): void;
       getError(): Error;
       getStatus(): RelayMutationStatus;
       getHash(): string;
-      getID(): string;
+      getID(): ClientMutationID;
     }
 
     interface RelayMutationRequest {
@@ -147,12 +149,12 @@ declare module "react-relay" {
 
     interface RelayProp {
         route: { name: string; }; // incomplete, also has params and queries
-        variables: any;
-        pendingVariables?: any;
+        variables: Object;
+        pendingVariables?: Object | null;
         setVariables(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
         forceFetch(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
-        hasOptimisticUpdate(record?: any): boolean;
-        getPendingTransactions(record?: any): RelayMutationTransaction[];
-        commitUpdate?: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
+        hasOptimisticUpdate(record: Object): boolean;
+        getPendingTransactions(record: Object): RelayMutationTransaction[];
+        commitUpdate: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
     }
 }
