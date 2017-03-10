@@ -1,9 +1,3 @@
-// React-Bootstrap Test
-// ================================================================================
-///<reference types="react"/>
-
-// Imports
-// --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import {

@@ -1,9 +1,3 @@
-///<reference types="jquery" />
-///<reference types="bootstrap" />
-///<reference types="knockout" />
-
-
-
 // test unique id
 var adaskoUnitqueId: string = ko.utils.uniqueId('adaskothebeast');
 

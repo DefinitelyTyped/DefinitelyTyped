@@ -1,10 +1,4 @@
-// Tests for shelljs.d.ts
-// Project: http://shelljs.org
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
-
-///<reference types="node" />
 
 import shell = require("shelljs");
 

@@ -1,4 +1,3 @@
-///<reference types="tether" />
 import Drop = require("tether-drop");
 
 var yellowBox = document.querySelector(".yellow");

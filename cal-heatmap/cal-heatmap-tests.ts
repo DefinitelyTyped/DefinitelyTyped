@@ -1,6 +1,4 @@
-
 /// <reference types="jquery" />
-/// <reference types="d3" />
 
 var cal = new CalHeatMap();
 cal.init();

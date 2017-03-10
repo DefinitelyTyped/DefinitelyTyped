@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 import * as moment from "moment";
 
 const dp = $("#picker").datetimepicker().data("DateTimePicker");

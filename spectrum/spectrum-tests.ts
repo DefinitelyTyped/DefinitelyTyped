@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 $("#picker").spectrum();
 
 $("#picker").spectrum({

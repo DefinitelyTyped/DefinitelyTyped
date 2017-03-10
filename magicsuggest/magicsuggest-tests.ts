@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 function basicTest() {
     $('#magicSuggest').magicSuggest();
 }

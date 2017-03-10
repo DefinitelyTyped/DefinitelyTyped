@@ -1,7 +1,3 @@
-/// <reference types="jquery" />
-/// <reference types="datatables.net" />
-
-
 $(document).ready(function () {
 
     var config: DataTables.Settings =

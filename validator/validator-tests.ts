@@ -1,7 +1,4 @@
-/// <reference types="validator" />
-
 import * as validator from 'validator';
-
 
 /************************************************
 *                                               *

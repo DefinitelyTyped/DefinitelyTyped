@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 // Examples from the projects github page
 $('input[maxlength]').maxlength();
 

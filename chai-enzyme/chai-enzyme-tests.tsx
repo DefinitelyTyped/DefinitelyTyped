@@ -1,7 +1,3 @@
-/// <reference types="react" />
-/// <reference types="enzyme" />
-/// <reference types="chai" />
-
 import * as React from "react";
 import * as chaiEnzyme from "chai-enzyme";
 import { expect } from "chai";

@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 declare function test(desc: string, body: () => void): void;
 declare function ok(cond: any, desc?: string): void;
 declare function deepEqual<T>(a: T, b: T, desc?: string): void;

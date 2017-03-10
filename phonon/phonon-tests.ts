@@ -1,5 +1,3 @@
-///<reference path="index.d.ts"/>
-
 // Code examples from http://phonon.quarkdev.com/docs/navigator
 phonon.options({
     navigator: {
