@@ -307,6 +307,12 @@
             "asOfVersion": "0.0.0"
         },
         {
+            "libraryName": "jsonschema",
+            "typingsPackageName": "jsonschema",
+            "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
