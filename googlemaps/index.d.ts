@@ -1,6 +1,6 @@
 // Type definitions for Google Maps JavaScript API 3.26
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -2224,6 +2224,22 @@ declare namespace google.maps {
             types: string[];
         }
 
+        export interface OpeningHours {
+            open_now: boolean,
+            periods: OpeningPeriod[],
+            weekday_text: string[]
+        }
+
+        export interface OpeningPeriod {
+            open: OpeningHoursTime,
+            close?: OpeningHoursTime
+        }
+
+        export interface OpeningHoursTime {
+            day: number,
+            time: string
+        }
+
         export interface PredictionTerm {
             offset: number;
             value: string;
@@ -2290,6 +2306,7 @@ declare namespace google.maps {
             icon: string;
             international_phone_number: string;
             name: string;
+            opening_hours: OpeningHours;
             permanently_closed: boolean;
             photos: PlacePhoto[];
             place_id: string;
