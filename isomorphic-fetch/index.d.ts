@@ -78,6 +78,7 @@ declare var Request: {
 interface ReadableStream {
     readonly locked: boolean;
     cancel(): Promise<void>;
+    pipe(writeStream: any): any;
 }
 
 interface ResponseInit {
