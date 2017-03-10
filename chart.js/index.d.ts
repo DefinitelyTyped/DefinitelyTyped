@@ -5,7 +5,10 @@
 
 declare class Chart {
     static readonly Chart: typeof Chart;
-    constructor(context: CanvasRenderingContext2D | HTMLCanvasElement, options: Chart.ChartConfiguration);
+    constructor(
+        context: string | JQuery | CanvasRenderingContext2D | HTMLCanvasElement | string[] | CanvasRenderingContext2D[] | HTMLCanvasElement[],
+        options: Chart.ChartConfiguration
+    );
     config: Chart.ChartConfiguration;
     data: Chart.ChartData;
     destroy: () => {};
