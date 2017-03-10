@@ -10,7 +10,7 @@ import express = require('express');
 
 type CustomOrigin = (
     requestOrigin: string,
-    callback: (err: Error, allow?: boolean) => void
+    callback: (err: Error | null, allow?: boolean) => void
 ) => void;
 
 declare namespace e {
