@@ -1,13 +1,13 @@
-// Type definitions for ej.web.all 15.1
+﻿// Type definitions for ej.web.all 15.1.37
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="../jquery" />
+/// <reference types="jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.1.0.33
+*  version : 15.1.0.37
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -5673,6 +5673,10 @@ export interface UnselectEventArgs {
 	*/
 	name?: string;
 
+	/** Returns the name of unselected items.
+	*/
+	names?: string[];
+
 	/** Returns the type of unselected item.
 	*/
 	nodeType?: string;
@@ -5688,6 +5692,10 @@ export interface UnselectEventArgs {
 	/** Returns the unselected item details.
 	*/
 	unselectedItem?: any;
+
+	/** Returns the unselected items details.
+	*/
+	unselectedItems?: any[];
 }
 
 export interface ContextMenuSettings {
@@ -6429,6 +6437,11 @@ class DateTimePicker extends ej.Widget {
 export namespace DateTimePicker {
 
 export interface Model {
+
+	/** Used to allow or restrict the editing in DateTimePicker input field directly. By setting false to this API, You can only pick the date and time values from DateTimePicker popup.
+	*   @Default {true}
+	*/
+	allowEdit?: boolean;
 
 	/** Displays the custom text for the buttons inside the DateTimePicker popup. when the culture value changed, we can change the buttons text based on the culture.
 	*   @Default {{ today: Today, timeNow: Time Now, done: Done, timeTitle: Time }}
@@ -7857,149 +7870,6 @@ export interface AjaxSettings {
 	/** It specifies the HTTP request type.
 	*/
 	type?: string;
-}
-}
-
-class DocumentEditor extends ej.Widget {
-	static fn: DocumentEditor;
-	constructor(element: JQuery | Element, options?: DocumentEditor.Model);
-	static Locale: any;
-	model: DocumentEditor.Model;
-	defaults: DocumentEditor.Model;
-
-	/** Loads the document from specified path using web API provided by importUrl.
-	*   @param {string} Specifies the file path.
-	*   @returns {void}
-	*/
-	load(path: string): void;
-
-	/** Gets the page number of current selection in the document.
-	*   @returns {number}
-	*/
-	getCurrentPageNumber(): number;
-
-	/** Gets the total number of pages in the document.
-	*   @returns {number}
-	*/
-	getPageCount(): number;
-
-	/** Gets the text of current selection in the document.
-	*   @returns {string}
-	*/
-	getSelectedText(): string;
-
-	/** Gets the current zoom factor value of the document editor.
-	*   @returns {number}
-	*/
-	getZoomFactor(): number;
-
-	/** Scales the document editor with the specified zoom factor. The range of zoom factor should be 0.10 to 5.00 (10 - 500 %).
-	*   @param {number} Specifies the factor for zooming.
-	*   @returns {void}
-	*/
-	setZoomFactor(factor: number): void;
-
-	/** Prints the document content as page by page.
-	*   @returns {void}
-	*/
-	print(): void;
-
-	/** Finds the first occurrence of specified text from current selection and  highlights the result. If the document end is reached, find operation will occur from the document start position.
-	*   @param {string} Specifies the text to search in a document.
-	*   @returns {void}
-	*/
-	find(text: string): void;
-}
-export namespace DocumentEditor {
-
-export interface Model {
-
-	/** Gets or sets an object that indicates initialization of importing and exporting documents in document editor.
-	*/
-	importExportSettings?: ImportExportSettings;
-
-	/** Triggers when the document changes. */
-	onDocumentChange?(e: OnDocumentChangeEventArgs): void;
-
-	/** Triggers when the selection changes. */
-	onSelectionChange?(e: OnSelectionChangeEventArgs): void;
-
-	/** Triggers when the zoom factor changes. */
-	onZoomFactorChange?(e: OnZoomFactorChangeEventArgs): void;
-
-	/** Triggers when the hyperlink is clicked. */
-	onRequestNavigate?(e: OnRequestNavigateEventArgs): void;
-}
-
-export interface OnDocumentChangeEventArgs {
-
-	/** True, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface OnSelectionChangeEventArgs {
-
-	/** True, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface OnZoomFactorChangeEventArgs {
-
-	/** True, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface OnRequestNavigateEventArgs {
-
-	/** true, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the link type and navigation link.
-	*/
-	hyperlink?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface ImportExportSettings {
-
-	/** Gets or sets URL of Web API that should be used to parse the document while loading.
-	*/
-	importUrl?: string;
 }
 }
 
@@ -9480,6 +9350,11 @@ class Editor extends ej.Widget {
 export namespace Editor {
 
 export interface Model {
+
+	/** Specifies the currency symbol of currency textbox, used when the user wants to overwrite the currency symbol commonly instead of the current culture symbol.
+	*   @Default {Based on the culture}
+	*/
+	currencySymbol?: string;
 
 	/** Sets the root CSS class for Editors which allow us to customize the appearance.
 	*/
@@ -14384,6 +14259,14 @@ export interface ContextMenuSettings {
 	customMenuItems?: ContextMenuSettingsCustomMenuItem[];
 }
 
+export interface ColumnsTotalCount {
+
+	/** To customize the totalCount text properties.
+	*   @Default {null}
+	*/
+	text?: string;
+}
+
 export interface ColumnsConstraints {
 
 	/** It is used to specify the type of constraints as column or swimlane.
@@ -14410,9 +14293,9 @@ export interface Column {
 	headerText?: string;
 
 	/** To customize the totalCount properties.
-	*   @Default {false}
+	*   @Default {Object}
 	*/
-	totalCount?: string;
+	totalCount?: ColumnsTotalCount;
 
 	/** Gets or sets an object that indicates to render the Kanban with specified columns key.
 	*   @Default {null}
@@ -21226,6 +21109,12 @@ class Grid extends ej.Widget {
 	*/
 	deleteRecord(fieldName: string, data: any[]): void;
 
+	/** Delete the row based on the given tr element in grid.
+	*   @param {JQuery} Pass the tr element in grid content to get its row index
+	*   @returns {HTMLElement}
+	*/
+	deleteRow($tr: JQuery): HTMLElement;
+
 	/** Destroy the grid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
 	*/
@@ -21237,6 +21126,11 @@ class Grid extends ej.Widget {
 	*   @returns {void}
 	*/
 	editCell(index: number, fieldName: string): void;
+
+	/** It returns a value and if the input field values of edit form is not based on the validation rules then it will show the validation message.
+	*   @returns {Boolean}
+	*/
+	editFormValidate(): boolean;
 
 	/** Send a save request in grid.
 	*   @returns {void}
@@ -21324,6 +21218,13 @@ class Grid extends ej.Widget {
 	*/
 	getColumnIndexByField(fieldName: string): number;
 
+	/** Get the column index of the given headerText of column in grid.
+	*   @param {string} Pass the headerText of the column to get that column index
+	*   @param {string} optionalOptional Pass the field name of the column.
+	*   @returns {number}
+	*/
+	getColumnIndexByHeaderText(headerText: string, field?: string): number;
+
 	/** Get the content div element of grid.
 	*   @returns {HTMLElement}
 	*/
@@ -21348,6 +21249,11 @@ class Grid extends ej.Widget {
 	*   @returns {Array<any>}
 	*/
 	getCurrentViewData(): any[];
+
+	/** Get the data of given row index in grid.
+	*   @returns {any}
+	*/
+	getDataByIndex(): any;
 
 	/** Get the column field name from the given header text in grid.
 	*   @param {string} Pass header text of the column to get its corresponding field name
@@ -21439,6 +21345,17 @@ class Grid extends ej.Widget {
 	*/
 	getSelectedRecords(): any[];
 
+	/** Get the selected row element details in grid.
+	*   @returns {Array<any>}
+	*/
+	getSelectedRows(): any[];
+
+	/** It accepts the string value and returns the field and sorted direction of the column in grid.
+	*   @param {string} Pass the field of the column to get the sorted direction of the corresponding column in Grid.
+	*   @returns {number}
+	*/
+	getsortColumnByField(field: string): number;
+
 	/** Get the calculated summary values of JSON data passed to it
 	*   @param {any} Pass Summary Column details
 	*   @param {any} Pass JSON Array for which its field values to be calculated
@@ -21517,6 +21434,13 @@ class Grid extends ej.Widget {
 	*   @returns {void}
 	*/
 	reorderColumns(fromFieldName: string, toFieldName: string): void;
+
+	/** Re-order the row in grid
+	*   @param {Array<any>} Pass the indexes of the rows needs to reorder.
+	*   @param {number} Pass the index of a row where to be reorderd.
+	*   @returns {void}
+	*/
+	reorderRows(indexes: any[], toindex: number): void;
 
 	/** Reset the model collections like pageSettings, groupSettings, filterSettings, sortSettings and summaryRows.
 	*   @returns {void}
@@ -21616,6 +21540,11 @@ class Grid extends ej.Widget {
 	*   @returns {void}
 	*/
 	setCellValue(Index: number, fieldName: string, value: any): void;
+
+	/** It sets the default data to the column in grid during adding record in batch edit mode.
+	*   @returns {void}
+	*/
+	setDefaultData(): void;
 
 	/** The grid rows has to be rendered as detail view in mobile mode based on given value.
 	*   @param {number} It is used to render grid rows as details view in mobile mode.
@@ -21842,6 +21771,11 @@ export interface Model {
 	*/
 	enableTouch?: boolean;
 
+	/** It sets a value that indicates whether to enable toolbar items, when allowEditing, allowAdding and allowDeleting property set as false in the grid.
+	*   @Default {false}
+	*/
+	enableToolbarItems?: boolean;
+
 	/** Act as mapper for the excel exporting URL.
 	*   @Default {ExportToExcel}
 	*/
@@ -22002,6 +21936,12 @@ export interface Model {
 
 	/** Triggered before the batch save. */
 	beforeBatchSave?(e: BeforeBatchSaveEventArgs): void;
+
+	/** Triggered before the print. */
+	beforePrint?(e: BeforePrintEventArgs): void;
+
+	/** Triggered before row drop in the grid */
+	beforeRowDrop?(e: BeforeRowDropEventArgs): void;
 
 	/** Triggered before the record is going to be edited. */
 	beginEdit?(e: BeginEditEventArgs): void;
@@ -22598,6 +22538,48 @@ export interface BeforeBatchSaveEventArgs {
 	/** Returns the changed record object.
 	*/
 	batchChanges?: any;
+}
+
+export interface BeforePrintEventArgs {
+
+	/** Returns the grid model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the Grid element.
+	*/
+	element?: any;
+
+	/** Returns the selected records.
+	*/
+	selectedRows?: any;
+}
+
+export interface BeforeRowDropEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the targeted row.
+	*/
+	target?: any;
+
+	/** Returns the targeted row index.
+	*/
+	targetIndex?: any;
+
+	/** Returns the dragged record details
+	*/
+	draggedRecords?: any;
+
+	/** Returns the drop details
+	*/
+	dropDetails?: any;
 }
 
 export interface BeginEditEventArgs {
@@ -24060,6 +24042,11 @@ export interface Column {
 	*/
 	filterBarTemplate?: any;
 
+	/** Gets or sets a value that indicates to render the excel or menu filter dialog to the grid columns. See filterType
+	*   @Default {null}
+	*/
+	filterType?: ej.Grid.FilterType|string;
+
 	/** Gets or sets a value that indicates to define foreign key field name of the grid datasource.
 	*   @Default {null}
 	*/
@@ -24088,6 +24075,11 @@ export interface Column {
 	*/
 	headerTextAlign?: ej.TextAlign|string;
 
+	/** It accepts the string value and shows the tooltip for the Grid column header.
+	*   @Default {null}
+	*/
+	headerTooltip?: string;
+
 	/** You can use this property to freeze selected columns in grid at the time of scrolling.
 	*   @Default {false}
 	*/
@@ -24104,7 +24096,7 @@ export interface Column {
 	isPrimaryKey?: boolean;
 
 	/** Gets or sets a value that indicates the order of Column that are to be hidden or visible when Grid element is in responsive mode and could not occupy all columns.
-	*   @Default {null}
+	*   @Default {-1}
 	*/
 	priority?: number;
 
@@ -24265,7 +24257,11 @@ export interface FilterSettingsFilteredColumn {
 	*/
 	field?: string;
 
-	/** Gets or sets a value that indicates whether to define the filter condition to filtered column.
+	/** Gets or sets a value that indicates whether to define the matchCase of given value to be filter.
+	*/
+	matchCase?: boolean;
+
+	/** Gets or sets a value that indicates whether to define the filter condition to filtered column. See operator
 	*/
 	operator?: ej.FilterOperators|string;
 
@@ -24285,7 +24281,12 @@ export interface FilterSettings {
 	*/
 	enableCaseSensitivity?: boolean;
 
-	/** This specifies the grid to starts the filter action while typing in the filterBar or after pressing the enter key. based on the filterBarMode. See filterBarMode
+	/** Gets or sets a value that indicates to define the interDeterminateState of checkbox in excel filter dialog.
+	*   @Default {true}
+	*/
+	enableInterDeterminateState?: boolean;
+
+	/** This specifies the grid to starts the filter action while typing in the filterBar or after pressing the enter key. based on the filterBarMode. See filterBarMode.
 	*   @Default {ej.Grid.FilterBarMode.Immediate}
 	*/
 	filterBarMode?: ej.Grid.FilterBarMode|string;
@@ -24299,6 +24300,11 @@ export interface FilterSettings {
 	*   @Default {ej.Grid.FilterType.FilterBar}
 	*/
 	filterType?: ej.Grid.FilterType|string;
+
+	/** This specifies the grid to delay the filter action while typing in the filterBar.
+	*   @Default {1500}
+	*/
+	immediateModeDelay?: number;
 
 	/** Gets or sets a value that indicates the maximum number of filter choices that can be showed in the excel styled filter menu.
 	*   @Default {1000}
@@ -24458,6 +24464,11 @@ export interface SearchSettings {
 
 export interface SelectionSettings {
 
+	/** Gets or sets a value that indicates the cell selection actions based on the cell selection mode.
+	*   @Default {flow}
+	*/
+	cellSelectionMode?: string;
+
 	/** Gets or sets a value that indicates whether to enable the toggle selection behavior for row, cell and column.
 	*   @Default {false}
 	*/
@@ -24475,6 +24486,16 @@ export interface ScrollSettings {
 	*   @Default {false}
 	*/
 	allowVirtualScrolling?: boolean;
+
+	/** It accepts the boolean value and shows or hides the scrollbar while focus in or focus out of the Grid.
+	*   @Default {false}
+	*/
+	autoHide?: boolean;
+
+	/** Specifies the height and width of button in the scrollbar.
+	*   @Default {18}
+	*/
+	buttonSize?: number;
 
 	/** This specify the grid to enable/disable touch control for scrolling.
 	*   @Default {true}
@@ -24495,6 +24516,11 @@ export interface ScrollSettings {
 	*   @Default {0}
 	*/
 	height?: string|number;
+
+	/** It accepts the integer value and sets the width of scrollbar.
+	*   @Default {18}
+	*/
+	scrollerSize?: number;
 
 	/** This is used to define the mode of virtual scrolling in grid. See virtualScrollMode
 	*   @Default {ej.Grid.VirtualScrollMode.Normal}
@@ -24556,6 +24582,11 @@ export interface StackedHeaderRowsStackedHeaderColumn {
 	*   @Default {ej.TextAlign.Left}
 	*/
 	textAlign?: string;
+
+	/** Sets the template for tooltip for the Grid stackedHeaderColumns.
+	*   @Default {null}
+	*/
+	tooltip?: string;
 }
 
 export interface StackedHeaderRow {
@@ -24744,6 +24775,16 @@ enum EditingType {
 }
 
 
+enum FilterType {
+
+	///Specifies the filter type as menu.
+	Menu,
+
+	///Specifies the filter type as excel.
+	Excel
+}
+
+
 enum EditMode {
 
 	///Edit mode is normal.
@@ -24799,19 +24840,6 @@ enum FilterBarMode {
 
 	///Initiate filter operation after Enter key is pressed.
 	OnEnter
-}
-
-
-enum FilterType {
-
-	///Specifies the filter type as menu.
-	Menu,
-
-	///Specifies the filter type as excel.
-	Excel,
-
-	///Specifies the filter type as filterbar.
-	FilterBar
 }
 
 
@@ -25583,7 +25611,7 @@ export interface Model {
 	*/
 	yName?: string;
 
-	/** Controls wheather sunburst has to be responsive or not.
+	/** Controls whether sunburst has to be responsive or not.
 	*   @Default {true}
 	*/
 	isResponsive?: boolean;
@@ -25703,7 +25731,7 @@ export interface Model {
 	pointRegionClick?(e: PointRegionClickEventArgs): void;
 
 	/** Fires while moving the mouse over sunburst points */
-	pointRegionMousemove?(e: PointRegionMousemoveEventArgs): void;
+	pointRegionMouseMove?(e: PointRegionMouseMoveEventArgs): void;
 
 	/** Fires when clicking the point to perform drilldown. */
 	drillDownClick?(e: DrillDownClickEventArgs): void;
@@ -25867,7 +25895,7 @@ export interface PointRegionClickEventArgs {
 	type?: string;
 }
 
-export interface PointRegionMousemoveEventArgs {
+export interface PointRegionMouseMoveEventArgs {
 
 	/** Includes data of mouse moved region
 	*/
@@ -26117,7 +26145,7 @@ export interface DataLabelSettings {
 	*/
 	visible?: boolean;
 
-	/** Alginment of sunburst datalabel
+	/** Alignment of sunburst datalabel
 	*   @Default {Angle. See DatalabelAlignment}
 	*/
 	labelRotationMode?: ej.datavisualization.Sunburst.SunburstLabelRotationMode|string;
@@ -26126,12 +26154,12 @@ export interface DataLabelSettings {
 	*/
 	font?: DataLabelSettingsFont;
 
-	/** Custome template for datalabel
+	/** Custom template for datalabel
 	*   @Default {null}
 	*/
 	template?: string;
 
-	/** Fill color for the datalable
+	/** Fill color for the datalabel
 	*   @Default {null}
 	*/
 	fill?: string;
@@ -26851,6 +26879,11 @@ export interface Model {
 	*   @Default {false}
 	*/
 	enableConditionalFormatting?: boolean;
+
+	/** Enables the advanced filtering options Value Filtering, Label Filtering and Sorting for each fields in server mode.
+	*   @Default {false}
+	*/
+	enableAdvancedFilter?: boolean;
 
 	/** Allows the user to refresh the control on-demand and not during every UI operation.
 	*   @Default {false}
@@ -29353,7 +29386,7 @@ export interface DataSource {
 	*/
 	catalog?: string;
 
-	/** Allows user to filter the members (by its name and values) through advanced filtering (excel-like) option for OLAP data source in client-mode.
+	/** Allows user to filter the members (by its name and values) through advanced filtering (excel-like) option in client-mode.
 	*   @Default {false}
 	*/
 	enableAdvancedFilter?: boolean;
@@ -33630,6 +33663,11 @@ export interface EditSettings {
 	*   @Default {normal}
 	*/
 	editMode?: string;
+
+	/** Specifies the position where the new row has to be added.
+	*   @Default {ej.Gantt.RowPosition.BelowSelectedRow}
+	*/
+	rowPosition?: ej.Gantt.RowPosition|string;
 }
 
 export interface ScheduleHeaderSettings {
@@ -33679,10 +33717,10 @@ export interface ScheduleHeaderSettings {
 	*/
 	yearHeaderFormat?: string;
 
-	/** Specifies the size of the lowest time unit along the timescale, with minimum value as &quot;50%&quot; and maximum value as &quot;500%&quot;. It is also possble to set the value in pixels.
+	/** Specifies the size of the lowest time unit along the timescale, with minimum value as &quot;50%&quot; and maximum value as &quot;500%&quot;. It is also possible to set the value in pixels.
 	*   @Default {100%}
 	*/
-	timscaleUnitSize?: string;
+	timescaleUnitSize?: string;
 
 	/** Specifies the start day of the week in week timescale mode
 	*   @Default {0}
@@ -33756,6 +33794,25 @@ enum BeginEditAction {
 
 	///you can begin the editing at single click
 	Click
+}
+
+
+enum RowPosition {
+
+	///you can add a new row at top.
+	Top,
+
+	///you can add a new row at bottom.
+	Bottom,
+
+	///you can add a new row to above selected row.
+	AboveSelectedRow,
+
+	///you can add a new row to below selected row.
+	BelowSelectedRow,
+
+	///you can add a new row as a child for selected row.
+	Child
 }
 
 
@@ -34759,7 +34816,7 @@ export interface Model {
 	*/
 	locale?: string;
 
-	/** Enables or disables internal parsing of a row. When disbaled this property, row will be displayed using the defined template without any internal event bindings.
+	/** Enables or disables internal parsing of a row. When disabled this property, row will be displayed using the defined template without any internal event bindings.
 	*   @Default {true}
 	*/
 	parseRowTemplate?: boolean;
@@ -42367,8 +42424,152 @@ export interface IgnoreSettings {
 }
 }
 
+class DocumentEditor extends ej.Widget {
+	static fn: DocumentEditor;
+	constructor(element: JQuery | Element, options?: DocumentEditor.Model);
+	static Locale: any;
+	model: DocumentEditor.Model;
+	defaults: DocumentEditor.Model;
+
+	/** Loads the document from specified path using web API provided by importUrl.
+	*   @param {string} Specifies the file path.
+	*   @returns {void}
+	*/
+	load(path: string): void;
+
+	/** Gets the page number of current selection in the document.
+	*   @returns {number}
+	*/
+	getCurrentPageNumber(): number;
+
+	/** Gets the total number of pages in the document.
+	*   @returns {number}
+	*/
+	getPageCount(): number;
+
+	/** Gets the text of current selection in the document.
+	*   @returns {string}
+	*/
+	getSelectedText(): string;
+
+	/** Gets the current zoom factor value of the document editor.
+	*   @returns {number}
+	*/
+	getZoomFactor(): number;
+
+	/** Scales the document editor with the specified zoom factor. The range of zoom factor should be 0.10 to 5.00 (10 - 500 %).
+	*   @param {number} Specifies the factor for zooming.
+	*   @returns {void}
+	*/
+	setZoomFactor(factor: number): void;
+
+	/** Prints the document content as page by page.
+	*   @returns {void}
+	*/
+	print(): void;
+
+	/** Finds the first occurrence of specified text from current selection and  highlights the result. If the document end is reached, find operation will occur from the document start position.
+	*   @param {string} Specifies the text to search in a document.
+	*   @returns {void}
+	*/
+	find(text: string): void;
+}
+export namespace DocumentEditor {
+
+export interface Model {
+
+	/** Gets or sets an object that indicates initialization of importing and exporting documents in document editor.
+	*/
+	importExportSettings?: ImportExportSettings;
+
+	/** Triggers when the document changes. */
+	onDocumentChange?(e: OnDocumentChangeEventArgs): void;
+
+	/** Triggers when the selection changes. */
+	onSelectionChange?(e: OnSelectionChangeEventArgs): void;
+
+	/** Triggers when the zoom factor changes. */
+	onZoomFactorChange?(e: OnZoomFactorChangeEventArgs): void;
+
+	/** Triggers when the hyperlink is clicked. */
+	onRequestNavigate?(e: OnRequestNavigateEventArgs): void;
+}
+
+export interface OnDocumentChangeEventArgs {
+
+	/** True, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface OnSelectionChangeEventArgs {
+
+	/** True, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface OnZoomFactorChangeEventArgs {
+
+	/** True, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface OnRequestNavigateEventArgs {
+
+	/** true, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the link type and navigation link.
+	*/
+	hyperlink?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface ImportExportSettings {
+
+	/** Gets or sets URL of Web API that should be used to parse the document while loading.
+	*/
+	importUrl?: string;
+}
+}
+
 }
 declare namespace ej.datavisualization {
+
 class SymbolPalette extends ej.Widget {
 	static fn: SymbolPalette;
 	constructor(element: JQuery | Element, options?: SymbolPalette.Model);
@@ -49319,7 +49520,7 @@ export interface CommonSeriesOptions {
 	*/
 	isTransposed?: boolean;
 
-	/** Render the x mark in the center of the boxplot series type.x represents the average value of the boxplot series.
+	/** Render the x mark in the center of the box and whisker series type.x represents the average value of the box and whisker series.
 	*   @Default {true}
 	*/
 	showMedian?: boolean;
@@ -49329,7 +49530,7 @@ export interface CommonSeriesOptions {
 	*/
 	labelPosition?: ej.datavisualization.Chart.LabelPosition|string;
 
-	/** Quartile calculation has been performed in three different formulas to render the boxplot series.
+	/** Quartile calculation has been performed in three different formulas to render the box and whisker series.
 	*   @Default {exclusive}
 	*/
 	boxPlotMode?: ej.datavisualization.Chart.boxPlotMode|string;
@@ -53273,7 +53474,7 @@ export interface Series {
 	*/
 	isTransposed?: boolean;
 
-	/** Render the x mark in the center of the boxplot series type.x represents the average value of the boxplot series.
+	/** Render the x mark in the center of the box and whisker series type.x represents the average value of the box and whisker series.
 	*   @Default {true}
 	*/
 	showMedian?: boolean;
@@ -57128,6 +57329,11 @@ export interface Layer {
 	*/
 	labelSettings?: LayersLabelSettings;
 
+	/** Specifies the map view type.
+	*   @Default {'geographic'}
+	*/
+	geometryType?: ej.datavisualization.Map.GeometryType|string;
+
 	/** Specifies the map type.
 	*   @Default {'geometry'}
 	*/
@@ -57237,6 +57443,14 @@ enum LabelSize {
 Fixed,
 //specifies the default size
 Default,
+}
+}
+namespace Map {
+enum GeometryType {
+//specifies the geographic view of map
+Geographic,
+//specifies the normal land view of map
+Normal,
 }
 }
 namespace Map {
@@ -59684,6 +59898,16 @@ export interface Connector {
 
 export interface ContextMenuItem {
 
+	/** Defines the text for the collection of context menu item
+	*   @Default {null}
+	*/
+	text?: string;
+
+	/** Defines the name for the collection of context menu items
+	*   @Default {null}
+	*/
+	name?: string;
+
 	/** Defines the image url for the collection of context menu items
 	*   @Default {null}
 	*/
@@ -59693,6 +59917,11 @@ export interface ContextMenuItem {
 	*   @Default {null}
 	*/
 	cssClass?: string;
+
+	/** Defines the collection of sub items for the context menu items
+	*   @Default {[]}
+	*/
+	subItems?: any[];
 }
 
 export interface ContextMenu {
@@ -63490,7 +63719,7 @@ export interface Model {
 	*/
 	yName?: string;
 
-	/** Controls wheather sunburst has to be responsive or not.
+	/** Controls whether sunburst has to be responsive or not.
 	*   @Default {true}
 	*/
 	isResponsive?: boolean;
@@ -63610,7 +63839,7 @@ export interface Model {
 	pointRegionClick?(e: PointRegionClickEventArgs): void;
 
 	/** Fires while moving the mouse over sunburst points */
-	pointRegionMousemove?(e: PointRegionMousemoveEventArgs): void;
+	pointRegionMouseMove?(e: PointRegionMouseMoveEventArgs): void;
 
 	/** Fires when clicking the point to perform drilldown. */
 	drillDownClick?(e: DrillDownClickEventArgs): void;
@@ -63774,7 +64003,7 @@ export interface PointRegionClickEventArgs {
 	type?: string;
 }
 
-export interface PointRegionMousemoveEventArgs {
+export interface PointRegionMouseMoveEventArgs {
 
 	/** Includes data of mouse moved region
 	*/
@@ -64024,7 +64253,7 @@ export interface DataLabelSettings {
 	*/
 	visible?: boolean;
 
-	/** Alginment of sunburst datalabel
+	/** Alignment of sunburst datalabel
 	*   @Default {Angle. See DatalabelAlignment}
 	*/
 	labelRotationMode?: ej.datavisualization.Sunburst.SunburstLabelRotationMode|string;
@@ -64033,12 +64262,12 @@ export interface DataLabelSettings {
 	*/
 	font?: DataLabelSettingsFont;
 
-	/** Custome template for datalabel
+	/** Custom template for datalabel
 	*   @Default {null}
 	*/
 	template?: string;
 
-	/** Fill color for the datalable
+	/** Fill color for the datalabel
 	*   @Default {null}
 	*/
 	fill?: string;
