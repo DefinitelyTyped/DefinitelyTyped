@@ -324,7 +324,7 @@ $(document).ready(function () {
     destroy = dt.destroy(true);
     destroy.$("");
 
-    var draw: DataTables.DataTable = dt.draw();
+    var draw: DataTables.Api = dt.draw();
     draw = dt.draw(true);
     draw = dt.draw("page");
     draw.$("");
@@ -790,8 +790,8 @@ $(document).ready(function () {
     var rows_13 = dt.rows.add([{}, {}]);
     dt.rows().every(function () { });
     dt.rows().every(function (rowIdx, tableLoop, rowLoop) { });
-    var rows_14: DataTables.DataTable = dt.rows("selector").ids();
-    var rows_15: DataTables.DataTable = dt.rows("selector").ids(false);
+    var rows_14: DataTables.Api = dt.rows("selector").ids();
+    var rows_15: DataTables.Api = dt.rows("selector").ids(false);
 
     var table3 = $('#example').DataTable();
     table3.row.add({
@@ -912,11 +912,11 @@ $(document).ready(function () {
     var staticFn: DataTables.StaticFunctions;
 
     // With boolean parameter type, always returns DataTables.DataTable[].
-    var static_1: DataTables.DataTable[] = <DataTables.DataTable[]>staticFn.tables(true);
+    var static_1: DataTables.Api[] = <DataTables.Api[]>staticFn.tables(true);
     // With object parameter type, returns DataTables.DataTable[] when "api" property is false.
-    static_1 = <DataTables.DataTable[]>staticFn.tables({ "visible": true, "api": false });
+    static_1 = <DataTables.Api[]>staticFn.tables({ "visible": true, "api": false });
     // With object parameter type, returns DataTables.DataTable when "api" property is true.
-    var static_2: DataTables.DataTable = <DataTables.DataTable>staticFn.tables({ "visible": true, "api": true });
+    var static_2: DataTables.Api = <DataTables.Api>staticFn.tables({ "visible": true, "api": true });
 
     //#endregion "Methods-Static"
 
