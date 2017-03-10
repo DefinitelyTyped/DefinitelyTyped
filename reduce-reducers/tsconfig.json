@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "reduce-reducers-test.ts"
+        "reduce-reducers-tests.ts"
     ]
 }
