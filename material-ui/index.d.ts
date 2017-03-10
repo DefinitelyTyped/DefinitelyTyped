@@ -689,6 +689,7 @@ declare namespace __MaterialUI {
         onMouseUp?: React.MouseEventHandler<{}>;
         onTouchEnd?: React.TouchEventHandler<{}>;
         onTouchStart?: React.TouchEventHandler<{}>;
+        overlayStyle?: React.CSSProperties;
         primary?: boolean;
         rippleStyle?: React.CSSProperties;
         secondary?: boolean;
