@@ -1,6 +1,6 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
-// Definitions by: Qubo <https://github.com/tkQubo>
+// Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -25,7 +25,7 @@ interface Knex extends Knex.QueryInterface {
     transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
     destroy(callback: Function): void;
     destroy(): Promise<void>;
-
+    batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
 
     client: any;
