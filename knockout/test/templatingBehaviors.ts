@@ -1,5 +1,7 @@
-/// <reference types="jasmine" />
 /// <reference types="knockout.mapping" />
+
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
 
 declare namespace jasmine {
   interface Matchers {
