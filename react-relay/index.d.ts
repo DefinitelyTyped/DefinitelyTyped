@@ -151,7 +151,7 @@ declare module "react-relay" {
         pendingVariables?: any;
         setVariables(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
         forceFetch(variables: Object, onReadyStateChange?: OnReadyStateChange): void;
-        hasOptimisticUpdate(record: any): boolean;
-        getPendingTransactions(record: any): RelayMutationTransaction[];
+        hasOptimisticUpdate(record?: any): boolean;
+        getPendingTransactions(record?: any): RelayMutationTransaction[];
     }
 }

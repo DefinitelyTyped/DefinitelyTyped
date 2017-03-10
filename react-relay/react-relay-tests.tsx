@@ -74,10 +74,16 @@ class StubbedArtwork extends React.Component<null, null> {
         const props = {
             artwork: { title: "CHAMPAGNE FORMICA FLAG" },
             relay: {
+                route: {
+                    name: "champagne"
+                },
                 variables: {
                     artworkID: "champagne-formica-flag",
                 },
                 setVariables: () => {},
+                forceFetch: () => {},
+                hasOptimisticUpdate: () => false,
+                getPendingTransactions: (): Relay.RelayMutationTransaction[] => undefined,
             }
         }
         return <ArtworkContainer {...props} />
