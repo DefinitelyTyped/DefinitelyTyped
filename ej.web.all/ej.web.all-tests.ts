@@ -587,8 +587,8 @@ namespace GridComponent {
 
 var columns = ["Vegie-spread", "Tofuaa", "Alice Mutton", "Konbu", "Fl�temysost"];
 var itemSource: any[] = [];
-for(let i = 1; i <= columns.length; i++; ) {
-    for(let j = 1; j <= 6; j++; ) {
+for(let i = 1; i <= columns.length; i++) {
+    for(let j = 1; j <= 6; j++) {
         var value = Math.floor((Math.random() * 100) + 1);
         itemSource.push({ ProductName: columns[i], Year: "Y" + (2011 + j), Value: value });
     }
