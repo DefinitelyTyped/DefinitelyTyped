@@ -1,5 +1,3 @@
-
-/// <reference types="promises-a-plus" />
 /// <reference types="q" />
 
 import chai = require('chai');
@@ -12,7 +10,7 @@ class TestClass {}
 
 // ReSharper disable WrongExpressionStatement
 // BDD API (expect)
-var thenableNum: PromisesAPlus.Thenable<number>;
+var thenableNum: PromiseLike<number>;
 thenableNum = chai.expect(thenableNum).to.eventually.equal(3);
 thenableNum = chai.expect(thenableNum).to.eventually.have.property('foo');
 thenableNum = chai.expect(thenableNum).to.become(3);
@@ -56,7 +54,7 @@ Q.all([
 ]).should.notify(() => console.log('done'));
 
 // Assert API
-var thenableVoid: PromisesAPlus.Thenable<void>;
+var thenableVoid: PromiseLike<void>;
 thenableVoid = chai.assert.eventually.equal(thenableNum, 4, 'Message');
 thenableVoid = chai.assert.isFulfilled(thenableNum, "optional message");
 thenableVoid = chai.assert.becomes(thenableNum, "foo", "optional message");
