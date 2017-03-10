@@ -185,8 +185,8 @@ declare namespace R {
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
          * an empty list is returned.
          */
-        aperture<T>(n: number, list: T): T[][];
-        aperture(n: number): <T>(list: T) => T[][];
+        aperture<T>(n: number, list: T[]): T[][];
+        aperture(n: number): <T>(list: T[]) => T[][];
 
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.

@@ -10,7 +10,7 @@ var d = new Drop({
     constrainToWindow: true,
     constrainToScrollParent: true,
     classes: "",
-    tetherOptions: {},
+    tetherOptions: {attachment: "bottom left"},
     remove: true,
     target: yellowBox,
     beforeClose: () => true,

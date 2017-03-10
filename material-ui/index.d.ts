@@ -174,6 +174,7 @@ declare namespace __MaterialUI {
                 height?: number;
                 minWidth?: number;
                 iconButtonSize?: number;
+                textTransform?: string;
             };
             card?: {
                 titleColor?: string;
@@ -533,7 +534,7 @@ declare namespace __MaterialUI {
         type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
     }
 
-    interface AutoCompleteProps<DataItem> {
+    interface AutoCompleteProps<DataItem> extends TextFieldProps {
         anchorOrigin?: propTypes.origin;
         animated?: boolean;
         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
@@ -688,6 +689,7 @@ declare namespace __MaterialUI {
         onMouseUp?: React.MouseEventHandler<{}>;
         onTouchEnd?: React.TouchEventHandler<{}>;
         onTouchStart?: React.TouchEventHandler<{}>;
+        overlayStyle?: React.CSSProperties;
         primary?: boolean;
         rippleStyle?: React.CSSProperties;
         secondary?: boolean;
@@ -723,6 +725,7 @@ declare namespace __MaterialUI {
         className?: string;
         disableTouchRipple?: boolean;
         disabled?: boolean;
+        hoveredStyle?: React.CSSProperties;
         iconClassName?: string;
         iconStyle?: React.CSSProperties;
         onBlur?: React.FocusEventHandler<{}>;
@@ -945,7 +948,7 @@ declare namespace __MaterialUI {
         ref?: string;
         text: string;
     }
-    interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
+    export interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
         actions?: Array<DialogAction | React.ReactElement<any>>;
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string;
@@ -1331,6 +1334,9 @@ declare namespace __MaterialUI {
         className?: string;
         maxHeight?: number;
         menuStyle?: any;
+        listStyle?: React.CSSProperties;
+        menuItemStyle?: React.CSSProperties;
+        selectedMenuItemStyle?: React.CSSProperties;
         openImmediately?: boolean;
     }
     export class SelectField extends React.Component<SelectFieldProps, {}> {

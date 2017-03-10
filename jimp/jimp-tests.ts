@@ -72,8 +72,11 @@ image.mask(src, x, y);          // masks the image with another Jimp image at x,
 /* Flip and rotate */
 image.flip(horz, vert);         // flip the image horizontally or vertically
 image.mirror(horz, vert);       // an alias for flip
-// rotate the image clockwise by a number of degrees. Optionally, a resize mode can be passed.
-// If `false` is passed as the second parameter, the image width and height will not be resized.
+
+// rotate the image clockwise by a number of degrees.
+// Optionally, a resize mode can be passed.
+// If `false` is passed as the second parameter,
+// the image width and height will not be resized.
 image.rotate(deg);
 
 // JPEG images with EXIF orientation data will be automatically re-orientated as appropriate.

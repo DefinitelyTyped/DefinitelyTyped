@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.37
+// Type definitions for react-native 0.42
 // Project: https://github.com/facebook/react-native
 // Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1098,7 +1098,7 @@ declare module "react" {
         /**
          * Callback that is called when the text input's text changes.
          */
-        onChange?: (event: { nativeEvent: { text: string } }) => void
+        onChange?: (event: { nativeEvent: { text: string, contentSize: { width: number, height: number }, target: number, eventCount: number } }) => void
 
         /**
          * Callback that is called when the text input's text changes.
@@ -5414,11 +5414,6 @@ declare module "react" {
         onScrollAnimationEnd?: () => void
 
         /**
-         * When false, the content does not scroll. The default value is true
-         */
-        scrollEnabled?: boolean // true
-
-        /**
          * This controls how often the scroll event will be fired while scrolling (in events per seconds).
          * A higher number yields better accuracy for code that is tracking the scroll position,
          * but can lead to scroll performance problems due to the volume of information being send over the bridge.
@@ -5452,7 +5447,7 @@ declare module "react" {
          * This can be used for paginating through children that have lengths smaller than the scroll view.
          * Used in combination with snapToAlignment.
          */
-        snapToInterval?: number
+        snapToInterval?: number[]
 
         /**
          * An array of child indices determining which children get docked to the
@@ -5489,6 +5484,15 @@ declare module "react" {
          */
         scrollPerfTag?: string
 
+        /**
+         * Used to override default value of overScroll mode.
+
+         * Possible values:
+         *   - 'auto' - Default value, allow a user to over-scroll this view only if the content is large enough to meaningfully scroll.
+         *   - 'always' - Always allow a user to over-scroll this view.
+         *   - 'never' - Never allow a user to over-scroll this view.
+         */
+        overScrollMode?: 'auto' | 'always' | 'never'
     }
 
     export interface ScrollViewProperties extends ViewProperties, ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable, React.Props<ScrollViewStatic> {
@@ -5524,7 +5528,7 @@ declare module "react" {
          *     and moves in synchrony with the touch; dragging upwards cancels the
          *     dismissal.
          */
-        keyboardDismissMode?: string
+        keyboardDismissMode?: 'none' | 'interactive' | 'on-drag'
 
         /**
          * When false tapping outside of the focused text input when the keyboard
@@ -5532,16 +5536,16 @@ declare module "react" {
          * taps and the keyboard will not dismiss automatically. The default value
          * is false.
          */
-        keyboardShouldPersistTaps?: boolean
-	
-	/**
-	 * Called when scrollable content view of the ScrollView changes.
-	 * Handler function is passed the content width and content height as parameters: (contentWidth, contentHeight)
-	 * It's implemented using onLayout handler attached to the content container which this ScrollView renders.
-	 *
-	 */
-	onContentSizeChange?: (w: number, h: number) => void
-	
+        keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled'
+
+        /**
+         * Called when scrollable content view of the ScrollView changes.
+         * Handler function is passed the content width and content height as parameters: (contentWidth, contentHeight)
+         * It's implemented using onLayout handler attached to the content container which this ScrollView renders.
+         *
+         */
+        onContentSizeChange?: (w: number, h: number) => void
+
         /**
          * Fires at most once per frame during scrolling.
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
@@ -5574,6 +5578,11 @@ declare module "react" {
          * value is false.
          */
         pagingEnabled?: boolean
+
+        /**
+         * When false, the content does not scroll. The default value is true
+         */
+        scrollEnabled?: boolean // true
 
         /**
          * Experimental: When true offscreen child views (whose `overflow` value is
@@ -8314,11 +8323,11 @@ declare module "react" {
 declare global {
     const global: React.GlobalStatic;
     function require(name: string): any;
-}
 
-/**
- * This variable is set to true when react-native is running in Dev mode
- * Typical usage:
- * <code> if (__DEV__) console.log('Running in dev mode')</code>
- */
-declare var __DEV__: boolean
+    /**
+     * This variable is set to true when react-native is running in Dev mode
+     * Typical usage:
+     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     */
+    var __DEV__: boolean
+}

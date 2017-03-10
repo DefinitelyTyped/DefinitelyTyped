@@ -1,9 +1,9 @@
-// Type definitions for auth0-lock 10.9
+// Type definitions for auth0-lock 10.10
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="auth0-js/v7" />
+/// <reference types="auth0-js" />
 
 interface Auth0LockAdditionalSignUpFieldOption {
   value: string;
@@ -11,13 +11,13 @@ interface Auth0LockAdditionalSignUpFieldOption {
 }
 
 type Auth0LockAdditionalSignUpFieldOptionsCallback =
-    (error: Auth0Error, options: Auth0LockAdditionalSignUpFieldOption[]) => void;
+    (error: auth0.Auth0Error, options: Auth0LockAdditionalSignUpFieldOption[]) => void;
 
 type Auth0LockAdditionalSignUpFieldOptionsFunction =
     (callback: Auth0LockAdditionalSignUpFieldOptionsCallback) => void;
 
 type Auth0LockAdditionalSignUpFieldPrefillCallback =
-    (error: Auth0Error, prefill: string) => void;
+    (error: auth0.Auth0Error, prefill: string) => void;
 
 type Auth0LockAdditionalSignUpFieldPrefillFunction =
     (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
@@ -32,8 +32,8 @@ interface Auth0LockAdditionalSignUpField {
     validator?: (input: string) => { valid: boolean; hint?: string };
 }
 
-type Auth0LockAvatarUrlCallback = (error: Auth0Error, url: string) => void;
-type Auth0LockAvatarDisplayNameCallback = (error: Auth0Error, displayName: string) => void;
+type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string) => void;
+type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string) => void;
 
 interface Auth0LockAvatarOptions {
     url: (email: string, callback: Auth0LockAvatarUrlCallback) => void;
@@ -63,6 +63,7 @@ interface Auth0LockAuthOptions {
     redirectUrl?: string;
     responseType?: string;
     sso?: boolean;
+    audience?: string;
 }
 
 interface Auth0LockPopupOptions {
@@ -101,6 +102,7 @@ interface Auth0LockConstructorOptions {
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
+    oidcConformant?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {
@@ -123,15 +125,16 @@ interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
 
     // deprecated
-    getProfile(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void): void;
-    getUserInfo(token: string, callback: (error: Auth0Error, profile: Auth0UserProfile) => void): void;
-
+    getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
+    getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
+    // https://github.com/auth0/lock#resumeauthhash-callback
+    resumeAuth( hash: string, callback: (error: auth0.Auth0Error, authResult: any) =>  void): void;
     show(options?: Auth0LockShowOptions): void;
     hide(): void;
     logout(query: any): void;
 
     on(event: "show" | "hide", callback: () => void): void;
-    on(event: "unrecoverable_error" | "authorization_error", callback: (error: Auth0Error) => void): void;
+    on(event: "unrecoverable_error" | "authorization_error", callback: (error: auth0.Auth0Error) => void): void;
     on(event: "authenticated", callback: (authResult: any) => void): void;
     on(event: string, callback: (...args: any[]) => void): void;
 }

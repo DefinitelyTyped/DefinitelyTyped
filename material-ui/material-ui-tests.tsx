@@ -285,6 +285,9 @@ const lightBaseTheme = {
     desktopSubheaderHeight: 48,
     desktopToolbarHeight: 56,
   },
+  button: {
+    textTransform: "lowercase"
+  },
   fontFamily: 'Roboto, sans-serif',
   palette: {
     primary1Color: cyan500,

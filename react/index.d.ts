@@ -242,10 +242,10 @@ declare namespace React {
     interface ComponentLifecycle<P, S> {
         componentWillMount?(): void;
         componentDidMount?(): void;
-        componentWillReceiveProps?(nextProps: P, nextContext: any): void;
-        shouldComponentUpdate?(nextProps: P, nextState: S, nextContext: any): boolean;
-        componentWillUpdate?(nextProps: P, nextState: S, nextContext: any): void;
-        componentDidUpdate?(prevProps: P, prevState: S, prevContext: any): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, prevContext: any): void;
         componentWillUnmount?(): void;
     }
 
@@ -2042,6 +2042,7 @@ declare namespace React {
         // React-specific Attributes
         defaultChecked?: boolean;
         defaultValue?: string | string[];
+        suppressContentEditableWarning?: boolean;
 
         // Standard HTML Attributes
         accept?: string;
