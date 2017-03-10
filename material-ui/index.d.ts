@@ -946,7 +946,7 @@ declare namespace __MaterialUI {
         ref?: string;
         text: string;
     }
-    interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
+    export interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
         actions?: Array<DialogAction | React.ReactElement<any>>;
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string;
