@@ -1,5 +1,3 @@
-
-
 // Type definition tests for jQuery Tooltipster 3.3.0
 // Project: https://github.com/iamceege/tooltipster
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>, Dmitry Pesterev <https://github.com/VorobeY1326/>
@@ -44,8 +42,9 @@ $.fn.tooltipster('setDefaults', {
 
 var myNewContent = '';
 
-function callback(): void {
-
+var totalCall = 0;
+function callback() {
+    totalCall++;
 }
 
 // temporarily disable a tooltip from being able to open
@@ -77,7 +76,7 @@ $('.tooltip').tooltipster('elementIcon');
 
 $('.tooltip').tooltipster({
     content: 'Loading...',
-    functionBefore: function (origin, continueTooltip) {
+    functionBefore: (origin, continueTooltip) => {
 
         // we'll make this function asynchronous and allow the tooltip to go ahead and show the loading notification while fetching our data
         continueTooltip();
@@ -87,7 +86,7 @@ $('.tooltip').tooltipster({
             $.ajax({
                 type: 'POST',
                 url: 'example.php',
-                success: function (data) {
+                success: (data) => {
                     // update our tooltip content with our returned data and cache it
                     origin.tooltipster('content', data).data('ajax', 'cached');
                 }
@@ -110,7 +109,7 @@ $('.tooltip').tooltipster({
             $.ajax({
                 type: 'POST',
                 url: 'example.php',
-                success: function (data) {
+                success: (data) => {
                     // update our tooltip content with our returned data and cache it
                     origin.tooltipster('content', data).data('ajax', 'cached');
                 }
@@ -120,7 +119,7 @@ $('.tooltip').tooltipster({
 });
 
 $('.tooltip').tooltipster({
-    functionInit: function (origin, content) {
+    functionInit: (origin: JQuery, content: string) => {
 
         if (content === 'This is bad content') {
 
@@ -128,22 +127,21 @@ $('.tooltip').tooltipster({
             $.ajax({
                 type: 'POST',
                 url: 'example.php',
-                success: function (data) {
+                success: (data) => {
                     origin.tooltipster('content', 'New content has been loaded : ' + data);
                 }
             });
 
             // this returned string will overwrite the content of the tooltip for the time being
             return 'Wait while we load new content...';
-        }
-        else {
+        } else {
             // return nothing : the initialization continues normally with its content unchanged.
         }
     }
 });
 
 $('.tooltip').tooltipster({
-    functionInit: (origin, content) => {
+    functionInit: (origin: JQuery, content: string) => {
 
         if (content === 'This is bad content') {
 
@@ -151,15 +149,14 @@ $('.tooltip').tooltipster({
             $.ajax({
                 type: 'POST',
                 url: 'example.php',
-                success: function (data) {
+                success: (data) => {
                     origin.tooltipster('content', 'New content has been loaded : ' + data);
                 }
             });
 
             // this returned string will overwrite the content of the tooltip for the time being
             return 'Wait while we load new content...';
-        }
-        else {
+        } else {
             // return nothing : the initialization continues normally with its content unchanged.
         }
     }
