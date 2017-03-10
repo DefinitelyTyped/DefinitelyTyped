@@ -11,7 +11,7 @@
 /// <reference types="jquery" />
 
 interface JQuery {
-    DataTable(param?: DataTables.Settings): DataTables.Api;
+    DataTable(opts?: DataTables.Settings): DataTables.Api;
 }
 
 //TODO: Wrong, as jquery.d.ts has no interface for fn
