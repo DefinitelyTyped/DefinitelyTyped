@@ -189,6 +189,10 @@ knex('users')
   .select('users.id', 'contacts.phone');
 
 knex('users')
+  .join('contacts', { 'users.id': 12355 })
+  .select('users.id', 'contacts.phone');
+
+knex('users')
   .join('contacts', 'users.id', 'contacts.user_id')
   .select('users.id', 'contacts.phone');
 
