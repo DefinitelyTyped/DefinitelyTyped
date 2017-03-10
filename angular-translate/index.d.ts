@@ -51,8 +51,8 @@ declare module 'angular' {
             cloakClassName(name: string): ITranslateProvider;
             fallbackLanguage(langKey?: string): string;
             fallbackLanguage(langKey?: string[]): string;
-            instant(translationId: string, interpolateParams?: any, interpolationId?: string): string;
-            instant(translationId: string[], interpolateParams?: any, interpolationId?: string): { [key: string]: string };
+            instant(translationId: string, interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): string;
+            instant(translationId: string[], interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): { [key: string]: string };
             isPostCompilingEnabled(): boolean;
             preferredLanguage(langKey?: string): string;
             proposedLanguage(): string;

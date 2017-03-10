@@ -317,6 +317,24 @@
             "typingsPackageName": "redux-persist-transform-compress",
             "sourceRepoURL": "https://github.com/rt2zz/redux-persist-transform-compress",
             "asOfVersion": "4.2.0"
+        },
+         {
+            "libraryName": "jsonschema",
+            "typingsPackageName": "jsonschema",
+            "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
+            "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "Raven JS",
+            "typingsPackageName": "raven-js",
+            "sourceRepoURL": "https://github.com/getsentry/raven-js",
+            "asOfVersion": "3.10.0"
+        },
+        {
+            "libraryName": "antd",
+            "typingsPackageName": "antd",
+            "sourceRepoURL": "https://github.com/ant-design/ant-design",
+            "asOfVersion": "1.0.0"
         }
     ]
 }

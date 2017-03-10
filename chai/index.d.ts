@@ -358,6 +358,7 @@ declare namespace Chai {
         sameMembers(set1: any[], set2: any[], msg?: string): void;
         sameDeepMembers(set1: any[], set2: any[], msg?: string): void;
         includeMembers(superset: any[], subset: any[], msg?: string): void;
+        includeDeepMembers(superset: any[], subset: any[], msg?: string): void;
 
         ifError(val: any, msg?: string): void;
 

@@ -39,12 +39,12 @@ interface CircleDatum {
     color: string;
 }
 
-let dimensions: SVGDatum = {
+const dimensions: SVGDatum = {
     width: 500,
     height: 300
 };
 
-let startCircleData: CircleDatum[] = [
+const startCircleData: CircleDatum[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -65,7 +65,7 @@ let startCircleData: CircleDatum[] = [
     }
 ];
 
-let endCircleData: CircleDatum[] = [
+const endCircleData: CircleDatum[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -97,33 +97,33 @@ let circles: Selection<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>;
 
 circles = select<SVGSVGElement, any>('svg')
     .datum(dimensions)
-    .attr('width', function (d) { return d.width; })
-    .attr('height', function (d) { return d.height; })
+    .attr('width', d => d.width)
+    .attr('height', d => d.height)
     .selectAll()
     .data(startCircleData)
     .enter()
     .append<SVGCircleElement>('circle')
-    .attr('cx', function (d) { return d.cx; })
-    .attr('cy', function (d) { return d.cy; })
-    .attr('r', function (d) { return d.r; })
-    .style('stroke', function (d) { return d.color; })
-    .style('fill', function (d) { return d.color; });
+    .attr('cx', d => d.cx)
+    .attr('cy', d => d.cy)
+    .attr('r', d => d.r)
+    .style('stroke', d => d.color)
+    .style('fill', d => d.color);
 
 circles = circles
-    .data(endCircleData, function (d) { return d.nodeId; });
+    .data(endCircleData, d => d.nodeId);
 
-let enterCircles = circles
+const enterCircles = circles
     .enter()
     .append<SVGCircleElement>('circle')
-    .classed('big', function (d) { return d.r > 10; })
-    .attr('cx', function (d) { return d.cx; })
-    .attr('cy', function (d) { return d.cy; })
-    .attr('r', function (d) { return d.r; })
-    .style('stroke', function (d) { return d.color; })
-    .style('fill', function (d) { return d.color; });
+    .classed('big', d => d.r > 10)
+    .attr('cx', d => d.cx)
+    .attr('cy', d => d.cy)
+    .attr('r', d => d.r)
+    .style('stroke', d => d.color)
+    .style('fill', d => d.color);
 
 
-let exitCircles = circles.exit<CircleDatum>(); // Note: need to re-type datum type, as the exit selection elements have the 'old data'
+const exitCircles = circles.exit<CircleDatum>(); // Note: need to re-type datum type, as the exit selection elements have the 'old data'
 
 // --------------------------------------------------------------------------
 // Create Transition from Selection
@@ -159,21 +159,19 @@ newEnterTransition = enterCircles.transition(differentDatumTypeTransition);
 // duration() ---------------------------------------------------------------
 
 enterTransition = enterTransition.duration(2000); // settable and chainable
-let duration: number = enterTransition.duration();
+const duration: number = enterTransition.duration();
 
 // delay() ---------------------------------------------------------------
 
 enterTransition = enterTransition.delay(500); // settable and chainable
-let delay: number = enterTransition.delay();
+const delay: number = enterTransition.delay();
 
 
 // ease() ---------------------------------------------------------------
 
 let easingFn: (normalizedTime: number) => number;
 
-enterTransition = enterTransition.ease(function (t) {
-    return t;
-}); // settable and chainable
+enterTransition = enterTransition.ease(t => t); // settable and chainable
 easingFn = enterTransition.ease();
 
 // --------------------------------------------------------------------------
@@ -190,7 +188,7 @@ interface ParagraphDatum {
 }
 
 // assume body was previously selected and its data were set to BodyDatum type using .datum()
-let bodyTransition: d3Transition.Transition<HTMLBodyElement, BodyDatum, HTMLElement, any> = select<HTMLBodyElement, BodyDatum>('body').transition();
+const bodyTransition: d3Transition.Transition<HTMLBodyElement, BodyDatum, HTMLElement, any> = select<HTMLBodyElement, BodyDatum>('body').transition();
 
 // select() ------------------------------------------------------------------
 
@@ -198,12 +196,12 @@ let bodyTransition: d3Transition.Transition<HTMLBodyElement, BodyDatum, HTMLElem
 
 let firstDivTransition: d3Transition.Transition<HTMLDivElement, BodyDatum, HTMLElement, any> = bodyTransition.select<HTMLDivElement>('div');
 
-firstDivTransition = bodyTransition.select(function (d, i, g) {
-    let that: HTMLBodyElement = this;
-    // let that2: SVGElement  = this; // fails, type mismatch
-    let datum: BodyDatum = d;
-    let index: number = i;
-    let group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement> = g;
+firstDivTransition = bodyTransition.select(function(d, i, g) {
+    const that: HTMLBodyElement = this;
+    // const that2: SVGElement  = this; // fails, type mismatch
+    const datum: BodyDatum = d;
+    const index: number = i;
+    const group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement> = g;
 
     console.log('Body Datum foo', d.foo); // d is of type BodyDatum
     return this.querySelector('div')!; // 'this' type is HTMLElement, return type is HTMLDivElement
@@ -217,12 +215,12 @@ firstDivTransition = bodyTransition.select(function (d, i, g) {
 
 let paragraphsTransition: d3Transition.Transition<HTMLParagraphElement, ParagraphDatum, HTMLDivElement, BodyDatum> = firstDivTransition.selectAll<HTMLParagraphElement, ParagraphDatum>('p');
 
-paragraphsTransition = firstDivTransition.selectAll<HTMLParagraphElement, ParagraphDatum>(function (d, i, g) {
-    let that: HTMLDivElement = this;
-    // let that2: SVGElement  = this; // fails, type mismatch
-    let datum: BodyDatum = d;
-    let index: number = i;
-    let group: HTMLDivElement[] | ArrayLike<HTMLDivElement> = g;
+paragraphsTransition = firstDivTransition.selectAll<HTMLParagraphElement, ParagraphDatum>(function(d, i, g) {
+    const that: HTMLDivElement = this;
+    // const that2: SVGElement  = this; // fails, type mismatch
+    const datum: BodyDatum = d;
+    const index: number = i;
+    const group: HTMLDivElement[] | ArrayLike<HTMLDivElement> = g;
     console.log('Body Datum foo', d.foo); // d is of type BodyDatum
     return this.querySelectorAll('p'); // 'this' type is HTMLElement, return type is HTMLParagraphElement
 });
@@ -233,12 +231,12 @@ paragraphsTransition = firstDivTransition.selectAll<HTMLParagraphElement, Paragr
 
 enterTransition = enterTransition.filter('.big');
 
-exitTransition = exitTransition.filter(function (d, i, g) {
-    let that: SVGCircleElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+exitTransition = exitTransition.filter(function(d, i, g) {
+    const that: SVGCircleElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
     // console.log(this.x) // fails, x property not defined on SVGCircleElement
     return this.r.baseVal.value < i * d.r; // this-type SVGCircleElement, datum tpye CircleDatum
 });
@@ -251,16 +249,16 @@ let filterdGElements2: d3Transition.Transition<SVGGElement, any, HTMLElement, an
 filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter<SVGGElement>('g');
 // filterdGElements2 = selectAll('.any-type').transition().filter('g'); // fails without using narrowing generic on filter method
 
-filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter<SVGGElement>(function (d, i, g) {
-    let that: SVGElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGElement[] | ArrayLike<SVGElement> = g;
+filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter<SVGGElement>(function(d, i, g) {
+    const that: SVGElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGElement[] | ArrayLike<SVGElement> = g;
     return that.tagName === 'g' || that.tagName === 'G';
 });
 // filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter(function(){
-//     let that: SVGElement = this;
+//     const that: SVGElement = this;
 //     return that.tagName === 'g'|| that.tagName === 'G';
 // }); // fails without using narrowing generic on filter method
 
@@ -281,21 +279,19 @@ enterTransition = enterTransition // re-assignment test chaining return-type
     .attr('stroke', 'blue'); // string
 
 enterTransition = enterTransition // re-assignment test chaining return-type
-    .attr('cx', function (d, i, g) {
-        let that: SVGCircleElement = this;
-        // let that2: HTMLElement  = this; // fails, type mismatch
-        let datum: CircleDatum = d;
-        let index: number = i;
-        let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+    .attr('cx', function(d, i, g) {
+        const that: SVGCircleElement = this;
+        // const that2: HTMLElement  = this; // fails, type mismatch
+        const datum: CircleDatum = d;
+        const index: number = i;
+        const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
         console.log('Pre-change center x-coordinate: ', this.cx.baseVal.value); // this context SVGCircleElement
         if (group.length > 0) {
             console.log('Owner SVG Element of first group element:', g[0].ownerSVGElement); // group : Array<SVGCircleElement>
         }
         return d.cx; // numeric return value
     })
-    .attr('stroke', function (d) {
-        return d.color; // string return value
-    });
+    .attr('stroke', d => d.color); // string return value
 
 enterTransition = enterTransition
     .style('fill', 'blue') // string
@@ -304,30 +300,28 @@ enterTransition = enterTransition
     .style('stroke', 'green', 'important');
 
 enterTransition = enterTransition
-    .style('fill', function (d, i, g) {
-        let that: SVGCircleElement = this;
-        // let that2: HTMLElement  = this; // fails, type mismatch
-        let datum: CircleDatum = d;
-        let index: number = i;
-        let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+    .style('fill', function(d, i, g) {
+        const that: SVGCircleElement = this;
+        // const that2: HTMLElement  = this; // fails, type mismatch
+        const datum: CircleDatum = d;
+        const index: number = i;
+        const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
         console.log('Client Rectangle Top: ', this.getBoundingClientRect().top); // this context SVGCircleElement
         if (g.length > 0) {
             console.log('Radius of first group element:', g[0].r.baseVal.value); // group : Array<SVGCircleElement>
         }
         return d.color; // string return value
     })
-    .style('hidden', function () {
-        return true;
-    }, null) // boolean return + test: priority = null
-    //   .style('stroke', function () { return 'green'; }, 'test') // fails, test: invalid priority value
-    .style('stroke', function () { return 'green'; }, 'important'); // string return + test: priority = 'important';
+    .style('hidden', () => true, null) // boolean return + test: priority = null
+    //   .style('stroke', function() { return 'green'; }, 'test') // fails, test: invalid priority value
+    .style('stroke', () => 'green', 'important'); // string return + test: priority = 'important';
 
 select<HTMLBodyElement, { test: string }>('body')
     .datum({ test: 'New text.' })
     .transition().duration(500)
-    .text('Let us start with this transition text.')
+    .text('const us start with this transition text.')
     .transition().duration(100)
-    .text(function (d) { return d.test; }); // selection datum type
+    .text(d => d.test); // selection datum type
 
 
 // test, when it is not certain, whether an element of the type to be selected exists
@@ -337,12 +331,12 @@ maybeG1 = selectAll<SVGSVGElement, any>('svg')
     .selectAll<SVGCircleElement | null, any>('circle')
     .transition()
     .duration(500)
-    .attr('fill', function (d, i, g) {
-        let that: SVGCircleElement | null = this;
-        // let that2: HTMLElement  = this; // fails, type mismatch
-        let datum: CircleDatum = d;
-        let index: number = i;
-        let group: Array<SVGCircleElement | null> | ArrayLike<SVGCircleElement | null> = g;
+    .attr('fill', function(d, i, g) {
+        const that: SVGCircleElement | null = this;
+        // const that2: HTMLElement  = this; // fails, type mismatch
+        const datum: CircleDatum = d;
+        const index: number = i;
+        const group: Array<SVGCircleElement | null> | ArrayLike<SVGCircleElement | null> = g;
 
         if (that) {
             return that.r.baseVal.value < 5 ? 'slateblue' : 'seagreen';
@@ -354,19 +348,19 @@ maybeG1 = selectAll<SVGSVGElement, any>('svg')
 
 // Tweening Function Use =====================================================
 
-enterTransition = enterTransition.attrTween('r', function (d, i, g) {
-    let that: SVGCircleElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+enterTransition = enterTransition.attrTween('r', function(d, i, g) {
+    const that: SVGCircleElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
     console.log(this.r.baseVal.value); // this type is SVGCircleElement
     return interpolateString(0, d.r); // datum type is CircleDatum
 });
 
-exitTransition = exitTransition.styleTween('fill', function (d, i, group) {
+exitTransition = exitTransition.styleTween('fill', function(d, i, group) {
     console.log(this.r.baseVal.value); // this type is SVGCircleElement
-    let c: string = select(this).style('fill');
+    const c: string = select(this).style('fill');
     return interpolateRgb(c, d.color); // datum type is CircleDatum
 });
 
@@ -377,16 +371,16 @@ let tweenFnAccessor: undefined | ((this: SVGCircleElement, datum?: CircleDatum, 
 updateTransition = updateTransition.tween('fillColor', null); // remove named tween
 
 // chainable
-updateTransition = updateTransition.tween('fillColor', function (d, i, g) {
-    let that: SVGCircleElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
-    let c: string | null = that.getAttribute('fill');
-    let interpolator = interpolateRgb(c ? c : 'blue', d.color); // datum type CircleDatum
+updateTransition = updateTransition.tween('fillColor', function(d, i, g) {
+    const that: SVGCircleElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+    const c: string | null = that.getAttribute('fill');
+    const interpolator = interpolateRgb(c ? c : 'blue', d.color); // datum type CircleDatum
     console.log('Radius ', this.r.baseVal.value); // this type SVGCircleElement
-    return function (t) {
+    return t => {
         that.setAttribute('fill', interpolator(t));
     };
 });
@@ -414,12 +408,12 @@ exitTransition.remove();
 let listener: undefined | ((this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => void);
 
 
-enterTransition = enterTransition.on('end', function (d, i, g) {
-    let that: SVGCircleElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+enterTransition = enterTransition.on('end', function(d, i, g) {
+    const that: SVGCircleElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
     console.log('transition end radius: ', this.r.baseVal.value); // SVGCircleElement
     console.log('end event datum color property: ', d.color); // CircleDatum type
 });
@@ -445,12 +439,12 @@ enterTransition = enterTransition.on('end', null); // check chaining return type
 // each(valueFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => void): Transition<GElement, Datum, PElement, PDatum>;
 
 // returns 'this' transition
-enterTransition = enterTransition.each(function (d, i, g) {  // check chaining return type by re-assigning
-    let that: SVGCircleElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
+enterTransition = enterTransition.each(function(d, i, g) {  // check chaining return type by re-assigning
+    const that: SVGCircleElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
     if (this.r.baseVal.value < d.r) { // this of type SVGCircleElement, datum of type CircleDatum
         console.log('Color of circles with current radius smaller than data radius: ', d.color);
     }
@@ -461,33 +455,33 @@ enterTransition = enterTransition.each(function (d, i, g) {  // check chaining r
 
 function changeExitColor(transition: d3Transition.Transition<SVGCircleElement, CircleDatum, any, any>, fill: string, stroke: string) {
     transition
-        .style('fill', function (d) { return (d.r < 10) ? fill : 'black'; }) // datum type is CircleDatum
-        .style('stroke', function (d) { return (this.r.baseVal.value < 10) ? stroke : 'black'; }); // this type is SVGCircleElement
+        .style('fill', d => (d.r < 10) ? fill : 'black') // datum type is CircleDatum
+        .style('stroke', function(d) { return (this.r.baseVal.value < 10) ? stroke : 'black'; }); // this type is SVGCircleElement
 }
 
 // returns 'this' transition
 exitTransition = exitTransition.call(changeExitColor, 'midnightblue', 'black'); // check chaining return type by re-assigning
 
-// exitTransition.call(function (transition: d3Transition.Transition<HTMLDivElement, CircleDatum, any, any>): void {
+// exitTransition.call(function(transition: d3Transition.Transition<HTMLDivElement, CircleDatum, any, any>): void {
 //     // fails, group element types of selection not compatible: SVGCircleElement v HTMLDivElement
 // });
 
-// exitTransition.call(function (transition: d3Transition.Transition<SVGCircleElement, DivDatum, any, any>): void {
+// exitTransition.call(function(transition: d3Transition.Transition<SVGCircleElement, DivDatum, any, any>): void {
 //     // fails, group datum types of selection not compatible: CircleDatum v DivDatum
 // });
 
 // empty() -------------------------------------------------------------------------------
 
-let empty: boolean = enterTransition.empty();
+const empty: boolean = enterTransition.empty();
 
 // node() and nodes() --------------------------------------------------------------------
 
-let firstCircleNode: SVGCircleElement = enterTransition.node()!;
-let circleNodes: SVGCircleElement[] = enterTransition.nodes();
+const firstCircleNode: SVGCircleElement = enterTransition.node()!;
+const circleNodes: SVGCircleElement[] = enterTransition.nodes();
 
 // size() --------------------------------------------------------------------------------
 
-let size: number = enterTransition.size();
+const size: number = enterTransition.size();
 
 // --------------------------------------------------------------------------
 // Sequencing transitions on the same selection

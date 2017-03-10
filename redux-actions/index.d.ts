@@ -38,7 +38,13 @@ interface ReducerNextThrowMeta<State, Payload, Meta> {
     throw?(state: State, action: ActionMeta<Payload, Meta>): State;
 }
 
-type ActionFunctions<Payload> = ActionFunction0<Action<Payload>> | ActionFunction1<any, Action<Payload>> | ActionFunction2<any, any, Action<Payload>> | ActionFunction3<any, any, any, Action<Payload>> | ActionFunction4<any, any, any, any, Action<Payload>> | ActionFunctionAny<Action<Payload>>;
+type ActionFunctions<Payload> =
+    ActionFunction0<Action<Payload>> |
+    ActionFunction1<any, Action<Payload>> |
+    ActionFunction2<any, any, Action<Payload>> |
+    ActionFunction3<any, any, any, Action<Payload>> |
+    ActionFunction4<any, any, any, any, Action<Payload>> |
+    ActionFunctionAny<Action<Payload>>;
 
 type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
 

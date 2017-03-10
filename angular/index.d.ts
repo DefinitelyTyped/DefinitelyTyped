@@ -97,7 +97,7 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach<T>(obj: T[], iterator: (value: T, key: number) => any, context?: any): any;
+        forEach<T>(obj: T[], iterator: (value: T, key: number, obj: T[]) => void, context?: any): T[];
         /**
          * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
          *
@@ -107,7 +107,7 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach<T>(obj: { [index: string]: T; }, iterator: (value: T, key: string) => any, context?: any): any;
+        forEach<T>(obj: { [index: string]: T; }, iterator: (value: T, key: string, obj: { [index: string]: T; }) => void, context?: any): { [index: string]: T; };
         /**
          * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
          *
@@ -117,7 +117,7 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
+        forEach(obj: any, iterator: (value: any, key: any, obj: any) => void, context?: any): any;
 
         fromJson(json: string): any;
         identity<T>(arg?: T): T;
@@ -411,8 +411,8 @@ declare namespace angular {
         $invalid: boolean;
     }
 
-    //Allows tuning how model updates are done.
-    //https://docs.angularjs.org/api/ng/directive/ngModelOptions
+    // Allows tuning how model updates are done.
+    // https://docs.angularjs.org/api/ng/directive/ngModelOptions
     interface INgModelOptions {
         updateOn?: string;
         debounce?: any;
@@ -1192,7 +1192,7 @@ declare namespace angular {
              */
             size: number;
 
-            //...: any additional properties from the options object when creating the cache.
+            // ...: any additional properties from the options object when creating the cache.
         };
 
         /**
@@ -1505,18 +1505,6 @@ declare namespace angular {
     }
 
     interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        success?(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        error?(callback: IHttpPromiseCallback<any>): IHttpPromise<T>;
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
@@ -2047,7 +2035,7 @@ declare namespace angular {
 declare global {
     interface JQuery {
         // TODO: events, how to define?
-        //$destroy
+        // $destroy
 
         find(element: any): JQuery;
         find(obj: JQuery): JQuery;

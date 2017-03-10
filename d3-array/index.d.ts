@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-array module v1.0.1
+// Type definitions for D3JS d3-array module 1.1
 // Project: https://github.com/d3/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.1.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -20,16 +22,10 @@ interface Numeric {
     valueOf(): number;
 }
 
-
 // --------------------------------------------------------------------------------------
 // Descriptive Statistics
 // --------------------------------------------------------------------------------------
 
-
-/**
- * Return the maximum value in the array of numbers using natural order.
- */
-export function max(array: number[]): number | undefined;
 
 /**
  * Return the maximum value in the array of strings using natural order.
@@ -42,24 +38,14 @@ export function max(array: string[]): string | undefined;
 export function max<T extends Numeric>(array: T[]): T | undefined;
 
 /**
- * Return the maximum value in the array using natural order and a projection function to map values to numbers.
- */
-export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
-
-/**
  * Return the maximum value in the array using natural order and a projection function to map values to strings.
  */
-export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): string | undefined;
+export function max<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): string | undefined;
 
 /**
  * Return the maximum value in the array using natural order and a projection function to map values to easily-sorted values.
  */
-export function max<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): U | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min(array: number[]): number | undefined;
+export function max<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): U | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
@@ -74,24 +60,14 @@ export function min<T extends Numeric>(array: T[]): T | undefined;
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
+export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): string | undefined;
 
 /**
  * Return the minimum value in the array using natural order.
  */
-export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): string | undefined;
-
-/**
- * Return the minimum value in the array using natural order.
- */
-export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): U | undefined;
+export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): U | undefined;
 
 
-
-/**
- * Return the min and max simultaneously.
- */
-export function extent(array: number[]): [number, number] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
@@ -106,79 +82,70 @@ export function extent<T extends Numeric>(array: T[]): [T, T] | [undefined, unde
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T extends Numeric>(array: Array<T | Primitive>): [T | Primitive, T | Primitive] | [undefined, undefined];
+export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string | undefined | null): [string, string] | [undefined, undefined];
 
 /**
  * Return the min and max simultaneously.
  */
-export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): [number, number] | [undefined, undefined];
-
-/**
- * Return the min and max simultaneously.
- */
-export function extent<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => string): [string, string] | [undefined, undefined];
-
-/**
- * Return the min and max simultaneously.
- */
-export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U): [U, U ] | [undefined, undefined];
+export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): [U, U] | [undefined, undefined];
 
 /**
  * Return the mean of an array of numbers
  */
-export function mean(array: number[]): number | undefined;
-export function mean<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
+export function mean<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
+export function mean<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Return the median of an array of numbers
  */
-export function median(array: number[]): number | undefined;
-export function median<T>(array: T[], accessor: (element: T, i: number, array: T[]) => number): number | undefined;
+export function median<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
+export function median<T>(array: T[], accessor: (element: T, i: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Returns the p-quantile of an array of numbers
  */
-export function quantile(array: number[], p: number): number | undefined;
-export function quantile<T>(array: T[], p: number, accessor: (element: T, i: number, array: T[]) => number): number | undefined;
+export function quantile<T extends Numeric>(array: Array<T | undefined | null>, p: number): number | undefined;
+export function quantile<T>(array: T[], p: number, accessor: (element: T, i: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Compute the sum of an array of numbers.
  */
-export function sum(array: number[]): number;
+export function sum<T extends Numeric>(array: Array<T | undefined | null>): number;
 
 /**
  * Compute the sum of an array, using the given accessor to convert values to numbers.
  */
-export function sum<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number;
+export function sum<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array of numbers.
  */
-export function deviation(array: number[]): number | undefined;
+export function deviation<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
 
 /**
  * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function deviation<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
+export function deviation<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array of numbers.
  */
-export function variance(array: number[]): number | undefined;
+export function variance<T extends Numeric>(array: Array<T | undefined | null>): number | undefined;
 
 /**
  * Compute an unbiased estimator of the population variance of the given array,
  * using the given accessor to convert values to numbers.
  */
-export function variance<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
+export function variance<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
 
 
 // --------------------------------------------------------------------------------------
 // Searching Arrays
 // --------------------------------------------------------------------------------------
 
-export function scan<T>(array: T[], comparator: (a: T, b: T) => number): number;
+export function scan(array: number[], comparator?: (a: number, b: number) => number): number | undefined;
+export function scan<T>(array: T[], comparator: (a: T, b: T) => number): number | undefined;
 
 export function bisectLeft(array: number[], x: number, lo?: number, hi?: number): number;
 export function bisectLeft(array: string[], x: string, lo?: number, hi?: number): number;
@@ -202,18 +169,38 @@ export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
 /**
  * Compares two primitive values for sorting (in ascending order).
  */
-export function ascending(a: Primitive, b: Primitive): number;
+export function ascending(a: Primitive | undefined, b: Primitive | undefined): number;
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
  * Compares two primitive values for sorting (in ascending order).
  */
-export function descending(a: Primitive, b: Primitive): number;
+export function descending(a: Primitive | undefined, b: Primitive | undefined): number;
 
 // --------------------------------------------------------------------------------------
-// Transforming  Arrays
+// Transforming Arrays
 // --------------------------------------------------------------------------------------
 
+/**
+ * Returns the Cartesian product of the two arrays a and b.
+ * For each element i in the specified array a and each element j in the specified array b, in order,
+ * it creates a two-element array for each pair.
+ *
+ * @param a First input array.
+ * @param b Second input array.
+ */
+export function cross<S, T>(a: S[], b: T[]): Array<[S, T]>;
+
+/**
+ * Returns the Cartesian product of the two arrays a and b.
+ * For each element i in the specified array a and each element j in the specified array b, in order,
+ * invokes the specified reducer function passing the element i and element j.
+ *
+ * @param a First input array.
+ * @param b Second input array.
+ * @param reducer A reducer function taking as input an element from "a" and "b" and returning a reduced value.
+ */
+export function cross<S, T, U>(a: S[], b: T[], reducer: (a: S, b: T) => U): U[];
 
 /**
  * Merges the specified arrays into a single array.
@@ -223,8 +210,19 @@ export function merge<T>(arrays: T[][]): T[];
 /**
  * For each adjacent pair of elements in the specified array, returns a new array of tuples of elements i and i - 1.
  * Returns the empty array if the input array has fewer than two elements.
+ *
+ * @param array Array of input elements
  */
 export function pairs<T>(array: T[]): Array<[T, T]>;
+/**
+ * For each adjacent pair of elements in the specified array, in order, invokes the specified reducer function passing the element i and element i - 1.
+ * Returns the resulting array of pair-wise reduced elements.
+ * Returns the empty array if the input array has fewer than two elements.
+ *
+ * @param array Array of input elements
+ * @param reducer A reducer function taking as input to adjecent elements of the input array and returning a reduced value.
+ */
+export function pairs<T, U>(array: T[], reducer: (a: T, b: T) => U): U[];
 
 /**
  * Given the specified array, return an array corresponding to the list of indices in 'keys'.
@@ -235,7 +233,6 @@ export function permute<T>(array: { [key: number]: T }, keys: number[]): T[];
  * Given the specified object, return an array corresponding to the list of property names in 'keys'.
  */
 export function permute<T>(object: { [key: string]: T }, keys: string[]): T[];
-
 
 /**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.

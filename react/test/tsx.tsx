@@ -30,5 +30,16 @@ StatelessComponent2.defaultProps = {
         <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
             Hello, world!
         </text>
+        <div slot="Some Div"> Hello again! </div>
     </g>
 </svg>;
+
+// React-specific Attributes
+<div
+    defaultChecked
+    defaultValue="some value"
+    contentEditable
+    suppressContentEditableWarning
+    >
+    <b>foo</b>
+</div>

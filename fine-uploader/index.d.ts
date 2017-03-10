@@ -76,6 +76,7 @@ declare namespace qq {
         onLeave?: string;                       // default: The files are being uploaded, if you leave now the upload will be canceled.
         retryFailTooManyItemsError?: string;    // default: Too many items ({netItems}) would be uploaded. Item limit is {itemLimit}.
         typeError?: string;                     // default: {file} has an invalid extension. Valid extension(s): {extensions}.
+        // tslint:disable-next-line:max-line-length
         unsupportedBrowserIos8Safari?: string;  // default: Unrecoverable error - this browser does not permit file uploading of any kind due to serious bugs in iOS8 Safari. Please use iOS8 Chrome until Apple fixes these issues.
     }
 
@@ -115,7 +116,13 @@ declare namespace qq {
     }
 
     interface ScalingOptions {
-        customResizer?: (blob: File | Blob, height: number, image: HTMLImageElement, sourceCanvas: HTMLCanvasElement, targetCanvas: HTMLCanvasElement, width: number) => Promise<File | Blob> | undefined; // default: undefined
+        customResizer?: (
+            blob: File | Blob,
+            height: number,
+            image: HTMLImageElement,
+            sourceCanvas: HTMLCanvasElement,
+            targetCanvas: HTMLCanvasElement,
+            width: number) => Promise<File | Blob> | undefined; // default: undefined
         defaultQuality?: number;        // default: 80
         defaultType?: string | null;    // default: null
         failureText?: string;           // default: Failed to scale
@@ -127,7 +134,9 @@ declare namespace qq {
 
     /**
      * From Documentation:
-     * An array containing size objects that describe scaled versions of each submitted image that should be generated and uploaded. A size object should usually contain a name String property (which will be appended to the file name of the scaled file), and must always contain a maxSize integer property. A type MIME string property is optional.
+     * An array containing size objects that describe scaled versions of each submitted image that should be generated and uploaded.
+     * A size object should usually contain a name String property (which will be appended to the file name of the scaled file), and must always contain a maxSize integer property.
+     * A type MIME string property is optional.
      */
     interface Size {
         name: string;
@@ -203,7 +212,8 @@ declare namespace qq {
         onTotalProgress?: (totalUploadedBytes: number, totalBytes: number) => void;
         onUpload?: (id: number, name: string) => void;
         onUploadChunk?: (id: number, name: string, chunkData: ChunkData) => void;
-        onUploadChunkSuccess?: <T>(id: number, chunkData: ChunkData, responseJSON: T, xhr: XMLHttpRequest) => void;   // ignore xhr: XDomainRequest as it is not compatible for all versions of TypeScript
+        // ignore xhr: XDomainRequest as it is not compatible for all versions of TypeScript
+        onUploadChunkSuccess?: <T>(id: number, chunkData: ChunkData, responseJSON: T, xhr: XMLHttpRequest) => void;
         onValidate?: (data: ValidateMetadata, buttonContainer: HTMLElement) => void;
         onValidateBatch?: (fileOrBlobDataArray: ValidateMetadata[], buttomContainer: HTMLElement) => void;
     }

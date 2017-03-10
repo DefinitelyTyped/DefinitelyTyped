@@ -1,10 +1,9 @@
-// Type definitions for FullCalendar 2.7.2
+// Type definitions for FullCalendar 2.7
 // Project: http://fullcalendar.io/
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>, Patrick Niemann <https://github.com/panic175>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery"/>
-/// <reference types="moment" />
 
 import * as moment from 'moment';
 
@@ -20,7 +19,7 @@ export interface Calendar {
 export interface BusinessHours {
     start: moment.Duration | string | Date;
     end: moment.Duration | string | Date;
-    dow: Array<number>;
+    dow: number[];
 }
 
 export interface Timespan {
@@ -50,7 +49,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     weekMode?: string;
     weekNumbers?: boolean;
     weekNumberCalculation?: any; // String/Function
-    businessHours?: boolean | BusinessHours | Array<BusinessHours>;
+    businessHours?: boolean | BusinessHours | BusinessHours[];
     height?: number;
     contentHeight?: number;
     aspectRatio?: number;
@@ -83,10 +82,10 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     titleFormat?: any; // String
 
     buttonText?: ButtonTextObject;
-    monthNames?: Array<string>;
-    monthNamesShort?: Array<string>;
-    dayNames?: Array<string>;
-    dayNamesShort?: Array<string>;
+    monthNames?: string[];
+    monthNamesShort?: string[];
+    dayNames?: string[];
+    dayNamesShort?: string[];
     weekNumberTitle?: string;
 
     // Clicking & Hovering - http://fullcalendar.io/docs/mouse/
@@ -136,13 +135,13 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     eventAfterAllRender?: (view: ViewObject) => void;
     eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
 
-    //scheduler options
-    resourceAreaWidth?:number,
-    schedulerLicenseKey?:string,
-    customButtons?:any,
-    resourceLabelText?:any,
-    resourceColumns?:any,
-    displayEventTime?:any,
+    // scheduler options
+    resourceAreaWidth?: number;
+    schedulerLicenseKey?: string;
+    customButtons?: any;
+    resourceLabelText?: any;
+    resourceColumns?: any;
+    displayEventTime?: any;
 }
 
 /**
@@ -218,7 +217,7 @@ export interface EventObject extends Timespan {
     title: string;
     allDay?: boolean;
     url?: string;
-    className?: string | Array<string>;
+    className?: string | string[];
     editable?: boolean;
     startEditable?: boolean;
     durationEditable?: boolean;
@@ -253,7 +252,7 @@ export interface EventSource extends JQueryAjaxSettings {
     backgroundColor?: string;
     borderColor?: string;
     textColor?: string;
-    className?: any; // string/Array<string>
+    className?: any; // string/string[]
     editable?: boolean;
     allDayDefault?: boolean;
     ignoreTimezone?: boolean;
@@ -366,17 +365,17 @@ declare global {
         /**
          * Reports changes for multiple events and renders them on the calendar.
          */
-        fullCalendar(method: 'updateEvents', events: Array<EventObject>): void;
+        fullCalendar(method: 'updateEvents', events: EventObject[]): void;
 
         /**
          * Retrieves events that FullCalendar has in memory.
          */
-        fullCalendar(method: 'clientEvents', idOrfilter?: any): Array<EventObject>;
+        fullCalendar(method: 'clientEvents', idOrfilter?: any): EventObject[];
 
         /**
          * Retrieves events that FullCalendar has in memory.
          */
-        fullCalendar(method: 'clientEvents', idOrfilter?: (e: EventObject) => boolean): Array<EventObject>;
+        fullCalendar(method: 'clientEvents', idOrfilter?: (e: EventObject) => boolean): EventObject[];
 
         /**
          * Removes events from the calendar.
@@ -407,11 +406,11 @@ declare global {
          * Renders a new event on the calendar.
          */
         fullCalendar(method: 'renderEvent', event: EventObject, stick?: boolean): void;
-        
+
         /**
          * Renders new events on the calendar.
          */
-        fullCalendar(method: 'renderEvents', events: Array<EventObject>, stick?: boolean): void;
+        fullCalendar(method: 'renderEvents', events: EventObject[], stick?: boolean): void;
 
         /**
          * Rerenders all events on the calendar.

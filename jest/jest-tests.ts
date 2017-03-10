@@ -160,17 +160,21 @@ describe('toThrow API', function () {
 
    it('throws', function () {
       expect(throwTypeError()).toThrow();
+      expect(throwTypeError()).toThrowError();
    });
 
    it('throws TypeError', function () {
+       expect(throwTypeError()).toThrow(TypeError);
        expect(throwTypeError()).toThrowError(TypeError);
    });
 
    it('throws \'Definition was out of date\'', function () {
+       expect(throwTypeError()).toThrow(/Definition was out of date/);
       expect(throwTypeError()).toThrowError(/Definition was out of date/);
    });
 
    it('throws \'toThorow Definition was out of date\'', function () {
+       expect(throwTypeError()).toThrow('toThrow Definition was out of date');
       expect(throwTypeError()).toThrowError('toThrow Definition was out of date');
    });
 });

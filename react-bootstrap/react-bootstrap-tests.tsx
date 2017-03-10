@@ -14,7 +14,7 @@ import {
     Nav, NavItem, Navbar, NavDropdown,
     Tabs, Tab, Pager, PageItem,
     Pagination, Alert, Carousel, SafeAnchor,
-    Grid, Row, Col, Thumbnail, Image,
+    Grid, Row, Col, Thumbnail, Image, ResponsiveEmbed,
     Label, Badge, Jumbotron, PageHeader,
     Glyphicon, Table, Form, FormGroup,
     ControlLabel, FormControl, HelpBlock,
@@ -528,7 +528,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <Navbar.Brand>
                         <a href="#">React-Bootstrap</a>
                       </Navbar.Brand>
-                      <Navbar.Toggle />
+                      <Navbar.Toggle onClick={ () => {} } />
                     </Navbar.Header>
                     <Navbar.Collapse>
                       <Nav>
@@ -843,6 +843,20 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                     <Image src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" rounded />
+                </div>
+
+                <div style={style}>
+                  <div>
+                    <ResponsiveEmbed a16by9>
+                      Embedded Content
+                    </ResponsiveEmbed>
+                    <ResponsiveEmbed a4by3>
+                      Embedded Content
+                    </ResponsiveEmbed>
+                    <ResponsiveEmbed bsClass='embed-responsive'>
+                      Embedded Content
+                    </ResponsiveEmbed>
+                  </div>
                 </div>
 
                 <div style={style}>
@@ -1218,7 +1232,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                         </FormGroup>
                     </form>
                 </div>
-                
+
                 <div style={style}>
                   <Form>
                         <FormGroup controlId="formBasicText">
@@ -1227,7 +1241,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <FormControl.Feedback />
                       <HelpBlock>Help block message.</HelpBlock>
                     </FormGroup>
-                    
+
                     <FormGroup>
                       <Checkbox name="checkbox" inline>1</Checkbox>
                       {' '}

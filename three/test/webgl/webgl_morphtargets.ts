@@ -6,15 +6,13 @@
 () => {
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLDivElement;
 
-    var camera, scene, renderer;
-
-    var geometry, objects;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer;
 
     var mouseX = 0, mouseY = 0;
 
-    var mesh;
+    var mesh: THREE.Mesh;
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2;
 
@@ -49,7 +47,7 @@
 
         for (var i = 0; i < geometry.vertices.length; i++) {
 
-            var vertices = [];
+            var vertices: THREE.Vector3[] = [];
 
             for (var v = 0; v < geometry.vertices.length; v++) {
 
@@ -100,7 +98,7 @@
 
     }
 
-    function onDocumentMouseMove(event) {
+    function onDocumentMouseMove(event: MouseEvent) {
 
         mouseX = (event.clientX - windowHalfX);
         mouseY = (event.clientY - windowHalfY) * 2;
