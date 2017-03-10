@@ -18,6 +18,7 @@ declare namespace jasmine {
   interface Matchers {
     toEqual(expected: any, expectationFailOutput?: any): boolean;
     toBeDefined(expectationFailOutput?: any): boolean;
+    toBeNull(expectationFailOutput?: any): boolean;
     toContainHtml(expected: string): boolean;
     toContainText(expected: string): boolean;
     not: Matchers;
