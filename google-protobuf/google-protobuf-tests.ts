@@ -24,12 +24,12 @@ class MySimple extends jspb.Message {
 
   static repeatedFields_ = [3];
 
-  toObject(opt_includeInstance: boolean) {
+  toObject(opt_includeInstance: boolean): {} {
     return MySimple.toObject(opt_includeInstance, this);
   };
 
-  static toObject(includeInstance: boolean, msg: MySimple) {
-    const obj = {
+  static toObject(includeInstance: boolean, msg: MySimple): {} {
+    const obj: {} = {
       myString: jspb.Message.getFieldWithDefault(msg, 1, ""),
       myBool: jspb.Message.getFieldWithDefault(msg, 2, false),
       someLabelsList: jspb.Message.getField(msg, 3),
