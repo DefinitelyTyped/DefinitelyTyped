@@ -472,6 +472,7 @@ declare namespace Knex {
         domain?: string;
         instanceName?: string;
         debug?: boolean;
+        requestTimeout?: number;
     }
 
     // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods

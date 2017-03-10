@@ -311,6 +311,18 @@
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
             "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "Raven JS",
+            "typingsPackageName": "raven-js",
+            "sourceRepoURL": "https://github.com/getsentry/raven-js",
+            "asOfVersion": "3.10.0"
+        },
+        {
+            "libraryName": "antd",
+            "typingsPackageName": "antd",
+            "sourceRepoURL": "https://github.com/ant-design/ant-design",
+            "asOfVersion": "1.0.0"
         }
     ]
 }

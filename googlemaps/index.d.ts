@@ -2211,6 +2211,8 @@ declare namespace google.maps {
         export interface AutocompleteOptions  {
             bounds?: LatLngBounds|LatLngBoundsLiteral;
             componentRestrictions?: ComponentRestrictions;
+            placeIdOnly?: boolean;
+            strictBounds?: boolean;
             types?: string[];
         }
 
