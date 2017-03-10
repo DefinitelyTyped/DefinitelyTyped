@@ -17,7 +17,7 @@ function test_parse(): void {
 }
 
 function test_options(): void {
-    var serializeOptions: CookieSerializeOptions = {
+    var serializeOptions: cookie.CookieSerializeOptions = {
         encode: (x: string) => x,
         path: '/',
         expires: new Date(),
@@ -27,7 +27,7 @@ function test_options(): void {
         httpOnly: false
     };
 
-    var parseOptios: CookieParseOptions = {
+    var parseOptios: cookie.CookieParseOptions = {
         decode: (x: string) => x
     };
 }
