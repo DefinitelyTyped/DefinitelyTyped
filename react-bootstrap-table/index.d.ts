@@ -356,7 +356,7 @@ export interface Options {
 	/**
 	Background color on expanded rows.
 	*/
-	expandRowBgColor?: string;	
+	expandRowBgColor?: string;
 	/**
 	Assign a callback function which will be called when mouse enter into the table.
 	*/
@@ -568,6 +568,11 @@ export interface Editable {
     cols?: number;
     rows?: number;
 }
+export type SetFilterCallback = (targetValue: any) => boolean;
+export interface ApplyFilterParameter {
+	callback: SetFilterCallback;
+}
+
 export type FilterType = 'TextFilter' | 'RegexFilter' | 'SelectFilter' | 'NumberFilter' | 'DateFilter' | 'CustomFilter';
 export interface Filter {
 	/**
@@ -590,6 +595,26 @@ export interface Filter {
 	 * Only work on NumberFilter. Accept an array which conatin the filter condition, like: ['<','>','=']
 	 */
     numberComparators?: string[];
+
+    /**
+     * Options for the filter.
+     */
+    options?: any;
+
+    /**
+     * Comparison condition for the NumberFilter
+     */
+    condition?: string;
+
+    /**
+     * Get element which represent filter.
+     */
+    getElement?: (filterHandler: (parameters?: ApplyFilterParameter) => void, filterParameters: any) => JSX.Element;
+
+    /**
+     * Parameters for custom filter
+     */
+    customFilterParameters?: any;
 }
 
 export interface TableHeaderColumn extends ComponentClass<TableHeaderColumnProps> { }
