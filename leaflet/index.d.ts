@@ -1405,8 +1405,8 @@ declare namespace L {
      */
     export function map(element: string | HTMLElement, options?: MapOptions): Map;
 
-    export interface IconOptions extends LayerOptions {
-        iconUrl: string;
+    interface BaseIconOptions extends LayerOptions {
+        iconUrl?: string;
         iconRetinaUrl?: string;
         iconSize?: PointExpression;
         iconAnchor?: PointExpression;
@@ -1418,25 +1418,38 @@ declare namespace L {
         className?: string;
     }
 
-    class InternalIcon extends Layer {
-        constructor(options: IconOptions);
-        createIcon(oldIcon?: HTMLElement): HTMLElement;
+    export interface IconOptions extends BaseIconOptions {
+        iconUrl: string;
     }
 
-    export class Icon extends InternalIcon {
+    // This class does not exist in reality, it's just a way to provide
+    // options of more specific types in the sub classes
+    class BaseIcon extends Layer {
+        createIcon(oldIcon?: HTMLElement): HTMLElement;
         createShadow(oldIcon?: HTMLElement): HTMLElement;
+        options: BaseIconOptions;
+    }
+
+    export class Icon extends BaseIcon {
+        constructor(options: IconOptions);
         options: IconOptions;
     }
 
     export namespace Icon {
-        export class Default extends InternalIcon {
-            imagePath: string;
+        export interface DefaultIconOptions extends BaseIconOptions {
+            imagePath?: string;
+        }
+
+        export class Default extends BaseIcon {
+            static imagePath?: string;
+            constructor(options?: DefaultIconOptions);
+            options: DefaultIconOptions;
         }
     }
 
     export function icon(options: IconOptions): Icon;
 
-    export interface DivIconOptions extends LayerOptions {
+    export interface DivIconOptions extends BaseIconOptions {
         html?: string;
         bgPos?: PointExpression;
         iconSize?: PointExpression;
@@ -1445,7 +1458,7 @@ declare namespace L {
         className?: string;
     }
 
-    export class DivIcon extends InternalIcon {
+    export class DivIcon extends BaseIcon {
         constructor(options?: DivIconOptions);
         options: DivIconOptions;
     }
@@ -1453,7 +1466,7 @@ declare namespace L {
     export function divIcon(options?: DivIconOptions): DivIcon;
 
     export interface MarkerOptions extends InteractiveLayerOptions {
-        icon?: Icon;
+        icon?: Icon | DivIcon;
         clickable?: boolean;
         draggable?: boolean;
         keyboard?: boolean;
@@ -1463,8 +1476,6 @@ declare namespace L {
         opacity?: number;
         riseOnHover?: boolean;
         riseOffset?: number;
-
-        options?: DivIconOptions;
     }
 
     export class Marker extends Layer {
@@ -1472,7 +1483,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         setZIndexOffset(offset: number): this;
-        setIcon(icon: Icon): this;
+        setIcon(icon: Icon | DivIcon): this;
         setOpacity(opacity: number): this;
         getElement(): HTMLElement;
 
@@ -1513,6 +1524,27 @@ declare namespace L {
         export const svg: boolean;
     }
 
+    export namespace Util {
+        export function extend(dest: any, src?: any): any;
+        export function create(proto: any, properties?: any): any;
+        export function bind(fn: () => void, ...obj: any[]): () => void;
+        export function stamp(obj: any): number;
+        export function throttle(fn: () => void, time: number, context: any): () => void;
+        export function wrapNum(num: number, range: number[], includeMax?: boolean): number;
+        export function falseFn(): () => false;
+        export function formatNum(num: number, digits?: number): number;
+        export function trim(str: string): string;
+        export function splitWords(str: string): string[];
+        export function setOptions(obj: any, options: any): any;
+        export function getParamString(obj: any, existingUrl?: string, uppercase?: boolean): string;
+        export function template(str: string, data: any): string;
+        export function isArray(obj: any): boolean;
+        export function indexOf(array: any[], el: any): number;
+        export function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+        export function cancelAnimFrame(id: number): void;
+        export let lastId: string;
+        export let emptyImageUrl: string;
+    }
 }
 
 declare module 'leaflet' {

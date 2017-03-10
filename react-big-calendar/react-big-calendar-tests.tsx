@@ -58,10 +58,10 @@ const FullAPIExample = React.createClass({
                 step={20}
                 rtl={true}
                 eventPropGetter={(event, start, end, isSelected) => { } }
-                titleAccessor={'string'}
-                allDayAccessor={true}
-                startAccessor={new Date()}
-                endAccessor={new Date()}
+                titleAccessor={'title'}
+                allDayAccessor={(row:any) => !!row.allDay}
+                startAccessor={'start'}
+                endAccessor={(row:any) => row.end || row.start}
                 min={new Date()}
                 max={new Date()}
                 scrollToTime={new Date()}
@@ -70,6 +70,8 @@ const FullAPIExample = React.createClass({
                 messages={{}}
                 timeslots={24}
                 defaultView={'month'}
+                className={'my-calendar'}
+                elementProps={{id: 'myCalendar'}}
             />
         );
     }

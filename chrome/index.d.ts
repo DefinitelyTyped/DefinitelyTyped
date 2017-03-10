@@ -1831,7 +1831,7 @@ declare namespace chrome.devtools.panels {
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
          */
-        setObject(jsonObject: string, rootTitle?: string, callback?: () => void): void;
+        setObject(jsonObject: Object, rootTitle?: string, callback?: () => void): void;
         /**
          * Sets a JSON-compliant object to be displayed in the sidebar pane.
          * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
@@ -1839,7 +1839,7 @@ declare namespace chrome.devtools.panels {
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
          */
-        setObject(jsonObject: string, callback?: () => void): void;
+        setObject(jsonObject: Object, callback?: () => void): void;
         /**
          * Sets an HTML page to be displayed in the sidebar pane.
          * @param path Relative path of an extension page to display within the sidebar.

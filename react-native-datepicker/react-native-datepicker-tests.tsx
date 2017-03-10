@@ -34,7 +34,7 @@ export default class MyDatePicker extends React.Component<{}, MyDatePickerState>
                         marginLeft: 36
                     }
                 }}
-                onDateChange={(date: string) => {this.setState({date});}}
+                onDateChange={(date: string) => { this.setState({date}); }}
             />
         );
     }

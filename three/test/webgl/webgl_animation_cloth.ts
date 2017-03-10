@@ -15,8 +15,8 @@
     // -------
 
     /* testing cloth simulation */
-    var pinsFormation = [];
-    var pins = [6];
+    var pinsFormation: number[][] = [];
+    var pins: number[] = [6];
 
     pinsFormation.push(pins);
 
@@ -52,7 +52,7 @@
     var sphere: THREE.Mesh;
     var object: THREE.Mesh;
     var arrow: THREE.ArrowHelper;
-    var light:  THREE.DirectionalLight, materials;
+    var light:  THREE.DirectionalLight;
     var rotate = true;
 
     init();

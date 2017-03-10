@@ -1,4 +1,4 @@
-// Type definitions for redis 0.12.1
+// Type definitions for redis 0.12.2
 // Project: https://github.com/mranney/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,7 +91,12 @@ export interface RedisClient extends NodeJS.EventEmitter {
     offline_queue: any[];
     server_info: ServerInfo;
 
-    end(): void;
+    /**
+     * Forcibly close the connection to the Redis server. Note that this does not wait until all replies have been parsed. If you want to exit cleanly, call client.quit()
+     *
+     * @param {boolean} flush You should set flush to true, if you are not absolutely sure you do not care about any other commands. If you set flush to false all still running commands will silently fail.
+     */
+    end(flush: boolean): void;
     unref(): void;
 
     /**
@@ -274,8 +279,8 @@ export interface RedisClient extends NodeJS.EventEmitter {
     hmget(...args: any[]): boolean;
     hincrby(args: any[], callback?: ResCallbackT<any>): boolean;
     hincrby(...args: any[]): boolean;
-    hincrbyfloat(args:any[], callback?:ResCallbackT<any>): boolean;
-    hincrbyfloat(...args:any[]): boolean;
+    hincrbyfloat(args: any[], callback?: ResCallbackT<any>): boolean;
+    hincrbyfloat(...args: any[]): boolean;
     hdel(args: any[], callback?: ResCallbackT<any>): boolean;
     hdel(...args: any[]): boolean;
     hlen(args: any[], callback?: ResCallbackT<any>): boolean;
@@ -408,7 +413,7 @@ export interface RedisClient extends NodeJS.EventEmitter {
     zscan(args: any[], callback?: ResCallbackT<any>): boolean;
 
     // Extras
-    duplicate(options?:any[], callback?:ResCallbackT<any>): RedisClient;
+    duplicate(options?: any[], callback?: ResCallbackT<any>): RedisClient;
 }
 
 export interface Multi {

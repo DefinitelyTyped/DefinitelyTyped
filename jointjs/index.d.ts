@@ -1,6 +1,6 @@
 // Type definitions for Joint JS 1.0.1
 // Project: http://www.jointjs.com/
-// Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>, Federico Caselli <https://github.com/CaselIT>
+// Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>, Federico Caselli <https://github.com/CaselIT>, Chris Moran <https://github.com/ChrisMoran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // typings: https://github.com/CaselIT/typings-jointjs
 
@@ -156,6 +156,15 @@ declare namespace joint {
             findView(paper: Paper): ElementView;
             isElement(): boolean;
             scale(scaleX: number, scaleY: number, origin?: Point, options?: any): this;
+            addPort(port: any, opt?: any): this;
+            addPorts(ports: any[], opt?: any): this;
+            removePort(port: any, opt?: any): this;
+            hasPorts(): boolean;
+            hasPort(id: string): boolean;
+            getPorts(): any[];
+            getPort(id: string): any;
+            getPortIndex(port: any): number;
+            portProp(portId: string, path: any, value?: any, opt?: any): joint.dia.Element;
         }
 
         interface CSSSelector {
@@ -188,6 +197,7 @@ declare namespace joint {
             vertices?: Point[];
             smooth?: boolean;
             attrs?: TextAttrs;
+            z?: number;
         }
 
         class Link extends Cell {
@@ -249,6 +259,7 @@ declare namespace joint {
             cellViewNamespace?: Object;
             /** useful undocumented option */
             clickThreshold?: number;
+            highlighting?: any;
         }
 
         interface ScaleContentOptions {
@@ -466,39 +477,365 @@ declare namespace joint {
             cy?: string | number;
             height?: string | number;
             width?: string | number;
+            transform?: string;
+            points?: string;
+            'stroke-width'?: string | number;
+            'ref-x'?: string | number;
+            'ref-y'?: string | number;
+            ref?: string
         }
+
         namespace basic {
             class Generic extends dia.Element {
-                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object)
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             interface RectAttrs extends dia.TextAttrs {
                 rect?: ShapeAttrs;
             }
             class Rect extends Generic {
-                constructor(attributes?: GenericAttributes<RectAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<RectAttrs>, options?: Object);
             }
             class Text extends Generic {
-                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             interface CircleAttrs extends dia.TextAttrs {
                 circle?: ShapeAttrs;
             }
             class Circle extends Generic {
-                constructor(attributes?: GenericAttributes<CircleAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<CircleAttrs>, options?: Object);
             }
             interface EllipseAttrs extends dia.TextAttrs {
                 ellipse?: ShapeAttrs;
             }
             class Ellipse extends Generic {
-                constructor(attributes?: GenericAttributes<EllipseAttrs>, options?: Object)
+                constructor(attributes?: GenericAttributes<EllipseAttrs>, options?: Object);
             }
-            class Image extends Generic {
-            }
-            class Path extends Generic {
+            interface PolygonAttrs extends dia.TextAttrs {
+                polygon?: ShapeAttrs;
             }
             class Polygon extends Generic {
+                constructor(attributes?: GenericAttributes<PolygonAttrs>, options?: Object);
+            }
+            interface PolylineAttrs extends dia.TextAttrs {
+                polyline?: ShapeAttrs;
             }
             class Polyline extends Generic {
+                constructor(attributes?: GenericAttributes<PolylineAttrs>, options?: Object);
+            }
+            class Image extends Generic {
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
+            }
+            interface PathAttrs extends dia.TextAttrs {
+                path?: ShapeAttrs;
+            }
+            class Path extends Generic {
+                constructor(attributes?: GenericAttributes<PathAttrs>, options?: Object);
+            }
+            interface RhombusAttrs extends dia.TextAttrs {
+                path?: ShapeAttrs;
+            }
+            class Rhombus extends Generic {
+                constructor(attributes?: GenericAttributes<RhombusAttrs>, options?: Object);
+            }
+            interface TextBlockAttrs extends dia.TextAttrs {
+                rect?: ShapeAttrs;
+            }
+            class TextBlock extends Generic {
+                constructor(attributes?: GenericAttributes<TextBlockAttrs>, options?: Object);
+                updateSize(cell: dia.Cell, size: dia.Size): void;
+                updateContent(cell: dia.Cell, content: string): void;
+            }
+        }
+
+        namespace chess {
+            class KingWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class KingBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class QueenWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class QueenBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class RookWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class RookBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class BishopWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class BishopBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class KnightWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class KnightBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class PawnWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class PawnBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+        }
+
+        namespace devs {
+            interface ModelAttributes extends GenericAttributes<dia.SVGAttributes> {
+                inPorts?: string[];
+                outPorts?: string[];
+                ports?: Object;
+            }
+            class Model extends basic.Generic {
+                constructor(attributes?: ModelAttributes, options?: Object);
+                changeInGroup(properties: any, opt?: any): boolean;
+                changeOutGroup(properties: any, opt?: any): boolean;
+                createPortItem(group: string, port: string): any;
+                createPortItems(group: string, ports: string[]): any[];
+                addOutPort(port: string, opt?: any): this;
+                addInPort(port: string, opt?: any): this;
+                removeOutPort(port: string, opt?: any): this;
+                removeInPort(port: string, opt?: any): this;
+            }
+            class Coupled extends Model {
+                constructor(attributes?: ModelAttributes, options?: Object);
+            }
+            class Atomic extends Model {
+                constructor(attributes?: ModelAttributes, options?: Object);
+            }
+            class Link extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+        }
+
+        namespace erd {
+            class Entity extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
+            }
+            class WeakEntity extends Entity {
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
+            }
+            class Relationship extends dia.Element {
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
+            }
+            class IdentifyingRelationship extends Relationship {
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
+            }
+            interface AttributeAttrs extends dia.TextAttrs {
+                ellipse?: ShapeAttrs;
+            }
+            class Attribute extends dia.Element {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
+            }
+            class Multivalued extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
+            }
+            class Derived extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
+            }
+            class Key extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
+            }
+            class Normal extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
+            }
+            interface ISAAttrs extends dia.Element {
+                polygon?: ShapeAttrs;
+            }
+            class ISA extends dia.Element {
+                constructor(attributes?: GenericAttributes<ISAAttrs>, options?: Object);
+            }
+            class Line extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+                cardinality(value: string | number): void;
+            }
+        }
+
+        namespace fsa {
+            class State extends basic.Circle {
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
+            }
+            class StartState extends dia.Element {
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
+            }
+            class EndState extends dia.Element {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class Arrow extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+        }
+
+        namespace logic {
+            interface LogicAttrs extends ShapeAttrs {
+                ref?: string;
+                'ref-x'?: number | string;
+                'ref-dx'?: number | string;
+                'ref-y'?: number | string;
+                'ref-dy'?: number | string;
+                magnet?: boolean;
+                'class'?: string;
+                port?: string;
+            }
+            interface IOAttrs extends dia.TextAttrs {
+                circle?: LogicAttrs;
+            }
+            class Gate extends basic.Generic {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
+            }
+            class IO extends Gate {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
+            }
+            class Input extends IO {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
+            }
+            class Output extends IO {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
+            }
+            class Gate11 extends Gate {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
+            }
+            class Gate21 extends Gate {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
+            }
+            interface Image {
+                'xlink:href'?: string;
+            }
+            interface ImageAttrs extends LogicAttrs {
+                image?: Image;
+            }
+            class Repeater extends Gate11 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input: any): any;
+            }
+            class Note extends Gate11 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input: any): boolean;
+            }
+            class Or extends Gate21 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input1: any, input2: any): boolean;
+            }
+            class And extends Gate21 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input1: any, input2: any): boolean;
+            }
+            class Nor extends Gate21 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input1: any, input2: any): boolean;
+            }
+            class Nand extends Gate21 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input1: any, input2: any): boolean;
+            }
+            class Xor extends Gate21 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input1: any, input2: any): boolean;
+            }
+            class Xnor extends Gate21 {
+                constructor(attributes?: GenericAttributes<ImageAttrs>, options?: Object);
+                operation(input1: any, input2: any): boolean;
+            }
+            interface WireArgs extends dia.LinkAttributes {
+                router?: Object;
+                connector?: Object;
+            }
+            class Wire extends dia.Link {
+                constructor(attributes?: WireArgs, options?: Object);
+            }
+        }
+
+        namespace org {
+            interface MemberAttrs {
+                rect?: ShapeAttrs;
+                image?: ShapeAttrs;
+            }
+            class Member extends dia.Element {
+                constructor(attributes?: GenericAttributes<MemberAttrs>, options?: Object);
+            }
+            class Arrow extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+        }
+
+        namespace pn {
+            class Place extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class PlaceView extends dia.ElementView {
+                renderTokens(): void;
+            }
+            class Transition extends basic.Generic {
+                constructor(attributes?: GenericAttributes<basic.RectAttrs>, options?: Object);
+            }
+            class Link extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+        }
+
+        namespace uml {
+            interface ClassAttributes extends GenericAttributes<basic.RectAttrs> {
+                name: string[];
+                attributes: string[];
+                methods: string[];
+            }
+            class Class extends basic.Generic {
+                constructor(attributes?: ClassAttributes, options?: Object);
+                getClassName(): string[];
+                updateRectangles(): void;
+            }
+            class ClassView extends dia.ElementView {
+            }
+            class Abstract extends Class {
+                constructor(attributes?: ClassAttributes, options?: Object);
+            }
+            class AbstractView extends ClassView {
+                constructor(attributes?: ClassAttributes, options?: Object);
+            }
+            class Interface extends Class {
+                constructor(attributes?: ClassAttributes, options?: Object);
+            }
+            class InterfaceView extends ClassView {
+                constructor(attributes?: ClassAttributes, options?: Object);
+            }
+            class Generalization extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+            class Implementation extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+            class Aggregation extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+            class Composition extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+            class Association extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
+            }
+            interface StateAttributes extends GenericAttributes<ShapeAttrs> {
+                events?: string[];
+            }
+            class State extends basic.Generic {
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
+                updateName(): void;
+                updateEvents(): void;
+                updatePath(): void;
+            }
+            class StartState extends basic.Circle {
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
+            }
+            class EndState extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
+            }
+            class Transition extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
     }
@@ -552,8 +889,8 @@ declare namespace joint {
             setLinkVertices?: (link: dia.Link, vertices: Position[]) => void;
         }
 
-        class DirectedGraph {
-            static layout(graph: dia.Graph, options?: LayoutOptions): dia.BBox;
+        export class DirectedGraph {
+            static layout(graph: dia.Graph | dia.Cell[], options?: LayoutOptions): dia.BBox;
         }
     }
 }

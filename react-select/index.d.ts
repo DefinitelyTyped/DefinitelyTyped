@@ -398,6 +398,11 @@ declare namespace ReactSelectClass {
 
     export interface ReactAsyncSelectProps extends ReactSelectProps {
         /**
+         * Whether to auto-load the default async options set.
+         */
+        autoload?: boolean;
+
+        /**
          *  object to use to cache results; can be null to disable cache
          */
         cache?: Object | boolean;
