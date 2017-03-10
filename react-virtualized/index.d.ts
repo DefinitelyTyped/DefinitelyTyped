@@ -61,7 +61,7 @@ declare module "react-virtualized" {
         onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
         overscanRowCount?: number;
         rowHeight: number | ((info: { index: number }) => number);
-        rowRenderer: (info: { index: number, isScrolling: boolean }) => React.ReactNode;
+        rowRenderer: (info: { index: number, key: string, style: Object, isScrolling: boolean }) => React.ReactNode;
         rowCount: number;
         scrollToAlignment?: string;
         scrollToIndex?: number;
@@ -120,7 +120,7 @@ declare module "react-virtualized" {
         rowCount: number;
         rowGetter?: (info: { index: number }) => any;
         rowHeight: number | ((info: { index: number }) => number);
-        rowRenderer?: (info: { index: number, isScrolling: boolean }) => React.ReactNode;
+        rowRenderer?: (info: { index: number, isScrolling: boolean, style: Object }) => React.ReactNode;
         rowStyle?: React.CSSProperties | ((info: { index: number }) => React.CSSProperties);
         scrollToAlignment?: string;
         scrollToIndex?: number;
