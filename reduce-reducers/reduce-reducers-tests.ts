@@ -4,10 +4,10 @@ import {
 } from 'redux';
 import reduceReducers from 'reduce-reducers';
 
-interface ITestStore {
+interface TestStore {
 	a: number,
 	b: string
 }
-let firstReducer: (state: ITestStore, action: Action) => ITestStore = (a, b) => a;
-let secondReducer: (state: ITestStore, action: Action) => ITestStore = (a, b) => a
-let finalReducer: (state: ITestStore, action: Action) => ITestStore = reduceReducers(firstReducer, secondReducer);
+let firstReducer: (state: TestStore, action: Action) => TestStore = (a, b) => a;
+let secondReducer: (state: TestStore, action: Action) => TestStore = (a, b) => a
+let finalReducer: (state: TestStore, action: Action) => TestStore = reduceReducers(firstReducer, secondReducer);
