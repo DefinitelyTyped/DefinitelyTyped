@@ -5,12 +5,15 @@ import * as webdriver from './index';
  */
 export class Driver extends webdriver.WebDriver {
     /**
+     * Creates a new session for Microsoft's Internet Explorer.
+     *
      * @param {(capabilities.Capabilities|Options)=} opt_config The configuration
      *     options.
      * @param {promise.ControlFlow=} opt_flow The control flow to use,
      *     or {@code null} to use the currently active flow.
+     * @return {!Driver} A new driver instance.
      */
-    constructor(opt_config?: webdriver.Capabilities | Options, opt_flow?: webdriver.promise.ControlFlow);
+    static createSession(opt_config?: webdriver.Capabilities | Options, opt_flow?: webdriver.promise.ControlFlow): Driver;
 
     /**
      * This function is a no-op as file detectors are not supported by this
@@ -201,5 +204,5 @@ export class Options {
      *     merge these options into, if any.
      * @return {!capabilities.Capabilities} The capabilities.
      */
-    toCapabilities(opt_capabilities: webdriver.Capabilities): webdriver.Capabilities;
+    toCapabilities(opt_capabilities?: webdriver.Capabilities): webdriver.Capabilities;
 }

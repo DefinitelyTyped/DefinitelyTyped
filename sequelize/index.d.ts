@@ -3183,7 +3183,7 @@ declare namespace sequelize {
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions | Array<col | and | or | string>;
+        where?: WhereOptions | fn | Array<col | and | or | string>;
 
         /**
          * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
@@ -4875,6 +4875,11 @@ declare namespace sequelize {
          * Converts camelCased model names to underscored tablenames if true. Default false.
          */
         underscoredAll?: boolean;
+
+        /**
+         * Indicates if the model's table has a trigger associated with it. Default false.
+         */
+        hasTrigger?: boolean;
 
         /**
          * If freezeTableName is true, sequelize will not try to alter the DAO name to get the table name.

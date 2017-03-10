@@ -905,6 +905,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
 User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
+User.findAll( { where : s.fn('count', [0, 10]) } );
 
 User.findById( 'a string' );
 
@@ -925,6 +926,7 @@ User.findOne( { where : { name : 'worker' }, include : [User] } );
 User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as : 'Photos' }] } );
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
+User.findOne( { where : s.fn('count', []) } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
@@ -1532,6 +1534,27 @@ s.define( 'User', {
 }, {
     timestamps : true,
     paranoid : true
+} );
+
+s.define( 'TriggerTest', {
+    id : {
+        type : Sequelize.INTEGER,
+        field : 'test_id',
+        autoIncrement : true,
+        primaryKey : true,
+        validate : {
+            min : 1
+        }
+    },
+    title : {
+        allowNull : false,
+        type : Sequelize.STRING( 255 ),
+        field : 'test_title'
+    }
+}, {
+    timestamps : false,
+    underscored : true,
+    hasTrigger : true
 } );
 
 //

@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.19
+// Type definitions for ArcGIS API for JavaScript 3.20
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,6 @@ declare module "esri" {
   import Color = require("esri/Color");
   import LocationProviderBase = require("esri/tasks/locationproviders/LocationProviderBase");
   import PictureMarkerSymbol = require("esri/symbols/PictureMarkerSymbol");
-  import RouteParameters = require("esri/tasks/RouteParameters");
   import SimpleLineSymbol = require("esri/symbols/SimpleLineSymbol");
   import Font = require("esri/symbols/Font");
   import ArcGISDynamicMapServiceLayer = require("esri/layers/ArcGISDynamicMapServiceLayer");
@@ -263,6 +262,12 @@ declare module "esri" {
     /** The symbol in which the BlendRenderer is applied. */
     symbol: Symbol;
   }
+  export interface BookmarkItemOptions {
+    /** The extent for the specified bookmark item. */
+    extent?: Extent;
+    /** The name for the bookmark item. */
+    name?: string;
+  }
   export interface BookmarksOptions {
     /** An array of BookmarkItem objects or a json object with the BookmarkItem format to initially display in the bookmark widget. */
     bookmarks?: BookmarkItem[];
@@ -282,8 +287,14 @@ declare module "esri" {
     latitudeFieldName?: string;
     /** The longitude field name. */
     longitudeFieldName?: string;
+    /** Opacity or transparency of layer. */
+    opacity?: number;
     /** An array of strings which correspond to fields to include in the CSVLayer. */
     outFields?: string[];
+    /** Refresh interval of the layer in minutes. */
+    refreshInterval?: number;
+    /** Visibility of the layer. */
+    visible?: boolean;
   }
   export interface ChooseBestFacilitiesOptions {
     /** The URL to the analysis service, for example "http://analysis.arcgis.com/arcgis/rest/services/tasks/GPServer". */
@@ -624,8 +635,8 @@ declare module "esri" {
     canModifyStops?: boolean;
     /** Center the map at the start of the selected route segment. */
     centerAtSegmentStart?: boolean;
-    /** The returned directions object from the routing solve result. */
-    directions?: any;
+    /** The locale used for the directions. */
+    directionsLanguage?: string;
     /** Length units. */
     directionsLengthUnits?: string;
     /** Enable the dragging of stop locations on the map. */
@@ -658,8 +669,6 @@ declare module "esri" {
     printTemplate?: string;
     /** When true, the route will return to start point. */
     returnToStart?: boolean;
-    /** Specify the input parameters for the route task. */
-    routeParams?: RouteParameters;
     /** Define the symbol used to draw the route on the map. */
     routeSymbol?: SimpleLineSymbol;
     /** Specify the service that will be used to calculate directions. */
@@ -672,6 +681,8 @@ declare module "esri" {
     segmentSymbol?: SimpleLineSymbol;
     /** Defines whether the Directions widget will show the map-click-active toggle button. */
     showActivateButton?: boolean;
+    /** Indicates whether to expose barriers when using the widget. */
+    showBarriersButton?: boolean;
     /** If true, the Clear button is shown. */
     showClearButton?: boolean;
     /** If true, the toggle button group allowing user to choose between Miles and Kilometers is shown. */
@@ -1076,6 +1087,8 @@ declare module "esri" {
   export interface GeoRSSLayerOptions {
     /** The template used to display popup window for identify operation. */
     infoTemplate?: InfoTemplate;
+    /** Opacity or transparency of layer. */
+    opacity?: number;
     /** The output spatial reference for the GeoRSSLayer. */
     outSpatialReference?: SpatialReference;
     /** The default symbol use to display point features. */
@@ -1084,6 +1097,8 @@ declare module "esri" {
     polygonSymbol?: Symbol;
     /** The default symbol used to display polyline features. */
     polylineSymbol?: Symbol;
+    /** Refresh interval of the layer in minutes. */
+    refreshInterval?: number;
   }
   export interface GeocoderOptions {
     /** By default, the Geocoder widget uses the Esri World Locator to find search locations. */
@@ -3235,7 +3250,7 @@ declare module "esri/arcgis/Portal" {
     tags: string[];
     /** The url to the thumbnail image for the user. */
     thumbnailUrl: string;
-    /** The url for the user content. */
+    /** The URL for the user content. */
     userContentUrl: string;
     /** The username for the user. */
     username: string;
@@ -3554,16 +3569,15 @@ declare module "esri/dijit/BasemapToggle" {
 }
 
 declare module "esri/dijit/BookmarkItem" {
-  import Extent = require("esri/geometry/Extent");
+  import esri = require("esri");
 
   /** Defines a bookmark for use in the Bookmark widget. */
   class BookmarkItem {
     /**
      * Creates a new BookmarkItem.
-     * @param name The name for the bookmark item.
-     * @param extent The extent for the specified bookmark item.
+     * @param params See options list for parameters.
      */
-    constructor(name: string, extent: Extent);
+    constructor(params?: esri.BookmarkItemOptions);
   }
   export = BookmarkItem;
 }
@@ -3815,7 +3829,6 @@ declare module "esri/dijit/Directions" {
   import esri = require("esri");
   import DirectionsFeatureSet = require("esri/tasks/DirectionsFeatureSet");
   import Graphic = require("esri/graphic");
-  import RouteParameters = require("esri/tasks/RouteParameters");
   import RouteTask = require("esri/tasks/RouteTask");
   import Point = require("esri/geometry/Point");
   import RouteResult = require("esri/tasks/RouteResult");
@@ -3832,14 +3845,14 @@ declare module "esri/dijit/Directions" {
     mergedRouteGraphic: Graphic;
     /** If specified, this specifies the portal where the produced route layers are going to be stored and accessed. */
     portalUrl: string;
-    /** Routing parameters for the widget. */
-    routeParams: RouteParameters;
     /** Routing task for the widget. */
     routeTask: RouteTask;
     /** Read-only: The Service Description object returned by the Route REST Endpoint. */
     serviceDescription: any;
     /** Indicates whether the Directions widget will display the map-click-active toggle button. */
     showActivateButton: boolean;
+    /** Indicates whether to expose barriers when using the widget. */
+    showBarriersButton: boolean;
     /** If true, the Clear button is shown. */
     showClearButton: boolean;
     /** If true, the toggle button group allowing user to choose between Miles and Kilometers is shown. */
@@ -9230,8 +9243,14 @@ declare module "esri/layers/CSVLayer" {
     latitudeFieldName: string;
     /** The longitude field name. */
     longitudeFieldName: string;
+    /** Opacity or transparency of layer. */
+    opacity: number;
+    /** Refresh interval of the layer in minutes. */
+    refreshInterval: number;
     /** The url to a CSV resource. */
     url: string;
+    /** Visibility of the layer. */
+    visible: boolean;
     /**
      * Creates a CSV layer.
      * @param url URL to a CSV resource.
@@ -9938,6 +9957,10 @@ declare module "esri/layers/GeoRSSLayer" {
     items: Graphic[];
     /** The name of the layer. */
     name: string;
+    /** Opacity or transparency of layer. */
+    opacity: number;
+    /** Refresh interval of the layer in minutes. */
+    refreshInterval: number;
     /** The publicly accessible URL to a GeoRSS file. */
     url: string;
     /**
@@ -11703,6 +11726,7 @@ declare module "esri/layers/pixelfilters/StretchFilter" {
 declare module "esri/map" {
   import esri = require("esri");
   import Attribution = require("esri/dijit/Attribution");
+  import Color = require("esri/Color");
   import Extent = require("esri/geometry/Extent");
   import GraphicsLayer = require("esri/layers/GraphicsLayer");
   import InfoWindowBase = require("esri/InfoWindowBase");
@@ -11721,6 +11745,8 @@ declare module "esri/map" {
     attribution: Attribution;
     /** Value is true when the map automatically resizes if the browser window or ContentPane widget enclosing the map is resized. */
     autoResize: boolean;
+    /** The background color "behind" the map. */
+    backgroundColor: Color;
     /** An array of IDs corresponding to the layers that make up the map's current basemap. */
     basemapLayerIds: string[];
     /** The current extent of the map in map units. */
@@ -11924,6 +11950,11 @@ declare module "esri/map" {
      * @param immediate By default, the actual resize logic is delayed internally in order to throttle spurious resize events dispatched by some browsers.
      */
     resize(immediate?: boolean): void;
+    /**
+     * Change the background color of the map.
+     * @param color Color specified using either a named string (e.g.
+     */
+    setBackgroundColor(color: Color | string): void;
     /**
      * Change the map's current basemap.
      * @param basemap A valid basemap name.
