@@ -11,7 +11,7 @@
 /// <reference types="jquery" />
 
 interface JQuery {
-    DataTable(param?: DataTables.Settings): DataTables.DataTable;
+    DataTable(param?: DataTables.Settings): DataTables.Api;
 }
 
 //TODO: Wrong, as jquery.d.ts has no interface for fn
@@ -20,11 +20,11 @@ interface JQuery {
 //}
 
 declare namespace DataTables {
-    export interface DataTable extends DataTableCore {
+    export interface Api extends DataTableCore {
         /**
         * Get the data for the whole table.
         */
-        data(): DataTable;
+        data(): Api;
 
         /**
         * Order Methods / Object
@@ -128,7 +128,7 @@ declare namespace DataTables {
     }
 
     export interface DataTables extends DataTableCore {
-        [index: number]: DataTable;
+        [index: number]: Api;
     }
 
     interface ObjectSelectorModifier {
@@ -172,21 +172,21 @@ declare namespace DataTables {
         /**
         * Clear the table of all data.
         */
-        clear(): DataTable;
+        clear(): Api;
 
         /**
         * Destroy the DataTables in the current context.
         *
         * @param remove Completely remove the table from the DOM (true) or leave it in the DOM in its original plain un-enhanced HTML state (default, false).
         */
-        destroy(remove?: boolean): DataTable;
+        destroy(remove?: boolean): Api;
 
         /**
         * Redraw the DataTables in the current context, optionally updating ordering, searching and paging as required.
         *
         * @param paging This parameter is used to determine what kind of draw DataTables will perform.
         */
-        draw(paging?: boolean | string): DataTable;
+        draw(paging?: boolean | string): Api;
 
         /*
         * Look up a language token that was defined in the DataTables' language initialisation object.
@@ -210,7 +210,7 @@ declare namespace DataTables {
         * @param event Event name to remove.
         * @param callback Specific callback function to remove if you want to unbind a single event listener.
         */
-        off(event: string, callback?: Function): DataTable;
+        off(event: string, callback?: Function): Api;
 
         /**
         * Table events listener.
@@ -218,7 +218,7 @@ declare namespace DataTables {
         * @param event Event to listen for.
         * @param callback Specific callback function to remove if you want to unbind a single event listener.
         */
-        on(event: string, callback: Function): DataTable;
+        on(event: string, callback: Function): Api;
 
         /**
         * Listen for a table event once and then remove the listener.
@@ -226,7 +226,7 @@ declare namespace DataTables {
         * @param event Event to listen for.
         * @param callback Specific callback function to remove if you want to unbind a single event listener.
         */
-        one(event: string, callback: Function): DataTable;
+        one(event: string, callback: Function): Api;
 
         /**
         * Page Methods / Object
@@ -246,12 +246,12 @@ declare namespace DataTables {
         * @param smart Perform smart search.
         * @param caseInsen Do case-insensitive matching (default, true) or not (false).
         */
-        search(input: string, regex?: boolean, smart?: boolean, caseInsen?: boolean): DataTable;
+        search(input: string, regex?: boolean, smart?: boolean, caseInsen?: boolean): Api;
 
         /**
         * Obtain the table's settings object
         */
-        settings(): DataTable;
+        settings(): Api;
 
         /**
         * Page Methods / Object
@@ -261,14 +261,14 @@ declare namespace DataTables {
 
     //#region "ajax-methods"
 
-    interface AjaxMethods extends DataTable {
+    interface AjaxMethods extends Api {
         /**
         * Reload the table data from the Ajax data source.
         *
         * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
         * @param resetPaging Reset (default action or true) or hold the current paging position (false).
         */
-        load(callback?: Function, resetPaging?: boolean): DataTable;
+        load(callback?: Function, resetPaging?: boolean): Api;
     }
 
     interface AjaxMethodModel {
@@ -288,7 +288,7 @@ declare namespace DataTables {
         * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
         * @param resetPaging Reset (default action or true) or hold the current paging position (false).
         */
-        reload(callback?: Function, resetPaging?: boolean): DataTable;
+        reload(callback?: Function, resetPaging?: boolean): Api;
 
         /**
         * Reload the table data from the Ajax data source
@@ -318,9 +318,9 @@ declare namespace DataTables {
         *
         * @param order Order Model
         */
-        (order?: (string | number)[]): DataTable;
-        (order?: (string | number)[][]): DataTable;
-        (order: (string | number)[], ...args: any[]): DataTable;
+        (order?: (string | number)[]): Api;
+        (order?: (string | number)[][]): Api;
+        (order: (string | number)[], ...args: any[]): Api;
 
         /**
         * Add an ordering listener to an element, for a given column.
@@ -329,7 +329,7 @@ declare namespace DataTables {
         * @param column Column index
         * @param callback Callback function
         */
-        listener(node: string | Node | JQuery, column: number, callback: Function): DataTable;
+        listener(node: string | Node | JQuery, column: number, callback: Function): Api;
     }
     //#endregion "order-methods"
 
@@ -346,7 +346,7 @@ declare namespace DataTables {
         *
         * @param page Index or 'first', 'next', 'previous', 'last'
         */
-        (page: number | string): DataTable;
+        (page: number | string): Api;
 
         /**
         * Get paging information about the table
@@ -363,7 +363,7 @@ declare namespace DataTables {
         *
         * @param length Page length to set. use -1 to show all records.
         */
-        len(length: number): DataTable;
+        len(length: number): Api;
     }
 
     interface PageMethodeModelInfoReturn {
@@ -390,7 +390,7 @@ declare namespace DataTables {
         /**
         * Clear the saved state of the table.
         */
-        clear(): DataTable;
+        clear(): Api;
 
         /**
         * Get the table state that was loaded during initialisation.
@@ -400,7 +400,7 @@ declare namespace DataTables {
         /**
         * Trigger a state save.
         */
-        save(): DataTable;
+        save(): Api;
     }
 
     interface StateReturnModel {
@@ -435,7 +435,7 @@ declare namespace DataTables {
         * @param a API instance to concatenate to the initial instance.
         * @param b Additional API instance(s) to concatenate to the initial instance.
         */
-        concat(a: Object, ...b: Object[]): DataTable;
+        concat(a: Object, ...b: Object[]): Api;
 
         /**
         * Get the number of entries in an API instance's result set, regardless of multi-table grouping (e.g. any data, selected rows, etc). Since: 1.10.8
@@ -447,26 +447,26 @@ declare namespace DataTables {
         *
         * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters
         */
-        each(fn: Function): DataTable;
+        each(fn: Function): Api;
 
         /**
         * Reduce an Api instance to a single context and result set.
         *
         * @param idx Index to select
         */
-        eq(idx: number): DataTable;
+        eq(idx: number): Api;
 
         /**
         * Iterate over the result set of an API instance and test each item, creating a new instance from those items which pass.
         *
         * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
         */
-        filter(fn: Function): DataTable;
+        filter(fn: Function): Api;
 
         /**
         * Flatten a 2D array structured API instance to a 1D array structure.
         */
-        flatten(): DataTable;
+        flatten(): Api;
 
         /**
         * Find the first instance of a value in the API instance's result set.
@@ -499,14 +499,14 @@ declare namespace DataTables {
         *
         * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
         */
-        map(fn: Function): DataTable;
+        map(fn: Function): Api;
 
         /**
         * Iterate over the result set of an API instance, creating a new API instance from the values retrieved from the original elements.
         *
         * @param property Object property name to use from the element in the original result set for the new result set.
         */
-        pluck(property: number | string): DataTable;
+        pluck(property: number | string): Api;
 
         /**
         * Remove the last item from an API instance's result set.
@@ -539,7 +539,7 @@ declare namespace DataTables {
         /**
         * Reverse the result set of the API instance and return the original array.
         */
-        reverse(): DataTable;
+        reverse(): Api;
 
         /**
         * Remove the first item from an API instance's result set.
@@ -551,7 +551,7 @@ declare namespace DataTables {
         *
         * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
         */
-        sort(fn?: Function): DataTable;
+        sort(fn?: Function): Api;
 
         /**
         * Modify the contents of an Api instance's result set, adding or removing items from it as required.
@@ -580,7 +580,7 @@ declare namespace DataTables {
         /**
         * Create a new API instance containing only the unique items from a the elements in an instance's result set.
         */
-        unique(): DataTable;
+        unique(): Api;
 
         /**
         * Add one or more items to the start of an API instance's result set.
@@ -598,7 +598,7 @@ declare namespace DataTables {
         *
         * @param t Specify which cache the data should be read from. Can take one of two values: search or order
         */
-        cache(t: string): DataTable;
+        cache(t: string): Api;
     }
 
     //#region "cell-methods"
@@ -609,7 +609,7 @@ declare namespace DataTables {
         *
         * @param source Data source to read the new data from.
         */
-        invalidate(source?: string): DataTable;
+        invalidate(source?: string): Api;
 
         /**
         * Get data for the selected cell
@@ -630,7 +630,7 @@ declare namespace DataTables {
         *
         * @param data Value to assign to the data for the cell
         */
-        data(data: any): DataTable;
+        data(data: any): Api;
 
         /**
         * Get index information about the selected cell
@@ -653,24 +653,24 @@ declare namespace DataTables {
         /**
         * Get data for the selected cells
         */
-        data(): DataTable;
+        data(): Api;
 
         /**
         * Iterate over each selected cell, with the function context set to be the cell in question. Since: DataTables 1.10.6
         *
         * @param fn Function to execute for every cell selected.
         */
-        every(fn: (cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): DataTable;
+        every(fn: (cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
 
         /**
         * Get index information about the selected cells
         */
-        indexes(): DataTable;
+        indexes(): Api;
 
         /**
         * Get the DOM elements for the selected cells
         */
-        nodes(): DataTable;
+        nodes(): Api;
     }
     //#endregion "cell-methods"
 
@@ -692,7 +692,7 @@ declare namespace DataTables {
         *
         * @param direction Direction of sort to apply to the selected column - desc (descending) or asc (ascending).
         */
-        order(direction: string): DataTable;
+        order(direction: string): Api;
 
         /**
         * Get the visibility of the selected column.
@@ -705,7 +705,7 @@ declare namespace DataTables {
         * @param show Specify if the column should be visible (true) or not (false).
         * @param redrawCalculations Indicate if DataTables should recalculate the column layout (true - default) or not (false). Typically this would be left as the default value, but it can be useful to disable when using the method in a loop - so the calculations are performed on every call as they can hamper performance.
         */
-        visible(show: boolean, redrawCalculations?: boolean): DataTable;
+        visible(show: boolean, redrawCalculations?: boolean): Api;
     }
 
     interface ColumnMethodsModel {
@@ -730,7 +730,7 @@ declare namespace DataTables {
         /**
         * Get the data for the cells in the selected column.
         */
-        data(): DataTable;
+        data(): Api;
 
         /**
         * Get the data source property for the selected column
@@ -742,12 +742,12 @@ declare namespace DataTables {
         *
         * @param t Specify if you want to get the column data index (default) or the visible index (visible).
         */
-        index(t?: string): DataTable;
+        index(t?: string): Api;
 
         /**
         * Obtain the th / td nodes for the selected column
         */
-        nodes(): DataTable[];
+        nodes(): Api[];
     }
 
     interface ColumnsMethodsModel {
@@ -769,38 +769,38 @@ declare namespace DataTables {
         /**
         * Recalculate the column widths for layout.
         */
-        adjust(): DataTable;
+        adjust(): Api;
     }
 
     interface ColumnsMethods extends DataTableCore, CommonColumnMethod {
         /**
         * Obtain the data for the columns from the selector
         */
-        data(): DataTable;
+        data(): Api;
 
         /**
         * Get the data source property for the selected columns.
         */
-        dataSrc(): DataTable;
+        dataSrc(): Api;
 
         /**
         * Iterate over each selected column, with the function context set to be the column in question. Since: DataTables 1.10.6
         *
         * @param fn Function to execute for every column selected.
         */
-        every(fn: (colIdx: number, tableLoop: number, colLoop: number) => void): DataTable;
+        every(fn: (colIdx: number, tableLoop: number, colLoop: number) => void): Api;
 
         /**
         * Get the column indexes of the selected columns.
         *
         * @param t Specify if you want to get the column data index (default) or the visible index (visible).
         */
-        indexes(t?: string): DataTable;
+        indexes(t?: string): Api;
 
         /**
         * Obtain the th / td nodes for the selected columns
         */
-        nodes(): DataTable[][];
+        nodes(): Api[][];
     }
     //#endregion "column-methods"
 
@@ -812,7 +812,7 @@ declare namespace DataTables {
         *
         * @param source Data source to read the new data from. Values: 'auto', 'data', 'dom'
         */
-        invalidate(source?: string): DataTable;
+        invalidate(source?: string): Api;
     }
 
     interface RowChildMethodModel {
@@ -839,39 +839,39 @@ declare namespace DataTables {
         /**
         * Hide the child row(s) of a parent row
         */
-        hide(): DataTable;
+        hide(): Api;
 
         /**
         * Check if the child rows of a parent row are visible
         */
-        isShown(): DataTable;
+        isShown(): Api;
 
         /**
         * Remove child row(s) from display and release any allocated memory
         */
-        remove(): DataTable;
+        remove(): Api;
 
         /**
         * Show the child row(s) of a parent row
         */
-        show(): DataTable;
+        show(): Api;
     }
 
     interface RowChildMethods extends DataTableCore {
         /**
         * Hide the child row(s) of a parent row
         */
-        hide(): DataTable;
+        hide(): Api;
 
         /**
         * Remove child row(s) from display and release any allocated memory
         */
-        remove(): DataTable;
+        remove(): Api;
 
         /**
         * Make newly defined child rows visible
         */
-        show(): DataTable;
+        show(): Api;
     }
 
     interface RowMethodsModel {
@@ -888,7 +888,7 @@ declare namespace DataTables {
         *
         * @param data Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table
         */
-        add(data: any[] | Object): DataTable;
+        add(data: any[] | Object): Api;
     }
 
     interface RowMethods extends DataTableCore, CommonRowMethod {
@@ -907,7 +907,7 @@ declare namespace DataTables {
         *
         * @param d Data to use for the row.
         */
-        data(d: any[] | Object): DataTable;
+        data(d: any[] | Object): Api;
 
         /**
 
@@ -956,28 +956,28 @@ declare namespace DataTables {
         *
         * @param data Array of data elements, with each one describing a new row to be added to the table
         */
-        add(data: any[]): DataTable;
+        add(data: any[]): Api;
     }
 
     interface RowsMethods extends DataTableCore, CommonRowMethod {
         /**
         * Get the data for the rows from the selector
         */
-        data(): DataTable;
+        data(): Api;
 
         /**
         * Set the data for the selected row
         *
         * @param d Data to use for the row.
         */
-        data(d: any[] | Object): DataTable;
+        data(d: any[] | Object): Api;
 
         /**
         * Iterate over each selected row, with the function context set to be the row in question. Since: DataTables 1.10.6
         *
         * @param fn Function to execute for every row selected.
         */
-        every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): DataTable;
+        every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): Api;
 
         /**
         * Get the ids of the selected rows. Since: 1.10.8
@@ -986,22 +986,22 @@ declare namespace DataTables {
         * false - Do not modify the id value.
         * @returns Api instance with the selected rows in its result set. If a row does not have an id available 'undefined' will be returned as the value.
         */
-        ids(hash?: boolean): DataTable;
+        ids(hash?: boolean): Api;
 
         /**
         * Get the row indexes of the selected rows.
         */
-        indexes(): DataTable;
+        indexes(): Api;
 
         /**
         * Obtain the tr nodes for the selected rows
         */
-        nodes(): DataTable;
+        nodes(): Api;
 
         /**
         * Delete the selected rows from the DataTable.
         */
-        remove(): DataTable;
+        remove(): Api;
     }
     //#endregion "row-methods"
 
@@ -1038,27 +1038,27 @@ declare namespace DataTables {
         /**
         * Get the tfoot nodes for the tables in the API's context
         */
-        footer(): DataTable;
+        footer(): Api;
 
         /**
         * Get the thead nodes for the tables in the API's context
         */
-        header(): DataTable;
+        header(): Api;
 
         /**
         * Get the tbody nodes for the tables in the API's context
         */
-        body(): DataTable;
+        body(): Api;
 
         /**
         * Get the div container nodes for the tables in the API's context
         */
-        containers(): DataTable;
+        containers(): Api;
 
         /**
         * Get the table nodes for the tables in the API's context
         */
-        nodes(): DataTable;
+        nodes(): Api;
     }
     //#endregion "table-methods"
 
@@ -1080,7 +1080,7 @@ declare namespace DataTables {
         * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
         * Since 1.10.8 this option can also be given as an object.
         */
-        tables(visible?: boolean | ObjectTablesStatic): DataTables.DataTable[] | DataTables.DataTable;
+        tables(visible?: boolean | ObjectTablesStatic): DataTables.Api[] | DataTables.Api;
 
         /**
         * Version number compatibility check function
@@ -1099,7 +1099,7 @@ declare namespace DataTables {
         *
         * @param table Selector string for table
         */
-        Api(selector: string | Node | Node[] | JQuery): DataTables.DataTable;
+        Api(selector: string | Node | Node[] | JQuery): DataTables.Api;
     }
 
     export interface StaticUtilFunctions {
