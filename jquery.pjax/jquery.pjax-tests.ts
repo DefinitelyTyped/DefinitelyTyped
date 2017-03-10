@@ -1,6 +1,3 @@
-
-/// <reference types="jquery" />
-
 function test_fn_pjax() {
     $(document).pjax("a");
     $(document).pjax("a", "#pjax-container");

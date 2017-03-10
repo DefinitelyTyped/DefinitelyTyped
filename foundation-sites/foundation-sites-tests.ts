@@ -1,11 +1,3 @@
-// Tests for type definitions for Foundation Sites v6.0.4
-// Project: http://foundation.zurb.com/
-// Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="jquery" />
-
-
 $(document).foundation();
 $(document).foundation('method5');
 $(document).foundation(['method', 'method2']);

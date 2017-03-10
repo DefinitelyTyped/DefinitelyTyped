@@ -1,6 +1,3 @@
-/// <reference types="node"/>
-/// <reference types="koa"/>
-
 import * as koa from 'koa';
 import * as parse from 'co-body';
 

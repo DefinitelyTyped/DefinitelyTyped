@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-/// <reference types="jquery-steps" />
-
 var labels: JQuerySteps.LabelSettings = {
     cancel: 'Cancel',
     current: 'Current:',

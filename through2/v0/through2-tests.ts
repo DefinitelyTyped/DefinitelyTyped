@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import through2 = require('through2');
 
 var rws: NodeJS.ReadWriteStream;

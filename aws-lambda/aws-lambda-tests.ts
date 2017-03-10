@@ -1,5 +1,3 @@
-/// <reference types="aws-lambda" />
-
 var str: string = "any string";
 var date: Date = new Date();
 var anyObj: any = { abc: 123 };

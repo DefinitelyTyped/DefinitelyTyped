@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 $('body').off('.data-api');
 $('body').off('.alert.data-api');
 

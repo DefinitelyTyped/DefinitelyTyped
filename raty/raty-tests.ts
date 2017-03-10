@@ -1,7 +1,3 @@
-/// <reference types="jquery" />
-
-
-
 var $element: JQuery = $('<div></div>');
 
 $element.raty();

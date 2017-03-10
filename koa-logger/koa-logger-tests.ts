@@ -1,5 +1,3 @@
-/// <reference types="koa"/>
-
 import * as koa from 'koa';
 import * as logger from 'koa-logger';
 

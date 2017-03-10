@@ -1,5 +1,3 @@
-/// <reference types="cybozulabs-md5" />
-
 var hash: string;
 hash = CybozuLabs.MD5.calc("abc");
 hash = CybozuLabs.MD5.calc("abc", CybozuLabs.MD5.BY_ASCII);

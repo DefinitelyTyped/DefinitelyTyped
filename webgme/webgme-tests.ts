@@ -1,13 +1,9 @@
-
-/// <reference types="node" />
-/// <reference types="bluebird" />
-
 /**
  * In actual usage the MetaDataStr would most likely
  * be initialized with an import...
- * 
+ *
   import MetaDataStr = require("text!metadata.json");
- * 
+ *
  * Which would require a declaration, like...
  * `text.d.ts`
  *
@@ -26,7 +22,7 @@ import * as fs from "fs";
 import * as stream from "stream";
 import * as Common from "webgme/common";
 
-/** 
+/**
  * The following items are not created directly by the
  * plugin driver.
  *
@@ -41,14 +37,14 @@ let destinationNode = new Common.Node();
 /**
  * These tests are derived from...
  * https://github.com/webgme/webgme/wiki/GME-Core-API
- * 
- * Nearly all core functions takes a CoreNode as its first argument. 
- * When using the Core API externally each CoreNode corresponds 
- * to one node/model in the project tree. 
- * To access data from the node the Core API should be used 
- * and the properties on the CoreNode itself should 
+ *
+ * Nearly all core functions takes a CoreNode as its first argument.
+ * When using the Core API externally each CoreNode corresponds
+ * to one node/model in the project tree.
+ * To access data from the node the Core API should be used
+ * and the properties on the CoreNode itself should
  * not be accessed or modified directly.
- * 
+ *
  * Below follows a handpicked selection of basic core functions.
  */
 
@@ -111,7 +107,7 @@ function test_core_containment_traversal() {
     });
 }
 
-/** 
+/**
  * https://github.com/webgme/webgme/wiki/GME-Core-API#containment-methods
  */
 function test_core_containment_methods() {
@@ -158,7 +154,7 @@ function test_core_containment_methods() {
         // Here we have access to the node.
     });
 
-    // Loading an entire sub-tree of nodes 
+    // Loading an entire sub-tree of nodes
     // N.B. this requires all nodes to be loaded at the same time.
     // For larger models core.traverse is preferred.
     self.core.loadSubTree(node, (err, nodes) => {
@@ -176,7 +172,7 @@ function test_core_containment_methods() {
 
 function test_core_pointers_connections() {
 
-    // 
+    //
     let isConn = self.core.isConnection(connNode);
 
     // Get the path of the node that is pointed to, via 'src', from connNode.
@@ -215,16 +211,16 @@ function test_core_pointers_connections() {
 
 /**
  * https://github.com/webgme/webgme/wiki/GME-Blob-Storage-API
- * 
- * File-like objects/artifacts 
- * (which are neither a meta archetype model, nor an instance model) 
- * are stored separately from the WebGME meta-models and models. 
- * An example of such an artifact would be a resource 
- * file that is associated with a model 
+ *
+ * File-like objects/artifacts
+ * (which are neither a meta archetype model, nor an instance model)
+ * are stored separately from the WebGME meta-models and models.
+ * An example of such an artifact would be a resource
+ * file that is associated with a model
  * (e.g., data for an instance model, or a generated artifact from analyzing a model).
- * 
- * One reason for treating these objects differently is that they do not conform to the data model, 
- * and they might not be well-suited for storage in a database 
+ *
+ * One reason for treating these objects differently is that they do not conform to the data model,
+ * and they might not be well-suited for storage in a database
  * (the Blob is suited to handle binary objects of any size and structure).
  */
 
@@ -242,22 +238,22 @@ function test_client_creating_an_instance() {
 
 /**
  * https://github.com/webgme/webgme/wiki/GME-Blob-Storage-API
- * 
- * File-like objects/artifacts 
- * (which are neither a meta archetype model, nor an instance model) 
- * are stored separately from the WebGME meta-models and models. 
- * An example of such an artifact would be a resource 
- * file that is associated with a model 
+ *
+ * File-like objects/artifacts
+ * (which are neither a meta archetype model, nor an instance model)
+ * are stored separately from the WebGME meta-models and models.
+ * An example of such an artifact would be a resource
+ * file that is associated with a model
  * (e.g., data for an instance model, or a generated artifact from analyzing a model).
- * 
- * One reason for treating these objects differently is that they do not conform to the data model, 
- * and they might not be well-suited for storage in a database 
+ *
+ * One reason for treating these objects differently is that they do not conform to the data model,
+ * and they might not be well-suited for storage in a database
  * (the Blob is suited to handle binary objects of any size and structure).
  */
 
 
 
-/** 
+/**
  * The following items are not created directly by the
  * plugin driver.
  *
@@ -338,7 +334,7 @@ type DictionaryAny = { [key: string]: any };
 /**
 * Visit the node and perform the function.
 * Related example using traverse.
-* https://github.com/webgme/xmi-tools/blob/master/src/plugins/XMIExporter/XMIExporter.js#L430    
+* https://github.com/webgme/xmi-tools/blob/master/src/plugins/XMIExporter/XMIExporter.js#L430
 */
 function test_core_containment_traversal_complete() {
     const BLANK = "";
@@ -382,7 +378,7 @@ function test_core_containment_traversal_complete() {
 
         /**
          * A filter mechanism to effectively eliminate containment branches.
-         * Any path included in the prune-list will be the root of a 
+         * Any path included in the prune-list will be the root of a
          * pruned subtree.
          */
         let pruneList: string[] = [];

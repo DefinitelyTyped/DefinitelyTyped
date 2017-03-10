@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 var contact: Contact = navigator.contacts.create({
     nickname: 'John Smith',
     displayName: 'John Smith',

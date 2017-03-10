@@ -4,9 +4,6 @@
 * Created by using code samples from https://github.com/npm/npm#using-npm-programmatically.
 */
 
-/// <reference types="node" />
-
-
 import npm = require("npm");
 
 npm.load({}, function (er) {

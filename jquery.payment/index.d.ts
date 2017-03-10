@@ -3,6 +3,8 @@
 // Definitions by: Eric J. Smith <https://github.com/ejsmith/>, John Rutherford <https://github.com/johnrutherford/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="jquery" />
+
 declare namespace JQueryPayment {
 
     interface Payment {

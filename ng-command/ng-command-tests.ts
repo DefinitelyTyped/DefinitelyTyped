@@ -1,5 +1,3 @@
-/// <reference types="angular" />
-
 var app = angular.module('testModule', ['ng-command']);
 
 class CommandTestController {

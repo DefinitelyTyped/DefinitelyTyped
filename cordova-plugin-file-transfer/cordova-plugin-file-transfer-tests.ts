@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 var file = new FileTransfer();
 
 file.onprogress = (ev: ProgressEvent) => {

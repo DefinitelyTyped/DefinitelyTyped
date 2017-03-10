@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import cbor = require('cbor');
 import assert = require('assert');
 import fs = require('fs');

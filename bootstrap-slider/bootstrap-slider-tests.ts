@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 $(function() {
     // examples from http://seiyria.github.io/bootstrap-slider/
 
