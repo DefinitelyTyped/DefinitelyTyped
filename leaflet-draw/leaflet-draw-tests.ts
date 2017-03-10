@@ -42,3 +42,7 @@ map.on('draw:created', (e: any) => {
 
     drawnItems.addLayer(layer);
 });
+
+let examplePolygon: L.LatLngLiteral[] = [{lng: 0, lat: 0}, {lng: 10, lat: 0}, {lng: 10, lat: 10}, {lng: 0, lat: 10}, {lng: 0, lat: 0}];
+let examplePolygonArea: number = L.GeometryUtil.geodesicArea(examplePolygon);
+L.GeometryUtil.readableArea(examplePolygonArea, true);
