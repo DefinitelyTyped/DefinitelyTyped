@@ -1,6 +1,3 @@
-/// <reference types="jquery-alertable" />
-/// <reference types="jquery" />
-
 //
 // Examples from https://github.com/claviska/jquery-alertable
 //

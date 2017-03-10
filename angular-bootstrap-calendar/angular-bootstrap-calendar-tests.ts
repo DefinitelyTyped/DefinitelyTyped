@@ -1,6 +1,3 @@
-///<reference path='index.d.ts'/>
-///<reference types="angular"/>
-
 var myApp = angular.module('testModule');
 
 interface MyAppScope extends ng.IScope {

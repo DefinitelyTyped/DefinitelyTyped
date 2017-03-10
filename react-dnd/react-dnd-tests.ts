@@ -1,6 +1,3 @@
-///<reference path="react-dnd-test-backend.d.ts" />
-"use strict";
-
 // Test adapted from the ReactDnD chess game tutorial:
 // http://gaearon.github.io/react-dnd/docs-tutorial.html
 
@@ -14,7 +11,17 @@ import DropTarget = ReactDnd.DropTarget;
 import DragLayer = ReactDnd.DragLayer;
 import DragDropContext = ReactDnd.DragDropContext;
 import HTML5Backend, { getEmptyImage, NativeTypes } from "react-dnd-html5-backend";
-import TestBackend from "react-dnd-test-backend";
+declare class TestBackend {
+	setup(): void;
+	teardown(): void;
+	connectDragSource(): void;
+	connectDropTarget(): void;
+	simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
+	simulatePublishDragSource(): void;
+	simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
+	simulateDrop(): void;
+	simulateEndDrag(): void;
+}
 
 // Game Component
 // ----------------------------------------------------------------------

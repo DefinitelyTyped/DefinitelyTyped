@@ -1,7 +1,3 @@
-/// <reference types="node" />
-
-// tsc xmlpoke-tests.ts && node xmlpoke-tests.js
-
 import * as xmlpoke from 'xmlpoke';
 import * as assert from 'assert';
 

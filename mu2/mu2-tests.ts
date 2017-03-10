@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import mu2 = require('mu2');
 import stream = require('stream');
 

@@ -1,5 +1,3 @@
-/// <reference types="q" />
-
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
 import Q = require('q');

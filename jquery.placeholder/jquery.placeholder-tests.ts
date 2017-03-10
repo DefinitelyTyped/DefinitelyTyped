@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $('input').placeholder();
 
 // specify custom class

@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import * as fs from "fs";
 import temp from 'promised-temp';
 import { AffixOptions, OpenFile, Stats } from "promised-temp";

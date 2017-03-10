@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 navigator.camera.getPicture(
     (data: string) => { alert('Got photo!'); },
     (message: string)=> { alert('Failed!: ' + message); },

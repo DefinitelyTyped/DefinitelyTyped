@@ -1,4 +1,3 @@
-/// <reference path="./index.d.ts" />
 import * as slm from 'source-list-map';
 
 const node = new slm.CodeNode('hello');

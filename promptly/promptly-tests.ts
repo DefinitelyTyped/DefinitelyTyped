@@ -1,5 +1,3 @@
-///<reference types="node"/>
-
 import promptly = require('promptly');
 
 process.stdin

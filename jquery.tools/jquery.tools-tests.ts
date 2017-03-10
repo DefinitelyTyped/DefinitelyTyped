@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 /* from documentation at http://jquerytools.github.io/documentation/overlay/index.html */
 
  $("img[rel]").overlay();
