@@ -20,7 +20,7 @@ interface JQuery {
 //}
 
 declare namespace DataTables {
-    export interface Api extends DataTableCore {
+    export interface Api extends CoreMethods {
         /**
         * Get the data for the whole table.
         */
@@ -127,7 +127,7 @@ declare namespace DataTables {
         //#endregion "Table/Tables"
     }
 
-    export interface DataTables extends DataTableCore {
+    export interface DataTables extends CoreMethods {
         [index: number]: Api;
     }
 
@@ -155,7 +155,7 @@ declare namespace DataTables {
 
     //#region "core-methods"
 
-    interface DataTableCore extends UtilityMethods {
+    interface CoreMethods extends UtilityMethods {
         /**
         * Get jquery object
         */
@@ -619,7 +619,7 @@ declare namespace DataTables {
         render(t: string): any;
     }
 
-    interface CellMethods extends DataTableCore, CommonCellMethods {
+    interface CellMethods extends CoreMethods, CommonCellMethods {
         /**
         * Get data for the selected cell
         */
@@ -649,7 +649,7 @@ declare namespace DataTables {
         columnVisible: number;
     }
 
-    interface CellsMethods extends DataTableCore, CommonCellMethods {
+    interface CellsMethods extends CoreMethods, CommonCellMethods {
         /**
         * Get data for the selected cells
         */
@@ -726,7 +726,7 @@ declare namespace DataTables {
         index(t: string, index: number): number;
     }
 
-    interface ColumnMethods extends DataTableCore, CommonColumnMethod {
+    interface ColumnMethods extends CoreMethods, CommonColumnMethod {
         /**
         * Get the data for the cells in the selected column.
         */
@@ -772,7 +772,7 @@ declare namespace DataTables {
         adjust(): Api;
     }
 
-    interface ColumnsMethods extends DataTableCore, CommonColumnMethod {
+    interface ColumnsMethods extends CoreMethods, CommonColumnMethod {
         /**
         * Obtain the data for the columns from the selector
         */
@@ -857,7 +857,7 @@ declare namespace DataTables {
         show(): Api;
     }
 
-    interface RowChildMethods extends DataTableCore {
+    interface RowChildMethods extends CoreMethods {
         /**
         * Hide the child row(s) of a parent row
         */
@@ -891,7 +891,7 @@ declare namespace DataTables {
         add(data: any[] | Object): Api;
     }
 
-    interface RowMethods extends DataTableCore, CommonRowMethod {
+    interface RowMethods extends CoreMethods, CommonRowMethod {
         /**
         * Order Methods / Object
         */
@@ -959,7 +959,7 @@ declare namespace DataTables {
         add(data: any[]): Api;
     }
 
-    interface RowsMethods extends DataTableCore, CommonRowMethod {
+    interface RowsMethods extends CoreMethods, CommonRowMethod {
         /**
         * Get the data for the rows from the selector
         */
@@ -1007,7 +1007,7 @@ declare namespace DataTables {
 
     //#region "table-methods"
 
-    interface TableMethods extends DataTableCore {
+    interface TableMethods extends CoreMethods {
         /**
         * Get the tfoot node for the table in the API's context
         */
@@ -1034,7 +1034,7 @@ declare namespace DataTables {
         node(): Node;
     }
 
-    interface TablesMethods extends DataTableCore {
+    interface TablesMethods extends CoreMethods {
         /**
         * Get the tfoot nodes for the tables in the API's context
         */
