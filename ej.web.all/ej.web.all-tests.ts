@@ -196,7 +196,12 @@ namespace ChartComponent {
                 name: 'France'
 				}],
             isResponsive: true,
-            load: any as function() {
+            title: { text: 'Efficiency of oil-fired power production' },
+            size: { height: "600" },
+            legend: { visible: true},
+            load: loadevent
+        });
+        var loadevent = function() {
                 var sender = $("#Chart").data("ejChart");
                 if (!!window.orientation && sender) {           //to modify chart properties for mobile view
                     var model = sender.model,
@@ -221,11 +226,7 @@ namespace ChartComponent {
                     model.primaryYAxis.labelIntersectAction = "rotate45";
                     model.primaryYAxis.edgeLabelPlacement = "hide";
                 }
-            },
-            title: { text: 'Efficiency of oil-fired power production' },
-            size: { height: "600" },
-            legend: { visible: true}
-        });
+            };
     });
 }
 
@@ -640,7 +641,7 @@ kanbanData: any;
 namespace KanbanComponent {
     $(function() {
         var sample = new ej.Kanban($("#Kanban"), {
-            dataSource: new ej.DataManager(any as window["kanbanData"]).executeLocal(new ej.Query().take(20)),
+            dataSource: new ej.DataManager((any as window).kanbanData).executeLocal(new ej.Query().take(20)),
             columns: [
                 { headerText: "Backlog", key: "Open" },
                 { headerText: "In Progress", key: "InProgress" },
