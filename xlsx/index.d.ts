@@ -5,7 +5,7 @@
 
 export declare function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
 export declare function read(data: any, opts?: IParsingOptions): IWorkBook;
-export declare function write(data: any, opts?: IParsingOptions): any;
+export declare function write(data: any, opts?: IWritingOptions): any;
 export declare var utils: IUtils;
 
 export interface IProperties {
@@ -27,25 +27,125 @@ export interface IProperties {
 }
 
 export interface IParsingOptions {
-    cellFormula?: boolean;
-    cellHTML?: boolean;
-    cellNF?: boolean;
-    cellStyles?: boolean;
-    cellDates?: boolean;
-    sheetStubs?: boolean;
-    sheetRows?: number;
-    bookDeps?: boolean;
-    bookFiles?: boolean;
-    bookProps?: boolean;
-    bookSheets?: boolean;
-    bookVBA?: boolean;
-    password?: string;
-    bookType?: string;
+    /**
+     * Input data encoding
+     */
+    type?: 'base64' | 'binary' | 'buffer' | 'array' | 'file';
 
     /**
-     * Possible options: 'binary', 'base64', 'buffer', 'file'
+     * Save formulae to the .f field
+     * @default true
      */
-    type?: string;
+    cellFormula?: boolean;
+
+    /**
+     * Parse rich text and save HTML to the .h field
+     * @default true
+     */
+    cellHTML?: boolean;
+
+    /**
+     * Save number format string to the .z field
+     * @default false
+     */
+    cellNF?: boolean;
+
+    /**
+     * Save style/theme info to the .s field
+     * @default false
+     */
+    cellStyles?: boolean;
+
+    /**
+     * Store dates as type d (default is n)
+     * @default false
+     */
+    cellDates?: boolean;
+
+    /**
+     * Create cell objects for stub cells
+     * @default false
+     */
+    sheetStubs?: boolean;
+
+    /**
+     * If >0, read the first sheetRows rows
+     * @default 0
+     */
+    sheetRows?: number;
+
+    /**
+     * If true, parse calculation chains
+     * @default false
+     */
+    bookDeps?: boolean;
+
+    /**
+     * If true, add raw files to book object
+     * @default false
+     */
+    bookFiles?: boolean;
+
+    /**
+     * If true, only parse enough to get book metadata
+     * @default false
+     */
+    bookProps?: boolean;
+
+    /**
+     * If true, only parse enough to get the sheet names
+     * @default false
+     */
+    bookSheets?: boolean;
+
+    /**
+     * If true, expose vbaProject.bin to vbaraw field
+     * @default false
+     */
+    bookVBA?: boolean;
+
+    /**
+     * If defined and file is encrypted, use password
+     * @default ''
+     */
+    password?: string;
+}
+
+export interface IWritingOptions {
+    /**
+     * Output data encoding
+     */
+    type?: 'base64' | 'binary' | 'buffer' | 'file';
+
+    /**
+     * Store dates as type d (default is n)
+     * @default false
+     */
+    cellDates?: boolean;
+
+    /**
+     * Generate Shared String Table
+     * @default false
+     */
+    bookSST?: boolean;
+
+    /**
+     * Type of Workbook
+     * @default 'xlsx'
+     */
+    bookType?: 'xlsx' | 'xlsm' | 'xlsb' | 'ods' | 'biff2' | 'fods' | 'csv';
+
+    /**
+     * Name of Worksheet for single-sheet formats
+     * @default ''
+     */
+    sheet?: string;
+
+    /**
+     * Use ZIP compression for ZIP-based formats
+     * @default false
+     */
+    compression?: boolean;
 }
 
 export interface IWorkBook {
