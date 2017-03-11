@@ -3,8 +3,13 @@
 // Definitions by: themauveavenger <https://github.com/themauveavenger/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/** Attempts to read filename and parse */
 export declare function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
+/** Attempts to parse data */
 export declare function read(data: any, opts?: IParsingOptions): IWorkBook;
+/** Attempts to write workbook data to filename */
+export declare function writeFile(data: any, filename: string, opts?: IWritingOptions): any;
+/** Attempts to write the workbook data */
 export declare function write(data: any, opts?: IWritingOptions): any;
 export declare var utils: IUtils;
 
