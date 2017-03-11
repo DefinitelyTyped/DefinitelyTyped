@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 var notification: Notification;
 
 notification.vibrate(100);

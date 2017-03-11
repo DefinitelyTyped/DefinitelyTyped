@@ -1,5 +1,3 @@
-/// <reference types="bazinga-translator" />
-
 Translator.fallback = 'en';
 Translator.defaultDomain = 'messages';
 

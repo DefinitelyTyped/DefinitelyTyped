@@ -1,5 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
 /// <reference types="tween.js" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_sprites.html
@@ -8,12 +6,12 @@
     // ------- variable definitions that does not exist in the original code. These are for typescript.
 
     // -------
-    var camera, scene, renderer;
-    var controls;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CSS3DRenderer;
+    var controls: THREE.TrackballControls;
 
     var particlesTotal = 512;
-    var positions = [];
-    var objects = [];
+    var positions: number[] = [];
+    var objects: THREE.CSS3DSprite[] = [];
     var current = 0;
 
     init();
@@ -28,7 +26,7 @@
         scene = new THREE.Scene();
 
         var image = document.createElement('img');
-        image.addEventListener('load', function (event) {
+        image.addEventListener('load', function (event: Event) {
 
             for (var i = 0; i < particlesTotal; i++) {
 
@@ -36,7 +34,7 @@
                 object.position.x = Math.random() * 4000 - 2000,
                 object.position.y = Math.random() * 4000 - 2000,
                 object.position.z = Math.random() * 4000 - 2000
-						scene.add(object);
+                scene.add(object);
 
                 objects.push(object);
 

@@ -2,6 +2,7 @@
 // Project: https://github.com/brianc/node-libpq#readme
 // Definitions by: Vlad Rindevich <https://github.com/Lodin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 

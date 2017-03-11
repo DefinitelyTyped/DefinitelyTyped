@@ -840,11 +840,14 @@ User.schema( 'special' ).create( { age : 3 }, { logging : function(  ) {} } );
 User.getTableName();
 
 User.addScope('lowAccess', { where : { parent_id : 2 } });
-User.addScope('lowAccess', function() { } );
 User.addScope('lowAccess', { where : { parent_id : 2 } }, { override: true });
+User.addScope('lowAccessWithParam', function(id: number) {
+  return { where : { parent_id : id } }
+} );
 
 User.scope( 'lowAccess' ).count();
 User.scope( { where : { parent_id : 2 } } );
+User.scope( [ 'lowAccess', { method: ['lowAccessWithParam', 2] }, { where : { parent_id : 2 } } ] )
 
 User.findAll();
 User.findAll( { where : { data : { employment : null } } } );
@@ -1513,6 +1516,27 @@ s.define( 'User', {
 }, {
     timestamps : true,
     paranoid : true
+} );
+
+s.define( 'TriggerTest', {
+    id : {
+        type : Sequelize.INTEGER,
+        field : 'test_id',
+        autoIncrement : true,
+        primaryKey : true,
+        validate : {
+            min : 1
+        }
+    },
+    title : {
+        allowNull : false,
+        type : Sequelize.STRING( 255 ),
+        field : 'test_title'
+    }
+}, {
+    timestamps : false,
+    underscored : true,
+    hasTrigger : true
 } );
 
 //

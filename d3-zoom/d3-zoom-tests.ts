@@ -229,7 +229,7 @@ canvas.call(canvasZoom);
 // SVG Example --------------------------------------------------------------
 
 // attach the zoom behavior to an overlay svg rectangle
-const svgOverlay: Selection<SVGRectElement, SVGDatum, HTMLElement, any> = svg.append<SVGRectElement>('rect')
+const svgOverlay: Selection<SVGRectElement, SVGDatum, SVGSVGElement, any> = svg.append<SVGRectElement>('rect')
     .attr('width', d => d.width)
     .attr('height', d => d.height)
     .style('fill', 'none')

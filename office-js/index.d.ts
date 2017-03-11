@@ -52,6 +52,7 @@ declare namespace Office {
         contentLanguage: string;
         displayLanguage: string;
         license: string;
+        officeTheme: OfficeTheme;
         touchEnabled: boolean;
         ui: UI;
         requirements: {
@@ -111,7 +112,12 @@ declare namespace Office {
          */
         xFrameDenySafe?: boolean,
     }
-
+    export interface OfficeTheme {
+        bodyBackgroundColor: string;
+        bodyForegroundColor: string;
+        controlBackgroundColor: string;
+        controlForgroundColor: string;
+    }
     /**
      * Dialog object returned as part of the displayDialogAsync callback. The object exposes methods for registering event handlers and closing the dialog
      */
@@ -1419,333 +1425,173 @@ declare namespace Office {
 ////////////////////// Begin Exchange APIs /////////////////////
 ////////////////////////////////////////////////////////////////
 
-
-declare namespace Office.MailboxEnums {
-    export enum BodyType {
-        /**
-         * The body is in HTML format
-         */
-        Html,
-        /**
-         * The body is in text format
-         */
-        text
-    }
-    export enum EntityType {
-        /**
-         * Specifies that the entity is a meeting suggestion
-         */
-        MeetingSuggestion,
-        /**
-         * Specifies that the entity is a task suggestion
-         */
-        TaskSuggestion,
-        /**
-         * Specifies that the entity is a postal address
-         */
-        Address,
-        /**
-         * Specifies that the entity is SMTP email address
-         */
-        EmailAddress,
-        /**
-         * Specifies that the entity is an Internet URL
-         */
-        Url,
-        /**
-         * Specifies that the entity is US phone number
-         */
-        PhoneNumber,
-        /**
-         * Specifies that the entity is a contact
-         */
-        Contact
-    }
-    export enum ItemType {
-        /**
-         * A meeting request, response, or cancellation
-         */
-        Message,
-        /**
-         * Specifies an appointment item
-         */
-        Appointment
-    }
-    export enum ResponseType {
-        /**
-         * There has been no response from the attendee
-         */
-        None,
-        /**
-         * The attendee is the meeting organizer
-         */
-        Organizer,
-        /**
-         * The meeting request was tentatively accepted by the attendee
-         */
-        Tentative,
-        /**
-         * The meeting request was accepted by the attendee
-         */
-        Accepted,
-        /**
-         * The meeting request was declined by the attendee
-         */
-        Declined
-    }
-    export enum RecipientType {
-        /**
-         * Specifies that the recipient is not one of the other recipient types
-         */
-        Other,
-        /**
-         * Specifies that the recipient is a distribution list containing a list of email addresses
-         */
-        DistributionList,
-        /**
-         * Specifies that the recipient is an SMTP email address that is on the Exchange server
-         */
-        User,
-        /**
-         * Specifies that the recipient is an SMTP email address that is not on the Exchange server
-         */
-        ExternalUser
-    }
-    export enum AttachmentType {
-        /**
-         * The attachment is a file
-         */
-        File,
-        /**
-         * The attachment is an Exchange item
-         */
-        Item
-    }
-}
 declare namespace Office {
-    export module Types {
-        export interface ItemRead extends Office.Item {
-            subject: any;
+    export module MailboxEnums {
+        export enum AttachmentType {
             /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             * The attachment is a file
              */
-            displayReplyAllForm(htmlBody: string): void;
+            File,
             /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             * The attachment is an Exchange item
              */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
+            Item
         }
-        export interface ItemCompose extends Office.Item {
-            body: Office.Body;
-            subject: any;
+        export enum EntityType {
             /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * Specifies that the entity is a meeting suggestion
              */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            MeetingSuggestion,
             /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * Specifies that the entity is a task suggestion
              */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            TaskSuggestion,
             /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * Specifies that the entity is a postal address
              */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+            Address,
+            /**
+             * Specifies that the entity is SMTP email address
+             */
+            EmailAddress,
+            /**
+             * Specifies that the entity is an Internet URL
+             */
+            Url,
+            /**
+             * Specifies that the entity is US phone number
+             */
+            PhoneNumber,
+            /**
+             * Specifies that the entity is a contact
+             */
+            Contact
         }
-        export interface MessageCompose extends Office.Message {
-            attachments: Office.AttachmentDetails[];
-            body: Office.Body;
-            bcc: Office.Recipients;
-            cc: Office.Recipients;
-            subject: Office.Subject;
-            to: Office.Recipients;
+        export enum ItemNotificationMessageType {
             /**
-             * Adds a file to a message as an attachment
-             * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * The notificationMessage is a progress indicator.
              */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            ProgressIndicator,
             /**
-             * Adds an Exchange item, such as a message, as an attachment to the message
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * The notificationMessage is an informational message.
              */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            InformationalMessage,
             /**
-             * Removes an attachment from a message
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * The notificationMessage is an error message.
              */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+            ErrorMessage
         }
-        export interface MessageRead extends Office.Message {
-            cc: Office.EmailAddressDetails[];
-            from: Office.EmailAddressDetails;
-            internetMessageId: string;
-            normalizedSubject: string;
-            sender: Office.EmailAddressDetails;
-            subject: string;
-            to: Office.EmailAddressDetails;
+        export enum ItemType {
             /**
-             * Displays a reply form that includes the sender and all the recipients of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             * An email, meeting request, meeting response, or meeting cancellation
              */
-            displayReplyAllForm(htmlBody: string): void;
+            Message,
             /**
-             * Displays a reply form that includes only the sender of the selected message
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             * An appointment item
              */
-            displayReplyForm(htmlBody: string): void;
-            /**
-             * Gets an array of entities found in an message
-             */
-            getEntities(): Office.Entities;
-            /**
-             * Gets an array of entities of the specified entity type found in an message
-             * @param entityType One of the EntityType enumeration values
-             */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
+            Appointment
         }
-        export interface AppointmentCompose extends Office.Appointment {
-            body: Office.Body;
-            end: Office.Time;
-            location: Office.Location;
-            optionalAttendees: Office.Recipients;
-            requiredAttendees: Office.Recipients;
-            start: Office.Time;
-            subject: Office.Subject;
+        export enum ResponseType {
             /**
-             * Adds a file to an appointment as an attachment
-             * @param uri The URI that provides the location of the file to attach to the appointment. The maximum length is 2048 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * There has been no response from the attendee
              */
-            addFileAttachmentAsync(uri: string, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            None,
             /**
-             * Adds an Exchange item, such as a message, as an attachment to the appointment
-             * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
-             * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * The attendee is the meeting organizer
              */
-            addItemAttachmentAsync(itemId: any, attachmentName: string, options?: any, callback?: (result: AsyncResult) => void): void;
+            Organizer,
             /**
-             * Removes an attachment from a appointment
-             * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-             * @param options Any optional parameters or state data passed to the method
-             * @param callback The optional callback method
+             * The meeting request was tentatively accepted by the attendee
              */
-            removeAttachmentAsync(attachmentIndex: string, option?: any, callback?: (result: AsyncResult) => void): void;
+            Tentative,
+            /**
+             * The meeting request was accepted by the attendee
+             */
+            Accepted,
+            /**
+             * The meeting request was declined by the attendee
+             */
+            Declined
         }
-        export interface AppointmentRead extends Office.Appointment {
-            attachments: Office.AttachmentDetails[];
-            end: Date;
-            location: string;
-            normalizedSubject: string;
-            optionalAttendees: Office.EmailAddressDetails;
-            organizer: Office.EmailAddressDetails;
-            requiredAttendees: Office.EmailAddressDetails;
-            resources: string[];
-            start: Date;
-            subject: string;
+        export enum RecipientType {
             /**
-             * Displays a reply form that includes the organizer and all the attendees of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             * Specifies that the recipient is a distribution list containing a list of email addresses
              */
-            displayReplyAllForm(htmlBody: string): void;
+            DistributionList,
             /**
-             * Displays a reply form that includes only the organizer of the selected appointment item
-             * @param htmlBody A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB
+             * Specifies that the recipient is an SMTP email address that is on the Exchange server
              */
-            displayReplyForm(htmlBody: string): void;
+            User,
             /**
-             * Gets an array of entities found in an appointment
+             * Specifies that the recipient is an SMTP email address that is not on the Exchange server
              */
-            getEntities(): Office.Entities;
+            ExternalUser,
             /**
-             * Gets an array of entities of the specified entity type found in an appointment
-             * @param entityType One of the EntityType enumeration values
+             * Specifies that the recipient is not one of the other recipient types
              */
-            getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
-            /**
-             * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows
-             */
-            getFilteredEntitiesByName(name: string): Office.Entities;
-            /**
-             * Returns string values in the currently selected appointment object that match the regular expressions defined in the manifest XML file
-             */
-            getRegExMatches(): string[];
-            /**
-             * Returns string values that match the named regular expression defined in the manifest XML file
-             */
-            getRegExMatchesByName(name: string): string[];
+            Other
+        }
+        export enum RestVersion {
+            v1_0,
+            v2_0,
+            Beta
         }
     }
     export module cast {
         export module item {
-            function toAppointmentCompose(item: Office.Item): Office.Types.AppointmentCompose;
-            function toAppointmentRead(item: Office.Item): Office.Types.AppointmentRead;
+            function toAppointmentCompose(item: Office.Item): Office.AppointmentCompose;
+            function toAppointmentRead(item: Office.Item): Office.AppointmentRead;
             function toAppointment(item: Office.Item): Office.Appointment;
-            function toMessageCompose(item: Office.Item): Office.Types.MessageCompose;
-            function toMessageRead(item: Office.Item): Office.Types.MessageRead;
+            function toMessageCompose(item: Office.Item): Office.MessageCompose;
+            function toMessageRead(item: Office.Item): Office.MessageRead;
             function toMessage(item: Office.Item): Office.Message;
-            function toItemCompose(item: Office.Item): Office.Types.ItemCompose;
-            function toItemRead(item: Office.Item): Office.Types.ItemRead;
+            function toItemCompose(item: Office.Item): Office.ItemCompose;
+            function toItemRead(item: Office.Item): Office.ItemRead;
         }
+    }
+    export interface AsyncContextOptions {
+        asyncContext?: any;
+    }
+    export interface CoercionTypeOptions {
+        coercionType?: CoercionType;
+    }
+    export enum SourceProperty {
+        /**
+         * The source of the data is from the body of the message.
+         */
+        Body,
+        /**
+         * The source of the data is from the subject of the message.
+         */
+        Subject
+    }
+    export interface Appointment extends Item {
+    }
+    export interface AppointmentCompose extends Appointment, ItemCompose {
+        end: Time;
+        location: Location;
+        optionalAttendees: Recipients;
+        requiredAttendees: Recipients;
+        start: Time;
+    }
+    export interface AppointmentRead extends Appointment, ItemRead {
+        end: Date;
+        location: string;
+        optionalAttendees: Array<EmailAddressDetails>;
+        organizer: EmailAddressDetails;
+        requiredAttendees: Array<EmailAddressDetails>;
+        resources: EmailAddressDetails;
+        start: Date;
+    }
+    export interface AppointmentForm {
+        requiredAttendees: Array<string> | Array<EmailAddressDetails>;
+        optionalAttendees: Array<string> | Array<EmailAddressDetails>;
+        start: Date;
+        end: Date;
+        location: string;
+        resources: Array<string>;
+        subject: string;
+        body: string;
     }
     export interface AttachmentDetails {
         attachmentType: Office.MailboxEnums.AttachmentType;
@@ -1755,16 +1601,51 @@ declare namespace Office {
         name: string;
         size: number;
     }
-    export interface Contact {
-        personName: string;
-        businessName: string;
-        phoneNumbers: PhoneNumber[];
-        emailAddresses: string[];
-        urls: string[];
-        addresses: string[];
-        contactString: string;
+    export interface Body {
+        /**
+         * Returns the current body in a specified format
+         * @param coercionType The format of the returned body
+         * @param options Any optional parameters or state data passed to the method
+         * @param The optional method to call when the getAsync method returns
+         */
+        getAsync(coercionType: CoercionType, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /*
+         * Gets a value that indicates whether the content is in HTML or text format
+         * @param tableData  A TableData object with the headers and rows
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the getTypeAsync method returns
+         */
+        getTypeAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Adds the specified content to the beginning of the item body
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        prependAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Replaces the entire body with the specified text.
+         * @param data The string that will replace the existing body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback the optional method to call when the body is replaced
+         */
+        setAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Replaces the selection in the body with the specified text
+         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the string is inserted
+         */
+        setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
     }
-
+    export interface Contact {
+        addresses: Array<string>;
+        businessName: string;
+        emailAddresses: Array<string>;
+        personName: string;
+        phoneNumbers: Array<PhoneNumber>;
+        urls: Array<string>;
+    }
     export interface Context {
         mailbox: Mailbox;
         roamingSettings: RoamingSettings;
@@ -1793,6 +1674,11 @@ declare namespace Office {
          */
         saveAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
     }
+    export interface Diagnostics {
+        hostName: string;
+        hostVersion: string;
+        OWAView: string;
+    }
     export interface EmailAddressDetails {
         emailAddress: string;
         displayName: string;
@@ -1800,24 +1686,22 @@ declare namespace Office {
         recipientType: Office.MailboxEnums.RecipientType;
     }
     export interface EmailUser {
-        name: string;
-        userId: string;
+        displayName: string;
+        emailAddress: string;
     }
     export interface Entities {
-        addresses: string[];
-        taskSuggestions: string[];
-        meetingSuggestions: MeetingSuggestion[];
-        emailAddresses: string[];
-        urls: string[];
-        phoneNumbers: PhoneNumber[];
-        contacts: Contact[];
+        addresses: Array<string>;
+        contacts: Array<Contact>;
+        emailAddresses: Array<string>;
+        meetingSuggestions: Array<MeetingSuggestion>;
+        phoneNumbers: Array<PhoneNumber>;
+        taskSuggestions: Array<string>;
+        urls: Array<string>;
     }
     export interface Item {
-        dateTimeCreated: Date;
-        dateTimeModified: Date;
-        itemClass: string;
-        itemId: string;
+        body: Body;
         itemType: Office.MailboxEnums.ItemType;
+        notificationMessages: NotificationMessages;
         /**
          * Asynchronously loads custom properties that are specific to the item and a app for Office
          * @param callback The optional callback method
@@ -1825,30 +1709,110 @@ declare namespace Office {
          */
         loadCustomPropertiesAsync(callback?: (result: AsyncResult) => void, userContext?: any): void;
     }
-    export interface Appointment extends Item {
+    export interface ItemCompose extends Item {
+        subject: Subject;
+        /**
+         * Adds a file to a message as an attachment
+         * @param uri The URI that provides the location of the file to attach to the message. The maximum length is 2048 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addFileAttachmentAsync(uri: string, attachmentName: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Adds an Exchange item, such as a message, as an attachment to the message
+         * @param itemId The Exchange identifier of the item to attach. The maximum length is 100 characters
+         * @param attachmentName The name of the attachment that is shown while the attachment is uploading. The maximum length is 255 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addItemAttachmentAsync(itemId: any, attachmentName: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Closes the current item that is being composed
+         * 
+         * The behaviors of the close method depends on the current state of the item being composed. If the item has unsaved changes, the client
+         * prompts the user to save, discard, or close the action.
+         * 
+         * In the Outlook desktop client, if the message is an inline reply, the close method has no effect.
+         */
+        close(): void;
+        /**
+         * Asynchronously returns selected data from the subject or body of a message.
+         * 
+         * If there is no selection but the cursor is in the body or the subject, the method returns null for the selected data. If a field other
+         * than the body or subject is selected, the method returns the InvalidSelection error
+         */
+        getSelectedDataAsync(coercionType: CoercionType, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        removeAttachmentAsync(attachmentIndex: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Asynchronously saves an item.
+         * 
+         * When invoked, this method saves the current message as a draft and returns the item id via the callback method. In Outlook Web App or 
+         * Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
+         */
+        saveAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Asynchronously inserts data into the body or subject of a message.
+         */
+        setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
     }
-    export interface Body {
+    export interface ItemRead extends Item {
+        itemClass: string;
+        itemId: string;
+        normalizedSubject: string;
+        subject: string;
         /**
-         * Gets a value that indicates whether the content is in HTML or text format
-         * @param tableData  A TableData object with the headers and rows
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the getTypeAsync method returns
+         * Displays a reply form that includes the sender and all the recipients of the selected message
+         * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB 
+         *  OR
+         * An object that contains body or attachment data and a callback function
          */
-        getTypeAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        displayReplyAllForm(formData: string | ReplyFormData): void;
         /**
-         * Adds the specified content to the beginning of the item body
-         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
+         * Displays a reply form that includes only the sender of the selected message
+         * @param formData A string that contains text and HTML and that represents the body of the reply form. The string is limited to 32 KB 
+         *  OR
+         * An object that contains body or attachment data and a callback function
          */
-        prependAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        displayReplyForm(formData: string | ReplyFormData): void;
         /**
-         * Replaces the selection in the body with the specified text
-         * @param data The string to be inserted at the beginning of the body. The string is limited to 1,000,000 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
+         * Gets the entities found in the selected item
          */
-        setSelectedDataAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        getEntities(): Entities;
+        /**
+         * Gets an array of entities of the specified entity type found in an message
+         * @param entityType One of the EntityType enumeration values
+         */
+        getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Array<(string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)>;
+        /**
+         * Returns well-known entities that pass the named filter defined in the manifest XML file
+         * @param name The name of the ItemHasKnownEntity rule element that defines the filter to match
+         */
+        getFilteredEntitiesByName(name: string): Array<(string | Contact | MeetingSuggestion | PhoneNumber | TaskSuggestion)>;
+        /**
+         * Returns string values in the currently selected message object that match the regular expressions defined in the manifest XML file
+         */
+        getRegExMatches(): any;
+        /**
+         * Returns string values that match the named regular expression defined in the manifest XML file
+         */
+        getRegExMatchesByName(name: string): Array<string>;
+    }
+    export interface LocalClientTime {
+        month: number;
+        date: number;
+        year: number;
+        hours: number;
+        minutes: number;
+        seconds: number;
+        milliseconds: number;
+        timezoneOffset: number;
     }
     export interface Location {
         /**
@@ -1856,50 +1820,63 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the location of an appointment
          * @param data The location of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the location is set
          */
-        setAsync(location: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        setAsync(location: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface Mailbox {
+        diagnostics: Diagnostics;
+        ewsUrl: string;
         item: Item;
         userProfile: UserProfile;
+        /**
+         * Converts an item ID formatted for REST into EWS format.
+         * @param itemId An item ID formatted for the Outlook REST APIs
+         * @param restVersion A value indicating the version of the Outlook REST API used to retrieve the item ID
+         */
+        convertToEwsId(itemId: string, restVersion: Office.MailboxEnums.RestVersion): string;
         /**
          * Gets a Date object from a dictionary containing time information
          * @param timeValue A Date object
          */
-        convertToLocalClientTime(timeValue: Date): any;
+        convertToLocalClientTime(timeValue: Date): LocalClientTime;
+        /**
+         * Converts an item ID formatted for EWS into REST format.
+         * @param itemId An item ID formatted for the Outlook EWS APIs
+         * @param restVersion A value indicating the version of the Outlook REST API that the converted ID will be used with
+         */
+        convertToRestId(itemId: string, restVersion: Office.MailboxEnums.RestVersion): string;
         /**
          * Gets a dictionary containing time information in local client time
          * @param input A dictionary containing a date. The dictionary should contain the following fields: year, month, date, hours, minutes, seconds, time zone, time zone offset
          */
-        convertToUtcClientTime(input: any): Date;
+        convertToUtcClientTime(input: LocalClientTime): Date;
         /**
          * Displays an existing calendar appointment
          * @param itemId The Exchange Web Services (EWS) identifier for an existing calendar appointment
          */
-        displayAppointmentForm(itemId: any): void;
+        displayAppointmentForm(itemId: string): void;
         /**
          * Displays an existing message
          * @param itemId The Exchange Web Services (EWS) identifier for an existing message
          */
-        displayMessageForm(itemId: any): void;
+        displayMessageForm(itemId: string): void;
         /**
          * Displays a form for creating a new calendar appointment
-         * @param requiredAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the required attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param optionalAttendees An array of strings containing the email addresses or an array containing an EmailAddressDetails object for each of the optional attendees for the appointment. The array is limited to a maximum of 100 entries
-         * @param start A Date object specifying the start date and time of the appointment
-         * @param end A Date object specifying the end date and time of the appointment
-         * @param location A string containing the location of the appointment. The string is limited to a maximum of 255 characters
-         * @param resources An array of strings containing the resources required for the appointment. The array is limited to a maximum of 100 entries
-         * @param subject A string containing the subject of the appointment. The string is limited to a maximum of 255 characters
-         * @param body The body of the appointment message. The body content is limited to a maximum size of 32 KB
+         * @param parameters A dictionary of parameters describing the new appointment.
          */
-        displayNewAppointmentForm(requiredAttendees: any, optionalAttendees: any, start: Date, end: Date, location: string, resources: string[], subject: string, body: string): void;
+        displayNewAppointmentForm(parameters?: AppointmentForm): void;
+        /**
+         * Displays a new message form
+         * WARNING: This api is not officially released, and may not work on all platforms
+         * @param options A dictionary containing all values to be filled in for the user in the new form
+         */
+        displayNewMessageForm(options?: any): void;
         /**
          * Gets a string that contains a token used to get an attachment or item from an Exchange Server
          * @param callback The optional method to call when the string is inserted
@@ -1923,20 +1900,63 @@ declare namespace Office {
     export interface Message extends Item {
         conversationId: string;
     }
-    export interface MeetingRequest extends Message {
-        start: Date;
-        end: Date;
-        location: string;
-        optionalAttendees: EmailAddressDetails[];
-        requiredAttendees: EmailAddressDetails[];
+    export interface MessageCompose extends Message, ItemCompose {
+        bcc: Recipients;
+        cc: Recipients;
+        to: Recipients;
+    }
+    export interface MessageRead extends Message, ItemRead {
+        cc: Array<EmailAddressDetails>;
+        from: EmailAddressDetails;
+        internetMessageId: string;
+        sender: EmailAddressDetails;
+        to: Array<EmailAddressDetails>;
     }
     export interface MeetingSuggestion {
-        meetingString: string;
-        attendees: EmailAddressDetails[];
+        attendees: Array<EmailUser>;
+        end: string;
         location: string;
+        meetingstring: string;
+        start: string;
         subject: string;
-        start: Date;
-        end: Date;
+    }
+    export interface NotificationMessageDetails {
+        key?: string;
+        type: Office.MailboxEnums.ItemNotificationMessageType;
+        icon?: string;
+        message: string;
+        persistent?: Boolean;
+    }
+    export interface NotificationMessages {
+        /**
+         * Adds a notification to an item
+         * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
+         * @param JSONmessage A JSON object that contains the notification message to be added to this item
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        addAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Returns all keys and messages for an item.
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        getAllAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Removes a notification message for an item.
+         * @param key The key for the notification message to remove
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        removeAsync(key: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * Replaces a notification message that has a given key with another message
+         * @param key The key for the notification message to replace.
+         * @param JSONmessage A JSON object that contains the new notification message to replace the existing message
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
+        replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface PhoneNumber {
         phoneString: string;
@@ -1950,20 +1970,31 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        addAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to get the recipient list for an appointment or message
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the recipient list for an appointment or message
          * @param recipients The recipients to add to the recipients list
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(recipients: any, options?: any, callback?: (result: AsyncResult) => void): void;
+        setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
+    }
+    export interface ReplyFormAttachment {
+        type: string;
+        name: string;
+        url?: string;
+        itemId?: string;
+    }
+    export interface ReplyFormData {
+        htmlBody?: string;
+        attachments?: Array<ReplyFormAttachment>;
+        callback?: (result: AsyncResult) => void;
     }
     export interface RoamingSettings {
         /**
@@ -1994,17 +2025,17 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous call to set the subject of an appointment or message
          * @param data The subject of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(data: string, options?: any, callback?: (result: AsyncResult) => void): void;
+        setAsync(data: string, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface TaskSuggestion {
-        assignees: EmailUser[];
+        assignees: Array<EmailUser>;
         taskString: string;
     }
     export interface Time {
@@ -2013,14 +2044,14 @@ declare namespace Office {
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        getAsync(options?: any, callback?: (result: AsyncResult) => void): void;
+        getAsync(options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
         /**
          * Begins an asynchronous request to set the start or end time
          * @param dateTime A date-time object in Coordinated Universal Time (UTC)
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
-        setAsync(dateTime: Date, options?: any, callback?: (result: AsyncResult) => void): void;
+        setAsync(dateTime: Date, options?: AsyncContextOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface UserProfile {
         displayName: string;
@@ -2072,7 +2103,7 @@ declare module OfficeExtension {
         requestHeaders: { [name: string]: string };
 
         /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
-        load(object: ClientObject, option?: string | string[]| LoadOption): void;
+        load(object: ClientObject, option?: string | string[] | LoadOption): void;
 
         /**
         * Queues up a command to recursively load the specified properties of the object and its navigation properties.
@@ -10328,29 +10359,7 @@ declare module Excel {
 ////////////////////////////////////////////////////////////////
 
 
-declare module Word {
-    /**
-     *
-     * The Application object.
-     *
-     * [Api set: WordApi 1.3]
-     */
-    class Application extends OfficeExtension.ClientObject {
-        /**
-         *
-         * Creates a new document by using a base64 encoded .docx file.
-         *
-         * @param base64File Optional. The base64 encoded .docx file. The default value is null.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        createDocument(base64File?: string): Word.Document;
-        /**
-         * Create a new instance of Word.Application object
-         */
-        static newObject(context: OfficeExtension.ClientRequestContext): Word.Application;
-        toJSON(): {};
-    }
+declare namespace Word {
     /**
      *
      * Represents the body of a document or a section.
@@ -10395,25 +10404,46 @@ declare module Word {
         paragraphs: Word.ParagraphCollection;
         /**
          *
-         * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Read-only.
+         * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Throws if there isn't a parent body. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the body. Returns a null object if there isn't a parent content control. Read-only.
+         * Gets the parent body of the body. For example, a table cell body's parent body could be a header. Returns a null object if there isn't a parent body. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentBodyOrNullObject: Word.Body;
+        /**
+         *
+         * Gets the content control that contains the body. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the parent section of the body. Read-only.
+         * Gets the content control that contains the body. Returns a null object if there isn't a parent content control. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentContentControlOrNullObject: Word.ContentControl;
+        /**
+         *
+         * Gets the parent section of the body. Throws if there isn't a parent section. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentSection: Word.Section;
+        /**
+         *
+         * Gets the parent section of the body. Returns a null object if there isn't a parent section. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentSectionOrNullObject: Word.Section;
         /**
          *
          * Gets the collection of table objects in the body. Read-only.
@@ -10449,6 +10479,15 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         type: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.BodyUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Body): void;
         /**
          *
          * Clears the contents of the body object. The user can perform the undo operation on the cleared content.
@@ -10474,19 +10513,19 @@ declare module Word {
          *
          * Gets the whole body, or the starting or ending point of the body, as a range.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param breakType Required. The break type to add to the body.
          * @param insertLocation Required. The value can be 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertBreak(breakType: string, insertLocation: string): void;
         /**
@@ -10500,82 +10539,82 @@ declare module Word {
          *
          * Inserts a document into the body at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param base64File Required. The base64 encoded content of a .docx file.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertFileFromBase64(base64File: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param html Required. The HTML to be inserted in the document.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertHtml(html: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a picture into the body at the specified location. The insertLocation value can be 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted in the body.
          * @param insertLocation Required. The value can be 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: string): Word.InlinePicture;
         /**
          *
          * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param ooxml Required. The OOXML to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertOoxml(ooxml: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
          *
          * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param rowCount Required. The number of rows in the table.
          * @param columnCount Required. The number of columns in the table.
          * @param insertLocation Required. The value can be 'Start' or 'End'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
          *
          * Inserts text into the body at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param text Required. Text to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertText(text: string, insertLocation: string): Word.Range;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the body object. The search results are a collection of range objects.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
-         *
-         * [Api set: WordApi 1.1]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
@@ -10590,9 +10629,9 @@ declare module Word {
          *
          * Selects the body and navigates the Word UI to it.
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          */
         select(selectionMode?: string): void;
         /**
@@ -10604,7 +10643,7 @@ declare module Word {
          */
         track(): Word.Body;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Body;
         toJSON(): {
@@ -10666,25 +10705,46 @@ declare module Word {
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the content control. Returns a null object if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the content control. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains the content control. Returns a null object if it is not contained in a table. Read-only.
+         * Gets the content control that contains the content control. Returns a null object if there isn't a parent content control. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentContentControlOrNullObject: Word.ContentControl;
+        /**
+         *
+         * Gets the table that contains the content control. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the content control. Returns a null object if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the content control. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
+        /**
+         *
+         * Gets the table cell that contains the content control. Returns a null object if it is not contained in a table cell. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableCellOrNullObject: Word.TableCell;
+        /**
+         *
+         * Gets the table that contains the content control. Returns a null object if it is not contained in a table. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets the collection of table objects in the content control. Read-only.
@@ -10790,6 +10850,15 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         type: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.ContentControlUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: ContentControl): void;
         /**
          *
          * Clears the contents of the content control. The user can perform the undo operation on the cleared content.
@@ -10801,9 +10870,9 @@ declare module Word {
          *
          * Deletes the content control and its content. If keepContent is set to true, the content is not deleted.
          *
-         * @param keepContent Required. Indicates whether the content should be deleted with the content control. If keepContent is set to true, the content is not deleted.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param keepContent Required. Indicates whether the content should be deleted with the content control. If keepContent is set to true, the content is not deleted.
          */
         delete(keepContent: boolean): void;
         /**
@@ -10824,111 +10893,111 @@ declare module Word {
          *
          * Gets the whole content control, or the starting or ending point of the content control, as a range.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Before', 'Start', 'End', 'After' or 'Content'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Before', 'Start', 'End', 'After' or 'Content'.
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
          * Gets the text ranges in the content control by using punctuation marks and/or other ending marks.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
-         *
-         * [Api set: WordApi 1.3]
          */
         getTextRanges(endingMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Start', 'End', 'Before' or 'After'. This method cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param breakType Required. Type of break.
          * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertBreak(breakType: string, insertLocation: string): void;
         /**
          *
          * Inserts a document into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param base64File Required. The base64 encoded content of a .docx file.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertFileFromBase64(base64File: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts HTML into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param html Required. The HTML to be inserted in to the content control.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertHtml(html: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts an inline picture into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted in the content control.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: string): Word.InlinePicture;
         /**
          *
          * Inserts OOXML into the content control at the specified location.  The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param ooxml Required. The OOXML to be inserted in to the content control.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertOoxml(ooxml: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param paragraphText Required. The paragrph text to be inserted.
          * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
          *
          * Inserts a table with the specified number of rows and columns into, or next to, a content control. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param rowCount Required. The number of rows in the table.
          * @param columnCount Required. The number of columns in the table.
          * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
          *
          * Inserts text into the content control at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param text Required. The text to be inserted in to the content control.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertText(text: string, insertLocation: string): Word.Range;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the content control object. The search results are a collection of range objects.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
-         *
-         * [Api set: WordApi 1.1]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
@@ -10943,21 +11012,21 @@ declare module Word {
          *
          * Selects the content control. This causes Word to scroll to the selection.
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          */
         select(selectionMode?: string): void;
         /**
          *
          * Splits the content control into child ranges by using delimiters.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param delimiters Required. The delimiters as an array of strings.
          * @param multiParagraphs Optional. Indicates whether a returned child range can cover multiple paragraphs. Default is false which indicates that the paragraph boundaries are also used as delimiters.
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
-         *
-         * [Api set: WordApi 1.3]
          */
         split(delimiters: Array<string>, multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -10969,7 +11038,7 @@ declare module Word {
          */
         track(): Word.ContentControl;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ContentControl;
         toJSON(): {
@@ -11001,54 +11070,70 @@ declare module Word {
         items: Array<Word.ContentControl>;
         /**
          *
-         * Gets a content control by its identifier.
-         *
-         * @param id Required. A content control identifier.
+         * Gets a content control by its identifier. Throws if there isn't a content control with the identifier in this collection.
          *
          * [Api set: WordApi 1.1]
+         *
+         * @param id Required. A content control identifier.
          */
         getById(id: number): Word.ContentControl;
         /**
          *
+         * Gets a content control by its identifier. Returns a null object if there isn't a content control with the identifier in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param id Required. A content control identifier.
+         */
+        getByIdOrNullObject(id: number): Word.ContentControl;
+        /**
+         *
          * Gets the content controls that have the specified tag.
          *
-         * @param tag Required. A tag set on a content control.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param tag Required. A tag set on a content control.
          */
         getByTag(tag: string): Word.ContentControlCollection;
         /**
          *
          * Gets the content controls that have the specified title.
          *
-         * @param title Required. The title of a content control.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param title Required. The title of a content control.
          */
         getByTitle(title: string): Word.ContentControlCollection;
         /**
          *
          * Gets the content controls that have the specified types and/or subtypes.
          *
-         * @param types Required. An array of content control types and/or subtypes.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param types Required. An array of content control types and/or subtypes.
          */
         getByTypes(types: Array<string>): Word.ContentControlCollection;
         /**
          *
-         * Gets the first content control in this collection.
+         * Gets the first content control in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.ContentControl;
         /**
          *
+         * Gets the first content control in this collection. Returns a null object if this collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.ContentControl;
+        /**
+         *
          * Gets a content control by its index in the collection.
          *
-         * @param index The index.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param index The index.
          */
         getItem(index: number): Word.ContentControl;
         /**
@@ -11060,7 +11145,7 @@ declare module Word {
          */
         track(): Word.ContentControlCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ContentControlCollection;
         toJSON(): {};
@@ -11093,6 +11178,15 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         value: any;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.CustomPropertyUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: CustomProperty): void;
         /**
          *
          * Deletes the custom property.
@@ -11109,7 +11203,7 @@ declare module Word {
          */
         track(): Word.CustomProperty;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomProperty;
         toJSON(): {
@@ -11129,6 +11223,16 @@ declare module Word {
         items: Array<Word.CustomProperty>;
         /**
          *
+         * Creates a new or sets an existing custom property.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param key Required. The custom property's key, which is case-insensitive.
+         * @param value Required. The custom property's value.
+         */
+        add(key: string, value: any): Word.CustomProperty;
+        /**
+         *
          * Deletes all custom properties in this collection.
          *
          * [Api set: WordApi 1.3]
@@ -11143,23 +11247,22 @@ declare module Word {
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a custom property object by its key, which is case-insensitive.
-         *
-         * @param key The key that identifies the custom property object.
+         * Gets a custom property object by its key, which is case-insensitive. Throws if the custom property does not exist.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param key The key that identifies the custom property object.
          */
         getItem(key: string): Word.CustomProperty;
         /**
          *
-         * Creates or sets a custom property.
-         *
-         * @param key Required. The custom property's key, which is case-insensitive.
-         * @param value Required. The custom property's value.
+         * Gets a custom property object by its key, which is case-insensitive. Returns a null object if the custom property does not exist.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param key Required. The key that identifies the custom property object.
          */
-        set(key: string, value: any): Word.CustomProperty;
+        getItemOrNullObject(key: string): Word.CustomProperty;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -11169,7 +11272,7 @@ declare module Word {
          */
         track(): Word.CustomPropertyCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.CustomPropertyCollection;
         toJSON(): {};
@@ -11216,6 +11319,15 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         saved: boolean;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.DocumentUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Document): void;
         /**
          *
          * Gets the current selection of the document. Multiple selections are not supported.
@@ -11223,13 +11335,6 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         getSelection(): Word.Range;
-        /**
-         *
-         * Open the document.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        open(): void;
         /**
          *
          * Saves the document. This will use the Word default file naming convention if the document has not been saved before.
@@ -11246,7 +11351,7 @@ declare module Word {
          */
         track(): Word.Document;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Document;
         toJSON(): {
@@ -11327,7 +11432,7 @@ declare module Word {
         keywords: string;
         /**
          *
-         * Gets or sets the last author of the document.
+         * Gets the last author of the document. Read only.
          *
          * [Api set: WordApi 1.3]
          */
@@ -11388,6 +11493,15 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         title: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.DocumentPropertiesUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: DocumentProperties): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -11397,7 +11511,7 @@ declare module Word {
          */
         track(): Word.DocumentProperties;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.DocumentProperties;
         toJSON(): {
@@ -11504,6 +11618,15 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         underline: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.FontUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Font): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -11513,7 +11636,7 @@ declare module Word {
          */
         track(): Word.Font;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Font;
         toJSON(): {
@@ -11546,25 +11669,46 @@ declare module Word {
         paragraph: Word.Paragraph;
         /**
          *
-         * Gets the content control that contains the inline image. Returns a null object if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the inline image. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains the inline image. Returns a null object if it is not contained in a table. Read-only.
+         * Gets the content control that contains the inline image. Returns a null object if there isn't a parent content control. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentContentControlOrNullObject: Word.ContentControl;
+        /**
+         *
+         * Gets the table that contains the inline image. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the inline image. Returns a null object if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the inline image. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
+        /**
+         *
+         * Gets the table cell that contains the inline image. Returns a null object if it is not contained in a table cell. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableCellOrNullObject: Word.TableCell;
+        /**
+         *
+         * Gets the table that contains the inline image. Returns a null object if it is not contained in a table. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets or sets a string that represents the alternative text associated with the inline image
@@ -11588,7 +11732,7 @@ declare module Word {
         height: number;
         /**
          *
-         * Gets or sets a hyperlink on the image. Use a newline character ('\n') to separate the address part from the optional location part.
+         * Gets or sets a hyperlink on the image. Use a '#' to separate the address part from the optional location part.
          *
          * [Api set: WordApi 1.1]
          */
@@ -11607,6 +11751,15 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         width: number;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.InlinePictureUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: InlinePicture): void;
         /**
          *
          * Deletes the inline picture from the document.
@@ -11623,28 +11776,35 @@ declare module Word {
         getBase64ImageSrc(): OfficeExtension.ClientResult<string>;
         /**
          *
-         * Gets the next inline image.
+         * Gets the next inline image. Throws if this inline image is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.InlinePicture;
         /**
          *
-         * Gets the picture, or the starting or ending point of the picture, as a range.
-         *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
+         * Gets the next inline image. Returns a null object if this inline image is the last one.
          *
          * [Api set: WordApi 1.3]
+         */
+        getNextOrNullObject(): Word.InlinePicture;
+        /**
+         *
+         * Gets the picture, or the starting or ending point of the picture, as a range.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start' or 'End'.
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param breakType Required. The break type to add.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertBreak(breakType: string, insertLocation: string): void;
         /**
@@ -11658,69 +11818,69 @@ declare module Word {
          *
          * Inserts a document at the specified location. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param base64File Required. The base64 encoded content of a .docx file.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertFileFromBase64(base64File: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts HTML at the specified location. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param html Required. The HTML to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertHtml(html: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts an inline picture at the specified location. The insertLocation value can be 'Replace', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: string): Word.InlinePicture;
         /**
          *
          * Inserts OOXML at the specified location.  The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param ooxml Required. The OOXML to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertOoxml(ooxml: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
          *
          * Inserts text at the specified location. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param text Required. Text to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertText(text: string, insertLocation: string): Word.Range;
         /**
          *
          * Selects the inline picture. This causes Word to scroll to the selection.
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
-         *
          * [Api set: WordApi 1.2]
+         *
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          */
         select(selectionMode?: string): void;
         /**
@@ -11732,7 +11892,7 @@ declare module Word {
          */
         track(): Word.InlinePicture;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.InlinePicture;
         toJSON(): {
@@ -11755,11 +11915,18 @@ declare module Word {
         items: Array<Word.InlinePicture>;
         /**
          *
-         * Gets the first inline image in this collection.
+         * Gets the first inline image in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.InlinePicture;
+        /**
+         *
+         * Gets the first inline image in this collection. Returns a null object if this collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.InlinePicture;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -11769,7 +11936,7 @@ declare module Word {
          */
         track(): Word.InlinePictureCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.InlinePictureCollection;
         toJSON(): {};
@@ -11813,82 +11980,82 @@ declare module Word {
          *
          * Gets the paragraphs that occur at the specified level in the list.
          *
-         * @param level Required. The level in the list.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param level Required. The level in the list.
          */
         getLevelParagraphs(level: number): Word.ParagraphCollection;
         /**
          *
          * Gets the bullet, number or picture at the specified level as a string.
          *
-         * @param level Required. The level in the list.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param level Required. The level in the list.
          */
         getLevelString(level: number): OfficeExtension.ClientResult<string>;
         /**
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Start', 'End', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
          *
          * Sets the alignment of the bullet, number or picture at the specified level in the list.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param level Required. The level in the list.
          * @param alignment Required. The level alignment that can be 'left', 'centered' or 'right'.
-         *
-         * [Api set: WordApi 1.3]
          */
         setLevelAlignment(level: number, alignment: string): void;
         /**
          *
          * Sets the bullet format at the specified level in the list. If the bullet is 'Custom', the charCode is required.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param level Required. The level in the list.
          * @param listBullet Required. The bullet.
          * @param charCode Optional. The bullet character's code value. Used only if the bullet is 'Custom'.
          * @param fontName Optional. The bullet's font name. Used only if the bullet is 'Custom'.
-         *
-         * [Api set: WordApi 1.3]
          */
         setLevelBullet(level: number, listBullet: string, charCode?: number, fontName?: string): void;
         /**
          *
          * Sets the two indents of the specified level in the list.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param level Required. The level in the list.
          * @param textIndent Required. The text indent in points. It is the same as paragraph left indent.
          * @param textIndent Required. The relative indent, in points, of the bullet, number or picture. It is the same as paragraph first line indent.
-         *
-         * [Api set: WordApi 1.3]
          */
         setLevelIndents(level: number, textIndent: number, bulletNumberPictureIndent: number): void;
         /**
          *
          * Sets the numbering format at the specified level in the list.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param level Required. The level in the list.
          * @param listNumbering Required. The ordinal format.
          * @param formatString Optional. The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of ["(", level - 1, ".", level, ")"] can define the format of "(2.c)", where 2 is the parent's item number and c is this level's item number.
-         *
-         * [Api set: WordApi 1.3]
          */
         setLevelNumbering(level: number, listNumbering: string, formatString?: Array<any>): void;
         /**
          *
          * Sets the starting number at the specified level in the list. Default value is 1.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param level Required. The level in the list.
          * @param startingNumber Required. The number to start with.
-         *
-         * [Api set: WordApi 1.3]
          */
         setLevelStartingNumber(level: number, startingNumber: number): void;
         /**
@@ -11900,7 +12067,7 @@ declare module Word {
          */
         track(): Word.List;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.List;
         toJSON(): {
@@ -11920,27 +12087,43 @@ declare module Word {
         items: Array<Word.List>;
         /**
          *
-         * Gets a list by its identifier.
-         *
-         * @param id Required. A list identifier.
+         * Gets a list by its identifier. Throws if there isn't a list with the identifier in this collection.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param id Required. A list identifier.
          */
         getById(id: number): Word.List;
         /**
          *
-         * Gets the first list in this collection.
+         * Gets a list by its identifier. Returns a null object if there isn't a list with the identifier in this collection.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param id Required. A list identifier.
+         */
+        getByIdOrNullObject(id: number): Word.List;
+        /**
+         *
+         * Gets the first list in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.List;
         /**
          *
-         * Gets a list object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a list object.
+         * Gets the first list in this collection. Returns a null object if this collection is empty.
          *
          * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.List;
+        /**
+         *
+         * Gets a list object by its index in the collection.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param index A number that identifies the index location of a list object.
          */
         getItem(index: number): Word.List;
         /**
@@ -11952,7 +12135,7 @@ declare module Word {
          */
         track(): Word.ListCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ListCollection;
         toJSON(): {};
@@ -11985,22 +12168,40 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         siblingIndex: number;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.ListItemUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: ListItem): void;
         /**
          *
-         * Gets the list item parent, or the closest ancestor if the parent does not exist.
-         *
-         * @param parentOnly Optional. Specified only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
+         * Gets the list item parent, or the closest ancestor if the parent does not exist. Throws if the list item has no ancester.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param parentOnly Optional. Specified only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
          */
         getAncestor(parentOnly?: boolean): Word.Paragraph;
         /**
          *
-         * Gets all descendant list items of the list item.
-         *
-         * @param directChildrenOnly Optional. Specified only the list item's direct children will be returned. The default is false that indicates to get all descendant items.
+         * Gets the list item parent, or the closest ancestor if the parent does not exist. Returns a null object if the list item has no ancester.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param parentOnly Optional. Specified only the list item's parent will be returned. The default is false that specifies to get the lowest ancestor.
+         */
+        getAncestorOrNullObject(parentOnly?: boolean): Word.Paragraph;
+        /**
+         *
+         * Gets all descendant list items of the list item.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param directChildrenOnly Optional. Specified only the list item's direct children will be returned. The default is false that indicates to get all descendant items.
          */
         getDescendants(directChildrenOnly?: boolean): Word.ParagraphCollection;
         /**
@@ -12012,7 +12213,7 @@ declare module Word {
          */
         track(): Word.ListItem;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ListItem;
         toJSON(): {
@@ -12051,18 +12252,32 @@ declare module Word {
         inlinePictures: Word.InlinePictureCollection;
         /**
          *
-         * Gets the List to which this paragraph belongs. Returns a null object if the paragraph is not in a list. Read-only.
+         * Gets the List to which this paragraph belongs. Throws if the paragraph is not in a list. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         list: Word.List;
         /**
          *
-         * Gets the ListItem for the paragraph. Returns a null object if the paragraph is not part of a list. Read-only.
+         * Gets the ListItem for the paragraph. Throws if the paragraph is not part of a list. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         listItem: Word.ListItem;
+        /**
+         *
+         * Gets the ListItem for the paragraph. Returns a null object if the paragraph is not part of a list. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        listItemOrNullObject: Word.ListItem;
+        /**
+         *
+         * Gets the List to which this paragraph belongs. Returns a null object if the paragraph is not in a list. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        listOrNullObject: Word.List;
         /**
          *
          * Gets the parent body of the paragraph. Read-only.
@@ -12072,25 +12287,46 @@ declare module Word {
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the paragraph. Returns a null object if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the paragraph. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains the paragraph. Returns a null object if it is not contained in a table. Read-only.
+         * Gets the content control that contains the paragraph. Returns a null object if there isn't a parent content control. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentContentControlOrNullObject: Word.ContentControl;
+        /**
+         *
+         * Gets the table that contains the paragraph. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the paragraph. Returns a null object if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the paragraph. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
+        /**
+         *
+         * Gets the table cell that contains the paragraph. Returns a null object if it is not contained in a table cell. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableCellOrNullObject: Word.TableCell;
+        /**
+         *
+         * Gets the table that contains the paragraph. Returns a null object if it is not contained in a table. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets or sets the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.
@@ -12203,14 +12439,23 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         text: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.ParagraphUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Paragraph): void;
         /**
          *
          * Lets the paragraph join an existing list at the specified level. Fails if the paragraph cannot join the list or if the paragraph is already a list item.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param listId Required. The ID of an existing list.
          * @param level Required. The level in the list.
-         *
-         * [Api set: WordApi 1.3]
          */
         attachToList(listId: number, level: number): Word.List;
         /**
@@ -12243,11 +12488,18 @@ declare module Word {
         getHtml(): OfficeExtension.ClientResult<string>;
         /**
          *
-         * Gets the next paragraph.
+         * Gets the next paragraph. Throws if the paragraph is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.Paragraph;
+        /**
+         *
+         * Gets the next paragraph. Returns a null object if the paragraph is the last one.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNextOrNullObject(): Word.Paragraph;
         /**
          *
          * Gets the Office Open XML (OOXML) representation of the paragraph object.
@@ -12257,38 +12509,45 @@ declare module Word {
         getOoxml(): OfficeExtension.ClientResult<string>;
         /**
          *
-         * Gets the previous paragraph.
+         * Gets the previous paragraph. Throws if the paragraph is the first one.
          *
          * [Api set: WordApi 1.3]
          */
         getPrevious(): Word.Paragraph;
         /**
          *
-         * Gets the whole paragraph, or the starting or ending point of the paragraph, as a range.
-         *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
+         * Gets the previous paragraph. Returns a null object if the paragraph is the first one.
          *
          * [Api set: WordApi 1.3]
+         */
+        getPreviousOrNullObject(): Word.Paragraph;
+        /**
+         *
+         * Gets the whole paragraph, or the starting or ending point of the paragraph, as a range.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
          * Gets the text ranges in the paragraph by using punctuation marks and/or other ending marks.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
-         *
-         * [Api set: WordApi 1.3]
          */
         getTextRanges(endingMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param breakType Required. The break type to add to the document.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertBreak(breakType: string, insertLocation: string): void;
         /**
@@ -12302,82 +12561,82 @@ declare module Word {
          *
          * Inserts a document into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param base64File Required. The base64 encoded content of a .docx file.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertFileFromBase64(base64File: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts HTML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param html Required. The HTML to be inserted in the paragraph.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertHtml(html: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a picture into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: string): Word.InlinePicture;
         /**
          *
          * Inserts OOXML into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param ooxml Required. The OOXML to be inserted in the paragraph.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertOoxml(ooxml: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
          *
          * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param rowCount Required. The number of rows in the table.
          * @param columnCount Required. The number of columns in the table.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
          *
          * Inserts text into the paragraph at the specified location. The insertLocation value can be 'Replace', 'Start' or 'End'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param text Required. Text to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start' or 'End'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertText(text: string, insertLocation: string): Word.Range;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the paragraph object. The search results are a collection of range objects.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
-         *
-         * [Api set: WordApi 1.1]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
@@ -12392,20 +12651,20 @@ declare module Word {
          *
          * Selects and navigates the Word UI to the paragraph.
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          */
         select(selectionMode?: string): void;
         /**
          *
          * Splits the paragraph into child ranges by using delimiters.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param delimiters Required. The delimiters as an array of strings.
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
-         *
-         * [Api set: WordApi 1.3]
          */
         split(delimiters: Array<string>, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -12424,7 +12683,7 @@ declare module Word {
          */
         track(): Word.Paragraph;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Paragraph;
         toJSON(): {
@@ -12438,6 +12697,7 @@ declare module Word {
             "lineUnitAfter": number;
             "lineUnitBefore": number;
             "listItem": ListItem;
+            "listItemOrNullObject": ListItem;
             "outlineLevel": number;
             "rightIndent": number;
             "spaceAfter": number;
@@ -12459,18 +12719,32 @@ declare module Word {
         items: Array<Word.Paragraph>;
         /**
          *
-         * Gets the first paragraph in this collection.
+         * Gets the first paragraph in this collection. Throws if the collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Paragraph;
         /**
          *
-         * Gets the last paragraph in this collection.
+         * Gets the first paragraph in this collection. Returns a null object if the collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.Paragraph;
+        /**
+         *
+         * Gets the last paragraph in this collection. Throws if the collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getLast(): Word.Paragraph;
+        /**
+         *
+         * Gets the last paragraph in this collection. Returns a null object if the collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getLastOrNullObject(): Word.Paragraph;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -12480,7 +12754,7 @@ declare module Word {
          */
         track(): Word.ParagraphCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.ParagraphCollection;
         toJSON(): {};
@@ -12536,25 +12810,46 @@ declare module Word {
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the range. Returns a null object if there isn't a parent content control. Read-only.
+         * Gets the content control that contains the range. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.1]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains the range. Returns null if it is not contained in a table. Read-only.
+         * Gets the content control that contains the range. Returns a null object if there isn't a parent content control. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentContentControlOrNullObject: Word.ContentControl;
+        /**
+         *
+         * Gets the table that contains the range. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains the range. Returns a null object if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains the range. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
+        /**
+         *
+         * Gets the table cell that contains the range. Returns a null object if it is not contained in a table cell. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableCellOrNullObject: Word.TableCell;
+        /**
+         *
+         * Gets the table that contains the range. Returns a null object if it is not contained in a table. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets the collection of table objects in the range. Read-only.
@@ -12564,7 +12859,7 @@ declare module Word {
         tables: Word.TableCollection;
         /**
          *
-         * Gets the first hyperlink in the range, or sets a hyperlink on the range. All hyperlinks in the range are deleted when you set a new hyperlink on the range. Use a newline character ('\n') to separate the address part from the optional location part.
+         * Gets the first hyperlink in the range, or sets a hyperlink on the range. All hyperlinks in the range are deleted when you set a new hyperlink on the range. Use a '#' to separate the address part from the optional location part.
          *
          * [Api set: WordApi 1.3]
          */
@@ -12597,6 +12892,15 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         text: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.RangeUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Range): void;
         /**
          *
          * Clears the contents of the range object. The user can perform the undo operation on the cleared content.
@@ -12608,9 +12912,9 @@ declare module Word {
          *
          * Compares this range's location with another range's location.
          *
-         * @param range Required. The range to compare with this range.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param range Required. The range to compare with this range.
          */
         compareLocationWith(range: Word.Range): OfficeExtension.ClientResult<string>;
         /**
@@ -12622,13 +12926,22 @@ declare module Word {
         delete(): void;
         /**
          *
-         * Returns a new range that extends from this range in either direction to cover another range. This range is not changed.
-         *
-         * @param range Required. Another range.
+         * Returns a new range that extends from this range in either direction to cover another range. This range is not changed. Throws if the two ranges do not have a union.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param range Required. Another range.
          */
         expandTo(range: Word.Range): Word.Range;
+        /**
+         *
+         * Returns a new range that extends from this range in either direction to cover another range. This range is not changed. Returns a null object if the two ranges do not have a union.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param range Required. Another range.
+         */
+        expandToOrNullObject(range: Word.Range): Word.Range;
         /**
          *
          * Gets the HTML representation of the range object.
@@ -12645,14 +12958,24 @@ declare module Word {
         getHyperlinkRanges(): Word.RangeCollection;
         /**
          *
-         * Gets the next text range by using punctuation marks and/or other ending marks.
+         * Gets the next text range by using punctuation marks and/or other ending marks. Throws if this text range is the last one.
+         *
+         * [Api set: WordApi 1.3]
          *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the returned range. Default is false which indicates that spacing characters at the start and end of the range are included.
-         *
-         * [Api set: WordApi 1.3]
          */
         getNextTextRange(endingMarks: Array<string>, trimSpacing?: boolean): Word.Range;
+        /**
+         *
+         * Gets the next text range by using punctuation marks and/or other ending marks. Returns a null object if this text range is the last one.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
+         * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the returned range. Default is false which indicates that spacing characters at the start and end of the range are included.
+         */
+        getNextTextRangeOrNullObject(endingMarks: Array<string>, trimSpacing?: boolean): Word.Range;
         /**
          *
          * Gets the OOXML representation of the range object.
@@ -12664,29 +12987,29 @@ declare module Word {
          *
          * Clones the range, or gets the starting or ending point of the range as a new range.
          *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End', 'After' or 'Content'.
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
          *
          * Gets the text child ranges in the range by using punctuation marks and/or other ending marks.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param endingMarks Required. The punctuation marks and/or other ending marks as an array of strings.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
-         *
-         * [Api set: WordApi 1.3]
          */
         getTextRanges(endingMarks: Array<string>, trimSpacing?: boolean): Word.RangeCollection;
         /**
          *
          * Inserts a break at the specified location in the main document. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param breakType Required. The break type to add.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertBreak(breakType: string, insertLocation: string): void;
         /**
@@ -12700,91 +13023,100 @@ declare module Word {
          *
          * Inserts a document at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param base64File Required. The base64 encoded content of a .docx file.
          * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertFileFromBase64(base64File: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts HTML at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param html Required. The HTML to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertHtml(html: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a picture at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.2]
+         *
          * @param base64EncodedImage Required. The base64 encoded image to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.2]
          */
         insertInlinePictureFromBase64(base64EncodedImage: string, insertLocation: string): Word.InlinePicture;
         /**
          *
          * Inserts OOXML at the specified location.  The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param ooxml Required. The OOXML to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertOoxml(ooxml: string, insertLocation: string): Word.Range;
         /**
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
          *
          * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param rowCount Required. The number of rows in the table.
          * @param columnCount Required. The number of columns in the table.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
          *
          * Inserts text at the specified location. The insertLocation value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.1]
+         *
          * @param text Required. Text to be inserted.
          * @param insertLocation Required. The value can be 'Replace', 'Start', 'End', 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.1]
          */
         insertText(text: string, insertLocation: string): Word.Range;
         /**
          *
-         * Returns a new range as the intersection of this range with another range. This range is not changed.
-         *
-         * @param range Required. Another range.
+         * Returns a new range as the intersection of this range with another range. This range is not changed. Throws if the two ranges are not overlapped or adjacent.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param range Required. Another range.
          */
         intersectWith(range: Word.Range): Word.Range;
         /**
          *
+         * Returns a new range as the intersection of this range with another range. This range is not changed. Returns a null object if the two ranges are not overlapped or adjacent.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param range Required. Another range.
+         */
+        intersectWithOrNullObject(range: Word.Range): Word.Range;
+        /**
+         *
          * Performs a search with the specified searchOptions on the scope of the range object. The search results are a collection of range objects.
+         *
+         * [Api set: WordApi 1.1]
          *
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
-         *
-         * [Api set: WordApi 1.1]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
@@ -12799,21 +13131,21 @@ declare module Word {
          *
          * Selects and navigates the Word UI to the range.
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          */
         select(selectionMode?: string): void;
         /**
          *
          * Splits the range into child ranges by using delimiters.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param delimiters Required. The delimiters as an array of strings.
          * @param multiParagraphs Optional. Indicates whether a returned child range can cover multiple paragraphs. Default is false which indicates that the paragraph boundaries are also used as delimiters.
          * @param trimDelimiters Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection.
          * @param trimSpacing Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection.
-         *
-         * [Api set: WordApi 1.3]
          */
         split(delimiters: Array<string>, multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
         /**
@@ -12825,7 +13157,7 @@ declare module Word {
          */
         track(): Word.Range;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Range;
         toJSON(): {
@@ -12841,18 +13173,25 @@ declare module Word {
      *
      * Contains a collection of [range](range.md) objects.
      *
-     * [Api set: WordApi 1.3]
+     * [Api set: WordApi 1.1]
      */
     class RangeCollection extends OfficeExtension.ClientObject {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Range>;
         /**
          *
-         * Gets the first range in this collection.
+         * Gets the first range in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Range;
+        /**
+         *
+         * Gets the first range in this collection. Returns a null object if this collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.Range;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -12862,7 +13201,7 @@ declare module Word {
          */
         track(): Word.RangeCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.RangeCollection;
         toJSON(): {};
@@ -12924,6 +13263,15 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         matchWildcards: boolean;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.SearchOptionsUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: SearchOptions): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -12956,45 +13304,47 @@ declare module Word {
          * [Api set: WordApi 1.1]
          */
         body: Word.Body;
-        /**
-         *
-         * Gets or sets a value that indicates whether even-numbered pages have a different header and footer from odd-numbered pages in the section.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        headerFooterEvenPageDifferent: boolean;
-        /**
-         *
-         * Gets or sets a value that indicates whether the first page has a different header and footer from the other pages in the section.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        headerFooterFirstPageDifferent: boolean;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.SectionUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Section): void;
         /**
          *
          * Gets one of the section's footers.
          *
-         * @param type Required. The type of footer to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param type Required. The type of footer to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
          */
         getFooter(type: string): Word.Body;
         /**
          *
          * Gets one of the section's headers.
          *
-         * @param type Required. The type of header to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
-         *
          * [Api set: WordApi 1.1]
+         *
+         * @param type Required. The type of header to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
          */
         getHeader(type: string): Word.Body;
         /**
          *
-         * Gets the next section.
+         * Gets the next section. Throws if this section is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.Section;
+        /**
+         *
+         * Gets the next section. Returns a null object if this section is the last one.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNextOrNullObject(): Word.Section;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -13004,13 +13354,11 @@ declare module Word {
          */
         track(): Word.Section;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Section;
         toJSON(): {
             "body": Body;
-            "headerFooterEvenPageDifferent": boolean;
-            "headerFooterFirstPageDifferent": boolean;
         };
     }
     /**
@@ -13024,11 +13372,18 @@ declare module Word {
         items: Array<Word.Section>;
         /**
          *
-         * Gets the first section in this collection.
+         * Gets the first section in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Section;
+        /**
+         *
+         * Gets the first section in this collection. Returns a null object if this collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.Section;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -13038,7 +13393,7 @@ declare module Word {
          */
         track(): Word.SectionCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.SectionCollection;
         toJSON(): {};
@@ -13059,20 +13414,6 @@ declare module Word {
         font: Word.Font;
         /**
          *
-         * Gets the paragraph after the table. Read-only.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        paragraphAfter: Word.Paragraph;
-        /**
-         *
-         * Gets the paragraph before the table. Read-only.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        paragraphBefore: Word.Paragraph;
-        /**
-         *
          * Gets the parent body of the table. Read-only.
          *
          * [Api set: WordApi 1.3]
@@ -13080,25 +13421,46 @@ declare module Word {
         parentBody: Word.Body;
         /**
          *
-         * Gets the content control that contains the table. Read-only.
+         * Gets the content control that contains the table. Throws if there isn't a parent content control. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentContentControl: Word.ContentControl;
         /**
          *
-         * Gets the table that contains this table. Returns a null object if it is not contained in a table. Read-only.
+         * Gets the content control that contains the table. Returns a null object if there isn't a parent content control. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentContentControlOrNullObject: Word.ContentControl;
+        /**
+         *
+         * Gets the table that contains this table. Throws if it is not contained in a table. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTable: Word.Table;
         /**
          *
-         * Gets the table cell that contains this table. Returns a null object if it is not contained in a table cell. Read-only.
+         * Gets the table cell that contains this table. Throws if it is not contained in a table cell. Read-only.
          *
          * [Api set: WordApi 1.3]
          */
         parentTableCell: Word.TableCell;
+        /**
+         *
+         * Gets the table cell that contains this table. Returns a null object if it is not contained in a table cell. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableCellOrNullObject: Word.TableCell;
+        /**
+         *
+         * Gets the table that contains this table. Returns a null object if it is not contained in a table. Read-only.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        parentTableOrNullObject: Word.Table;
         /**
          *
          * Gets all of the table rows. Read-only.
@@ -13127,13 +13489,6 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         headerRowCount: number;
-        /**
-         *
-         * Gets the height of the table in points. Read-only.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        height: number;
         /**
          *
          * Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
@@ -13239,35 +13594,37 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         width: number;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.TableUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Table): void;
         /**
          *
          * Adds columns to the start or end of the table, using the first or last existing column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param insertLocation Required. It can be 'Start' or 'End', corresponding to the appropriate side of the table.
          * @param columnCount Required. Number of columns to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         addColumns(insertLocation: string, columnCount: number, values?: Array<Array<string>>): void;
         /**
          *
          * Adds rows to the start or end of the table, using the first or last existing row as a template. The string values, if specified, are set in the newly inserted rows.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param insertLocation Required. It can be 'Start' or 'End'.
          * @param rowCount Required. Number of rows to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         addRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): Word.TableRowCollection;
-        /**
-         *
-         * Autofits the table columns to the width of their contents.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        autoFitContents(): void;
         /**
          *
          * Autofits the table columns to the width of the window.
@@ -13293,78 +13650,116 @@ declare module Word {
          *
          * Deletes specific columns. This is applicable to uniform tables.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param columnIndex Required. The first column to delete.
          * @param columnCount Optional. The number of columns to delete. Default 1.
-         *
-         * [Api set: WordApi 1.3]
          */
         deleteColumns(columnIndex: number, columnCount?: number): void;
         /**
          *
          * Deletes specific rows.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param rowIndex Required. The first row to delete.
          * @param rowCount Optional. The number of rows to delete. Default 1.
-         *
-         * [Api set: WordApi 1.3]
          */
         deleteRows(rowIndex: number, rowCount?: number): void;
         /**
          *
-         * Distributes the column widths evenly.
+         * Distributes the column widths evenly. This is applicable to uniform tables.
          *
          * [Api set: WordApi 1.3]
          */
         distributeColumns(): void;
         /**
          *
-         * Distributes the row heights evenly.
-         *
-         * [Api set: WordApi 1.3]
-         */
-        distributeRows(): void;
-        /**
-         *
          * Gets the border style for the specified border.
          *
-         * @param borderLocation Required. The border location.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param borderLocation Required. The border location.
          */
         getBorder(borderLocation: string): Word.TableBorder;
         /**
          *
-         * Gets the table cell at a specified row and column.
+         * Gets the table cell at a specified row and column. Throws if the specified table cell does not exist.
+         *
+         * [Api set: WordApi 1.3]
          *
          * @param rowIndex Required. The index of the row.
          * @param cellIndex Required. The index of the cell in the row.
-         *
-         * [Api set: WordApi 1.3]
          */
         getCell(rowIndex: number, cellIndex: number): Word.TableCell;
         /**
          *
-         * Gets cell padding in points.
-         *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * Gets the table cell at a specified row and column. Returns a null object if the specified table cell does not exist.
          *
          * [Api set: WordApi 1.3]
+         *
+         * @param rowIndex Required. The index of the row.
+         * @param cellIndex Required. The index of the cell in the row.
+         */
+        getCellOrNullObject(rowIndex: number, cellIndex: number): Word.TableCell;
+        /**
+         *
+         * Gets cell padding in points.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
          */
         getCellPadding(cellPaddingLocation: string): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets the next table.
+         * Gets the next table. Throws if this table is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.Table;
         /**
          *
-         * Gets the range that contains this table, or the range at the start or end of the table.
-         *
-         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End' or 'After'.
+         * Gets the next table. Returns a null object if this table is the last one.
          *
          * [Api set: WordApi 1.3]
+         */
+        getNextOrNullObject(): Word.Table;
+        /**
+         *
+         * Gets the paragraph after the table. Throws if there isn't a paragraph after the table.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getParagraphAfter(): Word.Paragraph;
+        /**
+         *
+         * Gets the paragraph after the table. Returns a null object if there isn't a paragraph after the table.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getParagraphAfterOrNullObject(): Word.Paragraph;
+        /**
+         *
+         * Gets the paragraph before the table. Throws if there isn't a paragraph before the table.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getParagraphBefore(): Word.Paragraph;
+        /**
+         *
+         * Gets the paragraph before the table. Returns a null object if there isn't a paragraph before the table.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getParagraphBeforeOrNullObject(): Word.Paragraph;
+        /**
+         *
+         * Gets the range that contains this table, or the range at the start or end of the table.
+         *
+         * [Api set: WordApi 1.3]
+         *
+         * @param rangeLocation Optional. The range location can be 'Whole', 'Start', 'End' or 'After'.
          */
         getRange(rangeLocation?: string): Word.Range;
         /**
@@ -13378,32 +13773,32 @@ declare module Word {
          *
          * Inserts a paragraph at the specified location. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param paragraphText Required. The paragraph text to be inserted.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
         /**
          *
          * Inserts a table with the specified number of rows and columns. The insertLocation value can be 'Before' or 'After'.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param rowCount Required. The number of rows in the table.
          * @param columnCount Required. The number of columns in the table.
          * @param insertLocation Required. The value can be 'Before' or 'After'.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertTable(rowCount: number, columnCount: number, insertLocation: string, values?: Array<Array<string>>): Word.Table;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the table object. The search results are a collection of range objects.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
-         *
-         * [Api set: WordApi 1.3]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
@@ -13418,18 +13813,19 @@ declare module Word {
          *
          * Selects the table, or the position at the start or end of the table, and navigates the Word UI to it.
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          */
         select(selectionMode?: string): void;
         /**
          *
          * Sets cell padding in points.
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: string, cellPadding: number): void;
         /**
@@ -13441,14 +13837,13 @@ declare module Word {
          */
         track(): Word.Table;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.Table;
         toJSON(): {
             "alignment": string;
             "font": Font;
             "headerRowCount": number;
-            "height": number;
             "horizontalAlignment": string;
             "isUniform": boolean;
             "nestingLevel": number;
@@ -13477,11 +13872,18 @@ declare module Word {
         items: Array<Word.Table>;
         /**
          *
-         * Gets the first table in this collection.
+         * Gets the first table in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.Table;
+        /**
+         *
+         * Gets the first table in this collection. Returns a null object if this collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.Table;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -13491,7 +13893,7 @@ declare module Word {
          */
         track(): Word.TableCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCollection;
         toJSON(): {};
@@ -13568,11 +13970,11 @@ declare module Word {
         shadingColor: string;
         /**
          *
-         * Gets and sets the text values in the row, as a 1D Javascript array.
+         * Gets and sets the text values in the row, as a 2D Javascript array.
          *
          * [Api set: WordApi 1.3]
          */
-        values: Array<string>;
+        values: Array<Array<string>>;
         /**
          *
          * Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
@@ -13580,6 +13982,15 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         verticalAlignment: string;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.TableRowUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: TableRow): void;
         /**
          *
          * Clears the contents of the row.
@@ -13598,46 +14009,53 @@ declare module Word {
          *
          * Gets the border style of the cells in the row.
          *
-         * @param borderLocation Required. The border location.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param borderLocation Required. The border location.
          */
         getBorder(borderLocation: string): Word.TableBorder;
         /**
          *
          * Gets cell padding in points.
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
          */
         getCellPadding(cellPaddingLocation: string): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets the next row.
+         * Gets the next row. Throws if this row is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.TableRow;
         /**
          *
+         * Gets the next row. Returns a null object if this row is the last one.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNextOrNullObject(): Word.TableRow;
+        /**
+         *
          * Inserts rows using this row as a template. If values are specified, inserts the values into the new rows.
+         *
+         * [Api set: WordApi 1.3]
          *
          * @param insertLocation Required. Where the new rows should be inserted, relative to the current row. It can be 'Before' or 'After'.
          * @param rowCount Required. Number of rows to add
          * @param values Optional. Strings to insert in the new rows, specified as a 2D array. The number of cells in each row must not exceed the number of cells in the existing row.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): Word.TableRowCollection;
         /**
          *
          * Performs a search with the specified searchOptions on the scope of the row. The search results are a collection of range objects.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param searchText Required. The search text.
          * @param searchOptions Optional. Options for the search.
-         *
-         * [Api set: WordApi 1.3]
          */
         search(searchText: string, searchOptions?: Word.SearchOptions | {
             ignorePunct?: boolean;
@@ -13652,18 +14070,19 @@ declare module Word {
          *
          * Selects the row and navigates the Word UI to it.
          *
-         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param selectionMode Optional. The selection mode can be 'Select', 'Start' or 'End'. 'Select' is the default.
          */
         select(selectionMode?: string): void;
         /**
          *
          * Sets cell padding in points.
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: string, cellPadding: number): void;
         /**
@@ -13675,7 +14094,7 @@ declare module Word {
          */
         track(): Word.TableRow;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableRow;
         toJSON(): {
@@ -13686,7 +14105,7 @@ declare module Word {
             "preferredHeight": number;
             "rowIndex": number;
             "shadingColor": string;
-            "values": string[];
+            "values": string[][];
             "verticalAlignment": string;
         };
     }
@@ -13701,11 +14120,18 @@ declare module Word {
         items: Array<Word.TableRow>;
         /**
          *
-         * Gets the first row in this collection.
+         * Gets the first row in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.TableRow;
+        /**
+         *
+         * Gets the first row in this collection. Returns a null object if this collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.TableRow;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -13715,7 +14141,7 @@ declare module Word {
          */
         track(): Word.TableRowCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableRowCollection;
         toJSON(): {};
@@ -13804,6 +14230,15 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         width: number;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.TableCellUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: TableCell): void;
         /**
          *
          * Deletes the column containing this cell. This is applicable to uniform tables.
@@ -13822,56 +14257,64 @@ declare module Word {
          *
          * Gets the border style for the specified border.
          *
-         * @param borderLocation Required. The border location.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param borderLocation Required. The border location.
          */
         getBorder(borderLocation: string): Word.TableBorder;
         /**
          *
          * Gets cell padding in points.
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
          */
         getCellPadding(cellPaddingLocation: string): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets the next cell.
+         * Gets the next cell. Throws if this cell is the last one.
          *
          * [Api set: WordApi 1.3]
          */
         getNext(): Word.TableCell;
         /**
          *
+         * Gets the next cell. Returns a null object if this cell is the last one.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getNextOrNullObject(): Word.TableCell;
+        /**
+         *
          * Adds columns to the left or right of the cell, using the cell's column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
+         *
+         * [Api set: WordApi 1.3]
          *
          * @param insertLocation Required. It can be 'Before' or 'After'.
          * @param columnCount Required. Number of columns to add
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertColumns(insertLocation: string, columnCount: number, values?: Array<Array<string>>): void;
         /**
          *
          * Inserts rows above or below the cell, using the cell's row as a template. The string values, if specified, are set in the newly inserted rows.
          *
+         * [Api set: WordApi 1.3]
+         *
          * @param insertLocation Required. It can be 'Before' or 'After'.
          * @param rowCount Required. Number of rows to add.
          * @param values Optional 2D array. Cells are filled if the corresponding strings are specified in the array.
-         *
-         * [Api set: WordApi 1.3]
          */
         insertRows(insertLocation: string, rowCount: number, values?: Array<Array<string>>): Word.TableRowCollection;
         /**
          *
          * Sets cell padding in points.
          *
-         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
-         *
          * [Api set: WordApi 1.3]
+         *
+         * @param cellPaddingLocation Required. The cell padding location can be 'Top', 'Left', 'Bottom' or 'Right'.
+         * @param cellPadding Required. The cell padding.
          */
         setCellPadding(cellPaddingLocation: string, cellPadding: number): void;
         /**
@@ -13883,7 +14326,7 @@ declare module Word {
          */
         track(): Word.TableCell;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCell;
         toJSON(): {
@@ -13909,11 +14352,18 @@ declare module Word {
         items: Array<Word.TableCell>;
         /**
          *
-         * Gets the first table cell in this collection.
+         * Gets the first table cell in this collection. Throws if this collection is empty.
          *
          * [Api set: WordApi 1.3]
          */
         getFirst(): Word.TableCell;
+        /**
+         *
+         * Gets the first table cell in this collection. Returns a null object if this collection is empty.
+         *
+         * [Api set: WordApi 1.3]
+         */
+        getFirstOrNullObject(): Word.TableCell;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -13923,7 +14373,7 @@ declare module Word {
          */
         track(): Word.TableCellCollection;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableCellCollection;
         toJSON(): {};
@@ -13956,6 +14406,15 @@ declare module Word {
          * [Api set: WordApi 1.3]
          */
         width: number;
+        /** Sets multiple properties on the object at the same time, based on JSON input. */
+        set(properties: Interfaces.TableBorderUpdateData, options?: {
+            /**
+             * Throw an error if the passed-in property list includes read-only properties (default = true).
+             */
+            throwOnReadOnly?: boolean;
+        }): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: TableBorder): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -13965,7 +14424,7 @@ declare module Word {
          */
         track(): Word.TableBorder;
         /**
-         * Release the memory associated with this object, if has previous been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect.
          */
         untrack(): Word.TableBorder;
         toJSON(): {
@@ -13980,7 +14439,7 @@ declare module Word {
      *
      * [Api set: WordApi]
      */
-    module ContentControlType {
+    namespace ContentControlType {
         var unknown: string;
         var richTextInline: string;
         var richTextParagraphs: string;
@@ -14005,7 +14464,7 @@ declare module Word {
      *
      * [Api set: WordApi]
      */
-    module ContentControlAppearance {
+    namespace ContentControlAppearance {
         var boundingBox: string;
         var tags: string;
         var hidden: string;
@@ -14016,7 +14475,7 @@ declare module Word {
      *
      * [Api set: WordApi]
      */
-    module UnderlineType {
+    namespace UnderlineType {
         var mixed: string;
         var none: string;
         /**
@@ -14053,7 +14512,7 @@ declare module Word {
      *
      * [Api set: WordApi]
      */
-    module BreakType {
+    namespace BreakType {
         /**
          *
          * Page break.
@@ -14102,7 +14561,7 @@ declare module Word {
      *
      * [Api set: WordApi]
      */
-    module InsertLocation {
+    namespace InsertLocation {
         var before: string;
         var after: string;
         var start: string;
@@ -14112,7 +14571,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module Alignment {
+    namespace Alignment {
         var mixed: string;
         var unknown: string;
         var left: string;
@@ -14123,7 +14582,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module HeaderFooterType {
+    namespace HeaderFooterType {
         var primary: string;
         var firstPage: string;
         var evenPages: string;
@@ -14131,7 +14590,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module BodyType {
+    namespace BodyType {
         var unknown: string;
         var mainDoc: string;
         var section: string;
@@ -14142,7 +14601,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module SelectionMode {
+    namespace SelectionMode {
         var select: string;
         var start: string;
         var end: string;
@@ -14150,7 +14609,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module ImageFormat {
+    namespace ImageFormat {
         var unsupported: string;
         var undefined: string;
         var bmp: string;
@@ -14169,7 +14628,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module RangeLocation {
+    namespace RangeLocation {
         var whole: string;
         var start: string;
         var end: string;
@@ -14180,7 +14639,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module LocationRelation {
+    namespace LocationRelation {
         var unrelated: string;
         var equal: string;
         var containsStart: string;
@@ -14199,7 +14658,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module BorderLocation {
+    namespace BorderLocation {
         var top: string;
         var left: string;
         var bottom: string;
@@ -14213,7 +14672,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module CellPaddingLocation {
+    namespace CellPaddingLocation {
         var top: string;
         var left: string;
         var bottom: string;
@@ -14222,7 +14681,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module BorderType {
+    namespace BorderType {
         var mixed: string;
         var none: string;
         var single: string;
@@ -14251,7 +14710,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module VerticalAlignment {
+    namespace VerticalAlignment {
         var mixed: string;
         var top: string;
         var center: string;
@@ -14260,7 +14719,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module ListLevelType {
+    namespace ListLevelType {
         var bullet: string;
         var number: string;
         var picture: string;
@@ -14268,7 +14727,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module ListBullet {
+    namespace ListBullet {
         var custom: string;
         var solid: string;
         var hollow: string;
@@ -14280,7 +14739,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module ListNumbering {
+    namespace ListNumbering {
         var none: string;
         var arabic: string;
         var upperRoman: string;
@@ -14291,7 +14750,7 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module Style {
+    namespace Style {
         /**
          *
          * Mixed styles or other style not in this list.
@@ -14504,18 +14963,775 @@ declare module Word {
     /**
      * [Api set: WordApi]
      */
-    module DocumentPropertyType {
+    namespace DocumentPropertyType {
         var string: string;
         var number: string;
         var date: string;
         var boolean: string;
     }
-    module ErrorCodes {
+    namespace ErrorCodes {
         var accessDenied: string;
         var generalException: string;
         var invalidArgument: string;
         var itemNotFound: string;
         var notImplemented: string;
+    }
+    module Interfaces {
+        /** An interface for updating data on the Body object, for use in "body.set({ ... })". */
+        interface BodyUpdateData {
+            /**
+            *
+            * Gets the text format of the body. Use this to get and set font name, size, color and other properties.
+            *
+            * [Api set: WordApi 1.1]
+            */
+            font?: Word.Interfaces.FontUpdateData;
+            /**
+             *
+             * Gets or sets the style name for the body. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            style?: string;
+            /**
+             *
+             * Gets or sets the built-in style name for the body. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleBuiltIn?: string;
+        }
+        /** An interface for updating data on the ContentControl object, for use in "contentControl.set({ ... })". */
+        interface ContentControlUpdateData {
+            /**
+            *
+            * Gets the text format of the content control. Use this to get and set font name, size, color, and other properties.
+            *
+            * [Api set: WordApi 1.1]
+            */
+            font?: Word.Interfaces.FontUpdateData;
+            /**
+             *
+             * Gets or sets the appearance of the content control. The value can be 'boundingBox', 'tags' or 'hidden'.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            appearance?: string;
+            /**
+             *
+             * Gets or sets a value that indicates whether the user can delete the content control. Mutually exclusive with removeWhenEdited.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            cannotDelete?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether the user can edit the contents of the content control.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            cannotEdit?: boolean;
+            /**
+             *
+             * Gets or sets the color of the content control. Color is specified in '#RRGGBB' format or by using the color name.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            color?: string;
+            /**
+             *
+             * Gets or sets the placeholder text of the content control. Dimmed text will be displayed when the content control is empty.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            placeholderText?: string;
+            /**
+             *
+             * Gets or sets a value that indicates whether the content control is removed after it is edited. Mutually exclusive with cannotDelete.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            removeWhenEdited?: boolean;
+            /**
+             *
+             * Gets or sets the style name for the content control. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            style?: string;
+            /**
+             *
+             * Gets or sets the built-in style name for the content control. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleBuiltIn?: string;
+            /**
+             *
+             * Gets or sets a tag to identify a content control.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            tag?: string;
+            /**
+             *
+             * Gets or sets the title for a content control.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            title?: string;
+        }
+        /** An interface for updating data on the CustomProperty object, for use in "customProperty.set({ ... })". */
+        interface CustomPropertyUpdateData {
+            /**
+             *
+             * Gets or sets the value of the custom property.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            value?: any;
+        }
+        /** An interface for updating data on the Document object, for use in "document.set({ ... })". */
+        interface DocumentUpdateData {
+            /**
+            *
+            * Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc..
+            *
+            * [Api set: WordApi 1.1]
+            */
+            body?: Word.Interfaces.BodyUpdateData;
+            /**
+            *
+            * Gets the properties of the current document.
+            *
+            * [Api set: WordApi 1.3]
+            */
+            properties?: Word.Interfaces.DocumentPropertiesUpdateData;
+        }
+        /** An interface for updating data on the DocumentProperties object, for use in "documentProperties.set({ ... })". */
+        interface DocumentPropertiesUpdateData {
+            /**
+             *
+             * Gets or sets the author of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            author?: string;
+            /**
+             *
+             * Gets or sets the category of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            category?: string;
+            /**
+             *
+             * Gets or sets the comments of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            comments?: string;
+            /**
+             *
+             * Gets or sets the company of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            company?: string;
+            /**
+             *
+             * Gets or sets the format of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            format?: string;
+            /**
+             *
+             * Gets or sets the keywords of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            keywords?: string;
+            /**
+             *
+             * Gets or sets the manager of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            manager?: string;
+            /**
+             *
+             * Gets or sets the subject of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            subject?: string;
+            /**
+             *
+             * Gets or sets the title of the document.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            title?: string;
+        }
+        /** An interface for updating data on the Font object, for use in "font.set({ ... })". */
+        interface FontUpdateData {
+            /**
+             *
+             * Gets or sets a value that indicates whether the font is bold. True if the font is formatted as bold, otherwise, false.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            bold?: boolean;
+            /**
+             *
+             * Gets or sets the color for the specified font. You can provide the value in the '#RRGGBB' format or the color name.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            color?: string;
+            /**
+             *
+             * Gets or sets a value that indicates whether the font has a double strike through. True if the font is formatted as double strikethrough text, otherwise, false.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            doubleStrikeThrough?: boolean;
+            /**
+             *
+             * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, or an empty string for mixed highlight colors, or null for no highlight color.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            highlightColor?: string;
+            /**
+             *
+             * Gets or sets a value that indicates whether the font is italicized. True if the font is italicized, otherwise, false.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            italic?: boolean;
+            /**
+             *
+             * Gets or sets a value that represents the name of the font.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            name?: string;
+            /**
+             *
+             * Gets or sets a value that represents the font size in points.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            size?: number;
+            /**
+             *
+             * Gets or sets a value that indicates whether the font has a strike through. True if the font is formatted as strikethrough text, otherwise, false.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            strikeThrough?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether the font is a subscript. True if the font is formatted as subscript, otherwise, false.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            subscript?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether the font is a superscript. True if the font is formatted as superscript, otherwise, false.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            superscript?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates the font's underline type. 'None' if the font is not underlined.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            underline?: string;
+        }
+        /** An interface for updating data on the InlinePicture object, for use in "inlinePicture.set({ ... })". */
+        interface InlinePictureUpdateData {
+            /**
+             *
+             * Gets or sets a string that represents the alternative text associated with the inline image
+             *
+             * [Api set: WordApi 1.1]
+             */
+            altTextDescription?: string;
+            /**
+             *
+             * Gets or sets a string that contains the title for the inline image.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            altTextTitle?: string;
+            /**
+             *
+             * Gets or sets a number that describes the height of the inline image.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            height?: number;
+            /**
+             *
+             * Gets or sets a hyperlink on the image. Use a '#' to separate the address part from the optional location part.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            hyperlink?: string;
+            /**
+             *
+             * Gets or sets a value that indicates whether the inline image retains its original proportions when you resize it.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            lockAspectRatio?: boolean;
+            /**
+             *
+             * Gets or sets a number that describes the width of the inline image.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            width?: number;
+        }
+        /** An interface for updating data on the ListItem object, for use in "listItem.set({ ... })". */
+        interface ListItemUpdateData {
+            /**
+             *
+             * Gets or sets the level of the item in the list.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            level?: number;
+        }
+        /** An interface for updating data on the Paragraph object, for use in "paragraph.set({ ... })". */
+        interface ParagraphUpdateData {
+            /**
+            *
+            * Gets the text format of the paragraph. Use this to get and set font name, size, color, and other properties.
+            *
+            * [Api set: WordApi 1.1]
+            */
+            font?: Word.Interfaces.FontUpdateData;
+            /**
+            *
+            * Gets the ListItem for the paragraph. Throws if the paragraph is not part of a list.
+            *
+            * [Api set: WordApi 1.3]
+            */
+            listItem?: Word.Interfaces.ListItemUpdateData;
+            /**
+            *
+            * Gets the ListItem for the paragraph. Returns a null object if the paragraph is not part of a list.
+            *
+            * [Api set: WordApi 1.3]
+            */
+            listItemOrNullObject?: Word.Interfaces.ListItemUpdateData;
+            /**
+             *
+             * Gets or sets the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            alignment?: string;
+            /**
+             *
+             * Gets or sets the value, in points, for a first line or hanging indent. Use a positive value to set a first-line indent, and use a negative value to set a hanging indent.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            firstLineIndent?: number;
+            /**
+             *
+             * Gets or sets the left indent value, in points, for the paragraph.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            leftIndent?: number;
+            /**
+             *
+             * Gets or sets the line spacing, in points, for the specified paragraph. In the Word UI, this value is divided by 12.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            lineSpacing?: number;
+            /**
+             *
+             * Gets or sets the amount of spacing, in grid lines. after the paragraph.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            lineUnitAfter?: number;
+            /**
+             *
+             * Gets or sets the amount of spacing, in grid lines, before the paragraph.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            lineUnitBefore?: number;
+            /**
+             *
+             * Gets or sets the outline level for the paragraph.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            outlineLevel?: number;
+            /**
+             *
+             * Gets or sets the right indent value, in points, for the paragraph.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            rightIndent?: number;
+            /**
+             *
+             * Gets or sets the spacing, in points, after the paragraph.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            spaceAfter?: number;
+            /**
+             *
+             * Gets or sets the spacing, in points, before the paragraph.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            spaceBefore?: number;
+            /**
+             *
+             * Gets or sets the style name for the paragraph. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            style?: string;
+            /**
+             *
+             * Gets or sets the built-in style name for the paragraph. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleBuiltIn?: string;
+        }
+        /** An interface for updating data on the Range object, for use in "range.set({ ... })". */
+        interface RangeUpdateData {
+            /**
+            *
+            * Gets the text format of the range. Use this to get and set font name, size, color, and other properties.
+            *
+            * [Api set: WordApi 1.1]
+            */
+            font?: Word.Interfaces.FontUpdateData;
+            /**
+             *
+             * Gets the first hyperlink in the range, or sets a hyperlink on the range. All hyperlinks in the range are deleted when you set a new hyperlink on the range. Use a '#' to separate the address part from the optional location part.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            hyperlink?: string;
+            /**
+             *
+             * Gets or sets the style name for the range. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            style?: string;
+            /**
+             *
+             * Gets or sets the built-in style name for the range. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleBuiltIn?: string;
+        }
+        /** An interface for updating data on the SearchOptions object, for use in "searchOptions.set({ ... })". */
+        interface SearchOptionsUpdateData {
+            /**
+             *
+             * Gets or sets a value that indicates whether to ignore all punctuation characters between words. Corresponds to the Ignore punctuation check box in the Find and Replace dialog box.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            ignorePunct?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether to ignore all whitespace between words. Corresponds to the Ignore whitespace characters check box in the Find and Replace dialog box.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            ignoreSpace?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box (Edit menu).
+             *
+             * [Api set: WordApi 1.1]
+             */
+            matchCase?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether to match words that begin with the search string. Corresponds to the Match prefix check box in the Find and Replace dialog box.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            matchPrefix?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether to match words that end with the search string. Corresponds to the Match suffix check box in the Find and Replace dialog box.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            matchSuffix?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether to find operation only entire words, not text that is part of a larger word. Corresponds to the Find whole words only check box in the Find and Replace dialog box.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            matchWholeWord?: boolean;
+            /**
+             *
+             * Gets or sets a value that indicates whether the search will be performed using special search operators. Corresponds to the Use wildcards check box in the Find and Replace dialog box.
+             *
+             * [Api set: WordApi 1.1]
+             */
+            matchWildcards?: boolean;
+        }
+        /** An interface for updating data on the Section object, for use in "section.set({ ... })". */
+        interface SectionUpdateData {
+            /**
+            *
+            * Gets the body object of the section. This does not include the header/footer and other section metadata.
+            *
+            * [Api set: WordApi 1.1]
+            */
+            body?: Word.Interfaces.BodyUpdateData;
+        }
+        /** An interface for updating data on the Table object, for use in "table.set({ ... })". */
+        interface TableUpdateData {
+            /**
+            *
+            * Gets the font. Use this to get and set font name, size, color, and other properties.
+            *
+            * [Api set: WordApi 1.3]
+            */
+            font?: Word.Interfaces.FontUpdateData;
+            /**
+             *
+             * Gets or sets the alignment of the table against the page column. The value can be 'left', 'centered' or 'right'.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            alignment?: string;
+            /**
+             *
+             * Gets and sets the number of header rows.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            headerRowCount?: number;
+            /**
+             *
+             * Gets and sets the horizontal alignment of every cell in the table. The value can be 'left', 'centered', 'right', or 'justified'.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            horizontalAlignment?: string;
+            /**
+             *
+             * Gets and sets the shading color.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            shadingColor?: string;
+            /**
+             *
+             * Gets or sets the style name for the table. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the "styleBuiltIn" property.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            style?: string;
+            /**
+             *
+             * Gets and sets whether the table has banded columns.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleBandedColumns?: boolean;
+            /**
+             *
+             * Gets and sets whether the table has banded rows.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleBandedRows?: boolean;
+            /**
+             *
+             * Gets or sets the built-in style name for the table. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the "style" property.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleBuiltIn?: string;
+            /**
+             *
+             * Gets and sets whether the table has a first column with a special style.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleFirstColumn?: boolean;
+            /**
+             *
+             * Gets and sets whether the table has a last column with a special style.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleLastColumn?: boolean;
+            /**
+             *
+             * Gets and sets whether the table has a total (last) row with a special style.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            styleTotalRow?: boolean;
+            /**
+             *
+             * Gets and sets the text values in the table, as a 2D Javascript array.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            values?: Array<Array<string>>;
+            /**
+             *
+             * Gets and sets the vertical alignment of every cell in the table. The value can be 'top', 'center' or 'bottom'.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            verticalAlignment?: string;
+            /**
+             *
+             * Gets and sets the width of the table in points.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            width?: number;
+        }
+        /** An interface for updating data on the TableRow object, for use in "tableRow.set({ ... })". */
+        interface TableRowUpdateData {
+            /**
+            *
+            * Gets the font. Use this to get and set font name, size, color, and other properties.
+            *
+            * [Api set: WordApi 1.3]
+            */
+            font?: Word.Interfaces.FontUpdateData;
+            /**
+             *
+             * Gets and sets the horizontal alignment of every cell in the row. The value can be 'left', 'centered', 'right', or 'justified'.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            horizontalAlignment?: string;
+            /**
+             *
+             * Gets and sets the preferred height of the row in points.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            preferredHeight?: number;
+            /**
+             *
+             * Gets and sets the shading color.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            shadingColor?: string;
+            /**
+             *
+             * Gets and sets the text values in the row, as a 2D Javascript array.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            values?: Array<Array<string>>;
+            /**
+             *
+             * Gets and sets the vertical alignment of the cells in the row. The value can be 'top', 'center' or 'bottom'.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            verticalAlignment?: string;
+        }
+        /** An interface for updating data on the TableCell object, for use in "tableCell.set({ ... })". */
+        interface TableCellUpdateData {
+            /**
+            *
+            * Gets the body object of the cell.
+            *
+            * [Api set: WordApi 1.3]
+            */
+            body?: Word.Interfaces.BodyUpdateData;
+            /**
+             *
+             * Gets and sets the width of the cell's column in points. This is applicable to uniform tables.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            columnWidth?: number;
+            /**
+             *
+             * Gets and sets the horizontal alignment of the cell. The value can be 'left', 'centered', 'right', or 'justified'.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            horizontalAlignment?: string;
+            /**
+             *
+             * Gets or sets the shading color of the cell. Color is specified in "#RRGGBB" format or by using the color name.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            shadingColor?: string;
+            /**
+             *
+             * Gets and sets the text of the cell.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            value?: string;
+            /**
+             *
+             * Gets and sets the vertical alignment of the cell. The value can be 'top', 'center' or 'bottom'.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            verticalAlignment?: string;
+        }
+        /** An interface for updating data on the TableBorder object, for use in "tableBorder.set({ ... })". */
+        interface TableBorderUpdateData {
+            /**
+             *
+             * Gets or sets the table border color, as a hex value or name.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            color?: string;
+            /**
+             *
+             * Gets or sets the type of the table border.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            type?: string;
+            /**
+             *
+             * Gets or sets the width, in points, of the table border. Not applicable to table border types that have fixed widths.
+             *
+             * [Api set: WordApi 1.3]
+             */
+            width?: number;
+        }
     }
 }
 declare module Word {
@@ -14525,7 +15741,6 @@ declare module Word {
     class RequestContext extends OfficeExtension.ClientRequestContext {
         constructor(url?: string);
         document: Document;
-        application: Application;
     }
     /**
      * Executes a batch script that performs actions on the Word object model, using a new RequestContext. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.

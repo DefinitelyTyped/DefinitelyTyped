@@ -1,5 +1,4 @@
 import Reflux = require("reflux");
-import React = require("react");
 
 var syncActions = Reflux.createActions([
     "statusUpdate",

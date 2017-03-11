@@ -1,8 +1,9 @@
 // Type definitions for jQuery Steps v1.1.1
 // Project: http://www.jquery-steps.com/
-// Definitions by: Joseph Blank <https://github.com/jblank/>
+// Definitions by: Joseph Blank <https://github.com/jblank/>, Nicholas Wong <https://github.com/nickwph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Updated by: Nicholas Wong <https://github.com/nickwph>
+
+/// <reference types="jquery" />
 
 interface JQuery {
     steps(param?: JQuerySteps.Settings): JQuerySteps.JQuerySteps;

@@ -1,6 +1,10 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Matt Lewis <https://github.com/mattlewis92>
+//                 Benjamin Lim <https://github.com/bumbleblym>
+//                 Boris Cherny <https://github.com/bcherny>
+//                 Tommy Troy Lin <https://github.com/tommytroylin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -661,7 +665,20 @@ declare namespace webpack {
      */
 
     class BannerPlugin extends Plugin {
-        constructor(banner: any, options: any);
+        constructor(options: string | BannerPlugin.Options);
+    }
+
+    namespace BannerPlugin {
+        type Filter = string | RegExp;
+
+        interface Options {
+            banner: string;
+            entryOnly?: boolean;
+            exclude?: Filter | Filter[];
+            include?: Filter | Filter[];
+            raw?: boolean;
+            test?: Filter | Filter[];
+        }
     }
 
     class ContextReplacementPlugin extends Plugin {
@@ -730,6 +747,10 @@ declare namespace webpack {
         constructor(request: any);
     }
 
+    class ProgressPlugin extends Plugin {
+        constructor(options?: (percentage: number, msg: string) => void);
+    }
+
     class ProvidePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
     }
@@ -766,10 +787,28 @@ declare namespace webpack {
 
     namespace optimize {
         class AggressiveMergingPlugin extends Plugin {
-            constructor(options?: {
-                minSize?: number;
-                maxSize?: number;
-            });
+            constructor(options?: AggressiveMergingPlugin.Options);
+        }
+
+        namespace AggressiveMergingPlugin {
+            interface Options {
+                /**
+                 * When options.moveToParents is set, moving to an entry chunk is more expensive.
+                 * Defaults to 10, which means moving to an entry chunk is ten times more expensive than moving to a
+                 * normal chunk.
+                 */
+                entryChunkMultiplicator?: number;
+                /**
+                 * A factor which defines the minimum required size reduction for chunk merging.
+                 * Defaults to 1.5 which means that the total size needs to be reduced by 50% for chunk merging.
+                 */
+                minSizeReduce?: number;
+                /**
+                 * When set, modules that are not in both merged chunks are moved to all parents of the chunk.
+                 * Defaults to false.
+                 */
+                moveToParents?: boolean;
+            }
         }
 
         class CommonsChunkPlugin extends Plugin {

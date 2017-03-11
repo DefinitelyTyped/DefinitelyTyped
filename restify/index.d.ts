@@ -462,6 +462,7 @@ interface ServerOptions {
     handleUpgrades?: boolean;
     router?: Router;
     httpsServerOptions?: any;
+	socketio?: boolean;
 }
 
 interface ClientOptions {

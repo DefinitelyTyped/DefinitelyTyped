@@ -1,6 +1,3 @@
-/// <reference types="jquery"/>
-
-
 // plugin check
 if (!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
     Hammer.plugins.fakeMultitouch();

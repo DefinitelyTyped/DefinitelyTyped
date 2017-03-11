@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import sql = require('mssql');
 
 interface Entity{

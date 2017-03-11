@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts"/>
-
 /**
  * Created by Christophe Vidal <https://github.com/krizalys>
  */
