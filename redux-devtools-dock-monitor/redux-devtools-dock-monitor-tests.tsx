@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 import * as React from 'react'
 import DockMonitor from 'redux-devtools-dock-monitor'
 

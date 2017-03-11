@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_sprites.html
 
 () => {
@@ -107,7 +104,7 @@
         var loader = new THREE.JSONLoader();
         loader.load( "models/skinned/knight.js", function ( geometry, materials ) {
 
-            createScene( geometry, materials, 0, FLOOR, -300, 60 )
+            createScene( geometry, materials as THREE.MeshPhongMaterial[], 0, FLOOR, -300, 60 )
 
         } );
 
@@ -133,7 +130,7 @@
 
     }
 
-    function createScene( geometry, materials, x, y, z, s ) {
+    function createScene( geometry: THREE.Geometry, materials: THREE.MeshPhongMaterial[], x: number, y: number, z: number, s: number ) {
 
         //ensureLoop( geometry.animation );
 
@@ -203,7 +200,7 @@
 
     }
 
-    function onDocumentMouseMove( event ) {
+    function onDocumentMouseMove( event: MouseEvent ) {
 
         mouseX = ( event.clientX - windowHalfX );
         mouseY = ( event.clientY - windowHalfY );

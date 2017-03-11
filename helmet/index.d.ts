@@ -81,7 +81,7 @@ declare namespace helmet {
     }
 
     export interface IHelmetHstsConfiguration {
-        maxAge: number;
+        maxAge?: number;
         includeSubdomains?: boolean;
         preload?: boolean;
         setIf?: IHelmetSetIfFunction,

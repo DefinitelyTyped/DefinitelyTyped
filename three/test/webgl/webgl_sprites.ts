@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_sprites.html
 
 () => {
@@ -8,14 +5,14 @@
     var material: THREE.SpriteMaterial;
     // -------
 
-    var camera, scene, renderer;
-    var cameraOrtho, sceneOrtho;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer;
+    var cameraOrtho: THREE.OrthographicCamera, sceneOrtho: THREE.Scene;
 
-    var spriteTL, spriteTR, spriteBL, spriteBR, spriteC;
+    var spriteTL: THREE.Sprite, spriteTR: THREE.Sprite, spriteBL: THREE.Sprite, spriteBR: THREE.Sprite, spriteC: THREE.Sprite;
 
-    var mapC;
+    var mapC: THREE.Texture;
 
-    var group;
+    var group: THREE.Group;
 
     init();
     animate();
@@ -96,7 +93,7 @@
 
     }
 
-    function createHUDSprites ( texture ) {
+    function createHUDSprites ( texture: THREE.Texture ) {
 
         var material = new THREE.SpriteMaterial( { map: texture } );
 
@@ -178,7 +175,7 @@
 
         for ( var i = 0, l = group.children.length; i < l; i ++ ) {
 
-            var sprite = group.children[ i ];
+            var sprite = group.children[ i ] as THREE.Sprite;
             var material = sprite.material;
             var scale = Math.sin( time + sprite.position.x * 0.01 ) * 0.3 + 1.0;
 

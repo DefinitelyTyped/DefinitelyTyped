@@ -1,5 +1,32 @@
-
 import * as webpack from 'webpack';
+
+const {
+    optimize,
+} = webpack;
+
+let plugins: webpack.Plugin[];
+
+/**
+ * Plugins
+ */
+
+/**
+ * optimize
+ */
+
+const {
+    AggressiveMergingPlugin,
+} = optimize;
+
+plugins = [
+    new AggressiveMergingPlugin(),
+    new AggressiveMergingPlugin({}),
+    new AggressiveMergingPlugin({
+        entryChunkMultiplicator: 10,
+        minSizeReduce: 1.5,
+        moveToParents: false,
+    }),
+];
 
 let configuration: webpack.Configuration;
 let rule: webpack.Rule;
@@ -103,7 +130,7 @@ configuration = {
     }
 };
 
-let CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 configuration = {
     entry: {
         p1: "./page1",
@@ -208,7 +235,7 @@ declare var path: any;
 configuration = {
     plugins: [
         function(this: webpack.Compiler) {
-            this.plugin("done", function(stats: any) {
+            this.plugin("done", stats => {
                 require("fs").writeFileSync(
                     path.join(__dirname, "...", "stats.json"),
                     JSON.stringify(stats.toJson()));
@@ -221,22 +248,21 @@ configuration = {
 // https://webpack.github.io/docs/list-of-plugins.html
 //
 
-let resourceRegExp: any;
-let newResource: any;
-let contextRegExp: any;
-let newContentResource: any;
-let newContentRecursive: any;
-let newContentRegExp: any;
-let requestRegExp: any;
-let options: any;
-let definitions: any;
-let paths: any;
-let preferEntry = true;
-let context: any;
-let request: any;
-let types: any;
-let banner: any;
-let plugins: webpack.Plugin[] = [];
+declare const resourceRegExp: any;
+declare const newResource: any;
+declare const contextRegExp: any;
+declare const newContentResource: any;
+declare const newContentRecursive: any;
+declare const newContentRegExp: any;
+declare const requestRegExp: any;
+declare const options: any;
+declare const definitions: any;
+declare const paths: any;
+const preferEntry = true;
+declare const context: any;
+declare const request: any;
+declare const types: any;
+declare const banner: any;
 
 plugin = new webpack.NormalModuleReplacementPlugin(resourceRegExp, newResource);
 plugin = new webpack.ContextReplacementPlugin(
@@ -257,7 +283,18 @@ plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 
 plugin = new webpack.PrefetchPlugin(context, request);
 plugin = new webpack.PrefetchPlugin(request);
-plugin = new webpack.BannerPlugin(banner, options);
+plugin = new webpack.BannerPlugin('banner');
+plugin = new webpack.BannerPlugin({
+    banner: 'banner'
+});
+plugin = new webpack.BannerPlugin({
+    banner: 'banner',
+    entryOnly: true,
+    exclude: /index/,
+    include: 'test',
+    raw: false,
+    test: ['test', /index/]
+});
 plugin = new webpack.optimize.DedupePlugin();
 plugin = new webpack.optimize.LimitChunkCountPlugin(options);
 plugin = new webpack.optimize.MinChunkSizePlugin(options);
@@ -284,9 +321,7 @@ plugin = new webpack.optimize.UglifyJsPlugin({
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
-    comments: function(astNode: any, comment: any) {
-        return false;
-    }
+    comments: (astNode: any, comment: any) => false
 });
 plugin = new webpack.optimize.CommonsChunkPlugin(options);
 plugin = new CommonsChunkPlugin({
@@ -325,12 +360,11 @@ plugin = new CommonsChunkPlugin({
     // minChunks: 3,
     // (3 children must share the module before it's separated)
 });
-plugin = new webpack.optimize.AggressiveMergingPlugin(options);
 plugin = new webpack.DefinePlugin(definitions);
 plugin = new webpack.DefinePlugin({
-    VERSION: JSON.stringify("5fa3b9"),
-    BROWSER_SUPPORTS_HTML5: true,
-    TWO: "1+1",
+    "VERSION": JSON.stringify("5fa3b9"),
+    "BROWSER_SUPPORTS_HTML5": true,
+    "TWO": "1+1",
     "typeof window": JSON.stringify("object")
 });
 plugin = new webpack.ProvidePlugin(definitions);
@@ -340,17 +374,17 @@ plugin = new webpack.ProvidePlugin({
 plugin = new webpack.SourceMapDevToolPlugin({
     //// asset matching
     test: /\.js$/,
-    //include: Condition | Condition[],
+    // include: Condition | Condition[],
     exclude: [
         /node_modules/
     ],
     //
     //// file and reference
     filename: null, // | string
-    //append: false | string,
+    // append: false | string,
     //// sources naming
-    //moduleFilenameTemplate: string,
-    //fallbackModuleFilenameTemplate: string,
+    // moduleFilenameTemplate: string,
+    // fallbackModuleFilenameTemplate: string,
     //
     //// quality/performance
     module: true,
@@ -366,6 +400,7 @@ plugin = new webpack.WatchIgnorePlugin(paths);
 plugin = new webpack.LoaderOptionsPlugin({
     debug: true
 });
+plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
 
 //
 // http://webpack.github.io/docs/node.js-api.html
@@ -374,7 +409,7 @@ plugin = new webpack.LoaderOptionsPlugin({
 // returns a Compiler instance
 webpack({
     // configuration
-}, function(err, stats) {
+}, (err, stats) => {
     // ...
 });
 
@@ -383,7 +418,7 @@ var compiler = webpack({
     // configuration
 });
 
-compiler.run(function(err, stats) {
+compiler.run((err, stats) => {
     // ...
 });
 // or
@@ -391,19 +426,19 @@ compiler.watch({ // watch options:
     aggregateTimeout: 300, // wait so long for more changes
     poll: true // use polling instead of native watchers
     // pass a number to set the polling interval
-}, function(err, stats) {
+}, (err, stats) => {
     // ...
 });
 // or
 compiler.watch({ // watch options:
     ignored: 'foo/**/*'
-}, function(err, stats) {
+}, (err, stats) => {
     // ...
 });
 // or
 compiler.watch({ // watch options:
     ignored: /node_modules/
-}, function(err, stats) {
+}, (err, stats) => {
     // ...
 });
 
@@ -414,8 +449,8 @@ declare function successfullyCompiled(): void;
 
 webpack({
     // configuration
-}, function(err, stats) {
-    if(err)
+}, (err, stats) => {
+    if (err)
         return handleFatalError(err);
     var jsonStats = stats.toJson();
     var jsonStatsWithAllOptions = stats.toJson({
@@ -440,9 +475,9 @@ webpack({
         version: true,
         warnings: true
     });
-    if(jsonStats.errors.length > 0)
+    if (jsonStats.errors.length > 0)
         return handleSoftErrors(jsonStats.errors);
-    if(jsonStats.warnings.length > 0)
+    if (jsonStats.warnings.length > 0)
         handleWarnings(jsonStats.warnings);
     successfullyCompiled();
 });
@@ -451,7 +486,7 @@ declare var fs: any;
 
 compiler = webpack({ });
 compiler.outputFileSystem = fs;
-compiler.run(function(err, stats) {
+compiler.run((err, stats) => {
     // ...
     var fileContent = fs.readFileSync("...");
 });
@@ -469,7 +504,7 @@ rule = {
     },
     loader: "./loader",
     options: "third"
-}
+};
 
 configuration = {
     module: {
@@ -499,7 +534,7 @@ configuration = {
                         {
                             loader: "./loader",
                             options: {
-                                get: function() { return "second-3"; }
+                                get: () => "second-3"
                             }
                         }
                     ]
@@ -517,19 +552,17 @@ configuration = {
             ]}
         ]
     }
-}
+};
 
 const resolve: webpack.Resolve = {
     cachePredicate: 'boo' // why does this test _not_ fail!?
-}
+};
 
 const performance: webpack.Options.Performance = {
     hints: 'error',
     maxEntrypointSize: 400000,
     maxAssetSize: 100000,
-    assetFilter: function(assetFilename) {
-        return assetFilename.endsWith('.js');
-    },
+    assetFilter: assetFilename => assetFilename.endsWith('.js'),
 };
 
 configuration = {
@@ -550,7 +583,7 @@ function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: s
     this.callback(null, source);
 }
 
-module loader {
+namespace loader {
     export const raw: boolean = true;
     export const pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
 }

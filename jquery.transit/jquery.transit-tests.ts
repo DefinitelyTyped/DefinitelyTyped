@@ -1,5 +1,3 @@
-///<reference types="jquery" />
-
 class TransitOptions implements JQueryTransitOptions {
 	opacity: number;
 	duration: number;

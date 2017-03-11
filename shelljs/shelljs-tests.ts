@@ -1,10 +1,4 @@
-// Tests for shelljs.d.ts
-// Project: http://shelljs.org
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
-
-///<reference types="node" />
 
 import shell = require("shelljs");
 
@@ -97,7 +91,7 @@ var pid = asyncVersion3.pid;
 shell.exec("node --version", { silent: true }, function (code, stdout, stderr) {
     var version = stdout;
 });
-shell.exec("node --version", { silent: true, async: true }, function (code, stdout, stderr) {
+shell.exec("node --version", { silent: true, async: true, cwd: '/usr/local/bin' }, function (code, stdout, stderr) {
     var version = stdout;
 });
 shell.exec("node --version", function (code, stdout, stderr) {

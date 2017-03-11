@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 import Tapable = require('tapable');
 
 class DllPlugin {

@@ -7,7 +7,7 @@
 declare module 'react-sortable-hoc' {
     import React = require('react');
 
-    export type Axis = 'x' | 'y';
+    export type Axis = 'x' | 'y' | 'xy';
 
     export type Offset = number | string;
 

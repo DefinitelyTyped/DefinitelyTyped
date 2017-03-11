@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
             "es6"
         ],
@@ -19,7 +20,6 @@
         "index.d.ts",
         "chrome.d.ts",
         "edge.d.ts",
-        "executors.d.ts",
         "firefox.d.ts",
         "http.d.ts",
         "ie.d.ts",
@@ -29,6 +29,7 @@
         "testing.d.ts",
         "test/index.ts",
         "test/chrome.ts",
-        "test/firefox.ts"
+        "test/firefox.ts",
+        "test/remote.ts"
     ]
 }

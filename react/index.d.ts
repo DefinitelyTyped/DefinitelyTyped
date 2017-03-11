@@ -1,6 +1,6 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -242,10 +242,10 @@ declare namespace React {
     interface ComponentLifecycle<P, S> {
         componentWillMount?(): void;
         componentDidMount?(): void;
-        componentWillReceiveProps?(nextProps: P, nextContext: any): void;
-        shouldComponentUpdate?(nextProps: P, nextState: S, nextContext: any): boolean;
-        componentWillUpdate?(nextProps: P, nextState: S, nextContext: any): void;
-        componentDidUpdate?(prevProps: P, prevState: S, prevContext: any): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, prevContext: any): void;
         componentWillUnmount?(): void;
     }
 
@@ -371,13 +371,13 @@ declare namespace React {
         deltaZ: number;
     }
 
-    interface AnimationEvent extends SyntheticEvent<{}> {
+    interface AnimationEvent<T> extends SyntheticEvent<T> {
         animationName: string;
         pseudoElement: string;
         elapsedTime: number;
     }
 
-    interface TransitionEvent extends SyntheticEvent<{}> {
+    interface TransitionEvent<T> extends SyntheticEvent<T> {
         propertyName: string;
         pseudoElement: string;
         elapsedTime: number;
@@ -404,8 +404,8 @@ declare namespace React {
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
     type UIEventHandler<T> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T> = EventHandler<WheelEvent<T>>;
-    type AnimationEventHandler = EventHandler<AnimationEvent>;
-    type TransitionEventHandler = EventHandler<TransitionEvent>;
+    type AnimationEventHandler<T> = EventHandler<AnimationEvent<T>>;
+    type TransitionEventHandler<T> = EventHandler<TransitionEvent<T>>;
 
     //
     // Props / DOM Attributes
@@ -597,16 +597,16 @@ declare namespace React {
         onWheelCapture?: WheelEventHandler<T>;
 
         // Animation Events
-        onAnimationStart?: AnimationEventHandler;
-        onAnimationStartCapture?: AnimationEventHandler;
-        onAnimationEnd?: AnimationEventHandler;
-        onAnimationEndCapture?: AnimationEventHandler;
-        onAnimationIteration?: AnimationEventHandler;
-        onAnimationIterationCapture?: AnimationEventHandler;
+        onAnimationStart?: AnimationEventHandler<T>;
+        onAnimationStartCapture?: AnimationEventHandler<T>;
+        onAnimationEnd?: AnimationEventHandler<T>;
+        onAnimationEndCapture?: AnimationEventHandler<T>;
+        onAnimationIteration?: AnimationEventHandler<T>;
+        onAnimationIterationCapture?: AnimationEventHandler<T>;
 
         // Transition Events
-        onTransitionEnd?: TransitionEventHandler;
-        onTransitionEndCapture?: TransitionEventHandler;
+        onTransitionEnd?: TransitionEventHandler<T>;
+        onTransitionEndCapture?: TransitionEventHandler<T>;
     }
 
     // See CSS 3 CSS-wide keywords https://www.w3.org/TR/css3-values/#common-keywords
@@ -941,6 +941,12 @@ declare namespace React {
          * Deprecated.
          */
         boxFlexGroup?: CSSWideKeyword | number;
+
+        /**
+         * Cast a drop shadow from the frame of almost any element.
+         * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
+         */
+        boxShadow?: CSSWideKeyword | any;
 
         /**
          * The CSS break-after property allows you to force a break on multi-column layouts. More specifically, it allows you to force a break after an element. It allows you to determine if a break should occur, and what type of break it should be. The break-after CSS property describes how the page, column or region break behaves after the generated box. If there is no generated box, the property is ignored.
@@ -1296,7 +1302,7 @@ declare namespace React {
          * along the main-axis of their container.
          * See CSS justify-content property https://www.w3.org/TR/css-flexbox-1/#justify-content-property
          */
-        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+        justifyContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
 
         layoutGrid?: CSSWideKeyword | any;
 
@@ -2042,6 +2048,7 @@ declare namespace React {
         // React-specific Attributes
         defaultChecked?: boolean;
         defaultValue?: string | string[];
+        suppressContentEditableWarning?: boolean;
 
         // Standard HTML Attributes
         accept?: string;
@@ -2146,6 +2153,7 @@ declare namespace React {
         shape?: string;
         size?: number;
         sizes?: string;
+        slot?: string;
         span?: number;
         spellCheck?: boolean;
         src?: string;
@@ -2568,6 +2576,7 @@ declare namespace React {
 
         // SVG
         svg: SVGFactory;
+        animate: SVGFactory;
         circle: SVGFactory;
         defs: SVGFactory;
         ellipse: SVGFactory;
@@ -2795,6 +2804,7 @@ declare global {
             // SVG
             svg: React.SVGProps;
 
+            animate: React.SVGProps;
             circle: React.SVGProps;
             clipPath: React.SVGProps;
             defs: React.SVGProps;

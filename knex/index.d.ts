@@ -1,6 +1,6 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
-// Definitions by: Qubo <https://github.com/tkQubo>
+// Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -25,7 +25,7 @@ interface Knex extends Knex.QueryInterface {
     transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
     destroy(callback: Function): void;
     destroy(): Promise<void>;
-
+    batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
 
     client: any;
@@ -165,7 +165,7 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: string, columns: { [key: string]: string | Raw }): QueryBuilder;
+        (tableName: string, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: string, callback: Function): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
@@ -472,6 +472,7 @@ declare namespace Knex {
         domain?: string;
         instanceName?: string;
         debug?: boolean;
+        requestTimeout?: number;
     }
 
     // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods

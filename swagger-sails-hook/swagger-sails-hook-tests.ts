@@ -11,8 +11,8 @@ const mockSailsApp = {
 };
 
 // create and register hook
-let swaggerHookRef = swaggerSailsHook(mockSailsApp);
-if(typeof swaggerHookRef.routes.after['/*'] === 'function') {
+const swaggerHookRef = swaggerSailsHook(mockSailsApp);
+if (typeof swaggerHookRef.routes.after['/*'] === 'function') {
     // right type
 }
 

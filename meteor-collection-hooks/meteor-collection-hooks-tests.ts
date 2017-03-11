@@ -15,38 +15,38 @@ const selector = {
   limit: 5,
   fields: { createdAt: 1 },
   reacrive: true,
-  transform: function () {}
+  transform: () => {}
 };
 
-Collection.before.find(function (userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }): void {});
-Collection.before.findOne(function (userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }): void {});
-Collection.before.insert(function (userId: string, doc: Model): void {});
-Collection.before.remove(function (userId: string, doc: Model): void {});
-Collection.before.update(function (userId: string, doc: Model, fieldNames: string[], modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }): void {});
-Collection.before.upsert(function (userId: string, doc: Model, selector: Mongo.Selector, modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }): void {});
+Collection.before.find((userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }) => {});
+Collection.before.findOne((userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }) => {});
+Collection.before.insert((userId: string, doc: Model) => {});
+Collection.before.remove((userId: string, doc: Model) => {});
+Collection.before.update((userId: string, doc: Model, fieldNames: string[], modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }) => {});
+Collection.before.upsert((userId: string, doc: Model, selector: Mongo.Selector, modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }) => {});
 
-Collection.after.find(function (userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }, cursor: Mongo.Cursor<Model>): void {});
-Collection.after.findOne(function (userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }, doc: Model): void {});
-Collection.after.insert(function (userId: string, doc: Model): void {});
-Collection.after.remove(function (userId: string, doc: Model): void {});
-Collection.after.update(function (userId: string, doc: Model, fieldNames: string[], modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }): void {}, { fetchPrevious: true });
-Collection.after.upsert(function (userId: string, doc: Model, selector: Mongo.Selector, modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }): void {});
+Collection.after.find((userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }, cursor: Mongo.Cursor<Model>) => {});
+Collection.after.findOne((userId: string, selector: Mongo.Selector, options: { multi?: boolean; upsert?: boolean; }, doc: Model) => {});
+Collection.after.insert((userId: string, doc: Model) => {});
+Collection.after.remove((userId: string, doc: Model) => {});
+Collection.after.update((userId: string, doc: Model, fieldNames: string[], modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }) => {}, { fetchPrevious: true });
+Collection.after.upsert((userId: string, doc: Model, selector: Mongo.Selector, modifier: Mongo.Modifier, options: { multi?: boolean; upsert?: boolean; }) => {});
 
-cursor = Collection.direct.find({ _id: doc._id }, { sort: { createdAt: -1 }, skip: 5, limit: 5, fields: { createdAt: 1 }, reactive: true, transform: function () {} });
-cursor = Collection.direct.find(doc._id, { sort: { createdAt: -1 }, skip: 5, limit: 5, fields: { createdAt: 1 }, reactive: true, transform: function () {} });
+cursor = Collection.direct.find({ _id: doc._id }, { sort: { createdAt: -1 }, skip: 5, limit: 5, fields: { createdAt: 1 }, reactive: true, transform: () => {} });
+cursor = Collection.direct.find(doc._id, { sort: { createdAt: -1 }, skip: 5, limit: 5, fields: { createdAt: 1 }, reactive: true, transform: () => {} });
 
-doc = Collection.direct.findOne({ _id: doc._id }, { sort: { createdAt: -1 }, skip: 5, fields: { createdAt: 1 }, reactive: true, transform: function () {} });
-doc = Collection.direct.findOne(doc._id, { sort: { createdAt: -1 }, skip: 5, fields: { createdAt: 1 }, reactive: true, transform: function () {} });
+doc = Collection.direct.findOne({ _id: doc._id }, { sort: { createdAt: -1 }, skip: 5, fields: { createdAt: 1 }, reactive: true, transform: () => {} });
+doc = Collection.direct.findOne(doc._id, { sort: { createdAt: -1 }, skip: 5, fields: { createdAt: 1 }, reactive: true, transform: () => {} });
 
-doc._id = Collection.direct.insert(doc, function () {});
+doc._id = Collection.direct.insert(doc, () => {});
 
-doc.value = Collection.direct.remove({ _id: doc._id }, function () {});
-doc.value = Collection.direct.remove(doc._id, function () {});
+doc.value = Collection.direct.remove({ _id: doc._id }, () => {});
+doc.value = Collection.direct.remove(doc._id, () => {});
 
-doc.value = Collection.direct.update({ _id: doc._id }, { $inc: { votes: 2 } }, { multi: true, upsert: true }, function () {});
-doc.value = Collection.direct.update(doc._id, { $inc: { votes: 2 } }, { multi: true, upsert: true }, function () {});
+doc.value = Collection.direct.update({ _id: doc._id }, { $inc: { votes: 2 } }, { multi: true, upsert: true }, () => {});
+doc.value = Collection.direct.update(doc._id, { $inc: { votes: 2 } }, { multi: true, upsert: true }, () => {});
 
-let { numberAffected, insertedId }: { numberAffected?: number; insertedId?: string; } = Collection.direct.upsert(doc._id, { $inc: { votes: 2 } }, { multi: true }, function () {});
+let { numberAffected, insertedId }: { numberAffected?: number; insertedId?: string; } = Collection.direct.upsert(doc._id, { $inc: { votes: 2 } }, { multi: true }, () => {});
 
 Collection.hookOptions = {
   before: {

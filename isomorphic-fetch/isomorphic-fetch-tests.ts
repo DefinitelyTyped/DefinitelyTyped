@@ -6,7 +6,7 @@ function test_isomorphicFetchTestCases_ambient() {
     expectSuccess(fetch('http://localhost:3000/good'), 'Good response');
 
     fetch('http://localhost:3000/bad')
-        .then((response: ResponseInterface) => {
+        .then((response: Response) => {
             return response.text();
         })
         .catch((err) => {
@@ -17,7 +17,7 @@ function test_isomorphicFetchTestCases_commonjs() {
     expectSuccess(fetchImportedViaCommonJS('http://localhost:3000/good'), 'Good response');
 
     fetchImportedViaCommonJS('http://localhost:3000/bad')
-        .then((response: ResponseInterface) => {
+        .then((response: Response) => {
             return response.text();
         })
         .catch((err) => {
@@ -28,7 +28,7 @@ function test_isomorphicFetchTestCases_es6() {
     expectSuccess(fetchImportedViaES6Module('http://localhost:3000/good'), 'Good response');
 
     fetchImportedViaES6Module('http://localhost:3000/bad')
-        .then((response: ResponseInterface) => {
+        .then((response: Response) => {
             return response.text();
         })
         .catch((err) => {
@@ -135,8 +135,8 @@ function test_whatwgTestCases_es6() {
     expectSuccess(fetchImportedViaES6Module(request), 'Post response:');
 }
 
-function expectSuccess(promise: Promise<ResponseInterface>, responseText: string) {
-    promise.then((response: ResponseInterface) => {
+function expectSuccess(promise: Promise<Response>, responseText: string) {
+    promise.then((response: Response) => {
         return response.text();
     })
     .then((text: string) => {

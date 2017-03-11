@@ -1,7 +1,7 @@
 import isRootPath = require('is-root-path');
 
 isRootPath('/');
-//=> true
+// => true
 
 isRootPath('/Users');
-//=> false
+// => false

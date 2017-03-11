@@ -17,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
+        "lib/sync.d.ts",
         "csv-parse-tests.ts"
     ]
 }

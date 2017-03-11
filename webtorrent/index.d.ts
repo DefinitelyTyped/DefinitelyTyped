@@ -144,10 +144,16 @@ declare namespace WebTorrent {
 
         getBuffer(callback: (err: string | Error | undefined, buffer?: Buffer) => void): void;
 
-        appendTo(rootElement: HTMLElement | string, opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number }, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+        appendTo(
+            rootElement: HTMLElement | string,
+            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
         appendTo(rootElement: HTMLElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 
-        renderTo(rootElement: HTMLMediaElement | string, opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number }, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+        renderTo(
+            rootElement: HTMLMediaElement | string,
+            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
         renderTo(rootElement: HTMLMediaElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 
         getBlob(callback: (err: string | Error | undefined, blob?: Blob) => void): void;

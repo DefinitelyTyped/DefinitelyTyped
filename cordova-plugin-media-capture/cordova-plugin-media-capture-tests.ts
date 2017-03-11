@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 console.log('Supported audio modes are: ' + JSON.stringify(navigator.device.capture.supportedAudioModes));
 
 navigator.device.capture.captureAudio(

@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import radius = require('radius');
 
 var radius_secret: string = "shhhh"

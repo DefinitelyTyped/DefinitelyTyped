@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 namespace PouchDBReplicationTests {
 
     /** @todo make some real tests */

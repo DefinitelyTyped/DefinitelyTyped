@@ -317,6 +317,7 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     children: children,
     className: "test-attr",
     style: divStyle,
+    slot: "HTMLComponent",
     onClick: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -324,6 +325,9 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     onClickCapture: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
+    },
+    onAnimationStart: event => {
+        console.log(event.currentTarget.className);
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"

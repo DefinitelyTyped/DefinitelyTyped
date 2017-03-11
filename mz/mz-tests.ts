@@ -1,7 +1,4 @@
 /// <reference types="mocha" />
-/// <reference types="node" />
-
-
 
 import assert = require('assert')
 import fs = require('mz/fs')

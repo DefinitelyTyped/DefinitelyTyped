@@ -1,9 +1,7 @@
-// Type definitions for extended-listbox 1.1.x
+// Type definitions for extended-listbox 2.0.x
 // Project: https://github.com/code-chris/extended-listbox
 // Definitions by: Christian Kotzbauer <https://github.com/code-chris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="jquery" />
 
 interface ListboxItem {
     /** display text */
@@ -147,37 +145,4 @@ interface JQuery {
 
     /** constructs a new instance of Listbox on the given DOM item */
     listbox(options: ListBoxOptions): ExtendedListboxInstance|ExtendedListboxInstance[];
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'addItem'): string;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'removeItem'): void;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'destroy'): void;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'getItem'): ListboxItem;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'getItems'): ListboxItem[];
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'moveItemUp'): number;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'moveItemDown'): number;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'clearSelection'): void;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: 'enable'): void;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: string): any;
-
-    /** @deprecated: use method in ExtendedListboxInstance */
-    listbox(methodName: string, methodParameter: any): any;
 }

@@ -4,13 +4,14 @@ import OpticsAgent, {
   middleware,
   instrumentHapiServer,
   context,
+  Options,
 } from 'optics-agent';
 import { GraphQLSchema } from 'graphql';
 import * as express from 'express';
 import * as hapi from 'hapi';
-var OpticsAgentRequired = require('optics-agent');
+import * as KoaServer from 'koa';
 
-const configOptions = {
+const configOptions: Options = {
   apiKey: "",
   reportTraces: false,
   reportVariables: false,
@@ -19,19 +20,23 @@ const configOptions = {
   endpointUrl: "",
   proxyUrl: "",
   reportIntervalMs: 1,
+  shutdownGracefully: false,
 };
-OpticsAgent.configureAgent(configOptions)
+OpticsAgent.configureAgent(configOptions);
 
-let expressServer = express();
+const expressServer = express();
 expressServer.use(OpticsAgent.middleware());
 
-let hapiServer = new hapi.Server();
+const hapiServer = new hapi.Server();
 OpticsAgent.instrumentHapiServer(hapiServer);
 
-let req = {} as express.Request;
+const koaServer = new KoaServer();
+koaServer.use(OpticsAgent.koaMiddleware());
+
+const req = {} as express.Request;
 OpticsAgent.context(req);
 
 const agent = new OpticsAgent.Agent({ apiKey: '1234' });
 
-let schema = {} as GraphQLSchema;
+const schema = {} as GraphQLSchema;
 agent.instrumentSchema(schema);

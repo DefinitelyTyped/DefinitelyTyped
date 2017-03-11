@@ -1,14 +1,14 @@
 import utils = require("arcgis-to-geojson-utils");
 import arcgisApi = require("arcgis-rest-api");
 
-let arcgisPoint: arcgisApi.Point = {
+const arcgisPoint: arcgisApi.Point = {
   x: -122.6764,
   y: 45.5165,
   spatialReference: {
     wkid: 4326
   }
 };
-let geojsonPoint: GeoJSON.Point = {
+const geojsonPoint: GeoJSON.Point = {
   type: "Point",
   coordinates: [45.5165, -122.6764]
 };

@@ -1,5 +1,3 @@
-/// <reference types="angular"/>
-
 class NgNotifyTestController {
 
     static $inject = ['$scope', 'ngNotify'];

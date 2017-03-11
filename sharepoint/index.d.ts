@@ -1,7 +1,7 @@
 // Type definitions for SharePoint: 2010.1 / 2013.1
-// Project: https://github.com/gandjustas/sptypescript
-// Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Project: https:// github.com/gandjustas/sptypescript
+// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>
+// Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="microsoft-ajax" />
 
@@ -34,17 +34,17 @@ declare namespace SP {
     }
 
     export enum ListLevelPermissionMask {
-        viewListItems, //: 1,
-        insertListItems, //: 2,
-        editListItems, //: 4,
-        deleteListItems, //: 8,
-        approveItems, //: 16,
-        openItems, //: 32,
-        viewVersions, //: 64,
-        deleteVersions, //: 128,
-        breakCheckout, //: 256,
-        managePersonalViews, //: 512,
-        manageLists //: 2048
+        viewListItems, // : 1,
+        insertListItems, // : 2,
+        editListItems, // : 4,
+        deleteListItems, // : 8,
+        approveItems, // : 16,
+        openItems, // : 32,
+        viewVersions, // : 64,
+        deleteVersions, // : 128,
+        breakCheckout, // : 256,
+        managePersonalViews, // : 512,
+        manageLists // : 2048
     }
 
     export class HtmlBuilder {
@@ -154,32 +154,32 @@ declare class JSRequest {
 }
 
 declare class _spPageContextInfo {
-    static alertsEnabled: boolean; //true
-    static allowSilverlightPrompt: string; //"True"
-    static clientServerTimeDelta: number; //-182
-    static crossDomainPhotosEnabled: boolean; //true
-    static currentCultureName: string; //"ru-RU"
-    static currentLanguage: number; //1049
-    static currentUICultureName: string; //"ru-RU"
-    static layoutsUrl: string;  //"_layouts/15"
-    static pageListId: string;  //"{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    static alertsEnabled: boolean; // true
+    static allowSilverlightPrompt: string; // "True"
+    static clientServerTimeDelta: number; // -182
+    static crossDomainPhotosEnabled: boolean; // true
+    static currentCultureName: string; // "ru-RU"
+    static currentLanguage: number; // 1049
+    static currentUICultureName: string; // "ru-RU"
+    static layoutsUrl: string;  // "_layouts/15"
+    static pageListId: string;  // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static pageItemId: number;
-    static pagePersonalizationScope: string; //1
-    static serverRequestPath: string; //"/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
-    static siteAbsoluteUrl: string; // "https://gandjustas-7b20d3715e8ed4.sharepoint.com"
-    static siteClientTag: string; //"0$$15.0.4454.1021"
+    static pagePersonalizationScope: string; // 1
+    static serverRequestPath: string; // "/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
+    static siteAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com"
+    static siteClientTag: string; // "0$$15.0.4454.1021"
     static siteServerRelativeUrl: string; // "/"
-    static systemUserKey: string; //"i:0h.f|membership|10033fff84e7cb2b@live.com"
-    static tenantAppVersion: string; //"0"
-    static userId: number; //12
-    static webAbsoluteUrl: string; //"https://gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
-    static webLanguage: number; //1049
-    static webLogoUrl: string; //"/_layouts/15/images/siteIcon.png?rev=23"
+    static systemUserKey: string; // "i:0h.f|membership|10033fff84e7cb2b@live.com"
+    static tenantAppVersion: string; // "0"
+    static userId: number; // 12
+    static webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
+    static webLanguage: number; // 1049
+    static webLogoUrl: string; // "/_layouts/15/images/siteIcon.png?rev=23"
     static webPermMasks: { High: number; Low: number; };
-    static webServerRelativeUrl: string; //"/SPTypeScript"
-    static webTemplate: string; //"17"
-    static webTitle: string; //"SPTypeScript"
-    static webUIVersion: number; //15
+    static webServerRelativeUrl: string; // "/SPTypeScript"
+    static webTemplate: string; // "17"
+    static webTitle: string; // "SPTypeScript"
+    static webUIVersion: number; // 15
 }
 
 declare function STSHtmlEncode(value: string): string;
@@ -268,7 +268,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     LastSelectedItemIID: number;
     LastRowIndexSelected: number;
     RowFocusTimerID: number;
-    ListData: any; //SPClientTemplates.ListData_InView | SPClientTemplates.ListData_InForm
+    ListData: any; // SPClientTemplates.ListData_InView | SPClientTemplates.ListData_InForm
     ListSchema: SPClientTemplates.ListSchema;
     ModerationStatus: number;
     PortalUrl: string;
@@ -356,7 +356,7 @@ declare namespace SP {
         body?: string | Uint8Array;
         binaryStringRequestBody?: boolean;
 
-        /** Currently need fix to get ginary response. Details: http://techmikael.blogspot.ru/2013/07/how-to-copy-files-between-sites-using.html */
+        /** Currently need fix to get ginary response. Details: http:// techmikael.blogspot.ru/2013/07/how-to-copy-files-between-sites-using.html */
         binaryStringResponseBody?: boolean;
         timeout?: number;
         success?: (response: ResponseInfo) => void;
@@ -810,7 +810,7 @@ declare namespace SPClientTemplates {
     export interface FieldSchema_InForm_Lookup extends FieldSchema_InForm {
         /** Specifies if the field allows multiple values */
         AllowMultipleValues: boolean;
-        /** Returns base url for a list display form, e.g. "http://portal/web/_layouts/15/listform.aspx?PageType=4"
+        /** Returns base url for a list display form, e.g. "http:// portal/web/_layouts/15/listform.aspx?PageType=4"
             You must add "ListId" (Guid of the list) and "ID" (integer Id of the item) parameters in order to use this Url */
         BaseDisplayFormUrl: string;
         /** Indicates if the field is a dependent lookup */
@@ -1464,13 +1464,13 @@ declare namespace SPClientForms {
     }
 
     export enum FormManagerEvents {
-        Event_OnControlValueChanged, //: 1,
-        Event_OnControlInitializedCallback, //: 2,
-        Event_OnControlFocusSetCallback, //: 3,
-        Event_GetControlValueCallback, //: 4,
-        Event_OnControlValidationError, //: 5,
-        Event_RegisterControlValidator, //: 6,
-        Event_GetHasValueChangedCallback //: 7
+        Event_OnControlValueChanged, // : 1,
+        Event_OnControlInitializedCallback, // : 2,
+        Event_OnControlFocusSetCallback, // : 3,
+        Event_GetControlValueCallback, // : 4,
+        Event_OnControlValidationError, // : 5,
+        Event_RegisterControlValidator, // : 6,
+        Event_GetHasValueChangedCallback // : 7
     }
 
     export class ClientForm {
@@ -1734,11 +1734,11 @@ declare namespace SP {
     export class ClientObjectPropertyConditionalScope extends SP.ConditionalScopeBase {
         constructor(clientObject: SP.ClientObject, propertyName: string, comparisonOperator: string, valueToCompare: any, allowAllActions?: boolean);
     }
-    //export class ClientResult {
+    // export class ClientResult {
     //    get_value(): any;
     //    setValue(value: any): void;
     //    constructor();
-    //}
+    // }
     export class ClientResult<T> {
         get_value(): T;
         setValue(value: T): void;
@@ -5235,7 +5235,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         export class QueryPersonalizationData extends SP.ClientObject {
-            //It's really empty;
+            // It's really empty;
         }
 
         export class QuerySuggestionResults extends SP.ClientValueObject {
@@ -5561,7 +5561,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         export class SearchConfigurationPortabilityPropertyNames {
-            static importWarnings: string; //= 'ImportWarnings'
+            static importWarnings: string; // = 'ImportWarnings'
         }
     }
 
@@ -5890,12 +5890,12 @@ declare namespace SP {
         }
 
         // For some reasons this enum doesn't exist
-        //export enum SocialFollowResult {
+        // export enum SocialFollowResult {
         //    ok = 0,
         //    alreadyFollowing = 1,
         //    limitReached = 2,
         //    internalError = 3
-        //}
+        // }
 
         /** Provides information about the feed.
             This type provides information about whether the feed on the server contains additional threads that were not returned. */
@@ -6619,7 +6619,7 @@ declare namespace SP {
             set_owner(value: string): void;
             get_terms(): TermCollection;
             createTerm(name: string, lcid: number, newTermId: SP.Guid): Term;
-            /*getTerms(pagingLimit: number): TermCollection;*/ //Moved to descendants to void TypeScript errors
+            /*getTerms(pagingLimit: number): TermCollection;*/ // Moved to descendants to void TypeScript errors
             reuseTerm(sourceTerm: Term, reuseBranch: boolean): Term;
             reuseTermWithPinning(sourceTerm: Term): Term;
             deleteCustomProperty(name: string): void;
@@ -7683,7 +7683,7 @@ declare namespace SP {
             /** The Follow method adds the specified document or site to the list of followed content.
                 @param url  URL that identifies the item to follow.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId>
+                            The url parameter can also identify a document with the following format: http:// host/site?listId=<listGuid>&itemId=<itemId>
                 @param data Optional parameter that holds application-defined data for the item.
                 */
             follow(url: string, data?: FollowedItemData): FollowResult;
@@ -7694,23 +7694,23 @@ declare namespace SP {
             /** Removes the specified document or site from list of followed content.
                 @param url  URL that identifies the item to stop following.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> */
+                            The url parameter can also identify a document with the following format: http:// host/site?listId=<listGuid>&itemId=<itemId> */
             stopFollowing(url: string): void;
             /** Determines if the specified document or site is being followed.
                 @param url  URL that identifies the item that is supposed to be followed.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> */
+                            The url parameter can also identify a document with the following format: http:// host/site?listId=<listGuid>&itemId=<itemId> */
             isFollowed(url: string): SP.BooleanResult;
             /** Retrieves the followed status of the specified document or site.
                 Returns a value of type FollowedStatus, wrapped into a SP.IntResult object.
                 @param url  URL that identifies the followed item.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> */
+                            The url parameter can also identify a document with the following format: http:// host/site?listId=<listGuid>&itemId=<itemId> */
             getFollowedStatus(url: string): SP.IntResult;
             /** Returns the followed item identified by a given URL or returns null if the item does not exist.
                 @param url  URL that identifies the followed item.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> */
+                            The url parameter can also identify a document with the following format: http:// host/site?listId=<listGuid>&itemId=<itemId> */
             getItem(url: string): FollowedItem;
             /** Returns an array of zero or more followed items described by the type and subtype parameters.
                 @param options Describes the type of item to return.
@@ -7719,7 +7719,7 @@ declare namespace SP {
             /** Updates the properties for followed item with specified URL.
                 @param url  URL that identifies the followed item.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId>
+                            The url parameter can also identify a document with the following format: http:// host/site?listId=<listGuid>&itemId=<itemId>
                 @param data Application-defined data stored with the followed item. */
             updateData(url: string, data: FollowedItemData): void;
             /** Returns the refreshed item that is being pointed to in the Social list.
@@ -8936,9 +8936,9 @@ declare namespace SP {
 declare namespace SP {
     export namespace CompliancePolicy {
         export enum SPContainerType {
-            site, //: 0,
-            web, //: 1,
-            list //: 2
+            site, // : 0,
+            web, // : 1,
+            list // : 2
         }
 
         export class SPContainerId extends ClientObject {
@@ -9203,10 +9203,10 @@ declare namespace SP {
     export namespace Discovery {
 
         export enum ExportStatus {
-            notStarted, //: 0,
-            started, //: 1,
-            complete, //: 2,
-            failed //: 3
+            notStarted, // : 0,
+            started, // : 1,
+            complete, // : 2,
+            failed // : 3
         }
 
         export class Case extends ClientObject {
@@ -9261,11 +9261,11 @@ declare class SPClientAutoFill {
         Loading: number;
     };
 
-    static KeyProperty: string; //= 'AutoFillKey';
-    static DisplayTextProperty: string; //= 'AutoFillDisplayText';
-    static SubDisplayTextProperty: string; //= 'AutoFillSubDisplayText';
-    static TitleTextProperty: string; //= 'AutoFillTitleText';
-    static MenuOptionTypeProperty: string; //= 'AutoFillMenuOptionType';
+    static KeyProperty: string; // = 'AutoFillKey';
+    static DisplayTextProperty: string; // = 'AutoFillDisplayText';
+    static SubDisplayTextProperty: string; // = 'AutoFillSubDisplayText';
+    static TitleTextProperty: string; // = 'AutoFillTitleText';
+    static MenuOptionTypeProperty: string; // = 'AutoFillMenuOptionType';
 
     static GetAutoFillObjFromInput(elmText: HTMLInputElement): SPClientAutoFill;
     static GetAutoFillObjFromContainer(elmChild: HTMLElement): SPClientAutoFill;
@@ -9338,50 +9338,50 @@ declare class SPClientPeoplePicker {
 
 
     TopLevelElementId: string; // '',
-    EditorElementId: string; //'',
-    AutoFillElementId: string; //'',
-    ResolvedListElementId: string; //'',
-    InitialHelpTextElementId: string; //'',
-    WaitImageId: string; //'',
-    HiddenInputId: string; //'',
-    AllowEmpty: boolean; //true,
-    ForceClaims: boolean; //false,
-    AutoFillEnabled: boolean; //true,
-    AllowMultipleUsers: boolean; //false,
+    EditorElementId: string; // '',
+    AutoFillElementId: string; // '',
+    ResolvedListElementId: string; // '',
+    InitialHelpTextElementId: string; // '',
+    WaitImageId: string; // '',
+    HiddenInputId: string; // '',
+    AllowEmpty: boolean; // true,
+    ForceClaims: boolean; // false,
+    AutoFillEnabled: boolean; // true,
+    AllowMultipleUsers: boolean; // false,
     OnValueChangedClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
     OnUserResolvedClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
     OnControlValidateClientScript: (pickerElementId: string, users: ISPClientPeoplePickerEntity[]) => void;
-    UrlZone: SP.UrlZone; //null,
-    AllUrlZones: boolean; //false,
-    SharePointGroupID: number; //0,
-    AllowEmailAddresses: boolean; //false,
+    UrlZone: SP.UrlZone; // null,
+    AllUrlZones: boolean; // false,
+    SharePointGroupID: number; // 0,
+    AllowEmailAddresses: boolean; // false,
     PPMRU: SPClientPeoplePickerMRU;
-    UseLocalSuggestionCache: boolean; //true,
-    CurrentQueryStr: string; //'',
+    UseLocalSuggestionCache: boolean; // true,
+    CurrentQueryStr: string; // '',
     LatestSearchQueryStr: string; // '',
     InitialSuggestions: ISPClientPeoplePickerEntity[];
     CurrentLocalSuggestions: ISPClientPeoplePickerEntity[];
     CurrentLocalSuggestionsDict: ISPClientPeoplePickerEntity;
-    VisibleSuggestions: number; //5,
-    PrincipalAccountType: string; //'',
+    VisibleSuggestions: number; // 5,
+    PrincipalAccountType: string; // '',
     PrincipalAccountTypeEnum: SP.Utilities.PrincipalType;
-    EnabledClaimProviders: string; //'',
-    SearchPrincipalSource: SP.Utilities.PrincipalSource; //null,
-    ResolvePrincipalSource: SP.Utilities.PrincipalSource; //null,
-    MaximumEntitySuggestions: number; //30,
-    EditorWidthSet: boolean; //false,
-    QueryScriptInit: boolean; //false,
-    AutoFillControl: SPClientAutoFill; //null,
-    TotalUserCount: number; //0,
-    UnresolvedUserCount: number; //0,
+    EnabledClaimProviders: string; // '',
+    SearchPrincipalSource: SP.Utilities.PrincipalSource; // null,
+    ResolvePrincipalSource: SP.Utilities.PrincipalSource; // null,
+    MaximumEntitySuggestions: number; // 30,
+    EditorWidthSet: boolean; // false,
+    QueryScriptInit: boolean; // false,
+    AutoFillControl: SPClientAutoFill; // null,
+    TotalUserCount: number; // 0,
+    UnresolvedUserCount: number; // 0,
     UserQueryDict: { [index: string]: SP.StringResult };
     ProcessedUserList: { [index: string]: SPClientPeoplePickerProcessedUser };
-    HasInputError: boolean; //false,
-    HasServerError: boolean; //false,
-    ShowUserPresence: boolean; //true,
-    TerminatingCharacter: string; //';',
-    UnresolvedUserElmIdToReplace: string; //'',
-    WebApplicationID: SP.Guid; //'{00000000-0000-0000-0000-000000000000}',
+    HasInputError: boolean; // false,
+    HasServerError: boolean; // false,
+    ShowUserPresence: boolean; // true,
+    TerminatingCharacter: string; // ';',
+    UnresolvedUserElmIdToReplace: string; // '',
+    WebApplicationID: SP.Guid; // '{00000000-0000-0000-0000-000000000000}',
     GetAllUserInfo(): ISPClientPeoplePickerEntity[];
 
     SetInitialValue(entities: ISPClientPeoplePickerEntity[], initialErrorMsg?: string): void
@@ -9482,9 +9482,9 @@ interface ISPClientPeoplePickerSchema {
 }
 
 declare class SPClientPeoplePickerMRU {
-    static PPMRUVersion: number; //= 1;
-    static MaxPPMRUItems: number; //= 200;
-    static PPMRUDomLocalStoreKey: string; //= "ClientPeoplePickerMRU";
+    static PPMRUVersion: number; // = 1;
+    static MaxPPMRUItems: number; // = 200;
+    static PPMRUDomLocalStoreKey: string; // = "ClientPeoplePickerMRU";
     static GetSPClientPeoplePickerMRU(): SPClientPeoplePickerMRU;
 
     GetItems(strKey: string): { Key: string, [name: string]: any };
@@ -9513,18 +9513,18 @@ interface ISPClientPeoplePickerEntity {
 }
 
 declare class SPClientPeoplePickerProcessedUser {
-    UserContainerElementId: string; //'',
-    DisplayElementId: string; //'',
-    PresenceElementId: string; //'',
-    DeleteUserElementId: string; //'',
-    SID: string; //'',
-    DisplayName: string; //'',
-    SIPAddress: string; //'',
-    UserInfo: ISPClientPeoplePickerEntity; //null,
-    ResolvedUser: boolean; //true,
-    Suggestions: ISPClientAutoFillData[]; //null,
-    ErrorDescription: string; //'',
-    ResolveText: string; //'',
+    UserContainerElementId: string; // '',
+    DisplayElementId: string; // '',
+    PresenceElementId: string; // '',
+    DeleteUserElementId: string; // '',
+    SID: string; // '',
+    DisplayName: string; // '',
+    SIPAddress: string; // '',
+    UserInfo: ISPClientPeoplePickerEntity; // null,
+    ResolvedUser: boolean; // true,
+    Suggestions: ISPClientAutoFillData[]; // null,
+    ErrorDescription: string; // '',
+    ResolveText: string; // '',
     UpdateResolvedUser(newUserInfo: ISPClientPeoplePickerEntity, strNewElementId: string): void;
     UpdateSuggestions(entity: ISPClientPeoplePickerEntity): void;
     BuildUserHTML(): string;
@@ -9713,126 +9713,126 @@ declare namespace SP {
     export namespace JsGrid {
 
         export enum TextDirection {
-            Default, //0,
-            RightToLeft, //1,
-            LeftToRight //2
+            Default, // 0,
+            RightToLeft, // 1,
+            LeftToRight // 2
         }
 
         export enum PaneId {
-            MainGrid, //0,
-            PivotedGrid, //1,
-            Gantt //2
+            MainGrid, // 0,
+            PivotedGrid, // 1,
+            Gantt // 2
         }
 
         export enum PaneLayout {
-            GridOnly, //0,
-            GridAndGantt, //1,
-            GridAndPivotedGrid //2
+            GridOnly, // 0,
+            GridAndGantt, // 1,
+            GridAndPivotedGrid // 2
 
         }
         export enum EditMode {
-            ReadOnly, //0,
-            ReadWrite, //1,
-            ReadOnlyDefer, //2,
-            ReadWriteDefer, //3,
-            Defer //4
+            ReadOnly, // 0,
+            ReadWrite, // 1,
+            ReadOnlyDefer, // 2,
+            ReadWriteDefer, // 3,
+            Defer // 4
         }
 
         export enum GanttDrawBarFlags {
-            LeftLink, //0x01,
-            RightLink //0x02
+            LeftLink, // 0x01,
+            RightLink // 0x02
 
         }
         export enum GanttBarDateType {
-            Start, //0,
-            End //1
+            Start, // 0,
+            End // 1
         }
 
         export enum ValidationState {
-            Valid, //0,
-            Pending, //1,
-            Invalid //2
+            Valid, // 0,
+            Pending, // 1,
+            Invalid // 2
         }
 
         export enum HierarchyMode {
-            None, //0,
-            Standard, //1,
-            Grouping //2
+            None, // 0,
+            Standard, // 1,
+            Grouping // 2
         }
 
         export enum EditActorWriteType {
-            Both, //1,
-            LocalizedOnly, //2,
-            DataOnly, //3,
-            Either //4
+            Both, // 1,
+            LocalizedOnly, // 2,
+            DataOnly, // 3,
+            Either // 4
         }
 
         export enum EditActorReadType {
-            Both, //1,
-            LocalizedOnly, //2,
-            DataOnly //3
+            Both, // 1,
+            LocalizedOnly, // 2,
+            DataOnly // 3
         }
 
         export enum EditActorUpdateType {
-            Committed, //0,
-            Uncommitted, //1
+            Committed, // 0,
+            Uncommitted, // 1
         }
 
         export enum SortMode {
-            Ascending, //1,
-            Descending, //-1,
-            None //0
+            Ascending, // 1,
+            Descending, // -1,
+            None // 0
         }
 
         export namespace RowHeaderStyleId {
-            export var Transfer: string; //'Transfer',
-            export var Conflict: string; //'Conflict'
+            export var Transfer: string; // 'Transfer',
+            export var Conflict: string; // 'Conflict'
 
         }
 
         export namespace RowHeaderAutoStyleId {
-            export var Dirty: string; //'Dirty',
-            export var Error: string; //'Error',
-            export var NewRow: string; //'NewRow'
+            export var Dirty: string; // 'Dirty',
+            export var Error: string; // 'Error',
+            export var NewRow: string; // 'NewRow'
         }
 
         export enum RowHeaderStatePriorities {
-            Dirty, //10,
-            Transfer, //30,
-            CellError, //40,
-            Conflict, //50,
-            RowError, //60,
-            NewRow //90
+            Dirty, // 10,
+            Transfer, // 30,
+            CellError, // 40,
+            Conflict, // 50,
+            RowError, // 60,
+            NewRow // 90
         }
 
         export enum UpdateSerializeMode {
-            Cancel, //0,
-            Default, //1,
-            PropDataOnly, //2,
-            PropLocalizedOnly, //3,
-            PropBoth //4
+            Cancel, // 0,
+            Default, // 1,
+            PropDataOnly, // 2,
+            PropLocalizedOnly, // 3,
+            PropBoth // 4
         }
 
         export enum UpdateTrackingMode {
-            PropData, //2,
-            PropLocalized, //3,
-            PropBoth //4
+            PropData, // 2,
+            PropLocalized, // 3,
+            PropBoth // 4
         }
 
         export namespace UserAction {
-            export var UserEdit: string; //'User Edit':string;
-            export var DeleteRecord: string; //'Delete Record':string;
-            export var InsertRecord: string; //'Insert Record':string;
-            export var Indent: string; //'Indent':string;
-            export var Outdent: string; //'Outdent':string;
-            export var Fill: string; //'Fill':string;
-            export var Paste: string; //'Paste':string;
-            export var CutPaste: string; //'Cut/Paste'
+            export var UserEdit: string; // 'User Edit':string;
+            export var DeleteRecord: string; // 'Delete Record':string;
+            export var InsertRecord: string; // 'Insert Record':string;
+            export var Indent: string; // 'Indent':string;
+            export var Outdent: string; // 'Outdent':string;
+            export var Fill: string; // 'Fill':string;
+            export var Paste: string; // 'Paste':string;
+            export var CutPaste: string; // 'Cut/Paste'
         }
 
         export enum ReadOnlyActiveState {
-            ReadOnlyActive, //0,
-            ReadOnlyDisabled, //1
+            ReadOnlyActive, // 0,
+            ReadOnlyDisabled, // 1
         }
 
         // tslint:disable-next-line: interface-name
@@ -10403,15 +10403,15 @@ declare namespace SP {
                 gridFieldMap: { [name: string]: GridField };
 
                 columns: ColumnInfoCollection;
-                messageOverrides: any; //TODO
-                operationalConstantsFieldKeyMap: any; //TODO
+                messageOverrides: any; // TODO
+                operationalConstantsFieldKeyMap: any; // TODO
 
                 ganttParams: GanttParameters;
                 pivotedGridParams: PivotedGridParameters;
                 rowViewParams: RowViewParameters;
             }
             export class PivotedGridParameters {
-                //this.dateRange = null;
+                // this.dateRange = null;
                 //   this.ganttBarStyles = null;
                 //   this.ganttZoomLevel = 3;
                 //   this.fnRenderGanttRow = null;
@@ -10883,7 +10883,7 @@ declare namespace SP {
                 bHyperlink: boolean;
                 DataToLocalized(dataValue: any): string;
                 GetAddress(dataValue: any): string;
-                /** Returns string like this: '"http://site.com, Site title"' */
+                /** Returns string like this: '"http:// site.com, Site title"' */
                 GetCopyValue(record: IRecord, dataValue: any, locValue: string): string;
                 toString(): string;
             }
@@ -10950,7 +10950,7 @@ declare namespace SP {
         export interface IEditControlCellContext extends IEditActorCellContext {
             cellWidth: number;
             cellHeight: number;
-            cellStyle: any; //TODO: Determine correct type
+            cellStyle: any; // TODO: Determine correct type
             cellRect: any;
             NotifyExpandControl(): void;
             NotifyEditComplete(): void;

@@ -1,5 +1,3 @@
-/// <reference types="three" />
-
 var _vrEffect: THREE.VREffect;
 
 _vrEffect = new THREE.VREffect(new THREE.WebGLRenderer({antialias: true}), (error) => {
