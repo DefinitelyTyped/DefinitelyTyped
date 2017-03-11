@@ -356,7 +356,7 @@ export interface Options {
 	/**
 	Background color on expanded rows.
 	*/
-	expandRowBgColor?: string;	
+	expandRowBgColor?: string;
 	/**
 	Assign a callback function which will be called when mouse enter into the table.
 	*/
@@ -475,6 +475,13 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	This function taking one arguments: order which present the sort order currently.
 	*/
     caretRender?: Function;
+        /**
+ 	Give an Object like following to able to customize your own editing component.
+ 	This Object should contain these two property:
+    	    getElement(REQUIRED): Accept a callback function and take two arguments: onUpdate and props.
+    	    customEditorParameters: Another extra data for custom cell edit component.
+	 */
+    customEditor?: {getElement: (onUpdate: any, props: any) => ReactElement<any>, customEditorParameters?: Object} ;	
 	/**
 	To customize the column. This callback function should return a String or a React Component.
 	In addition, this function taking two argument: cell and row.
@@ -568,6 +575,11 @@ export interface Editable {
     cols?: number;
     rows?: number;
 }
+export type SetFilterCallback = (targetValue: any) => boolean;
+export interface ApplyFilterParameter {
+	callback: SetFilterCallback;
+}
+
 export type FilterType = 'TextFilter' | 'RegexFilter' | 'SelectFilter' | 'NumberFilter' | 'DateFilter' | 'CustomFilter';
 export interface Filter {
 	/**
@@ -590,6 +602,26 @@ export interface Filter {
 	 * Only work on NumberFilter. Accept an array which conatin the filter condition, like: ['<','>','=']
 	 */
     numberComparators?: string[];
+
+    /**
+     * Options for the filter.
+     */
+    options?: any;
+
+    /**
+     * Comparison condition for the NumberFilter
+     */
+    condition?: string;
+
+    /**
+     * Get element which represent filter.
+     */
+    getElement?: (filterHandler: (parameters?: ApplyFilterParameter) => void, filterParameters: any) => JSX.Element;
+
+    /**
+     * Parameters for custom filter
+     */
+    customFilterParameters?: any;
 }
 
 export interface TableHeaderColumn extends ComponentClass<TableHeaderColumnProps> { }

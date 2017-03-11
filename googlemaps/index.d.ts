@@ -1,6 +1,6 @@
 // Type definitions for Google Maps JavaScript API 3.26
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -1758,9 +1758,15 @@ declare namespace google.maps {
     }
 
     export class TrafficLayer extends MVCObject {
-        constructor();
-        getMap(): void;
-		setMap(map: Map | null): void;
+        constructor(opts?: TrafficLayerOptions);
+        getMap(): Map;
+        setMap(map: Map | null): void;
+        setOptions(options: TrafficLayerOptions): void;
+    }
+
+    export interface TrafficLayerOptions {
+        autoRefresh?: boolean;
+        map?: Map;
     }
 
     export class TransitLayer extends MVCObject {
@@ -2205,6 +2211,8 @@ declare namespace google.maps {
         export interface AutocompleteOptions  {
             bounds?: LatLngBounds|LatLngBoundsLiteral;
             componentRestrictions?: ComponentRestrictions;
+            placeIdOnly?: boolean;
+            strictBounds?: boolean;
             types?: string[];
         }
 
@@ -2214,6 +2222,22 @@ declare namespace google.maps {
             place_id: string;
             terms: PredictionTerm[];
             types: string[];
+        }
+
+        export interface OpeningHours {
+            open_now: boolean,
+            periods: OpeningPeriod[],
+            weekday_text: string[]
+        }
+
+        export interface OpeningPeriod {
+            open: OpeningHoursTime,
+            close?: OpeningHoursTime
+        }
+
+        export interface OpeningHoursTime {
+            day: number,
+            time: string
         }
 
         export interface PredictionTerm {
@@ -2282,6 +2306,7 @@ declare namespace google.maps {
             icon: string;
             international_phone_number: string;
             name: string;
+            opening_hours: OpeningHours;
             permanently_closed: boolean;
             photos: PlacePhoto[];
             place_id: string;

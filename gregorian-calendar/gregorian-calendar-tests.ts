@@ -1,8 +1,5 @@
-/// <reference types="gregorian-calendar" />
-
 import GregorianCalendar = require('gregorian-calendar');
 import GregorianCalendarFormat = require('gregorian-calendar-format');
-
 
 let cal = new GregorianCalendar();
 cal.set(2016, 7, 27, 0, 0, 0, 0);

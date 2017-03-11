@@ -1,9 +1,9 @@
-// Type definitions for imagesLoaded 3.1.8
+// Type definitions for imagesLoaded 4.1.1
 // Project: https://github.com/desandro/imagesloaded
-// Definitions by: Chris Charabaruk <http://github.com/coldacid>
+// Definitions by: Chris Charabaruk <https://github.com/coldacid>, Cameron Little <https://github.com/apexskier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="jquery" />
+/// <reference types="jquery" />
 
 declare namespace ImagesLoaded {
   type ElementSelector = Element | NodeList | Array<Element> | string;
@@ -30,14 +30,21 @@ declare namespace ImagesLoaded {
     // event listeners
     on(event: string, listener: ImagesLoadedListener): void;
     off(event: string, listener: ImagesLoadedListener): void;
+    once(event: string, listener: ImagesLoadedListener): void;
+  }
+
+  interface ImagesLoadedOptions {
+    background: true | string;
   }
 
   interface ImagesLoadedConstructor {
     /**
      * Creates a new ImagesLoaded object with the provided callback
      * @param elem Element, NodeList, Element array, or selector string for images to watch
+     * @param options object that can tell imagesloaded to watch background images as well
      * @param callback function triggered after all images have been loaded
      */
+    (elem: ElementSelector, options: ImagesLoadedOptions, callback?: ImagesLoadedCallback): ImagesLoaded;
     (elem: ElementSelector, callback?: ImagesLoadedCallback): ImagesLoaded;
   }
 }

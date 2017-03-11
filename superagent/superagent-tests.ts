@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 // via: http://visionmedia.github.io/superagent/
 
 import * as request from 'superagent';

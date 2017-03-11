@@ -3,24 +3,24 @@ import PlugAPI = require("plugapi");
 new PlugAPI({
     email: "",
     password: ""
-}, function (err, bot) {
+}, (err, bot) => {
     if (!err) {
         const ROOM = "roomslug";
-        bot.connect(ROOM); // The part after https://plug.dj 
+        bot.connect(ROOM); // The part after https://plug.dj
 
-        bot.on(PlugAPI.events.ROOM_JOIN, function (room) {
+        bot.on(PlugAPI.events.ROOM_JOIN, room => {
             console.log("Joined " + room);
         });
 
-        bot.on("chat", function (data) {
-            if (data.type == "emote") {
+        bot.on("chat", data => {
+            if (data.type === "emote") {
                 console.log(data.from + data.message);
             } else {
                 console.log(data.from + "> " + data.message);
             }
         });
 
-        bot.on("error", function () {
+        bot.on("error", () => {
             bot.connect(ROOM);
         });
 

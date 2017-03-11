@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $('#menu').metisMenu();
 
 $('.metismenu').metisMenu({toggle: false});

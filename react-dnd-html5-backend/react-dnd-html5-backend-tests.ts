@@ -1,5 +1,3 @@
-"use strict";
-
 // Test adapted from the ReactDnD chess game tutorial:
 // http://gaearon.github.io/react-dnd/docs-tutorial.html
 
@@ -120,7 +118,7 @@ namespace Square {
                 style: {
                     backgroundColor: fill
                 }
-            })
+            });
         }
     }
 
@@ -168,7 +166,7 @@ namespace BoardSquare {
                     backgroundColor: color
                 }
             });
-        };
+        }
 
         render() {
             var black = (this.props.x + this.props.y) % 2 === 1;
@@ -183,9 +181,7 @@ namespace BoardSquare {
                             height: '100%'
                         },
                         children: [
-                            Square.create({
-                                black: black
-                            }),
+                            Square.create({ black }),
                             isOver && !canDrop ? this._renderOverlay('red') : null,
                             !isOver && canDrop ? this._renderOverlay('yellow') : null,
                             isOver && canDrop ? this._renderOverlay('green') : null
@@ -204,7 +200,7 @@ namespace BoardSquare {
 namespace CustomDragLayer {
     interface CustomDragLayerP extends React.Props<CustomDragLayer> {
         isDragging?: boolean;
-        item?: Object;
+        item?: {};
     }
 
     function dragLayerCollect(monitor: ReactDnd.DragLayerMonitor) {
@@ -240,7 +236,7 @@ namespace Board {
             return x === knightX && y === knightY ?
                     Knight.create() :
                     null;
-        };
+        }
 
         private _renderSquare = (i: number) => {
             var x = i % 8;
@@ -252,14 +248,11 @@ namespace Board {
                     width: '12.5%',
                     height: '12.5%'
                 }
-            }, BoardSquare.create({
-                x: x,
-                y: y
-            }, this._renderPiece(x, y)));
-        };
+            }, BoardSquare.create({ x, y }, this._renderPiece(x, y)));
+        }
 
         render() {
-            var squares: React.ReactHTMLElement<HTMLDivElement>[] = [];
+            var squares: Array<React.ReactHTMLElement<HTMLDivElement>> = [];
             for (let i = 0; i < 64; i++) {
                 squares.push(this._renderSquare(i));
             }

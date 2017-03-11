@@ -109,7 +109,9 @@ export interface TreeProps extends Props<Tree> {
      */
     defaultCheckedKeys?: string[];
     /**
-     * Controlled checked treeNodes (After setting, defaultCheckedKeys will not work). Note: parent and children nodes are associated, if the parent node's key exists, it all children node will be checked, and vice versa. When set checkable and checkStrictly, it should be an object, which contains checked array and halfChecked array.
+     * Controlled checked treeNodes (After setting, defaultCheckedKeys will not work).
+     * Note: parent and children nodes are associated, if the parent node's key exists, it all children node will be checked, and vice versa.
+     * When set checkable and checkStrictly, it should be an object, which contains checked array and halfChecked array.
      */
     checkedKeys?: string[] | { checked: string[]; halfChecked: string[] };
     /**

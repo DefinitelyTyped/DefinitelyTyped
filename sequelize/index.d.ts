@@ -3183,7 +3183,7 @@ declare namespace sequelize {
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions | Array<col | and | or | string>;
+        where?: WhereOptions | fn | Array<col | and | or | string>;
 
         /**
          * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
@@ -3671,7 +3671,7 @@ declare namespace sequelize {
  * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
  *     model will clear the previous scope.
  */
-        scope(options?: string | string[] | ScopeOptions | WhereOptions): this;
+        scope(options?: string | ScopeOptions | WhereOptions | Array<string | ScopeOptions | WhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -4768,6 +4768,16 @@ declare namespace sequelize {
          */
         fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
 
+        /**
+         * Method the index should use, for example 'gin' index.
+         */
+        using?: string;
+
+        /**
+         * Operator that should be used by gin index, see Built-in GIN Operator Classes
+         */
+        operator?: string;
+
     }
 
     /**
@@ -4865,6 +4875,11 @@ declare namespace sequelize {
          * Converts camelCased model names to underscored tablenames if true. Default false.
          */
         underscoredAll?: boolean;
+
+        /**
+         * Indicates if the model's table has a trigger associated with it. Default false.
+         */
+        hasTrigger?: boolean;
 
         /**
          * If freezeTableName is true, sequelize will not try to alter the DAO name to get the table name.

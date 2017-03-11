@@ -1,5 +1,6 @@
 import {
     Component,
+    StatelessComponent,
     ReactElement,
     SyntheticEvent,
     ReactEventHandler,
@@ -20,7 +21,8 @@ export function reduxForm(
 ): FormDecorator<any, any, any>;
 
 export interface FormDecorator<FormData extends DataShape, P, S> {
-    <T extends (typeof Component)>(component: T): T & Form<FormData, P, S>;
+    <T extends (typeof Component | StatelessComponent<any>)>(component: T): 
+        T & Form<FormData, P, S>;
 }
 
 export interface Config<FormData extends DataShape, P, S> {
@@ -28,7 +30,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * the name of your form and the key to where your form's state will be
      * mounted under the redux-form reducer
      */
-    form: string;
+    form?: string;
 
     /**
      * An adapter function that will render a component based on a string component
@@ -48,20 +50,26 @@ export interface Config<FormData extends DataShape, P, S> {
     asyncBlurFields?: string[];
 
     /**
-     * a function that takes all the form values, the dispatch function, and
-     * the props given to your component, and returns a Promise that will
-     * resolve if the validation is passed, or will reject with an object of
-     * validation errors in the form { field1: <String>, field2: <String> }.
+     * a function that takes all the form values, the dispatch function,
+     * the props given to your component and the current blurred field,
+     * and returns a Promise that will resolve if the validation is passed,
+     * or will reject with an object of validation errors in the form { field1: <String>, field2: <String> }.
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values: FormData, dispatch: Dispatch<S>, props: P): Promise<any>;
+    asyncValidate?(values: FormData, dispatch: Dispatch<S>, props: P, blurredField: string): Promise<any>;
 
     /**
      * Whether or not to automatically destroy your form's state in the Redux
      * store when your component is unmounted. Defaults to true.
      */
     destroyOnUnmount?: boolean;
+
+    /**
+     * Whether or not to force unregistration of fields -- use in conjunction
+     * with destroyOnUnmount.
+     */
+    forceUnregisterOnUnmount?: boolean;
 
     /**
      * A function that takes the entire Redux state and returns the state slice

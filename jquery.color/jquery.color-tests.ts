@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 var color = $.Color("rgba(255, 255, 255, 0.4)");
 var color1 = $.Color({red: 255, green: 255, blue: 255});
 var color2 = $.Color({hue: 359, saturation: 0.5, lightness: 0.5});

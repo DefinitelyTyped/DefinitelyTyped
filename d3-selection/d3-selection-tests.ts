@@ -15,7 +15,7 @@ import * as d3Selection from 'd3-selection';
 // ---------------------------------------------------------------------------------------
 
 // Generic DOM related variables
-let xDoc: Document = document;
+const xDoc: Document = document;
 let xWindow: Window = window;
 
 interface BodyDatum {
@@ -59,14 +59,14 @@ interface CircleDatumAlternative {
 
 // test top-level .selection() -----------------------------------------------------------
 
-let topSelection: d3Selection.Selection<HTMLElement, any, null, undefined> = d3Selection.selection();
+const topSelection: d3Selection.Selection<HTMLElement, any, null, undefined> = d3Selection.selection();
 
 // test top-level select() ---------------------------------------------------------------
 
 // Using select() with string argument and no type parameters creates selection
 // with Group element of type BaseType and datum of type 'any'. The parent element is of type HTMLElement with datum of type 'any'
 
-let baseTypeEl: d3Selection.Selection<d3Selection.BaseType, any, HTMLElement, any> = d3Selection.select('body');
+const baseTypeEl: d3Selection.Selection<d3Selection.BaseType, any, HTMLElement, any> = d3Selection.select('body');
 
 // Using select() with string argument and type parameters creates selection
 // with Group element of type HTMLBodyElement and datum of BodyDatum type. The parent element is of type HTMLElement with datum of type 'any'
@@ -76,18 +76,18 @@ let body: d3Selection.Selection<HTMLBodyElement, BodyDatum, HTMLElement, any> = 
 // Using select() with node argument and no type parameters creates selection
 // with Group element of type BaseType and datum of type 'any' The parent element is of type 'null' with datum of type 'undefined'
 
-let baseTypeEl2: d3Selection.Selection<d3Selection.BaseType, any, null, undefined> = d3Selection.select(baseTypeEl.node());
+const baseTypeEl2: d3Selection.Selection<d3Selection.BaseType, any, null, undefined> = d3Selection.select(baseTypeEl.node());
 // let body2: d3Selection.Selection<HTMLElement, any, null, undefined> = d3Selection.select(baseTypeEl.node()); // fails as baseTypeEl.node() is of type cannot be assigned to HTMLElement
 
-let body3: d3Selection.Selection<HTMLBodyElement, any, null, undefined> = d3Selection.select(body.node()!); // element types match, but datum is of type 'any' as it cannot be inferred from .node()
+const body3: d3Selection.Selection<HTMLBodyElement, any, null, undefined> = d3Selection.select(body.node()!); // element types match, but datum is of type 'any' as it cannot be inferred from .node()
 
 // Using select() with node argument and type parameters creates selection
 // with Group element of type HTMLBodyElement and datum of BodyDatum type. The parent element is of type 'null' with datum of type 'undefined'
 
-let body4: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node()!);
+const body4: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node()!);
 
 //  Explicitly cast body.node() to HTMLBodyElement to narrow selection definition.
-let body5: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node()!);
+const body5: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = d3Selection.select<HTMLBodyElement, BodyDatum>(body.node()!);
 
 // d3Selection.select<HTMLBodyElement, BodyDatum>(baseTypeEl.node()!); // fails as baseTypeEl.node() is not of type HTMLBodyElement
 
@@ -98,7 +98,8 @@ maybeSVG1 = d3Selection.select<SVGSVGElement | null, any>('svg');
 let maybeSVG2: d3Selection.Selection<SVGSVGElement | null, any, null, undefined>;
 maybeSVG2 = d3Selection.select<SVGSVGElement | null, any>(maybeSVG1.node());
 
-// let body7: d3Selection.Selection<HTMLBodyElement | null, any, HTMLElement, undefined> = d3Selection.select<HTMLBodyElement | null, any>(maybeSVG1.node()); // fails, as node type mismatches selection type
+// fails, as node type mismatches selection type
+// let body7: d3Selection.Selection<HTMLBodyElement | null, any, HTMLElement, undefined> = d3Selection.select<HTMLBodyElement | null, any>(maybeSVG1.node());
 
 
 // test "special case DOM objects"
@@ -119,26 +120,28 @@ emptyRootSelection = d3Selection.selectAll(undefined);
 // Using selectAll(...) with string argument and no type parameters creates selection
 // with Group elements of type BaseType and datum of type 'any'. The parent element is of type HTMLElement with datum of type 'any'
 
-let baseTypeElements: d3Selection.Selection<d3Selection.BaseType, any, HTMLElement, any> = d3Selection.selectAll('div');
+const baseTypeElements: d3Selection.Selection<d3Selection.BaseType, any, HTMLElement, any> = d3Selection.selectAll('div');
 
 // Using selectAll() with string argument and type parameters creates selection
 // with Group element of type HTMLDivElement and datum of DivDatum type. The parent element is of type HTMLElement with datum of type 'any'
 
-let divElements: d3Selection.Selection<HTMLDivElement, DivDatum, HTMLElement, any> = d3Selection.selectAll<HTMLDivElement, DivDatum>('div');
+const divElements: d3Selection.Selection<HTMLDivElement, DivDatum, HTMLElement, any> = d3Selection.selectAll<HTMLDivElement, DivDatum>('div');
 
 // Using selectAll(...) with node array argument and no type parameters creates selection
 // with Group element of type BaseType and datum of type 'any' The parent element is of type 'null' with datum of type 'undefined'
 
-let baseTypeElements2: d3Selection.Selection<d3Selection.BaseType, any, null, undefined> = d3Selection.selectAll(baseTypeElements.nodes());
-// let divElements2: d3Selection.Selection<HTMLDivElement, any, null, undefined> = d3Selection.selectAll(baseTypeElements.nodes()); // fails, group elements types not of compatible for baseTypeElements
+const baseTypeElements2: d3Selection.Selection<d3Selection.BaseType, any, null, undefined> = d3Selection.selectAll(baseTypeElements.nodes());
+// fails, group elements types not of compatible for baseTypeElements
+// let divElements2: d3Selection.Selection<HTMLDivElement, any, null, undefined> = d3Selection.selectAll(baseTypeElements.nodes());
 
-let divElements3: d3Selection.Selection<HTMLDivElement, any, null, undefined> = d3Selection.selectAll(divElements.nodes()); // element types match, but datum is of type 'any' as it cannot be inferred from .nodes()
+// element types match, but datum is of type 'any' as it cannot be inferred from .nodes()
+const divElements3: d3Selection.Selection<HTMLDivElement, any, null, undefined> = d3Selection.selectAll(divElements.nodes());
 
 
 // Using selectAll(...) with node array argument and type parameters creates selection
 // with Group element of type HTMLDivElement and datum of DivDatum type. The parent element is of type 'null' with datum of type 'undefined'
 
-let divElements4: d3Selection.Selection<HTMLDivElement, DivDatum, null, undefined> = d3Selection.selectAll<HTMLDivElement, DivDatum>(divElements.nodes());
+const divElements4: d3Selection.Selection<HTMLDivElement, DivDatum, null, undefined> = d3Selection.selectAll<HTMLDivElement, DivDatum>(divElements.nodes());
 
 // d3Selection.selectAll<HTMLDivElement, DivDatum>(baseTypeElements.nodes()); // fails as baseTypeEl.node() is not of type HTMLBodyElement
 
@@ -146,12 +149,12 @@ let divElements4: d3Selection.Selection<HTMLDivElement, DivDatum, null, undefine
 // selectAll(...) accepts NodeListOf<...> argument
 
 
-let xSVGCircleElementList: NodeListOf<SVGCircleElement> = document.querySelectorAll('circle');
-let circleSelection: d3Selection.Selection<SVGCircleElement, any, null, undefined> = d3Selection.selectAll(xSVGCircleElementList);
+const xSVGCircleElementList: NodeListOf<SVGCircleElement> = document.querySelectorAll('circle');
+const circleSelection: d3Selection.Selection<SVGCircleElement, any, null, undefined> = d3Selection.selectAll(xSVGCircleElementList);
 
 // selectAll(...) accepts HTMLCollection, HTMLCollectionOf<...> argument
 
-let documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll(document.links);
+const documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll(document.links);
 
 
 
@@ -168,7 +171,7 @@ let documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, an
 
 // Using select(...) sub-selection with a string argument.
 
-let svgEl: d3Selection.Selection<SVGSVGElement, SVGDatum, HTMLElement, any> = d3Selection.select<SVGSVGElement, SVGDatum>('svg');
+const svgEl: d3Selection.Selection<SVGSVGElement, SVGDatum, HTMLElement, any> = d3Selection.select<SVGSVGElement, SVGDatum>('svg');
 
 let firstG: d3Selection.Selection<SVGGElement, SVGDatum, HTMLElement, any> = svgEl.select<SVGGElement>('g');
 // let firstG_2: d3Selection.Selection<SVGGElement, SVGDatum, SVGSVGElement, any> = svgEl.select<SVGGElement>('g'); // fails, parent element of selection does not change with .select(...)
@@ -187,19 +190,19 @@ function svgGroupSelector(this: SVGSVGElement, d: SVGDatum, i: number, groups: S
 
 firstG = svgEl.select(svgGroupSelector);
 
-firstG = svgEl.select(function () {
-    let that: SVGSVGElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
+firstG = svgEl.select(function() {
+    const that: SVGSVGElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
     console.log('Get <svg> Element width using "this": ', this.width.baseVal.value); // 'this' type is SVGSVGElement
     return this.querySelector('g')!; // this of type SVGSVGElement by type inference
 });
 
-firstG = svgEl.select(function (d, i, g) {
-    let that: SVGSVGElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: SVGDatum = d;
-    let index: number = i;
-    let group: SVGSVGElement[] | d3Selection.ArrayLike<SVGSVGElement> = g;
+firstG = svgEl.select(function(d, i, g) {
+    const that: SVGSVGElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: SVGDatum = d;
+    const index: number = i;
+    const group: SVGSVGElement[] | d3Selection.ArrayLike<SVGSVGElement> = g;
     console.log('Get <svg> Element width using "this": ', this.width.baseVal.value); // 'this' type is SVGSVGElement
     console.log('Width in datum:', d.width); // d is type of originating selection element Datum:  SVGDatum
     if (g.length > 1) {
@@ -246,19 +249,19 @@ function wrongSvgGroupSelectorAll(this: HTMLElement, d: SVGDatum, i: number, gro
 }
 // gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(wrongSvgGroupSelectorAll); // fails, wrong this context
 
-gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function () {
-    let that: SVGSVGElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
+gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function() {
+    const that: SVGSVGElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
     console.log('Get <svg> Element width using "this": ', this.width.baseVal.value); // 'this' type is SVGSVGElement
     return this.querySelectorAll('g'); // this of type SVGSVGElement by type inference
 });
 
-gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function (d, i, g) {
-    let that: SVGSVGElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: SVGDatum = d;
-    let index: number = i;
-    let group: SVGSVGElement[] | d3Selection.ArrayLike<SVGSVGElement> = g;
+gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function(d, i, g) {
+    const that: SVGSVGElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: SVGDatum = d;
+    const index: number = i;
+    const group: SVGSVGElement[] | d3Selection.ArrayLike<SVGSVGElement> = g;
     console.log('Get <svg> Element width using "this": ', this.width.baseVal.value); // 'this' type is SVGSVGElement
     console.log('Width in datum:', d.width); // type of d is SVGDatum
     if (g.length > 1) {
@@ -277,9 +280,9 @@ gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function (d, i, g) 
 
 elementsUnknownData = svgEl.selectAll(svgGroupSelectorAll);
 
-elementsUnknownData = svgEl.selectAll(function () {
-    let that: SVGSVGElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
+elementsUnknownData = svgEl.selectAll(function() {
+    const that: SVGSVGElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
     console.log('Get <svg> Element width using "this": ', this.width.baseVal.value); // 'this' type is SVGSVGElement
     return this.querySelectorAll('g'); // this of type SVGSVGElement by type inference
 });
@@ -288,13 +291,13 @@ elementsUnknownData = svgEl.selectAll(function () {
 //     return this.querySelectorAll('a');
 // });
 
-maybeG.selectAll(function (d, i, g) {
-    let that: SVGGElement | null = this;
-    // let that2: SVGGElement = this; // fails with strictNullChecks
-    // let that3: HTMLElement | null  = this; // fails, type mismatch
-    let datum: SVGDatum = d;
-    let index: number = i;
-    let group: Array<SVGGElement | null> | d3Selection.ArrayLike<SVGGElement | null> = g;
+maybeG.selectAll(function(d, i, g) {
+    const that: SVGGElement | null = this;
+    // const that2: SVGGElement = this; // fails with strictNullChecks
+    // const that3: HTMLElement | null  = this; // fails, type mismatch
+    const datum: SVGDatum = d;
+    const index: number = i;
+    const group: Array<SVGGElement | null> | d3Selection.ArrayLike<SVGGElement | null> = g;
     return that ? that.querySelectorAll('circle') : [];
 });
 
@@ -319,12 +322,12 @@ let filterdGElements: d3Selection.Selection<SVGGElement, CircleDatum, SVGSVGElem
 
 filterdGElements = gElementsOldData.filter('.top-level');
 
-filterdGElements = gElementsOldData.filter(function (d, i, g) {
-    let that: SVGGElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGGElement[] | d3Selection.ArrayLike<SVGGElement> = g;
+filterdGElements = gElementsOldData.filter(function(d, i, g) {
+    const that: SVGGElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGGElement[] | d3Selection.ArrayLike<SVGGElement> = g;
     console.log('Element Id of <g> DOM element: ', this.id); // this context SVGGElement
     if (g.length > 0) {
         console.log('Element Id of first <g> DOM element in group: ', g[0].id); // group: Array<SVGGElement>
@@ -341,11 +344,11 @@ filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filt
 // filterdGElements2 = d3Selection.selectAll('.any-type').filter('g'); // fails without using narrowing generic on filter method
 
 filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function(){
-    let that: SVGElement = this;
+    const that: SVGElement = this;
     return that.tagName === 'g' || that.tagName === 'G';
 });
 // filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter(function(){
-//     let that: SVGElement = this;
+//     const that: SVGElement = this;
 //     return that.tagName === 'g'|| that.tagName === 'G';
 // }); // fails without using narrowing generic on filter method
 
@@ -385,27 +388,23 @@ circles = d3Selection.selectAll<SVGCircleElement, CircleDatumAlternative>('circl
     .attr('stroke', 'blue'); // string
 
 circles = circles // re-assignment test chaining return-type
-    .attr('cx', function (d, i, g) {
-        let that: SVGGElement = this;
-        // let that2: HTMLElement  = this; // fails, type mismatch
-        let datum: CircleDatum = d;
-        let index: number = i;
-        let group: SVGGElement[] | d3Selection.ArrayLike<SVGGElement> = g;
+    .attr('cx', function(d, i, g) {
+        const that: SVGGElement = this;
+        // const that2: HTMLElement  = this; // fails, type mismatch
+        const datum: CircleDatum = d;
+        const index: number = i;
+        const group: SVGGElement[] | d3Selection.ArrayLike<SVGGElement> = g;
         console.log('Pre-change center x-coordinate: ', this.cx.baseVal.value); // this context SVGCircleElement
         if (g.length > 0) {
             console.log('Owner SVG Element of first group element:', g[0].ownerSVGElement); // group : Array<SVGCircleElement>
         }
         return d.cx; // numeric return value
     })
-    .attr('stroke', function (d) {
-        return d.color; // string return value
-    });
+    .attr('stroke', d => d.color); // string return value
 
 divs = d3Selection.selectAll<HTMLDivElement, DivDatum>('div')
     .attr('contenteditable', false) // boolean
-    .attr('contenteditable', function () {
-        return false; // boolean return value
-    });
+    .attr('contenteditable', () => false); // boolean return value
 
 // classed(...) Tests
 
@@ -413,12 +412,12 @@ divs = divs
     .classed('success', true);
 
 divs = divs
-    .classed('zero-px-padding', function (d, i, g) {
-        let that: HTMLDivElement = this;
-        // let that2: SVGElement  = this; // fails, type mismatch
-        let datum: DivDatum = d;
-        let index: number = i;
-        let group: HTMLDivElement[] | d3Selection.ArrayLike<HTMLDivElement> = g;
+    .classed('zero-px-padding', function(d, i, g) {
+        const that: HTMLDivElement = this;
+        // const that2: SVGElement  = this; // fails, type mismatch
+        const datum: DivDatum = d;
+        const index: number = i;
+        const group: HTMLDivElement[] | d3Selection.ArrayLike<HTMLDivElement> = g;
         console.log('Client Rectangle Top: ', this.getBoundingClientRect().top); // this context HTMLDivElement
         if (g.length > 0) {
             console.log('Alignment of first group element:', g[0].align); // group : Array<HTMLDivElement>
@@ -436,23 +435,21 @@ divs = divs
     .style('color', 'green', 'important');
 
 divs = divs
-    .style('padding', function (d, i, g) {
-        let that: HTMLDivElement = this;
-        // let that2: SVGElement  = this; // fails, type mismatch
-        let datum: DivDatum = d;
-        let index: number = i;
-        let group: HTMLDivElement[] | d3Selection.ArrayLike<HTMLDivElement> = g;
+    .style('padding', function(d, i, g) {
+        const that: HTMLDivElement = this;
+        // const that2: SVGElement  = this; // fails, type mismatch
+        const datum: DivDatum = d;
+        const index: number = i;
+        const group: HTMLDivElement[] | d3Selection.ArrayLike<HTMLDivElement> = g;
         console.log('Client Rectangle Top: ', this.getBoundingClientRect().top); // this context HTMLDivElement
         if (g.length > 0) {
             console.log('Alignment of first group element:', g[0].align); // group : Array<HTMLDivElement>
         }
         return d.padding; // string return value
     })
-    .style('hidden', function () {
-        return true;
-    }, null) // boolean return + test: priority = null
-    //    .style('color', function () { return 'green'; }, 'test') // fails, test: invalid priority value
-    .style('color', function () { return 'green'; }, 'important'); // boolean return + test: priority = 'important';
+    .style('hidden', () => true, null) // boolean return + test: priority = null
+    //    .style('color', function() { return 'green'; }, 'test') // fails, test: invalid priority value
+    .style('color', () => 'green', 'important'); // boolean return + test: priority = 'important';
 
 
 // property(...) Tests
@@ -464,12 +461,12 @@ circles = circles
     }); // any
 
 circles = circles
-    .property('__hitchhikersguide__', function (d, i, g) {
-        let that: SVGCircleElement = this;
-        // let that2: HTMLElement  = this; // fails, type mismatch
-        let datum: CircleDatumAlternative = d;
-        let index: number = i;
-        let group: SVGCircleElement[] | d3Selection.ArrayLike<SVGCircleElement> = g;
+    .property('__hitchhikersguide__', function(d, i, g) {
+        const that: SVGCircleElement = this;
+        // const that2: HTMLElement  = this; // fails, type mismatch
+        const datum: CircleDatumAlternative = d;
+        const index: number = i;
+        const group: SVGCircleElement[] | d3Selection.ArrayLike<SVGCircleElement> = g;
         console.log('Pre-change center x-coordinate: ', this.cx.baseVal.value); // this context SVGCircleElement
         if (g.length > 0) {
             console.log('Owner SVG Element of first group element:', g[0].ownerSVGElement); // group : Array<SVGCircleElement>
@@ -488,32 +485,28 @@ body = body
     .text(true); // boolean will be converted to string by D3
 
 body = body
-    .text(function (d, i, g) {
-        let that: HTMLBodyElement = this;
-        // let that2: SVGElement  = this; // fails, type mismatch
-        let datum: BodyDatum = d;
-        let index: number = i;
-        let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+    .text(function(d, i, g) {
+        const that: HTMLBodyElement = this;
+        // const that2: SVGElement  = this; // fails, type mismatch
+        const datum: BodyDatum = d;
+        const index: number = i;
+        const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
         console.log('Body background color: ', this.bgColor); // this context HTMLBodyElement
         return d.foo; // BodyDatum
     })
-    .text(function (d) {
-        return 42; // number will be converted to string by D3
-    })
-    .text(function (d) {
-        return true; // boolean will be converted to string by D3
-    });
+    .text(d => 42) // number will be converted to string by D3
+    .text(d => true); // boolean will be converted to string by D3
 
 body = body
     .html('<div> 42 </div>');
 
 body = body
-    .html(function (d, i, g) {
-        let that: HTMLBodyElement = this;
-        // let that2: SVGElement  = this; // fails, type mismatch
-        let datum: BodyDatum = d;
-        let index: number = i;
-        let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+    .html(function(d, i, g) {
+        const that: HTMLBodyElement = this;
+        // const that2: SVGElement  = this; // fails, type mismatch
+        const datum: BodyDatum = d;
+        const index: number = i;
+        const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
         return '<div> Body Background Color: ' + this.bgColor + ', Foo Datum: ' + d.foo + '</div>'; // this context HTMLBodyElement, datum BodyDatum
     });
 
@@ -522,13 +515,13 @@ body = body
 // ---------------------------------------------------------------------------------------
 
 
-let data: CircleDatum[] = [
+const data: CircleDatum[] = [
     { nodeId: 'c1', cx: 10, cy: 10, r: 5, name: 'foo', label: 'Foo' },
     { nodeId: 'c2', cx: 20, cy: 20, r: 5, name: 'bar', label: 'Bar' },
     { nodeId: 'c3', cx: 30, cy: 30, r: 5, name: 'fooBar', label: 'Foo Bar' }
 ];
 
-let data2: CircleDatumAlternative[] = [
+const data2: CircleDatumAlternative[] = [
     { nodeId: 'c1', cx: 10, cy: 10, r: 5, name: 'foo', label: 'Foo', color: 'seagreen' },
     { nodeId: 'c2', cx: 20, cy: 20, r: 5, name: 'bar', label: 'Bar', color: 'midnightblue' },
     { nodeId: 'c4', cx: 10, cy: 15, r: 10, name: 'newbie', label: 'Newbie', color: 'red' }
@@ -538,7 +531,7 @@ let data2: CircleDatumAlternative[] = [
 // Tests of Datum -----------------------------------------------------------------------
 
 // TEST GETTER
-let bodyDatum: BodyDatum = body.datum();
+const bodyDatum: BodyDatum = body.datum();
 
 // TEST REMOVE DATUM
 body.datum(null); // removes datum, i.e. return type has group datum type 'undefined'
@@ -555,18 +548,18 @@ newBodyDatum = body.datum({ newFoo: 'new foo' }).datum(); // inferred type
 
 // function-based
 
-newBodyDatum = body.datum(function (d, i, g) {
-    let that: HTMLBodyElement = this;
-    // let that2: SVGElement  = this; // fails, type mismatch
-    let datum: BodyDatum = d;
-    let index: number = i;
-    let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+newBodyDatum = body.datum(function(d, i, g) {
+    const that: HTMLBodyElement = this;
+    // const that2: SVGElement  = this; // fails, type mismatch
+    const datum: BodyDatum = d;
+    const index: number = i;
+    const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('HTML5 Custom Data Attributes of body: ', this.dataset); // this typings HTMLBodyElement
     console.log('Old foo:', d.foo); // current data of type BodyDatum
     return { newFoo: 'new foo' };
 }).datum(); // inferred type
 
-// newBodyDatum = body.datum<BodyDatum>(function (d) { // fails, data type incompatible with return value type
+// newBodyDatum = body.datum<BodyDatum>(function(d) { // fails, data type incompatible with return value type
 //     console.log('HTML5 Custom Data Attributes of body: ', this.dataset); // this typings HTMLBodyElement
 //     return { newFoo: 'new foo' };
 // }).datum(); // inferred type
@@ -579,7 +572,7 @@ newBodyDatum = body.datum(function (d, i, g) {
 d3Selection.select<SVGSVGElement, SVGDatum>('#svg-1')
     .select<SVGGElement>('g.circles-group') // first matching element only
     .datum<CircleDatumAlternative[]>(data2)
-    .classed('has-transform-property', function (d) {
+    .classed('has-transform-property', function(d) {
         console.log('Color of first data element array', d.length > 0 ? d[0].color : 'Data array empty');
         return this.transform !== undefined;
     });
@@ -589,12 +582,12 @@ d3Selection.select<SVGSVGElement, SVGDatum>('#svg-1')
 d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in last step of chain
     .select<SVGGElement>('g.circles-group')
     .datum(data2) // new data type inferred
-    .classed('has-transform-property', function (d, i, g) {
-        let that: SVGGElement = this;
-        // let that2: HTMLElement  = this; // fails, type mismatch
-        let datum: CircleDatumAlternative[] = d;
-        let index: number = i;
-        let group: SVGGElement[] | d3Selection.ArrayLike<SVGGElement> = g;
+    .classed('has-transform-property', function(d, i, g) {
+        const that: SVGGElement = this;
+        // const that2: HTMLElement  = this; // fails, type mismatch
+        const datum: CircleDatumAlternative[] = d;
+        const index: number = i;
+        const group: SVGGElement[] | d3Selection.ArrayLike<SVGGElement> = g;
         console.log('Color of first data element array', d.length > 0 ? d[0].color : 'Data array empty'); // CircleDatumAlternative type
         return this.transform !== undefined;
     });
@@ -604,7 +597,7 @@ d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in la
 // d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in last step of chain
 //     .select('g.circles-group') // missing typing of selected DOM element for use in .classed(...)
 //     .datum(data2) // new data type inferred
-//     .classed('has-transform-property', function (d) {
+//     .classed('has-transform-property', function(d) {
 //         console.log('Color of first data element array', d.length > 0? d[0].color:  'Data array empty'); // CircleDatumAlternative type
 //         return this.transform !== undefined;
 //     });
@@ -614,12 +607,12 @@ d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in la
 d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in last step of chain
     .select('g.circles-group') // irrelevant typing to get contextual typing in last step of chain
     .datum(data2) // new data type inferred
-    .classed('has-green-first-data-element', function (d, i, g) {
-        let that: d3Selection.BaseType = this;
-        // let that2: Element  = this; // fails, type mismatch
-        let datum: CircleDatumAlternative[] = d;
-        let index: number = i;
-        let group: d3Selection.BaseType[] | d3Selection.ArrayLike<d3Selection.BaseType> = g;
+    .classed('has-green-first-data-element', function(d, i, g) {
+        const that: d3Selection.BaseType = this;
+        // const that2: Element  = this; // fails, type mismatch
+        const datum: CircleDatumAlternative[] = d;
+        const index: number = i;
+        const group: d3Selection.BaseType[] | d3Selection.ArrayLike<d3Selection.BaseType> = g;
         return d.length > 0 && d[0].color === 'green';
     });
 
@@ -627,12 +620,12 @@ d3Selection.select('#svg-1') // irrelevant typing to get contextual typing in la
 // Tests of Data Join --------------------------------------------------------------------
 
 
-let dimensions: SVGDatum = {
+const dimensions: SVGDatum = {
     width: 500,
     height: 300
 };
 
-let startCircleData: CircleDatumAlternative[] = [
+const startCircleData: CircleDatumAlternative[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -652,7 +645,7 @@ let startCircleData: CircleDatumAlternative[] = [
         color: 'slateblue'
     }
 ];
-let endCircleData: CircleDatumAlternative[] = [
+const endCircleData: CircleDatumAlternative[] = [
     {
         nodeId: 'n1',
         name: 'node_1',
@@ -683,8 +676,8 @@ let circles2: d3Selection.Selection<SVGCircleElement, CircleDatumAlternative, SV
 
 circles2 = d3Selection.select<SVGSVGElement, any>('#svg2')
     .datum(dimensions)
-    .attr('width', function (d) { return d.width; })
-    .attr('height', function (d) { return d.height; })
+    .attr('width', d => d.width)
+    .attr('height', d => d.height)
     .selectAll() // create empty Selection
     .data(startCircleData) // assign data for circles to be added (no previous circles)
     .enter() // obtain enter selection
@@ -694,9 +687,9 @@ circles2 = d3Selection.select<SVGSVGElement, any>('#svg2')
 
 // Assign new data and use key(...) function for mapping
 circles2 = circles2 // returned update selection has the same type parameters as original selection, if data type is unchanged
-    .data<CircleDatumAlternative>(endCircleData, function (d) { return d.nodeId; });
+    .data<CircleDatumAlternative>(endCircleData, d => d.nodeId);
 
-// circles2.data<DivDatum>(endCircleData, function (d) { return d.nodeId; }); // fails, forced data type parameter and data argument mismatch
+// circles2.data<DivDatum>(endCircleData, function(d) { return d.nodeId; }); // fails, forced data type parameter and data argument mismatch
 
 // ENTER-selection -----------------------------------------------------------------
 
@@ -706,27 +699,27 @@ let enterElements: d3Selection.Selection<d3Selection.EnterElement, CircleDatumAl
 
 enterElements = circles2.enter(); // enter selection
 
-let enterCircles = enterElements
+const enterCircles = enterElements
     .append<SVGCircleElement>('circle') // enter selection with materialized DOM elements (svg circles)
-    .attr('cx', function (d) { return d.cx; })
-    .attr('cy', function (d) { return d.cy; })
-    .attr('r', function (d) { return d.r; })
-    .style('stroke', function (d) { return d.color; })
-    .style('fill', function (d) { return d.color; });
+    .attr('cx', d => d.cx)
+    .attr('cy', d => d.cy)
+    .attr('r', d => d.r)
+    .style('stroke', d => d.color)
+    .style('fill', d => d.color);
 
 // EXIT-selection ----------------------------------------------------------------------
 
 // tests exit(...) and remove()
 
-let exitCircles = circles2.exit<CircleDatumAlternative>(); // Note: need to re-type datum type, as the exit selection elements have the 'old data'
+const exitCircles = circles2.exit<CircleDatumAlternative>(); // Note: need to re-type datum type, as the exit selection elements have the 'old data'
 
 exitCircles
-    .style('opacity', function (d, i, g) {
-        let that: SVGCircleElement = this;
-        // let that2: HTMLElement  = this; // fails, type mismatch
-        let datum: CircleDatumAlternative = d;
-        let index: number = i;
-        let group: SVGCircleElement[] | d3Selection.ArrayLike<SVGCircleElement> = g;
+    .style('opacity', function(d, i, g) {
+        const that: SVGCircleElement = this;
+        // const that2: HTMLElement  = this; // fails, type mismatch
+        const datum: CircleDatumAlternative = d;
+        const index: number = i;
+        const group: SVGCircleElement[] | d3Selection.ArrayLike<SVGCircleElement> = g;
         console.log('Circle Radius exit node: ', this.r.baseVal.value); // this type is SVGCircleElement
         return d.color === 'green' ? 1 : 0; // data type as per .exit<...>() parameterization
     })
@@ -737,7 +730,7 @@ exitCircles
 
 // let exitCircles2 = circles2.exit(); // Note: Without explicit re-typing to the old data type, the data type default to '{}'
 // exitCircles2
-//     .style('opacity', function (d) {
+//     .style('opacity', function(d) {
 //         console.log('Circle Radius exit node: ', this.r.baseVal.value);
 //          return d.color === 'green' ? 1 : 0; // fails, as data type is defaulted to {}. If datum access is required, this should trigger the thought to type .exit<...>
 //     });
@@ -775,14 +768,14 @@ nMatrix = tr.data(); // i.e. matrix
 
 let td: d3Selection.Selection<HTMLTableDataCellElement, number, HTMLTableRowElement, number[]>;
 td = tr.selectAll()
-    .data(function (d) { return d; }) // d : Array<number> inferred (Array[4] of number per parent <tr>)
+    .data(d => d) // d : Array<number> inferred (Array[4] of number per parent <tr>)
     .enter().append<HTMLTableDataCellElement>('td')
-    .text(function (d, i, g) {
-        let that: HTMLTableDataCellElement = this;
-        // let that2: Element  = this; // fails, type mismatch
-        let datum: number = d;
-        let index: number = i;
-        let group: HTMLTableDataCellElement[] | d3Selection.ArrayLike<HTMLTableDataCellElement> = g;
+    .text(function(d, i, g) {
+        const that: HTMLTableDataCellElement = this;
+        // const that2: Element  = this; // fails, type mismatch
+        const datum: number = d;
+        const index: number = i;
+        const group: HTMLTableDataCellElement[] | d3Selection.ArrayLike<HTMLTableDataCellElement> = g;
         console.log('Abbreviated text for object', this.abbr); // this-type HTMLTableDataCellElement (demonstration only)
         return d;
     }); // d:number inferred
@@ -791,7 +784,7 @@ nRow = td.data(); // flattened matrix (Array[16] of number)
 
 // SCENARIO 2 - Completely inferred types, when there is no need for `this` typings
 
-let tr2 = d3Selection.select('body')
+const tr2 = d3Selection.select('body')
     .append('table')
     .selectAll('tr')
     .data(matrix)
@@ -799,10 +792,10 @@ let tr2 = d3Selection.select('body')
 
 nMatrix = tr2.data(); // i.e. matrix
 
-let td2 = tr2.selectAll('td')
-    .data(function (d) { return d; }) // d : Array<number> inferred (Array[4] of number per parent <tr>)
+const td2 = tr2.selectAll('td')
+    .data(d => d) // d : Array<number> inferred (Array[4] of number per parent <tr>)
     .enter().append('td')
-    .text(function (d) { return d; }); // d:number inferred
+    .text(d => d); // d:number inferred
 
 nRow = td2.data(); // flattened matrix (Array[16] of number)
 
@@ -823,12 +816,12 @@ newDiv2 = body.append<HTMLDivElement>('div');
 newDiv2 = body.append(d3Selection.creator<HTMLDivElement>('div'));
 // newDiv2 = body.append(d3Selection.creator('div')); // fails, as creator returns BaseType element, but HTMLDivElement is expected.
 
-newDiv2 = body.append(function (d, i, g) {
-    let that: HTMLBodyElement = this;
-    // let that2: SVGElement  = this; // fails, type mismatch
-    let datum: BodyDatum = d;
-    let index: number = i;
-    let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+newDiv2 = body.append(function(d, i, g) {
+    const that: HTMLBodyElement = this;
+    // const that2: SVGElement  = this; // fails, type mismatch
+    const datum: BodyDatum = d;
+    const index: number = i;
+    const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('Body element foo property: ', d.foo); // data of type BodyDatum
     return this.ownerDocument.createElement('div'); // this-type HTMLBodyElement
 });
@@ -850,23 +843,23 @@ newParagraph = body.insert('p');
 
 // Two arguments; the first can be string, selection , or a
 
-const typeValueFunction = function (
+const typeValueFunction = function(
   this: HTMLBodyElement,
   d: BodyDatum,
   i: number,
   g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
 ) {
     return this.ownerDocument.createElement('p'); // this-type HTMLParagraphElement
-}
+};
 
-const beforeValueFunction = function (
+const beforeValueFunction = function(
   this: HTMLBodyElement,
   d: BodyDatum,
   i: number,
   g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
 ) {
-    return this.children[0]; 
-}
+    return this.children[0];
+};
 
 let newParagraph2: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
 
@@ -887,9 +880,7 @@ newParagraph2 = body.insert(typeValueFunction);
 // sort(...) -----------------------------------------------------------------------------
 
 // NB: Return new selection of same type
-circles2 = circles2.sort(function (a, b) {
-    return (b.r - a.r);
-});
+circles2 = circles2.sort((a, b) => b.r - a.r);
 
 // order(...) ----------------------------------------------------------------------------
 
@@ -911,27 +902,27 @@ circles2 = circles2.lower();
 // ---------------------------------------------------------------------------------------
 
 // empty() -------------------------------------------------------------------------------
-let emptyFlag = gElementsOldData.empty();
+const emptyFlag = gElementsOldData.empty();
 
 // node() and nodes() --------------------------------------------------------------------
 
-let bodyNode: HTMLBodyElement | null= body.node();
+const bodyNode: HTMLBodyElement | null = body.node();
 
-let gElementsNodes: SVGGElement[] = gElementsOldData.nodes();
+const gElementsNodes: SVGGElement[] = gElementsOldData.nodes();
 
 // size() --------------------------------------------------------------------------------
 
-let size: number = gElementsOldData.size();
+const size: number = gElementsOldData.size();
 
 // each() -------------------------------------------------------------------------------
 
 // returns 'this' selection
-circles = circles.each(function (d, i, g) {  // check chaining return type by re-assigning
-    let that: SVGCircleElement = this;
-    // let that2: HTMLElement  = this; // fails, type mismatch
-    let datum: CircleDatum = d;
-    let index: number = i;
-    let group: SVGCircleElement[] | d3Selection.ArrayLike<SVGCircleElement> = g;
+circles = circles.each(function(d, i, g) {  // check chaining return type by re-assigning
+    const that: SVGCircleElement = this;
+    // const that2: HTMLElement  = this; // fails, type mismatch
+    const datum: CircleDatum = d;
+    const index: number = i;
+    const group: SVGCircleElement[] | d3Selection.ArrayLike<SVGCircleElement> = g;
     if (this.r.baseVal.value < d.r) { // this of type SVGCircleElement, datum of type CircleDatumAlternative
         d3Selection.select(this).attr('r', d.r);
     }
@@ -942,8 +933,8 @@ circles = circles.each(function (d, i, g) {  // check chaining return type by re
 
 function enforceMinRadius(selection: d3Selection.Selection<SVGCircleElement, CircleDatumAlternative, any, any>, minRadius: number): void {
 
-    selection.attr('r', function (d) {
-        let r: number = +d3Selection.select(this).attr('r');
+    selection.attr('r', function(d) {
+        const r: number = +d3Selection.select(this).attr('r');
         return Math.max(r, minRadius);
     });
 
@@ -952,11 +943,11 @@ function enforceMinRadius(selection: d3Selection.Selection<SVGCircleElement, Cir
 // returns 'this' selection
 circles = circles.call(enforceMinRadius, 40); // check chaining return type by re-assigning
 
-// circles.call(function (selection: d3Selection.Selection<HTMLDivElement, CircleDatum, any, any>):void {
+// circles.call(function(selection: d3Selection.Selection<HTMLDivElement, CircleDatum, any, any>):void {
 //     // fails, group element types of selection not compatible: SVGCircleElement v HTMLDivElement
 // });
 
-// circles.call(function (selection: d3Selection.Selection<SVGCircleElement, DivDatum, any, any>):void {
+// circles.call(function(selection: d3Selection.Selection<SVGCircleElement, DivDatum, any, any>):void {
 //     // fails, group datum types of selection not compatible: CircleDatumAlternative v DivDatum
 // });
 
@@ -969,12 +960,12 @@ circles = circles.call(enforceMinRadius, 40); // check chaining return type by r
 let listener: undefined | ((this: HTMLBodyElement, datum: BodyDatum, index: number, group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement>) => void);
 
 
-body = body.on('click', function (d, i, g) {
-    let that: HTMLBodyElement = this;
-    // let that2: SVGElement  = this; // fails, type mismatch
-    let datum: BodyDatum = d;
-    let index: number = i;
-    let group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement> = g;
+body = body.on('click', function(d, i, g) {
+    const that: HTMLBodyElement = this;
+    // const that2: SVGElement  = this; // fails, type mismatch
+    const datum: BodyDatum = d;
+    const index: number = i;
+    const group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement> = g;
     console.log('onclick print body background color: ', this.bgColor); // HTMLBodyElement
     console.log('onclick print "foo" datum property: ', d.foo); // BodyDatum type
 });
@@ -993,7 +984,7 @@ body = body.on('click', null); // check chaining return type by re-assigning
 
 // dispatch(...) -------------------------------------------------------------------------
 
-let fooEventParam: d3Selection.CustomEventParameters = {
+const fooEventParam: d3Selection.CustomEventParameters = {
     cancelable: true,
     bubbles: true,
     detail: [1, 2, 3, 4]
@@ -1002,12 +993,12 @@ let fooEventParam: d3Selection.CustomEventParameters = {
 // returns 'this' selection
 body = body.dispatch('fooEvent', fooEventParam); // re-assign for chaining test;
 
-body = body.dispatch('fooEvent', function (d, i, g) { // re-assign for chaining test;
-    let that: HTMLBodyElement = this;
-    // let that2: SVGElement  = this; // fails, type mismatch
-    let datum: BodyDatum = d;
-    let index: number = i;
-    let group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
+body = body.dispatch('fooEvent', function(d, i, g) { // re-assign for chaining test;
+    const that: HTMLBodyElement = this;
+    // const that2: SVGElement  = this; // fails, type mismatch
+    const datum: BodyDatum = d;
+    const index: number = i;
+    const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     let eParam: d3Selection.CustomEventParameters;
     console.log('fooEvent dispatch body background color', this.bgColor);
     eParam = {
@@ -1030,17 +1021,17 @@ interface SuccessEvent {
     team: string;
     sourceEvent?: any;
 }
-let successEvent = { type: 'wonEuro2016', team: 'Island' };
+const successEvent = { type: 'wonEuro2016', team: 'Island' };
 
 let customListener: (this: HTMLBodyElement, finalOpponent: string) => string;
 
-customListener = function (finalOpponent) {
-    let e = <SuccessEvent> d3Selection.event;
+customListener = finalOpponent => {
+    const e = <SuccessEvent> d3Selection.event;
 
     return e.team + ' defeated ' + finalOpponent + ' in the EURO 2016 Cup. Who would have thought!!!';
 };
 
-let resultText: string = d3Selection.customEvent(successEvent, customListener, body.node(), 'Wales');
+const resultText: string = d3Selection.customEvent(successEvent, customListener, body.node(), 'Wales');
 
 // let result = d3Selection.customEvent(successEvent, customListener, circles.nodes()[0], 'Wales'); // fails, incompatible 'this' context in call
 // let resultValue: number = d3Selection.customEvent(successEvent, customListener, body.node(), 'Wales'); // fails, incompatible return types
@@ -1051,10 +1042,10 @@ let resultText: string = d3Selection.customEvent(successEvent, customListener, b
 // mouse() ---------------------------------------------------------------------------------
 
 let position: [number, number] | null;
-let svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node()!;
-let g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node()!;
-let h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node()!;
-let changedTouches: TouchList = new TouchList(); // dummy
+const svg: SVGSVGElement = d3Selection.select<SVGSVGElement, any>('svg').node()!;
+const g: SVGGElement = d3Selection.select<SVGGElement, any>('g').node()!;
+const h: HTMLElement = d3Selection.select<HTMLElement, any>('div').node()!;
+const changedTouches: TouchList = new TouchList(); // dummy
 
 position = d3Selection.mouse(svg);
 position = d3Selection.mouse(g);
@@ -1084,9 +1075,9 @@ positions = d3Selection.touches(h, changedTouches);
 // Tests of Local
 // ---------------------------------------------------------------------------------------
 
-let xElement: Element = d3Selection.select<Element, any>('foo').node()!;
-let foo: d3Selection.Local<number[]> = d3Selection.local<number[]>();
-let propName: string = foo.toString();
+let  xElement: Element = d3Selection.select<Element, any>('foo').node()!;
+const foo: d3Selection.Local<number[]> = d3Selection.local<number[]>();
+const propName: string = foo.toString();
 
 // direct set & get on Local<T> object
 xElement = foo.set(xElement, [1, 2, 3]);
@@ -1104,7 +1095,7 @@ foo.remove(xElement);
 // Tests of Namespace
 // ---------------------------------------------------------------------------------------
 
-let predefinedNamespaces: d3Selection.NamespaceMap = d3Selection.namespaces;
+const predefinedNamespaces: d3Selection.NamespaceMap = d3Selection.namespaces;
 
 const svgNamespace: string = predefinedNamespaces['svg'];
 

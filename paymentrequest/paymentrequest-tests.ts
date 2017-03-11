@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 /// Code examples derived from
 /// https://developers.google.com/web/fundamentals/discovery-and-monetization/payment-request/
 

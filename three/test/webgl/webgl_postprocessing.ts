@@ -1,11 +1,8 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_postprocessing.html
 
 () => {
-    var camera, scene, renderer, composer;
-    var object, light;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, composer: THREE.EffectComposer;
+    var object: THREE.Object3D, light: THREE.DirectionalLight;
 
     init();
     animate();

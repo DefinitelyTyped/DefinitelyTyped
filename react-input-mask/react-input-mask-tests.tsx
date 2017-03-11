@@ -7,4 +7,4 @@ import * as React from 'react';
     <ReactInputMask mask="99-99-9999" defaultValue= "13-00-2017" />
     <ReactInputMask mask="99/99/9999" placeholder= "Enter birthdate" />
     <ReactInputMask mask="+7 (999) 999-99-99" />
-</div>
+</div>;
