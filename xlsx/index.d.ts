@@ -230,7 +230,7 @@ export interface IWorkSheetCell {
     /**
      * Cell hyperlink object (.Target holds link, .tooltip is tooltip)
      */
-    l?: string;
+    l?: string | Object;
 
     /**
      * The style/theme of the cell (if applicable)
