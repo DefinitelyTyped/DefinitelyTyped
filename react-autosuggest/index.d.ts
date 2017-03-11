@@ -1,11 +1,16 @@
-// Type definitions for react-autosuggest 7.0
+// Type definitions for react-autosuggest 8.0
 // Project: http://react-autosuggest.js.org/
-// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>
+// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Philip Ottesen <https://github.com/pjo256>, Robert Essig <https://github.com/robessog>, Terry Bayne <https://github.com/tbayne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from 'react';
 
+import * as React from 'react';
+declare class Autosuggest extends React.Component<any, any> {}
+
+export = Autosuggest;
+
+declare namespace Autosuggest {
   interface SuggestionsFetchRequest {
     value: string;
     reason: string;
@@ -31,7 +36,7 @@ import * as React from 'react';
     onBlur?: (event: React.FormEvent<any>, params?: BlurEvent) => void;
   }
 
- export interface SuggestionSelectedEventData<TSuggestion> {
+  export interface SuggestionSelectedEventData<TSuggestion> {
     method: 'click' | 'enter';
     sectionIndex: number | null;
     suggestion: TSuggestion;
@@ -71,4 +76,4 @@ import * as React from 'react';
     id?: string;
   }
 
-  export class Autosuggest extends React.Component<any, any> {}
+}

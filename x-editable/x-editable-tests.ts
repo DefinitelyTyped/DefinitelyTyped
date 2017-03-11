@@ -1,10 +1,3 @@
-// Type definitions for X-Editable v1.5.1
-// Project: http://vitalets.github.io/x-editable/index.html
-// Definitions by: Chris Kirby <https://github.com/sirkirby/>
-// Definitions: https://github.com/sirkirby/DefinitelyTyped
-
-/// <reference types="jquery"/>
-
 // server post and response
 $('#username').editable({
     success: function(response : any, newValue : any) {

@@ -1,8 +1,8 @@
-
-/// <reference types="jasmine" />
-
 import * as request from 'supertest-as-promised';
 import * as express from 'express';
+
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
 
 var app = express();
 
@@ -29,12 +29,8 @@ request(app)
     // ...
   });
 
-describe("GET /kittens", () => {
-  it("should work", () => {
-    return request(app).get("/kittens").expect(200);
-  });
-});
 
+request(app).get("/kittens").expect(200);
 
 // Agents
 var agent = request.agent(app);

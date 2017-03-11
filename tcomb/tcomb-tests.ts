@@ -1,8 +1,7 @@
-// ReSharper disable InconsistentNaming
-// ReSharper disable WrongExpressionStatement
-
 /// <reference types="node"/>
-/// <reference types="jasmine" />
+
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
 
 // tests adapted from/for tcomb's test folder
 

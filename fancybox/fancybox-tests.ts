@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 $('.fancybox').fancybox();
 $('.fancybox').fancybox({
     padding: 0,

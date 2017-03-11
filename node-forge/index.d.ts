@@ -1,6 +1,7 @@
 // Type definitions for node-forge 0.6.42
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
+//                 Kay Schecker <https://github.com/flynetworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-forge" {
@@ -23,6 +24,7 @@ declare module "node-forge" {
 
         function privateKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
+        function certificateToPem(cert: Certificate, maxline?: number): PEM;
 
         interface oids {
             [key: string]: string;
@@ -233,5 +235,41 @@ declare module "node-forge" {
                 function decode(bytes: Uint8Array): string;
             }
         }
+    }
+
+    namespace pkcs12 {
+
+        interface BagsFilter {
+            localKeyId?: string;
+            localKeyIdHex?: string;
+            friendlyName?: string;
+            bagType?: string;
+        }
+
+        interface Bag {
+            type: string;
+            attributes: any;
+            key?: pki.Key;
+            cert?: pki.Certificate;
+            asn1: asn1.Asn1
+        }
+
+        interface Pkcs12Pfx {
+            version: string;
+            safeContents: [{
+                encrypted: boolean;
+                safeBags: Bag[];
+            }];
+            getBags: (filter: BagsFilter) => {
+                [key: string]: Bag[]|undefined;
+                localKeyId?: Bag[];
+                friendlyName?: Bag[];
+            };
+            getBagsByFriendlyName: (fiendlyName: string, bagType: string) => Bag[]
+            getBagsByLocalKeyId: (localKeyId: string, bagType: string) => Bag[]
+        }
+
+        function pkcs12FromAsn1(obj:any, strict?: boolean, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj:any, password?: string) : Pkcs12Pfx;
     }
 }

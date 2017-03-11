@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import stringify = require("csv-stringify");
 
 let stream: stringify.Stringifier;

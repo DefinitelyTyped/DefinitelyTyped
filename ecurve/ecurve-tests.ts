@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import ecurve = require('ecurve');
 import crypto = require('crypto');
 

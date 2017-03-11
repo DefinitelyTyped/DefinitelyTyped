@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 var btfModal: angularModal.AngularModalFactory;
 
 // Using template URL

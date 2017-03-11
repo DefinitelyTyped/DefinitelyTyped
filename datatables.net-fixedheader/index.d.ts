@@ -3,7 +3,7 @@
 // Definitions by: Jared Szechy <https://github.com/szechyjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="jquery" />
-/// <reference types="jquery.dataTables"/>
+/// <reference types="datatables.net"/>
 
 declare namespace DataTables {
     export interface Settings {

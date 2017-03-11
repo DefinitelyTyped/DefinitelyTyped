@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 // As basic as it can be
 $('#element').cycle();
 
@@ -284,7 +282,7 @@ $('#s2').cycle({
 $('#slideshow2').cycle({
     fx: 'scrollLeft,scrollDown,scrollRight,scrollUp',
     randomizeEffects: false,
-    easing: 'easeInBack' // easing supported via the easing plugin 
+    easing: 'easeInBack' // easing supported via the easing plugin
 });
 
 // Another Advanced "pager" Demo
@@ -294,7 +292,7 @@ $('#slideshow').cycle({
     timeout: 0,
     pager: '#nav',
     pagerAnchorBuilder: function (idx, slide) {
-        // return selector string for existing anchor 
+        // return selector string for existing anchor
         return '#nav li:eq(' + idx + ') a';
     }
 });
@@ -304,7 +302,7 @@ $('#slideshow').cycle({ slideExpr: 'img' });
 
 // Defeating IE's ClearType bug
 $('#slideshow').cycle({
-    cleartype: false // disable cleartype corrections 
+    cleartype: false // disable cleartype corrections
 });
 
 // Using the 'nowrap' option (manual slideshow)

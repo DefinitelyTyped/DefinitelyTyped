@@ -55,6 +55,10 @@ var $multiEl = $('selector', 'selector', 'selector');
 $el.attr('id');
 $el.attr('id', 'favorite').html();
 
+// props
+$el.prop('style')
+$el.prop('style', 'none').html()
+
 // data
 $el.data();
 $el.data('apple-color');
@@ -86,6 +90,7 @@ $el.is(() => {
  */
 // serializeArray
 $('<form><input name="foo" value="bar" /></form>').serializeArray();
+$('<form><input name="foo" value="bar" /></form>').serialize();
 
 /**
  * Traversing
@@ -216,6 +221,9 @@ $el.eq(0).addBack('.class').length
 /**
  * Manipulation
  */
+
+$('<li class="plum">Plum</li>').appendTo($el)
+$el.prependTo($('<li class="plum">Plum</li>'))
 
 // .append( content, [content, ...] )
 $el.append('<li class="plum">Plum</li>').html();

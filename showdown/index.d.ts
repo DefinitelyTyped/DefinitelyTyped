@@ -255,6 +255,14 @@ declare namespace Showdown {
          * @param extensions
          */
         removeExtension(extensions: ShowdownExtension[] | ShowdownExtension): void;
+        
+        /**
+         * Set a "local" flavor for THIS Converter instance
+         *
+         * @param flavor name
+         */
+        setFlavor(name: string): void;
+        
     }
 
     interface ConverterStatic {
@@ -353,4 +361,11 @@ declare namespace Showdown {
      * Reset extensions.
      */
     function resetExtensions(): void;
+
+    /**
+     * Setting a "global" flavor affects all instances of showdown
+     *
+     * @param name
+     */
+    function setFlavor(name: string): void;
 }

@@ -8,7 +8,7 @@ let s: string;
 let i: number;
 let b: boolean;
 let f: () => void;
-let o: Object;
+let o: {};
 let r: RegExp;
 let sym: symbol;
 let e: Error;
@@ -21,7 +21,7 @@ let arrayOfPoint3D: Point3D[];
 let arrayOfSymbol: symbol[];
 let arrayOfPropertyKey: PropertyKey[];
 let arrayOfAny: any[];
-let arrayOfStringAny: [string, any][];
+let arrayOfStringAny: Array<[string, any]>;
 let arrayLikeOfAny: ArrayLike<any>;
 let iterableOfPoint: Iterable<Point>;
 let iterableOfStringPoint: Iterable<[string, Point]>;
@@ -57,7 +57,7 @@ let dictOfAny: Dict<any>;
 
 // #############################################################################################
 // ECMAScript 6: Object & Function
-// Modules: es6.object.assign, es6.object.is, es6.object.set-prototype-of, 
+// Modules: es6.object.assign, es6.object.is, es6.object.set-prototype-of,
 //          es6.object.to-string, es6.function.name and es6.function.has-instance.
 // #############################################################################################
 
@@ -88,8 +88,8 @@ arrayOfPoint = Array.of(point, point);
 
 // #############################################################################################
 // ECMAScript 6: String & RegExp
-// Modules: es6.string.from-code-point, es6.string.raw, es6.string.code-point-at, 
-//          es6.string.ends-with, es6.string.includes, es6.string.repeat, 
+// Modules: es6.string.from-code-point, es6.string.raw, es6.string.code-point-at,
+//          es6.string.ends-with, es6.string.includes, es6.string.repeat,
 //          es6.string.starts-with, and es6.regexp
 // #############################################################################################
 

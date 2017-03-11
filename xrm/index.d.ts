@@ -1189,6 +1189,19 @@ declare namespace Xrm
         }
 
         /**
+         * Interface for UI elements which can have the visibility value updated.
+         */
+        export interface UiCanSetVisibleElement
+        {
+            /**
+             * Sets the visibility state.
+             *
+             * @param   {boolean}   visible true to show, false to hide.
+             */
+            setVisible( visible: boolean ): void;
+        }
+
+        /**
          * Base interface for standard UI elements.
          */
         export interface UiStandardElement extends UiCanGetVisibleElement, UiLabelElement
@@ -2522,7 +2535,7 @@ declare namespace Xrm
          *
          * @sa  FramedControl
          */
-        export interface IframeControl extends FramedControl
+        export interface IframeControl extends FramedControl, UiCanSetVisibleElement
         {
             /**
              * Gets initial URL defined for the Iframe.

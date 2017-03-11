@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_particles_floor.html
 
 () => {
@@ -10,8 +7,8 @@
     var AMOUNTX = 50;
     var AMOUNTY = 50;
 
-    var container, stats;
-    var camera, scene, renderer, particle;
+    var container: HTMLDivElement, stats: Stats;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer, particle: THREE.Sprite;
     var mouseX = 0, mouseY = 0;
 
     var windowHalfX = window.innerWidth / 2;
@@ -80,13 +77,13 @@
 
     //
 
-    function onDocumentMouseMove(event) {
+    function onDocumentMouseMove(event: MouseEvent) {
 
         mouseX = event.clientX - windowHalfX;
         mouseY = event.clientY - windowHalfY;
     }
 
-    function onDocumentTouchStart(event) {
+    function onDocumentTouchStart(event: TouchEvent) {
 
         if (event.touches.length > 1) {
 
@@ -97,7 +94,7 @@
         }
     }
 
-    function onDocumentTouchMove(event) {
+    function onDocumentTouchMove(event: TouchEvent) {
 
         if (event.touches.length == 1) {
 

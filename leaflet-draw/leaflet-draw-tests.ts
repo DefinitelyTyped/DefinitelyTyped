@@ -1,5 +1,3 @@
-/// <reference types="leaflet" />
-
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib}),
@@ -44,3 +42,7 @@ map.on('draw:created', (e: any) => {
 
     drawnItems.addLayer(layer);
 });
+
+let examplePolygon: L.LatLngLiteral[] = [{lng: 0, lat: 0}, {lng: 10, lat: 0}, {lng: 10, lat: 10}, {lng: 0, lat: 10}, {lng: 0, lat: 0}];
+let examplePolygonArea: number = L.GeometryUtil.geodesicArea(examplePolygon);
+L.GeometryUtil.readableArea(examplePolygonArea, true);

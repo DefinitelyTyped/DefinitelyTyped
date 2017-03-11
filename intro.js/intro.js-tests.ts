@@ -8,6 +8,10 @@ intro.setOption('doneLabel', 'Next page');
 intro.setOption('overlayOpacity', 50);
 intro.setOption('showProgress', true);
 intro.setOptions({
+    hidePrev: true,
+    hideNext: false,
+    scrollPadding: 30,
+    hintAnimation: false,
     steps: [
         {
             intro: "Hello world!"

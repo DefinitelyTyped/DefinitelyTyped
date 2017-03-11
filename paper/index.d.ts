@@ -285,7 +285,7 @@ declare module 'paper' {
          * Transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        transform(point: Point): Matrix;
+        transform(point: Point): Point;
 
         /**
          * Transforms an array of coordinates by this matrix and stores the results into the destination array, which is also returned.
@@ -299,7 +299,7 @@ declare module 'paper' {
          * Inverse transforms a point and returns the result.
          * @param point - the point to be transformed
          */
-        inverseTransform(point: Point): Matrix;
+        inverseTransform(point: Point): Point;
 
         /**
          * Attempts to decompose the affine transformation described by this matrix into scaling, rotation and shearing, and returns an object with these properties if it succeeded, null otherwise.

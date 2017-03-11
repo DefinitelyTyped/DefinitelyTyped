@@ -1,4 +1,3 @@
-/// <reference types="jquery"/>
 /// <reference types="qunit" />
 
 class Tests {

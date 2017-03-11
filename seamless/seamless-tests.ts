@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 /* Create Parent Seamless IFrame */
 $('#myiframe').seamless();
 $('#myiframe').seamless({

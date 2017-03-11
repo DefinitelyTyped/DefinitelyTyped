@@ -1,4 +1,4 @@
-// Type definitions for Jest 18.1.0
+// Type definitions for Jest 19.2.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -158,19 +158,19 @@ declare namespace jest {
          * @param {any} actual The value to apply matchers against.
         */
         (actual: any): Matchers;
-        anything(): void;
+        anything(): any;
         /** Matches anything that was created with the given constructor. You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value. */
-        any(classType: any): void;
+        any(classType: any): any;
         /** Matches any array made up entirely of elements in the provided array. You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.  */
-        arrayContaining(arr: any[]): void;
+        arrayContaining(arr: any[]): any;
         /** Verifies that a certain number of assertions are called during a test. This is often useful when testing asynchronous code, in order to make sure that assertions in a callback actually got called. */
         assertions(num: number): void;
         /** You can use `expect.extend` to add your own matchers to Jest. */
         extend(obj: ExpectExtendMap): void;
         /** Matches any object that recursively matches the provided keys. This is often handy in conjunction with other asymmetric matchers. */
-        objectContaining(obj: {}): void;
+        objectContaining(obj: {}): any;
         /** Matches any string that contains the exact provided string */
-        stringMatching(str: string | RegExp): void;
+        stringMatching(str: string | RegExp): any;
     }
 
     interface Matchers {
@@ -229,7 +229,7 @@ declare namespace jest {
         /** This ensures that a value matches the most recent snapshot. Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information. */
         toMatchSnapshot(snapshotName?: string): void;
         /** Used to test that a function throws when it is called. */
-        toThrow(): void;
+        toThrow(error?: string | Constructable | RegExp): void;
         /** If you want to test that a specific error is thrown inside a function. */
         toThrowError(error?: string | Constructable | RegExp): void;
         /** Used to test that a function throws a error matching the most recent snapshot when it is called. */

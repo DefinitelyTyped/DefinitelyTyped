@@ -2,8 +2,6 @@
  * Created by Bruno Grieder
  */
 
-///<reference types="react" />
-
 import * as React from 'react'
 
 import * as reactMixin from 'react-mixin'

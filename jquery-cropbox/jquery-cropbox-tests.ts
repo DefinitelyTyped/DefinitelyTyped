@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 var cropboxWithDefaultSettings = $("#element").cropbox();
 
 var cropboxOptions: jQueryCropBox.CropboxOptions = {
@@ -38,7 +36,7 @@ cropboxWithOptions.getBlob();
 cropboxWithOptions.remove();
 
 cropboxWithOptions.on("cropbox",(e: Event, data: any, img: jQueryCropBox.Cropbox) => {
-   
-   //DoStuff 
-    
+
+   //DoStuff
+
 });

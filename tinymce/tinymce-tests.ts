@@ -1,12 +1,17 @@
 tinymce.init(
   {
-    selector: '.tinymce-editable',
-    height: 145,
+    selector: 'textarea',
+    height: 500,
+    menubar: false,
     plugins: [
-      'autolink table contextmenu paste code link textcolor colorpicker image imagetools'
+      'advlist autolink lists link image charmap print preview anchor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table contextmenu paste code'
     ],
-    menubar: 'edit insert table tools',
-    toolbar: 'undo redo | styleselect bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
-    content_css: 'page.css'
+    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    content_css: '//www.tinymce.com/css/codepen.min.css'
   }
 );
+
+
+let t = new TinyMce.util.Color('#FFFFFF');

@@ -1,8 +1,3 @@
-/// <reference types="react" />
-/// <reference types="react-dom" />
-/// <reference types="react-tap-event-plugin" />
-/// <reference types="material-ui" />
-
 import * as React from 'react';
 import {Component, PropTypes} from 'react';
 import * as ReactDOM from 'react-dom';
@@ -284,6 +279,9 @@ const lightBaseTheme = {
     desktopDrawerMenuItemHeight: 48,
     desktopSubheaderHeight: 48,
     desktopToolbarHeight: 56,
+  },
+  button: {
+    textTransform: "lowercase"
   },
   fontFamily: 'Roboto, sans-serif',
   palette: {

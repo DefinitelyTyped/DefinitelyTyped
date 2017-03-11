@@ -1,6 +1,3 @@
-
-/// <reference types="react"/>
-
 import * as React from "react";
 import {Table, Cell, Column, CellProps} from "fixed-data-table";
 
