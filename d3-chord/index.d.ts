@@ -306,8 +306,9 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
      * Sets the radius accessor to the specified function and returns this ribbon generator.
      *
      * @param radius An accessor function which is invoked for the source and target of the chord. The accessor function is invoked in the same "this" context as the generator was invoked in and
-     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator. It is also passed any additional arguments that were passed
-     * into the generator, with the exception of the first element representing the chord datum itself. The function returns the radius value.
+     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator.
+     * It is also passed any additional arguments that were passed into the generator, with the exception of the first element representing the chord datum itself.
+     * The function returns the radius value.
      */
     radius(radius: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
 
@@ -326,8 +327,9 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
      * Sets the start angle accessor to the specified function and returns this ribbon generator.
      *
      * @param angle An accessor function which is invoked for the source and target of the chord. The accessor function is invoked in the same "this" context as the generator was invoked in and
-     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator. It is also passed any additional arguments that were passed
-     * into the generator, with the exception of the first element representing the chord datum itself. The function returns the start angle in radians.
+     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator.
+     * It is also passed any additional arguments that were passed into the generator, with the exception of the first element representing the chord datum itself.
+     * The function returns the start angle in radians.
      */
     startAngle(angle: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
 
@@ -346,8 +348,9 @@ export interface RibbonGenerator<This, RibbonDatum, RibbonSubgroupDatum> {
      * Sets the end angle accessor to the specified function and returns this ribbon generator.
      *
      * @param angle An accessor function which is invoked for the source and target of the chord. The accessor function is invoked in the same "this" context as the generator was invoked in and
-     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator. It is also passed any additional arguments that were passed
-     * into the generator, with the exception of the first element representing the chord datum itself. The function returns the end angle in radians.
+     * receives as the first argument the source or target object returned by the respective source or target accessor function of the generator.
+     * It is also passed any additional arguments that were passed into the generator, with the exception of the first element representing the chord datum itself.
+     * The function returns the end angle in radians.
      */
     endAngle(angle: (this: This, d: RibbonSubgroupDatum, ...args: any[]) => number): this;
 

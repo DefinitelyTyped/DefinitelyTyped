@@ -1,14 +1,11 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometries.html
 
 () => {
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer;
 
     init();
     animate();
@@ -23,7 +20,7 @@
 
         scene = new THREE.Scene();
 
-        var light, object;
+        var light: THREE.DirectionalLight, object: THREE.Mesh | THREE.AxisHelper | THREE.ArrowHelper;
 
         scene.add(new THREE.AmbientLight(0x404040));
 
@@ -79,7 +76,7 @@
 
         //
 
-        var points = [];
+        var points: THREE.Vector3[] = [];
 
         for (var i = 0; i < 50; i++) {
 

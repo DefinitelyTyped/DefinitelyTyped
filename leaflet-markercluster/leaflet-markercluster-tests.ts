@@ -26,7 +26,11 @@ markerClusterGroupOptions = {
     },
     chunkedLoading: false,
     chunkDelay: 100
-}
+};
+
+markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {
+    return L.divIcon();
+};
 
 let markerClusterGroup: L.MarkerClusterGroup;
 markerClusterGroup = L.markerClusterGroup();

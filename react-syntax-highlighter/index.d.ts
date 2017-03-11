@@ -12,6 +12,8 @@ declare module 'react-syntax-highlighter' {
 declare module 'react-syntax-highlighter/dist/light' {
     import * as React from 'react';
 
+    export function registerLanguage(name: string, func: any): void;
+
     interface SyntaxHighlighterProps {
         language?: string;
         style?: any;

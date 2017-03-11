@@ -1,6 +1,3 @@
-/// <reference types="jquery-ajax-chain" />
-/// <reference types="jquery" />
-
 function test_public_methods(): void {
 
     let ajaxChain: ajaxChain.JQueryAjaxChain,
@@ -171,7 +168,7 @@ function test_optional_parameters(): void {
         },
 
         hasCache: function (xmlResponse): XMLDocument {
-            
+
             let $tempXmlResponse: JQuery,
                 itemId: String;
 

@@ -20,7 +20,7 @@ declare class Chart {
     getElementsAtEvent: (e: any) => {}[];
     getDatasetAtEvent: (e: any) => {}[];
 
-    defaults: {
+    static defaults: {
         global: Chart.ChartOptions;
     }
 }
@@ -103,6 +103,7 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         scales?: ChartScales;
+        cutoutPercentage?: number;
     }
 
     export interface ChartFontOptions {

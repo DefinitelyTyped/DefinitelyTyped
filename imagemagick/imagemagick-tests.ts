@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import imagemagick = require('imagemagick');
 import child_process = require('child_process');
 

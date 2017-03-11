@@ -1,6 +1,6 @@
-// Type definitions for Highcharts 4.2.7
+// Type definitions for Highcharts 4.2
 // Project: http://www.highcharts.com/
-// Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
+// Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>, Albert Ozimek <https://github.com/AlbertOzimek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Highcharts {
@@ -799,7 +799,7 @@ declare namespace Highcharts {
              * @since 2.1.5
              */
             y?: number;
-        }
+        };
         /**
          * For datetime axes, this decides where to put the tick between weeks. 0 = Sunday, 1 = Monday.
          * @default 1
@@ -813,8 +813,8 @@ declare namespace Highcharts {
          */
         startOnTick?: boolean;
         /**
-         * Solid gauge series only. Color stops for the solid gauge. 
-         * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient. 
+         * Solid gauge series only. Color stops for the solid gauge.
+         * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient.
          * The stops is an array of tuples, where the first item is a float between 0 and 1 assigning the relative position in the gradient, and the second item is the color.
          */
         stops?: [number, string][];
@@ -2059,7 +2059,7 @@ declare namespace Highcharts {
              * @since 3.0.8
              */
             theme?: ButtonStatesTheme;
-        }
+        };
         /**
          * An array of series configurations for the drill down. Each series configuration uses the same syntax as the
          * series option set. These drilldown series are hidden by default. The drilldown series is linked to the parent
@@ -4585,7 +4585,7 @@ declare namespace Highcharts {
              * Options for the hovered series
              */
             hover?: BarStates;
-        }
+        };
     }
 
     interface LineChart extends SeriesChart {
@@ -4897,7 +4897,7 @@ declare namespace Highcharts {
              * Options for the hovered series
              */
             hover?: BarStates;
-        }
+        };
     }
 
     interface WaterFallChart extends BarChart {

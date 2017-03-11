@@ -142,7 +142,7 @@ declare namespace later {
          * For acces to custom time periods created as extension to the later static type
          * and modifiers created on the later modifier static type.
          */
-        [ timeperiodAndModifierName: string ]: number[];
+        [ timeperiodAndModifierName: string ]: number[] | undefined;
     }
 
     interface ParseStatic {

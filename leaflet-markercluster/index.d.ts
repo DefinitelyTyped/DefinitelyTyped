@@ -105,7 +105,7 @@ declare namespace L {
         /*
         * Function used to create the cluster icon
         */
-        iconCreateFunction?: ((cluster: L.MarkerCluster) => L.Icon);
+        iconCreateFunction?: ((cluster: L.MarkerCluster) => L.Icon | L.DivIcon);
 
         /*
         * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.

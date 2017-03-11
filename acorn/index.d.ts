@@ -238,9 +238,12 @@ declare namespace acorn {
 
     function parseExpressionAt(input: string, pos?: number, options?: Options): ESTree.Expression;
 
-    // todo: here the tokenizer function returns a Parser instance, that is targeting the detail of
-    // Parser prototype. Someone need this please reade README.md first.
-    // function tokenizer(options: Options, input: string): Parser;
+    interface ITokenizer {
+      getToken() : Token,
+      [Symbol.iterator](): Iterator<Token>
+    }
+  
+    function tokenizer(input: string, options: Options): ITokenizer;
 
     let parse_dammit: IParse | undefined;
     let LooseParser: ILooseParserClass | undefined;

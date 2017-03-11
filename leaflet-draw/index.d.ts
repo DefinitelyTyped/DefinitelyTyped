@@ -349,4 +349,17 @@ declare namespace L {
 			handler: string;
 		}
 	}
+
+	namespace GeometryUtil {
+
+		/**
+		 * Returns the area of a polygon drawn with leaflet.draw
+		 */
+		export function geodesicArea(coordinates: L.LatLngLiteral[]): number;
+
+		/**
+		 * Returns a readable area string in yards or metric
+		 */
+		export function readableArea(area: number, isMetric: boolean): string;
+	}
 }

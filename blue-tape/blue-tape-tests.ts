@@ -1,4 +1,3 @@
-/// <reference types="node" />
 /// <reference types="bluebird" />
 
 import tape = require('blue-tape');

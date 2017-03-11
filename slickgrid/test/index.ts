@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 interface MyData extends Slick.SlickData {
 	title: string;
 	duration: string;

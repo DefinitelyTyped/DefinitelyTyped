@@ -1,8 +1,4 @@
-/// <reference types="node" />
-
 // Play example copy
-
-
 
 // First, let's illustrate the problem ...
 (0x123456789).toString(16);

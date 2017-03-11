@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.11
+// Type definitions for react-big-calendar 0.12.3
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <http://piotrwitek.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,10 +26,10 @@ declare module 'react-big-calendar' {
         step?: number;
         rtl?: boolean;
         eventPropGetter?: (event: Object, start: stringOrDate, end: stringOrDate, isSelected: boolean) => void;
-        titleAccessor?: string;
-        allDayAccessor?: boolean;
-        startAccessor?: stringOrDate;
-        endAccessor?: stringOrDate;
+        titleAccessor?: string | ((row: Object) => string);
+        allDayAccessor?: string | ((row: Object) => boolean);
+        startAccessor?: string | ((row: Object) => Date);
+        endAccessor?: string | ((row: Object) => Date);
         min?: stringOrDate;
         max?: stringOrDate;
         scrollToTime?: stringOrDate;
@@ -38,6 +38,8 @@ declare module 'react-big-calendar' {
         messages?: Object;
         timeslots?: number;
         defaultView?: string;
+        className?: string;
+        elementProps?: React.HTMLAttributes<HTMLElement>;
     }
 
     class BigCalendar extends React.Component<BigCalendarProps, {}> {

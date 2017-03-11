@@ -18,11 +18,11 @@ function main() {
     });
 
     user.register()
-        .then(function (user: KiiUser) {
+        .then((user: KiiUser) => {
         });
 
     user.pushInstallation().getMqttEndpoint("")
-        .then(function (endpoint: KiiCloud.KiiMqttEndpoint) {
+        .then((endpoint: KiiCloud.KiiMqttEndpoint) => {
             endpoint.installationID;
         });
 
@@ -41,16 +41,16 @@ function main() {
     var query = KiiQuery.queryWithClause(clause3);
 
     bucket.executeQuery(query, {
-        success: function (query: KiiQuery,
-                           results: KiiObject[],
-                           nextQuery: KiiQuery) {
+        success: (query: KiiQuery,
+                  results: KiiObject[],
+                  nextQuery: KiiQuery) => {
         },
-        failure: function (bucket: KiiBucket, message: string) {
+        failure: (bucket: KiiBucket, message: string) => {
         }
     });
 
     bucket.executeQuery<KiiObject>(query)
-        .then(function (params: [KiiQuery, KiiObject[], KiiQuery]) {
+        .then((params: [KiiQuery, KiiObject[], KiiQuery]) => {
             var [query, results, nextQuery] = params;
         });
 
@@ -61,39 +61,43 @@ function main() {
     object.save();
 
     KiiGroup.registerGroupWithID("Group ID", "Group Name", [user], {
-        success: function(theSavedGroup: KiiGroup) {
+        success: (theSavedGroup: KiiGroup) => {
             theSavedGroup.saveWithOwner("user ID");
         },
-        failure: function(theGroup: KiiGroup,
-                          anErrorString: String,
-                          addMembersArray: KiiUser[],
-                          removeMembersArray: KiiUser[]) {
+        failure: (theGroup: KiiGroup,
+                  anErrorString: string,
+                  addMembersArray: KiiUser[],
+                  removeMembersArray: KiiUser[]) => {
         }
     });
 
     Kii.authenticateAsThing("thing id", "password", {
-        success: function (thingAuthContext: KiiThingContext) {
+        success: (thingAuthContext: KiiThingContext) => {
             thingAuthContext.bucketWithName("");
         },
-        failure: function (error) {
+        failure: (error) => {
         }
     })
-        .then(function (thingAuthContext: KiiThingContext) {
+        .then((thingAuthContext: KiiThingContext) => {
         });
 
     Kii.authenticateAsThingWithToken("thing id", "token", {
-        success: function (thingAuthContext: KiiThingContext) {
+        success: (thingAuthContext: KiiThingContext) => {
             thingAuthContext.bucketWithName("");
         },
-        failure: function (error) {
+        failure: (error) => {
         }
     })
-        .then(function (thingAuthContext: KiiThingContext) {
+        .then((thingAuthContext: KiiThingContext) => {
         });
 
     KiiThing.loadWithVendorThingID("thing ID")
-        .then(function (thing) {
+        .then((thing) => {
             var isOnline: boolean = thing.isOnline();
             var onlineStatusModifiedAt: Date = thing.getOnlineStatusModifiedAt();
         });
+
+    var error = KiiErrorParser.parse("");
+
+    error.code.toLowerCase();
 }

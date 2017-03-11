@@ -258,8 +258,9 @@ function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProp
 connect(mapStateToProps2, actionCreators, mergeProps)(TodoApp);
 
 
-
-
+//https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14622#issuecomment-279820358
+//Allow for undefined mapStateToProps
+connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;

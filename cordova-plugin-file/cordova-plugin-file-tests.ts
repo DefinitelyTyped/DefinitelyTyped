@@ -1,5 +1,4 @@
 /// <reference types="cordova"/>
-/// <reference path="index.d.ts"/>
 
 function fsaccessor(fs: FileSystem) {
     console.log('FS root is: ' + fs.root.name);

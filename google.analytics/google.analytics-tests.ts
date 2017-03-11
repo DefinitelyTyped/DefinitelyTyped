@@ -1,15 +1,15 @@
-
-/// <reference types="jasmine" />
+declare function describe(desc: string, fn: () => void): void;
+declare function it(desc: string, fn: () => void): void;
 
 describe("tester Google Analytics Tracker _gat object", () => {
     it("can set ga script element", () => {
-        gaClassic = <HTMLScriptElement>document.createElement("script");
+        gaClassic = <HTMLScriptElement> document.createElement("script");
     });
     it("can set aync to true", () => {
         gaClassic.async = true;
      });
     it("can set src to string url", () => {
-        gaClassic.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        gaClassic.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     });
     it("can set type", () => {
         gaClassic.type = 'text/javascript';
@@ -27,10 +27,10 @@ describe('UniversalAnalytics', () => {
         ga('send', {hitType: 'event', eventCategory: 'Videos', eventAction: 'play', eventLabel: 'Fall Campaign'});
         ga('send', 'event', 'Videos', 'play', 'Fall Campaign', {nonInteraction: true});
         ga('send', 'pageview', '/page');
-        ga('send', 'social', {'socialNetwork': 'facebook', 'socialAction': 'like', 'socialTarget': 'http://foo.com'});
-        ga('send', 'social', {'socialNetwork': 'google+', 'socialAction': 'plus', 'socialTarget': 'http://foo.com'});
-        ga('send', 'timing', {'timingCategory': 'category', 'timingVar': 'lookup', 'timingValue': 123});
-        ga('send', 'timing', {'timingCategory': 'category', 'timingVar': 'lookup', 'timingValue': 123, 'timingLabel': 'label'});
+        ga('send', 'social', {socialNetwork: 'facebook', socialAction: 'like', socialTarget: 'http://foo.com'});
+        ga('send', 'social', {socialNetwork: 'google+', socialAction: 'plus', socialTarget: 'http://foo.com'});
+        ga('send', 'timing', {timingCategory: 'category', timingVar: 'lookup', timingValue: 123});
+        ga('send', 'timing', {timingCategory: 'category', timingVar: 'lookup', timingValue: 123, timingLabel: 'label'});
         ga('trackerName.send', 'event', 'load');
 
         ga.create('UA-65432-1', 'auto');

@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 navigator.globalization.dateToString(new Date(),
     (date) => { console.log(JSON.stringify(date)); },
     (error) => { alert(error.message); },
