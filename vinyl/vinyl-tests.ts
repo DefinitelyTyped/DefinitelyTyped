@@ -1,8 +1,4 @@
 /// <reference types="mocha" />
-/// <reference types="should" />
-/// <reference types="node" />
-
-'use strict';
 
 import * as fs from 'fs';
 import * as path from 'path';

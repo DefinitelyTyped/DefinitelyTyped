@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 function test_typeahead() {
     var options: Twitter.Typeahead.Options = {};
     var dataset: Twitter.Typeahead.Dataset<string> = { source: null };

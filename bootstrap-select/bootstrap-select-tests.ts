@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $(".selectpicker").selectpicker({
     actionsBox: true,
     container: "body",

@@ -20,7 +20,7 @@ declare class Chart {
     getElementsAtEvent: (e: any) => {}[];
     getDatasetAtEvent: (e: any) => {}[];
 
-    defaults: {
+    static defaults: {
         global: Chart.ChartOptions;
     }
 }

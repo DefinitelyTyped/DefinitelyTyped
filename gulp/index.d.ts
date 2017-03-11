@@ -1,6 +1,6 @@
-// Type definitions for Gulp v3.8.x
+// Type definitions for Gulp v4.0.x
 // Project: http://gulpjs.com
-// Definitions by: Drew Noakes <https://drewnoakes.com>
+// Definitions by: Drew Noakes <https://drewnoakes.com>, Juan Arroyave <http://jarroyave.co>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -10,6 +10,8 @@
 
 import Orchestrator = require("orchestrator");
 import VinylFile = require("vinyl");
+
+declare type Strings = string|string[];
 
 declare namespace gulp {
     interface Gulp extends Orchestrator {
@@ -24,6 +26,28 @@ declare namespace gulp {
          * </ul>
          */
         task: Orchestrator.AddMethod;
+        /**
+         * Takes a number of task names or functions and returns a function of the composed tasks or functions
+         * When the returned function is executed, the tasks or functions will be executed in series,
+         * each waiting for the prior to finish. If an error occurs, execution will stop.
+         * @param A task name, a function or an array of either.
+         * <ul>
+         *     <li>Take in a callback</li>
+         *     <li>Return a stream or a promise</li>
+         * </ul>
+         */
+        series: SeriesMethod;
+        /**
+         * Takes a number of task names or functions and returns a function of the composed tasks or functions
+         * When the returned function is executed, the tasks or functions will be executed in parallel,
+         * all being executed at the same time. If an error occurs, all execution will complete.
+         * @param A task name, a function or an array of either.
+         * <ul>
+         *     <li>Take in a callback</li>
+         *     <li>Return a stream or a promise</li>
+         * </ul>
+         */
+        parallel: ParallelMethod;
         /**
          * Emits files matching provided glob or an array of globs. Returns a stream of Vinyl files that can be piped to plugins.
          * @param glob Glob or array of globs to read.
@@ -104,6 +128,51 @@ declare namespace gulp {
          * @param opt Options to pass to node-glob through glob-stream.
          */
         (glob: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
+    }
+    interface SeriesMethod {
+        /**
+         * Takes a number of task names or functions and returns a function of the composed tasks or functions.
+         * When using task names, the task should already be registered.
+         * When the returned function is executed, the tasks or functions will be executed in series,
+         * each waiting for the prior to finish. If an error occurs, execution will stop.
+         * @param tasks, string, function or array of both.
+         */
+        (...tasks: string[]): NodeJS.EventEmitter;
+
+        (...tasks: Function[]): NodeJS.EventEmitter;
+
+        (task: string|string[], ...fn: Function[]): NodeJS.EventEmitter;
+
+        //TODO: TypeScript cannot express varargs followed by callback as a last argument...
+        (task1: Strings, task2: Strings, cb?: (error?: any) => any): Function;
+        (task1: Strings, task2: Strings, task3: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, task5: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, task5: Strings, task6: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+
+    }
+
+    interface ParallelMethod {
+        /**
+         * Takes a number of task names or functions and returns a function of the composed tasks or functions.
+         * When using task names, the task should already be registered.
+         * When the returned function is executed, the tasks or functions will be executed in parallel,
+         * all being executed at the same time. If an error occurs, all execution will complete.
+         * @param tasks, string, function or array of both.
+         */
+        (...tasks: string[]): NodeJS.EventEmitter;
+
+        (...tasks: Function[]): NodeJS.EventEmitter;
+
+        (task: string|string[], ...fn: Function[]): NodeJS.EventEmitter;
+
+        //TODO: TypeScript cannot express varargs followed by callback as a last argument...
+        (task1: Strings, task2: Strings, cb?: (error?: any) => any): Function;
+        (task1: Strings, task2: Strings, task3: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, task5: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, task5: Strings, task6: Strings, cb?: (error?: any) => any): NodeJS.EventEmitter;
+
     }
 
     /**

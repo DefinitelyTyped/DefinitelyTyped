@@ -1,6 +1,3 @@
-/// <reference types="react" />
-/// <reference types="redux" />
-
 import * as React from 'react'
 import { compose, createStore, Reducer, Store, StoreEnhancerStoreCreator } from 'redux'
 import { Provider } from 'react-redux'

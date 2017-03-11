@@ -1,6 +1,4 @@
-/// <reference types="jquery"/>
-/// <reference types="jquery.form"/>
-
+/// <reference types="jquery.form" />
 
 function test_validate() {
     $("#commentForm").validate();
@@ -264,4 +262,3 @@ function test_static_methods() {
     jQuery.validator.format('{0} {1}', 'a', 2);
     jQuery.validator.format('{0} {1}', ['a', 2]);
 }
-    

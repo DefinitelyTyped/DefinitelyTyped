@@ -1,6 +1,3 @@
-/// <reference types="i18next"/>
-/// <reference types="i18next-xhr-backend"/>
-
 import * as i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
 

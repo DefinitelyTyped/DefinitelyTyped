@@ -15,7 +15,8 @@ interface BootboxBaseOptions {
 	closeButton?: boolean;
 	animate?: boolean;
 	className?: string;
-	size?: string;
+	/** All other values result in medium */
+	size?: "small" | "large";
 	buttons?: BootboxButtonMap; // complex object where each key is of type BootboxButton
 }
 
@@ -40,7 +41,7 @@ interface BootboxConfirmOptions extends BootboxDialogOptions {
 interface BootboxPromptOptions extends BootboxBaseOptions {
 	title: string;
 	value?: string;
-	inputType?: string;
+	inputType?: "text" | "textarea" | "email" | "select" | "checkbox" | "date" | "time" | "number" | "password";
 	callback: (result: string) => any;
 	buttons?: BootboxConfirmPromptButtonMap;
 }

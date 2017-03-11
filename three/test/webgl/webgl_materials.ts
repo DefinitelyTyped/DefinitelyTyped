@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials.html
 
 () => {
@@ -9,12 +6,16 @@
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer, objects;
-    var particleLight;
-
-    var materials = [];
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, objects: THREE.Mesh[];
+    var particleLight: THREE.Mesh;
+    var materials: ( THREE.MeshBasicMaterial |
+                     THREE.MeshPhongMaterial |
+                     THREE.MeshNormalMaterial |
+                     THREE.MeshLambertMaterial |
+                     THREE.MeshFaceMaterial |
+                     THREE.MeshDepthMaterial ) [] = [];
 
     init();
     animate();
@@ -92,11 +93,11 @@
 
         objects = [];
 
-        var sphere, geometry: THREE.Geometry, material;
+        var sphere: THREE.Mesh, geometry: THREE.Geometry;
 
         for (var i = 0, l = materials.length; i < l; i++) {
 
-            material = materials[i];
+            let material = materials[i];
 
             geometry = material instanceof THREE.MeshFaceMaterial ? geometry_pieces :
             (material.shading == THREE.FlatShading ? geometry_flat : geometry_smooth);
@@ -224,8 +225,8 @@
 
         }
 
-        materials[materials.length - 3].emissive.setHSL(0.54, 1, 0.35 * (0.5 + 0.5 * Math.sin(35 * timer)));
-        materials[materials.length - 4].emissive.setHSL(0.04, 1, 0.35 * (0.5 + 0.5 * Math.cos(35 * timer)));
+        (materials[materials.length - 3] as THREE.MeshPhongMaterial).emissive.setHSL(0.54, 1, 0.35 * (0.5 + 0.5 * Math.sin(35 * timer)));
+        (materials[materials.length - 4] as THREE.MeshLambertMaterial).emissive.setHSL(0.04, 1, 0.35 * (0.5 + 0.5 * Math.cos(35 * timer)));
 
         particleLight.position.x = Math.sin(timer * 7) * 300;
         particleLight.position.y = Math.cos(timer * 5) * 400;

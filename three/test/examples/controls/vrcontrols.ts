@@ -1,5 +1,3 @@
-/// <reference types="three" />
-
 var _vrControls = new THREE.VRControls(new THREE.Camera());
 
 _vrControls.update();

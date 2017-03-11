@@ -1,6 +1,3 @@
-
-/// <reference types="jquery" />
-
 import amplify = require("amplify");
 
 // Copied examples directly from AmplifyJs site

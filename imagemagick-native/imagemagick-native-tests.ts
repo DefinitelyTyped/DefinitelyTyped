@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import imagemagick = require('imagemagick-native');
 import fs = require('fs');
 
