@@ -184,7 +184,7 @@ export interface IWorkSheetCell {
      * The Excel Data Type of the cell.
      * b Boolean, n Number, e error, s String, d Date
      */
-    t: string;
+    t: 'b' | 'n' | 'e' | 's' | 'd';
 
     /**
      * The raw value of the cell.
