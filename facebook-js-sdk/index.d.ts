@@ -172,6 +172,7 @@ declare namespace facebook {
         authResponse: {
             accessToken: string;
             expiresIn: number;
+	    grantedScopes: string;
             signedRequest: string;
             userID: string;
         };
