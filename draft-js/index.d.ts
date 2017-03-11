@@ -1,4 +1,4 @@
-// Type definitions for Draft.js v0.9.0
+// Type definitions for Draft.js v0.10.0
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Eelco Lempsink <https://github.com/eelco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -357,7 +357,11 @@ declare namespace Draft {
              *   - "props": Props to be passed into the React component that will be used.
              */
             interface DraftDecorator {
-                strategy: (block: ContentBlock, callback: (start: number, end: number) => void) => void;
+                strategy: (
+                    block: ContentBlock,
+                    callback: (start: number, end: number) => void,
+                    contentState?: ContentState
+                ) => void;
                 component: Function;
                 props?: Object;
             }
@@ -407,7 +411,7 @@ declare namespace Draft {
              * a `ComposedText` object, not for use with `DraftEntity.get()`.
              */
             interface EntityRange {
-                key: number,
+                key: string,
                 offset: number,
                 length: number,
             }
@@ -427,7 +431,7 @@ declare namespace Draft {
             interface RawDraftEntity {
                 type: DraftEntityType;
                 mutability: DraftEntityMutability;
-                data: { [key: string]: any };
+                data?: { [key: string]: any };
             }
 
             /**
@@ -435,12 +439,12 @@ declare namespace Draft {
              * attribution repackaged as range objects.
              */
             interface RawDraftContentBlock {
-                key: string;
+                key?: string;
                 type: DraftBlockType;
                 text: string;
-                depth: number;
-                inlineStyleRanges: Array<InlineStyleRange>;
-                entityRanges: Array<EntityRange>;
+                depth?: number;
+                inlineStyleRanges?: Array<InlineStyleRange>;
+                entityRanges?: Array<EntityRange>;
                 data?: Object;
             }
 
