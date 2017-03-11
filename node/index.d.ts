@@ -1546,22 +1546,20 @@ declare module "readline" {
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
     }
 
-    export interface Completer {
-        (line: string): CompleterResult;
-        (line: string, callback: (err: any, result: CompleterResult) => void): any;
-    }
+    type Completer = (line: string) => CompleterResult;
+    type AsyncCompleter = (line: string, callback: (err: any, result: CompleterResult) => void) => any;
 
     export type CompleterResult = [string[], string];
 
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
         output?: NodeJS.WritableStream;
-        completer?: Completer;
+        completer?: Completer | AsyncCompleter;
         terminal?: boolean;
         historySize?: number;
     }
 
-    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
+    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
 
     export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
