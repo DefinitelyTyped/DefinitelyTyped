@@ -24,6 +24,8 @@ const fontWeightStyleTest = <div style={fontWeightStyle} />;
 const justifyContentStyle: React.CSSProperties = { justifyContent: 'space-evenly' };
 const justifyContentStyleTest = <div style={justifyContentStyle} />;
 
+const boxShadowStyle: React.CSSProperties = { boxShadow: '2px 2px 2px 1px rgba(0, 0, 0, 0.2)' };
+const boxShadowStyleTest = <div style={boxShadowStyle} />;
 
 // SVG specific style attribute declarations
 
