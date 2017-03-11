@@ -1,5 +1,7 @@
 {
+    "name": "@types/moment-range",
+    "version": "3.0.3",
     "dependencies": {
-        "moment": ">=2.14.0"
+        "moment": ">=2.17.1"
     }
 }

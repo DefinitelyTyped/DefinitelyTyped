@@ -1,6 +1,6 @@
-// Type definitions for Moment.js 2.17.1 && Moment-range.js 3.0.3
+// Type definitions for Moment-range.js 3.0.3
 // Project: https://github.com/gf3/moment-range
-// Definitions by: Bart van den Burg <https://github.com/Burgov>, Wilgert Velinga <https://github.com/wilgert>
+// Definitions by: Bart van den Burg <https://github.com/Burgov>, Wilgert Velinga <https://github.com/wilgert>, Juan Francisco Adame <https://github.com/franjuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as moment from 'moment';
@@ -14,43 +14,44 @@ declare module 'moment' {
         start: Moment;
         end: Moment;
 
-        adjacent (other: Range): boolean;
+        contains (other: Range, options?: {exclusive?: boolean}): boolean;
+
+        overlaps (range: Range, options?: {adjacent?: boolean}): boolean;
+
+        intersect (other: Range, options?: {adjacent?: boolean}): Range;
 
         add (other: Range): Range;
+
+        subtract (other: Range): Range[];
 
         by(interval: interval, options?: {exclusive?: boolean, step?: number}): Iterable<Range>;
 
         byRange(interval: Range, options?: {exclusive?: boolean, step?: number}): Iterable<Range>;
 
-        center (): Moment;
-
-        clone (): Range;
-
-        contains (other: Range, options?: {exclusive?: boolean}): boolean;
-
-        diff (unit?: unitOfTime.Diff, precise?: boolean): number;
-
-        duration (unit?: unitOfTime.Diff, precise?: boolean): number;
-
-        intersect (other: Range): Range;
-
-        isEqual (other: Range): boolean;
-
         isSame (other: Range): boolean;
 
-        overlaps (range: Range, options?: {adjacent?: boolean}): boolean;
-
-        reverseBy(interval: interval, options?: {exclusive?: boolean, step?: number}): Iterable<Range>;
-
-        reverseByRange(interval: Range, options?: {exclusive?: boolean, step?: number}): Iterable<Range>;
-
-        subtract (other: Range): Range[];
+        diff (unit?: unitOfTime.Diff, precise?: boolean): number;
 
         toDate (): Date[];
 
         toString (): string;
 
         valueOf (): number;
+
+        center (): Moment;
+
+        clone (): Range;
+
+        isEqual (other: Range): boolean;
+
+        adjacent (other: Range): boolean;
+
+        duration (unit?: unitOfTime.Diff, precise?: boolean): number;
+
+        reverseBy(interval: interval, options?: {exclusive?: boolean, step?: number}): Iterable<Range>;
+
+        reverseByRange(interval: Range, options?: {exclusive?: boolean, step?: number}): Iterable<Range>;
+
     }
 
     interface Moment {
