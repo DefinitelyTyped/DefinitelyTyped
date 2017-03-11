@@ -84,7 +84,7 @@ export interface IWorkSheetCell {
     /**
      * The raw value of the cell.
      */
-    v: string;
+    v: string | number | boolean | Date;
 
     /**
      * rich text encoding (if applicable)
