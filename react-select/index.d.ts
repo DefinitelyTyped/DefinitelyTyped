@@ -238,7 +238,7 @@ declare namespace ReactSelectClass {
         /**
          * onChange handler: function (newValue) {}
          */
-        onChange?: (newValue: Option | Option[]) => void;
+        onChange?: (newValue: Option | Option[] | null) => void;
         /**
          * fires when the menu is closed
          */
