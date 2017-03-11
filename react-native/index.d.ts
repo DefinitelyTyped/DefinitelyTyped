@@ -1849,13 +1849,13 @@ declare module "react" {
         /**
          * The style of the content container(View) when behavior is 'position'.
          */
-        contentContainerStyle: ViewStyle
+        contentContainerStyle?: ViewStyle
 
         /**
          * This is the distance between the top of the user screen and the react native view,
          * may be non-zero in some use cases.
          */
-        keyboardVerticalOffset: number
+        keyboardVerticalOffset?: number
 
         ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
     }
