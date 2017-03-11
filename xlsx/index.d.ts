@@ -11,6 +11,7 @@ export declare function read(data: any, opts?: IParsingOptions): IWorkBook;
 export declare function writeFile(data: IWorkBook, filename: string, opts?: IWritingOptions): any;
 /** Attempts to write the workbook data */
 export declare function write(data: IWorkBook, opts?: IWritingOptions): any;
+
 export declare var utils: IUtils;
 
 export interface IProperties {
@@ -181,18 +182,33 @@ export interface IWorkSheet {
 
 export interface IWorkSheetCell {
     /**
-     * The Excel Data Type of the cell.
-     * b Boolean, n Number, e error, s String, d Date
-     */
-    t: 'b' | 'n' | 'e' | 's' | 'd';
-
-    /**
      * The raw value of the cell.
      */
     v: string | number | boolean | Date;
 
     /**
-     * rich text encoding (if applicable)
+     * Formatted text (if applicable)
+     */
+    w?: string;
+
+    /**
+    * The Excel Data Type of the cell.
+    * b Boolean, n Number, e error, s String, d Date
+    */
+    t: 'b' | 'n' | 'e' | 's' | 'd';
+
+    /**
+     * Cell formula (if applicable)
+     */
+    f?: string;
+
+    /**
+     * Range of enclosing array if formula is array formula (if applicable)
+     */
+    F?: string;
+
+    /**
+     * Rich text encoding (if applicable)
      */
     r?: string;
 
@@ -202,56 +218,67 @@ export interface IWorkSheetCell {
     h?: string;
 
     /**
-     * formatted text (if applicable)
-     */
-    w?: string;
-
-    /**
-     * cell formula (if applicable)
-     */
-    f?: string;
-
-    /**
-     * comments associated with the cell **
+     * Comments associated with the cell **
      */
     c?: string;
 
     /**
-     * number format string associated with the cell (if requested)
+     * Number format string associated with the cell (if requested)
      */
     z?: string;
 
     /**
-     * cell hyperlink object (.Target holds link, .tooltip is tooltip)
+     * Cell hyperlink object (.Target holds link, .tooltip is tooltip)
      */
     l?: string;
 
     /**
-     * the style/theme of the cell (if applicable)
+     * The style/theme of the cell (if applicable)
      */
     s?: string;
 }
 
 export interface ICell {
+    /** Column number */
     c: number;
+    /** Row number */
     r: number;
 }
 
 export interface IRange {
+    /** Starting cell */
     s: ICell;
+    /** Ending cell */
     e: ICell;
 }
 
 export interface IUtils {
+    /** Converts a worksheet object to an array of JSON objects */
     sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
         raw?: boolean;
         range?: any;
         header?: "A"|number|string[];
     }):T[];
+    /** Generates delimiter-separated-values output */
     sheet_to_csv(worksheet: IWorkSheet, options?: { FS: string, RS: string }): string;
+    /** Generates a list of the formulae (with value fallbacks) */
     sheet_to_formulae(worksheet: IWorkSheet):any;
-    encode_cell(cell: ICell): any;
-    encode_range(s: ICell, e: ICell): any;
+
+    /** Converts 0-indexed cell address to A1 form */
+    encode_cell(cell: ICell): string;
+    /** Converts 0-indexed row to A1 form */
+    encode_row(row: number): string;
+    /** Converts 0-indexed column to A1 form */
+    encode_col(col: number): string;
+    /** Converts 0-indexed range to A1 form */
+    encode_range(s: ICell, e: ICell): string;
+
+    /** Converts A1 cell address to 0-indexed form */
     decode_cell(address: string): ICell;
+    /** Converts A1 row to 0-indexed form */
+    decode_row(row: string): number;
+    /** Converts A1 column to 0-indexed form */
+    decode_col(col: string): number;
+    /** Converts A1 range to 0-indexed form */
     decode_range(range: string): IRange;
 }
