@@ -1,5 +1,5 @@
 {
-    "dependencies": {
+    "peerDependencies": {
         "typescript": ">=2.1.4"
     }
 }
