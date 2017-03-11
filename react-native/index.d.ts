@@ -7973,6 +7973,34 @@ declare module "react" {
          */
         cropImage( uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void ): void
     }
+				  
+    export interface ARTShapeProps {
+        d: string,
+        strokeWidth: number,
+        strokeDash?: number,
+        stroke: string
+    }
+
+    export interface ARTSurfaceProps {
+        style: ViewStyle,
+        width: number,
+        height: number
+    }
+
+    export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {
+    }
+
+    export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {
+    }
+
+    export interface ARTStatic {
+	      Shape: ShapeStatic,
+	      Surface: SurfaceStatic	
+    }
+            
+    export interface KeyboardStatic extends NativeEventEmitter {
+        dismiss: ()=>void
+    }
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -7982,6 +8010,8 @@ declare module "react" {
 
     // TODO: The following components need to be added
     // - [ ] ART
+    export var ART: ARTStatic
+    export type ART = ARTStatic
 
     export var ActivityIndicator: ActivityIndicatorStatic
     export type ActivityIndicator = ActivityIndicatorStatic
@@ -8162,7 +8192,7 @@ declare module "react" {
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
 
-    export var Keyboard: NativeEventEmitter
+    export var Keyboard: KeyboardStatic
 
     export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
     export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
