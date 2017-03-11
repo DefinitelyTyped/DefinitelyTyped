@@ -1,5 +1,4 @@
 /// <reference types="jquery" />
-/// <reference types="gijgo" />
 
 // Grid
 $(() => {

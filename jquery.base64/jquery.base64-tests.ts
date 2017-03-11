@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 var encoded = $.base64.encode("");
 $.base64.decode(encoded);
 

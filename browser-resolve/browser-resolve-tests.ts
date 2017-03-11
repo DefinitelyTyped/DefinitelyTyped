@@ -1,5 +1,3 @@
-/// <reference types="browser-resolve" />
-
 import * as browserResolve from 'browser-resolve';
 
 function basic_test_async(callback: (err?: Error, resolved?: string) => void) {

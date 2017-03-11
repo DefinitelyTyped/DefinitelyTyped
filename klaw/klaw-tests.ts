@@ -1,6 +1,3 @@
-/// <reference types="klaw" />
-/// <reference types="node" />
-
 import * as klaw from "klaw";
 const path = require('path');
 

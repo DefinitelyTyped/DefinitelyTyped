@@ -1,16 +1,13 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_custom_attributes.html
 
 () => {
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var renderer, scene, camera, stats;
+    var renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, stats: Stats;
 
-    var sphere, uniforms;
+    var sphere: THREE.Mesh, uniforms: { amplitude: { type: string; value: number; }; color: { type: string; value: THREE.Color; }; texture: { type: string; value: THREE.Texture; }; };
 
-    var displacement, noise;
+    var displacement: Float32Array, noise: Float32Array;
 
     init();
     animate();
@@ -45,8 +42,8 @@
 
         var geometry = new THREE.SphereBufferGeometry( radius, segments, rings );
 
-        displacement = new Float32Array( geometry.attributes["position"].count );
-        noise = new Float32Array( geometry.attributes["position"].count );
+        displacement = new Float32Array( geometry.getAttribute('position').count );
+        noise = new Float32Array( geometry.getAttribute('position').count );
 
         for ( var i = 0; i < displacement.length; i ++ ) {
 
@@ -116,7 +113,7 @@
 
         }
 
-        sphere.geometry.attributes.displacement.needsUpdate = true;
+        ((sphere.geometry as THREE.BufferGeometry).getAttribute('displacement')as THREE.BufferAttribute).needsUpdate = true;
 
         renderer.render(scene, camera);
 

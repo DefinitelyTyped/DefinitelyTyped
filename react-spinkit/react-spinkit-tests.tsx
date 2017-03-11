@@ -1,6 +1,3 @@
-
-/// <reference types="react" />
-
 import * as Spinner from 'react-spinkit';
 import * as React from 'react';
 

@@ -1,6 +1,3 @@
-/// <reference types="node" />
-/// <reference types="co-views" />
-
 import * as views from 'co-views';
 
 const render = views('views', {
@@ -15,7 +12,6 @@ const locals = {}; // template locals data
 
 async function test() {
     const html = await render(fileName, locals);
-    console.log(html);
 }
 
 // or use generator

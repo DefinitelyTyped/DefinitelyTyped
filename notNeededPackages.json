@@ -305,6 +305,36 @@
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
             "asOfVersion": "0.0.0"
+        },
+        {
+            "libraryName": "jsonschema",
+            "typingsPackageName": "jsonschema",
+            "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
+            "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "Raven JS",
+            "typingsPackageName": "raven-js",
+            "sourceRepoURL": "https://github.com/getsentry/raven-js",
+            "asOfVersion": "3.10.0"
+        },
+        {
+            "libraryName": "antd",
+            "typingsPackageName": "antd",
+            "sourceRepoURL": "https://github.com/ant-design/ant-design",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "FineUploader",
+            "typingsPackageName": "fine-uploader",
+            "sourceRepoURL": "http://fineuploader.com/",
+            "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "mobservable",
+            "typingsPackageName": "mobservable",
+            "sourceRepoURL": "github.com/mweststrate/mobservable",
+            "asOfVersion": "1.2.5"
         }
     ]
 }

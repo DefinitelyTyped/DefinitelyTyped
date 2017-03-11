@@ -1,4 +1,3 @@
-/// <reference types="q" />
 import * as Validators from 'business-rules-engine/node-validators';
 import Validation = require("business-rules-engine");
 

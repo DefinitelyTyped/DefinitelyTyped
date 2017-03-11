@@ -1,15 +1,8 @@
-# Meteor Type Definitions [DEPRECATED]
-
-## Deprecated
-
-These definitions for Meteor are now deprecated.  They should still work for versions of Meteor up to 1.2.1.
-
-The canonical TypeScript definitions for Meteor can now be found using the NPM [Typings definition manager](https://www.npmjs.com/package/typings).  If you prefer to view the definitions directly, or contribute to them, they can be found here: <https://github.com/meteor-typings/meteor>.
-
+# Meteor Type Definitions
 
 ## Description
 
-These are the definitions for version 1.3 of Meteor.  These definitions were generated from the from the same [Meteor data.js file] (https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs] (http://docs.meteor.com/).  The code that generates these definitions can be found [here](https://github.com/meteor-typescript/meteor-typescript-libs/).
+These are the definitions for version 1.4 of Meteor.  These definitions were generated from the from the same [Meteor data.js file] (https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs] (http://docs.meteor.com/).  The code that generates these definitions can be found [here](https://github.com/meteor-typescript/meteor-typescript-libs/).
 
 
 ## Upcoming Meteor `typescript` package

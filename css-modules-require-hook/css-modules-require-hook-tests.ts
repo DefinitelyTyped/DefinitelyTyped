@@ -1,4 +1,3 @@
-/// <reference types="css-modules-require-hook" />
 /// <reference types="node" />
 
 import * as hook from 'css-modules-require-hook';

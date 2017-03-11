@@ -1,22 +1,19 @@
-import * as React from "react"
-
-import * as MaskedInput from "react-maskedinput"
+import * as React from "react";
+import * as MaskedInput from "react-maskedinput";
 
 class Test extends React.Component<any, any> {
-
-    public render () {
+    render() {
         return (
             <MaskedInput mask="111"
                          placeholderChar="X"
                          formatCharacter={
                             {
-                                "a" : {
+                                a: {
                                     validate: (char: string) => char,
                                     transform: (char: string) => char
                                 }
                             }
                          } />
-        )
+        );
     }
-
 }

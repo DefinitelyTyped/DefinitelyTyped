@@ -108,6 +108,7 @@ declare namespace m {
         authenticate(password: string): State;
         autoOrient(): State;
         backdrop(): State;
+        background(color: string): State;
         bitdepth(bits: number): State;
         blackThreshold(intensity: number): State;
         blackThreshold(red: number, green: number, blue: number, opacity?: number): State;

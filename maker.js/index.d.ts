@@ -1,4 +1,4 @@
-// Type definitions for Maker.js 0.9.31
+// Type definitions for Maker.js 0.9.33
 // Project: https://github.com/Microsoft/maker.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -66,6 +66,17 @@ declare namespace MakerJs {
      * @returns String of the flattened array.
      */
     function createRouteKey(route: string[]): string;
+    /**
+     * Travel along a route inside of a model to extract a specific node in its tree.
+     *
+     * @param modelContext Model to travel within.
+     * @param routeKeyOrRoute String of a flattened route, or a string array of route segments.
+     * @returns Model or Path object within the modelContext tree.
+     */
+    function travel(modelContext: IModel, routeKeyOrRoute: string | string[]): {
+        path: IPath | IModel;
+        offset: IPoint;
+    };
     /**
      * Clone an object.
      *
@@ -138,6 +149,15 @@ declare namespace MakerJs {
          * The point containing both the highest x and y values of the rectangle containing the item being measured.
          */
         high: IPoint;
+    }
+    /**
+     * A measurement of extents, with a center point.
+     */
+    interface IMeasureWithCenter extends IMeasure {
+        /**
+         * The center point of the rectangle containing the item being measured.
+         */
+        center: IPoint;
     }
     /**
      * A map of measurements.
@@ -926,7 +946,7 @@ declare namespace MakerJs.path {
      *
      * @param pathToMove The path to move.
      * @param origin The new origin for the path.
-     * @returns The original path (for chaining).
+     * @returns The original path (for cascading).
      */
     function move(pathToMove: IPath, origin: IPoint): IPath;
     /**
@@ -935,7 +955,7 @@ declare namespace MakerJs.path {
      * @param pathToMove The path to move.
      * @param delta The x & y adjustments as a point object.
      * @param subtract Optional boolean to subtract instead of add.
-     * @returns The original path (for chaining).
+     * @returns The original path (for cascading).
      */
     function moveRelative(pathToMove: IPath, delta: IPoint, subtract?: boolean): IPath;
     /**
@@ -952,7 +972,7 @@ declare namespace MakerJs.path {
      * @param pathToRotate The path to rotate.
      * @param angleInDegrees The amount of rotation, in degrees.
      * @param rotationOrigin The center point of rotation.
-     * @returns The original path (for chaining).
+     * @returns The original path (for cascading).
      */
     function rotate(pathToRotate: IPath, angleInDegrees: number, rotationOrigin?: IPoint): IPath;
     /**
@@ -960,7 +980,7 @@ declare namespace MakerJs.path {
      *
      * @param pathToScale The path to scale.
      * @param scaleValue The amount of scaling.
-     * @returns The original path (for chaining).
+     * @returns The original path (for cascading).
      */
     function scale(pathToScale: IPath, scaleValue: number): IPath;
     /**
@@ -1215,11 +1235,11 @@ declare namespace MakerJs.model {
      */
     function mirror(modelToMirror: IModel, mirrorX: boolean, mirrorY: boolean): IModel;
     /**
-     * Move a model to an absolute point. Note that this is also accomplished by directly setting the origin property. This function exists for chaining.
+     * Move a model to an absolute point. Note that this is also accomplished by directly setting the origin property. This function exists for cascading.
      *
      * @param modelToMove The model to move.
      * @param origin The new position of the model.
-     * @returns The original model (for chaining).
+     * @returns The original model (for cascading).
      */
     function move(modelToMove: IModel, origin: IPoint): IModel;
     /**
@@ -1227,7 +1247,7 @@ declare namespace MakerJs.model {
      *
      * @param modelToMove The model to move.
      * @param delta The x & y adjustments as a point object.
-     * @returns The original model (for chaining).
+     * @returns The original model (for cascading).
      */
     function moveRelative(modelToMove: IModel, delta: IPoint): IModel;
     /**
@@ -1235,7 +1255,7 @@ declare namespace MakerJs.model {
      *
      * @param modelToPrefix The model to prefix.
      * @param prefix The prefix to prepend on paths ids.
-     * @returns The original model (for chaining).
+     * @returns The original model (for cascading).
      */
     function prefixPathIds(modelToPrefix: IModel, prefix: string): IModel;
     /**
@@ -1244,7 +1264,7 @@ declare namespace MakerJs.model {
      * @param modelToRotate The model to rotate.
      * @param angleInDegrees The amount of rotation, in degrees.
      * @param rotationOrigin The center point of rotation.
-     * @returns The original model (for chaining).
+     * @returns The original model (for cascading).
      */
     function rotate(modelToRotate: IModel, angleInDegrees: number, rotationOrigin?: IPoint): IModel;
     /**
@@ -1253,7 +1273,7 @@ declare namespace MakerJs.model {
      * @param modelToScale The model to scale.
      * @param scaleValue The amount of scaling.
      * @param scaleOrigin Optional boolean to scale the origin point. Typically false for the root model.
-     * @returns The original model (for chaining).
+     * @returns The original model (for cascading).
      */
     function scale(modelToScale: IModel, scaleValue: number, scaleOrigin?: boolean): IModel;
     /**
@@ -1261,7 +1281,7 @@ declare namespace MakerJs.model {
      *
      * @param modeltoConvert The model to convert.
      * @param destUnitType The unit system.
-     * @returns The scaled model (for chaining).
+     * @returns The scaled model (for cascading).
      */
     function convertUnits(modeltoConvert: IModel, destUnitType: string): IModel;
     /**
@@ -1373,7 +1393,7 @@ declare namespace MakerJs.model {
      *
      * @param modelContext The originated model to search for similar paths.
      * @param options Optional options object.
-     * @returns The simplified model (for chaining).
+     * @returns The simplified model (for cascading).
      */
     function simplify(modelToSimplify: IModel, options?: ISimplifyOptions): IModel;
 }
@@ -1478,7 +1498,7 @@ declare namespace MakerJs.measure {
      * @param baseMeasure The measurement to increase.
      * @param addMeasure The additional measurement.
      * @param addOffset Optional offset point of the additional measurement.
-     * @returns The increased original measurement (for chaining).
+     * @returns The increased original measurement (for cascading).
      */
     function increase(baseMeasure: IMeasure, addMeasure: IMeasure): IMeasure;
     /**
@@ -1583,7 +1603,7 @@ declare namespace MakerJs.measure {
      * @param atlas Optional atlas to save measurements.
      * @returns object with low and high points.
      */
-    function modelExtents(modelToMeasure: IModel, atlas?: measure.Atlas): IMeasure;
+    function modelExtents(modelToMeasure: IModel, atlas?: measure.Atlas): IMeasureWithCenter;
     /**
      * A list of maps of measurements.
      *
@@ -1612,6 +1632,22 @@ declare namespace MakerJs.measure {
         constructor(modelContext: IModel);
         measureModels(): void;
     }
+    /**
+     * A hexagon which surrounds a model.
+     */
+    interface IBoundingHex extends IModel {
+        /**
+         * Radius of the hexagon, which is also the length of a side.
+         */
+        radius: number;
+    }
+    /**
+     * Measures the minimum bounding hexagon surrounding a model. The hexagon is oriented such that the right and left sides are vertical, and the top and bottom are pointed.
+     *
+     * @param modelToMeasure The model to measure.
+     * @returns IBoundingHex object which is a hexagon model, with an additional radius property.
+     */
+    function boundingHexagon(modelToMeasure: IModel): IBoundingHex;
 }
 declare namespace MakerJs.exporter {
     /**
@@ -1788,6 +1824,29 @@ declare namespace MakerJs.model {
 }
 declare namespace MakerJs.chain {
     /**
+     * Shift the links of an endless chain.
+     *
+     * @param chainContext Chain to cycle through. Must be endless.
+     * @param amount Optional number of links to shift. May be negative to cycle backwards.
+     * @returns The chainContext for cascading.
+     */
+    function cycle(chainContext: IChain, amount?: number): IChain;
+    /**
+     * Reverse the links of a chain.
+     *
+     * @param chainContext Chain to reverse.
+     * @returns The chainContext for cascading.
+     */
+    function reverse(chainContext: IChain): IChain;
+    /**
+     * Set the beginning of an endless chain to a known routeKey of a path.
+     *
+     * @param chainContext Chain to cycle through. Must be endless.
+     * @param routeKey RouteKey of the desired path to start the chain with.
+     * @returns The chainContext for cascading.
+     */
+    function startAt(chainContext: IChain, routeKey: string): IChain;
+    /**
      * Get points along a chain of paths.
      *
      * @param chainContext Chain of paths to get points from.
@@ -1825,7 +1884,7 @@ declare namespace MakerJs.model {
      *
      * @param modelContext The model to search for dead ends.
      * @param options Optional options object.
-     * @returns The input model (for chaining).
+     * @returns The input model (for cascading).
      */
     function removeDeadEnds(modelContext: IModel, pointMatchingDistance?: any, keep?: IWalkPathBooleanCallback): IModel;
 }
@@ -2124,6 +2183,18 @@ declare namespace MakerJs.models {
          */
         constructor(numericList: string);
         /**
+         * Create a model by connecting points designated in a string. The model will be 'closed' - i.e. the last point will connect to the first point.
+         *
+         * Example:
+         * ```
+         * var c = new makerjs.models.ConnectTheDots(false, '-10 0 10 0 0 20'); // 3 coordinates to form a polyline
+         * ```
+         *
+         * @param isClosed Flag to specify if last point should connect to the first point.
+         * @param numericList String containing a list of numbers which can be delimited by spaces, commas, or anything non-numeric (Note: [exponential notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toExponential) is allowed).
+         */
+        constructor(isClosed: boolean, numericList: string);
+        /**
          * Create a model by connecting points designated in a numeric array. The model will be 'closed' - i.e. the last point will connect to the first point.
          *
          * Example:
@@ -2134,6 +2205,18 @@ declare namespace MakerJs.models {
          * @param coords Array of coordinates.
          */
         constructor(coords: number[]);
+        /**
+         * Create a model by connecting points designated in a numeric array. The model will be 'closed' - i.e. the last point will connect to the first point.
+         *
+         * Example:
+         * ```
+         * var c = new makerjs.models.ConnectTheDots(false, [-10, 0, 10, 0, 0, 20]); // 3 coordinates to form a polyline
+         * ```
+         *
+         * @param isClosed Flag to specify if last point should connect to the first point.
+         * @param coords Array of coordinates.
+         */
+        constructor(isClosed: boolean, coords: number[]);
         /**
          * Create a model by connecting points designated in an array of points. The model may be closed, or left open.
          *

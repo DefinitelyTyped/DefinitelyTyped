@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 import MC = require('mailcheck');
 
 var domains = ['gmail.com', 'aol.com'];

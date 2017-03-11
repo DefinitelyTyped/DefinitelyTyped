@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>, Cheng Sieu Ly <https://github.com/chengsieuly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -528,6 +528,7 @@ declare namespace ReactBootstrap {
 
     // <Navbar.Toggle />
     interface NavbarToggleProps {
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
     }
     type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
@@ -535,7 +536,7 @@ declare namespace ReactBootstrap {
     // <Navbar.Link />
     interface NavbarLinkProps {
         href: string;
-        onClick?: React.MouseEventHandler<{}>;
+        onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     }
     type NavbarLink = React.ClassicComponent<NavbarLinkProps, {}>;
     const NavbarLink: React.ClassicComponentClass<NavbarLinkProps>;
@@ -615,7 +616,7 @@ declare namespace ReactBootstrap {
     interface TabProps extends React.HTMLProps<Tab> {
         animation?: boolean;
         'aria-labelledby'?:string;
-        bsClass?:string; 
+        bsClass?:string;
         eventKey?: any; // TODO: Add more specific type
         onEnter?: Function;
         onEntered?: Function;
@@ -766,7 +767,7 @@ declare namespace ReactBootstrap {
     interface GridProps extends React.HTMLProps<Grid> {
         componentClass?: React.ReactType;
         fluid?: boolean;
-        bsClass?: string;        
+        bsClass?: string;
     }
     type Grid = React.ClassicComponent<GridProps, {}>;
     var Grid: React.ClassicComponentClass<GridProps>;
@@ -865,6 +866,15 @@ declare namespace ReactBootstrap {
     }
     type Image = React.ClassicComponent<ImageProps, {}>;
     var Image: React.ClassicComponentClass<ImageProps>;
+
+    // <ResponsiveEmbed />
+    interface ResponsiveEmbedProps extends React.HTMLProps<ResponsiveEmbed> {
+        a16by9?: boolean;
+        a4by3?: boolean;
+        bsClass?: string;
+    }
+    class ResponsiveEmbed extends React.Component<ResponsiveEmbedProps, {}> {
+    }
 
     // <PageHeader />
     interface PageHeaderProps extends React.HTMLProps<PageHeader> {

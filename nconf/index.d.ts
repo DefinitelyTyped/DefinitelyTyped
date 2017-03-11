@@ -40,10 +40,11 @@ export declare function path(key: any): any[];
 export declare function loadFiles(files: any, callback?: ICallbackFunction): void;
 export declare function loadFilesSync(files: any, callback?: ICallbackFunction): void;
 
-export declare var formats: {
+export interface IFormats {
     json: IFormat;
     ini: IFormat;
-};
+}
+export declare var formats: IFormats;
 
 export interface IFormat {
     stringify: (obj: any, replacer: any, spacing?: any) => string;
