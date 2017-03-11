@@ -1,6 +1,3 @@
-
-/// <reference types="rx" />
-
 import * as autobahn from "autobahn";
 import {IWampEvent} from "rx.wamp";
 

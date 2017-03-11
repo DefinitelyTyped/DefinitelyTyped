@@ -6,7 +6,7 @@ import * as Express from "express";
 var str: string;
 
 // Create a client:
-var client: twilio.RestClient = (require('twilio') as twilio)('ACCOUNT_SID', 'AUTH_TOKEN');
+var client: twilio.RestClient = twilio('ACCOUNT_SID', 'AUTH_TOKEN');
 
 //Get a list of calls made by this account
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls

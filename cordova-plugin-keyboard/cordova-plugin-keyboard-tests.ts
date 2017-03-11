@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 Keyboard.shrinkView(true);
 Keyboard.shrinkView(false);
 Keyboard.hideFormAccessoryBar(true);

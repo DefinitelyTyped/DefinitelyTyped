@@ -1,8 +1,3 @@
-// Tests for prettyPhoto library 
-
-/// <reference types="jquery" />
-
-
 // JQUERY
 
 $('#id').prettyPhoto();

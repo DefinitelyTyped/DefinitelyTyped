@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 function example_1() {
 	$.window({
 		title: "Cyclops Studio",
@@ -20,13 +18,13 @@ function example_2() {
 
 function example_3() {
 	// prepare customerized static attributes, see static attributes
-	// Note: you should call this method before starting to create window instances, or windows might display wrong. 
+	// Note: you should call this method before starting to create window instances, or windows might display wrong.
 	$.window.prepare({
 		dock: 'bottom',       // change the dock direction: 'left', 'right', 'top', 'bottom'
 		animationSpeed: 200,  // set animation speed
 		minWinLong: 180       // set minimized window long dimension width in pixel
 	});
- 
+
 	// limit window within body
 	$.window({
 			icon: 'http://www.fstoke.me/favicon.ico',
@@ -51,7 +49,7 @@ function example_3() {
 		x: 80,
 		y: 80
 	});
- 
+
 	// assign the dock area
 	$.window.prepare({
 		dock: 'bottom',       // change the dock direction: 'left', 'right', 'top', 'bottom'

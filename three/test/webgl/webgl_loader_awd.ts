@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_loader_awd.html
 
 () => {
@@ -10,16 +7,16 @@
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer, objects, controls;
-    var particleLight, pointLight;
-    var trunk;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, controls: THREE.OrbitControls;
+    var pointLight: THREE.PointLight;
+    var trunk: THREE.Object3D;
 
     var loader = new THREE.AWDLoader();
 
     loader.materialFactory = createMaterial;
-    loader.load('./models/awd/simple/simple.awd', function (_trunk) {
+    loader.load('./models/awd/simple/simple.awd', function (_trunk: THREE.Object3D) {
 
         trunk = _trunk;
 
@@ -29,15 +26,13 @@
     });
 
 
-    function createMaterial(name) {
-        // console.log( name );
-        // var mat = new THREE.MeshPhongMaterial({
-        // 	color: 0xaaaaaa,
-        // 	shininess: 20
-
-        // });
-        // return mat;
-        return null;
+    function createMaterial(name: string) {
+        console.log( name );
+        var mat = new THREE.MeshPhongMaterial({
+            color: 0xaaaaaa,
+            shininess: 20
+        });
+        return mat;
     }
 
 
@@ -106,7 +101,7 @@
 
         pointLight.position.x = Math.sin(timer * 4) * 3000;
         pointLight.position.y = 600
-				pointLight.position.z = Math.cos(timer * 4) * 3000;
+        pointLight.position.z = Math.cos(timer * 4) * 3000;
 
         renderer.render(scene, camera);
 

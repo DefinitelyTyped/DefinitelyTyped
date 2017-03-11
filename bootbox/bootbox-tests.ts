@@ -6,7 +6,7 @@ bootbox.alert("Are we ok with callback?", function () {
 	console.log("Callback called!");
 });
 bootbox.alert({
-	size: "medium",
+	size: "small",
 	message: "Are we ok with callback and custom button?",
 	callback: function () {
 		console.log("Callback called!");

@@ -1,5 +1,3 @@
-/// <reference types="d3" />
-
 function test_abstract_chart() {
     let el: Element,
         chart: d3kit.AbstractChart,
@@ -86,8 +84,8 @@ function test_svgchart() {
         options: d3kit.ChartOptions,
         margins: d3kit.ChartMargin,
         offsets: [number, number],
-        svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
-        rootg: d3.Selection<d3.BaseType, any, d3.BaseType, any>, 
+        svg: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
+        rootg: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
         layers: d3kit.LayerOrganizer;
 
     // create a div, append to body, return Node as type Element

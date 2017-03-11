@@ -1,6 +1,3 @@
-/// <reference types="jasmine" />
-
-
 // Taken directly from the test directory of the original repo
 
 declare var describeWhenNotArray: (arr: string) => void;

@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import * as fs from "fs";
 import temp from 'promised-temp';
 import { AffixOptions, OpenFile, Stats } from "promised-temp";
@@ -9,8 +6,7 @@ function testCleanup() {
     temp.cleanup().then((result: boolean | Stats) => {
         if (typeof result === "boolean") {
             const x = result === true;
-        }
-        else {
+        } else {
             const { files, dirs } = result;
             files.toPrecision(4);
         }

@@ -420,6 +420,79 @@ namespace url_tests {
         var helloUrl = url.parse('http://example.com/?hello=world', true)
         assert.equal(helloUrl.query.hello, 'world');
     }
+
+    {
+        let myURL = new url.URL('https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert.equal(myURL.hash, '#bar');
+        assert.equal(myURL.host, 'example.org:81');
+        assert.equal(myURL.hostname, 'example.org');
+        assert.equal(myURL.href, 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert.equal(myURL.origin, 'https://example.org:81');
+        assert.equal(myURL.password, 'thepwd');
+        assert.equal(myURL.username, 'theuser');
+        assert.equal(myURL.pathname, '/foo/path');
+        assert.equal(myURL.port, "81");
+        assert.equal(myURL.protocol, "https:");
+        assert.equal(myURL.search, "?query=string");
+        assert.equal(myURL.toString(), 'https://theuser:thepwd@example.org:81/foo/path?query=string#bar');
+        assert(myURL.searchParams instanceof url.URLSearchParams);
+
+        myURL.host = 'example.org:82';
+        myURL.hostname = 'example.com';
+        myURL.href = 'http://other.com';
+        myURL.hash = 'baz';
+        myURL.password = "otherpwd";
+        myURL.username = "otheruser";
+        myURL.pathname = "/otherPath";
+        myURL.port = "82";
+        myURL.protocol = "http";
+        myURL.search = "a=b";
+        assert.equal(myURL.href, 'http://otheruser:otherpwd@other.com:82/otherPath?a=b#baz');
+
+        myURL = new url.URL('/foo', 'https://example.org/');
+        assert.equal(myURL.href, 'https://example.org/foo');
+        assert.equal(myURL.toJSON(), myURL.href);
+    }
+
+    {
+        const searchParams = new url.URLSearchParams('abc=123');
+
+        assert.equal(searchParams.toString(), 'abc=123');
+        searchParams.forEach((value: string, name: string): void => {
+            assert.equal(name, 'abc');
+            assert.equal(value, '123');
+        });
+
+        assert.equal(searchParams.get('abc'), '123');
+
+        searchParams.append('abc', 'xyz');
+
+        assert.deepEqual(searchParams.getAll('abc'), ['123', 'xyz']);
+
+        const entries = searchParams.entries();
+        assert.deepEqual(entries.next(), { value: ["abc", "123"], done: false});
+        assert.deepEqual(entries.next(), { value: ["abc", "xyz"], done: false});
+        assert.deepEqual(entries.next(), { value: undefined, done: true});
+
+        const keys = searchParams.keys();
+        assert.deepEqual(keys.next(), { value: "abc", done: false});
+        assert.deepEqual(keys.next(), { value: "abc", done: false});
+        assert.deepEqual(keys.next(), { value: undefined, done: true});
+
+        const values = searchParams.values();
+        assert.deepEqual(values.next(), { value: "123", done: false});
+        assert.deepEqual(values.next(), { value: "xyz", done: false});
+        assert.deepEqual(values.next(), { value: undefined, done: true});
+
+        searchParams.set('abc', 'b');
+        assert.deepEqual(searchParams.getAll('abc'), ['b']);
+
+        searchParams.delete('a');
+        assert(!searchParams.has('a'));
+        assert.equal(searchParams.get('a'), null);
+
+        searchParams.sort();
+    }
 }
 
 /////////////////////////////////////////////////////
@@ -447,7 +520,7 @@ function stream_readable_pipe_test() {
 
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
-    assert(typeof rs.path === 'Buffer');
+    assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
@@ -2086,7 +2159,7 @@ namespace v8_tests {
 
     const heapStats = v8.getHeapStatistics();
     const heapSpaceStats = v8.getHeapSpaceStatistics();
-    
+
     const zapsGarbage: number = heapStats.does_zap_garbage;
 
     v8.setFlagsFromString('--collect_maps');

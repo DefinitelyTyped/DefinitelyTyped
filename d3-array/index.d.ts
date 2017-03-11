@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-array module 1.0
+// Type definitions for D3JS d3-array module 1.1
 // Project: https://github.com/d3/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.2
+// Last module patch version validated against: 1.1.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -181,6 +181,26 @@ export function descending(a: Primitive | undefined, b: Primitive | undefined): 
 // Transforming Arrays
 // --------------------------------------------------------------------------------------
 
+/**
+ * Returns the Cartesian product of the two arrays a and b.
+ * For each element i in the specified array a and each element j in the specified array b, in order,
+ * it creates a two-element array for each pair.
+ *
+ * @param a First input array.
+ * @param b Second input array.
+ */
+export function cross<S, T>(a: S[], b: T[]): Array<[S, T]>;
+
+/**
+ * Returns the Cartesian product of the two arrays a and b.
+ * For each element i in the specified array a and each element j in the specified array b, in order,
+ * invokes the specified reducer function passing the element i and element j.
+ *
+ * @param a First input array.
+ * @param b Second input array.
+ * @param reducer A reducer function taking as input an element from "a" and "b" and returning a reduced value.
+ */
+export function cross<S, T, U>(a: S[], b: T[], reducer: (a: S, b: T) => U): U[];
 
 /**
  * Merges the specified arrays into a single array.
@@ -190,8 +210,19 @@ export function merge<T>(arrays: T[][]): T[];
 /**
  * For each adjacent pair of elements in the specified array, returns a new array of tuples of elements i and i - 1.
  * Returns the empty array if the input array has fewer than two elements.
+ *
+ * @param array Array of input elements
  */
 export function pairs<T>(array: T[]): Array<[T, T]>;
+/**
+ * For each adjacent pair of elements in the specified array, in order, invokes the specified reducer function passing the element i and element i - 1.
+ * Returns the resulting array of pair-wise reduced elements.
+ * Returns the empty array if the input array has fewer than two elements.
+ *
+ * @param array Array of input elements
+ * @param reducer A reducer function taking as input to adjecent elements of the input array and returning a reduced value.
+ */
+export function pairs<T, U>(array: T[], reducer: (a: T, b: T) => U): U[];
 
 /**
  * Given the specified array, return an array corresponding to the list of indices in 'keys'.

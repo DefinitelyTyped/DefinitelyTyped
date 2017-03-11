@@ -2,8 +2,10 @@
 // Project: https://github.com/wix/protractor-helpers
 // Definitions by: John Cant <https://github.com/johncant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="selenium-webdriver" />
+/// <reference types="jasmine" />
 
 // ElementArrayFinder
 

@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 function empty_callback() : void {}
 
 function plugin_list() {

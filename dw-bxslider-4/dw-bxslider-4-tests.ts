@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 // examples from http://bxslider.com/examples
 
 $(document).ready(function() {

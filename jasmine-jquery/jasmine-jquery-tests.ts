@@ -1,7 +1,3 @@
-/// <reference types="jasmine" />
-/// <reference types="jquery" />
-
-
 describe("Jasmine jQuery extension", () => {
     it("Adds jQuery matchers", () => {
         expect($('<div id="some-id"></div>')).toBe('div');

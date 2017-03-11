@@ -1,6 +1,3 @@
-/// <reference types="jquery"/>
-
-
 $(".className").owlCarousel();
 
 $(".className").owlCarousel({

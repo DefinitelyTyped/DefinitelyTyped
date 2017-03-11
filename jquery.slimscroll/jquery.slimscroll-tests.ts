@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $("div").slimScroll();
 
 $("div").slimScroll({
