@@ -576,10 +576,88 @@ interface ServiceWorkerRegistration extends EventTarget {
      * before it is unregistered.
      */
     unregister(): Promise<boolean>;
+
+    /**
+     * Returns a Promise that resolves to an array of Notification objects.
+     * @param [options] An options object that can contain options to filter the notifications returned.
+     */
+    getNotifications(options?: ServiceWorkerGetNotificationOptions): Promise<any[]>; // need to be replaced with `Notification[]` when possible
+
+    /**
+     * Displays the notification with the requested title.
+     * @param [title] The title that must be shown within the notification
+     * @param [options] An object that allows to configure the notification.
+     */
+    showNotification(title: string, options?: ServiceWorkerNotificationOptions): Promise<NotificationEvent>;
 }
 
+/**
+ * An options object to provide options upon a ServiceWorkerRegistration.
+ * @param [scope] A USVString representing a URL that defines a service worker's registration scope; what range of
+ * URLs a service worker can control. This is usually a relative URL, and it defaults to '/' when not specified.
+ */
 interface ServiceWorkerRegisterOptions {
     scope: string;
+}
+
+/**
+ * Action to display in a notification.
+ * @param [action] A DOMString identifying a user action to be displayed on the notification.
+ * @param [title] A DOMString containing action text to be shown to the user.
+ * @param [icon] A USVString containg the URL of an icon to display with the action.
+ */
+interface NotificationAction { // TODO: Maybe need to moved if NotificationApi types are defined
+    action: string;
+    title: string;
+    icon?: string;
+}
+
+/**
+ * Object that allows to configure a notification.
+ * @param [actions] An array of actions to display in the notification.
+ * Appropriate responses are built using event.action within the notificationclick event.
+ * @param [badge] The URL of an image to represent the notification when there is not enough space to display the
+ * notification itself such as, for example, the Android Notification Bar. On Android devices, the badge should
+ * accommodate devices up to 4x resolution, about 96 by 96 px, and the image will be automatically masked.
+ * @param [body] A string representing an extra content to display within the notification.
+ * @param [dir] The direction of the notification; it can be auto, ltr, or rtl.
+ * @param [icon] The URL of an image to be used as an icon by the notification.
+ * @param [image] A USVSTring containing the URL of an image to be displayed in the notification.
+ * @param [lang] Specify the lang used within the notification. This string must be a valid BCP 47 language tag.
+ * @param [renotify] A boolean that indicates whether to supress vibrations and audible alerts when resusing a tag
+ * value. The default is false.
+ * @param [requireInteraction] Indicates that on devices with sufficiently large screens, a notification should remain
+ * active until the user clicks or dismisses it. If this value is absent or false, the desktop version of Chrome
+ * will auto-minimize notifications after approximately twenty seconds. The default value is false.
+ * @param [tag] An ID for a given notification that allows you to find, replace, or remove the notification using
+ * script if necessary.
+ * @param [vibrate]  A vibration pattern to run with the display of the notification. A vibration pattern can be an
+ * array with as few as one member. The values are times in milliseconds where the even indices (0, 2, 4, etc.) indicate
+ * how long to vibrate and the odd indices indicate how long to pause. For example [300, 100, 400] would vibrate
+ * 300ms, pause 100ms, then vibrate 400ms.
+ * @param [data] Arbitrary data that you want associated with the notification. This can be of any data type.
+ */
+interface ServiceWorkerNotificationOptions {
+    actions?: NotificationAction[];
+    badge?: string;
+    body?: string;
+    dir?: 'auto' | 'ltr' | 'rtl';
+    icon?: string;
+    lang?: string;
+    renotify?: boolean;
+    requireInteraction?: boolean;
+    tag?: string;
+    vibrate?: number[];
+    data?: any;
+}
+
+/**
+ * An options object that can contain options to filter notifications.
+ * @param [tag] A DOMString representing a notification tag. If specified, only notifications that have this tag
+ * will be returned.
+ */
+interface ServiceWorkerGetNotificationOptions {
+    tag: string;
 }
 
 /**
@@ -629,10 +707,6 @@ interface ServiceWorkerContainer extends EventTarget {
      *
      * @param scriptURL The URL of the service worker script.
      * @param [options] An options object to provide options upon registration.
-     * Currently available options are: scope: A USVString representing a URL
-     * that defines a service worker's registration scope; what range of URLs a
-     * service worker can control. This is usually a relative URL, and it
-     * defaults to '/' when not specified.
      */
     register(scriptURL: string, options?: ServiceWorkerRegisterOptions): Promise<ServiceWorkerRegistration>;
 

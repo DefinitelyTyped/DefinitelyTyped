@@ -1,7 +1,3 @@
-/// <reference types="node" />
-
-'use strict';
-
 import gulpHelp = require('gulp-help');
 
 var gulp = gulpHelp(require('gulp'));

@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.20.0
+// Type definitions for OpenLayers v4.0.1
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,55 +10,6 @@ declare type GlobalObject = Object;
  * @namespace ol
  */
 declare module ol {
-    /**
-     * The animation static methods are designed to be used with the
-     * {@link ol.Map#beforeRender} method.  For example:
-     *
-     *     var map = new ol.Map({ ... });
-     *     var zoom = ol.animation.zoom({
-     *       resolution: map.getView().getResolution()
-     *     });
-     *     map.beforeRender(zoom);
-     *     map.getView().setResolution(map.getView().getResolution() * 2);
-     *
-     * @namespace ol.animation
-     */
-    module animation {
-        /**
-         * Generate an animated transition that will "bounce" the resolution as it
-         * approaches the final value.
-         * @param {olx.animation.BounceOptions} options Bounce options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function bounce(options: olx.animation.BounceOptions): ol.PreRenderFunction;
-
-        /**
-         * Generate an animated transition while updating the view center.
-         * @param {olx.animation.PanOptions} options Pan options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function pan(options: olx.animation.PanOptions): ol.PreRenderFunction;
-
-        /**
-         * Generate an animated transition while updating the view rotation.
-         * @param {olx.animation.RotateOptions} options Rotate options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function rotate(options: olx.animation.RotateOptions): ol.PreRenderFunction;
-
-        /**
-         * Generate an animated transition while updating the view resolution.
-         * @param {olx.animation.ZoomOptions} options Zoom options.
-         * @return {ol.PreRenderFunction} Pre-render function.
-         * @api
-         */
-        function zoom(options: olx.animation.ZoomOptions): ol.PreRenderFunction;
-
-    }
-
     /**
       * Error object thrown when an assertion failed. This is an ECMA-262 Error,
       * extended with a `code` property.
@@ -2765,7 +2716,110 @@ declare module ol {
         }
 
         module filter {
-            interface Filter { }
+            /**
+             * Create a `<Intersects>` operator to test whether a geometry-valued property
+             * intersects a given geometry.
+             *
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @returns {!ol.format.filter.Intersects} `<Intersects>` operator.
+             * @api
+             */
+            function intersects(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): ol.format.filter.Intersects;
+
+            /**
+             * @classdesc
+             * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+             * Base class for WFS GetFeature filters.
+             *
+             * @constructor
+             * @param {!string} tagName The XML tag name for this filter.
+             * @struct
+             * @api
+             */
+            class Filter {
+                /**
+                 * @classdesc
+                 * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+                 * Base class for WFS GetFeature filters.
+                 *
+                 * @constructor
+                 * @param {!string} tagName The XML tag name for this filter.
+                 * @struct
+                 * @api
+                 */
+                constructor(tagName: string);
+
+                /**
+                 * The XML tag name for a filter.
+                 * @returns {!string} Name.
+                 */
+                getTagName(): string;
+            }
+
+            /**
+             * @classdesc
+             * Represents a spatial operator to test whether a geometry-valued property
+             * relates to a given geometry.
+             *
+             * @constructor
+             * @param {!string} tagName The XML tag name for this filter.
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @extends {ol.format.filter.Filter}
+             * @api
+             */
+            class Spatial extends ol.format.filter.Filter {
+                /**
+                 * @classdesc
+                 * Represents a spatial operator to test whether a geometry-valued property
+                 * relates to a given geometry.
+                 *
+                 * @constructor
+                 * @param {!string} tagName The XML tag name for this filter.
+                 * @param {!string} geometryName Geometry name to use.
+                 * @param {!ol.geom.Geometry} geometry Geometry.
+                 * @param {string=} opt_srsName SRS name. No srsName attribute will be
+                 *    set on geometries when this is not provided.
+                 * @extends {ol.format.filter.Filter}
+                 * @api
+                 */
+                constructor(tagName: string, geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<Intersects>` operator to test whether a geometry-valued property
+             * intersects a given geometry.
+             *
+             * @constructor
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @extends {ol.format.filter.Spatial}
+             * @api
+             */
+            class Intersects extends ol.format.filter.Spatial {
+                /**
+                 * @classdesc
+                 * Represents a `<Intersects>` operator to test whether a geometry-valued property
+                 * intersects a given geometry.
+                 *
+                 * @constructor
+                 * @param {!string} geometryName Geometry name to use.
+                 * @param {!ol.geom.Geometry} geometry Geometry.
+                 * @param {string=} opt_srsName SRS name. No srsName attribute will be
+                 *    set on geometries when this is not provided.
+                 * @extends {ol.format.filter.Spatial}
+                 * @api
+                 */
+                constructor(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+            }
         }
 
         /**
@@ -4762,50 +4816,6 @@ declare module ol {
     function inherits(childCtor: (() => any), parentCtor: (() => any)): void;
 
     /**
-     * @classdesc
-     * Events emitted by {@link ol.interaction.DragBox} instances are instances of
-     * this type.
-     *
-     * @param {string} type The event type.
-     * @param {ol.Coordinate} coordinate The event coordinate.
-     * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
-     * @extends {ol.events.Event}
-     * @constructor
-     * @implements {oli.DragBoxEvent}
-     */
-    class DragBoxEvent extends ol.events.Event {
-        /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.DragBox} instances are instances of
-         * this type.
-         *
-         * @param {string} type The event type.
-         * @param {ol.Coordinate} coordinate The event coordinate.
-         * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
-         * @extends {ol.events.Event}
-         * @constructor
-         * @implements {oli.DragBoxEvent}
-         */
-        constructor(type: string, coordinate: ol.Coordinate, mapBrowserEvent: ol.MapBrowserEvent);
-
-        /**
-         * The coordinate of the drag event.
-         * @const
-         * @type {ol.Coordinate}
-         * @api stable
-         */
-        coordinate: ol.Coordinate;
-
-        /**
-         * @const
-         * @type {ol.MapBrowserEvent}
-         * @api
-         */
-        mapBrowserEvent: ol.MapBrowserEvent;
-
-    }
-
-    /**
      * @namespace ol.interaction
      */
     module interaction {
@@ -4878,19 +4888,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
-         * of this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.interaction.DragAndDropEvent}
-         * @param {ol.interaction.DragAndDropEventType} type Type.
-         * @param {File} file File.
-         * @param {Array.<ol.Feature>=} opt_features Features.
-         * @param {ol.proj.Projection=} opt_projection Projection.
+         * @namespace ol.interaction.DragAndDrop
          */
-        class DragAndDropEvent extends ol.events.Event {
+        module DragAndDrop {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
@@ -4904,28 +4904,44 @@ declare module ol {
              * @param {Array.<ol.Feature>=} opt_features Features.
              * @param {ol.proj.Projection=} opt_projection Projection.
              */
-            constructor(type: ol.interaction.DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
-
-            /**
-             * The features parsed from dropped data.
-             * @type {Array.<ol.Feature>|undefined}
-             * @api stable
-             */
-            features: ol.Feature[];
-
-            /**
-             * The dropped file.
-             * @type {File}
-             * @api stable
-             */
-            file: File;
-
-            /**
-             * The feature projection.
-             * @type {ol.proj.Projection|undefined}
-             * @api
-             */
-            projection: ol.proj.Projection;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.DragAndDrop} instances are instances
+                 * of this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.interaction.DragAndDropEvent}
+                 * @param {ol.interaction.DragAndDropEventType} type Type.
+                 * @param {File} file File.
+                 * @param {Array.<ol.Feature>=} opt_features Features.
+                 * @param {ol.proj.Projection=} opt_projection Projection.
+                 */
+                constructor(type: ol.interaction.DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
+    
+                /**
+                 * The features parsed from dropped data.
+                 * @type {Array.<ol.Feature>|undefined}
+                 * @api stable
+                 */
+                features: ol.Feature[];
+    
+                /**
+                 * The dropped file.
+                 * @type {File}
+                 * @api stable
+                 */
+                file: File;
+    
+                /**
+                 * The feature projection.
+                 * @type {ol.proj.Projection|undefined}
+                 * @api
+                 */
+                projection: ol.proj.Projection;
+    
+            }
 
         }
 
@@ -4976,6 +4992,58 @@ declare module ol {
             getGeometry(): ol.geom.Polygon;
 
         }
+
+        /**
+         * @namespace ol.interaction.DragBox
+         */
+        module DragBox {
+            /**
+             * @classdesc
+             * Events emitted by {@link ol.interaction.DragBox} instances are instances of
+             * this type.
+             *
+             * @param {string} type The event type.
+             * @param {ol.Coordinate} coordinate The event coordinate.
+             * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
+             * @extends {ol.events.Event}
+             * @constructor
+             * @implements {oli.DragBoxEvent}
+             */
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.DragBox} instances are instances of
+                 * this type.
+                 *
+                 * @param {string} type The event type.
+                 * @param {ol.Coordinate} coordinate The event coordinate.
+                 * @param {ol.MapBrowserEvent} mapBrowserEvent Originating event.
+                 * @extends {ol.events.Event}
+                 * @constructor
+                 * @implements {oli.DragBoxEvent}
+                 */
+                constructor(type: string, coordinate: ol.Coordinate, mapBrowserEvent: ol.MapBrowserEvent);
+        
+                /**
+                 * The coordinate of the drag event.
+                 * @const
+                 * @type {ol.Coordinate}
+                 * @api stable
+                 */
+                coordinate: ol.Coordinate;
+        
+                /**
+                 * @const
+                 * @type {ol.MapBrowserEvent}
+                 * @api
+                 */
+                mapBrowserEvent: ol.MapBrowserEvent;
+        
+            }
+
+        }
+
+        type DragBoxEventType = string;
 
         /**
          * @classdesc
@@ -5100,17 +5168,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Draw} instances are instances of
-         * this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.DrawEvent}
-         * @param {ol.interaction.DrawEventType} type Type.
-         * @param {ol.Feature} feature The feature drawn.
+         * @namespace ol.interaction.Draw
          */
-        class DrawEvent extends ol.events.Event {
+        module Draw {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Draw} instances are instances of
@@ -5122,14 +5182,28 @@ declare module ol {
              * @param {ol.interaction.DrawEventType} type Type.
              * @param {ol.Feature} feature The feature drawn.
              */
-            constructor(type: ol.interaction.DrawEventType, feature: ol.Feature);
-
-            /**
-             * The feature being drawn.
-             * @type {ol.Feature}
-             * @api stable
-             */
-            feature: ol.Feature;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Draw} instances are instances of
+                 * this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.DrawEvent}
+                 * @param {ol.interaction.DrawEventType} type Type.
+                 * @param {ol.Feature} feature The feature drawn.
+                 */
+                constructor(type: ol.interaction.DrawEventType, feature: ol.Feature);
+    
+                /**
+                 * The feature being drawn.
+                 * @type {ol.Feature}
+                 * @api stable
+                 */
+                feature: ol.Feature;
+    
+            }
 
         }
 
@@ -5386,19 +5460,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Modify} instances are instances of
-         * this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.ModifyEvent}
-         * @param {ol.ModifyEventType} type Type.
-         * @param {ol.Collection.<ol.Feature>} features The features modified.
-         * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
-         *     {@link ol.MapBrowserPointerEvent}.
+         * @namespace ol.interaction.Modify
          */
-        class ModifyEvent extends ol.events.Event {
+        module Modify {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Modify} instances are instances of
@@ -5412,21 +5476,37 @@ declare module ol {
              * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
              *     {@link ol.MapBrowserPointerEvent}.
              */
-            constructor(type: ol.ModifyEventType, features: ol.Collection<ol.Feature>, mapBrowserPointerEvent: ol.MapBrowserPointerEvent);
-
-            /**
-             * The features being modified.
-             * @type {ol.Collection.<ol.Feature>}
-             * @api
-             */
-            features: ol.Collection<ol.Feature>;
-
-            /**
-             * Associated {@link ol.MapBrowserEvent}.
-             * @type {ol.MapBrowserEvent}
-             * @api
-             */
-            mapBrowserEvent: ol.MapBrowserEvent;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Modify} instances are instances of
+                 * this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.ModifyEvent}
+                 * @param {ol.ModifyEventType} type Type.
+                 * @param {ol.Collection.<ol.Feature>} features The features modified.
+                 * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
+                 *     {@link ol.MapBrowserPointerEvent}.
+                 */
+                constructor(type: ol.ModifyEventType, features: ol.Collection<ol.Feature>, mapBrowserPointerEvent: ol.MapBrowserPointerEvent);
+    
+                /**
+                 * The features being modified.
+                 * @type {ol.Collection.<ol.Feature>}
+                 * @api
+                 */
+                features: ol.Collection<ol.Feature>;
+    
+                /**
+                 * Associated {@link ol.MapBrowserEvent}.
+                 * @type {ol.MapBrowserEvent}
+                 * @api
+                 */
+                mapBrowserEvent: ol.MapBrowserEvent;
+    
+            }
 
         }
 
@@ -5600,20 +5680,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Select} instances are instances of
-         * this type.
-         *
-         * @param {string} type The event type.
-         * @param {Array.<ol.Feature>} selected Selected features.
-         * @param {Array.<ol.Feature>} deselected Deselected features.
-         * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
-         *     {@link ol.MapBrowserEvent}.
-         * @implements {oli.SelectEvent}
-         * @extends {ol.events.Event}
-         * @constructor
+         * @namespace ol.interaction.Select
          */
-        class SelectEvent extends ol.events.Event {
+        module Select {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Select} instances are instances of
@@ -5628,28 +5697,45 @@ declare module ol {
              * @extends {ol.events.Event}
              * @constructor
              */
-            constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
-
-            /**
-             * Selected features array.
-             * @type {Array.<ol.Feature>}
-             * @api
-             */
-            selected: ol.Feature[];
-
-            /**
-             * Deselected features array.
-             * @type {Array.<ol.Feature>}
-             * @api
-             */
-            deselected: ol.Feature[];
-
-            /**
-             * Associated {@link ol.MapBrowserEvent}.
-             * @type {ol.MapBrowserEvent}
-             * @api
-             */
-            mapBrowserEvent: ol.MapBrowserEvent;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Select} instances are instances of
+                 * this type.
+                 *
+                 * @param {string} type The event type.
+                 * @param {Array.<ol.Feature>} selected Selected features.
+                 * @param {Array.<ol.Feature>} deselected Deselected features.
+                 * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
+                 *     {@link ol.MapBrowserEvent}.
+                 * @implements {oli.SelectEvent}
+                 * @extends {ol.events.Event}
+                 * @constructor
+                 */
+                constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
+    
+                /**
+                 * Selected features array.
+                 * @type {Array.<ol.Feature>}
+                 * @api
+                 */
+                selected: ol.Feature[];
+    
+                /**
+                 * Deselected features array.
+                 * @type {Array.<ol.Feature>}
+                 * @api
+                 */
+                deselected: ol.Feature[];
+    
+                /**
+                 * Associated {@link ol.MapBrowserEvent}.
+                 * @type {ol.MapBrowserEvent}
+                 * @api
+                 */
+                mapBrowserEvent: ol.MapBrowserEvent;
+    
+            }
 
         }
 
@@ -5798,18 +5884,9 @@ declare module ol {
         }
 
         /**
-         * @classdesc
-         * Events emitted by {@link ol.interaction.Translate} instances are instances of
-         * this type.
-         *
-         * @constructor
-         * @extends {ol.events.Event}
-         * @implements {oli.interaction.TranslateEvent}
-         * @param {ol.interaction.TranslateEventType} type Type.
-         * @param {ol.Collection.<ol.Feature>} features The features translated.
-         * @param {ol.Coordinate} coordinate The event coordinate.
+         * @namespace ol.interaction.Translate
          */
-        class TranslateEvent extends ol.events.Event {
+        module Translate {
             /**
              * @classdesc
              * Events emitted by {@link ol.interaction.Translate} instances are instances of
@@ -5822,22 +5899,37 @@ declare module ol {
              * @param {ol.Collection.<ol.Feature>} features The features translated.
              * @param {ol.Coordinate} coordinate The event coordinate.
              */
-            constructor(type: ol.interaction.TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
-
-            /**
-             * The features being translated.
-             * @type {ol.Collection.<ol.Feature>}
-             * @api
-             */
-            features: ol.Collection<ol.Feature>;
-
-            /**
-             * The coordinate of the drag event.
-             * @const
-             * @type {ol.Coordinate}
-             * @api
-             */
-            coordinate: ol.Coordinate;
+            class Event extends ol.events.Event {
+                /**
+                 * @classdesc
+                 * Events emitted by {@link ol.interaction.Translate} instances are instances of
+                 * this type.
+                 *
+                 * @constructor
+                 * @extends {ol.events.Event}
+                 * @implements {oli.interaction.TranslateEvent}
+                 * @param {ol.interaction.TranslateEventType} type Type.
+                 * @param {ol.Collection.<ol.Feature>} features The features translated.
+                 * @param {ol.Coordinate} coordinate The event coordinate.
+                 */
+                constructor(type: ol.interaction.TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
+    
+                /**
+                 * The features being translated.
+                 * @type {ol.Collection.<ol.Feature>}
+                 * @api
+                 */
+                features: ol.Collection<ol.Feature>;
+    
+                /**
+                 * The coordinate of the drag event.
+                 * @const
+                 * @type {ol.Coordinate}
+                 * @api
+                 */
+                coordinate: ol.Coordinate;
+    
+            }
 
         }
 
@@ -6646,15 +6738,6 @@ declare module ol {
         addOverlay(overlay: ol.Overlay): void;
 
         /**
-         * Add functions to be called before rendering. This can be used for attaching
-         * animations before updating the map's view.  The {@link ol.animation}
-         * namespace provides several static methods for creating prerender functions.
-         * @param {...ol.PreRenderFunction} var_args Any number of pre-render functions.
-         * @api
-         */
-        beforeRender(var_args: ol.PreRenderFunction): void;
-
-        /**
          * Detect features that intersect a pixel on the viewport, and execute a
          * callback with each intersecting feature. Layers included in the detection can
          * be configured through `opt_layerFilter`.
@@ -7367,18 +7450,6 @@ declare module ol {
          * @api stable
          */
         un(type: (string | string[]), listener: Function, opt_this?: GlobalObject): void;
-
-        /**
-         * Removes an event listener using the key returned by `on()` or `once()`.
-         * Note that using the {@link ol.Observable.unByKey} static function is to
-         * be preferred.
-         * @param {ol.EventsKey|Array.<ol.EventsKey>} key The key returned by `on()`
-         *     or `once()` (or an array of keys).
-         * @function
-         * @api stable
-         */
-        unByKey(key: (ol.EventsKey | ol.EventsKey[])): void;
-
     }
 
     /**
@@ -7387,7 +7458,7 @@ declare module ol {
      * `'top-center'`, `'top-right'`
      * @enum {string}
      */
-    type OverlayPositioning = "bottom-left" | "bottom-center" | "bottom-right" | "center-left" | "center-center" | "center-right" | "top-left" | "top-center" | "top-right"; 
+    type OverlayPositioning = "bottom-left" | "bottom-center" | "bottom-right" | "center-left" | "center-center" | "center-right" | "top-left" | "top-center" | "top-right";
 
     /**
      * @classdesc
@@ -10563,7 +10634,7 @@ declare module ol {
              * @api
              */
             setGeometry(geometry: (string | ol.geom.Geometry | ol.StyleGeometryFunction)): void;
-            
+
             /**
              * Set the image style.
              * @param {ol.style.Image} image Image style.
@@ -10577,7 +10648,7 @@ declare module ol {
              * @api
              */
             setStroke(stroke: ol.style.Stroke): void;
-            
+
             /**
              * Set the text style.
              * @param {ol.style.Text} text Text style.
@@ -11672,11 +11743,10 @@ declare module ol {
          * In most cases you will want to use the map size, that is `map.getSize()`.
          * Takes care of the map angle.
          * @param {ol.geom.SimpleGeometry|ol.Extent} geometry Geometry.
-         * @param {ol.Size} size Box pixel size.
          * @param {olx.view.FitOptions=} opt_options Options.
          * @api
          */
-        fit(geometry: (ol.geom.SimpleGeometry | ol.Extent), size: ol.Size, opt_options?: olx.view.FitOptions): void;
+        fit(geometry: (ol.geom.SimpleGeometry | ol.Extent), opt_options?: olx.view.FitOptions): void;
 
         /**
          * Center on coordinate and view position.
@@ -11729,7 +11799,7 @@ declare module ol {
         /**
          * Animate the view. The view's center, zoom (or resolution), and
          * rotation can be animated for smooth transitions between view states.
-         * @param {olx.AnimateOptions} var_args Animation options. 
+         * @param {olx.AnimateOptions} var_args Animation options.
          * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
          * @api experimental
          */
@@ -13535,6 +13605,7 @@ declare module olx {
             offsetX?: number;
             offsetY?: number;
             scale?: number;
+            rotateWithView?: boolean;
             rotation?: number;
             text?: string;
             textAlign?: string;
@@ -13775,18 +13846,24 @@ declare module olx {
     module view {
         /**
          * @typedef {{
+         *     size: (ol.Size|undefined),
          *     padding: (!Array.<number>|undefined),
          *     constrainResolution: (boolean|undefined),
+         *     duration: (number|undefined),
          *     nearest: (boolean|undefined),
          *     maxZoom: (number|undefined),
-         *     minResolution: (number|undefined)}}
+         *     minResolution: (number|undefined),
+         *     easing: (function(t: number) => number) }}
          */
         interface FitOptions {
+            size?: ol.Size,
             padding?: number[];
             constrainResolution?: boolean;
             nearest?: boolean;
-            maxZoom?: number;
             minResolution?: number;
+            maxZoom?: number;
+            duration?: number;
+            easing?: ((t: number) => number);
         }
     }
 
@@ -13823,7 +13900,7 @@ declare module olx {
         zoom?: number;
         zoomFactor?: number;
     }
-		
+
     /**
     * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
     * {@link ol.Map#hasFeatureAtPixel} methods.

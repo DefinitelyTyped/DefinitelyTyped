@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 $('#myForm').validator();
 $('#myForm').validator('update');
 $('#myForm').validator('validate');

@@ -189,6 +189,10 @@ knex('users')
   .select('users.id', 'contacts.phone');
 
 knex('users')
+  .join('contacts', { 'users.id': 12355 })
+  .select('users.id', 'contacts.phone');
+
+knex('users')
   .join('contacts', 'users.id', 'contacts.user_id')
   .select('users.id', 'contacts.phone');
 
@@ -280,6 +284,8 @@ knex('books')
 knex('books')
   .returning('id')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
+
+knex.batchInsert('books', [{title:'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
 
 knex('books').where('published_date', '<', 2000).update({status: 'archived'});
 knex('books').where('published_date', '<', 2000).update({status: 'archived'}, 'id');

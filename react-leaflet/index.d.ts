@@ -111,7 +111,7 @@ interface LayerProps extends LeafletInteractionEvents {
 interface MarkerProps extends LayerProps, LeafletDraggingEvents {
     position: Leaflet.LatLngExpression;
     draggable?: boolean;
-    icon?: Leaflet.Icon;
+    icon?: Leaflet.BaseIcon;
     zIndexOffset?: number;
     opacity?: number;
 }

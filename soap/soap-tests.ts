@@ -1,10 +1,27 @@
 import * as soap from 'soap';
 import * as events from 'events';
-import * as fs from "fs";
-import * as http from "http";
+import * as fs from 'fs';
+import * as http from 'http';
 
 const url = 'http://example.com/wsdl?wsdl';
-const wsdlOptions = { name: 'value' };
+// wsdlOptions set only default values
+const wsdlOptions = <soap.Option>{
+    attributesKey: 'attributes',
+    disableCache: false,
+    endpoint: url,
+    envelopeKey: 'soap',
+    escapeXML: true,
+    forceSoap12Headers: false,
+    httpClient: new soap.HttpClient(),
+    ignoreBaseNameSpaces: false,
+    ignoredNamespaces: ['tns', 'targetNamespace', 'typedNamespace'],
+    request: require('request'),
+    stream: false,
+    wsdl_headers: [],
+    wsdl_options: [],
+    valueKey: '$value',
+    xmlKey: '$xml'
+};
 
 soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     let securityOptions = { hasTimeStamp: false };
@@ -74,7 +91,7 @@ var myService = {
 
 var xml = fs.readFileSync('myservice.wsdl', 'utf8'),
     server = http.createServer(function(request,response) {
-        response.end("404: Not Found: " + request.url);
+        response.end('404: Not Found: ' + request.url);
     });
 
 server.listen(8000);

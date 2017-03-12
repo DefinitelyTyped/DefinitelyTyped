@@ -23,6 +23,11 @@ str = v.decapitalize('Sun');
 str = v.kebabCase('goodbye blue sky');
 str = v.lowerCase('Green');
 str = v.snakeCase('learning to fly');
+
+str = v.swapCase('learning to fly');
+str = v('learning to fly').swapCase().value();
+str = v.chain('learning to fly').swapCase().value();
+
 str = v.titleCase('learning to fly');
 str = v.titleCase('another brick in the wall', ['in', 'the']);
 str = v.upperCase('school');
@@ -213,6 +218,23 @@ str = v.splice('new year');
 str = v.splice('new year', 0);
 str = v.splice('new year', 0, 4);
 str = v.splice('new year', 0, 3, 'happy');
+
+str = v.tr();
+str = v.tr('hello', 'el', 'ip');
+str = v.tr('Yes. The fire rises.', {
+    'Yes': 'Awesome',
+    'fire': 'flame'
+})
+str = v('hello').tr('el', 'ip').value();
+str = v('Yes. The fire rises.').tr({
+    'Yes': 'Awesome',
+    'fire': 'flame'
+}).value();
+str = v.chain('hello').tr('el', 'ip').value();
+str = v.chain('Yes. The fire rises.').tr({
+    'Yes': 'Awesome',
+    'fire': 'flame'
+}).value();
 
 str = v.trim();
 str = v.trim(' Mother nature ');

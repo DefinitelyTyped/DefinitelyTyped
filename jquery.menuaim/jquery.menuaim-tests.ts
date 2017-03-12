@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 $('div').menuAim({
     activate: function () { },
     deactivate: function () { },

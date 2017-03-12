@@ -1,10 +1,9 @@
-// Type definitions for µWS
+// Type definitions for uWS 0.13
 // Project: https://github.com/uWebSockets/uWebSockets
 // Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
 
 import * as events from 'events';
 import * as http from 'http';
@@ -150,6 +149,16 @@ declare namespace WebSocket {
         addListener(event: 'connection', cb: (client: WebSocket) => void): this;
         addListener(event: string, listener: () => void): this;
     }
+
+    export interface UwsHttp {
+        createServer(requestListener?: (request: http.IncomingMessage, response: http.ServerResponse) => void): http.Server;
+        // any to avoid express definitions
+        getExpressApp(express: any): any;
+        getResponsePrototype(): http.ServerResponse;
+        getRequestPrototype(): http.IncomingMessage;
+    }
+
+    export const http: UwsHttp;
 
     export function createServer(options?: IServerOptions,
         connectionListener?: (client: WebSocket) => void): Server;

@@ -1,7 +1,4 @@
-
 /// <reference types="babel-generator" />
-/// <reference types="babel-types" />
-
 
 // Example from https://github.com/babel/babel/tree/master/packages/babel-template
 import template = require('babel-template');

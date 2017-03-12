@@ -1,5 +1,4 @@
-/// <reference types="jquery"/>
-/// <reference types="jqueryui"/>
+/// <reference types="jqueryui" />
 
 import * as FullCalendar from 'fullcalendar';
 import * as moment from 'moment';

@@ -1,7 +1,5 @@
 // Tests by: Kaur Kuut <https://github.com/xStrom>
 
-///<reference types="jquery" />
-
 // Every option as default
 var defaultOptions = {
 	namespace: 'featherlight',

@@ -1,5 +1,3 @@
-/// <reference types="socket.io"/>
-
 import socketIO = require('socket.io');
 import ioRedis = require('socket.io-redis');
 import redis = require('redis');

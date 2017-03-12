@@ -1,5 +1,5 @@
-import wdFrp = require("wonder-frp");
+import {fromArray} from "wonder-frp/dist/es2015/global/Operator";
 
-wdFrp.fromArray([1,2,3])
+fromArray([1,2,3])
     .subscribe(function(){
     });

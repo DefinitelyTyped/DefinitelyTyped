@@ -1,7 +1,4 @@
-/// <reference types= "node" />
-
 import cs = require('coinstring');
-
 
 var privateKeyHex = "1184cd2cdd640ca42cfc3a091c51d549b2f016d454b2774019c2b2d2e08529fd";
 var privateKeyHexBuf = new Buffer(privateKeyHex, 'hex');

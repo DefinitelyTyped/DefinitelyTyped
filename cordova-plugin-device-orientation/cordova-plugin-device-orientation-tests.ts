@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 navigator.compass.getCurrentHeading(
     (heading: CompassHeading)=> { console.log('Got heading to ' + heading.magneticHeading); },
     (error: CompassError)=> { alert('Error! ' + error.code); },

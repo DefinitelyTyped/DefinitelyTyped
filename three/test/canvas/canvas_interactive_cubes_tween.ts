@@ -1,15 +1,13 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
 /// <reference types="tween.js" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_interactive_cubes_tween.html
 
 () => {
-    var container, stats;
-    var camera, scene, renderer;
+    var container: HTMLDivElement, stats: Stats;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer;
 
-    var raycaster;
-    var mouse;
+    var raycaster: THREE.Raycaster;
+    var mouse: THREE.Vector2;
 
     init();
     animate();
@@ -85,17 +83,17 @@
 
     }
 
-    function onDocumentTouchStart(event) {
+    function onDocumentTouchStart(event: TouchEvent) {
 
         event.preventDefault();
-
-        event.clientX = event.touches[0].clientX;
-        event.clientY = event.touches[0].clientY;
-        onDocumentMouseDown(event);
+        let usurpedEvent = event as any;
+        usurpedEvent.clientX = event.touches[0].clientX;
+        usurpedEvent.clientY = event.touches[0].clientY;
+        onDocumentMouseDown(usurpedEvent);
 
     }
 
-    function onDocumentMouseDown(event) {
+    function onDocumentMouseDown(event: MouseEvent) {
 
         event.preventDefault();
 

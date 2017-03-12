@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 namespace PouchDBFindTests {
 
     function testFind() {

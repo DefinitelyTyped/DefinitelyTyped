@@ -2829,7 +2829,7 @@ declare module "tls" {
         version: string;
     }
 
-    export class TLSSocket extends stream.Duplex {
+    export class TLSSocket extends net.Socket {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
@@ -2956,7 +2956,7 @@ declare module "tls" {
         /**
          * The numeric representation of the local port.
          */
-        localPort: string;
+        localPort: number;
         /**
          * The string representation of the remote IP address.
          * For example, '74.125.127.100' or '2001:4860:a005::68'.
@@ -3168,10 +3168,10 @@ declare module "tls" {
         context: any;
     }
 
-    export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) => void): Server;
-    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): ClearTextStream;
-    export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
-    export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
+    export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
+    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
+    export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
+    export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     export function createSecureContext(details: SecureContextOptions): SecureContext;
 }

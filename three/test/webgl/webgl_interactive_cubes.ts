@@ -1,13 +1,10 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes.html
 
 () => {
-    var container, stats;
-    var camera, scene, raycaster, renderer;
+    var container: HTMLDivElement, stats: Stats;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, raycaster: THREE.Raycaster, renderer: THREE.WebGLRenderer;
 
-    var mouse = new THREE.Vector2(), INTERSECTED;
+    var mouse = new THREE.Vector2(), INTERSECTED: THREE.Mesh | null;
     var radius = 100, theta = 0;
 
     init();
@@ -87,7 +84,7 @@
 
     }
 
-    function onDocumentMouseMove(event) {
+    function onDocumentMouseMove(event: MouseEvent) {
 
         event.preventDefault();
 
@@ -107,6 +104,8 @@
 
     }
 
+    let INTERSECTED_currentHex = 0;
+
     function render() {
 
         theta += 0.1;
@@ -116,7 +115,7 @@
         camera.position.z = radius * Math.cos(THREE.Math.degToRad(theta));
         camera.lookAt(scene.position);
 
-        camera.updateMatrixWorld();
+        camera.updateMatrixWorld(false);
 
         // find intersections
 
@@ -128,17 +127,17 @@
 
             if (INTERSECTED != intersects[0].object) {
 
-                if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+                if (INTERSECTED) (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(INTERSECTED_currentHex);
 
-                INTERSECTED = intersects[0].object;
-                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                INTERSECTED.material.emissive.setHex(0xff0000);
+                INTERSECTED = intersects[0].object as THREE.Mesh;
+                INTERSECTED_currentHex = (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.getHex();
+                (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(0xff0000);
 
             }
 
         } else {
 
-            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            if (INTERSECTED) (INTERSECTED.material as THREE.MeshLambertMaterial).emissive.setHex(INTERSECTED_currentHex);
 
             INTERSECTED = null;
 

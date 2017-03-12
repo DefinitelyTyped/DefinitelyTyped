@@ -141,6 +141,14 @@ declare namespace daterangepicker {
          */
         applyLabel?: string;
         /**
+         * Text for fromLabel label.
+         */
+        fromLabel?: string;
+        /**
+         * Text for toLabel label.
+         */
+        toLabel?: string;
+        /**
          * Format of the date string. example: 'YYYY-MM-DD'
          */
         format?: string;

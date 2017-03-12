@@ -1,9 +1,3 @@
-// React-Bootstrap Test
-// ================================================================================
-///<reference types="react"/>
-
-// Imports
-// --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import {
@@ -14,7 +8,7 @@ import {
     Nav, NavItem, Navbar, NavDropdown,
     Tabs, Tab, Pager, PageItem,
     Pagination, Alert, Carousel, SafeAnchor,
-    Grid, Row, Col, Thumbnail, Image,
+    Grid, Row, Col, Thumbnail, Image, ResponsiveEmbed,
     Label, Badge, Jumbotron, PageHeader,
     Glyphicon, Table, Form, FormGroup,
     ControlLabel, FormControl, HelpBlock,
@@ -843,6 +837,20 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                     <Image src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" rounded />
+                </div>
+
+                <div style={style}>
+                  <div>
+                    <ResponsiveEmbed a16by9>
+                      Embedded Content
+                    </ResponsiveEmbed>
+                    <ResponsiveEmbed a4by3>
+                      Embedded Content
+                    </ResponsiveEmbed>
+                    <ResponsiveEmbed bsClass='embed-responsive'>
+                      Embedded Content
+                    </ResponsiveEmbed>
+                  </div>
                 </div>
 
                 <div style={style}>
