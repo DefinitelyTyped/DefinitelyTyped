@@ -35,3 +35,7 @@ async.forEachSeries(funcCollection(), eachIterator, function (err: Error) { })
 async.forEachOf(funcCollection(), eachOfIterator, function (err: Error) { })
 async.forEachOfLimit(funcCollection(), 2, eachOfIterator, function (err: Error) { })
 async.forEachOfSeries(funcCollection(), eachOfIterator, function (err: Error) { })
+
+async.every(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
+async.everyLimit(funcCollection(), 2, funcCbErrBoolean, function (err: Error, res: boolean) { })
+async.everySeries(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
