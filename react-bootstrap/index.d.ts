@@ -868,7 +868,7 @@ declare namespace ReactBootstrap {
     var Image: React.ClassicComponentClass<ImageProps>;
 
     // <ResponsiveEmbed />
-    interface ResponsiveEmbedProps extends React.HTMLProps<ResponsiveEmbed> {
+    interface ResponsiveEmbedProps extends React.HTMLProps<HTMLElement> {
         a16by9?: boolean;
         a4by3?: boolean;
         bsClass?: string;
