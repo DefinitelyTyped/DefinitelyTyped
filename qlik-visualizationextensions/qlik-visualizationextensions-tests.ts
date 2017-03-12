@@ -1,3 +1,3 @@
-import qlik=require("qlik");
+import qlik = require("qlik");
 
 const t = qlik.currApp();

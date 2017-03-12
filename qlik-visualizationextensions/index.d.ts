@@ -14,10 +14,10 @@ declare namespace BackendAPI {
     type PatchType = "Add" | "Remove" | "Replace";
 
     interface ICharRange {
-		/**
-		 * Position of the first search occurrence
-		 * Integer
-		 */
+        /**
+         * Position of the first search occurrence
+         * Integer
+         */
         qCharPos: number;
 
         /**
@@ -84,8 +84,8 @@ declare namespace BackendAPI {
     }
 
     interface INxCell {
-		/**
-		 * Some text.
+        /**
+         * Some text.
          * This parameter is optional.
          */
         qText?: string;
@@ -97,13 +97,13 @@ declare namespace BackendAPI {
         qNum?: number;
 
         /**
-		 * Rank number of the value, starting from 0.
+         * Rank number of the value, starting from 0.
          * If the element number is a negative number, it means that the returned value is not an element number.
          * You can get the following negative values:
-		 *       # -1: the cell is a Total cell. It shows a total.
-		 *       # -2: the cell is collapsed. Applies to pivot tables.
-		 *       # -3: the cell belongs to the group Others.
-		 *       # -4: the cell is empty. Applies to pivot tables.
+         *       # -1: the cell is a Total cell. It shows a total.
+         *       # -2: the cell is collapsed. Applies to pivot tables.
+         *       # -3: the cell belongs to the group Others.
+         *       # -4: the cell is empty. Applies to pivot tables.
          */
         qElemNumber: number;
 
@@ -130,15 +130,15 @@ declare namespace BackendAPI {
         /**
          * Is set to true if a total is displayed in the cell.
          * This parameter is optional. The default value is false.
-		 * Not applicable to list objects.
+         * Not applicable to list objects.
          */
         qIsTotalCell: boolean;
 
         /**
          * Is set to true if the cell belongs to the group Others.
          * Dimension values can be set as Others depending on what has been defined in OtherTotalSpecProp.
-		 * This parameter is optional. The default value is false.
-		 * Not applicable to list objects.
+         * This parameter is optional. The default value is false.
+         * Not applicable to list objects.
          */
         qIsOtherCell: boolean;
 
@@ -150,7 +150,7 @@ declare namespace BackendAPI {
 
         /**
          * Search hits.
-		 * The search hits are highlighted.
+         * The search hits are highlighted.
          * This parameter is optional.
          */
         qHighlightRanges: INxHighlightRanges;
@@ -185,12 +185,14 @@ declare namespace BackendAPI {
         qTop: number;
 
         /**
-         * Number of columns in the page. The indexing of the columns may vary depending on whether the cells are expanded or not (parameter qAlwaysFullyExpanded in HyperCubeDef).
+         * Number of columns in the page. The indexing of the columns may vary depending on whether
+         * the cells are expanded or not (parameter qAlwaysFullyExpanded in HyperCubeDef).
          */
         qWidth: number;
 
         /**
-         * Number of rows or elements in the page. The indexing of the rows may vary depending on whether the cells are expanded or not (parameter qAlwaysFullyExpanded in HyperCubeDef).
+         * Number of rows or elements in the page. The indexing of the rows may vary depending on
+         * whether the cells are expanded or not (parameter qAlwaysFullyExpanded in HyperCubeDef).
          */
         qHeight: number;
     }
@@ -198,13 +200,13 @@ declare namespace BackendAPI {
     interface INxAttrDimInfo {
         /**
          * Cardinality of the attribute expression.
-         * 	Integer
+         *     Integer
          */
         qCardinal: number;
 
         /**
          * Number of rows.
-         * 	Size
+         *     Size
          */
         qSize: number;
 
@@ -267,7 +269,8 @@ declare namespace BackendAPI {
 
         /**
          * Array of dimension labels.
-         * Contains the labels of all dimensions in a hierarchy group (for example the labels of all dimensions in a drill down group).
+         * Contains the labels of all dimensions in a hierarchy group
+         * (for example the labels of all dimensions in a drill down group).
          * Array of String
          */
         qGroupFallbackTitles: string[];
@@ -337,7 +340,8 @@ declare namespace BackendAPI {
         qNumFormat: FieldAttributesType;
 
         /**
-         * This parameter is set to true if qNumFormat is set to U (unknown). The engine guesses the type of the field based on the field's definition.
+         * This parameter is set to true if qNumFormat is set to U (unknown).
+         * The engine guesses the type of the field based on the field's definition.
          * Boolean
          */
         qIsAutoFormat: boolean;
@@ -582,7 +586,8 @@ declare namespace BackendAPI {
         qNumFormat: IFieldAttributes;
 
         /**
-         * This parameter is set to true if qNumFormat is set to U (unknown). The engine guesses the type of the field based on the field's expression.
+         * This parameter is set to true if qNumFormat is set to U (unknown).
+         * The engine guesses the type of the field based on the field's expression.
          */
         qIsAutoFormat: boolean;
 
@@ -631,14 +636,18 @@ declare namespace BackendAPI {
         qMax: number;
 
         /**
-         * If set to true, the range includes the lowest value in the range of selections (Equals to ). [bn(50500)]
-         * Example: The range is [1,10]. If qMinInclEq is set to true it means that 1 is included in the range of selections.
+         * If set to true, the range includes the lowest value in the range of
+         * selections (Equals to ). [bn(50500)]
+         * Example: The range is [1,10]. If qMinInclEq is set to true it means
+         * that 1 is included in the range of selections.
          */
         qMinInclEq: boolean;
 
         /**
-         * If set to true, the range includes the highest value in the range of selections (Equals to ). [bn(50500)]
-         * Example: The range is [1,10]. If qMinInclEq is set to true it means that 10 is included in the range of selections.
+         * If set to true, the range includes the highest value in the range of
+         * selections (Equals to ). [bn(50500)]
+         * Example: The range is [1,10]. If qMinInclEq is set to true it means
+         * that 10 is included in the range of selections.
          */
         qMaxInclEq: boolean;
     }
@@ -660,8 +669,8 @@ declare namespace BackendAPI {
         qPath: string;
 
         /**
-         * This parameter is not used in a remove operation.
-         * Corresponds to the value of the property to add or to the new value of the property to update.
+         * This parameter is not used in a remove operation. Corresponds to the value of the
+         * property to add or to the new value of the property to update.
          * Examples: "false", "2", "\"New title\""
          * String
          */
@@ -669,25 +678,26 @@ declare namespace BackendAPI {
     }
 
     interface IBackend {
-		/**
-         * Aborts the result of a search in a list object. Clears the existing search and returns the object to the state it was in prior to the search started.
+        /**
+         * Aborts the result of a search in a list object. Clears the existing search and returns the
+         * object to the state it was in prior to the search started.
          */
         abortSearch(): void;
 
         /**
          * Accepts the result of a search in a list object and the search result is selected in the field.
-		 * @param {boolean} toggleMode - If true, toggle state for selected values
+         * @param {boolean} toggleMode - If true, toggle state for selected values
          */
         acceptSearch(toggleMode: boolean): void;
 
         /**
-		 * Updates the properties for this object.
+         * Updates the properties for this object.
          * @param {array} qPatches - Array of patches. Each path contains:
-		 *        #qOp: Add/Remove/Replace
-		 *        #qPath: Path to property
-		 *        #qValue: The new value in string format. Strings need to be surrounded by \".
-		 * @param {boolean} qSoftPatch - Set to True if properties should be soft, that is not persisted.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+         *        #qOp: Add/Remove/Replace
+         *        #qPath: Path to property
+         *        #qValue: The new value in string format. Strings need to be surrounded by \".
+         * @param {boolean} qSoftPatch - Set to True if properties should be soft, that is not persisted.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         applyPatches(qPatches: any[], qSoftPatch: boolean): ng.IPromise<any>;
 
@@ -697,164 +707,173 @@ declare namespace BackendAPI {
         clearSelections(): void;
 
         /**
-         * Clears all soft patches that has previously been applied for this object using the applyPatches method.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+         * Clears all soft patches that has previously been applied for this object using the
+         * applyPatches method.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         clearSoftPatches(): ng.IPromise<any>;
 
         /**
-         * Collapse the left dimensions of a pivot table. Only works for hypercubes with qMode = P which are not always fully expanded.
-		 * @param {number} qRow - Row index.
-		 * @param {number} qCol - Column index.
-		 * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+         * Collapse the left dimensions of a pivot table. Only works for hypercubes with
+         * qMode = P which are not always fully expanded.
+         * @param {number} qRow - Row index.
+         * @param {number} qCol - Column index.
+         * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         collapseLeft(qRow: number, qCol: number, qAll?: boolean): ng.IPromise<any>;
 
         /**
-         * Collapse the top dimensions of a pivot table. Only works for hypercubes with qMode = P which are not always fully expanded.
-		 * @param {number} qRow - Row index.
-		 * @param {number} qCol - Column index.
-		 * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+         * Collapse the top dimensions of a pivot table. Only works for hypercubes with
+         * qMode = P which are not always fully expanded.
+         * @param {number} qRow - Row index.
+         * @param {number} qCol - Column index.
+         * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         collapseTop(qRow: number, qCol: number, qAll?: boolean): ng.IPromise<any>;
 
         /**
          * Loops through data rows for this object. Only rows that are available client side will be used.
-		 * @param {function} callback - Function to call for each row.
-		 * Parameters are row number and row data as an array of NxCell objects.
-		 * The loop is terminated if the function returns false.
-		 * @return {NxCell[]} - An array of NxCell.
-		 */
+         * @param {function} callback - Function to call for each row.
+         * Parameters are row number and row data as an array of NxCell objects.
+         * The loop is terminated if the function returns false.
+         * @return {NxCell[]} - An array of NxCell.
+         */
         eachDataRow(callback: any): INxCell[];
 
         /**
-		 * Expands the left dimensions of a pivot table. Only works for hypercubes with qMode = P which are not always fully expanded.
-		 * @param {number} qRow - Row index.
-		 * @param {number} qCol - Column index.
-		 * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Expands the left dimensions of a pivot table. Only works for hypercubes with
+         * qMode = P which are not always fully expanded.
+         * @param {number} qRow - Row index.
+         * @param {number} qCol - Column index.
+         * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         expandLeft(qRow: number, qCol: number, qAll?: boolean): ng.IPromise<any>;
 
         /**
-         * Expands the top dimensions of a pivot table. Only works for hypercubes with qMode = P which are not always fully expanded.
-		 * @param {number} qRow - Row index.
-		 * @param {number} qCol - Column index.
-		 * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+         * Expands the top dimensions of a pivot table. Only works for hypercubes with
+         * qMode = P which are not always fully expanded.
+         * @param {number} qRow - Row index.
+         * @param {number} qCol - Column index.
+         * @param {boolean} [qAll] - Optional. If set to true, qRow and qCol are ignored and all cells are collapsed.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         expandTop(qRow: number, qCol: number, qAll?: boolean): ng.IPromise<any>;
 
         /**
          * Geta data from Qlik engine for this object.
-		 * @param {array} qPages - An array of NxPage objects.
-		 * @return {Promise} - A promise of qDataPages.
+         * @param {array} qPages - An array of NxPage objects.
+         * @return {Promise} - A promise of qDataPages.
          */
         getData(qPages: INxPage[]): ng.IPromise<any>;
 
         /**
          * Gets a data row for this object.
-		 * @param {number} rownum - The row number.
-		 * @return {NxCell} - A row of NxCell or null if the row is not available client side and need to be fetched with getData method.
+         * @param {number} rownum - The row number.
+         * @return {NxCell} - A row of NxCell or null if the row is not available client side 
+         *                    and need to be fetched with getData method.
          */
         getDataRow(rownum: number): INxCell;
 
         /**
          * Gets qDimensionInfo for this object.
-		 * @return {NxDimensionInfo[]} - An array of qDimensionInfo objects.
+         * @return {NxDimensionInfo[]} - An array of qDimensionInfo objects.
          */
         getDimensionInfos(): INxDimensionInfo[];
 
         /**
          * Gets qMeasureInfo for this object.
-		 * @return {NxMeasureInfo} - An array of qMeasureInfo objects.
+         * @return {NxMeasureInfo} - An array of qMeasureInfo objects.
          */
         getMeasureInfos(): INxMeasureInfo;
 
         /**
          * Gets pivot data from the Qlik engine for this object. Only works for hypercubes with qMode = P.
-		 * @param {array} qPages - An array of request page objects.
-		 * @return {Promise} - A promise of pivot data pages.
+         * @param {array} qPages - An array of request page objects.
+         * @return {Promise} - A promise of pivot data pages.
          */
         getPivotData(qPages: INxPage[]): ng.IPromise<INxPage[]>;
 
         /**
-		 * Get properties for this object.
-		 * @return {Promise} - A promise of object properties.
-		 */
+         * Get properties for this object.
+         * @return {Promise} - A promise of object properties.
+         */
         getProperties(): ng.IPromise<any>;
 
         /**
-         * Get reduced data from the Qlik engine for this object. This method is intended for preserving the shape of the data, not for viewing the actual data points.
-		 * @param {array} qPages - An array of request page objects.
-		 * @param {number} qZoomFactor - Zoom factor.
-		 * If set to -1, the Qlik engine decides of the zoom factor.
-		 * If qReductionMode is D1 or S, the zoom factor is 2n. If the zoom factor is 5, the data are reduced by a factor 32.
-		 * If qReductionMode is C, the zoom factor defines the number of centroids.
-		 * @param {string} qReductionMode - Reduction mode.Can be:
-		 *        # N for no data reduction.
-		 *        # D1 to reduce a bar chart or line chart. The profile of the chart is reduced whatever the number of dimensions in the chart.
-		 *        # S to reduce the resolution of a scatter plot.
-		 *        # C to reduce the data of a scatter plot chart.
-		 *        # ST to reduce the data of a stacked pivot table.
-		 * @return {Promise} - A promise of reduced data pages.
+         * Get reduced data from the Qlik engine for this object. This method is intended for preserving the
+         * shape of the data, not for viewing the actual data points.
+         * @param {array} qPages - An array of request page objects.
+         * @param {number} qZoomFactor - Zoom factor.
+         * If set to -1, the Qlik engine decides of the zoom factor.
+         * If qReductionMode is D1 or S, the zoom factor is 2n.
+         * If the zoom factor is 5, the data are reduced by a factor 32.
+         * If qReductionMode is C, the zoom factor defines the number of centroids.
+         * @param {string} qReductionMode - Reduction mode.Can be:
+         *        # N for no data reduction.
+         *        # D1 to reduce a bar chart or line chart.
+         *          The profile of the chart is reduced whatever the number of dimensions in the chart.
+         *        # S to reduce the resolution of a scatter plot.
+         *        # C to reduce the data of a scatter plot chart.
+         *        # ST to reduce the data of a stacked pivot table.
+         * @return {Promise} - A promise of reduced data pages.
          */
         getReducedData(qPages: INxPage[], qZoomFactor: number, qReductionMode: string): ng.IPromise<any>;
 
         /**
          * Get total number of data rows for this object.
-		 * @return {Number} - A number.
+         * @return {Number} - A number.
          */
         getRowCount(): number;
 
         /**
          * Get stacked data from the Qlik engine for this object. Only works for hypercubes with qMode = S.
-		 * @param {array} qPages - An array of request page objects.
-		 * @param {number} qMaxNbrCells - Maximum number of cells at outer level.
-		 * @return {Promise} - A promise of stack data pages.
+         * @param {array} qPages - An array of request page objects.
+         * @param {number} qMaxNbrCells - Maximum number of cells at outer level.
+         * @return {Promise} - A promise of stack data pages.
          */
         getStackedData(qPages: INxPage[], qMaxNbrCells: number): ng.IPromise<any>;
 
         /**
          * Find out if there are unconfirmed selections for this object.
-		 * @return {boolean} - True if there are unconfirmed selections.
+         * @return {boolean} - True if there are unconfirmed selections.
          */
         hasSelections(): boolean;
 
         /**
          * Save this object.
-		 * @return {Promise} - A promise. In case of success, it returns "undefined". In case of failure it returns the error.
+         * @return {Promise} - A promise. In case of success, it returns "undefined". In case of failure it returns the error.
          */
         save(): ng.IPromise<any>;
 
         /**
          * Search for a term in a list object. Results in an updated layout, containing only matching records.
-		 * @param {string} term - Term to search for.
+         * @param {string} term - Term to search for.
          */
         search(term: string): void;
 
         /**
          * Select values in this object using ranges.
-		 * @param {array} qRanges - Array of ranges to select.
-		 * @param {boolean} qOrMode - If true only one of the measures needs to be in range.
+         * @param {array} qRanges - Array of ranges to select.
+         * @param {boolean} qOrMode - If true only one of the measures needs to be in range.
          */
         selectRange(qRanges: IRange[], qOrMode: boolean): void;
 
         /**
          * Select values in this object with a Qlik engine call which triggers a repaint of the object.
-		 * @param {number} qDimNo - Dimension number. 0 = first dimension.
-		 * @param {array} qValues - Array of values (qElemNumber in the matrix from the Qlik engine) to select or deselect.
-		 * @param {boolean} qToggleMode - If true, values in the field are selected in addition to any previously selected items.
-		 * If false, values in the field are selected while previously selected items are deselected.
+         * @param {number} qDimNo - Dimension number. 0 = first dimension.
+         * @param {array} qValues - Array of values (qElemNumber in the matrix from the Qlik engine) to select or deselect.
+         * @param {boolean} qToggleMode - If true, values in the field are selected in addition to any previously selected items.
+         * If false, values in the field are selected while previously selected items are deselected.
          */
         selectValues(qDimNo: number, qValues: any[], qToggleMode: boolean): void;
 
         /**
          * Set properties for this object.
-		 * @param {object} props - The properties to set.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+         * @param {object} props - The properties to set.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         setProperties(props: any): ng.IPromise<any>;
     }
@@ -923,114 +942,119 @@ declare namespace RootAPI {
     interface IRoot {
         /**
          * Calls the Qlik Sense repository.
-		 * @param {string} path - Path to the Qlik Sense repository.
-		 * Refer to Qlik Sense repository documentation for the available paths.
-		 * @param {string} [method] - Optional. HTTP method. Default is GET.
-		 * @param {string} [body] - Optional. Body of the post.
+         * @param {string} path - Path to the Qlik Sense repository.
+         * Refer to Qlik Sense repository documentation for the available paths.
+         * @param {string} [method] - Optional. HTTP method. Default is GET.
+         * @param {string} [body] - Optional. Body of the post.
          * @return {Promise} - A promise of a Qlik engine reply.
          */
         callRepository(path: string, method?: string, body?: string): ng.IPromise<any>;
 
         /** currApp
          * Gets a reference to the current app. Use the currApp method in an extension to get a reference to the app currently displayed.
-	     * @param {object} [reference] - Optional. Reference to extension object. Introduced in version 1.1.
+         * @param {object} [reference] - Optional. Reference to extension object. Introduced in version 1.1.
          * @return {IApp} - An App JavaScript object with app methods.
          */
         currApp(object?: any): AppAPI.IApp;
 
         /**
          * Gets a list of Qlik Sense apps that you potentially can connect to and registers a callback to receive the data.
-		 * The getAppList method opens a WebSocket, gets the app list, and then closes the WebSocket.
-		 * @param {function} callback - Callback method.
-		 * @param {object} [config] - Optional. Additional configuration parameters:
-		 * Name | Type | Descr | Name
-		 * host | String | Optional. Qlik host. | host
-		 * port | String or integer | Port number. | port
-		 * prefix | String | Optional. Qlik virtual proxy. "/" if no proxy. | prefix
-		 * isSecure | Boolean | Optional. Use SSL. | isSecure
-		 * openWithoutData | Boolean | Optional. Open app without loading data. Introduced in version 1.1. | openWithoutData
-		 * identity | String | Optional. Unique identity for the session. If omitted, the session will be shared. | identity
+         * The getAppList method opens a WebSocket, gets the app list, and then closes the WebSocket.
+         * @param {function} callback - Callback method.
+         * @param {object} [config] - Optional. Additional configuration parameters:
+         * Name | Type | Descr | Name
+         * host | String | Optional. Qlik host. | host
+         * port | String or integer | Port number. | port
+         * prefix | String | Optional. Qlik virtual proxy. "/" if no proxy. | prefix
+         * isSecure | Boolean | Optional. Use SSL. | isSecure
+         * openWithoutData | Boolean | Optional. Open app without loading data. Introduced in version 1.1. | openWithoutData
+         * identity | String | Optional. Unique identity for the session. If omitted, the session will be shared. | identity
          */
         getAppList(callback: any, config?: any): void;
 
         /**
-         * Gets a list of extensions installed for Qlik Sense. The reply contains all extensions, that is widget libraries, visualization extensions and mashups.
-		 * @param {function} [callback] - Optional. Callback method.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+         * Gets a list of extensions installed for Qlik Sense. The reply contains all extensions,
+         * that is widget libraries, visualization extensions and mashups.
+         * @param {function} [callback] - Optional. Callback method.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         getExtensionList(callback?: any): ng.IPromise<any>;
 
         /**
-		 * Opens a WebSocekt connection to the Qlik engine for global methods.
-		 * @param {object} [config] - Optional. Parameters:
-		 * Name | Type | Description
-		 * host | String | Qlik Sense host
-		 * port | String | Port number
-		 * prefix | String | Qlik Sense virtual proxy. / if no virtual proxy
-		 * isSecure | Boolean | Use SSL
-		 * identity | String | Unique identity for the session. If omitted, the session will be shared.
-		 * @return {ANY} - A global JavaScript object with global methods.
-		 */
+         * Opens a WebSocekt connection to the Qlik engine for global methods.
+         * @param {object} [config] - Optional. Parameters:
+         * Name | Type | Description
+         * host | String | Qlik Sense host
+         * port | String | Port number
+         * prefix | String | Qlik Sense virtual proxy. / if no virtual proxy
+         * isSecure | Boolean | Use SSL
+         * identity | String | Unique identity for the session. If omitted, the session will be shared.
+         * @return {ANY} - A global JavaScript object with global methods.
+         */
         getGlobal(config: any): any;
 
         /** Opens a Qlik Sense app. You can open multiple apps.
          *      Most other methods are defined on the app. Returns:  App JavaScript object with app methods.
-		 * @param {string} appId The app id.
-		 * @param {object} [config] Optional. Additional configuration parameters:
-		 *     Name   |   Type   | Descr
-		 *     host   |   String   |   Optional. Qlik host.
-		 *     port   |   String or Integer   |   Port number.
-		 *     prefix |   String   |   Optional. Qlik virtual proxy. "/" if no proxy.
-		 *     isSecure   |   Boolean   |   Optional. Use SSL.
-		 *     openWithoutData   |   Boolean   |   Optional. Open app without loading data. Introduced in version 1.1.
-		 *     identity   |   String   |   Optional. Unique identity for the session. If omitted, the session will be shared.
-		 *     Parameter updated in version 2.2.
-		 * @return {any} - App JavaScript object with app methods.
+         * @param {string} appId The app id.
+         * @param {object} [config] Optional. Additional configuration parameters:
+         *     Name   |   Type   | Descr
+         *     host   |   String   |   Optional. Qlik host.
+         *     port   |   String or Integer   |   Port number.
+         *     prefix |   String   |   Optional. Qlik virtual proxy. "/" if no proxy.
+         *     isSecure   |   Boolean   |   Optional. Use SSL.
+         *     openWithoutData   |   Boolean   |   Optional. Open app without loading data. Introduced in version 1.1.
+         *     identity   |   String   |   Optional. Unique identity for the session. If omitted, the session will be shared.
+         *     Parameter updated in version 2.2.
+         * @return {any} - App JavaScript object with app methods.
          */
         openApp(appId: string, config?: any): any;
 
         /**
-		 * Registers an extension for use in this mashup. The extension is not installed on the Qlik Sense server and only available in the session where it is created.
-		 * As long as a JavaScript module is created in the correct format, it can be sent to the registerExtension function.
-		 * @param {string} id - Set the ID of the visualization extension.
-		 * @param {object} impl - Set the extension implementation.
-		 * @param {object} [metadata] - Optional. Extension meta-data, same format as the QEXT file. Default: {"type":"visualization"}
-		 */
+         * Registers an extension for use in this mashup. The extension is not installed on the
+         * Qlik Sense server and only available in the session where it is created.
+         * As long as a JavaScript module is created in the correct format, it can be sent to
+         * the registerExtension function.
+         * @param {string} id - Set the ID of the visualization extension.
+         * @param {object} impl - Set the extension implementation.
+         * @param {object} [metadata] - Optional. Extension meta-data, same format as the QEXT file. Default: {"type":"visualization"}
+         */
         registerExtension(id: string, impl: any, metadata?: any): void;
 
         /**
-		 * Sends a resize event to all Qlik Sense objects.
-		 * @param {string} [ID] - Object id. Optional: if no ID resize event will be sent to all objects.
-		 */
+         * Sends a resize event to all Qlik Sense objects.
+         * @param {string} [ID] - Object id. Optional: if no ID resize event will be sent to all objects.
+         */
         resize(ID?: string): void;
 
         /**
-		 * Sets a specific language for the Qlik Sense session.
-		 * Language should be defined before the app is opened meaning the setLanguage method should be called before the openApp method is called.
-		 * @param {string} lang - Language code. Can be:
-		 *       # German: short: de long: de-DE
-		 *       # English: short: en long: en-US
-		 *       # Spanish: short: es long: es-ES
-		 *       # French: short: fr long: fr-FR
-		 *       # Italian: short: it long: it-IT
-		 *       # Japanese: short: ja long: ja-JP
-		 *       # Korean: (introduced in version 3.0) short: ko long: ko-KR
-		 *       # Dutch: short: nl long: nl-NL
-		 *       # Polish: (introduced in version 3.0) short: pl long: pl-PL
-		 *       # Brazilian Portuguese: short: pt long: pt-BR
-		 *       # Russian: short: ru long: ru-RU
-		 *       # Swedish: short: sv long: sv-SE
-		 *       # Turkish: (introduced in version 3.0) short: tr long: tr-TR
-		 *       # Simplified Chinese: short: Do not use! long: zh-CN
-		 *       # Traditional Chinese: (introduced in version 3.0) short: Do not use! long: zh-TW
-		 */
+         * Sets a specific language for the Qlik Sense session.
+         * Language should be defined before the app is opened meaning the setLanguage
+         * method should be called before the openApp method is called.
+         * @param {string} lang - Language code. Can be:
+         *       # German: short: de long: de-DE
+         *       # English: short: en long: en-US
+         *       # Spanish: short: es long: es-ES
+         *       # French: short: fr long: fr-FR
+         *       # Italian: short: it long: it-IT
+         *       # Japanese: short: ja long: ja-JP
+         *       # Korean: (introduced in version 3.0) short: ko long: ko-KR
+         *       # Dutch: short: nl long: nl-NL
+         *       # Polish: (introduced in version 3.0) short: pl long: pl-PL
+         *       # Brazilian Portuguese: short: pt long: pt-BR
+         *       # Russian: short: ru long: ru-RU
+         *       # Swedish: short: sv long: sv-SE
+         *       # Turkish: (introduced in version 3.0) short: tr long: tr-TR
+         *       # Simplified Chinese: short: Do not use! long: zh-CN
+         *       # Traditional Chinese: (introduced in version 3.0) short: Do not use! long: zh-TW
+         */
         setLanguage(lang: string): void;
 
         /**
-		 * Registers a callback for error handling. Standard Qlik Sense error handling is used if this method is not called.
-		 * @param {function} onError - Error handling function
-		 * @param {function} [onWarning] - Optional. Warning handling function. Introduced in version 2.1.
-		 */
+         * Registers a callback for error handling. Standard Qlik Sense error
+         * handling is used if this method is not called.
+         * @param {function} onError - Error handling function
+         * @param {function} [onWarning] - Optional. Warning handling function. Introduced in version 2.1.
+         */
         setOnError(onError: any, onWarning?: any): void;
 
         /**
@@ -1047,260 +1071,278 @@ declare namespace RootAPI {
 
 declare namespace AppAPI {
     interface IApp {
-		/**
-         * Adds an alternate state in the app. Multiple states within a Qlik Sense app can be created and applied to specific objects within the app. Objects in a given state are not affected by user selection in the other states.
-		 * @param {string} qStateName - Mandatory. Alternate state name.
-		 * @return {Promise} - A promise of a Qlik engine reply.
+        /**
+         * Adds an alternate state in the app. Multiple states within a Qlik Sense
+         * app can be created and applied to specific objects within the app.
+         * Objects in a given state are not affected by user selection in the other states.
+         * @param {string} qStateName - Mandatory. Alternate state name.
+         * @return {Promise} - A promise of a Qlik engine reply.
          */
         addAlternateState(qStateName: string): ng.IPromise<any>;
 
         /**
-		 * Steps back in the list of selections.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Steps back in the list of selections.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         back(): ng.IPromise<any>;
 
         /**
-		 * Clears all selections in all fields of the current Qlik Sense app.
-		 * @param {boolean} [lockedAlso] - Optional. Alternate state name. Default: false Introduced in version 2.1.
-		 * @param {string} [state] - Optional. Alternate state name. Default: $ Introduced in version 2.1.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Clears all selections in all fields of the current Qlik Sense app.
+         * @param {boolean} [lockedAlso] - Optional. Alternate state name. Default: false Introduced in version 2.1.
+         * @param {string} [state] - Optional. Alternate state name. Default: $ Introduced in version 2.1.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         clearAll(lockedAlso?: boolean, state?: string): ng.IPromise<any>;
 
         /**
-		 * Closes a Qlik Sense app. Also closes the WebSocket and clears out client side data.
-		 */
+         * Closes a Qlik Sense app. Also closes the WebSocket and clears out client side data.
+         */
         close(): void;
 
         /**
-		 * Defines a hypercube and registers a callback to receive the data.
-		 * @param {object} qHyperCubeDef - Cube definition.
-		 * @param {function} [callback] - Optional. Callback method. Parameter will contain a qHyperCube.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * Defines a hypercube and registers a callback to receive the data.
+         * @param {object} qHyperCubeDef - Cube definition.
+         * @param {function} [callback] - Optional. Callback method. Parameter will contain a qHyperCube.
+         * @return {Promise} - A promise of an object model.
+         */
         createCube(qHyperCubeDef: any, callback?: any): ng.IPromise<any>;
 
         /**
-		 * Creates a generic object and registers a callback to receive the data. The generic object can contain the following:
-		 *       # qHyperCubeDef
-		 *       # qListObjectDef
-		 *       # qStringExpression
-		 *       # qValueExpression
-		 * The callback method will be called whenever the selection state changes in a way that affects the generic object. The parameter will be the evaluated version of the definition.
-		 * @param {object} [def] - Optional. Generic object definition
-		 * @param {function} [callback] - Optional. Callback method.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * Creates a generic object and registers a callback to receive the data. The generic object can contain the following:
+         *       # qHyperCubeDef
+         *       # qListObjectDef
+         *       # qStringExpression
+         *       # qValueExpression
+         * The callback method will be called whenever the selection state changes
+         * in a way that affects the generic object.
+         * The parameter will be the evaluated version of the definition.
+         * @param {object} [def] - Optional. Generic object definition
+         * @param {function} [callback] - Optional. Callback method.
+         * @return {Promise} - A promise of an object model.
+         */
         createGenericObject(def?: any, callback?: any): ng.IPromise<any>;
 
         /**
-		 * Defines a list of field values and registers a callback to receive the data.
-		 * @param {object} qListObjectDef - List definition.
-		 * @param {function} [callback] - Optional. Callback method. Parameter will contain a qListObject.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * Defines a list of field values and registers a callback to receive the data.
+         * @param {object} qListObjectDef - List definition.
+         * @param {function} [callback] - Optional. Callback method. Parameter will contain a qListObject.
+         * @return {Promise} - A promise of an object model.
+         */
         createList(qListObjectDef: any, callback?: any): ng.IPromise<any>;
 
         /**
-		 * Defines a hypercube for a table and is the entry point to the Table API. It creates a table object that wraps the hypercube.
-		 * @param {Array.<String|Object>} dimensions - Dimensions to use.
+         * Defines a hypercube for a table and is the entry point to the Table API.
+         * It creates a table object that wraps the hypercube.
+         * @param {Array.<String|Object>} dimensions - Dimensions to use.
          * Should, for each entry, be a field name or a NxDimension structure.
-		 * @param {Array.<String|Object>} measures - Measures to use.
+         * @param {Array.<String|Object>} measures - Measures to use.
          * Should, for each entry, be an expression or a NxMeasure structure.
-		 * @param {object} [options] - Optional. Options to set.
-		 * @return {QTable} - A table object of type QTable, which is initially empty but that eventually will contain data. The table object will be updated when selection state changes.
-		 */
+         * @param {object} [options] - Optional. Options to set.
+         * @return {QTable} - A table object of type QTable, which is initially
+         *                    empty but that eventually will contain data.
+         *                    The table object will be updated when selection state changes.
+         */
         createTable(dimensions: string[] | any[], measures: string[] | any[], options?: any): TableAPI.IQTable;
 
         /**
-		 * Destroys a Qlik Sense session object created with the createGenericObject method or any of createCube, createList or getList methods.
-		 * Calling this method removes the object from the Qlik engine, no more updates are sent to the client and all methods on the object are invalid.
-		 * @param {string} id - Session object id.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Destroys a Qlik Sense session object created with the createGenericObject
+         * method or any of createCube, createList or getList methods.
+         * Calling this method removes the object from the Qlik engine,
+         * no more updates are sent to the client and all methods on the object are invalid.
+         * @param {string} id - Session object id.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         destroySessionObject(id: string): ng.IPromise<any>;
 
         /**
-		 * Reloads the data in a Qlik Sense app.
-		 * @param {string} [qMode] - Optional. Error handling mode:
-		 *       # 0 = default mode.
-		 *       # 1 = attempt recovery on all errors.
-		 *       # 2 = fail on all errors.
-		 * @param {boolean} [qPartial] - Optional. Set to true for partial reload.
-		 * @param {boolean} [qDebug] - Optional. Set to true if debug breakpoints are honored. Execution of the script will be in debug mode.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Reloads the data in a Qlik Sense app.
+         * @param {string} [qMode] - Optional. Error handling mode:
+         *       # 0 = default mode.
+         *       # 1 = attempt recovery on all errors.
+         *       # 2 = fail on all errors.
+         * @param {boolean} [qPartial] - Optional. Set to true for partial reload.
+         * @param {boolean} [qDebug] - Optional. Set to true if debug breakpoints are honored. Execution of the script will be in debug mode.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         doReload(qMode?: string, qPartial?: boolean, qDebug?: boolean): ng.IPromise<any>;
 
         /**
-		 * Saves a Qlik Sense app, including all objects and data in the data model.
-		 * @param {string} [qFileName] - Optional. File name of the file to save.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Saves a Qlik Sense app, including all objects and data in the data model.
+         * @param {string} [qFileName] - Optional. File name of the file to save.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         doSave(qFileName?: string): ng.IPromise<any>;
 
         /**
-		 * Gets a field reference with methods that can be used to manipulate the field.
-		 * @param {string} [field] - Optional. Name of the field.
-		 * @param {string} [state] - Optional. Alternate state name. Default is $.
-		 * @return {QField} - A QField object with methods and properties that can be used to manipulate the field.
-		 */
+         * Gets a field reference with methods that can be used to manipulate the field.
+         * @param {string} [field] - Optional. Name of the field.
+         * @param {string} [state] - Optional. Alternate state name. Default is $.
+         * @return {QField} - A QField object with methods and properties that can be used to manipulate the field.
+         */
         field(field?: string, state?: string): FieldAPI.IQField;
 
         /**
-	 	 * Step forward in list of selections.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+          * Step forward in list of selections.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         forward(): ng.IPromise<any>;
 
         /**
-		 * Gets a layout for this Qlik Sense app and registers a callback to receive the data. Returns the dynamic properties (if any) in addition to the fixed properties.
-		 * @param {function} [callback] - Optional. Callback method.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Gets a layout for this Qlik Sense app and registers a callback to receive the data.
+         * Returns the dynamic properties (if any) in addition to the fixed properties.
+         * @param {function} [callback] - Optional. Callback method.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         getAppLayout(callback?: any): ng.IPromise<any>;
 
         /**
-		 * Gets a list of sheets and visualizations and registers a callback to receive the data.
-		 * @param {string} [field] - Optional. Type of object. One of:
-		 *        # sheet
-		 *        # masterobject
-		 * Default is sheet.
-		 * @param {function} [callback] - Optional. Callback method.
-		 */
+         * Gets a list of sheets and visualizations and registers a callback to receive the data.
+         * @param {string} [field] - Optional. Type of object. One of:
+         *        # sheet
+         *        # masterobject
+         * Default is sheet.
+         * @param {function} [callback] - Optional. Callback method.
+         */
         getAppObjectList(type?: string, callback?: any): void;
 
         /**
-		 * Gets properties for a generic object, the children of the generic object and the bookmarks and/or embedded snapshots of the generic object.
-		 * @param {string} id - Object id.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * Gets properties for a generic object, the children of the generic object
+         * and the bookmarks and/or embedded snapshots of the generic object.
+         * @param {string} id - Object id.
+         * @return {Promise} - A promise of an object model.
+         */
         getFullPropertyTree(id: string): ng.IPromise<any>;
 
         /**
-		 * Gets a list of internal Qlik Sense objects and registers a callback to receive the data.
-		 * @param {string} type - Type of object:
-		 *       # FieldList
-		 *       # MeasureList
-		 *       # DimensionList
-		 *       # BookmarkList
-		 *       # SelectionObject
-		 *       # SnapshotList (Introduced in version 1.1)
-		 *       # MediaList (Introduced in version 1.1)
-		 *       # Sheet (Introduced in version 1.1)
-		 *       # MasterObject (Introduced in version 1.1)
-		 *       # VariableList (Introduced in version 2.0)
-		 *       # story (Introduced in version 2.1)
-		 * @param {function} [callback] - Optional. Registers a callback that is executed every time data is returned.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * Gets a list of internal Qlik Sense objects and registers a callback to receive the data.
+         * @param {string} type - Type of object:
+         *       # FieldList
+         *       # MeasureList
+         *       # DimensionList
+         *       # BookmarkList
+         *       # SelectionObject
+         *       # SnapshotList (Introduced in version 1.1)
+         *       # MediaList (Introduced in version 1.1)
+         *       # Sheet (Introduced in version 1.1)
+         *       # MasterObject (Introduced in version 1.1)
+         *       # VariableList (Introduced in version 2.0)
+         *       # story (Introduced in version 2.1)
+         * @param {function} [callback] - Optional. Registers a callback that is executed every time data is returned.
+         * @return {Promise} - A promise of an object model.
+         */
         getList(type: string, callback?: any): ng.IPromise<any>;
 
         /**
-		 * Retrieves a Qlik Sense object from the Qlik Sense application and inserts it into a HTML element. The object fills the HTML object, so you can size and position the element to determine how large the Qlik Sense object will be.
-		 * If you supply only one parameter, you get the model without displaying the object.
-		 * @param {string} id - Object id or 'CurrentSelections' if used for Selections bar.
+         * Retrieves a Qlik Sense object from the Qlik Sense application and inserts
+         * it into a HTML element. The object fills the HTML object, so you can size
+         * and position the element to determine how large the Qlik Sense object will be.
+         * If you supply only one parameter, you get the model without displaying the object.
+         * @param {string} id - Object id or 'CurrentSelections' if used for Selections bar.
          * @param {Element | string} [elem] - Optional. HTML element.
          * Since version 1.1 it is also possible to define a string of the HTML element id.
-		 * @param {object} [options] - Optional.
-		 * Name | Type | Description
-		 * noInteraction | Boolean | Set to true if you want to disable interaction, including selections, in the visualization. Introduced in version 1.1 and updated in version 3.0.
-		 * noSelections  | Boolean | Set to true if you want to disable selections in the visualization. Introduced in version 3.0.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * @param {object} [options] - Optional.
+         * Name | Type | Description
+         * noInteraction | Boolean | Set to true if you want to disable interaction, 
+         *                           including selections, in the visualization.
+         *                           Introduced in version 1.1 and updated in version 3.0.
+         * noSelections  | Boolean | Set to true if you want to disable selections in the visualization.
+         *                           Introduced in version 3.0.
+         * @return {Promise} - A promise of an object model.
+         */
         getObject(id: string, elem?: any | string, options?: any): ng.IPromise<any>;
 
         /**
-		 * Gets properties for a Qlik Sense object.
-		 * @param {string} id - Object id.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * Gets properties for a Qlik Sense object.
+         * @param {string} id - Object id.
+         * @return {Promise} - A promise of an object model.
+         */
         getObjectProperties(id: string): ng.IPromise<any>;
 
         /**
-		 * Inserts a Qlik Sense snapshot into a HTML element. The snapshot fills the HTML object so you can size and position the element to determine how large the Qlik Sense object will be.
-		 * If you only supply one parameter, you will just get the model without displaying the object.
+         * Inserts a Qlik Sense snapshot into a HTML element. The snapshot fills
+         * the HTML object so you can size and position the element to determine
+         * how large the Qlik Sense object will be. If you only supply one parameter,
+         * you will just get the model without displaying the object.
          * @param {string} id - Snapshot ID.
          * @param {element | string} [elem] - Optional. HTML element or string with HTML element id.
-		 * @return {Promise} - A promise of an object model.
-		 */
+         * @return {Promise} - A promise of an object model.
+         */
         getSnapshot(id: string, elem?: any | string): ng.IPromise<any>;
 
         /**
-		 * Locks all selections.
-		 * @param {string} [state=$] - Optional. Alternate state name.
-		 * Default: $
-		 * Introduced in version 2.1.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Locks all selections.
+         * @param {string} [state=$] - Optional. Alternate state name.
+         * Default: $
+         * Introduced in version 2.1.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         lockAll(state?: string): ng.IPromise<any>;
 
         /**
-		 * Removes an alternate state in the app.
-		 * @param {string} qStateName - Alternate state name.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Removes an alternate state in the app.
+         * @param {string} qStateName - Alternate state name.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         removeAlternateState(qStateName: string): ng.IPromise<any>;
 
         /**
-		 * Searches for one or more terms in the values of a Qlik Sense app.
-		 * @param {array} qTerms - Terms to search for.
-		 * @param {object} qPage - Properties:
-		 * Name | Type | Description
-		 * qOffset | Number | Position from the top, starting from 0.
-		 * qCount | Number | Number of search results to return.
-		 * qMaxNbrFieldMatches | Number | Maximum number of matching values to return per search result.
-		 * @param {object} qOptions - Properties
-		 * Name | Type | Description
-		 * qSearchFields | Array | List of search fields.
-		 * qContext | | Search context. Can be one of:
-		 *       # Cleared: In this mode, the first step is to clear any current selections in the app. The second step is to search for one or more terms in the values of the app.
-		 *       # LockedFieldsOnly: In this mode, the search applies only to the values associated with the selections made in locked fields, ignoring selections in any unlocked field. If no locked fields, the behavior is identical to the Cleared context. You cannot make any new selections in a locked field. You can get search hits for the associated values of a locked field but you cannot get the search hits for the non associative values.
-		 *       # CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app. New selections are made on top of the current selections. If no selections were made before the search, this mode is identical to the Cleared context.
-		 * | | Default value is LockedFieldsOnly.
-		 * @param {function} [callback] - Optional. Callback method.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Searches for one or more terms in the values of a Qlik Sense app.
+         * @param {array} qTerms - Terms to search for.
+         * @param {object} qPage - Properties:
+         * Name | Type | Description
+         * qOffset | Number | Position from the top, starting from 0.
+         * qCount | Number | Number of search results to return.
+         * qMaxNbrFieldMatches | Number | Maximum number of matching values to return per search result.
+         * @param {object} qOptions - Properties
+         * Name | Type | Description
+         * qSearchFields | Array | List of search fields.
+         * qContext | | Search context. Can be one of:
+         *       # Cleared: In this mode, the first step is to clear any current selections in the app. The second step is to search for one or more terms in the values of the app.
+         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated with the selections made in locked fields, ignoring selections in any unlocked field. If no locked fields, the behavior is identical to the Cleared context. You cannot make any new selections in a locked field. You can get search hits for the associated values of a locked field but you cannot get the search hits for the non associative values.
+         *       # CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app. New selections are made on top of the current selections. If no selections were made before the search, this mode is identical to the Cleared context.
+         * | | Default value is LockedFieldsOnly.
+         * @param {function} [callback] - Optional. Callback method.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         searchAssociations(qTerms: any[], qPage: any, qOptions: any, callback?: any): ng.IPromise<any>;
 
         /**
-		 * Searches for one or more terms in the values of a Qlik Sense app.
-		 * @param {array} qTerms - Terms to search for.
-		 * @param {object} qPage - Properties:
-		 * Name | Type | Description
-		 * qOffset | Number | Position from the top, starting from 0.
-		 * qCount | Number | Number of search results to return.
-		 * qGroupOptions | Array | This parameter is optional. Options of the search groups. If this property is not set, all values are returned.
-		 * qGroupItemOptions | Array | This parameter is optional. Options of the search group items. If this property is not set, all values are returned.
-		 * qOptions | Object | Optional. Search options. Properties:
-		 * Name | Type | Description
-		 * qSearchFields | Array | List of search fields.
-		 * qContext | | Search context. Can be one of:
-		 *       # Cleared: In this mode, the first step is to clear any current selections in the app. The second step is to search for one or more terms in the values of the app.
-		 *       # LockedFieldsOnly: In this mode, the search applies only to the values associated with the selections made in locked fields, ignoring selections in any unlocked field. If no locked fields, the behavior is identical to the Cleared context. You cannot make any new selections in a locked field. You can get search hits for the associated values of a locked field but you cannot get the search hits for the non associative values.
-		 *       # CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app. New selections are made on top of the current selections. If no selections were made before the search, this mode is identical to the Cleared context.
-		 * | | Default value is LockedFieldsOnly.
-		 * @param {function} [callback] - Optional. Callback method.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Searches for one or more terms in the values of a Qlik Sense app.
+         * @param {array} qTerms - Terms to search for.
+         * @param {object} qPage - Properties:
+         * Name | Type | Description
+         * qOffset | Number | Position from the top, starting from 0.
+         * qCount | Number | Number of search results to return.
+         * qGroupOptions | Array | This parameter is optional. Options of the search groups. If this property is not set, all values are returned.
+         * qGroupItemOptions | Array | This parameter is optional. Options of the search group items. If this property is not set, all values are returned.
+         * qOptions | Object | Optional. Search options. Properties:
+         * Name | Type | Description
+         * qSearchFields | Array | List of search fields.
+         * qContext | | Search context. Can be one of:
+         *       # Cleared: In this mode, the first step is to clear any current selections in the app. The second step is to search for one or more terms in the values of the app.
+         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated with the selections made in locked fields, ignoring selections in any unlocked field. If no locked fields, the behavior is identical to the Cleared context. You cannot make any new selections in a locked field. You can get search hits for the associated values of a locked field but you cannot get the search hits for the non associative values.
+         *       # CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app. New selections are made on top of the current selections. If no selections were made before the search, this mode is identical to the Cleared context.
+         * | | Default value is LockedFieldsOnly.
+         * @param {function} [callback] - Optional. Callback method.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         searchResults(qTerms: any[], qPage: any, qOptions?: any, callback?: any): ng.IPromise<any>;
 
         /**
-		 * Returns suggestions of words from the values entered in the search. Acts as a helper for the searchAssociations method.
-		 * @param {array} qTerms - Terms to search for.
-		 * @param {object} [qOptions] - Optional. Search options. Properties:
-		 * Name | Type | Description
-		 * qSearchFields | Array | List of search fields.
-		 * @param {function} [callback] - Optional. Callback method.
-		 * @return {Promise} - A promise of a Qlik engine reply.
-		 */
+         * Returns suggestions of words from the values entered in the search. Acts as a helper for the searchAssociations method.
+         * @param {array} qTerms - Terms to search for.
+         * @param {object} [qOptions] - Optional. Search options. Properties:
+         * Name | Type | Description
+         * qSearchFields | Array | List of search fields.
+         * @param {function} [callback] - Optional. Callback method.
+         * @return {Promise} - A promise of a Qlik engine reply.
+         */
         searchSuggest(qTerms: any[], qOptions?: any, callback?: any): ng.IPromise<any>;
 
         /**
-		 * Makes a selection based on searchAssociation results.
-		 * @param {number} qMatchIx - Index to search result.
-		 * @param {array} qTerms - Values to select.
+         * Makes a selection based on searchAssociation results.
+         * @param {number} qMatchIx - Index to search result.
+         * @param {array} qTerms - Values to select.
          * @param {object} qOptions - Values to select.
          * @param {array} [qTerms] - Optional. Parameter sent to the Qlik engine containing information about the search fields and the search context.
          * @param {object} [qSoftLock] - Optional. This parameter was deprecated in version 2.0 and is ignored in newer versions. Use the qOtions.qContext parameter instead.
@@ -1365,7 +1407,9 @@ declare namespace FieldAPI {
         clearOther(softlock?: boolean): ng.IPromise<any>;
 
         /**
-         * Gets field data. The values are available as QFieldValue in array field.rows and will updated when the selection state changes. Notification OnData will be triggered after each update.
+         * Gets field data. The values are available as QFieldValue in array
+         * field.rows and will updated when the selection state changes.
+         * Notification OnData will be triggered after each update.
          * @param {boolean} [options] - Optional. Properties:
          * Name | Type | Description
          * rows | Number | Number of rows to fetch. Default: 200.
@@ -1438,7 +1482,8 @@ declare namespace FieldAPI {
 
         /**
          * Selects specific values in a field.
-         * @param {array} array - Array of qFieldValues to select. A simplified syntax with strings or numbers also works since version 1.1.
+         * @param {array} array - Array of qFieldValues to select. A simplified syntax with
+         *                         strings or numbers also works since version 1.1.
          * For a numeric field you need to provide the numeric value.
          * @param {boolean} [toggle] - Optional. If true, toggle selected state.
          * @param {boolean} [softlock] - Optional. If true, locked selections can be overridden.
@@ -1471,7 +1516,8 @@ declare namespace FieldAPI {
         rowCount: number;
 
         /**
-         * Optional. Object with number of values in different states. Only after getData() call. Introduced in 2.1.
+         * Optional. Object with number of values in different states.
+         * Only after getData() call. Introduced in 2.1.
          */
         qStateCounts: any;
     }
@@ -1521,8 +1567,10 @@ declare namespace GlobalAPI {
         cancelReload(): ng.IPromise<any>;
 
         /**
-         * Gets a list of Qlik Sense apps that you potentially can connect to and registers a callback to receive the data.
-         * Calling the getAppList method opens a WebSocket, gets the app list, and then keeps the WebSocket open for you to make other calls as well.
+         * Gets a list of Qlik Sense apps that you potentially can connect to and
+         * registers a callback to receive the data. Calling the getAppList method
+         * opens a WebSocket, gets the app list, and then keeps the WebSocket open
+         * for you to make other calls as well.
          * @param {Function} callback - Callback method.
          */
         getAppList(callback: any): void;
@@ -1566,7 +1614,9 @@ declare namespace GlobalAPI {
         getQvVersion(callback?: any): ng.IPromise<any>;
 
         /**
-         * Gets information if the user is working in personal mode (returns true if Qlik Sense Desktop is used) or not (returns false if Qlik Sense Desktop is not used).
+         * Gets information if the user is working in personal mode
+         * (returns true if Qlik Sense Desktop is used) or not
+         * (returns false if Qlik Sense Desktop is not used).
          * @param {Function} [callback] - Optional. Callback method.
          * @return {Promise} - A promise of a Qlik engine reply.
          */
@@ -1641,14 +1691,16 @@ declare namespace NavigationAPI {
         getMode(): string;
 
         /**
-         * Navigate to a given sheet in the current app. The method will return before the actual navigation takes place.
+         * Navigate to a given sheet in the current app.
+         * The method will return before the actual navigation takes place.
          * @param {string} sheetId - Set the sheet ID to navigate to.
          * @return {NavigationResult} - A navigation result object.
          */
         gotoSheet(sheetId: string): NavigationResult;
 
         /**
-         * Navigate to a given story in the current app. The method will return before the actual navigation takes place.
+         * Navigate to a given story in the current app.
+         * The method will return before the actual navigation takes place.
          * @param {string} storyId - Set the story ID to navigate to.
          * @return {NavigationResult} - A navigation result object.
          */
@@ -1663,14 +1715,16 @@ declare namespace NavigationAPI {
         isModeAllowed(mode: NavigationModeType): boolean;
 
         /**
-         * Go to the next sheet in the current app. It will do nothing if you do not have sheets in the current context.
+         * Go to the next sheet in the current app.
+         * It will do nothing if you do not have sheets in the current context.
          * The method will return before the actual navigation takes place.
          * @return {NavigationResult} - A navigation result object.
          */
         nextSheet(): NavigationResult;
 
         /**
-         * Jumps to the previous sheet in the current app. It will do nothing if you do not have sheets in the current context.
+         * Jumps to the previous sheet in the current app.
+         * It will do nothing if you do not have sheets in the current context.
          * The method will return before the actual navigation takes place
          * @return {NavigationResult} - A navigation result object.
          */
@@ -1742,17 +1796,20 @@ declare namespace SelectionStateAPI {
         qStateCounts: any;
 
         /**
-         * Concatenated string of selected values if number of values are less than the threshold, or if the string is of format "7 of 123".
+         * Concatenated string of selected values if number of values are less
+         * than the threshold, or if the string is of format "7 of 123".
          */
         qSelected: string;
 
         /**
-         * Array with maximum of qSelectionThreshold values that are selected. For each value, the text plus the selection mode (NORMAL/AND/NOT)
+         * Array with maximum of qSelectionThreshold values that are selected.
+         * For each value, the text plus the selection mode (NORMAL/AND/NOT)
          */
         selectedValues: number[];
 
         /**
-         * Array with maximum of qSelectionThreshold values that are not selected. For each value, the text plus the selection mode (NORMAL/AND/NOT)
+         * Array with maximum of qSelectionThreshold values that are not selected.
+         * For each value, the text plus the selection mode (NORMAL/AND/NOT)
          */
         notSelectedValues: number[];
     }
@@ -1834,7 +1891,8 @@ declare namespace TableAPI {
          *       # OOXML: open XML, default
          *       # CSV_C: comma separated CSV
          *       # CSV_T: tab separated CSV
-         * filename | String | Name of the exported file after download from browser. This parameter is optional and only used in desktop.
+         * filename | String | Name of the exported file after download from browser.
+         *                     This parameter is optional and only used in desktop.
          * state | String | Can be:
          *       # A: all values
          *       # P: possible values (default)
@@ -1890,12 +1948,14 @@ declare namespace TableAPI {
         qCardinal?: number;
 
         /**
-         * Optional. Object with number of values in different states. Only used for dimensions.
+         * Optional. Object with number of values in different states.
+         * Only used for dimensions.
          */
         qStateCounts?: any;
 
         /**
-         * Optional. Field object with methods to manipulate the underlying field. Only used for dimensions.
+         * Optional. Field object with methods to manipulate the underlying field.
+         * Only used for dimensions.
          */
         field?: any;
 
@@ -1910,12 +1970,14 @@ declare namespace TableAPI {
         qMax?: number;
 
         /**
-         * Optional. Error code for this column. Only if column has an error. Introduced in version 2.2.
+         * Optional. Error code for this column.
+         * Only if column has an error. Introduced in version 2.2.
          */
         errorCode?: number;
 
         /**
-         * Error message for this column. Only if column has an error. Introduced in version 2.2.
+         * Error message for this column.
+         * Only if column has an error. Introduced in version 2.2.
          */
         errorMessage: number;
 
@@ -1986,7 +2048,8 @@ declare namespace TableAPI {
         qNum?: number;
 
         /**
-         * Gets the value of this cell as a percentage of the total. Might be more than 100% if this is an average.
+         * Gets the value of this cell as a percentage of the total.
+         * Might be more than 100% if this is an average.
          */
         getPercent(): number;
 
@@ -2014,7 +2077,8 @@ declare namespace VariableAPI {
         create(qProp: string | any): ng.IPromise<any>;
 
         /**
-         * Creates a session variable, that is a temporary variable which is not persisted and needs to be recreated for each new session.
+         * Creates a session variable, that is a temporary variable which is not
+         * persisted and needs to be recreated for each new session.
          * @param {object} qProp - Variable properties:
          * Name | Type | Description
          * qInfo.qId | String | Optional. Variable id.
@@ -2081,7 +2145,8 @@ declare namespace VisualizationAPI {
 
     interface IVisualization {
         /**
-         * Create a new visualization on the fly based on a session object and will not be persisted in the app.
+         * Create a new visualization on the fly based on a session object
+         * and will not be persisted in the app.
          * @param {VisualizationType} type - Visualization type. Can be:
          *       # barchart
          *       # combochart
@@ -2094,11 +2159,13 @@ declare namespace VisualizationAPI {
          *       # table
          *       # treemap
          *       # extension
-         * @param {array} [cols] - Optional. Column definitions, dimensions and measures. Each entry can be of the following structures:
+         * @param {array} [cols] - Optional. Column definitions, dimensions and measures.
+                  Each entry can be of the following structures:
          *       # String
          *       # NxDimension
          *       # NxMeasure
-         * If the NxDimension or the NxMeasure refer to a library dimension or a library measure, you also need to add qType : "measure" or "dimension".
+         *       If the NxDimension or the NxMeasure refer to a library dimension
+         *       or a library measure, you also need to add qType : "measure" or "dimension".
          * @param {object} [options] - Optional. Options to set.
          * @return {Promise} - A promise of a QVisualization.
          */
@@ -2114,7 +2181,8 @@ declare namespace VisualizationAPI {
 
     interface IQVisualization {
         /**
-         * Table object for this visualization. Only for visualizations built on a hypercube.
+         * Table object for this visualization.
+         * Only for visualizations built on a hypercube.
          */
         table: TableAPI.IQTable;
 
@@ -2399,8 +2467,10 @@ interface IQVAngular {
     filter(object: { [name: string]: ng.Injectable<Function> }): void;
 
     /**
-      * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
-      *
+      * Register a service constructor, which will be invoked with new to create
+      * the service instance. This is short for registering a service where its
+      * provider's $get property is a factory function that returns an instance
+      * instantiated by the injector from the service constructor function.
       * @param name The name of the instance.
       * @param serviceConstructor An injectable class (constructor function) that will be instantiated.
       * @return Returns the constructed singleton of the service class/function.
