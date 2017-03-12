@@ -1,6 +1,6 @@
 // Type definitions for Jest 19.2.0
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -77,6 +77,8 @@ declare namespace jest {
     function runTimersToTime(msToRun: number): typeof jest;
     /** Explicitly supplies the mock object that the module system should return for the specified module. */
     function setMock<T>(moduleName: string, moduleExports: T): typeof jest;
+    /** Creates a mock function similar to jest.fn but also tracks calls to object[methodName] */
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M): SpyInstance<T[M]>;
     /** Indicates that the module system should never return a mocked version of the specified module from require() (e.g. that it should always return the real module). */
     function unmock(moduleName: string): typeof jest;
     /** Instructs Jest to use fake versions of the standard timer functions. */
@@ -243,6 +245,10 @@ declare namespace jest {
     interface Mock<T> extends Function, MockInstance<T> {
         new (): T;
         (...args: any[]): any;
+    }
+
+    interface SpyInstance<T> extends MockInstance<T> {
+        mockRestore(): void;
     }
 
     /**
