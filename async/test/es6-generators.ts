@@ -50,5 +50,5 @@ async.detect(collectionGenerator(), booleanIterator, function (err: Error, res: 
 async.detectLimit(collectionGenerator(), 2, booleanIterator, function (err: Error, res: boolean) { })
 async.detectSeries(collectionGenerator(), booleanIterator, function (err: Error, res: boolean) { })
 
-async.concat(collectionGenerator(), concatIterator, (err: Error, res) => { })
-async.concatSeries(collectionGenerator(), concatIterator, (err: Error, res) => { })
+async.concat(collectionGenerator(), concatIterator, (err: Error, res: any[]) => { })
+async.concatSeries(collectionGenerator(), concatIterator, (err: Error, res: any[]) => { })
