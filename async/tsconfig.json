@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
-        "test/explicit.ts"
+        "test/explicit.ts",
+        "test/es6-generators.ts"
     ]
 }
