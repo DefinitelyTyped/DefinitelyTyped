@@ -772,7 +772,7 @@ declare namespace BackendAPI {
         /**
          * Gets a data row for this object.
          * @param {number} rownum - The row number.
-         * @return {NxCell} - A row of NxCell or null if the row is not available client side 
+         * @return {NxCell} - A row of NxCell or null if the row is not available client side
          *                    and need to be fetched with getData method.
          */
         getDataRow(rownum: number): INxCell;
@@ -1242,7 +1242,7 @@ declare namespace AppAPI {
          * Since version 1.1 it is also possible to define a string of the HTML element id.
          * @param {object} [options] - Optional.
          * Name | Type | Description
-         * noInteraction | Boolean | Set to true if you want to disable interaction, 
+         * noInteraction | Boolean | Set to true if you want to disable interaction,
          *                           including selections, in the visualization.
          *                           Introduced in version 1.1 and updated in version 3.0.
          * noSelections  | Boolean | Set to true if you want to disable selections in the visualization.
