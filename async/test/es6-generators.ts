@@ -8,6 +8,8 @@ function funcCbErrBoolean<T>(v: T, cb: (err: Error, res: boolean) => void) { }
 function eachIterator<T, E>(item: T, callback: (err: Error) => void) { }
 function eachOfIterator<T, K, E>(item: T, key: K, callback: (err: Error) => void) { }
 
+function concatIterator<T, R, E>(item: T, callback: (err: E, res: R[]) => void) { }
+
 async.map(funcCollection(), funcMapIterator, funcMapComplete)
 async.mapSeries(funcCollection(), funcMapIterator, funcMapComplete)
 async.mapLimit(funcCollection(), 2, funcMapIterator, funcMapComplete)
@@ -47,3 +49,6 @@ async.someSeries(funcCollection(), funcCbErrBoolean, function (err: Error, res: 
 async.detect(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
 async.detectLimit(funcCollection(), 2, funcCbErrBoolean, function (err: Error, res: boolean) { })
 async.detectSeries(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
+
+async.concat(funcCollection(), concatIterator, (err: Error, res) => { })
+async.concatSeries(funcCollection(), concatIterator, (err: Error, res) => { })
