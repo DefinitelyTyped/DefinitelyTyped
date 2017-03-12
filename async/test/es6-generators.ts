@@ -43,3 +43,7 @@ async.everySeries(funcCollection(), funcCbErrBoolean, function (err: Error, res:
 async.some(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
 async.someLimit(funcCollection(), 2, funcCbErrBoolean, function (err: Error, res: boolean) { })
 async.someSeries(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
+
+async.detect(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
+async.detectLimit(funcCollection(), 2, funcCbErrBoolean, function (err: Error, res: boolean) { })
+async.detectSeries(funcCollection(), funcCbErrBoolean, function (err: Error, res: boolean) { })
