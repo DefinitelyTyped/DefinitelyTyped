@@ -269,4 +269,4 @@ declare module HelloSign {
 
 declare var HelloSign: HelloSign.HelloSignStatic;
 
-export = HelloSign;
+export default HelloSign;
