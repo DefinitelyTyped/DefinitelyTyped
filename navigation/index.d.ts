@@ -1,4 +1,4 @@
-// Type definitions for Navigation 2.0.0
+﻿// Type definitions for Navigation 4.0
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -146,10 +146,11 @@ declare namespace Navigation {
          * Truncates the crumb trail whenever a repeated or initial State is
          * encountered
          * @param The State navigated to
+         * @param The new NavigationData
          * @param The Crumb collection representing the crumb trail
          * @returns Truncated crumb trail
          */
-        truncateCrumbTrail(state: State, crumbs: Crumb[]): Crumb[];
+        truncateCrumbTrail(state: State, data: any, crumbs: Crumb[]): Crumb[];
     }
 
     /**
@@ -182,9 +183,13 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor or location
+         * Gets a Url from the anchor
          */
-        getUrl(hrefElement: HTMLAnchorElement | Location): string;
+        getUrl(hrefElement: HTMLAnchorElement): string;
+        /**
+         * Gets a Url from the location
+         */
+        getUrl(hrefElement: Location): string;
         /**
          * Removes browser history event listeners
          */
@@ -205,14 +210,10 @@ declare namespace Navigation {
         disabled: boolean;
         /**
          * Initializes a new instance of the HashHistoryManager class
-         */
-        constructor();
-        /**
-         * Initializes a new instance of the HashHistoryManager class
          * @param replaceQueryIdentifier a value indicating whether to use '#'
          * in place of '?'. Set to true for Internet explorer 6 and 7 support
          */
-        constructor(replaceQueryIdentifier: boolean);
+        constructor(replaceQueryIdentifier?: boolean);
         /**
          * Registers a listener for the hashchange event
          * @param navigateHistory The history navigation event handler
@@ -234,9 +235,13 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor or location
+         * Gets a Url from the anchor
          */
-        getUrl(hrefElement: HTMLAnchorElement | Location): string;
+        getUrl(hrefElement: HTMLAnchorElement): string;
+        /**
+         * Gets a Url from the location
+         */
+        getUrl(hrefElement: Location): string;
         /**
          * Removes a listener for the hashchange event
          */
@@ -257,13 +262,9 @@ declare namespace Navigation {
         disabled: boolean;
         /**
          * Initializes a new instance of the HTML5HistoryManager class
-         */
-        constructor();
-        /**
-         * Initializes a new instance of the HTML5HistoryManager class
          * @param applicationPath The application path
          */
-        constructor(applicationPath: string);
+        constructor(applicationPath?: string);
         /**
          * Registers a listener for the popstate event
          * @param navigateHistory The history navigation event handler
@@ -285,9 +286,13 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor or location
+         * Gets a Url from the anchor
          */
-        getUrl(hrefElement: HTMLAnchorElement | Location): string;
+        getUrl(hrefElement: HTMLAnchorElement): string;
+        /**
+         * Gets a Url from the location
+         */
+        getUrl(hrefElement: Location): string;
         /**
          * Removes a listener for the popstate event
          */
@@ -394,17 +399,48 @@ declare namespace Navigation {
          */
         clear(): void;
         /** 
-         * Combines the data with all the current NavigationData
-         * @param The data to add to the current NavigationData
-         * @returns The combined data
-         */
-        includeCurrentData(data: any): any;
-        /** 
          * Combines the data with a subset of the current NavigationData
          * @param The data to add to the current NavigationData
          * @returns The combined data
          */
-        includeCurrentData(data: any, keys: string[]): any;
+        includeCurrentData(data: any, keys?: string[]): any;
+    }
+
+    /**
+     * Fluently manages all navigation. These can be forward, backward or
+     * refreshing the current State
+     */
+    interface FluentNavigator {
+        /**
+         * Gets the current Url
+         */
+        url: string;
+        /**
+         * Navigates to a State
+         * @param stateKey The key of a State
+         * @param navigationData The NavigationData to be passed to the next
+         * State and stored in the StateContext
+         * @throws state does not match the key of a State or there is 
+         * NavigationData that cannot be converted to a String
+         * @throws A mandatory route parameter has not been supplied a value
+         */
+        navigate(stateKey: string, navigationData?: any): FluentNavigator;
+        /**
+         * Navigates back along the crumb trail
+         * @param distance Starting at 1, the number of Crumb steps to go back
+         * @throws canNavigateBack returns false for this distance
+         * @throws A mandatory route parameter has not been supplied a value
+         */
+        navigateBack(distance: number): FluentNavigator;
+        /**
+         * Navigates to the current State
+         * @param navigationData The NavigationData to be passed to the current
+         * State and stored in the StateContext
+         * @param A value determining the effect on browser history
+         * @throws There is NavigationData that cannot be converted to a String
+         * @throws A mandatory route parameter has not been supplied a value
+         */
+        refresh(navigationData?: any): FluentNavigator;
     }
 
     /**
@@ -426,30 +462,16 @@ declare namespace Navigation {
         states: { [index: string]: State; };
         /**
          * Initializes a new instance of the StateNavigator class
-         */
-        constructor();
-        /**
-         * Initializes a new instance of the StateNavigator class
-         * @param states A collection of States
-         */
-        constructor(states: StateInfo[]);
-        /**
-         * Initializes a new instance of the StateNavigator class
          * @param states A collection of States
          * @param historyManager The manager of the browser Url
          */
-        constructor(states: StateInfo[], historyManager: HistoryManager);
-        /**
-         * Configures the StateNavigator
-         * @param stateInfos A collection of State Infos
-         */
-        configure(stateInfos: StateInfo[]): void;
+        constructor(states?: StateInfo[], historyManager?: HistoryManager);
         /**
          * Configures the StateNavigator
          * @param stateInfos A collection of State Infos
          * @param historyManager The manager of the browser Url
          */
-        configure(stateInfos: StateInfo[], historyManager: HistoryManager): void;
+        configure(stateInfos: StateInfo[], historyManager?: HistoryManager): void;
         /**
          * Registers a navigate event listener
          * @param handler The navigate event listener
@@ -463,24 +485,6 @@ declare namespace Navigation {
         /**
          * Navigates to a State
          * @param stateKey The key of a State
-         * @throws state does not match the key of a State or there is 
-         * NavigationData that cannot be converted to a String
-         * @throws A mandatory route parameter has not been supplied a value
-         */
-        navigate(stateKey: string): void;
-        /**
-         * Navigates to a State
-         * @param stateKey The key of a State
-         * @param navigationData The NavigationData to be passed to the next
-         * State and stored in the StateContext
-         * @throws state does not match the key of a State or there is 
-         * NavigationData that cannot be converted to a String
-         * @throws A mandatory route parameter has not been supplied a value
-         */
-        navigate(stateKey: string, navigationData: any): void;
-        /**
-         * Navigates to a State
-         * @param stateKey The key of a State
          * @param navigationData The NavigationData to be passed to the next
          * State and stored in the StateContext
          * @param A value determining the effect on browser history
@@ -488,15 +492,7 @@ declare namespace Navigation {
          * NavigationData that cannot be converted to a String
          * @throws A mandatory route parameter has not been supplied a value
          */
-        navigate(stateKey: string, navigationData: any, historyAction: 'add' | 'replace' | 'none'): void;
-        /**
-         * Gets a Url to navigate to a State
-         * @param stateKey The key of a State
-         * @returns Url that will navigate to State specified in the action
-         * @throws state does not match the key of a State or there is 
-         * NavigationData that cannot be converted to a String
-         */
-        getNavigationLink(stateKey: string): string;
+        navigate(stateKey: string, navigationData?: any, historyAction?: 'add' | 'replace' | 'none'): void;
         /**
          * Gets a Url to navigate to a State
          * @param stateKey The key of a State
@@ -506,7 +502,7 @@ declare namespace Navigation {
          * @throws state does not match the key of a State or there is 
          * NavigationData that cannot be converted to a String
          */
-        getNavigationLink(stateKey: string, navigationData: any): string;
+        getNavigationLink(stateKey: string, navigationData?: any): string;
         /**
          * Determines if the distance specified is within the bounds of the
          * crumb trail represented by the Crumbs collection
@@ -515,18 +511,11 @@ declare namespace Navigation {
         /**
          * Navigates back along the crumb trail
          * @param distance Starting at 1, the number of Crumb steps to go back
-         * @throws canNavigateBack returns false for this distance
-         * @throws A mandatory route parameter has not been supplied a value
-         */
-        navigateBack(distance: number): void;
-        /**
-         * Navigates back along the crumb trail
-         * @param distance Starting at 1, the number of Crumb steps to go back
          * @param A value determining the effect on browser history
          * @throws canNavigateBack returns false for this distance
          * @throws A mandatory route parameter has not been supplied a value
          */
-        navigateBack(distance: number, historyAction: 'add' | 'replace' | 'none'): void;
+        navigateBack(distance: number, historyAction?: 'add' | 'replace' | 'none'): void;
         /**
          * Gets a Url to navigate back along the crumb trail
          * @param distance Starting at 1, the number of Crumb steps to go back
@@ -534,19 +523,6 @@ declare namespace Navigation {
          */
         getNavigationBackLink(distance: number): string;
         /**
-         * Navigates to the current State passing no NavigationData
-         * @throws A mandatory route parameter has not been supplied a value
-         */
-        refresh(): void;
-        /**
-         * Navigates to the current State
-         * @param navigationData The NavigationData to be passed to the current
-         * State and stored in the StateContext
-         * @throws There is NavigationData that cannot be converted to a String
-         * @throws A mandatory route parameter has not been supplied a value
-         */
-        refresh(navigationData: any): void;
-        /**
          * Navigates to the current State
          * @param navigationData The NavigationData to be passed to the current
          * State and stored in the StateContext
@@ -554,11 +530,7 @@ declare namespace Navigation {
          * @throws There is NavigationData that cannot be converted to a String
          * @throws A mandatory route parameter has not been supplied a value
          */
-        refresh(navigationData: any, historyAction: 'add' | 'replace' | 'none'): void;
-        /**
-         * Gets a Url to navigate to the current State
-         */
-        getRefreshLink(): string;
+        refresh(navigationData?: any, historyAction?: 'add' | 'replace' | 'none'): void;
         /**
          * Gets a Url to navigate to the current State
          * @param navigationData The NavigationData to be passed to the current
@@ -566,38 +538,30 @@ declare namespace Navigation {
          * @returns Url that will navigate to the current State
          * @throws There is NavigationData that cannot be converted to a String
          */
-        getRefreshLink(navigationData: any): string;
-        /**
-         * Navigates to the url
-         * @param url The target location
-         */
-        navigateLink(url: string): void;
-        /**
-         * Navigates to the url
-         * @param url The target location
-         * @param A value determining the effect on browser history
-         */
-        navigateLink(url: string, historyAction: 'add' | 'replace' | 'none'): void;
+        getRefreshLink(navigationData?: any): string;
         /**
          * Navigates to the url
          * @param url The target location
          * @param A value determining the effect on browser history
          * @param history A value indicating whether browser history was used
          */
-        navigateLink(url: string, historyAction: 'add' | 'replace' | 'none', history: boolean): void;
+        navigateLink(url: string, historyAction?: 'add' | 'replace' | 'none', history?: boolean): void;
         /**
          * Parses the url out into State and Navigation Data
          * @param url The url to parse
          */
         parseLink(url: string): { state: State; data: any; };
         /**
-         * Navigates to the current location 
+         * Creates a FluentNavigator
+         * @param withContext a value indicating whether to inherit the current
+         * context
+         * @returns A FluentNavigator
          */
-        start(): void;
+        fluent(withContext?: boolean): FluentNavigator;
         /**
          * Navigates to the passed in url
          * @param url The url to navigate to 
          */
-        start(url: string): void;
+        start(url?: string): void;
     }
 }
