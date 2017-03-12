@@ -1,4 +1,4 @@
-import HelloSign from 'hellosign-embedded';
+import HelloSign = require('hellosign-embedded');
 
 HelloSign.init('abc123');
 
