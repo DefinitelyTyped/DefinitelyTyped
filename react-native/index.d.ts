@@ -2563,7 +2563,17 @@ declare module "react" {
         ref?: Ref<DrawerLayoutAndroidStatic & ViewStatic>
     }
 
+    interface DrawerPosition {
+      Left: number
+      Right: number
+    }
+
     export interface DrawerLayoutAndroidStatic extends NativeMethodsMixin, React.ClassicComponentClass<DrawerLayoutAndroidProperties> {
+
+	/**
+         * drawer's positions.
+         */
+        positions: DrawerPosition
 
         /**
          * Opens the drawer.
