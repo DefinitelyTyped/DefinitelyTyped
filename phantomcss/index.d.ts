@@ -3,8 +3,8 @@
 // Definitions by: Amaury Bauzac <https://github.com/abauzac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Casper } from 'casperjs';
 /// <reference types="resemblejs" />
+import { Casper } from 'casperjs';
 
 declare global {
   namespace PhantomCSS {

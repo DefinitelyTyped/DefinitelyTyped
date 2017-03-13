@@ -1,5 +1,3 @@
-/// <reference types="cachefactory" />
-
 CacheFactory.get('test');
 
 CacheFactory.createCache('test', {

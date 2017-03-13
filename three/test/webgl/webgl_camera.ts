@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_camera.html
 
 () => {
@@ -14,9 +11,9 @@
     var renderer: THREE.WebGLRenderer;
     var mesh: THREE.Mesh;
 
-    var cameraRig, activeCamera, activeHelper;
-    var cameraPerspective, cameraOrtho;
-    var cameraPerspectiveHelper, cameraOrthoHelper;
+    var cameraRig: THREE.Group, activeCamera: THREE.PerspectiveCamera | THREE.OrthographicCamera, activeHelper: THREE.CameraHelper;
+    var cameraPerspective: THREE.PerspectiveCamera, cameraOrtho: THREE.OrthographicCamera;
+    var cameraPerspectiveHelper: THREE.CameraHelper, cameraOrthoHelper: THREE.CameraHelper;
 
     init();
     animate();
@@ -128,7 +125,7 @@
 
     //
 
-    function onKeyDown ( event ) {
+    function onKeyDown ( event: KeyboardEvent ) {
 
         switch( event.keyCode ) {
 
@@ -152,7 +149,7 @@
 
     //
 
-    function onWindowResize( event ) {
+    function onWindowResize( event: Event ) {
 
         SCREEN_WIDTH = window.innerWidth;
         SCREEN_HEIGHT = window.innerHeight;

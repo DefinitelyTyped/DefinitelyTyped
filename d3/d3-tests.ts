@@ -7,6 +7,6 @@ import * as d3 from 'd3';
 
 // Ability to access d3-select related properties
 
-let d: d3.Selection<HTMLElement, any, null, undefined> = d3.selection();
+const d: d3.Selection<HTMLElement, any, null, undefined> = d3.selection();
 
 

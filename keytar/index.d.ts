@@ -1,6 +1,6 @@
-// Type definitions for keytar 3.0.0
+// Type definitions for keytar 3.0.2
 // Project: http://atom.github.io/node-keytar/
-// Definitions by: Milan Burda <https://github.com/miniak/>
+// Definitions by: Milan Burda <https://github.com/miniak/>, Brendan Forster <https://github.com/shiftkey/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -12,7 +12,7 @@
  *
  * @returns the string password or null on failures.
  */
-export declare function getPassword(service: string, account: string): string;
+export declare function getPassword(service: string, account: string): string | null;
 
 /**
  * Add the password for the service and account to the keychain.
@@ -31,9 +31,9 @@ export declare function addPassword(service: string, account: string, password: 
  * @param service The string service name.
  * @param account The string account name.
  *
- * @returns the string password or null on failures.
+ * @returns true on success, false on failure
  */
-export declare function deletePassword(service: string, account: string): string;
+export declare function deletePassword(service: string, account: string): boolean;
 
 /**
  * Replace the password for the service and account in the keychain.
@@ -56,4 +56,4 @@ export declare function replacePassword(service: string, account: string, passwo
  *
  * @returns the string password or null on failures.
  */
-export declare function findPassword(service: string): string;
+export declare function findPassword(service: string): string | null;

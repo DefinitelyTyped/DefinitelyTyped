@@ -21,18 +21,21 @@ interface JQuery {
 declare namespace Fancytree {
     interface Fancytree {
         $div: JQuery;
-
+        widget: any; //JQueryUI.Widget;
         rootNode: FancytreeNode;
+        $container: JQuery;
+        focusNode: FancytreeNode;
+        options: FancytreeOptions;
 
         /** Activate node with a given key and fire focus and
-         * activate events. A prevously activated node will be
+         * activate events. A previously activated node will be
          * deactivated. If activeVisible option is set, all parents
          * will be expanded as necessary. Pass key = false, to deactivate
          * the current node only.
          *
          * @returns {FancytreeNode} activate node (null, if not found)
          */
-        activateKey(key: string): FancytreeNode;
+        activateKey(key: string | boolean): FancytreeNode;
 
         /** (experimental)
          *
@@ -199,7 +202,7 @@ declare namespace Fancytree {
         /** Display name (may contain HTML) */
         title: string;
         /** Contains all extra data that was passed on node creation */
-        data: Object;
+        data: any;
         /** Array of child nodes. For lazy nodes, null or undefined means 'not yet loaded'. Use an empty array to define a node that has no children. */
         children: FancytreeNode[];
         /** Use isExpanded(), setExpanded() to access this property. */
@@ -214,6 +217,10 @@ declare namespace Fancytree {
         lazy: boolean;
         /** Alternative description used as hover banner */
         tooltip: string;
+        /** Outer element of single nodes */
+        span: HTMLElement;
+        /** Outer element of single nodes for table extension */
+        tr: HTMLElement;
         //#endregion
 
         //#region Methods
@@ -639,7 +646,7 @@ declare namespace Fancytree {
         /** The tree instance */
         tree: Fancytree;
         /** The jQuery UI tree widget */
-        widget: Object;
+        widget: any;    // JQueryUI.Widget;
         /** Shortcut to tree.options */
         options: FancytreeOptions;
         /** The jQuery Event that initially triggered this call */
@@ -773,7 +780,7 @@ declare namespace Fancytree {
         /** Add tabindex='0' to node title span, so it can receive keyboard focus */
         titlesTabbable?: boolean;
         /** Animation options, false:off (default: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 }) */
-        toggleEffect?: Object;
+        toggleEffect?: JQueryUI.EffectOptions;
     }
 
     /** Data object passed to FancytreeNode() constructor. Note: typically these attributes are accessed by meber methods, e.g. `node.isExpanded()` and `node.setSelected(false)`.  */

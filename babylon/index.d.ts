@@ -1,4 +1,4 @@
-// Type definitions for babylon v6.7
+// Type definitions for babylon v6.16.1
 // Project: https://github.com/babel/babylon
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,7 +41,17 @@ export interface BabylonOptions {
     plugins?: PluginName[];
 }
 
-export type PluginName = 'jsx' | 'flow' | 'asyncFunctions' | 'classConstructorCall' | 'doExpressions'
-    | 'trailingFunctionCommas' | 'objectRestSpread' | 'decorators' | 'classProperties' | 'exportExtensions'
-    | 'exponentiationOperator' | 'asyncGenerators' | 'functionBind' | 'functionSent' | '*';
-
+export type PluginName =
+    'estree' |
+    'jsx' |
+    'flow' |
+    'classConstructorCall' |
+    'doExpressions' |
+    'objectRestSpread' |
+    'decorators' |
+    'classProperties' |
+    'exportExtensions' |
+    'asyncGenerators' |
+    'functionBind' |
+    'functionSent' |
+    'dynamicImport';

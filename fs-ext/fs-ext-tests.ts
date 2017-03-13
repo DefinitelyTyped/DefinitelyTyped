@@ -1,19 +1,16 @@
-
-/// <reference types="node" />
-
 import fs = require('fs-ext');
 
 var num:number;
 var str:string;
 
-//from node.js 'fs' module 
+//from node.js 'fs' module
 fs.appendFileSync(str, "data");
 
-fs.flock(num, str, (err)=>{ 
+fs.flock(num, str, (err)=>{
 });
 fs.flockSync(num, str);
 
-fs.fcntl(num, str, num, (err, res)=>{	
+fs.fcntl(num, str, num, (err, res)=>{
 });
 fs.fcntl(num, str, (err, res)=>{
 });

@@ -1,6 +1,4 @@
-/// <reference types="three" />
 /// <reference types="tween.js" />
-/// <reference path="../three-tests-setup.ts" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_periodictable.html
 
@@ -128,11 +126,18 @@
         "Uuo", "Ununoctium", "(294)", 18, 7
     ];
 
-    var camera, scene, renderer;
-    var controls;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.CSS3DRenderer;
+    var controls: THREE.TrackballControls;
 
-    var objects = [];
-    var targets = { table: [], sphere: [], helix: [], grid: [] };
+    var objects: THREE.CSS3DObject[] = [];
+    class Targets {
+        constructor() {}
+        public table: THREE.Object3D[] = [];
+        public sphere: THREE.Object3D[] = [];
+        public helix: THREE.Object3D[] = [];
+        public grid: THREE.Object3D[] = [];
+    }
+    let targets = new Targets();
 
     init();
     animate();
@@ -262,28 +267,28 @@
         controls.addEventListener('change', render);
 
         var button = document.getElementById('table');
-        button.addEventListener('click', function (event) {
+        button.addEventListener('click', function (event: MouseEvent) {
 
             transform(targets.table, 2000);
 
         }, false);
 
         var button = document.getElementById('sphere');
-        button.addEventListener('click', function (event) {
+        button.addEventListener('click', function (event: MouseEvent) {
 
             transform(targets.sphere, 2000);
 
         }, false);
 
         var button = document.getElementById('helix');
-        button.addEventListener('click', function (event) {
+        button.addEventListener('click', function (event: MouseEvent) {
 
             transform(targets.helix, 2000);
 
         }, false);
 
         var button = document.getElementById('grid');
-        button.addEventListener('click', function (event) {
+        button.addEventListener('click', function (event: MouseEvent) {
 
             transform(targets.grid, 2000);
 
@@ -297,7 +302,7 @@
 
     }
 
-    function transform(targets, duration) {
+    function transform(targets: THREE.Object3D[], duration: number) {
 
         TWEEN.removeAll();
 

@@ -1,6 +1,3 @@
-/// <reference types="node" />
-
-
 import fs = require("fs");
 import * as SQL from "sql.js";
 

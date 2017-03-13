@@ -1,11 +1,27 @@
-
 import * as soap from 'soap';
 import * as events from 'events';
-import * as fs from "fs";
-import * as http from "http";
+import * as fs from 'fs';
+import * as http from 'http';
 
 const url = 'http://example.com/wsdl?wsdl';
-const wsdlOptions = { name: 'value' };
+// wsdlOptions set only default values
+const wsdlOptions = <soap.Option>{
+    attributesKey: 'attributes',
+    disableCache: false,
+    endpoint: url,
+    envelopeKey: 'soap',
+    escapeXML: true,
+    forceSoap12Headers: false,
+    httpClient: new soap.HttpClient(),
+    ignoreBaseNameSpaces: false,
+    ignoredNamespaces: ['tns', 'targetNamespace', 'typedNamespace'],
+    request: require('request'),
+    stream: false,
+    wsdl_headers: [],
+    wsdl_options: [],
+    valueKey: '$value',
+    xmlKey: '$xml'
+};
 
 soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     let securityOptions = { hasTimeStamp: false };
@@ -14,18 +30,28 @@ soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca', defaults));
     client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', defaults));
     client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca'));
-    client.addSoapHeader({});
     client.setEndpoint('http://localhost');
-    client['create']({ name: 'value' }, function(err, result) {
+    client.describe();
+    client.addBodyAttribute({});
+    client.addHttpHeader('test', true);
+    client.addSoapHeader({});
+    client.changeSoapHeader(0, {});
+    client.clearBodyAttributes();
+    client.clearHttpHeaders();
+    client.clearSoapHeaders();
+    client.getBodyAttributes();
+    client.getHttpHeaders();
+    client.getSoapHeaders();
+    client.setSOAPAction('action');
+    (client['create'] as soap.SoapMethod)({ name: 'value' }, function(err: any, result: any) {
         // result is an object
     });
-    client['create']({ name: 'value' }, function(err, result) {
+    (client['create'] as soap.SoapMethod)({ name: 'value' }, function(err: any, result: any) {
         // result is an object
     }, {});
     client.on('request', function(obj: any) {
         //obj is an object
     });
-    client.describe();
 });
 
 var myService = {
@@ -65,7 +91,7 @@ var myService = {
 
 var xml = fs.readFileSync('myservice.wsdl', 'utf8'),
     server = http.createServer(function(request,response) {
-        response.end("404: Not Found: " + request.url);
+        response.end('404: Not Found: ' + request.url);
     });
 
 server.listen(8000);

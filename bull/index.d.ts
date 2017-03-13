@@ -1,6 +1,6 @@
-// Type definitions for bull 1.0.0
+// Type definitions for bull 2.1.2
 // Project: https://github.com/OptimalBits/bull
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>
+// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Cameron Crothers <https://github.com/JProgrammer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="redis" />
@@ -47,6 +47,13 @@ declare module "bull" {
              * @returns {Promise} A promise that resolves when the job is scheduled for retry.
              */
             retry(): Promise<void>;
+
+            /**
+             * Returns a promise the resolves when the job has been finished.
+             * TODO: Add a watchdog to check if the job has finished periodically.
+             * since pubsub does not give any guarantees.
+             */
+            finished(): Promise<void>;
         }
 
         export interface Backoff {

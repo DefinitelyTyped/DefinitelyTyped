@@ -431,8 +431,6 @@ eventKeyMixed = observable.once(stringValue, fn);
 eventKeyMixed = observable.once([stringValue, stringValue], fn, {});
 voidValue = observable.un(stringValue, fn);
 voidValue = observable.un([stringValue, stringValue], fn, {});
-voidValue = observable.unByKey(eventKey);
-voidValue = observable.unByKey(eventKeyArray);
 
 //
 // ol.proj
@@ -462,7 +460,6 @@ let map: ol.Map = new ol.Map({
     layers: [tileLayer],
     target: stringValue
 });
-voidValue = map.beforeRender(preRenderFunction);
 
 //
 // ol.source.ImageWMS
@@ -507,39 +504,6 @@ let wmts: ol.source.WMTS = new ol.source.WMTS({
     }),
     wrapX: true,
 });
-
-//
-// ol.animation
-//
-let bounceOptions: olx.animation.BounceOptions;
-bounceOptions.duration = numberValue;
-bounceOptions.start = numberValue;
-bounceOptions.resolution = numberValue;
-bounceOptions.easing = easingFunction;
-preRenderFunction = ol.animation.bounce(bounceOptions);
-
-let panOptions: olx.animation.PanOptions;
-panOptions.duration = numberValue;
-panOptions.start = numberValue;
-panOptions.source = coordinate;
-panOptions.easing = easingFunction;
-preRenderFunction = ol.animation.pan(panOptions);
-
-let rotateOptions: olx.animation.RotateOptions;
-rotateOptions.duration = numberValue;
-rotateOptions.start = numberValue;
-rotateOptions.anchor = coordinate;
-rotateOptions.rotation = numberValue;
-rotateOptions.easing = easingFunction;
-preRenderFunction = ol.animation.rotate(rotateOptions);
-
-let zoomOptions: olx.animation.ZoomOptions;
-zoomOptions.duration = numberValue;
-zoomOptions.start = numberValue;
-zoomOptions.resolution = numberValue;
-zoomOptions.easing = easingFunction;
-preRenderFunction = ol.animation.zoom(zoomOptions);
-voidValue = map.beforeRender(preRenderFunction);
 
 //
 // ol.coordinate

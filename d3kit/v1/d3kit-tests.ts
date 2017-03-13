@@ -1,8 +1,5 @@
-/// <reference types="d3" />
 /// <reference types="mocha" />
 /// <reference types="chai" />
-
-/* jshint expr: true */
 
 var expect = chai.expect;
 describe('Skeleton', function(){

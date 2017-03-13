@@ -2,4 +2,4 @@
 import isRoot = require('is-root');
 
 isRoot();
-//=> true
+// => true

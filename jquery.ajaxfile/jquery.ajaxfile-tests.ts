@@ -1,7 +1,3 @@
-
-/// <reference types="jquery" />
-/// <reference types="knockout" />
-
 function testRawApi(){
 	var inputElement:HTMLInputElement = null;
 	var resultPromise = AjaxFile.send<number>({

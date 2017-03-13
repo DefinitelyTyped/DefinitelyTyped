@@ -1,12 +1,31 @@
-/// <reference types="jasmine" />
 /// <reference types="knockout.mapping" />
+
+// Jasmine definitions
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
+declare function beforeEach(action: (done: DoneFn) => void, timeout?: number): void;
+declare function expect(spy: Function): jasmine.Matchers;
+declare function expect(actual: any): jasmine.Matchers;
+
+interface DoneFn extends Function {
+    (): void;
+
+    /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
+    fail: (message?: Error|string) => void;
+}
 
 declare namespace jasmine {
   interface Matchers {
+    toEqual(expected: any, expectationFailOutput?: any): boolean;
+    toBeDefined(expectationFailOutput?: any): boolean;
+    toBeNull(expectationFailOutput?: any): boolean;
     toContainHtml(expected: string): boolean;
     toContainText(expected: string): boolean;
+    not: Matchers;
   }
 }
+//End Jasmine definitions
+
 
 var dummyTemplateEngine = function (templates?) {
     var inMemoryTemplates = templates || {};

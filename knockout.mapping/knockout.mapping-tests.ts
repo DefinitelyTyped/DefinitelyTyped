@@ -1,6 +1,3 @@
-
-/// <reference types="knockout" />
-
 var inputJSON = '{ name: "foo" }';
 var inputData = { name: 'foo' };
 var inputModel = { name: 'bar' };

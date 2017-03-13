@@ -848,6 +848,8 @@ interface Response extends http.ServerResponse, Express.Response {
      *
      */
     vary(field: string): Response;
+
+    app: Application;
 }
 
 interface Handler extends RequestHandler { }

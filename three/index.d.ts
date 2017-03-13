@@ -1,6 +1,6 @@
-// Type definitions for three.js 0.83
+// Type definitions for three.js 0.84
 // Project: http://mrdoob.github.com/three.js/
-// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>
+// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>, Ivo <https://github.com/ivoisbelongtous>, David Asmuth <https://github.com/piranha771>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="detector.d.ts" />
@@ -1027,9 +1027,6 @@ declare namespace THREE {
          * @param type The type of event that gets fired.
          */
         dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
-
-        // deprecated
-        apply(target: any): void;
     }
 
     export interface Event {
@@ -2161,14 +2158,18 @@ declare namespace THREE {
         setPath(path: string): CubeTextureLoader;
     }
 
-    export class BinaryTextureLoader {
+    export class DataTextureLoader {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
 
         load(url: string, onLoad: (dataTexture: DataTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     }
-    export class DataTextureLoader extends BinaryTextureLoader {}
+
+    /**
+     * @deprecated since 0.84.0. Use DataTextureLoader (renamed)
+     */
+    export class BinaryTextureLoader extends DataTextureLoader {}
 
     export class CompressedTextureLoader {
         constructor(manager?: LoadingManager);
@@ -2493,7 +2494,7 @@ declare namespace THREE {
         constructor(parameters?: MeshLambertMaterialParameters);
 
         color: Color;
-        emissive: number|string;
+        emissive: Color;
         emissiveIntensity: number;
         emissiveMap: Texture;
         map: Texture;
@@ -2847,6 +2848,7 @@ declare namespace THREE {
         expandByPoint(point: Vector3): Box3;
         expandByVector(vector: Vector3): Box3;
         expandByScalar(scalar: number): Box3;
+        expandByObject(object: Object3D): Box3;
         containsPoint(point: Vector3): boolean;
         containsBox(box: Box3): boolean;
         getParameter(point: Vector3): Vector3;
@@ -3343,7 +3345,6 @@ declare namespace THREE {
         clone(): this;
         copy(m: this): this;
         setFromMatrix4(m: Matrix4): Matrix3;
-        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
@@ -3443,7 +3444,6 @@ declare namespace THREE {
          * Multiplies this matrix by s.
          */
         multiplyScalar(s: number): Matrix4;
-        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer( buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         /**
          * Computes determinant of this matrix.
@@ -3530,7 +3530,7 @@ declare namespace THREE {
         /**
          * Creates a frustum matrix.
          */
-        makeFrustum(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4;
+        makePerspective(left: number, right: number, bottom: number, top: number, near: number, far: number): Matrix4;
 
         /**
          * Creates a perspective projection matrix.
@@ -3769,53 +3769,6 @@ declare namespace THREE {
         x: number;
         y: number;
         z: number;
-    }
-
-    /**
-     * Represents a spline.
-     *
-     * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Spline.js">src/math/Spline.js</a>
-     */
-    export class Spline {
-        /**
-         * Initialises the spline with points, which are the places through which the spline will go.
-         */
-        constructor(points: SplineControlPoint[]);
-
-        points: SplineControlPoint[];
-
-        /**
-         * Initialises using the data in the array as a series of points. Each value in a must be another array with three values, where a[n] is v, the value for the nth point, and v[0], v[1] and v[2] are the x, y and z coordinates of that point n, respectively.
-         *
-         * @param a array of triplets containing x, y, z coordinates
-         */
-        initFromArray(a: number[][]): void;
-
-        /**
-         * Return the interpolated point at k.
-         *
-         * @param k point index
-         */
-        getPoint(k: number): SplineControlPoint;
-
-        /**
-         * Returns an array with triplets of x, y, z coordinates that correspond to the current control points.
-         */
-        getControlPointsArray(): number[][];
-
-        /**
-         * Returns the length of the spline when using nSubDivisions.
-         * @param nSubDivisions number of subdivisions between control points. Default is 100.
-         */
-        getLength(nSubDivisions?: number): { chunks: number[]; total: number; };
-
-        /**
-         * Modifies the spline so that it looks similar to the original but has its points distributed in such way that moving along the spline it's done at a more or less constant speed. The points should also appear more uniformly spread along the curve.
-         * This is done by resampling the original spline, with the density of sampling controlled by samplingCoef. Here it's interesting to note that denser sampling is not necessarily better: if sampling is too high, you may get weird kinks in curvature.
-         *
-         * @param samplingCoef how many intermediate values to use between spline points
-         */
-        reparametrizeByArcLength(samplingCoef: number): void;
     }
 
     class Triangle {
@@ -4107,7 +4060,7 @@ declare namespace THREE {
 
         toArray(xy?: number[], offset?: number): number[];
 
-        fromAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector2;
+        fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector2;
 
         rotateAround( center: Vector2, angle: number ): Vector2;
     }
@@ -4202,7 +4155,6 @@ declare namespace THREE {
         applyAxisAngle(axis: Vector3, angle: number): Vector3;
         applyMatrix3(m: Matrix3): Vector3;
         applyMatrix4(m: Matrix4): Vector3;
-        applyProjection(m: Matrix4): Vector3;
         applyQuaternion(q: Quaternion): Vector3;
         project(camrea: Camera): Vector3;
         unproject(camera: Camera): Vector3;
@@ -4288,7 +4240,7 @@ declare namespace THREE {
         distanceToSquared(v: Vector3): number;
         distanceToManhattan(v: Vector3): number;
 
-        setFromSpherical(s: Spherical): Matrix3;
+        setFromSpherical(s: Spherical): Vector3;
         setFromMatrixPosition(m: Matrix4): Vector3;
         setFromMatrixScale(m: Matrix4): Vector3;
         setFromMatrixColumn(matrix: Matrix4, index: number): Vector3;
@@ -4300,7 +4252,7 @@ declare namespace THREE {
 
         fromArray(xyz: number[], offset?: number): Vector3;
         toArray(xyz?: number[], offset?: number): number[];
-        fromAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector3;
+        fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector3;
 
         // deprecated
         getPositionFromMatrix(m: Matrix4): Vector3;
@@ -4466,7 +4418,7 @@ declare namespace THREE {
 
         toArray(xyzw?: number[], offset?: number): number[];
 
-        fromAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector4;
+        fromBufferAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector4;
     }
 
     export abstract class Interpolant {
@@ -5761,12 +5713,6 @@ declare namespace THREE {
     }
 
     // Extras /////////////////////////////////////////////////////////////////////
-    export namespace CurveUtils {
-        export function tangentQuadraticBezier(t: number, p0: number, p1: number, p2: number): number;
-        export function tangentCubicBezier(t: number, p0: number, p1: number, p2: number, p3: number): number;
-        export function tangentSpline(t: number, p0: number, p1: number, p2: number, p3: number): number;
-        export function interpolate(p0: number, p1: number, p2: number, p3: number, t: number): number;
-    }
 
     export namespace ImageUtils { // deprecated
         export let crossOrigin: string;
@@ -5786,8 +5732,6 @@ declare namespace THREE {
         export function triangulate(contour: number[], indices: boolean): number[];
         export function triangulateShape(contour: number[], holes: any[]): number[];
         export function isClockWise(pts: number[]): boolean;
-        export function b2(t: number, p0: number, p1: number, p2: number): number;
-        export function b3(t: number, p0: number, p1: number, p2: number, p3: number): number;
     }
 
     // Extras / Audio /////////////////////////////////////////////////////////////////////
@@ -5948,6 +5892,9 @@ declare namespace THREE {
          */
         getTangentAt(u: number): T;
 
+        /**
+         * @deprecated since r84.
+         */
         static create(constructorFunc: Function, getPointFunc: Function): Function;
     }
 
@@ -6039,6 +5986,13 @@ declare namespace THREE {
     }
 
     // Extras / Curves /////////////////////////////////////////////////////////////////////
+    export namespace CurveUtils {
+        export function tangentQuadraticBezier(t: number, p0: number, p1: number, p2: number): number;
+        export function tangentCubicBezier(t: number, p0: number, p1: number, p2: number, p3: number): number;
+        export function tangentSpline(t: number, p0: number, p1: number, p2: number, p3: number): number;
+        export function interpolate(p0: number, p1: number, p2: number, p3: number, t: number): number;
+    }
+
     export class CatmullRomCurve3 extends Curve<Vector3> {
         constructor(points?: Vector3[]);
 
@@ -6046,9 +6000,6 @@ declare namespace THREE {
 
         getPoint(t: number): Vector3;
     }
-
-    export class ClosedSplineCurve3 extends CatmullRomCurve3 {} // deprecated, use CatmullRomCurve3
-    export class SplineCurve3 extends CatmullRomCurve3 {} // will be deprecated, use CatmullRomCurve3
 
     export class CubicBezierCurve extends Curve<Vector2> {
         constructor(v0: Vector2, v1: Vector2, v2: Vector2, v3: Vector2);
@@ -6416,13 +6367,13 @@ declare namespace THREE {
     }
 
     export interface TextGeometryParameters {
-        font: Font;
-        size: number;
-        height: number;
-        curveSegments: number;
-        bevelEnabled: boolean;
-        bevelThickness: number;
-        bevelSize: number;
+        font?: Font;
+        size?: number;
+        height?: number;
+        curveSegments?: number;
+        bevelEnabled?: boolean;
+        bevelThickness?: number;
+        bevelSize?: number;
     }
 
     export class TextGeometry extends ExtrudeGeometry {
@@ -6509,6 +6460,21 @@ declare namespace THREE {
         static NoTaper(u?: number): number;
         static SinusoidalTaper(u: number): number;
         static FrenetFrames(path: Path, segments: number, closed: boolean): void;
+    }
+
+    export class TubeBufferGeometry extends BufferGeometry {
+        constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
+
+        parameters: {
+            path: Curve<Vector3>;
+            segments: number;
+            radius: number;
+            radialSegments: number;
+            closed: boolean;
+        };
+        tangents: Vector3[];
+        normals: Vector3[];
+        binormals: Vector3[];
     }
 
     export class WireframeGeometry extends BufferGeometry {

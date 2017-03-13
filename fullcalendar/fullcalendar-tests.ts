@@ -1,5 +1,4 @@
-/// <reference types="jquery"/>
-/// <reference types="jqueryui"/>
+/// <reference types="jqueryui" />
 
 import * as FullCalendar from 'fullcalendar';
 import * as moment from 'moment';
@@ -13,7 +12,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    dayClick: function () {
+    dayClick() {
         alert('a day has been clicked!');
     }
 });
@@ -68,13 +67,13 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar('option', 'aspectRatio', 1.8);
 
 $('#calendar').fullCalendar({
-    viewRender: function (view) {
+    viewRender(view) {
         alert('The new title of the view is ' + view.title);
     }
 });
 
 $('#calendar').fullCalendar({
-    windowResize: function (view) {
+    windowResize(view) {
         alert('The calendar has adjusted to a window resize');
     }
 });
@@ -88,7 +87,7 @@ $('#calendar').fullCalendar({
 var view = $('#calendar').fullCalendar('getView');
 alert("The view's title is " + view.title);
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     var date = new Date();
     var d = date.getDate();
@@ -152,7 +151,7 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     var date = new Date();
     var d = date.getDate();
@@ -217,7 +216,7 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     var date = new Date();
     var d = date.getDate();
@@ -271,7 +270,7 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     var date = new Date();
     var d = date.getDate();
@@ -336,7 +335,7 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     var date = new Date();
     var d = date.getDate();
@@ -390,21 +389,21 @@ $(document).ready(function () {
 
 });
 
-$('#my-prev-button').click(function () {
+$('#my-prev-button').click(() => {
     $('#calendar').fullCalendar('prev');
 });
 
-$('#my-next-button').click(function () {
+$('#my-next-button').click(() => {
     $('#calendar').fullCalendar('next');
 });
 
-$('#my-today-button').click(function () {
+$('#my-today-button').click(() => {
     $('#calendar').fullCalendar('today');
 });
 
 $('#calendar').fullCalendar('gotoDate', 1, 0, 1);
 
-$('#my-button').click(function () {
+$('#my-button').click(() => {
     var d = $('#calendar').fullCalendar('getDate');
     alert("The current date of the calendar is " + d);
 });
@@ -429,7 +428,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    dayClick: function (date, allDay, jsEvent, view) {
+    dayClick(date, allDay, jsEvent, view) {
 
         if (allDay) {
             alert('Clicked on the entire day: ' + date);
@@ -448,7 +447,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    eventClick: function (calEvent, jsEvent, view) {
+    eventClick(calEvent, jsEvent, view) {
 
         alert('Event: ' + calEvent.title);
         alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -469,7 +468,7 @@ $('#calendar').fullCalendar({
         }
         // other events here
     ],
-    eventClick: function (event) {
+    eventClick(event) {
         if (event.url) {
             window.open(event.url);
             return false;
@@ -489,7 +488,7 @@ $('#calendar').fullCalendar({
                 custom_param1: 'something',
                 custom_param2: 'somethingelse'
             },
-            error: function () {
+            error() {
                 alert('there was an error while fetching events!');
             },
             color: 'yellow',   // a non-ajax option
@@ -511,7 +510,7 @@ $('#calendar').fullCalendar({
             custom_param1: 'something',
             custom_param2: 'somethingelse'
         },
-        error: function () {
+        error() {
             alert('there was an error while fetching events!');
         },
         color: 'yellow',   // a non-ajax option
@@ -601,7 +600,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
+    events(start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
         $.ajax({
             url: 'myxmlfeed.php',
             dataType: 'xml',
@@ -610,9 +609,9 @@ $('#calendar').fullCalendar({
                 start: Math.round(start.toDate().getTime() / 1000),
                 end: Math.round(end.toDate().getTime() / 1000)
             },
-            success: function (doc) {
+            success(doc) {
                 var events: any[] = [];
-                $(doc).find('event').each(function () {
+                $(doc).find('event').each(() => {
                     events.push({
                         title: $(this).attr('title'),
                         start: $(this).attr('start') // will be parsed
@@ -630,7 +629,7 @@ $('#calendar').fullCalendar({
 
         // your event source
         {
-            events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
+            events(start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
                 // ...
             },
             color: 'yellow',   // an option!
@@ -651,7 +650,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    eventClick: function (event, element) {
+    eventClick(event, element) {
 
         event.title = "CLICKED!";
 
@@ -683,7 +682,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender: function (event: EventWithDescription, element: any, view: any) {
+    eventRender(event: EventWithDescription, element: any, view: any) {
         element.qtip({
             content: event.description
         });
@@ -696,7 +695,7 @@ $('#my-draggable').draggable({
 
 $('#calendar').fullCalendar({
     droppable: true,
-    drop: function (date, allDay) {
+    drop(date, allDay) {
         alert("Dropped on " + date + " with allDay=" + allDay);
     }
 });
@@ -704,7 +703,7 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar({
     droppable: true,
     dropAccept: '.cool-event',
-    drop: function () {
+    drop() {
         alert('dropped!');
     }
 });
@@ -712,7 +711,7 @@ $('#calendar').fullCalendar({
 $('#draggable1').draggable();
 $('#draggable2').draggable();
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     var date = new Date();
     var d = date.getDate();
@@ -777,10 +776,10 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
+$(document).ready(() => {
     /* initialize the external events
     -----------------------------------------------------------------*/
-    $('#external-events div.external-event').each(function () {
+    $('#external-events div.external-event').each(() => {
 
         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
         // it doesn't need to have a start or end
@@ -810,7 +809,7 @@ $(document).ready(function () {
         },
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar !!!
-        drop: function (date, allDay) { // this function is called when something is dropped
+        drop(date, allDay) { // this function is called when something is dropped
 
             // retrieve the dropped element's stored Event Object
             var originalEventObject = $(this).data('eventObject');
