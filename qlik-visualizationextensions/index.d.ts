@@ -1299,7 +1299,7 @@ declare namespace AppAPI {
          * qContext | | Search context. Can be one of:
          *       # Cleared: In this mode, the first step is to clear any current selections in the app.
          *                  The second step is to search for one or more terms in the values of the app.
-         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated 
+         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated
          *                           with the selections made in locked fields, ignoring selections
          *                           in any unlocked field. If no locked fields, the behavior is
          *                           identical to the Cleared context. You cannot make any new selections
@@ -1330,8 +1330,8 @@ declare namespace AppAPI {
          * qContext | | Search context. Can be one of:
          *       # Cleared: In this mode, the first step is to clear any current selections in the app.
          *                  The second step is to search for one or more terms in the values of the app.
-         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated 
-         *                           with the selections made in locked fields, ignoring selections 
+         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated
+         *                           with the selections made in locked fields, ignoring selections
          *                           in any unlocked field. If no locked fields, the behavior is
          *                           identical to the Cleared context. You cannot make any new selections
          *                           in a locked field. You can get search hits for the associated values
