@@ -193,7 +193,7 @@ interface Async {
     setImmediate: typeof async.nextTick;
 
     reflect<T, E>(fn: AsyncFunction<T, E>) : (callback: (err: null, result: {error?: E, value?: T}) => void) => void;
-    reflectAll<T, E>(tasks: AsyncFunction<T, E>[]): ((callback: (err: undefined, result: {error?: E, value?: T}) => void) => void)[];
+    reflectAll<T, E>(tasks: AsyncFunction<T, E>[]): ((callback: (err: null, result: {error?: E, value?: T}) => void) => void)[];
 
     timeout<T, E>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E | Error>;
     timeout<T, R, E>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E | Error>;
