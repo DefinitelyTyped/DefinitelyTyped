@@ -310,7 +310,7 @@
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
-            "asOfVersion": "1.3.0"
+            "asOfVersion": "1.4.2"
         },
         { 
             "libraryName": "jsonschema",
