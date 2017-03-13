@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 /// <reference types="jquery" />
 /// <reference types="ej.web.all" />
 
 namespace AccordionComponent {
     $(function() {
+=======
+/* tslint:disable */
+
+module AccordionComponent {
+    $(function () {
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         var sample = new ej.Accordion($("#basicAccordion"), {
             width: "100%",
             allowKeyboardNavigation: true,
@@ -21,7 +28,13 @@ namespace AccordionComponent {
     });
 }
 
+<<<<<<< HEAD
 namespace AutocompleteComponent {
+=======
+
+
+module AutocompleteComponent{
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
     var carList = [
                 "Audi S6", "Austin-Healey", "Alfa Romeo", "Aston Martin",
                 "BMW 7", "Bentley Mulsanne", "Bugatti Veyron",
@@ -43,9 +56,20 @@ namespace AutocompleteComponent {
                 "Triumph Spitfire", "Toyota 2000GT",
                 "Volvo P1800", "Volkswagen Shirako"
             ];
+<<<<<<< HEAD
     $(function() {
         var autocompleteInstance = new ej.Autocomplete($("#selectCar"), {
             width: "100%", watermarkText: "Select a car", dataSource: carList, enableAutoFill: true, showPopupButton: true, multiSelectMode: "delimiter"
+=======
+    $(function () {
+        var autocompleteInstance =new ej.Autocomplete($("#selectCar"), {
+            width: "100%",
+            watermarkText: "Select a car",
+            dataSource: carList,
+            enableAutoFill: true,
+            showPopupButton: true,
+            multiSelectMode: "delimiter"
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         });
     });
 }
@@ -140,6 +164,10 @@ namespace ButtonComponent {
         });
     });
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 
@@ -176,22 +204,38 @@ namespace ChartComponent {
             series:
 			[
 			    {
+<<<<<<< HEAD
                 points: [{ x: 2005, y: 28 }, { x: 2006, y: 25 }, { x: 2007, y: 26 }, { x: 2008, y: 27 },
+=======
+                points: [{ x: 2005, y: 28 }, { x: 2006, y: 25 },{ x: 2007, y: 26 }, { x: 2008, y: 27 },
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 						 { x: 2009, y: 32 }, { x: 2010, y: 35 }, { x: 2011, y: 30 }],
                 name: 'India'
                 },
                 {
+<<<<<<< HEAD
                 points: [{ x: 2005, y: 31 }, { x: 2006, y: 28 }, { x: 2007, y: 30 }, { x: 2008, y: 36 },
+=======
+                points: [{ x: 2005, y: 31 }, { x: 2006, y: 28 },{ x: 2007, y: 30 }, { x: 2008, y: 36 },
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 						 { x: 2009, y: 36 }, { x: 2010, y: 39 }, { x: 2011, y: 37 }],
                 name: 'Germany'
                 },
 				{
+<<<<<<< HEAD
                 points: [{ x: 2005, y: 36 }, { x: 2006, y: 32 }, { x: 2007, y: 34 }, { x: 2008, y: 41 },
+=======
+                points: [{ x: 2005, y: 36 }, { x: 2006, y: 32 },{ x: 2007, y: 34 }, { x: 2008, y: 41 },
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 						 { x: 2009, y: 42 }, { x: 2010, y: 42 }, { x: 2011, y: 43 }],
                 name: 'England'
                 },
                 {
+<<<<<<< HEAD
                 points: [{ x: 2005, y: 39 }, { x: 2006, y: 36 }, { x: 2007, y: 40 }, { x: 2008, y: 44 },
+=======
+                points: [{ x: 2005, y: 39 }, { x: 2006, y: 36 },{ x: 2007, y: 40 }, { x: 2008, y: 44 },
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 						 { x: 2009, y: 45 }, { x: 2010, y: 48 }, { x: 2011, y: 46 }],
                 name: 'France'
 				}],
@@ -392,6 +436,10 @@ function createLabel(options: any) {
     return options;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 namespace DialogComponent {
@@ -443,6 +491,10 @@ namespace digitalgaugecomponent {
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 
@@ -659,8 +711,16 @@ namespace KanbanComponent {
     });
 }
 
+<<<<<<< HEAD
 namespace lineargaugecomponent {
     $(function() {
+=======
+
+
+
+module lineargaugecomponent {
+    $(function () {
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         var linearsample = new ej.datavisualization.LinearGauge($("#LinearGauge"), {
             labelColor: "#8c8c8c", width: 500,
             isResponsive: true, enableAnimation: false,
@@ -688,6 +748,11 @@ namespace lineargaugecomponent {
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 
@@ -699,6 +764,10 @@ namespace ListBoxComponent {
     });
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 namespace ListviewComponent {
@@ -968,6 +1037,10 @@ namespace MenuComponent {
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 namespace NavigationDrawerComponent {
@@ -1381,7 +1454,11 @@ namespace PivotGridOlap {
 			filters: []
 		},
         enableGroupingBar: true,
+<<<<<<< HEAD
         pivotTableFieldListID: "PivotSchemaDesigner"
+=======
+        pivotTableFieldListID:"PivotSchemaDesigner"
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         });
         $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
     });
@@ -1450,7 +1527,11 @@ namespace PivotGridRelational {
 			filters: []
 		},
         enableGroupingBar: true,
+<<<<<<< HEAD
         pivotTableFieldListID: "PivotSchemaDesigner"
+=======
+        pivotTableFieldListID:"PivotSchemaDesigner"
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         });
        $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
 
@@ -1592,6 +1673,10 @@ function redo(e: any) {
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 namespace RadialSliderComponent {
@@ -1678,7 +1763,11 @@ namespace RatingComponent {
             showTooltip: true
         });
 
+<<<<<<< HEAD
         var sample2 = new ej.Rating($("#halfRating"), {
+=======
+        var sample2 = new ej.Rating($("#halfRating"),{
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
             precision: ej.Rating.Precision.Half,
             value: 3.5,
             allowReset: true,
@@ -2365,6 +2454,10 @@ function colorHandler(args: any) {
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 namespace RotatorComponent {
@@ -2716,6 +2809,11 @@ namespace piesparkline4 {
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 
@@ -2752,10 +2850,17 @@ namespace SpreadsheetComponent {
                 csvUrl: (window).baseurl + "api/Spreadsheet/CsvExport",
                 pdfUrl: (window).baseurl + "api/Spreadsheet/PdfExport"
             },
+<<<<<<< HEAD
             sheets: [{ rangeSettings: [{ dataSource: (window).defaultData, startCell: "A1" }] }],
 			loadComplete: () => {
 			var spreadsheet: any = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
 			if  (!(spreadsheet).isImport) {
+=======
+            sheets: [{ rangeSettings: [{ dataSource: (<any>window).defaultData, startCell: "A1" }] }],
+			loadComplete: () => {
+			var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
+			if (!(<any>spreadsheet).isImport) {
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
         xlFormat.format({style: {"font-weight": "bold" } }, "A1:H1");
         xlFormat.format({ type: "currency" }, "E2:H11");
@@ -2765,6 +2870,7 @@ namespace SpreadsheetComponent {
     });
 }
 
+<<<<<<< HEAD
 var default_data: any = [
     { Category : "Employees", Country : "USA", JobDescription : "Sales", JobGroup: "Executive", EmployeesCount : 50 },
 	{ Category : "Employees", Country : "USA", JobDescription : "Sales", JobGroup : "Analyst", EmployeesCount : 40 },
@@ -2796,6 +2902,46 @@ var default_data: any = [
 	{ Category : "Employees", Country : "France", JobDescription : "Technical", JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
 	{ Category : "Employees", Country : "France", JobDescription : "Technical", JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
 	{ Category : "Employees", Country : "France", JobDescription: "Marketing", EmployeesCount: 50  }
+=======
+
+
+
+var default_data: Array<Object> = [
+    { Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup:"Executive",                         EmployeesCount : 50 },
+	{ Category : "Employees", Country : "USA", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
+	{ Category : "Employees", Country : "USA", JobDescription : "Marketing",                                                   EmployeesCount : 40 },
+	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 55 },
+	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 175},
+	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 70 },
+	{ Category : "Employees", Country : "USA", JobDescription : "Management",                                                  EmployeesCount : 40 },
+	{ Category : "Employees", Country : "USA", JobDescription : "Accounts",                                                    EmployeesCount : 60 },
+
+	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 43 },
+	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 125},
+	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 60 },
+	{ Category : "Employees", Country : "India",   JobDescription : "HR Executives",                                               EmployeesCount : 70 },
+	{ Category : "Employees", Country : "India",   JobDescription : "Accounts",                                                    EmployeesCount : 45 },
+
+	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Executive",                       EmployeesCount : 30 },
+	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
+	{ Category : "Employees", Country : "Germany", JobDescription : "Marketing",                                                   EmployeesCount : 50 },
+	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
+	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
+	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
+	{ Category : "Employees", Country : "Germany", JobDescription : "Management",                                                  EmployeesCount : 33 },
+	{ Category : "Employees", Country : "Germany", JobDescription : "Accounts",                                                    EmployeesCount : 55 },
+
+	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 45 },
+	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 96 },
+	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 55 },
+	{ Category : "Employees", Country : "UK",      JobDescription : "HR Executives",                                               EmployeesCount : 60 },
+	{ Category : "Employees", Country : "UK",      JobDescription: "Accounts",                                                     EmployeesCount: 30  },
+
+	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
+	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
+	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
+	{ Category : "Employees", Country : "France", JobDescription: "Marketing",                                                     EmployeesCount: 50  }
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 ];
 
 namespace sunburstcomponent {
@@ -2837,7 +2983,15 @@ namespace TabComponent {
     });
 }
 
+<<<<<<< HEAD
 namespace TagCloudComponent {
+=======
+
+
+module TagCloudComponent {
+
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
     var websiteCollection = [
         { text: "Google", url: "http://www.google.com", frequency: 12 },
         { text: "All Things Digital", url: "http://allthingsd.com/", frequency: 3 },
@@ -2908,6 +3062,10 @@ namespace EditorComponent {
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 
 namespace TileViewComponent {
@@ -2919,6 +3077,7 @@ namespace TileViewComponent {
 			imageUrl: 'content/images/tile/windows/people_1.png'
         });
 		var tile2 = new ej.Tile($("#tile2"), {
+<<<<<<< HEAD
             imagePosition: "center",
 			tileSize: "small",
 			imageUrl: 'content/images/tile/windows/alerts.png',
@@ -2953,6 +3112,43 @@ namespace TileViewComponent {
 			tileSize: "wide",
 			imageUrl: 'content/images/tile/windows/sports.png',
 			caption: {text: "Sports"}
+=======
+            imagePosition:"center",
+			tileSize:"small",
+			imageUrl:'content/images/tile/windows/alerts.png',
+
+        });
+		var tile3 = new ej.Tile($("#tile3"), {
+            imagePosition:"center",
+			tileSize:"small",
+			imageUrl:'content/images/tile/windows/bing.png',
+        });
+		var tile4 = new ej.Tile($("#tile4"), {
+            tileSize:"small",
+		 	imageUrl:'content/images/tile/windows/camera.png',
+        });
+		var tile5 = new ej.Tile($("#tile5"), {
+            imagePosition:"center",
+			tileSize:"small",
+			imageUrl:'content/images/tile/windows/messages.png',
+        });
+		var tile6 = new ej.Tile($("#tile6"), {
+            imagePosition:"center",
+			tileSize:"medium",
+			imageUrl:'content/images/tile/windows/games.png',
+			caption:{text:"Play"}
+        });
+		var tile7 = new ej.Tile($("#tile7"), {
+			tileSize:"medium",
+			imageUrl:'content/images/tile/windows/map.png',
+			caption:{text:"Maps"}
+        });
+		var tile8 = new ej.Tile($("#tile8"), {
+            imagePosition:"fill",
+			tileSize:"wide",
+			imageUrl:'content/images/tile/windows/sports.png',
+			caption:{text:"Sports"}
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         });
 		var tile9 = new ej.Tile($("#tile9"), {
             imagePosition: "fill",
@@ -2997,9 +3193,19 @@ namespace TimePickerComponent {
     });
 }
 
+<<<<<<< HEAD
 namespace ToolbarComponent {
        $(function() {
         var sample = new ej.Toolbar($("#editingToolbar"), {
+=======
+
+
+
+module ToolbarComponent {
+
+    $(function () {
+        var sample = new ej.Toolbar($("#editingToolbar"),{
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
             width: "100%",
             cssClass: "gradient-lime",
             enableSeparator: true,
@@ -3015,7 +3221,17 @@ namespace ToolbarComponent {
 namespace TooltipComponent {
     $(function() {
 
+<<<<<<< HEAD
         var sample1 = new ej.Tooltip($("#link1"), {
+=======
+
+
+module TooltipComponent {
+
+    $(function () {
+
+        var sample1 = new ej.Tooltip($("#link1"),{
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
             content: "ECMAScript (or ES) is a trademarked scripting-language specification standardized by Ecma International in ECMA-262 and ISO/IEC 16262.",
             associate: "mousefollow",
             autoCloseTimeout: 5000,
@@ -3109,6 +3325,12 @@ namespace TreeGridComponent {
     });
 });
 }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
 
 var population_data: any = [
     { Continent: "Asia", Country: "Indonesia", Growth: 3, Population: 237641326 },
@@ -3148,8 +3370,17 @@ namespace treemapcomponent {
     });
 }
 
+<<<<<<< HEAD
 namespace TreeViewComponent {
     $(function() {
+=======
+
+
+
+
+module TreeViewComponent {
+    $(function () {
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
         var tree = new ej.TreeView($("#treeView"), {
             allowEditing: true,
             allowDragAndDrop: true,
@@ -3159,9 +3390,19 @@ namespace TreeViewComponent {
     });
 }
 
+<<<<<<< HEAD
 namespace UploadboxComponent {
     $(function() {
         var sample = new ej.Uploadbox($("#UploadDefault"), {
+=======
+
+
+
+module UploadboxComponent {
+
+    $(function () {
+        var sample = new ej.Uploadbox($("#UploadDefault"),{
+>>>>>>> 2d149856c717a6641afed7cb5ddf31675d121c63
             saveUrl: "uploadbox/saveFiles.ashx",
             removeUrl: "uploadbox/removeFiles.ashx",
             buttonText: {

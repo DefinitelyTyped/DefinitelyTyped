@@ -1,4 +1,4 @@
-// Type definitions for Chart.js
+// Type definitions for Chart.js 2.4.0
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,7 @@ declare class Chart {
     getElementsAtEvent: (e: any) => {}[];
     getDatasetAtEvent: (e: any) => {}[];
 
-    defaults: {
+    static defaults: {
         global: Chart.ChartOptions;
     }
 }
@@ -31,6 +31,8 @@ declare namespace Chart {
     export type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 
     export type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
+
+    export type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
     export interface ChartLegendItem {
         text?: string;
@@ -342,7 +344,7 @@ declare namespace Chart {
     export interface ChartScales {
         type?: ScaleType | string;
         display?: boolean;
-        position?: string;
+        position?: PositionType | string;
         beforeUpdate?: (scale?: any) => void;
         beforeSetDimension?: (scale?: any) => void;
         beforeDataLimits?: (scale?: any) => void;
@@ -364,29 +366,25 @@ declare namespace Chart {
         yAxes?: ChartYAxe[];
     }
 
-    export interface ChartXAxe {
+    export interface CommonAxe {
         type?: ScaleType | string;
         display?: boolean;
         id?: string;
         stacked?: boolean;
-        categoryPercentage?: number;
-        barPercentage?: number;
-        barThickness?: number;
-        gridLines?: GridLineOptions;
         position?: string;
         ticks?: TickOptions;
-        time?: TimeScale;
+        gridLines?: GridLineOptions;
+        barThickness?: number;
         scaleLabel?: ScaleTitleOptions;
     }
 
-    export interface ChartYAxe {
-        type?: ScaleType | string;
-        display?: boolean;
-        id?: string;
-        stacked?: boolean;
-        position?: string;
-        ticks?: TickOptions;
-        scaleLabel?: ScaleTitleOptions;
+    export interface ChartXAxe extends CommonAxe {
+        categoryPercentage?: number;
+        barPercentage?: number;
+        time?: TimeScale;
+    }
+
+    export interface ChartYAxe extends CommonAxe {
     }
 
     export interface LinearScale extends ChartScales {

@@ -747,6 +747,10 @@ declare namespace webpack {
         constructor(request: any);
     }
 
+    class ProgressPlugin extends Plugin {
+        constructor(options?: (percentage: number, msg: string) => void);
+    }
+
     class ProvidePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
     }

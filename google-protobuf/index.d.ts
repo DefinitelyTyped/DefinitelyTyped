@@ -9,7 +9,7 @@ type RepeatedFieldType = ScalarFieldType[] | Uint8Array[];
 type AnyFieldType = ScalarFieldType | RepeatedFieldType | Uint8Array;
 type FieldValue = (string|number|boolean|Uint8Array|any/*This should be Array<FieldValue>, but that isn't allowed*/|undefined)
 
-export class Message {
+export abstract class Message {
   getJsPbMessageId(): (string | undefined);
   static initialize(msg: Message,
                     data: Message.MessageArray,
@@ -112,6 +112,18 @@ export class Message {
                   toMessage: Message): void;
   static registerMessageType(id: number,
                              constructor: typeof Message): void;
+
+  abstract serializeBinary(): Uint8Array;
+  abstract toObject(includeInstance?: boolean): {};
+
+  // These are `abstract static`, but that isn't allowed. Subclasses of Message will have these methods and properties
+  // and not having them on Message makes using this class for its intended purpose quite difficult.
+  static deserializeBinary(bytes: Uint8Array): Message;
+  static deserializeBinaryFromReader(message: Message, reader: BinaryReader): Message;
+  static serializeBinaryToWriter(message: Message, writer: BinaryWriter): void;
+  static toObject(includeInstance: boolean, msg: Message): {};
+  static extensions: {[key: number]: ExtensionFieldInfo<Message>};
+  static extensionsBinary: {[key: number]: ExtensionFieldBinaryInfo<Message>};
 }
 
 export namespace Message {

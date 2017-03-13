@@ -2716,7 +2716,110 @@ declare module ol {
         }
 
         module filter {
-            interface Filter { }
+            /**
+             * Create a `<Intersects>` operator to test whether a geometry-valued property
+             * intersects a given geometry.
+             *
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @returns {!ol.format.filter.Intersects} `<Intersects>` operator.
+             * @api
+             */
+            function intersects(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): ol.format.filter.Intersects;
+
+            /**
+             * @classdesc
+             * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+             * Base class for WFS GetFeature filters.
+             *
+             * @constructor
+             * @param {!string} tagName The XML tag name for this filter.
+             * @struct
+             * @api
+             */
+            class Filter {
+                /**
+                 * @classdesc
+                 * Abstract class; normally only used for creating subclasses and not instantiated in apps.
+                 * Base class for WFS GetFeature filters.
+                 *
+                 * @constructor
+                 * @param {!string} tagName The XML tag name for this filter.
+                 * @struct
+                 * @api
+                 */
+                constructor(tagName: string);
+
+                /**
+                 * The XML tag name for a filter.
+                 * @returns {!string} Name.
+                 */
+                getTagName(): string;
+            }
+
+            /**
+             * @classdesc
+             * Represents a spatial operator to test whether a geometry-valued property
+             * relates to a given geometry.
+             *
+             * @constructor
+             * @param {!string} tagName The XML tag name for this filter.
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @extends {ol.format.filter.Filter}
+             * @api
+             */
+            class Spatial extends ol.format.filter.Filter {
+                /**
+                 * @classdesc
+                 * Represents a spatial operator to test whether a geometry-valued property
+                 * relates to a given geometry.
+                 *
+                 * @constructor
+                 * @param {!string} tagName The XML tag name for this filter.
+                 * @param {!string} geometryName Geometry name to use.
+                 * @param {!ol.geom.Geometry} geometry Geometry.
+                 * @param {string=} opt_srsName SRS name. No srsName attribute will be
+                 *    set on geometries when this is not provided.
+                 * @extends {ol.format.filter.Filter}
+                 * @api
+                 */
+                constructor(tagName: string, geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+            }
+
+            /**
+             * @classdesc
+             * Represents a `<Intersects>` operator to test whether a geometry-valued property
+             * intersects a given geometry.
+             *
+             * @constructor
+             * @param {!string} geometryName Geometry name to use.
+             * @param {!ol.geom.Geometry} geometry Geometry.
+             * @param {string=} opt_srsName SRS name. No srsName attribute will be
+             *    set on geometries when this is not provided.
+             * @extends {ol.format.filter.Spatial}
+             * @api
+             */
+            class Intersects extends ol.format.filter.Spatial {
+                /**
+                 * @classdesc
+                 * Represents a `<Intersects>` operator to test whether a geometry-valued property
+                 * intersects a given geometry.
+                 *
+                 * @constructor
+                 * @param {!string} geometryName Geometry name to use.
+                 * @param {!ol.geom.Geometry} geometry Geometry.
+                 * @param {string=} opt_srsName SRS name. No srsName attribute will be
+                 *    set on geometries when this is not provided.
+                 * @extends {ol.format.filter.Spatial}
+                 * @api
+                 */
+                constructor(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+            }
         }
 
         /**
@@ -7355,7 +7458,7 @@ declare module ol {
      * `'top-center'`, `'top-right'`
      * @enum {string}
      */
-    type OverlayPositioning = "bottom-left" | "bottom-center" | "bottom-right" | "center-left" | "center-center" | "center-right" | "top-left" | "top-center" | "top-right"; 
+    type OverlayPositioning = "bottom-left" | "bottom-center" | "bottom-right" | "center-left" | "center-center" | "center-right" | "top-left" | "top-center" | "top-right";
 
     /**
      * @classdesc
@@ -10531,7 +10634,7 @@ declare module ol {
              * @api
              */
             setGeometry(geometry: (string | ol.geom.Geometry | ol.StyleGeometryFunction)): void;
-            
+
             /**
              * Set the image style.
              * @param {ol.style.Image} image Image style.
@@ -10545,7 +10648,7 @@ declare module ol {
              * @api
              */
             setStroke(stroke: ol.style.Stroke): void;
-            
+
             /**
              * Set the text style.
              * @param {ol.style.Text} text Text style.
@@ -11696,7 +11799,7 @@ declare module ol {
         /**
          * Animate the view. The view's center, zoom (or resolution), and
          * rotation can be animated for smooth transitions between view states.
-         * @param {olx.AnimateOptions} var_args Animation options. 
+         * @param {olx.AnimateOptions} var_args Animation options.
          * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
          * @api experimental
          */
@@ -13797,7 +13900,7 @@ declare module olx {
         zoom?: number;
         zoomFactor?: number;
     }
-		
+
     /**
     * Object literal with options for the {@link ol.Map#forEachFeatureAtPixel} and
     * {@link ol.Map#hasFeatureAtPixel} methods.

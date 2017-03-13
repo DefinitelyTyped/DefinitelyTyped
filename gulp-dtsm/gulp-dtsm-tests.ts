@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import * as dtsm from 'gulp-dtsm';
 import * as gulp from 'gulp';
 

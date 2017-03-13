@@ -80,7 +80,7 @@ var keys: IKey[] = [
 class Dog {
     constructor(public name: string) { }
 
-    public bark() {
+    bark() {
         console.log('Woof, woof!');
     }
 }
@@ -4064,21 +4064,15 @@ namespace TestFind {
     result = _(dictionary).find<{a: number}, TResult>({a: 42});
 }
 
-result = <number>_.findWhere([1, 2, 3, 4], function (num) {
-    return num % 2 == 0;
-});
+result = <number>_.findWhere([1, 2, 3, 4], num => num % 2 == 0);
 result = <IFoodCombined>_.findWhere(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findWhere(foodsCombined, 'organic');
 
-result = <number>_.findLast([1, 2, 3, 4], function (num) {
-    return num % 2 == 0;
-});
+result = <number>_.findLast([1, 2, 3, 4], num => num % 2 == 0);
 result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
 result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
 
-result = <number>_([1, 2, 3, 4]).findLast(function (num) {
-    return num % 2 == 0;
-});
+result = <number>_([1, 2, 3, 4]).findLast(num => num % 2 == 0);
 result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
 result = <IFoodCombined>_(foodsCombined).findLast('organic');
 
@@ -4850,56 +4844,44 @@ interface ABC {
     c: number;
 }
 
-result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
+result = <number>_.reduce<number, number>([1, 2, 3], (sum: number, num: number) => sum + num);
+result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, (r: ABC, num: number, key: string) => {
     r[key] = num * 3;
     return r;
 }, {});
 
-result = <number>_.foldl([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_.foldl({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
+result = <number>_.foldl([1, 2, 3], (sum: number, num: number) => sum + num);
+result = <ABC>_.foldl({ 'a': 1, 'b': 2, 'c': 3 }, (r: ABC, num: number, key: string) => {
     r[key] = num * 3;
     return r;
 }, {});
 
-result = <number>_.inject([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_.inject({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
+result = <number>_.inject([1, 2, 3], (sum: number, num: number) => sum + num);
+result = <ABC>_.inject({ 'a': 1, 'b': 2, 'c': 3 },  (r: ABC, num: number, key: string) => {
     r[key] = num * 3;
     return r;
 }, {});
 
-result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
+result = <number>_([1, 2, 3]).reduce<number>((sum: number, num: number) => sum + num);
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>((r: ABC, num: number, key: string) => {
     r[key] = num * 3;
     return r;
 }, {});
 
-result = <number>_([1, 2, 3]).foldl<number>(function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).foldl<number, ABC>(function (r: ABC, num: number, key: string) {
+result = <number>_([1, 2, 3]).foldl<number>((sum: number, num: number) => sum + num);
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).foldl<number, ABC>((r: ABC, num: number, key: string) => {
     r[key] = num * 3;
     return r;
 }, {});
 
-result = <number>_([1, 2, 3]).inject<number>(function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).inject<number, ABC>(function (r: ABC, num: number, key: string) {
+result = <number>_([1, 2, 3]).inject<number>((sum: number, num: number) => sum + num);
+result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).inject<number, ABC>((r: ABC, num: number, key: string) => {
     r[key] = num * 3;
     return r;
 }, {});
 
-result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
-result = <number[]>_.foldr([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
+result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], (a: number[], b: number[]) => a.concat(b), <number[]>[]);
+result = <number[]>_.foldr([[0, 1], [2, 3], [4, 5]], (a: number[], b: number[]) => a.concat(b), <number[]>[]);
 
 // _.reject
 namespace TestReject {
@@ -5455,9 +5437,9 @@ namespace TestSortBy {
     }
 }
 
-result = <IStoogesAge[]>_.sortByAll(stoogesAges, function(stooge) { return Math.sin(stooge.age); }, function(stooge) { return stooge.name.slice(1); });
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, (stooge) => Math.sin(stooge.age), (stooge) => stooge.name.slice(1));
 result = <IStoogesAge[]>_.sortByAll(stoogesAges, ['name', 'age']);
-result = <IStoogesAge[]>_.sortByAll(stoogesAges, 'name', function(stooge) { return Math.sin(stooge.age); });
+result = <IStoogesAge[]>_.sortByAll(stoogesAges, 'name', (stooge) => Math.sin(stooge.age));
 
 result = <IFoodOrganic[]>_(foodsOrganic).sortByAll('organic', (food) => food.name, { organic: true }).value();
 
@@ -6317,7 +6299,7 @@ namespace TestOnce {
     }
 }
 
-var greetPartial = function (greeting: string, name: string) { return greeting + ' ' + name; };
+var greetPartial = (greeting: string, name: string) => greeting + ' ' + name;
 var hi = _.partial(greetPartial, 'hi');
 hi('moe');
 
@@ -10384,7 +10366,7 @@ namespace TestNoConflict {
 // _.noop
 namespace TestNoop {
     {
-        let result: void;
+        let result: void; // tslint:disable-line:void-return
 
         result = _.noop();
         result = _.noop(1);

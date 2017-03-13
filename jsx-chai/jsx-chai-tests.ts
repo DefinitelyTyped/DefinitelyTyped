@@ -1,5 +1,3 @@
-/// <reference types="chai"/>
-
 import chai = require('chai');
 import jsxChai = require('jsx-chai');
 

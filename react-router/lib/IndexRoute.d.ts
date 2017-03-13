@@ -15,8 +15,8 @@ type ComponentsCallback = (err: any, components: RouteComponents) => any;
 export interface IndexRouteProps {
     component?: RouteComponent;
     components?: RouteComponents;
-    getComponent?(nextState: RouterState, callback: ComponentCallback): undefined;
-    getComponents?(nextState: RouterState, callback: ComponentsCallback): undefined;
+    getComponent?: (nextState: RouterState, callback: ComponentCallback) => void;
+    getComponents?: (nextState: RouterState, callback: ComponentsCallback) => void;
     onEnter?: EnterHook;
     onChange?: ChangeHook;
     onLeave?: LeaveHook;

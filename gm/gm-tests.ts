@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import gm = require('gm');
 import stream = require('stream');
 

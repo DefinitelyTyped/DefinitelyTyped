@@ -1,10 +1,8 @@
-/** 
- * Test suite created by Maxime LUCE <https://github.com/SomaticIT> 
- *  
+/**
+ * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
+ *
  * Created by using code samples from https://github.com/auth0/node-jsonwebtoken.
- */ 
- 
-/// <reference types="node" /> 
+ */
 
 import jwt = require("jsonwebtoken");
 import fs = require("fs");
@@ -49,7 +47,7 @@ jwt.verify(token, 'shhhhh', function(err, decoded) {
 
 // invalid token
 jwt.verify(token, 'wrong-secret', function(err, decoded) {
-  // err 
+  // err
   // decoded undefined
 });
 
