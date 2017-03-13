@@ -8,15 +8,15 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
         dsr: {
             default: 'substate',
             params: ['param1', 'param2'],
-            fn: function ($dsr$) {
+            fn: ($dsr$) => {
 
                 return $dsr$.to;
             }
         },
-        onInactivate: function ($state: angular.ui.IState) {
+        onInactivate: ($state: angular.ui.IState) => {
             var iAmInjectedByInjector = $state;
         },
-        onReactivate: function ($state: angular.ui.IState) {
+        onReactivate: ($state: angular.ui.IState) => {
             var iAmInjectedByInjector = $state;
         },
         controller: ($previousState: angular.ui.IPreviousStateService, $deepstateRedirect: angular.ui.IDeepStateRedirectService) => {
@@ -51,15 +51,15 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
         dsr: {
             default: 'substate',
             params: ['param1', 'param2'],
-            fn: function ($dsr$) {
+            fn: ($dsr$) => {
 
                 return $dsr$.to;
             }
         },
-        onInactivate: function ($state: angular.ui.IState) {
+        onInactivate: ($state: angular.ui.IState) => {
             var iAmInjectedByInjector = $state;
         },
-        onReactivate: function ($state: angular.ui.IState) {
+        onReactivate: ($state: angular.ui.IState) => {
             var iAmInjectedByInjector = $state;
         },
         controller: ($previousState: angular.ui.IPreviousStateService, $deepstateRedirect: angular.ui.IDeepStateRedirectService) => {
@@ -91,15 +91,15 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
         dsr: {
             default: 'substate',
             params: ['param1', 'param2'],
-            fn: function ($dsr$) {
+            fn: ($dsr$) => {
 
                 return $dsr$.to;
             }
         },
-        onInactivate: function ($state: angular.ui.IState) {
+        onInactivate: ($state: angular.ui.IState) => {
             var iAmInjectedByInjector = $state;
         },
-        onReactivate: function ($state: angular.ui.IState) {
+        onReactivate: ($state: angular.ui.IState) => {
             var iAmInjectedByInjector = $state;
         },
         controller: ($previousState: angular.ui.IPreviousStateService, $deepstateRedirect: angular.ui.IDeepStateRedirectService) => {

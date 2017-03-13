@@ -117,11 +117,11 @@ declare module 'angular' {
             /*
              * Function (injectable). Called when a sticky state is navigated away from (inactivated).
              */
-            onInactivate?: Function;
+            onInactivate?: (...args: any[]) => void;
             /*
              * Function (injectable). Called when an inactive sticky state is navigated to (reactivated).
              */
-            onReactivate?: Function;
+            onReactivate?: (...args: any[]) => void;
             /*
              * Note: named views are mandatory when using sticky states!
              */
