@@ -1,5 +1,3 @@
-/// <reference types="bezier-js" />
-
 function test() {
 
     var bezierjs: typeof BezierJs;

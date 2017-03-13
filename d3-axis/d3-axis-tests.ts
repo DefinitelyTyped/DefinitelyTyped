@@ -54,9 +54,9 @@ axisScaleString = scalePoint();
 // --------------------------------------------------------------------------
 
 let containerElement: d3Axis.AxisContainerElement;
-const svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node() !; //mock
-const g: SVGGElement = select<SVGGElement, any>('g').node() !; //mock
-const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node() !; //mock
+const svg: SVGSVGElement = select<SVGSVGElement, any>('svg').node() !; // mock
+const g: SVGGElement = select<SVGGElement, any>('g').node() !; // mock
+const canvas: HTMLCanvasElement = select<HTMLCanvasElement, any>('canvas').node() !; // mock
 
 containerElement = svg;
 containerElement = g;
@@ -78,7 +78,7 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 // scale(...) ----------------------------------------------------------------
 
 leftAxis = leftAxis.scale(scalePow());
-let powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
+const powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
 // powerScale = leftAxis.scale(); // fails, without casting as AxisScale is purposely  generic
 
 
@@ -86,8 +86,8 @@ let powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, n
 bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
 // bottomAxis = bottomAxis.scale(scalePow()) // fails, domain of scale incompatible with domain of axis
 
-let axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
-let ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale<ScaleOrdinal<string, number>>();
+const axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
+const ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale<ScaleOrdinal<string, number>>();
 // ordinalScale = bottomAxis.scale(); // fails, without casting as AxisScale is purposely  generic
 
 // ticks(...) ----------------------------------------------------------------
@@ -102,7 +102,7 @@ topAxis = topAxis.tickArguments([20, 's']);
 
 rightAxis = rightAxis.tickArguments([timeMinute.every(5)]);
 
-let tickArguments: any[] = leftAxis.tickArguments();
+const tickArguments: any[] = leftAxis.tickArguments();
 
 // tickValues(...) ----------------------------------------------------------------
 
@@ -112,17 +112,17 @@ bottomAxis = bottomAxis.tickValues(['strongly negative', 'strongly positive']);
 
 leftAxis = leftAxis.tickValues(null);
 
-let tickValues: Date[] | null = rightAxis.tickValues();
+const tickValues: Date[] | null = rightAxis.tickValues();
 
 // tickFormat(...) ----------------------------------------------------------------
 
 topAxis = topAxis.tickFormat(format(',.0f'));
 topAxis = topAxis.tickFormat(null);
 
-let formatFn: ((domainValue: string, index: number) => string) | null = bottomAxis.tickFormat();
+const formatFn: ((domainValue: string, index: number) => string) | null = bottomAxis.tickFormat();
 
-bottomAxis.tickFormat(function (d, i) { return '#' + i; });
-bottomAxis.tickFormat(function (d) { return d + '!'; });
+bottomAxis.tickFormat((d, i) => '#' + i);
+bottomAxis.tickFormat(d => d + '!');
 // tickSize(...) ----------------------------------------------------------------
 
 rightAxis = rightAxis.tickSize(5);
@@ -147,20 +147,20 @@ num = rightAxis.tickPadding();
 // Test Apply Axis
 // --------------------------------------------------------------------------
 
-let gSelection: Selection<SVGGElement, any, any, any> = select<SVGGElement, any>('g');
-let gTransition = gSelection.transition();
+const gSelection: Selection<SVGGElement, any, any, any> = select<SVGGElement, any>('g');
+const gTransition = gSelection.transition();
 
 gSelection.call(topAxis);
 gTransition.call(topAxis);
 
-let svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('g');
-let svgTransition = svgSelection.transition();
+const svgSelection: Selection<SVGSVGElement, any, any, any> = select<SVGSVGElement, any>('g');
+const svgTransition = svgSelection.transition();
 
 svgSelection.call(leftAxis);
 svgTransition.call(leftAxis);
 
-let canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
-let canvasTransition = canvasSelection.transition();
+const canvasSelection: Selection<HTMLCanvasElement, any, any, any> = select<HTMLCanvasElement, any>('canvas');
+const canvasTransition = canvasSelection.transition();
 
 // canvasSelection.call(rightAxis); // fails, incompatible context container element
 // canvasTransition.call(rightAxis); // fails, incompatible context container element

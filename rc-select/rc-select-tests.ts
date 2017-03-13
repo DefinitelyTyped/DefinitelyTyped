@@ -1,10 +1,7 @@
-
-/// <reference types="react" />
-
 import React = require('react');
 import RcSelect = require('rc-select');
 
-class Component extends React.Component<any, any> {    
+class Component extends React.Component<any, any> {
 
     private onChange(value: any) {
         console.log('selected', value);
@@ -54,7 +51,7 @@ class Component extends React.Component<any, any> {
         className: "option",
         disabled: true,
         key: "option-0",
-        value: "option-0"        
+        value: "option-0"
     };
 
     private createOptions(count: number) {
@@ -75,7 +72,7 @@ class Component extends React.Component<any, any> {
 
         let options = this.createOptions(10);
 
-        let optionGroup = React.createElement(RcSelect.OptGroup, this.defaultOptGroupProps, options);        
+        let optionGroup = React.createElement(RcSelect.OptGroup, this.defaultOptGroupProps, options);
 
         let select = React.createElement(RcSelect.default, this.defaultSelectProps, optionGroup);
 

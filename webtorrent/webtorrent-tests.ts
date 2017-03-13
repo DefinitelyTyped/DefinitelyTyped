@@ -4,26 +4,26 @@ import * as fs from 'fs';
 var client = new WebTorrent();
 var magnetURI = '...';
 
-client.add(magnetURI, {}, function(torrent) {
+client.add(magnetURI, {}, torrent => {
     // Got torrent metadata!
     console.log('Client is downloading:', torrent.infoHash);
 
-    torrent.files.forEach(function(file) {
+    torrent.files.forEach(file => {
         // Display the file by appending it to the DOM. Supports video, audio, images, and
         // more. Specify a container element (CSS selector or reference to DOM node).
         file.appendTo('body');
 
-        file.getBuffer(function(err, buffer) {
+        file.getBuffer((err, buffer) => {
             if (err) throw err;
-            console.log(buffer); // <Buffer 00 98 00 01 01 00 00 00 50 ae 07 04 01 00 00 00 0a 00 00 00 00 00 00 00 78 ae 07 04 01 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...>
+            console.log(buffer); // <Buffer ...>
         });
 
-        file.appendTo('#containerElement', function(err, elem) {
+        file.appendTo('#containerElement', (err, elem) => {
             if (err) throw err; // file failed to download or display in the DOM
             console.log('New DOM node with the content', elem);
         });
 
-        file.getBlobURL(function(err, url) {
+        file.getBlobURL((err, url) => {
             if (err) throw err;
             var a = document.createElement('a');
             // a.download = file.name
@@ -35,14 +35,14 @@ client.add(magnetURI, {}, function(torrent) {
         });
     });
 
-    torrent.on('done', function() {
+    torrent.on('done', () => {
         console.log('torrent finished downloading');
-        torrent.files.forEach(function(file) {
+        torrent.files.forEach(file => {
             // do something with file
         });
     });
 
-    torrent.on('download', function(chunkSize) {
+    torrent.on('download', chunkSize => {
         console.log('chunk size: ' + chunkSize);
         console.log('total downloaded: ' + torrent.downloaded);
         console.log('download speed: ' + torrent.downloadSpeed);
@@ -50,16 +50,16 @@ client.add(magnetURI, {}, function(torrent) {
         console.log('======');
     });
 
-    torrent.on('wire', function(wire, addr) {
+    torrent.on('wire', (wire, addr) => {
         console.log('connected to peer with address ' + addr);
     });
 });
 
-client.seed('./file.txt', {}, function(torrent) {
+client.seed('./file.txt', {}, torrent => {
     console.log('Client is seeding:', torrent.infoHash);
 });
 
-client.add(magnetURI, function(torrent) {
+client.add(magnetURI, torrent => {
     // create HTTP server for this torrent
     var server = torrent.createServer();
     server.listen(1234); // start the server listening to a port

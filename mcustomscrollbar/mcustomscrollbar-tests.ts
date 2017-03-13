@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 class SimpleTest {
     element: JQuery;
 

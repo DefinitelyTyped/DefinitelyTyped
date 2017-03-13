@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 // Basic usage
 
 var jQueryElement: JQuery = jQuery("abbr.timeago").timeago();

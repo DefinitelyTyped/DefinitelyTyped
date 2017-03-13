@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import stringify = require("csv-stringify");
 
 let stream: stringify.Stringifier;
@@ -19,6 +17,6 @@ stream = stringify({ delimiter: "," });
 
 stream.write(["1", "2", "3"]);
 
-let transform: NodeJS.ReadWriteStream = stream;
+const transform: NodeJS.ReadWriteStream = stream;
 
 stream = stringify();

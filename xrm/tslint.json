@@ -1,38 +1,64 @@
-﻿{
-  "rules": {
-    "class-name": true,
-    "comment-format": [ true, "check-space" ],
-    "indent": [ true, "spaces" ],
-    "no-duplicate-variable": true,
-    "no-eval": true,
-    "no-internal-module": false,
-    "no-trailing-whitespace": false,
-    "no-var-keyword": true,
-    "one-line": [ true, "check-whitespace" ],
-    "quotemark": [ true, "double" ],
-    "semicolon": true,
-    "triple-equals": [ true, "allow-null-check" ],
-    "align": [ true, "parameters", "statements" ],
-    "jsdoc-format": true,
-    "no-consecutive-blank-lines": true,
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      }
-    ],
-    "variable-name": [ true, "ban-keywords" ],
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ]
-  }
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // TODOs
+        "callable-types": false,
+        "unified-signatures": false,
+        "class-name": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "no-duplicate-variable": true,
+        "no-eval": true,
+        "no-internal-module": false,
+        "no-trailing-whitespace": false,
+        "no-var-keyword": true,
+        "one-line": [
+            true,
+            "check-whitespace"
+        ],
+        "quotemark": [
+            true,
+            "double"
+        ],
+        "semicolon": true,
+        "triple-equals": [
+            true,
+            "allow-null-check"
+        ],
+        "align": [
+            true,
+            "parameters",
+            "statements"
+        ],
+        "jsdoc-format": true,
+        "no-consecutive-blank-lines": true,
+        "typedef-whitespace": [
+            true,
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            }
+        ],
+        "variable-name": [
+            true,
+            "ban-keywords"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type"
+        ]
+    }
 }

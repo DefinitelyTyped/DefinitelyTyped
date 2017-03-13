@@ -6,7 +6,7 @@ import { reducer, show, hide, info, error, warning, success, NotificationLevel }
 
 class Test extends React.Component<any, any> {
 
-    private test () {
+    private test() {
         const notification: Notification = {
             message : "Test"
         };
@@ -23,11 +23,11 @@ class Test extends React.Component<any, any> {
         hide(123);
     }
 
-    public render () {
+    render() {
         const notifications: Notification[] = [];
         return (<Notifications notifications={ notifications } />);
     }
 
 }
 
-const store: Store<any> = createStore(reducer)
+const store: Store<any> = createStore(reducer);

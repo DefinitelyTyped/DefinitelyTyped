@@ -1,5 +1,20 @@
-/// <reference types="jasmine" />
 import Qty from "js-quantities";
+
+declare function describe(desc: string, fn: () => void): void;
+declare function it(desc: string, fn: () => void): void;
+interface Expect<T> {
+  not: this;
+  toBe(y: T): void;
+  toEqual(y: T): void;
+  toBeTruthy(): void;
+  toBeNull(): void;
+  toBeCloseTo(this: Expect<number>, x: number, sigFigs: number): void;
+  toThrow(this: Expect<() => void>, msg?: string): void;
+  toContain<U>(this: Expect<U[]>, x: U): void;
+};
+declare function expect<T>(x: T): Expect<T>;
+declare function beforeEach(f: () => void): void;
+declare function afterEach(f: () => void): void;
 
 // From project readme
 
@@ -123,8 +138,8 @@ qty = Qty('1.1234 m');
 qty.format(); // same units, default formatter => '1.234 m'
 qty.format('cm'); // converted to 'cm', default formatter => '123.45 cm'
 
-var configurableRoundingFormatter = function (maxDecimals: number) {
-  return function (scalar: number, units: string) {
+var configurableRoundingFormatter = (maxDecimals: number) => {
+  return (scalar: number, units: string) => {
     var pow = Math.pow(10, maxDecimals);
     var rounded = Math.round(scalar * pow) / pow;
 
@@ -146,7 +161,7 @@ qty.format(); // same units, current default formatter => '1.12 m'
 
 Qty('37 tempC').to('tempF'); // => 98.6 tempF
 
-let scalar: number = 42;
+const scalar: number = 42;
 
 Qty('100 tempC').add('10 degC');  // 110 tempC
 Qty('100 tempC').sub('10 degC');  // 90 tempC
@@ -180,17 +195,17 @@ try {
 
 // From project spec
 
-describe("js-quantities", function () {
+describe("js-quantities", () => {
   "use strict";
 
-  describe("initialization", function () {
-    it("should create unit only", function () {
+  describe("initialization", () => {
+    it("should create unit only", () => {
       var qty = Qty("m");
       expect(qty.numerator).toEqual(["<meter>"]);
       expect(qty.scalar).toBe(1);
     });
 
-    it("should create unitless", function () {
+    it("should create unitless", () => {
       var qty = Qty("1");
       expect(qty.toFloat()).toBe(1);
       expect(qty.numerator).toEqual(["<1>"]);
@@ -201,21 +216,21 @@ describe("js-quantities", function () {
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
-    it("should create unitless from numbers", function () {
+    it("should create unitless from numbers", () => {
       var qty = Qty(1.5);
       expect(qty.toFloat()).toBe(1.5);
       expect(qty.numerator).toEqual(["<1>"]);
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
-    it("should create from numbers with explicit units", function () {
+    it("should create from numbers with explicit units", () => {
       var qty = Qty(1.5, "m");
       expect(qty.scalar).toBe(1.5);
       expect(qty.numerator).toEqual(["<meter>"]);
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
-    it("temperatures should have base unit in kelvin", function () {
+    it("temperatures should have base unit in kelvin", () => {
       var qty = Qty("1 tempK").toBase();
       expect(qty.scalar).toBe(1);
       expect(qty.units()).toBe("tempK");
@@ -233,7 +248,7 @@ describe("js-quantities", function () {
       expect(qty.units()).toBe("tempK");
     });
 
-    it("temperature degrees should have base unit in kelvin", function () {
+    it("temperature degrees should have base unit in kelvin", () => {
       var qty = Qty("1 degK").toBase();
       expect(qty.scalar).toBe(1);
       expect(qty.units()).toBe("degK");
@@ -251,50 +266,50 @@ describe("js-quantities", function () {
       expect(qty.units()).toBe("degK");
     });
 
-    it("should not create temperatures below absolute zero", function () {
-      expect(function () { Qty("-1 tempK"); }).toThrow("Temperatures must not be less than absolute zero");
-      expect(function () { Qty("-273.16 tempC"); }).toThrow("Temperatures must not be less than absolute zero");
-      expect(function () { Qty("-459.68 tempF"); }).toThrow("Temperatures must not be less than absolute zero");
-      expect(function () { Qty("-1 tempR"); }).toThrow("Temperatures must not be less than absolute zero");
+    it("should not create temperatures below absolute zero", () => {
+      expect(() => { Qty("-1 tempK"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { Qty("-273.16 tempC"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { Qty("-459.68 tempF"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { Qty("-1 tempR"); }).toThrow("Temperatures must not be less than absolute zero");
 
       var qty = Qty("1 tempK");
-      expect(function () { qty.mul("-1"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { qty.mul("-1"); }).toThrow("Temperatures must not be less than absolute zero");
 
       qty = Qty("0 tempK");
-      expect(function () { qty.sub("1 degK"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { qty.sub("1 degK"); }).toThrow("Temperatures must not be less than absolute zero");
 
       qty = Qty("-273.15 tempC");
-      expect(function () { qty.sub("1 degC"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { qty.sub("1 degC"); }).toThrow("Temperatures must not be less than absolute zero");
 
       qty = Qty("-459.67 tempF");
-      expect(function () { qty.sub("1 degF"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { qty.sub("1 degF"); }).toThrow("Temperatures must not be less than absolute zero");
 
       qty = Qty("0 tempR");
-      expect(function () { qty.sub("1 degR"); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(() => { qty.sub("1 degR"); }).toThrow("Temperatures must not be less than absolute zero");
     });
 
-    it("should create simple", function () {
+    it("should create simple", () => {
       var qty = Qty("1m");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<meter>"]);
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
-    it("should create negative", function () {
+    it("should create negative", () => {
       var qty = Qty("-1m");
       expect(qty.scalar).toBe(-1);
       expect(qty.numerator).toEqual(["<meter>"]);
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
-    it("should create compound", function () {
+    it("should create compound", () => {
       var qty = Qty("1 N*m");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<newton>", "<meter>"]);
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
-    it("should create pressure units in term of height of water", function () {
+    it("should create pressure units in term of height of water", () => {
       var qty = Qty("1 inH2O");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<inh2o>"]);
@@ -304,14 +319,14 @@ describe("js-quantities", function () {
       expect(qty.numerator).toEqual(["<cmh2o>"]);
     });
 
-    it("should create with denominator", function () {
+    it("should create with denominator", () => {
       var qty = Qty("1 m/s");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<meter>"]);
       expect(qty.denominator).toEqual(["<second>"]);
     });
 
-    it("should create with denominator only", function () {
+    it("should create with denominator only", () => {
       var qty = Qty("1 /s");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<1>"]);
@@ -328,7 +343,7 @@ describe("js-quantities", function () {
       expect(qty.denominator).toEqual(["<second>"]);
     });
 
-    it("should create with powers", function () {
+    it("should create with powers", () => {
       var qty = Qty("1 m^2/s^2");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<meter>", "<meter>"]);
@@ -343,14 +358,14 @@ describe("js-quantities", function () {
       expect(qty.denominator).toEqual(["<second>", "<second>", "<joule>", "<joule>", "<joule>"]);
     });
 
-    it("should create with zero power", function () {
+    it("should create with zero power", () => {
       var qty = Qty("1 m^0");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<1>"]);
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
-    it("should create with negative powers", function () {
+    it("should create with negative powers", () => {
       var qty = Qty("1 m^2 s^-2");
       expect(qty.scalar).toBe(1);
       expect(qty.numerator).toEqual(["<meter>", "<meter>"]);
@@ -358,57 +373,57 @@ describe("js-quantities", function () {
       expect(qty.same(Qty("1 m^2/s^2"))).toBe(true);
     });
 
-    it("should accept powers without ^ syntax (simple)", function () {
+    it("should accept powers without ^ syntax (simple)", () => {
       var qty1 = Qty("1 m2");
       var qty2 = Qty("1 m^2");
       expect(qty1.eq(qty2)).toBe(true);
     });
 
-    it("should accept powers without ^ syntax (negative power)", function () {
+    it("should accept powers without ^ syntax (negative power)", () => {
       var qty1 = Qty("1 m-2");
       var qty2 = Qty("1 m^-2");
       expect(qty1.eq(qty2)).toBe(true);
     });
 
-    it("should accept powers without ^ syntax (compound)", function () {
+    it("should accept powers without ^ syntax (compound)", () => {
       var qty1 = Qty("1 m^2 kg^2 J^2/s^2");
       var qty2 = Qty("1 m2 kg2 J2/s2");
       expect(qty1.eq(qty2)).toBe(true);
     });
 
-    it("should accept powers without ^ syntax (compound and negative power)", function () {
+    it("should accept powers without ^ syntax (compound and negative power)", () => {
       var qty1 = Qty("1 m^2 kg^2 J^2 s^-2");
       var qty2 = Qty("1 m2 kg2 J2 s-2");
       expect(qty1.eq(qty2)).toBe(true);
     });
 
-    it("should throw 'Unit not recognized' error when initializing with an invalid unit", function () {
-      expect(function () { Qty("aa"); }).toThrow("Unit not recognized");
-      expect(function () { Qty("m/aa"); }).toThrow("Unit not recognized");
-      expect(function () { Qty("m-"); }).toThrow("Unit not recognized");
-      expect(function () { Qty("N*m"); }).not.toThrow("Unit not recognized");
+    it("should throw 'Unit not recognized' error when initializing with an invalid unit", () => {
+      expect(() => { Qty("aa"); }).toThrow("Unit not recognized");
+      expect(() => { Qty("m/aa"); }).toThrow("Unit not recognized");
+      expect(() => { Qty("m-"); }).toThrow("Unit not recognized");
+      expect(() => { Qty("N*m"); }).not.toThrow("Unit not recognized");
       // mm is millimeter, but mmm is not a valid unit
-      expect(function () { Qty("mmm"); }).toThrow("Unit not recognized");
+      expect(() => { Qty("mmm"); }).toThrow("Unit not recognized");
     });
 
-    it("should accept empty string as unitless 1", function () {
+    it("should accept empty string as unitless 1", () => {
       expect(Qty("").same(Qty("1"))).toBe(true);
       expect(Qty("   ").same(Qty("1"))).toBe(true);
     });
 
-    it("should throw error when passing NaN", function () {
+    it("should throw error when passing NaN", () => {
       expect(
-        function () { Qty(NaN); }
+        () => { Qty(NaN); }
       ).toThrow("Only string, number or quantity accepted as single " +
       "initialization value");
     });
 
-    it("should throw 'Unit not recognized' error when initializing with an invalid unit and a 0 exponent", function () {
-      expect(function () { Qty("3p0"); }).toThrow("Unit not recognized");
-      expect(function () { Qty("3p-0"); }).toThrow("Unit not recognized");
+    it("should throw 'Unit not recognized' error when initializing with an invalid unit and a 0 exponent", () => {
+      expect(() => { Qty("3p0"); }).toThrow("Unit not recognized");
+      expect(() => { Qty("3p-0"); }).toThrow("Unit not recognized");
     });
 
-    it("should set baseScalar", function () {
+    it("should set baseScalar", () => {
       var qty = Qty("0.018 MPa");
       expect(qty.baseScalar).toBe(18000);
 
@@ -416,18 +431,18 @@ describe("js-quantities", function () {
       expect(qty.baseScalar).toBe(0.000066);
     });
 
-    it("should keep init value as is", function () {
+    it("should keep init value as is", () => {
       var initValue = "  66 cm3  ";
       var qty = Qty(initValue);
 
       expect(qty.initValue).toEqual(initValue);
     });
 
-    it("should allow whitespace-wrapped value", function () {
-      expect(function () { Qty("  2 MPa  "); }).not.toThrow();
+    it("should allow whitespace-wrapped value", () => {
+      expect(() => { Qty("  2 MPa  "); }).not.toThrow();
     });
 
-    it("should allow whitespaces between sign and scalar", function () {
+    it("should allow whitespaces between sign and scalar", () => {
       var qty = Qty("-  1m");
 
       expect(qty.scalar).toEqual(-1);
@@ -435,13 +450,13 @@ describe("js-quantities", function () {
     });
 
     it("should throw an error when parsing negative quantity " +
-      "with no scalar", function () {
-        expect(function () { Qty("-m"); }).toThrow("Unit not recognized");
+      "with no scalar", () => {
+        expect(() => { Qty("-m"); }).toThrow("Unit not recognized");
       });
   });
 
-  describe("isCompatible", function () {
-    it("should return true with compatible quantities", function () {
+  describe("isCompatible", () => {
+    it("should return true with compatible quantities", () => {
       var qty1 = Qty("1 m*kg/s");
       var qty2 = Qty("1 in*pound/min");
       expect(qty1.isCompatible(qty2)).toBe(true);
@@ -449,15 +464,15 @@ describe("js-quantities", function () {
       expect(qty1.isCompatible(qty2)).toBe(false);
     });
 
-    it("should return true with dimensionless quantities", function () {
+    it("should return true with dimensionless quantities", () => {
       var qty1 = Qty("1");
       var qty2 = Qty("2");
       expect(qty1.isCompatible(qty2)).toBe(true);
     });
   });
 
-  describe("conversion", function () {
-    it("should convert to base units", function () {
+  describe("conversion", () => {
+    it("should convert to base units", () => {
       var qty = Qty("100 cm");
       expect(qty.toBase().scalar).toBe(1);
       expect(qty.toBase().units()).toBe("m");
@@ -469,7 +484,7 @@ describe("js-quantities", function () {
       expect(qty.toBase().units()).toBe("m2/s2");
     });
 
-    it("should convert to compatible units", function () {
+    it("should convert to compatible units", () => {
       var qty = Qty("10 cm");
       expect(qty.to("ft").scalar).toBe(Qty.divSafe(0.1, 0.3048));
       qty = Qty("2m^3");
@@ -492,17 +507,17 @@ describe("js-quantities", function () {
       expect(qty.to("cm^3").scalar).toBe(773);
     });
 
-    describe('percents', function () {
-      it("should convert from % to unitless", function () {
+    describe('percents', () => {
+      it("should convert from % to unitless", () => {
         expect(Qty("10 %").to("").same(Qty("0.1"))).toBe(true);
       });
 
-      it("should convert from unitless to %", function () {
+      it("should convert from unitless to %", () => {
         expect(Qty("0.1").to("%").same(Qty("10 %"))).toBe(true);
       });
     });
 
-    it("should convert temperatures to compatible units", function () {
+    it("should convert temperatures to compatible units", () => {
       var qty = Qty("0 tempK");
       expect(qty.to("tempC").scalar).toBe(-273.15);
 
@@ -516,7 +531,7 @@ describe("js-quantities", function () {
       expect(qty.to("tempF").scalar).toBeCloseTo(32, 10);
     });
 
-    it("should convert temperature degrees to compatible units", function () {
+    it("should convert temperature degrees to compatible units", () => {
       var qty = Qty("0 degK");
       expect(qty.to("degC").scalar).toBe(0);
 
@@ -530,7 +545,7 @@ describe("js-quantities", function () {
       expect(qty.to("degF").scalar).toBe(18);
     });
 
-    it("should convert temperature degrees to temperatures", function () {
+    it("should convert temperature degrees to temperatures", () => {
       // according to ruby-units, deg -> temp conversion adds the degress to 0 kelvin before converting
       var qty = Qty("100 degC");
       expect(qty.to("tempC").scalar).toBeCloseTo(-173.15, 10);
@@ -542,7 +557,7 @@ describe("js-quantities", function () {
       expect(qty.to("tempF").scalar).toBeCloseTo(1, 10);
     });
 
-    it("should convert temperatures to temperature degrees", function () {
+    it("should convert temperatures to temperature degrees", () => {
       // according to ruby-units, temp -> deg conversion always uses the 0 relative degrees
       var qty = Qty("100 tempC");
       expect(qty.to("degC").scalar).toBe(100);
@@ -560,7 +575,7 @@ describe("js-quantities", function () {
       expect(qty.to("degF").scalar).toBe(18);
     });
 
-    it("should calculate inverses", function () {
+    it("should calculate inverses", () => {
       var qty = Qty("1 ohm");
       var result = qty.to("siemens");
       expect(result.scalar).toBe(1);
@@ -583,7 +598,7 @@ describe("js-quantities", function () {
 
       // cannot inverse a quantity with a 0 scalar
       qty = Qty("0 ohm");
-      expect(function () { qty.inverse(); }).toThrow("Divide by zero");
+      expect(() => { qty.inverse(); }).toThrow("Divide by zero");
 
       qty = Qty("10 ohm").inverse();
       result = qty.to("S");
@@ -595,7 +610,7 @@ describe("js-quantities", function () {
       expect(qty.to("ft").scalar).toBeCloseTo(1, 10);
     });
 
-    it("should return itself if target units are the same", function () {
+    it("should return itself if target units are the same", () => {
       var qty = Qty("123 cm3");
 
       expect(qty.to("cm3")).toBe(qty);
@@ -605,7 +620,7 @@ describe("js-quantities", function () {
       expect(qty.to("ug")).toBe(qty);
     });
 
-    it("should be cached", function () {
+    it("should be cached", () => {
       var qty = Qty("100 m"),
         converted = qty.to("ft");
 
@@ -613,14 +628,14 @@ describe("js-quantities", function () {
     });
   });
 
-  describe("comparison", function () {
-    it("should return true when comparing equal quantities", function () {
+  describe("comparison", () => {
+    it("should return true when comparing equal quantities", () => {
       var qty1 = Qty("1cm");
       var qty2 = Qty("10mm");
       expect(qty1.eq(qty2)).toBe(true);
     });
 
-    it("should compare compatible quantities", function () {
+    it("should compare compatible quantities", () => {
       var qty1 = Qty("1cm");
       var qty2 = Qty("1mm");
       var qty3 = Qty("10mm");
@@ -628,7 +643,7 @@ describe("js-quantities", function () {
       expect(qty1.compareTo(qty2)).toBe(1);
       expect(qty2.compareTo(qty1)).toBe(-1);
       expect(qty1.compareTo(qty3)).toBe(0);
-      expect(function () { qty1.compareTo(qty4); }).toThrow("Incompatible units");
+      expect(() => { qty1.compareTo(qty4); }).toThrow("Incompatible units");
 
       expect(qty1.lt(qty2)).toBe(false);
       expect(qty1.lt(qty3)).toBe(false);
@@ -638,7 +653,7 @@ describe("js-quantities", function () {
       expect(qty2.gt(qty1)).toBe(false);
     });
 
-    it("should compare identical quantities", function () {
+    it("should compare identical quantities", () => {
       var qty1 = Qty("1cm");
       var qty2 = Qty("1cm");
       var qty3 = Qty("10mm");
@@ -646,7 +661,7 @@ describe("js-quantities", function () {
       expect(qty1.same(qty3)).toBe(false);
     });
 
-    it("should accept strings as parameter", function () {
+    it("should accept strings as parameter", () => {
       var qty = Qty("1 cm");
       expect(qty.lt("0.5 cm")).toBe(false);
       expect(qty.lte("1 cm")).toBe(true);
@@ -656,9 +671,9 @@ describe("js-quantities", function () {
 
   });
 
-  describe("non-ASCII character", function () {
-    describe("µ", function () {
-      it("should be supported as prefix", function () {
+  describe("non-ASCII character", () => {
+    describe("µ", () => {
+      it("should be supported as prefix", () => {
         // µ as greek letter
         expect(Qty("1 \u03BCm").eq(Qty("1 um"))).toBe(true);
         // µ as micro sign
@@ -666,8 +681,8 @@ describe("js-quantities", function () {
       });
     });
 
-    describe("Ω", function () {
-      it("should be accepted as unit for ohm", function () {
+    describe("Ω", () => {
+      it("should be accepted as unit for ohm", () => {
         // Ω as greek letter
         expect(Qty("1 \u03A9").eq(Qty("1 ohm"))).toBe(true);
         // Ω as ohm sign
@@ -676,9 +691,9 @@ describe("js-quantities", function () {
     });
   });
 
-  describe("math", function () {
+  describe("math", () => {
 
-    it("should add quantities", function () {
+    it("should add quantities", () => {
       var qty1 = Qty("2.5m");
       var qty2 = Qty("3m");
       expect(qty1.add(qty2).scalar).toBe(5.5);
@@ -700,26 +715,26 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("cm");
     });
 
-    it("should fail to add unlike quantities", function () {
+    it("should fail to add unlike quantities", () => {
       var qty1 = Qty("3m");
       var qty2 = Qty("2s");
-      expect(function () { qty1.add(qty2); }).toThrow("Incompatible units");
-      expect(function () { qty2.add(qty1); }).toThrow("Incompatible units");
+      expect(() => { qty1.add(qty2); }).toThrow("Incompatible units");
+      expect(() => { qty2.add(qty1); }).toThrow("Incompatible units");
     });
 
-    it("should fail to add inverse quantities", function () {
+    it("should fail to add inverse quantities", () => {
       var qty1 = Qty("10S");
       var qty2 = qty1.inverse();
-      expect(function () { qty1.add(qty2); }).toThrow("Incompatible units");
-      expect(function () { qty2.add(qty1); }).toThrow("Incompatible units");
+      expect(() => { qty1.add(qty2); }).toThrow("Incompatible units");
+      expect(() => { qty2.add(qty1); }).toThrow("Incompatible units");
 
       qty1 = Qty("10S");
       qty2 = Qty("0.1ohm");
-      expect(function () { qty1.add(qty2); }).toThrow("Incompatible units");
-      expect(function () { qty2.add(qty1); }).toThrow("Incompatible units");
+      expect(() => { qty1.add(qty2); }).toThrow("Incompatible units");
+      expect(() => { qty2.add(qty1); }).toThrow("Incompatible units");
     });
 
-    it("should subtract quantities", function () {
+    it("should subtract quantities", () => {
       var qty1 = Qty("2.5m");
       var qty2 = Qty("3m");
       expect(qty1.sub(qty2).scalar).toBe(-0.5);
@@ -737,26 +752,26 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("cm");
     });
 
-    it("should fail to subtract unlike quantities", function () {
+    it("should fail to subtract unlike quantities", () => {
       var qty1 = Qty("3m");
       var qty2 = Qty("2s");
-      expect(function () { qty1.sub(qty2); }).toThrow("Incompatible units");
-      expect(function () { qty2.sub(qty1); }).toThrow("Incompatible units");
+      expect(() => { qty1.sub(qty2); }).toThrow("Incompatible units");
+      expect(() => { qty2.sub(qty1); }).toThrow("Incompatible units");
     });
 
-    it("should fail to subtract inverse quantities", function () {
+    it("should fail to subtract inverse quantities", () => {
       var qty1 = Qty("10S");
       var qty2 = qty1.inverse();
-      expect(function () { qty1.sub(qty2); }).toThrow("Incompatible units");
-      expect(function () { qty2.sub(qty1); }).toThrow("Incompatible units");
+      expect(() => { qty1.sub(qty2); }).toThrow("Incompatible units");
+      expect(() => { qty2.sub(qty1); }).toThrow("Incompatible units");
 
       qty1 = Qty("10S");
       qty2 = Qty("0.1ohm");
-      expect(function () { qty1.sub(qty2); }).toThrow("Incompatible units");
-      expect(function () { qty2.sub(qty1); }).toThrow("Incompatible units");
+      expect(() => { qty1.sub(qty2); }).toThrow("Incompatible units");
+      expect(() => { qty2.sub(qty1); }).toThrow("Incompatible units");
     });
 
-    it("should multiply quantities", function () {
+    it("should multiply quantities", () => {
       var qty1 = Qty("2.5m");
       var qty2 = Qty("3m");
       var result = qty1.mul(qty2);
@@ -791,7 +806,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("m2");
     });
 
-    it("should multiply unlike quantities", function () {
+    it("should multiply unlike quantities", () => {
       var qty1 = Qty("2.5 m");
       var qty2 = Qty("3 N");
 
@@ -806,7 +821,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("kg");
     });
 
-    it("should multiply inverse quantities", function () {
+    it("should multiply inverse quantities", () => {
       var qty1 = Qty("10S");
       var qty2 = Qty(".5S").inverse(); // 2/S
       var qty3 = qty1.inverse();           // .1/S
@@ -832,13 +847,13 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("");
     });
 
-    it("should divide quantities", function () {
+    it("should divide quantities", () => {
       var qty1 = Qty("2.5m");
       var qty2 = Qty("3m");
       var qty3 = Qty("0m");
 
-      expect(function () { qty1.div(qty3); }).toThrow("Divide by zero");
-      expect(function () { qty1.div(0); }).toThrow("Divide by zero");
+      expect(() => { qty1.div(qty3); }).toThrow("Divide by zero");
+      expect(() => { qty1.div(0); }).toThrow("Divide by zero");
       expect(qty3.div(qty1).scalar).toBe(0);
 
       var result = qty1.div(qty2);
@@ -860,7 +875,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("m");
     });
 
-    it("should divide unlike quantities", function () {
+    it("should divide unlike quantities", () => {
       var qty1 = Qty("7.5kg");
       var qty2 = Qty("2.5m^2");
 
@@ -869,7 +884,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("kg/m2");
     });
 
-    it("should divide inverse quantities", function () {
+    it("should divide inverse quantities", () => {
       var qty1 = Qty("10 S");
       var qty2 = Qty(".5 S").inverse(); // 2/S
       var qty3 = qty1.inverse();            // .1/S
@@ -893,9 +908,9 @@ describe("js-quantities", function () {
 
   });
 
-  describe("math with temperatures", function () {
+  describe("math with temperatures", () => {
 
-    it("should add temperature degrees", function () {
+    it("should add temperature degrees", () => {
       var qty = Qty("2degC");
       expect(qty.add("3degF").scalar).toBeCloseTo(11 / 3, 10);
       expect(qty.add("-1degC").scalar).toBe(1);
@@ -916,13 +931,13 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("degC");
     });
 
-    it("should not add two temperatures", function () {
+    it("should not add two temperatures", () => {
       var qty = Qty("2tempC");
-      expect(function () { qty.add("1 tempF"); }).toThrow("Cannot add two temperatures");
-      expect(function () { qty.add("1 tempC"); }).toThrow("Cannot add two temperatures");
+      expect(() => { qty.add("1 tempF"); }).toThrow("Cannot add two temperatures");
+      expect(() => { qty.add("1 tempC"); }).toThrow("Cannot add two temperatures");
     });
 
-    it("should add temperatures to degrees", function () {
+    it("should add temperatures to degrees", () => {
       var qty = Qty("2degC");
       var result = qty.add("3tempF");
       expect(result.scalar).toBe(33 / 5);
@@ -938,7 +953,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("tempC");
     });
 
-    it("should subtract degrees from degrees", function () {
+    it("should subtract degrees from degrees", () => {
       var qty = Qty("2degC");
       expect(qty.sub("1.5degK").scalar).toBe(0.5);
       expect(qty.sub("-2degC").scalar).toBe(4);
@@ -950,7 +965,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("degC");
     });
 
-    it("should subtract degrees from temperatures", function () {
+    it("should subtract degrees from temperatures", () => {
       var qty = Qty("2tempC");
       expect(qty.sub("1.5degK").scalar).toBe(0.5);
       expect(qty.sub("-2degC").scalar).toBe(4);
@@ -962,7 +977,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("tempC");
     });
 
-    it("should subtract temperatures from temperatures", function () {
+    it("should subtract temperatures from temperatures", () => {
       var qty = Qty("2tempC");
 
       var result = qty.sub("1.5tempK");
@@ -978,13 +993,13 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("degC");
     });
 
-    it("should not subtract temperatures from degrees", function () {
+    it("should not subtract temperatures from degrees", () => {
       var qty = Qty("2degC");
-      expect(function () { qty.sub("1 tempF"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
-      expect(function () { qty.sub("1 tempC"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
+      expect(() => { qty.sub("1 tempF"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
+      expect(() => { qty.sub("1 tempC"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
     });
 
-    it("should multiply temperature degrees", function () {
+    it("should multiply temperature degrees", () => {
       var qty = Qty("2degF");
       var result = qty.mul(3);
       expect(result.scalar).toBe(6);
@@ -1006,11 +1021,11 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("degC*degF");
     });
 
-    it("should not multiply temperatures except by scalar", function () {
+    it("should not multiply temperatures except by scalar", () => {
       var qty = Qty("2tempF");
-      expect(function () { qty.mul("1 tempC"); }).toThrow("Cannot multiply by temperatures");
-      expect(function () { qty.mul("1 degC"); }).toThrow("Cannot multiply by temperatures");
-      expect(function () { Qty("1 tempC*s"); }).toThrow("Cannot multiply by temperatures");
+      expect(() => { qty.mul("1 tempC"); }).toThrow("Cannot multiply by temperatures");
+      expect(() => { qty.mul("1 degC"); }).toThrow("Cannot multiply by temperatures");
+      expect(() => { Qty("1 tempC*s"); }).toThrow("Cannot multiply by temperatures");
 
       var result = qty.mul(2);
       expect(result.scalar).toBe(4);
@@ -1021,7 +1036,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("tempF");
     });
 
-    it("should multiply temperature degrees with unlike quantities", function () {
+    it("should multiply temperature degrees with unlike quantities", () => {
       var qty1 = Qty("2.5 degF");
       var qty2 = Qty("3 m");
 
@@ -1036,7 +1051,7 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("kg");
     });
 
-    it("should divide temperature degrees with unlike quantities", function () {
+    it("should divide temperature degrees with unlike quantities", () => {
       var qty1 = Qty("7.5degF");
       var qty2 = Qty("2.5m^2");
 
@@ -1045,11 +1060,11 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("degF/m2");
     });
 
-    it("should divide temperature degree quantities", function () {
+    it("should divide temperature degree quantities", () => {
       var qty = Qty("2.5 degF");
 
-      expect(function () { qty.div("0 degF"); }).toThrow("Divide by zero");
-      expect(function () { qty.div(0); }).toThrow("Divide by zero");
+      expect(() => { qty.div("0 degF"); }).toThrow("Divide by zero");
+      expect(() => { qty.div(0); }).toThrow("Divide by zero");
       expect(Qty("0 degF").div(qty).scalar).toBe(0);
       expect(Qty("0 degF").div(qty).units()).toBe("");
 
@@ -1069,15 +1084,15 @@ describe("js-quantities", function () {
       expect(result.units()).toBe("degF/degC");
     });
 
-    it("should not divide with temperatures except by scalar", function () {
-      expect(function () { Qty("tempF").div("1 tempC"); }).toThrow("Cannot divide with temperatures");
-      expect(function () { Qty("tempF").div("1 degC"); }).toThrow("Cannot divide with temperatures");
-      expect(function () { Qty("2").div("tempF"); }).toThrow("Cannot divide with temperatures");
-      expect(function () { Qty("2 tempF/s"); }).toThrow("Cannot divide with temperatures");
-      expect(function () { Qty("2 s/tempF"); }).toThrow("Cannot divide with temperatures");
+    it("should not divide with temperatures except by scalar", () => {
+      expect(() => { Qty("tempF").div("1 tempC"); }).toThrow("Cannot divide with temperatures");
+      expect(() => { Qty("tempF").div("1 degC"); }).toThrow("Cannot divide with temperatures");
+      expect(() => { Qty("2").div("tempF"); }).toThrow("Cannot divide with temperatures");
+      expect(() => { Qty("2 tempF/s"); }).toThrow("Cannot divide with temperatures");
+      expect(() => { Qty("2 s/tempF"); }).toThrow("Cannot divide with temperatures");
 
       // inverse is division: 1/x
-      expect(function () { Qty("tempF").inverse(); }).toThrow("Cannot divide with temperatures");
+      expect(() => { Qty("tempF").inverse(); }).toThrow("Cannot divide with temperatures");
 
       var result = Qty("4 tempF").div(2);
       expect(result.scalar).toBe(2);
@@ -1086,8 +1101,8 @@ describe("js-quantities", function () {
 
   });
 
-  describe("errors", function () {
-    it("should be instance of Qty.Error", function () {
+  describe("errors", () => {
+    it("should be instance of Qty.Error", () => {
       try {
         Qty("aa");
       } catch (e) {
@@ -1096,16 +1111,16 @@ describe("js-quantities", function () {
     });
   });
 
-  describe("utility methods", function () {
+  describe("utility methods", () => {
 
-    it("should accept string as parameter for compatibility tests", function () {
+    it("should accept string as parameter for compatibility tests", () => {
       var qty = Qty("1 mm");
 
       expect(qty.isCompatible("2 mm")).toBe(true);
       expect(qty.isCompatible("2 mm^3")).toBe(false);
     });
 
-    it("should return kind", function () {
+    it("should return kind", () => {
       var qty = Qty("1 mm");
       expect(qty.kind()).toBe("length");
 
@@ -1113,7 +1128,7 @@ describe("js-quantities", function () {
       expect(qty.kind()).toBe("force");
     });
 
-    it("should know if a quantity is in base units", function () {
+    it("should know if a quantity is in base units", () => {
       var qty = Qty("100 cm");
       expect(qty.isBase()).toBe(false);
 
@@ -1121,7 +1136,7 @@ describe("js-quantities", function () {
       expect(qty.isBase()).toBe(true);
     });
 
-    it("should return unit part of quantities", function () {
+    it("should return unit part of quantities", () => {
       var qty = Qty("1");
       expect(qty.units()).toBe("");
       qty = Qty("1 /s");
@@ -1140,17 +1155,17 @@ describe("js-quantities", function () {
 
   });
 
-  describe("toString", function () {
-    it("should generate readable human output", function () {
+  describe("toString", () => {
+    it("should generate readable human output", () => {
       var qty = Qty("2m");
       expect(qty.toString()).toBe("2 m");
       expect(qty.toString("cm")).toBe("200 cm");
       expect(qty.toString("km")).toBe("0.002 km");
-      expect(function () { qty.toString("A"); }).toThrow("Incompatible units");
+      expect(() => { qty.toString("A"); }).toThrow("Incompatible units");
 
       qty = Qty("24.5m/s");
       expect(qty.toString()).toBe("24.5 m/s");
-      expect(function () { qty.toString("m"); }).toThrow("Incompatible units");
+      expect(() => { qty.toString("m"); }).toThrow("Incompatible units");
       expect(qty.toString("km/h")).toBe("88.2 km/h");
 
       qty = Qty("254kg/m^2");
@@ -1160,7 +1175,7 @@ describe("js-quantities", function () {
       expect(qty.toString()).toBe("2");
     });
 
-    it("should round readable human output when max decimals is specified", function () {
+    it("should round readable human output when max decimals is specified", () => {
       var qty = (Qty("2m")).div(3);
       expect(qty.toString("cm", 2)).toBe("66.67 cm");
 
@@ -1171,14 +1186,14 @@ describe("js-quantities", function () {
       expect(qty.toString("cm", 0)).toBe("282 cm");
     });
 
-    it("should round to max decimals", function () {
+    it("should round to max decimals", () => {
       var qty = (Qty("2.987654321 m"));
 
       expect(qty.toString(3)).toBe("2.988 m");
       expect(qty.toString(0)).toBe("3 m");
     });
 
-    it("should round according to precision passed as quantity", function () {
+    it("should round according to precision passed as quantity", () => {
       var qty = Qty("5.17 ft");
 
       expect(qty.toString(Qty("ft"))).toBe("5 ft");
@@ -1190,31 +1205,31 @@ describe("js-quantities", function () {
       expect(qty.toString(Qty("0.0001 ft"))).toBe("5.17 ft");
     });
 
-    it("should return same output with successive calls", function () {
+    it("should return same output with successive calls", () => {
       var qty = Qty("123 cm3");
       expect(qty.toString("cm3", 0)).toBe("123 cm3");
       expect(qty.toString("cm3", 0)).toBe("123 cm3");
     });
 
-    it("should return identical output when called with no parameters or same units", function () {
+    it("should return identical output when called with no parameters or same units", () => {
       var qty = Qty("123 cm3");
       expect(qty.toString()).toBe(qty.toString("cm3"));
     });
 
   });
 
-  describe("format", function () {
-    describe("provided default formatter", function () {
-      it("should be applied to output", function () {
+  describe("format", () => {
+    describe("provided default formatter", () => {
+      it("should be applied to output", () => {
         var qty = (Qty("2.987654321 m"));
 
         expect(qty.format()).toBe("2.987654321 m");
       });
     });
 
-    describe("custom formatter", function () {
-      var roundingFormatter = function (maxDecimals: number) {
-        return function (scalar: number, units: string) {
+    describe("custom formatter", () => {
+      var roundingFormatter = (maxDecimals: number) => {
+        return (scalar: number, units: string) => {
           var pow = Math.pow(10, maxDecimals);
           var rounded = Math.round(scalar * pow) / pow;
 
@@ -1222,14 +1237,14 @@ describe("js-quantities", function () {
         };
       };
 
-      it("should be applied to output", function () {
+      it("should be applied to output", () => {
         var qty = (Qty("2.987654321 m"));
 
         expect(qty.format(roundingFormatter(3))).toBe("2.988 m");
         expect(qty.format(roundingFormatter(0))).toBe("3 m");
       });
 
-      it("should be applied after conversion to target units", function () {
+      it("should be applied after conversion to target units", () => {
         var qty = (Qty("2m")).div(3);
         expect(qty.format("cm", roundingFormatter(2))).toBe("66.67 cm");
 
@@ -1241,20 +1256,20 @@ describe("js-quantities", function () {
         expect(qty.format("cm", intRoundingFormatter)).toBe("282 cm");
       });
 
-      describe("globally set as default formatter", function () {
+      describe("globally set as default formatter", () => {
         var previousFormatter: Qty.Formatter;
 
-        beforeEach(function () {
+        beforeEach(() => {
           previousFormatter = Qty.formatter;
           Qty.formatter = roundingFormatter(3);
         });
 
-        afterEach(function () {
+        afterEach(() => {
           // Restore previous formatter
           Qty.formatter = previousFormatter;
         });
 
-        it("should be applied when no formatter is passed", function () {
+        it("should be applied when no formatter is passed", () => {
           var qty = (Qty("2.987654321 m"));
 
           expect(qty.format()).toBe("2.988 m");
@@ -1263,8 +1278,8 @@ describe("js-quantities", function () {
     });
   });
 
-  describe("precision rounding", function () {
-    it("should round according to precision passed as quantity with same units", function () {
+  describe("precision rounding", () => {
+    it("should round according to precision passed as quantity with same units", () => {
       var qty = Qty("5.17 ft");
 
       expect(qty.toPrec(Qty("ft")).toString()).toBe("5 ft");
@@ -1278,7 +1293,7 @@ describe("js-quantities", function () {
       expect(qty.toPrec(Qty("0.25 ft")).toString()).toBe("5.25 ft");
     });
 
-    it("should allow string as precision parameter", function () {
+    it("should allow string as precision parameter", () => {
       var qty = Qty("5.17 ft");
 
       expect(qty.toPrec("ft").toString()).toBe("5 ft");
@@ -1286,7 +1301,7 @@ describe("js-quantities", function () {
       expect(qty.toPrec("0.05 ft").toString()).toBe("5.15 ft");
     });
 
-    it("should round according to precision passed as quantity with different prefixes", function () {
+    it("should round according to precision passed as quantity with different prefixes", () => {
       var qty = Qty("6.3782 m");
 
       expect(qty.toPrec(Qty("dm")).toString()).toBe("6.4 m");
@@ -1296,7 +1311,7 @@ describe("js-quantities", function () {
       expect(qty.toPrec(Qty("5 cm")).toString()).toBe("6.4 m");
     });
 
-    it("should round according to precision passed as quantity with different compatible units", function () {
+    it("should round according to precision passed as quantity with different compatible units", () => {
       var qty = Qty("1.146 MPa");
       expect(qty.toPrec(Qty("0.1 bar")).toString()).toBe("1.15 MPa");
       expect(qty.toPrec(Qty("0.01 MPa")).toString()).toBe("1.15 MPa");
@@ -1312,48 +1327,48 @@ describe("js-quantities", function () {
     });
   });
 
-  describe("mulSafe", function () {
-    it("should multiply while trying to avoid numerical errors", function () {
+  describe("mulSafe", () => {
+    it("should multiply while trying to avoid numerical errors", () => {
       expect(Qty.mulSafe(0.1, 0.1)).toBe(0.01);
       expect(Qty.mulSafe(1e-11, 123.456789)).toBe(1.23456789e-9);
       expect(Qty.mulSafe(6e-12, 100000)).toBe(6e-7);
     });
   });
 
-  describe("divSafe", function () {
-    it("should divide while trying to avoid numerical errors", function () {
+  describe("divSafe", () => {
+    it("should divide while trying to avoid numerical errors", () => {
       expect(Qty.divSafe(0.000773, 0.000001)).toBe(773);
       // TODO uncomment and fix
-      //expect(Qty.divSafe(24.5, 0.2777777777777778)).toBe(88.2);
+      // expect(Qty.divSafe(24.5, 0.2777777777777778)).toBe(88.2);
     });
   });
 
-  describe("Qty.parse", function () {
-    it("should not throw if parsed argument is a string", function () {
-      expect(function () { Qty.parse("foo"); }).not.toThrow("Argument should be a string");
+  describe("Qty.parse", () => {
+    it("should not throw if parsed argument is a string", () => {
+      expect(() => { Qty.parse("foo"); }).not.toThrow("Argument should be a string");
     });
 
-    it("should return parsed quantity when passing a valid quantity", function () {
+    it("should return parsed quantity when passing a valid quantity", () => {
       expect((Qty.parse("2.5 m") instanceof Qty)).toBe(true);
     });
 
-    it("should return null when passing an invalid quantity", function () {
+    it("should return null when passing an invalid quantity", () => {
       expect(Qty.parse("aa")).toBeNull();
     });
   });
 
-  describe("Qty.swiftConverter", function () {
-    it("should return a function", function () {
+  describe("Qty.swiftConverter", () => {
+    it("should return a function", () => {
       expect(typeof Qty.swiftConverter("m/h", "ft/s")).toBe("function");
     });
 
-    it("should throw when passing incompatible units", function () {
-      expect(function () { Qty.swiftConverter("m", "s"); }).toThrow("Incompatible units");
+    it("should throw when passing incompatible units", () => {
+      expect(() => { Qty.swiftConverter("m", "s"); }).toThrow("Incompatible units");
     });
 
-    describe("converter", function () {
-      describe("single value", function () {
-        it("should convert value", function () {
+    describe("converter", () => {
+      describe("single value", () => {
+        it("should convert value", () => {
           // TODO Same test but with m/h -> ft/s triggers rounding issue
           // (For the sake of speed, converter does not check and fix rounding issues)
           var converter = Qty.swiftConverter("m/h", "m/s");
@@ -1361,27 +1376,27 @@ describe("js-quantities", function () {
           expect(converter(2500)).toEqual(Qty("2500 m/h").to("m/s").scalar);
         });
 
-        it("should returned value unchanged when units are identical", function () {
+        it("should returned value unchanged when units are identical", () => {
           var converter = Qty.swiftConverter("m/h", "m/h");
 
           expect(converter(2500)).toEqual(2500);
         });
 
-        it("should convert temperatures", function () {
+        it("should convert temperatures", () => {
           var converter = Qty.swiftConverter("tempF", "tempC");
 
           expect(converter(32)).toEqual(0);
         });
 
-        it("should convert degrees", function () {
+        it("should convert degrees", () => {
           var converter = Qty.swiftConverter("degC", "degF");
 
           expect(converter(10)).toEqual(18);
         });
       });
 
-      describe("array of values", function () {
-        it("should be converted", function () {
+      describe("array of values", () => {
+        it("should be converted", () => {
           var converter = Qty.swiftConverter("MPa", "bar"),
             values = [250, 10, 15],
             expected = [2500, 100, 150];
@@ -1392,106 +1407,106 @@ describe("js-quantities", function () {
     });
   });
 
-  describe("Qty.getKinds", function () {
-    it("should return an array of kind names", function () {
+  describe("Qty.getKinds", () => {
+    it("should return an array of kind names", () => {
       expect(Qty.getKinds()).toContain("resistance");
     });
 
-    it("should not contain duplicate kind names", function () {
+    it("should not contain duplicate kind names", () => {
       var kinds = Qty.getKinds();
       var map: { [key: string]: number } = {};
-      kinds.forEach(function (kind) {
+      kinds.forEach(kind => {
         map[kind] = 1;
       });
       expect(kinds.length).toEqual(Object.keys(map).length);
     });
   });
 
-  describe("Qty.getUnits", function () {
-    it("should return an array of units of kind", function () {
+  describe("Qty.getUnits", () => {
+    it("should return an array of units of kind", () => {
       expect(Qty.getUnits("currency")).toContain("dollar");
     });
-    it("should return an array of all units without arg", function () {
+    it("should return an array of all units without arg", () => {
       expect(Qty.getUnits()).toContain("sievert");
     });
-    it("should throw unknown kind", function () {
-      expect(function () { Qty.getUnits('bogusKind'); }).toThrow("Kind not recognized");
+    it("should throw unknown kind", () => {
+      expect(() => { Qty.getUnits('bogusKind'); }).toThrow("Kind not recognized");
     });
   });
 
-  describe("Qty.getAliases", function () {
-    it("should return array of alternative names for unit", function () {
+  describe("Qty.getAliases", () => {
+    it("should return array of alternative names for unit", () => {
       expect(Qty.getAliases("m")).toContain("meter");
       expect(Qty.getAliases("meter")).toContain("metre");
       expect(Qty.getAliases("N")).toContain("newton");
     });
   });
 
-  describe("information", function () {
-    describe("bits and bytes", function () {
-      it("should have 'information' as kind", function () {
+  describe("information", () => {
+    describe("bits and bytes", () => {
+      it("should have 'information' as kind", () => {
         expect(Qty("3 b").kind()).toBe("information");
         expect(Qty("5 B").kind()).toBe("information");
       });
 
-      it("could be pluralized", function () {
+      it("could be pluralized", () => {
         expect(Qty("3 bits").eq(Qty("3 b"))).toBe(true);
         expect(Qty("5 bytes").eq(Qty("5 B"))).toBe(true);
       });
     });
 
-    describe("rate", function () {
-      it("should accept bps and Bps aliases", function () {
+    describe("rate", () => {
+      it("should accept bps and Bps aliases", () => {
         expect(Qty("3 bps").eq(Qty("3 b/s"))).toBe(true);
         expect(Qty("5 Bps").eq(Qty("5 B/s"))).toBe(true);
       });
 
-      it("should be parsed when prefixed", function () {
+      it("should be parsed when prefixed", () => {
         expect(Qty("3 kbps").eq(Qty("3 kb/s"))).toBe(true);
         expect(Qty("5 MBps").eq(Qty("5 MB/s"))).toBe(true);
       });
 
-      it("should have 'information_rate' as kind", function () {
+      it("should have 'information_rate' as kind", () => {
         expect(Qty("3 bps").kind()).toBe("information_rate");
         expect(Qty("5 Bps").kind()).toBe("information_rate");
       });
     });
   });
 
-  describe("non regression tests", function () {
-    describe("Wh (#38)", function () {
-      it("should be parsed", function () {
+  describe("non regression tests", () => {
+    describe("Wh (#38)", () => {
+      it("should be parsed", () => {
         expect(Qty("Wh").eq(Qty("3600 J"))).toBe(true);
       });
 
-      it("should be parsed when prefixed", function () {
+      it("should be parsed when prefixed", () => {
         expect(Qty("kWh").eq(Qty("1000 Wh"))).toBe(true);
       });
     });
 
-    describe("Ah (#25)", function () {
-      it("should be parsed", function () {
+    describe("Ah (#25)", () => {
+      it("should be parsed", () => {
         expect(Qty("Ah").eq(Qty("3600 C"))).toBe(true);
       });
 
-      it("should be parsed when prefixed", function () {
+      it("should be parsed when prefixed", () => {
         expect(Qty("mAh").eq(Qty("3.6 C"))).toBe(true);
       });
     });
 
-    describe("Farad (#67)", function () {
-      it('should be equal to its definition', function () {
+    describe("Farad (#67)", () => {
+      it('should be equal to its definition', () => {
         expect(Qty("1 F").eq(Qty("1 C").div(Qty("1 V")))).toBe(true);
       });
 
-      it('should not be defined as base unit', function () {
+      it('should not be defined as base unit', () => {
         var qty = Qty("F");
 
         expect(qty.isBase()).toBe(false);
         expect(qty.toBase().units()).toEqual("s4*A2/m2*kg");
       });
 
-      it('should be parsed when prefixed', function () {
+      it('should be parsed when prefixed', () => {
         var qty = Qty("100 nF");
 
         expect(qty.eq(Qty("100 F").div(1e9))).toBe(true);

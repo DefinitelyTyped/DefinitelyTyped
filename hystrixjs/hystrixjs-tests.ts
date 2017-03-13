@@ -1,6 +1,3 @@
-
-/// <reference types="q"/>
-
 import hystrixjs = require('hystrixjs');
 import q = require('q');
 

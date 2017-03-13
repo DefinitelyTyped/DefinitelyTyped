@@ -87,7 +87,7 @@ declare namespace UniversalAnalytics {
 
         getAll(): UniversalAnalytics.Tracker[];
         getByName(name: string): UniversalAnalytics.Tracker;
-        remove(name:string): void;
+        remove(name: string): void;
     }
 
     interface Tracker {

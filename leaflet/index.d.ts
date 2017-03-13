@@ -1466,7 +1466,7 @@ declare namespace L {
     export function divIcon(options?: DivIconOptions): DivIcon;
 
     export interface MarkerOptions extends InteractiveLayerOptions {
-        icon?: Icon;
+        icon?: Icon | DivIcon;
         clickable?: boolean;
         draggable?: boolean;
         keyboard?: boolean;
@@ -1483,7 +1483,7 @@ declare namespace L {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         setZIndexOffset(offset: number): this;
-        setIcon(icon: Icon): this;
+        setIcon(icon: Icon | DivIcon): this;
         setOpacity(opacity: number): this;
         getElement(): HTMLElement;
 
@@ -1524,6 +1524,27 @@ declare namespace L {
         export const svg: boolean;
     }
 
+    export namespace Util {
+        export function extend(dest: any, src?: any): any;
+        export function create(proto: any, properties?: any): any;
+        export function bind(fn: () => void, ...obj: any[]): () => void;
+        export function stamp(obj: any): number;
+        export function throttle(fn: () => void, time: number, context: any): () => void;
+        export function wrapNum(num: number, range: number[], includeMax?: boolean): number;
+        export function falseFn(): () => false;
+        export function formatNum(num: number, digits?: number): number;
+        export function trim(str: string): string;
+        export function splitWords(str: string): string[];
+        export function setOptions(obj: any, options: any): any;
+        export function getParamString(obj: any, existingUrl?: string, uppercase?: boolean): string;
+        export function template(str: string, data: any): string;
+        export function isArray(obj: any): boolean;
+        export function indexOf(array: any[], el: any): number;
+        export function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+        export function cancelAnimFrame(id: number): void;
+        export let lastId: string;
+        export let emptyImageUrl: string;
+    }
 }
 
 declare module 'leaflet' {

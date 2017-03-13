@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.5
+// Type definitions for Jasmine 2.5.2
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,6 +37,8 @@ interface DoneFn extends Function {
 }
 
 declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
+
+declare function spyOnProperty<T>(object: T, property: keyof T, accessType: string): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
@@ -455,6 +457,7 @@ declare namespace jasmine {
         addBeforesAndAftersToQueue(): void;
         explodes(): void;
         spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
+        spyOnProperty(object: any, property: string, accessType: string): Spy;
         removeAllSpies(): void;
         throwOnExpectationFailure: boolean;
     }

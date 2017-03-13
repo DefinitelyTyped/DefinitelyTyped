@@ -1,13 +1,10 @@
-
-/// <reference types="jquery" />
-
 import amplify = require("amplify");
 
 // Copied examples directly from AmplifyJs site
 
 // Subscribe and publish with no data
 
-amplify.subscribe("nodataexample", function () {
+amplify.subscribe("nodataexample", () => {
     alert("nodataexample topic published!");
 });
 
@@ -15,24 +12,24 @@ amplify.subscribe("nodataexample", function () {
 
 amplify.publish("nodataexample");
 
-amplify.subscribe("dataexample", function (data) {
+amplify.subscribe("dataexample", data => {
     alert(data.foo); // bar
 });
 
 
 amplify.publish("dataexample", { foo: "bar" });
 
-amplify.subscribe("dataexample2", function (param1, param2) {
+amplify.subscribe("dataexample2", (param1, param2) => {
     alert(param1 + param2); // barbaz
 });
 
-//...
+// ...
 
 amplify.publish("dataexample2", "bar", "baz");
 
 // Subscribe and publish with context and data
 
-amplify.subscribe("datacontextexample", $("p:first"), function (data) {
+amplify.subscribe("datacontextexample", $("p:first"), data => {
     this.text(data.exampleText); // first p element would have "foo bar baz" as text
 });
 
@@ -40,11 +37,11 @@ amplify.publish("datacontextexample", { exampleText: "foo bar baz" });
 
 // Subscribe to a topic with high priority
 
-amplify.subscribe("priorityexample", function (data) {
+amplify.subscribe("priorityexample", data => {
     alert(data.foo);
 });
 
-amplify.subscribe("priorityexample", function (data) {
+amplify.subscribe("priorityexample", data => {
     if (data.foo === "oops") {
         return false;
     }
@@ -87,7 +84,7 @@ amplify.request.define("ajaxExample1", "ajax", {
 });
 
 // later in code
-amplify.request("ajaxExample1", function (data) {
+amplify.request("ajaxExample1", data => {
     data.foo; // bar
 });
 
@@ -101,21 +98,21 @@ amplify.request.define("ajaxExample2", "ajax", {
 });
 
 // later in code
-amplify.request("ajaxExample2", function (data) {
+amplify.request("ajaxExample2", data => {
     data.foo; // bar
 });
 
 // a second call will result in pulling from the cache
-amplify.request("ajaxExample2", function (data) {
+amplify.request("ajaxExample2", data => {
     data.baz; // qux
-})
+});
 
 // Set up and use a RESTful request utilizing Ajax
 
 amplify.request.define("ajaxRESTFulExample", "ajax", {
     url: "/myRestFulApi/{type}/{id}",
     type: "GET"
-})
+});
 
 // later in code
 amplify.request("ajaxRESTFulExample",
@@ -123,7 +120,7 @@ amplify.request("ajaxRESTFulExample",
         type: "foo",
         id: "bar"
     },
-    function (data) {
+    data => {
         // /myRESTFulApi/foo/bar was the URL used
         data.foo; // bar
     }
@@ -132,9 +129,9 @@ amplify.request("ajaxRESTFulExample",
 // POST data with Ajax
 
 amplify.request.define("ajaxPostExample", "ajax", {
-        url: "/myRestFulApi",
-        type: "POST"
-    })
+    url: "/myRestFulApi",
+    type: "POST"
+});
 
 // later in code
 amplify.request("ajaxPostExample",
@@ -142,7 +139,7 @@ amplify.request("ajaxPostExample",
         type: "foo",
         id: "bar"
     },
-    function (data) {
+    data => {
         data.foo; // bar
     }
     );
@@ -165,7 +162,7 @@ amplify.request("twitter-search", { term: "amplifyjs" } );
     amplify.request.define("twitter-mentions", "ajax", {
         url: "http://search.twitter.com/search.json",
         dataType: "jsonp",
-        dataMap: function (data) {
+        dataMap: data => {
             return {
                 q: "@" + data.user
             };
@@ -176,9 +173,9 @@ amplify.request("twitter-mentions", { user: "amplifyjs" });
 
 // Setting up and using decoders
 
-//Example:
+// Example:
 
-var appEnvelopeDecoder: amplify.Decoder = function (data, status, xhr, success, error) {
+var appEnvelopeDecoder: amplify.Decoder = (data, status, xhr, success, error) => {
     if (data.status === "success") {
         success(data.data);
     } else if (data.status === "fail" || data.status === "error") {
@@ -188,7 +185,7 @@ var appEnvelopeDecoder: amplify.Decoder = function (data, status, xhr, success, 
     }
 };
 
-//a new decoder can be added to the amplifyDecoders interface
+// a new decoder can be added to the amplifyDecoders interface
 declare module "amplify" {
     interface Decoders {
         appEnvelope: amplify.Decoder;
@@ -197,7 +194,7 @@ declare module "amplify" {
 
 amplify.request.decoders.appEnvelope = appEnvelopeDecoder;
 
-//but you can also just add it via an index
+// but you can also just add it via an index
 amplify.request.decoders['appEnvelopeStr'] = appEnvelopeDecoder;
 
 
@@ -209,10 +206,10 @@ amplify.request.define("decoderExample", "ajax", {
 
 amplify.request({
     resourceId: "decoderExample",
-    success: function (data) {
+    success(data) {
         data.foo; // bar
     },
-    error: function (message, level) {
+    error(message, level) {
         alert("always handle errors with alerts.");
     }
 });
@@ -224,7 +221,7 @@ amplify.request({
 amplify.request.define("decoderSingleExample", "ajax", {
     url: "/myAjaxUrl",
     type: "POST",
-    decoder: function (data, status, xhr, success, error) {
+    decoder(data, status, xhr, success, error) {
         if (data.status === "success") {
             success(data.data);
         } else if (data.status === "fail" || data.status === "error") {
@@ -237,10 +234,10 @@ amplify.request.define("decoderSingleExample", "ajax", {
 
 amplify.request({
     resourceId: "decoderSingleExample",
-    success: function (data) {
+    success: data => {
         data.foo; // bar
     },
-    error: function (message, level) {
+    error: (message, level) => {
         alert("always handle errors with alerts.");
     }
 });
@@ -250,14 +247,14 @@ amplify.request({
 // amplify.request comes with built in support for status.The status parameter appears in the default success or error callbacks when using an ajax definition.
 
     amplify.request.define("statusExample1", "ajax", {
-        //...
+        // ...
     });
 
  amplify.request({
     resourceId: "statusExample1",
-    success: function (data, status) {
+    success: (data, status) => {
     },
-    error: function (data, status) {
+    error: (data, status) => {
     }
 });
 

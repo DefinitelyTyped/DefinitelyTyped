@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-format module v1.0.2
+// Type definitions for D3JS d3-format module 1.1
 // Project: https://github.com/d3/d3-format/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 1.1.0
 
 /**
  * Specification of locale to use when creating a new FormatLocaleObject
@@ -10,12 +12,12 @@ export interface FormatLocaleDefinition {
     /**
      * The decimal point (e.g., ".")
      */
-    decimal: '.' | ',';
+    decimal: string;
     /**
      * The group separator (e.g., ","). Note that the thousands property is a misnomer, as\
      * the grouping definition allows groups other than thousands.
      */
-    thousands: '.' | ',' | '\u00a0' | "'";
+    thousands: string;
     /**
      * The array of group sizes (e.g., [3]), cycled as needed.
      */
@@ -24,6 +26,10 @@ export interface FormatLocaleDefinition {
      * The currency prefix and suffix (e.g., ["$", ""])
      */
     currency: [string, string];
+    /**
+     * An array of ten strings to replace the numerals 0-9.
+     */
+    numerals?: string[];
 }
 
 /**

@@ -1,9 +1,10 @@
-/// <reference types="express"/>
-
 import * as awsServerlessExpress from 'aws-serverless-express';
 import * as express from 'express';
+import { eventContext } from 'aws-serverless-express/middleware';
 
 const app = express();
+app.use(eventContext());
+
 const server = awsServerlessExpress.createServer(app, () => {});
 
 const mockEvent = {

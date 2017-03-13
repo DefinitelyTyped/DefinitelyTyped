@@ -51,6 +51,7 @@ function test() {
 		makerjs.isPoint([]);
 		makerjs.pathType.Circle;
 		makerjs.round(44.44444, .01);
+		makerjs.travel(model, '');
 		makerjs.unitType.Millimeter;
 		new makerjs.Collector();
 	}
@@ -105,6 +106,7 @@ function test() {
 	}
 
 	function testMeasure() {
+		makerjs.measure.boundingHexagon(model).radius;
 		makerjs.measure.increase(mp, mm);
 		makerjs.measure.isPointEqual(p1, p2);
 		makerjs.measure.isPathEqual(paths.line, paths.circle, 4);
@@ -123,6 +125,7 @@ function test() {
 		makerjs.measure.pointDistance([0,0], [9,9]);
 		new makerjs.measure.Atlas(model);
 		mm.low[0];
+		mm.center;
 		mp.high[1];
 		var s = makerjs.measure.lineSlope(paths.line);
 		makerjs.measure.isPointOnSlope([], s);
@@ -172,6 +175,10 @@ function test() {
 			new makerjs.models.BoltCircle(7, 7, 7, 7),
 			new makerjs.models.BoltRectangle(2, 2, 2),
 			new makerjs.models.ConnectTheDots(true, [ [0,0], [1,1] ]),
+			new makerjs.models.ConnectTheDots([0, 0, 1, 1]),
+			new makerjs.models.ConnectTheDots(true, [0, 0, 1, 1]),
+			new makerjs.models.ConnectTheDots(true, '0, 0, 1, 1'),
+			new makerjs.models.ConnectTheDots('0, 0, 1, 1'),
 			new makerjs.models.Dogbone(1,1,1),
 			new makerjs.models.Dome(5, 7),
 			new makerjs.models.Ellipse(2,2),
@@ -255,7 +262,10 @@ function test() {
 	}
 
 	function testChain() {
+		makerjs.chain.cycle(chain, 7);
 		makerjs.chain.fillet(chain, 1);
+		makerjs.chain.reverse(chain);
+		makerjs.chain.startAt(chain, '');
 		makerjs.chain.toKeyPoints(chain);
 		makerjs.chain.toPoints(chain, 1);
 	}

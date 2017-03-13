@@ -41,6 +41,7 @@ export interface PoolConfig extends ClientConfig {
       idleTimeoutMillis?: number;
       reapIntervalMillis?: number;
       returnToHead?: boolean;
+      application_name?: string;
 }
 
 export interface QueryConfig {

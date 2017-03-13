@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 class LeanModalOptions implements JQueryLeanModalOption {
     top : number;
     overlay : number;

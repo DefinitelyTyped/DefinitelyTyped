@@ -65,7 +65,7 @@ bounds = new L.Bounds(pointTuple, pointTuple);
 bounds = new L.Bounds([point, point]);
 bounds = new L.Bounds(boundsLiteral);
 
-let points: Array<L.Point>;
+let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);
 points = L.LineUtil.simplify([pointTuple, pointTuple], 2);
 
@@ -141,9 +141,9 @@ let layer: L.Layer;
 
 const htmlElement = document.getElementById('foo');
 
-let popupOptions: L.PopupOptions = {};
+const popupOptions: L.PopupOptions = {};
 
-let tooltipOptions: L.TooltipOptions = {};
+const tooltipOptions: L.TooltipOptions = {};
 
 let zoomPanOptions: L.ZoomPanOptions = {};
 zoomPanOptions = {
@@ -153,11 +153,11 @@ zoomPanOptions = {
 	noMoveStart: true
 };
 
-let zoomOptions: L.ZoomOptions = {};
+const zoomOptions: L.ZoomOptions = {};
 
-let panOptions: L.PanOptions = {};
+const panOptions: L.PanOptions = {};
 
-let fitBoundsOptions: L.FitBoundsOptions = {};
+const fitBoundsOptions: L.FitBoundsOptions = {};
 
 let map = L.map('foo');
 map = L.map('foo', mapOptions);
@@ -175,7 +175,7 @@ doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
 let html: HTMLElement;
 html = map.createPane('foo');
-html = map.createPane('foo', htmlElement)
+html = map.createPane('foo', htmlElement);
 html = map.getPane('foo');
 html = map.getPane(htmlElement);
 html = map.getContainer();
@@ -245,7 +245,7 @@ tileLayerOptions.subdomains = ['a', 'b'];
 
 tileLayerOptions.tileSize = 256;
 tileLayerOptions.tileSize = point;
-//tileLayerOptions.tileSize = pointTuple; investigate if this is valid
+// tileLayerOptions.tileSize = pointTuple; investigate if this is valid
 
 tileLayerOptions.bounds = latLngBounds;
 tileLayerOptions.bounds = latLngBoundsLiteral;
@@ -259,17 +259,17 @@ tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
 tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 
-let eventHandler = () => {};
-let domEvent: Event = {} as Event;
+const eventHandler = () => {};
+const domEvent: Event = {} as Event;
 L.DomEvent
 	.on(htmlElement, 'click', eventHandler)
 	.addListener(htmlElement, 'click', eventHandler)
 	.off(htmlElement, 'click', eventHandler)
 	.removeListener(htmlElement, 'click', eventHandler)
-	.on(htmlElement, {'click': eventHandler})
-	.addListener(htmlElement, {'click': eventHandler})
-	.off(htmlElement, {'click': eventHandler}, eventHandler)
-	.removeListener(htmlElement, {'click': eventHandler}, eventHandler)
+	.on(htmlElement, {click: eventHandler})
+	.addListener(htmlElement, {click: eventHandler})
+	.off(htmlElement, {click: eventHandler}, eventHandler)
+	.removeListener(htmlElement, {click: eventHandler}, eventHandler)
 	.stopPropagation(domEvent)
 	.disableScrollPropagation(htmlElement)
 	.disableClickPropagation(htmlElement)
@@ -381,8 +381,8 @@ map = map
 	.whenReady(() => {})
 	.whenReady(() => {}, {});
 
-let elementToDrag = document.createElement('div');
-let draggable = new L.Draggable(elementToDrag);
+const elementToDrag = document.createElement('div');
+const draggable = new L.Draggable(elementToDrag);
 draggable.enable();
 draggable.disable();
 draggable.on('drag', () => {});
@@ -396,7 +396,7 @@ latLng = L.GeoJSON.coordsToLatLng(threeCoords);
 threeCoords = L.GeoJSON.latLngToCoords(latLng);
 
 let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
-let nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
+const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
 class MyMarker extends L.Marker {
@@ -427,8 +427,8 @@ const divIcon = L.divIcon({html: ''});
 let defaultIcon = new L.Icon.Default();
 defaultIcon = new L.Icon.Default({imagePath: 'apath'});
 
-let myControlClass = L.Control.extend({});
-let myControl = new myControlClass();
+const myControlClass = L.Control.extend({});
+const myControl = new myControlClass();
 
 L.Control.include({});
 L.Control.mergeOptions({});
@@ -447,3 +447,34 @@ L.marker([1, 2], {
 		iconUrl: 'my-icon.png'
 	})
 }).bindPopup('<p>Hi</p>');
+
+L.marker([1, 2], {
+	icon: L.divIcon({
+		className: 'my-icon-class'
+	})
+}).setIcon(L.icon({
+	iconUrl: 'my-icon.png'
+})).setIcon(L.divIcon({
+	className: 'my-div-icon'
+}));;
+
+
+L.Util.extend({});
+L.Util.create({});
+L.Util.bind(() => {}, {});
+L.Util.stamp({});
+L.Util.throttle(() => {}, 123, {});
+L.Util.wrapNum(123, []);
+L.Util.falseFn();
+L.Util.formatNum(123);
+L.Util.trim('word   ');
+L.Util.splitWords('word word');
+L.Util.setOptions({}, {});
+L.Util.getParamString({});
+L.Util.template('template', {});
+L.Util.isArray({});
+L.Util.indexOf([], {});
+L.Util.requestAnimFrame(() => {});
+L.Util.cancelAnimFrame(1);
+L.Util.emptyImageUrl;
+

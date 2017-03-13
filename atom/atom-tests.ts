@@ -1,5 +1,4 @@
 /// <reference types="node" />
-/// <reference types="pathwatcher" />
 
 import path = require("path");
 import _atom = require("atom");

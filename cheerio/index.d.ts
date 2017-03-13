@@ -1,6 +1,6 @@
-// Type definitions for Cheerio v0.17.0
+// Type definitions for Cheerio v0.22.0
 // Project: https://github.com/cheeriojs/cheerio
-// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>
+// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Cheerio {
@@ -47,10 +47,11 @@ interface Cheerio {
     is(func: (index: number, element: CheerioElement) => boolean): boolean;
 
     // Form
+    serialize(): string;
     serializeArray(): {name: string, value: string}[];
 
     // Traversing
-
+    
     find(selector: string): Cheerio;
     find(element: Cheerio): Cheerio;
 
@@ -59,6 +60,9 @@ interface Cheerio {
     parentsUntil(selector?: string, filter?: string): Cheerio;
     parentsUntil(element: CheerioElement, filter?: string): Cheerio;
     parentsUntil(element: Cheerio, filter?: string): Cheerio;
+
+    prop(name: string): any;
+    prop(name: string, value: any): Cheerio;
 
     closest(): Cheerio;
     closest(selector: string): Cheerio;
@@ -126,6 +130,8 @@ interface Cheerio {
     addBack(filter: string):Cheerio;
 
     // Manipulation
+    appendTo(target: Cheerio) : Cheerio
+    prependTo(target: Cheerio) : Cheerio
 
     append(content: string, ...contents: any[]): Cheerio;
     append(content: Document, ...contents: any[]): Cheerio;
