@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $('div').scrollTo(340);
 
 $('div').scrollTo('+=340px', { axis: 'y' });

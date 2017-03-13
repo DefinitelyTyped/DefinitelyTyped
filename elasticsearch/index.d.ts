@@ -88,6 +88,7 @@ declare module Elasticsearch {
     export interface ConfigOptions {
         host?: any;
         hosts?: any;
+        httpAuth?: string;
         log?: any;
         apiVersion?: string;
         plugins?: any;

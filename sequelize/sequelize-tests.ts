@@ -853,11 +853,14 @@ User.schema( 'special' ).create( { age : 3 }, { logging : function(  ) {} } );
 User.getTableName();
 
 User.addScope('lowAccess', { where : { parent_id : 2 } });
-User.addScope('lowAccess', function() { } );
 User.addScope('lowAccess', { where : { parent_id : 2 } }, { override: true });
+User.addScope('lowAccessWithParam', function(id: number) {
+  return { where : { parent_id : id } }
+} );
 
 User.scope( 'lowAccess' ).count();
 User.scope( { where : { parent_id : 2 } } );
+User.scope( [ 'lowAccess', { method: ['lowAccessWithParam', 2] }, { where : { parent_id : 2 } } ] )
 
 User.findAll();
 User.findAll( { where : { data : { employment : null } } } );
@@ -905,6 +908,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
 User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
+User.findAll( { where : s.fn('count', [0, 10]) } );
 
 User.findById( 'a string' );
 
@@ -925,6 +929,7 @@ User.findOne( { where : { name : 'worker' }, include : [User] } );
 User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as : 'Photos' }] } );
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
+User.findOne( { where : s.fn('count', []) } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
@@ -1269,7 +1274,7 @@ s.define( 'UserWithUniqueUsername', {
     username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
     email : { type : Sequelize.STRING, unique : 'user_and_email' }
 } );
-/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
+
 s.define( 'UserWithUniqueUsername', {
     user_id : { type : Sequelize.INTEGER },
     email : { type : Sequelize.STRING }
@@ -1277,13 +1282,18 @@ s.define( 'UserWithUniqueUsername', {
     indexes : [
         {
             name : 'user_and_email_index',
-            msg : 'User and email must be unique',
             unique : true,
             method : 'BTREE',
             fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }]
-        }]
+        },
+        {
+            fields: ['data'],
+            using: 'gin',
+            operator: 'jsonb_path_ops'
+        }
+    ]
 } );
- */
+
 s.define( 'TaskBuild', {
     title : { type : Sequelize.STRING, defaultValue : 'a task!' },
     foo : { type : Sequelize.INTEGER, defaultValue : 2 },
@@ -1527,6 +1537,27 @@ s.define( 'User', {
 }, {
     timestamps : true,
     paranoid : true
+} );
+
+s.define( 'TriggerTest', {
+    id : {
+        type : Sequelize.INTEGER,
+        field : 'test_id',
+        autoIncrement : true,
+        primaryKey : true,
+        validate : {
+            min : 1
+        }
+    },
+    title : {
+        allowNull : false,
+        type : Sequelize.STRING( 255 ),
+        field : 'test_title'
+    }
+}, {
+    timestamps : false,
+    underscored : true,
+    hasTrigger : true
 } );
 
 //

@@ -1,12 +1,12 @@
 import { RandomSeed, create } from "random-seed";
 
 // these generators produce different numbers
-let rand1: RandomSeed = create(); // method 1
+const rand1: RandomSeed = create(); // method 1
 
 // these generators will produce
 // the same sequence of numbers
-let seed = 'My Secret String Value';
-let rand2 = create(seed);
+const seed = 'My Secret String Value';
+const rand2 = create(seed);
 
 // API
 rand1.addEntropy();

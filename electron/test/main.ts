@@ -232,7 +232,8 @@ app.dock.setBadge('foo');
 var id = app.dock.bounce('informational');
 app.dock.cancelBounce(id);
 app.dock.setIcon('/path/to/icon.png');
-app.dock.setBadgeCount(app.dock.getBadgeCount() + 1);
+
+app.setBadgeCount(app.getBadgeCount() + 1);
 
 app.setUserTasks([
 	<Electron.Task>{

@@ -15,22 +15,22 @@ import { timeYear } from 'd3-time';
 // -----------------------------------------------------------------------------
 
 class NumCoercible {
-    public a: number;
+    a: number;
 
     constructor(a: number) {
         this.a = a;
     }
-    public valueOf() {
+    valueOf() {
         return this.a;
     }
 }
 
 class MixedObject {
 
-    public num: number;
-    public str: string;
-    public numeric: NumCoercible;
-    public date: Date;
+    num: number;
+    str: string;
+    numeric: NumCoercible;
+    date: Date;
 
     constructor(a: number, date: Date) {
         this.num = a;
@@ -44,43 +44,43 @@ let num: number;
 let date: Date;
 
 let numOrUndefined: number | undefined;
-let strOrUndefined: string | undefined;
-let numericOrUndefined: NumCoercible | undefined;
-let dateOrUndefined: Date | undefined;
+let strOrUndefined: string |  undefined;
+let numericOrUndefined: NumCoercible |  undefined;
+let dateOrUndefined: Date |  undefined;
 let numOrUndefinedExtent: [number, number] | [undefined, undefined];
 let strOrUndefinedExtent: [string, string] | [undefined, undefined];
 let numericOrUndefinedExtent: [NumCoercible, NumCoercible] | [undefined, undefined];
-let dateMixedOrUndefined: [Date , Date] | [undefined, undefined];
+let dateMixedOrUndefined: [Date, Date] | [undefined, undefined];
 let mixedOrUndefinedExtent: [d3Array.Primitive | NumCoercible, d3Array.Primitive | NumCoercible] | [undefined, undefined];
 let dateOrUndefinedExtent: [Date, Date] | [undefined, undefined];
 
 let numbersArray = [10, 20, 30, 40, 50];
-let numbersOrUndefinedArray = [10, 20, undefined, null, 40, 50];
-let stringyNumbersArray = ['10', '20', '30', '40', '50'];
-let numericArray = [new NumCoercible(10), new NumCoercible(20), new NumCoercible(30), new NumCoercible(40), new NumCoercible(50)];
-let dateArray = [new Date(2016, 6, 1), new Date(2016, 7, 30), new Date(2015, 3, 15)];
-let mixedObjectArray = [
+const numbersOrUndefinedArray = [10, 20, undefined, null, 40, 50];
+const stringyNumbersArray = ['10', '20', '30', '40', '50'];
+const numericArray = [new NumCoercible(10), new NumCoercible(20), new NumCoercible(30), new NumCoercible(40), new NumCoercible(50)];
+const dateArray = [new Date(2016, 6, 1), new Date(2016, 7, 30), new Date(2015, 3, 15)];
+const mixedObjectArray = [
     new MixedObject(10, new Date(2016, 6, 1)),
     new MixedObject(20, new Date(2016, 7, 30)),
     new MixedObject(30, new Date(2015, 3, 15)),
     new MixedObject(40, new Date(2014, 3, 15)),
     new MixedObject(50, new Date(2017, 4, 15))
 ];
-let mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined]
+const mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
 
-function accessorMixedObjectToNum(datum: MixedObject, index: number, array: Array<MixedObject>): number {
+function accessorMixedObjectToNum(datum: MixedObject, index: number, array: MixedObject[]): number {
     return datum.num;
 }
 
-function accessorMixedObjectToStr(datum: MixedObject, index: number, array: Array<MixedObject>): string {
+function accessorMixedObjectToStr(datum: MixedObject, index: number, array: MixedObject[]): string {
     return datum.str;
 }
 
-function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: Array<MixedObject>): NumCoercible {
+function accessorMixedObjectToNumeric(datum: MixedObject, index: number, array: MixedObject[]): NumCoercible {
     return datum.numeric;
 }
 
-function accessorMixedObjectToDate(datum: MixedObject, index: number, array: Array<MixedObject>): Date {
+function accessorMixedObjectToDate(datum: MixedObject, index: number, array: MixedObject[]): Date {
     return datum.date;
 }
 
@@ -88,7 +88,7 @@ function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, ind
     return datum ? datum.num : undefined;
 }
 
-function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: Array<MixedObject>): string | undefined | null {
+function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: MixedObject[]): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
@@ -210,17 +210,17 @@ numOrUndefined = d3Array.variance(mixedObjectOrUndefinedArray, accessorMixedObje
 
 // scan() ----------------------------------------------------------------------
 
-numOrUndefined = d3Array.scan(numbersArray)
+numOrUndefined = d3Array.scan(numbersArray);
 
-numOrUndefined = d3Array.scan(mixedObjectArray, function (a, b) {
-    let aElem: MixedObject = a;
-    let bElem: MixedObject = b;
+numOrUndefined = d3Array.scan(mixedObjectArray, (a, b) => {
+    const aElem: MixedObject = a;
+    const bElem: MixedObject = b;
     return a.num - b.num;
 });
 
-numOrUndefined = d3Array.scan(mixedObjectOrUndefinedArray, function (a, b) {
-    let aElem: MixedObject | undefined = a;
-    let bElem: MixedObject | undefined = b;
+numOrUndefined = d3Array.scan(mixedObjectOrUndefinedArray, (a, b) => {
+    const aElem: MixedObject | undefined = a;
+    const bElem: MixedObject | undefined = b;
     return a && b ? a.num - b.num : NaN;
 });
 
@@ -268,19 +268,16 @@ num = d3Array.bisect([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012,
 
 // bisector() ------------------------------------------------------------------
 
-mixedObjectArray.sort(function (a, b) { return a.date.valueOf() - b.date.valueOf(); });
+mixedObjectArray.sort((a, b) => a.date.valueOf() - b.date.valueOf());
 
 let mixedObjectDateBisectorObject: d3Array.Bisector<MixedObject, Date>;
 
 // define using accessor
-mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(function (el) {
-    return el.date;
-});
+mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(el => el.date);
 
 // define using comparator
-mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(function (el, x) {
-    return el.date.valueOf() - x.valueOf();
-});
+mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>((el, x) =>
+    el.date.valueOf() - x.valueOf());
 
 // bisect left
 num = mixedObjectDateBisectorObject.left(mixedObjectArray, new Date(2015, 3, 14));
@@ -333,11 +330,33 @@ mergedArray = d3Array.merge(testArrays); // inferred type
 mergedArray = d3Array.merge<MixedObject>(testArrays); // explicit type
 // mergedArray = d3Array.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
 
+// cross() ---------------------------------------------------------------------
+
+let crossed: Array<[string, number]>;
+
+crossed = d3Array.cross(['x', 'y'], [1, 2]);
+crossed = d3Array.cross<string, number>(['x', 'y'], [1, 2]);
+
+let strArray: string[] = d3Array.cross<number, number, string>([2, 3], [5, 6], (a, b) => (a + b) + 'px');
+strArray = d3Array.cross([2, 3], [5, 6], (a, b) => {
+    let aa: number = a;
+    let bb: number = b;
+    return (aa + bb) + 'px';
+});
+
+
 // pairs() ---------------------------------------------------------------------
 
 let pairs: Array<[MixedObject, MixedObject]>;
 
 pairs = d3Array.pairs(mergedArray);
+
+numbersArray = d3Array.pairs<MixedObject, number>(mergedArray, (a, b) => b.num - a.num);
+numbersArray = d3Array.pairs(mergedArray, (a, b) => {
+    let aa: MixedObject = a;
+    let bb: MixedObject = b;
+    return bb.num - aa.num;
+});
 
 // permute() -------------------------------------------------------------------
 
@@ -346,14 +365,14 @@ mergedArray = d3Array.permute(mergedArray, [1, 0, 2, 5, 3, 4, 6]);
 
 // Getting an ordered array with object properties
 
-let testObject = {
+const testObject = {
     val: 10,
     name: 'Test',
     when: new Date(),
     more: [10, 30, 40]
 };
 
-let x: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
+const x: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
 
 
 // range() ---------------------------------------------------------------------
@@ -412,7 +431,7 @@ testArrays = d3Array.zip(
 // Test Histogram
 // -----------------------------------------------------------------------------
 
-let tScale = scaleTime();
+const tScale = scaleTime();
 
 // Create histogram generator ==================================================
 
@@ -426,10 +445,10 @@ testHistogram = d3Array.histogram<MixedObject, Date>();
 
 // value(...) ------------------------------------------------------------------
 
-testHistogram = testHistogram.value(function (d, i, data) {
-    let datum: MixedObject = d; // d is of type MixedObject
-    let index: number = i; // i is number
-    let array: MixedObject[] = data; // data is of type MixedObject[]
+testHistogram = testHistogram.value((d, i, data) => {
+    const datum: MixedObject = d; // d is of type MixedObject
+    const index: number = i; // i is number
+    const array: MixedObject[] = data; // data is of type MixedObject[]
     return datum.date;
 });
 
@@ -442,16 +461,14 @@ valueAccessorFn = testHistogram.value();
 testHistogram = testHistogram.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 
 // usage with scale domain:
-let domain = tScale.domain();
+const domain = tScale.domain();
 
 testHistogram = testHistogram.domain([domain[0], domain[domain.length]]);
 
 // testHistogram = testHistogram.domain(tScale.domain()); // fails, as scale domain is an array with possibly more than the two elements expected by histogram
 
 // use with accessor function
-testHistogram = testHistogram.domain(function (values) {
-    return [values[0], values[values.length]];
-});
+testHistogram = testHistogram.domain(values => [values[0], values[values.length]]);
 
 // get current domain accessor function
 let domainAccessorFn: (values: Date[]) => [Date, Date];
@@ -470,7 +487,7 @@ defaultHistogram = defaultHistogram.thresholds(d3Array.thresholdScott);
 testHistogram = testHistogram.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
 
 // with thresholds value array accessors
-testHistogram = testHistogram.thresholds(function (values: Date[], min: Date, max: Date) {
+testHistogram = testHistogram.thresholds((values: Date[], min: Date, max: Date) => {
     let thresholds: Date[];
     thresholds = [values[0], values[2], values[4]];
     return thresholds;
@@ -498,7 +515,7 @@ let testBin: d3Array.Bin<MixedObject, Date>;
 testBin = testBins[0];
 
 num = testBin.length; // defaultBin is array
-let mixedObject: MixedObject = testBin[0]; // with element type MixedObject
+const mixedObject: MixedObject = testBin[0]; // with element type MixedObject
 date = testBin.x0; // bin lower bound is Date
 date = testBin.x1; // bin upper bound is Date
 

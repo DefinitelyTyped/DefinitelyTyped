@@ -20,9 +20,11 @@ interface Historyjs {
 
     enabled: boolean;
 
-    pushState(data: any, title: string, url: string): void;
-    replaceState(data: any, title: string, url: string): void;
-    getState(): HistoryState;
+    pushState(data: any, title: string, url: string, queue?: boolean): boolean;
+    replaceState(data: any, title: string, url: string, queue?: boolean): boolean;
+    getState(friendly?: boolean, create?: boolean): HistoryState;
+    getStateId (passedState: HistoryState): string;
+    getStateById (id: string): HistoryState;
     getStateByIndex(index: number): HistoryState;
     getCurrentIndex(): number;
     getHash(): string;
@@ -37,12 +39,30 @@ interface Historyjs {
     debug(...messages: any[]): void;
 
     options: HistoryOptions;
+
+    /**
+     * History.setTitle(title)
+     * Applies the title to the document
+     * @param {HistoryState} newState
+     * @return {Boolean}
+     */
+    setTitle (newState: HistoryState): boolean
+    clearQueue(): Historyjs;
+    clearAllIntervals(): void;
+    getRootUrl(): string;
+
+    emulated: {
+        hashChange?: any;
+        pushState?: any;
+    }
 }
 
 interface HistoryState {
     data?: any;
     title?: string;
     url: string;
+    hashedUrl?: string;
+    cleanUrl?: string;
 }
 
 interface HistoryOptions {
@@ -56,6 +76,4 @@ interface HistoryOptions {
     initialTitle?: string;
     html4Mode?: boolean;
     delayInit?: number;
-
-
 }

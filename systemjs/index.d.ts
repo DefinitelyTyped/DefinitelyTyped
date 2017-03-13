@@ -1,4 +1,4 @@
-// Type definitions for SystemJS 0.20.5
+// Type definitions for SystemJS 0.20
 // Project: https://github.com/systemjs/systemjs
 // Definitions by: Ludovic HENIN <https://github.com/ludohenin/>, Nathan Walker <https://github.com/NathanWalker/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,13 @@
 
 declare namespace SystemJSLoader {
 
-    type ModulesList = { [bundleName: string]: Array<string> };
+    interface ModulesList {
+        [bundleName: string]: string[];
+    }
 
-    type PackageList<T> = { [packageName: string]: T };
+    interface PackageList<T> {
+        [packageName: string]: T;
+    }
 
     /**
      * The following module formats are supported:
@@ -27,7 +31,7 @@ declare namespace SystemJSLoader {
      * Represents a module name for System.import that must resolve to either Traceur, Babel or TypeScript.
      * When set to traceur, babel or typescript, loading will be automatically configured as far as possible.
      */
-    type Transpiler = "plugin-traceur" | "plugin-babel" | "plugin-typescript" | "traceur" | "babel" | "typescript" | boolean;
+    type Transpiler = "plugin-traceur" | "plugin-babel" | "plugin-typescript" | "traceur" | "babel" | "typescript" | false;
 
     type ConfigMap = PackageList<string | PackageList<string>>;
 
@@ -49,7 +53,7 @@ declare namespace SystemJSLoader {
          * Dependencies to load before this module. Goes through regular paths and map normalization.
          * Only supported for the cjs, amd and global formats.
          */
-        deps?: Array<string>;
+        deps?: string[];
 
         /**
          * A map of global names to module names that should be defined only for the execution of this module.
@@ -225,13 +229,29 @@ declare namespace SystemJSLoader {
          * Sets the TypeScript transpiler options.
          */
         //TODO: Import Typescript.CompilerOptions
-        typescriptOptions?: any;
+        typescriptOptions?: {
+            /**
+             * A boolean flag which instructs the plugin to load configuration from "tsconfig.json".
+             * To override the location of the file set this option to the path of the configuration file,
+             * which will be resolved using normal SystemJS resolution.
+             * Note: This setting is specific to plugin-typescript.
+             */
+            tsconfig?: boolean | string,
+            /**
+             * A flag which controls whether the files are type-checked or simply transpiled.
+             * Set this option to "strict" to have the builds fail when compiler errors are encountered.
+             * Note: The strict option only affects builds and bundles via the SystemJS or JSPM Builder.
+             * Note: This setting is specific to plugin-typescript.
+             */
+            typeCheck?: boolean | "strict",
+            [key: string]: any
+        };
     }
 
     interface SystemJSSystemFields {
         env: string;
         loaderErrorStack: boolean;
-        packageConfigPaths: Array<string>;
+        packageConfigPaths: string[];
         pluginFirst: boolean;
         version: string;
         warnings: boolean;
@@ -241,12 +261,12 @@ declare namespace SystemJSLoader {
         /**
          * For backwards-compatibility with AMD environments, set window.define = System.amdDefine.
          */
-        amdDefine: Function;
+        amdDefine: (...args: any[]) => void;
 
         /**
          * For backwards-compatibility with AMD environments, set window.require = System.amdRequire.
          */
-        amdRequire: Function;
+        amdRequire: (deps: string[], callback: (...modules: any[]) => void) => void;
 
         /**
          * SystemJS configuration helper function.
@@ -257,7 +277,7 @@ declare namespace SystemJSLoader {
         /**
          * This represents the System base class, which can be extended or reinstantiated to create a custom System instance.
          */
-        constructor: new() => System;
+        constructor: new () => System;
 
         /**
          * Deletes a module from the registry by normalized name.
@@ -273,7 +293,7 @@ declare namespace SystemJSLoader {
         /**
          * Returns a clone of the internal SystemJS configuration in use.
          */
-        getConfig(): Config
+        getConfig(): Config;
 
         /**
          * Returns whether a given module exists in the registry by normalized module name.
@@ -303,15 +323,15 @@ declare namespace SystemJSLoader {
         /**
          * Declaration function for defining modules of the System.register polyfill module format.
          */
-        register(name: string, deps: Array<string>, declare: Function): void;
-        register(deps: Array<string>, declare: Function): void;
+        register(name: string, deps: string[], declare: (...modules: any[]) => any): void;
+        register(deps: string[], declare: (...modules: any[]) => any): void;
 
         /**
          * Companion module format to System.register for non-ES6 modules.
          * Provides a <script>-injection-compatible module format that any CommonJS or Global module can be converted into for CSP compatibility.
          */
-        registerDynamic(name: string, deps: Array<string>, executingRequire: boolean, declare: Function): void;
-        registerDynamic(deps: Array<string>, executingRequire: boolean, declare: Function): void;
+        registerDynamic(name: string, deps: string[], executingRequire: boolean, declare: (...modules: any[]) => any): void;
+        registerDynamic(deps: string[], executingRequire: boolean, declare: (...modules: any[]) => any): void;
 
         /**
          * Sets a module into the registry directly and synchronously.
@@ -320,11 +340,22 @@ declare namespace SystemJSLoader {
         set(moduleName: string, module: any): void;
 
         /**
+         * Resolves module name to normalized URL.
+         */
+        resolve(moduleName: string, parentName?: string): Promise<string>;
+
+        /**
+         * Resolves module name to normalized URL.
+         * Synchronous alternative to `SystemJS.resolve`.
+         */
+        resolveSync(moduleName: string, parentName?: string): string;
+    
+        /**
          * In CommonJS environments, SystemJS will substitute the global require as needed by the module format being
          * loaded to ensure the correct detection paths in loaded code.
          * The CommonJS require can be recovered within these modules from System._nodeRequire.
          */
-        _nodeRequire: Function;
+        _nodeRequire: (dep: string) => any;
 
         /**
          * Modules list available only with trace=true
@@ -340,10 +371,10 @@ declare var __moduleName: string;
 /**
  * @deprecated use SystemJS https://github.com/systemjs/systemjs/releases/tag/0.19.10
  */
-declare var System: SystemJSLoader.System;
+declare const System: SystemJSLoader.System;
 
 declare module "systemjs" {
     import systemJSLoader = SystemJSLoader;
-    let system: systemJSLoader.System;
+    const system: systemJSLoader.System;
     export = system;
 }

@@ -1,5 +1,3 @@
-///<reference types="react-native" />
-
 import * as React from 'react-native'
 
 import {

@@ -1,14 +1,11 @@
-///<reference types="jquery" />
-///<reference types="jquery.flagstrap" />
-
 class TestObject {
-    
+
 }
 
 $(function () {
-    // basic test 
-    // written in according to basic example from documentation 
-    var htmlSelect = '<form class="form-horizontal">' + 
+    // basic test
+    // written in according to basic example from documentation
+    var htmlSelect = '<form class="form-horizontal">' +
                     '   <div class="form-group">' +
                     '       <label>Select Country</label><br>' +
                     '       <div class="flagstrap" data-input-name="country"></div>' +
@@ -21,7 +18,7 @@ $(function () {
     console.log('characters count: ' + $('#flagstrap').html().length + '\n' +  $('#flagstrap').html());
 
     // options test
-    // options -> data attributes 
+    // options -> data attributes
     // written in according to options -> data attributes example from documentation
     htmlSelect = '<form>' +
                 '   <div class="form-group">' +
@@ -42,7 +39,7 @@ $(function () {
     console.log('\n\ncharacters count: ' + $('#flagstrap2').html().length + '\n' +  $('#flagstrap2').html());
 
     // options test
-    // options -> instance options 
+    // options -> instance options
     // written in according to options -> instance options example from documentation
     htmlSelect = '<form>' +
                 '   <div class="form-group">' +

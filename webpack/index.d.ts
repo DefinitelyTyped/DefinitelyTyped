@@ -1,6 +1,10 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Matt Lewis <https://github.com/mattlewis92>
+//                 Benjamin Lim <https://github.com/bumbleblym>
+//                 Boris Cherny <https://github.com/bcherny>
+//                 Tommy Troy Lin <https://github.com/tommytroylin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -27,7 +31,13 @@ declare namespace webpack {
         context?: string;
         entry?: string | string[] | Entry;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
-        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' | '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' | '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' | '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        // tslint:disable-next-line:max-line-length
+        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
+            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
+            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
+            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
+            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
+            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
         /** Options affecting the output. */
         output?: Output;
         /** Options affecting the normal modules (NormalModuleFactory) */
@@ -422,7 +432,8 @@ declare namespace webpack {
         /**
          * An object with parser options. All applied parser options are merged.
          *
-         * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options. Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
+         * For each different parser options object a new parser is created and plugins can apply plugins depending on the parser options.
+         * Many of the default plugins apply their parser plugins only if a property in the parser options is not set or true.
          */
         parser?: { [optName: string]: any };
         /** An array of Rules that is also used when the Rule matches. */
@@ -654,7 +665,20 @@ declare namespace webpack {
      */
 
     class BannerPlugin extends Plugin {
-        constructor(banner: any, options: any);
+        constructor(options: string | BannerPlugin.Options);
+    }
+
+    namespace BannerPlugin {
+        type Filter = string | RegExp;
+
+        interface Options {
+            banner: string;
+            entryOnly?: boolean;
+            exclude?: Filter | Filter[];
+            include?: Filter | Filter[];
+            raw?: boolean;
+            test?: Filter | Filter[];
+        }
     }
 
     class ContextReplacementPlugin extends Plugin {
@@ -723,6 +747,10 @@ declare namespace webpack {
         constructor(request: any);
     }
 
+    class ProgressPlugin extends Plugin {
+        constructor(options?: (percentage: number, msg: string) => void);
+    }
+
     class ProvidePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
     }
@@ -759,10 +787,28 @@ declare namespace webpack {
 
     namespace optimize {
         class AggressiveMergingPlugin extends Plugin {
-            constructor(options?: {
-                minSize?: number;
-                maxSize?: number;
-            });
+            constructor(options?: AggressiveMergingPlugin.Options);
+        }
+
+        namespace AggressiveMergingPlugin {
+            interface Options {
+                /**
+                 * When options.moveToParents is set, moving to an entry chunk is more expensive.
+                 * Defaults to 10, which means moving to an entry chunk is ten times more expensive than moving to a
+                 * normal chunk.
+                 */
+                entryChunkMultiplicator?: number;
+                /**
+                 * A factor which defines the minimum required size reduction for chunk merging.
+                 * Defaults to 1.5 which means that the total size needs to be reduced by 50% for chunk merging.
+                 */
+                minSizeReduce?: number;
+                /**
+                 * When set, modules that are not in both merged chunks are moved to all parents of the chunk.
+                 * Defaults to false.
+                 */
+                moveToParents?: boolean;
+            }
         }
 
         class CommonsChunkPlugin extends Plugin {

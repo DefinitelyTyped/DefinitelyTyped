@@ -1,9 +1,6 @@
-/// <reference types="jquery"/>
-
-
 // basic no options
 $('#datetimepicker').datetimepicker({
-    
+
 });
 
 // basic with some options

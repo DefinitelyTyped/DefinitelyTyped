@@ -1,5 +1,3 @@
-
-/// <reference types="bluebird" />
 import Promise = require('bluebird');
 import retry = require('bluebird-retry');
 

@@ -14,12 +14,12 @@ function defaultDemo() {
         paginationClickable: true
     });
 
-    $('.arrow-left').on('click', function (e) {
+    $('.arrow-left').on('click', e => {
         e.preventDefault();
         mySwiper.swipePrev();
     });
 
-    $('.arrow-right').on('click', function (e) {
+    $('.arrow-right').on('click', e => {
         e.preventDefault();
         mySwiper.swipeNext();
     });
@@ -40,7 +40,7 @@ function dynamicSlides() {
         pagination: '.pagination',
         paginationClickable: true
     });
-    
+
     function randomColor() {
         var colors = ('blue red green orange pink').split(' ');
         return colors[Math.floor(Math.random() * colors.length)];
@@ -48,41 +48,41 @@ function dynamicSlides() {
 
     var count = 4;
 
-    $('.sdl-append').click(function (e) {
+    $('.sdl-append').click(e => {
         e.preventDefault();
-        mySwiper.appendSlide('<div class="title">Slide ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide')
+        mySwiper.appendSlide('<div class="title">Slide ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide');
     });
 
-    $('.sdl-prepend').click(function (e) {
+    $('.sdl-prepend').click(e => {
         e.preventDefault();
-        mySwiper.prependSlide('<div class="title">Slide  ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide')
+        mySwiper.prependSlide('<div class="title">Slide  ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide');
     });
 
-    $('.sdl-swap').click(function (e) {
+    $('.sdl-swap').click(e => {
         e.preventDefault();
         mySwiper
             .getFirstSlide()
             .insertAfter(1);
     });
 
-    $('.sdl-insert').click(function (e) {
+    $('.sdl-insert').click(e => {
         e.preventDefault();
         mySwiper
             .createSlide('<div class="title">Slide  ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide')
             .insertAfter(0);
     });
 
-    $('.sdl-remove1').click(function (e) {
+    $('.sdl-remove1').click(e => {
         e.preventDefault();
         mySwiper.removeSlide(0);
     });
 
-    $('.sdl-removel').click(function (e) {
+    $('.sdl-removel').click(e => {
         e.preventDefault();
         mySwiper.removeLastSlide();
     });
 
-    $('.sdl-remove2').click(function (e) {
+    $('.sdl-remove2').click(e => {
         e.preventDefault();
         mySwiper.removeSlide(1);
     });
@@ -108,7 +108,7 @@ function freeMode() {
     });
 }
 
-// 06-carousel-mode.html 
+// 06-carousel-mode.html
 function carouselMode() {
     var mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
@@ -174,14 +174,14 @@ function tabs() {
         speed: 500
     });
 
-    $(".tabs a").on('touchstart mousedown', function (e) {
+    $(".tabs a").on('touchstart mousedown', e => {
         e.preventDefault();
         $(".tabs .active").removeClass('active');
         $(this).addClass('active');
         tabsSwiper.swipeTo($(this).index());
     });
 
-    $(".tabs a").click(function (e) {
+    $(".tabs a").click(e => {
         e.preventDefault();
     });
 }
@@ -190,20 +190,20 @@ function tabs() {
 function tabsFeedback() {
     var tabsSwiper = new Swiper('.swiper-container', {
         speed: 500,
-        onSlideChangeStart: function () {
+        onSlideChangeStart: () => {
             $(".tabs .active").removeClass('active');
             $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
         }
     });
 
-    $(".tabs a").on('touchstart mousedown', function (e) {
+    $(".tabs a").on('touchstart mousedown', e => {
         e.preventDefault();
         $(".tabs .active").removeClass('active');
         $(this).addClass('active');
         tabsSwiper.swipeTo($(this).index());
     });
 
-    $(".tabs a").click(function (e) {
+    $(".tabs a").click(e => {
         e.preventDefault();
     });
 }
@@ -256,7 +256,7 @@ function visibilityApi() {
     });
 }
 
-// 17 - responsive.html 
+// 17 - responsive.html
 function responsive() {
     var mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',

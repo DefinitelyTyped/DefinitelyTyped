@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as N3 from "n3";
 import * as fs from "fs";
 import * as stream from "stream";
@@ -26,7 +24,7 @@ function test_serialize() {
     });
 }
 
-/** 
+/**
 The following tests are taken from ...
 https://github.com/RubenVerborgh/N3.js/blob/master/README.md
 */

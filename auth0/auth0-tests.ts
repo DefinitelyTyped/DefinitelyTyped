@@ -1,5 +1,3 @@
-/// <reference types="auth0" />
-
 import * as auth0 from 'auth0';
 
 const management = new auth0.ManagementClient({

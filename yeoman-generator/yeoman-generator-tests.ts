@@ -5,16 +5,16 @@ import { EventEmitter } from 'events';
 class MyES2015Generator extends Base {}
 
 const MyGenerator = Base.extend({
-  writing: function(this: Base): void {
+  writing(this: Base): void {
     this.fs.write('var foo = 1;', this.destinationPath('index.js'));
   }
-})
+});
 
 const generator = new MyES2015Generator(['arg1', 'arg2'], { opt1: 'foo', opt2: 3, opt3: false });
 const eventEmitter: EventEmitter = generator;
 
-const env: Object = generator.env;
-const args: Object = generator.args;
+const env: {} = generator.env;
+const args: {} = generator.args;
 const resolved: string = generator.resolved;
 const description: string = generator.description;
 const appname: string = generator.appname;
@@ -52,7 +52,7 @@ generator.installDependencies();
 generator.installDependencies({
   bower: true,
   npm: true,
-  callback: function () {
+  callback() {
     console.log('Everything is ready!');
   }
 });

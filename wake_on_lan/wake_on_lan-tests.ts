@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import wol = require('wake_on_lan');
 
 wol.wake("20:DE:20:DE:20:DE");

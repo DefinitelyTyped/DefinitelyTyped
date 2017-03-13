@@ -2,27 +2,27 @@ import parse = require('csv-parse');
 
 function callbackAPITest() {
     var input = '#Welcome\n"1","2","3","4"\n"a","b","c","d"';
-    parse(input, {comment: '#'}, function(err, output){
-    output.should.eql([ [ '1', '2', '3', '4' ], [ 'a', 'b', 'c', 'd' ] ]);
+    parse(input, {comment: '#'}, (err, output) => {
+        output.should.eql([ [ '1', '2', '3', '4' ], [ 'a', 'b', 'c', 'd' ] ]);
     });
 }
 
 function streamAPITest() {
-    let output:string[][] = [];
+    let output: string[][] = [];
     // Create the parser
     var parser = parse({delimiter: ':'});
     let record: string[];
     // Use the writable stream api
-    parser.on('readable', function(){
-        while(record = parser.read()){
+    parser.on('readable', () => {
+        while (record = parser.read()) {
             output.push(record);
         }
     });
     // Catch any error
-    parser.on('error', function(err: any){
+    parser.on('error', (err: any) => {
         console.log(err.message);
     });
-    parser.on('finish', function(){
+    parser.on('finish', () => {
         console.log(output);
     });
     // Now that setup is done, write data to the stream
@@ -37,12 +37,12 @@ import fs = require('fs');
 function pipeFunctionTest() {
     var transform = require('stream-transform');
 
-    var output:any = [];
+    var output: any = [];
     var parser = parse({delimiter: ':'})
     var input = fs.createReadStream('/etc/passwd');
-    var transformer = transform(function(record: any[], callback: any){
-    setTimeout(function(){
-        callback(null, record.join(' ')+'\n');
+    var transformer = transform((record: any[], callback: any) => {
+    setTimeout(() => {
+        callback(null, record.join(' ') + '\n');
     }, 500);
     }, {parallel: 10});
     input.pipe(parser).pipe(transformer).pipe(process.stdout);

@@ -8,7 +8,7 @@ const freeswitchListener = new modesl.Server(() => {
 const freeswitchConnection = new modesl.Connection("freeswitch-host", 8021, 'password', () => {
     // console.log('connection initialized');
 
-    freeswitchConnection.api('conference', ['confname', 'dial', 'user/1006'])
+    freeswitchConnection.api('conference', ['confname', 'dial', 'user/1006']);
 
     freeswitchConnection.bgapi('conference', ['confname', 'dial', 'user/1006'], 'job-id', () => {
         // console.log('action queued');

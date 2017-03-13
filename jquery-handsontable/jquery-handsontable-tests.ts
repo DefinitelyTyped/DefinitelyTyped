@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 var data = [
     ["", "Maserati", "Mazda", "Mercedes", "Mini", "Mitsubishi"],
     ["2009", 0, 2941, 4303, 354, 5814],
