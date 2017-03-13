@@ -406,13 +406,14 @@ namespace DialogComponent {
         });
         var btnInstance = new ej.Button($("#btnOpen"), {
             size: "medium",
-            close: () => {
-			$("#btnOpen").hide();
-        $("#basicDialog").ejDialog("open"); },
+            click: () => {
+                $("#btnOpen").hide();
+                $("#basicDialog").ejDialog("open");
+            },
             type: "button",
             height: 30,
             width: 150
-        });
+            });
     });
 }
 
@@ -476,20 +477,16 @@ namespace DropDownListComponent {
 
 }
 
-
-
-
-
-
 namespace ExplorerComponent {
+    var window: any;
     $(function() {
         var file = new ej.FileExplorer($("#fileExplorer"), {
-            path: (any as window).baseurl + "Content/FileBrowser/",
+            path: (window).baseurl + "Content/FileBrowser/",
             width: "100%",
             minWidth: "150px",
             layout: "tile",
             isResponsive: true,
-            ajaxAction: (any as window).baseurl + "api/FileExplorer/FileOperations"
+            ajaxAction: (window).baseurl + "api/FileExplorer/FileOperations"
         });
     });
 }
@@ -498,9 +495,10 @@ namespace ExplorerComponent {
 
 
 namespace GanttComponent {
+    var window: any;
      $(function() {
          var ganttInstance = new ej.Gantt($("#GanttContainer"), {
-        dataSource: (any as window).projectData,
+        dataSource: (window).projectData,
         allowColumnResize: true,
         allowSorting: true,
         allowSelection: true,
@@ -521,7 +519,7 @@ namespace GanttComponent {
         resourceInfoMapping: "resourceId",
         resourceNameMapping: "resourceName",
         resourceIdMapping: "resourceId",
-        resources: (any as window).projectResources,
+        resources: (window).projectResources,
         predecessorMapping: "predecessor",
         showResourceNames: true,
         toolbarSettings: {
@@ -550,9 +548,10 @@ namespace GanttComponent {
 
 
 namespace GridComponent {
+    var window: any;
     $(function() {
         var gridInstance = new ej.Grid($("#Grid"), {
-            dataSource: (any as window).gridData,
+            dataSource: (window).gridData,
             allowGrouping: true,
             allowSorting: true,
             allowMultiSorting: true,
@@ -641,7 +640,7 @@ kanbanData: any;
 namespace KanbanComponent {
     $(function() {
         var sample = new ej.Kanban($("#Kanban"), {
-            dataSource: new ej.DataManager((any as window).kanbanData).executeLocal(new ej.Query().take(20)),
+            dataSource: new ej.DataManager((window).kanbanData).executeLocal(new ej.Query().take(20)),
             columns: [
                 { headerText: "Backlog", key: "Open" },
                 { headerText: "In Progress", key: "InProgress" },
@@ -995,9 +994,10 @@ namespace NavigationDrawerComponent {
 
 
 namespace PDFViewerComponent {
+    var window: any;
     $(function() {
         var pdfviewerControl = new ej.PdfViewer($("#pdfviewer"), {
-            serviceUrl: (any as window).baseurl + "api/PdfViewer",
+            serviceUrl: (window).baseurl + "api/PdfViewer",
             isResponsive: true
         });
     });
@@ -1716,9 +1716,10 @@ namespace RatingComponent {
 
 
 namespace ReportViewerComponent {
+    var window: any;
 	$(function() {
 		var report = new ej.ReportViewer($("#territoryReportViewer"), {
-			reportServiceUrl: (any as window).baseurl + 'api/ReportViewer',
+			reportServiceUrl: (window).baseurl + 'api/ReportViewer',
 			reportServerUrl: 'http://mvc.syncfusion.com/reportserver',
 			processingMode: ej.ReportViewer.ProcessingMode.Remote,
 			reportPath: "/SSRSSamples2/Territory Sales new",
@@ -2390,6 +2391,7 @@ namespace RotatorComponent {
 
 
 namespace RTEComponent {
+    var window: any;
     $(function() {
         var sample = new ej.RTE($("#rteSample"), {
             width: "100%",
@@ -2406,14 +2408,14 @@ namespace RTEComponent {
             enableResize: true,
             enableTabKeyNavigation: true,
             fileBrowser: {
-                filePath: (any as window).baseurl + "Content/FileBrowser/",
+                filePath: (window).baseurl + "Content/FileBrowser/",
                 extensionAllow: "*.png, *.doc, *.pdf, *.txt, *.docx",
-                ajaxAction: (any as window).baseurl + "api/FileExplorer/FileOperations"
+                ajaxAction: (window).baseurl + "api/FileExplorer/FileOperations"
             },
             imageBrowser: {
-                filePath: (any as window).baseurl + "Content/FileBrowser/",
+                filePath: (window).baseurl + "Content/FileBrowser/",
                 extensionAllow: "*.png, *.gif, *.jpg, *.jpeg, *.docx",
-                ajaxAction: (any as window).baseurl + "api/FileExplorer/FileOperations"
+                ajaxAction: (window).baseurl + "api/FileExplorer/FileOperations"
             },
             isResponsive: true,
             showClearAll: true,
@@ -2462,6 +2464,7 @@ namespace RTEComponent {
 
 
 namespace ScheduleComponent {
+    var window: any;
     $(function() {
         var sample = new ej.Schedule($("#Schedule1"), {
             width: "100%",
@@ -2514,7 +2517,7 @@ namespace ScheduleComponent {
                 }
             }],
             appointmentSettings: {
-                dataSource: new ej.DataManager((any as window).Default).executeLocal(new ej.Query().take(10)),
+                dataSource: new ej.DataManager((window).Default).executeLocal(new ej.Query().take(10)),
                 id: "Id",
                 subject: "Subject",
                 startTime: "StartTime",
@@ -2735,23 +2738,24 @@ namespace SplitterComponent {
 
 
 namespace SpreadsheetComponent {
-$(function() {
+    var window: any;
+    $(function() {
         var sample = new ej.Spreadsheet($("#basicSpreadsheet"), {
             scrollSettings: {
                 height: 550,
             },
             importSettings: {
-                importMapper: (any as window).baseurl + "api/Spreadsheet/Import"
+                importMapper: (window).baseurl + "api/Spreadsheet/Import"
             },
             exportSettings: {
-                excelUrl: (any as window).baseurl + "api/Spreadsheet/ExcelExport",
-                csvUrl: (any as window).baseurl + "api/Spreadsheet/CsvExport",
-                pdfUrl: (any as window).baseurl + "api/Spreadsheet/PdfExport"
+                excelUrl: (window).baseurl + "api/Spreadsheet/ExcelExport",
+                csvUrl: (window).baseurl + "api/Spreadsheet/CsvExport",
+                pdfUrl: (window).baseurl + "api/Spreadsheet/PdfExport"
             },
-            sheets: [{ rangeSettings: [{ dataSource: (any as window).defaultData, startCell: "A1" }] }],
+            sheets: [{ rangeSettings: [{ dataSource: (window).defaultData, startCell: "A1" }] }],
 			loadComplete: () => {
-			var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
-			if  (!(any as spreadsheet).isImport) {
+			var spreadsheet: any = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
+			if  (!(spreadsheet).isImport) {
         spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
         xlFormat.format({style: {"font-weight": "bold" } }, "A1:H1");
         xlFormat.format({ type: "currency" }, "E2:H11");
@@ -3065,9 +3069,10 @@ namespace TooltipComponent {
 
 
 namespace TreeGridComponent {
+    var window: any;
     $(function() {
         var treegridInstance = new ej.TreeGrid($("#TreeGridContainer"), {
-        dataSource: (any as window).treeGridData,
+        dataSource: (window).treeGridData,
         childMapping: "subtasks",
         allowSorting: true,
         allowMultiSorting: true,
