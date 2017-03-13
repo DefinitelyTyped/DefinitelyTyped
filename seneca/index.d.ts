@@ -156,7 +156,7 @@ declare module "seneca" {
 
         type Pattern = string | MinimalPattern;
         type GlobalErrorHandler = (error: Error) => void;
-        type AddCallback = (msg: any, respond: (error: Error, msg: any) => void) => void;
+        type AddCallback = (msg: any, respond: (error?: Error, msg?: any) => void) => void;
         type ActCallback = (error: Error, result: any) => void;
         type CloseCallback = (optional: any, done: (error: Error) => void) => void;
         type DatabaseID = string;
