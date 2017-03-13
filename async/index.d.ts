@@ -11,7 +11,7 @@ interface AsyncResultCallback<T, E> { (err?: E, result?: T): void; }
 interface AsyncResultArrayCallback<T, E> { (err?: E, results?: (T | undefined)[]): void; }
 interface AsyncResultObjectCallback<T, E> { (err: E | undefined, results: Dictionary<T>): void; }
 
-interface AsyncFunction<T, E> { (callback: (err?: E, result?: T) => void): any; }
+interface AsyncFunction<T, E> { (callback: (err?: E, result?: T) => void): void; }
 interface AsyncIterator<T, E> { (item: T, callback: ErrorCallback<E>): void; }
 interface AsyncForEachOfIterator<T, E> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
 interface AsyncResultIterator<T, R, E> { (item: T, callback: AsyncResultCallback<R, E>): void; }
