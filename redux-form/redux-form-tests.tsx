@@ -8,11 +8,17 @@ interface CustomComponentProps {
 
 class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps, {}> {
     render() {
+        const {
+            input,
+            meta : { touched },
+            customProp
+        } = this.props
+
         return (
             <div>
-                <span>{this.props.customProp}</span>
-                <p>Field: {this.props.meta.touched ? 'touched' : 'pristine'}</p>
-                <input {...this.props.input} />
+                <span>{customProp}</span>
+                <p>Field: {touched ? 'touched' : 'pristine'}</p>
+                <input {...input} />
             </div>
         );
     }
@@ -51,7 +57,7 @@ class MyForm extends Component<{}, {}> {
     }
 }
 
-const MyStatelessFunctionalComponent: React.SFC<void> = () => <div/>;
+const MyStatelessFunctionalComponent: React.SFC<any> = () => <div/>;
 
 reduxForm({
     form: 'mySFCForm'

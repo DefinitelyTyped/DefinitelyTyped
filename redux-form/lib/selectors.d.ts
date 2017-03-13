@@ -7,7 +7,7 @@ import { DataShape, FormErrors } from "../index";
 export function formValueSelector<State>(form: string, getFormState?: () => State): Selector<State>;
 
 export interface Selector<State> {
-    (state: State, ...field: string[]): Object
+    (state: State, ...field: string[]): any;
 }
 
 /**
