@@ -1,5 +1,5 @@
 import fs = require('fs-extra');
-import * as Path from 'path'
+import * as Path from 'path';
 
 var src: string;
 var dest: string;
@@ -19,7 +19,7 @@ fs.copy(src, dest,
 	{
 		clobber: true,
 		preserveTimestamps: true,
-		filter: (src: string) => {return false}
+		filter: (src: string) => { return false; }
 	},
 	errorCallback
 );
@@ -40,7 +40,7 @@ fs.copySync(src, dest,
 	{
 		clobber: true,
 		preserveTimestamps: true,
-		filter: (src: string) => {return false}
+		filter: (src: string) => { return false; }
 	}
 );
 fs.copySync(src, dest,
@@ -99,35 +99,3 @@ fs.ensureSymlink(path, errorCallback);
 fs.ensureSymlinkSync(path);
 fs.emptyDir(path, errorCallback);
 fs.emptyDirSync(path);
-
-var items: string[];
-fs.walk("my-path")
-  .on('data', function (item) {
-    items.push(item.path);
-  })
-  .on('end', function () {
-    console.dir(items);
-  });
-
-const ignoreHiddenFiles = (item: string): boolean => {
-  const basename = Path.basename(item)
-  return basename === '.' || basename[0] !== '.'
-}
-
-const sortPaths = (left: string, right: string) => left.localeCompare(right);
-
-const options = {
-  filter: ignoreHiddenFiles,
-  pathSorter: sortPaths
-}
-
-fs.walk(path, options)
-  .on('readable', function (this: fs.PathEntryStream) {
-    let item: fs.PathEntry | undefined
-    while ((item = this.read())) {
-      items.push(item.path)
-    }
-  })
-  .on('end', function () {
-
-  })
