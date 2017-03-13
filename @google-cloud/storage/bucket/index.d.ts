@@ -1,14 +1,12 @@
-// Type definitions for @google-cloud/storage v0.7.0
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/blob/master/packages/storage/src/bucket.js
-// Definitions by: Brian Love <http://brianflove.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-import { Channel, IChannelConfig } from "../channel";
+import { ReadStream } from "fs";
+import { Channel, ChannelConfig } from "../channel";
 import { File } from "../file";
 import {
   Acl,
-  IApiResponse,
-  IUploadOptions
+  ApiResponse,
+  UploadOptions
 } from "../storage";
 
 declare module "@google-cloud/storage/bucket" {
@@ -19,31 +17,31 @@ declare module "@google-cloud/storage/bucket" {
    */
   export class Bucket {
     acl: Acl;
-    combine(sources: string[] | File[], destination: string [] | File[]): Promise<[File, IApiResponse]>;
-    create(config?: IBucketConfig): Promise<[Bucket, IApiResponse]>;
-    createChannel(id: string, config: IChannelConfig): Promise<[Channel, IApiResponse]>;
-    delete(): Promise<[IApiResponse]>;
-    deleteFiles(query?: IBucketQuery): Promise<void>;
+    combine(sources: string[] | File[], destination: string [] | File[]): Promise<[File, ApiResponse]>;
+    create(config?: BucketConfig): Promise<[Bucket, ApiResponse]>;
+    createChannel(id: string, config: ChannelConfig): Promise<[Channel, ApiResponse]>;
+    delete(): Promise<[ApiResponse]>;
+    deleteFiles(query?: BucketQuery): Promise<void>;
     exists(): Promise<[boolean]>;
-    file(name: string, options?: IBucketFileOptions): File;
-    get(options?: IBucketGetOptions): Promise<[Bucket, IApiResponse]>;
-    getFiles(query?: IBucketQuery): Promise<[File[]]>;
-    getFilesStream(query?: IBucketQuery): ReadableStream;
-    getMetadata(): Promise<[IBucketMetadata, IApiResponse]>;
+    file(name: string, options?: BucketFileOptions): File;
+    get(options?: BucketGetOptions): Promise<[Bucket, ApiResponse]>;
+    getFiles(query?: BucketQuery): Promise<[File[]]>;
+    getFilesStream(query?: BucketQuery): ReadStream;
+    getMetadata(): Promise<[BucketMetadata, ApiResponse]>;
     id: string;
-    makePrivate(options?: IBucketPrivacyOptions): Promise<[File[]]>;
-    makePublic(options?: IBucketPrivacyOptions): Promise<[File[]]>;
-    metadata: IBucketMetadata;
+    makePrivate(options?: BucketPrivacyOptions): Promise<[File[]]>;
+    makePublic(options?: BucketPrivacyOptions): Promise<[File[]]>;
+    metadata: BucketMetadata;
     name: string;
-    setMetadata(metadata?: IBucketMetadata): Promise<[IApiResponse]>;
-    upload(localPath: string, options?: IUploadOptions): Promise<[File]>;
+    setMetadata(metadata?: BucketMetadata): Promise<[ApiResponse]>;
+    upload(localPath: string, options?: UploadOptions): Promise<[File]>;
   }
 
   /**
    * Bucket configuration.
-   * @interface IBucketConfig
+   * @interface BucketConfig
    */
-  export interface IBucketConfig {
+  export interface BucketConfig {
     coldline?: boolean;
     dra?: boolean;
     location?: string;
@@ -57,42 +55,42 @@ declare module "@google-cloud/storage/bucket" {
 
   /**
    * Options for getting a
-   * @interface IBucketFileOptions
+   * @interface BucketFileOptions
    */
-  export interface IBucketFileOptions {
+  export interface BucketFileOptions {
     generation?: string | number;
   }
 
   /**
    * Options for getting a bucket.
-   * @interface IBucketFileOptions
+   * @interface BucketFileOptions
    */
-  export interface IBucketGetOptions {
+  export interface BucketGetOptions {
     autoCreate?: boolean;
   }
 
   /**
    * Bucket metadata.
-   * @interface IBucketMetadata
+   * @interface BucketMetadata
    */
-  export interface IBucketMetadata {
+  export interface BucketMetadata {
 
   }
 
   /**
    * The options for making the bucket private.
-   * @interface IBucketPrivacyOptions
+   * @interface BucketPrivacyOptions
    */
-  export interface IBucketPrivacyOptions {
+  export interface BucketPrivacyOptions {
     includeFiles?: boolean;
     force?: boolean;
   }
 
   /**
    * Query a bucket.
-   * @interface IBucketQuery
+   * @interface BucketQuery
    */
-  export interface IBucketQuery {
+  export interface BucketQuery {
     autoPaginate?: boolean;
     delimiter?: string;
     prefix?: string;

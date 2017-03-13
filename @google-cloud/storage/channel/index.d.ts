@@ -1,9 +1,4 @@
-// Type definitions for @google-cloud/storage v0.7.0
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/blob/master/packages/storage/src/channel.js
-// Definitions by: Brian Love <http://brianflove.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { IApiResponse } from "../storage";
+import { ApiResponse } from "../storage";
 
 declare module "@google-cloud/storage/channel" {
 
@@ -12,14 +7,14 @@ declare module "@google-cloud/storage/channel" {
    * @class Channel
    */
   export class Channel {
-    stop(): Promise<[IApiResponse]>;
+    stop(): Promise<[ApiResponse]>;
   }
 
   /**
    * Channel configuration.
-   * @interface IChannelConfig
+   * @interface ChannelConfig
    */
-  export interface IChannelConfig {
+  export interface ChannelConfig {
     address: string;
   }
 }

@@ -7,24 +7,25 @@ import {
   Bucket,
   Channel,
   File,
-  IApiResponse,
-  IBucketConfig,
-  IBucketFileOptions,
-  IBucketGetOptions,
-  IBucketMetadata,
-  IBucketPrivacyOptions,
-  IBucketQuery,
-  IChannelConfig,
-  IDownloadOptions,
-  IFileMetadata,
-  IFilePrivateOptions,
-  IReadStreamOptions,
-  ISignedPolicy,
-  ISignedPolicyOptions,
-  ISignedUrlConfig,
-  IWriteStreamOptions,
-  IUploadOptions
-} from "./index";
+  ApiResponse,
+  BucketConfig,
+  BucketFileOptions,
+  BucketGetOptions,
+  BucketMetadata,
+  BucketPrivacyOptions,
+  BucketQuery,
+  ChannelConfig,
+  DownloadOptions,
+  FileMetadata,
+  FilePrivateOptions,
+  ReadStreamOptions,
+  SignedPolicy,
+  SignedPolicyOptions,
+  SignedUrlConfig,
+  WriteStreamOptions,
+  UploadOptions,
+  Storage
+} from "./storage";
 
 /**
  * Test the storage service.
@@ -33,12 +34,12 @@ import {
 export class TestStorage {
 
   //constants
-  public static BUCKET_CONFIG: IBucketConfig = {
+  static BUCKET_CONFIG: BucketConfig = {
     multiRegional: true
   };
 
   //import Storage class
-  public static gcs: Storage;
+  static gcs: Storage;
 
   //the bucket
   private buckets: Bucket[] = [];
@@ -56,17 +57,17 @@ export class TestStorage {
    * @param {string} name
    * @return {Bucket}
    */
-  public bucket(name: string): Bucket {
+  bucket(name: string): Bucket {
     return TestStorage.gcs.bucket(name);
   }
 
   /**
    * Create a new bucket.
    * @param {string} name
-   * @param {IBucketConfig} metadata
-   * @return {Promise<[Bucket, IApiResponse]>}
+   * @param {BucketConfig} metadata
+   * @return {Promise<[Bucket, ApiResponse]>}
    */
-  public createBucket(name: string, config?: IBucketConfig): Promise<[Bucket, IApiResponse]> {
+  createBucket(name: string, config?: BucketConfig): Promise<[Bucket, ApiResponse]> {
     //overwrite default values with custom config
     config = Object.assign(TestStorage.BUCKET_CONFIG, config);
 
@@ -75,9 +76,9 @@ export class TestStorage {
 
   /**
    * Query for buckets.
-   * @param {IBucketQuery} query
+   * @param {BucketQuery} query
    */
-  public getBuckets(query?: IBucketQuery): Promise<[Bucket[]]> {
+  getBuckets(query?: BucketQuery): Promise<[Bucket[]]> {
     return TestStorage.gcs.getBuckets(query);
   }
 }
@@ -89,41 +90,14 @@ export class TestStorage {
 export class TestBucket {
 
   //the bucket in the cloud
-  public bucket: Bucket;
-
-  /**
-   * The acl object for this bucket.
-   * @method get acl
-   * @return {Acl}
-   */
-  public get acl(): Acl {
-    return this.bucket.acl;
-  }
-
-  /**
-   * The id for this bucket.
-   * @method get id
-   * @return {string}
-   */
-  public get id() {
-    return this.bucket.id;
-  }
-
-  /**
-   * The metadata for this bucket.
-   * @method get metadata
-   * @return {IBucketMetadata}
-   */
-  public get metadata(): IBucketMetadata {
-    return this.bucket.metadata;
-  }
+  bucket: Bucket;
 
   /**
    * Create a bucket.
-   * @param {IBucketConfig} config
-   * @return {Promise<[Bucket, IApiResponse]>}
+   * @param {BucketConfig} config
+   * @return {Promise<[Bucket, ApiResponse]>}
    */
-  public create(config?: IBucketConfig): Promise<[Bucket, IApiResponse]> {
+  create(config?: BucketConfig): Promise<[Bucket, ApiResponse]> {
     return this.bucket.create(config);
   }
 
@@ -131,19 +105,19 @@ export class TestBucket {
    * Create a channel that will be notified when objects in this bucket changes.
    * @method createChannel
    * @param {string} id
-   * @param {IChannelConfig} config
-   * @return {Promise<[Channel, IApiResponse]>}
+   * @param {ChannelConfig} config
+   * @return {Promise<[Channel, ApiResponse]>}
    */
-  public createChannel(id: string, config: IChannelConfig): Promise<[Channel, IApiResponse]> {
+  createChannel(id: string, config: ChannelConfig): Promise<[Channel, ApiResponse]> {
     return this.bucket.createChannel(id, config);
   }
 
   /**
    * Delete the bucket.
    * @method delete
-   * @return {Promise<[IApiResponse]>}
+   * @return {Promise<[ApiResponse]>}
    */
-  public delete(): Promise<[IApiResponse]> {
+  delete(): Promise<[ApiResponse]> {
     return this.bucket.delete();
   }
 
@@ -152,7 +126,7 @@ export class TestBucket {
    * @method deleteFiles
    * @return {Promise<void>}
    */
-  public deleteFiles(query?: IBucketQuery): Promise<void> {
+  deleteFiles(query?: BucketQuery): Promise<void> {
     return this.bucket.deleteFiles(query);
   }
 
@@ -161,7 +135,7 @@ export class TestBucket {
    * @method exists
    * @return {Promise<[boolean]>}
    */
-  public exists(): Promise<[boolean]> {
+  exists(): Promise<[boolean]> {
     return this.bucket.exists();
   }
 
@@ -169,47 +143,47 @@ export class TestBucket {
    * Create a File object.
    * @method file
    * @param {string} name
-   * @param {IBucketFileOptions} options
+   * @param {BucketFileOptions} options
    */
-  public file(name: string, options?: IBucketFileOptions): File {
+  file(name: string, options?: BucketFileOptions): File {
     return this.bucket.file(name);
   }
 
   /**
    * Get a bucket if it exists.
    * @method get
-   * @param {IBucketGetOptions} options
+   * @param {BucketGetOptions} options
    */
-  public get(options?: IBucketGetOptions): Promise<[Bucket, IApiResponse]> {
+  get(options?: BucketGetOptions): Promise<[Bucket, ApiResponse]> {
     return this.bucket.get(options);
   }
 
   /**
    * Get File objects for the files currently in the bucket
    * @method getFiles
-   * @param {IBucketQuery} query
+   * @param {BucketQuery} query
    * @return {Promise<[File[]]>}
    */
-  public getFiles(query?: IBucketQuery): Promise<[File[]]> {
+  getFiles(query?: BucketQuery): Promise<[File[]]> {
     return this.bucket.getFiles(query);
   }
 
   /**
    * Get File objects for the files currently in the bucket as a readable object stream.
    * @method getFilesStream
-   * @param {IBucketQuery} query
-   * @return {ReadableStream}
+   * @param {BucketQuery} query
+   * @return {ReadStream}
    */
-  public getFilesStream(query?: IBucketQuery): ReadableStream {
+  getFilesStream(query?: BucketQuery): fs.ReadStream {
     return this.bucket.getFilesStream(query);
   }
 
   /**
    * Get the bucket's metadata.
    * @method getMetadata
-   * @return {Promise<[IBucketMetadata, IApiResponse]>}
+   * @return {Promise<[BucketMetadata, ApiResponse]>}
    */
-  public getMetadata(): Promise<[IBucketMetadata, IApiResponse]> {
+  getMetadata(): Promise<[BucketMetadata, ApiResponse]> {
     return this.bucket.getMetadata();
   }
 
@@ -219,7 +193,7 @@ export class TestBucket {
    * @param {} options
    * @return Promise<[File[]]>
    */
-  public makePrivate(options?: IBucketPrivacyOptions): Promise<[File[]]> {
+  makePrivate(options?: BucketPrivacyOptions): Promise<[File[]]> {
     return this.bucket.makePrivate(options);
   }
 
@@ -229,17 +203,17 @@ export class TestBucket {
    * @param {} options
    * @return Promise<[File[]]>
    */
-  public makePublic(options?: IBucketPrivacyOptions): Promise<[File[]]> {
+  makePublic(options?: BucketPrivacyOptions): Promise<[File[]]> {
     return this.bucket.makePublic(options);
   }
 
   /**
    * Set the bucket's metadata.
    * @method setMetadata
-   * @param {IBucketMetadata} metadata
-   * @return {Promise<[IApiResponse]>}
+   * @param {BucketMetadata} metadata
+   * @return {Promise<[ApiResponse]>}
    */
-  public setMetadata(metadata?: IBucketMetadata): Promise<[IApiResponse]> {
+  setMetadata(metadata?: BucketMetadata): Promise<[ApiResponse]> {
     return this.bucket.setMetadata(metadata);
   }
 
@@ -247,9 +221,9 @@ export class TestBucket {
    * Upload a file.
    * @method upload
    * @param {localPath} string
-   * @param {IUploadOptions} options
+   * @param {UploadOptions} options
    */
-  public upload(localPath: string, options?: IUploadOptions): Promise<[File]> {
+  upload(localPath: string, options?: UploadOptions): Promise<[File]> {
     return this.bucket.upload(localPath, options);
   }
 }
@@ -261,25 +235,7 @@ export class TestBucket {
 export class TestFile {
 
   //the file in the cloud
-  public file: File;
-
-  /**
-   * The acl object for this file.
-   * @method get acl
-   * @return {Acl}
-   */
-  public get acl(): Acl {
-    return this.file.acl;
-  }
-
-  /**
-   * The name for this file.
-   * @method get name
-   * @return {string}
-   */
-  public get name() {
-    return this.file.name;
-  }
+  file: File;
 
   /**
    * Copy this file to another file.
@@ -287,10 +243,10 @@ export class TestFile {
    * Bucket by providing a Bucket or File object or a URL starting with "gs://".
    * @method copy
    * @param {string} destination
-   * @return Promise<[File, IApiResponse]>
+   * @return Promise<[File, ApiResponse]>
    */
 
-  public copy(destination: string | Bucket | File): Promise<[File, IApiResponse]> {
+  copy(destination: string | Bucket | File): Promise<[File, ApiResponse]> {
     return this.file.copy(destination);
   }
 
@@ -298,39 +254,39 @@ export class TestFile {
    * Create a readable stream to read the contents of the remote file.
    * It can be piped to a writable stream or listened to for 'data' events to read a file's contents.
    * @method createReadStream
-   * @param {IReadStreamOptions} options
+   * @param {ReadStreamOptions} options
    * @return {ReadStream}
    */
-  public createReadStream(options?: IReadStreamOptions): fs.ReadStream {
+  createReadStream(options?: ReadStreamOptions): fs.ReadStream {
     return this.file.createReadStream(options);
   }
 
   /**
    * Create a writable stream to overwrite the contents of the file in your bucket.
    * @method createWriteStream
-   * @param {IWriteStreamOptions} options
+   * @param {WriteStreamOptions} options
    * @return {WriteStream}
    */
-  public createWriteStream(options?: IWriteStreamOptions): fs.WriteStream {
+  createWriteStream(options?: WriteStreamOptions): fs.WriteStream {
     return this.file.createWriteStream(options);
   }
 
   /**
    * Delete the file.
    * @method delete
-   * @return {Promise<[IApiResponse]>}
+   * @return {Promise<[ApiResponse]>}
    */
-  public delete(): Promise<[IApiResponse]> {
+  delete(): Promise<[ApiResponse]> {
     return this.file.delete();
   }
 
   /**
    * Convenience method to download a file into memory or to a local destination.
    * @method download
-   * @param {IDownloadOptions} options
+   * @param {DownloadOptions} options
    * @return {Promise<[string]>}
    */
-  public download(options?: IDownloadOptions): Promise<[string]> {
+  download(options?: DownloadOptions): Promise<[string]> {
     return this.file.download(options);
   }
 
@@ -339,64 +295,64 @@ export class TestFile {
    * @method exists
    * @return {Promise<[boolean]>}
    */
-  public exists(): Promise<[boolean]> {
+  exists(): Promise<[boolean]> {
     return this.file.exists();
   }
 
   /**
    * Get a file object and its metadata if it exists.
    * @method get
-   * @return {Promise<[File, IApiResponse]>}
+   * @return {Promise<[File, ApiResponse]>}
    */
-  public get(): Promise<[File, IApiResponse]> {
+  get(): Promise<[File, ApiResponse]> {
     return this.file.get();
   }
 
   /**
    * Get the file's metadata.
    * @method getMetadata
-   * @return {Promise<[IFileMetadata, IApiResponse]>}
+   * @return {Promise<[FileMetadata, ApiResponse]>}
    */
-  public getMetadata(): Promise<[IFileMetadata, IApiResponse]> {
+  getMetadata(): Promise<[FileMetadata, ApiResponse]> {
     return this.file.getMetadata();
   }
 
   /**
    * Get a signed policy document to allow a user to upload data with a POST request
    * @method getSignedPolicy
-   * @param {ISignedPolicyOptions} options
-   * @return {Promise<[ISignedPolicy]>}
+   * @param {SignedPolicyOptions} options
+   * @return {Promise<[SignedPolicy]>}
    */
-  public getSignedPolicy(options?: ISignedPolicyOptions): Promise<[ISignedPolicy]> {
+  getSignedPolicy(options?: SignedPolicyOptions): Promise<[SignedPolicy]> {
     return this.file.getSignedPolicy(options);
   }
 
   /**
    * Get a signed URL to allow limited time access to the file
    * @method getSignedUrl
-   * @param {ISignedUrlConfig} config
+   * @param {SignedUrlConfig} config
    * @return {Promise<[string]>}
    */
-  public getSignedUrl(config?: ISignedUrlConfig): Promise<[string]> {
+  getSignedUrl(config?: SignedUrlConfig): Promise<[string]> {
     return this.file.getSignedUrl(config);
   }
 
   /**
    * Make a file private to the project and remove all other permissions.
    * @method makePrivate
-   * @param {IFilePrivateOptions} options
-   * @return {Promise<[IApiResponse]>}
+   * @param {FilePrivateOptions} options
+   * @return {Promise<[ApiResponse]>}
    */
-  public makePrivate(options?: IFilePrivateOptions): Promise<[IApiResponse]> {
+  makePrivate(options?: FilePrivateOptions): Promise<[ApiResponse]> {
     return this.file.makePrivate(options);
   }
 
   /**
    * Set a file to be publicly readable and maintain all previous permissions.
    * @method makePublic
-   * @return {Promise<[IApiResponse]>}
+   * @return {Promise<[ApiResponse]>}
    */
-  public makePublic(): Promise<[IApiResponse]> {
+  makePublic(): Promise<[ApiResponse]> {
     return this.file.makePublic();
   }
 
@@ -406,19 +362,19 @@ export class TestFile {
    * another Bucket by providing a Bucket or File object or a URL beginning with "gs://".
    * @method move
    * @param {string|Bucket|File} destination
-   * @return {Promise<[File, IApiResponse]>}
+   * @return {Promise<[File, ApiResponse]>}
    */
-  public move(destination: string | Bucket | File): Promise<[File, IApiResponse]> {
+  move(destination: string | Bucket | File): Promise<[File, ApiResponse]> {
     return this.file.move(destination);
   }
 
   /**
    * Write arbitrary data to a file.
    * @param {string} data
-   * @param {IWriteStreamOptions} options
+   * @param {WriteStreamOptions} options
    * @return {Promise<void>}
    */
-  public save(data: string, options?: IWriteStreamOptions): Promise<void> {
+  save(data: string, options?: WriteStreamOptions): Promise<void> {
     return this.file.save(data);
   }
 
@@ -427,7 +383,7 @@ export class TestFile {
    * @param {string|Buffer} encryptionKey
    * @return {File}
    */
-  public setEncryptionKey(encryptionKey: string | Buffer): File {
+  setEncryptionKey(encryptionKey: string | Buffer): File {
     return this.file.setEncryptionKey(encryptionKey);
   }
 
@@ -436,10 +392,10 @@ export class TestFile {
    * This will set metadata if it was previously unset or update previously set metadata.
    * To unset previously set metadata, set its value to null.
    * @method setMetadata
-   * @param {IFileMetadata} metadata
-   * @return {Promise<[IApiResponse]>}
+   * @param {FileMetadata} metadata
+   * @return {Promise<[ApiResponse]>}
    */
-  public setMetadata(metadata: IFileMetadata): Promise<[IApiResponse]> {
+  setMetadata(metadata: FileMetadata): Promise<[ApiResponse]> {
     return this.file.setMetadata(metadata);
   }
 }

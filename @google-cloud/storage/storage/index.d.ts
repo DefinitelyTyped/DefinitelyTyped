@@ -1,11 +1,9 @@
-// Type definitions for @google-cloud/storage v0.7.0
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/blob/master/packages/storage/src/storage.js
-// Definitions by: Brian Love <http://brianflove.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-import { Bucket, IBucketConfig, IBucketQuery } from "../bucket";
+import { ReadStream } from "fs";
+import { Bucket, BucketConfig, BucketQuery } from "../bucket";
 import { Channel } from "../channel";
-import { IFileMetadata } from "../file";
+import { FileMetadata } from "../file";
 
 declare module "@google-cloud/storage/storage" {
 
@@ -26,10 +24,10 @@ declare module "@google-cloud/storage/storage" {
    * @class AclActions
    */
   export class AclActions {
-    add(options: IAclOptions): Promise<[Acl, IApiResponse]>;
-    delete(options: IAclOptions): Promise<[Acl, IApiResponse]>;
-    get(options: IAclOptions): Promise<[Acl, IApiResponse]>;
-    update(options: IAclOptions): Promise<[Acl, IApiResponse]>;
+    add(options: AclOptions): Promise<[Acl, ApiResponse]>;
+    delete(options: AclOptions): Promise<[Acl, ApiResponse]>;
+    get(options: AclOptions): Promise<[Acl, ApiResponse]>;
+    update(options: AclOptions): Promise<[Acl, ApiResponse]>;
   }
 
   /**
@@ -37,25 +35,25 @@ declare module "@google-cloud/storage/storage" {
    * @class AclEntity
    */
   export class AclEntity extends AclActions {
-    addAllAuthenticatedUsers(): Promise<[Acl, IApiResponse]>;
-    addAllUsers(): Promise<[Acl, IApiResponse]>;
-    addDomain(entity: string): Promise<[Acl, IApiResponse]>;
-    addGroup(entity: string): Promise<[Acl, IApiResponse]>;
-    addProject(entity: string): Promise<[Acl, IApiResponse]>;
-    addUser(entity: string): Promise<[Acl, IApiResponse]>;
-    deleteAllAuthenticatedUsers(): Promise<[Acl, IApiResponse]>;
-    deleteAllUsers(): Promise<[Acl, IApiResponse]>;
-    deleteDomain(entity: string): Promise<[Acl, IApiResponse]>;
-    deleteGroup(entity: string): Promise<[Acl, IApiResponse]>;
-    deleteProject(entity: string): Promise<[Acl, IApiResponse]>;
-    deleteUser(entity: string): Promise<[Acl, IApiResponse]>;
+    addAllAuthenticatedUsers(): Promise<[Acl, ApiResponse]>;
+    addAllUsers(): Promise<[Acl, ApiResponse]>;
+    addDomain(entity: string): Promise<[Acl, ApiResponse]>;
+    addGroup(entity: string): Promise<[Acl, ApiResponse]>;
+    addProject(entity: string): Promise<[Acl, ApiResponse]>;
+    addUser(entity: string): Promise<[Acl, ApiResponse]>;
+    deleteAllAuthenticatedUsers(): Promise<[Acl, ApiResponse]>;
+    deleteAllUsers(): Promise<[Acl, ApiResponse]>;
+    deleteDomain(entity: string): Promise<[Acl, ApiResponse]>;
+    deleteGroup(entity: string): Promise<[Acl, ApiResponse]>;
+    deleteProject(entity: string): Promise<[Acl, ApiResponse]>;
+    deleteUser(entity: string): Promise<[Acl, ApiResponse]>;
   }
 
   /**
    * ACL options.
-   * @interface IAclOptions
+   * @interface AclOptions
    */
-  export interface IAclOptions {
+  export interface AclOptions {
     entity?: string;
     role?: string;
     generation?: number;
@@ -63,25 +61,35 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * The response object.
-   * @interface IApiResponse
+   * @interface ApiResponse
    */
-  export interface IApiResponse {
-
+  export interface ApiResponse {
+    etag?: string;
+    id?: string;
+    kind?: string;
+    location?: string;
+    metageneration?: string;
+    name?: string;
+    projectNumber?: string;
+    selfLink?: string;
+    storageClass?: string;
+    timeCreated?: string;
+    updated?: string;
   }
 
   /**
    * The options when downloading a file.
-   * @interface IDownloadOptions
+   * @interface DownloadOptions
    */
-  export interface IDownloadOptions extends IReadStreamOptions {
+  export interface DownloadOptions extends ReadStreamOptions {
     destination?: string;
   }
 
   /**
    * Options when reading a file stream.
-   * @interface IReadStreamOptions
+   * @interface ReadStreamOptions
    */
-  export interface IReadStreamOptions {
+  export interface ReadStreamOptions {
     end?: number;
     start?: number;
     validation?: string | boolean;
@@ -91,17 +99,17 @@ declare module "@google-cloud/storage/storage" {
    * Options when uploading file to bucket.
    * @interface IBucketUploadOptions
    */
-  export interface IUploadOptions extends IWriteStreamOptions {
+  export interface UploadOptions extends WriteStreamOptions {
     destination?: string;
   }
 
   /**
    * Options when writing to a file stream.
-   * @interface IWriteStreamOptions
+   * @interface WriteStreamOptions
    */
-  export interface IWriteStreamOptions {
+  export interface WriteStreamOptions {
     gzip?: boolean;
-    metadata?: IFileMetadata;
+    metadata?: FileMetadata;
     offset?: number;
     predefinedAcl?: string;
     private?: boolean;
@@ -119,8 +127,8 @@ declare module "@google-cloud/storage/storage" {
     acl: Acl;
     bucket(name: string|Bucket): Bucket;
     channel(id: string, resourceId: string): Channel;
-    createBucket(name: string, metadata?: IBucketConfig): Promise<[Bucket, IApiResponse]>;
-    getBuckets(query?: IBucketQuery): Promise<[Bucket[]]>;
-    getBucketsStream(query?: IBucketQuery): Promise<[ReadableStream]>;
+    createBucket(name: string, metadata?: BucketConfig): Promise<[Bucket, ApiResponse]>;
+    getBuckets(query?: BucketQuery): Promise<[Bucket[]]>;
+    getBucketsStream(query?: BucketQuery): Promise<[ReadStream]>;
   }
 }

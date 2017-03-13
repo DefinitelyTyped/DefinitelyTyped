@@ -1,22 +1,26 @@
-// Type definitions for @google-cloud/storage v0.7.0
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/blob/master/packages/storage/src/file.js
-// Definitions by: Brian Love <http://brianflove.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ReadStream, WriteStream } from "fs";
 import { Bucket } from "../bucket";
 import {
   Acl,
-  IApiResponse,
-  IDownloadOptions,
-  IReadStreamOptions,
-  IUploadOptions,
-  IWriteStreamOptions
+  ApiResponse,
+  DownloadOptions,
+  ReadStreamOptions,
+  UploadOptions,
+  WriteStreamOptions
 } from "../storage";
 
 declare module "@google-cloud/storage/file" {
+
+  /**
+   * Options for specifying the content length range.
+   * @interface ContentLengthRange
+   */
+  export interface ContentLengthRange {
+    max?: number;
+    min?: number;
+  }
 
   /**
    * A file in the cloud.
@@ -24,46 +28,46 @@ declare module "@google-cloud/storage/file" {
    */
   export class File {
     acl: Acl;
-    copy(destination: string | Bucket | File): Promise<[File, IApiResponse]>;
-    createReadStream(options?: IReadStreamOptions): ReadStream;
-    createWriteStream(options?: IWriteStreamOptions): WriteStream;
-    delete(): Promise<[IApiResponse]>;
-    download(options?: IDownloadOptions): Promise<[string]>;
+    copy(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
+    createReadStream(options?: ReadStreamOptions): ReadStream;
+    createWriteStream(options?: WriteStreamOptions): WriteStream;
+    delete(): Promise<[ApiResponse]>;
+    download(options?: DownloadOptions): Promise<[string]>;
     exists(): Promise<[boolean]>;
-    get(): Promise<[File, IApiResponse]>;
-    getMetadata(): Promise<[IFileMetadata, IApiResponse]>;
-    getSignedPolicy(options?: ISignedPolicyOptions): Promise<[ISignedPolicy]>;
-    getSignedUrl(config?: ISignedUrlConfig): Promise<[string]>;
-    makePrivate(options?: IFilePrivateOptions): Promise<[IApiResponse]>;
-    makePublic(): Promise<[IApiResponse]>;
-    move(destination: string | Bucket | File): Promise<[File, IApiResponse]>;
+    get(): Promise<[File, ApiResponse]>;
+    getMetadata(): Promise<[FileMetadata, ApiResponse]>;
+    getSignedPolicy(options?: SignedPolicyOptions): Promise<[SignedPolicy]>;
+    getSignedUrl(config?: SignedUrlConfig): Promise<[string]>;
+    makePrivate(options?: FilePrivateOptions): Promise<[ApiResponse]>;
+    makePublic(): Promise<[ApiResponse]>;
+    move(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
     name: string;
-    save(data: string, options?: IWriteStreamOptions): Promise<void>;
+    save(data: string, options?: WriteStreamOptions): Promise<void>;
     setEncryptionKey(encryptionKey: string | Buffer): File;
-    setMetadata(metadata: IFileMetadata): Promise<[IApiResponse]>;
+    setMetadata(metadata: FileMetadata): Promise<[ApiResponse]>;
   }
 
   /**
    * File metadata.
-   * @interface IFileMetadata
+   * @interface FileMetadata
    */
-  export interface IFileMetadata {
+  export interface FileMetadata {
     contentType?: string;
   }
 
   /**
    * Options when setting the file as private.
-   * @interface IFilePrivateOptions
+   * @interface FilePrivateOptions
    */
-  export interface IFilePrivateOptions {
+  export interface FilePrivateOptions {
     strict?: boolean;
   }
 
   /**
    * A signed policy allowing a user to upload a file with a POST.
-   * @interface ISignedPolicy
+   * @interface SignedPolicy
    */
-  export interface ISignedPolicy {
+  export interface SignedPolicy {
     base64?: string;
     signature?: string;
     string?: string;
@@ -71,11 +75,11 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * Options when obtaining the signed policy.
-   * @interface ISignedPolicyOptions
+   * @interface SignedPolicyOptions
    */
-  export interface ISignedPolicyOptions {
+  export interface SignedPolicyOptions {
     acl?: string;
-    contentLengthRange?: Object;
+    contentLengthRange?: ContentLengthRange;
     equals?: string[] | [string[]];
     expires?: number | string;
     max?: number;
@@ -87,15 +91,15 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * Options when obtaining a temporary signed URL for a file.
-   * @interface ISignedUrlConfig
+   * @interface SignedUrlConfig
    */
-  export interface ISignedUrlConfig {
+  export interface SignedUrlConfig {
     action: string;
     cname?: string;
     contentMd5?: string;
     contentType?: string;
     expires?: number | string;
-    extensionHeaders?: Object;
+    extensionHeaders?: {[key: string]: string};
     promptSaveAs?: string;
     responseDisposition?: string;
     responseType?: string;
