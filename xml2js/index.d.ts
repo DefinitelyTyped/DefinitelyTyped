@@ -1,11 +1,13 @@
 // Type definitions for node-xml2js
 // Project: https://github.com/Leonidas-from-XIV/node-xml2js
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Jason McNeil <https://github.com/jasonrm>, Christopher Currens <https://github.com/ccurrens>
+// Definitions by: Michel Salib <https://github.com/michelsalib>, Jason McNeil <https://github.com/jasonrm>, Christopher Currens <https://github.com/ccurrens>, Edward Hinkle <https://github.com/edwardhinkle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./processors.d.ts" />
 
 export = xml2js;
+
+import * as events from 'events'
 
 declare namespace xml2js {
     function parseString(xml: convertableToString, callback: (err: any, result: any) => void): void;
@@ -21,7 +23,7 @@ declare namespace xml2js {
         buildObject(rootObj: any): string;
     }
 
-    class Parser {
+    class Parser extends events.EventEmitter {
         constructor(options?: OptionsV2);
         parseString(str: convertableToString, cb?: Function): void;
         reset(): void;

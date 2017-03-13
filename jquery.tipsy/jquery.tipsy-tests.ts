@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 // basic
 $('#example-1').tipsy();
 

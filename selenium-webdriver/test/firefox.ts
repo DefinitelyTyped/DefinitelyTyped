@@ -1,6 +1,7 @@
 import * as firefox from 'selenium-webdriver/firefox';
 import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
+import * as http from 'selenium-webdriver/http';
 
 function TestBinary() {
     var binary: firefox.Binary = new firefox.Binary();
@@ -8,13 +9,15 @@ function TestBinary() {
 
     binary.addArguments('A', 'B', 'C');
     var promise: webdriver.promise.Promise<void> = binary.kill();
-    binary.launch('profile').then(function (result: any) { });
+    binary.launch('profile').then((result: any) => {});
 }
 
 function TestFirefoxDriver() {
-    var driver: firefox.Driver = new firefox.Driver();
-    driver = new firefox.Driver(webdriver.Capabilities.firefox());
-    driver = new firefox.Driver(webdriver.Capabilities.firefox(), new webdriver.promise.ControlFlow());
+    var driver: firefox.Driver = firefox.Driver.createSession();
+    driver = firefox.Driver.createSession(webdriver.Capabilities.firefox());
+    driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new http.Executor(new http.HttpClient('http://someurl')));
+    driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new remote.DriverService('/dev/null', {}));
+    driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new remote.DriverService('/dev/null', {}), new webdriver.promise.ControlFlow());
 
     var baseDriver: webdriver.WebDriver = driver;
 }
@@ -38,7 +41,7 @@ function TestFirefoxProfile() {
     var bool: boolean = profile.acceptUntrustedCerts();
     profile.addExtension('ext');
     bool = profile.assumeUntrustedCertIssuer();
-    profile.encode().then(function (prof: string) { });
+    profile.encode().then((prof: string) => {});
     var num: number = profile.getPort();
     var anything: any = profile.getPreference('key');
     bool = profile.nativeEventsEnabled();
@@ -51,4 +54,21 @@ function TestFirefoxProfile() {
     profile.setPreference('key', true);
     var stringPromise: webdriver.promise.Promise<string> = profile.writeToDisk();
     stringPromise = profile.writeToDisk(true);
+}
+
+
+function TestServiceBuilder() {
+    var builder: firefox.ServiceBuilder = new firefox.ServiceBuilder();
+    builder = new firefox.ServiceBuilder('exe');
+
+    var anything: any = builder.build();
+    builder = builder.setPort(8080);
+    builder = builder.enableVerboseLogging();
+    builder = builder.enableVerboseLogging(true);
+    builder = builder.setFirefoxBinary('exe');
+    builder = builder.setFirefoxBinary(new firefox.Binary());
+    builder = builder.setPath('path');
+    builder = builder.setStdio('config');
+    builder = builder.setStdio(['A', 'B']);
+    builder = builder.setEnvironment({ 'A': 'a', 'B': 'b' });
 }

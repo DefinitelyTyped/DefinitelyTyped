@@ -1,6 +1,3 @@
-
-/// <reference types="jquery" />
-
 function test_options() {
 
     const jqElement: JQuery = $("body").loading({

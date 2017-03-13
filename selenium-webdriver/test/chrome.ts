@@ -3,9 +3,9 @@ import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
 
 function TestChromeDriver() {
-    var driver: chrome.Driver = new chrome.Driver();
-    driver = new chrome.Driver(webdriver.Capabilities.chrome());
-    driver = new chrome.Driver(webdriver.Capabilities.chrome(),
+    var driver: chrome.Driver = chrome.Driver.createSession();
+    driver = chrome.Driver.createSession(webdriver.Capabilities.chrome());
+    driver = chrome.Driver.createSession(webdriver.Capabilities.chrome(),
         new remote.DriverService('executable', new chrome.Options()),
         new webdriver.promise.ControlFlow());
 
@@ -44,15 +44,15 @@ function TestServiceBuilder() {
     builder = new chrome.ServiceBuilder('exe');
 
     var anything: any = builder.build();
-    builder = builder.usingPort(8080);
+    builder = builder.setPort(8080);
     builder = builder.setAdbPort(5037);
     builder = builder.loggingTo('path');
     builder = builder.enableVerboseLogging();
     builder = builder.setNumHttpThreads(5);
-    builder = builder.setUrlBasePath('path');
+    builder = builder.setPath('path');
     builder = builder.setStdio('config');
     builder = builder.setStdio(['A', 'B']);
-    builder = builder.withEnvironment({ 'A': 'a', 'B': 'b' });
+    builder = builder.setEnvironment({ 'A': 'a', 'B': 'b' });
 }
 
 function TestChromeModule() {

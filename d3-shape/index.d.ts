@@ -371,11 +371,15 @@ export interface PieArcDatum<T> {
      */
     index: number;
     /**
-     * The start angle of the arc. If the pie generator was configured to be used for the arc generator, than the units are in radians with 0 at -y (12 o’clock) and positive angles proceeding clockwise.
+     * The start angle of the arc.
+     * If the pie generator was configured to be used for the arc generator,
+     * then the units are in radians with 0 at -y (12 o’clock) and positive angles proceeding clockwise.
      */
     startAngle: number;
     /**
-     * The end angle of the arc. If the pie generator was configured to be used for the arc generator, than the units are in radians with 0 at -y (12 o’clock) and positive angles proceeding clockwise.
+     * The end angle of the arc.
+     * If the pie generator was configured to be used for the arc generator,
+     * then the units are in radians with 0 at -y (12 o’clock) and positive angles proceeding clockwise.
      */
     endAngle: number;
     /**
@@ -1160,7 +1164,8 @@ export interface Area<Datum> {
      *
      * The default accessor for defined returns a constant boolean value of true, thus assumes that the input data is always defined.
      * When an area is generated, the defined accessor will be invoked for each element in the input data array, being passed the element d, the index i, and the array data as three arguments.
-     * If the given element is defined (i.e., if the defined accessor returns a truthy value for this element), the x0, x1, y0 and y1 accessors will subsequently be evaluated and the point will be added to the current area segment.
+     * If the given element is defined (i.e., if the defined accessor returns a truthy value for this element),
+     * the x0, x1, y0 and y1 accessors will subsequently be evaluated and the point will be added to the current area segment.
      * Otherwise, the element will be skipped, the current area segment will be ended, and a new area segment will be generated for the next defined point.
      * As a result, the generated area may have several discrete segments.
      *
@@ -1176,8 +1181,10 @@ export interface Area<Datum> {
      * The default accessor for defined returns a constant boolean value of true, thus assumes that the input data is always defined.
      *
      * The default accessor for defined returns a constant boolean value of true, thus assumes that the input data is always defined.
-     * When an area is generated, the defined accessor will be invoked for each element in the input data array, being passed the element d, the index i, and the array data as three arguments.
-     * If the given element is defined (i.e., if the defined accessor returns a truthy value for this element), the x0, x1, y0 and y1 accessors will subsequently be evaluated and the point will be added to the current area segment.
+     * When an area is generated, the defined accessor will be invoked for each element in the input data array,
+     * being passed the element d, the index i, and the array data as three arguments.
+     * If the given element is defined (i.e., if the defined accessor returns a truthy value for this element),
+     * the x0, x1, y0 and y1 accessors will subsequently be evaluated and the point will be added to the current area segment.
      * Otherwise, the element will be skipped, the current area segment will be ended, and a new area segment will be generated for the next defined point.
      * As a result, the generated area may have several discrete segments.
      *
@@ -2095,7 +2102,8 @@ export interface Series<Datum, Key> extends Array<SeriesPoint<Datum>> {
 /**
  * A stack generator.
  *
- * Some shape types can be stacked, placing one shape adjacent to another. For example, a bar chart of monthly sales might be broken down into a multi-series bar chart by product category, stacking bars vertically.
+ * Some shape types can be stacked, placing one shape adjacent to another.
+ * For example, a bar chart of monthly sales might be broken down into a multi-series bar chart by product category, stacking bars vertically.
  * This is equivalent to subdividing a bar chart by an ordinal dimension (such as product category) and applying a color encoding.
  *
  * Stacked charts can show overall value and per-category value simultaneously; however, it is typically harder to compare across categories, as only the bottom layer of the stack is aligned.
@@ -2140,7 +2148,8 @@ export interface Stack<This, Datum, Key> {
      * A series (layer) is generated for each key. Keys are typically strings, but they may be arbitrary values.
      * The series’ key is passed to the value accessor, along with each data point, to compute the point’s value.
      *
-     * @param keys An accessor function returning the array of keys. The accessor function is invoked with the "this" context of the Stack generator and passed the same arguments passed into the generator.
+     * @param keys An accessor function returning the array of keys.
+     *             The accessor function is invoked with the "this" context of the Stack generator and passed the same arguments passed into the generator.
      */
     keys(keys: (this: This, data: Datum[], ...args: any[]) => Key[]): this;
 
@@ -2208,7 +2217,8 @@ export interface Stack<This, Datum, Key> {
     /**
      * Sets the offset accessor to the specified function and returns this stack generator.
      *
-     * @param offset A function which is passed the generated series array and the order index array. The offset function is then responsible for updating the lower and upper values in the series array to layout the stack.
+     * @param offset A function which is passed the generated series array and the order index array.
+     *               The offset function is then responsible for updating the lower and upper values in the series array to layout the stack.
      */
     offset(offset: (series: Series<Datum, Key>, order: number[]) => void): this;
 

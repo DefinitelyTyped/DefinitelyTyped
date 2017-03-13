@@ -31,11 +31,11 @@ var anqpAssertExchangeReplies: amqp.Replies.AssertExchange;
 import amqpcb = require('amqplib/callback_api');
 
 amqpcb.connect('amqp://localhost', (err, connection) => {
-    if(!err) {
+    if (!err) {
         connection.createChannel((err, channel) => {
           if (!err) {
               channel.assertQueue('myQueue', {}, (err, ok) => {
-                  if(!err) {
+                  if (!err) {
                       channel.sendToQueue('myQueue', new Buffer(msg));
                   }
               });
@@ -45,11 +45,11 @@ amqpcb.connect('amqp://localhost', (err, connection) => {
 });
 
 amqpcb.connect('amqp://localhost', (err, connection) => {
-    if(!err) {
+    if (!err) {
         connection.createChannel((err, channel) => {
           if (!err) {
               channel.assertQueue('myQueue', {}, (err, ok) => {
-                  if(!err) {
+                  if (!err) {
                       channel.consume('myQueue', newMsg => console.log('New Message: ' + newMsg.content.toString()));
                   }
               });

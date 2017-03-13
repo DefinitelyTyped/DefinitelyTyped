@@ -8,6 +8,7 @@ interface SortableItemProps {
 
 interface SortableListProps {
     items: Array<string>;
+    axis: 'x' | 'y' | 'xy'
 }
 
 type SortableComponentState = SortableListProps;
@@ -40,12 +41,15 @@ class SortableComponent extends React.Component<void, SortableComponentState> {
 
     public constructor() {
         super();
-        this.state = { items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'] };
+        this.state = {
+            items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'],
+            axis: 'x'
+        };
         this._onSortEnd = this._handleSotEnd.bind(this);
     }
 
     public render(): JSX.Element {
-        return <SortableList items={this.state.items} onSortEnd={this._onSortEnd} />;
+        return <SortableList items={this.state.items} axis={this.state.axis} onSortEnd={this._onSortEnd} />;
     }
 }
 

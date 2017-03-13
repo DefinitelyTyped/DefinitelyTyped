@@ -95,9 +95,9 @@ describe('jasminewd', () => {
   describe('jasmine matchers', () => {
     it('should be able to add matchers', () => {
       let matchers = {
-        toBeLotsMoreThan: function() {
+        toBeLotsMoreThan() {
           return {
-            compare: function(actual: number, expected: number) {
+            compare(actual: number, expected: number) {
               return {
                 pass: actual > expected + 100
               };
@@ -105,9 +105,9 @@ describe('jasminewd', () => {
           };
         },
         // Example custom matcher returning a promise that resolves to true/false.
-        toBeDisplayed: function() {
+        toBeDisplayed() {
           return {
-            compare: function(actual: any, expected: void) {
+            compare(actual: any, expected: void) {
               return {
                 pass: (actual.isDisplayed() as Promise<boolean>)
               };

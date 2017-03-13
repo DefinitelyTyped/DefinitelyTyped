@@ -1,6 +1,3 @@
-/// <reference types="meteor" />
-
-
 import * as _ from 'underscore';
 
 /**

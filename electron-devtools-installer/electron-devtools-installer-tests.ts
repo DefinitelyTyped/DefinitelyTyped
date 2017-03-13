@@ -1,5 +1,3 @@
-/// <reference types="electron-devtools-installer" />
-
 import installExtension, {
     EMBER_INSPECTOR, REACT_DEVELOPER_TOOLS,
     BACKBONE_DEBUGGER, JQUERY_DEBUGGER,

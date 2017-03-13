@@ -1,6 +1,3 @@
-/// <reference types="knockout" />
-
-
 // Test map
 var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
 var squares: KnockoutObservableArray<number> = sourceItems.map(function (x) { return x * x; });

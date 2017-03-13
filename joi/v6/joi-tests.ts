@@ -1,4 +1,3 @@
-/// <reference path="index.d.ts" />
 /// <reference types="node" />
 
 import Joi = require('joi');
