@@ -9,11 +9,13 @@ function StepSample() {
 	var step = <cucumber.StepDefinitions>this;
 	var hook = <cucumber.Hooks>this;
 
-	hook.setWorldConstructor(function() {
+	hook.setWorldConstructor(function({attach, parameters}) {
+		this.attach = attach;
+		this.parameters = parameters;
 		this.visit = function(url: string, callback: Callback) {
 			callback(null, 'pending');
 		}
-	})
+	});
 
 	hook.Before(function(scenario: HookScenario, callback: Callback){
 		scenario.isFailed() && callback.pending();
