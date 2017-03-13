@@ -1,6 +1,5 @@
 
 /// <reference types="mocha" />
-/// <reference types="chai" />
 
 import {assert} from "chai";
 
@@ -34,12 +33,12 @@ describe("my webdriverio tests", function(){
     this.timeout(99999999);
     var client: webdriverio.Client<void>;
 
-    before(function(done){
-        client = webdriverio.remote({ desiredCapabilities: {browserName: "phantomjs"} });
-        client.init(done);
+    before(function() {
+        client = webdriverio.remote({ desiredCapabilities: { browserName: "phantomjs" } });
+        client.init();
     });
 
-    it("Github test",function() {
+    it("Github test", function() {
         client.url("https://github.com/");
 
         var elementSize = client.getElementSize(".header-logo-wordmark");
@@ -111,7 +110,7 @@ webdriverio
     .selectorExecute("//div", function(inputs: HTMLElement[], message: string) {
         return inputs.length + " " + message;
     }, "divs on the page")
-    .then(function(res){
+    .then(function(res: string) {
         console.log(res);
     })
     .end();
