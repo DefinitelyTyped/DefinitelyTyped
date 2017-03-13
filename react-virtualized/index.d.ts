@@ -26,19 +26,7 @@ export interface AutoSizerProps {
 export class AutoSizer extends React.PureComponent<AutoSizerProps, {}> { }
 
 export interface CellMeasurerProps {
-    cellRenderer: (info: { columnIndex: number, rowIndex: number }) => React.ReactNode;
-    cellSizeCache?: {
-        clearAllColumnWidths(): void;
-        clearAllRowHeights(): void;
-        clearColumnWidth(index: number): void;
-        clearRowHeight(index: number): void;
-        getColumnWidth(index: number): number;
-        getRowHeight(index: number): number;
-        hasColumnWidth(index: number): boolean;
-        hasRowHeight(index: number): boolean;
-        setColumnWidth(index: number, width: number): void;
-        setRowHeight(index: number, height: number): void;
-    };
+    cache?: CellMeasurerCache;
     children?: React.StatelessComponent<{
         getColumnWidth: () => number,
         getRowHeight: () => number,
@@ -46,11 +34,10 @@ export interface CellMeasurerProps {
         resetMeasurementsForColumn: (index: number) => any,
         resetMeasurementsForRow: (index: number) => any,
     }>;
-    columnCount: number;
-    container?: React.ReactType;
-    height?: number;
-    rowCount: number;
-    width?: number;
+    columnIndex: number;
+    parent?: React.ReactType;
+    rowIndex: number;
+    style?: React.CSSProperties;
 }
 export class CellMeasurer extends React.PureComponent<CellMeasurerProps, {}> { }
 
@@ -74,17 +61,6 @@ export type CellMeasurerCacheParams = {
     keyMapper?: KeyMapper
 }
 export class CellMeasurerCache {
-    _cellHeightCache: Cache;
-    _cellWidthCache: Cache;
-    _columnWidthCache: Cache;
-    _defaultHeight?: number;
-    _defaultWidth?: number;
-    _minHeight?: number;
-    _minWidth?: number;
-    _keyMapper: KeyMapper;
-    _rowHeightCache: Cache;
-    _hasFixedHeight: boolean;
-    _hasFixedWidth: boolean;
     constructor(params: CellMeasurerCacheParams);
     clear(
         rowIndex: number,
@@ -112,10 +88,6 @@ export class CellMeasurerCache {
         columnIndex: number,
         width: number,
         height: number
-    ): void;
-    _updateCachedColumnAndRowSizes(
-        rowIndex: number,
-        columnIndex: number
     ): void;
 }
 
@@ -220,8 +192,17 @@ export interface ColumnProps {
 }
 export class Column extends React.Component<ColumnProps, {}> { }
 
+export type RowClickHandlerParams = {
+    rowData: {
+        columnData: Object,
+        id: string,
+        index: number
+    }
+}
+
 // ref: https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
 export interface TableProps {
+    deferredMeasurementCache?: CellMeasurerCache;
     autoHeight?: boolean;
     children?: React.ReactChildren;
     className?: string;
@@ -232,15 +213,15 @@ export interface TableProps {
     headerClassName?: string;
     headerHeight: number;
     headerStyle?: any;
-    height: number;
+    height?: number;
     id?: string;
     noRowsRender?: () => void;
     onHeaderClick?: (dataKey: string, columnData: any) => void;
-    onRowClick?: (info: IndexParam) => void;
-    onRowDoubleClick?: (info: IndexParam) => void;
-    onRowMouseOut?: (info: IndexParam) => void;
-    onRowMouseOver?: (info: IndexParam) => void;
-    onRowsRendered?: (info: IndexParam) => void;
+    onRowClick?: (info: RowClickHandlerParams) => void;
+    onRowDoubleClick?: (info: RowClickHandlerParams) => void;
+    onRowMouseOut?: (info: RowClickHandlerParams) => void;
+    onRowMouseOver?: (info: RowClickHandlerParams) => void;
+    onRowsRendered?: (info: RowClickHandlerParams) => void;
     overscanRowCount?: number;
     onScroll?: (info: { clientHeight: number, scrollHeight: number, scrollTop: number }) => void;
     rowClassName?: string | ((info: IndexParam) => string);
@@ -258,9 +239,18 @@ export interface TableProps {
     sortDirection?: SortDirectionType;
     style?: React.CSSProperties;
     tabIndex?: number;
-    width: number;
+    width?: number;
 }
-export class Table extends React.PureComponent<TableProps, {}> { }
+export class Table extends React.PureComponent<TableProps, {}> {
+    forceUpdateGrid(): void;
+    /** See Grid#measureAllCells */
+    measureAllRows(): void;
+    /** See Grid#recomputeGridSize */
+    recomputeRowHeights(index?: number): void;
+    /** See Grid#scrollToCell */
+    scrollToRow(index?: number): void;
+    Grid: Grid;
+}
 
 export const defaultTableCellDataGetter: TableCellDataGetter;
 export const defaultTableCellRenderer: TableCellRenderer;
@@ -418,7 +408,7 @@ export type GridProps = {
     columnCount: number;
     columnWidth: number | ((params: IndexParam) => number);
     containerStyle?: React.CSSProperties;
-    deferredMeasurementCache?: Object;
+    deferredMeasurementCache?: CellMeasurerCache;
     estimatedColumnSize?: number;
     estimatedRowSize?: number;
     getScrollbarSize?: () => number;
@@ -448,7 +438,40 @@ export type GridProps = {
     tabIndex?: number;
     width: number;
 };
-export class Grid extends React.PureComponent<GridProps, {}> { }
+export class Grid extends React.PureComponent<GridProps, {}> {
+    /**
+     * Invalidate Grid size and recompute visible cells.
+     * This is a deferred wrapper for recomputeGridSize().
+     * It sets a flag to be evaluated on cDM/cDU to avoid unnecessary renders.
+     * This method is intended for advanced use-cases like CellMeasurer.
+     */
+    invalidateCellSizeAfterRender(params: {
+        columnIndex: number,
+        rowIndex: number
+    }): void;
+    /**
+     * Pre-measure all columns and rows in a Grid.
+     * Typically cells are only measured as needed and estimated sizes are used for cells that have not yet been measured.
+     * This method ensures that the next call to getTotalSize() returns an exact size (as opposed to just an estimated one).
+     */
+    measureAllCells(): void;
+    /**
+     * Forced recompute of row heights and column widths.
+     * This function should be called if dynamic column or row sizes have changed but nothing else has.
+     * Since Grid only receives :columnCount and :rowCount it has no way of detecting when the underlying data changes.
+     */
+    recomputeGridSize(params?: {
+        columnIndex?: number,
+        rowIndex?: number
+    }): void;
+    /**
+     * Ensure column and row are visible.
+     */
+    scrollToCell(params: {
+        columnIndex: number,
+        rowIndex: number
+    }): void;
+}
 
 export type InfiniteLoaderProps = {
     children?: React.StatelessComponent<{
