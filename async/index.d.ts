@@ -9,7 +9,7 @@ interface ErrorCallback<T> { (err?: T): void; }
 interface AsyncBooleanResultCallback<E> { (err?: E, truthValue?: boolean): void; }
 interface AsyncResultCallback<T, E> { (err?: E, result?: T): void; }
 interface AsyncResultArrayCallback<T, E> { (err?: E, results?: (T | undefined)[]): void; }
-interface AsyncResultObjectCallback<T, E> { (err: E | undefined, results: Dictionary<T>): void; }
+interface AsyncResultObjectCallback<T, E> { (err: E | undefined, results: Dictionary<T | undefined>): void; }
 
 interface AsyncFunction<T, E> { (callback: (err?: E, result?: T) => void): void; }
 interface AsyncIterator<T, E> { (item: T, callback: ErrorCallback<E>): void; }
@@ -174,7 +174,7 @@ interface Async {
     during<E>(test: (testCallback : AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
     doDuring<E>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
     forever<E>(next: (next : ErrorCallback<E>) => void, errBack: ErrorCallback<E>) : void;
-    waterfall<T, E>(tasks: Function[], callback?: AsyncResultCallback<T,E>): void;
+    waterfall<T, E>(tasks: Function[], callback?: AsyncResultCallback<T, E | Error>): void;
     compose(...fns: Function[]): Function;
     seq(...fns: Function[]): Function;
     applyEach(fns: Function[], argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
@@ -207,7 +207,7 @@ interface Async {
     transform<T, R, E>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void): void;
     transform<T, R, E>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void): void;
 
-    race<T, E>(tasks: (AsyncFunction<T, E>)[], callback: AsyncResultCallback<T, E>) : void;
+    race<T, E>(tasks: (AsyncFunction<T, E>)[], callback: AsyncResultCallback<T, E | Error>) : void;
 
     // Utils
     memoize(fn: Function, hasher?: Function): Function;
