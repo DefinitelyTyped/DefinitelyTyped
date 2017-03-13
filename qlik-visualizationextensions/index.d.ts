@@ -1297,9 +1297,18 @@ declare namespace AppAPI {
          * Name | Type | Description
          * qSearchFields | Array | List of search fields.
          * qContext | | Search context. Can be one of:
-         *       # Cleared: In this mode, the first step is to clear any current selections in the app. The second step is to search for one or more terms in the values of the app.
-         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated with the selections made in locked fields, ignoring selections in any unlocked field. If no locked fields, the behavior is identical to the Cleared context. You cannot make any new selections in a locked field. You can get search hits for the associated values of a locked field but you cannot get the search hits for the non associative values.
-         *       # CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app. New selections are made on top of the current selections. If no selections were made before the search, this mode is identical to the Cleared context.
+         *       # Cleared: In this mode, the first step is to clear any current selections in the app.
+         *                  The second step is to search for one or more terms in the values of the app.
+         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated 
+         *                           with the selections made in locked fields, ignoring selections
+         *                           in any unlocked field. If no locked fields, the behavior is
+         *                           identical to the Cleared context. You cannot make any new selections
+         *                           in a locked field. You can get search hits for the associated values
+         *                           of a locked field but you cannot get the search hits for the non associative values.
+         *       # CurrentSelections:In this mode, the current selections are kept (if any). Search
+         *                           for one or more terms in the values of the app. New selections
+         *                           are made on top of the current selections. If no selections were
+         *                           made before the search, this mode is identical to the Cleared context.
          * | | Default value is LockedFieldsOnly.
          * @param {function} [callback] - Optional. Callback method.
          * @return {Promise} - A promise of a Qlik engine reply.
@@ -1319,9 +1328,18 @@ declare namespace AppAPI {
          * Name | Type | Description
          * qSearchFields | Array | List of search fields.
          * qContext | | Search context. Can be one of:
-         *       # Cleared: In this mode, the first step is to clear any current selections in the app. The second step is to search for one or more terms in the values of the app.
-         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated with the selections made in locked fields, ignoring selections in any unlocked field. If no locked fields, the behavior is identical to the Cleared context. You cannot make any new selections in a locked field. You can get search hits for the associated values of a locked field but you cannot get the search hits for the non associative values.
-         *       # CurrentSelections: In this mode, the current selections are kept (if any). Search for one or more terms in the values of the app. New selections are made on top of the current selections. If no selections were made before the search, this mode is identical to the Cleared context.
+         *       # Cleared: In this mode, the first step is to clear any current selections in the app.
+         *                  The second step is to search for one or more terms in the values of the app.
+         *       # LockedFieldsOnly: In this mode, the search applies only to the values associated 
+         *                           with the selections made in locked fields, ignoring selections 
+         *                           in any unlocked field. If no locked fields, the behavior is
+         *                           identical to the Cleared context. You cannot make any new selections
+         *                           in a locked field. You can get search hits for the associated values
+         *                           of a locked field but you cannot get the search hits for the non associative values.
+         *       # CurrentSelections:In this mode, the current selections are kept (if any). Search
+         *                           for one or more terms in the values of the app. New selections
+         *                           are made on top of the current selections. If no selections were
+         *                           made before the search, this mode is identical to the Cleared context.
          * | | Default value is LockedFieldsOnly.
          * @param {function} [callback] - Optional. Callback method.
          * @return {Promise} - A promise of a Qlik engine reply.
