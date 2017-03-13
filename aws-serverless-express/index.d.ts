@@ -1,6 +1,6 @@
-// Type definitions for aws-serverless-express
+// Type definitions for aws-serverless-express 2.1
 // Project: https://github.com/awslabs/aws-serverless-express
-// Definitions by: Ben Speakman <https://github.com/threesquared>
+// Definitions by: Ben Speakman <https://github.com/threesquared>, Josh Caffey <https://github.com/jcaffey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
