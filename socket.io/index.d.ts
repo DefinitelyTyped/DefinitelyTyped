@@ -509,28 +509,7 @@ declare namespace SocketIO {
 		/**
 		 * The underlying Engine.io Socket instance
 		 */
-		conn: {
-
-			/**
-			 * The ID for this socket - matches Client.id
-			 */
-			id: string;
-
-			/**
-			 * The Engine.io Server for this socket
-			 */
-			server: any;
-
-			/**
-			 * The ready state for the client. Either 'opening', 'open', 'closing', or 'closed'
-			 */
-			readyState: string;
-
-			/**
-			 * The remote IP for this connection
-			 */
-			remoteAddress: string;
-		};
+		conn: EngineSocket;
 
 		/**
 		 * The list of rooms that this Socket is currently in, where
@@ -751,28 +730,7 @@ declare namespace SocketIO {
 		/**
 		 * The underlying Engine.io Socket instance
 		 */
-		conn: {
-
-			/**
-			 * The ID for this socket - matches Client.id
-			 */
-			id: string;
-
-			/**
-			 * The Engine.io Server for this socket
-			 */
-			server: any;
-
-			/**
-			 * The ready state for the client. Either 'opening', 'open', 'closing', or 'closed'
-			 */
-			readyState: string;
-
-			/**
-			 * The remote IP for this connection
-			 */
-			remoteAddress: string;
-		};
+		conn: EngineSocket;
 
 		/**
 		 * The ID for this client. Regenerated at every connection
@@ -796,5 +754,45 @@ declare namespace SocketIO {
 		 * deals with that namespace
 		 */
 		nsps: {[nsp: string]: Socket};
+	}
+
+	/**
+	 * A reference to the underlying engine.io Socket connection.
+	 */
+	interface EngineSocket extends NodeJS.EventEmitter {
+		/**
+		 * The ID for this socket - matches Client.id
+		 */
+		id: string;
+
+		/**
+		 * The Engine.io Server for this socket
+		 */
+		server: any;
+
+		/**
+		 * The ready state for the client. Either 'opening', 'open', 'closing', or 'closed'
+		 */
+		readyState: string;
+
+		/**
+		 * The remote IP for this connection
+		 */
+		remoteAddress: string;
+
+		/**
+		 * whether the transport has been upgraded
+		 */
+		upgraded: boolean;
+
+		/**
+		 * (http.IncomingMessage): request that originated the Socket
+		 */
+		request: any;
+
+		/**
+		 * (Transport): transport reference
+		 */
+		transport: any;
 	}
 }
