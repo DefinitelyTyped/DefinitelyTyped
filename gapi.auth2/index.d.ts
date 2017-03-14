@@ -1,4 +1,4 @@
-// Type definitions for Google Sign-In API
+// Type definitions for Google Sign-In API 0.0
 // Project: https://developers.google.com/identity/sign-in/web/
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@ declare namespace gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: () => any, onFailure: (reason: string) => any): any;
+    then(onInit: () => any, onFailure?: (reason: string) => any): any;
 
     /**
      * Signs in the user with the options specified to gapi.auth2.init().
@@ -58,7 +58,7 @@ declare namespace gapi.auth2 {
                        onsuccess: (googleUser: GoogleUser) => any, onfailure: (reason: string) => any): any;
   }
 
-  export interface IsSignedIn{
+  export interface IsSignedIn {
     /**
      * Returns whether the current user is currently signed in.
      */
