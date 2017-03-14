@@ -1,6 +1,6 @@
-// Type definitions for faker v4.1.0
+// Type definitions for faker v3.1
 // Project: http://marak.com/faker.js/
-// Definitions by: Ben Swartz <https://github.com/bensw/>, Bas Pennings <https://github.com/basp/>, Yuki Kokubun <https://github.com/Kuniwak>
+// Definitions by: Bas Pennings <https://github.com/basp/>, Yuki Kokubun <https://github.com/Kuniwak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var fakerStatic: Faker.FakerStatic;
@@ -52,13 +52,6 @@ declare namespace Faker {
 			bsNoun(): string;
 		};
 
-		database: {
-			column(): string;
-			type(): string;
-			collation(): string;
-			engine(): string;
-		};
-
 		date: {
 			past(years?: number, refDate?: string|Date): Date;
 			future(years?: number, refDate?: string|Date): Date;
@@ -79,8 +72,6 @@ declare namespace Faker {
 			currencyCode(): string;
 			currencyName(): string;
 			currencySymbol(): string;
-			bitcoinAddress(): string;
-			bic(): string
 		};
 
 		hacker: {
@@ -125,13 +116,11 @@ declare namespace Faker {
 			sports(width?: number, height?: number): string;
 			technics(width?: number, height?: number): string;
 			transport(width?: number, height?: number): string;
-			dataUri(width?: number, height?: number): string;
 		};
 
 		internet: {
 			avatar(): string;
 			email(firstName?: string, lastName?: string, provider?: string): string;
-			exampleEmail(firstName?: string, lastName?: string): string;
 			userName(firstName?: string, lastName?: string): string;
 			protocol(): string;
 			url(): string;
@@ -139,7 +128,6 @@ declare namespace Faker {
 			domainSuffix(): string;
 			domainWord(): string;
 			ip(): string;
-			ipv6(): string;
 			userAgent(): string;
 			color(baseRed255?: number, baseGreen255?: number, baseBlue255?: number): string;
 			mac(): string;
@@ -150,12 +138,9 @@ declare namespace Faker {
 			word(): string;
 			words(num?: number): string;
 			sentence(wordCount?: number, range?: number): string;
-			slug(wordCount?: number): string;
 			sentences(sentenceCount?: number): string;
 			paragraph(sentenceCount?: number): string;
 			paragraphs(paragraphCount?: number, separator?: string): string;
-			text(times?: number): string;
-			lines(lineCount?: number): string;
 		};
 
 		name: {
@@ -186,11 +171,6 @@ declare namespace Faker {
 			objectElement<T>(object?: { [key: string]: T }, field?: any): T;
 			uuid(): string;
 			boolean(): boolean;
-			word(): string; // TODO: have ability to return specific type of word? As in: noun, adjective, verb, etc
-			words(count?: number): string;
-			image(): string;
-			locale(): string;
-			alphaNumeric(count?: number): string;
 		};
 
 		system: {
@@ -295,14 +275,6 @@ declare module "faker" {
 	export = fakerStatic;
 }
 
-declare module "faker/locale/az" {
-	export = fakerStatic;
-}
-
-declare module "faker/locale/cz" {
-	export = fakerStatic;
-}
-
 declare module "faker/locale/de" {
 	export = fakerStatic;
 }
@@ -376,10 +348,6 @@ declare module "faker/locale/fr_CA" {
 }
 
 declare module "faker/locale/ge" {
-	export = fakerStatic;
-}
-
-declare module "faker/locale/id_ID" {
 	export = fakerStatic;
 }
 
