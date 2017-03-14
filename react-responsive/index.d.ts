@@ -56,6 +56,8 @@ declare module "react-responsive" {
             tty?: boolean;
             tv?: boolean;
             embossed?: boolean;
+            // SSR
+            values?: any;
         }
     }
 
