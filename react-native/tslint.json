@@ -1,0 +1,7 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // This package uses the Function type for good reason and `object` is TypeScript 2.2 only.
+        "forbidden-types": false
+    }
+}

@@ -691,8 +691,20 @@ interface SkewYTransform {
 }
 
 export interface TransformsStyle {
-
-    transform?: (PerpectiveTransform|RotateTransform|RotateXTransform|RotateYTransform|RotateZTransform|ScaleTransform|ScaleXTransform|ScaleYTransform|TranslateXTransform|TranslateYTransform|SkewXTransform|SkewYTransform)[]
+    transform?: (
+        PerpectiveTransform |
+        RotateTransform |
+        RotateXTransform |
+        RotateYTransform |
+        RotateZTransform |
+        ScaleTransform |
+        ScaleXTransform |
+        ScaleYTransform |
+        TranslateXTransform |
+        TranslateYTransform |
+        SkewXTransform |
+        SkewYTransform
+    )[]
     transformMatrix?: Array<number>
     rotation?: number
     scaleX?: number
@@ -1533,8 +1545,6 @@ export interface ViewPropertiesIOS {
     /**
      * Provides additional traits to screen reader.
      * By default no traits are provided unless specified otherwise in element
-     *
-     * @enum('none', 'button', 'link', 'header', 'search', 'image', 'selected', 'plays', 'key', 'text','summary', 'disabled', 'frequentUpdates', 'startsMedia', 'adjustable', 'allowsDirectInteraction', 'pageTurn')
      */
     accessibilityTraits?: ViewAccessibilityTraits | ViewAccessibilityTraits[];
 
@@ -1556,8 +1566,6 @@ export interface ViewPropertiesAndroid {
     /**
      * Indicates to accessibility services to treat UI component like a native one.
      * Works for Android only.
-     *
-     * @enum('none', 'button', 'radiobutton_checked', 'radiobutton_unchecked' )
      */
     accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked'
 
@@ -1625,7 +1633,8 @@ export interface ViewPropertiesAndroid {
 export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS, GestureResponderHandlers, Touchable, React.Props<ViewStatic> {
 
     /**
-     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
+     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
+     * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
      */
     accessibilityLabel?: string;
 
@@ -3823,15 +3832,30 @@ export interface TouchableWithoutFeedbackAndroidProperties {
     accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked'
 }
 
-type ViewAccessibilityTraits = 'none' | 'button' | 'link' | 'header' | 'search' | 'image' | 'selected' | 'plays' | 'key' | 'text' | 'summary' | 'disabled' | 'frequentUpdates' | 'startsMedia' | 'adjustable' | 'allowsDirectInteraction' | 'pageTurn'
+type ViewAccessibilityTraits =
+    'none' |
+    'button' |
+    'link' |
+    'header' |
+    'search' |
+    'image' |
+    'selected' |
+    'plays' |
+    'key' |
+    'text' |
+    'summary' |
+    'disabled' |
+    'frequentUpdates' |
+    'startsMedia' |
+    'adjustable' |
+    'allowsDirectInteraction' |
+    'pageTurn'
 
 export interface TouchableWithoutFeedbackIOSProperties {
 
     /**
      * Provides additional traits to screen reader.
      * By default no traits are provided unless specified otherwise in element
-     *
-     * @enum('none', 'button', 'link', 'header', 'search', 'image', 'selected', 'plays', 'key', 'text','summary', 'disabled', 'frequentUpdates', 'startsMedia', 'adjustable', 'allowsDirectInteraction', 'pageTurn')
      */
     accessibilityTraits?: ViewAccessibilityTraits | ViewAccessibilityTraits[]
 
@@ -4028,9 +4052,15 @@ export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedb
      * Determines the type of background drawable that's going to be used to display feedback.
      * It takes an object with type property and extra data depending on the type.
      * It's recommended to use one of the following static methods to generate that dictionary:
-     *      1) TouchableNativeFeedback.SelectableBackground() - will create object that represents android theme's default background for selectable elements (?android:attr/selectableItemBackground)
-     *      2) TouchableNativeFeedback.SelectableBackgroundBorderless() - will create object that represent android theme's default background for borderless selectable elements (?android:attr/selectableItemBackgroundBorderless). Available on android API level 21+
-     *      3) TouchableNativeFeedback.Ripple(color, borderless) - will create object that represents ripple drawable with specified color (as a string). If property borderless evaluates to true the ripple will render outside of the view bounds (see native actionbar buttons as an example of that behavior). This background type is available on Android API level 21+
+     *      1) TouchableNativeFeedback.SelectableBackground() - will create object that represents android theme's
+     *         default background for selectable elements (?android:attr/selectableItemBackground)
+     *      2) TouchableNativeFeedback.SelectableBackgroundBorderless() - will create object that represent android
+     *         theme's default background for borderless selectable elements
+     *         (?android:attr/selectableItemBackgroundBorderless). Available on android API level 21+
+     *      3) TouchableNativeFeedback.Ripple(color, borderless) - will create object that represents ripple drawable
+     *         with specified color (as a string). If property borderless evaluates to true the ripple will render
+     *         outside of the view bounds (see native actionbar buttons as an example of that behavior). This background
+     *         type is available on Android API level 21+
      */
     background?: BackgroundPropType
 }
@@ -5006,8 +5036,7 @@ export interface InteractionManagerStatic {
         interactionComplete: string
     }
 
-    addListener(
-        eventType: string, listener: Function, context?: Object): EmitterSubscription
+    addListener(eventType: string, listener: Function, context?: Object): EmitterSubscription
 
     /**
      * Schedule a function to run after all interactions have completed.
@@ -6302,7 +6331,10 @@ export interface DatePickerAndroidStatic {
         * minDate (Date object or timestamp in milliseconds) - minimum date that can be selected
         * maxDate (Date object or timestamp in milliseconds) - maximum date that can be selected
 
-        Returns a Promise which will be invoked an object containing action, year, month (0-11), day if the user picked a date. If the user dismissed the dialog, the Promise will still be resolved with action being DatePickerAndroid.dismissedAction and all the other keys being undefined. Always check whether the action before reading the values.
+        Returns a Promise which will be invoked an object containing action, year, month (0-11), day if the user picked
+        a date. If the user dismissed the dialog, the Promise will still be resolved with action being
+        DatePickerAndroid.dismissedAction and all the other keys being undefined. Always check whether the action before
+        reading the values.
 
         Note the native date picker dialog has some UI glitches on Android 4 and lower when using the minDate and maxDate options.
         */
@@ -6610,7 +6642,31 @@ export interface Rationale {
     message: string
 }
 
-export type Permission = "android.permission.READ_CALENDAR" | "android.permission.WRITE_CALENDAR" | "android.permission.CAMERA" | "android.permission.READ_CONTACTS" | "android.permission.WRITE_CONTACTS" | "android.permission.GET_ACCOUNTS" | "android.permission.ACCESS_FINE_LOCATION" | "android.permission.ACCESS_COARSE_LOCATION" | "android.permission.RECORD_AUDIO" | "android.permission.READ_PHONE_STATE" | "android.permission.CALL_PHONE" | "android.permission.READ_CALL_LOG" | "android.permission.WRITE_CALL_LOG" | "com.android.voicemail.permission.ADD_VOICEMAIL" | "android.permission.USE_SIP" | "android.permission.PROCESS_OUTGOING_CALLS" | "android.permission.BODY_SENSORS" | "android.permission.SEND_SMS" | "android.permission.RECEIVE_SMS" | "android.permission.READ_SMS" | "android.permission.RECEIVE_WAP_PUSH" | "android.permission.RECEIVE_MMS" | "android.permission.READ_EXTERNAL_STORAGE" | "android.permission.WRITE_EXTERNAL_STORAGE"
+export type Permission =
+    "android.permission.READ_CALENDAR" |
+    "android.permission.WRITE_CALENDAR" |
+    "android.permission.CAMERA" |
+    "android.permission.READ_CONTACTS" |
+    "android.permission.WRITE_CONTACTS" |
+    "android.permission.GET_ACCOUNTS" |
+    "android.permission.ACCESS_FINE_LOCATION" |
+    "android.permission.ACCESS_COARSE_LOCATION" |
+    "android.permission.RECORD_AUDIO" |
+    "android.permission.READ_PHONE_STATE" |
+    "android.permission.CALL_PHONE" |
+    "android.permission.READ_CALL_LOG" |
+    "android.permission.WRITE_CALL_LOG" |
+    "com.android.voicemail.permission.ADD_VOICEMAIL" |
+    "android.permission.USE_SIP" |
+    "android.permission.PROCESS_OUTGOING_CALLS" |
+    "android.permission.BODY_SENSORS" |
+    "android.permission.SEND_SMS" |
+    "android.permission.RECEIVE_SMS" |
+    "android.permission.READ_SMS" |
+    "android.permission.RECEIVE_WAP_PUSH" |
+    "android.permission.RECEIVE_MMS" |
+    "android.permission.READ_EXTERNAL_STORAGE" |
+    "android.permission.WRITE_EXTERNAL_STORAGE"
 
 export interface PermissionsAndroidStatic {
     /**
@@ -6761,13 +6817,13 @@ export interface PushNotificationIOSStatic {
      *
      * The type MUST be 'notification'
      */
-    addEventListener( type: PushNotificationEventName, handler: ( notification: PushNotification ) => void ):void
+    addEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void
 
     /**
      * Removes the event listener. Do this in `componentWillUnmount` to prevent
      * memory leaks
      */
-    removeEventListener( type: PushNotificationEventName, handler: ( notification: PushNotification ) => void ): void
+    removeEventListener(type: PushNotificationEventName, handler: (notification: PushNotification) => void): void
 
     /**
      * Requests all notification permissions from iOS, prompting the user's
@@ -6779,7 +6835,7 @@ export interface PushNotificationIOSStatic {
      * Requests all notification permissions from iOS, prompting the user's
      * dialog box.
      */
-    requestPermissions( permissions?: PushNotificationPermissions ): Promise<PushNotificationPermissions>
+    requestPermissions(permissions?: PushNotificationPermissions): Promise<PushNotificationPermissions>
 
     /**
      * Unregister for all remote notifications received via Apple Push
@@ -7500,6 +7556,7 @@ export module Animated {
     export var Text: any;
 }
 
+// tslint:disable-next-line:interface-name
 export interface I18nManagerStatic {
     isRTL: boolean
     allowRTL: (allowRTL: boolean) => {}
@@ -7544,8 +7601,8 @@ export type ImagePickerResult = [string, number, number]
 export interface ImagePickerIOSStatic {
     canRecordVideos(callback: (value: boolean) => void): void
     canUseCamera(callback: (value: boolean) => void): void
-    openCameraDialog(config: OpenCameraDialogOptions, successCallback: (args:ImagePickerResult) => void, cancelCallback: (args:any[]) => void): void
-    openSelectDialog(config: OpenSelectDialogOptions, successCallback: (args:ImagePickerResult) => void, cancelCallback: (args:any[]) => void): void
+    openCameraDialog(config: OpenCameraDialogOptions, successCallback: (args: ImagePickerResult) => void, cancelCallback: (args: any[]) => void): void
+    openSelectDialog(config: OpenSelectDialogOptions, successCallback: (args: ImagePickerResult) => void, cancelCallback: (args: any[]) => void): void
 }
 
 export interface ImageStoreStatic {
@@ -8000,12 +8057,12 @@ export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {
 }
 
 export interface ARTStatic {
-        Shape: ShapeStatic,
-        Surface: SurfaceStatic
+    Shape: ShapeStatic,
+    Surface: SurfaceStatic
 }
 
 export interface KeyboardStatic extends NativeEventEmitter {
-    dismiss: ()=>void
+    dismiss: () => void
 }
 
 //////////////////////////////////////////////////////////////////////////
