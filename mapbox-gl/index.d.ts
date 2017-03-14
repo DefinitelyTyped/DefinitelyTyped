@@ -978,7 +978,7 @@ declare namespace mapboxgl {
 		"circle-translate-anchor"?: "map" | "viewport";
 		"circle-pitch-scale"?: "map" | "viewport";
 		"circle-stroke-width"?: number | StyleFunction;
-		"circle-stoke-color"?: string | StyleFunction;
+		"circle-stroke-color"?: string | StyleFunction;
 		"circle-stroke-opactiy"?: number | StyleFunction;
 	}
 }

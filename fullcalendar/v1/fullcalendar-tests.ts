@@ -1,6 +1,4 @@
-/// <reference types="jquery"/>
-/// <reference types="jqueryui"/>
-/// <reference types="moment"/>
+/// <reference types="jqueryui" />
 
 // All examples from http://arshaw.com/fullcalendar/docs/
 

@@ -1,5 +1,3 @@
-/// <reference types="bit-array" />
-
 import BitArray = require("bit-array");
 
 const a = new BitArray(32);

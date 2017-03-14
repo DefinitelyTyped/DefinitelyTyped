@@ -1,8 +1,4 @@
-
 /*
-
-Note: This must be compiled with the target set to ES6
-
 The content of index.io.js could be something like
 
     'use strict';
@@ -12,13 +8,8 @@ The content of index.io.js could be something like
 
      AppRegistry.registerComponent('MopNative', () => Welcome);
 
-
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
-
- */
-
-///<reference types="react-native" />
-
+*/
 
 import * as React from 'react-native'
 import {

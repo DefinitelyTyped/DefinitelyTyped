@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import tape = require("tape");
 
 var name: string;

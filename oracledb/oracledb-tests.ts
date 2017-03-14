@@ -1,5 +1,3 @@
-/// <reference types="oracledb" />
-
 import * as OracleDB from 'oracledb';
 
 OracleDB.getConnection(

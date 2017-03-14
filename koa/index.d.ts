@@ -280,34 +280,6 @@ declare interface ContextDelegatedRequest {
     get(field: string): string;
 }
 
-declare interface BaseRequest extends ContextDelegatedRequest {
-    /**
-     * Get the charset when present or undefined.
-     */
-    charset: string;
-
-    /**
-     * Return parsed Content-Length when present.
-     */
-    length: number;
-
-    /**
-     * Return the request mime type void of
-     * parameters such as "charset".
-     */
-    type: string;
-
-    /**
-     * Inspect implementation.
-     */
-    inspect(): any;
-
-    /**
-     * Return JSON representation.
-     */
-    toJSON(): any;
-}
-
 declare interface ContextDelegatedResponse {
     /**
      * Get/Set response status code.
@@ -444,120 +416,14 @@ declare interface ContextDelegatedResponse {
     flushHeaders(): void;
 }
 
-declare interface BaseResponse extends ContextDelegatedResponse {
-    /**
-     * Return the request socket.
-     *
-     * @return {Connection}
-     * @api public
-     */
-    socket: Socket;
-
-    /**
-     * Return response header.
-     */
-    header: any;
-
-    /**
-     * Return response header, alias as response.header
-     */
-    headers: any;
-
-    /**
-     * Check whether the response is one of the listed types.
-     * Pretty much the same as `this.request.is()`.
-     *
-     * @param {String|Array} types...
-     * @return {String|false}
-     * @api public
-     */
-    // is(): string;
-    is(...types: string[]): string;
-    is(types: string[]): string;
-
-    /**
-     * Return response header.
-     *
-     * Examples:
-     *
-     *     this.get('Content-Type');
-     *     // => "text/plain"
-     *
-     *     this.get('content-type');
-     *     // => "text/plain"
-     */
-    get(field: string): string;
-
-    /**
-     * Inspect implementation.
-     */
-    inspect(): any;
-
-    /**
-     * Return JSON representation.
-     */
-    toJSON(): any;
-}
-
-
-declare interface BaseContext extends ContextDelegatedRequest, ContextDelegatedResponse {
-    /**
-     * util.inspect() implementation, which
-     * just returns the JSON output.
-     */
-    inspect(): any;
-
-    /**
-     * Return JSON representation.
-     *
-     * Here we explicitly invoke .toJSON() on each
-     * object, as iteration will otherwise fail due
-     * to the getters and cause utilities such as
-     * clone() to fail.
-     */
-    toJSON(): any;
-
-    /**
-     * Similar to .throw(), adds assertion.
-     *
-     *    this.assert(this.user, 401, 'Please login!');
-     *
-     * See: https://github.com/jshttp/http-assert
-     */
-    assert: typeof httpAssert;
-
-    /**
-     * Throw an error with `msg` and optional `status`
-     * defaulting to 500. Note that these are user-level
-     * errors, and the message may be exposed to the client.
-     *
-     *    this.throw(403)
-     *    this.throw('name required', 400)
-     *    this.throw(400, 'name required')
-     *    this.throw('something exploded')
-     *    this.throw(new Error('invalid'), 400);
-     *    this.throw(400, new Error('invalid'));
-     *
-     * See: https://github.com/jshttp/http-errors
-     */
-    throw(message: string, code?: number, properties?: {}): never;
-    throw(status: number): never;
-    throw(...properties: Array<number | string | {}>): never;
-
-    /**
-     * Default error handling.
-     */
-    onerror(err: Error): void;
-}
-
 declare class Application extends EventEmitter {
     proxy: boolean;
     middleware: Application.Middleware[];
     subdomainOffset: number;
     env: string;
-    context: BaseContext;
-    request: BaseRequest;
-    response: BaseResponse;
+    context: Application.BaseContext;
+    request: Application.BaseRequest;
+    response: Application.BaseResponse;
     silent: boolean;
     keys: Keygrip | string[];
 
@@ -623,6 +489,139 @@ declare class Application extends EventEmitter {
 declare namespace Application {
     type Middleware = compose.Middleware<Context>;
 
+    interface BaseRequest extends ContextDelegatedRequest {
+        /**
+         * Get the charset when present or undefined.
+         */
+        charset: string;
+
+        /**
+         * Return parsed Content-Length when present.
+         */
+        length: number;
+
+        /**
+         * Return the request mime type void of
+         * parameters such as "charset".
+         */
+        type: string;
+
+        /**
+         * Inspect implementation.
+         */
+        inspect(): any;
+
+        /**
+         * Return JSON representation.
+         */
+        toJSON(): any;
+    }
+
+    interface BaseResponse extends ContextDelegatedResponse {
+        /**
+         * Return the request socket.
+         *
+         * @return {Connection}
+         * @api public
+         */
+        socket: Socket;
+
+        /**
+         * Return response header.
+         */
+        header: any;
+
+        /**
+         * Return response header, alias as response.header
+         */
+        headers: any;
+
+        /**
+         * Check whether the response is one of the listed types.
+         * Pretty much the same as `this.request.is()`.
+         *
+         * @param {String|Array} types...
+         * @return {String|false}
+         * @api public
+         */
+        // is(): string;
+        is(...types: string[]): string;
+        is(types: string[]): string;
+
+        /**
+         * Return response header.
+         *
+         * Examples:
+         *
+         *     this.get('Content-Type');
+         *     // => "text/plain"
+         *
+         *     this.get('content-type');
+         *     // => "text/plain"
+         */
+        get(field: string): string;
+
+        /**
+         * Inspect implementation.
+         */
+        inspect(): any;
+
+        /**
+         * Return JSON representation.
+         */
+        toJSON(): any;
+    }
+
+    interface BaseContext extends ContextDelegatedRequest, ContextDelegatedResponse {
+        /**
+         * util.inspect() implementation, which
+         * just returns the JSON output.
+         */
+        inspect(): any;
+
+        /**
+         * Return JSON representation.
+         *
+         * Here we explicitly invoke .toJSON() on each
+         * object, as iteration will otherwise fail due
+         * to the getters and cause utilities such as
+         * clone() to fail.
+         */
+        toJSON(): any;
+
+        /**
+         * Similar to .throw(), adds assertion.
+         *
+         *    this.assert(this.user, 401, 'Please login!');
+         *
+         * See: https://github.com/jshttp/http-assert
+         */
+        assert: typeof httpAssert;
+
+        /**
+         * Throw an error with `msg` and optional `status`
+         * defaulting to 500. Note that these are user-level
+         * errors, and the message may be exposed to the client.
+         *
+         *    this.throw(403)
+         *    this.throw('name required', 400)
+         *    this.throw(400, 'name required')
+         *    this.throw('something exploded')
+         *    this.throw(new Error('invalid'), 400);
+         *    this.throw(400, new Error('invalid'));
+         *
+         * See: https://github.com/jshttp/http-errors
+         */
+        throw(message: string, code?: number, properties?: {}): never;
+        throw(status: number): never;
+        throw(...properties: Array<number | string | {}>): never;
+
+        /**
+         * Default error handling.
+         */
+        onerror(err: Error): void;
+    }
+
     interface Request extends BaseRequest {
         app: Application;
         req: IncomingMessage;
@@ -652,6 +651,10 @@ declare namespace Application {
         cookies: Cookies;
         accept: accepts.Accepts;
         state: any;
+        /**
+         * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
+         */
+        respond?: boolean;
     }
 }
 

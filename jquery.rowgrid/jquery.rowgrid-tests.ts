@@ -1,12 +1,10 @@
-/// <reference types="jquery"/>
-
 /*
  * Test different options
  */
 
 var options = {
-    minMargin: 10, 
-    maxMargin: 35, 
+    minMargin: 10,
+    maxMargin: 35,
     itemSelector: ".item"
 };
 

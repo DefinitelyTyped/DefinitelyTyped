@@ -1,5 +1,3 @@
-/// <reference types="resolve" />
-
 import * as fs from 'fs';
 import * as resolve from 'resolve';
 

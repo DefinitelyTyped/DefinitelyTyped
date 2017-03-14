@@ -1,4 +1,4 @@
-import 'auth0-js';
+import * as auth0 from 'auth0-js';
 
 let webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
@@ -61,10 +61,8 @@ webAuth.signupAndAuthorize({
 
 });
 
-
-
 webAuth.client.login({
-    ealm: 'Username-Password-Authentication', //connection name or HRD domain
+    realm: 'Username-Password-Authentication', //connection name or HRD domain
     username: 'info@auth0.com',
     password: 'areallystrongpassword',
     audience: 'https://mystore.com/api/v2',
@@ -72,6 +70,26 @@ webAuth.client.login({
 }, function(err, authResult) {
     // Auth tokens in the result or an error
 });
+
+webAuth.popup.buildPopupHandler();
+webAuth.popup.preload({});
+webAuth.popup.authorize({}, (err, data) => {
+    if (err) /* handle error */ return;
+    // do something with data
+});
+webAuth.popup.loginWithCredentials({}, (err, data) => {
+    if (err) /* handle error */ return;
+    // do something with data
+});
+webAuth.popup.passwordlessVerify({}, (err, data) => {
+    if (err) /* handle error */ return;
+    // do something with data
+});
+webAuth.popup.signupAndLogin({}, (err, data) => {
+    if (err) /* handle error */ return;
+    // do something with data
+});
+
 
 let authentication = new auth0.Authentication({
     domain: 'me.auth0.com',
@@ -101,7 +119,9 @@ authentication.delegation({
     refresh_token: 'your_refresh_token',
     api_type: 'app'
 }, (err, data) => {
-
+    if (!err) {
+        localStorage.setItem('token', data.idToken)
+    }
 });
 
 authentication.loginWithDefaultDirectory({
@@ -146,6 +166,8 @@ let management = new auth0.Management({
 
 management.getUser('asd', (err, user) => {});
 
-management.patchUserMetadata('asd', {role: 'admin'}, (err, user) => {});
+management.patchUserMetadata('asd', {role: 'admin'}, (err, user) => {
+    if (!err && user.email_verified) return; // do something
+});
 
 management.linkUser('asd', 'eqwe', (err, user) => {});

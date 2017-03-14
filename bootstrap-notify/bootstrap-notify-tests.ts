@@ -1,6 +1,3 @@
-
-/// <reference types="jquery" />
-
 //Test for bootstrap-notify v3.1.3
 //Copied example directly from Bootstrap-notify site
 

@@ -1,5 +1,3 @@
-
-/// <reference types="babel-types" />
 /// <reference types="babylon" />
 
 

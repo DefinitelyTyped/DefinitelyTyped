@@ -65,3 +65,135 @@ export class DriverService {
      */
     stop(): webdriver.promise.Promise<any>;
 }
+
+export module DriverService {
+
+    /**
+     * Creates {@link DriverService} objects that manage a WebDriver server in a
+     * child process.
+     */
+    export class Builder {
+        /**
+         * @param {string} exe Path to the executable to use. This executable must
+         *     accept the `--port` flag for defining the port to start the server on.
+         * @throws {Error} If the provided executable path does not exist.
+         */
+        constructor(exe: string);
+
+        /**
+         * Define additional command line arguments to use when starting the server.
+         *
+         * @param {...CommandLineFlag} var_args The arguments to include.
+         * @return {!THIS} A self reference.
+         * @this {THIS}
+         * @template THIS
+         */
+        addArguments(...var_args: string[]): this;
+
+
+        /**
+         * Sets the host name to access the server on. If specified, the
+         * {@linkplain #setLoopback() loopback} setting will be ignored.
+         *
+         * @param {string} hostname
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setHostname(hostname: string): this;
+
+        /**
+         * Sets whether the service should be accessed at this host's loopback
+         * address.
+         *
+         * @param {boolean} loopback
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setLoopback(loopback: boolean): this;
+
+        /**
+         * Sets the base path for WebDriver REST commands (e.g. "/wd/hub").
+         * By default, the driver will accept commands relative to "/".
+         *
+         * @param {?string} basePath The base path to use, or `null` to use the
+         *     default.
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setPath(basePath: string | null): this;
+
+
+        /**
+         * Sets the port to start the server on.
+         *
+         * @param {number} port The port to use, or 0 for any free port.
+         * @return {!DriverService.Builder} A self reference.
+         * @throws {Error} If an invalid port is specified.
+         */
+        setPort(port: number): this;
+
+        /**
+         * Defines the environment to start the server under. This setting will be
+         * inherited by every browser session started by the server. By default, the
+         * server will inherit the enviroment of the current process.
+         *
+         * @param {(Map<string, string>|Object<string, string>|null)} env The desired
+         *     environment to use, or `null` if the server should inherit the
+         *     current environment.
+         * @return {!DriverService.Builder} A self reference.
+         */
+        setEnvironment(env: Map<string, string> | {[name: string]: string} | null): this;
+
+        /**
+         * IO configuration for the spawned server process. For more information,
+         * refer to the documentation of `child_process.spawn`.
+         *
+         * @param {StdIoOptions} config The desired IO configuration.
+         * @return {!DriverService.Builder} A self reference.
+         * @see https://nodejs.org/dist/latest-v4.x/docs/api/child_process.html#child_process_options_stdio
+         */
+        setStdio(config: any): this;
+
+        /**
+         * Creates a new DriverService using this instance's current configuration.
+         *
+         * @return {!DriverService} A new driver service.
+         */
+        build(): DriverService;
+    }
+}
+
+/**
+ * A {@link webdriver.FileDetector} that may be used when running
+ * against a remote
+ * [Selenium server](http://selenium-release.storage.googleapis.com/index.html).
+ *
+ * When a file path on the local machine running this script is entered with
+ * {@link webdriver.WebElement#sendKeys WebElement#sendKeys}, this file detector
+ * will transfer the specified file to the Selenium server's host; the sendKeys
+ * command will be updated to use the transfered file's path.
+ *
+ * __Note:__ This class depends on a non-standard command supported on the
+ * Java Selenium server. The file detector will fail if used with a server that
+ * only supports standard WebDriver commands (such as the ChromeDriver).
+ *
+ * @final
+ */
+export class FileDetector extends webdriver.FileDetector {
+    /**
+     * @constructor
+     **/
+    constructor();
+
+    /**
+     * Prepares a `file` for use with the remote browser. If the provided path
+     * does not reference a normal file (i.e. it does not exist or is a
+     * directory), then the promise returned by this method will be resolved with
+     * the original file path. Otherwise, this method will upload the file to the
+     * remote server, which will return the file's path on the remote system so
+     * it may be referenced in subsequent commands.
+     *
+     * @param {!webdriver.WebDriver} driver The driver for the current browser.
+     * @param {string} file The path of the file to process.
+     * @return {!webdriver.promise.Promise<string>} A promise for the processed
+     *     file path.
+     */
+    handleFile(driver: webdriver.WebDriver, file: string): webdriver.promise.Promise<string>;
+}

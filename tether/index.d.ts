@@ -21,7 +21,7 @@ declare class Tether {
 
 declare namespace Tether {
     interface ITetherOptions {
-        attachment?: string;
+        attachment: string;
         bodyElement?: HTMLElement;
         classes?: {[className: string]: boolean};
         classPrefix?: string;

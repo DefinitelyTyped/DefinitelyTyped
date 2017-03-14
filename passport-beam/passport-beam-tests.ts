@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 /**
  * Created by AtlasDev on 4/10/2016.
  */

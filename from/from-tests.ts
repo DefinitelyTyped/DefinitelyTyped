@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import from = require('from');
 
 var rs: NodeJS.ReadableStream;

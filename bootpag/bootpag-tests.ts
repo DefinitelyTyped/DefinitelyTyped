@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 var pagerSelector = ".bootpager";
 var $pager = $(pagerSelector);
 
