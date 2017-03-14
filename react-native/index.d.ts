@@ -7644,7 +7644,7 @@ declare module "react" {
         onNavigateBack?(): void;
     }
 
-    type SubViewRenderer = (subViewProps: SubViewProps) => JSX.Element;
+    type SubViewRenderer = (subViewProps: SubViewProps) => JSX.Element | null;
 
     export interface NavigationHeaderProps extends NavigationSceneRendererProps {
         onNavigateBack?(): void,
