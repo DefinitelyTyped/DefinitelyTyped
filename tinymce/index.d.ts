@@ -47,6 +47,7 @@ declare namespace TinyMce {
   }
 
   export interface Settings {
+    table_toolbar?: boolean;
 
     auto_focus?: string;
 
