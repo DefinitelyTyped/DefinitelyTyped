@@ -350,9 +350,9 @@ q2.unshift(['task3', 'task4', 'task5'], function (error) {
 });
 
 
-var aq = async.queue<number, number, Error>(function (level: number, callback: (error : Error, newLevel: number) => void) {
+var aq = async.queue<number, number, Error>(function (level: number, callback: (error?: Error, newLevel?: number) => void) {
     console.log('hello ' + level);
-    callback(null, level+1);
+    callback(undefined, level+1);
 });
 
 aq.push(1, function (err : Error, newLevel : number) {
@@ -807,9 +807,9 @@ async.some<number, Error>({
 
 // timeout
 
-function myFunction1(foo : any, callback: (err : Error, result : any) => void ) : void {
+function myFunction1(foo : any, callback: (err?: Error, result?: any) => void ) : void {
 	console.log(`async.timeout 1 ${foo}`);
-	return callback(null, foo);
+	return callback(undefined, foo);
 }
 var wrapped1 = async.timeout(myFunction1, 1000);
 wrapped1({ bar: 'bar' }, function(err : Error, data : any) {
@@ -817,9 +817,9 @@ wrapped1({ bar: 'bar' }, function(err : Error, data : any) {
 });
 
 
-function myFunction2(callback: (err : Error, result : any) => void ) : void {
+function myFunction2(callback: (err?: Error, result?: any) => void ) : void {
 	console.log(`async.timeout 2`);
-	return callback(null, { bar: 'bar' });
+	return callback(undefined, { bar: 'bar' });
 }
 
 var wrapped2 = async.timeout(myFunction2, 1000);
@@ -827,9 +827,9 @@ wrapped2( function(err : Error, data : any) {
     console.log(`async.timeout 2 end ${data}`);
 });
 
-function myFunction3(callback: (err : Error, result : any) => void ) : void {
+function myFunction3(callback: (err?: Error, result?: any) => void ) : void {
 	console.log(`async.timeout 3`);
-	return callback(null, { bar: 'bar' });
+	return callback(undefined, { bar: 'bar' });
 }
 
 var wrapped3 = async.timeout(myFunction3, 1000, { bar: 'bar' });
