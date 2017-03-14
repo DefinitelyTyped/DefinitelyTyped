@@ -1,7 +1,5 @@
-
-
 interface ITestContainer {
-    [name: string]: PlatformStatic;
+    [name: string]: Platform;
 }
 
 
@@ -40,8 +38,8 @@ var tests: ITestContainer = {
 
 
 function runTests() {
-    var t: PlatformStatic;
-    var p: PlatformStatic;
+    var t: Platform;
+    var p: Platform;
     var x: string;
     var px: any;
     var res: boolean;
