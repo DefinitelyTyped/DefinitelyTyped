@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="q" />
+/// <reference types="q\v0" />
 
 declare module 'vso-node-api/Serialization' {
 	/**

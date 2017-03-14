@@ -3,7 +3,7 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
+/// <reference types="q/v0" />
 
 declare namespace Validation {
     interface IErrorCustomMessage {

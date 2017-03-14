@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
+/// <reference types="q/v0" />
 /// <reference types="jquery" />
 /// <reference types="space-pen" />
 /// <reference types="emissary" />
