@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.42
 // Project: https://github.com/facebook/react-native
-// Definitions by: Needs A Maintainer <https://github.com/DefinitelyTyped>
+// Definitions by: Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
