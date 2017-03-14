@@ -130,6 +130,18 @@ centroid = d3Geo.geoCentroid(sampleExtendedFeature2);
 centroid = d3Geo.geoCentroid(sampleFeatureCollection);
 centroid = d3Geo.geoCentroid(sampleExtendedFeatureCollection);
 
+// geoContains(...) =======================================================
+
+let contained: boolean = d3Geo.geoContains(samplePolygon, [0, 0]);
+contained = d3Geo.geoContains(sampleSphere, [0, 0]);
+contained = d3Geo.geoContains(sampleGeometryCollection, [0, 0]);
+contained = d3Geo.geoContains(sampleExtendedGeometryCollection, [0, 0]);
+contained = d3Geo.geoContains(sampleFeature, [0, 0]);
+contained = d3Geo.geoContains(sampleExtendedFeature1, [0, 0]);
+contained = d3Geo.geoContains(sampleExtendedFeature2, [0, 0]);
+contained = d3Geo.geoContains(sampleFeatureCollection, [0, 0]);
+contained = d3Geo.geoContains(sampleExtendedFeatureCollection, [0, 0]);
+
 // geoDistance(...) =======================================================
 
 let distance: number = d3Geo.geoDistance([54, 2], [53, 1]);
@@ -198,7 +210,7 @@ class Circulator {
     private p: number;
     private circleGenerator: d3Geo.GeoCircleGenerator<Circulator, [number, number] | undefined>;
 
-    public getCirclePolygon(center?: [number, number]): GeoJSON.Polygon {
+    getCirclePolygon(center?: [number, number]): GeoJSON.Polygon {
         if (center && center.length === 2 && typeof center[0] === 'number' && typeof center[1] === 'number') {
             return this.circleGenerator(center);
         } else {
@@ -489,7 +501,8 @@ geoPathSVG = geoPathSVG.pointRadius(function (datum) {
 });
 
 let geoPathSVGPointRadiusAccessor: number | ((this: SVGPathElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) = geoPathSVG.pointRadius();
-// let geoPathSVGPointRadiusAccessorWrong1: number | ((this: SVGCircleElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) = geoPathSVG.pointRadius(); // fails, mismatch in this context
+// let geoPathSVGPointRadiusAccessorWrong1: number | ((this: SVGCircleElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number)
+//     = geoPathSVG.pointRadius(); // fails, mismatch in this context
 // let geoPathSVGPointRadiusAccessorWrong2: number | ((this: SVGPathElement, d: d3Geo.GeoGeometryObjects, ...args: any[]) => number) = geoPathSVG.pointRadius(); // fails, mismatch in object datum type
 
 // Use geoPath Generator ================================================
@@ -536,6 +549,19 @@ geoPathCentroid = geoPathCanvas.centroid(sampleFeatureCollection);
 geoPathCentroid = geoPathCanvas.centroid(sampleExtendedFeatureCollection);
 
 // geoPathCentroid = geoPathSVG.centroid(sampleExtendedFeatureCollection); // fails, wrong data object type
+
+
+// measure(...) ------------------------------------------------------
+
+let geoPathMeasure: number = geoPathCanvas.measure(samplePolygon);
+geoPathMeasure = geoPathCanvas.measure(sampleSphere);
+geoPathMeasure = geoPathCanvas.measure(sampleGeometryCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedGeometryCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleFeature);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeature1);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeature2);
+geoPathMeasure = geoPathCanvas.measure(sampleFeatureCollection);
+geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeatureCollection);
 
 // render path to context of get path string----------------------------
 

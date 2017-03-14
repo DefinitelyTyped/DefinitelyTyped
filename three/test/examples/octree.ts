@@ -1,5 +1,3 @@
-///<reference types="three"/>
-
 let _octree = new THREE.Octree({
     underferred: false,
     depthMax: Infinity,

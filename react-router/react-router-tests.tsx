@@ -27,7 +27,7 @@ import { createHistory, History } from "history";
 const routerHistory = useRouterHistory(createHistory)({ basename: "/test" });
 
 interface CustomHistory {
-	test(): undefined;
+	test(): void;
 }
 
 type CombinedHistory = History & CustomHistory;
@@ -81,6 +81,7 @@ interface DashboardProps {
 }
 
 class Dashboard extends React.Component<DashboardProps, {}> {
+    static staticMethodToBeHoisted(): void {}
 
 	navigate() {
 		var router = this.props.router;
@@ -101,6 +102,8 @@ class Dashboard extends React.Component<DashboardProps, {}> {
 }
 
 const DashboardWithRouter = withRouter(Dashboard);
+
+DashboardWithRouter.staticMethodToBeHoisted();
 
 class NotFound extends React.Component<{}, {}> {
 

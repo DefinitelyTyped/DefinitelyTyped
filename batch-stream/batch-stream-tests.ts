@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import fs = require('fs');
 import BatchStream = require('batch-stream');
 

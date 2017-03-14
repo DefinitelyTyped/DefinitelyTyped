@@ -1,8 +1,3 @@
-
-/// <reference types="react" />
-/// <reference types="react-dom" />
-
-
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
@@ -45,10 +40,10 @@ class Test extends React.Component<React.Props<{}>, {}> {
                     itemComponent={itemComponent}
                  />
                  <Combobox
-                    itemComponent={itemComponent} 
+                    itemComponent={itemComponent}
                  />
                  <DropdownList
-                    itemComponent={itemComponent} 
+                    itemComponent={itemComponent}
                  />
             </div>
         </div>

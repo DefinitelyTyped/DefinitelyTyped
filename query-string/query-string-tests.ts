@@ -21,7 +21,7 @@ namespace stringify_tests {
 }
 
 namespace parse_tests {
-    let result: { [key: string]: string | string[] };
+    let result: { [key: string]: string | string[] | null };
     result = qs.parse('?foo=bar');
     result = qs.parse('#foo=bar');
     result = qs.parse('&foo=bar&foo=baz');

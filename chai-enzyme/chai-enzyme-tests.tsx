@@ -1,7 +1,3 @@
-/// <reference types="react" />
-/// <reference types="enzyme" />
-/// <reference types="chai" />
-
 import * as React from "react";
 import * as chaiEnzyme from "chai-enzyme";
 import { expect } from "chai";
@@ -34,11 +30,15 @@ expect(wrapper).to.have.ref("test");
 expect(wrapper).to.be.selected();
 expect(wrapper).to.have.tagName("div");
 expect(wrapper).to.have.text("");
+expect(wrapper).to.have.type(Test);
 expect(wrapper).to.have.value("test");
 expect(wrapper).to.have.attr("test", "test");
 expect(wrapper).to.have.data("test", "Test");
 expect(wrapper).to.have.style("background", "green");
 expect(wrapper).to.have.state("test", "test");
 expect(wrapper).to.have.prop("test", 5);
+expect(wrapper).to.have.props(["test1", "test2"]);
+expect(wrapper).to.have.props({ test: 5 });
 expect(wrapper).to.contain(<Test/>);
+expect(wrapper).to.containMatchingElement(<Test/>);
 expect(wrapper).to.match(<Test/>);

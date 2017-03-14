@@ -156,6 +156,15 @@ declare namespace joint {
             findView(paper: Paper): ElementView;
             isElement(): boolean;
             scale(scaleX: number, scaleY: number, origin?: Point, options?: any): this;
+            addPort(port: any, opt?: any): this;
+            addPorts(ports: any[], opt?: any): this;
+            removePort(port: any, opt?: any): this;
+            hasPorts(): boolean;
+            hasPort(id: string): boolean;
+            getPorts(): any[];
+            getPort(id: string): any;
+            getPortIndex(port: any): number;
+            portProp(portId: string, path: any, value?: any, opt?: any): joint.dia.Element;
         }
 
         interface CSSSelector {
@@ -511,6 +520,7 @@ declare namespace joint {
                 polyline?: ShapeAttrs;
             }
             class Polyline extends Generic {
+                constructor(attributes?: GenericAttributes<PolylineAttrs>, options?: Object);
             }
             class Image extends Generic {
                 constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
@@ -539,28 +549,40 @@ declare namespace joint {
 
         namespace chess {
             class KingWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class KingBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class QueenWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class QueenBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class RookWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class RookBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class BishopWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class BishopBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class KnightWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class KnightBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class PawnWhite extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class PawnBlack extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
         }
 
@@ -582,23 +604,28 @@ declare namespace joint {
                 removeInPort(port: string, opt?: any): this;
             }
             class Coupled extends Model {
+                constructor(attributes?: ModelAttributes, options?: Object);
             }
             class Atomic extends Model {
+                constructor(attributes?: ModelAttributes, options?: Object);
             }
             class Link extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
         namespace erd {
             class Entity extends basic.Generic {
-		constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             class WeakEntity extends Entity {
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             class Relationship extends dia.Element {
                 constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             class IdentifyingRelationship extends Relationship {
+                constructor(attributes?: GenericAttributes<dia.TextAttrs>, options?: Object);
             }
             interface AttributeAttrs extends dia.TextAttrs {
                 ellipse?: ShapeAttrs;
@@ -607,12 +634,16 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
             }
             class Multivalued extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
             }
             class Derived extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
             }
             class Key extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
             }
             class Normal extends Attribute {
+                constructor(attributes?: GenericAttributes<AttributeAttrs>, options?: Object);
             }
             interface ISAAttrs extends dia.Element {
                 polygon?: ShapeAttrs;
@@ -621,19 +652,23 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<ISAAttrs>, options?: Object);
             }
             class Line extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
                 cardinality(value: string | number): void;
             }
         }
 
         namespace fsa {
             class State extends basic.Circle {
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
             }
             class StartState extends dia.Element {
                 constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
             }
             class EndState extends dia.Element {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class Arrow extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
@@ -655,14 +690,19 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
             }
             class IO extends Gate {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
             }
             class Input extends IO {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
             }
             class Output extends IO {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
             }
             class Gate11 extends Gate {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
             }
             class Gate21 extends Gate {
+                constructor(attributes?: GenericAttributes<IOAttrs>, options?: Object);
             }
             interface Image {
                 'xlink:href'?: string;
@@ -720,11 +760,13 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<MemberAttrs>, options?: Object);
             }
             class Arrow extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
         namespace pn {
             class Place extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class PlaceView extends dia.ElementView {
                 renderTokens(): void;
@@ -733,6 +775,7 @@ declare namespace joint {
                 constructor(attributes?: GenericAttributes<basic.RectAttrs>, options?: Object);
             }
             class Link extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
 
@@ -750,36 +793,49 @@ declare namespace joint {
             class ClassView extends dia.ElementView {
             }
             class Abstract extends Class {
+                constructor(attributes?: ClassAttributes, options?: Object);
             }
             class AbstractView extends ClassView {
+                constructor(attributes?: ClassAttributes, options?: Object);
             }
             class Interface extends Class {
+                constructor(attributes?: ClassAttributes, options?: Object);
             }
             class InterfaceView extends ClassView {
+                constructor(attributes?: ClassAttributes, options?: Object);
             }
             class Generalization extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Implementation extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Aggregation extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Composition extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             class Association extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
             interface StateAttributes extends GenericAttributes<ShapeAttrs> {
                 events?: string[];
             }
             class State extends basic.Generic {
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
                 updateName(): void;
                 updateEvents(): void;
                 updatePath(): void;
             }
             class StartState extends basic.Circle {
+                constructor(attributes?: GenericAttributes<basic.CircleAttrs>, options?: Object);
             }
             class EndState extends basic.Generic {
+                constructor(attributes?: GenericAttributes<dia.SVGAttributes>, options?: Object);
             }
             class Transition extends dia.Link {
+                constructor(attributes?: dia.LinkAttributes, options?: Object);
             }
         }
     }
@@ -833,7 +889,7 @@ declare namespace joint {
             setLinkVertices?: (link: dia.Link, vertices: Position[]) => void;
         }
 
-        class DirectedGraph {
+        export class DirectedGraph {
             static layout(graph: dia.Graph | dia.Cell[], options?: LayoutOptions): dia.BBox;
         }
     }

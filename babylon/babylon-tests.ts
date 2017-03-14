@@ -1,8 +1,3 @@
-
-/// <reference types="babel-types" />
-/// <reference types="babel-types" />
-
-
 // Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babylon
 import * as babylon from "babylon";
 declare function assert(expr: boolean): void;

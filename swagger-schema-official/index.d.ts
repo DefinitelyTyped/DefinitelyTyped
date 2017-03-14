@@ -96,13 +96,13 @@ export interface Operation {
   description?: string;
   externalDocs?: ExternalDocs;
   operationId?: string;
-  produces?: [string];
-  consumes?: [string];
-  parameters?: [Parameter];
-  schemes?: [string];
+  produces?: string[];
+  consumes?: string[];
+  parameters?: Parameter[];
+  schemes?: string[];
   deprecated?: boolean;
-  security?: [Secuirty];
-  tags?: [string];
+  security?: Security[];
+  tags?: string[];
 }
 
 // ----------------------------- Response ------------------------------------
@@ -132,14 +132,14 @@ interface BaseSchema {
   uniqueItems?: boolean;
   maxProperties?: number;
   minProperties?: number;
-  enum?: [string|boolean|number|{}];
+  enum?: (string|boolean|number|{})[];
   type?: string;
-  items?: Schema|[Schema];
+  items?: Schema|Schema[];
 }
 
 export interface Schema extends BaseSchema {
   $ref?: string;
-  allOf?: [Schema];
+  allOf?: Schema[];
   additionalProperties?: boolean;
   properties?: {[propertyName: string]: Schema};
   discriminator?: string;
@@ -147,7 +147,7 @@ export interface Schema extends BaseSchema {
   xml?: XML;
   externalDocs?: ExternalDocs;
   example?: {[exampleName: string]: {}};
-  required?: [string];
+  required?: string[];
 }
 
 export interface XML {
@@ -184,25 +184,25 @@ export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
 
 export interface OAuth2PasswordSecurity extends BaseOAuthSecuirty {
   tokenUrl: string;
-  scopes?: [OAuthScope];
+  scopes?: OAuthScope[];
 }
 
 export interface OAuth2ApplicationSecurity extends BaseOAuthSecuirty {
   tokenUrl: string;
-  scopes?: [OAuthScope];
+  scopes?: OAuthScope[];
 }
 
 export interface OAuth2AccessCodeSecurity extends BaseOAuthSecuirty {
   tokenUrl: string;
   authorizationUrl: string;
-  scopes?: [OAuthScope];
+  scopes?: OAuthScope[];
 }
 
 export interface OAuthScope {
   [scopeName: string]: string;
 }
 
-type Secuirty =
+type Security =
   BasicAuthenticationSecurity |
   OAuth2AccessCodeSecurity |
   OAuth2ApplicationSecurity |
@@ -217,14 +217,14 @@ export interface Spec {
   externalDocs?: ExternalDocs;
   host?: string;
   basePath?: string;
-  schemes?: [string];
-  consumes?: [string];
-  produces?: [string];
+  schemes?: string[];
+  consumes?: string[];
+  produces?: string[];
   paths: {[pathName: string]: Path};
   definitions?: {[definitionsName: string]: Schema };
   parameters?: {[parameterName: string]: BodyParameter|QueryParameter};
   responses?: {[responseName: string]: Response };
-  security?: [Secuirty];
-  securityDefinitions?: { [securityDefinitionName: string]: Secuirty};
-  tags?: [Tag];
+  security?: Security[];
+  securityDefinitions?: { [securityDefinitionName: string]: Security};
+  tags?: Tag[];
 }

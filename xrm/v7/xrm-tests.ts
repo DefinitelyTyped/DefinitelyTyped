@@ -1,5 +1,3 @@
-/// <reference path="parature.d.ts" />
-
 /// Demonstrate usage in the browser's window object
 
 window.Xrm.Utility.alertDialog( "message", () => {} );

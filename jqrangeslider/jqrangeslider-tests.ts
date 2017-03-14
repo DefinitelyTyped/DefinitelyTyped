@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 // Arrows
 $("#arrowsExample").rangeSlider({ arrows: false });
 $("#arrowsExample").editRangeSlider({ arrows: false });
@@ -133,7 +131,7 @@ $("#rulersExample").rangeSlider({
     next: function(val){ return val + 10; },
     stop: function(val){ return false; },
     label: function(val){ return val; },
-    format: function(tickContainer, tickStart, tickEnd){ 
+    format: function(tickContainer, tickStart, tickEnd){
       tickContainer.addClass("myCustomClass");
     }
   },
@@ -179,7 +177,7 @@ $("#rangeExample").dateRangeSlider({
 // Symmetric Positionning
 $("#symmetricExample").rangeSlider({
   symmetricPositionning: true,
-  range: {min: 0}  
+  range: {min: 0}
 });
 // Type
 $("#typeExample").editRangeSlider({type: "number"});

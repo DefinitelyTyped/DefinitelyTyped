@@ -151,6 +151,10 @@ var BlueBird: typeof Promise;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+var version: string = Promise.version;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 var nodeCallbackFunc = (callback: (err: any, result: string) => void) => {}
 var nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {}
 
@@ -336,14 +340,12 @@ fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-{
-	class CustomError extends Error {
-		public customField: number;
-	}
-	fooProm = fooProm.catch(CustomError, reason => {
-		let a: number = reason.customField
-	})
+class CustomError extends Error {
+	public customField: number;
 }
+fooProm = fooProm.catch(CustomError, reason => {
+	let a: number = reason.customField
+})
 
 {
 	class CustomErrorWithConstructor extends Error {
@@ -429,6 +431,24 @@ fooProm = fooProm.tap((value: Foo) => {
 });
 fooProm = fooProm.tap(() => {
 	// non-Thenable return is ignored
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fooProm = fooProm.tapCatch((err) => {
+	return "foo";
+});
+
+fooProm = fooProm.tapCatch(err => {
+	return Promise.resolve("foo");
+});
+
+fooProm.tapCatch(CustomError, (err: CustomError) => {
+	return err.customField;
+});
+
+fooProm.tapCatch((e: any) => e instanceof CustomError, (err: CustomError) => {
+	return err.customField;
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

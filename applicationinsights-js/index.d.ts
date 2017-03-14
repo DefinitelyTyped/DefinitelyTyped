@@ -1,4 +1,4 @@
-// Type definitions for ApplicationInsights-JS v0.23.2
+// Type definitions for ApplicationInsights-JS 1.0
 // Project: https://github.com/Microsoft/ApplicationInsights-JS
 // Definitions by: Kamil Szostak <https://github.com/kamilszostak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -323,7 +323,7 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         /**
          * Constructs a new instance of the EventTelemetry object
          */
-        constructor(name: string, properties?: Object, measurements?: Object);
+        constructor(name: string, properties?: any, measurements?: any);
     }
 
     class Exception implements Microsoft.ApplicationInsights.ISerializable {
@@ -348,7 +348,7 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         /**
         * Constructs a new isntance of the ExceptionTelemetry object
         */
-        constructor(exception: Error, handledAt?: string, properties?: Object, measurements?: Object, severityLevel?: AI.SeverityLevel);
+        constructor(exception: Error, handledAt?: string, properties?: any, measurements?: any, severityLevel?: AI.SeverityLevel);
         /**
         * Creates a simple exception with 1 stack frame. Useful for manual constracting of exception.
         */
@@ -369,7 +369,7 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         /**
          * Constructs a new instance of the MetricTelemetry object
          */
-        constructor(name: string, value: number, count?: number, min?: number, max?: number, properties?: Object);
+        constructor(name: string, value: number, count?: number, min?: number, max?: number, properties?: any);
     }
 
     class PageView extends AI.PageViewData implements Microsoft.ApplicationInsights.ISerializable {
@@ -477,7 +477,7 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         /**
          * Constructs a new instance of the MetricTelemetry object
          */
-        constructor(message: string, properties?: Object);
+        constructor(message: string, properties?: any);
     }
 }
 
@@ -567,8 +567,12 @@ declare module Microsoft.ApplicationInsights {
         disableCorrelationHeaders?: boolean;
         disableFlushOnBeforeUnload?: boolean;
         enableSessionStorageBuffer?: boolean;
+        isCookieUseDisabled?: boolean;
         cookieDomain?: string;
+        isRetryDisabled?: boolean;
+        isPerfAnalyzerEnabled?: boolean;
         url?: string;
+        isStorageUseDisabled?: boolean;
     }
 
     /**
@@ -657,7 +661,7 @@ declare module Microsoft.ApplicationInsights {
     interface IAppInsights {
         config: IConfig;
         context: ITelemetryContext;
-        queue: (() => void)[];
+        queue: Array<() => void>;
         /**
         * Starts timing how long the user views a page or other item. Call this when the page opens.
         * This method doesn't send any telemetry. Call {@link stopTrackTelemetry} to log the page when it closes.
@@ -717,16 +721,16 @@ declare module Microsoft.ApplicationInsights {
             [name: string]: number;
         }): any;
         /**
-        * Log an AJAX request
-        * @param  id  Event id
-        * @param  absoluteUrl Full url
-        * @param  pathName Leave this parameter blank
-        * @param  totalTime Total time it took for AJAX request to complete
-        * @param  success Whether AJAX request succeeded or failed
-        * @param  resultCode Result code returned from AJAX call
-        * @param  method  HTTP verb that was used (GET, POST)
-        */
-        trackAjax(id: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number, method?: string): any;
+         * Log a dependency call
+         * @param   id    unique id, this is used by the backend o correlate server requests. Use Util.newId() to generate a unique Id.
+         * @param   method    represents request verb (GET, POST, etc.)
+         * @param   absoluteUrl   absolute url used to make the dependency request
+         * @param   pathName  the path part of the absolute url
+         * @param   totalTime total request time
+         * @param   success   indicates if the request was sessessful
+         * @param   resultCode    response code returned by the dependency request
+         */
+        trackDependency(id: string, method: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number): any;
         /**
          * Log an exception you have caught.
          * @param   exception   An Error from a catch clause, or the string error message.
@@ -755,7 +759,7 @@ declare module Microsoft.ApplicationInsights {
         /**
         * Log a diagnostic message.
         * @param    message A message string
-        * @param   properties  map[string, string] - additional data used to filter traces in the portal. Defaults to empty.
+        * @param    properties  map[string, string] - additional data used to filter traces in the portal. Defaults to empty.
         */
         trackTrace(message: string, properties?: {
             [name: string]: string;
@@ -776,7 +780,7 @@ declare module Microsoft.ApplicationInsights {
          * Clears the authenticated user id and the account id from the user context.
          */
         clearAuthenticatedUserContext(): any;
-        downloadAndSetup?(config: Microsoft.ApplicationInsights.IConfig): void;
+        downloadAndSetup?(config: Microsoft.ApplicationInsights.IConfig): any;
         /**
          * The custom error handler for Application Insights
          * @param {string} message - The error message

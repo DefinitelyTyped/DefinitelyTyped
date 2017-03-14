@@ -1,6 +1,3 @@
-/// <reference types="handlebars" />
-
-
 var App : any;
 
 App = Em.Application.create<Em.Application>();

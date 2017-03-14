@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $('input').glDatePicker();
 $('#example2').glDatePicker(
 {

@@ -21,6 +21,8 @@ declare namespace IntroJs {
         prevLabel?: string;
         skipLabel?: string;
         doneLabel?: string;
+        hidePrev?: boolean;
+        hideNext?: boolean;
         tooltipPosition?: string;
         tooltipClass?: string;
         highlightClass?: string;
@@ -33,10 +35,12 @@ declare namespace IntroJs {
         showProgress?: boolean;
         scrollToElement?: boolean;
         overlayOpacity?: number;
+        scrollPadding?: number;
         positionPrecedence?: string[];
         disableInteraction?: boolean;
         hintPosition?: string;
         hintButtonLabel?: string;
+        hintAnimation?: boolean;
         steps?: Step[];
         hints?: Hint[];
     }

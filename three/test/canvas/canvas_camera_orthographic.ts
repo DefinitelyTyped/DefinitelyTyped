@@ -1,11 +1,8 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_camera_orthographic.html
 
 () => {
-    var container, stats;
-    var camera, scene, renderer;
+    var container: HTMLDivElement, stats: Stats;
+    var camera: THREE.OrthographicCamera, scene: THREE.Scene, renderer: THREE.CanvasRenderer;
 
     init();
     animate();
