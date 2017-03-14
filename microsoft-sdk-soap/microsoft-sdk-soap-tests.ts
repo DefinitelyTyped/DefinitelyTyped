@@ -1,4 +1,5 @@
 
+import * as Q from "q";
 
 // QueryByAttribute
 var queryByAttribute = new Sdk.Query.QueryByAttribute( "account" );
@@ -17,4 +18,4 @@ queryExpression.addCondition( "account", "accountname", Sdk.Query.ConditionOpera
 Sdk.Q.retrieveMultiple( queryExpression ).then( entityCollection =>
 {
 	console.log( "Query matches " + entityCollection.getTotalRecordCount() + " records." );
-} ); 
+} );
