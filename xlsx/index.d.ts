@@ -177,7 +177,7 @@ export interface IWorkBook {
  * object representing the worksheet
  */
 export interface IWorkSheet {
-    [cell: string]: IWorkSheetCell;
+    [cell: string]: IWorkSheetCell | any;
 }
 
 export interface IWorkSheetCell {
@@ -230,12 +230,12 @@ export interface IWorkSheetCell {
     /**
      * Cell hyperlink object (.Target holds link, .tooltip is tooltip)
      */
-    l?: string | Object;
+    l?: Object;
 
     /**
      * The style/theme of the cell (if applicable)
      */
-    s?: string;
+    s?: Object;
 }
 
 export interface ICell {
