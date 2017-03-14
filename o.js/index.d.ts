@@ -3,8 +3,6 @@
 // Definitions by: Matteo Antony Mistretta <https://github.com/IceOnFire>, Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
-
 declare module 'o.js' {
     interface Options {
         endpoint : string
@@ -27,8 +25,8 @@ declare module 'o.js' {
         config<T>(options ?: Options) : OHandler<T>
         progress<T>(callback : () => any) : OHandler<T>
 
-        get<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
-        save<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
+        get<T>(callback ?: (data : T) => void) : Promise<OHandler<T>>
+        save<T>(callback ?: (data : T) => void) : Promise<OHandler<T>>
 
         post<T>(params : any) : OHandler<T>
         patch<T>(params : any) : OHandler<T>
