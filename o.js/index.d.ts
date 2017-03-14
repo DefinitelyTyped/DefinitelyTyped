@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'o.js' {
+    import Q = require("q");
+
     interface Options {
         endpoint : string
         json ?: boolean
@@ -25,8 +27,8 @@ declare module 'o.js' {
         config<T>(options ?: Options) : OHandler<T>
         progress<T>(callback : () => any) : OHandler<T>
 
-        get<T>(callback ?: (data : T) => void) : Promise<OHandler<T>>
-        save<T>(callback ?: (data : T) => void) : Promise<OHandler<T>>
+        get<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
+        save<T>(callback ?: (data : T) => void) : Q.Promise<OHandler<T>>
 
         post<T>(params : any) : OHandler<T>
         patch<T>(params : any) : OHandler<T>
