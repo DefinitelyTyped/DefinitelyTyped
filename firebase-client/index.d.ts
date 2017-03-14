@@ -3,7 +3,7 @@
 // Definitions by: Andrew Breen <https://github.com/fpsscarecrow/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q\v0" />
+import * as Q from "q";
 
 interface PushResponse {
 	/**
@@ -70,7 +70,5 @@ interface FirebaseClient {
 
 declare var FirebaseClient: FirebaseClient;
 
-declare module 'firebase-client' {
-	export = FirebaseClient;
-}
-
+export = FirebaseClient;
+export as namespace FirebaseClient;
