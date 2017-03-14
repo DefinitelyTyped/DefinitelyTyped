@@ -1,6 +1,6 @@
-/// <reference types="rx"/>
-/// <reference types="q/v0"/>
-/// <reference types="when"/>
+import * as Q from "q";
+import * as RX from "rx";
+import * as When from "when";
 
 var thenNum: PromisesAPlus.Thenable<number>;
 var thenStr: PromisesAPlus.Thenable<string>;
