@@ -1,10 +1,9 @@
-// Type definitions for Platform 1.0.0
+// Type definitions for Platform 1.3
 // Project: https://github.com/bestiejs/platform.js
 // Definitions by: Jake Hickman <https://github.com/JakeH/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-interface Platform {
+declare interface Platform {
     description?: string;
     layout?: string;
     manufacturer?: string;
@@ -23,9 +22,9 @@ interface Platform {
     toString?(): string;
 }
 
-declare var platform: Platform;
-
 declare module "platform" {
+	declare var platform: Platform;
+
     export = platform;
 }
 
