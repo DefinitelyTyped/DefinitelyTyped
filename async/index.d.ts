@@ -202,10 +202,11 @@ interface Async {
     timesSeries<T, E>(n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
     timesLimit<T, E>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
 
-    transform<T, R, E>(arr: T[], iteratee: (acc: R[], item: T, key: string, callback: (error?: E) => void) => void): void;
-    transform<T, R, E>(arr: T[], acc: R[], iteratee: (acc: R[] | null, item: T | undefined[], key?: string, callback?: (error?: E) => void) => void): void;
-    transform<T, R, E>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void): void;
-    transform<T, R, E>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void): void;
+    transform<T, R, E>(arr: T[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
+    transform<T, R, E>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
+
+    transform<T, R, E>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
+    transform<T, R, E>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
 
     race<T, E>(tasks: (AsyncFunction<T, E>)[], callback: AsyncResultCallback<T, E | Error>) : void;
 
