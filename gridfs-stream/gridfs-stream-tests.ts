@@ -1,7 +1,3 @@
-
-
-/// <reference types="node" />
-
 // Samples from:
 // https://github.com/aheckmann/gridfs-stream
 

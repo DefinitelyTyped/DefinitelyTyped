@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 import * as Backbone from 'backbone';
 
 // Example code.
@@ -26,7 +24,7 @@ class View extends Backbone.Layout<Backbone.Model> {
             "mouseleave": "removeElement"
         }
     }
-    
+
     wrapElement(): void {
         this.$el.wrap("<b>");
     }

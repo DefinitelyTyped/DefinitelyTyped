@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 function test_draggable() {
 
     $("#draggable").draggable({ axis: "y" });

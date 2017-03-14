@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import kue = require('kue');
 
 // create our job queue

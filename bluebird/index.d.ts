@@ -1,4 +1,4 @@
-// Type definitions for bluebird 3.0.0
+// Type definitions for bluebird 3.5.0
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,19 +68,19 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    */
   catch(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
   caught(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  
+
   catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
   caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  
+
   catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
   caught<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
 
   catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
   caught<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  
+
   catch(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
   caught(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  
+
   catch<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
   caught<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
 
@@ -113,6 +113,14 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    */
   tap<U>(onFulFill: (value: R) => Bluebird.Thenable<U>): Bluebird<R>;
   tap<U>(onFulfill: (value: R) => U): Bluebird<R>;
+
+  /**
+   * Like `.catch()` but rethrows the error
+   */
+  tapCatch<U>(onReject: (error?: any) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  tapCatch<U, E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  tapCatch<U>(predicate: (error?: any) => boolean, onReject: (error?: any) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
+
 
   /**
    * Same as calling `Promise.delay(ms, this)`.
@@ -321,7 +329,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
 
   /**
    * Basically sugar for doing: somePromise.catch(function(){});
-   * 
+   *
    * Which is needed in case error handlers are attached asynchronously to the promise later, which would otherwise result in premature unhandled rejection reporting.
    */
   suppressUnhandledRejections(): void;
@@ -631,6 +639,11 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
     /** Enable monitoring */
     monitoring?: boolean;
   }): void;
+
+  /**
+   * The version number of the library
+   */
+  static version: string;
 }
 
 declare namespace Bluebird {

@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import sax = require("sax");
 import fs = require("fs");
 

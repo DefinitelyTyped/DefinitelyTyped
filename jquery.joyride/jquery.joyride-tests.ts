@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 var options: JoyrideOptions;
 options.autoStart = true;
 options.postStepCallback = (index, tip)=> {

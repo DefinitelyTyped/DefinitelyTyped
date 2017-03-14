@@ -840,11 +840,14 @@ User.schema( 'special' ).create( { age : 3 }, { logging : function(  ) {} } );
 User.getTableName();
 
 User.addScope('lowAccess', { where : { parent_id : 2 } });
-User.addScope('lowAccess', function() { } );
 User.addScope('lowAccess', { where : { parent_id : 2 } }, { override: true });
+User.addScope('lowAccessWithParam', function(id: number) {
+  return { where : { parent_id : id } }
+} );
 
 User.scope( 'lowAccess' ).count();
 User.scope( { where : { parent_id : 2 } } );
+User.scope( [ 'lowAccess', { method: ['lowAccessWithParam', 2] }, { where : { parent_id : 2 } } ] )
 
 User.findAll();
 User.findAll( { where : { data : { employment : null } } } );

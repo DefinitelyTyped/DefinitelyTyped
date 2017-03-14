@@ -1,6 +1,3 @@
-/// <reference types="jquery"/>
-
-
 $(document).ready(function () {
     //#region "Language"
 

@@ -3,7 +3,7 @@
 // Definitions by: Crevil <https://github.com/Crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="selenium-webdriver" />
+import * as webdriver from 'selenium-webdriver';
 
 declare namespace mock {
     interface ProtractorHttpMock {

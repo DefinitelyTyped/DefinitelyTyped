@@ -195,7 +195,7 @@ interface BigInteger {
     toJSNumber(): number;
 
     /** Converts a bigInt to a string. */
-    toString(): string;
+    toString( radix?: number ): string;
 
     /** Converts a bigInt to a native Javascript number. This override allows you to use native arithmetic operators without explicit conversion. */
     valueOf(): number;

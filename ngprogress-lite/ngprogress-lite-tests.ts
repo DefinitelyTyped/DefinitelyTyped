@@ -1,6 +1,3 @@
-///<reference types="angular" />
-
-
 var app = angular.module('testApp', ['ngProgressLite']);
 
 app.config(
