@@ -679,12 +679,19 @@ describe("jasmine.objectContaining", () => {
     });
 
     it("matches objects with the expect key/value pairs", () => {
-        expect(foo).toEqual(jasmine.objectContaining<fooType>({
-            bar: ''
+        // not explictly providing the type on objectContaining only guards against
+        // missmatching types on know properties
+        expect(foo).not.toEqual(jasmine.objectContaining({
+            a: 37,
+            foo: 2, // <-- this does not cause an error as the compiler cannot infer the type completely
+            // b: '123', <-- this would cause an error as `b` defined as number in fooType
         }));
 
-        expect(foo).not.toEqual(jasmine.objectContaining({
-            a: 37
+        // explictly providing the type on objectContaining makes the guard more precise
+        // as misspelled properties are detected as well
+        expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
+            bar: '',
+            // foo: 1, <-- this would cause an error as `foo` is not defined in fooType
         }));
     });
 

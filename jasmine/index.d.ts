@@ -24,9 +24,9 @@ declare function afterEach(action: (done: DoneFn) => void, timeout?: number): vo
 declare function beforeAll(action: (done: DoneFn) => void, timeout?: number): void;
 declare function afterAll(action: (done: DoneFn) => void, timeout?: number): void;
 
+declare function expect(spy: Function): jasmine.Matchers<any>;
 declare function expect<T extends ArrayLike<T>>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
-declare function expect(spy: Function): jasmine.Matchers<any>;
 
 declare function fail(e?: any): void;
 /** Action method that should be called when the async work is complete */
