@@ -1,4 +1,4 @@
-// Type definitions for bluebird 3.0
+// Type definitions for bluebird 3.5
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: d-ph <https://github.com/d-ph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -76,6 +76,7 @@ declare global {
         spread: typeof Bluebird.prototype.spread;
         suppressUnhandledRejections: typeof Bluebird.prototype.suppressUnhandledRejections;
         tap: typeof Bluebird.prototype.tap;
+        tapCatch: typeof Bluebird.prototype.tapCatch;
         // then: typeof Bluebird.prototype.then;
         thenReturn: typeof Bluebird.prototype.thenReturn;
         thenThrow: typeof Bluebird.prototype.thenThrow;

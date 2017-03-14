@@ -658,7 +658,7 @@ declare namespace KnockoutComponentTypes {
     }
 
     interface Loader {
-        getConfig? (componentName: string, callback: (result: ComponentConfig) => void): void;
+        getConfig? (componentName: string, callback: (result: ComponentConfig | null) => void): void;
         loadComponent? (componentName: string, config: ComponentConfig, callback: (result: Definition) => void): void;
         loadTemplate? (componentName: string, templateConfig: any, callback: (result: Node[]) => void): void;
         loadViewModel? (componentName: string, viewModelConfig: any, callback: (result: any) => void): void;

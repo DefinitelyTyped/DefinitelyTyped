@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 let $obj: JQuery = $('meh');
 
 let selection: RangyInputs.Selection = $obj.getSelection();

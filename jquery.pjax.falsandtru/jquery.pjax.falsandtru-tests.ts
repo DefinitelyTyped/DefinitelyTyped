@@ -1,6 +1,3 @@
-
-/// <reference types="jquery" />
-
 function test_pjax() {
     $.pjax();
 }

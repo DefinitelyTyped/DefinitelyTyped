@@ -4,10 +4,8 @@
 // Definitions: https://github.com/clmcgrath/
 
 ///<reference types="jquery"/>
-///<reference path="FlickityEvents.ts"/>
 
 //jQuery tests
-
 
 var $flickity: JQuery = $("#flickity-selector").flickity(
     {
@@ -105,15 +103,15 @@ flikty2.destroy();
 flikty2.reloadCells();
 
 //event handlers
-flikty2.on(FlickityEvents.cellSelect, (evt, ele) => {
+flikty2.on("cellSelect", (evt, ele) => {
     //do something
 });
 
-flikty2.off(FlickityEvents.cellSelect, (evt, ele, pntr, vctr) => {
+flikty2.off("cellSelect", (evt, ele, pntr, vctr) => {
     //do something
 });
 
-flikty2.once(FlickityEvents.cellSelect, (evt, ele, pntr) => {
+flikty2.once("cellSelect", (evt, ele, pntr) => {
     //do something
 });
 

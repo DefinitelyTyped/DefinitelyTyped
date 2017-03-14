@@ -1,4 +1,3 @@
-﻿
 function test_application() {
 	let application: fin.OpenFinApplication;
     // constructor

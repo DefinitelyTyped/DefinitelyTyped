@@ -1,6 +1,3 @@
-/// <reference types="mocha" />
-/// <reference types="chai" />
-
 import * as angular from 'angular';
 import 'angular-mocks';
 

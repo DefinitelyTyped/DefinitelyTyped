@@ -33,3 +33,13 @@ StatelessComponent2.defaultProps = {
         <div slot="Some Div"> Hello again! </div>
     </g>
 </svg>;
+
+// React-specific Attributes
+<div
+    defaultChecked
+    defaultValue="some value"
+    contentEditable
+    suppressContentEditableWarning
+    >
+    <b>foo</b>
+</div>

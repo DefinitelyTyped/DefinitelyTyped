@@ -40,6 +40,17 @@ interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
 
+// Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
+interface Iterable<T> {}
+interface Iterator<T> {
+    next(value?: any): IteratorResult<T>;
+}
+interface IteratorResult<T> {}
+interface SymbolConstructor {
+    readonly iterator: symbol;
+}
+declare var Symbol: SymbolConstructor;
+
 /************************************************
 *                                               *
 *                   GLOBAL                      *
@@ -1837,6 +1848,41 @@ declare module "url" {
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
     export function format(url: Url): string;
     export function resolve(from: string, to: string): string;
+
+    export class URLSearchParams implements Iterable<string[]> {
+        constructor(init?: URLSearchParams | string);
+        append(name: string, value: string): void;
+        delete(name: string): void;
+        entries(): Iterator<string[]>;
+        forEach(callback: (value: string, name: string) => void): void;
+        get(name: string): string | null;
+        getAll(name: string): string[];
+        has(name: string): boolean;
+        keys(): Iterator<string>;
+        set(name: string, value: string): void;
+        sort(): void;
+        toString(): string;
+        values(): Iterator<string>;
+        [Symbol.iterator](): Iterator<string[]>;
+    }
+
+    export class URL {
+        constructor(input: string, base?: string | URL);
+        hash: string;
+        host: string;
+        hostname: string;
+        href: string;
+        readonly origin: string;
+        password: string;
+        pathname: string;
+        port: string;
+        protocol: string;
+        search: string;
+        readonly searchParams: URLSearchParams;
+        username: string;
+        toString(): string;
+        toJSON(): string;
+    }
 }
 
 declare module "dns" {
@@ -1852,7 +1898,7 @@ declare module "dns" {
     export function resolve4(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolve6(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveMx(domain: string, callback: (err: Error, addresses: MxRecord[]) => void): string[];
-    export function resolveTxt(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
+    export function resolveTxt(domain: string, callback: (err: Error, addresses: string[][]) => void): string[][];
     export function resolveSrv(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveCname(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
@@ -1903,7 +1949,7 @@ declare module "net" {
         bufferSize: number;
         setEncoding(encoding?: string): this;
         write(data: any, encoding?: string, callback?: Function): void;
-        destroy(): void;
+        destroy(err?: any): void;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: Function): void;
@@ -2030,6 +2076,7 @@ declare module "net" {
         unref(): Server;
         maxConnections: number;
         connections: number;
+        listening: boolean;
 
         /**
          * events.EventEmitter
@@ -2873,7 +2920,7 @@ declare module "tls" {
         version: string;
     }
 
-    export class TLSSocket extends stream.Duplex {
+    export class TLSSocket extends net.Socket {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
@@ -3000,7 +3047,7 @@ declare module "tls" {
         /**
          * The numeric representation of the local port.
          */
-        localPort: string;
+        localPort: number;
         /**
          * The string representation of the remote IP address.
          * For example, '74.125.127.100' or '2001:4860:a005::68'.
@@ -3212,10 +3259,10 @@ declare module "tls" {
         context: any;
     }
 
-    export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) => void): Server;
-    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): ClearTextStream;
-    export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
-    export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
+    export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
+    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
+    export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
+    export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     export function createSecureContext(details: SecureContextOptions): SecureContext;
 }

@@ -36,5 +36,5 @@ addr.getResource(); // rabbithole
 addr.toString(); // alice@wonderland.net/rabbithole
 addr.bare();     // returns a JID without resource
 
-let some_jid = new JID('is', 'a', 'test');
+const some_jid = new JID('is', 'a', 'test');
 addr.equals(some_jid); // returns true if the two JIDs are equal, false otherwise

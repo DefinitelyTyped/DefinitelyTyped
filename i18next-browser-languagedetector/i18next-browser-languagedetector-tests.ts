@@ -1,5 +1,3 @@
-/// <reference types="i18next" />
-
 import * as i18next from 'i18next';
 import LngDetector from 'i18next-browser-languagedetector';
 

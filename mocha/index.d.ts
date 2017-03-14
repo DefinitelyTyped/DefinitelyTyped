@@ -112,23 +112,23 @@ declare class Mocha {
 // merge the Mocha class declaration with a module
 declare namespace Mocha {
     interface ISuiteCallbackContext {
-        timeout(ms: number): void;
-        retries(n: number): void;
-        slow(ms: number): void;
+        timeout(ms: number): this;
+        retries(n: number): this;
+        slow(ms: number): this;
     }
 
     interface IHookCallbackContext {
-        skip(): void;
-        timeout(ms: number): void;
+        skip(): this;
+        timeout(ms: number): this;
         [index: string]: any;
     }
 
 
     interface ITestCallbackContext {
-        skip(): void;
-        timeout(ms: number): void;
-        retries(n: number): void;
-        slow(ms: number): void;
+        skip(): this;
+        timeout(ms: number): this;
+        retries(n: number): this;
+        slow(ms: number): this;
         [index: string]: any;
     }
 
