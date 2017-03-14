@@ -1,4 +1,4 @@
-import Jimp = require('jimp')
+import Jimp = require('jimp');
 
 // All code below is from node-jimp document
 Jimp.read("lenna.png", (err, data) => {
@@ -36,20 +36,20 @@ Jimp.read("http://www.example.com/path/to/lenna.jpg", (err, image) => {
     // do stuff with the image (if no exception)
 });
 
-var image = new Jimp(1, 2)
-var w = 0
-var h = 0
-var x = 0
-var y = 0
-var f = 0
-var src = ''
-var horz = Jimp.HORIZONTAL_ALIGN_CENTER
-var vert = Jimp.VERTICAL_ALIGN_BOTTOM
-var deg = 90
-var val = 0.5
-var hex = 0xFFFFFFFF
-var r = 0
-var n = 1
+var image = new Jimp(1, 2);
+var w = 0;
+var h = 0;
+var x = 0;
+var y = 0;
+var f = 0;
+var src = '';
+var horz = Jimp.HORIZONTAL_ALIGN_CENTER;
+var vert = Jimp.VERTICAL_ALIGN_BOTTOM;
+var deg = 90;
+var val = 0.5;
+var hex = 0xFFFFFFFF;
+var r = 0;
+var n = 1;
 /* Resize */
 image.contain(w, h);    // scale the image to the given width and height, some parts of the image may be letter boxed
 image.cover(w, h);      // scale the image to the given width and height, some parts of the image may be clipped
@@ -72,6 +72,7 @@ image.mask(src, x, y);          // masks the image with another Jimp image at x,
 /* Flip and rotate */
 image.flip(horz, vert);         // flip the image horizontally or vertically
 image.mirror(horz, vert);       // an alias for flip
+
 // rotate the image clockwise by a number of degrees.
 // Optionally, a resize mode can be passed.
 // If `false` is passed as the second parameter,
@@ -92,7 +93,7 @@ image.normalize();                // normalize the channels in an image
 image.fade(f);                  // an alternative to opacity, fades the image by a factor 0 - 1. 0 will haven no effect. 1 will turn the image
 image.opacity(f);               // multiply the alpha channel by each pixel by the factor f, 0 - 1
 image.opaque();                   // set the alpha channel on every pixel to fully opaque
-image.background(hex);          // set the default new pixel colour (e.g. 0xFFFFFFFF or 0x00000000) for by some operations (e.g. image.contain and 
+image.background(hex);          // set the default new pixel colour (e.g. 0xFFFFFFFF or 0x00000000) for by some operations (e.g. image.contain and
 
 /* Blurs */
 image.gaussian(r);              // Gaussian blur the image by r pixels (VERY slow)
@@ -111,15 +112,15 @@ image.resize(250, 250, Jimp.RESIZE_BEZIER);
 
 image.contain(250, 250, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP);
 
-var path = ''
-var str = ''
-var width = 0
+var path = '';
+var str = '';
+var width = 0;
 Jimp.loadFont(path).then(font => { // load font from .fnt file
     image.print(font, x, y, str);        // print a message on an image
     image.print(font, x, y, str, width); // print a message on an image with text wrapped at width
 });
 
-var cb = (err: Error, data: any) => {}
+var cb = (err: Error, data: any) => {};
 Jimp.loadFont(path, cb); // using a callback pattern
 
 Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
@@ -129,16 +130,16 @@ Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
 image.write(path, cb); // Node-style callback will be fired when write is successful
 
 var file = "new_name." + image.getExtension();
-image.write(file)
+image.write(file);
 
 
-var mime = 'image/png'
+var mime = 'image/png';
 image.getBuffer(mime, cb); // Node-style callback will be fired with result
 image.getBase64(mime, cb); // Node-style callback will be fired with result
 image.quality(n); // set the quality of saved JPEG, 0 - 100
 
-var bool = true
-var number = 0
+var bool = true;
+var number = 0;
 image.rgba(bool);             // set whether PNGs are saved as RGBA (true, default) or RGB (false)
 image.filterType(number);     // set the filter type for the saved PNG
 image.deflateLevel(number);   // set the deflate level for the saved PNG
@@ -149,11 +150,11 @@ image.color([
     { apply: 'lighten', params: [ 50 ] },
     { apply: 'xor', params: [ '#06D' ] }
 ]);
-  image.convolution([
+image.convolution([
     [-2, -1, 0],
     [-1, 1, 1],
     [ 0, 1, 2]
-  ])
+]);
 image.scan(0, 0, image.bitmap.width, image.bitmap.height, function(x, y, idx) {
     // x, y is the position of this pixel on the image
     // idx is the position start position of this rgba tuple in the bitmap Buffer
@@ -170,9 +171,9 @@ image.scan(0, 0, image.bitmap.width, image.bitmap.height, function(x, y, idx) {
 image.getPixelColor(x, y);      // returns the colour of that pixel e.g. 0xFFFFFFFF
 image.setPixelColor(hex, x, y); // sets the colour of that pixel
 
-var g = 0
-var b = 0
-var a = 0
+var g = 0;
+var b = 0;
+var a = 0;
 Jimp.rgbaToInt(r, g, b, a); // e.g. converts 255, 255, 255, 255 to 0xFFFFFFFF
 Jimp.intToRGBA(hex);        // e.g. converts 0xFFFFFFFF to {r: 255, g: 255, b: 255, a:255}
 
@@ -187,11 +188,11 @@ var image = new Jimp(256, 256, 0xFF0000FF, (err, image) => {
 image.hash(); // aHgG4GgoFjA
 image.hash(2); // 1010101011010000101010000100101010010000011001001001010011100100
 
-var image1 = new Jimp(0, 1)
-var image2 = new Jimp(0, 1)
+var image1 = new Jimp(0, 1);
+var image2 = new Jimp(0, 1);
 Jimp.distance(image1, image2); // returns a number 0-1, where 0 means the two images are perceived to be identical
 
-var threshold = 0
+var threshold = 0;
 var diff = Jimp.diff(image1, image2, threshold); // threshold ranges 0-1 (default: 0.1)
 diff.image;   // a Jimp image showing differences
 diff.percent; // the proportion of different pixels (0-1), where 0 means the images are pixel identical

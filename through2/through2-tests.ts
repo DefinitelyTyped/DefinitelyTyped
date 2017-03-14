@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import stream = require('stream');
 import through2 = require('through2');
 

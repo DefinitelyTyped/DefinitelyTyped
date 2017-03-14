@@ -118,6 +118,7 @@ declare namespace WebSocket {
         disableHixie?: boolean;
         clientTracking?: boolean;
         perMessageDeflate?: boolean | IPerMessageDeflateOptions;
+        maxPayload?: number;
     }
 
     export class Server extends events.EventEmitter {

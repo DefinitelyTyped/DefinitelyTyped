@@ -50,3 +50,29 @@ class MyForm extends Component<{}, {}> {
         );
     }
 }
+
+const MyStatelessFunctionalComponent: React.SFC<void> = () => <div/>;
+
+reduxForm({
+    form: 'mySFCForm'
+})(MyStatelessFunctionalComponent);
+
+@reduxForm<FormData, any, any>({})
+class MyDynamicForm extends Component<void, undefined> {
+    render() {
+        return (
+            <div>
+                <Field
+                    name='foo'
+                    component='input'
+                    placeholder='Foo bar'
+                />
+            </div>
+        );
+    }
+}
+
+reduxForm({
+    form: 'forceUnregisterOnMountForm',
+    forceUnregisterOnUnmount: true
+});

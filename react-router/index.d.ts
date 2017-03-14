@@ -8,6 +8,7 @@
 //                 Kostya Esmukov <https://github.com/KostyaEsmukov>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Karol Janyst <https://github.com/LKay>
+//                 Dovydas Navickas <https://github.com/DovydasNavickas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

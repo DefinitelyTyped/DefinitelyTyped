@@ -39,6 +39,41 @@ interface APIGatewayEvent {
     resource: string;
 }
 
+// SNS "event"
+interface SNSMessageAttribute {
+    Type: string;
+    Value: string;
+}
+
+interface SNSMessageAttributes {
+    [name: string]: SNSMessageAttribute;
+}
+
+interface SNSMessage {
+    SignatureVersion: string;
+    Timestamp: string;
+    Signature: string;
+    SigningCertUrl: string;
+    MessageId: string;
+    Message: string;
+    MessageAttributes: SNSMessageAttributes;
+    Type: string;
+    UnsubscribeUrl: string;
+    TopicArn: string;
+    Subject: string;
+}
+
+interface SNSEventRecord {
+    EventVersion: string;
+    EventSubscriptionArn: string;
+    EventSource: string;
+    Sns: SNSMessage;
+}
+
+interface SNSEvent {
+    Records: Array<SNSEventRecord>;
+}
+
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
 interface Context {
@@ -97,7 +132,7 @@ interface ClientContextEnv {
 interface ProxyResult {
     statusCode: number;
     headers?: {
-      [header: string]: string;
+        [header: string]: boolean | number | string;
     },
     body: string;
 }
@@ -110,8 +145,8 @@ interface ProxyResult {
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
  */
-export type Handler = (event: any, context: Context, callback?: Callback)  => void;
-export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback)  => void;
+export type Handler = (event: any, context: Context, callback?: Callback) => void;
+export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => void;
 
 /**
  * Optional callback parameter.

@@ -1,6 +1,3 @@
-
-/// <reference types="bluebird" />
-/// <reference types="node" />
 /// <reference types="mocha" />
 
 import oxford = require("project-oxford");

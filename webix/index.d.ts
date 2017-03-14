@@ -1,4 +1,4 @@
-// Type definitions for Webix UI 4.1
+// Type definitions for Webix UI 4.2
 // Project: http://webix.com
 // Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -212,7 +212,7 @@ function message(content:any):void;
 function modalbox(text:string, callback:WebixCallback):HTMLElement;
 function once(code:WebixCallback):void;
 function proto(target:any, ...mixins:any[]):any;
-function protoUI(target:any, view:any, mixins:any):any;
+function protoUI(target:any, ...mixins: any[]):any;
 function proxy(type:string, source:string):any;
 function ready(code:WebixCallback):void;
 function remote():void;
@@ -221,6 +221,7 @@ function send(url:string, values:any, method:string, target:string):void;
 function single(source:WebixCallback):WebixCallback;
 function template(template:string):WebixCallback;
 function toArray(array:any[]):any[];
+function toCSV(id:any, options:any):void;
 function toExcel(id:any, options:any):void;
 function toFunctor(name:string):WebixCallback;
 function toNode(id:string):HTMLElement;
@@ -371,6 +372,7 @@ interface DataCollection{
 	validate(id?:string):boolean;
 	config: { [key: string]: any; };
 	name: string;
+	waitData: webix.promise;
 }
 
 interface DataDriver{
@@ -406,6 +408,7 @@ interface DataLoader{
 	sort(by:string, dir?:string, as?:string):void;
 	sync(source:any, filter:WebixCallback, silent:boolean):void;
 	updateItem(id:string|number, data:any):void;
+	waitData: webix.promise;
 }
 var DataLoader:DataLoader;
 interface DataMarks{
@@ -832,11 +835,9 @@ interface TreeCollection{
 	loadBranch(id:string|number, callback:WebixCallback, url:string):void;
 	loadNext(count:number, start:number, callback:WebixCallback, url:string, now:boolean):void;
 	mapEvent(map:any):void;
-	move(sid:string, tindex:number, tobj?:any, details?:any):string;
+	move(sid:string|number, tindex:number, tobj?:webix.ui.baseview, details?:any):string|number;
 	moveBottom(id:string|number):void;
-	moveDown(id:string|number, step:number):void;
 	moveTop(id:string|number):void;
-	moveUp(id:string|number, step:number):void;
 	parse(data:any, type:string):void;
 	refresh(id?:string|number):void;
 	refreshCursor():void;
@@ -854,6 +855,7 @@ interface TreeCollection{
 	validate(id?:string):boolean;
 	config: { [key: string]: any; };
 	name: string;
+	waitData: webix.promise;
 }
 var TreeCollection:TreeCollection;
 interface TreeDataLoader{
@@ -1245,6 +1247,7 @@ class proto implements webix.ui.baseview{
 	name: string;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface resizeareaConfig{
 	view?: string;
@@ -1562,6 +1565,7 @@ interface buttonConfig{
 	align?: string;
 	animate?: any;
 	autowidth?: boolean;
+	badge?: number|string;
 	borderless?: boolean;
 	click?: WebixCallback;
 	container?: string|HTMLElement;
@@ -1572,6 +1576,7 @@ interface buttonConfig{
 	hidden?: boolean;
 	hotkey?: string;
 	id?: string|number;
+	image?: string;
 	inputHeight?: number;
 	inputWidth?: number;
 	label?: string;
@@ -1950,6 +1955,7 @@ class chart implements webix.ui.baseview{
 	on_dblclick: WebixCallback;
 	on_mouse_move: WebixCallback;
 	presets: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface checkboxConfig{
 	view?: string;
@@ -2593,7 +2599,7 @@ interface contextmenuConfig{
 	yCount?: number;
 	zIndex?: number;
 }
-type contextmenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|''|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|''|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
+type contextmenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
 class contextmenu implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
@@ -2711,6 +2717,7 @@ class contextmenu implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface counterConfig{
 	view?: string;
@@ -2927,6 +2934,7 @@ interface datatableConfig{
 	container?: string|HTMLElement;
 	css?: string;
 	data?: string|any[];
+	dataFeed?: string|WebixCallback;
 	datafetch?: number;
 	datathrottle?: number;
 	datatype?: string;
@@ -3047,7 +3055,7 @@ class datatable implements webix.ui.baseview{
 	getChildViews():any[];
 	getColumnConfig(id:string):any;
 	getColumnIndex(id:string|number):number;
-	getCss():void;
+	getCss(rowId:string|number, columnId:string|number):string;
 	getEditState():any;
 	getEditor(row?:any, column?:string|number):any;
 	getEditorValue():string;
@@ -3107,6 +3115,7 @@ class datatable implements webix.ui.baseview{
 	refreshColumns(config?:any[], reset?:boolean):void;
 	refreshFilter(id:string|number):void;
 	refreshHeaderContent():void;
+	refreshSelectArea():void;
 	registerFilter(object:any, config:any, controller:any):void;
 	remove(id:string|number):void;
 	removeCellCss(id:string, name:string, css_name:string):void;
@@ -3799,6 +3808,7 @@ interface filemanagerConfig{
 	minWidth?: number;
 	mode?: string;
 	modes?: any[];
+	noFileCache?: boolean;
 	on?: EventHash;
 	padding?: number;
 	paddingX?: number;
@@ -3823,7 +3833,7 @@ interface filemanagerConfig{
 	visibleBatch?: string;
 	width?: number;
 }
-type filemanagerEventName ='onAfterAdd'|'onAfterDelete'|'onAfterDrop'|'onAfterEditStop'|'onAfterHideTree'|'onAfterLevelDown'|'onAfterLoad'|'onAfterRun'|'onAfterShowTree'|'onAfterSort'|'onBeforeAdd'|'onBeforeCreateFolder'|'onBeforeDelete'|'onBeforeDeleteFile'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeEditFile'|'onBeforeEditStop'|'onBeforeHideTree'|'onBeforeLevelDown'|'onBeforeLoad'|'onBeforeMarkCopy'|'onBeforeMarkCut'|'onBeforePasteFile'|'onBeforeRun'|'onBeforeShowTree'|'onBeforeSort'|'onBeforeUploadFile'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onErrorResponse'|'onFolderSelect'|'onHideSearchResults'|'onItemRename'|'onLoadError'|'onSuccessResponse'|'onViewInit';
+type filemanagerEventName ='onAfterAdd'|'onAfterBack'|'onAfterDelete'|'onAfterDrop'|'onAfterDynParse'|'onAfterEditStop'|'onAfterHideTree'|'onAfterLevelDown'|'onAfterLevelUp'|'onAfterLoad'|'onAfterMenu'|'onAfterModeChange'|'onAfterPathClick'|'onAfterRun'|'onAfterSearch'|'onAfterShowTree'|'onAfterSort'|'onBeforeAdd'|'onBeforeBack'|'onBeforeCreateFolder'|'onBeforeDelete'|'onBeforeDeleteFile'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDynLoad'|'onBeforeDynParse'|'onBeforeEditFile'|'onBeforeEditStop'|'onBeforeFileUpload'|'onBeforeHideTree'|'onBeforeLevelDown'|'onBeforeLevelUp'|'onBeforeLoad'|'onBeforeMarkCopy'|'onBeforeMarkCut'|'onBeforeMenu'|'onBeforeModeChange'|'onBeforePasteFile'|'onBeforeRequest'|'onBeforeRun'|'onBeforeSearch'|'onBeforeSearchRequest'|'onBeforeShowTree'|'onBeforeSort'|'onBindRequest'|'onComponentInit'|'onCopyError'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDynLoadError'|'onErrorResponse'|'onFolderSelect'|'onHideSearchResults'|'onHistoryChange'|'onItemRename'|'onItemSelect'|'onLoadError'|'onMoveError'|'onPathComplete'|'onPathLevel'|'onShowSearchResults'|'onSuccessResponse'|'onViewInit';
 class filemanager implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addView(view:any, index?:number):webix.ui.baseview;
@@ -3930,6 +3940,7 @@ class filemanager implements webix.ui.baseview{
 	$width: number;
 	config: filemanagerConfig;
 	name: string;
+	waitData: webix.promise;
 }
 interface formConfig{
 	view?: string;
@@ -4107,6 +4118,7 @@ interface googleMapConfig{
 	datatype?: string;
 	disabled?: boolean;
 	gravity?: number;
+	heatmapConfig?: any;
 	height?: number;
 	hidden?: boolean;
 	id?: string|number;
@@ -4186,6 +4198,7 @@ class googleMap implements webix.ui.baseview{
 	$width: number;
 	config: googleMapConfig;
 	name: string;
+	waitData: webix.promise;
 }
 interface gridsuggestConfig{
 	view?: string;
@@ -4442,6 +4455,7 @@ class grouplist implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface headerlayoutConfig{
 	view?: string;
@@ -4780,7 +4794,7 @@ interface kanbanConfig{
 	visibleBatch?: string;
 	width?: number;
 }
-type kanbanEventName ='onAfterAdd'|'onAfterCollapse'|'onAfterDelete'|'onAfterExpand'|'onAfterLoad'|'onAfterSort'|'onBeforeAdd'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeSort'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onLoadError';
+type kanbanEventName ='onAfterAdd'|'onAfterCollapse'|'onAfterDelete'|'onAfterExpand'|'onAfterLoad'|'onAfterSort'|'onAfterStatusChange'|'onAvatarClick'|'onBeforeAdd'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeSort'|'onBeforeStatusChange'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onListAfterContextMenu'|'onListAfterDrop'|'onListAfterSelect'|'onListBeforeContextMenu'|'onListBeforeDrag'|'onListBeforeDragIn'|'onListBeforeDrop'|'onListBeforeSelect'|'onListIconClick'|'onListItemClick'|'onListItemDblClick'|'onLoadError';
 class kanban implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addView(view:any, index?:number):webix.ui.baseview;
@@ -4831,6 +4845,7 @@ class kanban implements webix.ui.baseview{
 	resizeChildren():void;
 	select(id:string|number):void;
 	serialize():any;
+	setIndex():void;
 	show(force?:boolean, animation?:boolean):void;
 	showBatch(name:string):void;
 	sort(by:string, dir?:string, as?:string):void;
@@ -4847,6 +4862,7 @@ class kanban implements webix.ui.baseview{
 	$width: number;
 	config: kanbanConfig;
 	name: string;
+	waitData: webix.promise;
 }
 interface labelConfig{
 	view?: string;
@@ -5154,6 +5170,7 @@ class list implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface menuConfig{
 	view?: string;
@@ -5211,7 +5228,7 @@ interface menuConfig{
 	xCount?: number;
 	yCount?: number;
 }
-type menuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|''|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|''|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
+type menuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewResize';
 class menu implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
@@ -5321,6 +5338,7 @@ class menu implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface multicomboConfig{
 	view?: string;
@@ -5972,6 +5990,7 @@ class organogram implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface pagerConfig{
 	view?: string;
@@ -6003,7 +6022,7 @@ interface pagerConfig{
 	template?: string|WebixCallback;
 	width?: number;
 }
-type pagerEventName ='onAfterContextMenu'|'onAfterRender'|'onAfterScroll'|'onBeforeContextMenu'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
+type pagerEventName ='onAfterContextMenu'|'onAfterPageChange'|'onAfterRender'|'onAfterScroll'|'onBeforeContextMenu'|'onBeforePageChange'|'onBeforeRender'|'onBindRequest'|'onBlur'|'onDestruct'|'onFocus'|'onItemClick'|'onItemDblClick'|'onKeyPress'|'onLongTouch'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onViewResize';
 class pager implements webix.ui.baseview{
 	adjust():void;
 	attachEvent(type:pagerEventName, functor:WebixCallback, id?:string):string|number;
@@ -6137,13 +6156,18 @@ interface pivotConfig{
 	data?: string|any[];
 	datatype?: string;
 	disabled?: boolean;
+	externalProcessing?: boolean;
 	fieldMap?: any;
 	filterLabelAlign?: string;
 	filterLabelWidth?: number;
+	filterMap?: any;
 	filterMinWidth?: number;
+	filterPlaceholder?: any;
 	filterWidth?: number;
 	footer?: string;
+	format?: WebixCallback;
 	gravity?: number;
+	headerTemplate?: WebixCallback;
 	height?: number;
 	hidden?: boolean;
 	id?: string|number;
@@ -6175,7 +6199,7 @@ interface pivotConfig{
 	width?: number;
 	yScaleWidth?: number;
 }
-type pivotEventName ='onAfterAdd'|'onAfterDelete'|'onAfterLoad'|'onAfterSort'|'onBeforeAdd'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSort'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onHeaderInit'|'onLoadError'|'onPopup'|'onViewInit';
+type pivotEventName ='onAfterAdd'|'onAfterDelete'|'onAfterLoad'|'onAfterSort'|'onBeforeAdd'|'onBeforeApply'|'onBeforeDelete'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSort'|'onBindRequest'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onHeaderInit'|'onLoadError'|'onPopup'|'onViewInit';
 class pivot implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addOperation(name:string, functor:WebixCallback, options:any):void;
@@ -6199,6 +6223,7 @@ class pivot implements webix.ui.baseview{
 	getChildViews():any[];
 	getConfigWindow():any;
 	getFields():any;
+	getFilterView():any;
 	getFirstId():string|number;
 	getFormView():webix.ui.baseview;
 	getIdByIndex(index:number):string|number;
@@ -6249,6 +6274,7 @@ class pivot implements webix.ui.baseview{
 	config: pivotConfig;
 	name: string;
 	operations: any;
+	waitData: webix.promise;
 }
 interface popupConfig{
 	view?: string;
@@ -6758,6 +6784,7 @@ class rangechart implements webix.ui.baseview{
 	on_dblclick: WebixCallback;
 	on_mouse_move: WebixCallback;
 	presets: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface rangesliderConfig{
 	view?: string;
@@ -7282,7 +7309,6 @@ interface segmentedConfig{
 	align?: string;
 	animate?: any;
 	attributes?: any;
-	autowidth?: boolean;
 	borderless?: boolean;
 	bottomLabel?: string;
 	bottomPadding?: number;
@@ -7737,7 +7763,6 @@ interface spreadsheetConfig{
 	isolate?: boolean;
 	liveEditor?: boolean;
 	margin?: number;
-	math?: boolean;
 	maxHeight?: number;
 	maxWidth?: number;
 	menu?: boolean;
@@ -7760,7 +7785,7 @@ interface spreadsheetConfig{
 	visibleBatch?: string;
 	width?: number;
 }
-type spreadsheetEventName ='onAfterLoad'|'onAfterSelect'|'onBeforeLoad'|'onBeforeSpan'|'onBeforeSplit'|'onBeforeValueChange'|'onBindRequest'|'onCellChange'|'onComponentInit'|'onDataParse'|'onDataSerialize'|'onDestruct'|'onLoadError'|'onReset'|'onStyleSet';
+type spreadsheetEventName ='onAfterLoad'|'onAfterSelect'|'onAfterSheetShow'|'onBeforeLoad'|'onBeforeSheetShow'|'onBeforeSpan'|'onBeforeSplit'|'onBeforeValueChange'|'onBindRequest'|'onCellChange'|'onComponentInit'|'onDataParse'|'onDataSerialize'|'onDestruct'|'onLoadError'|'onMathRefresh'|'onReset'|'onStyleSet';
 class spreadsheet implements webix.ui.baseview{
 	addFilter(rowId:number, columnId:number):void;
 	addImage(rowId:number, columnId:number, url:string):void;
@@ -7777,6 +7802,7 @@ class spreadsheet implements webix.ui.baseview{
 	clearRange(rangeStr:string, type:any):void;
 	clearSheet():void;
 	combineCells(range:any):void;
+	compactStyles():void;
 	confirm(config:any):void;
 	define(property:string, value:any):void;
 	deleteColumn(columnId:number):void;
@@ -7822,9 +7848,11 @@ class spreadsheet implements webix.ui.baseview{
 	lockCell(rowId:number, columnId:number, state:boolean):void;
 	mapEvent(map:any):void;
 	parse(data:any, type:string):void;
+	recalculate():void;
 	reconstruct():void;
 	redo():void;
 	refresh():void;
+	registerMathMethod(name:string, handler:WebixCallback):void;
 	removeFilter():void;
 	removeSheet(name:string):void;
 	removeView(id:string|number):void;
@@ -7933,7 +7961,7 @@ interface submenuConfig{
 	yCount?: number;
 	zIndex?: number;
 }
-type submenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|''|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|''|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
+type submenuEventName ='onAfterAdd'|'onAfterContextMenu'|'onAfterDelete'|'onAfterDrop'|'onAfterDropOrder'|'onAfterLoad'|'onAfterRender'|'onAfterScroll'|'onAfterSelect'|'onAfterSort'|'onBeforeAdd'|'onBeforeContextMenu'|'onBeforeDelete'|'onBeforeDrag'|'onBeforeDragIn'|'onBeforeDrop'|'onBeforeDropOrder'|'onBeforeDropOut'|'onBeforeLoad'|'onBeforeRender'|'onBeforeSelect'|'onBeforeShow'|'onBeforeSort'|'onBindRequest'|'onBlur'|'onDataRequest'|'onDataUpdate'|'onDestruct'|'onDragOut'|'onFocus'|'onHide'|'onItemClick'|'onItemDblClick'|'onItemRender'|'onKeyPress'|'onLoadError'|'onLongTouch'|'onMenuItemClick'|'onMouseMove'|'onMouseMoving'|'onMouseOut'|'onPaste'|'onSelectChange'|'onShow'|'onSwipeX'|'onSwipeY'|'onTimedKeyPress'|'onTouchEnd'|'onTouchMove'|'onTouchStart'|'onValidationError'|'onValidationSuccess'|'onViewMove'|'onViewMoveEnd'|'onViewResize';
 class submenu implements webix.ui.baseview{
 	add(obj:any, index?:number):string|number;
 	addCss(id:string|number, css:string, silent?:boolean):void;
@@ -8048,6 +8076,7 @@ class submenu implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface suggestConfig{
 	view?: string;
@@ -9018,6 +9047,7 @@ class tree implements webix.ui.baseview{
 	$dragOut(source:HTMLElement, old_target:HTMLElement, new_target:HTMLElement, ev:Event):void;
 	$drop(source:HTMLElement, target:HTMLElement, ev:Event):void;
 	$dropAllow: WebixCallback;
+	$fixEditor: WebixCallback;
 	$getSize():any[];
 	$height: number;
 	$scope: any;
@@ -9033,6 +9063,7 @@ class tree implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface treemapConfig{
 	view?: string;
@@ -9194,6 +9225,7 @@ class treemap implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface treetableConfig{
 	view?: string;
@@ -9313,7 +9345,7 @@ class treetable implements webix.ui.baseview{
 	detachEvent(id:string):void;
 	disable():void;
 	eachColumn(handler:WebixCallback, all?:boolean):void;
-	eachRow(handler:WebixCallback, all?:boolean):void;
+	eachRow(handler:WebixCallback):void;
 	edit(id:any):void;
 	editCancel():void;
 	editCell(row:string|number, col:string|number, preserve?:boolean, show?:boolean):void;
@@ -9333,7 +9365,7 @@ class treetable implements webix.ui.baseview{
 	getChildViews():any[];
 	getColumnConfig(id:string):any;
 	getColumnIndex(id:string|number):number;
-	getCss():void;
+	getCss(rowId:string|number, columnId:string|number):string;
 	getEditState():any;
 	getEditor(row?:any, column?:string|number):any;
 	getEditorValue():string;
@@ -9608,6 +9640,7 @@ class unitlist implements webix.ui.baseview{
 	on_mouse_move: WebixCallback;
 	type: { [key: string]: any; };
 	types: { [key: string]: any; };
+	waitData: webix.promise;
 }
 interface uploaderConfig{
 	view?: string;
@@ -9621,6 +9654,7 @@ interface uploaderConfig{
 	container?: string|HTMLElement;
 	css?: string;
 	datatype?: string;
+	directory?: boolean;
 	disabled?: boolean;
 	formData?: { [key: string]: any; };
 	gravity?: number;

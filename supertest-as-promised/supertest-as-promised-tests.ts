@@ -29,12 +29,8 @@ request(app)
     // ...
   });
 
-describe("GET /kittens", () => {
-  it("should work", () => {
-    return request(app).get("/kittens").expect(200);
-  });
-});
 
+request(app).get("/kittens").expect(200);
 
 // Agents
 var agent = request.agent(app);

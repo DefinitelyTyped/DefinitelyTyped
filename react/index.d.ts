@@ -943,6 +943,12 @@ declare namespace React {
         boxFlexGroup?: CSSWideKeyword | number;
 
         /**
+         * Cast a drop shadow from the frame of almost any element.
+         * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow
+         */
+        boxShadow?: CSSWideKeyword | any;
+
+        /**
          * The CSS break-after property allows you to force a break on multi-column layouts. More specifically, it allows you to force a break after an element. It allows you to determine if a break should occur, and what type of break it should be. The break-after CSS property describes how the page, column or region break behaves after the generated box. If there is no generated box, the property is ignored.
          */
         breakAfter?: CSSWideKeyword | any;
@@ -2042,6 +2048,7 @@ declare namespace React {
         // React-specific Attributes
         defaultChecked?: boolean;
         defaultValue?: string | string[];
+        suppressContentEditableWarning?: boolean;
 
         // Standard HTML Attributes
         accept?: string;

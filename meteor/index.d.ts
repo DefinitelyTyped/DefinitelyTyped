@@ -206,6 +206,8 @@ declare module Accounts {
         stop: () => void
     };
 
+    function _hashPassword(password: string): { digest: string; algorithm: string; };
+
     interface IValidateLoginAttemptCbOpts {
         type: string;
         allowed: boolean;
@@ -268,6 +270,8 @@ declare module "meteor/accounts-base" {
         function validateLoginAttempt(func: Function): {
             stop: () => void
         };
+
+        function _hashPassword(password: string): { digest: string; algorithm: string; };
 
         interface IValidateLoginAttemptCbOpts {
             type: string;

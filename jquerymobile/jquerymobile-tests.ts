@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 function test_api() {
     $.mobile.changePage("about/us.html", { transition: "slideup" });
     $.mobile.changePage("searchresults.php", {

@@ -4240,7 +4240,7 @@ declare namespace THREE {
         distanceToSquared(v: Vector3): number;
         distanceToManhattan(v: Vector3): number;
 
-        setFromSpherical(s: Spherical): Matrix3;
+        setFromSpherical(s: Spherical): Vector3;
         setFromMatrixPosition(m: Matrix4): Vector3;
         setFromMatrixScale(m: Matrix4): Vector3;
         setFromMatrixColumn(matrix: Matrix4, index: number): Vector3;
@@ -6460,6 +6460,21 @@ declare namespace THREE {
         static NoTaper(u?: number): number;
         static SinusoidalTaper(u: number): number;
         static FrenetFrames(path: Path, segments: number, closed: boolean): void;
+    }
+
+    export class TubeBufferGeometry extends BufferGeometry {
+        constructor(path: Curve<Vector3>, segments?: number, radius?: number, radiusSegments?: number, closed?: boolean);
+
+        parameters: {
+            path: Curve<Vector3>;
+            segments: number;
+            radius: number;
+            radialSegments: number;
+            closed: boolean;
+        };
+        tangents: Vector3[];
+        normals: Vector3[];
+        binormals: Vector3[];
     }
 
     export class WireframeGeometry extends BufferGeometry {
