@@ -1,25 +1,25 @@
-import Base = require('yeoman-generator');
+/* tslint:disable:no-empty */
+import yeoman = require('yeoman-generator');
 import { Questions, Answers } from 'inquirer';
 import { EventEmitter } from 'events';
 
-class MyES2015Generator extends Base {}
+class MyES2015Generator extends yeoman.Base {}
 
-const MyGenerator = Base.extend({
-  writing(this: Base): void {
+const MyGenerator = yeoman.Base.extend({
+  writing(this: yeoman.Base): void {
     this.fs.write('var foo = 1;', this.destinationPath('index.js'));
   }
 });
 
 const generator = new MyES2015Generator(['arg1', 'arg2'], { opt1: 'foo', opt2: 3, opt3: false });
-const eventEmitter: EventEmitter = generator;
 
 const env: {} = generator.env;
 const args: {} = generator.args;
 const resolved: string = generator.resolved;
 const description: string = generator.description;
 const appname: string = generator.appname;
-const config: Base.Storage = generator.config;
-const fs: Base.MemFsEditor = generator.fs;
+const config: yeoman.Storage = generator.config;
+const fs: yeoman.MemFsEditor = generator.fs;
 generator.log('my message');
 
 generator.argument('arg1', {});
@@ -86,8 +86,8 @@ generator.runInstall('installer', 'pkg', { 'custom-option': 3 }, () => {});
 generator.runInstall('installer', 'pkg', {}, () => {}, {});
 
 
-const composed1: Base = generator.composeWith('bootstrap', { sass: true });
-const composed2: Base = generator.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
+const composed1: yeoman.Base = generator.composeWith('bootstrap', { sass: true });
+const composed2: yeoman.Base = generator.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
 
 generator.desc('new description');
 
