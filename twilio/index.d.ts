@@ -3,9 +3,8 @@
 // Definitions by: nickiannone <https://github.com/nickiannone>, Ashley Brener <https://github.com/ashleybrener>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="express" />
 /// <reference types="node" />
-/// <reference types="q" />
+
 import Express = require("express");
 import Http = require("http");
 import Q = require("q");
