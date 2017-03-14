@@ -269,7 +269,7 @@ declare namespace PDFKit {
         new (options?: PDFDocumentOptions): PDFDocument;
 
         addPage(options?: PDFDocumentOptions): PDFDocument;
-        bufferedPageRanges(): { start: number; count: number };
+        bufferedPageRange(): { start: number; count: number };
         switchToPage(n?: number): PDFPage;
         flushPages(): void;
         ref(data: {}): PDFKitReference;

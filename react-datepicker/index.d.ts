@@ -29,6 +29,7 @@ declare module "react-datepicker" {
         name?: string;
         onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
         onChange(date: moment.Moment | null, event: React.SyntheticEvent<any> | undefined): any;
+        onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
         onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
         peekNextMonth?: boolean;
         placeholderText?: string;

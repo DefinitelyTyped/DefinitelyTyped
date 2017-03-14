@@ -2,8 +2,6 @@
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="jquery" />
-
 var mydata: any[] = [];
 
 $('#jqGrid')

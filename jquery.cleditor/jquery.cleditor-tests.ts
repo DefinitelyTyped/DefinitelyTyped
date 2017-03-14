@@ -1,5 +1,3 @@
-///<reference types="jquery" />
-
 // cribbed from http://premiumsoftware.net/CLEditor/GettingStarted
 
 $(document).ready(function () { $("#input").cleditor(); });

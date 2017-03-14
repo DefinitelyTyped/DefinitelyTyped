@@ -1,6 +1,3 @@
-
-/// <reference types="react" />
-
 import reactMixin = require('react-mixin');
 import * as React from 'react';
 

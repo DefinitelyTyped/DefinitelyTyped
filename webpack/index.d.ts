@@ -747,6 +747,10 @@ declare namespace webpack {
         constructor(request: any);
     }
 
+    class ProgressPlugin extends Plugin {
+        constructor(options?: (percentage: number, msg: string) => void);
+    }
+
     class ProvidePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
     }
@@ -783,10 +787,28 @@ declare namespace webpack {
 
     namespace optimize {
         class AggressiveMergingPlugin extends Plugin {
-            constructor(options?: {
-                minSize?: number;
-                maxSize?: number;
-            });
+            constructor(options?: AggressiveMergingPlugin.Options);
+        }
+
+        namespace AggressiveMergingPlugin {
+            interface Options {
+                /**
+                 * When options.moveToParents is set, moving to an entry chunk is more expensive.
+                 * Defaults to 10, which means moving to an entry chunk is ten times more expensive than moving to a
+                 * normal chunk.
+                 */
+                entryChunkMultiplicator?: number;
+                /**
+                 * A factor which defines the minimum required size reduction for chunk merging.
+                 * Defaults to 1.5 which means that the total size needs to be reduced by 50% for chunk merging.
+                 */
+                minSizeReduce?: number;
+                /**
+                 * When set, modules that are not in both merged chunks are moved to all parents of the chunk.
+                 * Defaults to false.
+                 */
+                moveToParents?: boolean;
+            }
         }
 
         class CommonsChunkPlugin extends Plugin {

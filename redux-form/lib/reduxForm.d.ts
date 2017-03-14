@@ -1,5 +1,6 @@
 import {
     Component,
+    StatelessComponent,
     ReactElement,
     SyntheticEvent,
     ReactEventHandler,
@@ -20,7 +21,8 @@ export function reduxForm(
 ): FormDecorator<any, any, any>;
 
 export interface FormDecorator<FormData extends DataShape, P, S> {
-    <T extends (typeof Component)>(component: T): T & Form<FormData, P, S>;
+    <T extends (typeof Component | StatelessComponent<any>)>(component: T): 
+        T & Form<FormData, P, S>;
 }
 
 export interface Config<FormData extends DataShape, P, S> {
@@ -28,7 +30,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * the name of your form and the key to where your form's state will be
      * mounted under the redux-form reducer
      */
-    form: string;
+    form?: string;
 
     /**
      * An adapter function that will render a component based on a string component
@@ -62,6 +64,12 @@ export interface Config<FormData extends DataShape, P, S> {
      * store when your component is unmounted. Defaults to true.
      */
     destroyOnUnmount?: boolean;
+
+    /**
+     * Whether or not to force unregistration of fields -- use in conjunction
+     * with destroyOnUnmount.
+     */
+    forceUnregisterOnUnmount?: boolean;
 
     /**
      * A function that takes the entire Redux state and returns the state slice

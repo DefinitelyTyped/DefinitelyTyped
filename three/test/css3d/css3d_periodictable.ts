@@ -1,6 +1,4 @@
-/// <reference types="three" />
 /// <reference types="tween.js" />
-/// <reference path="../three-tests-setup.ts" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_periodictable.html
 

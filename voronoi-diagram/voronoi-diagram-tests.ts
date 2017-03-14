@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 import voronoi = require("voronoi-diagram");
 
 const x: voronoi.Point = [1, 2];

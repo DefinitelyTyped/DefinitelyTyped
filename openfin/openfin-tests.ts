@@ -1,4 +1,4 @@
-﻿function test_application() {
+function test_application() {
 	let application: fin.OpenFinApplication;
     // constructor
 	application = new fin.desktop.Application({

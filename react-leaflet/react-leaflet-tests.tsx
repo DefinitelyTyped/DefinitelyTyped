@@ -179,6 +179,18 @@ export class CustomComponent extends Component<any, any> {
     }
 }
 
+export class MarkerWithDivIconExample extends Component<any, any> {
+    render() {
+        return (
+            <Map>
+                <Marker position={[0, 0]} icon={
+                        new Leaflet.DivIcon({})
+                    }/>
+            </Map>
+        )
+    }
+}
+
 // draggable-marker.js
 export class DraggableExample extends Component<any, any> {
     state = {

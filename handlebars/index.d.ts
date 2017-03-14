@@ -10,6 +10,9 @@ declare namespace Handlebars {
     export function registerPartial(name: string, str: any): void;
     export function unregisterHelper(name: string): void;
     export function unregisterPartial(name: string): void;
+    export function registerDecorator(name: string, fn: Function): void;
+    export function unregisterDecorator(name: string): void;
+
     export function K(): void;
     export function createFrame(object: any): any;
     export function Exception(message: string): void;
@@ -26,7 +29,9 @@ declare namespace Handlebars {
     export var Utils: typeof hbs.Utils;
     export var logger: Logger;
     export var templates: HandlebarsTemplates;
-    export var helpers: any;
+    export var helpers: { [name: string]: Function };
+    export var partials: { [name: string]: any };
+    export var decorators: { [name: string]: Function };
 
     export function registerDecorator(name: string, fn: Function): void;
     export function registerDecorator(obj: {[name: string] : Function}): void;

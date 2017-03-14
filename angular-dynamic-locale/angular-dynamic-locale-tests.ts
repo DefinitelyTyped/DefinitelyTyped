@@ -15,6 +15,9 @@ class LocaleTestController {
 
 		var newLocale = "mt"
 		tmhDynamicLocaleService.set(newLocale);
+
+		newLocale = "en";
+		tmhDynamicLocaleService.set(newLocale).then((value) => {});
 	}
 
 }

@@ -1098,7 +1098,7 @@ declare module "react" {
         /**
          * Callback that is called when the text input's text changes.
          */
-        onChange?: (event: { nativeEvent: { text: string } }) => void
+        onChange?: (event: { nativeEvent: { text: string, contentSize: { width: number, height: number }, target: number, eventCount: number } }) => void
 
         /**
          * Callback that is called when the text input's text changes.
@@ -1849,13 +1849,13 @@ declare module "react" {
         /**
          * The style of the content container(View) when behavior is 'position'.
          */
-        contentContainerStyle: ViewStyle
+        contentContainerStyle?: ViewStyle
 
         /**
          * This is the distance between the top of the user screen and the react native view,
          * may be non-zero in some use cases.
          */
-        keyboardVerticalOffset: number
+        keyboardVerticalOffset?: number
 
         ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
     }
@@ -4917,7 +4917,7 @@ declare module "react" {
 
     interface PlatformStatic {
         OS: PlatformOSType
-        Version?: number
+        Version: number
 
         /**
          * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
@@ -7644,7 +7644,7 @@ declare module "react" {
         onNavigateBack?(): void;
     }
 
-    type SubViewRenderer = (subViewProps: SubViewProps) => JSX.Element;
+    type SubViewRenderer = (subViewProps: SubViewProps) => JSX.Element | null;
 
     export interface NavigationHeaderProps extends NavigationSceneRendererProps {
         onNavigateBack?(): void,
@@ -7973,6 +7973,34 @@ declare module "react" {
          */
         cropImage( uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void ): void
     }
+				  
+    export interface ARTShapeProps {
+        d: string,
+        strokeWidth: number,
+        strokeDash?: number[],
+        stroke: string
+    }
+
+    export interface ARTSurfaceProps {
+        style: ViewStyle,
+        width: number,
+        height: number
+    }
+
+    export interface ShapeStatic extends React.ComponentClass<ARTShapeProps> {
+    }
+
+    export interface SurfaceStatic extends React.ComponentClass<ARTSurfaceProps> {
+    }
+
+    export interface ARTStatic {
+	      Shape: ShapeStatic,
+	      Surface: SurfaceStatic	
+    }
+            
+    export interface KeyboardStatic extends NativeEventEmitter {
+        dismiss: ()=>void
+    }
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -7982,6 +8010,8 @@ declare module "react" {
 
     // TODO: The following components need to be added
     // - [ ] ART
+    export var ART: ARTStatic
+    export type ART = ARTStatic
 
     export var ActivityIndicator: ActivityIndicatorStatic
     export type ActivityIndicator = ActivityIndicatorStatic
@@ -8162,7 +8192,7 @@ declare module "react" {
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
 
-    export var Keyboard: NativeEventEmitter
+    export var Keyboard: KeyboardStatic
 
     export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
     export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
@@ -8323,11 +8353,11 @@ declare module "react" {
 declare global {
     const global: React.GlobalStatic;
     function require(name: string): any;
-}
 
-/**
- * This variable is set to true when react-native is running in Dev mode
- * Typical usage:
- * <code> if (__DEV__) console.log('Running in dev mode')</code>
- */
-declare var __DEV__: boolean
+    /**
+     * This variable is set to true when react-native is running in Dev mode
+     * Typical usage:
+     * <code> if (__DEV__) console.log('Running in dev mode')</code>
+     */
+    var __DEV__: boolean
+}

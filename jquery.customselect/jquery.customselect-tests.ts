@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 class CustomSelectOptions implements JQueryCustomSelectOption {
     "customClass": string;
     "mapClass": boolean;

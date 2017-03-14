@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 // Using the global setup option
 // =============================
 $.dynatableSetup({ features: { pushState: false }, dataset: { perPageDefault: 5, perPageOptions: [2, 5, 10] } });

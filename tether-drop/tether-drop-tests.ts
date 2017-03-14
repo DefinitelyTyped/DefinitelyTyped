@@ -1,4 +1,3 @@
-///<reference types="tether" />
 import Drop = require("tether-drop");
 
 var yellowBox = document.querySelector(".yellow");
@@ -10,7 +9,7 @@ var d = new Drop({
     constrainToWindow: true,
     constrainToScrollParent: true,
     classes: "",
-    tetherOptions: {},
+    tetherOptions: {attachment: "bottom left"},
     remove: true,
     target: yellowBox,
     beforeClose: () => true,

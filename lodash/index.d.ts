@@ -6707,7 +6707,7 @@ declare namespace _ {
          */
         filter<T>(
             collection: List<T>|Dictionary<T>,
-            predicate: string
+            predicate: string|RegExp
         ): T[];
 
         /**
@@ -6740,7 +6740,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -6761,7 +6761,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter<T>(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -6791,7 +6791,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -6812,7 +6812,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter<T>(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashExplicitArrayWrapper<T>;
 
         /**

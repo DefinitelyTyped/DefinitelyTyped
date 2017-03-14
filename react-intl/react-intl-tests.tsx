@@ -3,14 +3,13 @@
  * Updated by Fedor Nezhivoi
  */
 
-///<reference types="react" />
-
 import * as React from "react"
 import * as reactMixin from "react-mixin"
 
 import {
     IntlProvider,
     InjectedIntl,
+    InjectedIntlProps,
     addLocaleData,
     hasLocaleData,
     injectIntl,
@@ -31,11 +30,35 @@ addLocaleData(reactIntlEn);
 console.log(hasLocaleData("en"));
 
 interface SomeComponentProps {
-    className: string,
-    intl?: InjectedIntl
+    className: string
 }
 
-class SomeComponent extends React.Component<SomeComponentProps, void> {
+const SomeFunctionalComponentWithIntl = injectIntl<SomeComponentProps>(({
+    intl: {
+        formatDate,
+        formatHTMLMessage,
+        formatNumber,
+        formatMessage,
+        formatPlural,
+        formatRelative,
+        formatTime
+    },
+    className
+}) => {
+    const formattedDate = formatDate(new Date(), { format: "short" });
+    const formattedTime = formatTime(new Date(), { format: "short" });
+    const formattedRelative = formatRelative(new Date().getTime(), { format: "short" });
+    const formattedNumber = formatNumber(123, { format: "short" });
+    const formattedPlural = formatPlural(1, { one: "hai!" });
+    const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+    const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+    return (
+        <div className={className}>
+        </div>
+    );
+});
+
+class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlProps, void> {
     static propTypes: React.ValidationMap<any> = {
         intl: intlShape.isRequired
     };
@@ -145,7 +168,7 @@ class SomeComponent extends React.Component<SomeComponentProps, void> {
     }
 }
 
-const SomeComponentWithIntl = injectIntl(SomeComponent);
+const SomeComponentWithIntl: React.ComponentClass<SomeComponentProps> = injectIntl(SomeComponent);
 
 class TestApp extends React.Component<{}, {}> {
     public render(): React.ReactElement<{}> {
@@ -162,6 +185,7 @@ class TestApp extends React.Component<{}, {}> {
         return (
             <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
                 <SomeComponentWithIntl className="just-for-test" />
+                <SomeFunctionalComponentWithIntl className="another-one" />
             </IntlProvider>
         );
     }
