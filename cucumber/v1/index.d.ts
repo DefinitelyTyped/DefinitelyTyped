@@ -39,26 +39,29 @@ declare namespace cucumber {
         setDefaultTimeout(time: number): void;
     }
 
-    interface HookScenarioResult {
-        duration: number;
-        failureException: Error;
-        scenario: Scenario;
-        status: string;
-        stepsResults: any;
+    interface HookScenario {
+        getKeyword(): string;
+        getName(): string;
+        getDescription(): string;
+        getUri(): string;
+        getLine(): number;
+        getTags(): string[];
+        getException(): Error;
+        getAttachments(): any[];
+        attach(data: any, mimeType?: string, callback?: (err?: any) => void): void;
+        isSuccessful(): boolean;
+        isFailed(): boolean;
+        isPending(): boolean;
+        isUndefined(): boolean;
+        isSkipped(): boolean;
     }
 
     interface HookCode {
-        (scenario: HookScenarioResult, callback?: CallbackStepDefinition): void;
+        (scenario: HookScenario, callback?: CallbackStepDefinition): void;
     }
 
     interface AroundCode {
-        (scenario: HookScenarioResult, runScenario?: (error: string, callback?: Function) => void): void;
-    }
-
-    interface Transform {
-        regexp: RegExp;
-        transformer: (arg: string) => any;
-        typeName: string;
+        (scenario: HookScenario, runScenario?: (error: string, callback?: Function) => void): void;
     }
 
     export interface Hooks {
@@ -66,10 +69,8 @@ declare namespace cucumber {
         After(code: HookCode): void;
         Around(code: AroundCode): void;
         setDefaultTimeout(time: number): void;
-        setWorldConstructor(world: (() => void) | ({})): void;
         registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
         registerListener(listener: EventListener): void;
-        defineParameterType(transform: Transform): void;
     }
 
     export class EventListener {
@@ -179,74 +180,29 @@ declare namespace cucumber {
 
     }
 
-    export interface Tag {
-        name: string;
-        line: number;
-    }
-
-    export interface Step {
-        arguments: any;
-        line: number;
-        name: string;
-        scenario: Scenario;
-        uri: string;
-        isBackground: boolean;
-        keyword: string;
-        keywordType: string;
+    interface Tag {
+        getName(): string;
+        getLine(): number;
     }
 
     export interface Scenario {
-        feature: Feature;
-        exception: Error;
-        keyword: string;
-        lines: number[];
-        name: string;
-        tags: Tag[];
-        uri: string;
-        line: number;
-        description: string;
-        steps: Step[];
-    }
-
-    export interface Feature {
-        description: string;
-        keyword: string;
-        line: number;
-        name: string;
-        tags: Tag[];
-        uri: string;
-        scenarios: Scenario[];
+        getKeyword(): string;
+        getName(): string;
+        getDescription(): string;
+        getUri(): string;
+        getLine(): number;
+        getTags(): Tag[];
+        getException(): Error;
+        getAttachments(): any[];
+        attach(data: any, mimeType?: string, callback?: (err?: any) => void): void;
+        isSuccessful(): boolean;
+        isFailed(): boolean;
+        isPending(): boolean;
+        isUndefined(): boolean;
+        isSkipped(): boolean;
     }
 
     interface EventHook {
         (event: events.Event, callback?: () => void): void;
     }
-
-    export interface SupportCodeConsumer {
-        (stepDefinitions: StepDefinitions & Hooks): void;
-    }
-
-    export function defineSupportCode(consumer: SupportCodeConsumer): void;
-
-    export function getSupportCodeFns(): SupportCodeConsumer[];
-
-    export function clearSupportCodeFns(): void;
-
-    // https://github.com/cucumber/cucumber-js/commit/231183a8a11c985ef7ced1155b7a75f5120a34b6
-    export class Formatter {}
-
-    export class JsonFormatter {}
-
-    export class PrettyFormatter {}
-
-    export class ProgressFormatter {}
-
-    export class RerunFormatter {}
-
-    export class SnippetsFormatter {}
-
-    export class UsageFormatter {}
-
-    export class UsageJsonFormatter {}
-
 }
