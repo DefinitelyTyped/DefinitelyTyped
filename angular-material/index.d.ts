@@ -18,6 +18,7 @@ declare module 'angular' {
             controller?: string | Function;
             locals?: { [index: string]: any };
             clickOutsideToClose?: boolean;
+            bindToController?: boolean; // default: false
             disableBackdrop?: boolean;
             escapeToClose?: boolean;
             resolve?: { [index: string]: () => angular.IPromise<any> };
