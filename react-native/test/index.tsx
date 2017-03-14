@@ -13,16 +13,18 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 import * as React from 'react'
 import {
+    AppState,
+    AppStateIOS,
+    BackAndroid,
+    Dimensions,
+    InteractionManager,
     StyleSheet,
+    Systrace,
     Text,
     TextStyle,
     View,
     ViewStyle,
-    AppState,
-    AppStateIOS,
     ViewPagerAndroid,
-    Dimensions,
-    BackAndroid,
 } from 'react-native';
 
 function testDimensions() {
@@ -166,3 +168,10 @@ export class ViewPagerAndroidTest {
         );
     }
 }
+
+const profiledJSONParse = Systrace.measure('JSON', 'parse', JSON.parse)
+profiledJSONParse('[]')
+
+InteractionManager.runAfterInteractions(() => {
+    // ...
+}).then(() => 'done')

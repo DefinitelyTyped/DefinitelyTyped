@@ -137,15 +137,7 @@ interface EmitterSubscription extends EventSubscription {
     remove(): void
 }
 
-interface EventEmitter {
-    /**
-     * @constructor
-     *
-     * @param {EventSubscriptionVendor} subscriber - Optional subscriber instance
-     *   to use. If omitted, a new subscriber will be created for the emitter.
-     */
-    new(subscriber?: EventSubscriptionVendor): EventEmitter
-
+interface EventEmitterListener {
     /**
      * Adds a listener to be invoked when events of the specified type are
      * emitted. An optional calling context may be provided. The data arguments
@@ -158,6 +150,16 @@ interface EventEmitter {
      *   listener
      */
     addListener(eventType: string, listener: (...args: any[]) => any, context: any): EmitterSubscription
+}
+
+interface EventEmitter extends EventEmitterListener {
+    /**
+     * @constructor
+     *
+     * @param {EventSubscriptionVendor} subscriber - Optional subscriber instance
+     *   to use. If omitted, a new subscriber will be created for the emitter.
+     */
+    new(subscriber?: EventSubscriptionVendor): EventEmitter
 
     /**
      * Similar to addListener, except that the listener is removed after it is
@@ -4235,12 +4237,12 @@ export interface NavigatorProperties extends React.Props<Navigator> {
     /**
      * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
      */
-    onDidFocus?: Function
+    onDidFocus?: () => any
 
     /**
      * @deprecated Use navigationContext.addListener('willfocus', callback) instead.
      */
-    onWillFocus?: Function
+    onWillFocus?: () => any
 
     /**
      * Required function which renders the scene for a given route.
@@ -4614,11 +4616,13 @@ export interface RelayProfiler {
 
 export interface SystraceStatic {
     setEnabled(enabled: boolean): void
+
     /**
      * beginEvent/endEvent for starting and then ending a profile within the same call stack frame
      **/
     beginEvent(profileName?: any, args?: any): void
     endEvent(): void
+
     /**
      * beginAsyncEvent/endAsyncEvent for starting and then ending a profile where the end can either
      * occur on another thread or out of the current stack frame, eg await
@@ -4626,18 +4630,22 @@ export interface SystraceStatic {
      **/
     beginAsyncEvent(profileName?: any): any
     endAsyncEvent(profileName?: any, cookie?: any): void
+
     /**
      * counterEvent registers the value to the profileName on the systrace timeline
      **/
     counterEvent(profileName?: any, value?: any): void
+
     /**
      * Relay profiles use await calls, so likely occur out of current stack frame
      * therefore async variant of profiling is used
      **/
     attachToRelayProfiler(relayProfiler: RelayProfiler): void
+
     /* This is not called by default due to perf overhead but it's useful
         if you want to find traces which spend too much time in JSON. */
     swizzleJSON(): void
+
     /**
      * Measures multiple methods of a class. For example, you can do:
      * Systrace.measureMethods(JSON, 'JSON', ['parse', 'stringify']);
@@ -4647,6 +4655,8 @@ export interface SystraceStatic {
      * @param methodNames Map from method names to method display names.
      */
     measureMethods(object: any, objectName: string, methodNames: Array<string>): void
+
+    // tslint:disable:forbidden-types
     /**
      * Returns an profiled version of the input function. For example, you can:
      * JSON.parse = Systrace.measure('JSON', 'parse', JSON.parse);
@@ -4656,7 +4666,8 @@ export interface SystraceStatic {
      * @param {function} func
      * @return {function} replacement function
      */
-    measure(objName: string, fnName: string, func: Function): Function
+    measure<T extends Function>(objName: string, fnName: string, func: T): T
+    // tslint:enable:forbidden-types
 }
 
 /**
@@ -5030,21 +5041,22 @@ export type PromiseTask = {
 
 export type Handle = number
 
-export interface InteractionManagerStatic {
+export interface InteractionManagerStatic extends EventEmitterListener {
     Events: {
         interactionStart: string
         interactionComplete: string
     }
-
-    addListener(eventType: string, listener: Function, context?: Object): EmitterSubscription
 
     /**
      * Schedule a function to run after all interactions have completed.
      * Returns a cancellable
      * @param fn
      */
-    runAfterInteractions( task: Function | SimpleTask | PromiseTask):
-        {then: Function, done: Function, cancel: Function}
+    runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask): {
+        then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>,
+        done: (...args: any[]) => any,
+        cancel: () => void,
+    }
 
     /**
      * Notify manager that an interaction has started.
@@ -7518,7 +7530,7 @@ export module Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig {
-        listener?: Function
+        listener?: ValueListenerCallback
     }
 
     /**
@@ -7660,12 +7672,11 @@ export type fetch = (url: string, options?: Object) => Promise<any>
 export const fetch: fetch;
 
 // Timers polyfill
-export type timedScheduler = (fn: string | Function, time: number) => number
-export type untimedScheduler = (fn: string | Function) => number
+export type timedScheduler = (fn: string | (() => any), delay?: number) => number
 export type setTimeout = timedScheduler
 export type setInterval = timedScheduler
-export type setImmediate = untimedScheduler
-export type requestAnimationFrame = untimedScheduler
+export type setImmediate = (fn: () => any) => number
+export type requestAnimationFrame = (fn: (time: number) => any) => number
 
 export type schedulerCanceller = (id: number) => void
 export type clearTimeout = schedulerCanceller
@@ -7739,10 +7750,10 @@ export interface NavigationCardStackProps {
      * Custom style applied to the card.
      */
     cardStyle?: ViewStyle
-/**
- * Custom style interpolator for the card.
- */
-cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
+    /**
+     * Custom style interpolator for the card.
+     */
+    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
     /**
      * Direction of the cards movement. Value could be `horizontal` or
      * `vertical`. Default value is `horizontal`.
@@ -7777,7 +7788,7 @@ cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
      * This happens when the back button is pressed or the back gesture is
      * performed.
      */
-    onNavigateBack?: Function,
+    onNavigateBack?: () => any,
     /**
      * Function that renders the header.
      */
@@ -7855,7 +7866,7 @@ export interface NavigationPropTypes {
 
 export interface NavigationCardProps extends React.ComponentClass<NavigationSceneRendererProps> {
     onComponentRef: (ref: any) => void,
-    onNavigateBack?: Function,
+    onNavigateBack?: () => any,
     panHandlers?: GestureResponderHandlers,
     pointerEvents: string,
     renderScene: NavigationSceneRenderer,
