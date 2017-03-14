@@ -22,9 +22,9 @@ declare interface Platform {
     toString?(): string;
 }
 
-declare module "platform" {
-	declare var platform: Platform;
+declare var platform: Platform;
 
+declare module "platform" {
     export = platform;
 }
 
