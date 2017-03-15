@@ -241,7 +241,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><span class="some-class"></span></div>')).toContain('some-class')
          */
-        toContain(selector: T): boolean;
+        toContain(selector: any): boolean;
 
         /**
          * Check if DOM element exists inside the given parent element.
