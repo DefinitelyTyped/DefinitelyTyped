@@ -7,6 +7,9 @@
 
 import 'jquery';
 
+export = tinymce;
+export as namespace tinymce;
+
 declare namespace tinymce {
 
   var DOM: dom.DOMUtils;
