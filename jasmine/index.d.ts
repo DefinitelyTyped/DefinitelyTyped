@@ -25,7 +25,7 @@ declare function beforeAll(action: (done: DoneFn) => void, timeout?: number): vo
 declare function afterAll(action: (done: DoneFn) => void, timeout?: number): void;
 
 declare function expect(spy: Function): jasmine.Matchers<any>;
-declare function expect<T extends ArrayLike<T>>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
+declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
 declare function expect<T>(actual: T): jasmine.Matchers<T>;
 
 declare function fail(e?: any): void;
@@ -347,7 +347,7 @@ declare namespace jasmine {
         Any: Any;
     }
 
-    interface ArrayLikeMatchers<T extends ArrayLike<T>> extends Matchers<T> {
+    interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
         toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
         toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
         toContain(expected: T, expectationFailOutput?: any): boolean;
