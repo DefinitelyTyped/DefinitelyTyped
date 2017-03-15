@@ -54,7 +54,7 @@ declare namespace tinymce {
 
   function walk(o: {}, f: () => void, n?: string, s?: string): void;
   
-  init(settings: Settings);
+  function init(settings: Settings);
 
   export interface Settings {
     table_toolbar?: boolean;
