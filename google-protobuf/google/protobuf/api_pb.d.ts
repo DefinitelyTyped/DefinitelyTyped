@@ -33,13 +33,25 @@ export class Api extends jspb.Message {
   setSyntax(value: google_protobuf_type_pb.Syntax): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Api): {};
+  toObject(includeInstance?: boolean): Api.AsObject;
+  static toObject(includeInstance: boolean, msg: Api): Api.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Api, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Api;
   static deserializeBinaryFromReader(message: Api, reader: jspb.BinaryReader): Api;
+}
+
+export namespace Api {
+  export type AsObject = {
+    name: string,
+    methodsList: Array<Method.AsObject>,
+    optionsList: Array<google_protobuf_type_pb.Option.AsObject>,
+    version: string,
+    sourceContext: google_protobuf_source_context_pb.SourceContext.AsObject,
+    mixinsList: Array<Mixin.AsObject>,
+    syntax: google_protobuf_type_pb.Syntax,
+  }
 }
 
 export class Method extends jspb.Message {
@@ -67,13 +79,25 @@ export class Method extends jspb.Message {
   setSyntax(value: google_protobuf_type_pb.Syntax): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Method): {};
+  toObject(includeInstance?: boolean): Method.AsObject;
+  static toObject(includeInstance: boolean, msg: Method): Method.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Method, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Method;
   static deserializeBinaryFromReader(message: Method, reader: jspb.BinaryReader): Method;
+}
+
+export namespace Method {
+  export type AsObject = {
+    name: string,
+    requestTypeUrl: string,
+    requestStreaming: boolean,
+    responseTypeUrl: string,
+    responseStreaming: boolean,
+    optionsList: Array<google_protobuf_type_pb.Option.AsObject>,
+    syntax: google_protobuf_type_pb.Syntax,
+  }
 }
 
 export class Mixin extends jspb.Message {
@@ -84,11 +108,19 @@ export class Mixin extends jspb.Message {
   setRoot(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Mixin): {};
+  toObject(includeInstance?: boolean): Mixin.AsObject;
+  static toObject(includeInstance: boolean, msg: Mixin): Mixin.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Mixin, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Mixin;
   static deserializeBinaryFromReader(message: Mixin, reader: jspb.BinaryReader): Mixin;
 }
+
+export namespace Mixin {
+  export type AsObject = {
+    name: string,
+    root: string,
+  }
+}
+

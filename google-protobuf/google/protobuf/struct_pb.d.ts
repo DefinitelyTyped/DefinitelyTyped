@@ -8,13 +8,19 @@ export class Struct extends jspb.Message {
   static fromJavaScript(value: {[key: string]: JavaScriptValue}): Struct;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Struct): {};
+  toObject(includeInstance?: boolean): Struct.AsObject;
+  static toObject(includeInstance: boolean, msg: Struct): Struct.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Struct, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Struct;
   static deserializeBinaryFromReader(message: Struct, reader: jspb.BinaryReader): Struct;
+}
+
+export namespace Struct {
+  export type AsObject = {
+    fieldsMap: Array<[string, Value.AsObject]>,
+  }
 }
 
 export class Value extends jspb.Message {
@@ -53,17 +59,26 @@ export class Value extends jspb.Message {
   toJavaScript(): JavaScriptValue;
   static fromJavaScript(value: JavaScriptValue): Value;
 
-  static deserializeBinary(bytes: Uint8Array): Value;
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Value): {};
+  toObject(includeInstance?: boolean): Value.AsObject;
+  static toObject(includeInstance: boolean, msg: Value): Value.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Value, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Value;
   static deserializeBinaryFromReader(message: Value, reader: jspb.BinaryReader): Value;
 }
 
 export namespace Value {
+  export type AsObject = {
+    nullValue: NullValue,
+    numberValue: number,
+    stringValue: string,
+    boolValue: boolean,
+    structValue: Struct.AsObject,
+    listValue: ListValue.AsObject,
+  }
+
   export enum KindCase {
     KIND_NOT_SET = 0,
     NULL_VALUE = 1,
@@ -84,14 +99,20 @@ export class ListValue extends jspb.Message {
   toJavaScript(): Array<JavaScriptValue>;
   static fromJavaScript(value: Array<JavaScriptValue>): ListValue;
 
-  static deserializeBinary(bytes: Uint8Array): ListValue;
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: ListValue): {};
+  toObject(includeInstance?: boolean): ListValue.AsObject;
+  static toObject(includeInstance: boolean, msg: ListValue): ListValue.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: ListValue, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListValue;
   static deserializeBinaryFromReader(message: ListValue, reader: jspb.BinaryReader): ListValue;
+}
+
+export namespace ListValue {
+  export type AsObject = {
+    valuesList: Array<Value.AsObject>,
+  }
 }
 
 export enum NullValue {

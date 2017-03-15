@@ -30,13 +30,24 @@ export class Type extends jspb.Message {
   setSyntax(value: Syntax): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Type): {};
+  toObject(includeInstance?: boolean): Type.AsObject;
+  static toObject(includeInstance: boolean, msg: Type): Type.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Type, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Type;
   static deserializeBinaryFromReader(message: Type, reader: jspb.BinaryReader): Type;
+}
+
+export namespace Type {
+  export type AsObject = {
+    name: string,
+    fieldsList: Array<Field.AsObject>,
+    oneofsList: Array<string>,
+    optionsList: Array<Option.AsObject>,
+    sourceContext: google_protobuf_source_context_pb.SourceContext.AsObject,
+    syntax: Syntax,
+  }
 }
 
 export class Field extends jspb.Message {
@@ -73,8 +84,8 @@ export class Field extends jspb.Message {
   setDefaultValue(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Field): {};
+  toObject(includeInstance?: boolean): Field.AsObject;
+  static toObject(includeInstance: boolean, msg: Field): Field.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Field, writer: jspb.BinaryWriter): void;
@@ -83,6 +94,19 @@ export class Field extends jspb.Message {
 }
 
 export namespace Field {
+  export type AsObject = {
+    kind: Field.Kind,
+    cardinality: Field.Cardinality,
+    number: number,
+    name: string,
+    typeUrl: string,
+    oneofIndex: number,
+    packed: boolean,
+    optionsList: Array<Option.AsObject>,
+    jsonName: string,
+    defaultValue: string,
+  }
+
   export enum Kind {
     TYPE_UNKNOWN = 0,
     TYPE_DOUBLE = 1,
@@ -135,13 +159,23 @@ export class Enum extends jspb.Message {
   setSyntax(value: Syntax): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Enum): {};
+  toObject(includeInstance?: boolean): Enum.AsObject;
+  static toObject(includeInstance: boolean, msg: Enum): Enum.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Enum, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Enum;
   static deserializeBinaryFromReader(message: Enum, reader: jspb.BinaryReader): Enum;
+}
+
+export namespace Enum {
+  export type AsObject = {
+    name: string,
+    enumvalueList: Array<EnumValue.AsObject>,
+    optionsList: Array<Option.AsObject>,
+    sourceContext: google_protobuf_source_context_pb.SourceContext.AsObject,
+    syntax: Syntax,
+  }
 }
 
 export class EnumValue extends jspb.Message {
@@ -157,13 +191,21 @@ export class EnumValue extends jspb.Message {
   addOptions(value?: Option, index?: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: EnumValue): {};
+  toObject(includeInstance?: boolean): EnumValue.AsObject;
+  static toObject(includeInstance: boolean, msg: EnumValue): EnumValue.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: EnumValue, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): EnumValue;
   static deserializeBinaryFromReader(message: EnumValue, reader: jspb.BinaryReader): EnumValue;
+}
+
+export namespace EnumValue {
+  export type AsObject = {
+    name: string,
+    number: number,
+    optionsList: Array<Option.AsObject>,
+  }
 }
 
 export class Option extends jspb.Message {
@@ -176,13 +218,20 @@ export class Option extends jspb.Message {
   setValue(value: google_protobuf_any_pb.Any): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Option): {};
+  toObject(includeInstance?: boolean): Option.AsObject;
+  static toObject(includeInstance: boolean, msg: Option): Option.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Option, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Option;
   static deserializeBinaryFromReader(message: Option, reader: jspb.BinaryReader): Option;
+}
+
+export namespace Option {
+  export type AsObject = {
+    name: string,
+    value: google_protobuf_any_pb.Any.AsObject,
+  }
 }
 
 export enum Syntax {
