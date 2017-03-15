@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="q-retry" />
-/// <reference types="q" />
 
 import * as Q from "q";
 /**

@@ -3,9 +3,9 @@
 // Definitions by: Matteo Antony Mistretta <https://github.com/IceOnFire>, Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
-
 declare module 'o.js' {
+    import Q = require("q");
+
     interface Options {
         endpoint : string
         json ?: boolean

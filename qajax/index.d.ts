@@ -3,8 +3,6 @@
 // Definitions by: Boltmade <https://github.com/Boltmade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
-
 import * as Q from "q";
 
 export = Qajax;

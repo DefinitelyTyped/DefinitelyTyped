@@ -224,14 +224,3 @@ var p2: Q.Promise<[string, number]> = y1.then(val => Q.all(val));
 var p3: Q.Promise<[string, number]> = Q.all(y1);
 var p5: Q.Promise<[string, number]> = y2.then(val => Q.all(val));
 var p6: Q.Promise<[string, number]> = Q.all(y2);
-
-
-Q.try(function () {
-    if (Math.random() % 2) {
-        throw new Error("The cloud is down!");
-    }
-    return true;
-})
-.catch(function (error) {
-    console.error("Couldn't sync to the cloud", error);
-});
