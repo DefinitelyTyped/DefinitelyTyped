@@ -7,7 +7,7 @@
 /// <reference types="jasmine" />
 
 declare namespace jasmine {
-    interface Matchers {
+    interface Matchers<T> {
         // toBe
         toBeArray(): boolean;
         toBeArrayOfBooleans(): boolean;
