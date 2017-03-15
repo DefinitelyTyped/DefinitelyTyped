@@ -11,46 +11,46 @@ declare function Sammy(handler: Function): Sammy.Application;
 declare function Sammy(selector: string, handler: Function): Sammy.Application;
 
 declare namespace Sammy {
-	interface SammyFunc {
-		(): Sammy.Application;
-		(selector: string): Sammy.Application;
-		(handler: Function): Sammy.Application;
-		(selector: string, handler: Function): Sammy.Application;
-	}
+    interface SammyFunc {
+        (): Sammy.Application;
+        (selector: string): Sammy.Application;
+        (handler: Function): Sammy.Application;
+        (selector: string, handler: Function): Sammy.Application;
+    }
 
-	export function Cache(app, options);
-    export function DataCacheProxy(initial, $element);
+    export function Cache(app: any, options: any): any;
+    export function DataCacheProxy(initial: any, $element: any): any;
     export var DataLocationProxy:DataLocationProxy;
-    export function DefaultLocationProxy(app, run_interval_every);
-    export function EJS(app, method_alias);
+    export function DefaultLocationProxy(app: any, run_interval_every: any): any;
+    export function EJS(app: any, method_alias: any): any;
 
-    export function Exceptional(app, errorReporter);
-    export function Flash(app);
+    export function Exceptional(app: any, errorReporter: any): any;
+    export function Flash(app: any): any;
     export var FormBuilder: FormBuilder;
-    export function Form(app); // formFor ( name, object, content_callback )
+    export function Form(app: any): any; // formFor ( name, object, content_callback )
 
-    export function Haml(app, method_alias);
-    export function Handlebars(app, method_alias);
-    export function Hogan(app, method_alias);
-    export function Hoptoad(app, errorReporter);
-    export function JSON(app);
-    export function Meld(app, method_alias);
-    export function MemoryCacheProxy(initial);
-    export function Mustache(app, method_alias);
-    export function NestedParams(app);
-    export function OAuth2(app);
-    export function PathLocationProxy(app);
-    export function Pure(app, method_alias);
-    export function PushLocationProxy(app);
-    export function Session(app, options);
-    export function Storage(app);
+    export function Haml(app: any, method_alias: any): any;
+    export function Handlebars(app: any, method_alias: any): any;
+    export function Hogan(app: any, method_alias: any): any;
+    export function Hoptoad(app: any, errorReporter: any): any;
+    export function JSON(app: any): any;
+    export function Meld(app: any, method_alias: any): any;
+    export function MemoryCacheProxy(initial: any): any;
+    export function Mustache(app: any, method_alias: any): any;
+    export function NestedParams(app: any): any;
+    export function OAuth2(app: any): any;
+    export function PathLocationProxy(app: any): any;
+    export function Pure(app: any, method_alias: any): any;
+    export function PushLocationProxy(app: any): any;
+    export function Session(app: any, options: any): any;
+    export function Storage(app: any): any;
     export var Store: Store;
 
-    export function Title();
-    export function Template(app, method_alias);
-    export function Tmpl(app, method_alias);
-    export function addLogger(logger);
-    export function log(...args:any[]);
+    export function Title(): any;
+    export function Template(app: any, method_alias: any): any;
+    export function Tmpl(app: any, method_alias: any): any;
+    export function addLogger(logger: any): any;
+    export function log(...args:any[]): any;
 
     export class Object {
 
@@ -73,7 +73,7 @@ declare namespace Sammy {
         ROUTE_VERBS: string[];
         APP_EVENTS: string[];
 
-        (appFn: Function);
+        (appFn: Function): any;
 
         $element(selector?: string): JQuery;
         after(callback: Function): Application;
@@ -111,7 +111,7 @@ declare namespace Sammy {
         route(verb: string, path: RegExp, callback: Function): Application;
         run(start_url?: string): Application;
         runRoute(verb: string, path?: string, params?: any, target?: any): any;
-        send(...params: any[]);
+        send(...params: any[]): any;
         setLocation(new_location: string): string;
         setLocationProxy(new_proxy: DataLocationProxy): void;
         swap(content: any, callback: Function): any;
@@ -120,21 +120,21 @@ declare namespace Sammy {
         trigger(name: string, data?: any): Application;
         unload(): Application;
         use(...params: any[]): void;
-	last_location: string[];
+    last_location: string[];
 
         // Features provided by oauth2 plugin
         oauthorize: string;
-        requireOAuth();
-        requireOAuth(path?:string);
-        requireOAuth(callback?: Function);
+        requireOAuth(): any;
+        requireOAuth(path?:string): any;
+        requireOAuth(callback?: Function): any;
     }
 
     export interface DataLocationProxy {
 
-        new (app, run_interval_every?): DataLocationProxy;
-        new (app, data_name, href_attribute): DataLocationProxy;
+        new (app: any, run_interval_every?: any): DataLocationProxy;
+        new (app: any, data_name: any, href_attribute: any): DataLocationProxy;
 
-        fullPath(location_obj): string;
+        fullPath(location_obj: any): string;
         bind(): void;
         unbind(): void;
         setLocation(new_location: string): string;
@@ -143,22 +143,22 @@ declare namespace Sammy {
 
     export interface EventContext extends Object {
 
-        new (app, verb, path, params, target);
+        new (app: any, verb: any, path: any, params: any, target: any): any;
 
         $element(): JQuery;
         engineFor(engine: any): any;
         eventNamespace(): string;
-        interpolate(content: any, data: any, engine: any, partials): EventContext;
+        interpolate(content: any, data: any, engine: any, partials?: any): EventContext;
         json(str: any): any;
         json(str: string): any;
         load(location: any, options?: any, callback?: Function): any;
-        loadPartials(partials);
+        loadPartials(partials?: any): any;
         notFound(): any;
-        partial(location: string, data?: any, callback?: Function, partials?): RenderContext;
+        partial(location: string, data?: any, callback?: Function, partials?: any): RenderContext;
         partials: any;
         params: any;
         redirect(...params: any[]): void;
-        render(location: string, data?: any, callback?: Function, partials?): RenderContext;
+        render(location: string, data?: any, callback?: Function, partials?: any): RenderContext;
         renderEach(location: any, data?: { name: string;data?:any}[],callback?: Function): RenderContext;
         send(...params: any[]): RenderContext;
         swap(contents: any, callback: Function): string;
@@ -172,13 +172,13 @@ declare namespace Sammy {
 
     export interface FormBuilder {
 
-        new (name, object);
+        new (name: any, object: any): any;
 
         checkbox(keypath: string, value: any, ...attributes: any[]): string;
         close(): string;
         hidden(keypath: string, ...attributes: any[]): string;
         label(keypath: string, content: any, ...attributes: any[]): string;
-        open(...attributes: any[]);
+        open(...attributes: any[]): any;
         password(keypath: string, ...attributes: any[]): string;
         radio(keypath: string, value: any, ...attributes: any[]): string;
         select(keypath: string, options: any, ...attributes: any[]): string;
@@ -193,10 +193,10 @@ declare namespace Sammy {
 
     export interface GoogleAnalytics {
 
-        new (app, tracker);
+        new (app: any, tracker: any): any;
 
-        noTrack();
-        track(path);
+        noTrack(): any;
+        track(path: any): any;
     }
 
     export interface Haml extends EventContext { }
@@ -211,7 +211,7 @@ declare namespace Sammy {
 
     export interface RenderContext extends Object {
 
-        new (event_context);
+        new (event_context: any): any;
 
         appendTo(selector: string): RenderContext;
         collect(array: any[], callback: Function, now?: boolean): RenderContext;
@@ -219,8 +219,8 @@ declare namespace Sammy {
         load(location: string, options?: any, callback?: Function): RenderContext;
         loadPartials(partials?: any): RenderContext;
         next(content: any): void;
-        partial(location: string, callback: Function, partials): RenderContext;
-        partial(location: string, data: any, callback: Function, partials): RenderContext;
+        partial(location: string, callback: Function, partials: any): RenderContext;
+        partial(location: string, data: any, callback: Function, partials: any): RenderContext;
         prependTo(selector: string): RenderContext;
         render(callback: Function): RenderContext;
         render(location: string, data: any): RenderContext;
@@ -232,7 +232,7 @@ declare namespace Sammy {
         send(...params: any[]): RenderContext;
         swap(callback?: Function): RenderContext;
         then(callback: Function): RenderContext;
-        trigger(name, data);
+        trigger(name: any, data: any): any;
         wait(): void;
     }
 
@@ -251,7 +251,7 @@ declare namespace Sammy {
 
         stores: any;
 
-        new (options?:any);
+        new (options?:any): any;
 
         clear(key: string): any;
         clearAll(): void;
@@ -266,14 +266,14 @@ declare namespace Sammy {
         load(key: string, path: string, callback: Function): void;
         set(key: string, value: any): any;
 
-        Cookie(name, element, options);
-        Data(name, element);
-        LocalStorage(name, element);
-        Memory(name, element);
-        SessionStorage(name, element);
-        isAvailable(type);
-        Template(app, method_alias);
-	}
+        Cookie(name: any, element: any, options: any): any;
+        Data(name: any, element: any): any;
+        LocalStorage(name: any, element: any): any;
+        Memory(name: any, element: any): any;
+        SessionStorage(name: any, element: any): any;
+        isAvailable(type: any): any;
+        Template(app: any, method_alias: any): any;
+    }
 }
 
 declare module "sammy" {
@@ -281,6 +281,6 @@ declare module "sammy" {
 }
 
 interface JQueryStatic {
-	sammy: Sammy.SammyFunc;
-	log: Function;
+    sammy: Sammy.SammyFunc;
+    log: Function;
 }
