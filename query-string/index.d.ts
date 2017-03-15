@@ -1,26 +1,34 @@
-// Type definitions for query-string v3.0.0
+// Type definitions for query-string 4.3
 // Project: https://github.com/sindresorhus/query-string
-// Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
+// Definitions by: Sam Verschueren <https://github.com/SamVerschueren>, Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare module "query-string" {
 
-                
-    interface StringifyOptions { strict?: boolean; encode?: boolean; }
+    interface ParseOptions {
+        arrayFormat?: 'bracket' | 'index' | 'none';
+    }
 
     /**
      * Parse a query string into an object.
      * Leading ? or # are ignored, so you can pass location.search or location.hash directly.
      * @param str
      */
-    export function parse(str: string): { [key: string]: string | string[] | null };
+    export function parse(str: string, options?: ParseOptions): any;
+
+    interface StringifyOptions {
+        strict?: boolean;
+        encode?: boolean;
+        arrayFormat?: 'bracket' | 'index' | 'none';
+    }
 
     /**
      * Stringify an object into a query string, sorting the keys.
      *
      * @param obj
      */
-    export function stringify(obj: any, options?: StringifyOptions): string;
+    export function stringify(obj: object, options?: StringifyOptions): string;
 
     /**
      * Extract a query string from a URL that can be passed into .parse().
