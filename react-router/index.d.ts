@@ -1,7 +1,17 @@
 // Type definitions for React Router 4.0
 // Project: https://github.com/ReactTraining/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>, Kostya Esmukov <https://github.com/KostyaEsmukov>, Tanguy Krotoff <https://github.com/tkrotoff>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
+//                 Yuichi Murata <https://github.com/mrk21>
+//                 Václav Ostrožlík <https://github.com/vasek17>
+//                 Nathan Brown <https://github.com/ngbrown>
+//                 Alex Wendland <https://github.com/awendland>
+//                 Kostya Esmukov <https://github.com/KostyaEsmukov>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Karol Janyst <https://github.com/LKay>
+//                 Dovydas Navickas <https://github.com/DovydasNavickas>
+//                 Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare module 'react-router' {
   import * as React from 'react';
