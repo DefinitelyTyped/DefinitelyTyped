@@ -1,6 +1,6 @@
 // Type definitions for Angular Material (angular.material module) 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as angular from 'angular';
