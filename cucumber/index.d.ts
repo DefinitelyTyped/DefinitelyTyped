@@ -86,8 +86,8 @@ declare namespace cucumber {
     export namespace events {
 
         interface Event {
-            getName(): string;
-            getPayloadItem(name: string): EventPayload;
+            name: string;
+            data: any;
         }
 
         interface EventPayload {
@@ -98,85 +98,73 @@ declare namespace cucumber {
         }
 
         interface FeaturesResultPayload extends EventPayload {
-            getDuration(): any;
-            getScenarioCounts(): any;
-            getStepCounts(): any;
-            isSuccessful(): boolean;
+            duration: number;
+            scenarioResults: any[];
+            success: boolean;
+            stepsResults: any[];
+            strict: boolean;
         }
 
         interface FeaturePayload extends EventPayload {
-            getStepKeywordByLines(): any;
-            getScenarioKeyword(): string;
-            getKeyword(): string;
-            getName(): string;
-            getDescription(): string;
-            getUri(): string;
-            getLine(): number;
-            getTags(): Tag[];
-            getScenarios(): ScenarioPayload[];
-            getPayloadItem(): FeaturePayload;
+            description: string;
+            keyword: string;
+            line: number;
+            name: string;
+            tags: Tag[];
+            uri: string;
+            scenarios: Scenario[];
         }
 
         interface ScenarioPayload extends EventPayload {
-            getName(): string;
-            getKeyword(): string;
-            getDescription(): string;
-            getFeature(): FeaturePayload;
-            getUri(): string;
-            getUris(): string[];
-            getLine(): number;
-            getLines(): number[];
-            getTags(): Tag[];
-            getSteps(): any[];
-            getPayloadItem(): ScenarioPayload;
+            feature: Feature;
+            exception: Error;
+            keyword: string;
+            lines: number[];
+            name: string;
+            tags: Tag[];
+            uri: string;
+            line: number;
+            description: string;
+            steps: Step[];
         }
 
         interface ScenarioResultPayload extends EventPayload {
-            getFailureException(): Error;
-            getScenario(): any;
-            getStatus(): any;
+            duration: any;
+            failureException: Error;
+            scenario: Scenario;
+            status: string;
+            stepResults: any[];
         }
 
         interface StepPayload extends EventPayload {
-            isHidden(): boolean;
-            isOutlineStep(): boolean;
-            getKeyword(): string;
-            getName(): string;
-            hasUri(): boolean;
-            getUri(): string;
-            getLine(): number;
-            getPreviousStep(): any;
-            hasPreviousStep(): boolean;
-            getAttachment(): any;
-            getAttachmentContents(): any;
-            getDocString(): string;
-            getDataTable(): any;
-            hasAttachment(): boolean;
-            hasDocString(): boolean;
-            hasDataTable(): boolean;
-            ensureDataTableIsAttached(): void;
-            isOutcomeStep(): boolean;
-            isEventStep(): boolean;
-            hasOutcomeStepKeyword(): boolean;
-            hasEventStepKeyword(): boolean;
-            isRepeatingOutcomeStep(): boolean;
-            isRepeatingEventStep(): boolean;
-            hasRepeatStepKeyword(): boolean;
-            isPrecededByOutcomeStep(): boolean;
-            isPrecededByEventStep(): boolean;
+            arguments: any;
+            line: number;
+            name: string;
+            scenario: Scenario;
+            uri: string;
+            isBackground: boolean;
+            keyword: string;
+            keywordType: string;
         }
 
         interface StepResultPayload extends EventPayload {
-            getAmbiguousStepDefinitions(): any[];
-            getAttachments(): any[];
-            getDuration(): any;
-            getFailureException(): Error;
-            getStep(): any;
-            getStepDefinition(): any;
-            getStatus(): any;
-            hasAttachments(): boolean;
+            ambiguousStepDefinitions: any;
+            attachments: any[];
+            duration: any;
+            failureException: Error;
+            step: Step;
+            stepDefinition: StepDefinition;
+            status: string;
         }
 
+    }
+
+    export interface StepDefinition {
+        code: Function;
+        line: number;
+        options: {};
+        pattern: any;
+        uri: string;
     }
 
     export interface Tag {
