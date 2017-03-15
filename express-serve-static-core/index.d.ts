@@ -96,6 +96,7 @@ interface IRouter extends RequestHandler {
     head: IRouterMatcher<this>;
 
     checkout: IRouterMatcher<this>;
+    connect: IRouterMatcher<this>;
     copy: IRouterMatcher<this>;
     lock: IRouterMatcher<this>;
     merge: IRouterMatcher<this>;
@@ -104,6 +105,8 @@ interface IRouter extends RequestHandler {
     move: IRouterMatcher<this>;
     "m-search": IRouterMatcher<this>;
     notify: IRouterMatcher<this>;
+    propfind: IRouterMatcher<this>;
+    proppatch: IRouterMatcher<this>;
     purge: IRouterMatcher<this>;
     report: IRouterMatcher<this>;
     search: IRouterMatcher<this>;
