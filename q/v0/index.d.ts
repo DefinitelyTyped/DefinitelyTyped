@@ -1,8 +1,7 @@
-// Type definitions for Q 1.0
+// Type definitions for Q
 // Project: https://github.com/kriskowal/q
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 export = Q;
 export as namespace Q;
@@ -22,12 +21,12 @@ declare function Q<T>(value: T): Q.Promise<T>;
 declare function Q(): Q.Promise<void>;
 
 declare namespace Q {
-    export type IWhenable<T> = IPromise<T> | T;
-    export interface IPromise<T> {
+    type IWhenable<T> = IPromise<T> | T;
+    interface IPromise<T> {
         then<U>(onFulfill?: (value: T) => IWhenable<U>, onReject?: (error: any) => IWhenable<U>): IPromise<U>;
     }
 
-    export interface Deferred<T> {
+    interface Deferred<T> {
         promise: Promise<T>;
         resolve(value?: IWhenable<T>): void;
         reject(reason: any): void;
@@ -35,7 +34,7 @@ declare namespace Q {
         makeNodeResolver(): (reason: any, value: T) => void;
     }
 
-    export interface Promise<T> {
+    interface Promise<T> {
         /**
          * Like a finally clause, allows you to observe either the fulfillment or rejection of a promise, but to do so without modifying the final value. This is useful for collecting resources regardless of whether a job succeeded, like closing a database connection, shutting a server down, or deleting an unneeded key from an object.
 
@@ -168,7 +167,7 @@ declare namespace Q {
         inspect(): PromiseState<T>;
     }
 
-    export interface PromiseState<T> {
+    interface PromiseState<T> {
         state: "fulfilled" | "rejected" | "pending";
         value?: T;
         reason?: any;
@@ -183,8 +182,11 @@ declare namespace Q {
     // If a non-promise value is provided, it will not reject or progress
     export function when<T, U>(value: IWhenable<T>, onFulfilled: (val: T) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>, onProgress?: (progress: any) => any): Promise<U>;
 
-    function _try(method: Function, ...args: any[]): Promise<any>;
-    export { _try as try };
+    /**
+     * Currently "impossible" (and I use the term loosely) to implement due to TypeScript limitations as it is now.
+     * See: https://github.com/Microsoft/TypeScript/issues/1784 for discussion on it.
+     */
+    // export function try(method: Function, ...args: any[]): Promise<any>;
 
     export function fbind<T>(method: (...args: any[]) => IWhenable<T>, ...args: any[]): (...args: any[]) => Promise<T>;
 

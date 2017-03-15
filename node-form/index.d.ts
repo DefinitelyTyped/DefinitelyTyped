@@ -3,8 +3,6 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
-
 import * as Q from "q";
 
 export as namespace Validation;
