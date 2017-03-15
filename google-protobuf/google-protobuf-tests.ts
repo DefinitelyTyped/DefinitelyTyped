@@ -54,22 +54,22 @@ class MySimple extends jspb.Message {
   };
 
   static toObject(includeInstance: boolean, msg: MySimple): {} {
-    var f, obj = {
+    const obj = {
       myString: jspb.Message.getFieldWithDefault(msg, 1, ""),
       myBool: jspb.Message.getFieldWithDefault(msg, 2, false),
       someLabelsList: jspb.Message.getField(msg, 3),
-      someCodeGeneratorRequest: (f = msg.getSomeCodeGeneratorRequest()) && google_protobuf_compiler_plugin_pb.CodeGeneratorRequest.toObject(includeInstance, f),
-      someAny: (f = msg.getSomeAny()) && google_protobuf_any_pb.Any.toObject(includeInstance, f),
-      someMethod: (f = msg.getSomeMethod()) && google_protobuf_api_pb.Method.toObject(includeInstance, f),
-      someGeneratedCodeInfo: (f = msg.getSomeGeneratedCodeInfo()) && google_protobuf_descriptor_pb.GeneratedCodeInfo.toObject(includeInstance, f),
-      someDuration: (f = msg.getSomeDuration()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-      someEmpty: (f = msg.getSomeEmpty()) && google_protobuf_empty_pb.Empty.toObject(includeInstance, f),
-      someFieldMask: (f = msg.getSomeFieldMask()) && google_protobuf_field_mask_pb.FieldMask.toObject(includeInstance, f),
-      someSourceContext: (f = msg.getSomeSourceContext()) && google_protobuf_source_context_pb.SourceContext.toObject(includeInstance, f),
-      someStruct: (f = msg.getSomeStruct()) && google_protobuf_struct_pb.Struct.toObject(includeInstance, f),
-      someTimestamp: (f = msg.getSomeTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-      someType: (f = msg.getSomeType()) && google_protobuf_type_pb.Type.toObject(includeInstance, f),
-      someDoubleValue: (f = msg.getSomeDoubleValue()) && google_protobuf_wrappers_pb.DoubleValue.toObject(includeInstance, f)
+      someCodeGeneratorRequest: google_protobuf_compiler_plugin_pb.CodeGeneratorRequest.toObject(includeInstance, msg.getSomeCodeGeneratorRequest()),
+      someAny: google_protobuf_any_pb.Any.toObject(includeInstance, msg.getSomeAny()),
+      someMethod: google_protobuf_api_pb.Method.toObject(includeInstance, msg.getSomeMethod()),
+      someGeneratedCodeInfo: google_protobuf_descriptor_pb.GeneratedCodeInfo.toObject(includeInstance, msg.getSomeGeneratedCodeInfo()),
+      someDuration: google_protobuf_duration_pb.Duration.toObject(includeInstance, msg.getSomeDuration()),
+      someEmpty: google_protobuf_empty_pb.Empty.toObject(includeInstance, msg.getSomeEmpty()),
+      someFieldMask: google_protobuf_field_mask_pb.FieldMask.toObject(includeInstance, msg.getSomeFieldMask()),
+      someSourceContext: google_protobuf_source_context_pb.SourceContext.toObject(includeInstance, msg.getSomeSourceContext()),
+      someStruct: google_protobuf_struct_pb.Struct.toObject(includeInstance, msg.getSomeStruct()),
+      someTimestamp: google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, msg.getSomeTimestamp()),
+      someType: google_protobuf_type_pb.Type.toObject(includeInstance, msg.getSomeType()),
+      someDoubleValue: google_protobuf_wrappers_pb.DoubleValue.toObject(includeInstance, msg.getSomeDoubleValue()),
     };
 
     if (includeInstance) {
@@ -179,121 +179,120 @@ class MySimple extends jspb.Message {
   };
 
   static serializeBinaryToWriter(message: MySimple, writer: jspb.BinaryWriter) {
-    var f = undefined;
-    f = message.getMyString();
-    if (f.length > 0) {
+    const f1 = message.getMyString();
+    if (f1.length > 0) {
       writer.writeString(
         1,
-        f
+        f1
       );
     }
-    f = message.getMyBool();
-    if (f) {
+    const f2 = message.getMyBool();
+    if (f2) {
       writer.writeBool(
         2,
-        f
+        f2
       );
     }
-    f = message.getSomeLabelsList();
-    if (f.length > 0) {
+    const f3 = message.getSomeLabelsList();
+    if (f3.length > 0) {
       writer.writeRepeatedString(
         3,
-        f
+        f3
       );
     }
-    f = message.getSomeCodeGeneratorRequest();
-    if (f != null) {
+    const f4 = message.getSomeCodeGeneratorRequest();
+    if (f4 != null) {
       writer.writeMessage(
         4,
-        f,
+        f4,
         google_protobuf_compiler_plugin_pb.CodeGeneratorRequest.serializeBinaryToWriter
       );
     }
-    f = message.getSomeAny();
-    if (f != null) {
+    const f5 = message.getSomeAny();
+    if (f5 != null) {
       writer.writeMessage(
         5,
-        f,
+        f5,
         google_protobuf_any_pb.Any.serializeBinaryToWriter
       );
     }
-    f = message.getSomeMethod();
-    if (f != null) {
+    const f6 = message.getSomeMethod();
+    if (f6 != null) {
       writer.writeMessage(
         6,
-        f,
+        f6,
         google_protobuf_api_pb.Method.serializeBinaryToWriter
       );
     }
-    f = message.getSomeGeneratedCodeInfo();
-    if (f != null) {
+    const f7 = message.getSomeGeneratedCodeInfo();
+    if (f7 != null) {
       writer.writeMessage(
         7,
-        f,
+        f7,
         google_protobuf_descriptor_pb.GeneratedCodeInfo.serializeBinaryToWriter
       );
     }
-    f = message.getSomeDuration();
-    if (f != null) {
+    const f8 = message.getSomeDuration();
+    if (f8 != null) {
       writer.writeMessage(
         8,
-        f,
+        f8,
         google_protobuf_duration_pb.Duration.serializeBinaryToWriter
       );
     }
-    f = message.getSomeEmpty();
-    if (f != null) {
+    const f9 = message.getSomeEmpty();
+    if (f9 != null) {
       writer.writeMessage(
         9,
-        f,
+        f9,
         google_protobuf_empty_pb.Empty.serializeBinaryToWriter
       );
     }
-    f = message.getSomeFieldMask();
-    if (f != null) {
+    const f10 = message.getSomeFieldMask();
+    if (f10 != null) {
       writer.writeMessage(
         10,
-        f,
+        f10,
         google_protobuf_field_mask_pb.FieldMask.serializeBinaryToWriter
       );
     }
-    f = message.getSomeSourceContext();
-    if (f != null) {
+    const f11 = message.getSomeSourceContext();
+    if (f11 != null) {
       writer.writeMessage(
         11,
-        f,
+        f11,
         google_protobuf_source_context_pb.SourceContext.serializeBinaryToWriter
       );
     }
-    f = message.getSomeStruct();
-    if (f != null) {
+    const f12 = message.getSomeStruct();
+    if (f12 != null) {
       writer.writeMessage(
         12,
-        f,
+        f12,
         google_protobuf_struct_pb.Struct.serializeBinaryToWriter
       );
     }
-    f = message.getSomeTimestamp();
-    if (f != null) {
+    const f13 = message.getSomeTimestamp();
+    if (f13 != null) {
       writer.writeMessage(
         13,
-        f,
+        f13,
         google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
       );
     }
-    f = message.getSomeType();
-    if (f != null) {
+    const f14 = message.getSomeType();
+    if (f14 != null) {
       writer.writeMessage(
         14,
-        f,
+        f14,
         google_protobuf_type_pb.Type.serializeBinaryToWriter
       );
     }
-    f = message.getSomeDoubleValue();
-    if (f != null) {
+    const f15 = message.getSomeDoubleValue();
+    if (f15 != null) {
       writer.writeMessage(
         15,
-        f,
+        f15,
         google_protobuf_wrappers_pb.DoubleValue.serializeBinaryToWriter
       );
     }
@@ -331,8 +330,8 @@ class MySimple extends jspb.Message {
     this.setSomeLabelsList([]);
   };
 
-  getSomeCodeGeneratorRequest(): google_protobuf_compiler_plugin_pb.CodeGeneratorRequest | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_compiler_plugin_pb.CodeGeneratorRequest, 4) as google_protobuf_compiler_plugin_pb.CodeGeneratorRequest | undefined;
+  getSomeCodeGeneratorRequest(): google_protobuf_compiler_plugin_pb.CodeGeneratorRequest {
+    return jspb.Message.getWrapperField(this, google_protobuf_compiler_plugin_pb.CodeGeneratorRequest, 4) as google_protobuf_compiler_plugin_pb.CodeGeneratorRequest;
   };
 
   setSomeCodeGeneratorRequest(value?: google_protobuf_compiler_plugin_pb.CodeGeneratorRequest) {
@@ -347,8 +346,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 4) != null;
   };
 
-  getSomeAny(): google_protobuf_any_pb.Any | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_any_pb.Any, 5) as google_protobuf_any_pb.Any | undefined;
+  getSomeAny(): google_protobuf_any_pb.Any {
+    return jspb.Message.getWrapperField(this, google_protobuf_any_pb.Any, 5) as google_protobuf_any_pb.Any;
   };
 
   setSomeAny(value?: google_protobuf_any_pb.Any) {
@@ -363,8 +362,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 5) != null;
   };
 
-  getSomeMethod(): google_protobuf_api_pb.Method | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_api_pb.Method, 6) as google_protobuf_api_pb.Method | undefined;
+  getSomeMethod(): google_protobuf_api_pb.Method {
+    return jspb.Message.getWrapperField(this, google_protobuf_api_pb.Method, 6) as google_protobuf_api_pb.Method;
   };
 
   setSomeMethod(value?: google_protobuf_api_pb.Method) {
@@ -379,8 +378,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 6) != null;
   };
 
-  getSomeGeneratedCodeInfo(): google_protobuf_descriptor_pb.GeneratedCodeInfo|undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_descriptor_pb.GeneratedCodeInfo, 7) as google_protobuf_descriptor_pb.GeneratedCodeInfo | undefined;
+  getSomeGeneratedCodeInfo(): google_protobuf_descriptor_pb.GeneratedCodeInfo {
+    return jspb.Message.getWrapperField(this, google_protobuf_descriptor_pb.GeneratedCodeInfo, 7) as google_protobuf_descriptor_pb.GeneratedCodeInfo;
   };
 
   setSomeGeneratedCodeInfo(value?: google_protobuf_descriptor_pb.GeneratedCodeInfo) {
@@ -395,8 +394,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 7) != null;
   };
 
-  getSomeDuration(): google_protobuf_duration_pb.Duration | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 8) as google_protobuf_duration_pb.Duration | undefined;
+  getSomeDuration(): google_protobuf_duration_pb.Duration {
+    return jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 8) as google_protobuf_duration_pb.Duration;
   };
 
   setSomeDuration(value?: google_protobuf_duration_pb.Duration) {
@@ -411,8 +410,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 8) != null;
   };
 
-  getSomeEmpty(): google_protobuf_empty_pb.Empty | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_empty_pb.Empty, 9) as google_protobuf_empty_pb.Empty | undefined;
+  getSomeEmpty(): google_protobuf_empty_pb.Empty {
+    return jspb.Message.getWrapperField(this, google_protobuf_empty_pb.Empty, 9) as google_protobuf_empty_pb.Empty;
   };
 
   setSomeEmpty(value?: google_protobuf_empty_pb.Empty) {
@@ -427,8 +426,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 9) != null;
   };
 
-  getSomeFieldMask(): google_protobuf_field_mask_pb.FieldMask | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 10) as google_protobuf_field_mask_pb.FieldMask | undefined;
+  getSomeFieldMask(): google_protobuf_field_mask_pb.FieldMask {
+    return jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 10) as google_protobuf_field_mask_pb.FieldMask;
   };
 
   setSomeFieldMask(value?: google_protobuf_field_mask_pb.FieldMask) {
@@ -443,8 +442,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 10) != null;
   };
 
-  getSomeSourceContext(): google_protobuf_source_context_pb.SourceContext | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_source_context_pb.SourceContext, 11) as google_protobuf_source_context_pb.SourceContext | undefined;
+  getSomeSourceContext(): google_protobuf_source_context_pb.SourceContext {
+    return jspb.Message.getWrapperField(this, google_protobuf_source_context_pb.SourceContext, 11) as google_protobuf_source_context_pb.SourceContext;
   };
 
   setSomeSourceContext(value?: google_protobuf_source_context_pb.SourceContext) {
@@ -459,8 +458,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 11) != null;
   };
 
-  getSomeStruct(): google_protobuf_struct_pb.Struct | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_struct_pb.Struct, 12) as google_protobuf_struct_pb.Struct | undefined;
+  getSomeStruct(): google_protobuf_struct_pb.Struct {
+    return jspb.Message.getWrapperField(this, google_protobuf_struct_pb.Struct, 12) as google_protobuf_struct_pb.Struct;
   };
 
   setSomeStruct(value?: google_protobuf_struct_pb.Struct) {
@@ -475,8 +474,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 12) != null;
   };
 
-  getSomeTimestamp(): google_protobuf_timestamp_pb.Timestamp | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 13) as google_protobuf_timestamp_pb.Timestamp | undefined;
+  getSomeTimestamp(): google_protobuf_timestamp_pb.Timestamp {
+    return jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 13) as google_protobuf_timestamp_pb.Timestamp;
   };
 
   setSomeTimestamp(value?: google_protobuf_timestamp_pb.Timestamp) {
@@ -491,8 +490,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 13) != null;
   };
 
-  getSomeType(): google_protobuf_type_pb.Type | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_type_pb.Type, 14) as google_protobuf_type_pb.Type | undefined;
+  getSomeType(): google_protobuf_type_pb.Type {
+    return jspb.Message.getWrapperField(this, google_protobuf_type_pb.Type, 14) as google_protobuf_type_pb.Type;
   };
 
   setSomeType(value?: google_protobuf_type_pb.Type) {
@@ -507,8 +506,8 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 14) != null;
   };
 
-  getSomeDoubleValue(): google_protobuf_wrappers_pb.DoubleValue | undefined {
-    return jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.DoubleValue, 15) as google_protobuf_wrappers_pb.DoubleValue | undefined;
+  getSomeDoubleValue(): google_protobuf_wrappers_pb.DoubleValue {
+    return jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.DoubleValue, 15) as google_protobuf_wrappers_pb.DoubleValue;
   };
 
   setSomeDoubleValue(value?: google_protobuf_wrappers_pb.DoubleValue) {

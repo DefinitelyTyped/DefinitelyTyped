@@ -5,8 +5,8 @@ export class DoubleValue extends jspb.Message {
   setValue(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: DoubleValue): {};
+  toObject(includeInstance?: boolean): DoubleValue.AsObject;
+  static toObject(includeInstance: boolean, msg: DoubleValue): DoubleValue.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: DoubleValue, writer: jspb.BinaryWriter): void;
@@ -14,13 +14,19 @@ export class DoubleValue extends jspb.Message {
   static deserializeBinaryFromReader(message: DoubleValue, reader: jspb.BinaryReader): DoubleValue;
 }
 
+export namespace DoubleValue {
+  export type AsObject = {
+    value: number,
+  }
+}
+
 export class FloatValue extends jspb.Message {
   getValue(): number;
   setValue(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: FloatValue): {};
+  toObject(includeInstance?: boolean): FloatValue.AsObject;
+  static toObject(includeInstance: boolean, msg: FloatValue): FloatValue.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: FloatValue, writer: jspb.BinaryWriter): void;
@@ -28,13 +34,19 @@ export class FloatValue extends jspb.Message {
   static deserializeBinaryFromReader(message: FloatValue, reader: jspb.BinaryReader): FloatValue;
 }
 
+export namespace FloatValue {
+  export type AsObject = {
+    value: number,
+  }
+}
+
 export class Int64Value extends jspb.Message {
   getValue(): number;
   setValue(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Int64Value): {};
+  toObject(includeInstance?: boolean): Int64Value.AsObject;
+  static toObject(includeInstance: boolean, msg: Int64Value): Int64Value.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Int64Value, writer: jspb.BinaryWriter): void;
@@ -42,13 +54,19 @@ export class Int64Value extends jspb.Message {
   static deserializeBinaryFromReader(message: Int64Value, reader: jspb.BinaryReader): Int64Value;
 }
 
+export namespace Int64Value {
+  export type AsObject = {
+    value: number,
+  }
+}
+
 export class UInt64Value extends jspb.Message {
   getValue(): number;
   setValue(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: UInt64Value): {};
+  toObject(includeInstance?: boolean): UInt64Value.AsObject;
+  static toObject(includeInstance: boolean, msg: UInt64Value): UInt64Value.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: UInt64Value, writer: jspb.BinaryWriter): void;
@@ -56,13 +74,19 @@ export class UInt64Value extends jspb.Message {
   static deserializeBinaryFromReader(message: UInt64Value, reader: jspb.BinaryReader): UInt64Value;
 }
 
+export namespace UInt64Value {
+  export type AsObject = {
+    value: number,
+  }
+}
+
 export class Int32Value extends jspb.Message {
   getValue(): number;
   setValue(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: Int32Value): {};
+  toObject(includeInstance?: boolean): Int32Value.AsObject;
+  static toObject(includeInstance: boolean, msg: Int32Value): Int32Value.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Int32Value, writer: jspb.BinaryWriter): void;
@@ -70,13 +94,19 @@ export class Int32Value extends jspb.Message {
   static deserializeBinaryFromReader(message: Int32Value, reader: jspb.BinaryReader): Int32Value;
 }
 
+export namespace Int32Value {
+  export type AsObject = {
+    value: number,
+  }
+}
+
 export class UInt32Value extends jspb.Message {
   getValue(): number;
   setValue(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: UInt32Value): {};
+  toObject(includeInstance?: boolean): UInt32Value.AsObject;
+  static toObject(includeInstance: boolean, msg: UInt32Value): UInt32Value.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: UInt32Value, writer: jspb.BinaryWriter): void;
@@ -84,13 +114,19 @@ export class UInt32Value extends jspb.Message {
   static deserializeBinaryFromReader(message: UInt32Value, reader: jspb.BinaryReader): UInt32Value;
 }
 
+export namespace UInt32Value {
+  export type AsObject = {
+    value: number,
+  }
+}
+
 export class BoolValue extends jspb.Message {
   getValue(): boolean;
   setValue(value: boolean): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: BoolValue): {};
+  toObject(includeInstance?: boolean): BoolValue.AsObject;
+  static toObject(includeInstance: boolean, msg: BoolValue): BoolValue.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: BoolValue, writer: jspb.BinaryWriter): void;
@@ -98,18 +134,30 @@ export class BoolValue extends jspb.Message {
   static deserializeBinaryFromReader(message: BoolValue, reader: jspb.BinaryReader): BoolValue;
 }
 
+export namespace BoolValue {
+  export type AsObject = {
+    value: boolean,
+  }
+}
+
 export class StringValue extends jspb.Message {
   getValue(): string;
   setValue(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: StringValue): {};
+  toObject(includeInstance?: boolean): StringValue.AsObject;
+  static toObject(includeInstance: boolean, msg: StringValue): StringValue.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: StringValue, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): StringValue;
   static deserializeBinaryFromReader(message: StringValue, reader: jspb.BinaryReader): StringValue;
+}
+
+export namespace StringValue {
+  export type AsObject = {
+    value: string,
+  }
 }
 
 export class BytesValue extends jspb.Message {
@@ -119,11 +167,18 @@ export class BytesValue extends jspb.Message {
   setValue(value: Uint8Array | string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): {};
-  static toObject(includeInstance: boolean, msg: BytesValue): {};
+  toObject(includeInstance?: boolean): BytesValue.AsObject;
+  static toObject(includeInstance: boolean, msg: BytesValue): BytesValue.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: BytesValue, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): BytesValue;
   static deserializeBinaryFromReader(message: BytesValue, reader: jspb.BinaryReader): BytesValue;
 }
+
+export namespace BytesValue {
+  export type AsObject = {
+    value: Uint8Array | string,
+  }
+}
+
