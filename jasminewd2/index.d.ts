@@ -44,7 +44,7 @@ declare namespace jasmine {
     toThrowError(expected?: new (...args: any[]) => Error | Promise<new (...args: any[]) => Error>, message?: string | RegExp | Promise<string | RegExp>): Promise<void>;
   }
 
-  interface ArrayLikeMatchers<T extends ArrayLike<T>> extends Matchers<T> {
+  interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
     toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): Promise<void>;
     toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): Promise<void>;
     toContain(expected: T, expectationFailOutput?: any): Promise<void>;
