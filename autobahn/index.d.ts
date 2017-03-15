@@ -177,6 +177,7 @@ declare namespace autobahn {
 
     interface IRegisterOptions {
         disclose_caller?: boolean;
+        invoke?: 'single' | 'roundrobin' | 'random' | 'first' | 'last';
     }
 
     export class Connection {
