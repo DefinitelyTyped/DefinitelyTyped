@@ -24,8 +24,9 @@ declare function afterEach(action: (done: DoneFn) => void, timeout?: number): vo
 declare function beforeAll(action: (done: DoneFn) => void, timeout?: number): void;
 declare function afterAll(action: (done: DoneFn) => void, timeout?: number): void;
 
-declare function expect(spy: Function): jasmine.Matchers;
-declare function expect(actual: any): jasmine.Matchers;
+declare function expect(spy: Function): jasmine.Matchers<any>;
+declare function expect<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
+declare function expect<T>(actual: T): jasmine.Matchers<T>;
 
 declare function fail(e?: any): void;
 /** Action method that should be called when the async work is complete */
@@ -45,23 +46,33 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
+    type Expected<T> = T | ObjectContaining<T> | Any | Spy;
 
     var clock: () => Clock;
 
     function any(aclass: any): Any;
+
     function anything(): Any;
+
     function arrayContaining(sample: any[]): ArrayContaining;
-    function objectContaining(sample: any): ObjectContaining;
+    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
     function createSpy(name: string, originalFn?: Function): Spy;
+
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
+
     function pp(value: any): string;
+
     function getEnv(): Env;
+
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
+
     function addMatchers(matchers: CustomMatcherFactories): void;
+
     function stringMatching(str: string): Any;
     function stringMatching(str: RegExp): Any;
-    function formatErrorMsg(domain: string, usage: string) : (msg: string) => string
+
+    function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any {
 
@@ -84,8 +95,8 @@ declare namespace jasmine {
         jasmineToString(): string;
     }
 
-    interface ObjectContaining {
-        new (sample: any): any;
+    interface ObjectContaining<T> {
+        new (sample: Partial<T>): Partial<T>;
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString(): string;
@@ -115,18 +126,14 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
-    interface CustomEqualityTester {
-        (first: any, second: any): boolean;
-    }
+    type CustomEqualityTester = (first: any, second: any) => boolean;
 
     interface CustomMatcher {
         compare<T>(actual: T, expected: T): CustomMatcherResult;
         compare(actual: any, expected: any): CustomMatcherResult;
     }
 
-    interface CustomMatcherFactory {
-        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
-    }
+    type CustomMatcherFactory = (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]) => CustomMatcher;
 
     interface CustomMatcherFactories {
         [index: string]: CustomMatcherFactory;
@@ -138,9 +145,9 @@ declare namespace jasmine {
     }
 
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
+        equals(a: any, b: any, customTesters?: CustomEqualityTester[]): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: CustomEqualityTester[]): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
     }
 
     interface Env {
@@ -152,7 +159,7 @@ declare namespace jasmine {
 
         currentSpec: Spec;
 
-        matchersClass: Matchers;
+        matchersClass: Matchers<any>;
 
         version(): any;
         versionString(): string;
@@ -226,12 +233,12 @@ declare namespace jasmine {
         passed(): boolean;
     }
 
-    interface MessageResult extends Result  {
+    interface MessageResult extends Result {
         values: any;
         trace: Trace;
     }
 
-    interface ExpectationResult extends Result  {
+    interface ExpectationResult extends Result {
         matcherName: string;
         passed(): boolean;
         expected: any;
@@ -244,12 +251,13 @@ declare namespace jasmine {
         new (options: {random: boolean, seed: string}): any;
         random: boolean;
         seed: string;
-        sort<T>(items: T[]) : T[];
+        sort<T>(items: T[]): T[];
     }
 
     namespace errors {
         class ExpectationFailed extends Error {
             constructor();
+
             stack: any;
         }
     }
@@ -257,7 +265,7 @@ declare namespace jasmine {
     interface TreeProcessor {
         new (attrs: any): any;
         execute: (done: Function) => void;
-        processTree() : any;
+        processTree(): any;
     }
 
     interface Trace {
@@ -303,18 +311,18 @@ declare namespace jasmine {
         results(): NestedResults;
     }
 
-    interface Matchers {
+    interface Matchers<T> {
 
-        new (env: Env, actual: any, spec: Env, isNot?: boolean): any;
+        new (env: Env, actual: T, spec: Env, isNot?: boolean): any;
 
         env: Env;
-        actual: any;
+        actual: T;
         spec: Env;
         isNot?: boolean;
         message(): any;
 
-        toBe(expected: any, expectationFailOutput?: any): boolean;
-        toEqual(expected: any, expectationFailOutput?: any): boolean;
+        toBe(expected: Expected<T>, expectationFailOutput?: any): boolean;
+        toEqual(expected: Expected<T>, expectationFailOutput?: any): boolean;
         toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
         toBeDefined(expectationFailOutput?: any): boolean;
         toBeUndefined(expectationFailOutput?: any): boolean;
@@ -334,9 +342,16 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
-        not: Matchers;
+        not: Matchers<T>;
 
         Any: Any;
+    }
+
+    interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
+        toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
+        toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
+        toContain(expected: T, expectationFailOutput?: any): boolean;
+        not: ArrayLikeMatchers<T>;
     }
 
     interface Reporter {
@@ -373,18 +388,18 @@ declare namespace jasmine {
     }
 
     interface CustomReporterResult {
-        description: string,
-        failedExpectations?: FailedExpectation[],
-        fullName: string,
+        description: string;
+        failedExpectations?: FailedExpectation[];
+        fullName: string;
         id: string;
-        passedExpectations?: PassedExpectation[],
+        passedExpectations?: PassedExpectation[];
         pendingReason?: string;
         status?: string;
     }
 
     interface RunDetails {
         failedExpectations: ExpectationResult[];
-        order: jasmine.Order
+        order: jasmine.Order;
     }
 
     interface CustomReporter {
@@ -414,9 +429,7 @@ declare namespace jasmine {
         results(): NestedResults;
     }
 
-    interface SpecFunction {
-        (spec?: Spec): void;
-    }
+    type SpecFunction = (spec?: Spec) => void;
 
     interface SuiteOrSpec {
         id: number;
@@ -435,7 +448,7 @@ declare namespace jasmine {
         spies_: Spy[];
 
         results_: NestedResults;
-        matchersClass: Matchers;
+        matchersClass: Matchers<any>;
 
         getFullName(): string;
         results(): NestedResults;
@@ -448,7 +461,7 @@ declare namespace jasmine {
         waits(timeout: number): Spec;
         waitsFor(latchFunction: SpecFunction, timeoutMessage?: string, timeout?: number): Spec;
         fail(e?: any): void;
-        getMatchersClass_(): Matchers;
+        getMatchersClass_(): Matchers<any>;
         addMatchers(matchersPrototype: CustomMatcherFactories): void;
         finishCallback(): void;
         finish(onComplete?: () => void): void;
@@ -497,7 +510,7 @@ declare namespace jasmine {
         identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: { args: any[]; };
+        mostRecentCall: {args: any[]; };
         argsForCall: any[];
     }
 
@@ -558,7 +571,7 @@ declare namespace jasmine {
         finished: boolean;
         result: any;
         messages: any;
-        runDetails: RunDetails
+        runDetails: RunDetails;
 
         new (): any;
 
