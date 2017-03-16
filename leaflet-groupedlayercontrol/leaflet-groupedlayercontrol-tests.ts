@@ -1,4 +1,4 @@
-let map: L.Map;
+let map: L.Map = L.map('map', {});
 let baseLayers = {};
 let groupedOverlays = {};
 let cities = L.layerGroup([]);
