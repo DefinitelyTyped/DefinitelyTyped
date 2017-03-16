@@ -2500,9 +2500,9 @@ declare module "react" {
 
         /**
          * Specifies the side of the screen from which the drawer will slide in.
-         * enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
+         * enum(DrawerLayoutAndroid.positions.Left, DrawerLayoutAndroid.positions.Right)
          */
-        drawerPosition?: any;
+        drawerPosition?: number;
 
         /**
          * Specifies the width of the drawer, more precisely the width of the
