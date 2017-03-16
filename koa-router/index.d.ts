@@ -13,6 +13,12 @@
 
 import * as Koa from "koa";
 
+declare module "koa" {
+    interface Context {
+        params: any;
+    }
+}
+
 declare module Layer {
 
     export interface ILayerOptions {
