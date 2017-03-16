@@ -40,7 +40,7 @@ interface ReactPaginateProps {
     /**
      * The classname on tag li of the ellipsis element.
      */
-    breakClassName?: string;
+    breakClassName?: string | JSX.Element;
 
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.
