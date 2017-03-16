@@ -1,4 +1,4 @@
-import tinymce = require('tinymce');
+import { tinymce } from 'tinymce';
 
 tinymce.init(
   {
