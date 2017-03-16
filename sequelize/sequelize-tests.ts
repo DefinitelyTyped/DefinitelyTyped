@@ -350,12 +350,12 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
     // hasOne association mixins:
     getBarcode: Sequelize.HasOneGetAssociationMixin<BarcodeInstance>;
     setBarcode: Sequelize.HasOneSetAssociationMixin<BarcodeInstance, number>;
-    createBarcode: Sequelize.HasOneCreateAssociationMixin<BarcodeAttributes, BarcodeInstance>;
+    createBarcode: Sequelize.HasOneCreateAssociationMixin<BarcodeAttributes>;
 
     // belongsTo association mixins:
     getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
     setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
-    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes, WarehouseInstance>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
 };
 
 interface BarcodeAttributes {
@@ -368,7 +368,7 @@ interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, Barcode
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
-    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes, ProductInstance>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
 };
 
 interface WarehouseAttributes {
