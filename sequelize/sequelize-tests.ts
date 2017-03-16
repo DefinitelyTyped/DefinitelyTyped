@@ -210,7 +210,7 @@ barcode.setProduct(product, { save: true }).then(() => { });
 
 barcode.createProduct();
 barcode.createProduct({ id: 1, name: 'Crowbar' });
-barcode.createProduct({ id: 1 }, { save: true, silent: true }).then(() => { });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then((product) => { });
 
 product.getWarehouse();
 product.getWarehouse({ scope: null }).then(w => w.capacity);
@@ -243,7 +243,7 @@ warehouse.addProduct(2, { validate: true }).then(() => { });
 
 warehouse.createProduct();
 warehouse.createProduct({ id: 1, name: 'baz' });
-warehouse.createProduct({ id: 1 }, { silent: true }).then(() => { });
+warehouse.createProduct({ id: 1 }, { silent: true }).then((product) => { });
 
 warehouse.removeProducts();
 warehouse.removeProducts([product]);
@@ -281,7 +281,7 @@ warehouse.addBranch(2, { validate: true, distance: 1 }).then(() => { });
 
 warehouse.createBranch();
 warehouse.createBranch({ id: 1, address: 'baz' });
-warehouse.createBranch({ id: 1 }, { silent: true, distance: 1 }).then(() => { });
+warehouse.createBranch({ id: 1 }, { silent: true, distance: 1 }).then((branch) => { });
 
 warehouse.removeBranches();
 warehouse.removeBranches([branch]);
@@ -319,7 +319,7 @@ customer.addBranch(2, { validate: true }).then(() => { });
 
 customer.createBranch();
 customer.createBranch({ id: 1, address: 'baz' });
-customer.createBranch({ id: 1 }, { silent: true }).then(() => { });
+customer.createBranch({ id: 1 }, { silent: true }).then((branch) => { });
 
 customer.removeBranches();
 customer.removeBranches([branch]);
@@ -350,12 +350,12 @@ interface ProductInstance extends Sequelize.Instance<ProductAttributes>, Product
     // hasOne association mixins:
     getBarcode: Sequelize.HasOneGetAssociationMixin<BarcodeInstance>;
     setBarcode: Sequelize.HasOneSetAssociationMixin<BarcodeInstance, number>;
-    createBarcode: Sequelize.HasOneCreateAssociationMixin<BarcodeAttributes>;
+    createBarcode: Sequelize.HasOneCreateAssociationMixin<BarcodeAttributes, BarcodeInstance>;
 
     // belongsTo association mixins:
     getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
     setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
-    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes, WarehouseInstance>;
 };
 
 interface BarcodeAttributes {
@@ -368,7 +368,7 @@ interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, Barcode
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
-    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes, ProductInstance>;
 };
 
 interface WarehouseAttributes {
@@ -383,7 +383,7 @@ interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, War
     setProducts: Sequelize.HasManySetAssociationsMixin<ProductInstance, number>;
     addProducts: Sequelize.HasManyAddAssociationsMixin<ProductInstance, number>;
     addProduct: Sequelize.HasManyAddAssociationMixin<ProductInstance, number>;
-    createProduct: Sequelize.HasManyCreateAssociationMixin<ProductAttributes>;
+    createProduct: Sequelize.HasManyCreateAssociationMixin<ProductAttributes, ProductInstance>;
     removeProduct: Sequelize.HasManyRemoveAssociationMixin<ProductInstance, number>;
     removeProducts: Sequelize.HasManyRemoveAssociationsMixin<ProductInstance, number>;
     hasProduct: Sequelize.HasManyHasAssociationMixin<ProductInstance, number>;
@@ -395,7 +395,7 @@ interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, War
     setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, WarehouseBranchAttributes>;
     addBranches: Sequelize.BelongsToManyAddAssociationsMixin<BranchInstance, number, WarehouseBranchAttributes>;
     addBranch: Sequelize.BelongsToManyAddAssociationMixin<BranchInstance, number, WarehouseBranchAttributes>;
-    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, WarehouseBranchAttributes>;
+    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, BranchInstance, WarehouseBranchAttributes>;
     removeBranch: Sequelize.BelongsToManyRemoveAssociationMixin<BranchInstance, number>;
     removeBranches: Sequelize.BelongsToManyRemoveAssociationsMixin<BranchInstance, number>;
     hasBranch: Sequelize.BelongsToManyHasAssociationMixin<BranchInstance, number>;
@@ -415,7 +415,7 @@ interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAtt
     setWarehouses: Sequelize.BelongsToManySetAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
     addWarehouses: Sequelize.BelongsToManyAddAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
     addWarehouse: Sequelize.BelongsToManyAddAssociationMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
-    createWarehouse: Sequelize.BelongsToManyCreateAssociationMixin<WarehouseAttributes, WarehouseBranchAttributes>;
+    createWarehouse: Sequelize.BelongsToManyCreateAssociationMixin<WarehouseAttributes, WarehouseInstance, WarehouseBranchAttributes>;
     removeWarehouse: Sequelize.BelongsToManyRemoveAssociationMixin<WarehouseInstance, number>;
     removeWarehouses: Sequelize.BelongsToManyRemoveAssociationsMixin<WarehouseInstance, number>;
     hasWarehouse: Sequelize.BelongsToManyHasAssociationMixin<WarehouseInstance, number>;
@@ -427,7 +427,7 @@ interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAtt
     setCustomers: Sequelize.BelongsToManySetAssociationsMixin<CustomerInstance, number, void>;
     addCustomers: Sequelize.BelongsToManyAddAssociationsMixin<CustomerInstance, number, void>;
     addCustomer: Sequelize.BelongsToManyAddAssociationMixin<CustomerInstance, number, void>;
-    createCustomer: Sequelize.BelongsToManyCreateAssociationMixin<CustomerAttributes, void>;
+    createCustomer: Sequelize.BelongsToManyCreateAssociationMixin<CustomerAttributes, CustomerInstance, void>;
     removeCustomer: Sequelize.BelongsToManyRemoveAssociationMixin<CustomerInstance, number>;
     removeCustomers: Sequelize.BelongsToManyRemoveAssociationsMixin<CustomerInstance, number>;
     hasCustomer: Sequelize.BelongsToManyHasAssociationMixin<CustomerInstance, number>;
@@ -453,7 +453,7 @@ interface CustomerInstance extends Sequelize.Instance<CustomerAttributes>, Custo
     setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, void>;
     addBranches: Sequelize.BelongsToManyAddAssociationsMixin<BranchInstance, number, void>;
     addBranch: Sequelize.BelongsToManyAddAssociationMixin<BranchInstance, number, void>;
-    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, void>;
+    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, BranchInstance, void>;
     removeBranch: Sequelize.BelongsToManyRemoveAssociationMixin<BranchInstance, number>;
     removeBranches: Sequelize.BelongsToManyRemoveAssociationsMixin<BranchInstance, number>;
     hasBranch: Sequelize.BelongsToManyHasAssociationMixin<BranchInstance, number>;
