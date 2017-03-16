@@ -14,17 +14,17 @@
   },
   "files": [
     "index.d.ts",
-    "examples/Ambiguous.tsx",
-    "examples/Animation.tsx",
-    "examples/Auth.tsx",
-    "examples/Basic.tsx",
-    "examples/CustomLink.tsx",
-    "examples/ModalGallery.tsx",
-    "examples/NoMatch.tsx",
-    "examples/Params.tsx",
-    "examples/PreventingTransitions.tsx",
-    "examples/Recursive.tsx",
-    "examples/RouteConfig.tsx",
-    "examples/Sidebar.tsx"
+    "test/Ambiguous.tsx",
+    "test/Animation.tsx",
+    "test/Auth.tsx",
+    "test/Basic.tsx",
+    "test/CustomLink.tsx",
+    "test/ModalGallery.tsx",
+    "test/NoMatch.tsx",
+    "test/Params.tsx",
+    "test/PreventingTransitions.tsx",
+    "test/Recursive.tsx",
+    "test/RouteConfig.tsx",
+    "test/Sidebar.tsx"
   ]
 }
