@@ -1,4 +1,4 @@
-// Type definitions for react-paginate 4.2.0
+// Type definitions for react-paginate v4.2.0
 // Project: https://github.com/AdeleD/react-paginate
 // Definitions by: Simon Hartcher <https://github.com/deevus>, Wouter Hardeman <https://github.com/wouterhardeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
