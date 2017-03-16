@@ -7,8 +7,8 @@
 
 import 'jquery';
 
-export = tinymce;
-export as namespace tinymce;
+
+
 
 declare namespace tinymce {
 
@@ -306,7 +306,7 @@ declare namespace tinymce {
 
   export class Editor extends util.Observable {
 
-    constructor(id:String, settings:Object, editorManager:tinymce.EditorManager);
+    constructor(id: string, settings: object, editorManager: tinymce.EditorManager);
 
     $: dom.DomQuery;
 
@@ -737,11 +737,11 @@ declare namespace tinymce {
       constructor();
 
       $el: JQuery;
-      on(name:String, callback:String):tinymce.ui.Control;
+      on(name: string, callback: string): tinymce.ui.Control;
       tooltip(): Control;
       settings: ControlSettings;
-      disabled(state:Boolean): void;
-      active(state:Boolean): void;
+      disabled(state: boolean): void;
+      active(state: boolean): void;
     }
   }
 
