@@ -62,4 +62,4 @@ declare namespace loremIpsum {}
  */
 declare function loremIpsum(options?: LoremIpsumOptions): string;
 
-export = loremIpsum;
+export default loremIpsum;
