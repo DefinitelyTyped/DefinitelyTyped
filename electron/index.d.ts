@@ -2456,7 +2456,7 @@ declare namespace Electron {
 		constructor(options: MenuItemOptions);
 
 		/**
-		 * A Function that is fired when the MenuItem recieves a click event
+		 * A function that is fired when the MenuItem receives a click event
 		 */
 		click: (event: Event, browserWindow: BrowserWindow, webContents: WebContents) => void;
 
