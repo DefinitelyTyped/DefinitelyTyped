@@ -1,6 +1,6 @@
 // Type definitions for koa-router v7.x
 // Project: https://github.com/alexmingoia/koa-router/
-// Definitions by: Jerry Chin <https://github.com/hellopao/>
+// Definitions by: Jerry Chin <https://github.com/hellopao/>, Pavel Ivanov <https://github.com/schfkt/>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 
 /* =================== USAGE ===================
