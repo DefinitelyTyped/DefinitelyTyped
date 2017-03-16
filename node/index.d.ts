@@ -338,6 +338,11 @@ declare namespace NodeJS {
         heapTotal: number;
         heapUsed: number;
     }
+    
+    export interface CpuUsage {
+        user: number;
+        system: number;
+    }
 
     export interface CpuUsage {
         user: number;
