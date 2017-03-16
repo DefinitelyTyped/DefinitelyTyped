@@ -7,7 +7,7 @@ class Test extends React.Component<{}, {}> {
         //
     }
 
-    public render() {
+    render() {
         return (
             <ReactPaginate
                 pageCount={1}

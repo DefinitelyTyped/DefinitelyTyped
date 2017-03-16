@@ -1,4 +1,4 @@
-// Type definitions for react-paginate 4.2.0
+// Type definitions for react-paginate 4.2
 // Project: https://github.com/AdeleD/react-paginate
 // Definitions by: pegel03 <https://github.com/pegel03>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -45,7 +45,7 @@ interface ReactPaginateProps {
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.
      */
-    onPageChange?: Function;
+    onPageChange?: (n: number) => void;
 
     /**
      * The initial page selected.
@@ -110,7 +110,7 @@ interface ReactPaginateProps {
     /**
      * The method is called to generate the href attribute value on tag a of each page element.
      */
-    hrefBuilder?: Function;
+    hrefBuilder?: (a: string) => void;
 }
 
 declare const ReactPaginate: React.ComponentClass<ReactPaginateProps>;
