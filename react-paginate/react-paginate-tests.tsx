@@ -5,7 +5,7 @@ class Test extends React.Component<{}, {}> {
     public render() {
         return (
             <ReactPaginate
-                pageNum={1}
+                pageCount={1}
                 pageRangeDisplayed={10}
                 marginPagesDisplayed={2}
             />
