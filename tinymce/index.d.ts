@@ -306,7 +306,7 @@ declare namespace tinymce {
 
   export class Editor extends util.Observable {
 
-    constructor(id: string, settings: object, editorManager: tinymce.EditorManager);
+    constructor(id: string, settings: Settings, editorManager: tinymce.EditorManager);
 
     $: dom.DomQuery;
 
