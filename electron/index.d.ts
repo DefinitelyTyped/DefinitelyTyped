@@ -2492,7 +2492,7 @@ declare namespace Electron {
 		/**
 		 * Callback when the menu item is clicked.
 		 */
-		click?: (menuItem: MenuItem, browserWindow: BrowserWindow) => void;
+		click?: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => void;
 		/**
 		 * Can be normal, separator, submenu, checkbox or radio.
 		 */
