@@ -221,7 +221,7 @@ class Example extends React.Component<any, any> {
     }
 
     onRowClick(rowIdx:number, row: Object) {
-        // Do not, just test that it accepts an event
+        // Do nothing, just test that it accepts an event
     }
 
     handleAddRow(e:any) {
