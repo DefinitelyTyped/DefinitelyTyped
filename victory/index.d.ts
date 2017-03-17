@@ -299,6 +299,11 @@ declare module "victory" {
             before?: (datum: any) => AnimationStyle;
             after?: (datum: any) => AnimationStyle;
         };
+        /**
+         * The easing prop specifies an easing function name to use for tweening.
+         * @default "quadInOut"
+         */
+        easing?: AnimationEasing;
     }
 
     /**
