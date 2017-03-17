@@ -15,7 +15,8 @@
 		"lib": [
 			"es6",
 			"dom"
-		]
+		],
+		"types": []
 	},
 	"files": [
 		"index.d.ts",
