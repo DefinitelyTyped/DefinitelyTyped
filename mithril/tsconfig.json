@@ -6,7 +6,8 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
+        "noImplicitReturns": false,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
