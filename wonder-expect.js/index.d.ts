@@ -94,6 +94,11 @@ declare namespace Expect {
         above(n: number): Assertion;
 
         /**
+         * Assert numeric value >= n.
+         */
+        gte(n: number): Assertion;
+
+        /**
          * Assert numeric value below n.
          */
         lessThan(n: number): Assertion;
@@ -102,6 +107,11 @@ declare namespace Expect {
          * Assert numeric value below n.
          */
         below(n: number): Assertion;
+
+        /**
+         * Assert numeric value <= n.
+         */
+        lte(n: number): Assertion;
 
         /**
          * Assert string value matches regexp.
