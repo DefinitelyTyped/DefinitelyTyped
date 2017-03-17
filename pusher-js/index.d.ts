@@ -145,6 +145,7 @@ declare namespace pusher {
         key: string;
         options: any; //TODO: Timeline.js
         state: string;
+        socket_id: string;
         connection: any; //TODO: Type this
         encrypted: boolean;
         timeline: any; //TODO: Type this
