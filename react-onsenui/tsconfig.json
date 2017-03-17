@@ -11,7 +11,11 @@
 		"baseUrl": "../",
 		"typeRoots": ["../"],
 		"noEmit": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"lib": [
+			"es6",
+			"dom"
+		]
 	},
 	"files": [
 		"index.d.ts",
