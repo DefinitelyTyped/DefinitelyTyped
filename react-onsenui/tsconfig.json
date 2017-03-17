@@ -1,6 +1,4 @@
-{
-	"baseUrl": "types",
-	"typeRoots": ["types"],
+{	
 	"compilerOptions": {
 		"sourceMap": true,
 		"noImplicitAny": true,
@@ -9,6 +7,14 @@
 		"module": "commonjs",
 		"target": "es5",
 		"jsx": "react",
-		"experimentalDecorators": true
-	}
+		"experimentalDecorators": true,
+		"baseUrl": "../",
+		"typeRoots": ["../"]
+	},
+	"noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+	"files": [
+		"index.d.ts",
+		"react-onsenui-tests.tsx"
+	]
 }
