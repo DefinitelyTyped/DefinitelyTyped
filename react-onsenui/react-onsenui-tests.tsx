@@ -1,6 +1,6 @@
-import {Component} from "react";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as Ons from "react-onsenui";
+import {SplitterSide, Splitter, SplitterContent, Page} from "react-onsenui";
 
 class AppState{
 	isOpen:boolean=false;
@@ -9,7 +9,7 @@ class AppState{
 interface AppProps{
 }
 
-export class App extends Component<AppProps,AppState>{
+export class App extends React.Component<AppProps,AppState>{
 
 	constructor(props?:AppProps){
 		super(props);
@@ -23,23 +23,23 @@ export class App extends Component<AppProps,AppState>{
 	render() {
  
 		return (
-			<Ons.Splitter>
-				<Ons.SplitterSide
+			<Splitter>
+				<SplitterSide
 					side='left'
 					collapse={true}
 					isOpen={this.state.isOpen}
 					onClose={()=>this.hide()}
 					isSwipeable={true}>
-					<Ons.Page>
+					<Page>
 						Menu content
-					</Ons.Page>
-				</Ons.SplitterSide>
-				<Ons.SplitterContent>
-					<Ons.Page>
+					</Page>
+				</SplitterSide>
+				<SplitterContent>
+					<Page>
 						Test page
-					</Ons.Page>
-				</Ons.SplitterContent>
-			</Ons.Splitter>
+					</Page>
+				</SplitterContent>
+			</Splitter>
 		);
 	}
 

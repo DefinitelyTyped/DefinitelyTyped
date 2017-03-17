@@ -7,9 +7,9 @@ import {
     Component
 } from 'react';
 
-export as namespace ReactOnSenUI;
 
-export namespace ReactOnSenUI {
+
+declare namespace ReactOnSenUI {
 
     interface Modifiers_string {
         default?: string,
@@ -374,3 +374,6 @@ export namespace ReactOnSenUI {
 
     }
 } 
+
+export = ReactOnSenUI;
+
