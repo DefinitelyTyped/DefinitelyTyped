@@ -201,6 +201,6 @@ navigator.serviceWorker.ready.then(function(registration) {
 });
 
 self.registration.getNotifications({tag: 'notification-sample'})
-    .then(function(notifications) {
+    .then(function(notifications: any) {
         console.log(notifications);
     });
