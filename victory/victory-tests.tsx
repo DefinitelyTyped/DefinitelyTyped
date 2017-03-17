@@ -602,3 +602,7 @@ test = (
         }}
     />
 );
+
+test = (
+    <VictoryChart animate={{ duration: 2000, easing: 'bounce' }} />
+);
