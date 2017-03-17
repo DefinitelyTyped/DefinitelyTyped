@@ -1,8 +1,8 @@
-// Type definitions for service_worker_api 0.0
+// Type definitions for service_worker_api 0.1
 // Project: https://developer.mozilla.org/fr/docs/Web/API/ServiceWorker_API
 // Definitions by: Tristan Caron <https://github.com/tristancaron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2.1
 
 /**
  * An CacheOptions object allowing you to set specific control options for the
