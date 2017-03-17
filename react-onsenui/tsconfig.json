@@ -9,9 +9,9 @@
 		"jsx": "react",
 		"experimentalDecorators": true,
 		"baseUrl": "../",
-		"typeRoots": ["../"]
+		"typeRoots": ["../"],
+		"noEmit": true
 	},
-	"noEmit": true,
         "forceConsistentCasingInFileNames": true,
 	"files": [
 		"index.d.ts",
