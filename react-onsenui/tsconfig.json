@@ -1,0 +1,14 @@
+{
+	"baseUrl": "types",
+	"typeRoots": ["types"],
+	"compilerOptions": {
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"noImplicitThis":true,
+		"strictNullChecks":true,
+		"module": "commonjs",
+		"target": "es5",
+		"jsx": "react",
+		"experimentalDecorators": true
+	}
+}
