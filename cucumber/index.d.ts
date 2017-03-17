@@ -221,20 +221,36 @@ declare namespace cucumber {
     export function clearSupportCodeFns(): void;
 
     // https://github.com/cucumber/cucumber-js/commit/231183a8a11c985ef7ced1155b7a75f5120a34b6
-    export class Formatter {}
+    export class Formatter {
+        constructor(options?: any);
+        log(data: any): void;
+    }
 
-    export class JsonFormatter {}
+    export class SummaryFormatter extends Formatter {
+        indent(text: string, numberOfSpaces: number): any;
+    }
+    export class PrettyFormatter extends SummaryFormatter {
+        formatTags(tags: Tag[]): any;
+        logIndented(text: string, level: number): void;
+        logStepResult(stepResult: any): void;
+    }
 
-    export class PrettyFormatter {}
+    export class ProgressFormatter extends SummaryFormatter{
+    }
 
-    export class ProgressFormatter {}
+    export class RerunFormatter extends Formatter{
+    }
 
-    export class RerunFormatter {}
+    export class SnippetsFormatter extends Formatter{
+    }
 
-    export class SnippetsFormatter {}
+    export class UsageFormatter extends Formatter{
+    }
 
-    export class UsageFormatter {}
+    export class UsageJsonFormatter extends Formatter{
+    }
 
-    export class UsageJsonFormatter {}
+    export class JsonFormatter extends Formatter {
+    }
 
 }
