@@ -781,62 +781,169 @@ client.subaccounts.update('123', {
     console.log(err);
 });
 
-client.suppressionList.checkStatus("test@test.com", function(err, res) {
+// Callback
+client.suppressionList.delete('test@test.com', function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.suppressionList.removeStatus("test@test.com", function(err, res) {
+// Promise
+client.suppressionList.delete('test@test.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.suppressionList.get('test@test.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.suppressionList.get('test@test.com', function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.suppressionList.search({
-  from: "2015-05-07T00:00:00+0000",
-  to: "2015-05-07T23:59:59+0000",
-  limit: 5
-}, function(err, res) {
+// Promise
+client.suppressionList.list({
+    from: '2015-05-07T00:00:00+0000',
+    to: '2015-05-07T23:59:59+0000',
+    limit: 5
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.suppressionList.list({
+    from: '2015-05-07T00:00:00+0000',
+    to: '2015-05-07T23:59:59+0000',
+    limit: 5
+}, function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.suppressionList.upsert([
-  {
-    recipient: "test1@test.com",
+// Promise
+client.suppressionList.upsert({
+    recipient: 'test1@test.com',
     transactional: false,
     non_transactional: true,
-    description: "Test description 1"
-  },
-  {
-    recipient: "test2@test.com",
-    transactional: true,
+    description: 'Test description 1'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.suppressionList.upsert({
+    recipient: 'test1@test.com',
+    transactional: false,
     non_transactional: true,
-    description: "Test description 2"
-  },
-  {
-    recipient: "test3@test.com",
-    transactional: true,
-    non_transactional: false,
-    description: "Test description 3"
-  }
-], function(err, res) {
+    description: 'Test description 1'
+}, function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  }
+});
+
+// Promise
+client.suppressionList.upsert([
+    {
+      recipient: 'test1@test.com',
+      transactional: false,
+      non_transactional: true,
+      description: 'Test description 1'
+    },
+    {
+      recipient: 'test2@test.com',
+      transactional: true,
+      non_transactional: true,
+      description: 'Test description 2'
+    },
+    {
+      recipient: 'test3@test.com',
+      transactional: true,
+      non_transactional: false,
+      description: 'Test description 3'
+    }
+])
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.suppressionList.upsert([
+    {
+      recipient: 'test1@test.com',
+      transactional: false,
+      non_transactional: true,
+      description: 'Test description 1'
+    },
+    {
+      recipient: 'test2@test.com',
+      transactional: true,
+      non_transactional: true,
+      description: 'Test description 2'
+    },
+    {
+      recipient: 'test3@test.com',
+      transactional: true,
+      non_transactional: false,
+      description: 'Test description 3'
+    }
+], function(err, data) {
+  if (err) {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  } else {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 

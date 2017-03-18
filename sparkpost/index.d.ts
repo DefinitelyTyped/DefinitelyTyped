@@ -372,29 +372,61 @@ declare class SparkPost {
     };
     suppressionList: {
         /**
-         * Perform a filtered search for entries in your suppression list.
-         * @param parameters Object of search parameters
-         * @param callback The request callback with RelayWebhook results
+         * List all entries in your suppression list, filtered by an optional set of search parameters.
+         *
+         * @param {SparkPost.SupressionSearchParameters} [parameters] an object of [search parameters]{@link https://developers.sparkpost.com/api/suppression-list#suppression-list-search-get}
+         * @param {Promise<SparkPost.SupressionListEntry[]>} [callback]
          */
-        search(parameters: SparkPost.SupressionSearch, callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
+        list(parameters: SparkPost.SupressionSearchParameters, callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
         /**
-         * Retrieve the suppression status for a specific recipient by specifying the recipient’s email address in the URI path.
-         * @param email Email address to check
-         * @param callback The request callback with webhook id results
+         * List all entries in your suppression list, filtered by an optional set of search parameters.
+         *
+         * @param {SparkPost.SupressionSearchParameters} [parameters] an object of [search parameters]{@link https://developers.sparkpost.com/api/suppression-list#suppression-list-search-get}
+         * @returns {Promise<SparkPost.SupressionListEntry[]>}
          */
-        checkStatus(email: string, callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
+        list(parameters?: SparkPost.SupressionSearchParameters): SparkPost.ResultsPromise<SparkPost.SupressionListEntry[]>;
+        /**
+         * Retrieve an entry by recipient email.
+         *
+         * @param {string} email address to check
+         * @returns void
+         */
+        get(email: string, callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
+        /**
+         * Retrieve an entry by recipient email.
+         *
+         * @param {string} email address to check
+         * @returns void
+         */
+        get(email: string): SparkPost.ResultsPromise<SparkPost.SupressionListEntry[]>;
         /**
          * Delete a recipient from the list by specifying the recipient’s email address in the URI path.
-         * @param email Email address to check
-         * @param callback The request callback
+         *
+         * @param {string} email Recipient email address
+         * @param callback
          */
-        removeStatus(email: string, callback: SparkPost.Callback<void>): void;
+        delete(email: string, callback: SparkPost.Callback<void>): void;
         /**
-         * Bulk insert or update entries in the customer-specific exclusion list.
+         * Delete a recipient from the list by specifying the recipient’s email address in the URI path.
+         *
+         * @param {string} email Recipient email address
+         * @returns {Promise<void>} void
+         */
+        delete(email: string): Promise<void>;
+        /**
+         * Insert or update one or many entries.
+         *
          * @param parameters The suppression entry list
          * @param callback The request callback
          */
-        upsert(parameters: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[], callback: SparkPost.ResultsCallback<{ message: string }>): void;
+        upsert(listEntries: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[], callback: SparkPost.ResultsCallback<{ message: string }>): void;
+        /**
+         * Insert or update one or many entries.
+         *
+         * @param {(SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[])} listEntries The suppression entry list
+         * @returns {Promise<{ message: string }>}
+         */
+        upsert(listEntries: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[]): SparkPost.ResultsPromise<{ message: string }>;
     };
     templates: {
         /**
@@ -980,41 +1012,149 @@ declare namespace SparkPost {
     }
 
     export interface CreateSupressionListEntry {
+        /**
+         * Email address to be suppressed
+         *
+         * @type {string}
+         * @memberOf CreateSupressionListEntry
+         */
         recipient: string;
-        /** Whether the recipient requested to not receive any transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
+        /**
+         * Type of suppression record
+         *
+         * @type {("transactional" | "non_transactional")}
+         * @memberOf CreateSupressionListEntry
+         */
+        type?: "transactional" | "non_transactional";
+        /**
+         * Whether the recipient requested to not receive any non-transactional messages
+         * Not required if a valid type is passed
+         *
+         * @deprecated Available, but deprecated in favor of type
+         * @type {boolean}
+         * @memberOf CreateSupressionListEntry
+         */
         transactional?: boolean;
-        /** Whether the recipient requested to not receive any non-transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
+        /**
+         * Whether the recipient requested to not receive any non-transactional messages
+         * Not required if a valid type is passed
+         *
+         * @deprecated Available, but deprecated in favor of type
+         * @type {boolean}
+         * @memberOf CreateSupressionListEntry
+         */
         non_transactional?: boolean;
+        /**
+         * Source responsible for inserting the list entry
+         * no - entries created by the user are marked as Manually Added
+         *
+         * @type {("Spam Complaint" | "List Unsubscribe" | "Bounce Rule" | "Unsubscribe Link" | "Manually Added" | "Compliance")}
+         * @memberOf CreateSupressionListEntry
+         */
+        readonly source?: "Spam Complaint" | "List Unsubscribe" | "Bounce Rule" | "Unsubscribe Link" | "Manually Added" | "Compliance";
         /** Short explanation of the suppression */
         description?: string;
     }
 
     export interface SupressionListEntry {
+        /**
+         * Email address to be suppressed
+         *
+         * @type {string}
+         * @memberOf SupressionListEntry
+         */
         recipient: string;
-        /** Whether the recipient requested to not receive any transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
+        /**
+         * Whether the recipient requested to not receive any transactional messages
+         * Not required if a valid type is passed
+         *
+         * @deprecated Available, but deprecated in favor of type
+         * @type {boolean}
+         * @memberOf SupressionListEntry
+         */
         transactional?: boolean;
-        /** Whether the recipient requested to not receive any non-transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
+        /**
+         * Whether the recipient requested to not receive any non-transactional messages
+         * Not required if a valid type is passed
+         *
+         * @deprecated Available, but deprecated in favor of type
+         * @type {boolean}
+         * @memberOf SupressionListEntry
+         */
         non_transactional?: boolean;
-        /** Coming soon */
+        /** Type of suppression record: transactional or non_transactional */
         type?: "transactional" | "non_transactional";
-        /** Source responsible for inserting the list entry. Valid values include: Spam Complaint, List Unsubscribe, Bounce Rule, Unsubscribe Link, Manually Added, Compliance. */
-        source?: string;
+        /**
+         * Source responsible for inserting the list entry
+         *
+         * no - entries created by the user are marked as Manually Added
+         *
+         * @type {("Spam Complaint" | "List Unsubscribe" | "Bounce Rule" | "Unsubscribe Link" | "Manually Added" | "Compliance")}
+         * @memberOf SupressionListEntry
+         */
+        source?: "Spam Complaint" | "List Unsubscribe" | "Bounce Rule" | "Unsubscribe Link" | "Manually Added" | "Compliance";
         /** Short explanation of the suppression */
         description?: string;
         created: string;
         updated: string;
     }
 
-    export interface SupressionSearch {
+    export interface SupressionSearchParameters {
         /** Datetime the entries were last updated, in the format of YYYY-MM-DDTHH:mm:ssZ */
         to?: string;
         /** Datetime the entries were last updated, in the format YYYY-MM-DDTHH:mm:ssZ */
         from?: string;
+        /**
+         * Domain of entries to include in the search. ( Note: SparkPost only)
+         *
+         * @type {string}
+         * @memberOf SupressionSearch
+         */
+        domain?: string;
+        /**
+         * The results cursor location to return, to start paging with cursor, use the value of ‘initial’.
+         * When cursor is provided the page parameter is ignored. (Note: SparkPost only)
+         *
+         * @type {string}
+         * @memberOf SupressionSearch
+         */
+        cursor?: string;
+        /**
+         * Maximum number of results to return per page. Must be between 1 and 10,000.
+         * ( Note: SparkPost only)
+         * @default 1000
+         * @type {string}
+         * @memberOf SupressionSearch
+         */
+        per_page?: string | number;
+        /**
+         * The results page number to return. Used with per_page for paging through results.
+         * The page parameter works up to 10,000 results.
+         * You must use the cursor parameter and start with cursor=initial to page result sets larger than 10,000
+         * ( Note: SparkPost only)
+         *
+         * @type {string}
+         * @memberOf SupressionSearch
+         */
+        page?: string | number;
         /** Types of entries to include in the search, i.e. entries with “transactional” and/or “non_transactional” keys set to true */
         types?: string;
         /** Sources of the entries to include in the search, i.e. entries that were added by this source */
         sources?: string;
-        /** Maximum number of results to return. Must be between 1 and 100000. Default value is 100000. */
+        /**
+         * Description of the entries to include in the search, i.e descriptions that include the text submitted.
+         * ( Note: SparkPost only)
+         *
+         * @type {string}
+         * @memberOf SupressionSearch
+         */
+        description?: string;
+        /**
+         * Maximum number of results to return per page. Must be between 1 and 10,000.
+         * @type {number}
+         * @deprecated use per_page instead
+         * @memberOf SupressionSearch
+         */
         limit?: number;
     }
 
