@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
+// Definitions by: Diego Vilar <https://github.com/diegovilar>, Georgii Dolzhykov <https://github.com/thorn0>, Boris Cherny <https://github.com/bcherny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
@@ -44,6 +44,7 @@ declare namespace angular {
     }
 
     interface IAngularBootstrapConfig {
+        debugInfoEnabled?: boolean;
         strictDi?: boolean;
     }
 
@@ -175,6 +176,11 @@ declare namespace angular {
          * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
          */
         resumeBootstrap?(extraModules?: string[]): ng.auto.IInjectorService;
+
+        /**
+         * Allows ngScenario to handle lazy-loaded and manually bootstrapped applications.
+         */
+        resumeDeferredBootstrap?(): any;
     }
 
     ///////////////////////////////////////////////////////////////////////////
