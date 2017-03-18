@@ -178,9 +178,9 @@ declare namespace Expect {
          */
         lte(n: number): Assertion;
 
-        exist(): Assertion;
-        true(): Assertion;
-        false(): Assertion;
+        exist: Assertion;
+        true: Assertion;
+        false: Assertion;
     }
 
     interface Root extends Assertion {

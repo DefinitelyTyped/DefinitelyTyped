@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "types-publisher": "Microsoft/types-publisher#production"
+  },
+  "dependencies": {
+    "wonder-expect.js": "^0.1.3"
   }
 }
