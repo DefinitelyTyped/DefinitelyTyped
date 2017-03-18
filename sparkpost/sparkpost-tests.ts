@@ -14,7 +14,8 @@ client.get({
   console.log(data.body);
 });
 
-client.inboundDomains.create("example1.com", function(err, res) {
+// Callback
+client.inboundDomains.create({ domain: 'example1.com' }, function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -23,6 +24,18 @@ client.inboundDomains.create("example1.com", function(err, res) {
   }
 });
 
+// Promise
+client.inboundDomains.create({ domain: 'example1.com' })
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.inboundDomains.delete("example1.com", function(err, res) {
   if (err) {
     console.log(err);
@@ -32,7 +45,19 @@ client.inboundDomains.delete("example1.com", function(err, res) {
   }
 });
 
-client.inboundDomains.find("example1.com", function(err, res) {
+// Promise
+client.inboundDomains.delete('example1.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.inboundDomains.get("example1.com", function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -41,13 +66,36 @@ client.inboundDomains.find("example1.com", function(err, res) {
   }
 });
 
-client.inboundDomains.all(function(err, res) {
+// Promise
+client.inboundDomains.get('example1.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.inboundDomains.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
     console.log(res.body);
     console.log("Congrats you can use our client library!");
   }
+});
+
+// Promise
+client.inboundDomains.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
 });
 
 client.messageEvents.search({}, function(err, res) {
