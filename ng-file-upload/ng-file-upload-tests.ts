@@ -85,9 +85,11 @@ class UploadController {
 				ratio: 0.9,
 				centerCrop: true,
 				restoreExif: true,
-                                resizeIf: (width: number, height: number) => {
+				resizeIf: (width: number, height: number) => {
 					return true;
-				}
+				},
+				pattern: '.jpg',
+				type: 'image/jpeg'
 			})
 			.then((resizedFile) => {
 				console.log(resizedFile);
