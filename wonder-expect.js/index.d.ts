@@ -1,9 +1,7 @@
-// Type definitions for wonder-expect.js 0.1.0
+// Type definitions for wonder-expect.js 0.1.2
 // Project: https://github.com/yyc-git/Wonder-expect.js
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function expect(target?: any): Expect.Root;
 
 declare namespace Expect {
     interface Assertion {
@@ -94,11 +92,6 @@ declare namespace Expect {
         above(n: number): Assertion;
 
         /**
-         * Assert numeric value >= n.
-         */
-        gte(n: number): Assertion;
-
-        /**
          * Assert numeric value below n.
          */
         lessThan(n: number): Assertion;
@@ -107,11 +100,6 @@ declare namespace Expect {
          * Assert numeric value below n.
          */
         below(n: number): Assertion;
-
-        /**
-         * Assert numeric value <= n.
-         */
-        lte(n: number): Assertion;
 
         /**
          * Assert string value matches regexp.
@@ -168,6 +156,31 @@ declare namespace Expect {
          * Assert a failure.
          */
         fail(message?: string): Assertion;
+
+
+
+
+
+
+
+
+        /**
+         * extend by wonder
+         */
+
+        /**
+         * Assert numeric value >= n.
+         */
+        gte(n: number): Assertion;
+
+        /**
+         * Assert numeric value <= n.
+         */
+        lte(n: number): Assertion;
+
+        exist(): Assertion;
+        true(): Assertion;
+        false(): Assertion;
     }
 
     interface Root extends Assertion {
@@ -231,6 +244,5 @@ declare namespace Expect {
 }
 
 declare module "wonder-expect.js" {
-    export = expect;
+    export function expect(target?: any): Expect.Root;
 }
-
