@@ -235,13 +235,26 @@ declare class SparkPost {
          * List an overview of all sending domains in the system.
          * @param callback The request callback with SendingDomain results array
          */
-        all(callback: SparkPost.ResultsCallback<SparkPost.SendingDomain[]>): void;
+        list(callback: SparkPost.ResultsCallback<SparkPost.SendingDomain[]>): void;
+        /**
+         * List an overview of all sending domains in the system.
+         *
+         * @returns The SendingDomain results array
+         */
+        list(): SparkPost.ResultsPromise<SparkPost.SendingDomain[]>;
         /**
          * Retrieve a sending domain by specifying its domain name in the URI path. The response includes details about its DKIM key configuration.
          * @param domain The domain
          * @param callback The request callback with SendingDomain results
          */
-        find(domain: string, callback: SparkPost.ResultsCallback<SparkPost.SendingDomain>): void;
+        get(domain: string, callback: SparkPost.ResultsCallback<SparkPost.SendingDomain>): void;
+        /**
+         * Retrieve a sending domain by specifying its domain name in the URI path. The response includes details about its DKIM key configuration.
+         *
+         * @param domain The domain
+         * @returns Promise The SendingDomain results
+         */
+        get(domain: string): SparkPost.ResultsPromise<SparkPost.SendingDomain>;
         /**
          * Create a sending domain by providing a sending domain object as the POST request body.
          * @param options The create options
@@ -249,11 +262,27 @@ declare class SparkPost {
          */
         create(options: SparkPost.CreateSendingDomain, callback: SparkPost.ResultsCallback<{ message: string, domain: string }>): void;
         /**
+         * Create a sending domain by providing a sending domain object as the POST request body.
+         *
+         * @param options The create options
+         * @returns Promise The basic info results
+         */
+        create(options: SparkPost.CreateSendingDomain): SparkPost.ResultsPromise<{ message: string, domain: string }>;
+        /**
          * Update the attributes of an existing sending domain by specifying its domain name in the URI path and use a sending domain object as the PUT request body.
-         * @param options The update options
+         * @param domain The domain
+         * @param updateOpts The update options
          * @param callback The request callback with basic info results
          */
-        update(options: SparkPost.UpdateSendingDomain, callback: SparkPost.ResultsCallback<{ message: string, domain: string }>): void;
+        update(domain: string, updateOpts: SparkPost.UpdateSendingDomain, callback: SparkPost.ResultsCallback<{ message: string, domain: string }>): void;
+        /**
+         * Update the attributes of an existing sending domain by specifying its domain name in the URI path and use a sending domain object as the PUT request body.
+         *
+         * @param domain The domain
+         * @param updateOpts The update options
+         * @returns Promise The basic info results
+         */
+        update(domain: string, updateOpts: SparkPost.UpdateSendingDomain): SparkPost.ResultsPromise<{ message: string, domain: string }>;
         /**
          * Delete an existing sending domain.
          * @param domain The domain
@@ -261,11 +290,27 @@ declare class SparkPost {
          */
         delete(domain: string, callback: SparkPost.Callback<void>): void;
         /**
+         * Delete an existing sending domain.
+         *
+         * @param domain The domain
+         * @returns Promise void
+         */
+        delete(domain: string): Promise<void>;
+        /**
          * Verify a Sending Domain
-         * @param options The verify options
+         * @param domain The domain
+         * @param options a hash of [verify attributes]{@link https://developers.sparkpost.com/api/sending-domains#header-verify-attributes}
          * @param callback The request callback with verify results
          */
-        verify(options: SparkPost.VerifyOptions, callback: SparkPost.ResultsCallback<SparkPost.VerifyResults>): void;
+        verify(domain: string, options: SparkPost.VerifyOptions, callback: SparkPost.ResultsCallback<SparkPost.VerifyResults>): void;
+        /**
+         * Verify a Sending Domain
+         *
+         * @param domain The domain
+         * @param options a hash of [verify attributes]{@link https://developers.sparkpost.com/api/sending-domains#header-verify-attributes}
+         * @returns Promise The verify results
+         */
+        verify(domain: string, options: SparkPost.VerifyOptions): SparkPost.ResultsPromise<SparkPost.VerifyResults>;
     };
     subaccounts: {
         /**
@@ -768,8 +813,6 @@ declare namespace SparkPost {
     }
 
     export interface UpdateSendingDomain {
-        /** Name of the sending domain. */
-        domain: string;
         /** Associated tracking domain. */
         tracking_domain?: string;
         /** JSON object in which DKIM key configuration is defined. */
@@ -811,9 +854,49 @@ declare namespace SparkPost {
     }
 
     export interface VerifyOptions {
-        domain: string;
-        verifyDKIM?: boolean;
-        verifySPF?: boolean;
+        /**
+         * Request verification of DKIM record
+         *
+         * @type {boolean}
+         * @memberOf VerifyOptions
+         */
+        dkim_verify?: boolean;
+        /**
+         * Request verification of SPF record
+         *
+         * @type {boolean}
+         * @deprecated
+         * @memberOf VerifyOptions
+         */
+        spf_verify?: boolean;
+        /**
+         * Request an email with a verification link to be sent to the sending domain’s postmaster@ mailbox.
+         *
+         * @type {boolean}
+         * @memberOf VerifyOptions
+         */
+        postmaster_at_verify?: boolean;
+        /**
+         * Request an email with a verification link to be sent to the sending domain’s abuse@ mailbox.
+         *
+         * @type {boolean}
+         * @memberOf VerifyOptions
+         */
+        abuse_at_verify?: boolean;
+        /**
+         * A token retrieved from the verification link contained in the postmaster@ verification email.
+         *
+         * @type {string}
+         * @memberOf VerifyOptions
+         */
+        postmaster_at_token?: string;
+        /**
+         * A token retrieved from the verification link contained in the abuse@ verification email.
+         *
+         * @type {string}
+         * @memberOf VerifyOptions
+         */
+        abuse_at_token?: string;
     }
 
     export interface VerifyResults extends Status {
