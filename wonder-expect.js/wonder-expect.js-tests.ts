@@ -1,4 +1,4 @@
-
+import {expect} from "wonder-expect.js";
 
 function test_expect() {
     expect();
