@@ -181,6 +181,7 @@ client.messageEvents.search({
     console.log(err);
 });
 
+// Callback
 client.recipientLists.create({
   id: "UNIQUE_TEST_ID",
   name: "Test Recipient List",
@@ -208,6 +209,36 @@ client.recipientLists.create({
   }
 });
 
+// Promise
+client.recipientLists.create({
+  id: "UNIQUE_TEST_ID",
+  name: "Test Recipient List",
+  recipients: [
+    {
+      address: {
+        email: "test1@test.com"
+      }
+    }, {
+      address: {
+        email: "test2@test.com"
+      }
+    }, {
+      address: {
+        email: "test3@test.com"
+      }
+    }
+  ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.recipientLists.delete("UNIQUE_TEST_ID", function(err, res) {
   if (err) {
     console.log(err);
@@ -217,7 +248,19 @@ client.recipientLists.delete("UNIQUE_TEST_ID", function(err, res) {
   }
 });
 
-client.recipientLists.all(function(err, res) {
+// Promise
+client.recipientLists.delete('UNIQUE_TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.recipientLists.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -226,9 +269,19 @@ client.recipientLists.all(function(err, res) {
   }
 });
 
-client.recipientLists.find({
-  id: "UNIQUE_TEST_ID"
-}, function(err, res) {
+// Promise
+client.recipientLists.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.recipientLists.get('UNIQUE_TEST_ID', function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -237,8 +290,8 @@ client.recipientLists.find({
   }
 });
 
-client.recipientLists.find({
-  id: "UNIQUE_TEST_ID",
+// Callback
+client.recipientLists.get('UNIQUE_TEST_ID', {
   show_recipients: true
 }, function(err, res) {
   if (err) {
@@ -249,8 +302,32 @@ client.recipientLists.find({
   }
 });
 
-client.recipientLists.update({
-  id: "EXISTING_TEST_ID",
+// Promise
+client.recipientLists.get('UNIQUE_TEST_ID', {
+  show_recipients: true
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.recipientLists.get('UNIQUE_TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.recipientLists.update('EXISTING_TEST_ID', {
   name: "Test Recipient List",
   recipients: [
     {
@@ -275,6 +352,33 @@ client.recipientLists.update({
     console.log("Congrats you can use our SDK!");
   }
 });
+
+// Promise
+client.recipientLists.update('EXISTING_TEST_ID', {
+  name: "Test Recipient List",
+  recipients: [
+    {
+      address: {
+        email: "test1@test.com"
+      }
+    }, {
+      address: {
+        email: "test2@test.com"
+      }
+    }, {
+      address: {
+        email: "test3@test.com"
+      }
+    }
+  ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 client.relayWebhooks.create({
   name: "Test Relay Webhook",

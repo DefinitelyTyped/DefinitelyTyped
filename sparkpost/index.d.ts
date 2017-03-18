@@ -78,24 +78,46 @@ declare class SparkPost {
     recipientLists: {
         /**
          * List a summary of all recipient lists. The recipients for each list are not included in the results.
-         * To retrieve recipient details, use the RETRIEVE API for a specified recipient list.
+         * To retrieve recipient details, use the [Retrieve a Recipient List endpoint]{@link https://developers.sparkpost.com/api/recipient-lists.html#recipient-lists-retrieve-get},
+         * and specify the recipient list.
+         *
          * @param callback The request callback with RecipientList results array
          */
-        all(callback: SparkPost.ResultsCallback<SparkPost.RecipientList[]>): void;
+        list(callback: SparkPost.ResultsCallback<SparkPost.RecipientList[]>): void;
+        /**
+         * List a summary of all recipient lists. The recipients for each list are not included in the results.
+         * To retrieve recipient details, use the [Retrieve a Recipient List endpoint]{@link https://developers.sparkpost.com/api/recipient-lists.html#recipient-lists-retrieve-get},
+         * and specify the recipient list.
+         *
+         * @returns Promise The RecipientList results array
+         */
+        list(): SparkPost.ResultsPromise<SparkPost.RecipientList[]>;
         /**
          * Retrieve details about a specified recipient list by specifying its id in the URI path.
          * To retrieve the recipients contained in a list, the show_recipients parameter must be set to true.
-         * @param options The find options
-         * @param callback The request callback with RecipientList results
+         *
+         * @param {string} id
+         * @param {{ show_recipients?: boolean }} specifies whether to retrieve the recipients. Defaults to false
+         * @param {SparkPost.Callback<SparkPost.RecipientListWithRecipients>} callback
          */
-        find(options: { id: string, show_recipients?: false }, callback: SparkPost.Callback<SparkPost.RecipientList>): void;
+        get(id: string, options: { show_recipients?: boolean }, callback: SparkPost.Callback<SparkPost.RecipientListWithRecipients>): void;
         /**
          * Retrieve details about a specified recipient list by specifying its id in the URI path.
          * To retrieve the recipients contained in a list, the show_recipients parameter must be set to true.
-         * @param options The find options
-         * @param callback The request callback with RecipientList results (with recipients)
+         *
+         * @param {string} id
+         * @param {SparkPost.Callback<SparkPost.RecipientListWithRecipients>} callback
          */
-        find(options: { id: string, show_recipients: true }, callback: SparkPost.Callback<SparkPost.RecipientListWithRecipients>): void;
+        get(id: string, callback: SparkPost.Callback<SparkPost.RecipientListWithRecipients>): void;
+        /**
+         * Retrieve details about a specified recipient list by specifying its id in the URI path.
+         * To retrieve the recipients contained in a list, the show_recipients parameter must be set to true.
+         *
+         * @param {string} id
+         * @param {{ show_recipients?: boolean }} [options] specifies whether to retrieve the recipients. Defaults to false
+         * @returns {Promise<SparkPost.RecipientListWithRecipients>}
+         */
+        get(id: string, options?: { show_recipients?: boolean }): Promise<SparkPost.RecipientListWithRecipients>;
         /**
          * Create a recipient list by providing a recipient list object as the POST request body.
          * At a minimum, the “recipients” array is required, which must contain a valid “address”.
@@ -106,18 +128,46 @@ declare class SparkPost {
          */
         create(options: SparkPost.CreateRecipientList, callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>): void;
         /**
+         * Create a recipient list by providing a recipient list object as the POST request body.
+         * At a minimum, the “recipients” array is required, which must contain a valid “address”.
+         * If the recipient list “id” is not provided in the POST request body, one will be generated and returned in the results body.
+         * Use the num_rcpt_errors parameter to limit the number of recipient errors returned.
+         * @param options The create options
+         * @returns Promise metadata results
+         */
+        create(options: SparkPost.CreateRecipientList): SparkPost.ResultsPromise<SparkPost.RecipientListMetadata>;
+        /**
          * Update an existing recipient list by specifying its ID in the URI path and use a recipient list object as the PUT request body.
          * Use the num_rcpt_errors parameter to limit the number of recipient errors returned.
+         *
+         * @param {string} id Identifier of the recipient list
          * @param options The update options
          * @param callback The request callback with metadata results
          */
-        update(options: SparkPost.UpdateRecipientList, callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>): void;
+        update(id: string, options: SparkPost.UpdateRecipientList, callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>): void;
+        /**
+         * Update an existing recipient list by specifying its ID in the URI path and use a recipient list object as the PUT request body.
+         * Use the num_rcpt_errors parameter to limit the number of recipient errors returned.
+         *
+         * @param {string} id Identifier of the recipient list
+         * @param {SparkPost.UpdateRecipientList} options
+         * @returns {SparkPost.ResultsPromise<SparkPost.RecipientListMetadata>}
+         */
+        update(id: string, options: SparkPost.UpdateRecipientList): SparkPost.ResultsPromise<SparkPost.RecipientListMetadata>;
         /**
          * Permanently delete the specified recipient list.
+         *
          * @param id The list id
          * @param callback The request callback
          */
         delete(id: string, callback: SparkPost.Callback<void>): void;
+        /**
+         * Permanently delete the specified recipient list.
+         *
+         * @param id The list id
+         * @returns Promise void
+         */
+        delete(id: string): Promise<void>;
     };
     /** Relay Webhooks are a way to instruct SparkPost to accept inbound email on your behalf and forward it to you over HTTP for your own consumption. */
     relayWebhooks: {
@@ -573,10 +623,8 @@ declare namespace SparkPost {
         description?: string;
         /** Recipient list attribute object */
         attributes?: any;
-        /** limit the number of recipient errors returned. */
-        num_rcpt_errors?: number;
         /** Array of recipient objects */
-        recipients?: Recipient[];
+        recipients: Recipient[];
     }
 
     export interface BaseRecipient {
