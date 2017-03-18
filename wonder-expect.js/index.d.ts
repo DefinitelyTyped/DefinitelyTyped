@@ -1,4 +1,4 @@
-// Type definitions for wonder-expect.js 0.1.2
+// Type definitions for wonder-expect.js 0.1.4
 // Project: https://github.com/yyc-git/Wonder-expect.js
 // Definitions by: YYC <https://github.com/yyc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
