@@ -98,6 +98,7 @@ client.inboundDomains.list()
     console.log(err);
 });
 
+// Callback
 client.messageEvents.search({}, function(err, res) {
   if (err) {
     console.log(err);
@@ -107,6 +108,7 @@ client.messageEvents.search({}, function(err, res) {
   }
 });
 
+// Callback
 client.messageEvents.search({
   events: "click",
   campaign_ids: "monday_mailshot"
@@ -119,6 +121,7 @@ client.messageEvents.search({
   }
 });
 
+// Callback
 client.messageEvents.search({
   from: "2016-01-01T00:00",
   to: "2016-01-02T23:59",
@@ -133,6 +136,49 @@ client.messageEvents.search({
     console.log(res.body);
     console.log("Congrats you can use our SDK!");
   }
+});
+
+// Promise
+client.messageEvents.search({
+    events: 'click',
+    campaign_ids: 'monday_mailshot'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.messageEvents.search({})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.messageEvents.search({
+    from: '2016-01-01T00:00',
+    to: '2016-01-02T23:59',
+    page: 1,
+    per_page: 5,
+    events: ['bounce', 'out_of_band'],
+    bounce_classes: [10]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
 });
 
 client.recipientLists.create({

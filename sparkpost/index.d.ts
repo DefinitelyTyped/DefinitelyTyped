@@ -67,6 +67,12 @@ declare class SparkPost {
          * @param callback The request callback with MessageEvent results array
          */
         search(parameters: SparkPost.MessageEventParameters, callback: SparkPost.ResultsCallback<SparkPost.MessageEvent[]>): void;
+        /**
+         * Retrieves list of message events according to given params
+         * @param parameters Query parameters
+         * @returns Promise The MessageEvent results array
+         */
+        search(parameters: SparkPost.MessageEventParameters): SparkPost.ResultsPromise<SparkPost.MessageEvent[]>;
     };
     /** A recipient list is a collection of recipients that can be used in a transmission. */
     recipientLists: {
