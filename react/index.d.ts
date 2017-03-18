@@ -627,17 +627,17 @@ declare namespace React {
         /**
          * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
          */
-        alignContent?: CSSWideKeyword | any;
+        alignContent?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
 
         /**
          * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
          */
-        alignItems?: CSSWideKeyword | any;
+        alignItems?: CSSWideKeyword | "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
 
         /**
          * Allows the default alignment to be overridden for individual flex items.
          */
-        alignSelf?: CSSWideKeyword | any;
+        alignSelf?: CSSWideKeyword | "auto" | "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
 
         /**
          * This property allows precise alignment of elements, such as graphics, that do not have a baseline-table or lack the desired baseline in their baseline-table. With the alignment-adjust property, the position of the baseline identified by the alignment-baseline can be explicitly determined. It also determines precisely the alignment point for each glyph within a textual element.
@@ -1106,12 +1106,12 @@ declare namespace React {
         /**
          * The flex-direction CSS property describes how flex items are placed in the flex container, by setting the direction of the flex container's main axis.
          */
-        flexDirection?: CSSWideKeyword | any;
+        flexDirection?: CSSWideKeyword | "row" | "row-reverse" | "column" | "column-reverse";
 
         /**
          * The flex-flow CSS property defines the flex container's main and cross axis. It is a shorthand property for the flex-direction and flex-wrap properties.
          */
-        flexFlow?: CSSWideKeyword | any;
+        flexFlow?: CSSWideKeyword | string;
 
         /**
          * Specifies the flex grow factor of a flex item.
@@ -1141,6 +1141,12 @@ declare namespace React {
          * See CSS flex-shrink property https://drafts.csswg.org/css-flexbox-1/#flex-shrink-property
          */
         flexShrink?: CSSWideKeyword | number;
+
+        /**
+         * Specifies whether flex items are forced into a single line or can be wrapped onto multiple lines. If wrapping is allowed, this property also enables you to control the direction in which lines are stacked.
+         * See CSS flex-wrap property https://drafts.csswg.org/css-flexbox-1/#flex-wrap-property
+         */
+        flexWrap?: CSSWideKeyword | "nowrap" | "wrap" | "wrap-reverse";
 
         /**
          * Elements which have the style float are floated horizontally. These elements can move as far to the left or right of the containing element. All elements after the floating element will flow around it, but elements before the floating element are not impacted. If several floating elements are placed after each other, they will float next to each other as long as there is room.
