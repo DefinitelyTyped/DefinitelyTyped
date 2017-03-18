@@ -175,13 +175,24 @@ declare class SparkPost {
          * List all your relay webhooks.
          * @param callback The request callback with RelayWebhook results array
          */
-        all(callback: SparkPost.ResultsCallback<SparkPost.RelayWebhook[]>): void;
+        list(callback: SparkPost.ResultsCallback<SparkPost.RelayWebhook[]>): void;
+        /**
+         * List all your relay webhooks.
+         * @returns Promise The RelayWebhook results array
+         */
+        list(): SparkPost.ResultsPromise<SparkPost.RelayWebhook[]>;
         /**
          * Delete a relay webhook by specifying the webhook ID in the URI path.
          * @param relayWebhookId The webhook id
          * @param callback The request callback with RelayWebhook results
          */
-        find(relayWebhookId: string, callback: SparkPost.ResultsCallback<SparkPost.RelayWebhook>): void;
+        get(relayWebhookId: string, callback: SparkPost.ResultsCallback<SparkPost.RelayWebhook>): void;
+        /**
+         * Delete a relay webhook by specifying the webhook ID in the URI path.
+         * @param relayWebhookId The webhook id
+         * @returns Promise The RelayWebhook results
+         */
+        get(relayWebhookId: string): SparkPost.ResultsPromise<SparkPost.RelayWebhook>;
         /**
          * Create a relay webhook by providing a relay webhooks object as the POST request body.
          * @param options The create options
@@ -189,17 +200,35 @@ declare class SparkPost {
          */
         create(options: SparkPost.RelayWebhook, callback: SparkPost.ResultsCallback<{ id: string }>): void;
         /**
+         * Create a relay webhook by providing a relay webhooks object as the POST request body.
+         * @param options The create options
+         * @returns Promise The webhook id results
+         */
+        create(options: SparkPost.RelayWebhook): SparkPost.ResultsPromise<{ id: string }>;
+        /**
          * Update a relay webhook by specifying the webhook ID in the URI path.
          * @param options The update options
          * @param callback The request callback with webhook id results
          */
-        update(options: SparkPost.UpdateRelayWebhook & { relayWebhookId: string }, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        update(id: string, options: SparkPost.UpdateRelayWebhook, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        /**
+         * Update a relay webhook by specifying the webhook ID in the URI path.
+         * @param options The update options
+         * @returns Promise The webhook id results
+         */
+        update(id: string, options: SparkPost.UpdateRelayWebhook): SparkPost.ResultsPromise<{ id: string }>;
         /**
          * Delete a relay webhook by specifying the webhook ID in the URI path.
          * @param relayWebhookId The webhook id
          * @param callback The request callback
          */
         delete(relayWebhookId: string, callback: SparkPost.Callback<void>): void;
+        /**
+         * Delete a relay webhook by specifying the webhook ID in the URI path.
+         * @param relayWebhookId The webhook id
+         * @returns Promise void
+         */
+        delete(relayWebhookId: string): Promise<void>;
     };
     sendingDomains: {
         /**
@@ -688,7 +717,7 @@ declare namespace SparkPost {
         /** User-friendly name  no  example: Inbound Customer Replies */
         name?: string;
         /** URL of the target to which to POST relay batches */
-        target?: string;
+        target: string;
         /** Authentication token to present in the X-MessageSystems-Webhook-Token header of POST requests to target */
         auth_token?: string;
         /** Restrict which inbound messages will be relayed to the target */

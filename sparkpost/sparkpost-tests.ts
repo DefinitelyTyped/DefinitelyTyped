@@ -380,6 +380,7 @@ client.recipientLists.update('EXISTING_TEST_ID', {
     console.log(err);
   });
 
+// Callback
 client.relayWebhooks.create({
   name: "Test Relay Webhook",
   target: "http://client.test.com/test-webhook",
@@ -395,6 +396,24 @@ client.relayWebhooks.create({
   }
 });
 
+// Promise
+client.relayWebhooks.create({
+    name: 'Test Relay Webhook',
+    target: 'http://client.test.com/test-webhook',
+    match: {
+      domain: 'inbound.example.com'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.relayWebhooks.delete("123456789", function(err, res) {
   if (err) {
     console.log(err);
@@ -404,7 +423,19 @@ client.relayWebhooks.delete("123456789", function(err, res) {
   }
 });
 
-client.relayWebhooks.find("123456789", function(err, res) {
+// Promise
+client.relayWebhooks.delete('123456789')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.relayWebhooks.get('123456789', function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -413,7 +444,18 @@ client.relayWebhooks.find("123456789", function(err, res) {
   }
 });
 
-client.relayWebhooks.all(function(err, res) {
+// Promise
+client.relayWebhooks.get('123456789')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+client.relayWebhooks.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -422,8 +464,19 @@ client.relayWebhooks.all(function(err, res) {
   }
 });
 
-client.relayWebhooks.update({
-  relayWebhookId: "123456789",
+// Promise
+client.relayWebhooks.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.relayWebhooks.update('123456789', {
   target: "http://client.test.com/test-webhook"
 }, function(err, res) {
   if (err) {
@@ -432,6 +485,19 @@ client.relayWebhooks.update({
     console.log(res.body);
     console.log("Congrats you can use our client library!");
   }
+});
+
+// Promise
+client.relayWebhooks.update('123456789', {
+    target: 'http://client.test.com/test-webhook'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
 });
 
 client.sendingDomains.create({
