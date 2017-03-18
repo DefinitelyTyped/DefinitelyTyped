@@ -677,10 +677,11 @@ client.sendingDomains.verify('example1.com', {
     console.log(err);
 });
 
+// Callback
 client.subaccounts.create({
   name: "Test Subaccount",
-  keyLabel: "Test Subaccount key",
-  keyGrants: [
+  key_label: 'Test Subaccount key',
+  key_grants: [
     "smtp/inject",
     "transmissions/modify"
   ]
@@ -693,7 +694,26 @@ client.subaccounts.create({
   }
 });
 
-client.subaccounts.all(function(err, res) {
+// Promise
+client.subaccounts.create({
+    name: 'Test Subaccount',
+    key_label: 'Test Subaccount key',
+    key_grants: [
+      'smtp/inject',
+      'transmissions/modify'
+    ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.subaccounts.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -702,7 +722,19 @@ client.subaccounts.all(function(err, res) {
   }
 });
 
-client.subaccounts.find(123, function(err, res) {
+// Promise
+client.subaccounts.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.subaccounts.get(123, function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -711,8 +743,19 @@ client.subaccounts.find(123, function(err, res) {
   }
 });
 
-client.subaccounts.update({
-  subaccountId: 123,
+// Promise
+client.subaccounts.get('123')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.subaccounts.update('123', {
   name: "Test Subaccount",
   status: "suspended"
 }, function(err, res) {
@@ -722,6 +765,20 @@ client.subaccounts.update({
     console.log(res.body);
     console.log("Congrats you can use our client library!");
   }
+});
+
+// Promise
+client.subaccounts.update('123', {
+    name: 'Test Subaccount',
+    status: 'suspended'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
 });
 
 client.suppressionList.checkStatus("test@test.com", function(err, res) {

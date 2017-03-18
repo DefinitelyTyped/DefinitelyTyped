@@ -318,25 +318,57 @@ declare class SparkPost {
          * This endpoint only returns information about the subaccounts themselves, not the data associated with the subaccount.
          * @param callback The request callback with subaccount information results array
          */
-        all(callback: SparkPost.ResultsCallback<SparkPost.SubaccountInformation[]>): void;
+        list(callback: SparkPost.ResultsCallback<SparkPost.SubaccountInformation[]>): void;
         /**
+         * Endpoint for retrieving a list of your subaccounts.
+         * This endpoint only returns information about the subaccounts themselves, not the data associated with the subaccount.
          *
-         * @param subaccountId The webhook id
+         * @returns Promise The subaccount information results array
+         */
+        list(): SparkPost.ResultsPromise<SparkPost.SubaccountInformation[]>;
+        /**
+         * Get details about a specified subaccount by its id
+         *
+         * @param id the id of the subaccount you want to look up
          * @param callback The request callback with subaccount information results
          */
-        find(subaccountId: string | number, callback: SparkPost.ResultsCallback<SparkPost.SubaccountInformation>): void;
+        get(id: string | number, callback: SparkPost.ResultsCallback<SparkPost.SubaccountInformation>): void;
+        /**
+         * Get details about a specified subaccount by its id
+         *
+         * @param id the id of the subaccount you want to look up
+         * @returns Promise The subaccount information results
+         */
+        get(id: string | number): SparkPost.ResultsPromise<SparkPost.SubaccountInformation>;
         /**
          * Provisions a new subaccount and an initial subaccount API key.
-         * @param options The create options
+         * @param subaccount The create options
          * @param callback The request callback with basic subaccount information results
          */
-        create(options: SparkPost.CreateSubaccount, callback: SparkPost.ResultsCallback<SparkPost.CreateSubaccountResponse>): void;
+        create(subaccount: SparkPost.CreateSubaccount, callback: SparkPost.ResultsCallback<SparkPost.CreateSubaccountResponse>): void;
+        /**
+         * Provisions a new subaccount and an initial subaccount API key.
+         *
+         * @param subaccount The create options
+         * @returns Promise The basic subaccount information results
+         */
+        create(subaccount: SparkPost.CreateSubaccount): SparkPost.ResultsPromise<SparkPost.CreateSubaccountResponse>;
         /**
          * Update an existing subaccount’s information.
-         * @param options The create options
+         *
+         * @param id the id of the subaccount you want to update
+         * @param subaccount an object of [updatable subaccount attributes]{@link https://developers.sparkpost.com/api/subaccounts#header-request-body-attributes-1}
          * @param callback The request callback with webhook id results
          */
-        update(options: SparkPost.UpdateSubaccount, callback: SparkPost.ResultsCallback<{ message: string }>): void;
+        update(id: string, subaccount: SparkPost.UpdateSubaccount, callback: SparkPost.ResultsCallback<{ message: string }>): void;
+        /**
+         * Update an existing subaccount’s information.
+         *
+         * @param id the id of the subaccount you want to update
+         * @param subaccount an object of [updatable subaccount attributes]{@link https://developers.sparkpost.com/api/subaccounts#header-request-body-attributes-1}
+         * @returns Promise The webhook id results
+         */
+        update(id: string, subaccount: SparkPost.UpdateSubaccount): SparkPost.ResultsPromise<{ message: string }>;
     };
     suppressionList: {
         /**
@@ -910,13 +942,13 @@ declare namespace SparkPost {
         /** user-friendly name */
         name: string;
         /** user-friendly identifier for subaccount API key */
-        keyLabel: string;
+        key_label: string;
         /** list of grants to give the subaccount API key */
-        keyGrants: string[];
+        key_grants: string[];
         /** list of IPs the subaccount may be used from */
-        keyValidIps?: string[];
+        key_valid_ips?: string[];
         /** id of the default IP pool assigned to subaccount"s transmissions */
-        ipPool?: string;
+        ip_pool?: string;
     }
 
     export interface CreateSubaccountResponse {
@@ -927,14 +959,12 @@ declare namespace SparkPost {
     }
 
     export interface UpdateSubaccount {
-        /** the id of the subaccount you want to update */
-        subaccountId: string | number;
         /** user-friendly name */
         name: string;
         /** status of the subaccount */
         status: string;
         /** id of the default IP pool assigned to subaccount"s transmissions */
-        ipPool?: string;
+        ip_pool?: string;
     }
 
     export interface SubaccountInformation {
