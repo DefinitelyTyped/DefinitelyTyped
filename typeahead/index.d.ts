@@ -1015,7 +1015,7 @@ declare namespace Bloodhound {
          * @param response Prefetch response.
          * @returns Transform response.
          */
-        transform?: (response: T[]) => T[];
+        transform?: (response: T) => T;
     }
 
     /**
@@ -1069,7 +1069,13 @@ declare namespace Bloodhound {
          * @param response Prefetch response.
          * @returns Transform response.
          */
-        transform?: (response: T[]) => T[];
+        transform?: (response: T) => T;
+
+        /**
+         * DEPRECATED: transform the remote response before the Bloodhound instance operates on it.
+         * */
+        filter?: (response: T) => T;
+
     }
 
     /**
@@ -1200,6 +1206,11 @@ declare class Bloodhound<T> {
      * clearRemoteCache offers a way to programmatically clear said cache.
      */
     public clearRemoteCache(): Bloodhound<T>;
+
+    /*
+     * DEPRECATED: wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
+     */
+    public ttAdapter(): any;
 }
 
 declare module "bloodhound" {

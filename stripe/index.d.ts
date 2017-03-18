@@ -1,6 +1,10 @@
 // Type definitions for stripe 2.x
 // Project: https://stripe.com/
-// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>, Adam Cmiel <https://github.com/adamcmiel>, Justin Leider <https://github.com/jleider>
+// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
+//                 Eric J. Smith <https://github.com/ejsmith/>
+//                 Amrit Kahlon <https://github.com/amritk/>
+//                 Adam Cmiel <https://github.com/adamcmiel>
+//                 Justin Leider <https://github.com/jleider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const Stripe: StripeStatic;
@@ -35,6 +39,7 @@ interface StripeCardTokenData {
 
 interface StripeTokenResponse {
     id: string;
+    client_ip: string;
     created: number;
     livemode: boolean;
     object: string;

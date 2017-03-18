@@ -16,9 +16,9 @@ declare function xit(expectation: string, assertion: () => void): void;
 declare function beforeEach(action: () => void): void;
 declare function afterEach(action: () => void): void;
 
-declare function expect(spy: Function): jasmine.Matchers;
-//declare function expect(spy: jasmine.Spy): jasmine.Matchers;
-declare function expect(actual: any): jasmine.Matchers;
+declare function expect<T>(spy: Function): jasmine.Matchers<T>;
+//declare function expect(spy: jasmine.Spy): jasmine.Matchers<T>;
+declare function expect<T>(actual: any): jasmine.Matchers<T>;
 
 declare function spyOn(object: any, method: string): jasmine.Spy;
 
@@ -91,7 +91,7 @@ declare namespace jasmine {
 
         currentSpec: Spec;
 
-        matchersClass: Matchers;
+        matchersClass: Matchers<any>;
 
         version(): any;
         versionString(): string;
@@ -204,7 +204,7 @@ declare namespace jasmine {
         results(): NestedResults;
     }
 
-    interface Matchers {
+    interface Matchers<T> {
 
         new (env: Env, actual: any, spec: Env, isNot?: boolean): any;
 
@@ -232,7 +232,7 @@ declare namespace jasmine {
         toContainHtml(expected: string): boolean;
         toContainText(expected: string): boolean;
         toThrow(expected?: any): boolean;
-        not: Matchers;
+        not: Matchers<T>;
 
         Any: Any;
     }
@@ -287,7 +287,7 @@ declare namespace jasmine {
         spies_: Spy[];
 
         results_: NestedResults;
-        matchersClass: Matchers;
+        matchersClass: Matchers<any>;
 
         getFullName(): string;
         results(): NestedResults;
@@ -299,7 +299,7 @@ declare namespace jasmine {
         waits(timeout: number): Spec;
         waitsFor(latchFunction: SpecFunction, timeoutMessage?: string, timeout?: number): Spec;
         fail(e?: any): void;
-        getMatchersClass_(): Matchers;
+        getMatchersClass_(): Matchers<any>;
         addMatchers(matchersPrototype: any): void;
         finishCallback(): void;
         finish(onComplete?: () => void): void;

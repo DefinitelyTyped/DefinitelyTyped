@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import readdir = require('readdir-stream');
 
 var rs: NodeJS.ReadableStream;

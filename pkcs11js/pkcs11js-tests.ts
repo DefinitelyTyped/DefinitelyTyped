@@ -1,5 +1,3 @@
-/// <reference types="pkcs11js" />
-
 import * as pkcs11js from "pkcs11js";
 
 const libPath = "C:\\tmp\\rtpkcs11ecp.dll";

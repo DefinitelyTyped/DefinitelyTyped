@@ -1,16 +1,84 @@
-/// <reference types="aws-lambda" />
-
 var str: string = "any string";
 var date: Date = new Date();
 var anyObj: any = { abc: 123 };
 var num: number = 5;
 var error: Error = new Error();
 var b: boolean = true;
+var apiGwEvt: AWSLambda.APIGatewayEvent;
 var clientCtx: AWSLambda.ClientContext;
 var clientContextEnv: AWSLambda.ClientContextEnv;
 var clientContextClient: AWSLambda.ClientContextClient;
 var context: AWSLambda.Context;
 var identity: AWSLambda.CognitoIdentity;
+var proxyResult: AWSLambda.ProxyResult;
+var snsEvt: AWSLambda.SNSEvent;
+var snsEvtRecs: Array<AWSLambda.SNSEventRecord>;
+var snsEvtRec: AWSLambda.SNSEventRecord;
+var snsMsg: AWSLambda.SNSMessage;
+var snsMsgAttr: AWSLambda.SNSMessageAttribute;
+var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
+
+/* API Gateway Event */
+str = apiGwEvt.body;
+str = apiGwEvt.headers["example"];
+str = apiGwEvt.httpMethod;
+b = apiGwEvt.isBase64Encoded;
+str = apiGwEvt.path;
+str = apiGwEvt.pathParameters["example"];
+str = apiGwEvt.queryStringParameters["example"];
+str = apiGwEvt.stageVariables["example"];
+str = apiGwEvt.requestContext.accountId;
+str = apiGwEvt.requestContext.apiId;
+str = apiGwEvt.requestContext.httpMethod;
+str = apiGwEvt.requestContext.identity.accessKey;
+str = apiGwEvt.requestContext.identity.accountId;
+str = apiGwEvt.requestContext.identity.apiKey;
+str = apiGwEvt.requestContext.identity.caller;
+str = apiGwEvt.requestContext.identity.cognitoAuthenticationProvider;
+str = apiGwEvt.requestContext.identity.cognitoAuthenticationType;
+str = apiGwEvt.requestContext.identity.cognitoIdentityId;
+str = apiGwEvt.requestContext.identity.cognitoIdentityPoolId;
+str = apiGwEvt.requestContext.identity.sourceIp;
+str = apiGwEvt.requestContext.identity.user;
+str = apiGwEvt.requestContext.identity.userAgent;
+str = apiGwEvt.requestContext.identity.userArn;
+str = apiGwEvt.requestContext.stage;
+str = apiGwEvt.requestContext.requestId;
+str = apiGwEvt.requestContext.resourceId;
+str = apiGwEvt.requestContext.resourcePath;
+str = apiGwEvt.resource;
+
+/* SNS Event */
+snsEvtRecs = snsEvt.Records;
+
+str = snsEvtRec.EventSource;
+str = snsEvtRec.EventSubscriptionArn;
+str = snsEvtRec.EventVersion;
+snsMsg = snsEvtRec.Sns;
+
+str = snsMsg.SignatureVersion;
+str = snsMsg.Timestamp;
+str = snsMsg.Signature;
+str = snsMsg.SigningCertUrl;
+str = snsMsg.MessageId;
+str = snsMsg.Message;
+snsMsgAttrs = snsMsg.MessageAttributes;
+str = snsMsg.Type;
+str = snsMsg.UnsubscribeUrl;
+str = snsMsg.TopicArn;
+str = snsMsg.Subject;
+
+snsMsgAttrs["example"] = snsMsgAttr;
+
+str = snsMsgAttr.Type;
+str = snsMsgAttr.Value;
+
+/* Lambda Proxy Result */
+num = proxyResult.statusCode;
+proxyResult.headers["example"] = str;
+proxyResult.headers["example"] = b;
+proxyResult.headers["example"] = num;
+str = proxyResult.body
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
@@ -54,6 +122,15 @@ function callback(cb: AWSLambda.Callback) {
     cb(error);
     cb(null, anyObj);
 }
+
+/* Proxy Callback */
+function proxyCallback(cb: AWSLambda.ProxyCallback) {
+    cb();
+    cb(null);
+    cb(error);
+    cb(null, proxyResult);
+}
+
 /* Compatibility functions */
 context.done();
 context.done(error);
@@ -66,3 +143,4 @@ context.fail(str);
 
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => {};
+let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => {};

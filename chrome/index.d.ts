@@ -1,6 +1,6 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>
+// Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="filesystem" />
@@ -1831,7 +1831,7 @@ declare namespace chrome.devtools.panels {
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
          */
-        setObject(jsonObject: string, rootTitle?: string, callback?: () => void): void;
+        setObject(jsonObject: Object, rootTitle?: string, callback?: () => void): void;
         /**
          * Sets a JSON-compliant object to be displayed in the sidebar pane.
          * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
@@ -1839,7 +1839,7 @@ declare namespace chrome.devtools.panels {
          * If you specify the callback parameter, it should be a function that looks like this:
          * function() {...};
          */
-        setObject(jsonObject: string, callback?: () => void): void;
+        setObject(jsonObject: Object, callback?: () => void): void;
         /**
          * Sets an HTML page to be displayed in the sidebar pane.
          * @param path Relative path of an extension page to display within the sidebar.
@@ -4854,7 +4854,7 @@ declare namespace chrome.proxy {
  */
 declare namespace chrome.runtime {
     /** This will be defined during an API method callback if there was an error */
-    var lastError: LastError;
+    var lastError: LastError | undefined;
     /** The ID of the extension/app. */
     var id: string;
 
@@ -7062,13 +7062,12 @@ declare namespace chrome.webNavigation {
         transitionQualifiers: string[];
     }
 
-    interface WebNavigationEventFilter {
-        /** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
-        url: chrome.events.UrlFilter[];
+    interface WebNavigationRequestFilter extends chrome.webRequest.RequestFilter {
+        /** fulfills the webRequest.RequestFilter interface even though it is under web navigation **/
     }
 
     interface WebNavigationEvent<T extends WebNavigationCallbackDetails> extends chrome.events.Event<(details: T) => void> {
-        addListener(callback: (details: T) => void, filters?: WebNavigationEventFilter): void;
+        addListener(callback: (details: T) => void, filters?: WebNavigationRequestFilter): void;
     }
 
     interface WebNavigationFramedEvent extends WebNavigationEvent<WebNavigationFramedCallbackDetails> {}
@@ -7178,7 +7177,8 @@ declare namespace chrome.webRequest {
          */
         types?: string[];
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
-        urls: string[];
+        urls: string[] | RegExp[] | "<all_urls>";
+ 
         /** Optional. */
         windowId?: number;
     }
@@ -7267,6 +7267,7 @@ declare namespace chrome.webRequest {
     interface WebResponseHeadersDetails extends WebResponseDetails {
         /** Optional. The HTTP response headers that have been received with this response. */
         responseHeaders?: HttpHeader[];
+        method: string; /** standard HTTP method i.e. GET, POST, PUT, etc. */
     }
 
     interface WebResponseCacheDetails extends WebResponseHeadersDetails {

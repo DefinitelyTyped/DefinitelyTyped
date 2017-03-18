@@ -184,6 +184,7 @@ declare namespace Dockerode {
     Created: number;
     Ports: Port[];
     Labels: { [label: string]: string };
+    State: string;
     Status: string;
     HostConfig: {
       NetworkMode: string;
@@ -578,7 +579,7 @@ declare class Dockerode {
 
   getTask(id: string): Dockerode.Task;
 
-  getNode(id: string): Node;
+  getNode(id: string): Dockerode.Node;
 
   getNetwork(id: string): Dockerode.Network;
 

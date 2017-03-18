@@ -31,7 +31,7 @@ interface Graph {
 }
 
 
-let graph: Graph = {
+const graph: Graph = {
     nodes: [
         { id: 'Myriel', group: 1, r: 5 },
         { id: 'Napoleon', group: 1, r: 10 },
@@ -55,10 +55,10 @@ let simLinks: SimLink[];
 
 let num: number;
 
-let canvas = document.querySelector('canvas')!;
-let context = canvas.getContext('2d');
-let width = canvas.width;
-let height = canvas.height;
+const canvas = document.querySelector('canvas')!;
+const context = canvas.getContext('2d');
+const width = canvas.width;
+const height = canvas.height;
 
 // -------------------------------------------------------------------------------------
 // Test Pre-Defined Forces
@@ -105,10 +105,10 @@ forceCollide = d3Force.forceCollide<SimNode>();
 forceCollide = d3Force.forceCollide<SimNode>(15);
 
 // with radius accessor function
-forceCollide = d3Force.forceCollide<SimNode>(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forceCollide = d3Force.forceCollide<SimNode>((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     return n.r;
 });
 
@@ -120,10 +120,10 @@ let radiusAccessor: (node: SimNode, i: number, nodes: SimNode[]) => number;
 // radius
 
 forceCollide = forceCollide.radius(20);
-forceCollide = forceCollide.radius(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forceCollide = forceCollide.radius((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     return 2 * n.r;
 });
 
@@ -161,7 +161,7 @@ forceLink = d3Force.forceLink<SimNode, SimLink>(graph.links);
 // Configure Link force -----------------------------------------------------------
 
 let linkNumberAccessor: (link: SimLink, i: number, links: SimLink[]) => number;
-let nodeIdAccessor: (node: SimNode, i: number, nodes: SimNode[]) => number | string;
+// let nodeIdAccessor: (node: SimNode, i: number, nodes: SimNode[]) => number | string;
 
 // links
 
@@ -174,7 +174,7 @@ simLink = simLinks[0];
 simNode = (typeof simLink.source !== 'number' && typeof simLink.source !== 'string') ? simLink.source : undefined;
 simNode = (typeof simLink.target !== 'number' && typeof simLink.target !== 'string') ? simLink.target : undefined;
 
-let maybeNum: number | undefined = simLink.index; // Ex-ante type before initialization of links
+const maybeNum: number | undefined = simLink.index; // Ex-ante type before initialization of links
 num = simLink.index!; // Ex-post after link initialization, use ! non-null assertion operator to narrow to number
 
 num = simLink.value;
@@ -184,20 +184,20 @@ num = simLink.s;
 
 // id (node id accessor)
 
-forceLink = forceLink.id(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forceLink = forceLink.id((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     return n.id;
 });
 
 // distance
 
 forceLink = forceLink.distance(50);
-forceLink = forceLink.distance(function (link, index, links) {
-    let l: SimLink = link;
-    let i: number = index;
-    let ls: SimLink[] = links;
+forceLink = forceLink.distance((link, index, links) => {
+    const l: SimLink = link;
+    const i: number = index;
+    const ls: SimLink[] = links;
     return l.d;
 });
 
@@ -206,10 +206,10 @@ linkNumberAccessor = forceLink.distance();
 // strength
 
 forceLink = forceLink.strength(0.95);
-forceLink = forceLink.strength(function (link, index, links) {
-    let l: SimLink = link;
-    let i: number = index;
-    let ls: SimLink[] = links;
+forceLink = forceLink.strength((link, index, links) => {
+    const l: SimLink = link;
+    const i: number = index;
+    const ls: SimLink[] = links;
     return l.s;
 });
 
@@ -242,10 +242,10 @@ let simNodeNumberAccessor: (node: SimNode, i: number, nodes: SimNode[]) => numbe
 // strength
 
 forceCharge = forceCharge.strength(-3000);
-forceCharge = forceCharge.strength(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forceCharge = forceCharge.strength((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     return -1000 * n.group;
 });
 simNodeNumberAccessor = forceCharge.strength();
@@ -286,10 +286,10 @@ forcePosX = d3Force.forceX<SimNode>();
 // strength
 
 forcePosX = forcePosX.strength(0.2);
-forcePosX = forcePosX.strength(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forcePosX = forcePosX.strength((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     return 0.1 * n.group;
 });
 simNodeNumberAccessor = forcePosX.strength();
@@ -297,10 +297,10 @@ simNodeNumberAccessor = forcePosX.strength();
 // x
 
 forcePosX = forcePosX.x(100);
-forcePosX = forcePosX.x(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forcePosX = forcePosX.x((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     let target: number;
     switch (n.group) {
         case 1:
@@ -341,10 +341,10 @@ forcePosY = d3Force.forceY<SimNode>();
 // strength
 
 forcePosY = forcePosY.strength(0.2);
-forcePosY = forcePosY.strength(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forcePosY = forcePosY.strength((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     return 0.1 * n.group;
 });
 simNodeNumberAccessor = forcePosY.strength();
@@ -352,10 +352,10 @@ simNodeNumberAccessor = forcePosY.strength();
 // y
 
 forcePosY = forcePosY.y(100);
-forcePosY = forcePosY.y(function (node, index, nodes) {
-    let n: SimNode = node;
-    let i: number = index;
-    let ns: SimNode[] = nodes;
+forcePosY = forcePosY.y((node, index, nodes) => {
+    const n: SimNode = node;
+    const i: number = index;
+    const ns: SimNode[] = nodes;
     let target: number;
     switch (n.group) {
         case 1:
@@ -503,7 +503,7 @@ function drawNode(d: SimNode) {
 
 nodeLinkSimulation = nodeLinkSimulation.on('tick', function ticked() {
 
-    let that: d3Force.Simulation<SimNode, SimLink> = this;
+    const that: d3Force.Simulation<SimNode, SimLink> = this;
 
     if (context) {
         context.clearRect(0, 0, width, height);
@@ -525,7 +525,7 @@ nodeLinkSimulation = nodeLinkSimulation.on('tick', function ticked() {
 nodeSimulation = nodeSimulation.on('tick', null);
 
 // get listener
-let listener: ((this: d3Force.Simulation<SimNode, undefined>) => void) | undefined = nodeSimulation.on('tick');
+const listener: ((this: d3Force.Simulation<SimNode, undefined>) => void) | undefined = nodeSimulation.on('tick');
 
 // Configure and Use Force Simulation ===================================================
 

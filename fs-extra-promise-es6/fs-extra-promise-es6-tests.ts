@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import fs = require('fs-extra-promise-es6');
 import stream = require('stream');
 
@@ -145,7 +143,7 @@ strArr = fs.readdirSync(path);
 fs.close(fd, errorCallback);
 fs.closeSync(fd);
 fs.open(path, flags, modeStr, (err: Error, fd: number) => {
-    
+
 });
 num = fs.openSync(path, flags, modeStr);
 fs.utimes(path, atime, mtime, errorCallback);

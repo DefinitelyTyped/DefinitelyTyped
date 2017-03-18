@@ -1,8 +1,3 @@
-// React onClickOutside Test
-// ================================================================================
-
-// Imports
-// --------------------------------------------------------------------------------
 import * as React from "react"
 import { Component, StatelessComponent, MouseEvent } from "react"
 import { render } from "react-dom"

@@ -3,7 +3,6 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
 /// <reference types="node" />
 
 import Validation = require("business-rules-engine");

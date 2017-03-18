@@ -69,6 +69,7 @@ declare namespace PDFKit.Mixins {
     }
 
     interface PDFFont<TDocument> {
+        font(buffer: Buffer): TDocument;
         font(src: string, family?: string, size?: number): TDocument;
         fontSize(size: number): TDocument;
         currentLineHeight(includeGap?: boolean): number;
@@ -268,7 +269,7 @@ declare namespace PDFKit {
         new (options?: PDFDocumentOptions): PDFDocument;
 
         addPage(options?: PDFDocumentOptions): PDFDocument;
-        bufferedPageRanges(): { start: number; count: number };
+        bufferedPageRange(): { start: number; count: number };
         switchToPage(n?: number): PDFPage;
         flushPages(): void;
         ref(data: {}): PDFKitReference;

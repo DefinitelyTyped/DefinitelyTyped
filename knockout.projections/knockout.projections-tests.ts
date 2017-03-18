@@ -1,8 +1,3 @@
-// Tests for knockout.projections.d.ts
-
-/// <reference types="knockout" />
-
-
 // Test map
 var sourceItems = ko.observableArray([1, 2, 3, 4, 5]);
 var squares = sourceItems.map(function (x) { return x * x; });

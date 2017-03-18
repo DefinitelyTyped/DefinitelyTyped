@@ -2,6 +2,7 @@
 // Project: https://github.com/bvaughn/jasmine-es6-promise-matchers
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="jasmine" />
 
@@ -12,7 +13,7 @@ declare namespace JasminePromiseMatchers  {
 
 declare namespace jasmine {
 
-	interface Matchers {
+	interface Matchers<T> {
 		/**
 		 * Verifies that a Promise is (or has been) rejected.
 		 */

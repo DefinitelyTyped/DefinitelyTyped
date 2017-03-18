@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 class TestObject {
     text: string;
     value: number;

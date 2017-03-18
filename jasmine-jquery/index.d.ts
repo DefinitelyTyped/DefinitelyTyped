@@ -2,6 +2,7 @@
 // Project: https://github.com/velesin/jasmine-jquery
 // Definitions by: Gregor Stamac <https://github.com/gstamac/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="jasmine"/>
 /// <reference types="jquery"/>
@@ -80,7 +81,7 @@ declare namespace jasmine {
         proxyCallTo_(methodName: string, passedArguments: any): any;
     }
 
-    interface Matchers {
+    interface Matchers<T> {
         /**
          * Check if DOM element has class.
          *
@@ -231,7 +232,7 @@ declare namespace jasmine {
          *
          */
         toHaveData(key : string, expectedValue : string): boolean;
-        toBe(selector: JQuery): boolean;
+        toBe(selector: T): boolean;
 
         /**
          * Check if DOM element is matched by the given selector.
@@ -240,7 +241,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><span class="some-class"></span></div>')).toContain('some-class')
          */
-        toContain(selector: JQuery): boolean;
+        toContain(selector: any): boolean;
 
         /**
          * Check if DOM element exists inside the given parent element.

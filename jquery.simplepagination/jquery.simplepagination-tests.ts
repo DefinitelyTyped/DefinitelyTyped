@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 var selector = '#elementId';
 
 $(function () {

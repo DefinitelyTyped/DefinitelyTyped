@@ -1,10 +1,12 @@
 // Type definitions for Mongoose 4.7.0
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
+// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
+
 
 /*
  * Guidelines for maintaining these definitions:
@@ -383,6 +385,9 @@ declare module "mongoose" {
      * If connecting to multiple mongos servers, set the mongos option to true.
      */
     mongos?: boolean;
+
+    /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
+    promiseLibrary?: any;
   }
 
   interface ConnectionOptions extends
@@ -718,6 +723,8 @@ declare module "mongoose" {
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
     versionKey?: string|boolean;
+    /** defaults to false */
+    retainKeyOrder?: boolean;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
@@ -994,10 +1001,12 @@ declare module "mongoose" {
      * call execPopulate(). Passing the same path a second time will overwrite
      * the previous path options. See Model.populate() for explaination of options.
      * @param path The path to populate or an options object
+     * @param names The properties to fetch from the populated document
      * @param callback When passed, population is invoked
      */
     populate(callback: (err: any, res: this) => void): this;
     populate(path: string, callback?: (err: any, res: this) => void): this;
+    populate(path: string, names: string, callback?: (err: any, res: this) => void): this;
     populate(options: ModelPopulateOptions | ModelPopulateOptions[], callback?: (err: any, res: this) => void): this;
 
     /** Gets _id(s) used during population of the given path. If the path was not populated, undefined is returned. */
@@ -2159,6 +2168,11 @@ declare module "mongoose" {
      * @param fields the field(s) to unwind
      */
     unwind(...fields: string[]): this;
+    /**
+     * Appends new custom $unwind operator(s) to this aggregate pipeline
+     * new in mongodb 3.2
+     */
+    unwind(...opts: { path: string, includeArrayIndex?: string, preserveNullAndEmptyArrays?: boolean }[]): this;
   }
 
   /*

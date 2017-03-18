@@ -1,4 +1,4 @@
-// Type definitions for Google Sign-In API
+// Type definitions for Google Sign-In API 0.0
 // Project: https://developers.google.com/identity/sign-in/web/
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@ declare namespace gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: () => any, onFailure: (reason: string) => any): any;
+    then(onInit: () => any, onFailure?: (reason: string) => any): any;
 
     /**
      * Signs in the user with the options specified to gapi.auth2.init().
@@ -31,12 +31,7 @@ declare namespace gapi.auth2 {
     /**
      * Signs in the user using the specified options.
      */
-    signIn(options?: {
-      app_package_name?: string;
-      fetch_basic_profile?: boolean;
-      prompt?: boolean;
-      scope?: string;
-    }, optionBuilder?: SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
 
     /**
      * Signs out all accounts from the application.
@@ -59,15 +54,11 @@ declare namespace gapi.auth2 {
     /**
      * Attaches the sign-in flow to the specified container's click handler.
      */
-    attachClickHandler(container: any, options: {
-      app_package_name?: string;
-      fetch_basic_profile?: boolean;
-      prompt?: boolean;
-      scope?: string;
-    }, onsuccess: (googleUser: GoogleUser) => any, onfailure: (reason: string) => any): any;
+    attachClickHandler(container: any, options: SigninOptions,
+                       onsuccess: (googleUser: GoogleUser) => any, onfailure: (reason: string) => any): any;
   }
 
-  export interface IsSignedIn{
+  export interface IsSignedIn {
     /**
      * Returns whether the current user is currently signed in.
      */
@@ -91,6 +82,32 @@ declare namespace gapi.auth2 {
      * Listen for changes in currentUser.
      */
     listen(listener: (user: GoogleUser) => any): void;
+  }
+
+  export interface SigninOptions {
+    /**
+     * The package name of the Android app to install over the air.
+     * See Android app installs from your web site:
+     * https://developers.google.com/identity/sign-in/web/android-app-installs
+     */
+    app_package_name?: string;
+    /**
+     * 	Fetch users' basic profile information when they sign in.
+     * 	Adds 'profile', 'email' and 'openid' to the requested scopes.
+     * 	True if unspecified.
+     */
+    fetch_basic_profile?: boolean;
+    /**
+     * Specifies whether to prompt the user for re-authentication.
+     * See OpenID Connect Request Parameters:
+     * https://openid.net/specs/openid-connect-basic-1_0.html#RequestParameters
+     */
+    prompt?: string;
+    /**
+     * The scopes to request, as a space-delimited string.
+     * Optional if fetch_basic_profile is not set to false.
+     */
+    scope?: string;
   }
 
   export class SigninOptionsBuilder {
@@ -151,7 +168,7 @@ declare namespace gapi.auth2 {
     /**
      * Get the response object from the user's auth session.
      */
-    getAuthResponse(): AuthResponse;
+    getAuthResponse(includeAuthorizationData?: boolean): AuthResponse;
 
     /**
      * Returns true if the user granted the specified scopes.
@@ -164,22 +181,12 @@ declare namespace gapi.auth2 {
      * When you use GoogleUser.signIn(), the sign-in flow skips the account chooser step.
      * See GoogleAuth.signIn().
      */
-    signIn(options?: {
-      app_package_name?: string;
-      fetch_basic_profile?: boolean;
-      prompt?: boolean;
-      scope?: string;
-    }, optionBuilder?: SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
 
     /**
-     *
+     * See GoogleUser.signIn()
      */
-    grant(options?: {
-      app_package_name?: string;
-      fetch_basic_profile?: boolean;
-      prompt?: boolean;
-      scope?: string;
-    }, optionBuilder?: SigninOptionsBuilder): any;
+    grant(options?: SigninOptions | SigninOptionsBuilder): any;
 
     /**
      * Get permission from the user to access the specified scopes offline.

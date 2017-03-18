@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $.Finger.doubleTapInterval = 400;
 $.Finger.flickDuration = 250;
 $.Finger.pressDuration = 100;

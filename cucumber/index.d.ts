@@ -64,13 +64,21 @@ declare namespace cucumber {
 		(scenario: HookScenario, runScenario?: (error:string, callback?:Function)=>void): void;
 	}
 
+	interface Transform {
+		captureGroupRegexps: Array<RegExp | string>;
+		transformer: (arg: string) => any;
+		typeName: string;
+	}
+
 	export interface Hooks {
 		Before(code: HookCode): void;
 		After(code: HookCode): void;
 		Around(code: AroundCode):void;
 		setDefaultTimeout(time:number): void;
+		setWorldConstructor(world: () => void): void;
 		registerHandler(handlerOption:string, code:(event:any, callback:CallbackStepDefinition) =>void): void;
 		registerListener(listener: EventListener): void;
+		addTransform(transform: Transform): void;
 	}
 
 	export class EventListener {
@@ -207,7 +215,7 @@ declare namespace cucumber {
 	}
 
 	export interface SupportCodeConsumer {
-		(stepDefinitions:StepDefinitions | Hooks):void;
+		(stepDefinitions:StepDefinitions & Hooks):void;
 	}
 
 	export function defineSupportCode(consumer:SupportCodeConsumer): void;

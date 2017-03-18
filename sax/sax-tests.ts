@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import sax = require("sax");
 import fs = require("fs");
 
@@ -12,6 +10,8 @@ import fs = require("fs");
     };
 
     let parser = sax.parser(/*strict=*/true, opts);
+
+    parser.ENTITIES["foo"] = "bar";
 
     parser.onerror = function(e: Error) {
     };

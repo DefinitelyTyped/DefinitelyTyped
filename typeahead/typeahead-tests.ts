@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 function test_typeahead() {
     var options: Twitter.Typeahead.Options = {};
     var dataset: Twitter.Typeahead.Dataset<string> = { source: null };
@@ -376,7 +374,7 @@ function test_bloodhout() {
         }
 
         function test_bloodhout_prefetch_options_transform() {
-            var options: Bloodhound.PrefetchOptions<string> = {
+            var options: Bloodhound.PrefetchOptions<string[]> = {
                 url: 'url',
                 transform: (response: string[]) => { return new Array<string>(); }
             };
@@ -385,7 +383,7 @@ function test_bloodhout() {
         function test_bloodhout_prefetch_options_all() {
             var ajaxSettings: JQueryAjaxSettings = { url: 'url' };
 
-            var options: Bloodhound.PrefetchOptions<string> = {
+            var options: Bloodhound.PrefetchOptions<string[]> = {
                 url: 'url',
                 cache: true,
                 ttl: 86400000,
@@ -435,7 +433,7 @@ function test_bloodhout() {
         }
 
         function test_bloodhout_remote_options_transform() {
-            var options: Bloodhound.RemoteOptions<string> = {
+            var options: Bloodhound.RemoteOptions<string[]> = {
                 url: 'url',
                 transform: (response: string[]) => { return new Array<string>(); }
             };
@@ -444,7 +442,7 @@ function test_bloodhout() {
         function test_bloodhout_remote_options_all() {
             var ajaxSettings: JQueryAjaxSettings = { url: 'url' };
 
-            var options: Bloodhound.RemoteOptions<string> = {
+            var options: Bloodhound.RemoteOptions<string[]> = {
                 url: 'url',
                 prepare: (query: string, settings: JQueryAjaxSettings) => { return ajaxSettings; },
                 wildcard: '%QUERY',

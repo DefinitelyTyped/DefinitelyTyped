@@ -19,7 +19,9 @@ declare namespace sharp {
     const gravity: sharp.GravityEnum;
     const strategy: sharp.StrategyEnum;
     /**
-     * Gets, or when options are provided sets, the limits of libvips' operation cache. Existing entries in the cache will be trimmed after any change in limits. This method always returns cache statistics, useful for determining how much working memory is required for a particular task.
+     * Gets, or when options are provided sets, the limits of libvips' operation cache.
+     * Existing entries in the cache will be trimmed after any change in limits.
+     * This method always returns cache statistics, useful for determining how much working memory is required for a particular task.
      * @param {boolean|sharp.CacheOptions} options Object with the cache options, or Boolean where true uses default cache settings and false removes all caching.
      * @returns {Object}
      */
@@ -221,13 +223,23 @@ declare namespace sharp {
         gamma(gamma?: number): SharpInstance;
         /**
          * Alternative spelling of greyscale.
-         * Convert to 8-bit greyscale; 256 shades of grey. This is a linear operation. If the input image is in a non-linear colour space such as sRGB, use gamma() with greyscale() for the best results. By default the output image will be web-friendly sRGB and contain three (identical) color channels. This may be overridden by other sharp operations such as toColourspace('b-w'), which will produce an output image containing one color channel. An alpha channel may be present, and will be unchanged by the operation.
+         * Convert to 8-bit greyscale; 256 shades of grey.
+         * This is a linear operation.
+         * If the input image is in a non-linear colour space such as sRGB, use gamma() with greyscale() for the best results.
+         * By default the output image will be web-friendly sRGB and contain three (identical) color channels.
+         * This may be overridden by other sharp operations such as toColourspace('b-w'), which will produce an output image containing one color channel.
+         * An alpha channel may be present, and will be unchanged by the operation.
          * @param {boolean} grayscale true to enable and false to disable (defaults to true)
          * @returns {SharpInstance} A sharp instance that can be used to chain operations
          */
         grayscale(grayscale?: boolean): SharpInstance;
         /**
-         * Convert to 8-bit greyscale; 256 shades of grey. This is a linear operation. If the input image is in a non-linear colour space such as sRGB, use gamma() with greyscale() for the best results. By default the output image will be web-friendly sRGB and contain three (identical) color channels. This may be overridden by other sharp operations such as toColourspace('b-w'), which will produce an output image containing one color channel. An alpha channel may be present, and will be unchanged by the operation.
+         * Convert to 8-bit greyscale; 256 shades of grey.
+         * This is a linear operation.
+         * If the input image is in a non-linear colour space such as sRGB, use gamma() with greyscale() for the best results.
+         * By default the output image will be web-friendly sRGB and contain three (identical) color channels.
+         * This may be overridden by other sharp operations such as toColourspace('b-w'), which will produce an output image containing one color channel.
+         * An alpha channel may be present, and will be unchanged by the operation.
          * @param {boolean} greyscale true to enable and false to disable (defaults to true)
          * @returns {SharpInstance} A sharp instance that can be used to chain operations
          */
@@ -313,7 +325,11 @@ declare namespace sharp {
         toFile(fileOut: string): Promise<OutputInfo>;
         /**
          * Write output to a Buffer. JPEG, PNG, WebP, and RAW output are supported. By default, the format will match the input image, except GIF and SVG input which become PNG output.
-         * @param {Function} callback Callback function called on completion with three arguments (err, buffer, info). err is an error message, if any. buffer is the output image data. info contains the output image format, size (bytes), width, height and channels. A Promises/A+ promise is returned when callback is not provided.
+         * @param {Function} callback Callback function called on completion with three arguments (err, buffer, info).
+         *                            err is an error message, if any.
+         *                            buffer is the output image data.
+         *                            info contains the output image format, size (bytes), width, height and channels.
+         *                            A Promises/A+ promise is returned when callback is not provided.
          * @returns {SharpInstance} A sharp instance that can be used to chain operations
          */
         toBuffer(callback: (err: Error, buffer: Buffer, info: OutputInfo) => void): SharpInstance;
@@ -364,13 +380,16 @@ declare namespace sharp {
          */
         toFormat(format: string | AvailableFormatInfo, options?: OutputOptions | JpegOptions | PngOptions): SharpInstance;
         /**
-         * Include all metadata (EXIF, XMP, IPTC) from the input image in the output image. The default behaviour, when withMetadata is not used, is to strip all metadata and convert to the device-independent sRGB colour space. This will also convert to and add a web-friendly sRGB ICC profile.
+         * Include all metadata (EXIF, XMP, IPTC) from the input image in the output image.
+         * The default behaviour, when withMetadata is not used, is to strip all metadata and convert to the device-independent sRGB colour space.
+         * This will also convert to and add a web-friendly sRGB ICC profile.
          * @param {Metadata}
          * @throws {Error} Invalid parameters.
          */
         withMetadata(metadata?: Metadata): SharpInstance;
         /**
-         * Use tile-based deep zoom (image pyramid) output. Set the format and options for tile images via the  toFormat, jpeg, png or webp functions. Use a .zip or .szi file extension with toFile to write to a compressed archive file format.
+         * Use tile-based deep zoom (image pyramid) output. Set the format and options for tile images via the  toFormat, jpeg, png or webp functions.
+         * Use a .zip or .szi file extension with toFile to write to a compressed archive file format.
          * @param {TileOptions} options options
          */
         tile(options: TileOptions): SharpInstance;

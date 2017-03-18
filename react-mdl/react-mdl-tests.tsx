@@ -22,7 +22,8 @@ import {Chip, ChipContact,
     Switch,
     Tabs, Tab,
     Textfield,
-    Tooltip} from 'react-mdl';
+    Tooltip,
+    MDLComponent} from 'react-mdl';
 
 // all tests are from the examples provided here: https://tleunen.github.io/react-mdl/
 
@@ -1069,5 +1070,16 @@ React.createClass({
                 </Tooltip>
             </div>
         );
+    }
+});
+
+// MDLComponent tests
+React.createClass({
+    render: function() {
+        return (
+            <MDLComponent recursive={false}>
+                <div />
+            </MDLComponent>
+        )
     }
 });

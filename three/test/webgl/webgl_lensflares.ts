@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_lensflares.html
 
 () => {
@@ -8,13 +5,11 @@
     var controls: any;
     // -------
 
-    var container, stats;
+    var container: HTMLDivElement, stats: Stats;
 
-    var camera, scene, renderer;
+    var camera: THREE.PerspectiveCamera, scene: THREE.Scene, renderer: THREE.WebGLRenderer;
 
     var clock = new THREE.Clock();
-
-    var composer;
 
     init();
     animate();
@@ -37,9 +32,9 @@
         controls.autoForward = false;
         controls.dragToLook = false
 
-				// scene
+        // scene
 
-				scene = new THREE.Scene();
+        scene = new THREE.Scene();
         scene.fog = new THREE.Fog(0x000000, 3500, 15000);
         scene.fog.color.setHSL(0.51, 0.4, 0.01);
 
@@ -94,7 +89,7 @@
         addLight(0.08, 0.8, 0.5, 0, 0, -1000);
         addLight(0.995, 0.5, 0.9, 5000, 5000, -1000);
 
-        function addLight(h, s, l, x, y, z) {
+        function addLight(h: number, s: number, l: number, x: number, y: number, z: number) {
 
             var light = new THREE.PointLight(0xffffff, 1.5, 4500);
             light.color.setHSL(h, s, l);
@@ -148,10 +143,10 @@
 
     //
 
-    function lensFlareUpdateCallback(object) {
+    function lensFlareUpdateCallback(object: THREE.LensFlare) {
 
-        var f, fl = object.lensFlares.length;
-        var flare;
+        var f: number, fl = object.lensFlares.length;
+        var flare: THREE.LensFlareProperty;
         var vecX = -object.positionScreen.x * 2;
         var vecY = -object.positionScreen.y * 2;
 
@@ -174,7 +169,7 @@
 
     //
 
-    function onWindowResize(event) {
+    function onWindowResize(event: Event) {
 
         renderer.setSize(window.innerWidth, window.innerHeight);
 

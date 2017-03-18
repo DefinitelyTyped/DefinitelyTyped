@@ -1,24 +1,24 @@
-/// <reference types="node" />
 /// <reference types="mocha" />
 
 import {Buffer} from 'buffer';
 import * as assert from 'assert';
 import * as async from 'async';
 import * as PQ from 'libpq';
-import * as _ from 'lodash';
+
+declare const _: { times<T>(n: number, f: () => T): T[] };
 
 declare const ok: Function;
 
 const createTable = (pq: PQ) => {
     pq.exec('CREATE TEMP TABLE test_data(name text, age int)');
     console.log(pq.resultErrorMessage());
-    pq.exec("INSERT INTO test_data(name, age) VALUES ('brian', 32), ('aaron', 30), ('', null);")
+    pq.exec("INSERT INTO test_data(name, age) VALUES ('brian', 32), ('aaron', 30), ('', null);");
 };
 
 const blink = (n: number, cb: Function) => {
     const connections: PQ[] = [];
     for (let i = 0; i < 30; i++) {
-        connections.push(new PQ())
+        connections.push(new PQ());
     }
     const connect = (con: PQ, cb: (err?: Error) => void) => {
         con.connect(cb);
@@ -28,7 +28,7 @@ const blink = (n: number, cb: Function) => {
             con.finish();
         });
         cb();
-    }))
+    }));
 };
 
 const queryText = "SELECT * FROM generate_series(1, 1000)";
@@ -54,7 +54,7 @@ const query = (pq: PQ, cb: Function) => {
             return readError('Only one result at a time is accepted');
         }
         cleanup();
-        return cb(null, [])
+        return cb(null, []);
     };
 
     const sent = pq.sendQuery(queryText);
@@ -126,7 +126,7 @@ const consume = (pq: PQ, cb: Function) => {
 };
 
 describe('async simple query', () => {
-    let pq: PQ;
+    const pq: PQ = null as any;
 
     it('dispatches simple query', (done: Function) => {
         assert(pq.setNonBlocking(true));
@@ -156,7 +156,7 @@ describe('async simple query', () => {
             assert.strictEqual(pq.ntuples(), 1);
             assert.equal(pq.getvalue(0, 0), 'Brian');
             done();
-        })
+        });
     });
 
     it('dispatches named query', (done: Function) => {
@@ -167,30 +167,30 @@ describe('async simple query', () => {
         consume(pq, () => {
             assert.ifError(pq.errorMessage());
 
-            //first time there should be a result
+            // first time there should be a result
             assert(pq.getResult());
 
-            //call 'getResult' until it returns false indicating
-            //there is no more input to consume
+            // call 'getResult' until it returns false indicating
+            // there is no more input to consume
             assert.strictEqual(pq.getResult(), false);
 
-            //since we only prepared a statement there should be
-            //0 tuples in the result
+            // since we only prepared a statement there should be
+            // 0 tuples in the result
             assert.equal(pq.ntuples(), 0);
 
-            //now execute the previously prepared statement
+            // now execute the previously prepared statement
             const success = pq.sendQueryPrepared(statementName, ['Brian']);
             assert(success, pq.errorMessage());
             assert.strictEqual(pq.flush(), 0, 'Should have flushed parameters');
             consume(pq, () => {
                 assert.ifError(pq.errorMessage());
 
-                //consume the result of the query execution
+                // consume the result of the query execution
                 assert(pq.getResult());
                 assert.equal(pq.ntuples(), 1);
                 assert.equal(pq.getvalue(0, 0), 'Brian');
 
-                //call 'getResult' again to ensure we're finished
+                // call 'getResult' again to ensure we're finished
                 assert.strictEqual(pq.getResult(), false);
                 done();
             });
@@ -395,7 +395,7 @@ describe('error info', () => {
             assert.equal(err.dataTypeName, undefined);
             assert.equal(err.constraintName, undefined);
             assert.equal(err.sourceFile, "parse_target.c");
-            assert(parseInt(err.sourceLine));
+            assert(parseInt(err.sourceLine, 10));
             assert.equal(err.sourceFunction, "transformAssignedExpr");
         });
     });
@@ -449,8 +449,8 @@ describe('connecting', () => {
 
 describe('many connections', () => {
     it('works', (done) => {
-        async.timesSeries(10, blink, done)
-    })
+        async.timesSeries(10, blink, done);
+    });
 });
 
 describe('connectSync', () => {
@@ -477,7 +477,7 @@ describe('connect async', () => {
                     assert.ifError(err);
                     count++;
                     pq.startReader();
-                    if (count == total) {
+                    if (count === total) {
                         cb();
                     }
                 });
@@ -497,7 +497,7 @@ describe('multiple queries', () => {
     const pq = new PQ();
 
     before((done) => {
-        pq.connect(done)
+        pq.connect(done);
     });
 
     it('first query works', (done) => {

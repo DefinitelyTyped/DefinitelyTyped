@@ -1,4 +1,4 @@
-// Type definitions for chai-enzyme 0.5.0
+// Type definitions for chai-enzyme 0.6.1
 // Project: https://github.com/producthunt/chai-enzyme
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,6 +8,7 @@
 /// <reference types="enzyme" />
 /// <reference types="chai" />
 /// <reference types="react" />
+/// <reference types="cheerio" />
 
 declare namespace Chai {
     type EnzymeSelector = string | React.StatelessComponent<any> | React.ComponentClass<any> | { [key: string]: any };
@@ -37,6 +38,12 @@ declare namespace Chai {
          * @param name
          */
         className(name: string): Assertion;
+
+        /**
+         * Assert that the wrapper contains a certain element:
+         * @param selector
+         */
+        containMatchingElement(selector: EnzymeSelector): Assertion;
 
         /**
          * Assert that the wrapper contains a descendant matching the given selector:
@@ -100,6 +107,12 @@ declare namespace Chai {
         text(str?: string): Assertion;
 
         /**
+         * Assert that the given wrapper has a given type:
+         * @param func
+         */
+        type(func: EnzymeSelector): Assertion;
+
+        /**
          * Assert that the given wrapper has given value:
          * @param str
          */
@@ -139,13 +152,25 @@ declare namespace Chai {
          * @param val
          */
         prop(key: string, val?: any): Assertion;
+
+        /**
+         * Assert that the wrapper has given props [with values]:
+         * @param keys
+         */
+        props(keys: string[]): Assertion;
+
+        /**
+         * Assert that the wrapper has given props [with values]:
+         * @param props
+         */
+        props(props: EnzymeSelector): Assertion;
     }
 }
 
 declare module "chai-enzyme" {
-    import { ShallowWrapper, ReactWrapper, CheerioWrapper } from "enzyme";
+    import { ShallowWrapper, ReactWrapper } from "enzyme";
 
-    type DebugWrapper = ShallowWrapper<any,any> | CheerioWrapper<any, any> | ReactWrapper<any, any>;
+    type DebugWrapper = ShallowWrapper<any,any> | Cheerio | ReactWrapper<any, any>;
     function chaiEnzyMe(wrapper?: (debugWrapper: DebugWrapper) => string): (chai: any) => void;
 
     module chaiEnzyMe {

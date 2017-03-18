@@ -1,6 +1,3 @@
-import { History } from "history";
-import { CreateHistoryEnhancer } from "react-router";
+import { CreateHistory, HistoryBasename, HistoryBasenameOptions, HistoryQueries } from "history";
 
-declare const useRouterHistory: CreateHistoryEnhancer<History>;
-
-export default useRouterHistory;
+export default function useRouterHistory<O, H>(createHistory: CreateHistory<O, H>): CreateHistory<O & HistoryBasenameOptions, H & HistoryBasename & HistoryQueries>;

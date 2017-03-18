@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 var backstretch = jQuery.backstretch(['image.png'], {
     centeredX: false,
     centeredY: false,

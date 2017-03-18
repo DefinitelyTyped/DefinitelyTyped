@@ -1,5 +1,3 @@
-
-/// <reference types="babel-types" />
 /// <reference types="babylon" />
 
 
@@ -108,4 +106,17 @@ const v1: Visitor = {
         path.scope.rename("n", "x");
         path.scope.rename("n");
     }
+};
+
+// Binding.kind
+const BindingKindTest: Visitor  = {
+    Identifier(path) {
+        const kind = path.scope.getBinding("str").kind;
+        kind === 'module';
+        kind === 'const';
+        kind === 'let';
+        kind === 'var';
+        // The following should fail when uncommented
+        // kind === 'anythingElse';
+    },
 };

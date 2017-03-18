@@ -1,7 +1,7 @@
 import v = require('voca');
 
 var str: string;
-var num: number
+var num: number;
 var bool: boolean;
 var strAry: string[];
 var numAry: number[];
@@ -23,6 +23,11 @@ str = v.decapitalize('Sun');
 str = v.kebabCase('goodbye blue sky');
 str = v.lowerCase('Green');
 str = v.snakeCase('learning to fly');
+
+str = v.swapCase('learning to fly');
+str = v('learning to fly').swapCase().value();
+str = v.chain('learning to fly').swapCase().value();
+
 str = v.titleCase('learning to fly');
 str = v.titleCase('another brick in the wall', ['in', 'the']);
 str = v.upperCase('school');
@@ -128,7 +133,7 @@ str = v.chain('&lt;p&gt;wonderful world&lt;/p&gt;').unescapeHtml().value();
 str = v.sprintf();
 str = v.sprintf('%s, %s!', 'Hello', 'World');
 str = v.sprintf('%s costs $%d', 'coffee', 2);
-str = v.sprintf('%1$s %2$s %1$s %2$s, watcha gonna %3$s', 'bad', 'boys', 'do')
+str = v.sprintf('%1$s %2$s %1$s %2$s, watcha gonna %3$s', 'bad', 'boys', 'do');
 str = v.sprintf('% 6s', 'bird');
 str = v.sprintf('%d %i %+d', 15, -2, 25);
 str = v.sprintf("%06d", 15);
@@ -137,7 +142,7 @@ str = v('%s, %s!').sprintf('Hello', 'World').value();
 str = v.chain('%s, %s!').sprintf('Hello', 'World').value();
 
 str = v.vprintf();
-str = v.vprintf('%s', ['Welcome'])
+str = v.vprintf('%s', ['Welcome']);
 str = v.vprintf('%s has %d apples', ['Alexandra', 3]);
 str = v('%s').vprintf(['Welcome']).value();
 str = v.chain('%s').vprintf(['Welcome']).value();
@@ -213,6 +218,23 @@ str = v.splice('new year');
 str = v.splice('new year', 0);
 str = v.splice('new year', 0, 4);
 str = v.splice('new year', 0, 3, 'happy');
+
+str = v.tr();
+str = v.tr('hello', 'el', 'ip');
+str = v.tr('Yes. The fire rises.', {
+    'Yes': 'Awesome',
+    'fire': 'flame'
+})
+str = v('hello').tr('el', 'ip').value();
+str = v('Yes. The fire rises.').tr({
+    'Yes': 'Awesome',
+    'fire': 'flame'
+}).value();
+str = v.chain('hello').tr('el', 'ip').value();
+str = v.chain('Yes. The fire rises.').tr({
+    'Yes': 'Awesome',
+    'fire': 'flame'
+}).value();
 
 str = v.trim();
 str = v.trim(' Mother nature ');
@@ -328,4 +350,4 @@ str = v.stripTags('Sun<br/>set', '', '-');
 
 // Util
 var voca: v.VocaStatic = v.noConflict();
-var version: String = v.version;
+var version: string = v.version;

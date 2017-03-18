@@ -5,7 +5,7 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": false,
         "baseUrl": "../",
@@ -49,6 +49,8 @@
         "test/canvas/canvas_particles_floor.ts",
         "test/examples/detector.ts",
         "test/examples/effects/vreffect.ts",
-        "test/examples/controls/vrcontrols.ts"
+        "test/examples/controls/vrcontrols.ts",
+        "test/examples/ctm/ctmloader.ts",
+        "test/examples/octree.ts"
     ]
 }
