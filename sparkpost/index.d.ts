@@ -1,4 +1,4 @@
-// Type definitions for sparkpost v1.3
+// Type definitions for sparkpost 2.1
 // Project: https://github.com/SparkPost/node-sparkpost
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
