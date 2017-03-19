@@ -631,31 +631,72 @@ declare class SparkPost {
          * List currently existing webhooks.
          * @param callback The request callback with RelayWebhook results array
          */
-        all(callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>): void;
+        list(callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>): void;
         /**
          * List currently existing webhooks.
          * @param options Object containing optional timezone
          * @param callback The request callback with RelayWebhook results array
          */
-        all(options: { timezone?: string }, callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>): void;
+        list(options: { timezone?: string }, callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>): void;
+        /**
+         * List currently existing webhooks.the timezone to use for the last_successful and last_failure properties | Default: UTC
+         *
+         * @param {{ timezone?: string }} [options]
+         * @returns {(SparkPost.ResultsPromise<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>)}
+         */
+        list(options?: { timezone?: string }): SparkPost.ResultsPromise<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>;
         /**
          * Retrieve details about a specified webhook by its id
+         *
+         * @param {string} id The id of the webhook to get
          * @param options Object containing id and optional timezone
          * @param callback The request callback with RelayWebhook results
          */
-        describe(options: { id: string, timezone?: string }, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>): void;
+        get(id: string, options: { timezone?: string }, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>): void;
+        /**
+         * Retrieve details about a specified webhook by its id
+         *
+         * @param {string} id The id of the webhook to get
+         * @param {(SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>)} callback The request callback with RelayWebhook results
+         */
+        get(id: string, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>): void;
+        /**
+         * Retrieve details about a specified webhook by its id
+         *
+         * @param {string} id The id of the webhook to get
+         * @param {{ timezone?: string }} [options] the timezone to use for the last_successful and last_failure properties
+         * @returns {(SparkPost.ResultsPromise<SparkPost.WebhookLinks & SparkPost.Webhook>)} The RelayWebhook results
+         */
+        get(id: string, options?: { timezone?: string }): SparkPost.ResultsPromise<SparkPost.WebhookLinks & SparkPost.Webhook>;
         /**
          * Create a new webhook
-         * @param options The create options
+         *
+         * @param options a hash of [webhook attributes]{@link https://developers.sparkpost.com/api/webhooks#header-webhooks-object-properties}
          * @param callback The request callback with webhook id results
          */
         create(options: SparkPost.Webhook, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>): void;
         /**
+         * Create a new webhook
+         *
+         * @param {SparkPost.Webhook} options a hash of [webhook attributes]{@link https://developers.sparkpost.com/api/webhooks#header-webhooks-object-properties}
+         * @returns {(SparkPost.ResultsPromise<SparkPost.WebhookLinks & { id: string }>)} The webhook id results
+         */
+        create(options: SparkPost.Webhook): SparkPost.ResultsPromise<SparkPost.WebhookLinks & { id: string }>;
+        /**
          * Update an existing webhook
-         * @param options The update options
+         * @param {string} id the id of the webhook to update
+         * @param options A hash of [webhook attribues]{@link https://developers.sparkpost.com/api/webhooks#header-webhooks-object-properties}
          * @param callback The request callback with webhook id results
          */
-        update(options: SparkPost.UpdateWebhook, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>): void;
+        update(id: string, options: SparkPost.UpdateWebhook, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>): void;
+        /**
+         * Update an existing webhook
+         *
+         * @param {string} id
+         * @param {SparkPost.UpdateWebhook} options
+         * @returns {(SparkPost.ResultsPromise<SparkPost.WebhookLinks & { id: string }>)}
+         */
+        update(id: string, options: SparkPost.UpdateWebhook): SparkPost.ResultsPromise<SparkPost.WebhookLinks & { id: string }>;
         /**
          * Delete an existing webhook
          * @param id The webhook id
@@ -663,11 +704,20 @@ declare class SparkPost {
          */
         delete(id: string, callback: SparkPost.Callback<void>): void;
         /**
+         * Delete an existing webhook.
+         *
+         * @param {string} id The id of the webhook to delete
+         * @returns {Promise<void>}
+         */
+        delete(id: string): Promise<void>;
+        /**
          * Sends an example message event batch from the Webhook API to the target URL
-         * @param options The webhook id and message
+         *
+         * @param {string} id The id of the webhook to validate
+         * @param options the message (payload) to send to the webhook consumer
          * @param callback The request callback with validation results
          */
-        validate(options: { id: string, message: any }, callback: SparkPost.ResultsCallback<{
+        validate(id: string, options: { message: any }, callback: SparkPost.ResultsCallback<{
             msg: string;
             response: {
                 status: number;
@@ -676,21 +726,86 @@ declare class SparkPost {
             }
         }>): void;
         /**
-         * Sends an example message event batch from the Webhook API to the target URL
-         * @param options The webhook id and optional limit
+         * Sends an example message event batch from the Webhook API to the target URL.
+         *
+         * @param {string} id The id of the webhook to validate
+         * @param {{ message: any }} options The message (payload) to send to the webhook consumer
+         * @returns {SparkPost.ResultsPromise<{
+         *             msg: string;
+         *             response: {
+         *                 status: number;
+         *                 headers: any;
+         *                 body: string;
+         *             }
+         *         }>} The validation results
+         */
+        validate(id: string, options: { message: any }): SparkPost.ResultsPromise<{
+            msg: string;
+            response: {
+                status: number;
+                headers: any;
+                body: string;
+            }
+        }>;
+        /**
+         * Gets recent status information about a webhook.
+         *
+         * @param {string} id The id of the webhook
+         * @param options  An optional limit that specifies the maximum number of results to return. Defaults to 1000
          * @param callback The request callback with status results
          */
-        getBatchStatus(options: { id: string, limit?: number }, callback: SparkPost.ResultsCallback<{
+        getBatchStatus(id: string, options: { limit?: number }, callback: SparkPost.ResultsCallback<{
             batch_id: string;
             ts: string;
             attempts: number;
             response_code: number;
         }[]>): void;
         /**
+         * Gets recent status information about a webhook.
+         *
+         * @param {string} id The id of the webhook
+         * @param {SparkPost.ResultsCallback<{
+         *             batch_id: string;
+         *             ts: string;
+         *             attempts: number;
+         *             response_code: number;
+         *         }[]>} callback The request callback with status results
+         */
+        getBatchStatus(id: string, callback: SparkPost.ResultsCallback<{
+            batch_id: string;
+            ts: string;
+            attempts: number;
+            response_code: number;
+        }[]>): void;
+        /**
+         * Gets recent status information about a webhook.
+         *
+         * @param {string} id The id of the webhook
+         * @param {{ limit?: number }} Maximum number of results to return. Defaults to 1000
+         * @returns {SparkPost.ResultsPromise<{
+         *             batch_id: string;
+         *             ts: string;
+         *             attempts: number;
+         *             response_code: number;
+         *         }[]>} The status results
+         */
+        getBatchStatus(id: string, options: { limit?: number }): SparkPost.ResultsPromise<{
+            batch_id: string;
+            ts: string;
+            attempts: number;
+            response_code: number;
+        }[]>;
+        /**
          * Lists descriptions of the events, event types, and event fields that could be included in a Webhooks post to your target URL.
          * @param callback The request callback containing documentation results
          */
         getDocumentation(callback: SparkPost.ResultsCallback<any>): void;
+        /**
+         * Lists descriptions of the events, event types, and event fields that could be included in a Webhooks post to your target URL.
+         *
+         * @returns {SparkPost.ResultsPromise<any>} The documentation results
+         */
+        getDocumentation(): SparkPost.ResultsPromise<any>;
         /**
          * List an example of the event data that will be posted by a Webhook for the specified events.
          * @param callback The request callback containing examples
@@ -702,6 +817,13 @@ declare class SparkPost {
          * @param callback The request callback containing examples
          */
         getSamples(options: { events?: string }, callback: SparkPost.Callback<any>): void;
+        /**
+         * List an example of the event data that will be posted by a Webhook for the specified events.
+         *
+         * @param {{ events?: string }} options [event types]{@link https://support.sparkpost.com/customer/portal/articles/1976204} for which to get a sample payload | Default: all event types returned
+         * @returns {Promise<SparkPost.Response<any>>}
+         */
+        getSamples(options?: { events?: string }): Promise<SparkPost.Response<any>>;
     };
 
     /**
@@ -1528,6 +1650,14 @@ declare namespace SparkPost {
         target: string;
         /** Array of event types this webhook will receive */
         events: string[];
+        /**
+         * Reserved for future use
+         *
+         * @default {true}
+         * @type {boolean}
+         * @memberOf Webhook
+         */
+        active?: boolean;
         /** Type of authentication to be used during POST requests to target */
         auth_type?: string;
         /** Object containing details needed to request authorization credentials, as necessary */
@@ -1539,13 +1669,13 @@ declare namespace SparkPost {
     }
 
     export interface UpdateWebhook {
-        id: string;
         /** User-friendly name for webhook */
         name?: string;
         /** URL of the target to which to POST event batches */
         target?: string;
         /** Array of event types this webhook will receive */
         events?: string[];
+        active?: boolean;
         /** Type of authentication to be used during POST requests to target */
         auth_type?: string;
         /** Object containing details needed to request authorization credentials, as necessary */
