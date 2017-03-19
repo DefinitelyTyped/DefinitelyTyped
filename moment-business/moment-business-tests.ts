@@ -1,4 +1,4 @@
-import moment = require("moment-business");
+import * as moment from "moment-business";
 
 let a = moment.momentbusiness.weekDays(moment(), moment());
 let b = moment.momentbusiness.weekendDays(moment(), moment());
