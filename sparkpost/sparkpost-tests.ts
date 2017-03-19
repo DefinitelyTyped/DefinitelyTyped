@@ -1541,6 +1541,7 @@ client.transmissions.send({
     console.log(err);
 });
 
+// Callback
 client.webhooks.create({
   name: "Test webhook",
   target: "http://client.test.com/test-webhook",
@@ -1560,6 +1561,28 @@ client.webhooks.create({
   }
 });
 
+// Promise
+client.webhooks.create({
+    name: 'Test Webhook',
+    target: 'http://client.test.com/test-webhook',
+    auth_token: 'AUTH_TOKEN',
+    events: [
+      'delivery',
+      'injection',
+      'open',
+      'click'
+    ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.webhooks.delete("TEST_WEBHOOK_UUID", function(err, res) {
   if (err) {
     console.log(err);
@@ -1569,20 +1592,45 @@ client.webhooks.delete("TEST_WEBHOOK_UUID", function(err, res) {
   }
 });
 
-client.webhooks.describe({
-  id: "TEST_WEBHOOK_UUID",
-  timezone: "America/New_York"
-}, function(err, res) {
+// Promise
+client.webhooks.delete('TEST_WEBHOOK_UUID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.webhooks.get('TEST_WEBHOOK_UUID', {
+    timezone: 'America/New_York'
+}, function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.webhooks.getBatchStatus({
-  id: "TEST_WEBHOOK_UUID",
+// Promise
+client.webhooks.get('TEST_WEBHOOK_UUID', {
+    timezone: 'America/New_York'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
   limit: 1000
 }, function(err, res) {
   if (err) {
@@ -1593,7 +1641,20 @@ client.webhooks.getBatchStatus({
   }
 });
 
+// Promise
+client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
+    limit: 1000
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
 
+// Callback
 client.webhooks.getDocumentation(function(err, res) {
   if (err) {
     console.log(err);
@@ -1603,6 +1664,18 @@ client.webhooks.getDocumentation(function(err, res) {
   }
 });
 
+// Promise
+client.webhooks.getDocumentation()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.webhooks.getSamples({
   events: "bounce"
 }, function(err, res) {
@@ -1614,7 +1687,21 @@ client.webhooks.getSamples({
   }
 });
 
-client.webhooks.all(function(err, res) {
+// Promise
+client.webhooks.getSamples({
+    events: 'bounce'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.webhooks.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -1623,8 +1710,19 @@ client.webhooks.all(function(err, res) {
   }
 });
 
-client.webhooks.update({
-  id: "TEST_WEBHOOK_UUID",
+// Promise
+client.webhooks.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.webhooks.update('TEST_WEBHOOK_UUID', {
   name: "Renamed Test webhook",
   events: [
     "policy_rejection",
@@ -1639,8 +1737,25 @@ client.webhooks.update({
   }
 });
 
-client.webhooks.validate({
-  id: "TEST_WEBHOOK_UUID",
+// Promise
+client.webhooks.update('TEST_WEBHOOK_UUID', {
+    name: 'Renamed Test Webhook',
+    events: [
+      'policy_rejection',
+      'delay'
+    ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.webhooks.validate('TEST_WEBHOOK_UUID',{
   message: {
     msys: {}
   }
@@ -1652,3 +1767,18 @@ client.webhooks.validate({
     console.log("Congrats you can use our SDK!");
   }
 });
+
+// Promise
+client.webhooks.validate('TEST_WEBHOOK_UUID', {
+    message: {
+      msys: {}
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
