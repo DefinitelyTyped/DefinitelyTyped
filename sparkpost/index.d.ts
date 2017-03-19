@@ -550,31 +550,81 @@ declare class SparkPost {
     transmissions: {
         /**
          * List an overview of all transmissions in the account
+         *
          * @param callback The request callback with Transmission results array
          */
-        all(callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>): void;
+        list(callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>): void;
         /**
-         * List an overview of all transmissions in the account, with added filters
-         * @param options The search options { campaign_id?, template_id? }
-         * @param callback The request callback with Transmission results array
+         * List an overview of all transmissions in the account
+         *
+         * @param {{ campaign_id?: string, template_id: string }} options
+         * @param {SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>} callback The request callback with Transmission results array
          */
-        all(options: { campaign_id?: string, template_id?: string }, callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>): void;
+        list(options: { campaign_id?: string, template_id?: string }, callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>): void;
+        /**
+         * List an overview of all transmissions in the account
+         *
+         * @param {{ campaign_id?: string, template_id: string }} [options]
+         * @returns {SparkPost.ResultsPromise<SparkPost.TransmissionSummary[]>} The Transmission results array
+         */
+        list(options?: { campaign_id?: string, template_id?: string }): SparkPost.ResultsPromise<SparkPost.TransmissionSummary[]>;
         /**
          * Retrieve the details about a transmission by its ID
-         * @param transmissionID The transmission id
+         *
+         * @param id The id of the transmission you want to look up
          * @param callback The request callback with Transmission results
          */
-        find(transmissionID: string, callback: SparkPost.ResultsCallback<SparkPost.Transmission>): void;
+        get(transmissionID: string, callback: SparkPost.ResultsCallback<SparkPost.Transmission>): void;
+        /**
+         * Retrieve the details about a transmission by its ID
+         *
+         * @param {string} id The id of the transmission you want to look up
+         * @returns {SparkPost.ResultsPromise<SparkPost.Transmission>} The Transmission results
+         */
+        get(id: string): SparkPost.ResultsPromise<SparkPost.Transmission>;
         /**
          * Sends a message by creating a new transmission
-         * @param options The create options
+         *
+         * @param transmission an object of [transmission attributes]{@link https://developers.sparkpost.com/api/transmissions#header-transmission-attributes}
+         * @param options The create options. Specify maximum number of recipient errors returned
          * @param callback The request callback with metadata and id results
          */
-        send(options: { transmissionBody: SparkPost.CreateTransmission, num_rcpt_errors?: number }, callback: SparkPost.ResultsCallback<{
+        send(transmission: SparkPost.CreateTransmission, options: { num_rcpt_errors?: number }, callback: SparkPost.ResultsCallback<{
             total_rejected_recipients: number;
             total_accepted_recipients: number;
             id: string;
         }>): void;
+        /**
+         *
+         *
+         * @param {SparkPost.CreateTransmission} transmission an object of [transmission attributes]{@link https://developers.sparkpost.com/api/transmissions#header-transmission-attributes}
+         * @param {SparkPost.ResultsCallback<{
+         *             total_rejected_recipients: number;
+         *             total_accepted_recipients: number;
+         *             id: string;
+         *         }>} callback The request callback with metadata and id results
+         */
+        send(transmission: SparkPost.CreateTransmission, callback: SparkPost.ResultsCallback<{
+            total_rejected_recipients: number;
+            total_accepted_recipients: number;
+            id: string;
+        }>): void;
+        /**
+         * Sends a message by creating a new transmission
+         *
+         * @param {SparkPost.CreateTransmission} transmission an object of [transmission attributes]{@link https://developers.sparkpost.com/api/transmissions#header-transmission-attributes}
+         * @param {{ num_rcpt_errors?: number }} [options] specify maximum number of recipient errors returned
+         * @returns {SparkPost.ResultsPromise<{
+         *             total_rejected_recipients: number;
+         *             total_accepted_recipients: number;
+         *             id: string;
+         *         }>} The metadata and id results
+         */
+        send(transmission: SparkPost.CreateTransmission, options?: { num_rcpt_errors?: number }): SparkPost.ResultsPromise<{
+            total_rejected_recipients: number;
+            total_accepted_recipients: number;
+            id: string;
+        }>;
     };
     webhooks: {
         /**
@@ -1345,6 +1395,20 @@ declare namespace SparkPost {
     export interface CreateTransmission {
         /** JSON object in which transmission options are defined */
         options?: TransmissionOptions;
+        /**
+         * Recipients to receive a carbon copy of the transmission
+         *
+         * @type {Recipient[]}
+         * @memberOf CreateTransmission
+         */
+        cc?: Recipient[];
+        /**
+         * Recipients to discreetly receive a carbon copy of the transmission
+         *
+         * @type {Recipient[]}
+         * @memberOf CreateTransmission
+         */
+        bcc?: Recipient[];
         /** Inline recipient objects or object containing stored recipient list ID */
         recipients?: Recipient[] | { list_id: string };
         /** Name of the campaign */

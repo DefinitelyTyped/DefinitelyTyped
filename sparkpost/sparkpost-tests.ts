@@ -1139,8 +1139,8 @@ client.templates.update('TEST_ID', {
     console.log(err);
   });
 
-
-client.transmissions.all(function(err, res) {
+// Callback
+client.transmissions.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -1149,16 +1149,17 @@ client.transmissions.all(function(err, res) {
   }
 });
 
-client.transmissions.find("YOUR-TRANSMISSION-KEY", function(err, res) {
-  if (err) {
+// Promise
+client.transmissions.list()
+  .then(data => {
+    console.log(data);
+    console.log('Congrats you can use our client library!');
+  })
+  .catch(err => {
     console.log(err);
-  } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
-  }
-});
+  });
 
-client.transmissions.all({
+client.transmissions.list({
   campaign_id: "my_campaign"
 }, function(err, res) {
   if (err) {
@@ -1169,7 +1170,7 @@ client.transmissions.all({
   }
 });
 
-client.transmissions.all({
+client.transmissions.list({
   template_id: "my_template"
 }, function(err, res) {
   if (err) {
@@ -1180,8 +1181,29 @@ client.transmissions.all({
   }
 });
 
+// Callback
+client.transmissions.get("YOUR-TRANSMISSION-KEY", function(err, res) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(res.body);
+    console.log("Congrats you can use our SDK!");
+  }
+});
+
+// Promise
+client.transmissions.get('YOUR-TRANSMISSION-KEY')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [{ address: { email: "john.doe@example.com" } }],
     content: {
       from: "From Envelope <from@example.com>",
@@ -1193,7 +1215,6 @@ client.transmissions.send({
       open_tracking: true,
       click_tracking: true
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1203,13 +1224,12 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [{address: {email: "john.doe@example.com"}}],
     content: {
       email_rfc822: "Content-Type: text/plain\nFrom: From Envelope <from@example.com>\nSubject: Example Email\n\nHello World"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1219,8 +1239,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     options: {
       open_tracking: true,
       click_tracking: true
@@ -1266,8 +1286,7 @@ client.transmissions.send({
       },
       text: "Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}",
       html: "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{customer_type}}\n</p><p>{{sender}}</p>"
-    }
-  }
+	}
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1277,8 +1296,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [
       {
         address: {
@@ -1308,7 +1327,6 @@ client.transmissions.send({
       text: "An example email using bcc with SparkPost to the {{recipient_type}} recipient.",
       html: "<p>An example email using bcc with SparkPost to the {{recipient_type}} recipient.</p>"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1318,8 +1336,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [
       {
         address: {
@@ -1353,7 +1371,6 @@ client.transmissions.send({
       text: "An example email using cc with SparkPost to the {{recipient_type}} recipient.",
       html: "<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1363,8 +1380,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: {
       list_id: "example-list"
     },
@@ -1374,7 +1391,6 @@ client.transmissions.send({
       html: "<html><body><p>Hello World</p></body></html>",
       text: "Hello World!"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1384,8 +1400,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: {
       list_id: "example-list"
     },
@@ -1394,7 +1410,6 @@ client.transmissions.send({
       subject: "Example Email for Stored List and Template",
       template_id: "my-template"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1404,15 +1419,15 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  num_rcpt_errors: 3,
-  transmissionBody: {
     campaign_id: "ricks-campaign",
     content: {
       template_id: "ricks-template"
     },
     recipients: [{ address: { email: "rick.sanchez@rickandmorty100years.com", name: "Rick Sanchez" } }]
-  }
+}, {
+	num_rcpt_errors: 3
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1420,6 +1435,110 @@ client.transmissions.send({
     console.log(res.body);
     console.log("What up my glib globs! SparkPost!");
   }
+});
+
+
+// Promise
+client.transmissions.send({
+    options: {
+      open_tracking: true,
+      click_tracking: true
+    },
+    campaign_id: 'christmas_campaign',
+    metadata: {
+      user_type: 'students'
+    },
+    substitution_data: {
+      sender: 'Big Store Team'
+    },
+	cc: [],
+	bcc: [],
+    recipients: [
+      {
+        address: {
+          email: 'wilma@flintstone.com',
+          name: 'Wilma Flintstone'
+        },
+        tags: [
+          'greeting',
+          'prehistoric',
+          'fred',
+          'flintstone'
+        ],
+        metadata: {
+          place: 'Bedrock'
+        },
+        substitution_data: {
+          customer_type: 'Platinum'
+        }
+      }
+    ],
+    content: {
+      from: {
+        name: 'Fred Flintstone',
+        email: 'fred@flintstone.com'
+      },
+      subject: 'Big Christmas savings!',
+      reply_to: 'Christmas Sales <sales@flintstone.com>',
+      headers: {
+        'X-Customer-Campaign-ID': 'christmas_campaign'
+      },
+      text: 'Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}',
+      html: '<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{customer_type}}\n</p><p>{{sender}}</p>'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.transmissions.send({
+    recipients: [
+      {
+        address: {
+          email: 'original.recipient@example.com',
+          name: 'Original Recipient'
+        },
+        substitution_data: {
+          recipient_type: 'Original'
+        }
+      },
+      {
+        address: {
+          email: 'cc.recipient@example.com',
+          name: 'Carbon Copy Recipient',
+          header_to: '"Original Recipient" <original.recipient@example.com>'
+        },
+        substitution_data: {
+          recipient_type: 'CC'
+        }
+      }
+    ],
+    content: {
+      from: {
+        name: 'Node CC Test',
+        email: 'from@example.com'
+      },
+      headers: {
+        'CC': '"Carbon Copy Recipient" <cc.recipient@example.com>'
+      },
+      subject: 'Example email using cc',
+      text: 'An example email using cc with SparkPost to the {{recipient_type}} recipient.',
+      html: '<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>'
+    }
+})
+  .then(data => {
+    console.log('Congrats! You sent an email with cc using SparkPost!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
 });
 
 client.webhooks.create({
