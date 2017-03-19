@@ -834,10 +834,15 @@ declare class SparkPost {
     constructor(apiKey?: string, options?: SparkPost.ConstructorOptions);
 
     request(options: Request.Options, callback: SparkPost.Callback<any>): void;
+    request(options: Request.Options): Promise<SparkPost.Response<any>>;
     get(options: Request.Options, callback: SparkPost.Callback<any>): void;
+    get(options: Request.Options): Promise<SparkPost.Response<any>>;
     post(options: Request.Options, callback: SparkPost.Callback<any>): void;
+    post(options: Request.Options): Promise<SparkPost.Response<any>>;
     put(options: Request.Options, callback: SparkPost.Callback<any>): void;
+    put(options: Request.Options): Promise<SparkPost.Response<any>>;
     delete(options: Request.Options, callback: SparkPost.Callback<any>): void;
+    delete(options: Request.Options): Promise<SparkPost.Response<any>>;
 }
 
 declare namespace SparkPost {
