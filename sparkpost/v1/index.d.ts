@@ -1,3 +1,8 @@
+// Type definitions for sparkpost v1.3
+// Project: https://github.com/SparkPost/node-sparkpost
+// Definitions by: Joshua DeVinney <https://github.com/geoffreak>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference types="node"/>
 
 import * as Request from "request";
