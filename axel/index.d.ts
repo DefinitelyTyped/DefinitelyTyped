@@ -17,7 +17,7 @@ declare module 'axel' {
     export let cursor: cursorInterface;
 
     export function lerp(p1: number, p2: number, m: number): number;
-    export function circ(x: number, y: number, m: number);
+    export function circ(x: number, y: number, m: number): number;
     export function goto(x: number, y: number): void;
     export function scrub(x1: number, y1: number, w: number, h: number): void;
     export function box(x1: number, y1: number, w: number, h: number): void;
