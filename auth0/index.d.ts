@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.4
+// Type definitions for auth0 2.5
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
