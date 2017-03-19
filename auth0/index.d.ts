@@ -251,9 +251,6 @@ export class AuthenticationClient {
     sendSMS(userData: { phone_number: string; client_id?: string }): Promise<any>;
     sendSMS(userData: { phone_number: string; client_id?: string }, cb: (err: Error, message: string) => void): void;
 
-    signIn(userData: UserData): Promise<any>;
-    signIn(userData: UserData, cb: (err: Error, message: string) => void): void;
-
 
   };
   users: {
