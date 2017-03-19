@@ -947,8 +947,8 @@ client.suppressionList.upsert([
   }
 });
 
+// Callback
 client.templates.create({
-  template: {
     id: "TEST_ID",
     name: "Test Template",
     content: {
@@ -956,7 +956,6 @@ client.templates.create({
       subject: "Test email template!",
       html: "<b>This is a test email template!</b>"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -966,6 +965,26 @@ client.templates.create({
   }
 });
 
+// Promise
+client.templates.create({
+    id: 'TEST_ID',
+    name: 'Test Template',
+    content: {
+      from: 'test@test.com',
+      subject: 'Test email template!',
+      html: '<b>This is a test email template!</b>'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.templates.delete("TEST_ID", function(err, res) {
   if (err) {
     console.log(err);
@@ -975,8 +994,19 @@ client.templates.delete("TEST_ID", function(err, res) {
   }
 });
 
+// Promise
+client.templates.delete('TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
 
-client.templates.all(function(err, res) {
+// Callback
+client.templates.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -985,8 +1015,19 @@ client.templates.all(function(err, res) {
   }
 });
 
-client.templates.find({
-  id: "TEST_ID",
+// Promise
+client.templates.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.templates.get('TEST_ID', {
   draft: true
 }, function(err, res) {
   if (err) {
@@ -997,9 +1038,8 @@ client.templates.find({
   }
 });
 
-client.templates.find({
-  id: "TEST_ID"
-}, function(err, res) {
+// Callback
+client.templates.get('TEST_ID', function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -1008,8 +1048,19 @@ client.templates.find({
   }
 });
 
-client.templates.preview({
-  id: "TEST_ID",
+// Promise
+client.templates.get('TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.templates.preview('TEST_ID', {
   data: {}
 }, function(err, res) {
   if (err) {
@@ -1020,16 +1071,48 @@ client.templates.preview({
   }
 });
 
-client.templates.update({
-  id: "TEST_ID",
-  template: {
+// Promise
+client.templates.preview('TEST_ID', {
+	data: {
+		name: 'Natalie',
+		age: 35,
+		member: true
+	},
+	draft: true
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.templates.update('TEST_ID', {
     content: {
       from: "test@test.com",
       subject: "Updated Published Test email template!",
       html: "<b>This is a published test email template! Updated!</b>"
+    },
+}, { update_published: true },
+function(err, res) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(res.body);
+    console.log("Congrats you can use our SDK!");
+  }
+});
+
+// Callback
+client.templates.update('TEST_ID', {
+    content: {
+      from: "test@test.com",
+      subject: "Updated Test email template!",
+      html: "<b>This is a test email template! Updated!</b>"
     }
-  },
-  update_published: true
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1039,23 +1122,23 @@ client.templates.update({
   }
 });
 
-client.templates.update({
-  id: "TEST_ID",
-  template: {
+// Promise
+client.templates.update('TEST_ID', {
     content: {
-      from: "test@test.com",
-      subject: "Updated Test email template!",
-      html: "<b>This is a test email template! Updated!</b>"
+      from: 'test@test.com',
+      subject: 'Updated Test email template!',
+      html: '<b>This is a test email template! Updated!</b>'
     }
-  }
-}, function(err, res) {
-  if (err) {
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
     console.log(err);
-  } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
-  }
-});
+  });
+
 
 client.transmissions.all(function(err, res) {
   if (err) {
