@@ -3,7 +3,6 @@
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="request"/>
 /// <reference types="node"/>
 
 import * as Request from "request";
@@ -820,7 +819,8 @@ declare class SparkPost {
         /**
          * List an example of the event data that will be posted by a Webhook for the specified events.
          *
-         * @param {{ events?: string }} options [event types]{@link https://support.sparkpost.com/customer/portal/articles/1976204} for which to get a sample payload | Default: all event types returned
+         * @param {{ events?: string }} options [event types]{@link https://support.sparkpost.com/customer/portal/articles/1976204} for which to get a sample payload
+         * Default: all event types returned
          * @returns {Promise<SparkPost.Response<any>>}
          */
         getSamples(options?: { events?: string }): Promise<SparkPost.Response<any>>;
@@ -1035,9 +1035,21 @@ declare namespace SparkPost {
         address: Address | string;
     }
     export interface RecipientWithMultichannelAddresses {
-        /** Address information for a recipient. At a minimum, address or multichannel_addresses is required. If both address and multichannel_addresses are specified only multichannel_addresses will be used. */
+        /**
+         * Address information for a recipient. At a minimum, address or multichannel_addresses is required.
+         * If both address and multichannel_addresses are specified only multichannel_addresses will be used.
+         *
+         * @type {(Address | string)}
+         * @memberOf RecipientWithMultichannelAddresses
+         */
         address?: Address | string;
-        /** Array of Multichannel Address objects for a recipient. At a minimum, address or multichannel_addresses is required. If both address and multichannel_addresses are specified only multichannel_addresses will be used. */
+        /**
+         * Array of Multichannel Address objects for a recipient. At a minimum, address or multichannel_addresses is required.
+         * If both address and multichannel_addresses are specified only multichannel_addresses will be used.
+         *
+         * @type {MultichannelAddress[]}
+         * @memberOf RecipientWithMultichannelAddresses
+         */
         multichannel_addresses: MultichannelAddress[];
     }
     export type Recipient = (RecipientWithAddress | RecipientWithMultichannelAddresses) & BaseRecipient;
@@ -1420,7 +1432,13 @@ declare namespace SparkPost {
         text: string;
         /** Email subject line. */
         subject: string;
-        /** Address “from” : "deals@company.com" or JSON object composed of the “name” and “email” fields “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header. */
+        /**
+         * Address "from" : "deals@company.com" or JSON object composed of the "name" and "email" fields.
+         * "from" : { "name" : "My Company", "email" : "deals@company.com" } used to compose the email’s "From" header.
+         *
+         * @type {(Address | string)}
+         * @memberOf TemplateContent
+         */
         from: Address | string;
         /** Email address used to compose the email’s “Reply-To” header. */
         reply_to?: string;
@@ -1435,7 +1453,13 @@ declare namespace SparkPost {
         text?: string;
         /** Email subject line. */
         subject: string;
-        /** Address “from” : "deals@company.com" or JSON object composed of the “name” and “email” fields “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header. */
+        /**
+         * Address "from" : "deals@company.com" or JSON object composed of the "name" and "email" fields.
+         * "from" : { "name" : "My Company", "email" : "deals@company.com" } used to compose the email’s "From" header.
+         *
+         * @type {(Address | string)}
+         * @memberOf TemplateContent
+         */
         from: Address | string;
         /** Email address used to compose the email’s “Reply-To” header. */
         reply_to?: string;
@@ -1455,7 +1479,15 @@ declare namespace SparkPost {
     }
 
     export interface Template {
-        /** Short, unique, alphanumeric ID used to reference the template  At a minimum, id or name is required upon creation. It is auto generated if not provided.  After a template has been created, this property cannot be changed. Maximum length - 64 bytes */
+        /**
+         * Short, unique, alphanumeric ID used to reference the template.
+         * At a minimum, id or name is required upon creation.
+         * It is auto generated if not provided.
+         * After a template has been created, this property cannot be changed. Maximum length - 64 bytes
+         *
+         * @type {string}
+         * @memberOf Template
+         */
         id: string;
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
         content: TemplateContent | { email_rfc822: string };
@@ -1474,7 +1506,15 @@ declare namespace SparkPost {
     }
 
     export interface CreateTemplate {
-        /** Short, unique, alphanumeric ID used to reference the template  At a minimum, id or name is required upon creation. It is auto generated if not provided.  After a template has been created, this property cannot be changed. Maximum length - 64 bytes */
+        /**
+         * Short, unique, alphanumeric ID used to reference the template.
+         * At a minimum, id or name is required upon creation.
+         * It is auto generated if not provided.
+         * After a template has been created, this property cannot be changed. Maximum length - 64 bytes
+         *
+         * @type {string}
+         * @memberOf CreateTemplate
+         */
         id?: string;
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
         content: CreateTemplateContent | { email_rfc822: string };
@@ -1640,11 +1680,25 @@ declare namespace SparkPost {
     }
 
     export interface Attachment {
-        /** The MIME type of the attachment; e.g., “text/plain”, “image/jpeg”, “audio/mp3”, “video/mp4”, “application/msword”, “application/pdf”, etc., including the “charset” parameter (text/html; charset=“UTF-8”) if needed. The value will apply “as-is” to the “Content-Type” header of the generated MIME part for the attachment. */
+        /**
+         * The MIME type of the attachment; e.g., “text/plain”, “image/jpeg”, “audio/mp3”, “video/mp4”, “application/msword”, “application/pdf”, etc.,
+         * including the “charset” parameter (text/html; charset=“UTF-8”) if needed.
+         * The value will apply “as-is” to the “Content-Type” header of the generated MIME part for the attachment.
+         *
+         * @type {string}
+         * @memberOf Attachment
+         */
         type: string;
         /**   The filename of the attachment (for example, “document.pdf”). This is inserted into the filename parameter of the Content-Disposition header. */
         name: string;
-        /** The content of the attachment as a Base64 encoded string. The string should not contain \r\n line breaks. The SparkPost systems will add line breaks as necessary to ensure the Base64 encoded lines contain no more than 76 characters each. */
+        /**
+         * The content of the attachment as a Base64 encoded string.
+         * The string should not contain \r\n line breaks.
+         * The SparkPost systems will add line breaks as necessary to ensure the Base64 encoded lines contain no more than 76 characters each.
+         *
+         * @type {string}
+         * @memberOf Attachment
+         */
         data: string;
     }
 
