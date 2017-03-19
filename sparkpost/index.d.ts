@@ -433,29 +433,83 @@ declare class SparkPost {
          * List a summary of all templates.
          * @param callback The request callback with TemplateMeta results array
          */
-        all(callback: SparkPost.ResultsCallback<SparkPost.TemplateMeta[]>): void;
+        list(callback: SparkPost.ResultsCallback<SparkPost.TemplateMeta[]>): void;
+        /**
+         * List a summary of all templates.
+         *
+         * @returns {SparkPost.ResultsPromise<SparkPost.TemplateMeta[]>} The TemplateMeta results array
+         */
+        list(): SparkPost.ResultsPromise<SparkPost.TemplateMeta[]>;
         /**
          * Retrieve details about a specified template by its id
-         * @param options The id and draft status information
+         *
+         * @param id the id of the template you want to look up
+         * @param options specifies a draft or published template
          * @param callback The request callback with Template results
          */
-        find(options: { id: string, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.Template>): void;
+        get(id: string, options: { draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.Template>): void;
+        /**
+         * Retrieve details about a specified template by its id
+         *
+         * @param {string} id the id of the template you want to look up
+         * @param {SparkPost.ResultsCallback<SparkPost.Template>} callback The request callback with Template results
+         */
+        get(id: string, callback: SparkPost.ResultsCallback<SparkPost.Template>): void;
+        /**
+         * Retrieve details about a specified template by its id
+         *
+         * @param {string} id the id of the template you want to look up
+         * @param {{ draft?: boolean }} [options] specifies a draft or published template
+         * @returns {SparkPost.ResultsPromise<SparkPost.Template>} The Template results
+         */
+        get(id: string, options?: { draft?: boolean }): SparkPost.ResultsPromise<SparkPost.Template>;
         /**
          * Create a new template
-         * @param options The create options
+         *
+         * @param template an object of [template attributes]{@link https://developers.sparkpost.com/api/templates#header-template-attributes}
          * @param callback The request callback with template id results
          */
-        create(options: { template: SparkPost.CreateTemplate }, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        create(template: SparkPost.CreateTemplate, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        /**
+         * Create a new template
+         *
+         * @param {SparkPost.CreateTemplate} template an object of [template attributes]{@link https://developers.sparkpost.com/api/templates#header-template-attributes}
+         * @returns {SparkPost.ResultsPromise<{ id: string }>} The template id results
+         */
+        create(template: SparkPost.CreateTemplate): SparkPost.ResultsPromise<{ id: string }>;
         /**
          * Update an existing template
-         * @param options The create options
+         *
+         * @param {string} id the id of the template you want to update
+         * @param template an object of [template attributes]{@link https://developers.sparkpost.com/api/templates#header-template-attributes}
+         * @param options The create options. If true, directly overwrite the existing published template. If false, create a new draft
          * @param callback The request callback with template id results
          */
-        update(options: {
-            id: string,
-            template: SparkPost.UpdateTemplate,
+        update(id: string, template: SparkPost.UpdateTemplate, options: {
             update_published?: boolean;
         }, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        /**
+         * Update an existing template
+         *
+         * @param {string} id the id of the template you want to update
+         * @param {SparkPost.UpdateTemplate} template an object of [template attributes]{@link https://developers.sparkpost.com/api/templates#header-template-attributes}
+         * @param {SparkPost.ResultsCallback<{ id: string }>} callback The request callback with template id results
+         */
+        update(id: string, template: SparkPost.UpdateTemplate,
+            callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        /**
+         * Update an existing template
+         *
+         * @param {string} id the id of the template you want to update
+         * @param {SparkPost.UpdateTemplate} template an object of [template attributes]{@link https://developers.sparkpost.com/api/templates#header-template-attributes}
+         * @param {{
+         *             update_published?: boolean;
+         *         }} [options] If true, directly overwrite the existing published template. If false, create a new draft
+         * @returns {SparkPost.ResultsPromise<{ id: string }>} The template id results
+         */
+        update(id: string, template: SparkPost.UpdateTemplate, options?: {
+            update_published?: boolean;
+        }): SparkPost.ResultsPromise<{ id: string }>;
         /**
          * Delete an existing template
          * @param id The template id
@@ -463,11 +517,35 @@ declare class SparkPost {
          */
         delete(id: string, callback: SparkPost.Callback<void>): void;
         /**
+         * Delete an existing template
+         *
+         * @param id The template id
+         * @returns Promise void
+         */
+        delete(id: string): Promise<void>;
+        /**
          * Preview the most recent version of an existing template by id
+         *
+         * @param {string} id the id of the template you want to look up
          * @param options The preview options
          * @param callback The request callback with webhook id results
          */
-        preview(options: { id: string, data: any, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>): void;
+        preview(id: string, options: { data: any, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>): void;
+        /**
+         * Preview the most recent version of an existing template by id
+         *
+         * @param {string} id the id of the template you want to look up
+         * @param {SparkPost.ResultsCallback<SparkPost.TemplateContent>} callback The request callback with webhook id results
+         */
+        preview(id: string, callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>): void;
+        /**
+         * Preview the most recent version of an existing template by id
+         *
+         * @param {string} id the id of the template you want to look up
+         * @param {{ data: any, draft?: boolean }} [options]
+         * @returns {SparkPost.ResultsPromise<SparkPost.TemplateContent>} The webhook id results
+         */
+        preview(id: string, options?: { data: any, draft?: boolean }): SparkPost.ResultsPromise<SparkPost.TemplateContent>;
     };
     transmissions: {
         /**
