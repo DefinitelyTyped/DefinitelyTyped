@@ -3,6 +3,7 @@ import * as SparkPost from "sparkpost";
 let key = "YOURAPIKEY";
 let client = new SparkPost(key);
 
+// Callback
 client.get({
   uri: "metrics/domains"
 }, function(err, data) {
@@ -13,6 +14,17 @@ client.get({
 
   console.log(data.body);
 });
+
+// Promise
+client.get({
+  uri: 'metrics/domains'
+})
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 // Callback
 client.inboundDomains.create({ domain: 'example1.com' }, function(err, res) {
