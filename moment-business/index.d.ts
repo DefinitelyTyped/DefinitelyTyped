@@ -1,6 +1,6 @@
 // Type definitions for moment-business.js
 // Project: https://github.com/jmeas/moment-business
-// Definitions by: Gerg Sieranski <https://github.com/wonbyte>
+// Definitions by: Greg Sieranski <https://github.com/wonbyte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as moment from "moment";
