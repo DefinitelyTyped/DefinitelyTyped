@@ -1,6 +1,6 @@
 // Type definitions for sparkpost 2.1
 // Project: https://github.com/SparkPost/node-sparkpost
-// Definitions by: Joshua DeVinney <https://github.com/geoffreak>
+// Definitions by: Joshua DeVinney <https://github.com/geoffreak>, Bond <https://github.com/bondz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
