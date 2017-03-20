@@ -696,21 +696,21 @@ declare namespace webpack {
     namespace DllPlugin {
         interface Options {
             /**
-             * The absolute path to the manifest json file (output).
-             */
-            path: string,
-
-            /**
-             * The name of the exposed DLL function (keep consistent with `output.library`).
-             */
-            name: string,
-
-            /**
              * The context of requests in the manifest file.
              *
              * Defaults to the webpack context.
              */
-            context?: string
+            context?: string;
+
+            /**
+             * The name of the exposed DLL function (keep consistent with `output.library`).
+             */
+            name: string;
+
+            /**
+             * The absolute path to the manifest json file (output).
+             */
+            path: string;
         }
     }
 
@@ -721,24 +721,23 @@ declare namespace webpack {
     namespace DllReferencePlugin {
         interface Options {
             /**
+             * The mappings from the request to module ID.
+             *
+             * Defaults to `manifest.content`.
+             */
+            content?: any;
+
+            /**
              * The context of requests in the manifest (or content property).
              *
              * This is an <b>absolute path</b>.
              */
-            context: string,
+            context: string;
 
             /**
              * An object containing `content` and `name`.
              */
-            manifest: {
-                content: string,
-                name: string
-            },
-
-            /**
-             * The prefix which is used for accessing the content of the DLL.
-             */
-            scope?: string,
+            manifest: { content: string, name: string };
 
             /**
              * The name where the DLL is exposed.
@@ -747,7 +746,12 @@ declare namespace webpack {
              *
              * See also `externals`.
              */
-            name?: string,
+            name?: string;
+
+            /**
+             * The prefix which is used for accessing the content of the DLL.
+             */
+            scope?: string;
 
             /**
              * The type how the DLL is exposed.
@@ -756,14 +760,7 @@ declare namespace webpack {
              *
              * See also `externals`.
              */
-            sourceType?: string,
-
-            /**
-             * The mappings from the request to module ID.
-             *
-             * Defaults to `manifest.content`.
-             */
-            content?: any
+            sourceType?: string;
         }
     }
 
