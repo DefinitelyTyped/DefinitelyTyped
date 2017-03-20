@@ -1,11 +1,8 @@
 // Type definitions for Q 1.0
 // Project: https://github.com/kriskowal/q
-// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
+// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>, Ashley Brener <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-
-export = Q;
-export as namespace Q;
 
 /**
  * If value is a Q promise, returns the promise.
@@ -353,3 +350,5 @@ declare namespace Q {
 	 */
 	export function noConflict(): typeof Q;
 }
+
+export = Q;
