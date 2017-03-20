@@ -30,7 +30,7 @@ declare let CSSModules: CSSModules;
 export = CSSModules;
 
 declare module 'react' {
-    interface HTMLAttributes<T> {
+    interface HTMLAttributes<T extends HTMLElement> {
         styleName?: string;
     }
 }

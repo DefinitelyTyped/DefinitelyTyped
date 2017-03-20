@@ -465,7 +465,7 @@ declare namespace FixedDataTable {
      *   />
      * );
      */
-    export interface CellProps extends React.HTMLAttributes<Cell> {
+    export interface CellProps extends React.HTMLAttributes<HTMLElement> {
         /**
          * The row index of the cell.
          */

@@ -34,7 +34,7 @@ namespace ShallowWrapperTest {
         boolVal: boolean,
         stringVal: string,
         numOrStringVal: number | string,
-        elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>,
+        elementWrapper: ShallowWrapper<HTMLAttributes<HTMLElement>, {}>,
         statelessWrapper: ShallowWrapper<StatelessProps, never>;
 
     function test_shallow_options() {
@@ -334,7 +334,7 @@ namespace ReactWrapperTest {
         objectVal: {},
         boolVal: boolean,
         stringVal: string,
-        elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>,
+        elementWrapper: ReactWrapper<HTMLAttributes<HTMLElement>, {}>,
         statelessWrapper: ReactWrapper<StatelessProps, never>;
 
     function test_unmount() {

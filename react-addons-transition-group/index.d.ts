@@ -7,7 +7,7 @@
 import { ReactElement, ComponentClass, ReactType, TransitionGroupProps } from 'react';
 
 declare module 'react' {
-    export interface TransitionGroupProps extends HTMLAttributes<{}> {
+    export interface TransitionGroupProps extends HTMLAttributes<HTMLElement> {
         component?: ReactType;
         className?: string;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;

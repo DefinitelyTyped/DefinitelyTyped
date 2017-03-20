@@ -67,7 +67,7 @@ interface LeafletDraggingEvents {
 }
 
 
-interface MapProps extends React.HTMLProps<Map>,
+interface MapProps extends React.HTMLProps<HTMLElement>,
     LeafletLayerEvents, LeafletMapStateChangeEvents, LeafletPopupEvents, LeafletTooltipEvents, LeafletLocationEvents, LeafletInteractionEvents, LeafletOtherEvents, Leaflet.MapOptions {
     animate?: boolean;
     bounds?: Leaflet.LatLngBoundsExpression;

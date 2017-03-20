@@ -11,7 +11,7 @@
 /// <reference types="cheerio" />
 import { ReactElement, Component, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
-type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
+type HTMLAttributes = ReactHTMLAttributes<HTMLElement> & ReactSVGAttributes<SVGElement>;
 
 export class ElementClass extends Component<any, any> {
 }
