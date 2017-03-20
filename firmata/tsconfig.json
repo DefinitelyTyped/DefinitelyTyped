@@ -16,7 +16,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "firmata.d.ts",
+    "index.d.ts",
     "firmata-tests.ts"
   ]
 }
