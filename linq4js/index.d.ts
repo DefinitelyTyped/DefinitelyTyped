@@ -10,15 +10,36 @@ declare namespace Linq4JS {
     }
 }
 declare namespace Linq4JS {
+    class EvaluateCommand {
+        Command: string;
+        SplitRegex: RegExp[];
+        Finder: RegExp[];
+        constructor(command: string, ...identifier: string[]);
+    }
+    class EvaluateCommandResult {
+        Command: string;
+        DynamicFunction: string;
+        constructor(cmd: string, fn: string);
+    }
+}
+declare namespace Linq4JS {
     class Helper {
-        private static ConvertStringFunction(functionString);
-        static ConvertFunction<T>(testFunction: string | T): T;
+        private static ConvertStringFunction(functionString, noAutoReturn?, noBracketReplace?);
+        static ConvertFunction<T>(testFunction: string | T, noAutoReturn?: boolean, noBracketReplace?: boolean): T;
         static OrderCompareFunction<T>(valueSelector: (item: T) => any, a: T, b: T, invert: boolean): number;
+        static SplitCommand(command: string): string[];
+        static MatchCommand(cmd: string): EvaluateCommandResult;
+        static Commands: EvaluateCommand[];
     }
 }
 interface Array<T> {
     Order: Linq4JS.OrderEntry[];
     GroupValue: any;
+    /**
+     * Executes actions defined in the command-string
+     * @param command The command-string for execution
+     */
+    Evaluate(command: string): any;
     /**
      * Creates a copy of the array
      */
@@ -279,5 +300,12 @@ declare namespace Linq4JS {
     enum OrderDirection {
         Ascending = 0,
         Descending = 1,
+    }
+}
+declare namespace Linq4JS {
+    class SelectEntry {
+        property: string;
+        name: string;
+        constructor(n: string, p: string);
     }
 }
