@@ -7,7 +7,6 @@
 declare module 'firmata'
 {
 	import * as SerialPort from 'serialport'
-
 	export = Board;
 
 	/**
@@ -19,7 +18,6 @@ declare module 'firmata'
 	class Board extends NodeJS.EventEmitter
 	{
 		constructor(serialPort:string, callback?:(error:any) => void)
-
 		public MODES:Board.IPinModes;
 		public STEPPER:Board.IStepperConstants;
 		public I2C_MODES:Board.II2cModes;
@@ -34,151 +32,96 @@ declare module 'firmata'
 		public version:Board.IVersion;
 		public firmware:Board.IFirmware;
 		public settings:Board.ISettings;
-
 		public reportVersion(callback:() => void):void
-
 		public queryFirmware(callback:() => void):void
-
 		public analogRead(pin:number, callback:(value:number) => void):void
-
 		public analogWrite(pin:number, value:number):void
-
 		public pwmWrite(pin:number, value:number):void
-
 		public servoConfig(pin:number, min:number, max:number):void
-
 		public servoWrite(pin:number, value:number):void
-
 		public pinMode(pin:number, mode:Board.PIN_MODES):void
-
 		public digitalWrite(pin:number, val:Board.PIN_STATE):void
-
 		public digitalRead(pin:number, callback:(val:Board.PIN_STATE) => void):void
-
 		public queryCapabilities(callback:() => void):void
-
 		public queryAnalogMapping(callback:() => void):void
-
 		public queryPinState(pin:number, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public sendString(str:string):void
-
 		// TODO untested/incomplete --- TWW
 		public sendI2CConfig(delay:number):void
-
 		// TODO untested/incomplete --- TWW
 		public i2cConfig(options:any):void
-
 		// TODO untested/incomplete --- TWW
 		public sendI2CWriteRequest(slaveAddress:any, bytes:any):void
-
 		// TODO untested/incomplete --- TWW
 		public i2cWrite(address:any, registerOrData:any, inBytes:any):void
-
 		// TODO untested/incomplete --- TWW
 		public i2cWriteReg(address:any, register:any, byte:any):void
-
 		// TODO untested/incomplete --- TWW
 		public sendI2CReadRequest(address:any, numBytes:number, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public i2cRead(address:any, register:any, bytesToRead:number, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public i2cStop(options:any):void
-
 		// TODO untested/incomplete --- TWW
 		public i2cReadOnce(address:any, register:any, bytesToRead:number, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireConfig(pin:number, enableParasiticPower:any):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireSearch(pin:number, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireAlarmsSearch(pin:number, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireRead(pin:number, device:any, numBytesToRead:any, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireReset(pin:number):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireWrite(pin:number, device:any, data:any):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireDelay(pin:number, delay:number):void
-
 		// TODO untested/incomplete --- TWW
 		public sendOneWireWriteAndRead(pin:number, device:any, data:any, numBytesToRead:any, callback:() => void):void
-
 		public setSamplingInterval(interval:number):void
-
 		// TODO untested/incomplete --- TWW
 		public getSamplingInterval():number
-
 		public reportAnalogPin(pin:number, value:Board.REPORTING):void
-
 		public reportDigitalPin(pin:number, value:Board.REPORTING):void
-
 		// TODO untested/incomplete --- TWW
 		public pingRead(opts:any, callback:() => void):void
-
 		public stepperConfig(deviceNum:number, type:number, stepsPerRev:number, dirOrMotor1Pin:number,
 			stepOrMotor2Pin:number, motor3Pin?:number, motor4Pin?:number):void
-
 		public stepperStep(deviceNum:number, direction:Board.STEPPER_DIRECTIONS, steps:number, speed:number,
 			accel:number, decel:number, callback:(bool?:boolean) => void):void
-
 		// TODO untested/incomplete --- TWW
 		public serialConfig(options:any):void
-
 		// TODO untested/incomplete --- TWW
 		public serialWrite(portId:any, inBytes:any):void
-
 		// TODO untested/incomplete --- TWW
 		public serialRead(portId:any, maxBytesToRead:any, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		public serialStop(portId:any):void
-
 		// TODO untested/incomplete --- TWW
 		public serialClose(portId:any):void
-
 		// TODO untested/incomplete --- TWW
 		public serialFlush(portId:any):void
-
 		// TODO untested/incomplete --- TWW
 		public serialListen(portId:any):void
-
 		// TODO untested/incomplete --- TWW
 		public sysexResponse(commandByte:any, handler:any):void
-
 		// TODO untested/incomplete --- TWW
 		public sysexCommand(message:any):void
-
 		public reset():void
-
 		// TODO untested/incomplete --- TWW
 		public static isAcceptablePort(port:Board.IPort):boolean
-
 		// TODO untested/incomplete --- TWW
 		public static requestPort(callback:(error:any, port:Board.IPort) => any):void
-
 		// TODO untested/incomplete --- TWW
 		public static encode(data:number[]):number[]
-
 		// TODO untested/incomplete --- TWW
 		public static decode(data:number[]):number[]
-
 		protected transport:SerialPort;
-
 		// TODO untested/incomplete --- TWW
 		protected _sendOneWireSearch(type:any, event:any, pin:number, callback:() => void):void
-
 		// TODO untested/incomplete --- TWW
 		protected _sendOneWireRequest(pin:number, subcommand:any, device:any, numBytesToRead:any, correlationId:any,
 			delay:number, dataToWrite:any, event:any, callback:() => void):void
@@ -188,9 +131,9 @@ declare module 'firmata'
 	{
 		export interface IPinModes
 		{
-			INPUT:PIN_MODES, OUTPUT:PIN_MODES, ANALOG:PIN_MODES, PWM:PIN_MODES, SERVO:PIN_MODES,
-			SHIFT:PIN_MODES, I2C:PIN_MODES, ONEWIRE:PIN_MODES, STEPPER:PIN_MODES, SERIAL:PIN_MODES,
-			PULLUP:PIN_MODES, IGNORE:PIN_MODES, PING_READ:PIN_MODES, UNKOWN:PIN_MODES
+			INPUT:PIN_MODES, OUTPUT:PIN_MODES, ANALOG:PIN_MODES, PWM:PIN_MODES, SERVO:PIN_MODES, SHIFT:PIN_MODES,
+			I2C:PIN_MODES, ONEWIRE:PIN_MODES, STEPPER:PIN_MODES, SERIAL:PIN_MODES, PULLUP:PIN_MODES, IGNORE:PIN_MODES,
+			PING_READ:PIN_MODES, UNKOWN:PIN_MODES
 		}
 
 		export interface IStepperConstants
@@ -214,9 +157,9 @@ declare module 'firmata'
 
 		export interface ISerialPortIds
 		{
-			HW_SERIAL0:SERIAL_PORT_IDs, HW_SERIAL1:SERIAL_PORT_IDs, HW_SERIAL2:SERIAL_PORT_IDs, HW_SERIAL3:SERIAL_PORT_IDs,
-			SW_SERIAL0:SERIAL_PORT_IDs, SW_SERIAL1:SERIAL_PORT_IDs,SW_SERIAL2:SERIAL_PORT_IDs, SW_SERIAL3:SERIAL_PORT_IDs,
-			DEFAULT:SERIAL_PORT_IDs,
+			HW_SERIAL0:SERIAL_PORT_IDs, HW_SERIAL1:SERIAL_PORT_IDs, HW_SERIAL2:SERIAL_PORT_IDs,
+			HW_SERIAL3:SERIAL_PORT_IDs, SW_SERIAL0:SERIAL_PORT_IDs, SW_SERIAL1:SERIAL_PORT_IDs,
+			SW_SERIAL2:SERIAL_PORT_IDs, SW_SERIAL3:SERIAL_PORT_IDs, DEFAULT:SERIAL_PORT_IDs,
 		}
 
 		export interface ISerialPinTypes
