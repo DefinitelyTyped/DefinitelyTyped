@@ -6,7 +6,7 @@
     ],
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "baseUrl": "../",
     "typeRoots": [
       "../"
@@ -16,7 +16,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.d.ts",
-    "xmpp-jid-tests.ts"
+    "axel-tests.ts",
+    "index.d.ts"
   ]
 }

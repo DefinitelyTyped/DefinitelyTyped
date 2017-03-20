@@ -102,6 +102,7 @@ declare namespace Sinon {
         throws(type?: string): SinonStub;
         throws(obj: any): SinonStub;
         callsArg(index: number): SinonStub;
+        callThrough(): SinonStub;
         callsArgOn(index: number, context: any): SinonStub;
         callsArgWith(index: number, ...args: any[]): SinonStub;
         callsArgOnWith(index: number, context: any, ...args: any[]): SinonStub;

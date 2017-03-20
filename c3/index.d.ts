@@ -145,7 +145,9 @@ declare namespace c3 {
             /**
              * Change step type for step chart. 'step', 'step-before' and 'step-after' can be used.
              */
-            step_type?: string;
+            step?: {
+                 type: string;
+             };
         };
 
         area?: {
