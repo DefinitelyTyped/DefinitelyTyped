@@ -1,6 +1,6 @@
 // Type definitions for Victory 0.9.0
 // Project: https://github.com/FormidableLabs/victory
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
+// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, snerks <https://github.com/snerks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -299,6 +299,11 @@ declare module "victory" {
             before?: (datum: any) => AnimationStyle;
             after?: (datum: any) => AnimationStyle;
         };
+        /**
+         * The easing prop specifies an easing function name to use for tweening.
+         * @default "quadInOut"
+         */
+        easing?: AnimationEasing;
     }
 
     /**
