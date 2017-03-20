@@ -7,10 +7,10 @@ function test_basic_board()
 
 function test_board_with_callback()
 {
-	let board = new Board('', (error:any) =>
+	let board = new Board('', (error: any) =>
 	{
 		board.pinMode(13, board.MODES.OUTPUT);
-		board.pinMode(12, Board.PIN_MODES.OUTPUT);
+		board.pinMode(12, Board.PIN_MODE.OUTPUT);
 	});
 }
 
@@ -21,7 +21,7 @@ function test_board_with_listener()
 	board.on('ready', () =>
 	{
 		board.pinMode(13, board.MODES.OUTPUT);
-		board.pinMode(12, Board.PIN_MODES.OUTPUT);
+		board.pinMode(12, Board.PIN_MODE.OUTPUT);
 	});
 }
 
@@ -31,11 +31,11 @@ function test_class_extension()
 	{
 		Disconnect()
 		{
-			this.transport.close((error:any) => {});
+			this.transport.close((error: any) => {});
 		}
 	}
 
-	let myBoard:MyBoard = new MyBoard('', () =>
+	let myBoard: MyBoard = new MyBoard('', () =>
 	{
 		myBoard.Disconnect();
 	});
