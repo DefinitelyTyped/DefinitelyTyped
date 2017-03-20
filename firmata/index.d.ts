@@ -19,6 +19,7 @@ declare module 'firmata'
 	class Board extends NodeJS.EventEmitter
 	{
 		constructor(serialPort:string, callback?:(error:any) => void)
+
 		public MODES:Board.IPinModes;
 		public STEPPER:Board.IStepperConstants;
 		public I2C_MODES:Board.II2cModes;
@@ -33,6 +34,7 @@ declare module 'firmata'
 		public version:Board.IVersion;
 		public firmware:Board.IFirmware;
 		public settings:Board.ISettings;
+		protected transport:SerialPort;
 		public reportVersion(callback:() => void):void
 		public queryFirmware(callback:() => void):void
 		public analogRead(pin:number, callback:(value:number) => void):void
@@ -46,44 +48,44 @@ declare module 'firmata'
 		public queryCapabilities(callback:() => void):void
 		public queryAnalogMapping(callback:() => void):void
 		public queryPinState(pin:number, callback:() => void):void
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
 		public sendString(str:string):void
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
 		public sendI2CConfig(delay:number):void
-		// TODO untested/incomplete --- TWW
-		public i2cConfig(options:any):void
-		// TODO untested/incomplete --- TWW
-		public sendI2CWriteRequest(slaveAddress:any, bytes:any):void
-		// TODO untested/incomplete --- TWW
-		public i2cWrite(address:any, registerOrData:any, inBytes:any):void
-		// TODO untested/incomplete --- TWW
-		public i2cWriteReg(address:any, register:any, byte:any):void
-		// TODO untested/incomplete --- TWW
-		public sendI2CReadRequest(address:any, numBytes:number, callback:() => void):void
-		// TODO untested/incomplete --- TWW
-		public i2cRead(address:any, register:any, bytesToRead:number, callback:() => void):void
-		// TODO untested/incomplete --- TWW
-		public i2cStop(options:any):void
-		// TODO untested/incomplete --- TWW
-		public i2cReadOnce(address:any, register:any, bytesToRead:number, callback:() => void):void
-		// TODO untested/incomplete --- TWW
-		public sendOneWireConfig(pin:number, enableParasiticPower:any):void
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
+		public i2cConfig(options:number|{ delay:number }):void
+		// TODO untested --- TWW
+		public sendI2CWriteRequest(slaveAddress:number, bytes:number[]):void
+		// TODO untested --- TWW
+		public i2cWrite(address:number, registerOrData:number|number[], inBytes:number[]):void
+		// TODO untested --- TWW
+		public i2cWriteReg(address:number, register:number, byte:number):void
+		// TODO untested --- TWW
+		public sendI2CReadRequest(address:number, numBytes:number, callback:() => void):void
+		// TODO untested --- TWW
+		public i2cRead(address:number, register:number, bytesToRead:number, callback:() => void):void
+		// TODO untested --- TWW
+		public i2cStop(options:number|{ bus:number, address:number }):void
+		// TODO untested --- TWW
+		public i2cReadOnce(address:number, register:number, bytesToRead:number, callback:() => void):void
+		// TODO untested --- TWW
+		public sendOneWireConfig(pin:number, enableParasiticPower:boolean):void
+		// TODO untested --- TWW
 		public sendOneWireSearch(pin:number, callback:() => void):void
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
 		public sendOneWireAlarmsSearch(pin:number, callback:() => void):void
-		// TODO untested/incomplete --- TWW
-		public sendOneWireRead(pin:number, device:any, numBytesToRead:any, callback:() => void):void
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
+		public sendOneWireRead(pin:number, device:number, numBytesToRead:number, callback:() => void):void
+		// TODO untested --- TWW
 		public sendOneWireReset(pin:number):void
-		// TODO untested/incomplete --- TWW
-		public sendOneWireWrite(pin:number, device:any, data:any):void
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
+		public sendOneWireWrite(pin:number, device:number, data:number|number[]):void
+		// TODO untested --- TWW
 		public sendOneWireDelay(pin:number, delay:number):void
-		// TODO untested/incomplete --- TWW
-		public sendOneWireWriteAndRead(pin:number, device:any, data:any, numBytesToRead:any, callback:() => void):void
+		// TODO untested --- TWW
+		public sendOneWireWriteAndRead(pin:number, device:number, data:number|number[], numBytesToRead:number,
+			callback:(error?:Error, data?:number) => void):void
 		public setSamplingInterval(interval:number):void
-		// TODO untested/incomplete --- TWW
 		public getSamplingInterval():number
 		public reportAnalogPin(pin:number, value:Board.REPORTING):void
 		public reportDigitalPin(pin:number, value:Board.REPORTING):void
@@ -92,35 +94,32 @@ declare module 'firmata'
 		public stepperConfig(deviceNum:number, type:number, stepsPerRev:number, dirOrMotor1Pin:number,
 			stepOrMotor2Pin:number, motor3Pin?:number, motor4Pin?:number):void
 		public stepperStep(deviceNum:number, direction:Board.STEPPER_DIRECTIONS, steps:number, speed:number,
-			accel:number, decel:number, callback:(bool?:boolean) => void):void
-		// TODO untested/incomplete --- TWW
-		public serialConfig(options:any):void
-		// TODO untested/incomplete --- TWW
-		public serialWrite(portId:any, inBytes:any):void
-		// TODO untested/incomplete --- TWW
-		public serialRead(portId:any, maxBytesToRead:any, callback:() => void):void
-		// TODO untested/incomplete --- TWW
-		public serialStop(portId:any):void
-		// TODO untested/incomplete --- TWW
-		public serialClose(portId:any):void
-		// TODO untested/incomplete --- TWW
-		public serialFlush(portId:any):void
-		// TODO untested/incomplete --- TWW
-		public serialListen(portId:any):void
-		// TODO untested/incomplete --- TWW
-		public sysexResponse(commandByte:any, handler:any):void
-		// TODO untested/incomplete --- TWW
-		public sysexCommand(message:any):void
+			accel:number|((bool?:boolean) => void), decel?:number, callback?:(bool?:boolean) => void):void
+		// TODO untested --- TWW
+		public serialConfig(options:{ portId:Board.SERIAL_PORT_IDs, baud:number, rxPin?:number, txPin?:number }):void
+		// TODO untested --- TWW
+		public serialWrite(portId:Board.SERIAL_PORT_IDs, inBytes:number[]):void
+		// TODO untested --- TWW
+		public serialRead(portId:Board.SERIAL_PORT_IDs, maxBytesToRead:number, callback:() => void):void
+		// TODO untested --- TWW
+		public serialStop(portId:Board.SERIAL_PORT_IDs):void
+		// TODO untested --- TWW
+		public serialClose(portId:Board.SERIAL_PORT_IDs):void
+		// TODO untested --- TWW
+		public serialFlush(portId:Board.SERIAL_PORT_IDs):void
+		// TODO untested --- TWW
+		public serialListen(portId:Board.SERIAL_PORT_IDs):void
+		// TODO untested --- TWW
+		public sysexResponse(commandByte:number, handler:(data:number[]) => void):void
+		// TODO untested --- TWW
+		public sysexCommand(message:number[]):void
 		public reset():void
-		// TODO untested/incomplete --- TWW
 		public static isAcceptablePort(port:Board.IPort):boolean
-		// TODO untested/incomplete --- TWW
 		public static requestPort(callback:(error:any, port:Board.IPort) => any):void
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
 		public static encode(data:number[]):number[]
-		// TODO untested/incomplete --- TWW
+		// TODO untested --- TWW
 		public static decode(data:number[]):number[]
-		protected transport:SerialPort;
 		// TODO untested/incomplete --- TWW
 		protected _sendOneWireSearch(type:any, event:any, pin:number, callback:() => void):void
 		// TODO untested/incomplete --- TWW
