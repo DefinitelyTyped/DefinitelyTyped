@@ -1,4 +1,4 @@
-// Type definitions for sylvester 0.1.3
+// Type definitions for sylvester 0.1
 // Project: https://github.com/jcoglan/sylvester
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,118 +7,11 @@
 // Vector and Matrix mathematics modules for JavaScript
 // Copyright (c) 2007 James Coglan
 
-declare module Sylvester {
-    interface VectorStatic {
-        /**
-         * Constructor function.
-         */
-        create(elements: Vector|Array<number>): Vector;
-
-        i: Vector;
-        j: Vector;
-        k: Vector;
-
-        /**
-         * Random vector of size n.
-         *
-         * @param {number} n The vector size.
-         */
-        Random(n: number): Vector;
-
-        /**
-         * Vector filled with zeros.
-         *
-         * @param {number} n The vector size.
-         */
-        Zero(n: number): Vector;
-    }
-    interface MatrixStatic {
-        /**
-         * Constructor function.
-         *
-         * @param {Array<number>|Array<Array<number>>|Vector|Matrix} elements The elements.
-         */
-        create(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
-
-        /**
-         * Identity matrix of size n.
-         *
-         * @param {number} n The size.
-         */
-        I(n: number): Matrix;
-
-        /**
-         * Diagonal matrix - all off-diagonal elements are zero
-         *
-         * @param {any} elements The elements.
-         */
-        Diagonal(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
-
-        /**
-         * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
-         *
-         * @param {number} theta The angle in radians.
-         * @param {Vector} a [Optional] The axis.
-         */
-        Rotation(theta: number, a?: Vector): Matrix;
-
-        RotationX(t: number): Matrix;
-        RotationY(t: number): Matrix;
-        RotationZ(t: number): Matrix;
-
-        /**
-         * Random matrix of n rows, m columns.
-         *
-         * @param {number} n The number of rows.
-         * @param {number} m The number of columns.
-         */
-        Random(n: number, m: number): Matrix;
-
-        /**
-         * Matrix filled with zeros.
-         *
-         * @param {number} n The number of rows.
-         * @param {number} m The number of columns.
-         */
-        Zero(n: number, m: number): Matrix;
-    }
-
-    interface LineStatic {
-        /**
-         * Constructor function.
-         *
-         * @param Array<number>|Vector anchor The anchor vector.
-         * @param Array<number>|Vector direction The direction vector.
-         */
-        create(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
-
-        X: Line;
-        Y: Line;
-        Z: Line;
-    }
-    interface PlaneStatic {
-        /**
-         * Constructor function.
-         */
-        create(anchor: Array<number>|Vector, normal: Array<number>|Vector): Plane;
-
-        /**
-         * Constructor function.
-         */
-        create(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
-
-        XY: Plane;
-        YZ: Plane;
-        ZX: Plane;
-        YX: Plane;
-    }
-}
-
-interface Vector {
+export class Vector {
     /**
      * Gets an array containing the vector's elements.
      */
-    elements: Array<number>;
+    elements: number[];
 
     /**
      * Returns element i of the vector.
@@ -138,9 +31,9 @@ interface Vector {
     /**
      * Returns true if the vector is equal to the argument.
      *
-     * @param {Vector|Array<number>} vector The vector to compare equality.
+     * @param {Vector | number[]} vector The vector to compare equality.
      */
-    eql(vector: Vector|Array<number>): boolean;
+    eql(vector: Vector | number[]): boolean;
 
     /**
      * Returns a copy of the vector.
@@ -197,16 +90,16 @@ interface Vector {
     /**
      * Returns the result of adding the argument to the vector.
      *
-     * @param {Vector|Array<number>} vector The vector.
+     * @param {Vector | number[]} vector The vector.
      */
-    add(vector: Vector|Array<number>): Vector;
+    add(vector: Vector | number[]): Vector;
 
     /**
      * Returns the result of subtracting the argument from the vector.
      *
-     * @param {Vector|Array<number>} vector The vector.
+     * @param {Vector | number[]} vector The vector.
      */
-    subtract(vector: Vector|Array<number>): Vector;
+    subtract(vector: Vector | number[]): Vector;
 
     /**
      * Returns the result of multiplying the elements of the vector by the argument.
@@ -225,16 +118,16 @@ interface Vector {
     /**
      * Returns the scalar product of the vector with the argument. Both vectors must have equal dimensionality.
      *
-     * @param: {Vector|Array<number>} vector The other vector.
+     * @param: {Vector | number[]} vector The other vector.
      */
-    dot(vector: Vector|Array<number>): number;
+    dot(vector: Vector | number[]): number;
 
     /**
      * Returns the vector product of the vector with the argument. Both vectors must have dimensionality 3.
      *
-     * @param {Vector|Array<number>} vector The other vector.
+     * @param {Vector | number[]} vector The other vector.
      */
-    cross(vector: Vector|Array<number>): Vector;
+    cross(vector: Vector | number[]): Vector;
 
     /**
      * Returns the (absolute) largest element of the vector.
@@ -269,9 +162,9 @@ interface Vector {
     /**
      * Returns the vector's distance from the argument, when considered as a point in space.
      *
-     * @param {Vector|Line|Plane} obj The object to calculate the distance.
+     * @param {Vector | Line | Plane} obj The object to calculate the distance.
      */
-    distanceFrom(obj: Vector|Line|Plane): number;
+    distanceFrom(obj: Vector | Line | Plane): number;
 
     /**
      * Returns true if the vector is point on the given line.
@@ -292,16 +185,16 @@ interface Vector {
      * and a line if it is 3D. Be careful with line directions!
      *
      * @param {number} t The angle in radians.
-     * @param {Vector|Line} obj The rotation axis.
+     * @param {Vector | Line} obj The rotation axis.
      */
-    rotate(t: number, obj: Vector|Line): Vector;
+    rotate(t: number, obj: Vector | Line): Vector;
 
     /**
      * Returns the result of reflecting the point in the given point, line or plane.
      *
-     * @param {Vector|Line|Plane} obj The object.
+     * @param {Vector | Line | Plane} obj The object.
      */
-    reflectionIn(obj: Vector|Line|Plane): Vector;
+    reflectionIn(obj: Vector | Line | Plane): Vector;
 
     /**
      * Utility to make sure vectors are 3D. If they are 2D, a zero z-component is added.
@@ -316,16 +209,39 @@ interface Vector {
     /**
      * Set vector's elements from an array.
      *
-     * @param {Vector|Array<number>} els The elements.
+     * @param {Vector | number[]} els The elements.
      */
-    setElements(els: Vector|Array<number>): Vector;
+    setElements(els: Vector | number[]): Vector;
+
+    /**
+     * Constructor function.
+     */
+    static create(elements: Vector | number[]): Vector;
+
+    static i: Vector;
+    static j: Vector;
+    static k: Vector;
+
+    /**
+     * Random vector of size n.
+     *
+     * @param {number} n The vector size.
+     */
+    static Random(n: number): Vector;
+
+    /**
+     * Vector filled with zeros.
+     *
+     * @param {number} n The vector size.
+     */
+    static Zero(n: number): Vector;
 }
 
-interface Matrix {
+export class Matrix {
     /**
      * Gets a nested array containing the matrix's elements.
      */
-    elements: Array<Array<number>>;
+    elements: number[][];
     /**
      * Returns element (i,j) of the matrix.
      *
@@ -541,12 +457,61 @@ interface Matrix {
      * Set the matrix's elements from an array. If the argument passed is a vector, the resulting matrix
      * will be a single column.
      *
-     * @param {Array<number>|Array<Array<number>>|Vector|Matrix} matrix The elements.
+     * @param {number[]|number[][]|Vector|Matrix} matrix The elements.
      */
-    setElements(matrix: Array<number>|Array<Array<number>>|Vector|Matrix): Matrix;
+    setElements(matrix: number[] | number[][] | Vector | Matrix): Matrix;
+
+    /**
+     * Constructor function.
+     *
+     * @param {number[]|number[][]|Vector|Matrix} elements The elements.
+     */
+    static create(elements: number[] | number[][] | Vector | Matrix): Matrix;
+
+    /**
+     * Identity matrix of size n.
+     *
+     * @param {number} n The size.
+     */
+    static I(n: number): Matrix;
+
+    /**
+     * Diagonal matrix - all off-diagonal elements are zero
+     *
+     * @param {any} elements The elements.
+     */
+    static Diagonal(elements: number[] | number[][] | Vector | Matrix): Matrix;
+
+    /**
+     * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
+     *
+     * @param {number} theta The angle in radians.
+     * @param {Vector} a [Optional] The axis.
+     */
+    static Rotation(theta: number, a?: Vector): Matrix;
+
+    static RotationX(t: number): Matrix;
+    static RotationY(t: number): Matrix;
+    static RotationZ(t: number): Matrix;
+
+    /**
+     * Random matrix of n rows, m columns.
+     *
+     * @param {number} n The number of rows.
+     * @param {number} m The number of columns.
+     */
+    static Random(n: number, m: number): Matrix;
+
+    /**
+     * Matrix filled with zeros.
+     *
+     * @param {number} n The number of rows.
+     * @param {number} m The number of columns.
+     */
+    static Zero(n: number, m: number): Matrix;
 }
 
-interface Line {
+export class Line {
     /**
      * Gets the 3D vector corresponding to a point on the line.
      */
@@ -572,9 +537,9 @@ interface Line {
     /**
      * Returns the result of translating the line by the given vector/array.
      *
-     * @param {Vector|Array<number>} vector The translation vector.
+     * @param {Vector | number[]} vector The translation vector.
      */
-    translate(vector: Vector|Array<number>): Line;
+    translate(vector: Vector | number[]): Line;
 
     /**
      * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
@@ -583,14 +548,14 @@ interface Line {
      *
      * @param {Line|Plane} obj The object.
      */
-    isParallelTo(obj: Line|Plane): boolean;
+    isParallelTo(obj: Line | Plane): boolean;
 
     /**
      * Returns the line's perpendicular distance from the argument, which can be a point, a line or a plane.
      *
-     * @param {Vector|Line|Plane} obj The object.
+     * @param {Vector | Line | Plane} obj The object.
      */
-    distanceFrom(obj: Vector|Line|Plane): number;
+    distanceFrom(obj: Vector | Line | Plane): number;
 
     /**
      * Returns true if the argument is a point on the line.
@@ -611,21 +576,21 @@ interface Line {
      *
      * @param {Line|Plane} obj The object.
      */
-    intersects(obj: Line|Plane): boolean;
+    intersects(obj: Line | Plane): boolean;
 
     /**
      * Returns the unique intersection point with the argument, if one exists.
      *
      * @param {Line|Plane} obj The object.
      */
-    intersectionWith(obj: Line|Plane): Vector;
+    intersectionWith(obj: Line | Plane): Vector;
 
     /**
      * Returns the point on the line that is closest to the given point or line.
      *
-     * @param {Vector|Line} obj The object.
+     * @param {Vector | Line} obj The object.
      */
-    pointClosestTo(obj: Vector|Line): Vector;
+    pointClosestTo(obj: Vector | Line): Vector;
 
     /**
      * Returns a copy of the line rotated by t radians about the given line. Works by finding the argument's
@@ -634,27 +599,39 @@ interface Line {
      * affects the outcome!
      *
      * @param {number} t The angle in radians.
-     * @param {Vector|Line} axis The axis.
+     * @param {Vector | Line} axis The axis.
      */
-    rotate(t: number, axis: Vector|Line): Line;
+    rotate(t: number, axis: Vector | Line): Line;
 
     /**
      * Returns the line's reflection in the given point or line.
      *
-     * @param {Vector|Line|Plane} obj The object.
+     * @param {Vector | Line | Plane} obj The object.
      */
-    reflectionIn(obj: Vector|Line|Plane): Line;
+    reflectionIn(obj: Vector | Line | Plane): Line;
 
     /**
      * Set the line's anchor point and direction.
      *
-     * @param {Array<number>|Vector} anchor The anchor vector.
-     * @param {Array<number>|Vector} direction The direction vector.
+     * @param {number[]|Vector} anchor The anchor vector.
+     * @param {number[]|Vector} direction The direction vector.
      */
-    setVectors(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
+    setVectors(anchor: number[]|Vector, direction: number[] | Vector): Line;
+
+    /**
+     * Constructor function.
+     *
+     * @param number[]|Vector anchor The anchor vector.
+     * @param number[]|Vector direction The direction vector.
+     */
+    static create(anchor: number[]|Vector, direction: number[] | Vector): Line;
+
+    static X: Line;
+    static Y: Line;
+    static Z: Line;
 }
 
-interface Plane {
+export class Plane {
     /**
      * Gets the 3D vector corresponding to a point in the plane.
      */
@@ -680,9 +657,9 @@ interface Plane {
     /**
      * Returns the result of translating the plane by the given vector.
      *
-     * @param {Array<number>|Vector} vector The translation vector.
+     * @param {number[]|Vector} vector The translation vector.
      */
-    translate(vector: Array<number>|Vector): Plane;
+    translate(vector: number[]|Vector): Plane;
 
     /**
      * Returns true if the plane is parallel to the argument. Will return true if the planes are equal,
@@ -690,7 +667,7 @@ interface Plane {
      *
      * @param {Line|Plane} obj The object.
      */
-    isParallelTo(obj: Line|Plane): boolean;
+    isParallelTo(obj: Line | Plane): boolean;
 
     /**
      * Returns true if the receiver is perpendicular to the argument.
@@ -702,23 +679,23 @@ interface Plane {
     /**
      * Returns the plane's distance from the given object (point, line or plane).
      *
-     * @parm {Vector|Line|Plane} obj The object.
+     * @parm {Vector | Line | Plane} obj The object.
      */
-    distanceFrom(obj: Vector|Line|Plane): number;
+    distanceFrom(obj: Vector | Line | Plane): number;
 
     /**
      * Returns true if the plane contains the given point or line.
      *
-     * @param {Vector|Line} obj The object.
+     * @param {Vector | Line} obj The object.
      */
-    contains(obj: Vector|Line): boolean;
+    contains(obj: Vector | Line): boolean;
 
     /**
      * Returns true if the plane has a unique point/line of intersection with the argument.
      *
      * @param {Line|Plane} obj The object.
      */
-    intersects(obj: Line|Plane): boolean;
+    intersects(obj: Line | Plane): boolean;
 
     /**
      * Returns the unique intersection with the argument, if one exists.
@@ -752,74 +729,59 @@ interface Plane {
     /**
      * Returns the reflection of the plane in the given point, line or plane.
      *
-     * @param {Vector|Line|Plane} obj The object.
+     * @param {Vector | Line | Plane} obj The object.
      */
-    reflectionIn(obj: Vector|Line|Plane): Plane;
+    reflectionIn(obj: Vector | Line | Plane): Plane;
 
     /**
      * Sets the anchor point and normal to the plane. Normal vector is normalised before storage.
      *
-     * @param {Array<number>|Vector} anchor The anchor vector.
-     * @param {Array<number>|Vector} normal The normal vector.
+     * @param {number[]|Vector} anchor The anchor vector.
+     * @param {number[]|Vector} normal The normal vector.
      */
-    setVectors(anchor: Array<number>|Vector, normal: Array<number>|Vector): Plane;
+    setVectors(anchor: number[] | Vector, normal: number[] | Vector): Plane;
 
     /**
      * Sets the anchor point and normal to the plane. The normal is calculated by assuming the three points
      * should lie in the same plane. Normal vector is normalised before storage.
      *
-     * @param {Array<number>|Vector} anchor The anchor vector.
-     * @param {Array<number>|Vector} v1 The first direction vector.
-     * @param {Array<number>|Vector} v2 The second direction vector.
+     * @param {number[]|Vector} anchor The anchor vector.
+     * @param {number[]|Vector} v1 The first direction vector.
+     * @param {number[]|Vector} v2 The second direction vector.
      */
-    setVectors(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
+    setVectors(anchor: number[]|Vector, v1: number[] | Vector, v2: number[] | Vector): Plane;
+
+    /**
+     * Constructor function.
+     */
+    static create(anchor: number[] | Vector, v1: number[] | Vector, v2?: number[] | Vector): Plane;
+
+    static XY: Plane;
+    static YZ: Plane;
+    static ZX: Plane;
+    static YX: Plane;
 }
 
-declare module Sylvester {
-    export var version: string;
-    export var precision: number;
+export namespace Sylvester {
+    export const approxPrecision: number;
+    export const precision: number;
 }
 
-declare var Vector: Sylvester.VectorStatic;
-declare var Matrix: Sylvester.MatrixStatic;
-declare var Line: Sylvester.LineStatic;
-declare var Plane: Sylvester.PlaneStatic;
+import * as s from 'sylvester';
 
-/**
-* Constructor function.
-*
-* @param {Vector|Array<number} elements The elements.
-*/
-declare function $V(elements: Vector|Array<number>): Vector;
+declare global {
+    const Vector: typeof s.Vector;
+    type Vector = s.Vector;
+    const Matrix: typeof s.Matrix;
+    type Matrix = s.Matrix;
+    const Line: typeof s.Line;
+    type Line = s.Line;
+    const Plane: typeof s.Plane;
+    type Plane = s.Plane;
+    const Sylvester: typeof s.Sylvester;
 
-/**
-* Constructor function.
-*
-* @param {Array<number>|Array<Array<number>>|Vector|Matrix} elements The elements.
-*/
-declare function $M(elements: Array<number>|Array<Array<number>>|Vector | Matrix): Matrix;
-
-/**
-* Constructor function.
-*
-* @param Array<number>|Vector anchor The anchor vector.
-* @param Array<number>|Vector direction The direction vector.
-*/
-declare function $L(anchor: Array<number>|Vector, direction: Array<number>|Vector): Line;
-
-/**
-* Constructor function.
-*
-* @param {Array<number>|Vector} anchor The anchor vector.
-* @param {Array<number>|Vector} normal The normal vector.
-*/
-declare function $P(anchor: Array<number>|Vector, normal: Array<number>|Vector): Plane;
-
-/**
- * Constructor function.
- *
- * @param {Array<number>|Vector} anchor The anchor vector.
- * @param {Array<number>|Vector} v1 The first direction vector.
- * @param {Array<number>|Vecotr} v2 The second direction vector.
- */
-declare function $P(anchor: Array<number>|Vector, v1: Array<number>|Vector, v2: Array<number>|Vector): Plane;
+    const $V: typeof Vector.create;
+    const $P: typeof Plane.create;
+    const $M: typeof Matrix.create;
+    const $L: typeof Line.create;
+}
