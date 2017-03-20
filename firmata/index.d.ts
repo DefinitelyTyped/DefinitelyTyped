@@ -20,7 +20,8 @@ declare class Board extends NodeJS.EventEmitter
 	constructor(serialPort: string, callback?: (error: any) => void)
 	MODES: Board.PinModes;
 	STEPPER: Board.StepperConstants;
-	I2C_MODES: Board.BoardI2cModes;
+	// tslint:disable-next-line interface-name
+	I2C_MODES: Board.I2cModes;
 	SERIAL_MODES: Board.SerialModes;
 	SERIAL_PORT_IDs: Board.SerialPortIds;
 	SERIAL_PIN_TYPES: Board.SerialPinTypes;
@@ -146,7 +147,7 @@ declare namespace Board
 		DIRECTION: { CCW: STEPPER_DIRECTION, CW: STEPPER_DIRECTION }
 	}
 
-	export interface BoardI2cModes
+	export interface I2cModes
 	{
 		WRITE: I2C_MODE, READ: I2C_MODE, CONTINUOUS_READ: I2C_MODE, STOP_READING: I2C_MODE
 	}
