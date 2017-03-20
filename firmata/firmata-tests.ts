@@ -1,7 +1,3 @@
-// Tests for firmata.d.ts
-// Project: https://github.com/firmata/firmata.js
-// Definitions by:  Troy W. <https://github.com/troywweber7, https://bitbucket.org/troywweber/>
-
 import * as Board from 'firmata'
 
 function test_basic_board()
