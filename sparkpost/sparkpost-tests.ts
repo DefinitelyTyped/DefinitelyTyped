@@ -1084,7 +1084,7 @@ client.templates.get('TEST_ID')
 
 // Callback
 client.templates.preview('TEST_ID', {
-  data: {}
+  substitution_data: {}
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -1096,7 +1096,7 @@ client.templates.preview('TEST_ID', {
 
 // Promise
 client.templates.preview('TEST_ID', {
-	data: {
+	substitution_data: {
 		name: 'Natalie',
 		age: 35,
 		member: true

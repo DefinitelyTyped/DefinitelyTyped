@@ -535,7 +535,7 @@ declare class SparkPost {
          * @param options The preview options
          * @param callback The request callback with webhook id results
          */
-        preview(id: string, options: { data: any, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>): void;
+        preview(id: string, options: { substitution_data?: any, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>): void;
         /**
          * Preview the most recent version of an existing template by id
          *
@@ -547,10 +547,10 @@ declare class SparkPost {
          * Preview the most recent version of an existing template by id
          *
          * @param {string} id the id of the template you want to look up
-         * @param {{ data: any, draft?: boolean }} [options]
+         * @param {{ substitution_data: any, draft?: boolean }} [options]
          * @returns {SparkPost.ResultsPromise<SparkPost.TemplateContent>} The webhook id results
          */
-        preview(id: string, options?: { data: any, draft?: boolean }): SparkPost.ResultsPromise<SparkPost.TemplateContent>;
+        preview(id: string, options?: { substitution_data?: any, draft?: boolean }): SparkPost.ResultsPromise<SparkPost.TemplateContent>;
     };
     transmissions: {
         /**
