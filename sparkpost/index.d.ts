@@ -116,7 +116,7 @@ declare class SparkPost {
          * @param {{ show_recipients?: boolean }} [options] specifies whether to retrieve the recipients. Defaults to false
          * @returns {Promise<SparkPost.RecipientListWithRecipients>}
          */
-        get(id: string, options?: { show_recipients?: boolean }): Promise<SparkPost.RecipientListWithRecipients>;
+        get(id: string, options?: { show_recipients?: boolean }): SparkPost.ResultsPromise<SparkPost.RecipientListWithRecipients>;
         /**
          * Create a recipient list by providing a recipient list object as the POST request body.
          * At a minimum, the “recipients” array is required, which must contain a valid “address”.
