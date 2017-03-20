@@ -2,7 +2,7 @@
 
 ## Description
 
-These are the definitions for version 1.4 of Meteor.  These definitions were generated from the from the same [Meteor data.js file] (https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs] (http://docs.meteor.com/).  The code that generates these definitions can be found [here](https://github.com/meteor-typescript/meteor-typescript-libs/).
+These are the definitions for version 1.4 of Meteor.  These definitions were generated from the same [Meteor data.js file](https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs](http://docs.meteor.com/).  The code that generates these definitions can be found [here](https://github.com/meteor-typescript/meteor-typescript-libs/).
 
 
 ## Upcoming Meteor `typescript` package
@@ -33,19 +33,21 @@ Compilation will be much faster and code will be cleaner - it's always better to
 
 With the exception of the **body** and **head** templates, Meteor's Template dot notation cannot be used (ie. *Template.mytemplate*). Thanks to Typescript static typing checks, you will need to use the *bracket notation* to access the Template.
 
-    Template['myTemplateName'].helpers({
-      foo: function () {
-        return Session.get("foo");
-      }
-    });
+```js
+Template['myTemplateName'].helpers({
+  foo: function () {
+    return Session.get("foo");
+  }
+});
 
-    Template['myTemplateName'].onRendered(function ( ) { ... });
-
+Template['myTemplateName'].onRendered(function ( ) { ... });
+```
 
 The same is true for `Meteor.settings`:
 
-    Meteor.settings.public['<some config>']
-
+```ts
+Meteor.settings.public['<some config>']
+```
 
 ### Form fields
 
@@ -55,11 +57,11 @@ Form fields typically need to be cast to `<HTMLInputElement>`. For instance to r
 ### Global variables
 
 Preface any global variable declarations with a TypeScript `declare var` statement (or place the statement in a definition file):
-
-    declare var NavbarHelpers;
-    NavbarHelpers = {};
-    NavbarHelpers.someMethod = function() {...}
-
+```ts
+declare var NavbarHelpers;
+NavbarHelpers = {};
+NavbarHelpers.someMethod = function() {...}
+```
 
 ### Collections
 
@@ -67,18 +69,21 @@ The majority of extra work required to use TypeScript with Meteor is creating an
 
 To define collections, you will need to create an interface representing the collection and then declare a Collection type variable with that interface type (as a generic):
 
-    interface JobDAO {
-      _id?: string;
-      name: string;
-      status?: string;
-      queuedAt?: string;
-    }
+```js
+interface JobDAO {
+  _id?: string;
+  name: string;
+  status?: string;
+  queuedAt?: string;
+}
 
-    declare var Jobs: Mongo.Collection<JobDAO>;
-    Jobs = new Mongo.Collection<JobDAO>('jobs');
-
+declare var Jobs: Mongo.Collection<JobDAO>;
+Jobs = new Mongo.Collection<JobDAO>('jobs');
+```
 
 Finally, any TypeScript file using collections will need to contain a reference at the top pointing to the collection definitions:
 
-    /// <reference path=".typescript/package_defs/meteor.d.ts"/>
-    /// <reference path=".typescript/custom_defs/collections.ts"/>
+```ts
+/// <reference path=".typescript/package_defs/meteor.d.ts"/>
+/// <reference path=".typescript/custom_defs/collections.ts"/>
+```
