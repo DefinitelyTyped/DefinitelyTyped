@@ -1,0 +1,11 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    // current type information uses extensions on callable interfaces
+    "callable-types": false,
+    // Empty interfaces (maybe placeholders) provide better human readable types
+    "no-empty-interface": false,
+    // current type information uses extensions on callable interfaces
+    "unified-signatures": false
+  }
+}
