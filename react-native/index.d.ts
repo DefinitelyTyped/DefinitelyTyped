@@ -2501,9 +2501,9 @@ declare module "react" {
 
         /**
          * Specifies the side of the screen from which the drawer will slide in.
-         * enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
+         * enum(DrawerLayoutAndroid.positions.Left, DrawerLayoutAndroid.positions.Right)
          */
-        drawerPosition?: any;
+        drawerPosition?: number;
 
         /**
          * Specifies the width of the drawer, more precisely the width of the
@@ -2564,7 +2564,17 @@ declare module "react" {
         ref?: Ref<DrawerLayoutAndroidStatic & ViewStatic>
     }
 
+    interface DrawerPosition {
+      Left: number
+      Right: number
+    }
+
     export interface DrawerLayoutAndroidStatic extends NativeMethodsMixin, React.ClassicComponentClass<DrawerLayoutAndroidProperties> {
+
+	/**
+         * drawer's positions.
+         */
+        positions: DrawerPosition
 
         /**
          * Opens the drawer.
