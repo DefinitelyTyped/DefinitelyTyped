@@ -307,6 +307,12 @@
             "asOfVersion": "0.0.0"
         },
         {
+            "libraryName": "localforage",
+            "typingsPackageName": "localforage",
+            "sourceRepoURL": "https://github.com/localForage/localForage",
+            "asOfVersion": "0.0.34"
+        },
+        {
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
