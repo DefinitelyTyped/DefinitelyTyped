@@ -9,19 +9,19 @@ import {
 
 
 
-declare namespace ReactOnSenUI {
 
-    interface Modifiers_string {
+
+    declare interface Modifiers_string {
         default?: string,
         material?: string
     }
 
-    interface Modifiers_number {
+    declare interface Modifiers_number {
         default?: number,
         material?: number
     }
 
-    interface AnimationOptions {
+    declare interface AnimationOptions {
         duration?: number,
         delay?: number,
         timing?: string
@@ -29,7 +29,7 @@ declare namespace ReactOnSenUI {
 
     /*** splitter ***/
 
-    class SplitterSide extends Component<{
+    declare class SplitterSide extends Component<{
         side?: "left" | "right",
         collapse?: "portrait" | "landscape" | boolean,
         isOpen?: boolean,
@@ -50,29 +50,29 @@ declare namespace ReactOnSenUI {
     }
 
 
-    class SplitterContent extends Component<{}, any> {
+    declare class SplitterContent extends Component<{}, any> {
 
     }
 
-    class Splitter extends Component<{}, any> {
+    declare class Splitter extends Component<{}, any> {
 
     }
 
     /*** toolbar ***/
 
-    class Toolbar extends Component<{}, any>{
+    declare class Toolbar extends Component<{}, any>{
 
     }
 
 
-    class BottomToolbar extends Component<{
+    declare class BottomToolbar extends Component<{
         modifier?: string
     }, any>{
 
     }
 
 
-    class ToolbarButton extends Component<{
+    declare class ToolbarButton extends Component<{
         modifier?: string,
         disabled?: boolean,
         onClick?: (e?: Event) => void
@@ -82,7 +82,7 @@ declare namespace ReactOnSenUI {
 
     /*** icon ***/
 
-    class Icon extends Component<{
+    declare class Icon extends Component<{
         modifier?: string,
         icon?: string | Modifiers_string,
         size?: number | Modifiers_number,
@@ -94,7 +94,7 @@ declare namespace ReactOnSenUI {
 
     /*** page ***/
 
-    class Page extends Component<{
+    declare class Page extends Component<{
         contentStyle?: any,
         modifier?: string,
         renderModal?: () => void,
@@ -109,28 +109,28 @@ declare namespace ReactOnSenUI {
     }
 
     /*** Grid ***/
-    class Col extends Component<{
+    declare class Col extends Component<{
         verticalAlign?: "top" | "bottom" | "center",
         width?: string
     }, any>{
 
     }
 
-    class Row extends Component<{
+    declare class Row extends Component<{
         verticalAlign?: "top" | "bottom" | "center",
     }, any>{
 
     }
 
     /*** Navigation ***/
-    class BackButton extends Component<{
+    declare class BackButton extends Component<{
         modifier?: string,
         onClick?: (navigator: Navigator) => void
     }, any>{
 
     }
 
-    class Navigator extends Component<{
+    declare class Navigator extends Component<{
         renderPage: () => any,
         initialRouteStack?: string[],
         initialRoute?: any,
@@ -148,7 +148,7 @@ declare namespace ReactOnSenUI {
     }
 
     /*** Carousel ***/
-    class Carousel extends Component<{
+    declare class Carousel extends Component<{
         direction?: "horizontal" | "vertical",
         fullscreen?: boolean,
         overscrollable?: boolean,
@@ -169,14 +169,14 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class CarouselItem extends Component<{
+    declare class CarouselItem extends Component<{
         modifier: string	
     }, any>{
 
     }
 
     /*** AlertDialog ***/
-    class AlertDialog extends Component<{
+    declare class AlertDialog extends Component<{
         onCancel?: () => void,
         isOpen?: boolean, 
         isCancelable?: boolean,
@@ -193,7 +193,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Dialog extends Component<{
+    declare class Dialog extends Component<{
         onCancel?: () => void, 
         isOpen?: boolean, 
         isCancelable?: boolean, 
@@ -210,7 +210,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Modal extends Component<{
+    declare class Modal extends Component<{
         animation?: "fade" | "none",
         animationOptions?: AnimationOptions
         onShow?: () => void, 
@@ -220,7 +220,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Popover extends Component<{
+    declare class Popover extends Component<{
         getTarget?: () => Component<any, any> | HTMLElement, 
         onCancel?: () => void,
         isOpen?: boolean, 
@@ -238,7 +238,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class ProgressBar extends Component<{
+    declare class ProgressBar extends Component<{
         modifier?: string, 
         value?: number, 
         secondaryValue?: boolean, 
@@ -247,7 +247,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class ProgressCircular extends Component<{
+    declare class ProgressCircular extends Component<{
         modifier?: string, 
         value?: number, 
         secondaryValue?: boolean, 
@@ -256,7 +256,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Ripple extends Component<{
+    declare class Ripple extends Component<{
         color?: string, 
         background?: string,
         disabled?: boolean, 
@@ -265,7 +265,7 @@ declare namespace ReactOnSenUI {
     }
 
     /*** Forms ***/
-    class Fab extends Component<{
+    declare class Fab extends Component<{
         modifier?: string,	
         ripple?: boolean,	
         position?: string,	
@@ -275,7 +275,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Button extends Component<{
+    declare class Button extends Component<{
         modifier?: string,	
         disabled?: boolean,	
         ripple?: boolean,	
@@ -284,7 +284,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Input extends Component<{
+    declare class Input extends Component<{
         modifier?: string,	
         disabled?: boolean,	
         onChange?: (e: Event) => void,
@@ -298,7 +298,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Range extends Component<{
+    declare class Range extends Component<{
         modifier?: string,	
         onChange?: (e: Event) => void,
         value?: number,	
@@ -307,7 +307,7 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class Switch extends Component<{
+    declare class Switch extends Component<{
         onChange?: (e: Event) => void,
         checked?: boolean,
         disabled?: boolean,	
@@ -320,13 +320,13 @@ declare namespace ReactOnSenUI {
      * Tabs
      */
 
-    class Tab extends Component<{}, any>{ }
+    declare class Tab extends Component<{}, any>{ }
 
-    class TabActive extends Component<{}, any>{ }
+    declare class TabActive extends Component<{}, any>{ }
 
-    class TabInactive extends Component<{}, any>{ }
+    declare class TabInactive extends Component<{}, any>{ }
 
-    class Tabbar extends Component<{
+    declare class Tabbar extends Component<{
         index?: number, 
         renderTabs?: () => any, 
         position?: "bottom" | "top" | "auto", 
@@ -342,14 +342,14 @@ declare namespace ReactOnSenUI {
      * Lists
      */
 
-    class LazyList extends Component<{
+    declare class LazyList extends Component<{
         modifier?: string,
         length?: number,
         renderRow: (rowIndex: number) => any,
         calculateItemHeight: (rowIndex: number) => any, 
     }, any>{ }
 
-    class List extends Component<{
+    declare class List extends Component<{
         modifier?: string, 
         dataSource?: string[], 
         renderRow?: () => void, 
@@ -359,13 +359,13 @@ declare namespace ReactOnSenUI {
 
     }
 
-    class ListHeader extends Component<{
+    declare class ListHeader extends Component<{
         modifier?: string, 
     }, any>{
 
     }
 
-    class ListItem extends Component<{
+    declare class ListItem extends Component<{
         modifier?: string, 
         tappable?: boolean, 
         tapBackgroundColor?: string, 
@@ -373,7 +373,5 @@ declare namespace ReactOnSenUI {
     }, any>{
 
     }
-} 
 
-export = ReactOnSenUI;
 
