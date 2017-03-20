@@ -341,6 +341,12 @@
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "@xmpp/jid",
+            "typingsPackageName": "xmpp-jid",
+            "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
+            "asOfVersion": "1.2.0"
         }
     ]
 }
