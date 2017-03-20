@@ -373,15 +373,21 @@ declare class SparkPost {
         /**
          * List all entries in your suppression list, filtered by an optional set of search parameters.
          *
-         * @param {SparkPost.SupressionSearchParameters} [parameters] an object of [search parameters]{@link https://developers.sparkpost.com/api/suppression-list#suppression-list-search-get}
-         * @param {Promise<SparkPost.SupressionListEntry[]>} [callback]
+         * @param {SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>} callback The request callback with supression lists.
+         */
+        list(callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
+        /**
+         * List all entries in your suppression list, filtered by an optional set of search parameters.
+         *
+         * @param {SparkPost.SupressionSearchParameters} parameters an object of [search parameters]{@link https://developers.sparkpost.com/api/suppression-list#suppression-list-search-get}
+         * @param {SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>} callback The request callback with supression lists.
          */
         list(parameters: SparkPost.SupressionSearchParameters, callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
         /**
          * List all entries in your suppression list, filtered by an optional set of search parameters.
          *
          * @param {SparkPost.SupressionSearchParameters} [parameters] an object of [search parameters]{@link https://developers.sparkpost.com/api/suppression-list#suppression-list-search-get}
-         * @returns {Promise<SparkPost.SupressionListEntry[]>}
+         * @returns {Promise<SparkPost.SupressionListEntry[]>} Promise The supression lists
          */
         list(parameters?: SparkPost.SupressionSearchParameters): SparkPost.ResultsPromise<SparkPost.SupressionListEntry[]>;
         /**
@@ -415,7 +421,7 @@ declare class SparkPost {
         /**
          * Insert or update one or many entries.
          *
-         * @param parameters The suppression entry list
+         * @param listEntries The suppression entry list
          * @param callback The request callback
          */
         upsert(listEntries: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[], callback: SparkPost.ResultsCallback<{ message: string }>): void;

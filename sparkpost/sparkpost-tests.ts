@@ -867,6 +867,17 @@ client.suppressionList.list({
   }
 });
 
+// Callback
+client.suppressionList.list(function(err, data) {
+  if (err) {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  } else {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  }
+});
+
 // Promise
 client.suppressionList.upsert({
     recipient: 'test1@test.com',
