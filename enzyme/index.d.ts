@@ -541,14 +541,16 @@ export interface MountRendererProps {
  * @param node
  * @param [options]
  */
-export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
+export function shallow<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
+export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
 
 /**
  * Mounts and renders a react component into the document and provides a testing wrapper around it.
  * @param node
  * @param [options]
  */
-export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
+export function mount<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
+export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
 
 /**
  * Render react components to static HTML and analyze the resulting HTML structure.
