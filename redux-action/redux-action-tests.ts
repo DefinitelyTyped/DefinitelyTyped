@@ -1,5 +1,6 @@
 
 import * as ReduxAction from 'redux-action';
+import * as ReduxThunk from 'redux-thunk';
 import * as Redux from 'redux';
 
 interface Payload {

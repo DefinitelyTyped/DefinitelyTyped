@@ -7,9 +7,9 @@
  * inspired by @types/redux-actions, thanks.
  */
 
-import Redux from 'redux';
+import * as Redux from 'redux';
 
-export as namespace ReduxAction
+export as namespace ReduxAction;
 
 interface BaseAction {
   type: string;
