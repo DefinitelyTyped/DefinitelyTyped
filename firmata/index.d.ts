@@ -1,6 +1,7 @@
 // Type definitions for firmata.js v0.15.0
 // Project: https://github.com/firmata/firmata.js
 // Definitions by: Troy W. <https://github.com/troywweber7, https://bitbucket.org/troywweber/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
