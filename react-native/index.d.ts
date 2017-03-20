@@ -734,6 +734,7 @@ declare module "react" {
 
     export interface TextStyleAndroid extends ViewStyle {
         textAlignVertical?: "auto" | "top" | "bottom" | "center"
+        includeFontPadding?: boolean
     }
 
     // @see https://facebook.github.io/react-native/docs/text.html#style
