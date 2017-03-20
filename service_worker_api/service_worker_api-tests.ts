@@ -192,7 +192,7 @@ self.addEventListener('notificationclick', (event: NotificationEvent) => {
     }));
 });
 
-navigator.serviceWorker.ready.then(function(registration) {
+navigator.serviceWorker.ready.then(registration => {
     registration.showNotification('Notification Sample', {
         body: 'This is a sample notification!',
         icon: '/sw-test/star-wars-logo.jpg',
@@ -201,6 +201,6 @@ navigator.serviceWorker.ready.then(function(registration) {
 });
 
 self.registration.getNotifications({tag: 'notification-sample'})
-    .then(function(notifications) {
+    .then((notifications: any) => {
         console.log(notifications);
     });
