@@ -24,7 +24,7 @@
 /// <reference path="three-octree.d.ts" />
 /// <reference path="three-colladaLoader.d.ts" />
 
-declare namespace THREE {
+
     export const REVISION: string;
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
@@ -6648,8 +6648,3 @@ declare namespace THREE {
         stopAnimation(name: string): void;
         update(delta: number): void;
     }
-}
-
-declare module "three" {
-    export = THREE;
-}
