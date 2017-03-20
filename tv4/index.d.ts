@@ -99,4 +99,3 @@ declare namespace tv4 {
 
 declare var tv4: tv4.TV4;
 export = tv4;
-export as namespace tv4;
