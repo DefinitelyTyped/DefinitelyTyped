@@ -2,7 +2,7 @@ import FileStore = require("session-file-store");
 
 const options: FileStore.Options = {
     path: "./tmp/sessions/",
-    logFn: function (a: string) {
+    logFn: (a: string) => {
     }
 };
 
