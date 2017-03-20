@@ -7,12 +7,13 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "q": [ "q/v0" ]
+          "sparkpost": ["sparkpost/v1"],
+          "sparkpost/*": ["sparkpost/v1/*"]
         },
         "types": [],
         "noEmit": true,
@@ -20,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-form-tests.ts"
+        "sparkpost-tests.ts"
     ]
 }

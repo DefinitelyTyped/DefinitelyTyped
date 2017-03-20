@@ -368,7 +368,9 @@ function line_examples() {
         data: {},
         line: {
             connectNull: true,
-            step_type: "step-after"
+            step: {
+                type: "step-after"
+            }
         }
     });
 }

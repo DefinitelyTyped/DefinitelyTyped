@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "sparkpost-tests.ts"
+        "koa-cache-control-tests.ts"
     ]
 }
