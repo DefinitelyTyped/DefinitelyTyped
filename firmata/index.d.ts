@@ -57,17 +57,20 @@ declare module 'firmata'
 		// TODO untested --- TWW
 		public sendI2CWriteRequest(slaveAddress:number, bytes:number[]):void
 		// TODO untested --- TWW
-		public i2cWrite(address:number, registerOrData:number|number[], inBytes:number[]):void
+		public i2cWrite(address:number, register:number, inBytes:number[]):void
+		public i2cWrite(address:number, data:number[]):void
 		// TODO untested --- TWW
 		public i2cWriteReg(address:number, register:number, byte:number):void
 		// TODO untested --- TWW
 		public sendI2CReadRequest(address:number, numBytes:number, callback:() => void):void
 		// TODO untested --- TWW
-		public i2cRead(address:number, register:number, bytesToRead:number, callback:() => void):void
+		public i2cRead(address:number, register:number, bytesToRead:number, callback:(data:number[]) => void):void
+		public i2cRead(address:number, bytesToRead:number, callback:(data:number[]) => void):void
 		// TODO untested --- TWW
 		public i2cStop(options:number|{ bus:number, address:number }):void
 		// TODO untested --- TWW
-		public i2cReadOnce(address:number, register:number, bytesToRead:number, callback:() => void):void
+		public i2cReadOnce(address:number, register:number, bytesToRead:number, callback:(data:number[]) => void):void
+		public i2cReadOnce(address:number, bytesToRead:number, callback:(data:number[]) => void):void
 		// TODO untested --- TWW
 		public sendOneWireConfig(pin:number, enableParasiticPower:boolean):void
 		// TODO untested --- TWW
