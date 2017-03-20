@@ -16,13 +16,9 @@ You will find that `const enums` are exported under the namespace `Board` for ea
 use with other libraries before any boards are actually instantiated.
 
 It's also important to note that if you want to extend the `Board` class in typescript, the
-following will work (as long as you turn on `--noImplicitUseStrict` when compiling); here's
-an example:
+following will work:
 
 ```typescript
-// store as script.ts and compile with `tsc --noImplicitUseStrict script.ts`
-// then run `node script.js`
-
 import * as Board from 'firmata'
 
 let portString = 'port string';
@@ -38,7 +34,7 @@ class MyBoard extends Board
 	}
 }
 
-let myBoard:MyBoard = new MyBoard(portString, () =>
+let myBoard: MyBoard = new MyBoard(portString, () =>
 {
 	console.log('extended board ready');
 	myBoard.Disconnect();
