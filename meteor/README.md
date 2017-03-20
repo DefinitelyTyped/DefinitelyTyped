@@ -52,15 +52,6 @@ The same is true for `Meteor.settings`:
 Form fields typically need to be cast to `<HTMLInputElement>`. For instance to read a form field value, use `(<HTMLInputElement>evt.target).value`.
 
 
-### Global variables
-
-Preface any global variable declarations with a TypeScript `declare var` statement (or place the statement in a definition file):
-
-    declare var NavbarHelpers;
-    NavbarHelpers = {};
-    NavbarHelpers.someMethod = function() {...}
-
-
 ### Collections
 
 The majority of extra work required to use TypeScript with Meteor is creating and maintaining the collection interfaces.  However, doing so also provides the additional benefit of succinctly documenting collection schema definitions (that are actually enforced).
@@ -74,7 +65,7 @@ To define collections, you will need to create an interface representing the col
       queuedAt?: string;
     }
 
-    declare var Jobs: Mongo.Collection<JobDAO>;
+    declare let Jobs: Mongo.Collection<JobDAO>;
     Jobs = new Mongo.Collection<JobDAO>('jobs');
 
 

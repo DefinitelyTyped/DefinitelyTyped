@@ -8,6 +8,7 @@
 /*********************************** Begin setup for tests ******************************/
 import { Mongo } from "meteor/mongo";
 import { Meteor } from "meteor/meteor";
+import { DDP } from "meteor/ddp";
 import { check, Match } from "meteor/check";
 import { Tracker } from "meteor/tracker";
 import { Template } from "meteor/templating";
@@ -66,11 +67,11 @@ Meteor.publish("roomAndMessages", function (roomId: string) {
  * Also from Publish and Subscribe, Meteor.publish section
  */
 Meteor.publish("counts-by-room", function (roomId: string) {
-    var self = this;
+    let self = this;
     check(roomId, String);
-    var count = 0;
-    var initializing = true;
-    var handle = Messages.find({ roomId: roomId }).observeChanges({
+    let count = 0;
+    let initializing = true;
+    let handle = Messages.find({ roomId: roomId }).observeChanges({
         added: function (id: any) {
             count++;
             // if (!initializing)
@@ -128,7 +129,7 @@ Meteor.methods({
         check(arg1, String);
         check(arg2, [Number]);
 
-        var you_want_to_throw_an_error = true;
+        let you_want_to_throw_an_error = true;
         if (you_want_to_throw_an_error)
             throw new Meteor.Error("404", "Can't find my pants");
         return "some return value";
@@ -199,7 +200,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  * Todo: couldn't figure out how to make this next line work with Typescript
  * since there is already a Collection constructor with a different signature
  *
- var Scratchpad = new Mongo.Collection;
+ let Scratchpad = new Mongo.Collection;
  for (var i = 0; i < 10; i++)
  Scratchpad.insert({number: i * 2});
  assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
@@ -438,7 +439,7 @@ Accounts.validateNewUser(function (user: { username: string }) {
  * From Accounts, Accounts.onCreateUser section
  */
 Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any, dexterity: number }) {
-    var d6 = function () { return Math.floor(Math.random() * 6) + 1; };
+    let d6 = function () { return Math.floor(Math.random() * 6) + 1; };
     user.dexterity = d6() + d6() + d6();
     // We still want the default hook's 'profile' behavior.
     if (options.profile)
@@ -540,7 +541,7 @@ check(undefined, Match.Optional('test')); // OK
  * From Deps, Tracker.autorun section
  */
 Tracker.autorun(function () {
-    var oldest = Monkeys.findOne('age = 20');
+    let oldest = Monkeys.findOne('age = 20');
 
     if (oldest)
         Session.set("oldest", oldest.name);
@@ -588,7 +589,7 @@ Meteor.methods({
     checkTwitter: function (userId: string) {
         check(userId, String);
         this.unblock();
-        var result = HTTP.call("GET", "http://api.twitter.com/xyz",
+        let result = HTTP.call("GET", "http://api.twitter.com/xyz",
             { params: { user: userId } });
         if (result.statusCode === 200)
             return true
@@ -628,7 +629,7 @@ var testTemplate = new Blaze.Template('foo');
 var testView = new Blaze.View('foo');
 Blaze.Template.instance();
 
-declare var el: HTMLElement;
+declare let el: HTMLElement;
 Blaze.render(testTemplate, el);
 Blaze.renderWithData(testTemplate, { testData: 123 }, el);
 Blaze.remove(testView);
@@ -685,13 +686,13 @@ Accounts.emailTemplates.enrollAccount.text = function (user: Meteor.User, url: s
 };
 
 var handle = Accounts.validateLoginAttempt(function (attemptInfoObject: Accounts.IValidateLoginAttemptCbOpts) {
-    var type: string = attemptInfoObject.type;
-    var allowed: boolean = attemptInfoObject.allowed;
-    var error: Meteor.Error = attemptInfoObject.error;
-    var user: Meteor.User = attemptInfoObject.user;
-    var connection: Meteor.Connection = attemptInfoObject.connection;
-    var methodName: string = attemptInfoObject.methodName;
-    var methodArguments: any[] = attemptInfoObject.methodArguments;
+    let type: string = attemptInfoObject.type;
+    let allowed: boolean = attemptInfoObject.allowed;
+    let error: Meteor.Error = attemptInfoObject.error;
+    let user: Meteor.User = attemptInfoObject.user;
+    let connection: Meteor.Connection = attemptInfoObject.connection;
+    let methodName: string = attemptInfoObject.methodName;
+    let methodArguments: any[] = attemptInfoObject.methodArguments;
     return true;
 });
 handle.stop();
