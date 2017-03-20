@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "types": []
+  },
+  "files": [
+    "index.d.ts",
+    "bloomfilter-tests.ts"
+  ]
+}
