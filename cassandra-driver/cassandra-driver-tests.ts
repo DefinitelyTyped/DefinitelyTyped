@@ -7,3 +7,7 @@ var query = 'SELECT email, last_name FROM user_profiles WHERE key=?';
 client.execute(query, ['guy'], function(err: any, result: any) {
   console.log('got user profile with email ' + result.rows[0].email);
 });
+
+var result = client.execute(query, ['guy'])
+  .then((result) =>
+        console.log('got user profile with email ' + result.first().get('email')));
