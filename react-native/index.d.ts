@@ -4480,12 +4480,21 @@ declare module "react" {
     // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
     export namespace StyleSheet {
 
+        interface Styles {
+            [style: string]: Style
+        }
+
         type Style = ViewStyle | TextStyle | ImageStyle
 
         /**
          * Creates a StyleSheet style reference from the given object.
          */
-        export function create<T>( styles: T ): T;
+        // Non-generic override is required to provide intellisense
+        // for JavaScript and non-generic method invocations
+        export function create(styles: Styles): any;
+        // This is for backward compatibility with previous
+        // implementation where T could be an arbitrary type
+        export function create<T>(styles: T): T;
 
         /**
          * Flattens an array of style objects, into one aggregated style object.
