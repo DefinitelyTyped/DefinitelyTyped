@@ -31,7 +31,7 @@ interface SomeComponentProps {
     className: string
 }
 
-const SomeFunctionalComponentWithIntl = injectIntl<SomeComponentProps>(({
+const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> = injectIntl<SomeComponentProps>(({
     intl: {
         formatDate,
         formatHTMLMessage,
@@ -39,7 +39,9 @@ const SomeFunctionalComponentWithIntl = injectIntl<SomeComponentProps>(({
         formatMessage,
         formatPlural,
         formatRelative,
-        formatTime
+        formatTime,
+        locale,
+        defaultLocale
     },
     className
 }) => {

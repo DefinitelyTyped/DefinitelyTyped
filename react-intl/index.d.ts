@@ -65,8 +65,16 @@ declare namespace ReactIntl {
         formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: any) => string;
     }
 
+    interface InjectedConfig {
+        locale: string;
+        formats: any;
+        messages: { [id: string]: string };
+        defaultLocale: string;
+        defaultFormats: any;
+    }
+
     interface InjectedIntlProps {
-        intl?: InjectedIntl
+        intl: InjectedIntl & InjectedConfig & { now : () => number };
     }
 
     namespace IntlComponent {
