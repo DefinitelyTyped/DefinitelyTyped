@@ -385,7 +385,7 @@ function test_system() {
 		certificate: {
 			trusted: true,
 			subject: 'O=OpenFin INC., L=New York, S=NY, C=US',
-			thumbprint: '‎3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
+			thumbprint: '3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
 		},
 		listener(result) {
 			console.log('the exit code', result.exitCode);
@@ -454,7 +454,7 @@ function test_system() {
 	});
 	// terminateExternalProcess
 	fin.desktop.System.launchExternalProcess({
-		// notepad is in the system’s PATH
+		// notepad is in the system's PATH
 		path: "notepad",
 		arguments: "",
 		listener(result) {
