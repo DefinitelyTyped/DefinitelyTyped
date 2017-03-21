@@ -2396,40 +2396,40 @@ declare module "fs" {
     export function realpath(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
     export function realpath(path: string | Buffer, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
     export function realpathSync(path: string | Buffer, cache?: { [path: string]: string }): string;
-    /*
+    /**
      * Asynchronous unlink - deletes the file specified in {path}
      *
      * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function unlink(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    /*
+    /**
      * Synchronous unlink - deletes the file specified in {path}
      *
      * @param path
      */
     export function unlinkSync(path: string | Buffer): void;
-    /*
+    /**
      * Asynchronous rmdir - removes the directory specified in {path}
      *
      * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function rmdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    /*
+    /**
      * Synchronous rmdir - removes the directory specified in {path}
      *
      * @param path
      */
     export function rmdirSync(path: string | Buffer): void;
-    /*
+    /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    /*
+    /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param path
@@ -2437,7 +2437,7 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    /*
+    /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param path
@@ -2445,7 +2445,7 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    /*
+    /**
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param path
@@ -2453,7 +2453,7 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string | Buffer, mode?: number): void;
-    /*
+    /**
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param path
@@ -2461,14 +2461,14 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string | Buffer, mode?: string): void;
-    /*
+    /**
      * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
      * @param prefix
      * @param callback The created folder path is passed as a string to the callback's second parameter.
      */
     export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
-    /*
+    /**
      * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
      * @param prefix
@@ -2501,7 +2501,7 @@ declare module "fs" {
     export function writeSync(fd: number, data: any, position?: number, enconding?: string): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
     export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
-    /*
+    /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param fileName
@@ -2509,7 +2509,7 @@ declare module "fs" {
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    /*
+    /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param fileName
@@ -2517,7 +2517,7 @@ declare module "fs" {
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    /*
+    /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param fileName
@@ -2525,28 +2525,28 @@ declare module "fs" {
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-    /*
+    /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
      * @param fileName
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-    /*
+    /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
      * @param fileName
      * @param encoding
      */
     export function readFileSync(filename: string, encoding: string): string;
-    /*
+    /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
      * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
     export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
-    /*
+    /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
      * @param fileName
