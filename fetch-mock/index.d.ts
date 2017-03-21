@@ -2,7 +2,7 @@
 // Project: https://github.com/wheresrhys/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Tamir Duberstein <https://github.com/tamird>, Risto Keravuori <https://github.com/merrywhether>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="whatwg-fetch" />
+// TypeScript Version: 2.2
 
 type MockRequest = Request | RequestInit;
 
