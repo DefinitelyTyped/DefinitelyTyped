@@ -12,7 +12,9 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": [
+          "whatwg-fetch"
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
