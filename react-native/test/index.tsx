@@ -92,7 +92,7 @@ const stylesAlt = StyleSheet.create(
 )
 
 
-class Welcome extends React.Component<any,any> {
+class Welcome extends React.Component<any, any> {
 
     refs: {
       [key: string]: any
