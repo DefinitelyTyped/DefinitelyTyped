@@ -249,6 +249,37 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
   thenThrow(reason: Error): Bluebird<R>;
 
   /**
+   * Convenience method for:
+   *
+   * <code>
+   * .catch(function() {
+   *    return value;
+   * });
+   * </code>
+   *
+   * in the case where `value` doesn't change its value. That means `value` is bound at the time of calling `.catchReturn()`
+   */
+  catchReturn<U>(value: U): Bluebird<U>;
+  catchReturn<U>(predicate: (error: any) => boolean, value: U): Bluebird<U | R>;
+  catchReturn<E extends Error, U>(ErrorClass: new (...args: any[]) => E, value: U): Bluebird<U | R>;
+  catchReturn<U>(predicate: Object, value: U): Bluebird<U | R>;
+
+  /**
+   * Convenience method for:
+   *
+   * <code>
+   * .catch(function() {
+   *    throw reason;
+   * });
+   * </code>
+   * Same limitations apply as with `.catchReturn()`.
+   */
+  catchThrow(reason: Error): Bluebird<R>;
+  catchThrow(predicate: (error: any) => boolean, reason: Error): Bluebird<R>;
+  catchThrow<E extends Error, U>(ErrorClass: new (...args: any[]) => E, reason: Error): Bluebird<R>;
+  catchThrow(predicate: Object, reason: Error): Bluebird<R>;
+
+  /**
    * Convert to String.
    */
   toString(): string;
