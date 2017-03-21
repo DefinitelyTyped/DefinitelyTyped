@@ -355,6 +355,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "x2js",
+            "typingsPackageName": "x2js",
+            "sourceRepoURL": "https://code.google.com/p/x2js/",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "@xmpp/jid",
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
