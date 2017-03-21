@@ -10,10 +10,10 @@ const query = new QueryStream('SELECT * FROM generate_series(0, $1) num', [10000
 
 pg.connect('', (err, client, done) => {
     const stream = client.query(query);
-    stream.on('end', () => {
+    stream.then(() => {
         client.end();
     });
-    stream.on('data', (data: any) => {
+    stream.then((data: any) => {
         console.log(data);
     });
 });
