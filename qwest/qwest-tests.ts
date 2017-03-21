@@ -1,4 +1,4 @@
-/// <reference path="qwest.d.ts" />
+
 
 // Examples taken from https://github.com/pyrsmk/qwest/blob/master/README.md
 

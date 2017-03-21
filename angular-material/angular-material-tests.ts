@@ -1,10 +1,11 @@
-/// <reference path="angular-material.d.ts" />
+
 
 var myApp = angular.module('testModule', ['ngMaterial']);
 
 myApp.config((
     $mdThemingProvider: ng.material.IThemingProvider,
-    $mdIconProvider: ng.material.IIconProvider) => {
+    $mdIconProvider: ng.material.IIconProvider,
+    $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
 
     $mdThemingProvider.alwaysWatchTheme(true);
     var neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
@@ -20,21 +21,61 @@ myApp.config((
         .warnPalette('red')
         .dark(true);
 
+    var browserColors: ng.material.IBrowserColors = {
+      theme: 'default', 
+      palette: 'neonRed', 
+      hue: '500'  
+    };
+    $mdThemingProvider.enableBrowserColor(browserColors);
+
+    // Disable theming generation at runtime
+    $mdThemingProvider.disableTheming();
+
     $mdIconProvider
         .defaultIconSet('my/app/icons.svg')       // Register a default set of SVG icons
         .iconSet('social', 'my/app/social.svg')   // Register a named icon set of SVGs
         .icon('android', 'my/app/android.svg')    // Register a specific icon (by name)
         .icon('work:chair', 'my/app/chair.svg');  // Register icon in a specific set
+
+    // Example of changing the default progress options.
+    $mdProgressCircularProvider.configure({
+        progressSize: 100,
+        strokeWidth: 20,
+        duration: 800
+    });
 });
 
 myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
-            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>'
+            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
+            clickOutsideToClose: true,
+            disableBackdrop: true,
+            disableParentScroll: false,
+            parent: () => {}
         });
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
     $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
+});
+
+myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
+    var colorExpression : ng.material.IColorExpression;
+    var element : Element;
+
+    colorExpression = { color: '#FFFFFF' }
+
+    element = new Element();
+
+    $scope['applyThemeColors'] = () => {
+        $mdColor.applyThemeColors(element, colorExpression);
+    };
+    $scope['getThemeColor'] = () => {
+        $mdColor.getThemeColor('default-neonRed')
+    };
+    $scope['hasTheme'] = () => {
+        $mdColor.hasTheme();
+    };
 });
 
 myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService) => {
@@ -115,15 +156,41 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
     $scope['close'] = () => $mdSidenav(componentId).close();
     $scope['isOpen'] = $mdSidenav(componentId).isOpen();
     $scope['isLockedOpen'] = $mdSidenav(componentId).isLockedOpen();
+
+    $scope['asyncLookup'] = $mdSidenav(componentId, true).then((instance) => {
+        instance.toggle();
+        instance.open();
+        instance.close();
+        instance.isOpen();
+        instance.isLockedOpen();
+    });
+
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
-    $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
+    $scope['openToast'] = () => {
+        $mdToast.show($mdToast.simple().textContent('Hello!'));
+        $mdToast.updateTextContent('New Content');
+    }
+
+    $scope['customToast'] = () => {
+        var options = {
+            hideDelay: 3000,
+            position: 'top right',
+            controller  : 'ToastCtrl',
+            templateUrl : 'toast-template.html',
+            toastClass: 'my-class'
+        };
+
+        $mdToast.show(options);
+    }
 });
 
 myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
     $scope['createPanel'] = () => {
         var config = {
+            id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
             disableParentScroll: true,

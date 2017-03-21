@@ -2,8 +2,7 @@
  * Created by karl on 14/07/15.
  */
 
-/// <reference path="../express/express.d.ts" />
-/// <reference path="./easy-xapi-supertest.d.ts" />
+
 
 import express = require('express');
 import eSupertest = require('easy-xapi-supertest');

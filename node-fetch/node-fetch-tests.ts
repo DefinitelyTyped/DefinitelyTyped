@@ -1,23 +1,23 @@
-﻿/// <reference path="node-fetch.d.ts" />
-
-import fetch = require('node-fetch');
+import fetch, { Headers, Request, RequestInit, Response } from 'node-fetch';
+import { Agent } from "http";
 
 function test_fetchUrlWithOptions() {
-	var headers = new _fetch.Headers();
+	var headers = new Headers();
 	headers.append("Content-Type", "application/json");
-	var requestOptions: _fetch.RequestInit = {
+	var requestOptions: RequestInit = {
 		method: "POST",
 		headers: headers,
-		mode: 'same-origin',
-		credentials: 'omit',
-		cache: 'default',
-		redirect: 'manual'
+		compress: true,
+		follow: 10,
+		redirect: 'manual',
+		size: 100,
+		timeout: 5000
 	};
 	handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
 
 function test_fetchUrlWithHeadersObject() {
-	var requestOptions: _fetch.RequestInit = {
+	var requestOptions: RequestInit = {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json'
@@ -31,13 +31,18 @@ function test_fetchUrl() {
 }
 
 function test_fetchUrlWithRequestObject() {
-	var requestOptions: _fetch.RequestInit = {
+	var requestOptions: RequestInit = {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json'
 		}
 	};
-	var request: _fetch.Request = new _fetch.Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
+	var request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
+	var timeout: number = request.timeout;
+	var size: number = request.size;
+	var agent: Agent = request.agent;
+	var protocol: string = request.protocol
+
 	handlePromise(fetch(request));
 }
 
@@ -48,7 +53,7 @@ function test_globalFetchVar() {
 		});
 }
 
-function handlePromise(promise: Promise<_fetch.Response>) {
+function handlePromise(promise: Promise<Response>) {
 	promise.then((response) => {
 		if (response.type === 'basic') {
 			// for test only

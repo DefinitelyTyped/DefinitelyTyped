@@ -1,4 +1,4 @@
-/// <reference path="method-override.d.ts" />
+
 
 import express = require('express');
 import methodOverride = require('method-override');

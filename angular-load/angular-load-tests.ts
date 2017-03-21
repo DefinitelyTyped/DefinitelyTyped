@@ -1,4 +1,4 @@
-/// <reference path="./angular-load.d.ts" />
+
 
 angular.module('app',['angularLoad'])
     .run(['angularLoad',(angularLoad:angular.load.IAngularLoadService)=> {

@@ -1,5 +1,3 @@
-///<reference path="./johnny-five.d.ts"/>
-
 import five = require('johnny-five');
 var board = new five.Board();
 
@@ -252,4 +250,6 @@ board.on('ready', function(){
             return (raw / 100) + 10;
         }
     });
+}).on("ready", function(){
+    console.log("Everything is ready!!!");
 });

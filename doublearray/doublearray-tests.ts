@@ -1,4 +1,4 @@
-/// <reference path="doublearray.d.ts" />
+
 
 // https://github.com/takuyaa/doublearray/blob/master/README.md
 var words = [

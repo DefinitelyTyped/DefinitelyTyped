@@ -76,13 +76,13 @@ interface MediaTrackSupportedConstraints {
 }
 
 interface MediaStream extends EventTarget {
-    id: string;
-    active: boolean;
+    //id: string;
+    //active: boolean;
 
-    onactive: EventListener;
-    oninactive: EventListener;
-    onaddtrack: (event: MediaStreamTrackEvent) => any;
-    onremovetrack: (event: MediaStreamTrackEvent) => any;
+    //onactive: EventListener;
+    //oninactive: EventListener;
+    //onaddtrack: (event: MediaStreamTrackEvent) => any;
+    //onremovetrack: (event: MediaStreamTrackEvent) => any;
 
     clone(): MediaStream;
     stop(): void;
@@ -98,7 +98,7 @@ interface MediaStream extends EventTarget {
 }
 
 interface MediaStreamTrackEvent extends Event {
-    track: MediaStreamTrack;
+    //track: MediaStreamTrack;
 }
 
 declare enum MediaStreamTrackState {
@@ -107,18 +107,18 @@ declare enum MediaStreamTrackState {
 }
 
 interface MediaStreamTrack extends EventTarget {
-    id: string;
-    kind: string;
-    label: string;
+    //id: string;
+    //kind: string;
+    //label: string;
     enabled: boolean;
-    muted: boolean;
-    remote: boolean;
-    readyState: MediaStreamTrackState;
+    //muted: boolean;
+    //remote: boolean;
+    //readyState: MediaStreamTrackState;
 
-    onmute: EventListener;
-    onunmute: EventListener;
-    onended: EventListener;
-    onoverconstrained: EventListener;
+    //onmute: EventListener;
+    //onunmute: EventListener;
+    //onended: EventListener;
+    //onoverconstrained: EventListener;
 
     clone(): MediaStreamTrack;
 
@@ -131,39 +131,39 @@ interface MediaStreamTrack extends EventTarget {
 }
 
 interface MediaTrackCapabilities {
-    width: number | W3C.LongRange;
-    height: number | W3C.LongRange;
-    aspectRatio: number | W3C.DoubleRange;
-    frameRate: number | W3C.DoubleRange;
-    facingMode: string;
-    volume: number | W3C.DoubleRange;
-    sampleRate: number | W3C.LongRange;
-    sampleSize: number | W3C.LongRange;
-    echoCancellation: boolean[];
+    //width: number | W3C.LongRange;
+    //height: number | W3C.LongRange;
+    //aspectRatio: number | W3C.DoubleRange;
+    //frameRate: number | W3C.DoubleRange;
+    //facingMode: string;
+    //volume: number | W3C.DoubleRange;
+    //sampleRate: number | W3C.LongRange;
+    //sampleSize: number | W3C.LongRange;
+    //echoCancellation: boolean[];
     latency: number | W3C.DoubleRange;
-    deviceId: string;
-    groupId: string;
+    //deviceId: string;
+    //groupId: string;
 }
 
 interface MediaTrackSettings {
-    width: number;
-    height: number;
-    aspectRatio: number;
-    frameRate: number;
-    facingMode: string;
-    volume: number;
-    sampleRate: number;
-    sampleSize: number;
-    echoCancellation: boolean;
+    //width: number;
+    //height: number;
+    //aspectRatio: number;
+    //frameRate: number;
+    //facingMode: string;
+    //volume: number;
+    //sampleRate: number;
+    //sampleSize: number;
+    //echoCancellation: boolean;
     latency: number;
-    deviceId: string;
-    groupId: string;
+    //deviceId: string;
+    //groupId: string;
 }
 
 interface MediaStreamError {
-    name: string;
-    message: string;
-    constraintName: string;
+    //name: string;
+    //message: string;
+    //constraintName: string;
 }
 
 interface NavigatorGetUserMedia {
@@ -195,8 +195,8 @@ interface MediaDevices {
 }
 
 interface MediaDeviceInfo {
-    label: string;
-    deviceId: string;
-    kind: string;
-    groupId: string;
+    //label: string;
+    //deviceId: string;
+    //kind: string;
+    //groupId: string;
 }

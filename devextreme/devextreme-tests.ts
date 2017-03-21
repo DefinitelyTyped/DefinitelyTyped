@@ -1,4 +1,4 @@
-/// <reference path="devextreme.d.ts" />
+
 
 namespace Tests.ui {
     var dataGridOptions: DevExpress.ui.dxDataGridOptions = {
@@ -258,12 +258,12 @@ namespace Tests.viz {
         title: 'Long PieChart\'s Title'
     };
 
-    new DevExpress.viz.charts.dxChart($("chart"), chartOptions);
-    new DevExpress.viz.charts.dxChart($("#chart").get(0), chartOptions);
+    new DevExpress.viz.dxChart($("chart"), chartOptions);
+    new DevExpress.viz.dxChart($("#chart").get(0), chartOptions);
     $("#chart").dxChart(chartOptions);
 
-    new DevExpress.viz.charts.dxPieChart($("#pie-chart"), pieChartOptions);
-    new DevExpress.viz.charts.dxPieChart($("#pie-chart").get(0), pieChartOptions);
+    new DevExpress.viz.dxPieChart($("#pie-chart"), pieChartOptions);
+    new DevExpress.viz.dxPieChart($("#pie-chart").get(0), pieChartOptions);
     $("#pie-chart").dxPieChart(pieChartOptions);
 }
 

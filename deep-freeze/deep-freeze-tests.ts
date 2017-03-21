@@ -1,4 +1,4 @@
-/// <reference path="deep-freeze.d.ts" />
+
 
 import df = require('deep-freeze');
 

@@ -1,4 +1,3 @@
-/// <reference path="documentdb.d.ts" />
 
 import docDB = require('documentdb');
 var docDBClient = new docDB.DocumentClient('host', { masterKey: 'masterKey' });
@@ -53,6 +52,31 @@ docDBClient.createStoredProcedure('collection', procedure, undefined, (error, re
     }
     else {
         console.log('Created procedure: ' + result.id);
+    }
+});
+
+var userDefinedFunction: docDB.UserDefinedFunction = {
+    id: 'udf1',
+    body: function () {
+        console.log('foo');
+    }
+};
+
+docDBClient.createUserDefinedFunction('collection', userDefinedFunction, undefined, (error, result) => {
+    if (error) {
+        throw new Error(error.body);
+    }
+    else {
+        console.log('Created function: ' + result.id);
+    }
+});
+
+docDBClient.queryUserDefinedFunctions('collection', "SELECT * FROM root", undefined).toArray((error, results) => {
+    if (error) {
+        throw new Error(error.body);
+    }
+    else {
+        console.log('Number of functions in collection: ' + results.length);
     }
 });
 

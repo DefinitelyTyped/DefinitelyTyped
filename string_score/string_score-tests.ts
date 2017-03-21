@@ -1,4 +1,4 @@
-/// <reference path="string_score.d.ts" />
+
 
 import string_score = require('string_score');
 
