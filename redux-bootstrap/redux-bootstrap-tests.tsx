@@ -1,5 +1,3 @@
-/// <reference path="./redux-bootstrap.d.ts" />
-
 import bootstrap from "redux-bootstrap";
 
 let routes: JSX.Element = null;
@@ -9,8 +7,8 @@ let result = bootstrap({
     initialState: {},
     middlewares: [],
     reducers: {
-        reposReducer: (previousState: any, action: any) => { return null; },
-        usersReducer: (previousState: any, action: any) => { return null; }
+        reposReducer: (previousState: any, action: any): any => { return null; },
+        usersReducer: (previousState: any, action: any): any => { return null; }
     },
     routes: routes
 });

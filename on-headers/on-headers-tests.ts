@@ -1,12 +1,10 @@
-﻿/// <reference path="on-headers.d.ts"/>
-
 import http = require('http')
 import onHeaders = require('on-headers')
 
 http.createServer(onRequest)
     .listen(3000);
 
-function onRequest(req: http.ServerRequest, res: http.ServerResponse) {
+function onRequest(req: http.IncomingMessage, res: http.ServerResponse) {
     onHeaders(res, addPoweredBy);
     res.setHeader('Content-Type', 'text/plain')
     res.end('hello!');

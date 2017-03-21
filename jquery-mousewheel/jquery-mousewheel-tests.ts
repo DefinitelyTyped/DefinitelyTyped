@@ -1,5 +1,3 @@
-﻿/// <reference path="jquery-mousewheel.d.ts"/>
-
 $('#my_elem').on('mousewheel', (event: JQueryMousewheel.JQueryMousewheelEventObject) => {
     console.log(event.deltaX, event.deltaY, event.deltaFactor, event.deltaMode, event.absDelta);
 });

@@ -1,4 +1,4 @@
-/// <reference path="node-notifier.d.ts" />
+
 'use strict';
 
 import notifier = require('node-notifier');

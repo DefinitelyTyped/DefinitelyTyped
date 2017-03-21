@@ -1,13 +1,25 @@
 // React-Bootstrap Test
 // ================================================================================
-///<reference path="react-bootstrap.d.ts"/>
-///<reference path="../react/react.d.ts"/>
+///<reference types="react"/>
 
 // Imports
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Image, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox } from 'react-bootstrap';
+import {
+    Button, ButtonToolbar, Modal, Well, ButtonGroup,
+    DropdownButton, MenuItem, Panel, ListGroup,
+    ListGroupItem, Accordion, Tooltip,
+    OverlayTrigger, Popover, ProgressBar,
+    Nav, NavItem, Navbar, NavDropdown,
+    Tabs, Tab, Pager, PageItem,
+    Pagination, Alert, Carousel, SafeAnchor,
+    Grid, Row, Col, Thumbnail, Image,
+    Label, Badge, Jumbotron, PageHeader,
+    Glyphicon, Table, Form, FormGroup,
+    ControlLabel, FormControl, HelpBlock,
+    Radio, Checkbox, Media, InputGroup
+} from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -171,7 +183,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
-                  <DropdownButton bsStyle={'default'} title={'hello'} key={0} id={0}>
+                  <DropdownButton bsStyle={'default'} title={'hello'} key={0} id={"0"}>
                     <MenuItem eventKey='1'>Action</MenuItem>
                     <MenuItem eventKey='2'>Another action</MenuItem>
                     <MenuItem eventKey='3' active>Active Item</MenuItem>
@@ -263,6 +275,29 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                  <Panel collapsible defaultExpanded header='Panel heading'>
+                    Some default panel content here.
+                    <Table fill>
+                      <thead>
+                        <tr>
+                          <th>A</th>
+                          <th>B</th>
+                          <th>C</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Item 1</td>
+                          <td>Item 2</td>
+                          <td>&hellip;</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                    Some more panel content here.
+                  </Panel>
+                </div>
+
+                <div style={style}>
                   <Accordion>
                     <Panel header='Collapsible Group Item #1' eventKey='1'>
                       Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
@@ -294,9 +329,42 @@ export class ReactBootstrapTest extends Component<any, any> {
                         <Button>Close</Button>
                         <Button bsStyle='primary'>Save changes</Button>
                       </Modal.Footer>
-
                     </Modal.Dialog>
                   </div>
+                </div>
+
+                <div style={style}>
+                    <Modal show={false} onHide={() => ({})} style={style}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <h4>Text in a modal</h4>
+                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+
+                            <h4>Popover in a modal</h4>
+                            <p>there is a <OverlayTrigger overlay={null}><a href="#">popover</a></OverlayTrigger> here</p>
+
+                            <h4>Tooltips in a modal</h4>
+                            <p>there is a <OverlayTrigger overlay={null}><a href="#">tooltip</a></OverlayTrigger> here</p>
+
+                            <hr />
+
+                            <h4>Overflowing text to show scroll behavior</h4>
+                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={() => ({})}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
 
                 <div style={style} className="static-tooltip">
@@ -474,6 +542,19 @@ export class ReactBootstrapTest extends Component<any, any> {
                           <MenuItem eventKey='4'>Separated link</MenuItem>
                         </NavDropdown>
                       </Nav>
+                      <Navbar.Text>
+                          Signed in as: <Navbar.Link href="#">Mark Otto</Navbar.Link>
+                      </Navbar.Text>
+                      <Navbar.Form pullRight>
+                        <FormGroup>
+                          <FormControl type='text' placeholder='Search' />
+                        </FormGroup>
+                        {' '}
+                        <Button type='submit'>Submit</Button>
+                      </Navbar.Form>
+                      <Navbar.Text pullRight>
+                          Have a great day!
+                      </Navbar.Text>
                     </Navbar.Collapse>
                   </Navbar>
                 </div>
@@ -489,14 +570,44 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <Pager>
-                    <PageItem href='#'>Previous</PageItem>
-                    <PageItem href='#'>Next</PageItem>
+                        <Pager.Item href="#">Previous</Pager.Item>
+                        {' '}
+                        <Pager.Item href="#">Next</Pager.Item>
+                    </Pager>
+                </div>
+
+                <div style={style}>
+                    <Pager>
+                        <Pager.Item previous href="#">&larr; Previous Page</Pager.Item>
+                        <Pager.Item next href="#">Next Page &rarr;</Pager.Item>
+                    </Pager>
+                </div>
+
+                <div style={style}>
+                    <Pager>
+                        <Pager.Item previous href="#">&larr; Previous</Pager.Item>
+                        <Pager.Item disabled next href="#">Next &rarr;</Pager.Item>
                   </Pager>
                 </div>
 
                 <div style={style}>
                   <Tabs defaultActiveKey={1} animation={false}>
                     <Tab eventKey={1} title='Tab 1'>Tab 1 content</Tab>
+                    <Tab eventKey={2} title='Tab 2'>Tab 2 content</Tab>
+                    <Tab eventKey={3} title='Tab 3' disabled>Tab 3 content</Tab>
+                  </Tabs>
+                </div>
+
+                <div style={style}>
+                  <Tabs defaultActiveKey={1} animation={true}>
+                    <Tab animation={true}
+                     onEntered={() => {}}
+                     onEntering={() => {}}
+                     onExit={() => {}}
+                     onExited={() => {}}
+                     onExiting={()=>{}}
+                     unmountOnExit={true}
+                     bsClass="some style" tabClassName="classname"  eventKey={1} title='Tab 1'>Tab 1 content</Tab>
                     <Tab eventKey={2} title='Tab 2'>Tab 2 content</Tab>
                     <Tab eventKey={3} title='Tab 3' disabled>Tab 3 content</Tab>
                   </Tabs>
@@ -574,6 +685,14 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                    <Pagination
+                      buttonComponentClass={( props:any ) =>
+                          <SafeAnchor href="/test" disabled role="role"/>
+                      }
+                      maxButtons={10}/>
+                </div>
+
+                <div style={style}>
                   <Alert bsStyle='warning'>
                     <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
                   </Alert>
@@ -581,27 +700,27 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <Carousel>
-                    <CarouselItem>
-                      <img width={900} height={500} alt='900x500' src='carousel.png'/>
-                      <div className='carousel-caption'>
+                        <Carousel.Item>
+                            <img width={900} height={500} alt="900x500" src="/assets/carousel.png"/>
+                            <Carousel.Caption>
                         <h3>First slide label</h3>
                         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                      </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      <img width={900} height={500} alt='900x500' src='carousel.png'/>
-                      <div className='carousel-caption'>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img width={900} height={500} alt="900x500" src="/assets/carousel.png"/>
+                            <Carousel.Caption>
                         <h3>Second slide label</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </CarouselItem>
-                    <CarouselItem>
-                      <img width={900} height={500} alt='900x500' src='carousel.png'/>
-                      <div className='carousel-caption'>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img width={900} height={500} alt="900x500" src="/assets/carousel.png"/>
+                            <Carousel.Caption>
                         <h3>Third slide label</h3>
                         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                      </div>
-                    </CarouselItem>
+                            </Carousel.Caption>
+                      </Carousel.Item>
                   </Carousel>
                 </div>
 
@@ -840,115 +959,275 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
-                  <Input type='text'
+                    <FormGroup validationState="success">
+                        <ControlLabel>Working example with validation</ControlLabel>
+                        <FormControl type='text'
                          value="hello"
                          placeholder='Enter text'
-                         label='Working example with validation'
-                         help='Validation is based on string length.'
-                         bsStyle="success"
-                         hasFeedback
                          ref='input'
-                         groupClassName='group-class'
-                         labelClassName='label-class'
                          onChange={this.callback} />
+                        <FormControl.Feedback/>
+                        <HelpBlock>Validation is based on string length.</HelpBlock>
+                    </FormGroup>
                 </div>
 
                 <div style={style}>
                   <form>
-                    <Input type='text' label='Text' placeholder='Enter text' />
-                    <Input type='email' label='Email Address' placeholder='Enter email' />
-                    <Input type='password' label='Password' />
-                    <Input type='file' label='File' help='[Optional] Block level help text' />
-                    <Input type='checkbox' label='Checkbox' checked readOnly />
-                    <Input type='radio' label='Radio' checked readOnly />
-                    <Input type='select' label='Select' placeholder='select'>
+                        <FormGroup>
+                            <ControlLabel>Text</ControlLabel>
+                            <FormControl type="text" placeholder="Enter text"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <ControlLabel>Email address</ControlLabel>
+                            <FormControl type="email" placeholder="Enter email"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <ControlLabel>Pass</ControlLabel>
+                            <FormControl type="password" placeholder="Password"/>
+                        </FormGroup>
+                        <FormGroup>
+                            <ControlLabel>File</ControlLabel>
+                            <FormControl type="file"/>
+                            <HelpBlock>[Optional] Block level help text</HelpBlock>
+                        </FormGroup>
+                        <Checkbox checked readOnly>
+                            Checkbox
+                        </Checkbox>
+                        <Radio checked readOnly>
+                            Radio
+                        </Radio>
+                        <FormGroup>
+                            <ControlLabel>Select</ControlLabel>
+                            <FormControl componentClass="select" placeholder="select">
                       <option value='select'>select</option>
                       <option value='other'>...</option>
-                    </Input>
-                    <Input type='select' label='Multiple Select' multiple>
-                      <option value='select'>select (multiple)</option>
-                      <option value='other'>...</option>
-                    </Input>
-                    <Input type='textarea' label='Text Area' placeholder='textarea' />
-                    <ButtonInput value='Button Input' />
-                    <ButtonInput type='reset' value='Reset Button' />
-                    <ButtonInput type='submit' value='Submit Button' />
+                            </FormControl>
+                        </FormGroup>
+                        <FormGroup controlId="formControlsTextarea">
+                            <ControlLabel>Textarea</ControlLabel>
+                            <FormControl componentClass="textarea" placeholder="textarea" />
+                        </FormGroup>
                   </form>
                 </div>
 
                 <div style={style}>
                   <form>
-                    <Input type="text" name="text" ref="input" onChange={this.callback} />
-                      <ButtonInput bsSize="small">Child Text</ButtonInput>
-                      <ButtonInput type="reset" bsStyle="primary" onClick={this.callback} />
-                      <ButtonInput type="submit" value="Submit Your Input" bsStyle="success" bsSize="large" disabled={false} />
+                        <FormGroup>
+                            <InputGroup>
+                                <InputGroup.Addon>@</InputGroup.Addon>
+                                <FormControl type="text" />
+                            </InputGroup>
+                        </FormGroup>
+                        <FormGroup>
+                            <InputGroup>
+                                <FormControl type="text" />
+                                <InputGroup.Addon>.00</InputGroup.Addon>
+                            </InputGroup>
+                        </FormGroup>
+                        <FormGroup>
+                            <InputGroup>
+                                <InputGroup.Addon>$</InputGroup.Addon>
+                                <FormControl type="text" />
+                                <InputGroup.Addon>.00</InputGroup.Addon>
+                            </InputGroup>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <InputGroup>
+                                <FormControl type="text" />
+                                <InputGroup.Addon>
+                                    <Glyphicon glyph="music" />
+                                </InputGroup.Addon>
+                            </InputGroup>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <InputGroup>
+                                <InputGroup.Button>
+                                    <Button>Before</Button>
+                                </InputGroup.Button>
+                                <FormControl type="text" />
+                            </InputGroup>
+                        </FormGroup>
+                        <FormGroup>
+                            <InputGroup>
+                                <FormControl type="text" />
+                                <DropdownButton
+                                  componentClass={InputGroup.Button}
+                                  id="input-dropdown-addon"
+                                  title="Action"
+                                >
+                                    <MenuItem key="1">Item</MenuItem>
+                                </DropdownButton>
+                            </InputGroup>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <InputGroup>
+                                <InputGroup.Addon>
+                                    <input type="radio" aria-label="..." />
+                                </InputGroup.Addon>
+                                <FormControl type="text" />
+                            </InputGroup>
+                        </FormGroup>
+                        <FormGroup>
+                            <InputGroup>
+                                <InputGroup.Addon>
+                                    <input type="checkbox" aria-label="..." />
+                                </InputGroup.Addon>
+                                <FormControl type="text" />
+                            </InputGroup>
+                        </FormGroup>
+                  </form>
+                </div>
+
+                <div style={style}>
+                  <form>
+                        <FormGroup bsSize="large">
+                            <FormControl type="text" placeholder="Large text" />
+                        </FormGroup>
+                        <FormGroup>
+                            <FormControl type="text" placeholder="Normal text" />
+                        </FormGroup>
+                        <FormGroup bsSize="small">
+                            <FormControl type="text" placeholder="Small text" />
+                        </FormGroup>
+                  </form>
+                </div>
+
+                <div style={style}>
+                  <form>
+                        <FormGroup controlId="formValidationSuccess1" validationState="success">
+                            <ControlLabel>Input with success</ControlLabel>
+                            <FormControl type="text" />
+                            <HelpBlock>Help text with validation state.</HelpBlock>
+                        </FormGroup>
+
+                        <FormGroup controlId="formValidationWarning1" validationState="warning">
+                            <ControlLabel>Input with warning</ControlLabel>
+                            <FormControl type="text" />
+                        </FormGroup>
+
+                        <FormGroup controlId="formValidationError1" validationState="error">
+                            <ControlLabel>Input with error</ControlLabel>
+                            <FormControl type="text" />
+                        </FormGroup>
+
+                        <FormGroup controlId="formValidationSuccess2" validationState="success">
+                            <ControlLabel>Input with success and feedback icon</ControlLabel>
+                            <FormControl type="text" />
+                            <FormControl.Feedback />
+                        </FormGroup>
+
+                        <FormGroup controlId="formValidationWarning2" validationState="warning">
+                            <ControlLabel>Input with warning and feedback icon</ControlLabel>
+                            <FormControl type="text" />
+                            <FormControl.Feedback />
+                        </FormGroup>
+
+                        <FormGroup controlId="formValidationError2" validationState="error">
+                            <ControlLabel>Input with error and feedback icon</ControlLabel>
+                            <FormControl type="text" />
+                            <FormControl.Feedback />
+                        </FormGroup>
+
+                        <FormGroup controlId="formValidationSuccess3" validationState="success">
+                            <ControlLabel>Input with success and custom feedback icon</ControlLabel>
+                            <FormControl type="text" />
+                            <FormControl.Feedback>
+                                <Glyphicon glyph="music" />
+                            </FormControl.Feedback>
+                        </FormGroup>
+
+                        <FormGroup controlId="formValidationWarning3" validationState="warning">
+                            <ControlLabel>Input group with warning</ControlLabel>
+                            <InputGroup>
+                                <InputGroup.Addon>@</InputGroup.Addon>
+                                <FormControl type="text" />
+                            </InputGroup>
+                            <FormControl.Feedback />
+                        </FormGroup>
+
+                        <Form componentClass="fieldset" horizontal>
+                            <FormGroup controlId="formValidationError3" validationState="error">
+                                <Col componentClass={ControlLabel} xs={3}>
+                                    Input with error
+                      </Col>
+                                <Col xs={9}>
+                                    <FormControl type="text" />
+                                    <FormControl.Feedback />
+                      </Col>
+                            </FormGroup>
+
+                            <FormGroup controlId="formValidationSuccess4" validationState="success">
+                                <Col componentClass={ControlLabel} xs={3}>
+                                    Input group with success
+                                </Col>
+                                <Col xs={9}>
+                                    <InputGroup>
+                                        <InputGroup.Addon>@</InputGroup.Addon>
+                                        <FormControl type="text" />
+                                    </InputGroup>
+                                    <FormControl.Feedback />
+                                </Col>
+                            </FormGroup>
+                        </Form>
+
+                        <Form componentClass="fieldset" inline>
+                            <FormGroup controlId="formValidationWarning4" validationState="warning">
+                                <ControlLabel>Input with warning</ControlLabel>
+                                {' '}
+                                <FormControl type="text" />
+                                <FormControl.Feedback />
+                            </FormGroup>
+                            {' '}
+                            <FormGroup controlId="formValidationError4" validationState="error">
+                                <ControlLabel>Input group with error</ControlLabel>
+                                {' '}
+                                <InputGroup>
+                                    <InputGroup.Addon>@</InputGroup.Addon>
+                                    <FormControl type="text" />
+                                </InputGroup>
+                                <FormControl.Feedback />
+                            </FormGroup>
+                        </Form>
+
+                        <Checkbox validationState="success">
+                            Checkbox with success
+                        </Checkbox>
+                        <Radio validationState="warning">
+                            Radio with warning
+                        </Radio>
+                        <Checkbox validationState="error">
+                            Checkbox with error
+                        </Checkbox>
+
+                        {/* This requires React 15's <span>-less spaces to be exactly correct. */}
+                        <FormGroup validationState="success">
+                            <Checkbox inline>
+                                Checkbox
+                            </Checkbox>
+                            {' '}
+                            <Checkbox inline>
+                                with
+                            </Checkbox>
+                            {' '}
+                            <Checkbox inline>
+                                success
+                            </Checkbox>
+                        </FormGroup>
                     </form>
                 </div>
-
-                <div style={style}>
-                  <form>
-                    <Input type='text' addonBefore='@' />
-                    <Input type='text' addonAfter='.00' />
-                    <Input type='text' addonBefore='$' addonAfter='.00' />
-                    <Input type='text' addonAfter={innerGlyphicon} />
-                    <Input type='text' buttonBefore={innerButton} />
-                    <Input type='text' buttonAfter={innerDropdown} />
-                    <Input type='text' addonBefore={innerRadio} />
-                    <Input type='text' addonBefore={innerCheckbox} />
-                  </form>
-                </div>
-
-                <div style={style}>
-                  <form>
-                    <Input type='text' bsSize="large" placeholder='Large text' />
-                    <Input type='text' bsSize="medium" placeholder='Normal text' />
-                    <Input type='text' bsSize="small" placeholder='Small text' />
-                  </form>
-                </div>
-
-                <div style={style}>
-                  <form>
-                    <Input type='text' bsStyle='success' label='Success' hasFeedback />
-                    <Input type='text' bsStyle='warning' label='Warning' hasFeedback />
-                    <Input type='text' bsStyle='error' label='Error' hasFeedback />
-                  </form>
-                </div>
-
-                <div style={style}>
-                  <form className='form-horizontal'>
-                    <Input type='text' label='Text' labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
-                    <Input type='textarea' label='Textarea' labelClassName='col-xs-2' wrapperClassName='col-xs-10' />
-                    <Input type='checkbox' label='Checkbox' wrapperClassName='col-xs-offset-2 col-xs-10' help='Offset is applied to wrapper.' />
-                  </form>
-                </div>
-
-                <div style={style}>
-                  <Input label='Input wrapper' help='Use this when you need something other than the available input types.' wrapperClassName='wrapper'>
-                    <Row>
-                      <Col xs={6}>
-                        <input type='text' className='form-control' />
-                      </Col>
-                      <Col xs={6}>
-                        <input type='text' className='form-control' />
-                      </Col>
-                    </Row>
-                  </Input>
-                </div>
-
+                
                 <div style={style}>
                   <Form>
-                    <FormGroup
-                      controlId="formBasicText"
-                    >
+                        <FormGroup controlId="formBasicText">
                       <ControlLabel>Control Label</ControlLabel>
-                      <FormControl
-                        type="text"
-                        placeholder="Enter text"
-                      />
+                            <FormControl type="text" placeholder="Enter text" />
                       <FormControl.Feedback />
                       <HelpBlock>Help block message.</HelpBlock>
                     </FormGroup>
-
+                    
                     <FormGroup>
                       <Checkbox name="checkbox" inline>1</Checkbox>
                       {' '}
@@ -965,6 +1244,19 @@ export class ReactBootstrapTest extends Component<any, any> {
                     </FormGroup>
                   </Form>
                 </div>
+
+               <div style={style}>
+                <Media>
+                  <Media.Left align="top">
+                    <img width={64} height={64} src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" alt="Image"/>
+                  </Media.Left>
+                  <Media.Body>
+                    <Media.Heading>Top aligned media</Media.Heading>
+                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                    <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                  </Media.Body>
+                </Media>
+              </div>
             </div>
         );
     }

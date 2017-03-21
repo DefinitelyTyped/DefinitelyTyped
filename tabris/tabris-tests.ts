@@ -1,4 +1,4 @@
-/// <reference path="./tabris.d.ts" />
+import tabris = require("tabris");
 
 var page = tabris.create("Page", {});
 

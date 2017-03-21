@@ -1,4 +1,4 @@
-/// <reference path="systemjs.d.ts" />
+
 
 import System = require('systemjs');
 
@@ -35,3 +35,5 @@ System.import('./app.js').then(function (m) {
 System.import('lodash').then(function (_) {
     console.log(_);
 });
+
+const clonedSystemJS = new System.constructor();

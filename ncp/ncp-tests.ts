@@ -1,5 +1,3 @@
-/// <reference path="ncp.d.ts" />
-
 import ncp = require('ncp');
 import stream = require('stream');
 
@@ -9,12 +7,18 @@ opts = {
 	filter: /abc/
 };
 opts = {
+    filter: (filename: string) => true
+};
+opts = {
 	transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream) => {
 
 	}
 };
 opts = {
 	clobber: false
+};
+opts = {
+	dereference: false
 };
 opts = {
 	stopOnErr: false

@@ -1,5 +1,5 @@
 // adapted from `cat wu.js/test/* |sed '/= require/d'> wu-tests.ts`
-///<reference path="wu.d.ts" />
+
 declare var describe: any, it: any, mocha: any, assert: {
   iterable:any;
   eqSet<T>(expected:Set<T>, actual: Iterable<T>): any;
@@ -10,13 +10,13 @@ declare var describe: any, it: any, mocha: any, assert: {
 }
 
 // Helper for asserting that the given thing is iterable.
-assert.iterable = thing => {
+assert.iterable = (thing: any) => {
   assert.ok(wu(thing));
 };
 
 // Helper for asserting that all the elements yielded from the |actual|
 // iterator are in the |expected| set.
-assert.eqSet = (expected, actual) => {
+assert.eqSet = (expected: any, actual: any) => {
   assert.iterable(actual);
   for (var x of actual) {
     assert.ok(expected.has(x));
@@ -27,7 +27,7 @@ assert.eqSet = (expected, actual) => {
 // Helper for asserting that all the elements yielded from the |actual|
 // iterator are equal to and in the same order as the elements of the
 // |expected| array.
-assert.eqArray = (expected, actual) => {
+assert.eqArray = (expected: any, actual: any) => {
   assert.iterable(actual);
   assert.deepEqual(expected, [...actual]);
 };
@@ -203,7 +203,7 @@ describe("wu.flatten", () => {
 });
 describe("wu.forEach", () => {
   it("should iterate over every item", () => {
-    const items = [];
+    const items: any[] = [];
     wu.forEach(x => items.push(x), [1,2,3]);
     assert.eqArray([1,2,3], items);
   });
@@ -219,15 +219,15 @@ describe("wu.has", () => {
 });
 describe("wu.invoke", () => {
   it("should yield the method invokation on each item", () => {
-    function Greeter(name) {
+    function Greeter(name: string) {
       this.name = name
     }
-    Greeter.prototype.greet = function (tail) {
+    Greeter.prototype.greet = function (tail: string) {
       return "hello " + this.name + tail;
     };
     assert.eqArray(["hello world!", "hello test!"],
                    wu.invoke("greet", "!",
-                             [new Greeter("world"), new Greeter("test")]));
+                             [Greeter("world"), Greeter("test")]));
   });
 });
 describe("wu.keys", () => {
@@ -391,9 +391,9 @@ describe("wu.zip", () => {
 });
 describe("wu.zipLongest", () => {
   it("should stop with the longer iterable", () => {
-    const arr1 = [];
+    const arr1: any[] = [];
     arr1[1] = 2;
-    const arr2 = [];
+    const arr2: any[] = [];
     arr2[1] = 3;
     assert.eqArray([["a", 1], arr1, arr2],
                    wu.zipLongest("a", [1, 2, 3]));
@@ -401,7 +401,7 @@ describe("wu.zipLongest", () => {
 });
 describe("wu.zipWith", () => {
   it("should spread map over the zipped iterables", () => {
-    const add3 = (a, b, c) => a + b + c;
+    const add3 = (a: any, b: any, c: any) => a + b + c;
     assert.eqArray([12, 15, 18],
                    wu.zipWith(add3,
                               [1, 2, 3],

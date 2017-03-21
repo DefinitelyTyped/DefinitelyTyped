@@ -1,48 +1,39 @@
-// Type definitions for iScroll Lite 4.1
-// Project: http://cubiq.org/iscroll-4
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christiaan Rakowski <https://github.com/csrakowski/>
+// Type definitions for iScroll Lite 5
+// Project: http://cubiq.org/iscroll-5-ready-for-beta-test
+// Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface IScrollOptions {
+	//hScroll?: boolean;
+	//vScroll?: boolean;
 
-interface iScrollEvent {
-    (e: Event): void;
+	scrollX?: boolean;
+	scrollY?: boolean;
+
+	x?: number;
+	y?: number;
+	bounce?: boolean;
+	bounceLock?: boolean;
+	momentum?: boolean;
+	lockDirection?: boolean;
+	useTransform?: boolean;
+	useTransition?: boolean;
 }
 
-interface iScrollOptions {
-    hScroll?: boolean;
-    vScroll?: boolean;
-    x?: number;
-    y?: number;
-    bounce?: boolean;
-    bounceLock?: boolean;
-    momentum?: boolean;
-    lockDirection?: boolean;
-    useTransform?: boolean;
-    useTransition?: boolean;
+declare class IScroll {
 
-    // Events
-    onRefresh?: iScrollEvent;
-    onBeforeScrollStart?: iScrollEvent;
-    onScrollStart?: iScrollEvent;
-    onBeforeScrollMove?: iScrollEvent;
-    onScrollMove?: iScrollEvent;
-    onBeforeScrollEnd?: iScrollEvent;
-    onScrollEnd?: iScrollEvent;
-    onTouchEnd?: iScrollEvent;
-    onDestroy?: iScrollEvent;
-}
+	constructor (element: string, options?: IScrollOptions);
+	constructor (element: HTMLElement, options?: IScrollOptions);
 
-declare class iScroll {
+	destroy(): void;
+	refresh(): void;
+	scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
+	scrollToElement(element: string, time?: number): void;
+	scrollToElement(element: HTMLElement, time?: number): void;
+	disable(): void;
+	enable(): void;
+	stop(): void;
 
-    constructor (element: string, options?: iScrollOptions);
-	constructor (element: HTMLElement, options?: iScrollOptions);
-
-    destroy(): void;
-    refresh(): void;
-    scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
-    scrollToElement(element: string, time?: number): void;
-    scrollToElement(element: HTMLElement, time?: number): void;
-    disable(): void;
-    enable(): void;
-    stop(): void;
+	// Events
+	on: (type: string, fn: () => void) => void;
 }

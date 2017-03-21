@@ -1,5 +1,3 @@
-/// <reference path='d3pie.d.ts' />
-
 let chart = new d3pie('test',
   {
     header: {
