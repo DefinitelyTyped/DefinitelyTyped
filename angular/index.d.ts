@@ -1332,9 +1332,19 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$controller
     // see http://docs.angularjs.org/api/ng.$controllerProvider
     ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * The minimal local definitions required by $controller(ctrl, locals) calls.
+     */
+    interface IControllerLocals {
+        $scope: ng.IScope;
+        $element: JQuery;
+    }
+
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
         <T>(controllerConstructor: new (...args: any[]) => T, locals?: any, later?: boolean, ident?: string): T;
+        <T>(controllerConstructor: Function, locals?: IControllerLocals, later?: boolean, ident?: string): T;
         <T>(controllerConstructor: Function, locals?: any, later?: boolean, ident?: string): T;
         <T>(controllerName: string, locals?: any, later?: boolean, ident?: string): T;
     }

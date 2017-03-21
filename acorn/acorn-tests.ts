@@ -1,5 +1,3 @@
-/// <reference types="estree" />
-
 import acorn = require('acorn');
 import * as ESTree from 'estree';
 

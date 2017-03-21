@@ -689,6 +689,7 @@ declare namespace __MaterialUI {
         onMouseUp?: React.MouseEventHandler<{}>;
         onTouchEnd?: React.TouchEventHandler<{}>;
         onTouchStart?: React.TouchEventHandler<{}>;
+        overlayStyle?: React.CSSProperties;
         primary?: boolean;
         rippleStyle?: React.CSSProperties;
         secondary?: boolean;
@@ -1766,6 +1767,7 @@ declare namespace __MaterialUI {
         errorText?: React.ReactNode;
         floatingLabelFixed?: boolean;
         floatingLabelFocusStyle?: React.CSSProperties;
+        floatingLabelShrinkStyle?: React.CSSProperties;
         floatingLabelStyle?: React.CSSProperties;
         floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
@@ -1777,9 +1779,10 @@ declare namespace __MaterialUI {
         name?: string;
         onBlur?: React.FocusEventHandler<{}>;
         onChange?: (e: React.FormEvent<{}>, newValue: string) => void;
-        onEnterKeyDown?: React.KeyboardEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;
+        onKeyUp?: React.KeyboardEventHandler<{}>;
+        onKeyPress?: React.KeyboardEventHandler<{}>;
         rows?: number,
         rowsMax?: number,
         style?: React.CSSProperties;
@@ -1790,6 +1793,7 @@ declare namespace __MaterialUI {
         underlineShow?: boolean;
         underlineStyle?: React.CSSProperties;
         value?: string | number;
+        autoFocus?: boolean;
     }
     export class TextField extends React.Component<TextFieldProps, {}> {
         blur(): void;

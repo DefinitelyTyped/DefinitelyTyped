@@ -1,4 +1,3 @@
-/// <reference types="css-modules-require-hook" />
 /// <reference types="node" />
 
 import * as hook from 'css-modules-require-hook';
@@ -63,7 +62,7 @@ hook({ extensions: ['.scss', '.sass'] });
 
 hook({ ignore: (file: string) => false });
 hook({ ignore: 'unused' });
-hook({ ignore: /\.test\.(css|scss|sass)/$ });
+hook({ ignore: /\.test\.(css|scss|sass)$/ });
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#preprocesscss-function

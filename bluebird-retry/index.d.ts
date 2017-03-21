@@ -17,6 +17,9 @@ declare namespace retry {
         timeout?: number;
         max_tries?: number;
         predicate?: any;
+        throw_original?: boolean;
+        context?: any;
+        args?: any;
     }
 
 }

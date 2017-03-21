@@ -1,6 +1,3 @@
-/// <reference path="index.d.ts" />
-
-
 var db = window.openDatabase('Test', '0.1', 'test', 1024 * 1024 * 5);
 db.transaction(
     (tx: SqlTransaction) => {

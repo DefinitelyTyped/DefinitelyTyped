@@ -1,4 +1,3 @@
-/// <reference types="jquery"/>
 import * as moment from 'moment';
 
 $('#test1').livestamp(new Date('June 18, 1987'));

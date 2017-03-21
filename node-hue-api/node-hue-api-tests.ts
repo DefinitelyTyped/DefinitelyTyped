@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 import hue = require('node-hue-api');
 
 hue.nupnpSearch().then(function (bridges) {

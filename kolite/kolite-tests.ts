@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-/// <reference types="knockout" />
-
 function test_activityDefaults() {
     ko.bindingHandlers.activity.defaultOptions = {
         activityClass: 'fa fa-spinner fa-spin',

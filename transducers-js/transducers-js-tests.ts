@@ -1,7 +1,6 @@
 // tests taken from https://github.com/cognitect-labs/transducers-js
 
 import * as t from 'transducers-js';
-import * as _ from "lodash";
 
 var map    = t.map,
     filter = t.filter,
@@ -14,7 +13,7 @@ function inc(n: number) { return n + 1; };
 function isEven(n: number) { return n % 2 === 0; };
 var xf = comp(map(inc), filter(isEven));
 
-console.log(into([], xf, [0, 1, 2, 3, 4])); // [2, 4]
+into([], xf, [0, 1, 2, 3, 4]); // [2, 4]
 
 // integration
 
@@ -24,27 +23,6 @@ var arr   = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     toFn  = t.toFn;
 
 arr.reduce(toFn(xf, apush), []); // native
-_(arr).reduce(toFn(xf, apush), []); // underscore or lodash
-
-// immutable-js
-
-import * as Immutable from 'immutable';
-
-function sum(a: number, b: number): number { return a + b; };
-var transduce = t.transduce;
-
-var largeVector = Immutable.List();
-
-for (var i = 0; i < 1000000; i++) {
-  largeVector = largeVector.push(i);
-}
-
-// built in Immutable-js functionality
-largeVector.map(inc).filter(isEven).reduce(sum);
-
-// faster with transducers
-var xf = comp(map(inc), filter(isEven));
-transduce(xf, sum, 0, largeVector);
 
 // source examples
 

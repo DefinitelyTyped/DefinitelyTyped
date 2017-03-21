@@ -1,4 +1,4 @@
-// Type definitions for Underscore 1.7.0
+// Type definitions for Underscore 1.8
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -153,8 +153,18 @@ declare module _ {
         **/
         map<T, TResult>(
             list: _.List<T>,
-            iterator: _.ListIterator<T, TResult> | _.IterateePropertyShorthand | _.IterateeMatcherShorthand<any>,
+            iterator: _.ListIterator<T, TResult>,
             context?: any): TResult[];
+
+        map<T>(
+            list: _.List<T>,
+            iterator: _.IterateePropertyShorthand,
+            context?: any): T[];
+
+        map<T>(
+            list: _.List<T>,
+            iterator: _.IterateeMatcherShorthand<any>,
+            context?: any): boolean[];
 
         /**
         * @see _.map
@@ -171,18 +181,7 @@ declare module _ {
         /**
         * @see _.map
         **/
-        collect<T, TResult>(
-            list: _.List<T>,
-            iterator: _.ListIterator<T, TResult> | _.IterateePropertyShorthand | _.IterateeMatcherShorthand<any>,
-            context?: any): TResult[];
-
-        /**
-        * @see _.map
-        **/
-        collect<T, TResult>(
-            object: _.Dictionary<T>,
-            iterator: _.ObjectIterator<T, TResult>,
-            context?: any): TResult[];
+        collect: typeof _.map;
 
         /**
         * Also known as inject and foldl, reduce boils down a list of values into a single value.
@@ -196,7 +195,7 @@ declare module _ {
         * @return Reduced object result.
         **/
         reduce<T, TResult>(
-            list: _.Collection<T>,
+            list: _.List<T>,
             iterator: _.MemoIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
@@ -211,8 +210,14 @@ declare module _ {
         * @see _.reduce
         **/
         inject<T, TResult>(
-            list: _.Collection<T>,
+            list: _.List<T>,
             iterator: _.MemoIterator<T, TResult>,
+            memo?: TResult,
+            context?: any): TResult;
+
+        inject<T, TResult>(
+            list: _.Dictionary<T>,
+            iterator: _.MemoObjectIterator<T, TResult>,
             memo?: TResult,
             context?: any): TResult;
 
@@ -262,7 +267,7 @@ declare module _ {
         find<T>(
             list: _.List<T>,
             iterator: _.ListIterator<T, boolean>,
-            context?: any): T;
+            context?: any): T | undefined;
 
         /**
         * @see _.find
@@ -270,21 +275,21 @@ declare module _ {
         find<T>(
             object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T;
+            context?: any): T | undefined;
 
         /**
         * @see _.find
         **/
         find<T, U extends {}>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T;
+            iterator: U): T | undefined;
 
         /**
         * @see _.find
         **/
         find<T>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T;
+            iterator: string): T | undefined;
 
         /**
         * @see _.find
@@ -292,7 +297,7 @@ declare module _ {
         detect<T>(
             list: _.List<T>,
             iterator: _.ListIterator<T, boolean>,
-            context?: any): T;
+            context?: any): T | undefined;
 
         /**
         * @see _.find
@@ -300,21 +305,21 @@ declare module _ {
         detect<T>(
             object: _.Dictionary<T>,
             iterator: _.ObjectIterator<T, boolean>,
-            context?: any): T;
+            context?: any): T | undefined;
 
         /**
         * @see _.find
         **/
         detect<T, U extends {}>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: U): T;
+            iterator: U): T | undefined;
 
         /**
         * @see _.find
         **/
         detect<T>(
             object: _.List<T> | _.Dictionary<T>,
-            iterator: string): T;
+            iterator: string): T | undefined;
 
         /**
         * Looks through each value in the list, returning an array of all the values that pass a truth
@@ -372,7 +377,7 @@ declare module _ {
         **/
         findWhere<T, U extends {}>(
             list: _.List<T>,
-            properties: U): T;
+            properties: U): T | undefined;
 
         /**
         * Returns the values in list without the elements that the truth test (iterator) passes.
@@ -754,7 +759,7 @@ declare module _ {
         * @param array Retrieves the first element of this array.
         * @return Returns the first element of `array`.
         **/
-        first<T>(array: _.List<T>): T;
+        first<T>(array: _.List<T>): T | undefined;
 
         /**
         * @see _.first
@@ -767,7 +772,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head<T>(array: _.List<T>): T;
+        head<T>(array: _.List<T>): T | undefined;
 
         /**
         * @see _.first
@@ -804,7 +809,7 @@ declare module _ {
         * @param array Retrieves the last element of this array.
         * @return Returns the last element of `array`.
         **/
-        last<T>(array: _.List<T>): T;
+        last<T>(array: _.List<T>): T | undefined;
 
         /**
         * @see _.last
@@ -3768,7 +3773,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matches<T, TResult>(attrs: T): _.ListIterator<T, TResult>;
+        matches<T>(attrs: T): _.ListIterator<T, boolean>;
 
         /**
         * Returns a predicate function that will tell you if a passed in object contains all of the key/value properties present in attrs.
@@ -3776,7 +3781,7 @@ declare module _ {
         * @param attrs Object with key values pair
         * @return Predicate function
         **/
-        matcher<T, TResult>(attrs: T): _.ListIterator<T, TResult>;
+        matcher<T>(attrs: T): _.ListIterator<T, boolean>;
 
         /**
         * Returns a function that will itself return the key property of any passed-in object.
@@ -4100,22 +4105,22 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.each
         **/
-        each(iterator: _.ListIterator<T, void>, context?: any): T[];
+        each(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
 
         /**
         * @see _.each
         **/
-        each(iterator: _.ObjectIterator<T, void>, context?: any): T[];
+        each(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
 
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ListIterator<T, void>, context?: any): T[];
+        forEach(iterator: _.ListIterator<T, void>, context?: any): _.List<T>;
 
         /**
         * @see _.each
         **/
-        forEach(iterator: _.ObjectIterator<T, void>, context?: any): T[];
+        forEach(iterator: _.ObjectIterator<T, void>, context?: any): _.List<T>;
 
         /**
         * Wrapped type `any[]`.
@@ -4170,32 +4175,32 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T;
+        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T | undefined;
 
         /**
         * @see _.find
         **/
-        find<T, U extends {}>(interator: U): T;
+        find<T, U extends {}>(interator: U): T | undefined;
 
         /**
         * @see _.find
         **/
-        find<T>(interator: string): T;
+        find<T>(interator: string): T | undefined;
 
         /**
         * @see _.find
         **/
-        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T;
+        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): T | undefined;
 
         /**
         * @see _.find
         **/
-        detect<T, U extends {}>(interator?: U): T;
+        detect<T, U extends {}>(interator?: U): T | undefined;
 
         /**
         * @see _.find
         **/
-        detect<T>(interator?: string): T;
+        detect<T>(interator?: string): T | undefined;
 
         /**
         * Wrapped type `any[]`.
@@ -4218,7 +4223,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.findWhere
         **/
-        findWhere<U extends {}>(properties: U): T;
+        findWhere<U extends {}>(properties: U): T | undefined;
 
         /**
         * Wrapped type `any[]`.
@@ -4399,7 +4404,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.first
         **/
-        first(): T;
+        first(): T | undefined;
 
         /**
         * Wrapped type `any[]`.
@@ -4410,7 +4415,7 @@ declare module _ {
         /**
         * @see _.first
         **/
-        head(): T;
+        head(): T | undefined;
 
         /**
         * @see _.first
@@ -4437,7 +4442,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.last
         **/
-        last(): T;
+        last(): T | undefined;
 
         /**
         * Wrapped type `any[]`.
@@ -4690,7 +4695,7 @@ declare module _ {
         * Wrapped type `Function`.
         * @see _.negate
         **/
-        negate(): boolean;
+        negate(): (...args: any[]) => boolean;
 
         /**
         * Wrapped type `Function[]`.
@@ -4805,13 +4810,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.matches
         **/
-        matches<TResult>(): _.ListIterator<T, TResult>;
+        matches(): _.ListIterator<T, boolean>;
 
         /**
          * Wrapped type `any[]`.
          * @see _.matcher
          **/
-        matcher<TResult>(): _.ListIterator<T, TResult>;
+        matcher(): _.ListIterator<T, boolean>;
 
         /**
         * Wrapped type `string`.
@@ -5130,32 +5135,32 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.find
         **/
-        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
+        find<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        find<T, U extends {}>(interator: U): _ChainSingle<T>;
+        find<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        find<T>(interator: string): _ChainSingle<T>;
+        find<T>(interator: string): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T>;
+        detect<T>(iterator: _.ListIterator<T, boolean> | _.ObjectIterator<T, boolean>, context?: any): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        detect<T, U extends {}>(interator: U): _ChainSingle<T>;
+        detect<T, U extends {}>(interator: U): _ChainSingle<T | undefined>;
 
         /**
         * @see _.find
         **/
-        detect<T>(interator: string): _ChainSingle<T>;
+        detect<T>(interator: string): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
@@ -5359,7 +5364,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.first
         **/
-        first(): _ChainSingle<T>;
+        first(): _ChainSingle<T | undefined>;
 
         /**
         * Wrapped type `any[]`.
@@ -5765,13 +5770,13 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.matches
         **/
-        matches<TResult>(): _Chain<T>;
+        matches(): _Chain<T>;
 
         /**
          * Wrapped type `any[]`.
          * @see _.matcher
          **/
-        matcher<TResult>(): _Chain<T>;
+        matcher(): _Chain<T>;
 
         /**
         * Wrapped type `string`.
