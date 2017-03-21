@@ -1,6 +1,3 @@
-/// <reference types="estree" />
-
-
 import esprima = require('esprima');
 import * as ESTree from 'estree';
 

@@ -1,7 +1,3 @@
-///<reference types="jquery" />
-///<reference types="slick-carousel" />
-
-
 // --------------------------------------------------------
 // ------------------- WEBSITE EXAMPLE --------------------
 // ---------- http://kenwheeler.github.io/slick/ ----------

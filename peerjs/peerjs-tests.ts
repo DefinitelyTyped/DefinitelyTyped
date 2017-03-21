@@ -1,5 +1,3 @@
-/// <reference types="webrtc" />
-
 var peerByOption: PeerJs.Peer = new Peer({
     key: 'peerKey',
     debug: 3,

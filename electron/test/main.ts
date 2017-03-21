@@ -531,12 +531,19 @@ var winWindows = new BrowserWindow({
 // menu-item
 // https://github.com/atom/electron/blob/master/docs/api/menu-item.md
 
-var menuItem = new MenuItem({});
+var menuItem = new MenuItem({
+	click: (menuItem: Electron.MenuItem, browserWindow: Electron.BrowserWindow, event: Electron.Event) => {
+		console.log('click', menuItem, browserWindow, event);
+	}
+});
+
+const fakeEvent: Electron.Event = {
+	preventDefault: () => { },
+	sender: winWindows.webContents,
+}
 
 menuItem.label = 'Hello World!';
-menuItem.click = (menuItem, browserWindow) => {
-	console.log('click', menuItem, browserWindow);
-};
+menuItem.click(fakeEvent, winWindows, winWindows.webContents)
 
 // menu
 // https://github.com/atom/electron/blob/master/docs/api/menu.md

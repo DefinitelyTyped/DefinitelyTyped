@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 function test_events() {
 
     var object = new Backbone.Events();

@@ -4854,7 +4854,7 @@ declare namespace chrome.proxy {
  */
 declare namespace chrome.runtime {
     /** This will be defined during an API method callback if there was an error */
-    var lastError: LastError;
+    var lastError: LastError | undefined;
     /** The ID of the extension/app. */
     var id: string;
 

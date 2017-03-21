@@ -1,7 +1,3 @@
-
-/// <reference types="falcor" />
-/// <reference types="falcor-router" />
-
 import express = require('express');
 import Router = require('falcor-router');
 import falcorExpress = require('falcor-express')

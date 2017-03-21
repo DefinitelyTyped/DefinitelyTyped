@@ -57,7 +57,8 @@ reduxForm({
     form: 'mySFCForm'
 })(MyStatelessFunctionalComponent);
 
-class MyReusableForm extends Component<void, undefined> {
+@reduxForm<FormData, any, any>({})
+class MyDynamicForm extends Component<void, undefined> {
     render() {
         return (
             <div>

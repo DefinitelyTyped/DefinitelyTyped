@@ -100,16 +100,18 @@ function test_ajax() {
             if (getAllResponseHeaders()) {
                 return getAllResponseHeaders();
             }
-            var allHeaders = "";
-            $(["Cache-Control", "Content-Language", "Content-Type",
-                    "Expires", "Last-Modified", "Pragma"]).each(function (i, header_name) {
 
-                        if (xhr.getResponseHeader(header_name)) {
-                            allHeaders += header_name + ": " + xhr.getResponseHeader(header_name) + "\n";
-                        }
-                        return allHeaders;
-                    });
+            var allHeaders = "";
+            var headersFieldNames = ["Cache-Control", "Content-Language", "Content-Type",
+                "Expires", "Last-Modified", "Pragma"];
+            $(headersFieldNames).each(function (i, header_name) {
+                if (xhr.getResponseHeader(header_name)) {
+                    allHeaders += header_name + ": " + xhr.getResponseHeader(header_name) + "\n";
+                }
+            });
+            return allHeaders;
         };
+
         return xhr;
     };
     $.ajax({
@@ -1392,9 +1394,24 @@ function test_detach() {
 }
 
 function test_each() {
-    $.each([52, 97], function (index, value) {
+    var numArray: number[];
+    numArray = $.each([1, 2, 3, 4], function (index: number, value: number) {
         alert(index + ': ' + value);
     });
+    numArray = $.each([1, 2, 3, 4], function (index: number, value: number) {
+        alert(index + ': ' + value);
+        return value < 2;
+    });
+
+    var res: {one: number, 2: string};
+    res = $.each({ one: 1, 2: "two" }, function(key: string, value: any) {
+        alert(key + ': ' + value);
+    });
+    res = $.each({ one: 1, 2: "two" }, function(key: string, value: any) {
+        alert(key + ': ' + value);
+        return key === "2";
+    });
+
     var map = {
         'flammable': 'inflammable',
         'duh': 'no duh'
@@ -1404,8 +1421,7 @@ function test_each() {
     });
     var arr = ["one", "two", "three", "four", "five"];
     var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-    // TODO: Should not need explicit type annotation https://github.com/Microsoft/TypeScript/issues/10072
-    jQuery.each<string>(arr, function () {
+    jQuery.each(arr, function () {
         $("#" + this).text("Mine is " + this + ".");
         return (this != "three");
     });
@@ -1482,9 +1498,10 @@ function test_error() {
             $(this).hide();
         })
         .attr("src", "missing.png");
+    jQuery.error("Oups");
     jQuery.error = (message?: string) => {
         console.error(message); return this;
-    }
+    };
 }
 
 function test_eventParams() {
@@ -1516,7 +1533,7 @@ function test_eventParams() {
     function propStopped(e) {
         var msg = "";
         if (e.isPropagationStopped()) {
-            msg = "called"
+            msg = "called";
         } else {
             msg = "not called";
         }
@@ -1703,11 +1720,11 @@ function test_fadeToggle() {
 function test_filter() {
     $('li').filter(':even').css('background-color', 'red');
     $('li').filter(function (index) {
-        return index % 3 == 2;
+        return index % 3 === 2;
     }).css('background-color', 'red');
     $("div").css("background", "#b4b0da")
         .filter(function (index) {
-            return index == 1 || $(this).attr("id") == "fourth";
+            return index === 1 || $(this).attr("id") === "fourth";
         })
         .css("border", "3px double red");
     $("div").filter(document.getElementById("unique"));
@@ -1879,7 +1896,7 @@ function test_getJSON() {
     function (data) {
         $.each(data.items, function (i, item) {
             $("<img/>").attr("src", item.media.m).appendTo("#images");
-            if (i == 3) return false;
+            if (i === "3") return false;
         });
     });
     $.getJSON("test.js", function (json) {
@@ -2524,6 +2541,17 @@ function test_is() {
     });
 }
 
+function test_isTypeGuards() {
+    var foo: number[] | ((x: string) => number) | Window;
+    if (jQuery.isArray(foo)) {
+        foo.push(1515);
+    } else if (jQuery.isWindow(foo)) {
+        foo.close();
+    } else if (jQuery.isFunction(foo)) {
+        foo("hello world");
+    }
+}
+
 function test_isArray() {
     $("b").append("" + $.isArray([]));
 }
@@ -2580,6 +2608,16 @@ function test_isWindow() {
 function test_isXMLDoc() {
     jQuery.isXMLDoc(document);
     jQuery.isXMLDoc(document.body);
+}
+
+function test_unique() {
+    jQuery.unique($('div.foo, div.bar').get());
+    jQuery.unique($('div.foo, div.bar').toArray());
+
+    var divs: HTMLDivElement[];
+    var unique: HTMLDivElement[];
+    unique = jQuery.unique(divs);
+    unique = jQuery.unique<HTMLDivElement>(divs);
 }
 
 function test_jQuery() {

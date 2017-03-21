@@ -4240,7 +4240,7 @@ declare namespace THREE {
         distanceToSquared(v: Vector3): number;
         distanceToManhattan(v: Vector3): number;
 
-        setFromSpherical(s: Spherical): Matrix3;
+        setFromSpherical(s: Spherical): Vector3;
         setFromMatrixPosition(m: Matrix4): Vector3;
         setFromMatrixScale(m: Matrix4): Vector3;
         setFromMatrixColumn(matrix: Matrix4, index: number): Vector3;

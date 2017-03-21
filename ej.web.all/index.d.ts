@@ -3,11 +3,11 @@
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="../jquery" />
+/// <reference types="jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.1.0.33
+*  version : 15.1.0.37
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -1358,7 +1358,7 @@ export interface Model {
 	*/
 	cssClass?: string;
 
-	/** Allows you to set the custom header Icon. It accepts two key values â€œheaderâ€, â€selectedHeaderâ€.
+	/** Allows you to set the custom header Icon. It accepts two key values “header”, ”selectedHeader”.
 	*   @Default {{ header: e-collapse, selectedHeader: e-expand }}
 	*/
 	customIcon?: CustomIcon;
@@ -1827,7 +1827,7 @@ export interface Model {
 	addNewText?: boolean;
 
 	/** Allows new values to be added to the autocomplete input other than the values in the suggestion list.
-	*   Normally, when there are no suggestions it will display â€œNo suggestionsâ€ label in the popup.
+	*   Normally, when there are no suggestions it will display “No suggestions” label in the popup.
 	*   @Default {false}
 	*/
 	allowAddNew?: boolean;
@@ -1853,7 +1853,7 @@ export interface Model {
 	caseSensitiveSearch?: boolean;
 
 	/** The root class for the Autocomplete textbox widget which helps in customizing its theme.
-	*   @Default {â€â€}
+	*   @Default {””}
 	*/
 	cssClass?: string;
 
@@ -1868,12 +1868,12 @@ export interface Model {
 	delaySuggestionTimeout?: number;
 
 	/** The special character which acts as a separator for the given words for multi-mode search i.e. the text after the delimiter are considered as a separate word or query for search operation.
-	*   @Default {â€™,â€™}
+	*   @Default {’,’}
 	*/
 	delimiterChar?: string;
 
 	/** The text to be displayed in the popup when there are no suggestions available for the entered text.
-	*   @Default {â€œNo suggestionsâ€}
+	*   @Default {“No suggestions”}
 	*/
 	emptyResultText?: string;
 
@@ -1899,7 +1899,7 @@ export interface Model {
 	*/
 	enablePersistence?: boolean;
 
-	/** Displays the Autocomplete widgetâ€™s content from right to left when enabled.
+	/** Displays the Autocomplete widget’s content from right to left when enabled.
 	*   @Default {false}
 	*/
 	enableRTL?: boolean;
@@ -1910,9 +1910,9 @@ export interface Model {
 	fields?: Fields;
 
 	/** Specifies the search filter type.
-	*   There are several types of search filter available such as â€˜startswithâ€™,
-	*   â€˜containsâ€™, â€˜endswithâ€™, â€˜lessthanâ€™, â€˜lessthanorequalâ€™, â€˜greaterthanâ€™,
-	*   â€˜greaterthanorequalâ€™, â€˜equalâ€™, â€˜notequalâ€™.
+	*   There are several types of search filter available such as ‘startswith’,
+	*   ‘contains’, ‘endswith’, ‘lessthan’, ‘lessthanorequal’, ‘greaterthan’,
+	*   ‘greaterthanorequal’, ‘equal’, ‘notequal’.
 	*   @Default {ej.filterType.StartsWith}
 	*/
 	filterType?: string;
@@ -1951,12 +1951,12 @@ export interface Model {
 	multiSelectMode?: ej.Autocomplete.MultiSelectMode|string;
 
 	/** The height of the suggestion list.
-	*   @Default {â€œ152pxâ€}
+	*   @Default {“152px”}
 	*/
 	popupHeight?: string;
 
 	/** The width of the suggestion list.
-	*   @Default {â€œautoâ€}
+	*   @Default {“auto”}
 	*/
 	popupWidth?: string;
 
@@ -2281,14 +2281,14 @@ export interface MultiColumnSettingsColumn {
 	*/
 	cssClass?: string;
 
-	/** Specifies the search data type. There are four types of data types available such as string, â€˜numberâ€™, â€˜booleanâ€™ and â€˜dateâ€™.
+	/** Specifies the search data type. There are four types of data types available such as string, ‘number’, ‘boolean’ and ‘date’.
 	*   @Default {ej.Type.String}
 	*/
 	type?: ej.Type|string;
 
-	/** Specifies the search filter type. There are several types of search filter available such as â€˜startswithâ€™,
-	*  â€˜containsâ€™, â€˜endswithâ€™, â€˜lessthanâ€™, â€˜lessthanorequalâ€™, â€˜greaterthanâ€™,
-	*  â€˜greaterthanorequalâ€™, â€˜equalâ€™, â€˜notequalâ€™.
+	/** Specifies the search filter type. There are several types of search filter available such as ‘startswith’,
+	*  ‘contains’, ‘endswith’, ‘lessthan’, ‘lessthanorequal’, ‘greaterthan’,
+	*  ‘greaterthanorequal’, ‘equal’, ‘notequal’.
 	*   @Default {ej.filterType.StartsWith}
 	*/
 	filterType?: ej.filterType|string;
@@ -2892,29 +2892,29 @@ class ListBox extends ej.Widget {
 	*/
 	getSelectedItems(): any;
 
-	/** Returns an itemâ€™s index based on the given text.
+	/** Returns an item’s index based on the given text.
 	*   @param {string} The list item text (label)
 	*   @returns {number}
 	*/
 	getIndexByText(text: string): number;
 
-	/** Returns an itemâ€™s index based on the value given.
-	*   @param {string} The list itemâ€™s value
+	/** Returns an item’s index based on the value given.
+	*   @param {string} The list item’s value
 	*   @returns {number}
 	*/
 	getIndexByValue(indices: string): number;
 
-	/** Returns an itemâ€™s text (label) based on the index given.
+	/** Returns an item’s text (label) based on the index given.
 	*   @returns {string}
 	*/
 	getTextByIndex(): string;
 
-	/** Returns a list itemâ€™s object using its index.
+	/** Returns a list item’s object using its index.
 	*   @returns {any}
 	*/
 	getItemByIndex(): any;
 
-	/** Returns a list itemâ€™s object based on the text given.
+	/** Returns a list item’s object based on the text given.
 	*   @param {string} The list item text.
 	*   @returns {any}
 	*/
@@ -3131,7 +3131,7 @@ export interface Model {
 	*/
 	allowMultiSelection?: boolean;
 
-	/** Loads the list data on demand via scrolling behavior to improve the applicationâ€™s performance. There are two ways to load data which can be defined using â€œvirtualScrollModeâ€ property.
+	/** Loads the list data on demand via scrolling behavior to improve the application’s performance. There are two ways to load data which can be defined using “virtualScrollMode” property.
 	*   @Default {false}
 	*/
 	allowVirtualScrolling?: boolean;
@@ -3154,7 +3154,7 @@ export interface Model {
 	checkedIndices?: any[];
 
 	/** The root class for the ListBox widget to customize the existing theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
@@ -3178,7 +3178,7 @@ export interface Model {
 	*/
 	enablePersistence?: boolean;
 
-	/** Displays the ListBox widgetâ€™s content from right to left when enabled.
+	/** Displays the ListBox widget’s content from right to left when enabled.
 	*   @Default {false}
 	*/
 	enableRTL?: boolean;
@@ -3253,7 +3253,7 @@ export interface Model {
 	template?: string;
 
 	/** Holds the selected items values and used to bind value to the list item using AngularJS and KnockoutJS.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	value?: number;
 
@@ -3395,7 +3395,7 @@ export interface ChangeEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3415,11 +3415,11 @@ export interface ChangeEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -3442,7 +3442,7 @@ export interface CheckChangeEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3462,11 +3462,11 @@ export interface CheckChangeEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -3549,7 +3549,7 @@ export interface ItemDragEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3565,11 +3565,11 @@ export interface ItemDragEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -3592,7 +3592,7 @@ export interface ItemDragStartEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3608,11 +3608,11 @@ export interface ItemDragStartEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -3635,7 +3635,7 @@ export interface ItemDragStopEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3651,11 +3651,11 @@ export interface ItemDragStopEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -3678,7 +3678,7 @@ export interface ItemDropEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3694,11 +3694,11 @@ export interface ItemDropEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -3721,7 +3721,7 @@ export interface SelectEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3741,11 +3741,11 @@ export interface SelectEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -3768,7 +3768,7 @@ export interface UnselectEventArgs {
 	*/
 	data?: any;
 
-	/** List itemâ€™s index.
+	/** List item’s index.
 	*/
 	index?: number;
 
@@ -3788,11 +3788,11 @@ export interface UnselectEventArgs {
 	*/
 	isEnabled?: boolean;
 
-	/** List itemâ€™s text (label).
+	/** List item’s text (label).
 	*/
 	text?: string;
 
-	/** List itemâ€™s value.
+	/** List item’s value.
 	*/
 	value?: string;
 }
@@ -5673,6 +5673,10 @@ export interface UnselectEventArgs {
 	*/
 	name?: string;
 
+	/** Returns the name of unselected items.
+	*/
+	names?: string[];
+
 	/** Returns the type of unselected item.
 	*/
 	nodeType?: string;
@@ -5688,6 +5692,10 @@ export interface UnselectEventArgs {
 	/** Returns the unselected item details.
 	*/
 	unselectedItem?: any;
+
+	/** Returns the unselected items details.
+	*/
+	unselectedItems?: any[];
 }
 
 export interface ContextMenuSettings {
@@ -6430,6 +6438,11 @@ export namespace DateTimePicker {
 
 export interface Model {
 
+	/** Used to allow or restrict the editing in DateTimePicker input field directly. By setting false to this API, You can only pick the date and time values from DateTimePicker popup.
+	*   @Default {true}
+	*/
+	allowEdit?: boolean;
+
 	/** Displays the custom text for the buttons inside the DateTimePicker popup. when the culture value changed, we can change the buttons text based on the culture.
 	*   @Default {{ today: Today, timeNow: Time Now, done: Done, timeTitle: Time }}
 	*/
@@ -6519,7 +6532,7 @@ export interface Model {
 	*/
 	popupPosition?: string | ej.popupPosition;
 
-	/** Indicates that the DateTimePicker value can only be read and canâ€™t change.
+	/** Indicates that the DateTimePicker value can only be read and can’t change.
 	*   @Default {false}
 	*/
 	readOnly?: boolean;
@@ -7303,7 +7316,7 @@ export interface Model {
 	allowKeyboardNavigation?: boolean;
 
 	/** Customizes the Dialog widget animations. The Dialog widget can be animated while opening and closing the dialog.
-	*   In order to customize animation effects, you need to set â€œenableAnimationâ€ as true. It contains the following sub properties.
+	*   In order to customize animation effects, you need to set “enableAnimation” as true. It contains the following sub properties.
 	*/
 	animation?: any;
 
@@ -7320,7 +7333,7 @@ export interface Model {
 	*/
 	contentType?: string;
 
-	/** The URL to load the dialog content (such as AJAX, image, and iframe). In order to load content from URL, you need to set contentType as â€˜ajaxâ€™ or â€˜iframeâ€™ or â€˜imageâ€™.
+	/** The URL to load the dialog content (such as AJAX, image, and iframe). In order to load content from URL, you need to set contentType as ‘ajax’ or ‘iframe’ or ‘image’.
 	*/
 	contentUrl?: string;
 
@@ -7352,12 +7365,12 @@ export interface Model {
 	*/
 	enableRTL?: boolean;
 
-	/** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog header.
+	/** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set� showHeader� as true since the favicon will be displayed in the dialog header.
 	*/
 	faviconCSS?: string;
 
-	/** Sets the height for the dialog widget. It accepts both string and integer values. For example, it can accepts values like â€œautoâ€, â€œ100%â€, â€œ100pxâ€ as string type
-	*   and â€œ100â€, â€œ500â€ as integer type.
+	/** Sets the height for the dialog widget. It accepts both string and integer values. For example, it can accepts values like “auto”, “100%”, “100px” as string type
+	*   and “100”, “500” as integer type.
 	*/
 	height?: string|number;
 
@@ -7370,7 +7383,7 @@ export interface Model {
 	*/
 	isResponsive?: boolean;
 
-	/** Default Value:{:.param}â€œen-USâ€
+	/** Default Value:{:.param}“en-US”
 	*/
 	locale?: number;
 
@@ -7418,8 +7431,8 @@ export interface Model {
 	*/
 	tooltip?: any;
 
-	/** Sets the height for the dialog widget. It accepts both string and integer values. For example, it can accepts values like â€œautoâ€, â€œ100%â€,
-	*   â€œ100pxâ€ as string type and â€œ100â€, â€œ500â€ as integer type.
+	/** Sets the height for the dialog widget. It accepts both string and integer values. For example, it can accepts values like “auto”, “100%”,
+	*   “100px” as string type and “100”, “500” as integer type.
 	*/
 	width?: string|number;
 
@@ -7860,149 +7873,6 @@ export interface AjaxSettings {
 }
 }
 
-class DocumentEditor extends ej.Widget {
-	static fn: DocumentEditor;
-	constructor(element: JQuery | Element, options?: DocumentEditor.Model);
-	static Locale: any;
-	model: DocumentEditor.Model;
-	defaults: DocumentEditor.Model;
-
-	/** Loads the document from specified path using web API provided by importUrl.
-	*   @param {string} Specifies the file path.
-	*   @returns {void}
-	*/
-	load(path: string): void;
-
-	/** Gets the page number of current selection in the document.
-	*   @returns {number}
-	*/
-	getCurrentPageNumber(): number;
-
-	/** Gets the total number of pages in the document.
-	*   @returns {number}
-	*/
-	getPageCount(): number;
-
-	/** Gets the text of current selection in the document.
-	*   @returns {string}
-	*/
-	getSelectedText(): string;
-
-	/** Gets the current zoom factor value of the document editor.
-	*   @returns {number}
-	*/
-	getZoomFactor(): number;
-
-	/** Scales the document editor with the specified zoom factor. The range of zoom factor should be 0.10 to 5.00 (10 - 500 %).
-	*   @param {number} Specifies the factor for zooming.
-	*   @returns {void}
-	*/
-	setZoomFactor(factor: number): void;
-
-	/** Prints the document content as page by page.
-	*   @returns {void}
-	*/
-	print(): void;
-
-	/** Finds the first occurrence of specified text from current selection and  highlights the result. If the document end is reached, find operation will occur from the document start position.
-	*   @param {string} Specifies the text to search in a document.
-	*   @returns {void}
-	*/
-	find(text: string): void;
-}
-export namespace DocumentEditor {
-
-export interface Model {
-
-	/** Gets or sets an object that indicates initialization of importing and exporting documents in document editor.
-	*/
-	importExportSettings?: ImportExportSettings;
-
-	/** Triggers when the document changes. */
-	onDocumentChange?(e: OnDocumentChangeEventArgs): void;
-
-	/** Triggers when the selection changes. */
-	onSelectionChange?(e: OnSelectionChangeEventArgs): void;
-
-	/** Triggers when the zoom factor changes. */
-	onZoomFactorChange?(e: OnZoomFactorChangeEventArgs): void;
-
-	/** Triggers when the hyperlink is clicked. */
-	onRequestNavigate?(e: OnRequestNavigateEventArgs): void;
-}
-
-export interface OnDocumentChangeEventArgs {
-
-	/** True, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface OnSelectionChangeEventArgs {
-
-	/** True, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface OnZoomFactorChangeEventArgs {
-
-	/** True, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface OnRequestNavigateEventArgs {
-
-	/** true, if the event should be canceled; otherwise, false.
-	*/
-	cancel?: boolean;
-
-	/** Returns the document editor model.
-	*/
-	model?: any;
-
-	/** Returns the link type and navigation link.
-	*/
-	hyperlink?: any;
-
-	/** Returns the name of the event.
-	*/
-	type?: string;
-}
-
-export interface ImportExportSettings {
-
-	/** Gets or sets URL of Web API that should be used to parse the document while loading.
-	*/
-	importUrl?: string;
-}
-}
-
 class DropDownList extends ej.Widget {
 	static fn: DropDownList;
 	constructor(element: JQuery | Element, options?: DropDownList.Model);
@@ -8135,7 +8005,7 @@ export interface Model {
 	*/
 	allowVirtualScrolling?: boolean;
 
-	/** The cascading DropDownLists is a series of two or more DropDownLists in which each DropDownList is filtered according to the previous DropDownListâ€™s value.
+	/** The cascading DropDownLists is a series of two or more DropDownLists in which each DropDownList is filtered according to the previous DropDownList’s value.
 	*   @Default {null}
 	*/
 	cascadeTo?: string;
@@ -8316,7 +8186,7 @@ export interface Model {
 	*/
 	sortOrder?: ej.SortOrder|string;
 
-	/** Specifies the targetID for the DropDownListâ€™s items.
+	/** Specifies the targetID for the DropDownList’s items.
 	*   @Default {null}
 	*/
 	targetID?: string;
@@ -8384,7 +8254,7 @@ export interface Model {
 	/** Fires when the cascading happens between two DropDownList exactly after the value changes in the first dropdown and before filtering in the second Dropdown. */
 	cascade?(e: CascadeEventArgs): void;
 
-	/** Fires the action when the DropDownList controlâ€™s value is changed. */
+	/** Fires the action when the DropDownList control’s value is changed. */
 	change?(e: ChangeEventArgs): void;
 
 	/** Fires the action when the list item checkbox value is changed. */
@@ -9480,6 +9350,11 @@ class Editor extends ej.Widget {
 export namespace Editor {
 
 export interface Model {
+
+	/** Specifies the currency symbol of currency textbox, used when the user wants to overwrite the currency symbol commonly instead of the current culture symbol.
+	*   @Default {Based on the culture}
+	*/
+	currencySymbol?: string;
 
 	/** Sets the root CSS class for Editors which allow us to customize the appearance.
 	*/
@@ -11130,7 +11005,7 @@ export interface Fields {
 	*/
 	dataSource?: any;
 
-	/** Specifies the HTML attributes to â€œLIâ€ item list.
+	/** Specifies the HTML attributes to “LI” item list.
 	*/
 	htmlAttribute?: string;
 
@@ -11138,11 +11013,11 @@ export interface Fields {
 	*/
 	id?: string;
 
-	/** Specifies the image attribute to â€œimgâ€ tag inside items list.
+	/** Specifies the image attribute to “img” tag inside items list.
 	*/
 	imageAttribute?: string;
 
-	/** Specifies the image URL to â€œimgâ€ tag inside item list.
+	/** Specifies the image URL to “img” tag inside item list.
 	*/
 	imageUrl?: string;
 
@@ -11158,7 +11033,7 @@ export interface Fields {
 	*/
 	query?: any;
 
-	/** Specifies the sprite CSS class to â€œLIâ€ item list.
+	/** Specifies the sprite CSS class to “LI” item list.
 	*/
 	spriteCssClass?: string;
 
@@ -13061,10 +12936,10 @@ export interface Tab {
 
 enum ItemType {
 
-	///To render the button for ribbon backstage pageâ€™s contents
+	///To render the button for ribbon backstage page’s contents
 	Button,
 
-	///To render the tab for ribbon backstage pageâ€™s contents
+	///To render the tab for ribbon backstage page’s contents
 	Tab
 }
 
@@ -14384,6 +14259,14 @@ export interface ContextMenuSettings {
 	customMenuItems?: ContextMenuSettingsCustomMenuItem[];
 }
 
+export interface ColumnsTotalCount {
+
+	/** To customize the totalCount text properties.
+	*   @Default {null}
+	*/
+	text?: string;
+}
+
 export interface ColumnsConstraints {
 
 	/** It is used to specify the type of constraints as column or swimlane.
@@ -14410,9 +14293,9 @@ export interface Column {
 	headerText?: string;
 
 	/** To customize the totalCount properties.
-	*   @Default {false}
+	*   @Default {Object}
 	*/
-	totalCount?: string;
+	totalCount?: ColumnsTotalCount;
 
 	/** Gets or sets an object that indicates to render the Kanban with specified columns key.
 	*   @Default {null}
@@ -15276,14 +15159,14 @@ class RTE extends ej.Widget {
 	insertMenuOption(): void;
 
 	/** Add a table column at the right or left of the specified cell
-	*   @param {boolean} If itâ€™s true, add a column at the left of the cell, otherwise add a column at the right of the cell
+	*   @param {boolean} If it’s true, add a column at the left of the cell, otherwise add a column at the right of the cell
 	*   @param {JQuery} Column will be added based on the given cell element
 	*   @returns {HTMLElement}
 	*/
 	insertColumn(before?: boolean, cell?: JQuery): HTMLElement;
 
 	/** To add a table row below or above the specified cell.
-	*   @param {boolean} If itâ€™s true, add a row before the cell, otherwise add a row after the cell
+	*   @param {boolean} If it’s true, add a row before the cell, otherwise add a row after the cell
 	*   @param {JQuery} Row will be added based on the given cell element
 	*   @returns {HTMLElement}
 	*/
@@ -15397,7 +15280,7 @@ export interface Model {
 	*/
 	cssClass?: string;
 
-	/** Enables/disables the RTE controlâ€™s accessibility or interaction.
+	/** Enables/disables the RTE control’s accessibility or interaction.
 	*   @Default {True}
 	*/
 	enabled?: boolean;
@@ -15615,7 +15498,7 @@ export interface Model {
 	/** Sets the tools in the RTE and gets the inner display order of the corresponding group element. Tools are dependent on the toolsList property.
 	*   @Default {formatStyle: [format],style: [bold, italic, underline, strikethrough],alignment: [justifyLeft, justifyCenter, justifyRight, justifyFull],lists: [unorderedList, orderedList],
 	*	indenting: [outdent, indent],doAction: [undo, redo],links: [createLink,removeLink],images: [image],media: [video],tables: [createTable, addRowAbove, addRowBelow,
-	*   addColumnLeft, addColumnRight, deleteRow, deleteColumn, deleteTable]],view:[â€œfullScreenâ€,zoomIn,zoomOut],print:[print]}
+	*   addColumnLeft, addColumnRight, deleteRow, deleteColumn, deleteTable]],view:[“fullScreen”,zoomIn,zoomOut],print:[print]}
 	*/
 	tools?: Tools;
 
@@ -16425,7 +16308,7 @@ export interface Model {
 	enableRTL?: boolean;
 
 	/** Specifies the height of the Split Button.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	height?: string|number;
 
@@ -16466,7 +16349,7 @@ export interface Model {
 	text?: string;
 
 	/** Specifies the width of the Split Button.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	width?: string|number;
 
@@ -16745,7 +16628,7 @@ export interface Model {
 	animationSpeed?: number;
 
 	/** Specify the CSS class to splitter control to achieve custom theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
@@ -16775,7 +16658,7 @@ export interface Model {
 	isResponsive?: boolean;
 
 	/** Specify the orientation for splitter control. See orientation
-	*   @Default {ej.orientation.Horizontal or â€œhorizontalâ€}
+	*   @Default {ej.orientation.Horizontal or “horizontal”}
 	*/
 	orientation?: ej.Orientation|string;
 
@@ -16924,7 +16807,7 @@ class Tab extends ej.Widget {
 	model: Tab.Model;
 	defaults: Tab.Model;
 
-	/** Add new tab items with given name, URL and given index position, if index null itâ€™s add last item.
+	/** Add new tab items with given name, URL and given index position, if index null it’s add last item.
 	*   @param {string} URL name / tab id.
 	*   @param {string} Tab Display name.
 	*   @param {number} Index position to placed , this is optional.
@@ -17069,7 +16952,7 @@ export interface Model {
 	*/
 	htmlAttributes?: any;
 
-	/** The idPrefix property appends the given string on the added tab item idâ€™s in runtime.
+	/** The idPrefix property appends the given string on the added tab item id’s in runtime.
 	*   @Default {ej-tab-}
 	*/
 	idPrefix?: string;
@@ -17094,7 +16977,7 @@ export interface Model {
 	*/
 	showRoundedCorner?: boolean;
 
-	/** Set the width for outer panel element, if not itâ€™s take parent width.
+	/** Set the width for outer panel element, if not it’s take parent width.
 	*   @Default {null}
 	*/
 	width?: string|number;
@@ -20443,7 +20326,7 @@ export interface Fields {
 	*/
 	id?: string;
 
-	/** Specifies the image attribute to â€œimgâ€ tag inside items list
+	/** Specifies the image attribute to “img” tag inside items list
 	*/
 	imageAttribute?: any;
 
@@ -20455,7 +20338,7 @@ export interface Fields {
 	*/
 	isChecked?: string;
 
-	/** Specifies the link attribute to â€œaâ€ tag in item list.
+	/** Specifies the link attribute to “a” tag in item list.
 	*/
 	linkAttribute?: any;
 
@@ -20981,14 +20864,14 @@ export interface DialogAction {
 	*/
 	drag?: boolean;
 
-	/** Enables or disables the Uploadbox dialogâ€™s modal property to the dialog popup.
+	/** Enables or disables the Uploadbox dialog’s modal property to the dialog popup.
 	*/
 	modal?: boolean;
 }
 
 export interface DialogText {
 
-	/** Sets the uploaded fileâ€™s Name (header text) to the Dialog popup.
+	/** Sets the uploaded file’s Name (header text) to the Dialog popup.
 	*/
 	name?: string;
 
@@ -21226,6 +21109,12 @@ class Grid extends ej.Widget {
 	*/
 	deleteRecord(fieldName: string, data: any[]): void;
 
+	/** Delete the row based on the given tr element in grid.
+	*   @param {JQuery} Pass the tr element in grid content to get its row index
+	*   @returns {HTMLElement}
+	*/
+	deleteRow($tr: JQuery): HTMLElement;
+
 	/** Destroy the grid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
 	*   @returns {void}
 	*/
@@ -21237,6 +21126,11 @@ class Grid extends ej.Widget {
 	*   @returns {void}
 	*/
 	editCell(index: number, fieldName: string): void;
+
+	/** It returns a value and if the input field values of edit form is not based on the validation rules then it will show the validation message.
+	*   @returns {Boolean}
+	*/
+	editFormValidate(): boolean;
 
 	/** Send a save request in grid.
 	*   @returns {void}
@@ -21324,6 +21218,13 @@ class Grid extends ej.Widget {
 	*/
 	getColumnIndexByField(fieldName: string): number;
 
+	/** Get the column index of the given headerText of column in grid.
+	*   @param {string} Pass the headerText of the column to get that column index
+	*   @param {string} optionalOptional Pass the field name of the column.
+	*   @returns {number}
+	*/
+	getColumnIndexByHeaderText(headerText: string, field?: string): number;
+
 	/** Get the content div element of grid.
 	*   @returns {HTMLElement}
 	*/
@@ -21348,6 +21249,11 @@ class Grid extends ej.Widget {
 	*   @returns {Array<any>}
 	*/
 	getCurrentViewData(): any[];
+
+	/** Get the data of given row index in grid.
+	*   @returns {any}
+	*/
+	getDataByIndex(): any;
 
 	/** Get the column field name from the given header text in grid.
 	*   @param {string} Pass header text of the column to get its corresponding field name
@@ -21439,6 +21345,17 @@ class Grid extends ej.Widget {
 	*/
 	getSelectedRecords(): any[];
 
+	/** Get the selected row element details in grid.
+	*   @returns {Array<any>}
+	*/
+	getSelectedRows(): any[];
+
+	/** It accepts the string value and returns the field and sorted direction of the column in grid.
+	*   @param {string} Pass the field of the column to get the sorted direction of the corresponding column in Grid.
+	*   @returns {number}
+	*/
+	getsortColumnByField(field: string): number;
+
 	/** Get the calculated summary values of JSON data passed to it
 	*   @param {any} Pass Summary Column details
 	*   @param {any} Pass JSON Array for which its field values to be calculated
@@ -21517,6 +21434,13 @@ class Grid extends ej.Widget {
 	*   @returns {void}
 	*/
 	reorderColumns(fromFieldName: string, toFieldName: string): void;
+
+	/** Re-order the row in grid
+	*   @param {Array<any>} Pass the indexes of the rows needs to reorder.
+	*   @param {number} Pass the index of a row where to be reorderd.
+	*   @returns {void}
+	*/
+	reorderRows(indexes: any[], toindex: number): void;
 
 	/** Reset the model collections like pageSettings, groupSettings, filterSettings, sortSettings and summaryRows.
 	*   @returns {void}
@@ -21617,6 +21541,11 @@ class Grid extends ej.Widget {
 	*/
 	setCellValue(Index: number, fieldName: string, value: any): void;
 
+	/** It sets the default data to the column in grid during adding record in batch edit mode.
+	*   @returns {void}
+	*/
+	setDefaultData(): void;
+
 	/** The grid rows has to be rendered as detail view in mobile mode based on given value.
 	*   @param {number} It is used to render grid rows as details view in mobile mode.
 	*   @returns {void}
@@ -21676,20 +21605,20 @@ export interface Model {
 	*/
 	allowCellMerging?: boolean;
 
-	/** Gets or sets a value that indicates whether to enable dynamic grouping behavior. Grouping can be done by drag on drop desired columns to gridâ€™s GroupDropArea.
-	*   This can be further customized through â€œgroupSettingsâ€ property.
+	/** Gets or sets a value that indicates whether to enable dynamic grouping behavior. Grouping can be done by drag on drop desired columns to grid’s GroupDropArea.
+	*   This can be further customized through “groupSettings” property.
 	*   @Default {false}
 	*/
 	allowGrouping?: boolean;
 
-	/** Gets or sets a value that indicates whether to enable keyboard support for performing grid actions. selectionType â€“ Gets or sets a value that indicates whether to enable single
+	/** Gets or sets a value that indicates whether to enable keyboard support for performing grid actions. selectionType – Gets or sets a value that indicates whether to enable single
 	*   row or multiple rows selection behavior in grid. Multiple selection can be done through by holding CTRL and clicking the grid rows
 	*   @Default {true}
 	*/
 	allowKeyboardNavigation?: boolean;
 
 	/** Gets or sets a value that indicates whether to enable dynamic filtering behavior on grid. Filtering can be used to limit the records displayed using required criteria and
-	*   this can be further customized through â€œfilterSettingsâ€ property
+	*   this can be further customized through “filterSettings” property
 	*   @Default {false}
 	*/
 	allowFiltering?: boolean;
@@ -21705,7 +21634,7 @@ export interface Model {
 	allowMultiSorting?: boolean;
 
 	/** This specifies the grid to show the paginated data. Also enables pager control at the bottom of grid for dynamic navigation through data source.
-	*   Paging can be further customized through â€œpageSettingsâ€ property.
+	*   Paging can be further customized through “pageSettings” property.
 	*   @Default {false}
 	*/
 	allowPaging?: boolean;
@@ -21736,7 +21665,7 @@ export interface Model {
 	*/
 	allowScrolling?: boolean;
 
-	/** Gets or sets a value that indicates whether to enable dynamic searching behavior in grid. Currently search box can be enabled through â€œtoolbarSettingsâ€
+	/** Gets or sets a value that indicates whether to enable dynamic searching behavior in grid. Currently search box can be enabled through “toolbarSettings”
 	*   @Default {false}
 	*/
 	allowSearching?: boolean;
@@ -21842,6 +21771,11 @@ export interface Model {
 	*/
 	enableTouch?: boolean;
 
+	/** It sets a value that indicates whether to enable toolbar items, when allowEditing, allowAdding and allowDeleting property set as false in the grid.
+	*   @Default {false}
+	*/
+	enableToolbarItems?: boolean;
+
 	/** Act as mapper for the excel exporting URL.
 	*   @Default {ExportToExcel}
 	*/
@@ -21914,7 +21848,7 @@ export interface Model {
 	searchSettings?: SearchSettings;
 
 	/** Gets a value that indicates whether the grid model to hold multiple selected records . selectedRecords can be used to displayed hold the single
-	*   or multiple selected records using â€œselectedRecordsâ€ property
+	*   or multiple selected records using “selectedRecords” property
 	*   @Default {null}
 	*/
 	selectedRecords?: any[];
@@ -21947,12 +21881,12 @@ export interface Model {
 	*/
 	showColumnChooser?: boolean;
 
-	/** Gets or sets a value that indicates stacked header should be shown on grid layout when the property â€œstackedHeaderRowsâ€ is set.
+	/** Gets or sets a value that indicates stacked header should be shown on grid layout when the property “stackedHeaderRows” is set.
 	*   @Default {false}
 	*/
 	showStackedHeader?: boolean;
 
-	/** Gets or sets a value that indicates summary rows should be shown on grid layout when the property â€œsummaryRowsâ€ is set
+	/** Gets or sets a value that indicates summary rows should be shown on grid layout when the property “summaryRows” is set
 	*   @Default {false}
 	*/
 	showSummary?: boolean;
@@ -22002,6 +21936,12 @@ export interface Model {
 
 	/** Triggered before the batch save. */
 	beforeBatchSave?(e: BeforeBatchSaveEventArgs): void;
+
+	/** Triggered before the print. */
+	beforePrint?(e: BeforePrintEventArgs): void;
+
+	/** Triggered before row drop in the grid */
+	beforeRowDrop?(e: BeforeRowDropEventArgs): void;
 
 	/** Triggered before the record is going to be edited. */
 	beginEdit?(e: BeginEditEventArgs): void;
@@ -22598,6 +22538,48 @@ export interface BeforeBatchSaveEventArgs {
 	/** Returns the changed record object.
 	*/
 	batchChanges?: any;
+}
+
+export interface BeforePrintEventArgs {
+
+	/** Returns the grid model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+
+	/** Returns the Grid element.
+	*/
+	element?: any;
+
+	/** Returns the selected records.
+	*/
+	selectedRows?: any;
+}
+
+export interface BeforeRowDropEventArgs {
+
+	/** Returns the cancel option value.
+	*/
+	cancel?: boolean;
+
+	/** Returns the targeted row.
+	*/
+	target?: any;
+
+	/** Returns the targeted row index.
+	*/
+	targetIndex?: any;
+
+	/** Returns the dragged record details
+	*/
+	draggedRecords?: any;
+
+	/** Returns the drop details
+	*/
+	dropDetails?: any;
 }
 
 export interface BeginEditEventArgs {
@@ -24060,6 +24042,11 @@ export interface Column {
 	*/
 	filterBarTemplate?: any;
 
+	/** Gets or sets a value that indicates to render the excel or menu filter dialog to the grid columns. See filterType
+	*   @Default {null}
+	*/
+	filterType?: ej.Grid.FilterType|string;
+
 	/** Gets or sets a value that indicates to define foreign key field name of the grid datasource.
 	*   @Default {null}
 	*/
@@ -24088,6 +24075,11 @@ export interface Column {
 	*/
 	headerTextAlign?: ej.TextAlign|string;
 
+	/** It accepts the string value and shows the tooltip for the Grid column header.
+	*   @Default {null}
+	*/
+	headerTooltip?: string;
+
 	/** You can use this property to freeze selected columns in grid at the time of scrolling.
 	*   @Default {false}
 	*/
@@ -24104,7 +24096,7 @@ export interface Column {
 	isPrimaryKey?: boolean;
 
 	/** Gets or sets a value that indicates the order of Column that are to be hidden or visible when Grid element is in responsive mode and could not occupy all columns.
-	*   @Default {null}
+	*   @Default {-1}
 	*/
 	priority?: number;
 
@@ -24265,7 +24257,11 @@ export interface FilterSettingsFilteredColumn {
 	*/
 	field?: string;
 
-	/** Gets or sets a value that indicates whether to define the filter condition to filtered column.
+	/** Gets or sets a value that indicates whether to define the matchCase of given value to be filter.
+	*/
+	matchCase?: boolean;
+
+	/** Gets or sets a value that indicates whether to define the filter condition to filtered column. See operator
 	*/
 	operator?: ej.FilterOperators|string;
 
@@ -24285,7 +24281,12 @@ export interface FilterSettings {
 	*/
 	enableCaseSensitivity?: boolean;
 
-	/** This specifies the grid to starts the filter action while typing in the filterBar or after pressing the enter key. based on the filterBarMode. See filterBarMode
+	/** Gets or sets a value that indicates to define the interDeterminateState of checkbox in excel filter dialog.
+	*   @Default {true}
+	*/
+	enableInterDeterminateState?: boolean;
+
+	/** This specifies the grid to starts the filter action while typing in the filterBar or after pressing the enter key. based on the filterBarMode. See filterBarMode.
 	*   @Default {ej.Grid.FilterBarMode.Immediate}
 	*/
 	filterBarMode?: ej.Grid.FilterBarMode|string;
@@ -24299,6 +24300,11 @@ export interface FilterSettings {
 	*   @Default {ej.Grid.FilterType.FilterBar}
 	*/
 	filterType?: ej.Grid.FilterType|string;
+
+	/** This specifies the grid to delay the filter action while typing in the filterBar.
+	*   @Default {1500}
+	*/
+	immediateModeDelay?: number;
 
 	/** Gets or sets a value that indicates the maximum number of filter choices that can be showed in the excel styled filter menu.
 	*   @Default {1000}
@@ -24458,6 +24464,11 @@ export interface SearchSettings {
 
 export interface SelectionSettings {
 
+	/** Gets or sets a value that indicates the cell selection actions based on the cell selection mode.
+	*   @Default {flow}
+	*/
+	cellSelectionMode?: string;
+
 	/** Gets or sets a value that indicates whether to enable the toggle selection behavior for row, cell and column.
 	*   @Default {false}
 	*/
@@ -24475,6 +24486,16 @@ export interface ScrollSettings {
 	*   @Default {false}
 	*/
 	allowVirtualScrolling?: boolean;
+
+	/** It accepts the boolean value and shows or hides the scrollbar while focus in or focus out of the Grid.
+	*   @Default {false}
+	*/
+	autoHide?: boolean;
+
+	/** Specifies the height and width of button in the scrollbar.
+	*   @Default {18}
+	*/
+	buttonSize?: number;
 
 	/** This specify the grid to enable/disable touch control for scrolling.
 	*   @Default {true}
@@ -24495,6 +24516,11 @@ export interface ScrollSettings {
 	*   @Default {0}
 	*/
 	height?: string|number;
+
+	/** It accepts the integer value and sets the width of scrollbar.
+	*   @Default {18}
+	*/
+	scrollerSize?: number;
 
 	/** This is used to define the mode of virtual scrolling in grid. See virtualScrollMode
 	*   @Default {ej.Grid.VirtualScrollMode.Normal}
@@ -24556,6 +24582,11 @@ export interface StackedHeaderRowsStackedHeaderColumn {
 	*   @Default {ej.TextAlign.Left}
 	*/
 	textAlign?: string;
+
+	/** Sets the template for tooltip for the Grid stackedHeaderColumns.
+	*   @Default {null}
+	*/
+	tooltip?: string;
 }
 
 export interface StackedHeaderRow {
@@ -24744,6 +24775,16 @@ enum EditingType {
 }
 
 
+enum FilterType {
+
+	///Specifies the filter type as menu.
+	Menu,
+
+	///Specifies the filter type as excel.
+	Excel
+}
+
+
 enum EditMode {
 
 	///Edit mode is normal.
@@ -24799,19 +24840,6 @@ enum FilterBarMode {
 
 	///Initiate filter operation after Enter key is pressed.
 	OnEnter
-}
-
-
-enum FilterType {
-
-	///Specifies the filter type as menu.
-	Menu,
-
-	///Specifies the filter type as excel.
-	Excel,
-
-	///Specifies the filter type as filterbar.
-	FilterBar
 }
 
 
@@ -25583,7 +25611,7 @@ export interface Model {
 	*/
 	yName?: string;
 
-	/** Controls wheather sunburst has to be responsive or not.
+	/** Controls whether sunburst has to be responsive or not.
 	*   @Default {true}
 	*/
 	isResponsive?: boolean;
@@ -25703,7 +25731,7 @@ export interface Model {
 	pointRegionClick?(e: PointRegionClickEventArgs): void;
 
 	/** Fires while moving the mouse over sunburst points */
-	pointRegionMousemove?(e: PointRegionMousemoveEventArgs): void;
+	pointRegionMouseMove?(e: PointRegionMouseMoveEventArgs): void;
 
 	/** Fires when clicking the point to perform drilldown. */
 	drillDownClick?(e: DrillDownClickEventArgs): void;
@@ -25867,7 +25895,7 @@ export interface PointRegionClickEventArgs {
 	type?: string;
 }
 
-export interface PointRegionMousemoveEventArgs {
+export interface PointRegionMouseMoveEventArgs {
 
 	/** Includes data of mouse moved region
 	*/
@@ -26117,7 +26145,7 @@ export interface DataLabelSettings {
 	*/
 	visible?: boolean;
 
-	/** Alginment of sunburst datalabel
+	/** Alignment of sunburst datalabel
 	*   @Default {Angle. See DatalabelAlignment}
 	*/
 	labelRotationMode?: ej.datavisualization.Sunburst.SunburstLabelRotationMode|string;
@@ -26126,12 +26154,12 @@ export interface DataLabelSettings {
 	*/
 	font?: DataLabelSettingsFont;
 
-	/** Custome template for datalabel
+	/** Custom template for datalabel
 	*   @Default {null}
 	*/
 	template?: string;
 
-	/** Fill color for the datalable
+	/** Fill color for the datalabel
 	*   @Default {null}
 	*/
 	fill?: string;
@@ -26778,12 +26806,12 @@ export interface Model {
 	analysisMode?: ej.Pivot.AnalysisMode|string;
 
 	/** Specifies the CSS class to PivotGrid to achieve custom theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
 	/** Connects the PivotSchemaDesigner with the specified ID to the PivotGrid Control.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	pivotTableFieldListID?: string;
 
@@ -26852,6 +26880,11 @@ export interface Model {
 	*/
 	enableConditionalFormatting?: boolean;
 
+	/** Enables the advanced filtering options Value Filtering, Label Filtering and Sorting for each fields in server mode.
+	*   @Default {false}
+	*/
+	enableAdvancedFilter?: boolean;
+
 	/** Allows the user to refresh the control on-demand and not during every UI operation.
 	*   @Default {false}
 	*/
@@ -26917,7 +26950,7 @@ export interface Model {
 	*/
 	hyperlinkSettings?: HyperlinkSettings;
 
-	/** Allows the user to enable PivotGridâ€™s responsiveness in the browser layout.
+	/** Allows the user to enable PivotGrid’s responsiveness in the browser layout.
 	*   @Default {false}
 	*/
 	isResponsive?: boolean;
@@ -26947,7 +26980,7 @@ export interface Model {
 	serviceMethodSettings?: ServiceMethodSettings;
 
 	/** Connects the service using the specified URL for any server updates.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	url?: string;
 
@@ -27579,7 +27612,7 @@ export interface DataSource {
 	filters?: DataSourceFilter[];
 
 	/** Contains the respective cube name from OLAP database as string type.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cube?: string;
 
@@ -27589,7 +27622,7 @@ export interface DataSource {
 	data?: any;
 
 	/** In connection with an OLAP database, this property contains the database name as string to fetch the data from the given connection string.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	catalog?: string;
 
@@ -27845,7 +27878,7 @@ export namespace PivotSchemaDesigner {
 export interface Model {
 
 	/** Specifies the CSS class to PivotSchemaDesigner to achieve custom theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
@@ -27855,7 +27888,7 @@ export interface Model {
 	customObject?: any;
 
 	/** For ASP.NET and MVC Wrapper, PivotSchemaDesigner will be initialized and rendered empty initially. Once the connected pivot control widget is rendered completely,
-	*   PivotSchemaDesigner will just be populated with data source by setting this property to â€œtrueâ€.
+	*   PivotSchemaDesigner will just be populated with data source by setting this property to “true”.
 	*   @Default {false}
 	*/
 	enableWrapper?: boolean;
@@ -27876,7 +27909,7 @@ export interface Model {
 	enableDragDrop?: boolean;
 
 	/** Sets the height for PivotSchemaDesigner.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	height?: string;
 
@@ -27896,12 +27929,12 @@ export interface Model {
 	serviceMethod?: ServiceMethod;
 
 	/** Connects the service using the specified URL for any server updates.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	url?: string;
 
 	/** Sets the width for PivotSchemaDesigner.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	width?: string;
 
@@ -28076,7 +28109,7 @@ export interface Model {
 	seriesPageCount?: number;
 
 	/** Contains the ID of the target element for which paging needs to be done.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	targetControlID?: string;
 }
@@ -28182,7 +28215,7 @@ export interface Model {
 	analysisMode?: ej.Pivot.AnalysisMode|string;
 
 	/** Specifies the CSS class to PivotChart to achieve custom theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
@@ -28216,7 +28249,7 @@ export interface Model {
 	*/
 	enableRTL?: boolean;
 
-	/** Allows the user to enable PivotChartâ€™s responsiveness in the browser layout.
+	/** Allows the user to enable PivotChart’s responsiveness in the browser layout.
 	*   @Default {false}
 	*/
 	isResponsive?: boolean;
@@ -28238,14 +28271,14 @@ export interface Model {
 
 	/** This is a horizontal axis that contains options to configure axis and it is the primary x axis for all the series in series array.
 	*   To override x axis for particular series, create an axis object by providing unique name by using name property and add it to axes array.
-	*   Then, assign the name to the seriesâ€™s xAxisName property to link both axis and series.
+	*   Then, assign the name to the series’s xAxisName property to link both axis and series.
 	*   @Default {{}}
 	*/
 	primaryXAxis?: any;
 
 	/** This is a vertical axis that contains options to configure axis. This is the primary y axis for all the series in series array.
 	*   To override y axis for particular series, create an axis object by providing unique name by using name property and add it to axes array.
-	*   Then, assign the name to the seriesâ€™s yAxisName property to link both axis and series.
+	*   Then, assign the name to the series’s yAxisName property to link both axis and series.
 	*   @Default {{}}
 	*/
 	primaryYAxis?: any;
@@ -28266,7 +28299,7 @@ export interface Model {
 	size?: any;
 
 	/** Connects the service using the specified URL for any server updates on operating the control in server mode.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	url?: string;
 
@@ -28570,7 +28603,7 @@ export interface DataSourceFilter {
 export interface DataSource {
 
 	/** Contains the respective cube name from OLAP database as string type.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cube?: string;
 
@@ -28580,7 +28613,7 @@ export interface DataSource {
 	data?: any;
 
 	/** In connection with an OLAP database, this property contains the database name as string to fetch the data from the given connection string.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	catalog?: string;
 
@@ -28761,7 +28794,7 @@ export interface Model {
 	clientExportMode?: ej.PivotClient.ClientExportMode|string;
 
 	/** Specifies the CSS class to PivotClient to achieve custom theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
@@ -29339,7 +29372,7 @@ export interface DataSource {
 	filters?: DataSourceFilter[];
 
 	/** Contains the respective cube name from OLAP database as string type.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cube?: string;
 
@@ -29349,11 +29382,11 @@ export interface DataSource {
 	data?: any;
 
 	/** In connection with an OLAP database, this property contains the database name as string to fetch the data from the given connection string.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	catalog?: string;
 
-	/** Allows user to filter the members (by its name and values) through advanced filtering (excel-like) option for OLAP data source in client-mode.
+	/** Allows user to filter the members (by its name and values) through advanced filtering (excel-like) option in client-mode.
 	*   @Default {false}
 	*/
 	enableAdvancedFilter?: boolean;
@@ -29390,7 +29423,7 @@ export interface DisplaySettings {
 	*/
 	enableTogglePanel?: boolean;
 
-	/** Allows the user to enable PivotClientâ€™s responsiveness in the browser layout.
+	/** Allows the user to enable PivotClient’s responsiveness in the browser layout.
 	*   @Default {false}
 	*/
 	isResponsive?: boolean;
@@ -29598,7 +29631,7 @@ export interface Model {
 	columnsCount?: number;
 
 	/** Specifies the CSS class to PivotGauge to achieve custom theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
@@ -29627,7 +29660,7 @@ export interface Model {
 	*/
 	enableRTL?: boolean;
 
-	/** Allows the user to enable PivotGaugeâ€™s responsiveness in the browser layout.
+	/** Allows the user to enable PivotGauge’s responsiveness in the browser layout.
 	*   @Default {false}
 	*/
 	isResponsive?: boolean;
@@ -29663,7 +29696,7 @@ export interface Model {
 	showHeaderLabel?: boolean;
 
 	/** Connects the service using the specified URL for any server updates on server mode operation.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	url?: string;
 
@@ -29899,7 +29932,7 @@ export interface DataSourceFilter {
 export interface DataSource {
 
 	/** Contains the respective cube name from OLAP database as string type.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cube?: string;
 
@@ -29909,7 +29942,7 @@ export interface DataSource {
 	data?: any;
 
 	/** In connection with an OLAP database, this property contains the database name as string to fetch the data from the given connection string.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	catalog?: string;
 
@@ -30041,7 +30074,7 @@ export namespace PivotTreeMap {
 export interface Model {
 
 	/** Specifies the CSS class to PivotTreeMap to achieve custom theme.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cssClass?: string;
 
@@ -30055,7 +30088,7 @@ export interface Model {
 	*/
 	customObject?: any;
 
-	/** Allows the user to enable PivotTreeMapâ€™s responsiveness in the browser layout.
+	/** Allows the user to enable PivotTreeMap’s responsiveness in the browser layout.
 	*   @Default {false}
 	*/
 	isResponsive?: boolean;
@@ -30076,7 +30109,7 @@ export interface Model {
 	serviceMethodSettings?: ServiceMethodSettings;
 
 	/** Connects the service using the specified URL for any server updates.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	url?: string;
 
@@ -30311,12 +30344,12 @@ export interface DataSource {
 	data?: any;
 
 	/** Contains the respective cube name from OLAP database as string type.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	cube?: string;
 
 	/** In connection with an OLAP database, this property contains the database name as string to fetch the data from the given connection string.
-	*   @Default {â€œâ€}
+	*   @Default {“”}
 	*/
 	catalog?: string;
 
@@ -33630,6 +33663,11 @@ export interface EditSettings {
 	*   @Default {normal}
 	*/
 	editMode?: string;
+
+	/** Specifies the position where the new row has to be added.
+	*   @Default {ej.Gantt.RowPosition.BelowSelectedRow}
+	*/
+	rowPosition?: ej.Gantt.RowPosition|string;
 }
 
 export interface ScheduleHeaderSettings {
@@ -33679,10 +33717,10 @@ export interface ScheduleHeaderSettings {
 	*/
 	yearHeaderFormat?: string;
 
-	/** Specifies the size of the lowest time unit along the timescale, with minimum value as &quot;50%&quot; and maximum value as &quot;500%&quot;. It is also possble to set the value in pixels.
+	/** Specifies the size of the lowest time unit along the timescale, with minimum value as &quot;50%&quot; and maximum value as &quot;500%&quot;. It is also possible to set the value in pixels.
 	*   @Default {100%}
 	*/
-	timscaleUnitSize?: string;
+	timescaleUnitSize?: string;
 
 	/** Specifies the start day of the week in week timescale mode
 	*   @Default {0}
@@ -33756,6 +33794,25 @@ enum BeginEditAction {
 
 	///you can begin the editing at single click
 	Click
+}
+
+
+enum RowPosition {
+
+	///you can add a new row at top.
+	Top,
+
+	///you can add a new row at bottom.
+	Bottom,
+
+	///you can add a new row to above selected row.
+	AboveSelectedRow,
+
+	///you can add a new row to below selected row.
+	BelowSelectedRow,
+
+	///you can add a new row as a child for selected row.
+	Child
 }
 
 
@@ -34759,7 +34816,7 @@ export interface Model {
 	*/
 	locale?: string;
 
-	/** Enables or disables internal parsing of a row. When disbaled this property, row will be displayed using the defined template without any internal event bindings.
+	/** Enables or disables internal parsing of a row. When disabled this property, row will be displayed using the defined template without any internal event bindings.
 	*   @Default {true}
 	*/
 	parseRowTemplate?: boolean;
@@ -36276,7 +36333,7 @@ export interface Model {
 	*/
 	query?: any;
 
-	/** Sets the list of button elements to be selected. To enable this option groupButtonMode should be in â€œcheckboxâ€ mode.
+	/** Sets the list of button elements to be selected. To enable this option groupButtonMode should be in “checkbox” mode.
 	*   @Default {[]}
 	*/
 	selectedItemIndex?: number[]|string[];
@@ -37141,7 +37198,7 @@ export interface Badge {
 	value?: number;
 
 	/** Sets position for tile badge.
-	*   @Default {â€œbottomrightâ€}
+	*   @Default {“bottomright”}
 	*/
 	position?: ej.Tile.BadgePosition|string;
 }
@@ -42367,8 +42424,152 @@ export interface IgnoreSettings {
 }
 }
 
+class DocumentEditor extends ej.Widget {
+	static fn: DocumentEditor;
+	constructor(element: JQuery | Element, options?: DocumentEditor.Model);
+	static Locale: any;
+	model: DocumentEditor.Model;
+	defaults: DocumentEditor.Model;
+
+	/** Loads the document from specified path using web API provided by importUrl.
+	*   @param {string} Specifies the file path.
+	*   @returns {void}
+	*/
+	load(path: string): void;
+
+	/** Gets the page number of current selection in the document.
+	*   @returns {number}
+	*/
+	getCurrentPageNumber(): number;
+
+	/** Gets the total number of pages in the document.
+	*   @returns {number}
+	*/
+	getPageCount(): number;
+
+	/** Gets the text of current selection in the document.
+	*   @returns {string}
+	*/
+	getSelectedText(): string;
+
+	/** Gets the current zoom factor value of the document editor.
+	*   @returns {number}
+	*/
+	getZoomFactor(): number;
+
+	/** Scales the document editor with the specified zoom factor. The range of zoom factor should be 0.10 to 5.00 (10 - 500 %).
+	*   @param {number} Specifies the factor for zooming.
+	*   @returns {void}
+	*/
+	setZoomFactor(factor: number): void;
+
+	/** Prints the document content as page by page.
+	*   @returns {void}
+	*/
+	print(): void;
+
+	/** Finds the first occurrence of specified text from current selection and  highlights the result. If the document end is reached, find operation will occur from the document start position.
+	*   @param {string} Specifies the text to search in a document.
+	*   @returns {void}
+	*/
+	find(text: string): void;
+}
+export namespace DocumentEditor {
+
+export interface Model {
+
+	/** Gets or sets an object that indicates initialization of importing and exporting documents in document editor.
+	*/
+	importExportSettings?: ImportExportSettings;
+
+	/** Triggers when the document changes. */
+	onDocumentChange?(e: OnDocumentChangeEventArgs): void;
+
+	/** Triggers when the selection changes. */
+	onSelectionChange?(e: OnSelectionChangeEventArgs): void;
+
+	/** Triggers when the zoom factor changes. */
+	onZoomFactorChange?(e: OnZoomFactorChangeEventArgs): void;
+
+	/** Triggers when the hyperlink is clicked. */
+	onRequestNavigate?(e: OnRequestNavigateEventArgs): void;
+}
+
+export interface OnDocumentChangeEventArgs {
+
+	/** True, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface OnSelectionChangeEventArgs {
+
+	/** True, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface OnZoomFactorChangeEventArgs {
+
+	/** True, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface OnRequestNavigateEventArgs {
+
+	/** true, if the event should be canceled; otherwise, false.
+	*/
+	cancel?: boolean;
+
+	/** Returns the document editor model.
+	*/
+	model?: any;
+
+	/** Returns the link type and navigation link.
+	*/
+	hyperlink?: any;
+
+	/** Returns the name of the event.
+	*/
+	type?: string;
+}
+
+export interface ImportExportSettings {
+
+	/** Gets or sets URL of Web API that should be used to parse the document while loading.
+	*/
+	importUrl?: string;
+}
+}
+
 }
 declare namespace ej.datavisualization {
+
 class SymbolPalette extends ej.Widget {
 	static fn: SymbolPalette;
 	constructor(element: JQuery | Element, options?: SymbolPalette.Model);
@@ -47062,18 +47263,18 @@ export interface Model {
 
 	/** This is a horizontal axis that contains options to configure axis and it is the primary x axis for all the series in series array.
 	*   To override x axis for particular series, create an axis object by providing unique name by using name property and add it to axes array.
-	*   Then, assign the name to the seriesâ€™s xAxisName property to link both axis and series.
+	*   Then, assign the name to the series’s xAxisName property to link both axis and series.
 	*/
 	primaryXAxis?: PrimaryXAxis;
 
 	/** To override x axis for particular series, create an axis object by providing unique name by using name property and add it to axes array.
-	*   Then, assign the name to the seriesâ€™s xAxisName property to link both axis and series.
+	*   Then, assign the name to the series’s xAxisName property to link both axis and series.
 	*/
 	axes?: Axis[];
 
 	/** This is a vertical axis that contains options to configure axis. This is the primary y axis for all the series in series array.
 	*   To override y axis for particular series, create an axis object by providing unique name by using name property and add it to axes array.
-	*   Then, assign the name to the seriesâ€™s yAxisName property to link both axis and series.
+	*   Then, assign the name to the series’s yAxisName property to link both axis and series.
 	*/
 	primaryYAxis?: PrimaryYAxis;
 
@@ -47511,7 +47712,7 @@ export interface LegendItemClickEventArgs {
 	*/
 	LegendItem?: any;
 
-	/** Options to customize the legend item styles such as border, color, size, etcâ€¦,
+	/** Options to customize the legend item styles such as border, color, size, etc…,
 	*/
 	style?: any;
 
@@ -47554,11 +47755,11 @@ export interface LegendItemMouseMoveEventArgs {
 	*/
 	LegendItem?: any;
 
-	/** Options to customize the legend item styles such as border, color, size, etcâ€¦,
+	/** Options to customize the legend item styles such as border, color, size, etc…,
 	*/
 	style?: any;
 
-	/** Options to customize the legend item styles such as border, color, size, etcâ€¦,
+	/** Options to customize the legend item styles such as border, color, size, etc…,
 	*/
 	Bounds?: any;
 
@@ -48676,7 +48877,7 @@ export interface CommonSeriesOptionsMarkerDataLabel {
 	*/
 	shape?: ej.datavisualization.Chart.Shape|string;
 
-	/** Custom template to format the data label content. Use â€œpoint.xâ€ and â€œpoint.yâ€ as a placeholder text to display the corresponding data pointâ€™s x and y value.
+	/** Custom template to format the data label content. Use “point.x” and “point.y” as a placeholder text to display the corresponding data point’s x and y value.
 	*/
 	template?: string;
 
@@ -48728,7 +48929,7 @@ export interface CommonSeriesOptionsMarker {
 	*/
 	fill?: string;
 
-	/** The URL for the Image to be displayed as marker. In order to display image as marker, set series.marker.shape as â€˜imageâ€™.
+	/** The URL for the Image to be displayed as marker. In order to display image as marker, set series.marker.shape as ‘image’.
 	*/
 	imageUrl?: string;
 
@@ -48854,7 +49055,7 @@ export interface CommonSeriesOptionsTooltip {
 	*/
 	opacity?: number;
 
-	/** Custom template to format the tooltip content. Use â€œpoint.xâ€ and â€œpoint.yâ€ as a placeholder text to display the corresponding data pointâ€™s x and y value.
+	/** Custom template to format the tooltip content. Use “point.x” and “point.y” as a placeholder text to display the corresponding data point’s x and y value.
 	*   @Default {null}
 	*/
 	template?: string;
@@ -48959,7 +49160,7 @@ export interface CommonSeriesOptionsErrorBarCap {
 	length?: number;
 
 	/** Color of the error bar cap.
-	*   @Default {â€œ#000000â€}
+	*   @Default {“#000000”}
 	*/
 	fill?: string;
 }
@@ -49319,7 +49520,7 @@ export interface CommonSeriesOptions {
 	*/
 	isTransposed?: boolean;
 
-	/** Render the x mark in the center of the boxplot series type.x represents the average value of the boxplot series.
+	/** Render the x mark in the center of the box and whisker series type.x represents the average value of the box and whisker series.
 	*   @Default {true}
 	*/
 	showMedian?: boolean;
@@ -49329,7 +49530,7 @@ export interface CommonSeriesOptions {
 	*/
 	labelPosition?: ej.datavisualization.Chart.LabelPosition|string;
 
-	/** Quartile calculation has been performed in three different formulas to render the boxplot series.
+	/** Quartile calculation has been performed in three different formulas to render the box and whisker series.
 	*   @Default {exclusive}
 	*/
 	boxPlotMode?: ej.datavisualization.Chart.boxPlotMode|string;
@@ -49701,7 +49902,7 @@ export interface IndicatorsTooltip {
 	*/
 	enableAnimation?: boolean;
 
-	/** Format of indicator tooltip. Use â€œpoint.xâ€ and â€œpoint.yâ€ as a placeholder text to display the corresponding data pointâ€™s x and y value.
+	/** Format of indicator tooltip. Use “point.x” and “point.y” as a placeholder text to display the corresponding data point’s x and y value.
 	*   @Default {#point.x# : #point.y#}
 	*/
 	format?: string;
@@ -50446,8 +50647,8 @@ export interface PrimaryXAxisStripLine {
 	*/
 	width?: number;
 
-	/** Specifies the order where the strip line and the series have to be rendered. When Z-order is â€œbehindâ€, strip line is rendered
-	*   under the series and when it is â€œoverâ€, it is rendered above the series.
+	/** Specifies the order where the strip line and the series have to be rendered. When Z-order is “behind”, strip line is rendered
+	*   under the series and when it is “over”, it is rendered above the series.
 	*   @Default {over. See ZIndex}
 	*/
 	zIndex?: ej.datavisualization.Chart.ZIndex|string;
@@ -50553,7 +50754,7 @@ export interface PrimaryXAxis {
 	*/
 	crossesInAxis?: string;
 
-	/** Category axis can also plot points based on index value of data points. Index based plotting can be enabled by setting â€˜isIndexedâ€™ property to true.
+	/** Category axis can also plot points based on index value of data points. Index based plotting can be enabled by setting ‘isIndexed’ property to true.
 	*   @Default {false}
 	*/
 	isIndexed?: boolean;
@@ -51129,7 +51330,7 @@ export interface AxesStripLine {
 	*/
 	width?: number;
 
-	/** Specifies the order where the strip line and the series have to be rendered. When Z-order is â€œbehindâ€, strip line is rendered under the series and when it is â€œoverâ€,
+	/** Specifies the order where the strip line and the series have to be rendered. When Z-order is “behind”, strip line is rendered under the series and when it is “over”,
 	*   it is rendered above the series.
 	*   @Default {over. See ZIndex}
 	*/
@@ -51230,7 +51431,7 @@ export interface Axis {
 	*/
 	crossesAt?: number;
 
-	/** Category axis can also plot points based on index value of data points. Index based plotting can be enabled by setting â€˜isIndexedâ€™ property to true.
+	/** Category axis can also plot points based on index value of data points. Index based plotting can be enabled by setting ‘isIndexed’ property to true.
 	*   @Default {false}
 	*/
 	isIndexed?: boolean;
@@ -51781,7 +51982,7 @@ export interface PrimaryYAxisStripLine {
 	*/
 	start?: number;
 
-	/** Indicates whether to render the strip line from the minimum/start value of the axis. This property wonâ€™t work when start property is set.
+	/** Indicates whether to render the strip line from the minimum/start value of the axis. This property won’t work when start property is set.
 	*   @Default {false}
 	*/
 	startFromAxis?: boolean;
@@ -51806,8 +52007,8 @@ export interface PrimaryYAxisStripLine {
 	*/
 	width?: number;
 
-	/** Specifies the order in which strip line and the series have to be rendered. When Z-order is â€œbehindâ€, strip line is rendered below the series and
-	*   when it is â€œoverâ€, it is rendered above the series.
+	/** Specifies the order in which strip line and the series have to be rendered. When Z-order is “behind”, strip line is rendered below the series and
+	*   when it is “over”, it is rendered above the series.
 	*   @Default {over. See ZIndex}
 	*/
 	zIndex?: ej.datavisualization.Chart.ZIndex|string;
@@ -52322,7 +52523,7 @@ export interface SeriesMarkerDataLabel {
 	opacity?: number;
 
 	/** Background shape of the data label.
-	*   @Default {No shape is rendered by default, so its value is â€˜noneâ€™. See Shape}
+	*   @Default {No shape is rendered by default, so its value is ‘none’. See Shape}
 	*/
 	shape?: ej.datavisualization.Chart.Shape|string;
 
@@ -52345,7 +52546,7 @@ export interface SeriesMarkerDataLabel {
 	*/
 	visible?: boolean;
 
-	/** Custom template to format the data label content. Use â€œpoint.xâ€ and â€œpoint.yâ€ as a placeholder text to display the corresponding data pointâ€™s x and y value.
+	/** Custom template to format the data label content. Use “point.x” and “point.y” as a placeholder text to display the corresponding data point’s x and y value.
 	*/
 	template?: string;
 
@@ -52383,7 +52584,7 @@ export interface SeriesMarker {
 	*/
 	fill?: string;
 
-	/** The URL for the Image that is to be displayed as marker. In order to display image as marker, set series.marker.shape as â€˜imageâ€™.
+	/** The URL for the Image that is to be displayed as marker. In order to display image as marker, set series.marker.shape as ‘image’.
 	*/
 	imageUrl?: string;
 
@@ -52740,7 +52941,7 @@ export interface SeriesPointsMarkerDataLabel {
 	opacity?: number;
 
 	/** Background shape of the data label.
-	*   @Default {No shape is rendered by default, so its value is â€˜noneâ€™. See Shape}
+	*   @Default {No shape is rendered by default, so its value is ‘none’. See Shape}
 	*/
 	shape?: ej.datavisualization.Chart.Shape|string;
 
@@ -52759,7 +52960,7 @@ export interface SeriesPointsMarkerDataLabel {
 	*/
 	visible?: boolean;
 
-	/** Custom template to format the data label content. Use â€œpoint.xâ€ and â€œpoint.yâ€ as a placeholder text to display the corresponding data pointâ€™s x and y value.
+	/** Custom template to format the data label content. Use “point.x” and “point.y” as a placeholder text to display the corresponding data point’s x and y value.
 	*/
 	template?: string;
 
@@ -52797,7 +52998,7 @@ export interface SeriesPointsMarker {
 	*/
 	fill?: string;
 
-	/** The URL for the Image that is to be displayed as marker. In order to display image as marker, set series.marker.shape as â€˜imageâ€™.
+	/** The URL for the Image that is to be displayed as marker. In order to display image as marker, set series.marker.shape as ‘image’.
 	*/
 	imageUrl?: string;
 
@@ -52969,7 +53170,7 @@ export interface SeriesTooltip {
 	*/
 	opacity?: number;
 
-	/** Custom template to format the tooltip content. Use â€œpoint.xâ€ and â€œpoint.yâ€ as a placeholder text to display the corresponding data pointâ€™s x and y value.
+	/** Custom template to format the tooltip content. Use “point.x” and “point.y” as a placeholder text to display the corresponding data point’s x and y value.
 	*   @Default {null}
 	*/
 	template?: string;
@@ -53273,7 +53474,7 @@ export interface Series {
 	*/
 	isTransposed?: boolean;
 
-	/** Render the x mark in the center of the boxplot series type.x represents the average value of the boxplot series.
+	/** Render the x mark in the center of the box and whisker series type.x represents the average value of the box and whisker series.
 	*   @Default {true}
 	*/
 	showMedian?: boolean;
@@ -57128,6 +57329,11 @@ export interface Layer {
 	*/
 	labelSettings?: LayersLabelSettings;
 
+	/** Specifies the map view type.
+	*   @Default {'geographic'}
+	*/
+	geometryType?: ej.datavisualization.Map.GeometryType|string;
+
 	/** Specifies the map type.
 	*   @Default {'geometry'}
 	*/
@@ -57237,6 +57443,14 @@ enum LabelSize {
 Fixed,
 //specifies the default size
 Default,
+}
+}
+namespace Map {
+enum GeometryType {
+//specifies the geographic view of map
+Geographic,
+//specifies the normal land view of map
+Normal,
 }
 }
 namespace Map {
@@ -59684,6 +59898,16 @@ export interface Connector {
 
 export interface ContextMenuItem {
 
+	/** Defines the text for the collection of context menu item
+	*   @Default {null}
+	*/
+	text?: string;
+
+	/** Defines the name for the collection of context menu items
+	*   @Default {null}
+	*/
+	name?: string;
+
 	/** Defines the image url for the collection of context menu items
 	*   @Default {null}
 	*/
@@ -59693,6 +59917,11 @@ export interface ContextMenuItem {
 	*   @Default {null}
 	*/
 	cssClass?: string;
+
+	/** Defines the collection of sub items for the context menu items
+	*   @Default {[]}
+	*/
+	subItems?: any[];
 }
 
 export interface ContextMenu {
@@ -63490,7 +63719,7 @@ export interface Model {
 	*/
 	yName?: string;
 
-	/** Controls wheather sunburst has to be responsive or not.
+	/** Controls whether sunburst has to be responsive or not.
 	*   @Default {true}
 	*/
 	isResponsive?: boolean;
@@ -63610,7 +63839,7 @@ export interface Model {
 	pointRegionClick?(e: PointRegionClickEventArgs): void;
 
 	/** Fires while moving the mouse over sunburst points */
-	pointRegionMousemove?(e: PointRegionMousemoveEventArgs): void;
+	pointRegionMouseMove?(e: PointRegionMouseMoveEventArgs): void;
 
 	/** Fires when clicking the point to perform drilldown. */
 	drillDownClick?(e: DrillDownClickEventArgs): void;
@@ -63774,7 +64003,7 @@ export interface PointRegionClickEventArgs {
 	type?: string;
 }
 
-export interface PointRegionMousemoveEventArgs {
+export interface PointRegionMouseMoveEventArgs {
 
 	/** Includes data of mouse moved region
 	*/
@@ -64024,7 +64253,7 @@ export interface DataLabelSettings {
 	*/
 	visible?: boolean;
 
-	/** Alginment of sunburst datalabel
+	/** Alignment of sunburst datalabel
 	*   @Default {Angle. See DatalabelAlignment}
 	*/
 	labelRotationMode?: ej.datavisualization.Sunburst.SunburstLabelRotationMode|string;
@@ -64033,12 +64262,12 @@ export interface DataLabelSettings {
 	*/
 	font?: DataLabelSettingsFont;
 
-	/** Custome template for datalabel
+	/** Custom template for datalabel
 	*   @Default {null}
 	*/
 	template?: string;
 
-	/** Fill color for the datalable
+	/** Fill color for the datalabel
 	*   @Default {null}
 	*/
 	fill?: string;

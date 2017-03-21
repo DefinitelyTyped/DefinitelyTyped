@@ -1,5 +1,4 @@
-
-
+/// <reference types="jquery" />
 
 var $test = $("#test");
 
@@ -126,54 +125,3 @@ instance.onItemEnterPressed((event: ListboxEvent) => {
 instance.onItemDoubleClicked((event: ListboxEvent) => {
     console.log(event.args);
 });
-
-
-
-/////// LEGACY API ///////
-
-// Add string item
-instance.target.listbox("addItem", "Test2");
-
-
-// Add item
-var item: ListboxItem = <ListboxItem>{};
-item.selected = true;
-item.disabled = false;
-item.childItems = ["Test4"];
-item.groupHeader = false;
-item.id = "ouetioreit";
-item.index = 0;
-item.text = "Test3";
-var id: string = instance.target.listbox("addItem", item);
-
-
-// Remove item
-instance.target.listbox("removeItem", id);
-
-
-// Get item
-var i: ListboxItem = instance.target.listbox("getItem", id);
-
-
-// Get items
-var allItems: ListboxItem[] = instance.target.listbox("getItems");
-
-
-// Move item up
-var newIndex: number = instance.target.listbox("moveItemUp", i.id);
-
-
-// Move item down
-newIndex = instance.target.listbox("moveItemDown", i.id);
-
-
-// Clear selection
-instance.target.listbox("clearSelection");
-
-
-// Enable
-instance.target.listbox("enable", false);
-
-
-// Destroy
-instance.target.listbox("destroy");

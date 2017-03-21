@@ -1,6 +1,7 @@
 // Type definitions for vis.js 4.17
 // Project: https://github.com/almende/vis
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
+//                 MacLeod Broad <https://github.com/macleodbroad-wf>
 //                 Adrian Caballero <https://github.com/adripanico>
 //                 Severin <https://github.com/seveves>
 //                 kaktus40 <https://github.com/kaktus40>
@@ -29,6 +30,27 @@ type TimelineEvents =
   'itemout' |
   'timechange' |
   'timechanged';
+type Graph2dStyleType = 'line' | 'bar' | 'points';
+type Graph2dBarChartAlign = 'left' | 'center' | 'right';
+type Graph2dDrawPointsStyle = 'square' | 'circle';
+type LegendPositionType = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+type ParametrizationInterpolationType = 'centripetal' | 'chordal' | 'uniform' | 'disabled';
+type TopBottomEnumType = 'top' | 'bottom';
+type RightLeftEnumType = 'right' | 'left';
+
+interface LegendPositionOptions {
+  visible?: boolean;
+  position?: LegendPositionType;
+}
+
+interface LegendOptions {
+  enabled?: boolean;
+  icons?: boolean;
+  iconSize?: number;
+  iconSpacing?: number;
+  left?: LegendPositionOptions;
+  right?: LegendPositionOptions;
+}
 
 interface DataItem {
   className?: string;
@@ -44,13 +66,33 @@ interface DataItem {
   editable?: boolean;
 }
 
+interface PointItem extends DataItem {
+  x: string;
+  y: number;
+}
+
+
 interface DataGroup {
   className?: string;
   content: string;
   id: IdType;
+  options?: DataGroupOptions;
   style?: string;
   subgroupOrder?: string | (() => void);
   title?: string;
+}
+
+interface DataGroupOptions {
+  drawPoints?: Graph2dDrawPointsOption | (() => void); // TODO
+  excludeFromLegend?: boolean;
+  interpolation?: boolean | InterpolationOptions;
+  shaded?: Graph2dShadedOption;
+  style?: string;
+  yAxisOrientation?: RightLeftEnumType;
+}
+
+interface InterpolationOptions {
+  parametrization: ParametrizationInterpolationType;
 }
 
 interface TimelineEditableOption {
@@ -139,6 +181,7 @@ interface TimelineOptions {
   onRemoveGroup?: () => void; // TODO
   order?: () => void; // TODO
   orientation?: TimelineOptionsOrientationType;
+  rollingMode: boolean;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;
@@ -525,6 +568,157 @@ export class DataView<T extends DataItem | DataGroup> {
 
 type DataItemCollectionType = DataItem[] | DataSet<DataItem> | DataView<DataItem>;
 type DataGroupCollectionType = DataGroup[] | DataSet<DataGroup> | DataView<DataGroup>;
+
+interface TitleOption {
+  text?: string;
+  style?: string;
+}
+
+interface RangeType {
+  min: IdType;
+  max: IdType;
+}
+
+interface DataAxisSideOption {
+  range?: RangeType;
+  format?: () => string;
+  title?: TitleOption;
+}
+
+interface Graph2dBarChartOption {
+  width?: number;
+  minWidth?: number;
+  sideBySide?: boolean;
+  align?: Graph2dBarChartAlign;
+}
+
+interface Graph2dDataAxisOption {
+  orientation?: TimelineOptionsOrientationType;
+  showMinorLabels?: boolean;
+  showMajorLabels?: boolean;
+  majorLinesOffset?: number;
+  minorLinesOffset?: number;
+  labelOffsetX?: number;
+  labelOffsetY?: number;
+  iconWidth?: number;
+  width?: string;
+  icons?: boolean;
+  visible?: boolean;
+  alignZeros?: boolean;
+  left?: DataAxisSideOption;
+  right?: DataAxisSideOption;
+}
+
+interface Graph2dDrawPointsOption {
+  enabled?: boolean;
+  onRender?: () => boolean; // TODO
+  size?: number;
+  style: Graph2dDrawPointsStyle;
+}
+
+interface Graph2dShadedOption {
+  orientation?: TopBottomEnumType;
+  groupid?: IdType;
+}
+
+type Graph2dOptionBarChart = number | Graph2dBarChartOption;
+type Graph2dOptionDataAxis = boolean | Graph2dDataAxisOption;
+type Graph2dOptionDrawPoints = boolean | Graph2dDrawPointsOption;
+type Graph2dLegendOption = boolean | LegendOptions;
+
+interface Graph2dOptions {
+  autoResize?: boolean;
+  barChart?: Graph2dOptionBarChart;
+  clickToUse?: boolean;
+  configure?: TimelineOptionsConfigureType;
+  dataAxis?: Graph2dOptionDataAxis;
+  defaultGroup?: string;
+  drawPoints?: Graph2dOptionDrawPoints;
+  end?: DateType;
+  format?: any; // TODO
+  graphHeight?: HeightWidthType;
+  height?: HeightWidthType;
+  hiddenDates?: any; // TODO
+  legend?: Graph2dLegendOption;
+  locale?: string;
+  locales?: any; // TODO
+  moment?: () => void; // TODO
+  max?: DateType;
+  maxHeight?: HeightWidthType;
+  maxMinorChars?: number;
+  min?: DateType;
+  minHeight?: HeightWidthType;
+  moveable?: boolean;
+  multiselect?: boolean;
+  orientation?: string;
+  sampling?: boolean;
+  showCurrentTime?: boolean;
+  showMajorLabels?: boolean;
+  showMinorLabels?: boolean;
+  sort?: boolean;
+  stack?: boolean;
+  start?: DateType;
+  style?: Graph2dStyleType;
+  throttleRedraw?: number;
+  timeAxis?: TimelineTimeAxisOption;
+  width?: HeightWidthType;
+  yAxisOrientation?: RightLeftEnumType;
+  zoomable?: boolean;
+  zoomKey?: string;
+  zoomMax?: number;
+  zoomMin?: number;
+  zIndex?: number;
+}
+
+export class Graph2d {
+  constructor(
+    container: HTMLElement,
+    items: DataItemCollectionType,
+    groups: DataGroupCollectionType,
+    options?: Graph2dOptions
+  );
+  constructor(
+    container: HTMLElement,
+    items: DataItemCollectionType,
+    options?: Graph2dOptions
+  );
+
+  addCustomTime(time: DateType, id?: IdType): IdType;
+  destroy(): void;
+  fit(options?: TimelineFitOptions): void;
+  focus(ids: IdType | IdType[], options?: TimelineFitOptions): void;
+  getCurrentTime(): Date;
+  getCustomTime(id?: IdType): Date;
+  getEventProperties(event: Event): TimelineEventPropertiesResult;
+  getItemRange(): any; // TODO
+  getSelection(): IdType[];
+  getVisibleItems(): IdType[];
+  getWindow(): { start: Date, end: Date };
+  moveTo(time: DateType, options?: TimelineFitOptions): void;
+  on(event: TimelineEvents, callback: () => void): void;
+  off(event: TimelineEvents, callback: () => void): void;
+  redraw(): void;
+  removeCustomTime(id: IdType): void;
+  setCurrentTime(time: DateType): void;
+  setCustomTime(time: DateType, id?: IdType): void;
+  setCustomTimeTitle(title: string, id?: IdType): void;
+  setData(data: { groups?: DataGroupCollectionType; items?: DataItemCollectionType }): void;
+  setGroups(groups?: DataGroupCollectionType): void;
+  setItems(items: DataItemCollectionType): void;
+  setOptions(options: TimelineOptions): void;
+  setSelection(ids: IdType | IdType[]): void;
+  setWindow(start: DateType, end: DateType, options?: TimelineFitOptions): void;
+}
+
+export interface Graph2d {
+  setGroups(groups?: TimelineGroup[]): void;
+  setItems(items?: TimelineItem[]): void;
+  getLegend(): TimelineWindow;
+  getWindow(): TimelineWindow;
+  setWindow(start: any, date: any): void;
+  focus(selection: any): void;
+  on(event?: string, callback?: (properties: any) => void): void;
+}
 
 export class Timeline {
   constructor(

@@ -113,5 +113,6 @@ isBigInteger = x.times( "100" );
 isNumber = x.toJSNumber();
 
 isString = x.toString();
+isString = x.toString(36);
 
 isNumber = x.valueOf();

@@ -1,6 +1,3 @@
-///<reference types="node" />
-
-'use strict';
 import * as UUID from 'uuid-1345';
 
 var uuid:string;

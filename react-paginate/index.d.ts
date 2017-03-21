@@ -1,6 +1,6 @@
-// Type definitions for react-paginate 2.1.3
+// Type definitions for react-paginate v4.2.0
 // Project: https://github.com/AdeleD/react-paginate
-// Definitions by: Simon Hartcher <https://github.com/deevus>
+// Definitions by: Simon Hartcher <https://github.com/deevus>, Wouter Hardeman <https://github.com/wouterhardeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -10,7 +10,7 @@ interface ReactPaginateProps {
     /**
      * The total number of pages.
      */
-    pageNum: number;
+    pageCount: number;
 
     /**
      * The range of pages displayed.
@@ -43,19 +43,24 @@ interface ReactPaginateProps {
     breakClassName?: string | JSX.Element;
 
     /**
-     * The method to call when a page is clicked.
+     * The method to call when a page is clicked. Exposes the current page object as an argument.
      */
-    clickCallback?: Function;
+    onPageChange?: Function;
 
     /**
      * The initial page selected.
      */
-    initialSelected?: number;
+    initialPage?: number;
 
     /**
      * To override selected page with parent prop.
      */
-    forceSelected?: number;
+    forcePage?: number;
+
+    /**
+     * Disable `onPageChange` callback with initial page. Default: `false`
+     */
+    disableInitialCallback?: boolean
 
     /**
      * The classname of the pagination container.
@@ -101,6 +106,11 @@ interface ReactPaginateProps {
      * The classname for disabled `previous` and `next` buttons.
      */
     disabledClassName?: string;
+
+    /**
+     * The method is called to generate the `href` attribute value on tag `a` of each page element.
+     */
+    hrefBuilder?: Function;
 }
 
 declare const ReactPaginate: React.ComponentClass<ReactPaginateProps>;

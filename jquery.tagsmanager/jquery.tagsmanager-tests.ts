@@ -1,6 +1,3 @@
-/// <reference types="jquery"/>
-
-
 var options: ITagsManagerOptions = {
 	prefilled: ["Pisa", "Rome"],
 	CapitalizeFirstLetter: true,

@@ -37,6 +37,13 @@ namespace ShallowWrapperTest {
         elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>,
         statelessWrapper: ShallowWrapper<StatelessProps, never>;
 
+    function test_props_state_inferring() {
+        let wrapper: ShallowWrapper<MyComponentProps, MyComponentState>;
+        wrapper = shallow(<MyComponent stringProp="value" />);
+        wrapper.state().stateProperty;
+        wrapper.props().stringProp.toUpperCase();
+    }
+
     function test_shallow_options() {
         shallow(<MyComponent stringProp="1"/>, {
             context: {
@@ -336,6 +343,13 @@ namespace ReactWrapperTest {
         stringVal: string,
         elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>,
         statelessWrapper: ReactWrapper<StatelessProps, never>;
+
+    function test_prop_state_inferring() {
+        let wrapper: ReactWrapper<MyComponentProps, MyComponentState>;
+        wrapper = mount(<MyComponent stringProp="value" />);
+        wrapper.state().stateProperty;
+        wrapper.props().stringProp.toUpperCase();
+    }
 
     function test_unmount() {
         reactWrapper = reactWrapper.unmount();
