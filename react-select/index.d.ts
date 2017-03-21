@@ -170,6 +170,11 @@ declare namespace ReactSelectClass {
          */
         inputProps?: Object;
         /**
+         * renders a custom input
+         * @default undefined
+         */
+        inputRenderer?: (props: Object) => React.ReactElement<any>;
+        /**
          * whether the Select is loading externally or not (such as options being loaded).
          * if true, a loading spinner will be shown at the right side.
          * @default false
