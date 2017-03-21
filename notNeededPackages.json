@@ -6,6 +6,12 @@
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
             "asOfVersion": "1.0.0"
         },
+		{
+            "libraryName": "Numbro",
+            "typingsPackageName": "numbro",
+            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
+            "asOfVersion": "1.9.3"
+        },
         {
             "libraryName": "antd",
             "typingsPackageName": "antd",
@@ -155,6 +161,12 @@
             "typingsPackageName": "linqsharp",
             "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
             "asOfVersion": "1.0.0"
+        },
+        {
+             "libraryName": "localforage", 
+             "typingsPackageName": "localforage", 
+             "sourceRepoURL": "https://github.com/localForage/localForage", 
+             "asOfVersion": "0.0.34" 
         },
         {
             "libraryName": "lower-case",
@@ -341,6 +353,12 @@
             "typingsPackageName": "vue-router",
             "sourceRepoURL": "https://github.com/vuejs/vue-router",
             "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "x2js",
+            "typingsPackageName": "x2js",
+            "sourceRepoURL": "https://code.google.com/p/x2js/",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "@xmpp/jid",
