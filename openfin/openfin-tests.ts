@@ -13,10 +13,10 @@ function test_application() {
 			defaultLeft: 300,
 			autoShow: true
 		}
-	}, successObj => {
+	}, (successObj) => {
 		console.log("Application successfully created, HTTP response code:", successObj);
 		application.run();
-	}, error => {
+	}, (error) => {
 		console.log("Error creating application:", error);
 	});
 	// getCurrent
@@ -26,7 +26,7 @@ function test_application() {
 	// getWindow
 	application.getWindow();
 	// addEventListener
-	application.addEventListener("closed", event => {
+	application.addEventListener("closed", (event) => {
 		console.log("The application has closed");
 	}, () => {
 		console.log("The registration was successful");

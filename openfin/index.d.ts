@@ -8,13 +8,17 @@
 
 /**
  * JavaScript API
- * The JavaScript API allows you to create an HTML/JavaScript application that has access to the native windowing environment, can communicate with other applications and has access to sandboxed system-level features.
+ * The JavaScript API allows you to create an HTML/JavaScript application that has access to the native windowing environment, 
+ * can communicate with other applications and has access to sandboxed system-level features.
  *
  * API Ready
- * When using the OpenFin API, it is important to ensure that it has been fully loaded before making any API calls. To verify that the API is in fact ready, be sure to make any API calls either from within the fin.desktop.main() method or explicitly after it has returned. This avoids the situation of trying to access methods that are not yet fully injected.
+ * When using the OpenFin API, it is important to ensure that it has been fully loaded before making any API calls. To verify 
+ * that the API is in fact ready, be sure to make any API calls either from within the fin.desktop.main() method or explicitly 
+ * after it has returned. This avoids the situation of trying to access methods that are not yet fully injected.
  *
  * Overview
- * When running within the OpenFin Runtime your web applications have access to the "fin" namespace and all the modules within the API without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "document" objects.
+ * When running within the OpenFin Runtime your web applications have access to the "fin" namespace and all the modules within the API 
+ * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "document" objects.
  **/
 declare namespace fin {
 	const desktop: OpenFinDesktop;
@@ -34,7 +38,8 @@ declare namespace fin {
 		 * Creates a new Application.
 		 * An object representing an application. Allows the developer to create, execute, show/close an application as well as listen to application events.
 		 */
-		new (options: ApplicationOptions, callback?: (successObj: { httpResponseCode: number }) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinApplication;
+		new (options: ApplicationOptions, callback?: (successObj: { httpResponseCode: number }) => void,
+			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinApplication;
 		/**
 		 * Returns an Application object that represents an existing application.
 		 */
@@ -57,7 +62,15 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinApplicationEventType, listener: (event: ApplicationBaseEvent | TrayIconClickedEvent | WindowEvent | WindowAlertRequestedEvent | WindowAuthRequested | WindowNavigationRejectedEvent | WindowEndLoadEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		addEventListener(type: OpenFinApplicationEventType,
+			listener: (event: ApplicationBaseEvent
+				| TrayIconClickedEvent
+				| WindowEvent
+				| WindowAlertRequestedEvent
+				| WindowAuthRequested
+				| WindowNavigationRejectedEvent
+				| WindowEndLoadEvent) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the application and any child windows created by the application.
 		 */
@@ -97,7 +110,15 @@ declare namespace fin {
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinApplicationEventType, previouslyRegisteredListener: (event: ApplicationBaseEvent | TrayIconClickedEvent | WindowEvent | WindowAlertRequestedEvent | WindowAuthRequested | WindowNavigationRejectedEvent | WindowEndLoadEvent) => any, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		removeEventListener(type: OpenFinApplicationEventType,
+			previouslyRegisteredListener: (event: ApplicationBaseEvent
+				| TrayIconClickedEvent
+				| WindowEvent
+				| WindowAlertRequestedEvent
+				| WindowAuthRequested
+				| WindowNavigationRejectedEvent
+				| WindowEndLoadEvent) => any,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes the application's icon from the tray.
 		 */
@@ -115,7 +136,9 @@ declare namespace fin {
 		 */
 		scheduleRestart(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Sets new shortcut configuration for current application. Application has to be launched with a manifest and has to have shortcut configuration (icon url, name, etc.) in its manifest to be able to change shortcut states.
+		 * Sets new shortcut configuration for current application. 
+		 * Application has to be launched with a manifest and has to have shortcut configuration (icon url, name, etc.) in its manifest to 
+		 * be able to change shortcut states.
 		 */
 		setShortcuts(config: ShortCutConfig, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -127,7 +150,8 @@ declare namespace fin {
 		 */
 		terminate(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Waits for a hanging application. This method can be called in response to an application "not-responding" to allow the application to continue and to generate another "not-responding" message after a certain period of time.
+		 * Waits for a hanging application. This method can be called in response to an application "not-responding" to allow the application 
+		 * to continue and to generate another "not-responding" message after a certain period of time.
 		 */
 		wait(callback?: () => void, errorCallback?: (reason: string) => void): void;
 	}
@@ -220,23 +244,29 @@ declare namespace fin {
 		 */
 		customData?: any;
 		/**
-		 * Specifies that the window will be positioned in the center of the primary monitor when loaded for the first time on a machine. When the window corresponding to that id is loaded again, the position from before the window was closed is used. This option overrides defaultLeft and defaultTop. Default: false.
+		 * Specifies that the window will be positioned in the center of the primary monitor when loaded for the first time on a machine. 
+		 * When the window corresponding to that id is loaded again, the position from before the window was closed is used. 
+		 * This option overrides defaultLeft and defaultTop. Default: false.
 		 */
 		defaultCentered?: boolean;
 		/**
-		 * The default height of the window. Specifies the height of the window when loaded for the first time on a machine. When the window corresponding to that id is loaded again, the height is taken to be the last height of the window before it was closed. Default: 500.
+		 * The default height of the window. Specifies the height of the window when loaded for the first time on a machine.
+		 *  When the window corresponding to that id is loaded again, the height is taken to be the last height of the window before it was closed. Default: 500.
 		 */
 		defaultHeight?: number;
 		/**
-		 * The default left position of the window. Specifies the position of the left of the window when loaded for the first time on a machine. When the window corresponding to that id is loaded again, the value of left is taken to be the last value before the window was closed. Default: 100.
+		 * The default left position of the window. Specifies the position of the left of the window when loaded for the first time on a machine.
+		 *  When the window corresponding to that id is loaded again, the value of left is taken to be the last value before the window was closed. Default: 100.
 		 */
 		defaultWidth?: number;
 		/**
-		 * The default top position of the window. Specifies the position of the top of the window when loaded for the first time on a machine. When the window corresponding to that id is loaded again, the value of top is taken to be the last value before the window was closed. Default: 100.
+		 * The default top position of the window. Specifies the position of the top of the window when loaded for the first time on a machine. 
+		 * When the window corresponding to that id is loaded again, the value of top is taken to be the last value before the window was closed. Default: 100.
 		 */
 		defaultTop?: number;
 		/**
-		 * The default width of the window. Specifies the width of the window when loaded for the first time on a machine. When the window corresponding to that id is loaded again, the width is taken to be the last width of the window before it was closed. Default: 800.
+		 * The default width of the window. Specifies the width of the window when loaded for the first time on a machine. 
+		 * When the window corresponding to that id is loaded again, the width is taken to be the last width of the window before it was closed. Default: 800.
 		 */
 		defaultLeft?: number;
 		/**
@@ -334,7 +364,8 @@ declare namespace fin {
 		 */
 		url?: string;
 		/**
-		 * When set to false, the window will render before the "load" event is fired on the content's window. Caution, when false you will see an initial empty white window. Default: true.
+		 * When set to false, the window will render before the "load" event is fired on the content's window. 
+		 * Caution, when false you will see an initial empty white window. Default: true.
 		 */
 		waitForPageLoad?: boolean;
 	}
@@ -392,11 +423,13 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+		addEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void,
+			errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
+		removeEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void,
+			errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 	}
 
 	/**
@@ -430,15 +463,20 @@ declare namespace fin {
 		send(destinationUuid: string, name: string, topic: string, message: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		send(destinationUuid: string, topic: string, message: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Subscribes to messages from the specified application on the specified topic. If the subscription is for a uuid, [name], topic combination that has already been published to upon subscription you will receive the last 20 missed messages in the order they were published.
+		 * Subscribes to messages from the specified application on the specified topic. If the subscription is for a uuid, [name], 
+		 * topic combination that has already been published to upon subscription you will receive the last 20 missed messages in the order they were published.
 		 */
-		subscribe(senderUuid: string, name: string, topic: string, listener: (message: any, uuid: string, name: string) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
-		subscribe(senderUuid: string, topic: string, listener: (message: any, uuid: string, name: string) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		subscribe(senderUuid: string, name: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
+		subscribe(senderUuid: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Unsubscribes to messages from the specified application on the specified topic.
 		 */
-		unsubscribe(senderUuid: string, name: string, topic: string, listener: (message: any, uuid: string, name: string) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
-		unsubscribe(senderUuid: string, topic: string, listener: (message: any, uuid: string, name: string) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		unsubscribe(senderUuid: string, name: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
+		unsubscribe(senderUuid: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 	}
 
 	interface OpenFinNotificationStatic {
@@ -454,7 +492,9 @@ declare namespace fin {
 
 	/**
 	 * Notification
-	 * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor. A notification is typically used to alert the user of some important event which requires his or her attention. Notifications are a child or your application that are controlled by the runtime.
+	 * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor. 
+	 * A notification is typically used to alert the user of some important event which requires his or her attention. 
+	 * Notifications are a child or your application that are controlled by the runtime.
 	 */
 	interface OpenFinNotification {
 		/**
@@ -493,7 +533,9 @@ declare namespace fin {
 		 */
 		onClick?(callback: () => void): void;
 		/**
-		 * Invoked when the notification is closed via .close() method on the created notification instance or the by the notification itself via fin.desktop.Notification.getCurrent().close(). NOTE: this is not invoked when the notification is dismissed via a swipe. For the swipe dismissal callback see onDismiss
+		 * Invoked when the notification is closed via .close() method on the created notification instance 
+		 * or the by the notification itself via fin.desktop.Notification.getCurrent().close(). 
+		 * NOTE: this is not invoked when the notification is dismissed via a swipe. For the swipe dismissal callback see onDismiss
 		 */
 		onClose?(callback: () => void): void;
 		/**
@@ -505,7 +547,8 @@ declare namespace fin {
 		 */
 		onError?(errorCallback: (reason: string, errorObj: NetworkErrorInfo) => void): void;
 		/**
-		 * The onMessage function will respond to messages sent from notification.sendMessageToApplication.The function is passed the message, which can be of any primitive or composite-primitive type.
+		 * The onMessage function will respond to messages sent from notification.sendMessageToApplication.
+		 * The function is passed the message, which can be of any primitive or composite-primitive type.
 		 */
 		onMessage?(callback: (message: any) => void): void;
 		/**
@@ -516,7 +559,8 @@ declare namespace fin {
 
 	/**
 	 * System
-	 * An object representing the core of OpenFin Runtime. Allows the developer to perform system-level actions, such as accessing logs, viewing processes, clearing the cache and exiting the runtime.
+	 * An object representing the core of OpenFin Runtime. 
+	 * Allows the developer to perform system-level actions, such as accessing logs, viewing processes, clearing the cache and exiting the runtime.
 	 */
 	interface OpenFinSystem {
 		/**
@@ -526,9 +570,12 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinSystemEventType, listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		addEventListener(type: OpenFinSystemEventType,
+			listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Clears cached data containing window state/positions, application resource files (images, HTML, JavaScript files), cookies, and items stored in the Local Storage.
+		 * Clears cached data containing window state/positions, 
+		 * application resource files (images, HTML, JavaScript files), cookies, and items stored in the Local Storage.
 		 */
 		clearCache(options: CacheOptions, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -538,7 +585,8 @@ declare namespace fin {
 		/**
 		 * Downloads the given application asset
 		 */
-		downloadAsset(assetObj: AppAssetInfo, progressListener?: (progress: { downloadedBytes: number, totalBytes: number }) => void, callback?: (successObj: { path: string }) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): void;
+		downloadAsset(assetObj: AppAssetInfo, progressListener?: (progress: { downloadedBytes: number, totalBytes: number }) => void,
+			callback?: (successObj: { path: string }) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): void;
 		/**
 		 * Exits the Runtime.
 		 */
@@ -588,7 +636,8 @@ declare namespace fin {
 		 */
 		getMousePosition(callback?: (mousePosition: VirtualScreenCoordinates) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array of all of the runtime processes that are currently running. Each element in the array is an object containing the uuid and the name of the application to which the process belongs.
+		 * Retrieves an array of all of the runtime processes that are currently running. 
+		 * Each element in the array is an object containing the uuid and the name of the application to which the process belongs.
 		 */
 		getProcessList(callback?: (processInfoList: ProcessInfo[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -639,7 +688,9 @@ declare namespace fin {
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinSystemEventType, listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		removeEventListener(type: OpenFinSystemEventType,
+			listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the Chrome Developer Tools for the specified window.
 		 */
@@ -647,8 +698,10 @@ declare namespace fin {
 		/**
 		 * Attempt to close an external process. The process will be terminated if it has not closed after the elapsed timeout in milliseconds.
 		 */
-		terminateExternalProcess(processUuid: string, timeout: number, killTree: boolean, callback?: (info: { result: "clean" | "terminated" | "failed" }) => void, errorCallback?: (reason: string) => void): void;
-		terminateExternalProcess(processUuid: string, timeout: number, callback?: (info: { result: "clean" | "terminated" | "failed" }) => void, errorCallback?: (reason: string) => void): void;
+		terminateExternalProcess(processUuid: string, timeout: number, killTree: boolean, callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
+			errorCallback?: (reason: string) => void): void;
+		terminateExternalProcess(processUuid: string, timeout: number, callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Update the OpenFin Runtime Proxy settings.
 		 */
@@ -676,7 +729,7 @@ declare namespace fin {
 		/**
 		 * true when the application is running.
 		 */
-        isRunning?: boolean;
+		isRunning?: boolean;
 		/**
 		 * uuid of the application.
 		 */
@@ -688,10 +741,10 @@ declare namespace fin {
 	}
 
 	interface WindowDetails {
-        uuid?: string;
-        mainWindow?: WindowInfo;
+		uuid?: string;
+		mainWindow?: WindowInfo;
 		childWindows?: WindowInfo[];
-    }
+	}
 
 	interface WindowInfo {
 		/**
@@ -745,34 +798,34 @@ declare namespace fin {
 	}
 
 	interface NodeCpuInfo {
-        model: string;
+		model: string;
 		/**
 		 * in MHz
 		 */
-        speed: number;
-        times: {
+		speed: number;
+		times: {
 			/**
 			 * The number of milliseconds the CPU has spent in user mode.
 			 */
-            user: number;
+			user: number;
 			/**
 			 * The number of milliseconds the CPU has spent in nice mode.
 			 */
-            nice: number;
+			nice: number;
 			/**
 			 * The number of milliseconds the CPU has spent in sys mode.
 			 */
-            sys: number;
+			sys: number;
 			/**
 			 * The number of milliseconds the CPU has spent in idle mode.
 			 */
-            idle: number;
+			idle: number;
 			/**
 			 * The number of milliseconds the CPU has spent in irq mode.
 			 */
-            irq: number;
-        };
-    }
+			irq: number;
+		};
+	}
 
 	interface LogInfo {
 		/**
@@ -793,7 +846,7 @@ declare namespace fin {
 		/**
 		 * the percentage of total CPU usage
 		 */
-        cpuUsage?: number;
+		cpuUsage?: number;
 		/**
 		 * the application name
 		 */
@@ -946,12 +999,15 @@ declare namespace fin {
 		 *
 		 * Creates a new OpenFin Window
 		 *
-		 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. The new window appears in the same process as the parent window.
+		 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, 
+		 * maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. 
+		 * The new window appears in the same process as the parent window.
 		 * @param {any} options - The options of the window
 		 * @param {Function} [callback] - Called if the window creation was successful
 		 * @param {number} [callback.successObj] - httpResponseCode
 		 */
-		new (options: WindowOptions, callback?: (successObj: { httpResponseCode: number }) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
+		new (options: WindowOptions, callback?: (successObj: { httpResponseCode: number }) => void,
+			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
 		/**
 		 * Returns an instance of the current window.
 		 * @returns {OpenFinWindow} Current window
@@ -965,7 +1021,9 @@ declare namespace fin {
 
 	/**
 	 * Window
-	 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. The new window appears in the same process as the parent window.
+	 * A basic window that wraps a native HTML window. Provides more fine-grained control over the window state such as the ability to minimize, 
+	 * maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually. 
+	 * The new window appears in the same process as the parent window.
 	 */
 	interface OpenFinWindow {
 		/**
@@ -973,7 +1031,10 @@ declare namespace fin {
 		 */
 		name: string;
 		/**
-		 * Returns the native JavaScript "window" object for the window. This method can only be used by the parent application or the window itself, otherwise it will return undefined. The same Single-Origin-Policy (SOP) rules apply for child windows created by window.open(url) in that the contents of the window object are only accessible if the URL has the same origin as the invoking window. See example below. Also, will not work with fin.desktop.Window objects created with fin.desktop.Window.wrap().
+		 * Returns the native JavaScript "window" object for the window. This method can only be used by the parent application or the window itself, 
+		 * otherwise it will return undefined. The same Single-Origin-Policy (SOP) rules apply for child windows created by window.open(url) in that the 
+		 * contents of the window object are only accessible if the URL has the same origin as the invoking window. See example below. 
+		 * Also, will not work with fin.desktop.Window objects created with fin.desktop.Window.wrap().
 		 * @returns {Window} Native window
 		 */
 		getNativeWindow(): Window;
@@ -989,7 +1050,15 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinWindowEventType, listener: (event: WindowBaseEvent | WindowAuthRequestedEvent | WindowBoundsEvent | WindowExternalProcessStartedEvent | WindowExternalProcessExited | WindowGroupChangedEvent | WindowHiddenEvent | Window_NavigationRejectedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		addEventListener(type: OpenFinWindowEventType, listener: (event: WindowBaseEvent
+			| WindowAuthRequestedEvent
+			| WindowBoundsEvent
+			| WindowExternalProcessStartedEvent
+			| WindowExternalProcessExited
+			| WindowGroupChangedEvent
+			| WindowHiddenEvent
+			| Window_NavigationRejectedEvent) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Performs the specified window transitions
 		 */
@@ -1040,7 +1109,8 @@ declare namespace fin {
 		 */
 		getBounds(callback?: (bounds: WindowBounds) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array containing wrapped fin.desktop.Windows that are grouped with this window. If a window is not in a group an empty array is returned. Please note that calling window is included in the result array.
+		 * Retrieves an array containing wrapped fin.desktop.Windows that are grouped with this window. If a window is not in a group an empty array is returned. 
+		 * Please note that calling window is included in the result array.
 		 */
 		getGroup(callback?: (group: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -1098,7 +1168,16 @@ declare namespace fin {
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinWindowEventType, listener: (event: WindowBaseEvent | WindowAuthRequestedEvent | WindowBoundsEvent | WindowExternalProcessStartedEvent | WindowExternalProcessExited | WindowGroupChangedEvent | WindowHiddenEvent | Window_NavigationRejectedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		removeEventListener(type: OpenFinWindowEventType,
+			listener: (event: WindowBaseEvent
+				| WindowAuthRequestedEvent
+				| WindowBoundsEvent
+				| WindowExternalProcessStartedEvent
+				| WindowExternalProcessExited
+				| WindowGroupChangedEvent
+				| WindowHiddenEvent
+				| Window_NavigationRejectedEvent) => void,
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Resizes the window by a specified amount.
 		 */
