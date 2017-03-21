@@ -26,7 +26,6 @@ import ng = angular;
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
 declare namespace angular {
-
     type Injectable<T extends Function> = T | Array<string | T>;
 
     // not directly implemented, but ensures that constructed class implements $get
@@ -344,7 +343,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/type/form.FormController
      */
     interface IFormController {
-
         /**
          * Indexer which should return ng.INgModelController for most properties but cannot because of "All named properties must be assignable to string indexer type" constraint - see https://github.com/Microsoft/TypeScript/issues/272
          */
@@ -532,7 +530,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/directive/ngRepeat
      */
     interface IRepeatScope extends IScope {
-
         /**
          * iterator offset of the repeated element (0..length-1).
          */
@@ -562,7 +559,6 @@ declare namespace angular {
          * true if the iterator position $index is odd (otherwise false).
          */
         $odd: boolean;
-
     }
 
     interface IAngularEvent {
@@ -1944,8 +1940,7 @@ declare namespace angular {
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
-    export namespace auto {
-
+    namespace auto {
         ///////////////////////////////////////////////////////////////////////
         // InjectorService
         // see http://docs.angularjs.org/api/AUTO.$injector
