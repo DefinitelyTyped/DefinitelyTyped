@@ -2627,9 +2627,7 @@ declare namespace React {
         isRequired: Validator<T>;
     }
 
-    interface ValidationMap<T> {
-        [key: string]: Validator<T>;
-    }
+    type ValidationMap<T> = { [K in keyof T]?: Validator<T> };
 
     interface ReactPropTypes {
         any: Requireable<any>;
