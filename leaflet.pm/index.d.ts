@@ -6,30 +6,28 @@
 /// <reference types="leaflet" />
 
 declare namespace L {
-
-    export interface Map {
+    interface Map {
         pm: PM.Map;
     }
 
-    export interface Polygon {
+    interface Polygon {
         pm: PM.Edit.Line;
     }
 
-    export interface Polyline {
+    interface Polyline {
         pm: PM.Edit.Line;
     }
 
-    export interface Marker {
+    interface Marker {
         pm: PM.Edit.Marker;
     }
 
-    export interface LayerGroup {
+    interface LayerGroup {
         pm: PM.Edit.LayerGroup;
     }
 
-    export namespace PM {
-
-        export interface Map {
+    namespace PM {
+        interface Map {
             addControls(options?: PM.ToolbarOptions): void;
             enableDraw(shape: string, options?: PM.DrawOptions): void;
             disableDraw(shape: string): void;
@@ -41,11 +39,11 @@ declare namespace L {
             Draw: PM.Draw;
         }
 
-        export interface Draw {
+        interface Draw {
             getShapes(): string[];
         }
 
-        export interface ToolbarOptions {
+        interface ToolbarOptions {
             position?: string; // topleft | topright | bottomleft | bottomright
             drawMarker?: boolean;
             drawPolygon?: boolean;
@@ -54,35 +52,34 @@ declare namespace L {
             deleteLayer?: boolean;
         }
 
-        export interface DrawOptions {
+        interface DrawOptions {
             templineStyle?: L.PathOptions;
             hintlineStyle?: L.PathOptions;
             pathOptions?: L.PathOptions;
         }
 
-        export interface EditOptions {
+        interface EditOptions {
             draggable?: boolean;
             snappable?: boolean;
             snapDistance?: number;
         }
 
-        export namespace Edit {
-
-            export interface Line {
+        namespace Edit {
+            interface Line {
                 enable(options?: EditOptions): void;
                 disable(poly?: L.Layer): void;
                 toggleEdit(options?: EditOptions): void;
                 enabled(): boolean;
             }
 
-            export interface Marker {
+            interface Marker {
                 enable(options?: EditOptions): void;
                 disable(): void;
                 toggleEdit(options?: EditOptions): void;
                 enabled(): boolean;
             }
 
-            export interface LayerGroup {
+            interface LayerGroup {
                 enable(options?: EditOptions): void;
                 disable(): void;
                 toggleEdit(options?: EditOptions): void;

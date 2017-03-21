@@ -311,7 +311,6 @@ declare namespace ht {
         editor?: string | EditorConstructor;
         selectOptions?: any[];
         width?: number;
-
     }
 
     interface CellProperties {
@@ -506,7 +505,7 @@ declare var Handsontable: {
 };
 
 declare module "handsontable" {
-    export var Handsontable: {
+    const Handsontable: {
       new (element: Element, options: ht.Options): ht.Methods;
       plugins: ht.Plugins;
       hooks: ht.Hooks;

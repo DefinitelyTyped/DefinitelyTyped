@@ -7,7 +7,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import * as Keygrip from 'keygrip';
 
-declare interface Cookies {
+interface Cookies {
     secure: boolean;
     request: IncomingMessage;
     response: ServerResponse;
@@ -27,27 +27,26 @@ declare interface Cookies {
     set(name: string, value?: string, opts?: Cookies.SetOption): this;
 }
 
-
 declare namespace Cookies {
     /**
      * for backward-compatibility
      */
-    export type ICookies = Cookies;
+    type ICookies = Cookies;
     /**
      * for backward-compatibility
      */
-    export type IOptions = SetOption;
+    type IOptions = SetOption;
 
-    export interface Option {
+    interface Option {
         keys: string[] | Keygrip;
         secure?: boolean;
     }
 
-    export interface GetOption {
+    interface GetOption {
         signed: boolean;
     }
 
-    export interface SetOption {
+    interface SetOption {
         /**
          * a number representing the milliseconds from Date.now() for expiry
          */
@@ -97,9 +96,9 @@ declare namespace Cookies {
         overwrite?: boolean;
     }
 
-    export type CookieAttr = SetOption;
+    type CookieAttr = SetOption;
 
-    export interface Cookie {
+    interface Cookie {
         name: string;
         value: string;
         /**
@@ -119,7 +118,7 @@ declare namespace Cookies {
     }
 }
 
-declare interface CookiesFunction {
+interface CookiesFunction {
     (request: IncomingMessage, response: ServerResponse, options?: Cookies.Option): Cookies;
     /**
      * "options" array of key strings is deprecated, provide using options {"keys": keygrip}

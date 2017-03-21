@@ -1,8 +1,7 @@
 function test(list: google.fonts.WebfontList) {
+    const f = list.items[0];
 
-    var f = list.items[0];
-
-    var info = [
+    const info = [
         f.category,
         f.family,
         f.kind,
@@ -10,7 +9,7 @@ function test(list: google.fonts.WebfontList) {
         f.version
     ];
 
-    var urls = f.variants.map(
+    const urls = f.variants.map(
         v => f.files[v]
     );
 }

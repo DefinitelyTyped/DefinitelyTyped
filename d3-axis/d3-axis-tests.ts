@@ -26,8 +26,6 @@ import { Transition } from 'd3-transition';
 import { timeMinute } from 'd3-time';
 import { format } from 'd3-format';
 
-
-
 // --------------------------------------------------------------------------
 // Preparatory Steps
 // --------------------------------------------------------------------------
@@ -80,8 +78,6 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 leftAxis = leftAxis.scale(scalePow());
 const powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
 // powerScale = leftAxis.scale(); // fails, without casting as AxisScale is purposely  generic
-
-
 
 bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
 // bottomAxis = bottomAxis.scale(scalePow()) // fails, domain of scale incompatible with domain of axis

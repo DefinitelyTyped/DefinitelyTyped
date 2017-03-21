@@ -161,7 +161,7 @@ export class Transform {
 }
 
 export namespace Transform {
-    export enum Space {
+    enum Space {
         Self,
         World
     }

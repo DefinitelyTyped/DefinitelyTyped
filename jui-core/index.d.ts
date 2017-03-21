@@ -132,7 +132,6 @@ interface UtilBase {
      */
     typeCheck(typeName: string, value: any): boolean;
 
-
     typeCheckObj(uiObj: any, list: any): void;
 
     /**
@@ -318,7 +317,6 @@ interface UtilBase {
 
     inArray(target: any, list: any[]): number;
 
-
     trim(text: string): string;
 
     ready: ((...args: any[]) => void);
@@ -398,7 +396,6 @@ interface JuiStatic {
     */
     add(uiIns: any): void;
 
-
     /**
      * @method emit
      * Generates a custom event to an applicable component
@@ -443,7 +440,6 @@ interface UICollection {
 }
 
 interface UICore {
-
     tpl?: any;
 
     event?: any;
@@ -543,7 +539,6 @@ interface UICore {
 
 //noinspection TypeScriptUnresolvedVariable
 export interface UIEvent extends UICore {
-
     root?: any;
 
     /**
@@ -809,7 +804,6 @@ interface UtilMath {
     matrix3d<T>(a: T[], b: T[]): T[];
 
     inverseMatrix3d(a: any[]): any[];
-
 }
 
 export interface UtilScaleOrdinal extends Function  {

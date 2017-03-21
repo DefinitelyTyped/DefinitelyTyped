@@ -1,11 +1,10 @@
 /// <reference types="jquery" />
 import * as Highcharts from "highcharts";
 
-var someData = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const someData = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 $(() => {
     $('#container').highcharts('StockChart', {
-
         chart: {
             type: "arearange"
         },

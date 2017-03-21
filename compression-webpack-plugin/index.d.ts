@@ -12,7 +12,7 @@ declare class CompressionPlugin extends Plugin {
 }
 
 declare namespace CompressionPlugin {
-    export interface Options {
+    interface Options {
         asset?: string;
         algorithm?: string;
         test?: RegExp | RegExp[];

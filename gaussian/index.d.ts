@@ -9,7 +9,7 @@ export = gaussian;
 export as namespace gaussian;
 
 declare namespace gaussian {
-	export interface Gaussian {
+	interface Gaussian {
 		/**
 		 * the mean (μ) of the distribution
 		 */

@@ -4,13 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.fonts {
-
-    export interface WebfontList {
+    interface WebfontList {
         kind: string;
         items: WebfontFamily[];
     }
 
-    export interface WebfontFamily {
+    interface WebfontFamily {
         category?: string;
         kind: string;
         family: string;

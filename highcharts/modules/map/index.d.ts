@@ -7,11 +7,11 @@ import * as highcharts from 'highcharts';
 import * as geojson from 'geojson';
 
 declare module 'highcharts' {
-    export interface Static {
+    interface Static {
         mapChart(renderTo: string | HTMLElement, options: MapOptions, callback?: (chart: highcharts.ChartObject) => void): highcharts.ChartObject;
     }
 
-    export interface MapOptions {
+    interface MapOptions {
         chart?: highcharts.ChartOptions;
 
         legend?: highcharts.LegendOptions;
@@ -43,24 +43,13 @@ declare module 'highcharts' {
         type?: string;
     }
 
-    export interface Navigation {
+    interface Navigation {}
 
-    }
+    interface MapSeriesOptionsDataLabels {}
 
-    export interface MapSeriesOptionsDataLabels {
+    interface MapSeriesOptionsStates {}
 
-    }
+    interface MapSeriesOptionsTooltip {}
 
-    export interface MapSeriesOptionsStates {
-
-    }
-
-    export interface MapSeriesOptionsTooltip {
-
-    }
-
-    export interface ColorAxis {
-
-    }
+    interface ColorAxis {}
 }
-

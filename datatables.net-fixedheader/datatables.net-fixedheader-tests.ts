@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    var config: DataTables.Settings = {
+    const config: DataTables.Settings = {
         // FixedHeader extension options
         fixedHeader: {
             footer: true,

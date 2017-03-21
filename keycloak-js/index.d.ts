@@ -14,13 +14,13 @@ export = Keycloak;
 declare function Keycloak(config?: string|{}): Keycloak.KeycloakInstance;
 
 declare namespace Keycloak {
-	export type KeycloakAdapterName = 'cordova'|'default';
-	export type KeycloakOnLoad = 'login-required'|'check-sso';
-	export type KeycloakResponseMode = 'query'|'fragment';
-	export type KeycloakResponseType = 'code'|'id_token token'|'code id_token token';
-	export type KeycloakFlow = 'standard'|'implicit'|'hybrid';
+	type KeycloakAdapterName = 'cordova'|'default';
+	type KeycloakOnLoad = 'login-required'|'check-sso';
+	type KeycloakResponseMode = 'query'|'fragment';
+	type KeycloakResponseType = 'code'|'id_token token'|'code id_token token';
+	type KeycloakFlow = 'standard'|'implicit'|'hybrid';
 
-	export interface KeycloakInitOptions {
+	interface KeycloakInitOptions {
 		/**
 		 * @private Undocumented.
 		 */
@@ -81,7 +81,7 @@ declare namespace Keycloak {
 		flow?: KeycloakFlow;
 	}
 
-	export interface KeycloakLoginOptions {
+	interface KeycloakLoginOptions {
 		/**
 		 * @private Undocumented.
 		 */
@@ -131,9 +131,9 @@ declare namespace Keycloak {
 		locale?: string;
 	}
 
-	export type KeycloakPromiseCallback<T> = (result: T) => void;
+	type KeycloakPromiseCallback<T> = (result: T) => void;
 
-	export interface KeycloakPromise<TSuccess, TError> {
+	interface KeycloakPromise<TSuccess, TError> {
 		/**
 		 * Function to call if the promised action succeeds.
 		 */
@@ -145,12 +145,12 @@ declare namespace Keycloak {
 		error(callback: KeycloakPromiseCallback<TError>): KeycloakPromise<TSuccess, TError>;
 	}
 
-	export interface KeycloakError {
+	interface KeycloakError {
 		error: string;
 		error_description: string;
 	}
 
-	export interface KeycloakAdapter {
+	interface KeycloakAdapter {
 		login(options?: KeycloakLoginOptions): KeycloakPromise<void, void>;
 		logout(options?: any): KeycloakPromise<void, void>;
 		register(options?: KeycloakLoginOptions): KeycloakPromise<void, void>;
@@ -158,7 +158,7 @@ declare namespace Keycloak {
 		redirectUri(options: { redirectUri: string; }, encodeHash: boolean): string;
 	}
 
-	export interface KeycloakProfile {
+	interface KeycloakProfile {
 		id?: string;
 		username?: string;
 		email?: string;
@@ -176,7 +176,7 @@ declare namespace Keycloak {
 	 * A client for the Keycloak authentication server.
 	 * @see {@link https://keycloak.gitbooks.io/securing-client-applications-guide/content/topics/oidc/javascript-adapter.html|Keycloak JS adapter documentation}
 	 */
-	export interface KeycloakInstance {
+	interface KeycloakInstance {
 		/**
 		 * Is true if the user is authenticated, false otherwise.
 		 */

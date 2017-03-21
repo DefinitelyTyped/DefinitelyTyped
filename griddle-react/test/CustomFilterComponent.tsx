@@ -10,7 +10,6 @@ import Griddle, { CustomFilterComponentProps } from 'griddle-react';
 
 const CustomFilterFunction = (items: ResultType[], query: string): ResultType[] => {
   return _.filter(items, (item) => {
-
     let match = false;
     _.forIn(item, (value, key) => {
       if (String(value).toLowerCase().indexOf(query.toLowerCase()) >= 0) {
@@ -53,30 +52,29 @@ interface ResultType {
   favoriteNumber: number;
 }
 
-var someData: ResultType[] = [
+const someData: ResultType[] = [
   {
-    "id": 0,
-    "name": "Mayer Leonard",
-    "city": "Kapowsin",
-    "state": "Hawaii",
-    "country": "United Kingdom",
-    "company": "Ovolo",
-    "favoriteNumber": 7
+    id: 0,
+    name: "Mayer Leonard",
+    city: "Kapowsin",
+    state: "Hawaii",
+    country: "United Kingdom",
+    company: "Ovolo",
+    favoriteNumber: 7
   },
   {
-    "id": 1,
-    "name": "Koch Becker",
-    "city": "Johnsonburg",
-    "state": "New Jersey",
-    "country": "Madagascar",
-    "company": "Eventage",
-    "favoriteNumber": 2
+    id: 1,
+    name: "Koch Becker",
+    city: "Johnsonburg",
+    state: "New Jersey",
+    country: "Madagascar",
+    company: "Eventage",
+    favoriteNumber: 2
   }
 ];
 
 class CustomFilterComponentGrid extends React.Component<any, any> {
   render() {
-
     type TypedGriddle = new () => Griddle<ResultType>;
     const TypedGriddle = Griddle as TypedGriddle;
 

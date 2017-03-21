@@ -33,7 +33,7 @@ db.all((err, objs) => {
 });
 
 // get all synchronously
-var objs = db.allSync();
+const objs = db.allSync();
 
 // delete by ID
 db.delete('foo', err => {

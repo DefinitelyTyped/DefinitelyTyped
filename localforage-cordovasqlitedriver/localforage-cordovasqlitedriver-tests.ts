@@ -1,11 +1,10 @@
 
-declare var cordovaSQLiteDriver: LocalForageDriver;
+declare const cordovaSQLiteDriver: LocalForageDriver;
 
 () => {
+    const driverName: string = cordovaSQLiteDriver._driver;
 
-    var driverName: string = cordovaSQLiteDriver._driver;
-
-    var config = {
+    const config = {
         driver: driverName,
         name: 'localforage'
     };
@@ -13,43 +12,43 @@ declare var cordovaSQLiteDriver: LocalForageDriver;
     cordovaSQLiteDriver._initStorage(config);
 
     cordovaSQLiteDriver.clear((err: any) => {
-        var newError: any = err;
+        const newError: any = err;
     });
 
     cordovaSQLiteDriver.length((err: any, num: number) => {
-        var newError: any = err;
-        var newNumber: number = num;
+        const newError: any = err;
+        const newNumber: number = num;
     });
 
     cordovaSQLiteDriver.key(0, (err: any, value: string) => {
-        var newError: any = err;
-        var newValue: string = value;
+        const newError: any = err;
+        const newValue: string = value;
     });
 
     cordovaSQLiteDriver.keys((err: any, keys: string[]) => {
-        var newError: any = err;
-        var newArray: string[] = keys;
+        const newError: any = err;
+        const newArray: string[] = keys;
     });
 
     cordovaSQLiteDriver.getItem("key", (err: any, str: string) => {
-        var newError: any = err;
-        var newStr: string = str;
+        const newError: any = err;
+        const newStr: string = str;
     });
 
     cordovaSQLiteDriver.setItem("key", "value", (err: any, str: string) => {
-        var newError: any = err;
-        var newStr: string = str;
+        const newError: any = err;
+        const newStr: string = str;
     });
 
     cordovaSQLiteDriver.setItem("key", "value", (str: string) => {
-        var newStr: string = str;
+        const newStr: string = str;
     });
 
     cordovaSQLiteDriver.removeItem("key", (err: any) => {
-        var newError: any = err;
+        const newError: any = err;
     });
 
     cordovaSQLiteDriver.removeItem("key", (err: any) => {
-        var newError: any = err;
+        const newError: any = err;
     });
 };

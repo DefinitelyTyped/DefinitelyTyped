@@ -10,13 +10,13 @@ import {EventEmitter} from 'events';
 import {Buffer} from 'buffer';
 
 declare namespace Libpq {
-    export interface NotifyMsg {
+    interface NotifyMsg {
         relname: string;
         extra: string;
         be_pid: number;
     }
 
-    export interface ResultError {
+    interface ResultError {
         severity: string;
         sqlState: string;
         messagePrimary: string;
@@ -37,7 +37,6 @@ declare namespace Libpq {
 }
 
 declare class Libpq extends EventEmitter {
-
     /**
      * Current connection state.
      */

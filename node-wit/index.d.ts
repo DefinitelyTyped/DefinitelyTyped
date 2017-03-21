@@ -62,7 +62,7 @@ export interface MessageResponse {
     entities: any;
 }
 
-export declare class Wit {
+export class Wit {
     constructor(option: WitOption);
     message(message: string, context: WitContext): Promise<MessageResponse>;
     converse(sessionId: string, message: string, context: WitContext, reset?: boolean): Promise<MessageResponse>;

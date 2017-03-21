@@ -6,8 +6,7 @@
 /// <reference types="leaflet" />
 
 declare namespace L {
-    export interface MarkerCluster extends L.Marker {
-
+    interface MarkerCluster extends L.Marker {
         /*
         * Recursively retrieve all child markers of this cluster.
         */
@@ -29,8 +28,7 @@ declare namespace L {
         getBounds(): LatLngBounds;
     }
 
-    export interface MarkerClusterGroupOptions {
-
+    interface MarkerClusterGroupOptions {
         /*
         * When you mouse over a cluster it shows the bounds of its markers.
         */
@@ -118,8 +116,7 @@ declare namespace L {
         chunkDelay?: number;
     }
 
-    export interface MarkerClusterGroup extends FeatureGroup {
-
+    interface MarkerClusterGroup extends FeatureGroup {
         /*
         * Bulk methods for adding and removing markers and should be favoured over the
         * single versions when doing bulk addition/removal of markers.
@@ -166,5 +163,5 @@ declare namespace L {
     /*
     * Create a marker cluster group, optionally given marker cluster group options.
     */
-    export function markerClusterGroup(options?: MarkerClusterGroupOptions): MarkerClusterGroup;
+    function markerClusterGroup(options?: MarkerClusterGroupOptions): MarkerClusterGroup;
 }

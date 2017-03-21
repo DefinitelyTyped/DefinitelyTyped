@@ -1,6 +1,6 @@
 import * as bunyan from "browser-bunyan";
 
-var log = bunyan.createLogger({
+const log = bunyan.createLogger({
         name: 'play',
         serializers: bunyan.stdSerializers
 });

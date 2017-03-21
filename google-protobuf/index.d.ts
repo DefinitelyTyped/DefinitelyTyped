@@ -3,115 +3,118 @@
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type ByteSource = ArrayBuffer|Uint8Array|number[]|string;
-type ScalarFieldType = boolean|number|string;
+type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
+type ScalarFieldType = boolean | number | string;
 type RepeatedFieldType = ScalarFieldType[] | Uint8Array[];
 type AnyFieldType = ScalarFieldType | RepeatedFieldType | Uint8Array;
-type FieldValue = (string|number|boolean|Uint8Array|any/*This should be Array<FieldValue>, but that isn't allowed*/|undefined)
+type FieldValue = string | number | boolean | Uint8Array | FieldValueArray | undefined;
+interface FieldValueArray extends Array<FieldValue> {} // tslint:disable-line no-empty-interface
 
 export abstract class Message {
   getJsPbMessageId(): (string | undefined);
-  static initialize(msg: Message,
-                    data: Message.MessageArray,
-                    messageId: (string | number),
-                    suggestedPivot: number,
-                    repeatedFields: number[],
-                    oneofFields?: number[][] | null): void;
-  static toObjectList<T extends Message>(field: T[],
-                                         toObjectFn: (includeInstance: boolean,
-                                                      data: T) => {},
-                                         includeInstance?: boolean): {}[];
-  static toObjectExtension(msg: Message,
-                           obj: {},
-                           extensions: {[key: number]: ExtensionFieldInfo<Message>},
-                           getExtensionFn: (fieldInfo: ExtensionFieldInfo<Message>) => Message,
-                           includeInstance?: boolean): void;
-  serializeBinaryExtensions(proto: Message,
-                            writer: BinaryWriter,
-                            extensions: {[key: number]: ExtensionFieldBinaryInfo<Message>},
-                            getExtensionFn: <T>(fieldInfo: ExtensionFieldInfo<T>) => T): void
-  readBinaryExtension(proto: Message,
-                      reader: BinaryReader,
-                      extensions: {[key: number]: ExtensionFieldBinaryInfo<Message>},
-                      setExtensionFn: <T>(fieldInfo: ExtensionFieldInfo<T>,
-                                          val: T) => void): void
-  static getField(msg: Message,
-                  fieldNumber: number): FieldValue|null;
-  static getOptionalFloatingPointField(msg: Message,
-                                       fieldNumber: number): (number | undefined);
-  static getRepeatedFloatingPointField(msg: Message,
-                                       fieldNumber: number): number[];
+  static initialize(
+    msg: Message,
+    data: Message.MessageArray,
+    messageId: (string | number),
+    suggestedPivot: number,
+    repeatedFields: number[],
+    oneofFields?: number[][] | null): void;
+  static toObjectList<T extends Message>(
+    field: T[],
+    toObjectFn: (includeInstance: boolean, data: T) => {},
+    includeInstance?: boolean): Array<{}>;
+  static toObjectExtension(
+    msg: Message,
+    obj: {},
+    extensions: {[key: number]: ExtensionFieldInfo<Message>},
+    getExtensionFn: (fieldInfo: ExtensionFieldInfo<Message>) => Message,
+    includeInstance?: boolean): void;
+  serializeBinaryExtensions(
+    proto: Message,
+    writer: BinaryWriter,
+    extensions: { [key: number]: ExtensionFieldBinaryInfo<Message> },
+    getExtensionFn: <T>(fieldInfo: ExtensionFieldInfo<T>) => T): void
+  readBinaryExtension(
+    proto: Message,
+    reader: BinaryReader,
+    extensions: {[key: number]: ExtensionFieldBinaryInfo<Message>},
+    setExtensionFn: <T>(fieldInfo: ExtensionFieldInfo<T>,
+    val: T) => void): void
+  static getField(msg: Message, fieldNumber: number): FieldValue|null;
+  static getOptionalFloatingPointField(msg: Message, fieldNumber: number): number | undefined;
+  static getRepeatedFloatingPointField(msg: Message, fieldNumber: number): number[];
   static bytesAsB64(bytes: Uint8Array): string;
   static bytesAsU8(str: string): Uint8Array;
   static bytesListAsB64(bytesList: Uint8Array[]): string[];
   static bytesListAsU8(strList: string[]): Uint8Array[];
-  static getFieldWithDefault<T>(msg: Message,
-                                fieldNumber: number,
-                                defaultValue: T): T;
-  static getMapField(msg: Message,
-                     fieldNumber: number,
-                     noLazyCreate: boolean,
-                     valueCtor: typeof Message): Map<any, any>;
-  static setField(msg: Message,
-                  fieldNumber: number,
-                  value: FieldValue): void;
-  static addToRepeatedField(msg: Message,
-                            fieldNumber: number,
-                            value: any,
-                            index?: number): void;
-  static setOneofField(msg: Message,
-                       fieldNumber: number,
-                       oneof: number[],
-                       value: FieldValue): void;
-  static computeOneofCase(msg: Message,
-                          oneof: number[]): number;
-  static getWrapperField(msg: Message,
-                         ctor: typeof Message,
-                         fieldNumber: number,
-                         required?: number): Message;
-  static getRepeatedWrapperField(msg: Message,
-                                 ctor: typeof Message,
-                                 fieldNumber: number): Message[];
-  static setWrapperField(msg: Message,
-                         fieldNumber: number,
-                         value?: (Message|Map<any, any>)): void;
-  static setOneofWrapperField(msg: Message,
-                              fieldNumber: number,
-                              oneof: number[],
-                              value: any): void;
-  static setRepeatedWrapperField(msg: Message,
-                                 fieldNumber: number,
-                                 value: any): void;
-  static addToRepeatedWrapperField(msg: Message,
-                                   fieldNumber: number,
-                                   value: any,
-                                   ctor: typeof Message,
-                                   index: number): any;
-  static toMap(field: any[],
-               mapKeyGetterFn: (field: any) => string,
-               toObjectFn?: Message.StaticToObject,
-               includeInstance?: boolean): void;
+  static getFieldWithDefault<T>(msg: Message, fieldNumber: number, defaultValue: T): T;
+  static getMapField(
+    msg: Message,
+    fieldNumber: number,
+    noLazyCreate: boolean,
+    valueCtor: typeof Message): Map<any, any>;
+  static setField(
+    msg: Message,
+    fieldNumber: number,
+    value: FieldValue): void;
+  static addToRepeatedField(
+    msg: Message,
+    fieldNumber: number,
+    value: any,
+    index?: number): void;
+  static setOneofField(
+    msg: Message,
+    fieldNumber: number,
+    oneof: number[],
+    value: FieldValue): void;
+  static computeOneofCase(msg: Message, oneof: number[]): number;
+  static getWrapperField(
+    msg: Message,
+    ctor: typeof Message,
+    fieldNumber: number,
+    required?: number): Message;
+  static getRepeatedWrapperField(
+    msg: Message,
+    ctor: typeof Message,
+    fieldNumber: number): Message[];
+  static setWrapperField(
+    msg: Message,
+    fieldNumber: number,
+    value?: (Message|Map<any, any>)): void;
+  static setOneofWrapperField(
+    msg: Message,
+    fieldNumber: number,
+    oneof: number[],
+    value: any): void;
+  static setRepeatedWrapperField(
+    msg: Message,
+    fieldNumber: number,
+    value: any): void;
+  static addToRepeatedWrapperField(
+    msg: Message,
+    fieldNumber: number,
+    value: any,
+    ctor: typeof Message,
+    index: number): any;
+  static toMap(
+    field: any[],
+    mapKeyGetterFn: (field: any) => string,
+    toObjectFn?: Message.StaticToObject,
+    includeInstance?: boolean): void;
   toArray(): Message.MessageArray;
   toString(): string;
   getExtension<T>(fieldInfo: ExtensionFieldInfo<T>): T;
-  setExtension<T>(fieldInfo: ExtensionFieldInfo<T>,
-                  value: T): void;
-  static difference<T extends Message>(m1: T,
-                                       m2: T): T;
-  static equals(m1: Message,
-                m2: Message): boolean;
-  static compareExtensions(extension1: {},
-                           extension2: {}): boolean;
-  static compareFields(field1: any,
-                       field2: any): boolean;
+  setExtension<T>(fieldInfo: ExtensionFieldInfo<T>, value: T): void;
+  static difference<T extends Message>(m1: T, m2: T): T;
+  static equals(m1: Message, m2: Message): boolean;
+  static compareExtensions(extension1: {}, extension2: {}): boolean;
+  static compareFields(field1: any, field2: any): boolean;
   cloneMessage(): Message;
   clone(): Message;
   static clone<T extends Message>(msg: T): T;
   static cloneMessage<T extends Message>(msg: T): T;
-  static copyInto(fromMessage: Message,
-                  toMessage: Message): void;
-  static registerMessageType(id: number,
-                             constructor: typeof Message): void;
+  static copyInto(fromMessage: Message, toMessage: Message): void;
+  static registerMessageType(id: number, constructor: typeof Message): void;
 
   abstract serializeBinary(): Uint8Array;
   abstract toObject(includeInstance?: boolean): {};
@@ -122,16 +125,13 @@ export abstract class Message {
   static deserializeBinaryFromReader(message: Message, reader: BinaryReader): Message;
   static serializeBinaryToWriter(message: Message, writer: BinaryWriter): void;
   static toObject(includeInstance: boolean, msg: Message): {};
-  static extensions: {[key: number]: ExtensionFieldInfo<Message>};
-  static extensionsBinary: {[key: number]: ExtensionFieldBinaryInfo<Message>};
+  static extensions: { [key: number]: ExtensionFieldInfo<Message> };
+  static extensionsBinary: { [key: number]: ExtensionFieldBinaryInfo<Message> };
 }
 
 export namespace Message {
-  export type MessageArray = any[]; // This type needs to reference itself
-  interface StaticToObject {
-    (includeInstance: boolean,
-     msg: Message): {};
-  }
+  type MessageArray = any[]; // This type needs to reference itself
+  type StaticToObject = (includeInstance: boolean, msg: Message) => {};
 }
 
 export class ExtensionFieldInfo<T> {
@@ -140,11 +140,12 @@ export class ExtensionFieldInfo<T> {
   ctor: typeof Message;
   toObjectFn: Message.StaticToObject;
   isRepeated: number;
-  constructor(fieldIndex: number,
-              fieldName: {[key: string]: number},
-              ctor: typeof Message,
-              toObjectFn: Message.StaticToObject,
-              isRepeated: number);
+  constructor(
+    fieldIndex: number,
+    fieldName: {[key: string]: number},
+    ctor: typeof Message,
+    toObjectFn: Message.StaticToObject,
+    isRepeated: number);
   isMessageType(): boolean;
 }
 
@@ -152,41 +153,40 @@ export class ExtensionFieldBinaryInfo<T> {
   fieldInfo: ExtensionFieldInfo<T>;
   binaryReaderFn: BinaryRead;
   binaryWriterFn: BinaryWrite;
-  opt_binaryMessageSerializeFn: (msg: Message,
-                                 writer: BinaryWriter) => void;
-  opt_binaryMessageDeserializeFn: (msg: Message,
-                                   reader: BinaryReader) => Message;
+  opt_binaryMessageSerializeFn: (msg: Message, writer: BinaryWriter) => void;
+  opt_binaryMessageDeserializeFn: (msg: Message, reader: BinaryReader) => Message;
   opt_isPacked: boolean;
-  constructor(fieldInfo: ExtensionFieldInfo<T>,
-              binaryReaderFn: BinaryRead,
-              binaryWriterFn: BinaryWrite,
-              opt_binaryMessageSerializeFn: (msg: Message,
-                                             writer: BinaryWriter) => void,
-              opt_binaryMessageDeserializeFn: (msg: Message,
-                                               reader: BinaryReader) => Message,
-              opt_isPacked: boolean);
+  constructor(
+    fieldInfo: ExtensionFieldInfo<T>,
+    binaryReaderFn: BinaryRead,
+    binaryWriterFn: BinaryWrite,
+    opt_binaryMessageSerializeFn: (msg: Message, writer: BinaryWriter) => void,
+    opt_binaryMessageDeserializeFn: (msg: Message, reader: BinaryReader) => Message,
+    opt_isPacked: boolean);
 }
 
 export class Map<K, V> {
-  constructor(arr: Array<[K, V]>,
-              valueCtor?: {new(init: any): V});
+  constructor(
+    arr: Array<[K, V]>,
+    valueCtor?: {new(init: any): V});
   toArray(): Array<[K, V]>;
-  toObject(includeInstance: boolean,
-           valueToObject: (includeInstance: boolean) => any): Array<[K, V]>;
-  static fromObject<K, V>(entries: Array<[K, V]>,
-                          valueCtor: any,
-                          valueFromObject: any): Map<K, V>;
+  toObject(
+    includeInstance: boolean,
+    valueToObject: (includeInstance: boolean) => any): Array<[K, V]>;
+  static fromObject<K, V>(
+    entries: Array<[K, V]>,
+    valueCtor: any,
+    valueFromObject: any): Map<K, V>;
   getLength(): number;
   clear(): void;
   del(key: K): boolean;
   getEntryList(): Array<[K, V]>;
   entries(): Map.Iterator<[K, V]>;
   keys(): Map.Iterator<K>;
-  forEach(callback: (entry: V,
-                     key: K) => void,
-          thisArg?: {}): void;
-  set(key: K,
-      value: V): void;
+  forEach(
+    callback: (entry: V, key: K) => void,
+    thisArg?: {}): void;
+  set(key: K, value: V): void;
   get(key: K): (V | undefined);
   has(key: K): boolean;
 }
@@ -196,43 +196,24 @@ export namespace Map {
   interface Iterator<T> {
     next(): IteratorResult<T>;
   }
-  type IteratorResult<T> = {
-    done: boolean,
-    value: T,
+  interface IteratorResult<T> {
+    done: boolean;
+    value: T;
   }
 }
 
-interface BinaryReadReader {
-  (msg: any,
-   binaryReader: BinaryReader): void;
-}
+type BinaryReadReader = (msg: any, binaryReader: BinaryReader) => void;
 
-interface BinaryRead {
-  (msg: any,
-   reader: BinaryReadReader): void;
-}
+type BinaryRead = (msg: any, reader: BinaryReadReader) => void;
 
-interface BinaryWriteCallback {
-  (value: any,
-   binaryWriter: BinaryWriter): void;
-}
+type BinaryWriteCallback = (value: any, binaryWriter: BinaryWriter) => void;
 
-interface BinaryWrite {
-  (fieldNumber: number,
-   value: any,
-   writerCallback: BinaryWriteCallback): void;
-}
+type BinaryWrite = (fieldNumber: number, value: any, writerCallback: BinaryWriteCallback) => void;
 
 export class BinaryReader {
-  constructor(bytes?: ByteSource,
-              start?: number,
-              length?: number);
-  static alloc(bytes?: ByteSource,
-               start?: number,
-               length?: number): BinaryReader;
-  alloc(bytes?: ByteSource,
-        start?: number,
-        length?: number): BinaryReader;
+  constructor(bytes?: ByteSource, start?: number, length?: number);
+  static alloc(bytes?: ByteSource, start?: number, length?: number): BinaryReader;
+  alloc(bytes?: ByteSource, start?: number, length?: number): BinaryReader;
   free(): void;
   getFieldCursor(): number;
   getCursor(): number;
@@ -241,9 +222,7 @@ export class BinaryReader {
   getWireType(): BinaryConstants.WireType;
   isEndGroup(): boolean;
   getError(): boolean;
-  setBlock(bytes?: ByteSource,
-           start?: number,
-           length?: number): void;
+  setBlock(bytes?: ByteSource, start?: number, length?: number): void;
   reset(): void;
   advance(count: number): void;
   nextField(): boolean;
@@ -255,14 +234,11 @@ export class BinaryReader {
   skipFixed64Field(): void;
   skipGroup(): void;
   skipField(): void;
-  registerReadCallback(callbackName: string,
-                       callback: (binaryReader: BinaryReader) => any): void;
+  registerReadCallback(callbackName: string, callback: (binaryReader: BinaryReader) => any): void;
   runReadCallback(callbackName: string): any;
   readAny(fieldType: BinaryConstants.FieldType): AnyFieldType;
   readMessage: BinaryRead;
-  readGroup(field: number,
-            message: Message,
-            reader: BinaryReadReader): void;
+  readGroup(field: number, message: Message, reader: BinaryReadReader): void;
   getFieldDecoder(): BinaryDecoder;
   readInt32(): number;
   readInt32String(): string;
@@ -317,186 +293,99 @@ export class BinaryReader {
 
 export class BinaryWriter {
   constructor();
-  writeSerializedMessage(bytes: Uint8Array,
-                         start: number,
-                         end: number): void;
-  maybeWriteSerializedMessage(bytes?: Uint8Array,
-                              start?: number,
-                              end?: number): void;
+  writeSerializedMessage(bytes: Uint8Array, start: number, end: number): void;
+  maybeWriteSerializedMessage(bytes?: Uint8Array, start?: number, end?: number): void;
   reset(): void;
   getResultBuffer(): Uint8Array;
   getResultBase64String(): string;
   beginSubMessage(field: number): void;
   endSubMessage(field: number): void;
-  writeAny(fieldType: BinaryConstants.FieldType,
-           field: number,
-           value: AnyFieldType): void;
-  writeInt32(field: number,
-             value?: number): void;
-  writeInt32String(field: number,
-                   value?: string): void;
-  writeInt64(field: number,
-             value?: number): void;
-  writeInt64String(field: number,
-                   value?: string): void;
-  writeUint32(field: number,
-              value?: number): void;
-  writeUint32String(field: number,
-                    value?: string): void;
-  writeUint64(field: number,
-              value?: number): void;
-  writeUint64String(field: number,
-                    value?: string): void;
-  writeSint32(field: number,
-              value?: number): void;
-  writeSint64(field: number,
-              value?: number): void;
-  writeSint64String(field: number,
-                    value?: string): void;
-  writeFixed32(field: number,
-               value?: number): void;
-  writeFixed64(field: number,
-               value?: number): void;
-  writeFixed64String(field: number,
-                     value?: string): void;
-  writeSfixed32(field: number,
-                value?: number): void;
-  writeSfixed64(field: number,
-                value?: number): void;
-  writeSfixed64String(field: number,
-                      value?: string): void;
-  writeFloat(field: number,
-             value?: number): void;
-  writeDouble(field: number,
-              value?: number): void;
-  writeBool(field: number,
-            value?: boolean): void;
-  writeEnum(field: number,
-            value?: number): void;
-  writeString(field: number,
-              value?: string): void;
-  writeBytes(field: number,
-             value?: ByteSource): void;
+  writeAny(fieldType: BinaryConstants.FieldType, field: number, value: AnyFieldType): void;
+  writeInt32(field: number, value?: number): void;
+  writeInt32String(field: number, value?: string): void;
+  writeInt64(field: number, value?: number): void;
+  writeInt64String(field: number, value?: string): void;
+  writeUint32(field: number, value?: number): void;
+  writeUint32String(field: number, value?: string): void;
+  writeUint64(field: number, value?: number): void;
+  writeUint64String(field: number, value?: string): void;
+  writeSint32(field: number, value?: number): void;
+  writeSint64(field: number, value?: number): void;
+  writeSint64String(field: number, value?: string): void;
+  writeFixed32(field: number, value?: number): void;
+  writeFixed64(field: number, value?: number): void;
+  writeFixed64String(field: number, value?: string): void;
+  writeSfixed32(field: number, value?: number): void;
+  writeSfixed64(field: number, value?: number): void;
+  writeSfixed64String(field: number, value?: string): void;
+  writeFloat(field: number, value?: number): void;
+  writeDouble(field: number, value?: number): void;
+  writeBool(field: number, value?: boolean): void;
+  writeEnum(field: number, value?: number): void;
+  writeString(field: number, value?: string): void;
+  writeBytes(field: number, value?: ByteSource): void;
   writeMessage: BinaryWrite;
-  writeGroup(field: number,
-             value: any,
-             writeCallback: BinaryWriteCallback): void;
-  writeFixedHash64(field: number,
-                   value?: string): void;
-  writeVarintHash64(field: number,
-                    value?: string): void;
-  writeRepeatedInt32(field: number,
-                     value?: number[]): void;
-  writeRepeatedInt32String(field: number,
-                           value?: string[]): void;
-  writeRepeatedInt64(field: number,
-                     value?: number[]): void;
-  writeRepeatedInt64String(field: number,
-                           value?: string[]): void;
-  writeRepeatedUint32(field: number,
-                      value?: number[]): void;
-  writeRepeatedUint32String(field: number,
-                            value?: string[]): void;
-  writeRepeatedUint64(field: number,
-                      value?: number[]): void;
-  writeRepeatedUint64String(field: number,
-                            value?: string[]): void;
-  writeRepeatedSint32(field: number,
-                      value?: number[]): void;
-  writeRepeatedSint64(field: number,
-                      value?: number[]): void;
-  writeRepeatedSint64String(field: number,
-                            value?: string[]): void;
-  writeRepeatedFixed32(field: number,
-                       value?: number[]): void;
-  writeRepeatedFixed64(field: number,
-                       value?: number[]): void;
-  writeRepeatedFixed64String(field: number,
-                             value?: string[]): void;
-  writeRepeatedSfixed32(field: number,
-                        value?: number[]): void;
-  writeRepeatedSfixed64(field: number,
-                        value?: number[]): void;
-  writeRepeatedSfixed64String(field: number,
-                              value?: string[]): void;
-  writeRepeatedFloat(field: number,
-                     value?: number[]): void;
-  writeRepeatedDouble(field: number,
-                      value?: number[]): void;
-  writeRepeatedBool(field: number,
-                    value?: boolean[]): void;
-  writeRepeatedEnum(field: number,
-                    value?: number[]): void;
-  writeRepeatedString(field: number,
-                      value?: string[]): void;
-  writeRepeatedBytes(field: number,
-                     value?: ByteSource[]): void;
-  writeRepeatedMessage(field: number,
-                       value: Message[],
-                       writerCallback: BinaryWriteCallback): void;
-  writeRepeatedGroup(field: number,
-                     value: Message[],
-                     writerCallback: BinaryWriteCallback): void;
-  writeRepeatedFixedHash64(field: number,
-                           value?: string[]): void;
-  writeRepeatedVarintHash64(field: number,
-                            value?: string[]): void;
-  writePackedInt32(field: number,
-                   value?: number[]): void;
-  writePackedInt32String(field: number,
-                         value?: string[]): void;
-  writePackedInt64(field: number,
-                   value?: number[]): void;
-  writePackedInt64String(field: number,
-                         value?: string[]): void;
-  writePackedUint32(field: number,
-                    value?: number[]): void;
-  writePackedUint32String(field: number,
-                          value?: string[]): void;
-  writePackedUint64(field: number,
-                    value?: number[]): void;
-  writePackedUint64String(field: number,
-                          value?: string[]): void;
-  writePackedSint32(field: number,
-                    value?: number[]): void;
-  writePackedSint64(field: number,
-                    value?: number[]): void;
-  writePackedSint64String(field: number,
-                          value?: string[]): void;
-  writePackedFixed32(field: number,
-                     value?: number[]): void;
-  writePackedFixed64(field: number,
-                     value?: number[]): void;
-  writePackedFixed64String(field: number,
-                           value?: string[]): void;
-  writePackedSfixed32(field: number,
-                      value?: number[]): void;
-  writePackedSfixed64(field: number,
-                      value?: number[]): void;
-  writePackedSfixed64String(field: number,
-                            value?: string[]): void;
-  writePackedFloat(field: number,
-                   value?: number[]): void;
-  writePackedDouble(field: number,
-                    value?: number[]): void;
-  writePackedBool(field: number,
-                  value?: boolean[]): void;
-  writePackedEnum(field: number,
-                  value?: number[]): void;
-  writePackedFixedHash64(field: number,
-                         value?: string[]): void;
-  writePackedVarintHash64(field: number,
-                          value?: string[]): void;
+  writeGroup(field: number, value: any, writeCallback: BinaryWriteCallback): void;
+  writeFixedHash64(field: number, value?: string): void;
+  writeVarintHash64(field: number, value?: string): void;
+  writeRepeatedInt32(field: number, value?: number[]): void;
+  writeRepeatedInt32String(field: number, value?: string[]): void;
+  writeRepeatedInt64(field: number, value?: number[]): void;
+  writeRepeatedInt64String(field: number, value?: string[]): void;
+  writeRepeatedUint32(field: number, value?: number[]): void;
+  writeRepeatedUint32String(field: number, value?: string[]): void;
+  writeRepeatedUint64(field: number, value?: number[]): void;
+  writeRepeatedUint64String(field: number, value?: string[]): void;
+  writeRepeatedSint32(field: number, value?: number[]): void;
+  writeRepeatedSint64(field: number, value?: number[]): void;
+  writeRepeatedSint64String(field: number, value?: string[]): void;
+  writeRepeatedFixed32(field: number, value?: number[]): void;
+  writeRepeatedFixed64(field: number, value?: number[]): void;
+  writeRepeatedFixed64String(field: number, value?: string[]): void;
+  writeRepeatedSfixed32(field: number, value?: number[]): void;
+  writeRepeatedSfixed64(field: number, value?: number[]): void;
+  writeRepeatedSfixed64String(field: number, value?: string[]): void;
+  writeRepeatedFloat(field: number, value?: number[]): void;
+  writeRepeatedDouble(field: number, value?: number[]): void;
+  writeRepeatedBool(field: number, value?: boolean[]): void;
+  writeRepeatedEnum(field: number, value?: number[]): void;
+  writeRepeatedString(field: number, value?: string[]): void;
+  writeRepeatedBytes(field: number, value?: ByteSource[]): void;
+  writeRepeatedMessage(field: number, value: Message[],  writerCallback: BinaryWriteCallback): void;
+  writeRepeatedGroup(field: number, value: Message[], writerCallback: BinaryWriteCallback): void;
+  writeRepeatedFixedHash64(field: number, value?: string[]): void;
+  writeRepeatedVarintHash64(field: number, value?: string[]): void;
+  writePackedInt32(field: number, value?: number[]): void;
+  writePackedInt32String(field: number, value?: string[]): void;
+  writePackedInt64(field: number, value?: number[]): void;
+  writePackedInt64String(field: number, value?: string[]): void;
+  writePackedUint32(field: number, value?: number[]): void;
+  writePackedUint32String(field: number, value?: string[]): void;
+  writePackedUint64(field: number, value?: number[]): void;
+  writePackedUint64String(field: number, value?: string[]): void;
+  writePackedSint32(field: number, value?: number[]): void;
+  writePackedSint64(field: number, value?: number[]): void;
+  writePackedSint64String(field: number, value?: string[]): void;
+  writePackedFixed32(field: number, value?: number[]): void;
+  writePackedFixed64(field: number, value?: number[]): void;
+  writePackedFixed64String(field: number, value?: string[]): void;
+  writePackedSfixed32(field: number, value?: number[]): void;
+  writePackedSfixed64(field: number, value?: number[]): void;
+  writePackedSfixed64String(field: number, value?: string[]): void;
+  writePackedFloat(field: number, value?: number[]): void;
+  writePackedDouble(field: number, value?: number[]): void;
+  writePackedBool(field: number, value?: boolean[]): void;
+  writePackedEnum(field: number, value?: number[]): void;
+  writePackedFixedHash64(field: number, value?: string[]): void;
+  writePackedVarintHash64(field: number, value?: string[]): void;
 }
 
 export class BinaryEncoder {
   constructor();
   length(): number;
   end(): number[];
-  writeSplitVarint64(lowBits: number,
-                     highBits: number): void;
-  writeSplitFixed64(lowBits: number,
-                    highBits: number): void;
+  writeSplitVarint64(lowBits: number, highBits: number): void;
+  writeSplitFixed64(lowBits: number, highBits: number): void;
   writeUnsignedVarint32(value: number): void;
   writeSignedVarint32(value: number): void;
   writeUnsignedVarint64(value: number): void;
@@ -524,19 +413,13 @@ export class BinaryEncoder {
 }
 
 export class BinaryDecoder {
-  constructor(bytes?: ByteSource,
-              start?: number,
-              length?: number)
-  static alloc(bytes?: ByteSource,
-               start?: number,
-               length?: number): BinaryDecoder;
+  constructor(bytes?: ByteSource, start?: number, length?: number)
+  static alloc(bytes?: ByteSource, start?: number, length?: number): BinaryDecoder;
   free(): void;
   clone(): BinaryDecoder;
   clear(): void;
   getBuffer(): Uint8Array;
-  setBlock(data: ByteSource,
-           start?: number,
-           length?: number): void;
+  setBlock(data: ByteSource, start?: number, length?: number): void;
   getEnd(): number;
   setEnd(end: number): void;
   reset(): void;
@@ -581,21 +464,22 @@ export class BinaryDecoder {
 }
 
 export class BinaryIterator {
-  constructor(decoder?: BinaryDecoder,
-              next?: () => number|boolean|string|null,
-              elements?: Array<number|boolean|string>)
-  static alloc(decoder?: BinaryDecoder,
-               next?: () => number|boolean|string|null,
-               elements?: Array<number|boolean|string>): BinaryIterator;
+  constructor(
+    decoder?: BinaryDecoder, next?: () => number | boolean | string | null,
+    elements?: Array<number | boolean | string>)
+  static alloc(
+    decoder?: BinaryDecoder,
+    next?: () => number | boolean | string | null,
+    elements?: Array<number | boolean | string>): BinaryIterator;
   free(): void;
   clear(): void;
-  get(): (ScalarFieldType | null);
+  get(): ScalarFieldType | null;
   atEnd(): boolean;
-  next(): (ScalarFieldType | null);
+  next(): ScalarFieldType | null;
 }
 
 export namespace BinaryConstants {
-  export enum FieldType {
+  enum FieldType {
     INVALID = -1,
     DOUBLE = 1,
     FLOAT = 2,
@@ -619,7 +503,7 @@ export namespace BinaryConstants {
     VHASH64 = 31,
   }
 
-  export enum WireType {
+  enum WireType {
     INVALID = -1,
     VARINT = 0,
     FIXED64 = 1,
@@ -649,11 +533,10 @@ export namespace BinaryConstants {
 }
 
 export namespace arith {
-  export class UInt64 {
+  class UInt64 {
     lo: number;
     hi: number;
-    constructor(lo: number,
-                hi: number);
+    constructor(lo: number, hi: number);
     cmp(other: UInt64): number;
     rightShift(): UInt64;
     leftShift(): UInt64;
@@ -662,8 +545,7 @@ export namespace arith {
     zero(): boolean;
     add(other: UInt64): UInt64;
     sub(other: UInt64): UInt64;
-    static mul32x32(a: number,
-                    b: number): UInt64;
+    static mul32x32(a: number, b: number): UInt64;
     mul(a: number): UInt64;
     div(divisor: number): [UInt64, UInt64];
     toString(): string;
@@ -671,11 +553,10 @@ export namespace arith {
     clone(): UInt64;
   }
 
-  export class Int64 {
+  class Int64 {
     lo: number;
     hi: number;
-    constructor(lo: number,
-                hi: number);
+    constructor(lo: number, hi: number);
     add(other: Int64): Int64;
     sub(other: Int64): Int64;
     clone(): Int64;

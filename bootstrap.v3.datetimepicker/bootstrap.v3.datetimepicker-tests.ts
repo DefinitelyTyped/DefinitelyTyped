@@ -116,7 +116,6 @@ function test_timeZone() {
     strFormats = dp.timeZone() as string;
 }
 
-
 function test_widgetParent() {
     let nullW: null = null;
     let str: string = "myId";

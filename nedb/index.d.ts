@@ -19,8 +19,7 @@ declare class Nedb {
     /**
      * Get an array of all the data in the database
      */
-    getAllData(): Array<any>;
-
+    getAllData(): any[];
 
     /**
      * Reset all currently defined indexes
@@ -93,7 +92,7 @@ declare class Nedb {
      * @param {any} query MongoDB-style query
      * @param {any} projection MongoDB-style projection
      */
-    find<T>(query: any, projection: T, callback: (err: Error, documents: Array<T>) => void): void;
+    find<T>(query: any, projection: T, callback: (err: Error, documents: T[]) => void): void;
     find<T>(query: any, projection?: T): Nedb.Cursor<T>;
 
     /**
@@ -101,7 +100,7 @@ declare class Nedb {
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
      * * @param {any} query MongoDB-style query
      */
-    find<T>(query: any, callback: (err: Error, documents: Array<T>) => void): void;
+    find<T>(query: any, callback: (err: Error, documents: T[]) => void): void;
 
     /**
      * Find one document matching the query
@@ -169,7 +168,7 @@ declare namespace Nedb {
         skip(n: number): Cursor<T>;
         limit(n: number): Cursor<T>;
         projection(query: any): Cursor<T>;
-        exec(callback: (err: Error, documents: Array<T>) => void): void;
+        exec(callback: (err: Error, documents: T[]) => void): void;
     }
 
     interface CursorCount {
@@ -177,12 +176,12 @@ declare namespace Nedb {
     }
 
     interface DataStoreOptions {
-        filename?: string // Optional, datastore will be in-memory only if not provided
-        inMemoryOnly?: boolean // Optional, default to false
-        nodeWebkitAppName?: boolean // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
-        autoload?: boolean // Optional, defaults to false
+        filename?: string; // Optional, datastore will be in-memory only if not provided
+        inMemoryOnly?: boolean; // Optional, default to false
+        nodeWebkitAppName?: boolean; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
+        autoload?: boolean; // Optional, defaults to false
         // Optional, if autoload is used this will be called after the load database with the error object as parameter. If you don't pass it the error will be thrown
-        onload?: (error: Error) => any
+        onload?: (error: Error) => any;
         // (optional): hook you can use to transform data after it was serialized and before it is written to disk.
         // Can be used for example to encrypt data before writing database to disk.
         // This function takes a string as parameter (one line of an NeDB data file) and outputs the transformed string, which must absolutely not contain a \n character (or data will be lost)
@@ -207,14 +206,14 @@ declare namespace Nedb {
     interface UpdateOptions {
         multi?: boolean;
         upsert?: boolean;
-        returnUpdatedDocs?: boolean
+        returnUpdatedDocs?: boolean;
     }
 
     /**
      * options only one option for now: multi which allows the removal of multiple documents if set to true. Default is false
      */
     interface RemoveOptions {
-        multi?: boolean
+        multi?: boolean;
     }
 
     interface EnsureIndexOptions {

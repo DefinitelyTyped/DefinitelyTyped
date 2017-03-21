@@ -16,7 +16,7 @@ csv({ noheader: true })
         console.log(csvRow);                        // => [1,2,3] , [4,5,6]  , [7,8,9]
     })
     .on('done', () => {
-        //parsing finished
+        // parsing finished
     });
 
 // event emitter version using Converter class
@@ -26,7 +26,7 @@ new csv.Converter({ noheader: true })
         console.log(csvRow);                        // => [1,2,3] , [4,5,6]  , [7,8,9]
     })
     .on('done', () => {
-        //parsing finished
+        // parsing finished
     });
 
 // callback version using Converter class

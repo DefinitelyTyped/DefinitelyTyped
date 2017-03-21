@@ -15,7 +15,7 @@ declare namespace KiiCloud {
         KiiACLSendMessageToTopic,
     }
 
-    export enum KiiSite {
+    enum KiiSite {
         US,
         JP,
         CN,
@@ -24,7 +24,7 @@ declare namespace KiiCloud {
         EU
     }
 
-    export enum KiiAnalyticsSite {
+    enum KiiAnalyticsSite {
         US,
         JP,
         CN,
@@ -207,7 +207,7 @@ declare namespace KiiCloud {
     /**
      * The main SDK class
      */
-    export class Kii {
+    class Kii {
         /**
          * Kii SDK Build Number
          *
@@ -673,7 +673,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiACL object
      */
-    export class KiiACL {
+    class KiiACL {
         /**
          * Get the list of active ACLs associated with this object from the server
          *
@@ -809,7 +809,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiACLEntry object
      */
-    export class KiiACLEntry {
+    class KiiACLEntry {
         /**
          * The action that is being permitted/restricted. Possible values:
          * <br><br>
@@ -898,7 +898,7 @@ declare namespace KiiCloud {
     /**
      * The main SDK class
      */
-    export class KiiAnalytics {
+    class KiiAnalytics {
         /**
          * Retrieve the current app ID
          *
@@ -1107,7 +1107,7 @@ declare namespace KiiCloud {
      *
      * 	When retrieving ACL from an object, test for this class to determine the subject type.
      */
-    export class KiiAnonymousUser {
+    class KiiAnonymousUser {
         /**
          * Returns the ID of Anonymous user.
          */
@@ -1119,7 +1119,7 @@ declare namespace KiiCloud {
      *
      * 	When retrieving ACL from an object, test for this class to determine the subject type. Example:
      */
-    export class KiiAnyAuthenticatedUser {
+    class KiiAnyAuthenticatedUser {
         /**
          * Returns the ID of AuthenticatedUser user.
          */
@@ -1136,7 +1136,7 @@ declare namespace KiiCloud {
      * </B>
      * Application administrator context. Entities obtained from this class will be manipulated by application admin.
      */
-    export class KiiAppAdminContext {
+    class KiiAppAdminContext {
         /**
          * Creates a reference to a bucket operated by app admin.
          *     <br><br>The bucket will be created/accessed within this app's scope
@@ -1983,7 +1983,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiBucket object
      */
-    export class KiiBucket {
+    class KiiBucket {
         /**
          * The name of this bucket
          *
@@ -2332,7 +2332,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiClause expression object
      */
-    export class KiiClause {
+    class KiiClause {
         /**
          * Create a KiiClause with the AND operator concatenating multiple KiiClause objects
          *
@@ -2542,7 +2542,7 @@ declare namespace KiiCloud {
     /**
      * A Parser for error string or error object returned by SDK.
      */
-    export class KiiErrorParser {
+    class KiiErrorParser {
         /**
          * Parse an error string or error object returned by SDK.
          *
@@ -2574,7 +2574,7 @@ declare namespace KiiCloud {
     /**
      * Represents Geo Point.
      */
-    export class KiiGeoPoint {
+    class KiiGeoPoint {
         /**
          * Return the latitide of this point.
          */
@@ -2607,7 +2607,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiGroup object
      */
-    export class KiiGroup {
+    class KiiGroup {
         /**
          *
          *
@@ -3310,7 +3310,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiObject object
      */
-    export class KiiObject {
+    class KiiObject {
         /**
          * Get the UUID of the given object, assigned by the server
          *
@@ -4160,7 +4160,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiPushInstallation object
      */
-    export class KiiPushInstallation {
+    class KiiPushInstallation {
         /**
          * Register the id issued by GCM to the Kii cloud for current logged in user.
          *
@@ -4315,7 +4315,7 @@ declare namespace KiiCloud {
     /**
      * Builder of push message
      */
-    export class KiiPushMessageBuilder {
+    class KiiPushMessageBuilder {
         /**
          * instantiate builder with push message data.
          * By default all push channels (gcm, apns, jpush, mqtt) is enabled.
@@ -4591,7 +4591,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiPushSubscription.
      */
-    export class KiiPushSubscription {
+    class KiiPushSubscription {
         /**
          * Subscribe to bucket or topic.
          *
@@ -4770,7 +4770,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiQuery object
      */
-    export class KiiQuery {
+    class KiiQuery {
         /**
          * Get the limit of the current query
          *
@@ -4826,7 +4826,7 @@ declare namespace KiiCloud {
     /**
      * Represents a server side code entry in KiiCloud.
      */
-    export class KiiServerCodeEntry {
+    class KiiServerCodeEntry {
         /**
          * Execute this server code entry.<br>
          *  If argument is an empty object or not type of Object, callbacks.failure or reject callback of promise will be called.<br>
@@ -4911,7 +4911,7 @@ declare namespace KiiCloud {
     /**
      * Represents a server side code execution result in KiiCloud.
      */
-    export class KiiServerCodeExecResult {
+    class KiiServerCodeExecResult {
         /**
          * Get calculated number of executed steps.
          *
@@ -4930,7 +4930,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiSocialConnect object
      */
-    export class KiiSocialConnect {
+    class KiiSocialConnect {
         /**
          *
          *
@@ -5533,7 +5533,7 @@ declare namespace KiiCloud {
     /**
      * Represents a Thing object
      */
-    export class KiiThing {
+    class KiiThing {
         /**
          * of this thing.
          * For details refer to {@link KiiThing.register}
@@ -6446,7 +6446,7 @@ declare namespace KiiCloud {
     /**
      * represents a KiiThingContext object
      */
-    export class KiiThingContext {
+    class KiiThingContext {
         /**
          * Creates a reference to a bucket in App scope operated by thing.
          *
@@ -6608,7 +6608,7 @@ declare namespace KiiCloud {
     /**
      * Represents a Topic object.
      */
-    export class KiiTopic {
+    class KiiTopic {
         /**
          * get name of this topic
          *
@@ -6814,7 +6814,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiUser object
      */
-    export class KiiUser {
+    class KiiUser {
         /**
          *
          *
@@ -8657,7 +8657,7 @@ declare namespace KiiCloud {
     /**
      * Represents a KiiUser builder
      */
-    export class KiiUserBuilder {
+    class KiiUserBuilder {
         /**
          * Create a KiiUser builder with identifier.
          *

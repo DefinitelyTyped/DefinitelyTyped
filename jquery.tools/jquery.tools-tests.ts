@@ -2,7 +2,7 @@
 
  $("img[rel]").overlay();
 
- var triggers = $(".modalInput").overlay({
+ const triggers = $(".modalInput").overlay({
  
       // some mask tweaks suitable for modal dialogs
       mask: {
@@ -14,10 +14,10 @@
       closeOnClick: false
   });
 
-  var buttons = $("#yesno button").click(function(this: JQuery, e: JQueryEventObject) {
+  const buttons = $("#yesno button").click(function(this: JQuery, e: JQueryEventObject) {
  
       // get user input
-      var yes = buttons.index(this) === 0;
+      const yes = buttons.index(this) === 0;
  
       // do something with the answer
       triggers.eq(0).html("You clicked " + (yes ? "yes" : "no"));
@@ -42,7 +42,7 @@ $("#prompt form").submit(function(this: JQuery, e: JQueryEventObject) {
       triggers.data('overlay').close();
  
       // get user input
-      var input = $("input", this).val();
+      const input = $("input", this).val();
  
       // do something with the answer
       triggers.eq(1).html(input);
@@ -101,7 +101,7 @@ $(function() {
  
         onBeforeLoad() {
             // grab wrapper element inside content
-            var wrap = this.getOverlay().find(".contentWrap");
+            const wrap = this.getOverlay().find(".contentWrap");
  
             // load the page specified in the trigger
             wrap.load(this.getTrigger().attr("href"));
@@ -112,7 +112,7 @@ $(function() {
 
 $(() => {
     // positions for each overlay
-    var positions = [
+    const positions = [
         [0, 530],
         [400, 20],
         [400, 530],
@@ -143,7 +143,7 @@ $(() => {
 $.tools.overlay.addEffect("drop", function(css, done) {
  
     // use Overlay API to gain access to crucial elements
-    var conf = this.getConf(),
+    const conf = this.getConf(),
     overlay = this.getOverlay();
  
     // determine initial position for the overlay

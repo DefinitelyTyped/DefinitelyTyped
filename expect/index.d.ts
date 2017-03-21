@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace expect {
-    export type CompareValues<T> = (a: T, b: T) => boolean;
-    export type Comparator = (target: {}, key: string) => boolean;
-    export type KeyType = string | number;
+    type CompareValues<T> = (a: T, b: T) => boolean;
+    type Comparator = (target: {}, key: string) => boolean;
+    type KeyType = string | number;
 
-    export class Expectation<T> {
+    class Expectation<T> {
         constructor(actual: any);
         toExist(message?: string): Expectation<T>;
         toBeTruthy(message?: string): Expectation<T>;
@@ -61,16 +61,16 @@ declare namespace expect {
         withArgs(...args: any[]): Expectation<T>;
     }
 
-    export interface Extension {
+    interface Extension {
         [name: string]: (args?: any[]) => void;
     }
 
-    export interface Call<T> {
+    interface Call<T> {
         context: T;
         arguments: any[];
     }
 
-    export interface Spy<T> {
+    interface Spy<T> {
         (...args: any[]): void;
         __isSpy: boolean;
         calls: Array<Call<T>>;
@@ -84,14 +84,12 @@ declare namespace expect {
         reset(): void;
     }
 
-
-    export function createSpy(fn?: (...args: any[]) => any, restore?: (...args: any[]) => any): Spy<any>;
-    export function spyOn<T>(object: T, methodName: string): Spy<T>;
-    export function isSpy(object: {}): boolean;
-    export function restoreSpies(): void;
-    export function assert(condition: boolean, messageFormat: string, ...extraArgs: any[]): void;
-    export function extend(extension: Extension): void;
-
+    function createSpy(fn?: (...args: any[]) => any, restore?: (...args: any[]) => any): Spy<any>;
+    function spyOn<T>(object: T, methodName: string): Spy<T>;
+    function isSpy(object: {}): boolean;
+    function restoreSpies(): void;
+    function assert(condition: boolean, messageFormat: string, ...extraArgs: any[]): void;
+    function extend(extension: Extension): void;
 }
 
 declare function expect<T>(actual: T): expect.Expectation<T>;

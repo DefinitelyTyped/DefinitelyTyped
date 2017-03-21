@@ -5,9 +5,7 @@
 
 import * as koa from "koa";
 
-
 export = Pug;
-
 
 /** main module */
 declare class Pug {
@@ -15,9 +13,8 @@ declare class Pug {
     use(app: koa): void;
 }
 
-
 declare namespace Pug {
-    export interface PugOptions {
+    interface PugOptions {
         viewPath?: string;
         pretty?: boolean;
         compileDebug?: boolean;
@@ -28,13 +25,11 @@ declare namespace Pug {
         basedir?: string;
         app?: koa;
     }
-    export interface PugCtxOptions extends PugOptions {
+    interface PugCtxOptions extends PugOptions {
         fromString: boolean;
     }
-    export interface PugLocals { [str: string]: any; }
+    interface PugLocals { [str: string]: any; }
 }
-
-
 
 /** plugin */
 declare module 'koa' {

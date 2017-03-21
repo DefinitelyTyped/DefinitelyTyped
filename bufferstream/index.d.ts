@@ -59,9 +59,9 @@ declare class BufferStream extends stream.Duplex {
 	*/
 	length: number;
 } // https://github.com/dodo/node-bufferstream/blob/master/src/buffer-stream.coffee#L28
-declare namespace BufferStream {
 
-	export interface Opts {
+declare namespace BufferStream {
+	interface Opts {
 		/*
 			default encoding for writing strings
 		*/
@@ -85,5 +85,5 @@ declare namespace BufferStream {
 		// String or Buffer
 		split?: any;
 	}
-	export var fn: {warn: boolean};
+	const fn: {warn: boolean};
 }

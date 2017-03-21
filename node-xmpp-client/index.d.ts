@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export declare class Client {
+export class Client {
     static Stanza: Stanza;
 
     constructor(options: XmppOptions);

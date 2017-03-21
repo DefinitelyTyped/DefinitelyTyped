@@ -23,7 +23,6 @@ const zoneMgrs = mgrs.zone;
 mgrs.toString();
 mgrs.toUtm();
 
-
 // Static Functions
 Mgrs.parse('31U DQ 48251 11932');
 

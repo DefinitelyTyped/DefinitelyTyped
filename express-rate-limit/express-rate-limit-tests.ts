@@ -1,12 +1,12 @@
 import RateLimit = require("express-rate-limit");
 
-var apiLimiter = new RateLimit({
+const apiLimiter = new RateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
   delayMs: 0 // disabled
 });
 
-var createAccountLimiter = new RateLimit({
+const createAccountLimiter = new RateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
   delayAfter: 1, // begin slowing down responses after the first request
   delayMs: 3 * 1000, // slow down subsequent responses by 3 seconds per request
@@ -20,6 +20,6 @@ class SomeStore implements RateLimit.Store {
   resetKey(key: string) { };
 };
 
-var limiterWithStore = new RateLimit({
+const limiterWithStore = new RateLimit({
   store: new SomeStore()
 });

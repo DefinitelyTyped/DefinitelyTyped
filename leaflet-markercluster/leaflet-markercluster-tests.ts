@@ -1,5 +1,3 @@
-
-
 const polylineOptions: L.PolylineOptions = {};
 const icon: L.Icon = L.icon({ iconUrl: 'foo' });
 

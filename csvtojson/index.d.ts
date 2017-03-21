@@ -8,7 +8,6 @@
 import * as stream from 'stream';
 
 declare namespace csvtojson {
-
     /**
      * Stream options
      */
@@ -18,7 +17,6 @@ declare namespace csvtojson {
      * Converter options
      */
     interface ConverterOptions {
-
         /**
          * Delimiter used for seperating columns. Use "auto" if delimiter is unknown in advance,
          * in this case, delimiter will be auto-detected (by best attempt). Use an array to give
@@ -173,7 +171,6 @@ declare namespace csvtojson {
      * Converts provided CSV input to  a JSON object.
      */
     class Converter extends stream.Transform {
-
         /**
          * Initializes a new instance of a Converter
          * @param {ConverterOptions} options       converter options

@@ -9,20 +9,20 @@ class LogHistoryManager extends HashHistoryManager  {
 }
 
 // Configuration
-var config = [
+const config = [
     { key: 'people', route: ['people/{page}', 'people/{page}/sort/{sort}'], defaults: { page: 1 }, help: 'people.htm' },
     { key: 'person', route: 'person/{id}', trackTypes: false, defaultTypes: { id: 'number' }, trackCrumbTrail: true }
 ];
-var stateNavigator = new StateNavigator(config);
+const stateNavigator = new StateNavigator(config);
 stateNavigator.configure(config, new LogHistoryManager());
 
 // States
-var states = stateNavigator.states;
-var people = states['people'];
-var person = states['person'];
-var help = people['help'];
-var pageDefault = people.defaults.page;
-var idDefaultType = person.defaultTypes.id;
+const states = stateNavigator.states;
+const people = states['people'];
+const person = states['person'];
+const help = people['help'];
+const pageDefault = people.defaults.page;
+const idDefaultType = person.defaultTypes.id;
 
 // State Controller
 people.dispose = () => {};
@@ -44,7 +44,7 @@ person.validate = (data: any) => data.id > 0;
 person.truncateCrumbTrail = (state: State, data: any, crumbs: Crumb[]) => crumbs;
 
 // Navigation Event
-var navigationListener = (oldState: State, state: State, data: any, asyncData: any) => {
+const navigationListener = (oldState: State, state: State, data: any, asyncData: any) => {
     stateNavigator.offNavigate(navigationListener);
 };
 stateNavigator.onNavigate(navigationListener);
@@ -56,24 +56,24 @@ stateNavigator.refresh();
 stateNavigator.refresh({ page: 3 });
 stateNavigator.refresh({ page: 2 }, 'replace');
 stateNavigator.navigate('person', { id: 10 });
-var canGoBack: boolean = stateNavigator.canNavigateBack(1);
+const canGoBack: boolean = stateNavigator.canNavigateBack(1);
 stateNavigator.navigateBack(1);
 stateNavigator.stateContext.clear();
 
 // Navigation Link
-var link = stateNavigator.getNavigationLink('people');
+let link = stateNavigator.getNavigationLink('people');
 link = stateNavigator.getRefreshLink();
 link = stateNavigator.getRefreshLink({ page: 2 });
 stateNavigator.navigateLink(link);
 link = stateNavigator.getNavigationLink('person', { id: 10 });
 stateNavigator.navigateLink(link, 'replace');
 link = stateNavigator.getNavigationBackLink(1);
-var crumb = stateNavigator.stateContext.crumbs[0];
+const crumb = stateNavigator.stateContext.crumbs[0];
 link = crumb.url;
 stateNavigator.navigateLink(link, 'none', true);
 
 // Fluent Navigation
-var link = stateNavigator.fluent()
+link = stateNavigator.fluent()
     .navigate('people')
     .refresh()
     .refresh({ page: 3 })
@@ -82,17 +82,17 @@ var link = stateNavigator.fluent()
     .url;
 
 // State Context
-var state: State = stateNavigator.stateContext.state;
-var url: string = stateNavigator.stateContext.url;
-var title: string = stateNavigator.stateContext.title;
-var page: number = stateNavigator.stateContext.data.page;
+let state: State = stateNavigator.stateContext.state;
+const url: string = stateNavigator.stateContext.url;
+const title: string = stateNavigator.stateContext.title;
+let page: number = stateNavigator.stateContext.data.page;
 state = stateNavigator.stateContext.oldState;
 page = stateNavigator.stateContext.oldData.page;
 state = stateNavigator.stateContext.previousState;
 page = stateNavigator.stateContext.previousData.page;
 
 // Navigation Data
-var data = stateNavigator.stateContext.includeCurrentData({ sort: 'name' }, ['page']);
+let data = stateNavigator.stateContext.includeCurrentData({ sort: 'name' }, ['page']);
 stateNavigator.refresh(data);
-var data = stateNavigator.stateContext.includeCurrentData({ pageSize: 10 });
+data = stateNavigator.stateContext.includeCurrentData({ pageSize: 10 });
 stateNavigator.refresh(data);

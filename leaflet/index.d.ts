@@ -22,14 +22,14 @@ import GeoJSONMultiPoint = GeoJSON.MultiPoint;
 import GeoJSONGeoJsonObject = GeoJSON.GeoJsonObject;
 
 declare namespace L {
-    export class Class {
+    class Class {
         static extend(props: any): any/* how to return constructor of self extended type ? */;
         static include(props: any): any /* how to return self extended type ? */;
         static mergeOptions(props: any): any /* how to return self extended type ? */;
         static addInitHook(initHookFn: () => void): any/* how to return self extended type ? */;
     }
 
-    export class Transformation {
+    class Transformation {
         constructor(a: number, b: number, c: number, d: number);
 
         transform(point: Point, scale?: number): Point;
@@ -37,19 +37,19 @@ declare namespace L {
         untransform(point: Point, scale?: number): Point;
     }
 
-    export namespace LineUtil {
-        export function simplify(points: PointExpression[], tolerance: number): Point[];
+    namespace LineUtil {
+        function simplify(points: PointExpression[], tolerance: number): Point[];
 
-        export function pointToSegmentDistance(p: PointExpression, p1: PointExpression, p2: PointExpression): number;
+        function pointToSegmentDistance(p: PointExpression, p1: PointExpression, p2: PointExpression): number;
 
-        export function closestPointOnSegment(p: PointExpression, p1: PointExpression, p2: PointExpression): Point;
+        function closestPointOnSegment(p: PointExpression, p1: PointExpression, p2: PointExpression): Point;
     }
 
-    export namespace PolyUtil {
-        export function clipPolygon(points: PointExpression[], bounds: BoundsExpression, round?: boolean): Point[];
+    namespace PolyUtil {
+        function clipPolygon(points: PointExpression[], bounds: BoundsExpression, round?: boolean): Point[];
     }
 
-    export class DomUtil {
+    class DomUtil {
         /**
          * Get Element by its ID or with the given HTML-Element
          */
@@ -78,7 +78,7 @@ declare namespace L {
         static restoreOutline(): void;
     }
 
-    export abstract class CRS {
+    abstract class CRS {
         latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
         pointToLatLng(point: PointExpression, zoom: number): LatLng;
         project(latlng: LatLngExpression): Point;
@@ -95,28 +95,28 @@ declare namespace L {
         infinite: boolean;
     }
 
-    export namespace CRS {
-        export const EPSG3395: CRS;
-        export const EPSG3857: CRS;
-        export const EPSG4326: CRS;
-        export const Earth: CRS;
-        export const Simple: CRS;
+    namespace CRS {
+        const EPSG3395: CRS;
+        const EPSG3857: CRS;
+        const EPSG4326: CRS;
+        const Earth: CRS;
+        const Simple: CRS;
     }
 
-    export interface Projection {
+    interface Projection {
         project(latlng: LatLngExpression): Point;
         unproject(point: PointExpression): LatLng;
 
         bounds: LatLngBounds;
     }
 
-    export namespace Projection {
-        export const LonLat: Projection;
-        export const Mercator: Projection;
-        export const SphericalMercator: Projection;
+    namespace Projection {
+        const LonLat: Projection;
+        const Mercator: Projection;
+        const SphericalMercator: Projection;
     }
 
-    export class LatLng {
+    class LatLng {
         constructor(latitude: number, longitude: number, altitude?: number);
         constructor(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number});
         equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
@@ -130,20 +130,20 @@ declare namespace L {
         alt: number;
     }
 
-    export interface LatLngLiteral {
+    interface LatLngLiteral {
         lat: number;
         lng: number;
     }
 
-    export type LatLngTuple = [number, number];
+    type LatLngTuple = [number, number];
 
     type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
-    export function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
+    function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
 
-    export function latLng(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number}): LatLng;
+    function latLng(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number}): LatLng;
 
-    export class LatLngBounds {
+    class LatLngBounds {
         constructor(southWest: LatLngExpression, northEast: LatLngExpression);
         constructor(latlngs: LatLngBoundsLiteral);
         extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
@@ -165,17 +165,17 @@ declare namespace L {
         isValid(): boolean;
     }
 
-    export type LatLngBoundsLiteral = LatLngTuple[]; // Must be [LatLngTuple, LatLngTuple], cant't change because Map.setMaxBounds
+    type LatLngBoundsLiteral = LatLngTuple[]; // Must be [LatLngTuple, LatLngTuple], cant't change because Map.setMaxBounds
 
     type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
-    export function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
+    function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
 
-    export function latLngBounds(latlngs: LatLngBoundsLiteral): LatLngBounds;
+    function latLngBounds(latlngs: LatLngBoundsLiteral): LatLngBounds;
 
-    export type PointTuple = [number, number];
+    type PointTuple = [number, number];
 
-    export class Point {
+    class Point {
         constructor(x: number, y: number, round?: boolean);
         constructor(coords: PointTuple | {x: number, y: number});
         clone(): Point;
@@ -198,13 +198,13 @@ declare namespace L {
 
     type PointExpression = Point | PointTuple;
 
-    export function point(x: number, y: number, round?: boolean): Point;
+    function point(x: number, y: number, round?: boolean): Point;
 
-    export function point(coords: PointTuple | {x: number, y: number}): Point;
+    function point(coords: PointTuple | {x: number, y: number}): Point;
 
-    export type BoundsLiteral = [PointTuple, PointTuple];
+    type BoundsLiteral = [PointTuple, PointTuple];
 
-    export class Bounds {
+    class Bounds {
         constructor(topLeft: PointExpression, bottomRight: PointExpression);
         constructor(points: Point[] | BoundsLiteral);
         extend(point: PointExpression): this;
@@ -222,13 +222,13 @@ declare namespace L {
 
     type BoundsExpression = Bounds | BoundsLiteral;
 
-    export function bounds(topLeft: PointExpression, bottomRight: PointExpression): Bounds;
+    function bounds(topLeft: PointExpression, bottomRight: PointExpression): Bounds;
 
-    export function bounds(points: Point[] | BoundsLiteral): Bounds;
+    function bounds(points: Point[] | BoundsLiteral): Bounds;
 
-    export type EventHandlerFn = (event: Event) => void;
+    type EventHandlerFn = (event: Event) => void;
 
-    export interface EventHandlerFnMap {
+    interface EventHandlerFnMap {
         [type: string]: EventHandlerFn;
     }
 
@@ -238,7 +238,7 @@ declare namespace L {
      * with an object (e.g. the user clicks on the map, causing the map to fire
      * 'click' event).
      */
-    export abstract class Evented extends Class {
+    abstract class Evented extends Class {
         /**
          * Adds a listener function (fn) to a particular event type of the object.
          * You can optionally specify the context of the listener (object the this
@@ -380,7 +380,7 @@ declare namespace L {
      * Used internally for map and marker dragging. Only works for elements
      * that were positioned with [`L.DomUtil.setPosition`](#domutil-setposition).
      */
-    export class Draggable extends Evented {
+    class Draggable extends Evented {
         constructor(element: HTMLElement, dragStartTarget?: HTMLElement, preventOutline?: boolean);
 
         enable(): void;
@@ -398,7 +398,7 @@ declare namespace L {
         interactive?: boolean;
     }
 
-    export class Layer extends Evented {
+    class Layer extends Evented {
         constructor(options?: LayerOptions);
         addTo(map: Map): this;
         remove(): this;
@@ -433,7 +433,7 @@ declare namespace L {
         beforeAdd(map: Map): this;
     }
 
-    export interface GridLayerOptions {
+    interface GridLayerOptions {
         tileSize?: number | Point;
         opacity?: number;
         updateWhenIdle?: boolean;
@@ -450,7 +450,7 @@ declare namespace L {
         keepBuffer?: number;
     }
 
-    export class GridLayer extends Layer {
+    class GridLayer extends Layer {
         constructor(options?: GridLayerOptions);
         bringToFront(): this;
         bringToBack(): this;
@@ -463,9 +463,9 @@ declare namespace L {
         getTileSize(): Point;
     }
 
-    export function gridLayer(options?: GridLayerOptions): GridLayer;
+    function gridLayer(options?: GridLayerOptions): GridLayer;
 
-    export interface TileLayerOptions extends GridLayerOptions {
+    interface TileLayerOptions extends GridLayerOptions {
         minZoom?: number;
         maxZoom?: number;
         maxNativeZoom?: number;
@@ -480,17 +480,17 @@ declare namespace L {
         [name: string]: any;
     }
 
-    export class TileLayer extends GridLayer {
+    class TileLayer extends GridLayer {
         constructor(urlTemplate: string, options?: TileLayerOptions);
         setUrl(url: string, noRedraw?: boolean): this;
 
         options: TileLayerOptions;
     }
 
-    export function tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
+    function tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
 
-    export namespace TileLayer {
-        export class WMS extends TileLayer {
+    namespace TileLayer {
+        class WMS extends TileLayer {
             constructor(baseUrl: string, options: WMSOptions);
             setParams(params: WMSParams, noRedraw?: boolean): this;
 
@@ -499,7 +499,7 @@ declare namespace L {
         }
     }
 
-    export interface WMSOptions extends TileLayerOptions {
+    interface WMSOptions extends TileLayerOptions {
         layers: string;
         styles?: string;
         format?: string;
@@ -509,7 +509,7 @@ declare namespace L {
         uppercase?: boolean;
     }
 
-    export interface WMSParams {
+    interface WMSParams {
         format?: string;
         layers: string;
         request?: string;
@@ -521,11 +521,11 @@ declare namespace L {
         height?: number;
     }
 
-    export namespace tileLayer {
-        export function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
+    namespace tileLayer {
+        function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
     }
 
-    export interface ImageOverlayOptions extends LayerOptions {
+    interface ImageOverlayOptions extends LayerOptions {
         opacity?: number;
         alt?: string;
         interactive?: boolean;
@@ -533,7 +533,7 @@ declare namespace L {
         crossOrigin?: boolean;
     }
 
-    export class ImageOverlay extends Layer {
+    class ImageOverlay extends Layer {
         constructor(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions);
         setOpacity(opacity: number): this;
         bringToFront(): this;
@@ -552,15 +552,15 @@ declare namespace L {
         options: ImageOverlayOptions;
     }
 
-    export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
+    function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
 
-    export type LineCapShape = 'butt' | 'round' | 'square' | 'inherit';
+    type LineCapShape = 'butt' | 'round' | 'square' | 'inherit';
 
-    export type LineJoinShape = 'miter' | 'round' | 'bevel' | 'inherit';
+    type LineJoinShape = 'miter' | 'round' | 'bevel' | 'inherit';
 
-    export type FillRule = 'nonzero' | 'evenodd' | 'inherit';
+    type FillRule = 'nonzero' | 'evenodd' | 'inherit';
 
-    export interface PathOptions extends InteractiveLayerOptions {
+    interface PathOptions extends InteractiveLayerOptions {
         stroke?: boolean;
         color?: string;
         weight?: number;
@@ -577,7 +577,7 @@ declare namespace L {
         className?: string;
     }
 
-    export abstract class Path extends Layer {
+    abstract class Path extends Layer {
         redraw(): this;
         setStyle(style: PathOptions): this;
         bringToFront(): this;
@@ -587,7 +587,7 @@ declare namespace L {
         options: PathOptions;
     }
 
-    export interface PolylineOptions extends PathOptions {
+    interface PolylineOptions extends PathOptions {
         smoothFactor?: number;
         noClip?: boolean;
     }
@@ -603,36 +603,36 @@ declare namespace L {
         options: PolylineOptions;
     }
 
-    export class Polyline extends InternalPolyline {
+    class Polyline extends InternalPolyline {
         constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONLineString | GeoJSONMultiLineString>;
 
         feature: GeoJSONFeature<GeoJSONLineString | GeoJSONMultiLineString>;
     }
 
-    export function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
+    function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
 
-    export class Polygon extends InternalPolyline {
+    class Polygon extends InternalPolyline {
         constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
 
         feature: GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
     }
 
-    export function polygon(latlngs: LatLngExpression[], options?: PolylineOptions): Polygon;
+    function polygon(latlngs: LatLngExpression[], options?: PolylineOptions): Polygon;
 
-    export class Rectangle extends Polygon {
+    class Rectangle extends Polygon {
         constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
         setBounds(latLngBounds: LatLngBoundsExpression): this;
     }
 
-    export function rectangle(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions): Rectangle;
+    function rectangle(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions): Rectangle;
 
-    export interface CircleMarkerOptions extends PathOptions {
+    interface CircleMarkerOptions extends PathOptions {
         radius?: number;
     }
 
-    export class CircleMarker extends Path {
+    class CircleMarker extends Path {
         constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONPoint>;
         setLatLng(latLng: LatLngExpression): this;
@@ -644,47 +644,47 @@ declare namespace L {
         feature: GeoJSONFeature<GeoJSONPoint>;
     }
 
-    export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
+    function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
 
-    export class Circle extends CircleMarker {
+    class Circle extends CircleMarker {
         constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
         constructor(latlng: LatLngExpression, radius: number, options?: CircleMarkerOptions); // deprecated!
         getBounds(): LatLngBounds;
     }
 
-    export function circle(latlng: LatLngExpression, options?: CircleMarkerOptions): Circle;
-    export function circle(latlng: LatLngExpression, radius: number, options?: CircleMarkerOptions): Circle; // deprecated!
+    function circle(latlng: LatLngExpression, options?: CircleMarkerOptions): Circle;
+    function circle(latlng: LatLngExpression, radius: number, options?: CircleMarkerOptions): Circle; // deprecated!
 
-    export interface RendererOptions extends LayerOptions {
+    interface RendererOptions extends LayerOptions {
         padding?: number;
     }
 
-    export class Renderer extends Layer {
+    class Renderer extends Layer {
         constructor(options?: RendererOptions);
 
         options: RendererOptions;
     }
 
-    export class SVG extends Renderer {}
+    class SVG extends Renderer {}
 
-    export namespace SVG {
-        export function create(name: string): SVGElement;
+    namespace SVG {
+        function create(name: string): SVGElement;
 
-        export function pointsToPath(rings: PointExpression[], close: boolean): string;
+        function pointsToPath(rings: PointExpression[], close: boolean): string;
     }
 
-    export function svg(options?: RendererOptions): SVG;
+    function svg(options?: RendererOptions): SVG;
 
-    export class Canvas extends Renderer {}
+    class Canvas extends Renderer {}
 
-    export function canvas(options?: RendererOptions): Canvas;
+    function canvas(options?: RendererOptions): Canvas;
 
     /**
      * Used to group several layers and handle them as one.
      * If you add it to the map, any layers added or removed from the group will be
      * added/removed on the map as well. Extends Layer.
      */
-    export class LayerGroup extends Layer {
+    class LayerGroup extends Layer {
         constructor(layers: Layer[]);
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
@@ -749,13 +749,13 @@ declare namespace L {
     /**
      * Create a layer group, optionally given an initial set of layers.
      */
-    export function layerGroup(layers: Layer[]): LayerGroup;
+    function layerGroup(layers: Layer[]): LayerGroup;
 
     /**
      * Extended LayerGroup that also has mouse events (propagated from
      * members of the group) and a shared bindPopup method.
      */
-    export class FeatureGroup extends LayerGroup {
+    class FeatureGroup extends LayerGroup {
         /**
          * Sets the given path options to each layer of the group that has a setStyle method.
          */
@@ -781,11 +781,11 @@ declare namespace L {
     /**
      * Create a feature group, optionally given an initial set of layers.
      */
-    export function featureGroup(layers?: Layer[]): FeatureGroup;
+    function featureGroup(layers?: Layer[]): FeatureGroup;
 
     type StyleFunction = (feature: GeoJSONFeature<GeoJSONGeometryObject>) => PathOptions;
 
-    export interface GeoJSONOptions extends LayerOptions {
+    interface GeoJSONOptions extends LayerOptions {
         /**
          * A Function defining how GeoJSON points spawn Leaflet layers.
          * It is internally called when data is added, passing the GeoJSON point
@@ -851,7 +851,7 @@ declare namespace L {
      * Represents a GeoJSON object or an array of GeoJSON objects.
      * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
      */
-    export class GeoJSON extends FeatureGroup {
+    class GeoJSON extends FeatureGroup {
         /**
          * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
          * and/or coordsToLatLng functions if provided as options.
@@ -910,7 +910,6 @@ declare namespace L {
         setStyle(style: StyleFunction): this;
 
         options: GeoJSONOptions;
-
     }
 
     /**
@@ -920,11 +919,11 @@ declare namespace L {
      * map (you can alternatively add it later with addData method) and
      * an options object.
      */
-    export function geoJSON(geojson?: GeoJSONGeoJsonObject, options?: GeoJSONOptions): GeoJSON;
+    function geoJSON(geojson?: GeoJSONGeoJsonObject, options?: GeoJSONOptions): GeoJSON;
 
     type Zoom = boolean | 'center';
 
-    export interface MapOptions {
+    interface MapOptions {
         preferCanvas?: boolean;
 
         // Control options
@@ -981,13 +980,13 @@ declare namespace L {
         bounceAtZoomLimits?: boolean;
     }
 
-    export type ControlPosition = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
+    type ControlPosition = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 
-    export interface ControlOptions {
+    interface ControlOptions {
         position?: ControlPosition;
     }
 
-    export class Control extends Class {
+    class Control extends Class {
         constructor(options?: ControlOptions);
         getPosition(): ControlPosition;
         setPosition(position: ControlPosition): this;
@@ -1002,24 +1001,24 @@ declare namespace L {
         options: ControlOptions;
     }
 
-    export namespace Control {
-        export interface ZoomOptions extends ControlOptions {
+    namespace Control {
+        interface ZoomOptions extends ControlOptions {
             zoomInText?: string;
             zoomInTitle?: string;
             zoomOutText?: string;
             zoomOutTitle?: string;
         }
 
-        export class Zoom extends Control {
+        class Zoom extends Control {
             constructor(options?: ZoomOptions);
             options: ZoomOptions;
         }
 
-        export interface AttributionOptions extends ControlOptions {
+        interface AttributionOptions extends ControlOptions {
             prefix?: string | boolean;
         }
 
-        export class Attribution extends Control {
+        class Attribution extends Control {
             constructor(options?: AttributionOptions);
             setPrefix(prefix: string): this;
             addAttribution(text: string): this;
@@ -1027,7 +1026,7 @@ declare namespace L {
             options: AttributionOptions;
         }
 
-        export interface LayersOptions extends ControlOptions {
+        interface LayersOptions extends ControlOptions {
             collapsed?: boolean;
             autoZIndex?: boolean;
             hideSingleBase?: boolean;
@@ -1037,7 +1036,7 @@ declare namespace L {
             [name: string]: Layer;
         }
 
-        export class Layers extends Control {
+        class Layers extends Control {
             constructor(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions);
             addBaseLayer(layer: Layer, name: string): this;
             addOverlay(layer: Layer, name: string): this;
@@ -1047,27 +1046,27 @@ declare namespace L {
             options: LayersOptions;
         }
 
-        export interface ScaleOptions extends ControlOptions {
+        interface ScaleOptions extends ControlOptions {
             maxWidth?: number;
             metric?: boolean;
             imperial?: boolean;
             updateWhenIdle?: boolean;
         }
 
-        export class Scale extends Control {
+        class Scale extends Control {
             constructor(options?: Control.ScaleOptions);
             options: ScaleOptions;
         }
     }
 
-    export namespace control {
-        export function zoom(options?: Control.ZoomOptions): Control.Zoom;
+    namespace control {
+        function zoom(options?: Control.ZoomOptions): Control.Zoom;
 
-        export function attribution(options?: Control.AttributionOptions): Control.Attribution;
+        function attribution(options?: Control.AttributionOptions): Control.Attribution;
 
-        export function layers(baseLayers?: Control.LayersObject, overlays?: Control.LayersObject, options?: Control.LayersOptions): Control.Layers;
+        function layers(baseLayers?: Control.LayersObject, overlays?: Control.LayersObject, options?: Control.LayersOptions): Control.Layers;
 
-        export function scale(options?: Control.ScaleOptions): Control.Scale;
+        function scale(options?: Control.ScaleOptions): Control.Scale;
     }
 
     interface DivOverlayOptions {
@@ -1077,7 +1076,7 @@ declare namespace L {
         pane?: string;
     }
 
-    export interface PopupOptions extends DivOverlayOptions {
+    interface PopupOptions extends DivOverlayOptions {
         maxWidth?: number;
         minWidth?: number;
         maxHeight?: number;
@@ -1093,7 +1092,7 @@ declare namespace L {
 
     type Content = string | HTMLElement;
 
-    export class Popup extends Layer {
+    class Popup extends Layer {
         constructor(options?: PopupOptions, source?: Layer);
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
@@ -1109,11 +1108,11 @@ declare namespace L {
         options: PopupOptions;
     }
 
-    export function popup(options?: PopupOptions, source?: Layer): Popup;
+    function popup(options?: PopupOptions, source?: Layer): Popup;
 
-    export type Direction = 'right' | 'left' | 'top' | 'bottom' | 'center' | 'auto';
+    type Direction = 'right' | 'left' | 'top' | 'bottom' | 'center' | 'auto';
 
-    export interface TooltipOptions extends DivOverlayOptions {
+    interface TooltipOptions extends DivOverlayOptions {
         pane?: string;
         offset?: PointExpression;
         direction?: Direction;
@@ -1123,7 +1122,7 @@ declare namespace L {
         opacity?: number;
     }
 
-    export class Tooltip extends Layer {
+    class Tooltip extends Layer {
         constructor(options?: TooltipOptions, source?: Layer);
         setOpacity(val: number): void;
         getLatLng(): LatLng;
@@ -1139,13 +1138,13 @@ declare namespace L {
         options: TooltipOptions;
     }
 
-    export function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
+    function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
 
-    export interface ZoomOptions {
+    interface ZoomOptions {
         animate?: boolean;
     }
 
-    export interface PanOptions {
+    interface PanOptions {
         animate?: boolean;
         duration?: number;
         easeLinearity?: number;
@@ -1153,17 +1152,17 @@ declare namespace L {
     }
 
     /* tslint:disable:no-empty-interface */ // This is not empty, it extends two interfaces into one...
-    export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
+    interface ZoomPanOptions extends ZoomOptions, PanOptions {}
     /* tslint:enable */
 
-    export interface FitBoundsOptions extends ZoomOptions, PanOptions {
+    interface FitBoundsOptions extends ZoomOptions, PanOptions {
         paddingTopLeft?: PointExpression;
         paddingBottomRight?: PointExpression;
         padding?: PointExpression;
         maxZoom?: number;
     }
 
-    export interface LocateOptions {
+    interface LocateOptions {
         watch?: boolean;
         setView?: boolean;
         maxZoom?: number;
@@ -1172,7 +1171,7 @@ declare namespace L {
         enableHighAccuracy?: boolean;
     }
 
-    export class Handler extends Class {
+    class Handler extends Class {
         constructor(map: Map);
         enable(): this;
         disable(): this;
@@ -1183,23 +1182,23 @@ declare namespace L {
         removeHooks(): void;
     }
 
-    export interface Event {
+    interface Event {
         type: string;
         target: any;
     }
 
-    export interface MouseEvent extends Event {
+    interface MouseEvent extends Event {
         latlng: LatLng;
         layerPoint: Point;
         containerPoint: Point;
         originalEvent: NativeMouseEvent;
     }
 
-    export interface KeyboardEvent extends Event {
+    interface KeyboardEvent extends Event {
         originalEvent: NativeKeyboardEvent;
     }
 
-    export interface LocationEvent extends Event {
+    interface LocationEvent extends Event {
         latlng: LatLng;
         bounds: LatLngBounds;
         accuracy: number;
@@ -1210,88 +1209,88 @@ declare namespace L {
         timestamp: number;
     }
 
-    export interface ErrorEvent extends Event {
+    interface ErrorEvent extends Event {
         message: string;
         code: number;
     }
 
-    export interface LayerEvent extends Event {
+    interface LayerEvent extends Event {
         layer: Layer;
     }
 
-    export interface LayersControlEvent extends LayerEvent {
+    interface LayersControlEvent extends LayerEvent {
         name: string;
     }
 
-    export interface TileEvent extends Event {
+    interface TileEvent extends Event {
         tile: HTMLImageElement;
         coords: Point; // apparently not a normal point, since docs say it has z (zoom)
     }
 
-    export interface TileErrorEvent extends TileEvent {
+    interface TileErrorEvent extends TileEvent {
         error: Error;
     }
 
-    export interface ResizeEvent extends Event {
+    interface ResizeEvent extends Event {
         oldSize: Point;
         newSize: Point;
     }
 
-    export interface GeoJSONEvent extends Event {
+    interface GeoJSONEvent extends Event {
         layer: Layer;
         properties: any;
         geometryType: string;
         id: string;
     }
 
-    export interface PopupEvent extends Event {
+    interface PopupEvent extends Event {
         popup: Popup;
     }
 
-    export interface TooltipEvent extends Event {
+    interface TooltipEvent extends Event {
         tooltip: Tooltip;
     }
 
-    export interface DragEndEvent extends Event {
+    interface DragEndEvent extends Event {
         distance: number;
     }
 
-    export interface ZoomAnimEvent extends Event {
+    interface ZoomAnimEvent extends Event {
         center: LatLng;
         zoom: number;
         noUpdate: boolean;
     }
 
-    export namespace DomEvent {
-        export function on(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
+    namespace DomEvent {
+        function on(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function on(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        function on(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
+        function off(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function off(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        function off(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
-        export function stopPropagation(ev: Event): typeof DomEvent;
+        function stopPropagation(ev: Event): typeof DomEvent;
 
-        export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+        function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
 
-        export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
+        function disableClickPropagation(el: HTMLElement): typeof DomEvent;
 
-        export function preventDefault(ev: Event): typeof DomEvent;
+        function preventDefault(ev: Event): typeof DomEvent;
 
-        export function stop(ev: Event): typeof DomEvent;
+        function stop(ev: Event): typeof DomEvent;
 
-        export function getMousePosition(ev: Event, container?: HTMLElement): Point;
+        function getMousePosition(ev: Event, container?: HTMLElement): Point;
 
-        export function getWheelDelta(ev: Event): number;
+        function getWheelDelta(ev: Event): number;
 
-        export function addListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
+        function addListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        function addListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
+        function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+        function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
@@ -1304,7 +1303,7 @@ declare namespace L {
         popupPane: HTMLElement;
     }
 
-    export class Map extends Evented {
+    class Map extends Evented {
         constructor(element: string | HTMLElement, options?: MapOptions);
         getRenderer(layer: Path): Renderer;
 
@@ -1403,7 +1402,7 @@ declare namespace L {
     /**
      * ID of a HTML-Element as string or the HTML-ELement itself
      */
-    export function map(element: string | HTMLElement, options?: MapOptions): Map;
+    function map(element: string | HTMLElement, options?: MapOptions): Map;
 
     interface BaseIconOptions extends LayerOptions {
         iconUrl?: string;
@@ -1418,7 +1417,7 @@ declare namespace L {
         className?: string;
     }
 
-    export interface IconOptions extends BaseIconOptions {
+    interface IconOptions extends BaseIconOptions {
         iconUrl: string;
     }
 
@@ -1430,26 +1429,26 @@ declare namespace L {
         options: BaseIconOptions;
     }
 
-    export class Icon extends BaseIcon {
+    class Icon extends BaseIcon {
         constructor(options: IconOptions);
         options: IconOptions;
     }
 
-    export namespace Icon {
-        export interface DefaultIconOptions extends BaseIconOptions {
+    namespace Icon {
+        interface DefaultIconOptions extends BaseIconOptions {
             imagePath?: string;
         }
 
-        export class Default extends BaseIcon {
+        class Default extends BaseIcon {
             static imagePath?: string;
             constructor(options?: DefaultIconOptions);
             options: DefaultIconOptions;
         }
     }
 
-    export function icon(options: IconOptions): Icon;
+    function icon(options: IconOptions): Icon;
 
-    export interface DivIconOptions extends BaseIconOptions {
+    interface DivIconOptions extends BaseIconOptions {
         html?: string;
         bgPos?: PointExpression;
         iconSize?: PointExpression;
@@ -1458,14 +1457,14 @@ declare namespace L {
         className?: string;
     }
 
-    export class DivIcon extends BaseIcon {
+    class DivIcon extends BaseIcon {
         constructor(options?: DivIconOptions);
         options: DivIconOptions;
     }
 
-    export function divIcon(options?: DivIconOptions): DivIcon;
+    function divIcon(options?: DivIconOptions): DivIcon;
 
-    export interface MarkerOptions extends InteractiveLayerOptions {
+    interface MarkerOptions extends InteractiveLayerOptions {
         icon?: Icon | DivIcon;
         clickable?: boolean;
         draggable?: boolean;
@@ -1478,7 +1477,7 @@ declare namespace L {
         riseOffset?: number;
     }
 
-    export class Marker extends Layer {
+    class Marker extends Layer {
         constructor(latlng: LatLngExpression, options?: MarkerOptions);
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
@@ -1492,58 +1491,58 @@ declare namespace L {
         dragging: Handler;
     }
 
-    export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
+    function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
 
-    export namespace Browser {
-        export const ie: boolean;
-        export const ielt9: boolean;
-        export const edge: boolean;
-        export const webkit: boolean;
-        export const gecko: boolean;
-        export const android: boolean;
-        export const android23: boolean;
-        export const chrome: boolean;
-        export const safari: boolean;
-        export const win: boolean;
-        export const ie3d: boolean;
-        export const webkit3d: boolean;
-        export const gecko3d: boolean;
-        export const opera12: boolean;
-        export const any3d: boolean;
-        export const mobile: boolean;
-        export const mobileWebkit: boolean;
-        export const mobiWebkit3d: boolean;
-        export const mobileOpera: boolean;
-        export const mobileGecko: boolean;
-        export const touch: boolean;
-        export const msPointer: boolean;
-        export const pointer: boolean;
-        export const retina: boolean;
-        export const canvas: boolean;
-        export const vml: boolean;
-        export const svg: boolean;
+    namespace Browser {
+        const ie: boolean;
+        const ielt9: boolean;
+        const edge: boolean;
+        const webkit: boolean;
+        const gecko: boolean;
+        const android: boolean;
+        const android23: boolean;
+        const chrome: boolean;
+        const safari: boolean;
+        const win: boolean;
+        const ie3d: boolean;
+        const webkit3d: boolean;
+        const gecko3d: boolean;
+        const opera12: boolean;
+        const any3d: boolean;
+        const mobile: boolean;
+        const mobileWebkit: boolean;
+        const mobiWebkit3d: boolean;
+        const mobileOpera: boolean;
+        const mobileGecko: boolean;
+        const touch: boolean;
+        const msPointer: boolean;
+        const pointer: boolean;
+        const retina: boolean;
+        const canvas: boolean;
+        const vml: boolean;
+        const svg: boolean;
     }
 
-    export namespace Util {
-        export function extend(dest: any, src?: any): any;
-        export function create(proto: any, properties?: any): any;
-        export function bind(fn: () => void, ...obj: any[]): () => void;
-        export function stamp(obj: any): number;
-        export function throttle(fn: () => void, time: number, context: any): () => void;
-        export function wrapNum(num: number, range: number[], includeMax?: boolean): number;
-        export function falseFn(): () => false;
-        export function formatNum(num: number, digits?: number): number;
-        export function trim(str: string): string;
-        export function splitWords(str: string): string[];
-        export function setOptions(obj: any, options: any): any;
-        export function getParamString(obj: any, existingUrl?: string, uppercase?: boolean): string;
-        export function template(str: string, data: any): string;
-        export function isArray(obj: any): boolean;
-        export function indexOf(array: any[], el: any): number;
-        export function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
-        export function cancelAnimFrame(id: number): void;
-        export let lastId: string;
-        export let emptyImageUrl: string;
+    namespace Util {
+        function extend(dest: any, src?: any): any;
+        function create(proto: any, properties?: any): any;
+        function bind(fn: () => void, ...obj: any[]): () => void;
+        function stamp(obj: any): number;
+        function throttle(fn: () => void, time: number, context: any): () => void;
+        function wrapNum(num: number, range: number[], includeMax?: boolean): number;
+        function falseFn(): () => false;
+        function formatNum(num: number, digits?: number): number;
+        function trim(str: string): string;
+        function splitWords(str: string): string[];
+        function setOptions(obj: any, options: any): any;
+        function getParamString(obj: any, existingUrl?: string, uppercase?: boolean): string;
+        function template(str: string, data: any): string;
+        function isArray(obj: any): boolean;
+        function indexOf(array: any[], el: any): number;
+        function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
+        function cancelAnimFrame(id: number): void;
+        let lastId: string;
+        let emptyImageUrl: string;
     }
 }
 

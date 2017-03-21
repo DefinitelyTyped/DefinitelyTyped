@@ -366,7 +366,6 @@ describe('error info', () => {
     });
 
     describe('when there is no error', () => {
-
         it('everything is null', () => {
             pq.exec('SELECT NOW()');
             assert(!pq.errorMessage(), pq.errorMessage());
@@ -602,7 +601,6 @@ describe('result accessors', () => {
 });
 
 describe('Retrieve server version from connection', () => {
-
     it('return version number when connected', () => {
         const pq = new PQ();
         pq.connectSync();
@@ -617,7 +615,6 @@ describe('Retrieve server version from connection', () => {
         assert.equal(typeof version, 'number');
         assert.equal(version, 0);
     });
-
 });
 
 describe('getting socket', () => {

@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    var config: DataTables.Settings = {
+    const config: DataTables.Settings = {
         // Select extension options
         select: {
             blurable: true,

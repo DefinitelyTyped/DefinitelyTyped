@@ -19,7 +19,7 @@
   },
   "files": [
     "index.d.ts",
-    "griddle-react-tests.tsx",
+    "test/index.tsx",
     "test/CustomColumnComponent.tsx",
     "test/CustomFilterComponent.tsx",
     "test/CustomHeaderComponent.tsx"

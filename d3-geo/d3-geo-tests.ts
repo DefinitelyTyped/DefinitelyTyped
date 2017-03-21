@@ -144,7 +144,7 @@ contained = d3Geo.geoContains(sampleExtendedFeatureCollection, [0, 0]);
 
 // geoDistance(...) =======================================================
 
-let distance: number = d3Geo.geoDistance([54, 2], [53, 1]);
+const distance: number = d3Geo.geoDistance([54, 2], [53, 1]);
 
 // geoLength(...) =========================================================
 
@@ -160,19 +160,19 @@ length = d3Geo.geoLength(sampleExtendedFeatureCollection);
 
 // geoInterpolate(...) ====================================================
 
-let interpolateFct: (t: number) => [number, number] = d3Geo.geoInterpolate([54, 2], [53, 1]);
+const interpolateFct: (t: number) => [number, number] = d3Geo.geoInterpolate([54, 2], [53, 1]);
 
 // geoRotation(...) =======================================================
 
 // create rotation -----------------------------------------------------
 
-let rotation: d3Geo.GeoRotation = d3Geo.geoRotation([90, 45]);
-let rotation2: d3Geo.GeoRotation = d3Geo.geoRotation([90, 45, 27.5]);
+const rotation: d3Geo.GeoRotation = d3Geo.geoRotation([90, 45]);
+const rotation2: d3Geo.GeoRotation = d3Geo.geoRotation([90, 45, 27.5]);
 
 // use rotation --------------------------------------------------------
 
-let point: [number, number] = rotation([54, 2]);
-let inverted: [number, number] = rotation.invert([54, 2]);
+const point: [number, number] = rotation([54, 2]);
+const inverted: [number, number] = rotation.invert([54, 2]);
 
 // ----------------------------------------------------------------------
 // Spherical Shapes - geoCircle
@@ -185,24 +185,23 @@ let circleGeneratorSimple: d3Geo.GeoCircleGenerator<any, any> = d3Geo.geoCircle(
 
 // complex use as part of object
 class Circulator {
-
     constructor(radius: number, precision: number) {
         this.r = radius;
         this.p = precision;
         this.circleGenerator = d3Geo.geoCircle<Circulator, [number, number] | undefined>()
-            .radius(function (datum) {
-                let t: Circulator = this;
-                let d: [number, number] | undefined = datum;
+            .radius(function(datum) {
+                const t: Circulator = this;
+                const d: [number, number] | undefined = datum;
                 return this.r;
             })
-            .precision(function (datum) {
-                let t: Circulator = this;
-                let d: [number, number] | undefined = datum;
+            .precision(function(datum) {
+                const t: Circulator = this;
+                const d: [number, number] | undefined = datum;
                 return this.p;
             })
-            .center(function (datum) {
-                let t: Circulator = this;
-                let d: [number, number] | undefined = datum;
+            .center(function(datum) {
+                const t: Circulator = this;
+                const d: [number, number] | undefined = datum;
                 return d ? d : [0, 0];
             });
     }
@@ -219,28 +218,28 @@ class Circulator {
     }
 }
 
-let circulator = new Circulator(50, 2);
+const circulator = new Circulator(50, 2);
 
 // Configure CircleGenerator ============================================
 
 // center(...) ----------------------------------------------------------
 
-let centerFctSimple: ((this: any, d: any, ...args: any[]) => [number, number]) = circleGeneratorSimple.center();
+const centerFctSimple: ((this: any, d: any, ...args: any[]) => [number, number]) = circleGeneratorSimple.center();
 
-let c: [number, number] = [54, 2];
+const c: [number, number] = [54, 2];
 
 circleGeneratorSimple = circleGeneratorSimple.center(() => c);
 circleGeneratorSimple = circleGeneratorSimple.center(c);
 
 // radius(...) -----------------------------------------------------------
 
-let radius: ((...args: any[]) => number) = circleGeneratorSimple.radius();
+const radius: ((...args: any[]) => number) = circleGeneratorSimple.radius();
 circleGeneratorSimple = circleGeneratorSimple.radius(() => 5);
 circleGeneratorSimple = circleGeneratorSimple.radius(2);
 
 // precision(...) --------------------------------------------------------
 
-let precision: ((...args: any[]) => number) = circleGeneratorSimple.precision();
+const precision: ((...args: any[]) => number) = circleGeneratorSimple.precision();
 circleGeneratorSimple = circleGeneratorSimple.precision(() => 5);
 circleGeneratorSimple = circleGeneratorSimple.precision(2);
 
@@ -252,7 +251,6 @@ let circlePolygon: GeoJSON.Polygon = circleGeneratorSimple();
 // use encapsulated geoCircleGenerator
 circlePolygon = circulator.getCirclePolygon([5, 5]);
 circlePolygon = circulator.getCirclePolygon();
-
 
 // ----------------------------------------------------------------------
 // Spherical Shapes - geoGraticule
@@ -266,44 +264,44 @@ let graticuleGenerator: d3Geo.GeoGraticuleGenerator = d3Geo.geoGraticule();
 
 // extent(...) -----------------------------------------------------------
 
-let extent: [[number, number], [number, number]] = graticuleGenerator.extent();
+const extent: [[number, number], [number, number]] = graticuleGenerator.extent();
 graticuleGenerator = graticuleGenerator.extent([[-180, -80], [180, 80]]);
 
 // extentMajor(...) ---------------------------------------------------------
 
-let extentMajor: [[number, number], [number, number]] = graticuleGenerator.extentMajor();
+const extentMajor: [[number, number], [number, number]] = graticuleGenerator.extentMajor();
 graticuleGenerator = graticuleGenerator.extentMajor([[-180, -80], [180, 80]]);
 
 // extentMinor(...) ---------------------------------------------------------
 
-let extentMinor: [[number, number], [number, number]] = graticuleGenerator.extentMinor();
+const extentMinor: [[number, number], [number, number]] = graticuleGenerator.extentMinor();
 graticuleGenerator = graticuleGenerator.extentMinor([[-180, -80], [180, 80]]);
 
 // step(...) ----------------------------------------------------------------
 
-let step: [number, number] = graticuleGenerator.step();
+const step: [number, number] = graticuleGenerator.step();
 graticuleGenerator = graticuleGenerator.step([10, 10]);
 
 // stepMajor(...) -----------------------------------------------------------
 
-let stepMajor: [number, number] = graticuleGenerator.stepMajor();
+const stepMajor: [number, number] = graticuleGenerator.stepMajor();
 graticuleGenerator = graticuleGenerator.stepMajor([10, 10]);
 
 // stepMinor(...) ------------------------------------------------------------
 
-let stepMinor: [number, number] = graticuleGenerator.stepMinor();
+const stepMinor: [number, number] = graticuleGenerator.stepMinor();
 graticuleGenerator = graticuleGenerator.stepMinor([10, 10]);
 
 // precision(...) -------------------------------------------------------------
 
-let precision1: number = graticuleGenerator.precision();
+const precision1: number = graticuleGenerator.precision();
 graticuleGenerator = graticuleGenerator.precision(5);
 
 // Use GeoGraticuleGenerator ============================================
 
 let multiString: GeoJSON.MultiLineString = graticuleGenerator();
-let lines: GeoJSON.LineString[] = graticuleGenerator.lines();
-let polygon2: GeoJSON.Polygon = graticuleGenerator.outline();
+const lines: GeoJSON.LineString[] = graticuleGenerator.lines();
+const polygon2: GeoJSON.Polygon = graticuleGenerator.outline();
 
 // geoGraticule10() =====================================================
 
@@ -317,24 +315,22 @@ multiString = d3Geo.geoGraticule10();
 
 // Pre-Defined Raw Projection Factories =================================
 
-let azimuthalEqualAreaRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEqualAreaRaw();
-let azimuthalEquidistantRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEquidistantRaw();
-let conicConformalRaw: d3Geo.GeoRawProjection = d3Geo.geoConicConformalRaw(0, 0);
-let conicEqualAreaRaw: d3Geo.GeoRawProjection = d3Geo.geoConicEqualAreaRaw(0, 0);
-let conicEquidistantRaw: d3Geo.GeoRawProjection = d3Geo.geoConicEquidistantRaw(0, 0);
-let equirectangularRaw: d3Geo.GeoRawProjection = d3Geo.geoEquirectangularRaw();
-let gnomonicRaw: d3Geo.GeoRawProjection = d3Geo.geoGnomonicRaw();
-let mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
-let orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
-let stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
-let transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
+const azimuthalEqualAreaRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEqualAreaRaw();
+const azimuthalEquidistantRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEquidistantRaw();
+const conicConformalRaw: d3Geo.GeoRawProjection = d3Geo.geoConicConformalRaw(0, 0);
+const conicEqualAreaRaw: d3Geo.GeoRawProjection = d3Geo.geoConicEqualAreaRaw(0, 0);
+const conicEquidistantRaw: d3Geo.GeoRawProjection = d3Geo.geoConicEquidistantRaw(0, 0);
+const equirectangularRaw: d3Geo.GeoRawProjection = d3Geo.geoEquirectangularRaw();
+const gnomonicRaw: d3Geo.GeoRawProjection = d3Geo.geoGnomonicRaw();
+const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
+const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
+const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
+const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
 
 // Use Raw Projection =====================================================
 
-let rawProjectionPoint: [number, number] = azimuthalEqualAreaRaw(54, 2);
-let rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(180, 6);
-
-
+const rawProjectionPoint: [number, number] = azimuthalEqualAreaRaw(54, 2);
+const rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(180, 6);
 
 // ----------------------------------------------------------------------
 // Pre-Defined Projections
@@ -342,39 +338,38 @@ let rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(
 
 // Create predefined Projection from factory =============================
 
-let albers: d3Geo.GeoConicProjection = d3Geo.geoAlbers();
-let albersUsa: d3Geo.GeoProjection = d3Geo.geoAlbersUsa();
-let azimuthalEqualArea: d3Geo.GeoProjection = d3Geo.geoAzimuthalEqualArea();
-let azimuthalEquidistant: d3Geo.GeoProjection = d3Geo.geoAzimuthalEquidistant();
+const albers: d3Geo.GeoConicProjection = d3Geo.geoAlbers();
+const albersUsa: d3Geo.GeoProjection = d3Geo.geoAlbersUsa();
+const azimuthalEqualArea: d3Geo.GeoProjection = d3Geo.geoAzimuthalEqualArea();
+const azimuthalEquidistant: d3Geo.GeoProjection = d3Geo.geoAzimuthalEquidistant();
 let conicConformal: d3Geo.GeoConicProjection = d3Geo.geoConicConformal();
-let conicEqualArea: d3Geo.GeoConicProjection = d3Geo.geoConicEqualArea();
-let conicEquidistant: d3Geo.GeoConicProjection = d3Geo.geoConicEquidistant();
-let cquirectangular: d3Geo.GeoProjection = d3Geo.geoEquirectangular();
-let gnomonic: d3Geo.GeoProjection = d3Geo.geoGnomonic();
-let mercator: d3Geo.GeoProjection = d3Geo.geoMercator();
-let orthographic: d3Geo.GeoProjection = d3Geo.geoOrthographic();
-let stereographic: d3Geo.GeoProjection = d3Geo.geoStereographic();
-let transverseMercator: d3Geo.GeoProjection = d3Geo.geoTransverseMercator();
+const conicEqualArea: d3Geo.GeoConicProjection = d3Geo.geoConicEqualArea();
+const conicEquidistant: d3Geo.GeoConicProjection = d3Geo.geoConicEquidistant();
+const cquirectangular: d3Geo.GeoProjection = d3Geo.geoEquirectangular();
+const gnomonic: d3Geo.GeoProjection = d3Geo.geoGnomonic();
+const mercator: d3Geo.GeoProjection = d3Geo.geoMercator();
+const orthographic: d3Geo.GeoProjection = d3Geo.geoOrthographic();
+const stereographic: d3Geo.GeoProjection = d3Geo.geoStereographic();
+const transverseMercator: d3Geo.GeoProjection = d3Geo.geoTransverseMercator();
 
 // ----------------------------------------------------------------------
 // Create New Projections
 // ----------------------------------------------------------------------
 
+const geoProjection: d3Geo.GeoProjection = d3Geo.geoProjection(azimuthalEqualAreaRaw);
 
-let geoProjection: d3Geo.GeoProjection = d3Geo.geoProjection(azimuthalEqualAreaRaw);
-
-let mutate: () => d3Geo.GeoProjection = d3Geo.geoProjectionMutator(() => azimuthalEqualAreaRaw);
+const mutate: () => d3Geo.GeoProjection = d3Geo.geoProjectionMutator(() => azimuthalEqualAreaRaw);
 let constructedProjection: d3Geo.GeoProjection = mutate();
 
 // Use Projection ==========================================================
 
-let projected: [number, number] = constructedProjection([54, 2]);
-let inverted2: [number, number] = constructedProjection.invert([54, 2]);
+const projected: [number, number] = constructedProjection([54, 2]);
+const inverted2: [number, number] = constructedProjection.invert([54, 2]);
 
 // TODO ?????
 // let stream: d3Geo.Stream = constructedProjection.stream([54, 2]);
 
-let clipAngle: number = constructedProjection.clipAngle();
+const clipAngle: number = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
 constructedProjection = constructedProjection.clipAngle(45);
 
@@ -388,14 +383,14 @@ constructedProjection = constructedProjection.scale(45);
 let translate: [number, number] = constructedProjection.translate();
 constructedProjection = constructedProjection.translate([480, 250]);
 
-let center: [number, number] = constructedProjection.center();
+const center: [number, number] = constructedProjection.center();
 constructedProjection = constructedProjection.center([0, 0]);
 
-let rotate: [number, number, number] = constructedProjection.rotate();
+const rotate: [number, number, number] = constructedProjection.rotate();
 constructedProjection = constructedProjection.rotate([0, 0]);
 constructedProjection = constructedProjection.rotate([0, 0, 0]);
 
-let precision2: number = constructedProjection.precision();
+const precision2: number = constructedProjection.precision();
 constructedProjection = constructedProjection.precision(0.707);
 
 constructedProjection = constructedProjection.fitExtent([[0, 0], [960, 500]], samplePolygon);
@@ -423,7 +418,7 @@ constructedProjection = constructedProjection.fitSize([960, 500], sampleExtended
 // ----------------------------------------------------------------------
 
 // parallels(...) ------------------------------------------------------
-let parallels: [number, number] = conicConformal.parallels();
+const parallels: [number, number] = conicConformal.parallels();
 conicConformal = conicConformal.parallels([20, 20]);
 
 // test method inheritance from GeoProjection ---------------------------
@@ -434,7 +429,7 @@ conicConformal = conicConformal.fitSize([960, 500], samplePolygon); // inherited
 // GeoPath Generator
 // ----------------------------------------------------------------------
 
-let minimalRenderingContextMockUp: d3Geo.GeoContext = {
+const minimalRenderingContextMockUp: d3Geo.GeoContext = {
     beginPath: () => { return; },
     moveTo: (x: number, y: number) => { return; },
     lineTo: (x: number, y: number) => { return; },
@@ -460,12 +455,12 @@ geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon
 // projection(...) ------------------------------------------------------
 
 geoPathCanvas = geoPathCanvas.projection(azimuthalEqualArea);
-let geoPathProjectionMinimal: d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
-let geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
-let geoPathProjection: d3Geo.GeoProjection = geoPathCanvas.projection<d3Geo.GeoProjection>();
+const geoPathProjectionMinimal: d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
+const geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper = geoPathCanvas.projection();
+const geoPathProjection: d3Geo.GeoProjection = geoPathCanvas.projection<d3Geo.GeoProjection>();
 
 geoPathSVG = geoPathSVG.projection(conicConformal);
-let geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d3Geo.GeoConicProjection>();
+const geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d3Geo.GeoConicProjection>();
 // geoPathConicProjection = geoPathSVG.projection(); // fails without casting to GeoConicProjection, or alternatively custom typeguard
 // geoPathConicProjection = geoPathSVG.projection<SampleProperties1>(); // fails as SampleProperties does not extend minimal interface
 
@@ -474,8 +469,7 @@ let geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d3G
 // minimal context interface (mockup)
 geoPathCanvas = geoPathCanvas.context(minimalRenderingContextMockUp);
 
-
-let geoPathContext: d3Geo.GeoContext = geoPathCanvas.context();
+const geoPathContext: d3Geo.GeoContext = geoPathCanvas.context();
 
 // reset
 geoPathCanvas = geoPathCanvas.context(null);
@@ -492,15 +486,15 @@ canvasContext = geoPathCanvas.context<CanvasRenderingContext2D>();
 // pointRadius(...) ------------------------------------------------------
 
 geoPathCanvas = geoPathCanvas.pointRadius(5);
-let geoPathCanvasPointRadiusAccessor: ((this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number) | number = geoPathCanvas.pointRadius();
+const geoPathCanvasPointRadiusAccessor: ((this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number) | number = geoPathCanvas.pointRadius();
 
-geoPathSVG = geoPathSVG.pointRadius(function (datum) {
-    let that: SVGPathElement = this;
-    let d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1> = datum;
+geoPathSVG = geoPathSVG.pointRadius(function(datum) {
+    const that: SVGPathElement = this;
+    const d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1> = datum;
     return datum.properties.name === 'Alabama' ? 10 : 15;
 });
 
-let geoPathSVGPointRadiusAccessor: number | ((this: SVGPathElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) = geoPathSVG.pointRadius();
+const geoPathSVGPointRadiusAccessor: number | ((this: SVGPathElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) = geoPathSVG.pointRadius();
 // let geoPathSVGPointRadiusAccessorWrong1: number | ((this: SVGCircleElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number)
 //     = geoPathSVG.pointRadius(); // fails, mismatch in this context
 // let geoPathSVGPointRadiusAccessorWrong2: number | ((this: SVGPathElement, d: d3Geo.GeoGeometryObjects, ...args: any[]) => number) = geoPathSVG.pointRadius(); // fails, mismatch in object datum type
@@ -520,7 +514,6 @@ geoPathArea = geoPathCanvas.area(sampleFeatureCollection);
 geoPathArea = geoPathCanvas.area(sampleExtendedFeatureCollection);
 
 // geoPathArea = geoPathSVG.area(sampleExtendedFeatureCollection); // fails, wrong data object type
-
 
 // bounds(...) ------------------------------------------------------
 
@@ -550,7 +543,6 @@ geoPathCentroid = geoPathCanvas.centroid(sampleExtendedFeatureCollection);
 
 // geoPathCentroid = geoPathSVG.centroid(sampleExtendedFeatureCollection); // fails, wrong data object type
 
-
 // measure(...) ------------------------------------------------------
 
 let geoPathMeasure: number = geoPathCanvas.measure(samplePolygon);
@@ -579,22 +571,19 @@ geoPathCanvas(sampleExtendedFeatureCollection);
 
 // Use path string generator for SVGPathElement
 
-let svgPath: Selection<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, any, any>;
+declare const svgPath: Selection<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, any, any>;
 svgPath.attr('d', geoPathSVG);
 
-let svgCircleWrong: Selection<SVGCircleElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, any, any>;
+declare const svgCircleWrong: Selection<SVGCircleElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, any, any>;
 // svgCircleWrong.attr('d', geoPathSVG); // fails, mismatch in `this` context
 
-let svgPathWrong: Selection<SVGPathElement, GeoJSON.Polygon, any, any>;
+declare const svgPathWrong: Selection<SVGPathElement, GeoJSON.Polygon, any, any>;
 // svgPathWrong.attr('d', geoPathSVG); // fails, mismatch in datum type
-
-
-
 
 // ----------------------------------------------------------------------
 // Context interface
 // ----------------------------------------------------------------------
-let context: d3Geo.GeoContext = {
+const context: d3Geo.GeoContext = {
     beginPath: () => { return; },
     moveTo: (x: number, y: number) => { return; },
     lineTo: (x: number, y: number) => { return; },
@@ -608,7 +597,7 @@ let context: d3Geo.GeoContext = {
 
 // geoTransform(...) ====================================================
 
-let transformFunction: { stream: (s: d3Geo.GeoStream) => {} } = d3Geo.geoTransform({});
+const transformFunction: { stream: (s: d3Geo.GeoStream) => {} } = d3Geo.geoTransform({});
 
 interface CustomTranformProto extends d3Geo.GeoTransformPrototype {
     a: number;
@@ -617,14 +606,13 @@ interface CustomTranformProto extends d3Geo.GeoTransformPrototype {
 let customTransformProto: CustomTranformProto;
 
 customTransformProto = {
-    point: function (x, y) {
+    point(x, y) {
         return this.stream.point(x + this.a, -y);
     },
     a: 10
 };
 
-let t: { stream: (s: d3Geo.GeoStream) => (CustomTranformProto & d3Geo.GeoStream) } = d3Geo.geoTransform(customTransformProto);
-
+const t: { stream: (s: d3Geo.GeoStream) => (CustomTranformProto & d3Geo.GeoStream) } = d3Geo.geoTransform(customTransformProto);
 
 // geoIdentity() ========================================================
 
@@ -675,7 +663,7 @@ reflecting = identityTransform.reflectY();
 // ----------------------------------------------------------------------
 // Stream interface
 // ----------------------------------------------------------------------
-let stream: d3Geo.GeoStream;
+declare const stream: d3Geo.GeoStream;
 
 stream.point(0, 0);
 stream.point(0, 0, 0);
@@ -696,4 +684,3 @@ d3Geo.geoStream(sampleExtendedFeature1, stream);
 d3Geo.geoStream(sampleExtendedFeature2, stream);
 d3Geo.geoStream(sampleFeatureCollection, stream);
 d3Geo.geoStream(sampleExtendedFeatureCollection, stream);
-

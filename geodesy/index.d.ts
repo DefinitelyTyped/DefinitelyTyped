@@ -43,7 +43,7 @@ export interface Ellipsoids {
     Bessel1841: Ellipsoid;
 }
 
-export declare class Mgrs {
+export class Mgrs {
     zone: number;
     band: string;
     e100k: string;
@@ -68,7 +68,7 @@ export declare class Mgrs {
     toString(digits?: 2 | 4 | 6 | 8 | 10): string;
 }
 
-export declare class Utm {
+export class Utm {
     zone: number;
     hemisphere: hemisphere;
     easting: number;
@@ -91,11 +91,11 @@ export declare class Utm {
     toString(digits?: number): string;
 }
 
-export declare namespace Dms {
-    export let separator: string;
+export namespace Dms {
+    let separator: string;
 }
 
-export declare class Dms {
+export class Dms {
     static parseDMS(dmsStr: string): number;
     static toDMS(deg: number, format?: format, dp?: 0 | 2 | 4): string;
     static toLat(deg: number, format?: format, dp?: 0 | 2 | 4): string;
@@ -104,7 +104,7 @@ export declare class Dms {
     static compassPoint(bearing: number, precision?: 1 | 2 | 3): string;
 }
 
-export declare class Vector3d {
+export class Vector3d {
     x: number;
     y: number;
     z: number;
@@ -125,7 +125,7 @@ export declare class Vector3d {
     applyTransform(t: number[]): Vector3d;
 }
 
-export declare class OsGridRef {
+export class OsGridRef {
     easting: number;
     northing: number;
     constructor(easting: number, northing: number);
@@ -135,7 +135,7 @@ export declare class OsGridRef {
     toString(digits?: number): string;
 }
 
-export declare class LatLonEllipsoidal {
+export class LatLonEllipsoidal {
     lat: number;
     lon: number;
     datum: Datum;

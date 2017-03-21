@@ -9,4 +9,3 @@ try {
     // the torrent file was corrupt
     console.error(e);
 }
-

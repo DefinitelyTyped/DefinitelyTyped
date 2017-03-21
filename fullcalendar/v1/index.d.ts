@@ -8,8 +8,7 @@ import * as moment from "moment";
 
 declare global {
     namespace FullCalendar {
-        export interface Calendar {
-
+        interface Calendar {
             /**
              * Formats a Date object into a string.
              */
@@ -36,22 +35,21 @@ declare global {
             version: string;
         }
 
-        export interface BusinessHours {
+        interface BusinessHours {
             start: moment.Duration;
             end: moment.Duration;
             dow: number[];
         }
 
-        export interface Timespan {
+        interface Timespan {
             start: moment.Moment;
             end: moment.Moment;
         }
 
-        export interface Options extends AgendaOptions, EventDraggingResizingOptions, DroppingExternalElementsOptions, SelectionOptions {
-
+        interface Options extends AgendaOptions, EventDraggingResizingOptions, DroppingExternalElementsOptions, SelectionOptions {
             // General display - http://arshaw.com/fullcalendar/docs/display/
 
-        header?: {
+            header?: {
                 left: string;
                 center: string;
                 right: string;
@@ -152,11 +150,9 @@ declare global {
             eventAfterRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
             eventAfterAllRender?: (view: ViewObject) => void;
             eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
-
-
         }
 
-        export interface ViewOptionHash {
+        interface ViewOptionHash {
             month?: any;
             week?: any;
             day?: any;
@@ -172,7 +168,7 @@ declare global {
         /**
          * Agenda Options - http://arshaw.com/fullcalendar/docs/agenda/
          */
-        export interface AgendaOptions {
+        interface AgendaOptions {
             allDaySlot?: boolean;
             allDayText?: string;
             slotDuration?: moment.Duration;
@@ -188,7 +184,7 @@ declare global {
         /*
         * Event Dragging & Resizing
         */
-        export interface EventDraggingResizingOptions {
+        interface EventDraggingResizingOptions {
             editable?: boolean;
             eventStartEditable?: boolean;
             eventDurationEditable?: boolean;
@@ -207,7 +203,7 @@ declare global {
         /*
         * Selection - http://arshaw.com/fullcalendar/docs/selection/
         */
-        export interface SelectionOptions {
+        interface SelectionOptions {
             selectable?: boolean;
             selectHelper?: boolean | ((start: moment.Moment, end: moment.Moment) => HTMLElement);
             unselectAuto?: boolean;
@@ -218,14 +214,14 @@ declare global {
             unselect?: (view: ViewObject, jsEvent: Event) => void;
         }
 
-        export interface DroppingExternalElementsOptions {
+        interface DroppingExternalElementsOptions {
             droppable?: boolean;
             dropAccept?: string | ((draggable: any) => boolean);
             drop?: (date: moment.Moment, jsEvent: MouseEvent, ui: any) => void;
             eventReceive?: (event: EventObject) => void;
         }
 
-        export interface ButtonTextObject {
+        interface ButtonTextObject {
             prev?: string;
             next?: string;
             prevYear?: string;
@@ -236,7 +232,7 @@ declare global {
             day?: string;
         }
 
-        export interface EventObject extends Timespan {
+        interface EventObject extends Timespan {
             id?: any; // String/number
             title: string;
             allDay?: boolean;
@@ -251,15 +247,14 @@ declare global {
             rendering?: string;
         }
 
-        export interface ViewObject extends Timespan {
+        interface ViewObject extends Timespan {
             name: string;
             title: string;
             intervalStart: moment.Moment;
             intervalEnd: moment.Moment;
         }
 
-        export interface EventSource extends JQueryAjaxSettings {
-
+        interface EventSource extends JQueryAjaxSettings {
             /**
              * This has one of the following types:
              *
@@ -281,11 +276,9 @@ declare global {
             startParam?: string;
             endParam?: string;
         }
-
     }
 
     interface JQuery {
-
         /**
          * Get/Set option value
          */

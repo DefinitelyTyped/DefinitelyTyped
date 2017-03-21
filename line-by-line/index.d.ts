@@ -38,7 +38,7 @@ interface LineByLineReader extends EventEmitter {
 interface LineByLineReaderOptions {
     encoding?: string;
     skipEmptyLines?: boolean;
-    start?: number
+    start?: number;
 }
 
 interface LineByLineReaderConstructor {
@@ -53,4 +53,4 @@ interface LineByLineReaderConstructor {
 
 type LineByLineReaderEvent = "line" | "end" | "error";
 
-declare const LineByLineReader: LineByLineReaderConstructor;    
+declare const LineByLineReader: LineByLineReaderConstructor;

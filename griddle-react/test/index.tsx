@@ -7,28 +7,28 @@ Copyright (c) 2016 David Hara
 import * as React from 'react';
 import { render } from 'react-dom';
 import Griddle, { CustomColumnComponentProps } from 'griddle-react';
-import CustomColumnComponentGrid from './test/CustomColumnComponent';
-import CustomHeaderComponentGrid from './test/CustomHeaderComponent';
-import CustomFilterComponentGrid from './test/CustomFilterComponent';
+import CustomColumnComponentGrid from './CustomColumnComponent';
+import CustomHeaderComponentGrid from './CustomHeaderComponent';
+import CustomFilterComponentGrid from './CustomFilterComponent';
 
 interface MyCustomResult {
-  name: string,
-  test: string
+  name: string;
+  test: string;
 }
 
 class LinkComponent extends React.Component<CustomColumnComponentProps<MyCustomResult>, any> {
   render() {
-    var url = "speakers/" + this.props.rowData.test + "/" + this.props.data;
-    return <a href={url}>{this.props.data}</a>
+    const url = "speakers/" + this.props.rowData.test + "/" + this.props.data;
+    return <a href={url}>{this.props.data}</a>;
   }
 }
 
 const StatelessFunctionComponent = (props: CustomColumnComponentProps<MyCustomResult>) => {
-  var url = "speakers/" + props.rowData.test + "/" + props.data;
-  return <a href={url}>{props.data}</a>
+  const url = "speakers/" + props.rowData.test + "/" + props.data;
+  return <a href={url}>{props.data}</a>;
 };
 
-var columnMeta = [
+const columnMeta = [
   {
     columnName: "name",
     order: 1,
@@ -37,7 +37,7 @@ var columnMeta = [
     customComponent: StatelessFunctionComponent
   }];
 
-var results: MyCustomResult[] = [
+const results: MyCustomResult[] = [
   {
     name: 'David Hara',
     test: 'blah'
@@ -48,7 +48,7 @@ var results: MyCustomResult[] = [
   }
 ];
 
-var rowMetaData = {
+const rowMetaData = {
   bodyCssClassName: (rowData: MyCustomResult) => {
     return rowData.test;
   }

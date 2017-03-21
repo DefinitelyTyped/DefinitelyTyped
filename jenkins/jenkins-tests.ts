@@ -20,7 +20,7 @@ jenkins.build.log('example', 1, (err, data) => {
   console.log('log', data);
 });
 
-var log = jenkins.build.logStream('example', 1);
+const log = jenkins.build.logStream('example', 1);
 
 log.on('data', (text: string) => {
   process.stdout.write(text);
@@ -202,4 +202,4 @@ jenkins.view.remove('example', 'jobExample', (err) => {
 
 const jenkins2 = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true, promisify: true });
 jenkins2.info().then(info => console.log(info));
-jenkins2.job.exists('example').then(exists => { var b: boolean = exists; });
+jenkins2.job.exists('example').then(exists => { const b: boolean = exists; });
