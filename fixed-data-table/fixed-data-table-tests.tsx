@@ -1,5 +1,5 @@
-/// <reference path="./fixed-data-table.d.ts"" />
-/// <reference path="../react/react.d.ts"/>
+
+/// <reference types="react"/>
 
 import * as React from "react";
 import {Table, Cell, Column, CellProps} from "fixed-data-table";
@@ -174,11 +174,11 @@ class MyTable5 extends React.Component<{}, {}> {
                 onScrollStart={(x: number, y: number) => {}}
                 onScrollEnd={(x: number, y: number) => {}}
                 onContentHeightChange={(newHeight: number) => {}}
-                onRowClick={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowDoubleClick={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowMouseDown={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowMouseEnter={(event: React.SyntheticEvent, rowIndex: number) => {}}
-                onRowMouseLeave={(event: React.SyntheticEvent, rowIndex: number) => {}}
+                onRowClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowDoubleClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseDown={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseEnter={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
+                onRowMouseLeave={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
                 onColumnResizeEndCallback={(newColumnWidth: number, columnKey: string) => {}}>
                 // add columns
             </Table>

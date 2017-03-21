@@ -2,7 +2,7 @@
 
 ## Referencing AppleTVJS definition files in your code
 
-To do that, simply add `/// <reference path="appletvjs.d.ts" />` at the top of your code.
+To do that, simply add `` at the top of your code.
 
 This will allow you to have intellisense in your AppleTVJS typescript code.
 

@@ -1,4 +1,4 @@
-/// <reference path="restify.d.ts" />
+
 
 import restify = require("restify");
 import url = require("url");
@@ -43,7 +43,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key') === 'val';
     req.trailer('key', 'val');
     req.trailer('key') === 'val';
-
+    
     req.accepts('test') === true;
     req.accepts(['test']) === true;
     req.acceptsEncoding('test') === true;
@@ -312,6 +312,7 @@ client = restify.createStringClient({
 
 client.head('test', function(err: any, req: restify.Request, res: restify.Response) { });
 client.put('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
+client.patch('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
 client.del('path', function(err: any, req: restify.Request, res: restify.Response) { });
 
 client.post('/foo', { hello: 'world' }, function(err: any, req: restify.Request, res: restify.Response, obj: any) {
@@ -342,7 +343,7 @@ client2.get('/str/mcavage', function(err: any, req: any) {
         });
     });
 });
-
+  
 
 client.basicAuth('test', 'password');
 client2.basicAuth('test', 'password');

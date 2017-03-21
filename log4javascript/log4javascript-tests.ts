@@ -1,8 +1,8 @@
-﻿/// <reference path="./log4javascript.d.ts" />
+
 
 function aSimpleLoggingMessageString() {
 	var log = log4javascript.getDefaultLogger();
-    log.info("Hello World");
+	log.info("Hello World");
 }
 
 function compareLogLevelsAndLog() {

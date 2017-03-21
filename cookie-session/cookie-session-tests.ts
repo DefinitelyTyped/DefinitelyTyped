@@ -1,4 +1,4 @@
-/// <reference path="cookie-session.d.ts" />
+
 
 import express = require('express');
 import cookieSession = require('cookie-session');

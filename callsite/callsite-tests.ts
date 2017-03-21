@@ -1,5 +1,4 @@
 
-///<reference path="callsite.d.ts" />
 
 import callsite = require("callsite");
 

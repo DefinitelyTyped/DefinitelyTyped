@@ -1,5 +1,4 @@
-﻿/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="angular-jwt.d.ts" />
+/// <reference types="angular" />
 
 var app = angular.module("angular-jwt-tests", ["angular-jwt"]);
 
@@ -15,3 +14,18 @@ var $jwtInterceptor: ng.jwt.IJwtInterceptor;
 $jwtInterceptor.tokenGetter = () => {
     return expToken;
 }
+
+
+var authManager: ng.jwt.IAuthManagerServiceProvider;
+
+// Indicate the user is authenticated
+authManager.authenticate();
+
+// Indicate the user is unauthenticated
+authManager.unauthenticate();
+
+// Keep the user authenticated
+authManager.checkAuthOnRefresh();
+
+// Redirect the user on unauthorized requests
+authManager.redirectWhenUnauthenticated();

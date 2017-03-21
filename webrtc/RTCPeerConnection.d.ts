@@ -1,404 +1,502 @@
-// Type definitions for WebRTC
-// Project: http://dev.w3.org/2011/webrtc/
-// Definitions by: Ken Smith <https://github.com/smithkl42/>
+// Type definitions for WebRTC 2016-09-13
+// Project: https://www.w3.org/TR/webrtc/
+// Definitions by: Danilo Bargen <https://github.com/dbrgn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
-// W3 Spec: https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
+// W3 Spec: https://www.w3.org/TR/webrtc/
+//
+// Note: Commented out definitions clash with definitions in lib.es6.d.ts. I
+// still kept them in here though, as sometimes they're more specific than the
+// ES6 library ones.
 
 /// <reference path='MediaStream.d.ts' />
 
-// TODO(1): Get Typescript to have string-enum types as WebRtc is full of string
-// enums.
-// https://typescript.codeplex.com/discussions/549207
+type EventHandler = (event: Event) => void;
 
-// TODO(2): get Typescript to have union types as WebRtc uses them.
-// https://typescript.codeplex.com/workitem/1364
-
-// https://www.w3.org/TR/webrtc/#idl-def-RTCIceTransportPolicy
-type RTCIceTransportPolicy = 'public' | 'relay' | 'all';
-
-// https://www.w3.org/TR/webrtc/#idl-def-RTCBundlePolicy
-type RTCBundlePolicy = 'balanced' | 'max-compat' | 'max-bundle';
-
-// https://www.w3.org/TR/webrtc/#idl-def-RTCRtcpMuxPolicy
-type RTCRtcpMuxPolicy = 'negotiate' | 'require';
-
-// https://www.w3.org/TR/webrtc/#idl-def-RTCCertificate
-interface RTCCertificate {
-    expires: number;
+// https://www.w3.org/TR/webrtc/#idl-def-rtcofferansweroptions
+interface RTCOfferAnswerOptions {
+    voiceActivityDetection?: boolean; // default = true
 }
 
-// https://www.w3.org/TR/webrtc/#idl-def-RTCConfiguration
-// https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCConfiguration_dictionary
-interface RTCConfiguration {
-  iceServers           ?: RTCIceServer[];        // optional according to mozilla docs
-  iceTransportPolicy   ?: RTCIceTransportPolicy; // default = 'all'
-  bundlePolicy         ?: RTCBundlePolicy;       // default = 'balanced'
-  rtcpMuxPolicy        ?: RTCRtcpMuxPolicy;      // default = 'require'
-  peerIdentity         ?: string;                // default = null
-  certificates         ?: RTCCertificate[];      // default is auto-generated
-  iceCandidatePoolSize ?: number;                // default = 0
+// https://www.w3.org/TR/webrtc/#idl-def-rtcofferoptions
+interface RTCOfferOptions extends RTCOfferAnswerOptions {
+    iceRestart?: boolean; // default = false
 }
 
-declare var RTCConfiguration: {
-  prototype: RTCConfiguration;
-  new (): RTCConfiguration;
-};
+// https://www.w3.org/TR/webrtc/#idl-def-rtcansweroptions
+interface RTCAnswerOptions extends RTCOfferAnswerOptions {
+}
 
-// https://www.w3.org/TR/webrtc/#idl-def-RTCIceCredentialType
+// https://www.w3.org/TR/webrtc/#idl-def-rtcsdptype
+type RTCSdpType = 'offer' | 'pranswer' | 'answer' | 'rollback';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcsessiondescriptioninit
+interface RTCSessionDescriptionInit {
+    type: RTCSdpType;
+    sdp?: string; // If type is 'rollback', this member can be left undefined.
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcsessiondescription
+interface RTCSessionDescription {
+    readonly type: RTCSdpType;
+    readonly sdp: string;
+}
+interface RTCSessionDescriptionStatic {
+    new(descriptionInitDict: RTCSessionDescriptionInit): RTCSessionDescription; // Deprecated
+}
+
+// https://www.w3.org/TR/webrtc/#dom-rtciceprotocol
+type RTCIceProtocol = 'udp' | 'tcp';
+
+// https://www.w3.org/TR/webrtc/#dom-rtcicecandidatetype
+type RTCIceCandidateType = 'host' | 'srflx' | 'prflx' | 'relay';
+
+// https://www.w3.org/TR/webrtc/#dom-rtcicetcpcandidatetype
+type RTCIceTcpCandidateType = 'active' | 'passive' | 'so';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicecandidateinit
+interface RTCIceCandidateInit {
+    candidate: string;
+    sdpMid?: string; // default = null
+    sdpMLineIndex?: number; // default = null
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicecandidate
+interface RTCIceCandidate {
+    readonly candidate: string;
+    readonly sdpMid?: string;
+    readonly sdpMLineIndex?: number;
+    //readonly foundation: string;
+    //readonly priority: number;
+    //readonly ip: string;
+    //readonly protocol: RTCIceProtocol;
+    //readonly port: number;
+    //readonly type: RTCIceCandidateType;
+    //readonly tcpType?: RTCIceTcpCandidateType;
+    //readonly relatedAddress?: string;
+    //readonly relatedPort?: number;
+}
+interface RTCIceCandidateStatic {
+    new(candidateInitDict: RTCIceCandidateInit): RTCIceCandidate;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicecandidatepair
+interface RTCIceCandidatePair {
+    //local: RTCIceCandidate;
+    //remote: RTCIceCandidate;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcsignalingstate
+type RTCSignalingState = 'stable' | 'have-local-offer' | 'have-remote-offer' | 'have-local-pranswer' | 'have-remote-pranswer';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicegatheringstate
+type RTCIceGatheringState = 'new' | 'gathering' | 'complete';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtciceconnectionstate
+type RTCIceConnectionState = 'new' | 'checking' | 'connected' | 'completed' | 'failed' | 'disconnected' | 'closed';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcpeerconnectionstate
+type RTCPeerConnectionState = 'new' | 'connecting' | 'connected' | 'disconnected' | 'failed' | 'closed';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicecredentialtype
 type RTCIceCredentialType = 'password' | 'token';
 
-// https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
+// https://www.w3.org/TR/webrtc/#idl-def-rtciceserver
 interface RTCIceServer {
-  urls: string | string[];
-  username?: string;
-  credential?: string;
-  credentialType?: RTCIceCredentialType; // default = 'password'
-}
-declare var RTCIceServer: {
-  prototype: RTCIceServer;
-  new (): RTCIceServer;
-};
-
-// moz (Firefox) specific prefixes.
-interface mozRTCPeerConnection extends RTCPeerConnection {
-}
-declare var mozRTCPeerConnection: {
-  prototype: mozRTCPeerConnection;
-  new (settings?: RTCConfiguration,
-       constraints?:RTCMediaConstraints): mozRTCPeerConnection;
-};
-// webkit (Chrome) specific prefixes.
-interface webkitRTCPeerConnection extends RTCPeerConnection {
-}
-declare var webkitRTCPeerConnection: {
-  prototype: webkitRTCPeerConnection;
-  new (settings?: RTCConfiguration,
-       constraints?:RTCMediaConstraints): webkitRTCPeerConnection;
-};
-
-// For Chrome, look at the code here:
-// https://code.google.com/p/chromium/codesearch#chromium/src/third_party/libjingle/source/talk/app/webrtc/webrtcsession.cc&sq=package:chromium&dr=C&l=63
-interface RTCOptionalMediaConstraint {
-  // When true, will use DTLS/SCTP data channels
-  DtlsSrtpKeyAgreement?: boolean;
-  // When true will use Rtp-based data channels (depreicated)
-  RtpDataChannels?: boolean;
+    //urls: string | string[];
+    username?: string;
+    credential?: string;
+    credentialType?: RTCIceCredentialType; // default = 'password'
 }
 
-// ks 12/20/12 - There's more here that doesn't seem to be documented very well yet.
-// http://www.w3.org/TR/2013/WD-webrtc-20130910/
-interface RTCMediaConstraints {
-  mandatory?: RTCMediaOfferConstraints;
-  optional?: RTCOptionalMediaConstraint[]
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicetransportpolicy
+type RTCIceTransportPolicy = 'relay' | 'all';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcbundlepolicy
+type RTCBundlePolicy = 'balanced' | 'max-compat' | 'max-bundle';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtcpmuxpolicy
+type RTCRtcpMuxPolicy = 'negotiate' | 'require';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicerole
+type RTCIceRole = 'controlling' | 'controlled';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicecomponent
+type RTCIceComponent = 'RTP' | 'RTCP';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicetransportstate
+type RTCIceTransportState = 'new' | 'checking' | 'connected' | 'completed' | 'failed' | 'disconnected' | 'closed';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtciceparameters
+interface RTCIceParameters {
+    //usernameFragment: string;
+    //password: string;
 }
 
-interface RTCMediaOfferConstraints {
-  offerToReceiveAudio: boolean;
-  offerToReceiveVideo: boolean;
+// https://www.w3.org/TR/webrtc/#idl-def-rtcicetransport
+interface RTCIceTransport {
+    //readonly role: RTCIceRole;
+    //readonly component: RTCIceComponent;
+    //readonly state: RTCIceTransportState;
+    readonly gatheringState: RTCIceGatheringState;
+    getLocalCandidates(): RTCIceCandidate[];
+    getRemoteCandidates(): RTCIceCandidate[];
+    getSelectedCandidatePair(): RTCIceCandidatePair | null;
+    getLocalParameters(): RTCIceParameters | null;
+    getRemoteParameters(): RTCIceParameters | null;
+    onstatechange: EventHandler;
+    ongatheringstatechange: EventHandler;
+    onselectedcandidatepairchange: EventHandler;
 }
 
-interface RTCSessionDescriptionInit {
-  type: string;  // RTCSdpType; See TODO(1)
-  sdp: string;
+// https://www.w3.org/TR/webrtc/#idl-def-rtcdtlstransportstate
+type RTCDtlsTransportState = 'new' | 'connecting' | 'connected' | 'closed' | 'failed';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcdtlstransport
+interface RTCDtlsTransport {
+    readonly transport: RTCIceTransport;
+    //readonly state: RTCDtlsTransportState;
+    getRemoteCertificates(): ArrayBuffer[];
+    onstatechange: EventHandler;
 }
 
-interface RTCSessionDescription {
-  type?: string;  // RTCSdpType; See TODO(1)
-  sdp?: string;
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcodeccapability
+interface RTCRtpCodecCapability {
+    mimeType: string;
 }
-declare var RTCSessionDescription: {
-  prototype: RTCSessionDescription;
-  new (descriptionInitDict?: RTCSessionDescriptionInit): RTCSessionDescription;
-  // TODO: Add serializer.
-  // See: http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCSdpType)
-};
 
-interface webkitRTCSessionDescription extends RTCSessionDescription{
-  type?: string;
-  sdp?: string;
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpheaderextensioncapability
+interface RTCRtpHeaderExtensionCapability {
+    uri: string;
 }
-declare var webkitRTCSessionDescription: {
-  prototype: webkitRTCSessionDescription;
-  new (descriptionInitDict?: RTCSessionDescriptionInit): webkitRTCSessionDescription;
-};
 
-interface mozRTCSessionDescription extends RTCSessionDescription{
-  type?: string;
-  sdp?: string;
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcapabilities
+interface RTCRtpCapabilities {
+    //codecs: RTCRtpCodecCapability[];
+    //headerExtensions: RTCRtpHeaderExtensionCapability[];
 }
-declare var mozRTCSessionDescription: {
-  prototype: mozRTCSessionDescription;
-  new (descriptionInitDict?: RTCSessionDescriptionInit): mozRTCSessionDescription;
-};
 
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtprtxparameters
+interface RTCRtpRtxParameters {
+    //ssrc: number;
+}
 
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpfecparameters
+interface RTCRtpFecParameters {
+    //ssrc: number;
+}
 
+// https://www.w3.org/TR/webrtc/#idl-def-rtcdtxstatus
+type RTCDtxStatus = 'disabled' | 'enabled';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcprioritytype
+type RTCPriorityType = 'very-low' | 'low' | 'medium' | 'high';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpencodingparameters
+interface RTCRtpEncodingParameters {
+    //ssrc: number;
+    //rtx: RTCRtpRtxParameters;
+    //fec: RTCRtpFecParameters;
+    dtx: RTCDtxStatus;
+    //active: boolean;
+    //priority: RTCPriorityType;
+    //maxBitrate: number;
+    maxFramerate: number;
+    rid: string;
+    scaleResolutionDownBy?: number; // default = 1
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpheaderextensionparameters
+interface RTCRtpHeaderExtensionParameters {
+    //uri: string;
+    //id: number;
+    encrypted: boolean;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtcpparameters
+interface RTCRtcpParameters {
+    //cname: string;
+    //reducedSize: boolean;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcodecparameters
+interface RTCRtpCodecParameters {
+    //payloadType: number;
+    mimeType: string;
+    //clockRate: number;
+    channels?: number; // default = 1
+    sdpFmtpLine: string;
+}
+
+type RTCDegradationPreference = 'maintain-framerate' | 'maintain-resolution' | 'balanced';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpparameters
+interface RTCRtpParameters {
+    transactionId: string;
+    //encodings: RTCRtpEncodingParameters[];
+    //headerExtensions: RTCRtpHeaderExtensionParameters[];
+    //rtcp: RTCRtcpParameters;
+    //codecs: RTCRtpCodecParameters[];
+    degradationPreference?: RTCDegradationPreference; // default = 'balanced'
+}
+
+// https://www.w3.org/TR/webrtc/#dom-rtcrtpcontributingsource
+interface RTCRtpContributingSource {
+    //readonly timestamp: number;
+    readonly source: number;
+    //readonly audioLevel: number | null;
+    readonly voiceActivityFlag: boolean | null;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcapabilities
+interface RTCRtcCapabilities {
+    codecs: RTCRtpCodecCapability[];
+    headerExtensions: RTCRtpHeaderExtensionCapability[];
+}
+
+// https://www.w3.org/TR/webrtc/#dom-rtcrtpsender
+interface RTCRtpSender {
+    //readonly track?: MediaStreamTrack;
+    //readonly transport?: RTCDtlsTransport;
+    //readonly rtcpTransport?: RTCDtlsTransport;
+    setParameters(parameters?: RTCRtpParameters): Promise<void>;
+    getParameters(): RTCRtpParameters;
+    replaceTrack(withTrack: MediaStreamTrack): Promise<void>;
+}
+interface RTCRtpSenderStatic {
+    new(): RTCRtpSender;
+    getCapabilities(kind: string): RTCRtpCapabilities;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtpreceiver
+interface RTCRtpReceiver {
+    //readonly track?: MediaStreamTrack;
+    //readonly transport?: RTCDtlsTransport;
+    //readonly rtcpTransport?: RTCDtlsTransport;
+    getParameters(): RTCRtpParameters;
+    getContributingSources(): RTCRtpContributingSource[];
+}
+interface RTCRtpReceiverStatic {
+    new(): RTCRtpReceiver;
+    getCapabilities(kind: string): RTCRtcCapabilities;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtptransceiverdirection
+type RTCRtpTransceiverDirection = 'sendrecv' | 'sendonly' | 'recvonly' | 'inactive';
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtptransceiver
+interface RTCRtpTransceiver {
+    readonly mid: string | null;
+    readonly sender: RTCRtpSender;
+    readonly receiver: RTCRtpReceiver;
+    readonly stopped: boolean;
+    readonly direction: RTCRtpTransceiverDirection;
+    setDirection(direction: RTCRtpTransceiverDirection): void;
+    stop(): void;
+    setCodecPreferences(codecs: RTCRtpCodecCapability[]): void;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcrtptransceiverinit
+interface RTCRtpTransceiverInit {
+    direction?: RTCRtpTransceiverDirection; // default = 'sendrecv'
+    streams: MediaStream[];
+    sendEncodings: RTCRtpEncodingParameters[];
+}
+
+// https://www.w3.org/TR/webrtc/#dom-rtccertificate
+interface RTCCertificate {
+    readonly expires: number;
+    getAlgorithm(): string;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcconfiguration
+interface RTCConfiguration {
+    iceServers?: RTCIceServer[];
+    iceTransportPolicy?: RTCIceTransportPolicy; // default = 'all'
+    bundlePolicy?: RTCBundlePolicy; // default = 'balanced'
+    rtcpMuxPolicy?: RTCRtcpMuxPolicy; // default = 'require'
+    peerIdentity?: string; // default = null
+    certificates?: RTCCertificate[];
+    iceCandidatePoolSize?: number; // default = 0
+}
+
+// Compatibility for older definitions on DefinitelyTyped.
+type RTCPeerConnectionConfig = RTCConfiguration;
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcsctptransport
+interface RTCSctpTransport {
+    readonly transport: RTCDtlsTransport;
+    readonly maxMessageSize: number;
+}
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannelinit
 interface RTCDataChannelInit {
-  ordered             ?: boolean; // messages must be sent in-order.
-  maxPacketLifeTime   ?: number;  // unsigned short
-  maxRetransmits      ?: number;  // unsigned short
-  protocol            ?: string;  // default = ''
-  negotiated          ?: boolean; // default = false;
-  id                  ?: number;  // unsigned short
+    ordered?: boolean; // default = true
+    maxPacketLifeTime?: number;
+    maxRetransmits?: number;
+    protocol?: string; // default = ''
+    negotiated?: boolean; // default = false
+    id?: number;
 }
 
-// TODO(1)
-declare enum RTCSdpType {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#rtcsdptype
-  'offer',
-  'pranswer',
-  'answer'
-}
+// https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannelstate
+type RTCDataChannelState = 'connecting' | 'open' | 'closing' | 'closed';
 
-interface RTCMessageEvent {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#event-datachannel-message
-  // At present, this can be an: ArrayBuffer, a string, or a Blob.
-  // See TODO(2)
-  data: any;
-}
+// https://www.w3.org/TR/websockets/#dom-websocket-binarytype
+type RTCBinaryType = 'blob' | 'arraybuffer';
 
-// TODO(1)
-declare enum RTCDataChannelState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCDataChannelState
-  'connecting',
-  'open',
-  'closing',
-  'closed'
-}
-
+// https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannel
 interface RTCDataChannel extends EventTarget {
-  label: string;
-  reliable: boolean;
-  readyState: string; // RTCDataChannelState; see TODO(1)
-  bufferedAmount: number;
-  binaryType: string;
+    readonly label: string;
+    readonly ordered: boolean;
+    readonly maxPacketLifeTime: number | null;
+    readonly maxRetransmits: number | null;
+    readonly protocol: string;
+    readonly negotiated: boolean;
+    readonly id: number;
+    readonly readyState: RTCDataChannelState;
+    readonly bufferedAmount: number;
+    bufferedAmountLowThreshold: number;
+    binaryType: RTCBinaryType;
 
-  onopen: (event: Event) => void;
-  onerror: (event: Event) => void;
-  onclose: (event: Event) => void;
-  onmessage: (event: RTCMessageEvent) => void;
+    close(): void;
+    send(data: string | Blob | ArrayBuffer | ArrayBufferView): void;
 
-  close(): void;
-
-  send(data: string): void ;
-  send(data: ArrayBuffer): void;
-  send(data: ArrayBufferView): void;
-  send(data: Blob): void;
-}
-declare var RTCDataChannel: {
-  prototype: RTCDataChannel;
-  new (): RTCDataChannel;
-};
-
-interface RTCDataChannelEvent extends Event {
-  channel: RTCDataChannel;
-}
-declare var RTCDataChannelEvent: {
-  prototype: RTCDataChannelEvent;
-  new (eventInitDict: RTCDataChannelEventInit): RTCDataChannelEvent;
-};
-
-interface RTCIceCandidateEvent extends Event {
-  candidate: RTCIceCandidate;
+    onopen: EventHandler;
+    onmessage: (event: MessageEvent) => void;
+    onbufferedamountlow: EventHandler;
+    onerror: (event: ErrorEvent) => void;
+    onclose: EventHandler;
 }
 
-interface RTCMediaStreamEvent extends Event {
-  stream: MediaStream;
+// https://www.w3.org/TR/webrtc/#h-rtctrackevent
+interface RTCTrackEvent extends Event {
+    readonly receiver: RTCRtpReceiver;
+    readonly track: MediaStreamTrack;
+    readonly streams: MediaStream[];
+    readonly transceiver: RTCRtpTransceiver;
 }
 
-interface EventInit {
+// https://www.w3.org/TR/webrtc/#h-rtcpeerconnectioniceevent
+interface RTCPeerConnectionIceEvent extends Event {
+    readonly candidate: RTCIceCandidate | null;
+    readonly url: string;
 }
 
-interface RTCDataChannelEventInit extends EventInit {
-  channel: RTCDataChannel;
+// https://www.w3.org/TR/webrtc/#h-rtcpeerconnectioniceerrorevent
+interface RTCPeerConnectionIceErrorEvent extends Event {
+    readonly hostCandidate: string;
+    readonly url: string;
+    readonly errorCode: number;
+    readonly errorText: string;
 }
 
-interface RTCVoidCallback {
-  (): void;
-}
-interface RTCSessionDescriptionCallback {
-  (sdp: RTCSessionDescription): void;
-}
-interface RTCPeerConnectionErrorCallback {
-  (errorInformation: DOMError): void;
+// https://www.w3.org/TR/webrtc/#h-rtcdatachannelevent
+interface RTCDataChannelEvent {
+    readonly channel: RTCDataChannel;
 }
 
-// TODO(1)
-declare enum RTCIceGatheringState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#rtcicegatheringstate-enum
-  'new',
-  'gathering',
-  'complete'
+// https://www.w3.org/TR/webrtc/#idl-def-rtcsessiondescriptioncallback
+// Deprecated!
+type RTCSessionDescriptionCallback = (sdp: RTCSessionDescription) => void;
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcpeerconnectionerrorcallback
+// Deprecated!
+type RTCPeerConnectionErrorCallback = (error: DOMException) => void;
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcstatscallback
+// Deprecated!
+type RTCStatsCallback = (report: RTCStatsReport) => void;
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcpeerconnection
+interface RTCPeerConnection extends EventTarget {
+    createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
+    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>;
+
+    setLocalDescription(description: RTCSessionDescriptionInit): Promise<void>;
+    readonly localDescription: RTCSessionDescription | null;
+    readonly currentLocalDescription: RTCSessionDescription | null;
+    readonly pendingLocalDescription: RTCSessionDescription | null;
+
+    setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
+    readonly remoteDescription: RTCSessionDescription | null;
+    readonly currentRemoteDescription: RTCSessionDescription | null;
+    readonly pendingRemoteDescription: RTCSessionDescription | null;
+
+    addIceCandidate(candidate?: RTCIceCandidateInit | RTCIceCandidate): Promise<void>;
+
+    readonly signalingState: RTCSignalingState;
+    readonly iceGatheringState: RTCIceGatheringState;
+    readonly iceConnectionState: RTCIceConnectionState;
+    readonly connectionState: RTCPeerConnectionState;
+    readonly canTrickleIceCandidates?: boolean | null;
+
+    getConfiguration(): RTCConfiguration;
+    setConfiguration(configuration: RTCConfiguration): void;
+    close(): void;
+
+    onnegotiationneeded: EventHandler;
+    onicecandidate: (event: RTCPeerConnectionIceEvent) => void;
+    onicecandidateerror: (event: RTCPeerConnectionIceErrorEvent) => void;
+    onsignalingstatechange: EventHandler;
+    oniceconnectionstatechange: EventHandler;
+    onicegatheringstatechange: EventHandler;
+    onconnectionstatechange: EventHandler;
+
+    // Extension: https://www.w3.org/TR/webrtc/#h-rtcpeerconnection-interface-extensions
+    getSenders(): RTCRtpSender[];
+    getReceivers(): RTCRtpReceiver[];
+    getTransceivers(): RTCRtpTransceiver[];
+    addTrack(track: MediaStreamTrack, ...streams: MediaStream[]): RTCRtpSender;
+    removeTrack(sender: RTCRtpSender): void;
+    addTransceiver(trackOrKind: MediaStreamTrack | string, init?: RTCRtpTransceiverInit): RTCRtpTransceiver;
+    ontrack: (event: RTCTrackEvent) => void;
+
+    // Extension: https://www.w3.org/TR/webrtc/#h-rtcpeerconnection-interface-extensions-1
+    readonly sctp: RTCSctpTransport | null;
+    createDataChannel(label: string | null, dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
+    ondatachannel: (event: 	RTCDataChannelEvent) => void;
+
+    // Extension: https://www.w3.org/TR/webrtc/#h-rtcpeerconnection-interface-extensions-2
+    getStats(selector?: MediaStreamTrack | null): Promise<RTCStatsReport>;
+
+    // Extension: https://www.w3.org/TR/webrtc/#legacy-interface-extensions
+    // Deprecated!
+    createOffer(successCallback: RTCSessionDescriptionCallback,
+        failureCallback: RTCPeerConnectionErrorCallback,
+        options?: RTCOfferOptions): Promise<void>;
+    setLocalDescription(description: RTCSessionDescriptionInit,
+        successCallback: () => void,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    createAnswer(successCallback: RTCSessionDescriptionCallback,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    setRemoteDescription(description: RTCSessionDescriptionInit,
+        successCallback: () => void,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate,
+        successCallback: () => void,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    getStats(selector: MediaStreamTrack | null,
+        successCallback: RTCStatsCallback,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+}
+interface RTCPeerConnectionStatic {
+    new(configuration?: RTCConfiguration): RTCPeerConnection;
+    readonly defaultIceServers: RTCIceServer[];
+
+    // Extension: https://www.w3.org/TR/webrtc/#sec.cert-mgmt
+    generateCertificate(keygenAlgorithm: string): Promise<RTCCertificate>;
 }
 
-// TODO(1)
-declare enum RTCIceConnectionState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCIceConnectionState
-  'new',
-  'checking',
-  'connected',
-  'completed',
-  'failed',
-  'disconnected',
-  'closed'
-}
-
-// TODO(1)
-declare enum RTCSignalingState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCSignalingState
-  'stable',
-  'have-local-offer',
-  'have-remote-offer',
-  'have-local-pranswer',
-  'have-remote-pranswer',
-  'closed'
-}
-
-// This is based on the current implementation of WebRtc in Chrome; the spec is
-// a little unclear on this.
-// http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCStatsReport
-interface RTCStatsReport {
-  stat(id: string): string;
-}
-
-interface RTCStatsCallback {
-  (report: RTCStatsReport): void;
-}
-
-interface RTCOfferAnswerOptions {
-    voiceActivityDetection ?: boolean; // default = true
-}
-
-interface RTCOfferOptions extends RTCOfferAnswerOptions {
-    iceRestart ?: boolean; // default = false
-}
-
-interface RTCAnswerOptions extends RTCOfferAnswerOptions { }
-
-interface RTCPeerConnection {
-
-  createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescription>;
-  createOffer(successCallback: RTCSessionDescriptionCallback,
-              failureCallback?: RTCPeerConnectionErrorCallback,
-              constraints?: RTCMediaConstraints): void; // Deprecated
-  createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescription>;
-  createAnswer(successCallback: RTCSessionDescriptionCallback,
-               failureCallback?: RTCPeerConnectionErrorCallback,
-               constraints?: RTCMediaConstraints): void; // Deprecated
-  setLocalDescription(description: RTCSessionDescription | RTCSessionDescriptionInit): Promise<void>;
-  setLocalDescription(description: RTCSessionDescription,
-                      successCallback?: RTCVoidCallback,
-                      failureCallback?: RTCPeerConnectionErrorCallback): void; // Deprecated
-  setRemoteDescription(description: RTCSessionDescription | RTCSessionDescriptionInit): Promise<void>;
-  setRemoteDescription(description: RTCSessionDescription,
-                        successCallback?: RTCVoidCallback,
-                        failureCallback?: RTCPeerConnectionErrorCallback): void;
-  localDescription: RTCSessionDescription;
-  remoteDescription: RTCSessionDescription;
-  signalingState: string; // RTCSignalingState; see TODO(1)
-  updateIce(configuration?: RTCConfiguration,
-            constraints?: RTCMediaConstraints): void;
-  addIceCandidate(candidate: RTCIceCandidate): Promise<void>;
-  addIceCandidate(candidate:RTCIceCandidate,
-                  successCallback:() => void,
-                  failureCallback:RTCPeerConnectionErrorCallback): void;
-  iceGatheringState: string;  // RTCIceGatheringState; see TODO(1)
-  iceConnectionState: string;  // RTCIceConnectionState; see TODO(1)
-  getLocalStreams(): MediaStream[];
-  getRemoteStreams(): MediaStream[];
-  createDataChannel(label?: string,
-                    dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
-  ondatachannel: (event: Event) => void;
-  addStream(stream: MediaStream, constraints?: RTCMediaConstraints): void;
-  removeStream(stream: MediaStream): void;
-  close(): void;
-  onnegotiationneeded: (event: Event) => void;
-  onconnecting: (event: Event) => void;
-  onopen: (event: Event) => void;
-  onaddstream: (event: RTCMediaStreamEvent) => void;
-  onremovestream: (event: RTCMediaStreamEvent) => void;
-  onstatechange: (event: Event) => void;
-  oniceconnectionstatechange: (event: Event) => void;
-  onicecandidate: (event: RTCIceCandidateEvent) => void;
-  onidentityresult: (event: Event) => void;
-  onsignalingstatechange: (event: Event) => void;
-  getStats(selector: MediaStreamTrack): Promise<RTCStatsReport>;
-  getStats(selector: MediaStreamTrack, // nullable
-           successCallback: RTCStatsCallback,
-           failureCallback: RTCPeerConnectionErrorCallback): void;
-}
-declare var RTCPeerConnection: {
-  prototype: RTCPeerConnection;
-  new (configuration: RTCConfiguration,
-       constraints?: RTCMediaConstraints): RTCPeerConnection;
-};
-
-interface RTCIceCandidate {
-  candidate: string;
-  sdpMid?: string;
-  sdpMLineIndex?: number;
-}
-declare var RTCIceCandidate: {
-  prototype: RTCIceCandidate;
-  new (candidateInitDict?: RTCIceCandidate): RTCIceCandidate;
-};
-
-interface webkitRTCIceCandidate extends RTCIceCandidate {
-  candidate: string;
-  sdpMid?: string;
-  sdpMLineIndex?: number;
-}
-declare var webkitRTCIceCandidate: {
-  prototype: webkitRTCIceCandidate;
-  new (candidateInitDict?: webkitRTCIceCandidate): webkitRTCIceCandidate;
-};
-
-interface mozRTCIceCandidate extends RTCIceCandidate {
-  candidate: string;
-  sdpMid?: string;
-  sdpMLineIndex?: number;
-}
-declare var mozRTCIceCandidate: {
-  prototype: mozRTCIceCandidate;
-  new (candidateInitDict?: mozRTCIceCandidate): mozRTCIceCandidate;
-};
-
-interface RTCIceCandidateInit {
-  candidate: string;
-  sdpMid?: string;
-  sdpMLineIndex?: number;
-}
-declare var RTCIceCandidateInit:{
-  prototype: RTCIceCandidateInit;
-  new (): RTCIceCandidateInit;
-};
-
-interface PeerConnectionIceEvent {
-  peer: RTCPeerConnection;
-  candidate: RTCIceCandidate;
-}
-declare var PeerConnectionIceEvent: {
-  prototype: PeerConnectionIceEvent;
-  new (): PeerConnectionIceEvent;
-};
-
-interface RTCPeerConnectionConfig {
-  iceServers: RTCIceServer[];
-}
-declare var RTCPeerConnectionConfig: {
-  prototype: RTCPeerConnectionConfig;
-  new (): RTCPeerConnectionConfig;
-};
-
-interface Window{
-  RTCPeerConnection: RTCPeerConnection;
-  webkitRTCPeerConnection: webkitRTCPeerConnection;
-  mozRTCPeerConnection: mozRTCPeerConnection;
-  RTCSessionDescription: RTCSessionDescription;
-  webkitRTCSessionDescription: webkitRTCSessionDescription;
-  mozRTCSessionDescription: mozRTCSessionDescription;
-  RTCIceCandidate: RTCIceCandidate;
-  webkitRTCIceCandidate: webkitRTCIceCandidate;
-  mozRTCIceCandidate: mozRTCIceCandidate;
+declare var RTCPeerConnection: RTCPeerConnectionStatic;
+declare var RTCSessionDescription: RTCSessionDescriptionStatic;
+declare var RTCIceCandidate: RTCIceCandidateStatic;
+//declare var RTCRtpSender: RTCRtpSenderStatic;
+//declare var RTCRtpReceiver: RTCRtpReceiverStatic;
+interface Window {
+    RTCPeerConnection: RTCPeerConnectionStatic;
+    RTCSessionDescription: RTCSessionDescriptionStatic;
+    RTCIceCandidate: RTCIceCandidateStatic;
+    RTCRtpSender: RTCRtpSenderStatic;
+    RTCRtpReceiver: RTCRtpReceiverStatic;
 }

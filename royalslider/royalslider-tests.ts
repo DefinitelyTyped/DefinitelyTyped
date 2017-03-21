@@ -1,4 +1,4 @@
-/// <reference path="royalslider.d.ts" />
+
 
 $(".royalSlider").royalSlider();
 

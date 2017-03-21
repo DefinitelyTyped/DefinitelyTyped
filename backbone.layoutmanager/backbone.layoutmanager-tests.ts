@@ -1,6 +1,6 @@
-/// <reference path="backbone.layoutmanager.d.ts"/>
-/// <reference path="../backbone/backbone.d.ts"/>
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
+
+import * as Backbone from 'backbone';
 
 // Example code.
 class DisplayView extends Backbone.View<Backbone.Model> {

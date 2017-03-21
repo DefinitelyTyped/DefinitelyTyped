@@ -1,8 +1,3 @@
-
-/// <reference path="tedious.d.ts" />
-
-"use strict";
-
 import tedious = require("tedious");
 
 var config: tedious.ConnectionConfig = {
@@ -13,7 +8,7 @@ var config: tedious.ConnectionConfig = {
 		database: "somedb",
 		instanceName: "someinstance",
 	}
-}
+};
 
 var connection = new tedious.Connection(config);
 connection.on("connect", (): void => {
@@ -23,7 +18,12 @@ connection.on("connect", (): void => {
 connection.beginTransaction((error: Error): void => {}, "some name");
 connection.rollbackTransaction((error: Error): void => {});
 connection.commitTransaction((error: Error): void => {});
-
+connection.saveTransaction((error: Error): void => {});
+connection.transaction((error: Error, done: (error?: Error) => void): void => {
+	done();
+	done(error);
+}, "some name", tedious.ISOLATION_LEVEL.NO_CHANGE);
+connection.transaction((error: Error, done: (error?: Error) => void): void => {});
 
 var request = new tedious.Request("SELECT * FROM foo", (error: Error, rowCount: number): void => {
 });

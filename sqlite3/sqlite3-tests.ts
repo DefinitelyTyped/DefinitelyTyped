@@ -1,9 +1,8 @@
-/// <reference path="sqlite3.d.ts" />
 
 import sqlite3 = require('sqlite3');
 sqlite3.verbose();
 
-var db: sqlite3.Database;
+var db: sqlite3.Database = new sqlite3.Database('chain.sqlite3', () => {});
 
 function createDb() {
     console.log("createDb chain");
@@ -32,8 +31,15 @@ function readAllRows() {
         rows.forEach(function (row) {
             console.log(row.id + ": " + row.info);
         });
-        closeDb();
+        readSomeRows();
     });
+}
+
+function readSomeRows() {
+    console.log("readAllRows lorem");
+    db.each("SELECT rowid AS id, info FROM lorem WHERE rowid < ? ", 5, function(err, row) {
+        console.log(row.id + ": " + row.info);
+    }, closeDb);
 }
 
 function closeDb() {
@@ -64,7 +70,7 @@ db.serialize(function() {
 db.serialize(function() {
   // These two queries will run sequentially.
   db.run("CREATE TABLE foo (num)");
-  db.run("INSERT INTO foo VALUES (?)", 1, function() {
+  db.run("INSERT INTO foo VALUES (?)", 1, function(err) {
     // These queries will run in parallel and the second query will probably
     // fail because the table might not exist yet.
     db.run("CREATE TABLE bar (num)");
@@ -83,6 +89,9 @@ db.run("UPDATE tbl SET name = $name WHERE id = $id", {
   $id: 2,
   $name: "bar"
 });
+db.run("UPDATE tbl SET name = $name WHERE id = $id", { $id: 2, $name: "bar" },
+  function(err) { }
+);
 
 db.run("UPDATE tbl SET name = ?5 WHERE id = ?", {
   1: 2,

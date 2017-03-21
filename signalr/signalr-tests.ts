@@ -1,4 +1,4 @@
-/// <reference path="signalr.d.ts" />
+
 
 var connection = $.hubConnection();
 var contosoChatHubProxy = connection.createHubProxy('contosoChatHub');

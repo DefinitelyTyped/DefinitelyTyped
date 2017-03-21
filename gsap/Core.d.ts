@@ -1,15 +1,10 @@
-﻿// Type definitions for GSAP v1.16.0
-// Project: http://greensock.com/
-// Definitions by: VILIC VANE <https://vilic.github.io/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Animation {
     /** Base class for all TweenLite, TweenMax, TimelineLite, and TimelineMax classes, providing core methods/properties/functionality, but there is no reason to create an instance of this class directly. */
     constructor(duration?: number, vars?: any);
 
     /** A place to store any data you want (initially populated with vars.data if it exists). */
     data: any;
-    
+
     /** [Read-only] Parent timeline. */
     timeline: SimpleTimeLine;
 
@@ -98,7 +93,7 @@ declare class SimpleTimeLine extends Animation {
 
     /** If true, child tweens/timelines will be removed as soon as they complete. */
     autoRemoveChildren: boolean;
-    
+
     /** Controls whether or not child tweens/timelines are repositioned automatically (changing their startTime) in order to maintain smooth playback when properties are changed on-the-fly. */
     smoothChildTiming: boolean;
 
@@ -124,7 +119,7 @@ declare class SimpleTimeLine extends Animation {
 
     /** Clears any initialization data (like starting/ending values in tweens) which can be useful if, for example, you want to restart a tween without reverting to any previously recorded starting values. */
     invalidate(): SimpleTimeLine;
-    
+
     /** Kills the animation entirely or in part depending on the parameters. */
     kill(vars?: any, target?: any): SimpleTimeLine;
 
