@@ -171,7 +171,6 @@ declare namespace ReactSelectClass {
         inputProps?: Object;
         /**
          * renders a custom input
-         * @default undefined
          */
         inputRenderer?: (props: Object) => React.ReactElement<any>;
         /**
