@@ -3,7 +3,6 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
 /// <reference types="jquery" />
 /// <reference types="space-pen" />
 /// <reference types="emissary" />
@@ -1519,6 +1518,7 @@ declare var atom:AtomCore.IAtom;
 
 declare module "atom" {
 	import spacePen = require("space-pen");
+	import Q = require("q");
 
 	var $:typeof spacePen.$;
 	var $$:typeof spacePen.$$;

@@ -1,94 +1,34 @@
 {
     "packages": [
         {
-            "libraryName": "Moment",
-            "typingsPackageName": "moment",
-            "sourceRepoURL": "https://github.com/moment/moment",
-            "asOfVersion": "2.13.0"
+            "libraryName": "ajv",
+            "typingsPackageName": "ajv",
+            "sourceRepoURL": "https://github.com/epoberezkin/ajv",
+            "asOfVersion": "1.0.0"
+        },
+		{
+            "libraryName": "Numbro",
+            "typingsPackageName": "numbro",
+            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
+            "asOfVersion": "1.9.3"
         },
         {
-            "libraryName": "ng-table",
-            "typingsPackageName": "ng-table",
-            "sourceRepoURL": "https://github.com/esvit/ng-table",
-            "asOfVersion": "2.0.1"
-        },
-        {
-            "libraryName": "spotify-web-api-js",
-            "typingsPackageName": "spotify-web-api-js",
-            "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
-            "asOfVersion": "0.21.0"
-        },
-        {
-            "libraryName": "Linq.JS",
-            "typingsPackageName": "linq",
-            "sourceRepoURL": "https://linqjs.codeplex.com/",
-            "asOfVersion": "2.2.33"
-        },
-        {
-            "libraryName": "Protractor",
-            "typingsPackageName": "protractor",
-            "sourceRepoURL": "https://github.com/angular/protractor",
-            "asOfVersion": "4.0.0"
-        },
-        {
-            "libraryName": "Dexie.js",
-            "typingsPackageName": "dexie",
-            "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
-            "asOfVersion": "1.3.1"
-        },
-        {
-            "libraryName": "LinqSharp",
-            "typingsPackageName": "linqsharp",
-            "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
+            "libraryName": "antd",
+            "typingsPackageName": "antd",
+            "sourceRepoURL": "https://github.com/ant-design/ant-design",
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "TypeScript",
-            "typingsPackageName": "typescript",
-            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
-            "asOfVersion": "2.0.0"
+            "libraryName": "Argon2",
+            "typingsPackageName": "argon2",
+            "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
+            "asOfVersion": "0.15.0"
         },
         {
-            "libraryName": "TypeScript",
-            "typingsPackageName": "typescript-services",
-            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "Prando",
-            "typingsPackageName": "prando",
-            "sourceRepoURL": "https://github.com/zeh/prando",
-            "asOfVersion": "1.0.0"
-        },
-        {
-            "libraryName": "Shopify Prime",
-            "typingsPackageName": "shopify-prime",
-            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "SimpleSignal",
-            "typingsPackageName": "simplesignal",
-            "sourceRepoURL": "https://github.com/zeh/simplesignal",
-            "asOfVersion": "1.0.0"
-        },
-        {
-            "libraryName": "Redux",
-            "typingsPackageName": "redux",
-            "sourceRepoURL": "https://github.com/reactjs/redux",
-            "asOfVersion": "3.6.0"
-        },
-        {
-            "libraryName": "Redux Thunk",
-            "typingsPackageName": "redux-thunk",
-            "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
-            "asOfVersion": "2.1.0"
-        },
-        {
-            "libraryName": "Normalizr",
-            "typingsPackageName": "normalizr",
-            "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
-            "asOfVersion": "2.0.18"
+            "libraryName": "axios",
+            "typingsPackageName": "axios",
+            "sourceRepoURL": "https://github.com/mzabriskie/axios",
+            "asOfVersion": "0.14.0"
         },
         {
             "libraryName": "camel-case",
@@ -109,10 +49,88 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "date-fns",
+            "typingsPackageName": "date-fns",
+            "sourceRepoURL": "https://github.com/date-fns/date-fns",
+            "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "Dexie.js",
+            "typingsPackageName": "dexie",
+            "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
+            "asOfVersion": "1.3.1"
+        },
+        {
             "libraryName": "dot-case",
             "typingsPackageName": "dot-case",
             "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "dva",
+            "typingsPackageName": "dva",
+            "sourceRepoURL": "https://github.com/dvajs/dva",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "ecmarkup",
+            "typingsPackageName": "ecmarkup",
+            "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
+            "asOfVersion": "3.4.0"
+        },
+        {
+            "libraryName": "FineUploader",
+            "typingsPackageName": "fine-uploader",
+            "sourceRepoURL": "http://fineuploader.com/",
+            "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "gaea-model",
+            "typingsPackageName": "gaea-model",
+            "sourceRepoURL": "https://github.com/ascoders/gaea-model",
+            "asOfVersion": "0.0.0"
+        },
+        {
+            "libraryName": "Facebook's Immutable",
+            "typingsPackageName": "immutable",
+            "sourceRepoURL": "https://github.com/facebook/immutable-js",
+            "asOfVersion": "3.8.7"
+        },
+        {
+            "libraryName": "inversify",
+            "typingsPackageName": "inversify",
+            "sourceRepoURL": "http://inversify.io",
+            "asOfVersion": "2.0.33"
+        },
+        {
+            "libraryName": "inversify-binding-decorators",
+            "typingsPackageName": "inversify-binding-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-binding-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-express-utils",
+            "typingsPackageName": "inversify-express-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-express-utils",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-inject-decorators",
+            "typingsPackageName": "inversify-inject-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-inject-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-logger-middleware",
+            "typingsPackageName": "inversify-logger-middleware",
+            "sourceRepoURL": "https://github.com/inversify/inversify-logger-middleware",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-restify-utils",
+            "typingsPackageName": "inversify-restify-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-restify-utils",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "is-lower-case",
@@ -127,6 +145,30 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jsonschema",
+            "typingsPackageName": "jsonschema",
+            "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
+            "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "Linq.JS",
+            "typingsPackageName": "linq",
+            "sourceRepoURL": "https://linqjs.codeplex.com/",
+            "asOfVersion": "2.2.33"
+        },
+        {
+            "libraryName": "LinqSharp",
+            "typingsPackageName": "linqsharp",
+            "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
+            "asOfVersion": "1.0.0"
+        },
+        {
+             "libraryName": "localforage", 
+             "typingsPackageName": "localforage", 
+             "sourceRepoURL": "https://github.com/localForage/localForage", 
+             "asOfVersion": "0.0.34" 
+        },
+        {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
@@ -137,6 +179,30 @@
             "typingsPackageName": "lower-case-first",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case-first",
             "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "mobservable",
+            "typingsPackageName": "mobservable",
+            "sourceRepoURL": "github.com/mweststrate/mobservable",
+            "asOfVersion": "1.2.5"
+        },
+        {
+            "libraryName": "Moment",
+            "typingsPackageName": "moment",
+            "sourceRepoURL": "https://github.com/moment/moment",
+            "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "ng-table",
+            "typingsPackageName": "ng-table",
+            "sourceRepoURL": "https://github.com/esvit/ng-table",
+            "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "Normalizr",
+            "typingsPackageName": "normalizr",
+            "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
+            "asOfVersion": "2.0.18"
         },
         {
             "libraryName": "param-case",
@@ -157,16 +223,88 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "pixi-spine",
+            "typingsPackageName": "pixi-spine",
+            "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
+            "asOfVersion": "1.4.2"
+        },
+        {
+            "libraryName": "Prando",
+            "typingsPackageName": "prando",
+            "sourceRepoURL": "https://github.com/zeh/prando",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Protractor",
+            "typingsPackageName": "protractor",
+            "sourceRepoURL": "https://github.com/angular/protractor",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "Raven JS",
+            "typingsPackageName": "raven-js",
+            "sourceRepoURL": "https://github.com/getsentry/raven-js",
+            "asOfVersion": "3.10.0"
+        },
+        {
+            "libraryName": "Redux",
+            "typingsPackageName": "redux",
+            "sourceRepoURL": "https://github.com/reactjs/redux",
+            "asOfVersion": "3.6.0"
+        },
+        {
+            "libraryName": "redux-saga",
+            "typingsPackageName": "redux-saga",
+            "sourceRepoURL": "https://github.com/redux-saga/redux-saga",
+            "asOfVersion": "0.10.5"
+        },
+        {
+            "libraryName": "Redux Thunk",
+            "typingsPackageName": "redux-thunk",
+            "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "node-scanf",
+            "typingsPackageName": "scanf",
+            "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
+            "asOfVersion": "0.7.3"
+        },
+        {
             "libraryName": "sentence-case",
             "typingsPackageName": "sentence-case",
             "sourceRepoURL": "https://github.com/blakeembrey/sentence-case",
             "asOfVersion": "1.1.3"
         },
         {
+            "libraryName": "Shopify Prime",
+            "typingsPackageName": "shopify-prime",
+            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "SimpleSignal",
+            "typingsPackageName": "simplesignal",
+            "sourceRepoURL": "https://github.com/zeh/simplesignal",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "snake-case",
             "typingsPackageName": "snake-case",
             "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "spotify-web-api-js",
+            "typingsPackageName": "spotify-web-api-js",
+            "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
+            "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "Sugar",
+            "typingsPackageName": "sugar",
+            "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
+            "asOfVersion": "2.0.2"
         },
         {
             "libraryName": "swap-case",
@@ -181,6 +319,18 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript-services",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
@@ -193,88 +343,10 @@
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "Sugar",
-            "typingsPackageName": "sugar",
-            "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
-            "asOfVersion": "2.0.2"
-        },
-        {
-            "libraryName": "ajv",
-            "typingsPackageName": "ajv",
-            "sourceRepoURL": "https://github.com/epoberezkin/ajv",
-            "asOfVersion": "1.0.0"
-        },
-        {
-            "libraryName": "date-fns",
-            "typingsPackageName": "date-fns",
-            "sourceRepoURL": "https://github.com/date-fns/date-fns",
-            "asOfVersion": "2.6.0"
-        },
-        {
             "libraryName": "vuejs",
             "typingsPackageName": "vue",
             "sourceRepoURL": "https://github.com/vuejs/vue",
             "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "Facebook's Immutable",
-            "typingsPackageName": "immutable",
-            "sourceRepoURL": "https://github.com/facebook/immutable-js",
-            "asOfVersion": "3.8.7"
-        },
-        {
-            "libraryName": "dva",
-            "typingsPackageName": "dva",
-            "sourceRepoURL": "https://github.com/dvajs/dva",
-            "asOfVersion": "1.1.0"
-        },
-        {
-            "libraryName": "inversify",
-            "typingsPackageName": "inversify",
-            "sourceRepoURL": "http://inversify.io",
-            "asOfVersion": "2.0.33"
-        },
-        {
-            "libraryName": "inversify-express-utils",
-            "typingsPackageName": "inversify-express-utils",
-            "sourceRepoURL": "https://github.com/inversify/inversify-express-utils",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "inversify-binding-decorators",
-            "typingsPackageName": "inversify-binding-decorators",
-            "sourceRepoURL": "https://github.com/inversify/inversify-binding-decorators",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "inversify-logger-middleware",
-            "typingsPackageName": "inversify-logger-middleware",
-            "sourceRepoURL": "https://github.com/inversify/inversify-logger-middleware",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "inversify-inject-decorators",
-            "typingsPackageName": "inversify-inject-decorators",
-            "sourceRepoURL": "https://github.com/inversify/inversify-inject-decorators",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "inversify-restify-utils",
-            "typingsPackageName": "inversify-restify-utils",
-            "sourceRepoURL": "https://github.com/inversify/inversify-restify-utils",
-            "asOfVersion": "2.0.0"
-        },
-        {
-            "libraryName": "Argon2",
-            "typingsPackageName": "argon2",
-            "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
-            "asOfVersion": "0.15.0"
-        },
-        {
-            "libraryName": "node-scanf",
-            "typingsPackageName": "scanf",
-            "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
-            "asOfVersion": "0.7.3"
         },
         {
             "libraryName": "vue-router",
@@ -283,64 +355,16 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "ecmarkup",
-            "typingsPackageName": "ecmarkup",
-            "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
-            "asOfVersion": "3.4.0"
+            "libraryName": "x2js",
+            "typingsPackageName": "x2js",
+            "sourceRepoURL": "https://code.google.com/p/x2js/",
+            "asOfVersion": "3.1.0"
         },
         {
-            "libraryName": "redux-saga",
-            "typingsPackageName": "redux-saga",
-            "sourceRepoURL": "https://github.com/redux-saga/redux-saga",
-            "asOfVersion": "0.10.5"
-        },
-        {
-            "libraryName": "axios",
-            "typingsPackageName": "axios",
-            "sourceRepoURL": "https://github.com/mzabriskie/axios",
-            "asOfVersion": "0.14.0"
-        },
-        {
-            "libraryName": "gaea-model",
-            "typingsPackageName": "gaea-model",
-            "sourceRepoURL": "https://github.com/ascoders/gaea-model",
-            "asOfVersion": "0.0.0"
-        },
-        {
-            "libraryName": "pixi-spine",
-            "typingsPackageName": "pixi-spine",
-            "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
-            "asOfVersion": "1.4.2"
-        },
-        { 
-            "libraryName": "jsonschema",
-            "typingsPackageName": "jsonschema",
-            "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
-            "asOfVersion": "1.1.1"
-        },
-        {
-            "libraryName": "Raven JS",
-            "typingsPackageName": "raven-js",
-            "sourceRepoURL": "https://github.com/getsentry/raven-js",
-            "asOfVersion": "3.10.0"
-        },
-        {
-            "libraryName": "antd",
-            "typingsPackageName": "antd",
-            "sourceRepoURL": "https://github.com/ant-design/ant-design",
-            "asOfVersion": "1.0.0"
-        },
-        {
-            "libraryName": "FineUploader",
-            "typingsPackageName": "fine-uploader",
-            "sourceRepoURL": "http://fineuploader.com/",
-            "asOfVersion": "5.14.0"
-        },
-        {
-            "libraryName": "mobservable",
-            "typingsPackageName": "mobservable",
-            "sourceRepoURL": "github.com/mweststrate/mobservable",
-            "asOfVersion": "1.2.5"
+            "libraryName": "@xmpp/jid",
+            "typingsPackageName": "xmpp-jid",
+            "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
+            "asOfVersion": "1.2.0"
         }
     ]
 }

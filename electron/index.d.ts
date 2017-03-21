@@ -1,6 +1,6 @@
 // Type definitions for Electron v1.4.8
 // Project: http://electron.atom.io/
-// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>, Daniel Perez Alvarez <https://github.com/unindented>
+// Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>, aliib <https://github.com/aliib>, Daniel Perez Alvarez <https://github.com/unindented>, Markus Olsson <https://github.com/niik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -2455,7 +2455,11 @@ declare namespace Electron {
 		 */
 		constructor(options: MenuItemOptions);
 
-		click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => void;
+		/**
+		 * A function that is fired when the MenuItem receives a click event
+		 */
+		click: (event: Event, browserWindow: BrowserWindow, webContents: WebContents) => void;
+
 		/**
 		 * Read-only property.
 		 */
@@ -2492,7 +2496,7 @@ declare namespace Electron {
 		/**
 		 * Callback when the menu item is clicked.
 		 */
-		click?: (menuItem: MenuItem, browserWindow: BrowserWindow) => void;
+		click?: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => void;
 		/**
 		 * Can be normal, separator, submenu, checkbox or radio.
 		 */

@@ -3,8 +3,6 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
-
 declare namespace Validation {
     interface IErrorCustomMessage {
         (config: any, args: any): string;

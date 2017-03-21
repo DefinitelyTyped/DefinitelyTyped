@@ -49,6 +49,7 @@ interface TotpOptions {
     counter?: number;
     epoch?: number;
     secret?: string;
+    digits?: number;
     digest?: () => string;
     algorithm?: string;
 }
