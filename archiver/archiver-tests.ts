@@ -16,4 +16,5 @@ archiver.directory('./path', { name: "testName"} );
 archiver.directory('./', "", {});
 archiver.directory('./', {name: 'test'}, {});
 
-archiver.bulk({ mappaing: {} });
+archiver.file('file1.txt', { name: 'file1.txt' });
+archiver.bulk({ mapping: {} });
