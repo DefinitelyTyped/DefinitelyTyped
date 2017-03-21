@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps } from "redux-form";
+import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps } from "redux-form";
 
 interface CustomComponentProps {
     customProp: string;
@@ -39,7 +39,7 @@ interface FormData {
 @reduxForm<FormData, any, any>({
     form: 'myForm'
 })
-class MyForm extends Component<{}, {}> {
+class MyForm extends Component<any, any> {
     render() {
         return (
             <div>

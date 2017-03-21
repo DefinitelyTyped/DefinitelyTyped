@@ -28,7 +28,7 @@ interface BaseFieldArrayProps {
      * should return `undefined`, if the field is invalid, it should return an error
      * (usually, but not necessarily, a `String`).
      */
-    validate?: Validator;
+    validate?: Validator | Validator[];
 
     /**
      * Allows you to to provide a field-level warning rule. The function will be given the
@@ -36,7 +36,7 @@ interface BaseFieldArrayProps {
      * it should return the warning (usually, but not necessarily, a `String`). If the field
      * does not need a warning, it should return `undefined`.
      */
-    warn?: Validator;
+    warn?: Validator | Validator[];
 
     /**
      * If true, the rendered component will be available with the

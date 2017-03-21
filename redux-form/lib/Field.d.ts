@@ -1,11 +1,9 @@
 import {
     Component,
     ReactElement,
-    DragEventHandler,
-    FocusEventHandler,
-    FocusEvent,
-    FormEventHandler,
-    FormEvent
+    ChangeEvent,
+    DragEvent,
+    FocusEvent
 } from "react";
 import { Dispatch } from "redux";
 import { ComponentConstructor, DataShape, FieldValue } from "../index";
@@ -187,6 +185,8 @@ interface WrappedFieldProps<S> {
 /**
  * These props are meant to be destructured into your <input/> component.
  */
+type EventOrValueHandler<Event> = (eventOrValue: Event | FieldValue, newValue: FieldValue, previousValue: FieldValue) => void;
+
 interface WrappedFieldInputProps {
     /**
      * An alias for value only when value is a boolean. Provided for
@@ -203,29 +203,29 @@ interface WrappedFieldInputProps {
     /**
      * A function to call when the form field loses focus.
      */
-    onBlur: (eventOrValue: FocusEvent<any> | FieldValue) => void;
+    onBlur: EventOrValueHandler<FocusEvent<any>>;
 
     /**
      * A function to call when the form field is changed.
      */
-    onChange: (eventOrValue: FormEvent<any> | FieldValue) => void;
+    onChange: EventOrValueHandler<ChangeEvent<any>>;
 
     /**
      * A function to call when the form field receives a 'dragStart' event.
      * Saves the field value in the event for giving the field it is dropped
      * into.
      */
-    onDragStart: DragEventHandler<any>;
+    onDragStart: EventOrValueHandler<DragEvent<any>>;
 
     /**
      * A function to call when the form field receives a drop event.
      */
-    onDrop: DragEventHandler<any>;
+    onDrop: EventOrValueHandler<DragEvent<any>>;
 
     /**
      * A function to call when the form field receives focus.
      */
-    onFocus: FocusEventHandler<any>;
+    onFocus: EventOrValueHandler<FocusEvent<any>>;
 
     /**
      * The value of this form field. It will be a boolean for checkboxes, and

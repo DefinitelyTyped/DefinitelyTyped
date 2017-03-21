@@ -70,7 +70,7 @@ export function change(form: string, field: string, value: any): Action;
 /**
  * Destroys the form, removing all it's state
  */
-export function destroy(form: string): Action;
+export function destroy(...form: string[]): Action;
 
 /**
  * Marks the given field as active and visited

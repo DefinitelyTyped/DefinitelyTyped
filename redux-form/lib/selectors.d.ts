@@ -40,6 +40,11 @@ export interface BooleanSelector {
 export const getFormValues: DataSelector;
 
 /**
+ * Gets the form's initial values.
+ */
+export const getFormInitialValues: DataSelector;
+
+/**
  * Returns the form synchronous validation errors.
  */
 export const getFormSyncErrors: ErrorSelector;
@@ -48,6 +53,17 @@ export const getFormSyncErrors: ErrorSelector;
  * Returns the form submit validation errors.
  */
 export const getFormSubmitErrors: ErrorSelector;
+
+/**
+ * Gets the names of all the forms currently managed by Redux-Form.
+ *
+ * The reason that this is a function that returns a function is twofold:
+ *   1. symmetry with the other selectors
+ *   2. to allow for the getFormState parameter described at the top of this page.
+ *
+ * If you are using ImmutableJS, it will return a List.
+ */
+export const getFormNames: <State>(state: State) => string[];
 
 /**
  * Returns true if the form is dirty, i.e. the values have been altered

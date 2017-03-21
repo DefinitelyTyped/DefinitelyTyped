@@ -21,8 +21,12 @@ export function reduxForm(
     config: Config<any, any, any>
 ): FormDecorator<any, any, any>;
 
+/**
+ * This is not entirely correct but Typescript expect input and output for decorators to be the same type.
+ * Because of that, React HoCs can't be fully defined. https://www.typescriptlang.org/docs/handbook/decorators.html
+ */
 export interface FormDecorator<FormData extends DataShape, P, S> {
-    <T extends ComponentConstructor<P>>(component: T): T & FormComponent<FormData, P, S>;
+    <T extends ComponentConstructor<P & FormProps<FormData, P, S>>>(component: T): T;
 }
 
 export interface Config<FormData extends DataShape, P, S> {
@@ -48,7 +52,7 @@ export interface Config<FormData extends DataShape, P, S> {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values: FormData, dispatch: Dispatch<S>, props: P): Promise<any>;
+    asyncValidate?(values: FormData, dispatch: Dispatch<S>, props: P, blurredField: string): Promise<any>;
 
     /**
      * Whether or not to automatically destroy your form's state in the Redux
@@ -168,7 +172,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * { field1: <String>, field2: <String> }.
      * Defaults to (values, props) => ({}).
      */
-    validate?(values: FormData, props: InjectedFormProps<FormData, P, S> & P): FormErrors<FormData>;
+    validate?(values: FormData, props: FormProps<FormData, P, S> & P): FormErrors<FormData>;
 
     /**
      * A synchronous warning function that takes the form values and props passed into your component.
@@ -176,7 +180,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * it should return {}. If the check fails, it should return the warnings in the form
      * { field1: <String>, field2: <String> }. Defaults to (values, props) => ({}).
      */
-    warn?(values: FormData, props: InjectedFormProps<FormData, P, S> & P): FormWarnings<FormData>;
+    warn?(values: FormData, props: FormProps<FormData, P, S> & P): FormWarnings<FormData>;
 }
 
 /**
@@ -189,7 +193,7 @@ export interface Config<FormData extends DataShape, P, S> {
  * and it will be given as the error prop.
  */
 export interface SubmitHandler<FormData extends DataShape, P, S> {
-    (values: FormData, dispatch: Dispatch<S>, props: InjectedFormProps<FormData, P, S> & P): void | FormErrors<FormData> | Promise<any>;
+    (values: FormData, dispatch: Dispatch<S>, props: FormProps<FormData, P, S> & P): void | FormErrors<FormData> | Promise<any>;
 }
 
 interface ValidateCallback<FormData extends DataShape> {
@@ -319,14 +323,14 @@ export interface FormComponent<FormData extends DataShape, P, S> extends Compone
      * A reference to the instance of the component you decorated with reduxForm().
      * Mainly useful for testing.
      */
-    wrappedInstance?: ReactElement<P & InjectedFormProps<FormData, P, S>>
+    wrappedInstance?: ReactElement<P & FormProps<FormData, P, S>>
 }
 
 /**
  * These are the props that will be passed to your form component.
  * Your form component's props can extend this interface.
  */
-export interface InjectedFormProps<FormData extends DataShape, P, S> {
+export interface FormProps<FormData extends DataShape, P, S> {
     /**
      * true if any of the fields have been marked as touched, false otherwise.
      */
