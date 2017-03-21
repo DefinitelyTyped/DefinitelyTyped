@@ -3,13 +3,12 @@
 // Definitions by: Donald Nairn <https://github.com/deenairn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angular" />
-
-declare namespace angular {
+import * as angular from 'angular';
+declare module 'angular' {
     /**
      * A core Angular factory proving FileSaver functionality.
      */
-    interface FileSaver {
+    export interface FileSaver {
         /**
          * Immediately starts saving a file
          * @param data: a Blob instance;
