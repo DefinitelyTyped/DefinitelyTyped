@@ -1,4 +1,4 @@
-/// <reference path="es6-promise.d.ts" />
+
 
 
 var promiseString: Promise<string>,

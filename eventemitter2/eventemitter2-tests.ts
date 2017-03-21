@@ -1,5 +1,3 @@
-///<reference path="eventemitter2.d.ts"/>
-
 // Example for CommonJS/AMD
 /*
 import eventemitter2 = require("eventemitter2");
@@ -20,7 +18,8 @@ function testConfiguration() {
         wildcard: true,
         delimiter: '::',
         newListener: false,
-        maxListeners: 20
+        maxListeners: 20,
+        verboseMemoryLeak: true
     });
     var bar = new EventEmitter2({});
     var bazz = new EventEmitter2();

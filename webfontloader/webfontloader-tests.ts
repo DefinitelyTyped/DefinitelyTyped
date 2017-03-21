@@ -1,4 +1,4 @@
-/// <reference path="webfontloader" />
+
 import webfontloader = require("webfontloader");
 
 var config: webfontloader.Config = {

@@ -1,7 +1,5 @@
 // Author: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 
-/// <reference path="temp.d.ts" />
-
 import * as temp from "temp";
 
 function testCleanup() {
@@ -18,7 +16,7 @@ function testCleanup() {
 }
 
 function testCleanupSync() {
-    const cleanupResult = temp.cleanupSync()
+    const cleanupResult: boolean | temp.Stats = temp.cleanupSync()
     if (typeof cleanupResult === "boolean") {
         const x = cleanupResult === true;
     }
@@ -44,13 +42,14 @@ function testOpen() {
 }
 
 function testOpenSync() {
-    const { fd: openFd1, path: openPath1 } = temp.openSync({ dir: "tempDir", prefix: "pref", suffix: "suff" });
-    const { fd: openFd2, path: openPath2 } = temp.openSync("str");
+    const f1: temp.OpenFile = temp.openSync({ dir: "tempDir", prefix: "pref", suffix: "suff" });
+    const f2: temp.OpenFile = temp.openSync("str");
 }
 
 function testCreateWriteStream() {
     const stream = temp.createWriteStream("HelloStreamAffix");
     stream.write("data");
+    const stream2 = temp.createWriteStream();
 }
 
 function testMkdir() {

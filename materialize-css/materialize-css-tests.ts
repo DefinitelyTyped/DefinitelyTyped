@@ -1,4 +1,4 @@
-/// <reference path="materialize-css.d.ts" />
+
 
 // Buttons
 
@@ -44,8 +44,8 @@ var collapseHtml = '<ul class="collapsible" data-collapsible="accordion">' +
     '</li>' +
   '</ul>';
 
-$(collapseHtml).collapsible({ accordion : false });
-$(collapseHtml).collapsible({ accordion : true });
+$(collapseHtml).collapsible({ accordion : false, onClose : function() { alert('Closed'); } });
+$(collapseHtml).collapsible({ accordion : true, onOpen : function() { alert('Opened'); } });
 
 // Dialogs - Toasts
 Materialize.toast('I am a toast!', 4000);
@@ -122,7 +122,7 @@ var sliderHtml = '<div class="slider">' +
 
 $('.carousel').carousel();
 $('.carousel').carousel({});
-$('.carousel').carousel({ time_constant: 200, dist: -100, shift: 500, padding: 6000, full_width: 6000 });
+$('.carousel').carousel({ time_constant: 200, dist: -100, shift: 500, padding: 6000, full_width: true });
 
 // Next slide
 $('.carousel').carousel('next');
@@ -214,6 +214,7 @@ $(sideNavHtml).sideNav({});
 $(sideNavHtml).sideNav({ menuWidth: 100 });
 $(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right' });
 $(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true });
+$(sideNavHtml).sideNav({ menuWidth: 100, edge: 'right', closeOnClick: true, draggable: false });
 $(sideNavHtml).sideNav("show");
 $(sideNavHtml).sideNav("hide");
 
@@ -238,3 +239,5 @@ var tabsHtml = '<div class="row">' +
 
 // Transitions
 Materialize.showStaggeredList('#staggered-test');
+
+Materialize.updateTextFields();

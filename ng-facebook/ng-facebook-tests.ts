@@ -1,4 +1,4 @@
-/// <reference path="ng-facebook.d.ts" />
+
 
 {
     let $facebookProvider: angular.ngFacebook.IFacebookProvider;

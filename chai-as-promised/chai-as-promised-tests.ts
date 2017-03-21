@@ -1,6 +1,6 @@
-/// <reference path="chai-as-promised.d.ts" />
-/// <reference path="../promises-a-plus/promises-a-plus.d.ts" />
-/// <reference path="../q/Q.d.ts" />
+
+/// <reference types="promises-a-plus" />
+/// <reference types="q" />
 
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');

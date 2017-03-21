@@ -1,10 +1,7 @@
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="./redux-promise-middleware.d.ts" />
-
 import { createStore, applyMiddleware, Store, Dispatch } from "redux";
 import promiseMiddleware from "redux-promise-middleware";
 
-declare var rootReducer: Function;
+declare var rootReducer: (state: any, action: any) => any;
 declare var Promise: any;
 declare var doSomethingAsyncAndReturnPromise: any;
 declare var someActionCreator: any;
@@ -13,7 +10,7 @@ const createStoreWithMiddleware = applyMiddleware(
     promiseMiddleware()
 )(createStore);
 
-const store: Store = createStoreWithMiddleware(rootReducer);
+const store: Store<any> = createStoreWithMiddleware(rootReducer);
 
 export function myAsyncActionCreator(data: any) {
   return {
@@ -38,7 +35,7 @@ const actionCreator1 = () => ({
 const actionCreator2 = () => ({
   type: "FIRST_ACTION_TYPE",
   payload: {
-    promise: Promise.resolve((action: string, dispatch: Redux.Dispatch, getState: Function) => {
+    promise: Promise.resolve((action: string, dispatch: Dispatch<any>, getState: Function) => {
       dispatch({ type: "SECEOND_ACTION_TYPE", payload: "..." });
       dispatch(someActionCreator());
     })

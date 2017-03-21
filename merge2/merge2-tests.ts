@@ -1,5 +1,5 @@
-/// <reference path="merge2.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import gulp = require('gulp');
 import * as merge2 from "merge2"; 

@@ -1,5 +1,5 @@
-/// <reference path="mu2.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import mu2 = require('mu2');
 import stream = require('stream');

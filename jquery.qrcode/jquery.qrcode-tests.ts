@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.qrcode.d.ts"/>
+/// <reference types="jquery"/>
 
 // Examples from website (note: the examples use color instead of fill, which is not supported)
 $('.container').qrcode();

@@ -1,4 +1,3 @@
-/// <reference path="./precond.d.ts" />
 
 import precond = require('precond');
 
