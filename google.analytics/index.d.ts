@@ -523,6 +523,7 @@ declare namespace UniversalAnalytics {
         socialAction?: string;
         socialNetwork?: string;
         socialTarget?: string;
+        some?: string;
         step?: boolean;
         tax?: string;
         timingCategory?: string;
