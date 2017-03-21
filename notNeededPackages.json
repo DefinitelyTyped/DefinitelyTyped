@@ -6,6 +6,12 @@
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
             "asOfVersion": "1.0.0"
         },
+		{
+            "libraryName": "Numbro",
+            "typingsPackageName": "numbro",
+            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
+            "asOfVersion": "1.9.3"
+        },
         {
             "libraryName": "antd",
             "typingsPackageName": "antd",
