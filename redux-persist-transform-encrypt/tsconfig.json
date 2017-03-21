@@ -13,9 +13,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true
     },
     "files": [
+        "async.d.ts",
         "index.d.ts",
         "redux-persist-transform-encrypt-tests.ts"
     ]

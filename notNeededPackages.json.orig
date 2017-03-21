@@ -355,6 +355,7 @@
             "asOfVersion": "2.0.0"
         },
         {
+<<<<<<< HEAD
             "libraryName": "ecmarkup",
             "typingsPackageName": "ecmarkup",
             "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
@@ -407,12 +408,12 @@
             "typingsPackageName": "antd",
             "sourceRepoURL": "https://github.com/ant-design/ant-design",
             "asOfVersion": "1.0.0"
-        },
-        {
+=======
             "libraryName": "@xmpp/jid",
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
+>>>>>>> upstream/master
         }
     ]
 }
