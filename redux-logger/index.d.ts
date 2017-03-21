@@ -46,4 +46,4 @@ declare namespace createLogger {
   }
 }
 declare function createLogger(options?: createLogger.ReduxLoggerOptions): Redux.Middleware;
-export = createLogger;
+export default createLogger;
