@@ -31,7 +31,7 @@ var config: Microsoft.ApplicationInsights.IConfig = {
 };
 
 var appInsights: Microsoft.ApplicationInsights.IAppInsights = {
-    config: config,
+    config,
     context: null,
     queue: null,
 
@@ -128,7 +128,8 @@ context.track(eventEnvelope);
 
 // track exception
 var exceptionObj = new Microsoft.ApplicationInsights.Telemetry.Exception(new Error(), "handledAt", null, null, AI.SeverityLevel.Critical);
-var exceptionData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Exception>(Microsoft.ApplicationInsights.Telemetry.Exception.dataType, exceptionObj);
+var exceptionData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Exception>(
+    Microsoft.ApplicationInsights.Telemetry.Exception.dataType, exceptionObj);
 var exceptionEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(exceptionData, Microsoft.ApplicationInsights.Telemetry.Exception.envelopeType);
 context.track(exceptionEnvelope);
 
@@ -146,13 +147,15 @@ context.track(pageViewEnvelope);
 
 // track page view performance
 var pageViewPerfObj = new Microsoft.ApplicationInsights.Telemetry.PageViewPerformance("page name", "url", 999, null, null);
-var pageViewPerfData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.PageViewPerformance>(Microsoft.ApplicationInsights.Telemetry.PageViewPerformance.dataType, pageViewPerfObj);
+var pageViewPerfData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.PageViewPerformance>(
+    Microsoft.ApplicationInsights.Telemetry.PageViewPerformance.dataType, pageViewPerfObj);
 var pageViewPerfEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(pageViewPerfData, Microsoft.ApplicationInsights.Telemetry.PageViewPerformance.envelopeType);
 context.track(pageViewPerfEnvelope);
 
 // track remote dependency
 var remoteDepObj = new Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData("id", "url", "command", 1, true, 1234, "GET");
-var remoteDepData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData>(Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData.dataType, remoteDepObj);
+var remoteDepData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData>(
+    Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData.dataType, remoteDepObj);
 var remoteDepEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(remoteDepData, Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData.envelopeType);
 context.track(pageViewPerfEnvelope);
 

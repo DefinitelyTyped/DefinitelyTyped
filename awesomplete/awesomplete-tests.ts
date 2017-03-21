@@ -54,7 +54,7 @@ new Awesomplete('input[data-multiple]', {
 var ajax = new XMLHttpRequest();
 ajax.open("GET", "https://restcountries.eu/rest/v1/lang/fr", true);
 ajax.onload = () => {
-    var list = JSON.parse(ajax.responseText).map((i: any) => { return i.name; });
-    new Awesomplete(document.querySelector("#ajax-example input"), { list: list });
+    var list = JSON.parse(ajax.responseText).map((i: any) => i.name);
+    new Awesomplete(document.querySelector("#ajax-example input"), { list });
 };
 ajax.send();
