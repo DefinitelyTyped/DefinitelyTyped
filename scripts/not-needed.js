@@ -16,6 +16,7 @@ if (process.argv.length !== 5 && process.argv.length !== 6) {
 rmdirRecursive(typingsPackageName);
 const notNeededPackages = JSON.parse(fs.readFileSync("notNeededPackages.json", "utf-8"));
 notNeededPackages.packages.push({ libraryName, typingsPackageName, sourceRepoURL, asOfVersion });
+notNeededPackages.packages.sort((x, y) => x.typingsPackageName < y.typingsPackageName ? -1 : 1);
 fs.writeFileSync("notNeededPackages.json", JSON.stringify(notNeededPackages, undefined, 4), "utf-8");
 
 function rmdirRecursive(dir) {

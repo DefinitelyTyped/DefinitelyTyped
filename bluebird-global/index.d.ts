@@ -80,6 +80,8 @@ declare global {
         // then: typeof Bluebird.prototype.then;
         thenReturn: typeof Bluebird.prototype.thenReturn;
         thenThrow: typeof Bluebird.prototype.thenThrow;
+        catchReturn: typeof Bluebird.prototype.catchReturn;
+        catchThrow: typeof Bluebird.prototype.catchThrow;
         throw: typeof Bluebird.prototype.throw;
         timeout: typeof Bluebird.prototype.timeout;
         toJSON: typeof Bluebird.prototype.toJSON;

@@ -1,5 +1,3 @@
-/// <reference types="jquery" />
-
 $('.nano').nanoScroller();
 
 $('.nano').nanoScroller({

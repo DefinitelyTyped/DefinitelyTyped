@@ -7,13 +7,15 @@
 declare module "react-relay" {
     import * as React from "react";
 
+    type ClientMutationID = string;
+
     /** Fragments are a hash of functions */
     interface Fragments {
         [query: string]: ((variables?: RelayVariables) => string)
     }
 
     interface CreateContainerOpts {
-        initialVariables?: Object
+        initialVariables?: any
         fragments: Fragments
         prepareVariables?(prevVariables: RelayVariables): RelayVariables
     }
@@ -29,6 +31,24 @@ declare module "react-relay" {
 
     interface RelayQueryRequestResolve {
         response: any
+    }
+
+    type RelayMutationStatus =
+      'UNCOMMITTED' | // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
+      'COMMIT_QUEUED' | // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
+      'COLLISION_COMMIT_FAILED' | //Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue, including this one, have been failed. Transaction can be recommitted or rolled back.
+      'COMMITTING' | // Transaction is waiting for the server to respond.
+      'COMMIT_FAILED';
+
+    class RelayMutationTransaction {
+      applyOptimistic(): RelayMutationTransaction;
+      commit(): RelayMutationTransaction | null;
+      recommit(): void;
+      rollback(): void;
+      getError(): Error;
+      getStatus(): RelayMutationStatus;
+      getHash(): string;
+      getID(): ClientMutationID;
     }
 
     interface RelayMutationRequest {
@@ -104,7 +124,7 @@ declare module "react-relay" {
         renderFailure?(error: Error, retry: Function): JSX.Element
     }
 
-    type ReadyStateEvent = 
+    type ReadyStateEvent =
         'ABORT' |
         'CACHE_RESTORED_REQUIRED' |
         'CACHE_RESTORE_FAILED' |
@@ -128,7 +148,13 @@ declare module "react-relay" {
     }
 
     interface RelayProp {
-        variables: any
-        setVariables(variables: Object, onReadyStateChange?: OnReadyStateChange): void
+        readonly route: { name: string; }; // incomplete, also has params and queries
+        readonly variables: any;
+        readonly pendingVariables?: any | null;
+        setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
+        forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
+        hasOptimisticUpdate(record: any): boolean;
+        getPendingTransactions(record: any): RelayMutationTransaction[];
+        commitUpdate: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
     }
 }

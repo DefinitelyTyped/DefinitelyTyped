@@ -205,8 +205,9 @@ declare namespace riot {
      * Register a shared mixin, globally available to be used in any tag using `TagInstance.mixin(mixinName)`
      * @param mixinName Name of the mixin
      * @param mixinObject Mixin object
+     * @param isGlobal Is global mixin?
      */
-    function mixin(mixinName: string, mixinObject: TagMixin): void;
+    function mixin(mixinName: string, mixinObject: TagMixin, isGlobal?: boolean): void;
 
     /**
      * Create a new custom tag “manually” without the compiler. Returns name of the tag.
