@@ -118,10 +118,10 @@ interface WebGLVertexArrayObjectOES extends WebGLObject {
 interface OESVertexArrayObject {
 	VERTEX_ARRAY_BINDING_OES: number;
 
-	createVertexArrayOES(): WebGLVertexArrayObjectOES;
-	deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void;
-	isVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): boolean;
-	bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES): void;
+	createVertexArrayOES(): WebGLVertexArrayObjectOES | null;
+	deleteVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES | null): void;
+	isVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES | null): boolean;
+	bindVertexArrayOES(arrayObject: WebGLVertexArrayObjectOES | null): void;
 }
 
 interface WebGLColorBufferFloat {
