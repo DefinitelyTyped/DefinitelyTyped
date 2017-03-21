@@ -6,8 +6,7 @@
 import { Plugin, Transformer as PostcssTransformer } from 'postcss';
 
 declare namespace autoprefixer {
-
-    export interface Options {
+    interface Options {
         browsers?: string[];
         env?: string;
         cascade?: boolean;
@@ -19,11 +18,11 @@ declare namespace autoprefixer {
         stats?: any;
     }
 
-    export interface Transformer extends PostcssTransformer {
+    interface Transformer extends PostcssTransformer {
         info(): string;
     }
 
-    export interface Autoprefixer extends Plugin<Options> {
+    interface Autoprefixer extends Plugin<Options> {
         (opts?: Options): Transformer;
     }
 }

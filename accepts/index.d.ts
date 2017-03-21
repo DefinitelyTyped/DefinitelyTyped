@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace accepts {
-    export interface Headers {
+    interface Headers {
         [key: string]: string | string[];
     }
 
-    export interface Accepts {
+    interface Accepts {
         /**
          * Return the first accepted charset. If nothing in `charsets` is accepted, then `false` is returned.
          */

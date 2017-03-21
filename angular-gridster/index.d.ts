@@ -8,11 +8,8 @@ import * as angular from "angular";
 export default "gridster";
 
 declare module "angular" {
-
-    export namespace gridster {
-
+    namespace gridster {
         interface GridsterConfig {
-
             // number of columns in the grid
             columns?: number;
             // whether to push other items out of the way
@@ -83,7 +80,6 @@ declare module "angular" {
 
             // options to pass to resizable handler
             resizable?: {
-
                 // whether the items are resizable
                 enabled?: boolean;
 
@@ -103,7 +99,6 @@ declare module "angular" {
 
             // options to pass to draggable handler
             draggable?: {
-
                 // whether the items are resizable
                 enabled?: boolean;
 
@@ -128,7 +123,6 @@ declare module "angular" {
         }
 
         interface StandardGridsterItem {
-
             // width of the item expressed in terms of number of columns it will occupy
             sizeX: number;
 

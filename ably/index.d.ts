@@ -444,7 +444,7 @@ declare namespace ablyLib {
   }
 }
 
-export declare class Rest {
+export class Rest {
   constructor(options: ablyLib.ClientOptions | string);
   static Crypto: ablyLib.Crypto;
   static Message: ablyLib.MessageStatic;
@@ -456,7 +456,7 @@ export declare class Rest {
   time: (paramsOrCallback?: ablyLib.timeCallback | any, callback?: ablyLib.timeCallback) => void;
 }
 
-export declare class Realtime {
+export class Realtime {
   constructor(options: ablyLib.ClientOptions | string);
   static Crypto: ablyLib.Crypto;
   static Message: ablyLib.MessageStatic;
