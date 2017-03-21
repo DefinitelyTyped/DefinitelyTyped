@@ -17,6 +17,6 @@
   },
   "files": [
     "index.d.ts",
-    "@google-cloud-tests.ts"
+    "google-cloud-tests.ts"
   ]
 }
