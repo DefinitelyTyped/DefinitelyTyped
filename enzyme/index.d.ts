@@ -546,6 +546,7 @@ export interface MountRendererProps {
  * @param node
  * @param [options]
  */
+export function shallow<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
 
 /**
@@ -553,6 +554,7 @@ export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererPr
  * @param node
  * @param [options]
  */
+export function mount<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
 
 /**
