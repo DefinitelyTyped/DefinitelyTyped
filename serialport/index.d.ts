@@ -5,7 +5,8 @@
 
 declare module 'serialport' {
     class SerialPort {
-        constructor(path: string, options?: Object, openImmediately?: boolean, callback?: (err: any) => void)
+        //openImmediately already removed in 4.0.7
+        constructor(path: string, options?: Object, callback?: (err: any) => void)
         isOpen(): boolean;
         on(event: string, callback?: (data?: any) => void): void;
         open(callback?: (err: any) => void): void;
