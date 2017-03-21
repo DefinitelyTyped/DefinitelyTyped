@@ -234,7 +234,7 @@ declare namespace Backbone {
         pop(options?: Silenceable): TModel;
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
-        reset(models?: TModel[], options?: Silenceable): TModel[];
+        reset(models?: ({}|TModel)[], options?: Silenceable): TModel[];
         set(models?: TModel[], options?: Silenceable): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
