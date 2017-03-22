@@ -164,7 +164,6 @@ interface SpeechSynthesisVoice {
 }
 
 declare namespace Artyom {
-
     interface ArtyomDevice {
         isChrome(): boolean;
         isMobile(): boolean;
@@ -235,7 +234,7 @@ declare namespace Artyom {
         onend(): void;
     }
 
-    export interface ArtyomJS {
+    interface ArtyomJS {
         /**
          * Contains some basic information that artyom needs to know as the type of device and browser
          * @see http://ourcodeworld.com/projects/projects-documentation/6/read-doc/artyom-device/artyom-js
@@ -499,13 +498,12 @@ declare namespace Artyom {
     /**
      * ArtyomBuilder bla, bla...
      */
-    export class ArtyomBuilder {
+    class ArtyomBuilder {
         /**
          * Method to bla, bla, bla...
          */
         static getInstance(): ArtyomJS
     }
-
 }
 
 // tslint:disable-next-line:export-just-namespace

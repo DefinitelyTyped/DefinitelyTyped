@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="q" />
 
 import * as stream from 'stream';
 import * as pg from 'pg';

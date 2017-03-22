@@ -1,4 +1,4 @@
-﻿/// <reference types="gapi.people" />
+/// <reference types="gapi.people" />
 /// <reference types="gapi.plus" />
 
 /* Examples taken from https://developers.google.com/api-client-library/javascript/start/start-js */

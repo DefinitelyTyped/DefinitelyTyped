@@ -1,5 +1,3 @@
-/// <reference types="knuddels-userapps-api" />
-
 class Server implements App {
 
 	private usersPlaying: { [nick: string]: number } = {};

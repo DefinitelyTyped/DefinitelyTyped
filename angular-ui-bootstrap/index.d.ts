@@ -15,6 +15,7 @@ export type IDropdownConfig = angular.ui.bootstrap.IDropdownConfig;
 export type IModalProvider = angular.ui.bootstrap.IModalProvider;
 export type IModalService = angular.ui.bootstrap.IModalService;
 export type IModalServiceInstance = angular.ui.bootstrap.IModalServiceInstance;
+export type IModalInstanceService = angular.ui.bootstrap.IModalInstanceService;
 export type IModalScope = angular.ui.bootstrap.IModalScope;
 export type IModalSettings = angular.ui.bootstrap.IModalSettings;
 export type IModalStackService = angular.ui.bootstrap.IModalStackService;
@@ -320,12 +321,12 @@ declare module 'angular' {
         interface IModalService {
             /**
              * @param {IModalSettings} options
-             * @returns {IModalServiceInstance}
+             * @returns {IModalInstanceService}
              */
-            open(options: IModalSettings): IModalServiceInstance;
+            open(options: IModalSettings): IModalInstanceService;
         }
 
-        interface IModalServiceInstance {
+        interface IModalInstanceService {
             /**
              * A method that can be used to close a modal, passing a result. If `preventDefault` is called on the `modal.closing` event then the modal will remain open.
              */
@@ -356,6 +357,11 @@ declare module 'angular' {
              */
             closed: angular.IPromise<any>;
         }
+
+        /**
+         * @deprecated use IModalInstanceService instead.
+         */
+        interface IModalServiceInstance extends IModalInstanceService { }
 
         interface IModalScope extends angular.IScope {
             /**
@@ -512,17 +518,17 @@ declare module 'angular' {
             /**
              * Opens a new modal instance.
              */
-            open(modalInstance: IModalServiceInstance, modal: any): void;
+            open(modalInstance: IModalInstanceService, modal: any): void;
 
             /**
              * Closes a modal instance with an optional result.
              */
-            close(modalInstance: IModalServiceInstance, result?: any): void;
+            close(modalInstance: IModalInstanceService, result?: any): void;
 
             /**
              * Dismisses a modal instance with an optional reason.
              */
-            dismiss(modalInstance: IModalServiceInstance, reason?: any): void;
+            dismiss(modalInstance: IModalInstanceService, reason?: any): void;
 
             /**
              * Dismiss all open modal instances with an optional reason that will be passed to each instance.
@@ -536,7 +542,7 @@ declare module 'angular' {
         }
 
         interface IModalStackedMapKeyValuePair {
-            key: IModalServiceInstance;
+            key: IModalInstanceService;
             value: any;
         }
 

@@ -1,4 +1,4 @@
-// Type definitions for Recompose v0.20.3
+// Type definitions for Recompose v0.22.0
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -50,8 +50,9 @@ declare module 'recompose' {
     type HandleCreators<TOutter> = {
         [handlerName: string]: mapper<TOutter, EventHandler>;
     };
+    type HandleCreatorsFactory<TOutter> = (initialProps: TOutter) => HandleCreators<TOutter>;
     export function withHandlers<TInner, TOutter>(
-        handlerCreators: HandleCreators<TOutter>
+        handlerCreators: HandleCreators<TOutter> | HandleCreatorsFactory<TOutter>
     ): ComponentEnhancer<TInner, TOutter>;
 
     // defaultProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops

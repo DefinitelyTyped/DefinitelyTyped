@@ -7,7 +7,8 @@
 import * as React from 'react';
 import {
   Animated,
-  ViewStyle
+  ViewStyle,
+  ScrollViewProperties
 } from 'react-native';
 
 export interface onChangeTabProperties {
@@ -85,7 +86,7 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
    * contentProps (Object) - props that are applied to root ScrollView/ViewPagerAndroid.
    * Note that overriding defaults set by the library may break functionality; see the source for details.
    */
-  contentProps?: React.ScrollViewProperties;
+  contentProps?: ScrollViewProperties;
 
   /**
    * scrollWithoutAnimation (Bool) - on tab press change tab without animation.

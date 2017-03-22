@@ -19,6 +19,11 @@ function StepSample() {
             console.log(scenarioResult.status === "failed");
             callback();
         });
+      
+        Before({ timeout: 1000 }, function (scenarioResult: HookScenarioResult, callback: Callback) {
+            console.log(scenarioResult.status === "failed");
+            callback();
+        });
 
         Around(function (scenarioResult: HookScenarioResult, runScenario: (error: string, callback?: Function) => void) {
             scenarioResult.status === "failed" && runScenario(null, function () {
@@ -27,6 +32,11 @@ function StepSample() {
         });
 
         After((scenarioResult: HookScenarioResult, callback?: Callback) => {
+            console.log("After");
+            callback();
+        });
+      
+        After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback?: Callback) => {
             console.log("After");
             callback();
         });

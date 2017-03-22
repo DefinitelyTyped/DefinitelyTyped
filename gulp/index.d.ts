@@ -10,7 +10,6 @@
 
 import Orchestrator = require("orchestrator");
 import VinylFile = require("vinyl");
-
 declare type Strings = string|string[];
 
 declare namespace gulp {

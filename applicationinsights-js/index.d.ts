@@ -306,7 +306,6 @@ declare module Microsoft.Telemetry {
 }
 
 declare module Microsoft.ApplicationInsights.Telemetry {
-
     class Event implements Microsoft.ApplicationInsights.ISerializable {
         static envelopeType: string;
         static dataType: string;
@@ -794,7 +793,7 @@ declare module Microsoft.ApplicationInsights {
 }
 
 declare module 'applicationinsights-js' {
-    export let AppInsights: Microsoft.ApplicationInsights.IAppInsights;
+    const AppInsights: Microsoft.ApplicationInsights.IAppInsights;
 }
 
 declare var appInsights: Microsoft.ApplicationInsights.IAppInsights;

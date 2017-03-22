@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="q" />
 
 declare module 'vso-node-api/Serialization' {
+	import Q = require("q");
 	/**
 	* Metadata for deserializing an enum field on a contract/type
 	*/

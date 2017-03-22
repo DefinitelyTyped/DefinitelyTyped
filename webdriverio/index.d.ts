@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-/// <reference types="q"/>
 
 declare namespace WebdriverIO {
     export type Method = 'POST' | 'GET' | 'DELETE';
@@ -506,7 +505,11 @@ declare namespace WebdriverIO {
             onRejected?: (error: any) => P | Client<P>
         ): Client<P>;
 
-        inspect(): Q.PromiseState<T>;
+        inspect(): {
+            state: "fulfilled" | "rejected" | "pending";
+            value?: T;
+            reason?: any;
+        };
     }
 
     export interface Client<T> {
@@ -1815,14 +1818,14 @@ declare namespace WebdriverIO {
         ): Client<P>;
 
         waitUntil(
-            condition: () => boolean | Q.IPromise<boolean> | Client<RawResult<any>> & RawResult<any>,
+            condition: () => boolean | Promise<boolean> | Client<RawResult<any>> & RawResult<any>,
             timeout?: number,
             timeoutMsg?: string,
             interval?: number
         ): Client<boolean> & any;
 
         waitUntil<P>(
-            condition: () => boolean | Q.IPromise<boolean> | Client<RawResult<any>> & RawResult<any>,
+            condition: () => boolean | Promise<boolean> | Client<RawResult<any>> & RawResult<any>,
             timeout?: number,
             timeoutMsg?: string,
             interval?: number
