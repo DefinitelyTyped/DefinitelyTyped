@@ -11,6 +11,14 @@ function StepSample() {
     hook.Before(function (scenario: HookScenario, callback: Callback) {
         scenario.isFailed() && callback.pending();
     });
+    
+    hook.Before({ timeout: 1000 }, function(scenario: HookScenario, callback: Callback) {
+		callback();
+	});
+    
+    hook.After({ timeout: 1000 }, function(scenario: HookScenario, callback: Callback) {
+		callback();
+	});
 
     hook.Around(function (scenario: HookScenario, runScenario: (error: string, callback?: Function) => void) {
         scenario.isFailed() && runScenario(null, function () {
