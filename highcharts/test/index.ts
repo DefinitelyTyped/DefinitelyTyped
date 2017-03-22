@@ -219,7 +219,7 @@ function test_ChartOptions() {
             duration: 500,
             easing: "linear"
         },
-        backgroundColor: <Highcharts.Gradient> {
+        backgroundColor: <Highcharts.Gradient>{
             linearGradient: {
                 x1: 0,
                 y1: 0,
@@ -233,16 +233,16 @@ function test_ChartOptions() {
         borderWidth: 5,
         className: "class",
         defaultSeriesType: "deprecated",
-        events: <Highcharts.ChartEvents> {
-            addSeries: () => {},
-            afterPrint: () => {},
-            beforePrint: () => {},
-            click: () => {},
-            drilldown: () => {},
-            drillup: () => {},
-            load: () => {},
-            redraw: () => {},
-            selection: () => {}
+        events: <Highcharts.ChartEvents>{
+            addSeries: () => { },
+            afterPrint: () => { },
+            beforePrint: () => { },
+            click: () => { },
+            drilldown: () => { },
+            drillup: () => { },
+            load: () => { },
+            redraw: () => { },
+            selection: () => { }
         },
         height: 200,
         ignoreHiddenSeries: true,
@@ -252,21 +252,21 @@ function test_ChartOptions() {
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
-        options3d: <Highcharts.ChartOptions3d> {
+        options3d: <Highcharts.ChartOptions3d>{
             alpha: 20,
             beta: 20,
             depth: 50,
             enabled: true,
             frame: {
-                back: <Highcharts.ChartOptions3dFrame> {
+                back: <Highcharts.ChartOptions3dFrame>{
                     color: "black",
                     size: 2
                 },
-                bottom: <Highcharts.ChartOptions3dFrame> {
+                bottom: <Highcharts.ChartOptions3dFrame>{
                     color: "black",
                     size: 2
                 },
-                side: <Highcharts.ChartOptions3dFrame> {
+                side: <Highcharts.ChartOptions3dFrame>{
                     color: "black",
                     size: 2
                 }
@@ -280,7 +280,7 @@ function test_ChartOptions() {
         plotBackgroundImage: "http://image.url/image.jpg",
         plotBorderColor: "grey",
         plotBorderWidth: 5,
-        plotShadow: <Highcharts.Shadow> {
+        plotShadow: <Highcharts.Shadow>{
             color: "magenta",
             offsetX: 10,
             offsetY: 10,
@@ -290,15 +290,15 @@ function test_ChartOptions() {
         polar: true,
         reflow: false,
         renderTo: "elementId",
-        resetZoomButton: <Highcharts.ChartResetZoomButton> {
-            position: <Highcharts.Position> {
+        resetZoomButton: <Highcharts.ChartResetZoomButton>{
+            position: <Highcharts.Position>{
                 align: "left",
                 verticalAlign: "top",
                 x: 5,
                 y: 5
             },
             relativeTo: "chart",
-            theme: <Highcharts.ButtonTheme> {
+            theme: <Highcharts.ButtonTheme>{
                 display: "hidden",
                 fill: "black",
                 stroke: "white",
@@ -364,7 +364,7 @@ function test_ChartOptions() {
     });
 
     // animation example
-    $('#container').highcharts(<Highcharts.Options> {
+    $('#container').highcharts(<Highcharts.Options>{
         chart: {
             animation: {
                 duration: 1500,
@@ -379,7 +379,7 @@ function test_ChartOptions() {
         }]
     });
     var i = 1;
-    $('#update').click(function () {
+    $('#update').click(() => {
         var chart = $('#container').highcharts();
         chart.series[0].data[0].update(i % 2 ? 200 : 0);
         i += 1;
@@ -461,7 +461,7 @@ function test_ChartOptions() {
                         })
                         .add();
 
-                    setTimeout(function () {
+                    setTimeout(() => {
                         label.fadeOut();
                     }, 1000);
                 }
@@ -476,7 +476,7 @@ function test_ChartOptions() {
     });
 
     // activate the button
-    $('#button').click(function () {
+    $('#button').click(() => {
         var chart = $('#container').highcharts();
 
         chart.addSeries({
@@ -631,10 +631,10 @@ function test_Data() {
             }
         },
         series: [
-            <Highcharts.LineChartSeriesOptions> {
+            <Highcharts.LineChartSeriesOptions>{
                 lineWidth: 1
             },
-            <Highcharts.AreaSplineChartSeriesOptions> {
+            <Highcharts.AreaSplineChartSeriesOptions>{
                 type: 'areaspline',
                 color: '#c4392d',
                 negativeColor: '#5679c4',
@@ -645,7 +645,7 @@ function test_Data() {
 
     // limited data example
     $('#container').highcharts({
-        data: <Highcharts.DataOptions> {
+        data: <Highcharts.DataOptions>{
             csv: document.getElementById('csv').innerHTML,
             startRow: 114,
             endRow: 134,
@@ -655,7 +655,7 @@ function test_Data() {
         xAxis: {
             allowDecimals: false
         },
-        series: [<Highcharts.LineChartSeriesOptions> {
+        series: [<Highcharts.LineChartSeriesOptions>{
             name: 'Annual mean'
         }]
     });
@@ -686,7 +686,7 @@ function test_Drilldown() {
             type: 'category'
         },
         plotOptions: {
-            series: <Highcharts.ColumnChart> {
+            series: <Highcharts.ColumnChart>{
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true
@@ -783,7 +783,7 @@ function test_Drilldown() {
             type: 'column'
         },
         plotOptions: {
-            series: <Highcharts.ColumnChart> {
+            series: <Highcharts.ColumnChart>{
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true
@@ -898,7 +898,7 @@ function test_Loading() {
         $button = $('#button'),
         chart: Highcharts.ChartObject;
 
-    $button.click(function () {
+    $button.click(() => {
         if (!isLoading) {
             chart.showLoading();
             $button.html('Hide loading');
@@ -1011,7 +1011,7 @@ function test_AreaOptions() {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         plotOptions: {
-            series: <Highcharts.AreaChartSeriesOptions> {
+            series: <Highcharts.AreaChartSeriesOptions>{
                 fillColor: {
                     linearGradient: [0, 0, 0, 300],
                     stops: [
@@ -1045,26 +1045,26 @@ function test_AreaRange() {
             zoomType: 'x'
         },
         series: [<Highcharts.AreaRangeChartSeriesOptions>{
-            data: (function (arr: number[], len: number) {
+            data: (((arr: number[], len: number) => {
                 var i: number;
                 for (i = 0; i < len; i = i + 1) {
                     arr.push(i);
                 }
                 return arr;
-            }([], 50))
+            })([], 50))
         }]
     });
 
-    $('#setextremes').click(function () {
+    $('#setextremes').click(() => {
         $('#container').highcharts().xAxis[0].setExtremes(10, 15);
     });
 
-    $('#unsetextremes').click(function () {
+    $('#unsetextremes').click(() => {
         $('#container').highcharts().xAxis[0].setExtremes();
     });
 
     // datalabels example
-    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=range.json&callback=?', function (data) {
+    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=range.json&callback=?', (data) => {
         // Shorten the data
         data = data.splice(181, 14);
         $('#container').highcharts({
@@ -1090,7 +1090,7 @@ function test_AreaRange() {
             legend: {
                 enabled: false
             },
-            series: [<Highcharts.AreaRangeChartSeriesOptions> {
+            series: [<Highcharts.AreaRangeChartSeriesOptions>{
                 name: 'Temperatures',
                 data: data,
                 dataLabels: {
@@ -1115,7 +1115,7 @@ function test_Bar() {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         plotOptions: {
-            series: <Highcharts.BarChartSeriesOptions> {
+            series: <Highcharts.BarChartSeriesOptions>{
                 borderColor: '#303030',
                 borderRadius: 5,
                 borderWidth: 2,
@@ -1173,7 +1173,7 @@ function test_Bar() {
     });
 
     // grouping example
-    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color: string) {
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, (color: string) => {
         return (<Highcharts.Gradient>Highcharts.Color(color))
             .setOpacity(0.5)
             .get('rgba');
@@ -1209,19 +1209,19 @@ function test_Bar() {
                 shadow: false
             }
         },
-        series: [<Highcharts.BarChartSeriesOptions> {
+        series: [<Highcharts.BarChartSeriesOptions>{
             name: 'Tokyo',
             data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             pointPadding: 0
-        }, <Highcharts.BarChartSeriesOptions> {
+        }, <Highcharts.BarChartSeriesOptions>{
             name: 'New York',
             data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3],
             pointPadding: 0.1
-        }, <Highcharts.BarChartSeriesOptions> {
+        }, <Highcharts.BarChartSeriesOptions>{
             name: 'London',
             data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2],
             pointPadding: 0.2
-        }, <Highcharts.BarChartSeriesOptions> {
+        }, <Highcharts.BarChartSeriesOptions>{
             name: 'Berlin',
             data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1],
             pointPadding: 0.3
@@ -1307,7 +1307,7 @@ function test_Bubble() {
                 maxSize: 50
             }
         },
-        series: [<Highcharts.BubbleChartSeriesOptions> {
+        series: [<Highcharts.BubbleChartSeriesOptions>{
             data: [
                 [9, 81, 13],
                 [98, 5, 39],
@@ -1411,7 +1411,7 @@ function test_ErrorBar() {
             tooltip: {
                 pointFormat: '<span style="font-weight: bold; color: {series.color}">{series.name}</span>: <b>{point.y:.1f}°C</b><br/>'
             }
-        }, <Highcharts.ErrorBarChartSeriesOptions> {
+        }, <Highcharts.ErrorBarChartSeriesOptions>{
             color: '#FF0000',
             name: 'Temperature error',
             type: 'errorbar',
@@ -1441,7 +1441,7 @@ function test_Funnel() {
             x: -50
         },
         plotOptions: {
-            series: <Highcharts.FunnelChartSeriesOptions> {
+            series: <Highcharts.FunnelChartSeriesOptions>{
                 dataLabels: {
                     enabled: true,
                     format: '<b>{point.name}</b> ({point.y:,.0f})',
@@ -1518,7 +1518,7 @@ function test_Gauge() {
                 }
             }
         },
-        series: [<Highcharts.GaugeChartSeriesOptions> {
+        series: [<Highcharts.GaugeChartSeriesOptions>{
             data: [80],
             overshoot: 5
         }]
@@ -1574,7 +1574,7 @@ function test_HeatMap() {
             ],
             min: -5
         },
-        series: [<Highcharts.HeatMapSeriesOptions> {
+        series: [<Highcharts.HeatMapSeriesOptions>{
             borderWidth: 0,
             colsize: 24 * 36e5, // one day
             tooltip: {
@@ -1710,11 +1710,11 @@ function test_Pie() {
             name: 'Browser share',
             innerSize: '50%',
             data: [
-                ['Firefox',   10.38],
-                ['IE',       56.33],
+                ['Firefox', 10.38],
+                ['IE', 56.33],
                 ['Chrome', 24.03],
-                ['Safari',    4.77],
-                ['Opera',     0.91],
+                ['Safari', 4.77],
+                ['Opera', 0.91],
                 {
                     name: 'Proprietary or Undetectable',
                     y: 0.2,
@@ -1747,10 +1747,10 @@ function test_Pie() {
                     selected: true,
                     sliced: true
                 },
-                ['IE7',       26.6],
-                ['IE6',       20],
-                ['Chrome',    3.1],
-                ['Other',    5.4]
+                ['IE7', 26.6],
+                ['IE6', 20],
+                ['Chrome', 3.1],
+                ['Other', 5.4]
             ]
         }]
     });
@@ -1814,11 +1814,11 @@ function test_Pyramid() {
         series: [{
             name: 'Unique users',
             data: [
-                ['Website visits',   15654],
-                ['Downloads',       4064],
+                ['Website visits', 15654],
+                ['Downloads', 4064],
                 ['Requested price list', 1987],
-                ['Invoice sent',    976],
-                ['Finalized',    846]
+                ['Invoice sent', 976],
+                ['Finalized', 846]
             ]
         }]
     });
@@ -1848,13 +1848,13 @@ function test_SolidGauge() {
         tooltip: {
             enabled: false
         },
-				colorAxis: {
-					  stops: [
+        colorAxis: {
+            stops: [
                 [0.1, '#55BF3B'], // green
                 [0.5, '#DDDF0D'], // yellow
                 [0.9, '#DF5353'] // red
             ]
-				},
+        },
         yAxis: {
             lineWidth: 0,
             minorTickInterval: null,
@@ -1996,10 +1996,10 @@ function test_AxisOptions() {
         },
         endOnTick: false,
         events: {
-            afterBreaks: () => {},
-            afterSetExtremes: () => {},
-            pointBreak: () => {},
-            setExtremes: () => {}
+            afterBreaks: () => { },
+            afterSetExtremes: () => { },
+            pointBreak: () => { },
+            setExtremes: () => { }
         },
         floor: 0,
         gridLineColor: '#111111',
@@ -2014,7 +2014,7 @@ function test_AxisOptions() {
             distance: 10,
             enabled: true,
             format: "format",
-            formatter: function() { return this.value; },
+            formatter: function () { return this.value; },
             maxStaggerLines: 5,
             overflow: false,
             padding: 10,
@@ -2050,10 +2050,10 @@ function test_AxisOptions() {
             borderWidth: 2,
             color: 'gray',
             events: {
-                click: () => {},
-                mouseover: () => {},
-                mouseout: () => {},
-                mousemove: () => {}
+                click: () => { },
+                mouseover: () => { },
+                mouseout: () => { },
+                mousemove: () => { }
             },
             from: 0,
             id: 'plotband1',
@@ -2078,10 +2078,10 @@ function test_AxisOptions() {
             color: '#000000',
             dashStyle: 'Solid',
             events: {
-                click: () => {},
-                mouseover: () => {},
-                mouseout: () => {},
-                mousemove: () => {}
+                click: () => { },
+                mouseover: () => { },
+                mouseout: () => { },
+                mousemove: () => { }
             },
             id: 'plotline1',
             label: {
@@ -2111,7 +2111,7 @@ function test_AxisOptions() {
         tickLength: 10,
         tickPixelInterval: 100,
         tickPosition: 'outside',
-        tickPositioner: () => {},
+        tickPositioner: () => { },
         tickPositions: [0, 1, 2],
         tickWidth: 1,
         tickmarkPlacement: 'between',
@@ -2150,9 +2150,9 @@ function test_AxisObject() {
     axis.removePlotLine('plot-line-1');
     var extremes = axis.getExtremes();
     console.log('dataMax: ' + extremes.dataMax + '<br/>' +
-                'dataMin: ' + extremes.dataMin + '<br/>' +
-                'max: ' + extremes.max + '<br/>' +
-                'min: ' + extremes.min + '<br/>');
+        'dataMin: ' + extremes.dataMin + '<br/>' +
+        'max: ' + extremes.max + '<br/>' +
+        'min: ' + extremes.min + '<br/>');
     axis.remove();
     axis.remove(false);
     axis.setCategories(['A', 'B', 'C']);
@@ -2161,9 +2161,9 @@ function test_AxisObject() {
     axis.setExtremes(10, 20);
     axis.setExtremes(10, 20, false);
     axis.setExtremes(10, 20, false, false);
-    axis.setExtremes(10, 20, false, {duration: 50});
-    axis.setTitle({text: 'text'});
-    axis.setTitle({text: 'text'}, false);
+    axis.setExtremes(10, 20, false, { duration: 50 });
+    axis.setTitle({ text: 'text' });
+    axis.setTitle({ text: 'text' }, false);
     axis.toPixels(10);
     axis.toPixels(10, true);
     axis.toValue(10);
@@ -2178,11 +2178,11 @@ function test_ChartObject() {
     chart.addAxis(<Highcharts.AxisOptions>{}, true);
     chart.addAxis(<Highcharts.AxisOptions>{}, true, false);
     chart.addAxis(<Highcharts.AxisOptions>{}, true, true, false);
-    chart.addAxis(<Highcharts.AxisOptions>{}, true, true, {duration: 50});
+    chart.addAxis(<Highcharts.AxisOptions>{}, true, true, { duration: 50 });
     chart.addSeries(<Highcharts.IndividualSeriesOptions>{});
     chart.addSeries(<Highcharts.IndividualSeriesOptions>{}, false);
     chart.addSeries(<Highcharts.IndividualSeriesOptions>{}, false, false);
-    chart.addSeries(<Highcharts.IndividualSeriesOptions>{}, false, {duration: 50});
+    chart.addSeries(<Highcharts.IndividualSeriesOptions>{}, false, { duration: 50 });
     chart.addSeriesAsDrilldown(<Highcharts.PointObject>{}, <Highcharts.IndividualSeriesOptions>{});
     var container = chart.container;
     console.log(container.id);
@@ -2200,12 +2200,12 @@ function test_ChartObject() {
     chart.print();
     chart.redraw();
     chart.redraw(false);
-    chart.redraw({duration: 50, easing: 'fadeIn'});
+    chart.redraw({ duration: 50, easing: 'fadeIn' });
     chart.reflow();
     var series = chart.series;
     chart.setSize(200, 200);
     chart.setSize(200, 200, false);
-    chart.setSize(200, 200, {duration: 50});
+    chart.setSize(200, 200, { duration: 50 });
     chart.setTitle({}, {});
     chart.setTitle({}, {}, false);
     chart.showLoading();
@@ -2253,7 +2253,7 @@ function test_ElementObject() {
         })
         .add();
     var bbox = styledText.getBBox();
-    styledText.on('click', () => {});
+    styledText.on('click', () => { });
     group.toFront();
 }
 
@@ -2264,7 +2264,7 @@ function test_PointObject() {
     point.index;
     point.remove();
     point.remove(false);
-    point.remove(false, {duration: 50});
+    point.remove(false, { duration: 50 });
     point.select();
     point.select(false);
     point.select(false, true);
@@ -2274,14 +2274,14 @@ function test_PointObject() {
     point.slice(false);
     point.slice(false, false);
     point.slice(false, false, false);
-    point.slice(false, false, {duration: 50});
+    point.slice(false, false, { duration: 50 });
     var total = point.total;
     point.update(0);
     point.update([0, 0]);
     point.update({});
     point.update({}, false);
     point.update({}, false, false);
-    point.update({}, false, {duration: 50});
+    point.update({}, false, { duration: 50 });
     var x = point.x;
     var y = point.y;
 }
@@ -2306,7 +2306,7 @@ function test_SeriesObject() {
     series.addPoint({}, false);
     series.addPoint({}, false, true);
     series.addPoint({}, false, true, false);
-    series.addPoint({}, false, true, {duration: 50});
+    series.addPoint({}, false, true, { duration: 50 });
     var chart = series.chart;
     var data = series.data;
     series.hide();
@@ -2317,7 +2317,7 @@ function test_SeriesObject() {
     series.removePoint(0);
     series.removePoint(0, false);
     series.removePoint(0, false, false);
-    series.removePoint(0, false, {duration: 50});
+    series.removePoint(0, false, { duration: 50 });
     series.select();
     series.select(true);
     var isSelected = series.selected;
@@ -2326,7 +2326,7 @@ function test_SeriesObject() {
     series.setData([{}, {}, {}]);
     series.setData([0, 1, 2], false);
     series.setData([0, 1, 2], false, false);
-    series.setData([0, 1, 2], false, {duration: 50});
+    series.setData([0, 1, 2], false, { duration: 50 });
     series.setData([0, 1, 2], false, false, false);
     series.setVisible();
     series.setVisible(true);
