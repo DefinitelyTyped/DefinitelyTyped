@@ -203,10 +203,8 @@ function CellMeasurerTest() {
 
     ReactDOM.render(
         <CellMeasurer
-            cellRenderer={cellRenderer}
-            columnCount={columnCount}
-            height={fixedRowHeight}
-            rowCount={rowCount}
+            columnIndex={0}
+            rowIndex={0}
         >
             {({ getColumnWidth }) => (
                 <Grid
