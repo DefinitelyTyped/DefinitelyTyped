@@ -67,6 +67,9 @@ function test_validate() {
         onsubmit: false
     });
     $(".selector").validate({
+        onfocusin: (elt, event) => { },
+    });
+    $(".selector").validate({
         onfocusout: false
     });
     $(".selector").validate({

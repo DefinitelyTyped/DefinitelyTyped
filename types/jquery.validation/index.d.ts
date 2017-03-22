@@ -1,11 +1,9 @@
 // Type definitions for jquery.validation 1.13.1
 // Project: http://jqueryvalidation.org/
-// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>
+// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference types="jquery"/>
-
 
 declare namespace JQueryValidation
 {
@@ -97,6 +95,12 @@ declare namespace JQueryValidation
          * A boolean true is not a valid value.
          */
         onclick?: ShouldValidatePredicate;
+        /**
+         * Function. Validate elements when user focues in. If ommited hides all other filed marked as invalid. 
+         * 
+         * Set to a custom Function to decide for yourself what actually happens.
+         */
+        onfocusin?: ShouldValidatePredicate;
         /**
          * Boolean or Function. Validate elements (except checkboxes/radio buttons) on blur. If nothing is entered, all rules are skipped, except when the field was already marked as invalid.
          *
