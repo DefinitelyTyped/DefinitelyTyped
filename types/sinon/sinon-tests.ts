@@ -100,6 +100,23 @@ function testSandbox() {
     sandbox.restore();
 }
 
+function testPromises() {
+    var resolveStub = sinon.stub().resolves(10);
+    var rejectStub1 = sinon.stub().rejects();
+    var rejectsStub2 = sinon.stub().rejects(new Error('Specified error'));
+    var rejectsStub2 = sinon.stub().rejects("TypeError");
+}
+
+function testSymbolMatch() {
+    var stub = sinon.stub();
+    stub(Symbol('TestSymbol'));
+    stub.calledWithMatch(sinon.match.symbol);
+}
+
+function testResetHistory() {
+    sinon.stub().resetHistory();
+}
+
 testOne();
 testTwo();
 testThree();
@@ -109,6 +126,9 @@ testSix();
 testSeven();
 testEight();
 testNine();
+testPromises();
+testSymbolMatch();
+testResetHistory();
 
 var clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
