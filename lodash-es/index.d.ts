@@ -2,7 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 export { default as add } from './add';
 export { default as after } from './after';
