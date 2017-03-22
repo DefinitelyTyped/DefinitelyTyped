@@ -7476,6 +7476,19 @@ namespace TestIsUndefined {
 // _.isWeakMap
 namespace TestIsWeakMap {
     {
+        interface Obj { a: string };
+
+        let value: number|WeakMap<Obj, number>;
+
+        if (_.isWeakMap<Obj, number>(value)) {
+            let result: WeakMap<Obj, number> = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
         let result: boolean;
 
         result = _.isWeakMap(any);
