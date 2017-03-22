@@ -257,4 +257,3 @@ amplify.request({
     error: (data, status) => {
     }
 });
-

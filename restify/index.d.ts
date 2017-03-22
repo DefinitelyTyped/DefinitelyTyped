@@ -450,8 +450,8 @@ interface Server extends http.Server {
 
 interface ServerOptions {
     ca?: string;
-    certificate?: string;
-    key?: string;
+    certificate?: string | string[] | Buffer | Buffer[];
+    key?: string | string[] | Buffer | Buffer[];
     formatters?: Object;
     log?: Object;
     name?: string;

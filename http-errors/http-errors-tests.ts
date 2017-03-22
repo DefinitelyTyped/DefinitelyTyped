@@ -83,3 +83,4 @@ var err = new createError.MisdirectedRequest();
 var err = new createError.MisdirectedRequest('Where should this go?');
 
 let error: createError.HttpError;
+console.log(error instanceof createError.HttpError);

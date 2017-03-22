@@ -6,8 +6,8 @@
 import * as angular from 'angular';
 
 declare module 'angular' {
-     export namespace oauth2 {
-         interface OAuthConfig {
+    namespace oauth2 {
+        interface OAuthConfig {
             baseUrl: string;
             clientId: string;
             clientSecret?: string;
@@ -43,7 +43,5 @@ declare module 'angular' {
         interface OAuthTokenProvider {
             configure(params: OAuthTokenConfig): OAuthTokenConfig;
         }
-
     }
 }
-

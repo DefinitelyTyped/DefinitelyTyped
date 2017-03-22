@@ -506,6 +506,15 @@ fooProm = fooProm.thenThrow(err);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+barProm = fooProm.catchReturn(bar);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooProm
+fooProm = fooProm.catchThrow(err);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 str = fooProm.toString();
 
 obj = fooProm.toJSON();

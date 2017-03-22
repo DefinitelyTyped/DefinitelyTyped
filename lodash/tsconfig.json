@@ -171,6 +171,7 @@
         "noConflict/index.d.ts",
         "noop/index.d.ts",
         "now/index.d.ts",
+        "nth/index.d.ts",
         "nthArg/index.d.ts",
         "omit/index.d.ts",
         "omitBy/index.d.ts",

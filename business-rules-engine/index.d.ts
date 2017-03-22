@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Source: typings/business-rules-engine/Validation.d.ts
-/// <reference types="q" />
 
 import * as Q from "q";
 

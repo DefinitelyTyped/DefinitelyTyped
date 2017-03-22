@@ -1,4 +1,4 @@
-﻿/* Example taken from Google Calendar API JavaScript Quickstart https://developers.google.com/google-apps/calendar/quickstart/js */
+/* Example taken from Google Calendar API JavaScript Quickstart https://developers.google.com/google-apps/calendar/quickstart/js */
 
 {
   // Your Client ID can be retrieved from your project in the Google
