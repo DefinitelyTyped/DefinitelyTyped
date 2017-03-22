@@ -81,5 +81,6 @@ declare namespace ChaiHttp {
 
 declare module "chai-http" {
 	function chaiHttp(chai: any, utils: any): void;
+	namespace chaiHttp {}
 	export = chaiHttp;
 }
