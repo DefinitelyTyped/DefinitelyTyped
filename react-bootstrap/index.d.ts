@@ -964,8 +964,10 @@ declare namespace ReactBootstrap {
     // <FormControl />
     interface FormControlProps extends React.HTMLProps<FormControl> {
         bsClass?: string;
+        bsSize?: Sizes;
         componentClass?: React.ReactType;
         id?: string;
+        inputRef?: (instance: HTMLInputElement) => void;
         type?: string;
     }
     interface FormControlClass extends React.ClassicComponentClass<FormControlProps> {

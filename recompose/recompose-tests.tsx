@@ -73,6 +73,12 @@ function testWithHandlers() {
       onSubmit: (props: OutterProps) => (e: any) => {},
     });
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
+
+    const enhancer2 = withHandlers((props: OutterProps) => ({
+      onChange: (props: OutterProps) => (e: any) => {},
+      onSubmit: (props: OutterProps) => (e: any) => {},
+    }));
+    const enhanced2: React.ComponentClass<OutterProps> = enhancer2(innerComponent);
 }
 
 function testDefaultProps() {

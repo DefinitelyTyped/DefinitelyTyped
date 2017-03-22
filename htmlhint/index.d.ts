@@ -23,7 +23,7 @@ export interface Rule {
 }
 
 export interface RuleSet {
-    [id: string]: boolean;
+    [id: string]: boolean | string;
 }
 
 export namespace HTMLHint {

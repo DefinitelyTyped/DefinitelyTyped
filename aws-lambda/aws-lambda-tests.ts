@@ -12,11 +12,50 @@ var context: AWSLambda.Context;
 var identity: AWSLambda.CognitoIdentity;
 var proxyResult: AWSLambda.ProxyResult;
 var snsEvt: AWSLambda.SNSEvent;
-var snsEvtRecs: Array<AWSLambda.SNSEventRecord>;
+var snsEvtRecs: AWSLambda.SNSEventRecord[];
 var snsEvtRec: AWSLambda.SNSEventRecord;
 var snsMsg: AWSLambda.SNSMessage;
 var snsMsgAttr: AWSLambda.SNSMessageAttribute;
 var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
+var S3CreateEvent: AWSLambda.S3CreateEvent = {
+    Records: [{
+        eventVersion: 'string',
+        eventSource: 'string',
+        awsRegion: 'string',
+        eventTime: 'string',
+        eventName: 'string',
+        userIdentity: {
+            principalId: 'string'
+        },
+        requestParameters: {
+            sourceIPAddress: 'string'
+        },
+        responseElements: {
+            'x-amz-request-id': 'string',
+            'x-amz-id-2': 'string'
+        },
+        s3: {
+            s3SchemaVersion: 'string',
+            configurationId: 'string',
+            bucket: {
+                name: 'string',
+                ownerIdentity: {
+                    principalId: 'string'
+                },
+                arn: 'string'
+            },
+            object: {
+                key: 'string',
+                size: 1,
+                eTag: 'string',
+                versionId: 'string',
+                sequencer: 'string'
+            }
+        }
+    }
+    ]
+};
+
 
 /* API Gateway Event */
 str = apiGwEvt.body;
@@ -78,7 +117,7 @@ num = proxyResult.statusCode;
 proxyResult.headers["example"] = str;
 proxyResult.headers["example"] = b;
 proxyResult.headers["example"] = num;
-str = proxyResult.body
+str = proxyResult.body;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
@@ -142,5 +181,5 @@ context.fail(error);
 context.fail(str);
 
 /* Handler */
-let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => {};
-let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => {};
+let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };

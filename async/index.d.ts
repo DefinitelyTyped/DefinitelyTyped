@@ -6,17 +6,16 @@
 interface Dictionary<T> { [key: string]: T; }
 
 interface ErrorCallback<T> { (err?: T): void; }
-interface AsyncWaterfallCallback<E> { (err: E, ...args: any[]): void; }
-interface AsyncBooleanResultCallback<E> { (err: E, truthValue: boolean): void; }
-interface AsyncResultCallback<T, E> { (err: E, result: T): void; }
-interface AsyncResultArrayCallback<T, E> { (err: E, results: T[]): void; }
-interface AsyncResultObjectCallback<T, E> { (err: E, results: Dictionary<T>): void; }
+interface AsyncBooleanResultCallback<E> { (err?: E, truthValue?: boolean): void; }
+interface AsyncResultCallback<T, E> { (err?: E, result?: T): void; }
+interface AsyncResultArrayCallback<T, E> { (err?: E, results?: (T | undefined)[]): void; }
+interface AsyncResultObjectCallback<T, E> { (err: E | undefined, results: Dictionary<T | undefined>): void; }
 
 interface AsyncFunction<T, E> { (callback: (err?: E, result?: T) => void): void; }
 interface AsyncIterator<T, E> { (item: T, callback: ErrorCallback<E>): void; }
 interface AsyncForEachOfIterator<T, E> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
 interface AsyncResultIterator<T, R, E> { (item: T, callback: AsyncResultCallback<R, E>): void; }
-interface AsyncMemoIterator<T, R, E> { (memo: R, item: T, callback: AsyncResultCallback<R, E>): void; }
+interface AsyncMemoIterator<T, R, E> { (memo: R | undefined, item: T, callback: AsyncResultCallback<R, E>): void; }
 interface AsyncBooleanIterator<T, E> { (item: T, callback: AsyncBooleanResultCallback<E>): void; }
 
 interface AsyncWorker<T, E> { (task: T, callback: ErrorCallback<E>): void; }
@@ -76,7 +75,7 @@ interface AsyncPriorityQueue<T> {
 
 interface AsyncCargo {
     length(): number;
-    payload: number;
+    payload?: number;
     push(task: any, callback? : Function): void;
     push(task: any[], callback? : Function): void;
     saturated(): void;
@@ -175,7 +174,7 @@ interface Async {
     during<E>(test: (testCallback : AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
     doDuring<E>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
     forever<E>(next: (next : ErrorCallback<E>) => void, errBack: ErrorCallback<E>) : void;
-    waterfall<T, E>(tasks: Function[], callback?: AsyncResultCallback<T,E>): void;
+    waterfall<T, E>(tasks: Function[], callback?: AsyncResultCallback<T, E | Error>): void;
     compose(...fns: Function[]): Function;
     seq(...fns: Function[]): Function;
     applyEach(fns: Function[], argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
@@ -186,29 +185,30 @@ interface Async {
     cargo<E>(worker : (tasks: any[], callback : ErrorCallback<E>) => void, payload? : number) : AsyncCargo;
     auto<E>(tasks: any, concurrency?: number, callback?: AsyncResultCallback<any, E>): void;
     autoInject<E>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
-    retry<T, E>(opts: number, task: (callback : AsyncResultCallback<T, E>, results: any) => void, callback:  AsyncResultCallback<any, E>): void;
-    retry<T, E>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results : any) => void, callback:  AsyncResultCallback<any, E>): void;
-    retryable<T, E>(opts: number | {times: number, interval: number}, task: AsyncFunction<T, E>): AsyncFunction<T, E>;
-    apply<E>(fn: Function, ...arguments: any[]): AsyncFunction<any,E>;
+    retry<T, E>(opts: number, task: (callback : AsyncResultCallback<T, E>, results: any) => void, callback:  AsyncResultCallback<any, E | Error>): void;
+    retry<T, E>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results : any) => void, callback:  AsyncResultCallback<any, E | Error>): void;
+    retryable<T, E>(opts: number | {times: number, interval: number}, task: AsyncFunction<T, E>): AsyncFunction<T, E | Error>;
+    apply<E>(fn: Function, ...arguments: any[]): AsyncFunction<any,E | Error>;
     nextTick(callback: Function, ...args: any[]): void;
     setImmediate: typeof async.nextTick;
 
-    reflect<T, E>(fn: AsyncFunction<T, E>) : (callback: (err: void, result: {error?: Error, value?: T}) => void) => void;
-    reflectAll<T, E>(tasks: AsyncFunction<T, E>[]): ((callback: (err: void, result: {error?: Error, value?: T}) => void) => void)[];
+    reflect<T, E>(fn: AsyncFunction<T, E>) : (callback: (err: null, result: {error?: E, value?: T}) => void) => void;
+    reflectAll<T, E>(tasks: AsyncFunction<T, E>[]): ((callback: (err: null, result: {error?: E, value?: T}) => void) => void)[];
 
-    timeout<T, E>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E>;
-    timeout<T, R, E>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E>;
+    timeout<T, E>(fn: AsyncFunction<T, E>, milliseconds: number, info?: any): AsyncFunction<T, E | Error>;
+    timeout<T, R, E>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E | Error>;
 
     times<T, E> (n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
     timesSeries<T, E>(n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
     timesLimit<T, E>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
 
-    transform<T, R, E>(arr: T[], iteratee: (acc: R[], item: T, key: string, callback: (error?: E) => void) => void): void;
-    transform<T, R, E>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: string, callback: (error?: E) => void) => void): void;
-    transform<T, R, E>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void): void;
-    transform<T, R, E>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void): void;
+    transform<T, R, E>(arr: T[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
+    transform<T, R, E>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
 
-    race<T, E>(tasks: (AsyncFunction<T, E>)[], callback: AsyncResultCallback<T, E>) : void;
+    transform<T, R, E>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
+    transform<T, R, E>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: E) => void) => void, callback?: AsyncResultObjectCallback<T, E>): void;
+
+    race<T, E>(tasks: (AsyncFunction<T, E>)[], callback: AsyncResultCallback<T, E | Error>) : void;
 
     // Utils
     memoize(fn: Function, hasher?: Function): Function;
@@ -226,4 +226,3 @@ declare var async: Async;
 declare module "async" {
     export = async;
 }
-

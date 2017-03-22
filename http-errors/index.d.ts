@@ -23,6 +23,8 @@ declare module 'http-errors' {
             [code: string]: new (msg?: string) => HttpError;
 
             (...args: Array<Error | string | number | Object>): HttpError;
+            
+            HttpError: HttpErrorConstructor;
 
             Continue: HttpErrorConstructor;
             SwitchingProtocols: HttpErrorConstructor;

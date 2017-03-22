@@ -5,48 +5,59 @@
 
 // Work In Progress
 
-declare namespace TinyMce {
+import 'jquery';
 
-  export interface Static extends TinyMce.EditorManager {
 
-    DOM: TinyMce.dom.DOMUtils;
 
-    PluginManager: TinyMce.AddOnManager;
 
-    ScriptLoader: TinyMce.dom.ScriptLoader;
+declare namespace tinymce {
 
-    ThemeManager: TinyMce.AddOnManager;
+  var DOM: dom.DOMUtils;
 
-    create(s: string, p: {}, root?: {}): void;
+  var PluginManager: AddOnManager;
 
-    createNS(n: string, o: {}): {};
+  var ScriptLoader: dom.ScriptLoader;
 
-    each(o: {}, cb: () => void, s?: {}): void;
+  var ThemeManager: AddOnManager;
 
-    explode(s: string, d: string): void;
+  var EditorManager: EditorManager;
 
-    grep(a: any[], f: () => void): any[];
+  var baseURL: string;
 
-    inArray(item: any, arr: any[]): number;
+  var activeEditor: Editor;
 
-    is(obj: {}, type?: string): boolean;
+  function create(s: string, p: {}, root?: {}): void;
 
-    isArray(obj: {}): boolean;
+  function createNS(n: string, o: {}): {};
 
-    makeMap(items: any[], delim?: string, map?: {}): {};
+  function each(o: {}, cb: () => void, s?: {}): void;
 
-    map(array: any[], callback: () => void): any[];
+  function explode(s: string, d: string): void;
 
-    resolve(n: string, o?: {}): {};
+  function grep(a: any[], f: () => void): any[];
 
-    toArray(obj: {}): any[];
+  function inArray(item: any, arr: any[]): number;
 
-    trim(s: string): string;
+  function is(obj: {}, type?: string): boolean;
 
-    walk(o: {}, f: () => void, n?: string, s?: string): void;
-  }
+  function isArray(obj: {}): boolean;
+
+  function makeMap(items: any[], delim?: string, map?: {}): {};
+
+  function map(array: any[], callback: () => void): any[];
+
+  function resolve(n: string, o?: {}): {};
+
+  function toArray(obj: {}): any[];
+
+  function trim(s: string): string;
+
+  function walk(o: {}, f: () => void, n?: string, s?: string): void;
+  
+  function init(settings: Settings): void;
 
   export interface Settings {
+    table_toolbar?: boolean;
 
     auto_focus?: string;
 
@@ -58,13 +69,13 @@ declare namespace TinyMce {
 
     hidden_input?: boolean;
 
-    init_instance_callback?: (editor: TinyMce.Editor) => void;
+    init_instance_callback?: (editor: Editor) => void;
 
     plugins?: string | string[];
 
     selector?: string;
 
-    setup?: (edtor: TinyMce.Editor) => void;
+    setup?: (edtor: Editor) => void;
 
     target?: Element;
 
@@ -282,7 +293,7 @@ declare namespace TinyMce {
 
   export interface AddOnManager {
 
-    add(id: string, addOn: (editor: TinyMce.Editor, url: string) => void): Theme | Plugin;
+    add(id: string, addOn: (editor: Editor, url: string) => void): Theme | Plugin;
 
     addComponents(pluginName: string, scripts: string[]): void;
 
@@ -293,7 +304,9 @@ declare namespace TinyMce {
     requireLangPack(name: string, languages?: string): void;
   }
 
-  export interface Editor extends util.Observable {
+  export class Editor extends util.Observable {
+
+    constructor(id: string, settings: Settings, editorManager: tinymce.EditorManager);
 
     $: dom.DomQuery;
 
@@ -437,15 +450,15 @@ declare namespace TinyMce {
 
     $: dom.DomQuery;
 
-    activeEditor: TinyMce.Editor;
+    activeEditor: Editor;
 
-    baseURI: TinyMce.util.URI;
+    baseURI: util.URI;
 
     baseURL: string;
 
     documentBaseURL: string;
 
-    editors: TinyMce.Editor[];
+    editors: Editor[];
 
     i18n: {};
 
@@ -457,23 +470,23 @@ declare namespace TinyMce {
 
     suffix: string;
 
-    add(editor: TinyMce.Editor): TinyMce.Editor;
+    add(editor: Editor): Editor;
 
     addI18n(code: string, items: {}): void;
 
-    createEditor(id: string, settings: {}): TinyMce.Editor;
+    createEditor(id: string, settings: {}): Editor;
 
     execCommand(cmd: string, ui?: boolean, value?: string): boolean;
 
-    get(id: string): TinyMce.Editor;
+    get(id: string): Editor;
 
     init(settings: Settings): Promise<Editor>;
 
     overrideDefaults(defaultSettings: {}): void;
 
-    remove(selector: TinyMce.Editor): TinyMce.Editor;
+    remove(selector: Editor): Editor;
 
-    setActive(editor: TinyMce.Editor): void;
+    setActive(editor: Editor): void;
 
     translate(text: string): string;
 
@@ -594,14 +607,9 @@ declare namespace TinyMce {
     }
   }
 
-  export interface FocusManager {
-
-    isEditorUIElement(elm: Element): boolean;
-  }
-
-  export class FocusManager implements FocusManager {
-
-    constructor(editorManager: TinyMce.EditorManager);
+  class FocusManager {
+    constructor();
+    static isEditorUIElement(elm: Element): boolean;
   }
 
   export interface Formatter {
@@ -695,6 +703,48 @@ declare namespace TinyMce {
     open(args?: {}): void;
   }
 
+  export namespace ui {
+    export interface ControlSettings {
+      menu: ui.Menu;
+    }
+
+    interface Collection {
+
+    }
+
+    interface Container {
+      add(items: any): Collection;
+      items(): Collection;
+    }
+
+    interface Moveable {
+      moveRel(elm: Node, rel: string): Control;
+    }
+
+    interface FloatPanel extends Control, Moveable {
+
+    }
+
+    interface Menu extends FloatPanel, Control, Container {
+
+    }
+
+    interface Factory {
+      create(settings: any): Control;
+    }
+
+    export class Control {
+      constructor();
+
+      $el: JQuery;
+      on(name: string, callback: string): tinymce.ui.Control;
+      tooltip(): Control;
+      settings: ControlSettings;
+      disabled(state: boolean): void;
+      active(state: boolean): void;
+    }
+  }
+
   export namespace dom {
 
     export interface BookmarkManager {
@@ -744,7 +794,7 @@ declare namespace TinyMce {
 
       getOuterHTML(elm: string): string;
 
-      getParent(node: Node, selector: () => void, root?: Node): Node;
+      getParent(node: Node, selector: any, root?: Node): Node;
 
       getParents<T>(node: Node, selector: () => void, root?: Node): T[];
 
@@ -1085,14 +1135,14 @@ declare namespace TinyMce {
 
       addNodeFilter(attributes: string, callback: () => void): void;
 
-      filterNode(node: TinyMce.html.Node): TinyMce.html.Node;
+      filterNode(node: html.Node): html.Node;
 
-      parse(html: string, args?: {}): TinyMce.html.Node;
+      parse(html: string, args?: {}): html.Node;
     }
 
     export class DomParser implements DomParser {
 
-      constructor(settings: {}, schema: TinyMce.html.Schema);
+      constructor(settings: {}, schema: html.Schema);
     }
 
     export interface Entities {
@@ -1112,31 +1162,31 @@ declare namespace TinyMce {
 
     export interface Node {
 
-      append(node: TinyMce.html.Node): TinyMce.html.Node;
+      append(node: html.Node): html.Node;
 
-      attr(name: string, value?: string): string | TinyMce.html.Node;
+      attr(name: string, value?: string): string | html.Node;
 
-      clone(): TinyMce.html.Node;
+      clone(): html.Node;
 
       create(name: string, attrs: {}): void;
 
-      empty(): TinyMce.html.Node;
+      empty(): html.Node;
 
-      getAll(name: string): TinyMce.html.Node[];
+      getAll(name: string): html.Node[];
 
-      insert(node: TinyMce.html.Node, ref_node: TinyMce.html.Node, before?: boolean): TinyMce.html.Node;
+      insert(node: html.Node, ref_node: html.Node, before?: boolean): html.Node;
 
       isEmpty(elements: {}): boolean;
 
-      remove(): TinyMce.html.Node;
+      remove(): html.Node;
 
-      replace(node: TinyMce.html.Node): TinyMce.html.Node;
+      replace(node: html.Node): html.Node;
 
       unwrap(): void;
 
-      walk(prev?: boolean): TinyMce.html.Node;
+      walk(prev?: boolean): html.Node;
 
-      wrap(wrapperNode: TinyMce.html.Node): TinyMce.html.Node;
+      wrap(wrapperNode: html.Node): html.Node;
     }
 
     export class Node implements Node {
@@ -1151,7 +1201,7 @@ declare namespace TinyMce {
 
     export class SaxParser implements SaxParser {
 
-      constructor(settings: {}, schema: TinyMce.html.Schema);
+      constructor(settings: {}, schema: html.Schema);
     }
 
     export interface Schema {
@@ -1201,17 +1251,17 @@ declare namespace TinyMce {
 
     export class Schema implements Schema {
 
-        constructor(settings: {});
+      constructor(settings: {});
     }
 
     export interface Serializer {
 
-      serialize(node: TinyMce.html.Node): string;
+      serialize(node: html.Node): string;
     }
 
     export class Serializer implements Serializer {
 
-      constructor(settings: {}, schema: TinyMce.html.Schema);
+      constructor(settings: {}, schema: html.Schema);
     }
 
     export interface Styles {
@@ -1252,7 +1302,7 @@ declare namespace TinyMce {
 
     export interface Color {
 
-      parse(value: {}): TinyMce.util.Color;
+      parse(value: {}): util.Color;
 
       toHex(): string;
 
@@ -1278,7 +1328,7 @@ declare namespace TinyMce {
 
       setEditorInterval(callback: () => void, time: number): number;
 
-      setEditorTimeout(editor: TinyMce.Editor, callback: () => void, time: number): number;
+      setEditorTimeout(editor: Editor, callback: () => void, time: number): number;
 
       setInterval(callback: () => void, time: number): number;
 
@@ -1342,7 +1392,7 @@ declare namespace TinyMce {
       setItem(key: string, value: string): void;
     }
 
-    export interface Observable {
+    export class Observable {
 
       fire(name: string, args?: {}, bubble?: boolean): {};
 
@@ -1390,7 +1440,7 @@ declare namespace TinyMce {
 
       getURI(noProtoHost: boolean): URI;
 
-      isSameOrigin(uri: TinyMce.util.URI): boolean;
+      isSameOrigin(uri: util.URI): boolean;
 
       setPath(path: string): void;
 
@@ -1425,5 +1475,3 @@ declare namespace TinyMce {
 
   }
 }
-
-declare var tinymce: TinyMce.Static;
