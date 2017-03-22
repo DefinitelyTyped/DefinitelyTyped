@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.6.42
+// Type definitions for node-forge 0.6.43
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
@@ -23,7 +23,10 @@ declare module "node-forge" {
         }
 
         function privateKeyToPem(key: Key, maxline?: number): PEM;
+
         function publicKeyToPem(key: Key, maxline?: number): PEM;
+        function publicKeyFromPem(pem: PEM): Key;
+        
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 
         interface oids {
