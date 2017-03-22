@@ -1,6 +1,6 @@
 // Type definitions for Office.js
 // Project: http://dev.office.com
-// Definitions by: OfficeDev <https://github.com/OfficeDev>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -111,6 +111,10 @@ declare namespace Office {
          * Optional. Determines whether the dialog is safe to display within a Web frame.
          */
         xFrameDenySafe?: boolean,
+        /**
+         * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, this setting is ignored by desktop clients. 
+         */
+        displayInIframe?: boolean
     }
     export interface OfficeTheme {
         bodyBackgroundColor: string;
