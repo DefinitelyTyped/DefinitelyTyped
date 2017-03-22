@@ -1,33 +1,44 @@
-
-
-import fs = require('fs');
+import * as fs from 'fs';
 import chokidar = require('chokidar');
 
-var watcher = chokidar.watch('file, dir, or glob', {
+const watcher = chokidar.watch('file, dir, or glob', {
     ignored: /[\/\\]\./, persistent: true
 });
 
-var log = console.log.bind(console);
-
-let str: string;
-let any: any;
-let stats: fs.Stats;
+const log = console.log.bind(console);
 
 watcher
-    .on('add', path => { str = path; })
-    .on('addDir', path => { str = path; })
-    .on('change', path => { str = path; })
-    .on('unlink', path => { str = path; })
-    .on('unlinkDir', path => { str = path; })
-    .on('error', (error) => { any = error; })
-    .on('ready', () => { })
-    .on('raw', (event, path, details) => { str = event; str = path; any = details; })
+    .on('add', (path: string) => {
+        log('File', path, 'has been added');
+    })
+    .on('addDir', (path: string) => {
+        log('Directory', path, 'has been added');
+    })
+    .on('change', (path: string) => {
+        log('File', path, 'has been changed');
+    })
+    .on('unlink', (path: string) => {
+        log('File', path, 'has been removed');
+    })
+    .on('unlinkDir', (path: string) => {
+        log('Directory', path, 'has been removed');
+    })
+    .on('error', (error: any) => {
+        log('Error happened', error);
+    })
+    .on('ready', () => {
+        log('Initial scan complete. Ready for changes.');
+    })
+    .on('raw', (event: string, path: string, details: any) => {
+        log('Raw event info:', event, path, details);
+    });
 
 // 'add', 'addDir' and 'change' events also receive stat() results as second
 // argument when available: http://nodejs.org/api/fs.html#fs_class_fs_stats
-watcher.on('change', (path, _stats) => {
-    str = path;
-    stats = _stats;
+watcher.on('change', (path: string, stats: fs.Stats) => {
+    if (stats) {
+        console.log('File', path, 'changed size to', stats.size);
+    }
 });
 
 // Watch new files.
@@ -41,7 +52,6 @@ watcher.unwatch('new-file*');
 watcher.close();
 
 // One-liner
-chokidar.watch('.', {ignored: /[\/\\]\./}).on('all', (event, path) => {
-    str = event;
-    str = path;
+chokidar.watch('.', { ignored: /[\/\\]\./ }).on('all', (event: string, path: string) => {
+    console.log(event, path);
 });
