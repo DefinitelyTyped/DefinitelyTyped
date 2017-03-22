@@ -3,7 +3,7 @@ import * as net from 'net';
 
 class TestExtension implements Protocol.Extension {
     constructor(protected wire: Protocol.Wire) { }
-    name: 'extname';
+    name = 'extname';
 }
 
 net.createServer(socket => {
