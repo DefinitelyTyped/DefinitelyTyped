@@ -86,9 +86,7 @@ function tsconfig() {
 }
 
 function tslint() {
-    return JSON.stringify({
-        "extends": "../tslint.json"
-    }, undefined, 4);
+    return `{ "extends": "../tslint.json" }\n`;
 }
 
 
