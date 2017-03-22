@@ -1,6 +1,6 @@
-// Type definitions for bittorrent-protocol 2.1
+// Type definitions for bittorrent-protocol 2.2
 // Project: https://github.com/feross/bittorrent-protocol#readme
-// Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
+// Definitions by: Feross Aboukhadijeh <https://github.com/feross>, Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,18 +15,19 @@ declare namespace BittorrentProtocol {
         (): Wire;
     }
 
+    export interface ExtensionConstructor {
+        new (wire: Wire): Extension;
+    }
+
     export interface Extension {
-        // tslint:disable-next-line:no-misused-new - could use class instead of interface but class is not extendible
-        constructor(wire: Wire): this;
-        onHandshake?: () => void;
-        onExtendedHandshake?: () => void;
-        onMessage?: () => void;
+        onHandshake?: (infoHash: string, peerId: string, extensions: { [name: string]: boolean }) => void;
+        onExtendedHandshake?: (handshake: { [key: string]: any }) => void;
+        onMessage?: (buf: Buffer) => void;
         name: string;
     }
 
     export interface Request {
-        //tslint:disable-next-line:no-misused-new  - could use class instead of interface but class is not extendible
-        constructor(piece: number, offset: number, length: number, callback: () => void): this;
+        new (piece: number, offset: number, length: number, callback: () => void): this;
         piece: number;
         offset: number;
         length: number;
@@ -52,7 +53,7 @@ declare namespace BittorrentProtocol {
 
         destroy(): void;
 
-        use(ext: Extension): void;
+        use(ext: ExtensionConstructor): void;
 
         handshake(infoHash: string | Buffer, peerId: string | Buffer, extensions?: any): void;
 
