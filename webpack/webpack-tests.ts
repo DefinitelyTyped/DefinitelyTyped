@@ -278,6 +278,27 @@ plugin = new webpack.ContextReplacementPlugin(
     resourceRegExp,
     newContentResource);
 plugin = new webpack.ContextReplacementPlugin(resourceRegExp);
+plugin = new webpack.DllPlugin({
+    context: 'dir-context',
+    name: 'dll-name',
+    path: 'manifest-path'
+});
+plugin = new webpack.DllPlugin([{
+    context: 'dir-context',
+    name: 'dll-name',
+    path: 'manifest-path'
+}]);
+plugin = new webpack.DllReferencePlugin({
+    content: 'dll content',
+    context: 'dir-context',
+    manifest: {
+        content: 'dll content',
+        name: 'dll name'
+    },
+    name: 'dll name',
+    scope: 'dll prefix',
+    sourceType: 'var'
+});
 plugin = new webpack.IgnorePlugin(requestRegExp);
 plugin = new webpack.IgnorePlugin(requestRegExp, contextRegExp);
 

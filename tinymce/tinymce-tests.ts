@@ -1,3 +1,5 @@
+import { tinymce } from 'tinymce';
+
 tinymce.init(
   {
     selector: 'textarea',
@@ -14,4 +16,4 @@ tinymce.init(
 );
 
 
-let t = new TinyMce.util.Color('#FFFFFF');
+let t = new tinymce.util.Color('#FFFFFF');

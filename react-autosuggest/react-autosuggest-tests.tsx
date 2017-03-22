@@ -5,19 +5,19 @@ import Autosuggest = require('react-autosuggest');
 // endregion
 
 interface Language {
-    name : string;
-    year : number;
+    name: string;
+    year: number;
 }
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expression
 // s#Using_Special_Characters
-function escapeRegexCharacters(str : string) : string {
+function escapeRegexCharacters(str: string): string {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // region Fields
-    static languages : Language[] = [
+    static languages: Language[] = [
         {
             name: 'C',
             year: 1972
@@ -63,7 +63,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         }
     ];
     // endregion region Constructor
-    constructor(props : any) {
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -72,7 +72,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         };
     }
     // endregion region Rendering methods
-    render() : JSX.Element {
+    render(): JSX.Element {
         const {value, suggestions} = this.state;
         const inputProps = {
             placeholder: `Type 'c'`,
@@ -101,25 +101,25 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             theme={theme}/>;
     }
 
-    protected onSuggestionsSelected(event : React.FormEvent<any>, data : Autosuggest.SuggestionSelectedEventData<Language>) : void {
+    protected onSuggestionsSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
-    protected renderSuggestion(suggestion : Language) : JSX.Element {
+    protected renderSuggestion(suggestion: Language): JSX.Element {
         return <span>{suggestion.name}</span>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent<any>, {newValue, method} : any) : void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
         this.setState({value: newValue});
     }
 
-    protected onSuggestionsFetchRequested({value}: any) : void {
+    protected onSuggestionsFetchRequested({value}: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
     }
     // endregion region Helper methods
-    protected getSuggestions(value: string) : Language[] {
+    protected getSuggestions(value: string): Language[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
         if (escapedValue === '') {
@@ -133,7 +133,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
             .filter(language => regex.test(language.name));
     }
 
-    protected getSuggestionValue(suggestion: Language) : string {return suggestion.name;}
+    protected getSuggestionValue(suggestion: Language): string { return suggestion.name; }
     // endregion
 }
 
@@ -141,13 +141,13 @@ ReactDOM.render(
    <ReactAutosuggestBasicTest/>, document.getElementById('app'));
 
 interface LanguageGroup {
-    title : string;
-    languages : Language[];
+    title: string;
+    languages: Language[];
 }
 
-export class ReactAutosuggestMultipleTest extends React.Component<any,any> {
+export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     // region Fields
-    static languages : LanguageGroup[] = [
+    static languages: LanguageGroup[] = [
         {
             title: '1970s',
             languages: [
@@ -218,7 +218,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any,any> {
         }
     ];
     // endregion region Constructor
-    constructor(props : any) {
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -227,7 +227,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any,any> {
         };
     }
     // endregion region Rendering methods
-    render() : JSX.Element {
+    render(): JSX.Element {
         const {value, suggestions} = this.state;
         const inputProps = {
             placeholder: `Type 'c'`,
@@ -251,31 +251,31 @@ export class ReactAutosuggestMultipleTest extends React.Component<any,any> {
             inputProps={inputProps}/>;
     }
 
-    protected onSuggestionSelected(event : React.FormEvent<any>, data : Autosuggest.SuggestionSelectedEventData<Language>) : void {
+    protected onSuggestionSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
         const language = data.suggestion as Language;
 
         alert(`Selected language is ${language.name} (${language.year}).`);
     }
 
-    protected renderSuggestion(suggestion : Language) : JSX.Element {
+    protected renderSuggestion(suggestion: Language): JSX.Element {
         return <span>{suggestion.name}</span>;
     }
 
-    protected renderSectionTitle(section : LanguageGroup) : JSX.Element {
+    protected renderSectionTitle(section: LanguageGroup): JSX.Element {
         return <strong>{section.title}</strong>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent<any>, {newValue, method} : any) : void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
         this.setState({value: newValue});
     }
 
-    protected onSuggestionsFetchRequested({value} : any) : void {
+    protected onSuggestionsFetchRequested({value}: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
     }
     // endregion region Helper methods
-    protected getSuggestions(value : string) : LanguageGroup[] {
+    protected getSuggestions(value: string): LanguageGroup[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
         if (escapedValue === '') {
@@ -297,11 +297,11 @@ export class ReactAutosuggestMultipleTest extends React.Component<any,any> {
             .filter(section => section.languages.length > 0);
     }
 
-    protected getSuggestionValue(suggestion : Language) {
+    protected getSuggestionValue(suggestion: Language) {
         return suggestion.name;
     }
 
-    protected getSectionSuggestions(section : LanguageGroup) {
+    protected getSectionSuggestions(section: LanguageGroup) {
         return section.languages;
     }
     // endregion
@@ -311,14 +311,14 @@ ReactDOM.render(
    <ReactAutosuggestMultipleTest/>, document.getElementById('app'));
 
 interface Person {
-    first : string;
-    last : string;
-    twitter : string;
+    first: string;
+    last: string;
+    twitter: string;
 }
 
-export class ReactAutosuggestCustomTest extends React.Component<any,any> {
+export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     // region Fields
-    static people : Person[] = [
+    static people: Person[] = [
         {
             first: 'Charlie',
             last: 'Brown',
@@ -338,7 +338,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any,any> {
         }
     ];
     // endregion region Constructor
-    constructor(props : any) {
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -347,7 +347,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any,any> {
         };
     }
     // endregion region Rendering methods
-    render() : JSX.Element {
+    render(): JSX.Element {
         const {value, suggestions} = this.state;
         const inputProps = {
             placeholder: "Type 'c'",
@@ -365,12 +365,12 @@ export class ReactAutosuggestCustomTest extends React.Component<any,any> {
             inputProps={inputProps}/>;
     }
 
-    protected renderSuggestion(suggestion : Person, {value, valueBeforeUpDown} : any) : JSX.Element {
+    protected renderSuggestion(suggestion: Person, {value, valueBeforeUpDown}: any): JSX.Element {
         const suggestionText = `${suggestion.first} ${suggestion.last}`;
         const query = (valueBeforeUpDown || value).trim();
         const parts = suggestionText
             .split(' ')
-            .map((part : string) => {
+            .map((part: string) => {
                 return {
                     highlight: (Math.ceil(Math.random() * 10)) % 2,
                     text: part
@@ -391,17 +391,17 @@ export class ReactAutosuggestCustomTest extends React.Component<any,any> {
        </span>;
     }
     // endregion region Event handlers
-    protected onChange(event : React.FormEvent<any>, {newValue, method} : any) : void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
         this.setState({value: newValue});
     }
 
-    protected onSuggestionsFetchRequested({value} : any) : void {
+    protected onSuggestionsFetchRequested({value}: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
     }
     // endregion region Helper methods
-    protected getSuggestions(value : string) : Person[] {
+    protected getSuggestions(value: string): Person[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
         if (escapedValue === '') {
@@ -415,7 +415,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any,any> {
             .filter(person => regex.test(this.getSuggestionValue(person)));
     }
 
-    protected getSuggestionValue(suggestion : Person) : string {return `${suggestion.first} ${suggestion.last}`;}
+    protected getSuggestionValue(suggestion: Person): string { return `${suggestion.first} ${suggestion.last}`; }
     // endregion
 }
 

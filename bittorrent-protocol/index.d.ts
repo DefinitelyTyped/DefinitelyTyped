@@ -16,7 +16,7 @@ declare namespace BittorrentProtocol {
     }
 
     export interface Extension {
-        //tslint:disable-next-line:no-misused-new - could use class instead of interface but class is not extendible
+        // tslint:disable-next-line:no-misused-new - could use class instead of interface but class is not extendible
         constructor(wire: Wire): this;
         onHandshake?: () => void;
         onExtendedHandshake?: () => void;

@@ -689,6 +689,81 @@ declare namespace webpack {
         constructor(definitions: {[key: string]: any});
     }
 
+    class DllPlugin extends Plugin {
+        constructor(options: DllPlugin.Options | DllPlugin.Options[]);
+    }
+
+    namespace DllPlugin {
+        interface Options {
+            /**
+             * The context of requests in the manifest file.
+             *
+             * Defaults to the webpack context.
+             */
+            context?: string;
+
+            /**
+             * The name of the exposed DLL function (keep consistent with `output.library`).
+             */
+            name: string;
+
+            /**
+             * The absolute path to the manifest json file (output).
+             */
+            path: string;
+        }
+    }
+
+    class DllReferencePlugin extends Plugin {
+        constructor(options: DllReferencePlugin.Options);
+    }
+
+    namespace DllReferencePlugin {
+        interface Options {
+            /**
+             * The mappings from the request to module ID.
+             *
+             * Defaults to `manifest.content`.
+             */
+            content?: any;
+
+            /**
+             * The context of requests in the manifest (or content property).
+             *
+             * This is an <b>absolute path</b>.
+             */
+            context: string;
+
+            /**
+             * An object containing `content` and `name`.
+             */
+            manifest: { content: string, name: string };
+
+            /**
+             * The name where the DLL is exposed.
+             *
+             * Defaults to `manifest.name`.
+             *
+             * See also `externals`.
+             */
+            name?: string;
+
+            /**
+             * The prefix which is used for accessing the content of the DLL.
+             */
+            scope?: string;
+
+            /**
+             * The type how the DLL is exposed.
+             *
+             * Defaults to `"var"`.
+             *
+             * See also `externals`.
+             */
+            sourceType?: string;
+        }
+    }
+
     class EvalSourceMapDevToolPlugin extends Plugin {
         constructor(options?: false | string | EvalSourceMapDevToolPlugin.Options);
     }
