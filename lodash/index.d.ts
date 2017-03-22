@@ -2,7 +2,7 @@
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -12759,7 +12759,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakMap<K, V>(value?: any): boolean;
+        isWeakMap<K extends object, V>(value?: any): value is WeakMap<K, V>;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -19504,4 +19504,5 @@ declare global {
     interface Set<T> { }
     interface Map<K, V> { }
     interface WeakSet<T> { }
+    interface WeakMap<K extends object, V> { }
 }

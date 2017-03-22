@@ -54,7 +54,7 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import { ${moduleName} } from "lodash";
 export = ${moduleName};
@@ -68,7 +68,9 @@ function tsconfig() {
         ],
         "compilerOptions": {
             "module": "commonjs",
-            "target": "es6",
+            "lib": [
+                "es6"
+            ],
             "noImplicitAny": true,
             "noImplicitThis": true,
             "strictNullChecks": false,
@@ -84,9 +86,7 @@ function tsconfig() {
 }
 
 function tslint() {
-    return JSON.stringify({
-        "extends": "../tslint.json"
-    }, undefined, 4);
+    return `{ "extends": "../tslint.json" }\n`;
 }
 
 
