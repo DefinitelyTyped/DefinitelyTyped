@@ -22,6 +22,7 @@ $(document).ready(function () {
                     name: 'name',
                     namespace: 'namespace',
                     titleAttr: 'title',
+                    title: 'title'
                 }
             ],
         }

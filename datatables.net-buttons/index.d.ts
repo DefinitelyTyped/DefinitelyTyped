@@ -1,6 +1,6 @@
 // Type definitions for JQuery DataTables Buttons extension 1.1.0
 // Project: http://datatables.net/extensions/buttons/
-// Definitions by: Sam Germano <https://github.com/SammyG4Free>
+// Definitions by: Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
@@ -79,6 +79,11 @@ declare namespace DataTables {
         * Button 'title' attribute text
         */
         titleAttr?: string;
+
+        /**
+         * Button 'title' text
+         */
+        title?: string;
 
         exportOptions?: ButtonExportOptions;
         autoPrint?: boolean;
