@@ -448,7 +448,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	/**
 	The field of data you want to show on column.
 	*/
-    dataField: string;
+    dataField?: string;
 	/**
 	Use isKey to tell table which column is unique. This is same as keyField in <BootstrapTable>
 	Tips: You need choose one configuration to set key field: isKey or keyField in <BootstrapTable>
@@ -462,6 +462,11 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	Set align in column, value is left, center, right, start and end.
 	*/
     dataAlign?: DataAlignType;
+	
+	/**
+	 * Alignment of text in the column header.  
+	 */
+	headerAlign?: DataAlignType;
 	/**
 	True to enable table sorting. Default is disabled.
 	*/
@@ -550,10 +555,32 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
     filter?: Filter;
 
     onSort?: Function;
+
+	/**
+	 * Header for column in generated CSV file 
+	 */
+	csvHeader?: string;
     csvFormat?: Function;
     columnTitle?: boolean;
     sort?: SortOrder;
     formatExtraData?: any;
+	
+	/**
+	 * Row in the header on which this header column present. 
+	 */
+	row?: number;
+
+	/**
+	 * Indicates how many rows this column takes. 
+	 * Default: 1
+	 */
+	rowSpan?: number;
+
+	/**
+	 * Indicates how many columns this column takes. 
+	 * Default: 1
+	 */
+	colSpan?: number;
 }
 export interface Editable {
     type?: string;//edit type, avaiable value is textarea, select, checkbox
