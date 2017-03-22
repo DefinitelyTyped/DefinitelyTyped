@@ -1,8 +1,9 @@
 
-import * as createLogger from 'redux-logger';
+import createLogger from 'redux-logger';
+import {logger} from 'redux-logger';
 import { applyMiddleware, createStore } from 'redux'
 
-let logger = createLogger();
+let loggerSimple = createLogger();
 
 let loggerSimpleOpts = createLogger({
   duration: true,
