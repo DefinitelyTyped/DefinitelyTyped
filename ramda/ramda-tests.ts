@@ -491,6 +491,14 @@ R.times(i, 5);
     R.findLastIndex((x: number) => x === 1, [1, 2, 3]);
 }
 () => {
+    const testPath = ['x', 0, 'y'];
+    const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
+
+    R.pathEq(testPath, 2, testObj); // => true
+    R.pathEq(testPath, 2)(testObj); // => true
+    R.pathEq(testPath)(2)(testObj); // => true
+    R.pathEq(testPath)(2, testObj); // => true
+
     var user1 = { address: { zipCode: 90210 } };
     var user2 = { address: { zipCode: 55555 } };
     var user3 = { name: 'Bob' };
@@ -1028,9 +1036,13 @@ type Pair = KeyValuePair<string, number>
 }
 
 () => {
-    const a = R.assocPath(['a', 'b', 'c'], 42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
-    const b = R.assocPath(['a', 'b', 'c'])(42, {a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
-    const c = R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}); //=> {a: {b: {c: 42}}}
+    const testPath = ['x', 0, 'y'];
+    const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
+
+    R.assocPath(testPath, 42, testObj); //=> {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
+    R.assocPath(testPath, 42)(testObj); //=> {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
+    R.assocPath(testPath)(42)(testObj); //=> {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
+    R.assocPath(testPath)(42, testObj); //=> {x: [{y: 42, z: 3}, {y: 4, z: 5}]}
 }
 
 () => {
@@ -1038,6 +1050,12 @@ type Pair = KeyValuePair<string, number>
     // optionally specify return type
     const a2 = R.dissocPath<{a :{ b: number}}>(['a', 'b', 'c'], {a: {b: {c: 42}}}); //=> {a: {b: {}}}
     const a3 = R.dissocPath(['a', 'b', 'c'])({a: {b: {c: 42}}}); //=> {a: {b: {}}}
+
+    const testPath = ['x', 0, 'y'];
+    const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
+
+    R.dissocPath(testPath, testObj); //=> {x: [{z: 3}, {y: 4, z: 5}]}
+    R.dissocPath(testPath)(testObj); //=> {x: [{z: 3}, {y: 4, z: 5}]}
 }
 
 () => {
@@ -1163,11 +1181,12 @@ class Rectangle {
 }
 
 () => {
-  const xyLens = R.lensPath(['x', 'y']);
+  const xyLens = R.lensPath(['x', 0, 'y']);
+  const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
 
-  R.view(xyLens, {x: {y: 2, z: 3}});            //=> 2
-  R.set(xyLens, 4, {x: {y: 2, z: 3}});          //=> {x: {y: 4, z: 3}}
-  R.over(xyLens, R.negate, {x: {y: 2, z: 3}});  //=> {x: {y: -2, z: 3}}
+  R.view(xyLens, testObj);            //=> 2
+  R.set(xyLens, 4, testObj);          //=> {x: [{y: 4, z: 3}, {y: 4, z: 5}]}
+  R.over(xyLens, R.negate, testObj);  //=> {x: [{y: -2, z: 3}, {y: 4, z: 5}]}
 }
 
 () => {
@@ -1242,10 +1261,15 @@ class Rectangle {
 }
 
 () => {
-    const a1 = R.pathOr('N/A', ['a', 'b'], {a: {b: 2}}); //=> 2
-    const a2 = R.pathOr('N/A', ['a', 'b'])({a: {b: 2}}); //=> 2
-    const a3 = R.pathOr('N/A', ['a', 'b'], {c: {b: 2}}); //=> "N/A"
-    const a4 = R.pathOr({c:2})(['a', 'b'], {c: {b: 2}}); //=> "N/A"
+    const orValue = 'N/A';
+    const testPath = ['x', 0, 'y'];
+    const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
+
+    R.pathOr(orValue, testPath, testObj); //=> 2
+    R.pathOr(orValue, testPath)(testObj); //=> 2
+    R.pathOr(orValue)(testPath)(testObj); //=> 2
+    R.pathOr(orValue)(testPath, testObj); //=> 2
+    R.pathOr(orValue, testPath, {c: {b: 2}}); //=> "N/A"
 }
 
 () => {
@@ -1586,8 +1610,11 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
-    R.path(['a', 'b'], {a: {b: 2}}); //=> 2
-    R.path(['a', 'b'])({a: {b: 2}}); //=> 2
+    const testPath = ['x', 0, 'y'];
+    const testObj = {x: [{y: 2, z: 3}, {y: 4, z: 5}]};
+
+    R.path(testPath, testObj); //=> 2
+    R.path(testPath)(testObj); //=> 2
 }
 
 () => {
