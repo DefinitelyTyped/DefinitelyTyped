@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.6.42
+// Type definitions for node-forge 0.6.43
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
@@ -24,6 +24,7 @@ declare module "node-forge" {
 
         function privateKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
+        function publicKeyFromPem(pem: PEM): Key;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 
         interface oids {
@@ -269,7 +270,7 @@ declare module "node-forge" {
             getBagsByLocalKeyId: (localKeyId: string, bagType: string) => Bag[]
         }
 
-        function pkcs12FromAsn1(obj:any, strict?: boolean, password?: string) : Pkcs12Pfx;
-        function pkcs12FromAsn1(obj:any, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string) : Pkcs12Pfx;
+        function pkcs12FromAsn1(obj: any, password?: string) : Pkcs12Pfx;
     }
 }

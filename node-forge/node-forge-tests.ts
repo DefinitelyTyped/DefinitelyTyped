@@ -5,6 +5,8 @@ let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 let x: string = forge.ssh.privateKeyToOpenSSH(key);
+let pemKey: forge.pki.PEM;
+let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
@@ -29,16 +31,16 @@ let x: string = forge.ssh.privateKeyToOpenSSH(key);
     let oidSrc = '1.2.840.113549.1.1.5';
     let derOidBuffer = forge.asn1.oidToDer(oidSrc);
     let oidResult = forge.asn1.derToOid(derOidBuffer);
-    if(oidSrc !== oidResult) throw Error('forge.asn1.oidToDer / derToOid fail');
+    if (oidSrc !== oidResult) throw Error('forge.asn1.oidToDer / derToOid fail');
 }
 
-if(forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillString fail');
+if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillString fail');
 
 {
     let hex: string = '61';
     let bytes: string = forge.util.hexToBytes(hex);
     let result: string = forge.util.bytesToHex(bytes);
-    if(bytes !== 'a' || result !== hex) throw Error('forge.util.hexToBytes / bytesToHex fail');
+    if (bytes !== 'a' || result !== hex) throw Error('forge.util.hexToBytes / bytesToHex fail');
 }
 
 {
@@ -49,17 +51,17 @@ if(forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillString
     src = new Uint8Array(2);
     encode = forge.util.binary.hex.encode(src);
     decode = forge.util.binary.hex.decode(encode);
-    if(encode !== '0000' || src.byteLength !== decode.byteLength) throw Error('forge.util.binary.hex.encode / decode fail');
+    if (encode !== '0000' || src.byteLength !== decode.byteLength) throw Error('forge.util.binary.hex.encode / decode fail');
 
     src = new Uint8Array(2);
     encode = forge.util.binary.base64.encode(src);
     decode = forge.util.binary.base64.decode(encode);
-    if(encode !== 'AAA=' || src.byteLength !== decode.byteLength) throw Error('forge.util.binary.base64.encode / decode fail');
+    if (encode !== 'AAA=' || src.byteLength !== decode.byteLength) throw Error('forge.util.binary.base64.encode / decode fail');
 
     src = new Uint8Array(10);
     encode = forge.util.binary.raw.encode(src);
     decode = forge.util.binary.raw.decode(encode);
-    if(src.byteLength !== decode.byteLength) throw Error('forge.util.binary.raw.encode / decode fail');
+    if (src.byteLength !== decode.byteLength) throw Error('forge.util.binary.raw.encode / decode fail');
 }
 
 {
@@ -70,9 +72,9 @@ if(forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillString
     src = 'Test';
     encode = forge.util.text.utf8.encode(src);
     decode = forge.util.text.utf8.decode(encode);
-    if(src !== decode) throw Error('forge.util.text.utf8.encode / decode fail');
+    if (src !== decode) throw Error('forge.util.text.utf8.encode / decode fail');
     src = 'Test';
     encode = forge.util.text.utf16.encode(src);
     decode = forge.util.text.utf16.decode(encode);
-    if(src !== decode) throw Error('forge.util.text.utf8.encode / decode fail');
+    if (src !== decode) throw Error('forge.util.text.utf8.encode / decode fail');
 }
