@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js
+// Type definitions for cucumber-js v2.0.0
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>, Jan Molak <https://github.com/jan-molak>, Isaiah Soung <https://github.com/isoung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,224 +7,256 @@ export = cucumber;
 
 declare namespace cucumber {
 
-	export interface CallbackStepDefinition{
-		pending : () => PromiseLike<any>;
-		(error?:any, pending?: string):void;
-	}
+    export interface CallbackStepDefinition {
+        pending: () => PromiseLike<any>;
+        (error?: any, pending?: string): void;
+    }
 
-	export interface TableDefinition{
-		raw: () => Array<any>;
-		rows: () => Array<any>;
-		rowsHash: () => {};
-		hashes: () => {};
-	}
+    export interface TableDefinition {
+        raw: () => Array<any>;
+        rows: () => Array<any>;
+        rowsHash: () => {};
+        hashes: () => {};
+    }
 
-	type StepDefinitionParam = string | CallbackStepDefinition | TableDefinition;
+    type StepDefinitionParam = string | CallbackStepDefinition | TableDefinition;
 
-	interface StepDefinitionCode {
-		(...stepArgs: Array<StepDefinitionParam>): PromiseLike<any> | any | void;
-	}
+    interface StepDefinitionCode {
+        (...stepArgs: Array<StepDefinitionParam>): PromiseLike<any> | any | void;
+    }
 
-	interface StepDefinitionOptions{
-		timeout?: number;
-	}
+    interface StepDefinitionOptions {
+        timeout?: number;
+    }
 
-	export interface StepDefinitions {
-		Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
-		Given(pattern: RegExp | string, code: StepDefinitionCode): void;
-		When(pattern: RegExp | string,  options: StepDefinitionOptions, code: StepDefinitionCode): void;
-		When(pattern: RegExp | string,  code: StepDefinitionCode): void;
-		Then(pattern: RegExp | string,  options: StepDefinitionOptions, code: StepDefinitionCode): void;
-		Then(pattern: RegExp | string,  code: StepDefinitionCode): void;
-		setDefaultTimeout(time:number): void;
-	}
+    export interface StepDefinitions {
+        Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+        Given(pattern: RegExp | string, code: StepDefinitionCode): void;
+        When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+        When(pattern: RegExp | string, code: StepDefinitionCode): void;
+        Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+        Then(pattern: RegExp | string, code: StepDefinitionCode): void;
+        setDefaultTimeout(time: number): void;
+    }
 
-	interface HookScenario{
-		getKeyword():string;
-		getName():string;
-		getDescription():string;
-		getUri():string;
-		getLine():number;
-		getTags():string[];
-		getException():Error;
-		getAttachments():any[];
-		attach(data:any, mimeType?:string, callback?:(err?:any) => void):void;
-		isSuccessful():boolean;
-		isFailed():boolean;
-		isPending():boolean;
-		isUndefined():boolean;
-		isSkipped():boolean;
-	}
+    interface HookScenarioResult {
+        duration: number;
+        failureException: Error;
+        scenario: Scenario;
+        status: string;
+        stepsResults: any;
+    }
 
-	interface HookCode {
-		(scenario: HookScenario, callback?: CallbackStepDefinition): void;
-	}
+    interface HookCode {
+        (scenario: HookScenarioResult, callback?: CallbackStepDefinition): void;
+    }
 
-	interface AroundCode{
-		(scenario: HookScenario, runScenario?: (error:string, callback?:Function)=>void): void;
-	}
+    interface AroundCode {
+        (scenario: HookScenarioResult, runScenario?: (error: string, callback?: Function) => void): void;
+    }
 
-	interface Transform {
-		captureGroupRegexps: Array<RegExp | string>;
-		transformer: (arg: string) => any;
-		typeName: string;
-	}
+    interface Transform {
+        regexp: RegExp;
+        transformer: (arg: string) => any;
+        typeName: string;
+    }
 
-	interface HookOptions{
-		timeout?: number;
-	}
+    interface HookOptions{
+  		timeout?: number;
+  	}
 
-	export interface Hooks {
-		Before(code: HookCode): void;
-		Before(options: HookOptions, code: HookCode): void;
-		After(code: HookCode): void;
-		After(options: HookOptions, code: HookCode): void;
-		Around(code: AroundCode):void;
-		setDefaultTimeout(time:number): void;
-		setWorldConstructor(world: () => void): void;
-		registerHandler(handlerOption:string, code:(event:any, callback:CallbackStepDefinition) =>void): void;
-		registerListener(listener: EventListener): void;
-		addTransform(transform: Transform): void;
-	}
+    export interface Hooks {
+        Before(code: HookCode): void;
+        Before(options: HookOptions, code: HookCode): void;
+		    After(code: HookCode): void;
+		    After(options: HookOptions, code: HookCode): void;
+        Around(code: AroundCode): void;
+        setDefaultTimeout(time: number): void;
+        setWorldConstructor(world: (() => void) | ({})): void;
+        registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
+        registerListener(listener: EventListener): void;
+        defineParameterType(transform: Transform): void;
+    }
 
-	export class EventListener {
-		hear(event: events.Event, callback: ()=>void): void;
-		hasHandlerForEvent(event: events.Event): boolean;
-		buildHandlerNameForEvent(event: events.Event): string;
-		getHandlerForEvent(event: events.Event): EventHook;
-		buildHandlerName(shortName: string): string;
-		setHandlerForEvent(shortName: string, handler: EventListener): void;
-	}
+    export class EventListener {
+        hear(event: events.Event, callback: () => void): void;
+        hasHandlerForEvent(event: events.Event): boolean;
+        buildHandlerNameForEvent(event: events.Event): string;
+        getHandlerForEvent(event: events.Event): EventHook;
+        buildHandlerName(shortName: string): string;
+        setHandlerForEvent(shortName: string, handler: EventListener): void;
+    }
 
-	export function Listener(): EventListener;
+    export function Listener(): EventListener;
 
-	export namespace events {
+    export namespace events {
 
-		interface Event {
-			getName(): string;
-			getPayloadItem(name: string): EventPayload;
-		}
+        interface Event {
+            name: string;
+            data: any;
+        }
 
-		interface EventPayload {
-		}
+        interface EventPayload {
+        }
 
-		interface FeaturesPayload extends EventPayload {
-			getFeatures(): any[];                   // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/runtime.js#L34
-		}
+        interface FeaturesPayload extends EventPayload {
+            getFeatures(): any[];                   // https://github.com/cucumber/cucumber-js/blob/dc698bf5bc10d591fa7adeec5fa21b2d90dc9679/lib/cucumber/runtime.js#L34
+        }
 
-		interface FeaturesResultPayload extends EventPayload {
-			getDuration(): any;
-			getScenarioCounts(): any;
-			getStepCounts(): any;
-			isSuccessful(): boolean;
-		}
+        interface FeaturesResultPayload extends EventPayload {
+            duration: number;
+            scenarioResults: any[];
+            success: boolean;
+            stepsResults: any[];
+            strict: boolean;
+        }
 
-		interface FeaturePayload extends EventPayload {
-			getStepKeywordByLines(): any;
-			getScenarioKeyword(): string;
-			getKeyword(): string;
-			getName(): string;
-			getDescription(): string;
-			getUri(): string;
-			getLine(): number;
-			getTags(): Tag[];
-			getScenarios(): ScenarioPayload[];
-			getPayloadItem(): FeaturePayload;
-		}
+        interface FeaturePayload extends EventPayload {
+            description: string;
+            keyword: string;
+            line: number;
+            name: string;
+            tags: Tag[];
+            uri: string;
+            scenarios: Scenario[];
+        }
 
-		interface ScenarioPayload extends EventPayload {
-			getName(): string;
-			getKeyword(): string;
-			getDescription(): string;
-			getFeature(): FeaturePayload;
-			getUri(): string;
-			getUris(): string[];
-			getLine(): number;
-			getLines(): number[];
-			getTags(): Tag[];
-			getSteps(): any[];
-			getPayloadItem(): ScenarioPayload;
-		}
+        interface ScenarioPayload extends EventPayload {
+            feature: Feature;
+            exception: Error;
+            keyword: string;
+            lines: number[];
+            name: string;
+            tags: Tag[];
+            uri: string;
+            line: number;
+            description: string;
+            steps: Step[];
+        }
 
-		interface ScenarioResultPayload extends EventPayload {
-			getFailureException(): Error;
-			getScenario(): any;
-			getStatus(): any;
-		}
+        interface ScenarioResultPayload extends EventPayload {
+            duration: any;
+            failureException: Error;
+            scenario: Scenario;
+            status: string;
+            stepResults: any[];
+        }
 
-		interface StepPayload extends EventPayload {
-			isHidden(): boolean;
-			isOutlineStep(): boolean;
-			getKeyword(): string;
-			getName(): string;
-			hasUri(): boolean;
-			getUri(): string;
-			getLine(): number;
-			getPreviousStep(): any;
-			hasPreviousStep(): boolean;
-			getAttachment(): any;
-			getAttachmentContents(): any;
-			getDocString(): string;
-			getDataTable(): any;
-			hasAttachment(): boolean;
-			hasDocString(): boolean;
-			hasDataTable(): boolean;
-			ensureDataTableIsAttached(): void;
-			isOutcomeStep(): boolean;
-			isEventStep(): boolean;
-			hasOutcomeStepKeyword(): boolean;
-			hasEventStepKeyword(): boolean;
-			isRepeatingOutcomeStep(): boolean;
-			isRepeatingEventStep(): boolean;
-			hasRepeatStepKeyword(): boolean;
-			isPrecededByOutcomeStep(): boolean;
-			isPrecededByEventStep(): boolean;
-		}
+        interface StepPayload extends EventPayload {
+            arguments: any;
+            line: number;
+            name: string;
+            scenario: Scenario;
+            uri: string;
+            isBackground: boolean;
+            keyword: string;
+            keywordType: string;
+        }
 
-		interface StepResultPayload extends EventPayload {
-			getAmbiguousStepDefinitions(): any[];
-			getAttachments(): any[];
-			getDuration(): any;
-			getFailureException(): Error;
-			getStep(): any;
-			getStepDefinition(): any;
-			getStatus(): any;
-			hasAttachments(): boolean;
-		}
+        interface StepResultPayload extends EventPayload {
+            ambiguousStepDefinitions: any;
+            attachments: any[];
+            duration: any;
+            failureException: Error;
+            step: Step;
+            stepDefinition: StepDefinition;
+            status: string;
+        }
 
-	}
+    }
 
-	interface Tag {
-		getName(): string;
-		getLine(): number;
-	}
+    export interface StepDefinition {
+        code: Function;
+        line: number;
+        options: {};
+        pattern: any;
+        uri: string;
+    }
 
-	export interface Scenario {
-		getKeyword(): string;
-		getName(): string;
-		getDescription(): string;
-		getUri(): string;
-		getLine(): number;
-		getTags(): Tag[];
-		getException(): Error;
-		getAttachments(): any[];
-		attach(data: any, mimeType?: string, callback?: (err?: any) => void): void;
-		isSuccessful(): boolean;
-		isFailed(): boolean;
-		isPending(): boolean;
-		isUndefined(): boolean;
-		isSkipped(): boolean;
-	}
+    export interface Tag {
+        name: string;
+        line: number;
+    }
 
-	interface EventHook {
-		(event: events.Event, callback?: ()=>void): void;
-	}
+    export interface Step {
+        arguments: any;
+        line: number;
+        name: string;
+        scenario: Scenario;
+        uri: string;
+        isBackground: boolean;
+        keyword: string;
+        keywordType: string;
+    }
 
-	export interface SupportCodeConsumer {
-		(stepDefinitions:StepDefinitions & Hooks):void;
-	}
+    export interface Scenario {
+        feature: Feature;
+        exception: Error;
+        keyword: string;
+        lines: number[];
+        name: string;
+        tags: Tag[];
+        uri: string;
+        line: number;
+        description: string;
+        steps: Step[];
+    }
 
-	export function defineSupportCode(consumer:SupportCodeConsumer): void;
-	export function getSupportCodeFns(): SupportCodeConsumer[];
-	export function clearSupportCodeFns(): void;
+    export interface Feature {
+        description: string;
+        keyword: string;
+        line: number;
+        name: string;
+        tags: Tag[];
+        uri: string;
+        scenarios: Scenario[];
+    }
+
+    interface EventHook {
+        (event: events.Event, callback?: () => void): void;
+    }
+
+    export interface SupportCodeConsumer {
+        (stepDefinitions: StepDefinitions & Hooks): void;
+    }
+
+    export function defineSupportCode(consumer: SupportCodeConsumer): void;
+
+    export function getSupportCodeFns(): SupportCodeConsumer[];
+
+    export function clearSupportCodeFns(): void;
+
+    // https://github.com/cucumber/cucumber-js/commit/231183a8a11c985ef7ced1155b7a75f5120a34b6
+    export class Formatter {
+        constructor(options?: any);
+        log(data: any): void;
+    }
+
+    export class SummaryFormatter extends Formatter {
+        indent(text: string, numberOfSpaces: number): any;
+    }
+    export class PrettyFormatter extends SummaryFormatter {
+        formatTags(tags: Tag[]): any;
+        logIndented(text: string, level: number): void;
+        logStepResult(stepResult: any): void;
+    }
+
+    export class ProgressFormatter extends SummaryFormatter{
+    }
+
+    export class RerunFormatter extends Formatter{
+    }
+
+    export class SnippetsFormatter extends Formatter{
+    }
+
+    export class UsageFormatter extends Formatter{
+    }
+
+    export class UsageJsonFormatter extends Formatter{
+    }
+
+    export class JsonFormatter extends Formatter {
+    }
+
 }
