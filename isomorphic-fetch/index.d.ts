@@ -2,6 +2,7 @@
 // Project: https://github.com/matthew-andrews/isomorphic-fetch
 // Definitions by: Todd Lucas <https://github.com/toddlucas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: aperdomobo <https://github.com/aperdomob>
 
 interface ForEachCallback {
     (keyId: any, status: string): void;
@@ -77,6 +78,7 @@ declare var Request: {
 interface ReadableStream {
     readonly locked: boolean;
     cancel(): Promise<void>;
+    pipe(writeStream: any): any;
 }
 
 interface ResponseInit {
