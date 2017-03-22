@@ -3,6 +3,7 @@ import * as SparkPost from "sparkpost";
 let key = "YOURAPIKEY";
 let client = new SparkPost(key);
 
+// Callback
 client.get({
   uri: "metrics/domains"
 }, function(err, data) {
@@ -14,7 +15,19 @@ client.get({
   console.log(data.body);
 });
 
-client.inboundDomains.create("example1.com", function(err, res) {
+// Promise
+client.get({
+  uri: 'metrics/domains'
+})
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+// Callback
+client.inboundDomains.create({ domain: 'example1.com' }, function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -23,6 +36,18 @@ client.inboundDomains.create("example1.com", function(err, res) {
   }
 });
 
+// Promise
+client.inboundDomains.create({ domain: 'example1.com' })
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.inboundDomains.delete("example1.com", function(err, res) {
   if (err) {
     console.log(err);
@@ -32,7 +57,19 @@ client.inboundDomains.delete("example1.com", function(err, res) {
   }
 });
 
-client.inboundDomains.find("example1.com", function(err, res) {
+// Promise
+client.inboundDomains.delete('example1.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.inboundDomains.get("example1.com", function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -41,7 +78,19 @@ client.inboundDomains.find("example1.com", function(err, res) {
   }
 });
 
-client.inboundDomains.all(function(err, res) {
+// Promise
+client.inboundDomains.get('example1.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.inboundDomains.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -50,6 +99,18 @@ client.inboundDomains.all(function(err, res) {
   }
 });
 
+// Promise
+client.inboundDomains.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.messageEvents.search({}, function(err, res) {
   if (err) {
     console.log(err);
@@ -59,6 +120,7 @@ client.messageEvents.search({}, function(err, res) {
   }
 });
 
+// Callback
 client.messageEvents.search({
   events: "click",
   campaign_ids: "monday_mailshot"
@@ -71,6 +133,7 @@ client.messageEvents.search({
   }
 });
 
+// Callback
 client.messageEvents.search({
   from: "2016-01-01T00:00",
   to: "2016-01-02T23:59",
@@ -87,6 +150,50 @@ client.messageEvents.search({
   }
 });
 
+// Promise
+client.messageEvents.search({
+    events: 'click',
+    campaign_ids: 'monday_mailshot'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.messageEvents.search({})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.messageEvents.search({
+    from: '2016-01-01T00:00',
+    to: '2016-01-02T23:59',
+    page: 1,
+    per_page: 5,
+    events: ['bounce', 'out_of_band'],
+    bounce_classes: [10]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.recipientLists.create({
   id: "UNIQUE_TEST_ID",
   name: "Test Recipient List",
@@ -114,6 +221,36 @@ client.recipientLists.create({
   }
 });
 
+// Promise
+client.recipientLists.create({
+  id: "UNIQUE_TEST_ID",
+  name: "Test Recipient List",
+  recipients: [
+    {
+      address: {
+        email: "test1@test.com"
+      }
+    }, {
+      address: {
+        email: "test2@test.com"
+      }
+    }, {
+      address: {
+        email: "test3@test.com"
+      }
+    }
+  ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.recipientLists.delete("UNIQUE_TEST_ID", function(err, res) {
   if (err) {
     console.log(err);
@@ -123,7 +260,19 @@ client.recipientLists.delete("UNIQUE_TEST_ID", function(err, res) {
   }
 });
 
-client.recipientLists.all(function(err, res) {
+// Promise
+client.recipientLists.delete('UNIQUE_TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.recipientLists.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -132,9 +281,19 @@ client.recipientLists.all(function(err, res) {
   }
 });
 
-client.recipientLists.find({
-  id: "UNIQUE_TEST_ID"
-}, function(err, res) {
+// Promise
+client.recipientLists.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.recipientLists.get('UNIQUE_TEST_ID', function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -143,8 +302,8 @@ client.recipientLists.find({
   }
 });
 
-client.recipientLists.find({
-  id: "UNIQUE_TEST_ID",
+// Callback
+client.recipientLists.get('UNIQUE_TEST_ID', {
   show_recipients: true
 }, function(err, res) {
   if (err) {
@@ -155,8 +314,32 @@ client.recipientLists.find({
   }
 });
 
-client.recipientLists.update({
-  id: "EXISTING_TEST_ID",
+// Promise
+client.recipientLists.get('UNIQUE_TEST_ID', {
+  show_recipients: true
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.recipientLists.get('UNIQUE_TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.recipientLists.update('EXISTING_TEST_ID', {
   name: "Test Recipient List",
   recipients: [
     {
@@ -182,6 +365,34 @@ client.recipientLists.update({
   }
 });
 
+// Promise
+client.recipientLists.update('EXISTING_TEST_ID', {
+  name: "Test Recipient List",
+  recipients: [
+    {
+      address: {
+        email: "test1@test.com"
+      }
+    }, {
+      address: {
+        email: "test2@test.com"
+      }
+    }, {
+      address: {
+        email: "test3@test.com"
+      }
+    }
+  ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+// Callback
 client.relayWebhooks.create({
   name: "Test Relay Webhook",
   target: "http://client.test.com/test-webhook",
@@ -197,6 +408,24 @@ client.relayWebhooks.create({
   }
 });
 
+// Promise
+client.relayWebhooks.create({
+    name: 'Test Relay Webhook',
+    target: 'http://client.test.com/test-webhook',
+    match: {
+      domain: 'inbound.example.com'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.relayWebhooks.delete("123456789", function(err, res) {
   if (err) {
     console.log(err);
@@ -206,7 +435,19 @@ client.relayWebhooks.delete("123456789", function(err, res) {
   }
 });
 
-client.relayWebhooks.find("123456789", function(err, res) {
+// Promise
+client.relayWebhooks.delete('123456789')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.relayWebhooks.get('123456789', function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -215,7 +456,18 @@ client.relayWebhooks.find("123456789", function(err, res) {
   }
 });
 
-client.relayWebhooks.all(function(err, res) {
+// Promise
+client.relayWebhooks.get('123456789')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+client.relayWebhooks.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -224,8 +476,19 @@ client.relayWebhooks.all(function(err, res) {
   }
 });
 
-client.relayWebhooks.update({
-  relayWebhookId: "123456789",
+// Promise
+client.relayWebhooks.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.relayWebhooks.update('123456789', {
   target: "http://client.test.com/test-webhook"
 }, function(err, res) {
   if (err) {
@@ -236,11 +499,25 @@ client.relayWebhooks.update({
   }
 });
 
+// Promise
+client.relayWebhooks.update('123456789', {
+    target: 'http://client.test.com/test-webhook'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.sendingDomains.create({
   domain: "example1.com",
   dkim: {
-    "private": "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/xFar2wjmzxp2+SnJ5pspaF77VZveN3P/HVmXZVghr3asoV9WBx/uW1nDIUxU35L4juXiTwsMAbgMyh3NqIKTNKyMDy4P8vpEhtH1iv/BrwMdBjHDVCycB8WnwIDAQABAoGBAITb3BCRPBi5lGhHdn+1RgC7cjUQEbSb4eFHm+ULRwQ0UIPWHwiVWtptZ09usHq989fKp1g/PfcNzm8c78uTS6gCxfECweFCRK6EdO6cCCr1cfWvmBdSjzYhODUdQeyWZi2ozqd0FhGWoV4VHseh4iLj36DzleTLtOZj3FhAo1WJAkEA68T+KkGeDyWwvttYtuSiQCCTrXYAWTQnkIUxduCp7Ap6tVeIDn3TaXTj74UbEgaNgLhjG4bX//fdeDW6PaK9YwJBAM6xJmwHLPMgwNVjiz3u/6fhY3kaZTWcxtMkXCjh1QE82KzDwqyrCg7EFjTtFysSHCAZxXZMcivGl4TZLHnydJUCQQCx16+M+mAatuiCnvxlQUMuMiSTNK6Amzm45u9v53nlZeY3weYMYFdHdfe1pebMiwrT7MI9clKebz6svYJVmdtXAkApDAc8VuR3WB7TgdRKNWdyGJGfoD1PO1ZE4iinOcoKV+IT1UCY99Kkgg6C7j62n/8T5OpRBvd5eBPpHxP1F9BNAkEA5Nf2VO9lcTetksHdIeKK+F7sio6UZn0Rv7iUo3ALrN1D1cGfWIh2dj3ko1iSreyNVSwGW0ePP27qDmU+u6/Y1g==",
-    "public": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/xFar2wjmzxp2+SnJ5pspaF77VZveN3P/HVmXZVghr3asoV9WBx/uW1nDIUxU35L4juXiTwsMAbgMyh3NqIKTNKyMDy4P8vpEhtH1iv/BrwMdBjHDVCycB8WnwIDAQAB",
+    "private": "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==",
+    "public": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==",
     selector: "brisbane",
     headers: "from:to:subject:date"
   }
@@ -253,7 +530,26 @@ client.sendingDomains.create({
   }
 });
 
+// Promise
+client.sendingDomains.create({
+    domain: 'example1.com',
+    dkim: {
+      'private': 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==',
+      'public': 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
+      selector: 'brisbane',
+      headers: 'from:to:subject:date'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
 
+// Callback
 client.sendingDomains.delete("example1.com", function(err, data) {
   if (err) {
     console.log(err);
@@ -263,7 +559,19 @@ client.sendingDomains.delete("example1.com", function(err, data) {
   }
 });
 
-client.sendingDomains.all(function(err, res) {
+// Promise
+client.sendingDomains.delete('example1.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.sendingDomains.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -272,7 +580,19 @@ client.sendingDomains.all(function(err, res) {
   }
 });
 
-client.sendingDomains.find("example1.com", function(err, res) {
+// Promise
+client.sendingDomains.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.sendingDomains.get('example1.com', function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -281,11 +601,22 @@ client.sendingDomains.find("example1.com", function(err, res) {
   }
 });
 
-client.sendingDomains.update({
-  domain: "example1.com",
+// Promise
+client.sendingDomains.get('example1.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.sendingDomains.update('example1.com', {
   dkim: {
-    "private": "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/xFar2wjmzxp2+SnJ5pspaF77VZveN3P/HVmXZVghr3asoV9WBx/uW1nDIUxU35L4juXiTwsMAbgMyh3NqIKTNKyMDy4P8vpEhtH1iv/BrwMdBjHDVCycB8WnwIDAQABAoGBAITb3BCRPBi5lGhHdn+1RgC7cjUQEbSb4eFHm+ULRwQ0UIPWHwiVWtptZ09usHq989fKp1g/PfcNzm8c78uTS6gCxfECweFCRK6EdO6cCCr1cfWvmBdSjzYhODUdQeyWZi2ozqd0FhGWoV4VHseh4iLj36DzleTLtOZj3FhAo1WJAkEA68T+KkGeDyWwvttYtuSiQCCTrXYAWTQnkIUxduCp7Ap6tVeIDn3TaXTj74UbEgaNgLhjG4bX//fdeDW6PaK9YwJBAM6xJmwHLPMgwNVjiz3u/6fhY3kaZTWcxtMkXCjh1QE82KzDwqyrCg7EFjTtFysSHCAZxXZMcivGl4TZLHnydJUCQQCx16+M+mAatuiCnvxlQUMuMiSTNK6Amzm45u9v53nlZeY3weYMYFdHdfe1pebMiwrT7MI9clKebz6svYJVmdtXAkApDAc8VuR3WB7TgdRKNWdyGJGfoD1PO1ZE4iinOcoKV+IT1UCY99Kkgg6C7j62n/8T5OpRBvd5eBPpHxP1F9BNAkEA5Nf2VO9lcTetksHdIeKK+F7sio6UZn0Rv7iUo3ALrN1D1cGfWIh2dj3ko1iSreyNVSwGW0ePP27qDmU+u6/Y1g==",
-    "public": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/xFar2wjmzxp2+SnJ5pspaF77VZveN3P/HVmXZVghr3asoV9WBx/uW1nDIUxU35L4juXiTwsMAbgMyh3NqIKTNKyMDy4P8vpEhtH1iv/BrwMdBjHDVCycB8WnwIDAQAB",
+    "private": "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==",
+    "public": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==",
     selector: "hello_selector",
     headers: "from:to:subject:date"
   }
@@ -298,8 +629,29 @@ client.sendingDomains.update({
   }
 });
 
-client.sendingDomains.verify({
-  domain: "example1.com"
+client.sendingDomains.update('example1.com', {
+	dkim: {
+      'private': 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==',
+      'public': 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
+      selector: 'hello_selector',
+      headers: 'from:to:subject:date'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.sendingDomains.verify('example1.com', {
+	dkim_verify: true,
+	spf_verify: true,
+	abuse_at_verify: true,
+	postmaster_at_verify: true
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -309,9 +661,9 @@ client.sendingDomains.verify({
   }
 });
 
-client.sendingDomains.verify({
-  domain: "example1.com",
-  verifySPF: false
+// Callback
+client.sendingDomains.verify('example1.com', {
+	dkim_verify: false
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -321,22 +673,27 @@ client.sendingDomains.verify({
   }
 });
 
-client.sendingDomains.verify({
-  domain: "example1.com",
-  verifyDKIM: false
-}, function(err, res) {
-  if (err) {
+// Promise
+client.sendingDomains.verify('example1.com', {
+    dkim_verify: true,
+    spf_verify: true,
+    abuse_at_verify: true,
+    postmaster_at_verify: true
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
     console.log(err);
-  } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
-  }
 });
 
+// Callback
 client.subaccounts.create({
   name: "Test Subaccount",
-  keyLabel: "Test Subaccount key",
-  keyGrants: [
+  key_label: 'Test Subaccount key',
+  key_grants: [
     "smtp/inject",
     "transmissions/modify"
   ]
@@ -349,7 +706,26 @@ client.subaccounts.create({
   }
 });
 
-client.subaccounts.all(function(err, res) {
+// Promise
+client.subaccounts.create({
+    name: 'Test Subaccount',
+    key_label: 'Test Subaccount key',
+    key_grants: [
+      'smtp/inject',
+      'transmissions/modify'
+    ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.subaccounts.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -358,7 +734,19 @@ client.subaccounts.all(function(err, res) {
   }
 });
 
-client.subaccounts.find(123, function(err, res) {
+// Promise
+client.subaccounts.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.subaccounts.get(123, function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -367,8 +755,19 @@ client.subaccounts.find(123, function(err, res) {
   }
 });
 
-client.subaccounts.update({
-  subaccountId: 123,
+// Promise
+client.subaccounts.get('123')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.subaccounts.update('123', {
   name: "Test Subaccount",
   status: "suspended"
 }, function(err, res) {
@@ -380,67 +779,199 @@ client.subaccounts.update({
   }
 });
 
-client.suppressionList.checkStatus("test@test.com", function(err, res) {
+// Promise
+client.subaccounts.update('123', {
+    name: 'Test Subaccount',
+    status: 'suspended'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.suppressionList.delete('test@test.com', function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.suppressionList.removeStatus("test@test.com", function(err, res) {
+// Promise
+client.suppressionList.delete('test@test.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.suppressionList.get('test@test.com')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.suppressionList.get('test@test.com', function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.suppressionList.search({
-  from: "2015-05-07T00:00:00+0000",
-  to: "2015-05-07T23:59:59+0000",
-  limit: 5
-}, function(err, res) {
+// Promise
+client.suppressionList.list({
+    from: '2015-05-07T00:00:00+0000',
+    to: '2015-05-07T23:59:59+0000',
+    limit: 5
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.suppressionList.list({
+    from: '2015-05-07T00:00:00+0000',
+    to: '2015-05-07T23:59:59+0000',
+    limit: 5
+}, function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.suppressionList.upsert([
-  {
-    recipient: "test1@test.com",
+// Callback
+client.suppressionList.list(function(err, data) {
+  if (err) {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  } else {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  }
+});
+
+// Promise
+client.suppressionList.upsert({
+    recipient: 'test1@test.com',
     transactional: false,
     non_transactional: true,
-    description: "Test description 1"
-  },
-  {
-    recipient: "test2@test.com",
-    transactional: true,
+    description: 'Test description 1'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.suppressionList.upsert({
+    recipient: 'test1@test.com',
+    transactional: false,
     non_transactional: true,
-    description: "Test description 2"
-  },
-  {
-    recipient: "test3@test.com",
-    transactional: true,
-    non_transactional: false,
-    description: "Test description 3"
-  }
-], function(err, res) {
+    description: 'Test description 1'
+}, function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our client library!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
+// Promise
+client.suppressionList.upsert([
+    {
+      recipient: 'test1@test.com',
+      transactional: false,
+      non_transactional: true,
+      description: 'Test description 1'
+    },
+    {
+      recipient: 'test2@test.com',
+      transactional: true,
+      non_transactional: true,
+      description: 'Test description 2'
+    },
+    {
+      recipient: 'test3@test.com',
+      transactional: true,
+      non_transactional: false,
+      description: 'Test description 3'
+    }
+])
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.suppressionList.upsert([
+    {
+      recipient: 'test1@test.com',
+      transactional: false,
+      non_transactional: true,
+      description: 'Test description 1'
+    },
+    {
+      recipient: 'test2@test.com',
+      transactional: true,
+      non_transactional: true,
+      description: 'Test description 2'
+    },
+    {
+      recipient: 'test3@test.com',
+      transactional: true,
+      non_transactional: false,
+      description: 'Test description 3'
+    }
+], function(err, data) {
+  if (err) {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  } else {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  }
+});
+
+// Callback
 client.templates.create({
-  template: {
     id: "TEST_ID",
     name: "Test Template",
     content: {
@@ -448,7 +979,6 @@ client.templates.create({
       subject: "Test email template!",
       html: "<b>This is a test email template!</b>"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -458,6 +988,26 @@ client.templates.create({
   }
 });
 
+// Promise
+client.templates.create({
+    id: 'TEST_ID',
+    name: 'Test Template',
+    content: {
+      from: 'test@test.com',
+      subject: 'Test email template!',
+      html: '<b>This is a test email template!</b>'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.templates.delete("TEST_ID", function(err, res) {
   if (err) {
     console.log(err);
@@ -467,8 +1017,19 @@ client.templates.delete("TEST_ID", function(err, res) {
   }
 });
 
+// Promise
+client.templates.delete('TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
 
-client.templates.all(function(err, res) {
+// Callback
+client.templates.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -477,8 +1038,19 @@ client.templates.all(function(err, res) {
   }
 });
 
-client.templates.find({
-  id: "TEST_ID",
+// Promise
+client.templates.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.templates.get('TEST_ID', {
   draft: true
 }, function(err, res) {
   if (err) {
@@ -489,8 +1061,30 @@ client.templates.find({
   }
 });
 
-client.templates.find({
-  id: "TEST_ID"
+// Callback
+client.templates.get('TEST_ID', function(err, res) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(res.body);
+    console.log("Congrats you can use our SDK!");
+  }
+});
+
+// Promise
+client.templates.get('TEST_ID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.templates.preview('TEST_ID', {
+  substitution_data: {}
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -500,29 +1094,33 @@ client.templates.find({
   }
 });
 
-client.templates.preview({
-  id: "TEST_ID",
-  data: {}
-}, function(err, res) {
-  if (err) {
+// Promise
+client.templates.preview('TEST_ID', {
+	substitution_data: {
+		name: 'Natalie',
+		age: 35,
+		member: true
+	},
+	draft: true
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
     console.log(err);
-  } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
-  }
 });
 
-client.templates.update({
-  id: "TEST_ID",
-  template: {
+// Callback
+client.templates.update('TEST_ID', {
     content: {
       from: "test@test.com",
       subject: "Updated Published Test email template!",
       html: "<b>This is a published test email template! Updated!</b>"
-    }
-  },
-  update_published: true
-}, function(err, res) {
+    },
+}, { update_published: true },
+function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -531,15 +1129,13 @@ client.templates.update({
   }
 });
 
-client.templates.update({
-  id: "TEST_ID",
-  template: {
+// Callback
+client.templates.update('TEST_ID', {
     content: {
       from: "test@test.com",
       subject: "Updated Test email template!",
       html: "<b>This is a test email template! Updated!</b>"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -549,7 +1145,25 @@ client.templates.update({
   }
 });
 
-client.transmissions.all(function(err, res) {
+// Promise
+client.templates.update('TEST_ID', {
+    content: {
+      from: 'test@test.com',
+      subject: 'Updated Test email template!',
+      html: '<b>This is a test email template! Updated!</b>'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.transmissions.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -558,16 +1172,17 @@ client.transmissions.all(function(err, res) {
   }
 });
 
-client.transmissions.find("YOUR-TRANSMISSION-KEY", function(err, res) {
-  if (err) {
+// Promise
+client.transmissions.list()
+  .then(data => {
+    console.log(data);
+    console.log('Congrats you can use our client library!');
+  })
+  .catch(err => {
     console.log(err);
-  } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
-  }
-});
+  });
 
-client.transmissions.all({
+client.transmissions.list({
   campaign_id: "my_campaign"
 }, function(err, res) {
   if (err) {
@@ -578,7 +1193,7 @@ client.transmissions.all({
   }
 });
 
-client.transmissions.all({
+client.transmissions.list({
   template_id: "my_template"
 }, function(err, res) {
   if (err) {
@@ -589,8 +1204,29 @@ client.transmissions.all({
   }
 });
 
+// Callback
+client.transmissions.get("YOUR-TRANSMISSION-KEY", function(err, res) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(res.body);
+    console.log("Congrats you can use our SDK!");
+  }
+});
+
+// Promise
+client.transmissions.get('YOUR-TRANSMISSION-KEY')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [{ address: { email: "john.doe@example.com" } }],
     content: {
       from: "From Envelope <from@example.com>",
@@ -602,7 +1238,6 @@ client.transmissions.send({
       open_tracking: true,
       click_tracking: true
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -612,13 +1247,12 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [{address: {email: "john.doe@example.com"}}],
     content: {
       email_rfc822: "Content-Type: text/plain\nFrom: From Envelope <from@example.com>\nSubject: Example Email\n\nHello World"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -628,8 +1262,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     options: {
       open_tracking: true,
       click_tracking: true
@@ -674,9 +1308,8 @@ client.transmissions.send({
         "X-Customer-Campaign-ID": "christmas_campaign"
       },
       text: "Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}",
-      html: "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p><p>Hurry, this offer is only to {{customer_type}}\n</p><p>{{sender}}</p>"
-    }
-  }
+      html: "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p>"
+	}
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -686,8 +1319,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [
       {
         address: {
@@ -717,7 +1350,6 @@ client.transmissions.send({
       text: "An example email using bcc with SparkPost to the {{recipient_type}} recipient.",
       html: "<p>An example email using bcc with SparkPost to the {{recipient_type}} recipient.</p>"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -727,8 +1359,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: [
       {
         address: {
@@ -762,7 +1394,6 @@ client.transmissions.send({
       text: "An example email using cc with SparkPost to the {{recipient_type}} recipient.",
       html: "<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -772,8 +1403,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: {
       list_id: "example-list"
     },
@@ -783,7 +1414,6 @@ client.transmissions.send({
       html: "<html><body><p>Hello World</p></body></html>",
       text: "Hello World!"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -793,8 +1423,8 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  transmissionBody: {
     recipients: {
       list_id: "example-list"
     },
@@ -803,7 +1433,6 @@ client.transmissions.send({
       subject: "Example Email for Stored List and Template",
       template_id: "my-template"
     }
-  }
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -813,15 +1442,15 @@ client.transmissions.send({
   }
 });
 
+// Callback
 client.transmissions.send({
-  num_rcpt_errors: 3,
-  transmissionBody: {
     campaign_id: "ricks-campaign",
     content: {
       template_id: "ricks-template"
     },
     recipients: [{ address: { email: "rick.sanchez@rickandmorty100years.com", name: "Rick Sanchez" } }]
-  }
+}, {
+	num_rcpt_errors: 3
 }, function(err, res) {
   if (err) {
     console.log(err);
@@ -831,6 +1460,111 @@ client.transmissions.send({
   }
 });
 
+
+// Promise
+client.transmissions.send({
+    options: {
+      open_tracking: true,
+      click_tracking: true
+    },
+    campaign_id: 'christmas_campaign',
+    metadata: {
+      user_type: 'students'
+    },
+    substitution_data: {
+      sender: 'Big Store Team'
+    },
+	cc: [],
+	bcc: [],
+    recipients: [
+      {
+        address: {
+          email: 'wilma@flintstone.com',
+          name: 'Wilma Flintstone'
+        },
+        tags: [
+          'greeting',
+          'prehistoric',
+          'fred',
+          'flintstone'
+        ],
+        metadata: {
+          place: 'Bedrock'
+        },
+        substitution_data: {
+          customer_type: 'Platinum'
+        }
+      }
+    ],
+    content: {
+      from: {
+        name: 'Fred Flintstone',
+        email: 'fred@flintstone.com'
+      },
+      subject: 'Big Christmas savings!',
+      reply_to: 'Christmas Sales <sales@flintstone.com>',
+      headers: {
+        'X-Customer-Campaign-ID': 'christmas_campaign'
+      },
+      text: 'Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}',
+      html: '<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p>'
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Promise
+client.transmissions.send({
+    recipients: [
+      {
+        address: {
+          email: 'original.recipient@example.com',
+          name: 'Original Recipient'
+        },
+        substitution_data: {
+          recipient_type: 'Original'
+        }
+      },
+      {
+        address: {
+          email: 'cc.recipient@example.com',
+          name: 'Carbon Copy Recipient',
+          header_to: '"Original Recipient" <original.recipient@example.com>'
+        },
+        substitution_data: {
+          recipient_type: 'CC'
+        }
+      }
+    ],
+    content: {
+      from: {
+        name: 'Node CC Test',
+        email: 'from@example.com'
+      },
+      headers: {
+        'CC': '"Carbon Copy Recipient" <cc.recipient@example.com>'
+      },
+      subject: 'Example email using cc',
+      text: 'An example email using cc with SparkPost to the {{recipient_type}} recipient.',
+      html: '<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>'
+    }
+})
+  .then(data => {
+    console.log('Congrats! You sent an email with cc using SparkPost!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.webhooks.create({
   name: "Test webhook",
   target: "http://client.test.com/test-webhook",
@@ -850,6 +1584,28 @@ client.webhooks.create({
   }
 });
 
+// Promise
+client.webhooks.create({
+    name: 'Test Webhook',
+    target: 'http://client.test.com/test-webhook',
+    auth_token: 'AUTH_TOKEN',
+    events: [
+      'delivery',
+      'injection',
+      'open',
+      'click'
+    ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.webhooks.delete("TEST_WEBHOOK_UUID", function(err, res) {
   if (err) {
     console.log(err);
@@ -859,20 +1615,45 @@ client.webhooks.delete("TEST_WEBHOOK_UUID", function(err, res) {
   }
 });
 
-client.webhooks.describe({
-  id: "TEST_WEBHOOK_UUID",
-  timezone: "America/New_York"
-}, function(err, res) {
+// Promise
+client.webhooks.delete('TEST_WEBHOOK_UUID')
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.webhooks.get('TEST_WEBHOOK_UUID', {
+    timezone: 'America/New_York'
+}, function(err, data) {
   if (err) {
+    console.log('Whoops! Something went wrong');
     console.log(err);
   } else {
-    console.log(res.body);
-    console.log("Congrats you can use our SDK!");
+    console.log('Congrats you can use our client library!');
+    console.log(data);
   }
 });
 
-client.webhooks.getBatchStatus({
-  id: "TEST_WEBHOOK_UUID",
+// Promise
+client.webhooks.get('TEST_WEBHOOK_UUID', {
+    timezone: 'America/New_York'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
+
+// Callback
+client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
   limit: 1000
 }, function(err, res) {
   if (err) {
@@ -883,7 +1664,20 @@ client.webhooks.getBatchStatus({
   }
 });
 
+// Promise
+client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
+    limit: 1000
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });
 
+// Callback
 client.webhooks.getDocumentation(function(err, res) {
   if (err) {
     console.log(err);
@@ -893,6 +1687,18 @@ client.webhooks.getDocumentation(function(err, res) {
   }
 });
 
+// Promise
+client.webhooks.getDocumentation()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
 client.webhooks.getSamples({
   events: "bounce"
 }, function(err, res) {
@@ -904,7 +1710,21 @@ client.webhooks.getSamples({
   }
 });
 
-client.webhooks.all(function(err, res) {
+// Promise
+client.webhooks.getSamples({
+    events: 'bounce'
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.webhooks.list(function(err, res) {
   if (err) {
     console.log(err);
   } else {
@@ -913,8 +1733,19 @@ client.webhooks.all(function(err, res) {
   }
 });
 
-client.webhooks.update({
-  id: "TEST_WEBHOOK_UUID",
+// Promise
+client.webhooks.list()
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.webhooks.update('TEST_WEBHOOK_UUID', {
   name: "Renamed Test webhook",
   events: [
     "policy_rejection",
@@ -929,8 +1760,25 @@ client.webhooks.update({
   }
 });
 
-client.webhooks.validate({
-  id: "TEST_WEBHOOK_UUID",
+// Promise
+client.webhooks.update('TEST_WEBHOOK_UUID', {
+    name: 'Renamed Test Webhook',
+    events: [
+      'policy_rejection',
+      'delay'
+    ]
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+});
+
+// Callback
+client.webhooks.validate('TEST_WEBHOOK_UUID', {
   message: {
     msys: {}
   }
@@ -942,3 +1790,18 @@ client.webhooks.validate({
     console.log("Congrats you can use our SDK!");
   }
 });
+
+// Promise
+client.webhooks.validate('TEST_WEBHOOK_UUID', {
+    message: {
+      msys: {}
+    }
+})
+  .then(data => {
+    console.log('Congrats you can use our client library!');
+    console.log(data);
+  })
+  .catch(err => {
+    console.log('Whoops! Something went wrong');
+    console.log(err);
+  });

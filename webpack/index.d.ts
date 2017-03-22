@@ -1,6 +1,10 @@
 // Type definitions for webpack 2.2
 // Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>, Matt Lewis <https://github.com/mattlewis92>, Benjamin Lim <https://github.com/bumbleblym>, Boris Cherny <https://github.com/bcherny>
+// Definitions by: Qubo <https://github.com/tkqubo>
+//                 Matt Lewis <https://github.com/mattlewis92>
+//                 Benjamin Lim <https://github.com/bumbleblym>
+//                 Boris Cherny <https://github.com/bcherny>
+//                 Tommy Troy Lin <https://github.com/tommytroylin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -661,7 +665,20 @@ declare namespace webpack {
      */
 
     class BannerPlugin extends Plugin {
-        constructor(banner: any, options: any);
+        constructor(options: string | BannerPlugin.Options);
+    }
+
+    namespace BannerPlugin {
+        type Filter = string | RegExp;
+
+        interface Options {
+            banner: string;
+            entryOnly?: boolean;
+            exclude?: Filter | Filter[];
+            include?: Filter | Filter[];
+            raw?: boolean;
+            test?: Filter | Filter[];
+        }
     }
 
     class ContextReplacementPlugin extends Plugin {
@@ -670,6 +687,81 @@ declare namespace webpack {
 
     class DefinePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
+    }
+
+    class DllPlugin extends Plugin {
+        constructor(options: DllPlugin.Options | DllPlugin.Options[]);
+    }
+
+    namespace DllPlugin {
+        interface Options {
+            /**
+             * The context of requests in the manifest file.
+             *
+             * Defaults to the webpack context.
+             */
+            context?: string;
+
+            /**
+             * The name of the exposed DLL function (keep consistent with `output.library`).
+             */
+            name: string;
+
+            /**
+             * The absolute path to the manifest json file (output).
+             */
+            path: string;
+        }
+    }
+
+    class DllReferencePlugin extends Plugin {
+        constructor(options: DllReferencePlugin.Options);
+    }
+
+    namespace DllReferencePlugin {
+        interface Options {
+            /**
+             * The mappings from the request to module ID.
+             *
+             * Defaults to `manifest.content`.
+             */
+            content?: any;
+
+            /**
+             * The context of requests in the manifest (or content property).
+             *
+             * This is an <b>absolute path</b>.
+             */
+            context: string;
+
+            /**
+             * An object containing `content` and `name`.
+             */
+            manifest: { content: string, name: string };
+
+            /**
+             * The name where the DLL is exposed.
+             *
+             * Defaults to `manifest.name`.
+             *
+             * See also `externals`.
+             */
+            name?: string;
+
+            /**
+             * The prefix which is used for accessing the content of the DLL.
+             */
+            scope?: string;
+
+            /**
+             * The type how the DLL is exposed.
+             *
+             * Defaults to `"var"`.
+             *
+             * See also `externals`.
+             */
+            sourceType?: string;
+        }
     }
 
     class EvalSourceMapDevToolPlugin extends Plugin {
@@ -730,6 +822,10 @@ declare namespace webpack {
         constructor(request: any);
     }
 
+    class ProgressPlugin extends Plugin {
+        constructor(options?: (percentage: number, msg: string) => void);
+    }
+
     class ProvidePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
     }
@@ -766,10 +862,28 @@ declare namespace webpack {
 
     namespace optimize {
         class AggressiveMergingPlugin extends Plugin {
-            constructor(options?: {
-                minSize?: number;
-                maxSize?: number;
-            });
+            constructor(options?: AggressiveMergingPlugin.Options);
+        }
+
+        namespace AggressiveMergingPlugin {
+            interface Options {
+                /**
+                 * When options.moveToParents is set, moving to an entry chunk is more expensive.
+                 * Defaults to 10, which means moving to an entry chunk is ten times more expensive than moving to a
+                 * normal chunk.
+                 */
+                entryChunkMultiplicator?: number;
+                /**
+                 * A factor which defines the minimum required size reduction for chunk merging.
+                 * Defaults to 1.5 which means that the total size needs to be reduced by 50% for chunk merging.
+                 */
+                minSizeReduce?: number;
+                /**
+                 * When set, modules that are not in both merged chunks are moved to all parents of the chunk.
+                 * Defaults to false.
+                 */
+                moveToParents?: boolean;
+            }
         }
 
         class CommonsChunkPlugin extends Plugin {

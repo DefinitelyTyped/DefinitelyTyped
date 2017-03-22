@@ -161,6 +161,8 @@ interface CookieOptions {
     path?: string;
     domain?: string;
     secure?: boolean | 'auto';
+    encode?: (val: string) => void;
+    sameSite?: boolean | string;
 }
 
 interface Errback { (err: Error): void; }
@@ -848,6 +850,8 @@ interface Response extends http.ServerResponse, Express.Response {
      *
      */
     vary(field: string): Response;
+
+    app: Application;
 }
 
 interface Handler extends RequestHandler { }

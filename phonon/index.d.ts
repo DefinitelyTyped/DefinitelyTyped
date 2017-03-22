@@ -3,7 +3,7 @@
 // Definitions by: Kévin SERIN <https://github.com/kserin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="awesomplete"/>
+/// <reference types="awesomplete" />
 
 declare namespace Phonon {
     /*** Main object ***/
@@ -28,7 +28,7 @@ declare namespace Phonon {
         popover(id?: string): PhononPopoverComponent;
         preloader(element: string | Element): PhononPreloaderComponent;
         tab(): PhononTabComponent;
-        autocomplete(input: Element | HTMLElement | string, o?: AwesompleteOptions): Awesomplete;
+        autocomplete(input: Element | HTMLElement | string, o?: Awesomplete.Options): Awesomplete;
     }
     interface PhononDeviceObject {
         os: string;

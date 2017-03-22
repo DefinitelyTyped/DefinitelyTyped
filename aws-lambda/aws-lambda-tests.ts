@@ -1,5 +1,3 @@
-/// <reference types="aws-lambda" />
-
 var str: string = "any string";
 var date: Date = new Date();
 var anyObj: any = { abc: 123 };
@@ -13,6 +11,51 @@ var clientContextClient: AWSLambda.ClientContextClient;
 var context: AWSLambda.Context;
 var identity: AWSLambda.CognitoIdentity;
 var proxyResult: AWSLambda.ProxyResult;
+var snsEvt: AWSLambda.SNSEvent;
+var snsEvtRecs: AWSLambda.SNSEventRecord[];
+var snsEvtRec: AWSLambda.SNSEventRecord;
+var snsMsg: AWSLambda.SNSMessage;
+var snsMsgAttr: AWSLambda.SNSMessageAttribute;
+var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
+var S3CreateEvent: AWSLambda.S3CreateEvent = {
+    Records: [{
+        eventVersion: 'string',
+        eventSource: 'string',
+        awsRegion: 'string',
+        eventTime: 'string',
+        eventName: 'string',
+        userIdentity: {
+            principalId: 'string'
+        },
+        requestParameters: {
+            sourceIPAddress: 'string'
+        },
+        responseElements: {
+            'x-amz-request-id': 'string',
+            'x-amz-id-2': 'string'
+        },
+        s3: {
+            s3SchemaVersion: 'string',
+            configurationId: 'string',
+            bucket: {
+                name: 'string',
+                ownerIdentity: {
+                    principalId: 'string'
+                },
+                arn: 'string'
+            },
+            object: {
+                key: 'string',
+                size: 1,
+                eTag: 'string',
+                versionId: 'string',
+                sequencer: 'string'
+            }
+        }
+    }
+    ]
+};
+
 
 /* API Gateway Event */
 str = apiGwEvt.body;
@@ -44,10 +87,37 @@ str = apiGwEvt.requestContext.resourceId;
 str = apiGwEvt.requestContext.resourcePath;
 str = apiGwEvt.resource;
 
+/* SNS Event */
+snsEvtRecs = snsEvt.Records;
+
+str = snsEvtRec.EventSource;
+str = snsEvtRec.EventSubscriptionArn;
+str = snsEvtRec.EventVersion;
+snsMsg = snsEvtRec.Sns;
+
+str = snsMsg.SignatureVersion;
+str = snsMsg.Timestamp;
+str = snsMsg.Signature;
+str = snsMsg.SigningCertUrl;
+str = snsMsg.MessageId;
+str = snsMsg.Message;
+snsMsgAttrs = snsMsg.MessageAttributes;
+str = snsMsg.Type;
+str = snsMsg.UnsubscribeUrl;
+str = snsMsg.TopicArn;
+str = snsMsg.Subject;
+
+snsMsgAttrs["example"] = snsMsgAttr;
+
+str = snsMsgAttr.Type;
+str = snsMsgAttr.Value;
+
 /* Lambda Proxy Result */
 num = proxyResult.statusCode;
-str = proxyResult.headers["example"];
-str = proxyResult.body
+proxyResult.headers["example"] = str;
+proxyResult.headers["example"] = b;
+proxyResult.headers["example"] = num;
+str = proxyResult.body;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
@@ -111,5 +181,5 @@ context.fail(error);
 context.fail(str);
 
 /* Handler */
-let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => {};
-let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => {};
+let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
+let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };

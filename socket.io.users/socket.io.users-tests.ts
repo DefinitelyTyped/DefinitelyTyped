@@ -1,7 +1,3 @@
-/// <reference types="socket.io"/>
-
-/// <reference types="node" />
-
 var express = require('express');
 var app = express();
 var httpServer = require('http').createServer(app);

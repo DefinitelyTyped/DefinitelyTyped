@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $(document).ready(function () {
     $('#StatusBar').jnotifyInizialize({
         oneAtTime: true

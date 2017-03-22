@@ -587,7 +587,8 @@ namespace TestPromise {
 function test_angular_forEach() {
     const values: { [key: string]: string } = { name: 'misko', gender: 'male' };
     const log: string[] = [];
-    angular.forEach(values, (value, key) => {
+    angular.forEach(values, (value, key, obj) => {
+        obj[key] = value;
         this.push(key + ': ' + value);
     }, log);
     // expect(log).toEqual(['name: misko', 'gender: male']);

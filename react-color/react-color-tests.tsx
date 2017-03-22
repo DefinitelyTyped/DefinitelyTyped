@@ -5,16 +5,19 @@ import {
     AlphaPicker, BlockPicker, ChromePicker, CirclePicker,
     CompactPicker, GithubPicker, HuePicker, MaterialPicker,
     PhotoshopPicker, SketchPicker, SliderPicker, SwatchesPicker,
-    TwitterPicker, CustomPicker
+    TwitterPicker, CustomPicker, InjectedColorProps, ColorResult,
+    Color
 } from "react-color"
 import { Alpha, Checkboard, EditableInput, Hue, Saturation } from "react-color/lib/components/common"
 
-interface CustomProps extends ReactColor.InjectedColorProps {
-    color?: ReactColor.Color
+interface CustomProps extends InjectedColorProps {
+    color?: Color
 }
 
 var CustomComponent: StatelessComponent<CustomProps> = (props: CustomProps) => {
-    function onChange (color: ReactColor.ColorResult) {}
+    function onChange (color: ColorResult) {
+        console.log(color)
+    }
 
     return (
         <div>

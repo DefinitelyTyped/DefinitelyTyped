@@ -17,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
+        "middleware.d.ts",
         "aws-serverless-express-tests.ts"
     ]
 }

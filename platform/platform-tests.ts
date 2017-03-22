@@ -1,11 +1,8 @@
-
-
-interface ITestContainer {
-    [name: string]: PlatformStatic;
+interface TestContainer {
+    [name: string]: Platform;
 }
 
-
-var tests: ITestContainer = {
+var tests: TestContainer = {
     'Chrome Mobile 16.0.912.77 on Android 4.0.3': {
         description: "Chrome Mobile 16.0.912.77 on Android 4.0.3",
         layout: "WebKit",
@@ -40,41 +37,36 @@ var tests: ITestContainer = {
 
 
 function runTests() {
-    var t: PlatformStatic;
-    var p: PlatformStatic;
+    var t: Platform;
+    var p: Platform;
     var x: string;
     var px: any;
     var res: boolean;
     var onFalse: (name: string) => () => any;
 
-    for (var n in tests) {
-
+    for (const [n, value] of Object.entries(tests)) {
         t = tests[n];
         p = platform.parse(t.ua);
-
 
         onFalse = (name: string) => {
             return () => {
                 console.log('\tfailed on prop "' + name + '" for "' + n + '"');
-            }
-        }
+            };
+        };
 
         console.log('Starting tests for: ' + n);
 
-        falsy(() => { return t.description === p.description }, onFalse('description'));
-        falsy(() => { return t.layout === p.layout }, onFalse('layout'));
-        falsy(() => { return t.name === p.name }, onFalse('name'));
-        falsy(() => { return t.prerelease === p.prerelease }, onFalse('prerelease'));
-        falsy(() => { return t.ua === p.ua }, onFalse('ua'));
-        falsy(() => { return t.version === p.version }, onFalse('version'));
-        
-        falsy(() => { return t.os.architecture === p.os.architecture }, onFalse('os.architecture'));
-        falsy(() => { return t.os.family === p.os.family }, onFalse('os.family'));
-        falsy(() => { return t.os.version === p.os.version }, onFalse('os.version'));
+        falsy(() => t.description === p.description, onFalse('description'));
+        falsy(() => t.layout === p.layout, onFalse('layout'));
+        falsy(() => t.name === p.name, onFalse('name'));
+        falsy(() => t.prerelease === p.prerelease, onFalse('prerelease'));
+        falsy(() => t.ua === p.ua, onFalse('ua'));
+        falsy(() => t.version === p.version, onFalse('version'));
+        falsy(() => t.os.architecture === p.os.architecture, onFalse('os.architecture'));
+        falsy(() => t.os.family === p.os.family, onFalse('os.family'));
+        falsy(() => t.os.version === p.os.version, onFalse('os.version'));
 
         console.log('Finished tests for: ' + n);
-
-
     }
 }
 

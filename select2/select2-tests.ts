@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 $("#e9").select2();
 $("#e2").select2({
     placeholder: "Select a State",

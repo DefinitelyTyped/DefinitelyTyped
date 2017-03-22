@@ -1,7 +1,3 @@
-
-/// <reference types="react" />
-/// <reference types="react-dom" />
-
 import React = require("react");
 import ReactDOM = require("react-dom");
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";

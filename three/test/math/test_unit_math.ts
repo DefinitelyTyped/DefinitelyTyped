@@ -1,6 +1,3 @@
-/// <reference types="three" />
-/// <reference path="../three-tests-setup.ts" />
-
 declare function test(desc: string, body: () => void): void;
 declare function ok(cond: any, desc?: string): void;
 declare function deepEqual<T>(a: T, b: T, desc?: string): void;
@@ -524,7 +521,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         ok( b.clone().union( c ).equals( c ), "Passed!" );
     });
 
-    var compareBox = function ( a, b, threshold? ) {
+    var compareBox = function ( a: THREE.Box3, b: THREE.Box3, threshold?: number ) {
         threshold = threshold || 0.0001;
         return ( a.min.distanceTo( b.min ) < threshold &&
             a.max.distanceTo( b.max ) < threshold );
@@ -768,7 +765,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     var eulerAxyz = new THREE.Euler( 1, 0, 0, "XYZ" );
     var eulerAzyx = new THREE.Euler( 0, 1, 0, "ZYX" );
 
-    var matrixEquals4 = function( a, b ) {
+    var matrixEquals4 = function( a: THREE.Matrix4, b: THREE.Matrix4 ) {
         var tolerance = 0.0001;
         if( a.elements.length != b.elements.length ) {
             return false;
@@ -782,14 +779,14 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
         return true;
     };
 
-    var eulerEquals = function (a, b, tolerance?: any) {
+    var eulerEquals = function (a: THREE.Euler, b: THREE.Euler, tolerance?: number) {
         tolerance = tolerance || 0.0001;
         var diff = Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z);
         return (diff < tolerance);
     };
 
 
-    var quatEquals = function (a, b, tolerance?: any) {
+    var quatEquals = function (a: THREE.Quaternion, b: THREE.Quaternion, tolerance?: number) {
         tolerance = tolerance || 0.0001;
         var diff = Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z) + Math.abs(a.w - b.w);
         return (diff < tolerance);
@@ -843,7 +840,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
             var v2 = new THREE.Euler().setFromQuaternion( q, v.order );
             var q2 = new THREE.Quaternion().setFromEuler( v2 );
-            ok(eulerEquals(q, q2), "Passed!");
+            ok(quatEquals(q, q2), "Passed!");
         }
     });
 
@@ -899,7 +896,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     var unit3 = new THREE.Vector3( 1, 0, 0 );
 
-    var planeEquals = function ( a, b, tolerance ) {
+    var planeEquals = function ( a: THREE.Plane, b: THREE.Plane, tolerance: number ) {
         tolerance = tolerance || 0.0001;
         if( a.normal.distanceTo( b.normal ) > tolerance ) {
             return false;
@@ -981,7 +978,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     });
 
     test( "setFromMatrix/makeFrustum/containsPoint", function() {
-        var m = new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 100 )
+        var m = new THREE.Matrix4().makePerspective( -1, 1, -1, 1, 1, 100 )
         var a = new THREE.Frustum().setFromMatrix( m );
 
         ok( ! a.containsPoint( new THREE.Vector3( 0, 0, 0 ) ), "Passed!" );
@@ -1000,7 +997,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     });
 
     test( "setFromMatrix/makeFrustum/intersectsSphere", function() {
-        var m = new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 100 )
+        var m = new THREE.Matrix4().makePerspective( -1, 1, -1, 1, 1, 100 )
         var a = new THREE.Frustum().setFromMatrix( m );
 
         ok( ! a.intersectsSphere( new THREE.Sphere( new THREE.Vector3( 0, 0, 0 ), 0 ) ), "Passed!" );
@@ -1116,7 +1113,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     // -------------------------------------------- Matrix3
 
-    var matrixEquals3 = function( a, b, tolerance? ) {
+    var matrixEquals3 = function( a: THREE.Matrix, b: THREE.Matrix, tolerance?: number ) {
         tolerance = tolerance || 0.0001;
         if( a.elements.length != b.elements.length ) {
             return false;
@@ -1131,7 +1128,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
     };
 
 
-    var toMatrix4 = function( m3 ) {
+    var toMatrix4 = function( m3: THREE.Matrix3 ) {
         var result = new THREE.Matrix4();
         var re = result.elements;
         var me = m3.elements;
@@ -1330,20 +1327,6 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     // -------------------------------------------- Matrix4
 
-    var matrixEquals4 = function (a, b) {
-        var tolerance = 0.0001;
-        if( a.elements.length != b.elements.length ) {
-            return false;
-        }
-        for( var i = 0, il = a.elements.length; i < il; i ++ ) {
-            var delta = a.elements[i] - b.elements[i];
-            if( delta > tolerance ) {
-                return false;
-            }
-        }
-        return true;
-    };
-
     test( "constructor", function() {
         var a = new THREE.Matrix4();
         ok( a.determinant() == 1, "Passed!" );
@@ -1514,8 +1497,8 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
             new THREE.Matrix4().makeRotationZ( -0.3 ),
             new THREE.Matrix4().makeScale( 1, 2, 3 ),
             new THREE.Matrix4().makeScale( 1/8, 1/2, 1/3 ),
-            new THREE.Matrix4().makeFrustum( -1, 1, -1, 1, 1, 1000 ),
-            new THREE.Matrix4().makeFrustum( -16, 16, -9, 9, 0.1, 10000 ),
+            new THREE.Matrix4().makePerspective( -1, 1, -1, 1, 1, 1000 ),
+            new THREE.Matrix4().makePerspective( -16, 16, -9, 9, 0.1, 10000 ),
             new THREE.Matrix4().makeTranslation( 1, 2, 3 )
         ];
 
@@ -1662,7 +1645,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
     // -------------------------------------------- Plane
 
-    var comparePlane = function ( a, b, threshold? ) {
+    var comparePlane = function ( a: THREE.Plane, b: THREE.Plane, threshold?: number ) {
         threshold = threshold || 0.0001;
         return ( a.normal.distanceTo( b.normal ) < threshold &&
             Math.abs( a.constant - b.constant ) < threshold );
@@ -1861,7 +1844,7 @@ declare function equal<T>(a: T, b: T, desc?: string): void;
 
 
 
-    var qSub = function ( a, b ) {
+    var qSub = function ( a: THREE.Quaternion, b: THREE.Quaternion ) {
         var result = new THREE.Quaternion();
         result.copy( a );
 

@@ -1,6 +1,3 @@
-/// <reference types="jquery.payment" />
-/// <reference types="jquery" />
-
 $.payment.cards.push({
   // Card type, as returned by $.payment.cardType.
   type: 'mastercard',

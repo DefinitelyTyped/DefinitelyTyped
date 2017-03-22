@@ -1,6 +1,3 @@
-/// <reference path="index.d.ts"/>
-
-
 var statusBar: StatusBar = window.StatusBar;
 statusBar.overlaysWebView(true);
 statusBar.overlaysWebView(false);

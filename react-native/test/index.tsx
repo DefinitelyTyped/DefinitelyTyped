@@ -1,8 +1,4 @@
-
 /*
-
-Note: This must be compiled with the target set to ES6
-
 The content of index.io.js could be something like
 
     'use strict';
@@ -12,24 +8,23 @@ The content of index.io.js could be something like
 
      AppRegistry.registerComponent('MopNative', () => Welcome);
 
-
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
+*/
 
- */
-
-///<reference types="react-native" />
-
-
-import * as React from 'react-native'
+import * as React from 'react'
 import {
-    StyleSheet,
-    Text,
-    View,
     AppState,
     AppStateIOS,
-    ViewPagerAndroid,
-    Dimensions,
     BackAndroid,
+    Dimensions,
+    InteractionManager,
+    StyleSheet,
+    Systrace,
+    Text,
+    TextStyle,
+    View,
+    ViewStyle,
+    ViewPagerAndroid,
 } from 'react-native';
 
 function testDimensions() {
@@ -52,9 +47,9 @@ BackAndroid.addEventListener("hardwareBackPress", () => {
 });
 
 interface LocalStyles {
-    container: React.ViewStyle;
-    welcome: React.TextStyle;
-    instructions: React.TextStyle;
+    container: ViewStyle;
+    welcome: TextStyle;
+    instructions: TextStyle;
 }
 
 var styles = StyleSheet.create<LocalStyles>(
@@ -86,22 +81,22 @@ const stylesAlt = StyleSheet.create(
             justifyContent:  'center',
             alignItems:      'center',
             backgroundColor: '#F5FCFF',
-        } as React.ViewStyle,
+        } as ViewStyle,
         welcome:   {
             fontSize:  20,
             textAlign: 'center',
             margin:    10,
-        } as React.TextStyle,
+        } as TextStyle,
         instructions: {
             textAlign:    'center',
             color:        '#333333',
             marginBottom: 5,
-        } as React.TextStyle
+        } as TextStyle
     }
 )
 
 
-class Welcome extends React.Component<any,any> {
+class Welcome extends React.Component<any, any> {
 
     refs: {
       [key: string]: any
@@ -173,3 +168,10 @@ export class ViewPagerAndroidTest {
         );
     }
 }
+
+const profiledJSONParse = Systrace.measure('JSON', 'parse', JSON.parse)
+profiledJSONParse('[]')
+
+InteractionManager.runAfterInteractions(() => {
+    // ...
+}).then(() => 'done')

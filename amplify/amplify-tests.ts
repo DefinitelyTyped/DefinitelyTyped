@@ -1,6 +1,3 @@
-
-/// <reference types="jquery" />
-
 import amplify = require("amplify");
 
 // Copied examples directly from AmplifyJs site
@@ -260,4 +257,3 @@ amplify.request({
     error: (data, status) => {
     }
 });
-

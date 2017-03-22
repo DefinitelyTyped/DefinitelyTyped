@@ -3648,7 +3648,7 @@ declare namespace sequelize {
  * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
  *     model will clear the previous scope.
  */
-        scope(options?: string | string[] | ScopeOptions | WhereOptions): this;
+        scope(options?: string | ScopeOptions | WhereOptions | Array<string | ScopeOptions | WhereOptions>): this;
 
         /**
          * Search for multiple instances.
@@ -4844,6 +4844,11 @@ declare namespace sequelize {
         underscoredAll?: boolean;
 
         /**
+         * Indicates if the model's table has a trigger associated with it. Default false.
+         */
+        hasTrigger?: boolean;
+
+        /**
          * If freezeTableName is true, sequelize will not try to alter the DAO name to get the table name.
          * Otherwise, the dao name will be pluralized. Default false.
          */
@@ -5183,6 +5188,12 @@ declare namespace sequelize {
          */
         transactionType?: string;
 
+        /**
+         * Print query execution time in milliseconds when logging SQL.
+         *
+         * Defaults to false
+         */
+        benchmark?: boolean;
     }
 
     /**

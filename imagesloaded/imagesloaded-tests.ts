@@ -1,5 +1,3 @@
-
-
 function test_ctor() {
   // element
   imagesLoaded(document.querySelector('#container'), function(instance) {
@@ -12,6 +10,14 @@ function test_ctor() {
   // multiple elements
   var posts = document.querySelectorAll('.post');
   imagesLoaded(posts, function() { console.log('all images are loaded'); });
+
+  // options
+  imagesLoaded('#container', { background: true }, function() {
+      console.log('all images are loaded');
+  });
+  imagesLoaded('#container', { background: '.item' }, function() {
+      console.log('all images are loaded');
+  });
 }
 
 function test_events_basic() {
@@ -25,6 +31,8 @@ function test_events_basic() {
   imgLoad.on('always', onAlways);
   // unbind with .off()
   imgLoad.off('always', onAlways);
+  // bind once with .once()
+  imgLoad.once('always', onAlways);
 }
 
 function test_events_full() {

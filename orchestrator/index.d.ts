@@ -3,8 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="q" />
-
 import * as Q from "q";
 
 declare type Strings = string|string[];

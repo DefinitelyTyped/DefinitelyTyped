@@ -1,6 +1,6 @@
 // Type definitions for cucumber-js
 // Project: https://github.com/cucumber/cucumber-js
-// Definitions by: Abraão Alves <https://github.com/abraaoalves>, Jan Molak <https://github.com/jan-molak>
+// Definitions by: Abraão Alves <https://github.com/abraaoalves>, Jan Molak <https://github.com/jan-molak>, Isaiah Soung <https://github.com/isoung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = cucumber;
@@ -64,14 +64,27 @@ declare namespace cucumber {
 		(scenario: HookScenario, runScenario?: (error:string, callback?:Function)=>void): void;
 	}
 
+	interface Transform {
+		captureGroupRegexps: Array<RegExp | string>;
+		transformer: (arg: string) => any;
+		typeName: string;
+	}
+
+	interface HookOptions{
+		timeout?: number;
+	}
+
 	export interface Hooks {
 		Before(code: HookCode): void;
+		Before(options: HookOptions, code: HookCode): void;
 		After(code: HookCode): void;
+		After(options: HookOptions, code: HookCode): void;
 		Around(code: AroundCode):void;
 		setDefaultTimeout(time:number): void;
 		setWorldConstructor(world: () => void): void;
 		registerHandler(handlerOption:string, code:(event:any, callback:CallbackStepDefinition) =>void): void;
 		registerListener(listener: EventListener): void;
+		addTransform(transform: Transform): void;
 	}
 
 	export class EventListener {
