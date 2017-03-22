@@ -1,8 +1,8 @@
-// Type definitions for Google API Client
+// Type definitions for Google API Client 0.0
 // Project: https://code.google.com/p/google-api-javascript-client/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.1
 
 /**
  * The OAuth 2.0 token object represents the OAuth 2.0 token and any associated data.
@@ -38,7 +38,7 @@ declare namespace gapi {
     /**
      * Pragmatically initialize gapi class member.
      */
-    export function load(object: string, fn: any) : any;
+    export function load(apiName: string, callback: () => void): void;
 
 }
 
@@ -102,7 +102,7 @@ declare namespace gapi.auth {
         /**
          * A function in the global namespace, which is called when the sign-in button is rendered and also called after a sign-in flow completes.
          */
-        callback?: Function;
+        callback?: () => void;
         /**
          * If true, all previously granted scopes remain granted in each incremental request, for incremental authorization. The default value true is correct for most use cases; use false only if employing delegated auth, where you pass the bearer token to a less-trusted component with lower programmatic authority.
          */
@@ -127,6 +127,30 @@ declare namespace gapi.auth {
 }
 
 declare namespace gapi.client {
+    /**
+     * Initializes the JavaScript client with API key, OAuth client ID, scope, and API discovery document(s).
+     * If OAuth client ID and scope are provided, this function will load the gapi.auth2 module to perform OAuth.
+     * The gapi.client.init function can be run multiple times, such as to set up more APIs, to change API key, or initialize OAuth lazily.
+     */
+    export function init(args: {
+        /**
+         * The API Key to use.
+         */
+        apiKey?: string;
+        /**
+         * An array of discovery doc URLs or discovery doc JSON objects.
+         */
+        discoveryDocs?: string[];
+        /**
+         * The app's client ID, found and created in the Google Developers Console.
+         */
+        clientId?: string;
+        /**
+         * The scopes to request, as a space-delimited string.
+         */
+        scope?: string
+    }): Promise<void>;
+
     interface RequestOptions {
         /**
          * The URL to handle the request
@@ -155,43 +179,79 @@ declare namespace gapi.client {
     }
 
     /**
-    * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
-    * @param name The name of the API to load.
-    * @param version The version of the API to load.
-    * @return promise The promise that get's resolved after the request is finished.
-    */
-    export function load(name: string, version: string): Promise<void>
+     * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
+     * @param name The name of the API to load.
+     * @param version The version of the API to load.
+     * @return promise The promise that get's resolved after the request is finished.
+     */
+    export function load(name: string, version: string): Promise<void>;
 
     /**
-    * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
-    * @param name The name of the API to load.
-    * @param version The version of the API to load
-    * @param callback the function that is called once the API interface is loaded
-    * @param url optional, the url of your app - if using Google's APIs, don't set it
-    */
+     * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
+     * @param name The name of the API to load.
+     * @param version The version of the API to load
+     * @param callback the function that is called once the API interface is loaded
+     * @param url optional, the url of your app - if using Google's APIs, don't set it
+     */
     export function load(name: string, version: string, callback: () => any, url?: string): void;
     /**
-    * Creates a HTTP request for making RESTful requests.
-    * An object encapsulating the various arguments for this method.
-    */
+     * Creates a HTTP request for making RESTful requests.
+     * An object encapsulating the various arguments for this method.
+     */
     export function request(args: RequestOptions): HttpRequest<any>;
     /**
-    * Creates an RPC Request directly. The method name and version identify the method to be executed and the RPC params are provided upon RPC creation.
-    * @param method The method to be executed.
-    * @param version The version of the API which defines the method to be executed. Defaults to v1
-    * @param rpcParams A key-value pair of the params to supply to this RPC
-    */
+     * Creates an RPC Request directly. The method name and version identify the method to be executed and the RPC params are provided upon RPC creation.
+     * @param method The method to be executed.
+     * @param version The version of the API which defines the method to be executed. Defaults to v1
+     * @param rpcParams A key-value pair of the params to supply to this RPC
+     */
     export function rpcRequest(method: string, version?: string, rpcParams?: any): RpcRequest;
     /**
-    * Sets the API key for the application.
-    * @param apiKey The API key to set
-    */
+     * Sets the API key for the application.
+     * @param apiKey The API key to set
+     */
     export function setApiKey(apiKey: string): void;
+
+    interface HttpRequestFulfilled<T> {
+        result: T;
+        body: string;
+        headers?: any[];
+        status?: number;
+        statusText?: string;
+    }
+
+    interface HttpRequestRejected {
+        result: {
+            error: {
+                message: string;
+            }
+        };
+        body: string;
+        headers?: any[];
+        status?: number;
+        statusText?: string;
+    }
+
+    /**
+     * HttpRequest supports promises.
+     * See Google API Client JavaScript Using Promises https://developers.google.com/api-client-library/javascript/features/promises
+     *
+     * TODO This should be updated when TypeScript 2.3 is released
+     * See https://github.com/Microsoft/TypeScript/issues/12409
+     * See https://github.com/Microsoft/TypeScript/blob/65da012527937a3074c62655d60ee08fee809f7f/lib/lib.es5.d.ts#L1339
+     */
+     class HttpRequestPromise<T> {
+        then<TResult>(
+             opt_onFulfilled?: ((response: HttpRequestFulfilled<T>) => void) | null,
+             opt_onRejected?: ((reason: HttpRequestRejected) => void) | null,
+             opt_context?: any
+        ): Promise<TResult>;
+    }
 
     /**
      * An object encapsulating an HTTP request. This object is not instantiated directly, rather it is returned by gapi.client.request.
      */
-    export class HttpRequest<T> {
+    export class HttpRequest<T> extends HttpRequestPromise<T> {
         /**
          * Executes the request and runs the supplied callback on response.
          * @param callback The callback function which executes when the request succeeds or fails.
@@ -210,25 +270,9 @@ declare namespace gapi.client {
                 status: number;
                 statusText: string;
             }
-            ) => any):void;
-            /**
-         * HttpRequest supports promises.
-         */
-        then(success:(response:{
-                result:T;
-                body:string;
-                headers?: any[];
-                status?: number;
-                statusText?: string
-            })=>void,
-            failure:(response:{
-                result:T;
-                body:string;
-                headers?: any[];
-                status?: number;
-                statusText?: string
-            })=>void): void;
+            ) => any): void;
     }
+
     /**
      * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.
      */
@@ -244,16 +288,16 @@ declare namespace gapi.client {
              */
             id: string;
             callback: (
-            /**
-             * is the response for this request only. Its format is defined by the API method being called.
-             */
-            individualResponse: any,
-            /**
-             * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
-             */
-            rawBatchResponse: any
-            ) => any
-        }):void;
+                /**
+                 * is the response for this request only. Its format is defined by the API method being called.
+                 */
+                individualResponse: any,
+                /**
+                 * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
+                 */
+                rawBatchResponse: any
+                ) => any
+        }): void;
         /**
          * Executes all requests in the batch. The supplied callback is executed on success or failure.
          * @param callback The callback to execute when the batch returns.
@@ -267,7 +311,7 @@ declare namespace gapi.client {
              * is the same response, but as an unparsed JSON-string.
              */
             rawBatchResponse: string
-            ) => any):void;
+            ) => any): void;
     }
 
     /**
@@ -288,7 +332,7 @@ declare namespace gapi.client {
              * is the same as jsonResp, except it is a raw string that has not been parsed. It is typically used when the response is not JSON.
              */
             rawResp: string
-            ) => void ):void;
+            ) => void): void;
     }
 
 }

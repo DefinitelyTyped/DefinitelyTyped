@@ -13,7 +13,7 @@ declare namespace JasminePromiseMatchers  {
 
 declare namespace jasmine {
 
-	interface Matchers {
+	interface Matchers<T> {
 		/**
 		 * Verifies that a Promise is (or has been) rejected.
 		 */

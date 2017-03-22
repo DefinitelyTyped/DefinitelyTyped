@@ -25,7 +25,7 @@ namespace TestFind {
 
 	{
 		let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
-		let result: {a: string};
+		let result: {a: string} | undefined;
 
 		result = _.find<{a: string}>(array, iterator);
 		result = _.find<{a: string}>(array, iterator, context);
@@ -90,7 +90,7 @@ namespace TestFind {
 
 	{
 		let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
-		let result: {a: string};
+		let result: {a: string} | undefined;
 
 		result = _.find<{a: string}>(dict, iterator);
 		result = _.find<{a: string}>(dict, iterator, context);
@@ -125,7 +125,7 @@ namespace TestFind {
 
 	{
 		let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
-		let result: string;
+		let result: string | undefined;
 
 		result = _.find<string>('abc', iterator);
 		result = _.find<string>('abc', iterator, context);
@@ -212,7 +212,7 @@ interface Family {
 	name: string;
 	relation: string;
 }
-var isUncleMoe = _.matches<Family, boolean>({ name: 'moe', relation: 'uncle' });
+var isUncleMoe = _.matches<Family>({ name: 'moe', relation: 'uncle' });
 _.filter([{ name: 'larry', relation: 'father' }, { name: 'moe', relation: 'uncle' }], isUncleMoe);
 
 
@@ -292,7 +292,7 @@ var initialize = _.once(createApplication);
 initialize("me");
 initialize("me");
 
-var notes: any[];
+var notes: any[] = [1,2,3];
 var render = () => alert("rendering...");
 var renderNotes = _.after(notes.length, render);
 _.each(notes, (note) => note.asyncSave({ success: renderNotes }));
@@ -390,7 +390,6 @@ _.isDate(new Date());
 _.isRegExp(/moe/);
 
 _.isNaN(NaN);
-isNaN(undefined);
 _.isNaN(undefined);
 
 _.isNull(null);
@@ -412,7 +411,7 @@ function useRegExp(arg: RegExp) {};
 function useArray<T>(arg: T[]) {};
 function useSymbol(arg: symbol) {};
 
-var guardedType: {};
+var guardedType: {} = {};
 if(_.isElement(guardedType)) useElement(guardedType);
 if(_.isArray(guardedType)) useArray(guardedType);
 if(_.isArray<String>(guardedType)) useArray(guardedType);
@@ -508,9 +507,13 @@ function chain_tests() {
 		.find(num => num % 2 == 0)
 		.value();
 
-	var firstVal: number = _.chain([1, 2, 3])
+	var firstVal: number | undefined = _.chain([1, 2, 3])
 		.first()
 		.value();
+
+	var firstVal2: number | undefined = _.chain([])
+        .first()
+        .value();
 
     let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
     let evenAndOddGroupedNumbers = _.chain(numberObjects)

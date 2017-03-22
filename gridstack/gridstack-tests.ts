@@ -4,13 +4,17 @@
 
 // Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
-// Definitions by: Pascal Senn <https://github.com/PascalSenn/>
+// Definitions by: Pascal Senn <https://github.com/PascalSenn/>, Ricky Blankenaufulland <https://github.com/ZoolWay/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 var options = <IGridstackOptions> {
     float: true
 };
-var gridstack:GridStack = $(document).gridstack(options);
+var element: JQuery = $(document).gridstack(options);
+var gridstack: GridStack = $(document).data("gridstack");
+var gsFromElement: GridStack = element.data("gridstack");
+
+if (gridstack !== gsFromElement) throw Error('These should match!');
 
 gridstack.addWidget("test", 1, 2, 3, 4, true);
 gridstack.batchUpdate();

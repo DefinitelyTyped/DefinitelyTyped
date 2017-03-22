@@ -461,8 +461,9 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     html(value: ValueFn<GElement, Datum, string | null>): this;
 
     /**
-     * Appends a new element of the specified type (tag name) as the next following sibling in the update selection.
-     * (This allows you to insert elements into the DOM in an order consistent with bound data;
+     * Appends a new element of the specified type (tag name) as the last child of each selected element, or the next
+     * following sibling in the update selection if this is an enter selection.
+     * (The enter behavior allows you to insert elements into the DOM in an order consistent with bound data;
      * however, the slower selection.order may still be required if updating elements change order.)
      *
      * This method returns a new selection containing the appended elements.
@@ -475,27 +476,11 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used
      * (for example, svg implies svg:svg)
      */
-    append<ChildElement extends BaseType>(this: Selection<EnterElement, Datum, PElement, PDatum>,
-        type: string): Selection<ChildElement, Datum, PElement, PDatum>;
-
+    append<ChildElement extends BaseType>(type: string): Selection<ChildElement, Datum, PElement, PDatum>;
     /**
-     * Appends a new element of the specified type (tag name) as the last child of each selected element.
-     *
-     * This method returns a new selection containing the appended elements.
-     * Each new element inherits the data of the current elements, if any.
-     *
-     * The generic refers to the type of the child element to be appended.
-     *
-     * @param type A string representing the tag name. The specified name may have a namespace prefix, such as svg:text
-     * to specify a text attribute in the SVG namespace. If no namespace is specified, the namespace will be inherited
-     * from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used
-     * (for example, svg implies svg:svg)
-     */
-    append<ChildElement extends BaseType>(type: string): Selection<ChildElement, Datum, GElement, Datum>;
-
-    /**
-     * Appends a new element of the type provided by the element creator function as the next following sibling in the update selection.
-     * (This allows you to insert elements into the DOM in an order consistent with bound data;
+     * Appends a new element of the type provided by the element creator function as the last child of each selected element,
+     * or the next following sibling in the update selection if this is an enter selection.
+     * (The enter behavior allows you to insert elements into the DOM in an order consistent with bound data;
      * however, the slower selection.order may still be required if updating elements change order.)
      *
      * This method returns a new selection containing the appended elements.
@@ -507,22 +492,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * the current index (i), and the current group (nodes), with this as the current DOM element. This function should return
      * an element to be appended. (The function typically creates a new element, but it may instead return an existing element.)
      */
-    append<ChildElement extends BaseType>(this: Selection<EnterElement, Datum, PElement, PDatum>,
-        type: ValueFn<GElement, Datum, ChildElement>): Selection<ChildElement, Datum, PElement, PDatum>;
-
-    /**
-     * Appends a new element of the type provided by the element creator function as the last child of each selected element.
-     *
-     * This method returns a new selection containing the appended elements.
-     * Each new element inherits the data of the current elements, if any.
-     *
-     * The generic refers to the type of the child element to be appended.
-     *
-     * @param type A creator function which is evaluated for each selected element, in order, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this as the current DOM element. This function should return
-     * an element to be appended. (The function typically creates a new element, but it may instead return an existing element.)
-     */
-    append<ChildElement extends BaseType>(type: ValueFn<GElement, Datum, ChildElement>): Selection<ChildElement, Datum, GElement, Datum>;
+    append<ChildElement extends BaseType>(type: ValueFn<GElement, Datum, ChildElement>): Selection<ChildElement, Datum, PElement, PDatum>;
 
     /**
      * Inserts a new element of the specified type (tag name) before the element matching the specified "before"
@@ -550,7 +520,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     insert<ChildElement extends BaseType>(
         type: string | ValueFn<GElement, Datum, ChildElement>,
         before?: string | ValueFn<GElement, Datum, BaseType>
-        ): Selection<ChildElement, Datum, GElement, Datum>;
+        ): Selection<ChildElement, Datum, PElement, PDatum>;
 
     /**
      * Removes the selected elements from the document.

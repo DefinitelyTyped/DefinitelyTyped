@@ -13,36 +13,34 @@ import { Request, RequestHandler, Response } from 'express';
 declare function bodyParser(options?: bodyParser.OptionsJson & bodyParser.OptionsText & bodyParser.OptionsUrlencoded): RequestHandler;
 
 declare namespace bodyParser {
-
-    export interface Options {
+    interface Options {
         inflate?: boolean;
         limit?: number | string;
         type?: string | ((req: Request) => any);
         verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
     }
 
-    export interface OptionsJson extends Options {
+    interface OptionsJson extends Options {
         reviever?: (key: string, value: any) => any;
         strict?: boolean;
     }
 
-    export interface OptionsText extends Options {
+    interface OptionsText extends Options {
         defaultCharset?: string;
     }
 
-    export interface OptionsUrlencoded extends Options {
+    interface OptionsUrlencoded extends Options {
         extended?: boolean;
         parameterLimit?: number;
     }
 
-    export function json(options?: OptionsJson): RequestHandler;
+    function json(options?: OptionsJson): RequestHandler;
 
-    export function raw(options?: Options): RequestHandler;
+    function raw(options?: Options): RequestHandler;
 
-    export function text(options?: OptionsText): RequestHandler;
+    function text(options?: OptionsText): RequestHandler;
 
-    export function urlencoded(options?: OptionsUrlencoded): RequestHandler;
-
+    function urlencoded(options?: OptionsUrlencoded): RequestHandler;
 }
 
 export = bodyParser;
