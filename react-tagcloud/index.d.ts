@@ -1,4 +1,4 @@
-// Type definitions for react-tagcloud v0.4.0
+// Type definitions for react-tagcloud v1.1.0
 // Project: https://github.com/madox2/react-tagcloud
 // Definitions by: wassname <https://github.com/wassname/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,6 +15,7 @@ declare namespace ReactTagCloud {
         renderer?: Function;
         className?: string;
         onClick?: Function;
+        disableRandomColor?: boolean;
     }
     interface TagCloudClass extends React.ComponentClass<TagCloudProps> { }
 

@@ -19,6 +19,7 @@ ReactDOM.render(
               maxSize={35}
               tags={data}
               shuffle={false}
+              disableRandomColor={false}
               onClick={(tag:string) => console.log("clicking on tag:", tag)} />,
     document.getElementById("simple-cloud")
 );
