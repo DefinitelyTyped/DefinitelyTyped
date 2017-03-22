@@ -27,7 +27,6 @@ declare namespace BittorrentProtocol {
     }
 
     export interface Request {
-        new (piece: number, offset: number, length: number, callback: () => void): this;
         piece: number;
         offset: number;
         length: number;
