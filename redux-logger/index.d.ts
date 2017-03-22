@@ -1,4 +1,4 @@
-// Type definitions for redux-logger v2.6.0
+// Type definitions for redux-logger v2.10.1
 // Project: https://github.com/fcomb/redux-logger
 // Definitions by: Alexander Rusakov <https://github.com/arusakov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -46,4 +46,4 @@ declare namespace createLogger {
   }
 }
 declare function createLogger(options?: createLogger.ReduxLoggerOptions): Redux.Middleware;
-export = createLogger;
+export default createLogger;
