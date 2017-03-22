@@ -1,4 +1,4 @@
-// Type definitions for soap
+// Type definitions for soap 0.18
 // Project: https://www.npmjs.com/package/soap
 // Definitions by: Leo Liang <https://github.com/aleung>, Cage Fox <https://github.com/cagefox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,15 @@ interface Security {
 }
 
 export interface SoapMethod {
-  (args: any, callback: (err: any, result: any) => void, options?: any, extraHeaders?: any): void;
+    (args: any, callback: (err: any, result: any) => void, options?: any, extraHeaders?: any): void;
+}
+
+export class BasicAuthSecurity implements Security {
+    constructor(username: string, password: string);
+}
+
+export class BearerSecurity implements Security {
+    constructor(token: string);
 }
 
 export class WSSecurity implements Security {
@@ -60,8 +68,8 @@ export interface Option {
     forceSoap12Headers?: boolean;
     httpClient?: HttpClient;
     ignoreBaseNameSpaces?: boolean,
-    ignoredNamespaces?: string[] | {namespaces: string[], override: boolean};
-    overrideRootElement?: {namespace: string, xmlnsAttributes?: string[]};
+    ignoredNamespaces?: string[] | { namespaces: string[], override: boolean };
+    overrideRootElement?: { namespace: string, xmlnsAttributes?: string[] };
     request?: (options: any, callback?: (error: any, res: any, body: any) => void) => void;
     stream?: boolean;
     valueKey?: string;
