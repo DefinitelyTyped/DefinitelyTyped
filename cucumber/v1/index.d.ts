@@ -1,6 +1,6 @@
 // Type definitions for cucumber-js v1.3.1
 // Project: https://github.com/cucumber/cucumber-js
-// Definitions by: Abraão Alves <https://github.com/abraaoalves>, Jan Molak <https://github.com/jan-molak>
+// Definitions by: Abraão Alves <https://github.com/abraaoalves>, Jan Molak <https://github.com/jan-molak>, Isaiah Soung <https://github.com/isoung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = cucumber;
@@ -64,9 +64,15 @@ declare namespace cucumber {
         (scenario: HookScenario, runScenario?: (error: string, callback?: Function) => void): void;
     }
 
-    export interface Hooks {
-        Before(code: HookCode): void;
-        After(code: HookCode): void;
+    interface HookOptions{
+		timeout?: number;
+	}
+
+	export interface Hooks {
+		Before(code: HookCode): void;
+		Before(options: HookOptions, code: HookCode): void;
+		After(code: HookCode): void;
+		After(options: HookOptions, code: HookCode): void;
         Around(code: AroundCode): void;
         setDefaultTimeout(time: number): void;
         registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
