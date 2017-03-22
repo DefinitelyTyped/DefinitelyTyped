@@ -1,6 +1,6 @@
 // Type definitions for socket.io 1.4.4
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre/>, Damian Connolly <https://github.com/divillysausages/>, Florent Poujol <https://github.com/florentpoujol/>
+// Definitions by: PROGRE <https://github.com/progre/>, Damian Connolly <https://github.com/divillysausages/>, Florent Poujol <https://github.com/florentpoujol/>, KentarouTakeda <https://github.com/KentarouTakeda/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -472,7 +472,7 @@ declare namespace SocketIO {
 	 * as we have a problem with the emit() event (as it's overridden with a
 	 * different return)
 	 */
-	interface Socket {
+	interface Socket extends NodeJS.EventEmitter{
 
 		/**
 		 * The namespace that this socket is for
@@ -509,28 +509,7 @@ declare namespace SocketIO {
 		/**
 		 * The underlying Engine.io Socket instance
 		 */
-		conn: {
-
-			/**
-			 * The ID for this socket - matches Client.id
-			 */
-			id: string;
-
-			/**
-			 * The Engine.io Server for this socket
-			 */
-			server: any;
-
-			/**
-			 * The ready state for the client. Either 'opening', 'open', 'closing', or 'closed'
-			 */
-			readyState: string;
-
-			/**
-			 * The remote IP for this connection
-			 */
-			remoteAddress: string;
-		};
+		conn: EngineSocket;
 
 		/**
 		 * The list of rooms that this Socket is currently in, where
@@ -614,17 +593,6 @@ declare namespace SocketIO {
 		broadcast: Socket;
 
 		/**
-		 * Emits an event to this client. If the 'broadcast' flag was set, this will
-		 * emit to all other clients, except for this one
-		 * @param event The event that we want to emit
-		 * @param args Any number of optional arguments to pass with the event. If the
-		 * last argument is a function, it will be called as an ack. The ack should
-		 * take whatever data was sent with the packet
-		 * @return This Socket
-		 */
-		emit( event: string, ...args: any[]): Socket;
-
-		/**
 		 * Targets a room when broadcasting
 		 * @param room The name of the room that we're targeting
 		 * @return This Socket
@@ -676,53 +644,6 @@ declare namespace SocketIO {
 		 * @return This Socket
 		 */
 		disconnect( close?: boolean ): Socket;
-
-		/**
-		 * Adds a listener for a particular event. Calling multiple times will add
-		 * multiple listeners
-		 * @param event The event that we're listening for
-		 * @param fn The function to call when we get the event. Parameters depend on the
-		 * event in question
-		 * @return This Socket
-		 */
-		on( event: string, fn: Function ): Socket;
-
-		/**
-		 * @see on( event, fn )
-		 */
-		addListener( event: string, fn: Function ): Socket;
-
-		/**
-		 * Adds a listener for a particular event that will be invoked
-		 * a single time before being automatically removed
-		 * @param event The event that we're listening for
-		 * @param fn The function to call when we get the event. Parameters depend on
-		 * the event in question
-		 * @return This Socket
-		 */
-		once( event: string, fn: Function ): Socket;
-
-		/**
-		 * Removes a listener for a particular type of event. This will either
-		 * remove a specific listener, or all listeners for this type of event
-		 * @param event The event that we want to remove the listener of
-		 * @param fn The function to remove, or null if we want to remove all functions
-		 * @return This Socket
-		 */
-		removeListener( event: string, fn?: Function ): Socket;
-
-		/**
-		 * Removes all event listeners on this object
-		 * @return This Socket
-		 */
-		removeAllListeners( event?: string ): Socket;
-
-		/**
-		 * Sets the maximum number of listeners this instance can have
-		 * @param n The max number of listeners we can add to this emitter
-		 * @return This Socket
-		 */
-		setMaxListeners( n: number ): Socket;
 
 		/**
 		 * Returns all the callbacks for a particular event
@@ -809,28 +730,7 @@ declare namespace SocketIO {
 		/**
 		 * The underlying Engine.io Socket instance
 		 */
-		conn: {
-
-			/**
-			 * The ID for this socket - matches Client.id
-			 */
-			id: string;
-
-			/**
-			 * The Engine.io Server for this socket
-			 */
-			server: any;
-
-			/**
-			 * The ready state for the client. Either 'opening', 'open', 'closing', or 'closed'
-			 */
-			readyState: string;
-
-			/**
-			 * The remote IP for this connection
-			 */
-			remoteAddress: string;
-		};
+		conn: EngineSocket;
 
 		/**
 		 * The ID for this client. Regenerated at every connection
@@ -854,5 +754,45 @@ declare namespace SocketIO {
 		 * deals with that namespace
 		 */
 		nsps: {[nsp: string]: Socket};
+	}
+
+	/**
+	 * A reference to the underlying engine.io Socket connection.
+	 */
+	interface EngineSocket extends NodeJS.EventEmitter {
+		/**
+		 * The ID for this socket - matches Client.id
+		 */
+		id: string;
+
+		/**
+		 * The Engine.io Server for this socket
+		 */
+		server: any;
+
+		/**
+		 * The ready state for the client. Either 'opening', 'open', 'closing', or 'closed'
+		 */
+		readyState: string;
+
+		/**
+		 * The remote IP for this connection
+		 */
+		remoteAddress: string;
+
+		/**
+		 * whether the transport has been upgraded
+		 */
+		upgraded: boolean;
+
+		/**
+		 * (http.IncomingMessage): request that originated the Socket
+		 */
+		request: any;
+
+		/**
+		 * (Transport): transport reference
+		 */
+		transport: any;
 	}
 }

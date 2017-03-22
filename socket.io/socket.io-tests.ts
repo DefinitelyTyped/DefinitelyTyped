@@ -144,6 +144,22 @@ function testUsingItJustAsACrossBrowserWebSocket() {
     });
 }
 
+function testSocketConnection() {
+    var io = socketIO.listen(80);
+
+    io.sockets.on('connection', function (socket) {
+		console.log(socket.client.conn === socket.conn);
+		console.log(socket.client.request.httpVersion);
+		console.log(socket.conn.id);
+		console.log(socket.conn.upgraded);
+		console.log(socket.conn.readyState);
+
+		socket.on('packet', function(message :string, ping :string){
+			console.log(message, ping);
+		});;
+    });
+}
+
 function testClosingServerWithCallback() {
     var io = socketIO.listen(80);
     io.close(function() {
