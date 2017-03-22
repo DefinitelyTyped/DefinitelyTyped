@@ -525,6 +525,7 @@ declare namespace sjcl {
 
     interface SjclConveninceDecryptor {
         (password: string, ciphertext: SjclCipherEncrypted, params?: SjclCipherDecryptParams, rp?: SjclCipherDecrypted): string;
+        (password: string, ciphertext: string, params?: SjclCipherDecryptParams, rp?: SjclCipherDecrypted): string;
         (password: BitArray, ciphertext: SjclCipherEncrypted, params?: SjclCipherDecryptParams, rp?: SjclCipherDecrypted): string;
         (password: SjclElGamalSecretKey, ciphertext: SjclCipherEncrypted, params?: SjclCipherDecryptParams, rp?: SjclCipherDecrypted): string;
     }
