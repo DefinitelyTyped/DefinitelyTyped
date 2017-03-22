@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDataGrid from 'react-data-grid';
-import * as ReactDataGridPlugins from 'react-data-grid-addons';
+import * as ReactDataGridPlugins from 'react-data-grid/addons';
 import faker = require('faker');
 
 var Editors = ReactDataGridPlugins.Editors;
@@ -220,10 +220,6 @@ class Example extends React.Component<any, any> {
         this.setState({rows: rows});
     }
 
-    onRowClick(rowIdx:number, row: Object) {
-        // Do nothing, just test that it accepts an event
-    }
-
     handleAddRow(e:any) {
         var newRow = {
             value: e.newRowIndex,
@@ -282,7 +278,6 @@ class Example extends React.Component<any, any> {
                         keys: {rowKey: 'id', values: selectedRows}
                     }
                 }}
-                onRowClick={this.onRowClick}
             />
 
         );
