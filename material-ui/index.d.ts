@@ -521,7 +521,7 @@ declare namespace __MaterialUI {
     }
 
     namespace propTypes {
-        type horizontal = 'left' | 'middle' | 'right';
+        type horizontal = 'left' | 'center' | 'right';
         type vertical = 'top' | 'center' | 'bottom';
         type direction = 'left' | 'right' | 'up' | 'down';
 
