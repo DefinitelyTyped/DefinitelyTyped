@@ -1,3 +1,5 @@
+import { HelloSign } from 'hellosign-embedded';
+
 HelloSign.init('abc123');
 
 // some options

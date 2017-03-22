@@ -2,7 +2,7 @@
 // Project: https://github.com/HelloFax/hellosign-embedded
 // Definitions by: Brian Surowiec <https://github.com/xt0rted/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module HelloSign {
+export declare module HelloSign {
     interface SignedMessageEvent {
         event: 'signature_request_signed';
         signature_id: string;
@@ -268,3 +268,5 @@ declare module HelloSign {
 }
 
 declare var HelloSign: HelloSign.HelloSignStatic;
+
+export as namespace HelloSign;
