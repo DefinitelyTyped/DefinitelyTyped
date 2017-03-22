@@ -1265,6 +1265,12 @@ namespace readline_tests {
                 return [['test'], 'test'];
             }
         });
+        result = readline.createInterface({
+            input: input,
+            completer: function(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
+                callback(null, [['test'], 'test']);
+            }
+        });
     }
 
     {
