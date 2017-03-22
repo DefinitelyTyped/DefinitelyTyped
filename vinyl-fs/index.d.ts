@@ -27,32 +27,70 @@ interface SrcOptions extends globStream.Options {
    /**
    * Specifies the folder relative to the cwd
    * This is used to determine the file names when saving in .dest()
-   * Default is where the glob begins
+   * Default: where the glob begins
    */
    base?: string;
 
    /**
    * Setting this to false will make file.contents a paused stream
    * If true it will buffer the file contents
-   * Defaults to true
+   * Default: true
    */
    buffer?: boolean;
 
    /**
-   * Setting this to false will ignore the contents of the file and disable writing to disk to speed up operations
-   * Defaults to true
+    * The mode the directory should be created with.
+    * Default: the process mode
+    */
+   dirMode?: number;
+
+   /**
+    * Whether or not you want globs to match on dot files or not
+    * (e.g., `.gitignore`).
+    */
+   dot?: boolean;
+
+   /**
+    * Whether or not to recursively resolve symlinks to their targets.
+    * Setting to `false` to preserve them as symlinks and make `file.symlink`
+    * equal the original symlink's target path.
+    * Default: true
+    */
+   followSymlinks?: boolean;
+
+   /**
+   * Setting this to false will ignore the contents of the file and disable
+   * writing to disk to speed up operations
+   * Default: true
    */
    read?: boolean;
 
-   /**  Only find files that have been modified since the time specified */
+   /**
+    * Whether or not the symlink should be relative or absolute.
+    * Default: false
+    */
+   relative?: boolean;
+
+   /** Only find files that have been modified since the time specified */
    since?: Date|number;
 
-   /** Setting this to true will create a duplex stream, one that passes through items and emits globbed files.
-   * Defaults to false */
+   /**
+    * Causes the BOM to be stripped on UTF-8 encoded files. Set to `false`
+    * if you need the BOM for some reason.
+    */
+   stripBOM?: boolean;
+
+   /**
+    * Setting this to true will create a duplex stream, one that passes
+    * through items and emits globbed files.
+    * Default: false
+    */
    passthrough?: boolean;
 
-   /** Setting this to true will enable sourcemaps.
-   * Defaults to false */
+   /**
+    * Setting this to true will enable sourcemaps.
+    * Default: false
+    */
    sourcemaps?: boolean;
 }
 
