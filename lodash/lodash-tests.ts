@@ -1289,6 +1289,37 @@ namespace TestLastIndexOf {
     }
 }
 
+// _.nth
+namespace TestNth {
+    let array: TResult[];
+    let list: _.List<TResult>;
+    let value: number;
+
+    {
+        let result: TResult;
+
+        result = _.nth<TResult>(array);
+
+        result = _.nth<TResult>(array, 42);
+
+        result = _(array).nth();
+        result = _(array).nth(42);
+
+        result = _(list).nth<TResult>();
+        result = _(list).nth<TResult>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<TResult>;
+
+        result = _(array).chain().nth();
+        result = _(array).chain().nth(42);
+
+        result = _(list).chain().nth<TResult>();
+        result = _(list).chain().nth<TResult>(42);
+    }
+}
+
 // _.pull
 namespace TestPull {
     let array: TResult[];

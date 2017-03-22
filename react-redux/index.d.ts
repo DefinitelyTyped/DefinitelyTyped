@@ -49,16 +49,18 @@ export interface InferableComponentDecorator {
 export declare function connect(): InferableComponentDecorator;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
-    mapStateToProps?: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
-    mapDispatchToProps?: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject>,
+    mapStateToProps?: MapStateToProps<TStateProps, TOwnProps> | MapStateToPropsFactory<TStateProps, TOwnProps>,
+    mapDispatchToProps?: MapDispatchToProps<TDispatchProps, TOwnProps> | MapDispatchToPropsFactory<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
 ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
-type FuncOrSelf<T> = T | (() => T);
-
 interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;
+}
+
+interface MapStateToPropsFactory<TStateProps, TOwnProps> {
+    (initialState: any, ownProps?: TOwnProps): MapStateToProps<TStateProps, TOwnProps>;
 }
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
@@ -67,6 +69,13 @@ interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
 
 interface MapDispatchToPropsObject {
     [name: string]: ActionCreator<any>;
+}
+
+type MapDispatchToProps<TDispatchProps, TOwnProps> =
+    MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject;
+
+interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
+    (dispatch: Dispatch<any>, ownProps?: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
 }
 
 interface MergeProps<TStateProps, TDispatchProps, TOwnProps> {
@@ -83,7 +92,7 @@ interface Options {
      */
     pure?: boolean;
     /**
-    * If true, stores a ref to the wrapped component instance and makes it available via 
+    * If true, stores a ref to the wrapped component instance and makes it available via
     * getWrappedInstance() method. Defaults to false.
     */
     withRef?: boolean;

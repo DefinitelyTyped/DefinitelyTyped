@@ -3,8 +3,7 @@
 // Definitions by: Christian Kotzbauer <https://github.com/code-chris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface KnockoutBindable {
-
+interface KnockoutBindable {
     /**
      * Applys all values from a data object (usually the activation data) to the corresponding instance fields
      * in the current view model if they are marked as @bindable. By default all matching values from the data object

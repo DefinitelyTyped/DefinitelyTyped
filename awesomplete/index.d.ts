@@ -41,7 +41,7 @@ declare namespace Awesomplete {
     type Suggestion = string | {label: string | any, value: string | any} | [string, string];
 
     interface Options {
-        list?: string | string[] | Element | { label: string, value: any }[] | [string, string][];
+        list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]>;
         minChars?: number;
         maxItems?: number;
         autoFirst?: boolean;

@@ -1,6 +1,4 @@
-
 export class ViewModel {
-
     constructor(private knockoutBindable: KnockoutBindable) {
     }
 

@@ -3148,7 +3148,7 @@ declare namespace sequelize {
         /**
          * A list of attributes to select from the child model
          */
-        attributes?: string[];
+        attributes?: FindOptionsAttributesArray | { include?: FindOptionsAttributesArray, exclude?: Array<string> };
 
         /**
          * If true, converts to an inner join, which means that the parent model will only be loaded if it has any

@@ -66,11 +66,11 @@ namespace MarionetteTests {
             let regions: {[key: string]: Marionette.Region} = this.layoutView.getRegions();
             let prefix: string = this.layoutView.childViewEventPrefix;
             let region: Marionette.Region = this.layoutView.removeRegion('main');
-            let layout: Marionette.LayoutView<Backbone.Model> = this.layoutView.destroy();
+            let layout: Marionette.View<Backbone.Model> = this.layoutView.destroy();
         }
     }
 
-    class AppLayoutView extends Marionette.LayoutView<Backbone.Model> {
+    class AppLayoutView extends Marionette.View<Backbone.Model> {
         constructor() {
             super({ el: 'body' });
         }
@@ -111,7 +111,7 @@ namespace MarionetteTests {
 
     }
 
-    class MyView extends Marionette.ItemView<MyModel> {
+    class MyView extends Marionette.View<MyModel> {
         behaviors: any;
 
         constructor(model: MyModel) {
@@ -189,7 +189,7 @@ namespace MarionetteTests {
         constructor() {
             super();
             this.childView = MyView;
-            this.childEvents = {
+            this.childViewEvents = {
                 render: function () {
                     console.log("a childView has been rendered");
                 }

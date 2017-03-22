@@ -1,6 +1,3 @@
-/// <reference path="./index.d.ts" />
-
-
 /* code examples from documentation */
 
 $().toastmessage('showNoticeToast', 'some message here');

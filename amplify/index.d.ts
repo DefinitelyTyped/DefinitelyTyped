@@ -34,7 +34,6 @@ declare namespace amplify {
     }
 
     interface Request {
-
         /***
         * Request a resource.
         * resourceId: Identifier string for the resource.
@@ -118,7 +117,6 @@ declare namespace amplify {
     }
 
     interface Store extends StorageTypeStore {
-
         /***
         * IE 8+, Firefox 3.5+, Safari 4+, Chrome, Opera 10.5+, iPhone 2+, Android 2+
         */
@@ -143,12 +141,9 @@ declare namespace amplify {
         * An in-memory store is provided as a fallback if none of the other storage types are available.
         */
         memory: StorageTypeStore;
-
-
     }
 
     interface Static {
-
         subscribe: Subscribe;
 
         /***

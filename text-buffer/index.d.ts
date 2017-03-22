@@ -5,7 +5,6 @@
 
 /// <reference types="atom" />
 /// <reference types="emissary" />
-/// <reference types="q" />
 
 declare namespace TextBuffer {
 
@@ -240,7 +239,7 @@ declare namespace TextBuffer {
 		positionForCharacterIndex(offset:number):IPoint;
 		getMaxCharacterIndex():number;
 		loadSync():ITextBuffer;
-		load():Q.IPromise<ITextBuffer>;
+		load():Promise<ITextBuffer>;
 		finishLoading():ITextBuffer;
 		handleTextChange(event:any):any;
 		destroy():any;
@@ -253,7 +252,7 @@ declare namespace TextBuffer {
 		hasMultipleEditors():boolean;
 		reload():any;
 		updateCachedDiskContentsSync():string;
-		updateCachedDiskContents():Q.IPromise<string>;
+		updateCachedDiskContents():Promise<string>;
 		getBaseName():string;
 		getPath():string;
 		getUri():string;

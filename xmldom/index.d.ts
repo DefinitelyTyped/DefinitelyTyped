@@ -7,6 +7,11 @@
 declare namespace xmldom {
     var DOMParser: DOMParserStatic;
     var XMLSerializer: XMLSerializerStatic;
+    var DOMImplementation: DOMImplementationStatic;
+
+    interface DOMImplementationStatic {
+        new(): DOMImplementation;
+    }
 
     interface DOMParserStatic {
         new (): DOMParser;

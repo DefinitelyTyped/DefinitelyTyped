@@ -34,7 +34,7 @@ function test_client() {
         session.publish('com.myapp.hello', ['Hello, world!']);
 
         // 3) register a procedure for remoting
-        session.register('com.myapp.add2', myInstance.add2);
+        session.register('com.myapp.add2', myInstance.add2, { invoke: 'roundrobin' });
 
         // 4) call a remote procedure
         session.call<number>('com.myapp.add2', [2, 3]).then(

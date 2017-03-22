@@ -8,7 +8,6 @@ interface WampyOptions
     autoReconnect?: boolean;
     reconnectInterval?: number;
     maxRetries?: number;
-    transportEncoding?: string;
     realm?: string;
     helloCustomDetails?: any;
     onChallenge?: (auth_method: string, challenge_details: string) => string;
@@ -19,7 +18,7 @@ interface WampyOptions
     onReconnect?: () => void;
     onReconnectSuccess?: () => void;
     ws?: any;
-    msgpackCoder?: any;
+    serializer?: any;
 }
 
 interface WampyOpStatus
@@ -31,7 +30,7 @@ interface WampyOpStatus
 
 interface SuccessErrorCallbacksHash
 {
-    onSuccess?: (data: any) => void;
+    onSuccess?: (args: any[], kwargs: any) => void;
     onError?: (err: string, details: any) => void;
 }
 
@@ -42,7 +41,7 @@ interface SubscribeCallbacksHash extends SuccessErrorCallbacksHash
 
 interface RegisterCallbacksHash extends SuccessErrorCallbacksHash
 {
-    rpc: (data: any, options: any) => any[];
+    rpc: (args: any[], kwargs: any, options: any) => any[];
 }
 
 interface CallSuccessErrorCallbacksHash
@@ -101,7 +100,7 @@ interface Wampy
     cancel(reqId: number,
            callbacks?: ((() => void) | SuccessErrorCallbacksHash),
            advancedOptions?: CancelAdvancedOptions): Wampy;
-    register(topicURI: string, callbacks: (((data: any, options: any) => any[]) | RegisterCallbacksHash)): Wampy;
+    register(topicURI: string, callbacks: (((args: any[], kwargs: any, options: any) => any[]) | RegisterCallbacksHash)): Wampy;
     unregister(topicURI: string, callbacks?: ((() => void) | SuccessErrorCallbacksHash)): Wampy;
 }
 
