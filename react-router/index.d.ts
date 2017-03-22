@@ -84,9 +84,9 @@ declare module 'react-router' {
 
   interface match<P> {
     params: P;
-    isExact?: boolean;
-    path?: string;
-    url?: string;
+    isExact: boolean;
+    path: string;
+    url: string;
   }
 
 
