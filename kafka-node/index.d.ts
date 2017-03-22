@@ -63,7 +63,7 @@ export declare class HighLevelConsumer {
     close(force: boolean, cb: () => any): void;
 }
 
-export declare class ConsumerGroup {
+export declare class ConsumerGroup extends HighLevelConsumer {
     constructor(options: ConsumerGroupOptions, topics: string[]);
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
@@ -131,11 +131,22 @@ export interface ConsumerGroupOptions {
     ssl?: boolean;
     id: string;
     groupId: string;
-    sessionTimeout: number;
-    protocol: Array<"roundrobin" | "range" | CustomPartitionAssignmentProtocol>;
-    fromOffset: "earliest" | "latest" | "none";
-    migrateHLC: false;
-    migrateRolling: true;
+    sessionTimeout?: number;
+    protocol?: Array<"roundrobin" | "range" | CustomPartitionAssignmentProtocol>;
+    fromOffset?: "earliest" | "latest" | "none";
+    migrateHLC?: boolean;
+    migrateRolling?: boolean;
+    autoCommit?: boolean;
+    autoCommitIntervalMs?: number;
+    fetchMaxWaitMs?: number;
+    paused?: boolean;
+    maxNumSegments?: number;
+    fetchMinBytes?: number;
+    fetchMaxBytes?: number;
+    retries?: number;
+    retryFactor?: number;
+    retryMinTimeout?: number;
+    connectOnReady?: boolean;    
 }
 
 export interface Topic {
