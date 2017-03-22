@@ -15,6 +15,7 @@ declare namespace ReactTagCloud {
         renderer?: Function;
         className?: string;
         onClick?: Function;
+        disableRandomColor?: boolean;
     }
     interface TagCloudClass extends React.ComponentClass<TagCloudProps> { }
 
