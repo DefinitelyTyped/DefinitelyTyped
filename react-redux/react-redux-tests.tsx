@@ -56,9 +56,15 @@ interface ICounterStateProps {
 interface ICounterDispatchProps {
     onIncrement: () => void
 }
+// with higher order functions
 connect<ICounterStateProps, ICounterDispatchProps, {}>(
     () => mapStateToProps,
     () => mapDispatchToProps
+)(Counter);
+// with higher order functions using parameters
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
+    (initialState: CounterState, ownProps: {}) => mapStateToProps,
+    (dispatch: Dispatch<CounterState>, ownProps: {}) => mapDispatchToProps
 )(Counter);
 // only first argument
 connect<ICounterStateProps, {}, {}>(

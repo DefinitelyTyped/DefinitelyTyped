@@ -1,6 +1,6 @@
 function test_application() {
 	let application: fin.OpenFinApplication;
-    // constructor
+	// constructor
 	application = new fin.desktop.Application({
 		url: "application.html",
 		uuid: "74BED629-2D8E-4141-8582-73E364BDFA74",
@@ -13,10 +13,10 @@ function test_application() {
 			defaultLeft: 300,
 			autoShow: true
 		}
-	}, successObj => {
+	}, (successObj) => {
 		console.log("Application successfully created, HTTP response code:", successObj);
 		application.run();
-	}, error => {
+	}, (error) => {
 		console.log("Error creating application:", error);
 	});
 	// getCurrent
@@ -26,7 +26,7 @@ function test_application() {
 	// getWindow
 	application.getWindow();
 	// addEventListener
-	application.addEventListener("closed", event => {
+	application.addEventListener("closed", (event) => {
 		console.log("The application has closed");
 	}, () => {
 		console.log("The registration was successful");
@@ -68,6 +68,10 @@ function test_application() {
 		console.log("Desktop shortcut is enabled: ", config.desktop);
 		console.log("Start Menu shortcut is enabled: ", config.startMenu);
 		console.log("System Startup shortcut is enabled: ", config.systemStartup);
+	});
+	// getInfo
+	application.getInfo(info => {
+		console.log(`Launch mode: ${info.launchMode}`);
 	});
 	// isRunning
 	application.isRunning(running => {
@@ -381,7 +385,7 @@ function test_system() {
 		certificate: {
 			trusted: true,
 			subject: 'O=OpenFin INC., L=New York, S=NY, C=US',
-			thumbprint: '‎3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
+			thumbprint: '3c a5 28 19 83 05 fe 69 88 e6 8f 4b 3a af c5 c5 1b 07 80 5b'
 		},
 		listener(result) {
 			console.log('the exit code', result.exitCode);
@@ -450,7 +454,7 @@ function test_system() {
 	});
 	// terminateExternalProcess
 	fin.desktop.System.launchExternalProcess({
-		// notepad is in the system’s PATH
+		// notepad is in the system's PATH
 		path: "notepad",
 		arguments: "",
 		listener(result) {

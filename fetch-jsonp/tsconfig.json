@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../",
+    "typeRoots": ["../"],
+    "types": [],
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
+  },
+  "files": [
+    "index.d.ts",
+    "fetch-jsonp-tests.ts"
+  ]
+}

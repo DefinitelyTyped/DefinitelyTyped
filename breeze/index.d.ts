@@ -1,4 +1,4 @@
-// Type definitions for Breeze 1.5.x
+// Type definitions for Breeze 1.6.3
 // Project: http://www.breezejs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, IdeaBlade <https://github.com/IdeaBlade/Breeze/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,10 @@
 // Updated Jan 20 2015 for Breeze 1.5.2 and merging changes from DefinitelyTyped
 // Updated Feb 28 2015 add any/all clause on Predicate
 // Updated Jun 27 2016 - Marcel Good (www.ideablade.com)
-// Updated Jul 28 2016 - Serkan "coni2k" Holat
+// Updated Jun 29 2016 - Marcel Good (www.ideablade.com)
+// Updated Jul 15 2016 - Added methods to JsonResultsAdapter - Steve Schmitt
+// Updated Sep 23 2016 - Added core methods
+// Updated March 5 2017 - Eliminate promises.IPromise<T> and replace with Promise<T>
 
 declare namespace breeze.core {
 
@@ -89,6 +92,19 @@ declare namespace breeze.core {
     export function stringStartsWith(str: string, prefix: string): boolean;
     export function stringEndsWith(str: string, suffix: string): boolean;
     export function formatString(format: string, ...args: any[]): string;
+
+    /** Change text to title case with spaces, e.g. 'myPropertyName12' to 'My Property Name 12' */
+    export function titleCase(str: string): string;
+
+    /** Return the ES5 property descriptor for the property, which may be on a prototype of the object */
+    export function getPropertyDescriptor(obj: any, propertyName: string): PropertyDescriptor
+
+    /** safely perform toJSON logic on objects with cycles.  Replacer function can map or exclude properties. */
+    export function toJSONSafe(obj: any, replacer: (prop: string, val: any) => any): any
+
+    /** Default value replacer for toJSONSafe.  Replaces entityAspect and other internal properties with undefined. */
+    export function toJSONSafeReplacer(prop: string, val: any): any
+    
 }
 
 declare namespace breeze {
@@ -214,19 +230,23 @@ declare namespace breeze {
     export class DataServiceAdapter {
         checkForRecomposition(interfaceInitializedArgs: { interfaceName: string; isDefault: boolean }): void;
         initialize(): void;
-        fetchMetadata(metadataStore: MetadataStore, dataService: DataService): breeze.promises.IPromise<any>;
-        executeQuery(mappingContext: { getUrl: () => string; query: EntityQuery; dataService: DataService }): breeze.promises.IPromise<any>;
-        saveChanges(saveContext: { resourceName: string; dataService: DataService }, saveBundle: Object): breeze.promises.IPromise<SaveResult>;
+        fetchMetadata(metadataStore: MetadataStore, dataService: DataService): Promise<any>;
+        executeQuery(mappingContext: { getUrl: () => string; query: EntityQuery; dataService: DataService }): Promise<any>;
+        saveChanges(saveContext: { resourceName: string; dataService: DataService }, saveBundle: Object): Promise<SaveResult>;
         JsonResultsAdapter: JsonResultsAdapter;
     }
 
     export class JsonResultsAdapter {
         name: string;
         extractResults: (data: {}) => {};
+        extractSaveResults: (data: {}) => any[];
+        extractKeyMappings: (data: {}) => KeyMapping[];
         visitNode: (node: {}, queryContext: QueryContext, nodeContext: NodeContext) => { entityType?: EntityType; nodeId?: any; nodeRefId?: any; ignore?: boolean; };
         constructor(config: {
             name: string;
             extractResults?: (data: {}) => {};
+            extractSaveResults?: (data: {}) => any[];
+            extractKeyMappings?: (data: {}) => KeyMapping[];
             visitNode: (node: {}, queryContext: QueryContext, nodeContext: NodeContext) => { entityType?: EntityType; nodeId?: any; nodeRefId?: any; ignore?: boolean; };
         });
     }
@@ -241,6 +261,7 @@ declare namespace breeze {
 
     export interface NodeContext {
         nodeType: string;
+        propertyName: string;
     }
 
     export class DataTypeSymbol extends breeze.core.EnumSymbol {
@@ -333,8 +354,8 @@ declare namespace breeze {
         isNavigationPropertyLoaded(navigationProperty: string): boolean;
         isNavigationPropertyLoaded(navigationProperty: NavigationProperty): boolean;
 
-        loadNavigationProperty(navigationProperty: string, callback?: Function, errorCallback?: Function): breeze.promises.IPromise<QueryResult>;
-        loadNavigationProperty(navigationProperty: NavigationProperty, callback?: Function, errorCallback?: Function): breeze.promises.IPromise<QueryResult>;
+        loadNavigationProperty(navigationProperty: string, callback?: Function, errorCallback?: Function): Promise<QueryResult>;
+        loadNavigationProperty(navigationProperty: NavigationProperty, callback?: Function, errorCallback?: Function): Promise<QueryResult>;
 
         rejectChanges(): void;
 
@@ -423,16 +444,16 @@ declare namespace breeze {
         createEntity(typeName: string, config?: {}, entityState?: EntityStateSymbol, mergeStrategy?: MergeStrategySymbol): Entity;
         createEntity(entityType: EntityType, config?: {}, entityState?: EntityStateSymbol, mergeStrategy?: MergeStrategySymbol): Entity;
         detachEntity(entity: Entity): boolean;
-        executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): breeze.promises.IPromise<QueryResult>;
-        executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): breeze.promises.IPromise<QueryResult>;
+        executeQuery(query: string, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise<QueryResult>;
+        executeQuery(query: EntityQuery, callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise<QueryResult>;
 
         executeQueryLocally(query: EntityQuery): Entity[];
         exportEntities(entities?: Entity[], includeMetadata?: boolean): string;
         exportEntities(entities?: Entity[], options?: ExportEntitiesOptions): any; // string | Object
-        fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): breeze.promises.IPromise<EntityByKeyResult>;
-        fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): breeze.promises.IPromise<EntityByKeyResult>;
-        fetchEntityByKey(entityKey: EntityKey): breeze.promises.IPromise<EntityByKeyResult>;
-        fetchMetadata(callback?: (schema: any) => void, errorCallback?: breeze.core.ErrorCallback): breeze.promises.IPromise<any>;
+        fetchEntityByKey(typeName: string, keyValue: any, checkLocalCacheFirst?: boolean): Promise<EntityByKeyResult>;
+        fetchEntityByKey(typeName: string, keyValues: any[], checkLocalCacheFirst?: boolean): Promise<EntityByKeyResult>;
+        fetchEntityByKey(entityKey: EntityKey): Promise<EntityByKeyResult>;
+        fetchMetadata(callback?: (schema: any) => void, errorCallback?: breeze.core.ErrorCallback): Promise<any>;
         generateTempKeyValue(entity: Entity): any;
         getChanges(): Entity[];
         getChanges(entityTypeName: string): Entity[];
@@ -466,7 +487,7 @@ declare namespace breeze {
         importEntities(exportedData: Object, config?: { mergeStrategy?: MergeStrategySymbol; metadataVersionFn?: (any: any) => void }): { entities: Entity[]; tempKeyMapping: { [key: string]: EntityKey } };
 
         rejectChanges(): Entity[];
-        saveChanges(entities?: Entity[], saveOptions?: SaveOptions, callback?: SaveChangesSuccessCallback, errorCallback?: SaveChangesErrorCallback): breeze.promises.IPromise<SaveResult>;
+        saveChanges(entities?: Entity[], saveOptions?: SaveOptions, callback?: SaveChangesSuccessCallback, errorCallback?: SaveChangesErrorCallback): Promise<SaveResult>;
         setProperties(config: EntityManagerProperties): void;
     }
 
@@ -554,7 +575,7 @@ declare namespace breeze {
         /** Create query from an expression tree */
         constructor(tree: Object);
 
-        execute(callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): breeze.promises.IPromise<QueryResult>;
+        execute(callback?: ExecuteQuerySuccessCallback, errorCallback?: ExecuteQueryErrorCallback): Promise<QueryResult>;
         executeLocally(): Entity[];
         expand(propertyPaths: string[]): EntityQuery;
         expand(propertyPaths: string): EntityQuery;
@@ -591,6 +612,8 @@ declare namespace breeze {
         where(property: string, filterop: FilterQueryOpSymbol, property2: string, filterop2: FilterQueryOpSymbol, value: any): EntityQuery;  // for any/all clauses
         where(property: string, filterop: string, property2: string, filterop2: string, value: any): EntityQuery;  // for any/all clauses
         where(predicate: FilterQueryOpSymbol): EntityQuery;
+        where(anArray: IRecursiveArray<string | number | FilterQueryOpSymbol | Predicate>): EntityQuery;
+
         withParameters(params: Object): EntityQuery;
 
         toJSON(): string;
@@ -721,13 +744,14 @@ declare namespace breeze {
         addDataService(dataService: DataService, shouldOverwrite?: boolean): void;
         addEntityType(structuralType: IStructuralType): void;
         exportMetadata(): string;
-        fetchMetadata(dataService: string, callback?: (data: any) => void, errorCallback?: breeze.core.ErrorCallback): breeze.promises.IPromise<any>;
-        fetchMetadata(dataService: DataService, callback?: (data: any) => void, errorCallback?: breeze.core.ErrorCallback): breeze.promises.IPromise<any>;
+        fetchMetadata(dataService: string, callback?: (data: any) => void, errorCallback?: breeze.core.ErrorCallback): Promise<any>;
+        fetchMetadata(dataService: DataService, callback?: (data: any) => void, errorCallback?: breeze.core.ErrorCallback): Promise<any>;
         getDataService(serviceName: string): DataService;
         getEntityType(entityTypeName: string, okIfNotFound?: boolean): IStructuralType;
         getEntityTypes(): IStructuralType[];
         hasMetadataFor(serviceName: string): boolean;
         static importMetadata(exportedString: string): MetadataStore;
+        static normalizeTypeName(typeName: string): string;
         importMetadata(exportedString: string, allowMerge?: boolean): MetadataStore;
         isEmpty(): boolean;
         registerEntityTypeCtor(entityTypeName: string, entityCtor: Function, initializationFn?: (entity: Entity) => void, noTrackingFn?: (node: Object, entityType: EntityType) => Object): void;
@@ -796,7 +820,7 @@ declare namespace breeze {
     export interface IRecursiveArray<T> {
         [i: number]: T | IRecursiveArray<T>;
     }
-    
+
     export class Predicate {
         constructor();
         constructor(property: string, operator: string, value: any);
@@ -904,8 +928,14 @@ declare namespace breeze {
 
     export interface SaveResult {
         entities: Entity[];
-        keyMappings: any;
+        keyMappings: KeyMapping[];
         XHR: XMLHttpRequest;
+    }
+
+    export interface KeyMapping {
+        entityTypeName: string;
+        tempValue: any;
+        realValue: any;
     }
 
     export class ValidationError {
@@ -993,7 +1023,7 @@ declare namespace breeze {
         /** Creates a regular expression validator with a fixed expression. */
         static makeRegExpValidator(validatorName: string, expression: RegExp, defaultMessage: string, context?: any): Validator;
 
-        /** Run this validator against the specified value. 
+        /** Run this validator against the specified value.
             @param value {Object} Value to validate
             @param additionalContext {Object} Any additional contextual information that the Validator can make use of.
             @return {ValidationError|null} A ValidationError if validation fails, null otherwise        */
@@ -1044,20 +1074,16 @@ declare namespace breeze.config {
     @return {an instance of the specified adapter}
     **/
     export function getAdapterInstance(interfaceName: string, adapterName?: string): Object;
-
-    export interface Adapter {
-        getRoutePrefix: Function
-    }
     /**
-    Initializes a single adapter implementation. Initialization means either newing a instance of the 
+    Initializes a single adapter implementation. Initialization means either newing a instance of the
     specified interface and then calling "initialize" on it or simply calling "initialize" on the instance
     if it already exists.
     @param interfaceName {String} The name of the interface to which the adapter to initialize belongs.
     @param adapterName {String} - The name of a previously registered adapter to initialize.
-    @param isDefault=true {Boolean} - Whether to make this the default "adapter" for this interface. 
+    @param isDefault=true {Boolean} - Whether to make this the default "adapter" for this interface.
     @return {an instance of the specified adapter}
     **/
-    export function initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault?: boolean): Adapter;
+    export function initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault?: boolean): Object;
 
     export interface AdapterInstancesConfig {
         /** the name of a previously registered "ajax" adapter */
@@ -1080,15 +1106,15 @@ declare namespace breeze.config {
     export var objectRegistry: Object;
     /**
     Method use to register implementations of standard breeze interfaces.  Calls to this method are usually
-    made as the last step within an adapter implementation. 
+    made as the last step within an adapter implementation.
     @param interfaceName {String} - one of the following interface names "ajax", "dataService" or "modelLibrary"
-    @param adapterCtor {Function} - an ctor function that returns an instance of the specified interface.  
+    @param adapterCtor {Function} - an ctor function that returns an instance of the specified interface.
     **/
     export function registerAdapter(interfaceName: string, adapterCtor: Function): void;
     export function registerFunction(fn: Function, fnName: string): void;
     export function registerType(ctor: Function, typeName: string): void;
     //static setProperties(config: Object): void; //deprecated
-    /** 
+    /**
     Set the promise implementation, if Q.js is not found.
     @param q - implementation of promise.  @see http://wiki.commonjs.org/wiki/Promises/A
     */
@@ -1101,27 +1127,17 @@ declare namespace breeze.config {
 /** Promises interface used by Breeze.  Usually implemented by Q (https://github.com/kriskowal/q) or angular.$q using breeze.config.setQ(impl) */
 declare namespace breeze.promises {
 
-    export interface IPromise<T> {
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U): IPromise<U>;
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => U): IPromise<U>;
-        then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => IPromise<U>): IPromise<U>;
-        catch<U>(onRejected: (reason: any) => U): IPromise<U>;
-        catch<U>(onRejected: (reason: any) => IPromise<U>): IPromise<U>;
-        finally(finallyCallback: () => any): IPromise<T>;
-    }
-
     export interface IDeferred<T> {
-        promise: IPromise<T>;
+        promise: Promise<T>;
         resolve(value: T): void;
         reject(reason: any): void;
     }
 
     export interface IPromiseService {
         defer<T>(): IDeferred<T>;
-        reject(reason?: any): IPromise<any>;
-        resolve<T>(object: T): IPromise<T>;
-        resolve<T>(object: IPromise<T>): IPromise<T>;
+        reject(reason?: any): Promise<any>;
+        resolve<T>(object: T): Promise<T>;
+        resolve<T>(object: Promise<T>): Promise<T>;
     }
 }
 
