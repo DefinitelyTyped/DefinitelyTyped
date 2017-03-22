@@ -1,6 +1,5 @@
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
-import Q = require('q');
 
 chai.use(chaiAsPromised);
 
@@ -45,7 +44,7 @@ thenableNum.should.be.fulfilled.then(function () {
   thenableNum.should.equal("after");
 }).should.notify(() => console.log('done'));
 
-Q.all([
+Promise.all([
     thenableNum.should.become("happy"),
     thenableNum.should.eventually.have.property("fun times"),
     thenableNum.should.be.rejectedWith(TypeError, "only joyful types are allowed")
