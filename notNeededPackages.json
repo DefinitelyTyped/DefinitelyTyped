@@ -7,6 +7,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "Numbro",
+            "typingsPackageName": "numbro",
+            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
+            "asOfVersion": "1.9.3"
+        },
+        {
             "libraryName": "antd",
             "typingsPackageName": "antd",
             "sourceRepoURL": "https://github.com/ant-design/ant-design",
@@ -199,12 +205,6 @@
             "asOfVersion": "2.0.18"
         },
         {
-            "libraryName": "Numbro",
-            "typingsPackageName": "numbro",
-            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
-            "asOfVersion": "1.9.3"
-        },
-        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
@@ -227,12 +227,6 @@
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
             "asOfVersion": "1.4.2"
-        },
-        {
-            "libraryName": "poly2tri.js",
-            "typingsPackageName": "poly2tri",
-            "sourceRepoURL": "https://github.com/r3mi/poly2tri.js",
-            "asOfVersion": "1.4.0"
         },
         {
             "libraryName": "Prando",
