@@ -1,8 +1,15 @@
 import * as Protocol from 'bittorrent-protocol';
 import * as net from 'net';
 
+class TestExtension implements Protocol.Extension {
+    constructor(protected wire: Protocol.Wire) { }
+    name: 'extname';
+}
+
 net.createServer(socket => {
     var wire = new Protocol();
+
+    wire.use(TestExtension);
 
     // pipe to and from the protocol
     socket.pipe(wire).pipe(socket);
