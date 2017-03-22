@@ -3,6 +3,6 @@
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PersistTransformer } from "redux-persist";
+import { Transform } from "redux-persist";
 
-export default function createFilter (reducerName: string, inboundPaths?: string[], outboundPaths?: string[]): PersistTransformer;
+export default function createFilter<State, Raw>(reducerName: string, inboundPaths?: string[], outboundPaths?: string[]): Transform<State, Raw>;
