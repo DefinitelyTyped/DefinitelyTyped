@@ -2,7 +2,7 @@
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 

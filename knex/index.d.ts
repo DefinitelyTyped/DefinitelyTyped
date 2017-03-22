@@ -2,7 +2,7 @@
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="bluebird" />
 /// <reference types="node" />
