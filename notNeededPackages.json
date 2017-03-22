@@ -157,10 +157,10 @@
             "asOfVersion": "1.0.0"
         },
         {
-            "libraryName": "localforage",
-            "typingsPackageName": "localforage",
-            "sourceRepoURL": "https://github.com/localForage/localForage",
-            "asOfVersion": "0.0.34"
+             "libraryName": "localforage",
+             "typingsPackageName": "localforage",
+             "sourceRepoURL": "https://github.com/localForage/localForage",
+             "asOfVersion": "0.0.34"
         },
         {
             "libraryName": "lower-case",
