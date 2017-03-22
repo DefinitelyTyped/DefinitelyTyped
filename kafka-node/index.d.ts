@@ -1,6 +1,6 @@
 // Type definitions for kafka-node 1.3.3
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>, Bill <https://github.com/bkim54>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -9,22 +9,26 @@ export declare class Client {
     constructor(connectionString: string, clientId: string, options?: ZKOptions);
     close(callback?: Function): void;
     topicExists(topics: Array<string>, callback: Function): void;
+    refreshMetadata(topics: Array<string>, cb?: (error: any, data: any) => any): void;
+    close(cb: (error: any) => any): void;
 }
 
 export declare class Producer {
-    constructor(client: Client);
+    constructor(client: Client, options?: any, customPartitioner?: any);
     on(eventName: string, cb: () => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
+    close(cb: (error: any) => any): void;
 }
 
 export declare class HighLevelProducer {
-    constructor(client: Client, options?: any);
+    constructor(client: Client, options?: any, customPartitioner?: any);
     on(eventName: string, cb: () => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
+    close(cb: (error: any) => any): void;
 }
 
 export declare class Consumer {
@@ -96,7 +100,7 @@ export interface ZKOptions {
 export interface ProduceRequest {
     topic: string;
     messages: any; // Array<string> | Array<KeyedMessage> | string | KeyedMessage
-    key?: string;
+    key?: any;
     partition?: number;
     attributes?: number;
 }

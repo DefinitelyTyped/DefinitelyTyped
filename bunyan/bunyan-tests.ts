@@ -86,26 +86,32 @@ var object = {
     test: 123
 };
 
+log.trace();
 log.trace(buffer);
 log.trace(error);
 log.trace(object);
 log.trace('Hello, %s', 'world!');
+log.debug();
 log.debug(buffer);
 log.debug(error);
 log.debug(object);
 log.debug('Hello, %s', 'world!');
+log.info();
 log.info(buffer);
 log.info(error);
 log.info(object);
 log.info('Hello, %s', 'world!');
+log.warn();
 log.warn(buffer);
 log.warn(error);
 log.warn(object);
 log.warn('Hello, %s', 'world!');
+log.error();
 log.error(buffer);
 log.error(error);
 log.error(object);
 log.error('Hello, %s', 'world!');
+log.fatal();
 log.fatal(buffer);
 log.fatal(error);
 log.fatal(object);

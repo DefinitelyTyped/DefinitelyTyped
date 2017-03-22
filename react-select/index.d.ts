@@ -1,4 +1,4 @@
-// Type definitions for react-select v1.0.0
+// Type definitions for react-select 1.0
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>, Mark Vujevits <https://github.com/vujevits/>, Mike Deverell <https://github.com/devrelm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,7 +23,7 @@ declare namespace ReactSelectClass {
         /** Text for rendering */
         label?: string;
         /** Value for searching */
-        value?: string | number;
+        value?: string | number | boolean;
         /**
          * Allow this option to be cleared
          * @default true
@@ -170,6 +170,10 @@ declare namespace ReactSelectClass {
          */
         inputProps?: Object;
         /**
+         * renders a custom input
+         */
+        inputRenderer?: (props: Object) => React.ReactElement<any>;
+        /**
          * whether the Select is loading externally or not (such as options being loaded).
          * if true, a loading spinner will be shown at the right side.
          * @default false
@@ -238,7 +242,7 @@ declare namespace ReactSelectClass {
         /**
          * onChange handler: function (newValue) {}
          */
-        onChange?: (newValue: Option | Option[]) => void;
+        onChange?: (newValue: Option | Option[] | null) => void;
         /**
          * fires when the menu is closed
          */
@@ -397,6 +401,11 @@ declare namespace ReactSelectClass {
 
 
     export interface ReactAsyncSelectProps extends ReactSelectProps {
+        /**
+         * Whether to auto-load the default async options set.
+         */
+        autoload?: boolean;
+
         /**
          *  object to use to cache results; can be null to disable cache
          */

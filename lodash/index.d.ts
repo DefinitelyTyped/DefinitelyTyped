@@ -2679,6 +2679,57 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
+    //_.nth
+    interface LoDashStatic {
+        /**
+         * Gets the element at index `n` of `array`. If `n` is negative, the nth element from the end is returned.
+         *
+         * @param array array The array to query.
+         * @param value The index of the element to return.
+         * @return Returns the nth element of `array`.
+         */
+        nth<T>(
+            array: List<T>,
+            n?: number
+        ): T;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth(
+            n?: number
+        ): T;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth<TResult>(
+            n?:number
+        ): TResult;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth(
+            n?:number
+        ): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.nth
+         */
+        nth<TResult>(
+            n?:number
+        ): LoDashExplicitWrapper<TResult>;
+    }
+
     //_.pull
     interface LoDashStatic {
         /**
@@ -6707,7 +6758,7 @@ declare namespace _ {
          */
         filter<T>(
             collection: List<T>|Dictionary<T>,
-            predicate: string
+            predicate: string|RegExp
         ): T[];
 
         /**
@@ -6740,7 +6791,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -6761,7 +6812,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter<T>(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -6791,7 +6842,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -6812,7 +6863,7 @@ declare namespace _ {
          * @see _.filter
          */
         filter<T>(
-            predicate: string
+            predicate: string|RegExp
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -10387,6 +10438,13 @@ declare namespace _ {
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
+        // 0-argument first function
+        flow<R1, R2>(f1: () => R1, f2: (a: R1) => R2): () => R2;
+        flow<R1, R2, R3>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): () => R3;
+        flow<R1, R2, R3, R4>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): () => R4;
+        flow<R1, R2, R3, R4, R5>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): () => R5;
+        flow<R1, R2, R3, R4, R5, R6>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): () => R6;
+        flow<R1, R2, R3, R4, R5, R6, R7>(f1: () => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): () => R7;
         // 1-argument first function
         flow<A1, R1, R2>(f1: (a1: A1) => R1, f2: (a: R1) => R2): (a1: A1) => R2;
         flow<A1, R1, R2, R3>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1) => R3;

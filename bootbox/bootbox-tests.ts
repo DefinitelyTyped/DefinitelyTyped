@@ -6,7 +6,7 @@ bootbox.alert("Are we ok with callback?", function () {
 	console.log("Callback called!");
 });
 bootbox.alert({
-	size: "medium",
+	size: "small",
 	message: "Are we ok with callback and custom button?",
 	callback: function () {
 		console.log("Callback called!");
@@ -38,7 +38,29 @@ bootbox.prompt({
 		console.log(result);
 	}
 });
-
+bootbox.prompt({
+    title: "This is a prompt with a set of checkbox inputs!",
+    inputType: 'checkbox',
+    inputOptions: [
+        {
+            text: 'Choice One',
+            value: '1',
+            group: 'Group 1'
+        },
+        {
+            text: 'Choice Two',
+            value: '2',
+            group: 'Group 1'
+        },
+        {
+            text: 'Choice Three',
+            value: '3'
+        }
+    ],
+    callback: function (result) {
+        console.log(result);
+    }
+});
 
 bootbox.dialog({
 	title: "Wassup?",

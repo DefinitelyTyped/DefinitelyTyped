@@ -1,30 +1,9 @@
-
-/// <reference types="knockout" />
-
-// Tests for ko.plus.d.ts
-// Project: https://github.com/stevegreatrex/ko.plus
-// Definitions by: Howard Richards <https://github.com/conficient>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/*
-    Version 1.0 - initial commit
-
-    Version 1.1 - added test for makeEditable
-
-    Version 1.2 - amended callback on commmand.fail() method - accepts response,
-                  status and message values
- 
-    Note: Typescript version 1.4 or higher is required for union types
-    and type declarations
-*/
-
 function CommandTests() {
-    
     // initalize command with an execute method
     var cmd1 = ko.command(() => {
         return "Hello cmd1";
     });
-	
+
     // initialize command and add done and fail callbacks
     var cmd2 = ko.command(() => {
         return "Hello cmd2";
@@ -56,7 +35,7 @@ function CommandTests() {
 
     // test execute the command
     cmd1();
-    	
+
     // test properties of the commmand
     var isRunning = cmd1.isRunning();
     var failed = cmd1.failed();
@@ -75,7 +54,7 @@ function EditableTests() {
     var edit3 = ko.editable<any>({ test: true }); // with anything
 
     var edit4 = ko.editable<string|number>(1); // with union types
-    var edit5 = ko.editable<string|number>("test"); 
+    var edit5 = ko.editable<string|number>("test");
 
     ko.editable.makeEditable(this);
 
@@ -119,7 +98,7 @@ function EditableArrayTests() {
 
 function SortableTests() {
 
-    // sorting is added via an extender, there are no .d.ts 
+    // sorting is added via an extender, there are no .d.ts
     // types for this at present
     var sort1 = ko.observableArray([1, 2, 3]).extend({ sortable: true });
 

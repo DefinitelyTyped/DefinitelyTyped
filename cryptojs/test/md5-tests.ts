@@ -1,6 +1,3 @@
-/// <reference types="yui" />
-
-
 YUI.add('algo-md5-test', function (Y) {
     var C = CryptoJS;
 

@@ -1,5 +1,3 @@
-/// <reference types="jquery"/>
-
 $('#inputId').watermark('Required information');
 $('#inputId').watermark('Required information', { className: 'myClassName' });
 $('#inputId').watermark('Search', { useNative: false });

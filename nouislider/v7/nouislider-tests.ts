@@ -1,6 +1,3 @@
-
-/// <reference types="jquery" />
-
 //basic
 var basicSlider = $("<div/>").noUiSlider({
 	start: 80,

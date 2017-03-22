@@ -1,7 +1,3 @@
-
-/// <reference types="casperjs" />
-/// <reference types="resemblejs" />
-
 // phantomCSS 0.11.1 is based on resemblejs 1.2.1, phantomJS 1.9.2 , casperJS 1.1.0-DEV
 
 var options: PhantomCSS.PhantomCSSOptions = {
@@ -39,8 +35,8 @@ var options: PhantomCSS.PhantomCSSOptions = {
         });
     },
 
-    fileNameGetter: function(root:string,filename:string){ 
-       
+    fileNameGetter: function(root:string,filename:string){
+
        return root+filename;
     },
 
@@ -65,7 +61,7 @@ declare var phantomcss:PhantomCSS.PhantomCSS;
 phantomcss.turnOffAnimations();
 phantomcss.init(options);
 
-phantomcss.compareAll('exclude.test'); 
+phantomcss.compareAll('exclude.test');
 phantomcss.compareMatched('include.test', 'exclude.test');
 phantomcss.compareMatched( new RegExp('include.test'), new RegExp('exclude.test'));
 phantomcss.compareSession();

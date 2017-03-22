@@ -1,5 +1,3 @@
-/// <reference types="esprima" />
-
 import evaluate = require('static-eval');
 import esprima = require('esprima');
 import * as ESTree from 'estree';

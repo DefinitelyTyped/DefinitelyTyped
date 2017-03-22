@@ -1,7 +1,3 @@
-
-
-/// <reference types="node" />
-
 import * as gulp from 'gulp';
 import * as htmlreplace from 'gulp-html-replace';
 

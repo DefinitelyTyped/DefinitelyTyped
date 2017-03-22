@@ -1,20 +1,22 @@
-// Type definitions for Bootstrap 3 Datepicker v4.17.37
+// Type definitions for Bootstrap 3 Datepicker 4.17
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Katona Péter <https://github.com/katonap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // based on the previous version created by Jesica N. Fera <https://github.com/bayitajesi>
 
 /**
- * bootstrap-datetimepicker.js 4.17.37 Copyright (c) 2015 Jonathan Peterson
+ * bootstrap-datetimepicker.js 4.17.45 Copyright (c) 2015 Jonathan Peterson
  * Available via the MIT license.
  * see: http://eonasdan.github.io/bootstrap-datetimepicker or https://github.com/Eonasdan/bootstrap-datetimepicker for details.
  */
 
 /// <reference types="jquery"/>
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
 export as namespace BootstrapV3DatetimePicker;
+
+type InputParser = (input: string | Date | moment.Moment) => moment.Moment;
 
 export interface Datetimepicker {
 	/**Clears the datepicker by setting the value to null */
@@ -30,7 +32,7 @@ export interface Datetimepicker {
 	 * Emits:
 	 * - dp.change - In case newDate is different from current moment
 	 */
-	date(date: moment.Moment | Date | string): void;
+	date(date: moment.Moment | Date | string | null): void;
 	/**Destroys the widget and removes all attached event listeners */
 	destroy(): void;
 	/**Disables the input element, the component is attached to, by adding a disabled="true" attribute to it. If the widget was visible before that call it is hidden.
@@ -149,21 +151,23 @@ export interface Datetimepicker {
 	 * Like en/disabledDates, the en/disabledHours options are mutually exclusive and will reset one of the options back to false. */
 	enabledHours(value: boolean | Array<number>): void;
 	/**Returns a boolean or array with the options.extraFormats option configuration */
-	extraFormats(): boolean | Array<string>;
+	extraFormats(): boolean | Array<string | moment.MomentBuiltinFormat>;
 	/**Takes an array of valid input moment format options, or boolean:false */
-	extraFormats(formats: boolean | Array<string>): void;
+	extraFormats(formats: boolean | Array<string  | moment.MomentBuiltinFormat>): void;
 	/**Returns the options.focusOnShow option. */
 	focusOnShow(): boolean;
 	/**If false, the textbox will not be given focus when the picker is shown */
 	focusOnShow(value: boolean): void;
 	/**Returns the component's options.format string */
-	format(): boolean | string;
+	format(): boolean | string | moment.MomentBuiltinFormat;
 	/**Takes a moment.js format string and sets the components options.format.
 	 * This is used for displaying and also for parsing input strings either from the input element the component is attached to or the date() function.
 	 * The parameter can also be a boolean:false in which case the format is set to the locale's L LT.
 	 * Note: this is also used to determine if the TimePicker sub component will display the hours in 12 or 24 format. (if "a" or "h" exists in the passed string then a 12 hour mode is set)
+	 * Throws:
+	 * - TypeError - if format is boolean:true
 	 */
-	format(format: boolean | string): void;
+	format(format: boolean | string | moment.MomentBuiltinFormat): void;
 	/**Returns options.icons */
 	icons(): Icons;
 	/**Takes an Object of strings.
@@ -224,11 +228,11 @@ export interface Datetimepicker {
 	 */
 	minDate(date: moment.Moment | Date | string | boolean): void;
 	/**Returns the options.parseInputDate option */
-	parseInputDate(): Function;
+	parseInputDate(): InputParser | undefined;
 	/**Allows custom input formatting For example: the user can enter "yesterday"" or "30 days ago".
 	 * {@link http://eonasdan.github.io/bootstrap-datetimepicker/Functions/#parseinputdate}
 	 */
-	parseInputDate(value: (input: string) => moment.Moment): void;
+	parseInputDate(value: InputParser): void;
 	/**Returns the options.showClear option. */
 	showClear(): boolean;
 	/**Set if the clear date button will appear on the widget */
@@ -249,12 +253,19 @@ export interface Datetimepicker {
 	stepping(): number;
 	/**This will be the amount the up/down arrows move the minute value with a time picker. */
 	stepping(step: number): void;
+	/** Returns a string of options.timeZone */
+	timeZone(): string | null;
+	/** Takes a null or a string of a valid timezone.
+	 * Throws:
+	 * - TypeError - if tooltips parameter is not a string or null
+	 */
+	timeZone(timeZone: string | null): void;
 	/**Returns the options.toolbarplacement option. */
 	toolbarPlacement(): string;
 	/**Changes the placement of the toolbar where the today, clear, component switch icon are located.
 	 * See valid values at DatetimepickerOptions.toolbarplacement
 	 * Throws:
-	 * - TypeError if the parameter is not a valid value
+	 * - TypeError - if the parameter is not a valid value
 	 */
 	toolbarPlacement(value: string): void;
 	/**Returns the options.tooltips option */
@@ -267,10 +278,12 @@ export interface Datetimepicker {
 	/**Returns the options.useCurrent option configuration */
 	useCurrent(): boolean | string;
 	/**Takes a boolean or string.
-	 * If a boolean true is passed and the components model moment is not set (either through setDate or through a valid value on the input element the component is attached to) then the first time the user opens the datetimepicker widget the value is initialized to the current moment of the action.
+	 * If a boolean true is passed and the components model moment is not set (either through setDate or through a valid value on the input element the component is attached to)
+	 * then the first time the user opens the datetimepicker widget the value is initialized to the current moment of the action.
 	 * If a false boolean is passed then no initialization happens on the input element.
 	 * You can select the granularity on the initialized moment by passing one of the following strings ("year", "month", "day", "hour", "minute") in the variable.
-	 * If for example you pass "day" to the useCurrent function and the input field is empty the first time the user opens the datetimepicker widget the input text will be initialized to the current datetime with day granularity (ie if currentTime = 2014-08-10 13:32:33 the input value will be initialized to 2014-08-10 00:00:00)
+	 * If for example you pass "day" to the useCurrent function and the input field is empty the first time the user opens the datetimepicker widget the input text will be
+	 * initialized to the current datetime with day granularity (ie if currentTime = 2014-08-10 13:32:33 the input value will be initialized to 2014-08-10 00:00:00)
 	 * Note: If the options.defaultDate is set or the input element the component is attached to has already a value that takes precedence and the functionality of useCurrent is not triggered!
 	 */
 	useCurrent(value: boolean | string): void;
@@ -289,6 +302,10 @@ export interface Datetimepicker {
 	 * - TypeError - if the parameter is not a string or not a valid value
 	 */
 	viewMode(value: string): void;
+	/**Returns a $(element) variable with the currently set options.widgetParent option. */
+	widgetParent(): string | JQuery | null
+	/**Takes a string or $(element) value. */
+	widgetParent(widgetParent: string | JQuery | null): void;
 	/**Returns the options.widgetPositioning object */
 	widgetPositioning(): WidgetPositioningOptions;
 	/**WidgetPositioning defines where the dropdown with the widget will appear relative to the input element the component is attached to.
@@ -364,7 +381,7 @@ export interface DatetimepickerOptions {
 	/**Allows for several input formats to be valid. See: https://github.com/Eonasdan/bootstrap-datetimepicker/pull/666
 	 * @default: false
 	 */
-	extraFormats?: boolean | Array<string>;
+	extraFormats?: boolean | Array<string | moment.MomentBuiltinFormat>;
 	/**If false, the textbox will not be given focus when the picker is shown
 	 * @default: true
 	 */
@@ -372,7 +389,7 @@ export interface DatetimepickerOptions {
 	/**See momentjs' docs for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker.
 	 * @default: false
 	 */
-    format?: boolean | string;
+    format?: boolean | string | moment.MomentBuiltinFormat;
 	/**Change the default icons for the pickers functions. */
     icons?: Icons;
 	/**Allow date picker show event to fire even when the associated input element has the readonly="readonly"property.
@@ -416,7 +433,7 @@ export interface DatetimepickerOptions {
 	/**Allows custom input formatting For example: the user can enter "yesterday"" or "30 days ago".
 	 * {@link http://eonasdan.github.io/bootstrap-datetimepicker/Functions/#parseinputdate}
 	 */
-	parseInputDate?: (input: string) => moment.Moment;
+	parseInputDate?: InputParser;
 	/**Show the "Clear" button in the icon toolbar.
 	 * Clicking the "Clear" button will set the calendar to null.
 	 * @default: false
@@ -440,6 +457,11 @@ export interface DatetimepickerOptions {
 	 * @default: 1
 	 */
 	stepping?: number;
+	/**
+	 * Timezone to use, if moment-timezone is loaded. If null or empty string, ignore timezones.
+	 * @default: ""
+	 */
+	timeZone?: string | null;
 	/**Changes the placement of the icon toolbar.
 	 * @default: "default"
 	 */
@@ -466,7 +488,7 @@ export interface DatetimepickerOptions {
 	/**On picker show, places the widget at the identifier (string) or jQuery object if the element has css position: "relative"
 	 * @default: null
 	 */
-	widgetParent?: string | JQuery;
+	widgetParent?: string | JQuery | null;
 	widgetPositioning?: WidgetPositioningOptions;
 }
 
@@ -540,12 +562,12 @@ export interface UpdateEvent extends JQueryEventObject {
 	viewDate: moment.Moment;
 }
 
+type EventName = "dp.show" | "dp.hide" | "dp.error";
 
 declare global {
 	interface JQuery {
 
-	    datetimepicker(): JQuery;
-	    datetimepicker(options: DatetimepickerOptions): JQuery;
+	    datetimepicker(options?: DatetimepickerOptions): JQuery;
 
 	    data(key: "DateTimePicker"): Datetimepicker;
 
@@ -556,36 +578,18 @@ declare global {
 	    off(events: "dp.change", handler: (eventobject: ChangeEvent) => any): JQuery;
 	    off(events: "dp.change", selector?: string, handler?: (eventobject: ChangeEvent) => any): JQuery;
 
+	    on(events: EventName , handler: (eventObject: Event) => any): JQuery;
+	    on(events: EventName, selector: string, handler: (eventobject: Event) => any): JQuery;
+	    on(events: EventName, selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
 
-	    on(events: "dp.show", handler: (eventObject: Event) => any): JQuery;
-	    on(events: "dp.show", selector: string, handler: (eventobject: Event) => any): JQuery;
-	    on(events: "dp.show", selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
-
-	    off(events: "dp.show", handler: (eventobject: Event) => any): JQuery;
-	    off(events: "dp.show", selector?: string, handler?: (eventobject: Event) => any): JQuery;
-
-
-	    on(events: "dp.hide", handler: (eventObject: Event) => any): JQuery;
-	    on(events: "dp.hide", selector: string, handler: (eventobject: Event) => any): JQuery;
-	    on(events: "dp.hide", selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
-
-	    off(events: "dp.hide", handler: (eventobject: Event) => any): JQuery;
-	    off(events: "dp.hide", selector?: string, handler?: (eventobject: Event) => any): JQuery;
-
-
-	    on(events: "dp.error", handler: (eventObject: Event) => any): JQuery;
-	    on(events: "dp.error", selector: string, handler: (eventobject: Event) => any): JQuery;
-	    on(events: "dp.error", selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
-
-	    off(events: "dp.error", handler: (eventobject: Event) => any): JQuery;
-	    off(events: "dp.error", selector?: string, handler?: (eventobject: Event) => any): JQuery;
-
+	    off(events: EventName, handler: (eventobject: Event) => any): JQuery;
+	    off(events: EventName, selector?: string, handler?: (eventobject: Event) => any): JQuery;
 
 	    on(events: "dp.update", handler: (eventObject: UpdateEvent) => any): JQuery;
 	    on(events: "dp.update", selector: string, handler: (eventobject: UpdateEvent) => any): JQuery;
 	    on(events: "dp.update", selector: string, data: any, handler?: (eventobject: UpdateEvent) => any): JQuery;
 
-	    off(events: "dp.update", handler: (eventobject: Event) => any): JQuery;
+	    off(events: "dp.update", handler: (eventobject: UpdateEvent) => any): JQuery;
 	    off(events: "dp.update", selector?: string, handler?: (eventobject: UpdateEvent) => any): JQuery;
 	}
 }

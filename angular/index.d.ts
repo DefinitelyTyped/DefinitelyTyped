@@ -26,7 +26,6 @@ import ng = angular;
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
 declare namespace angular {
-
     type Injectable<T extends Function> = T | Array<string | T>;
 
     // not directly implemented, but ensures that constructed class implements $get
@@ -97,7 +96,7 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach<T>(obj: T[], iterator: (value: T, key: number) => any, context?: any): any;
+        forEach<T>(obj: T[], iterator: (value: T, key: number, obj: T[]) => void, context?: any): T[];
         /**
          * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
          *
@@ -107,7 +106,7 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach<T>(obj: { [index: string]: T; }, iterator: (value: T, key: string) => any, context?: any): any;
+        forEach<T>(obj: { [index: string]: T; }, iterator: (value: T, key: string, obj: { [index: string]: T; }) => void, context?: any): { [index: string]: T; };
         /**
          * Invokes the iterator function once for each item in obj collection, which can be either an object or an array. The iterator function is invoked with iterator(value, key), where value is the value of an object property or an array element and key is the object property key or array element index. Specifying a context for the function is optional.
          *
@@ -117,7 +116,7 @@ declare namespace angular {
          * @param iterator Iterator function.
          * @param context Object to become context (this) for the iterator function.
          */
-        forEach(obj: any, iterator: (value: any, key: any) => any, context?: any): any;
+        forEach(obj: any, iterator: (value: any, key: any, obj: any) => void, context?: any): any;
 
         fromJson(json: string): any;
         identity<T>(arg?: T): T;
@@ -344,7 +343,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/type/form.FormController
      */
     interface IFormController {
-
         /**
          * Indexer which should return ng.INgModelController for most properties but cannot because of "All named properties must be assignable to string indexer type" constraint - see https://github.com/Microsoft/TypeScript/issues/272
          */
@@ -532,7 +530,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/directive/ngRepeat
      */
     interface IRepeatScope extends IScope {
-
         /**
          * iterator offset of the repeated element (0..length-1).
          */
@@ -562,7 +559,6 @@ declare namespace angular {
          * true if the iterator position $index is odd (otherwise false).
          */
         $odd: boolean;
-
     }
 
     interface IAngularEvent {
@@ -1332,9 +1328,19 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$controller
     // see http://docs.angularjs.org/api/ng.$controllerProvider
     ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * The minimal local definitions required by $controller(ctrl, locals) calls.
+     */
+    interface IControllerLocals {
+        $scope: ng.IScope;
+        $element: JQuery;
+    }
+
     interface IControllerService {
         // Although the documentation doesn't state this, locals are optional
         <T>(controllerConstructor: new (...args: any[]) => T, locals?: any, later?: boolean, ident?: string): T;
+        <T>(controllerConstructor: Function, locals?: IControllerLocals, later?: boolean, ident?: string): T;
         <T>(controllerConstructor: Function, locals?: any, later?: boolean, ident?: string): T;
         <T>(controllerName: string, locals?: any, later?: boolean, ident?: string): T;
     }
@@ -1934,8 +1940,7 @@ declare namespace angular {
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
     ///////////////////////////////////////////////////////////////////////////
-    export namespace auto {
-
+    namespace auto {
         ///////////////////////////////////////////////////////////////////////
         // InjectorService
         // see http://docs.angularjs.org/api/AUTO.$injector

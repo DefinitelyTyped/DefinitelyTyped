@@ -1,6 +1,6 @@
 // Type definitions for AWS Lambda
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>
+// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Simon Ramsay <https://github.com/nexus-uw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API Gateway "event"
@@ -37,6 +37,84 @@ interface APIGatewayEvent {
         resourcePath: string;
     };
     resource: string;
+}
+
+// SNS "event"
+interface SNSMessageAttribute {
+    Type: string;
+    Value: string;
+}
+
+interface SNSMessageAttributes {
+    [name: string]: SNSMessageAttribute;
+}
+
+interface SNSMessage {
+    SignatureVersion: string;
+    Timestamp: string;
+    Signature: string;
+    SigningCertUrl: string;
+    MessageId: string;
+    Message: string;
+    MessageAttributes: SNSMessageAttributes;
+    Type: string;
+    UnsubscribeUrl: string;
+    TopicArn: string;
+    Subject: string;
+}
+
+interface SNSEventRecord {
+    EventVersion: string;
+    EventSubscriptionArn: string;
+    EventSource: string;
+    Sns: SNSMessage;
+}
+
+interface SNSEvent {
+    Records: Array<SNSEventRecord>;
+}
+
+/**
+ * S3Create event
+ * https://docs.aws.amazon.com/AmazonS3/latest/dev/notification-content-structure.html
+ */
+interface S3CreateEvent {
+    Records: [{
+        eventVersion: string;
+        eventSource: string;
+        awsRegion: string
+        eventTime: string;
+        eventName: string;
+        userIdentity: {
+            principalId: string;
+        },
+        requestParameters: {
+            sourceIPAddress: string;
+        },
+        responseElements: {
+            'x-amz-request-id': string;
+            'x-amz-id-2': string;
+        },
+        s3: {
+            s3SchemaVersion: string;
+            configurationId: string;
+            bucket: {
+                name: string;
+                ownerIdentity: {
+                    principalId: string;
+                },
+                arn: string;
+            },
+            object: {
+                key: string;
+                size: number;
+                eTag: string;
+                versionId: string;
+                sequencer: string;
+            }
+        }
+    }
+    ];
 }
 
 // Context
@@ -97,7 +175,7 @@ interface ClientContextEnv {
 interface ProxyResult {
     statusCode: number;
     headers?: {
-      [header: string]: string;
+        [header: string]: boolean | number | string;
     },
     body: string;
 }
@@ -110,8 +188,8 @@ interface ProxyResult {
  * @param context – runtime information of the Lambda function that is executing.
  * @param callback – optional callback to return information to the caller, otherwise return value is null.
  */
-export type Handler = (event: any, context: Context, callback?: Callback)  => void;
-export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback)  => void;
+export type Handler = (event: any, context: Context, callback?: Callback) => void;
+export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => void;
 
 /**
  * Optional callback parameter.

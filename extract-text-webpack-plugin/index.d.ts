@@ -1,15 +1,15 @@
 // Type definitions for extract-text-webpack-plugin 2.0.0
-// Project: https://github.com/webpack/extract-text-webpack-plugin
-// Definitions by: flying-sheep <https://github.com/flying-sheep>
+// Project: https://github.com/webpack-contrib/extract-text-webpack-plugin
+// Definitions by: flying-sheep <https://github.com/flying-sheep>, kayo <https://github.com/katyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, OldLoader } from 'webpack'
+import { Plugin, OldLoader, NewLoader } from 'webpack'
 
 /**
  * extract-text-webpack-plugin has no support for .options instead of .query yet.
  * See https://github.com/webpack/extract-text-webpack-plugin/issues/281
  */
-type Loader = string | OldLoader
+type Loader = string | OldLoader | NewLoader
 
 interface ExtractPluginOptions {
     /** the filename of the result file. May contain `[name]`, `[id]` and `[contenthash]` */
@@ -24,9 +24,9 @@ interface ExtractPluginOptions {
 
 interface ExtractOptions {
     /** the loader(s) that should be used for converting the resource to a css exporting module */
-    loader: Loader | Loader[]
+    use: Loader | Loader[]
     /** the loader(s) that should be used when the css is not extracted (i.e. in an additional chunk when `allChunks: false`) */
-    fallbackLoader?: Loader | Loader[]
+    fallback?: Loader | Loader[]
     /** override the `publicPath` setting for this loader */
     publicPath?: string
 }

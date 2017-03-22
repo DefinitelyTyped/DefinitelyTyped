@@ -11,7 +11,7 @@ declare module 'angular' {
     export namespace dynamicLocale {
 
         interface tmhDynamicLocaleService {
-            set(locale: string): void;
+            set(locale: string): angular.IPromise<string>;
             get(): string;
         }
 

@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.29.0
+// Type definitions for Mapbox GL JS v0.30.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -978,8 +978,8 @@ declare namespace mapboxgl {
 		"circle-translate-anchor"?: "map" | "viewport";
 		"circle-pitch-scale"?: "map" | "viewport";
 		"circle-stroke-width"?: number | StyleFunction;
-		"circle-stoke-color"?: string | StyleFunction;
-		"circle-stroke-opactiy"?: number | StyleFunction;
+		"circle-stroke-color"?: string | StyleFunction;
+		"circle-stroke-opacity"?: number | StyleFunction;
 	}
 }
 

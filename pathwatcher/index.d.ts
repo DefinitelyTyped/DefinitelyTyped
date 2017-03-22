@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="q" />
 
+import { EventEmitter } from "events";
 import * as Q from "q";
 
 export as namespace PathWatcher;
@@ -28,7 +28,7 @@ export interface IFile {
 	getBaseName():string;
 	write(text:string):void;
 	readSync(flushCache:boolean):string;
-	read(flushCache?:boolean):Q.Promise<string>;
+	read(flushCache?:boolean): Promise<string>;
 	// exists():boolean;
 	existsSync():boolean;
 	setDigest(contents:string):void;
@@ -62,10 +62,7 @@ export interface IDirectory {
 	isPathPrefixOf(prefix:string, fullPath:string):boolean;
 }
 
-
-import events = require("events");
-
-export interface IHandleWatcher extends events.EventEmitter {
+export interface IHandleWatcher extends EventEmitter {
 	onEvent(event:any, filePath:any, oldFilePath:any):any;
 	start():void;
 	closeIfNoListener():void;

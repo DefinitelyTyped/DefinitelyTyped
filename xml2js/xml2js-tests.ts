@@ -69,6 +69,11 @@ var outString = builder.buildObject({
 
 var parser = new xml2js.Parser();
 
+parser.on('end', (result: any) => {
+    console.log("Parser Finished");
+    return;
+});
+
 var v1Defaults = xml2js.defaults['0.1'];
 v1Defaults.async = true;
 

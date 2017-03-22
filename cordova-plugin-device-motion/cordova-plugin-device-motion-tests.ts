@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts"/>
-
 navigator.accelerometer.getCurrentAcceleration(
     (acc: Acceleration) => { console.log('X: ' + acc.x + 'Y: ' + acc.y + 'Z: ' + acc.z); },
     () => { alert('Error!'); });

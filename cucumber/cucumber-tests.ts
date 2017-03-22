@@ -3,7 +3,7 @@ import cucumber = require("cucumber");
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;
-  	type Table = cucumber.TableDefinition;
+	type Table = cucumber.TableDefinition;
 	type HookScenario = cucumber.HookScenario;
 	type Hooks = cucumber.Hooks;
 	var step = <cucumber.StepDefinitions>this;
@@ -17,6 +17,14 @@ function StepSample() {
 
 	hook.Before(function(scenario: HookScenario, callback: Callback){
 		scenario.isFailed() && callback.pending();
+	});
+
+	hook.Before({ timeout: 1000 }, function(scenario: HookScenario, callback: Callback) {
+		callback();
+	});
+
+	hook.After({ timeout: 1000 }, function(scenario: HookScenario, callback: Callback) {
+		callback();
 	});
 
 	hook.Around(function(scenario: HookScenario, runScenario: (error:string, callback?:Function)=>void)  {
@@ -95,6 +103,24 @@ function StepSample() {
 			console.log("After");
 			callback();
 		} )
+	});
+
+	cucumber.defineSupportCode(function(hook: cucumber.Hooks){
+		hook.addTransform({
+			captureGroupRegexps: ['red|blue|green'],
+			transformer: (arg: string) => arg,
+			typeName: 'color'
+		});
+	});
+
+	cucumber.defineSupportCode(function({After, Given}) {
+		Given( /^a variable set to (\d+)$/, (x:string) => {
+			console.log("the number is: " + x);
+		});
+		After((scenario: HookScenario, callback?: Callback) => {
+			console.log("After");
+			callback();
+		});
 	});
 
 	let fns : cucumber.SupportCodeConsumer[] = cucumber.getSupportCodeFns()

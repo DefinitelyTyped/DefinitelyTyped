@@ -1,6 +1,3 @@
-/// <reference types="jquery" />
-
-
 var is = {
     string: (msg: string) => {
         return true;
