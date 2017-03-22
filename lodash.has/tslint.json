@@ -1,1 +1,3 @@
-{ "extends": "../tslint.json" }
+{
+    "extends": "../tslint.json"
+}
