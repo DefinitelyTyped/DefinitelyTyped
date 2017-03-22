@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "target": "es6",
         "module": "commonjs",
         "lib": [
             "es6"
@@ -18,6 +19,7 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
-        "test/explicit.ts"
+        "test/explicit.ts",
+        "test/es6-generators.ts"
     ]
 }
