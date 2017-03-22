@@ -23,7 +23,7 @@ async function main() {
         // Generate local module
         const localDir = path.join("..", module);
         ensureDir(localDir);
-        fs.writeFileSync(path.join(localDir, "index.d.ts"), `import { ${module} } from "../index";\nexport = ${module};`);
+        fs.writeFileSync(path.join(localDir, "index.d.ts"), `// TypeScript Version: 2.2\nimport { ${module} } from "../index";\nexport = ${module};`);
 
         // Generate non-local module
         if (!notOnNpm.has(module)) {
@@ -54,7 +54,7 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import { ${moduleName} } from "lodash";
 export = ${moduleName};
@@ -68,7 +68,9 @@ function tsconfig() {
         ],
         "compilerOptions": {
             "module": "commonjs",
-            "target": "es6",
+            "lib": [
+                "es6"
+            ],
             "noImplicitAny": true,
             "noImplicitThis": true,
             "strictNullChecks": false,
