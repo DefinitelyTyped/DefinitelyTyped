@@ -194,6 +194,35 @@ function beforeRedditNavigation() {
     },{urls: ["http://*/*"], types: ["image"]});
 }
 
+// for chrome.tabs.InjectDetails.frameId
+function executeScriptFramed () {
+    
+    const tabId = 123;
+    const frameId = 0;
+    
+    const code = "alert('hi');";
+    
+    chrome.tabs.executeScript({frameId, code});
+    chrome.tabs.insertCSS({frameId, code});
+    
+    chrome.tabs.executeScript(tabId, {frameId, code});
+    chrome.tabs.insertCSS(tabId, {frameId, code});
+    
+}
+
+// for chrome.tabs.TAB_ID_NONE
+function realTabsOnly () {
+    chrome.webRequest.onBeforeRequest.addListener(function (details) {
+        if (details.tabId === chrome.tabs.TAB_ID_NONE) {
+            console.log("Request not related to a tab. %o", details);
+            return;
+        }
+        // ...
+    }, {
+        urls: ["<all_urls>"]
+    });
+}
+
 // contrived settings example
 function proxySettings() {
     chrome.proxy.settings.get({ incognito: true }, (details) => {

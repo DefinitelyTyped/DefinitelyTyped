@@ -5976,6 +5976,12 @@ declare namespace chrome.tabs {
         file?: string;
         /**
          * Optional.
+         * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
+         * @since Chrome 39.
+         */
+        frameId?: number;
+        /**
+         * Optional.
          * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
          * @since Chrome 39.
          */
@@ -6557,6 +6563,12 @@ declare namespace chrome.tabs {
      * @since Chrome 38.
      */
     var onZoomChange: TabZoomChangeEvent;
+    
+    /**
+     * An ID which represents the absence of a browser tab.
+     * @since Chrome 46.
+     */
+    var TAB_ID_NONE: -1;
 }
 
 ////////////////////
