@@ -18,7 +18,7 @@ declare namespace momentPropTypes{
     
 declare namespace ReactDates{
     type AnchorDirectionShape = 'left' | 'right';
-    type FocusedInputShape = 'startDate' | 'endDate';    
+    type FocusedInputShape = 'startDate' | 'endDate' | null;
     type OrientationShape = 'horizontal' | 'vertical';        
     type ScrollableOrientationShape = 'horizontal' | 'vertical' | 'verticalScrollable'; 
     
