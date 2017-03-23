@@ -1,6 +1,6 @@
 // Type definitions for react-intl 2.2.1
 // Project: http://formatjs.io/react/
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>, Fedor Nezhivoi <https://github.com/gyzerok>, Till Wolff <https://github.com/tillwolff> 
+// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>, Fedor Nezhivoi <https://github.com/gyzerok>, Till Wolff <https://github.com/tillwolff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -14,7 +14,8 @@ declare namespace ReactIntl {
         pluralRuleFunction?: (n: number, ord: boolean) => string;
     }
 
-    function injectIntl<T>(component: React.ComponentClass<InjectedIntlProps & T> | React.StatelessComponent<InjectedIntlProps & T>): React.ComponentClass<T>;
+    function injectIntl<T>(component: React.ComponentClass<InjectedIntlProps & T> | React.StatelessComponent<InjectedIntlProps & T>):
+        React.ComponentClass<T> & { WrappedComponent: React.ComponentClass<InjectedIntlProps & T> | React.StatelessComponent<InjectedIntlProps & T> };
 
     function addLocaleData(data: Locale[] | Locale): void;
 
@@ -227,7 +228,11 @@ declare namespace ReactIntl {
             defaultFormats?: Object;
         }
     }
-    class IntlProvider extends React.Component<IntlProvider.Props, any> { }
+    class IntlProvider extends React.Component<IntlProvider.Props, any> {
+        getChildContext(): {
+            intl: InjectedIntl;
+        }
+    }
 
     class LocaleData extends Array<Locale> {
     }
