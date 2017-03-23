@@ -47,7 +47,7 @@ export interface ICookie {
     path: string,
     httponly?: boolean,
     secure?: boolean,
-    expires?: Date
+    expires?: string
 }
 
 export interface IPaperSizeOptions {
