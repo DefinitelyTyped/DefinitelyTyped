@@ -530,7 +530,9 @@ declare namespace Highcharts {
          */
         gridLineColor?: string;
         /**
-         * The dash or dot style of the grid lines. For possible values, see {@http://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-dashstyle-all/|this demonstration}. Defaults to Solid.
+         * The dash or dot style of the grid lines. For possible values, 
+         * see {@http://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-dashstyle-all/|this demonstration}. 
+         * Defaults to Solid.
          * @since 1.2
          */
         gridLineDashStyle?: string;
@@ -627,7 +629,8 @@ declare namespace Highcharts {
          */
         minorGridLineColor?: string;
         /**
-         * The dash or dot style of the minor grid lines. For possible values, see {@link http://jsfiddle.net/gh/get/jquery/1.7.1/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-dashstyle-all/|this demonstration}.
+         * The dash or dot style of the minor grid lines. For possible values, 
+         * see {@link http://jsfiddle.net/gh/get/jquery/1.7.1/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-dashstyle-all/|this demonstration}.
          * @default 'Solid'
          */
         minorGridLineDashStyle?: string;
@@ -5738,7 +5741,8 @@ declare namespace Highcharts {
          * @param {number} min The new minimum value
          * @param {number} max The new maximum value
          * @param {boolean} redraw Whether to redraw the chart or wait for an explicit call to chart.redraw().
-         * @param {boolean | Animation} animation When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param {boolean | Animation} animation When true, the resize will be animated with default animation options. 
+         * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
         setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | Animation, eventArguments?: any): void;
@@ -5788,7 +5792,8 @@ declare namespace Highcharts {
          * @param  {AxisOptions} options The Axis options, as documented under xAxis and yAxis.
          * @param  [boolean] isX Whether it is an X axis or Y axis
          * @param  [boolean] redraw Defaults to true. Whether to redraw the chart after the series is added. See the redraw() method.
-         * @param  [boolean | Animation] animation Defaults to true. When true, the series' updating will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param  [boolean | Animation] animation Defaults to true. When true, the series' updating will be animated with default animation options. 
+         * The animation can also be a configuration object with properties duration and easing.
          * @return {AxisObject}
          * @since 3.0
          */
@@ -5836,14 +5841,20 @@ declare namespace Highcharts {
         /**
          * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
          * conversion.
-         * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. All options default to the values given in the exporting config options. filename: the filename for the export without extension, url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
+         * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. 
+         * All options default to the values given in the exporting config options. filename: the filename for the export without extension, 
+         * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, 
+         * type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
          * @since 2.0
          */
         exportChart(options: ExportingOptions): void;
         /**
          * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
          * conversion.
-         * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. All options default to the values given in the exporting config options. filename: the filename for the export without extension, url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
+         * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. 
+         * All options default to the values given in the exporting config options. filename: the filename for the export without extension, 
+         * url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, 
+         * type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
          * @param {Options} chartOptions Additional chart options for the exported chart. For example a different background color can be added here.
          * @since 2.0
          */
@@ -5881,7 +5892,8 @@ declare namespace Highcharts {
         get(id: string): AxisObject | SeriesObject | PointObject;
         /**
          * Exporting module required. Get an SVG string representing the chart.
-         * @param  {Options} additionalOptions Chart options to add to the exported chart in addition to the options given for the original chart. For example if series.lineWidth should be greater in the exported chart than in the original, or the chart should have a different background color, this is added here.
+         * @param  {Options} additionalOptions Chart options to add to the exported chart in addition to the options given for the original chart. 
+         * For example if series.lineWidth should be greater in the exported chart than in the original, or the chart should have a different background color, this is added here.
          * @return {string}
          * @since 2.0
          */
@@ -5922,7 +5934,8 @@ declare namespace Highcharts {
          * more than one operation on the chart before redrawing, for example add a number of points. In those cases it is a
          * waste of resources to redraw the chart for each new point added. So you add the points and call chart.redraw()
          * after.
-         * @param [boolean | Animation] animation Defaults to true. When true, the update will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param [boolean | Animation] animation Defaults to true. When true, the update will be animated with default animation options. 
+         * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
         redraw(animation?: boolean | Animation): void;
@@ -5942,7 +5955,8 @@ declare namespace Highcharts {
          * Resize the chart to a given width and height.
          * @param {number} width The new pixel width of the chart.
          * @param {number} height The new pixel height of the chart.
-         * @param {boolean | Animation} animation Defaults to true. When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param {boolean | Animation} animation Defaults to true. When true, the resize will be animated with default animation options.
+         *  The animation can also be a configuration object with properties duration and easing.
          */
         setSize(width: number, height: number, animation?: boolean | Animation): void;
         /**
@@ -6004,7 +6018,10 @@ declare namespace Highcharts {
         /**
          * This is the constructor for creating a new chart object.
          * @param {Options} options The chart options
-         * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
+         * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, 
+         * but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, 
+         * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). 
+         * s a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          * @return {ChartObject}
          */
         new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
@@ -6019,7 +6036,10 @@ declare namespace Highcharts {
          * This is the constructor for creating a new chart object.
          * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
          * @param {Options} options The chart options
-         * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
+         * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, 
+         * but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, 
+         * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). 
+         * As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          * @return {ChartObject}
          */
         new (renderTo: string | HTMLElement, options: Options, callback: (chart: ChartObject) => void): ChartObject;
@@ -6042,7 +6062,8 @@ declare namespace Highcharts {
          * Apply numeric attributes to the SVG/VML element by animation. See Element.attr() for more information on setting
          * attributes.
          * @param  {any} attributes A set of attributes to apply.
-         * @param  {any} animation Optional animation parameters that are passed over to jQuery or other framework. Valid properties depend on the library, but options like duration, easing and complete are supported by jQuery.
+         * @param  {any} animation Optional animation parameters that are passed over to jQuery or other framework. 
+         * Valid properties depend on the library, but options like duration, easing and complete are supported by jQuery.
          * @return {ElementObject}
          * @since 2.0
          */
@@ -6131,7 +6152,8 @@ declare namespace Highcharts {
         circle(centerX: number, centerY: number, radius: number): ElementObject;
         /**
          * Add an SVG/VML group.
-         * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name. Other Element objects are added to the group by using the group as the first parameter in .add() for the wrappers
+         * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name. 
+         * Other Element objects are added to the group by using the group as the first parameter in .add() for the wrappers
          * @return {ElementObject}
          * @since 2.0
          */
@@ -6159,7 +6181,8 @@ declare namespace Highcharts {
          * @param  [number] anchorX If the shape has a pointer, like the chevron on a callout shape, anchorX is the x position to point to.
          * @param  [number] anchorY If the shape has a pointer, like the chevron on a callout shape, anchorY is the y position to point to.
          * @param  [boolean] useHTML Use HTML to render the text of the label.
-         * @param  [boolean] baseline Whether the label should be vertically aligned by the text baseline, which makes it behave like the text element, or by the top left side, which makes it behave like a HTML div.
+         * @param  [boolean] baseline Whether the label should be vertically aligned by the text baseline, which makes it behave like the text element, 
+         * or by the top left side, which makes it behave like a HTML div.
          * @param  [string] className A class name for the g element surrounding the label.
          * @return {ElementObject}
          * @since 2.0
@@ -6286,15 +6309,18 @@ declare namespace Highcharts {
         percentage: number;
         /**
          * Remove the point from the series.
-         * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is removed.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
-         * @param [boolean|Animation] animation Defaults to true. When true, the graph's updating will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is removed.If doing more operations on the chart, 
+         * it is a good idea to set redraw to false and call chart.redraw() after.
+         * @param [boolean|Animation] animation Defaults to true. When true, the graph's updating will be animated with default animation options. 
+         * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
         remove(redraw?: boolean, animation?: boolean | Animation): void;
         /**
          * Select or unselect the point.
          * @param [boolean] select When true, the point is selected. When false, the point is unselected. When null or undefined, the selection state is toggled.
-         * @param [boolean] accumulate When true, the selection is added to other selected points. When false, other selected points are deselected. Internally in Highcharts,selected points are accumulated on Control, Shift or Cmd clicking the point.
+         * @param [boolean] accumulate When true, the selection is added to other selected points. When false, other selected points are deselected. 
+         * Internally in Highcharts,selected points are accumulated on Control, Shift or Cmd clicking the point.
          * @since 1.2.0
          */
         select(select?: boolean, accumulate?: boolean): void;
@@ -6313,7 +6339,8 @@ declare namespace Highcharts {
          * is selected.
          * @param [boolean] sliced When true, the point is sliced out. When false, the point is set in. When null or undefined, the sliced state is toggled.
          * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is altered.
-         * @param [boolean|Animation] animation Defaults to true. When true, the move will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param [boolean|Animation] animation Defaults to true. When true, the move will be animated with default animation options. 
+         * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
         slice(sliced?: boolean, redraw?: boolean, animation?: boolean | Animation): void;
@@ -6323,9 +6350,13 @@ declare namespace Highcharts {
         total: number;
         /**
          * Update the point with new values.
-         * @param {number|[number,number]|DataPoint} options The point options. Point options are handled as described under the series<type>.data item for each series type. For example for a line series, if options is a single number, the point will be given that number as the main y value. If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options are applied.
-         * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is updated.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
-         * @param {boolean|Animation} animation Defaults to true. When true, the update will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param {number|[number,number]|DataPoint} options The point options. Point options are handled as described under the series<type>.data item for each series type. 
+         * For example for a line series, if options is a single number, the point will be given that number as the main y value. If it is an array, 
+         * it will be interpreted as x and y values respectively. If it is an object, advanced options are applied.
+         * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is updated.If doing more operations on the chart, 
+         * it is a good idea to set redraw to false and call chart.redraw() after.
+         * @param {boolean|Animation} animation Defaults to true. When true, the update will be animated with default animation options. 
+         * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
         update(options: number | [number, number] | DataPoint, redraw?: boolean, animation?: boolean | Animation): void;
@@ -6359,10 +6390,14 @@ declare namespace Highcharts {
         /**
          * Add a point to the series after render time. The point can be added at the end, or by giving it an X value, to
          * the start or in the middle of the series.
-         * @param {number|[number,number]|DataPoint} The point options. If options is a single number, a point with that y value is appended to the series.If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options as outlined under series.data are applied.
-         * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point, it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
-         * @param [boolean=false] shift - When shift is true, one point is shifted off the start of the series as one is appended to the end. Use this option for live charts monitoring a value over time.
-         * @param [(boolean|Animation)=false] animation - When shift is true, one point is shifted off the start of the series as one is appended to the end. Use this option for live charts monitoring a value over time.
+         * @param {number|[number,number]|DataPoint} The point options. If options is a single number, a point with that y value is appended to the series.
+         * If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options as outlined under series.data are applied.
+         * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point, 
+         * it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
+         * @param [boolean=false] shift - When shift is true, one point is shifted off the start of the series as one is appended to the end. 
+         * Use this option for live charts monitoring a value over time.
+         * @param [(boolean|Animation)=false] animation - When shift is true, one point is shifted off the start of the series as one is appended to the end. 
+         * Use this option for live charts monitoring a value over time.
          * @since 1.2.0
          */
         addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
@@ -6394,7 +6429,8 @@ declare namespace Highcharts {
         options: IndividualSeriesOptions;
         /**
          * Remove the series from the chart.
-         * @param [boolean=true] redraw - Whether to redraw the chart after the series is removed.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
+         * @param [boolean=true] redraw - Whether to redraw the chart after the series is removed.If doing more operations on the chart, 
+         * it is a good idea to set redraw to false and call chart.redraw() after.
          * @since 1.2.0
          */
         remove(redraw?: boolean): void;
@@ -6402,8 +6438,10 @@ declare namespace Highcharts {
          * Remove a point from the series. Unlike the Point.remove method, this can also be done on a point that is not
          * instanciated because it is outside the view or subject to data grouping.
          * @param {number} index - The index of the point in the data array.
-         * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point, it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
-         * @param [boolean|Animation=true] animation - When true, the graph will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+         * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point,
+         * it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
+         * @param [boolean|Animation=true] animation - When true, the graph will be animated with default animation options. 
+         * The animation can also be a configuration object with properties duration and easing.
          * @since 4.1.0
          */
         removePoint(index: number, redraw?: boolean, animation?: boolean | Animation): void;
@@ -6423,16 +6461,20 @@ declare namespace Highcharts {
          * Apply a new set of data to the series and optionally redraw it. Note that this method throws away all points and
          * creates new ones. For updating the values of existing points, use Point.update() instead.
          * @param {number[]|number[][]|DataPoint[]} data - Takes an array of data in the same format as described under series<type>data for the given series type.
-         * @param [boolean=true] redraw - Whether to redraw the chart after the series is altered.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
-         * @param [boolean|Animation] animation - When the updated data is the same length as the existing data, points will be updated by default, and animation visualizes how the points are changed. Set false to disable animation, or a configuration object to set duration or easing.
-         * @param [boolean] updatePoints - When the updated data is the same length as the existing data, points will be updated instead of replace. This option prevents this, and makes setData behave like it did prior to Highcharts 3.0.10.
+         * @param [boolean=true] redraw - Whether to redraw the chart after the series is altered.If doing more operations on the chart, 
+         * it is a good idea to set redraw to false and call chart.redraw() after.
+         * @param [boolean|Animation] animation - When the updated data is the same length as the existing data, points will be updated by default, 
+         * and animation visualizes how the points are changed. Set false to disable animation, or a configuration object to set duration or easing.
+         * @param [boolean] updatePoints - When the updated data is the same length as the existing data, points will be updated instead of replace. 
+         * This option prevents this, and makes setData behave like it did prior to Highcharts 3.0.10.
          * @since 1.2.0
          */
         setData(data: number[] | number[][] | DataPoint[], redraw?: boolean, animation?: boolean | Animation, updatePoints?: boolean): void;
         /**
          * A utility function to show or hide the series with an optional redraw.
          * @param [boolean] visible - Whether to show or hide the series. If undefined, the visibility is toggled.
-         * @param [boolean=true] redraw - Whether to redraw the chart after the series is altered.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
+         * @param [boolean=true] redraw - Whether to redraw the chart after the series is altered.If doing more operations on the chart, 
+         * it is a good idea to set redraw to false and call chart.redraw() after.
          * @since 1.2.0
          */
         setVisible(visible?: boolean, redraw?: boolean): void;
@@ -6451,7 +6493,8 @@ declare namespace Highcharts {
          * elements from the series is removed, and it is initiated from scratch. Therefore, this method is more performance
          * expensive than some other utility methods like setData or setVisible.
          * @param {IndividualSeriesOptions} options New options that will be merged into the series' existing options.
-         * @param [boolean] redraw - Whether to redraw the chart after the series is altered. If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
+         * @param [boolean] redraw - Whether to redraw the chart after the series is altered. If doing more operations on the chart, 
+         * it is a good idea to set redraw to false and call chart.redraw() after.
          * @since 1.2.0
          */
         update(options: IndividualSeriesOptions, redraw?: boolean): void;
