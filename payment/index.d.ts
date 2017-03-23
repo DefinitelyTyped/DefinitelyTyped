@@ -24,7 +24,7 @@ interface Fns {
      * * Validates number
      * * Validates length to 4
      */
-    validateCardCVC(cvc: string, type: string): boolean;
+    validateCardCVC(cvc: string, type?: string): boolean;
     /**
      * Returns a card type. Either:
      * * visa
