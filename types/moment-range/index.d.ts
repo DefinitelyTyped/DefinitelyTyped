@@ -14,11 +14,8 @@ declare namespace momentRange {
         start: moment.Moment;
         end: moment.Moment;
 
-        constructor(range: string);
-        constructor(range: Date[]);
-        constructor(range: moment.Moment[]);
-        constructor(start: Date, end: Date);
-        constructor(start: moment.Moment, end: moment.Moment);
+        constructor(range: string | Date[] | moment.Moment[]);
+        constructor(start: Date | moment.Moment, end: Date | moment.Moment);
 
         contains(other: DateRange | moment.Moment | Date, options?: { exclusive?: boolean }): boolean;
 
