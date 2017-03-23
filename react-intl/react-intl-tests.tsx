@@ -168,7 +168,7 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
     }
 }
 
-const SomeComponentWithIntl: React.ComponentClass<SomeComponentProps> = injectIntl(SomeComponent);
+const SomeComponentWithIntl = injectIntl(SomeComponent);
 
 class TestApp extends React.Component<{}, {}> {
     public render(): React.ReactElement<{}> {
@@ -190,6 +190,10 @@ class TestApp extends React.Component<{}, {}> {
         );
     }
 }
+
+const intlProvider = new IntlProvider({ locale: 'en' }, {});
+const { intl } = intlProvider.getChildContext();
+const wrappedComponent = <SomeComponentWithIntl.WrappedComponent className="test" intl={intl}/>
 
 export default {
     TestApp,
