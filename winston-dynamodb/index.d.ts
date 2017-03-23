@@ -3,8 +3,6 @@
 // Definitions by: nickiannone <http://github.com/nickiannone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="winston" />
-
 import * as winston from 'winston';
 import { TransportInstance } from 'winston';
 export interface DynamoDBTransportOptions {

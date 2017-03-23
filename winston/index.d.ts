@@ -1,4 +1,4 @@
-// Type definitions for winston v2.2.0
+// Type definitions for winston 2.3
 // Project: https://github.com/flatiron/winston
 // Definitions by: bonnici <https://github.com/bonnici>, Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -123,8 +123,7 @@ declare namespace winston {
         unhandleExceptions(...transports: winston.TransportInstance[]): void;
         add(transport: winston.TransportInstance, options?: winston.TransportOptions, created?: boolean): winston.LoggerInstance;
         clear(): void;
-        remove(transport: string): winston.LoggerInstance;
-        remove(transport: winston.TransportInstance): winston.LoggerInstance;
+        remove(transport: string | winston.TransportInstance): winston.LoggerInstance;
         startTimer(): winston.ProfileHandler;
         profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): winston.LoggerInstance;
         addColors(target: AbstractConfigColors): any;
@@ -232,13 +231,14 @@ declare namespace winston {
         configure(options: LoggerOptions): void;
         setLevels(target: AbstractConfigLevels): any;
         cli(): LoggerInstance;
-        
+
         level: string;
     }
 
     export interface LoggerOptions {
         transports?: TransportInstance[];
-        rewriters?: TransportInstance[];
+        rewriters?: MetadataRewriter[];
+        filters?: MetadataFilter[];
         exceptionHandlers?: TransportInstance[];
         handleExceptions?: boolean;
         level?: string;
@@ -285,7 +285,7 @@ declare namespace winston {
         logstash: boolean;
         depth: string|null;
         align: boolean;
-        stderrLevels: {[key: string]: LeveledLogMethod;}
+        stderrLevels: { [key: string]: LeveledLogMethod; }
         eol: string;
         stringify?: (obj: Object) => string;
 
