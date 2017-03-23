@@ -48,12 +48,11 @@ declare module 'react-router' {
     history: H.History;
   }
 
-  interface PartialRouteComponentProps<P> extends Partial<RouteComponentProps<P>> {
-  }
+  interface PartialRouteComponentProps<P> extends Partial<RouteComponentProps<P>> {}
 
   interface RouteProps {
     location?: H.Location;
-    component?: React.SFC<PartialRouteComponentProps<any> | void> | React.ComponentClass<PartialRouteComponentProps<any> | void>;
+    component?: React.SFC<RouteComponentProps<any> | void> | React.ComponentClass<RouteComponentProps<any> | void>;
     render?: (props: RouteComponentProps<any>) => React.ReactNode;
     children?: (props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode;
     path?: string;
