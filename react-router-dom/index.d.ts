@@ -10,7 +10,6 @@ declare module 'react-router-dom' {
     MemoryRouter,
     Redirect,
     RouteComponentProps,
-    PartialRouteComponentProps,
     RouteProps,
     Route,
     Router,
@@ -68,7 +67,6 @@ declare module 'react-router-dom' {
     MemoryRouter,
     Redirect,
     RouteComponentProps, // TypeScript specific, not from React Router itself
-    PartialRouteComponentProps, // TypeScript specific, not from React Router itself
     RouteProps, // TypeScript specific, not from React Router itself
     Route,
     Router,

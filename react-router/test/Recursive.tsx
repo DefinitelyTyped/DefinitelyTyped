@@ -23,11 +23,18 @@ const RecursiveExample = () => (
   </Router>
 )
 
-interface PersonProps extends Partial<RouteComponentProps<{id: number}>> {
-  match: match<{id: number}>;
+interface InitialPersonProps {
+  match: {
+    params: {
+      id: number;
+    };
+    url: string;
+  };
 }
 
-const Person: React.SFC<PersonProps> = ({ match }) => {
+type PersonProps = RouteComponentProps<{ id: number }>;
+
+const Person: React.SFC<InitialPersonProps | PersonProps> = ({ match }) => {
   const person = find(match.params.id)
 
   return (
@@ -42,7 +49,7 @@ const Person: React.SFC<PersonProps> = ({ match }) => {
           </li>
         ))}
       </ul>
-      <Route path={`${match.url}/:id`} component={Person}/>
+      <Route path={`${match.url}/:id`} component={Person as React.SFC<PersonProps>}/>
     </div>
   )
 }
