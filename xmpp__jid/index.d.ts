@@ -4,8 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-// TODO: TypeScript compiler support for mapping imports of `@xmpp/jid` to `@types/xmpp__jid`.
-// Then we can remove `declare module`.
+// TODO: Once TS2.3 is released,
+// https://github.com/Microsoft/TypeScript/issues/14819 should be fixed.
+// Then, upgrade this package's typescript version to 2.3 and
+// Remove the `declare module` wrapper.
 // tslint:disable-next-line no-single-declare-module
 declare module "@xmpp/jid" {
     export function createJID(local: string, domain: string, resource: string): JID;
