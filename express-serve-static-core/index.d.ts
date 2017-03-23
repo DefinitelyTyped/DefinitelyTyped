@@ -1079,6 +1079,9 @@ interface Application extends IRouter, Express.Application {
     listen(port: number, callback?: Function): http.Server;
     listen(path: string, callback?: Function): http.Server;
     listen(handle: any, listeningListener?: Function): http.Server;
+    
+    /** Close the server */
+    close(callback?: Function);
 
     router: string;
 
