@@ -267,3 +267,26 @@ var rectangle = new google.maps.Rectangle({
         west: -116.251
     }
 });
+
+/***** Circles *****/
+// circleOptions with LatLng center
+var circle1 = new google.maps.Circle({
+    center: new google.maps.LatLng(59.327, 18.067),
+    radius: 20,
+    fillColor: '#FF0000',
+    strokeColor: '#FF0000',
+    fillOpacity: 0.35,
+    strokeOpacity: 0.5,
+    strokeWeight: 1
+});
+
+// circleOptions with LatLngLiteral center
+var circle2 = new google.maps.Circle({
+    center: {lat: 59.327, lng: 18.067},
+    radius: 20,
+    fillColor: '#FF0000',
+    strokeColor: '#FF0000',
+    fillOpacity: 0.35,
+    strokeOpacity: 0.5,
+    strokeWeight: 1
+});
