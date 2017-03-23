@@ -19,7 +19,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "experimentalDecorators": true
+        "forceConsistentCasingInFileNames": true
     }
 }
