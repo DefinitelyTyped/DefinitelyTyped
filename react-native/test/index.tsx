@@ -95,6 +95,17 @@ const stylesAlt = StyleSheet.create(
     }
 )
 
+const otherStyles = {
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+};
+
+// test that non-generic function works with non-inlined styles
+StyleSheet.create(otherStyles);
 
 class Welcome extends React.Component<any, any> {
 
