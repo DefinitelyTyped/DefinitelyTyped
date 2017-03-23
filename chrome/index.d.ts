@@ -6563,6 +6563,12 @@ declare namespace chrome.tabs {
      * @since Chrome 38.
      */
     var onZoomChange: TabZoomChangeEvent;
+    
+    /**
+     * An ID which represents the absence of a browser tab.
+     * @since Chrome 46.
+     */
+    var TAB_ID_NONE: -1;
 }
 
 ////////////////////
