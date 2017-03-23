@@ -48,8 +48,6 @@ declare module 'react-router' {
     history: H.History;
   }
 
-  interface PartialRouteComponentProps<P> extends Partial<RouteComponentProps<P>> {}
-
   interface RouteProps {
     location?: H.Location;
     component?: React.SFC<RouteComponentProps<any> | void> | React.ComponentClass<RouteComponentProps<any> | void>;
@@ -100,7 +98,6 @@ declare module 'react-router' {
     Prompt,
     Redirect,
     RouteComponentProps, // TypeScript specific, not from React Router itself
-    PartialRouteComponentProps, // TypeScript specific, not from React Router itself
     RouteProps, // TypeScript specific, not from React Router itself
     Route,
     Router,
