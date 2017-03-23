@@ -99,10 +99,6 @@ declare module 'moment' {
 
     }
 
-    interface Moment {
-        within(x: moment.Range): boolean;
-    }
-
     function extendMoment(moment: any): any;
 
     function range(range: string | Date[] | moment.Moment[]): moment.Range;
