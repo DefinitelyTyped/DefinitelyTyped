@@ -13,7 +13,11 @@ var queryOptions: winston.QueryOptions;
 var transportOptions: winston.TransportOptions;
 var loggerOptions: winston.LoggerOptions = {
   transports: [new (winston.Transport)()],
-  rewriters: [new (winston.Transport)()],
+  rewriters: [
+    (level: string, msg: string, meta: any): any => {
+      return meta;
+    }
+  ],
   exceptionHandlers: [new (winston.Transport)()],
   handleExceptions: false
 };
@@ -101,7 +105,7 @@ logger = winston.remove(transport);
 logger = winston.add(transport, {filename: 'path/to/file.log'});
 
 winston.clear();
-logger = winston.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any):void => {
+logger = winston.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any): void => {
 
 });
 logger = winston.profile(str);
@@ -114,7 +118,7 @@ winston.unhandleExceptions(transport);
 
 readableStream = winston.stream(options);
 
-readableStream.on('log', function (log:any):void {
+readableStream.on('log', (log: any): void => {
   console.log(log);
 });
 
@@ -155,7 +159,7 @@ logger = logger.add(transport, {filename: 'path/to/file.log'});
 logger.clear();
 logger = logger.remove(transport);
 profiler = logger.startTimer();
-logger = logger.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any):void => {
+logger = logger.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any): void => {
 
 });
 value = logger.setLevels(value);
@@ -167,7 +171,7 @@ logger = profiler.logger;
 profiler.start = new Date();
 
 let testRewriter : winston.MetadataRewriter;
-testRewriter = function(level: string, msg: string, meta: any) {
+testRewriter = (level: string, msg: string, meta: any): any => {
     return meta;
 };
 
