@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function md5(value: string, key?: string, raw?: boolean): string;
-declare namespace md5 { }
 export = md5;
