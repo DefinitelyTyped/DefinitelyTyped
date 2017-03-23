@@ -723,40 +723,103 @@ declare namespace THREE {
         length: number; // deprecated, use count
     }
 
+	/**
+	 * @deprecated THREE.Int8Attribute has been removed. Use new THREE.Int8BufferAttribute() instead.
+	 */
     export class Int8Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Uint8Attribute has been removed. Use new THREE.Uint8BufferAttribute() instead.
+	 */
     export class Uint8Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Uint8ClampedAttribute has been removed. Use new THREE.Uint8ClampedBufferAttribute() instead.
+	 */
     export class Uint8ClampedAttribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Int16Attribute has been removed. Use new THREE.Int16BufferAttribute() instead.
+	 */
     export class Int16Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Uint16Attribute has been removed. Use new THREE.Uint16BufferAttribute() instead.
+	 */
     export class Uint16Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Int32Attribute has been removed. Use new THREE.Int32BufferAttribute() instead.
+	 */
     export class Int32Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Uint32Attribute has been removed. Use new THREE.Uint32BufferAttribute() instead.
+	 */
     export class Uint32Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Float32Attribute has been removed. Use new THREE.Float32BufferAttribute() instead.
+	 */
     export class Float32Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
     }
 
+	/**
+	 * @deprecated THREE.Float64Attribute has been removed. Use new THREE.Float64BufferAttribute() instead.
+	 */
     export class Float64Attribute extends BufferAttribute {
         constructor(array: any, itemSize: number);
+    }
+
+    export class Int8BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Uint8BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Uint8ClampedBufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Int16BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Uint16BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Int32BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Uint32BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Float32BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
+    }
+
+    export class Float64BufferAttribute extends BufferAttribute {
+        constructor(array: Iterable<number> | ArrayLike<number> | ArrayBuffer, itemSize: number);
     }
 
     // deprecated, use new THREE.BufferAttribute().setDynamic( true )
