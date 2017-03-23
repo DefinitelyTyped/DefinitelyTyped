@@ -1,4 +1,4 @@
-// Type definitions for Numeral.js
+// Type definitions for Numeral.js 2.0
 // Project: https://github.com/adamwdraper/Numeral-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -45,7 +45,7 @@ interface Numeral {
 	 * This function sets the current locale.  If no arguments are passed in,
 	 * it will simply return the current global locale key.
 	 */
-	locale(key?: string): string;
+	locale(key?: string, values?: NumeralJSLanguage): Numeral | string;
 
 	/**
 	 * Registers a language definition or a custom format definition.
