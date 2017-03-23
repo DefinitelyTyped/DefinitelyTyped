@@ -90,7 +90,7 @@ declare module 'react-router' {
   }
 
 
-  function matchPath<P>(pathname: string, props: RouteProps): match<P>;
+  function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 
 
   function withRouter(component: React.SFC<RouteComponentProps<any>> | React.ComponentClass<RouteComponentProps<any>>): React.ComponentClass<any>;
