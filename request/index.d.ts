@@ -56,7 +56,7 @@ declare namespace request {
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
-        jar(): CookieJar;
+        jar(store?: any): CookieJar;
         cookie(str: string): Cookie;
 
         initParams: any;
