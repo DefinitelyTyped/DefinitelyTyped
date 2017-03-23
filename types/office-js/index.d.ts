@@ -108,10 +108,6 @@ declare namespace Office {
          */
         width?: number,
         /**
-         * Optional. Determines whether the dialog is safe to display within a Web frame.
-         */
-        xFrameDenySafe?: boolean,
-        /**
          * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, this setting is ignored by desktop clients. 
          */
         displayInIframe?: boolean
