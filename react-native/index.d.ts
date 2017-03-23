@@ -3161,6 +3161,72 @@ export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
     opacity?: number
 }
 
+/*
+    * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
+    */
+interface ImageURISource {
+    /**
+     * `uri` is a string representing the resource identifier for the image, which
+     * could be an http address, a local file path, or the name of a static image
+     * resource (which should be wrapped in the `require('./path/to/image.png')`
+     * function).
+     */
+    uri?: string,
+    /**
+     * `bundle` is the iOS asset bundle which the image is included in. This
+     * will default to [NSBundle mainBundle] if not set.
+     * @platform ios
+     */
+    bundle?: string,
+    /**
+     * `method` is the HTTP Method to use. Defaults to GET if not specified.
+     */
+    method?: string,
+    /**
+     * `headers` is an object representing the HTTP headers to send along with the
+     * request for a remote image.
+     */
+    headers?: {[key: string]: string},
+    /**
+     * `cache` determines how the requests handles potentially cached
+     * responses.
+     *
+     * - `default`: Use the native platforms default strategy. `useProtocolCachePolicy` on iOS.
+     *
+     * - `reload`: The data for the URL will be loaded from the originating source.
+     * No existing cache data should be used to satisfy a URL load request.
+     *
+     * - `force-cache`: The existing cached data will be used to satisfy the request,
+     * regardless of its age or expiration date. If there is no existing data in the cache
+     * corresponding the request, the data is loaded from the originating source.
+     *
+     * - `only-if-cached`: The existing cache data will be used to satisfy a request, regardless of
+     * its age or expiration date. If there is no existing data in the cache corresponding
+     * to a URL load request, no attempt is made to load the data from the originating source,
+     * and the load is considered to have failed.
+     *
+     * @platform ios
+     */
+    cache?: 'default' | 'reload' | 'force-cache' | 'only-if-cached',
+    /**
+     * `body` is the HTTP body to send with the request. This must be a valid
+     * UTF-8 string, and will be sent exactly as specified, with no
+     * additional encoding (e.g. URL-escaping or base64) applied.
+     */
+    body?: string,
+    /**
+     * `width` and `height` can be specified if known at build time, in which case
+     * these will be used to set the default `<Image/>` component dimensions.
+     */
+    width?: number,
+    height?: number,
+    /**
+     * `scale` is used to indicate the scale factor of the image. Defaults to 1.0 if
+     * unspecified, meaning that one image pixel equates to one display point / DIP.
+     */
+    scale?: number,
+}
+
 export interface ImagePropertiesIOS {
     /**
      * The text that's read by the screen reader when the user interacts with the image.
@@ -3192,14 +3258,9 @@ export interface ImagePropertiesIOS {
     defaultSource?: ImageURISource | number
 
     /**
-     * Invoked on load error with {nativeEvent: {error}}
-     */
-    onError?: (error: { nativeEvent: any }) => void
-
-    /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
-    onProgress?: () => void
+    onProgress?: (event: { nativeEvent: { loaded: number, total: number }}) => void
 
     /**
      * Invoked when a partial load of the image is complete. The definition of
@@ -3210,56 +3271,27 @@ export interface ImagePropertiesIOS {
     onPartialLoad?: () => void,
 }
 
-/*
-    * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
-    */
-interface ImageURISource {
+interface ImagePropertiesAndroid {
     /**
-     * `uri` is a string representing the resource identifier for the image, which
-     * could be an http address, a local file path, or the name of a static image
-     * resource (which should be wrapped in the `require('./path/to/image.png')`
-     * function).
+     * The mechanism that should be used to resize the image when the image's dimensions
+     * differ from the image view's dimensions. Defaults to auto.
+     *
+     * 'auto': Use heuristics to pick between resize and scale.
+     *
+     * 'resize': A software operation which changes the encoded image in memory before it gets decoded.
+     * This should be used instead of scale when the image is much larger than the view.
+     *
+     * 'scale': The image gets drawn downscaled or upscaled. Compared to resize, scale is faster (usually hardware accelerated)
+     * and produces higher quality images. This should be used if the image is smaller than the view.
+     * It should also be used if the image is slightly bigger than the view.
      */
-    uri?: string,
-    /**
-     * `bundle` is the iOS asset bundle which the image is included in. This
-     * will default to [NSBundle mainBundle] if not set.
-     * @platform ios
-     */
-    bundle?: string,
-    /**
-     * `method` is the HTTP Method to use. Defaults to GET if not specified.
-     */
-    method?: string,
-    /**
-     * `headers` is an object representing the HTTP headers to send along with the
-     * request for a remote image.
-     */
-    headers?: {[key: string]: string},
-    /**
-     * `body` is the HTTP body to send with the request. This must be a valid
-     * UTF-8 string, and will be sent exactly as specified, with no
-     * additional encoding (e.g. URL-escaping or base64) applied.
-     */
-    body?: string,
-    /**
-     * `width` and `height` can be specified if known at build time, in which case
-     * these will be used to set the default `<Image/>` component dimensions.
-     */
-    width?: number,
-    height?: number,
-    /**
-     * `scale` is used to indicate the scale factor of the image. Defaults to 1.0 if
-     * unspecified, meaning that one image pixel equates to one display point / DIP.
-     */
-    scale?: number,
+    resizeMethod?: 'auto' | 'resize' | 'scale'
 }
 
 /**
  * @see https://facebook.github.io/react-native/docs/image.html
  */
-export interface ImageProperties extends ImagePropertiesIOS, React.Props<Image> {
-    fadeDuration?: number
+export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndroid, React.Props<Image> {
     /**
      * onLayout function
      *
@@ -3268,6 +3300,11 @@ export interface ImageProperties extends ImagePropertiesIOS, React.Props<Image> 
      * {nativeEvent: { layout: {x, y, width, height}}}.
      */
     onLayout?: (event: LayoutChangeEvent) => void;
+
+    /**
+     * Invoked on load error with {nativeEvent: {error}}
+     */
+    onError?: (error: { nativeEvent: any }) => void
 
     /**
      * Invoked when load completes successfully
@@ -3301,11 +3338,14 @@ export interface ImageProperties extends ImagePropertiesIOS, React.Props<Image> 
      * 'stretch': Scale width and height independently, This may change the
      * aspect ratio of the src.
      *
+     * 'repeat': Repeat the image to cover the frame of the view.
+     * The image will keep it's size and aspect ratio. (iOS only)
+     *
      * 'center': Scale the image down so that it is completely visible,
      * if bigger than the area of the view.
      * The image will not be scaled up.
      */
-    resizeMode?: 'cover' |'contain' |'stretch' |'center'
+    resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center'
 
     /**
      * The mechanism that should be used to resize the image when the image's dimensions
