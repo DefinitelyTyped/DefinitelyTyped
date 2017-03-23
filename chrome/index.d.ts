@@ -22,6 +22,24 @@ interface Window {
  * Important: This API works only on Chrome OS.
  */
 declare namespace chrome.accessibilityFeatures {
+    /**
+     * One of
+     * • not_controllable: cannot be controlled by any extension
+     * • controlled_by_other_extensions: controlled by extensions with higher precedence
+     * • controllable_by_this_extension: can be controlled by this extension
+     * • controlled_by_this_extension: controlled by this extension
+     */
+    type LevelOfControl = "not_controllable" | "controlled_by_other_extensions" | "controllable_by_this_extension" | "controlled_by_this_extension";
+
+    /**
+     * One of
+     * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+     * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
+     * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
+     * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+     */
+    type Scope = "regular" | "regular_only" | "incognito_persistent" | "incognito_session_only";
+
     interface AccessibilityFeaturesGetArg {
         /** Optional. Whether to return the value that applies to the incognito session (default false).  */
         incognito?: boolean;
@@ -30,14 +48,7 @@ declare namespace chrome.accessibilityFeatures {
     interface AccessibilityFeaturesCallbackArg {
         /** The value of the setting. */
         value: any;
-        /**
-         * One of
-         * • not_controllable: cannot be controlled by any extension
-         * • controlled_by_other_extensions: controlled by extensions with higher precedence
-         * • controllable_by_this_extension: can be controlled by this extension
-         * • controlled_by_this_extension: controlled by this extension
-         */
-        levelOfControl: string;
+        levelOfControl: LevelOfControl;
         /** Optional. Whether the effective value is specific to the incognito session. This property will only be present if the incognito property in the details parameter of get() was true.  */
         incognitoSpecific?: boolean;
     }
@@ -48,32 +59,19 @@ declare namespace chrome.accessibilityFeatures {
          * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
          */
         value: any;
-        /**
-         * Optional.
-          * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
+        /** Optional. The scope of the ChromeSetting (default: regular). */
+        scope?: Scope;
     }
 
     interface AccessibilityFeaturesClearArg {
-        /**
-         * Optional.
-          * The scope of the ChromeSetting. One of
-         * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-         * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-         * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-         * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-         */
-        scope?: string;
+        /** Optional. The scope of the ChromeSetting. */
+        scope?: Scope;
     }
 
     interface AccessibilityFeaturesSetting {
         /**
          * Gets the value of a setting.
+         * Permissions: "accessibilityFeatures.read"
          * @param details Which setting to consider.
          * @param callback The callback parameter should be a function that looks like this:
          * function(object details) {...};
@@ -81,6 +79,7 @@ declare namespace chrome.accessibilityFeatures {
         get(details: AccessibilityFeaturesGetArg, callback: (details: AccessibilityFeaturesCallbackArg) => void): void;
         /**
          * Sets the value of a setting.
+         * Permissions: "accessibilityFeatures.modify"
          * @param details Which setting to change.
          * @param callback Called at the completion of the set operation.
          * If you specify the callback parameter, it should be a function that looks like this:
@@ -89,6 +88,7 @@ declare namespace chrome.accessibilityFeatures {
         set(details: AccessibilityFeaturesSetArg, callback?: () => void): void;
         /**
          * Clears the setting, restoring any default value.
+         * Permissions: "accessibilityFeatures.modify"
          * @param details Which setting to clear.
          * @param callback Called at the completion of the clear operation.
          * If you specify the callback parameter, it should be a function that looks like this:
@@ -97,13 +97,75 @@ declare namespace chrome.accessibilityFeatures {
         clear(details: AccessibilityFeaturesClearArg, callback?: () => void): void;
     }
 
+    /**
+     * Spoken feedback (text-to-speech).
+     * ChromeOS only.
+     */
     var spokenFeedback: AccessibilityFeaturesSetting;
+    /**
+     * Enlarged cursor.
+     * ChromeOS only.
+     */
     var largeCursor: AccessibilityFeaturesSetting;
+    /**
+     * Sticky modifier keys (like shift or alt).
+     * ChromeOS only.
+     */
     var stickyKeys: AccessibilityFeaturesSetting;
+    /**
+     * High contrast rendering mode.
+     * ChromeOS only.
+     */
     var highContrast: AccessibilityFeaturesSetting;
+    /**
+     * Full screen magnification.
+     * ChromeOS only.
+     */
     var screenMagnifier: AccessibilityFeaturesSetting;
+    /**
+     * Auto mouse click after mouse stops moving.
+     * ChromeOS only.
+     */
     var autoclick: AccessibilityFeaturesSetting;
+    /**
+     * Virtual on-screen keyboard.
+     * ChromeOS only.
+     */
     var virtualKeyboard: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Caret highlighting.
+     * ChromeOS only.
+     */
+    var caretHighlight: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Cursor highlighting.
+     * ChromeOS only.
+     */
+    var cursorHighlight: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Focus highlighting.
+     * ChromeOS only.
+     */
+    var focusHighlight: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Select-to-speak.
+     * ChromeOS only.
+     */
+    var selectToSpeak: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 51.
+     * Switch access.
+     * ChromeOS only.
+     */
+    var switchAccess: AccessibilityFeaturesSetting;
+    /**
+     * Since Chrome 42.
+     * ChromeOS only.
+     */
     var animationPolicy: AccessibilityFeaturesSetting;
 }
 
