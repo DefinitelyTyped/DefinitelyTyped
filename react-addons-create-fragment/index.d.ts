@@ -6,6 +6,6 @@
 
 import * as React from 'react';
 
-export = createFragment;
+export default createFragment;
 
 declare function createFragment(object: { [key: string]: React.ReactNode }): React.ReactFragment;
