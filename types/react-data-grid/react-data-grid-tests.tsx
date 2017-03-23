@@ -185,7 +185,8 @@ var columns:ReactDataGrid.Column[] = [
         name: 'Sentence',
         editable: true,
         width: 200,
-        resizable: true
+        resizable: true,
+        cellClass: 'sentence-class'
     }
 ];
 

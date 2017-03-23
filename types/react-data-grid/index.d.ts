@@ -265,6 +265,14 @@ declare namespace AdazzleReactDataGrid {
         events?: {
             [name: string]: ColumnEventCallback
         }
+        /**
+         * Retrieve meta data about the row, optionally provide column as a second argument
+         */
+        getRowMetaData?: (rowdata: any, column?: Column) => any;
+        /**
+         * A class name to be applied to the cells in the column
+         */
+        cellClass?: string;
     }
 
     interface ColumnEventCallback {
