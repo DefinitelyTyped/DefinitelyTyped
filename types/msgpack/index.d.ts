@@ -80,7 +80,7 @@ interface MsgPackCallbackResult {
   ok: boolean;
 }
 
-declare var msgpack: MsgPackStatic;
+declare var msgpack: msgpack.MsgPackStatic;
 
 export = msgpack;
 export as namespace msgpack;
