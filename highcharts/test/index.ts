@@ -449,7 +449,7 @@ function test_ChartOptions() {
         chart: {
             events: {
                 addSeries: function () {
-                    var label = (<Highcharts.ChartObject>this).renderer.label('A series was added, about to redraw chart', 100, 120)
+                    var label = (<Highcharts.ChartObject> this).renderer.label('A series was added, about to redraw chart', 100, 120)
                         .attr({
                             fill: Highcharts.getOptions().colors[0],
                             padding: 10,
@@ -1016,7 +1016,7 @@ function test_AreaOptions() {
                     linearGradient: [0, 0, 0, 300],
                     stops: [
                         [0, Highcharts.getOptions().colors[0]],
-                        [1, (<Highcharts.Gradient>Highcharts.Color(Highcharts.getOptions().colors[0])).setOpacity(0).get('rgba')]
+                        [1, (<Highcharts.Gradient> Highcharts.Color(Highcharts.getOptions().colors[0])).setOpacity(0).get('rgba')]
                     ]
                 },
                 fillOpacity: 0.1,
@@ -1174,7 +1174,7 @@ function test_Bar() {
 
     // grouping example
     Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, (color: string) => {
-        return (<Highcharts.Gradient>Highcharts.Color(color))
+        return (<Highcharts.Gradient> Highcharts.Color(color))
             .setOpacity(0.5)
             .get('rgba');
     });
@@ -2258,7 +2258,7 @@ function test_ElementObject() {
 }
 
 function test_PointObject() {
-    var point = <Highcharts.PointObject>$('#container').highcharts().get('point1');
+    var point = <Highcharts.PointObject> $('#container').highcharts().get('point1');
     var category = point.category;
     var percentage = point.percentage;
     point.index;
@@ -2299,7 +2299,7 @@ function test_RendererObject() {
 }
 
 function test_SeriesObject() {
-    var series = <Highcharts.SeriesObject>$('#container').highcharts().get('series1');
+    var series = <Highcharts.SeriesObject> $('#container').highcharts().get('series1');
     series.addPoint(0);
     series.addPoint([0, 0]);
     series.addPoint({});
