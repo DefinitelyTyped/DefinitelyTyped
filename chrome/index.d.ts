@@ -1925,7 +1925,7 @@ declare namespace chrome.documentScan {
 }
 
 ////////////////////
-// Dev Tools - Downloads
+// Downloads
 ////////////////////
 /**
  * Use the chrome.downloads API to programmatically initiate, monitor, manipulate, and search for downloads.
@@ -1933,6 +1933,34 @@ declare namespace chrome.documentScan {
  * Permissions:  "downloads"
  */
 declare namespace chrome.downloads {
+    /**
+     * uniquify: To avoid duplication, the filename is changed to include a counter before the filename extension.
+     * overwrite: The existing file will be overwritten with the new file.
+     * prompt: The user will be prompted with a file chooser dialog.
+     */
+    type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";
+
+    type InterruptReason = "FILE_FAILED" | "FILE_ACCESS_DENIED" | "FILE_NO_SPACE" | "FILE_NAME_TOO_LONG" | "FILE_TOO_LARGE" | "FILE_VIRUS_INFECTED" | "FILE_TRANSIENT_ERROR" | "FILE_BLOCKED" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_SHORT" | "FILE_HASH_MISMATCH" | "NETWORK_FAILED" | "NETWORK_TIMEOUT" | "NETWORK_DISCONNECTED" | "NETWORK_SERVER_DOWN" | "NETWORK_INVALID_REQUEST" | "SERVER_FAILED" | "SERVER_NO_RANGE" | "SERVER_BAD_CONTENT" | "SERVER_UNAUTHORIZED" | "SERVER_CERT_PROBLEM" | "SERVER_FORBIDDEN" | "SERVER_UNREACHABLE" | "USER_CANCELED" | "USER_SHUTDOWN" | "CRASH";
+
+    /**
+     * file: The download's filename is suspicious.
+     * url: The download's URL is known to be malicious.
+     * content: The downloaded file is known to be malicious.
+     * uncommon: The download's URL is not commonly downloaded and could be dangerous.
+     * host: The download came from a host known to distribute malicious binaries and is likely dangerous.
+     * unwanted: The download is potentially unwanted or unsafe. E.g. it could make changes to browser or computer settings.
+     * safe: The download presents no known danger to the user's computer.
+     * accepted: The user has accepted the dangerous download.
+     */
+    type DangerType = "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted";
+
+    /**
+     * in_progress: The download is currently receiving data from the server.
+     * interrupted: An error broke the connection with the file host.
+     * complete: The download completed successfully.
+     */
+    type State = "in_progress" | "interrupted" | "complete";
+
     interface HeaderNameValuePair {
         /** Name of the HTTP header. */
         name: string;
@@ -1952,9 +1980,9 @@ declare namespace chrome.downloads {
         /** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
         headers?: HeaderNameValuePair[];
         /** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
-        method?: string;
+        method?: "GET" | "POST";
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: string;
+        conflictAction?: FilenameConflictAction;
     }
 
     interface DownloadDelta {
@@ -2008,7 +2036,7 @@ declare namespace chrome.downloads {
         /** Number of bytes received so far from the host, without considering file compression. */
         bytesReceived: number;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
-        danger: string;
+        danger: DangerType;
         /** Absolute URL. */
         url: string;
         /** Number of bytes in the whole file, without considering file compression, or -1 if unknown. */
@@ -2018,7 +2046,7 @@ declare namespace chrome.downloads {
         /** True if the download has stopped reading data from the host, but kept the connection open. */
         paused: boolean;
         /** Indicates whether the download is progressing, interrupted, or complete. */
-        state: string;
+        state: State;
         /** The file's MIME type. */
         mime: string;
         /** Number of bytes in the whole file post-decompression, or -1 if unknown. */
@@ -2026,7 +2054,7 @@ declare namespace chrome.downloads {
         /** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})}) */
         startTime: string;
         /** Optional. Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.  */
-        error?: string;
+        error?: InterruptReason;
         /** Optional. The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})  */
         endTime?: string;
         /** An identifier that is persistent across browser sessions. */
@@ -2048,8 +2076,7 @@ declare namespace chrome.downloads {
     }
 
     interface GetFileIconOptions {
-        /** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size.
- */
+        /** Optional. The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size. */
         size?: number;
     }
 
@@ -2063,7 +2090,7 @@ declare namespace chrome.downloads {
         /** Optional. Limits results to DownloadItem whose totalBytes is greater than the given integer.  */
         totalBytesGreater?: number;
         /** Optional. Indication of whether this download is thought to be safe or known to be suspicious.  */
-        danger?: string;
+        danger?: DangerType;
         /** Optional. Number of bytes in the whole file, without considering file compression, or -1 if unknown.  */
         totalBytes?: number;
         /** Optional. True if the download has stopped reading data from the host, but kept the connection open.  */
@@ -2083,7 +2110,7 @@ declare namespace chrome.downloads {
         /** Optional. Absolute local path.  */
         filename?: string;
         /** Optional. Indicates whether the download is progressing, interrupted, or complete.  */
-        state?: string;
+        state?: State;
         /** Optional. Limits results to DownloadItem that started after the given ms since the epoch.  */
         startedAfter?: number;
         /** Optional. The file's MIME type.  */
@@ -2099,7 +2126,7 @@ declare namespace chrome.downloads {
         /** Optional. The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results.  */
         limit?: number;
         /** Optional. Why a download was interrupted.  */
-        error?: number;
+        error?: InterruptReason;
         /** Optional. The time when the download ended in ISO 8601 format.  */
         endTime?: number;
         /** Optional. Whether the downloaded file exists;  */
@@ -2110,7 +2137,7 @@ declare namespace chrome.downloads {
         /** The DownloadItem's new target DownloadItem.filename, as a path relative to the user's default Downloads directory, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will be ignored. */
         filename: string;
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: string;
+        conflictAction?: FilenameConflictAction;
     }
 
     interface DownloadChangedEvent extends chrome.events.Event<(downloadDelta: DownloadDelta) => void> {}
