@@ -6,7 +6,7 @@ var range2: momentRange.DateRange = new momentRange.DateRange(moment("2011-04-15
 var range3: momentRange.DateRange = new momentRange.DateRange([moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD")]);
 var range4: momentRange.DateRange = new momentRange.DateRange("2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00");
 
-var date: moment.Moment = moment('2012-05- 15');
+var date: moment.Moment = moment('2012-05-15');
 
 var res1: boolean = range.adjacent(range2);
 
