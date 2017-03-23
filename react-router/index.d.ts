@@ -48,12 +48,9 @@ declare module 'react-router' {
     history: H.History;
   }
 
-  interface PartialRouteComponentProps<P> extends Partial<RouteComponentProps<P>> {
-  }
-
   interface RouteProps {
     location?: H.Location;
-    component?: React.SFC<PartialRouteComponentProps<any> | void> | React.ComponentClass<PartialRouteComponentProps<any> | void>;
+    component?: React.SFC<RouteComponentProps<any> | void> | React.ComponentClass<RouteComponentProps<any> | void>;
     render?: (props: RouteComponentProps<any>) => React.ReactNode;
     children?: (props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode;
     path?: string;
@@ -84,13 +81,13 @@ declare module 'react-router' {
 
   interface match<P> {
     params: P;
-    isExact?: boolean;
-    path?: string;
-    url?: string;
+    isExact: boolean;
+    path: string;
+    url: string;
   }
 
 
-  function matchPath<P>(pathname: string, props: RouteProps): match<P>;
+  function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 
 
   function withRouter(component: React.SFC<RouteComponentProps<any>> | React.ComponentClass<RouteComponentProps<any>>): React.ComponentClass<any>;
@@ -101,7 +98,6 @@ declare module 'react-router' {
     Prompt,
     Redirect,
     RouteComponentProps, // TypeScript specific, not from React Router itself
-    PartialRouteComponentProps, // TypeScript specific, not from React Router itself
     RouteProps, // TypeScript specific, not from React Router itself
     Route,
     Router,
