@@ -10,10 +10,10 @@ export = cors;
 
 declare namespace cors {
     interface Options {
-        origin?: (req: Koa.Request) => string | string;
+        origin?: ((req: Koa.Request) => string) | string;
         allowMethods?: string[] | string;
         exposeHeaders?: string[] | string;
-        allowHeaders: string[] | string;
+        allowHeaders?: string[] | string;
         maxAge?: number | string;
         credentials?: boolean;
         keepHeadersOnError?: boolean;
