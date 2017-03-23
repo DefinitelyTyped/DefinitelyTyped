@@ -1549,6 +1549,7 @@ declare namespace __MaterialUI {
             completed?: boolean;
             disabled?: boolean;
             icon?: React.ReactNode | string | number;
+            iconContainerStyle?: React.CSSProperties;
             style?: React.CSSProperties;
         }
         export class StepLabel extends React.Component<StepLabelProps, {}> {
