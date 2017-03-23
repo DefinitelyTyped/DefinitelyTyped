@@ -3324,6 +3324,12 @@ declare namespace chrome.i18n {
      * @since Chrome 35.
      */
     export function getUILanguage(): string;
+    
+    /** Detects the language of the provided text using CLD.
+    * @param text User input string to be translated.
+    * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
+    */
+    export function detectLanguage(text: string, callback:(result:any) => void): void;
 }
 
 ////////////////////
