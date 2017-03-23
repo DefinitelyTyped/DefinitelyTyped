@@ -6,6 +6,10 @@
 
 declare namespace ReactIntl {
 
+    interface Values {
+        [key: string]: string;
+    }
+
     interface Locale {
         locale: string;
         fields?: { [key: string]: string },
@@ -61,20 +65,18 @@ declare namespace ReactIntl {
         formatRelative: (value: number, options?: FormattedRelative.PropsBase & { now?: any }) => string;
         formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
         formatPlural: (value: number, options?: FormattedPlural.Base) => keyof FormattedPlural.PropsBase;
-        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: any) => string;
-        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: any) => string;
-    }
-
-    interface InjectedConfig {
+        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Values) => string;
+        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Values) => string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
         defaultLocale: string;
         defaultFormats: any;
+        now : () => number;
     }
 
     interface InjectedIntlProps {
-        intl: InjectedIntl & InjectedConfig & { now : () => number };
+        intl: InjectedIntl;
     }
 
     namespace IntlComponent {
@@ -103,7 +105,7 @@ declare namespace ReactIntl {
     class FormattedTime extends React.Component<FormattedTime.Props, any> { }
 
     namespace FormattedRelative {
-        interface Base {
+        export interface PropsBase {
             /*
              * one of "second", "minute", "hour", "day", "month" or "year"
              */
@@ -113,9 +115,6 @@ declare namespace ReactIntl {
              */
             style?: "best-fit" | "numeric";
             format?: string;
-        }
-
-        export interface PropsBase extends Base {
             updateInterval?: number;
             initialNow?: any;
         }
@@ -135,7 +134,7 @@ declare namespace ReactIntl {
         }
 
         export interface Props extends MessageDescriptor {
-            values?: any;
+            values?: Values;
             tagName?: string;
         }
     }
