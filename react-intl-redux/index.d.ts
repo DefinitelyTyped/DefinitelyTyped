@@ -1,4 +1,4 @@
-// Type definitions for react-intl-redux v0.1.0
+// Type definitions for react-intl-redux 0.1
 // Project: https://github.com/ratson/react-intl-redux
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,3 +21,4 @@ export function intlReducer(state: IntlState, action: IntlAction): IntlState
 export function updateIntl (opts: IntlState): IntlAction
 export class IntlProvider extends ReactIntlProvider {}
 export class Provider extends ReduxProvider {}
+
