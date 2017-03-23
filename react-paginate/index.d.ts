@@ -1,10 +1,10 @@
-// Type definitions for react-paginate v4.2.0
+// Type definitions for react-paginate v4.2
 // Project: https://github.com/AdeleD/react-paginate
 // Definitions by: Simon Hartcher <https://github.com/deevus>, Wouter Hardeman <https://github.com/wouterhardeman>, pegel03 <https://github.com/pegel03>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from "react";
+import * as React from 'react';
 
 interface ReactPaginateProps {
     /**
@@ -23,12 +23,12 @@ interface ReactPaginateProps {
     marginPagesDisplayed: number;
 
     /**
-     * Label for the previous button.
+     * Label for the `previous` button.
      */
     previousLabel?: string | JSX.Element;
 
     /**
-     * Label for the next button.
+     * Label for the `next` button.
      */
     nextLabel?: string | JSX.Element;
 
@@ -38,14 +38,14 @@ interface ReactPaginateProps {
     breakLabel?: string | JSX.Element;
 
     /**
-     * The classname on tag li of the ellipsis element.
+     * The classname on tag `li` of the ellipsis element.
      */
     breakClassName?: string | JSX.Element;
 
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.
      */
-    onPageChange?: (n: number) => void;
+    onPageChange?: Function;
 
     /**
      * The initial page selected.
@@ -68,12 +68,12 @@ interface ReactPaginateProps {
     containerClassName?: string;
 
     /**
-     * The classname on tag li of each page element.
+     * The classname on tag `li` of each page element.
      */
     pageClassName?: string;
 
     /**
-     * The classname on tag a of each page element.
+     * The classname on tag `a` of each page element.
      */
     pageLinkClassName?: string;
 
@@ -83,34 +83,34 @@ interface ReactPaginateProps {
     activeClassName?: string;
 
     /**
-     * The classname on tag li of the previous button.
+     * The classname on tag `li` of the `previous` button.
      */
     previousClassName?: string;
 
     /**
-     * The classname on tag li of the next button.
+     * The classname on tag `li` of the `next` button.
      */
     nextClassName?: string;
 
     /**
-     * The classname on tag a of the previous button.
+     * The classname on tag `a` of the `previous` button.
      */
     previousLinkClassName?: string;
 
     /**
-     * The classname on tag a of the next button.
+     * The classname on tag `a` of the `next` button.
      */
     nextLinkClassName?: string;
 
     /**
-     * The classname for disabled previous and next buttons.
+     * The classname for disabled `previous` and `next` buttons.
      */
     disabledClassName?: string;
 
     /**
      * The method is called to generate the href attribute value on tag a of each page element.
      */
-    hrefBuilder?: (a: string) => void;
+    hrefBuilder?: Function;
 }
 
 declare const ReactPaginate: React.ComponentClass<ReactPaginateProps>;
