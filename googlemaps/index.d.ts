@@ -999,7 +999,7 @@ declare namespace google.maps {
     }
 
     export interface CircleOptions {
-        center?: LatLng;
+        center?: LatLng|LatLngLiteral;
         clickable?: boolean;
         draggable?: boolean;
         editable?: boolean;
