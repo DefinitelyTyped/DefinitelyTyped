@@ -21,7 +21,7 @@ declare namespace momentRange {
 
         overlaps(range: DateRange, options?: { adjacent?: boolean }): boolean;
 
-        intersect(other: DateRange, options?: { adjacent?: boolean }): DateRange;
+        intersect(other: DateRange): DateRange;
 
         add(other: DateRange): DateRange;
 
