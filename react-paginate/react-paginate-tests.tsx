@@ -3,9 +3,7 @@ import ReactPaginate = require("react-paginate");
 
 class Test extends React.Component<{}, {}> {
 
-    private onClick(obj: any): void {
-        //
-    }
+    public onClick: Function;
 
     render() {
         return (
@@ -17,7 +15,7 @@ class Test extends React.Component<{}, {}> {
                 nextLabel={'next'}
                 breakLabel={'break-me'}
                 breakClassName={'break-class'}
-                onPageChange={(nr: number) => this.onClick(nr)}
+                onPageChange={this.onClick}
                 initialPage={2}
                 forcePage={3}
                 disableInitialCallback={false}
@@ -30,7 +28,7 @@ class Test extends React.Component<{}, {}> {
                 previousLinkClassName={'previous-a'}
                 nextLinkClassName={'next-a'}
                 disabledClassName={'disabled'}
-                hrefBuilder={(a: string) => this.onClick(a)}
+                hrefBuilder={this.onClick}
             />
         );
     }
