@@ -50,11 +50,22 @@ export interface QueryConfig {
     values?: any[];
 }
 
+export interface Field {
+    columnID: number;
+    dataTypeID: number;
+    dataTypeModifier: number;
+    dataTypeSize: number;
+    format: string;
+    name: string;
+    tableID: number;
+}
+
 export interface QueryResult {
     command: string;
     rowCount: number;
     oid: number;
     rows: any[];
+    fields: Field[];
 }
 
 export interface ResultBuilder extends QueryResult {
