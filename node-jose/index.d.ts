@@ -2,6 +2,7 @@
 // Project: https://github.com/cisco/node-jose
 // Definitions by: Jason Burns <https://github.com/Drynwynn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // Most of this documentation comes directly from the excellently documented
 // node-jose package, with only a bit added in to explain intermediate types.
