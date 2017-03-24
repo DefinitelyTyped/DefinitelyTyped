@@ -50,6 +50,11 @@ export const getFormInitialValues: DataSelector;
 export const getFormSyncErrors: ErrorSelector;
 
 /**
+ * Returns the form asynchronous validation errors.
+ */
+export const getFormAsyncErrors: ErrorSelector;
+
+/**
  * Returns the form submit validation errors.
  */
 export const getFormSubmitErrors: ErrorSelector;
@@ -88,3 +93,18 @@ export const isValid: BooleanSelector;
  * errors. The opposite of isValid.
  */
 export const isInvalid: BooleanSelector;
+
+/**
+ * Returns true if the form is submitting.
+ */
+export const isSubmitting: BooleanSelector;
+
+/**
+ * Returns true if the form has previously been successfully submitted.
+ */
+export const hasSubmitSucceeded: BooleanSelector;
+
+/**
+ * Returns true if the form has previously fail to submit.
+ */
+export const hasSubmitFailed: BooleanSelector;

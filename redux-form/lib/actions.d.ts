@@ -83,7 +83,12 @@ export function focus(form: string, field: string): Action;
  * If the keepDirty parameter is true, the values of the currently dirty fields will be retained to avoid overwriting
  * user edits.
  */
-export function initialize(form: string, data: any, keepDirty: boolean): Action;
+interface InitializeOptions {
+    keepDirty : boolean;
+    keepSubmitSucceeded: boolean;
+}
+
+export function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): Action;
 
 /**
  * Registers a field with the form.
@@ -99,6 +104,15 @@ export function reset(form: string): Action;
  * Flips the asyncValidating flag true
  */
 export function startAsyncValidation(form: string): Action;
+
+/**
+ * Flips the asyncValidating flag false and populates asyncError for each field.
+ */
+export function stopAsyncValidation(form: string, errors?: any): Action;
+
+export function setSubmitFailed(form: string, ...fields: string[]): Action;
+
+export function setSubmitSucceeded(form: string, ...fields: string[]): Action;
 
 /**
  * Flips the submitting flag true.
@@ -134,3 +148,7 @@ export function unregisterField(form: string, name: string): Action;
  * Resets the 'touched' flag for all the fields passed in.
  */
 export function untouch(form: string, ...fields: string[]): Action;
+
+export function updateSyncErrors(from: string, syncErrors: FormErrors<FormData>, error: any): Action;
+
+export function updateSyncWarnings(form: string, syncWarnings: FormWarnings<FormData>, warning: any): Action;

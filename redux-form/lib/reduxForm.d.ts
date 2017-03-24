@@ -277,53 +277,53 @@ export interface FormComponent<FormData extends DataShape, P, S> extends Compone
      * true if the form data has changed from its initialized values. Opposite
      * of pristine.
      */
-    dirty?: boolean;
+    dirty: boolean;
 
     /**
      * true if the form has validation errors. Opposite of valid.
      */
-    invalid?: boolean;
+    invalid: boolean;
 
     /**
      * true if the form data is the same as its initialized values. Opposite
      * of dirty.
      */
-    pristine?: boolean;
+    pristine: boolean;
 
     /**
      * An array of objects with fields `name` and `type` for each field
      * representing all the fields in the form. Mainly useful for testing.
      */
-    registeredFields?: RegisteredFieldState[];
+    registeredFields: RegisteredFieldState[];
 
     /**
      * Resets all the values in the form to the initialized state, making it
      * pristine again.
      */
-    reset?: () => void;
+    reset(): void;
 
     /**
      * Submits the form. Returns a promise that will be resolved when the form
      * is submitted successfully, or rejected if the submission fails.
      */
-    submit?: () => Promise<any>;
+    submit(): Promise<any>;
 
     /**
      * true if the form passes validation (has no validation errors). Opposite
      * of invalid.
      */
-    valid?: boolean;
+    valid: boolean;
 
     /**
      * The current values of all the fields in the form.
      */
-    values?: FormData;
+    values: FormData;
 
     /**
      * A reference to the instance of the component you decorated with reduxForm().
      * Mainly useful for testing.
      */
-    wrappedInstance?: ReactElement<P & FormProps<FormData, P, S>>
+    wrappedInstance: ReactElement<P & FormProps<FormData, P, S>>
 }
 
 /**
