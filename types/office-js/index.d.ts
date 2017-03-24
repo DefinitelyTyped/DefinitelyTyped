@@ -108,7 +108,7 @@ declare namespace Office {
          */
         width?: number,
         /**
-         * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, this setting is ignored by desktop clients. 
+         * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored on the platforms. 
          */
         displayInIframe?: boolean
     }
