@@ -149,7 +149,7 @@ interface EventEmitterListener {
      * @param {*} context - Optional context object to use when invoking the
      *   listener
      */
-    addListener(eventType: string, listener: (...args: any[]) => any, context: any): EmitterSubscription
+    addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription
 }
 
 interface EventEmitter extends EventEmitterListener {
