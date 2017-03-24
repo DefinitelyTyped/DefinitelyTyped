@@ -39,7 +39,7 @@ export class Casper {
 	download(url: string, target?: string, method?: string, data?: any): Casper;
 	each<T>(array: T[], fn: (this: Casper, item: T, index: number) => void): Casper;
 	echo(message: string, style?: string): Casper;
-	evaluate<T>(fn: () => T, ...args: any[]): T
+	evaluate<T>(fn: (...args: any[]) => T, ...args: any[]): T
 	evaluateOrDie(fn: () => any, message?: string, status?: number): Casper;
 	exit(status?: number): Casper;
 	exists(selector: string): boolean;
