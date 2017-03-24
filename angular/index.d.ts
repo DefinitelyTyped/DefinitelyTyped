@@ -447,8 +447,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and https://docs.angularjs.org/api/ng/service/$rootScope
      */
     interface IRootScopeService {
-        [index: string]: any;
-
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
