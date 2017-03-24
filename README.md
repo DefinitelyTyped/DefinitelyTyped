@@ -255,6 +255,10 @@ transitively `react-router-bootstrap` (which depends on `react-router`) also add
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
 
+#### The file history in GitHub looks incomplete.
+
+GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
+
 
 ## License
 
