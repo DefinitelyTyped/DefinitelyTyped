@@ -3,6 +3,10 @@
 // Definitions by: António Marques <https://github.com/asmarques>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+import stream = require("stream");
+
 declare namespace QueryStream {
     interface Options {
         highWaterMark?: number;
@@ -10,7 +14,7 @@ declare namespace QueryStream {
     }
 }
 
-declare class QueryStream {
+declare class QueryStream extends stream.Readable {
     batchSize: number;
     text: string;
     values?: any[];
