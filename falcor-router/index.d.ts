@@ -1,6 +1,6 @@
 // Type definitions for falcor-router 0.4.0
 // Project: https://github.com/Netflix/falcor-router
-// Definitions by: Quramy <https://github.com/Quramy/>
+// Definitions by: Quramy <https://github.com/Quramy/>, cdhgee <https://github.com/cdhgee/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference types="falcor" />
@@ -34,7 +34,7 @@ declare namespace FalcorRouter {
     type RoutePathSet = FalcorJsonGraph.PathSet;
 
     interface CallRoute extends Route {
-        call(callPath: RoutePathSet, args: Array<any>): RouteResult | Promise<RouteResult>;
+        call(callPath: RoutePathSet, args: Array<any>): CallRouteResult | Promise<CallRouteResult>;
     }
 
     interface GetRoute extends Route {
@@ -47,6 +47,7 @@ declare namespace FalcorRouter {
 
     type RouteDefinition = GetRoute | SetRoute | CallRoute;
     type RouteResult = FalcorJsonGraph.PathValue | Array<FalcorJsonGraph.PathValue> | FalcorJsonGraph.JSONEnvelope<any>;
+    type CallRouteResult = FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath | Array<FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath> | FalcorJsonGraph.JSONGraphEnvelope;
 
     interface RouterOptions {
         debug?: boolean;

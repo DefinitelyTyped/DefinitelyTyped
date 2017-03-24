@@ -2,6 +2,7 @@
 
 import falcor = require('falcor');
 import Router = require('falcor-router');
+import falcorJsonGraph = require('falcor-json-graph');
 
 new Router([]);
 new Router([], {});
@@ -100,3 +101,76 @@ new Router([{
     }
 }]);
 
+new Router([{
+    route: 'todos.new',
+    call(callpath, args) {
+      return {path: 'json.todosById.1234.name', value: 'Buy cheese'};
+    }
+}]);
+
+new Router([{
+    route: 'todos.new',
+    call(callpath, args) {
+      return falcorJsonGraph.pathInvalidation('json.todos.length');
+    }
+}]);
+
+new Router([{
+    route: 'todos.new',
+    call(callpath, args) {
+      return [
+        falcorJsonGraph.pathInvalidation('json.todos.length'),
+        {path: 'json.todosById.1234.name', value: 'Buy cheese'}
+      ]
+    }
+}]);
+
+new Router([{
+    route: 'todos.new',
+    call(callpath, args) {
+      return new Promise((resolve, reject): void => {
+        resolve([
+          falcorJsonGraph.pathInvalidation('json.todos.length'),
+          {path: 'json.todosById.1234.name', value: 'Buy cheese'}
+        ]);
+      });
+    }
+}]);
+
+new Router([{
+    route: 'todos.new',
+    call(callpath, args) {
+      return {
+          paths: [['json', 'todosById', '1234', 'name']],
+          jsonGraph: {
+              json: {
+                  todosById: {
+                      1234: {
+                          name: 'Buy cheese'
+                      }
+                  }
+              }
+          }
+      };
+    }
+}]);
+
+new Router([{
+    route: 'todos.new',
+    call(callpath, args) {
+      return new Promise((resolve, reject): void => {
+          resolve({
+              paths: [['json', 'todosById', '1234', 'name']],
+              jsonGraph: {
+                  json: {
+                      todosById: {
+                          1234: {
+                              name: 'Buy cheese'
+                          }
+                      }
+                  }
+              }
+          });
+      });
+    }
+}]);
