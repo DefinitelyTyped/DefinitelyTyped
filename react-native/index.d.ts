@@ -530,7 +530,7 @@ export interface LayoutAnimationStatic {
     spring: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
 }
 
-export type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch";
+export type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
 export type FlexJustifyType = "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
 export type FlexDirection = "row" | "column" | "row-reverse" | "column-reverse";
 
@@ -548,39 +548,39 @@ export interface FlexStyle {
     borderRightWidth?: number
     borderTopWidth?: number
     borderWidth?: number
-    bottom?: number
+    bottom?: number | string
     flex?: number
     flexGrow?: number
     flexShrink?: number
-    flexBasis?: number
+    flexBasis?: number | string
     flexDirection?: FlexDirection
     flexWrap?: "wrap" | "nowrap"
-    height?: number
+    height?: number | string
     justifyContent?: FlexJustifyType
-    left?: number
-    minWidth?: number
-    maxWidth?: number
-    minHeight?: number
-    maxHeight?: number
-    margin?: number
-    marginBottom?: number
-    marginHorizontal?: number
-    marginLeft?: number
-    marginRight?: number
-    marginTop?: number
-    marginVertical?: number
+    left?: number | string
+    minWidth?: number | string
+    maxWidth?: number | string
+    minHeight?: number | string
+    maxHeight?: number | string
+    margin?: number | string
+    marginBottom?: number | string
+    marginHorizontal?: number | string
+    marginLeft?: number | string
+    marginRight?: number | string
+    marginTop?: number | string
+    marginVertical?: number | string
     overflow?: "visible" | "hidden" | "scroll"
-    padding?: number
-    paddingBottom?: number
-    paddingHorizontal?: number
-    paddingLeft?: number
-    paddingRight?: number
-    paddingTop?: number
-    paddingVertical?: number
+    padding?: number | string
+    paddingBottom?: number | string
+    paddingHorizontal?: number | string
+    paddingLeft?: number | string
+    paddingRight?: number | string
+    paddingTop?: number | string
+    paddingVertical?: number | string
     position?: "absolute" | "relative"
-    right?: number
-    top?: number
-    width?: number
+    right?: number | string
+    top?: number | string
+    width?: number | string
 
     /**
      * @platform ios
