@@ -860,7 +860,7 @@ interface RequestParamHandler {
     (req: Request, res: Response, next: NextFunction, value: any, name: string): any;
 }
 
-type ApplicaitonRequestHandler<T> =  IRouterHandler<T> & IRouterMatcher<T> & {
+type ApplicationRequestHandler<T> =  IRouterHandler<T> & IRouterMatcher<T> & {
   (...handlers: RequestHandlerParams[]): T;
 };
 
