@@ -5404,6 +5404,46 @@ declare namespace _ {
         ): any[];
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.uniqWith
+         */
+        uniqWith<TResult>(
+          comparator: MemoIterator<T, boolean>): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.uniqWith
+         */
+        uniqWith<TResult>(
+          comparator: MemoIterator<T, boolean>): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.uniqWith
+         */
+        uniqWith<TResult>(
+          comparator: MemoIterator<T, boolean>): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.uniqWith
+         */
+        uniqWith<TResult>(
+          comparator: MemoIterator<string, boolean>): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitStringWrapper {
+        /**
+         * @see _.uniqWith
+         */
+        uniqWith<TResult>(
+          comparator: MemoIterator<string, boolean>): LoDashImplicitArrayWrapper<TResult>;
+    }
+
     //_.unzip
     interface LoDashStatic {
         /**

@@ -2276,6 +2276,46 @@ namespace TestUniqBy {
     }
 }
 
+// _.uniqWith
+namespace TestUniqWith {
+    type SampleObject = {a: number; b: string; c: boolean};
+
+    let array: any[];
+    let objArray: SampleObject[];
+    let letters: string;
+    let comparator: (a: any, b : any) => boolean;
+
+    {
+        let result: any[];
+        result = _.uniqWith(array, comparator);
+    }
+
+    {
+        let result: SampleObject[];
+        result = _.uniqWith(objArray, comparator);
+    }
+
+    {
+        let result: string[];
+        result = _.uniqWith('abc', comparator);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+        result = _(['abc', 'bca']).uniqWith<string[]>(comparator);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+        result = _('abc').uniqWith<string[]>(comparator);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string[]>;
+        result = _('abc').chain().uniqWith<string[]>(comparator);
+    }
+}
+
 // _.sortedUniq
 namespace TestSortedUniq {
     type SampleObject = {a: number; b: string; c: boolean};
