@@ -1,10 +1,10 @@
 /// <reference types='react' />
 
 interface Props {
-  tag?: React.ReactType
-  className?: string
-  href?: string
+  tag?: React.ReactType;
+  className?: string;
+  href?: string;
 }
 
-declare var CardLink: React.StatelessComponent<Props>
-export default CardLink
+declare var CardLink: React.StatelessComponent<Props>;
+export default CardLink;

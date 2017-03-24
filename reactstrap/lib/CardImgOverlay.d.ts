@@ -1,9 +1,9 @@
 /// <reference types='react' />
 
 interface Props {
-  tag?: React.ReactType
-  className?: string
+  tag?: React.ReactType;
+  className?: string;
 }
 
-declare var CardImgOverlay: React.StatelessComponent<Props>
-export default CardImgOverlay
+declare var CardImgOverlay: React.StatelessComponent<Props>;
+export default CardImgOverlay;

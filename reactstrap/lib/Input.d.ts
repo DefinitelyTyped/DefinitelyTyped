@@ -25,28 +25,24 @@ type InputType =
   | 'password'
   | 'datetime'
   | 'time'
-  | 'color'
+  | 'color';
 
 // Intermediate interface to "redefine" the type of size to string
 // size:number => size:any => size:string
-interface InputProps extends HTMLInputElement {
-  size: any
+interface Intermediate extends React.ChangeTargetHTMLProps<HTMLInputElement> {
+  size?: any;
 }
 
-interface IIntermediate extends React.ChangeTargetHTMLProps<HTMLInputElement> {
-  size?: any
-}
-
-interface Props extends IIntermediate {
-  type?: InputType
-  size?: string
-  state?: string
-  tag?: React.ReactType
-  addon?: boolean
-  className?: string
+interface InputProps extends Intermediate {
+  type?: InputType;
+  size?: string;
+  state?: string;
+  tag?: React.ReactType;
+  addon?: boolean;
+  className?: string;
   // We don't have the property 'static' here because 'static' is a reserved keyword in TypeScript
   // Maybe reactstrap will support an 'isStatic' alias in the future
 }
 
-declare var Input: React.StatelessComponent<Props>
-export default Input
+declare var Input: React.StatelessComponent<InputProps>;
+export default Input;

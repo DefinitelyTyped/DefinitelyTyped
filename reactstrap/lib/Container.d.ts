@@ -1,10 +1,10 @@
 /// <reference types='react' />
 
 interface Props {
-  tag?: React.ReactType
-  fluid?: boolean
-  className?: string
+  tag?: React.ReactType;
+  fluid?: boolean;
+  className?: string;
 }
 
-declare var Container: React.StatelessComponent<Props>
-export default Container
+declare var Container: React.StatelessComponent<Props>;
+export default Container;

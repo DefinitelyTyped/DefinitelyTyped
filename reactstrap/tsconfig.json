@@ -1,15 +1,12 @@
 {
  "compilerOptions": {
   "module": "commonjs",
-  "lib": [
-   "es6",
-   "dom"
-  ],
-  "noImplicitAny": false,
-  "noImplicitThis": false,
-  "strictNullChecks": false,
-  "baseUrl": "../",
+  "target": "es6",
+  "noImplicitAny": true,
+  "noImplicitThis": true,
+  "strictNullChecks": true,
   "jsx": "react",
+  "baseUrl": "../",
   "typeRoots": [
    "../"
   ],

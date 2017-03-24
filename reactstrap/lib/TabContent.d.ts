@@ -1,10 +1,10 @@
 /// <reference types='react' />
 
 interface Props {
-  tag?: React.ReactType
-  activeTab?: number | string
-  className?: string
+  tag?: React.ReactType;
+  activeTab?: number | string;
+  className?: string;
 }
 
-declare var TabContent: React.StatelessComponent<Props>
-export default TabContent
+declare var TabContent: React.StatelessComponent<Props>;
+export default TabContent;

@@ -1,10 +1,10 @@
 /// <reference types='react' />
 
 interface Props {
-  tag?: React.ReactType
-  fluid?: boolean
-  className?: string
+  tag?: React.ReactType;
+  fluid?: boolean;
+  className?: string;
 }
 
-declare var Jumbotron: React.StatelessComponent<Props>
-export default Jumbotron
+declare var Jumbotron: React.StatelessComponent<Props>;
+export default Jumbotron;

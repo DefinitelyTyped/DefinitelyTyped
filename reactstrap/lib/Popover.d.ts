@@ -17,16 +17,16 @@ type Placement
   | 'bottom left'
   | 'left top'
   | 'left middle'
-  | 'left bottom'
+  | 'left bottom';
 
 interface Props {
-  placement?: Placement
-  target: string
-  isOpen?: boolean
-  tether?: Tether.ITetherOptions
-  className?: string
-  toggle?: () => void
+  placement?: Placement;
+  target: string;
+  isOpen?: boolean;
+  tether?: Tether.ITetherOptions;
+  className?: string;
+  toggle?: () => void;
 }
 
-declare var Popover: React.StatelessComponent<Props>
-export default Popover
+declare var Popover: React.StatelessComponent<Props>;
+export default Popover;

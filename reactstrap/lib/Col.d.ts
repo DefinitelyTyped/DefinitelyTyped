@@ -9,18 +9,18 @@ export type ColumnProps
     push?: string | number
     pull?: string | number
     offset?: string | number
-  }
+  };
 
 interface Props {
-  xs?: ColumnProps
-  sm?: ColumnProps
-  md?: ColumnProps
-  lg?: ColumnProps
-  xl?: ColumnProps
+  xs?: ColumnProps;
+  sm?: ColumnProps;
+  md?: ColumnProps;
+  lg?: ColumnProps;
+  xl?: ColumnProps;
 
   //custom widths
-  widths?: string[]
+  widths?: string[];
 }
 
-declare var Col: React.StatelessComponent<Props>
-export default Col
+declare var Col: React.StatelessComponent<Props>;
+export default Col;

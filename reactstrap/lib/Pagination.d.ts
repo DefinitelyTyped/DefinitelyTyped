@@ -1,9 +1,9 @@
 /// <reference types='react' />
 
 interface Props {
-  className?: string
-  size?: string
+  className?: string;
+  size?: string;
 }
 
-declare var Pagination: React.StatelessComponent<Props>
-export default Pagination
+declare var Pagination: React.StatelessComponent<Props>;
+export default Pagination;

@@ -1,9 +1,9 @@
 /// <reference types='react' />
 
 interface Props {
-  tag?: React.ReactType
-  className?: string
+  tag?: React.ReactType;
+  className?: string;
 }
 
-declare var PopoverTitle: React.StatelessComponent<Props>
-export default PopoverTitle
+declare var PopoverTitle: React.StatelessComponent<Props>;
+export default PopoverTitle;

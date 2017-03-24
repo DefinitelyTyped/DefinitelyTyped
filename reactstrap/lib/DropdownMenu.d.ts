@@ -1,10 +1,10 @@
 /// <reference types='react' />
 
 interface Props {
-  tag?: React.ReactType
-  right?: boolean
-  className?: boolean
+  tag?: React.ReactType;
+  right?: boolean;
+  className?: boolean;
 }
 
-declare var DropdownMenu: React.StatelessComponent<Props>
-export default DropdownMenu
+declare var DropdownMenu: React.StatelessComponent<Props>;
+export default DropdownMenu;
