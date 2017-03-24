@@ -161,7 +161,7 @@ const styles = {
   },
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap' as 'wrap',
     justifyContent: 'space-around' as 'space-around',
   },
   gridList: {
