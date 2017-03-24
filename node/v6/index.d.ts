@@ -1369,7 +1369,7 @@ declare module "repl" {
         displayPrompt(preserveCursor?: boolean): void;
 
         context: any;
-    
+
         /**
          * events.EventEmitter
          * 1. exit
@@ -1801,8 +1801,27 @@ declare module "dns" {
         priority: number
     }
 
-    export function lookup(domain: string, family: number, callback: (err: Error, address: string, family: number) => void): string;
-    export function lookup(domain: string, callback: (err: Error, address: string, family: number) => void): string;
+    // Supported getaddrinfo flags
+    export const ADDRCONFIG: number;
+    export const V4MAPPED: number;
+
+    export interface LookupOptions {
+        family?: number;
+        hints?: number;
+        all?: boolean;
+    }
+
+    interface Address {
+        address: string;
+        family: number;
+    }
+
+    interface QueryReqWrap {}
+
+    export function lookup(domain: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): QueryReqWrap;
+    export function lookup(domain: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): QueryReqWrap;
+    export function lookup(domain: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, addresses: Address[]) => void): QueryReqWrap;
+    export function lookup(domain: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): QueryReqWrap;
     export function resolve(domain: string, rrtype: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolve(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolve4(domain: string, callback: (err: Error, addresses: string[]) => void): string[];

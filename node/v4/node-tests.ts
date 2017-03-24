@@ -19,6 +19,7 @@ import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
 import * as string_decoder from "string_decoder";
+import * as dns from "dns";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -967,4 +968,29 @@ namespace net_tests {
         // Make sure .listen() and .close() retuern a Server instance
         net.createServer().listen(0).close().address();
     }
+}
+
+///////////////////////////////////////////////////
+/// DNS Tests : https://nodejs.org/api/dns.html ///
+///////////////////////////////////////////////////
+
+namespace dns_tests {
+    dns.lookup("nodejs.org", (err, address, family) => {});
+    dns.lookup("nodejs.org", 4, (err, address, family) => {});
+    dns.lookup("nodejs.org", 6, (err, address, family) => {});
+    dns.lookup("nodejs.org", {}, (err, address, family) => {});
+    dns.lookup(
+        "nodejs.org",
+        {
+            family: 4,
+            hints: dns.ADDRCONFIG | dns.V4MAPPED,
+            all: false
+        },
+        (err, address, family) => {}
+    );
+    dns.lookup(
+        "nodejs.org",
+        {all: true},
+        (err, addresses) => {}
+    );
 }

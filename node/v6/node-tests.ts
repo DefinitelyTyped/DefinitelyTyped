@@ -24,6 +24,7 @@ import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
 import * as repl from "repl";
+import * as dns from "dns";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -1914,6 +1915,31 @@ namespace repl_tests {
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
     }
+}
+
+///////////////////////////////////////////////////
+/// DNS Tests : https://nodejs.org/api/dns.html ///
+///////////////////////////////////////////////////
+
+namespace dns_tests {
+    dns.lookup("nodejs.org", (err, address, family) => {});
+    dns.lookup("nodejs.org", 4, (err, address, family) => {});
+    dns.lookup("nodejs.org", 6, (err, address, family) => {});
+    dns.lookup("nodejs.org", {}, (err, address, family) => {});
+    dns.lookup(
+        "nodejs.org",
+        {
+            family: 4,
+            hints: dns.ADDRCONFIG | dns.V4MAPPED,
+            all: false
+        },
+        (err, address, family) => {}
+    );
+    dns.lookup(
+        "nodejs.org",
+        {all: true},
+        (err, addresses) => {}
+    );
 }
 
 /*****************************************************************************
