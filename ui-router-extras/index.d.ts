@@ -73,12 +73,12 @@ declare module 'angular' {
             get(memoName?: string): IPreviousState;
 
             /**
-             * Go to a state
+             * Go the previous state, or to the memorized memoName state
              * @param memoName Memo name
              * @param options State options
              * @return Promise
              */
-            go(memoName: string, options?: IStateOptions): angular.IPromise<any>;
+            go(memoName?: string, options?: IStateOptions): angular.IPromise<any>;
 
             /**
              * Memorize a state
