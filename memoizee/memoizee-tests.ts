@@ -1,6 +1,6 @@
 import memoize = require('memoizee');
 
-var fn = (one: string, two?: number, three?: any) => { /* ... */ };
+const fn = (one: string, two?: number, three?: any) => { /* ... */ };
 
 let memoized = memoize(fn);
 memoized('foo', 3, 'bar');
@@ -19,12 +19,12 @@ memoized = memoize(fn, { primitive: true });
 memoized('/path/one');
 memoized('/path/one');
 memoized = memoize(fn, { dispose(value: number) { /*…*/ } });
-var foo3 = memoized('foo', 3);
-var bar7 = memoized('bar', 7);
+const foo3 = memoized('foo', 3);
+const bar7 = memoized('bar', 7);
 memoized.clear('foo', 3); // Dispose called with foo3 value
 memoized.clear('bar', 7); // Dispose called with bar7 value
 memoized.delete('foo', 0);
-var mFn = memoize((hash: any) => {
+const mFn = memoize((hash: any) => {
     // body of memoized function
 }, { normalizer: (args: any) => {
     // args is arguments object as accessible in memoized function
@@ -39,7 +39,7 @@ memoized("12", Number(true));
 memoized(String({ toString() { return "12"; } }), Number({}));
 
 {
-    var afn = (a: number, b: number) => {
+    const afn = (a: number, b: number) => {
         return new Promise(res => { res(a + b); });
     };
     const memoized = memoize(afn, { promise: true });

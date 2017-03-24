@@ -10,7 +10,6 @@ import events = require("events");
 export = Memcached;
 
 declare class Memcached extends events.EventEmitter {
-
     static config: Memcached.options;
 
     /**
@@ -217,7 +216,7 @@ declare class Memcached extends events.EventEmitter {
 }
 
 declare namespace Memcached {
-    export interface IssueData {
+    interface IssueData {
         server: string;
         tokens: [string, string];
         messages: string[];
@@ -229,13 +228,13 @@ declare namespace Memcached {
         totalDownTime ?: number;
     }
 
-    export interface CommandData {
+    interface CommandData {
         start: number;
         execution: number;
-        callback: (...args : any[]) => any;
+        callback(...args: any[]): any;
         type: string;
         command: string;
-        validate: Array<[string, (...args : any[]) => any]>;
+        validate: Array<[string, (...args: any[]) => any]>;
         cas ?: string;
         redundancyEnabled ?: boolean;
         key ?: string;
@@ -243,25 +242,25 @@ declare namespace Memcached {
         lifetime ?: number;
     }
 
-    export interface StatusData {
+    interface StatusData {
         server ?: string;
         [key: string]: string|boolean|number|undefined;
     }
 
-    export interface VersionData extends StatusData {
+    interface VersionData extends StatusData {
         version: string;
         major: string;
         minor: string;
         bugfix: string;
     }
 
-    export interface CacheDumpData {
+    interface CacheDumpData {
         key: string;
         b: number;
         s: number;
     }
 
-    export interface options {
+    interface options {
         /**
          * 250, the maximum key size allowed.
          */

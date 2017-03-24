@@ -5,7 +5,7 @@
 
 /// <reference types="jquery" />
 
-declare interface JQuery {
+interface JQuery {
     toastmessage: JQueryToastmessage.ToastmessageStatic;
 }
 

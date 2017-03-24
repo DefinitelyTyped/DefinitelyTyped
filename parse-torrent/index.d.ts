@@ -11,7 +11,6 @@ import * as ParseTorrentFile from 'parse-torrent-file';
 declare const ParseTorrent: ParseTorrent.ParseTorrent;
 
 declare namespace ParseTorrent {
-
     interface ParseTorrent {
         (torrent: string): MagnetUri.Instance;
         (torrent: Buffer): MagnetUri.Instance | ParseTorrentFile.Instance;
@@ -23,13 +22,12 @@ declare namespace ParseTorrent {
         remote(torrent: string | Buffer | Instance | MagnetUri.Instance | ParseTorrentFile.Instance | Blob, cb?: (err: Error, torrent?: Instance) => void): void;
     }
 
-    export interface Instance extends MagnetUri.Instance, ParseTorrentFile.Instance {
+    interface Instance extends MagnetUri.Instance, ParseTorrentFile.Instance {
         infoHash: string;
         name?: string;
         announce?: string[];
         urlList?: string[];
     }
-
 }
 
 export = ParseTorrent;

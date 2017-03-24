@@ -52,7 +52,6 @@ function drawPointOnCanvas(radius: number) {
     };
 }
 
-
 // SVG Prep -------------------------------------------------------------------
 
 interface SVGDatum {
@@ -65,7 +64,6 @@ const svg = select<SVGSVGElement, undefined>('svg')
     .datum<SVGDatum>({ width: 500, height: 500, filterBrushEvent: true })
     .attr('width', d => d.width)
     .attr('height', d => d.height);
-
 
 const g = svg.append<SVGGElement>('g');
 
@@ -85,7 +83,6 @@ interface GroupDatum {
     toK: number;
 }
 
-
 // --------------------------------------------------------------------------
 // Test Define ZoomBehaviour
 // --------------------------------------------------------------------------
@@ -93,7 +90,6 @@ interface GroupDatum {
 // Canvas Example -----------------------------------------------------------
 
 function zoomedCanvas(this: HTMLCanvasElement, d: CanvasDatum) {
-
     // Cast d3 event to D3ZoomEvent to be used in zoom event handler
     const e = <d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>> event;
     if (context) {
@@ -115,7 +111,6 @@ canvasZoom = d3Zoom.zoom()
 // SVG Example --------------------------------------------------------------
 
 function zoomedSVGOverlay(this: SVGRectElement) {
-
     // Cast d3 event to D3ZoomEvent to be used in zoom event handler
     const e = <d3Zoom.D3ZoomEvent<HTMLCanvasElement, any>> event;
 
@@ -125,7 +120,6 @@ function zoomedSVGOverlay(this: SVGRectElement) {
 let svgZoom: d3Zoom.ZoomBehavior<SVGRectElement, SVGDatum>;
 
 svgZoom = d3Zoom.zoom<SVGRectElement, SVGDatum>();
-
 
 // filter() ----------------------------------------------------------------
 
@@ -140,7 +134,6 @@ svgZoom = svgZoom.filter(function(d, i, group) {
 
 let filterFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => boolean;
 filterFn = svgZoom.filter();
-
 
 // extent()  ---------------------------------------------------------------
 
@@ -172,7 +165,6 @@ svgZoom = svgZoom.translateExtent([[-500, -500], [500, 500]]);
 let translateExtent: [[number, number], [number, number]];
 translateExtent = svgZoom.translateExtent();
 
-
 // duration() --------------------------------------------------------------
 
 // chainable
@@ -186,7 +178,6 @@ const duration: number = svgZoom.duration();
 svgZoom = svgZoom.interpolate(interpolateZoom);
 svgZoom = svgZoom.interpolate(interpolate);
 svgZoom = svgZoom.interpolate(interpolateArray);
-
 
 // getter
 
@@ -219,7 +210,6 @@ if (zoomHandler) {
 // --------------------------------------------------------------------------
 // Test Attach ZoomBehaviour
 // --------------------------------------------------------------------------
-
 
 // Canvas Example -----------------------------------------------------------
 

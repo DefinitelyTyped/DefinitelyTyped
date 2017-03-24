@@ -8,7 +8,6 @@
 import {Selection, BaseType, ArrayLike, ValueFn} from 'd3-selection';
 import {Transition} from 'd3-transition';
 
-
 /**
  * An object mapping attribute (or style or property) names to value accessors
  *
@@ -29,7 +28,7 @@ declare module 'd3-selection' {
      * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
      * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
      */
-    export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+    interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         /**
          * Set multiple attributes on the given selection. Attribute values may be constant or derived from each node and its bound data.
          *
@@ -85,7 +84,7 @@ declare module 'd3-transition' {
      * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection in the Transition.
      * The fourth generic "PDatum" refers to the type of the datum of the parent element(s) in the Transition.
      */
-    export interface Transition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+    interface Transition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         /**
          * Set multiple attribute values. The transition will animate from the present value to the new value. Attribute values may be constant or derived from each node and its bound data.
          *

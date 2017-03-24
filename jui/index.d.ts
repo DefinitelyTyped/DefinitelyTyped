@@ -6,7 +6,6 @@
 import {UIEvent} from 'jui-core';
 
 export interface UIAccordion extends UIEvent {
-
     (selector: any, options?: {
         tpl?: any,
         event?: any,
@@ -91,9 +90,7 @@ export interface UIColorPicker {
     getColor(type: string): string|{};
 
     setColor(value: string|{}): void;
-
 }
-
 
 export interface UICombo {
     (selector: any, options?: {
@@ -200,7 +197,6 @@ export interface UICombo {
      */
      reload(): void;
 }
-
 
 export interface UIDatePicker {
     (selector: any, options?: {
@@ -399,7 +395,6 @@ export interface UIDropdown {
      reload(): void;
 }
 
-
 export interface UIModal {
     (selector: any, options?: {
         tpl?: any,
@@ -459,7 +454,6 @@ export interface UIModal {
      */
     resize(): void;
 }
-
 
 export interface UINotify {
     (selector: any, options?: {
@@ -611,7 +605,6 @@ export interface UIProgress {
     setStriped(isStriped: boolean): void;
     setValue(v: number): void;
     getValue(): number;
-
 }
 
 export interface UIProperty {
@@ -716,7 +709,6 @@ export interface UISlider {
         tooltip?: boolean,
         format?: string,
         progress?: boolean
-
     }): this;
 
     /**
@@ -750,9 +742,7 @@ export interface UISlider {
      * @return {Number} value
      */
     getToValue(): number;
-
 }
-
 
 export interface UISplitter {
     (selector: any, options?: {
@@ -849,7 +839,6 @@ export interface UISwitch {
 }
 
 export interface UITab {
-
     (selector: any, options?: {
         tpl?: any,
         event?: any,
@@ -1011,7 +1000,6 @@ export interface UITooltip {
          * Sets the content of a tooltip (referring to the title properties in markup)
          */
         title?: string,
-
     }): this;
 
     /**

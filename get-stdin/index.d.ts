@@ -7,7 +7,7 @@
 
 declare function getStdin(): Promise<string>;
 declare namespace getStdin {
-    export function buffer(): Promise<Buffer>;
+    function buffer(): Promise<Buffer>;
 }
 
 export = getStdin;

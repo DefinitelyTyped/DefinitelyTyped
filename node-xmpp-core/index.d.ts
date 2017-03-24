@@ -10,18 +10,18 @@ import {EventEmitter} from 'events';
 // fixme: not ideal
 export {createElement, Element, escapeXML, escapeXMLText} from 'ltx';
 
-export declare class Connection extends EventEmitter {
+export class Connection extends EventEmitter {
     constructor(opts?: any);
 }
 
-export declare namespace SRV {
+export namespace SRV {
     /**
      * returns a lazy iterator which can be restarted via connection.connect()
      */
     function connect(opts?: any): any;
 }
 
-export declare class Stanza extends Element {
+export class Stanza extends Element {
     from: string;
     to: string;
     id: string;
@@ -39,21 +39,21 @@ export declare class Stanza extends Element {
  * @param  {any} attrs attribute key/value pairs
  * @return {Element}      Stanza or Element
  */
-export declare function createStanza(name: string, attrs?: any): Element;
+export function createStanza(name: string, attrs?: any): Element;
 
-export declare class IQ extends Stanza {
+export class IQ extends Stanza {
     constructor(attrs?: any);
 }
 
-export declare class Message extends Stanza {
+export class Message extends Stanza {
     constructor(attrs?: any);
 }
 
-export declare class Presence extends Stanza {
+export class Presence extends Stanza {
     constructor(attrs?: any);
 }
 
-export declare class JID {
+export class JID {
     local: string;
     domain: string;
     resource: string;

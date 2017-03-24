@@ -8,7 +8,6 @@
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
 
-
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
 // --------------------------------------------------------------------------

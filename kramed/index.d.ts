@@ -157,4 +157,4 @@ export interface KramedOptions {
     smartypants?: boolean;
 }
 
-export declare var kramed: KramedStatic;
+export const kramed: KramedStatic;

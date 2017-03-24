@@ -232,7 +232,6 @@ export interface GridTable extends UIEvent {
          * Determines whether to use the move function when you fire row draggable event.
          */
         moveRow?: boolean,
-
     }): this;
 
     root?: any;
@@ -612,9 +611,7 @@ export interface GridTable extends UIEvent {
 }
 
 export interface GridXTable extends UIEvent {
-    (selector: any, options?: {
-
-    }): this;
+    (selector: any, options?: {}): this;
 
     render(isTree?: boolean): void;
 

@@ -7,7 +7,6 @@
 /// <reference types="handlebars" />
 
 declare namespace EmberStates {
-
     interface Transition {
         targetName: string;
         urlMethod: string;
@@ -151,16 +150,13 @@ declare namespace EmberStates {
          */
         followRedirects(): Ember.RSVP.Promise<any, any>;
     }
-
 }
 
 // Get an alias to the global Array type to use in inner scope below.
 type GlobalArray<T> = T[];
 
 declare namespace EmberTesting {
-
     namespace Test {
-
         class Adapter {
             asyncEnd(): void;
             asyncStart(): void;
@@ -168,9 +164,7 @@ declare namespace EmberTesting {
         }
 
         class QUnitAdapter extends Adapter { }
-
     }
-
 }
 
 interface Function {
@@ -349,12 +343,9 @@ interface EnumerableConfigurationOptions {
 
 type ItemIndexEnumerableCallbackTarget = (callback: ItemIndexEnumerableCallback, target?: any) => any[];
 
-
 type ItemIndexEnumerableCallback = (item: any, index: number, enumerable: Ember.Enumerable) => void;
 
-
 type ReduceCallback = (previousValue: any, item: any, index: number, enumerable: Ember.Enumerable) => void;
-
 
 interface TransitionsHash {
     contexts: any[];
@@ -388,7 +379,7 @@ declare namespace Ember {
     Alias for jQuery.
     **/
     // ReSharper disable once DuplicatingLocalDeclaration
-    var $: JQueryStatic;
+    const $: JQueryStatic;
     /**
     Creates an Ember.NativeArray from an Array like object. Does not modify the original object.
     Ember.A is not needed if Ember.EXTEND_PROTOTYPES is true (the default value). However, it is
@@ -651,7 +642,7 @@ declare namespace Ember {
         removeObject(object: any): any;
         removeObjects(objects: Enumerable): MutableEnumberable;
     }
-    var BOOTED: boolean;
+    const BOOTED: boolean;
     /**
     Connects the properties of two objects so that whenever the value of one property changes,
     the other property will be changed also.
@@ -967,17 +958,17 @@ declare namespace Ember {
     **/
     class Descriptor { }
     namespace ENV {
-        export var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
-        export var LOG_BINDINGS: boolean;
-        export var LOG_STACKTRACE_ON_DEPRECATION: boolean;
-        export var LOG_VERSION: boolean;
-        export var MODEL_FACTORY_INJECTIONS: boolean;
-        export var RAISE_ON_DEPRECATION: boolean;
+        const EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
+        const LOG_BINDINGS: boolean;
+        const LOG_STACKTRACE_ON_DEPRECATION: boolean;
+        const LOG_VERSION: boolean;
+        const MODEL_FACTORY_INJECTIONS: boolean;
+        const RAISE_ON_DEPRECATION: boolean;
     }
     namespace EXTEND_PROTOTYPES {
-        export var Array: boolean;
-        export var Function: boolean;
-        export var String: boolean;
+        const Array: boolean;
+        const Function: boolean;
+        const String: boolean;
     }
     /**
     This is the object instance returned when you get the @each property on an array. It uses
@@ -1049,7 +1040,7 @@ declare namespace Ember {
     **/
     // Restore this to 'typeof Error' when https://github.com/Microsoft/TypeScript/issues/983 is resolved
     // ReSharper disable once DuplicatingLocalDeclaration
-    var Error: any; // typeof Error;
+    const Error: any; // typeof Error;
     /**
     Handles delegating browser events to their corresponding Ember.Views. For example, when you click on
     a view, Ember.EventDispatcher ensures that that view's mouseDown method gets called.
@@ -1082,12 +1073,12 @@ declare namespace Ember {
         one(name: string, target: any, method: Function): Evented;
         trigger(name: string, ...args: string[]): void;
     }
-    var FROZEN_ERROR: string;
+    const FROZEN_ERROR: string;
     class Freezable {
         freeze(): Freezable;
         isFrozen: boolean;
     }
-    var GUID_KEY: string;
+    const GUID_KEY: string;
     namespace Handlebars {
         function compile(string: string): Function;
         function compile(environment: any, options?: any, context?: any, asObject?: any): any;
@@ -1104,7 +1095,7 @@ declare namespace Ember {
         }
         function parse(string: string): any;
         function print(ast: any): void;
-        var logger: typeof Ember.Logger;
+        const logger: typeof Ember.Logger;
         function log(level: string, str: string): void;
     }
     class HashLocation extends Object {
@@ -1140,8 +1131,8 @@ declare namespace Ember {
         static isMethod: boolean;
         rootURL: string;
     }
-    var IS_BINDING: RegExp;
-    var inject: {
+    const IS_BINDING: RegExp;
+    const inject: {
        controller(name?: string): Controller;
        service(name?: string): Service;
     };
@@ -1158,15 +1149,15 @@ declare namespace Ember {
         subscribe(pattern: string, object: any): void;
         unsubscribe(subscriber: any): void;
     }
-    var K: Function;
-    var LOG_BINDINGS: boolean;
-    var LOG_STACKTRACE_ON_DEPRECATION: boolean;
-    var LOG_VERSION: boolean;
+    const K: Function;
+    const LOG_BINDINGS: boolean;
+    const LOG_STACKTRACE_ON_DEPRECATION: boolean;
+    const LOG_VERSION: boolean;
     class Location {
         create(options?: {}): any;
         registerImplementation(name: string, implementation: any): void;
     }
-    var Logger: {
+    const Logger: {
         assert(param: any): void;
         debug(...args: any[]): void;
         error(...args: any[]): void;
@@ -1175,7 +1166,7 @@ declare namespace Ember {
         warn(...args: any[]): void;
     };
     function MANDATORY_SETTER_FUNCTION(value: string): void;
-    var META_KEY: string;
+    const META_KEY: string;
     class Map {
         copy(): Map;
         static create(): Map;
@@ -1305,7 +1296,7 @@ declare namespace Ember {
         hasEnumerableObservers: boolean;
         lastObject: any;
     }
-    var NAME_KEY: string;
+    const NAME_KEY: string;
     class Namespace extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -1425,7 +1416,7 @@ declare namespace Ember {
         static isClass: boolean;
         static isMethod: boolean;
     }
-    var ORDER_DEFINITION: string[];
+    const ORDER_DEFINITION: string[];
     class Object extends CoreObject implements Observable {
         addObserver: ModifyObserver;
         beginPropertyChanges(): Observable;
@@ -1530,7 +1521,6 @@ declare namespace Ember {
         }
 
         class Promise<T, U> implements Thenable<T, U> {
-
             /**
               Promise objects represent the eventual result of an asynchronous operation. The
               primary way of interacting with a promise is through its `then` method, which
@@ -1591,7 +1581,6 @@ declare namespace Ember {
       the [routing guide](http://emberjs.com/guides/routing/) for documentation.
     */
     class Route extends Object implements ActionHandlerMixin, Evented {
-
         static isClass: boolean;
         static isMethod: boolean;
 
@@ -1816,7 +1805,6 @@ declare namespace Ember {
         @since 1.4.0
         */
         redirect(): EmberStates.Transition;
-
 
         /**
         Refresh the model on this route and any child routes, firing the
@@ -2157,7 +2145,7 @@ declare namespace Ember {
         toggleProperty(keyName: string): boolean;
         /* /Observable */
     }
-    var STRINGS: boolean;
+    const STRINGS: boolean;
     class State extends Object implements Evented {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -2236,7 +2224,7 @@ declare namespace Ember {
         function underscore(str: string): string;
         function w(str: string): string[];
     }
-    var TEMPLATES: {};
+    const TEMPLATES: {};
     class TargetActionSupport {
         triggerAction(opts: {}): boolean;
     }
@@ -2253,8 +2241,8 @@ declare namespace Ember {
         function registerHelper(name: string, helperMethod: Function): void;
         function registerAsyncHelper(name: string, helperMethod: Function): void;
 
-        var adapter: Object;
-        var QUnitAdapter: Object;
+        const adapter: Object;
+        const QUnitAdapter: Object;
 
         function registerWaiter(callback: Function): void;
         function registerWaiter(context: any, callback: Function): void;
@@ -2325,18 +2313,18 @@ declare namespace Ember {
         bubbles: boolean;
         onEvent: string;
     }
-    var VERSION: string;
+    const VERSION: string;
     class ViewTargetActionSupport extends Mixin {
         target: any;
         actionContext: any;
     }
-    var ViewUtils: {}; // TODO: define interface
+    const ViewUtils: {}; // TODO: define interface
     function addListener(obj: any, eventName: string, target: Function | any, method: Function | string, once?: boolean): void;
-    var addObserver: ModifyObserver;
+    const addObserver: ModifyObserver;
     /**
     Ember.alias is deprecated. Please use Ember.aliasMethod or Ember.computed.alias instead.
     **/
-    var alias: typeof deprecateFunc;
+    const alias: typeof deprecateFunc;
     function aliasMethod(methodName: string): Descriptor;
     function assert(desc: string, test: boolean): void;
     function beginPropertyChanges(): void;
@@ -2346,7 +2334,7 @@ declare namespace Ember {
     function changeProperties(callback: Function, binding?: any): void;
     function compare(v: any, w: any): number;
     // ReSharper disable once DuplicatingLocalDeclaration
-    var computed: {
+    const computed: {
         (...args: any[]): ComputedProperty;
         alias(dependentKey: string): ComputedProperty;
         and(...args: string[]): ComputedProperty;
@@ -2385,7 +2373,7 @@ declare namespace Ember {
     Ember.empty is deprecated. Please use Ember.isEmpty instead.
     **/
     // ReSharper disable once DuplicatingLocalDeclaration
-    var empty: typeof deprecateFunc;
+    const empty: typeof deprecateFunc;
     function endPropertyChanges(): void;
     function finishChains(obj: any): void;
     function generateController(container: Container, controllerName: string, context: any): Controller;
@@ -2394,7 +2382,7 @@ declare namespace Ember {
     /**
     getPath is deprecated since get now supports paths.
     **/
-    var getPath: typeof deprecateFunc;
+    const getPath: typeof deprecateFunc;
     function getWithDefault(root: string, key: string, defaultValue: any): any;
     function guidFor(obj: any): string;
     function handleErrors(func: Function, context: any): any;
@@ -2407,7 +2395,7 @@ declare namespace Ember {
     function isEmpty(obj: any): boolean;
     function isEqual(a: any, b: any): boolean;
     function isGlobalPath(path: string): boolean;
-    var isNamespace: boolean;
+    const isNamespace: boolean;
     function isNone(obj: any): boolean;
     function isPrototypeOf(obj: {}): boolean;
     function isWatching(obj: any, key: string): boolean;
@@ -2416,7 +2404,7 @@ declare namespace Ember {
     function listenersFor(obj: any, eventName: string): any[];
     function listenersUnion(obj: any, eventName: string, otherActions: any[]): void;
     // ReSharper disable once DuplicatingLocalDeclaration
-    var lookup: {}; // TODO: define interface
+    const lookup: {}; // TODO: define interface
     function makeArray(obj: any): any[];
     function merge(original: any, updates: any): any;
     function meta(obj: any): {};
@@ -2424,14 +2412,14 @@ declare namespace Ember {
     /**
     Ember.none is deprecated. Please use Ember.isNone instead.
     **/
-    var none: typeof deprecateFunc;
+    const none: typeof deprecateFunc;
     function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
-    var onError: Error;
+    const onError: Error;
     function overrideChains(obj: any, keyName: string, m: any): boolean;
     // ReSharper disable once DuplicatingLocalDeclaration
-    var platform: {
+    const platform: {
         defineProperty: boolean;
         hasPropertyAccessors: boolean;
     };
@@ -2443,7 +2431,7 @@ declare namespace Ember {
     function removeObserver(obj: any, path: string, target: any, method: Function): any;
     function required(): Descriptor;
     function rewatch(obj: any): void;
-    var run: {
+    const run: {
         (method: Function): void;
         (target: any, method: Function): void;
         begin(): void;
@@ -2466,7 +2454,7 @@ declare namespace Ember {
     /**
     setPath is deprecated since set now supports paths.
     **/
-    var setPath: typeof deprecateFunc;
+    const setPath: typeof deprecateFunc;
     function setProperties(self: any, hash: {}): any;
     function subscribe(pattern: string, object: any): void;
     function toLocaleString(): string;
@@ -2477,13 +2465,13 @@ declare namespace Ember {
     /**
     trySetPath has been renamed to trySet.
     **/
-    var trySetPath: typeof deprecateFunc;
+    const trySetPath: typeof deprecateFunc;
     function typeOf(item: any): string;
     function unwatch(obj: any, keyPath: string): void;
     function unwatchKey(obj: any, keyName: string): void;
     function unwatchPath(obj: any, keyPath: string): void;
     // ReSharper disable once DuplicatingLocalDeclaration
-    var uuid: number;
+    const uuid: number;
     function valueOf(): {};
     function warn(message: string, test?: boolean): void;
     function watch(obj: any, keyPath: string): void;
@@ -2491,17 +2479,16 @@ declare namespace Ember {
     function watchPath(obj: any, keyPath: string): void;
     function watchedEvents(obj: {}): any[];
     function wrap(func: Function, superFunc: Function): Function;
-    var _ContainerProxyMixin: Mixin;
-    var _RegistryProxyMixin: Mixin;
+    const _ContainerProxyMixin: Mixin;
+    const _RegistryProxyMixin: Mixin;
     function getOwner(object: any): any;
     function setOwner(object: any, owner: any): void;
-    var testing: boolean;
-    var MODEL_FACTORY_INJECTIONS: boolean;
+    const testing: boolean;
+    const MODEL_FACTORY_INJECTIONS: boolean;
     function assign(original: any, ...sources: any[]): any;
 }
 
 import Em = Ember;
-
 
 /**
  * External ambient module - to allow "import Ember from 'ember';" to work correctly

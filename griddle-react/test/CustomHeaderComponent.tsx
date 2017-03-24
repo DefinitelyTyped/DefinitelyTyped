@@ -17,7 +17,7 @@ class HeaderComponent extends React.Component<MoreCustomHeaderComponentProps, an
   }
 
   filterText(e: React.FormEvent<HTMLInputElement>) {
-    this.props.filterByColumn(e.currentTarget.value, this.props.columnName)
+    this.props.filterByColumn(e.currentTarget.value, this.props.columnName);
   }
 
   render() {
@@ -40,28 +40,28 @@ interface ResultType {
   favoriteNumber: number;
 }
 
-var someData: ResultType[] = [
+const  someData: ResultType[] = [
   {
-    "id": 0,
-    "name": "Mayer Leonard",
-    "city": "Kapowsin",
-    "state": "Hawaii",
-    "country": "United Kingdom",
-    "company": "Ovolo",
-    "favoriteNumber": 7
+    id: 0,
+    name: "Mayer Leonard",
+    city: "Kapowsin",
+    state: "Hawaii",
+    country: "United Kingdom",
+    company: "Ovolo",
+    favoriteNumber: 7
   },
   {
-    "id": 1,
-    "name": "Koch Becker",
-    "city": "Johnsonburg",
-    "state": "New Jersey",
-    "country": "Madagascar",
-    "company": "Eventage",
-    "favoriteNumber": 2
+    id: 1,
+    name: "Koch Becker",
+    city: "Johnsonburg",
+    state: "New Jersey",
+    country: "Madagascar",
+    company: "Eventage",
+    favoriteNumber: 2
   }
 ];
 
-var columnMeta: ColumnMetaData<ResultType>[] = [
+const  columnMeta: Array<ColumnMetaData<ResultType>> = [
   {
     columnName: 'name',
     order: 1,
@@ -82,7 +82,6 @@ var columnMeta: ColumnMetaData<ResultType>[] = [
 
 class CustomHeaderComponentGrid extends React.Component<any, any> {
   render() {
-
     type TypedGriddle = new () => Griddle<ResultType>;
     const TypedGriddle = Griddle as TypedGriddle;
 

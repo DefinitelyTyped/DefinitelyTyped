@@ -65,4 +65,3 @@ const data2 = [true, 123];
 
 expect(chai.tv4.validate(data1, schema)).to.be.true;
 expect(chai.tv4.validate(data2, schema)).to.be.false;
-

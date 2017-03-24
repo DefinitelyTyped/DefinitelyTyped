@@ -6,7 +6,6 @@
 import * as JSData from 'js-data';
 
 declare module 'js-data' {
-
     interface DSHttpAdapterOptions {
         serialize?: (resourceName: string, data: any) => any;
         deserialize?: (resourceName: string, data: any) => any;
@@ -27,7 +26,6 @@ declare module 'js-data' {
     }
 
     interface DSHttpAdapter extends IDSAdapter {
-
         new(options?: DSHttpAdapterOptions): DSHttpAdapter;
 
         defaults: DSHttpAdapterOptions;

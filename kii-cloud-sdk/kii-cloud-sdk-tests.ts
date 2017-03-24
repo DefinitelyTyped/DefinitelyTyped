@@ -1,9 +1,7 @@
-
-
 function main() {
     Kii.initializeWithSite("abc", "def", KiiSite.JP);
 
-    var user = KiiUser.userWithUsername("name", "password");
+    const user = KiiUser.userWithUsername("name", "password");
 
     user.register({
         success(user: KiiUser) {
@@ -27,18 +25,18 @@ function main() {
         });
 
     user.setLocale("en");
-    var locale: string = user.getLocale();
+    const locale: string = user.getLocale();
 
-    var anotherUser: KiiUser = KiiUserBuilder
+    const anotherUser: KiiUser = KiiUserBuilder
         .builderWithIdentifier("id", "password")
         .setEmailAddress("mail@example.org")
         .build();
 
-    var bucket = Kii.bucketWithName("foo");
-    var clause1 = KiiClause.lessThan("x", 1);
-    var clause2 = KiiClause.greaterThan("y", 1);
-    var clause3 = KiiClause.and(clause1, clause2);
-    var query = KiiQuery.queryWithClause(clause3);
+    const bucket = Kii.bucketWithName("foo");
+    const clause1 = KiiClause.lessThan("x", 1);
+    const clause2 = KiiClause.greaterThan("y", 1);
+    const clause3 = KiiClause.and(clause1, clause2);
+    const query = KiiQuery.queryWithClause(clause3);
 
     bucket.executeQuery(query, {
         success: (query: KiiQuery,
@@ -51,10 +49,10 @@ function main() {
 
     bucket.executeQuery<KiiObject>(query)
         .then((params: [KiiQuery, KiiObject[], KiiQuery]) => {
-            var [query, results, nextQuery] = params;
+            const [query, results, nextQuery] = params;
         });
 
-    var object = bucket.createObject();
+    const object = bucket.createObject();
 
     object.set("foo", 1);
 
@@ -93,11 +91,11 @@ function main() {
 
     KiiThing.loadWithVendorThingID("thing ID")
         .then((thing) => {
-            var isOnline: boolean = thing.isOnline();
-            var onlineStatusModifiedAt: Date = thing.getOnlineStatusModifiedAt();
+            const isOnline: boolean = thing.isOnline();
+            const onlineStatusModifiedAt: Date = thing.getOnlineStatusModifiedAt();
         });
 
-    var error = KiiErrorParser.parse("");
+    const error = KiiErrorParser.parse("");
 
     error.code.toLowerCase();
 }

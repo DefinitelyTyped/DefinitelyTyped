@@ -1,8 +1,6 @@
-
-
 import BufferStream = require('bufferstream');
 
-var stream = new BufferStream({encoding: 'utf8', size: 'flexible'});
+const stream = new BufferStream({encoding: 'utf8', size: 'flexible'});
 stream.enable();
 stream.disable();
 stream.split('//', ':');
@@ -11,4 +9,3 @@ stream.on('split', (chunk: any, token: any) => {
 });
 stream.write("buffer:stream//23");
 console.log(stream.toString());
-

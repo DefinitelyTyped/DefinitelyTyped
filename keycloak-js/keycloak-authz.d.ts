@@ -11,11 +11,11 @@ export = KeycloakAuthorization;
 declare function KeycloakAuthorization(keycloak: Keycloak.KeycloakInstance): KeycloakAuthorization.KeycloakAuthorizationInstance;
 
 declare namespace KeycloakAuthorization {
-	export interface KeycloakAuthorizationPromise {
+	interface KeycloakAuthorizationPromise {
 		then(onGrant: (rpt: string) => void, onDeny: () => void, onError: () => void): void;
 	}
 
-	export interface KeycloakAuthorizationInstance {
+	interface KeycloakAuthorizationInstance {
 		rpt: any;
 		config: { rpt_endpoint: string };
 

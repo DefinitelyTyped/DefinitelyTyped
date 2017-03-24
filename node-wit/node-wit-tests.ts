@@ -1,6 +1,6 @@
 import { Wit, log, WitRequest, WitResponse, WitContext } from "node-wit";
 
-var wit = new Wit({
+const wit = new Wit({
     accessToken: "",
     actions: {
         send(request: WitRequest, response: WitResponse) {
@@ -24,13 +24,12 @@ wit.message("what is the weather in London?", {}).then((res) => {
     console.log(res._text);
 
     console.log(res.entities);
-
 }).catch((err) => {
     console.log(err);
 });
 
-var sessionId = 'my-user-session-42';
-var context0: WitContext = {};
+const sessionId = 'my-user-session-42';
+const context0: WitContext = {};
 wit.runActions(sessionId, 'what is the weather in London?', context0)
 .then((context1) => {
   console.log('The session state is now: ' + JSON.stringify(context1));

@@ -26,7 +26,6 @@ class NumCoercible {
 }
 
 class MixedObject {
-
     num: number;
     str: string;
     numeric: NumCoercible;
@@ -289,7 +288,6 @@ num = mixedObjectDateBisectorObject.right(mixedObjectArray, new Date(2015, 3, 14
 num = mixedObjectDateBisectorObject.right(mixedObjectArray, new Date(2015, 3, 14), 1);
 num = mixedObjectDateBisectorObject.right(mixedObjectArray, new Date(2015, 3, 14), 3, 4);
 
-
 // ascending() -----------------------------------------------------------------
 
 num = d3Array.ascending(undefined, 20);
@@ -339,11 +337,10 @@ crossed = d3Array.cross<string, number>(['x', 'y'], [1, 2]);
 
 let strArray: string[] = d3Array.cross<number, number, string>([2, 3], [5, 6], (a, b) => (a + b) + 'px');
 strArray = d3Array.cross([2, 3], [5, 6], (a, b) => {
-    let aa: number = a;
-    let bb: number = b;
+    const aa: number = a;
+    const bb: number = b;
     return (aa + bb) + 'px';
 });
-
 
 // pairs() ---------------------------------------------------------------------
 
@@ -353,8 +350,8 @@ pairs = d3Array.pairs(mergedArray);
 
 numbersArray = d3Array.pairs<MixedObject, number>(mergedArray, (a, b) => b.num - a.num);
 numbersArray = d3Array.pairs(mergedArray, (a, b) => {
-    let aa: MixedObject = a;
-    let bb: MixedObject = b;
+    const aa: MixedObject = a;
+    const bb: MixedObject = b;
     return bb.num - aa.num;
 });
 
@@ -374,7 +371,6 @@ const testObject = {
 
 const x: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
 
-
 // range() ---------------------------------------------------------------------
 
 numbersArray = d3Array.range(10);
@@ -388,7 +384,6 @@ mergedArray = d3Array.shuffle(mergedArray);
 mergedArray = d3Array.shuffle(mergedArray, 1);
 
 mergedArray = d3Array.shuffle(mergedArray, 1, 3);
-
 
 // ticks() ---------------------------------------------------------------------
 
@@ -518,8 +513,6 @@ num = testBin.length; // defaultBin is array
 const mixedObject: MixedObject = testBin[0]; // with element type MixedObject
 date = testBin.x0; // bin lower bound is Date
 date = testBin.x1; // bin upper bound is Date
-
-
 
 // Histogram Tresholds =========================================================
 

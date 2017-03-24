@@ -81,8 +81,7 @@ class BaseCollection<T> {
             this.dataStore.find(criteria, (err: Error, docs: T[]) => {
                 if (err) {
                     reject(err);
-                }
-                else {
+                } else {
                     resolve(docs);
                 }
             });
@@ -107,7 +106,7 @@ class BaseCollection<T> {
                 if (err) {
                     reject(err);
                 } else {
-                    //resolve(newDoc);
+                    // resolve(newDoc);
                 }
             });
         });
@@ -117,7 +116,7 @@ class BaseCollection<T> {
                 if (err) {
                     reject(err);
                 } else {
-                    //resolve(newDoc);
+                    // resolve(newDoc);
                 }
             });
         });
@@ -142,8 +141,7 @@ class BaseCollection<T> {
             this.dataStore.remove(criteria, (err: Error, numberOfDeletedEntrys: number) => {
                 if (err) {
                     reject(err);
-                }
-                else {
+                } else {
                     resolve(numberOfDeletedEntrys);
                 }
             });
@@ -153,8 +151,7 @@ class BaseCollection<T> {
 
 // Type 1: In-memory only datastore (no need to load the database)
 import Datastore = require('nedb');
-var db = new Datastore();
-
+let db = new Datastore();
 
 // Type 2: Persistent datastore with manual loading
 db = new Datastore({filename: 'path/to/datafile'});
@@ -162,21 +159,18 @@ db.loadDatabase((err) => {    // Callback is optional
     // Now commands will be executed
 });
 
-
 // Type 3: Persistent datastore with automatic loading
 db = new Datastore({filename: 'path/to/datafile', autoload: true});
 // You can issue commands right away
-
 
 // Type 4: Persistent datastore for a Node Webkit app called 'nwtest'
 // For example on Linux, the datafile will be ~/.config/nwtest/nedb-data/something.db
 import path = require('path');
 db = new Datastore({filename: path.join(require('nw.gui').App.dataPath, 'something.db')});
 
-
 // Of course you can create multiple datastores if you need several
 // collections. In this case it's usually a good idea to use autoload for all collections.
-var dbContainer: any = {};
+const dbContainer: any = {};
 dbContainer.users = new Datastore('path/to/users.db');
 dbContainer.robots = new Datastore('path/to/robots.db');
 
@@ -184,7 +178,7 @@ dbContainer.robots = new Datastore('path/to/robots.db');
 dbContainer.users.loadDatabase();
 dbContainer.robots.loadDatabase();
 
-var doc: any = {
+const doc: any = {
     hello: 'world'
     , n: 5
     , today: new Date()
@@ -246,7 +240,6 @@ db.find({"completeData.planets.0.name": "Earth"}, (err: Error, docs: any[]) => {
     // If we had tested against "Mars" docs would be empty because we are matching against a specific array element
 });
 
-
 // You can also deep-compare objects. Don't confuse this with dot-notation!
 db.find({humans: {genders: 2}}, (err: Error, docs: any[]) => {
     // docs is empty, because { genders: 2 } is not equal to { genders: 2, eyes: true }
@@ -270,7 +263,7 @@ db.find({"humans.genders": {$gt: 5}}, (err: Error, docs: any[]) => {
 // When used with strings, lexicographical order is used
 db.find({planet: {$gt: 'Mercury'}}, (err: Error, docs: any[]) => {
     // docs contains Omicron Persei 8
-})
+});
 
 // Using $in. $nin is used in the same way
 db.find({planet: {$in: ['Earth', 'Jupiter']}}, (err: Error, docs: any[]) => {
@@ -322,7 +315,7 @@ db.find({$not: {planet: 'Earth'}}, (err: Error, docs: any[]) => {
 
 db.find({
     $where() {
-        return parseInt(Object.keys(this)[0]) > 6;
+        return parseInt(Object.keys(this)[0], 10) > 6;
     }
 }, (err: Error, docs: any[]) => {
     // docs with more than 6 properties
@@ -470,7 +463,6 @@ db.update({_id: 'id6'}, {$pull: {fruits: {$in: ['apple', 'pear']}}}, {}, () => {
     // Now the fruits array is ['orange']
 });
 
-
 // $each can be used to $push or $addToSet multiple values at once
 // This example works the same way with $addToSet
 db.update({_id: 'id6'}, {$push: {fruits: {$each: ['banana', 'orange']}}}, {}, () => {
@@ -506,7 +498,6 @@ db.ensureIndex({fieldName: 'somefield', unique: true}, (err: Error) => {
 // Using a sparse unique index
 db.ensureIndex({fieldName: 'somefield', unique: true, sparse: true}, (err: Error) => {
 });
-
 
 // Format of the error message when the unique constraint is not met
 db.insert({somefield: 'nedb'}, (err: Error) => {

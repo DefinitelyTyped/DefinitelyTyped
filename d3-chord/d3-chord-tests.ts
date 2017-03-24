@@ -10,7 +10,6 @@ import * as d3Chord from 'd3-chord';
 import { select, Selection } from 'd3-selection';
 import { ascending } from 'd3-array';
 
-
 // ---------------------------------------------------------------------
 // Preparatory Steps
 // ---------------------------------------------------------------------
@@ -39,7 +38,6 @@ let numAccessor: (this: SVGPathElement, d: d3Chord.ChordSubgroup, ...args: any[]
 // Test Chord
 // ---------------------------------------------------------------------
 
-
 // chord() create ChordLayout  generator ===============================
 
 let chordLayout: d3Chord.ChordLayout;
@@ -64,7 +62,6 @@ chordLayout = chordLayout.sortSubgroups(ascending);
 chordLayout = chordLayout.sortSubgroups(null);
 comparatorFn = chordLayout.sortSubgroups();
 
-
 // sortChords() --------------------------------------------------------
 
 chordLayout = chordLayout.sortChords(ascending);
@@ -75,9 +72,7 @@ comparatorFn = chordLayout.sortChords();
 
 chords = chordLayout(matrix);
 
-
 // Test supporting interfaces ==========================================
-
 
 const length: number = chords.length;
 
@@ -97,7 +92,6 @@ num = chordSubgroup.startAngle;
 num = chordSubgroup.endAngle;
 num = chordSubgroup.value;
 num = chordSubgroup.index;
-
 
 // ---------------------------------------------------------------------
 // Test Ribbon
@@ -139,7 +133,6 @@ svgRibbon = svgRibbon.target(d => {
 });
 
 subgroupAccessor = svgRibbon.target();
-
 
 // radius() -----------------------------------------------------------
 

@@ -42,7 +42,7 @@ declare namespace UniversalAnalytics {
     enum HitType {
         'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
     }
-    
+
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference
 
     interface FieldsObject {

@@ -1,4 +1,3 @@
-
 //
 // @autobind
 //
@@ -35,7 +34,7 @@ class Meal {
     entree: string = 'steak';
 }
 
-var dinner = new Meal();
+const dinner = new Meal();
 dinner.entree = 'salmon';
 
 //
@@ -99,11 +98,9 @@ person2.facepalmHarder();
 // @debounce
 //
 
-
 import { debounce } from 'core-decorators';
 
 class Editor {
-
     content = '';
 
     @debounce(500)
@@ -119,7 +116,6 @@ class Editor {
 import { throttle } from 'core-decorators';
 
 class Editor2 {
-
     content = '';
 
     @throttle(500, {leading: false})
@@ -162,8 +158,8 @@ class Meal2 {
     cost: number = 4.44;
 }
 
-var dinner2 = new Meal2();
-for (var key in dinner2) {
+const dinner2 = new Meal2();
+for (const key in dinner2) {
     key;
     // "entree" only, not "cost"
 }
@@ -182,7 +178,7 @@ class Meal3 {
     entree: string = 'steak';
 }
 
-var dinner3 = new Meal3();
+const dinner3 = new Meal3();
 
 Object.defineProperty(dinner3, 'entree', {
     enumerable: false
@@ -196,7 +192,7 @@ Object.defineProperty(dinner3, 'entree', {
 declare function memoize<T extends Function>(func: T): T;
 import { decorate } from 'core-decorators';
 
-var count = 0;
+let count = 0;
 
 class Task {
     @decorate(memoize)
@@ -207,8 +203,8 @@ class Task {
     }
 }
 
-var task = new Task();
-var data = [1, 2, 3];
+const task = new Task();
+const data = [1, 2, 3];
 
 task.doSomethingExpensive(data);
 task.doSomethingExpensive(data);
@@ -232,7 +228,7 @@ class Editor3 {
     hugeBuffer = createHugeBuffer();
 }
 
-var editor = new Editor3();
+const editor = new Editor3();
 // createHugeBuffer() has not been called yet
 
 editor.hugeBuffer;
@@ -270,7 +266,7 @@ class Bird {
     }
 }
 
-var bird = new Bird();
+const bird = new Bird();
 bird.singMatingCall();
 // alerts "tweet tweet"
 
@@ -288,17 +284,12 @@ const myConsole = {
 
 class Bird2 {
     @time('sing')
-    sing() {
-    }
+    sing() {}
 
     @time('sing2', myConsole)
-    sing2() {
-
-    }
+    sing2() {}
 }
 
-var bird2 = new Bird2();
+const bird2 = new Bird2();
 bird2.sing(); // console.time label will be 'sing-0'
 bird2.sing(); // console.time label will be 'sing-1'
-
-

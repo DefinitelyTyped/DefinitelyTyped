@@ -1,13 +1,11 @@
-
-
-var map: L.Map;
-var label: L.Label;
+let map: L.Map;
+let label: L.Label;
 
 // Icon
-var icon: L.Icon = new L.Icon({ labelAnchor: L.point(1, 1) });
+const icon: L.Icon = new L.Icon({ labelAnchor: L.point(1, 1) });
 
 // CircleMarker
-var circleMarker: L.CircleMarker = new L.CircleMarker(new L.LatLng(0, 0), { labelAnchor: L.point(1, 1) });
+let circleMarker: L.CircleMarker = new L.CircleMarker(new L.LatLng(0, 0), { labelAnchor: L.point(1, 1) });
 
 circleMarker = circleMarker.bindLabel('test', {
 	className: 'thingy',
@@ -27,7 +25,7 @@ label = circleMarker.getLabel();
 circleMarker = circleMarker.unbindLabel();
 
 // Marker
-var marker = new L.Marker(new L.LatLng(0, 0));
+let marker = new L.Marker(new L.LatLng(0, 0));
 
 marker = marker.bindLabel('test', {
 	className: 'thingy',
@@ -49,7 +47,7 @@ marker.setOpacity(0.5);
 marker.setOpacity(0.5, true);
 
 // Path
-var path: L.Path = new L.Polyline([L.latLng(0, 0)]);
+let path: L.Path = new L.Polyline([L.latLng(0, 0)]);
 
 path = path.bindLabel('test', {
 	className: 'thingy',
@@ -76,7 +74,7 @@ label.setContent('thing');
 label.close();
 
 // Examples from the README
-var example: () => void;
+let example: () => void;
 
 example = () => {
 	L.marker(L.latLng(-37.7772, 175.2606)).bindLabel('Look revealing label!').addTo(map);
@@ -97,7 +95,7 @@ example = () => {
 };
 
 example = () => {
-	var myIcon = L.icon({
+	const myIcon = L.icon({
 		iconUrl: 'my-icon.png',
 		iconSize: L.point(20, 20),
 		iconAnchor: L.point(10, 10),
@@ -112,7 +110,7 @@ example = () => {
 };
 
 example = () => {
-	var myIcon = L.icon({
+	const myIcon = L.icon({
 		iconUrl: 'my-icon.png',
 		iconSize: L.point(20, 20),
 		iconAnchor: L.point(10, 10),
@@ -124,7 +122,7 @@ example = () => {
 };
 
 example = () => {
-	var markerLabel = L.marker(L.latLng(-37.7772, 175.2606)).bindLabel('Look revealing label!').addTo(map);
+	const markerLabel = L.marker(L.latLng(-37.7772, 175.2606)).bindLabel('Look revealing label!').addTo(map);
 
 	// Sets opacity of marker to 0.3 and opacity of label to 1
 	markerLabel.setOpacity(0.3);

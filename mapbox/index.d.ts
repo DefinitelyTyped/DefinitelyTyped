@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-	var accessToken: string;
+	const accessToken: string;
 
 	/**
 	 * Create and automatically configure a map with layers, markers, and interactivity.
@@ -42,7 +42,6 @@ declare namespace L.mapbox {
 		shareControl: L.mapbox.ShareControl;
 
 		getTileJSON(): any;
-
 	}
 }
 
@@ -64,7 +63,6 @@ declare namespace L.mapbox {
 	}
 
 	interface TileLayer extends L.TileLayer {
-
 		/**
 		 * Returns this layer's TileJSON object which determines its tile source, zoom bounds and other metadata.
 		 */
@@ -74,7 +72,6 @@ declare namespace L.mapbox {
 		 * Set the image format of tiles in this layer. You can use lower-quality tiles in order to load maps faster
 		 */
 		setFormat(format: string): TileLayer;
-
 	}
 }
 
@@ -88,7 +85,6 @@ declare namespace L.mapbox {
 	function gridLayer(idOrTileJson: any): L.mapbox.GridLayer;
 
 	interface GridLayer {
-
 		active(): boolean;
 		addTo(map: L.mapbox.Map): any;
 		onAdd(map: L.mapbox.Map): any;
@@ -108,7 +104,6 @@ declare namespace L.mapbox {
 		 * Load data for a given latitude, longitude point on the map, and call the callback function with that data, if any.
 		 */
 		getData(latlng: L.LatLng, callback: Function): any;
-
 	}
 }
 
@@ -127,7 +122,6 @@ declare namespace L.mapbox {
 	}
 
 	interface FeatureLayer extends L.FeatureGroup<L.ILayer> {
-
 		/**
 		 * Load GeoJSON data for this layer from the URL given by url.
 		 */
@@ -161,7 +155,6 @@ declare namespace L.mapbox {
 		 * Get the contents of this layer as GeoJSON data.
 		 */
 		getGeoJSON(): any;
-
 	}
 }
 
@@ -179,7 +172,6 @@ declare namespace L.mapbox {
 	function geocoder(id: string): L.mapbox.Geocoder;
 
 	interface Geocoder {
-
 		getURL(): string;
 		setURL(url: string): any;
 		setID(id: string): any;
@@ -218,7 +210,6 @@ declare namespace L.mapbox {
 	function infoControl(options?: ControlOptions): InfoControl;
 
 	interface InfoControl extends L.Control {
-
 		onAdd(map: L.mapbox.Map): any;
 		onRemove(map: L.mapbox.Map): any;
 
@@ -231,7 +222,6 @@ declare namespace L.mapbox {
 		 * Removes an info string from infoControl
 		 */
 		removeInfo(info: string): any;
-
 	}
 }
 
@@ -246,7 +236,6 @@ declare namespace L.mapbox {
 	function legendControl(options?: ControlOptions): LegendControl;
 
 	interface LegendControl extends L.Control {
-
 		onAdd(map: L.mapbox.Map): any;
 
 		/**
@@ -258,7 +247,6 @@ declare namespace L.mapbox {
 		 * Removes a legend from the legendControl.
 		 */
 		removeLegend(legend: string): any;
-
 	}
 }
 
@@ -401,7 +389,7 @@ declare namespace L.mapbox {
 //////////////////////////////////////////////////////////////////////
 
 declare namespace L.mapbox {
-	export class config {
+	class config {
 		static FORCE_HTTPS: boolean;
 
 		static HTTP_URLS: string[];

@@ -1,4 +1,3 @@
-
 // basic usage
 $(document).ready(() => {
     $('.date').mask('00/00/0000');
@@ -53,7 +52,7 @@ let options: jQueryMask.Options = {
         console.log('cep changed! ', cep);
     },
     onInvalid(val: Object, e: Event, f: JQuery, invalid: jQueryMask.Invalid[], options: jQueryMask.Options) {
-        var error = invalid[0];
+        const error = invalid[0];
         console.log("Digit: ", error.v, " is invalid for the position: ", error.p, ". We expect something like: ", error.e);
     }
 };

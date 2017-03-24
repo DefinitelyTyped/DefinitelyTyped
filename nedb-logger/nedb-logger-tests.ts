@@ -4,7 +4,6 @@
 
 /// <reference types="node" />
 
-
 import * as es6styleimport from 'nedb-logger';
 
 import nedblogger = require('nedb-logger');
@@ -12,17 +11,17 @@ import nedblogger = require('nedb-logger');
 // Type 1: Persistent datastore with manual loading
 
 import Datastore = require('nedb-logger');
-var db = new Datastore({ filename: 'path/to/datafile' });
+const db = new Datastore({ filename: 'path/to/datafile' });
 
-var doc: any = {
-    hello: 'world'
-    , n: 5
-    , today: new Date()
-    , nedbIsAwesome: true
-    , notthere: null
-    , notToBeSaved: undefined  // Will not be saved
-    , fruits: ['apple', 'orange', 'pear']
-    , infos: { name: 'nedb' }
+const doc: any = {
+    hello: 'world',
+    n: 5,
+    today: new Date(),
+    nedbIsAwesome: true,
+    notthere: null,
+    notToBeSaved: undefined,  // Will not be saved
+    fruits: ['apple', 'orange', 'pear'],
+    infos: { name: 'nedb' },
 };
 
 db.insert(doc, (err: Error, newDoc: any) => {   // Callback is optional

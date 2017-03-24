@@ -1,4 +1,4 @@
-import * as ltx from './index';
+import * as ltx from 'ltx';
 
 ltx.parse('<document/>');
 

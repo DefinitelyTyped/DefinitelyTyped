@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace contentDisposition {
-    export interface ContentDisposition {
+    interface ContentDisposition {
         type: string;
         parameters: any;
     }
 
-    export interface Options {
+    interface Options {
         type?: string;
         fallback?: string | boolean;
     }
 
-    export function parse(contentDispositionHeader: string): ContentDisposition;
+    function parse(contentDispositionHeader: string): ContentDisposition;
 }
 
 declare function contentDisposition(filename?: string, options?: contentDisposition.Options): string;

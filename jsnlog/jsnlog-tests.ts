@@ -1,16 +1,14 @@
-
-
 // ----------------------------------------------------------
 // JL
 
-var offLevel: number = JL.getOffLevel();
-var traceLevel: number = JL.getTraceLevel();
-var debugLevel: number = JL.getDebugLevel();
-var infoLevel: number = JL.getInfoLevel();
-var warnLevel: number = JL.getWarnLevel();
-var errorLevel: number = JL.getErrorLevel();
-var fatalLevel: number = JL.getFatalLevel();
-var allLevel: number = JL.getAllLevel();
+const offLevel: number = JL.getOffLevel();
+const traceLevel: number = JL.getTraceLevel();
+const debugLevel: number = JL.getDebugLevel();
+const infoLevel: number = JL.getInfoLevel();
+const warnLevel: number = JL.getWarnLevel();
+const errorLevel: number = JL.getErrorLevel();
+const fatalLevel: number = JL.getFatalLevel();
+const allLevel: number = JL.getAllLevel();
 
 JL.setOptions({
 		enabled: true,
@@ -25,12 +23,12 @@ JL.setOptions({
 // ----------------------------------------------------------
 // Exception
 
-var e = new JL.Exception("i is too small!");
+const e = new JL.Exception("i is too small!");
 
 // ----------------------------------------------------------
 // Ajax Appender
 
-var ajaxAppender1: JL.JSNLogAjaxAppender = JL.createAjaxAppender('ajaxAppender');
+const ajaxAppender1: JL.JSNLogAjaxAppender = JL.createAjaxAppender('ajaxAppender');
 
 ajaxAppender1.setOptions({
 		level: 5000,
@@ -48,7 +46,7 @@ ajaxAppender1.setOptions({
 // ----------------------------------------------------------
 // Console Appender
 
-var consoleAppender1: JL.JSNLogConsoleAppender = JL.createConsoleAppender('consoleAppender');
+const consoleAppender1: JL.JSNLogConsoleAppender = JL.createConsoleAppender('consoleAppender');
 
 consoleAppender1.setOptions({
 		level: 5000,
@@ -61,13 +59,12 @@ consoleAppender1.setOptions({
 		batchSize: 2
 });
 
-
 // ----------------------------------------------------------
 // Loggers
 
-var logger1: JL.JSNLogLogger = JL('mylogger');
+const logger1: JL.JSNLogLogger = JL('mylogger');
 
-var exception = {};
+const exception = {};
 
 logger1.trace('log message').debug({ x: 1, y: 2});
 logger1.info(() => 5);
@@ -85,4 +82,3 @@ logger1.setOptions({
 		appenders: [ ajaxAppender1, consoleAppender1 ],
 		onceOnly: [ 'regex1', 'regex2' ]
 });
-

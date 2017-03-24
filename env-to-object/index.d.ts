@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace env {
-    export interface Mappings {
+    interface Mappings {
         [enviromentVariableName: string]: Mapping;
     }
 
-    export type Mapping = IntegerMapping | BooleanMapping | GenericMapping;
+    type Mapping = IntegerMapping | BooleanMapping | GenericMapping;
 
     interface GenericMapping {
         keypath: string;
@@ -26,14 +26,14 @@ declare namespace env {
         strict: boolean;
     }
 
-    export interface Parsers {
+    interface Parsers {
         [parserName: string]: (str: string, opts: any) => any;
     }
 
-    export interface Options {
+    interface Options {
         parsers: Parsers;
     }
 }
 
-declare  function env(map: env.Mappings, options?: env.Options): any;
+declare function env(map: env.Mappings, options?: env.Options): any;
 export = env;

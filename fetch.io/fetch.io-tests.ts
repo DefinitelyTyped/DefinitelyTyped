@@ -1,60 +1,59 @@
+import Fetch from 'fetch.io';
 
-import Fetch from 'fetch.io'
-
-const request = new Fetch()
+const request = new Fetch();
 
 request
   .get('')
   .query({})
-  .json()
+  .json();
 
 request
   .delete('')
-  .json()
+  .json();
 
 request
   .head('')
-  .json()
+  .json();
 
 request
   .options('')
-  .json()
+  .json();
 
 request
   .put('')
-  .json()
+  .json();
 
 request
   .config('key', 'value')
-  .json()
+  .json();
 
 request
   .config({key: 'value'})
-  .json()
+  .json();
 
 request
   .config('set', 'value')
-  .json()
+  .json();
 
 request
   .set({key: 'value'})
-  .json()
+  .json();
 
 request
   .type('json')
-  .json()
+  .json();
 
 request
   .get('')
   .query({})
-  .text()
+  .text();
 
 request
   .get('')
   .query({})
-  .then(() => {})
+  .then(() => {});
 
 request
   .post('')
   .send({})
-  .json()
+  .json();

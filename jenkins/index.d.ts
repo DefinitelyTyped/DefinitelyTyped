@@ -65,7 +65,7 @@ declare namespace create {
         };
     }
 
-    export interface JenkinsPromisifiedAPI {
+    interface JenkinsPromisifiedAPI {
         info(): Promise<any>;
         build: {
             get(name: string, n: number): Promise<any>;

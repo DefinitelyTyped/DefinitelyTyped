@@ -122,7 +122,6 @@ const enterCircles = circles
     .style('stroke', d => d.color)
     .style('fill', d => d.color);
 
-
 const exitCircles = circles.exit<CircleDatum>(); // Note: need to re-type datum type, as the exit selection elements have the 'old data'
 
 // --------------------------------------------------------------------------
@@ -166,7 +165,6 @@ const duration: number = enterTransition.duration();
 enterTransition = enterTransition.delay(500); // settable and chainable
 const delay: number = enterTransition.delay();
 
-
 // ease() ---------------------------------------------------------------
 
 let easingFn: (normalizedTime: number) => number;
@@ -206,8 +204,6 @@ firstDivTransition = bodyTransition.select(function(d, i, g) {
     console.log('Body Datum foo', d.foo); // d is of type BodyDatum
     return this.querySelector('div')!; // 'this' type is HTMLElement, return type is HTMLDivElement
 });
-
-
 
 // selectAll() ---------------------------------------------------------------
 
@@ -323,7 +319,6 @@ select<HTMLBodyElement, { test: string }>('body')
     .transition().duration(100)
     .text(d => d.test); // selection datum type
 
-
 // test, when it is not certain, whether an element of the type to be selected exists
 
 let maybeG1: d3Transition.Transition<SVGCircleElement | null, any, SVGSVGElement, undefined>;
@@ -343,7 +338,6 @@ maybeG1 = selectAll<SVGSVGElement, any>('svg')
         } else {
             return null;
         }
-
     });
 
 // Tweening Function Use =====================================================
@@ -365,7 +359,6 @@ exitTransition = exitTransition.styleTween('fill', function(d, i, group) {
 });
 
 let tweenFnAccessor: undefined | ((this: SVGCircleElement, datum?: CircleDatum, i?: number, group?: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => ((t: number) => void));
-
 
 // chainable
 updateTransition = updateTransition.tween('fillColor', null); // remove named tween
@@ -407,7 +400,6 @@ exitTransition.remove();
 
 let listener: undefined | ((this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => void);
 
-
 enterTransition = enterTransition.on('end', function(d, i, g) {
     const that: SVGCircleElement = this;
     // const that2: HTMLElement  = this; // fails, type mismatch
@@ -432,7 +424,6 @@ enterTransition = enterTransition.on('end', null); // check chaining return type
 // --------------------------------------------------------------------------
 // Test Control Flow
 // --------------------------------------------------------------------------
-
 
 // each() -------------------------------------------------------------------------------
 
@@ -524,7 +515,3 @@ updateTransitionActive = d3Transition.active<SVGCircleElement, CircleDatum, SVGS
 
 d3Transition.interrupt(topTransition.selection().node());
 d3Transition.interrupt(topTransition.selection().node(), 'top');
-
-
-
-

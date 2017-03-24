@@ -147,7 +147,6 @@ svgArc = svgArc.padRadius(null);
 
 accessorArcDatumNumberOrNull = svgArc.padRadius();
 
-
 // use Arc(...) generator ============================================================
 
 // centroid(...) ---------------------------------------------------------------------
@@ -160,7 +159,6 @@ const centroid: [number, number] = svgArc.centroid(arcDatum);
 // use with canvas
 canvasArc(arcDefaultDatum);
 
-
 // use with svg
 
 const pArc: Selection<SVGPathElement, ArcDatum, any, any> = select<SVGPathElement, ArcDatum>('.arc-paths'); // mock
@@ -170,7 +168,6 @@ const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<
 pArc.attr('d', svgArc);
 // wrongArc1.attr('d', svgArc); // fails, incompatible this contexts
 // wrongArc2.attr('d', svgArc); // fails, incompatible datum types
-
 
 // pathStringMaybe = svgArc(arcDatum); // fails, wrong this type for invocation
 
@@ -230,11 +227,9 @@ interface PieDatum {
     name: string;
 }
 
-
 let accessorPieDatumNumber: (this: any, data: PieDatum[], ...args: any[]) => number;
 
 // PieArcDatum interface =============================================================
-
 
 const pieArcObject: d3Shape.PieArcDatum<PieDatum> = {
     data: {
@@ -279,7 +274,6 @@ pie = pie.value((d, i, data) => {
 });
 
 pieValueAccessor = pie.value();
-
 
 // sort(...) ---------------------------------------------------------------------------
 
@@ -332,7 +326,6 @@ defaultPie = defaultPie.padAngle(0.03);
 pie = pie.padAngle(d => {
     console.log(d.length > 0 ? d[0].val : 'no data'); // data type is Array<PieDatum>
     return 0.03;
-
 });
 accessorPieDatumNumber = pie.padAngle();
 
@@ -350,7 +343,6 @@ const pieData: PieDatum[] = [
 let pieChart: Array<d3Shape.PieArcDatum<PieDatum>>;
 
 pieChart = pie(pieData);
-
 
 // -----------------------------------------------------------------------------------
 // Test Line Generators
@@ -518,7 +510,6 @@ const radialLineData: RadialLineDatum[] = [
 ];
 
 const radialLinePathStringMaybe: string | null = radialLine(radialLineData);
-
 
 // -----------------------------------------------------------------------------------
 // Test Area Generators
@@ -808,7 +799,6 @@ areaRadialLineGenerator = radialArea.lineInnerRadius();
 areaRadialLineGenerator = radialArea.lineEndAngle();
 areaRadialLineGenerator = radialArea.lineOuterRadius();
 
-
 // -----------------------------------------------------------------------------------
 // Test Curve Factories
 // -----------------------------------------------------------------------------------
@@ -1002,7 +992,6 @@ pSymbol.attr('d', svgSymbol);
 // wrongSymbol1.attr('d', svgSymbol); // fails, incompatible this contexts
 // wrongSymbol2.attr('d', svgSymbol); // fails, incompatible datum types
 
-
 // pathStringMaybe = svgSymbol(symbolDatum); // fails, wrong this type for invocation
 
 // Use with custom object
@@ -1056,7 +1045,6 @@ const sym = new Symbolizer(100, 'square');
 pathStringMaybe = sym.getPathString();
 pathStringMaybe = sym.getPathString({ size: 10, type: 'circle' });
 
-
 // Test pre-fab symbols ===============================================================
 
 const symbolArray: d3Shape.SymbolType[] = d3Shape.symbols;
@@ -1099,7 +1087,6 @@ const stackData: StackDatum[] = [
     { values: { bananas: 12, apples: 10, oranges: 50 } }
 ];
 
-
 // Create stack generator ==========================================================
 
 let defaultStack: d3Shape.Stack<any, { [key: string]: number }, string>;
@@ -1109,7 +1096,6 @@ defaultStack = d3Shape.stack();
 let overlyComplicatedStack: d3Shape.Stack<any, StackDatum, StackKey>;
 
 overlyComplicatedStack = d3Shape.stack<StackDatum, StackKey>();
-
 
 // Configure stack generator =======================================================
 
@@ -1180,8 +1166,6 @@ num = series.index;
 num = seriesPoint[0];
 num = seriesPoint[1];
 seriesDatum = seriesPoint.data;
-
-
 
 // Test stack orders ===============================================================
 

@@ -19,7 +19,7 @@ declare module 'd3-selection' {
      * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
      * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
      */
-    export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+    interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         /**
          * Interrupts the active transition of the specified name on the selected elements, and cancels any pending transitions with the specified name, if any.
          * If a name is not specified, null is used.
@@ -88,7 +88,6 @@ export function interrupt(node: BaseType, name?: string): void;
  * The fourth generic "PDatum" refers to the type of the datum of the parent element(s) in the Transition.
  */
 export interface Transition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
-
     // Sub-selection -------------------------
 
     /**

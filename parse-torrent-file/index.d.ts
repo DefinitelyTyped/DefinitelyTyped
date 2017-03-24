@@ -5,10 +5,13 @@
 
 /// <reference types="node" />
 
-declare const ParseTorrentFile: ParseTorrentFile.ParseTorrentFile;
+declare function ParseTorrentFile(torrent: Buffer | ParseTorrentFile.Torrent): ParseTorrentFile.Instance;
 
 declare namespace ParseTorrentFile {
-    export interface TorrentInfo {
+    function decode(torrent: Buffer | Torrent): Instance;
+    function encode(parsed: Instance): Buffer;
+
+    interface TorrentInfo {
         'name.utf-8'?: string;
         name?: string;
         files?: File[];
@@ -17,7 +20,7 @@ declare namespace ParseTorrentFile {
         private?: boolean;
     }
 
-    export interface Torrent {
+    interface Torrent {
         info?: TorrentInfo;
         'creation date'?: number;
         'created by'?: string;
@@ -27,20 +30,14 @@ declare namespace ParseTorrentFile {
         'url-list'?: Buffer;
     }
 
-    export interface ParseTorrentFile {
-        (torrent: Buffer | Torrent): Instance;
-        decode(torrent: Buffer | Torrent): Instance;
-        encode(parsed: Instance): Buffer;
-    }
-
-    export interface ParsedFile {
+    interface ParsedFile {
         path: string;
         name: string;
         length: number;
         offset: number;
     }
 
-    export interface Instance extends Object {
+    interface Instance extends Object {
         info?: TorrentInfo;
         infoBuffer?: Buffer;
         infoHash?: string;

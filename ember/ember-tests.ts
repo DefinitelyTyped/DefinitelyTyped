@@ -1,4 +1,4 @@
-var App: any;
+let App: any;
 
 App = Em.Application.create<Em.Application>();
 
@@ -22,7 +22,7 @@ declare class MyPerson extends Em.Object {
     static createMan(): MyPerson;
 }
 
-var Person1 = Em.Object.extend<typeof MyPerson>({
+const Person1 = Em.Object.extend<typeof MyPerson>({
     say: (thing: string) => {
         alert(thing);
     }
@@ -31,7 +31,7 @@ var Person1 = Em.Object.extend<typeof MyPerson>({
 declare class MyPerson2 extends Em.Object {
     helloWorld(): void;
 }
-var tom = Person1.create<MyPerson2>({
+const tom = Person1.create<MyPerson2>({
     name: 'Tom Dale',
     helloWorld() {
         this.say('Hi my name is ' + this.get('name'));
@@ -48,10 +48,9 @@ Person1.reopenClass({
     }
 });
 // ReSharper disable once DuplicatingLocalDeclaration
-declare var Person1: typeof MyPerson;
 Person1.createMan().get('isMan');
 
-var person = Person1.create<Em.Object>({
+const person = Person1.create<Em.Object>({
     firstName: 'Yehuda',
     lastName: 'Katz'
 });
@@ -63,13 +62,13 @@ App.todosController = Em.Object.create({
         Em.Object.create({ isDone: false })
     ],
     remaining: (function() {
-        var todos = this.get('todos');
+        const todos = this.get('todos');
         return todos.filterProperty('isDone', false).get('length');
     }).property('todos.@each.isDone')
 });
 
-var todos = App.todosController.get('todos');
-var todo = todos.objectAt(0);
+const todos = App.todosController.get('todos');
+let todo = todos.objectAt(0);
 todo.set('isDone', true);
 App.todosController.get('remaining');
 todo = Em.Object.create({ isDone: false });
@@ -109,29 +108,29 @@ App.userController = Em.Object.create({
 Handlebars.registerHelper('highlight', (property: string, options: any) =>
     new Handlebars.SafeString('<span class="highlight">' + "some value" + '</span>'));
 
-var coolView = App.CoolView.create();
+const coolView = App.CoolView.create();
 
-var Person2 = Em.Object.extend<typeof Em.Object>({
+const Person2 = Em.Object.extend<typeof Em.Object>({
     sayHello() {
         console.log('Hello from ' + this.get('name'));
     }
 });
-var people = [
+const people = [
     Person2.create({ name: 'Juan' }),
     Person2.create({ name: 'Charles' }),
     Person2.create({ name: 'Majd' })
 ];
 people.invoke('sayHello');
 
-var arr = [Em.Object.create(), Em.Object.create()];
+const arr = [Em.Object.create(), Em.Object.create()];
 arr.setEach('name', 'unknown');
 arr.getEach('name');
 
-var Person3 = Em.Object.extend<typeof Em.Object>({
+const Person3 = Em.Object.extend<typeof Em.Object>({
     name: null,
     isHappy: false
 });
-var people2 = [
+const people2 = [
     Person3.create({ name: 'Yehuda', isHappy: true }),
     Person3.create({ name: 'Majd', isHappy: false })
 ];
@@ -145,7 +144,7 @@ people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-var promise = new Em.RSVP.Promise<string, string>((resolve: Function, reject: Function) => {
+const promise = new Em.RSVP.Promise<string, string>((resolve: Function, reject: Function) => {
   // on success
   resolve('ok!');
 
@@ -159,15 +158,15 @@ promise.then((value: any) => {
   // on rejection
 });
 
-var mix1 = Ember.Mixin.create({
+const mix1 = Ember.Mixin.create({
   foo: 1
 });
 
-var mix2 = Ember.Mixin.create({
+const mix2 = Ember.Mixin.create({
   bar: 2
 });
 
-var component1 = Ember.Component.extend( mix1, mix2, {
+const component1 = Ember.Component.extend( mix1, mix2, {
   lyft: Ember.inject.service(),
   cars: Ember.computed.readOnly('lyft.cars')
 });

@@ -1,12 +1,10 @@
-
 import Configstore = require('configstore');
-var cs = new Configstore('foo');
+const cs = new Configstore('foo');
 
-var value: any;
-var key: string;
-var num: number;
-var bool: any;
-var object: any;
+let value: any;
+let key: string;
+let num: number;
+let object: any;
 
 cs.set(key, value);
 value = cs.get(key);

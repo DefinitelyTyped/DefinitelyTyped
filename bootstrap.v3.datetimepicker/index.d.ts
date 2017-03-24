@@ -49,9 +49,9 @@ export interface Datetimepicker {
 	hide(): void;
 	/**Returns the components current options object.
 	 * Note that the changing the values of the returned object does not change the components actual configuration. */
-	options(): DatetimepickerOptions
+	options(): DatetimepickerOptions;
 	/**Takes an object variable with option key:value properties and configures the component. Use this to update multiple options on the component. */
-	options(options: DatetimepickerOptions): void
+	options(options: DatetimepickerOptions): void;
 	/**Shows the widget
 	 * Emits:
 	 * - dp.show - if the widget was hidden before that call
@@ -85,14 +85,14 @@ export interface Datetimepicker {
 	/**Returns the options.daysOfWeekDisabled configuration
 	 * IMPORTANT! Throws exception if not set explicitly https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1459
 	*/
-	daysOfWeekDisabled(): Array<number>;
+	daysOfWeekDisabled(): number[];
 	/**Takes an [ Number:0 to 6 ] and disallow the user to select weekdays that exist in this array.
 	 * This has lower priority over the options.minDate, options.maxDate, options.disabledDates and options.enabledDates configuration settings.
 	 * Emits:
 	 * - dp.change - if the currently selected moment falls in the values passed on the daysOfWeek parameter.
 	 * - dp.error - if the currently selected moment falls in the values passed on the daysOfWeek parameter.
 	 */
-	daysOfWeekDisabled(days: Array<number>): void;
+	daysOfWeekDisabled(days: number[]): void;
 	/**Returns the options.dayViewHeaderFormat option. */
 	dayViewHeaderFormat(): string;
 	/**Used to customize the header of the day view. */
@@ -117,22 +117,22 @@ export interface Datetimepicker {
 	 */
 	disabledDates(dates: boolean | Array<string | Date | moment.Moment>): void;
 	/**Returns the options.disabledHours option.
-	 * NOTES: probably should be: disabledHours(): boolean | Array<number>; see: DatetimepickerOptions
+	 * NOTES: probably should be: disabledHours(): boolean | number[]; see: DatetimepickerOptions
 	*/
 	disabledHours(): boolean | any;
 	/**Must be in 24 hour format. Will disallow hour selections (much like disabledTimeIntervals) but will affect all days.
 	 * Like en/disabledDates, the en/disabledHours options are mutually exclusive and will reset one of the options back to false. */
-	disabledHours(value: boolean | Array<number>): void;
+	disabledHours(value: boolean | number[]): void;
 	/**Returns the options.disabledTimeIntervals option, or... not exactly
 	 * IMPORTANT! Creates an object from the options.disabledTimeIntervals with the keys being numbers, the values being the moment arrays.
 	 * eg { "0": [<moment.Moment1>, <moment.Moment2>], "1": [...] }
 	 * https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1498
 	 */
-	disabledTimeIntervals(): boolean | Array<Array<moment.Moment>>;
+	disabledTimeIntervals(): boolean | moment.Moment[][];
 	/**Disables time selection between the given moments
 	 * eg: [[moment({ h: 0 }), moment({ h: 8 })], [moment({ h: 18 }), moment({ h: 24 })]]
 	 */
-	disabledTimeIntervals(value: boolean | Array<Array<moment.Moment>>): void;
+	disabledTimeIntervals(value: boolean | moment.Moment[][]): void;
 	/**Returns the options.enabledDates option
 	 * NOTES: probably should be: enabledDates(): boolean | Array<moment.Moment>; see: DatetimepickerOptions
 	*/
@@ -144,12 +144,12 @@ export interface Datetimepicker {
 	 */
 	enabledDates(dates: boolean | Array<string | Date | moment.Moment>): void;
 	/**Returns the options.enabledHours option.
-	 * NOTES: probably should be: enabledHours(): boolean | Array<number>; see: DatetimepickerOptions
+	 * NOTES: probably should be: enabledHours(): boolean | number[]; see: DatetimepickerOptions
 	*/
 	enabledHours(): boolean | any;
 	/**Must be in 24 hour format. Will allow hour selections (much like enabledTimeIntervals) but will affect all days.
 	 * Like en/disabledDates, the en/disabledHours options are mutually exclusive and will reset one of the options back to false. */
-	enabledHours(value: boolean | Array<number>): void;
+	enabledHours(value: boolean | number[]): void;
 	/**Returns a boolean or array with the options.extraFormats option configuration */
 	extraFormats(): boolean | Array<string | moment.MomentBuiltinFormat>;
 	/**Takes an array of valid input moment format options, or boolean:false */
@@ -303,7 +303,7 @@ export interface Datetimepicker {
 	 */
 	viewMode(value: string): void;
 	/**Returns a $(element) variable with the currently set options.widgetParent option. */
-	widgetParent(): string | JQuery | null
+	widgetParent(): string | JQuery | null;
 	/**Takes a string or $(element) value. */
 	widgetParent(widgetParent: string | JQuery | null): void;
 	/**Returns the options.widgetPositioning object */
@@ -332,7 +332,7 @@ export interface DatetimepickerOptions {
 	 * Accepts: array of numbers from 0-6
 	 * @default: false
 	 */
-    daysOfWeekDisabled?: Array<number> | boolean;
+    daysOfWeekDisabled?: number[] | boolean;
 	/**Changes the heading of the datepicker when in "days" view.
 	 * @default: "MMMM YYYY"
 	 */
@@ -358,12 +358,12 @@ export interface DatetimepickerOptions {
 	 * eg disabledHours = [0, 1]; -> disabledHours will be { "0": true, "1": true }
 	 * https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1499
 	 */
-	disabledHours?: boolean | Array<number> | any;
+	disabledHours?: boolean | number[] | any;
 	/**Disables time selection between the given moments
 	 * eg: [[moment({ h: 0 }), moment({ h: 8 })], [moment({ h: 18 }), moment({ h: 24 })]]
 	 * @default: false
 	 */
-	disabledTimeIntervals?: boolean | Array<Array<moment.Moment>>;
+	disabledTimeIntervals?: boolean | moment.Moment[][];
 	/**Disables selection of dates NOT in the array, e.g. holidays
 	 * @default: false
 	 * IMPORTANT! The getter returns an Object NOT an Array, with keys being the dates, values being true.
@@ -377,7 +377,7 @@ export interface DatetimepickerOptions {
 	 * eg enabledHours = [0, 1]; -> enabledHours will be { "0": true, "1": true }
 	 * https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1499
 	 */
-	enabledHours?: boolean | Array<number>;
+	enabledHours?: boolean | number[];
 	/**Allows for several input formats to be valid. See: https://github.com/Eonasdan/bootstrap-datetimepicker/pull/666
 	 * @default: false
 	 */
@@ -566,7 +566,6 @@ type EventName = "dp.show" | "dp.hide" | "dp.error";
 
 declare global {
 	interface JQuery {
-
 	    datetimepicker(options?: DatetimepickerOptions): JQuery;
 
 	    data(key: "DateTimePicker"): Datetimepicker;
@@ -575,21 +574,21 @@ declare global {
 	    on(events: "dp.change", selector: string, handler: (eventobject: ChangeEvent) => any): JQuery;
 	    on(events: "dp.change", selector: string, data: any, handler?: (eventobject: ChangeEvent) => any): JQuery;
 
-	    off(events: "dp.change", handler: (eventobject: ChangeEvent) => any): JQuery;
-	    off(events: "dp.change", selector?: string, handler?: (eventobject: ChangeEvent) => any): JQuery;
+	    on(events: "dp.update", handler: (eventObject: UpdateEvent) => any): JQuery;
+	    on(events: "dp.update", selector: string, handler: (eventobject: UpdateEvent) => any): JQuery;
+	    on(events: "dp.update", selector: string, data: any, handler?: (eventobject: UpdateEvent) => any): JQuery;
 
 	    on(events: EventName , handler: (eventObject: Event) => any): JQuery;
 	    on(events: EventName, selector: string, handler: (eventobject: Event) => any): JQuery;
 	    on(events: EventName, selector: string, data: any, handler?: (eventobject: Event) => any): JQuery;
 
-	    off(events: EventName, handler: (eventobject: Event) => any): JQuery;
-	    off(events: EventName, selector?: string, handler?: (eventobject: Event) => any): JQuery;
-
-	    on(events: "dp.update", handler: (eventObject: UpdateEvent) => any): JQuery;
-	    on(events: "dp.update", selector: string, handler: (eventobject: UpdateEvent) => any): JQuery;
-	    on(events: "dp.update", selector: string, data: any, handler?: (eventobject: UpdateEvent) => any): JQuery;
+	    off(events: "dp.change", handler: (eventobject: ChangeEvent) => any): JQuery;
+	    off(events: "dp.change", selector?: string, handler?: (eventobject: ChangeEvent) => any): JQuery;
 
 	    off(events: "dp.update", handler: (eventobject: UpdateEvent) => any): JQuery;
 	    off(events: "dp.update", selector?: string, handler?: (eventobject: UpdateEvent) => any): JQuery;
+
+	    off(events: EventName, handler: (eventobject: Event) => any): JQuery;
+	    off(events: EventName, selector?: string, handler?: (eventobject: Event) => any): JQuery;
 	}
 }
