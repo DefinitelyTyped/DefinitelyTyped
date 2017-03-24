@@ -916,3 +916,6 @@ declare namespace lunr
  * ```
  */
 declare function lunr(config:Function):lunr.Index;
+
+export = lunr;
+export as namespace lunr;
