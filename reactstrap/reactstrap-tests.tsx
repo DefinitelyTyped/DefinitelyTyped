@@ -78,7 +78,7 @@ import {
 
 
 //--------------- Alert
-const Examplea = (props:any) => {
+const Examplea = (props: any) => {
   return (
     <div>
       <Alert color="success">
@@ -98,7 +98,7 @@ const Examplea = (props:any) => {
 };
 
 class AlertExample extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -174,7 +174,7 @@ class Example4 extends React.Component<any, any> {
 }
 
 //------------- Breadcrumbs
-const Example5 = (props:any) => {
+const Example5 = (props: any) => {
   return (
     <div>
       <Breadcrumb>
@@ -193,7 +193,7 @@ const Example5 = (props:any) => {
   );
 };
 
-const Example6 = (props:any) => {
+const Example6 = (props: any) => {
   return (
     <div>
       <Breadcrumb tag="nav">
@@ -274,7 +274,7 @@ const Example13 = (
 )
 
 class Example14 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.state = { cSelected: [] };
@@ -322,7 +322,7 @@ class Example14 extends React.Component<any, any> {
 
 //------------- Button Dropdown
 class Example15 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -370,7 +370,7 @@ const Example16 = (
   </ButtonDropdown>
 )
 
-const Example17 = (props:any) => (
+const Example17 = (props: any) => (
   <ButtonDropdown isOpen={true} toggle={() => true}>
     <Button id="caret" color="primary">{props.text}</Button>
     <DropdownToggle caret color="primary" />
@@ -458,7 +458,7 @@ class Example21 extends React.Component<any, any> {
   }
 }
 
-const Example22 = (props:any) => (
+const Example22 = (props: any) => (
   <div>
     <ButtonGroup size="lg">
       <Button>Left</Button>
@@ -480,7 +480,7 @@ const Example22 = (props:any) => (
   </div>
 )
 
-const Example23 = (props:any) => (
+const Example23 = (props: any) => (
   <ButtonGroup>
     <Button>1</Button>
     <Button>2</Button>
@@ -497,7 +497,7 @@ const Example23 = (props:any) => (
 
 )
 
-const Example24 = (props:any) => (
+const Example24 = (props: any) => (
   <ButtonGroup vertical>
     <Button>1</Button>
     <Button>2</Button>
@@ -515,7 +515,7 @@ const Example24 = (props:any) => (
 
 
 //------------------ Cards
-const Example25 = (props:any) => {
+const Example25 = (props: any) => {
   return (
     <div>
       <Card>
@@ -531,7 +531,7 @@ const Example25 = (props:any) => {
   );
 };
 
-const Example26 = (props:any) => {
+const Example26 = (props: any) => {
   return (
     <div>
       <Card>
@@ -550,7 +550,7 @@ const Example26 = (props:any) => {
   );
 };
 
-const Example27 = (props:any) => {
+const Example27 = (props: any) => {
   return (
     <Row>
       <Col sm="6">
@@ -571,7 +571,7 @@ const Example27 = (props:any) => {
   );
 };
 
-const Example28 = (props:any) => {
+const Example28 = (props: any) => {
   return (
     <div>
       <Card block>
@@ -593,7 +593,7 @@ const Example28 = (props:any) => {
   );
 };
 
-const Example29 = (props:any) => {
+const Example29 = (props: any) => {
   return (
     <div>
       <Card>
@@ -619,7 +619,7 @@ const Example29 = (props:any) => {
   );
 };
 
-const Example30 = (props:any) => {
+const Example30 = (props: any) => {
   return (
     <div>
       <Card>
@@ -646,7 +646,7 @@ const Example30 = (props:any) => {
   );
 };
 
-const Example31 = (props:any) => {
+const Example31 = (props: any) => {
   return (
     <div>
       <Card inverse>
@@ -663,7 +663,7 @@ const Example31 = (props:any) => {
   );
 };
 
-const Example32 = (props:any) => {
+const Example32 = (props: any) => {
   return (
     <div>
       <Card block inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
@@ -700,7 +700,7 @@ const Example32 = (props:any) => {
   );
 };
 
-const Example33 = (props:any) => {
+const Example33 = (props: any) => {
   return (
     <div>
       <Card block outline color="secondary">
@@ -737,7 +737,7 @@ const Example33 = (props:any) => {
   );
 };
 
-const Example34 = (props:any) => {
+const Example34 = (props: any) => {
   return (
     <CardGroup>
       <Card>
@@ -763,7 +763,10 @@ const Example34 = (props:any) => {
         <CardBlock>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</CardText>
+          <CardText>
+            This is a wider card with supporting text below as a natural lead-in to additional content. This
+            card has even longer content than the first to show that equal height action.
+          </CardText>
           <Button>Button</Button>
         </CardBlock>
       </Card>
@@ -771,7 +774,7 @@ const Example34 = (props:any) => {
   );
 };
 
-const Example35 = (props:any) => {
+const Example35 = (props: any) => {
   return (
     <CardDeck>
       <Card>
@@ -797,7 +800,10 @@ const Example35 = (props:any) => {
         <CardBlock>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</CardText>
+          <CardText>
+              This is a wider card with supporting text below as a natural lead-in to additional content. This card has
+              even longer content than the first to show that equal height action.
+          </CardText>
           <Button>Button</Button>
         </CardBlock>
       </Card>
@@ -805,7 +811,7 @@ const Example35 = (props:any) => {
   );
 };
 
-const Example36 = (props:any) => {
+const Example36 = (props: any) => {
   return (
     <CardColumns>
       <Card>
@@ -834,11 +840,16 @@ const Example36 = (props:any) => {
         <Button>Button</Button>
       </Card>
       <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180" alt="Card image cap" />
+        <CardImg top width="100%"
+                 src="https://placeholdit.imgix.net/~text?txtsize=33&txt=256%C3%97180&w=256&h=180"
+                 alt="Card image cap" />
         <CardBlock>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</CardText>
+          <CardText>
+              This is a wider card with supporting text below as a natural lead-in to additional content. This card
+              has even longer content than the first to show that equal height action.
+          </CardText>
           <Button>Button</Button>
         </CardBlock>
       </Card>
@@ -855,7 +866,7 @@ const Example36 = (props:any) => {
 //------------------ Collapse
 
 class Example37 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = { collapse: false };
@@ -885,7 +896,7 @@ class Example37 extends React.Component<any, any> {
 }
 
 class Example38 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
     this.onOpened = this.onOpened.bind(this);
     this.onClosed = this.onClosed.bind(this);
@@ -930,7 +941,7 @@ class Example38 extends React.Component<any, any> {
 //------- Dropdown
 
 class Example39 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -963,7 +974,7 @@ class Example39 extends React.Component<any, any> {
   }
 }
 
-const Example40 = (props:any) => (
+const Example40 = (props: any) => (
   <Dropdown isOpen={false} toggle={() => false}>
     <DropdownToggle caret>
       Dropdown
@@ -978,11 +989,11 @@ const Example40 = (props:any) => (
   </Dropdown>
 )
 
-const Example41 = (props:any) => (
+const Example41 = (props: any) => (
   <DropdownItem header>Header</DropdownItem>
 )
 
-const Example42 = (props:any) => (
+const Example42 = (props: any) => (
   <div>
     <DropdownItem divider />
     <DropdownItem>Action</DropdownItem>
@@ -1006,7 +1017,7 @@ const Example42 = (props:any) => (
 )
 
 class Example43 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -1408,7 +1419,7 @@ class Example51 extends React.Component<any, any> {
   }
 }
 
-const Example52 = (props:any) => {
+const Example52 = (props: any) => {
   return (
     <div>
       <InputGroup>
@@ -1445,7 +1456,7 @@ const Example52 = (props:any) => {
   );
 };
 
-const Example53 = (props:any) => {
+const Example53 = (props: any) => {
   return (
     <div>
       <InputGroup>
@@ -1467,7 +1478,7 @@ const Example53 = (props:any) => {
   );
 }
 
-const Example54 = (props:any) => {
+const Example54 = (props: any) => {
   return (
     <div>
       <InputGroup size="lg">
@@ -1488,7 +1499,7 @@ const Example54 = (props:any) => {
   );
 };
 
-const Example55 = (props:any) => {
+const Example55 = (props: any) => {
   return (
     <div>
       <InputGroup>
@@ -1510,7 +1521,7 @@ const Example55 = (props:any) => {
   );
 };
 
-const Example56 = (props:any) => {
+const Example56 = (props: any) => {
   return (
     <div>
       <InputGroup size="lg">
@@ -1531,7 +1542,7 @@ const Example56 = (props:any) => {
   );
 };
 
-const Example57 = (props:any) => {
+const Example57 = (props: any) => {
   return (
     <div>
       <InputGroup>
@@ -1553,7 +1564,7 @@ const Example57 = (props:any) => {
   );
 };
 
-const Example58 = (props:any) => {
+const Example58 = (props: any) => {
   return (
     <div>
       <InputGroup>
@@ -1575,7 +1586,7 @@ const Example58 = (props:any) => {
   );
 };
 
-const Example59 = (props:any) => {
+const Example59 = (props: any) => {
   return (
     <div>
       <Jumbotron>
@@ -1592,7 +1603,7 @@ const Example59 = (props:any) => {
 };
 
 
-const Example60 = (props:any) => {
+const Example60 = (props: any) => {
   return (
     <div>
       <Jumbotron fluid>
@@ -1765,7 +1776,9 @@ const Example68 = () => {
         <Media heading>
           Media heading
         </Media>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus
+        odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
+        Donec lacinia congue felis in faucibus.
       </Media>
     </Media>
   );
@@ -1781,7 +1794,9 @@ const Example69 = () => {
         <Media heading>
           Media heading
         </Media>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus
+        odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
+        Donec lacinia congue felis in faucibus.
         <Media>
           <Media left href="#">
             <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
@@ -1790,7 +1805,9 @@ const Example69 = () => {
             <Media heading>
               Nested media heading
             </Media>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+            fringilla. Donec lacinia congue felis in faucibus.
           </Media>
         </Media>
       </Media>
@@ -1809,7 +1826,9 @@ const Example70 = () => {
           <Media heading>
             Top aligned media
           </Media>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+          purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+          fringilla. Donec lacinia congue felis in faucibus.
         </Media>
       </Media>
       <Media className="mt-1">
@@ -1820,7 +1839,9 @@ const Example70 = () => {
           <Media heading>
             Middle aligned media
           </Media>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+          purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+          fringilla. Donec lacinia congue felis in faucibus.
         </Media>
       </Media>
       <Media className="mt-1">
@@ -1831,7 +1852,9 @@ const Example70 = () => {
           <Media heading>
             Bottom aligned media
           </Media>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+          purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+          fringilla. Donec lacinia congue felis in faucibus.
         </Media>
       </Media>
     </div>
@@ -1849,7 +1872,9 @@ const Example71 = () => {
           <Media heading>
             Media heading
           </Media>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+          purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+          fringilla. Donec lacinia congue felis in faucibus.
           <Media>
             <Media left href="#">
               <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
@@ -1858,7 +1883,9 @@ const Example71 = () => {
               <Media heading>
                 Nested media heading
               </Media>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+              Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+              vulputate fringilla. Donec lacinia congue felis in faucibus.
               <Media>
                 <Media left href="#">
                   <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
@@ -1867,7 +1894,9 @@ const Example71 = () => {
                   <Media heading>
                     Nested media heading
                   </Media>
-                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+                  Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
+                  vulputate fringilla. Donec lacinia congue felis in faucibus.
                 </Media>
               </Media>
             </Media>
@@ -1880,7 +1909,9 @@ const Example71 = () => {
               <Media heading>
                 Nested media heading
               </Media>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+              purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+              fringilla. Donec lacinia congue felis in faucibus.
             </Media>
           </Media>
         </Media>
@@ -1890,7 +1921,9 @@ const Example71 = () => {
           <Media heading>
             Media heading
           </Media>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+          purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+          fringilla. Donec lacinia congue felis in faucibus.
         </Media>
         <Media right href="#">
           <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
@@ -1903,7 +1936,7 @@ const Example71 = () => {
 
 //--------------- Modal
 class ModalExample72 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
     this.state = {
       modal: false
@@ -1925,7 +1958,11 @@ class ModalExample72 extends React.Component<any, any> {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
@@ -1938,7 +1975,7 @@ class ModalExample72 extends React.Component<any, any> {
 }
 
 class ModalExample73 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
     this.state = {
       modal: false,
@@ -1955,7 +1992,7 @@ class ModalExample73 extends React.Component<any, any> {
     });
   }
 
-  changeBackdrop(e:React.ChangeEvent<HTMLInputElement>) {
+  changeBackdrop(e: React.ChangeEvent<HTMLInputElement>) {
     let value = e.target.value;
     if (value !== 'static') {
       value = JSON.parse(value);
@@ -1981,7 +2018,11 @@ class ModalExample73 extends React.Component<any, any> {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum.
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
@@ -1994,7 +2035,7 @@ class ModalExample73 extends React.Component<any, any> {
 }
 
 class ModalExample74 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
     this.state = {
       modal: false,
@@ -2024,7 +2065,11 @@ class ModalExample74 extends React.Component<any, any> {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum.
             <br />
             <Button color="success" onClick={this.toggleNested}>Show Nested Model</Button>
             <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested}>
@@ -2047,7 +2092,7 @@ class ModalExample74 extends React.Component<any, any> {
 }
 
 class Example75 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -2083,7 +2128,7 @@ class Example75 extends React.Component<any, any> {
 }
 
 class Example76 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
@@ -2178,7 +2223,7 @@ class Example78 extends React.Component<any, any> {
 }
 
 class Example79 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -2228,7 +2273,7 @@ class Example79 extends React.Component<any, any> {
 }
 
 class Example80 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -2423,7 +2468,7 @@ class Example84 extends React.Component<any, any> {
 
 //------------------------- Popover
 class Example85 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -2454,7 +2499,7 @@ class Example85 extends React.Component<any, any> {
 }
 
 class PopoverItem extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -2484,8 +2529,8 @@ class PopoverItem extends React.Component<any, any> {
   }
 }
 
-class PopoverExampleMulti extends React.Component<any, {popovers:{placement:string; text: string;}[]}> {
-  constructor(props:any) {
+class PopoverExampleMulti extends React.Component<any, {popovers: {placement: string; text: string; }[]}> {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -2524,7 +2569,7 @@ class PopoverExampleMulti extends React.Component<any, {popovers:{placement:stri
 
 //------------------------- Progress
 
-const Example86 = (props:any) => {
+const Example86 = (props: any) => {
   return (
     <div>
       <div className="text-center">0%</div>
@@ -2549,7 +2594,7 @@ const Example86 = (props:any) => {
   );
 };
 
-const Example87 = (props:any) => {
+const Example87 = (props: any) => {
   return (
     <div>
       <Progress value={2 * 5} />
@@ -2561,7 +2606,7 @@ const Example87 = (props:any) => {
   );
 };
 
-const Example88 = (props:any) => {
+const Example88 = (props: any) => {
   return (
     <div>
       <Progress value="25">25%</Progress>
@@ -2579,7 +2624,7 @@ const Example88 = (props:any) => {
   );
 };
 
-const Example89 = (props:any) => {
+const Example89 = (props: any) => {
   return (
     <div>
       <Progress striped value={2 * 5} />
@@ -2597,7 +2642,7 @@ const Example89 = (props:any) => {
   );
 };
 
-const Example90 = (props:any) => {
+const Example90 = (props: any) => {
   return (
     <div>
       <Progress animated value={2 * 5} />
@@ -2615,7 +2660,7 @@ const Example90 = (props:any) => {
   );
 };
 
-const Example91 = (props:any) => {
+const Example91 = (props: any) => {
   return (
     <div>
       <div className="text-center">Plain</div>
@@ -2643,7 +2688,7 @@ const Example91 = (props:any) => {
   );
 };
 
-const Example92 = (props:any) => {
+const Example92 = (props: any) => {
   return (
     <div>
       <div className="text-center">1 of 5</div>
@@ -2989,7 +3034,7 @@ class Example100 extends React.Component<any, any> {
 }
 
 class Example101 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -2998,7 +3043,7 @@ class Example101 extends React.Component<any, any> {
     };
   }
 
-  toggle(tab:string) {
+  toggle(tab: string) {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
@@ -3060,7 +3105,7 @@ class Example101 extends React.Component<any, any> {
 
 
 class Example102 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -3089,7 +3134,7 @@ class Example102 extends React.Component<any, any> {
 
 
 class Example103 extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -3117,7 +3162,7 @@ class Example103 extends React.Component<any, any> {
 }
 
 class TooltipItem extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -3147,7 +3192,7 @@ class TooltipItem extends React.Component<any, any> {
 }
 
 class TooltipExampleMulti extends React.Component<any, any> {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -3175,7 +3220,7 @@ class TooltipExampleMulti extends React.Component<any, any> {
   render() {
     return (
       <div>
-        {this.state.tooltips.map((tooltip:{placement:string; text:string;}, i:number) => {
+        {this.state.tooltips.map((tooltip: {placement: string; text: string; }, i: number) => {
           return <TooltipItem key={i} item={tooltip} id={i} />;
         })}
       </div>
