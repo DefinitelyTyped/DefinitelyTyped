@@ -6,7 +6,7 @@
 /// <reference types="datatables.net"/>
 
 declare namespace DataTables {
-    export interface Settings {
+    interface Settings {
         /*
          * Select extension options
          */

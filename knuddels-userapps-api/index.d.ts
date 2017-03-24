@@ -7,21 +7,25 @@
 interface Json {
 	[x: string]: string | number | boolean | Date | Json | JsonArray;
 }
+// tslint:disable-next-line no-empty-interface
 interface JsonArray extends Array<string | number | boolean | Date | Json | JsonArray> { }
 // serializable objects (for persistence)
 type KnuddelsSerializable = string | number | boolean | User | BotUser;
 interface KnuddelsJson {
 	[x: string]: string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable;
 }
+// tslint:disable-next-line no-empty-interface
 interface KnuddelsJsonArray extends Array<string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable> { }
 // "data" that may be send between apps and between server and client
 type KnuddelsEvent = string | Json | KnuddelsEventArray;
+// tslint:disable-next-line no-empty-interface
 interface KnuddelsEventArray extends Array<string | KnuddelsEvent | KnuddelsEventArray> { }
+
 /**
  * App ist die abstrakte Klasse einer konkreten App, die ein Entwickler schreiben kann.
  * Im eigenen Javascript-Code muss eine Variable mit dem Namen <em>App</em> vorhanden sein, damit eine App lauffähig ist.
  */
-declare interface App {
+interface App {
 	/**
 	 * Dieses Methode wird aufgerufen, sobald ein Nutzer versucht den Channel zu betreten.
 	 * Die App kann nun entscheiden, ob der Nutzer den Channel betreten darf.
@@ -533,9 +537,15 @@ declare class BotUser extends User {
 	 * Hat ein Channelbesitzer eine gewisse Menge Schulden angesammelt, so schalten wir alle Apps in diesem Channel ab.
 	 * <br />Es können nur Knuddel transferiert werden zu Nutzern mit <code>UserType.Human</code>.
 	 */
-	transferKnuddel(receivingUserOrAccount: (User|KnuddelAccount), knuddelAmount: KnuddelAmount,
-					parameters?: { displayReasonText?: string; transferDisplayType?: KnuddelTransferDisplayType;
-	onSuccess?: () => void; onError?: (message: string) => void; }): void;
+	transferKnuddel(
+		receivingUserOrAccount: User | KnuddelAccount,
+		knuddelAmount: KnuddelAmount,
+		parameters?: {
+			displayReasonText?: string;
+			transferDisplayType?: KnuddelTransferDisplayType;
+			onSuccess?: () => void;
+			onError?: (message: string) => void;
+		}): void;
 }
 
 /**
@@ -869,8 +879,8 @@ declare class Client {
 /**
  * Klasse, mit der clientseitige Farbobjekte erstellt werden können.
  */
-declare module Client {
-	export class Color {
+declare namespace Client {
+	class Color {
 		/**
 		 * Erzeugt ein Color-Objekt mit RGB-Werten.
 		 */
@@ -901,8 +911,8 @@ declare module Client {
 /**
  * Klasse, die es ermöglicht ein Event via Client/dispatchEvent:method zu versenden.
  */
-declare module Client {
-	export class Event {
+declare namespace Client {
+	class Event {
 		/**
 		 * Erzeugt ein Event.
 		 */
@@ -913,8 +923,8 @@ declare module Client {
 /**
  * Klasse, die es ermöglicht den Inhalte zu steuern, die im Bereich liegen, der das HTML User Interface hostet.
  */
-declare module Client {
-	export class HostFrame {
+declare namespace Client {
+	class HostFrame {
 		/**
 		 * Setzt den Titel der Seite im gezoomten Modus (nur Android).
 		 */
@@ -1960,7 +1970,7 @@ declare class SingleDiceResult {
 /**
  * Diese Dokumentation beschreibt, welche Erweiterungen am <b>serverseitigen String-Objekt</b> vorgenommen wurden.
  */
-declare interface String {
+interface String {
 	/**
 	 * Die Methode liefert den <code>String</code> zurück, auf dem sie aufgerufen wurde mit KCode escaped.
 	 */
@@ -2454,8 +2464,9 @@ declare class UserAccess {
 	 * Loopt über alle zugreifbaren User sortiert nach Registrierzeitpunkt und
 	 * führt für jeden User das übergebene Callback aus.
 	 */
-	eachAccessibleUser(callback: (user: User, index: number, accessibleUserCount: number, key?: string) => boolean,
-					   parameters?: { onStart?: (accessibleUserCount: number, key?: string) => void;
+	eachAccessibleUser(
+		callback: (user: User, index: number, accessibleUserCount: number, key?: string) => boolean,
+		parameters?: { onStart?: (accessibleUserCount: number, key?: string) => void;
 	onEnd?: (accessibleUserCount: number, key?: string) => void; }): void;
 }
 
@@ -2570,9 +2581,17 @@ declare class UserPersistenceNumbers {
 	 * Ruft eine Funktion für alle Nutzer auf, die einen bestimmten <code>key</code> in der <code>UserPersistence</code> gesetzt haben.
 	 * Hierbei greifen die übergebenen Filter.
 	 */
-	static each(key: string, callback: { user: User; value: number; index: number; totalCount: number; key: string; },
-				parameters?: { ascending?: boolean; minimumValue?: number; maximumValue?: number; maximumCount?: number;
-	onStart?: (totalCount: number, key: string) => void; onEnd?: (totalCount: number, key: string) => void; }): void;
+	static each(
+		key: string,
+		callback: { user: User; value: number; index: number; totalCount: number; key: string; },
+		parameters?: {
+			ascending?: boolean;
+			minimumValue?: number;
+			maximumValue?: number;
+			maximumCount?: number;
+			onStart?: (totalCount: number, key: string) => void;
+			onEnd?: (totalCount: number, key: string) => void;
+		}): void;
 	/**
 	 * Liefert alle keys, die für User in der Persistence
 	 * gespeichert wurden.
@@ -2689,4 +2708,3 @@ declare class VideoChannelData {
 	 */
 	getStreamingVideoUsers(): User[];
 }
-

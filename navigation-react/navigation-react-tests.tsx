@@ -2,13 +2,13 @@ import { StateNavigator } from 'navigation';
 import { NavigationBackLink, NavigationLink, RefreshLink } from 'navigation-react';
 import * as React from 'react';
 
-var stateNavigator = new StateNavigator([
+const stateNavigator = new StateNavigator([
     { key: 'people', route: 'people/{page}' },
     { key: 'person', route: 'person/{id}', trackCrumbTrail: true }
 ]);
 
 // Refresh Link
-var RefreshLinkTest = () => <RefreshLink>People</RefreshLink>;
+let RefreshLinkTest = () => <RefreshLink>People</RefreshLink>;
 
 RefreshLinkTest = () => {
     return (
@@ -30,7 +30,7 @@ RefreshLinkTest = () => {
 };
 
 // Navigation Link
-var NavigationLinkTest = () => <NavigationLink stateKey="person">Person</NavigationLink>;
+let NavigationLinkTest = () => <NavigationLink stateKey="person">Person</NavigationLink>;
 
 NavigationLinkTest = () => {
     return (
@@ -53,7 +53,7 @@ NavigationLinkTest = () => {
 };
 
 // Navigation Back Link
-var NavigationBackLinkTest = () => <NavigationBackLink distance={1}>People</NavigationBackLink>;
+let NavigationBackLinkTest = () => <NavigationBackLink distance={1}>People</NavigationBackLink>;
 
 NavigationBackLinkTest = () => {
     return (

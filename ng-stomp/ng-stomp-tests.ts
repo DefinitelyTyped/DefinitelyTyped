@@ -7,8 +7,8 @@ class test {
 
 		ngstomp.connect('/endpoint', connectHeaders)
 		// frame = CONNECTED headers
-		.then(function (frame) {
-			this.subscription = ngstomp.subscribe('/dest', function (payload, headers, res) {
+		.then(function(frame) {
+			this.subscription = ngstomp.subscribe('/dest', function(payload, headers, res) {
 				this.payload = payload;
 			}, {
 				headers: "are awesome"
@@ -22,7 +22,7 @@ class test {
 				message: 'body'
 			}, {
 				priority: 9,
-				custom: 42 //Custom Headers
+				custom: 42 // Custom Headers
 			});
 
 			// Disconnect

@@ -4,25 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace geolib {
-    export interface PositionAsDecimal {
+    interface PositionAsDecimal {
         latitude: number;
         longitude: number;
     }
 
-    export interface PositionAsSexadecimal {
+    interface PositionAsSexadecimal {
         latitude: string;
         longitude: string;
     }
 
-    export interface PositionWithElevation extends PositionAsDecimal {
+    interface PositionWithElevation extends PositionAsDecimal {
         elevation?: number;
     }
 
-    export interface PositionInTime extends PositionAsDecimal {
+    interface PositionInTime extends PositionAsDecimal {
         time: number;
     }
 
-    export interface Bound {
+    interface Bound {
         minLat: number;
         maxLat: number;
         minLng: number;
@@ -31,19 +31,19 @@ declare namespace geolib {
         maxElev?: number;
     }
 
-    export interface CompassDirection {
+    interface CompassDirection {
         rough: string;
         exact: string;
     }
 
-    export interface Distance {
+    interface Distance {
         latitude: number;
         longitude: number;
         distance: number;
         key: string;
     }
 
-    export interface SpeedOption {
+    interface SpeedOption {
         unit: string;
     }
 
@@ -60,12 +60,10 @@ declare namespace geolib {
      */
     function getDistanceSimple(start: PositionAsDecimal|PositionAsSexadecimal, end: PositionAsDecimal|PositionAsSexadecimal, accuracy?: number): number;
 
-
     /** Calculates the geographical center of all points in a collection of geo coordinates
      * Takes an object or array of coordinates and calculates the center of it.
      */
     function getCenter(coords: PositionAsDecimal[]): PositionAsDecimal;
-
 
     /** Calculates the center of the bounds of geo coordinates. Takes an array of coordinates,
      * calculate the border of those, and gives back the center of that rectangle. On polygons
@@ -76,13 +74,11 @@ declare namespace geolib {
      */
     function getCenterOfBounds(coords: PositionAsDecimal[]): PositionAsDecimal;
 
-
     /** Calculates the bounds of geo coordinates.
      *
      * Returns maximum and minimum, latitude, longitude, and elevation (if provided) in form of an object
      */
     function getBounds(coords: PositionWithElevation[]): Bound;
-
 
     /** Checks whether a point is inside of a polygon or not. Note: the polygon coords must be in correct order!
      *
@@ -90,13 +86,11 @@ declare namespace geolib {
      */
     function isPointInside(latlng: PositionAsDecimal, polygon: PositionAsDecimal[]): boolean;
 
-
     /** Similar to is point inside: checks whether a point is inside of a circle or not.
      *
      * Returns true or false
      */
     function isPointInCircle(latlng: PositionAsDecimal, center: PositionAsDecimal, radius: number): boolean;
-
 
     /** Gets rhumb line bearing of two points. Find out about the difference between rhumb line and great circle bearing on Wikipedia.
      * Rhumb line should be fine in most cases: http://en.wikipedia.org/wiki/Rhumb_line#General_and_mathematical_description Function
@@ -107,13 +101,11 @@ declare namespace geolib {
      */
     function getRhumbLineBearing(originLL: PositionAsDecimal, destLL: PositionAsDecimal): number;
 
-
     /** Gets great circle bearing of two points. See description of getRhumbLineBearing for more information.
      *
      * Returns calculated bearing as integer
      */
     function getBearing(originLL: PositionAsDecimal, destLL: PositionAsDecimal): number;
-
 
     /** Gets the compass direction from an origin coordinate (originLL) to a destination coordinate (destLL).
      * Bearing mode. Can be either circle or rhumbline (default).
@@ -122,14 +114,11 @@ declare namespace geolib {
      */
     function getCompassDirection(originLL: PositionAsDecimal, destLL: PositionAsDecimal, bearingMode?: string): CompassDirection;
 
-
     /** Sorts an object or array of coords by distance from a reference coordinate */
     function orderByDistance(latlng: PositionAsDecimal, coords: PositionAsDecimal[]): Distance[];
 
-
     /** Finds the nearest coordinate to a reference coordinate. */
     function findNearest(latlng: PositionAsDecimal, coords: PositionAsDecimal[], offset?: number, limit?: number): Distance[];
-
 
     /** Calculates the length of a collection of coordinates.
      *
@@ -142,10 +131,8 @@ declare namespace geolib {
      */
     function getSpeed(coords: PositionInTime[], option?: SpeedOption): number;
 
-
     /** Calculates if given point lies in a line formed by start and end */
     function isPointInLine(point: PositionAsDecimal, start: PositionAsDecimal, end: PositionAsDecimal): boolean;
-
 
     /** Converts a given distance (in meters) to another unit.
      * distance distance to be converted (source must be in meter). unit can be one of:
@@ -161,10 +148,8 @@ declare namespace geolib {
      */
     function convertUnit(unit: string, distance: number, round?: number): number;
 
-
     /** Converts a sexagesimal coordinate to decimal format */
     function sexagesimal2decimal(coord: string): number;
-
 
     /** Converts a decimal coordinate to sexagesimal format */
     function decimal2sexagesimal(coord: number): string;
@@ -184,10 +169,8 @@ declare namespace geolib {
      */
     function elevation(latlng: any): number;
 
-
     /** Checks if a coordinate is already in decimal format and, if not, converts it to */
     function useDecimal(latlng: string|number): number;
-
 
     /** Computes the destination point given an initial point, a distance (in meters) and a bearing (in degrees).
      * If no radius is given it defaults to the mean earth radius of 6371000 meter.

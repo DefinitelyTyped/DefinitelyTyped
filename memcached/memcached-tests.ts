@@ -22,7 +22,7 @@ namespace main {
             throw new Error();
         }
     };
-    function isFunction(expected?: (...args : any[]) => void): void {
+    function isFunction(expected?: (...args: any[]) => void): void {
         if (expected !== undefined && typeof expected !== 'function') {
             throw new Error();
         }
@@ -186,8 +186,8 @@ namespace main {
             });
         }))
         ;
-
     }
+
     namespace test_replace {
         const promises = [];
         const key = 'replacekey';
@@ -366,7 +366,7 @@ namespace main {
         });
     }
     namespace test_stats {
-        memcached.stats((err : any, data: Memcached.StatusData[]) => {
+        memcached.stats((err: any, data: Memcached.StatusData[]) => {
             isArray(data);
             for (const stat of data) {
                 isString(stat.server);
@@ -374,7 +374,7 @@ namespace main {
         });
     };
     namespace test_settings {
-        memcached.settings((err : any, data: Memcached.StatusData[]) => {
+        memcached.settings((err: any, data: Memcached.StatusData[]) => {
             isArray(data);
             for (const setting of data) {
                 isString(setting.server);
@@ -382,7 +382,7 @@ namespace main {
         });
     };
     namespace test_slabs {
-        memcached.slabs((err : any, data: Memcached.StatusData[]) => {
+        memcached.slabs((err: any, data: Memcached.StatusData[]) => {
             isArray(data);
             for (const setting of data) {
                 isString(setting.server);

@@ -274,7 +274,6 @@ export interface GeoRotation {
  */
 export function geoRotation(angles: [number, number] | [number, number, number]): GeoRotation;
 
-
 // ----------------------------------------------------------------------
 // Spherical Shapes
 // ----------------------------------------------------------------------
@@ -535,8 +534,6 @@ export interface GeoStream {
     sphere?(): void;
 }
 
-
-
 // geoStream(...) =======================================================
 
 /**
@@ -575,14 +572,9 @@ export function geoStream(object: GeoGeometryObjects, stream: GeoStream): void;
  */
 export function geoStream(object: ExtendedGeometryCollection<GeoGeometryObjects>, stream: GeoStream): void;
 
-
-
 // ----------------------------------------------------------------------
 // Projections
 // ----------------------------------------------------------------------
-
-
-
 
 /**
  * Raw projections are point transformation functions that are used to implement custom projections; they typically passed to d3.geoProjection or d3.geoProjectionMutator.
@@ -737,7 +729,6 @@ export interface GeoProjection extends GeoStreamWrapper {
     */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
 
-
     /**
      * Sets the projection’s scale and translate to fit the specified geographic feature in the center of an extent with the given size and top-left corner of [0, 0].
      * Returns the projection.
@@ -845,7 +836,6 @@ export interface GeoProjection extends GeoStreamWrapper {
  * A Conic Projection
  */
 export interface GeoConicProjection extends GeoProjection {
-
     /**
      * Return the standard parallels for the conic projection in degrees.
      */
@@ -856,9 +846,7 @@ export interface GeoConicProjection extends GeoProjection {
      * @param value A two-dimensional array representing the standard parallels in degrees.
      */
     parallels(value: [number, number]): this;
-
 }
-
 
 // geoPath ==============================================================
 
@@ -869,7 +857,6 @@ export interface GeoConicProjection extends GeoProjection {
  * For reference to the CanvasRenderingContext2D see https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D
  */
 export interface GeoContext {
-
     /**
      * Adds an arc to the path with center point (x, y) and radius r starting at startAngle and ending at endAngle.
      * The arc is drawn in clockwise directio by default.
@@ -921,7 +908,6 @@ export interface GeoContext {
  * The second generic corresponds to the type of the DatumObject which will be passed into the geo path generator for rendering.
  */
 export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
-
     /**
      * Renders the given object, which may be any GeoJSON feature or geometry object:
      *
@@ -1084,7 +1070,6 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      * It is passed the object to be rendered, and any additional arguments which have been passed into the call to the render function of the path generator.
      */
     pointRadius(value: (this: This, object: DatumObject, ...args: any[]) => number): this;
-
 }
 
 /**
@@ -1142,9 +1127,6 @@ export function geoPath<DatumObject extends GeoPermissibleObjects>(projection?: 
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
 export function geoPath<This, DatumObject extends GeoPermissibleObjects>(projection?: GeoProjection | GeoStreamWrapper | null, context?: GeoContext | null): GeoPath<This, DatumObject>;
-
-
-
 
 // geoProjection ==========================================================
 
@@ -1366,7 +1348,6 @@ export function geoTransform<T extends GeoTransformPrototype>(methods: T): { str
  * Geo Identity Transform
  */
 export interface GeoIdentityTranform extends GeoStreamWrapper {
-
     /**
      * Returns the current viewport clip extent which defaults to null.
      */
@@ -1430,7 +1411,6 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
     * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
     */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
-
 
     /**
      * Sets the projection’s scale and translate to fit the specified geographic feature in the center of an extent with the given size and top-left corner of [0, 0].

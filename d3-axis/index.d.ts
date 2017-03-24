@@ -11,7 +11,6 @@ import { Selection, TransitionLike } from 'd3-selection';
 // Shared Types and Interfaces
 // --------------------------------------------------------------------------
 
-
 /**
  * A helper interface to describe the minimal contract to be met by a time interval
  * which can be passed into the Axis.ticks(...) or Axis.tickArguments(...) methods when
@@ -171,7 +170,6 @@ export interface Axis<Domain> {
      */
     tickValues(values: null): this;
 
-
     /**
      * Returns the currently set tick format function, which defaults to null.
      */
@@ -258,7 +256,6 @@ export interface Axis<Domain> {
      * @param padding Padding in pixels  (Default is 3).
      */
     tickPadding(padding: number): this;
-
 }
 
 /**

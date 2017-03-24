@@ -7,21 +7,21 @@
 declare const JsonFileStore: JsonFileStore.JsonFileStore;
 
 declare namespace JsonFileStore {
-    export interface Storable {
+    interface Storable {
         [key: string]: any;
     }
 
-    export interface Options {
+    interface Options {
         type?: 'single' | 'memory';
         pretty?: boolean;
         saveId?: boolean | string;
     }
 
-    export interface JsonFileStore {
+    interface JsonFileStore {
         new <T extends Storable>(name?: string, opts?: Options): Instance<T>;
     }
 
-    export interface Instance<T> {
+    interface Instance<T> {
         save<K extends keyof T, V extends T[K]>(id: K, o: V, cb?: (err?: Error, id?: K) => void): void;
         save<V extends T[keyof T]>(o: V, cb?: (err?: Error, id?: string) => void): void;
 

@@ -3,14 +3,14 @@ import DSHttpAdapter = require("js-data-http");
 
 declare var axios: any;
 
-var adapter = new DSHttpAdapter();
-var store = new JSData.DS();
+const adapter = new DSHttpAdapter();
+const store = new JSData.DS();
 store.registerAdapter('http', adapter, { default: true });
 
 adapter.defaults.basePath = '/api';
 adapter.http = axios;
 
-var ADocument: JSData.DSResourceDefinition<any> = store.defineResource<any>('document');
+const ADocument: JSData.DSResourceDefinition<any> = store.defineResource<any>('document');
 
 ADocument.inject({ id: 5, author: 'John' });
 
@@ -79,9 +79,9 @@ adapter.GET('/user/1').then(data => {
     data.config; // {...}
 });
 
-var User: JSData.DSResourceDefinition<any> = store.defineResource('user');
+const User: JSData.DSResourceDefinition<any> = store.defineResource('user');
 
-var params: any = {
+let params: any = {
     age: {
         '>': 30
     }
@@ -119,7 +119,7 @@ ADocument.find(5).then((document: any) => {
     ADocument.get(document.id); // { id: 5, author: 'John Anderson' }
 });
 
-var params: any = {
+params = {
     author: 'John'
 };
 

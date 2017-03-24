@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CoViews {
-    export interface Options {
+    interface Options {
         /**
          * default extname
          */

@@ -84,5 +84,5 @@ declare class MockAjax {
 }
 
 declare namespace jasmine {
-	export var Ajax: MockAjax;
+	const Ajax: MockAjax;
 }

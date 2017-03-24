@@ -19,7 +19,6 @@ interface BrushDatum {
     filterZoomEvent: boolean;
 }
 
-
 // -----------------------------------------------------------------------------
 // Test Define BrushBehavior
 // -----------------------------------------------------------------------------
@@ -48,7 +47,6 @@ brush = brush.extent(function(d, i, group) {
 
 // chainable
 brush = brush.filter(function(d, i, group) {
-
     // Cast d3 event to D3ZoomEvent to be used in filter logic
     const e = <d3Brush.D3BrushEvent<BrushDatum>> event;
 
@@ -80,7 +78,6 @@ brush = brush.on('end', brushed);
 // brush = brush.on('end', wrongHandler1); // fails, wrongHandler event handler has wrong this
 // brush = brush.on('end', wrongHandler2); // fails, wrongHandler event handler has wrong datum type
 
-
 brushed = brush.on('end');
 
 // chainable remove handler
@@ -96,8 +93,6 @@ brush.on('end', function(d, i, g) {
     console.log('Extent as per data: ', d.extent); // datum of type BrushDatum
     // do anything
 });
-
-
 
 // -----------------------------------------------------------------------------
 // Test Attach Brush Behavior
@@ -121,9 +116,7 @@ const gX = select<SVGSVGElement, any>('svg')
         filterZoomEvent: true
     });
 
-
 gX.call(brushX);
-
 
 // -----------------------------------------------------------------------------
 // Test Use Brush Behavior
@@ -155,7 +148,6 @@ brush.move(gTransition, function(d, i, group) {
     return selection;
 });
 
-
 const gXTransition = gX.transition();
 
 // 1d brush move with Selection
@@ -178,14 +170,11 @@ brush.move(gXTransition, function(d, i, group) {
     return selection;
 });
 
-
 // -----------------------------------------------------------------------------
 // Test Brush Event Interface
 // -----------------------------------------------------------------------------
 
-
 const e: d3Brush.D3BrushEvent<BrushDatum> = event;
-
 
 const target: d3Brush.BrushBehavior<BrushDatum> = e.target;
 const type: 'start' | 'brush' | 'end' | string = e.type;

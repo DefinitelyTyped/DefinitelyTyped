@@ -8,13 +8,13 @@ import express = require("express");
 declare namespace RateLimit {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;
 
-    export interface Store {
+    interface Store {
         incr: (key: string, cb: StoreIncrementCallback) => void;
         resetAll: () => void;
         resetKey: (key: string) => void;
     }
 
-    export interface Options {
+    interface Options {
         delayAfter?: number;
         delayMs?: number;
         handlers?: () => any;
@@ -29,9 +29,5 @@ declare namespace RateLimit {
     }
 }
 
-interface RateLimitStatic {
-    new(options: RateLimit.Options): express.RequestHandler;
-}
-
-declare var RateLimit: RateLimitStatic;
+declare var RateLimit: new (options: RateLimit.Options) => express.RequestHandler;
 export = RateLimit;

@@ -1,7 +1,7 @@
 import * as fabric from "fabric";
 
 function sample1() {
-  var canvas = new fabric.Canvas('c', {
+  const canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
     selection: false,
   });
@@ -13,7 +13,7 @@ function sample1() {
     e.target.opacity = 1;
   });
 
-  for (var i = 0, len = 15; i < len; i++) {
+  for (let i = 0; i < 15; i++) {
     fabric.Image.fromURL('../assets/ladybug.png', img => {
       img.set({
         left: fabric.util.getRandomInt(0, 600),
@@ -33,17 +33,16 @@ function sample1() {
 }
 
 function sample2() {
-
-  var dot: fabric.Circle, i: number,
-    t1: number, t2: number,
-    startTimer = () => {
-      t1 = new Date().getTime();
-      return t1;
-    },
-    stopTimer = () => {
-      t2 = new Date().getTime();
-      return t2 - t1;
-    },
+  let dot: fabric.Circle, i: number;
+  let t1: number, t2: number;
+  const startTimer = () => {
+    t1 = new Date().getTime();
+    return t1;
+  };
+  const stopTimer = () => {
+    t2 = new Date().getTime();
+    return t2 - t1;
+  },
     getRandomInt = fabric.util.getRandomInt,
     rainbow = ["#ffcc66", "#ccff66", "#66ccff", "#ff6fcf", "#ff6666"],
     rainbowEnd = rainbow.length - 1;
@@ -51,7 +50,7 @@ function sample2() {
   //
   // Rendering canvas #1
   //
-  var canvas1 = new fabric.Canvas('c1', { backgroundColor: "#000" }),
+  const canvas1 = new fabric.Canvas('c1', { backgroundColor: "#000" }),
     results1 = document.getElementById('results-c1');
 
   startTimer();
@@ -66,11 +65,10 @@ function sample2() {
   }
   results1.innerHTML = 'Regular rendering of 100 elements in ' + stopTimer() + 'ms';
 
-
   //
   // Rendering canvas #2
   //
-  var canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddRemove: false }),
+  const canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddRemove: false }),
     results2 = document.getElementById('results-c2');
 
   startTimer();
@@ -88,35 +86,34 @@ function sample2() {
 }
 
 function sample3() {
-
-  var $: (id: string) => HTMLElement = (id: string) => document.getElementById(id);
+  const $: (id: string) => HTMLElement = (id: string) => document.getElementById(id);
 
   function applyFilter(index: number, filter: any) {
-    var obj: fabric.Image = <fabric.Image> canvas.getActiveObject();
+    const obj: fabric.Image = <fabric.Image> canvas.getActiveObject();
     obj.filters[index] = filter;
     obj.applyFilters(canvas.renderAll.bind(canvas));
   }
 
   function applyFilterValue(index: number, prop: string, value: any) {
-    var obj: fabric.Image = <fabric.Image> canvas.getActiveObject();
+    const obj: fabric.Image = <fabric.Image> canvas.getActiveObject();
     if (obj.filters[index]) {
       obj.applyFilters(canvas.renderAll.bind(canvas));
     }
   }
 
-  var canvas = new fabric.Canvas('c', { backgroundImage: '../lib/bg.png' }),
+  const canvas = new fabric.Canvas('c', { backgroundImage: '../lib/bg.png' }),
     f = fabric.Image.filters;
 
   canvas.on({
     'object:selected': () => {
       fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = false; });
 
-      var filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
+      const filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
         'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen'];
 
-      for (var i = 0; i < filters.length; i++) {
-        var checkBox = <HTMLInputElement> $(filters[i]);
-        var image = <fabric.Image> canvas.getActiveObject();
+      for (let i = 0; i < filters.length; i++) {
+        const checkBox = <HTMLInputElement> $(filters[i]);
+        const image = <fabric.Image> canvas.getActiveObject();
         checkBox.checked = !!image.filters[i];
       }
     },
@@ -126,7 +123,7 @@ function sample3() {
   });
 
   fabric.Image.fromURL('../assets/printio.png', img => {
-    var oImg = img.set({ left: 300, top: 300, angle: -15 }).scale(0.9);
+    const oImg = img.set({ left: 300, top: 300, angle: -15 }).scale(0.9);
     canvas.add(oImg).renderAll();
     canvas.setActiveObject(oImg);
   });
@@ -211,11 +208,10 @@ function sample3() {
 }
 
 function sample4() {
+  const canvas = new fabric.Canvas('c');
+  const $: (id: string) => HTMLElement = id => document.getElementById(id);
 
-  var canvas = new fabric.Canvas('c');
-  var $: (id: string) => HTMLElement = id => document.getElementById(id);
-
-  var rect = new fabric.Rect({
+  const rect = new fabric.Rect({
     width: 100,
     height: 100,
     top: 150,
@@ -225,32 +221,31 @@ function sample4() {
 
   canvas.add(rect);
 
-  var angleControl = <HTMLInputElement> $('angle-control');
+  const angleControl = <HTMLInputElement> $('angle-control');
   angleControl.onchange = function(this: HTMLInputElement) {
     rect.setAngle(+this.value).setCoords();
     canvas.renderAll();
   };
 
-  var scaleControl = <HTMLInputElement> $('scale-control');
+  const scaleControl = <HTMLInputElement> $('scale-control');
   scaleControl.onchange = function(this: HTMLInputElement) {
     rect.scale(+this.value).setCoords();
     canvas.renderAll();
   };
 
-  var topControl = <HTMLInputElement> $('top-control');
+  const topControl = <HTMLInputElement> $('top-control');
   topControl.onchange = function(this: HTMLInputElement) {
     rect.setTop(+this.value).setCoords();
     canvas.renderAll();
   };
 
-  var leftControl = <HTMLInputElement> $('left-control');
+  const leftControl = <HTMLInputElement> $('left-control');
   leftControl.onchange = function(this: HTMLInputElement) {
     rect.setLeft(+this.value).setCoords();
     canvas.renderAll();
   };
 
   function updateControls() {
-
     scaleControl.value = rect.getScaleX().toString();
     angleControl.value = rect.getAngle().toString();
     leftControl.value = rect.getLeft().toString();
@@ -263,7 +258,6 @@ function sample4() {
   });
 }
 
-
 declare module "fabric" {
   export interface CircleWithLineInfos extends Circle {
     line1?: Line;
@@ -274,8 +268,8 @@ declare module "fabric" {
 }
 
 function sample5() {
-  var makeCircle = (left: number, top: number, line1?: fabric.Line, line2?: fabric.Line, line3?: fabric.Line, line4?: fabric.Line): fabric.Circle => {
-    var c = <fabric.CircleWithLineInfos> new fabric.Circle({
+  const makeCircle = (left: number, top: number, line1?: fabric.Line, line2?: fabric.Line, line3?: fabric.Line, line4?: fabric.Line): fabric.Circle => {
+    const c = <fabric.CircleWithLineInfos> new fabric.Circle({
       left,
       top,
       strokeWidth: 5,
@@ -300,9 +294,9 @@ function sample5() {
     });
   }
 
-  var canvas = new fabric.Canvas('c', { selection: false });
+  const canvas = new fabric.Canvas('c', { selection: false });
 
-  var line = makeLine([250, 125, 250, 175]),
+  const line = makeLine([250, 125, 250, 175]),
     line2 = makeLine([250, 175, 250, 250]),
     line3 = makeLine([250, 250, 300, 350]),
     line4 = makeLine([250, 250, 200, 350]),
@@ -322,7 +316,7 @@ function sample5() {
     );
 
   canvas.on('object:moving', e => {
-    var p = <fabric.CircleWithLineInfos> e.target;
+    const p = <fabric.CircleWithLineInfos> e.target;
     p.line1 && p.line1.set({ 'x2': p.left, 'y2': p.top });
     p.line2 && p.line2.set({ 'x1': p.left, 'y1': p.top });
     p.line3 && p.line3.set({ 'x1': p.left, 'y1': p.top });
@@ -332,9 +326,9 @@ function sample5() {
 }
 
 function sample6() {
-  var canvas = new fabric.Canvas('c');
+  const canvas = new fabric.Canvas('c');
   fabric.loadSVGFromURL('../assets/135.svg', objects => {
-    var obj = objects[0].scale(0.25);
+    const obj = objects[0].scale(0.25);
     canvas.centerObject(obj);
     canvas.add(obj);
 
@@ -344,17 +338,15 @@ function sample6() {
     canvas.add(obj.clone(() => { }).set({ left: 480, top: 400, angle: 15 }));
 
     canvas.on('mouse:move', options => {
-      var p = canvas.getPointer(options.e);
+      const p = canvas.getPointer(options.e);
 
       canvas.forEachObject(obj => {
-        var distX = Math.abs(p.x - obj.left),
+        const distX = Math.abs(p.x - obj.left),
           distY = Math.abs(p.y - obj.top),
           dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
         obj.setOpacity(1 / (dist / 20));
       });
-
     });
-
   });
 }
 
@@ -365,22 +357,20 @@ declare module "fabric" {
 }
 
 function sample7() {
-
-  var canvas = new fabric.Canvas('c', { selection: false });
+  const canvas = new fabric.Canvas('c', { selection: false });
 
   setInterval(() => {
     fabric.Image.fromURL('../assets/ladybug.png', obj => {
-      var img = <fabric.ImageWithInfo> obj;
+      const img = <fabric.ImageWithInfo> obj;
       img.set('left', fabric.util.getRandomInt(200, 600)).set('top', -50);
       img.movingLeft = !!Math.round(Math.random());
       canvas.add(img);
     });
   }, 1000);
 
-
-  var animate = (function animate() {
+  const animate = (function animate() {
     canvas.forEachObject(obj => {
-      var img = <fabric.ImageWithInfo> obj;
+      const img = <fabric.ImageWithInfo> obj;
       img.left += (img.movingLeft ? -1 : 1);
       img.top += 1;
       if (img.left > 900 || img.top > 500) {
@@ -397,7 +387,6 @@ function sample7() {
 }
 
 function sample8() {
-
   function pad(str: string, length: number): string {
     while (str.length < length) {
       str = '0' + str;
@@ -405,7 +394,7 @@ function sample8() {
     return str;
   }
 
-  var getRandomInt = fabric.util.getRandomInt;
+  const getRandomInt = fabric.util.getRandomInt;
 
   function getRandomColor() {
     return (
@@ -423,18 +412,18 @@ function sample8() {
     (fabric.Object.prototype as any).cornersize = 30;
   }
 
-  var canvas = new fabric.Canvas('canvas');
+  const canvas = new fabric.Canvas('canvas');
   // canvas.controlsAboveOverlay = true;
 
   function updateComplexity() {
     setTimeout(() => {
-      var element = <HTMLElement> document.getElementById('complexity').childNodes[1];
+      const element = <HTMLElement> document.getElementById('complexity').childNodes[1];
       element.innerHTML = ' ' + canvas.complexity();
     }, 100);
   }
 
   document.getElementById('commands').onclick = (ev: any) => {
-    var ev: any = ev || window.event;
+    ev = ev || window.event;
 
     if (ev.preventDefault) {
       ev.preventDefault();
@@ -442,19 +431,18 @@ function sample8() {
       ev.returnValue = false;
     }
 
-    var element: any = ev.target || ev.srcElement;
+    let element: any = ev.target || ev.srcElement;
     if (element.nodeName.toLowerCase() === 'strong') {
       element = element.parentNode;
     }
 
-    var className = element.className,
+    const className = element.className,
       offset = 50,
       left = fabric.util.getRandomInt(0 + offset, 700 - offset),
       top = fabric.util.getRandomInt(0 + offset, 500 - offset),
       angle = fabric.util.getRandomInt(-20, 40),
       width = fabric.util.getRandomInt(30, 50),
       opacity = ((min: number, max: number) => Math.random() * (max - min) + min)(0.5, 1);
-
 
     switch (className) {
       case 'rect':
@@ -519,11 +507,11 @@ function sample8() {
         break;
 
       case 'shape':
-        var id: any = element.id;
+        const id: any = element.id;
 		const match = /\d+$/.exec(id);
         if (match) {
           fabric.loadSVGFromURL('../assets/' + match[0] + '.svg', (objects, options) => {
-            var loadedObject = fabric.util.groupSVGElements(objects, options);
+            const loadedObject = fabric.util.groupSVGElements(objects, options);
 
             loadedObject.set({
               left,
@@ -552,12 +540,11 @@ function sample8() {
   };
 
   document.getElementById('execute').onclick = () => {
-    var code = (<HTMLInputElement> document.getElementById('canvas-console')).value;
+    const code = (<HTMLInputElement> document.getElementById('canvas-console')).value;
     if (!(/^\s+$/).test(code)) {
       eval(code); // tslint:disable-line:no-eval
     }
   };
-
 
   document.getElementById('rasterize').onclick = () => {
     if (!fabric.Canvas.supports('toDataURL')) {
@@ -567,14 +554,14 @@ function sample8() {
     }
   };
 
-  var removeSelectedEl = document.getElementById('remove-selected');
+  const removeSelectedEl = document.getElementById('remove-selected');
   removeSelectedEl.onclick = () => {
-    var activeObject = canvas.getActiveObject(),
+    const activeObject = canvas.getActiveObject(),
       activeGroup = canvas.getActiveGroup();
     if (activeObject) {
       canvas.remove(activeObject);
     } else if (activeGroup) {
-      var objectsInGroup = activeGroup.getObjects();
+      const objectsInGroup = activeGroup.getObjects();
       canvas.discardActiveGroup();
       objectsInGroup.forEach(object => {
         canvas.remove(object);
@@ -582,9 +569,9 @@ function sample8() {
     }
   };
 
-  var supportsInputOfType = (type: string) => {
+  const supportsInputOfType = (type: string) => {
     return () => {
-      var el = document.createElement('input');
+      const el = document.createElement('input');
       try {
         el.type = type;
       } catch (err) { }
@@ -592,18 +579,18 @@ function sample8() {
     };
   };
 
-  var supportsSlider = supportsInputOfType('range'),
+  const supportsSlider = supportsInputOfType('range'),
     supportsColorpicker = supportsInputOfType('color');
 
   if (supportsSlider()) {
     (() => {
-      var controls = document.getElementById('controls');
+      const controls = document.getElementById('controls');
 
-      var sliderLabel = document.createElement('label');
+      const sliderLabel = document.createElement('label');
       sliderLabel.htmlFor = 'opacity';
       sliderLabel.innerHTML = 'Opacity: ';
 
-      var slider = document.createElement('input');
+      const slider = document.createElement('input');
 
       try { slider.type = 'range'; } catch (err) { }
 
@@ -616,7 +603,7 @@ function sample8() {
       canvas.calcOffset();
 
       slider.onchange = function() {
-        var activeObject = canvas.getActiveObject(),
+        const activeObject = canvas.getActiveObject(),
           activeGroup = canvas.getActiveGroup();
 
         if (activeObject || activeGroup) {
@@ -629,14 +616,14 @@ function sample8() {
 
   if (supportsColorpicker()) {
     (() => {
-      var controls = document.getElementById('controls');
+      const controls = document.getElementById('controls');
 
-      var label = document.createElement('label');
+      const label = document.createElement('label');
       label.htmlFor = 'color';
       label.innerHTML = 'Color: ';
       label.style.marginLeft = '10px';
 
-      var colorpicker = document.createElement('input');
+      const colorpicker = document.createElement('input');
       colorpicker.type = 'color';
       colorpicker.id = 'color';
       colorpicker.style.width = '40px';
@@ -647,7 +634,7 @@ function sample8() {
       canvas.calcOffset();
 
       colorpicker.onchange = function() {
-        var activeObject = canvas.getActiveObject(),
+        const activeObject = canvas.getActiveObject(),
           activeGroup = canvas.getActiveGroup();
 
         if (activeObject || activeGroup) {
@@ -658,9 +645,9 @@ function sample8() {
     })();
   }
 
-  var lockHorizontallyEl = document.getElementById('lock-horizontally');
+  const lockHorizontallyEl = document.getElementById('lock-horizontally');
   lockHorizontallyEl.onclick = () => {
-    var activeObject: any = canvas.getActiveObject();
+    const activeObject: any = canvas.getActiveObject();
     if (activeObject) {
       activeObject.lockMovementX = !activeObject.lockMovementX;
       lockHorizontallyEl.innerHTML = activeObject.lockMovementX
@@ -669,9 +656,9 @@ function sample8() {
     }
   };
 
-  var lockVerticallyEl = document.getElementById('lock-vertically');
+  const lockVerticallyEl = document.getElementById('lock-vertically');
   lockVerticallyEl.onclick = () => {
-    var activeObject: any = canvas.getActiveObject();
+    const activeObject: any = canvas.getActiveObject();
     if (activeObject) {
       activeObject.lockMovementY = !activeObject.lockMovementY;
       lockVerticallyEl.innerHTML = activeObject.lockMovementY
@@ -680,9 +667,9 @@ function sample8() {
     }
   };
 
-  var lockScalingXEl = document.getElementById('lock-scaling-x');
+  const lockScalingXEl = document.getElementById('lock-scaling-x');
   lockScalingXEl.onclick = () => {
-    var activeObject: any = canvas.getActiveObject();
+    const activeObject: any = canvas.getActiveObject();
     if (activeObject) {
       activeObject.lockScalingX = !activeObject.lockScalingX;
       lockScalingXEl.innerHTML = activeObject.lockScalingX
@@ -691,9 +678,9 @@ function sample8() {
     }
   };
 
-  var lockScalingYEl = document.getElementById('lock-scaling-y');
+  const lockScalingYEl = document.getElementById('lock-scaling-y');
   lockScalingYEl.onclick = () => {
-    var activeObject: any = canvas.getActiveObject();
+    const activeObject: any = canvas.getActiveObject();
     if (activeObject) {
       activeObject.lockScalingY = !activeObject.lockScalingY;
       lockScalingYEl.innerHTML = activeObject.lockScalingY
@@ -702,9 +689,9 @@ function sample8() {
     }
   };
 
-  var lockRotationEl = document.getElementById('lock-rotation');
+  const lockRotationEl = document.getElementById('lock-rotation');
   lockRotationEl.onclick = () => {
-    var activeObject: any = canvas.getActiveObject();
+    const activeObject: any = canvas.getActiveObject();
     if (activeObject) {
       activeObject.lockRotation = !activeObject.lockRotation;
       lockRotationEl.innerHTML = activeObject.lockRotation
@@ -713,9 +700,9 @@ function sample8() {
     }
   };
 
-  var gradientifyBtn = document.getElementById('gradientify');
+  const gradientifyBtn = document.getElementById('gradientify');
 
-  var activeObjectButtons = [
+  const activeObjectButtons = [
     lockHorizontallyEl,
     lockVerticallyEl,
     lockScalingXEl,
@@ -725,16 +712,16 @@ function sample8() {
     gradientifyBtn
   ];
 
-  var opacityEl = document.getElementById('opacity');
+  const opacityEl = document.getElementById('opacity');
   if (opacityEl) {
     activeObjectButtons.push(opacityEl);
   }
-  var colorEl = document.getElementById('color');
+  const colorEl = document.getElementById('color');
   if (colorEl) {
     activeObjectButtons.push(colorEl);
   }
 
-  for (var i = activeObjectButtons.length; i--; ) {
+  for (let i = activeObjectButtons.length; i--; ) {
     activeObjectButtons[i];
   }
 
@@ -742,9 +729,9 @@ function sample8() {
   canvas.on('group:selected', onObjectSelected);
 
   function onObjectSelected(e: fabric.IEvent) {
-    var selectedObject = e.target;
+    const selectedObject = e.target;
 
-    for (var i = activeObjectButtons.length; i--; ) {
+    for (let i = activeObjectButtons.length; i--; ) {
       activeObjectButtons[i];
     }
 
@@ -756,18 +743,18 @@ function sample8() {
   }
 
   canvas.on('selection:cleared', e => {
-    for (var i = activeObjectButtons.length; i--; ) {
+    for (let i = activeObjectButtons.length; i--; ) {
       activeObjectButtons[i];
     }
   });
 
-  var drawingModeEl = document.getElementById('drawing-mode'),
+  const drawingModeEl = document.getElementById('drawing-mode'),
     drawingOptionsEl = document.getElementById('drawing-mode-options'),
     drawingColorEl = <HTMLInputElement> document.getElementById('drawing-color'),
     drawingLineWidthEl = <HTMLInputElement> document.getElementById('drawing-line-width');
 
   drawingModeEl.onclick = () => {
-    var canvasWithDrawingMode: any = canvas;
+    const canvasWithDrawingMode: any = canvas;
     canvasWithDrawingMode.isDrawingMode = !canvasWithDrawingMode.isDrawingMode;
     if (canvasWithDrawingMode.isDrawingMode) {
       drawingModeEl.innerHTML = 'Cancel drawing mode';
@@ -794,12 +781,11 @@ function sample8() {
   canvas.freeDrawingColor = drawingColorEl.value;
   canvas.freeDrawingLineWidth = parseInt(drawingLineWidthEl.value, 10) || 1;
 
-
-  var text = 'Lorem ipsum dolor sit amet,\nconsectetur adipisicing elit,\nsed do eiusmod tempor incididunt\nut labore et dolore magna aliqua.\n' +
+  const text = 'Lorem ipsum dolor sit amet,\nconsectetur adipisicing elit,\nsed do eiusmod tempor incididunt\nut labore et dolore magna aliqua.\n' +
     'Ut enim ad minim veniam,\nquis nostrud exercitation ullamco\nlaboris nisi ut aliquip ex ea commodo consequat.';
 
   document.getElementById('add-text').onclick = () => {
-    var textSample = new fabric.Text(text.slice(0, getRandomInt(0, text.length)), {
+    const textSample = new fabric.Text(text.slice(0, getRandomInt(0, text.length)), {
       left: getRandomInt(350, 400),
       top: getRandomInt(350, 400),
       fontFamily: 'helvetica',
@@ -813,13 +799,12 @@ function sample8() {
     updateComplexity();
   };
 
-
   document.onkeydown = e => {
-    var obj = canvas.getActiveObject() || canvas.getActiveGroup();
+    const obj = canvas.getActiveObject() || canvas.getActiveGroup();
     if (obj && e.keyCode === 8) {
       // this is horrible. need to fix, so that unified interface can be used
       if (obj.type === 'group') {
-        // var groupObjects = obj.getObjects();
+        // const groupObjects = obj.getObjects();
         //         canvas.discardActiveGroup();
         //         groupObjects.forEach(function(obj) {
         //           canvas.remove(obj);
@@ -842,7 +827,7 @@ function sample8() {
   }
 
   gradientifyBtn.onclick = () => {
-    var obj = canvas.getActiveObject();
+    const obj = canvas.getActiveObject();
     if (obj) {
       obj.setGradient("fill", {
         x2: (getRandomInt(0, 1) ? 0 : obj.width),
@@ -856,17 +841,17 @@ function sample8() {
     }
   };
 
-  var textEl = <HTMLInputElement> document.getElementById('text');
+  const textEl = <HTMLInputElement> document.getElementById('text');
   if (textEl) {
     textEl.onfocus = function() {
-      var activeObject = canvas.getActiveObject();
+      const activeObject = canvas.getActiveObject();
 
       if (activeObject && activeObject.type === 'text') {
         this.value = (<fabric.Text> activeObject).text;
       }
     };
     textEl.onkeyup = function(e) {
-      var activeObject = canvas.getActiveObject();
+      const activeObject = canvas.getActiveObject();
       if (activeObject) {
         if (!this.value) {
           canvas.discardActiveObject();
@@ -878,11 +863,11 @@ function sample8() {
     };
   }
 
-  var cmdUnderlineBtn = document.getElementById('text-cmd-underline');
+  const cmdUnderlineBtn = document.getElementById('text-cmd-underline');
   if (cmdUnderlineBtn) {
     activeObjectButtons.push(cmdUnderlineBtn);
     cmdUnderlineBtn.onclick = function() {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'underline' ? '' : 'underline');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -891,11 +876,11 @@ function sample8() {
     };
   }
 
-  var cmdLinethroughBtn = document.getElementById('text-cmd-linethrough');
+  const cmdLinethroughBtn = document.getElementById('text-cmd-linethrough');
   if (cmdLinethroughBtn) {
     activeObjectButtons.push(cmdLinethroughBtn);
     cmdLinethroughBtn.onclick = function() {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'line-through' ? '' : 'line-through');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -904,11 +889,11 @@ function sample8() {
     };
   }
 
-  var cmdOverlineBtn = document.getElementById('text-cmd-overline');
+  const cmdOverlineBtn = document.getElementById('text-cmd-overline');
   if (cmdOverlineBtn) {
     activeObjectButtons.push(cmdOverlineBtn);
     cmdOverlineBtn.onclick = function() {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'overline' ? '' : 'overline');
         this.className = activeObject.textDecoration ? 'selected' : '';
@@ -917,11 +902,11 @@ function sample8() {
     };
   }
 
-  var cmdBoldBtn = document.getElementById('text-cmd-bold');
+  const cmdBoldBtn = document.getElementById('text-cmd-bold');
   if (cmdBoldBtn) {
     activeObjectButtons.push(cmdBoldBtn);
     cmdBoldBtn.onclick = function() {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontWeight = (activeObject.fontWeight === 'bold' ? '' : 'bold');
         this.className = activeObject.fontWeight ? 'selected' : '';
@@ -930,11 +915,11 @@ function sample8() {
     };
   }
 
-  var cmdItalicBtn = document.getElementById('text-cmd-italic');
+  const cmdItalicBtn = document.getElementById('text-cmd-italic');
   if (cmdItalicBtn) {
     activeObjectButtons.push(cmdItalicBtn);
     cmdItalicBtn.onclick = function() {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontStyle = (activeObject.fontStyle === 'italic' ? '' : 'italic');
         this.className = activeObject.fontStyle ? 'selected' : '';
@@ -943,11 +928,11 @@ function sample8() {
     };
   }
 
-  var cmdShadowBtn = document.getElementById('text-cmd-shadow');
+  const cmdShadowBtn = document.getElementById('text-cmd-shadow');
   if (cmdShadowBtn) {
     activeObjectButtons.push(cmdShadowBtn);
     cmdShadowBtn.onclick = function() {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.shadow = !activeObject.shadow ? 'rgba(0,0,0,0.2) 2px 2px 10px' : '';
         this.className = activeObject.shadow ? 'selected' : '';
@@ -956,11 +941,11 @@ function sample8() {
     };
   }
 
-  var textAlignSwitch = document.getElementById('text-align');
+  const textAlignSwitch = document.getElementById('text-align');
   if (textAlignSwitch) {
     activeObjectButtons.push(textAlignSwitch);
     textAlignSwitch.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textAlign = this.value.toLowerCase();
         canvas.renderAll();
@@ -968,11 +953,11 @@ function sample8() {
     };
   }
 
-  var fontFamilySwitch = document.getElementById('font-family');
+  const fontFamilySwitch = document.getElementById('font-family');
   if (fontFamilySwitch) {
     activeObjectButtons.push(fontFamilySwitch);
     fontFamilySwitch.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontFamily = this.value;
         canvas.renderAll();
@@ -980,10 +965,10 @@ function sample8() {
     };
   }
 
-  var bgColorField = document.getElementById('text-bg-color');
+  const bgColorField = document.getElementById('text-bg-color');
   if (bgColorField) {
     bgColorField.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.backgroundColor = this.value;
         canvas.renderAll();
@@ -991,10 +976,10 @@ function sample8() {
     };
   }
 
-  var strokeColorField = document.getElementById('text-stroke-color');
+  const strokeColorField = document.getElementById('text-stroke-color');
   if (strokeColorField) {
     strokeColorField.onchange = function(this: HTMLInputElement) {
-      var activeObject = <fabric.Text> canvas.getActiveObject();
+      const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.stroke = this.value;
         canvas.renderAll();
@@ -1004,9 +989,9 @@ function sample8() {
 
   if (supportsSlider) {
     (() => {
-      var container = document.getElementById('text-controls');
-      var slider = document.createElement('input');
-      var label = document.createElement('label');
+      const container = document.getElementById('text-controls');
+      const slider = document.createElement('input');
+      const label = document.createElement('label');
       label.innerHTML = 'Line height: ';
       try { slider.type = 'range'; } catch (err) { }
       slider.min = "0";
@@ -1017,7 +1002,7 @@ function sample8() {
       label.appendChild(slider);
       slider.title = "Line height";
       slider.onchange = function() {
-        var activeObject = <fabric.Text> canvas.getActiveObject();
+        const activeObject = <fabric.Text> canvas.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
           activeObject.lineHeight = +this.value;
           canvas.renderAll();
@@ -1031,9 +1016,9 @@ function sample8() {
   }
 
   document.getElementById('load-svg').onclick = () => {
-    var svg = (<HTMLInputElement> document.getElementById('svg-console')).value;
+    const svg = (<HTMLInputElement> document.getElementById('svg-console')).value;
     fabric.loadSVGFromString(svg, (objects, options) => {
-      var obj = fabric.util.groupSVGElements(objects, options);
+      const obj = fabric.util.groupSVGElements(objects, options);
       canvas.add(obj).centerObject(obj).renderAll();
       obj.setCoords();
     });
@@ -1041,7 +1026,7 @@ function sample8() {
 }
 
 function sample9() {
-  var canvas = new fabric.Canvas('c');
+  const canvas = new fabric.Canvas('c');
   canvas.setBackgroundImage('yolo.jpg', () => { "a"; }, { opacity: 45 });
   canvas.setBackgroundImage('yolo.jpg', () => { "a"; });
 }

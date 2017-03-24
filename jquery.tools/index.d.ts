@@ -3,16 +3,15 @@
 // Definitions by: Joe Skeen <https://github.com/joeskeen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference types="jquery"/>
 
-declare interface JQuery {
+interface JQuery {
     overlay(opts?: JQueryTools.overlay.OverlayOptions): JQuery;
     overlay<T extends JQueryTools.overlay.Overlay>(opts?: JQueryTools.overlay.OverlayOptions): T;
     data(key: 'overlay'): JQueryTools.overlay.Overlay;
 }
 
-declare interface JQueryStatic {
+interface JQueryStatic {
     tools: JQueryTools.ToolsStatic;
 }
 

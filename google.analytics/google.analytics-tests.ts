@@ -40,10 +40,10 @@ describe('UniversalAnalytics', () => {
         ga.getByName('aNamedTracker');
     });
     it('should excercise Tracker APIs', () => {
-        var tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
-        var aString: string = tracker.get<string>('aString');
-        var aNumber: number = tracker.get<number>('aNumber');
-        var anObject: {} = tracker.get<{}>('anObject');
+        const tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
+        const aString: string = tracker.get<string>('aString');
+        const aNumber: number = tracker.get<number>('aNumber');
+        const anObject: {} = tracker.get<{}>('anObject');
         tracker.send('pageview');
         tracker.send('pageview', {some: 'details'});
         tracker.set('aString', aString);
@@ -66,7 +66,6 @@ describe("tester Google Analytics Tracker _gat object", () => {
     it("can create _anonymizeIp", () => {
         _gat._anonymizeIp();
     });
-
 });
 
 describe("tester Google Analytics Code  _gaq object", () => {
@@ -76,17 +75,16 @@ describe("tester Google Analytics Code  _gaq object", () => {
         _gaq.push(['_trackPageview']);
 
         _gaq.push(() => {
-                var tracker = _gat._getTrackerByName('UA-65432-1');
+                const tracker = _gat._getTrackerByName('UA-65432-1');
                 tracker._trackPageview();
             }
         );
     });
 });
 
-
 describe("tester Google Analytics Code  Tracker object", () => {
     it("can create Tracker object and call methods", () => {
-        var tracker = _gat._getTrackerByName('UA-65432-1');
+        const tracker = _gat._getTrackerByName('UA-65432-1');
         tracker._trackPageview();
         tracker._getName();
         tracker._getAccount();

@@ -77,11 +77,11 @@ parseTorrent(fs.readFileSync(__dirname + '/torrents/leaves.torrent'));
 //      '56dcc242d03293e9446cf5e457d8eb3d9588fd90',
 //      'c698de9b0dad92980906c026d8c1408fa08fe4ec' ] }
 
-var uri = parseTorrent.toMagnetURI({
+const uri = parseTorrent.toMagnetURI({
     infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 });
 
-var buf = parseTorrent.toTorrentFile({
+const buf = parseTorrent.toTorrentFile({
     infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 });
 
@@ -89,4 +89,3 @@ parseTorrent.remote('d2474e86c95b19b8bcfdb92bc12c9d44667cfa36', (err, parsedTorr
     // if (err) throw err
     // console.log(parsedTorrent)
 });
-

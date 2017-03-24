@@ -9,7 +9,6 @@
 // Shared Types and Interfaces
 // --------------------------------------------------------------------------
 
-
 /**
  * Administrivia: JavaScript primitive types and Date
  */
@@ -25,7 +24,6 @@ interface Numeric {
 // --------------------------------------------------------------------------------------
 // Descriptive Statistics
 // --------------------------------------------------------------------------------------
-
 
 /**
  * Return the maximum value in the array of strings using natural order.
@@ -66,8 +64,6 @@ export function min<T>(array: T[], accessor: (datum: T, index: number, array: T[
  * Return the minimum value in the array using natural order.
  */
 export function min<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number, array: T[]) => U | undefined | null): U | undefined;
-
-
 
 /**
  * Return the min and max simultaneously.
@@ -139,7 +135,6 @@ export function variance<T extends Numeric>(array: Array<T | undefined | null>):
  */
 export function variance<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number | undefined | null): number | undefined;
 
-
 // --------------------------------------------------------------------------------------
 // Searching Arrays
 // --------------------------------------------------------------------------------------
@@ -155,7 +150,7 @@ export function bisectRight(array: number[], x: number, lo?: number, hi?: number
 export function bisectRight(array: string[], x: string, lo?: number, hi?: number): number;
 export function bisectRight(array: Date[], x: Date, lo?: number, hi?: number): number;
 
-export var bisect: typeof bisectRight;
+export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
     left: (array: T[], x: U, lo?: number, hi?: number) => number;
@@ -244,7 +239,6 @@ export function range(stop: number): number[];
  */
 export function range(start: number, stop: number, step?: number): number[];
 
-
 /**
  * Randomizes the order of the specified array using the Fisher–Yates shuffle.
  */
@@ -261,12 +255,10 @@ export function ticks(start: number, stop: number, count: number): number[];
  */
 export function tickStep(start: number, stop: number, count: number): number[];
 
-
 /**
  * Transpose a matrix provided in Array of Arrays format.
  */
 export function transpose<T>(matrix: T[][]): T[][];
-
 
 /**
  * Returns an array of arrays, where the ith array contains the ith element from each of the argument arrays.
@@ -293,8 +285,6 @@ export type ThresholdCountGenerator = (values: number[], min?: number, max?: num
  * Type definition for threshold generator which returns an array of recommended thresholds
  */
 export type ThresholdArrayGenerator<Value extends number | Date> = (values: Value[], min?: Value, max?: Value) => Value[];
-
-
 
 export interface HistogramGenerator<Datum, Value extends number | Date> {
     (data: Datum[]): Array<Bin<Datum, Value>>;

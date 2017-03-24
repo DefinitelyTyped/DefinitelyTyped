@@ -1,12 +1,12 @@
-var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+const osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib}),
     map = L.map('map', {layers: [osm], center: L.latLng(-37.7772, 175.2756), zoom: 15 });
 
-var drawnItems = L.featureGroup();
+const drawnItems = L.featureGroup();
 map.addLayer(drawnItems);
 
-var drawControl = new L.Control.Draw({
+const drawControl = new L.Control.Draw({
     position: 'topleft' ,
     draw: {
         polygon: {
@@ -36,8 +36,8 @@ var drawControl = new L.Control.Draw({
 map.addControl(drawControl);
 
 map.on('draw:created', (e: any) => {
-    var drawEvent = (e as L.DrawEvents.Created);
-    var type = drawEvent.layerType,
+    const drawEvent = e as L.DrawEvents.Created;
+    const type = drawEvent.layerType,
         layer = drawEvent.layer;
 
     drawnItems.addLayer(layer);

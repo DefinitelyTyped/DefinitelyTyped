@@ -43,14 +43,14 @@ declare class CombinedStream extends Stream implements CombinedStream.Options {
 }
 
 declare namespace CombinedStream {
-    export interface Options {
+    interface Options {
         maxDataSize?: number;
         pauseStreams?: boolean;
     }
 
-    export function create(options?: Options): CombinedStream;
+    function create(options?: Options): CombinedStream;
 
-    export function isStreamLike(stream: any): stream is Stream;
+    function isStreamLike(stream: any): stream is Stream;
 }
 
 export = CombinedStream;

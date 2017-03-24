@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace extract {
-    export interface Options {
+    interface Options {
         dir?: string;
         defaultDirMode?: number;
         defaultFileMode?: number;

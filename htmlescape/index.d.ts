@@ -5,7 +5,7 @@
 
 declare function htmlescape(o: any): string;
 declare namespace htmlescape {
-    export function sanitize(s: string): string;
+    function sanitize(s: string): string;
 }
 
 export = htmlescape;

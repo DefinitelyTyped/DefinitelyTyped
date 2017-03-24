@@ -6,22 +6,21 @@
 /// <reference types="leaflet" />
 
 declare namespace L {
-
     namespace ImageOverlay {
-
-        export interface Rotated extends L.ImageOverlay {
-            reposition(topleft: L.LatLngExpression,
-                       topright: L.LatLngExpression,
-                       bottomleft: L.LatLngExpression): void;
+        interface Rotated extends L.ImageOverlay {
+            reposition(
+                topleft: L.LatLngExpression,
+                topright: L.LatLngExpression,
+                bottomleft: L.LatLngExpression): void;
         }
     }
 
     namespace imageOverlay {
-
-        export function rotated(imgSrc: string | HTMLImageElement | HTMLCanvasElement,
-                                topleft: L.LatLngExpression,
-                                topright: L.LatLngExpression,
-                                bottomleft: L.LatLngExpression,
-                                options?: L.ImageOverlayOptions): L.ImageOverlay.Rotated;
+        function rotated(
+            imgSrc: string | HTMLImageElement | HTMLCanvasElement,
+            topleft: L.LatLngExpression,
+            topright: L.LatLngExpression,
+            bottomleft: L.LatLngExpression,
+            options?: L.ImageOverlayOptions): L.ImageOverlay.Rotated;
     }
 }

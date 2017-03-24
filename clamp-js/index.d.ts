@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace clamp {
-    export interface ClampOptions {
+    interface ClampOptions {
         clamp?: number|string;
         useNativeClamp?: boolean;
         splitOnChars?: string[];
@@ -13,9 +13,9 @@ declare namespace clamp {
         truncationHTML?: string | null;
     }
 
-    export interface ClampResponse {
-        'original': string;
-        'clamped': string;
+    interface ClampResponse {
+        original: string;
+        clamped: string;
     }
 }
 

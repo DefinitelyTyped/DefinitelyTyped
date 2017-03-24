@@ -3,13 +3,13 @@
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface Keygrip {
+interface Keygrip {
     sign(data: any): string;
     verify(data: any, digest: string): boolean;
     index(data: any, digest: string): number;
 }
 
-declare interface KeygripFunction {
+interface KeygripFunction {
     new (keys: string[], algorithm?: string, encoding?: string): Keygrip;
     (keys: string[], algorithm?: string, encoding?: string): Keygrip;
 }

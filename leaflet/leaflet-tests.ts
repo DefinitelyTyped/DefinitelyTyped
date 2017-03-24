@@ -456,8 +456,7 @@ L.marker([1, 2], {
 	iconUrl: 'my-icon.png'
 })).setIcon(L.divIcon({
 	className: 'my-div-icon'
-}));;
-
+}));
 
 L.Util.extend({});
 L.Util.create({});
@@ -477,4 +476,3 @@ L.Util.indexOf([], {});
 L.Util.requestAnimFrame(() => {});
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;
-

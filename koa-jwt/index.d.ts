@@ -10,7 +10,7 @@ export = jwt;
 declare function jwt(options: jwt.Options): Koa.Middleware;
 
 declare namespace jwt {
-    export interface Options {
+    interface Options {
         secret: string | Buffer;
         key?: string;
         getToken?: (opts: jwt.Options) => string;

@@ -6,7 +6,7 @@
 import bunyan = require("bunyan");
 
 declare module "bunyan" {
-    export function ConsoleFormattedStream(): void;
+    function ConsoleFormattedStream(): void;
 }
 
 export = bunyan;

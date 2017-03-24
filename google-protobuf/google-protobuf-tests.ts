@@ -83,7 +83,7 @@ class MySimple extends jspb.Message {
     var reader = new jspb.BinaryReader(bytes);
     var msg = new MySimple;
     return MySimple.deserializeBinaryFromReader(msg, reader);
-  };
+  }
 
   static deserializeBinaryFromReader(msg: MySimple, reader: jspb.BinaryReader): MySimple {
     while (reader.nextField()) {
@@ -170,13 +170,13 @@ class MySimple extends jspb.Message {
       }
     }
     return msg;
-  };
+  }
 
   serializeBinary(): Uint8Array {
     var writer = new jspb.BinaryWriter();
     MySimple.serializeBinaryToWriter(this, writer);
     return writer.getResultBuffer();
-  };
+  }
 
   static serializeBinaryToWriter(message: MySimple, writer: jspb.BinaryWriter) {
     const f1 = message.getMyString();
@@ -296,229 +296,229 @@ class MySimple extends jspb.Message {
         google_protobuf_wrappers_pb.DoubleValue.serializeBinaryToWriter
       );
     }
-  };
+  }
 
   getMyString(): string {
     return jspb.Message.getFieldWithDefault(this, 1, "");
-  };
+  }
 
   setMyString(value: string) {
     jspb.Message.setField(this, 1, value);
-  };
+  }
 
   getMyBool(): boolean {
     return jspb.Message.getFieldWithDefault(this, 2, false);
-  };
+  }
 
   setMyBool(value: boolean) {
     jspb.Message.setField(this, 2, value);
-  };
+  }
 
-  getSomeLabelsList(): Array<string> {
-    return jspb.Message.getField(this, 3);
-  };
+  getSomeLabelsList(): string[] {
+    return jspb.Message.getField(this, 3) as string[];
+  }
 
   setSomeLabelsList(value: Array<string>) {
     jspb.Message.setField(this, 3, value || []);
-  };
+  }
 
   addSomeLabels(value: string, opt_index?: number) {
     jspb.Message.addToRepeatedField(this, 3, value, opt_index);
-  };
+  }
 
   clearSomeLabelsList() {
     this.setSomeLabelsList([]);
-  };
+  }
 
   getSomeCodeGeneratorRequest(): google_protobuf_compiler_plugin_pb.CodeGeneratorRequest {
     return jspb.Message.getWrapperField(this, google_protobuf_compiler_plugin_pb.CodeGeneratorRequest, 4) as google_protobuf_compiler_plugin_pb.CodeGeneratorRequest;
-  };
+  }
 
   setSomeCodeGeneratorRequest(value?: google_protobuf_compiler_plugin_pb.CodeGeneratorRequest) {
     jspb.Message.setWrapperField(this, 4, value);
-  };
+  }
 
   clearSomeCodeGeneratorRequest() {
     this.setSomeCodeGeneratorRequest(undefined);
-  };
+  }
 
   hasSomeCodeGeneratorRequest(): boolean {
     return jspb.Message.getField(this, 4) != null;
-  };
+  }
 
   getSomeAny(): google_protobuf_any_pb.Any {
     return jspb.Message.getWrapperField(this, google_protobuf_any_pb.Any, 5) as google_protobuf_any_pb.Any;
-  };
+  }
 
   setSomeAny(value?: google_protobuf_any_pb.Any) {
     jspb.Message.setWrapperField(this, 5, value);
-  };
+  }
 
   clearSomeAny() {
     this.setSomeAny(undefined);
-  };
+  }
 
   hasSomeAny(): boolean {
     return jspb.Message.getField(this, 5) != null;
-  };
+  }
 
   getSomeMethod(): google_protobuf_api_pb.Method {
     return jspb.Message.getWrapperField(this, google_protobuf_api_pb.Method, 6) as google_protobuf_api_pb.Method;
-  };
+  }
 
   setSomeMethod(value?: google_protobuf_api_pb.Method) {
     jspb.Message.setWrapperField(this, 6, value);
-  };
+  }
 
   clearSomeMethod() {
     this.setSomeMethod(undefined);
-  };
+  }
 
   hasSomeMethod(): boolean {
     return jspb.Message.getField(this, 6) != null;
-  };
+  }
 
   getSomeGeneratedCodeInfo(): google_protobuf_descriptor_pb.GeneratedCodeInfo {
     return jspb.Message.getWrapperField(this, google_protobuf_descriptor_pb.GeneratedCodeInfo, 7) as google_protobuf_descriptor_pb.GeneratedCodeInfo;
-  };
+  }
 
   setSomeGeneratedCodeInfo(value?: google_protobuf_descriptor_pb.GeneratedCodeInfo) {
     jspb.Message.setWrapperField(this, 7, value);
-  };
+  }
 
   clearSomeGeneratedCodeInfo() {
     this.setSomeGeneratedCodeInfo(undefined);
-  };
+  }
 
   hasSomeGeneratedCodeInfo(): boolean {
     return jspb.Message.getField(this, 7) != null;
-  };
+  }
 
   getSomeDuration(): google_protobuf_duration_pb.Duration {
     return jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 8) as google_protobuf_duration_pb.Duration;
-  };
+  }
 
   setSomeDuration(value?: google_protobuf_duration_pb.Duration) {
     jspb.Message.setWrapperField(this, 8, value);
-  };
+  }
 
   clearSomeDuration() {
     this.setSomeDuration(undefined);
-  };
+  }
 
   hasSomeDuration(): boolean {
     return jspb.Message.getField(this, 8) != null;
-  };
+  }
 
   getSomeEmpty(): google_protobuf_empty_pb.Empty {
     return jspb.Message.getWrapperField(this, google_protobuf_empty_pb.Empty, 9) as google_protobuf_empty_pb.Empty;
-  };
+  }
 
   setSomeEmpty(value?: google_protobuf_empty_pb.Empty) {
     jspb.Message.setWrapperField(this, 9, value);
-  };
+  }
 
   clearSomeEmpty() {
     this.setSomeEmpty(undefined);
-  };
+  }
 
   hasSomeEmpty(): boolean {
     return jspb.Message.getField(this, 9) != null;
-  };
+  }
 
   getSomeFieldMask(): google_protobuf_field_mask_pb.FieldMask {
     return jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 10) as google_protobuf_field_mask_pb.FieldMask;
-  };
+  }
 
   setSomeFieldMask(value?: google_protobuf_field_mask_pb.FieldMask) {
     jspb.Message.setWrapperField(this, 10, value);
-  };
+  }
 
   clearSomeFieldMask() {
     this.setSomeFieldMask(undefined);
-  };
+  }
 
   hasSomeFieldMask(): boolean {
     return jspb.Message.getField(this, 10) != null;
-  };
+  }
 
   getSomeSourceContext(): google_protobuf_source_context_pb.SourceContext {
     return jspb.Message.getWrapperField(this, google_protobuf_source_context_pb.SourceContext, 11) as google_protobuf_source_context_pb.SourceContext;
-  };
+  }
 
   setSomeSourceContext(value?: google_protobuf_source_context_pb.SourceContext) {
     jspb.Message.setWrapperField(this, 11, value);
-  };
+  }
 
   clearSomeSourceContext() {
     this.setSomeSourceContext(undefined);
-  };
+  }
 
   hasSomeSourceContext(): boolean {
     return jspb.Message.getField(this, 11) != null;
-  };
+  }
 
   getSomeStruct(): google_protobuf_struct_pb.Struct {
     return jspb.Message.getWrapperField(this, google_protobuf_struct_pb.Struct, 12) as google_protobuf_struct_pb.Struct;
-  };
+  }
 
   setSomeStruct(value?: google_protobuf_struct_pb.Struct) {
     jspb.Message.setWrapperField(this, 12, value);
-  };
+  }
 
   clearSomeStruct() {
     this.setSomeStruct(undefined);
-  };
+  }
 
   hasSomeStruct(): boolean {
     return jspb.Message.getField(this, 12) != null;
-  };
+  }
 
   getSomeTimestamp(): google_protobuf_timestamp_pb.Timestamp {
     return jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 13) as google_protobuf_timestamp_pb.Timestamp;
-  };
+  }
 
   setSomeTimestamp(value?: google_protobuf_timestamp_pb.Timestamp) {
     jspb.Message.setWrapperField(this, 13, value);
-  };
+  }
 
   clearSomeTimestamp() {
     this.setSomeTimestamp(undefined);
-  };
+  }
 
   hasSomeTimestamp(): boolean {
     return jspb.Message.getField(this, 13) != null;
-  };
+  }
 
   getSomeType(): google_protobuf_type_pb.Type {
     return jspb.Message.getWrapperField(this, google_protobuf_type_pb.Type, 14) as google_protobuf_type_pb.Type;
-  };
+  }
 
   setSomeType(value?: google_protobuf_type_pb.Type) {
     jspb.Message.setWrapperField(this, 14, value);
-  };
+  }
 
   clearSomeType() {
     this.setSomeType(undefined);
-  };
+  }
 
   hasSomeType(): boolean {
     return jspb.Message.getField(this, 14) != null;
-  };
+  }
 
   getSomeDoubleValue(): google_protobuf_wrappers_pb.DoubleValue {
     return jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.DoubleValue, 15) as google_protobuf_wrappers_pb.DoubleValue;
-  };
+  }
 
   setSomeDoubleValue(value?: google_protobuf_wrappers_pb.DoubleValue) {
     jspb.Message.setWrapperField(this, 15, value);
-  };
+  }
 
   clearSomeDoubleValue() {
     this.setSomeDoubleValue(undefined);
-  };
+  }
 
   hasSomeDoubleValue(): boolean {
     return jspb.Message.getField(this, 15) != null;
-  };
+  }
 };

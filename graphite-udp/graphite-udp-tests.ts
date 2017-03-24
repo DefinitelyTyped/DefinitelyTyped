@@ -1,13 +1,13 @@
 import graphite = require('graphite-udp');
 
 // Test creation of client directly.
-let client = new graphite.Client();
+const client = new graphite.Client();
 client.put('test', 1);
 client.add('test', 1);
 client.close();
 
 // Create client with helper
-let client2 = graphite.createClient();
+const client2 = graphite.createClient();
 client2.put('test2', 1);
 client2.add('test2', 1);
 client2.close();
@@ -22,9 +22,7 @@ graphite.createClient({
 	suffix: 'suffix',
 	interval: 60 * 1000,
 	verbose: true,
-	callback: (error: Error, metrics: any): void => {
-
-	}
+	callback: (error: Error, metrics: any): void => {}
 });
 
 // Test creation options with class directly.
@@ -37,7 +35,5 @@ new graphite.Client({
 	suffix: 'suffix',
 	interval: 60 * 1000,
 	verbose: true,
-	callback: (error: Error, metrics: any): void => {
-
-	}
+	callback: (error: Error, metrics: any): void => {}
 });

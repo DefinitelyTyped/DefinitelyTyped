@@ -5,8 +5,8 @@
 
 export as namespace fabric;
 
-export var isLikelyNode: boolean;
-export var isTouchSupported: boolean;
+export const isLikelyNode: boolean;
+export const isTouchSupported: boolean;
 
 /////////////////////////////////////////////////////////////
 // farbic Functions
@@ -1288,7 +1288,6 @@ export class StaticCanvas {
 	 * @param {fabric.Object} object Object to straighten
 	 */
 	fxStraightenObject(object: Object): StaticCanvas
-
 
 	static EMPTY_JSON: string;
 	/**
@@ -2997,8 +2996,8 @@ interface IRectOptions extends IObjectOptions {
 	 * Vertical border radius
 	 */
 	ry?: number;
-
 }
+
 export interface Rect extends IRectOptions {}
 export class Rect extends Object {
 	/**
@@ -3950,8 +3949,8 @@ export class BaseBrush {
 	 * @param {Object|String} [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
 	 */
 	setShadow(options: string|any): BaseBrush;
-
 }
+
 export class CircleBrush extends BaseBrush {
 	/**
 	 * Width of a brush
@@ -3969,6 +3968,7 @@ export class CircleBrush extends BaseBrush {
 	 */
 	addPoint(pointer: any): Point
 }
+
 export class SprayBrush extends BaseBrush {
 	/**
 	 * Width of a brush
@@ -4147,7 +4147,6 @@ interface IUtilArc {
 	 * @param {Number} y3
 	 */
 	getBoundsOfCurve(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): Point[];
-
 }
 
 interface IUtilDomEvent {
@@ -4298,7 +4297,6 @@ interface IUtilClass {
 	 *                  (be careful modifying objects defined here as this would affect all instances)
 	 */
 	createClass(properties?: any): void;
-
 }
 
 interface IUtilObject {
@@ -4517,7 +4515,7 @@ interface IUtilMisc {
 	isTransparent(ctx: CanvasRenderingContext2D, x: number, y: number, tolerance: number): boolean;
 }
 
-export var util: IUtil;
+export const util: IUtil;
 interface IUtil extends IUtilAnimation, IUtilArc, IObservable<IUtil>, IUtilDomEvent, IUtilDomMisc,
 	IUtilDomRequest, IUtilDomStyle, IUtilClass, IUtilMisc {
 	ease: IUtilAnimEase;

@@ -6,14 +6,12 @@
 /// <reference types="leaflet" />
 
 declare namespace L {
-	export interface MapOptions {
+	interface MapOptions {
 		drawControl?: boolean;
 	}
 
 	namespace Control {
-
-		export interface DrawConstructorOptions {
-
+		interface DrawConstructorOptions {
 			/**
 			 * The initial position of the control (one of the map corners).
 			 *
@@ -34,11 +32,9 @@ declare namespace L {
 			 *  Default value: false
 			 */
 			edit: EditOptions;
-
 		}
 
-		export interface DrawOptions {
-
+		interface DrawOptions {
 			/**
 			 * Polyline draw handler options. Set to false to disable handler.
 			 *
@@ -75,8 +71,7 @@ declare namespace L {
 			marker?: DrawOptions.MarkerOptions;
 		}
 
-		export interface EditOptions {
-
+		interface EditOptions {
 			/**
 			 * This is the FeatureGroup that stores all editable shapes.
 			 * THIS IS REQUIRED FOR THE EDIT TOOLBAR TO WORK
@@ -100,21 +95,17 @@ declare namespace L {
 			remove?: DrawOptions.DeleteHandlerOptions;
 		}
 
-		export interface Draw extends Control {
+		interface Draw extends Control {
 			setDrawingOptions(options: DrawOptions): void;
 		}
 
-		export class Draw {
+		class Draw {
 			constructor(options?: DrawConstructorOptions);
 		}
-
 	}
 
-
 	namespace DrawOptions {
-
-		export interface PolylineOptions {
-
+		interface PolylineOptions {
 			/**
 			 * Determines if line segments can cross.
 			 *
@@ -165,8 +156,7 @@ declare namespace L {
 			repeatMode?: boolean;
 		}
 
-		export interface PolygonOptions extends PolylineOptions {
-
+		interface PolygonOptions extends PolylineOptions {
 			/**
 			 * Show the area of the drawn polygon in m², ha or km².
 			 * The area is only approximate and become less accurate the larger the polygon is.
@@ -176,8 +166,7 @@ declare namespace L {
 			showArea?: boolean;
 		}
 
-		export interface RectangleOptions {
-
+		interface RectangleOptions {
 			/**
 			 * The options used when drawing the rectangle on the map.
 			 *
@@ -193,8 +182,7 @@ declare namespace L {
 			repeatMode?: boolean;
 		}
 
-		export interface CircleOptions {
-
+		interface CircleOptions {
 			/**
 			 * The options used when drawing the circle on the map.
 			 *
@@ -210,8 +198,7 @@ declare namespace L {
 			repeatMode?: boolean;
 		}
 
-		export interface MarkerOptions {
-
+		interface MarkerOptions {
 			/**
 			 * TThe icon displayed when drawing a marker.
 			 *
@@ -234,7 +221,7 @@ declare namespace L {
 			repeatMode?: boolean;
 		}
 
-		export interface EditHandlerOptions {
+		interface EditHandlerOptions {
 			/**
 			 * The path options for how the layers will look while in edit mode.
 			 * If this is set to null the editable path options will not be set.
@@ -244,37 +231,30 @@ declare namespace L {
 			selectedPathOptions?: L.PathOptions;
 		}
 
-		export interface DeleteHandlerOptions {
+		interface DeleteHandlerOptions {
 		}
-
 	}
 
 	namespace Draw {
-
 		namespace Event {
-
-			export const CREATED: string;
-			export const EDITED: string;
-			export const DELETED: string;
-			export const DRAWSTART: string;
-			export const DRAWSTOP: string;
-			export const DRAWVERTEX: string;
-			export const EDITSTART: string;
-			export const EDITMOVE: string;
-			export const EDITRESIZE: string;
-			export const EDITVERTEX: string;
-			export const EDITSTOP: string;
-			export const DELETESTART: string;
-			export const DELETESTOP: string;
-
+			const CREATED: string;
+			const EDITED: string;
+			const DELETED: string;
+			const DRAWSTART: string;
+			const DRAWSTOP: string;
+			const DRAWVERTEX: string;
+			const EDITSTART: string;
+			const EDITMOVE: string;
+			const EDITRESIZE: string;
+			const EDITVERTEX: string;
+			const EDITSTOP: string;
+			const DELETESTART: string;
+			const DELETESTOP: string;
 		}
-
 	}
 
 	namespace DrawEvents {
-
-		export interface Created {
-
+		interface Created {
 			/**
 			 * Layer that was just created.
 			 */
@@ -286,8 +266,7 @@ declare namespace L {
 			layerType: string;
 		}
 
-		export interface Edited {
-
+		interface Edited {
 			/**
 			 * List of all layers just edited on the map.
 			 */
@@ -297,52 +276,49 @@ declare namespace L {
 		/**
 		 * Triggered when layers have been removed (and saved) from the FeatureGroup.
 		 */
-		export interface Deleted {
-
+		interface Deleted {
 			/**
 			 * List of all layers just removed from the map.
 			 */
 			layers: LayerGroup;
 		}
 
-		export interface DrawStart {
-
+		interface DrawStart {
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
 			 */
 			layerType: string;
 		}
 
-		export interface DrawStop {
-
+		interface DrawStop {
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
 			 */
 			layerType: string;
 		}
 
-		export interface EditStart {
+		interface EditStart {
 			/**
 			 * The type of edit this is. One of: edit
 			 */
 			handler: string;
 		}
 
-		export interface EditStop {
+		interface EditStop {
 			/**
 			 * The type of edit this is. One of: edit
 			 */
 			handler: string;
 		}
 
-		export interface DeleteStart {
+		interface DeleteStart {
 			/**
 			 * The type of edit this is. One of: remove
 			 */
 			handler: string;
 		}
 
-		export interface DeleteStop {
+		interface DeleteStop {
 			/**
 			 * The type of edit this is. One of: remove
 			 */
@@ -351,15 +327,14 @@ declare namespace L {
 	}
 
 	namespace GeometryUtil {
-
 		/**
 		 * Returns the area of a polygon drawn with leaflet.draw
 		 */
-		export function geodesicArea(coordinates: L.LatLngLiteral[]): number;
+		function geodesicArea(coordinates: L.LatLngLiteral[]): number;
 
 		/**
 		 * Returns a readable area string in yards or metric
 		 */
-		export function readableArea(area: number, isMetric: boolean): string;
+		function readableArea(area: number, isMetric: boolean): string;
 	}
 }

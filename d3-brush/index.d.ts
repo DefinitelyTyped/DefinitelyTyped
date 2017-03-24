@@ -189,7 +189,6 @@ export interface BrushBehavior<Datum> {
      * with this as the current DOM element.
      */
     on(typenames: string, listener: ValueFn<SVGGElement, Datum, void>): this;
-
 }
 
 /**

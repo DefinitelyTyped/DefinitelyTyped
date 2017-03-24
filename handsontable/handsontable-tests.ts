@@ -1,8 +1,6 @@
-
-
 function test_HandsontableInit() {
-  var elem = document.createElement('div');
-  var hot = new Handsontable(elem, {
+  const elem = document.createElement('div');
+  const hot = new Handsontable(elem, {
     allowEmpty: true,
     allowInsertColumn: true,
     allowInsertRow: true,
@@ -206,8 +204,8 @@ function test_HandsontableInit() {
 }
 
 function test_HandsontableMethods() {
-  var elem = document.createElement('div');
-  var hot = new Handsontable(elem, {});
+  const elem = document.createElement('div');
+  const hot = new Handsontable(elem, {});
   hot.addHook('foo', []);
   hot.addHookOnce('foo', []);
   hot.alter('foo', 123, 123, 'foo', true);

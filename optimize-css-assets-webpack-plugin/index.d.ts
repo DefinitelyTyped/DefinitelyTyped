@@ -8,14 +8,12 @@ import { Plugin } from 'webpack';
 export = OptimizeCssAssetsPlugin;
 
 declare namespace OptimizeCssAssetsPlugin {
-
-	export interface Options {
+	interface Options {
 		assetNameRegExp?: RegExp;
 		cssProcessor?: any;
 		cssProcessorOptions?: any;
 		canPrint?: boolean;
 	}
-
 }
 
 declare class OptimizeCssAssetsPlugin extends Plugin {

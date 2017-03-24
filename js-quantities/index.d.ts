@@ -5,7 +5,7 @@
 
 declare const Qty: Qty.Type;
 
-declare interface Qty {
+interface Qty {
     readonly numerator: string[];
     readonly denominator: string[];
     readonly scalar: number;
@@ -39,7 +39,6 @@ declare interface Qty {
 }
 
 declare namespace Qty {
-
     interface Type {
         (value: Source): Qty;
         (value: number, unit: string): Qty;

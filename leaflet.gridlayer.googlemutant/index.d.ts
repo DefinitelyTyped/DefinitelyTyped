@@ -6,13 +6,13 @@
 /// <reference types="leaflet" />
 
 declare namespace L.gridLayer {
-    export interface GoogleMutant extends L.GridLayer {
+    interface GoogleMutant extends L.GridLayer {
         setElementSize(e: HTMLElement, size: L.Point): void ;
     }
 
-    export type GoogleMutantType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';
+    type GoogleMutantType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';
 
-    export interface GoogleMutantStyler {
+    interface GoogleMutantStyler {
         hue?: string;
         lightness?: number;
         saturation?: number;
@@ -28,8 +28,7 @@ declare namespace L.gridLayer {
      *
      * https://developers.google.com/maps/documentation/javascript/style-reference
      */
-    export interface GoogleMutantStyle {
-
+    interface GoogleMutantStyle {
         /**
          * https://developers.google.com/maps/documentation/javascript/style-reference#style-features
          */
@@ -46,7 +45,7 @@ declare namespace L.gridLayer {
         stylers?: GoogleMutantStyler[];
     }
 
-    export interface GoogleMutantOptions extends L.TileLayerOptions {
+    interface GoogleMutantOptions extends L.TileLayerOptions {
         minZoom?: number;
         maxZoom?: number;
         maxNativeZoom?: number;
@@ -74,5 +73,5 @@ declare namespace L.gridLayer {
         styles?: GoogleMutantStyle[];
     }
 
-    export function googleMutant(options?: GoogleMutantOptions): GoogleMutant;
+    function googleMutant(options?: GoogleMutantOptions): GoogleMutant;
 }

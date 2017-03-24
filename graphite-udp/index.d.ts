@@ -3,7 +3,6 @@
 // Definitions by: Eric Byers <https://github.com/EricByers/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface ClientOptions {
 	/**
 	 * graphite server host or ip
@@ -65,7 +64,6 @@ interface ClientOptions {
 }
 
 export class Client {
-
 	constructor(clientOptions?: ClientOptions);
 
 	/**

@@ -118,5 +118,4 @@ jui.ready([
     });
 
     console.log(selectInstance.getValue());
-
 });

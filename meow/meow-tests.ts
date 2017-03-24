@@ -1,7 +1,7 @@
 import meow = require('meow');
 import Options = meow.Options;
 
-var options: Options = {};
+const options: Options = {};
 options.description = true;
 options.description = 'string';
 options.help = true;

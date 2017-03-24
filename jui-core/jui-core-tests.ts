@@ -1,4 +1,4 @@
-import {jui, UtilColor, UtilBase} from "./index";
+import {jui, UtilColor, UtilBase} from "jui-core";
 
 jui.ready(["util.color"], (color: UtilColor) => {
     console.log(color.rgb("#ff0000"));

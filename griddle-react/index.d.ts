@@ -30,7 +30,7 @@ SOFTWARE.
 
 import * as React from 'react';
 
-type ReactClass<T> = React.ComponentClass<T> | React.StatelessComponent<T>
+type ReactClass<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 
 export interface CustomColumnComponentProps<T> {
   data: any;
@@ -80,9 +80,7 @@ export interface ColumnMetaData<T> {
   visible?: boolean;
 }
 
-export interface BodyCssClassNameFunction<T> {
-  (rowData: T): string;
-}
+export type BodyCssClassNameFunction<T> = (rowData: T) => string;
 
 export interface RowMetaData<T> {
   bodyCssClassName?: BodyCssClassNameFunction<T> | string;
@@ -90,7 +88,7 @@ export interface RowMetaData<T> {
 
 export interface GriddleProps<T> {
   columns?: string[];
-  columnMetadata?: ColumnMetaData<T>[];
+  columnMetadata?: Array<ColumnMetaData<T>>;
   rowMetadata?: RowMetaData<T>;
   results?: T[];
   resultsPerPage?: number;
@@ -115,15 +113,15 @@ export interface GriddleProps<T> {
   useCustomFilterer?: boolean;
   useCustomFilterComponent?: boolean;
   useGriddleStyles?: boolean;
-  customRowComponent?: ReactClass<CustomRowComponentProps<T>>
-  customGridComponent?: ReactClass<CustomGridComponentProps<T>>
-  customPagerComponent?: ReactClass<CustomPagerComponentProps>
-  customFilterComponent?: ReactClass<CustomFilterComponentProps>
+  customRowComponent?: ReactClass<CustomRowComponentProps<T>>;
+  customGridComponent?: ReactClass<CustomGridComponentProps<T>>;
+  customPagerComponent?: ReactClass<CustomPagerComponentProps>;
+  customFilterComponent?: ReactClass<CustomFilterComponentProps>;
   customFilterer?(items: T[], query: any): T[];
   enableToggleCustom?: boolean;
   noDataMessage?: string;
   noDataClassName?: string;
-  customNoDataComponent?: ReactClass<void>
+  customNoDataComponent?: ReactClass<void>;
   showTableHeading?: boolean;
   showPager?: boolean;
   useFixedHeader?: boolean;
@@ -136,7 +134,7 @@ export interface GriddleProps<T> {
   externalCurrentPage?: number;
   externalSortColumn?: string;
   externalSortAscending?: boolean;
-  externalLoadingComponent?: ReactClass<void>
+  externalLoadingComponent?: ReactClass<void>;
   externalIsLoading?: boolean;
   enableInfiniteScroll?: boolean;
   bodyHeight?: number;

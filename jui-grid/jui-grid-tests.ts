@@ -1,8 +1,7 @@
 /// <reference types="jquery" />
 
 import {jui} from 'jui-core';
-import {GridTable, GridXTable, GridRow} from "./index";
-
+import {GridTable, GridXTable, GridRow} from "jui-grid";
 
 jui.ready([ "grid.table" ], (table: GridTable) => {
     const table_1: GridTable = table("#table_1", {
@@ -41,7 +40,7 @@ jui.ready([ "grid.table" ], (table: GridTable) => {
     ]);
 
     const table_3_submit: Function = (index: number) => {
-        var name = $(table_3.root).find(".name").val(),
+        const name = $(table_3.root).find(".name").val(),
             age = $(table_3.root).find(".age").val(),
             location = $(table_3.root).find(".location").val();
 
@@ -52,7 +51,7 @@ jui.ready([ "grid.table" ], (table: GridTable) => {
 });
 
 jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
-    var page = 1;
+    let page = 1;
 
     const xtable_2: GridXTable = xtable("#xtable_2", {
         fields: [ "name", "age", "location" ],
@@ -63,9 +62,9 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
     });
 
     const xtable_2_submit: Function = () => {
-        var result: any[] = [];
+        const result: any[] = [];
 
-        for (var i = 0; i < 1000000; i++) {
+        for (let i = 0; i < 1000000; i++) {
             result.push({ name: "Alvin" + i, age: Math.floor(Math.random() * 100) + 1, location: "LA" });
         }
 
@@ -80,7 +79,6 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
         xtable_2.page(page);
     };
 });
-
 
 jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
     const xtable_4: GridXTable  = xtable("#xtable_4", {
@@ -130,9 +128,9 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
     });
 
     const xtable_6_submit: Function = () => {
-        var result: any[] = [];
+        const result: any[] = [];
 
-        for (var i = 0; i < 1000000; i++) {
+        for (let i = 0; i < 1000000; i++) {
             result.push({ name: "Alvin" + i, age: Math.floor(Math.random() * 100) + 1, location: "LA" });
         }
 
@@ -178,5 +176,4 @@ jui.ready([ "grid.xtable" ], (xtable: GridXTable) => {
         { index: "0.5", type: "fold", data: { url: "/sitemap.xml", count: 10 } },
         { index: "0.6", type: "fold", data: { url: "/package.json", count: 5 } }
     ]);
-
 });

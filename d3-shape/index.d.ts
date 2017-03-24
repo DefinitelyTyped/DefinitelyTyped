@@ -790,7 +790,6 @@ export function line(): Line<[number, number]>;
  */
 export function line<Datum>(): Line<Datum>;
 
-
 /**
  * The radial line generator produces a spline or polyline, as in a line chart.
  *
@@ -1285,7 +1284,6 @@ export function area<Datum>(): Area<Datum>;
  * The generic refers to the data type of an element in the input array passed into the area generator.
  */
 export interface RadialArea<Datum> {
-
     /**
      * Generates a radial area for the given array of data.
      *
@@ -1670,7 +1668,7 @@ export interface CurveFactory {
  * The first and last points are triplicated such that the spline starts at the first point and ends at the last point,
  * and is tangent to the line between the first and second points, and to the line between the penultimate and last points.
  */
-export var curveBasis: CurveFactory;
+export const curveBasis: CurveFactory;
 
 /**
  * A curve factory for closed cubic basis spline generators.
@@ -1678,7 +1676,7 @@ export var curveBasis: CurveFactory;
  * The curve generators produce a closed cubic basis spline using the specified control points.
  * When a line segment ends, the first three control points are repeated, producing a closed loop with C2 continuity.
  */
-export var curveBasisClosed: CurveFactory;
+export const curveBasisClosed: CurveFactory;
 
 /**
  * A curve factory for open cubic basis spline generators.
@@ -1686,7 +1684,7 @@ export var curveBasisClosed: CurveFactory;
  * The curve generators produce a cubic basis spline using the specified control points.
  * Unlike basis, the first and last points are not repeated, and thus the curve typically does not intersect these points.
  */
-export var curveBasisOpen: CurveFactory;
+export const curveBasisOpen: CurveFactory;
 
 /**
  * A curve factory for straightened cubic basis spline generators.
@@ -1719,8 +1717,7 @@ export interface CurveBundleFactory extends CurveFactoryLineOnly {
  *
  * This curve does not implement curve.areaStart and curve.areaEnd; it is intended to work with d3.line, not d3.area.
  */
-export var curveBundle: CurveBundleFactory;
-
+export const curveBundle: CurveBundleFactory;
 
 /**
  * A curve factory for cubic cardinal spline generators.
@@ -1741,7 +1738,7 @@ export interface CurveCardinalFactory extends CurveFactory {
  * The curve generators produce a cubic cardinal spline using the specified control points, with one-sided differences used for the first and last piece.
  * The default tension is 0.
  */
-export var curveCardinal: CurveCardinalFactory;
+export const curveCardinal: CurveCardinalFactory;
 
 /**
  * A curve factory for closed cubic cardinal spline generators.
@@ -1750,7 +1747,7 @@ export var curveCardinal: CurveCardinalFactory;
  * When a line segment ends, the first three control points are repeated, producing a closed loop.
  * The default tension is 0.
  */
-export var curveCardinalClosed: CurveCardinalFactory;
+export const curveCardinalClosed: CurveCardinalFactory;
 
 /**
  * A curve factory for open cubic cardinal spline generators.
@@ -1760,7 +1757,7 @@ export var curveCardinalClosed: CurveCardinalFactory;
  * and thus the curve starts at the second point and ends at the penultimate point.
  * The default tension is 0.
  */
-export var curveCardinalOpen: CurveCardinalFactory;
+export const curveCardinalOpen: CurveCardinalFactory;
 
 /**
  * A curve factory for cubic Catmull–Rom spline generators.
@@ -1784,7 +1781,7 @@ export interface CurveCatmullRomFactory extends CurveFactory {
  * which defaults to 0.5, as proposed by Yuksel et al. in On the Parameterization of Catmull–Rom Curves,
  * with one-sided differences used for the first and last piece.
  */
-export var curveCatmullRom: CurveCatmullRomFactory;
+export const curveCatmullRom: CurveCatmullRomFactory;
 
 /**
  * A curve factory for cubic Catmull–Rom spline generators.
@@ -1793,7 +1790,7 @@ export var curveCatmullRom: CurveCatmullRomFactory;
  * which defaults to 0.5, as proposed by Yuksel et al. When a line segment ends,
  * the first three control points are repeated, producing a closed loop.
  */
-export var curveCatmullRomClosed: CurveCatmullRomFactory;
+export const curveCatmullRomClosed: CurveCatmullRomFactory;
 
 /**
  * A curve factory for cubic Catmull–Rom spline generators.
@@ -1802,22 +1799,21 @@ export var curveCatmullRomClosed: CurveCatmullRomFactory;
  * which defaults to 0.5, as proposed by Yuksel et al. Unlike curveCatmullRom, one-sided differences are not used for the first and last piece,
  * and thus the curve starts at the second point and ends at the penultimate point.
  */
-export var curveCatmullRomOpen: CurveCatmullRomFactory;
-
+export const curveCatmullRomOpen: CurveCatmullRomFactory;
 
 /**
  * A curve factory for polyline generators.
  *
  * The curve generators produce a polyline through the specified points.
  */
-export var curveLinear: CurveFactory;
+export const curveLinear: CurveFactory;
 
 /**
  * A curve factory for closed polyline generators.
  *
  * The curve generators produce a closed polyline through the specified points by repeating the first point when the line segment ends.
  */
-export var curveLinearClosed: CurveFactory;
+export const curveLinearClosed: CurveFactory;
 
 /**
  * A curve factory for cubic spline generators preserving monotonicity in y.
@@ -1826,7 +1822,7 @@ export var curveLinearClosed: CurveFactory;
  * “a smooth curve with continuous first-order derivatives that passes through any given set of data points without spurious oscillations.
  * Local extrema can occur only at grid points where they are given by the data, but not in between two adjacent grid points.”
  */
-export var curveMonotoneX: CurveFactory;
+export const curveMonotoneX: CurveFactory;
 
 /**
  * A curve factory for cubic spline generators preserving monotonicity in x.
@@ -1835,14 +1831,14 @@ export var curveMonotoneX: CurveFactory;
  * “a smooth curve with continuous first-order derivatives that passes through any given set of data points without spurious oscillations.
  * Local extrema can occur only at grid points where they are given by the data, but not in between two adjacent grid points.”
  */
-export var curveMonotoneY: CurveFactory;
+export const curveMonotoneY: CurveFactory;
 
 /**
  * A curve factory for natural cubic spline generators.
  *
  * The curve generators produce a natural cubic spline with the second derivative of the spline set to zero at the endpoints.
  */
-export var curveNatural: CurveFactory;
+export const curveNatural: CurveFactory;
 
 /**
  * A curve factory for step function (midpoint) generators.
@@ -1850,7 +1846,7 @@ export var curveNatural: CurveFactory;
  * The curve generators produce a piecewise constant function (a step function) consisting of alternating horizontal and vertical lines.
  * The y-value changes at the midpoint of each pair of adjacent x-values.
  */
-export var curveStep: CurveFactory;
+export const curveStep: CurveFactory;
 
 /**
  * A curve factory for step function (after) generators.
@@ -1858,7 +1854,7 @@ export var curveStep: CurveFactory;
  * The curve generators produce a piecewise constant function (a step function) consisting of alternating horizontal and vertical lines.
  * The y-value changes after the x-value.
  */
-export var curveStepAfter: CurveFactory;
+export const curveStepAfter: CurveFactory;
 
 /**
  * A curve factory for step function (before) generators.
@@ -1866,8 +1862,7 @@ export var curveStepAfter: CurveFactory;
  * The curve generators produce a piecewise constant function (a step function) consisting of alternating horizontal and vertical lines.
  * The y-value changes before the x-value.
  */
-export var curveStepBefore: CurveFactory;
-
+export const curveStepBefore: CurveFactory;
 
 // -----------------------------------------------------------------------------------
 // SYMBOLS
@@ -1990,7 +1985,6 @@ export interface Symbol<This, Datum> {
      * @param context null, to remove rendering context.
      */
     context(context: null): this;
-
 }
 
 /**
@@ -2017,43 +2011,42 @@ export function symbol<This, Datum>(): Symbol<This, Datum>;
  * An array containing the set of all built-in symbol types: circle, cross, diamond, square, star, triangle, and wye.
  * Useful for constructing the range of an ordinal scale should you wish to use a shape encoding for categorical data.
  */
-export var symbols: SymbolType[];
+export const symbols: SymbolType[];
 
 /**
  * The circle symbol type.
  */
-export var symbolCircle: SymbolType;
+export const symbolCircle: SymbolType;
 
 /**
  * The Greek cross symbol type, with arms of equal length.
  */
-export var symbolCross: SymbolType;
+export const symbolCross: SymbolType;
 
 /**
  * The rhombus symbol type.
  */
-export var symbolDiamond: SymbolType;
+export const symbolDiamond: SymbolType;
 
 /**
  * The square symbol type.
  */
-export var symbolSquare: SymbolType;
+export const symbolSquare: SymbolType;
 
 /**
  * The pentagonal star (pentagram) symbol type.
  */
-export var symbolStar: SymbolType;
+export const symbolStar: SymbolType;
 
 /**
  * he up-pointing triangle symbol type.
  */
-export var symbolTriangle: SymbolType;
+export const symbolTriangle: SymbolType;
 
 /**
  * The Y-shape symbol type.
  */
-export var symbolWye: SymbolType;
-
+export const symbolWye: SymbolType;
 
 // -----------------------------------------------------------------------------------
 // STACKS
@@ -2221,7 +2214,6 @@ export interface Stack<This, Datum, Key> {
      *               The offset function is then responsible for updating the lower and upper values in the series array to layout the stack.
      */
     offset(offset: (series: Series<Datum, Key>, order: number[]) => void): this;
-
 }
 
 /**

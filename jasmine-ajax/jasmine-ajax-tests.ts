@@ -5,12 +5,11 @@
 
 /// <reference types="jasmine" />
 
-
 declare function getJasmineRequireObj();
 
 describe('StubTracker', () => {
 	beforeEach(() => {
-		var Constructor = getJasmineRequireObj().AjaxStubTracker();
+		const Constructor = getJasmineRequireObj().AjaxStubTracker();
 		this.tracker = new Constructor();
 	});
 
@@ -19,21 +18,21 @@ describe('StubTracker', () => {
 	});
 
 	it('finds an added stub', () => {
-		var stub = { matches: () => true };
+		const stub = { matches: () => true };
 		this.tracker.addStub(stub);
 
 		expect(this.tracker.findStub()).toBe(stub);
 	});
 
 	it('skips an added stub that does not match', () => {
-		var stub = { matches: () => false };
+		const stub = { matches: () => false };
 		this.tracker.addStub(stub);
 
 		expect(this.tracker.findStub()).toBeUndefined();
 	});
 
 	it('passes url, data, and method to the stub', () => {
-		var stub = { matches: jasmine.createSpy('matches') };
+		const stub = { matches: jasmine.createSpy('matches') };
 		this.tracker.addStub(stub);
 
 		this.tracker.findStub('url', 'data', 'method');
@@ -42,7 +41,7 @@ describe('StubTracker', () => {
 	});
 
 	it('can clear out all stubs', () => {
-		var stub = { matches: jasmine.createSpy('matches') };
+		const stub = { matches: jasmine.createSpy('matches') };
 		this.tracker.addStub(stub);
 
 		this.tracker.findStub();
@@ -58,9 +57,9 @@ describe('StubTracker', () => {
 	});
 
 	it('uses the most recently added stub that matches', () => {
-		var stub1 = { matches: () => true };
-		var stub2 = { matches: () => false };
-		var stub3 = { matches: () => false };
+		const stub1 = { matches: () => true };
+		const stub2 = { matches: () => false };
+		const stub3 = { matches: () => false };
 
 		this.tracker.addStub(stub1);
 		this.tracker.addStub(stub2);
@@ -74,9 +73,9 @@ describe('FakeRequest', () => {
 	beforeEach(() => {
 		this.requestTracker = { track: jasmine.createSpy('trackRequest') };
 		this.stubTracker = { findStub() { } };
-		var parserInstance = this.parserInstance = jasmine.createSpy('parse');
+		const parserInstance = this.parserInstance = jasmine.createSpy('parse');
 		this.paramParser = { findParser: () => ({ parse: parserInstance }) };
-		var eventBus = this.fakeEventBus = {
+		const eventBus = this.fakeEventBus = {
 			addEventListener: jasmine.createSpy('addEventListener'),
 			trigger: jasmine.createSpy('trigger'),
 			removeEventListener: jasmine.createSpy('removeEventListener')
@@ -95,15 +94,15 @@ describe('FakeRequest', () => {
 	});
 
 	it('extends from the global XMLHttpRequest', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		expect(request.extraAttribute).toEqual('my cool attribute');
 	});
 
 	it('skips XMLHttpRequest attributes that IE does not want copied', () => {
 		// use real window here so it will correctly go red on IE if it breaks
-		var FakeRequest = getJasmineRequireObj().AjaxFakeRequest(this.eventBusFactory)(window, this.requestTracker, this.stubTracker, this.paramParser);
-		var request = new FakeRequest();
+		const FakeRequest = getJasmineRequireObj().AjaxFakeRequest(this.eventBusFactory)(window, this.requestTracker, this.stubTracker, this.paramParser);
+		const request = new FakeRequest();
 
 		expect(request.responseBody).toBeUndefined();
 		expect(request.responseXML).toBeUndefined();
@@ -111,20 +110,20 @@ describe('FakeRequest', () => {
 	});
 
 	it('tracks the request', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		expect(this.requestTracker.track).toHaveBeenCalledWith(request);
 	});
 
 	it('has default request headers and override mime type', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		expect(request.requestHeaders).toEqual({});
 		expect(request.overriddenMimeType).toBeNull();
 	});
 
 	it('saves request information when opened', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open('METHOD', 'URL', 'ignore_async', 'USERNAME', 'PASSWORD');
 
 		expect(request.method).toEqual('METHOD');
@@ -134,7 +133,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('saves an override mime type', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		request.overrideMimeType('application/text; charset: utf-8');
 
@@ -142,7 +141,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('saves request headers', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		request.setRequestHeader('X-Header-1', 'value1');
 		request.setRequestHeader('X-Header-2', 'value2');
@@ -154,7 +153,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('combines request headers with the same header name', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		request.setRequestHeader('X-Header', 'value1');
 		request.setRequestHeader('X-Header', 'value2');
@@ -163,7 +162,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('finds the content-type request header', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		request.setRequestHeader('ContEnt-tYPe', 'application/text+xml');
 
@@ -248,9 +247,9 @@ describe('FakeRequest', () => {
 			this.request.send();
 			this.fakeEventBus.trigger.calls.reset();
 
-			var request = this.request;
-			var events = [];
-			var headers = [
+			const request = this.request;
+			const events = [];
+			const headers = [
 				{ name: 'X-Header', value: 'foo' }
 			];
 
@@ -284,7 +283,7 @@ describe('FakeRequest', () => {
 			this.request.open();
 			this.request.send();
 			this.request.respondWith({});
-			var request = this.request;
+			const request = this.request;
 
 			expect(() => {
 				request.responseTimeout();
@@ -295,7 +294,7 @@ describe('FakeRequest', () => {
 			this.request.open();
 			this.request.send();
 			this.request.respondWith({});
-			var request = this.request;
+			const request = this.request;
 
 			expect(() => {
 				request.respondWith({});
@@ -306,7 +305,7 @@ describe('FakeRequest', () => {
 			this.request.open();
 			this.request.send();
 			this.request.respondWith({});
-			var request = this.request;
+			const request = this.request;
 
 			expect(() => {
 				request.responseError({});
@@ -335,7 +334,7 @@ describe('FakeRequest', () => {
 		this.request.ontimeout = jasmine.createSpy('timeout');
 		this.request.onloadend = jasmine.createSpy('loadend');
 
-		var args = this.fakeEventBus.addEventListener.calls.allArgs();
+		const args = this.fakeEventBus.addEventListener.calls.allArgs();
 		for (const [eventName, busCallback] of args) {
 			busCallback();
 			expect(this.request['on' + eventName]).toHaveBeenCalled();
@@ -462,10 +461,10 @@ describe('FakeRequest', () => {
 	});
 
 	it('ticks the jasmine clock on timeout', () => {
-		var clock = { tick: jasmine.createSpy('tick') };
+		const clock = { tick: jasmine.createSpy('tick') };
 		spyOn(jasmine, 'clock').and.returnValue(clock);
 
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -475,13 +474,13 @@ describe('FakeRequest', () => {
 	});
 
 	it('has an initial status of null', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		expect(request.status).toBeNull();
 	});
 
 	it('has an aborted status', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 
 		request.abort();
 
@@ -490,7 +489,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('has a status from the response', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -501,7 +500,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('has a statusText from the response', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -512,7 +511,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('saves off any data sent to the server', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send('foo=bar&baz=quux');
 
@@ -520,7 +519,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('parses data sent to the server', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send('foo=bar&baz=quux');
 
@@ -530,7 +529,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('skips parsing if no data was sent', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -539,7 +538,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('saves responseText', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -549,7 +548,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('defaults responseText if none is given', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -559,7 +558,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('retrieves individual response headers', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -574,7 +573,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('retrieves individual response headers case-insensitively', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -589,7 +588,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('retrieves a combined response header', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -605,11 +604,11 @@ describe('FakeRequest', () => {
 	});
 
 	it("doesn't pollute the response headers of other XHRs", () => {
-		var request1 = new this.FakeRequest();
+		const request1 = new this.FakeRequest();
 		request1.open();
 		request1.send();
 
-		var request2 = new this.FakeRequest();
+		const request2 = new this.FakeRequest();
 		request2.open();
 		request2.send();
 
@@ -621,7 +620,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('retrieves all response headers', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -638,7 +637,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('sets the content-type header to the specified contentType when no other headers are supplied', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -649,7 +648,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('sets a default content-type header if no contentType and headers are supplied', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -660,7 +659,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('has no responseXML by default', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -670,7 +669,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('parses a text/xml document into responseXML', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -687,7 +686,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('parses an application/xml document into responseXML', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -704,7 +703,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('parses a custom blah+xml document into responseXML', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -721,7 +720,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('defaults the response attribute to the responseText', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -731,7 +730,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('has a text response when the responseType is blank', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -741,7 +740,7 @@ describe('FakeRequest', () => {
 	});
 
 	it('has a text response when the responseType is text', () => {
-		var request = new this.FakeRequest();
+		const request = new this.FakeRequest();
 		request.open();
 		request.send();
 
@@ -751,16 +750,15 @@ describe('FakeRequest', () => {
 	});
 });
 
-
 describe("Jasmine Mock Ajax (for toplevel)", () => {
-	var request, anotherRequest, response;
-	var success, error, complete;
-	var client, onreadystatechange;
-	var sharedContext: any = {};
-	var fakeGlobal, mockAjax;
+	let request, anotherRequest, response;
+	let success, error, complete;
+	let client, onreadystatechange;
+	const sharedContext: any = {};
+	let fakeGlobal, mockAjax;
 
 	beforeEach(() => {
-		var fakeXMLHttpRequest = jasmine.createSpy('realFakeXMLHttpRequest');
+		const fakeXMLHttpRequest = jasmine.createSpy('realFakeXMLHttpRequest');
 		fakeGlobal = {
 			XMLHttpRequest: fakeXMLHttpRequest,
 			DOMParser: window['DOMParser'],
@@ -832,7 +830,6 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 		});
 
 		describe("mockAjax.requests.mostRecent()", () => {
-
 			describe("when there is one request queued", () => {
 				it("should return the request", () => {
 					expect(mockAjax.requests.mostRecent()).toEqual(request);
@@ -921,7 +918,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 				client.send();
 
 				request = mockAjax.requests.mostRecent();
-				var responseObject = { status: 200, statusText: "OK", contentType: "application/json", responseText: '{"foo":"bar"}', responseType: "json" };
+				const responseObject = { status: 200, statusText: "OK", contentType: "application/json", responseText: '{"foo":"bar"}', responseType: "json" };
 
 				request.respondWith(responseObject);
 
@@ -948,7 +945,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 			});
 
 			it("should return a JavaScript object for XHR2 response", () => {
-				var responseText = sharedContext.responseText;
+				const responseText = sharedContext.responseText;
 				expect(success.calls.mostRecent().args[0]).toEqual(responseText);
 
 				expect(response.responseText).toEqual(responseText);
@@ -967,7 +964,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 				client.send();
 
 				request = mockAjax.requests.mostRecent();
-				var responseObject = { status: 200, statusText: "OK", contentType: "application/json", responseText: '{"foo":"bar"}', responseType: 'json' };
+				const responseObject = { status: 200, statusText: "OK", contentType: "application/json", responseText: '{"foo":"bar"}', responseType: 'json' };
 
 				request.respondWith(responseObject);
 
@@ -982,7 +979,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 			});
 
 			it("should return the provided override for the XHR2 response", () => {
-				var responseText = sharedContext.responseText;
+				const responseText = sharedContext.responseText;
 
 				expect(response.responseText).toEqual(responseText);
 				expect(response.response).toEqual({ foo: "bar" });
@@ -999,7 +996,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 				client.send();
 
 				request = mockAjax.requests.mostRecent();
-				var responseObject = {
+				const responseObject = {
 					status: 200, statusText: "OK", responseText: '["foo"]', responseHeaders: {
 						'X-Header1': 'header 1 value',
 						'X-Header2': 'header 2 value',
@@ -1033,7 +1030,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 				client.send();
 
 				request = mockAjax.requests.mostRecent();
-				var responseObject = {
+				const responseObject = {
 					status: 200, statusText: "OK", responseText: '["foo"]', responseHeaders: [
 						{ name: 'X-Header', value: 'header value 1' },
 						{ name: 'X-Header', value: 'header value 2' }
@@ -1201,10 +1198,9 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 	});
 });
 
-
 function sharedAjaxResponseBehaviorForZepto_Success(context) {
 	describe("the success response", () => {
-		var xhr;
+		let xhr;
 		beforeEach(() => {
 			xhr = context.responseCallback.calls.mostRecent().args[2];
 		});
@@ -1218,7 +1214,7 @@ function sharedAjaxResponseBehaviorForZepto_Success(context) {
 		});
 
 		it("should have the expected xhr2 response", () => {
-			var expected = context.response || context.responseType === 'json' ? JSON.parse(context.responseText) : context.responseText;
+			const expected = context.response || context.responseType === 'json' ? JSON.parse(context.responseText) : context.responseText;
 			expect(xhr.response).toEqual(expected);
 		});
 
@@ -1234,7 +1230,7 @@ function sharedAjaxResponseBehaviorForZepto_Success(context) {
 
 function sharedAjaxResponseBehaviorForZepto_Failure(context) {
 	describe("the failure response", () => {
-		var xhr;
+		let xhr;
 		beforeEach(() => {
 			xhr = context.responseCallback.calls.mostRecent().args[0];
 		});
@@ -1248,7 +1244,7 @@ function sharedAjaxResponseBehaviorForZepto_Failure(context) {
 		});
 
 		it("should have the expected xhr2 response", () => {
-			var expected = context.response || xhr.responseType === 'json' ? JSON.parse(xhr.responseText) : xhr.responseText;
+			const expected = context.response || xhr.responseType === 'json' ? JSON.parse(xhr.responseText) : xhr.responseText;
 			expect(xhr.response).toEqual(expected);
 		});
 
@@ -1264,13 +1260,13 @@ function sharedAjaxResponseBehaviorForZepto_Failure(context) {
 
 describe('ParamParser', () => {
 	beforeEach(() => {
-		var Constructor = getJasmineRequireObj().AjaxParamParser();
+		const Constructor = getJasmineRequireObj().AjaxParamParser();
 		expect(Constructor).toEqual(jasmine.any(Function));
 		this.parser = new Constructor();
 	});
 
 	it('has a default parser', () => {
-		var parser = this.parser.findParser({ contentType: () => { } }),
+		const parser = this.parser.findParser({ contentType: () => { } }),
 			parsed = parser.parse('3+stooges=shemp&3+stooges=larry%20%26%20moe%20%26%20curly&some%3Dthing=else+entirely');
 
 		expect(parsed).toEqual({
@@ -1280,7 +1276,7 @@ describe('ParamParser', () => {
 	});
 
 	it('should detect and parse json', () => {
-		var data = {
+		const data = {
 			foo: 'bar',
 			baz: ['q', 'u', 'u', 'x'],
 			nested: {
@@ -1296,7 +1292,7 @@ describe('ParamParser', () => {
 	});
 
 	it('should parse json with further qualifiers on content-type', () => {
-		var data = {
+		const data = {
 			foo: 'bar',
 			baz: ['q', 'u', 'u', 'x'],
 			nested: {
@@ -1312,14 +1308,14 @@ describe('ParamParser', () => {
 	});
 
 	it('should have custom parsers take precedence', () => {
-		var custom = {
+		const custom = {
 			test: jasmine.createSpy('test').and.returnValue(true),
 			parse: jasmine.createSpy('parse').and.returnValue('parsedFormat')
 		};
 
 		this.parser.add(custom);
 
-		var parser = this.parser.findParser({ contentType: () => { } }),
+		const parser = this.parser.findParser({ contentType: () => { } }),
 			parsed = parser.parse('custom_format');
 
 		expect(parsed).toEqual('parsedFormat');
@@ -1328,14 +1324,14 @@ describe('ParamParser', () => {
 	});
 
 	it('should skip custom parsers that do not match', () => {
-		var custom = {
+		const custom = {
 			test: jasmine.createSpy('test').and.returnValue(false),
 			parse: jasmine.createSpy('parse').and.returnValue('parsedFormat')
 		};
 
 		this.parser.add(custom);
 
-		var parser = this.parser.findParser({ contentType: () => { } }),
+		const parser = this.parser.findParser({ contentType: () => { } }),
 			parsed = parser.parse('custom_format');
 
 		expect(parsed).toEqual({ custom_format: ['undefined'] });
@@ -1344,14 +1340,14 @@ describe('ParamParser', () => {
 	});
 
 	it('removes custom parsers when reset', () => {
-		var custom = {
+		const custom = {
 			test: jasmine.createSpy('test').and.returnValue(true),
 			parse: jasmine.createSpy('parse').and.returnValue('parsedFormat')
 		};
 
 		this.parser.add(custom);
 
-		var parser = this.parser.findParser({ contentType: () => { } }),
+		let parser = this.parser.findParser({ contentType: () => { } }),
 			parsed = parser.parse('custom_format');
 
 		expect(parsed).toEqual('parsedFormat');
@@ -1389,31 +1385,31 @@ describe('RequestStub', () => {
 	});
 
 	it('matches just by exact url', () => {
-		var stub = new this.RequestStub('www.example.com/foo');
+		const stub = new this.RequestStub('www.example.com/foo');
 
 		expect(stub)['toMatchRequest']('www.example.com/foo');
 	});
 
 	it('does not match if the url differs', () => {
-		var stub = new this.RequestStub('www.example.com/foo');
+		const stub = new this.RequestStub('www.example.com/foo');
 
 		expect(stub).not['toMatchRequest']('www.example.com/bar');
 	});
 
 	it('matches unordered query params', () => {
-		var stub = new this.RequestStub('www.example.com?foo=bar&baz=quux');
+		const stub = new this.RequestStub('www.example.com?foo=bar&baz=quux');
 
 		expect(stub)['toMatchRequest']('www.example.com?baz=quux&foo=bar');
 	});
 
 	it('requires all specified query params to be there', () => {
-		var stub = new this.RequestStub('www.example.com?foo=bar&baz=quux');
+		const stub = new this.RequestStub('www.example.com?foo=bar&baz=quux');
 
 		expect(stub).not['toMatchRequest']('www.example.com?foo=bar');
 	});
 
 	it('can match the url with a RegExp', () => {
-		var stub = new this.RequestStub(/ba[rz]/);
+		const stub = new this.RequestStub(/ba[rz]/);
 
 		expect(stub)['toMatchRequest']('bar');
 		expect(stub)['toMatchRequest']('baz');
@@ -1421,7 +1417,7 @@ describe('RequestStub', () => {
 	});
 
 	it('requires the method to match if supplied', () => {
-		var stub = new this.RequestStub('www.example.com/foo', null, 'POST');
+		const stub = new this.RequestStub('www.example.com/foo', null, 'POST');
 
 		expect(stub).not['toMatchRequest']('www.example.com/foo');
 		expect(stub).not['toMatchRequest']('www.example.com/foo', null, 'GET');
@@ -1429,7 +1425,7 @@ describe('RequestStub', () => {
 	});
 
 	it('requires the data submitted to match if supplied', () => {
-		var stub = new this.RequestStub('/foo', 'foo=bar&baz=quux');
+		const stub = new this.RequestStub('/foo', 'foo=bar&baz=quux');
 
 		expect(stub)['toMatchRequest']('/foo', 'baz=quux&foo=bar');
 		expect(stub).not['toMatchRequest']('/foo', 'foo=bar');
@@ -1438,7 +1434,7 @@ describe('RequestStub', () => {
 
 describe('RequestTracker', () => {
 	beforeEach(() => {
-		var Constructor = getJasmineRequireObj().AjaxRequestTracker();
+		const Constructor = getJasmineRequireObj().AjaxRequestTracker();
 		this.tracker = new Constructor();
 	});
 
@@ -1511,7 +1507,7 @@ describe('RequestTracker', () => {
 		this.tracker.track({ url: 'bar' });
 		this.tracker.track({ url: 'baz' });
 
-		var func = request => request.url === 'bar';
+		const func = request => request.url === 'bar';
 
 		expect(this.tracker.filter(func)).toEqual([{ url: 'bar' }]);
 	});
@@ -1527,7 +1523,7 @@ describe('EventBus', () => {
 	});
 
 	it('calls an event listener', () => {
-		var callback = jasmine.createSpy('callback');
+		const callback = jasmine.createSpy('callback');
 
 		this.bus.addEventListener('foo', callback);
 		this.bus.trigger('foo');
@@ -1536,7 +1532,7 @@ describe('EventBus', () => {
 	});
 
 	it('calls an event listener with additional arguments', () => {
-		var callback = jasmine.createSpy('callback');
+		const callback = jasmine.createSpy('callback');
 
 		this.bus.addEventListener('foo', callback);
 		this.bus.trigger('foo', 'bar');
@@ -1545,7 +1541,7 @@ describe('EventBus', () => {
 	});
 
 	it('only triggers callbacks for the specified event', () => {
-		var fooCallback = jasmine.createSpy('foo'),
+		const fooCallback = jasmine.createSpy('foo'),
 			barCallback = jasmine.createSpy('bar');
 
 		this.bus.addEventListener('foo', fooCallback);
@@ -1558,8 +1554,8 @@ describe('EventBus', () => {
 	});
 
 	it('calls all the callbacks for the specified event', () => {
-		var callback1 = jasmine.createSpy('callback');
-		var callback2 = jasmine.createSpy('otherCallback');
+		const callback1 = jasmine.createSpy('callback');
+		const callback2 = jasmine.createSpy('otherCallback');
 
 		this.bus.addEventListener('foo', callback1);
 		this.bus.addEventListener('foo', callback2);
@@ -1571,14 +1567,14 @@ describe('EventBus', () => {
 	});
 
 	it('works if there are no callbacks for the event', () => {
-		var bus = this.bus;
+		const bus = this.bus;
 		expect(() => {
 			bus.trigger('notActuallyThere');
 		}).not.toThrow();
 	});
 
 	it('does not call listeners that have been removed', () => {
-		var callback = jasmine.createSpy('callback');
+		const callback = jasmine.createSpy('callback');
 
 		this.bus.addEventListener('foo', callback);
 		this.bus.removeEventListener('foo', callback);
@@ -1588,8 +1584,8 @@ describe('EventBus', () => {
 	});
 
 	it('only removes the specified callback', () => {
-		var callback1 = jasmine.createSpy('callback');
-		var callback2 = jasmine.createSpy('otherCallback');
+		const callback1 = jasmine.createSpy('callback');
+		const callback2 = jasmine.createSpy('otherCallback');
 
 		this.bus.addEventListener('foo', callback1);
 		this.bus.addEventListener('foo', callback2);
@@ -1603,12 +1599,12 @@ describe('EventBus', () => {
 });
 
 describe("Webmock style mocking", () => {
-	var successSpy, errorSpy, response, fakeGlobal, mockAjax;
+	let successSpy, response, fakeGlobal, mockAjax;
 
-	var sendRequest = function(fakeGlobal, url?, method?) {
+	const sendRequest = function(fakeGlobal, url?, method?) {
 		url = url || "http://example.com/someApi";
 		method = method || 'GET';
-		var xhr = new fakeGlobal.XMLHttpRequest();
+		const xhr = new fakeGlobal.XMLHttpRequest();
 		xhr.onreadystatechange = args => {
 			if (this.readyState === (this.DONE || 4)) { // IE 8 doesn't support DONE
 				response = this;
@@ -1681,15 +1677,15 @@ describe("Webmock style mocking", () => {
 });
 
 describe("withMock", () => {
-	var sendRequest = fakeGlobal => {
-		var xhr = new fakeGlobal.XMLHttpRequest();
+	const sendRequest = fakeGlobal => {
+		const xhr = new fakeGlobal.XMLHttpRequest();
 
 		xhr.open("GET", "http://example.com/someApi");
 		xhr.send();
 	};
 
 	it("installs the mock for passed in function, and uninstalls when complete", () => {
-		var xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']),
+		const xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']),
 			xmlHttpRequestCtor = spyOn(window as any, 'XMLHttpRequest').and.returnValue(xmlHttpRequest),
 			fakeGlobal = { XMLHttpRequest: xmlHttpRequestCtor },
 			mockAjax = new MockAjax(fakeGlobal);
@@ -1704,7 +1700,7 @@ describe("withMock", () => {
 	});
 
 	it("properly uninstalls when the passed in function throws", () => {
-		var xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']),
+		const xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']),
 			xmlHttpRequestCtor = spyOn(window as any, 'XMLHttpRequest').and.returnValue(xmlHttpRequest),
 			fakeGlobal = { XMLHttpRequest: xmlHttpRequestCtor },
 			mockAjax = new MockAjax(fakeGlobal);
@@ -1722,7 +1718,7 @@ describe("withMock", () => {
 
 describe("mockAjax", () => {
 	it("throws an error if installed multiple times", () => {
-		var fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
 			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
 			mockAjax = new MockAjax(fakeGlobal);
 
@@ -1735,7 +1731,7 @@ describe("mockAjax", () => {
 	});
 
 	it("does not throw an error if uninstalled between installs", () => {
-		var fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
 			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
 			mockAjax = new MockAjax(fakeGlobal);
 
@@ -1749,7 +1745,7 @@ describe("mockAjax", () => {
 	});
 
 	it("does not replace XMLHttpRequest until it is installed", () => {
-		var fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
 			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
 			mockAjax = new MockAjax(fakeGlobal);
 
@@ -1763,7 +1759,7 @@ describe("mockAjax", () => {
 	});
 
 	it("replaces the global XMLHttpRequest on uninstall", () => {
-		var fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
 			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
 			mockAjax = new MockAjax(fakeGlobal);
 
@@ -1775,7 +1771,7 @@ describe("mockAjax", () => {
 	});
 
 	it("clears requests and stubs upon uninstall", () => {
-		var fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
 			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
 			mockAjax = new MockAjax(fakeGlobal);
 
@@ -1794,24 +1790,24 @@ describe("mockAjax", () => {
 	});
 
 	it("allows the httpRequest to be retrieved", () => {
-		var fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
 			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
 			mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
-		var request = new (<any> fakeGlobal.XMLHttpRequest)();
+		const request = new (<any> fakeGlobal.XMLHttpRequest)();
 
 		expect(mockAjax.requests.count()).toBe(1);
 		expect(mockAjax.requests.mostRecent()).toBe(request);
 	});
 
 	it("allows the httpRequests to be cleared", () => {
-		var fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
 			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
 			mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
-		var request = new (<any> fakeGlobal.XMLHttpRequest)();
+		const request = new (<any> fakeGlobal.XMLHttpRequest)();
 
 		expect(mockAjax.requests.mostRecent()).toBe(request);
 		mockAjax.requests.reset();

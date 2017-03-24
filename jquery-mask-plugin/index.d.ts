@@ -6,7 +6,6 @@
 /// <reference types="jquery" />
 
 declare namespace jQueryMask {
-
     interface Invalid {
         p: number;
         v: string;
@@ -42,11 +41,9 @@ declare namespace jQueryMask {
         [key: string]: Pattern | {} | undefined;
         placeholder?: string;
     }
-
 }
 
 interface JQuery {
-
     /**
      * Applies the mask to the matching selector elements.
      * @param mask should be a string or a function.

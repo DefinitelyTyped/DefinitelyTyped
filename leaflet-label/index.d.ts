@@ -68,7 +68,7 @@ declare global {
 			new(options?: LabelOptions): Label;
 		}
 
-		var Label: LabelStatic;
+		const Label: LabelStatic;
 
 		interface Label extends IEventPowered<Label> {
 			onAdd(map: Map): void;

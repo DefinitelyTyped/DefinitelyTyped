@@ -1,5 +1,4 @@
 class Server implements App {
-
 	private usersPlaying: { [nick: string]: number } = {};
 	private isShuttingDown: boolean = false;
 
@@ -10,7 +9,7 @@ class Server implements App {
 		KnuddelsServer.getChannel()
 			.getOnlineUsers(UserType.Human)
 			.forEach((user) => {
-				this.onUserJoined(user)
+				this.onUserJoined(user);
 			});
 	};
 
@@ -22,7 +21,7 @@ class Server implements App {
 	};
 
 	onUserLeft(user: User) {
-		if (this.usersPlaying[user.getNick()] == 1) {
+		if (this.usersPlaying[user.getNick()] === 1) {
 			KnuddelsServer.getDefaultBotUser()
 				.transferKnuddel(user, new KnuddelAmount(1), 'Du hast den Channel verlassen.');
 
@@ -34,7 +33,7 @@ class Server implements App {
 		if (!this.isShuttingDown) {
 			this.isShuttingDown = true;
 
-			for (let key in this.usersPlaying) {
+			for (const key in this.usersPlaying) {
 				const userId = KnuddelsServer.getUserAccess()
 					.getUserId(key);
 				const user = KnuddelsServer.getUserAccess()
@@ -58,14 +57,13 @@ class Server implements App {
 		if (!sender.canSendAppContent(this.appContent)) {
 			knuddelTransfer.reject('Sorry, mit diesem Gerät kannst du gerade nicht spielen.');
 		} else if (sender.isChannelOwner() && knuddelTransfer.getKnuddelAmount()
-				.asNumber() != 1) {
+				.asNumber() !== 1) {
 			knuddelTransfer.accept();
 		} else if (this.isShuttingDown) {
 			knuddelTransfer.reject('Du App nimmt gerade keine neuen Spieler an.');
 		} else if (this.usersPlaying[sender.getNick()]) {
 			knuddelTransfer.reject('Du spielst bereits.');
-		} else if (knuddelTransfer.getKnuddelAmount()
-				.asNumber() != 1) {
+		} else if (knuddelTransfer.getKnuddelAmount().asNumber() !== 1) {
 			const botNick = KnuddelsServer.getDefaultBotUser()
 				.getNick()
 				.escapeKCode();
@@ -76,7 +74,7 @@ class Server implements App {
 	};
 
 	onKnuddelReceived(user: User, receiver: User, knuddelAmount: KnuddelAmount) {
-		if (knuddelAmount.asNumber() == 1) {
+		if (knuddelAmount.asNumber() === 1) {
 			this.usersPlaying[user.getNick()] = 1;
 			user.sendAppContent(this.appContent);
 		} else {
@@ -85,27 +83,23 @@ class Server implements App {
 	};
 
 	onEventReceived(user: User, key: string, data: string) {
-		if (key == 'selectedEntry' && this.usersPlaying[user.getNick()] == 1) {
+		if (key === 'selectedEntry' && this.usersPlaying[user.getNick()] === 1) {
 			this.usersPlaying[user.getNick()] = 2;
 
 			setTimeout(() => {
-
-				let doorNumber = parseInt(data[data.length - 1], 10);
-
-				let winningDoorNumber = RandomOperations.nextInt(0, 2) + 1;
-
-				let hasWon = winningDoorNumber == doorNumber;
-
-				let text = hasWon
+				const doorNumber = parseInt(data[data.length - 1], 10);
+				const winningDoorNumber = RandomOperations.nextInt(0, 2) + 1;
+				const hasWon = winningDoorNumber === doorNumber;
+				const text = hasWon
 					? 'Richtig getippt'
 					: 'Knapp daneben';
 
 				user.getAppContentSession(AppViewMode.Overlay)
 					.getAppContent()
 					.sendEvent('openDoor', {
-						'door': doorNumber,
-						'winningDoor': winningDoorNumber,
-						'text': text,
+						door: doorNumber,
+						winningDoor: winningDoorNumber,
+						text,
 					});
 
 				if (hasWon) {
@@ -127,7 +121,6 @@ class Server implements App {
 			}, 1500);
 		}
 	};
-
 }
 
 declare let App: Server; // tell the compiler that "App" will be available

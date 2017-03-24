@@ -30,10 +30,10 @@ declare namespace Highstock {
     }
 
     interface RangeSelectorButton {
-    type: string; //Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
+    type: string; // Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
     count?: number;
     text: string;
-    dataGrouping?: any; //not sure how this works
+    dataGrouping?: any; // not sure how this works
     }
 
     interface RangeSelectorOptions {
@@ -97,7 +97,6 @@ declare namespace Highstock {
     }
 }
 
-
 declare global {
     interface JQuery {
         highcharts(type: "StockChart"): Highstock.ChartObject;
@@ -116,7 +115,6 @@ declare global {
          * @return current {JQuery} selector the current JQuery selector
          **/
         highcharts(type: "StockChart", options: Highstock.Options, callback: (chart: Highstock.ChartObject) => void): JQuery;
-
 
         highcharts(type: string): Highcharts.ChartObject;
         highcharts(type: string, options: Highcharts.Options): JQuery;
