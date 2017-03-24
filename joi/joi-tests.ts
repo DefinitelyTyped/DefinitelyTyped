@@ -821,10 +821,16 @@ schema = Joi.compile(obj);
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);
 Joi.assert(obj, schema, err);
+Joi.assert(obj, obj);
+Joi.assert(obj, obj, str);
+Joi.assert(obj, obj, err);
 
 Joi.attempt(obj, schema);
 Joi.attempt(obj, schema, str);
 Joi.attempt(obj, schema, err);
+Joi.attempt(obj, obj);
+Joi.attempt(obj, obj, str);
+Joi.attempt(obj, obj, err);
 
 ref = Joi.ref(str, refOpts);
 ref = Joi.ref(str);
