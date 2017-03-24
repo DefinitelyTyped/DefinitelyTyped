@@ -1105,7 +1105,7 @@ interface Application extends IRouter, Express.Application {
      */
     _router: any;
 
-    use: ApplicaitonRequestHandler<this>;
+    use: ApplicationRequestHandler<this>;
 }
 
 interface Express extends Application {
