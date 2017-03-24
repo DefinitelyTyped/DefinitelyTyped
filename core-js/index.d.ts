@@ -324,7 +324,7 @@ interface Log extends Console {
 /**
   * Non-standard.
   */
-declare const log: Log;
+declare var log: Log;
 
 // #############################################################################################
 // Dict - https://github.com/zloirock/core-js/#dict
@@ -371,7 +371,7 @@ interface DictConstructor {
 /**
   * Non-standard.
   */
-declare const Dict: DictConstructor;
+declare var Dict: DictConstructor;
 
 // #############################################################################################
 // Partial application - https://github.com/zloirock/core-js/#partial-application
