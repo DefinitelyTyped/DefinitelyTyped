@@ -99,6 +99,12 @@ export interface Config<FormData extends DataShape, P, S> {
     initialValues?: Partial<FormData>;
 
     /**
+     * A callback function that will be called with all the form values any time
+     * any of the form values change.
+     */
+    onChange?: (values: any) => void;
+
+    /**
      * The function to call with the form data when the handleSubmit() is fired
      * from within the form component. If you do not specify it as a prop here,
      * you must pass it as a parameter to handleSubmit() inside your form

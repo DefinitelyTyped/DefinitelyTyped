@@ -181,6 +181,11 @@ interface FieldArrayMetaProps {
     error?: string;
 
     /**
+     * Name of your form provided to `reduxForm()` as the `form` config property.
+     */
+    form: string;
+
+    /**
      * true if the field array value fails validation (has a validation error).
      * Opposite of valid.
      */

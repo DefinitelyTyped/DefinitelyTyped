@@ -55,6 +55,11 @@ export const getFormSyncErrors: ErrorSelector;
 export const getFormAsyncErrors: ErrorSelector;
 
 /**
+ * Returns the form synchronous warnings.
+ */
+export const getFormSyncWarnings: ErrorSelector;
+
+/**
  * Returns the form submit validation errors.
  */
 export const getFormSubmitErrors: ErrorSelector;
