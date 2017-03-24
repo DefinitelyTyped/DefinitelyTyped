@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import {
   UncontrolledProps as DropdownUncontrolledProps,
   Props as DropdownProps

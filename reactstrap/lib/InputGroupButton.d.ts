@@ -1,5 +1,3 @@
-/// <reference types='react' />
-
 interface Props {
   tag?: React.ReactType;
   groupClassName?: string;

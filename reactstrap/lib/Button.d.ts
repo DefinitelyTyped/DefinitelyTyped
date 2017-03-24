@@ -1,6 +1,3 @@
-/// <reference types="react" />
-
-
 interface Props extends React.HTMLProps<HTMLButtonElement> {
   outline?: boolean;
   active?: boolean;

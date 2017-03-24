@@ -1,5 +1,3 @@
-/// <reference types='react' />
-
 import { ColumnProps } from './Col';
 
 interface Props {

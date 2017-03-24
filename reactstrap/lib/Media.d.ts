@@ -1,5 +1,3 @@
-/// <reference types='react' />
-
 interface Props {
   body?: boolean;
   bottom?: boolean;

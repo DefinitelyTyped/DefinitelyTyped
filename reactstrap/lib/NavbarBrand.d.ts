@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 interface NavbarBrand {
   tag?: React.ReactType;
   className?: string;

@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 interface Props extends React.HTMLProps<HTMLElement> {
   isOpen?: boolean;
   classNames?: string;

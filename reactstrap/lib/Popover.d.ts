@@ -1,4 +1,3 @@
-/// <reference types='react' />
 /// <reference types='tether' />
 
 type Placement

@@ -1,5 +1,3 @@
-/// <reference types='react' />
-
 type InputType =
   | 'text'
   | 'email'

@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 interface Props {
   color?: string;
   pill?: boolean;

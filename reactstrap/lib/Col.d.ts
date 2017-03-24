@@ -1,5 +1,3 @@
-/// <reference types='react' />
-
 export type ColumnProps
   = string
   | boolean

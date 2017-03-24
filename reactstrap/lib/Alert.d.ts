@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 export interface UncontrolledProps {
   className?: string;
   color?: string;

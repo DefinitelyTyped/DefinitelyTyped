@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 interface Props {
   inline?: boolean;
   disabled?: boolean;

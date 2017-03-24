@@ -1,5 +1,3 @@
-/// <reference types='react' />
-
 import {
   UncontrolledProps as AlertUncontrolledProps
 } from './Alert';
