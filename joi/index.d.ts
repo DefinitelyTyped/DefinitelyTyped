@@ -874,6 +874,7 @@ export function compile(schema: Object): Schema;
  * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
 export function assert(value: any, schema: Schema, message?: string | Error): void;
+export function assert(value: any, schema: Object, message?: string | Error): void;
 
 
 /**
@@ -884,6 +885,7 @@ export function assert(value: any, schema: Schema, message?: string | Error): vo
  * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
 export function attempt<T>(value: T, schema: Schema, message?: string | Error): T;
+export function attempt<T>(value: T, schema: Object, message?: string | Error): T;
 
 
 /**
