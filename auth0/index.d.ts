@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.4
+// Type definitions for auth0 2.5
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,7 +14,7 @@ export interface UserMetadata { }
 export interface AppMetadata { }
 
 export interface UserData {
-  connection: string;
+  connection?: string;
   email?: string;
   username?: string;
   password?: string;
@@ -217,6 +217,58 @@ export class AuthenticationClient {
   getCredentialsGrant(scope: string): Promise<any>;
   getCredentialsGrant(scope: string, cb: (err: Error, message: string) => void): void;
 
+  database: {
+    signIn(userData: UserData): Promise<any>;
+    signIn(userData: UserData, cb: (err: Error, message: string) => void): void;
+
+    signUp(userData: UserData): Promise<any>;
+    signUp(userData: UserData, cb: (err: Error, message: string) => void): void;
+
+    changePassword(userData: UserData): Promise<any>;
+    changePassword(userData: UserData, cb: (err: Error, message: string) => void): void;
+
+    requestChangePasswordEmail(userData: UserData): Promise<any>;
+    requestChangePasswordEmail(userData: UserData, cb: (err: Error, message: string) => void): void;
+  };
+
+  oauth: {
+    socialSignIn(userData: { access_token: string; connection: string; }): Promise<any>;
+    socialSignIn(userData: { access_token: string; connection: string; }, cb: (err: Error, message: string) => void): void;
+
+    signIn(userData: UserData): Promise<any>;
+    signIn(userData: UserData, cb: (err: Error, message: string) => void): void;
+
+    getClientCredentialsGrant(userData: UserData): Promise<any>;
+    getClientCredentialsGrant(userData: UserData, cb: (err: Error, message: string) => void): void;
+  };
+  passwordless: {
+    signIn(userData: UserData): Promise<any>;
+    signIn(userData: UserData, cb: (err: Error, message: string) => void): void;
+
+    sendEmail(userData: { email: string; send: 'link' | 'code' }): Promise<any>;
+    sendEmail(userData: { email: string; send: 'link' | 'code' }, cb: (err: Error, message: string) => void): void;
+
+    sendSMS(userData: { phone_number: string; client_id?: string }): Promise<any>;
+    sendSMS(userData: { phone_number: string; client_id?: string }, cb: (err: Error, message: string) => void): void;
+
+
+  };
+  users: {
+
+    getInfo(userData: { accessToken: string }): Promise<any>;
+    getInfo(userData: { accessToken: string }, cb: (err: Error, message: string) => void): void;
+
+    impersonate(userId: string, settings: { impersonator_id: string, protocol: string }): Promise<any>;
+    impersonate(userId: string, settings: { impersonator_id: string, protocol: string }, cb: (err: Error, message: string) => void): void;
+  };
+  tokens: {
+    getInfo(idToken: string): Promise<any>;
+    getInfo(idToken: string, cb: (err: Error, message: string) => void): void;
+
+
+    getDelegationToken(data: { id_token: string; target: string; api_type: string; grant_type: string }): Promise<any>;
+    getDelegationToken(data: { id_token: string; target: string; api_type: string; grant_type: string }, cb: (err: Error, message: string) => void): void;
+  };
 }
 
 
