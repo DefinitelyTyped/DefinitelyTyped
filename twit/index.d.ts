@@ -211,6 +211,7 @@ declare module 'twit' {
     export interface Response {
       statuses: Twitter.Status[],
       search_metadata: Twitter.Metadata,
+      followers_count: number;
     }
     interface MediaParam {
       file_path: string
@@ -240,6 +241,8 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
+
+      user_id: string;
     }
     export interface PromiseResponse {
       data: Response,
