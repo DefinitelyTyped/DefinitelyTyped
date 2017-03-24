@@ -10176,37 +10176,37 @@ namespace TestToPairs {
     let object: _.Dictionary<string>;
 
     {
-        let result: any[][];
+        let result: [string, any][];
 
         result = _.toPairs<_.Dictionary<string>>(object);
     }
 
     {
-        let result: string[][];
+        let result: [string, string][];
 
         result = _.toPairs<_.Dictionary<string>, string>(object);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, string]>;
 
         result = _(object).toPairs<string>();
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<any[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, any]>;
 
         result = _(object).toPairs();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, string]>;
 
         result = _(object).chain().toPairs<string>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, any]>;
 
         result = _(object).chain().toPairs();
     }
@@ -10217,37 +10217,37 @@ namespace TestToPairsIn {
     let object: _.Dictionary<string>;
 
     {
-        let result: any[][];
+        let result: [string, any][];
 
         result = _.toPairsIn<_.Dictionary<string>>(object);
     }
 
     {
-        let result: string[][];
+        let result: [string, string][];
 
         result = _.toPairsIn<_.Dictionary<string>, string>(object);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, string]>;
 
         result = _(object).toPairsIn<string>();
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<any[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, any]>;
 
         result = _(object).toPairsIn();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, string]>;
 
         result = _(object).chain().toPairsIn<string>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, any]>;
 
         result = _(object).chain().toPairs();
     }
