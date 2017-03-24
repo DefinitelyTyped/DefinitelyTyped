@@ -178,6 +178,7 @@ declare namespace angular {
         registry: RouteRegistry;
         parent: Router;
         hostComponent: any;
+        currentInstruction: Instruction;
 
         /**
          * Constructs a child router. You probably don't need to use this unless you're writing a reusable
