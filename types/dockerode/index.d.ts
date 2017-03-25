@@ -137,6 +137,49 @@ declare namespace Dockerode {
     id?: string;
   }
 
+  interface Plugin {
+    modem: any;
+    name: string;
+    remote: any;
+
+    inspect(callback: Callback<any>): void;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+
+    privileges(callback: Callback<any>): void;
+
+    pull(options: {}, callback: Callback<any>): void;
+
+    enable(options: {}, callback: Callback<any>): void;
+    enable(callback: Callback<any>): void;
+
+    disable(options: {}, callback: Callback<any>): void;
+    disable(callback: Callback<any>): void;
+
+    push(options: {}, callback: Callback<any>): void;
+    push(callback: Callback<any>): void;
+
+    configure(options: {}, callback: Callback<any>): void;
+    configure(callback: Callback<any>): void;
+
+    upgrade(auth: any, options: {}, callback: Callback<any>): void;
+    upgrade(auth: any, callback: Callback<any>): void;
+  }
+
+  interface Secret {
+    inspect(callback: Callback<any>): void;
+
+    update(options: {}, callback: Callback<any>): void;
+    update(callback: Callback<any>): void;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+
+    modem: any;
+    id?: string;
+  }
+
   interface Network {
     inspect(callback: Callback<any>): void;
 
@@ -575,6 +618,8 @@ declare class Dockerode {
 
   getVolume(name: string): Dockerode.Volume;
 
+  getPlugin(name: string, remote: any): Dockerode.Plugin;
+
   getService(id: string): Dockerode.Service;
 
   getTask(id: string): Dockerode.Task;
@@ -582,6 +627,8 @@ declare class Dockerode {
   getNode(id: string): Dockerode.Node;
 
   getNetwork(id: string): Dockerode.Network;
+
+  getSecret(id: string): Dockerode.Secret;
 
   getExec(id: string): Dockerode.Exec;
 
@@ -600,11 +647,21 @@ declare class Dockerode {
   listTasks(options: {}, callback: Callback<any[]>): void;
   listTasks(callback: Callback<any[]>): void;
 
+  listSecrets(options: {}, callback: Callback<any[]>): void;
+  listSecrets(callback: Callback<any[]>): void;
+
+  listPlugins(options: {}, callback: Callback<any[]>): void;
+  listPlugins(callback: Callback<any[]>): void;
+
   listVolumes(options: {}, callback: Callback<any[]>): void;
   listVolumes(callback: Callback<any[]>): void;
 
   listNetworks(options: {}, callback: Callback<any[]>): void;
   listNetworks(callback: Callback<any[]>): void;
+
+  createSecret(options: {}, callback: Callback<any>): void;
+
+  createPlugin(options: {}, callback: Callback<any>): void;
 
   createVolume(options: {}, callback: Callback<any>): void;
 
@@ -613,6 +670,18 @@ declare class Dockerode {
   createNetwork(options: {}, callback: Callback<any>): void;
 
   searchImages(options: {}, callback: Callback<any>): void;
+
+  pruneImages(options: {}, callback: Callback<any[]>): void;
+  pruneImages(callback: Callback<any[]>): void;
+
+  pruneContainers(options: {}, callback: Callback<any[]>): void;
+  pruneContainers(callback: Callback<any[]>): void;
+
+  pruneVolumes(options: {}, callback: Callback<any[]>): void;
+  pruneVolumes(callback: Callback<any[]>): void;
+
+  pruneNetworks(options: {}, callback: Callback<any[]>): void;
+  pruneNetworks(callback: Callback<any[]>): void;
 
   info(callback: Callback<any>): void;
 
@@ -637,6 +706,8 @@ declare class Dockerode {
   swarmLeave(options: {}, callback: Callback<any>): void;
 
   swarmUpdate(options: {}, callback: Callback<any>): void;
+
+  swarmInspect(callback: Callback<any>): void;
 
   modem: any;
 }
