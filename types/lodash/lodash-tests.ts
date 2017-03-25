@@ -2608,12 +2608,18 @@ namespace TestZipObject {
         let result: _.Dictionary<any>;
 
         result = _.zipObject(arrayOfKeys);
+        result = _.zipObjectDeep(arrayOfKeys);
         result = _.zipObject(arrayOfKeys, arrayOfValues);
+        result = _.zipObjectDeep(arrayOfKeys, arrayOfValues);
         result = _.zipObject(arrayOfKeys, listOfValues);
+        result = _.zipObjectDeep(arrayOfKeys, listOfValues);
 
         result = _.zipObject(listOfKeys);
+        result = _.zipObjectDeep(listOfKeys);
         result = _.zipObject(listOfKeys, listOfValues);
+        result = _.zipObjectDeep(listOfKeys, listOfValues);
         result = _.zipObject(listOfKeys, arrayOfValues);
+        result = _.zipObjectDeep(listOfKeys, arrayOfValues);
 
         result = _.zipObject<_.Dictionary<number>>(arrayOfKeyValuePairs);
         result = _.zipObject<_.Dictionary<number>>(listOfKeyValuePairs);
@@ -2647,15 +2653,23 @@ namespace TestZipObject {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
 
         result = _(arrayOfKeys).zipObject();
+        result = _(arrayOfKeys).zipObjectDeep();
         result = _(arrayOfKeys).zipObject(arrayOfValues);
+        result = _(arrayOfKeys).zipObjectDeep(arrayOfValues);
         result = _(arrayOfKeys).zipObject(listOfValues);
+        result = _(arrayOfKeys).zipObjectDeep(listOfValues);
 
         result = _(listOfKeys).zipObject();
+        result = _(listOfKeys).zipObjectDeep();
         result = _(listOfKeys).zipObject(listOfValues);
+        result = _(listOfKeys).zipObjectDeep(listOfValues);
         result = _(listOfKeys).zipObject(arrayOfValues);
+        result = _(listOfKeys).zipObjectDeep(arrayOfValues);
 
         result = _(listOfKeys).zipObject(arrayOfKeyValuePairs);
+        result = _(listOfKeys).zipObjectDeep(arrayOfKeyValuePairs);
         result = _(listOfKeys).zipObject(listOfKeyValuePairs);
+        result = _(listOfKeys).zipObjectDeep(listOfKeyValuePairs);
     }
 
     {
@@ -2686,15 +2700,23 @@ namespace TestZipObject {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
 
         result = _(arrayOfKeys).chain().zipObject();
+        result = _(arrayOfKeys).chain().zipObjectDeep();
         result = _(arrayOfKeys).chain().zipObject(arrayOfValues);
+        result = _(arrayOfKeys).chain().zipObjectDeep(arrayOfValues);
         result = _(arrayOfKeys).chain().zipObject(listOfValues);
+        result = _(arrayOfKeys).chain().zipObjectDeep(listOfValues);
 
         result = _(listOfKeys).chain().zipObject();
+        result = _(listOfKeys).chain().zipObjectDeep();
         result = _(listOfKeys).chain().zipObject(listOfValues);
+        result = _(listOfKeys).chain().zipObjectDeep(listOfValues);
         result = _(listOfKeys).chain().zipObject(arrayOfValues);
+        result = _(listOfKeys).chain().zipObjectDeep(arrayOfValues);
 
         result = _(listOfKeys).chain().zipObject(arrayOfKeyValuePairs);
+        result = _(listOfKeys).chain().zipObjectDeep(arrayOfKeyValuePairs);
         result = _(listOfKeys).chain().zipObject(listOfKeyValuePairs);
+        result = _(listOfKeys).chain().zipObjectDeep(listOfKeyValuePairs);
     }
 }
 
