@@ -4,14 +4,6 @@
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>, Martin Duparc <https://github.com/martinduparc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'plotly' {
-    var Plotly: Plotly.PlotlyStatic;
-    export = Plotly;
-
-}
-
-declare var Plotly: Plotly.PlotlyStatic;
-
 declare namespace Plots {
     interface StaticPlots {
         resize: (root: Plotly.Root) => void
@@ -19,53 +11,35 @@ declare namespace Plots {
 }
 
 declare namespace Plotly {
+    type Root = string | HTMLElement
+
     interface PlotlyStatic {
         Plots: Plots.StaticPlots
-        newPlot: (root: Root, data: Partial<Data>[], layout: Partial<Layout>, config: Partial<Config>) => void
+        newPlot: (root: Root, data: Partial<Data>[], layout?: Partial<Layout>, config?: Partial<Config>) => void
         relayout: (root: Root, layout: Partial<Layout>) => void
         redraw: (root: Root) => void
         purge: (root: Root) => void
         d3: any
     }
 
-    type Root = string | HTMLElement
+    // Layout
 
-    type Data = ScatterData
-
-    interface RangeSlider {
-        visible: boolean
-        thickness: number
-        range: [Datum, Datum]
-        borderwidth: number
-        bordercolor: string
-        bgcolor: string
-    }
-
-    interface RangeSelectorButton {
-        step: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'all'
-        stepmode: 'backward' | 'todate'
-        count: number
-        label: string
-    }
-
-    interface Font {
-        family: string
-        size: number
-        color: string
-    }
-
-    interface RangeSelector {
-        buttons: Partial<RangeSelectorButton>[]
-        visible: boolean
-        x: number
-        xanchor: 'auto' | 'left' | 'center' | 'right'
-        y: number
-        yanchor: 'auto' | 'top' | 'middle' | 'bottom'
-        bgcolor: string
-        activecolor: string
-        bordercolor: string
-        borderwidth: number
-        font: Partial<Font>
+    interface Layout {
+        autosize: boolean
+        showlegend: boolean
+        xaxis: Partial<Axis>
+        yaxis: Partial<Axis>
+        margin: Partial<Margin>
+        height: number
+        width: number
+        hovermode: "closest" | "x" | "y" | false
+        'xaxis.range': [Datum, Datum]
+        'yaxis.range': [Datum, Datum]
+        'yaxis.type': AxisType
+        'xaxis.type': AxisType
+        'xaxis.autorange': boolean
+        'yaxis.autorange': boolean
+        shapes: Partial<Shape>[]
     }
 
     type AxisType = "date" | "log" | "linear"
@@ -84,24 +58,6 @@ declare namespace Plotly {
         autotick: boolean
         zeroline: boolean
         autorange: boolean | 'reversed'
-    }
-
-    interface Layout {
-        autosize: boolean
-        showlegend: boolean
-        xaxis: Partial<Axis>
-        yaxis: Partial<Axis>
-        margin: Partial<Margin>
-        height: number
-        width: number
-        hovermode: "closest" | "x" | "y" | false
-        'xaxis.range': [Datum, Datum]
-        'yaxis.range': [Datum, Datum]
-        'yaxis.type': AxisType
-        'xaxis.type': AxisType
-        'xaxis.autorange': boolean
-        'yaxis.autorange': boolean
-        shapes: Partial<Shape>[]
     }
 
     interface ShapeLine {
@@ -142,8 +98,22 @@ declare namespace Plotly {
         'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' | 
         'hoverClosestPie' | 'toggleHover' | 'resetViews'
 
+    // Data
+
     type Datum = string | number | Date
 
+    type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot'
+
+    type Data = ScatterData | BarData
+
+    // Bar
+    interface BarData {
+        type: 'bar'
+        x: Datum[]
+        y: Datum[]
+    }
+
+    // Scatter
     interface ScatterData {
         type: 'scatter' | 'scattergl'
         x: Datum[]
@@ -174,8 +144,6 @@ declare namespace Plotly {
         colorbar: {} //TODO
     }
 
-    type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot'
-
     interface ScatterLine {
         color: string
         width: number
@@ -183,6 +151,12 @@ declare namespace Plotly {
         shape: 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv'
         smoothing: number
         simplify: boolean
+    }
+
+    interface Font {
+        family: string
+        size: number
+        color: string
     }
 
     interface Config {
@@ -270,4 +244,44 @@ declare namespace Plotly {
         globalTransforms: any[]
 
     }
+
+    // Components
+
+    interface RangeSlider {
+        visible: boolean
+        thickness: number
+        range: [Datum, Datum]
+        borderwidth: number
+        bordercolor: string
+        bgcolor: string
+    }
+
+    interface RangeSelectorButton {
+        step: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'all'
+        stepmode: 'backward' | 'todate'
+        count: number
+        label: string
+    }
+
+    interface RangeSelector {
+        buttons: Partial<RangeSelectorButton>[]
+        visible: boolean
+        x: number
+        xanchor: 'auto' | 'left' | 'center' | 'right'
+        y: number
+        yanchor: 'auto' | 'top' | 'middle' | 'bottom'
+        bgcolor: string
+        activecolor: string
+        bordercolor: string
+        borderwidth: number
+        font: Partial<Font>
+    }
 }
+
+declare module 'plotly' {
+    var Plotly: Plotly.PlotlyStatic;
+    export = Plotly;
+
+}
+
+declare var Plotly: Plotly.PlotlyStatic;
