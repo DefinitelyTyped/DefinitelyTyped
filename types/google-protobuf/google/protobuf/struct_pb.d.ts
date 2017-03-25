@@ -46,13 +46,13 @@ export class Value extends jspb.Message {
 
   hasStructValue(): boolean;
   clearStructValue(): void;
-  getStructValue(): Struct;
-  setStructValue(value: Struct): void;
+  getStructValue(): Struct | undefined;
+  setStructValue(value?: Struct): void;
 
   hasListValue(): boolean;
   clearListValue(): void;
-  getListValue(): ListValue;
-  setListValue(value: ListValue): void;
+  getListValue(): ListValue | undefined;
+  setListValue(value?: ListValue): void;
 
   getKindCase(): Value.KindCase;
 
@@ -75,8 +75,8 @@ export namespace Value {
     numberValue: number,
     stringValue: string,
     boolValue: boolean,
-    structValue: Struct.AsObject,
-    listValue: ListValue.AsObject,
+    structValue?: Struct.AsObject,
+    listValue?: ListValue.AsObject,
   }
 
   export enum KindCase {
