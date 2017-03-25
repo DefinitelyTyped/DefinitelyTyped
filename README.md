@@ -157,7 +157,7 @@ If a package was never on DefinitelyTyped, it does not need to be added to `notN
 To lint a package, just add a `tslint.json` to that package containing `{ "extends": "../tslint.json" }`. All new packages must be linted.
 If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
 
-```json
+```js
 {
     "extends": "../tslint.json",
     "rules": {
@@ -254,6 +254,10 @@ For example, `react-router` depends on `history@2`, so [react-router `tsconfig.j
 transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/react-router-bootstrap/tsconfig.json).
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+#### The file history in GitHub looks incomplete.
+
+GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 
 ## License

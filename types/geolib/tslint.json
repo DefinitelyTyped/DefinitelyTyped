@@ -1,0 +1,6 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "no-useless-files": false
+    }
+}
