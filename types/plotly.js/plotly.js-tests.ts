@@ -1,6 +1,6 @@
-import * as Plotly from 'plotly.js';
+import * as Plotly from 'plotly';
 
-var data = [
+var data: Plotly.BarData[] = [
   {
     x: ['giraffes', 'orangutans', 'monkeys'],
     y: [20, 14, 23],
