@@ -39,6 +39,13 @@ interface APIGatewayEvent {
     resource: string;
 }
 
+// API Gateway CustomAuthorizer "event"
+interface CustomAuthorizerEvent {
+    type: string;
+    authorizationToken: string;
+    methodArn: string;
+}
+
 // SNS "event"
 interface SNSMessageAttribute {
     Type: string;
@@ -190,6 +197,7 @@ interface ProxyResult {
  */
 export type Handler = (event: any, context: Context, callback?: Callback) => void;
 export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => void;
+export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: Callback) => void;
 
 /**
  * Optional callback parameter.

@@ -5,6 +5,7 @@ var num: number = 5;
 var error: Error = new Error();
 var b: boolean = true;
 var apiGwEvt: AWSLambda.APIGatewayEvent;
+var customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 var clientCtx: AWSLambda.ClientContext;
 var clientContextEnv: AWSLambda.ClientContextEnv;
 var clientContextClient: AWSLambda.ClientContextClient;
@@ -86,6 +87,11 @@ str = apiGwEvt.requestContext.requestId;
 str = apiGwEvt.requestContext.resourceId;
 str = apiGwEvt.requestContext.resourcePath;
 str = apiGwEvt.resource;
+
+/* API Gateway CustomAuthorizer Event */
+str = customAuthorizerEvt.type;
+str = customAuthorizerEvt.authorizationToken;
+str = customAuthorizerEvt.methodArn;
 
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;
@@ -183,3 +189,4 @@ context.fail(str);
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+let CustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
