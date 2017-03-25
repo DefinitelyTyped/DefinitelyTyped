@@ -16,7 +16,7 @@ declare namespace bodyParser {
     interface Options {
         inflate?: boolean;
         limit?: number | string;
-        type?: string | ((req: Request) => any);
+        type?: string | string[] | ((req: Request) => any);
         verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
     }
 
