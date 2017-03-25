@@ -278,10 +278,5 @@ declare namespace Plotly {
     }
 }
 
-declare module 'plotly' {
-    var Plotly: Plotly.PlotlyStatic;
-    export = Plotly;
-
-}
-
-declare var Plotly: Plotly.PlotlyStatic;
+declare var Plotly: Plotly.PlotlyStatic
+export = Plotly
