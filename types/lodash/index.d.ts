@@ -5660,15 +5660,25 @@ declare namespace _ {
     //_.zipObject
     interface LoDashStatic {
         /**
-         * The inverse of _.pairs; this method returns an object composed from arrays of property names and values.
-         * Provide either a single two dimensional array, e.g. [[key1, value1], [key2, value2]] or two arrays, one of
-         * property names and one of corresponding values.
+         * This method is like _.fromPairs except that it accepts two arrays, one of property 
+         * identifiers and one of corresponding values.
          *
          * @param props The property names.
          * @param values The property values.
          * @return Returns the new object.
          */
         zipObject<TValues, TResult extends {}>(
+            props: List<StringRepresentable>|List<List<any>>,
+            values?: List<TValues>
+        ): TResult;
+        /**
+         * This method is like _.zipObject except that it supports property paths.
+         *
+         * @param props The property names.
+         * @param values The property values.
+         * @return Returns the new object.
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
             props: List<StringRepresentable>|List<List<any>>,
             values?: List<TValues>
         ): TResult;
@@ -5680,11 +5690,25 @@ declare namespace _ {
             props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): TResult;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            props: List<StringRepresentable>|List<List<any>>,
+            values?: List<any>
+        ): TResult;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            props: List<StringRepresentable>|List<List<any>>,
+            values?: List<any>
+        ): _.Dictionary<any>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDepp(
             props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): _.Dictionary<any>;
@@ -5697,6 +5721,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5704,11 +5734,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
     }
@@ -5720,6 +5762,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5727,11 +5775,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
     }
@@ -5743,6 +5803,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5750,11 +5816,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
     }
@@ -5766,6 +5844,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5773,11 +5857,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
     }
