@@ -31,6 +31,14 @@ declare namespace ReactSplitPane {
          */
         size?: number | string;
         split?: string;
+        /* Styling to be applied to both panes */
+        paneStyle?: React.CSSProperties; 
+        /* Styling to be applied to the first pane, with precedence over paneStyle */
+        pane1Style?: React.CSSProperties;
+        /* Styling to be applied to the second pane, with precedence over paneStyle */
+        pane2Style?: React.CSSProperties; 
+        /* Styling to be applied to the resizer bar */
+        resizerStyle?: React.CSSProperties;
     }
 
     interface ReactSplitPaneClass extends React.ComponentClass<ReactSplitPaneProps> { }
