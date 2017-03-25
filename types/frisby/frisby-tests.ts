@@ -24,15 +24,4 @@ frisby.create('GET user johndoe')
     username: 'johndoe',
     is_admin: false
   })
-  // 'afterJSON' automatically parses response body as JSON and passes it as an argument 
-  .afterJSON(function(user) {
-  	// You can use any normal jasmine-style assertions here 
-  	expect(1+1).toEqual(2);
- 
-  	// Use data from previous result in next test 
-    frisby.create('Update user')
-      .put(URL_AUTH + '/users/' + user.id + '.json', {tags: ['jasmine', 'bdd']})
-      .expectStatus(200)
-    .toss();
-  })
 .toss();
