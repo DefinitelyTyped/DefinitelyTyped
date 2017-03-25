@@ -1,6 +1,6 @@
 // Type definitions for dockerode 2.3
 // Project: https://github.com/apocas/dockerode
-// Definitions by: Carl Winkler <https://github.com/seikho>
+// Definitions by: Carl Winkler <https://github.com/seikho>, Nicolas Laplante <https://github.com/nlaplante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
