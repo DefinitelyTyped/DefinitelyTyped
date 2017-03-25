@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@types/jasmine": "^2.2.34",
-    "@types/selenium-webdriver": "~2.44.28"
-  }
-}
