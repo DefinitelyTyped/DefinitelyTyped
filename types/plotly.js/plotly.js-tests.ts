@@ -1,4 +1,4 @@
-import * as Plotly from 'plotly';
+import * as Plotly from 'plotly.js';
 
 var data: Plotly.BarData[] = [
   {
