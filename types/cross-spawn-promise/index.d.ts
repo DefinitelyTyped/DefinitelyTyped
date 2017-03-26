@@ -2,6 +2,7 @@
 // Project: https://github.com/zentrick/cross-spawn-promise
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * Execute a command cross-platform.
