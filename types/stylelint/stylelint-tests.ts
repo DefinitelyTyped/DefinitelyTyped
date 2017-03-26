@@ -1,4 +1,4 @@
-import { LinterOptions, lint, LintResult, LinterResult } from "stylelint";
+import { LinterOptions, FormatterType, SyntaxType, lint, LintResult, LinterResult } from "stylelint";
 
 const options: LinterOptions = {
     code: "div { color: red }",
@@ -16,3 +16,7 @@ lint(options).then((x: LinterResult) => {
     const postcssResults: any[] = x.postcssResults;
     const results: LintResult[] = x.results;
 });
+
+const formatter: FormatterType = "json";
+
+const syntax: SyntaxType = "scss";
