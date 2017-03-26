@@ -1443,7 +1443,7 @@ namespace child_process_tests {
             let _code: number = code;
             let _signal: string = signal;
         })
-        _cp = _cp.addListener("disconnet", () => { });
+        _cp = _cp.addListener("disconnect", () => { });
         _cp = _cp.addListener("error", (err) => {
             let _err: Error = err;
         })
@@ -1457,7 +1457,7 @@ namespace child_process_tests {
         })
 
         _boolean = _cp.emit("close", () => { });
-        _boolean = _cp.emit("disconnet", () => { });
+        _boolean = _cp.emit("disconnect", () => { });
         _boolean = _cp.emit("error", () => { });
         _boolean = _cp.emit("exit", () => { });
         _boolean = _cp.emit("message", () => { });
@@ -1466,7 +1466,7 @@ namespace child_process_tests {
             let _code: number = code;
             let _signal: string = signal;
         })
-        _cp = _cp.on("disconnet", () => { });
+        _cp = _cp.on("disconnect", () => { });
         _cp = _cp.on("error", (err) => {
             let _err: Error = err;
         })
@@ -1483,7 +1483,7 @@ namespace child_process_tests {
             let _code: number = code;
             let _signal: string = signal;
         })
-        _cp = _cp.once("disconnet", () => { });
+        _cp = _cp.once("disconnect", () => { });
         _cp = _cp.once("error", (err) => {
             let _err: Error = err;
         })
@@ -1500,7 +1500,7 @@ namespace child_process_tests {
             let _code: number = code;
             let _signal: string = signal;
         })
-        _cp = _cp.prependListener("disconnet", () => { });
+        _cp = _cp.prependListener("disconnect", () => { });
         _cp = _cp.prependListener("error", (err) => {
             let _err: Error = err;
         })
@@ -1517,7 +1517,7 @@ namespace child_process_tests {
             let _code: number = code;
             let _signal: string = signal;
         })
-        _cp = _cp.prependOnceListener("disconnet", () => { });
+        _cp = _cp.prependOnceListener("disconnect", () => { });
         _cp = _cp.prependOnceListener("error", (err) => {
             let _err: Error = err;
         })

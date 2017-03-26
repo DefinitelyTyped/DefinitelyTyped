@@ -66,7 +66,7 @@ declare module 'react-router' {
   class Router extends React.Component<RouterProps, void> {}
 
 
-  interface StaticRouterProps extends RouterProps {
+  interface StaticRouterProps {
     basename?: string;
     location?: string | object;
     context?: object;
