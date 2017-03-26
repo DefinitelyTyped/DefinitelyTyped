@@ -44,19 +44,19 @@ const TestLoop: SFC<TestLoopProps> = (props) => {
                 border: "1px solid black"
             }
         },
-        first: {
+        "first-child": {
             element: {
                 borderTopLeftRadius: "2px",
                 borderTopRightRadius: "2px"
             }
         },
-        last: {
+        "last-child": {
             element: {
                 borderBottomLeftRadius: "2px",
                 borderBottomRightRadius: "2px"
             }
         }
-    }, { first: props["first-child"], last: props["last-child"] })
+    }, props)
 
     return <div style={styles.element}>{props.children}</div>
 }
