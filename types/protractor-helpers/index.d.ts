@@ -44,7 +44,7 @@ declare namespace protractor {
 //        jasmine d.ts.
 
 declare namespace jasmine {
-  interface Matchers {
+  interface Matchers<T> {
     toBePresent() : boolean;
     toBeDisplayed() : boolean;
     toHaveCountOf(expectedCount : number) : boolean;
