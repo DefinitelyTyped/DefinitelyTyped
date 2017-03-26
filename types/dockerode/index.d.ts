@@ -94,8 +94,8 @@ declare namespace Dockerode {
     tag(options: {}, callback: Callback<any>): void;
     tag(callback: Callback<any>): void;
 
-    remove(options: {}, callback: Callback<any>): void;
-    remove(callback: Callback<any>): void;
+    remove(options: {}, callback: Callback<ImageRemoveInfo>): void;
+    remove(callback: Callback<ImageRemoveInfo>): void;
 
     modem: any;
     id?: string;
@@ -142,7 +142,7 @@ declare namespace Dockerode {
     name: string;
     remote: any;
 
-    inspect(callback: Callback<any>): void;
+    inspect(callback: Callback<PluginInspectInfo>): void;
 
     remove(options: {}, callback: Callback<any>): void;
     remove(callback: Callback<any>): void;
@@ -168,7 +168,7 @@ declare namespace Dockerode {
   }
 
   interface Secret {
-    inspect(callback: Callback<any>): void;
+    inspect(callback: Callback<SecretInfo>): void;
 
     update(options: {}, callback: Callback<any>): void;
     update(callback: Callback<any>): void;
@@ -589,6 +589,139 @@ declare namespace Dockerode {
     protocol?: "https" | "http";
     timeout?: number;
   }
+
+  interface SecretVersion {
+    Index: number
+  }
+
+  interface ServiceSpec {
+    Name: string
+  }
+
+  interface SecretInfo {
+    ID: string,
+    Version:  SecretVersion;
+    CreatedAt: string,
+    UpdatedAt?: string,
+    Spec?: ServiceSpec
+  }
+
+  interface PluginInfo {
+    Id?: string;
+    Name: string;
+    Enabled: boolean;
+    Settings: PluginSettings;
+    PluginReference?: string;
+    Config: PluginConfig;
+  }
+
+  type PluginInspectInfo = PluginInfo;
+
+  interface PluginSettings {
+    Mounts: PluginMount[];
+    Env: string[];
+    Args: string[];
+    Devices: PluginDevice[];
+  }
+
+  interface PluginConfig {
+    Description: string;
+    Documentation: string;
+    Interface: any;
+    Entrypoint: string[];
+    WorkDir: string;
+    User?: User;
+    Network: Network;
+    Linux: Linux;
+    PropagatedMount: string;
+    Mounts: PluginMount[];
+    Env: PluginEnv[];
+    Args: Args;
+    rootfs: any;
+  }
+
+  interface Interface {
+    Types: PluginInterfaceType[];
+    Socket: string;
+  }
+
+  interface PluginInterfaceType {
+    Prefix: string;
+    Capability: string;
+    Version: string
+  }
+
+  interface PluginMount {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Source: string;
+    Destination: string;
+    Type: string;
+    Options: string[]
+  }
+
+  interface Linux {
+    Capabilities: string[];
+    AllowAllDevices: boolean;
+    Devices: PluginDevice[];
+  }
+
+  interface PluginDevice {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Path: string;
+  }
+
+  interface Network {
+    Type: string;
+  }
+
+  interface PluginEnv {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Value: string;
+  }
+
+  interface Args {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Value: string;
+  }
+
+  interface User {
+    UID: number;
+    GID: number;
+  }
+
+  interface ImageRemoveInfo {
+    Untagged: string;
+    Deleted: string;
+  }
+
+  interface PruneImagesInfo {
+    ImagesDeleted: ImageRemoveInfo[];
+    SpaceReclaimed: number;
+
+  }
+
+  interface PruneVolumesInfo {
+    VolumesDeleted: string[];
+    SpaceReclaimed: number;
+  }
+
+  interface PruneContainersInfo {
+    ContainersDeleted: string[];
+    SpaceReclaimed: number;
+  }
+
+  interface PruneNetworksInfo {
+    NetworksDeleted: string[];
+  }
+
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
@@ -647,11 +780,11 @@ declare class Dockerode {
   listTasks(options: {}, callback: Callback<any[]>): void;
   listTasks(callback: Callback<any[]>): void;
 
-  listSecrets(options: {}, callback: Callback<any[]>): void;
-  listSecrets(callback: Callback<any[]>): void;
+  listSecrets(options: {}, callback: Callback<Dockerode.SecretInfo[]>): void;
+  listSecrets(callback: Callback<Dockerode.SecretInfo[]>): void;
 
-  listPlugins(options: {}, callback: Callback<any[]>): void;
-  listPlugins(callback: Callback<any[]>): void;
+  listPlugins(options: {}, callback: Callback<Dockerode.PluginInfo[]>): void;
+  listPlugins(callback: Callback<Dockerode.PluginInfo[]>): void;
 
   listVolumes(options: {}, callback: Callback<any[]>): void;
   listVolumes(callback: Callback<any[]>): void;
@@ -671,17 +804,17 @@ declare class Dockerode {
 
   searchImages(options: {}, callback: Callback<any>): void;
 
-  pruneImages(options: {}, callback: Callback<any[]>): void;
-  pruneImages(callback: Callback<any[]>): void;
+  pruneImages(options: {}, callback: Callback<Dockerode.PruneImagesInfo>): void;
+  pruneImages(callback: Callback<Dockerode.PruneImagesInfo>): void;
 
-  pruneContainers(options: {}, callback: Callback<any[]>): void;
-  pruneContainers(callback: Callback<any[]>): void;
+  pruneContainers(options: {}, callback: Callback<Dockerode.PruneContainersInfo>): void;
+  pruneContainers(callback: Callback<Dockerode.PruneContainersInfo>): void;
 
-  pruneVolumes(options: {}, callback: Callback<any[]>): void;
-  pruneVolumes(callback: Callback<any[]>): void;
+  pruneVolumes(options: {}, callback: Callback<Dockerode.PruneVolumesInfo>): void;
+  pruneVolumes(callback: Callback<Dockerode.PruneVolumesInfo>): void;
 
-  pruneNetworks(options: {}, callback: Callback<any[]>): void;
-  pruneNetworks(callback: Callback<any[]>): void;
+  pruneNetworks(options: {}, callback: Callback<Dockerode.PruneNetworksInfo>): void;
+  pruneNetworks(callback: Callback<Dockerode.PruneNetworksInfo>): void;
 
   info(callback: Callback<any>): void;
 
