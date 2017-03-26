@@ -1,7 +1,7 @@
 // From the documentation
 function test_doc() {
-    var elem = document.createElement('div');
-    var animation = elem.animate({
+    const elem = document.createElement('div');
+    const animation = elem.animate({
         opacity: [0.5, 1],
         transform: ['scale(0.5)', 'scale(1)']
     }, {
@@ -13,8 +13,8 @@ function test_doc() {
 // From https://io2015codelabs.appspot.com/codelabs/web-animations-transitions-playbackcontrol
 // To test KeyframeEffect, SequenceEffect and GroupEffect
 function test_AnimationsApiNext() {
-    function buildFadeIn(target : HTMLElement) {
-        var steps = [
+    function buildFadeIn(target: HTMLElement) {
+        const steps = [
             { opacity: 0, transform: 'translate(0, 20em)' },
             { opacity: 1, transform: 'translate(0)' }
         ];
@@ -26,12 +26,12 @@ function test_AnimationsApiNext() {
         });
     }
     function buildFadeOut(target: HTMLElement) {
-        var angle = Math.pow((Math.random() * 16) - 6, 3);
-        var offset = (Math.random() * 20) - 10;
-        var transform = 'translate(' + offset + 'em, 20em) ' +
+        const angle = Math.pow((Math.random() * 16) - 6, 3);
+        const offset = (Math.random() * 20) - 10;
+        const transform = 'translate(' + offset + 'em, 20em) ' +
             'rotate(' + angle + 'deg) ' +
             'scale(0)';
-        var steps = [
+        const steps = [
             { visibility: 'visible', opacity: 1, transform: 'none' },
             { visibility: 'visible', opacity: 0, transform: transform }
         ];
@@ -40,21 +40,54 @@ function test_AnimationsApiNext() {
             easing: 'ease-in'
         });
     }
-    var effectNode = document.createElement('div');
+    const effectNode = document.createElement('div');
     effectNode.className = 'circleEffect';
-    var bounds = document.documentElement.getBoundingClientRect();
+    const bounds = document.documentElement.getBoundingClientRect();
     effectNode.style.left = bounds.left + bounds.width / 2 + 'px';
     effectNode.style.top = bounds.top + bounds.height / 2 + 'px';
-    var header = document.querySelector('header');
+    const header = document.querySelector('header');
     header.appendChild(effectNode);
-    var newColor = 'hsl(' + Math.round(Math.random() * 255) + ', 46%, 42%)';
+    const newColor = 'hsl(' + Math.round(Math.random() * 255) + ', 46%, 42%)';
     effectNode.style.background = newColor;
-    var scaleSteps = [{ transform: 'scale(0)' }, { transform: 'scale(1)' }];
-    var timing = { duration: 2500, easing: 'ease-in-out' };
-    var scaleEffect = new KeyframeEffect(effectNode, scaleSteps, timing);
-    var fadeEffect = new SequenceEffect([buildFadeOut(effectNode), buildFadeIn(effectNode)]);
-    var allEffects = [scaleEffect, fadeEffect];
+    const scaleSteps = [{ transform: 'scale(0)' }, { transform: 'scale(1)' }];
+    const timing: AnimationEffectTiming = { duration: 2500, easing: 'ease-in-out', fill: "backwards" };
+    const scaleEffect = new KeyframeEffect(effectNode, scaleSteps, timing);
+    const fadeEffect = new SequenceEffect([buildFadeOut(effectNode), buildFadeIn(effectNode)]);
+    const allEffects = [scaleEffect, fadeEffect];
     // Play all animations within this group.
-    var groupEffect = new GroupEffect(allEffects);
-    var anim = document.timeline.play(groupEffect);
+    const groupEffect = new GroupEffect(allEffects);
+    const anim = document.timeline.play(groupEffect);
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Animation/Animation
+// http://codepen.io/rachelnabors/pen/eJyWzm/?editors=0010
+function test_whiteRabbit() {
+    var whiteRabbit = document.getElementById("rabbit");
+
+    var rabbitDownKeyframes = new KeyframeEffect(
+        whiteRabbit,
+        [
+            { transform: 'translateY(0%)' },
+            { transform: 'translateY(100%)' }
+        ],
+        { duration: 3000, fill: 'forwards' }
+    );
+
+    var rabbitDownAnimation = new Animation(rabbitDownKeyframes, document.timeline);
+
+    // On tap or click,
+    whiteRabbit.addEventListener("mousedown", downHeGoes, false);
+    whiteRabbit.addEventListener("touchstart", downHeGoes, false);
+
+    // Trigger a single-fire animation
+    function downHeGoes(event: Event) {
+
+        // Remove those event listeners
+        whiteRabbit.removeEventListener("mousedown", downHeGoes, false);
+        whiteRabbit.removeEventListener("touchstart", downHeGoes, false);
+
+        // Play rabbit animation
+        rabbitDownAnimation.play();
+
+    }
 }

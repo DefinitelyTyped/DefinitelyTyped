@@ -3,8 +3,8 @@
 // Definitions by: Kristian Moerch <https://github.com/kritollm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare type FillMode = "none" | "forwards" | "backwards" | "both" | "auto";
-declare type PlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
+declare type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
+declare type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 declare type AnimationPlayState = "idle" | "pending" | "running" | "paused" | "finished";
 
 interface AnimationPlaybackEvent extends Event {
@@ -15,21 +15,21 @@ interface AnimationPlaybackEvent extends Event {
 interface AnimationKeyFrame {
     easing?: string;
     offset?: number;
-    [key: string]: string | number | number[] | string[];
+    [key: string]: string | string[] | number | number[];
 }
 
 interface AnimationTimeline {
     currentTime: number;
-    getAnimations(): any;
-    play(a: any): any;
+    getAnimations(): Animation[];
+    play(effect: KeyframeEffect): Animation;
 }
 interface AnimationEffectTiming {
     delay?: number;
-    direction?: PlaybackDirection;
+    direction?: AnimationEffectTimingPlaybackDirection;
     duration?: number;
     easing?: string;
     endDelay?: number;
-    fill?: FillMode |  string;
+    fill?: AnimationEffectTimingFillMode;
     iterationStart?: number;
     iterations?: number;
     playbackRate?: number;
@@ -44,25 +44,8 @@ declare class KeyframeEffect {
     getFrames(): AnimationKeyFrame[];
 }
 
-interface Animation extends Element {
-    currentTime: number;
-    id: string;
-    oncancel: EventListener;
-    onfinish: EventListener;
-    readonly playState: AnimationPlayState;
-    playbackRate: number;
-    startTime: number;
-    cancel(): void;
-    finish(): void;
-    pause(): void;
-    play(): void;
-    reverse(): void;
-    effect: KeyframeEffect;
-    readonly finished: Promise<Animation>;
-    readonly ready: Promise<Animation>;
-    timeline: AnimationTimeline;
-}
 declare class Animation extends Element {
+    constructor(effect: KeyframeEffect, timeline?: AnimationTimeline);
     currentTime: number;
     id: string;
     oncancel: EventListener;
