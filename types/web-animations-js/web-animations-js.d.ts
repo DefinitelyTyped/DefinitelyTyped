@@ -24,7 +24,7 @@ declare class AnimationPlaybackEvent {
 interface AnimationKeyFrame {
     easing?: string;
     offset?: number;
-    [key: string]: string | string[] | number | number[];
+    [key: string]: string | string[] | number | number[] | undefined;
 }
 
 interface AnimationTimeline {
