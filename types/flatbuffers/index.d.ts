@@ -1,4 +1,4 @@
-// Type definitions for flatbuffers
+// Type definitions for flatbuffers 1.6.0
 // Project: http://google.github.io/flatbuffers/index.html
 // Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -76,13 +76,13 @@ declare module flatbuffers {
      * @type {number}
      * @const
      */
-    public low: number;
+    low: number;
 
     /**
      * @type {number}
      * @const
      */
-    public high: number;
+    high: number;
 
     /**
      * @type {flatbuffers.Long}
