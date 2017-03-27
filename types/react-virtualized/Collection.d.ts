@@ -31,11 +31,11 @@ export type CollectionProps = {
     sectionSize?: number;
     className?: string;
     height: number;
-    width:number;
+    width: number;
     horizontalOverscanSize?: number;
     noContentRenderer?: () => JSX.Element;
-    scrollToCell?: number; 
-    verticalOverscanSize?:number;
+    scrollToCell?: number;
+    verticalOverscanSize?: number;
 };
 
 /**
