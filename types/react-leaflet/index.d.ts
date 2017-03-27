@@ -229,10 +229,8 @@ declare namespace LayersControl {
 interface MapControlProps {
     position?: Leaflet.ControlPosition;
 }
-declare type MapControl = React.ComponentClass<MapControlProps>;
-declare const MapControl: MapControl;
-interface MapControlInstance extends React.Component<MapControlProps, {}> {
-    leafletElement: Leaflet.Map;
+declare class MapControl<T extends MapControlProps> extends React.Component<T, any> {
+    leafletElement?: L.Control
 }
 
 interface ScaleControlProps {
