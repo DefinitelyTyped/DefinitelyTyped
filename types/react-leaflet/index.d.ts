@@ -200,7 +200,7 @@ declare const LayerGroup: React.ComponentClass<LayerGroupProps>;
 interface FeatureGroupProps extends LayerGroupProps, Leaflet.PathOptions { }
 declare const FeatureGroup: React.ComponentClass<FeatureGroupProps>;
 
-interface GeoJSONProps extends FeatureGroupProps {
+interface GeoJSONProps extends FeatureGroupProps, Leaflet.GeoJSONOptions {
     data: GeoJSON.GeoJsonObject;
 }
 declare const GeoJSON: React.ComponentClass<GeoJSONProps>;
@@ -224,6 +224,15 @@ declare namespace LayersControl {
     }
     type BaseLayer = React.ComponentClass<LayersControlLayerProps>;
     type Overlay = React.ComponentClass<LayersControlLayerProps>;
+}
+
+interface MapControlProps {
+    position?: Leaflet.ControlPosition;
+}
+declare type MapControl = React.ComponentClass<MapControlProps>;
+declare const MapControl: MapControl;
+interface MapControlInstance extends React.Component<MapControlProps, {}> {
+    leafletElement: Leaflet.Map;
 }
 
 interface ScaleControlProps {
