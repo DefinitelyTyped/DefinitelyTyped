@@ -42,7 +42,7 @@ export const QueryDocumentKeys: {
 
 export const BREAK: any;
 
-export function visit(root: any, visitor: any, keyMap: any): any;
+export function visit(root: any, visitor: any, keyMap?: any): any;
 
 export function visitInParallel(visitors: any): any;
 
