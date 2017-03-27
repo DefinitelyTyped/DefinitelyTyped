@@ -239,7 +239,7 @@ declare class Input extends Component<{
     onChange?: (e: Event) => void,
     value?: string,
     checked?: boolean,
-    placehoder?: string,
+    placeholder?: string,
     type?: string,
     inputId?: string,
     float?: boolean,
