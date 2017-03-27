@@ -26,15 +26,3 @@ export function getDescription(node: { loc?: Location }): string;
  * document.
 */
 export function buildSchema(source: string | Source): GraphQLSchema;
-
-/**
- * Given an ast node, returns its string description based on a contiguous
- * block full-line of comments preceding it.
- */
-export function getDescription(node: { loc?: Location }): string;
-
-/**
- * A helper function to build a GraphQLSchema directly from a source
- * document.
- */
-export function buildSchema(source: string | Source): GraphQLSchema;
