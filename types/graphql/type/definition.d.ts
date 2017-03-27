@@ -269,7 +269,7 @@ export interface GraphQLResolveInfo {
     variableValues: { [variableName: string]: any };
 }
 
-export type ResponsePath = { prev: ResponsePath, key: string | number } | void;
+export type ResponsePath = { prev: ResponsePath, key: string | number } | undefined;
 
 export interface GraphQLFieldConfig<TSource, TContext> {
     type: GraphQLOutputType;
