@@ -7,9 +7,18 @@ declare type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" |
 declare type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
 declare type AnimationPlayState = "idle" | "pending" | "running" | "paused" | "finished";
 
-interface AnimationPlaybackEvent extends Event {
+declare class AnimationPlaybackEvent {
+    constructor(target: Animation, currentTime: number, timelineTime: number);
+    target: Animation;
     currentTime: number;
     timelineTime: number;
+    type: string;
+    bubbles: boolean;
+    cancelable: boolean;
+    currentTarget: Animation;
+    defaultPrevented: boolean;
+    eventPhase: number;
+    timeStamp: number;
 }
 
 interface AnimationKeyFrame {
@@ -35,7 +44,7 @@ interface AnimationEffectTiming {
     playbackRate?: number;
 }
 declare class KeyframeEffect {
-    constructor(target: HTMLElement, effect: AnimationKeyFrame | AnimationKeyFrame[], timing: number | AnimationEffectTiming);
+    constructor(target: HTMLElement, effect: AnimationKeyFrame | AnimationKeyFrame[], timing: number | AnimationEffectTiming, id?: string);
     activeDuration: number;
     onsample: any;
     parent: any;
@@ -43,13 +52,15 @@ declare class KeyframeEffect {
     timing: AnimationEffectTiming;
     getFrames(): AnimationKeyFrame[];
 }
-
-declare class Animation extends Element {
+interface AnimationEventListener {
+    (evt: AnimationPlaybackEvent): void;
+}
+declare class Animation {
     constructor(effect: KeyframeEffect, timeline?: AnimationTimeline);
     currentTime: number;
     id: string;
-    oncancel: EventListener;
-    onfinish: EventListener;
+    oncancel: AnimationEventListener;
+    onfinish: AnimationEventListener;
     readonly playState: AnimationPlayState;
     playbackRate: number;
     startTime: number;
@@ -58,6 +69,8 @@ declare class Animation extends Element {
     pause(): void;
     play(): void;
     reverse(): void;
+    addEventListener(type: number, handler: AnimationEventListener): void;
+    removeEventListener(type: number, handler: AnimationEventListener): void;
     effect: KeyframeEffect;
     readonly finished: Promise<Animation>;
     readonly ready: Promise<Animation>;
