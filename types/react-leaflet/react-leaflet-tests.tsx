@@ -187,7 +187,7 @@ export class MarkerWithDivIconExample extends Component<any, any> {
                         new Leaflet.DivIcon({})
                     }/>
             </Map>
-        )
+        );
     }
 }
 
