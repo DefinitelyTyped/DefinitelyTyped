@@ -46,7 +46,9 @@ function test_AnimationsApiNext() {
     effectNode.style.left = bounds.left + bounds.width / 2 + 'px';
     effectNode.style.top = bounds.top + bounds.height / 2 + 'px';
     const header = document.querySelector('header');
-    header.appendChild(effectNode);
+    if (header) {
+        header.appendChild(effectNode);
+    }
     const newColor = 'hsl(' + Math.round(Math.random() * 255) + ', 46%, 42%)';
     effectNode.style.background = newColor;
     const scaleSteps = [{ transform: 'scale(0)' }, { transform: 'scale(1)' }];
@@ -63,31 +65,32 @@ function test_AnimationsApiNext() {
 // http://codepen.io/rachelnabors/pen/eJyWzm/?editors=0010
 function test_whiteRabbit() {
     var whiteRabbit = document.getElementById("rabbit");
+    if (whiteRabbit) {
+        var rabbitDownKeyframes = new KeyframeEffect(
+            whiteRabbit,
+            [
+                { transform: 'translateY(0%)' },
+                { transform: 'translateY(100%)' }
+            ],
+            { duration: 3000, fill: 'forwards' }
+        );
+        var rabbitDownAnimation = new Animation(rabbitDownKeyframes, document.timeline);
+        // On tap or click,
+        whiteRabbit.addEventListener("mousedown", downHeGoes, false);
+        whiteRabbit.addEventListener("touchstart", downHeGoes, false);
 
-    var rabbitDownKeyframes = new KeyframeEffect(
-        whiteRabbit,
-        [
-            { transform: 'translateY(0%)' },
-            { transform: 'translateY(100%)' }
-        ],
-        { duration: 3000, fill: 'forwards' }
-    );
+        // Trigger a single-fire animation
+        function downHeGoes(event: Event) {
 
-    var rabbitDownAnimation = new Animation(rabbitDownKeyframes, document.timeline);
+            // Remove those event listeners
+            whiteRabbit!.removeEventListener("mousedown", downHeGoes, false);
+            whiteRabbit!.removeEventListener("touchstart", downHeGoes, false);
 
-    // On tap or click,
-    whiteRabbit.addEventListener("mousedown", downHeGoes, false);
-    whiteRabbit.addEventListener("touchstart", downHeGoes, false);
+            // Play rabbit animation
+            rabbitDownAnimation.play();
 
-    // Trigger a single-fire animation
-    function downHeGoes(event: Event) {
-
-        // Remove those event listeners
-        whiteRabbit.removeEventListener("mousedown", downHeGoes, false);
-        whiteRabbit.removeEventListener("touchstart", downHeGoes, false);
-
-        // Play rabbit animation
-        rabbitDownAnimation.play();
-
+        }
     }
+
+
 }
