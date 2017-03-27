@@ -1,33 +1,21 @@
 // examples taken from https://github.com/litehelpers/Cordova-sqlite-storage
 function echoTestFunction() {
-    function successCallback(value: string) {
-
-    }
-    function errorCallback() {
-
-    }
+    function successCallback(value: string) {}
+    function errorCallback() {}
     window.sqlitePlugin.echoTest(successCallback, errorCallback);
 }
 function selfTestFunction() {
-    function successCallback() {
-
-    }
-    function errorCallback() {
-
-    }
+    function successCallback() {}
+    function errorCallback() {}
     window.sqlitePlugin.selfTest(successCallback, errorCallback);
 }
 
 function openingDatabase() {
-    function successcb(db: SQLitePlugin.Database) {
+    function successcb(db: SQLitePlugin.Database) {}
+    function errorcb(err: Error) {}
 
-    }
-    function errorcb(err: Error) {
-
-    }
-
-    var db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'}, successcb, errorcb);
-    var db = window.sqlitePlugin.openDatabase({name: 'my.db', iosDatabaseLocation: 'Library'}, successcb, errorcb);
+    let db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'}, successcb, errorcb);
+    db = window.sqlitePlugin.openDatabase({name: 'my.db', iosDatabaseLocation: 'Library'}, successcb, errorcb);
 }
 
 function openingDatabase2() {
@@ -104,7 +92,7 @@ function sampleWithPRAGMA() {
 
     // Cordova is ready
     function onDeviceReady() {
-        var db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'});
+        const db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'});
 
         db.transaction(tx => {
             tx.executeSql('DROP TABLE IF EXISTS test_table');
@@ -134,14 +122,13 @@ function sampleWithPRAGMA() {
     }
 }
 
-
 function sampleWithTransactionLevelNesting() {
     // Wait for Cordova to load
     document.addEventListener('deviceready', onDeviceReady, false);
 
     // Cordova is ready
     function onDeviceReady() {
-        var db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'});
+        const db = window.sqlitePlugin.openDatabase({name: 'my.db', location: 'default'});
 
         db.transaction(tx => {
             tx.executeSql('DROP TABLE IF EXISTS test_table');
@@ -155,7 +142,6 @@ function sampleWithTransactionLevelNesting() {
                     console.log("res.rows.length: " + res.rows.length + " -- should be 1");
                     console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
                 });
-
             }, (tx, e) => {
                 console.log("ERROR: " + e.message);
             });
@@ -163,17 +149,11 @@ function sampleWithTransactionLevelNesting() {
     }
 }
 
-
 function dbClose(db: SQLitePlugin.Database) {
-    function successcb() {
-
-    }
-    function errorcb(err: Error) {
-
-    }
+    function successcb() {}
+    function errorcb(err: Error) {}
 
     db.close(successcb, errorcb);
-
 
     db.transaction(tx => {
         tx.executeSql("SELECT LENGTH('tenletters') AS stringlength", [], (tx, res) => {
@@ -193,21 +173,16 @@ function dbClose(db: SQLitePlugin.Database) {
 }
 
 function deleteDatabase() {
-    function successcb() {
-
-    }
-    function errorcb(err: Error) {
-
-    }
+    function successcb() {}
+    function errorcb(err: Error) {}
 
     window.sqlitePlugin.deleteDatabase({name: 'my.db', location: 'default'}, successcb, errorcb);
 }
 
-
 function quickInstallationTest() {
     window.sqlitePlugin.openDatabase({ name: 'hello-world.db', location: 'default' }, db => {
         db.executeSql("select length('tenletters') as stringlength", [], res => {
-            var stringlength = res.rows.item(0).stringlength;
+            const stringlength = res.rows.item(0).stringlength;
             console.log('got stringlength: ' + stringlength);
             // document.getElementById('deviceready').querySelector('.received').innerHTML = 'stringlength: ' + stringlength;
         });

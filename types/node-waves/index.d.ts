@@ -21,7 +21,6 @@ export interface WavesConfig {
 }
 
 export interface RippleOptions {
-
 	/**
 	 * Specify how long to wait between starting and stopping the ripple.
 	 *

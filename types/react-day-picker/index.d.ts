@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 declare namespace DayPicker {
-    export interface LocaleUtils {
+    interface LocaleUtils {
         formatDay(day: Date, locale: string): string;
         formatMonthTitle(month: Date, locale: string): string;
         formatWeekdayLong(weekday: number, locale: string): string;
@@ -16,7 +16,7 @@ declare namespace DayPicker {
         getMonths(locale: string): [string, string, string, string, string, string, string, string, string, string, string, string];
     }
 
-    export interface DateUtils {
+    interface DateUtils {
         addMonths(d: Date, n: number): Date;
         clone(d: Date): Date;
         isSameDay(d1: Date, d2: Date): Date;
@@ -27,16 +27,16 @@ declare namespace DayPicker {
         isDayInRange(day: Date, range: RangeModifier): boolean;
     }
 
-    export interface CaptionElementProps {
+    interface CaptionElementProps {
         date: Date;
-        classNames: ClassNames,
+        classNames: ClassNames;
         localeUtils: LocaleUtils;
         locale: string;
         months: undefined;
         onClick?: React.MouseEventHandler<HTMLElement>;
     }
 
-    export interface NavbarElementProps {
+    interface NavbarElementProps {
         className: string;
         classNames: ClassNames;
         previousMonth: Date;
@@ -51,14 +51,14 @@ declare namespace DayPicker {
         locale: string;
     }
 
-    export interface WeekdayElementProps {
+    interface WeekdayElementProps {
         weekday: number;
         className: string;
         localeUtils: LocaleUtils;
         locale: string;
     }
 
-    export interface ClassNames {
+    interface ClassNames {
         container: string;
         interactionDisabled: string;
         navBar: string;
@@ -80,28 +80,26 @@ declare namespace DayPicker {
         outside: string;
     }
 
-    export interface RangeModifier {
+    interface RangeModifier {
         from: Date;
         to: Date;
     }
-    export interface BeforeModifier {
+    interface BeforeModifier {
         before: Date;
     }
-    export interface AfterModifier {
+    interface AfterModifier {
         after: Date;
     }
-    export interface FunctionModifier {
-        (date: Date): boolean;
-    }
-    export type Modifier = Date | RangeModifier | BeforeModifier | AfterModifier | FunctionModifier;
+    type FunctionModifier = (date: Date) => boolean;
+    type Modifier = Date | RangeModifier | BeforeModifier | AfterModifier | FunctionModifier;
 
-    export interface Modifiers {
+    interface Modifiers {
         today: Modifier | Modifier[];
         outside: Modifier | Modifier[];
         [other: string]: Modifier | Modifier[] | undefined;
     }
 
-    export interface Props {
+    interface Props {
         canChangeMonth?: boolean;
         captionElement?: React.ReactElement<Partial<CaptionElementProps>> |
             React.ComponentClass<CaptionElementProps> |

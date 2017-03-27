@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import * as CopyToClipboard from "react-copy-to-clipboard";
 

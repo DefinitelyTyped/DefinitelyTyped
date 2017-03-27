@@ -127,4 +127,3 @@ subscription.dispose();
 modelResponse.then(res => res.json.items.length);
 modelResponse.then(res => res, error => console.error.bind(error));
 modelResponse.then<number>(res => res.json.items.length).then((l: number) => l + 1);
-
