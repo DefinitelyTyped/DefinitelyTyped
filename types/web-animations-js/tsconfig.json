@@ -18,7 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "web-animations-js.d.ts",
+        "index.d.ts",
         "web-animations-js-tests.ts"
     ]
 }
