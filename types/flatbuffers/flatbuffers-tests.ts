@@ -3,8 +3,8 @@
  */
 export namespace MyGame.Example{
 export enum Color{
-  Red= 1,
-  Green= 2,
+  Red= 1, 
+  Green= 2, 
   Blue= 8
 }};
 
@@ -13,9 +13,9 @@ export enum Color{
  */
 export namespace MyGame.Example{
 export enum Any{
-  NONE= 0,
-  Monster= 1,
-  TestSimpleTableWithEnum= 2,
+  NONE= 0, 
+  Monster= 1, 
+  TestSimpleTableWithEnum= 2, 
   MyGame_Example2_Monster= 3
 }};
 
@@ -729,8 +729,8 @@ test4Length(): number {
  * @returns {string|Uint8Array}
  */
 testarrayofstring(index: number): string
-testarrayofstring(index: number,optionalEncoding: flatbuffers.Encoding): string|Uint8Array
-testarrayofstring(index: number,optionalEncoding?: any): string|Uint8Array {
+testarrayofstring(index: number, optionalEncoding: flatbuffers.Encoding): string|Uint8Array
+testarrayofstring(index: number, optionalEncoding?: any): string|Uint8Array {
   var offset = this.bb.__offset(this.bb_pos, 24);
   return offset ? this.bb.__string(this.bb.__vector(this.bb_pos + offset) + index * 4, optionalEncoding) : null;
 };
@@ -1039,8 +1039,8 @@ mutate_testf3(value: number): boolean {
  * @returns {string|Uint8Array}
  */
 testarrayofstring2(index: number): string
-testarrayofstring2(index: number,optionalEncoding: flatbuffers.Encoding): string|Uint8Array
-testarrayofstring2(index: number,optionalEncoding?: any): string|Uint8Array {
+testarrayofstring2(index: number, optionalEncoding: flatbuffers.Encoding): string|Uint8Array
+testarrayofstring2(index: number, optionalEncoding?: any): string|Uint8Array {
   var offset = this.bb.__offset(this.bb_pos, 60);
   return offset ? this.bb.__string(this.bb.__vector(this.bb_pos + offset) + index * 4, optionalEncoding) : null;
 };
