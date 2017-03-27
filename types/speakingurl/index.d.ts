@@ -23,7 +23,7 @@ interface SpeakingURLOptions {
 declare function getSlug(input: string, options?: SpeakingURLOptions|string): string;
 
 declare namespace getSlug {
-    export function createSlug(options: SpeakingURLOptions): (input: string) => string;
+    function createSlug(options: SpeakingURLOptions): (input: string) => string;
 }
 
 export = getSlug;

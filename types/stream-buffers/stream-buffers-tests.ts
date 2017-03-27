@@ -3,15 +3,15 @@ import * as streamBuffers from 'stream-buffers';
 // The following are examples from README.md
 // https://github.com/samcday/node-stream-buffer
 
-var myWritableStreamBuffer = new streamBuffers.WritableStreamBuffer({
+const myWritableStreamBuffer = new streamBuffers.WritableStreamBuffer({
     initialSize: (100 * 1024),   // start at 100 kilobytes.
     incrementAmount: (10 * 1024) // grow by 10 kilobytes each time buffer overflows.
 });
 
-var a = streamBuffers.DEFAULT_INITIAL_SIZE;      // (8 * 1024)
-var b = streamBuffers.DEFAULT_INCREMENT_AMOUNT;  // (8 * 1024)
-var c = streamBuffers.DEFAULT_CHUNK_SIZE;        // (1024)
-var d = streamBuffers.DEFAULT_FREQUENCY;         // (1)
+const a = streamBuffers.DEFAULT_INITIAL_SIZE;      // (8 * 1024)
+const b = streamBuffers.DEFAULT_INCREMENT_AMOUNT;  // (8 * 1024)
+const c = streamBuffers.DEFAULT_CHUNK_SIZE;        // (1024)
+const d = streamBuffers.DEFAULT_FREQUENCY;         // (1)
 
 const buffer = new Buffer('ASDF');
 myWritableStreamBuffer.write('ASDF');
@@ -31,7 +31,7 @@ myWritableStreamBuffer.getContents(5);
 // Gets first 5 bytes as a utf8 string.
 myWritableStreamBuffer.getContentsAsString('utf8', 5);
 
-var myReadableStreamBuffer = new streamBuffers.ReadableStreamBuffer({
+const myReadableStreamBuffer = new streamBuffers.ReadableStreamBuffer({
     frequency: 10,   // in milliseconds.
     chunkSize: 2048  // in bytes.
 });

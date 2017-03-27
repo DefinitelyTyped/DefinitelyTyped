@@ -5,7 +5,6 @@ import * as Notifications from "react-notification-system-redux";
 import { reducer, show, hide, info, error, warning, success, NotificationLevel } from "react-notification-system-redux";
 
 class Test extends React.Component<any, any> {
-
     private test() {
         const notification: Notification = {
             message : "Test"
@@ -27,7 +26,6 @@ class Test extends React.Component<any, any> {
         const notifications: Notification[] = [];
         return (<Notifications notifications={ notifications } />);
     }
-
 }
 
 const store: Store<any> = createStore(reducer);

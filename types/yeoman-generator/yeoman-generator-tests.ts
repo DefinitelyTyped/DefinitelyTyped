@@ -85,7 +85,6 @@ generator.runInstall('installer', 'pkg', {});
 generator.runInstall('installer', 'pkg', { 'custom-option': 3 }, () => {});
 generator.runInstall('installer', 'pkg', {}, () => {}, {});
 
-
 const composed1: Base = generator.composeWith('bootstrap', { sass: true });
 const composed2: Base = generator.composeWith(require.resolve('generator-bootstrap/app/main.js'), { sass: true });
 

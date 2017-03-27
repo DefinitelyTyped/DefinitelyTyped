@@ -1,8 +1,7 @@
-
 import sqlite3 = require('sqlite3');
 sqlite3.verbose();
 
-var db: sqlite3.Database = new sqlite3.Database('chain.sqlite3', () => {});
+let db: sqlite3.Database = new sqlite3.Database('chain.sqlite3', () => {});
 
 function createDb() {
     console.log("createDb chain");
@@ -16,9 +15,9 @@ function createTable() {
 
 function insertRows() {
     console.log("insertRows Ipsum i");
-    var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+    const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
 
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
         stmt.run("Ipsum " + i);
     }
 
@@ -56,8 +55,8 @@ runChainExample();
 db.serialize(() => {
   db.run("CREATE TABLE lorem (info TEXT)");
 
-  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
+  const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+  for (let i = 0; i < 10; i++) {
       stmt.run("Ipsum " + i);
   }
   stmt.finalize();

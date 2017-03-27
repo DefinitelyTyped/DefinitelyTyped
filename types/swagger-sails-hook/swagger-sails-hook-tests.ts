@@ -1,7 +1,6 @@
 import swaggerSailsHook = require("swagger-sails-hook");
 import * as express from "express";
 
-
 const mockSailsApp = {
     models: {},
     conf: {},

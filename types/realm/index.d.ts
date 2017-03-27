@@ -9,13 +9,13 @@ declare namespace Realm {
     * PropertyType
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~PropertyType }
     */
-    export type PropertyType = string | 'bool' | 'int' | 'float' | 'double' | 'string' | 'data' | 'date' | 'list';
+    type PropertyType = string | 'bool' | 'int' | 'float' | 'double' | 'string' | 'data' | 'date' | 'list';
 
     /**
     * ObjectSchemaProperty
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectSchemaProperty }
     */
-    export interface ObjectSchemaProperty {
+    interface ObjectSchemaProperty {
         type: PropertyType;
         objectType?: string;
         default?: any;
@@ -24,7 +24,7 @@ declare namespace Realm {
     }
 
     // properties types
-    export interface PropertiesTypes {
+    interface PropertiesTypes {
         [keys: string]: PropertyType | ObjectSchemaProperty;
     }
 
@@ -32,7 +32,7 @@ declare namespace Realm {
     * ObjectSchema
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectSchema }
     */
-    export interface ObjectSchema {
+    interface ObjectSchema {
         name: string;
         primaryKey?: string;
         properties: PropertiesTypes;
@@ -42,7 +42,7 @@ declare namespace Realm {
     * ObjectClass
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectClass }
     */
-    export interface ObjectClass {
+    interface ObjectClass {
         schema: ObjectSchema;
     }
 
@@ -50,7 +50,7 @@ declare namespace Realm {
     * ObjectType
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectType }
     */
-    export interface ObjectType {
+    interface ObjectType {
         type: ObjectClass;
     }
 
@@ -63,7 +63,7 @@ declare namespace Realm {
     * realm configuration
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~Configuration }
     */
-    export interface Configuration {
+    interface Configuration {
         encryptionKey?: any;
         migration?: any;
         path?: string;
@@ -74,7 +74,7 @@ declare namespace Realm {
     }
 
     // object props type
-    export interface ObjectPropsType {
+    interface ObjectPropsType {
         [keys: string]: any;
     }
 
@@ -82,18 +82,18 @@ declare namespace Realm {
     * SortDescriptor
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html#~SortDescriptor }
     */
-    export type SortDescriptor = string | [string, boolean] | any[];
+    type SortDescriptor = string | [string, boolean] | any[];
 
     /**
      * Iterator
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html#~Iterator }
      */
-    export interface IteratorResult<T> {
+    interface IteratorResult<T> {
         done: boolean;
         value?: T;
     }
 
-    export interface Iterator<T> {
+    interface Iterator<T> {
         next(done: boolean, value?: any): IteratorResult<T>;
         [Symbol.iterator](): any;
     }
@@ -102,7 +102,7 @@ declare namespace Realm {
     * Collection
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html }
     */
-    export interface Collection<T> {
+    interface Collection<T> {
         readonly length: number;
 
         /**
@@ -240,7 +240,7 @@ declare namespace Realm {
     * Object
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Object.html }
     */
-    export interface Object {
+    interface Object {
         /**
          * @returns boolean
          */
@@ -251,7 +251,7 @@ declare namespace Realm {
     * List
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.List.html }
     */
-    export interface List<T> extends Collection<T> {
+    interface List<T> extends Collection<T> {
         /**
          * @returns T
          */
@@ -287,13 +287,13 @@ declare namespace Realm {
     * Results
     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Results.html }
     */
-    export type Results<T> = Collection<T>;
+    type Results<T> = Collection<T>;
 
     /**
      * User
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.User.html }
      */
-    export interface User {
+    interface User {
         all: any;
         current: User;
         readonly identity: string;
@@ -313,7 +313,7 @@ declare namespace Realm {
      * Session
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.Session.html }
      */
-    export interface Session {
+    interface Session {
         readonly config: any;
         readonly state: string;
         readonly url: string;
@@ -324,7 +324,7 @@ declare namespace Realm {
      * AuthError
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.AuthError.html }
      */
-    export interface AuthError {
+    interface AuthError {
         readonly code: number;
         readonly type: string;
     }
@@ -333,7 +333,7 @@ declare namespace Realm {
      * ChangeEvent
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.ChangeEvent.html }
      */
-    export interface ChangeEvent {
+    interface ChangeEvent {
         readonly changes: any;
         readonly oldRealm: Realm;
         readonly path: string;

@@ -67,7 +67,6 @@ const currentVersion = Realm.schemaVersion(Realm.defaultPath);
 Realm.Sync.User.register('http://localhost:9080', 'username@example.com', 'p@s$w0rd', (error, user) => { /* ... */ });
 
 Realm.Sync.User.login('http://localhost.com:9080', 'username@example.com', 'p@s$w0rd', (error, user) => {
-
     const todoSchema = {
         name: 'Todo',
         primaryKey: 'id',
