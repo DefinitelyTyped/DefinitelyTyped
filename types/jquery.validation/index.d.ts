@@ -9,7 +9,9 @@ declare namespace JQueryValidation
 {
     type RulesDictionary = { [name: string]: any };
 
-    type ShouldValidatePredicate = boolean|((element: HTMLElement, event: JQueryEventObject) => void);
+    type ValidatePredicate = ((element: HTMLElement, event: JQueryEventObject) => void);
+
+    type ShouldValidatePredicate = boolean|ValidatePredicate;
 
     interface ValidationOptions
     {
@@ -109,11 +111,11 @@ declare namespace JQueryValidation
          */
         onclick?: ShouldValidatePredicate;
         /**
-         * Function. Validate elements when user focues in. If ommited hides all other filed marked as invalid. 
+         * Function. Validate elements when user focuses in. If omitted hides all other fields marked as invalid. 
          * 
-         * Set to a custom Function to decide for yourself what actually happens.
+         * Set to a custom Function to decide for yourself when to run validation.
          */
-        onfocusin?: ShouldValidatePredicate;
+        onfocusin?: ValidatePredicate;
         /**
          * Boolean or Function. Validate elements (except checkboxes/radio buttons) on blur. If nothing is entered, all rules are skipped, except when the field was already marked as invalid.
          *
@@ -285,16 +287,23 @@ interface JQuery
     removeAttrs(attributes: string): any;
 
     /**
-     * If arguments are ommited returns the validations rules for the first selected element. 
-     * If only "remove" command is supplied all rules are removed.
-     * If "remove" command and rules are supplied, only matched rules are removed.
-     * If "add" command is supplied, rules parameter should be supplied as well. Supplied rules are added or overwrite matching existing rules. 
+     * Adds the specified rules and returns all rules for the first matched element. Requires that the parent form is validated, that is, $( "form" ).validate() is called first.
      * 
      * @param command "remove" or "add"
-     * @param rules A set of rules to be removed or added.
+     * @param rules The rules to add. Accepts the same format as the rules-option of the validate-method.
      */
-    rules(command?: string, rules?: string | JQueryValidation.RulesDictionary): any; 
-
+    rules(command: "add", rules?: JQueryValidation.RulesDictionary): any;
+    /**
+     * Removes the specified rules and returns all rules for the first matched element.
+     * @param command "remove"
+     * @param rules The space-seperated names of rules to remove and return. If left unspecified, removes and returns all rules. Manipulates only rules specified via rules-option or via rules("add").
+     */
+    rules(command: "remove", rules?: string): any;
+    /**
+     * Returns the validation rules for teh first selected element.
+     */
+    rules(): any;
+    
     /**
      * Checks whether the selected form is valid or whether all selected elements are valid.
      */
