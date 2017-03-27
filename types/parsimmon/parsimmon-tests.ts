@@ -1,4 +1,3 @@
-
 import P = require('parsimmon');
 import { Parser, Mark, Result, Index } from "parsimmon";
 
@@ -14,43 +13,35 @@ class Bar {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-var str: string;
-var strArr: string[];
-var bool: boolean;
-var num: number;
-var index: Index;
-var regex: RegExp;
+let str: string;
+let strArr: string[];
+let bool: boolean;
+let num: number;
+let index: Index;
 
-var foo: Foo;
-var bar: Bar;
-
-var strArr: string[];
-var fooArr: Foo[];
-var barArr: Bar[];
+let foo: Foo;
+declare const bar: Bar;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-var strPar: Parser<string>;
-var numPar: Parser<number>;
-var voidPar: Parser<void>;
-var anyPar: Parser<any>;
-var indexPar: Parser<Index>;
+let strPar: Parser<string>;
+let numPar: Parser<number>;
+let voidPar: Parser<void>;
+let anyPar: Parser<any>;
+let indexPar: Parser<Index>;
 
-var fooPar: Parser<Foo>;
-var barPar: Parser<Bar>;
-var fooOrBarPar: Parser<Foo | Bar>;
-
-// --  --  --  --  --  --  --  --  --  --  --  --  --
-
-var anyArrPar: Parser<any[]>;
-
-var strArrPar: Parser<string[]>;
-var fooArrPar: Parser<Foo[]>;
-var barArrPar: Parser<Bar[]>;
+let fooPar: Parser<Foo>;
+let barPar: Parser<Bar>;
+let fooOrBarPar: Parser<Foo | Bar>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-var fooMarkPar: Parser<Mark<Foo>>;
+let strArrPar: Parser<string[]>;
+let fooArrPar: Parser<Foo[]>;
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+let fooMarkPar: Parser<Mark<Foo>>;
 
 const result = fooMarkPar.parse(str);
 if (result.status) {
@@ -61,7 +52,7 @@ if (result.status) {
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-var fooResult: Result<Foo>;
+let fooResult: Result<Foo>;
 
 // https://github.com/Microsoft/TypeScript/issues/12882
 if (fooResult.status === true) {
@@ -126,20 +117,19 @@ fooPar = fooPar.desc(str);
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 strPar = P.string(str);
-strPar = P.regex(regex);
+strPar = P.regex(/rgx/);
 
 fooPar = P.succeed(foo);
 
 fooArrPar = P.seq(fooPar, fooPar);
-var par: Parser<[Bar, Foo, number]> = P.seq(barPar, fooPar, numPar);
-var par2: Parser<number> = P.seq(barPar, fooPar, numPar).map(([a, b, c]: [Bar, Foo, number]) => 42);
+const par: Parser<[Bar, Foo, number]> = P.seq(barPar, fooPar, numPar);
+const par2: Parser<number> = P.seq(barPar, fooPar, numPar).map(([a, b, c]: [Bar, Foo, number]) => 42);
 
 fooPar = P.custom<Foo>((success, failure) => (stream, i) => { str = stream; num = i; return success(num, foo); });
 fooPar = P.custom<Foo>((success, failure) => (stream, i) => failure(num, str));
 
 fooPar = P.alt(fooPar, fooPar);
 anyPar = P.alt(barPar, fooPar, numPar);
-
 
 fooPar = P.lazy(() => {
 	return fooPar;

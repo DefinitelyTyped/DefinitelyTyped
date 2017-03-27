@@ -1,18 +1,16 @@
-
-
 import moment = require('moment-timezone');
 
-var june = moment("2014-06-01T12:00:00Z");
+const june = moment("2014-06-01T12:00:00Z");
 june.tz('America/Los_Angeles').format('ha z');
 
-var a = moment.tz("2013-11-18 11:55", "America/Toronto");
-var b = moment.tz("May 12th 2014 8PM", "MMM Do YYYY hA", "America/Toronto");
-var c = moment.tz(1403454068850, "America/Toronto");
-var d = moment.tz("May 12th 2014 8PM", "MMM Do YYYY hA", true, "America/Toronto");
+const a = moment.tz("2013-11-18 11:55", "America/Toronto");
+const b = moment.tz("May 12th 2014 8PM", "MMM Do YYYY hA", "America/Toronto");
+const c = moment.tz(1403454068850, "America/Toronto");
+const d = moment.tz("May 12th 2014 8PM", "MMM Do YYYY hA", true, "America/Toronto");
 
 a.tz();
 
-var num = 1367337600000,
+const num = 1367337600000,
     arr = [2013, 5, 1],
     str = "2013-12-01",
     date = new Date(2013, 4, 1),
@@ -53,7 +51,7 @@ moment.tz(obj, "America/Los_Angeles");
 moment.tz.zone('America/Los_Angeles').abbr(1403465838805);
 moment.tz.zone('America/Los_Angeles').offset(1403465838805);
 
-var zone = moment.tz.zone('America/New_York');
+const zone = moment.tz.zone('America/New_York');
 zone.parse(Date.UTC(2012, 2, 19, 8, 30)); // 240
 
 moment.tz.add('America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0');
@@ -80,7 +78,6 @@ moment.tz.setDefault('America/Los_Angeles');
 
 moment.tz.guess();
 
-var zoneAbbr: string = moment.tz('America/Los_Angeles').zoneAbbr();
+const zoneAbbr: string = moment.tz('America/Los_Angeles').zoneAbbr();
 
-var zoneName: string = moment.tz('America/Los_Angeles').zoneName();
-
+const zoneName: string = moment.tz('America/Los_Angeles').zoneName();

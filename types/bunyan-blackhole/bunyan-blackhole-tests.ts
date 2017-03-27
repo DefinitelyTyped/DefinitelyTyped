@@ -1,8 +1,6 @@
 import blackhole = require("bunyan-blackhole");
 
-
-
-var logsLaboursLost = blackhole("lost");
+const logsLaboursLost = blackhole("lost");
 
 const rotten = new Error("Something is rotten in the state of Denmark");
 
@@ -20,7 +18,5 @@ logsLaboursLost.info({play: "Much Ado About Nothing"}, "Let me be that I am and 
 logsLaboursLost.warn({play: "All's Well That Ends Well"}, "Love all, trust a few, do wrong to none");
 logsLaboursLost.error({play: "All's Well That Ends Well"}, "Love all, trust a few, do wrong to none");
 
-var hamlet = logsLaboursLost.child({play: "Hamlet"});
+const hamlet = logsLaboursLost.child({play: "Hamlet"});
 hamlet.info({character: "Polonius"}, "Though this be madness, yet there is method in't");
-
-

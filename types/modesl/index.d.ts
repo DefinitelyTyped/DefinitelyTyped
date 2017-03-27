@@ -104,4 +104,3 @@ export class Server extends EventEmitter {
 export function eslSetLogLevel(level: any): void;
 
 export function setLogLevel(level: any): void;
-

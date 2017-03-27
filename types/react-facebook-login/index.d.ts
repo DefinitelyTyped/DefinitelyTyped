@@ -7,8 +7,7 @@
 import * as React from "react";
 
 declare namespace ReactFacebookLogin {
-
-    export interface ReactFacebookLoginProps {
+    interface ReactFacebookLoginProps {
         appId: string;
         callback: (userInfo: ReactFacebookLoginInfo) => void;
 
@@ -33,19 +32,17 @@ declare namespace ReactFacebookLogin {
         xfbml?: boolean;
     }
 
-    export interface ReactFacebookLoginInfo {
+    interface ReactFacebookLoginInfo {
         id: string;
         name: string;
     }
 
-    export interface ReactFacebookLoginState {
+    interface ReactFacebookLoginState {
         isSdkLoaded?: boolean;
         isProcessing?: boolean;
     }
-
 }
 
-declare class ReactFacebookLogin extends React.Component<ReactFacebookLogin.ReactFacebookLoginProps, ReactFacebookLogin.ReactFacebookLoginState> {
-}
+declare class ReactFacebookLogin extends React.Component<ReactFacebookLogin.ReactFacebookLoginProps, ReactFacebookLogin.ReactFacebookLoginState> {}
 
 export = ReactFacebookLogin;
