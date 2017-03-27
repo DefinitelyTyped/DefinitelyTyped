@@ -126,6 +126,10 @@ export type GraphQLNamedType =
     GraphQLEnumType |
     GraphQLInputObjectType;
 
+export function isNamedType(type: GraphQLType): boolean;
+
+export function assertNamedType(type: GraphQLType): GraphQLNamedType;
+
 export function getNamedType(type: GraphQLType): GraphQLNamedType;
 
 /**
@@ -237,13 +241,13 @@ export type GraphQLTypeResolver<TSource, TContext> = (
     value: TSource,
     context: TContext,
     info: GraphQLResolveInfo
-) => GraphQLObjectType;
+) => GraphQLObjectType | string | Promise<GraphQLObjectType | string>;
 
 export type GraphQLIsTypeOfFn<TSource, TContext> = (
     source: TSource,
     context: TContext,
     info: GraphQLResolveInfo
-) => boolean;
+) => boolean | Promise<boolean>;
 
 export type GraphQLFieldResolver<TSource, TContext> = (
     source: TSource,
