@@ -12,7 +12,6 @@ import * as d3Dsv from 'd3-dsv';
 // Preperatory Steps
 // ------------------------------------------------------------------------------------------
 
-
 const csvTestString: string = '1997,Ford,E350,2.34\n2000,Mercury,Cougar,2.38';
 const tsvTestString: string = '1997\tFord\tE350\t2.34\n2000\tMercury\tCougar\t2.38';
 const pipedTestString: string = '1997|Ford|E350|2.34\n2000|Mercury|Cougar|2.38';
@@ -33,7 +32,6 @@ let parseMappedArray: d3Dsv.DSVParsedArray<ParsedTestObject>;
 
 let parseRowsArray: string[][];
 let parseRowsMappedArray: ParsedTestObject[];
-
 
 let columns: string[];
 let num: number;
@@ -77,13 +75,11 @@ str = parseMappedArray[0].make;
 str = parseMappedArray[0].model;
 num = parseMappedArray[0].length;
 
-
 // csvParseRows(...) ============================================================================
 
 // without row mapper -----------------------------------------------------------------------
 
 parseRowsArray = d3Dsv.csvParseRows(csvTestString);
-
 
 str = parseRowsArray[0][0]; // 'Year' of first row
 // date = parseRowsArray[0][0]; // fails, return value is string
@@ -158,13 +154,11 @@ str = parseMappedArray[0].make;
 str = parseMappedArray[0].model;
 num = parseMappedArray[0].length;
 
-
 // tsvParseRows(...) ============================================================================
 
 // without row mapper -----------------------------------------------------------------------
 
 parseRowsArray = d3Dsv.tsvParseRows(tsvTestString);
-
 
 str = parseRowsArray[0][0]; // 'Year' of first row
 // date = parseRowsArray[0][0]; // fails, return value is string
@@ -244,13 +238,11 @@ str = parseMappedArray[0].make;
 str = parseMappedArray[0].model;
 num = parseMappedArray[0].length;
 
-
 // parseRows(...) ============================================================================
 
 // without row mapper -----------------------------------------------------------------------
 
 parseRowsArray = dsv.parseRows(pipedTestString);
-
 
 str = parseRowsArray[0][0]; // 'Year' of first row
 // date = parseRowsArray[0][0]; // fails, return value is string
