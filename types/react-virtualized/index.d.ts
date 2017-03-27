@@ -2,7 +2,7 @@
 // Project: https://github.com/bvaughn/react-virtualized
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 export {
     ArrowKeyStepper,
