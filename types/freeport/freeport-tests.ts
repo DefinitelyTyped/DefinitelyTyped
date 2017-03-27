@@ -1,4 +1,3 @@
-
 import freeport = require('freeport');
 
 let num: number,

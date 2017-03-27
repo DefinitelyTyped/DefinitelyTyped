@@ -4,9 +4,7 @@ FusionCharts.addEventListener('ready', (eventObject) => {
     eventObject.stopPropagation();
 });
 
-FusionCharts.ready((fusioncharts) => {
-
-});
+FusionCharts.ready((fusioncharts) => {});
 
 FusionCharts.version;
 
