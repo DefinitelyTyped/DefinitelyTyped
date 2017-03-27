@@ -1,4 +1,4 @@
-// Type definitions for canvas-gauges v2.0.8
+// Type definitions for canvas-gauges v2.1.3
 // Project: https://github.com/Mikhus/canvas-gauges
 // Definitions by: Mikhus <https://github.com/Mikhus>
 // Definitions: https://github.com/Mikhus/DefinitelyTyped
@@ -20,6 +20,10 @@ declare namespace CanvasGauges {
         color: string
     }
 
+    export interface EventListeners {
+        [key: string]: Function|[Function]
+    }
+
     export type MajorTicks = string[]|number[];
 
     export interface GenericOptions {
@@ -30,6 +34,7 @@ declare namespace CanvasGauges {
         maxValue?: number,
         value?: number,
         units?: string|boolean,
+        exactTicks?: boolean,
         majorTicks?: MajorTicks,
         minorTicks?: number,
         strokeTicks?: boolean,
@@ -37,6 +42,8 @@ declare namespace CanvasGauges {
         animateOnInit?: boolean,
         title?: string|boolean,
         borders?: boolean,
+        numbersMargin?: number,
+        listeners?: EventListeners,
         valueInt?: number,
         valueDec?: number,
         majorTicksInt?: number,
@@ -45,6 +52,7 @@ declare namespace CanvasGauges {
         animationDuration?: number,
         animationRule?: string|AnimationRule,
         colorPlate?: string,
+        colorPlateEnd?: string,
         colorMajorTicks?: string,
         colorMinorTicks?: string,
         colorTitle?: string,
@@ -67,6 +75,26 @@ declare namespace CanvasGauges {
         colorValueBoxShadow?: string,
         colorNeedleShadowUp?: string,
         colorNeedleShadowDown?: string,
+        colorBarStroke?: string,
+        colorBar?: string,
+        colorBarProgress?: string,
+        colorBarShadow?: string,
+        fontNumbers?: string,
+        fontTitle?: string,
+        fontUnits?: string,
+        fontValue?: string,
+        fontTitleSize?: number,
+        fontValueSize?: number,
+        fontUnitsSize?: number,
+        fontNumbersSize?: number,
+        fontTitleStyle?: FontStyle,
+        fontValueStyle?: FontStyle,
+        fontUnitsStyle?: FontStyle,
+        fontNumbersStyle?: FontStyle,
+        fontTitleWeight?: FontWeight,
+        fontValueWeight?: FontWeight,
+        fontUnitsWeight?: FontWeight,
+        fontNumbersWeight?: FontWeight,
         needle?: boolean,
         needleShadow?: boolean,
         needleType?: string,
@@ -85,22 +113,10 @@ declare namespace CanvasGauges {
         valueBoxBorderRadius?: number,
         highlights?: Highlight[],
         highlightsWidth?: number,
-        fontNumbers?: string,
-        fontTitle?: string,
-        fontUnits?: string,
-        fontValue?: string,
-        fontTitleSize?: number,
-        fontValueSize?: number,
-        fontUnitsSize?: number,
-        fontNumbersSize?: number,
-        fontTitleStyle?: FontStyle,
-        fontValueStyle?: FontStyle,
-        fontUnitsStyle?: FontStyle,
-        fontNumbersStyle?: FontStyle,
-        fontTitleWeight?: FontWeight,
-        fontValueWeight?: FontWeight,
-        fontUnitsWeight?: FontWeight,
-        fontNumbersWeight?: FontWeight
+        barWidth?: number,
+        barStrokeWidth?: number,
+        barProgress?: boolean,
+        barShadow?: number
     }
 
     export interface RadialGaugeOptions extends GenericOptions {
@@ -113,19 +129,14 @@ declare namespace CanvasGauges {
         needleCircleSize?: number,
         needleCircleInner?: boolean,
         needleCircleOuter?: boolean,
-        animationTarget?: string
+        animationTarget?: string,
+        useMinPath?: boolean
     }
 
     export interface LinearGaugeOptions extends GenericOptions {
         borderRadius?: number,
         barBeginCircle?: number,
-        barWidth?: number,
-        barStrokeWidth?: number,
-        barProgress?: boolean,
-        colorBar?: string,
         colorBarEnd?: string,
-        colorBarStroke?: string,
-        colorBarProgress?: string,
         colorBarProgressEnd?: string,
         tickSide?: string,
         needleSide?: string,
@@ -230,6 +241,7 @@ declare namespace CanvasGauges {
         public canvas: SmartCanvas;
         public animation: Animation;
         public value: number;
+        public static readonly version: number;
 
         constructor(options: GenericOptions);
 
@@ -238,6 +250,8 @@ declare namespace CanvasGauges {
         public abstract draw(): BaseGauge;
 
         public static initialize(type: string, options: GenericOptions): any;
+        public static fromElement(element: HTMLElement): any;
+        public static ensureValue(value: number): number;
     }
 
     export class RadialGauge extends BaseGauge {
