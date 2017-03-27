@@ -1,4 +1,4 @@
-// Type definitions for web-animations-js v2.2.2
+// Type definitions for web-animations-js 2.2
 // Project: https://github.com/web-animations/web-animations-js
 // Definitions by: Kristian Moerch <https://github.com/kritollm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
