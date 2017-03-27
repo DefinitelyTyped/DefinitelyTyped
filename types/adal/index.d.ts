@@ -1,4 +1,4 @@
-// Type definitions for ADAL.JS 1.0.13
+// Type definitions for ADAL.JS 1.0.14
 // Project: https://github.com/AzureAD/azure-activedirectory-library-for-js
 // Definitions by: mmaitre314 <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,6 +29,7 @@ declare namespace adal {
         loginResource?: string;
         resource?: string;
         extraQueryParameter?: string;
+        navigateToLoginRequestUrl?: boolean;
     }
 
     interface User {
