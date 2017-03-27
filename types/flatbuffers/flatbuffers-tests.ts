@@ -1106,7 +1106,7 @@ static addInventory(builder: flatbuffers.Builder, inventoryOffset: flatbuffers.O
  * @returns {flatbuffers.Offset}
  */
 static createInventoryVector(builder: flatbuffers.Builder, data: number[] | Uint8Array): flatbuffers.Offset {
-if(!data){
+if (!data){
   return null
 }
   builder.startVector(1, data.length, 1);
@@ -1178,7 +1178,7 @@ static addTestarrayofstring(builder: flatbuffers.Builder, testarrayofstringOffse
  * @returns {flatbuffers.Offset}
  */
 static createTestarrayofstringVector(builder: flatbuffers.Builder, data: flatbuffers.Offset[]): flatbuffers.Offset {
-if(!data){
+if (!data){
   return null
 }
   builder.startVector(4, data.length, 4);
@@ -1210,7 +1210,7 @@ static addTestarrayoftables(builder: flatbuffers.Builder, testarrayoftablesOffse
  * @returns {flatbuffers.Offset}
  */
 static createTestarrayoftablesVector(builder: flatbuffers.Builder, data: flatbuffers.Offset[]): flatbuffers.Offset {
-if(!data){
+if (!data){
   return null
 }
   builder.startVector(4, data.length, 4);
@@ -1250,7 +1250,7 @@ static addTestnestedflatbuffer(builder: flatbuffers.Builder, testnestedflatbuffe
  * @returns {flatbuffers.Offset}
  */
 static createTestnestedflatbufferVector(builder: flatbuffers.Builder, data: number[] | Uint8Array): flatbuffers.Offset {
-if(!data){
+if (!data){
   return null
 }
   builder.startVector(1, data.length, 1);
@@ -1362,7 +1362,7 @@ static addTestarrayofbools(builder: flatbuffers.Builder, testarrayofboolsOffset:
  * @returns {flatbuffers.Offset}
  */
 static createTestarrayofboolsVector(builder: flatbuffers.Builder, data: boolean[]): flatbuffers.Offset {
-if(!data){
+if (!data){
   return null
 }
   builder.startVector(1, data.length, 1);
@@ -1418,7 +1418,7 @@ static addTestarrayofstring2(builder: flatbuffers.Builder, testarrayofstring2Off
  * @returns {flatbuffers.Offset}
  */
 static createTestarrayofstring2Vector(builder: flatbuffers.Builder, data: flatbuffers.Offset[]): flatbuffers.Offset {
-if(!data){
+if (!data){
   return null
 }
   builder.startVector(4, data.length, 4);
