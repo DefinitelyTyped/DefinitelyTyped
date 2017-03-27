@@ -68,7 +68,7 @@ declare namespace jasmine {
     }
 }
 
-declare const frisby: Frisby;
 declare module "frisby" {
+    const frisby: Frisby;
     export = frisby;
 } 
