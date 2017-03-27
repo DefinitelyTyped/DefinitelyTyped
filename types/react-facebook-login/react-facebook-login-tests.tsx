@@ -22,7 +22,6 @@ ReactDOM.render(
     document.getElementById('demo')
 );
 
-
 ReactDOM.render(
     <FacebookLogin
         appId="1088597931155576"
@@ -60,7 +59,6 @@ ReactDOM.render(
 );
 
 class MyComponent extends React.Component<any, any> {
-
     private responseFacebook(response: ReactFacebookLoginInfo) {
         console.log(response);
     }
@@ -78,9 +76,7 @@ class MyComponent extends React.Component<any, any> {
     }
 }
 
-
 class MyComponent2 extends React.Component<any, any> {
-
     private responseFacebook(response: ReactFacebookLoginInfo) {
         console.log(response);
     }
@@ -96,4 +92,3 @@ class MyComponent2 extends React.Component<any, any> {
         );
     }
 }
-
