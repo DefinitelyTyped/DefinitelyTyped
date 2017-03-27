@@ -285,7 +285,7 @@ interface JQuery
      * @param attributes A space-separated list of attribute names to remove.
      */
     removeAttrs(attributes: string): any;
-
+    // tslint:disable:unified-signatures
     /**
      * Adds the specified rules and returns all rules for the first matched element. Requires that the parent form is validated, that is, $( "form" ).validate() is called first.
      * 
@@ -303,7 +303,7 @@ interface JQuery
      * Returns the validation rules for teh first selected element.
      */
     rules(): any;
-    
+    // tslint:enable
     /**
      * Checks whether the selected form is valid or whether all selected elements are valid.
      */
