@@ -19,6 +19,32 @@
     },
     "files": [
         "index.d.ts",
-        "react-virtualized-tests.tsx"
+        "ArrowKeyStepper.d.ts",
+        "ArrowKeyStepper.test.tsx",
+        "AutoSizer.d.ts",
+        "AutoSizer.test.tsx",
+        "CellMeasurer.d.ts",
+        "CellMeasurer.test.tsx",
+        "Collection.d.ts",
+        "Collection.test.tsx",
+        "ColumnSizer.d.ts",
+        "ColumnSizer.test.tsx",
+        "genericTypes.d.ts",
+        "Grid.d.ts",
+        "Grid.test.tsx",
+        "InfiniteLoader.d.ts",
+        "InfiniteLoader.test.tsx",
+        "List.d.ts",
+        "List.test.tsx",
+        "Masonry.d.ts",
+        "Masonry.test.tsx",
+        "MultiGrid.d.ts",
+        "MultiGrid.test.tsx",
+        "ScrollSync.d.ts",
+        "ScrollSync.test.tsx",
+        "Table.d.ts",
+        "Table.test.tsx",
+        "WindowScroller.d.ts",
+        "WindowScroller.test.tsx"
     ]
 }
