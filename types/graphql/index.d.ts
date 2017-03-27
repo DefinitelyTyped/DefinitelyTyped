@@ -1,6 +1,6 @@
 // Type definitions for graphql v0.8.2
 // Project: https://www.npmjs.com/package/graphql
-// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>, Dominic Watson <https://github.com/intellix>
+// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>, Dominic Watson <https://github.com/intellix>, Firede <https://github.com/firede>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
