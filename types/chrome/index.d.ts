@@ -3306,6 +3306,26 @@ declare namespace chrome.history {
  * @since Chrome 5.
  */
 declare namespace chrome.i18n {
+    /** Holds detected ISO language code and its percentage in the input string */
+    interface DetectedLanguage {
+        /** An ISO language code such as 'en' or 'fr'. 
+         * For a complete list of languages supported by this method, see  [kLanguageInfoTable]{@link https://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc}. 
+         * For an unknown language, 'und' will be returned, which means that [percentage] of the text is unknown to CLD */
+        language: string;
+
+        /** The percentage of the detected language */
+        percentage: number; 
+    }
+
+    /** Holds detected language reliability and array of DetectedLanguage */
+    interface LanguageDetectionResult {
+        /** CLD detected language reliability */
+        isReliable: boolean;
+
+        /** Array of detectedLanguage */
+        languages: DetectedLanguage[];
+    }
+    
     /**
      * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
      * @param callback The callback parameter should be a function that looks like this:
@@ -3324,6 +3344,12 @@ declare namespace chrome.i18n {
      * @since Chrome 35.
      */
     export function getUILanguage(): string;
+    
+    /** Detects the language of the provided text using CLD.
+     * @param text User input string to be translated.
+     * @param callback The callback parameter should be a function that looks like this: function(object result) {...};
+     */
+    export function detectLanguage(text: string, callback: (result: LanguageDetectionResult) => void): void;
 }
 
 ////////////////////
