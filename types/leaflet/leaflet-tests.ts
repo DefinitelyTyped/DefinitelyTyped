@@ -13,10 +13,6 @@ latLng = L.latLng([12, 13, 0]);
 
 latLng = new L.LatLng(12, 13);
 latLng = new L.LatLng(12, 13, 0);
-latLng = new L.LatLng(latLngLiteral);
-latLng = new L.LatLng({lat: 12, lng: 13, alt: 0});
-latLng = new L.LatLng(latLngTuple);
-latLng = new L.LatLng([12, 13, 0]);
 
 const latLngBoundsLiteral: L.LatLngBoundsLiteral = [[12, 13], latLngTuple];
 
@@ -39,8 +35,6 @@ point = L.point({x: 12, y: 13});
 
 point = new L.Point(12, 13);
 point = new L.Point(12, 13, true);
-point = new L.Point(pointTuple);
-point = new L.Point({x: 12, y: 13});
 
 let distance: number;
 point.distanceTo(point);
@@ -67,18 +61,13 @@ bounds = new L.Bounds(boundsLiteral);
 
 let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);
-points = L.LineUtil.simplify([pointTuple, pointTuple], 2);
 
 distance = L.LineUtil.pointToSegmentDistance(point, point, point);
-distance = L.LineUtil.pointToSegmentDistance(pointTuple, pointTuple, pointTuple);
 
 point = L.LineUtil.closestPointOnSegment(point, point, point);
-point = L.LineUtil.closestPointOnSegment(pointTuple, pointTuple, pointTuple);
 
 points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
-points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral);
-points = L.PolyUtil.clipPolygon([pointTuple, pointTuple], boundsLiteral, true);
 
 let mapOptions: L.MapOptions = {};
 mapOptions = {
@@ -275,8 +264,8 @@ L.DomEvent
 	.disableClickPropagation(htmlElement)
 	.preventDefault(domEvent)
 	.stop(domEvent);
-point = L.DomEvent.getMousePosition(domEvent);
-point = L.DomEvent.getMousePosition(domEvent, htmlElement);
+point = L.DomEvent.getMousePosition(domEvent as MouseEvent);
+point = L.DomEvent.getMousePosition(domEvent as MouseEvent, htmlElement);
 const wheelDelta: number = L.DomEvent.getWheelDelta(domEvent);
 
 map = map
@@ -391,7 +380,7 @@ let twoCoords: [number, number] = [1, 2];
 latLng = L.GeoJSON.coordsToLatLng(twoCoords);
 twoCoords = L.GeoJSON.latLngToCoords(latLng);
 
-let threeCoords: [number, number, number] = [1, 2, 3];
+let threeCoords: [number, number] = [1, 2];
 latLng = L.GeoJSON.coordsToLatLng(threeCoords);
 threeCoords = L.GeoJSON.latLngToCoords(latLng);
 
