@@ -1,4 +1,4 @@
-// Type definitions for flatbuffers 1.6.0
+// Type definitions for flatbuffers 1.6
 // Project: http://google.github.io/flatbuffers/index.html
 // Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
