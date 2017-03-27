@@ -4,9 +4,11 @@ const execSync = require("child_process").execSync;
 const existsSync = require("fs").existsSync;
 const path = require("path");
 
+const pkgPath = path.join("types", pkg);
+
 // Path of tslint when `types-publisher` is symlinked
-const symlinkedTslintPath = "../node_modules/types-publisher/node_modules/tslint"
-let tslintPath =  existsSync(path.join(pkg, symlinkedTslintPath)) ? symlinkedTslintPath : "../node_modules/tslint";
+const symlinkedTslintPath = "../../node_modules/types-publisher/node_modules/tslint"
+let tslintPath =  existsSync(path.join(pkgPath, symlinkedTslintPath)) ? symlinkedTslintPath : "../node_modules/tslint";
 // An older version (e.g. abs/v0) is in a nested directory, so needs to look one more level up for tslint.
 if (pkg.includes("/") && pkg[pkg.length - 1] !== "/") {
     tslintPath = path.join("..", tslintPath);
@@ -17,7 +19,7 @@ console.log(cmd);
 
 try {
     // Child process writes directly to our own stdout
-    execSync(cmd, { cwd: pkg, stdio: "inherit" });
+    execSync(cmd, { cwd: pkgPath, stdio: "inherit" });
 } catch (_) {
     // Process should have printed out error info
 }
