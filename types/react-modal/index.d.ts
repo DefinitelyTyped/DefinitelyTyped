@@ -11,7 +11,7 @@ export as namespace ReactModal;
 export = ReactModal;
 
 declare namespace ReactModal {
-    export interface Styles {
+    interface Styles {
         content?: {
             [key: string]: any;
         };
@@ -20,7 +20,7 @@ declare namespace ReactModal {
         };
     }
 
-    export interface Props {
+    interface Props {
         /* Boolean describing if the modal should be shown or not. Defaults to false. */
         isOpen: boolean;
         /* Object indicating styles to be used for the modal, divided into overlay and content styles. */

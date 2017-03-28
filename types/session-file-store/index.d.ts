@@ -5,18 +5,15 @@
 
 /// <reference types="express-session" />
 
-
 export = FileStore;
 
 declare namespace FileStore {
-
     /**
      * FileStore Options
      *
      * @interface Options
      */
     interface Options {
-
         /**
          * The directory where the session files will be stored. Defaults to `./sessions`
          *
@@ -111,7 +108,7 @@ declare namespace FileStore {
          * @type {Function}
          * @memberOf Options
          */
-        logFn?: (...args: any[]) => void;
+        logFn?(...args: any[]): void;
 
         /**
          * Returns fallback session object after all failed retries. No defaults
@@ -119,7 +116,7 @@ declare namespace FileStore {
          * @type {Function}
          * @memberOf Options
          */
-        fallbackSessionFn?: (...args: any[]) => void;
+        fallbackSessionFn?(...args: any[]): void;
 
         /**
          * Object-to-text text encoding. Can be null. Defaults to `'utf8'`
@@ -135,7 +132,7 @@ declare namespace FileStore {
          * @type {Function}
          * @memberOf Options
          */
-        encoder?: (...args: any[]) => void;
+        encoder?(...args: any[]): void;
 
         /**
          * Decoding function. Takes encoded data, returns object. Defaults to `JSON.parse`
@@ -143,7 +140,7 @@ declare namespace FileStore {
          * @type {Function}
          * @memberOf Options
          */
-        decoder?: (...args: any[]) => void;
+        decoder?(...args: any[]): void;
 
         /**
          * If secret string is specified then enables encryption of the session before
@@ -185,7 +182,7 @@ declare namespace FileStore {
          *
          * @memberOf Options
          */
-        keyFunction?: (secret: string, sessionId: string) => string;
+        keyFunction?(secret: string, sessionId: string): string;
     }
 }
 
@@ -196,7 +193,6 @@ declare namespace FileStore {
  * @class FileStore
  */
 declare class FileStore {
-
     /**
      * Creates an instance of FileStore.
      * @param {FileStore.Options} options
@@ -283,5 +279,4 @@ declare class FileStore {
      * @memberOf FileStore
      */
     expired(sessionId: string, callback: (errr: any, isExpired: boolean) => void): void;
-
 }

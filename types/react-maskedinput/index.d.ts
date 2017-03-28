@@ -14,20 +14,18 @@ declare const MaskedInput: MaskedInput;
 type MaskedInput = ComponentClass<MaskedInput.MaskedInputProps>;
 
 declare namespace MaskedInput {
-
-    export interface FormatCharacter {
+    interface FormatCharacter {
         validate(char: string): string;
         transform?(char: string): string;
     }
 
-    export interface CharsFormatters {
+    interface CharsFormatters {
         [char: string]: FormatCharacter;
     }
 
-    export interface MaskedInputProps extends HTMLAttributes<any> {
+    interface MaskedInputProps extends HTMLAttributes<any> {
         mask: string;
         formatCharacter?: CharsFormatters;
         placeholderChar?: string;
     }
 }
-
