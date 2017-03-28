@@ -290,8 +290,9 @@ interface IFileSystem {
     copyTree(source: string, destination: string): void;
 
     // File Functions
-    open(path: string, mode: string): IStream;
-    open(path: string, options: { mode: string; charset?: string; }): IStream;
+    // open(path: string, mode: string): IStream;
+    // open(path: string, options: { mode: string; charset?: string; }): IStream;
+    open(path: string, mode: string | { mode: string; charset?: string; }): IStream;
     read(path: string): string;
     write(path: string, content: string, mode: string): void;
     size(path: string): number;
@@ -317,8 +318,8 @@ interface IWebServerModule {
     registerFile(urlpath: string, filePath: string): void;
     registerPathHandler(urlpath: string, handlerCallback: (request: IWebServerRequest, response: IWebServerResponse) => void): void
     port: number;
-    listen(port: number, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
-    listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
+    listen(port: number | string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
+    // listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
     close(): void;
 
 }
