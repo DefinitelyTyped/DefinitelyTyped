@@ -1,6 +1,7 @@
 // Type definitions for React Router 4.0
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -17,7 +18,8 @@ declare module 'react-router-dom' {
     Switch,
     match,
     matchPath,
-    withRouter
+    withRouter,
+    RouterChildContext
   } from 'react-router';
   import * as React from 'react';
   import * as H from 'history';
@@ -74,6 +76,7 @@ declare module 'react-router-dom' {
     Switch,
     match, // TypeScript specific, not from React Router itself
     matchPath,
-    withRouter
+    withRouter,
+    RouterChildContext
   }
 }
