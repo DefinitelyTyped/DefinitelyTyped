@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "baseUrl": "../",
+    "typeRoots": [ "../" ],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "types": []
+  },
+  "files": [
+    "index.d.ts",
+    "react-onsenui-tests.tsx"
+  ]
+}

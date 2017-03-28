@@ -84,4 +84,3 @@ interface GlobuleStatic {
 
 declare var globule: GlobuleStatic;
 export = globule;
-

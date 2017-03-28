@@ -170,13 +170,14 @@ export class Map<K, V> {
     arr: Array<[K, V]>,
     valueCtor?: {new(init: any): V});
   toArray(): Array<[K, V]>;
-  toObject(
+  toObject(includeInstance?: boolean): Array<[K, V]>;
+  toObject<VO>(
     includeInstance: boolean,
-    valueToObject: (includeInstance: boolean) => any): Array<[K, V]>;
-  static fromObject<K, V>(
-    entries: Array<[K, V]>,
+    valueToObject: (includeInstance: boolean, valueWrapper: V) => VO): Array<[K, VO]>;
+  static fromObject<TK, TV>(
+    entries: Array<[TK, TV]>,
     valueCtor: any,
-    valueFromObject: any): Map<K, V>;
+    valueFromObject: any): Map<TK, TV>;
   getLength(): number;
   clear(): void;
   del(key: K): boolean;
@@ -186,7 +187,7 @@ export class Map<K, V> {
   forEach(
     callback: (entry: V, key: K) => void,
     thisArg?: {}): void;
-  set(key: K, value: V): void;
+  set(key: K, value: V): this;
   get(key: K): (V | undefined);
   has(key: K): boolean;
 }

@@ -1,7 +1,7 @@
 
-import createLogger from 'redux-logger';
-import {logger} from 'redux-logger';
-import { applyMiddleware, createStore } from 'redux'
+import {createLogger} from 'redux-logger';
+import logger from 'redux-logger';
+import { applyMiddleware, createStore } from 'redux';
 
 let loggerSimple = createLogger();
 
