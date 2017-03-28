@@ -32,7 +32,7 @@ $("#e5").select2({
     }
 });
 
-$("#e19").select2({ maximumSelectionSize: 3 });
+$("#e19").select2({ maximumSelectionLength: 3 });
 $("#e10").select2({
     data: [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }]
 });
