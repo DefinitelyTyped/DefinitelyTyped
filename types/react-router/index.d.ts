@@ -17,7 +17,17 @@ declare module 'react-router' {
   import * as React from 'react';
   import * as H from 'history';
 
-
+	// This is the type of the context object that will be passed down to all children of
+	// a `Router` component:
+	interface RouterChildContext<P> {
+		router: {
+			history: H.History
+			route: {
+				location: H.Location,
+				match: match<P>
+			}
+		}
+	}
   interface MemoryRouterProps {
     initialEntries?: H.Location[];
     initialIndex?: number;
@@ -105,6 +115,7 @@ declare module 'react-router' {
     Switch,
     match, // TypeScript specific, not from React Router itself
     matchPath,
-    withRouter
+		withRouter,
+		RouterChildContext
   }
 }
