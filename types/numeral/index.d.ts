@@ -71,6 +71,7 @@ interface Numeral {
 	multiply(value: any): Numeral;
 	divide(value: any): Numeral;
 	difference(value: any): number;
+	validate(value: any, culture: any): boolean;
 }
 
 declare var numeral: Numeral;
