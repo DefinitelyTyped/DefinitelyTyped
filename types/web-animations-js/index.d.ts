@@ -24,7 +24,7 @@ declare class AnimationPlaybackEvent {
 interface AnimationKeyFrame {
     easing?: string;
     offset?: number;
-    [key: string]: string | string[] | number | number[] | undefined;
+    [key: string]: string | number | [string | number, string | number] | undefined;
 }
 
 interface AnimationTimeline {
@@ -46,15 +46,17 @@ interface AnimationEffectTiming {
 declare class KeyframeEffect {
     constructor(target: HTMLElement, effect: AnimationKeyFrame | AnimationKeyFrame[], timing: number | AnimationEffectTiming, id?: string);
     activeDuration: number;
-    onsample: any;
-    parent: any;
-    target: any;
+    onsample: (timeFraction: number | null, effect: KeyframeEffect, animation: Animation) => void | undefined;
+    parent: KeyframeEffect | null;
+    target: HTMLElement;
     timing: AnimationEffectTiming;
     getFrames(): AnimationKeyFrame[];
+    remove(): void;
 }
 interface AnimationEventListener {
     (evt: AnimationPlaybackEvent): void;
 }
+
 declare class Animation {
     constructor(effect: KeyframeEffect, timeline?: AnimationTimeline);
     currentTime: number;
