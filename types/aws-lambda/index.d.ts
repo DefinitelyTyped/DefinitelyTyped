@@ -221,9 +221,7 @@ interface Statement {
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
  */
 interface AuthResponseContext {
-    stringKey: string;
-    numberKey: number;
-    booleanKey: boolean;
+    [name: string]: string | number | boolean;
 }
 
 /**
