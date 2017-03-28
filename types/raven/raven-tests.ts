@@ -3,6 +3,7 @@ import * as Raven from 'raven';
 const dsn = '___DSN___';
 
 const client = Raven.config(dsn, { autoBreadcrumbs: true }).install();
+console.log(Raven.version);
 Raven.config(dsn).install({ captureUnhandledRejections: true });
 client.setContext({});
 client.on('logged', () => { });
