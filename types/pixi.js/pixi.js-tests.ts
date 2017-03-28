@@ -1,13 +1,10 @@
 namespace basics {
-
     export class Basics {
-
         private app: PIXI.Application;
 
         private bunny: PIXI.Sprite;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
@@ -20,19 +17,15 @@ namespace basics {
             this.app.ticker.add((delta: number): void => {
                 this.bunny.rotation += 0.1 / delta;
             });
-
         }
-
     }
 
     export class Click {
-
         private app: PIXI.Application;
 
         private sprite: PIXI.Sprite;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
@@ -48,33 +41,28 @@ namespace basics {
                 this.sprite.scale.y *= 1.25;
             });
             this.app.stage.addChild(this.sprite);
-
         }
     }
 
     export class ContainerPivot {
-
         private app: PIXI.Application;
         private container: PIXI.Container;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
             this.container = new PIXI.Container();
             this.app.stage.addChild(this.container);
 
-            let texture = PIXI.Texture.fromImage("../../_assets/basics/bunny.png");
+            const texture = PIXI.Texture.fromImage("../../_assets/basics/bunny.png");
 
             for (let i = 0; i < 25; i++) {
-
-                let bunny = new PIXI.Sprite(texture);
+                const bunny = new PIXI.Sprite(texture);
                 bunny.anchor.set(0.5);
                 bunny.x = (i % 5) * 40;
                 bunny.y = Math.floor(i / 5) * 40;
                 this.container.addChild(bunny);
-
             }
 
             this.container.x = this.app.renderer.width / 2;
@@ -86,43 +74,36 @@ namespace basics {
             this.app.ticker.add((delta: number): void => {
                 this.container.rotation -= 0.01 / delta;
             });
-
         }
     }
 
     export class Container {
-
         private app: PIXI.Application;
         private container: PIXI.Container;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
             this.container = new PIXI.Container();
             this.app.stage.addChild(this.container);
 
-            let texture = PIXI.Texture.fromImage("../../_assets/basics/bunny.png");
+            const texture = PIXI.Texture.fromImage("../../_assets/basics/bunny.png");
 
             for (let i = 0; i < 25; i++) {
-
-                let bunny = new PIXI.Sprite(texture);
+                const bunny = new PIXI.Sprite(texture);
                 bunny.anchor.set(0.5);
                 bunny.x = (i % 5) * 40;
                 bunny.y = Math.floor(i / 5) * 40;
                 this.container.addChild(bunny);
-
             }
 
             this.container.x = this.app.renderer.width / 2;
             this.container.y = this.app.renderer.height / 2;
-
         }
     }
 
     export class CustomizedFilter extends PIXI.Filter {
-
         constructor(fragmentSource: string) {
             super(null, fragmentSource, {
                 customUniform: {
@@ -131,16 +112,13 @@ namespace basics {
                 }
             });
         }
-
     }
     export class CustomFilter {
-
         private app: PIXI.Application;
         private background: PIXI.Sprite;
         private filter: CustomizedFilter;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
@@ -152,9 +130,7 @@ namespace basics {
             this.app.stop();
 
             PIXI.loader.add("shader", "_assets/basics/shader.frag")
-
                 .load((loader: PIXI.loaders.Loader, resource: any): void => {
-
                     this.filter = new PIXI.Filter(null, resource.shader.data);
                     this.background.filters = [this.filter];
                     this.app.start();
@@ -162,23 +138,19 @@ namespace basics {
                     this.app.ticker.add((delta: number) => {
                         this.filter.uniforms.customUniform += 0.04 / delta;
                     });
-
                 });
-
         }
     }
 
     export class Graphics {
-
         private app: PIXI.Application;
         private graphics: PIXI.Graphics;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { antialias: true });
             document.body.appendChild(this.app.view);
 
-            let graphics = new PIXI.Graphics();
+            const graphics = new PIXI.Graphics();
 
             // set a fill and line style
             graphics.beginFill(0xFF3300);
@@ -215,32 +187,30 @@ namespace basics {
     }
 
     export class RenderTexture {
-
         private app: PIXI.Application;
         private container: PIXI.Container;
         private renderTexture: PIXI.RenderTexture;
         private sprite: PIXI.Sprite;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
             this.container = new PIXI.Container();
             this.app.stage.addChild(this.container);
 
-            let texture = PIXI.Texture.fromImage("required/assets/basics/bunny.png");
+            const texture = PIXI.Texture.fromImage("required/assets/basics/bunny.png");
 
             for (let i = 0; i < 25; i++) {
-                let bunny = new PIXI.Sprite(texture);
+                const bunny = new PIXI.Sprite(texture);
                 bunny.x = (i % 5) * 30;
                 bunny.y = Math.floor(i / 5) * 30;
                 bunny.rotation = Math.random() * (Math.PI * 2);
                 this.container.addChild(bunny);
             }
 
-            let brt = new PIXI.BaseRenderTexture(300, 300, PIXI.SCALE_MODES.LINEAR, 1);
-            let rt = new PIXI.RenderTexture(brt);
+            const brt = new PIXI.BaseRenderTexture(300, 300, PIXI.SCALE_MODES.LINEAR, 1);
+            const rt = new PIXI.RenderTexture(brt);
 
             this.sprite = new PIXI.Sprite(rt);
             this.sprite.x = 450;
@@ -253,29 +223,23 @@ namespace basics {
             this.app.ticker.add((delta: number) => {
                 this.app.renderer.render(this.container, rt);
             });
-
         }
     }
 
     export class SpriteSheet {
-
         private app: PIXI.Application;
         private anim: PIXI.extras.AnimatedSprite;
 
         constructor() {
-
             PIXI.loader
                 .add("required/assets/basics/fighter.json")
                 .load((loader: PIXI.loaders.Loader, resource: any) => {
-
-                    let frames = [];
+                    const frames = [];
 
                     for (let i = 0; i < 30; i++) {
-
-                        let val = i < 10 ? "0" + i : i;
+                        const val = i < 10 ? "0" + i : i;
 
                         frames.push(PIXI.Texture.fromFrame("rollSequence00" + val + ".png"));
-
                     }
 
                     this.anim = new PIXI.extras.AnimatedSprite(frames);
@@ -291,20 +255,16 @@ namespace basics {
                     this.app.ticker.add((deltaTime: number) => {
                         this.anim.rotation += 0.01;
                     });
-
                 });
         }
-
     }
 
     export class Text {
-
         private app: PIXI.Application;
         private basicText: PIXI.Text;
         private richText: PIXI.Text;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
@@ -313,7 +273,7 @@ namespace basics {
             this.basicText.y = 90;
             this.app.stage.addChild(this.basicText);
 
-            let style = new PIXI.TextStyle({
+            const style = new PIXI.TextStyle({
                 fontFamily: "Arial",
                 fontSize: 36,
                 fontStyle: "italic",
@@ -334,13 +294,10 @@ namespace basics {
             this.richText.x = 30;
             this.richText.y = 180;
             this.app.stage.addChild(this.richText);
-
         }
-
     }
 
     export class TexturedMesh {
-
         private app: PIXI.Application;
         private count: number;
         private points: PIXI.Point[];
@@ -348,8 +305,7 @@ namespace basics {
         private graphics: PIXI.Graphics;
 
         constructor() {
-
-            let ropeLength = 918 / 20;
+            const ropeLength = 918 / 20;
 
             for (let i = 0; i < 25; i++) {
                 this.points.push(new PIXI.Point(i * ropeLength, 0));
@@ -367,7 +323,6 @@ namespace basics {
 
             // start animating
             this.app.ticker.add((deltaTime: number) => {
-
                 this.count += 0.1;
 
                 // make the snake
@@ -376,13 +331,10 @@ namespace basics {
                     this.points[i].x = i * ropeLength + Math.cos((i * 0.3) + this.count) * 20;
                 }
                 this.renderPoints();
-
             });
-
         }
 
         private renderPoints(): void {
-
             this.graphics.clear();
             this.graphics.lineStyle(2, 0xffc2c2);
             this.graphics.moveTo(this.points[0].x, this.points[0].y);
@@ -396,23 +348,19 @@ namespace basics {
                 this.graphics.drawCircle(this.points[i].x, this.points[i].y, 10);
                 this.graphics.endFill();
             }
-
         }
-
     }
 
     export class TilingSprite {
-
         private app: PIXI.Application;
         private tilingSprite: PIXI.extras.TilingSprite;
         private count: number;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
-            let texture = PIXI.Texture.fromImage("required/assets/p2.jpeg");
+            const texture = PIXI.Texture.fromImage("required/assets/p2.jpeg");
 
             this.tilingSprite = new PIXI.extras.TilingSprite(
                 texture,
@@ -424,28 +372,22 @@ namespace basics {
             this.count = 0;
 
             this.app.ticker.add((deltaTime: number): void => {
-
                 this.count += 0.005;
 
                 this.tilingSprite.tileScale.x = 2 + Math.sin(this.count);
                 this.tilingSprite.tileScale.y = 2 + Math.cos(this.count);
                 this.tilingSprite.tilePosition.x += 1;
                 this.tilingSprite.tilePosition.y += 1;
-
             });
-
         }
-
     }
 
     export class Video {
-
         private app: PIXI.Application;
         private button: PIXI.Graphics;
         private videoSprite: PIXI.Sprite;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { transparent: true });
             document.body.appendChild(this.app.view);
 
@@ -470,28 +412,21 @@ namespace basics {
             this.app.stage.addChild(this.button);
 
             this.button.on("pointertap", (): void => {
-
                 this.button.destroy();
 
-                let texture = PIXI.Texture.fromVideo("required/assets/testVideo.mp4");
+                const texture = PIXI.Texture.fromVideo("required/assets/testVideo.mp4");
 
                 this.videoSprite = new PIXI.Sprite(texture);
                 this.videoSprite.width = this.app.renderer.width;
                 this.videoSprite.height = this.app.renderer.height;
                 this.app.stage.addChild(this.videoSprite);
-
             });
-
         }
-
     }
-
 }
 
 namespace demos {
-
     export class AlphaMask {
-
         private app: PIXI.Application;
         private bg: PIXI.Container;
         private cells: PIXI.Sprite;
@@ -499,7 +434,6 @@ namespace demos {
         private target: PIXI.Point;
 
         constructor() {
-
             this.app = new PIXI.Application();
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
@@ -524,34 +458,25 @@ namespace demos {
             this.reset();
 
             this.app.ticker.add((deltaTime: number): void => {
-
                 this.mask.position.x += (this.target.x - this.mask.x) * 0.1;
                 this.mask.position.y += (this.target.y - this.mask.y) * 0.1;
 
                 if (Math.abs(this.mask.x - this.target.x) < 1) {
                     this.reset();
                 }
-
-
             });
-
         }
 
         private reset(): void {
-
             this.target.x = Math.floor(Math.random() * 550);
             this.target.y = Math.floor(Math.random() * 300);
-
         }
-
     }
 
     export class AnimatedSpriteDemo {
-
         private app: PIXI.Application;
 
         constructor() {
-
             this.app = new PIXI.Application();
             this.app.stop();
             document.body.appendChild(this.app.view);
@@ -559,18 +484,15 @@ namespace demos {
             PIXI.loader
                 .add("spritesheet", "required/assets/mc.json")
                 .load((): void => {
+                    const explosionTextures: PIXI.Texture[] = [];
 
-                    let explosionTextures: PIXI.Texture[] = [];
-                    let i: number;
-
-                    for (i = 0; i < 26; i++) {
-                        let texture = PIXI.Texture.fromFrame("Explosion_Sequence_A " + (i + 1) + ".png");
+                    for (let i = 0; i < 26; i++) {
+                        const texture = PIXI.Texture.fromFrame("Explosion_Sequence_A " + (i + 1) + ".png");
                         explosionTextures.push(texture);
                     }
 
-                    for (i = 0; i < 50; i++) {
-
-                        let explosion = new PIXI.extras.AnimatedSprite(explosionTextures);
+                    for (let i = 0; i < 50; i++) {
+                        const explosion = new PIXI.extras.AnimatedSprite(explosionTextures);
 
                         explosion.x = Math.random() * this.app.renderer.width;
                         explosion.y = Math.random() * this.app.renderer.height;
@@ -582,15 +504,11 @@ namespace demos {
                     }
 
                     this.app.start();
-
                 });
-
         }
-
     }
 
     export class Batch {
-
         private app: PIXI.Application;
         private sprites: PIXI.particles.ParticleContainer;
         private maggots: Dude[];
@@ -598,7 +516,6 @@ namespace demos {
         private tick: number;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
@@ -613,13 +530,12 @@ namespace demos {
 
             this.maggots = [];
 
-            let totalSprites = this.app.renderer instanceof PIXI.WebGLRenderer ? 10000 : 100;
+            const totalSprites = this.app.renderer instanceof PIXI.WebGLRenderer ? 10000 : 100;
 
-            let dudeTexture = PIXI.Texture.fromImage("required/assets/tinyMaggot.png");
+            const dudeTexture = PIXI.Texture.fromImage("required/assets/tinyMaggot.png");
 
             for (let i = 0; i < totalSprites; i++) {
-
-                let dude = new Dude(dudeTexture);
+                const dude = new Dude(dudeTexture);
                 dude.tint = Math.random() * 0xE8D4CD;
                 dude.anchor.set(0.5);
                 dude.scale.set(0.8 + Math.random() * 0.3);
@@ -632,10 +548,9 @@ namespace demos {
 
                 this.maggots.push(dude);
                 this.sprites.addChild(dude);
-
             }
 
-            let dudeBoundsPadding = 100;
+            const dudeBoundsPadding = 100;
             this.dudeBounds = new PIXI.Rectangle(
                 -dudeBoundsPadding,
                 -dudeBoundsPadding,
@@ -646,10 +561,7 @@ namespace demos {
             this.tick = 0;
 
             this.app.ticker.add((): void => {
-
-                for (let i = 0; i < this.maggots.length; i++) {
-
-                    let dude = this.maggots[i];
+                for (const dude of this.maggots) {
                     dude.scale.y = 0.95 + Math.sin(this.tick + dude.offset) * 0.05;
                     dude.direction += dude.turningSpeed * 0.01;
                     dude.x += Math.sin(dude.direction) * (dude.speed * dude.scale.y);
@@ -659,28 +571,22 @@ namespace demos {
                     // wrap the maggots
                     if (dude.x < this.dudeBounds.x) {
                         dude.x += this.dudeBounds.width;
-                    }
-                    else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
+                    } else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
                         dude.x -= this.dudeBounds.width;
                     }
 
                     if (dude.y < this.dudeBounds.y) {
                         dude.y += this.dudeBounds.height;
-                    }
-                    else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
+                    } else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
                         dude.y -= this.dudeBounds.height;
                     }
                 }
 
                 this.tick += 0.1;
-
             });
-
         }
-
     }
     export class Dude extends PIXI.Sprite {
-
         direction: number = 0;
         speed: number = 0;
         turningSpeed: number = 0;
@@ -689,18 +595,15 @@ namespace demos {
         constructor(texture: PIXI.Texture) {
             super(texture);
         }
-
     }
 
     export class BlendModes {
-
         private app: PIXI.Application;
         private background: PIXI.Sprite;
         private dudeArray: Dude[];
         private dudeBounds: PIXI.Rectangle;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
@@ -709,12 +612,11 @@ namespace demos {
 
             this.dudeArray = [];
 
-            let totalDudes = 20;
-            let dudeTexture = PIXI.Texture.fromImage("required/assets/flowerTop.png");
+            const totalDudes = 20;
+            const dudeTexture = PIXI.Texture.fromImage("required/assets/flowerTop.png");
 
             for (let i = 0; i < totalDudes; i++) {
-
-                let dude = new Dude(dudeTexture);
+                const dude = new Dude(dudeTexture);
                 dude.anchor.set(0.5);
                 dude.scale.set(0.8 + Math.random() * 0.3);
                 dude.x = Math.floor(Math.random() * this.app.renderer.width);
@@ -726,10 +628,9 @@ namespace demos {
 
                 this.dudeArray.push(dude);
                 this.app.stage.addChild(dude);
-
             }
 
-            let dudeBoundsPadding = 100;
+            const dudeBoundsPadding = 100;
             this.dudeBounds = new PIXI.Rectangle(
                 -dudeBoundsPadding,
                 -dudeBoundsPadding,
@@ -738,10 +639,7 @@ namespace demos {
             );
 
             this.app.ticker.add((): void => {
-
-                for (let i = 0; i < this.dudeArray.length; i++) {
-
-                    let dude = this.dudeArray[i];
+                for (const dude of this.dudeArray) {
                     dude.direction += dude.turningSpeed * 0.01;
                     dude.x += Math.sin(dude.direction) * dude.speed;
                     dude.y += Math.cos(dude.direction) * dude.speed;
@@ -750,34 +648,27 @@ namespace demos {
                     // wrap the dudes by testing their bounds...
                     if (dude.x < this.dudeBounds.x) {
                         dude.x += this.dudeBounds.width;
-                    }
-                    else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
+                    } else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
                         dude.x -= this.dudeBounds.width;
                     }
 
                     if (dude.y < this.dudeBounds.y) {
                         dude.y += this.dudeBounds.height;
-                    }
-                    else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
+                    } else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
                         dude.y -= this.dudeBounds.height;
                     }
                 }
-
             });
-
         }
-
     }
 
     export class CacheAsBitmap {
-
         private app: PIXI.Application;
         private aliens: PIXI.Sprite[];
         private count: number;
         private alienContainer: PIXI.Container;
 
         constructor() {
-
             this.app = new PIXI.Application();
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
@@ -785,7 +676,7 @@ namespace demos {
             this.app.stop();
 
             this.aliens = [];
-            let alienFrames = [
+            const alienFrames = [
                 "eggHead.png",
                 "flowerTop.png",
                 "helmlok.png",
@@ -802,12 +693,10 @@ namespace demos {
             PIXI.loader
                 .add("spritesheet", "required/assets/monsters.json")
                 .load((): void => {
-
                     for (let i = 0; i < 100; i++) {
+                        const frameName = alienFrames[i % 4];
 
-                        let frameName = alienFrames[i % 4];
-
-                        let alien = PIXI.Sprite.fromFrame(frameName);
+                        const alien = PIXI.Sprite.fromFrame(frameName);
                         alien.tint = Math.random() * 0xFFFFFF;
                         alien.x = Math.random() * 800 - 400;
                         alien.y = Math.random() * 600 - 300;
@@ -822,10 +711,9 @@ namespace demos {
                         this.alienContainer.cacheAsBitmap = !this.alienContainer.cacheAsBitmap;
                     });
                     this.app.ticker.add((): void => {
-
                         // let"s rotate the aliens a little bit
                         for (let i = 0; i < 100; i++) {
-                            let alien = this.aliens[i];
+                            const alien = this.aliens[i];
                             alien.rotation += 0.1;
                         }
 
@@ -834,27 +722,21 @@ namespace demos {
                         this.alienContainer.scale.x = Math.sin(this.count);
                         this.alienContainer.scale.y = Math.sin(this.count);
                         this.alienContainer.rotation += 0.01;
-
                     });
-
                 });
-
         }
-
     }
 
     export class Dragging {
-
         private app: PIXI.Application;
         private data: PIXI.interaction.InteractionData;
         private dragging: boolean;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
-            let texture = PIXI.Texture.fromImage("required/assets/bunny.png");
+            const texture = PIXI.Texture.fromImage("required/assets/bunny.png");
             texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
 
             for (let i = 0; i < 10; i++) {
@@ -864,71 +746,57 @@ namespace demos {
                     Math.floor(Math.random() * this.app.renderer.height)
                 );
             }
-
         }
 
         private createBunny(texture: PIXI.Texture, x: number, y: number): void {
-
-            let bunny = new PIXI.Sprite(texture);
+            const bunny = new PIXI.Sprite(texture);
             bunny.interactive = true;
             bunny.buttonMode = true;
             bunny.anchor.set(0.5);
             bunny.scale.set(3);
             bunny
                 .on("pointerdown", (event: PIXI.interaction.InteractionEvent): void => {
-
                     this.data = event.data;
                     bunny.alpha = 0.5;
                     this.dragging = true;
-
                 })
                 .on("pointerup", (event: PIXI.interaction.InteractionEvent): void => {
-
                     this.data = null;
                     bunny.alpha = 0.5;
                     this.dragging = false;
-
                 })
                 .on("pointerupoutside", (event: PIXI.interaction.InteractionEvent): void => {
-
                     this.data = null;
                     bunny.alpha = 0.5;
                     this.dragging = false;
-
                 })
                 .on("pointermove", (event: PIXI.interaction.InteractionEvent): void => {
-
                     if (this.dragging) {
-                        let newPosition = this.data.getLocalPosition(bunny);
+                        const newPosition = this.data.getLocalPosition(bunny);
                         bunny.x = newPosition.x;
                         bunny.y = newPosition.y;
                     }
-
                 });
 
             bunny.x = x;
             bunny.y = y;
 
             this.app.stage.addChild(bunny);
-
         }
-
     }
 
     export class GraphicsDemo {
-
         private app: PIXI.Application;
         private graphics: PIXI.Graphics;
         private thing: PIXI.Graphics;
         private count: number;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { antialias: true });
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
 
-            let graphics = new PIXI.Graphics();
+            const graphics = new PIXI.Graphics();
 
             graphics.beginFill(0xFF3300);
             graphics.lineStyle(10, 0xffd900, 1);
@@ -977,7 +845,6 @@ namespace demos {
             this.count = 0;
 
             this.app.stage.on("pointertap", (): void => {
-
                 this.graphics.lineStyle(Math.random() * 30, Math.random() * 0xFFFFFF, 1);
                 this.graphics.moveTo(Math.random() * 800, Math.random() * 600);
                 this.graphics.bezierCurveTo(
@@ -985,11 +852,9 @@ namespace demos {
                     Math.random() * 800, Math.random() * 600,
                     Math.random() * 800, Math.random() * 600
                 );
-
             });
 
             this.app.ticker.add((): void => {
-
                 this.count += 0.1;
 
                 this.thing.clear();
@@ -1003,25 +868,20 @@ namespace demos {
                 this.thing.lineTo(-120 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
 
                 this.thing.rotation = this.count * 0.1;
-
             });
-
         }
-
     }
 
     export class Interactivity {
-
         private app: PIXI.Application;
         private background: PIXI.Sprite;
         private buttons: PIXI.Sprite[];
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
-            let background = PIXI.Sprite.fromImage("required/assets/button_test_BG.jpg");
+            const background = PIXI.Sprite.fromImage("required/assets/button_test_BG.jpg");
             background.width = this.app.renderer.width;
             background.height = this.app.renderer.height;
             this.background = background;
@@ -1029,7 +889,7 @@ namespace demos {
 
             this.buttons = [];
 
-            let buttonPositions = [
+            const buttonPositions = [
                 175, 75,
                 655, 75,
                 410, 325,
@@ -1037,13 +897,12 @@ namespace demos {
                 685, 445
             ];
 
-            let textureButton = PIXI.Texture.fromImage("../../_assets/button.png");
-            let textureButtonDown = PIXI.Texture.fromImage("../../_assets/buttonDown.png");
-            let textureButtonOver = PIXI.Texture.fromImage("../../_assets/buttonOver.png");
+            const textureButton = PIXI.Texture.fromImage("../../_assets/button.png");
+            const textureButtonDown = PIXI.Texture.fromImage("../../_assets/buttonDown.png");
+            const textureButtonOver = PIXI.Texture.fromImage("../../_assets/buttonOver.png");
 
             for (let i = 0; i < 5; i++) {
-
-                let button = new PIXI.Sprite(textureButton);
+                const button = new PIXI.Sprite(textureButton);
                 button.anchor.set(0.5);
                 button.x = buttonPositions[i * 2];
                 button.y = buttonPositions[i * 2 + 1];
@@ -1076,13 +935,10 @@ namespace demos {
             this.buttons[3].scale.set(0.8);
             this.buttons[4].scale.set(0.8, 1.2);
             this.buttons[4].rotation = Math.PI;
-
         }
-
     }
 
     export class Masking {
-
         private app: PIXI.Application;
         private bg: PIXI.Sprite;
         private container: PIXI.Container;
@@ -1095,7 +951,6 @@ namespace demos {
         private help: PIXI.Text;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { antialias: true });
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
@@ -1139,14 +994,12 @@ namespace demos {
             this.app.stage.on("pointertap", (): void => {
                 if (!this.container.mask) {
                     this.container.mask = this.thing;
-                }
-                else {
+                } else {
                     this.container.mask = null;
                 }
             });
 
             this.app.ticker.add((): void => {
-
                 this.bg.rotation += 0.01;
                 this.bgFront.rotation -= 0.01;
 
@@ -1169,16 +1022,11 @@ namespace demos {
                 this.thing.lineTo(-120 + Math.sin(this.count) * 20, -300 + Math.cos(this.count) * 20);
                 this.thing.lineTo(-320 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
                 this.thing.rotation = this.count * 0.1;
-
             });
-
         }
-
-
     }
 
     export class RenderTextureDemo {
-
         private app: PIXI.Application;
 
         private renderTexture: PIXI.RenderTexture;
@@ -1193,7 +1041,6 @@ namespace demos {
         private count: number;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
@@ -1218,7 +1065,7 @@ namespace demos {
             this.stuffContainer.y = 300;
             this.app.stage.addChild(this.stuffContainer);
 
-            let fruits = [
+            const fruits = [
                 "required/assets/spinObj_01.png",
                 "required/assets/spinObj_02.png",
                 "required/assets/spinObj_03.png",
@@ -1232,7 +1079,7 @@ namespace demos {
             this.items = [];
 
             for (let i = 0; i < 20; i++) {
-                let item = PIXI.Sprite.fromImage(fruits[i % fruits.length]);
+                const item = PIXI.Sprite.fromImage(fruits[i % fruits.length]);
                 item.x = Math.random() * 400 - 200;
                 item.y = Math.random() * 400 - 200;
                 item.anchor.set(0.5);
@@ -1243,15 +1090,13 @@ namespace demos {
             this.count = 0;
 
             this.app.ticker.add((): void => {
-
-                for (let i = 0; i < this.items.length; i++) {
-                    let item = this.items[i];
+                for (const item of this.items) {
                     item.rotation += 0.1;
                 }
 
                 this.count += 0.01;
 
-                let temp = this.renderTexture;
+                const temp = this.renderTexture;
                 this.renderTexture = this.renderTexture2;
                 this.renderTexture2 = temp;
 
@@ -1261,15 +1106,11 @@ namespace demos {
                 this.outputSprite.scale.set(1 + Math.sin(this.count) * 0.2);
 
                 this.app.renderer.render(this.app.stage, this.renderTexture2, false);
-
             });
-
         }
-
     }
 
     export class StripDemo {
-
         private app: PIXI.Application;
         private count: number;
         private points: PIXI.Point[];
@@ -1277,13 +1118,12 @@ namespace demos {
         private snakeContainer: PIXI.Container;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
             this.count = 0;
 
-            let ropeLength = 918 / 20;
+            const ropeLength = 918 / 20;
 
             this.points = [];
 
@@ -1308,13 +1148,10 @@ namespace demos {
                     this.points[i].x = i * ropeLength + Math.cos((i * 0.3) + this.count) * 20;
                 }
             });
-
         }
-
     }
 
     export class TextDemo {
-
         private app: PIXI.Application;
         private bitmapFontText: PIXI.extras.BitmapText;
         private background: PIXI.Sprite;
@@ -1324,19 +1161,16 @@ namespace demos {
         private count: number;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
             PIXI.loader
                 .add("desyrel", "required/assets/desyrel.xml")
                 .load((): void => {
-
                     this.bitmapFontText = new PIXI.extras.BitmapText("bitmap fonts are\n now supported!", { font: "35px Desyrel", align: "right" });
                     this.bitmapFontText.x = this.app.renderer.width - this.bitmapFontText.textWidth - 20;
                     this.bitmapFontText.y = 20;
                     this.app.stage.addChild(this.bitmapFontText);
-
                 });
 
             this.background = PIXI.Sprite.fromImage("required/assets/textDemoBG.jpg");
@@ -1385,20 +1219,15 @@ namespace demos {
             this.count = 0;
 
             this.app.ticker.add((): void => {
-
                 this.count += 0.05;
                 this.countingText.text = "COUNT 4Elet: " + Math.floor(this.count);
 
                 this.spinningText.rotation += 0.03;
-
             });
-
         }
-
     }
 
     export class TextureRotate {
-
         private app: PIXI.Application;
         private bol: boolean;
         private texture: PIXI.Texture;
@@ -1406,7 +1235,6 @@ namespace demos {
         private dude: PIXI.Sprite;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
@@ -1417,20 +1245,18 @@ namespace demos {
                 this.texture = resources.flowerTop.texture;
                 this.init();
             });
-
         }
 
         private init(): void {
-
-            let textures = [this.texture];
-            let D8 = PIXI.GroupD8;
+            const textures = [this.texture];
+            const D8 = PIXI.GroupD8;
             for (let rotate = 1; rotate < 16; rotate++) {
-                let h = D8.isSwapWidthHeight(rotate) ? this.texture.frame.width : this.texture.frame.height;
-                let w = D8.isSwapWidthHeight(rotate) ? this.texture.frame.height : this.texture.frame.width;
+                const h = D8.isSwapWidthHeight(rotate) ? this.texture.frame.width : this.texture.frame.height;
+                const w = D8.isSwapWidthHeight(rotate) ? this.texture.frame.height : this.texture.frame.width;
 
-                let frame = this.texture.frame;
-                let crop = new PIXI.Rectangle(this.texture.frame.x, this.texture.frame.y, w, h);
-                let trim = crop;
+                const frame = this.texture.frame;
+                const crop = new PIXI.Rectangle(this.texture.frame.x, this.texture.frame.y, w, h);
+                const trim = crop;
                 let rotatedTexture: PIXI.Texture;
                 if (rotate % 2 === 0) {
                     rotatedTexture = new PIXI.Texture(this.texture.baseTexture, frame, crop, trim, rotate);
@@ -1441,33 +1267,28 @@ namespace demos {
                 textures.push(rotatedTexture);
             }
 
-            let offsetX = this.app.renderer.width / 16 | 0;
-            let offsetY = this.app.renderer.height / 8 | 0;
-            let gridW = this.app.renderer.width / 4 | 0;
-            let gridH = this.app.renderer.height / 5 | 0;
+            const offsetX = this.app.renderer.width / 16 | 0;
+            const offsetY = this.app.renderer.height / 8 | 0;
+            const gridW = this.app.renderer.width / 4 | 0;
+            const gridH = this.app.renderer.height / 5 | 0;
 
             for (let i = 0; i < 16; i++) {
-
-                let dude = new PIXI.Sprite(textures[i < 8 ? i * 2 : (i - 8) * 2 + 1]);
+                const dude = new PIXI.Sprite(textures[i < 8 ? i * 2 : (i - 8) * 2 + 1]);
                 dude.scale.x = 0.5;
                 dude.scale.y = 0.5;
                 dude.x = offsetX + gridW * (i % 4);
                 dude.y = offsetY + gridH * (i / 4 | 0);
                 this.app.stage.addChild(dude);
 
-                let text = new PIXI.Text("rotate = " + dude.texture.rotate, { fontFamily: "Courier New", fontSize: "12px", fill: "white", align: "left" });
+                const text = new PIXI.Text("rotate = " + dude.texture.rotate, { fontFamily: "Courier New", fontSize: "12px", fill: "white", align: "left" });
                 text.x = dude.x;
                 text.y = dude.y - 20;
                 this.app.stage.addChild(text);
-
             }
-
         }
-
     }
 
     export class TextureSwap {
-
         private app: PIXI.Application;
         private bol: boolean;
         private texture: PIXI.Texture;
@@ -1475,7 +1296,6 @@ namespace demos {
         private dude: PIXI.Sprite;
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
@@ -1497,8 +1317,7 @@ namespace demos {
                 this.bol = !this.bol;
                 if (this.bol) {
                     this.dude.texture = this.secondTexture;
-                }
-                else {
+                } else {
                     this.dude.texture = this.texture;
                 }
             });
@@ -1506,30 +1325,25 @@ namespace demos {
             this.app.ticker.add((): void => {
                 this.dude.rotation += 0.1;
             });
-
         }
-
     }
 
     export class Tinting {
-
         private app: PIXI.Application;
         private aliens: Dude[];
 
         constructor() {
-
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
             this.aliens = [];
 
-            let totalDudes = 20;
+            const totalDudes = 20;
 
-            let dudeTexture = PIXI.Texture.fromImage("required/assets/eggHead.png");
+            const dudeTexture = PIXI.Texture.fromImage("required/assets/eggHead.png");
 
             for (let i = 0; i < totalDudes; i++) {
-
-                let dude = new Dude(dudeTexture);
+                const dude = new Dude(dudeTexture);
                 dude.anchor.set(0.5);
                 dude.scale.set(0.8 + Math.random() * 0.3);
                 dude.x = Math.random() * this.app.renderer.width;
@@ -1541,20 +1355,16 @@ namespace demos {
 
                 this.aliens.push(dude);
                 this.app.stage.addChild(dude);
-
             }
 
-            let dudeBoundsPadding = 100;
-            let dudeBounds = new PIXI.Rectangle(-dudeBoundsPadding,
+            const dudeBoundsPadding = 100;
+            const dudeBounds = new PIXI.Rectangle(-dudeBoundsPadding,
                 -dudeBoundsPadding,
                 this.app.renderer.width + dudeBoundsPadding * 2,
                 this.app.renderer.height + dudeBoundsPadding * 2);
 
             this.app.ticker.add((): void => {
-
-                for (let i = 0; i < this.aliens.length; i++) {
-
-                    let dude = this.aliens[i];
+                for (const dude of this.aliens) {
                     dude.direction += dude.turningSpeed * 0.01;
                     dude.x += Math.sin(dude.direction) * dude.speed;
                     dude.y += Math.cos(dude.direction) * dude.speed;
@@ -1562,31 +1372,25 @@ namespace demos {
 
                     if (dude.x < dudeBounds.x) {
                         dude.x += dudeBounds.width;
-                    }
-                    else if (dude.x > dudeBounds.x + dudeBounds.width) {
+                    } else if (dude.x > dudeBounds.x + dudeBounds.width) {
                         dude.x -= dudeBounds.width;
                     }
 
                     if (dude.y < dudeBounds.y) {
                         dude.y += dudeBounds.height;
-                    }
-                    else if (dude.y > dudeBounds.y + dudeBounds.height) {
+                    } else if (dude.y > dudeBounds.y + dudeBounds.height) {
                         dude.y -= dudeBounds.height;
                     }
                 }
-
             });
         }
-
     }
 
     export class TransparentBackground {
-
         private app: PIXI.Application;
         private bunny: PIXI.Sprite;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600, { transparent: true });
             document.body.appendChild(this.app.view);
 
@@ -1602,17 +1406,12 @@ namespace demos {
             this.app.ticker.add((): void => {
                 this.bunny.rotation += 0.1;
             });
-
         }
-
     }
-
 }
 
 namespace filters {
-
     export class BlurFilter {
-
         private app: PIXI.Application;
         private bg: PIXI.Sprite;
         private littleDudes: PIXI.Sprite;
@@ -1622,7 +1421,6 @@ namespace filters {
         private count: number;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600);
             document.body.appendChild(this.app.view);
 
@@ -1650,23 +1448,18 @@ namespace filters {
             this.count = 0;
 
             this.app.ticker.add((): void => {
-
                 this.count += 0.005;
 
-                let blurAmount = Math.cos(this.count);
-                let blurAmount2 = Math.sin(this.count);
+                const blurAmount = Math.cos(this.count);
+                const blurAmount2 = Math.sin(this.count);
 
                 this.blurFilter1.blur = 20 * (blurAmount);
                 this.blurFilter2.blur = 20 * (blurAmount2);
-
             });
-
         }
-
     }
 
     export class DisplacementMap {
-
         private app: PIXI.Application;
         private container: PIXI.Container;
         private maggots: DisplacementMapDude[];
@@ -1677,7 +1470,6 @@ namespace filters {
         private count: number;
 
         constructor() {
-
             this.app = new PIXI.Application(800, 600);
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
@@ -1685,8 +1477,8 @@ namespace filters {
             this.container = new PIXI.Container();
             this.app.stage.addChild(this.container);
 
-            let padding = 100;
-            let bounds = new PIXI.Rectangle(
+            const padding = 100;
+            const bounds = new PIXI.Rectangle(
                 -padding,
                 -padding,
                 this.app.renderer.width + padding * 2,
@@ -1695,8 +1487,7 @@ namespace filters {
             this.maggots = [];
 
             for (let i = 0; i < 20; i++) {
-
-                let maggot = new DisplacementMapDude();
+                const maggot = new DisplacementMapDude();
                 maggot.anchor.set(0.5);
                 this.container.addChild(maggot);
 
@@ -1710,11 +1501,10 @@ namespace filters {
                 maggot.scale.set(1 + Math.random() * 0.3);
                 maggot.original = maggot.scale.clone();
                 this.maggots.push(maggot);
-
             }
 
             this.displacementSprite = PIXI.Sprite.fromImage("required/assets/displace.png");
-            let displacementFilter = new PIXI.filters.DisplacementFilter(this.displacementSprite);
+            const displacementFilter = new PIXI.filters.DisplacementFilter(this.displacementSprite);
             this.app.stage.addChild(this.displacementSprite);
 
             this.container.filters = [displacementFilter];
@@ -1740,13 +1530,9 @@ namespace filters {
                 .on("touchmove", this.onPointerMove);
 
             this.app.ticker.add((): void => {
-
                 this.count += 0.05;
 
-                for (let i = 0; i < this.maggots.length; i++) {
-
-                    let maggot = this.maggots[i];
-
+                for (const maggot of this.maggots) {
                     maggot.direction += maggot.turnSpeed * 0.01;
                     maggot.x += Math.sin(maggot.direction) * maggot.speed;
                     maggot.y += Math.cos(maggot.direction) * maggot.speed;
@@ -1756,51 +1542,39 @@ namespace filters {
 
                     if (maggot.x < bounds.x) {
                         maggot.x += bounds.width;
-                    }
-                    else if (maggot.x > bounds.x + bounds.width) {
+                    } else if (maggot.x > bounds.x + bounds.width) {
                         maggot.x -= bounds.width;
                     }
 
                     if (maggot.y < bounds.y) {
                         maggot.y += bounds.height;
-                    }
-                    else if (maggot.y > bounds.y + bounds.height) {
+                    } else if (maggot.y > bounds.y + bounds.height) {
                         maggot.y -= bounds.height;
                     }
                 }
-
             });
-
         }
 
         private onPointerMove = (eventData: PIXI.interaction.InteractionEvent): void => {
-
             this.ring.visible = true;
             this.displacementSprite.x = eventData.data.global.x - 100;
             this.displacementSprite.y = eventData.data.global.y - this.displacementSprite.height / 2;
             this.ring.x = eventData.data.global.x - 25;
             this.ring.y = eventData.data.global.y;
-
         }
-
     }
     export class DisplacementMapDude extends PIXI.Sprite {
-
         direction: number = 0;
         speed: number = 0;
         turnSpeed: number = 0;
         original: PIXI.Point = new PIXI.Point();
 
         constructor() {
-
             super(PIXI.Texture.fromImage("../../_assets/maggot.png"));
-
         }
-
     }
 
     export class Filter {
-
         private app: PIXI.Application;
         private bg: PIXI.Sprite;
         private filter: PIXI.filters.ColorMatrixFilter;
@@ -1814,7 +1588,6 @@ namespace filters {
         private help: PIXI.Text;
 
         constructor() {
-
             this.app = new PIXI.Application();
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
@@ -1868,7 +1641,6 @@ namespace filters {
             this.app.stage.addChild(this.help);
 
             this.app.ticker.add((delta: number): void => {
-
                 this.bg.rotation += 0.01;
                 this.bgFront.rotation -= 0.01;
                 this.light1.rotation += 0.02;
@@ -1879,7 +1651,7 @@ namespace filters {
 
                 this.count += 0.1;
 
-                let matrix = this.filter.matrix;
+                const matrix = this.filter.matrix;
 
                 matrix[1] = Math.sin(this.count) * 3;
                 matrix[2] = Math.cos(this.count);
@@ -1887,11 +1659,7 @@ namespace filters {
                 matrix[4] = Math.sin(this.count / 3) * 2;
                 matrix[5] = Math.sin(this.count / 2);
                 matrix[6] = Math.sin(this.count / 4);
-
             });
-
         }
-
     }
-
 }
