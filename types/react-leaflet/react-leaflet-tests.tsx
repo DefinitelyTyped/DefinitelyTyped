@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import * as Leaflet from 'leaflet';
 import { Component, PropTypes } from 'react';
 import {
@@ -8,6 +9,8 @@ import {
     LayerGroup,
     LayersControl,
     Map,
+    MapControl,
+    MapControlProps,
     MapInstance,
     Marker,
     MarkerInstance,
@@ -597,5 +600,69 @@ const ZoomControlExample = () => (
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
             />
         <ZoomControl position='topright' />
+    </Map>
+);
+
+
+//MapControl https://github.com/PaulLeCam/react-leaflet/issues/130
+const mapControlCenter: [number, number] = [51.505, -0.09];
+class CenterControl extends MapControl<MapControlProps> {  // note we're extending MapControl from react-leaflet, not Component from react
+  componentWillMount() {
+    const centerControl = new L.Control({position: this.props.position});  // see http://leafletjs.com/reference.html#control-positions for other positions
+    const jsx = (
+      // PUT YOUR JSX FOR THE COMPONENT HERE:
+      <div {...this.props}>
+        // add your JSX 
+      </div>
+    );
+
+    centerControl.onAdd = (map) => {
+      let div = L.DomUtil.create('div', '');
+      ReactDOM.render(jsx, div);
+      return div;
+    };
+
+    this.leafletElement = centerControl;
+  }
+}
+const CenterControlExample = () => (
+    <Map center={mapControlCenter} zoom={13}>
+        <CenterControl/>
+    </Map>
+);
+
+class LegendControl extends MapControl<MapControlProps & { className?: string }> {
+  componentWillMount() {
+    const legend = new L.Control({position: this.props.position});
+    const jsx = (
+      <div {...this.props}>
+        {this.props.children}
+      </div>
+    );
+
+    legend.onAdd = (map) => {
+      let div = L.DomUtil.create('div', '');
+      ReactDOM.render(jsx, div);
+      return div;
+    };
+
+    this.leafletElement = legend;
+  }
+}
+
+const LegendControlExample = () => (
+    <Map className="map" center={mapControlCenter} zoom={13} style={{height: "300px"}}>
+    <TileLayer
+        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    />
+    <LegendControl className="supportLegend">
+        <ul className="legend">
+        <li className="legendItem1">Strong Support</li>
+        <li className="legendItem2">Weak Support</li>
+        <li className="legendItem3">Weak Oppose</li>
+        <li className="legendItem4">Strong Oppose</li>
+        </ul>
+    </LegendControl>
     </Map>
 );
