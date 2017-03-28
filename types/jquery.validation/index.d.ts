@@ -1,22 +1,23 @@
-// Type definitions for jquery.validation 1.13.1
+// Type definitions for jquery.validation 1.16
 // Project: http://jqueryvalidation.org/
-// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>
+// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference types="jquery"/>
-
 
 declare namespace JQueryValidation
 {
     type RulesDictionary = { [name: string]: any };
 
-    type ShouldValidatePredicate = boolean|((element: HTMLElement, event: JQueryEventObject) => void);
+    type ValidatePredicate = ((element: HTMLElement, event: JQueryEventObject) => void);
+
+    type ShouldValidatePredicate = boolean|ValidatePredicate;
 
     interface ValidationOptions
     {
         /**
-         * Enables debug mode. If true, the form is not submitted and certain errors are displayed on the console (will check if a window.console property exists). Try to enable when a form is just submitted instead of validation stopping the submit.
+         * Enables debug mode. If true, the form is not submitted and certain errors are displayed on the console 
+         * (will check if a window.console property exists). Try to enable when a form is just submitted instead of validation stopping the submit.
          *
          * default: false
          */
@@ -32,7 +33,8 @@ declare namespace JQueryValidation
          */
         errorContainer?: string;
         /**
-         * Use this element type to create error messages and to look for existing error messages. The default, "label", has the advantage of creating a meaningful link between error message and invalid field using the for attribute (which is always used, regardless of element type).
+         * Use this element type to create error messages and to look for existing error messages. The default, "label",
+         * has the advantage of creating a meaningful link between error message and invalid field using the for attribute (which is always used, regardless of element type).
          *
          * default: "label"
          */
@@ -48,19 +50,23 @@ declare namespace JQueryValidation
          */
         errorPlacement?: (error: JQuery, element: JQuery) => void;
         /**
-         * If enabled, removes the errorClass from the invalid elements and hides all error messages whenever the element is focused. Avoid combination with focusInvalid.
+         * If enabled, removes the errorClass from the invalid elements and hides all error messages whenever the element is focused. 
+         * Avoid combination with focusInvalid.
          *
          * default: false
          */
         focusCleanup?: boolean;
         /**
-         * Focus the last active or first invalid element on submit via validator.focusInvalid(). The last active element is the one that had focus when the form was submitted, avoiding stealing its focus. If there was no element focused, the first one in the form gets it, unless this option is turned off.
+         * Focus the last active or first invalid element on submit via validator.focusInvalid(). The last active element is the one 
+         * that had focus when the form was submitted, avoiding stealing its focus. If there was no element focused, the first one 
+         * in the form gets it, unless this option is turned off.
          *
          * default: true
          */
         focusInvalid?: boolean;
         /**
-         * Specify grouping of error messages. A group consists of an arbitrary group name as the key and a space separated list of element names as the value. Use errorPlacement to control where the group message is placed.
+         * Specify grouping of error messages. A group consists of an arbitrary group name as the key and a space separated list of 
+         * element names as the value. Use errorPlacement to control where the group message is placed.
          */
         groups?: { [groupName: string]: string };
         /**
@@ -70,21 +76,28 @@ declare namespace JQueryValidation
          */
         highlight?: (element: HTMLElement, errorClass: string, validClass: string) => void;
         /**
-         * Elements to ignore when validating, simply filtering them out. jQuery's not-method is used, therefore everything that is accepted by not() can be passed as this option. Inputs of type submit and reset are always ignored, so are disabled elements.
+         * Elements to ignore when validating, simply filtering them out. jQuery's not-method is used, therefore everything that is 
+         * accepted by not() can be passed as this option. Inputs of type submit and reset are always ignored, so are disabled elements.
          */
         ignore?: string;
         /**
-         * Set to skip reading messages from the title attribute, helps to avoid issues with Google Toolbar; default is false for compability, the message-from-title is likely to be completely removed in a future release.
+         * Set to skip reading messages from the title attribute, helps to avoid issues with Google Toolbar; default is false for compability, 
+         * the message-from-title is likely to be completely removed in a future release.
          *
          * default: false
          */
         ignoreTitle?: boolean;
         /**
-         * Callback for custom code when an invalid form is submitted. Called with an event object as the first argument, and the validator as the second.
+         * Callback for custom code when an invalid form is submitted. Called with an event object as the first argument, and the validator 
+         * as the second.
          */
         invalidHandler?: (event: JQueryEventObject, validator: Validator) => void;
         /**
-         * Key/value pairs defining custom messages. Key is the name of an element, value the message to display for that element. Instead of a plain message, another map with specific messages for each rule can be used. Overrides the title attribute of an element or the default message for the method (in that order). Each message can be a String or a Callback. The callback is called in the scope of the validator, with the rule's parameters as the first argument and the element as the second, and must return a String to display as the message.
+         * Key/value pairs defining custom messages. Key is the name of an element, value the message to display for that element. Instead 
+         * of a plain message, another map with specific messages for each rule can be used. Overrides the title attribute of an element or 
+         * the default message for the method (in that order). Each message can be a String or a Callback. The callback is called in the scope 
+         * of the validator, with the rule's parameters as the first argument and the element as the second, and must return a String to display 
+         * as the message.
          *
          * default: the default message for the method used
          */
@@ -98,6 +111,12 @@ declare namespace JQueryValidation
          */
         onclick?: ShouldValidatePredicate;
         /**
+         * Function. Validate elements when user focuses in. If omitted hides all other fields marked as invalid. 
+         * 
+         * Set to a custom Function to decide for yourself when to run validation.
+         */
+        onfocusin?: ValidatePredicate;
+        /**
          * Boolean or Function. Validate elements (except checkboxes/radio buttons) on blur. If nothing is entered, all rules are skipped, except when the field was already marked as invalid.
          *
          * Set to a Function to decide for yourself when to run validation.
@@ -105,7 +124,8 @@ declare namespace JQueryValidation
          */
         onfocusout?: ShouldValidatePredicate;
         /**
-         * Boolean or Function. Validate elements on keyup. As long as the field is not marked as invalid, nothing happens. Otherwise, all rules are checked on each key up event. Set to false to disable.
+         * Boolean or Function. Validate elements on keyup. As long as the field is not marked as invalid, nothing happens. 
+         * Otherwise, all rules are checked on each key up event. Set to false to disable.
          *
          * Set to a Function to decide for yourself when to run validation.
          * A boolean true is not a valid value.
@@ -120,21 +140,30 @@ declare namespace JQueryValidation
          */
         onsubmit?: boolean;
         /**
-         * A custom message display handler. Gets the map of errors as the first argument and an array of errors as the second, called in the context of the validator object. The arguments contain only those elements currently validated, which can be a single element when doing validation onblur/keyup. You can trigger (in addition to your own messages) the default behaviour by calling this.defaultShowErrors().
+         * A custom message display handler. Gets the map of errors as the first argument and an array of errors as the second, 
+         * called in the context of the validator object. The arguments contain only those elements currently validated, 
+         * which can be a single element when doing validation onblur/keyup. You can trigger (in addition to your own messages) 
+         * the default behaviour by calling this.defaultShowErrors().
          */
         rules?: RulesDictionary;
         /**
-         * A custom message display handler. Gets the map of errors as the first argument and an array of errors as the second, called in the context of the validator object. The arguments contain only those elements currently validated, which can be a single element when doing validation onblur/keyup. You can trigger (in addition to your own messages) the default behaviour by calling this.defaultShowErrors().
+         * A custom message display handler. Gets the map of errors as the first argument and an array of errors as the second, 
+         * called in the context of the validator object. The arguments contain only those elements currently validated, which can 
+         * be a single element when doing validation onblur/keyup. You can trigger (in addition to your own messages) the default 
+         * behaviour by calling this.defaultShowErrors().
          */
         showErrors?: (errorMap: ErrorDictionary, errorList: ErrorListItem[]) => void;
         /**
-         * Callback for handling the actual submit when the form is valid. Gets the form and the event object. Replaces the default submit. The right place to submit a form via Ajax after it is validated.
+         * Callback for handling the actual submit when the form is valid. Gets the form and the event object. Replaces the default submit. 
+         * The right place to submit a form via Ajax after it is validated.
          */
         submitHandler?: (form: HTMLFormElement, event?: JQueryEventObject) => void;
         /**
-         * String or Function. If specified, the error label is displayed to show a valid element. If a String is given, it is added as a class to the label. If a Function is given, it is called with the label (as a jQuery object) and the validated input (as a DOM element). The label can be used to add a text like "ok!".
+         * String or Function. If specified, the error label is displayed to show a valid element. If a String is given, it is added as 
+         * a class to the label. If a Function is given, it is called with the label (as a jQuery object) and the validated input (as a DOM element). 
+         * The label can be used to add a text like "ok!".
          */
-        success?: string|{($label: JQuery, validatedInput: HTMLElement):void};
+        success?: string|{($label: JQuery, validatedInput: HTMLElement): void};
         /**
          * Called to revert changes made by option highlight, same arguments as highlight.
          *
@@ -182,20 +211,13 @@ declare namespace JQueryValidation
          */
         addClassRules(rules: RulesDictionary): void;
         /**
-         * Add a custom validation method. It must consist of a name (must be a legal javascript identifier), a javascript based function and a default string message.
+         * Add a custom validation method. It must consist of a name (must be a legal javascript identifier), a javascript based function and a default string message or a message generating function.
          *
          * @param name The name of the method used to identify it and referencing it; this must be a valid JavaScript identifier
          * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
+         * @param message a default string message or a Message generator. First argument: Parameters. Second argument: Validated element.
          */
-        addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: string): void;
-        /**
-         * Add a custom validation method. It must consist of a name (must be a legal javascript identifier), a predicate function and a message generating function.
-         *
-         * @param name The name of the method used to identify it and referencing it; this must be a valid JavaScript identifier
-         * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
-         * @param message Message generator. First argument: Parameters. Second argument: Validated element.
-         */
-        addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: (params: any, element: HTMLElement) => string): void;
+        addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: string | ((params: any, element: HTMLElement) => string)): void;
         /**
          * Replaces {n} placeholders with arguments.
          *
@@ -263,34 +285,25 @@ interface JQuery
      * @param attributes A space-separated list of attribute names to remove.
      */
     removeAttrs(attributes: string): any;
-
+    // tslint:disable:unified-signatures
     /**
-     * Returns the validations rules for the first selected element
-     */
-    rules(): any;
-
-    /**
-     * Removes the specified rules and returns all rules for the first matched element.
-     *
-     * @param command "remove"
-     * @param rules Removes and returns all rules. Manipulates only rules specified via rules-option or via rules("add").
-     */
-    rules(command: string): any;
-    /**
-     * Removes the specified rules and returns all rules for the first matched element.
-     *
-     * @param command "remove"
-     * @param rules The space-separated names of rules to remove and return. Manipulates only rules specified via rules-option or via rules("add").
-     */
-    rules(command: string, rules: string): any;
-    /**
-     * Adds the specified rules and returns all rules for the first matched element. Requires that the parent form is validated, that is, $("form").validate() is called first
-     *
-     * @param command "add"
+     * Adds the specified rules and returns all rules for the first matched element. Requires that the parent form is validated, that is, $( "form" ).validate() is called first.
+     * 
+     * @param command "remove" or "add"
      * @param rules The rules to add. Accepts the same format as the rules-option of the validate-method.
      */
-    rules(command: string, rules: JQueryValidation.RulesDictionary): any;
-
+    rules(command: "add", rules?: JQueryValidation.RulesDictionary): any;
+    /**
+     * Removes the specified rules and returns all rules for the first matched element.
+     * @param command "remove"
+     * @param rules The space-seperated names of rules to remove and return. If left unspecified, removes and returns all rules. Manipulates only rules specified via rules-option or via rules("add").
+     */
+    rules(command: "remove", rules?: string): any;
+    /**
+     * Returns the validation rules for teh first selected element.
+     */
+    rules(): any;
+    // tslint:enable
     /**
      * Checks whether the selected form is valid or whether all selected elements are valid.
      */
