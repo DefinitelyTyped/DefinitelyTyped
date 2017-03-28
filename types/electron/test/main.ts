@@ -145,6 +145,9 @@ app.on('ready', () => {
 	mainWindow.webContents.capturePage({x: 0, y: 0, width: 100, height: 200}, image => {
 		console.log(image.toPNG());
 	});
+
+	mainWindow.setMenu(null);
+	mainWindow.setMenu(Menu.buildFromTemplate([]));
 });
 
 app.commandLine.appendSwitch('enable-web-bluetooth');
