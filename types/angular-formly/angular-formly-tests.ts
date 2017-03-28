@@ -30,6 +30,7 @@ class FormConfig {
 		formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = angular.noop;
 		formlyConfig.extras.explicitAsync = true;		
 		formlyConfig.extras.fieldTransform = angular.noop;
+		formlyConfig.extras.fieldTransform = [angular.noop];
 		formlyConfig.extras.getFieldId = angular.noop;
 		formlyConfig.extras.ngModelAttrsManipulatorPreferUnbound = true;
 	}

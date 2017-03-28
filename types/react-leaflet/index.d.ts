@@ -66,7 +66,6 @@ interface LeafletDraggingEvents {
     onmoveend?: (event: Leaflet.Event) => void;
 }
 
-
 interface MapProps extends React.HTMLProps<Map>,
     LeafletLayerEvents, LeafletMapStateChangeEvents, LeafletPopupEvents, LeafletTooltipEvents, LeafletLocationEvents, LeafletInteractionEvents, LeafletOtherEvents, Leaflet.MapOptions {
     animate?: boolean;
@@ -78,20 +77,18 @@ interface MapProps extends React.HTMLProps<Map>,
 
     id?: string;
 }
-declare type Map = React.ComponentClass<MapProps>;
-declare const Map: Map;
+type Map = React.ComponentClass<MapProps>;
+export const Map: Map;
 interface MapInstance extends React.Component<MapProps, {}> {
     leafletElement: Leaflet.Map;
 }
-
 
 interface PaneProps {
     name?: string;
     style?: React.CSSProperties;
     className?: string;
 }
-declare const Pane: React.ComponentClass<PaneProps>;
-
+export const Pane: React.ComponentClass<PaneProps>;
 
 // There is no Layer class, these are the base props for all layers on the map
 interface LayerProps extends LeafletInteractionEvents {
@@ -107,7 +104,6 @@ interface LayerProps extends LeafletInteractionEvents {
     ontooltipclose?: (event: Leaflet.TooltipEvent) => void;
 }
 
-
 interface MarkerProps extends LayerProps, LeafletDraggingEvents {
     position: Leaflet.LatLngExpression;
     draggable?: boolean;
@@ -115,7 +111,7 @@ interface MarkerProps extends LayerProps, LeafletDraggingEvents {
     zIndexOffset?: number;
     opacity?: number;
 }
-declare const Marker: React.ComponentClass<MarkerProps>;
+export const Marker: React.ComponentClass<MarkerProps>;
 interface MarkerInstance extends React.Component<MarkerProps, {}> {
     leafletElement: Leaflet.Marker;
 }
@@ -123,11 +119,11 @@ interface MarkerInstance extends React.Component<MarkerProps, {}> {
 interface PopupProps extends LayerProps, Leaflet.PopupOptions {
     position?: Leaflet.LatLngExpression;
 }
-declare const Popup: React.ComponentClass<PopupProps>;
+export const Popup: React.ComponentClass<PopupProps>;
 
 // tslint:disable-next-line:no-empty-interface
 interface TooltipProps extends LayerProps, Leaflet.TooltipOptions { }
-declare const Tooltip: React.ComponentClass<TooltipProps>;
+export const Tooltip: React.ComponentClass<TooltipProps>;
 
 interface GridLayerProps extends LayerProps {
     opacity?: number;
@@ -140,84 +136,80 @@ interface GridLayerProps extends LayerProps {
     ontileload?: (event: Leaflet.TileEvent) => void;
     onload?: (event: Leaflet.Event) => void;
 }
-declare const GridLayer: React.ComponentClass<GridLayerProps>;
+export const GridLayer: React.ComponentClass<GridLayerProps>;
 
 interface TileLayerProps extends GridLayerProps, Leaflet.TileLayerOptions {
     url: string;
 }
-declare const TileLayer: React.ComponentClass<TileLayerProps>;
+export const TileLayer: React.ComponentClass<TileLayerProps>;
 
 interface ImageOverlayProps extends LayerProps, LeafletInteractionEvents {
     url: string;
     opacity?: string;
 }
-declare const ImageOverlay: React.ComponentClass<ImageOverlayProps>;
+export const ImageOverlay: React.ComponentClass<ImageOverlayProps>;
 
 interface WMSTileLayerProps extends TileLayerProps {
     url: string;
 }
-declare const WMSTileLayer: React.ComponentClass<WMSTileLayerProps>;
+export const WMSTileLayer: React.ComponentClass<WMSTileLayerProps>;
 
 // Path is an abstract class
 // tslint:disable-next-line:no-empty-interface
 interface PathProps extends LeafletLayerEvents, LeafletInteractionEvents, Leaflet.PathOptions {
 }
 
-
 interface CircleProps extends PathProps {
     center: Leaflet.LatLngExpression;
     radius?: number;
 }
-declare const Circle: React.ComponentClass<CircleProps>;
+export const Circle: React.ComponentClass<CircleProps>;
 
 interface CircleMarkerProps extends PathProps {
     center: Leaflet.LatLngExpression;
     radius?: number;
 }
-declare const CircleMarker: React.ComponentClass<CircleMarkerProps>;
+export const CircleMarker: React.ComponentClass<CircleMarkerProps>;
 
 interface PolylineProps extends PathProps {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
 }
-declare const Polyline: React.ComponentClass<PolylineProps>;
+export const Polyline: React.ComponentClass<PolylineProps>;
 
 interface PolygonProps extends PathProps {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
 }
-declare const Polygon: React.ComponentClass<PolygonProps>;
+export const Polygon: React.ComponentClass<PolygonProps>;
 
 interface RectangleProps extends PathProps {
     bounds: Leaflet.LatLngBoundsExpression;
 }
-declare const Rectangle: React.ComponentClass<RectangleProps>;
-
+export const Rectangle: React.ComponentClass<RectangleProps>;
 
 // tslint:disable-next-line:no-empty-interface
 interface LayerGroupProps extends LayerProps { }
-declare const LayerGroup: React.ComponentClass<LayerGroupProps>;
+export const LayerGroup: React.ComponentClass<LayerGroupProps>;
 
 // tslint:disable-next-line:no-empty-interface
 interface FeatureGroupProps extends LayerGroupProps, Leaflet.PathOptions { }
-declare const FeatureGroup: React.ComponentClass<FeatureGroupProps>;
+export const FeatureGroup: React.ComponentClass<FeatureGroupProps>;
 
-interface GeoJSONProps extends FeatureGroupProps {
+interface GeoJSONProps extends FeatureGroupProps, Leaflet.GeoJSONOptions {
     data: GeoJSON.GeoJsonObject;
 }
-declare const GeoJSON: React.ComponentClass<GeoJSONProps>;
-
-
+export const GeoJSON: React.ComponentClass<GeoJSONProps>;
 
 interface AttributionControlProps {
     position?: Leaflet.ControlPosition;
 }
-declare const AttributionControl: React.ComponentClass<AttributionControlProps>;
+export const AttributionControl: React.ComponentClass<AttributionControlProps>;
 
 interface LayersControlProps {
     position?: Leaflet.ControlPosition;
 }
-declare const LayersControl: React.ComponentClass<LayersControlProps> & { BaseLayer: LayersControl.BaseLayer, Overlay: LayersControl.Overlay };
+export const LayersControl: React.ComponentClass<LayersControlProps> & { BaseLayer: LayersControl.BaseLayer, Overlay: LayersControl.Overlay };
 
-declare namespace LayersControl {
+export namespace LayersControl {
     interface LayersControlLayerProps {
         name: string;
         checked?: boolean;
@@ -226,12 +218,19 @@ declare namespace LayersControl {
     type Overlay = React.ComponentClass<LayersControlLayerProps>;
 }
 
+interface MapControlProps {
+    position?: Leaflet.ControlPosition;
+}
+declare class MapControl<T extends MapControlProps> extends React.Component<T, any> {
+    leafletElement?: L.Control
+}
+
 interface ScaleControlProps {
     position: Leaflet.ControlPosition;
 }
-declare const ScaleControl: React.ComponentClass<ScaleControlProps>;
+export const ScaleControl: React.ComponentClass<ScaleControlProps>;
 
 interface ZoomControlProps {
     position: Leaflet.ControlPosition;
 }
-declare const ZoomControl: React.ComponentClass<ZoomControlProps>;
+export const ZoomControl: React.ComponentClass<ZoomControlProps>;

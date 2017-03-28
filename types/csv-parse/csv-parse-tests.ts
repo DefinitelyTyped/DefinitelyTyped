@@ -1,20 +1,21 @@
 import parse = require('csv-parse');
 
 function callbackAPITest() {
-    var input = '#Welcome\n"1","2","3","4"\n"a","b","c","d"';
+    const input = '#Welcome\n"1","2","3","4"\n"a","b","c","d"';
     parse(input, {comment: '#'}, (err, output) => {
         output.should.eql([ [ '1', '2', '3', '4' ], [ 'a', 'b', 'c', 'd' ] ]);
     });
 }
 
 function streamAPITest() {
-    let output: string[][] = [];
+    const output: string[][] = [];
     // Create the parser
-    var parser = parse({delimiter: ':'});
-    let record: string[];
+    const parser = parse({delimiter: ':'});
     // Use the writable stream api
     parser.on('readable', () => {
-        while (record = parser.read()) {
+        while (true) {
+            const record = parser.read();
+            if (!record) break;
             output.push(record);
         }
     });
@@ -35,12 +36,12 @@ function streamAPITest() {
 import fs = require('fs');
 
 function pipeFunctionTest() {
-    var transform = require('stream-transform');
+    const transform = require('stream-transform');
 
-    var output: any = [];
-    var parser = parse({delimiter: ':'})
-    var input = fs.createReadStream('/etc/passwd');
-    var transformer = transform((record: any[], callback: any) => {
+    const output: any = [];
+    const parser = parse({delimiter: ':'});
+    const input = fs.createReadStream('/etc/passwd');
+    const transformer = transform((record: any[], callback: any) => {
     setTimeout(() => {
         callback(null, record.join(' ') + '\n');
     }, 500);
@@ -51,8 +52,7 @@ function pipeFunctionTest() {
 import parseSync = require('csv-parse/lib/sync');
 
 function syncApiTest() {
-    var input = '"key_1","key_2"\n"value 1","value 2"';
-    var records = parseSync(input, {columns: true});
+    const input = '"key_1","key_2"\n"value 1","value 2"';
+    const records = parseSync(input, {columns: true});
     records.should.eql([{ key_1: 'value 1', key_2: 'value 2' }]);
 }
-

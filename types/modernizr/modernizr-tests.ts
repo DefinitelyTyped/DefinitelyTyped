@@ -1,13 +1,11 @@
-
-
-declare var $: any;
+declare const $: any;
 
 window.alert = (thing?: string) => {
     $('#content').append('<div>' + thing + '</div>');
 };
 
 $(() => {
-    var audio = new Audio();
+    const audio = new Audio();
     audio.src = Modernizr.audio.ogg ? 'background.ogg' :
             Modernizr.audio.mp3 ? 'background.mp3' :
                                   'background.m4a';
@@ -15,13 +13,13 @@ $(() => {
     if (Modernizr.webgl) {
         // loadAllWebGLScripts();
     } else {
-        var msg = 'With a different browser you’ll get to see the WebGL experience here: get.webgl.org.';
+        const msg = 'With a different browser you’ll get to see the WebGL experience here: get.webgl.org.';
         document.getElementById('#notice').innerHTML = msg;
     }
 
     Modernizr.prefixed('boxSizing');
     Modernizr.prefixed('requestAnimationFrame', window);
-    var ms = Modernizr.prefixed("matchesSelector", HTMLElement.prototype, true);
+    const ms = Modernizr.prefixed("matchesSelector", HTMLElement.prototype, true);
     Modernizr.prefixed('requestAnimationFrame', window, false);
 
     Modernizr.mq('only all and (max-width: 400px)');
@@ -29,7 +27,7 @@ $(() => {
     Modernizr.mq('only screen and (max-width: 768px)');
 
     Modernizr.addTest('track', () => {
-        var video = document.createElement('video');
+        const video = document.createElement('video');
         return typeof video.addTextTrack === 'function';
     });
 
@@ -45,14 +43,13 @@ $(() => {
 
     Modernizr.testAllProps('boxSizing');
 
-    var elem: Element;
+    const elem: Element = null as any;
     Modernizr.hasEvent('gesturestart', elem);
 
     if (!Modernizr.input.autofocus) {
           $("[autofocus]").focus();
     }
 });
-
 
 Modernizr.on('flash', result => {
   if (result) {
@@ -63,22 +60,22 @@ Modernizr.on('flash', result => {
 });
 
 Modernizr.addTest('itsTuesday', () => {
- var d = new Date();
+ const d = new Date();
  return d.getDay() === 2;
 });
 
 Modernizr.addTest('hasJquery', 'jQuery' in window);
 
-var detects = {
+const detects = {
  hasjquery: 'jQuery' in window,
  itstuesday: () => {
-   var d = new Date();
+   const d = new Date();
    return d.getDay() === 2;
  }
 };
 Modernizr.addTest(detects);
 
-var keyframes = Modernizr.atRule('@keyframes');
+const keyframes = Modernizr.atRule('@keyframes');
 if (keyframes) {
   // keyframes are supported
   // could be `@-webkit-keyframes` or `@keyframes`
@@ -92,25 +89,25 @@ Modernizr.hasEvent('blur'); // true;
 
 Modernizr.hasEvent('devicelight', window); // true;
 
-var query = Modernizr.mq('(min-width: 900px)');
+const query = Modernizr.mq('(min-width: 900px)');
 if (query) {
   // the browser window is larger than 900px
 }
 
 Modernizr.prefixed('boxSizing');
 
-var raf = Modernizr.prefixed('requestAnimationFrame', window);
+const raf = Modernizr.prefixed('requestAnimationFrame', window);
 raf(() => {
 });
 
-var rAFProp = Modernizr.prefixed('requestAnimationFrame', window, false);
+const rAFProp = Modernizr.prefixed('requestAnimationFrame', window, false);
 rAFProp === 'WebkitRequestAnimationFrame'; // in older webkit
 
 Modernizr.prefixedCSS('transition'); // '-moz-transition' in old Firefox
 
 Modernizr.prefixedCSSValue('background', 'linear-gradient(left, red, red)');
 
-var rule = Modernizr._prefixes.join('transform: rotate(20deg); ');
+let rule = Modernizr._prefixes.join('transform: rotate(20deg); ');
 rule === 'transform: rotate(20deg); webkit-transform: rotate(20deg); moz-transform: rotate(20deg); o-transform: rotate(20deg); ms-transform: rotate(20deg);';
 
 rule = 'display:' +  Modernizr._prefixes.join('flex; display:') + 'flex';

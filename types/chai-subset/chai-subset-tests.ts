@@ -1,14 +1,11 @@
-
-
 import chai = require('chai');
 import chaiSubset = require('chai-subset');
 
 chai.use(chaiSubset);
-var expect = chai.expect;
-var assert = chai.assert;
+const { assert, expect } = chai;
 
 function test_containSubset() {
-    var obj = {
+    const obj = {
         a: 'b',
         c: 'd',
         e: {
@@ -34,7 +31,7 @@ function test_containSubset() {
 }
 
 function test_notContainSubset() {
-    var obj = {
+    const obj = {
         a: 'b',
         c: 'd',
         e: {
@@ -50,7 +47,7 @@ function test_notContainSubset() {
 }
 
 function test_arrayContainSubset() {
-    var list = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
+    const list = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
 
     expect(list).to.containSubset([{a: 'a',  b: 'b'}]);
     list.should.containSubset([{a: 'a',  b: 'b'}]);
@@ -58,7 +55,7 @@ function test_arrayContainSubset() {
 }
 
 function test_arrayNotContainSubset() {
-    var list = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
+    const list = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}} ];
 
     expect(list).not.to.containSubset([{a: 'a', b: 'bd'}]);
     list.should.not.containSubset([{a: 'a', b: 'bd'}]);

@@ -7,11 +7,11 @@
 import * as React from 'react';
 
 declare namespace RcSliderClass {
-    export interface Marks {
+    interface Marks {
         [number: number]: JSX.Element | string | { style: any, label: string | JSX.Element };
     }
 
-    export interface CommonApiProps {
+    interface CommonApiProps {
         /**
          * Additional CSS class for the root DOM node
          *  @default ''
@@ -100,8 +100,7 @@ declare namespace RcSliderClass {
         value?: number;
     }
 
-
-    export interface RangeProps extends CommonApiProps {
+    interface RangeProps extends CommonApiProps {
         /**
          * Set initial positions of handles.
          *  @default [0,0]
@@ -128,7 +127,7 @@ declare namespace RcSliderClass {
         pushable?: boolean;
     }
 
-    export interface HandleProps extends CommonApiProps {
+    interface HandleProps extends CommonApiProps {
         /**
          * Class name
          */
@@ -151,6 +150,5 @@ declare namespace RcSliderClass {
     class Range extends React.Component<RcSliderClass.RangeProps, {}> { }
     class Handle extends React.Component<RcSliderClass.HandleProps, {}> { }
 }
-
 
 export = RcSliderClass;

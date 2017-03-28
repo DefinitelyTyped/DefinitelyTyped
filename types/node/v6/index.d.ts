@@ -1152,7 +1152,7 @@ declare module "os" {
     export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string }
     export var constants: {
         UV_UDP_REUSEADDR: number,
-        errno: {
+        signals: {
             SIGHUP: number;
             SIGINT: number;
             SIGQUIT: number;
@@ -1188,7 +1188,7 @@ declare module "os" {
             SIGSYS: number;
             SIGUNUSED: number;
         },
-        signals: {
+        errno: {
             E2BIG: number;
             EACCES: number;
             EADDRINUSE: number;

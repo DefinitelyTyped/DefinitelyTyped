@@ -34,4 +34,3 @@ interface Options {
 }
 
 export function klawSync(root: string, options?: Options): ReadonlyArray<Item>
-

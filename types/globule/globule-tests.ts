@@ -25,4 +25,3 @@ const dest = mappings[0].dest;
 mappings = globule.mapping(['*.js'], { srcBase: '/home/code' });
 mappings = globule.mapping(['*.js', '*.less']);
 mappings = globule.mapping(['*.js'], ['*.less']);
-

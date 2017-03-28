@@ -24,7 +24,7 @@ ReactDOM.render(
         marks={{ 1: "1" }}
         step={0.01}
         vertical={true}
-        handle={() => { return <Slider /> }}
+        handle={() => <Slider />}
         included={true}
         disabled={false}
         dots={true}

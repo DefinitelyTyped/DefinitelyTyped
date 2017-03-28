@@ -41,25 +41,21 @@ export {
  * DataSources may retrieve JSON Graph information from anywhere, including device memory, a remote machine, or even a lazily-run computation.
  **/
 export abstract class DataSource {
-
     /**
      * The get method retrieves values from the DataSource's associated JSONGraph object.
      **/
     get(pathSets: PathSet[]): Observable<JSONGraphEnvelope>;
-
 
     /**
      * The set method accepts values to set in the DataSource's associated JSONGraph object.
      **/
     set(jsonGraphEnvelope: JSONGraphEnvelope): Observable<JSONGraphEnvelope>;
 
-
     /**
      * Invokes a function in the DataSource's JSONGraph object.
      **/
     call(functionPath: Path, args?: any[], refSuffixes?: PathSet[], thisPaths?: PathSet[]): Observable<JSONGraphEnvelope>;
 }
-
 
 /////////////////////////////////////////////////////
 //  Model
@@ -215,7 +211,6 @@ export class Model {
     getPath(): Path;
 }
 
-
 /////////////////////////////////////////////////////
 //  ModelResponse
 /////////////////////////////////////////////////////
@@ -232,13 +227,11 @@ interface Thenable<T> {
     then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U> | void): Thenable<U>;
 }
 
-
 /////////////////////////////////////////////////////
 //  Observable
 /////////////////////////////////////////////////////
 
 export class Observable<T>{
-
     /**
      * The forEach method is a synonym for {@link Observable.prototype.subscribe} and triggers the execution of the Observable, causing the values within to be pushed to a callback.
      * An Observable is like a pipe of water that is closed.

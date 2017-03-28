@@ -3,7 +3,6 @@
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function compose<T>(middleware: Array<compose.Middleware<T>>): compose.ComposedMiddleware<T>;
 
 declare namespace compose {
