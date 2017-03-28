@@ -1,6 +1,19 @@
-import webpagemod = require('webpage')
-let page = webpagemod.create();
+var webpageMod = require('webpage');
+var webserverMod = require('webserver')
+
+let page = webpageMod.create();
 let vUrl = 'https://www.w3c.org';
+
+
+function testWebserver () {
+
+  webserverMod.close()
+  webserverMod.listen(1234);
+  webserverMod.registerFile("urlPath", "filePath");
+  webserverMod.registerDirectory("urlPath", "dirPath");
+
+}
+
 
 let vUserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8'
 page.settings.userAgent = vUserAgent;
