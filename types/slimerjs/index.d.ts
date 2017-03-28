@@ -112,14 +112,14 @@ interface IWebPage {
     // evaluate<T1, T2, T3, R>(callback: (arg1: T1, arg2: T2, arg3: T3) => R, arg1: T1, arg2: T2, arg3: T3): Promise<R>;
     // evaluate<R>(callback: (...args: any[]) => R, ...args: any[]): Promise<R>;
     evaluate<R>(callback: () => R, ...args: any[]): R;
-    evaluateAsync(fn: Function): void;
+    evaluateAsync(fn: () => void): void;
     evaluateJavaScript(str: string): any; // :TODO: elaborate this when documentation improves
     getPage(windowName: string): IWebPage;
     go(index: number): void;
     goBack(): void;
     goForward(): void;
     includeJs(url: string): Promise<void>;
-    includeJs(url: string, callback: Function): void;
+    includeJs(url: string, callback: () => void): void;
     injectJs(filename: string): Promise<boolean>;
     injectJs(filename: string): boolean;
     open(url: string): Promise<string>;
@@ -153,7 +153,7 @@ interface IWebPage {
 
     // Callbacks
     onAlert: (msg: string) => any;
-    onCallback: Function;  // EXPERIMENTAL
+    onCallback: () => void;  // EXPERIMENTAL
     onClosing: (closingPage: IWebPage) => any;
     onConfirm: (msg: string) => boolean;
     onConsoleMessage: (msg: string, lineNum?: number, sourceId?: string) => any;

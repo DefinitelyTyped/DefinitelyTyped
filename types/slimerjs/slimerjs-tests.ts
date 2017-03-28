@@ -5,18 +5,18 @@ let vUrl = 'https://www.w3c.org';
 let vUserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8'
 page.settings.userAgent = vUserAgent;
 
-page.onConsoleMessage = function(vMsg) {
+page.onConsoleMessage = (vMsg) => {
 };
 
-page.onAlert = function(vMsg) {
+page.onAlert = (vMsg) => {
 };
 
-page.onLoadStarted = function() {
+page.onLoadStarted = () => {
 };
 
 page.captureContent = [ /json/ ]
 
-page.onResourceReceived = function(oResponse) {
+page.onResourceReceived = (oResponse) => {
   oResponse.id;
   oResponse.bodySize;
   oResponse.body;
@@ -24,7 +24,7 @@ page.onResourceReceived = function(oResponse) {
   oResponse.headers;
 };
 
-page.onResourceRequested = function(oRequestData, oNetworkRequest) {
+page.onResourceRequested = (oRequestData, oNetworkRequest) => {
   oRequestData.headers;
   oRequestData.id;
   oRequestData.method;
@@ -33,31 +33,31 @@ page.onResourceRequested = function(oRequestData, oNetworkRequest) {
 };
 
 
-page.onLoadFinished = function(vStatus) {
+page.onLoadFinished = (vStatus) => {
   phantom.exit();
 };
 
-page.onInitialized = function() {
+page.onInitialized = () => {
 };
 
-page.onPageCreated = function(oPage) {
+page.onPageCreated = (oPage) => {
   let oCookie: ICookie
   oPage.addCookie(oCookie);
 };
 
 
 page.open(vUrl) // loads a page
-  .then(function(){ // executed after loading
-    page.viewportSize = { width:414, height:736 };
+  .then(() => { // executed after loading
+    page.viewportSize = { width: 414, height: 736 };
 
 
     let vFilename = `../data/page01.png`;
-    page.render(vFilename, {onlyViewport:true})
+    page.render(vFilename, {onlyViewport: true})
 
     // then open a second page
     return page.open('http://');
   })
-  .then(function(){
+  .then(() => {
     // click somewhere on the second page
     page.sendEvent("click", 5, 5, 'left', 0);
     slimer.exit()
