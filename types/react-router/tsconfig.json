@@ -20,6 +20,7 @@
     "test/Basic.tsx",
     "test/CustomLink.tsx",
     "test/ModalGallery.tsx",
+    "test/NavigateWithContext.tsx",
     "test/NoMatch.tsx",
     "test/Params.tsx",
     "test/PreventingTransitions.tsx",
