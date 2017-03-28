@@ -133,31 +133,31 @@ interface IWebPage {
     includeJs(url: string, callback: () => void): void;
     injectJs(filename: string): Promise<boolean>;
     injectJs(filename: string): boolean;
-    open(url: string): Promise<string>;
-    open(url: string, callback: (status: string) => any): Promise<string>;
+    // open(url: string): Promise<string>;
+    open(url: string, callback?: (status: string) => any): Promise<string>;
     open(url: string, method: string, callback: (status: string) => any): Promise<string>; // maybe data is missing
     open(url: string, method: string, data: any, callback?: (status: string) => any): Promise<string>;
     open(url: string, method: string, data: any, headers: any, callback: (status: string) => any): Promise<string>;
     openUrl(url: string, httpConf: IHttpConf, settings: any): Promise<string>; // :TODO: elaborate this when documentation improves
     release(): void;  // DEPRECATED
     reload(): void;
-    render(filename: string): Promise<void>;
+    // render(filename: string): Promise<void>;
     render(filename: string, options?: { format?: string; quality?: string; ratio?: number; onlyViewport?: boolean }): Promise<void>;
     renderBase64(type: string): Promise<string>;
     render(filename: string): void;
     renderBase64(format: string): string;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): Promise<void>;
-    sendEvent(keyboardEventType: string, key: string, null1?: undefined, null2?: undefined, modifier?: number): Promise<void>;
+    sendEvent(keyboardEventType: string, key: string, null1?: null, null2?: null, modifier?: number): Promise<void>;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): void;
     sendEvent(keyboardEventType: string, keyOrKeys: any, aNull?: any, bNull?: any, modifier?: number): void;
     setContent(html: string, url: string): Promise<string>;
     setContent(content: string, url: string): void;
     stop(): void;
     switchToFocusedFrame(): void;
-    switchToFrame(frameName: string): void;
-    switchToFrame(framePosition: number): void;
-    switchToChildFrame(frameName: string): void;
-    switchToChildFrame(framePosition: number): void;
+    switchToFrame(framePosOrName: number | string): void;
+    // switchToFrame(framePosition: number): void;
+    switchToChildFrame(framePosOrName: number | string): void;
+    // switchToChildFrame(framePosition: number): void;
     switchToMainFrame(): void;  // DEPRECATED
     switchToParentFrame(): void;  // DEPRECATED
     uploadFile(selector: string, filename: string): void;
