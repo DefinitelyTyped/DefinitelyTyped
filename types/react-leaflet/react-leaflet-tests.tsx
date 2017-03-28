@@ -616,7 +616,7 @@ class CenterControl extends MapControl<MapControlProps> {  // note we're extendi
       </div>
     );
 
-    centerControl.onAdd = function (map) {
+    centerControl.onAdd = (map) => {
       let div = L.DomUtil.create('div', '');
       ReactDOM.render(jsx, div);
       return div;
@@ -640,7 +640,7 @@ class LegendControl extends MapControl<MapControlProps & { className?: string }>
       </div>
     );
 
-    legend.onAdd = function (map) {
+    legend.onAdd = (map) => {
       let div = L.DomUtil.create('div', '');
       ReactDOM.render(jsx, div);
       return div;
