@@ -1,5 +1,4 @@
 import { PureComponent, Validator, Requireable } from 'react'
-import { } from './genericTypes';
 import { CellMeasurerCache, KeyMapper } from './CellMeasurer';
 import { GridCellRenderer } from './Grid';
 /**

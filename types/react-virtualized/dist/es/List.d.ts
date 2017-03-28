@@ -1,7 +1,6 @@
-/** @flow */
 import { PureComponent, Validator, Requireable } from 'react'
 import { Grid, GridCellProps } from './Grid'
-import { Index, IndexRange, Alignment } from './genericTypes'
+import { Index, IndexRange, Alignment } from '../../index'
 import { CellMeasurerCache } from './CellMeasurer'
 
 export type ListRowProps = GridCellProps & { index: number, style: React.CSSProperties };

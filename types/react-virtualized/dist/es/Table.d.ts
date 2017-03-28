@@ -1,6 +1,6 @@
 import { Validator, Requireable, PureComponent, Component } from 'react';
 import { CellMeasurerCache } from './CellMeasurer';
-import { Index, Alignment, ScrollEventData, IndexRange, OverscanIndexRange } from './genericTypes';
+import { Index, Alignment, ScrollEventData, IndexRange, OverscanIndexRange } from '../../index';
 import { Grid } from './Grid';
 
 export type TableCellDataGetterParams = {
