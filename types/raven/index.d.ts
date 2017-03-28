@@ -58,7 +58,7 @@ declare namespace Raven {
         dataCallback?: DataCallback;
         transport?: () => void;
         captureUnhandledRejections?: boolean;
-        autoBreadcrumbs?: boolean | object;
+        autoBreadcrumbs?: boolean | any;
     }
 
     interface UserData {
