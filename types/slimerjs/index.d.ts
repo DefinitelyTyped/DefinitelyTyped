@@ -43,7 +43,12 @@ interface IPhantom {
     onError: (msg: string, trace: string[]) => any;
 }
 
-interface ISystem {
+interface IStd {
+    read(): any;
+    write(arg: any): void;
+}
+
+interface ISystemModule {
     pid: number;
     platform: string;
     os: {
@@ -53,6 +58,12 @@ interface ISystem {
     };
     env: { [name: string]: string; };
     args: string[];
+    standarderr: IStd;
+    standardin: IStd;
+    standardout: IStd;
+    stdout: IStd;
+    stderr: IStd;
+    stdin: IStd;
 }
 
 interface IHttpConf {
@@ -301,11 +312,15 @@ interface IStream {
     writeLine(data: string): void;
 }
 
-interface IWebServer {
+interface IWebServerModule {
+    registerDirectory(urlpath: string, directoryPath: string): void;
+    registerFile(urlpath: string, filePath: string): void;
+    registerPathHandler(urlpath: string, handlerCallback: (request: IWebServerRequest, response: IWebServerResponse) => void): void
     port: number;
     listen(port: number, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
     listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
     close(): void;
+
 }
 
 interface IWebServerRequest {
@@ -353,7 +368,11 @@ interface ICookie {
     expiry: number
 }
 
-declare module "webpage" {
-    export function create(): IWebPage;
-    export function exit(returnValue?: number): void;
+interface IWebPageModule {
+  create(): IWebPage;
+  exit(returnValue?: number): void;
 }
+
+declare function require(module: "webpage"): IWebPageModule;
+declare function require(module: "webserver"): IWebServerModule;
+declare function require(module: "system"): ISystemModule;
