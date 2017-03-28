@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare var phantom: IPhantom;
-declare var slimer: ISlimer;
+declare var phantom: Phantom;
+declare var slimer: Slimer;
 
-interface ISlimer {
+interface Slimer {
   version: number;
   geckoVersion: number;
 
@@ -18,11 +18,11 @@ interface ISlimer {
   wait(milliseconds: number): void;
 }
 
-interface IPhantom {
+interface Phantom {
 
     // Properties
     args: string[];  // DEPRECATED
-    cookies: ICookie[];
+    cookies: Cookie[];
     cookiesEnabled: boolean;
     libraryPath: string;
     scriptName: string;  // DEPRECATED
@@ -33,7 +33,7 @@ interface IPhantom {
     };
 
     // Functions
-    addCookie(cookie: ICookie): boolean;
+    addCookie(cookie: Cookie): boolean;
     clearCookies(): void;
     deleteCookie(cookieName: string): boolean;
     exit(returnValue?: any): boolean;
@@ -43,12 +43,12 @@ interface IPhantom {
     onError: (msg: string, trace: string[]) => any;
 }
 
-interface IStd {
+interface Std {
     read(): any;
     write(arg: any): void;
 }
 
-interface ISystemModule {
+interface SystemModule {
     pid: number;
     platform: string;
     os: {
@@ -58,28 +58,28 @@ interface ISystemModule {
     };
     env: { [name: string]: string; };
     args: string[];
-    standarderr: IStd;
-    standardin: IStd;
-    standardout: IStd;
-    stdout: IStd;
-    stderr: IStd;
-    stdin: IStd;
+    standarderr: Std;
+    standardin: Std;
+    standardout: Std;
+    stdout: Std;
+    stderr: Std;
+    stdin: Std;
 }
 
-interface IHttpConf {
+interface HttpConf {
     operation: string;
     data: any;
     headers: any
 }
 
-interface IWebPage {
+interface WebPage {
 
     // Properties
     canGoBack: boolean;
     canGoForward: boolean;
-    clipRect: IClipRect;
+    clipRect: ClipRect;
     content: string;
-    cookies: ICookie[];
+    cookies: Cookie[];
     customHeaders: { [name: string]: string; };
     event: any; // :TODO: elaborate this when documentation improves
     focusedFrameName: string;
@@ -95,21 +95,21 @@ interface IWebPage {
     offlineStoragePath: string;
     offlineStorageQuota: number;
     ownsPages: boolean;
-    pages: IWebPage[];
+    pages: WebPage[];
     pagesWindowName: string;
-    paperSize: IPaperSize;
+    paperSize: PaperSize;
     plainText: string;
-    scrollPosition: ITopLeft;
-    settings: IWebPageSettings;
+    scrollPosition: TopLeft;
+    settings: WebPageSettings;
     title: string;
     url: string;
-    viewportSize: ISize;
+    viewportSize: Size;
     windowName: string;
     zoomFactor: number;
     captureContent: Array<RegExp>; // slimerjs only
 
     // Functions
-    addCookie(cookie: ICookie): boolean;
+    addCookie(cookie: Cookie): boolean;
     childFramesCount(): number;  // DEPRECATED
     childFramesName(): string;  // DEPRECATED
     clearCookies(): void;
@@ -125,7 +125,7 @@ interface IWebPage {
     evaluate<R>(callback: () => R, ...args: any[]): R;
     evaluateAsync(fn: () => void): void;
     evaluateJavaScript(str: string): any; // :TODO: elaborate this when documentation improves
-    getPage(windowName: string): IWebPage;
+    getPage(windowName: string): WebPage;
     go(index: number): void;
     goBack(): void;
     goForward(): void;
@@ -138,7 +138,7 @@ interface IWebPage {
     open(url: string, method: string, callback: (status: string) => any): Promise<string>; // maybe data is missing
     open(url: string, method: string, data: any, callback?: (status: string) => any): Promise<string>;
     open(url: string, method: string, data: any, headers: any, callback: (status: string) => any): Promise<string>;
-    openUrl(url: string, httpConf: IHttpConf, settings: any): Promise<string>; // :TODO: elaborate this when documentation improves
+    openUrl(url: string, httpConf: HttpConf, settings: any): Promise<string>; // :TODO: elaborate this when documentation improves
     release(): void;  // DEPRECATED
     reload(): void;
     // render(filename: string): Promise<void>;
@@ -165,7 +165,7 @@ interface IWebPage {
     // Callbacks
     onAlert: (msg: string) => any;
     onCallback: () => void;  // EXPERIMENTAL
-    onClosing: (closingPage: IWebPage) => any;
+    onClosing: (closingPage: WebPage) => any;
     onConfirm: (msg: string) => boolean;
     onConsoleMessage: (msg: string, lineNum?: number, sourceId?: string) => any;
     onError: (msg: string, trace: string[]) => any;
@@ -174,40 +174,40 @@ interface IWebPage {
     onLoadFinished: (status: string) => any;
     onLoadStarted: () => any;
     onNavigationRequested: (url: string, type: string, willNavigate: boolean, main: boolean) => any;
-    onPageCreated: (newPage: IWebPage) => any;
+    onPageCreated: (newPage: WebPage) => any;
     onPrompt: (msg: string, defaultVal: string) => string;
-    onResourceError: (resourceError: IResourceError) => any;
-    onResourceReceived: (response: IResourceResponse) => any;
-    onResourceRequested: (requestData: IResourceRequest, networkRequest: INetworkRequest) => any;
+    onResourceError: (resourceError: ResourceError) => any;
+    onResourceReceived: (response: ResourceResponse) => any;
+    onResourceRequested: (requestData: ResourceRequest, networkRequest: NetworkRequest) => any;
     onUrlChanged: (targetUrl: string) => any;
 
     // Callback triggers
-    closing(closingPage: IWebPage): void;
+    closing(closingPage: WebPage): void;
     initialized(): void;
     javaScriptAlertSent(msg: string): void;
     javaScriptConsoleMessageSent(msg: string, lineNum?: number, sourceId?: string): void;
     loadFinished(status: string): void;
     loadStarted(): void;
     navigationRequested(url: string, type: string, willNavigate: boolean, main: boolean): void;
-    rawPageCreated(newPage: IWebPage): void;
-    resourceReceived(response: IResourceResponse): void;
-    resourceRequested(requestData: IResourceRequest, networkRequest: INetworkRequest): void;
+    rawPageCreated(newPage: WebPage): void;
+    resourceReceived(response: ResourceResponse): void;
+    resourceRequested(requestData: ResourceRequest, networkRequest: NetworkRequest): void;
     urlChanged(targetUrl: string): void;
 }
 
-interface IResourceError {
+interface ResourceError {
     id: number;
     url: string;
     errorCode: string;
     errorString: string;
 }
 
-interface IHttpVersion {
+interface HttpVersion {
   major: number,
   minor: number
 }
 
-interface IResourceResponse {
+interface ResourceResponse {
     id: number;
     url: string;
     time: Date;
@@ -222,10 +222,10 @@ interface IResourceResponse {
     referrer: string;
     isFileDownloading: boolean;
     body: any;
-    httpVersion: IHttpVersion;
+    httpVersion: HttpVersion;
 }
 
-interface IResourceRequest {
+interface ResourceRequest {
     id: number;
     method: string;
     url: string;
@@ -233,13 +233,13 @@ interface IResourceRequest {
     headers: { [name: string]: string; };
 }
 
-interface INetworkRequest {
+interface NetworkRequest {
     abort(): void;
     changeUrl(url: string): void;
     setHeader(name: string, value: string): void;
 }
 
-interface IPaperSize {
+interface PaperSize {
     width?: string;
     height?: string;
     border: string;
@@ -248,7 +248,7 @@ interface IPaperSize {
     margin?: any; // string | { top?: string; left?: string; bottom?: string; right?: string;  }
 }
 
-interface IWebPageSettings {
+interface WebPageSettings {
     javascriptEnabled: boolean;
     loadImages: boolean;
     localToRemoteUrlAccessEnabled: boolean;
@@ -260,7 +260,7 @@ interface IWebPageSettings {
     resourceTimeout: number;
 }
 
-interface IFileSystem {
+interface FileSystem {
 
     // Properties
     separator: string;
@@ -292,7 +292,7 @@ interface IFileSystem {
     // File Functions
     // open(path: string, mode: string): IStream;
     // open(path: string, options: { mode: string; charset?: string; }): IStream;
-    open(path: string, mode: string | { mode: string; charset?: string; }): IStream;
+    open(path: string, mode: string | { mode: string; charset?: string; }): Stream;
     read(path: string): string;
     write(path: string, content: string, mode: string): void;
     size(path: string): number;
@@ -302,7 +302,7 @@ interface IFileSystem {
     touch(path: string): void;
 }
 
-interface IStream {
+interface Stream {
     atEnd(): boolean;
     close(): void;
     flush(): void;
@@ -313,18 +313,18 @@ interface IStream {
     writeLine(data: string): void;
 }
 
-interface IWebServerModule {
+interface WebServerModule {
     registerDirectory(urlpath: string, directoryPath: string): void;
     registerFile(urlpath: string, filePath: string): void;
-    registerPathHandler(urlpath: string, handlerCallback: (request: IWebServerRequest, response: IWebServerResponse) => void): void
+    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void
     port: number;
-    listen(port: number | string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
+    listen(port: number | string, cb?: (request: WebServerRequest, response: WebServerResponse) => void): boolean;
     // listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
     close(): void;
 
 }
 
-interface IWebServerRequest {
+interface WebServerRequest {
     method: string;
     url: string;
     httpVersion: number;
@@ -333,7 +333,7 @@ interface IWebServerRequest {
     postRaw: string;
 }
 
-interface IWebServerResponse {
+interface WebServerResponse {
     headers: { [name: string]: string; };
     setHeader(name: string, value: string): void;
     header(name: string): string;
@@ -345,20 +345,20 @@ interface IWebServerResponse {
     closeGracefully(): void;
 }
 
-interface ITopLeft {
+interface TopLeft {
     top: number;
     left: number;
 }
 
-interface ISize {
+interface Size {
     width: number;
     height: number;
 }
 
-interface IClipRect extends ITopLeft, ISize {
+interface ClipRect extends TopLeft, Size {
 }
 
-interface ICookie {
+interface Cookie {
     name: string,
     value: string,
     domain?: string,
@@ -369,11 +369,11 @@ interface ICookie {
     expiry: number
 }
 
-interface IWebPageModule {
-  create(): IWebPage;
+interface WebPageModule {
+  create(): WebPage;
   exit(returnValue?: number): void;
 }
 
-declare function require(module: "webpage"): IWebPageModule;
-declare function require(module: "webserver"): IWebServerModule;
-declare function require(module: "system"): ISystemModule;
+declare function require(module: "webpage"): WebPageModule;
+declare function require(module: "webserver"): WebServerModule;
+declare function require(module: "system"): SystemModule;

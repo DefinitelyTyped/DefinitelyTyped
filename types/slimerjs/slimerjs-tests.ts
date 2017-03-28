@@ -54,7 +54,7 @@ page.onInitialized = () => {
 };
 
 page.onPageCreated = (oPage) => {
-  let oCookie: ICookie
+  let oCookie: Cookie
   oPage.addCookie(oCookie);
 };
 
