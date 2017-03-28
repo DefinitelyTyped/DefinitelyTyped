@@ -3,7 +3,7 @@
 // Definitions by: Pekka Leppänen <https://github.com/PekkaPLeppanen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference types="node"/>
 
 declare namespace mqtt {
 
