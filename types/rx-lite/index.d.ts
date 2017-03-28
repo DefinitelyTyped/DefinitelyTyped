@@ -7,12 +7,12 @@
 /// <reference types="rx-core-binding" />
 
 declare namespace Rx {
-    export namespace internals {
+    namespace internals {
         function isEqual(left: any, right: any): boolean;
         function addRef<T>(xs: Observable<T>, r: { getDisposable(): IDisposable; }): Observable<T>;
 
         // Priority Queue for Scheduling
-        export class PriorityQueue<TTime> {
+        class PriorityQueue<TTime> {
             constructor(capacity: number);
 
             length: number;
@@ -29,7 +29,7 @@ declare namespace Rx {
             static count: number;
         }
 
-        export class ScheduledItem<TTime> {
+        class ScheduledItem<TTime> {
             constructor(scheduler: IScheduler, state: any, action: (scheduler: IScheduler, state: any) => IDisposable, dueTime: TTime, comparer?: (x: TTime, y: TTime) => number);
 
             scheduler: IScheduler;
@@ -46,11 +46,11 @@ declare namespace Rx {
         }
     }
 
-    export namespace config {
-        export var Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
+    namespace config {
+        let Promise: { new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): IPromise<T>; };
     }
 
-    export namespace helpers {
+    namespace helpers {
         function noop(): void;
         function notDefined(value: any): boolean;
         function identity<T>(value: T): T;
@@ -65,7 +65,7 @@ declare namespace Rx {
         function isFunction(value: any): boolean;
     }
 
-    export class CompositeDisposable implements IDisposable {
+    class CompositeDisposable implements IDisposable {
         constructor(...disposables: IDisposable[]);
         constructor(disposables: IDisposable[]);
 
@@ -78,7 +78,7 @@ declare namespace Rx {
         toArray(): IDisposable[];
     }
 
-    export class Disposable implements IDisposable {
+    class Disposable implements IDisposable {
         constructor(action: () => void);
 
         static create(action: () => void): IDisposable;
@@ -88,7 +88,7 @@ declare namespace Rx {
     }
 
     // Single assignment
-    export class SingleAssignmentDisposable implements IDisposable {
+    class SingleAssignmentDisposable implements IDisposable {
         constructor();
 
         isDisposed: boolean;
@@ -100,11 +100,11 @@ declare namespace Rx {
     }
 
     // SerialDisposable it's an alias of SingleAssignmentDisposable
-    export class SerialDisposable extends SingleAssignmentDisposable {
+    class SerialDisposable extends SingleAssignmentDisposable {
         constructor();
     }
 
-    export class RefCountDisposable implements IDisposable {
+    class RefCountDisposable implements IDisposable {
         constructor(disposable: IDisposable);
 
         dispose(): void;
@@ -113,7 +113,7 @@ declare namespace Rx {
         getDisposable(): IDisposable;
     }
 
-    export interface IScheduler {
+    interface IScheduler {
         now(): number;
         isScheduler(value: any): boolean;
 
@@ -135,10 +135,10 @@ declare namespace Rx {
         schedulePeriodicWithState<TState>(state: TState, period: number, action: (state: TState) => TState): IDisposable;
     }
 
-    export interface Scheduler extends IScheduler {
+    interface Scheduler extends IScheduler {
     }
 
-    export interface SchedulerStatic {
+    interface SchedulerStatic {
         new (
             now: () => number,
             schedule: (state: any, action: (scheduler: IScheduler, state: any) => IDisposable) => IDisposable,
@@ -153,7 +153,7 @@ declare namespace Rx {
         timeout: IScheduler;
     }
 
-    export var Scheduler: SchedulerStatic;
+    const Scheduler: SchedulerStatic;
 
     // Current Thread IScheduler
     interface ICurrentThreadScheduler extends IScheduler {
@@ -161,7 +161,7 @@ declare namespace Rx {
     }
 
     // Notifications
-    export class Notification<T> {
+    class Notification<T> {
         accept(observer: IObserver<T>): void;
         accept<TResult>(onNext: (value: T) => TResult, onError?: (exception: any) => TResult, onCompleted?: () => TResult): TResult;
         toObservable(scheduler?: IScheduler): Observable<T>;
@@ -177,13 +177,13 @@ declare namespace Rx {
     }
 
     // Observer
-    export interface IObserver<T> {
+    interface IObserver<T> {
         onNext(value: T): void;
         onError(exception: any): void;
         onCompleted(): void;
     }
 
-    export interface Observer<T> extends IObserver<T> {
+    interface Observer<T> extends IObserver<T> {
         toNotifier(): (notification: Notification<T>) => void;
         asObserver(): Observer<T>;
     }
@@ -193,9 +193,9 @@ declare namespace Rx {
         fromNotifier<T>(handler: (notification: Notification<T>, thisArg?: any) => void): Observer<T>;
     }
 
-    export var Observer: ObserverStatic;
+    const Observer: ObserverStatic;
 
-    export interface IObservable<T> {
+    interface IObservable<T> {
         subscribe(observer: Observer<T>): IDisposable;
         subscribe(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable;
 
@@ -204,7 +204,7 @@ declare namespace Rx {
         subscribeOnCompleted(onCompleted: () => void, thisArg?: any): IDisposable;
     }
 
-    export interface Observable<T> extends IObservable<T> {
+    interface Observable<T> extends IObservable<T> {
         forEach(onNext?: (value: T) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable;    // alias for subscribe
         toArray(): Observable<T[]>;
 
@@ -591,17 +591,17 @@ declare namespace Rx {
         prototype: any;
     }
 
-    export var Observable: ObservableStatic;
+    const Observable: ObservableStatic;
 }
 
 // Async
 
 declare namespace Rx {
-    export namespace config {
+    namespace config {
         /**
         * Configuration option to determine whether to use native events only
         */
-        export var useNativeEvents: boolean;
+        const useNativeEvents: boolean;
     }
 
     interface ObservableStatic {
@@ -655,12 +655,12 @@ declare namespace Rx {
     }
 
     interface NodeEventTarget {
-        addListener: (name: string, cb: (e: any) => any) => void;
+        addListener(name: string, cb: (e: any) => any): void;
     }
 
     interface NativeEventTarget {
-        on: (name: string, cb: (e: any) => any) => void;
-        off: (name: string, cb: (e: any) => any) => void;
+        on(name: string, cb: (e: any) => any): void;
+        off(name: string, cb: (e: any) => any): void;
     }
 
     interface DOMEventTarget {
@@ -669,29 +669,28 @@ declare namespace Rx {
     }
 }
 
-
 // time
 
 declare namespace Rx {
-    export interface TimeInterval<T> {
+    interface TimeInterval<T> {
         value: T;
         interval: number;
     }
 
-    export interface Timestamp<T> {
+    interface Timestamp<T> {
         value: T;
         timestamp: number;
     }
 
-    export interface Observable<T> {
+    interface Observable<T> {
         delay(dueTime: Date, scheduler?: IScheduler): Observable<T>;
         delay(dueTime: number, scheduler?: IScheduler): Observable<T>;
 
         debounce(dueTime: number, scheduler?: IScheduler): Observable<T>;
         throttleWithTimeout(dueTime: number, scheduler?: IScheduler): Observable<T>;
         /**
-        * @deprecated use #debounce or #throttleWithTimeout instead.
-        */
+         * @deprecated use #debounce or #throttleWithTimeout instead.
+         */
         throttle(dueTime: number, scheduler?: IScheduler): Observable<T>;
 
         timeInterval(scheduler?: IScheduler): Observable<TimeInterval<T>>;

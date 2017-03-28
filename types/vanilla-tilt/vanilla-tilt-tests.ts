@@ -1,6 +1,6 @@
-import { VanillaTilt } from './index.d';
+import { VanillaTilt } from 'vanilla-tilt';
 
-let element: VanillaTilt = new VanillaTilt(document.createElement('a'), {
+const element: VanillaTilt = new VanillaTilt(document.createElement('a'), {
     axis: 'y',
     easing: 'cubic-besizer(0.9, 0.9, 0.9)',
     max: 2,
@@ -21,8 +21,7 @@ VanillaTilt.init([document.createElement('a')], {
     axis: null
 });
 
-
-let values: VanillaTilt.TiltValues = element.getValues();
+const values: VanillaTilt.TiltValues = element.getValues();
 values.percentageX;
 values.percentageY;
 values.tiltX;

@@ -25,9 +25,9 @@ declare namespace steed {
         length(): number;
         kill(): void;
         concurrency: number;
-        drain: () => any;
-        empty: () => any;
-        saturated: () => any;
+        drain(): any;
+        empty(): any;
+        saturated(): any;
     }
 
     interface Steed {

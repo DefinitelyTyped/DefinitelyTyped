@@ -7,7 +7,7 @@
 declare namespace StrongClusterControl {
     type pid = number;
 
-    export interface StartOptions {
+    interface StartOptions {
         size?: number;
         env?: {};
         shutdownTimeout?: number;
@@ -15,17 +15,17 @@ declare namespace StrongClusterControl {
         throttleDelay?: number;
     }
 
-    export interface ClusterMaster {
+    interface ClusterMaster {
         pid: number;
         setSize?: number;
         startTime: number;
     }
 
-    export interface ClusterWorker extends ClusterMaster {
+    interface ClusterWorker extends ClusterMaster {
         id: number;
     }
 
-    export interface ClusterStatus {
+    interface ClusterStatus {
         master: ClusterMaster;
         workers: ClusterWorker[];
     }
@@ -34,7 +34,7 @@ declare namespace StrongClusterControl {
         SHUTDOWN: "CLUSTER_CONTROL_shutdown";
     }
 
-    export interface Control extends NodeJS.EventEmitter {
+    interface Control extends NodeJS.EventEmitter {
         readonly cmd: CMD;
         readonly CPUS: number;
         readonly options: StartOptions;

@@ -12,7 +12,7 @@ interface Navigator {
 }
 
 declare namespace WebMidi {
-  export interface MIDIOptions {
+  interface MIDIOptions {
     /**
      * This member informs the system whether the ability to send and receive system
      * exclusive messages is requested or allowed on a given MIDIAccess object.
@@ -24,15 +24,15 @@ declare namespace WebMidi {
    * This is a maplike interface whose value is a MIDIInput instance and key is its
    * ID.
    */
-  export type MIDIInputMap = Map<string, MIDIInput>;
+  type MIDIInputMap = Map<string, MIDIInput>;
 
   /**
    * This is a maplike interface whose value is a MIDIOutput instance and key is its
    * ID.
    */
-  export type MIDIOutputMap = Map<string, MIDIOutput>;
+  type MIDIOutputMap = Map<string, MIDIOutput>;
 
-  export interface MIDIAccess extends EventTarget {
+  interface MIDIAccess extends EventTarget {
     /**
      * The MIDI input ports available to the system.
      */
@@ -47,7 +47,7 @@ declare namespace WebMidi {
      * The handler called when a new port is connected or an existing port changes the
      * state attribute.
      */
-    onstatechange: (e: MIDIConnectionEvent) => void;
+    onstatechange(e: MIDIConnectionEvent): void;
 
     /**
      * This attribute informs the user whether system exclusive support is enabled on
@@ -56,13 +56,13 @@ declare namespace WebMidi {
     sysexEnabled: boolean;
   }
 
-  export type MIDIPortType = "input" | "output";
+  type MIDIPortType = "input" | "output";
 
-  export type MIDIPortDeviceState = "disconnected" | "connected";
+  type MIDIPortDeviceState = "disconnected" | "connected";
 
-  export type MIDIPortConnectionState = "open" | "closed" | "pending";
+  type MIDIPortConnectionState = "open" | "closed" | "pending";
 
-  export interface MIDIPort extends EventTarget {
+  interface MIDIPort extends EventTarget {
     /**
      * A unique ID of the port. This can be used by developers to remember ports the
      * user has chosen for their application.
@@ -104,7 +104,7 @@ declare namespace WebMidi {
      * The handler called when an existing port changes its state or connection
      * attributes.
      */
-    onstatechange: (e: MIDIConnectionEvent) => void;
+    onstatechange(e: MIDIConnectionEvent): void;
 
     /**
      * Makes the MIDI device corresponding to the MIDIPort explicitly available. Note
@@ -133,11 +133,11 @@ declare namespace WebMidi {
     close(): Promise<MIDIPort>;
   }
 
-  export interface MIDIInput extends MIDIPort {
-    onmidimessage: (e: MIDIMessageEvent) => void;
+  interface MIDIInput extends MIDIPort {
+    onmidimessage(e: MIDIMessageEvent): void;
   }
 
-  export interface MIDIOutput extends MIDIPort {
+  interface MIDIOutput extends MIDIPort {
     /**
      * Enqueues the message to be sent to the corresponding MIDI port.
      * @param data The data to be enqueued, with each sequence entry representing a single byte of data.
@@ -156,7 +156,7 @@ declare namespace WebMidi {
     clear(): void;
   }
 
-  export interface MIDIMessageEvent extends Event {
+  interface MIDIMessageEvent extends Event {
     /**
      * A timestamp specifying when the event occurred.
      */
@@ -168,7 +168,7 @@ declare namespace WebMidi {
     data: Uint8Array;
   }
 
-  export interface MIDIMessageEventInit extends EventInit {
+  interface MIDIMessageEventInit extends EventInit {
     /**
      * A timestamp specifying when the event occurred.
      */
@@ -180,14 +180,14 @@ declare namespace WebMidi {
     data: Uint8Array;
   }
 
-  export interface MIDIConnectionEvent extends Event {
+  interface MIDIConnectionEvent extends Event {
     /**
      * The port that has been connected or disconnected.
      */
     port: MIDIPort;
   }
 
-  export interface MIDIConnectionEventInit extends EventInit {
+  interface MIDIConnectionEventInit extends EventInit {
     /**
      * The port that has been connected or disconnected.
      */

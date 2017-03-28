@@ -26,7 +26,6 @@ const routes2 = [
 resolve(routes2, { path: "/hello/john" })
   .then(result => console.log(result));
 
-
 // Test 3
 const routes3 = [
   {
@@ -37,7 +36,6 @@ const routes3 = [
 
 resolve(routes3, { path: "/hello/john" })
   .then(result => console.log(result));
-
 
 // Test 4
 const routes4 = [

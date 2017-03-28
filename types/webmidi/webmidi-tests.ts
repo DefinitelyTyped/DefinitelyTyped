@@ -1,6 +1,4 @@
-
-
-var onFulfilled = (item: WebMidi.MIDIAccess) => {
+const onFulfilled = (item: WebMidi.MIDIAccess) => {
     this._midiPort = item;
 
     item.onstatechange = (event: WebMidi.MIDIConnectionEvent) => {
@@ -11,14 +9,14 @@ var onFulfilled = (item: WebMidi.MIDIAccess) => {
     console.log("sysexenabled");
     console.log(item.sysexEnabled);
 
-    var inputs = this._midiPort.inputs.values();
+    const inputs = this._midiPort.inputs.values();
 
     for (const o of inputs) {
         this._inputs.push(o);
         console.log(o);
     }
 
-    var outputs = item.outputs.values();
+    const outputs = item.outputs.values();
     for (const op of outputs) {
         this._outputs.push(op);
         op.send([ 0x90, 0x45, 0x7f ] );
@@ -31,7 +29,7 @@ var onFulfilled = (item: WebMidi.MIDIAccess) => {
     }
 };
 
-var onRejected = (e: Error) => { console.error(e); };
+const onRejected = (e: Error) => { console.error(e); };
 
 if (navigator.requestMIDIAccess !== undefined) {
     navigator.requestMIDIAccess().then(onFulfilled, onRejected);

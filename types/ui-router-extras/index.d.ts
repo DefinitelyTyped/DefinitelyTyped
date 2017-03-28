@@ -8,9 +8,7 @@
 import * as angular from 'angular';
 
 declare module 'angular' {
-    export namespace ui {
-
-
+    namespace ui {
         /*
          * $deepStateRedirect
          */
@@ -64,7 +62,6 @@ declare module 'angular' {
          * Previous state service
          */
         interface IPreviousStateService {
-
             /**
              * Get a previous state
              * @param memoName Memo name
@@ -117,17 +114,16 @@ declare module 'angular' {
             /*
              * Function (injectable). Called when a sticky state is navigated away from (inactivated).
              */
-            onInactivate?: (...args: any[]) => void;
+            onInactivate?(...args: any[]): void;
             /*
              * Function (injectable). Called when an inactive sticky state is navigated to (reactivated).
              */
-            onReactivate?: (...args: any[]) => void;
+            onReactivate?(...args: any[]): void;
             /*
              * Note: named views are mandatory when using sticky states!
              */
             views?: { [name: string]: angular.ui.IState };
         }
-
 
         /**
          * Sticky state service
@@ -150,9 +146,7 @@ declare module 'angular' {
             state(name: string, config: IStickyState): IStateProvider;
         }
 
-
         interface IFutureStateProvider {
-
             /**
              * Registers a `FutureState` object as a placeholder for a full UI-Router `state` or `state` tree.
              */
@@ -164,31 +158,28 @@ declare module 'angular' {
             stateFactory(type: string, stateFactory: IFutureStateFactory): void;
 
             /**
-             * Adds a resolve function. 
-             * `$futureStateProvider` won't reject any state transitions or routes until all resolveFunction promises have been resolved. 
+             * Adds a resolve function.
+             * `$futureStateProvider` won't reject any state transitions or routes until all resolveFunction promises have been resolved.
              * Resolves may be used to defer routing until the states have been loaded via $http, for instance.
              */
             addResolve(resolveFn: IResolveFunction): void;
         }
 
-        interface IFutureStateService {
-
-        }
+        interface IFutureStateService {}
 
         /**
          * A `FutureState` object is a placeholder for full a UI-Router `state`
          */
         interface IFutureState {
-
             /**
-             * The placeholder state name (fully qualified). 
+             * The placeholder state name (fully qualified).
              * Attempted transitions to this state (or any substates) will trigger a lazy load of the full UI-Router `state` represented by this FutureState.
              */
             stateName: string;
 
             /**
-             * The placeholder url path fragment (the fragment is the URL prefix which the state will be accessed on, not the URL of the state's source code). 
-             * Attempted navigations to a URL starting with this fragment will trigger a lazy load of the full UI-Router `state` represented by this FutureState. 
+             * The placeholder url path fragment (the fragment is the URL prefix which the state will be accessed on, not the URL of the state's source code).
+             * Attempted navigations to a URL starting with this fragment will trigger a lazy load of the full UI-Router `state` represented by this FutureState.
              */
             url: string;
 
