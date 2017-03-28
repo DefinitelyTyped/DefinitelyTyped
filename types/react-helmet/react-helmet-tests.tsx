@@ -1,18 +1,37 @@
-import * as React from 'react';
-import * as Helmet from 'react-helmet';
+import * as React from "react";
+import { Helmet, HelmetData } from "react-helmet";
 
-<Helmet title="My Title" />
+const Application = () =>
+    <div className="application">
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>My Title</title>
+            <link rel="canonical" href="http://mysite.com/example" />
+        </Helmet>
+        <Helmet>
+            <title>My Title</title>
+            <meta name="description" content="Helmet application" />
+        </Helmet>
 
-const head = Helmet.rewind();
+        <div>
+            <Helmet>
+                <title>Nested Title</title>
+                <meta name="description" content="Nested component" />
+            </Helmet>
+        </div>
+    </div>;
+
+const helmet: HelmetData = Helmet.renderStatic();
+
 const html = `
     <!doctype html>
-    <html>
+    <html ${helmet.htmlAttributes.toString()}>
         <head>
-            ${ head.title.toString() }
-            ${ head.meta.toString() }
-            ${ head.link.toString() }
+            <title>${helmet.title.toString()}</title>
+            ${helmet.meta.toString()}
+            ${helmet.link.toString()}
         </head>
-        <body>
+        <body ${helmet.bodyAttributes.toString()}>
             <div id="content">
                 // React stuff here
             </div>
@@ -21,24 +40,65 @@ const html = `
 `;
 
 function HTML() {
+    const htmlAttrs = helmet.htmlAttributes.toComponent();
+    const bodyAttrs = helmet.bodyAttributes.toComponent();
+
     return (
-        <html>
+        <html {...htmlAttrs}>
             <head>
-                { head.title.toComponent() }
-                { head.meta.toComponent() }
-                { head.link.toComponent() }
+                <title>{helmet.title.toComponent()}</title>
+                {helmet.meta.toComponent()}
+                {helmet.link.toComponent()}
             </head>
-            <body>
+            <body {...bodyAttrs}>
                 <div id="content">
-                    // React stuff here
                 </div>
             </body>
         </html>
     );
 }
 
-function log(datum: Helmet.HelmetDatum) {
-    return console.log('logging a helmet datum:', datum.toString());
-}
+<Helmet
+    encodeSpecialCharacters={true}
+    titleTemplate="MySite.com - %s"
 
-log(head.title);
+    defaultTitle="My Default Title"
+
+    onChangeClientState={(newState: any) => console.log(newState)}
+>
+    <html lang="en" />
+
+    <body className="root" />
+
+    <title itemProp="name" lang="en">My Title</title>
+
+    <base target="_blank" href="http://mysite.com/" />
+
+    <meta name="description" content="Helmet application" />
+    <meta property="og:type" content="article" />
+
+    <link rel="canonical" href="http://mysite.com/example" />
+    <link rel="apple-touch-icon" href="http://mysite.com/img/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="http://mysite.com/img/apple-touch-icon-72x72.png" />
+
+    <script src="http://include.com/pathtojs.js" type="text/javascript" />
+
+    <script type="application/ld+json">{`
+        {
+            "@context": "http://schema.org"
+        }
+    `}</script>
+
+    <noscript>{`
+        <link rel="stylesheet" type="text/css" href="foo.css" />
+    `}</noscript>
+
+    <style type="text/css">{`
+        body {
+            background-color: blue;
+        }
+        p {
+            font-size: 12px;
+        }
+    `}</style>
+</Helmet>
