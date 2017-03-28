@@ -56,19 +56,20 @@ declare interface Frisby {
 
 }
 
-declare namespace jasmine {
-    interface Matchers<T> {
-        toMatchOrBeNull(expected: any): boolean;
-        toMatchOrBeEmpty(expected: any): boolean;
-        toBeType(expected: any): boolean;
-        toBeTypeOrNull(expected: any): boolean;
-        toBeTypeOrUndefined(expected: any): boolean;
-        toContainJson(expected: any, isNot?: boolean): boolean;
-        toContainJsonTypes(expected: any, isNot?: boolean): boolean;
+declare global {
+    namespace jasmine {
+        interface Matchers<T> {
+            toMatchOrBeNull(expected: any): boolean;
+            toMatchOrBeEmpty(expected: any): boolean;
+            toBeType(expected: any): boolean;
+            toBeTypeOrNull(expected: any): boolean;
+            toBeTypeOrUndefined(expected: any): boolean;
+            toContainJson(expected: any, isNot?: boolean): boolean;
+            toContainJsonTypes(expected: any, isNot?: boolean): boolean;
+        }
     }
 }
 
-declare module "frisby" {
-    const frisby: Frisby;
-    export = frisby;
-} 
+declare const frisby: Frisby;
+export = frisby;
+
