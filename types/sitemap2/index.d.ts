@@ -7,10 +7,10 @@ declare var sitemap2: Sitemap;
 
 export = sitemap2;
 
-declare interface Sitemap {
+interface Sitemap {
     new (conf?: SitemapConfig): Sitemap;
 
-    addUrl(urlData: UrlData | UrlData[] | string | string[]): this
+    addUrl(urlData: UrlData | UrlData[] | string | string[]): this;
     addSitemap(sm: Sitemap): this;
     toXML(): SitemapXml[];
 
@@ -21,7 +21,7 @@ declare interface Sitemap {
     childrens: Sitemap[];
 }
 
-declare interface SitemapConfig {
+interface SitemapConfig {
     hostName?: string;
     fileName?: string;
     limit?: number;
@@ -31,7 +31,7 @@ declare interface SitemapConfig {
     childrens?: Sitemap[];
 }
 
-declare interface UrlData {
+interface UrlData {
     url: string;
     chengefreq?: string;
     priority?: number | string;
@@ -43,10 +43,10 @@ declare interface UrlData {
         description: string;
         thumbnail_loc: string;
         content_loc: string;
-    }
+    };
 }
 
-declare interface SitemapXml {
+interface SitemapXml {
     fileName: string;
     xml: string;
 }

@@ -8,6 +8,4 @@ const options: FileStore.Options = {
 
 const sessionStore = new FileStore(options);
 
-sessionStore.list((err: any, file: Array<string>) => {
-
-});
+sessionStore.list((err: any, file: string[]) => {});

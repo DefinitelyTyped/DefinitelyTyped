@@ -1,13 +1,12 @@
 import Reflux = require("reflux");
 
-var syncActions = Reflux.createActions([
+const syncActions = Reflux.createActions([
     "statusUpdate",
     "statusEdited",
     "statusAdded"
 ]);
 
-
-var asyncActions = Reflux.createActions({
+const asyncActions = Reflux.createActions({
     fireBall: {asyncResult: true}
 });
 
@@ -16,10 +15,8 @@ asyncActions.fireBall.listen(function() {
     setTimeout(() => this.completed(true), 1000);
 });
 
-
 // Creates a DataStore
-var statusStore = Reflux.createStore({
-
+const statusStore = Reflux.createStore({
     // Initial setup
     init() {
         // Register statusUpdate action
@@ -27,7 +24,7 @@ var statusStore = Reflux.createStore({
     },
     // Callback
     onFireBall(flag: boolean) {
-        var status = flag ? 'ONLINE' : 'OFFLINE';
+        const status = flag ? 'ONLINE' : 'OFFLINE';
 
         // Pass on to listeners
         this.trigger(status);
@@ -38,11 +35,11 @@ Reflux.createAction({
     children: ["progressed", "completed", "failed"]
 });
 
-var action = Reflux.createAction();
+const action = Reflux.createAction();
 
-var actions = Reflux.createActions(["fireBall", "magicMissile"]);
+const actions = Reflux.createActions(["fireBall", "magicMissile"]);
 
-var Store = Reflux.createStore({
+const Store = Reflux.createStore({
     init() {
         this.listenToMany(actions);
     },
@@ -54,6 +51,6 @@ var Store = Reflux.createStore({
     }
 });
 
-var ReactComponent = {
+const ReactComponent = {
     mixins: [Reflux.ListenerMixin]
 };

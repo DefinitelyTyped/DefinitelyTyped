@@ -11,7 +11,7 @@ import { Url } from "url";
 declare function parseurl(req: IncomingMessage): Url | undefined;
 
 declare namespace parseurl {
-    export function original(req: IncomingMessage): Url | undefined;
+    function original(req: IncomingMessage): Url | undefined;
 }
 
 export = parseurl;

@@ -6,7 +6,7 @@
 ///<reference types="rx-lite"/>
 
 declare namespace Rx {
-    export interface Observable<T> {
+    interface Observable<T> {
         /**
         * Pauses the underlying observable sequence based upon the observable sequence which yields true/false.
         * @example
@@ -37,11 +37,11 @@ declare namespace Rx {
         controlled(enableQueue?: boolean): ControlledObservable<T>;
     }
 
-    export interface ControlledObservable<T> extends Observable<T> {
+    interface ControlledObservable<T> extends Observable<T> {
         request(numberOfItems?: number): IDisposable;
     }
 
-    export interface PausableObservable<T> extends Observable<T> {
+    interface PausableObservable<T> extends Observable<T> {
         pause(): void;
         resume(): void;
     }

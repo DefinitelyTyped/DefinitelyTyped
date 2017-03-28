@@ -30,7 +30,6 @@ y.push(rule.toText());
 // including the default and inferred ones.
 y.push(RRule.optionsToString(rule.options));
 
-
 // Cherry-pick only some options from an rrule:
 y.push(RRule.optionsToString({
     freq: rule.options.freq,
@@ -42,7 +41,7 @@ rule = RRule.fromString("FREQ=WEEKLY;DTSTART=20120201T093000Z");
 // This is equivalent
 rule = new RRule(RRule.parseString("FREQ=WEEKLY;DTSTART=20120201T093000Z"));
 
-var options = RRule.parseString('FREQ=DAILY;INTERVAL=6');
+let options = RRule.parseString('FREQ=DAILY;INTERVAL=6');
 options.dtstart = new Date(2000, 1, 1);
 rule = new RRule(options);
 
