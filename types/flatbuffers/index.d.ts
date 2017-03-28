@@ -3,7 +3,7 @@
 // Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module flatbuffers {
+declare namespace flatbuffers {
 
   /**
    * @typedef {number}
