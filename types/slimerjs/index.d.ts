@@ -147,7 +147,7 @@ interface IWebPage {
     render(filename: string): void;
     renderBase64(format: string): string;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): Promise<void>;
-    sendEvent(keyboardEventType: string, key: string, null1?: void, null2?: void, modifier?: number): Promise<void>;
+    sendEvent(keyboardEventType: string, key: string, null1?: undefined, null2?: undefined, modifier?: number): Promise<void>;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): void;
     sendEvent(keyboardEventType: string, keyOrKeys: any, aNull?: any, bNull?: any, modifier?: number): void;
     setContent(html: string, url: string): Promise<string>;
