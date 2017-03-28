@@ -69,8 +69,8 @@ declare class Animation {
     pause(): void;
     play(): void;
     reverse(): void;
-    addEventListener(type: number, handler: AnimationEventListener): void;
-    removeEventListener(type: number, handler: AnimationEventListener): void;
+    addEventListener(type: "finish", handler: AnimationEventListener): void;
+    removeEventListener(type: "finish", handler: AnimationEventListener): void;
     effect: KeyframeEffect;
     readonly finished: Promise<Animation>;
     readonly ready: Promise<Animation>;
