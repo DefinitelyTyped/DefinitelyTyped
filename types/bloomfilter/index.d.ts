@@ -3,8 +3,8 @@
 // Definitions by: slawiko <https://github.com/slawiko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare class BloomFilter {
-    buckets: Array<Int32Array>;
+export class BloomFilter {
+    buckets: Int32Array[];
 
     constructor(m: number, k: number);
 

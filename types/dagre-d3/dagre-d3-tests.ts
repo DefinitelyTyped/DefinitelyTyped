@@ -1,4 +1,3 @@
-
 namespace DagreD3Tests {
     const gDagre = new dagreD3.graphlib.Graph();
     const graph = gDagre.graph();

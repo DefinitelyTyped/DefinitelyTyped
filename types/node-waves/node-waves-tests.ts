@@ -1,4 +1,3 @@
-
 import { init, ripple, attach, calm } from "node-waves";
 
 init({ delay: 300 });

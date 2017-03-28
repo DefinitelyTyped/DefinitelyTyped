@@ -68,6 +68,8 @@ export class ObjectId {
     static isValid(id: number | string | ObjectId): boolean;
 
     constructor(id?: number | string | ObjectId);
+    toHexString(): string;
+    getTimestamp(): Date;
 }
 export type ObjectID = ObjectId;
 export class BSONRegExp {

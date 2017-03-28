@@ -21,8 +21,8 @@ export class Api extends jspb.Message {
 
   hasSourceContext(): boolean;
   clearSourceContext(): void;
-  getSourceContext(): google_protobuf_source_context_pb.SourceContext;
-  setSourceContext(value: google_protobuf_source_context_pb.SourceContext): void;
+  getSourceContext(): google_protobuf_source_context_pb.SourceContext | undefined;
+  setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): void;
 
   clearMixinsList(): void;
   getMixinsList(): Array<Mixin>;
@@ -48,7 +48,7 @@ export namespace Api {
     methodsList: Array<Method.AsObject>,
     optionsList: Array<google_protobuf_type_pb.Option.AsObject>,
     version: string,
-    sourceContext: google_protobuf_source_context_pb.SourceContext.AsObject,
+    sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject,
     mixinsList: Array<Mixin.AsObject>,
     syntax: google_protobuf_type_pb.Syntax,
   }

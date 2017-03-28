@@ -226,7 +226,7 @@ declare namespace BackendAPI {
          * Validation error.
          * REF(NxValidationError)
          */
-        //?Type = REF(NxValidationError)?
+        // ?Type = REF(NxValidationError)?
         qError: INxValidationError;
     }
 
@@ -2235,11 +2235,7 @@ declare namespace VisualizationAPI {
 }
 
 declare namespace ExtensionAPI {
-
-
-    interface IExtensionModel {
-
-    }
+    interface IExtensionModel {}
 
     interface IExtensionComponent {
         model: IExtensionModel;
@@ -2249,13 +2245,12 @@ declare namespace ExtensionAPI {
         component: IExtensionComponent;
     }
 
-
-    //ExtensionAPI
+    // ExtensionAPI
     type SelectionModeType = "CONFIRM" | "QUICK";
 
     interface IInitialProperties {
-        qHyperCubeDef?: any; //IHyperCubeDef;
-        qListObjectDef?: any; //IListObjectDef;
+        qHyperCubeDef?: any; // IHyperCubeDef;
+        qListObjectDef?: any; // IListObjectDef;
         fixed?: boolean;
         width?: number;
         percent?: boolean;
@@ -2287,7 +2282,7 @@ declare namespace ExtensionAPI {
         // qHyperCubeDef: IVisualizationHyperCubeDef;
         // qListObjectDef: IVis
 
-        //[""]:
+        // [""]:
     }
 
     //#region IDefinition
@@ -2451,7 +2446,7 @@ declare namespace ExtensionAPI {
         items: any;
     }
 
-    //?Das selbe wie Appearance?
+    // ?Das selbe wie Appearance?
     interface ISettings {
         uses: "settings";
         min?: number;
@@ -2468,16 +2463,17 @@ declare namespace ExtensionAPI {
 }
 
 declare module "qlik" {
-    var e: RootAPI.IRoot; export = e;
+    const e: RootAPI.IRoot;
+    export = e;
 }
 
 interface IQVAngular {
     /**
-   * Register a new directive with the compiler.
-   *
-   * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
-   * @param directiveFactory An injectable directive factory function.
-   */
+     * Register a new directive with the compiler.
+     *
+     * @param name Name of the directive in camel-case (i.e. ngBind which will match as ng-bind)
+     * @param directiveFactory An injectable directive factory function.
+     */
     directive(name: string, directiveFactory: ng.Injectable<ng.IDirectiveFactory>): void;
     directive(object: { [directiveName: string]: ng.Injectable<ng.IDirectiveFactory> }): void;
 
@@ -2496,10 +2492,11 @@ interface IQVAngular {
     service<T>(name: string, serviceConstructor: ng.Injectable<Function>): T;
     service<T>(object: { [name: string]: ng.Injectable<Function> }): T;
 
-    //provider(name: string, serviceProviderFactory: ng.IServiceProviderFactory): void;
-    //provider(name: string, serviceProviderConstructor: ng.IServiceProviderClass): void;
+    // provider(name: string, serviceProviderFactory: ng.IServiceProviderFactory): void;
+    // provider(name: string, serviceProviderConstructor: ng.IServiceProviderClass): void;
 }
 
 declare module "qvangular" {
-    var e: IQVAngular; export = e;
+    const e: IQVAngular;
+    export = e;
 }

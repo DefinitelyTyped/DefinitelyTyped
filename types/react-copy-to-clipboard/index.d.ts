@@ -11,20 +11,17 @@ export as namespace CopyToClipboard;
 export = CopyToClipboard;
 
 declare namespace CopyToClipboard {
-
-  export interface Options {
+  interface Options {
     debug: boolean;
     message: string;
   }
 
-  export interface Props {
+  interface Props {
     text: string;
-    onCopy?: (a: string) => void,
+    onCopy?: (a: string) => void;
     options?: Options;
   }
-
 }
 
 declare class CopyToClipboard extends React.Component<CopyToClipboard.Props, {}> {
 }
-
