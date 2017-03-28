@@ -6,12 +6,12 @@ function test_validate() {
         debug: true
     });
     $(".selector").validate({
-        submitHandler: function (form) {
+        submitHandler: (form) => {
             $(form).ajaxSubmit();
         }
     });
     $(".selector").validate({
-        invalidHandler: function (form, validator) {
+        invalidHandler: (form, validator) => {
             var errors = validator.numberOfInvalids();
             if (errors) {
                 var message = errors == 1
@@ -54,7 +54,7 @@ function test_validate() {
         groups: {
             username: "fname lname"
         },
-        errorPlacement: function (error, element) {
+        errorPlacement: (error, element) => {
             if (element.attr("name") == "fname"
                         || element.attr("name") == "lname")
                 error.insertAfter("#lastname");
@@ -65,6 +65,9 @@ function test_validate() {
     });
     $(".selector").validate({
         onsubmit: false
+    });
+    $(".selector").validate({
+        onfocusin: (elt, event) => { },
     });
     $(".selector").validate({
         onfocusout: false
@@ -94,7 +97,7 @@ function test_validate() {
     });
     $("#myform").validate({
         meta: "validate",
-        submitHandler: function () { alert("Submitted!") }
+        submitHandler: () => { alert("Submitted!") }
     });
     $(".selector").validate({
         errorClass: "invalid"
@@ -111,52 +114,52 @@ function test_validate() {
     $("#myform").validate({
         errorLabelContainer: "#messageBox",
         wrapper: "li",
-        submitHandler: function () { alert("Submitted!") }
+        submitHandler: () => { alert("Submitted!") }
     });
     $("#myform").validate({
         errorContainer: "#messageBox1, #messageBox2",
         errorLabelContainer: "#messageBox1 ul",
         wrapper: "li", debug: true,
-        submitHandler: function () { alert("Submitted!") }
+        submitHandler: () => { alert("Submitted!") }
     });
     $(".selector").validate({
-        showErrors: function (errorMap: JQueryValidation.ErrorDictionary, errorList: JQueryValidation.ErrorListItem[]) {
+        showErrors: (errorMap: JQueryValidation.ErrorDictionary, errorList: JQueryValidation.ErrorListItem[]) => {
             $("#summary").html("Your form contains " + this.numberOfInvalids() + " errors, see details below.");
             this.defaultShowErrors();
         }
     });
     $("#myform").validate({
-        errorPlacement: function (error, element) {
+        errorPlacement: (error, element) => {
             error.appendTo(element.parent("td").next("td"));
         },
         debug: true
     });
     $("#myform").validate({
         success: "valid",
-        submitHandler: function () { alert("Submitted!") }
+        submitHandler: () => { alert("Submitted!") }
     });
     $("#myform").validate({
-        success: function (label) {
+        success: (label) => {
             label.addClass("valid").text("Ok!")
         },
-        submitHandler: function () { alert("Submitted!") }
+        submitHandler: () => { alert("Submitted!") }
     });
     $(".selector").validate({
-        highlight: function (element, errorClass) {
-            $(element).fadeOut(function () {
+        highlight: (element, errorClass) => {
+            $(element).fadeOut(() => {
                 $(element).fadeIn();
             });
         }
     });
     $(".selector").validate({
-        highlight: function (element: HTMLInputElement, errorClass, validClass) {
+        highlight: (element: HTMLInputElement, errorClass, validClass) => {
             $(element).addClass(errorClass).removeClass(validClass);
-            $((<HTMLInputElement>element).form).find("label[for=" + element.id + "]")
+            $((<HTMLInputElement> element).form).find("label[for=" + element.id + "]")
                            .addClass(errorClass);
         },
-        unhighlight: function (element: HTMLInputElement, errorClass, validClass) {
+        unhighlight: (element: HTMLInputElement, errorClass, validClass) => {
             $(element).removeClass(errorClass).addClass(validClass);
-            $((<HTMLInputElement>element).form).find("label[for=" + element.id + "]")
+            $((<HTMLInputElement> element).form).find("label[for=" + element.id + "]")
                            .removeClass(errorClass);
         }
     });
@@ -173,13 +176,13 @@ function test_validate() {
     $('.selector').validate({
         onfocusout: () => {},
         onkeyup: () => {},
-        onclick: function(elt) { return 2; }
+        onclick: (elt) => { return 2; }
     });
 }
 
 function test_methods() {
     $("#myform").validate();
-    $("a.check").click(function () {
+    $("a.check").click(() => {
         alert("Valid: " + $("#myform").valid());
         return false;
     });
@@ -201,7 +204,7 @@ function test_methods() {
             minlength: jQuery.format("Please, at least {0} characters are necessary")
         }
     });
-    $("#skip").click(function () {
+    $("#skip").click(() => {
         var rules = $("#myinput").removeAttrs("min max");
         $("#myform").submit();
         $("#myinput").attr(rules);
