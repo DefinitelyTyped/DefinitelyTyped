@@ -97,4 +97,3 @@ declare namespace Raven {
 }
 
 export = Raven;
-export as namespace Raven;
