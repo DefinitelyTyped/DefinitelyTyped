@@ -1,6 +1,6 @@
 import Sitemap = require('sitemap2');
 
-let sitemap = new Sitemap({
+const sitemap = new Sitemap({
     hostName: ('https://example.com/'),
     fileName: 'sitemap.xml',
     limit: 50000,
@@ -43,9 +43,9 @@ sitemap.addUrl([
     }
 ]);
 
-let sitemap2 = new Sitemap();
+const sitemap2 = new Sitemap();
 sitemap.addSitemap(sitemap2);
 
 const xmlList = sitemap.toXML();
-var str = xmlList[0].fileName;
-var str = xmlList[0].xml;
+let str = xmlList[0].fileName;
+str = xmlList[0].xml;

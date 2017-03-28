@@ -1,7 +1,7 @@
 import ConnectionPool = require("tedious-connection-pool");
 import tedious = require("tedious");
 
-var config: tedious.ConnectionConfig = {
+const config: tedious.ConnectionConfig = {
 	userName: "rogier",
 	password: "rogiers password",
 	server: "127.0.0.1",
@@ -11,12 +11,12 @@ var config: tedious.ConnectionConfig = {
 	}
 };
 
-var poolConfig : ConnectionPool.PoolConfig = {
+const poolConfig: ConnectionPool.PoolConfig = {
 	min: 1,
 	max: 4
 };
 
-var pool: ConnectionPool = new ConnectionPool(poolConfig, config);
+const pool: ConnectionPool = new ConnectionPool(poolConfig, config);
 
 pool.on('error', (err: Error) => {
 	console.error(err);
@@ -34,8 +34,7 @@ pool.acquire((err: Error, connection: ConnectionPool.PooledConnection) => {
 	connection.rollbackTransaction((error: Error): void => {});
 	connection.commitTransaction((error: Error): void => {});
 
-
-	var request = new tedious.Request("SELECT * FROM foo", (error: Error, rowCount: number): void => {
+	const request = new tedious.Request("SELECT * FROM foo", (error: Error, rowCount: number): void => {
 	});
 	request.on("row", (row: tedious.ColumnValue[]): void => {
 	});
@@ -43,11 +42,5 @@ pool.acquire((err: Error, connection: ConnectionPool.PooledConnection) => {
 
 	connection.release();
 
-
 	pool.drain();
 });
-
-
-
-
-

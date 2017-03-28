@@ -5,14 +5,13 @@
 
 /// <reference types="node" />
 
-
 import events = require("events");
 
-export declare var OPEN_READONLY: number;
-export declare var OPEN_READWRITE: number;
-export declare var OPEN_CREATE: number;
+export const OPEN_READONLY: number;
+export const OPEN_READWRITE: number;
+export const OPEN_CREATE: number;
 
-export declare var cached: {
+export const cached: {
     Database(filename: string, callback?: (err: Error) => void): Database;
     Database(filename: string, mode?: number, callback?: (err: Error) => void): Database;
 };
@@ -22,7 +21,7 @@ export interface RunResult {
     changes: number;
 }
 
-export declare class Statement {
+export class Statement {
     bind(callback?: (err: Error) => void): Statement;
     bind(...params: any[]): Statement;
 
@@ -47,7 +46,7 @@ export declare class Statement {
     each(...params: any[]): Statement;
 }
 
-export declare class Database extends events.EventEmitter {
+export class Database extends events.EventEmitter {
     constructor(filename: string, callback?: (err: Error) => void);
     constructor(filename: string, mode?: number, callback?: (err: Error) => void);
 
@@ -85,4 +84,4 @@ export declare class Database extends events.EventEmitter {
     on(event: string, listener: (...args: any[]) => void): this;
 }
 
-declare function verbose(): void;
+export function verbose(): void;

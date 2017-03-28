@@ -5,26 +5,22 @@
 
 // Work In Progress
 
-import 'jquery';
+/// <reference types="jquery" />
 
+export namespace tinymce {
+  const DOM: dom.DOMUtils;
 
+  const PluginManager: AddOnManager;
 
+  const ScriptLoader: dom.ScriptLoader;
 
-declare namespace tinymce {
+  const ThemeManager: AddOnManager;
 
-  var DOM: dom.DOMUtils;
+  const EditorManager: EditorManager;
 
-  var PluginManager: AddOnManager;
+  const baseURL: string;
 
-  var ScriptLoader: dom.ScriptLoader;
-
-  var ThemeManager: AddOnManager;
-
-  var EditorManager: EditorManager;
-
-  var baseURL: string;
-
-  var activeEditor: Editor;
+  const activeEditor: Editor;
 
   function create(s: string, p: {}, root?: {}): void;
 
@@ -53,10 +49,10 @@ declare namespace tinymce {
   function trim(s: string): string;
 
   function walk(o: {}, f: () => void, n?: string, s?: string): void;
-  
+
   function init(settings: Settings): void;
 
-  export interface Settings {
+  interface Settings {
     table_toolbar?: boolean;
 
     auto_focus?: string;
@@ -69,17 +65,17 @@ declare namespace tinymce {
 
     hidden_input?: boolean;
 
-    init_instance_callback?: (editor: Editor) => void;
+    init_instance_callback?(editor: Editor): void;
 
     plugins?: string | string[];
 
     selector?: string;
 
-    setup?: (edtor: Editor) => void;
+    setup?(edtor: Editor): void;
 
     target?: Element;
 
-    color_picker_callback?: (callback: (hexColor: string) => void, value: string) => void;
+    color_picker_callback?(callback: (hexColor: string) => void, value: string): void;
 
     elementpath?: boolean;
 
@@ -217,15 +213,15 @@ declare namespace tinymce {
 
     automatic_uploads?: boolean;
 
-    file_browser_callback?: (field_name: string, url: string, type: string, win: Window) => void;
+    file_browser_callback?(field_name: string, url: string, type: string, win: Window): void;
 
     file_browser_callback_types?: string;
 
-    file_picker_callback?: (callback: (filename: string, metadata: {}) => void, valud: string, meta: {}) => void;
+    file_picker_callback?(callback: (filename: string, metadata: {}) => void, valud: string, meta: {}): void;
 
     file_picker_types?: string;
 
-    images_dataimg_filter?: (img: any) => void;
+    images_dataimg_filter?(img: any): void;
 
     images_reuse_filename?: boolean;
 
@@ -233,7 +229,7 @@ declare namespace tinymce {
 
     images_upload_credentials?: boolean;
 
-    images_upload_handler?: (blobInfo: any, success: (msg: string) => void, failure: (msg: string) => void) => void;
+    images_upload_handler?(blobInfo: any, success: (msg: string) => void, failure: (msg: string) => void): void;
 
     images_upload_url?: string;
 
@@ -253,7 +249,7 @@ declare namespace tinymce {
 
     remove_script_host?: boolean;
 
-    urlconverter_callback?: (url: string, node: HTMLElement, on_save: boolean, name: string) => void;
+    urlconverter_callback?(url: string, node: HTMLElement, on_save: boolean, name: string): void;
 
     anchor_bottom?: string;
 
@@ -270,12 +266,10 @@ declare namespace tinymce {
     object_resizing?: boolean | string;
 
     type_ahead_urls?: boolean;
-
   }
 
-  export namespace settings {
-
-    export interface Menu {
+  namespace settings {
+    interface Menu {
       file: MenuItem;
       edit: MenuItem;
       insert: MenuItem;
@@ -285,14 +279,13 @@ declare namespace tinymce {
       tools: MenuItem;
     }
 
-    export interface MenuItem {
+    interface MenuItem {
       title: string;
       items: string;
     }
   }
 
-  export interface AddOnManager {
-
+  interface AddOnManager {
     add(id: string, addOn: (editor: Editor, url: string) => void): Theme | Plugin;
 
     addComponents(pluginName: string, scripts: string[]): void;
@@ -304,8 +297,7 @@ declare namespace tinymce {
     requireLangPack(name: string, languages?: string): void;
   }
 
-  export class Editor extends util.Observable {
-
+  class Editor extends util.Observable {
     constructor(id: string, settings: Settings, editorManager: tinymce.EditorManager);
 
     $: dom.DomQuery;
@@ -433,8 +425,7 @@ declare namespace tinymce {
     uploadImages(callback: () => void): Promise<any>;
   }
 
-  export interface EditorCommands {
-
+  interface EditorCommands {
     addCommands(command_list: {}, type?: string): void;
 
     execCommand(command: string, ui?: boolean, value?: {}, args?: {}): boolean;
@@ -446,8 +437,7 @@ declare namespace tinymce {
     queryCommandValue(command: string): {};
   }
 
-  export interface EditorManager extends util.Observable {
-
+  interface EditorManager extends util.Observable {
     $: dom.DomQuery;
 
     activeEditor: Editor;
@@ -493,8 +483,7 @@ declare namespace tinymce {
     triggerSave(): void;
   }
 
-  export interface Env {
-
+  interface Env {
     android: boolean;
 
     ceFalse: boolean;
@@ -524,10 +513,8 @@ declare namespace tinymce {
     webKit: boolean;
   }
 
-  export namespace Events {
-
-    export interface Event {
-
+  namespace Events {
+    interface Event {
       type: string;
 
       target: string;
@@ -545,13 +532,11 @@ declare namespace tinymce {
       stopPropagation(): void;
     }
 
-    export interface FocusBlurEvent extends Event {
-
+    interface FocusBlurEvent extends Event {
       blurredEditor: Editor;
     }
 
-    export interface ContentEvent extends Event {
-
+    interface ContentEvent extends Event {
       format: string;
 
       set: boolean;
@@ -559,8 +544,7 @@ declare namespace tinymce {
       content: string;
     }
 
-    export interface ProcessEvent extends Event {
-
+    interface ProcessEvent extends Event {
       content: string;
 
       forced_root_block: string;
@@ -576,8 +560,7 @@ declare namespace tinymce {
       selection: true;
     }
 
-    export interface NodeChangeEvent extends Event {
-
+    interface NodeChangeEvent extends Event {
       element: Node;
 
       parents: Node[];
@@ -585,20 +568,17 @@ declare namespace tinymce {
       selectionChange: boolean;
     }
 
-    export interface UndoRedoEvent extends Event {
-
+    interface UndoRedoEvent extends Event {
       level: {};
     }
 
-    export interface ChangeEvent extends Event {
-
+    interface ChangeEvent extends Event {
       lastLevel: {};
 
       level: {};
     }
 
-    export interface CommandEvent extends Event {
-
+    interface CommandEvent extends Event {
       command: string;
 
       ui: boolean;
@@ -612,8 +592,7 @@ declare namespace tinymce {
     static isEditorUIElement(elm: Element): boolean;
   }
 
-  export interface Formatter {
-
+  interface Formatter {
     apply(name: string, vars?: {}, node?: html.Node): void;
 
     canApply(name: string): boolean;
@@ -639,25 +618,21 @@ declare namespace tinymce {
     unregister(name: string): void;
   }
 
-  export class Formatter implements Formatter {
-
+  class Formatter implements Formatter {
     constructor(ed: Editor);
   }
 
-  export interface Shortcuts {
-
+  interface Shortcuts {
     add(pattern: string, desc: string, cmdFunc: () => void | string, scope?: {}): boolean;
 
     remove(pattern: string): boolean;
   }
 
-  export interface Theme {
-
+  interface Theme {
     renderUI(obj: {}): {};
   }
 
-  export interface UndoManager {
-
+  interface UndoManager {
     add(level?: {}, event?: DocumentEvent): {};
 
     beforeChange(): void;
@@ -677,8 +652,7 @@ declare namespace tinymce {
     undo(): {};
   }
 
-  export interface WindowManager {
-
+  interface WindowManager {
     alert(message: string, callback: () => void, scope?: {}): void;
 
     close(): void;
@@ -694,8 +668,7 @@ declare namespace tinymce {
     setParams(params: {}): void;
   }
 
-  export interface notificationManager {
-
+  interface notificationManager {
     close(): void;
 
     getNotifications(): Array<{}>;
@@ -703,14 +676,12 @@ declare namespace tinymce {
     open(args?: {}): void;
   }
 
-  export namespace ui {
-    export interface ControlSettings {
+  namespace ui {
+    interface ControlSettings {
       menu: ui.Menu;
     }
 
-    interface Collection {
-
-    }
+    interface Collection {}
 
     interface Container {
       add(items: any): Collection;
@@ -721,19 +692,15 @@ declare namespace tinymce {
       moveRel(elm: Node, rel: string): Control;
     }
 
-    interface FloatPanel extends Control, Moveable {
+    interface FloatPanel extends Control, Moveable {}
 
-    }
-
-    interface Menu extends FloatPanel, Control, Container {
-
-    }
+    interface Menu extends FloatPanel, Control, Container {}
 
     interface Factory {
       create(settings: any): Control;
     }
 
-    export class Control {
+    class Control {
       constructor();
 
       $el: JQuery;
@@ -745,10 +712,8 @@ declare namespace tinymce {
     }
   }
 
-  export namespace dom {
-
-    export interface BookmarkManager {
-
+  namespace dom {
+    interface BookmarkManager {
       getBookmark(type?: number, normalized?: boolean): {};
 
       isBookmarkNode(node: HTMLElement): boolean;
@@ -756,8 +721,7 @@ declare namespace tinymce {
       moveToBookmark(bookmark: {}): boolean;
     }
 
-    export interface DOMUtils {
-
+    interface DOMUtils {
       add<T>(parentElm: string, name: string, attrs?: {}, html?: string, create?: boolean): Element | T[];
 
       addClass<T>(elm: string, cls: string): string | T[];
@@ -873,13 +837,11 @@ declare namespace tinymce {
       uniqueId(prefix?: string): string;
     }
 
-    export class DOMUtils implements DOMUtils {
-
+    class DOMUtils implements DOMUtils {
       constructor(doc: Document, settings?: {});
     }
 
-    export interface DomQuery {
-
+    interface DomQuery {
       add<T>(items: T[], sort?: boolean): DomQuery;
 
       addClass(className: string): DomQuery;
@@ -993,13 +955,11 @@ declare namespace tinymce {
       wrapInner(content: string): DomQuery;
     }
 
-    export class DomQuery implements DomQuery {
-
+    class DomQuery implements DomQuery {
       constructor(selector?: string, context?: Document);
     }
 
-    export interface EventUtils {
-
+    interface EventUtils {
       bind(target: {}, names: string, callback: () => void, scope: {}): () => void;
 
       clean(target: {}): EventUtils;
@@ -1009,15 +969,13 @@ declare namespace tinymce {
       unbind(target: {}, names?: string, callback?: () => void): EventUtils;
     }
 
-    export interface RangeUtils {
-
+    interface RangeUtils {
       compareRanges(rng1: Range, rng2: Range): boolean;
 
       getCaretRangeFromPoint(clientX: number, clientY: number, doc: Document): Range;
     }
 
-    export interface ScriptLoader {
-
+    interface ScriptLoader {
       add(url: string, success?: () => void, scope?: {}, failure?: () => void): void;
 
       isDone(url: string): boolean;
@@ -1031,8 +989,7 @@ declare namespace tinymce {
       markDone(url: string): void;
     }
 
-    export interface Selection {
-
+    interface Selection {
       collapse(toStart?: boolean): void;
 
       getBookmark(type?: number, normalized?: boolean): {};
@@ -1066,13 +1023,11 @@ declare namespace tinymce {
       setRng(rng: Range, forward?: boolean): void;
     }
 
-    export class Selection implements Selection {
-
+    class Selection implements Selection {
       constructor(dom: DOMUtils, win: Window, editor: Editor, serializer: Serializer);
     }
 
-    export interface Serializer {
-
+    interface Serializer {
       addAttributeFilter(callback: () => void): void;
 
       addNodeFilter(callback: () => void): void;
@@ -1084,16 +1039,13 @@ declare namespace tinymce {
       serialize(node: HTMLElement, args: {}): void;
 
       setRules(rules: string): void;
-
     }
 
-    export class Serializer implements Serializer {
-
+    class Serializer implements Serializer {
       constructor(settings: {}, editor?: Editor);
     }
 
-    export interface TreeWalker {
-
+    interface TreeWalker {
       current(): html.Node;
 
       next(): html.Node;
@@ -1102,15 +1054,12 @@ declare namespace tinymce {
     }
   }
 
-  export class TreeWalker implements TreeWalker {
-
+  class TreeWalker implements TreeWalker {
     constructor(startNode: html.Node, rootNode: html.Node);
   }
 
-  export namespace geom {
-
-    export interface Rect {
-
+  namespace geom {
+    interface Rect {
       clamp(rect: Rect, clampRect: Rect, fixedSize: boolean): Rect;
 
       create(x: number, y: number, w: number, h: number): Rect;
@@ -1127,10 +1076,8 @@ declare namespace tinymce {
     }
   }
 
-  export namespace html {
-
-    export interface DomParser {
-
+  namespace html {
+    interface DomParser {
       addAttributeFilter(attributes: string, callback: () => void): void;
 
       addNodeFilter(attributes: string, callback: () => void): void;
@@ -1140,13 +1087,11 @@ declare namespace tinymce {
       parse(html: string, args?: {}): html.Node;
     }
 
-    export class DomParser implements DomParser {
-
+    class DomParser implements DomParser {
       constructor(settings: {}, schema: html.Schema);
     }
 
-    export interface Entities {
-
+    interface Entities {
       decode(text: string): string;
 
       encodeAllRaw(text: string): string;
@@ -1160,8 +1105,7 @@ declare namespace tinymce {
       getEncodeFunc(name: string, entities?: string): () => void;
     }
 
-    export interface Node {
-
+    interface Node {
       append(node: html.Node): html.Node;
 
       attr(name: string, value?: string): string | html.Node;
@@ -1189,23 +1133,19 @@ declare namespace tinymce {
       wrap(wrapperNode: html.Node): html.Node;
     }
 
-    export class Node implements Node {
-
+    class Node implements Node {
       constructor(name: string, type: number);
     }
 
-    export interface SaxParser {
-
+    interface SaxParser {
       parse(html: string): void;
     }
 
-    export class SaxParser implements SaxParser {
-
+    class SaxParser implements SaxParser {
       constructor(settings: {}, schema: html.Schema);
     }
 
-    export interface Schema {
-
+    interface Schema {
       addCustomElements(custom_elements: string): void;
 
       addValidChildren(valid_children: string): void;
@@ -1249,23 +1189,19 @@ declare namespace tinymce {
       setValidElements(valid_elements: string): void;
     }
 
-    export class Schema implements Schema {
-
+    class Schema implements Schema {
       constructor(settings: {});
     }
 
-    export interface Serializer {
-
+    interface Serializer {
       serialize(node: html.Node): string;
     }
 
-    export class Serializer implements Serializer {
-
+    class Serializer implements Serializer {
       constructor(settings: {}, schema: html.Schema);
     }
 
-    export interface Styles {
-
+    interface Styles {
       parse(css: string): {};
 
       serialize(styles: {}, elementName: string): string;
@@ -1273,8 +1209,7 @@ declare namespace tinymce {
       toHex(color: string): string;
     }
 
-    export interface Writer {
-
+    interface Writer {
       cdata(text: string): void;
 
       doctype(text: string): void;
@@ -1293,15 +1228,12 @@ declare namespace tinymce {
     }
   }
 
-  export class Writer implements Writer {
-
+  class Writer implements Writer {
     constructor(settings: {});
   }
 
-  export namespace util {
-
-    export interface Color {
-
+  namespace util {
+    interface Color {
       parse(value: {}): util.Color;
 
       toHex(): string;
@@ -1311,13 +1243,11 @@ declare namespace tinymce {
       toRgb(): {};
     }
 
-    export class Color implements Color {
-
+    class Color implements Color {
       constructor(value: string | {});
     }
 
-    export interface Delay {
-
+    interface Delay {
       clearInterval(interval: number): void;
 
       clearTimeout(timeout: number): void;
@@ -1335,8 +1265,7 @@ declare namespace tinymce {
       setTimeout(callback: () => void, time: number): number;
     }
 
-    export interface EventDispatcher {
-
+    interface EventDispatcher {
       fire(name: string, args?: {}): {};
 
       has(name: string): boolean;
@@ -1350,8 +1279,7 @@ declare namespace tinymce {
       once(name: string, callback: () => void, first: boolean): {};
     }
 
-    export interface i18n {
-
+    interface i18n {
       rtl: boolean;
 
       add(code: string, items: Array<{}>): void;
@@ -1363,22 +1291,19 @@ declare namespace tinymce {
       translate(text: string): string;
     }
 
-    export interface JSON {
-
+    interface JSON {
       parse(s: string): {};
 
       serialize(obj: {}, quote?: string): string;
     }
 
-    export interface JSONRequest {
-
+    interface JSONRequest {
       send(args: {}): void;
 
       sendRPC(o: {}): void;
     }
 
-    export interface LocalStorage {
-
+    interface LocalStorage {
       length: number;
 
       clear(): void;
@@ -1392,8 +1317,7 @@ declare namespace tinymce {
       setItem(key: string, value: string): void;
     }
 
-    export class Observable {
-
+    class Observable {
       fire(name: string, args?: {}, bubble?: boolean): {};
 
       hasEventListeners(name: string): boolean;
@@ -1405,8 +1329,7 @@ declare namespace tinymce {
       once(name: string, callback: (event: any) => void): {};
     }
 
-    export interface Tools {
-
+    interface Tools {
       create(s: string, p: {}, root?: {}): void;
 
       createNS(n: string, o?: {}): {};
@@ -1436,8 +1359,7 @@ declare namespace tinymce {
       walk(o: {}, f: () => void, n?: string, s?: string): void;
     }
 
-    export interface URI {
-
+    interface URI {
       getURI(noProtoHost: boolean): URI;
 
       isSameOrigin(uri: util.URI): boolean;
@@ -1453,13 +1375,11 @@ declare namespace tinymce {
       toRelative(uri: string): string;
     }
 
-    export class URI implements URI {
-
+    class URI implements URI {
       constructor(url: string, settings?: {});
     }
 
-    export interface XHR {
-
+    interface XHR {
       fire(name: string, args?: {}, bubble?: boolean): {};
 
       hasEventListeners(name: string): boolean;
@@ -1472,6 +1392,5 @@ declare namespace tinymce {
 
       send(settings: {}): void;
     }
-
   }
 }

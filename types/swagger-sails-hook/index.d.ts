@@ -26,14 +26,13 @@ declare namespace SwaggerHook {
 	* @see {@link http://sailsjs.com/documentation/concepts/extending-sails/hooks/hook-specification|Sails Hook Docs}
 	* @see {@link http://sailsjs.com/documentation/anatomy/api/hooks/my-hook/index-js|Sails Hook Example}
 	*/
-	export interface SailsHook {
-
+	interface SailsHook {
 		/**
 		 * Perform startup tasks.
 		 * All Sails configuration is guaranteed to be completed before a hook’s initialize function runs.
 		 * @param {Function} done - called when `swagger-sails-hook`'s startup tasks have finished.
 		 */
-		initialize: (done: () => any) => void;
+		initialize(done: () => any): void;
 
 		/**
 		 * `swagger-sails-hook` specific route bound to a Sails app at load time.
@@ -48,7 +47,7 @@ declare namespace SwaggerHook {
 				 * This route will match any routes that aren't bound in the app via a custom route configuration
 				 * or a blueprint.
 				 */
-				"/*": (req: any, res: any, next: () => any) => any
+				"/*"(req: any, res: any, next: () => any): any
 			}
 		};
 	}

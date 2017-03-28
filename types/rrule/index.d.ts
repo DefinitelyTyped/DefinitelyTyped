@@ -13,12 +13,11 @@ export = RRule;
 // For CommonJS it must be imported as `require("rrule").RRule`.
 import RRuleAlias = RRule;
 declare module "rrule" {
-    export type RRule = RRuleAlias;
-    export const RRule: typeof RRuleAlias;
+    type RRule = RRuleAlias;
+    const RRule: typeof RRuleAlias;
 }
 
 declare namespace RRule {
-
     /**
     * see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
     * The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
@@ -52,11 +51,9 @@ declare namespace RRule {
 
         getJsWeekday(): number;
     }
-
 }
 
 declare class RRule {
-
     /**
     * @param {Object?} options - see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
     *        The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
@@ -123,11 +120,9 @@ declare class RRule {
     isFullyConvertibleToText(): boolean;
 
     clone(): RRule;
-
 }
 
 declare namespace RRule {
-
     const FREQUENCIES: "YEARLY" | "MONTHLY" | "WEEKLY" | "DAILY" | "HOURLY" | "MINUTELY" | "SECONDLY";
 
     enum Frequency {
