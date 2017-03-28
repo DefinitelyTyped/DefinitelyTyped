@@ -8,19 +8,19 @@ export {
     ArrowKeyStepper,
     ArrowKeyStepperProps,
     ChildProps as ArrowKeyStepperChildProps
-} from './ArrowKeyStepper'
+} from './dist/es/ArrowKeyStepper'
 export {
     AutoSizer,
     AutoSizerProps,
     Dimensions
-} from './AutoSizer'
+} from './dist/es/AutoSizer'
 export {
     CellMeasurer,
     CellMeasurerCache,
     CellMeasurerCacheParams,
     CellMeasurerProps,
     KeyMapper
-} from './CellMeasurer'
+} from './dist/es/CellMeasurer'
 export {
     Collection,
     CollectionCellGroupRenderer,
@@ -30,12 +30,12 @@ export {
     CollectionCellSizeAndPosition,
     CollectionCellSizeAndPositionGetter,
     CollectionProps
-} from './Collection'
+} from './dist/es/Collection'
 export {
     ColumnSizer,
     ColumnSizerProps,
     SizedColumnProps
-} from './ColumnSizer'
+} from './dist/es/ColumnSizer'
 export {
     defaultCellRangeRenderer,
     Grid,
@@ -56,18 +56,18 @@ export {
     SectionRenderedParams,
     SizeAndPositionData,
     VisibleCellRange
-} from './Grid'
+} from './dist/es/Grid'
 export {
     InfiniteLoader,
     InfiniteLoaderChildProps,
     InfiniteLoaderProps
-} from './InfiniteLoader'
+} from './dist/es/InfiniteLoader'
 export {
     List,
     ListProps,
     ListRowProps,
     ListRowRenderer
-} from './List'
+} from './dist/es/List'
 export {
     createCellPositioner as createMasonryCellPositioner,
     Masonry,
@@ -79,19 +79,19 @@ export {
     OnScrollCallback,
     Position,
     Positioner
-} from './Masonry'
+} from './dist/es/Masonry'
 export {
     MultiGrid,
     MultiGridProps,
     MultiGridState
-} from './MultiGrid'
+} from './dist/es/MultiGrid'
 export {
     ScrollSync,
     OnScrollParams,
     ScrollSyncChildProps,
     ScrollSyncProps,
     ScrollSyncState
-} from './ScrollSync'
+} from './dist/es/ScrollSync'
 export {
     defaultTableCellDataGetter,
     defaultTableCellRenderer,
@@ -117,22 +117,51 @@ export {
     TableProps,
     TableRowProps,
     TableRowRenderer
-} from './Table'
+} from './dist/es/Table'
 export {
     WindowScroller,
     WindowScrollerChildProps,
     WindowScrollerProps,
     WindowScrollerState
-} from './WindowScroller'
+} from './dist/es/WindowScroller'
 
-export {
-    Alignment,
-    Index,
-    IndexRange,
-    Map,
-    PositionInfo,
-    ScrollEventData,
-    ScrollPosition,
-    SizeAndPositionInfo,
-    SizeInfo
-} from './genericTypes'
+export type Index = {
+    index: number
+};
+
+export type PositionInfo = {
+    x: number,
+    y: number
+};
+
+export type ScrollPosition = {
+    scrollLeft: number,
+    scrollTop: number
+};
+
+export type SizeInfo = {
+    height: number,
+    width: number
+};
+
+export type SizeAndPositionInfo = SizeInfo & PositionInfo;
+
+export type Map<T> = { [key: string]: T };
+
+export type Alignment = 'auto' | 'end' | 'start' | 'center';
+
+export type IndexRange = {
+    startIndex: number,
+    stopIndex: number
+}
+
+export type OverscanIndexRange = {
+    overscanStartIndex: number,
+    overscanStopIndex: number,
+}
+
+export type ScrollEventData = {
+    clientHeight: number,
+    scrollHeight: number,
+    scrollTop: number
+}

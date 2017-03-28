@@ -1,4 +1,3 @@
-/** @flow */
 import { Validator, Requireable, PureComponent } from 'react'
 
 export type WindowScrollerChildProps = {

@@ -1,11 +1,10 @@
-/** @flow */
 import { PureComponent, Validator, Requireable } from 'react'
 import {
     Index,
     ScrollPosition,
     SizeInfo,
     SizeAndPositionInfo
-} from './genericTypes';
+} from '../../index';
 
 export type CollectionCellSizeAndPosition = { height: number, width: number, x: number, y: number };
 export type CollectionCellSizeAndPositionGetter = (params: Index) => CollectionCellSizeAndPosition;

@@ -1,9 +1,8 @@
-/** @flow */
 import { Validator, Requireable, PureComponent } from 'react'
 import { List } from './List';
 import { Table } from './Table';
 import { CellMeasurerCache } from './CellMeasurer';
-import { Index, Map, Alignment } from './genericTypes';
+import { Index, Map, Alignment } from '../../index';
 
 export type GridCellProps = {
     columnIndex: number;
