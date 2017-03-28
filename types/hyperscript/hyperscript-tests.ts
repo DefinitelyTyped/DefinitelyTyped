@@ -56,3 +56,17 @@ h2('a', {href: '#',
 }, "Click this")
 
 h2.cleanup()
+
+/* Polymorphic type tests */
+
+// determine proper HTMLElement type from tagName
+let test1: HTMLCanvasElement = h('canvas');
+
+// allow coercion of decorated tagName to proper type
+let test2: HTMLCanvasElement = h<HTMLCanvasElement>('canvas#test2');
+
+// inline coercion if you were feeling pedantic
+// example
+h<HTMLDivElement>('div#page',
+	h<HTMLDivElement>('div#header',
+		h<HTMLHeadingElement>('h1.classy', 'h', { style: {'background-color': '#22f'} })));
