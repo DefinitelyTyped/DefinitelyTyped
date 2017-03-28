@@ -94,3 +94,28 @@ function test_whiteRabbit() {
 
 
 }
+// Testing onsample
+// https://github.com/web-animations/web-animations-js/releases
+function test_onsample_And_addEventListener() {
+    var elem = document.createElement("div");
+    if (elem) {
+        elem.style.width = '150px';
+        elem.style.color = 'black';
+        elem.textContent = "HELLO";
+        document.body.appendChild(elem);
+        let myEffect = new KeyframeEffect(elem, [], 1000);
+        myEffect.onsample = (timeFraction, effect, animation) => {
+            console.log("fraction", timeFraction);
+            // After finish event, timeFraction is null
+            if (timeFraction) {
+                effect.target.style.opacity = timeFraction.toFixed(2);
+            }
+        };
+        // onsample is write only
+        console.log(myEffect.onsample); // => undefined
+        var myAnimation = document.timeline.play(myEffect);
+        myAnimation.addEventListener("finish", (e) => {
+            console.log("finished", e);
+        })
+    }
+}
