@@ -44,7 +44,7 @@ interface Select2Options {
     minimumInputLength?: number;
     maximumInputLength?: number;
     minimumResultsForSearch?: number;
-    maximumSelectionSize?: number;
+    maximumSelectionLength?: number;
     placeholder?: string | IdTextPair;
     separator?: string;
     allowClear?: boolean;
