@@ -10,6 +10,7 @@
 //                 Karol Janyst <https://github.com/LKay>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
