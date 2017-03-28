@@ -250,7 +250,7 @@ interface CheerioElement {
     tagName: string;
     type: string;
     name: string;
-    attribs: Object;
+    attribs: {[attr: string]: string};
     children: CheerioElement[];
     childNodes: CheerioElement[];
     lastChild: CheerioElement;

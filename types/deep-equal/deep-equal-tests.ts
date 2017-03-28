@@ -1,4 +1,3 @@
-
 import deepEqual = require("deep-equal");
 
 const isDeepEqual1: boolean = deepEqual({}, {});

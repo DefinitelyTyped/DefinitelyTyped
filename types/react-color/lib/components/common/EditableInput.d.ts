@@ -16,4 +16,3 @@ export interface EditableInputProps extends ClassAttributes<EditableInput> {
 }
 
 export default class EditableInput extends Component<EditableInputProps, any> {}
-

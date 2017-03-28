@@ -1,4 +1,4 @@
-// Type definitions for angular-formly 7.2.3
+// Type definitions for angular-formly 7.2.4
 // Project: https://github.com/formly-js/angular-formly
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -44,7 +44,7 @@ declare namespace AngularFormly {
 		data?: {
 			[key: string]: any;
 		};
-		fieldTransform?: Function;
+		fieldTransform?: Function | Array<Function>;
 		formState?: Object;
 		removeChromeAutoComplete?: boolean;
 		resetModel?: Function;
@@ -580,7 +580,7 @@ declare namespace AngularFormly {
 		defaultHideDirective: string;
 		errorExistsAndShouldBeVisibleExpression: any;
 		getFieldId: Function;
-		fieldTransform: Function;
+		fieldTransform: Function | Array<Function>;
 		explicitAsync: boolean;
 	}
 
