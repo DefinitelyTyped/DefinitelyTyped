@@ -7,8 +7,8 @@ import * as ng from 'angular';
 // BasicTasksJSOM.ts
 // Website tasks
 function retrieveWebsite(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
     clientContext.load(oWebsite);
 
     clientContext.executeQueryAsync(
@@ -25,9 +25,8 @@ function retrieveWebsite(resultpanel: HTMLElement) {
     }
 }
 function retrieveWebsiteProps(resultpanel: HTMLElement) {
-
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
 
     clientContext.load(oWebsite, "Description", "Created");
 
@@ -44,9 +43,8 @@ function retrieveWebsiteProps(resultpanel: HTMLElement) {
 }
 
 function writeWebsiteProps(resultpanel: HTMLElement) {
-
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
 
     oWebsite.set_description("This is an updated description.");
     oWebsite.update();
@@ -57,7 +55,6 @@ function writeWebsiteProps(resultpanel: HTMLElement) {
         successHandler,
         errorHandler
     );
-
 
     function successHandler() {
         resultpanel.innerHTML = "Web site description: " + oWebsite.get_description();
@@ -70,11 +67,10 @@ function writeWebsiteProps(resultpanel: HTMLElement) {
 
 // Lists tasks
 function readAllProps(resultpanel: HTMLElement) {
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
 
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-
-    var collList = oWebsite.get_lists();
+    const collList = oWebsite.get_lists();
     clientContext.load(collList);
 
     clientContext.executeQueryAsync(
@@ -83,12 +79,11 @@ function readAllProps(resultpanel: HTMLElement) {
     );
 
     function successHandler() {
+        const listEnumerator = collList.getEnumerator();
 
-        var listEnumerator = collList.getEnumerator();
-
-        var listInfo = "";
+        let listInfo = "";
         while (listEnumerator.moveNext()) {
-            var oList = listEnumerator.get_current();
+            const oList = listEnumerator.get_current();
             listInfo += "Title: " + oList.get_title() + " Created: " +
                 oList.get_created().toString() + "<br/>";
         }
@@ -102,11 +97,10 @@ function readAllProps(resultpanel: HTMLElement) {
 }
 
 function readSpecificProps(resultpanel: HTMLElement) {
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
 
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-
-    var collList = oWebsite.get_lists();
+    const collList = oWebsite.get_lists();
 
     clientContext.load(collList, "Include(Title, Id)");
 
@@ -116,12 +110,11 @@ function readSpecificProps(resultpanel: HTMLElement) {
     );
 
     function successHandler() {
+        const listEnumerator = collList.getEnumerator();
 
-        var listEnumerator = collList.getEnumerator();
-
-        var listInfo = "";
+        let listInfo = "";
         while (listEnumerator.moveNext()) {
-            var oList = listEnumerator.get_current();
+            const oList = listEnumerator.get_current();
             listInfo += "Title: " + oList.get_title() +
                 " ID: " + oList.get_id().toString() + "<br/>";
         }
@@ -135,12 +128,11 @@ function readSpecificProps(resultpanel: HTMLElement) {
 }
 
 function readColl(resultpanel: HTMLElement) {
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const collList = oWebsite.get_lists();
 
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var collList = oWebsite.get_lists();
-
-    var listInfoCollection = clientContext.loadQuery(collList, "Include(Title, Id)");
+    const listInfoCollection = clientContext.loadQuery(collList, "Include(Title, Id)");
 
     clientContext.executeQueryAsync(
         successHandler,
@@ -148,8 +140,8 @@ function readColl(resultpanel: HTMLElement) {
     );
 
     function successHandler() {
-        var listInfo = "";
-        for (var oList of listInfoCollection) {
+        let listInfo = "";
+        for (const oList of listInfoCollection) {
             listInfo += "Title: " + oList.get_title() +
                 " ID: " + oList.get_id().toString() + "<br/>";
         }
@@ -163,11 +155,11 @@ function readColl(resultpanel: HTMLElement) {
 }
 
 function readFilter(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var collList = oWebsite.get_lists();
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const collList = oWebsite.get_lists();
 
-    var listInfoArray = clientContext.loadQuery(collList,
+    const listInfoArray = clientContext.loadQuery(collList,
         "Include(Title,Fields.Include(Title,InternalName))");
 
     clientContext.executeQueryAsync(
@@ -176,15 +168,15 @@ function readFilter(resultpanel: HTMLElement) {
     );
 
     function successHandler() {
+        let listInfo = "";
 
-        for (var oList of listInfoArray) {
-            var collField = oList.get_fields();
-            var fieldEnumerator = collField.getEnumerator();
+        for (const oList of listInfoArray) {
+            const collField = oList.get_fields();
+            const fieldEnumerator = collField.getEnumerator();
 
-            var listInfo = "";
             while (fieldEnumerator.moveNext()) {
-                var oField = fieldEnumerator.get_current();
-                var regEx = new RegExp("name", "ig");
+                const oField = fieldEnumerator.get_current();
+                const regEx = new RegExp("name", "ig");
 
                 if (regEx.test(oField.get_internalName())) {
                     listInfo += "List: " + oList.get_title() +
@@ -204,15 +196,14 @@ function readFilter(resultpanel: HTMLElement) {
 
 // Create, update and delete lists
 function createList(resultpanel: HTMLElement) {
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
 
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-
-    var listCreationInfo = new SP.ListCreationInformation();
+    const listCreationInfo = new SP.ListCreationInformation();
     listCreationInfo.set_title("My Announcements List");
     listCreationInfo.set_templateType(SP.ListTemplateType.announcements);
 
-    var oList = oWebsite.get_lists().add(listCreationInfo);
+    const oList = oWebsite.get_lists().add(listCreationInfo);
     clientContext.load(oList);
 
     clientContext.executeQueryAsync(
@@ -230,11 +221,10 @@ function createList(resultpanel: HTMLElement) {
 }
 
 function updateList(resultpanel: HTMLElement) {
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
 
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-
-    var oList = oWebsite.get_lists().getByTitle("My Announcements List");
+    const oList = oWebsite.get_lists().getByTitle("My Announcements List");
     oList.set_description("New Announcements List");
     oList.update();
 
@@ -254,18 +244,17 @@ function updateList(resultpanel: HTMLElement) {
 }
 
 function addField(resultpanel: HTMLElement) {
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("My Announcements List");
 
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("My Announcements List");
-
-    var oField = oList.get_fields().addFieldAsXml(
+    const oField = oList.get_fields().addFieldAsXml(
         "<Field DisplayName='MyField' Type='Number' />",
         true,
         SP.AddFieldOptions.defaultValue
     );
 
-    var fieldNumber = clientContext.castTo(oField, SP.FieldNumber) as SP.FieldNumber;
+    const fieldNumber = clientContext.castTo(oField, SP.FieldNumber) as SP.FieldNumber;
     fieldNumber.set_maximumValue(100);
     fieldNumber.set_minimumValue(35);
     fieldNumber.update();
@@ -287,11 +276,11 @@ function addField(resultpanel: HTMLElement) {
 }
 
 function deleteList(resultpanel: HTMLElement) {
-    var listTitle = "My Announcements List";
+    const listTitle = "My Announcements List";
 
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle(listTitle);
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle(listTitle);
     oList.deleteObject();
 
     clientContext.executeQueryAsync(
@@ -310,14 +299,14 @@ function deleteList(resultpanel: HTMLElement) {
 
 // Create, update and delete folders
 function createFolder(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Shared Documents");
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Shared Documents");
 
-    var itemCreateInfo = new SP.ListItemCreationInformation();
+    const itemCreateInfo = new SP.ListItemCreationInformation();
     itemCreateInfo.set_underlyingObjectType(SP.FileSystemObjectType.folder);
     itemCreateInfo.set_leafName("My new folder!");
-    var oListItem = oList.addItem(itemCreateInfo);
+    const oListItem = oList.addItem(itemCreateInfo);
     oListItem.update();
 
     clientContext.load(oListItem);
@@ -336,11 +325,11 @@ function createFolder(resultpanel: HTMLElement) {
 }
 
 function updateFolder(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Shared Documents");
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Shared Documents");
 
-    var oListItem = oList.getItemById(1);
+    const oListItem = oList.getItemById(1);
     oListItem.set_item("FileLeafRef", "My updated folder");
     oListItem.update();
 
@@ -360,11 +349,11 @@ function updateFolder(resultpanel: HTMLElement) {
 }
 
 function deleteFolder(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Shared Documents");
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Shared Documents");
 
-    var oListItem = oList.getItemById(1);
+    const oListItem = oList.getItemById(1);
     oListItem.deleteObject();
 
     clientContext.executeQueryAsync(
@@ -383,16 +372,16 @@ function deleteFolder(resultpanel: HTMLElement) {
 
 // List item tasks
 function readItems(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Announcements");
-    var camlQuery = new SP.CamlQuery();
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Geq><FieldRef Name=\'ID\'/>' +
         '<Value Type=\'Number\'>1</Value></Geq></Where></Query>' +
         '<RowLimit>10</RowLimit></View>'
     );
-    var collListItem = oList.getItems(camlQuery);
+    const collListItem = oList.getItems(camlQuery);
 
     clientContext.load(collListItem);
     clientContext.executeQueryAsync(
@@ -401,11 +390,11 @@ function readItems(resultpanel: HTMLElement) {
     );
 
     function successHandler() {
-        var listItemEnumerator = collListItem.getEnumerator();
+        const listItemEnumerator = collListItem.getEnumerator();
 
-        var listItemInfo = "";
+        let listItemInfo = "";
         while (listItemEnumerator.moveNext()) {
-            var oListItem = listItemEnumerator.get_current();
+            const oListItem = listItemEnumerator.get_current();
             listItemInfo += "ID: " + oListItem.get_id() + "<br/>" +
                 "Title: " + oListItem.get_item("Title") + "<br/>" +
                 "Body: " + oListItem.get_item("Body") + "<br/>";
@@ -420,13 +409,13 @@ function readItems(resultpanel: HTMLElement) {
 }
 
 function readInclude(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Announcements");
-    var camlQuery = new SP.CamlQuery();
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml('<View><RowLimit>100</RowLimit></View>');
 
-    var collListItem = oList.getItems(camlQuery);
+    const collListItem = oList.getItems(camlQuery);
 
     clientContext.load(collListItem, "Include(Id, DisplayName, HasUniqueRoleAssignments)");
     clientContext.executeQueryAsync(
@@ -435,11 +424,11 @@ function readInclude(resultpanel: HTMLElement) {
     );
 
     function successHandler() {
-        var listItemEnumerator = collListItem.getEnumerator();
+        const listItemEnumerator = collListItem.getEnumerator();
 
-        var listItemInfo = "";
+        let listItemInfo = "";
         while (listItemEnumerator.moveNext()) {
-            var oListItem = listItemEnumerator.get_current();
+            const oListItem = listItemEnumerator.get_current();
             listItemInfo += "ID: " + oListItem.get_id() + "<br/>" +
                 "Display name: " + oListItem.get_displayName() + "<br/>" +
                 "Unique role assignments: " + oListItem.get_hasUniqueRoleAssignments() + "<br/>";
@@ -455,12 +444,12 @@ function readInclude(resultpanel: HTMLElement) {
 
 // Create, update and delete list items
 function createListItem(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Announcements");
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Announcements");
 
-    var itemCreateInfo = new SP.ListItemCreationInformation();
-    var oListItem = oList.addItem(itemCreateInfo);
+    const itemCreateInfo = new SP.ListItemCreationInformation();
+    const oListItem = oList.addItem(itemCreateInfo);
     oListItem.set_item("Title", "My New Item!");
     oListItem.set_item("Body", "Hello World!");
     oListItem.update();
@@ -481,11 +470,11 @@ function createListItem(resultpanel: HTMLElement) {
 }
 
 function updateListItem(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Announcements");
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Announcements");
 
-    var oListItem = oList.getItemById(1);
+    const oListItem = oList.getItemById(1);
     oListItem.set_item("Title", "My updated title");
     oListItem.update();
 
@@ -505,11 +494,11 @@ function updateListItem(resultpanel: HTMLElement) {
 }
 
 function deleteListItem(resultpanel: HTMLElement) {
-    var clientContext = SP.ClientContext.get_current();
-    var oWebsite = clientContext.get_web();
-    var oList = oWebsite.get_lists().getByTitle("Announcements");
+    const clientContext = SP.ClientContext.get_current();
+    const oWebsite = clientContext.get_web();
+    const oList = oWebsite.get_lists().getByTitle("Announcements");
 
-    var oListItem = oList.getItemById(1);
+    const oListItem = oList.getItemById(1);
     oListItem.deleteObject();
 
     clientContext.executeQueryAsync(
@@ -526,11 +515,8 @@ function deleteListItem(resultpanel: HTMLElement) {
     }
 }
 
-
-
 /** Lightweight client-side rendering template overrides.*/
 namespace CSR {
-
     export type UpdatedValueCallback = (value: any, fieldSchema?: SPClientTemplates.FieldSchema_InForm) => void;
 
     /** Creates new overrides. Call .register() at the end.*/
@@ -542,29 +528,27 @@ namespace CSR {
         function hookFormContext(ctx: FormRenderContexWithHook) {
             if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                 || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
-
-                for (var fieldSchemaInForm of ctx.ListSchema.Field) {
+                for (const fieldSchemaInForm of ctx.ListSchema.Field) {
                     if (!ctx.FormContextHook) {
                         ctx.FormContextHook = {};
 
-                        var oldRegisterGetValueCallback = ctx.FormContext.registerGetValueCallback;
+                        const oldRegisterGetValueCallback = ctx.FormContext.registerGetValueCallback;
                         ctx.FormContext.registerGetValueCallback = (fieldName, callback) => {
                             ctx.FormContextHook[fieldName].getValue = callback;
                             oldRegisterGetValueCallback(fieldName, callback);
                         };
 
-                        var oldUpdateControlValue = ctx.FormContext.updateControlValue;
+                        const oldUpdateControlValue = ctx.FormContext.updateControlValue;
                         ctx.FormContext.updateControlValue = (fieldName: string, value: any) => {
                             oldUpdateControlValue(fieldName, value);
 
-                            var hookedContext = ensureFormContextHookField(ctx.FormContextHook, fieldName);
+                            const hookedContext = ensureFormContextHookField(ctx.FormContextHook, fieldName);
                             hookedContext.lastValue = value;
 
-                            var updatedCallbacks = ctx.FormContextHook[fieldName].updatedValueCallbacks;
-                            for (var updatedCallback of updatedCallbacks) {
+                            const updatedCallbacks = ctx.FormContextHook[fieldName].updatedValueCallbacks;
+                            for (const updatedCallback of updatedCallbacks) {
                                 updatedCallback(value, hookedContext.fieldSchema);
                             }
-
                         };
                     }
                     ensureFormContextHookField(ctx.FormContextHook, fieldSchemaInForm.Name).fieldSchema = fieldSchemaInForm;
@@ -579,46 +563,42 @@ namespace CSR {
             }
 
             if (ctx.ListSchema.Field.length > 1) {
-                var wpq = ctx.FormUniqueId;
-                var webpart = $get('WebPart' + wpq);
-                var forms = webpart.getElementsByClassName('ms-formtable');
+                const wpq = ctx.FormUniqueId;
+                const webpart = $get('WebPart' + wpq);
+                const forms = webpart.getElementsByClassName('ms-formtable');
 
                 if (forms.length > 0) {
-                    var placeholder = $get(wpq + 'ClientFormTopContainer');
-                    var fragment = document.createDocumentFragment();
-                    for (var i = 0; i < placeholder.children.length; i++) {
+                    const placeholder = $get(wpq + 'ClientFormTopContainer');
+                    const fragment = document.createDocumentFragment();
+                    for (let i = 0; i < placeholder.children.length; i++) {
                         fragment.appendChild(placeholder.children.item(i));
                     }
 
-                    var form = forms.item(0);
+                    const form = forms.item(0);
                     form.parentNode.replaceChild(fragment, form);
                 }
 
-                var old = ctx.CurrentItem;
+                const old = ctx.CurrentItem;
                 ctx.CurrentItem = ctx.ListData.Items[0];
-                var fields = ctx.ListSchema.Field;
-                for (var field of fields) {
-                    var pHolderId = wpq + ctx.FormContext.listAttributes.Id + field.Name;
-                    var span = $get(pHolderId);
+                const fields = ctx.ListSchema.Field;
+                for (const field of fields) {
+                    const pHolderId = wpq + ctx.FormContext.listAttributes.Id + field.Name;
+                    const span = $get(pHolderId);
                     if (span) {
                         span.outerHTML = ctx.RenderFieldByName(ctx, field.Name);
                     }
                 }
                 ctx.CurrentItem = old;
             }
-
         }
-
-
     }
 
-
     // typescripttempltes.ts
-    declare var Strings: any;
+    declare const Strings: any;
     export function getFieldValue(ctx: SPClientTemplates.RenderContext_Form, fieldName: string): any {
         if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
             || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
-            var contextWithHook = ctx as FormRenderContexWithHook;
+            const contextWithHook = ctx as FormRenderContexWithHook;
             if (contextWithHook.FormContextHook
                 && contextWithHook.FormContextHook[fieldName]
                 && contextWithHook.FormContextHook[fieldName].getValue) {
@@ -631,7 +611,7 @@ namespace CSR {
     export function getFieldSchema(ctx: SPClientTemplates.RenderContext_Form, fieldName: string): SPClientTemplates.FieldSchema_InForm {
         if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
             || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
-            var contextWithHook = ctx as FormRenderContexWithHook;
+            const contextWithHook = ctx as FormRenderContexWithHook;
             if (contextWithHook.FormContextHook
                 && contextWithHook.FormContextHook[fieldName]) {
                 return contextWithHook.FormContextHook[fieldName].fieldSchema;
@@ -643,10 +623,10 @@ namespace CSR {
     export function addUpdatedValueCallback(ctx: SPClientTemplates.RenderContext_Form, fieldName: string, callback: UpdatedValueCallback): void {
         if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
             || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
-            var contextWithHook = ctx as FormRenderContexWithHook;
+            const contextWithHook = ctx as FormRenderContexWithHook;
             if (contextWithHook.FormContextHook) {
-                var f = ensureFormContextHookField(contextWithHook.FormContextHook, fieldName);
-                var callbacks = f.updatedValueCallbacks;
+                const f = ensureFormContextHookField(contextWithHook.FormContextHook, fieldName);
+                const callbacks = f.updatedValueCallbacks;
                 if (callbacks.indexOf(callback) === -1) {
                     callbacks.push(callback);
                     if (f.lastValue) {
@@ -655,16 +635,15 @@ namespace CSR {
                 }
             }
         }
-
     }
 
     export function removeUpdatedValueCallback(ctx: SPClientTemplates.RenderContext_Form, fieldName: string, callback: UpdatedValueCallback): void {
         if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
             || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
-            var contextWithHook = ctx as FormRenderContexWithHook;
+            const contextWithHook = ctx as FormRenderContexWithHook;
             if (contextWithHook.FormContextHook) {
-                var callbacks = ensureFormContextHookField(contextWithHook.FormContextHook, fieldName).updatedValueCallbacks;
-                var index = callbacks.indexOf(callback);
+                const callbacks = ensureFormContextHookField(contextWithHook.FormContextHook, fieldName).updatedValueCallbacks;
+                const index = callbacks.indexOf(callback);
                 if (index !== -1) {
                     callbacks.splice(index, 1);
                 }
@@ -673,26 +652,23 @@ namespace CSR {
     }
 
     export function getControl(schema: SPClientTemplates.FieldSchema_InForm): HTMLInputElement {
-        var id = schema.Name + '_' + schema.Id + '_$' + schema.FieldType + 'Field';
+        const id = schema.Name + '_' + schema.Id + '_$' + schema.FieldType + 'Field';
         // TODO: Handle different input types
         return $get(id) as HTMLInputElement;
     }
 
     export function getFieldTemplate(field: SPClientTemplates.FieldSchema, mode: SPClientTemplates.ClientControlMode): SPClientTemplates.FieldCallback {
-        var ctx = { ListSchema: { Field: [field] }, FieldControlModes: {} };
+        const ctx = { ListSchema: { Field: [field] }, FieldControlModes: {} };
         ctx.FieldControlModes[field.Name] = mode;
-        var templates = SPClientTemplates.TemplateManager.GetTemplates(ctx);
+        const templates = SPClientTemplates.TemplateManager.GetTemplates(ctx);
         return templates.Fields[field.Name];
     }
 
-
     class csr implements CSR, SPClientTemplates.TemplateOverridesOptions {
-
         Templates: SPClientTemplates.TemplateOverrides;
         OnPreRender: SPClientTemplates.RenderCallback[];
         OnPostRender: SPClientTemplates.RenderCallback[];
         private IsRegistered: boolean;
-
 
         constructor(public ListTemplateType?: number, public BaseViewID?: any) {
             this.Templates = { Fields: {} };
@@ -765,14 +741,14 @@ namespace CSR {
 
         /* common */
         onPreRender(...callbacks: Array<(ctx: SPClientTemplates.RenderContext) => void>): CSR {
-            for (var cb of callbacks) {
+            for (const cb of callbacks) {
                 this.OnPreRender.push(cb);
             }
             return this;
         }
 
         onPostRender(...callbacks: Array<(ctx: SPClientTemplates.RenderContext) => void>): CSR {
-            for (var cb of callbacks) {
+            for (const cb of callbacks) {
                 this.OnPostRender.push(cb);
             }
             return this;
@@ -780,12 +756,12 @@ namespace CSR {
 
         onPreRenderField(field: string, callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void): CSR {
             return this.onPreRender((ctx: SPClientTemplates.RenderContext) => {
-                var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
+                const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
                 // ListSchema schma exists in Form and in View render context
-                var fields = ctxInView.ListSchema.Field;
+                const fields = ctxInView.ListSchema.Field;
                 if (fields) {
-                    for (var innerField of fields) {
+                    for (const innerField of fields) {
                         if (innerField.Name === field) {
                             callback(innerField, ctx);
                         }
@@ -796,12 +772,12 @@ namespace CSR {
 
         onPostRenderField(field: string, callback: (schema: SPClientTemplates.FieldSchema, ctx: SPClientTemplates.RenderContext) => void): CSR {
             return this.onPostRender((ctx: SPClientTemplates.RenderContext) => {
-                var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
+                const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
                 // ListSchema schma exists in Form and in View render context
-                var fields = ctxInView.ListSchema.Field;
+                const fields = ctxInView.ListSchema.Field;
                 if (fields) {
-                    for (var innerField of fields) {
+                    for (const innerField of fields) {
                         if (innerField.Name === field) {
                             callback(innerField, ctx);
                         }
@@ -819,33 +795,28 @@ namespace CSR {
                     (schema as SPClientTemplates.FieldSchema_InView).ReadOnly = "TRUE";
 
                     if (ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
-                        var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
+                        const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
                         if (ctxInView.inGridMode) {
                             // TODO: Disable editing in grid mode
-
                         }
-
                     } else {
-                        var ctxInForm = ctx as SPClientTemplates.RenderContext_FieldInForm;
+                        const ctxInForm = ctx as SPClientTemplates.RenderContext_FieldInForm;
                         if (schema.Type !== 'User' && schema.Type !== 'UserMulti') {
-
-                            var template = getFieldTemplate(schema, SPClientTemplates.ClientControlMode.DisplayForm);
+                            const template = getFieldTemplate(schema, SPClientTemplates.ClientControlMode.DisplayForm);
                             ctxInForm.Templates.Fields[fieldName] = template;
                             ctxInForm.FormContext.registerGetValueCallback(fieldName, () => ctxInForm.ListData.Items[0][fieldName]);
-
                         }
                     }
-
                 })
                 .onPostRenderField(fieldName, (schema: SPClientTemplates.FieldSchema_InForm_User, ctx) => {
                     if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                         || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
                         if (schema.Type === 'User' || schema.Type === 'UserMulti') {
                             SP.SOD.executeFunc('clientpeoplepicker.js', 'SPClientPeoplePicker', () => {
-                                var topSpanId = schema.Name + '_' + schema.Id + '_$ClientPeoplePicker';
-                                var retryCount = 10;
-                                var callback = () => {
-                                    var pp = SPClientPeoplePicker.SPClientPeoplePickerDict[topSpanId];
+                                const topSpanId = schema.Name + '_' + schema.Id + '_$ClientPeoplePicker';
+                                let retryCount = 10;
+                                const callback = () => {
+                                    const pp = SPClientPeoplePicker.SPClientPeoplePickerDict[topSpanId];
                                     if (!pp) {
                                         if (retryCount--) setTimeout(callback, 1);
                                     } else {
@@ -866,54 +837,46 @@ namespace CSR {
                 (schema as SPClientTemplates.FieldSchema_InForm).Hidden = true;
 
                 if (ctx.ControlMode === SPClientTemplates.ClientControlMode.View) {
-                    var ctxInView = ctx as SPClientTemplates.RenderContext_InView;
+                    const ctxInView = ctx as SPClientTemplates.RenderContext_InView;
 
                     if (ctxInView.inGridMode) {
                         // TODO: Hide item in grid mode
                     } else {
                         ctxInView.ListSchema.Field.splice(ctxInView.ListSchema.Field.indexOf(schema), 1);
                     }
-
                 } else {
-                    var ctxInForm = ctx as SPClientTemplates.RenderContext_Form;
+                    const ctxInForm = ctx as SPClientTemplates.RenderContext_Form;
 
-                    var pHolderId = ctxInForm.FormUniqueId + ctxInForm.FormContext.listAttributes.Id + fieldName;
-                    var placeholder = $get(pHolderId);
-                    var current = placeholder;
+                    const pHolderId = ctxInForm.FormUniqueId + ctxInForm.FormContext.listAttributes.Id + fieldName;
+                    const placeholder = $get(pHolderId);
+                    let current = placeholder;
                     while (current.tagName.toUpperCase() !== "TR") {
                         current = current.parentElement;
                     }
-                    var row = current as HTMLTableRowElement;
+                    const row = current as HTMLTableRowElement;
                     row.style.display = 'none';
-
                 }
-
             });
         }
 
         filteredLookup(fieldName: string, camlFilter: string, listname?: string, lookupField?: string): CSR {
-
-
             return this.fieldEdit(fieldName, SPFieldCascadedLookup_Edit)
                 .fieldNew(fieldName, SPFieldCascadedLookup_Edit);
 
-
             function SPFieldCascadedLookup_Edit(rCtx: SPClientTemplates.RenderContext_FieldInForm) {
-
-                var parseRegex = /\{[^\}]+\}/g;
-                var dependencyExpressions: string[] = [];
-                var result: RegExpExecArray;
+                const parseRegex = /\{[^\}]+\}/g;
+                const dependencyExpressions: string[] = [];
+                let result: RegExpExecArray;
                 function nextResult() {
                    return result = parseRegex.exec(camlFilter);
                 }
                 while (nextResult()) {
                     dependencyExpressions.push(stripBraces(result[0]));
                 }
-                var dependencyValues: { [expr: string]: string } = {};
+                const dependencyValues: { [expr: string]: string } = {};
 
-                var _dropdownElt: HTMLSelectElement;
-                var _myData: SPClientTemplates.ClientFormContext;
-
+                let _dropdownElt: HTMLSelectElement;
+                let _myData: SPClientTemplates.ClientFormContext;
 
                 if (rCtx == null)
                     return '';
@@ -922,10 +885,9 @@ namespace CSR {
                 if (_myData == null || _myData.fieldSchema == null)
                     return '';
 
+                const _schema = _myData.fieldSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
 
-                var _schema = _myData.fieldSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
-
-                var validators = new SPClientForms.ClientValidation.ValidatorSet();
+                const validators = new SPClientForms.ClientValidation.ValidatorSet();
                 validators.RegisterValidator(new BooleanValueValidator(() => _optionsLoaded, "Wait until lookup values loaded and try again"));
 
                 if (_myData.fieldSchema.Required) {
@@ -933,12 +895,12 @@ namespace CSR {
                 }
                 _myData.registerClientValidator(_myData.fieldName, validators);
 
-                var _dropdownId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$LookupField';
-                var _valueStr = _myData.fieldValue != null ? _myData.fieldValue : '';
-                var _selectedValue = SPClientTemplates.Utility.ParseLookupValue(_valueStr).LookupId;
-                var _noValueSelected = _selectedValue === 0;
-                var _optionsLoaded = false;
-                var pendingLoads = 0;
+                const _dropdownId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$LookupField';
+                let _valueStr = _myData.fieldValue != null ? _myData.fieldValue : '';
+                let _selectedValue = SPClientTemplates.Utility.ParseLookupValue(_valueStr).LookupId;
+                const _noValueSelected = _selectedValue === 0;
+                let _optionsLoaded = false;
+                let pendingLoads = 0;
 
                 if (_noValueSelected)
                     _valueStr = '';
@@ -968,14 +930,12 @@ namespace CSR {
                     });
                 }
 
-
                 function BuildLookupDropdownControl() {
-                    var result = '<span dir="' + STSHtmlEncode(_myData.fieldSchema.Direction) + '">';
+                    let result = '<span dir="' + STSHtmlEncode(_myData.fieldSchema.Direction) + '">';
                     result += '<select id="' + STSHtmlEncode(_dropdownId) + '" title="' + STSHtmlEncode(_myData.fieldSchema.Title) + '">';
                     result += '</select><br/></span>';
                     return result;
                 }
-
 
                 function OnLookupValueChanged() {
                     if (_optionsLoaded) {
@@ -997,9 +957,9 @@ namespace CSR {
                 }
 
                 function getDependencyValue(expr: string, value: string, listId: string, expressionParts: string[], callback: () => void) {
-                    var isLookupValue = !!listId;
+                    const isLookupValue = !!listId;
                     if (isLookupValue) {
-                        var lookup = SPClientTemplates.Utility.ParseLookupValue(value);
+                        const lookup = SPClientTemplates.Utility.ParseLookupValue(value);
                         if (expressionParts.length === 1 && expressionParts[0] === 'Value') {
                             value = lookup.LookupValue;
                             expressionParts.shift();
@@ -1012,35 +972,34 @@ namespace CSR {
                         dependencyValues[expr] = value;
                         callback();
                     } else {
-                        var ctx = SP.ClientContext.get_current();
-                        var web = ctx.get_web();
+                        const ctx = SP.ClientContext.get_current();
+                        const web = ctx.get_web();
                         // TODO: Handle lookup to another web
-                        var list = web.get_lists().getById(listId);
-                        var item = list.getItemById(parseInt(value, 10));
-                        var field = list.get_fields().getByInternalNameOrTitle(expressionParts.shift());
+                        const list = web.get_lists().getById(listId);
+                        const item = list.getItemById(parseInt(value, 10));
+                        let field = list.get_fields().getByInternalNameOrTitle(expressionParts.shift());
                         ctx.load(item);
                         ctx.load(field);
 
                         ctx.executeQueryAsync((o, e) => {
-                            var value = item.get_item(field.get_internalName());
+                            let value = item.get_item(field.get_internalName());
 
                             if (field.get_typeAsString() === 'Lookup') {
                                 field = ctx.castTo(field, SP.FieldLookup) as SP.Field;
-                                var lookup = (value as SP.FieldLookupValue);
+                                const lookup = (value as SP.FieldLookupValue);
                                 value = lookup.get_lookupId() + ';#' + lookup.get_lookupValue();
                                 listId = (field as SP.FieldLookup).get_lookupList();
                             }
 
                             getDependencyValue(expr, value, listId, expressionParts, callback);
-
                         }, (o, args) => { console.log(args.get_message()); });
                     }
                 }
 
                 function bindDependentControls(dependencyExpressions: string[]) {
                     dependencyExpressions.forEach(expr => {
-                        var exprParts = expr.split(".");
-                        var field = exprParts.shift();
+                        const exprParts = expr.split(".");
+                        const field = exprParts.shift();
 
                         CSR.addUpdatedValueCallback(rCtx, field,
                             (v, s) => {
@@ -1049,24 +1008,22 @@ namespace CSR {
                                     exprParts.slice(0),
                                     loadOptions);
                             });
-
                     });
                 }
-
 
                 function loadOptions(isFirstLoad?: boolean) {
                     _optionsLoaded = false;
                     pendingLoads++;
 
-                    var ctx = SP.ClientContext.get_current();
+                    const ctx = SP.ClientContext.get_current();
                     // TODO: Handle lookup to another web
-                    var web = ctx.get_web();
-                    var listId = _schema.LookupListId;
-                    var list = !listname ? web.get_lists().getById(listId) : web.get_lists().getByTitle(listname);
-                    var query = new SP.CamlQuery();
+                    const web = ctx.get_web();
+                    const listId = _schema.LookupListId;
+                    const list = !listname ? web.get_lists().getById(listId) : web.get_lists().getByTitle(listname);
+                    const query = new SP.CamlQuery();
 
-                    var predicate = camlFilter.replace(parseRegex, (v, a) => {
-                        var expr = stripBraces(v);
+                    const predicate = camlFilter.replace(parseRegex, (v, a) => {
+                        const expr = stripBraces(v);
                         return dependencyValues[expr] ? dependencyValues[expr] : '';
                     });
 
@@ -1079,43 +1036,42 @@ namespace CSR {
                             '</Where></Query> ' +
                             '<ViewFields><FieldRef Name="ID" /><FieldRef Name="Title"/></ViewFields></View>');
                     }
-                    var results = list.getItems(query);
+                    const results = list.getItems(query);
                     ctx.load(results);
 
-
                     ctx.executeQueryAsync((o, e) => {
-                        var selected = false;
+                        let selected = false;
 
                         while (_dropdownElt.options.length) {
                             (_dropdownElt.options as any /* TODO remove `as any` */).remove(0);
                         }
 
                         if (!_schema.Required) {
-                            var defaultOpt = new Option(Strings.STS.L_LookupFieldNoneOption, '0', selected, selected);
+                            const defaultOpt = new Option(Strings.STS.L_LookupFieldNoneOption, '0', selected, selected);
                             (_dropdownElt.options as any /* TODO remove `as any` */).add(defaultOpt);
                             selected = _selectedValue === 0;
                         }
-                        var isEmptyList = true;
+                        let isEmptyList = true;
 
-                        var enumerator = results.getEnumerator();
+                        const enumerator = results.getEnumerator();
                         while (enumerator.moveNext()) {
-                            var c = enumerator.get_current();
-                            var id: number;
-                            var text: string;
+                            const c = enumerator.get_current();
+                            let id: number;
+                            let text: string;
 
                             if (!lookupField) {
                                 id = c.get_id();
                                 text = c.get_item('Title');
                             } else {
-                                var value = c.get_item(lookupField) as SP.FieldLookupValue;
+                                const value = c.get_item(lookupField) as SP.FieldLookupValue;
                                 id = value.get_lookupId();
                                 text = value.get_lookupValue();
                             }
-                            var isSelected = _selectedValue === id;
+                            const isSelected = _selectedValue === id;
                             if (isSelected) {
                                 selected = true;
                             }
-                            var opt = new Option(text, id.toString(), isSelected, isSelected);
+                            const opt = new Option(text, id.toString(), isSelected, isSelected);
                             (_dropdownElt.options as any /* TODO remove `as any` */).add(opt);
                             isEmptyList = false;
                         }
@@ -1134,30 +1090,25 @@ namespace CSR {
                                 OnLookupValueChanged();
                             }
                         }
-
-
                     }, (o, args) => { console.log(args.get_message()); });
                 }
             }
-
         }
 
         koEditField(fieldName: string, template: string, vm: KoFieldInForm, dependencyFields?: string[]): CSR {
             return this.fieldEdit(fieldName, koEditField_Edit)
                 .fieldNew(fieldName, koEditField_Edit);
 
-
             function koEditField_Edit(rCtx: SPClientTemplates.RenderContext_FieldInForm) {
                 if (rCtx == null)
                     return '';
-                var _myData = SPClientTemplates.Utility.GetFormContextForCurrentField(rCtx);
+                const _myData = SPClientTemplates.Utility.GetFormContextForCurrentField(rCtx);
 
                 if (_myData == null || _myData.fieldSchema == null)
                     return '';
-                var elementId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$' + _myData.fieldSchema.Type;
+                const elementId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$' + _myData.fieldSchema.Type;
 
                 vm.renderingContext = rCtx;
-
 
                 if (dependencyFields) {
                     dependencyFields.forEach(dependencyField => {
@@ -1170,14 +1121,12 @@ namespace CSR {
                     });
                 }
 
-
                 if (!vm.value) {
                     vm.value = ko.observable<any>();
                 }
 
                 vm.value.subscribe(v => { _myData.updateControlValue(fieldName, v); });
                 _myData.registerGetValueCallback(fieldName, () => vm.value());
-
 
                 _myData.registerInitCallback(fieldName, () => {
                     ko.applyBindings(vm, $get(elementId));
@@ -1188,18 +1137,17 @@ namespace CSR {
         }
 
         computedValue(targetField: string, transform: (...values: string[]) => string, ...sourceField: string[]): CSR {
-            var dependentValues: { [field: string]: string } = {};
+            const dependentValues: { [field: string]: string } = {};
 
             return this.onPostRenderField(targetField, (schema: SPClientTemplates.FieldSchema_InForm, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
                 if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                     || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm) {
-                    var targetControl = CSR.getControl(schema as SPClientTemplates.FieldSchema_InForm);
+                    const targetControl = CSR.getControl(schema as SPClientTemplates.FieldSchema_InForm);
                     sourceField.forEach((field) => {
                         CSR.addUpdatedValueCallback(ctx, field, v => {
                             dependentValues[field] = v;
                             targetControl.value = transform.apply(this,
                                 sourceField.map(n => dependentValues[n] || ''));
-
                         });
                     });
                 }
@@ -1216,7 +1164,6 @@ namespace CSR {
             }
         }
 
-
         autofill(fieldName: string, init: (ctx: AutoFillFieldContext) => () => void): CSR {
             return this
                 .fieldNew(fieldName, SPFieldLookup_Autofill_Edit)
@@ -1225,17 +1172,17 @@ namespace CSR {
             function SPFieldLookup_Autofill_Edit(rCtx: SPClientTemplates.RenderContext_FieldInForm) {
                 if (rCtx == null)
                     return '';
-                var _myData = SPClientTemplates.Utility.GetFormContextForCurrentField(rCtx);
+                const _myData = SPClientTemplates.Utility.GetFormContextForCurrentField(rCtx);
 
                 if (_myData == null || _myData.fieldSchema == null)
                     return '';
 
-                var _autoFillControl: SPClientAutoFill;
-                var _textInputElt: HTMLInputElement;
-                var _textInputId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$' + _myData.fieldSchema.Type + 'Field';
-                var _autofillContainerId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$AutoFill';
+                let _autoFillControl: SPClientAutoFill;
+                let _textInputElt: HTMLInputElement;
+                const _textInputId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$' + _myData.fieldSchema.Type + 'Field';
+                const _autofillContainerId = _myData.fieldName + '_' + _myData.fieldSchema.Id + '_$AutoFill';
 
-                var validators = new SPClientForms.ClientValidation.ValidatorSet();
+                const validators = new SPClientForms.ClientValidation.ValidatorSet();
                 if (_myData.fieldSchema.Required) {
                     validators.RegisterValidator(new SPClientForms.ClientValidation.RequiredValidator());
                 }
@@ -1259,7 +1206,7 @@ namespace CSR {
 
                     SP.SOD.executeFunc("autofill.js", "SPClientAutoFill", () => {
                         _autoFillControl = new SPClientAutoFill(_textInputId, _autofillContainerId, (_) => callback());
-                        var callback = init({
+                        const callback = init({
                             renderContext: rCtx,
                             fieldContext: _myData,
                             autofill: _autoFillControl,
@@ -1270,10 +1217,8 @@ namespace CSR {
                         // _autoFillControl.VisibleItemCount = 15;
                         // _autoFillControl.AutoFillTimeout = 500;
                     });
-
                 }
                 // function OnPopulate(targetElement: HTMLInputElement) {
-
                 // }
 
                 // function OnLookupValueChanged() {
@@ -1283,7 +1228,7 @@ namespace CSR {
                 //    return _valueStr;
                 // }
                 function buildAutoFillControl() {
-                    var result: string[] = [];
+                    const result: string[] = [];
                     result.push('<div dir="' + STSHtmlEncode(_myData.fieldSchema.Direction) + '" style="position: relative;">');
                     result.push('<input type="text" id="' + STSHtmlEncode(_textInputId) + '" title="' + STSHtmlEncode(_myData.fieldSchema.Title) + '"/>');
 
@@ -1293,21 +1238,19 @@ namespace CSR {
                     return result.join("");
                 }
             }
-
-
         }
 
         seachLookup(fieldName: string): CSR {
             return this.autofill(fieldName, (ctx: AutoFillFieldContext) => {
-                var _myData = ctx.fieldContext;
-                var _schema = _myData.fieldSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
+                const _myData = ctx.fieldContext;
+                const _schema = _myData.fieldSchema as SPClientTemplates.FieldSchema_InForm_Lookup;
                 if (_myData.fieldSchema.Type !== 'Lookup') {
                     return null;
                 }
 
-                var _valueStr = _myData.fieldValue != null ? _myData.fieldValue : '';
-                var _selectedValue = SPClientTemplates.Utility.ParseLookupValue(_valueStr);
-                var _noValueSelected = _selectedValue.LookupId === 0;
+                const _valueStr = _myData.fieldValue != null ? _myData.fieldValue : '';
+                const _selectedValue = SPClientTemplates.Utility.ParseLookupValue(_valueStr);
+                const _noValueSelected = _selectedValue.LookupId === 0;
                 ctx.control.value = _selectedValue.LookupValue;
                 $addHandler(ctx.control, "blur", _ => {
                     if (ctx.control.value === '') {
@@ -1319,39 +1262,39 @@ namespace CSR {
                 if (_noValueSelected)
                     _myData.fieldValue = '';
 
-                var _autoFillControl = ctx.autofill;
+                const _autoFillControl = ctx.autofill;
                 _autoFillControl.AutoFillMinTextLength = 2;
                 _autoFillControl.VisibleItemCount = 15;
                 _autoFillControl.AutoFillTimeout = 500;
 
                 return () => {
-                    var value = ctx.control.value;
+                    const value = ctx.control.value;
                     _autoFillControl.PopulateAutoFill([AutoFillOptionBuilder.buildLoadingItem('Please wait...')], onSelectItem);
 
                     SP.SOD.executeFunc("sp.search.js", "Microsoft.SharePoint.Client.Search.Query", () => {
-                        var Search = Microsoft.SharePoint.Client.Search.Query;
-                        var ctx = SP.ClientContext.get_current();
-                        var query = new Search.KeywordQuery(ctx);
+                        const Search = Microsoft.SharePoint.Client.Search.Query;
+                        const ctx = SP.ClientContext.get_current();
+                        const query = new Search.KeywordQuery(ctx);
                         query.set_rowLimit(_autoFillControl.VisibleItemCount);
                         query.set_queryText('contentclass:STS_ListItem ListID:{' + _schema.LookupListId + '} ' + value);
-                        var selectProps = query.get_selectProperties();
+                        const selectProps = query.get_selectProperties();
                         selectProps.clear();
                         // TODO: Handle ShowField attribute
                         selectProps.add('Title');
                         selectProps.add('ListItemId');
-                        var executor = new Search.SearchExecutor(ctx);
-                        var result = executor.executeQuery(query);
+                        const executor = new Search.SearchExecutor(ctx);
+                        const result = executor.executeQuery(query);
                         ctx.executeQueryAsync(
                             () => {
                                 // TODO: Discover proper way to load collection
-                                var tableCollection = new Search.ResultTableCollection();
+                                const tableCollection = new Search.ResultTableCollection();
                                 tableCollection.initPropertiesFromJson(result.get_value());
 
-                                var relevantResults = tableCollection.get_item(0);
-                                var rows = relevantResults.get_resultRows();
+                                const relevantResults = tableCollection.get_item(0);
+                                const rows = relevantResults.get_resultRows();
 
-                                var items = [];
-                                for (var row of rows) {
+                                const items = [];
+                                for (const row of rows) {
                                     items.push(AutoFillOptionBuilder.buildOptionItem(parseInt(row["ListItemId"], 10), row["Title"]));
                                 }
 
@@ -1363,7 +1306,6 @@ namespace CSR {
                                     items.push(AutoFillOptionBuilder.buildFooterItem("Showing " + rows.length + " of" + relevantResults.get_totalRows() + " items!"));
 
                                 _autoFillControl.PopulateAutoFill(items, onSelectItem);
-
                             },
                             (sender, args) => {
                                 _autoFillControl.PopulateAutoFill([AutoFillOptionBuilder.buildFooterItem("Error executing query/ See log for details.")], onSelectItem);
@@ -1373,36 +1315,36 @@ namespace CSR {
                 };
 
                 function onSelectItem(targetInputId, item: ISPClientAutoFillData) {
-                    var targetElement = ctx.control;
+                    const targetElement = ctx.control;
                     targetElement.value = item[SPClientAutoFill.DisplayTextProperty];
                     _selectedValue.LookupId = item[SPClientAutoFill.KeyProperty];
                     _selectedValue.LookupValue = item[SPClientAutoFill.DisplayTextProperty];
                     _myData.fieldValue = item[SPClientAutoFill.KeyProperty] + ';#' + item[SPClientAutoFill.TitleTextProperty];
                     _myData.updateControlValue(_myData.fieldSchema.Name, _myData.fieldValue);
                 }
-
             });
         }
 
         lookupAddNew(fieldName: string, prompt: string, showDialog?: boolean, contentTypeId?: string): CSR {
             return this.onPostRenderField(fieldName,
                 (schema: SPClientTemplates.FieldSchema_InForm_Lookup, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
+                    let control: HTMLInputElement;
                     if (ctx.ControlMode === SPClientTemplates.ClientControlMode.EditForm
                         || ctx.ControlMode === SPClientTemplates.ClientControlMode.NewForm)
 
-                        var control = CSR.getControl(schema);
+                        control = CSR.getControl(schema);
                     if (control) {
-                        var weburl = _spPageContextInfo.webServerRelativeUrl;
+                        let weburl = _spPageContextInfo.webServerRelativeUrl;
                         if (weburl[weburl.length - 1] === '/') {
                             weburl = weburl.substring(0, weburl.length - 1);
                         }
-                        var newFormUrl = weburl + '/_layouts/listform.aspx/listform.aspx?PageType=8'
+                        let newFormUrl = weburl + '/_layouts/listform.aspx/listform.aspx?PageType=8'
                             + "&ListId=" + encodeURIComponent('{' + schema.LookupListId + '}');
                         if (contentTypeId) {
                             newFormUrl += '&ContentTypeId=' + contentTypeId;
                         }
 
-                        var link = document.createElement('a');
+                        const link = document.createElement('a');
                         link.href = "javascript:NewItem2(event, \'" + newFormUrl + "&Source=" + encodeURIComponent(document.location.href) + "')";
                         link.textContent = prompt;
                         if (control.nextElementSibling) {
@@ -1433,9 +1375,8 @@ namespace CSR {
     }
 
     export class AutoFillOptionBuilder {
-
         static buildFooterItem(title: string): ISPClientAutoFillData {
-            var item = {};
+            const item = {};
 
             item[SPClientAutoFill.DisplayTextProperty] = title;
             item[SPClientAutoFill.MenuOptionTypeProperty] = SPClientAutoFill.MenuOptionType.Footer;
@@ -1444,8 +1385,7 @@ namespace CSR {
         }
 
         static buildOptionItem(id: number, title: string, displayText?: string, subDisplayText?: string): ISPClientAutoFillData {
-
-            var item = {};
+            const item = {};
 
             item[SPClientAutoFill.KeyProperty] = id;
             item[SPClientAutoFill.DisplayTextProperty] = displayText || title;
@@ -1457,19 +1397,18 @@ namespace CSR {
         }
 
         static buildSeparatorItem(): ISPClientAutoFillData {
-            var item = {};
+            const item = {};
             item[SPClientAutoFill.MenuOptionTypeProperty] = SPClientAutoFill.MenuOptionType.Separator;
             return item;
         }
 
         static buildLoadingItem(title: string): ISPClientAutoFillData {
-            var item = {};
+            const item = {};
 
             item[SPClientAutoFill.MenuOptionTypeProperty] = SPClientAutoFill.MenuOptionType.Loading;
             item[SPClientAutoFill.DisplayTextProperty] = title;
             return item;
         }
-
     }
     type RenderContext<T> = (ctx: SPClientTemplates.RenderContext) => T;
     /** Lightweight client-side rendering template overrides.*/
@@ -1606,7 +1545,6 @@ namespace CSR {
         // tslint:disable-next-line: unified-signatures
         fieldNew(fieldName: string, template: (ctx: SPClientTemplates.RenderContext_FieldInForm) => string): CSR;
 
-
         /** Set initial value for field.
             @param fieldName Internal name of the field.
             @param value Initial value for field.
@@ -1617,7 +1555,6 @@ namespace CSR {
             @param fieldName Internal name of the field.
         */
         makeHidden(fieldName: string): CSR;
-
 
         /** Replace New and Edit templates for field to Display template.
             @param fieldName Internal name of the field.
@@ -1656,8 +1593,6 @@ namespace CSR {
         lookupAddNew(fieldName: string, prompt: string, showDialog?: boolean, contentTypeId?: string): CSR;
 
         koEditField(fieldName: string, template: string, vm: KoFieldInForm, dependencyFields?: string[]): CSR;
-
-
     }
 
     export interface AutoFillFieldContext {
@@ -1672,7 +1607,6 @@ namespace CSR {
         value?: KnockoutObservable<any>;
     }
 
-
     interface FormRenderContexWithHook extends SPClientTemplates.RenderContext_FieldInForm {
         FormContextHook: FormContextHook;
     }
@@ -1684,16 +1618,14 @@ namespace CSR {
     interface FormContextHookField {
         fieldSchema?: SPClientTemplates.FieldSchema_InForm;
         lastValue?: any;
-        getValue?: () => any;
+        getValue?(): any;
         updatedValueCallbacks: UpdatedValueCallback[];
     }
-
 
     function ensureFormContextHookField(hook: FormContextHook, fieldName: string): FormContextHookField {
         return hook[fieldName] = hook[fieldName] || {
             updatedValueCallbacks: []
         };
-
     }
 
     class BooleanValueValidator implements SPClientForms.ClientValidation.IValidator {
@@ -1703,23 +1635,17 @@ namespace CSR {
             return new SPClientForms.ClientValidation.ValidationResult(!this.valueGetter(), this.validationMessage);
         }
     }
-
 }
 
 if (typeof SP === 'object' && SP && typeof SP.SOD === 'object' && SP.SOD) {
     SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("typescripttemplates.ts");
 }
 
-
 // mquery.ts
-
-
-
 
 namespace spdevlab {
     export namespace mQuery {
         export class DynamicTable {
-
             // private fields
             _domContainer: HTMLElement;
             _tableContainer: MQueryResultSetElements;
@@ -1735,7 +1661,6 @@ namespace spdevlab {
 
             // public methods
             init(domContainer: HTMLElement, options) {
-
                 if (m$.isDefinedAndNotNull(options)) {
                     m$.extend(this._options, options);
                 }
@@ -1749,7 +1674,6 @@ namespace spdevlab {
 
             // private methods
             _initContainers(domContainer) {
-
                 this._domContainer = domContainer;
                 this._tableContainer = m$(this._options.tableCnt, this._domContainer);
             }
@@ -1759,17 +1683,13 @@ namespace spdevlab {
             }
 
             _initEvents() {
-
                 m$(this._options.addCnt, this._domContainer).click(() => {
-
                     if (m$.isDefinedAndNotNull(this._rowTemplateContent)) {
-
                         m$(this._tableContainer).append(this._rowTemplateContent);
 
                         m$("tr:last-child " + this._options.removeCnt, this._tableContainer).click((e) => {
-
-                            var targetElement = e.currentTarget as HTMLElement;
-                            var parentRow = m$(targetElement).parents("tr").first();
+                            const targetElement = e.currentTarget as HTMLElement;
+                            const parentRow = m$(targetElement).parents("tr").first();
 
                             m$(parentRow).remove();
                         });
@@ -1780,7 +1700,7 @@ namespace spdevlab {
             }
 
             _initRowTemplate() {
-                var templateId = m$(this._tableContainer).attr("template-id");
+                const templateId = m$(this._tableContainer).attr("template-id");
 
                 if (m$.isDefinedAndNotNull(templateId)) {
                     this._rowTemplateId = templateId;
@@ -1792,8 +1712,7 @@ namespace spdevlab {
             static initTables() {
                 // init templates
                 m$('script').forEach((template: HTMLElement) => {
-
-                    var id = m$(template).attr("dynamic-table-template-id");
+                    const id = m$(template).attr("dynamic-table-template-id");
 
                     if (m$.isDefinedAndNotNull(id)) {
                         DynamicTable._templates[id] = template.innerHTML;
@@ -1802,18 +1721,14 @@ namespace spdevlab {
 
                 // init tables
                 m$(".spdev-rep-tb-cnt").forEach(divContainer => {
-
-                    var dynamicTable = new DynamicTable();
+                    const dynamicTable = new DynamicTable();
 
                     dynamicTable.init(divContainer, {
                         removeCnt: '.spdev-rep-tb-del-override'
                     });
                 });
             }
-
         };
-
-
     }
 }
 
@@ -1821,16 +1736,14 @@ m$.ready(() => {
     spdevlab.mQuery.DynamicTable.initTables();
 });
 
-
 // whoisapppart.ts
 
-
 namespace _ {
-    var queryString = parseQueryString();
-    var isIframe = queryString['DisplayMode'] === 'iframe';
-    var spHostUrl = queryString['SPHostUrl'];
-    var editmode = Number(queryString['editmode']);
-    var includeDetails = queryString['boolProp'] === 'true';
+    const queryString = parseQueryString();
+    const isIframe = queryString['DisplayMode'] === 'iframe';
+    const spHostUrl = queryString['SPHostUrl'];
+    const editmode = Number(queryString['editmode']);
+    const includeDetails = queryString['boolProp'] === 'true';
 
     prepareVisual();
     m$.ready(() => {
@@ -1844,7 +1757,7 @@ namespace _ {
 
     // Load the people picker
     function loadPeoplePicker(peoplePickerElementId: string) {
-        var schema: ISPClientPeoplePickerSchema = {
+        const schema: ISPClientPeoplePickerSchema = {
             PrincipalAccountType: "User",
             AllowMultipleValues: false,
             Width: 300,
@@ -1856,20 +1769,19 @@ namespace _ {
 
     function onUserResolvedClientScript(el: string, users: ISPClientPeoplePickerEntity[]) {
         if (users.length > 0) {
-            var person = users[0];
-            var accountName = person.Key;
+            const person = users[0];
+            const accountName = person.Key;
 
-            var context = SP.ClientContext.get_current();
+            const context = SP.ClientContext.get_current();
 
-            var peopleManager = new SP.UserProfiles.PeopleManager(context);
-            var personProperties = peopleManager.getPropertiesFor(accountName);
+            const peopleManager = new SP.UserProfiles.PeopleManager(context);
+            const personProperties = peopleManager.getPropertiesFor(accountName);
 
             context.load(personProperties);
             context.executeQueryAsync((sender, args) => {
-
                 $get("basicInfo").style.display = 'block';
 
-                var userPic = personProperties.get_userProfileProperties()["PictureURL"];
+                const userPic = personProperties.get_userProfileProperties()["PictureURL"];
                 $get("pic").innerHTML = '<img src="' + userPic + '" alt=' + personProperties.get_displayName() + '" width=92 height=92 />';
 
                 $get("name").innerHTML = '<a href="' + personProperties.get_userUrl() + '">' + personProperties.get_displayName() + '</a>';
@@ -1878,9 +1790,9 @@ namespace _ {
                 $get("department").innerHTML = person.EntityData.Department;
                 $get("phone").innerHTML = person.EntityData.MobilePhone;
 
-                var properties = personProperties.get_userProfileProperties();
-                var messageText = "";
-                for (var key in properties) {
+                const properties = personProperties.get_userProfileProperties();
+                let messageText = "";
+                for (const key in properties) {
                     if (properties.hasOwnProperty(key))
                         continue;
                     messageText += "<br />[" + key + "]: \"" + properties[key] + "\"";
@@ -1890,14 +1802,11 @@ namespace _ {
                 if (isIframe) {
                     partResize();
                 }
-
             }, (sender, args) => { alert('Error: ' + args.get_message()); });
-
         }
     }
 
     function partProperties() {
-
         if (editmode === 1) {
             $get("editmodehdr").style.display = "inline";
             $get("content").style.display = "none";
@@ -1910,23 +1819,22 @@ namespace _ {
     }
 
     function partResize() {
-        var bounds = Sys.UI.DomElement.getBounds(document.body);
+        const bounds = Sys.UI.DomElement.getBounds(document.body);
         parent.postMessage('<message senderId=' + queryString['SenderId'] + '>resize(' + bounds.width + ',' + bounds.height + ')</message>', '*');
     }
 
     function prepareVisual() {
         if (isIframe) {
             // Create a Link element for the defaultcss.ashx resource
-            var linkElement = document.createElement('link');
+            const linkElement = document.createElement('link');
             linkElement.setAttribute('rel', 'stylesheet');
             linkElement.setAttribute('href', spHostUrl + '/_layouts/15/defaultcss.ashx');
 
             // Add the linkElement as a child to the head section of the html
             document.head.appendChild(linkElement);
         } else {
-
             m$.ready(() => {
-                var nav = new SP.UI.Controls.Navigation('navigation', {
+                const nav = new SP.UI.Controls.Navigation('navigation', {
                     appIconUrl: queryString['SPHostLogo'],
                     appTitle: document.title
                 });
@@ -1938,13 +1846,13 @@ namespace _ {
     }
 
     function parseQueryString() {
-        var result = {};
-        var qs = document.location.search.split('?')[1];
+        const result = {};
+        const qs = document.location.search.split('?')[1];
         if (qs) {
-            var parts = qs.split('&');
-            for (var part of parts) {
+            const parts = qs.split('&');
+            for (const part of parts) {
                 if (part) {
-                    var pair = part.split('=');
+                    const pair = part.split('=');
                     result[pair[0]] = decodeURIComponent(pair[1]);
                 }
             }
@@ -1955,12 +1863,11 @@ namespace _ {
 
 // taxonomy
 namespace MySP {
-
     // Class
     export class ClientContextPromise extends SP.ClientContext {
         /** To use this function, you must ensure that jQuery and CSOMPromise js files are loaded to the page */
         executeQueryPromise(): JQueryPromise<any> {
-            var deferred = jQuery.Deferred<any>();
+            const deferred = jQuery.Deferred<any>();
             this.executeQueryAsync(function done(sender, args) {
                 deferred.resolve(sender, args);
             },
@@ -1977,20 +1884,18 @@ namespace MySP {
         static get_current(): ClientContextPromise {
             return new ClientContextPromise(_spPageContextInfo.siteServerRelativeUrl);
         }
-
     }
-
 }
 
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("CSOMPromise.ts");
 
 namespace _ {
-    var context: MySP.ClientContextPromise;
-    var web: SP.Web;
-    var site: SP.Site;
-    var session: SP.Taxonomy.TaxonomySession;
-    var termStore: SP.Taxonomy.TermStore;
-    var groups: SP.Taxonomy.TermGroupCollection;
+    let context: MySP.ClientContextPromise;
+    let web: SP.Web;
+    let site: SP.Site;
+    let session: SP.Taxonomy.TaxonomySession;
+    let termStore: SP.Taxonomy.TermStore;
+    let groups: SP.Taxonomy.TermGroupCollection;
 
     // This code runs when the DOM is ready and creates a context object
     // which is needed to use the SharePoint object model.
@@ -2033,15 +1938,15 @@ namespace _ {
     function onRetrieveGroups() {
         $('#report').children().remove();
 
-        var groupEnum = groups.getEnumerator();
+        const groupEnum = groups.getEnumerator();
 
         // For each group, we'll build a clickable div.
         while (groupEnum.moveNext()) {
             (() => {
-                var currentGroup = groupEnum.get_current();
-                var groupName = document.createElement("div");
+                const currentGroup = groupEnum.get_current();
+                const groupName = document.createElement("div");
                 groupName.setAttribute("style", "float:none;cursor:pointer");
-                var groupID = currentGroup.get_id();
+                const groupID = currentGroup.get_id();
                 groupName.setAttribute("id", groupID.toString());
                 $(groupName).click(() => showTermSets(groupID));
                 groupName.appendChild(document.createTextNode(currentGroup.get_name()));
@@ -2056,23 +1961,22 @@ namespace _ {
     // do is retrieve a reference to the group with the same ID as the div, and
     // then add the term sets that belong to that group under the div that was clicked.
     function showTermSets(groupID: SP.Guid) {
-
         // First thing is to remnove the divs under the group DIV to ensure we have a clean place to write to.
         // The reason we don't clear them all is becuase we want to retain the text node of the
         // group div. I.E. that's why we use "parentDiv.childNodes.length>1" as our loop
         // controller.
-        var parentDiv = document.getElementById(groupID.toString());
+        const parentDiv = document.getElementById(groupID.toString());
         while (parentDiv.childNodes.length > 1) {
             parentDiv.removeChild(parentDiv.lastChild);
         }
 
         // For each term set, we'll build a clickable div
-        var currentGroup = groups.getById(groupID);
+        const currentGroup = groups.getById(groupID);
 
         // We need to load and populate the matching group first, or the
         // term sets that it contains will be inaccessible to our code.
         context.load(currentGroup);
-        var termSets: SP.Taxonomy.TermSetCollection;
+        let termSets: SP.Taxonomy.TermSetCollection;
         context.executeQueryPromise()
             .then(
             () => {
@@ -2096,24 +2000,22 @@ namespace _ {
                 // group ID. We also pass in the event object, so that we can cancel the bubble
                 // because this clickable div will be inside a parent clickable div and we
                 // don't want the parent's event to fire.
-                var termSetEnum = termSets.getEnumerator();
+                const termSetEnum = termSets.getEnumerator();
                 while (termSetEnum.moveNext()) {
                     (() => {
-                        var currentTermSet = termSetEnum.get_current();
-                        var termSetName = document.createElement("div");
+                        const currentTermSet = termSetEnum.get_current();
+                        const termSetName = document.createElement("div");
                         termSetName.appendChild(document.createTextNode(" + " + currentTermSet.get_name()));
                         termSetName.setAttribute("style", "float:none;cursor:pointer;");
-                        var termSetID = currentTermSet.get_id();
+                        const termSetID = currentTermSet.get_id();
                         termSetName.setAttribute("id", termSetID.toString());
                         $(termSetName).click(e => showTerms(e, groupID, termSetID));
                         parentDiv.appendChild(termSetName);
                     })();
                 }
-
             })
             .fail(() => parentDiv.appendChild(document.createTextNode("An error occurred in loading the term sets for this group")));
     }
-
 
     // This is the function that runs when the user clicks one of the divs
     // that we created in the showTermSets function. We can know which
@@ -2122,7 +2024,6 @@ namespace _ {
     // then add the term  that belong to that term set under the div that was clicked.
 
     function showTerms(event: JQueryEventObject, groupID: SP.Guid, termSetID: SP.Guid) {
-
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
         event.cancelBubble = true;
@@ -2130,17 +2031,17 @@ namespace _ {
         // Get a reference to the term set div that was click and
         // remove its children (apart from the TextNode that is currently
         // showing the term set name.
-        var parentDiv = document.getElementById(termSetID.toString());
+        const parentDiv = document.getElementById(termSetID.toString());
         while (parentDiv.childNodes.length > 1) {
             parentDiv.removeChild(parentDiv.lastChild);
         }
 
         // We need to load and populate the matching group first, or the
         // term sets that it contains will be inaccessible to our code.
-        var currentGroup = groups.getById(groupID);
-        var termSets: SP.Taxonomy.TermSetCollection;
-        var currentTermSet: SP.Taxonomy.TermSet;
-        var terms: SP.Taxonomy.TermCollection;
+        const currentGroup = groups.getById(groupID);
+        let termSets: SP.Taxonomy.TermSetCollection;
+        let currentTermSet: SP.Taxonomy.TermSet;
+        let terms: SP.Taxonomy.TermCollection;
 
         context.load(currentGroup);
         context
@@ -2166,11 +2067,11 @@ namespace _ {
                 return context.executeQueryPromise();
             })
             .then(() => {
-                var termsEnum = terms.getEnumerator();
+                const termsEnum = terms.getEnumerator();
                 while (termsEnum.moveNext()) {
-                    var currentTerm = termsEnum.get_current();
+                    const currentTerm = termsEnum.get_current();
 
-                    var term = document.createElement("div");
+                    const term = document.createElement("div");
                     term.appendChild(document.createTextNode("    - " + currentTerm.get_name()));
                     term.setAttribute("style", "float:none;margin-left:10px;");
                     parentDiv.appendChild(term);
@@ -2193,7 +2094,6 @@ namespace _ {
         $('#report').append("Failed to get session. Error: " + args.get_message());
     }
 
-
     // When the createTerms button is clicked, start by loading
     // a TaxonomySession for the current context. Also get and load
     // the associated term store.
@@ -2205,22 +2105,21 @@ namespace _ {
         context.executeQueryAsync(onGetTaxonomySession, onFailTaxonomySession);
     }
 
-
     // This function is the success callback for loading the session and store from the createTerms function
     function onGetTaxonomySession() {
         // Create six GUIDs that we will need when we create a new group, term set, and associated terms
-        var guidGroupValue = SP.Guid.newGuid();
-        var guidTermSetValue = SP.Guid.newGuid();
-        var guidTerm1 = SP.Guid.newGuid();
-        var guidTerm2 = SP.Guid.newGuid();
-        var guidTerm3 = SP.Guid.newGuid();
-        var guidTerm4 = SP.Guid.newGuid();
+        const guidGroupValue = SP.Guid.newGuid();
+        const guidTermSetValue = SP.Guid.newGuid();
+        const guidTerm1 = SP.Guid.newGuid();
+        const guidTerm2 = SP.Guid.newGuid();
+        const guidTerm3 = SP.Guid.newGuid();
+        const guidTerm4 = SP.Guid.newGuid();
 
         // Create a new group
-        var myGroup = termStore.createGroup("CustomTerms", guidGroupValue);
+        const myGroup = termStore.createGroup("CustomTerms", guidGroupValue);
 
         // Create a new term set in the newly-created group
-        var myTermSet = myGroup.createTermSet("Privacy", guidTermSetValue, 1033);
+        const myTermSet = myGroup.createTermSet("Privacy", guidTermSetValue, 1033);
 
         // Create four new terms in the newly-created  term set
         myTermSet.createTerm("Top Secret", 1033, guidTerm1);
@@ -2235,7 +2134,6 @@ namespace _ {
 
         // Execute all the preceeding statements in this function
         context.executeQueryAsync(onAddTerms, onFailAddTerms);
-
     }
 
     // If all is well with creating the terms, then this function will run.
@@ -2258,7 +2156,6 @@ namespace _ {
         $('#report').children().remove();
         $('#report').append("Failed to get session. Error: " + args.get_message());
     }
-
 };
 
 // publishing.ts
@@ -2266,46 +2163,43 @@ namespace _ {
 JSRequest.EnsureSetup();
 
 SP.SOD.execute('mquery.js', 'm$.ready', () => {
-    var context = SP.ClientContext.get_current();
-    var web = context.get_web();
+    const context = SP.ClientContext.get_current();
+    const web = context.get_web();
     m$('#CreatePage').click(createPage);
 });
 
 function createPage(evt) {
     SP.SOD.execute('sp.js', 'SP.ClientConext', () => {
         SP.SOD.execute('sp.publishing.js', 'SP.Publishing', () => {
-            var context = SP.ClientContext.get_current();
+            const context = SP.ClientContext.get_current();
 
-
-            var hostUrl = decodeURIComponent(JSRequest.QueryString["SPHostUrl"]);
-            var hostcontext = new SP.AppContextSite(context, hostUrl);
-            var web = hostcontext.get_web();
-            var pubWeb = SP.Publishing.PublishingWeb.getPublishingWeb(context, web);
+            const hostUrl = decodeURIComponent(JSRequest.QueryString["SPHostUrl"]);
+            const hostcontext = new SP.AppContextSite(context, hostUrl);
+            const web = hostcontext.get_web();
+            const pubWeb = SP.Publishing.PublishingWeb.getPublishingWeb(context, web);
             context.load(web);
             context.load(pubWeb);
             context.executeQueryAsync(
                 // Success callback after getting the host Web as a PublishingWeb.
                 // We now want to add a new Publishing Page.
                 function done() {
-                    var pageInfo = new SP.Publishing.PublishingPageInformation();
-                    var newPage = pubWeb.addPublishingPage(pageInfo);
+                    const pageInfo = new SP.Publishing.PublishingPageInformation();
+                    const newPage = pubWeb.addPublishingPage(pageInfo);
                     context.load(newPage);
                     context.executeQueryAsync(
                         function done() {
-
                             // Success callback after adding a new Publishing Page.
                             // We want to get the actual list item that is represented by the Publishing Page.
-                            var listItem = newPage.get_listItem();
+                            const listItem = newPage.get_listItem();
                             context.load(listItem);
                             context.executeQueryAsync(
-
                                 // Success callback after getting the actual list item that is
                                 // represented by the Publishing Page.
                                 // We can now get its FieldValues, one of which is its FileLeafRef value.
                                 // We can then use that value to build the Url to the new page
                                 // and set the href or our link to that Url.
                                 function done() {
-                                    var link = document.getElementById("linkToPage");
+                                    const link = document.getElementById("linkToPage");
                                     link.setAttribute("href", web.get_url() + "/Pages/" + listItem.get_fieldValues().FileLeafRef);
                                     link.innerText = "Go to new page!";
                                 },
@@ -2334,13 +2228,11 @@ function createPage(evt) {
 
 // likes
 namespace SampleReputation {
-
     interface MyList extends SPClientTemplates.RenderContext_InView {
         listId: string;
     }
 
     class MyItem {
-
         id: number;
         title: string;
         likesCount: number;
@@ -2355,7 +2247,7 @@ namespace SampleReputation {
 
         private getLike(likedBy): boolean {
             if (likedBy && likedBy.length > 0) {
-                for (var likedByItem of likedBy) {
+                for (const likedByItem of likedBy) {
                     if (likedByItem.id === _spPageContextInfo.userId) {
                         return true;
                     }
@@ -2383,15 +2275,14 @@ namespace SampleReputation {
             RegisterModuleInit('/SPTypeScript/ReputationModule/likes.js', init);
         });
 
-
         SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs('likes.js');
     }
 
     function renderTemplate(ctx: MyList) {
-        var rows = ctx.ListData.Row;
-        var result = '';
-        for (var row of  rows) {
-            var item = new MyItem(row);
+        const rows = ctx.ListData.Row;
+        let result = '';
+        for (const row of  rows) {
+            const item = new MyItem(row);
             result += '\
 			    <li>' + item.title + '\
 					<a style="cursor: pointer;" onclick="SampleReputation.setLike(' + item.id + ', \'' + ctx.listId + '\')" >\
@@ -2407,14 +2298,14 @@ namespace SampleReputation {
     }
 
     export function setLike(itemId: number, listId: string): void {
-        var context = SP.ClientContext.get_current();
-        var isLiked = m$('#likesCountText' + itemId)[0].textContent === '\u2661';
+        const context = SP.ClientContext.get_current();
+        const isLiked = m$('#likesCountText' + itemId)[0].textContent === '\u2661';
         SP.SOD.executeFunc('reputation.js', 'Microsoft.Office.Server.ReputationModel.Reputation', function fail() {
             Microsoft.Office.Server.ReputationModel.Reputation.setLike(context, listId, itemId, isLiked);
             context.executeQueryAsync(
                 () => {
                     m$('#likesCountText' + itemId)[0].textContent = getLikeText(isLiked);
-                    var likesCount = parseInt(m$('#likesCount' + itemId)[0].textContent, 10);
+                    const likesCount = parseInt(m$('#likesCount' + itemId)[0].textContent, 10);
                     m$('#likesCount' + itemId)[0].textContent = (isLiked ? likesCount + 1 : likesCount - 1).toString();
                 },
                 (sender, args) => {
@@ -2426,12 +2317,10 @@ namespace SampleReputation {
     init();
 }
 
-
-
 // code from https://github.com/gandjustas/SharePointAngularTS
 namespace App {
     "use strict";
-    var app = angular.module("app", []);
+    const app = angular.module("app", []);
 }
 
 // Install the angularjs.TypeScript.DefinitelyTyped NuGet package
@@ -2440,7 +2329,7 @@ namespace App {
 
     interface Iappcontroller {
         title: string;
-        activate: () => void;
+        activate(): void;
     }
 
     class appcontroller implements Iappcontroller {
@@ -2454,27 +2343,24 @@ namespace App {
         }
 
         activate() {
-            var loading = this.$n.showLoading(true);
+            const loading = this.$n.showLoading(true);
             this.$SharePoint
                 .getLists()
                 .then(l => this.lists = l)
                 .catch((e: string) => this.$n.show(e, true))
                 .finally(() => this.$n.remove(loading));
             ;
-
         }
     }
 
     angular.module("app").controller("appcontroller", appcontroller);
 }
 
-
-
 namespace App {
     "use strict";
 
     export interface SharePoint {
-        getLists: () => ng.IPromise<SP.List[]>;
+        getLists(): ng.IPromise<SP.List[]>;
     }
 
     class SharePointServcie implements SharePoint {
@@ -2484,18 +2370,18 @@ namespace App {
         }
 
         getLists() {
-            var promise = this.$q.defer<SP.List[]>();
+            const promise = this.$q.defer<SP.List[]>();
             SP.SOD.executeFunc("sp.js", "SP.ClientContext", () => {
-                var ctx = SP.ClientContext.get_current();
-                var hostUrl = decodeURIComponent(SP.ScriptHelpers.getDocumentQueryPairs()['SPHostUrl']);
-                var appCtx = new SP.AppContextSite(ctx, hostUrl);
-                var hostWeb = appCtx.get_web();
-                var lists = hostWeb.get_lists();
+                const ctx = SP.ClientContext.get_current();
+                const hostUrl = decodeURIComponent(SP.ScriptHelpers.getDocumentQueryPairs()['SPHostUrl']);
+                const appCtx = new SP.AppContextSite(ctx, hostUrl);
+                const hostWeb = appCtx.get_web();
+                const lists = hostWeb.get_lists();
                 ctx.load(lists);
 
                 ctx.executeQueryAsync(() => {
-                    var result: SP.List[] = [];
-                    for (var e = lists.getEnumerator(); e.moveNext(); /* nothing */) {
+                    const result: SP.List[] = [];
+                    for (const e = lists.getEnumerator(); e.moveNext(); /* nothing */) {
                         result.push(e.get_current());
                     }
                     promise.resolve(result);
@@ -2509,7 +2395,6 @@ namespace App {
     angular.module("app").service("$SharePoint", SharePointServcie);
 }
 
-
 // Install the angularjs.TypeScript.DefinitelyTyped NuGet package
 namespace App {
     "use strict";
@@ -2522,7 +2407,6 @@ namespace App {
 
     class NotifyImpl implements SpNotify {
         static $inject: string[] = [];
-
 
         showLoading(sticky: boolean = false) {
             return SP.UI.Notify.showLoadingNotification(sticky);
@@ -2539,4 +2423,3 @@ namespace App {
 
     angular.module("app").service("$spnotify", NotifyImpl);
 }
-
