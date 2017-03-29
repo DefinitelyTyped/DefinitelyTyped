@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface DataSourceSettingsPaging {
-
 	/**
  	 * Paging is not enabled by default
 	 *
@@ -58,7 +57,6 @@ interface DataSourceSettingsPaging {
 }
 
 interface DataSourceSettingsFiltering {
-
 	/**
  	 * Filtering type.
 	 *
@@ -129,7 +127,6 @@ interface DataSourceSettingsFiltering {
 }
 
 interface DataSourceSettingsSorting {
-
 	/**
  	 * Sorting direction
 	 *
@@ -224,7 +221,6 @@ interface DataSourceSettingsSorting {
 }
 
 interface DataSourceSettingsGroupby {
-
 	/**
  	 * Default collapse state
 	 *
@@ -238,7 +234,6 @@ interface DataSourceSettingsGroupby {
 }
 
 interface DataSourceSettingsSummaries {
-
 	/**
  	 * Specifies whether summaries will be applied locally or remotely (via a remote request)
 	 *
@@ -285,7 +280,6 @@ interface DataSourceSettingsSummaries {
 }
 
 interface DataSourceSettings {
-
 	/**
  	 * Setting this is only necessary when the data source is set to a table in string format. we need to create an invisible dummy data container in the body and append the table data to it
 	 *
@@ -536,481 +530,480 @@ interface DataSourceSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class DataSource {
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class DataSource {
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 DataSource: typeof Infragistics.DataSource;
 }
 
-declare module Infragistics {
-export class TypeParser {
-	toStr(obj: Object): void;
+declare namespace Infragistics {
+	class TypeParser {
+		toStr(obj: Object): void;
 
-	/**
- 	 * L.A. 18 June 2012 Fixing bug #113265 Column 'date' shows empty values as 'NaN'
-	 *
-	 * @param obj 
-	 * @param pk 
-	 * @param key 
-	 */
-	toDate(obj: Object, pk: Object, key: Object): void;
-	toNumber(obj: Object): void;
-	toBool(obj: Object): void;
-	isNullOrUndefined(obj: Object): void;
-	empty(): void;
-	num(): void;
-}
+		/**
+		 * L.A. 18 June 2012 Fixing bug #113265 Column 'date' shows empty values as 'NaN'
+		 *
+		 * @param obj
+		 * @param pk
+		 * @param key
+		 */
+		toDate(obj: Object, pk: Object, key: Object): void;
+		toNumber(obj: Object): void;
+		toBool(obj: Object): void;
+		isNullOrUndefined(obj: Object): void;
+		empty(): void;
+		num(): void;
+	}
 }
 
 interface DataSchemaSchemaFields {
-
 	/**
  	 * Name of the field
 	 */
@@ -1043,7 +1036,6 @@ interface DataSchemaSchemaFields {
 }
 
 interface DataSchemaSchema {
-
 	/**
  	 * A list of field definitions specifying the schema of the data source. Field objects description: {name, [type], [xpath]}
 	 * returnType="array"
@@ -1066,950 +1058,949 @@ interface DataSchemaSchema {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class DataSchema {
-	constructor(schema: DataSchemaSchema);
+declare namespace Infragistics {
+	class DataSchema {
+		constructor(schema: DataSchemaSchema);
 
-	/**
- 	 * Performs a transformation on the schema so that the resulting data matches the schema
-	 *
-	 * @param data    the data to transform
-	 */
-	transform(data: Object): Object;
+		/**
+		 * Performs a transformation on the schema so that the resulting data matches the schema
+		 *
+		 * @param data    the data to transform
+		 */
+		transform(data: Object): Object;
 
-	/**
- 	 * Specifies if the object is null, undefined, or an empty string
-	 *
-	 * @param o    the object to check for being empty
-	 */
-	isEmpty(o: Object): Object;
+		/**
+		 * Specifies if the object is null, undefined, or an empty string
+		 *
+		 * @param o    the object to check for being empty
+		 */
+		isEmpty(o: Object): Object;
 
-	/**
- 	 * Specifies if the object has custom properties or not
-	 *
-	 * @param obj    the object to check for presence or lack of custom properties
-	 */
-	isObjEmpty(obj: Object): Object;
+		/**
+		 * Specifies if the object has custom properties or not
+		 *
+		 * @param obj    the object to check for presence or lack of custom properties
+		 */
+		isObjEmpty(obj: Object): Object;
 
-	/**
- 	 * A list of field definitions specifying the schema of the data source.
-	 * 			Field objects description: {fieldName, [fieldDataType], [fieldXPath]}
-	 */
-	fields(): any[];
-}
+		/**
+		 * A list of field definitions specifying the schema of the data source.
+		 * 			Field objects description: {fieldName, [fieldDataType], [fieldXPath]}
+		 */
+		fields(): any[];
+	}
 }
 interface IgniteUIStatic {
 DataSchema: typeof Infragistics.DataSchema;
 }
 
-declare module Infragistics {
-export class RemoteDataSource {
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class RemoteDataSource {
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 RemoteDataSource: typeof Infragistics.RemoteDataSource;
 }
 
-declare module Infragistics {
-export class JSONDataSource {
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class JSONDataSource {
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 JSONDataSource: typeof Infragistics.JSONDataSource;
 }
 
 interface RESTDataSourceSettingsRestSettingsCreate {
-
 	/**
  	 * Specifies a remote URL to which create requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -2032,7 +2023,6 @@ interface RESTDataSourceSettingsRestSettingsCreate {
 }
 
 interface RESTDataSourceSettingsRestSettingsUpdate {
-
 	/**
  	 * Specifies a remote URL to which update requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -2055,7 +2045,6 @@ interface RESTDataSourceSettingsRestSettingsUpdate {
 }
 
 interface RESTDataSourceSettingsRestSettingsRemove {
-
 	/**
  	 * Specifies a remote URL to which remove requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -2078,7 +2067,6 @@ interface RESTDataSourceSettingsRestSettingsRemove {
 }
 
 interface RESTDataSourceSettingsRestSettings {
-
 	/**
  	 * Settings for create requests
 	 */
@@ -2116,7 +2104,6 @@ interface RESTDataSourceSettingsRestSettings {
 }
 
 interface RESTDataSourceSettings {
-
 	/**
  	 * Settings related to REST compliant update routine
 	 */
@@ -2128,461 +2115,460 @@ interface RESTDataSourceSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class RESTDataSource {
-	constructor(settings: RESTDataSourceSettings);
+declare namespace Infragistics {
+	class RESTDataSource {
+		constructor(settings: RESTDataSourceSettings);
 
-	/**
- 	 * Posts to the restSettings urls using $.ajax, by serializing the changes as url params.
-	 *
-	 * @param success 
-	 * @param error 
-	 */
-	saveChanges(success: Object, error: Object): void;
+		/**
+		 * Posts to the restSettings urls using $.ajax, by serializing the changes as url params.
+		 *
+		 * @param success
+		 * @param error
+		 */
+		saveChanges(success: Object, error: Object): void;
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 RESTDataSource: typeof Infragistics.RESTDataSource;
 }
 
 interface JSONPDataSourceSettings {
-
 	/**
  	 * Override the callback function name in a jsonp request. Sets option jsonp in $.ajax functionbool Setting the jsonp option to false prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for transformation
 	 *
@@ -2600,2273 +2586,2272 @@ interface JSONPDataSourceSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class JSONPDataSource {
-	constructor(settings: JSONPDataSourceSettings);
+declare namespace Infragistics {
+	class JSONPDataSource {
+		constructor(settings: JSONPDataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 JSONPDataSource: typeof Infragistics.JSONPDataSource;
 }
 
-declare module Infragistics {
-export class XmlDataSource {
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class XmlDataSource {
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 XmlDataSource: typeof Infragistics.XmlDataSource;
 }
 
-declare module Infragistics {
-export class FunctionDataSource {
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class FunctionDataSource {
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 FunctionDataSource: typeof Infragistics.FunctionDataSource;
 }
 
-declare module Infragistics {
-export class HtmlTableDataSource {
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class HtmlTableDataSource {
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 HtmlTableDataSource: typeof Infragistics.HtmlTableDataSource;
 }
 
-declare module Infragistics {
-export class ArrayDataSource {
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class ArrayDataSource {
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object tree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 ArrayDataSource: typeof Infragistics.ArrayDataSource;
 }
 
 interface MashupDataSourceMashupSettings {
-
 	/**
  	 * Indicates whether to ignore records that have no corresponding data in all of the provided data sources.
 	 */
@@ -4883,445 +4868,444 @@ interface MashupDataSourceMashupSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class MashupDataSource {
-	constructor(mashupSettings: MashupDataSourceMashupSettings);
-	constructor(settings: DataSourceSettings);
+declare namespace Infragistics {
+	class MashupDataSource {
+		constructor(mashupSettings: MashupDataSourceMashupSettings);
+		constructor(settings: DataSourceSettings);
 
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    Not used in $.ig.DataSource
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
-	/**
- 	 * Data binds to the current data source.
-	 */
-	dataBind(): void;
+		/**
+		 * Data binds to the current data source.
+		 */
+		dataBind(): void;
 
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
 
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
 
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
 
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
 
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
 
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
 
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
 
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
 
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
 
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
 
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
-	 */
-	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    Not used in $.ig.DataSource
+		 */
+		findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
 
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
 
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
 
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
 
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
 
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
 
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
 
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
 
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
 
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
 
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
 
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
 
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
 
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
 
-	/**
- 	 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
+		/**
+		 * Sorts the data source locally. The result (filtered data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
 
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
 
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
-	 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and
+		 * 			setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalFilter(): void;
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalFilter(): void;
 
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
 
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
 
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
 
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
 
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
 
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
 
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
 
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
 
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
 
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
 
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
 
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
 
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
 
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
 
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
 
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
 
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
 
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
 
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
 
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 MashupDataSource: typeof Infragistics.MashupDataSource;
 }
 
 interface HierarchicalDataSourceSettingsPaging {
-
 	/**
  	 * Option for HierarchicalDataSourceSettingsPaging
 	 */
@@ -5329,7 +5313,6 @@ interface HierarchicalDataSourceSettingsPaging {
 }
 
 interface HierarchicalDataSourceSettingsSorting {
-
 	/**
  	 * Option for HierarchicalDataSourceSettingsSorting
 	 */
@@ -5337,7 +5320,6 @@ interface HierarchicalDataSourceSettingsSorting {
 }
 
 interface HierarchicalDataSourceSettingsFiltering {
-
 	/**
  	 * Option for HierarchicalDataSourceSettingsFiltering
 	 */
@@ -5345,7 +5327,6 @@ interface HierarchicalDataSourceSettingsFiltering {
 }
 
 interface HierarchicalDataSourceSettingsSchema {
-
 	/**
  	 * Option for HierarchicalDataSourceSettingsSchema
 	 */
@@ -5391,20 +5372,19 @@ interface HierarchicalDataSourceSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class HierarchicalDataSource {
-	constructor(settings: HierarchicalDataSourceSettings);
-	dataBind(callback: Object, callee: Object): void;
-	root(): void;
-	dataAt(path: Object, keyspath: Object): void;
-}
+declare namespace Infragistics {
+	class HierarchicalDataSource {
+		constructor(settings: HierarchicalDataSourceSettings);
+		dataBind(callback: Object, callee: Object): void;
+		root(): void;
+		dataAt(path: Object, keyspath: Object): void;
+	}
 }
 interface IgniteUIStatic {
 HierarchicalDataSource: typeof Infragistics.HierarchicalDataSource;
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDSFiltering {
-
 	/**
  	 * Specifies from which data bound level to be applied filtering - 0 is the first level
 	 */
@@ -5432,7 +5412,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDSFiltering {
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDSSorting {
-
 	/**
  	 * Specifies from which data bound level to be applied sorting - 0 is the first level
 	 */
@@ -5450,7 +5429,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDSSorting {
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDSPaging {
-
 	/**
  	 * Sets gets paging mode.
 	 *
@@ -5477,7 +5455,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDSPaging {
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDS {
-
 	/**
  	 * Property name of the array of child data in a hierarchical data source.
 	 */
@@ -5568,7 +5545,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDS {
 }
 
 interface TreeHierarchicalDataSourceSettings {
-
 	/**
  	 * Configure tree datasource specific settings
 	 */
@@ -5580,644 +5556,644 @@ interface TreeHierarchicalDataSourceSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class TreeHierarchicalDataSource {
-	constructor(settings: TreeHierarchicalDataSourceSettings);
-
-	/**
- 	 * Data binds to the current data source
-	 * 			databinding works using the following workflow:
-	 * 			1. fire the databinding event
-	 * 			2. based on the data source type (see analyzeDataSource()), do the following:
-	 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
-	 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
-	 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
-	 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
-	 * 			if the data source is invalid, throw an exception
-	 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
-	 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object ree
-	 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
-	 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
-	 * 			6. fire the databound event
-	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
-	 */
-	dataBind(callback?: string, callee?: Object): void;
-
-	/**
- 	 * Gets the passed record's parent records
-	 *
-	 * @param dataRow    the child record.
-	 * @param ds    the data source in which to search for the related parent records.
-	 */
-	getParentRowsForRow(dataRow: Object, ds?: Object): Object;
-
-	/**
- 	 * Gets the current data bound depth of the tree grid hierarchy.
-	 */
-	getDataBoundDepth(): void;
-
-	/**
- 	 * Gets/Sets whether the data source has been transformed from flat to hierarchical
-	 *
-	 * @param isTransformed    Determines if the data source is marked as transformed or not.
-	 */
-	isTransformedToHierarchicalData(isTransformed?: boolean): void;
-
-	/**
- 	 * Transforms flat data to hierararchical data and returns the result
-	 *
-	 * @param data    The flat data that will be transformed to hierarchical
-	 */
-	transformToHierarchicalData(data: Object): Object;
-
-	/**
- 	 * This processes the passed data for the specified level and applies the schema transformation to it.
-	 *
-	 * @param data    The data to be processed and transformed
-	 * @param level    The level to which the data belongs to. If this is not set it defaults to 0.
-	 * @param suppressTransformation    Determines whether the data should go through schema transformation. If true schema transofrmatin will not be applied.
-	 */
-	processDataPerLevel(data: Object, level?: number, suppressTransformation?: boolean): Object;
-
-	/**
- 	 * Returnschild data transformed to flat data
-	 *
-	 * @param record    The data record whose data is transformed and returned as flat
-	 * @param level    The level. If not set defaults to 0.
-	 */
-	getFlatDataForRecord(record: Object, level?: number): Object;
-
-	/**
- 	 * Generates flat data.
-	 * 			Returns an object that contains the generated flat data, the flat visible data, records count and visible records count.
-	 *
-	 * @param data    The data record whose data is transformed.
-	 * @param level    The level from which to start recursively generating the flat data. If not set defaults to 0.
-	 */
-	generateFlatData(data: Object, level?: number): Object;
-
-	/**
- 	 * Generates a flat data view from the current (hierarchical)data
-	 */
-	generateFlatDataView(): void;
-
-	/**
- 	 * Returns the current flat data view
-	 */
-	flatDataView(): Object;
-
-	/**
- 	 * Returns flat visible data.
-	 */
-	getVisibleFlatData(): Object;
-
-	/**
- 	 * Returns flat data(without taking into account visible/expansion state).
-	 */
-	getFlatData(): Object;
-
-	/**
- 	 * Returns total records count(without taking into account visible/expansion state).
-	 */
-	getFlatDataCount(): number;
-
-	/**
- 	 * Sets the expanded/collapsed state of a row by its index
-	 *
-	 * @param index    The index of the row.
-	 * @param expanded    If true then the row will be expanded. Otherwise it will be collapsed.
-	 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
-	 */
-	setExpandedStateByRowIndex(index: number, expanded: boolean, callbackArgs: Function): void;
-
-	/**
- 	 * Sets the expanded state of a row by its primary key
-	 *
-	 * @param rowId    The id of the row.
-	 * @param expanded    If true the row will be expanded. Otherwise it will be collapsed.
-	 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
-	 */
-	setExpandedStateByPrimaryKey(rowId: string, expanded: boolean, callbackArgs: Function): void;
-
-	/**
- 	 * Gets whether the row with the specified id is expanded.Returns true if the row is expanded or false if it's not.
-	 *
-	 * @param rowId    //The id of the row.
-	 */
-	getExpandStateById(rowId: string): boolean;
-
-	/**
- 	 * Toggles the row's state by the row's id.
-	 *
-	 * @param rowId    The id of the row.
-	 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
-	 */
-	toggleRow(rowId: string, callbackArgs: Function): void;
-
-	/**
- 	 * Sorts the data source locally. The result (sorted data) can be obtained by calling dataView().
-	 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.sorting.expressions
-	 * 			multi-column sorting can be enabled by setting keepSortState to true.
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sort(fields: Object, direction: string): void;
-
-	/**
- 	 * Sorts the given data recursively
-	 * 			fields => an array of fields object definitions:
-	 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-	 *
-	 * @param data    the data array that will be sorted.
-	 * @param level    the level to which the data belongs to
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sortDataRecursive(data: Object, level: number, fields: Object, direction: string): void;
-
-	/**
- 	 * Sorts the passed data and returns the sorted result.
-	 *
-	 * @param data    the data to be sorted
-
-   fields => an array of fields object definitions:
-   example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
-   example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
-
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
-	 */
-	sortData(data: Object, fields: Object, direction: string): void;
-
-	/**
- 	 * Returns the total number of records in the local data source
-	 */
-	totalLocalRecordsCount(): number;
-
-	/**
- 	 * Returns the total number of pages
-	 */
-	pageCount(): number;
-
-	/**
- 	 * Returns the total number of match filtering records in the data source.
-	 * 			When the dataSource is remote and filtering is applied then it is taken value
-	 * 			of property "filtering.countRecords" in metatadata - if set. If it is not set returns totalRecordsCount
-	 */
-	getFilteringMatchRecordsCount(): number;
-
-	/**
- 	 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
-	 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
-	 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
-	 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
-	 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
-	 * 			if expr is detected to be a regular expression, the "cond" part is skipped
-	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
-	 * @param fieldExpressionsOnStrings 
-	 */
-	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
-
-	/**
- 	 * Gets the count of the filtered records in the dataView
-	 */
-	getFilteredRecordsCountFromDataView(): number;
-
-	/**
- 	 * Gets the count of the filtered records
-	 */
-	getFilteredRecordsCount(): number;
-
-	/**
- 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging.
-	 */
-	clearLocalFilter(): void;
-
-	/**
- 	 * Gets whether the flat data view should be generated by calling the generateFlatDataView method.
-	 */
-	shouldCallGenerateFlatDataView(): void;
-
-	/**
- 	 * Clears __matchFiltering property from the data record objects in the filtered data source. The __matchFiltering property determines whether a record matches the specified filtering condition.
-	 *
-	 * @param data    the array of data objects to be cleared. If not set the current filtered data array is used.
-	 */
-	clearMatchFiltering(data?: Object): void;
-
-	/**
- 	 * Gets the path of a record by the record or the record's key
-	 *
-	 * @param record    the record or the record's key as string or number
-	 */
-	getPathBy(record: Object): void;
-
-	/**
- 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
-	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    path to the object. Example: {path: '5/1'}
-	 */
-	findRecordByKey(key: Object, ds?: string, objPath?: Object): Object;
-
-	/**
- 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
-	 *
-	 * @param key    primary key of the record
-	 * @param origDs 
-	 */
-	removeRecordByKey(key: Object, origDs: Object): void;
-
-	/**
- 	 * Deletes a row from the data source.
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	deleteRow(rowId: Object, autoCommit: boolean): Object;
-
-	/**
- 	 * Gets the chilren records by the parent record's key in the passed data source
-	 *
-	 * @param key     primary key of the record
-	 * @param ds     the data source
-	 */
-	getChildrenByKey(key: Object, ds: Object): Object;
-
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to be insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    the value of the primary key of the parent row(if any)
-	 */
-	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
-
-	/**
- 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
-	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
-	 */
-	fields(fields?: Object): Object;
-
-	/**
- 	 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
-	 */
-	analyzeDataSource(): string;
-
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
-	 */
-	dataView(): any[];
-
-	/**
- 	 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
-	 */
-	data(): Object;
-
-	/**
- 	 * Returns transformed data according to transformed execution:
-	 * 			1. Before paging and filtering
-	 * 			2. After filtering before paging
-	 * 			3. After filtering and paging
-	 *
-	 * @param transformedExecution 
-	 */
-	transformedData(transformedExecution: Object): Object;
-
-	/**
- 	 * Returns summaries data
-	 */
-	dataSummaries(): Object;
-
-	/**
- 	 * Gets/sets the schema definition.
-	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
-	 */
-	schema(s?: Object, t?: string): void;
-
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param p    object holding all paging settings. See settings.paging
-	 */
-	pagingSettings(p?: Object): Object;
-
-	/**
- 	 * Gets/sets a list of filtering settings
-	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
-	 */
-	filterSettings(f?: Object): void;
-
-	/**
- 	 * Gets/sets a list of paging settings
-	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
-	 */
-	sortSettings(s?: Object): Object;
-
-	/**
- 	 * Gets/sets a list of summaries settings.
-	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
-	 */
-	summariesSettings(s?: Object): void;
-
-	/**
- 	 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
-	 *
-	 * @param ds    
-	 */
-	dataSource(ds?: Object): Object;
-
-	/**
- 	 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
-	 *
-	 * @param t    
-	 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty    
-	 */
-	type(t?: Object): string;
-
-	/**
- 	 * Removes a record from the data source at specific index.
-	 *
-	 * @param index    index of record
-	 * @param origDs 
-	 */
-	removeRecordByIndex(index: number, origDs: Object): void;
-
-	/**
- 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
-	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
-
-	/**
- 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
-
-	/**
- 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 */
-	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
-
-	/**
- 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	addNode(data: Object): void;
-
-	/**
- 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
-	 *
-	 * @param data    the transaction data
-	 */
-	removeNode(data: Object): void;
-
-	/**
- 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
-	 *
-	 * @param t    a transaction object
-	 */
-	getDetachedRecord(t: Object): Object;
-
-	/**
- 	 * Update the data source with every transaction from the log
-	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
-	 */
-	commit(id?: number): void;
-
-	/**
- 	 * Clears the transaction log without updating anything in the data source
-	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
-	 */
-	rollback(id?: Object): void;
-
-	/**
- 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
-	 */
-	pendingTransactions(): any[];
-
-	/**
- 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 */
-	allTransactions(): any[];
-
-	/**
- 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
-	 */
-	transactionsAsString(): string;
-
-	/**
- 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
-	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
-	 */
-	saveChanges(success: Function, error: Function): void;
-
-	/**
- 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
-	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
-	 */
-	getCellValue(fieldName: string, record: Object): Object;
-
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets or sets summaries data.
-	 * 			If key or dsObj are not set then returns summaries data.
-	 * 			Takes summary data from passed argument dsObj(using argument key)
-	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
-	 */
-	summariesResponse(key?: string, dsObj?: Object): Object;
-
-	/**
- 	 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
-	 */
-	filteredData(): any[];
-
-	/**
- 	 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
-	 */
-	clearLocalSorting(): void;
-
-	/**
- 	 * Applicable only when the data source is bound to remote data.
-	 * 			Gets / sets the total number of records in the data source.
-	 * 			If data binding is remote, and there's paging or filtering enabled,
-	 * 			the actual total number of records may not
-	 * 			match the number of records that exists on the client
-	 *
-	 * @param count    the total number of records
-	 * @param key 
-	 * @param dsObj 
-	 * @param context 
-	 */
-	totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
-
-	/**
- 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
-	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
-	 */
-	hasTotalRecordsCount(hasCount: boolean): void;
-
-	/**
- 	 * Returns metadata object for the specified key
-	 *
-	 * @param key    Primary key of the record
-	 */
-	metadata(key: string): Object;
-
-	/**
- 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
-	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
-	 */
-	pageIndex(index?: number): number;
-
-	/**
- 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
-	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
-	 */
-	persistedPageIndex(value?: number): number;
-
-	/**
- 	 * Sets the page index to be equal to the previous page index and rebinds the data source
-	 */
-	prevPage(): void;
-
-	/**
- 	 * Sets the page index to be equal to the next page index and rebinds the data source
-	 */
-	nextPage(): void;
-
-	/**
- 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
-	 *
-	 * @param s    the page size.
-	 */
-	pageSize(s?: number): number;
-
-	/**
- 	 * For internal use
-	 *
-	 * @param dirty    
-	 */
-	pageSizeDirty(dirty: Object): void;
-
-	/**
- 	 * Returns a list of records for the specified page. Implies that paging is enabled.
-	 *
-	 * @param p    the page index for which records will be returned
-	 */
-	recordsForPage(p: number): void;
-
-	/**
- 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
-	 *
-	 * @param tableDOM    TABLE dom element to transform
-	 */
-	tableToObject(tableDOM: Element): Object;
-
-	/**
- 	 * Parses the string and returns an evaluated JSON object
-	 *
-	 * @param s    the JSON as string.
-	 */
-	stringToJSONObject(s: string): void;
-
-	/**
- 	 * Parses a string and returns a XML Document
-	 *
-	 * @param s    the XML represented as a string
-	 */
-	stringToXmlObject(s: string): void;
-
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
-	 */
-	groupByData(): any[];
-
-	/**
- 	 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
-	 */
-	visibleGroupByData(): any[];
-
-	/**
- 	 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
-	 */
-	groupByDataView(): any[];
-
-	/**
- 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
-	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
-	 */
-	toggleGroupByRecord(id: string, collapsed: boolean): void;
-
-	/**
- 	 * Check whether the specified gorupby record is collapsed
-	 *
-	 * @param gbRec    id of the grouped record OR grouped record
-	 */
-	isGroupByRecordCollapsed(gbRec: Object): boolean;
-
-	/**
- 	 * Check whether grouping is applied for the specified sorting expressions.
-	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
-	 */
-	isGroupByApplied(exprs?: any[]): boolean;
-}
+declare namespace Infragistics {
+	class TreeHierarchicalDataSource {
+		constructor(settings: TreeHierarchicalDataSourceSettings);
+
+		/**
+		 * Data binds to the current data source
+		 * 			databinding works using the following workflow:
+		 * 			1. fire the databinding event
+		 * 			2. based on the data source type (see analyzeDataSource()), do the following:
+		 * 			3. if type is HtmlTable, parse the table and set the data and dataView respectively.
+		 * 			if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+		 * 			in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+		 * 			if no paging/sorting/filtering are enabled, use just this._data to save space
+		 * 			if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
+		 * 			if the data source is invalid, throw an exception
+		 * 			if the analyzed runtime data source type , that is, the result of analyzeDataSource(), is Unknown, check if
+		 * 			the value of settings.type is set to XML or JSON. If string, eval for JSON, and parse for the XML to build the object ree
+		 * 			4. now normalize/transform the data, if a schema is supplied. This inplies any additional data type  conversion
+		 * 			5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
+		 * 			6. fire the databound event
+		 *
+		 * @param callback    callback function
+		 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+		 */
+		dataBind(callback?: string, callee?: Object): void;
+
+		/**
+		 * Gets the passed record's parent records
+		 *
+		 * @param dataRow    the child record.
+		 * @param ds    the data source in which to search for the related parent records.
+		 */
+		getParentRowsForRow(dataRow: Object, ds?: Object): Object;
+
+		/**
+		 * Gets the current data bound depth of the tree grid hierarchy.
+		 */
+		getDataBoundDepth(): void;
+
+		/**
+		 * Gets/Sets whether the data source has been transformed from flat to hierarchical
+		 *
+		 * @param isTransformed    Determines if the data source is marked as transformed or not.
+		 */
+		isTransformedToHierarchicalData(isTransformed?: boolean): void;
+
+		/**
+		 * Transforms flat data to hierararchical data and returns the result
+		 *
+		 * @param data    The flat data that will be transformed to hierarchical
+		 */
+		transformToHierarchicalData(data: Object): Object;
+
+		/**
+		 * This processes the passed data for the specified level and applies the schema transformation to it.
+		 *
+		 * @param data    The data to be processed and transformed
+		 * @param level    The level to which the data belongs to. If this is not set it defaults to 0.
+		 * @param suppressTransformation    Determines whether the data should go through schema transformation. If true schema transofrmatin will not be applied.
+		 */
+		processDataPerLevel(data: Object, level?: number, suppressTransformation?: boolean): Object;
+
+		/**
+		 * Returnschild data transformed to flat data
+		 *
+		 * @param record    The data record whose data is transformed and returned as flat
+		 * @param level    The level. If not set defaults to 0.
+		 */
+		getFlatDataForRecord(record: Object, level?: number): Object;
+
+		/**
+		 * Generates flat data.
+		 * 			Returns an object that contains the generated flat data, the flat visible data, records count and visible records count.
+		 *
+		 * @param data    The data record whose data is transformed.
+		 * @param level    The level from which to start recursively generating the flat data. If not set defaults to 0.
+		 */
+		generateFlatData(data: Object, level?: number): Object;
+
+		/**
+		 * Generates a flat data view from the current (hierarchical)data
+		 */
+		generateFlatDataView(): void;
+
+		/**
+		 * Returns the current flat data view
+		 */
+		flatDataView(): Object;
+
+		/**
+		 * Returns flat visible data.
+		 */
+		getVisibleFlatData(): Object;
+
+		/**
+		 * Returns flat data(without taking into account visible/expansion state).
+		 */
+		getFlatData(): Object;
+
+		/**
+		 * Returns total records count(without taking into account visible/expansion state).
+		 */
+		getFlatDataCount(): number;
+
+		/**
+		 * Sets the expanded/collapsed state of a row by its index
+		 *
+		 * @param index    The index of the row.
+		 * @param expanded    If true then the row will be expanded. Otherwise it will be collapsed.
+		 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
+		 */
+		setExpandedStateByRowIndex(index: number, expanded: boolean, callbackArgs: Function): void;
+
+		/**
+		 * Sets the expanded state of a row by its primary key
+		 *
+		 * @param rowId    The id of the row.
+		 * @param expanded    If true the row will be expanded. Otherwise it will be collapsed.
+		 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
+		 */
+		setExpandedStateByPrimaryKey(rowId: string, expanded: boolean, callbackArgs: Function): void;
+
+		/**
+		 * Gets whether the row with the specified id is expanded.Returns true if the row is expanded or false if it's not.
+		 *
+		 * @param rowId    //The id of the row.
+		 */
+		getExpandStateById(rowId: string): boolean;
+
+		/**
+		 * Toggles the row's state by the row's id.
+		 *
+		 * @param rowId    The id of the row.
+		 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
+		 */
+		toggleRow(rowId: string, callbackArgs: Function): void;
+
+		/**
+		 * Sorts the data source locally. The result (sorted data) can be obtained by calling dataView().
+		 * 			Remote filtering can be performed by just calling dataBind() and setting the settings.sorting.expressions
+		 * 			multi-column sorting can be enabled by setting keepSortState to true.
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sort(fields: Object, direction: string): void;
+
+		/**
+		 * Sorts the given data recursively
+		 * 			fields => an array of fields object definitions:
+		 * 			example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+		 *
+		 * @param data    the data array that will be sorted.
+		 * @param level    the level to which the data belongs to
+		 * @param fields    an array of fields object definitions
+		 * @param direction    asc / desc direction
+		 */
+		sortDataRecursive(data: Object, level: number, fields: Object, direction: string): void;
+
+		/**
+		 * Sorts the passed data and returns the sorted result.
+		 *
+		 * @param data    the data to be sorted
+
+	fields => an array of fields object definitions:
+	example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
+	example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
+
+		* @param fields    an array of fields object definitions
+		* @param direction    asc / desc direction
+		*/
+		sortData(data: Object, fields: Object, direction: string): void;
+
+		/**
+		 * Returns the total number of records in the local data source
+		 */
+		totalLocalRecordsCount(): number;
+
+		/**
+		 * Returns the total number of pages
+		 */
+		pageCount(): number;
+
+		/**
+		 * Returns the total number of match filtering records in the data source.
+		 * 			When the dataSource is remote and filtering is applied then it is taken value
+		 * 			of property "filtering.countRecords" in metatadata - if set. If it is not set returns totalRecordsCount
+		 */
+		getFilteringMatchRecordsCount(): number;
+
+		/**
+		 * Filters the data source locally. Remote filtering can be performed by just calling dataBind() and setting the settings.filtering.expressions. The result (filtered data) can be obtained by calling dataView()
+		 * 			example: [{fieldName : "firstName", expr: "abc", cond: "StartsWith"}, {fieldName : "lastName"}]
+		 * 			example 2: [{fieldIndex : 1} , {fieldIndex : 2, expr: "a", cond : "contains"}]
+		 * 			expr is the filter expression text , such as "abc", or a regular expression such as *test*
+		 * 			cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
+		 * 			if expr is detected to be a regular expression, the "cond" part is skipped
+		 *
+		 * @param fieldExpressions    a list of field expression definitions
+		 * @param boolLogic    boolean logic. Accepted values are AND and OR.
+		 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+		 * @param fieldExpressionsOnStrings
+		 */
+		filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
+
+		/**
+		 * Gets the count of the filtered records in the dataView
+		 */
+		getFilteredRecordsCountFromDataView(): number;
+
+		/**
+		 * Gets the count of the filtered records
+		 */
+		getFilteredRecordsCount(): number;
+
+		/**
+		 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging.
+		 */
+		clearLocalFilter(): void;
+
+		/**
+		 * Gets whether the flat data view should be generated by calling the generateFlatDataView method.
+		 */
+		shouldCallGenerateFlatDataView(): void;
+
+		/**
+		 * Clears __matchFiltering property from the data record objects in the filtered data source. The __matchFiltering property determines whether a record matches the specified filtering condition.
+		 *
+		 * @param data    the array of data objects to be cleared. If not set the current filtered data array is used.
+		 */
+		clearMatchFiltering(data?: Object): void;
+
+		/**
+		 * Gets the path of a record by the record or the record's key
+		 *
+		 * @param record    the record or the record's key as string or number
+		 */
+		getPathBy(record: Object): void;
+
+		/**
+		 * Returns a record by a specified key (requires that primaryKey is set in the settings)
+		 *
+		 * @param key    Primary key of the record
+		 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
+		 * @param objPath    path to the object. Example: {path: '5/1'}
+		 */
+		findRecordByKey(key: Object, ds?: string, objPath?: Object): Object;
+
+		/**
+		 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
+		 *
+		 * @param key    primary key of the record
+		 * @param origDs
+		 */
+		removeRecordByKey(key: Object, origDs: Object): void;
+
+		/**
+		 * Deletes a row from the data source.
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		deleteRow(rowId: Object, autoCommit: boolean): Object;
+
+		/**
+		 * Gets the chilren records by the parent record's key in the passed data source
+		 *
+		 * @param key     primary key of the record
+		 * @param ds     the data source
+		 */
+		getChildrenByKey(key: Object, ds: Object): Object;
+
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param rowIndex    row index at which to be insert the new row
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 * @param parentRowId    the value of the primary key of the parent row(if any)
+		 */
+		insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
+
+		/**
+		 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
+		 *
+		 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+		 */
+		fields(fields?: Object): Object;
+
+		/**
+		 * Analyzes the dataSource setting to automatically determine the type of the data source. Returns the data source type. See settings.type
+		 */
+		analyzeDataSource(): string;
+
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted data, i.e. the dataView
+		 */
+		dataView(): any[];
+
+		/**
+		 * Returns all of the bound data, without taking into account local paging, sorting, filtering, etc.
+		 */
+		data(): Object;
+
+		/**
+		 * Returns transformed data according to transformed execution:
+		 * 			1. Before paging and filtering
+		 * 			2. After filtering before paging
+		 * 			3. After filtering and paging
+		 *
+		 * @param transformedExecution
+		 */
+		transformedData(transformedExecution: Object): Object;
+
+		/**
+		 * Returns summaries data
+		 */
+		dataSummaries(): Object;
+
+		/**
+		 * Gets/sets the schema definition.
+		 *
+		 * @param s    a schema object
+		 * @param t    type of the data source. See settings.type
+		 */
+		schema(s?: Object, t?: string): void;
+
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param p    object holding all paging settings. See settings.paging
+		 */
+		pagingSettings(p?: Object): Object;
+
+		/**
+		 * Gets/sets a list of filtering settings
+		 *
+		 * @param f    object holding all filtering settings. See settings.filtering
+		 */
+		filterSettings(f?: Object): void;
+
+		/**
+		 * Gets/sets a list of paging settings
+		 *
+		 * @param s    object holding all sorting settings. See settings.sorting
+		 */
+		sortSettings(s?: Object): Object;
+
+		/**
+		 * Gets/sets a list of summaries settings.
+		 *
+		 * @param s    object holding all summaries settings. See settings.summaries
+		 */
+		summariesSettings(s?: Object): void;
+
+		/**
+		 * Gets/sets the dataSource setting. If no parameter is specified, returns settings.dataSource
+		 *
+		 * @param ds
+		 */
+		dataSource(ds?: Object): Object;
+
+		/**
+		 * Gets/sets the type of the dataSource. If no parameter is specified, returns settings.type
+		 *
+		 * @param t
+		 * @return json|xml|unknown|array|function|htmlTableString|htmlTableId|htmlTableDom|invalid|remoteUrl|empty
+		 */
+		type(t?: Object): string;
+
+		/**
+		 * Removes a record from the data source at specific index.
+		 *
+		 * @param index    index of record
+		 * @param origDs
+		 */
+		removeRecordByIndex(index: number, origDs: Object): void;
+
+		/**
+		 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
+		 *
+		 * @param rowId    the rowId - row key (string) or index (number)
+		 * @param colId    the column id - column key (string) or index (number)
+		 * @param val    The new value
+		 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
+
+		/**
+		 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+
+		/**
+		 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param rowId    the record key - primaryKey (string) or index (number)
+		 * @param rowObject    the new record data.
+		 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+		 */
+		addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
+
+		/**
+		 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		addNode(data: Object): void;
+
+		/**
+		 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
+		 *
+		 * @param data    the transaction data
+		 */
+		removeNode(data: Object): void;
+
+		/**
+		 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
+		 *
+		 * @param t    a transaction object
+		 */
+		getDetachedRecord(t: Object): Object;
+
+		/**
+		 * Update the data source with every transaction from the log
+		 *
+		 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+		 */
+		commit(id?: number): void;
+
+		/**
+		 * Clears the transaction log without updating anything in the data source
+		 *
+		 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+		 */
+		rollback(id?: Object): void;
+
+		/**
+		 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source
+		 */
+		pendingTransactions(): any[];
+
+		/**
+		 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
+		 */
+		allTransactions(): any[];
+
+		/**
+		 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently
+		 */
+		transactionsAsString(): string;
+
+		/**
+		 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
+		 *
+		 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+		 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+		 */
+		saveChanges(success: Function, error: Function): void;
+
+		/**
+		 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
+		 *
+		 * @param fieldName    the fieldName - name of the field
+		 * @param record    the record from which to get it
+		 */
+		getCellValue(fieldName: string, record: Object): Object;
+
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets or sets summaries data.
+		 * 			If key or dsObj are not set then returns summaries data.
+		 * 			Takes summary data from passed argument dsObj(using argument key)
+		 *
+		 * @param key    response key to take summary data(for example "Metadata.Summaries")
+		 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+		 */
+		summariesResponse(key?: string, dsObj?: Object): Object;
+
+		/**
+		 * Returns filtered data if local filtering is applied. If filtering is not applied OR type of filtering is remote returns undefined.
+		 */
+		filteredData(): any[];
+
+		/**
+		 * This clears local sorting applied to the data view by resetting it to the original data and applying any paging
+		 */
+		clearLocalSorting(): void;
+
+		/**
+		 * Applicable only when the data source is bound to remote data.
+		 * 			Gets / sets the total number of records in the data source.
+		 * 			If data binding is remote, and there's paging or filtering enabled,
+		 * 			the actual total number of records may not
+		 * 			match the number of records that exists on the client
+		 *
+		 * @param count    the total number of records
+		 * @param key
+		 * @param dsObj
+		 * @param context
+		 */
+		totalRecordsCount(count?: number, key?: Object, dsObj?: Object, context?: Object): number;
+
+		/**
+		 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
+		 *
+		 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+		 */
+		hasTotalRecordsCount(hasCount: boolean): void;
+
+		/**
+		 * Returns metadata object for the specified key
+		 *
+		 * @param key    Primary key of the record
+		 */
+		metadata(key: string): Object;
+
+		/**
+		 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
+		 *
+		 * @param index    the page index. If none is specified, returns the current page index.
+		 */
+		pageIndex(index?: number): number;
+
+		/**
+		 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
+		 *
+		 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+		 */
+		persistedPageIndex(value?: number): number;
+
+		/**
+		 * Sets the page index to be equal to the previous page index and rebinds the data source
+		 */
+		prevPage(): void;
+
+		/**
+		 * Sets the page index to be equal to the next page index and rebinds the data source
+		 */
+		nextPage(): void;
+
+		/**
+		 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
+		 *
+		 * @param s    the page size.
+		 */
+		pageSize(s?: number): number;
+
+		/**
+		 * For internal use
+		 *
+		 * @param dirty
+		 */
+		pageSizeDirty(dirty: Object): void;
+
+		/**
+		 * Returns a list of records for the specified page. Implies that paging is enabled.
+		 *
+		 * @param p    the page index for which records will be returned
+		 */
+		recordsForPage(p: number): void;
+
+		/**
+		 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
+		 *
+		 * @param tableDOM    TABLE dom element to transform
+		 */
+		tableToObject(tableDOM: Element): Object;
+
+		/**
+		 * Parses the string and returns an evaluated JSON object
+		 *
+		 * @param s    the JSON as string.
+		 */
+		stringToJSONObject(s: string): void;
+
+		/**
+		 * Parses a string and returns a XML Document
+		 *
+		 * @param s    the XML represented as a string
+		 */
+		stringToXmlObject(s: string): void;
+
+		/**
+		 * Returns collection of data and non-data(grouped) records. Flat representation of hierarchical data
+		 */
+		groupByData(): any[];
+
+		/**
+		 * Returns collection of data and non-data(grouped) records. Returns only visible records(children of collapsed grouped records are not included in the collection)
+		 */
+		visibleGroupByData(): any[];
+
+		/**
+		 * Returns the current normalized/transformed and paged/filtered/sorted group-by data
+		 */
+		groupByDataView(): any[];
+
+		/**
+		 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
+		 *
+		 * @param id    data-id attribute of the respective group row in the DOM
+		 * @param collapsed    if true the record should be collapsed, otherwise expanded
+		 */
+		toggleGroupByRecord(id: string, collapsed: boolean): void;
+
+		/**
+		 * Check whether the specified gorupby record is collapsed
+		 *
+		 * @param gbRec    id of the grouped record OR grouped record
+		 */
+		isGroupByRecordCollapsed(gbRec: Object): boolean;
+
+		/**
+		 * Check whether grouping is applied for the specified sorting expressions.
+		 *
+		 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+		 */
+		isGroupByApplied(exprs?: any[]): boolean;
+	}
 }
 interface IgniteUIStatic {
 TreeHierarchicalDataSource: typeof Infragistics.TreeHierarchicalDataSource;
 }
 
-declare module Infragistics {
-export class DvCommonWidget {
-	option(key: Object, value: Object): void;
-}
+declare namespace Infragistics {
+	class DvCommonWidget {
+		option(key: Object, value: Object): void;
+	}
 }
 
 interface SimpleTextMarkerTemplateSettings {
@@ -6235,21 +6211,20 @@ interface SimpleTextMarkerTemplateSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class SimpleTextMarkerTemplate {
-	constructor(requireThis: boolean);
-	constructor(settings: SimpleTextMarkerTemplateSettings);
-	getText(item: Object, textDelegate: Object): void;
-	measure(measureInfo: Object): void;
-	render(renderInfo: Object): void;
-}
+declare namespace Infragistics {
+	class SimpleTextMarkerTemplate {
+		constructor(requireThis: boolean);
+		constructor(settings: SimpleTextMarkerTemplateSettings);
+		getText(item: Object, textDelegate: Object): void;
+		measure(measureInfo: Object): void;
+		render(renderInfo: Object): void;
+	}
 }
 interface IgniteUIStatic {
 SimpleTextMarkerTemplate: typeof Infragistics.SimpleTextMarkerTemplate;
 }
 
 interface GridExcelExporterSettingsGridFeatureOptions {
-
 	/**
  	 * Indicates whether sorting will be applied in the exported table. This is set_ to none by default, but will change to applied if sorting feature is defined in the igGrid.
 	 *
@@ -6313,7 +6288,6 @@ interface GridExcelExporterSettingsGridFeatureOptions {
 }
 
 interface GridExcelExporterSettings {
-
 	/**
  	 * Specifies the name of the excel file that will be generated.
 	 */
@@ -6373,7 +6347,6 @@ interface GridExcelExporterSettings {
 }
 
 interface GridExcelExporterCallbacks {
-
 	/**
  	 * Cancel="true" Callback fired when the exporting has started.
 	 * Function takes arguments sender and args.
@@ -6494,27 +6467,26 @@ interface GridExcelExporterCallbacks {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class GridExcelExporter {
-	constructor(settings: GridExcelExporterSettings);
-	constructor(callbacks: GridExcelExporterCallbacks);
+declare namespace Infragistics {
+	class GridExcelExporter {
+		constructor(settings: GridExcelExporterSettings);
+		constructor(callbacks: GridExcelExporterCallbacks);
 
-	/**
- 	 * Exports the provided igGrid to Excel document.
-	 *
-	 * @param grid     Grid to be exported.
-	 * @param userSettings     Settings for exporting the grid.
-	 * @param userCallbacks     Callbacks for the events.
-	 */
-	exportGrid(grid: Object, userSettings: Object, userCallbacks: Object): void;
-}
+		/**
+		 * Exports the provided igGrid to Excel document.
+		 *
+		 * @param grid     Grid to be exported.
+		 * @param userSettings     Settings for exporting the grid.
+		 * @param userCallbacks     Callbacks for the events.
+		 */
+		exportGrid(grid: Object, userSettings: Object, userCallbacks: Object): void;
+	}
 }
 interface IgniteUIStatic {
 GridExcelExporter: typeof Infragistics.GridExcelExporter;
 }
 
 interface OlapXmlaDataSourceOptionsRequestOptions {
-
 	/**
  	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 *                 Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -6534,7 +6506,6 @@ interface OlapXmlaDataSourceOptionsRequestOptions {
 }
 
 interface OlapXmlaDataSourceOptionsMdxSettings {
-
 	/**
  	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -6572,7 +6543,6 @@ interface OlapXmlaDataSourceOptionsMdxSettings {
 }
 
 interface OlapXmlaDataSourceOptions {
-
 	/**
  	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -6646,323 +6616,322 @@ interface OlapXmlaDataSourceOptions {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class OlapXmlaDataSource {
-	constructor(options: OlapXmlaDataSourceOptions);
+declare namespace Infragistics {
+	class OlapXmlaDataSource {
+		constructor(options: OlapXmlaDataSourceOptions);
 
-	/**
- 	 * Initializes the data source and returns a promise that will be resolved once the data source is initialized. 
-	 *             The promise's result will be the metadata tree for the catalog/cube/measureGroup specified in the settings or null if the settings do not provide a valid cube initialization data. 
-	 *             The data source is not functional until it has been initialized and all other methods other than initialize() will throw an error if isInitialized() returns false.
-	 */
-	initialize(): Object;
+		/**
+		 * Initializes the data source and returns a promise that will be resolved once the data source is initialized.
+		 *             The promise's result will be the metadata tree for the catalog/cube/measureGroup specified in the settings or null if the settings do not provide a valid cube initialization data.
+		 *             The data source is not functional until it has been initialized and all other methods other than initialize() will throw an error if isInitialized() returns false.
+		 */
+		initialize(): Object;
 
-	/**
- 	 * Retrieves the initialization state of the data source.
-	 */
-	isInitialized(): boolean;
+		/**
+		 * Retrieves the initialization state of the data source.
+		 */
+		isInitialized(): boolean;
 
-	/**
- 	 * Indicates whether the data source is modified.
-	 */
-	isModified(): boolean;
+		/**
+		 * Indicates whether the data source is modified.
+		 */
+		isModified(): boolean;
 
-	/**
- 	 * Indicates whether the update() method execution is in progress.
-	 */
-	isUpdating(): boolean;
+		/**
+		 * Indicates whether the update() method execution is in progress.
+		 */
+		isUpdating(): boolean;
 
-	/**
- 	 * Retrieves the currently loaded catalogs in the data source.
-	 */
-	catalogs(): any[];
+		/**
+		 * Retrieves the currently loaded catalogs in the data source.
+		 */
+		catalogs(): any[];
 
-	/**
- 	 * Retrieves the current catalog in the data source.
-	 */
-	catalog(): Object;
+		/**
+		 * Retrieves the current catalog in the data source.
+		 */
+		catalog(): Object;
 
-	/**
- 	 * Sets the current catalog for the data source and updates the cubes() and catalog() properties.
-	 *
-	 * @param catalogName the name of the catalog.
-	 */
-	setCatalog(catalogName: string): Object;
+		/**
+		 * Sets the current catalog for the data source and updates the cubes() and catalog() properties.
+		 *
+		 * @param catalogName the name of the catalog.
+		 */
+		setCatalog(catalogName: string): Object;
 
-	/**
- 	 * Retrieves the currently loaded cubes in the data source.
-	 */
-	cubes(): any[];
+		/**
+		 * Retrieves the currently loaded cubes in the data source.
+		 */
+		cubes(): any[];
 
-	/**
- 	 * Retrieves the current cube in the data source.
-	 */
-	cube(): Object;
+		/**
+		 * Retrieves the current cube in the data source.
+		 */
+		cube(): Object;
 
-	/**
- 	 * Sets the current cube for the data source and updates the cube(), measureGroup() and metadataTree() properties.
-	 *
-	 * @param cubeName the name of the cube.
-	 */
-	setCube(cubeName: string): Object;
+		/**
+		 * Sets the current cube for the data source and updates the cube(), measureGroup() and metadataTree() properties.
+		 *
+		 * @param cubeName the name of the cube.
+		 */
+		setCube(cubeName: string): Object;
 
-	/**
- 	 * Retrieves the currently loaded measure groups in the data source.
-	 */
-	measureGroups(): any[];
+		/**
+		 * Retrieves the currently loaded measure groups in the data source.
+		 */
+		measureGroups(): any[];
 
-	/**
- 	 * Retrieves the current measureGroup in the data source.
-	 */
-	measureGroup(): Object;
+		/**
+		 * Retrieves the current measureGroup in the data source.
+		 */
+		measureGroup(): Object;
 
-	/**
- 	 * Sets the current measure group for the data source and updates the measureGroup() and metadataTree() properties.
-	 *             Even though the catalogs/cubes/measureGroups items are cascading(e.g. in order to load the cubes a catalog has to be set) in order to construct the metadata tree a measure group is not required as it just filters the resulting metadata. 
-	 *             Once setCube(cubeName) is called the metadata tree would be loaded and the measureGroup() property would be filled with the default '(All)' measure group which indicates that no measure group is selected.
-	 *
-	 * @param measureGroupName the name of the measure group.
-	 */
-	setMeasureGroup(measureGroupName: string): Object;
+		/**
+		 * Sets the current measure group for the data source and updates the measureGroup() and metadataTree() properties.
+		 *             Even though the catalogs/cubes/measureGroups items are cascading(e.g. in order to load the cubes a catalog has to be set) in order to construct the metadata tree a measure group is not required as it just filters the resulting metadata.
+		 *             Once setCube(cubeName) is called the metadata tree would be loaded and the measureGroup() property would be filled with the default '(All)' measure group which indicates that no measure group is selected.
+		 *
+		 * @param measureGroupName the name of the measure group.
+		 */
+		setMeasureGroup(measureGroupName: string): Object;
 
-	/**
- 	 * Returns the fully loaded metadata tree.
-	 */
-	metadataTree(): Object;
+		/**
+		 * Returns the fully loaded metadata tree.
+		 */
+		metadataTree(): Object;
 
-	/**
- 	 * Adds a hierarchy to the rows of the pivot grid.
-	 *
-	 * @param rowItem An object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid rows.
-	 */
-	addRowItem(rowItem: Object): void;
+		/**
+		 * Adds a hierarchy to the rows of the pivot grid.
+		 *
+		 * @param rowItem An object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid rows.
+		 */
+		addRowItem(rowItem: Object): void;
 
-	/**
- 	 * Removes a hierarchy or the measure list from the rows of the pivot grid.
-	 *
-	 * @param rowItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "rows".
-	 */
-	removeRowItem(rowItem: Object): void;
+		/**
+		 * Removes a hierarchy or the measure list from the rows of the pivot grid.
+		 *
+		 * @param rowItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "rows".
+		 */
+		removeRowItem(rowItem: Object): void;
 
-	/**
- 	 * Adds a hierarchy to the columns of the pivot grid.
-	 *
-	 * @param columnItem an object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid columns.
-	 */
-	addColumnItem(columnItem: Object): void;
+		/**
+		 * Adds a hierarchy to the columns of the pivot grid.
+		 *
+		 * @param columnItem an object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid columns.
+		 */
+		addColumnItem(columnItem: Object): void;
 
-	/**
- 	 * Removes a hierarchy or the measure list from the columns of the pivot grid.
-	 *
-	 * @param columnItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "columns".
-	 */
-	removeColumnItem(columnItem: Object): void;
+		/**
+		 * Removes a hierarchy or the measure list from the columns of the pivot grid.
+		 *
+		 * @param columnItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "columns".
+		 */
+		removeColumnItem(columnItem: Object): void;
 
-	/**
- 	 * Adds a hierarchy to the filter axis of the pivot grid.
-	 *
-	 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to add.
-	 */
-	addFilterItem(filterItem: Object): void;
+		/**
+		 * Adds a hierarchy to the filter axis of the pivot grid.
+		 *
+		 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to add.
+		 */
+		addFilterItem(filterItem: Object): void;
 
-	/**
- 	 * Removes a hierarchy from the filter axis of the pivot grid.
-	 *
-	 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to remove.
-	 */
-	removeFilterItem(filterItem: Object): void;
+		/**
+		 * Removes a hierarchy from the filter axis of the pivot grid.
+		 *
+		 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to remove.
+		 */
+		removeFilterItem(filterItem: Object): void;
 
-	/**
- 	 * Adds a measure to the measures of the pivot grid.
-	 *
-	 * @param measureItem an object of type $.ig.Measure which is the measure to add.
-	 */
-	addMeasureItem(measureItem: Object): void;
+		/**
+		 * Adds a measure to the measures of the pivot grid.
+		 *
+		 * @param measureItem an object of type $.ig.Measure which is the measure to add.
+		 */
+		addMeasureItem(measureItem: Object): void;
 
-	/**
- 	 * Removes a measure from the measures of the pivot grid.
-	 *
-	 * @param measureItem An object of type $.ig.Measure which is the measure to remove.
-	 */
-	removeMeasureItem(measureItem: Object): void;
+		/**
+		 * Removes a measure from the measures of the pivot grid.
+		 *
+		 * @param measureItem An object of type $.ig.Measure which is the measure to remove.
+		 */
+		removeMeasureItem(measureItem: Object): void;
 
-	/**
- 	 * Sets the index at which the measure list will be positioned in the rows/columns it resides.
-	 *
-	 * @param index the index where measure list to appear.
-	 */
-	setMeasureListIndex(index: number): void;
+		/**
+		 * Sets the index at which the measure list will be positioned in the rows/columns it resides.
+		 *
+		 * @param index the index where measure list to appear.
+		 */
+		setMeasureListIndex(index: number): void;
 
-	/**
- 	 * Sets the location of the measure list.
-	 *
-	 * @param location accepted values are 'rows' and 'columns'.
-	 */
-	setMeasureListLocation(location: Object): void;
+		/**
+		 * Sets the location of the measure list.
+		 *
+		 * @param location accepted values are 'rows' and 'columns'.
+		 */
+		setMeasureListLocation(location: Object): void;
 
-	/**
- 	 * Sets a tuple member to be expanded next time the update() method is called.
-	 *             Calling this method on an already expanded member does nothing.
-	 *
-	 * @param axisName the name of the axis for the tuple.
-	 * @param tupleIndex the index of the tuple in the axis.
-	 * @param memberIndex the index of the member in the tuple.
-	 */
-	expandTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
+		/**
+		 * Sets a tuple member to be expanded next time the update() method is called.
+		 *             Calling this method on an already expanded member does nothing.
+		 *
+		 * @param axisName the name of the axis for the tuple.
+		 * @param tupleIndex the index of the tuple in the axis.
+		 * @param memberIndex the index of the member in the tuple.
+		 */
+		expandTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
 
-	/**
- 	 * Sets a tuple member to be collapsed next time the update() method is called.
-	 *             Calling this method on an already collapsed member does nothing.
-	 *
-	 * @param axisName the name of the axis for the tuple.
-	 * @param tupleIndex the index of the tuple in the axis.
-	 * @param memberIndex the index of the member in the tuple.
-	 */
-	collapseTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
+		/**
+		 * Sets a tuple member to be collapsed next time the update() method is called.
+		 *             Calling this method on an already collapsed member does nothing.
+		 *
+		 * @param axisName the name of the axis for the tuple.
+		 * @param tupleIndex the index of the tuple in the axis.
+		 * @param memberIndex the index of the member in the tuple.
+		 */
+		collapseTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
 
-	/**
- 	 * Returns the items in the row axis.
-	 */
-	rowAxis(): any[];
+		/**
+		 * Returns the items in the row axis.
+		 */
+		rowAxis(): any[];
 
-	/**
- 	 * Returns the items in the column axis.
-	 */
-	columnAxis(): any[];
+		/**
+		 * Returns the items in the column axis.
+		 */
+		columnAxis(): any[];
 
-	/**
- 	 * Returns the items in the filter axis.
-	 */
-	filters(): any[];
+		/**
+		 * Returns the items in the filter axis.
+		 */
+		filters(): any[];
 
-	/**
- 	 * Returns the items in the measures axis.
-	 */
-	measures(): any[];
+		/**
+		 * Returns the items in the measures axis.
+		 */
+		measures(): any[];
 
-	/**
- 	 * Returns the result from the last update or null if the last update was unsuccessful.
-	 */
-	result(): Object;
+		/**
+		 * Returns the result from the last update or null if the last update was unsuccessful.
+		 */
+		result(): Object;
 
-	/**
- 	 * Clears all pending changes since last time the update() method is called.
-	 */
-	clearPendingChanges(): void;
+		/**
+		 * Clears all pending changes since last time the update() method is called.
+		 */
+		clearPendingChanges(): void;
 
-	/**
- 	 * Performs an update with the list of pending changes and updates the data source result.
-	 */
-	update(): Object;
+		/**
+		 * Performs an update with the list of pending changes and updates the data source result.
+		 */
+		update(): Object;
 
-	/**
- 	 * Gets the first element of the specified elementType which matches the specified predicate or null if there is no such element found.
-	 *
-	 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
-	 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
-	 */
-	getCoreElement(predicate: Function, elementType: Object): Object;
+		/**
+		 * Gets the first element of the specified elementType which matches the specified predicate or null if there is no such element found.
+		 *
+		 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
+		 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
+		 */
+		getCoreElement(predicate: Function, elementType: Object): Object;
 
-	/**
- 	 * Gets an array with elements of the specified elementType which match the specified predicate or empty array if there is no such element found.
-	 *
-	 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
-	 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
-	 */
-	getCoreElements(predicate: Function, elementType: Object): Object;
+		/**
+		 * Gets an array with elements of the specified elementType which match the specified predicate or empty array if there is no such element found.
+		 *
+		 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
+		 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
+		 */
+		getCoreElements(predicate: Function, elementType: Object): Object;
 
-	/**
- 	 * Returns $.ig.Dimension object for the specified unique name.
-	 *
-	 * @param dimensionUniqueName the unique name of the searched dimension object.
-	 */
-	getDimension(dimensionUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Dimension object for the specified unique name.
+		 *
+		 * @param dimensionUniqueName the unique name of the searched dimension object.
+		 */
+		getDimension(dimensionUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.Hierarchy object for the specified unique name.
-	 *
-	 * @param hierarchyUniqueName the unique name of the searched hierarchy object.
-	 */
-	getHierarchy(hierarchyUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Hierarchy object for the specified unique name.
+		 *
+		 * @param hierarchyUniqueName the unique name of the searched hierarchy object.
+		 */
+		getHierarchy(hierarchyUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.Level object for the specified unique name.
-	 *
-	 * @param levelUniqueName the unique name of the searched level object.
-	 */
-	getLevel(levelUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Level object for the specified unique name.
+		 *
+		 * @param levelUniqueName the unique name of the searched level object.
+		 */
+		getLevel(levelUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.Measure object for the specified unique name.
-	 *
-	 * @param measureUniqueName the unique name of the searched measure object.
-	 */
-	getMeasure(measureUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Measure object for the specified unique name.
+		 *
+		 * @param measureUniqueName the unique name of the searched measure object.
+		 */
+		getMeasure(measureUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.MeasureList object available when operates with more than one $.ig.Measure object.
-	 */
-	getMeasureList(): Object;
+		/**
+		 * Returns $.ig.MeasureList object available when operates with more than one $.ig.Measure object.
+		 */
+		getMeasureList(): Object;
 
-	/**
- 	 * Returns an array of strings with the unique names of selected for given hierarchy filter members.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy whose active filter members are returned.
-	 */
-	getFilterMemberNames(hierarchyUniqueName: string): any[];
+		/**
+		 * Returns an array of strings with the unique names of selected for given hierarchy filter members.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy whose active filter members are returned.
+		 */
+		getFilterMemberNames(hierarchyUniqueName: string): any[];
 
-	/**
- 	 * Adds a member to list of filter members that will be present in result. 
-	 *             If a member of given hierarchy is added to this filter list then only those members which are present in this filter list will be present for that hierarchy in the result.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
-	 * @param memberUniqueName the unique name of the member to be added.
-	 */
-	addFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
+		/**
+		 * Adds a member to list of filter members that will be present in result.
+		 *             If a member of given hierarchy is added to this filter list then only those members which are present in this filter list will be present for that hierarchy in the result.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
+		 * @param memberUniqueName the unique name of the member to be added.
+		 */
+		addFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
 
-	/**
- 	 * Removes a member from the list of filter members that will be present in result.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
-	 * @param memberUniqueName the unique name of the member to be removed.
-	 */
-	removeFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
+		/**
+		 * Removes a member from the list of filter members that will be present in result.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
+		 * @param memberUniqueName the unique name of the member to be removed.
+		 */
+		removeFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
 
-	/**
- 	 * Removes all members from the list of filter members and the filter for the specified hierarchy is cleared.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy which filter members to be cleared.
-	 */
-	removeAllFilterMembers(hierarchyUniqueName: string): void;
+		/**
+		 * Removes all members from the list of filter members and the filter for the specified hierarchy is cleared.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy which filter members to be cleared.
+		 */
+		removeAllFilterMembers(hierarchyUniqueName: string): void;
 
-	/**
- 	 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given level filter member.
-	 *
-	 * @param levelUniqueName the unique name of the member whose active filter members are returned.
-	 */
-	getMembersOfLevel(levelUniqueName: string): void;
+		/**
+		 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given level filter member.
+		 *
+		 * @param levelUniqueName the unique name of the member whose active filter members are returned.
+		 */
+		getMembersOfLevel(levelUniqueName: string): void;
 
-	/**
- 	 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given hierarchy filter member.
-	 *
-	 * @param hierarchyUniqueName the unique name of the member whose active filter members are returned.
-	 */
-	getMembersOfHierarchy(hierarchyUniqueName: string): void;
+		/**
+		 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given hierarchy filter member.
+		 *
+		 * @param hierarchyUniqueName the unique name of the member whose active filter members are returned.
+		 */
+		getMembersOfHierarchy(hierarchyUniqueName: string): void;
 
-	/**
- 	 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects that are children of the current member.
-	 *
-	 * @param memberUniqueName the unique name of the member whose active filter members are returned.
-	 */
-	getMembersOfMember(memberUniqueName: string): void;
-}
+		/**
+		 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects that are children of the current member.
+		 *
+		 * @param memberUniqueName the unique name of the member whose active filter members are returned.
+		 */
+		getMembersOfMember(memberUniqueName: string): void;
+	}
 }
 interface IgniteUIStatic {
 OlapXmlaDataSource: typeof Infragistics.OlapXmlaDataSource;
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
  	 * Optional="false" A unique name for the measure.
 	 */
@@ -6991,7 +6960,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimensionMeasure {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimension {
-
 	/**
  	 * A unique name for the measures dimension.
 	 *                             The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -7017,7 +6985,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimension {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
  	 * Optional="false" A name for the level.
 	 *                                     The unique name of the level is formed using the following pattern:
@@ -7043,7 +7010,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchieLevel {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchie {
-
 	/**
  	 * Optional="false" A name for the hierarchy.
 	 *                                 The unique name of the hierarchy is formed using the following pattern:
@@ -7057,8 +7023,8 @@ interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchie {
 	caption?: string;
 
 	/**
- 	 * The path to be used when displaying the hierarchy in the user interface. 
-	 *                                 Nested folders are indicated by a backslash (\). 
+ 	 * The path to be used when displaying the hierarchy in the user interface.
+	 *                                 Nested folders are indicated by a backslash (\).
 	 *                                 The folder hierarchy will appear under parent dimension node.
 	 */
 	displayFolder?: string;
@@ -7075,7 +7041,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchie {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeDimension {
-
 	/**
  	 * Optional="false" A unique name for the dimension.
 	 */
@@ -7098,7 +7063,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeDimension {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCube {
-
 	/**
  	 * Optional="false" A unique name for the cube.
 	 */
@@ -7126,7 +7090,6 @@ interface OlapFlatDataSourceOptionsMetadataCube {
 }
 
 interface OlapFlatDataSourceOptionsMetadata {
-
 	/**
  	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -7139,7 +7102,6 @@ interface OlapFlatDataSourceOptionsMetadata {
 }
 
 interface OlapFlatDataSourceOptions {
-
 	/**
  	 * Optional="true" Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -7196,348 +7158,346 @@ interface OlapFlatDataSourceOptions {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class OlapFlatDataSource {
-	constructor(options: OlapFlatDataSourceOptions);
+declare namespace Infragistics {
+	class OlapFlatDataSource {
+		constructor(options: OlapFlatDataSourceOptions);
 
-	/**
- 	 * Initializes the data source and returns a promise that will be resolved once the data source is initialized. 
-	 *             The promise's result will be the metadata tree for the catalog/cube/measureGroup specified in the settings or null if the settings do not provide a valid cube initialization data. 
-	 *             The data source is not functional until it has been initialized and all other methods other than initialize() will throw an error if isInitialized() returns false.
-	 */
-	initialize(): Object;
+		/**
+		 * Initializes the data source and returns a promise that will be resolved once the data source is initialized.
+		 *             The promise's result will be the metadata tree for the catalog/cube/measureGroup specified in the settings or null if the settings do not provide a valid cube initialization data.
+		 *             The data source is not functional until it has been initialized and all other methods other than initialize() will throw an error if isInitialized() returns false.
+		 */
+		initialize(): Object;
 
-	/**
- 	 * Retrieves the initialization state of the data source.
-	 */
-	isInitialized(): boolean;
+		/**
+		 * Retrieves the initialization state of the data source.
+		 */
+		isInitialized(): boolean;
 
-	/**
- 	 * Indicates whether the data source is modified.
-	 */
-	isModified(): boolean;
+		/**
+		 * Indicates whether the data source is modified.
+		 */
+		isModified(): boolean;
 
-	/**
- 	 * Indicates whether the update() method execution is in progress.
-	 */
-	isUpdating(): boolean;
+		/**
+		 * Indicates whether the update() method execution is in progress.
+		 */
+		isUpdating(): boolean;
 
-	/**
- 	 * Retrieves the currently loaded cubes in the data source.
-	 */
-	cubes(): any[];
+		/**
+		 * Retrieves the currently loaded cubes in the data source.
+		 */
+		cubes(): any[];
 
-	/**
- 	 * Retrieves the current cube in the data source.
-	 */
-	cube(): Object;
+		/**
+		 * Retrieves the current cube in the data source.
+		 */
+		cube(): Object;
 
-	/**
- 	 * Sets the current cube for the data source and updates the cube(), measureGroup() and metadataTree() properties.
-	 *
-	 * @param cubeName the name of the cube.
-	 */
-	setCube(cubeName: string): Object;
+		/**
+		 * Sets the current cube for the data source and updates the cube(), measureGroup() and metadataTree() properties.
+		 *
+		 * @param cubeName the name of the cube.
+		 */
+		setCube(cubeName: string): Object;
 
-	/**
- 	 * Returns the fully loaded metadata tree.
-	 */
-	metadataTree(): Object;
+		/**
+		 * Returns the fully loaded metadata tree.
+		 */
+		metadataTree(): Object;
 
-	/**
- 	 * Adds a hierarchy to the rows of the pivot grid.
-	 *
-	 * @param rowItem An object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid rows.
-	 */
-	addRowItem(rowItem: Object): void;
+		/**
+		 * Adds a hierarchy to the rows of the pivot grid.
+		 *
+		 * @param rowItem An object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid rows.
+		 */
+		addRowItem(rowItem: Object): void;
 
-	/**
- 	 * Removes a hierarchy or the measure list from the rows of the pivot grid.
-	 *
-	 * @param rowItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "rows".
-	 */
-	removeRowItem(rowItem: Object): void;
+		/**
+		 * Removes a hierarchy or the measure list from the rows of the pivot grid.
+		 *
+		 * @param rowItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "rows".
+		 */
+		removeRowItem(rowItem: Object): void;
 
-	/**
- 	 * Adds a hierarchy to the columns of the pivot grid.
-	 *
-	 * @param columnItem an object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid columns.
-	 */
-	addColumnItem(columnItem: Object): void;
+		/**
+		 * Adds a hierarchy to the columns of the pivot grid.
+		 *
+		 * @param columnItem an object of type $.ig.Hierarchy which is the hierarchy to add in the pivot grid columns.
+		 */
+		addColumnItem(columnItem: Object): void;
 
-	/**
- 	 * Removes a hierarchy or the measure list from the columns of the pivot grid.
-	 *
-	 * @param columnItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "columns".
-	 */
-	removeColumnItem(columnItem: Object): void;
+		/**
+		 * Removes a hierarchy or the measure list from the columns of the pivot grid.
+		 *
+		 * @param columnItem an object of type $.ig.Hierarchy or $.ig.MeasureList which is the hierarchy to remove or the measure list if there are more than one measures added and the measure list location is set to "columns".
+		 */
+		removeColumnItem(columnItem: Object): void;
 
-	/**
- 	 * Adds a hierarchy to the filter axis of the pivot grid.
-	 *
-	 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to add.
-	 */
-	addFilterItem(filterItem: Object): void;
+		/**
+		 * Adds a hierarchy to the filter axis of the pivot grid.
+		 *
+		 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to add.
+		 */
+		addFilterItem(filterItem: Object): void;
 
-	/**
- 	 * Removes a hierarchy from the filter axis of the pivot grid.
-	 *
-	 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to remove.
-	 */
-	removeFilterItem(filterItem: Object): void;
+		/**
+		 * Removes a hierarchy from the filter axis of the pivot grid.
+		 *
+		 * @param filterItem an object of type $.ig.Hierarchy which is the hierarchy to remove.
+		 */
+		removeFilterItem(filterItem: Object): void;
 
-	/**
- 	 * Adds a measure to the measures of the pivot grid.
-	 *
-	 * @param measureItem an object of type $.ig.Measure which is the measure to add.
-	 */
-	addMeasureItem(measureItem: Object): void;
+		/**
+		 * Adds a measure to the measures of the pivot grid.
+		 *
+		 * @param measureItem an object of type $.ig.Measure which is the measure to add.
+		 */
+		addMeasureItem(measureItem: Object): void;
 
-	/**
- 	 * Removes a measure from the measures of the pivot grid.
-	 *
-	 * @param measureItem An object of type $.ig.Measure which is the measure to remove.
-	 */
-	removeMeasureItem(measureItem: Object): void;
+		/**
+		 * Removes a measure from the measures of the pivot grid.
+		 *
+		 * @param measureItem An object of type $.ig.Measure which is the measure to remove.
+		 */
+		removeMeasureItem(measureItem: Object): void;
 
-	/**
- 	 * Sets the index at which the measure list will be positioned in the rows/columns it resides.
-	 *
-	 * @param index the index where measure list to appear.
-	 */
-	setMeasureListIndex(index: number): void;
+		/**
+		 * Sets the index at which the measure list will be positioned in the rows/columns it resides.
+		 *
+		 * @param index the index where measure list to appear.
+		 */
+		setMeasureListIndex(index: number): void;
 
-	/**
- 	 * Sets the location of the measure list.
-	 *
-	 * @param location accepted values are 'rows' and 'columns'.
-	 */
-	setMeasureListLocation(location: Object): void;
+		/**
+		 * Sets the location of the measure list.
+		 *
+		 * @param location accepted values are 'rows' and 'columns'.
+		 */
+		setMeasureListLocation(location: Object): void;
 
-	/**
- 	 * Sets a tuple member to be expanded next time the update() method is called.
-	 *             Calling this method on an already expanded member does nothing.
-	 *
-	 * @param axisName the name of the axis for the tuple.
-	 * @param tupleIndex the index of the tuple in the axis.
-	 * @param memberIndex the index of the member in the tuple.
-	 */
-	expandTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
+		/**
+		 * Sets a tuple member to be expanded next time the update() method is called.
+		 *             Calling this method on an already expanded member does nothing.
+		 *
+		 * @param axisName the name of the axis for the tuple.
+		 * @param tupleIndex the index of the tuple in the axis.
+		 * @param memberIndex the index of the member in the tuple.
+		 */
+		expandTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
 
-	/**
- 	 * Sets a tuple member to be collapsed next time the update() method is called.
-	 *             Calling this method on an already collapsed member does nothing.
-	 *
-	 * @param axisName the name of the axis for the tuple.
-	 * @param tupleIndex the index of the tuple in the axis.
-	 * @param memberIndex the index of the member in the tuple.
-	 */
-	collapseTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
+		/**
+		 * Sets a tuple member to be collapsed next time the update() method is called.
+		 *             Calling this method on an already collapsed member does nothing.
+		 *
+		 * @param axisName the name of the axis for the tuple.
+		 * @param tupleIndex the index of the tuple in the axis.
+		 * @param memberIndex the index of the member in the tuple.
+		 */
+		collapseTupleMember(axisName: string, tupleIndex: number, memberIndex: number): void;
 
-	/**
- 	 * Returns the items in the row axis.
-	 */
-	rowAxis(): any[];
+		/**
+		 * Returns the items in the row axis.
+		 */
+		rowAxis(): any[];
 
-	/**
- 	 * Returns the items in the column axis.
-	 */
-	columnAxis(): any[];
+		/**
+		 * Returns the items in the column axis.
+		 */
+		columnAxis(): any[];
 
-	/**
- 	 * Returns the items in the filter axis.
-	 */
-	filters(): any[];
+		/**
+		 * Returns the items in the filter axis.
+		 */
+		filters(): any[];
 
-	/**
- 	 * Returns the items in the measures axis.
-	 */
-	measures(): any[];
+		/**
+		 * Returns the items in the measures axis.
+		 */
+		measures(): any[];
 
-	/**
- 	 * Returns the result from the last update or null if the last update was unsuccessful.
-	 */
-	result(): Object;
+		/**
+		 * Returns the result from the last update or null if the last update was unsuccessful.
+		 */
+		result(): Object;
 
-	/**
- 	 * Clears all pending changes since last time the update() method is called.
-	 */
-	clearPendingChanges(): void;
+		/**
+		 * Clears all pending changes since last time the update() method is called.
+		 */
+		clearPendingChanges(): void;
 
-	/**
- 	 * Performs an update with the list of pending changes and updates the data source result.
-	 */
-	update(): Object;
+		/**
+		 * Performs an update with the list of pending changes and updates the data source result.
+		 */
+		update(): Object;
 
-	/**
- 	 * Gets the first element of the specified elementType which matches the specified predicate or null if there is no such element found.
-	 *
-	 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
-	 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
-	 */
-	getCoreElement(predicate: Function, elementType: Object): Object;
+		/**
+		 * Gets the first element of the specified elementType which matches the specified predicate or null if there is no such element found.
+		 *
+		 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
+		 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
+		 */
+		getCoreElement(predicate: Function, elementType: Object): Object;
 
-	/**
- 	 * Gets an array with elements of the specified elementType which match the specified predicate or empty array if there is no such element found.
-	 *
-	 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
-	 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
-	 */
-	getCoreElements(predicate: Function, elementType: Object): Object;
+		/**
+		 * Gets an array with elements of the specified elementType which match the specified predicate or empty array if there is no such element found.
+		 *
+		 * @param predicate a predicate callback invoked against each core element of the specified type. It has to return true when the element has matched the serach criteria, otherwise - false.
+		 * @param elementType an object specified by $.ig.ICoreOlapElement.prototype.$type property. Valid types which prototype can be examined are: $.ig.Dimension, $.ig.Hierarchy, $.ig.Level, $.ig.Measure and $.ig.MeasureList.
+		 */
+		getCoreElements(predicate: Function, elementType: Object): Object;
 
-	/**
- 	 * Returns $.ig.Dimension object for the specified unique name.
-	 *
-	 * @param dimensionUniqueName the unique name of the searched dimension object.
-	 */
-	getDimension(dimensionUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Dimension object for the specified unique name.
+		 *
+		 * @param dimensionUniqueName the unique name of the searched dimension object.
+		 */
+		getDimension(dimensionUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.Hierarchy object for the specified unique name.
-	 *
-	 * @param hierarchyUniqueName the unique name of the searched hierarchy object.
-	 */
-	getHierarchy(hierarchyUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Hierarchy object for the specified unique name.
+		 *
+		 * @param hierarchyUniqueName the unique name of the searched hierarchy object.
+		 */
+		getHierarchy(hierarchyUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.Level object for the specified unique name.
-	 *
-	 * @param levelUniqueName the unique name of the searched level object.
-	 */
-	getLevel(levelUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Level object for the specified unique name.
+		 *
+		 * @param levelUniqueName the unique name of the searched level object.
+		 */
+		getLevel(levelUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.Measure object for the specified unique name.
-	 *
-	 * @param measureUniqueName the unique name of the searched measure object.
-	 */
-	getMeasure(measureUniqueName: string): Object;
+		/**
+		 * Returns $.ig.Measure object for the specified unique name.
+		 *
+		 * @param measureUniqueName the unique name of the searched measure object.
+		 */
+		getMeasure(measureUniqueName: string): Object;
 
-	/**
- 	 * Returns $.ig.MeasureList object available when operates with more than one $.ig.Measure object.
-	 */
-	getMeasureList(): Object;
+		/**
+		 * Returns $.ig.MeasureList object available when operates with more than one $.ig.Measure object.
+		 */
+		getMeasureList(): Object;
 
-	/**
- 	 * Returns an array of strings with the unique names of selected for given hierarchy filter members.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy whose active filter members are returned.
-	 */
-	getFilterMemberNames(hierarchyUniqueName: string): any[];
+		/**
+		 * Returns an array of strings with the unique names of selected for given hierarchy filter members.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy whose active filter members are returned.
+		 */
+		getFilterMemberNames(hierarchyUniqueName: string): any[];
 
-	/**
- 	 * Adds a member to list of filter members that will be present in result. 
-	 *             If a member of given hierarchy is added to this filter list then only those members which are present in this filter list will be present for that hierarchy in the result.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
-	 * @param memberUniqueName the unique name of the member to be added.
-	 */
-	addFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
+		/**
+		 * Adds a member to list of filter members that will be present in result.
+		 *             If a member of given hierarchy is added to this filter list then only those members which are present in this filter list will be present for that hierarchy in the result.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
+		 * @param memberUniqueName the unique name of the member to be added.
+		 */
+		addFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
 
-	/**
- 	 * Removes a member from the list of filter members that will be present in result.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
-	 * @param memberUniqueName the unique name of the member to be removed.
-	 */
-	removeFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
+		/**
+		 * Removes a member from the list of filter members that will be present in result.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy this member belongs to.
+		 * @param memberUniqueName the unique name of the member to be removed.
+		 */
+		removeFilterMember(hierarchyUniqueName: string, memberUniqueName: string): void;
 
-	/**
- 	 * Removes all members from the list of filter members and the filter for the specified hierarchy is cleared.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy which filter members to be cleared.
-	 */
-	removeAllFilterMembers(hierarchyUniqueName: string): void;
+		/**
+		 * Removes all members from the list of filter members and the filter for the specified hierarchy is cleared.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy which filter members to be cleared.
+		 */
+		removeAllFilterMembers(hierarchyUniqueName: string): void;
 
-	/**
- 	 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given level filter member.
-	 *
-	 * @param levelUniqueName the unique name of the level whose active filter members are returned.
-	 */
-	getMembersOfLevel(levelUniqueName: string): void;
+		/**
+		 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given level filter member.
+		 *
+		 * @param levelUniqueName the unique name of the level whose active filter members are returned.
+		 */
+		getMembersOfLevel(levelUniqueName: string): void;
 
-	/**
- 	 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given hierarchy filter member.
-	 *
-	 * @param hierarchyUniqueName the unique name of the hierarchy whose active filter members are returned.
-	 */
-	getMembersOfHierarchy(hierarchyUniqueName: string): void;
+		/**
+		 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects of selected for given hierarchy filter member.
+		 *
+		 * @param hierarchyUniqueName the unique name of the hierarchy whose active filter members are returned.
+		 */
+		getMembersOfHierarchy(hierarchyUniqueName: string): void;
 
-	/**
- 	 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects that are children of the current member.
-	 *
-	 * @param memberUniqueName the unique name of the member whose active filter members are returned.
-	 */
-	getMembersOfMember(memberUniqueName: string): void;
-}
+		/**
+		 * Returns Promise which on completion provides an array of $.ig.OlapResultAxisMember objects that are children of the current member.
+		 *
+		 * @param memberUniqueName the unique name of the member whose active filter members are returned.
+		 */
+		getMembersOfMember(memberUniqueName: string): void;
+	}
 }
 interface IgniteUIStatic {
 OlapFlatDataSource: typeof Infragistics.OlapFlatDataSource;
 }
 
-declare module Infragistics {
-export class OlapMetadataTreeItem {
+declare namespace Infragistics {
+	class OlapMetadataTreeItem {
+		/**
+		 * Returns the OLAP metadata item that this tree item represents which is an object of type $.ig.Cube, $.ig.Dimension, $.ig.Hierarchy, $.ig.Measure, $.ig.Level.
+		 */
+		item(): Object;
 
-	/**
- 	 * Returns the OLAP metadata item that this tree item represents which is an object of type $.ig.Cube, $.ig.Dimension, $.ig.Hierarchy, $.ig.Measure, $.ig.Level.
-	 */
-	item(): Object;
+		/**
+		 * Returns the metadata tree item type which is a value from the $.ig.MetadataTreeItemType enumeration.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.cube = 0;
+		 *             Item type for the cube tree items. Contain an item() of type $.ig.Cube.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.dimension = 1;
+		 *             Item type for the dimension tree items. Contain an item() of type $.ig.Dimension.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.group = 2;
+		 *             Item type for the group tree items. Does not have item().
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.userDefinedHierarchy = 3;
+		 *             Item type for the userDefinedHierarchy tree items. Contain an item() of type $.ig.Hierarchy.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.systemEnabledHierarchy = 4;
+		 *             Item type for the systemEnabledHierarchy tree items. Contain an item() of type $.ig.Hierarchy.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.parentChildHierarchy = 5;
+		 *             Item type for the parentChildHierarchy tree items. Contain an item() of type $.ig.Hierarchy.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.measure = 6;
+		 *             Item type for the measure tree items. Contain an item() of type $.ig.Measure.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.level1 = 7;
+		 *             Item type for the level1 tree items. Contain an item() of type $.ig.Level.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.level2 = 8;
+		 *             Item type for the level2 tree items. Contain an item() of type $.ig.Level.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.level3 = 9;
+		 *             Item type for the level3 tree items. Contain an item() of type $.ig.Level.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.level4 = 10;
+		 *             Item type for the level4 tree items. Contain an item() of type $.ig.Level.
+		 *
+		 *             $.ig.MetadataTreeItemType.prototype.level5 = 11;
+		 *             Item type for the level5 tree items. Contain an item() of type $.ig.Level.
+		 */
+		type(): number;
 
-	/**
- 	 * Returns the metadata tree item type which is a value from the $.ig.MetadataTreeItemType enumeration.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.cube = 0;
-	 *             Item type for the cube tree items. Contain an item() of type $.ig.Cube.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.dimension = 1;
-	 *             Item type for the dimension tree items. Contain an item() of type $.ig.Dimension.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.group = 2;
-	 *             Item type for the group tree items. Does not have item().
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.userDefinedHierarchy = 3;
-	 *             Item type for the userDefinedHierarchy tree items. Contain an item() of type $.ig.Hierarchy.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.systemEnabledHierarchy = 4;
-	 *             Item type for the systemEnabledHierarchy tree items. Contain an item() of type $.ig.Hierarchy.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.parentChildHierarchy = 5;
-	 *             Item type for the parentChildHierarchy tree items. Contain an item() of type $.ig.Hierarchy.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.measure = 6;
-	 *             Item type for the measure tree items. Contain an item() of type $.ig.Measure.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.level1 = 7;
-	 *             Item type for the level1 tree items. Contain an item() of type $.ig.Level.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.level2 = 8;
-	 *             Item type for the level2 tree items. Contain an item() of type $.ig.Level.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.level3 = 9;
-	 *             Item type for the level3 tree items. Contain an item() of type $.ig.Level.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.level4 = 10;
-	 *             Item type for the level4 tree items. Contain an item() of type $.ig.Level.
-	 * 
-	 *             $.ig.MetadataTreeItemType.prototype.level5 = 11;
-	 *             Item type for the level5 tree items. Contain an item() of type $.ig.Level.
-	 */
-	type(): number;
+		/**
+		 * Returns the caption text that should be displayed for this tree item.
+		 */
+		caption(): string;
 
-	/**
- 	 * Returns the caption text that should be displayed for this tree item.
-	 */
-	caption(): string;
-
-	/**
- 	 * Returns the children ot this tree item.
-	 */
-	children(): Object;
-}
+		/**
+		 * Returns the children ot this tree item.
+		 */
+		children(): Object;
+	}
 }
 
 interface OlapResultViewOptions {
-
 	/**
  	 * Optional="false" an object of type $.ig.OlapResult which represents the full cached result.
 	 */
@@ -7564,46 +7524,45 @@ interface OlapResultViewOptions {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class OlapResultView {
-	constructor(options: OlapResultViewOptions);
+declare namespace Infragistics {
+	class OlapResultView {
+		constructor(options: OlapResultViewOptions);
 
-	/**
- 	 * Creates a new $.ig.OlapResultView object with result object having the same structure as the original one and new visibleResult where the tuples which appear as children under specified tuple and member index are no longer present.
-	 *
-	 * @param axisName 
-	 * @param tupleIndex 
-	 * @param memberIndex 
-	 */
-	collapseTupleMember(axisName: Object, tupleIndex: Object, memberIndex: Object): Object;
+		/**
+		 * Creates a new $.ig.OlapResultView object with result object having the same structure as the original one and new visibleResult where the tuples which appear as children under specified tuple and member index are no longer present.
+		 *
+		 * @param axisName
+		 * @param tupleIndex
+		 * @param memberIndex
+		 */
+		collapseTupleMember(axisName: Object, tupleIndex: Object, memberIndex: Object): Object;
 
-	/**
- 	 * Creates a $.ig.OlapResultView view object with result object having the same structure as the original one and new visibleResult where the tuples which appear as children under specified tuple and member index are accessible as part of the visibleResult.
-	 *
-	 * @param axisName 
-	 * @param tupleIndex 
-	 * @param memberIndex 
-	 */
-	expandTupleMember(axisName: Object, tupleIndex: Object, memberIndex: Object): Object;
+		/**
+		 * Creates a $.ig.OlapResultView view object with result object having the same structure as the original one and new visibleResult where the tuples which appear as children under specified tuple and member index are accessible as part of the visibleResult.
+		 *
+		 * @param axisName
+		 * @param tupleIndex
+		 * @param memberIndex
+		 */
+		expandTupleMember(axisName: Object, tupleIndex: Object, memberIndex: Object): Object;
 
-	/**
- 	 * Creates a new $.ig.OlapResultView object as the axis specified by axisName of the original result object is extended with the tuples of the same axis found into supplied partialResult object.
-	 *
-	 * @param partialResult 
-	 * @param axisName 
-	 */
-	extend(partialResult: Object, axisName: Object): Object;
-}
+		/**
+		 * Creates a new $.ig.OlapResultView object as the axis specified by axisName of the original result object is extended with the tuples of the same axis found into supplied partialResult object.
+		 *
+		 * @param partialResult
+		 * @param axisName
+		 */
+		extend(partialResult: Object, axisName: Object): Object;
+	}
 }
 interface IgniteUIStatic {
 OlapResultView: typeof Infragistics.OlapResultView;
 }
 
 interface OlapTableViewOptionsViewSettings {
-
 	/**
  	 * Optional="false" a value indicating whether parent for columns is in front of its children.
-	 *                 If set to true the query set sorts members in a level in their natural order. Their natural order is the default ordering of the members along the hierarchy when no other sort conditions are specified. 
+	 *                 If set to true the query set sorts members in a level in their natural order. Their natural order is the default ordering of the members along the hierarchy when no other sort conditions are specified.
 	 *                 Child members immediately follow their parent members.
 	 *                 If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 */
@@ -7611,7 +7570,7 @@ interface OlapTableViewOptionsViewSettings {
 
 	/**
  	 * Optional="false" a value indicating whether parent for rows is in front of its children.
-	 *                 If set to true the query set sorts members in a level in their natural order. Their natural order is the default ordering of the members along the hierarchy when no other sort conditions are specified. 
+	 *                 If set to true the query set sorts members in a level in their natural order. Their natural order is the default ordering of the members along the hierarchy when no other sort conditions are specified.
 	 *                 Child members immediately follow their parent members.
 	 *                 If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 */
@@ -7634,7 +7593,6 @@ interface OlapTableViewOptionsViewSettings {
 }
 
 interface OlapTableViewOptions {
-
 	/**
  	 * Optional="false" an object of type $.ig.OlapResult.
 	 */
@@ -7661,661 +7619,649 @@ interface OlapTableViewOptions {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class OlapTableView {
-	constructor(options: OlapTableViewOptions);
+declare namespace Infragistics {
+	class OlapTableView {
+		constructor(options: OlapTableViewOptions);
 
-	/**
- 	 * Initializes the table view object as its rowHeaders, columnHeaders and resultCells are created for the result object the table view is related to. 
-	 *             Applies the items from the columnSortDirections and levelDortDirections to produce the sorted result.
-	 */
-	initialize(): void;
+		/**
+		 * Initializes the table view object as its rowHeaders, columnHeaders and resultCells are created for the result object the table view is related to.
+		 *             Applies the items from the columnSortDirections and levelDortDirections to produce the sorted result.
+		 */
+		initialize(): void;
 
-	/**
- 	 * Returns the configuration object this table view is created with.
-	 */
-	viewSettings(): Object;
+		/**
+		 * Returns the configuration object this table view is created with.
+		 */
+		viewSettings(): Object;
 
-	/**
- 	 * Gets or sets the column sort direction items, which will be applied when the $.ig.OlapTableView is initialized.
-	 *             - tupleIndex (number): specifies the index of the tuple, which corresponds to a column in the column axis.
-	 *             - sortDirection (string: ascending|descending): indicates the sort direction for the column. The allowed values are 'ascending' (default) and 'descending'.
-	 *             - comparer (function): an optional function, which will be used to compare the cells from the column. The function should return a number:
-	 *             1. If Cell1 <  Cell2, return a value lower than 0.
-	 *             2. If Cell1 == Cell2, return 0.
-	 *             3. If Cell1 > Cell2, return a value greater than 0.
-	 *
-	 * @param columnSortDirections an array of objects, which have the following properties:
-	 */
-	columnSortDirections(columnSortDirections?: any[]): any[];
+		/**
+		 * Gets or sets the column sort direction items, which will be applied when the $.ig.OlapTableView is initialized.
+		 *             - tupleIndex (number): specifies the index of the tuple, which corresponds to a column in the column axis.
+		 *             - sortDirection (string: ascending|descending): indicates the sort direction for the column. The allowed values are 'ascending' (default) and 'descending'.
+		 *             - comparer (function): an optional function, which will be used to compare the cells from the column. The function should return a number:
+		 *             1. If Cell1 <  Cell2, return a value lower than 0.
+		 *             2. If Cell1 == Cell2, return 0.
+		 *             3. If Cell1 > Cell2, return a value greater than 0.
+		 *
+		 * @param columnSortDirections an array of objects, which have the following properties:
+		 */
+		columnSortDirections(columnSortDirections?: any[]): any[];
 
-	/**
- 	 * Returns the column sort direction items, which were applied during the $.ig.OlapTableView initialization.
-	 */
-	appliedColumnSortDirections(): any[];
+		/**
+		 * Returns the column sort direction items, which were applied during the $.ig.OlapTableView initialization.
+		 */
+		appliedColumnSortDirections(): any[];
 
-	/**
- 	 * Gets or sets the level sort direction items, which will be applied when the $.ig.OlapTableView is 
-	 *             - levelUniqueName (string): the name of the level to be sorted.
-	 *             - sortDirection (string: ascending|descending): indicates the sort direction for the level. The allowed values are 'ascending' (default) and 'descending'.
-	 *             - sortBehavior (string:alphabetical|system): indicates the type of sorting to be applied. The allowed values are 'alphabetical' (default) and 'system'.
-	 *
-	 * @param levelSortDirections an array of objects, which have the following properties:
-	 */
-	levelSortDirections(levelSortDirections?: any[]): any[];
+		/**
+		 * Gets or sets the level sort direction items, which will be applied when the $.ig.OlapTableView is
+		 *             - levelUniqueName (string): the name of the level to be sorted.
+		 *             - sortDirection (string: ascending|descending): indicates the sort direction for the level. The allowed values are 'ascending' (default) and 'descending'.
+		 *             - sortBehavior (string: alphabetical|system): indicates the type of sorting to be applied. The allowed values are 'alphabetical' (default) and 'system'.
+		 *
+		 * @param levelSortDirections an array of objects, which have the following properties:
+		 */
+		levelSortDirections(levelSortDirections?: any[]): any[];
 
-	/**
- 	 * Returns the level sort direction items, which were applied during the $.ig.OlapTableView initialization.
-	 */
-	appliedLevelSortDirections(): any[];
+		/**
+		 * Returns the level sort direction items, which were applied during the $.ig.OlapTableView initialization.
+		 */
+		appliedLevelSortDirections(): any[];
 
-	/**
- 	 * Returns a javascript object, which maps the applied level sort directions to the axis name, hierarchy index in the axis and the level depth. 
-	 *             It is used internally to determine, which $.ig.OlapTableViewHeaderCell needs to display a sorting indicator in the user interface.
-	 */
-	appliedSortDirectionsMap(): Object;
+		/**
+		 * Returns a javascript object, which maps the applied level sort directions to the axis name, hierarchy index in the axis and the level depth.
+		 *             It is used internally to determine, which $.ig.OlapTableViewHeaderCell needs to display a sorting indicator in the user interface.
+		 */
+		appliedSortDirectionsMap(): Object;
 
-	/**
- 	 * Returns the table row headers.
-	 */
-	rowHeaders(): any[];
+		/**
+		 * Returns the table row headers.
+		 */
+		rowHeaders(): any[];
 
-	/**
- 	 * Returns the table column headers.
-	 */
-	columnHeaders(): any[];
+		/**
+		 * Returns the table column headers.
+		 */
+		columnHeaders(): any[];
 
-	/**
- 	 * Returns the table result cells ordered as if the grid is iterated row by row.
-	 */
-	resultCells(): any[];
+		/**
+		 * Returns the table result cells ordered as if the grid is iterated row by row.
+		 */
+		resultCells(): any[];
 
-	/**
- 	 * Returns the sorted $.ig.OlapResult object.
-	 */
-	result(): Object;
-}
+		/**
+		 * Returns the sorted $.ig.OlapResult object.
+		 */
+		result(): Object;
+	}
 }
 interface IgniteUIStatic {
 OlapTableView: typeof Infragistics.OlapTableView;
 }
 
-declare module Infragistics {
-export class OlapTableViewHeaderCell {
+declare namespace Infragistics {
+	class OlapTableViewHeaderCell {
+		/**
+		 * Returns the caption for the header cell.
+		 */
+		caption(): string;
 
-	/**
- 	 * Returns the caption for the header cell.
-	 */
-	caption(): string;
+		/**
+		 * Returns the expaned state for the header cell.
+		 */
+		isExpanded(): boolean;
 
-	/**
- 	 * Returns the expaned state for the header cell.
-	 */
-	isExpanded(): boolean;
+		/**
+		 * Indicates whether the header cell can be expanded.
+		 */
+		isExpanable(): boolean;
 
-	/**
- 	 * Indicates whether the header cell can be expanded.
-	 */
-	isExpanable(): boolean;
+		/**
+		 * Returns the row index for the header cell.
+		 */
+		rowIndex(): number;
 
-	/**
- 	 * Returns the row index for the header cell.
-	 */
-	rowIndex(): number;
+		/**
+		 * Returns the row span for the header cell.
+		 */
+		rowSpan(): number;
 
-	/**
- 	 * Returns the row span for the header cell.
-	 */
-	rowSpan(): number;
+		/**
+		 * Returns the column index for the header cell.
+		 */
+		columnIndex(): number;
 
-	/**
- 	 * Returns the column index for the header cell.
-	 */
-	columnIndex(): number;
+		/**
+		 * Returns the column span for the header cell.
+		 */
+		columnSpan(): number;
 
-	/**
- 	 * Returns the column span for the header cell.
-	 */
-	columnSpan(): number;
+		/**
+		 * Returns the name of the axis this header cell is related to.
+		 */
+		axisName(): string;
 
-	/**
- 	 * Returns the name of the axis this header cell is related to.
-	 */
-	axisName(): string;
+		/**
+		 * Returns the index of tuple in the axis this header cell is related to.
+		 */
+		tupleIndex(): number;
 
-	/**
- 	 * Returns the index of tuple in the axis this header cell is related to.
-	 */
-	tupleIndex(): number;
-
-	/**
- 	 * Returns the index of the axis member in the tuple this header cell is related to.
-	 */
-	memberIndex(): number;
-}
-}
-
-declare module Infragistics {
-export class OlapTableViewResultCell {
-
-	/**
- 	 * Returns the value provided by $.ig.Cell object.
-	 */
-	value(): Object;
-
-	/**
- 	 * Returns the formmated value to be displayed by the data cell.
-	 */
-	formattedValue(): string;
-
-	/**
- 	 * Returns the ordinal of this cell used to determine its position into the data cells' grid.
-	 */
-	cellOrdinal(): number;
-
-	/**
- 	 * Returns the index of $.ig.Cell object in $.ig.OlapResult object.
-	 */
-	resultCellIndex(): number;
-}
+		/**
+		 * Returns the index of the axis member in the tuple this header cell is related to.
+		 */
+		memberIndex(): number;
+	}
 }
 
-declare module Infragistics {
-export class Catalog {
+declare namespace Infragistics {
+	class OlapTableViewResultCell {
+		/**
+		 * Returns the value provided by $.ig.Cell object.
+		 */
+		value(): Object;
 
-	/**
- 	 * Returns the name of the catalog.
-	 *
-	 * @param value 
-	 */
-	name(value: Object): string;
+		/**
+		 * Returns the formmated value to be displayed by the data cell.
+		 */
+		formattedValue(): string;
 
-	/**
- 	 * Returns the unique name of the catalog.
-	 *
-	 * @param value 
-	 */
-	uniqueName(value: Object): string;
+		/**
+		 * Returns the ordinal of this cell used to determine its position into the data cells' grid.
+		 */
+		cellOrdinal(): number;
 
-	/**
- 	 * Returns the caption of the catalog used when displaying the name of the catalog to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
-
-	/**
- 	 * Returns the description of the catalog which is a human-readable description of the catalog
-	 *
-	 * @param value 
-	 */
-	description(value: Object): string;
-}
+		/**
+		 * Returns the index of $.ig.Cell object in $.ig.OlapResult object.
+		 */
+		resultCellIndex(): number;
+	}
 }
 
-declare module Infragistics {
-export class Cube {
+declare namespace Infragistics {
+	class Catalog {
+		/**
+		 * Returns the name of the catalog.
+		 *
+		 * @param value
+		 */
+		name(value: Object): string;
 
-	/**
- 	 * Returns the name of the cube.
-	 *
-	 * @param value 
-	 */
-	name(value: Object): string;
+		/**
+		 * Returns the unique name of the catalog.
+		 *
+		 * @param value
+		 */
+		uniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the cube.
-	 *
-	 * @param value 
-	 */
-	uniqueName(value: Object): string;
+		/**
+		 * Returns the caption of the catalog used when displaying the name of the catalog to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
 
-	/**
- 	 * Returns the caption of the cube used when displaying the name of the cube to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
-
-	/**
- 	 * Returns a user-friendly description of the cube.
-	 *
-	 * @param value 
-	 */
-	description(value: Object): string;
-
-	/**
- 	 * Returns the type of the cube which is a value from the $.ig.CubeType enumeration.
-	 * 
-	 *             $.ig.CubeType.prototype.cube = 0;
-	 *             $.ig.CubeType.prototype.dimension = 1;
-	 *             $.ig.CubeType.prototype.unknown = 2;
-	 *
-	 * @param value 
-	 */
-	cubeType(value: Object): number;
-
-	/**
- 	 * Returns the date and time on which the cube was last processed.
-	 *
-	 * @param value 
-	 */
-	lastProcessed(value: Object): Object;
-
-	/**
- 	 * Returns the date and time on which the cube was last updated.
-	 *
-	 * @param value 
-	 */
-	lastUpdated(value: Object): Object;
-}
+		/**
+		 * Returns the description of the catalog which is a human-readable description of the catalog
+		 *
+		 * @param value
+		 */
+		description(value: Object): string;
+	}
 }
 
-declare module Infragistics {
-export class Dimension {
+declare namespace Infragistics {
+	class Cube {
+		/**
+		 * Returns the name of the cube.
+		 *
+		 * @param value
+		 */
+		name(value: Object): string;
 
-	/**
- 	 * Returns the name of the dimension.
-	 *
-	 * @param value 
-	 */
-	name(value: Object): string;
+		/**
+		 * Returns the unique name of the cube.
+		 *
+		 * @param value
+		 */
+		uniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the dimension.
-	 *
-	 * @param value 
-	 */
-	uniqueName(value: Object): string;
+		/**
+		 * Returns the caption of the cube used when displaying the name of the cube to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
 
-	/**
- 	 * Returns the caption of the dimension used when displaying the name of the dimension to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
+		/**
+		 * Returns a user-friendly description of the cube.
+		 *
+		 * @param value
+		 */
+		description(value: Object): string;
 
-	/**
- 	 * Returns a user-friendly description of the dimension.
-	 *
-	 * @param value 
-	 */
-	description(value: Object): string;
+		/**
+		 * Returns the type of the cube which is a value from the $.ig.CubeType enumeration.
+		 *
+		 *             $.ig.CubeType.prototype.cube = 0;
+		 *             $.ig.CubeType.prototype.dimension = 1;
+		 *             $.ig.CubeType.prototype.unknown = 2;
+		 *
+		 * @param value
+		 */
+		cubeType(value: Object): number;
 
-	/**
- 	 * Returns the type of the dimension which is a value from the $.ig.DimensionType enumeration.
-	 * 
-	 *             $.ig.DimensionType.prototype.unknown = 0;
-	 *             $.ig.DimensionType.prototype.time = 1;
-	 *             $.ig.DimensionType.prototype.measure = 2;
-	 *             $.ig.DimensionType.prototype.other = 3;
-	 *             $.ig.DimensionType.prototype.quantitative = 5;
-	 *             $.ig.DimensionType.prototype.accounts = 6;
-	 *             $.ig.DimensionType.prototype.customers = 7;
-	 *             $.ig.DimensionType.prototype.products = 8;
-	 *             $.ig.DimensionType.prototype.scenario = 9;
-	 *             $.ig.DimensionType.prototype.utility = 10;
-	 *             $.ig.DimensionType.prototype.currency = 11;
-	 *             $.ig.DimensionType.prototype.rates = 12;
-	 *             $.ig.DimensionType.prototype.channel = 13;
-	 *             $.ig.DimensionType.prototype.promotion = 14;
-	 *             $.ig.DimensionType.prototype.organization = 15;
-	 *             $.ig.DimensionType.prototype.billOfMaterials = 16;
-	 *             $.ig.DimensionType.prototype.geography = 17;
-	 *
-	 * @param value 
-	 */
-	dimensionType(value: Object): number;
-}
-}
+		/**
+		 * Returns the date and time on which the cube was last processed.
+		 *
+		 * @param value
+		 */
+		lastProcessed(value: Object): Object;
 
-declare module Infragistics {
-export class Hierarchy {
-
-	/**
- 	 * Returns the name of the hierarchy.
-	 *
-	 * @param value 
-	 */
-	name(value: Object): string;
-
-	/**
- 	 * Returns the unique name of the hierarchy.
-	 *
-	 * @param value 
-	 */
-	uniqueName(value: Object): string;
-
-	/**
- 	 * Returns the caption of the hierarchy used when displaying the name of the hierarchy to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
-
-	/**
- 	 * Returns a user-friendly description of the hierarchy.
-	 *
-	 * @param value 
-	 */
-	description(value: Object): string;
-
-	/**
- 	 * Returns the unique name of the default member for the hierarchy.
-	 *
-	 * @param value 
-	 */
-	defaultMember(value: Object): string;
-
-	/**
- 	 * Returns the unique name of the 'All' member for the hierarchy.
-	 *
-	 * @param value 
-	 */
-	allMember(value: Object): string;
-
-	/**
- 	 * Returns the unique name of the dimension that contains the hierarchy.
-	 *
-	 * @param value 
-	 */
-	dimensionUniqueName(value: Object): string;
-
-	/**
- 	 * Returns the source of the hierarchy which is a value from the $.ig.HierarchyOrigin enumeration.
-	 * 
-	 *             $.ig.HierarchyOrigin.prototype.userDefined = 1;
-	 *             Identifies user defined hierarchies.
-	 * 
-	 *             $.ig.HierarchyOrigin.prototype.systemEnabled = 2;
-	 *             Identifies attribute hierarchies.
-	 * 
-	 *             $.ig.HierarchyOrigin.prototype.systemInternal = 4;
-	 *             Identifies attributes with no attribute .
-	 *
-	 * @param value 
-	 */
-	hierarchyOrigin(value: Object): number;
-
-	/**
- 	 * Returns the hierarchy display folder path to be used when displaying the hierarchy in the user interface. 
-	 *             Folder names will be separated by a semicolon (;). Nested folders are indicated by a backslash (\).
-	 *
-	 * @param value 
-	 */
-	hierarchyDisplayFolder(value: Object): string;
-}
+		/**
+		 * Returns the date and time on which the cube was last updated.
+		 *
+		 * @param value
+		 */
+		lastUpdated(value: Object): Object;
+	}
 }
 
-declare module Infragistics {
-export class Measure {
+declare namespace Infragistics {
+	class Dimension {
+		/**
+		 * Returns the name of the dimension.
+		 *
+		 * @param value
+		 */
+		name(value: Object): string;
 
-	/**
- 	 * Returns the name of the measure.
-	 *
-	 * @param value 
-	 */
-	name(value: Object): string;
+		/**
+		 * Returns the unique name of the dimension.
+		 *
+		 * @param value
+		 */
+		uniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the measure.
-	 *
-	 * @param value 
-	 */
-	uniqueName(value: Object): string;
+		/**
+		 * Returns the caption of the dimension used when displaying the name of the dimension to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
 
-	/**
- 	 * Returns the caption of the measure used when displaying the name of the measure to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
+		/**
+		 * Returns a user-friendly description of the dimension.
+		 *
+		 * @param value
+		 */
+		description(value: Object): string;
 
-	/**
- 	 * Returns a user-friendly description of the measure.
-	 *
-	 * @param value 
-	 */
-	description(value: Object): string;
-
-	/**
- 	 * Returns the name of the measure group this measure belongs to.
-	 *
-	 * @param value 
-	 */
-	measureGroupName(value: Object): string;
-
-	/**
- 	 * Returns the aggregator type that identifies how a measure was derived. It is a value from the $.ig.AggregatorType enumeration.
-	 * 
-	 *             $.ig.AggregatorType.prototype.unknown = 0;
-	 *             The aggregated function is undefined.
-	 * 
-	 *             $.ig.AggregatorType.prototype.sum = 1;
-	 *             The aggregated function adds all values.
-	 *             
-	 *             $.ig.AggregatorType.prototype.count = 2;
-	 *             The aggregated function will count the number of the values.
-	 * 
-	 *             $.ig.AggregatorType.prototype.min = 3;
-	 *             The aggregated function will returns the smallest value.
-	 * 
-	 *             $.ig.AggregatorType.prototype.max = 4;
-	 *             The aggregated function will returns the largest value.
-	 * 
-	 *             $.ig.AggregatorType.prototype.average = 5;
-	 *             The aggregated function will returns the average of cells value.
-	 * 
-	 *             $.ig.AggregatorType.prototype.variance = 6;
-	 *             The aggregated function will estimates variance based on the sample.
-	 * 
-	 *             $.ig.AggregatorType.prototype.std = 7;
-	 *             The aggregated function will estimates the standart deviation based on sample.
-	 * 
-	 *             $.ig.AggregatorType.prototype.distinctCount = 8;
-	 *             The aggregated function will returns the number of distinct, nonempty tuples in a set.
-	 * 
-	 *             $.ig.AggregatorType.prototype.none = 9;
-	 *             No aggregation performed.
-	 * 
-	 *             $.ig.AggregatorType.prototype.averageOfChildren = 10;
-	 *             The aggregated function will returns the average of the measure's children.
-	 * 
-	 *             $.ig.AggregatorType.prototype.firstNonEmpty = 13;
-	 *             The aggregated function will returns the measure's first nonempty member.
-	 * 
-	 *             $.ig.AggregatorType.prototype.lastNonEmpty = 14;
-	 *             The aggregated function will returns the measure's last nonempty member.
-	 * 
-	 *             $.ig.AggregatorType.prototype.byAccount = 15;
-	 *             Aggregated by the aggregation function associated with the specified account type of an attribute in an account dimension.
-	 * 
-	 *             $.ig.AggregatorType.prototype.calculated = 127;
-	 *             The aggregated function will returns the result derived from a formula.
-	 *
-	 * @param value 
-	 */
-	aggregatorType(value: Object): number;
-
-	/**
- 	 * Returns the default format string for the measure.
-	 *
-	 * @param value 
-	 */
-	defaultFormatString(value: Object): string;
-
-	/**
- 	 * Returns the measure display folder path to be used when displaying the measure in the user interface. 
-	 *             Folder names will be separated by a semicolon (;). Nested folders are indicated by a backslash (\).
-	 *
-	 * @param value 
-	 */
-	measureDisplayFolder(value: Object): string;
-}
+		/**
+		 * Returns the type of the dimension which is a value from the $.ig.DimensionType enumeration.
+		 *
+		 *             $.ig.DimensionType.prototype.unknown = 0;
+		 *             $.ig.DimensionType.prototype.time = 1;
+		 *             $.ig.DimensionType.prototype.measure = 2;
+		 *             $.ig.DimensionType.prototype.other = 3;
+		 *             $.ig.DimensionType.prototype.quantitative = 5;
+		 *             $.ig.DimensionType.prototype.accounts = 6;
+		 *             $.ig.DimensionType.prototype.customers = 7;
+		 *             $.ig.DimensionType.prototype.products = 8;
+		 *             $.ig.DimensionType.prototype.scenario = 9;
+		 *             $.ig.DimensionType.prototype.utility = 10;
+		 *             $.ig.DimensionType.prototype.currency = 11;
+		 *             $.ig.DimensionType.prototype.rates = 12;
+		 *             $.ig.DimensionType.prototype.channel = 13;
+		 *             $.ig.DimensionType.prototype.promotion = 14;
+		 *             $.ig.DimensionType.prototype.organization = 15;
+		 *             $.ig.DimensionType.prototype.billOfMaterials = 16;
+		 *             $.ig.DimensionType.prototype.geography = 17;
+		 *
+		 * @param value
+		 */
+		dimensionType(value: Object): number;
+	}
 }
 
-declare module Infragistics {
-export class Level {
+declare namespace Infragistics {
+	class Hierarchy {
+		/**
+		 * Returns the name of the hierarchy.
+		 *
+		 * @param value
+		 */
+		name(value: Object): string;
 
-	/**
- 	 * Returns the name of the level.
-	 *
-	 * @param value 
-	 */
-	name(value: Object): string;
+		/**
+		 * Returns the unique name of the hierarchy.
+		 *
+		 * @param value
+		 */
+		uniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the level.
-	 *
-	 * @param value 
-	 */
-	uniqueName(value: Object): string;
+		/**
+		 * Returns the caption of the hierarchy used when displaying the name of the hierarchy to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
 
-	/**
- 	 * Returns the caption of the level used when displaying the name of the level to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
+		/**
+		 * Returns a user-friendly description of the hierarchy.
+		 *
+		 * @param value
+		 */
+		description(value: Object): string;
 
-	/**
- 	 * Returns a user-friendly description of the level.
-	 *
-	 * @param value 
-	 */
-	description(value: Object): string;
+		/**
+		 * Returns the unique name of the default member for the hierarchy.
+		 *
+		 * @param value
+		 */
+		defaultMember(value: Object): string;
 
-	/**
- 	 * Returns the distance of the level from the root of the level. Root level is zero (0)
-	 *
-	 * @param value 
-	 */
-	depth(value: Object): number;
+		/**
+		 * Returns the unique name of the 'All' member for the hierarchy.
+		 *
+		 * @param value
+		 */
+		allMember(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the hierarchy that contains the level.
-	 *
-	 * @param value 
-	 */
-	hierarchyUniqueName(value: Object): string;
+		/**
+		 * Returns the unique name of the dimension that contains the hierarchy.
+		 *
+		 * @param value
+		 */
+		dimensionUniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the dimension that contains the level.
-	 *
-	 * @param value 
-	 */
-	dimensionUniqueName(value: Object): string;
+		/**
+		 * Returns the source of the hierarchy which is a value from the $.ig.HierarchyOrigin enumeration.
+		 *
+		 *             $.ig.HierarchyOrigin.prototype.userDefined = 1;
+		 *             Identifies user defined hierarchies.
+		 *
+		 *             $.ig.HierarchyOrigin.prototype.systemEnabled = 2;
+		 *             Identifies attribute hierarchies.
+		 *
+		 *             $.ig.HierarchyOrigin.prototype.systemInternal = 4;
+		 *             Identifies attributes with no attribute .
+		 *
+		 * @param value
+		 */
+		hierarchyOrigin(value: Object): number;
 
-	/**
- 	 * Returns the count of all members in the level.
-	 *
-	 * @param value 
-	 */
-	membersCount(value: Object): number;
-
-	/**
- 	 * Returns a value that defines how the level was sourced.
-	 *
-	 * @param value 
-	 */
-	levelOrigin(value: Object): number;
-
-	/**
- 	 * Returns the ID of the attribute that the level is sorted on.
-	 *
-	 * @param value 
-	 */
-	levelOrderingProperty(value: Object): number;
-}
-}
-
-declare module Infragistics {
-export class MeasureGroup {
-
-	/**
- 	 * Returns the name of the measure group.
-	 *
-	 * @param value 
-	 */
-	name(value: Object): string;
-
-	/**
- 	 * Returns the caption of the measure group used when displaying the name of the measure group to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
-
-	/**
- 	 * Returns a user-friendly description of the measure group.
-	 *
-	 * @param value 
-	 */
-	description(value: Object): string;
-
-	/**
- 	 * Returns the name of the catalog to which this measure group belongs.
-	 *
-	 * @param value 
-	 */
-	catalogName(value: Object): string;
-
-	/**
- 	 * Returns the name of the cube to which this measure group belongs
-	 *
-	 * @param value 
-	 */
-	cubeName(value: Object): string;
-}
+		/**
+		 * Returns the hierarchy display folder path to be used when displaying the hierarchy in the user interface.
+		 *             Folder names will be separated by a semicolon (;). Nested folders are indicated by a backslash (\).
+		 *
+		 * @param value
+		 */
+		hierarchyDisplayFolder(value: Object): string;
+	}
 }
 
-declare module Infragistics {
-export class MeasureList {
+declare namespace Infragistics {
+	class Measure {
+		/**
+		 * Returns the name of the measure.
+		 *
+		 * @param value
+		 */
+		name(value: Object): string;
 
-	/**
- 	 * Returns the caption of the measure list used when displaying the name of the measure list to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
+		/**
+		 * Returns the unique name of the measure.
+		 *
+		 * @param value
+		 */
+		uniqueName(value: Object): string;
 
-	/**
- 	 * Returns an array of $.ig.Measure objects this measure list is grouping.
-	 *
-	 * @param value 
-	 */
-	measures(value: Object): any[];
+		/**
+		 * Returns the caption of the measure used when displaying the name of the measure to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
+
+		/**
+		 * Returns a user-friendly description of the measure.
+		 *
+		 * @param value
+		 */
+		description(value: Object): string;
+
+		/**
+		 * Returns the name of the measure group this measure belongs to.
+		 *
+		 * @param value
+		 */
+		measureGroupName(value: Object): string;
+
+		/**
+		 * Returns the aggregator type that identifies how a measure was derived. It is a value from the $.ig.AggregatorType enumeration.
+		 *
+		 *             $.ig.AggregatorType.prototype.unknown = 0;
+		 *             The aggregated function is undefined.
+		 *
+		 *             $.ig.AggregatorType.prototype.sum = 1;
+		 *             The aggregated function adds all values.
+		 *
+		 *             $.ig.AggregatorType.prototype.count = 2;
+		 *             The aggregated function will count the number of the values.
+		 *
+		 *             $.ig.AggregatorType.prototype.min = 3;
+		 *             The aggregated function will returns the smallest value.
+		 *
+		 *             $.ig.AggregatorType.prototype.max = 4;
+		 *             The aggregated function will returns the largest value.
+		 *
+		 *             $.ig.AggregatorType.prototype.average = 5;
+		 *             The aggregated function will returns the average of cells value.
+		 *
+		 *             $.ig.AggregatorType.prototype.variance = 6;
+		 *             The aggregated function will estimates variance based on the sample.
+		 *
+		 *             $.ig.AggregatorType.prototype.std = 7;
+		 *             The aggregated function will estimates the standart deviation based on sample.
+		 *
+		 *             $.ig.AggregatorType.prototype.distinctCount = 8;
+		 *             The aggregated function will returns the number of distinct, nonempty tuples in a set.
+		 *
+		 *             $.ig.AggregatorType.prototype.none = 9;
+		 *             No aggregation performed.
+		 *
+		 *             $.ig.AggregatorType.prototype.averageOfChildren = 10;
+		 *             The aggregated function will returns the average of the measure's children.
+		 *
+		 *             $.ig.AggregatorType.prototype.firstNonEmpty = 13;
+		 *             The aggregated function will returns the measure's first nonempty member.
+		 *
+		 *             $.ig.AggregatorType.prototype.lastNonEmpty = 14;
+		 *             The aggregated function will returns the measure's last nonempty member.
+		 *
+		 *             $.ig.AggregatorType.prototype.byAccount = 15;
+		 *             Aggregated by the aggregation function associated with the specified account type of an attribute in an account dimension.
+		 *
+		 *             $.ig.AggregatorType.prototype.calculated = 127;
+		 *             The aggregated function will returns the result derived from a formula.
+		 *
+		 * @param value
+		 */
+		aggregatorType(value: Object): number;
+
+		/**
+		 * Returns the default format string for the measure.
+		 *
+		 * @param value
+		 */
+		defaultFormatString(value: Object): string;
+
+		/**
+		 * Returns the measure display folder path to be used when displaying the measure in the user interface.
+		 *             Folder names will be separated by a semicolon (;). Nested folders are indicated by a backslash (\).
+		 *
+		 * @param value
+		 */
+		measureDisplayFolder(value: Object): string;
+	}
 }
+
+declare namespace Infragistics {
+	class Level {
+		/**
+		 * Returns the name of the level.
+		 *
+		 * @param value
+		 */
+		name(value: Object): string;
+
+		/**
+		 * Returns the unique name of the level.
+		 *
+		 * @param value
+		 */
+		uniqueName(value: Object): string;
+
+		/**
+		 * Returns the caption of the level used when displaying the name of the level to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
+
+		/**
+		 * Returns a user-friendly description of the level.
+		 *
+		 * @param value
+		 */
+		description(value: Object): string;
+
+		/**
+		 * Returns the distance of the level from the root of the level. Root level is zero (0)
+		 *
+		 * @param value
+		 */
+		depth(value: Object): number;
+
+		/**
+		 * Returns the unique name of the hierarchy that contains the level.
+		 *
+		 * @param value
+		 */
+		hierarchyUniqueName(value: Object): string;
+
+		/**
+		 * Returns the unique name of the dimension that contains the level.
+		 *
+		 * @param value
+		 */
+		dimensionUniqueName(value: Object): string;
+
+		/**
+		 * Returns the count of all members in the level.
+		 *
+		 * @param value
+		 */
+		membersCount(value: Object): number;
+
+		/**
+		 * Returns a value that defines how the level was sourced.
+		 *
+		 * @param value
+		 */
+		levelOrigin(value: Object): number;
+
+		/**
+		 * Returns the ID of the attribute that the level is sorted on.
+		 *
+		 * @param value
+		 */
+		levelOrderingProperty(value: Object): number;
+	}
 }
 
-declare module Infragistics {
-export class OlapResult {
+declare namespace Infragistics {
+	class MeasureGroup {
+		/**
+		 * Returns the name of the measure group.
+		 *
+		 * @param value
+		 */
+		name(value: Object): string;
 
-	/**
- 	 * Returns a value indicating whether the result object contains any data.
-	 *
-	 * @param value 
-	 */
-	isEmpty(value: Object): boolean;
+		/**
+		 * Returns the caption of the measure group used when displaying the name of the measure group to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
 
-	/**
- 	 * Returns an array of $.ig.OlapResultAxis objects this result is built on.
-	 *
-	 * @param value 
-	 */
-	axes(value: Object): any[];
+		/**
+		 * Returns a user-friendly description of the measure group.
+		 *
+		 * @param value
+		 */
+		description(value: Object): string;
 
-	/**
- 	 * Returns an array of $.ig.OlapResultCell objects which hold the result data.
-	 *
-	 * @param value 
-	 */
-	cells(value: Object): any[];
+		/**
+		 * Returns the name of the catalog to which this measure group belongs.
+		 *
+		 * @param value
+		 */
+		catalogName(value: Object): string;
+
+		/**
+		 * Returns the name of the cube to which this measure group belongs
+		 *
+		 * @param value
+		 */
+		cubeName(value: Object): string;
+	}
 }
+
+declare namespace Infragistics {
+	class MeasureList {
+		/**
+		 * Returns the caption of the measure list used when displaying the name of the measure list to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
+
+		/**
+		 * Returns an array of $.ig.Measure objects this measure list is grouping.
+		 *
+		 * @param value
+		 */
+		measures(value: Object): any[];
+	}
+}
+
+declare namespace Infragistics {
+	class OlapResult {
+		/**
+		 * Returns a value indicating whether the result object contains any data.
+		 *
+		 * @param value
+		 */
+		isEmpty(value: Object): boolean;
+
+		/**
+		 * Returns an array of $.ig.OlapResultAxis objects this result is built on.
+		 *
+		 * @param value
+		 */
+		axes(value: Object): any[];
+
+		/**
+		 * Returns an array of $.ig.OlapResultCell objects which hold the result data.
+		 *
+		 * @param value
+		 */
+		cells(value: Object): any[];
+	}
 }
 
 interface OlapResultAxisOptions {
-
 	/**
  	 * Optional="false" array of $.ig.OlapResultTuple objects which form the axis.
 	 */
@@ -8332,27 +8278,26 @@ interface OlapResultAxisOptions {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class OlapResultAxis {
-	constructor(options: OlapResultAxisOptions);
+declare namespace Infragistics {
+	class OlapResultAxis {
+		constructor(options: OlapResultAxisOptions);
 
-	/**
- 	 * Returns an array of $.ig.OlapResultTuple objects which form the axis.
-	 */
-	tuples(): any[];
+		/**
+		 * Returns an array of $.ig.OlapResultTuple objects which form the axis.
+		 */
+		tuples(): any[];
 
-	/**
- 	 * Returns the count of the $.ig.OlapResultAxisMember objects of each tuple.
-	 */
-	tupleSize(): number;
-}
+		/**
+		 * Returns the count of the $.ig.OlapResultAxisMember objects of each tuple.
+		 */
+		tupleSize(): number;
+	}
 }
 interface IgniteUIStatic {
 OlapResultAxis: typeof Infragistics.OlapResultAxis;
 }
 
 interface OlapResultTupleOptions {
-
 	/**
  	 * Optional="false" array of $.ig.OlapResultAxisMember objects which form the tuple object.
 	 */
@@ -8364,143 +8309,140 @@ interface OlapResultTupleOptions {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class OlapResultTuple {
-	constructor(options: OlapResultTupleOptions);
+declare namespace Infragistics {
+	class OlapResultTuple {
+		constructor(options: OlapResultTupleOptions);
 
-	/**
- 	 * Returns an array of $.ig.OlapResultTuple objects which form the axis.
-	 */
-	members(): any[];
-}
+		/**
+		 * Returns an array of $.ig.OlapResultTuple objects which form the axis.
+		 */
+		members(): any[];
+	}
 }
 interface IgniteUIStatic {
 OlapResultTuple: typeof Infragistics.OlapResultTuple;
 }
 
-declare module Infragistics {
-export class OlapResultAxisMember {
+declare namespace Infragistics {
+	class OlapResultAxisMember {
+		/**
+		 * Returns the unique name of the axis member.
+		 *
+		 * @param value
+		 */
+		uniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the axis member.
-	 *
-	 * @param value 
-	 */
-	uniqueName(value: Object): string;
+		/**
+		 * Returns the caption of the axis member used when displaying the name of the axis member to the user.
+		 *
+		 * @param value
+		 */
+		caption(value: Object): string;
 
-	/**
- 	 * Returns the caption of the axis member used when displaying the name of the axis member to the user.
-	 *
-	 * @param value 
-	 */
-	caption(value: Object): string;
+		/**
+		 * Returns the unique name of the level this member belongs to.
+		 *
+		 * @param value
+		 */
+		levelUniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the level this member belongs to.
-	 *
-	 * @param value 
-	 */
-	levelUniqueName(value: Object): string;
+		/**
+		 * Returns the unique name of the hierarchy that contains the level.
+		 *
+		 * @param value
+		 */
+		hierarchyUniqueName(value: Object): string;
 
-	/**
- 	 * Returns the unique name of the hierarchy that contains the level.
-	 *
-	 * @param value 
-	 */
-	hierarchyUniqueName(value: Object): string;
+		/**
+		 * Returns the distance of member parent level from the root of the level. Root level is zero (0)
+		 *
+		 * @param value
+		 */
+		levelNumber(value: Object): number;
 
-	/**
- 	 * Returns the distance of member parent level from the root of the level. Root level is zero (0)
-	 *
-	 * @param value 
-	 */
-	levelNumber(value: Object): number;
+		/**
+		 * A bitmap of the information projected by childCount, drilledDown and parentSameAsPrev properties.
+		 *
+		 * @param value
+		 */
+		displayInfo(value: Object): number;
 
-	/**
- 	 * A bitmap of the information projected by childCount, drilledDown and parentSameAsPrev properties.
-	 *
-	 * @param value 
-	 */
-	displayInfo(value: Object): number;
+		/**
+		 * Returns the count of children members this member has.
+		 *
+		 * @param value
+		 */
+		childCount(value: Object): number;
 
-	/**
- 	 * Returns the count of children members this member has.
-	 *
-	 * @param value 
-	 */
-	childCount(value: Object): number;
+		/**
+		 * Returns a value that indicates whether at least one child of this member appears on the axis, immediately following all occurrences of that member. This can be used by applications to display a "+" or a "-" next to the member.
+		 *
+		 * @param value
+		 */
+		drilledDown(value: Object): boolean;
 
-	/**
- 	 * Returns a value that indicates whether at least one child of this member appears on the axis, immediately following all occurrences of that member. This can be used by applications to display a "+" or a "-" next to the member.
-	 *
-	 * @param value 
-	 */
-	drilledDown(value: Object): boolean;
+		/**
+		 * Returns a value that indicates whether the parent of this member is the same as the parent of the member preceding all occurrences of the current member.
+		 *
+		 * @param value
+		 */
+		parentSameAsPrev(value: Object): boolean;
 
-	/**
- 	 * Returns a value that indicates whether the parent of this member is the same as the parent of the member preceding all occurrences of the current member.
-	 *
-	 * @param value 
-	 */
-	parentSameAsPrev(value: Object): boolean;
-
-	/**
- 	 * Returns a key value map of the members' properties. By default only 'PARENT_UNIQUE_NAME' and 'CHILDREN_CARDINALITY' properties are available.
-	 *
-	 * @param value 
-	 */
-	properties(value: Object): Object;
+		/**
+		 * Returns a key value map of the members' properties. By default only 'PARENT_UNIQUE_NAME' and 'CHILDREN_CARDINALITY' properties are available.
+		 *
+		 * @param value
+		 */
+		properties(value: Object): Object;
+	}
 }
-}
 
-declare module Infragistics {
-export class OlapResultCell {
+declare namespace Infragistics {
+	class OlapResultCell {
+		/**
+		 * Returns the position of the cell when cells are iterated row by row.
+		 *
+		 * @param value
+		 */
+		cellOrdinal(value: Object): number;
 
-	/**
- 	 * Returns the position of the cell when cells are iterated row by row.
-	 *
-	 * @param value 
-	 */
-	cellOrdinal(value: Object): number;
-
-	/**
- 	 * Returns a key value map of the cell's properties. Currently only 'Value' and 'FmtValue' properties are available.
-	 *
-	 * @param value 
-	 */
-	properties(value: Object): Object;
-}
+		/**
+		 * Returns a key value map of the cell's properties. Currently only 'Value' and 'FmtValue' properties are available.
+		 *
+		 * @param value
+		 */
+		properties(value: Object): Object;
+	}
 }
 
 interface IgTemplatingRegExp {
-
 	/**
  	 * Option for IgTemplatingRegExp
 	 */
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class igTemplating {
-	constructor(regExp: IgTemplatingRegExp);
+declare namespace Infragistics {
+	class igTemplating {
+		constructor(regExp: IgTemplatingRegExp);
 
-	/**
- 	 * Populates the given template with the provided data. If data is a function that requires arguments, the arguments need to be provided as an array following the data. tmpl(template, data[, args])
-	 *
-	 * @param template     Specifies the template string
-	 * @param data     Specifies the data to be templated in the template. If function is provided, then it has to be object or array returning function, possible receiving arguments array which can be specified as the third parameter
-	 * @param args     If function is provided as the second parameter, then this parameter is the arguments for the function.
-	 */
-	tmpl(template: string, data: Object, args?: any[]): string;
-	clearTmplCache(): void;
+		/**
+		 * Populates the given template with the provided data. If data is a function that requires arguments, the arguments need to be provided as an array following the data. tmpl(template, data[, args])
+		 *
+		 * @param template     Specifies the template string
+		 * @param data     Specifies the data to be templated in the template. If function is provided, then it has to be object or array returning function, possible receiving arguments array which can be specified as the third parameter
+		 * @param args     If function is provided as the second parameter, then this parameter is the arguments for the function.
+		 */
+		tmpl(template: string, data: Object, args?: any[]): string;
+		clearTmplCache(): void;
 
-	/**
- 	 * Encoding < > ' and "
-	 *
-	 * @param value     The string to be encoded.
-	 */
-	encode(value: string): string;
-}
+		/**
+		 * Encoding < > ' and "
+		 *
+		 * @param value     The string to be encoded.
+		 */
+		encode(value: string): string;
+	}
 }
 interface IgniteUIStatic {
 igTemplating: typeof Infragistics.igTemplating;
@@ -8511,7 +8453,6 @@ interface ErrorMessageDisplayingEvent {
 }
 
 interface ErrorMessageDisplayingEventUIParam {
-
 	/**
  	 * Used to obtain reference to the barcode widget.
 	 */
@@ -8528,7 +8469,6 @@ interface DataChangedEvent {
 }
 
 interface DataChangedEventUIParam {
-
 	/**
  	 * Used to obtain reference to the barcode widget.
 	 */
@@ -8541,7 +8481,6 @@ interface DataChangedEventUIParam {
 }
 
 interface IgQRCodeBarcode {
-
 	/**
  	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -8596,9 +8535,9 @@ interface IgQRCodeBarcode {
  	 * Gets or sets the stretch.
 	 *
 	 * Valid values:
-	 * "none" 
-	 * "fill" 
-	 * "uniform" 
+	 * "none"
+	 * "fill"
+	 * "uniform"
 	 * "uniformToFill"
 	 */
 	stretch?: string;
@@ -8694,7 +8633,7 @@ interface IgQRCodeBarcode {
 	encodingMode?: string;
 
 	/**
- 	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999. 
+ 	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
 	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
 	 */
 	eciNumber?: number;
@@ -8746,7 +8685,6 @@ interface IgQRCodeBarcode {
 	[optionName: string]: any;
 }
 interface IgQRCodeBarcodeMethods {
-
 	/**
  	 * Returns information about how the barcode is rendered.
 	 */
@@ -8768,7 +8706,7 @@ interface IgQRCodeBarcodeMethods {
 	styleUpdated(): void;
 }
 interface JQuery {
-	data(propertyName: "igQRCodeBarcode"):IgQRCodeBarcodeMethods;
+	data(propertyName: "igQRCodeBarcode"): IgQRCodeBarcodeMethods;
 }
 
 interface JQuery {
@@ -8982,13 +8920,13 @@ interface JQuery {
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "encodingMode", optionValue: string): void;
 
 	/**
-	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999. 
+	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
 	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
 	 */
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciNumber"): number;
 
 	/**
-	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999. 
+	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
 	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
 	 *
 	 * @optionValue New value to be set.
@@ -9079,7 +9017,6 @@ interface DataBindingEvent {
 }
 
 interface DataBindingEventUIParam {
-
 	/**
  	 * Used to obtain reference to chart widget.
 	 */
@@ -9096,7 +9033,6 @@ interface DataBoundEvent {
 }
 
 interface DataBoundEventUIParam {
-
 	/**
  	 * Used to obtain reference to chart widget.
 	 */
@@ -9118,7 +9054,6 @@ interface UpdateTooltipEvent {
 }
 
 interface UpdateTooltipEventUIParam {
-
 	/**
  	 * Used to obtain reference to chart widget.
 	 */
@@ -9155,7 +9090,6 @@ interface HideTooltipEvent {
 }
 
 interface HideTooltipEventUIParam {
-
 	/**
  	 * Used to obtain reference to chart widget.
 	 */
@@ -9173,7 +9107,6 @@ interface HideTooltipEventUIParam {
 }
 
 interface IgBaseChart {
-
 	/**
  	 * The width of the chart.
 	 */
@@ -9269,7 +9202,6 @@ interface IgBaseChart {
 	[optionName: string]: any;
 }
 interface IgBaseChartMethods {
-
 	/**
  	 * Find index of item within actual data used by chart.
 	 *
@@ -9373,7 +9305,7 @@ interface IgBaseChartMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igBaseChart"):IgBaseChartMethods;
+	data(propertyName: "igBaseChart"): IgBaseChartMethods;
 }
 
 interface JQuery {
@@ -9602,7 +9534,6 @@ interface JQuery {
 	igBaseChart(methodName: string, ...methodParams: any[]): any;
 }
 interface IgBulletGraphRange {
-
 	/**
  	 * Gets or sets the name of the range.
 	 */
@@ -9678,7 +9609,6 @@ interface AlignLabelEventUIParam {
 }
 
 interface IgBulletGraph {
-
 	/**
  	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -9713,7 +9643,7 @@ interface IgBulletGraph {
  	 * Gets or sets the orientation of the scale.
 	 *
 	 * Valid values:
-	 * "horizontal" 
+	 * "horizontal"
 	 * "vertical"
 	 */
 	orientation?: string;
@@ -9993,7 +9923,6 @@ interface IgBulletGraph {
 	[optionName: string]: any;
 }
 interface IgBulletGraphMethods {
-
 	/**
  	 * Returns a string containing the names of all the ranges delimited with a \n symbol.
 	 */
@@ -10041,7 +9970,7 @@ interface IgBulletGraphMethods {
 	styleUpdated(): void;
 }
 interface JQuery {
-	data(propertyName: "igBulletGraph"):IgBulletGraphMethods;
+	data(propertyName: "igBulletGraph"): IgBulletGraphMethods;
 }
 
 interface JQuery {
@@ -10807,7 +10736,6 @@ interface PropertyChangedEventUIParam {
 }
 
 interface IgCategoryChart {
-
 	/**
  	 * Gets or sets the data value corresponding to the minimum value of the Y-axis.
 	 */
@@ -11158,9 +11086,9 @@ interface IgCategoryChart {
  	 * Gets or sets horizontal alignment which determines the title position, relative to the left and right edges of the chart.
 	 *
 	 * Valid values:
-	 * "left" 
-	 * "center" 
-	 * "right" 
+	 * "left"
+	 * "center"
+	 * "right"
 	 * "stretch"
 	 */
 	titleAlignment?: string;
@@ -11169,9 +11097,9 @@ interface IgCategoryChart {
  	 * Gets or sets horizontal alignment which determines the subtitle position, relative to the left and right edges of the chart.
 	 *
 	 * Valid values:
-	 * "left" 
-	 * "center" 
-	 * "right" 
+	 * "left"
+	 * "center"
+	 * "right"
 	 * "stretch"
 	 */
 	subtitleAlignment?: string;
@@ -11181,7 +11109,7 @@ interface IgCategoryChart {
 	 *
 	 *
 	 * Valid values:
-	 * "linearInterpolate" 
+	 * "linearInterpolate"
 	 * "dontPlot"
 	 */
 	unknownValuePlotting?: string;
@@ -11190,7 +11118,7 @@ interface IgCategoryChart {
  	 * Gets or sets behavior for markers in each series which are placed too close together for the current view, resulting in a collision.
 	 *
 	 * Valid values:
-	 * "none" 
+	 * "none"
 	 * "omit"
 	 */
 	markerCollisionAvoidance?: string;
@@ -11204,25 +11132,25 @@ interface IgCategoryChart {
  	 * Gets or sets the method that determines how to animate series plots when the chart is loading into view
 	 *
 	 * Valid values:
-	 * "auto" 
-	 * "fromZero" 
-	 * "sweepFromLeft" 
-	 * "sweepFromRight" 
-	 * "sweepFromTop" 
-	 * "sweepFromBottom" 
-	 * "sweepFromCenter" 
-	 * "accordionFromLeft" 
-	 * "accordionFromRight" 
-	 * "accordionFromTop" 
-	 * "accordionFromBottom" 
-	 * "expand" 
-	 * "sweepFromCategoryAxisMinimum" 
-	 * "sweepFromCategoryAxisMaximum" 
-	 * "sweepFromValueAxisMinimum" 
-	 * "sweepFromValueAxisMaximum" 
-	 * "accordionFromCategoryAxisMinimum" 
-	 * "accordionFromCategoryAxisMaximum" 
-	 * "accordionFromValueAxisMinimum" 
+	 * "auto"
+	 * "fromZero"
+	 * "sweepFromLeft"
+	 * "sweepFromRight"
+	 * "sweepFromTop"
+	 * "sweepFromBottom"
+	 * "sweepFromCenter"
+	 * "accordionFromLeft"
+	 * "accordionFromRight"
+	 * "accordionFromTop"
+	 * "accordionFromBottom"
+	 * "expand"
+	 * "sweepFromCategoryAxisMinimum"
+	 * "sweepFromCategoryAxisMaximum"
+	 * "sweepFromValueAxisMinimum"
+	 * "sweepFromValueAxisMaximum"
+	 * "accordionFromCategoryAxisMinimum"
+	 * "accordionFromCategoryAxisMaximum"
+	 * "accordionFromValueAxisMinimum"
 	 * "accordionFromValueAxisMaximum"
 	 */
 	transitionInMode?: string;
@@ -11231,10 +11159,10 @@ interface IgCategoryChart {
  	 * Gets or sets the arrival speed used for animating series plots when the chart is loading into view
 	 *
 	 * Valid values:
-	 * "auto" 
-	 * "normal" 
-	 * "valueScaled" 
-	 * "indexScaled" 
+	 * "auto"
+	 * "normal"
+	 * "valueScaled"
+	 * "indexScaled"
 	 * "random"
 	 */
 	transitionInSpeedType?: string;
@@ -11451,19 +11379,19 @@ interface IgCategoryChart {
  	 * Gets or sets the formula used for calculating trend lines in this chart.
 	 *
 	 * Valid values:
-	 * "none" 
-	 * "linearFit" 
-	 * "quadraticFit" 
-	 * "cubicFit" 
-	 * "quarticFit" 
-	 * "quinticFit" 
-	 * "logarithmicFit" 
-	 * "exponentialFit" 
-	 * "powerLawFit" 
-	 * "simpleAverage" 
-	 * "exponentialAverage" 
-	 * "modifiedAverage" 
-	 * "cumulativeAverage" 
+	 * "none"
+	 * "linearFit"
+	 * "quadraticFit"
+	 * "cubicFit"
+	 * "quarticFit"
+	 * "quinticFit"
+	 * "logarithmicFit"
+	 * "exponentialFit"
+	 * "powerLawFit"
+	 * "simpleAverage"
+	 * "exponentialAverage"
+	 * "modifiedAverage"
+	 * "cumulativeAverage"
 	 * "weightedAverage"
 	 */
 	trendLineType?: string;
@@ -11516,9 +11444,9 @@ interface IgCategoryChart {
  	 * Gets or sets the horizontal alignment of the X-axis title.
 	 *
 	 * Valid values:
-	 * "left" 
-	 * "center" 
-	 * "right" 
+	 * "left"
+	 * "center"
+	 * "right"
 	 * "stretch"
 	 */
 	xAxisTitleAlignment?: string;
@@ -11527,9 +11455,9 @@ interface IgCategoryChart {
  	 * Gets or sets the vertical alignment of the Y-axis title.
 	 *
 	 * Valid values:
-	 * "top" 
-	 * "center" 
-	 * "bottom" 
+	 * "top"
+	 * "center"
+	 * "bottom"
 	 * "stretch"
 	 */
 	yAxisTitleAlignment?: string;
@@ -11538,9 +11466,9 @@ interface IgCategoryChart {
  	 * Gets or sets the horizontal alignment of X-axis labels.
 	 *
 	 * Valid values:
-	 * "left" 
-	 * "center" 
-	 * "right" 
+	 * "left"
+	 * "center"
+	 * "right"
 	 * "stretch"
 	 */
 	xAxisLabelHorizontalAlignment?: string;
@@ -11549,9 +11477,9 @@ interface IgCategoryChart {
  	 * Gets or sets the horizontal alignment of Y-axis labels.
 	 *
 	 * Valid values:
-	 * "left" 
-	 * "center" 
-	 * "right" 
+	 * "left"
+	 * "center"
+	 * "right"
 	 * "stretch"
 	 */
 	yAxisLabelHorizontalAlignment?: string;
@@ -11560,9 +11488,9 @@ interface IgCategoryChart {
  	 * Gets or sets the vertical alignment of X-axis labels.
 	 *
 	 * Valid values:
-	 * "top" 
-	 * "center" 
-	 * "bottom" 
+	 * "top"
+	 * "center"
+	 * "bottom"
 	 * "stretch"
 	 */
 	xAxisLabelVerticalAlignment?: string;
@@ -11571,9 +11499,9 @@ interface IgCategoryChart {
  	 * Gets or sets the vertical alignment of Y-axis labels.
 	 *
 	 * Valid values:
-	 * "top" 
-	 * "center" 
-	 * "bottom" 
+	 * "top"
+	 * "center"
+	 * "bottom"
 	 * "stretch"
 	 */
 	yAxisLabelVerticalAlignment?: string;
@@ -11582,7 +11510,7 @@ interface IgCategoryChart {
  	 * Gets or sets the visibility of X-axis labels.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	xAxisLabelVisibility?: string;
@@ -11591,7 +11519,7 @@ interface IgCategoryChart {
  	 * Gets or sets the visibility of Y-axis labels.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	yAxisLabelVisibility?: string;
@@ -11798,7 +11726,7 @@ interface IgCategoryChartMethods {
 	dataBind(): void;
 }
 interface JQuery {
-	data(propertyName: "igCategoryChart"):IgCategoryChartMethods;
+	data(propertyName: "igCategoryChart"): IgCategoryChartMethods;
 }
 
 interface JQuery {
@@ -13645,7 +13573,6 @@ interface JQuery {
 	igCategoryChart(methodName: string, ...methodParams: any[]): any;
 }
 interface IgDataChartCrosshairPoint {
-
 	/**
  	 * The x coordinate.
 	 */
@@ -13663,7 +13590,6 @@ interface IgDataChartCrosshairPoint {
 }
 
 interface IgDataChartLegend {
-
 	/**
  	 * The name of the element to turn into a legend.
 	 */
@@ -13702,7 +13628,6 @@ interface IgDataChartLegend {
 }
 
 interface IgDataChartAxes {
-
 	/**
  	 * Type of the axis.
 	 *
@@ -14105,7 +14030,6 @@ interface IgDataChartAxes {
 }
 
 interface IgDataChartSeriesLegend {
-
 	/**
  	 * The name of the element to turn into a legend.
 	 */
@@ -14144,7 +14068,6 @@ interface IgDataChartSeriesLegend {
 }
 
 interface IgDataChartSeries {
-
 	/**
  	 * Type of the series.
 	 *
@@ -14871,7 +14794,6 @@ interface TooltipShowingEvent {
 }
 
 interface TooltipShowingEventUIParam {
-
 	/**
  	 * Used to get reference to tooltip DOM element.
 	 */
@@ -14908,7 +14830,6 @@ interface TooltipShownEvent {
 }
 
 interface TooltipShownEventUIParam {
-
 	/**
  	 * Used to get reference to tooltip DOM element.
 	 */
@@ -14945,7 +14866,6 @@ interface TooltipHidingEvent {
 }
 
 interface TooltipHidingEventUIParam {
-
 	/**
  	 * Used to get reference to tooltip DOM element.
 	 */
@@ -14982,7 +14902,6 @@ interface TooltipHiddenEvent {
 }
 
 interface TooltipHiddenEventUIParam {
-
 	/**
  	 * Used to get reference to tooltip DOM element.
 	 */
@@ -15026,7 +14945,6 @@ interface SeriesCursorMouseMoveEvent {
 }
 
 interface SeriesCursorMouseMoveEventUIParam {
-
 	/**
  	 * Used to get reference to current series item object.
 	 */
@@ -15068,7 +14986,6 @@ interface SeriesMouseLeftButtonDownEvent {
 }
 
 interface SeriesMouseLeftButtonDownEventUIParam {
-
 	/**
  	 * Used to get reference to current series item object.
 	 */
@@ -15110,7 +15027,6 @@ interface SeriesMouseLeftButtonUpEvent {
 }
 
 interface SeriesMouseLeftButtonUpEventUIParam {
-
 	/**
  	 * Used to get reference to current series item object.
 	 */
@@ -15152,7 +15068,6 @@ interface SeriesMouseMoveEvent {
 }
 
 interface SeriesMouseMoveEventUIParam {
-
 	/**
  	 * Used to get reference to current series item object.
 	 */
@@ -15194,7 +15109,6 @@ interface SeriesMouseEnterEvent {
 }
 
 interface SeriesMouseEnterEventUIParam {
-
 	/**
  	 * Used to get reference to current series item object.
 	 */
@@ -15236,7 +15150,6 @@ interface SeriesMouseLeaveEvent {
 }
 
 interface SeriesMouseLeaveEventUIParam {
-
 	/**
  	 * Used to get reference to current series item object.
 	 */
@@ -15278,7 +15191,6 @@ interface WindowRectChangedEvent {
 }
 
 interface WindowRectChangedEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -15330,7 +15242,6 @@ interface GridAreaRectChangedEvent {
 }
 
 interface GridAreaRectChangedEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -15382,7 +15293,6 @@ interface RefreshCompletedEvent {
 }
 
 interface RefreshCompletedEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -15394,7 +15304,6 @@ interface AxisRangeChangedEvent {
 }
 
 interface AxisRangeChangedEventUIParam {
-
 	/**
  	 * Used to get reference to current chart axis object.
 	 */
@@ -15431,7 +15340,6 @@ interface TypicalBasedOnEvent {
 }
 
 interface TypicalBasedOnEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -15473,7 +15381,6 @@ interface ProgressiveLoadStatusChangedEvent {
 }
 
 interface ProgressiveLoadStatusChangedEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -15495,7 +15402,6 @@ interface AssigningCategoryStyleEvent {
 }
 
 interface AssigningCategoryStyleEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -15564,7 +15470,6 @@ interface AssigningCategoryMarkerStyleEvent {
 }
 
 interface AssigningCategoryMarkerStyleEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -15629,7 +15534,6 @@ interface AssigningCategoryMarkerStyleEventUIParam {
 }
 
 interface IgDataChart {
-
 	/**
  	 * Gets or sets whether the series viewer can allow the page to pan if a control pan is not possible in the requested direction.
 	 */
@@ -16805,11 +16709,10 @@ interface IgDataChartMethods {
 	clearTileZoomCache(): void;
 }
 interface JQuery {
-	data(propertyName: "igDataChart"):IgDataChartMethods;
+	data(propertyName: "igDataChart"): IgDataChartMethods;
 }
 
 interface IgPieChartLegend {
-
 	/**
  	 * The name of the element to turn into a legend.
 	 */
@@ -16845,7 +16748,6 @@ interface SliceClickEvent {
 }
 
 interface SliceClickEventUIParam {
-
 	/**
  	 * Used to get reference to chart object.
 	 */
@@ -16862,7 +16764,6 @@ interface LabelClickEvent {
 }
 
 interface LabelClickEventUIParam {
-
 	/**
  	 * Used to get reference to the slice object.
 	 */
@@ -16879,7 +16780,6 @@ interface SelectedItemChangingEvent {
 }
 
 interface SelectedItemChangingEventUIParam {
-
 	/**
  	 * Used to get a reference to the current selected data item.
 	 */
@@ -16901,7 +16801,6 @@ interface SelectedItemChangedEvent {
 }
 
 interface SelectedItemChangedEventUIParam {
-
 	/**
  	 * Used to get a reference to the previous selected data item.
 	 */
@@ -16918,7 +16817,6 @@ interface SelectedItemsChangingEvent {
 }
 
 interface SelectedItemsChangingEventUIParam {
-
 	/**
  	 * Used to get a reference to the current selected data items.
 	 */
@@ -16940,7 +16838,6 @@ interface SelectedItemsChangedEvent {
 }
 
 interface SelectedItemsChangedEventUIParam {
-
 	/**
  	 * Used to get a reference to the previous selected data items.
 	 */
@@ -16953,7 +16850,6 @@ interface SelectedItemsChangedEventUIParam {
 }
 
 interface IgPieChart {
-
 	/**
  	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -17392,7 +17288,7 @@ interface IgPieChartMethods {
 	exportVisualData(): void;
 }
 interface JQuery {
-	data(propertyName: "igPieChart"):IgPieChartMethods;
+	data(propertyName: "igPieChart"): IgPieChartMethods;
 }
 
 interface JQuery {
@@ -19836,7 +19732,6 @@ interface LegendItemMouseLeftButtonDownEvent {
 }
 
 interface LegendItemMouseLeftButtonDownEventUIParam {
-
 	/**
  	 * Used to get reference to current legend object.
 	 */
@@ -19873,7 +19768,6 @@ interface LegendItemMouseLeftButtonUpEvent {
 }
 
 interface LegendItemMouseLeftButtonUpEventUIParam {
-
 	/**
  	 * Used to get reference to current legend object.
 	 */
@@ -19910,7 +19804,6 @@ interface LegendItemMouseEnterEvent {
 }
 
 interface LegendItemMouseEnterEventUIParam {
-
 	/**
  	 * Used to get reference to current legend object.
 	 */
@@ -19947,7 +19840,6 @@ interface LegendItemMouseLeaveEvent {
 }
 
 interface LegendItemMouseLeaveEventUIParam {
-
 	/**
  	 * Used to get reference to current legend object.
 	 */
@@ -19980,7 +19872,6 @@ interface LegendItemMouseLeaveEventUIParam {
 }
 
 interface IgChartLegend {
-
 	/**
  	 * Type of the legend.
 	 *
@@ -20078,7 +19969,7 @@ interface IgChartLegendMethods {
 	id(): string;
 }
 interface JQuery {
-	data(propertyName: "igChartLegend"):IgChartLegendMethods;
+	data(propertyName: "igChartLegend"): IgChartLegendMethods;
 }
 
 interface JQuery {
@@ -20249,7 +20140,6 @@ interface ColorSelectedEvent {
 }
 
 interface ColorSelectedEventUIParam {
-
 	/**
  	 * Used to get a reference to the color object.
 	 */
@@ -20257,7 +20147,6 @@ interface ColorSelectedEventUIParam {
 }
 
 interface IgColorPicker {
-
 	/**
  	 * Gets/Sets the default colors. Default colors are the ones displayed in the upper table of the color picker.
 	 *             The array should contain arrays that contain the color values for every next row.
@@ -20274,7 +20163,7 @@ interface IgColorPicker {
 
 	/**
  	 * The event is fired when a color is selected.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.color to get a reference to the color object.
 	 */
@@ -20286,7 +20175,6 @@ interface IgColorPicker {
 	[optionName: string]: any;
 }
 interface IgColorPickerMethods {
-
 	/**
  	 * Gets a reference to the div element of the color table
 	 */
@@ -20323,7 +20211,7 @@ interface IgColorPickerMethods {
 	selectColor(color: string): Object;
 }
 interface JQuery {
-	data(propertyName: "igColorPicker"):IgColorPickerMethods;
+	data(propertyName: "igColorPicker"): IgColorPickerMethods;
 }
 
 interface JQuery {
@@ -20368,7 +20256,7 @@ interface JQuery {
 
 	/**
 	 * The event is fired when a color is selected.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.color to get a reference to the color object.
 	 */
@@ -20376,7 +20264,7 @@ interface JQuery {
 
 	/**
 	 * The event is fired when a color is selected.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.color to get a reference to the color object.
 	 *
@@ -20394,7 +20282,6 @@ interface ClickEvent {
 }
 
 interface ClickEventUIParam {
-
 	/**
  	 * Used to get a reference the igSplitButton element.
 	 */
@@ -20406,7 +20293,6 @@ interface ExpandedEvent {
 }
 
 interface ExpandedEventUIParam {
-
 	/**
  	 * Used to get a reference the igSplitButton.
 	 */
@@ -20418,7 +20304,6 @@ interface ExpandingEvent {
 }
 
 interface ExpandingEventUIParam {
-
 	/**
  	 * Used to get a reference the igSplitButton.
 	 */
@@ -20430,7 +20315,6 @@ interface CollapsedEvent {
 }
 
 interface CollapsedEventUIParam {
-
 	/**
  	 * Used to get a reference the igSplitButton.
 	 */
@@ -20442,7 +20326,6 @@ interface CollapsingEvent {
 }
 
 interface CollapsingEventUIParam {
-
 	/**
  	 * Used to get a reference the igSplitButton.
 	 */
@@ -20450,7 +20333,6 @@ interface CollapsingEventUIParam {
 }
 
 interface IgColorPickerSplitButton {
-
 	/**
  	 * Button items.
 	 *
@@ -20483,7 +20365,7 @@ interface IgColorPickerSplitButton {
 
 	/**
  	 * Event fired when the button is clicked.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.item to get a reference the igSplitButton element.
 	 */
@@ -20491,7 +20373,7 @@ interface IgColorPickerSplitButton {
 
 	/**
  	 * Event fired after the button is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20499,7 +20381,7 @@ interface IgColorPickerSplitButton {
 
 	/**
  	 * Event fired before a button item is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20507,7 +20389,7 @@ interface IgColorPickerSplitButton {
 
 	/**
  	 * Event fired after the button is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20515,7 +20397,7 @@ interface IgColorPickerSplitButton {
 
 	/**
  	 * Event fired before a button item is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20527,7 +20409,6 @@ interface IgColorPickerSplitButton {
 	[optionName: string]: any;
 }
 interface IgColorPickerSplitButtonMethods {
-
 	/**
  	 * Sets the color of the split button
 	 *
@@ -20538,14 +20419,14 @@ interface IgColorPickerSplitButtonMethods {
 	/**
  	 * Collapse the widget.
 	 *
-	 * @param e 
+	 * @param e
 	 */
 	collapse(e: Object): Object;
 
 	/**
  	 * Expands the widget.
 	 *
-	 * @param e 
+	 * @param e
 	 */
 	expand(e: Object): Object;
 
@@ -20570,7 +20451,7 @@ interface IgColorPickerSplitButtonMethods {
 	toggle(e: Object): Object;
 }
 interface JQuery {
-	data(propertyName: "igColorPickerSplitButton"):IgColorPickerSplitButtonMethods;
+	data(propertyName: "igColorPickerSplitButton"): IgColorPickerSplitButtonMethods;
 }
 
 interface JQuery {
@@ -20654,7 +20535,7 @@ interface JQuery {
 
 	/**
 	 * Event fired when the button is clicked.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.item to get a reference the igSplitButton element.
 	 */
@@ -20662,7 +20543,7 @@ interface JQuery {
 
 	/**
 	 * Event fired when the button is clicked.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.item to get a reference the igSplitButton element.
 	 *
@@ -20672,7 +20553,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20680,7 +20561,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -20690,7 +20571,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20698,7 +20579,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -20708,7 +20589,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20716,7 +20597,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -20726,7 +20607,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -20734,7 +20615,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -20748,7 +20629,6 @@ interface JQuery {
 	igColorPickerSplitButton(methodName: string, ...methodParams: any[]): any;
 }
 interface IgComboLoadOnDemandSettings {
-
 	/**
  	 * Gets/Sets option to enable load on demand.
 	 *
@@ -20768,7 +20648,6 @@ interface IgComboLoadOnDemandSettings {
 }
 
 interface IgComboMultiSelection {
-
 	/**
  	 * Set enabled to true to turn multi selection on. Set to true by default when target element for the combo is a select with the multiple attribute set.
 	 *
@@ -20800,7 +20679,6 @@ interface IgComboMultiSelection {
 }
 
 interface IgComboGrouping {
-
 	/**
  	 * Gets/Sets name of column by which the records will be grouped. Setting this option enables the grouping.
 	 *
@@ -20824,7 +20702,6 @@ interface IgComboGrouping {
 }
 
 interface IgComboInitialSelectedItem {
-
 	/**
  	 * Optional="true" Index of item in the list. The index should be greater than -1 and less than the count of the [items](ui.igcombo#methods:items) in the list (rows in dataSource).
 	 *
@@ -20848,7 +20725,6 @@ interface RenderedEvent {
 }
 
 interface RenderedEventUIParam {
-
 	/**
  	 * Used to get a reference to the combo performing rendering.
 	 */
@@ -20865,7 +20741,6 @@ interface FilteringEvent {
 }
 
 interface FilteringEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -20882,7 +20757,6 @@ interface FilteredEvent {
 }
 
 interface FilteredEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -20899,7 +20773,6 @@ interface ItemsRenderingEvent {
 }
 
 interface ItemsRenderingEventUIParam {
-
 	/**
  	 * Used to get a reference to the combo performing rendering.
 	 */
@@ -20916,7 +20789,6 @@ interface ItemsRenderedEvent {
 }
 
 interface ItemsRenderedEventUIParam {
-
 	/**
  	 * Used to get a reference to the combo performing rendering.
 	 */
@@ -20933,7 +20805,6 @@ interface DropDownOpeningEvent {
 }
 
 interface DropDownOpeningEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -20950,7 +20821,6 @@ interface DropDownOpenedEvent {
 }
 
 interface DropDownOpenedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -20967,7 +20837,6 @@ interface DropDownClosingEvent {
 }
 
 interface DropDownClosingEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -20984,7 +20853,6 @@ interface DropDownClosedEvent {
 }
 
 interface DropDownClosedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -21001,7 +20869,6 @@ interface SelectionChangingEvent {
 }
 
 interface SelectionChangingEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -21023,7 +20890,6 @@ interface SelectionChangedEvent {
 }
 
 interface SelectionChangedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igCombo.
 	 */
@@ -21041,7 +20907,6 @@ interface SelectionChangedEventUIParam {
 }
 
 interface IgCombo {
-
 	/**
  	 * Gets/Sets the width of combo. The numeric and string values (valid html units for size) are supported. It includes %, px, em and other units.
 	 *
@@ -21187,7 +21052,7 @@ interface IgCombo {
 
 	/**
  	 * Gets/Sets type of filtering.Note: option is set to "remote", then the "css.waitFiltering" is applied to combo and its drop-down list.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -21205,7 +21070,7 @@ interface IgCombo {
 
 	/**
  	 * Gets/Sets condition used for filtering.Note: When [autoComplete](ui.igcombo#options:autoComplete) is enabled, the filtering condition is always "startsWith".
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -21393,9 +21258,9 @@ interface IgCombo {
 	 * Valid options are:
 	 * "auto" (default) - uses automatic formatting for Date and number objects.
 	 * "none", "", or null - will disable formatting
-	 * 
+	 *
 	 * Custom values can be something like "currency", "percent", "dateLong", "time", "MMM-dd-yyyy H:mm tt", etc.
-	 * 
+	 *
 	 * Custom format strings should match the data type in "textKey" column.
 	 *
 	 */
@@ -21440,7 +21305,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised after rendering of the combo completes.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.element to get a reference to the main/top combo element.
@@ -21449,7 +21314,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised before data binding is performed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to igCombo performing the databinding.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is to be databound to.
@@ -21458,7 +21323,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised after data binding is complete.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo performing the data binding.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -21469,7 +21334,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised before data filtering.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.expression to obtain reference to array which contains expressions supported by [$.ig.DataSource](ig.datasource).
@@ -21479,7 +21344,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised after filtering.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use evt.originalEvent to obtain reference to event of browser. That can be null.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -21489,7 +21354,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised before rendering of the combo items is performed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -21498,7 +21363,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised after rendering of the combo items completes.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -21507,7 +21372,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised before drop-down list is opened.
-	 *             
+	 *
 	 * Return false in order to cancel drop-down action.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -21517,7 +21382,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised after drop-down list was opened.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.list to obtain reference to jquery DOM element which represents drop down list container.
@@ -21526,7 +21391,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised before drop-down list is closed.
-	 *             
+	 *
 	 * Return false in order to cancel hide action.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -21536,7 +21401,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised after drop-down list was closed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use evt.originalEvent to obtain reference to event of browser.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -21546,7 +21411,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised before selection change.
-	 *             
+	 *
 	 * Return false in order to cancel change.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -21557,7 +21422,7 @@ interface IgCombo {
 
 	/**
  	 * Event which is raised after selection change.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.items to obtain reference to array of new selected items. That can be null.
@@ -21571,7 +21436,6 @@ interface IgCombo {
 	[optionName: string]: any;
 }
 interface IgComboMethods {
-
 	/**
  	 * Performs databinding on the combo box. The [databinding](ui.igcombo#events:dataBinding) and [dataBound](ui.igcombo#events:dataBound) events are always raised.
 	 */
@@ -21579,7 +21443,7 @@ interface IgComboMethods {
 
 	/**
  	 * Forces an update of the igCombo value according to the current text in the igCombo input.
-	 *             
+	 *
 	 * 				The refresh is primarily intended to be used with [allowCustomValue](ui.igcombo#options:allowCustomValue) set to true.
 	 * 				The refresh will take the current text and, if no selection is applied, will set it as igCombo value provided that [allowCustomValue](ui.igcombo#options:allowCustomValue) true.
 	 */
@@ -21888,7 +21752,7 @@ interface IgComboMethods {
 	destroy(): Object;
 }
 interface JQuery {
-	data(propertyName: "igCombo"):IgComboMethods;
+	data(propertyName: "igCombo"): IgComboMethods;
 }
 
 interface JQuery {
@@ -22237,14 +22101,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets type of filtering.Note: option is set to "remote", then the "css.waitFiltering" is applied to combo and its drop-down list.
-	 * 
+	 *
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "filteringType"): string;
 
 	/**
 	 * /Sets type of filtering.Note: option is set to "remote", then the "css.waitFiltering" is applied to combo and its drop-down list.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22267,14 +22131,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets condition used for filtering.Note: When [autoComplete](ui.igcombo#options:autoComplete) is enabled, the filtering condition is always "startsWith".
-	 * 
+	 *
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "filteringCondition"): string;
 
 	/**
 	 * /Sets condition used for filtering.Note: When [autoComplete](ui.igcombo#options:autoComplete) is enabled, the filtering condition is always "startsWith".
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22630,9 +22494,9 @@ interface JQuery {
 	 * Valid options are:
 	 * "auto" (default) - uses automatic formatting for Date and number objects.
 	 * "none", "", or null - will disable formatting
-	 * 
+	 *
 	 * Custom values can be something like "currency", "percent", "dateLong", "time", "MMM-dd-yyyy H:mm tt", etc.
-	 * 
+	 *
 	 * Custom format strings should match the data type in "textKey" column.
 	 *
 	 */
@@ -22643,9 +22507,9 @@ interface JQuery {
 	 * Valid options are:
 	 * "auto" (default) - uses automatic formatting for Date and number objects.
 	 * "none", "", or null - will disable formatting
-	 * 
+	 *
 	 * Custom values can be something like "currency", "percent", "dateLong", "time", "MMM-dd-yyyy H:mm tt", etc.
-	 * 
+	 *
 	 * Custom format strings should match the data type in "textKey" column.
 	 *
 	 *
@@ -22729,7 +22593,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after rendering of the combo completes.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.element to get a reference to the main/top combo element.
@@ -22738,7 +22602,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after rendering of the combo completes.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.element to get a reference to the main/top combo element.
@@ -22749,7 +22613,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before data binding is performed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to igCombo performing the databinding.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is to be databound to.
@@ -22758,7 +22622,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before data binding is performed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to igCombo performing the databinding.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is to be databound to.
@@ -22769,7 +22633,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after data binding is complete.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo performing the data binding.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -22780,7 +22644,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after data binding is complete.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo performing the data binding.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -22793,7 +22657,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before data filtering.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.expression to obtain reference to array which contains expressions supported by [$.ig.DataSource](ig.datasource).
@@ -22803,7 +22667,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before data filtering.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.expression to obtain reference to array which contains expressions supported by [$.ig.DataSource](ig.datasource).
@@ -22815,7 +22679,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after filtering.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use evt.originalEvent to obtain reference to event of browser. That can be null.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22825,7 +22689,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after filtering.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use evt.originalEvent to obtain reference to event of browser. That can be null.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22837,7 +22701,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before rendering of the combo items is performed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -22846,7 +22710,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before rendering of the combo items is performed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -22857,7 +22721,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after rendering of the combo items completes.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -22866,7 +22730,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after rendering of the combo items completes.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the combo performing rendering.
 	 * Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) combo is databound to.
@@ -22877,7 +22741,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before drop-down list is opened.
-	 *             
+	 *
 	 * Return false in order to cancel drop-down action.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22887,7 +22751,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before drop-down list is opened.
-	 *             
+	 *
 	 * Return false in order to cancel drop-down action.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22899,7 +22763,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after drop-down list was opened.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.list to obtain reference to jquery DOM element which represents drop down list container.
@@ -22908,7 +22772,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after drop-down list was opened.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.list to obtain reference to jquery DOM element which represents drop down list container.
@@ -22919,7 +22783,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before drop-down list is closed.
-	 *             
+	 *
 	 * Return false in order to cancel hide action.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22929,7 +22793,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before drop-down list is closed.
-	 *             
+	 *
 	 * Return false in order to cancel hide action.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22941,7 +22805,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after drop-down list was closed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use evt.originalEvent to obtain reference to event of browser.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22951,7 +22815,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after drop-down list was closed.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use evt.originalEvent to obtain reference to event of browser.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22963,7 +22827,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before selection change.
-	 *             
+	 *
 	 * Return false in order to cancel change.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22974,7 +22838,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised before selection change.
-	 *             
+	 *
 	 * Return false in order to cancel change.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
@@ -22987,7 +22851,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after selection change.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.items to obtain reference to array of new selected items. That can be null.
@@ -22997,7 +22861,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after selection change.
-	 *             
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igCombo.
 	 * Use ui.items to obtain reference to array of new selected items. That can be null.
@@ -23017,7 +22881,6 @@ interface StateChangingEvent {
 }
 
 interface StateChangingEventUIParam {
-
 	/**
  	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23049,7 +22912,6 @@ interface StateChangedEvent {
 }
 
 interface StateChangedEventUIParam {
-
 	/**
  	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23081,7 +22943,6 @@ interface AnimationEndedEvent {
 }
 
 interface AnimationEndedEventUIParam {
-
 	/**
  	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23098,7 +22959,6 @@ interface FocusEvent {
 }
 
 interface FocusEventUIParam {
-
 	/**
  	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23110,7 +22970,6 @@ interface BlurEvent {
 }
 
 interface BlurEventUIParam {
-
 	/**
  	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23118,7 +22977,6 @@ interface BlurEventUIParam {
 }
 
 interface IgDialog {
-
 	/**
  	 * Gets the jquery DIV object which is used as the main container for the dialog.
 	 * Notes:
@@ -23132,7 +22990,7 @@ interface IgDialog {
 
 	/**
  	 * Gets/Sets the state of the dialog.Note: when the dialog is modal, then pinned and minimized states are not supported, because that will trigger misbehavior.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -23238,7 +23096,7 @@ interface IgDialog {
 	/**
  	 * Gets/Sets the initial height of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
-	 * 
+	 *
 	 *
 	 */
 	height?: number|string;
@@ -23246,7 +23104,7 @@ interface IgDialog {
 	/**
  	 * Gets/Sets the initial width of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
-	 * 
+	 *
 	 *
 	 */
 	width?: number|string;
@@ -23388,7 +23246,7 @@ interface IgDialog {
  	 * Gets/Sets the processing of the double-click on the dialog-header.If this option is not false and dialog was minimized, then its state will be set to normal.
 	 * If this option is set to "auto" and showMaximizeButton is enabled or if this option is set to true, then the dialog will be maximized when it was in normal state,
 	 * and dialog-state will be set to normal if it was maximized.
-	 * 
+	 *
 	 *
 	 */
 	enableDblclick?: any;
@@ -23396,7 +23254,7 @@ interface IgDialog {
 	/**
  	 * Event which is raised before the state of dialog was changed.
 	 * Return false in order to cancel action.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event. That parameter can be null if the state was modified from the code.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -23416,7 +23274,7 @@ interface IgDialog {
 
 	/**
  	 * Event which is raised after the state of the dialog was changed.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event. That parameter can be null if the state was modified from the code.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -23436,7 +23294,7 @@ interface IgDialog {
 
 	/**
  	 * Event which is raised after the end of the animation when the dialod was closed or opened.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use ui.owner to obtain a reference to the igDialog.
 	 * Use ui.action to obtain the name of the action, which triggered the animation.
@@ -23447,7 +23305,7 @@ interface IgDialog {
 
 	/**
  	 * Event which is raised when the dialog or its content gets focus.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -23456,7 +23314,7 @@ interface IgDialog {
 
 	/**
  	 * Event which is raised when the dialog or its content loses focus.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -23469,7 +23327,6 @@ interface IgDialog {
 	[optionName: string]: any;
 }
 interface IgDialogMethods {
-
 	/**
  	 * Destroys the igDialog and moves the target element to its original parent.
 	 */
@@ -23565,7 +23422,7 @@ interface IgDialogMethods {
 	content(newContent?: string): Object;
 }
 interface JQuery {
-	data(propertyName: "igDialog"):IgDialogMethods;
+	data(propertyName: "igDialog"): IgDialogMethods;
 }
 
 interface JQuery {
@@ -23610,14 +23467,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets the state of the dialog.Note: when the dialog is modal, then pinned and minimized states are not supported, because that will trigger misbehavior.
-	 * 
+	 *
 	 *
 	 */
 	igDialog(optionLiteral: 'option', optionName: "state"): string;
 
 	/**
 	 * /Sets the state of the dialog.Note: when the dialog is modal, then pinned and minimized states are not supported, because that will trigger misbehavior.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -23839,7 +23696,7 @@ interface JQuery {
 	/**
 	 * Gets/Sets the initial height of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
-	 * 
+	 *
 	 *
 	 */
 	igDialog(optionLiteral: 'option', optionName: "height"): number|string;
@@ -23847,7 +23704,7 @@ interface JQuery {
 	/**
 	 * /Sets the initial height of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -23857,7 +23714,7 @@ interface JQuery {
 	/**
 	 * Gets/Sets the initial width of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
-	 * 
+	 *
 	 *
 	 */
 	igDialog(optionLiteral: 'option', optionName: "width"): number|string;
@@ -23865,7 +23722,7 @@ interface JQuery {
 	/**
 	 * /Sets the initial width of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -24184,7 +24041,7 @@ interface JQuery {
 	 * Gets/Sets the processing of the double-click on the dialog-header.If this option is not false and dialog was minimized, then its state will be set to normal.
 	 * If this option is set to "auto" and showMaximizeButton is enabled or if this option is set to true, then the dialog will be maximized when it was in normal state,
 	 * and dialog-state will be set to normal if it was maximized.
-	 * 
+	 *
 	 *
 	 */
 	igDialog(optionLiteral: 'option', optionName: "enableDblclick"): any;
@@ -24193,7 +24050,7 @@ interface JQuery {
 	 * /Sets the processing of the double-click on the dialog-header.If this option is not false and dialog was minimized, then its state will be set to normal.
 	 * If this option is set to "auto" and showMaximizeButton is enabled or if this option is set to true, then the dialog will be maximized when it was in normal state,
 	 * and dialog-state will be set to normal if it was maximized.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -24203,7 +24060,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before the state of dialog was changed.
 	 * Return false in order to cancel action.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event. That parameter can be null if the state was modified from the code.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24224,7 +24081,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before the state of dialog was changed.
 	 * Return false in order to cancel action.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event. That parameter can be null if the state was modified from the code.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24246,7 +24103,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after the state of the dialog was changed.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event. That parameter can be null if the state was modified from the code.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24266,7 +24123,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after the state of the dialog was changed.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event. That parameter can be null if the state was modified from the code.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24288,7 +24145,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after the end of the animation when the dialod was closed or opened.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use ui.owner to obtain a reference to the igDialog.
 	 * Use ui.action to obtain the name of the action, which triggered the animation.
@@ -24299,7 +24156,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after the end of the animation when the dialod was closed or opened.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use ui.owner to obtain a reference to the igDialog.
 	 * Use ui.action to obtain the name of the action, which triggered the animation.
@@ -24312,7 +24169,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised when the dialog or its content gets focus.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24321,7 +24178,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised when the dialog or its content gets focus.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24332,7 +24189,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised when the dialog or its content loses focus.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24341,7 +24198,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised when the dialog or its content loses focus.
-	 * 
+	 *
 	 * The function takes arguments "evt" and "ui".
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
@@ -24356,7 +24213,6 @@ interface JQuery {
 	igDialog(methodName: string, ...methodParams: any[]): any;
 }
 interface IgDoughnutChartSeries {
-
 	/**
  	 * Gets or sets the current series type.
 	 *
@@ -24399,10 +24255,10 @@ interface IgDoughnutChartSeries {
  	 * Gets or sets the position of chart labels.
 	 *
 	 * Valid values:
-	 * "none" 
-	 * "center" 
-	 * "insideEnd" 
-	 * "outsideEnd" 
+	 * "none"
+	 * "center"
+	 * "insideEnd"
+	 * "outsideEnd"
 	 * "bestFit"
 	 */
 	labelsPosition?: string;
@@ -24411,7 +24267,7 @@ interface IgDoughnutChartSeries {
  	 * Gets or sets whether the leader lines are visible.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	leaderLineVisibility?: string;
@@ -24425,8 +24281,8 @@ interface IgDoughnutChartSeries {
  	 * Gets or sets what type of leader lines will be used for the outside end labels.
 	 *
 	 * Valid values:
-	 * "straight" 
-	 * "arc" 
+	 * "straight"
+	 * "arc"
 	 * "spline"
 	 */
 	leaderLineType?: string;
@@ -24445,7 +24301,7 @@ interface IgDoughnutChartSeries {
  	 * Gets or sets whether to use numeric or percent-based threshold value.
 	 *
 	 * Valid values:
-	 * "number" 
+	 * "number"
 	 * "percent"
 	 */
 	othersCategoryType?: string;
@@ -24524,7 +24380,6 @@ interface HoleDimensionsChangedEventUIParam {
 }
 
 interface IgDoughnutChart {
-
 	/**
  	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -24604,7 +24459,7 @@ interface IgDoughnutChart {
 	responseDataKey?: string;
 
 	/**
- 	 * Event fired when the mouse has hovered on a series and the tooltip is about to show 
+ 	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
 	 * Use ui.item to get reference to current series item object.
@@ -24640,7 +24495,7 @@ interface IgDoughnutChart {
 	tooltipHiding?: TooltipHidingEvent;
 
 	/**
- 	 * Event fired after a tooltip is hidden 
+ 	 * Event fired after a tooltip is hidden
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
 	 * Use ui.item to get reference to current series item object.
@@ -24713,7 +24568,6 @@ interface IgDoughnutChart {
 	[optionName: string]: any;
 }
 interface IgDoughnutChartMethods {
-
 	/**
  	 * Adds a new series to the doughnut chart.
 	 *
@@ -24858,7 +24712,7 @@ interface IgDoughnutChartMethods {
 	dataBind(): void;
 }
 interface JQuery {
-	data(propertyName: "igDoughnutChart"):IgDoughnutChartMethods;
+	data(propertyName: "igDoughnutChart"): IgDoughnutChartMethods;
 }
 
 interface JQuery {
@@ -25071,7 +24925,7 @@ interface JQuery {
 	igDoughnutChart(optionLiteral: 'option', optionName: "responseDataKey", optionValue: string): void;
 
 	/**
-	 * Event fired when the mouse has hovered on a series and the tooltip is about to show 
+	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
 	 * Use ui.item to get reference to current series item object.
@@ -25083,7 +24937,7 @@ interface JQuery {
 	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipShowing"): TooltipShowingEvent;
 
 	/**
-	 * Event fired when the mouse has hovered on a series and the tooltip is about to show 
+	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
 	 * Use ui.item to get reference to current series item object.
@@ -25149,7 +25003,7 @@ interface JQuery {
 	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipHiding", optionValue: TooltipHidingEvent): void;
 
 	/**
-	 * Event fired after a tooltip is hidden 
+	 * Event fired after a tooltip is hidden
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
 	 * Use ui.item to get reference to current series item object.
@@ -25161,7 +25015,7 @@ interface JQuery {
 	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipHidden"): TooltipHiddenEvent;
 
 	/**
-	 * Event fired after a tooltip is hidden 
+	 * Event fired after a tooltip is hidden
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
 	 * Use ui.item to get reference to current series item object.
@@ -25310,7 +25164,6 @@ interface RenderingEvent {
 }
 
 interface RenderingEventUIParam {
-
 	/**
  	 * Used to get a reference to the editor performing rendering.
 	 */
@@ -25327,7 +25180,6 @@ interface MousedownEvent {
 }
 
 interface MousedownEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25349,7 +25201,6 @@ interface MouseupEvent {
 }
 
 interface MouseupEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25371,7 +25222,6 @@ interface MousemoveEvent {
 }
 
 interface MousemoveEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25393,7 +25243,6 @@ interface MouseoverEvent {
 }
 
 interface MouseoverEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25415,7 +25264,6 @@ interface MouseoutEvent {
 }
 
 interface MouseoutEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25437,7 +25285,6 @@ interface KeydownEvent {
 }
 
 interface KeydownEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25454,7 +25301,6 @@ interface KeypressEvent {
 }
 
 interface KeypressEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25471,7 +25317,6 @@ interface KeyupEvent {
 }
 
 interface KeyupEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25488,7 +25333,6 @@ interface ValueChangingEvent {
 }
 
 interface ValueChangingEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25515,7 +25359,6 @@ interface ValueChangedEvent {
 }
 
 interface ValueChangedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25538,7 +25381,6 @@ interface ValueChangedEventUIParam {
 }
 
 interface IgBaseEditor {
-
 	/**
  	 * Gets/Sets the width of the control.
 	 *
@@ -25744,7 +25586,6 @@ interface IgBaseEditor {
 	[optionName: string]: any;
 }
 interface IgBaseEditorMethods {
-
 	/**
  	 * Gets/Sets name attribute applied to the editor element.
 	 *
@@ -25806,7 +25647,7 @@ interface IgBaseEditorMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igBaseEditor"):IgBaseEditorMethods;
+	data(propertyName: "igBaseEditor"): IgBaseEditorMethods;
 }
 
 interface DropDownListOpeningEvent {
@@ -25814,7 +25655,6 @@ interface DropDownListOpeningEvent {
 }
 
 interface DropDownListOpeningEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25836,7 +25676,6 @@ interface DropDownListOpenedEvent {
 }
 
 interface DropDownListOpenedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25858,7 +25697,6 @@ interface DropDownListClosingEvent {
 }
 
 interface DropDownListClosingEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25880,7 +25718,6 @@ interface DropDownListClosedEvent {
 }
 
 interface DropDownListClosedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25902,7 +25739,6 @@ interface DropDownItemSelectingEvent {
 }
 
 interface DropDownItemSelectingEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25929,7 +25765,6 @@ interface DropDownItemSelectedEvent {
 }
 
 interface DropDownItemSelectedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25956,7 +25791,6 @@ interface TextChangedEvent {
 }
 
 interface TextChangedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -25974,10 +25808,9 @@ interface TextChangedEventUIParam {
 }
 
 interface IgTextEditor {
-
 	/**
  	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -26435,7 +26268,6 @@ interface IgTextEditor {
 	[optionName: string]: any;
 }
 interface IgTextEditorMethods {
-
 	/**
  	 * Gets the visible text in the editor.
 	 */
@@ -26603,11 +26435,10 @@ interface IgTextEditorMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igTextEditor"):IgTextEditorMethods;
+	data(propertyName: "igTextEditor"): IgTextEditorMethods;
 }
 
 interface IgNumericEditor {
-
 	/**
  	 * Gets/Sets list of items which are used as a source for the drop-down list.
 	 * Items in the list can be of type string, number or object. The items are directly rendered without any casting, or manipulation.
@@ -26701,7 +26532,7 @@ interface IgNumericEditor {
  	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igNumericEditor#options:minValue) and [maxValue](ui.igNumericEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -26747,7 +26578,7 @@ interface IgNumericEditor {
  	 * Gets/Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -26791,20 +26622,20 @@ interface IgNumericEditor {
 	toUpper?: any;
 
 	/**
- 	 * 
+ 	 *
 	 */
 	textMode?: any;
 
 	/**
  	 * Gets/Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 */
 	value?: any;
 
 	/**
  	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -27045,7 +26876,6 @@ interface IgNumericEditor {
 	[optionName: string]: any;
 }
 interface IgNumericEditorMethods {
-
 	/**
  	 * Gets/Sets editor value.
 	 *
@@ -27166,11 +26996,10 @@ interface IgNumericEditorMethods {
 	spinDownButton(): string;
 }
 interface JQuery {
-	data(propertyName: "igNumericEditor"):IgNumericEditorMethods;
+	data(propertyName: "igNumericEditor"): IgNumericEditorMethods;
 }
 
 interface IgCurrencyEditor {
-
 	/**
  	 * Gets/Sets the string, which is used as positive pattern. The "n" flag represents the value of number.
 	 * Note: This option has priority over possible regional settings.
@@ -27278,7 +27107,7 @@ interface IgCurrencyEditor {
  	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igNumericEditor#options:minValue) and [maxValue](ui.igNumericEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -27324,7 +27153,7 @@ interface IgCurrencyEditor {
  	 * Gets/Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -27368,20 +27197,20 @@ interface IgCurrencyEditor {
 	toUpper?: any;
 
 	/**
- 	 * 
+ 	 *
 	 */
 	textMode?: any;
 
 	/**
  	 * Gets/Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 */
 	value?: any;
 
 	/**
  	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -27556,7 +27385,6 @@ interface IgCurrencyEditor {
 	[optionName: string]: any;
 }
 interface IgCurrencyEditorMethods {
-
 	/**
  	 * Gets/sets a string that is used as the currency symbol shown with the number in the input. The value provided as a param is propagated to the currencySymbol option and thus has the same priority as the option.
 	 *
@@ -27611,11 +27439,10 @@ interface IgCurrencyEditorMethods {
 	getRegionalOption(): string;
 }
 interface JQuery {
-	data(propertyName: "igCurrencyEditor"):IgCurrencyEditorMethods;
+	data(propertyName: "igCurrencyEditor"): IgCurrencyEditorMethods;
 }
 
 interface IgPercentEditor {
-
 	/**
  	 * Gets/Sets the pattern for positive numeric values, which is used in display (no focus) state.
 	 * If you use the "en-US" culture the default value for "positivePattern" will be "n$" where the "$" flag represents the "numericSymbol" and the "n" flag represents the value of the number.
@@ -27645,7 +27472,7 @@ interface IgPercentEditor {
  	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igPercentEditor#options:minValue) and [maxValue](ui.igPercentEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igPercentEditor#options:minDecimals) and [maxDecimals](ui.igPercentEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -27780,7 +27607,7 @@ interface IgPercentEditor {
  	 * Gets/Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -27824,20 +27651,20 @@ interface IgPercentEditor {
 	toUpper?: any;
 
 	/**
- 	 * 
+ 	 *
 	 */
 	textMode?: any;
 
 	/**
  	 * Gets/Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 */
 	value?: any;
 
 	/**
  	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -28012,7 +27839,6 @@ interface IgPercentEditor {
 	[optionName: string]: any;
 }
 interface IgPercentEditorMethods {
-
 	/**
  	 * Paste text at location of the caret or over the current selection. Best used during editing, as the method will instead set the text as value (modified by the [displayFactor](ui.igpercenteditor#options:displayFactor)) if the editor is not focused.
 	 * 				Note: the method raises the [textChanged](ui.igpercenteditor#events:textChanged) event.
@@ -28075,11 +27901,10 @@ interface IgPercentEditorMethods {
 	getRegionalOption(): string;
 }
 interface JQuery {
-	data(propertyName: "igPercentEditor"):IgPercentEditorMethods;
+	data(propertyName: "igPercentEditor"): IgPercentEditorMethods;
 }
 
 interface IgMaskEditor {
-
 	/**
  	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
 	 *
@@ -28088,7 +27913,7 @@ interface IgMaskEditor {
 
 	/**
  	 * Gets visibility of the clear button. That option can be set only on initialization.
-	 * 
+	 *
 	 * clear  A button to clear the value is located on the right side of the editor.
 	 */
 	buttonType?: string;
@@ -28212,7 +28037,7 @@ interface IgMaskEditor {
 	dropDownOnReadOnly?: boolean;
 
 	/**
- 	 * 
+ 	 *
 	 */
 	textMode?: any;
 
@@ -28387,7 +28212,6 @@ interface IgMaskEditor {
 	[optionName: string]: any;
 }
 interface IgMaskEditorMethods {
-
 	/**
  	 * Gets/Sets mask editor value.
 	 *
@@ -28454,11 +28278,10 @@ interface IgMaskEditorMethods {
 	select(start: number, end: number): void;
 }
 interface JQuery {
-	data(propertyName: "igMaskEditor"):IgMaskEditorMethods;
+	data(propertyName: "igMaskEditor"): IgMaskEditorMethods;
 }
 
 interface IgDateEditor {
-
 	/**
  	 * Gets/Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
 	 * Note! This option doesn't use the displayInputFormat to extract the date.
@@ -28722,7 +28545,7 @@ interface IgDateEditor {
 	dropDownOrientation?: string;
 
 	/**
- 	 * 
+ 	 *
 	 */
 	textMode?: any;
 
@@ -28885,10 +28708,9 @@ interface IgDateEditor {
 	[optionName: string]: any;
 }
 interface IgDateEditorMethods {
-
 	/**
  	 * Gets/Sets editor value.
-	 * 			
+	 *
 	 * 				Note! This option doesn't use the displayInputFormat to extract the date
 	 *
 	 * @param newValue     New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
@@ -28903,7 +28725,7 @@ interface IgDateEditorMethods {
 	/**
  	 * Sets selected date.
 	 *
-	 * @param date     
+	 * @param date
 	 */
 	selectDate(date: Object): void;
 
@@ -28945,7 +28767,7 @@ interface IgDateEditorMethods {
 	hideDropDown(): void;
 }
 interface JQuery {
-	data(propertyName: "igDateEditor"):IgDateEditorMethods;
+	data(propertyName: "igDateEditor"): IgDateEditorMethods;
 }
 
 interface ItemSelectedEvent {
@@ -28953,7 +28775,6 @@ interface ItemSelectedEvent {
 }
 
 interface ItemSelectedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igEditor.
 	 */
@@ -28976,7 +28797,6 @@ interface ItemSelectedEventUIParam {
 }
 
 interface IgDatePicker {
-
 	/**
  	 * Gets/Sets the custom regional settings for the editor. If it is a string, then $.ig.regional[stringValue] is assumed.
 	 *
@@ -29249,7 +29069,7 @@ interface IgDatePicker {
 	dropDownOrientation?: string;
 
 	/**
- 	 * 
+ 	 *
 	 */
 	textMode?: any;
 
@@ -29434,7 +29254,6 @@ interface IgDatePicker {
 	[optionName: string]: any;
 }
 interface IgDatePickerMethods {
-
 	/**
  	 * Returns a reference to the jQuery calendar used as a picker selector
 	 */
@@ -29471,7 +29290,7 @@ interface IgDatePickerMethods {
 
 	/**
  	 * Gets/Sets editor value.
-	 * 			
+	 *
 	 * 				Note! This option doesn't use the displayInputFormat to extract the date
 	 *
 	 * @param newValue     New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
@@ -29486,7 +29305,7 @@ interface IgDatePickerMethods {
 	/**
  	 * Sets selected date.
 	 *
-	 * @param date     
+	 * @param date
 	 */
 	selectDate(date: Object): void;
 
@@ -29520,11 +29339,10 @@ interface IgDatePickerMethods {
 	isValid(): boolean;
 }
 interface JQuery {
-	data(propertyName: "igDatePicker"):IgDatePickerMethods;
+	data(propertyName: "igDatePicker"): IgDatePickerMethods;
 }
 
 interface IgCheckboxEditor {
-
 	/**
  	 * Gets/Sets whether the checkbox is checked.
 	 *
@@ -29533,7 +29351,7 @@ interface IgCheckboxEditor {
 
 	/**
  	 * Gets/Sets size of the checkbox based on preset styles.For different sizes, define 'width' and 'height' options instead.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -29748,7 +29566,6 @@ interface IgCheckboxEditor {
 	[optionName: string]: any;
 }
 interface IgCheckboxEditorMethods {
-
 	/**
  	 * Checks if the value in the editor is valid. Note: This function will not trigger automatic notifications.
 	 */
@@ -29761,7 +29578,7 @@ interface IgCheckboxEditorMethods {
 	 * 				2. If the [value](ui.igcheckboxeditor#options:value) option IS defined, then 'value' method will return the value that will be submitted when the editor is checked and the form is submitted.
 	 * 				To get checked state regardless of the 'value' option, use $(".selector").igCheckboxEditor("option", "checked");
 	 *
-	 * @param newValue 
+	 * @param newValue
 	 */
 	value(newValue: Object): string;
 
@@ -29825,7 +29642,7 @@ interface IgCheckboxEditorMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igCheckboxEditor"):IgCheckboxEditorMethods;
+	data(propertyName: "igCheckboxEditor"): IgCheckboxEditorMethods;
 }
 
 interface JQuery {
@@ -30316,14 +30133,14 @@ interface JQuery {
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 */
 	igTextEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -31490,7 +31307,7 @@ interface JQuery {
 	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igNumericEditor#options:minValue) and [maxValue](ui.igNumericEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "dataMode"): string;
@@ -31499,7 +31316,7 @@ interface JQuery {
 	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igNumericEditor#options:minValue) and [maxValue](ui.igNumericEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -31568,7 +31385,7 @@ interface JQuery {
 	 * Gets/Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "scientificFormat"): string;
@@ -31577,7 +31394,7 @@ interface JQuery {
 	 * /Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -31668,14 +31485,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "value"): any;
 
 	/**
 	 * /Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -31684,14 +31501,14 @@ interface JQuery {
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -32414,7 +32231,7 @@ interface JQuery {
 	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igNumericEditor#options:minValue) and [maxValue](ui.igNumericEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "dataMode"): string;
@@ -32423,7 +32240,7 @@ interface JQuery {
 	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igNumericEditor#options:minValue) and [maxValue](ui.igNumericEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -32492,7 +32309,7 @@ interface JQuery {
 	 * Gets/Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "scientificFormat"): string;
@@ -32501,7 +32318,7 @@ interface JQuery {
 	 * /Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -32592,14 +32409,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "value"): any;
 
 	/**
 	 * /Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -32608,14 +32425,14 @@ interface JQuery {
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -33029,7 +32846,7 @@ interface JQuery {
 	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igPercentEditor#options:minValue) and [maxValue](ui.igPercentEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igPercentEditor#options:minDecimals) and [maxDecimals](ui.igPercentEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "dataMode"): string;
@@ -33038,7 +32855,7 @@ interface JQuery {
 	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igPercentEditor#options:minValue) and [maxValue](ui.igPercentEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igPercentEditor#options:minDecimals) and [maxDecimals](ui.igPercentEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -33295,7 +33112,7 @@ interface JQuery {
 	 * Gets/Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "scientificFormat"): string;
@@ -33304,7 +33121,7 @@ interface JQuery {
 	 * /Sets support for scientific format in edit mode.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -33395,14 +33212,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "value"): any;
 
 	/**
 	 * /Sets value in editor. The effect of setting/getting that option depends on type of editor and on dataMode options for every type of editor.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -33411,14 +33228,14 @@ interface JQuery {
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -33797,14 +33614,14 @@ interface JQuery {
 
 	/**
 	 * Gets visibility of the clear button. That option can be set only on initialization.
-	 * 
+	 *
 	 * clear  A button to clear the value is located on the right side of the editor.
 	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the clear button. That option can be set only on initialization.
-	 * 
+	 *
 	 * clear  A button to clear the value is located on the right side of the editor.
 	 *
 	 * @optionValue New value to be set.
@@ -36383,14 +36200,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets size of the checkbox based on preset styles.For different sizes, define 'width' and 'height' options instead.
-	 * 
+	 *
 	 *
 	 */
 	igCheckboxEditor(optionLiteral: 'option', optionName: "size"): string;
 
 	/**
 	 * /Sets size of the checkbox based on preset styles.For different sizes, define 'width' and 'height' options instead.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -36849,7 +36666,6 @@ interface SliceClickedEvent {
 }
 
 interface SliceClickedEventUIParam {
-
 	/**
  	 * Used to obtain reference to igFunnelChart.
 	 */
@@ -36872,7 +36688,6 @@ interface SliceClickedEventUIParam {
 }
 
 interface IgFunnelChart {
-
 	/**
  	 * Gets or sets values for upper and lower bezier points. That option has effect only when useBezierCurve is enabled.
 	 * Value should provide 4 numeric values in range from 0 to 1 separated by space character.
@@ -36935,7 +36750,7 @@ interface IgFunnelChart {
  	 * Gets or sets whether the inner labels are visible.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	innerLabelVisibility?: string;
@@ -36944,7 +36759,7 @@ interface IgFunnelChart {
  	 * Gets or sets whether the outer labels are visible.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	outerLabelVisibility?: string;
@@ -37167,7 +36982,6 @@ interface IgFunnelChart {
 	[optionName: string]: any;
 }
 interface IgFunnelChartMethods {
-
 	/**
  	 * Gets array of selected slice items.
 	 *
@@ -37302,7 +37116,7 @@ interface IgFunnelChartMethods {
 	dataBind(): void;
 }
 interface JQuery {
-	data(propertyName: "igFunnelChart"):IgFunnelChartMethods;
+	data(propertyName: "igFunnelChart"): IgFunnelChartMethods;
 }
 
 interface JQuery {
@@ -37974,7 +37788,6 @@ interface JQuery {
 	igFunnelChart(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPopoverHeaderTemplate {
-
 	/**
  	 * Controls whether the popover renders a functional close button
 	 */
@@ -37996,7 +37809,6 @@ interface ShowingEvent {
 }
 
 interface ShowingEventUIParam {
-
 	/**
  	 * Used to get the element the popover will show for.
 	 */
@@ -38023,7 +37835,6 @@ interface ShownEvent {
 }
 
 interface ShownEventUIParam {
-
 	/**
  	 * Used to get the element the popover showed for.
 	 */
@@ -38050,7 +37861,6 @@ interface HidingEvent {
 }
 
 interface HidingEventUIParam {
-
 	/**
  	 * Used to get the element the popover will hide for.
 	 */
@@ -38077,7 +37887,6 @@ interface HiddenEvent {
 }
 
 interface HiddenEventUIParam {
-
 	/**
  	 * Used to get the element the popover is hidden for.
 	 */
@@ -38300,7 +38109,7 @@ interface IgGridFeatureChooserPopoverMethods {
 	setCoordinates(pos: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igGridFeatureChooserPopover"):IgGridFeatureChooserPopoverMethods;
+	data(propertyName: "igGridFeatureChooserPopover"): IgGridFeatureChooserPopoverMethods;
 }
 
 interface FeatureChooserRenderingEvent {
@@ -38401,7 +38210,7 @@ interface IgGridFeatureChooserMethods {
 	destroy(e: Object, args: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igGridFeatureChooser"):IgGridFeatureChooserMethods;
+	data(propertyName: "igGridFeatureChooser"): IgGridFeatureChooserMethods;
 }
 
 interface JQuery {
@@ -38787,7 +38596,6 @@ interface JQuery {
 	igGridFeatureChooser(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridGroupByGroupedColumn {
-
 	/**
  	 * Key of the column that's grouped
 	 */
@@ -38818,7 +38626,6 @@ interface IgGridGroupByGroupedColumn {
 }
 
 interface IgGridGroupBySummarySettings {
-
 	/**
  	 * Specifies the delimiter for multiple summaries.
 	 *
@@ -38838,7 +38645,6 @@ interface IgGridGroupBySummarySettings {
 }
 
 interface IgGridGroupByColumnSettingsSummaries {
-
 	/**
  	 * the summary function key
 	 *
@@ -38865,7 +38671,7 @@ interface IgGridGroupByColumnSettingsSummaries {
 	 * array - array of cell values for the specified column,
 	 * key - key of the grouped column,
 	 * allGroupData - array of data records for the group(for the whole data source - not only for the data view)
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -38881,7 +38687,6 @@ interface IgGridGroupByColumnSettingsSummaries {
 }
 
 interface IgGridGroupByColumnSettings {
-
 	/**
  	 * Enables/disables grouping a column from the UI. By default all columns can be grouped.
 	 *
@@ -38950,7 +38755,6 @@ interface GroupedColumnsChangingEvent {
 }
 
 interface GroupedColumnsChangingEventUIParam {
-
 	/**
  	 * Used to access the GroupBy widget object
 	 */
@@ -38992,7 +38796,6 @@ interface GroupedColumnsChangedEvent {
 }
 
 interface GroupedColumnsChangedEventUIParam {
-
 	/**
  	 * Used to access the GroupBy widget object
 	 */
@@ -39029,7 +38832,6 @@ interface ModalDialogMovingEvent {
 }
 
 interface ModalDialogMovingEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupBy widget.
 	 */
@@ -39056,7 +38858,6 @@ interface ModalDialogClosingEvent {
 }
 
 interface ModalDialogClosingEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupBy widget.
 	 */
@@ -39073,7 +38874,6 @@ interface ModalDialogClosedEvent {
 }
 
 interface ModalDialogClosedEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupBy widget.
 	 */
@@ -39090,7 +38890,6 @@ interface ModalDialogOpeningEvent {
 }
 
 interface ModalDialogOpeningEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupBy widget.
 	 */
@@ -39107,7 +38906,6 @@ interface ModalDialogOpenedEvent {
 }
 
 interface ModalDialogOpenedEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupBy widget.
 	 */
@@ -39124,7 +38922,6 @@ interface ModalDialogContentsRenderingEvent {
 }
 
 interface ModalDialogContentsRenderingEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39141,7 +38938,6 @@ interface ModalDialogContentsRenderedEvent {
 }
 
 interface ModalDialogContentsRenderedEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupBy widget.
 	 */
@@ -39158,7 +38954,6 @@ interface ModalDialogButtonApplyClickEvent {
 }
 
 interface ModalDialogButtonApplyClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39190,7 +38985,6 @@ interface ModalDialogButtonResetClickEvent {
 }
 
 interface ModalDialogButtonResetClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39207,7 +39001,6 @@ interface ModalDialogGroupingColumnEvent {
 }
 
 interface ModalDialogGroupingColumnEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39229,7 +39022,6 @@ interface ModalDialogGroupColumnEvent {
 }
 
 interface ModalDialogGroupColumnEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39256,7 +39048,6 @@ interface ModalDialogUngroupingColumnEvent {
 }
 
 interface ModalDialogUngroupingColumnEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39278,7 +39069,6 @@ interface ModalDialogUngroupColumnEvent {
 }
 
 interface ModalDialogUngroupColumnEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39305,7 +39095,6 @@ interface ModalDialogSortGroupedColumnEvent {
 }
 
 interface ModalDialogSortGroupedColumnEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridGroupby widget.
 	 */
@@ -39328,7 +39117,6 @@ interface ModalDialogSortGroupedColumnEventUIParam {
 }
 
 interface IgGridGroupBy {
-
 	/**
  	 * Sets the place in the grid where the GroupBy area will be
 	 *
@@ -39787,7 +39575,6 @@ interface IgGridGroupBy {
 	[optionName: string]: any;
 }
 interface IgGridGroupByMethods {
-
 	/**
  	 * Open groupby modal dialog
 	 */
@@ -39877,7 +39664,7 @@ interface IgGridGroupByMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridGroupBy"):IgGridGroupByMethods;
+	data(propertyName: "igGridGroupBy"): IgGridGroupByMethods;
 }
 
 interface JQuery {
@@ -40876,7 +40663,6 @@ interface JQuery {
 	igGridGroupBy(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridHidingColumnSetting {
-
 	/**
  	 * Column key. this is a required property in every column setting if columnIndex is not set.
 	 *
@@ -40912,7 +40698,6 @@ interface ColumnHidingEvent {
 }
 
 interface ColumnHidingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -40934,7 +40719,6 @@ interface ColumnHidingRefusedEvent {
 }
 
 interface ColumnHidingRefusedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -40947,7 +40731,6 @@ interface ColumnShowingRefusedEvent {
 }
 
 interface ColumnShowingRefusedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -40960,7 +40743,6 @@ interface MultiColumnHidingEvent {
 }
 
 interface MultiColumnHidingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -40977,7 +40759,6 @@ interface ColumnHiddenEvent {
 }
 
 interface ColumnHiddenEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -40999,7 +40780,6 @@ interface ColumnShowingEvent {
 }
 
 interface ColumnShowingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41021,7 +40801,6 @@ interface ColumnShownEvent {
 }
 
 interface ColumnShownEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41043,7 +40822,6 @@ interface ColumnChooserOpeningEvent {
 }
 
 interface ColumnChooserOpeningEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41060,7 +40838,6 @@ interface ColumnChooserOpenedEvent {
 }
 
 interface ColumnChooserOpenedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41077,7 +40854,6 @@ interface ColumnChooserMovingEvent {
 }
 
 interface ColumnChooserMovingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41104,7 +40880,6 @@ interface ColumnChooserClosingEvent {
 }
 
 interface ColumnChooserClosingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41121,7 +40896,6 @@ interface ColumnChooserClosedEvent {
 }
 
 interface ColumnChooserClosedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41138,7 +40912,6 @@ interface ColumnChooserContentsRenderingEvent {
 }
 
 interface ColumnChooserContentsRenderingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41155,7 +40928,6 @@ interface ColumnChooserContentsRenderedEvent {
 }
 
 interface ColumnChooserContentsRenderedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41172,7 +40944,6 @@ interface ColumnChooserButtonApplyClickEvent {
 }
 
 interface ColumnChooserButtonApplyClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41199,7 +40970,6 @@ interface ColumnChooserButtonResetClickEvent {
 }
 
 interface ColumnChooserButtonResetClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridHiding widget.
 	 */
@@ -41212,7 +40982,6 @@ interface ColumnChooserButtonResetClickEventUIParam {
 }
 
 interface IgGridHiding {
-
 	/**
  	 * A list of column settings that specifies hiding options on a per column basis.
 	 *
@@ -41227,7 +40996,7 @@ interface IgGridHiding {
 
 	/**
  	 * Controls containment behavior.
-	 * 
+	 *
 	 * owner  The column chooser dialog will be draggable only in the grid area
 	 * window  The column chooser dialog will be draggable in the whole window area
 	 */
@@ -41487,7 +41256,6 @@ interface IgGridHiding {
 	[optionName: string]: any;
 }
 interface IgGridHidingMethods {
-
 	/**
  	 * Destroys the hiding widget
 	 */
@@ -41562,7 +41330,7 @@ interface IgGridHidingMethods {
 	removeColumnChooserResetButton(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridHiding"):IgGridHidingMethods;
+	data(propertyName: "igGridHiding"): IgGridHidingMethods;
 }
 
 interface JQuery {
@@ -41608,7 +41376,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior.
-	 * 
+	 *
 	 * owner  The column chooser dialog will be draggable only in the grid area
 	 * window  The column chooser dialog will be draggable in the whole window area
 	 */
@@ -41616,7 +41384,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior.
-	 * 
+	 *
 	 * owner  The column chooser dialog will be draggable only in the grid area
 	 * window  The column chooser dialog will be draggable in the whole window area
 	 *
@@ -42190,7 +41958,6 @@ interface JQuery {
 	igGridHiding(methodName: string, ...methodParams: any[]): any;
 }
 interface IgHierarchicalGridColumnLayout {
-
 	/**
  	 * Specifies the columnLayout key. This is the property that holds the data records for the current column layout.
 	 */
@@ -42217,7 +41984,6 @@ interface RowExpandingEvent {
 }
 
 interface RowExpandingEventUIParam {
-
 	/**
  	 * Used to access the hierarchical grid object
 	 */
@@ -42234,7 +42000,6 @@ interface RowExpandedEvent {
 }
 
 interface RowExpandedEventUIParam {
-
 	/**
  	 * Used to access the hierarchical grid object
 	 */
@@ -42251,7 +42016,6 @@ interface RowCollapsingEvent {
 }
 
 interface RowCollapsingEventUIParam {
-
 	/**
  	 * Used to access the hierarchical grid object
 	 */
@@ -42268,7 +42032,6 @@ interface RowCollapsedEvent {
 }
 
 interface RowCollapsedEventUIParam {
-
 	/**
  	 * Used to access the hierarchical grid object
 	 */
@@ -42285,7 +42048,6 @@ interface ChildrenPopulatingEvent {
 }
 
 interface ChildrenPopulatingEventUIParam {
-
 	/**
  	 * Used to access the hierarchical grid object
 	 */
@@ -42307,7 +42069,6 @@ interface ChildrenPopulatedEvent {
 }
 
 interface ChildrenPopulatedEventUIParam {
-
 	/**
  	 * Used to access the hierarchical grid object
 	 */
@@ -42329,7 +42090,6 @@ interface ChildGridRenderedEvent {
 }
 
 interface ChildGridRenderedEventUIParam {
-
 	/**
  	 * Used to access the hierarchical grid object
 	 */
@@ -42361,7 +42121,6 @@ interface ChildGridCreatedEventUIParam {
 }
 
 interface IgHierarchicalGrid {
-
 	/**
  	 * Only the first level will be data-bound initially. Also serves as "render" depth, meaning that depending on this prop, the grid will
 	 */
@@ -42507,7 +42266,6 @@ interface IgHierarchicalGrid {
 	[optionName: string]: any;
 }
 interface IgHierarchicalGridMethods {
-
 	/**
  	 * Data binds the hierarchical grid. No child grids will be created or rendered by default, unless there is initialExpandDepth >= 0 set.
 	 */
@@ -42607,7 +42365,7 @@ interface IgHierarchicalGridMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igHierarchicalGrid"):IgHierarchicalGridMethods;
+	data(propertyName: "igHierarchicalGrid"): IgHierarchicalGridMethods;
 }
 
 interface JQuery {
@@ -42963,7 +42721,6 @@ interface GroupCollapsingEvent {
 }
 
 interface GroupCollapsingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridMultiColumnHeaders widget.
 	 */
@@ -42985,7 +42742,6 @@ interface GroupCollapsedEvent {
 }
 
 interface GroupCollapsedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridMultiColumnHeaders widget.
 	 */
@@ -43007,7 +42763,6 @@ interface GroupExpandingEvent {
 }
 
 interface GroupExpandingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridMultiColumnHeaders widget.
 	 */
@@ -43029,7 +42784,6 @@ interface GroupExpandedEvent {
 }
 
 interface GroupExpandedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridMultiColumnHeaders widget.
 	 */
@@ -43047,7 +42801,6 @@ interface GroupExpandedEventUIParam {
 }
 
 interface IgGridMultiColumnHeaders {
-
 	/**
  	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 */
@@ -43099,7 +42852,6 @@ interface IgGridMultiColumnHeaders {
 	[optionName: string]: any;
 }
 interface IgGridMultiColumnHeadersMethods {
-
 	/**
  	 * Expands a collapsed group. If the group is expanded, the method does nothing.
 	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
@@ -43138,7 +42890,7 @@ interface IgGridMultiColumnHeadersMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridMultiColumnHeaders"):IgGridMultiColumnHeadersMethods;
+	data(propertyName: "igGridMultiColumnHeaders"): IgGridMultiColumnHeadersMethods;
 }
 
 interface JQuery {
@@ -43258,7 +43010,6 @@ interface PageIndexChangingEvent {
 }
 
 interface PageIndexChangingEventUIParam {
-
 	/**
  	 * Used to get reference to GridPaging.
 	 */
@@ -43280,7 +43031,6 @@ interface PageIndexChangedEvent {
 }
 
 interface PageIndexChangedEventUIParam {
-
 	/**
  	 * Used to get reference to GridPaging.
 	 */
@@ -43297,7 +43047,6 @@ interface PageSizeChangingEvent {
 }
 
 interface PageSizeChangingEventUIParam {
-
 	/**
  	 * Used to get reference to GridPaging.
 	 */
@@ -43319,7 +43068,6 @@ interface PageSizeChangedEvent {
 }
 
 interface PageSizeChangedEventUIParam {
-
 	/**
  	 * Used to get reference to GridPaging.
 	 */
@@ -43336,7 +43084,6 @@ interface PagerRenderingEvent {
 }
 
 interface PagerRenderingEventUIParam {
-
 	/**
  	 * Used to get reference to GridPaging.
 	 */
@@ -43353,7 +43100,6 @@ interface PagerRenderedEvent {
 }
 
 interface PagerRenderedEventUIParam {
-
 	/**
  	 * Used to get reference to GridPaging.
 	 */
@@ -43366,7 +43112,6 @@ interface PagerRenderedEventUIParam {
 }
 
 interface IgGridPaging {
-
 	/**
  	 * Number of records loaded and displayed per page.
 	 *
@@ -43580,7 +43325,7 @@ interface IgGridPaging {
 	persist?: boolean;
 
 	/**
- 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid. 
+ 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 *
 	 */
 	inherit?: boolean;
@@ -43650,7 +43395,6 @@ interface IgGridPaging {
 	[optionName: string]: any;
 }
 interface IgGridPagingMethods {
-
 	/**
  	 * Gets/Sets the current page index, delegates data binding and paging to [$.ig.DataSource](ig.datasource).
 	 *
@@ -43671,7 +43415,7 @@ interface IgGridPagingMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridPaging"):IgGridPagingMethods;
+	data(propertyName: "igGridPaging"): IgGridPagingMethods;
 }
 
 interface JQuery {
@@ -44156,13 +43900,13 @@ interface JQuery {
 	igGridPaging(optionLiteral: 'option', optionName: "persist", optionValue: boolean): void;
 
 	/**
-	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid. 
+	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 *
 	 */
 	igGridPaging(optionLiteral: 'option', optionName: "inherit"): boolean;
 
 	/**
-	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid. 
+	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -44305,7 +44049,6 @@ interface JQuery {
 	igGridPaging(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridResizingColumnSetting {
-
 	/**
  	 * Column key. this is a required property in every column setting if columnIndex is not set.
 	 *
@@ -44347,7 +44090,6 @@ interface ColumnResizingEvent {
 }
 
 interface ColumnResizingEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridResizing widget.
 	 */
@@ -44374,7 +44116,6 @@ interface ColumnResizingRefusedEvent {
 }
 
 interface ColumnResizingRefusedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridResizing widget.
 	 */
@@ -44401,7 +44142,6 @@ interface ColumnResizedEvent {
 }
 
 interface ColumnResizedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridResizing widget.
 	 */
@@ -44429,7 +44169,6 @@ interface ColumnResizedEventUIParam {
 }
 
 interface IgGridResizing {
-
 	/**
  	 * Resize the column to the size of the longest currently visible cell value.
 	 *
@@ -44499,7 +44238,6 @@ interface IgGridResizing {
 	[optionName: string]: any;
 }
 interface IgGridResizingMethods {
-
 	/**
  	 * Destroys the resizing widget
 	 */
@@ -44514,7 +44252,7 @@ interface IgGridResizingMethods {
 	resize(column: Object, width?: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igGridResizing"):IgGridResizingMethods;
+	data(propertyName: "igGridResizing"): IgGridResizingMethods;
 }
 
 interface JQuery {
@@ -44669,7 +44407,6 @@ interface JQuery {
 	igGridResizing(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridResponsiveColumnSetting {
-
 	/**
  	 * Column key. This is a required property in every column setting if columnIndex is not set.
 	 *
@@ -44701,7 +44438,6 @@ interface IgGridResponsiveColumnSetting {
 }
 
 interface IgGridResponsiveAllowedColumnWidthPerType {
-
 	/**
  	 * Minimal width in pixels string columns can take before forcing vertical rendering
 	 *
@@ -44743,7 +44479,6 @@ interface ResponsiveColumnHidingEvent {
 }
 
 interface ResponsiveColumnHidingEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridResponsive widget.
 	 */
@@ -44765,7 +44500,6 @@ interface ResponsiveColumnHiddenEvent {
 }
 
 interface ResponsiveColumnHiddenEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridResponsive widget.
 	 */
@@ -44787,7 +44521,6 @@ interface ResponsiveColumnShowingEvent {
 }
 
 interface ResponsiveColumnShowingEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridResponsive widget.
 	 */
@@ -44809,7 +44542,6 @@ interface ResponsiveColumnShownEvent {
 }
 
 interface ResponsiveColumnShownEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridResponsive widget.
 	 */
@@ -44831,7 +44563,6 @@ interface ResponsiveModeChangedEvent {
 }
 
 interface ResponsiveModeChangedEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridResponsive widget.
 	 */
@@ -44849,7 +44580,6 @@ interface ResponsiveModeChangedEventUIParam {
 }
 
 interface IgGridResponsive {
-
 	/**
  	 * A list of column settings that specifies how columns will react based on the environment the grid is run on.
 	 *
@@ -44991,7 +44721,6 @@ interface IgGridResponsive {
 	[optionName: string]: any;
 }
 interface IgGridResponsiveMethods {
-
 	/**
  	 * Destroys the responsive widget.
 	 */
@@ -45003,7 +44732,7 @@ interface IgGridResponsiveMethods {
 	getCurrentResponsiveMode(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridResponsive"):IgGridResponsiveMethods;
+	data(propertyName: "igGridResponsive"): IgGridResponsiveMethods;
 }
 
 interface ResponsiveModeSettings {
@@ -45018,11 +44747,11 @@ interface ResponsiveModeSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class ResponsiveMode {
-	constructor(settings: ResponsiveModeSettings);
-	isActive(): void;
-}
+declare namespace Infragistics {
+	class ResponsiveMode {
+		constructor(settings: ResponsiveModeSettings);
+		isActive(): void;
+	}
 }
 interface IgniteUIStatic {
 ResponsiveMode: typeof Infragistics.ResponsiveMode;
@@ -45038,11 +44767,11 @@ interface InfragisticsModeSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class InfragisticsMode {
-	constructor(settings: InfragisticsModeSettings);
-	isActive(): void;
-}
+declare namespace Infragistics {
+	class InfragisticsMode {
+		constructor(settings: InfragisticsModeSettings);
+		isActive(): void;
+	}
 }
 interface IgniteUIStatic {
 InfragisticsMode: typeof Infragistics.InfragisticsMode;
@@ -45058,11 +44787,11 @@ interface BootstrapModeSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class BootstrapMode {
-	constructor(settings: BootstrapModeSettings);
-	isActive(): void;
-}
+declare namespace Infragistics {
+	class BootstrapMode {
+		constructor(settings: BootstrapModeSettings);
+		isActive(): void;
+	}
 }
 interface IgniteUIStatic {
 BootstrapMode: typeof Infragistics.BootstrapMode;
@@ -45360,7 +45089,6 @@ interface RowSelectorClickedEvent {
 }
 
 interface RowSelectorClickedEventUIParam {
-
 	/**
  	 * Used to get reference to the row the clicked row selector resides in.
 	 */
@@ -45402,7 +45130,6 @@ interface CheckBoxStateChangingEvent {
 }
 
 interface CheckBoxStateChangingEventUIParam {
-
 	/**
  	 * Used to get reference to the row the clicked row selector resides in.
 	 */
@@ -45454,7 +45181,6 @@ interface CheckBoxStateChangedEvent {
 }
 
 interface CheckBoxStateChangedEventUIParam {
-
 	/**
  	 * Used to get reference to the row the clicked row selector resides in.
 	 */
@@ -45497,7 +45223,6 @@ interface CheckBoxStateChangedEventUIParam {
 }
 
 interface IgGridRowSelectors {
-
 	/**
  	 * Determines whether the row selectors column should contain row numbering
 	 *
@@ -45517,7 +45242,7 @@ interface IgGridRowSelectors {
 	rowNumberingSeed?: number;
 
 	/**
- 	 * 
+ 	 *
 	 *
 	 * Valid values:
 	 * "string" The row selector column width can be set in pixels (px) and percentage (%)
@@ -45622,7 +45347,7 @@ interface IgGridRowSelectorsMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridRowSelectors"):IgGridRowSelectorsMethods;
+	data(propertyName: "igGridRowSelectors"): IgGridRowSelectorsMethods;
 }
 
 interface JQuery {
@@ -45884,7 +45609,6 @@ interface RowSelectionChangingEvent {
 }
 
 interface RowSelectionChangingEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -45916,7 +45640,6 @@ interface RowSelectionChangedEvent {
 }
 
 interface RowSelectionChangedEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -45938,7 +45661,6 @@ interface CellSelectionChangingEvent {
 }
 
 interface CellSelectionChangingEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -45980,7 +45702,6 @@ interface CellSelectionChangedEvent {
 }
 
 interface CellSelectionChangedEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -46002,7 +45723,6 @@ interface ActiveCellChangingEvent {
 }
 
 interface ActiveCellChangingEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -46019,7 +45739,6 @@ interface ActiveCellChangedEvent {
 }
 
 interface ActiveCellChangedEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -46036,7 +45755,6 @@ interface ActiveRowChangingEvent {
 }
 
 interface ActiveRowChangingEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -46053,7 +45771,6 @@ interface ActiveRowChangedEvent {
 }
 
 interface ActiveRowChangedEventUIParam {
-
 	/**
  	 * Used to get reference to GridSelection.
 	 */
@@ -46066,7 +45783,6 @@ interface ActiveRowChangedEventUIParam {
 }
 
 interface IgGridSelection {
-
 	/**
  	 * Enables / Disables multiple selection of cells and rows - depending on the mode
 	 *
@@ -46259,7 +45975,6 @@ interface IgGridSelection {
 	[optionName: string]: any;
 }
 interface IgGridSelectionMethods {
-
 	/**
  	 * Destroys the selection widget.
 	 */
@@ -46334,28 +46049,28 @@ interface IgGridSelectionMethods {
 
 	/**
  	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
-	 * 			
+	 *
 	 * 				If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
  	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
-	 * 			
+	 *
 	 * 				If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
  	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
-	 * 			
+	 *
 	 * 				If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
  	 * Returns the currently selected row that has the format { element: , index: }, if any.
-	 * 			
+	 *
 	 * 				If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
@@ -46371,11 +46086,10 @@ interface IgGridSelectionMethods {
 	activeRow(): Object;
 }
 interface JQuery {
-	data(propertyName: "igGridSelection"):IgGridSelectionMethods;
+	data(propertyName: "igGridSelection"): IgGridSelectionMethods;
 }
 
 interface SelectionCollectionSettingsSubscribers {
-
 	/**
  	 * Option for SelectionCollectionSettingsSubscribers
 	 */
@@ -46393,94 +46107,94 @@ interface SelectionCollectionSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class SelectionCollection {
-	constructor(settings: SelectionCollectionSettings);
-	addSubscriber(subscriber: Object, owner: Object): void;
-	removeSubscriber(subscriberId: Object, owner: Object): void;
-	changeOwner(newOwner: Object): void;
-	isSelected(identifier: Object, forOwner: Object): void;
-	isActive(identifier: Object, forOwner: Object): void;
-	elementFromIdentifier(identifier: Object): void;
-	toggle(element: Object): void;
-	activate(identifier: Object, element: Object, suppress: Object): void;
-	deactivate(suppress: Object): void;
-	select(identifier: Object, add: Object, info: Object, suppress: Object): void;
-	rangeSelect(range: Object, add: Object, prevRange: Object, info: Object, suppress: Object): void;
-	rangeDeselect(range: Object, info: Object, suppress: Object): void;
-	deselect(identifier: Object, info: Object, suppress: Object): void;
-	deselectAll(suppress: Object): void;
-	clearSelection(forOwner: Object): void;
-	cleanAll(forOwner: Object): void;
-	onlyOneSelected(): void;
-	selectedCells(): void;
-	selectedRows(): void;
-	selectionLength(): void;
-}
+declare namespace Infragistics {
+	class SelectionCollection {
+		constructor(settings: SelectionCollectionSettings);
+		addSubscriber(subscriber: Object, owner: Object): void;
+		removeSubscriber(subscriberId: Object, owner: Object): void;
+		changeOwner(newOwner: Object): void;
+		isSelected(identifier: Object, forOwner: Object): void;
+		isActive(identifier: Object, forOwner: Object): void;
+		elementFromIdentifier(identifier: Object): void;
+		toggle(element: Object): void;
+		activate(identifier: Object, element: Object, suppress: Object): void;
+		deactivate(suppress: Object): void;
+		select(identifier: Object, add: Object, info: Object, suppress: Object): void;
+		rangeSelect(range: Object, add: Object, prevRange: Object, info: Object, suppress: Object): void;
+		rangeDeselect(range: Object, info: Object, suppress: Object): void;
+		deselect(identifier: Object, info: Object, suppress: Object): void;
+		deselectAll(suppress: Object): void;
+		clearSelection(forOwner: Object): void;
+		cleanAll(forOwner: Object): void;
+		onlyOneSelected(): void;
+		selectedCells(): void;
+		selectedRows(): void;
+		selectionLength(): void;
+	}
 }
 interface IgniteUIStatic {
 SelectionCollection: typeof Infragistics.SelectionCollection;
 }
 
-declare module Infragistics {
-export class SelectedRowsCollection {
-	constructor(settings: SelectionCollectionSettings);
-	isSelected(identifier: Object, forOwner: Object): void;
-	isActive(identifier: Object, forOwner: Object): void;
-	selectedDataRows(): void;
-	selectedRows(): void;
-	activeRow(): void;
-	elementFromIdentifier(identifier: Object): void;
-	elementPosition(identifier: Object, element: Object): void;
-	onlyOneSelected(): void;
-	addSubscriber(subscriber: Object, owner: Object): void;
-	removeSubscriber(subscriberId: Object, owner: Object): void;
-	changeOwner(newOwner: Object): void;
-	toggle(element: Object): void;
-	activate(identifier: Object, element: Object, suppress: Object): void;
-	deactivate(suppress: Object): void;
-	select(identifier: Object, add: Object, info: Object, suppress: Object): void;
-	rangeSelect(range: Object, add: Object, prevRange: Object, info: Object, suppress: Object): void;
-	rangeDeselect(range: Object, info: Object, suppress: Object): void;
-	deselect(identifier: Object, info: Object, suppress: Object): void;
-	deselectAll(suppress: Object): void;
-	clearSelection(forOwner: Object): void;
-	cleanAll(forOwner: Object): void;
-	selectedCells(): void;
-	selectionLength(): void;
-}
+declare namespace Infragistics {
+	class SelectedRowsCollection {
+		constructor(settings: SelectionCollectionSettings);
+		isSelected(identifier: Object, forOwner: Object): void;
+		isActive(identifier: Object, forOwner: Object): void;
+		selectedDataRows(): void;
+		selectedRows(): void;
+		activeRow(): void;
+		elementFromIdentifier(identifier: Object): void;
+		elementPosition(identifier: Object, element: Object): void;
+		onlyOneSelected(): void;
+		addSubscriber(subscriber: Object, owner: Object): void;
+		removeSubscriber(subscriberId: Object, owner: Object): void;
+		changeOwner(newOwner: Object): void;
+		toggle(element: Object): void;
+		activate(identifier: Object, element: Object, suppress: Object): void;
+		deactivate(suppress: Object): void;
+		select(identifier: Object, add: Object, info: Object, suppress: Object): void;
+		rangeSelect(range: Object, add: Object, prevRange: Object, info: Object, suppress: Object): void;
+		rangeDeselect(range: Object, info: Object, suppress: Object): void;
+		deselect(identifier: Object, info: Object, suppress: Object): void;
+		deselectAll(suppress: Object): void;
+		clearSelection(forOwner: Object): void;
+		cleanAll(forOwner: Object): void;
+		selectedCells(): void;
+		selectionLength(): void;
+	}
 }
 interface IgniteUIStatic {
 SelectedRowsCollection: typeof Infragistics.SelectedRowsCollection;
 }
 
-declare module Infragistics {
-export class SelectedCellsCollection {
-	constructor(settings: SelectionCollectionSettings);
-	isSelected(identifier: Object, forOwner: Object): void;
-	atLeastOneSelected(rowId: Object, forOwner: Object): void;
-	isActive(identifier: Object, forOwner: Object): void;
-	selectedCells(): void;
-	activeCell(): void;
-	elementFromIdentifier(identifier: Object): void;
-	elementPosition(identifier: Object, element: Object): void;
-	onlyOneSelected(): void;
-	addSubscriber(subscriber: Object, owner: Object): void;
-	removeSubscriber(subscriberId: Object, owner: Object): void;
-	changeOwner(newOwner: Object): void;
-	toggle(element: Object): void;
-	activate(identifier: Object, element: Object, suppress: Object): void;
-	deactivate(suppress: Object): void;
-	select(identifier: Object, add: Object, info: Object, suppress: Object): void;
-	rangeSelect(range: Object, add: Object, prevRange: Object, info: Object, suppress: Object): void;
-	rangeDeselect(range: Object, info: Object, suppress: Object): void;
-	deselect(identifier: Object, info: Object, suppress: Object): void;
-	deselectAll(suppress: Object): void;
-	clearSelection(forOwner: Object): void;
-	cleanAll(forOwner: Object): void;
-	selectedRows(): void;
-	selectionLength(): void;
-}
+declare namespace Infragistics {
+	class SelectedCellsCollection {
+		constructor(settings: SelectionCollectionSettings);
+		isSelected(identifier: Object, forOwner: Object): void;
+		atLeastOneSelected(rowId: Object, forOwner: Object): void;
+		isActive(identifier: Object, forOwner: Object): void;
+		selectedCells(): void;
+		activeCell(): void;
+		elementFromIdentifier(identifier: Object): void;
+		elementPosition(identifier: Object, element: Object): void;
+		onlyOneSelected(): void;
+		addSubscriber(subscriber: Object, owner: Object): void;
+		removeSubscriber(subscriberId: Object, owner: Object): void;
+		changeOwner(newOwner: Object): void;
+		toggle(element: Object): void;
+		activate(identifier: Object, element: Object, suppress: Object): void;
+		deactivate(suppress: Object): void;
+		select(identifier: Object, add: Object, info: Object, suppress: Object): void;
+		rangeSelect(range: Object, add: Object, prevRange: Object, info: Object, suppress: Object): void;
+		rangeDeselect(range: Object, info: Object, suppress: Object): void;
+		deselect(identifier: Object, info: Object, suppress: Object): void;
+		deselectAll(suppress: Object): void;
+		clearSelection(forOwner: Object): void;
+		cleanAll(forOwner: Object): void;
+		selectedRows(): void;
+		selectionLength(): void;
+	}
 }
 interface IgniteUIStatic {
 SelectedCellsCollection: typeof Infragistics.SelectedCellsCollection;
@@ -46914,7 +46628,6 @@ interface ButtonOKClickEvent {
 }
 
 interface ButtonOKClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridModalDialog widget.
 	 */
@@ -46931,7 +46644,6 @@ interface ButtonCancelClickEvent {
 }
 
 interface ButtonCancelClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the igGridModalDialog widget.
 	 */
@@ -47061,11 +46773,10 @@ interface IgGridModalDialogMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridModalDialog"):IgGridModalDialogMethods;
+	data(propertyName: "igGridModalDialog"): IgGridModalDialogMethods;
 }
 
 interface IgEditorFilter {
-
 	/**
  	 * Option for igEditorFilter
 	 */
@@ -47080,266 +46791,264 @@ interface IgEditorFilterMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igEditorFilter"):IgEditorFilterMethods;
+	data(propertyName: "igEditorFilter"): IgEditorFilterMethods;
 }
 
-declare module Infragistics {
-export class EditorProvider {
-
-	/**
- 	 * Create handlers cache
-	 *
-	 * @param callbacks 
-	 * @param key 
-	 * @param editorOptions 
-	 * @param tabIndex 
-	 * @param format 
-	 * @param element 
-	 */
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	keyDown(evt: Object, ui: Object): void;
-	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
-	getEditor(): void;
-	refreshValue(): void;
-	getValue(): void;
-	setValue(val: Object): void;
-	setFocus(toggle: Object): void;
-	setSize(width: Object, height: Object): void;
-	removeFromParent(): void;
-	destroy(): void;
-	validator(): void;
-	validate(): void;
-	requestValidate(evt: Object): void;
-	isValid(): void;
-}
-}
-
-declare module Infragistics {
-export class EditorProviderBase {
-
-	/**
- 	 * Call parent createEditor
-	 *
-	 * @param callbacks 
-	 * @param key 
-	 * @param editorOptions 
-	 * @param tabIndex 
-	 * @param format 
-	 * @param element 
-	 */
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-	keyDown(evt: Object, ui: Object): void;
-	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
-	getEditor(): void;
-	getValue(): void;
-	setValue(val: Object): void;
-	validate(): void;
-	requestValidate(evt: Object): void;
-}
+declare namespace Infragistics {
+	class EditorProvider {
+		/**
+		 * Create handlers cache
+		 *
+		 * @param callbacks
+		 * @param key
+		 * @param editorOptions
+		 * @param tabIndex
+		 * @param format
+		 * @param element
+		 */
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		keyDown(evt: Object, ui: Object): void;
+		attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+		getEditor(): void;
+		refreshValue(): void;
+		getValue(): void;
+		setValue(val: Object): void;
+		setFocus(toggle: Object): void;
+		setSize(width: Object, height: Object): void;
+		removeFromParent(): void;
+		destroy(): void;
+		validator(): void;
+		validate(): void;
+		requestValidate(evt: Object): void;
+		isValid(): void;
+	}
 }
 
-declare module Infragistics {
-export class EditorProviderText {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	keyDown(evt: Object, ui: Object): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-}
-}
-
-declare module Infragistics {
-export class EditorProviderNumeric {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	getValue(): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-}
-}
-
-declare module Infragistics {
-export class EditorProviderCurrency {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-}
+declare namespace Infragistics {
+	class EditorProviderBase {
+		/**
+		 * Call parent createEditor
+		 *
+		 * @param callbacks
+		 * @param key
+		 * @param editorOptions
+		 * @param tabIndex
+		 * @param format
+		 * @param element
+		 */
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+		keyDown(evt: Object, ui: Object): void;
+		attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+		getEditor(): void;
+		getValue(): void;
+		setValue(val: Object): void;
+		validate(): void;
+		requestValidate(evt: Object): void;
+	}
 }
 
-declare module Infragistics {
-export class EditorProviderPercent {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-}
-}
-
-declare module Infragistics {
-export class EditorProviderMask {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-}
+declare namespace Infragistics {
+	class EditorProviderText {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		keyDown(evt: Object, ui: Object): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+	}
 }
 
-declare module Infragistics {
-export class EditorProviderDate {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-}
-}
-
-declare module Infragistics {
-export class EditorProviderDatePicker {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	removeFromParent(): void;
-	textChanged(evt: Object, ui: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	destroy(): void;
-	refreshValue(): void;
-	validator(): void;
-	isValid(): void;
-}
+declare namespace Infragistics {
+	class EditorProviderNumeric {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		getValue(): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+	}
 }
 
-declare module Infragistics {
-export class EditorProviderBoolean {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	valueChanged(evt: Object, ui: Object): void;
-	refreshValue(): void;
-	getValue(): void;
-	setValue(val: Object): void;
-	setSize(width: Object, height: Object): void;
-	removeFromParent(): void;
-	destroy(): void;
-	textChanged(evt: Object, ui: Object): void;
-	setFocus(): void;
-	validator(): void;
-	isValid(): void;
-}
+declare namespace Infragistics {
+	class EditorProviderCurrency {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+	}
 }
 
-declare module Infragistics {
-export class EditorProviderCombo {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	keyDown(evt: Object, ui: Object): void;
-	internalSelectionChanged(evt: Object, ui: Object): void;
-	selectionChanged(evt: Object, ui: Object): void;
-	refreshValue(): void;
-	getValue(): void;
-	setValue(val: Object, fire: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	validator(): void;
-	destroy(): void;
-	isValid(): void;
-	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
-	getEditor(): void;
-	validate(): void;
-	requestValidate(evt: Object): void;
-}
+declare namespace Infragistics {
+	class EditorProviderPercent {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+	}
 }
 
-declare module Infragistics {
-export class EditorProviderObjectCombo {
-	getValue(): void;
-	setValue(val: Object, fire: Object): void;
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	keyDown(evt: Object, ui: Object): void;
-	internalSelectionChanged(evt: Object, ui: Object): void;
-	selectionChanged(evt: Object, ui: Object): void;
-	refreshValue(): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	removeFromParent(): void;
-	validator(): void;
-	destroy(): void;
-	isValid(): void;
-}
+declare namespace Infragistics {
+	class EditorProviderMask {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+	}
 }
 
-declare module Infragistics {
-export class EditorProviderRating {
-	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
-	internalValueChange(evt: Object, ui: Object): void;
-	valueChange(evt: Object, ui: Object): void;
-	setValue(val: Object): void;
-	setSize(width: Object, height: Object): void;
-	setFocus(): void;
-	validator(): void;
-	destroy(): void;
-	isValid(): void;
-	keyDown(evt: Object, ui: Object): void;
-	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
-	getEditor(): void;
-	refreshValue(): void;
-	getValue(): void;
-	removeFromParent(): void;
-	validate(): void;
-	requestValidate(evt: Object): void;
-}
+declare namespace Infragistics {
+	class EditorProviderDate {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+	}
 }
 
-declare module Infragistics {
-export class SortingExpressionsManager {
-	setGridInstance(grid: Object): void;
-
-	/**
- 	 * Insert expr at the first position of the se (sorting expressions) if there are not any other expressions with flag group by
-	 * 			 otherwise if there are such expressions inserts after the last
-	 *
-	 * @param se 
-	 * @param expr 
-	 * @param feature 
-	 */
-	addSortingExpression(se: Object, expr: Object, feature: Object): void;
-	setFormattersForSortingExprs(exprs: Object, grid: Object): void;
+declare namespace Infragistics {
+	class EditorProviderDatePicker {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		removeFromParent(): void;
+		textChanged(evt: Object, ui: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		destroy(): void;
+		refreshValue(): void;
+		validator(): void;
+		isValid(): void;
+	}
 }
+
+declare namespace Infragistics {
+	class EditorProviderBoolean {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		valueChanged(evt: Object, ui: Object): void;
+		refreshValue(): void;
+		getValue(): void;
+		setValue(val: Object): void;
+		setSize(width: Object, height: Object): void;
+		removeFromParent(): void;
+		destroy(): void;
+		textChanged(evt: Object, ui: Object): void;
+		setFocus(): void;
+		validator(): void;
+		isValid(): void;
+	}
+}
+
+declare namespace Infragistics {
+	class EditorProviderCombo {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		keyDown(evt: Object, ui: Object): void;
+		internalSelectionChanged(evt: Object, ui: Object): void;
+		selectionChanged(evt: Object, ui: Object): void;
+		refreshValue(): void;
+		getValue(): void;
+		setValue(val: Object, fire: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		validator(): void;
+		destroy(): void;
+		isValid(): void;
+		attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+		getEditor(): void;
+		validate(): void;
+		requestValidate(evt: Object): void;
+	}
+}
+
+declare namespace Infragistics {
+	class EditorProviderObjectCombo {
+		getValue(): void;
+		setValue(val: Object, fire: Object): void;
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		keyDown(evt: Object, ui: Object): void;
+		internalSelectionChanged(evt: Object, ui: Object): void;
+		selectionChanged(evt: Object, ui: Object): void;
+		refreshValue(): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		removeFromParent(): void;
+		validator(): void;
+		destroy(): void;
+		isValid(): void;
+	}
+}
+
+declare namespace Infragistics {
+	class EditorProviderRating {
+		createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+		internalValueChange(evt: Object, ui: Object): void;
+		valueChange(evt: Object, ui: Object): void;
+		setValue(val: Object): void;
+		setSize(width: Object, height: Object): void;
+		setFocus(): void;
+		validator(): void;
+		destroy(): void;
+		isValid(): void;
+		keyDown(evt: Object, ui: Object): void;
+		attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+		getEditor(): void;
+		refreshValue(): void;
+		getValue(): void;
+		removeFromParent(): void;
+		validate(): void;
+		requestValidate(evt: Object): void;
+	}
+}
+
+declare namespace Infragistics {
+	class SortingExpressionsManager {
+		setGridInstance(grid: Object): void;
+
+		/**
+		 * Insert expr at the first position of the se (sorting expressions) if there are not any other expressions with flag group by
+		 * 			 otherwise if there are such expressions inserts after the last
+		 *
+		 * @param se
+		 * @param expr
+		 * @param feature
+		 */
+		addSortingExpression(se: Object, expr: Object, feature: Object): void;
+		setFormattersForSortingExprs(exprs: Object, grid: Object): void;
+	}
 }
 
 interface JQuery {
@@ -47647,7 +47356,6 @@ interface JQuery {
 	igEditorFilter(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridSortingColumnSetting {
-
 	/**
  	 * Identifies the grid column by key. Either key or index must be set in every column setting.
 	 *
@@ -47715,7 +47423,6 @@ interface ColumnSortingEvent {
 }
 
 interface ColumnSortingEventUIParam {
-
 	/**
  	 * Used to get reference to GridSorting.
 	 */
@@ -47742,7 +47449,6 @@ interface ColumnSortedEvent {
 }
 
 interface ColumnSortedEventUIParam {
-
 	/**
  	 * Used to get reference to GridSorting.
 	 */
@@ -47769,7 +47475,6 @@ interface ModalDialogSortingChangedEvent {
 }
 
 interface ModalDialogSortingChangedEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridSorting widget.
 	 */
@@ -47796,7 +47501,6 @@ interface ModalDialogButtonUnsortClickEvent {
 }
 
 interface ModalDialogButtonUnsortClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridSorting widget.
 	 */
@@ -47818,7 +47522,6 @@ interface ModalDialogSortClickEvent {
 }
 
 interface ModalDialogSortClickEventUIParam {
-
 	/**
  	 * Used to get the reference to the GridSorting widget.
 	 */
@@ -47836,7 +47539,6 @@ interface ModalDialogSortClickEventUIParam {
 }
 
 interface IgGridSorting {
-
 	/**
  	 * Defines local or remote sorting operations.
 	 *
@@ -48026,7 +47728,7 @@ interface IgGridSorting {
 
 	/**
  	 * Controls containment behavior of multiple sorting dialog.
-	 * 
+	 *
 	 * owner  The multi sorting dialog will be draggable only in the grid area
 	 * window  The multi sorting dialog will be draggable in the whole window area
 	 */
@@ -48188,13 +47890,12 @@ interface IgGridSorting {
 	[optionName: string]: any;
 }
 interface IgGridSortingMethods {
-
 	/**
  	 * Sorts the data in a grid column  and updates the UI.
 	 *
 	 * @param index     Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column which we want to sort. If the mode is multiple, previous sorting states are not cleared.
 	 * @param direction     Specifies sorting direction (ascending or descending)
-	 * @param header     
+	 * @param header
 	 */
 	sortColumn(index: Object, direction: Object, header: Object): void;
 
@@ -48234,7 +47935,7 @@ interface IgGridSortingMethods {
 	/**
  	 * Renders content of multiple sorting dialog - sorted and unsorted columns.
 	 *
-	 * @param isToCallEvents 
+	 * @param isToCallEvents
 	 */
 	renderMultipleSortingDialogContent(isToCallEvents: Object): void;
 
@@ -48244,7 +47945,7 @@ interface IgGridSortingMethods {
 	removeDialogClearButton(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridSorting"):IgGridSortingMethods;
+	data(propertyName: "igGridSorting"): IgGridSortingMethods;
 }
 
 interface JQuery {
@@ -48650,7 +48351,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior of multiple sorting dialog.
-	 * 
+	 *
 	 * owner  The multi sorting dialog will be draggable only in the grid area
 	 * window  The multi sorting dialog will be draggable in the whole window area
 	 */
@@ -48658,7 +48359,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior of multiple sorting dialog.
-	 * 
+	 *
 	 * owner  The multi sorting dialog will be draggable only in the grid area
 	 * window  The multi sorting dialog will be draggable in the whole window area
 	 *
@@ -49004,7 +48705,6 @@ interface JQuery {
 	igGridSorting(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridSummariesColumnSettingSummaryOperand {
-
 	/**
  	 * Text of the summary method which is shown in summary cell
 	 *
@@ -49062,7 +48762,6 @@ interface IgGridSummariesColumnSettingSummaryOperand {
 }
 
 interface IgGridSummariesColumnSetting {
-
 	/**
  	 * Enables disables summaries for the column
 	 *
@@ -49098,7 +48797,6 @@ interface SummariesCalculatingEvent {
 }
 
 interface SummariesCalculatingEventUIParam {
-
 	/**
  	 * Used to access the igGridSummaries widget object.
 	 */
@@ -49110,7 +48808,6 @@ interface SummariesCalculatedEvent {
 }
 
 interface SummariesCalculatedEventUIParam {
-
 	/**
  	 * Used to get data for calculated summaries
 	 */
@@ -49127,7 +48824,6 @@ interface SummariesMethodSelectionChangedEvent {
 }
 
 interface SummariesMethodSelectionChangedEventUIParam {
-
 	/**
  	 * Used to get column key of the column where it is changed selection of summary method
 	 */
@@ -49154,7 +48850,6 @@ interface SummariesTogglingEvent {
 }
 
 interface SummariesTogglingEventUIParam {
-
 	/**
  	 * Used to get whether summaries are shown or not.
 	 */
@@ -49171,7 +48866,6 @@ interface SummariesToggledEvent {
 }
 
 interface SummariesToggledEventUIParam {
-
 	/**
  	 * Used to get whether summaries are shown or not.
 	 */
@@ -49188,7 +48882,6 @@ interface DropDownOKClickedEvent {
 }
 
 interface DropDownOKClickedEventUIParam {
-
 	/**
  	 * Used to get column key for which OK button is clicked.
 	 */
@@ -49210,7 +48903,6 @@ interface DropDownCancelClickedEvent {
 }
 
 interface DropDownCancelClickedEventUIParam {
-
 	/**
  	 * Used to get column key for which Cancel button is clicked.
 	 */
@@ -49223,7 +48915,6 @@ interface DropDownCancelClickedEventUIParam {
 }
 
 interface IgGridSummaries {
-
 	/**
  	 * type of summaries calculating.
 	 *
@@ -49545,7 +49236,7 @@ interface IgGridSummariesMethods {
 	 * @param columnMethods    Array of column methods objects
 	 * @param data    Object which represents result
    represents dataType for the current column
-	 * @param dataType 
+	 * @param dataType
 	 */
 	calculateSummaryColumn(ck: string, columnMethods: any[], data: Object, dataType: Object): void;
 
@@ -49557,12 +49248,12 @@ interface IgGridSummariesMethods {
 	/**
  	 * Return a JQUERY object which holds all summaries for column with the specified column key
 	 *
-	 * @param columnKey 
+	 * @param columnKey
 	 */
 	summariesFor(columnKey: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igGridSummaries"):IgGridSummariesMethods;
+	data(propertyName: "igGridSummaries"): IgGridSummariesMethods;
 }
 
 interface JQuery {
@@ -50135,7 +49826,6 @@ interface JQuery {
 	igGridSummaries(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridTooltipsColumnSettings {
-
 	/**
  	 * Either key or index must be set in every column setting.
 	 *
@@ -50167,7 +49857,6 @@ interface IgGridTooltipsColumnSettings {
 }
 
 interface IgGridTooltips {
-
 	/**
  	 * determines the tooltip visibility option
 	 *
@@ -50286,7 +49975,6 @@ interface IgGridTooltips {
 	[optionName: string]: any;
 }
 interface IgGridTooltipsMethods {
-
 	/**
  	 * Destroys the tooltip widget.
 	 */
@@ -50298,7 +49986,7 @@ interface IgGridTooltipsMethods {
 	id(): string;
 }
 interface JQuery {
-	data(propertyName: "igGridTooltips"):IgGridTooltipsMethods;
+	data(propertyName: "igGridTooltips"): IgGridTooltipsMethods;
 }
 
 interface JQuery {
@@ -50543,7 +50231,6 @@ interface JQuery {
 	igGridTooltips(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridUpdatingColumnSetting {
-
 	/**
  	 * Identifies the grid column by key.
 	 *
@@ -50627,7 +50314,6 @@ interface IgGridUpdatingColumnSetting {
 }
 
 interface IgGridUpdatingRowEditDialogOptions {
-
 	/**
  	 * Specifies the caption of the dialog. If not set, $.ig.GridUpdating.locale.rowEditDialogCaptionLabel is used.
 	 *
@@ -50713,14 +50399,14 @@ interface IgGridUpdatingRowEditDialogOptions {
 
 	/**
  	 * Specifies a template to be rendered against the currently edited record (or up-to-date key-value pairs in the case of not yet created records). It may contain an element decorated with the 'data-render-tmpl' attribute to specify where the control should render the editors template specified in the [editorsTemplate](ui.iggridupdating#options:rowEditDialogOptions.editorsTemplate) option. For custom dialogs, the elements can be decorated with 'data-editor-for-<columnKey>' attributes where columnKey is the key of the column that editor or input will be used to edit. If both dialogTemplate and [dialogTemplateSelector](ui.iggridupdating#options:rowEditDialogOptions.dialogTemplateSelector) are specified, dialogTemplateSelector will be used.The default template is '<table><colgroup><col></col><col></col></colgroup><tbody data-render-tmpl></tbody></table>'.
-	 * 
+	 *
 	 *
 	 */
 	dialogTemplate?: string;
 
 	/**
  	 * Specifies a selector to a template rendered against the currently edited record (or up-to-date key-value pairs in the case of not yet created records). It may contain an element decorated with the 'data-render-tmpl' attribute to specify where the control should render the editors template specified in the [editorsTemplate](ui.iggridupdating#options:rowEditDialogOptions.editorsTemplate) option. For custom dialogs, the elements can be decorated with 'data-editor-for-<columnKey>' attributes where columnKey is the key of the column that editor or input will be used to edit. If both [dialogTemplate](ui.iggridupdating#options:rowEditDialogOptions.dialogTemplate) and dialogTemplateSelector are specified, dialogTemplateSelector will be used.The default template is '<table><colgroup><col></col><col></col></colgroup><tbody data-render-tmpl></tbody></table>'.
-	 * 
+	 *
 	 *
 	 */
 	dialogTemplateSelector?: string;
@@ -50750,7 +50436,6 @@ interface EditRowStartingEvent {
 }
 
 interface EditRowStartingEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -50772,7 +50457,6 @@ interface EditRowStartedEvent {
 }
 
 interface EditRowStartedEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -50794,7 +50478,6 @@ interface EditRowEndingEvent {
 }
 
 interface EditRowEndingEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -50831,7 +50514,6 @@ interface EditRowEndedEvent {
 }
 
 interface EditRowEndedEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -50868,7 +50550,6 @@ interface EditCellStartingEvent {
 }
 
 interface EditCellStartingEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -50910,7 +50591,6 @@ interface EditCellStartedEvent {
 }
 
 interface EditCellStartedEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -50952,7 +50632,6 @@ interface EditCellEndingEvent {
 }
 
 interface EditCellEndingEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51004,7 +50683,6 @@ interface EditCellEndedEvent {
 }
 
 interface EditCellEndedEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51056,7 +50734,6 @@ interface RowAddingEvent {
 }
 
 interface RowAddingEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51078,7 +50755,6 @@ interface RowAddedEvent {
 }
 
 interface RowAddedEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51100,7 +50776,6 @@ interface RowDeletingEvent {
 }
 
 interface RowDeletingEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51122,7 +50797,6 @@ interface RowDeletedEvent {
 }
 
 interface RowDeletedEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51144,7 +50818,6 @@ interface DataDirtyEvent {
 }
 
 interface DataDirtyEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51156,7 +50829,6 @@ interface GeneratePrimaryKeyValueEvent {
 }
 
 interface GeneratePrimaryKeyValueEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51173,7 +50845,6 @@ interface RowEditDialogBeforeOpenEvent {
 }
 
 interface RowEditDialogBeforeOpenEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51190,7 +50861,6 @@ interface RowEditDialogAfterOpenEvent {
 }
 
 interface RowEditDialogAfterOpenEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51207,7 +50877,6 @@ interface RowEditDialogBeforeCloseEvent {
 }
 
 interface RowEditDialogBeforeCloseEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51224,7 +50893,6 @@ interface RowEditDialogAfterCloseEvent {
 }
 
 interface RowEditDialogAfterCloseEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51241,7 +50909,6 @@ interface RowEditDialogContentsRenderedEvent {
 }
 
 interface RowEditDialogContentsRenderedEventUIParam {
-
 	/**
  	 * Used to get a reference to GridUpdating.
 	 */
@@ -51254,7 +50921,6 @@ interface RowEditDialogContentsRenderedEventUIParam {
 }
 
 interface IgGridUpdating {
-
 	/**
  	 * A list of custom column options that specify editing and validation settings for a specific column.
 	 *
@@ -51631,7 +51297,6 @@ interface IgGridUpdating {
 	[optionName: string]: any;
 }
 interface IgGridUpdatingMethods {
-
 	/**
  	 * Sets a cell value for the specified cell. It also creates a transaction and updates the UI.
 	 * 			If the specified cell is currently in edit mode, the function will set the desired value in the cell's editor instead.
@@ -51732,7 +51397,7 @@ interface IgGridUpdatingMethods {
 	hideDeleteButton(): void;
 }
 interface JQuery {
-	data(propertyName: "igGridUpdating"):IgGridUpdatingMethods;
+	data(propertyName: "igGridUpdating"): IgGridUpdatingMethods;
 }
 
 interface JQuery {
@@ -52657,7 +52322,6 @@ interface WorkspaceResizedEventUIParam {
 }
 
 interface IgHtmlEditor {
-
 	/**
  	 * Shows/hides the "Formatting" toolbar.
 	 *
@@ -52794,7 +52458,6 @@ interface IgHtmlEditor {
 	[optionName: string]: any;
 }
 interface IgHtmlEditorMethods {
-
 	/**
  	 * Returns the element on which the widget was instantiated
 	 */
@@ -52871,7 +52534,7 @@ interface IgHtmlEditorMethods {
 	insertAtCaret(element: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igHtmlEditor"):IgHtmlEditorMethods;
+	data(propertyName: "igHtmlEditor"): IgHtmlEditorMethods;
 }
 
 interface IgPathFinder {
@@ -52930,7 +52593,7 @@ interface IgHtmlEditorPopoverMethods {
 	hide(): void;
 }
 interface JQuery {
-	data(propertyName: "igHtmlEditorPopover"):IgHtmlEditorPopoverMethods;
+	data(propertyName: "igHtmlEditorPopover"): IgHtmlEditorPopoverMethods;
 }
 
 interface IgLinkPropertiesDialog {
@@ -52952,7 +52615,7 @@ interface IgLinkPropertiesDialogMethods {
 	hide(): void;
 }
 interface JQuery {
-	data(propertyName: "igLinkPropertiesDialog"):IgLinkPropertiesDialogMethods;
+	data(propertyName: "igLinkPropertiesDialog"): IgLinkPropertiesDialogMethods;
 }
 
 interface IgTablePropertiesDialog {
@@ -52974,7 +52637,7 @@ interface IgTablePropertiesDialogMethods {
 	hide(): void;
 }
 interface JQuery {
-	data(propertyName: "igTablePropertiesDialog"):IgTablePropertiesDialogMethods;
+	data(propertyName: "igTablePropertiesDialog"): IgTablePropertiesDialogMethods;
 }
 
 interface IgImagePropertiesDialog {
@@ -52996,30 +52659,30 @@ interface IgImagePropertiesDialogMethods {
 	hide(): void;
 }
 interface JQuery {
-	data(propertyName: "igImagePropertiesDialog"):IgImagePropertiesDialogMethods;
+	data(propertyName: "igImagePropertiesDialog"): IgImagePropertiesDialogMethods;
 }
 
-declare module Infragistics {
-export class SelectionWrapper {
-	constructor(NODE: any);
-	getSelectedItem(): void;
-	getSelectionAsText(): void;
-	select(element: Object): void;
-	insertElement(element: Object): void;
-	execCommand(name: Object, args: Object): void;
-	replaceNode(newNode: Object): void;
-	insertTable(table: Object): void;
-	focus(): void;
-}
+declare namespace Infragistics {
+	class SelectionWrapper {
+		constructor(NODE: any);
+		getSelectedItem(): void;
+		getSelectionAsText(): void;
+		select(element: Object): void;
+		insertElement(element: Object): void;
+		execCommand(name: Object, args: Object): void;
+		replaceNode(newNode: Object): void;
+		insertTable(table: Object): void;
+		focus(): void;
+	}
 }
 interface IgniteUIStatic {
-SelectionWrapper: typeof Infragistics.SelectionWrapper;
+	SelectionWrapper: typeof Infragistics.SelectionWrapper;
 }
 
-declare module Infragistics {
-export class ToolbarHelper {
-	analyse(el: Object): void;
-}
+declare namespace Infragistics {
+	class ToolbarHelper {
+		analyse(el: Object): void;
+	}
 }
 
 interface JQuery {
@@ -53351,7 +53014,6 @@ interface JQuery {
 	igHtmlEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
-
 	/**
 	 */
 	igPathFinder(optionLiteral: 'option', optionName: "items"): any;
@@ -53626,7 +53288,6 @@ interface JQuery {
 	igImagePropertiesDialog(methodName: string, ...methodParams: any[]): any;
 }
 interface IgLayoutManagerBorderLayout {
-
 	/**
  	 * Option specifying the width of the left region, either in px or percentages
 	 *
@@ -53670,7 +53331,6 @@ interface IgLayoutManagerBorderLayout {
 }
 
 interface IgLayoutManagerGridLayout {
-
 	/**
  	 * Specifies the duration of the animations in the layout manager"s grid layout
 	 *
@@ -53733,7 +53393,6 @@ interface IgLayoutManagerGridLayout {
 }
 
 interface IgLayoutManagerItem {
-
 	/**
  	 * Column index of the item in the grid
 	 *
@@ -53783,7 +53442,6 @@ interface InternalResizedEvent {
 }
 
 interface InternalResizedEventUIParam {
-
 	/**
  	 * Used to get a reference to the layout manager performing resizing.
 	 */
@@ -53795,7 +53453,6 @@ interface InternalResizingEvent {
 }
 
 interface InternalResizingEventUIParam {
-
 	/**
  	 * Used to get a reference to the layout manager performing resizing.
 	 */
@@ -53807,7 +53464,6 @@ interface ItemRenderedEvent {
 }
 
 interface ItemRenderedEventUIParam {
-
 	/**
  	 * Used to get reference to the igLayoutManager.
 	 */
@@ -53834,7 +53490,6 @@ interface ItemRenderingEvent {
 }
 
 interface ItemRenderingEventUIParam {
-
 	/**
  	 * Used to get reference to the igLayoutManager.
 	 */
@@ -53857,7 +53512,6 @@ interface ItemRenderingEventUIParam {
 }
 
 interface IgLayoutManager {
-
 	/**
  	 * Options specific to a border layout
 	 *
@@ -53963,7 +53617,6 @@ interface IgLayoutManager {
 	[optionName: string]: any;
 }
 interface IgLayoutManagerMethods {
-
 	/**
  	 * Triggers recalculation of the layout dimensions. Layouts may not need to be reflowed manually, if their sizes are in percentages (i.e. they are responsive by default)
 	 *                     this can be particularly useful with a grid layout, when the container has percentage sizes, but items are calculated in pixels and positioned absolutely in the container.
@@ -53983,7 +53636,7 @@ interface IgLayoutManagerMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igLayoutManager"):IgLayoutManagerMethods;
+	data(propertyName: "igLayoutManager"): IgLayoutManagerMethods;
 }
 
 interface JQuery {
@@ -54204,7 +53857,6 @@ interface JQuery {
 	igLayoutManager(methodName: string, ...methodParams: any[]): any;
 }
 interface IgLinearGaugeRange {
-
 	/**
  	 * Gets or sets the name of the range.
 	 */
@@ -54266,7 +53918,6 @@ interface IgLinearGaugeRange {
 }
 
 interface IgLinearGauge {
-
 	/**
  	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -54296,7 +53947,7 @@ interface IgLinearGauge {
  	 * Gets or sets the orientation of the scale.
 	 *
 	 * Valid values:
-	 * "horizontal" 
+	 * "horizontal"
 	 * "vertical"
 	 */
 	orientation?: string;
@@ -54332,10 +53983,10 @@ interface IgLinearGauge {
  	 * Gets or sets the shape to use when rendering the needle from a number of options.
 	 *
 	 * Valid values:
-	 * "custom" 
-	 * "rectangle" 
-	 * "triangle" 
-	 * "needle" 
+	 * "custom"
+	 * "rectangle"
+	 * "triangle"
+	 * "needle"
 	 * "trapezoid"
 	 */
 	needleShape?: string;
@@ -54622,7 +54273,6 @@ interface IgLinearGauge {
 	[optionName: string]: any;
 }
 interface IgLinearGaugeMethods {
-
 	/**
  	 * Returns a string containing the names of all the ranges delimited with a \n symbol.
 	 */
@@ -54652,8 +54302,8 @@ interface IgLinearGaugeMethods {
 	/**
  	 * Gets the value for the main scale of the gauge for a given point within the bounds of the gauge.
 	 *
-	 * @param x 
-	 * @param y 
+	 * @param x
+	 * @param y
 	 */
 	getValueForPoint(x: Object, y: Object): number;
 
@@ -54686,7 +54336,7 @@ interface IgLinearGaugeMethods {
 	styleUpdated(): void;
 }
 interface JQuery {
-	data(propertyName: "igLinearGauge"):IgLinearGaugeMethods;
+	data(propertyName: "igLinearGauge"): IgLinearGaugeMethods;
 }
 
 interface JQuery {
@@ -55523,7 +55173,6 @@ interface JQuery {
 	igLinearGauge(methodName: string, ...methodParams: any[]): any;
 }
 interface IgMapCrosshairPoint {
-
 	/**
  	 * The x coordinate.
 	 */
@@ -55541,7 +55190,6 @@ interface IgMapCrosshairPoint {
 }
 
 interface IgMapBackgroundContent {
-
 	/**
  	 * Type of the background content for the map.
 	 *
@@ -55584,7 +55232,6 @@ interface IgMapBackgroundContent {
 }
 
 interface IgMapSeries {
-
 	/**
  	 * Type of the series.
 	 *
@@ -56079,7 +55726,6 @@ interface TriangulationStatusChangedEvent {
 }
 
 interface TriangulationStatusChangedEventUIParam {
-
 	/**
  	 * Used to get reference to map object.
 	 */
@@ -56097,7 +55743,6 @@ interface TriangulationStatusChangedEventUIParam {
 }
 
 interface IgMap {
-
 	/**
  	 * The width of the map. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -56700,14 +56345,14 @@ interface IgMapMethods {
 	/**
  	 * Gets the actual minimum value of the target xAxis or yAxis
 	 *
-	 * @param targetName 
+	 * @param targetName
 	 */
 	getActualMinimumValue(targetName: Object): void;
 
 	/**
  	 * Gets the actual maximum value of the target xAxis or yAxis
 	 *
-	 * @param targetName 
+	 * @param targetName
 	 */
 	getActualMaximumValue(targetName: Object): void;
 
@@ -56751,11 +56396,10 @@ interface IgMapMethods {
 	renderSeries(targetName: string, animate: boolean): void;
 }
 interface JQuery {
-	data(propertyName: "igMap"):IgMapMethods;
+	data(propertyName: "igMap"): IgMapMethods;
 }
 
 interface ShapeDataSourceSettings {
-
 	/**
  	 * The unique identifier.
 	 */
@@ -56811,32 +56455,31 @@ interface ShapeDataSourceSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class ShapeDataSource {
-	constructor(settings: ShapeDataSourceSettings);
+declare namespace Infragistics {
+	class ShapeDataSource {
+		constructor(settings: ShapeDataSourceSettings);
 
-	/**
- 	 * Loads to the current data source
-	 */
-	dataBind(): void;
+		/**
+		 * Loads to the current data source
+		 */
+		dataBind(): void;
 
-	/**
- 	 * Returns true if data is loaded
-	 */
-	isBound(): boolean;
+		/**
+		 * Returns true if data is loaded
+		 */
+		isBound(): boolean;
 
-	/**
- 	 * Returns the current converter instance
-	 */
-	converter(): Object;
-}
+		/**
+		 * Returns the current converter instance
+		 */
+		converter(): Object;
+	}
 }
 interface IgniteUIStatic {
-ShapeDataSource: typeof Infragistics.ShapeDataSource;
+	ShapeDataSource: typeof Infragistics.ShapeDataSource;
 }
 
 interface TriangulationDataSourceSettings {
-
 	/**
  	 * The unique identifier.
 	 */
@@ -56868,28 +56511,28 @@ interface TriangulationDataSourceSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class TriangulationDataSource {
-	constructor(settings: TriangulationDataSourceSettings);
+declare namespace Infragistics {
+	class TriangulationDataSource {
+		constructor(settings: TriangulationDataSourceSettings);
 
-	/**
- 	 * Loads to the current data source
-	 */
-	dataBind(): void;
+		/**
+		 * Loads to the current data source
+		 */
+		dataBind(): void;
 
-	/**
- 	 * Returns true if data is loaded
-	 */
-	isBound(): boolean;
+		/**
+		 * Returns true if data is loaded
+		 */
+		isBound(): boolean;
 
-	/**
- 	 * Returns the current converter instance
-	 */
-	converter(): Object;
-}
+		/**
+		 * Returns the current converter instance
+		 */
+		converter(): Object;
+	}
 }
 interface IgniteUIStatic {
-TriangulationDataSource: typeof Infragistics.TriangulationDataSource;
+	TriangulationDataSource: typeof Infragistics.TriangulationDataSource;
 }
 
 interface JQuery {
@@ -57880,7 +57523,6 @@ interface IgNotifierMessages {
 }
 
 interface IgNotifierHeaderTemplate {
-
 	/**
  	 * Controls whether the popover renders a functional close button
 	 *
@@ -57900,7 +57542,6 @@ interface IgNotifierHeaderTemplate {
 }
 
 interface IgNotifier {
-
 	/**
  	 * Gets/Sets the current state of the igNotifier messages. State controls what CSS classes are applied to the messages and target and has interactions with other options as well.
 	 *
@@ -57937,7 +57578,7 @@ interface IgNotifier {
 
 	/**
  	 * Controls the positioning mode of messages. Setting a mode will override the default behavior which is auto.Note: Inline element uses a block container as is always placed after the target.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -58115,7 +57756,6 @@ interface IgNotifier {
 	[optionName: string]: any;
 }
 interface IgNotifierMethods {
-
 	/**
  	 * Triggers a notification with a certain state and optional message. The [notifyLevel](ui.ignotifier#options:notifyLevel) option determines if the notification will be displayed.
 	 *
@@ -58187,7 +57827,7 @@ interface IgNotifierMethods {
 	setCoordinates(pos: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igNotifier"):IgNotifierMethods;
+	data(propertyName: "igNotifier"): IgNotifierMethods;
 }
 
 interface JQuery {
@@ -58248,14 +57888,14 @@ interface JQuery {
 
 	/**
 	 * Controls the positioning mode of messages. Setting a mode will override the default behavior which is auto.Note: Inline element uses a block container as is always placed after the target.
-	 * 
+	 *
 	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
 	 * Controls the positioning mode of messages. Setting a mode will override the default behavior which is auto.Note: Inline element uses a block container as is always placed after the target.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -58590,7 +58230,6 @@ interface JQuery {
 	igNotifier(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsRequestOptions {
-
 	/**
  	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 *                             Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -58610,7 +58249,6 @@ interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsRequestOptions {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsMdxSettings {
-
 	/**
  	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -58648,7 +58286,6 @@ interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsMdxSettings {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsXmlaOptions {
-
 	/**
  	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -58703,7 +58340,6 @@ interface IgPivotDataSelectorDataSourceOptionsXmlaOptions {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
  	 * Optional="false" A unique name for the measure.
 	 */
@@ -58732,7 +58368,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasure
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimension {
-
 	/**
  	 * A unique name for the measures dimension.
 	 *                                     The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -58758,7 +58393,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasure
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
  	 * Optional="false" A name for the level.
 	 *                                             The unique name of the level is formed using the following pattern:
@@ -58784,7 +58418,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensi
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchie {
-
 	/**
  	 * Optional="false" A name for the hierarchy.
 	 *                                         The unique name of the hierarchy is formed using the following pattern:
@@ -58798,8 +58431,8 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensi
 	caption?: string;
 
 	/**
- 	 * The path to be used when displaying the hierarchy in the user interface. 
-	 *                                         Nested folders are indicated by a backslash (\). 
+ 	 * The path to be used when displaying the hierarchy in the user interface.
+	 *                                         Nested folders are indicated by a backslash (\).
 	 *                                         The folder hierarchy will appear under parent dimension node.
 	 */
 	displayFolder?: string;
@@ -58816,7 +58449,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensi
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
-
 	/**
  	 * Optional="false" A unique name for the dimension.
 	 */
@@ -58839,7 +58471,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensi
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCube {
-
 	/**
  	 * Optional="false" A unique name for the cube.
 	 */
@@ -58867,7 +58498,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCube {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadata {
-
 	/**
  	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -58880,7 +58510,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadata {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptions {
-
 	/**
  	 * Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -58897,8 +58526,8 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptions {
 	dataSourceType?: string;
 
 	/**
- 	 * See $.ig.DataSource. 
-	 *                         string Specifies the name of the property in which data records are held if the response is wrapped. 
+ 	 * See $.ig.DataSource.
+	 *                         string Specifies the name of the property in which data records are held if the response is wrapped.
 	 *                         null Option is ignored.
 	 */
 	responseDataKey?: string;
@@ -58921,7 +58550,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptions {
 }
 
 interface IgPivotDataSelectorDataSourceOptions {
-
 	/**
  	 * Settings for creating an instance of $.ig.OlapXmlaDataSource.
 	 */
@@ -58959,7 +58587,6 @@ interface IgPivotDataSelectorDataSourceOptions {
 }
 
 interface IgPivotDataSelectorDragAndDropSettings {
-
 	/**
  	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -58987,7 +58614,6 @@ interface DataSelectorRenderedEvent {
 }
 
 interface DataSelectorRenderedEventUIParam {
-
 	/**
  	 * Used to get a reference to the data selector.
 	 */
@@ -58999,7 +58625,6 @@ interface DataSourceInitializedEvent {
 }
 
 interface DataSourceInitializedEventUIParam {
-
 	/**
  	 * Used to get a reference to the data selector.
 	 */
@@ -59026,7 +58651,6 @@ interface DataSourceUpdatedEvent {
 }
 
 interface DataSourceUpdatedEventUIParam {
-
 	/**
  	 * Used to get a reference to the data selector.
 	 */
@@ -59053,7 +58677,6 @@ interface DeferUpdateChangedEvent {
 }
 
 interface DeferUpdateChangedEventUIParam {
-
 	/**
  	 * Used to get a reference to the data selector.
 	 */
@@ -59070,7 +58693,6 @@ interface DragStartEvent {
 }
 
 interface DragStartEventUIParam {
-
 	/**
  	 * Used to get a reference to the data.
 	 */
@@ -59102,7 +58724,6 @@ interface DragEvent {
 }
 
 interface DragEventUIParam {
-
 	/**
  	 * Used to get a reference to the data.
 	 */
@@ -59134,7 +58755,6 @@ interface DragStopEvent {
 }
 
 interface DragStopEventUIParam {
-
 	/**
  	 * Used to get a reference to the helper.
 	 */
@@ -59161,7 +58781,6 @@ interface MetadataDroppingEvent {
 }
 
 interface MetadataDroppingEventUIParam {
-
 	/**
  	 * Used to the drop target.
 	 */
@@ -59203,7 +58822,6 @@ interface MetadataDroppedEvent {
 }
 
 interface MetadataDroppedEventUIParam {
-
 	/**
  	 * Used to the drop target.
 	 */
@@ -59245,7 +58863,6 @@ interface MetadataRemovingEvent {
 }
 
 interface MetadataRemovingEventUIParam {
-
 	/**
  	 * Used to the dragged element.
 	 */
@@ -59262,7 +58879,6 @@ interface MetadataRemovedEvent {
 }
 
 interface MetadataRemovedEventUIParam {
-
 	/**
  	 * Used to get a reference to the data.
 	 */
@@ -59274,7 +58890,6 @@ interface FilterDropDownOpeningEvent {
 }
 
 interface FilterDropDownOpeningEventUIParam {
-
 	/**
  	 * Used to the hierarchy.
 	 */
@@ -59286,7 +58901,6 @@ interface FilterDropDownOpenedEvent {
 }
 
 interface FilterDropDownOpenedEventUIParam {
-
 	/**
  	 * Used to the hierarchy.
 	 */
@@ -59303,7 +58917,6 @@ interface FilterMembersLoadedEvent {
 }
 
 interface FilterMembersLoadedEventUIParam {
-
 	/**
  	 * Used to get the parent node or the igTree instance in the initial load.
 	 */
@@ -59317,7 +58930,6 @@ interface FilterDropDownOkEvent {
 }
 
 interface FilterDropDownOkEventUIParam {
-
 	/**
  	 * Used to the hierarchy.
 	 */
@@ -59335,7 +58947,6 @@ interface FilterDropDownClosingEvent {
 }
 
 interface FilterDropDownClosingEventUIParam {
-
 	/**
  	 * Used to the hierarchy.
 	 */
@@ -59352,7 +58963,6 @@ interface FilterDropDownClosedEvent {
 }
 
 interface FilterDropDownClosedEventUIParam {
-
 	/**
  	 * Used to the hierarchy.
 	 */
@@ -59576,7 +59186,6 @@ interface IgPivotDataSelector {
 	[optionName: string]: any;
 }
 interface IgPivotDataSelectorMethods {
-
 	/**
  	 * Updates the data source.
 	 */
@@ -59591,7 +59200,7 @@ interface IgPivotDataSelectorMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igPivotDataSelector"):IgPivotDataSelectorMethods;
+	data(propertyName: "igPivotDataSelector"): IgPivotDataSelectorMethods;
 }
 
 interface JQuery {
@@ -60074,7 +59683,6 @@ interface JQuery {
 	igPivotDataSelector(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPivotGridDataSourceOptionsXmlaOptionsRequestOptions {
-
 	/**
  	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 *                         Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -60094,7 +59702,6 @@ interface IgPivotGridDataSourceOptionsXmlaOptionsRequestOptions {
 }
 
 interface IgPivotGridDataSourceOptionsXmlaOptionsMdxSettings {
-
 	/**
  	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -60132,7 +59739,6 @@ interface IgPivotGridDataSourceOptionsXmlaOptionsMdxSettings {
 }
 
 interface IgPivotGridDataSourceOptionsXmlaOptions {
-
 	/**
  	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -60187,7 +59793,6 @@ interface IgPivotGridDataSourceOptionsXmlaOptions {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
  	 * Optional="false" A unique name for the measure.
 	 */
@@ -60216,7 +59821,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimension {
-
 	/**
  	 * A unique name for the measures dimension.
 	 *                                 The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -60242,7 +59846,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
  	 * Optional="false" A name for the level.
 	 *                                         The unique name of the level is formed using the following pattern:
@@ -60268,7 +59871,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchie {
-
 	/**
  	 * Optional="false" A name for the hierarchy.
 	 *                                     The unique name of the hierarchy is formed using the following pattern:
@@ -60282,8 +59884,8 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 	caption?: string;
 
 	/**
- 	 * The path to be used when displaying the hierarchy in the user interface. 
-	 *                                     Nested folders are indicated by a backslash (\). 
+ 	 * The path to be used when displaying the hierarchy in the user interface.
+	 *                                     Nested folders are indicated by a backslash (\).
 	 *                                     The folder hierarchy will appear under parent dimension node.
 	 */
 	displayFolder?: string;
@@ -60300,7 +59902,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
-
 	/**
  	 * Optional="false" A unique name for the dimension.
 	 */
@@ -60323,7 +59924,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCube {
-
 	/**
  	 * Optional="false" A unique name for the cube.
 	 */
@@ -60351,7 +59951,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCube {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadata {
-
 	/**
  	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -60364,7 +59963,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadata {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptions {
-
 	/**
  	 * Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -60381,8 +59979,8 @@ interface IgPivotGridDataSourceOptionsFlatDataOptions {
 	dataSourceType?: string;
 
 	/**
- 	 * See $.ig.DataSource. 
-	 *                     string Specifies the name of the property in which data records are held if the response is wrapped. 
+ 	 * See $.ig.DataSource.
+	 *                     string Specifies the name of the property in which data records are held if the response is wrapped.
 	 *                     null Option is ignored.
 	 */
 	responseDataKey?: string;
@@ -60405,7 +60003,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptions {
 }
 
 interface IgPivotGridDataSourceOptions {
-
 	/**
  	 * Settings for creating an instance of $.ig.OlapXmlaDataSource.
 	 */
@@ -60443,7 +60040,6 @@ interface IgPivotGridDataSourceOptions {
 }
 
 interface IgPivotGridLevelSortDirection {
-
 	/**
  	 * Specifies the unique name of the level, which will be sorted.
 	 */
@@ -60470,7 +60066,6 @@ interface IgPivotGridLevelSortDirection {
 }
 
 interface IgPivotGridGridOptionsFeatures {
-
 	/**
  	 * Option for IgPivotGridGridOptionsFeatures
 	 */
@@ -60478,7 +60073,6 @@ interface IgPivotGridGridOptionsFeatures {
 }
 
 interface IgPivotGridGridOptions {
-
 	/**
  	 * Default column width that will be set for all columns.
 	 */
@@ -60521,7 +60115,6 @@ interface IgPivotGridGridOptions {
 }
 
 interface IgPivotGridDragAndDropSettings {
-
 	/**
  	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -60549,7 +60142,6 @@ interface PivotGridHeadersRenderedEvent {
 }
 
 interface PivotGridHeadersRenderedEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60571,7 +60163,6 @@ interface PivotGridRenderedEvent {
 }
 
 interface PivotGridRenderedEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60588,7 +60179,6 @@ interface TupleMemberExpandingEvent {
 }
 
 interface TupleMemberExpandingEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60620,7 +60210,6 @@ interface TupleMemberExpandedEvent {
 }
 
 interface TupleMemberExpandedEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60652,7 +60241,6 @@ interface TupleMemberCollapsingEvent {
 }
 
 interface TupleMemberCollapsingEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60684,7 +60272,6 @@ interface TupleMemberCollapsedEvent {
 }
 
 interface TupleMemberCollapsedEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60716,7 +60303,6 @@ interface SortingEvent {
 }
 
 interface SortingEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60733,7 +60319,6 @@ interface SortedEvent {
 }
 
 interface SortedEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60755,7 +60340,6 @@ interface HeadersSortingEvent {
 }
 
 interface HeadersSortingEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -60772,7 +60356,6 @@ interface HeadersSortedEvent {
 }
 
 interface HeadersSortedEventUIParam {
-
 	/**
  	 * Used to get a reference to the pivot grid.
 	 */
@@ -61210,7 +60793,6 @@ interface IgPivotGrid {
 	[optionName: string]: any;
 }
 interface IgPivotGridMethods {
-
 	/**
  	 * Returns the igGrid instance used to render the OLAP data.
 	 */
@@ -61265,7 +60847,7 @@ interface IgPivotGridMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igPivotGrid"):IgPivotGridMethods;
+	data(propertyName: "igPivotGrid"): IgPivotGridMethods;
 }
 
 interface JQuery {
@@ -62207,7 +61789,6 @@ interface JQuery {
 	igPivotGrid(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPivotViewDataSourceOptionsXmlaOptionsRequestOptions {
-
 	/**
  	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 * Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -62227,7 +61808,6 @@ interface IgPivotViewDataSourceOptionsXmlaOptionsRequestOptions {
 }
 
 interface IgPivotViewDataSourceOptionsXmlaOptionsMdxSettings {
-
 	/**
  	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -62265,7 +61845,6 @@ interface IgPivotViewDataSourceOptionsXmlaOptionsMdxSettings {
 }
 
 interface IgPivotViewDataSourceOptionsXmlaOptions {
-
 	/**
  	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -62320,7 +61899,6 @@ interface IgPivotViewDataSourceOptionsXmlaOptions {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
  	 * Optional="false" A unique name for the measure.
 	 */
@@ -62349,7 +61927,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimension {
-
 	/**
  	 * A unique name for the measures dimension.
 	 * The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -62375,7 +61952,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
  	 * Optional="false" A name for the level.
 	 * The unique name of the level is formed using the following pattern:
@@ -62401,7 +61977,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchie {
-
 	/**
  	 * Optional="false" A name for the hierarchy.
 	 * The unique name of the hierarchy is formed using the following pattern:
@@ -62415,8 +61990,8 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 	caption?: string;
 
 	/**
- 	 * The path to be used when displaying the hierarchy in the user interface. 
-	 * Nested folders are indicated by a backslash (\). 
+ 	 * The path to be used when displaying the hierarchy in the user interface.
+	 * Nested folders are indicated by a backslash (\).
 	 * The folder hierarchy will appear under parent dimension node.
 	 */
 	displayFolder?: string;
@@ -62433,7 +62008,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
-
 	/**
  	 * Optional="false" A unique name for the dimension.
 	 */
@@ -62456,7 +62030,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCube {
-
 	/**
  	 * Optional="false" A unique name for the cube.
 	 */
@@ -62484,7 +62057,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCube {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadata {
-
 	/**
  	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -62497,7 +62069,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadata {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptions {
-
 	/**
  	 * Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -62514,8 +62085,8 @@ interface IgPivotViewDataSourceOptionsFlatDataOptions {
 	dataSourceType?: string;
 
 	/**
- 	 * See $.ig.DataSource. 
-	 * string  Specifies the name of the property in which data records are held if the response is wrapped. 
+ 	 * See $.ig.DataSource.
+	 * string  Specifies the name of the property in which data records are held if the response is wrapped.
 	 * null  Option is ignored.
 	 */
 	responseDataKey?: string;
@@ -62538,7 +62109,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptions {
 }
 
 interface IgPivotViewDataSourceOptions {
-
 	/**
  	 * Settings for creating an instance of $.ig.OlapXmlaDataSource.
 	 */
@@ -62576,7 +62146,6 @@ interface IgPivotViewDataSourceOptions {
 }
 
 interface IgPivotViewPivotGridOptionsLevelSortDirection {
-
 	/**
  	 * Specifies the unique name of the level, which will be sorted.
 	 */
@@ -62595,7 +62164,6 @@ interface IgPivotViewPivotGridOptionsLevelSortDirection {
 }
 
 interface IgPivotViewPivotGridOptionsGridOptionsFeatures {
-
 	/**
  	 * Option for IgPivotViewPivotGridOptionsGridOptionsFeatures
 	 */
@@ -62603,7 +62171,6 @@ interface IgPivotViewPivotGridOptionsGridOptionsFeatures {
 }
 
 interface IgPivotViewPivotGridOptionsGridOptions {
-
 	/**
  	 * Default column width that will be set for all columns.
 	 *
@@ -62650,7 +62217,6 @@ interface IgPivotViewPivotGridOptionsGridOptions {
 }
 
 interface IgPivotViewPivotGridOptionsDragAndDropSettings {
-
 	/**
  	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -62674,7 +62240,6 @@ interface IgPivotViewPivotGridOptionsDragAndDropSettings {
 }
 
 interface IgPivotViewPivotGridOptions {
-
 	/**
  	 * A boolean value indicating whether a parent in the columns is in front of its children.
 	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
@@ -62815,7 +62380,6 @@ interface IgPivotViewPivotGridOptions {
 }
 
 interface IgPivotViewDataSelectorOptionsDragAndDropSettings {
-
 	/**
  	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -62839,7 +62403,6 @@ interface IgPivotViewDataSelectorOptionsDragAndDropSettings {
 }
 
 interface IgPivotViewDataSelectorOptions {
-
 	/**
  	 * Settings for the drag and drop functionality of the igPivotDataSelector.
 	 */
@@ -62866,7 +62429,6 @@ interface IgPivotViewDataSelectorOptions {
 }
 
 interface IgPivotViewPivotGridPanel {
-
 	/**
  	 * Determines if the panel containing the igPivotGrid will be resizable.
 	 */
@@ -62899,7 +62461,6 @@ interface IgPivotViewPivotGridPanel {
 }
 
 interface IgPivotViewDataSelectorPanel {
-
 	/**
  	 * Determines the position of the data selector panel inside the igPivotView widget.
 	 */
@@ -62977,7 +62538,6 @@ interface IgPivotView {
 	[optionName: string]: any;
 }
 interface IgPivotViewMethods {
-
 	/**
  	 * Returns the igPivotGrid instance of the pivot view.
 	 */
@@ -63002,7 +62562,7 @@ interface IgPivotViewMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igPivotView"):IgPivotViewMethods;
+	data(propertyName: "igPivotView"): IgPivotViewMethods;
 }
 
 interface JQuery {
@@ -63107,7 +62667,6 @@ interface JQuery {
 	igPivotView(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPopover {
-
 	/**
  	 * Controls whether the popover will close on blur or not
 	 */
@@ -63256,7 +62815,6 @@ interface IgPopover {
 	[optionName: string]: any;
 }
 interface IgPopoverMethods {
-
 	/**
  	 * Destroys the popover widget.
 	 */
@@ -63315,7 +62873,7 @@ interface IgPopoverMethods {
 	setCoordinates(pos: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igPopover"):IgPopoverMethods;
+	data(propertyName: "igPopover"): IgPopoverMethods;
 }
 
 interface JQuery {
@@ -63606,7 +63164,6 @@ interface JQuery {
 	igPopover(methodName: string, ...methodParams: any[]): any;
 }
 interface IgRadialGaugeRange {
-
 	/**
  	 * Gets or sets the name of the range.
 	 */
@@ -63669,7 +63226,6 @@ interface IgRadialGaugeRange {
 }
 
 interface IgRadialGauge {
-
 	/**
  	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -63741,7 +63297,7 @@ interface IgRadialGauge {
  	 * Gets or sets the direction in which the scale sweeps around the center from the start angle to end angle.
 	 *
 	 * Valid values:
-	 * "counterclockwise" 
+	 * "counterclockwise"
 	 * "clockwise"
 	 */
 	scaleSweepDirection?: string;
@@ -63767,7 +63323,7 @@ interface IgRadialGauge {
 	needleOutline?: string;
 
 	/**
- 	 * Gets or sets the extent (from -1 to 1) at which to start rendering the needle, measured from the center of the gauge. 
+ 	 * Gets or sets the extent (from -1 to 1) at which to start rendering the needle, measured from the center of the gauge.
 	 * Values further from zero than 1 can be used to make this extend further than the normal radius of the gauge.
 	 */
 	needleStartExtent?: number;
@@ -63782,14 +63338,14 @@ interface IgRadialGauge {
  	 * Gets or sets the shape to use when rendering the needle from a number of options.
 	 *
 	 * Valid values:
-	 * "none" 
-	 * "rectangle" 
-	 * "triangle" 
-	 * "needle" 
-	 * "trapezoid" 
-	 * "rectangleWithBulb" 
-	 * "triangleWithBulb" 
-	 * "needleWithBulb" 
+	 * "none"
+	 * "rectangle"
+	 * "triangle"
+	 * "needle"
+	 * "trapezoid"
+	 * "rectangleWithBulb"
+	 * "triangleWithBulb"
+	 * "needleWithBulb"
 	 * "trapezoidWithBulb"
 	 */
 	needleShape?: string;
@@ -63845,12 +63401,12 @@ interface IgRadialGauge {
  	 * Gets or sets the shape to use for the needle cap.
 	 *
 	 * Valid values:
-	 * "none" 
-	 * "circle" 
-	 * "circleWithHole" 
-	 * "circleOverlay" 
-	 * "circleOverlayWithHole" 
-	 * "circleUnderlay" 
+	 * "none"
+	 * "circle"
+	 * "circleWithHole"
+	 * "circleOverlay"
+	 * "circleOverlayWithHole"
+	 * "circleUnderlay"
 	 * "circleUnderlayWithHole"
 	 */
 	needlePivotShape?: string;
@@ -63991,8 +63547,8 @@ interface IgRadialGauge {
  	 * Gets or sets the over or shape to use for the excess fill area for the scale.
 	 *
 	 * Valid values:
-	 * "auto" 
-	 * "circular" 
+	 * "auto"
+	 * "circular"
 	 * "fitted"
 	 */
 	scaleOversweepShape?: string;
@@ -64011,14 +63567,14 @@ interface IgRadialGauge {
  	 * Gets or sets the type of shape to use for the backing of the gauge.
 	 *
 	 * Valid values:
-	 * "circular" 
+	 * "circular"
 	 * "fitted"
 	 */
 	backingShape?: string;
 
 	/**
- 	 * Gets or sets the multiplying factor to apply to the normal radius of the gauge. 
-	 * The radius of the gauge is defined by the minimum of the width and height of the control divided by 2.0. 
+ 	 * Gets or sets the multiplying factor to apply to the normal radius of the gauge.
+	 * The radius of the gauge is defined by the minimum of the width and height of the control divided by 2.0.
 	 * This introduces a multiplicative factor to that value.
 	 */
 	radiusMultiplier?: number;
@@ -64027,9 +63583,9 @@ interface IgRadialGauge {
  	 * Gets or sets the strategy to use for omitting labels if the first and last label have the same value.
 	 *
 	 * Valid values:
-	 * "omitLast" 
-	 * "omitFirst" 
-	 * "omitNeither" 
+	 * "omitLast"
+	 * "omitFirst"
+	 * "omitNeither"
 	 * "omitBoth"
 	 */
 	duplicateLabelOmissionStrategy?: string;
@@ -64072,7 +63628,6 @@ interface IgRadialGauge {
 	[optionName: string]: any;
 }
 interface IgRadialGaugeMethods {
-
 	/**
  	 * Returns a string containing the names of all the ranges delimited with a \n symbol.
 	 */
@@ -64081,21 +63636,21 @@ interface IgRadialGaugeMethods {
 	/**
  	 * Adds a new range to the radial gauge.
 	 *
-	 * @param value 
+	 * @param value
 	 */
 	addRange(value: Object): void;
 
 	/**
  	 * Removes a specified range.
 	 *
-	 * @param value 
+	 * @param value
 	 */
 	removeRange(value: Object): void;
 
 	/**
  	 * Updates the range.
 	 *
-	 * @param value 
+	 * @param value
 	 */
 	updateRange(value: Object): void;
 
@@ -64107,38 +63662,38 @@ interface IgRadialGaugeMethods {
 	/**
  	 * Scales a value on the gauge's main scale to an angle around the center point of the gauge, in radians.
 	 *
-	 * @param value 
+	 * @param value
 	 */
 	scaleValue(value: Object): void;
 
 	/**
  	 * Unscales a value from an angle in radians to the represented value along the main scale of the gauge.
 	 *
-	 * @param value 
+	 * @param value
 	 */
 	unscaleValue(value: Object): void;
 
 	/**
  	 * Gets the value for the main scale of the gauge for a given point within the bounds of the gauge.
 	 *
-	 * @param x 
-	 * @param y 
+	 * @param x
+	 * @param y
 	 */
 	getValueForPoint(x: Object, y: Object): number;
 
 	/**
  	 * Gets the point on the gauge for a given scale value and extent.
 	 *
-	 * @param value 
-	 * @param extent 
+	 * @param value
+	 * @param extent
 	 */
 	getPointForValue(value: Object, extent: Object): void;
 
 	/**
  	 * Returns true if the main gauge needle bounding box contains the point provided, otherwise false.
 	 *
-	 * @param x 
-	 * @param y 
+	 * @param x
+	 * @param y
 	 */
 	needleContainsPoint(x: Object, y: Object): void;
 
@@ -64163,7 +63718,7 @@ interface IgRadialGaugeMethods {
 	styleUpdated(): void;
 }
 interface JQuery {
-	data(propertyName: "igRadialGauge"):IgRadialGaugeMethods;
+	data(propertyName: "igRadialGauge"): IgRadialGaugeMethods;
 }
 
 interface JQuery {
@@ -64403,13 +63958,13 @@ interface JQuery {
 	igRadialGauge(optionLiteral: 'option', optionName: "needleOutline", optionValue: string): void;
 
 	/**
-	 * Gets  the extent (from -1 to 1) at which to start rendering the needle, measured from the center of the gauge. 
+	 * Gets  the extent (from -1 to 1) at which to start rendering the needle, measured from the center of the gauge.
 	 * Values further from zero than 1 can be used to make this extend further than the normal radius of the gauge.
 	 */
 	igRadialGauge(optionLiteral: 'option', optionName: "needleStartExtent"): number;
 
 	/**
-	 * Sets the extent (from -1 to 1) at which to start rendering the needle, measured from the center of the gauge. 
+	 * Sets the extent (from -1 to 1) at which to start rendering the needle, measured from the center of the gauge.
 	 * Values further from zero than 1 can be used to make this extend further than the normal radius of the gauge.
 	 *
 	 * @optionValue New value to be set.
@@ -64927,15 +64482,15 @@ interface JQuery {
 	igRadialGauge(optionLiteral: 'option', optionName: "backingShape", optionValue: string): void;
 
 	/**
-	 * Gets  the multiplying factor to apply to the normal radius of the gauge. 
-	 * The radius of the gauge is defined by the minimum of the width and height of the control divided by 2.0. 
+	 * Gets  the multiplying factor to apply to the normal radius of the gauge.
+	 * The radius of the gauge is defined by the minimum of the width and height of the control divided by 2.0.
 	 * This introduces a multiplicative factor to that value.
 	 */
 	igRadialGauge(optionLiteral: 'option', optionName: "radiusMultiplier"): number;
 
 	/**
-	 * Sets the multiplying factor to apply to the normal radius of the gauge. 
-	 * The radius of the gauge is defined by the minimum of the width and height of the control divided by 2.0. 
+	 * Sets the multiplying factor to apply to the normal radius of the gauge.
+	 * The radius of the gauge is defined by the minimum of the width and height of the control divided by 2.0.
 	 * This introduces a multiplicative factor to that value.
 	 *
 	 * @optionValue New value to be set.
@@ -65048,17 +64603,16 @@ interface JQuery {
 	igRadialGauge(methodName: string, ...methodParams: any[]): any;
 }
 interface IgRadialMenuItem {
-
 	/**
  	 * Gets or sets a value indicating what type of item is being provided.
 	 *
 	 *
 	 * Valid values:
-	 * "button" 
-	 * "coloritem" 
-	 * "colorwell" 
-	 * "list" 
-	 * "numericitem" 
+	 * "button"
+	 * "coloritem"
+	 * "colorwell"
+	 * "list"
+	 * "numericitem"
 	 * "numericgauge"
 	 */
 	type?: string;
@@ -65369,7 +64923,6 @@ interface ClosedEvent {
 }
 
 interface ClosedEventUIParam {
-
 	/**
  	 * Used to obtain reference to menu widget.
 	 */
@@ -65381,7 +64934,6 @@ interface OpenedEvent {
 }
 
 interface OpenedEventUIParam {
-
 	/**
  	 * Used to obtain reference to menu widget.
 	 */
@@ -65389,7 +64941,6 @@ interface OpenedEventUIParam {
 }
 
 interface IgRadialMenu {
-
 	/**
  	 * Gets or sets the items in the menu.
 	 */
@@ -65541,7 +65092,6 @@ interface IgRadialMenu {
 	[optionName: string]: any;
 }
 interface IgRadialMenuMethods {
-
 	/**
  	 * Gets or sets the value of a property for the item created with the specified key
 	 *
@@ -65572,7 +65122,7 @@ interface IgRadialMenuMethods {
 	styleUpdated(): void;
 }
 interface JQuery {
-	data(propertyName: "igRadialMenu"):IgRadialMenuMethods;
+	data(propertyName: "igRadialMenu"): IgRadialMenuMethods;
 }
 
 interface JQuery {
@@ -65944,7 +65494,6 @@ interface HoverChangeEvent {
 }
 
 interface HoverChangeEventUIParam {
-
 	/**
  	 * Used to get new value.
 	 */
@@ -65961,7 +65510,6 @@ interface ValueChangeEvent {
 }
 
 interface ValueChangeEventUIParam {
-
 	/**
  	 * Used to get new value.
 	 */
@@ -65974,7 +65522,6 @@ interface ValueChangeEventUIParam {
 }
 
 interface IgRating {
-
 	/**
  	 * Gets a vertical or horizontal orientation for the votes.
 	 * Change of that option is not supported after igRating was created.
@@ -66101,7 +65648,7 @@ interface IgRating {
 	/**
  	 * Event which is raised before hover value is changed.
 	 * If application returns false, then action is canceled and hover value stays unchanged.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.value to get new value.
 	 * Use ui.oldValue to get old value.
@@ -66111,7 +65658,7 @@ interface IgRating {
 	/**
  	 * Event which is raised before (selected) value is changed.
 	 * If application returns false, then action is canceled and value stays unchanged.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.value to get new value.
 	 * Use ui.oldValue to get old value.
@@ -66124,7 +65671,6 @@ interface IgRating {
 	[optionName: string]: any;
 }
 interface IgRatingMethods {
-
 	/**
  	 * Gets reference to [igValidator](ui.igvalidator) used by igRating.
 	 *
@@ -66169,7 +65715,7 @@ interface IgRatingMethods {
 	destroy(): Object;
 }
 interface JQuery {
-	data(propertyName: "igRating"):IgRatingMethods;
+	data(propertyName: "igRating"): IgRatingMethods;
 }
 
 interface JQuery {
@@ -66450,7 +65996,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before hover value is changed.
 	 * If application returns false, then action is canceled and hover value stays unchanged.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.value to get new value.
 	 * Use ui.oldValue to get old value.
@@ -66460,7 +66006,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before hover value is changed.
 	 * If application returns false, then action is canceled and hover value stays unchanged.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.value to get new value.
 	 * Use ui.oldValue to get old value.
@@ -66472,7 +66018,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before (selected) value is changed.
 	 * If application returns false, then action is canceled and value stays unchanged.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.value to get new value.
 	 * Use ui.oldValue to get old value.
@@ -66482,7 +66028,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before (selected) value is changed.
 	 * If application returns false, then action is canceled and value stays unchanged.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.value to get new value.
 	 * Use ui.oldValue to get old value.
@@ -66501,7 +66047,6 @@ interface ScrollingEvent {
 }
 
 interface ScrollingEventUIParam {
-
 	/**
  	 * Used to obtain reference to igScroll.
 	 */
@@ -66538,7 +66083,6 @@ interface ScrolledEvent {
 }
 
 interface ScrolledEventUIParam {
-
 	/**
  	 * Used to obtain reference to igScroll.
 	 */
@@ -66565,7 +66109,6 @@ interface ThumbDragStartEvent {
 }
 
 interface ThumbDragStartEventUIParam {
-
 	/**
  	 * Used to obtain reference to igScroll.
 	 */
@@ -66582,7 +66125,6 @@ interface ThumbDragMoveEvent {
 }
 
 interface ThumbDragMoveEventUIParam {
-
 	/**
  	 * Used to obtain reference to igScroll.
 	 */
@@ -66609,7 +66151,6 @@ interface ThumbDragEndEvent {
 }
 
 interface ThumbDragEndEventUIParam {
-
 	/**
  	 * Used to obtain reference to igScroll.
 	 */
@@ -66622,7 +66163,6 @@ interface ThumbDragEndEventUIParam {
 }
 
 interface IgScroll {
-
 	/**
  	 * Sets or gets if the scrollbars should be always visible (on all environments). Otherwise it will be the default behavior. Note: this option is only for the custom scrollbars set through the scrollbarType option.
 	 *
@@ -66858,7 +66398,7 @@ interface IgScrollMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igScroll"):IgScrollMethods;
+	data(propertyName: "igScroll"): IgScrollMethods;
 }
 
 interface JQuery {
@@ -67391,11 +66931,10 @@ interface IgLoadingMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igLoading"):IgLoadingMethods;
+	data(propertyName: "igLoading"): IgLoadingMethods;
 }
 
 interface IgSliderBookmarks {
-
 	/**
  	 * Get or set the bookmark value. Should be between slider min and max values.
 	 */
@@ -67465,7 +67004,6 @@ interface BookmarkClickEventUIParam {
 }
 
 interface IgSlider {
-
 	/**
  	 * Get or set whether the slide handle will animate when it is moved.
 	 */
@@ -67553,7 +67091,7 @@ interface IgSliderMethods {
 	value(newValue: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igSlider"):IgSliderMethods;
+	data(propertyName: "igSlider"): IgSliderMethods;
 }
 
 interface IgProgressBar {
@@ -67585,7 +67123,7 @@ interface IgProgressBarMethods {
 	value(newValue: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igProgressBar"):IgProgressBarMethods;
+	data(propertyName: "igProgressBar"): IgProgressBarMethods;
 }
 
 interface IgButtonLink {
@@ -67631,7 +67169,7 @@ interface IgButtonMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igButton"):IgButtonMethods;
+	data(propertyName: "igButton"): IgButtonMethods;
 }
 
 interface IgTooltip {
@@ -67647,7 +67185,7 @@ interface IgTooltipMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igTooltip"):IgTooltipMethods;
+	data(propertyName: "igTooltip"): IgTooltipMethods;
 }
 
 interface CaptureEvent {
@@ -67675,11 +67213,10 @@ interface MouseWrapperMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "mouseWrapper"):MouseWrapperMethods;
+	data(propertyName: "mouseWrapper"): MouseWrapperMethods;
 }
 
 interface IgResponsiveContainer {
-
 	/**
  	 * The time between two resize checks in milliseconds.
 	 */
@@ -67691,7 +67228,6 @@ interface IgResponsiveContainer {
 	[optionName: string]: any;
 }
 interface IgResponsiveContainerMethods {
-
 	/**
  	 * Destroys the ResponsiveContainer widget
 	 */
@@ -67725,7 +67261,7 @@ interface IgResponsiveContainerMethods {
 	addCallback(callback: Function, owner: Object, reactionStep: number, reactionDirection: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igResponsiveContainer"):IgResponsiveContainerMethods;
+	data(propertyName: "igResponsiveContainer"): IgResponsiveContainerMethods;
 }
 
 interface JQuery {
@@ -68253,7 +67789,6 @@ interface JQuery {
 	igResponsiveContainer(methodName: string, ...methodParams: any[]): any;
 }
 interface IgSparkline {
-
 	/**
  	 * The width of the sparkline. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -68328,7 +67863,7 @@ interface IgSparkline {
  	 * Gets or sets the display state of the horizontal axis.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	horizontalAxisVisibility?: string;
@@ -68337,7 +67872,7 @@ interface IgSparkline {
  	 * Gets or sets the display state of the vertical axis.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	verticalAxisVisibility?: string;
@@ -68346,7 +67881,7 @@ interface IgSparkline {
  	 * Gets or sets the marker visibility of the sparkline.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	markerVisibility?: string;
@@ -68355,7 +67890,7 @@ interface IgSparkline {
  	 * Gets or sets the negative marker visibility of the sparkline.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	negativeMarkerVisibility?: string;
@@ -68364,7 +67899,7 @@ interface IgSparkline {
  	 * Gets or sets the first marker visibility of the sparkline.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	firstMarkerVisibility?: string;
@@ -68373,7 +67908,7 @@ interface IgSparkline {
  	 * Gets or sets the last marker visibility of the sparkline.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	lastMarkerVisibility?: string;
@@ -68382,7 +67917,7 @@ interface IgSparkline {
  	 * Gets or sets the low marker visibility of the sparkline.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	lowMarkerVisibility?: string;
@@ -68391,7 +67926,7 @@ interface IgSparkline {
  	 * Gets or sets the high marker visibility of the sparkline.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	highMarkerVisibility?: string;
@@ -68400,7 +67935,7 @@ interface IgSparkline {
  	 * Gets or sets the normal range visibility of the sparkline.
 	 *
 	 * Valid values:
-	 * "visible" 
+	 * "visible"
 	 * "collapsed"
 	 */
 	normalRangeVisibility?: string;
@@ -68459,19 +67994,19 @@ interface IgSparkline {
  	 * Gets or sets the type of trendline used by the sparkline.
 	 *
 	 * Valid values:
-	 * "none" 
-	 * "linearFit" 
-	 * "quadraticFit" 
-	 * "cubicFit" 
-	 * "quarticFit" 
-	 * "quinticFit" 
-	 * "logarithmicFit" 
-	 * "exponentialFit" 
-	 * "powerLawFit" 
-	 * "simpleAverage" 
-	 * "exponentialAverage" 
-	 * "modifiedAverage" 
-	 * "cumulativeAverage" 
+	 * "none"
+	 * "linearFit"
+	 * "quadraticFit"
+	 * "cubicFit"
+	 * "quarticFit"
+	 * "quinticFit"
+	 * "logarithmicFit"
+	 * "exponentialFit"
+	 * "powerLawFit"
+	 * "simpleAverage"
+	 * "exponentialAverage"
+	 * "modifiedAverage"
+	 * "cumulativeAverage"
 	 * "weightedAverage"
 	 */
 	trendLineType?: string;
@@ -68511,7 +68046,7 @@ interface IgSparkline {
  	 * Gets or sets the way null values are interpreted.
 	 *
 	 * Valid values:
-	 * "linearInterpolate" 
+	 * "linearInterpolate"
 	 * "dontPlot"
 	 */
 	unknownValuePlotting?: string;
@@ -68718,7 +68253,7 @@ interface IgSparklineMethods {
 	dataBind(): void;
 }
 interface JQuery {
-	data(propertyName: "igSparkline"):IgSparklineMethods;
+	data(propertyName: "igSparkline"): IgSparklineMethods;
 }
 
 interface JQuery {
@@ -69449,7 +68984,6 @@ interface JQuery {
 	igSparkline(methodName: string, ...methodParams: any[]): any;
 }
 interface IgSplitButtonItem {
-
 	/**
  	 * Item name
 	 */
@@ -69472,7 +69006,6 @@ interface IgSplitButtonItem {
 }
 
 interface IgSplitButton {
-
 	/**
  	 * Button items.
 	 *
@@ -69493,7 +69026,7 @@ interface IgSplitButton {
 
 	/**
  	 * Event fired when the button is clicked.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.item to get a reference the igSplitButton element.
 	 */
@@ -69501,7 +69034,7 @@ interface IgSplitButton {
 
 	/**
  	 * Event fired after the button is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69509,7 +69042,7 @@ interface IgSplitButton {
 
 	/**
  	 * Event fired before a button item is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69517,7 +69050,7 @@ interface IgSplitButton {
 
 	/**
  	 * Event fired after the button is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69525,7 +69058,7 @@ interface IgSplitButton {
 
 	/**
  	 * Event fired before a button item is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69537,7 +69070,6 @@ interface IgSplitButton {
 	[optionName: string]: any;
 }
 interface IgSplitButtonMethods {
-
 	/**
  	 * Switch to given igToolbar button.
 	 *
@@ -69573,7 +69105,7 @@ interface IgSplitButtonMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igSplitButton"):IgSplitButtonMethods;
+	data(propertyName: "igSplitButton"): IgSplitButtonMethods;
 }
 
 interface JQuery {
@@ -69628,7 +69160,7 @@ interface JQuery {
 
 	/**
 	 * Event fired when the button is clicked.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.item to get a reference the igSplitButton element.
 	 */
@@ -69636,7 +69168,7 @@ interface JQuery {
 
 	/**
 	 * Event fired when the button is clicked.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.item to get a reference the igSplitButton element.
 	 *
@@ -69646,7 +69178,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69654,7 +69186,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -69664,7 +69196,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69672,7 +69204,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is expanded.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -69682,7 +69214,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69690,7 +69222,7 @@ interface JQuery {
 
 	/**
 	 * Event fired after the button is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -69700,7 +69232,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 */
@@ -69708,7 +69240,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a button item is collapsed.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference the igSplitButton.
 	 *
@@ -69722,7 +69254,6 @@ interface JQuery {
 	igSplitButton(methodName: string, ...methodParams: any[]): any;
 }
 interface IgSplitterPanel {
-
 	/**
  	 * Gets the size of the panel
 	 *
@@ -69770,7 +69301,6 @@ interface ResizeStartedEvent {
 }
 
 interface ResizeStartedEventUIParam {
-
 	/**
  	 * Used to get a reference to the splitter instance.
 	 */
@@ -69782,7 +69312,6 @@ interface ResizingEvent {
 }
 
 interface ResizingEventUIParam {
-
 	/**
  	 * Used to get a reference to the splitter instance.
 	 */
@@ -69794,7 +69323,6 @@ interface ResizeEndedEvent {
 }
 
 interface ResizeEndedEventUIParam {
-
 	/**
  	 * Used to get a reference to the splitter instance.
 	 */
@@ -69806,7 +69334,6 @@ interface LayoutRefreshingEvent {
 }
 
 interface LayoutRefreshingEventUIParam {
-
 	/**
  	 * Used to get a reference to the splitter instance.
 	 */
@@ -69818,7 +69345,6 @@ interface LayoutRefreshedEvent {
 }
 
 interface LayoutRefreshedEventUIParam {
-
 	/**
  	 * Used to get a reference to the splitter instance.
 	 */
@@ -69826,7 +69352,6 @@ interface LayoutRefreshedEventUIParam {
 }
 
 interface IgSplitter {
-
 	/**
  	 * Gets/Sets the width of the container.
 	 *
@@ -69875,7 +69400,7 @@ interface IgSplitter {
 
 	/**
  	 * Fired after collapsing is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *                 Use ui.index to get an index of collapsed panel.
@@ -69884,7 +69409,7 @@ interface IgSplitter {
 
 	/**
  	 * Fired after expanding is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *                 Use ui.index to get an index of expanded panel.
@@ -69893,7 +69418,7 @@ interface IgSplitter {
 
 	/**
  	 * Fired before split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -69901,7 +69426,7 @@ interface IgSplitter {
 
 	/**
  	 * Fired while split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -69909,7 +69434,7 @@ interface IgSplitter {
 
 	/**
  	 * Fired after split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -69917,7 +69442,7 @@ interface IgSplitter {
 
 	/**
  	 * Fired before the panels are refreshed because of browser"s resizing.
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -69925,7 +69450,7 @@ interface IgSplitter {
 
 	/**
  	 * Fired after the panels are refreshed because of browser"s resizing.
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -69937,7 +69462,6 @@ interface IgSplitter {
 	[optionName: string]: any;
 }
 interface IgSplitterMethods {
-
 	/**
  	 * Returns the element that represents this widget.
 	 */
@@ -69992,7 +69516,7 @@ interface IgSplitterMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igSplitter"):IgSplitterMethods;
+	data(propertyName: "igSplitter"): IgSplitterMethods;
 }
 
 interface JQuery {
@@ -70092,7 +69616,7 @@ interface JQuery {
 
 	/**
 	 * Fired after collapsing is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *                 Use ui.index to get an index of collapsed panel.
@@ -70101,7 +69625,7 @@ interface JQuery {
 
 	/**
 	 * Fired after collapsing is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *                 Use ui.index to get an index of collapsed panel.
@@ -70112,7 +69636,7 @@ interface JQuery {
 
 	/**
 	 * Fired after expanding is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *                 Use ui.index to get an index of expanded panel.
@@ -70121,7 +69645,7 @@ interface JQuery {
 
 	/**
 	 * Fired after expanding is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *                 Use ui.index to get an index of expanded panel.
@@ -70132,7 +69656,7 @@ interface JQuery {
 
 	/**
 	 * Fired before split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -70140,7 +69664,7 @@ interface JQuery {
 
 	/**
 	 * Fired before split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *
@@ -70150,7 +69674,7 @@ interface JQuery {
 
 	/**
 	 * Fired while split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -70158,7 +69682,7 @@ interface JQuery {
 
 	/**
 	 * Fired while split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *
@@ -70168,7 +69692,7 @@ interface JQuery {
 
 	/**
 	 * Fired after split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -70176,7 +69700,7 @@ interface JQuery {
 
 	/**
 	 * Fired after split bar move is performed
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *
@@ -70186,7 +69710,7 @@ interface JQuery {
 
 	/**
 	 * Fired before the panels are refreshed because of browser"s resizing.
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -70194,7 +69718,7 @@ interface JQuery {
 
 	/**
 	 * Fired before the panels are refreshed because of browser"s resizing.
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *
@@ -70204,7 +69728,7 @@ interface JQuery {
 
 	/**
 	 * Fired after the panels are refreshed because of browser"s resizing.
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 */
@@ -70212,7 +69736,7 @@ interface JQuery {
 
 	/**
 	 * Fired after the panels are refreshed because of browser"s resizing.
-	 *                 
+	 *
 	 *                 Function takes arguments evt and ui.
 	 *                 Use ui.owner to get a reference to the splitter instance.
 	 *
@@ -70226,10 +69750,9 @@ interface JQuery {
 	igSplitter(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTileManagerSplitterOptionsEvents {
-
 	/**
  	 * Event fired after collapsing is performed. Not cancellable.
-	 *                     
+	 *
 	 *                     Function takes arguments evt and ui.
 	 *                     Use ui.owner to get a reference to the splitter instance.
 	 *                     Use ui.index to get an index of collased panel.
@@ -70238,7 +69761,7 @@ interface IgTileManagerSplitterOptionsEvents {
 
 	/**
  	 * Event fired after expanding is performed. Not cancellable.
-	 *                     
+	 *
 	 *                     Function takes arguments evt and ui.
 	 *                     Use ui.owner to get a reference to the splitter instance.
 	 *                     Use ui.index to get an index of expanded panel.
@@ -70252,7 +69775,6 @@ interface IgTileManagerSplitterOptionsEvents {
 }
 
 interface IgTileManagerSplitterOptions {
-
 	/**
  	 * Gets/Sets whether the splitter should be enabled.
 	 *
@@ -70288,7 +69810,6 @@ interface TileRenderingEvent {
 }
 
 interface TileRenderingEventUIParam {
-
 	/**
  	 * Used to get a reference to the tile manager performing rendering.
 	 */
@@ -70305,7 +69826,6 @@ interface TileRenderedEvent {
 }
 
 interface TileRenderedEventUIParam {
-
 	/**
  	 * Used to get a reference to the tile manager performing rendering.
 	 */
@@ -70322,7 +69842,6 @@ interface TileMaximizingEvent {
 }
 
 interface TileMaximizingEventUIParam {
-
 	/**
  	 * Used to get a reference to the tile manager performing the maximizing the tile belongs to.
 	 */
@@ -70344,7 +69863,6 @@ interface TileMaximizedEvent {
 }
 
 interface TileMaximizedEventUIParam {
-
 	/**
  	 * Used to get a reference to the tile manager the maximized tile belongs to.
 	 */
@@ -70361,7 +69879,6 @@ interface TileMinimizingEvent {
 }
 
 interface TileMinimizingEventUIParam {
-
 	/**
  	 * Used to get a reference to the tile manager performing the minimizing the tile belongs to.
 	 */
@@ -70383,7 +69900,6 @@ interface TileMinimizedEvent {
 }
 
 interface TileMinimizedEventUIParam {
-
 	/**
  	 * Used to get a reference to the tile manager the minimized tile belongs to.
 	 */
@@ -70396,9 +69912,8 @@ interface TileMinimizedEventUIParam {
 }
 
 interface IgTileManager {
-
 	/**
- 	 * 
+ 	 *
 	 *
 	 * Valid values:
 	 * "string" The container width can be set in pixels (px) and percentage (%).
@@ -70461,14 +69976,14 @@ interface IgTileManager {
 
 	/**
  	 * Gets/Sets the horizontal spacing between tiles.
-	 *             
+	 *
 	 *                 number  The horizontal spacing between tiles can be set as a number.
 	 */
 	marginLeft?: number;
 
 	/**
  	 * Gets/Sets the vertical spacing between tiles.
-	 *             
+	 *
 	 *                 number  The vertical spacing between tiles can be set as a number.
 	 */
 	marginTop?: number;
@@ -70625,7 +70140,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired before databinding is performed
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing databinding.
 	 *             Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) the tile manager is to be databound to.
@@ -70634,7 +70149,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired after databinding is complete
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing databinding.
 	 *             Use ui.dataView to get a reference to the data the tile manager is databound to.
@@ -70645,7 +70160,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired before rendering of the tile manager begins.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tiles to get a reference to the tiles the tile manager is going to render. If using data source this referes to the data provided.
@@ -70655,7 +70170,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired after rendering of the tile manager completes.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 */
@@ -70663,7 +70178,7 @@ interface IgTileManager {
 
 	/**
  	 * Event fired before a tile is rendered in the container
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tile to get a reference to the tile being rendered
@@ -70672,7 +70187,7 @@ interface IgTileManager {
 
 	/**
  	 * Event Fired after a tile has been rendered in the container
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tile to get a reference to the rendered tile
@@ -70681,7 +70196,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired before a tile in the tile manager is maximized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing the maximizing the tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the tile being maximized
@@ -70691,7 +70206,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired after a tile in the tile manager is maximized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager the maximized tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the maximized tile
@@ -70700,7 +70215,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired before a tile in the tile manager is minimized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing the minimizing the tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the tile being minimized
@@ -70710,7 +70225,7 @@ interface IgTileManager {
 
 	/**
  	 * Fired after a tile in the tile manager is minimized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager the minimized tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the minimized tile
@@ -70723,7 +70238,6 @@ interface IgTileManager {
 	[optionName: string]: any;
 }
 interface IgTileManagerMethods {
-
 	/**
  	 * Maximizes a given tile.
 	 *
@@ -70790,7 +70304,7 @@ interface IgTileManagerMethods {
 	destroy(): Object;
 }
 interface JQuery {
-	data(propertyName: "igTileManager"):IgTileManagerMethods;
+	data(propertyName: "igTileManager"): IgTileManagerMethods;
 }
 
 interface JQuery {
@@ -70889,14 +70403,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets the horizontal spacing between tiles.
-	 *             
+	 *
 	 *                 number  The horizontal spacing between tiles can be set as a number.
 	 */
 	igTileManager(optionLiteral: 'option', optionName: "marginLeft"): number;
 
 	/**
 	 * /Sets the horizontal spacing between tiles.
-	 *             
+	 *
 	 *                 number  The horizontal spacing between tiles can be set as a number.
 	 *
 	 * @optionValue New value to be set.
@@ -70905,14 +70419,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets the vertical spacing between tiles.
-	 *             
+	 *
 	 *                 number  The vertical spacing between tiles can be set as a number.
 	 */
 	igTileManager(optionLiteral: 'option', optionName: "marginTop"): number;
 
 	/**
 	 * /Sets the vertical spacing between tiles.
-	 *             
+	 *
 	 *                 number  The vertical spacing between tiles can be set as a number.
 	 *
 	 * @optionValue New value to be set.
@@ -71187,7 +70701,7 @@ interface JQuery {
 
 	/**
 	 * Fired before databinding is performed
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing databinding.
 	 *             Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) the tile manager is to be databound to.
@@ -71196,7 +70710,7 @@ interface JQuery {
 
 	/**
 	 * Fired before databinding is performed
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing databinding.
 	 *             Use ui.dataSource to get a reference to the [$.ig.DataSource](ig.datasource) the tile manager is to be databound to.
@@ -71207,7 +70721,7 @@ interface JQuery {
 
 	/**
 	 * Fired after databinding is complete
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing databinding.
 	 *             Use ui.dataView to get a reference to the data the tile manager is databound to.
@@ -71218,7 +70732,7 @@ interface JQuery {
 
 	/**
 	 * Fired after databinding is complete
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing databinding.
 	 *             Use ui.dataView to get a reference to the data the tile manager is databound to.
@@ -71231,7 +70745,7 @@ interface JQuery {
 
 	/**
 	 * Fired before rendering of the tile manager begins.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tiles to get a reference to the tiles the tile manager is going to render. If using data source this referes to the data provided.
@@ -71241,7 +70755,7 @@ interface JQuery {
 
 	/**
 	 * Fired before rendering of the tile manager begins.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tiles to get a reference to the tiles the tile manager is going to render. If using data source this referes to the data provided.
@@ -71253,7 +70767,7 @@ interface JQuery {
 
 	/**
 	 * Fired after rendering of the tile manager completes.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 */
@@ -71261,7 +70775,7 @@ interface JQuery {
 
 	/**
 	 * Fired after rendering of the tile manager completes.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *
@@ -71271,7 +70785,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a tile is rendered in the container
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tile to get a reference to the tile being rendered
@@ -71280,7 +70794,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before a tile is rendered in the container
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tile to get a reference to the tile being rendered
@@ -71291,7 +70805,7 @@ interface JQuery {
 
 	/**
 	 * Event Fired after a tile has been rendered in the container
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tile to get a reference to the rendered tile
@@ -71300,7 +70814,7 @@ interface JQuery {
 
 	/**
 	 * Event Fired after a tile has been rendered in the container
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing rendering.
 	 *             Use ui.tile to get a reference to the rendered tile
@@ -71311,7 +70825,7 @@ interface JQuery {
 
 	/**
 	 * Fired before a tile in the tile manager is maximized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing the maximizing the tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the tile being maximized
@@ -71321,7 +70835,7 @@ interface JQuery {
 
 	/**
 	 * Fired before a tile in the tile manager is maximized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing the maximizing the tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the tile being maximized
@@ -71333,7 +70847,7 @@ interface JQuery {
 
 	/**
 	 * Fired after a tile in the tile manager is maximized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager the maximized tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the maximized tile
@@ -71342,7 +70856,7 @@ interface JQuery {
 
 	/**
 	 * Fired after a tile in the tile manager is maximized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager the maximized tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the maximized tile
@@ -71353,7 +70867,7 @@ interface JQuery {
 
 	/**
 	 * Fired before a tile in the tile manager is minimized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing the minimizing the tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the tile being minimized
@@ -71363,7 +70877,7 @@ interface JQuery {
 
 	/**
 	 * Fired before a tile in the tile manager is minimized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager performing the minimizing the tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the tile being minimized
@@ -71375,7 +70889,7 @@ interface JQuery {
 
 	/**
 	 * Fired after a tile in the tile manager is minimized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager the minimized tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the minimized tile
@@ -71384,7 +70898,7 @@ interface JQuery {
 
 	/**
 	 * Fired after a tile in the tile manager is minimized.
-	 *             
+	 *
 	 *             Function takes arguments evt and ui.
 	 *             Use ui.owner to get a reference to the tile manager the minimized tile belongs to.
 	 *             Use ui.tile to get the jQuery element of the minimized tile
@@ -71462,7 +70976,6 @@ interface WindowResizedEventUIParam {
 }
 
 interface IgToolbar {
-
 	/**
  	 * Set/Get the widget height.
 	 *
@@ -71588,7 +71101,6 @@ interface IgToolbar {
 	[optionName: string]: any;
 }
 interface IgToolbarMethods {
-
 	/**
  	 * Returns the element on which the widget was instantiated
 	 */
@@ -71642,7 +71154,7 @@ interface IgToolbarMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igToolbar"):IgToolbarMethods;
+	data(propertyName: "igToolbar"): IgToolbarMethods;
 }
 
 interface JQuery {
@@ -71947,7 +71459,6 @@ interface ActivatingEvent {
 }
 
 interface ActivatingEventUIParam {
-
 	/**
  	 * Used to get reference to this igToolbarButton.
 	 */
@@ -71959,7 +71470,6 @@ interface ActivatedEvent {
 }
 
 interface ActivatedEventUIParam {
-
 	/**
  	 * Used to get reference to this igToolbarButton.
 	 */
@@ -71971,7 +71481,6 @@ interface DeactivatingEvent {
 }
 
 interface DeactivatingEventUIParam {
-
 	/**
  	 * Used to get reference to this igToolbarButton.
 	 */
@@ -71983,7 +71492,6 @@ interface DeactivatedEvent {
 }
 
 interface DeactivatedEventUIParam {
-
 	/**
  	 * Used to get reference to this igToolbarButton.
 	 */
@@ -71991,7 +71499,6 @@ interface DeactivatedEventUIParam {
 }
 
 interface IgToolbarButton {
-
 	/**
  	 * Enable/Disable the "Toggling" of a button.
 	 *
@@ -72038,7 +71545,6 @@ interface IgToolbarButton {
 	[optionName: string]: any;
 }
 interface IgToolbarButtonMethods {
-
 	/**
  	 * Toggle toolbar button
 	 */
@@ -72047,14 +71553,14 @@ interface IgToolbarButtonMethods {
 	/**
  	 * Activate toolbar button
 	 *
-	 * @param event 
+	 * @param event
 	 */
 	activate(event: Object): void;
 
 	/**
  	 * Deactivate toolbar button
 	 *
-	 * @param event 
+	 * @param event
 	 */
 	deactivate(event: Object): void;
 
@@ -72069,7 +71575,7 @@ interface IgToolbarButtonMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igToolbarButton"):IgToolbarButtonMethods;
+	data(propertyName: "igToolbarButton"): IgToolbarButtonMethods;
 }
 
 interface JQuery {
@@ -72177,7 +71683,6 @@ interface JQuery {
 	igToolbarButton(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridColumnFixing {
-
 	/**
  	 * Option for igTreeGridColumnFixing
 	 */
@@ -72187,7 +71692,7 @@ interface IgTreeGridColumnFixingMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridColumnFixing"):IgTreeGridColumnFixingMethods;
+	data(propertyName: "igTreeGridColumnFixing"): IgTreeGridColumnFixingMethods;
 }
 
 interface JQuery {
@@ -72199,7 +71704,6 @@ interface JQuery {
 	igTreeGridColumnFixing(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridColumnMoving {
-
 	/**
  	 * Option for igTreeGridColumnMoving
 	 */
@@ -72209,7 +71713,7 @@ interface IgTreeGridColumnMovingMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridColumnMoving"):IgTreeGridColumnMovingMethods;
+	data(propertyName: "igTreeGridColumnMoving"): IgTreeGridColumnMovingMethods;
 }
 
 interface JQuery {
@@ -72221,7 +71725,6 @@ interface JQuery {
 	igTreeGridColumnMoving(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridFiltering {
-
 	/**
  	 * The property in the response that will hold the total number of records in the data source
 	 *
@@ -72271,7 +71774,6 @@ interface IgTreeGridFiltering {
 	[optionName: string]: any;
 }
 interface IgTreeGridFilteringMethods {
-
 	/**
  	 * Returns the count of data records that match filtering conditions
 	 */
@@ -72279,7 +71781,7 @@ interface IgTreeGridFilteringMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridFiltering"):IgTreeGridFilteringMethods;
+	data(propertyName: "igTreeGridFiltering"): IgTreeGridFilteringMethods;
 }
 
 interface JQuery {
@@ -72390,7 +71892,6 @@ interface JQuery {
 	igTreeGridFiltering(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridHiding {
-
 	/**
  	 * A list of column settings that specifies hiding options on a per column basis.
 	 *
@@ -72405,7 +71906,7 @@ interface IgTreeGridHiding {
 
 	/**
  	 * Controls containment behavior.
-	 * 
+	 *
 	 * owner  The column chooser dialog will be draggable only in the grid area
 	 * window  The column chooser dialog will be draggable in the whole window area
 	 */
@@ -72736,7 +72237,7 @@ interface IgTreeGridHidingMethods {
 	removeColumnChooserResetButton(): void;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridHiding"):IgTreeGridHidingMethods;
+	data(propertyName: "igTreeGridHiding"): IgTreeGridHidingMethods;
 }
 
 interface JQuery {
@@ -72782,7 +72283,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior.
-	 * 
+	 *
 	 * owner  The column chooser dialog will be draggable only in the grid area
 	 * window  The column chooser dialog will be draggable in the whole window area
 	 */
@@ -72790,7 +72291,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior.
-	 * 
+	 *
 	 * owner  The column chooser dialog will be draggable only in the grid area
 	 * window  The column chooser dialog will be draggable in the whole window area
 	 *
@@ -73364,7 +72865,6 @@ interface JQuery {
 	igTreeGridHiding(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridDataSourceSettings {
-
 	/**
  	 * The name of the property that keeps track of the expansion state of a data item. Defaults to __ig_options.expanded.
 	 *
@@ -73390,7 +72890,6 @@ interface IgTreeGridDataSourceSettings {
 }
 
 interface IgTreeGrid {
-
 	/**
  	 * Specifies the indentation (in pixels or percent) for a tree grid row. Nested indentation is achieved by calculating the level times the indentation value. Ex: '10px' or '5%'. Default is 30.
 	 *
@@ -73519,7 +73018,6 @@ interface IgTreeGrid {
 	[optionName: string]: any;
 }
 interface IgTreeGridMethods {
-
 	/**
  	 * Clears the transaction log (delegates to igDataSource). Note that this does not update the UI. In case the UI must be updated, set the second parameter "updateUI" to true, which will trigger a call to dataBind() to re-render the contents.
 	 *
@@ -73571,7 +73069,7 @@ interface IgTreeGridMethods {
 	destroy(): Object;
 }
 interface JQuery {
-	data(propertyName: "igTreeGrid"):IgTreeGridMethods;
+	data(propertyName: "igTreeGrid"): IgTreeGridMethods;
 }
 
 interface JQuery {
@@ -73869,7 +73367,6 @@ interface JQuery {
 	igTreeGrid(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridMultiColumnHeaders {
-
 	/**
  	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 */
@@ -73956,7 +73453,7 @@ interface IgTreeGridMultiColumnHeadersMethods {
 	getMultiColumnHeaders(): any[];
 }
 interface JQuery {
-	data(propertyName: "igTreeGridMultiColumnHeaders"):IgTreeGridMultiColumnHeadersMethods;
+	data(propertyName: "igTreeGridMultiColumnHeaders"): IgTreeGridMultiColumnHeadersMethods;
 }
 
 interface JQuery {
@@ -74076,7 +73573,6 @@ interface ContextRowRenderingEvent {
 }
 
 interface ContextRowRenderingEventUIParam {
-
 	/**
  	 * Used to get reference to igTreeGridPaging.
 	 */
@@ -74103,7 +73599,6 @@ interface ContextRowRenderedEvent {
 }
 
 interface ContextRowRenderedEventUIParam {
-
 	/**
  	 * Used to get reference to igTreeGridPaging.
 	 */
@@ -74131,7 +73626,6 @@ interface ContextRowRenderedEventUIParam {
 }
 
 interface IgTreeGridPaging {
-
 	/**
  	 * Sets gets paging mode.
 	 *
@@ -74396,7 +73890,7 @@ interface IgTreeGridPaging {
 	persist?: boolean;
 
 	/**
- 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid. 
+ 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 *
 	 */
 	inherit?: boolean;
@@ -74488,7 +73982,6 @@ interface IgTreeGridPaging {
 	[optionName: string]: any;
 }
 interface IgTreeGridPagingMethods {
-
 	/**
  	 * Destroys the igTreeGridPaging feature by removing all elements in the pager area, unbinding events, and resetting data to discard data filtering on paging
 	 */
@@ -74519,7 +74012,7 @@ interface IgTreeGridPagingMethods {
 	pageSize(size?: number): number;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridPaging"):IgTreeGridPagingMethods;
+	data(propertyName: "igTreeGridPaging"): IgTreeGridPagingMethods;
 }
 
 interface JQuery {
@@ -75104,13 +74597,13 @@ interface JQuery {
 	igTreeGridPaging(optionLiteral: 'option', optionName: "persist", optionValue: boolean): void;
 
 	/**
-	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid. 
+	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 *
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "inherit"): boolean;
 
 	/**
-	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid. 
+	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -75301,7 +74794,6 @@ interface JQuery {
 	igTreeGridPaging(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridResizing {
-
 	/**
  	 * Resize the column to the size of the longest currently visible cell value.
 	 *
@@ -75382,7 +74874,7 @@ interface IgTreeGridResizingMethods {
 	resize(column: Object, width?: Object): void;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridResizing"):IgTreeGridResizingMethods;
+	data(propertyName: "igTreeGridResizing"): IgTreeGridResizingMethods;
 }
 
 interface JQuery {
@@ -75537,7 +75029,6 @@ interface JQuery {
 	igTreeGridResizing(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridRowSelectors {
-
 	/**
  	 * Determines row numbering format.
 	 *
@@ -75577,7 +75068,7 @@ interface IgTreeGridRowSelectors {
 	rowNumberingSeed?: number;
 
 	/**
- 	 * 
+ 	 *
 	 *
 	 * Valid values:
 	 * "string" The row selector column width can be set in pixels (px) and percentage (%)
@@ -75729,12 +75220,12 @@ interface IgTreeGridRowSelectorsMethods {
 	/**
  	 * Returns the check state of the row by id.
 	 *
-	 * @param rowId 
+	 * @param rowId
 	 */
 	checkStateById(rowId: Object): string;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridRowSelectors"):IgTreeGridRowSelectorsMethods;
+	data(propertyName: "igTreeGridRowSelectors"): IgTreeGridRowSelectorsMethods;
 }
 
 interface JQuery {
@@ -76028,7 +75519,6 @@ interface JQuery {
 	igTreeGridRowSelectors(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridSelection {
-
 	/**
  	 * Enables / Disables multiple selection of cells and rows - depending on the mode
 	 *
@@ -76292,28 +75782,28 @@ interface IgTreeGridSelectionMethods {
 
 	/**
  	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
-	 * 			
+	 *
 	 * 				If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
  	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
-	 * 			
+	 *
 	 * 				If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
  	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
-	 * 			
+	 *
 	 * 				If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
  	 * Returns the currently selected row that has the format { element: , index: }, if any.
-	 * 			
+	 *
 	 * 				If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
@@ -76329,7 +75819,7 @@ interface IgTreeGridSelectionMethods {
 	activeRow(): Object;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridSelection"):IgTreeGridSelectionMethods;
+	data(propertyName: "igTreeGridSelection"): IgTreeGridSelectionMethods;
 }
 
 interface JQuery {
@@ -76756,7 +76246,6 @@ interface JQuery {
 	igTreeGridSelection(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridSorting {
-
 	/**
  	 * Specifies from which data bound level to be applied sorting - 0 is the first level
 	 *
@@ -76958,7 +76447,7 @@ interface IgTreeGridSorting {
 
 	/**
  	 * Controls containment behavior of multiple sorting dialog.
-	 * 
+	 *
 	 * owner  The multi sorting dialog will be draggable only in the grid area
 	 * window  The multi sorting dialog will be draggable in the whole window area
 	 */
@@ -77120,7 +76609,6 @@ interface IgTreeGridSorting {
 	[optionName: string]: any;
 }
 interface IgTreeGridSortingMethods {
-
 	/**
  	 * Returns whether a column with the specified columnKey is sorted(taken from the data source sorting expressions)
 	 *
@@ -77134,7 +76622,7 @@ interface IgTreeGridSortingMethods {
 	 *
 	 * @param index     Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column which we want to sort. If the mode is multiple, previous sorting states are not cleared.
 	 * @param direction     Specifies sorting direction (ascending or descending)
-	 * @param header     
+	 * @param header
 	 */
 	sortColumn(index: Object, direction: Object, header: Object): void;
 
@@ -77169,7 +76657,7 @@ interface IgTreeGridSortingMethods {
 	/**
  	 * Renders content of multiple sorting dialog - sorted and unsorted columns.
 	 *
-	 * @param isToCallEvents 
+	 * @param isToCallEvents
 	 */
 	renderMultipleSortingDialogContent(isToCallEvents: Object): void;
 
@@ -77179,7 +76667,7 @@ interface IgTreeGridSortingMethods {
 	removeDialogClearButton(): void;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridSorting"):IgTreeGridSortingMethods;
+	data(propertyName: "igTreeGridSorting"): IgTreeGridSortingMethods;
 }
 
 interface JQuery {
@@ -77614,7 +77102,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior of multiple sorting dialog.
-	 * 
+	 *
 	 * owner  The multi sorting dialog will be draggable only in the grid area
 	 * window  The multi sorting dialog will be draggable in the whole window area
 	 */
@@ -77622,7 +77110,7 @@ interface JQuery {
 
 	/**
 	 * Controls containment behavior of multiple sorting dialog.
-	 * 
+	 *
 	 * owner  The multi sorting dialog will be draggable only in the grid area
 	 * window  The multi sorting dialog will be draggable in the whole window area
 	 *
@@ -77968,7 +77456,6 @@ interface JQuery {
 	igTreeGridSorting(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridTooltips {
-
 	/**
  	 * determines the tooltip visibility option
 	 *
@@ -78095,7 +77582,7 @@ interface IgTreeGridTooltipsMethods {
 	id(): string;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridTooltips"):IgTreeGridTooltipsMethods;
+	data(propertyName: "igTreeGridTooltips"): IgTreeGridTooltipsMethods;
 }
 
 interface JQuery {
@@ -78340,7 +77827,6 @@ interface JQuery {
 	igTreeGridTooltips(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridUpdating {
-
 	/**
  	 * Specifies whether to enable or disable adding children to rows.
 	 *
@@ -78735,7 +78221,6 @@ interface IgTreeGridUpdating {
 	[optionName: string]: any;
 }
 interface IgTreeGridUpdatingMethods {
-
 	/**
  	 * Adds a new child to a specific row. It also creates a transaction and updates the UI.
 	 *
@@ -78860,7 +78345,7 @@ interface IgTreeGridUpdatingMethods {
 	hideDeleteButton(): void;
 }
 interface JQuery {
-	data(propertyName: "igTreeGridUpdating"):IgTreeGridUpdatingMethods;
+	data(propertyName: "igTreeGridUpdating"): IgTreeGridUpdatingMethods;
 }
 
 interface JQuery {
@@ -79770,11 +79255,10 @@ interface IgBrowseButtonMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igBrowseButton"):IgBrowseButtonMethods;
+	data(propertyName: "igBrowseButton"): IgBrowseButtonMethods;
 }
 
 interface IgUploadFileExtensionIcons {
-
 	/**
  	 * Array of string for file extensions
 	 */
@@ -79801,7 +79285,6 @@ interface FileSelectingEvent {
 }
 
 interface FileSelectingEventUIParam {
-
 	/**
  	 * Used to access the igUpload widget object.
 	 */
@@ -79813,7 +79296,6 @@ interface FileSelectedEvent {
 }
 
 interface FileSelectedEventUIParam {
-
 	/**
  	 * Used to get unique identifier of the file
 	 */
@@ -79835,7 +79317,6 @@ interface FileUploadingEvent {
 }
 
 interface FileUploadingEventUIParam {
-
 	/**
  	 * Used to get unique identifier of the file
 	 */
@@ -79877,7 +79358,6 @@ interface FileUploadedEvent {
 }
 
 interface FileUploadedEventUIParam {
-
 	/**
  	 * Used to get unique identifier of the file
 	 */
@@ -79909,7 +79389,6 @@ interface FileUploadAbortedEvent {
 }
 
 interface FileUploadAbortedEventUIParam {
-
 	/**
  	 * Used to get unique identifier of the file
 	 */
@@ -79946,7 +79425,6 @@ interface CancelAllClickedEvent {
 }
 
 interface CancelAllClickedEventUIParam {
-
 	/**
  	 * Used to access the igUpload widget object.
 	 */
@@ -79958,7 +79436,6 @@ interface OnErrorEvent {
 }
 
 interface OnErrorEventUIParam {
-
 	/**
  	 * Used to get current errorCode
 	 */
@@ -79995,7 +79472,6 @@ interface FileExtensionsValidatingEvent {
 }
 
 interface FileExtensionsValidatingEventUIParam {
-
 	/**
  	 * Used to get the full file name
 	 */
@@ -80017,7 +79493,6 @@ interface OnXHRLoadEvent {
 }
 
 interface OnXHRLoadEventUIParam {
-
 	/**
  	 * Used to get unique identifier of the file
 	 */
@@ -80044,7 +79519,6 @@ interface OnFormDataSubmitEvent {
 }
 
 interface OnFormDataSubmitEventUIParam {
-
 	/**
  	 * Used to get unique identifier of the file
 	 */
@@ -80072,7 +79546,6 @@ interface OnFormDataSubmitEventUIParam {
 }
 
 interface IgUpload {
-
 	/**
  	 * Get or set width of the main container of the file upload control. Main container contains all buttons, progressbar, etc.
 	 *
@@ -80421,7 +79894,6 @@ interface IgUpload {
 	[optionName: string]: any;
 }
 interface IgUploadMethods {
-
 	/**
  	 * Return jquery object of fileupload container - html DOM element
 	 */
@@ -80491,7 +79963,7 @@ interface IgUploadMethods {
 	getFileInfo(fileIndex: number): Object;
 }
 interface JQuery {
-	data(propertyName: "igUpload"):IgUploadMethods;
+	data(propertyName: "igUpload"): IgUploadMethods;
 }
 
 interface JQuery {
@@ -81335,7 +80807,6 @@ interface JQuery {
 	igUpload(methodName: string, ...methodParams: any[]): any;
 }
 interface IgValidatorField {
-
 	/**
  	 * Gets the target element (input or control target) to be validated. This field setting is required.
 	 *
@@ -81357,7 +80828,6 @@ interface ValidatingEvent {
 }
 
 interface ValidatingEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81374,7 +80844,6 @@ interface ValidatedEvent {
 }
 
 interface ValidatedEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81401,7 +80870,6 @@ interface SuccessEvent {
 }
 
 interface SuccessEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81428,7 +80896,6 @@ interface ErrorEvent {
 }
 
 interface ErrorEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81455,7 +80922,6 @@ interface ErrorShowingEvent {
 }
 
 interface ErrorShowingEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81477,7 +80943,6 @@ interface ErrorHidingEvent {
 }
 
 interface ErrorHidingEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81499,7 +80964,6 @@ interface ErrorShownEvent {
 }
 
 interface ErrorShownEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81521,7 +80985,6 @@ interface ErrorHiddenEvent {
 }
 
 interface ErrorHiddenEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81543,7 +81006,6 @@ interface SuccessShowingEvent {
 }
 
 interface SuccessShowingEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81565,7 +81027,6 @@ interface SuccessHidingEvent {
 }
 
 interface SuccessHidingEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81587,7 +81048,6 @@ interface SuccessShownEvent {
 }
 
 interface SuccessShownEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81609,7 +81069,6 @@ interface SuccessHiddenEvent {
 }
 
 interface SuccessHiddenEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81631,7 +81090,6 @@ interface FormValidatingEvent {
 }
 
 interface FormValidatingEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81648,7 +81106,6 @@ interface FormValidatedEvent {
 }
 
 interface FormValidatedEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81670,7 +81127,6 @@ interface FormErrorEvent {
 }
 
 interface FormErrorEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81687,7 +81143,6 @@ interface FormSuccessEvent {
 }
 
 interface FormSuccessEventUIParam {
-
 	/**
  	 * Used to get reference to the igValidator widget.
 	 */
@@ -81700,7 +81155,6 @@ interface FormSuccessEventUIParam {
 }
 
 interface IgValidator {
-
 	/**
  	 * Gets/Sets whether validation is triggered when the text in editor changes.
 	 * Note that this is more appropriate for selection controls such as checkbox, combo or rating.
@@ -81734,7 +81188,7 @@ interface IgValidator {
 
 	/**
  	 * Gets/Sets number validation rule options.Default separators for decimals and thousands are '.' and ',' respectively and are defined in the "$.ui.igValidator.defaults" object.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -81745,7 +81199,7 @@ interface IgValidator {
 
 	/**
  	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -81786,7 +81240,7 @@ interface IgValidator {
 
 	/**
  	 * Gets/Sets Credit Card number validation rule options.Note: This rule will only validate the checksum of the number using Luhn algorithm irregardless of card type.
-	 * 
+	 *
 	 *
 	 *
 	 * Valid values:
@@ -81881,7 +81335,7 @@ interface IgValidator {
 	/**
  	 * Event which is raised on validation before default validation logic is applied.
 	 * Return false in order to cancel the event and consider the field valid.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
@@ -81891,7 +81345,7 @@ interface IgValidator {
 
 	/**
  	 * Event which is raised after value was validated but before any action takes effect.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
@@ -81905,7 +81359,7 @@ interface IgValidator {
 	/**
  	 * Event raised for valid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 * 
+	 *
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
 	 * Use ui.valid to determine the outcome of the validation.
@@ -81917,7 +81371,7 @@ interface IgValidator {
 	/**
  	 * Event raised for invalid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 * 
+	 *
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
 	 * Use ui.valid to determine the outcome of the validation.
@@ -81930,7 +81384,7 @@ interface IgValidator {
 	/**
  	 * Event which is raised before error message is displayed.
 	 * Return false in order to prevent error message display.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -81942,7 +81396,7 @@ interface IgValidator {
 	/**
  	 * Event which is raised before error message is hidden.
 	 * Return false in order to keep the error message displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -81953,7 +81407,7 @@ interface IgValidator {
 
 	/**
  	 * Event which is raised after error message was displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -81964,7 +81418,7 @@ interface IgValidator {
 
 	/**
  	 * Event which is raised after error message was hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -81976,7 +81430,7 @@ interface IgValidator {
 	/**
  	 * Event which is raised before success message is displayed.
 	 * Return false in order to prevent success message display.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -81988,7 +81442,7 @@ interface IgValidator {
 	/**
  	 * Event which is raised before success message is hidden.
 	 * Return false in order to keep success message displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -81999,7 +81453,7 @@ interface IgValidator {
 
 	/**
  	 * Event which is raised after success message was displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -82010,7 +81464,7 @@ interface IgValidator {
 
 	/**
  	 * Event which is raised after success message was hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -82022,7 +81476,7 @@ interface IgValidator {
 	/**
  	 * Event triggered on Validator instance level before handling a form submit event.
 	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return erros.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -82031,7 +81485,7 @@ interface IgValidator {
 
 	/**
  	 * Event triggered on Validator instance level after validation on form submit event..
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -82041,7 +81495,7 @@ interface IgValidator {
 
 	/**
  	 * Event triggered on Validator instance level after failed validation on form submit event.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -82050,7 +81504,7 @@ interface IgValidator {
 
 	/**
  	 * Event triggered on Validator instance level after successful validation on form submit event.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -82063,7 +81517,6 @@ interface IgValidator {
 	[optionName: string]: any;
 }
 interface IgValidatorMethods {
-
 	/**
  	 * Trigger validation and show errors for invalid fields.
 	 *
@@ -82137,372 +81590,372 @@ interface IgValidatorMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igValidator"):IgValidatorMethods;
+	data(propertyName: "igValidator"): IgValidatorMethods;
 }
 
-declare module Infragistics {
-export class IgValidatorBaseRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
+declare namespace Infragistics {
+	class IgValidatorBaseRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
 
-	/**
- 	 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
-	 * 			Only used when there's no errorMessage option available through getRuleMessage.
-	 *
-	 * @param options 
-	 */
-	getMessageType(options: Object): string;
+		/**
+		 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
+		 * 			Only used when there's no errorMessage option available through getRuleMessage.
+		 *
+		 * @param options
+		 */
+		getMessageType(options: Object): string;
 
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
 
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
 
-	/**
- 	 * Validates a value against this rule and returns the result.
-	 *
-	 * @param options    Options for the validator, if fields are used this parameter is already populated with inherited ones.
-	 * @param value    The value to check.
-	 */
-	isValid(options: Object, value: Object): boolean;
-}
-}
-interface IgniteUIStatic {
-IgValidatorBaseRule: typeof Infragistics.IgValidatorBaseRule;
-}
-
-declare module Infragistics {
-export class IgValidatorRequiredRule {
-	constructor(name: string);
-	constructor(groupTypes: any[]);
-	constructor(groupMessageName: string);
-	constructor(formatItems: any[]);
-	getMessageType(options: Object): void;
-	isValid(options: Object, value: Object): void;
-
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
-
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
+		/**
+		 * Validates a value against this rule and returns the result.
+		 *
+		 * @param options    Options for the validator, if fields are used this parameter is already populated with inherited ones.
+		 * @param value    The value to check.
+		 */
+		isValid(options: Object, value: Object): boolean;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorRequiredRule: typeof Infragistics.IgValidatorRequiredRule;
+	IgValidatorBaseRule: typeof Infragistics.IgValidatorBaseRule;
 }
 
-declare module Infragistics {
-export class IgValidatorControlRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	getMessageType(): void;
+declare namespace Infragistics {
+	class IgValidatorRequiredRule {
+		constructor(name: string);
+		constructor(groupTypes: any[]);
+		constructor(groupMessageName: string);
+		constructor(formatItems: any[]);
+		getMessageType(options: Object): void;
+		isValid(options: Object, value: Object): void;
 
-	/**
- 	 * Returns an error message for the rule from options
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): void;
-	isValid(options: Object): void;
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
 
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
-}
-interface IgniteUIStatic {
-IgValidatorControlRule: typeof Infragistics.IgValidatorControlRule;
-}
-
-declare module Infragistics {
-export class IgValidatorNumberRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	isValid(options: Object, value: Object): void;
-
-	/**
- 	 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
-	 * 			Only used when there's no errorMessage option available through getRuleMessage.
-	 *
-	 * @param options 
-	 */
-	getMessageType(options: Object): string;
-
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
-
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorNumberRule: typeof Infragistics.IgValidatorNumberRule;
+	IgValidatorRequiredRule: typeof Infragistics.IgValidatorRequiredRule;
 }
 
-declare module Infragistics {
-export class IgValidatorDateRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	isValid(options: Object, value: Object): void;
+declare namespace Infragistics {
+	class IgValidatorControlRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		getMessageType(): void;
 
-	/**
- 	 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
-	 * 			Only used when there's no errorMessage option available through getRuleMessage.
-	 *
-	 * @param options 
-	 */
-	getMessageType(options: Object): string;
+		/**
+		 * Returns an error message for the rule from options
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): void;
+		isValid(options: Object): void;
 
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
-
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorDateRule: typeof Infragistics.IgValidatorDateRule;
+	IgValidatorControlRule: typeof Infragistics.IgValidatorControlRule;
 }
 
-declare module Infragistics {
-export class IgValidatorLengthRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	getMessageType(): void;
-	isValid(options: Object, value: Object): void;
+declare namespace Infragistics {
+	class IgValidatorNumberRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		isValid(options: Object, value: Object): void;
 
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
+		/**
+		 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
+		 * 			Only used when there's no errorMessage option available through getRuleMessage.
+		 *
+		 * @param options
+		 */
+		getMessageType(options: Object): string;
 
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
-}
-interface IgniteUIStatic {
-IgValidatorLengthRule: typeof Infragistics.IgValidatorLengthRule;
-}
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
 
-declare module Infragistics {
-export class IgValidatorValueRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	getMessageType(): void;
-	isValid(options: Object, value: Object): void;
-}
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorValueRule: typeof Infragistics.IgValidatorValueRule;
+	IgValidatorNumberRule: typeof Infragistics.IgValidatorNumberRule;
 }
 
-declare module Infragistics {
-export class IgValidatorEqualToRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	isValid(options: Object, value: Object): void;
+declare namespace Infragistics {
+	class IgValidatorDateRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		isValid(options: Object, value: Object): void;
 
-	/**
- 	 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
-	 * 			Only used when there's no errorMessage option available through getRuleMessage.
-	 *
-	 * @param options 
-	 */
-	getMessageType(options: Object): string;
+		/**
+		 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
+		 * 			Only used when there's no errorMessage option available through getRuleMessage.
+		 *
+		 * @param options
+		 */
+		getMessageType(options: Object): string;
 
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
 
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
-}
-interface IgniteUIStatic {
-IgValidatorEqualToRule: typeof Infragistics.IgValidatorEqualToRule;
-}
-
-declare module Infragistics {
-export class IgValidatorEmailRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	isValid(options: Object, value: Object): void;
-
-	/**
- 	 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
-	 * 			Only used when there's no errorMessage option available through getRuleMessage.
-	 *
-	 * @param options 
-	 */
-	getMessageType(options: Object): string;
-
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
-
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorEmailRule: typeof Infragistics.IgValidatorEmailRule;
+	IgValidatorDateRule: typeof Infragistics.IgValidatorDateRule;
 }
 
-declare module Infragistics {
-export class IgValidatorPatternRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	isValid(options: Object, value: Object): void;
+declare namespace Infragistics {
+	class IgValidatorLengthRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		getMessageType(): void;
+		isValid(options: Object, value: Object): void;
 
-	/**
- 	 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
-	 * 			Only used when there's no errorMessage option available through getRuleMessage.
-	 *
-	 * @param options 
-	 */
-	getMessageType(options: Object): string;
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
 
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
-
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorPatternRule: typeof Infragistics.IgValidatorPatternRule;
+	IgValidatorLengthRule: typeof Infragistics.IgValidatorLengthRule;
 }
 
-declare module Infragistics {
-export class IgValidatorCustomRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
-	getMessageType(): void;
-	isValid(options: Object, value: Object): void;
-
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
-
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
+declare namespace Infragistics {
+	class IgValidatorValueRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		getMessageType(): void;
+		isValid(options: Object, value: Object): void;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorCustomRule: typeof Infragistics.IgValidatorCustomRule;
+	IgValidatorValueRule: typeof Infragistics.IgValidatorValueRule;
 }
 
-declare module Infragistics {
-export class IgValidatorCreditCardRule {
-	constructor(name: string);
-	constructor(formatItems: any[]);
+declare namespace Infragistics {
+	class IgValidatorEqualToRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		isValid(options: Object, value: Object): void;
 
-	/**
- 	 * Based on ASP.NET CreditCardAttribute check,
-	 * 			https://github.com/Microsoft/referencesource/blob/master/System.ComponentModel.DataAnnotations/DataAnnotations/CreditCardAttribute.cs
-	 * 		   using Luhn algorithm https://en.wikipedia.org/wiki/Luhn_algorithm
-	 *
-	 * @param options 
-	 * @param value 
-	 */
-	isValid(options: Object, value: Object): void;
+		/**
+		 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
+		 * 			Only used when there's no errorMessage option available through getRuleMessage.
+		 *
+		 * @param options
+		 */
+		getMessageType(options: Object): string;
 
-	/**
- 	 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
-	 * 			Only used when there's no errorMessage option available through getRuleMessage.
-	 *
-	 * @param options 
-	 */
-	getMessageType(options: Object): string;
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
 
-	/**
- 	 * Gets an errorMessage from either the rule or field/global options.
-	 *
-	 * @param options 
-	 */
-	getRuleMessage(options: Object): string;
-
-	/**
- 	 * Formats an error message using rule-specific values (usually from formatItems).
-	 *
-	 * @param message    The unformatted error message the validator intends to display.
-	 */
-	formatMessage(message: string): string;
-}
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
 }
 interface IgniteUIStatic {
-IgValidatorCreditCardRule: typeof Infragistics.IgValidatorCreditCardRule;
+	IgValidatorEqualToRule: typeof Infragistics.IgValidatorEqualToRule;
+}
+
+declare namespace Infragistics {
+	class IgValidatorEmailRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		isValid(options: Object, value: Object): void;
+
+		/**
+		 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
+		 * 			Only used when there's no errorMessage option available through getRuleMessage.
+		 *
+		 * @param options
+		 */
+		getMessageType(options: Object): string;
+
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
+
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
+}
+interface IgniteUIStatic {
+	IgValidatorEmailRule: typeof Infragistics.IgValidatorEmailRule;
+}
+
+declare namespace Infragistics {
+	class IgValidatorPatternRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		isValid(options: Object, value: Object): void;
+
+		/**
+		 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
+		 * 			Only used when there's no errorMessage option available through getRuleMessage.
+		 *
+		 * @param options
+		 */
+		getMessageType(options: Object): string;
+
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
+
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
+}
+interface IgniteUIStatic {
+	IgValidatorPatternRule: typeof Infragistics.IgValidatorPatternRule;
+}
+
+declare namespace Infragistics {
+	class IgValidatorCustomRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+		getMessageType(): void;
+		isValid(options: Object, value: Object): void;
+
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
+
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
+}
+interface IgniteUIStatic {
+	IgValidatorCustomRule: typeof Infragistics.IgValidatorCustomRule;
+}
+
+declare namespace Infragistics {
+	class IgValidatorCreditCardRule {
+		constructor(name: string);
+		constructor(formatItems: any[]);
+
+		/**
+		 * Based on ASP.NET CreditCardAttribute check,
+		 * 			https://github.com/Microsoft/referencesource/blob/master/System.ComponentModel.DataAnnotations/DataAnnotations/CreditCardAttribute.cs
+		 * 		   using Luhn algorithm https://en.wikipedia.org/wiki/Luhn_algorithm
+		 *
+		 * @param options
+		 * @param value
+		 */
+		isValid(options: Object, value: Object): void;
+
+		/**
+		 * Gets the error message type to get from locale settings (matching as "<type>Message>"). Returns the rule name by default.
+		 * 			Only used when there's no errorMessage option available through getRuleMessage.
+		 *
+		 * @param options
+		 */
+		getMessageType(options: Object): string;
+
+		/**
+		 * Gets an errorMessage from either the rule or field/global options.
+		 *
+		 * @param options
+		 */
+		getRuleMessage(options: Object): string;
+
+		/**
+		 * Formats an error message using rule-specific values (usually from formatItems).
+		 *
+		 * @param message    The unformatted error message the validator intends to display.
+		 */
+		formatMessage(message: string): string;
+	}
+}
+interface IgniteUIStatic {
+	IgValidatorCreditCardRule: typeof Infragistics.IgValidatorCreditCardRule;
 }
 
 interface JQuery {
@@ -82581,14 +82034,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets number validation rule options.Default separators for decimals and thousands are '.' and ',' respectively and are defined in the "$.ui.igValidator.defaults" object.
-	 * 
+	 *
 	 *
 	 */
 	igValidator(optionLiteral: 'option', optionName: "number"): boolean|Object;
 
 	/**
 	 * /Sets number validation rule options.Default separators for decimals and thousands are '.' and ',' respectively and are defined in the "$.ui.igValidator.defaults" object.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -82597,14 +82050,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
-	 * 
+	 *
 	 *
 	 */
 	igValidator(optionLiteral: 'option', optionName: "date"): boolean|Object;
 
 	/**
 	 * /Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -82655,14 +82108,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets Credit Card number validation rule options.Note: This rule will only validate the checksum of the number using Luhn algorithm irregardless of card type.
-	 * 
+	 *
 	 *
 	 */
 	igValidator(optionLiteral: 'option', optionName: "creditCard"): boolean|Object;
 
 	/**
 	 * /Sets Credit Card number validation rule options.Note: This rule will only validate the checksum of the number using Luhn algorithm irregardless of card type.
-	 * 
+	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -82834,7 +82287,7 @@ interface JQuery {
 	/**
 	 * Event which is raised on validation before default validation logic is applied.
 	 * Return false in order to cancel the event and consider the field valid.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
@@ -82845,7 +82298,7 @@ interface JQuery {
 	/**
 	 * Event which is raised on validation before default validation logic is applied.
 	 * Return false in order to cancel the event and consider the field valid.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
@@ -82857,7 +82310,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after value was validated but before any action takes effect.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
@@ -82870,7 +82323,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after value was validated but before any action takes effect.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
@@ -82886,7 +82339,7 @@ interface JQuery {
 	/**
 	 * Event raised for valid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 * 
+	 *
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
 	 * Use ui.valid to determine the outcome of the validation.
@@ -82898,7 +82351,7 @@ interface JQuery {
 	/**
 	 * Event raised for valid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 * 
+	 *
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
 	 * Use ui.valid to determine the outcome of the validation.
@@ -82912,7 +82365,7 @@ interface JQuery {
 	/**
 	 * Event raised for invalid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 * 
+	 *
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
 	 * Use ui.valid to determine the outcome of the validation.
@@ -82925,7 +82378,7 @@ interface JQuery {
 	/**
 	 * Event raised for invalid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 * 
+	 *
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.value to get current value in target.
 	 * Use ui.valid to determine the outcome of the validation.
@@ -82940,7 +82393,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before error message is displayed.
 	 * Return false in order to prevent error message display.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -82952,7 +82405,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before error message is displayed.
 	 * Return false in order to prevent error message display.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -82966,7 +82419,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before error message is hidden.
 	 * Return false in order to keep the error message displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -82978,7 +82431,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before error message is hidden.
 	 * Return false in order to keep the error message displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -82991,7 +82444,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after error message was displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83002,7 +82455,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after error message was displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83015,7 +82468,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after error message was hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83026,7 +82479,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after error message was hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83040,7 +82493,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before success message is displayed.
 	 * Return false in order to prevent success message display.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83052,7 +82505,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before success message is displayed.
 	 * Return false in order to prevent success message display.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83066,7 +82519,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before success message is hidden.
 	 * Return false in order to keep success message displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83078,7 +82531,7 @@ interface JQuery {
 	/**
 	 * Event which is raised before success message is hidden.
 	 * Return false in order to keep success message displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83091,7 +82544,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after success message was displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83102,7 +82555,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after success message was displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83115,7 +82568,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after success message was hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83126,7 +82579,7 @@ interface JQuery {
 
 	/**
 	 * Event which is raised after success message was hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.message to get text of message.
@@ -83140,7 +82593,7 @@ interface JQuery {
 	/**
 	 * Event triggered on Validator instance level before handling a form submit event.
 	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return erros.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83150,7 +82603,7 @@ interface JQuery {
 	/**
 	 * Event triggered on Validator instance level before handling a form submit event.
 	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return erros.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83161,7 +82614,7 @@ interface JQuery {
 
 	/**
 	 * Event triggered on Validator instance level after validation on form submit event..
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83171,7 +82624,7 @@ interface JQuery {
 
 	/**
 	 * Event triggered on Validator instance level after validation on form submit event..
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83183,7 +82636,7 @@ interface JQuery {
 
 	/**
 	 * Event triggered on Validator instance level after failed validation on form submit event.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83192,7 +82645,7 @@ interface JQuery {
 
 	/**
 	 * Event triggered on Validator instance level after failed validation on form submit event.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83203,7 +82656,7 @@ interface JQuery {
 
 	/**
 	 * Event triggered on Validator instance level after successful validation on form submit event.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83212,7 +82665,7 @@ interface JQuery {
 
 	/**
 	 * Event triggered on Validator instance level after successful validation on form submit event.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get reference to the igValidator widget.
 	 * Use ui.target to get reference of the event target form.
@@ -83227,7 +82680,6 @@ interface JQuery {
 	igValidator(methodName: string, ...methodParams: any[]): any;
 }
 interface IgVideoPlayerBookmark {
-
 	/**
  	 * Gets/Sets where the bookmark will be positioned. Should be between 0 and movie duration in seconds.
 	 *
@@ -83253,7 +82705,6 @@ interface IgVideoPlayerBookmark {
 }
 
 interface IgVideoPlayerRelatedVideo {
-
 	/**
  	 * Gets/Sets the URL of the related video image.
 	 *
@@ -83303,7 +82754,6 @@ interface IgVideoPlayerRelatedVideo {
 }
 
 interface IgVideoPlayerBanner {
-
 	/**
  	 * Gets/Sets the banner image url.
 	 *
@@ -83383,7 +82833,6 @@ interface IgVideoPlayerBanner {
 }
 
 interface IgVideoPlayerCommercialsLinkedCommercial {
-
 	/**
  	 * Gets/Sets the sources of the linked commercial video.
 	 *
@@ -83415,7 +82864,6 @@ interface IgVideoPlayerCommercialsLinkedCommercial {
 }
 
 interface IgVideoPlayerCommercialsEmbeddedCommercial {
-
 	/**
  	 * Gets/Sets the start second of the embedded commercial.
 	 *
@@ -83447,7 +82895,6 @@ interface IgVideoPlayerCommercialsEmbeddedCommercial {
 }
 
 interface IgVideoPlayerCommercialsAdMessage {
-
 	/**
  	 * Gets/Sets whether to apply an animation effect when showing or hiding the ad message. If set to true, the animation is played for [animationDuration](ui.igvideoplayer#options:commercials.adMessage.animationDuration) in milliseconds.
 	 *
@@ -83479,7 +82926,6 @@ interface IgVideoPlayerCommercialsAdMessage {
 }
 
 interface IgVideoPlayerCommercials {
-
 	/**
  	 * Gets/Sets an array of linked commercial objects. A linked commercial is a separate video file that will be played in the specified position of the original movie clip by [startTime](ui.igvideoplayer#options:commercials.linkedCommercials.startTime). This feature is useful if you have frequently changing outside commercial sources.
 	 *
@@ -83521,7 +82967,6 @@ interface EndedEvent {
 }
 
 interface EndedEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83538,7 +82983,6 @@ interface PlayingEvent {
 }
 
 interface PlayingEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83555,7 +82999,6 @@ interface PausedEvent {
 }
 
 interface PausedEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83572,7 +83015,6 @@ interface BufferingEvent {
 }
 
 interface BufferingEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83589,7 +83031,6 @@ interface ProgressEvent {
 }
 
 interface ProgressEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83611,7 +83052,6 @@ interface WaitingEvent {
 }
 
 interface WaitingEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83633,7 +83073,6 @@ interface EnterFullScreenEvent {
 }
 
 interface EnterFullScreenEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83645,7 +83084,6 @@ interface ExitFullScreenEvent {
 }
 
 interface ExitFullScreenEventUIParam {
-
 	/**
  	 * Used to get the url of the playing video.
 	 */
@@ -83657,7 +83095,6 @@ interface RelatedVideoClickEvent {
 }
 
 interface RelatedVideoClickEventUIParam {
-
 	/**
  	 * Used to get the relatedVideo object from the relatedVideos array.
 	 */
@@ -83674,7 +83111,6 @@ interface BannerVisibleEvent {
 }
 
 interface BannerVisibleEventUIParam {
-
 	/**
  	 * Used to get the banner index in the banners array.
 	 */
@@ -83696,7 +83132,6 @@ interface BannerHiddenEvent {
 }
 
 interface BannerHiddenEventUIParam {
-
 	/**
  	 * Used to get the banner index in the banners array.
 	 */
@@ -83718,7 +83153,6 @@ interface BannerClickEvent {
 }
 
 interface BannerClickEventUIParam {
-
 	/**
  	 * Used to get the banner html element in the DOM.
 	 */
@@ -83726,7 +83160,6 @@ interface BannerClickEventUIParam {
 }
 
 interface IgVideoPlayer {
-
 	/**
  	 * Gets/Sets a list of video sources to choose from. Best coded/format is automatically detected by the control. Supported types are depending on the browser and could be one of the following mov, mp4, webm, ogg.
 	 *
@@ -83855,7 +83288,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when video has ended.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -83864,7 +83297,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when video gets playing.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -83873,7 +83306,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when video is paused.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -83882,7 +83315,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when a chunk of data is buffered.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.buffered to get buffered percentage.
@@ -83891,7 +83324,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when video has advanced the playback position.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.currentTime to get current position in the video at which the event was fired.
@@ -83901,7 +83334,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when igVideoPlayer is waiting for data from the server.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.currentTime to get current position in the video at which the event was fired.
@@ -83911,7 +83344,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when the bookmark is hit.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.bookmark to get the bookmark object from the bookmarks array.
@@ -83921,7 +83354,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when the bookmark is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.bookmark to get the bookmark object from the bookmarks array.
 	 * Use ui.bookmarkElement to get the html element in the DOM.
@@ -83930,7 +83363,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when igVideoPlayer enters full screen mode.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 */
@@ -83938,7 +83371,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when igVideoPlayer exits full screen mode.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 */
@@ -83946,7 +83379,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when related video is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.relatedVideo to get the relatedVideo object from the relatedVideos array.
 	 * Use ui.relatedVideoElement to get the relatedVideo html element in the DOM.
@@ -83955,7 +83388,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Defines the name of the player banner visible event. Fired when the banner has been displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.index to get the banner index in the banners array.
 	 * Use ui.banner to get the banner object from the banners array.
@@ -83965,7 +83398,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when the banner is hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.index to get the banner index in the banners array.
 	 * Use ui.banner to get the banner object from the banners array.
@@ -83975,7 +83408,7 @@ interface IgVideoPlayer {
 
 	/**
  	 * Occurs when the banner is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.bannerElement to get the banner html element in the DOM.
 	 */
@@ -83992,7 +83425,6 @@ interface IgVideoPlayer {
 	[optionName: string]: any;
 }
 interface IgVideoPlayerMethods {
-
 	/**
  	 * Returns the element on which the widget was instantiated
 	 */
@@ -84104,7 +83536,7 @@ interface IgVideoPlayerMethods {
 	destroy(): void;
 }
 interface JQuery {
-	data(propertyName: "igVideoPlayer"):IgVideoPlayerMethods;
+	data(propertyName: "igVideoPlayer"): IgVideoPlayerMethods;
 }
 
 interface JQuery {
@@ -84425,7 +83857,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video has ended.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -84434,7 +83866,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video has ended.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -84445,7 +83877,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video gets playing.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -84454,7 +83886,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video gets playing.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -84465,7 +83897,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video is paused.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -84474,7 +83906,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video is paused.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.duration to get the video duration in seconds.
@@ -84485,7 +83917,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when a chunk of data is buffered.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.buffered to get buffered percentage.
@@ -84494,7 +83926,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when a chunk of data is buffered.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.buffered to get buffered percentage.
@@ -84505,7 +83937,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video has advanced the playback position.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.currentTime to get current position in the video at which the event was fired.
@@ -84515,7 +83947,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when video has advanced the playback position.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.currentTime to get current position in the video at which the event was fired.
@@ -84527,7 +83959,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when igVideoPlayer is waiting for data from the server.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.currentTime to get current position in the video at which the event was fired.
@@ -84537,7 +83969,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when igVideoPlayer is waiting for data from the server.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.currentTime to get current position in the video at which the event was fired.
@@ -84549,7 +83981,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the bookmark is hit.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.bookmark to get the bookmark object from the bookmarks array.
@@ -84559,7 +83991,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the bookmark is hit.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 * Use ui.bookmark to get the bookmark object from the bookmarks array.
@@ -84571,7 +84003,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the bookmark is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.bookmark to get the bookmark object from the bookmarks array.
 	 * Use ui.bookmarkElement to get the html element in the DOM.
@@ -84580,7 +84012,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the bookmark is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.bookmark to get the bookmark object from the bookmarks array.
 	 * Use ui.bookmarkElement to get the html element in the DOM.
@@ -84591,7 +84023,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when igVideoPlayer enters full screen mode.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 */
@@ -84599,7 +84031,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when igVideoPlayer enters full screen mode.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 *
@@ -84609,7 +84041,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when igVideoPlayer exits full screen mode.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 */
@@ -84617,7 +84049,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when igVideoPlayer exits full screen mode.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.source to get the url of the playing video.
 	 *
@@ -84627,7 +84059,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when related video is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.relatedVideo to get the relatedVideo object from the relatedVideos array.
 	 * Use ui.relatedVideoElement to get the relatedVideo html element in the DOM.
@@ -84636,7 +84068,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when related video is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.relatedVideo to get the relatedVideo object from the relatedVideos array.
 	 * Use ui.relatedVideoElement to get the relatedVideo html element in the DOM.
@@ -84647,7 +84079,7 @@ interface JQuery {
 
 	/**
 	 * Defines the name of the player banner visible event. Fired when the banner has been displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.index to get the banner index in the banners array.
 	 * Use ui.banner to get the banner object from the banners array.
@@ -84657,7 +84089,7 @@ interface JQuery {
 
 	/**
 	 * Defines the name of the player banner visible event. Fired when the banner has been displayed.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.index to get the banner index in the banners array.
 	 * Use ui.banner to get the banner object from the banners array.
@@ -84669,7 +84101,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the banner is hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.index to get the banner index in the banners array.
 	 * Use ui.banner to get the banner object from the banners array.
@@ -84679,7 +84111,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the banner is hidden.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.index to get the banner index in the banners array.
 	 * Use ui.banner to get the banner object from the banners array.
@@ -84691,7 +84123,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the banner is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.bannerElement to get the banner html element in the DOM.
 	 */
@@ -84699,7 +84131,7 @@ interface JQuery {
 
 	/**
 	 * Occurs when the banner is clicked.
-	 * 
+	 *
 	 * Function takes arguments evt and ui.
 	 * Use ui.bannerElement to get the banner html element in the DOM.
 	 *
@@ -84725,7 +84157,6 @@ interface JQuery {
 	igVideoPlayer(methodName: string, ...methodParams: any[]): any;
 }
 interface IgZoombarDefaultZoomWindow {
-
 	/**
  	 * The left component of the zoom window in percentages.
 	 *
@@ -84749,7 +84180,6 @@ interface ZoomChangingEvent {
 }
 
 interface ZoomChangingEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84761,7 +84191,6 @@ interface ZoomChangedEvent {
 }
 
 interface ZoomChangedEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84773,7 +84202,6 @@ interface ProviderCreatedEvent {
 }
 
 interface ProviderCreatedEventUIParam {
-
 	/**
  	 * Used to get the reference the created provider
 	 */
@@ -84790,7 +84218,6 @@ interface WindowDragStartingEvent {
 }
 
 interface WindowDragStartingEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84802,7 +84229,6 @@ interface WindowDragStartedEvent {
 }
 
 interface WindowDragStartedEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84814,7 +84240,6 @@ interface WindowDraggingEvent {
 }
 
 interface WindowDraggingEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84826,7 +84251,6 @@ interface WindowDragEndingEvent {
 }
 
 interface WindowDragEndingEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84838,7 +84262,6 @@ interface WindowDragEndedEvent {
 }
 
 interface WindowDragEndedEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84850,7 +84273,6 @@ interface WindowResizingEvent {
 }
 
 interface WindowResizingEventUIParam {
-
 	/**
  	 * Used to get reference to igZoombar.
 	 */
@@ -84858,7 +84280,6 @@ interface WindowResizingEventUIParam {
 }
 
 interface IgZoombar {
-
 	/**
  	 * Specifies a provider class which interfaces the widget that is being zoomed.
 	 * object Provider class to use. The provider should implement all methods in the $.ig.ZoombarProviderDefault class and is suggested to be extended from it.
@@ -85048,7 +84469,6 @@ interface IgZoombar {
 	[optionName: string]: any;
 }
 interface IgZoombarMethods {
-
 	/**
  	 * Destroys the Zoombar widget
 	 */
@@ -85083,11 +84503,10 @@ interface IgZoombarMethods {
 	zoom(left?: number, width?: number): Object;
 }
 interface JQuery {
-	data(propertyName: "igZoombar"):IgZoombarMethods;
+	data(propertyName: "igZoombar"): IgZoombarMethods;
 }
 
 interface ZoombarProviderDefaultSettings {
-
 	/**
  	 * Contains the target component's instance
 	 */
@@ -85113,99 +84532,99 @@ interface ZoombarProviderDefaultSettings {
 	[optionName: string]: any;
 }
 
-declare module Infragistics {
-export class ZoombarProviderDefault {
-	constructor(settings: ZoombarProviderDefaultSettings);
+declare namespace Infragistics {
+	class ZoombarProviderDefault {
+		constructor(settings: ZoombarProviderDefaultSettings);
 
-	/**
- 	 * Will be called before the provider instance is deleted (to unbind jQuery events, etc.)
-	 */
-	clean(): void;
+		/**
+		 * Will be called before the provider instance is deleted (to unbind jQuery events, etc.)
+		 */
+		clean(): void;
 
-	/**
- 	 * Gets basic options for initializing the clone, based on the options the target is initialized with
-	 *
-	 * @param options    if the Zoombar has a copy of the options object it'll pass it to the provider
-	 */
-	getBaseOpts(options: Object): void;
+		/**
+		 * Gets basic options for initializing the clone, based on the options the target is initialized with
+		 *
+		 * @param options    if the Zoombar has a copy of the options object it'll pass it to the provider
+		 */
+		getBaseOpts(options: Object): void;
 
-	/**
- 	 * Alters specific options so that the the clone is more suitable for its purpose
-	 *
-	 * @param options    the base options of the widget obtained from getBaseOpts
-	 */
-	cleanOptsForZoom(options: Object): void;
+		/**
+		 * Alters specific options so that the the clone is more suitable for its purpose
+		 *
+		 * @param options    the base options of the widget obtained from getBaseOpts
+		 */
+		cleanOptsForZoom(options: Object): void;
 
-	/**
- 	 * Will be called by the Zoombar if a clone of the target widget should be created
-	 *
-	 * @param container    a jQuery wrapped element to create the clone component in
-	 * @param options    the options that are obtained from cleanOptsForZoom
-	 */
-	createClone(container: Object, options: Object): void;
+		/**
+		 * Will be called by the Zoombar if a clone of the target widget should be created
+		 *
+		 * @param container    a jQuery wrapped element to create the clone component in
+		 * @param options    the options that are obtained from cleanOptsForZoom
+		 */
+		createClone(container: Object, options: Object): void;
 
-	/**
- 	 * Returns the provider"s widget name
-	 */
-	widgetName(): void;
+		/**
+		 * Returns the provider"s widget name
+		 */
+		widgetName(): void;
 
-	/**
- 	 * Returns the target widget width property
-	 */
-	targetWidth(): void;
+		/**
+		 * Returns the target widget width property
+		 */
+		targetWidth(): void;
 
-	/**
- 	 * Sets the target widget min window width (to be in sync with the same property of the zoombar)
-	 *
-	 * @param minWidth    a number from 0 to 1 representing the minimal width (i.e. maximal zoom) the zoom window can take as a fraction of the total one
-	 */
-	syncMinWidth(minWidth: number): void;
+		/**
+		 * Sets the target widget min window width (to be in sync with the same property of the zoombar)
+		 *
+		 * @param minWidth    a number from 0 to 1 representing the minimal width (i.e. maximal zoom) the zoom window can take as a fraction of the total one
+		 */
+		syncMinWidth(minWidth: number): void;
 
-	/**
- 	 * Sets the width and height of the clone component
-	 *
-	 * @param width    The width to set in pixels or string (px or % -affixed).
-	 * @param height    The height to set in pixels or string (px or % -affixed).
-	 */
-	setSize(width: Object, height: Object): void;
+		/**
+		 * Sets the width and height of the clone component
+		 *
+		 * @param width    The width to set in pixels or string (px or % -affixed).
+		 * @param height    The height to set in pixels or string (px or % -affixed).
+		 */
+		setSize(width: Object, height: Object): void;
 
-	/**
- 	 * Gets/sets the target object
-	 *
-	 * @param obj    the new target component instance to set
-	 */
-	targetObject(obj?: Object): void;
+		/**
+		 * Gets/sets the target object
+		 *
+		 * @param obj    the new target component instance to set
+		 */
+		targetObject(obj?: Object): void;
 
-	/**
- 	 * Jshint ignore:line
-	 *
-	 * @param a 
-	 * @param b 
-	 */
-	update(a: Object, b: Object): void;
-}
-}
-interface IgniteUIStatic {
-ZoombarProviderDefault: typeof Infragistics.ZoombarProviderDefault;
-}
-
-declare module Infragistics {
-export class ZoombarProviderDataChart {
-	constructor(settings: ZoombarProviderDefaultSettings);
-	clean(): void;
-	getBaseOpts(options: Object): void;
-	cleanOptsForZoom(options: Object): void;
-	createClone(container: Object, options: Object): void;
-	widgetName(): void;
-	targetWidth(): void;
-	targetObject(obj: Object): void;
-	syncMinWidth(minWidth: Object): void;
-	setSize(width: Object, height: Object): void;
-	update(a: Object, b: Object): void;
-}
+		/**
+		 * Jshint ignore:line
+		 *
+		 * @param a
+		 * @param b
+		 */
+		update(a: Object, b: Object): void;
+	}
 }
 interface IgniteUIStatic {
-ZoombarProviderDataChart: typeof Infragistics.ZoombarProviderDataChart;
+	ZoombarProviderDefault: typeof Infragistics.ZoombarProviderDefault;
+}
+
+declare namespace Infragistics {
+	class ZoombarProviderDataChart {
+		constructor(settings: ZoombarProviderDefaultSettings);
+		clean(): void;
+		getBaseOpts(options: Object): void;
+		cleanOptsForZoom(options: Object): void;
+		createClone(container: Object, options: Object): void;
+		widgetName(): void;
+		targetWidth(): void;
+		targetObject(obj: Object): void;
+		syncMinWidth(minWidth: Object): void;
+		setSize(width: Object, height: Object): void;
+		update(a: Object, b: Object): void;
+	}
+}
+interface IgniteUIStatic {
+	ZoombarProviderDataChart: typeof Infragistics.ZoombarProviderDataChart;
 }
 
 interface JQuery {
