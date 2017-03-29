@@ -46,7 +46,7 @@ declare namespace Highstock {
         inputBoxHeight?: number;
         inputBoxWidth?: number;
         inputDateFormat?: string;
-        inputDateParser?: (date: string) => number;
+        inputDateParser?(date: string): number;
         inputEditDateFormat?: string;
         inputEnabled?: boolean;
         inputPosition?: {
