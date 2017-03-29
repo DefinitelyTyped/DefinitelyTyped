@@ -28,19 +28,12 @@ import {
 } from 'react-native';
 
 function testDimensions() {
-  var {
+  const {
     width,
     height,
     scale,
     fontScale,
-  } = Dimensions.get("window");
-
-  var {
-    width,
-    height,
-    scale,
-    fontScale,
-  } = Dimensions.get("screen");
+  } = Dimensions.get(1 === 1 ? "window" : "screen");
 }
 
 BackAndroid.addEventListener("hardwareBackPress", () => {
@@ -52,7 +45,7 @@ interface LocalStyles {
     instructions: TextStyle;
 }
 
-var styles = StyleSheet.create<LocalStyles>(
+const styles = StyleSheet.create<LocalStyles>(
     {
         container:    {
             flex:            1,
@@ -97,7 +90,6 @@ const stylesAlt = StyleSheet.create(
 
 
 class Welcome extends React.Component<any, any> {
-
     refs: {
       [key: string]: any
       rootView: View
@@ -113,7 +105,6 @@ class Welcome extends React.Component<any, any> {
     }
 
     render() {
-
         return (
             <View ref="rootView" style={styles.container}>
                 <Text style={styles.welcome}>
@@ -135,7 +126,7 @@ export default Welcome;
 
 // App State
 
-function appStateListener(state : string) {
+function appStateListener(state: string) {
     console.log('New state: ' + state);
 }
 
