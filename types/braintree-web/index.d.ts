@@ -1932,5 +1932,6 @@ interface BraintreeStatic {
 
 declare var braintree: BraintreeStatic;
 
-export = braintree;
-export as namespace braintree;
+declare module 'braintree-web' {
+  export = braintree
+}
