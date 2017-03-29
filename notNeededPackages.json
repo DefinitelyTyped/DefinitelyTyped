@@ -6,12 +6,6 @@
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
             "asOfVersion": "1.0.0"
         },
-		{
-            "libraryName": "Numbro",
-            "typingsPackageName": "numbro",
-            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
-            "asOfVersion": "1.9.3"
-        },
         {
             "libraryName": "antd",
             "typingsPackageName": "antd",
@@ -163,10 +157,10 @@
             "asOfVersion": "1.0.0"
         },
         {
-             "libraryName": "localforage", 
-             "typingsPackageName": "localforage", 
-             "sourceRepoURL": "https://github.com/localForage/localForage", 
-             "asOfVersion": "0.0.34" 
+             "libraryName": "localforage",
+             "typingsPackageName": "localforage",
+             "sourceRepoURL": "https://github.com/localForage/localForage",
+             "asOfVersion": "0.0.34"
         },
         {
             "libraryName": "lower-case",
@@ -205,6 +199,12 @@
             "asOfVersion": "2.0.18"
         },
         {
+            "libraryName": "Numbro",
+            "typingsPackageName": "numbro",
+            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
+            "asOfVersion": "1.9.3"
+        },
+        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
@@ -229,6 +229,12 @@
             "asOfVersion": "1.4.2"
         },
         {
+            "libraryName": "poly2tri.js",
+            "typingsPackageName": "poly2tri",
+            "sourceRepoURL": "https://github.com/r3mi/poly2tri.js",
+            "asOfVersion": "1.4.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
@@ -251,6 +257,18 @@
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
             "asOfVersion": "3.6.0"
+        },
+        {
+            "libraryName": "redux-persist",
+            "typingsPackageName": "redux-persist",
+            "sourceRepoURL": "https://github.com/rt2zz/redux-persist",
+            "asOfVersion": "4.3.1"
+        },
+        {
+            "libraryName": "redux-persist-transform-compress",
+            "typingsPackageName": "redux-persist-transform-compress",
+            "sourceRepoURL": "https://github.com/rt2zz/redux-persist-transform-compress",
+            "asOfVersion": "4.2.0"
         },
         {
             "libraryName": "redux-saga",
