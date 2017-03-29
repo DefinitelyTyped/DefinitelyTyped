@@ -422,7 +422,7 @@ plugin = new webpack.LoaderOptionsPlugin({
     debug: true
 });
 plugin = new webpack.EnvironmentPlugin(['a', 'b']);
-plugin = new webpack.EnvironmentPlugin([{a: true, b: 'c'});
+plugin = new webpack.EnvironmentPlugin({a: true, b: 'c'});
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
 
 //
