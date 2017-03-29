@@ -5,6 +5,6 @@
 
 import * as Highcharts from "highcharts";
 
-declare var HighchartsMore: (H: Highcharts.Static) => Highcharts.Static;
+declare function HighchartsMore(H: Highcharts.Static): Highcharts.Static;
 export = HighchartsMore;
 export as namespace HighchartsMore;
