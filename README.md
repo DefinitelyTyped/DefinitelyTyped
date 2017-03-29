@@ -110,9 +110,8 @@ Your package should have this structure:
 | tsconfig.json | This allows you to run `tsc` within the package. |
 | tslint.json | Enables linting. |
 
-Generate these by running `npm run new-package -- --name my-package-name --template module`.
-(Other templates are `module-class`, `module-function`, `module-plugin`, `global`, `global-plugin`, and `global-modifying-module`.
-This just wraps [dts-gen](https://github.com/Microsoft/dts-gen), so it supports all options from that.)
+Generate these by running `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module`.
+See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
 You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
@@ -167,9 +166,11 @@ If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. 
 }
 ```
 
-(To indicate that a lint rule truly does not apply, use `// tslint:disable:rule-name` or better, `//tslint:disable-next-line:rule-name`.)
+(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
-Test the linter by running `npm run lint -- package-name`. Do not use a globally installed tslint.
+Test by running `npm run lint package-name` where `package-name` is the name of your package.
+This script uses [dtslint](https://github.com/Microsoft/dtslint).
+
 
 ## FAQ
 
