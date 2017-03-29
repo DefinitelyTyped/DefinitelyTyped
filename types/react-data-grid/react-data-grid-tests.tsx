@@ -8,6 +8,29 @@ var Toolbar = ReactDataGridPlugins.Toolbar;
 var AutoCompleteEditor = Editors.AutoComplete;
 var DropDownEditor = Editors.DropDownEditor;
 
+
+class CustomFilterHeaderCell extends React.Component<any, any> {
+   constructor(props: any, context: any) {
+       super(props, context);
+
+       this.state = {
+           filterTerm: ""
+       };
+   }
+   handleChange(e: any) {
+       let val = e.target.value;
+       this.setState({filterTerm: val});
+       this.props.onChange({filterTerm: val, column: this.props.column});
+   }
+   render() {
+       return (
+           <div>
+               <input type="text" value={this.state.filterTerm} onChange={(e) => this.handleChange(e)} />
+           </div>
+       );
+   }
+}
+
 faker.locale = 'en_GB';
 
 function createFakeRowObjectData(index:number):Object {
@@ -181,7 +204,9 @@ var columns:ReactDataGrid.Column[] = [
         name: 'Company Name',
         editable: true,
         width: 200,
-        resizable: true
+        resizable: true,
+        filter: true,
+        filterRenderer: CustomFilterHeaderCell
     },
     {
         key: 'sentence',

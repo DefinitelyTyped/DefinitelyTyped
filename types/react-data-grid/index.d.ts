@@ -242,7 +242,11 @@ declare namespace AdazzleReactDataGrid {
          * Whether the rows in the grid can be filtered by this column.
          * @default false
          */
-        filterable?: boolean
+        filterable?: boolean;
+        /**
+         * A custom formatter for this column's filter.
+         */
+        filterRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>;
         /**
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
