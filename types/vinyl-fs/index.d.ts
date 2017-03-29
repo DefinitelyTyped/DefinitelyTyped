@@ -101,7 +101,7 @@ interface SrcOptions extends globStream.Options {
 * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
 * @param opt Options Vinyl source options, changes the way the files are read, found, or stored in the vinyl stream
 */
-declare function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
+export function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
 
 /**
 * This is just a glob-watcher
@@ -110,7 +110,7 @@ declare function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWrite
 * Globs are executed in order, so negations should follow positive globs
 * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
 */
-declare function watch(globs: string|string[], cb?: (outEvt: { type: any; path: any; old: any; }) => void): _events.EventEmitter;
+export function watch(globs: string|string[], cb?: (outEvt: { type: any; path: any; old: any; }) => void): _events.EventEmitter;
 
 /**
 * This is just a glob-watcher
@@ -119,13 +119,13 @@ declare function watch(globs: string|string[], cb?: (outEvt: { type: any; path: 
 * Globs are executed in order, so negations should follow positive globs
 * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
 */
-declare function watch(
+export function watch(
     globs: string|string[],
     opt?: {
         interval?: number;
         debounceDelay?: number;
         cwd?: string;
-        maxListeners?: () => number;
+        maxListeners?(): number;
     },
     cb?: (outEvt: { type: any; path: any; old: any; }) => void): _events.EventEmitter;
 
@@ -138,7 +138,7 @@ declare function watch(
 * contents will have it's position reset to the beginning if it is a stream
 * @param folder destination folder
 */
-declare function dest(folder: string, opt?: {
+export function dest(folder: string, opt?: {
    /** Specify the working directory the folder is relative to
    * Default is process.cwd()
    */
@@ -166,7 +166,7 @@ declare function dest(folder: string, opt?: {
 * contents will have it's position reset to the beginning if it is a stream
 * @param getFolderPath function that takes in a file and returns a folder path
 */
-declare function dest(getFolderPath: (file: File) => string): NodeJS.ReadWriteStream;
+export function dest(getFolderPath: (file: File) => string): NodeJS.ReadWriteStream;
 
 /**
 * On write the stream will create a symbolic link (i.e. symlink) on disk at the folder/cwd specified.
@@ -174,7 +174,7 @@ declare function dest(getFolderPath: (file: File) => string): NodeJS.ReadWriteSt
 * The file will be modified after being written to this stream:
 * cwd, base, and path will be overwritten to match the folder
 */
-declare function symlink(folder: string, opts?: {
+export function symlink(folder: string, opts?: {
    /**
    * Specify the working directory the folder is relative to
    * Default is process.cwd()
@@ -197,7 +197,7 @@ declare function symlink(folder: string, opts?: {
 * The file will be modified after being written to this stream:
 * cwd, base, and path will be overwritten to match the folder
 */
-declare function symlink(getFolderPath: (File: File) => string, opts?:
+export function symlink(getFolderPath: (File: File) => string, opts?:
    {
       /**
       * Specify the working directory the folder is relative to
@@ -210,5 +210,4 @@ declare function symlink(getFolderPath: (File: File) => string, opts?:
       * Default is the process mode
       */
       dirMode?: number
-
    }): NodeJS.ReadWriteStream;
