@@ -27,7 +27,6 @@ declare module "@google-cloud/storage/bucket" {
 
   /**
    * A bucket in the cloud.
-   * @class Bucket
    */
   export class Bucket {
     acl: Acl;
@@ -53,7 +52,6 @@ declare module "@google-cloud/storage/bucket" {
 
   /**
    * Bucket configuration.
-   * @interface BucketConfig
    */
   export interface BucketConfig {
     coldline?: boolean;
@@ -68,8 +66,7 @@ declare module "@google-cloud/storage/bucket" {
   }
 
   /**
-   * Options for getting a
-   * @interface BucketFileOptions
+   * Options for getting a file.
    */
   export interface BucketFileOptions {
     generation?: string | number;
@@ -77,7 +74,6 @@ declare module "@google-cloud/storage/bucket" {
 
   /**
    * Options for getting a bucket.
-   * @interface BucketFileOptions
    */
   export interface BucketGetOptions {
     autoCreate?: boolean;
@@ -85,15 +81,23 @@ declare module "@google-cloud/storage/bucket" {
 
   /**
    * Bucket metadata.
-   * @interface BucketMetadata
    */
   export interface BucketMetadata {
-
+    etag?: string;
+    id?: string;
+    kind?: string;
+    location?: string;
+    metageneration?: string;
+    name?: string;
+    projectNumber?: string;
+    selfLink?: string;
+    storageClass?: string;
+    timeCreated?: string;
+    updated?: string;
   }
 
   /**
    * The options for making the bucket private.
-   * @interface BucketPrivacyOptions
    */
   export interface BucketPrivacyOptions {
     includeFiles?: boolean;
@@ -102,7 +106,6 @@ declare module "@google-cloud/storage/bucket" {
 
   /**
    * Query a bucket.
-   * @interface BucketQuery
    */
   export interface BucketQuery {
     autoPaginate?: boolean;
@@ -121,7 +124,6 @@ declare module "@google-cloud/storage/channel" {
 
   /**
    * This class allows you interact with Google Cloud Storage.
-   * @class Channel
    */
   export class Channel {
     stop(): Promise<[ApiResponse]>;
@@ -129,7 +131,6 @@ declare module "@google-cloud/storage/channel" {
 
   /**
    * Channel configuration.
-   * @interface ChannelConfig
    */
   export interface ChannelConfig {
     address: string;
@@ -151,7 +152,6 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * Options for specifying the content length range.
-   * @interface ContentLengthRange
    */
   export interface ContentLengthRange {
     max?: number;
@@ -160,7 +160,6 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * A file in the cloud.
-   * @interface File
    */
   export class File {
     acl: Acl;
@@ -185,7 +184,6 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * File metadata.
-   * @interface FileMetadata
    */
   export interface FileMetadata {
     contentType?: string;
@@ -193,7 +191,6 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * Options when setting the file as private.
-   * @interface FilePrivateOptions
    */
   export interface FilePrivateOptions {
     strict?: boolean;
@@ -201,7 +198,6 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * A signed policy allowing a user to upload a file with a POST.
-   * @interface SignedPolicy
    */
   export interface SignedPolicy {
     base64?: string;
@@ -211,7 +207,6 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * Options when obtaining the signed policy.
-   * @interface SignedPolicyOptions
    */
   export interface SignedPolicyOptions {
     acl?: string;
@@ -227,7 +222,6 @@ declare module "@google-cloud/storage/file" {
 
   /**
    * Options when obtaining a temporary signed URL for a file.
-   * @interface SignedUrlConfig
    */
   export interface SignedUrlConfig {
     action: string;
@@ -251,19 +245,16 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * Access control list for storage buckets and files.
-   * @class Acl
    */
   export class Acl extends AclActions {
     default: AclEntity;
     owners: AclEntity;
     readers: AclEntity;
     writers: AclEntity;
-
   }
 
   /**
    * Actions that can be performed on all ACL entities, including the root Acl.
-   * @class AclActions
    */
   export class AclActions {
     add(options: AclOptions): Promise<[Acl, ApiResponse]>;
@@ -274,7 +265,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * An object of convenience methods to add or delete reader ACL permissions for a given entity.
-   * @class AclEntity
    */
   export class AclEntity extends AclActions {
     addAllAuthenticatedUsers(): Promise<[Acl, ApiResponse]>;
@@ -293,7 +283,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * ACL options.
-   * @interface AclOptions
    */
   export interface AclOptions {
     entity?: string;
@@ -303,7 +292,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * The response object.
-   * @interface ApiResponse
    */
   export interface ApiResponse {
     etag?: string;
@@ -321,7 +309,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * The options when downloading a file.
-   * @interface DownloadOptions
    */
   export interface DownloadOptions extends ReadStreamOptions {
     destination?: string;
@@ -329,7 +316,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * Options when reading a file stream.
-   * @interface ReadStreamOptions
    */
   export interface ReadStreamOptions {
     end?: number;
@@ -339,7 +325,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * Options when uploading file to bucket.
-   * @interface IBucketUploadOptions
    */
   export interface UploadOptions extends WriteStreamOptions {
     destination?: string;
@@ -347,7 +332,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * Options when writing to a file stream.
-   * @interface WriteStreamOptions
    */
   export interface WriteStreamOptions {
     gzip?: boolean;
@@ -363,7 +347,6 @@ declare module "@google-cloud/storage/storage" {
 
   /**
    * The Storage class allows you interact with Google Cloud Storage.
-   * @class Storage
    */
   export class Storage {
     acl: Acl;
