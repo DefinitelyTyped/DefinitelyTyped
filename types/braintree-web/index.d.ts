@@ -1920,7 +1920,7 @@ interface BraintreeStatic {
   /** @type {module:braintree-web/apple-pay} */
   applePay: BraintreeWeb.ApplePay;
 
-     /** @type {module:braintree-web/us-bank-account} */
+  /** @type {module:braintree-web/us-bank-account} */
   usBankAccount: BraintreeWeb.USBankAccount;
 
   /**
@@ -1931,3 +1931,7 @@ interface BraintreeStatic {
 }
 
 declare var braintree: BraintreeStatic;
+
+declare module 'braintree-web' {
+  export = braintree
+}
