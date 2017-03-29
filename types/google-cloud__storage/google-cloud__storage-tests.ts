@@ -25,7 +25,7 @@ import {
   WriteStreamOptions,
   UploadOptions,
   Storage
-} from "./storage";
+} from "./index";
 
 /**
  * Test the storage service.
