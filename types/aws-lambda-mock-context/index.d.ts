@@ -2,8 +2,11 @@
 // Project: https://github.com/moskalyk/typed-aws-lambda-mock-context
 // Definitions by: Morgan Moskalyk <morgan.moskalyk@gmail.com>, Anand Nimkar <anand.a.nimkar@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// export = context;
 
 declare function context(options?: Options): Context;
+
+export = context;
 
 interface Context {
     Promise: Promise<any>;
@@ -30,5 +33,3 @@ interface Options {
     memoryLimitInMB: string;
     alias?: string;
 }
-
-export { context };
