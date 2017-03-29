@@ -11,7 +11,7 @@
 declare namespace ReactIntl {
 
     interface Values {
-        [key: string]: string;
+        [key: string]: string | JSX.Element;
     }
 
     interface Locale {
