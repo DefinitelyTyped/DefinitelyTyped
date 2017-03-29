@@ -1,0 +1,9 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "dt-header": false,
+        "adjacent-overload-signatures": false,
+        "unified-signatures": false,
+        "no-empty-interface": false
+    }
+}
