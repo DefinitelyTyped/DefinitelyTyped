@@ -16,7 +16,6 @@ amplify.subscribe("dataexample", data => {
     alert(data.foo); // bar
 });
 
-
 amplify.publish("dataexample", { foo: "bar" });
 
 amplify.subscribe("dataexample2", (param1, param2) => {
@@ -47,7 +46,6 @@ amplify.subscribe("priorityexample", data => {
     }
 }, 1);
 
-
 // Store data with amplify storage picking the default storage technology:
 
 amplify.publish("priorityexample", { foo: "bar" });
@@ -56,9 +54,9 @@ amplify.publish("priorityexample", { foo: "oops" });
 amplify.store("storeExample1", { foo: "bar" });
 amplify.store("storeExample2", "baz");
 // retrieve the data later via the key
-var myStoredValue = amplify.store("storeExample1"),
-    myStoredValue2 = amplify.store("storeExample2"),
-    myStoredValues = amplify.store();
+const myStoredValue = amplify.store("storeExample1");
+let myStoredValue2 = amplify.store("storeExample2");
+const myStoredValues = amplify.store();
 myStoredValue.foo; // bar
 myStoredValue2; // baz
 myStoredValues.storeExample1.foo; // bar
@@ -68,14 +66,12 @@ myStoredValues.storeExample2; // baz
 
 amplify.store.sessionStorage("explicitExample", { foo2: "baz" });
 // retrieve the data later via the key
-var myStoredValue2 = amplify.store.sessionStorage("explicitExample");
+myStoredValue2 = amplify.store.sessionStorage("explicitExample");
 myStoredValue2.foo2; // baz
-
 
 // REQUEST
 
 // Set up and use a request utilizing Ajax
-
 
 amplify.request.define("ajaxExample1", "ajax", {
     url: "/myApiUrl",
@@ -175,7 +171,7 @@ amplify.request("twitter-mentions", { user: "amplifyjs" });
 
 // Example:
 
-var appEnvelopeDecoder: amplify.Decoder = (data, status, xhr, success, error) => {
+const appEnvelopeDecoder: amplify.Decoder = (data, status, xhr, success, error) => {
     if (data.status === "success") {
         success(data.data);
     } else if (data.status === "fail" || data.status === "error") {
@@ -196,7 +192,6 @@ amplify.request.decoders.appEnvelope = appEnvelopeDecoder;
 
 // but you can also just add it via an index
 amplify.request.decoders['appEnvelopeStr'] = appEnvelopeDecoder;
-
 
 amplify.request.define("decoderExample", "ajax", {
     url: "/myAjaxUrl",
