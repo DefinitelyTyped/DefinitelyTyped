@@ -413,7 +413,7 @@ declare namespace angular {
     // https://docs.angularjs.org/api/ng/directive/ngModelOptions
     interface INgModelOptions {
         updateOn?: string;
-        debounce?: any;
+        debounce?: number | { [key: string]: number; };
         allowInvalid?: boolean;
         getterSetter?: boolean;
         timezone?: string;
