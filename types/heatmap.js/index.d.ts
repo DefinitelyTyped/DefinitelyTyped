@@ -3,7 +3,7 @@
 // Definitions by: Yang Guan <https://github.com/lookuptable>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as L from "leaflet";
+import * as Leaflet from "leaflet";
 
 declare global {
     /*
@@ -126,13 +126,13 @@ declare global {
         * Create DOM elements for an overlay, adding them to map panes and puts
         * listeners on relevant map events
         */
-        onAdd(map: L.Map): void;
+        onAdd(map: Leaflet.Map): void;
 
         /*
         * Remove the overlay's elements from the DOM and remove listeners
         * previously added by onAdd()
         */
-        onRemove(map: L.Map): void;
+        onRemove(map: Leaflet.Map): void;
 
         /*
         * Initialize a heatmap instance with the given dataset
