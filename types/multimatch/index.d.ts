@@ -11,7 +11,7 @@
  * @param {multimatch.MultimatchOptions} [options]
  * @returns {string[]}
  */
-declare function multimatch(paths: string[], patterns: string[], options?: multimatch.MultimatchOptions): string[];
+declare function multimatch(paths: string[], patterns: string | string[], options?: multimatch.MultimatchOptions): string[];
 
 declare namespace multimatch {
 
