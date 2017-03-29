@@ -2265,7 +2265,7 @@ declare namespace ExtensionAPI {
 
     interface IExtension {
         definition?: IDefinition;
-        paint?: ($element: HTMLElement, layout?: any) => void;
+        paint?($element: HTMLElement, layout?: any): void;
         initialProperties?: IInitialProperties;
         template?: string;
         controller?: any;
