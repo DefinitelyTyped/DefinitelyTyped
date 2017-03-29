@@ -205,7 +205,7 @@ var columns:ReactDataGrid.Column[] = [
         editable: true,
         width: 200,
         resizable: true,
-        filter: true,
+        filterable: true,
         filterRenderer: CustomFilterHeaderCell
     },
     {
