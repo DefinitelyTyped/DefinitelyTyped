@@ -103,7 +103,10 @@ var columns:ReactDataGrid.Column[] = [
         name: 'County',
         editor: <AutoCompleteEditor options={counties}/>,
         width: 200,
-        resizable: true
+        resizable: true,
+        getRowMetaData: (rowdata: any, column: Column) => {
+            return {};
+        }
     },
     {
         key: 'title',
