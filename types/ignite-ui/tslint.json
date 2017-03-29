@@ -1,8 +1,11 @@
 {
     "extends": "../tslint.json",
     "rules": {
+        "array-type": false,
         "dt-header": false,
         "ban-types": false,
+        "callable-types": false,
+        "no-empty-interface": false,
         "unified-signatures": false,
         "max-line-length": false,
         "whitespace": false
