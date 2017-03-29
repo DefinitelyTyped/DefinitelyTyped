@@ -211,7 +211,7 @@ interface PolicyDocument {
  * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
  */
 interface Statement {
-    Action: string;
+    Action: string | [string];
     Effect: string;
     Resource: string | [string];
 }

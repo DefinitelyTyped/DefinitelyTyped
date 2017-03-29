@@ -143,7 +143,7 @@ statement = {
 };
 
 statement = {
-    Action: str,
+    Action: [str, str],
     Effect: str,
     Resource: [str, str]
 };
