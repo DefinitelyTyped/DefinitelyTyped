@@ -337,7 +337,8 @@ export interface NativeMethodsMixinStatic {
 }
 
 // see react-jsx.d.ts
-export function createElement<P>(type: React.ReactType,
+export function createElement<P>(
+    type: React.ReactType,
     props?: P,
     ...children: React.ReactNode[]): React.ReactElement<P>;
 
@@ -1230,7 +1231,7 @@ interface TextInputState {
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
-    blurTextInput(textFieldID?: number) : void
+    blurTextInput(textFieldID?: number): void
 }
 
 /**
@@ -4165,7 +4166,7 @@ export interface LeftToRightGesture {
     direction: string;
 }
 
-export interface JumpGesture extends LeftToRightGesture{
+export interface JumpGesture extends LeftToRightGesture {
     overswipe: {
         frictionConstant: number
         frictionByDistance: number
@@ -5774,7 +5775,7 @@ export interface SnapshotViewIOSProperties extends ViewProperties, React.Props<S
     onSnapshotReady(): any,
 
     // A name to identify the individual instance to the SnapshotView
-    testIdentifier : string,
+    testIdentifier: string,
 
     ref?: React.Ref<ViewStatic & SnapshotViewIOSStatic>
 }
@@ -7288,7 +7289,7 @@ export interface EasingStatic {
     inOut(easing: EasingFunction): EasingFunction;
 }
 
-export module Animated {
+export namespace Animated {
     // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
     type AnimatedValue = Animated;
     type AnimatedValueXY = ValueXY;
@@ -7549,7 +7550,7 @@ export module Animated {
      * Spring animation based on Rebound and Origami.  Tracks velocity state to
      * create fluid motions as the `toValue` updates, and can be chained together.
      */
-    export function spring (
+    export function spring(
         value: AnimatedValue | AnimatedValueXY,
         config: SpringAnimationConfig
     ): CompositeAnimation;
@@ -7563,7 +7564,7 @@ export module Animated {
      * of the animations is stopped, they will all be stopped.  You can override
      * this with the `stopTogether` flag.
      */
-    export function parallel (
+    export function parallel(
         animations: Array<CompositeAnimation>,
         config?: ParallelConfig
     ): CompositeAnimation;
@@ -7589,7 +7590,7 @@ export module Animated {
      *  ]),
      *```
      */
-    export function event (
+    export function event(
         argMapping: Mapping[],
         config?: EventConfig
     ): (...args: any[]) => void;
@@ -7597,7 +7598,7 @@ export module Animated {
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent (component: any) : any;
+    export function createAnimatedComponent(component: any): any;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
