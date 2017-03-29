@@ -1,4 +1,4 @@
-import { context } from "aws-lambda-mock-context";
+import context = require("aws-lambda-mock-context");
 import * as Alexa from "alexa-sdk";
 
 const launchRequestJson: any = {
