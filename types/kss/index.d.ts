@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Builds a styleguide given the proper options. */
-declare function kss(options?: kss.IKssOptions): Promise<kss.KssStyleguide>;
+declare function kss(options?: kss.KssOptions): Promise<kss.KssStyleguide>;
 declare namespace kss {
-    interface IFile {
+    interface File {
         /** bath to source directory */
         base: string;
         /** file contents */
@@ -15,7 +15,7 @@ declare namespace kss {
         path: string;
     }
 
-    interface ISource {
+    interface Source {
         /** The name of the file. */
         filename: string;
         /** The full path of the file. */
@@ -24,7 +24,7 @@ declare namespace kss {
         line: number;
     }
 
-    interface IOptions {
+    interface Options {
         /**
          * Whether to automatically format Markdown using [marked](https://github.com/chjj/marked).
          * Enabled by default.
@@ -45,11 +45,11 @@ declare namespace kss {
         header?: boolean;
     }
 
-    interface IKssOptions extends IOptions {
+    interface KssOptions extends Options {
         builder?: any;
         clone?: boolean;
         custom?: any;
-        logErrorFunction?: (...msg: string[]) => void;
+        logErrorFunction?(...msg: string[]): void;
         json?: boolean;
         mask?: string | RegExp;
         source: string[];
@@ -59,7 +59,7 @@ declare namespace kss {
     type CallbackFn = (error: Error | null, styleguide: KssStyleguide) => void;
 
     class KssStyleguide {
-        constructor(data?: object);
+        constructor(data?: any);
         autoInit(autoInit: boolean): KssStyleguide;
         customPropertyNames(): string[];
         customPropertyNames(names: string | string[]): KssStyleguide;
@@ -69,11 +69,11 @@ declare namespace kss {
         sections(): KssSection[];
         sections(query: string | RegExp): false | KssSection | KssSection[];
         sections(sections: KssSection | KssSection[]): KssStyleguide;
-        toJSON(): object;
+        toJSON(): any;
     }
 
     class KssSection {
-        constructor(data?: object);
+        constructor(data?: any);
         custom(name: string): any;
         custom(name: string, value: any): KssSection;
         customPropertyNames(): string[];
@@ -101,19 +101,19 @@ declare namespace kss {
         referenceNumber(referenceNumber: string): KssSection;
         referenceURI(): string;
         referenceURI(referenceURI: string): KssSection;
-        source(): ISource;
-        source(source: ISource): KssSection;
+        source(): Source;
+        source(source: Source): KssSection;
         sourceFileName(): string;
         sourceLine(): string;
         styleGuide(): KssStyleguide;
         styleGuide(styleguide: KssStyleguide): KssSection;
-        toJSON(): object;
+        toJSON(): any;
         weight(): number;
         weight(weight: number): KssSection;
     }
 
     class KssModifier {
-        constructor(data?: object);
+        constructor(data?: any);
         className(): string;
         className(className: string): KssModifier;
         description(): string;
@@ -124,11 +124,11 @@ declare namespace kss {
         name(name: string): KssModifier;
         section(): KssSection;
         section(section: KssSection): KssModifier;
-        toJSON(): object;
+        toJSON(): any;
     }
 
     class KssParameter {
-        constructor(data?: object);
+        constructor(data?: any);
         defaultValue(): string;
         description(): string;
         description(description: string): KssParameter;
@@ -136,14 +136,14 @@ declare namespace kss {
         name(name: string): KssParameter;
         section(): KssSection;
         section(section: KssSection): KssParameter;
-        toJSON(): object;
+        toJSON(): any;
     }
 
-    /** Parse a string of documented CSS, or an array of file objects with their content. */
-    function parse(input: string | IFile[], options: IOptions): KssStyleguide;
+    /** Parse a string of documented CSS, or an array of file anys with their content. */
+    function parse(input: string | File[], options: Options): KssStyleguide;
 
     /** Traverse a directory, parse its contents, and create a `KssStyleGuide`. */
-    function traverse(directory: string | string[], options: IOptions): Promise<KssStyleguide>;
+    function traverse(directory: string | string[], options: Options): Promise<KssStyleguide>;
 }
 
 export = kss;
