@@ -7,9 +7,9 @@ import * as JSData from 'js-data';
 
 declare module 'js-data' {
     interface DSHttpAdapterOptions {
-        serialize?: (resourceName: string, data: any) => any;
-        deserialize?: (resourceName: string, data: any) => any;
-        queryTransform?: (resourceName: string, params: DSFilterParams) => any;
+        serialize?(resourceName: string, data: any): any;
+        deserialize?(resourceName: string, data: any): any;
+        queryTransform?(resourceName: string, params: DSFilterParams): any;
         httpConfig?: any;
         forceTrailingSlash?: boolean;
         log?: boolean | ((message?: any, ...optionalParams: any[]) => void);
