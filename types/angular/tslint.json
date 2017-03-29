@@ -12,7 +12,7 @@
         ],
         "align": true,
         "callable-types": false,
-        "forbidden-types": false,
+        "ban-types": false,
         "indent": [
             true,
             "spaces"
