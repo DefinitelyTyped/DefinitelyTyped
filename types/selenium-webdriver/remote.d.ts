@@ -66,13 +66,12 @@ export class DriverService {
     stop(): webdriver.promise.Promise<any>;
 }
 
-export module DriverService {
-
+export namespace DriverService {
     /**
      * Creates {@link DriverService} objects that manage a WebDriver server in a
      * child process.
      */
-    export class Builder {
+    class Builder {
         /**
          * @param {string} exe Path to the executable to use. This executable must
          *     accept the `--port` flag for defining the port to start the server on.
@@ -89,7 +88,6 @@ export module DriverService {
          * @template THIS
          */
         addArguments(...var_args: string[]): this;
-
 
         /**
          * Sets the host name to access the server on. If specified, the
@@ -118,7 +116,6 @@ export module DriverService {
          * @return {!DriverService.Builder} A self reference.
          */
         setPath(basePath: string | null): this;
-
 
         /**
          * Sets the port to start the server on.
