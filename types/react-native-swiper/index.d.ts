@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 interface SwiperProperties extends React.Props<Swiper> {
-
   horizontal?: boolean;
 
   style?: ViewStyle;
@@ -49,7 +48,7 @@ interface SwiperProperties extends React.Props<Swiper> {
 
   index?: number;
 
-  renderPagination?: (index: number, total: number, thisObject: Swiper) => JSX.Element;
+  renderPagination?(index: number, total: number, thisObject: Swiper): JSX.Element;
 
   dotStyle?: ViewStyle;
 
@@ -62,4 +61,3 @@ interface SwiperProperties extends React.Props<Swiper> {
 
 export default class Swiper extends React.Component<SwiperProperties, {}> {
 }
-
