@@ -113,7 +113,7 @@ declare global {
 
 		interface FeatureLayerOptions {
 			filter?: FilterFunction;
-			sanitizer?: (template: string) => string;
+			sanitizer?(template: string): string;
 		}
 
 		interface FeatureLayer extends Leaflet.FeatureGroup<Leaflet.ILayer> {
@@ -187,7 +187,7 @@ declare global {
 		//////////////////////////////////////////////////////////////////////
 
 		interface ControlOptions extends Leaflet.ControlOptions {
-			sanitizer?: (template: string) => string;
+			sanitizer?(template: string): string;
 		}
 
 		// InfoControl

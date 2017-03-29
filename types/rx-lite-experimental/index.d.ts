@@ -6,7 +6,6 @@
 /// <reference types="rx-lite"/>
 
 declare namespace Rx {
-
     interface Observable<T> {
         /**
          *  Returns an observable sequence that is the result of invoking the selector on the source sequence, without sharing subscriptions.
