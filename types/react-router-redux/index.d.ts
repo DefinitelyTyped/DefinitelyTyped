@@ -15,7 +15,7 @@ import {
     Location,
     Path,
     LocationState,
-    LocationDescriptorObject
+    LocationDescriptor
 } from 'history';
 import * as React from 'react';
 
@@ -25,7 +25,7 @@ export interface ConnectedRouterProps<State> {
 }
 export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, {}> {}
 
-export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE'
+export const LOCATION_CHANGE: string;
 
 export interface RouterState {
     location: Location | null
@@ -33,12 +33,10 @@ export interface RouterState {
 
 export function routerReducer(state?: RouterState, action?: RouterAction): RouterState
 
-export const CALL_HISTORY_METHOD = '@@router/LOCATION_CHANGE';
+export const CALL_HISTORY_METHOD: string;
 
-export function push(path: Path, state?: LocationState): RouterAction
-export function push(location: LocationDescriptorObject): RouterAction
-export function replace(path: Path, state?: LocationState): RouterAction
-export function replace(location: LocationDescriptorObject): RouterAction
+export function push(location: LocationDescriptor, state?: LocationState): RouterAction
+export function replace(location: LocationDescriptor, state?: LocationState): RouterAction
 export function go(n: number): RouterAction
 export function goBack(): RouterAction
 export function goForward(): RouterAction
