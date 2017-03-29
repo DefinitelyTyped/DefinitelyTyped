@@ -826,6 +826,10 @@ declare namespace webpack {
         constructor(options?: (percentage: number, msg: string) => void);
     }
 
+    class EnvironmentPlugin extends Plugin {
+        constructor(envs: string[] | {[key: string]: any});
+    }
+
     class ProvidePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
     }
