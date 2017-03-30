@@ -10,6 +10,9 @@ export = _;
 
 declare module 'angular' {
     export namespace material {
+
+        type ResolveObject = { [index: string]: angular.Injectable<(...args: any[]) => PromiseLike<any>> };
+
         interface IBottomSheetOptions {
             templateUrl?: string;
             template?: string;
@@ -21,7 +24,7 @@ declare module 'angular' {
             bindToController?: boolean; // default: false
             disableBackdrop?: boolean;
             escapeToClose?: boolean;
-            resolve?: { [index: string]: () => angular.IPromise<any> };
+            resolve?: ResolveObject;
             controllerAs?: string;
             parent?: Function | string | Object; // default: root node
             disableParentScroll?: boolean; // default: true
@@ -52,7 +55,7 @@ declare module 'angular' {
             controller(controller?: string | Function): T;
             locals(locals?: { [index: string]: any }): T;
             bindToController(bindToController?: boolean): T; // default: false
-            resolve(resolve?: { [index: string]: () => angular.IPromise<any> }): T;
+            resolve(resolve?: ResolveObject): T;
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             onComplete(onComplete?: Function): T;
@@ -100,7 +103,7 @@ declare module 'angular' {
             controller?: string | Function;
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
             onShowing?: Function;
@@ -178,7 +181,7 @@ declare module 'angular' {
             controller?: string | Function;
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
         }
@@ -332,7 +335,7 @@ declare module 'angular' {
             controllerAs?: string;
             bindToController?: boolean; // default: true
             locals?: { [index: string]: any };
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             attachTo?: string | JQuery | Element;
             propagateContainerEvents?: boolean;
             panelClass?: string;
