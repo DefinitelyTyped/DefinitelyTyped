@@ -1504,7 +1504,7 @@ declare namespace React {
         /**
          * The overflow property controls how extra content exceeding the bounding box of an element is rendered. It can be used in conjunction with an element that has a fixed width and height, to eliminate text-induced page distortion.
          */
-        overflow?: CSSWideKeyword | 'auto' | 'hidden' | 'scroll' | 'visible';
+        overflow?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
         /**
          * Specifies the preferred scrolling methods for elements that overflow.
@@ -1514,12 +1514,12 @@ declare namespace React {
         /**
          * Controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
          */
-        overflowX?: CSSWideKeyword | 'auto' | 'hidden' | 'scroll' | 'visible';
+        overflowX?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
         /**
          * Controls how extra content exceeding the y-axis of the bounding box of an element is rendered.
          */
-        overflowY?: CSSWideKeyword | 'auto' | 'hidden' | 'scroll' | 'visible';
+        overflowY?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
         /**
          * The padding optional CSS property sets the required padding space on one to four sides of an element. The padding area is the space between an element and its border. Negative values are not allowed but decimal values are permitted. The element size is treated as fixed, and the content of the element shifts toward the center as padding is increased.
