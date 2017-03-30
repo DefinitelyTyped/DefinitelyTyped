@@ -104,6 +104,11 @@ declare namespace uri {
         segment(position: number): string;
         segment(position: number, level: string): URI;
         segment(segment: string): URI;
+        segmentCoded(): string[];
+        segmentCoded(segments: string[]): URI;
+        segmentCoded(position: number): string;
+        segmentCoded(position: number, level: string): URI;
+        segmentCoded(segment: string): URI;
         setQuery(key: string, value: string): URI;
         setQuery(qry: Object): URI;
         setSearch(key: string, value: string): URI;

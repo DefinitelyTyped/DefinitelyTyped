@@ -12,4 +12,3 @@ if (input != null) {
 }
 
 picker1.destroy();
-

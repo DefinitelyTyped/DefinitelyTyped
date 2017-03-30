@@ -44,7 +44,6 @@ export interface EnterElement {
  */
 export type ContainerElement = HTMLElement | SVGSVGElement | SVGGElement;
 
-
 /**
  * Interface for optional parameters map, when dispatching custom events
  * on a selection
@@ -69,7 +68,6 @@ export interface CustomEventParameters {
  */
 export type ValueFn<T extends BaseType, Datum, Result> = (this: T, datum: Datum, index: number, groups: T[] | ArrayLike<T>) => Result;
 
-
 /**
  * TransitionLike is a helper interface to represent a quasi-Transition, without specifying the full Transition  interface in this file.
  * For example, whereever d3-zoom allows a Transition to be passed in as an argument, it internally immediately invokes its `selection()`
@@ -87,8 +85,6 @@ export interface TransitionLike<GElement extends BaseType, Datum> {
     tween(name: string, tweenFn: null): TransitionLike<GElement, Datum>;
     tween(name: string, tweenFn: ValueFn<GElement, Datum, ((t: number) => void)>): TransitionLike<GElement, Datum>;
 }
-
-
 
 // --------------------------------------------------------------------------
 // All Selection related interfaces and function
@@ -155,7 +151,6 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: GElement[]
  */
 export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<GElement>): Selection<GElement, OldDatum, null, undefined>;
 
-
 /**
  * A D3 Selection of elements.
  *
@@ -165,7 +160,6 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<
  * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
  */
 interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
-
     // Sub-selection -------------------------
 
     /**
@@ -558,17 +552,17 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      */
     filter(selector: string): Selection<GElement, Datum, PElement, PDatum>;
     /**
-    * Filters the selection, returning a new selection that contains only the elements for
-    * which the specified filter is true.
-    *
-    * The returned filtered selection preserves the parents of this selection, but like array.filter,
-    * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
-    *
-    * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
-    * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
-    *
-    * @param selector A CSS selector string to match when filtering.
-    */
+     * Filters the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param selector A CSS selector string to match when filtering.
+     */
     filter<FilteredElement extends BaseType>(selector: string): Selection<FilteredElement, Datum, PElement, PDatum>;
     /**
      * Filter the selection, returning a new selection that contains only the elements for
@@ -624,7 +618,6 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * Re-insert each selected element, in order, as the first child of its parent.
      */
     lower(): this;
-
 
     // Data Join ---------------------------------
 
@@ -853,8 +846,6 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * Returns the total number of elements in this selection.
      */
     size(): number;
-
-
 }
 
 /**
@@ -867,8 +858,7 @@ type SelectionFn = () => Selection<HTMLElement, any, null, undefined>;
  * Selects the root element, document.documentElement. This function can also be used to test for selections
  * (instanceof d3.selection) or to extend the selection prototype.
  */
-export var selection: SelectionFn;
-
+export const selection: SelectionFn;
 
 // ---------------------------------------------------------------------------
 // on.js event and customEvent related
@@ -899,7 +889,7 @@ interface BaseEvent {
  * rather than from the generated UMD bundle; not all bundlers observe jsnext:main.
  * Also beware of conflicts with the window.event global.
  */
-export var event: any; // Could be of all sorts of types, too general: BaseEvent | Event | MouseEvent | TouchEvent | ... | OwnCustomEventType;
+export const event: any; // Could be of all sorts of types, too general: BaseEvent | Event | MouseEvent | TouchEvent | ... | OwnCustomEventType;
 
 /**
  * Invokes the specified listener, using the specified "that" as "this" context and passing the specified arguments, if any.
@@ -984,7 +974,6 @@ export function touches(container: ContainerElement, touches?: TouchList): Array
 // local.js related
 // ---------------------------------------------------------------------------
 
-
 export interface Local<T> {
     /**
      * Retrieves a local variable stored on the node (or one of its parents).
@@ -1050,7 +1039,6 @@ export interface NamespaceLocalObject {
  */
 export function namespace(prefixedLocal: string): NamespaceLocalObject | string;
 
-
 // ---------------------------------------------------------------------------
 // namespaces.js related
 // ---------------------------------------------------------------------------
@@ -1063,8 +1051,7 @@ export interface NamespaceMap { [prefix: string]: string; }
 /**
  * Map of namespace prefixes to corresponding fully qualified namespace strings
  */
-export var namespaces: NamespaceMap;
-
+export const namespaces: NamespaceMap;
 
 // ---------------------------------------------------------------------------
 // window.js related
@@ -1078,12 +1065,10 @@ export var namespaces: NamespaceMap;
  */
 export function window(DOMNode: Window | Document | Element): Window;
 
-
 // ---------------------------------------------------------------------------
 // creator.js and matcher.js Complex helper closure generating functions
 // for explicit bound-context dependent use
 // ---------------------------------------------------------------------------
-
 
 /**
  * Given the specified element name, returns a function which creates an element of the given name,

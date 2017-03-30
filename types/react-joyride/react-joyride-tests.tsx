@@ -52,4 +52,3 @@ class NewComponent extends React.Component<undefined, undefined> {
         });
     }
 }
-

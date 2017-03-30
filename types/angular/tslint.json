@@ -2,32 +2,18 @@
     "extends": "../tslint.json",
     "rules": {
         "class-name": true,
-        "curly": true,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": true,
-        "no-shadowed-variable": true,
-        "quotemark": [
-            true,
-            "single"
-        ],
-        "align": true,
+        "indent": [true, "spaces"],
+        "quotemark": [true, "single"],
+        "variable-name": [true, "check-format"],
+
+        // Below are all TODOs
         "callable-types": false,
-        "forbidden-types": false,
-        "indent": [
-            true,
-            "spaces"
-        ],
+        "ban-types": false,
         "interface-name": false,
-        "linebreak-style": [
-            true,
-            "LF"
-        ],
+        "jsdoc-format": false,
+        "max-line-length": false,
         "no-empty-interface": false,
         "unified-signatures": false,
-        "variable-name": [
-            true,
-            "check-format"
-        ],
         "void-return": false
     }
 }

@@ -927,7 +927,7 @@ declare module "core-js/fn/function" {
     export = Function;
 }
 declare module "core-js/fn/function/has-instance" {
-    const hasInstance: (value: any) => boolean;
+    function hasInstance(value: any): boolean;
     export = hasInstance;
 }
 declare module "core-js/fn/function/name" {
@@ -1706,7 +1706,7 @@ declare module "core-js/library/fn/function" {
     export = Function;
 }
 declare module "core-js/library/fn/function/has-instance" {
-    const hasInstance: (value: any) => boolean;
+    function hasInstance(value: any): boolean;
     export = hasInstance;
 }
 declare module "core-js/library/fn/function/name" {

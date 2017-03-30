@@ -6,7 +6,7 @@
 ///<reference types="rx-lite" />
 
 declare namespace Rx {
-    export interface Observable<T> {
+    interface Observable<T> {
         delaySubscription(dueTime: number, scheduler?: IScheduler): Observable<T>;
         delayWithSelector(delayDurationSelector: (item: T) => number): Observable<T>;
         delayWithSelector(subscriptionDelay: number, delayDurationSelector: (item: T) => number): Observable<T>;

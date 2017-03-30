@@ -1,4 +1,4 @@
-// Type definitions for redux-logger v2.10.1
+// Type definitions for redux-logger v3.0.0
 // Project: https://github.com/fcomb/redux-logger
 // Definitions by: Alexander Rusakov <https://github.com/arusakov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -46,6 +46,6 @@ export interface ReduxLoggerOptions {
   diffPredicate?: LoggerPredicate;
 }
 
-declare function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
+export function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
 
-export default createLogger;
+export default logger;

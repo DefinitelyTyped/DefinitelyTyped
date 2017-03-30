@@ -7,7 +7,6 @@ const c = new Croppie(document.getElementById('item'), {
     enableOrientation: false,
 });
 
-
 c.bind({
     url: 'demo/demo-2.jpg',
     orientation: 4,

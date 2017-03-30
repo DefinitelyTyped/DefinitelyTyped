@@ -16,6 +16,7 @@ DayPicker.DateUtils.clone(new Date());
 DayPicker.DateUtils.isDayInRange(new Date(), { from: new Date(), to: new Date(2050) });
 
 interface MyCaptionProps extends DayPicker.CaptionElementProps {
+    myProp: number;
 }
 class Caption extends React.Component<MyCaptionProps, {}> {
     render() {
@@ -32,8 +33,7 @@ class Caption extends React.Component<MyCaptionProps, {}> {
         );
     }
 }
-<DayPicker captionElement={ Caption }/>
-
+<DayPicker captionElement={ Caption }/>;
 
 type CaptionElementProps = Partial<DayPicker.CaptionElementProps>;
 class CaptionElement extends React.Component<CaptionElementProps, {}> {
@@ -46,7 +46,7 @@ class CaptionElement extends React.Component<CaptionElementProps, {}> {
             <div onClick={ onClick }>
                 { localeUtils.formatMonthTitle(date, locale) }
             </div>
-        )
+        );
     }
 }
-<DayPicker captionElement={ <CaptionElement /> }/>
+<DayPicker captionElement={ <CaptionElement /> }/>;

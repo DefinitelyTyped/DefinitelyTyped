@@ -413,7 +413,7 @@ declare namespace angular {
     // https://docs.angularjs.org/api/ng/directive/ngModelOptions
     interface INgModelOptions {
         updateOn?: string;
-        debounce?: any;
+        debounce?: number | { [key: string]: number; };
         allowInvalid?: boolean;
         getterSetter?: boolean;
         timezone?: string;
@@ -602,7 +602,7 @@ declare namespace angular {
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
         (delay?: number, invokeApply?: boolean): IPromise<void>;
-        <T>(fn: (...args: any[]) => T, delay?: number, invokeApply?: boolean, ...args: any[]): IPromise<T>;
+        <T>(fn: (...args: any[]) => T | IPromise<T>, delay?: number, invokeApply?: boolean, ...args: any[]): IPromise<T>;
         cancel(promise?: IPromise<any>): boolean;
     }
 
@@ -782,7 +782,7 @@ declare namespace angular {
         // Check angular's i18n files for exemples
         NUMBER_FORMATS: ILocaleNumberFormatDescriptor;
         DATETIME_FORMATS: ILocaleDateTimeFormatDescriptor;
-        pluralCat: (num: any) => string;
+        pluralCat(num: any): string;
     }
 
     interface ILocaleNumberFormatDescriptor {
@@ -875,7 +875,8 @@ declare namespace angular {
          * @param identifierStart The function that will decide whether the given character is a valid identifier start character.
          * @param identifierContinue The function that will decide whether the given character is a valid identifier continue character.
          **/
-        setIdentifierFns(identifierStart?: (character: string, codePoint: number) => boolean,
+        setIdentifierFns(
+            identifierStart?: (character: string, codePoint: number) => boolean,
             identifierContinue?: (character: string, codePoint: number) => boolean): void;
     }
 
@@ -1591,10 +1592,10 @@ declare namespace angular {
     }
 
     interface IHttpInterceptor {
-        request?: (config: IRequestConfig) => IRequestConfig|IPromise<IRequestConfig>;
-        requestError?: (rejection: any) => any;
-        response?: <T>(response: IHttpPromiseCallbackArg<T>) => IPromise<IHttpPromiseCallbackArg<T>>|IHttpPromiseCallbackArg<T>;
-        responseError?: (rejection: any) => any;
+        request?(config: IRequestConfig): IRequestConfig|IPromise<IRequestConfig>;
+        requestError?(rejection: any): any;
+        response?<T>(response: IHttpPromiseCallbackArg<T>): IPromise<IHttpPromiseCallbackArg<T>>|IHttpPromiseCallbackArg<T>;
+        responseError?(rejection: any): any;
     }
 
     interface IHttpInterceptorFactory {
@@ -2025,7 +2026,6 @@ declare namespace angular {
             service(name: string, inlineAnnotatedFunction: any[]): IServiceProvider;
             value(name: string, value: any): IServiceProvider;
         }
-
     }
 
     /**

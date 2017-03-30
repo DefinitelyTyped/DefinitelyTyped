@@ -11,7 +11,7 @@ declare namespace mqtt {
     import EventEmitter = NodeJS.EventEmitter;
 
     interface Packet {
-        messageId: string;
+        messageId: number;
         [key: string]: any;
     }
 

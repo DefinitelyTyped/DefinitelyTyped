@@ -3,6 +3,10 @@
 // Definitions by: Alan Agius <https://github.com/alan-agius4/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type FormatterType = "json" | "string" | "verbose";
+
+export type SyntaxType = "scss" | "less" | "sugarss";
+
 export interface LinterOptions {
     code?: string;
     codeFilename?: string;
@@ -11,11 +15,11 @@ export interface LinterOptions {
     configFile?: string;
     configOverrides?: JSON;
     files?: string | string[];
-    formatter?: "json" | "string" | "verbose";
+    formatter?: FormatterType;
     ignoreDisables?: boolean;
     reportNeedlessDisables?: boolean;
     ignorePath?: boolean;
-    syntax?: "scss" | "less" | "sugarss";
+    syntax?: SyntaxType;
     customSyntax?: string;
 }
 

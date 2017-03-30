@@ -593,4 +593,5 @@ declare namespace jasmine {
     export var HtmlReporter: HtmlReporter;
     export var HtmlSpecFilter: HtmlSpecFilter;
     export var DEFAULT_TIMEOUT_INTERVAL: number;
+    export var MAX_PRETTY_PRINT_DEPTH: number;
 }

@@ -27,7 +27,7 @@ export class GraphQLError extends Error {
      *
      * Enumerable, and appears in the result of JSON.stringify().
      */
-    locations?: Array<{ line: number, column: number }> | void;
+    locations?: Array<{ line: number, column: number }> | undefined;
 
     /**
      * An array describing the JSON-path into the execution response which
@@ -35,23 +35,23 @@ export class GraphQLError extends Error {
      *
      * Enumerable, and appears in the result of JSON.stringify().
      */
-    path?: Array<string | number> | void;
+    path?: Array<string | number> | undefined;
 
     /**
      * An array of GraphQL AST Nodes corresponding to this error.
      */
-    nodes?: Array<ASTNode> | void;
+    nodes?: Array<ASTNode> | undefined;
 
     /**
      * The source GraphQL document corresponding to this error.
      */
-    source?: Source | void;
+    source?: Source | undefined;
 
     /**
      * An array of character offsets within the source GraphQL document
      * which correspond to this error.
      */
-    positions?: Array<number> | void;
+    positions?: Array<number> | undefined;
 
     /**
      * The original error thrown from a field resolver during execution.

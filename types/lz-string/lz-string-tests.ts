@@ -1,9 +1,7 @@
-
-
-var input = "Someting to compress";
-var encoded: string;
-var decoded: string;
-var encodedU8: Uint8Array;
+const input = "Someting to compress";
+let encoded: string;
+let decoded: string;
+let encodedU8: Uint8Array;
 
 encoded = LZString.compress(input);
 decoded = LZString.decompress(encoded);

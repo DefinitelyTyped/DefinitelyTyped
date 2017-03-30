@@ -85,7 +85,7 @@ export type Token = {
     /**
      * For non-punctuation tokens, represents the interpreted value of the token.
      */
-    value: string | void;
+    value: string | undefined;
 
     /**
      * Tokens exist as nodes in a double-linked-list amongst all tokens

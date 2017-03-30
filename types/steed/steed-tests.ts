@@ -2,8 +2,8 @@
 
 import steed = require('steed');
 
-declare var path: {
-    exists: (path: string, callback?: (error: Error, exists: boolean) => any) => void;
+declare const path: {
+    exists(path: string, callback?: (error: Error, exists: boolean) => any): void;
 };
 
 function funcStringCbErrBoolean(v: string, cb: (error: Error, res: boolean) => void) { }
@@ -19,15 +19,15 @@ steed.series([
     () => {}
 ]);
 
-var data: any[] = [];
+const data: any[] = [];
 function steedProcess(item: any, callback: (error: Error, result: any) => void) { }
 steed.map(data, steedProcess, (error, results) => {
     console.log(results);
 });
 
-var openFiles = ['file1', 'file2'];
+const openFiles = ['file1', 'file2'];
 
-var saveFile = (file: string, cb: (error: Error) => void) => {};
+const saveFile = (file: string, cb: (error: Error) => void) => {};
 steed.each(openFiles, saveFile, (error: Error) => {});
 steed.eachSeries(openFiles, saveFile, (error: Error) => {});
 
@@ -109,7 +109,6 @@ steed.parallel<string, Error>([
 ],
     (error, results) => {});
 
-
 steed.parallel({
     one(callback) {
         setTimeout(() => {
@@ -144,7 +143,7 @@ function whileFn(callback: any) {
 }
 
 function whileTest() { return count < 5; }
-var count = 0;
+let count = 0;
 
 steed.waterfall([
     (callback: any) => {
@@ -158,12 +157,10 @@ steed.waterfall([
     }
 ], (error, result) => {});
 
-
-var q = steed.queue<any, Error>((task: any, callback: () => void) => {
+const q = steed.queue<any, Error>((task: any, callback: () => void) => {
     console.log('hello ' + task.name);
     callback();
 }, 2);
-
 
 q.drain = () => {
     console.log('all items have been processed');
@@ -189,8 +186,8 @@ q.unshift([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], (error: Error) =>
     console.log('finished processing bar');
 });
 
-var qLength: number = q.length();
-var qIsIdle: boolean = q.idle();
+const qLength: number = q.length();
+const qIsIdle: boolean = q.idle();
 
 q.saturated = () => {
     console.log('queue is saturated.');
@@ -209,7 +206,7 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = steed.queue<string, Error>((task: string, callback: () => void) => {
+const q2 = steed.queue<string, Error>((task: string, callback: () => void) => {
     console.log('Task: ' + task);
     callback();
 }, 1);
@@ -251,38 +248,24 @@ steed.each<number, Error>({
     a: 1,
     b: 2
 }, (val: number, next: steed.ErrorCallback<Error>): void => {
-
     setTimeout((): void => {
-
         console.log(`steed.each: ${val}`);
-
         next();
-
     }, 500);
-
 }, (err?: Error): void => {
-
     console.log("steed.each: done.");
-
 });
 
 steed.eachSeries<number, Error>({
     a: 1,
     b: 2
 }, (val: number, next: steed.ErrorCallback<Error>): void => {
-
     setTimeout((): void => {
-
         console.log(`steed.eachSeries: ${val}`);
-
         next();
-
     }, 500);
-
 }, (err?: Error): void => {
-
     console.log("steed.eachSeries: done.");
-
 });
 
 // map
@@ -292,19 +275,12 @@ steed.map<number, string, Error>({
     b: 2,
     c: 3
 }, (val: number, next: steed.SteedResultCallback<string, Error>): void => {
-
     setTimeout((): void => {
-
         console.log(`steed.map: ${val}`);
-
         next(undefined as any, val.toString());
-
     }, 500);
-
 }, (error: Error, results: string[]): void => {
-
     console.log("steed.map: done with results", results);
-
 });
 
 steed.mapSeries<number, string, Error>({
@@ -312,17 +288,10 @@ steed.mapSeries<number, string, Error>({
     b: 2,
     c: 3
 }, (val: number, next: steed.SteedResultCallback<string, Error>): void => {
-
     setTimeout((): void => {
-
         console.log(`steed.mapSeries: ${val}`);
-
         next(undefined as any, val.toString());
-
     }, 500);
-
 }, (error: Error, results: string[]): void => {
-
     console.log("steed.mapSeries: done with results", results);
-
 });

@@ -1,10 +1,10 @@
 import v = require('voca');
 
-var str: string;
-var num: number;
-var bool: boolean;
-var strAry: string[];
-var numAry: number[];
+let str: string;
+let num: number;
+let bool: boolean;
+let strAry: string[];
+let numAry: number[];
 
 // Case
 str = v.camelCase();
@@ -222,18 +222,18 @@ str = v.splice('new year', 0, 3, 'happy');
 str = v.tr();
 str = v.tr('hello', 'el', 'ip');
 str = v.tr('Yes. The fire rises.', {
-    'Yes': 'Awesome',
-    'fire': 'flame'
-})
+    Yes: 'Awesome',
+    fire: 'flame'
+});
 str = v('hello').tr('el', 'ip').value();
 str = v('Yes. The fire rises.').tr({
-    'Yes': 'Awesome',
-    'fire': 'flame'
+    Yes: 'Awesome',
+    fire: 'flame'
 }).value();
 str = v.chain('hello').tr('el', 'ip').value();
 str = v.chain('Yes. The fire rises.').tr({
-    'Yes': 'Awesome',
-    'fire': 'flame'
+    Yes: 'Awesome',
+    fire: 'flame'
 }).value();
 
 str = v.trim();
@@ -349,5 +349,5 @@ str = v.stripTags('<span><i>Winter</i> is <b>cold</b></span>', ['b', 'i']);
 str = v.stripTags('Sun<br/>set', '', '-');
 
 // Util
-var voca: v.VocaStatic = v.noConflict();
-var version: string = v.version;
+const voca: v.VocaStatic = v.noConflict();
+const version: string = v.version;

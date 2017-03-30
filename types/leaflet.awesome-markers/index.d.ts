@@ -3,15 +3,15 @@
 // Definitions by: Egor Komarov <https://github.com/Odrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as Leaflet from "leaflet";
 
-declare module L {
+declare global { namespace L {
     module AwesomeMarkers {
         var version: string;
 
         function icon(options: AwesomeMarkers.IconOptions): AwesomeMarkers.Icon;
 
-        interface IconStatic extends L.IconStatic {
+        interface IconStatic extends Leaflet.IconStatic {
             /**
               * Creates an icon instance with the given options.
               */
@@ -27,11 +27,11 @@ declare module L {
             };
         }
 
-        interface Icon extends L.Icon {
+        interface Icon extends Leaflet.Icon {
             options: AwesomeMarkers.IconOptions;
         }
 
-        interface IconOptions extends L.IconOptions {
+        interface IconOptions extends Leaflet.IconOptions {
             /**
             * Name of the icon. See glyphicons or font-awesome.
             */
@@ -65,4 +65,4 @@ declare module L {
 
         var Icon: AwesomeMarkers.IconStatic;
     }
-}
+} }

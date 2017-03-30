@@ -25,22 +25,16 @@ import {
     View,
     ViewStyle,
     ViewPagerAndroid,
+    findNodeHandle
 } from 'react-native';
 
 function testDimensions() {
-  var {
+  const {
     width,
     height,
     scale,
     fontScale,
-  } = Dimensions.get("window");
-
-  var {
-    width,
-    height,
-    scale,
-    fontScale,
-  } = Dimensions.get("screen");
+  } = Dimensions.get(1 === 1 ? "window" : "screen");
 }
 
 BackAndroid.addEventListener("hardwareBackPress", () => {
@@ -52,7 +46,7 @@ interface LocalStyles {
     instructions: TextStyle;
 }
 
-var styles = StyleSheet.create<LocalStyles>(
+const styles = StyleSheet.create<LocalStyles>(
     {
         container:    {
             flex:            1,
@@ -95,25 +89,46 @@ const stylesAlt = StyleSheet.create(
     }
 )
 
+class CustomView extends React.Component<{}, {}> {
+
+    render() {
+        return (
+            <Text>Custom View</Text>
+        );
+    }
+
+}
 
 class Welcome extends React.Component<any, any> {
-
     refs: {
-      [key: string]: any
-      rootView: View
+        [key: string]: any
+        rootView: View
+        customView: CustomView
     }
 
     testNativeMethods() {
-      // this.setNativeProps({});
+        // this.setNativeProps({});
 
-      const { rootView } = this.refs;
+        const { rootView } = this.refs;
 
-      rootView.measure((x: number, y: number, width: number, height: number) => {
-      });
+        rootView.measure((x: number, y: number, width: number, height: number) => {
+        });
+
+    }
+
+    testFindNodeHandle() {
+
+        const { rootView, customView } = this.refs;
+
+        let nativeComponentHandle = findNodeHandle(rootView);
+
+        let customComponentHandle = findNodeHandle(customView);
+
+        let fromHandle = findNodeHandle(customComponentHandle);
+
     }
 
     render() {
-
         return (
             <View ref="rootView" style={styles.container}>
                 <Text style={styles.welcome}>
@@ -126,6 +141,7 @@ class Welcome extends React.Component<any, any> {
                     Press Cmd+R to reload,{'\n'}
                     Cmd+D or shake for dev menu
                 </Text>
+                <CustomView ref="customView" />
             </View>
         )
     }
@@ -135,7 +151,7 @@ export default Welcome;
 
 // App State
 
-function appStateListener(state : string) {
+function appStateListener(state: string) {
     console.log('New state: ' + state);
 }
 
