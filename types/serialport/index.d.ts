@@ -6,7 +6,7 @@
 declare module 'serialport' {
     class SerialPort {
         //openImmediately already removed in 4.0.7
-        constructor(path: string, options?: Object, callback?: (err: any) => void)
+        constructor(path: string, options?: SerialPort.options, callback?: (err: any) => void)
         isOpen(): boolean;
         on(event: string, callback?: (data?: any) => void): void;
         open(callback?: (err: any) => void): void;
@@ -47,6 +47,25 @@ declare module 'serialport' {
 
         interface updateOptions {
             baudRate?: number;
+        }
+
+        // https://github.com/EmergingTechnologyAdvisors/node-serialport/blob/4.0.7/README.md#user-content-serialport-path-options-opencallback
+        interface options {
+            autoOpen?: boolean,
+            lock?: boolean,
+            baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number,
+            dataBits?: 8|7|6|5,
+            stopBits?: 1|2,
+            parity?: 'none'|'even'|'mark'|'odd'|'space',
+            rtscts?: boolean,
+            xon?: boolean,
+            xoff?: boolean,
+            bufferSize?: number,
+            parser?: Function,
+            platformOptions?: {
+                vmin?: number,
+                vtime?: number
+            }
         }
     }
 
