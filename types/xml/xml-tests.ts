@@ -7,12 +7,11 @@ interface Tester {
   same(a: any, b: any): void;
   plan(id: number): void;
   ok(a: any): void;
-};
+}
 
 function test(c: string, f: (t: Tester) => void) {
   return;
 }
-
 
 test('no elements', t => {
     t.is(xml(), '');

@@ -6,11 +6,13 @@
         "quotemark": [true, "single"],
         "variable-name": [true, "check-format"],
 
+        // Below are all TODOs
         "callable-types": false,
         "ban-types": false,
         "interface-name": false,
-        "no-empty-interface": false,
+        "jsdoc-format": false,
         "max-line-length": false,
+        "no-empty-interface": false,
         "unified-signatures": false,
         "void-return": false
     }

@@ -820,8 +820,8 @@ angular.module('docsTimeDirective', [])
     .directive('myCurrentTime', ['$interval', 'dateFilter', ($interval: any, dateFilter: any) => {
         return {
             link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) {
-                let format: any,
-                    timeoutId: any;
+                let format: any;
+                let timeoutId: any;
 
                 function updateTime() {
                     element.text(dateFilter(new Date(), format));
@@ -896,7 +896,10 @@ angular.module('docsIsoFnBindExample', [])
 angular.module('dragModule', [])
     .directive('myDraggable', ['$document', ($document: any) => {
         return (scope: any, element: any, attr: any) => {
-            let startX = 0, startY = 0, x = 0, y = 0;
+            let startX = 0;
+            let startY = 0;
+            let x = 0;
+            let y = 0;
 
             element.css({
                 position: 'relative',

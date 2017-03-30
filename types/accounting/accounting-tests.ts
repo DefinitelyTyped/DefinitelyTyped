@@ -27,8 +27,6 @@ accounting.formatMoney(5318008, {
 // Will recursively format an array of values:
 accounting.formatMoney([123, 456, [78, 9]], "$", 0); // ["$123", "$456", ["$78", "$9"]]
 
-
-
 // formatColumn
 
 // Format list of numbers for display:
@@ -39,8 +37,6 @@ accounting.formatColumn([123, 12345], "$ ", 0); // ["$    123", "$ 12,345"]
 
 // List of numbers can be a multi-dimensional array (formatColumn is applied recursively):
 accounting.formatColumn([[1, 100], [900, 9]]); // [["$  1.00", "$100.00"], ["$900.00", "$  9.00"]]
-
-
 
 // formatNumber
 
@@ -58,15 +54,10 @@ accounting.formatNumber(5318008, {
 // Will recursively format an array of values:
 accounting.formatNumber([123456, [7890, 123]]); // ["123,456", ["7,890", "123"]]
 
-
-
 // toFixed
 
 (0.615).toFixed(2); // "0.61"
 accounting.toFixed(0.615, 2); // "0.62"
-
-
-
 
 // unformat
 
