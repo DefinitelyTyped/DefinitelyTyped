@@ -2,6 +2,7 @@
 // Project: https://github.com/dominictarr/hyperscript
 // Definitions by: Mike Linkovich <https://github.com/spacejack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare module 'hyperscript' {
 
