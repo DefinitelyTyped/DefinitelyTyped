@@ -62,14 +62,14 @@ declare namespace cucumber {
     }
 
     interface HookOptions{
-  		timeout?: number;
-  	}
+	timeout?: number;
+    }
 
     export interface Hooks {
         Before(code: HookCode): void;
         Before(options: HookOptions, code: HookCode): void;
-		After(code: HookCode): void;
-		After(options: HookOptions, code: HookCode): void;
+	After(code: HookCode): void;
+	After(options: HookOptions, code: HookCode): void;
         Around(code: AroundCode): void;
         setDefaultTimeout(time: number): void;
         setWorldConstructor(world: (() => void) | ({})): void;
