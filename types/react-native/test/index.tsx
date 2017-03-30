@@ -127,13 +127,13 @@ class Welcome extends React.Component<any, any> {
     testFindNodeHandle() {
 
         const { rootView, customView } = this.refs;
-        
+
         let nativeComponentHandle = findNodeHandle(rootView);
-        
+
         let customComponentHandle = findNodeHandle(customView);
-        
+
         let fromHandle = findNodeHandle(customComponentHandle);
-        
+
     }
 
     render() {
