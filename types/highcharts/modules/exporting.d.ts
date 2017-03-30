@@ -5,6 +5,6 @@
 
 import { Static } from "highcharts";
 
-declare var HighchartsExporting: (H: Static) => Static;
+declare function HighchartsExporting(H: Static): Static;
 export = HighchartsExporting;
 export as namespace HighchartsExporting;

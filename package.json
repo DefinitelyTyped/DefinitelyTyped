@@ -16,13 +16,12 @@
   },
   "scripts": {
     "compile-scripts": "tsc -p scripts",
-    "new-package": "dts-gen --dt",
     "not-needed": "node scripts/not-needed.js",
-    "lint": "node scripts/lint.js",
-    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 1"
+    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 1",
+    "lint": "dtslint --dt types"
   },
   "devDependencies": {
-    "types-publisher": "Microsoft/types-publisher#production",
-    "dts-gen": "latest"
+    "dtslint": "Microsoft/dtslint#production",
+    "types-publisher": "Microsoft/types-publisher#production"
   }
 }

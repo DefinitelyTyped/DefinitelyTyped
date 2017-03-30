@@ -2,7 +2,7 @@
     "extends": "../tslint.json",
     "rules": {
         "callable-types": false,
-        "forbidden-types": false,
+        "ban-types": false,
         "no-empty-interface": false,
         "no-single-declare-module": false,
         "unified-signatures": false

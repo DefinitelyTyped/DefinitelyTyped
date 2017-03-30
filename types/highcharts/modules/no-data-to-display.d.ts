@@ -29,6 +29,6 @@ declare module "highcharts" {
     }
 }
 
-declare var HighchartsNoDataToDisplay: (H: Static) => Static;
+declare function HighchartsNoDataToDisplay(H: Static): Static;
 export = HighchartsNoDataToDisplay;
 export as namespace HighchartsNoDataToDisplay;

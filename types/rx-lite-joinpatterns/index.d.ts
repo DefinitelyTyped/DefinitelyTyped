@@ -6,7 +6,6 @@
 /// <reference types="rx-lite" />
 
 declare namespace Rx {
-
     interface Pattern1<T1> {
         and<T2>(other: Observable<T2>): Pattern2<T1, T2>;
         thenDo<TR>(selector: (item1: T1) => TR): Plan<TR>;

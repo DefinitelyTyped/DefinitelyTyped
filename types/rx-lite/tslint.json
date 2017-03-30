@@ -3,7 +3,7 @@
     "rules": {
         "unified-signatures": false,
         "no-empty-interface": false,
-        "forbidden-types": false,
+        "ban-types": false,
         "interface-name": false,
         "array-type": false,
         "max-line-length": false,

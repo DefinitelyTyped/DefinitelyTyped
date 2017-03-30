@@ -297,7 +297,7 @@ export interface ConnectionConfig {
 
 export interface ParameterOptions {
     //  for VarChar, NVarChar, VarBinary
-    length?: number;
+    length?: number | 'max';
     // precision for Numeric, Decimal
     precision?: number;
     // scale for Numeric, Decimal, Time, DateTime2, DateTimeOffset
