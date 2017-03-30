@@ -71,7 +71,7 @@ export interface GridRow {
     type: "open"|"fold";
 
     /** @property {Function} [type="null"] State value that indicates whether a child row is shown or hidden. */
-    tpl?: () => void;
+    tpl?(): void;
 
     setIndex(rownum: number|string): void;
     reload(columns: GridColumn[], seq: any, xssFilter: any): void;

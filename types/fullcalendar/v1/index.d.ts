@@ -71,10 +71,10 @@ declare global {
             contentHeight?: number;
             aspectRatio?: number;
             handleWindowResize?: boolean;
-            viewRender?: (view: ViewObject, element: JQuery) => void;
-            viewDestroy?: (view: ViewObject, element: JQuery) => void;
-            dayRender?: (date: Date, cell: HTMLTableDataCellElement) => void;
-            windowResize?: (view: ViewObject) => void;
+            viewRender?(view: ViewObject, element: JQuery): void;
+            viewDestroy?(view: ViewObject, element: JQuery): void;
+            dayRender?(date: Date, cell: HTMLTableDataCellElement): void;
+            windowResize?(view: ViewObject): void;
 
             // Timezone
             timezone?: string | boolean;
@@ -106,10 +106,10 @@ declare global {
 
             // Clicking & Hovering - http://arshaw.com/fullcalendar/docs/mouse/
 
-            dayClick?: (date: Date, allDay: boolean, jsEvent: MouseEvent, view: ViewObject) => void;
-            eventClick?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => any; // return type boolean or void
-            eventMouseover?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => void;
-            eventMouseout?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => void;
+            dayClick?(date: Date, allDay: boolean, jsEvent: MouseEvent, view: ViewObject): void;
+            eventClick?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): any; // return type boolean or void
+            eventMouseover?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;
+            eventMouseout?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;
 
             // Event Data - http://arshaw.com/fullcalendar/docs/event_data/
 
@@ -137,8 +137,8 @@ declare global {
             startParam?: string;
             endParam?: string;
             lazyFetching?: boolean;
-            eventDataTransform?: (eventData: any) => EventObject;
-            loading?: (isLoading: boolean, view: ViewObject) => void;
+            eventDataTransform?(eventData: any): EventObject;
+            loading?(isLoading: boolean, view: ViewObject): void;
 
             // Event Rendering - http://arshaw.com/fullcalendar/docs/event_rendering/
 
@@ -146,10 +146,10 @@ declare global {
             eventBackgroundColor?: string;
             eventBorderColor?: string;
             eventTextColor?: string;
-            eventRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
-            eventAfterRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
-            eventAfterAllRender?: (view: ViewObject) => void;
-            eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
+            eventRender?(event: EventObject, element: HTMLDivElement, view: ViewObject): void;
+            eventAfterRender?(event: EventObject, element: HTMLDivElement, view: ViewObject): void;
+            eventAfterAllRender?(view: ViewObject): void;
+            eventDestroy?(event: EventObject, element: JQuery, view: ViewObject): void;
         }
 
         interface ViewOptionHash {
@@ -193,12 +193,12 @@ declare global {
             dragScroll?: boolean;
             eventOverlap?: boolean | ((stillEvent: EventObject, movingEvent: EventObject) => boolean);
             eventConstraint?: BusinessHours | Timespan;
-            eventDragStart?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-            eventDragStop?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-            eventDrop?: (event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject) => void;
-            eventResizeStart?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-            eventResizeStop?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-            eventResize?: (event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject) => void;
+            eventDragStart?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+            eventDragStop?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+            eventDrop?(event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject): void;
+            eventResizeStart?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+            eventResizeStop?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+            eventResize?(event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject): void;
         }
         /*
         * Selection - http://arshaw.com/fullcalendar/docs/selection/
@@ -210,15 +210,15 @@ declare global {
             unselectCancel?: string;
             selectOverlap?: boolean | ((event: EventObject) => boolean);
             selectConstraint?: Timespan | BusinessHours;
-            select?: (start: moment.Moment, end: moment.Moment, jsEvent: MouseEvent, view: ViewObject, resource?: any) => void;
-            unselect?: (view: ViewObject, jsEvent: Event) => void;
+            select?(start: moment.Moment, end: moment.Moment, jsEvent: MouseEvent, view: ViewObject, resource?: any): void;
+            unselect?(view: ViewObject, jsEvent: Event): void;
         }
 
         interface DroppingExternalElementsOptions {
             droppable?: boolean;
             dropAccept?: string | ((draggable: any) => boolean);
-            drop?: (date: moment.Moment, jsEvent: MouseEvent, ui: any) => void;
-            eventReceive?: (event: EventObject) => void;
+            drop?(date: moment.Moment, jsEvent: MouseEvent, ui: any): void;
+            eventReceive?(event: EventObject): void;
         }
 
         interface ButtonTextObject {

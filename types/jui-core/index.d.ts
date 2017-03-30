@@ -5,14 +5,15 @@
 
 /// <reference types="jquery"/>
 
-declare var jui: JuiStatic;
+export const jui: JuiStatic;
 
 interface UtilBase {
     /**
      * @property browser check browser agent
      * @property {Boolean} browser.webkit  Webkit 브라우저 체크
      * @property {Boolean} browser.mozilla  Mozilla 브라우저 체크
-     * @property {Boolean} browser.msie  IE 브라우저 체크 */
+     * @property {Boolean} browser.msie  IE 브라우저 체크
+     */
     browser: {
         webkit: boolean,
         mozilla: boolean,
@@ -389,11 +390,11 @@ interface JuiStatic {
     includeAll(): any[];
 
     /**
-    * @method add
-    * Adds a component object created
-    *
-    * @param {Object} ui UI instance
-    */
+     * @method add
+     * Adds a component object created
+     *
+     * @param {Object} ui UI instance
+     */
     add(uiIns: any): void;
 
     /**

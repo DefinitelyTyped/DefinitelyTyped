@@ -65,4 +65,3 @@ declare namespace SQLitePlugin {
         echoTest(ok?: (value: string) => void, error?: (msg: string) => void): void;
     }
 }
-

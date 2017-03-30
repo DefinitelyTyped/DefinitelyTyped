@@ -6,7 +6,7 @@
 /**
  * A smooth 3D tilt javascript library forked from Tilt.js (jQuery version).
  */
-export declare namespace VanillaTilt {
+export namespace VanillaTilt {
     /**
      * Options which configures the tilting
      */
@@ -49,7 +49,7 @@ export declare namespace VanillaTilt {
         easing?: string;
     }
 
-    export interface TiltValues {
+    interface TiltValues {
         /**
          * The current tilt on the X axis
          */
@@ -68,15 +68,15 @@ export declare namespace VanillaTilt {
         percentageY: number;
     }
 
-    export interface HTMLVanillaTiltElement extends HTMLElement {
-        vanillaTilt: VanillaTilt
+    interface HTMLVanillaTiltElement extends HTMLElement {
+        vanillaTilt: VanillaTilt;
     }
 }
 
 /**
  * A smooth 3D tilt javascript library forked from Tilt.js (jQuery version).
  */
-export declare class VanillaTilt {
+export class VanillaTilt {
     /**
      * Creates a new instance of a VanillaTilt element.
      * @param element The element, which should be a VanillaTilt element

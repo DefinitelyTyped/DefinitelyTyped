@@ -13,13 +13,13 @@ import * as Tether from 'tether';
 declare class TetherComponent extends React.Component<ReactTether.TetherComponentProps, null> { }
 
 declare namespace ReactTether {
-    export interface TetherComponentProps extends React.Props<TetherComponent>, Tether.ITetherOptions {
+    interface TetherComponentProps extends React.Props<TetherComponent>, Tether.ITetherOptions {
         renderElementTag?: string;
-        renderElementTo?: string | {appendChild: (element: HTMLElement) => void};
+        renderElementTo?: string | { appendChild(element: HTMLElement): void };
         id?: string;
         className?: string;
         style?: React.CSSProperties;
-        onUpdate?: () => void;
-        onRepositioned?: () => void;
+        onUpdate?(): void;
+        onRepositioned?(): void;
     }
 }

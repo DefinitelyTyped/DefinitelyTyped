@@ -21,7 +21,7 @@ interface MappingOptions extends FindOptions {
     ext?: string;
     extDot?: 'first' | 'last';
     flatten?: boolean;
-    rename?: (p: string) => string;
+    rename?(p: string): string;
 }
 
 interface OneMapping {
@@ -84,4 +84,3 @@ interface GlobuleStatic {
 
 declare var globule: GlobuleStatic;
 export = globule;
-

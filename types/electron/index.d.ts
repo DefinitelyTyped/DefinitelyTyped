@@ -1264,7 +1264,7 @@ declare namespace Electron {
 		 * Sets the menu as the window top menu.
 		 * Note: This API is not available on macOS.
 		 */
-		setMenu(menu: Menu): void;
+		setMenu(menu: Menu | null): void;
 		/**
 		 * Sets the progress value in the progress bar.
 		 * On Linux platform, only supports Unity desktop environment, you need to

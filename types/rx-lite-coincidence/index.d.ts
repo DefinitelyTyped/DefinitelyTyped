@@ -6,7 +6,6 @@
 ///<reference types="rx-lite" />
 
 declare namespace Rx {
-
     interface Observable<T> {
         join<TRight, TDurationLeft, TDurationRight, TResult>(
             right: Observable<TRight>,

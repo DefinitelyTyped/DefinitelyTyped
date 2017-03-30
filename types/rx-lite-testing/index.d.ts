@@ -6,7 +6,7 @@
 /// <reference types="rx-lite-virtualtime" />
 
 declare namespace Rx {
-    export interface TestScheduler extends VirtualTimeScheduler<number, number> {
+    interface TestScheduler extends VirtualTimeScheduler<number, number> {
         createColdObservable<T>(...records: Recorded[]): Observable<T>;
         createHotObservable<T>(...records: Recorded[]): Observable<T>;
         createObserver<T>(): MockObserver<T>;
@@ -16,11 +16,11 @@ declare namespace Rx {
         startWithCreate<T>(create: () => Observable<T>): MockObserver<T>;
     }
 
-    export var TestScheduler: {
+    const TestScheduler: {
         new (): TestScheduler;
     };
 
-    export class Recorded {
+    class Recorded {
         constructor(time: number, value: any, equalityComparer?: (x: any, y: any) => boolean);
         equals(other: Recorded): boolean;
         toString(): string;
@@ -28,7 +28,7 @@ declare namespace Rx {
         value: any;
     }
 
-    export var ReactiveTest: {
+    const ReactiveTest: {
         created: number;
         subscribed: number;
         disposed: number;
@@ -40,12 +40,12 @@ declare namespace Rx {
         subscribe(subscribeAt: number, unsubscribeAt?: number): Subscription;
     };
 
-    export class Subscription {
+    class Subscription {
         constructor(subscribeAt: number, unsubscribeAt?: number);
         equals(other: Subscription): boolean;
     }
 
-    export interface MockObserver<T> extends Observer<T> {
+    interface MockObserver<T> extends Observer<T> {
         messages: Recorded[];
     }
 
@@ -53,7 +53,7 @@ declare namespace Rx {
         new <T>(scheduler: IScheduler): MockObserver<T>;
     }
 
-    export var MockObserver: MockObserverStatic;
+    const MockObserver: MockObserverStatic;
 }
 
 declare module "rx-lite-testing" {

@@ -1,4 +1,3 @@
-
 declare const cordovaSQLiteDriver: LocalForageDriver;
 
 () => {

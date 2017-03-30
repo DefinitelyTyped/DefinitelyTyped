@@ -1,8 +1,7 @@
 {
   "extends": "../tslint.json",
   "rules": {
-    "interface-name": [
-        false
-    ]
+    "interface-name": false,
+    "no-empty-interface": false
   }
 }

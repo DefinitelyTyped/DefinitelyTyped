@@ -11,7 +11,7 @@ interface HowlerGlobal {
     unload(): void;
     usingWebAudio: boolean;
     noAudio: boolean;
-    mobileAudioEnable: boolean;
+    mobileAutoEnable: boolean;
     autoSuspend: boolean;
     ctx: AudioContext;
     masterGain: GainNode;

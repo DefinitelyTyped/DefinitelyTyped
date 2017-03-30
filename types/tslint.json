@@ -1,1 +1,7 @@
-{ "extends": "../node_modules/types-publisher/tslint-definitions.json" }
+{
+    "extends": "dtslint/dtslint.json",
+    "rules": {
+        // https://github.com/palantir/tslint/pull/2391
+        "prefer-const": false
+    }
+}

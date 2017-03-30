@@ -55,10 +55,10 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     aspectRatio?: number;
     handleWindowResize?: boolean;
     views?: ViewSpecificOptions;
-    viewRender?: (view: ViewObject, element: JQuery) => void;
-    viewDestroy?: (view: ViewObject, element: JQuery) => void;
-    dayRender?: (date: Date, cell: HTMLTableDataCellElement) => void;
-    windowResize?: (view: ViewObject) => void;
+    viewRender?(view: ViewObject, element: JQuery): void;
+    viewDestroy?(view: ViewObject, element: JQuery): void;
+    dayRender?(date: Date, cell: HTMLTableDataCellElement): void;
+    windowResize?(view: ViewObject): void;
 
     // Timezone
     timezone?: string | boolean;
@@ -90,10 +90,10 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
 
     // Clicking & Hovering - http://fullcalendar.io/docs/mouse/
 
-    dayClick?: (date: Date, allDay: boolean, jsEvent: MouseEvent, view: ViewObject) => void;
-    eventClick?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => any; // return type boolean or void
-    eventMouseover?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => void;
-    eventMouseout?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => void;
+    dayClick?(date: Date, allDay: boolean, jsEvent: MouseEvent, view: ViewObject): void;
+    eventClick?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): any; // return type boolean or void
+    eventMouseover?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;
+    eventMouseout?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;
 
     // Event Data - http://fullcalendar.io/docs/event_data/
 
@@ -120,8 +120,8 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     startParam?: string;
     endParam?: string;
     lazyFetching?: boolean;
-    eventDataTransform?: (eventData: any) => EventObject;
-    loading?: (isLoading: boolean, view: ViewObject) => void;
+    eventDataTransform?(eventData: any): EventObject;
+    loading?(isLoading: boolean, view: ViewObject): void;
     eventLimit?: boolean;
 
     // Event Rendering - http://fullcalendar.io/docs/event_rendering/
@@ -130,10 +130,10 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     eventBackgroundColor?: string;
     eventBorderColor?: string;
     eventTextColor?: string;
-    eventRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
-    eventAfterRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
-    eventAfterAllRender?: (view: ViewObject) => void;
-    eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
+    eventRender?(event: EventObject, element: HTMLDivElement, view: ViewObject): void;
+    eventAfterRender?(event: EventObject, element: HTMLDivElement, view: ViewObject): void;
+    eventAfterAllRender?(view: ViewObject): void;
+    eventDestroy?(event: EventObject, element: JQuery, view: ViewObject): void;
 
     // scheduler options
     resourceAreaWidth?: number;
@@ -172,12 +172,12 @@ export interface EventDraggingResizingOptions {
     dragScroll?: boolean;
     eventOverlap?: boolean | ((stillEvent: EventObject, movingEvent: EventObject) => boolean);
     eventConstraint?: "businessHours" | BusinessHours | Timespan;
-    eventDragStart?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-    eventDragStop?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-    eventDrop?: (event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject) => void;
-    eventResizeStart?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-    eventResizeStop?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
-    eventResize?: (event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject) => void;
+    eventDragStart?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+    eventDragStop?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+    eventDrop?(event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject): void;
+    eventResizeStart?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+    eventResizeStop?(event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject): void;
+    eventResize?(event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject): void;
 }
 /*
     * Selection - http://fullcalendar.io/docs/selection/
@@ -189,15 +189,15 @@ export interface SelectionOptions {
     unselectCancel?: string;
     selectOverlap?: boolean | ((event: EventObject) => boolean);
     selectConstraint?: Timespan | BusinessHours;
-    select?: (start: moment.Moment, end: moment.Moment, jsEvent: MouseEvent, view: ViewObject, resource?: any) => void;
-    unselect?: (view: ViewObject, jsEvent: Event) => void;
+    select?(start: moment.Moment, end: moment.Moment, jsEvent: MouseEvent, view: ViewObject, resource?: any): void;
+    unselect?(view: ViewObject, jsEvent: Event): void;
 }
 
 export interface DroppingExternalElementsOptions {
     droppable?: boolean;
     dropAccept?: string | ((draggable: any) => boolean);
-    drop?: (date: moment.Moment, jsEvent: MouseEvent, ui: any) => void;
-    eventReceive?: (event: EventObject) => void;
+    drop?(date: moment.Moment, jsEvent: MouseEvent, ui: any): void;
+    eventReceive?(event: EventObject): void;
 }
 
 export interface ButtonTextObject {

@@ -13,12 +13,12 @@ import { Wire } from 'bittorrent-protocol';
 declare const WebTorrent: WebTorrent.WebTorrent;
 
 declare namespace WebTorrent {
-    export interface WebTorrent {
+    interface WebTorrent {
         new (config?: Options): Instance;
         (config?: Options): Instance;
         WEBRTC_SUPPORT: boolean;
     }
-    export interface Options {
+    interface Options {
         maxConns?: number;
         nodeId?: string | Buffer;
         peerId?: string | Buffer;
@@ -27,16 +27,16 @@ declare namespace WebTorrent {
         webSeeds?: boolean;
     }
 
-    export interface TorrentOptions {
+    interface TorrentOptions {
         announce?: any[];
-        getAnnounceOpts?: () => void;
+        getAnnounceOpts?(): void;
         maxWebConns?: number;
         path?: string;
-        store?: (chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }) => any;
+        store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
         name?: string;
     }
 
-    export interface Instance extends NodeJS.EventEmitter {
+    interface Instance extends NodeJS.EventEmitter {
         on(event: 'torrent', callback: (torrent: Torrent) => void): this;
         on(event: 'error', callback: (err: Error | string) => void): this;
 
@@ -63,7 +63,7 @@ declare namespace WebTorrent {
         readonly ratio: number;
     }
 
-    export interface Torrent extends NodeJS.EventEmitter {
+    interface Torrent extends NodeJS.EventEmitter {
         readonly infoHash: string;
 
         readonly magnetURI: string;
@@ -127,7 +127,7 @@ declare namespace WebTorrent {
         on(event: 'noPeers', callback: (announceType: 'tracker' | 'dht') => void): this;
     }
 
-    export interface TorrentFile extends NodeJS.EventEmitter {
+    interface TorrentFile extends NodeJS.EventEmitter {
         readonly name: string;
 
         readonly path: string;

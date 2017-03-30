@@ -7,24 +7,24 @@ declare namespace Rx {
     /**
     * Promise A+
     */
-    export interface IPromise<T> {
+    interface IPromise<T> {
         then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
         then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
         then<R>(onFulfilled: (value: T) => R, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
         then<R>(onFulfilled?: (value: T) => R, onRejected?: (reason: any) => R): IPromise<R>;
     }
 
-    export interface IDisposable {
+    interface IDisposable {
         dispose(): void;
     }
 
-    export interface IScheduler {
+    interface IScheduler {
         catch(handler: (exception: any) => boolean): IScheduler;
         catchException(handler: (exception: any) => boolean): IScheduler;
     }
 
     // Observer
-    export interface Observer<T> {
+    interface Observer<T> {
         checked(): Observer<any>;
     }
 
@@ -37,7 +37,7 @@ declare namespace Rx {
         notifyOn<T>(scheduler: IScheduler): Observer<T>;
     }
 
-    export interface Observable<T> {
+    interface Observable<T> {
         observeOn(scheduler: IScheduler): Observable<T>;
         subscribeOn(scheduler: IScheduler): Observable<T>;
 

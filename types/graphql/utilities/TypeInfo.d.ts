@@ -5,6 +5,7 @@ import {
     GraphQLInputType,
     GraphQLField,
     GraphQLArgument,
+    GraphQLEnumValue,
     GraphQLType,
 } from '../type/definition';
 import { GraphQLDirective } from '../type/directives';
@@ -30,6 +31,7 @@ export class TypeInfo {
     getFieldDef(): GraphQLField<any, any>;
     getDirective(): GraphQLDirective;
     getArgument(): GraphQLArgument;
+    getEnumValue(): GraphQLEnumValue;
     enter(node: ASTNode): any;
     leave(node: ASTNode): any;
 }

@@ -292,7 +292,7 @@ declare namespace UniversalAnalytics {
         expVar?: string;
         flashVersion?: string;
         forceSSL?: boolean;
-        hitCallback?: () => void;
+        hitCallback?(): void;
         hitType?: string;
         hostname?: string;
         id?: string;
