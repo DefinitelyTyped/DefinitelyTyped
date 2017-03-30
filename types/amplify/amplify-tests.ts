@@ -155,15 +155,11 @@ amplify.request("twitter-search", { term: "amplifyjs" } );
 
 // Similarly, we can create a request that searches for mentions, by accepting a username:
 
-    amplify.request.define("twitter-mentions", "ajax", {
-        url: "http://search.twitter.com/search.json",
-        dataType: "jsonp",
-        dataMap: data => {
-            return {
-                q: "@" + data.user
-            };
-        }
-    });
+amplify.request.define("twitter-mentions", "ajax", {
+    url: "http://search.twitter.com/search.json",
+    dataType: "jsonp",
+    dataMap: data => ({ q: "@" + data.user }),
+});
 
 amplify.request("twitter-mentions", { user: "amplifyjs" });
 
@@ -241,11 +237,11 @@ amplify.request({
 
 // amplify.request comes with built in support for status.The status parameter appears in the default success or error callbacks when using an ajax definition.
 
-    amplify.request.define("statusExample1", "ajax", {
-        // ...
-    });
+amplify.request.define("statusExample1", "ajax", {
+    // ...
+});
 
- amplify.request({
+amplify.request({
     resourceId: "statusExample1",
     success: (data, status) => {
     },

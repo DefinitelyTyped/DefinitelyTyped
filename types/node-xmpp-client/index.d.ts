@@ -67,5 +67,5 @@ interface XmppOptions {
 
 interface Bosh {
     url?: string;
-    prebind?: (error: any, data: any) => void;
+    prebind?(error: any, data: any): void;
 }

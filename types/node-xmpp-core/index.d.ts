@@ -66,17 +66,17 @@ export class JID {
 
     /**
      * Convenience method to distinguish users
-     **/
+     */
     bare(): JID;
 
     /**
      * Comparison function
-     **/
+     */
     equals(other: JID): boolean;
 
     /**
      * http://xmpp.org/rfcs/rfc6122.html#addressing-localpart
-     **/
+     */
     setLocal(local: string, escape?: any): void;
 
     getLocal(unescape?: any): string;

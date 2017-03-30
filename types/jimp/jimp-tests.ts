@@ -36,20 +36,20 @@ Jimp.read("http://www.example.com/path/to/lenna.jpg", (err, image) => {
     // do stuff with the image (if no exception)
 });
 
-var image = new Jimp(1, 2);
-var w = 0;
-var h = 0;
-var x = 0;
-var y = 0;
-var f = 0;
-var src = '';
-var horz = Jimp.HORIZONTAL_ALIGN_CENTER;
-var vert = Jimp.VERTICAL_ALIGN_BOTTOM;
-var deg = 90;
-var val = 0.5;
-var hex = 0xFFFFFFFF;
-var r = 0;
-var n = 1;
+let image = new Jimp(1, 2);
+const w = 0;
+const h = 0;
+const x = 0;
+const y = 0;
+const f = 0;
+const src = '';
+const horz = Jimp.HORIZONTAL_ALIGN_CENTER;
+const vert = Jimp.VERTICAL_ALIGN_BOTTOM;
+const deg = 90;
+const val = 0.5;
+const hex = 0xFFFFFFFF;
+const r = 0;
+const n = 1;
 /* Resize */
 image.contain(w, h);    // scale the image to the given width and height, some parts of the image may be letter boxed
 image.cover(w, h);      // scale the image to the given width and height, some parts of the image may be clipped
@@ -112,15 +112,15 @@ image.resize(250, 250, Jimp.RESIZE_BEZIER);
 
 image.contain(250, 250, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_TOP);
 
-var path = '';
-var str = '';
-var width = 0;
+const path = '';
+const str = '';
+const width = 0;
 Jimp.loadFont(path).then(font => { // load font from .fnt file
     image.print(font, x, y, str);        // print a message on an image
     image.print(font, x, y, str, width); // print a message on an image with text wrapped at width
 });
 
-var cb = (err: Error, data: any) => {};
+const cb = (err: Error, data: any) => {};
 Jimp.loadFont(path, cb); // using a callback pattern
 
 Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
@@ -129,17 +129,16 @@ Jimp.loadFont(Jimp.FONT_SANS_32_BLACK).then(font => {
 
 image.write(path, cb); // Node-style callback will be fired when write is successful
 
-var file = "new_name." + image.getExtension();
+const file = "new_name." + image.getExtension();
 image.write(file);
 
-
-var mime = 'image/png';
+const mime = 'image/png';
 image.getBuffer(mime, cb); // Node-style callback will be fired with result
 image.getBase64(mime, cb); // Node-style callback will be fired with result
 image.quality(n); // set the quality of saved JPEG, 0 - 100
 
-var bool = true;
-var number = 0;
+const bool = true;
+const number = 0;
 image.rgba(bool);             // set whether PNGs are saved as RGBA (true, default) or RGB (false)
 image.filterType(number);     // set the filter type for the saved PNG
 image.deflateLevel(number);   // set the deflate level for the saved PNG
@@ -160,10 +159,10 @@ image.scan(0, 0, image.bitmap.width, image.bitmap.height, function(x, y, idx) {
     // idx is the position start position of this rgba tuple in the bitmap Buffer
     // this is the image
 
-    var red   = this.bitmap.data[ idx + 0 ];
-    var green = this.bitmap.data[ idx + 1 ];
-    var blue  = this.bitmap.data[ idx + 2 ];
-    var alpha = this.bitmap.data[ idx + 3 ];
+    const red   = this.bitmap.data[ idx + 0 ];
+    const green = this.bitmap.data[ idx + 1 ];
+    const blue  = this.bitmap.data[ idx + 2 ];
+    const alpha = this.bitmap.data[ idx + 3 ];
 
     // rgba values run from 0 - 255
     // e.g. this.bitmap.data[idx] = 0; // removes red from this pixel
@@ -171,35 +170,34 @@ image.scan(0, 0, image.bitmap.width, image.bitmap.height, function(x, y, idx) {
 image.getPixelColor(x, y);      // returns the colour of that pixel e.g. 0xFFFFFFFF
 image.setPixelColor(hex, x, y); // sets the colour of that pixel
 
-var g = 0;
-var b = 0;
-var a = 0;
+const g = 0;
+const b = 0;
+const a = 0;
 Jimp.rgbaToInt(r, g, b, a); // e.g. converts 255, 255, 255, 255 to 0xFFFFFFFF
 Jimp.intToRGBA(hex);        // e.g. converts 0xFFFFFFFF to {r: 255, g: 255, b: 255, a:255}
 
-var image = new Jimp(256, 256, (err, image) => {
+image = new Jimp(256, 256, (err, image) => {
     // this image is 256 x 256, every pixel is set to 0x00000000
 });
 
-var image = new Jimp(256, 256, 0xFF0000FF, (err, image) => {
+image = new Jimp(256, 256, 0xFF0000FF, (err, image) => {
     // this image is 256 x 256, every pixel is set to 0xFF0000FF
 });
 
 image.hash(); // aHgG4GgoFjA
 image.hash(2); // 1010101011010000101010000100101010010000011001001001010011100100
 
-var image1 = new Jimp(0, 1);
-var image2 = new Jimp(0, 1);
+const image1 = new Jimp(0, 1);
+const image2 = new Jimp(0, 1);
 Jimp.distance(image1, image2); // returns a number 0-1, where 0 means the two images are perceived to be identical
 
-var threshold = 0;
-var diff = Jimp.diff(image1, image2, threshold); // threshold ranges 0-1 (default: 0.1)
+const threshold = 0;
+let diff = Jimp.diff(image1, image2, threshold); // threshold ranges 0-1 (default: 0.1)
 diff.image;   // a Jimp image showing differences
 diff.percent; // the proportion of different pixels (0-1), where 0 means the images are pixel identical
 
-
-var distance = Jimp.distance(image, image2); // perceived distance
-var diff = Jimp.diff(image, image2);         // pixel difference
+const distance = Jimp.distance(image, image2); // perceived distance
+diff = Jimp.diff(image, image2);         // pixel difference
 
 if (distance < 0.15 || diff.percent < 0.15) {
     // images match

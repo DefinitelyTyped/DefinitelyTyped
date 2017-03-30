@@ -7,7 +7,6 @@
  * A session object for managing the payment process on the web.
  */
 declare class ApplePaySession extends EventTarget {
-
     /**
      * Creates a new instance of the ApplePaySession class.
      * @param version - The version of the ApplePay JS API you are using.
@@ -164,12 +163,10 @@ declare class ApplePaySession extends EventTarget {
 }
 
 declare namespace ApplePayJS {
-
     /**
      * Defines a line item in a payment request - for example, total, tax, discount, or grand total.
      */
     interface ApplePayLineItem {
-
         /**
          * A short, localized description of the line item.
          */
@@ -190,7 +187,6 @@ declare namespace ApplePayJS {
      * Represents the result of authorizing a payment request and contains encrypted payment information.
      */
     interface ApplePayPayment {
-
         /**
          * The encrypted token for an authorized payment.
          */
@@ -211,7 +207,6 @@ declare namespace ApplePayJS {
      * The Apple​Pay​Payment​Authorized​Event class defines the attributes contained by the ApplePaySession.onpaymentauthorized callback function.
      */
     abstract class ApplePayPaymentAuthorizedEvent extends Event {
-
         /**
          * The payment token used to authorize a payment.
          */
@@ -222,7 +217,6 @@ declare namespace ApplePayJS {
      * Encapsulates contact information needed for billing and shipping.
      */
     interface ApplePayPaymentContact {
-
         /**
          * An email address for the contact.
          */
@@ -278,7 +272,6 @@ declare namespace ApplePayJS {
      * Contains information about an Apple Pay payment card.
      */
     interface ApplePayPaymentMethod {
-
         /**
          * A string, suitable for display, that describes the card.
          */
@@ -305,7 +298,6 @@ declare namespace ApplePayJS {
      * The Apple​Pay​Payment​Method​Selected​Event class defines the attributes contained by the ApplePaySession.onpaymentmethodselected callback function.
      */
     abstract class ApplePayPaymentMethodSelectedEvent extends Event {
-
         /**
          * The card used to complete a payment.
          */
@@ -316,7 +308,6 @@ declare namespace ApplePayJS {
      * Represents a provisioned payment card for Apple Pay payments.
      */
     interface ApplePayPaymentPass {
-
         /**
          * The unique identifier for the primary account number for the payment card.
          */
@@ -347,7 +338,6 @@ declare namespace ApplePayJS {
      * Encapsulates a request for payment, including information about payment processing capabilities, the payment amount, and shipping information.
      */
     interface ApplePayPaymentRequest {
-
         /**
          * The merchant's two-letter ISO 3166 country code.
          */
@@ -419,7 +409,6 @@ declare namespace ApplePayJS {
      * Contains the user's payment credentials.
      */
     interface ApplePayPaymentToken {
-
         /**
          * An object containing the encrypted payment data.
          */
@@ -440,7 +429,6 @@ declare namespace ApplePayJS {
      * The Apple​Pay​Shipping​Contact​Selected​Event class defines the attributes contained by the ApplePaySession.onshippingcontactselected callback function.
      */
     abstract class ApplePayShippingContactSelectedEvent extends Event {
-
         /**
          * The shipping address selected by the user.
          */
@@ -451,7 +439,6 @@ declare namespace ApplePayJS {
      * Defines a shipping method for delivering physical goods.
      */
     interface ApplePayShippingMethod {
-
         /**
          * A short description of the shipping method.
          */
@@ -477,7 +464,6 @@ declare namespace ApplePayJS {
      * The Apple​Pay​Shipping​Method​Selected​Event class defines the attribute contained by the ApplePaySession.onshippingmethodselected callback function.
      */
     abstract class ApplePayShippingMethodSelectedEvent extends Event {
-
         /**
          * The shipping method selected by the user.
          */
@@ -488,7 +474,6 @@ declare namespace ApplePayJS {
      * The Apple​Pay​Validate​Merchant​Event class defines the attributes contained by the ApplePaySession.onvalidatemerchant callback function.
      */
     abstract class ApplePayValidateMerchantEvent extends Event {
-
         /**
          * The URL used to validate the merchant server.
          */
@@ -496,7 +481,6 @@ declare namespace ApplePayJS {
     }
 
     abstract class Event {
-
         readonly bubbles: boolean;
 
         cancelBubble: boolean;

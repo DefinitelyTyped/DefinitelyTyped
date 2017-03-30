@@ -875,7 +875,8 @@ declare namespace angular {
          * @param identifierStart The function that will decide whether the given character is a valid identifier start character.
          * @param identifierContinue The function that will decide whether the given character is a valid identifier continue character.
          **/
-        setIdentifierFns(identifierStart?: (character: string, codePoint: number) => boolean,
+        setIdentifierFns(
+            identifierStart?: (character: string, codePoint: number) => boolean,
             identifierContinue?: (character: string, codePoint: number) => boolean): void;
     }
 

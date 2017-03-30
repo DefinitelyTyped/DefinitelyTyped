@@ -1,15 +1,15 @@
 import * as parser from 'xml2json';
 
-var xml = "<foo attr=\"value\">bar</foo>";
+let xml = "<foo attr=\"value\">bar</foo>";
 
 // xml to json
-var jsonString: string = parser.toJson(xml);
+const jsonString: string = parser.toJson(xml);
 
 // json to xml
-var xml: string = parser.toXml(jsonString);
+xml = parser.toXml(jsonString);
 
 // xml to json in object mode and JsonOptions
-var jsonObject: {} = parser.toJson(xml, {
+const jsonObject: {} = parser.toJson(xml, {
     object: true,
     reversible: false,
     coerce: false,
@@ -19,6 +19,6 @@ var jsonObject: {} = parser.toJson(xml, {
 });
 
 // json to xml with XmlOptions
-var xml: string = parser.toXml(jsonObject, {
+xml = parser.toXml(jsonObject, {
     sanitize: true
 });
