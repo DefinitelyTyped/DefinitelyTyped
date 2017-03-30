@@ -6,32 +6,32 @@ namespace main {
         if (expected !== undefined && typeof expected !== 'string') {
             throw new Error();
         }
-    };
+    }
     function isArray(expected?: any[]): void {
         if (expected !== undefined && !Array.isArray(expected)) {
             throw new Error();
         }
-    };
+    }
     function isNumber(expected?: number): void {
         if (expected !== undefined && typeof expected !== 'number') {
             throw new Error();
         }
-    };
+    }
     function isBoolean(expected?: boolean): void {
         if (expected !== undefined && typeof expected !== 'boolean') {
             throw new Error();
         }
-    };
+    }
     function isFunction(expected?: (...args: any[]) => void): void {
         if (expected !== undefined && typeof expected !== 'function') {
             throw new Error();
         }
-    };
+    }
     function isVoid(expected?: undefined): void {
         if (expected !== undefined) {
             throw new Error();
         }
-    };
+    }
 
     namespace test_global_options {
         Memcached.config.maxKeySize = 250;
@@ -116,11 +116,11 @@ namespace main {
             isNumber(expected.totalReconnectsFailed);
             isNumber(expected.totalDownTime);
         }
-        memcached.on('issue', err => isIssue(err));
-        memcached.on('failure', err => isIssue(err));
-        memcached.on('reconnecting', err => isIssue(err));
-        memcached.on('reconnect', err => isIssue(err));
-        memcached.on('remove', err => isIssue(err));
+        memcached.on('issue', isIssue);
+        memcached.on('failure', isIssue);
+        memcached.on('reconnecting', isIssue);
+        memcached.on('reconnect', isIssue);
+        memcached.on('remove', isIssue);
     }
 
     function isCommandData(expected: Memcached.CommandData) {
@@ -372,7 +372,7 @@ namespace main {
                 isString(stat.server);
             }
         });
-    };
+    }
     namespace test_settings {
         memcached.settings((err: any, data: Memcached.StatusData[]) => {
             isArray(data);
@@ -380,7 +380,7 @@ namespace main {
                 isString(setting.server);
             }
         });
-    };
+    }
     namespace test_slabs {
         memcached.slabs((err: any, data: Memcached.StatusData[]) => {
             isArray(data);
@@ -388,7 +388,7 @@ namespace main {
                 isString(setting.server);
             }
         });
-    };
+    }
     let promise: Promise<any>;
     namespace test_items {
         promise = new Promise(resolve => {
@@ -400,7 +400,7 @@ namespace main {
                 resolve(data);
             });
         });
-    };
+    }
     namespace test_cachedump {
         promise.then(data => {
             for (const node of data) {
@@ -418,12 +418,12 @@ namespace main {
                 });
             }
         });
-    };
+    }
 
     namespace test_flush {
         memcached.flush(function(err, results) {
             isVoid(this);
             isArray(results);
         });
-    };
+    }
 }
