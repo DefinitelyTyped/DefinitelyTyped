@@ -1,7 +1,6 @@
 import fs = require("fs");
 import validator = require("xsd-schema-validator");
 
-
 validator.validateXML("<foo:bar />", 'resources/foo.xsd', (err, result) => {
     if (err) {
         throw err;
