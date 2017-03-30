@@ -699,14 +699,14 @@ export interface GeoProjection extends GeoStreamWrapper {
      */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedFeature<GeoGeometryObjects, any>): this;
     /**
-    * Sets the projection’s scale and translate to fit the specified geographic feature collection in the center of the given extent.
-    * Returns the projection.
-    *
-    * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
-    *
-    * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
-    * @param object A geographic feature collection supported by d3-geo (An extension of GeoJSON feature collection).
-    */
+     * Sets the projection’s scale and translate to fit the specified geographic feature collection in the center of the given extent.
+     * Returns the projection.
+     *
+     * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
+     *
+     * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
+     * @param object A geographic feature collection supported by d3-geo (An extension of GeoJSON feature collection).
+     */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>): this;
     /**
      * Sets the projection’s scale and translate to fit the specified geographic geometry object in the center of the given extent.
@@ -719,14 +719,14 @@ export interface GeoProjection extends GeoStreamWrapper {
      */
     fitExtent(extent: [[number, number], [number, number]], object: GeoGeometryObjects): this;
     /**
-    * Sets the projection’s scale and translate to fit the specified geographic geometry collection in the center of the given extent.
-    * Returns the projection.
-    *
-    * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
-    *
-    * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
-    * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
-    */
+     * Sets the projection’s scale and translate to fit the specified geographic geometry collection in the center of the given extent.
+     * Returns the projection.
+     *
+     * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
+     *
+     * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
+     * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
+     */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
 
     /**
@@ -1340,7 +1340,7 @@ export interface GeoTransformPrototype {
  *
  * @param methods An object with custom method implementations, which are used to create a transform projection.
  */
-export function geoTransform<T extends GeoTransformPrototype>(methods: T): { stream: (s: GeoStream) => (T & GeoStream) };
+export function geoTransform<T extends GeoTransformPrototype>(methods: T): { stream(s: GeoStream): T & GeoStream };
 
 // geoIdentity() =================================================================
 
@@ -1382,14 +1382,14 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
      */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedFeature<GeoGeometryObjects, any>): this;
     /**
-    * Sets the projection’s scale and translate to fit the specified geographic feature collection in the center of the given extent.
-    * Returns the projection.
-    *
-    * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
-    *
-    * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
-    * @param object A geographic feature collection supported by d3-geo (An extension of GeoJSON feature collection).
-    */
+     * Sets the projection’s scale and translate to fit the specified geographic feature collection in the center of the given extent.
+     * Returns the projection.
+     *
+     * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
+     *
+     * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
+     * @param object A geographic feature collection supported by d3-geo (An extension of GeoJSON feature collection).
+     */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>): this;
     /**
      * Sets the projection’s scale and translate to fit the specified geographic geometry object in the center of the given extent.
@@ -1402,14 +1402,14 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
      */
     fitExtent(extent: [[number, number], [number, number]], object: GeoGeometryObjects): this;
     /**
-    * Sets the projection’s scale and translate to fit the specified geographic geometry collection in the center of the given extent.
-    * Returns the projection.
-    *
-    * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
-    *
-    * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
-    * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
-    */
+     * Sets the projection’s scale and translate to fit the specified geographic geometry collection in the center of the given extent.
+     * Returns the projection.
+     *
+     * Any clip extent is ignored when determining the new scale and translate. The precision used to compute the bounding box of the given object is computed at an effective scale of 150.
+     *
+     * @param extent The extent, specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
+     * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
+     */
     fitExtent(extent: [[number, number], [number, number]], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
 
     /**

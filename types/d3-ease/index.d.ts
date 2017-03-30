@@ -94,25 +94,24 @@ export interface PolynomialEasingFactory {
  * Symmetric polynomial easing/easing factory; scales polyIn for t in [0, 0.5] and polyOut for t in [0.5, 1].
  * If the exponent is not specified, it defaults to 3, equivalent to cubic.
  */
-export var easePoly: PolynomialEasingFactory;
+export const easePoly: PolynomialEasingFactory;
 /**
  * Polynomial easing/easing factory; raises t to the specified exponent.
  * If the exponent is not specified, it defaults to 3, equivalent to cubicIn.
  */
-export var easePolyIn: PolynomialEasingFactory;
+export const easePolyIn: PolynomialEasingFactory;
 
 /**
  * Reverse polynomial easing/easing factory; equivalent to 1 - polyIn(1 - t).
  * If the exponent is not specified, it defaults to 3, equivalent to cubicOut.
  */
-export var easePolyOut: PolynomialEasingFactory;
+export const easePolyOut: PolynomialEasingFactory;
 
 /**
  * Symmetric polynomial easing/easing factory; scales polyIn for t in [0, 0.5] and polyOut for t in [0.5, 1].
  * If the exponent is not specified, it defaults to 3, equivalent to cubic.
  */
-export var easePolyInOut: PolynomialEasingFactory;
-
+export const easePolyInOut: PolynomialEasingFactory;
 
 /**
  * Symmetric sinusoidal easing; scales sinIn for t in [0, 0.5] and sinOut for t in [0.5, 1].
@@ -226,7 +225,6 @@ export function easeBounceOut(normalizedTime: number): number;
  */
 export function easeBounceInOut(normalizedTime: number): number;
 
-
 /**
  * Anticipatory easing function factory
  */
@@ -249,26 +247,25 @@ export interface BackEasingFactory {
  * Symmetric anticipatory easing; scales backIn for t in [0, 0.5] and backOut for t in [0.5, 1].
  * The degree of overshoot is configurable; it not specified, it defaults to 1.70158.
  */
-export var easeBack: BackEasingFactory;
+export const easeBack: BackEasingFactory;
 
 /**
  * Anticipatory easing, like a dancer bending his knees before jumping off the floor.
  * The degree of overshoot is configurable; it not specified, it defaults to 1.70158.
  */
-export var easeBackIn: BackEasingFactory;
+export const easeBackIn: BackEasingFactory;
 
 /**
  * Reverse anticipatory easing; equivalent to 1 - backIn(1 - t).
  * The degree of overshoot is configurable; it not specified, it defaults to 1.70158.
  */
-export var easeBackOut: BackEasingFactory;
+export const easeBackOut: BackEasingFactory;
 
 /**
  * Symmetric anticipatory easing; scales backIn for t in [0, 0.5] and backOut for t in [0.5, 1].
  * The degree of overshoot is configurable; it not specified, it defaults to 1.70158.
  */
-export var easeBackInOut: BackEasingFactory;
-
+export const easeBackInOut: BackEasingFactory;
 
 /**
  * Elastic easing function factory
@@ -287,11 +284,11 @@ export interface ElasticEasingFactory {
      */
      amplitude(a: number): ElasticEasingFactory;
      /**
-     * Returns a new elastic easing with the specified amplitude a.
-     * Defaults to 0.3,if not specified.
-     *
-     * @param p Period for elastic easing.
-     */
+      * Returns a new elastic easing with the specified amplitude a.
+      * Defaults to 0.3,if not specified.
+      *
+      * @param p Period for elastic easing.
+      */
      period(p: number): ElasticEasingFactory;
 }
 
@@ -300,25 +297,25 @@ export interface ElasticEasingFactory {
  * The amplitude and period of the oscillation are configurable;
  * if not specified, they default to 1 and 0.3, respectively.
  */
-export var easeElastic: ElasticEasingFactory;
+export const easeElastic: ElasticEasingFactory;
 
 /**
  * Elastic easing, like a rubber band.
  * The amplitude and period of the oscillation are configurable;
  * if not specified, they default to 1 and 0.3, respectively.
  */
-export var easeElasticIn: ElasticEasingFactory;
+export const easeElasticIn: ElasticEasingFactory;
 
 /**
  * Reverse elastic easing; equivalent to 1 - elasticIn(1 - t).
  * The amplitude and period of the oscillation are configurable;
  * if not specified, they default to 1 and 0.3, respectively.
  */
-export var easeElasticOut: ElasticEasingFactory;
+export const easeElasticOut: ElasticEasingFactory;
 
 /**
  * Symmetric elastic easing; scales elasticIn for t in [0, 0.5] and elasticOut for t in [0.5, 1].
  * The amplitude and period of the oscillation are configurable;
  * if not specified, they default to 1 and 0.3, respectively.
  */
-export var easeElasticInOut: ElasticEasingFactory;
+export const easeElasticInOut: ElasticEasingFactory;
