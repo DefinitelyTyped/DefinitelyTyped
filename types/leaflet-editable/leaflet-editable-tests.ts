@@ -1,4 +1,11 @@
-
+class MarkerClass { }
+class MarkerEditorClass { }
+class MiddleMarkerClass { }
+class PolygonClass { }
+class PolygonEditorClass { }
+class PolylineClass { }
+class PolylineEditorClass { }
+class VertexMarkerClass { }
 
 var map: L.Map = L.map('div', {
     editable: true,
@@ -46,12 +53,3 @@ enabled = polygon.editEnabled();
 polygon.newHole(L.latLng(0, 0));
 polygon.reset();
 polygon.toggleEdit();
-
-class MarkerClass { }
-class MarkerEditorClass { }
-class MiddleMarkerClass { }
-class PolygonClass { }
-class PolygonEditorClass { }
-class PolylineClass { }
-class PolylineEditorClass { }
-class VertexMarkerClass { }

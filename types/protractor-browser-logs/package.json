@@ -1,6 +1,5 @@
 {
     "dependencies": {
-        "protractor": "latest",
-        "@types/selenium-webdriver": "latest"
+        "protractor": "latest"
     }
 }

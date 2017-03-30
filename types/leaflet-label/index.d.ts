@@ -3,7 +3,7 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as Leaflet from "leaflet";
 
 declare global {
 	namespace L {

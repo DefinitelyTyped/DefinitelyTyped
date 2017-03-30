@@ -933,7 +933,7 @@ interface IStaticCanvasOptions {
 	 * Function that determines clipping of entire canvas area
 	 * Being passed context as first argument. See clipping canvas area
 	 */
-	clipTo?: (context: CanvasRenderingContext2D) => void;
+	clipTo?(context: CanvasRenderingContext2D): void;
 
 	/**
 	 * Indicates whether object controls (borders/controls) are rendered above overlay image

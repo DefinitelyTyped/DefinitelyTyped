@@ -43,7 +43,6 @@ changes:
 - [x] Made _.capitalize uppercase the first character & lowercase the rest
 - [x] Made _.functions return only own method names
 
-
 added 23 array methods:
 - [x] _.concat
 - [x] _.differenceBy
@@ -100,7 +99,6 @@ added 13 object methods:
 - [x] _.mergeWith
 - [x] _.omitBy
 - [x] _.pickBy
-
 
 added 8 string methods:
 - [x] _.lowerCase
@@ -237,7 +235,6 @@ Methods:
 - [ ] _.next
 */
 
-
 export = _;
 export as namespace _;
 
@@ -246,7 +243,6 @@ declare var _: _.LoDashStatic;
 type PartialObject<T> = Partial<T>;
 
 declare namespace _ {
-
     type Many<T> = T | T[];
 
     interface LoDashStatic {
@@ -3202,11 +3198,9 @@ declare namespace _ {
         sortedIndex<W, T>(
             value: T
         ): LoDashExplicitWrapper<number>;
-
-
     }
 
-    //_.sortedIndexBy
+    // _.sortedIndexBy
     interface LoDashStatic {
         /**
          * This method is like `_.sortedIndex` except that it accepts `iteratee`
@@ -8662,7 +8656,6 @@ declare namespace _ {
         reduce<T, TResult>(
             collection: NumericDictionary<T>,
             callback: MemoIterator<T, TResult>): TResult;
-
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -9247,7 +9240,6 @@ declare namespace _ {
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: string|[string, any]
         ): boolean;
-
 
         /**
          * @see _.some
@@ -10517,7 +10509,6 @@ declare namespace _ {
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
-
     //_.memoize
     interface MemoizedFunction extends Function {
         cache: MapCache;
@@ -11163,7 +11154,6 @@ declare namespace _ {
     }
 
     interface LoDashImplicitArrayWrapper<T> {
-
         /**
          * @see _.clone
          */
@@ -11185,7 +11175,6 @@ declare namespace _ {
     }
 
     interface LoDashExplicitArrayWrapper<T> {
-
         /**
          * @see _.clone
          */
@@ -13875,7 +13864,6 @@ declare namespace _ {
             end: number
         ): boolean;
 
-
         /**
          * @see _.inRange
          */
@@ -14719,7 +14707,6 @@ declare namespace _ {
          */
         create<U extends Object>(properties?: U): LoDashExplicitObjectWrapper<T & U>;
     }
-
 
     //_.defaults
     interface LoDashStatic {
@@ -16593,7 +16580,6 @@ declare namespace _ {
     }
 
     interface LoDashImplicitObjectWrapper<T> {
-
         /**
          * @see _.omit
          */
@@ -16603,7 +16589,6 @@ declare namespace _ {
     }
 
     interface LoDashExplicitObjectWrapper<T> {
-
         /**
          * @see _.omit
          */
@@ -19497,7 +19482,6 @@ declare namespace _ {
         flush(): void;
     }
 }
-
 
 // Backward compatibility with --target es5
 declare global {

@@ -3,18 +3,18 @@
 // Definitions by: Leonard Lausen <http://leonard.lausen.nl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as Leaflet from "leaflet";
 
-declare namespace L {
+declare global { namespace L {
     namespace Control {
-        export interface GeocoderStatic extends ClassStatic {
+        export interface GeocoderStatic extends Leaflet.ClassStatic {
             /**
              * Creates a geocoder control.
              */
             new (options?: GeocoderOptions): Geocoder;
         }
 
-        export interface Geocoder extends L.Control {
+        export interface Geocoder extends Leaflet.Control {
         }
 
         export interface GeocoderOptions {
@@ -32,7 +32,7 @@ declare namespace L {
              *
              * Default value: false.
              */
-            bounds?: LatLngBounds | boolean;
+            bounds?: Leaflet.LatLngBounds | boolean;
 
             /**
              * If true, search and autocomplete prioritizes results near the center
@@ -42,7 +42,7 @@ declare namespace L {
              *
              * Default value: 'true'.
              */
-            focus?: LatLng | boolean;
+            focus?: Leaflet.LatLng | boolean;
 
             /**
              * Filters results by layers (documentation).
@@ -77,7 +77,7 @@ declare namespace L {
              *
              * Default value: 'topleft'.
              */
-            position?: L.PositionString;
+            position?: Leaflet.PositionString;
 
             /**
              * Attribution text to include.
@@ -126,7 +126,7 @@ declare namespace L {
              *
              * Default value: true
              */
-            markers?: MarkerOptions | boolean;
+            markers?: Leaflet.MarkerOptions | boolean;
 
             /**
              * If true, the input box will expand to take up the full width of the map container.
@@ -173,4 +173,4 @@ declare namespace L {
          */
         export function geocoder(api_key: string, options?: Control.GeocoderOptions): L.Control.Geocoder;
     }
-}
+} }

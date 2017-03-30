@@ -27,7 +27,6 @@ export class Driver extends webdriver.WebDriver {
  * Class for managing MicrosoftEdgeDriver specific options.
  */
 export class Options {
-
     /**
      * Extracts the MicrosoftEdgeDriver specific options from the given
      * capabilities object.

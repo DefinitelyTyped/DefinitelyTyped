@@ -23,7 +23,7 @@ async function main() {
         // Generate local module
         const localDir = path.join("..", module);
         ensureDir(localDir);
-        fs.writeFileSync(path.join(localDir, "index.d.ts"), `import { ${module} } from "../index";\nexport = ${module};`);
+        fs.writeFileSync(path.join(localDir, "index.d.ts"), `import { ${module} } from "../index";\nexport = ${module};\n`);
 
         // Generate non-local module
         if (!notOnNpm.has(module)) {
