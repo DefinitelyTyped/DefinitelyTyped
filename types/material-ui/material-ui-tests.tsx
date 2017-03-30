@@ -109,13 +109,7 @@ function handleTouchTap() {
   alert('onTouchTap triggered on the title component');
 }
 
-type Stylesheet<T> = {
-  [P in keyof T]: React.CSSProperties
-};
-
-declare function createStylesheet<T>(args: T): Stylesheet<T>;
-
-const styles = createStylesheet({
+const styles: { [key: string]: React.CSSProperties } = {
   title: {
     cursor: 'pointer',
   },
@@ -238,7 +232,7 @@ const styles = createStylesheet({
   floatingLabelFocusStyle: {
     color: blue500,
   },
-});
+};
 
 const style = {
   marginRight: 20,
