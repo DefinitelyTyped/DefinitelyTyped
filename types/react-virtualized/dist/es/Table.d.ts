@@ -33,7 +33,7 @@ export type TableHeaderRowProps = {
 };
 export type TableRowProps = {
     className: string,
-    columns: Array<any>,
+    columns: any[],
     index: number,
     isScrolling: boolean,
     onRowClick?: (params: RowMouseEventHandlerParams) => void,
@@ -198,7 +198,7 @@ export type TableProps = {
 
 export const defaultTableCellDataGetter: TableCellDataGetter;
 export const defaultTableCellRenderer: TableCellRenderer;
-export const defaultTableHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
+export const defaultTableHeaderRenderer: () => Array<React.ReactElement<TableHeaderProps>>;
 export const defaultTableHeaderRowRenderer: TableHeaderRowRenderer;
 export const defaultTableRowRenderer: TableRowRenderer;
 
@@ -286,9 +286,9 @@ export class Table extends PureComponent<TableProps, {}> {
         noRowsRenderer: Requireable<() => JSX.Element>,
 
         /**
-        * Optional callback when a column's header is clicked.
-        * ({ columnData: any, dataKey: string }): void
-        */
+         * Optional callback when a column's header is clicked.
+         * ({ columnData: any, dataKey: string }): void
+         */
         onHeaderClick: Requireable<(params: HeaderMouseEventHandlerParams) => void>,
 
         /**

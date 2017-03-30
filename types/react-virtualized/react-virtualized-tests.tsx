@@ -113,7 +113,7 @@ export class AutoSizerExample extends PureComponent<any, any> {
         )
     }
 }
-import {  } from 'react'
+import { } from 'react'
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 
 export class DynamicHeightList extends PureComponent<any, any> {
@@ -194,7 +194,6 @@ const GUTTER_SIZE = 3
 const CELL_WIDTH = 75
 
 export class CollectionExample extends PureComponent<any, any> {
-    
     _columnYMap: any;
 
     constructor(props, context) {
@@ -457,8 +456,6 @@ export class ColumnSizerExample extends PureComponent<any, any> {
 }
 
 export class GridExample extends PureComponent<any, any> {
-
-
     constructor(props, context) {
         super(props, context)
 
@@ -731,7 +728,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
         const { loadedRowsMap, loadingRowCount } = this.state
         const increment = stopIndex - startIndex + 1
 
-        for (var i = startIndex; i <= stopIndex; i++) {
+        for (let i = startIndex; i <= stopIndex; i++) {
             loadedRowsMap[i] = STATUS_LOADING
         }
 
@@ -744,7 +741,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
 
             delete this._timeoutIdMap[timeoutId]
 
-            for (var i = startIndex; i <= stopIndex; i++) {
+            for (let i = startIndex; i <= stopIndex; i++) {
                 loadedRowsMap[i] = STATUS_LOADED
             }
 
@@ -1251,7 +1248,7 @@ export class MultiGridExample extends PureComponent<any, any> {
     }
 }
 
-import {ScrollSync } from 'react-virtualized'
+import { ScrollSync } from 'react-virtualized'
 
 const LEFT_COLOR_FROM = hexToRgb('#471061')
 const LEFT_COLOR_TO = hexToRgb('#BC3959')
@@ -1532,59 +1529,59 @@ export class TableExample extends PureComponent<any, any> {
         const rowGetter = ({ index }) => this._getDatum(sortedList, index)
 
         return (
-                <div>
-                    <AutoSizer disableHeight>
-                        {({ width }) => (
-                            <Table
-                                ref='Table'
-                                disableHeader={disableHeader}
-                                headerClassName={'styles.headerColumn'}
-                                headerHeight={headerHeight}
-                                height={height}
-                                noRowsRenderer={this._noRowsRenderer}
-                                overscanRowCount={overscanRowCount}
-                                rowClassName={this._rowClassName}
-                                rowHeight={useDynamicRowHeight ? this._getRowHeight : rowHeight}
-                                rowGetter={rowGetter}
-                                rowCount={rowCount}
-                                scrollToIndex={scrollToIndex}
-                                sort={this._sort}
-                                sortBy={sortBy}
-                                sortDirection={sortDirection}
-                                width={width}
-                            >
-                                {!hideIndexRow &&
-                                    <Column
-                                        label='Index'
-                                        cellDataGetter={
-                                            ({ columnData, dataKey, rowData }) => rowData.index
-                                        }
-                                        dataKey='index'
-                                        disableSort={!this._isSortEnabled()}
-                                        width={60}
-                                    />
-                                }
+            <div>
+                <AutoSizer disableHeight>
+                    {({ width }) => (
+                        <Table
+                            ref='Table'
+                            disableHeader={disableHeader}
+                            headerClassName={'styles.headerColumn'}
+                            headerHeight={headerHeight}
+                            height={height}
+                            noRowsRenderer={this._noRowsRenderer}
+                            overscanRowCount={overscanRowCount}
+                            rowClassName={this._rowClassName}
+                            rowHeight={useDynamicRowHeight ? this._getRowHeight : rowHeight}
+                            rowGetter={rowGetter}
+                            rowCount={rowCount}
+                            scrollToIndex={scrollToIndex}
+                            sort={this._sort}
+                            sortBy={sortBy}
+                            sortDirection={sortDirection}
+                            width={width}
+                        >
+                            {!hideIndexRow &&
                                 <Column
-                                    dataKey='name'
-                                    disableSort={!this._isSortEnabled()}
-                                    headerRenderer={this._headerRenderer}
-                                    width={90}
-                                />
-                                <Column
-                                    width={210}
-                                    disableSort
-                                    label='The description label is really long so that it will be truncated'
-                                    dataKey='random'
-                                    className={'styles.exampleColumn'}
-                                    cellRenderer={
-                                        ({ cellData, columnData, dataKey, rowData, rowIndex }) => cellData
+                                    label='Index'
+                                    cellDataGetter={
+                                        ({ columnData, dataKey, rowData }) => rowData.index
                                     }
-                                    flexGrow={1}
+                                    dataKey='index'
+                                    disableSort={!this._isSortEnabled()}
+                                    width={60}
                                 />
-                            </Table>
-                        )}
-                    </AutoSizer>
-                </div>
+                            }
+                            <Column
+                                dataKey='name'
+                                disableSort={!this._isSortEnabled()}
+                                headerRenderer={this._headerRenderer}
+                                width={90}
+                            />
+                            <Column
+                                width={210}
+                                disableSort
+                                label='The description label is really long so that it will be truncated'
+                                dataKey='random'
+                                className={'styles.exampleColumn'}
+                                cellRenderer={
+                                    ({ cellData, columnData, dataKey, rowData, rowIndex }) => cellData
+                                }
+                                flexGrow={1}
+                            />
+                        </Table>
+                    )}
+                </AutoSizer>
+            </div>
         )
     }
 
