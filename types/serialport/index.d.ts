@@ -6,7 +6,7 @@
 declare module 'serialport' {
     class SerialPort {
         //openImmediately already removed in 4.0.7
-        constructor(path: string, options?: SerialPort.options, callback?: (err: any) => void)
+        constructor(path: string, options?: SerialPort.options|((err: any) => void), callback?: (err: any) => void)
         isOpen(): boolean;
         on(event: string, callback?: (data?: any) => void): void;
         open(callback?: (err: any) => void): void;
@@ -61,7 +61,7 @@ declare module 'serialport' {
             xon?: boolean,
             xoff?: boolean,
             bufferSize?: number,
-            parser?: Function,
+            parser?: any,
             platformOptions?: {
                 vmin?: number,
                 vtime?: number

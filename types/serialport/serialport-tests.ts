@@ -12,10 +12,9 @@ function test_basic_connect() {
 
 function test_connect_config() {
     let port = new SerialPort("", {
-        baudrate: 0,
-        disconnectedCallback: function () { },
+        baudRate: 0,
         parser: SerialPort.parsers.readline("\n")
-    });
+    }, function(err:any) { });
 }
 
 function test_write() {
