@@ -450,7 +450,7 @@ declare namespace ht {
         TextEditor: EditorConstructor;
     }
 
-    type Validator = (value: string, callback: (condition: boolean) => void) => void;
+    type Validator = (value: any, callback: (condition: boolean) => void) => void;
 
     interface Renderers {
         TextRenderer: CellRenderer;
