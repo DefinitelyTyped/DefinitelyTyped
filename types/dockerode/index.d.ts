@@ -590,19 +590,19 @@ declare namespace Dockerode {
   }
 
   interface SecretVersion {
-    Index: number
+    Index: number;
   }
 
   interface ServiceSpec {
-    Name: string
+    Name: string;
   }
 
   interface SecretInfo {
-    ID: string,
+    ID: string;
     Version:  SecretVersion;
-    CreatedAt: string,
-    UpdatedAt?: string,
-    Spec?: ServiceSpec
+    CreatedAt: string;
+    UpdatedAt?: string;
+    Spec?: ServiceSpec;
   }
 
   interface PluginInfo {
@@ -647,7 +647,7 @@ declare namespace Dockerode {
   interface PluginInterfaceType {
     Prefix: string;
     Capability: string;
-    Version: string
+    Version: string;
   }
 
   interface PluginMount {
@@ -657,7 +657,7 @@ declare namespace Dockerode {
     Source: string;
     Destination: string;
     Type: string;
-    Options: string[]
+    Options: string[];
   }
 
   interface Linux {
@@ -704,7 +704,6 @@ declare namespace Dockerode {
   interface PruneImagesInfo {
     ImagesDeleted: ImageRemoveInfo[];
     SpaceReclaimed: number;
-
   }
 
   interface PruneVolumesInfo {
@@ -720,7 +719,6 @@ declare namespace Dockerode {
   interface PruneNetworksInfo {
     NetworksDeleted: string[];
   }
-
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
