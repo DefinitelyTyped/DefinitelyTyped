@@ -1,47 +1,15 @@
 {
+    "extends": "../tslint.json",
     "rules": {
-        "class-name": true,
-        "comment-format": [
-            false,
-            "check-space"
-        ],
-        "indent": [
-            true,
-            "tabs"
-        ],
-        "no-duplicate-variable": true,
-        "no-eval": true,
-        "no-internal-module": false,
-        "no-trailing-whitespace": true,
-        "no-var-keyword": true,
-        "one-line": [
-            true,
-            "check-open-brace",
-            "check-whitespace"
-        ],
-        "quotemark": [
-            false,
-            "double"
-        ],
+        "array-type": [false, "array"],
+        "quotemark": [false, "double"],
         "semicolon": [false, "always"],
-        "triple-equals": [
-            true,
-            "allow-null-check"
-        ],
-        "typedef-whitespace": [
-            false,
-            {
-                "call-signature": "nospace",
-                "index-signature": "nospace",
-                "parameter": "nospace",
-                "property-declaration": "nospace",
-                "variable-declaration": "nospace"
-            }
-        ],
-        "variable-name": [
-            true,
-            "ban-keywords"
-        ],
+        "space-before-function-paren": [false, "always"],
+        "max-line-length": [false, 200],
+        "no-empty-interface": false,
+        "no-redundant-modifiers": false,
+        "prefer-for-of": false,
+        "unified-signatures": false,
         "whitespace": [
             false,
             "check-branch",

@@ -85,12 +85,12 @@ interface Comp4Attrs {
 
 interface Comp4State {
 	count: number
-	add: (this: Comp4State, num: number) => void
+	add(this: Comp4State, num: number): void
 }
 
 // Either of these two Comp4 defs will work:
 type Comp4 = Component<Comp4Attrs,Comp4State> & Comp4State
-//interface Comp4 extends Component<Comp4Attrs,Comp4State>, Comp4State {}
+// interface Comp4 extends Component<Comp4Attrs,Comp4State>, Comp4State {}
 
 const comp4: Comp4 = {
 	count: 0, // <- Must be declared to satisfy Comp4 type which includes Comp4State type
@@ -137,7 +137,6 @@ const comp5: Component<Comp4Attrs,Comp4State> = {
 		]
 	}
 }
-
 
 ///////////////////////////////////////////////////////////
 //

@@ -7,7 +7,7 @@ import * as stream from 'mithril/stream'
 const FRAME_BUDGET = 100
 
 {
-	let vnode = m("div")
+	const vnode = m("div")
 	console.assert(vnode.tag === "div")
 	console.assert(typeof m.version === "string")
 	console.assert(m.version.indexOf(".") > -1)
@@ -41,7 +41,7 @@ const FRAME_BUDGET = 100
 
 {
 	const root = window.document.createElement("div")
-	m.mount(root, {view: function() {return m("div")}})
+	m.mount(root, {view() {return m("div")}})
 	console.assert(root.childNodes.length === 1)
 	console.assert(root.firstChild!.nodeName === "DIV")
 }
@@ -49,10 +49,10 @@ const FRAME_BUDGET = 100
 {
 	const root = window.document.createElement("div")
 	m.route(root, "/a", {
-		"/a": {view: function() {return m("div")}}
+		"/a": {view() {return m("div")}}
 	})
 
-	setTimeout(function() {
+	setTimeout(() => {
 		console.assert(root.childNodes.length === 1)
 		console.assert(root.firstChild!.nodeName === "DIV")
 	}, FRAME_BUDGET)
@@ -62,10 +62,10 @@ const FRAME_BUDGET = 100
 	const root = window.document.createElement("div")
 	m.route.prefix("#")
 	m.route(root, "/a", {
-		"/a": {view: function() {return m("div")}}
+		"/a": {view() {return m("div")}}
 	})
 
-	setTimeout(function() {
+	setTimeout(() => {
 		console.assert(root.childNodes.length === 1)
 		console.assert(root.firstChild!.nodeName === "DIV")
 	}, FRAME_BUDGET)
@@ -74,10 +74,10 @@ const FRAME_BUDGET = 100
 {
 	const root = window.document.createElement("div")
 	m.route(root, "/a", {
-		"/a": {view: function() {return m("div")}}
+		"/a": {view() {return m("div")}}
 	})
 
-	setTimeout(function() {
+	setTimeout(() => {
 		console.assert(m.route.get() === "/a")
 	}, FRAME_BUDGET)
 }
@@ -85,12 +85,12 @@ const FRAME_BUDGET = 100
 {
 	const root = window.document.createElement("div")
 	m.route(root, "/a", {
-		"/:id": {view: function() {return m("div")}}
+		"/:id": {view() {return m("div")}}
 	})
 
-	setTimeout(function() {
+	setTimeout(() => {
 		m.route.set("/b")
-		setTimeout(function() {
+		setTimeout(() => {
 			console.assert(m.route.get() === "/b")
 		}, FRAME_BUDGET)
 	}, FRAME_BUDGET)
@@ -99,8 +99,8 @@ const FRAME_BUDGET = 100
 {
 	let count = 0
 	const root = window.document.createElement("div")
-	m.mount(root, {view: function() {count++}})
-	setTimeout(function() {
+	m.mount(root, {view() {count++}})
+	setTimeout(() => {
 		m.redraw()
 		console.assert(count === 2)
 	}, FRAME_BUDGET)
@@ -114,115 +114,110 @@ const FRAME_BUDGET = 100
 // http://mithril.js.org/hyperscript.html#components
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-
+{
 	// define a component
-	let Greeter: m.Comp<{}, {}> = {
-		view: function(vnode) {
+	const Greeter: m.Comp<{}, {}> = {
+		view(vnode) {
 			return m("div", vnode.attrs, ["Hello ", vnode.children])
 		}
 	}
 
 	// consume it
 	m(Greeter, { style: "color:red;" }, "world")
-
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/hyperscript.html#keys
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-
-	let users = [
+{
+	const users = [
 		{ id: 1, name: "John" },
 		{ id: 2, name: "Mary" },
 	]
 
-	function userInputs(users: { id: number, name: string }[]) {
-		return users.map(function(u) {
+	const userInputs = function(users: { id: number, name: string }[]) {
+		return users.map(u => {
 			return m("input", { key: u.id }, u.name)
 		})
 	}
 
 	m.render(document.body, userInputs(users))
-
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/components.html#state
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let ComponentWithInitialState: m.Comp<{}, {data: string}> = {
+{
+	const ComponentWithInitialState: m.Comp<{}, {data: string}> = {
 		data: "Initial content",
-		view: function(vnode) {
+		view(vnode) {
 			return m("div", vnode.state.data)
 		}
 	}
 
 	m(ComponentWithInitialState)
-})
+}
 
-;(function() {
-	let ComponentWithDynamicState: m.Comp<{text: string}, {data?: string}> = {
-		oninit: function(vnode) {
+{
+	const ComponentWithDynamicState: m.Comp<{text: string}, {data?: string}> = {
+		oninit(vnode) {
 			vnode.state.data = vnode.attrs.text
 		},
-		view: function(vnode) {
+		view(vnode) {
 			return m("div", vnode.state.data)
 		}
 	}
 
 	m(ComponentWithDynamicState, { text: "Hello" })
-})
+}
 
-;(function() {
-	let ComponentUsingThis: m.Comp<{text: string}, {data?: string}> = {
-		oninit: function(vnode) {
+{
+	const ComponentUsingThis: m.Comp<{text: string}, {data?: string}> = {
+		oninit(vnode) {
 			this.data = vnode.attrs.text
 		},
-		view: function(vnode) {
+		view(vnode) {
 			return m("div", this.data)
 		}
 	}
 
 	m(ComponentUsingThis, { text: "Hello" })
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/lifecycle-methods.html
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let Fader: m.Comp<{}, {}> = {
-		onbeforeremove: function(vnode) {
+{
+	const Fader: m.Comp<{}, {}> = {
+		onbeforeremove(vnode) {
 			vnode.dom.classList.add("fade-out")
-			return new Promise(function(resolve) {
+			return new Promise(resolve => {
 				setTimeout(resolve, 1000)
 			})
 		},
-		view: function() {
+		view() {
 			return m("div", "Bye")
 		},
 	}
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/route.html#wrapping-a-layout-component
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-
-	let Home = {
-		view: function() {
+{
+	const Home = {
+		view() {
 			return "Welcome"
 		}
 	}
 
-	let state = {
+	const state = {
 		term: "",
-		search: function() {
+		search() {
 			// save the state for this route
 			// this is equivalent to `history.replaceState({term: state.term}, null, location.href)`
 			m.route.set(m.route.get(), null, { replace: true, state: { term: state.term } })
@@ -232,20 +227,20 @@ const FRAME_BUDGET = 100
 		}
 	}
 
-	let Form: m.Comp<{term: string}, {}> = {
-		oninit: function(vnode) {
+	const Form: m.Comp<{term: string}, {}> = {
+		oninit(vnode) {
 			state.term = vnode.attrs.term || "" // populated from the `history.state` property if the user presses the back button
 		},
-		view: function() {
+		view() {
 			return m("form", [
-				m("input[placeholder='Search']", { oninput: m.withAttr("value", function(v) { state.term = v }), value: state.term }),
+				m("input[placeholder='Search']", { oninput: m.withAttr("value", v => { state.term = v }), value: state.term }),
 				m("button", { onclick: state.search }, "Search")
 			])
 		}
 	}
 
-	let Layout: m.Comp<{}, {}> = {
-		view: function(vnode) {
+	const Layout: m.Comp<{}, {}> = {
+		view(vnode) {
 			return m(".layout", vnode.children)
 		}
 	}
@@ -253,12 +248,12 @@ const FRAME_BUDGET = 100
 	// example 1
 	m.route(document.body, "/", {
 		"/": {
-			view: function() {
+			view() {
 				return m(Layout, m(Home))
 			},
 		},
 		"/form": {
-			view: function() {
+			view() {
 				return m(Layout, m(Form))
 			},
 		}
@@ -267,52 +262,52 @@ const FRAME_BUDGET = 100
 	// example 2
 	m.route(document.body, "/", {
 		"/": {
-			render: function() {
+			render() {
 				return m(Layout, m(Home))
 			},
 		},
 		"/form": {
-			render: function() {
+			render() {
 				return m(Layout, m(Form))
 			},
 		}
 	})
 
 	// functionally equivalent to example 1
-	let Anon1 = {
-		view: function() {
+	const Anon1 = {
+		view() {
 			return m(Layout, m(Home))
 		},
 	}
-	let Anon2 = {
-		view: function() {
+	const Anon2 = {
+		view() {
 			return m(Layout, m(Form))
 		},
 	}
 
 	m.route(document.body, "/", {
 		"/": {
-			render: function() {
+			render() {
 				return m(Anon1)
 			}
 		},
 		"/form": {
-			render: function() {
+			render() {
 				return m(Anon2)
 			}
 		},
 	})
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/route.html#preloading-data
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let state = {
-		users: <any[]>[],
-		loadUsers: function() {
-			return m.request<any>("/api/v1/users").then(function(users) {
+{
+	const state = {
+		users: [] as any[],
+		loadUsers() {
+			return m.request<any>("/api/v1/users").then(users => {
 				state.users = users
 			})
 		}
@@ -321,24 +316,22 @@ const FRAME_BUDGET = 100
 	m.route(document.body, "/user/list", {
 		"/user/list": {
 			onmatch: state.loadUsers,
-			render: function() {
-				return state.users.map(function(user) {
-					return m("div", user.id)
-				})
+			render() {
+				return state.users.map(user => m("div", user.id))
 			}
 		},
 	})
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/request.html#monitoring-progress
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
+{
 	let progress = 0
 
 	m.mount(document.body, {
-		view: function() {
+		view() {
 			return [
 				m("input[type=file]", { onchange: upload }),
 				progress + "% completed"
@@ -346,33 +339,29 @@ const FRAME_BUDGET = 100
 		}
 	})
 
-	function upload(e: Event) {
-		let file = (<FileList>(<HTMLInputElement>e.target).files)[0]
-
-		let data = new FormData()
+	const upload = function(e: Event) {
+		const file = ((e.target as HTMLInputElement).files as FileList)[0]
+		const data = new FormData()
 		data.append("myfile", file)
-
 		m.request({
 			method: "POST",
 			url: "/api/v1/upload",
-			data: data,
-			config: function(xhr) {
-				xhr.addEventListener("progress", function(e) {
+			data,
+			config: xhr => {
+				xhr.addEventListener("progress", e => {
 					progress = e.loaded / e.total
-
 					m.redraw() // tell Mithril that data changed and a re-render is needed
 				})
 			}
 		})
 	}
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/request.html#casting-response-to-a-type
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-
+{
 	// Start rewrite to TypeScript
 	class User {
 		name: string;
@@ -391,48 +380,48 @@ const FRAME_BUDGET = 100
 		url: "/api/v1/users",
 		type: User
 	})
-	.then(function(users) {
+	.then(users => {
 		console.log(users[0].name) // logs a name
 	})
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/request.html#non-json-responses
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
+{
 	m.request<string>({
 		method: "GET",
 		url: "/files/icon.svg",
-		deserialize: function(value) { return value }
+		deserialize: value => value
 	})
-	.then(function(svg) {
+	.then(svg => {
 		m.render(document.body, m.trust(svg))
 	})
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/jsonp.html
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
+{
 	m.jsonp({
 		url: "/api/v1/users/:id",
 		data: { id: 1 },
 		callbackKey: "callback",
 	})
-	.then(function(result) {
+	.then(result => {
 		console.log(result)
 	})
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/fragment.html
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let groupVisible = true
-	let log = function() {
+{
+	const groupVisible = true
+	const log = function() {
 		console.log("group is now visible")
 	}
 
@@ -445,16 +434,16 @@ const FRAME_BUDGET = 100
 			m("li", "child 4"),
 		]) : null
 	])
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/stream.html#computed-properties
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let firstName = stream("John")
-	let lastName = stream("Doe")
-	let fullName = stream.merge([firstName, lastName]).map(function(values) {
+{
+	const firstName = stream("John")
+	const lastName = stream("Doe")
+	const fullName = stream.merge([firstName, lastName]).map(values => {
 		return values.join(" ")
 	})
 
@@ -463,51 +452,51 @@ const FRAME_BUDGET = 100
 	firstName("Mary")
 
 	console.log(fullName()) // logs "Mary Doe"
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/stream.html#chaining-streams
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let halted = stream(1).map(function(value) {
+{
+	const halted = stream(1).map(value => {
 		return stream.HALT
 	})
 
-	halted.map(function() {
+	halted.map(() => {
 		// never runs
 	})
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/stream.html#combining-streams
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let a = stream(5)
-	let b = stream(7)
+{
+	const a = stream(5)
+	const b = stream(7)
 
-	let added = stream.combine(function(a: stream.Stream<number>, b: stream.Stream<number>) {
+	const added = stream.combine((a: stream.Stream<number>, b: stream.Stream<number>) => {
 		return a() + b()
 	}, [a, b])
 
 	console.log(added()) // logs 12
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // http://mithril.js.org/stream.html#ended-state
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-	let value = stream<number>()
-	let doubled = value.map(function(value) { return value * 2 })
+{
+	const value = stream<number>()
+	const doubled = value.map(value => value * 2)
 
 	value.end(true) // set to ended state
 
 	value(5)
 
 	console.log(doubled())
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // https://github.com/lhorie/mithril.js/blob/master/examples/animation/mosaic.html
@@ -515,18 +504,15 @@ const FRAME_BUDGET = 100
 
 // Excerpt
 
-;(function() {
-
-	let root = (<Element>document.getElementById("root"))
-
-	let empty: any[] = []
-	let full: any[] = []
+{
+	const root = document.getElementById("root")!
+	const empty: any[] = []
+	const full: any[] = []
 	for (let i = 0; i < 100; i++) full.push(i)
-
 	let cells: any[]
 
-	function view() {
-		return m(".container", cells.map(function(i) {
+	const view = function() {
+		return m(".container", cells.map(i => {
 			return m(".slice", {
 				style: {backgroundPosition: (i % 10 * 11) + "% " + (Math.floor(i / 10) * 11) + "%"},
 				onbeforeremove: exit
@@ -534,14 +520,14 @@ const FRAME_BUDGET = 100
 		}))
 	}
 
-	function exit(vnode: m.VnodeDOM<any, any>) {
+	const exit = function(vnode: m.VnodeDOM<any, any>) {
 		vnode.dom.classList.add("exit")
-		return new Promise(function(resolve) {
+		return new Promise(resolve => {
 			setTimeout(resolve, 1000)
 		})
 	}
 
-	function run() {
+	const run = function() {
 		cells = cells === full ? empty : full
 
 		m.render(root, [view()])
@@ -550,8 +536,7 @@ const FRAME_BUDGET = 100
 	}
 
 	run()
-
-})
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // https://github.com/lhorie/mithril.js/blob/master/examples/editor/index.html
@@ -559,23 +544,22 @@ const FRAME_BUDGET = 100
 
 // Excerpt
 
-;(function() {
-
+{
 	// Start extra declarations
-	let marked = (v: string) => v
+	const marked = (v: string) => v
 	// End extra declarations
 
-	//model
-	let state = {
+	// model
+	const state = {
 		text: "# Markdown Editor\n\nType on the left panel and see the result on the right panel",
-		update: function(value: string) {
+		update(value: string) {
 			state.text = value
 		}
 	}
 
-	//view
-	let Editor = {
-		view: function() {
+	// view
+	const Editor = {
+		view() {
 			return [
 				m("textarea.input", {
 					oninput: m.withAttr("value", state.update),
@@ -586,69 +570,67 @@ const FRAME_BUDGET = 100
 		}
 	}
 
-	m.mount(<Element>document.getElementById("editor"), Editor)
-
-})
+	m.mount(document.getElementById("editor")!, Editor)
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // https://github.com/lhorie/mithril.js/blob/master/examples/todomvc/todomvc.js
 ////////////////////////////////////////////////////////////////////////////////
 
-;(function() {
-
-	//model
-	let state = {
-		dispatch: function(action: string, args?: any) {
-			(<any>state)[action].apply(state, args || [])
-			requestAnimationFrame(function() {
+{
+	// model
+	const state = {
+		dispatch(action: string, args?: any) {
+			(state as any)[action].apply(state, args || [])
+			requestAnimationFrame(() => {
 				localStorage["todos-mithril"] = JSON.stringify(state.todos)
 			})
 		},
 
 		todos: JSON.parse(localStorage["todos-mithril"] || "[]"),
-		editing: <any>null,
+		editing: null as any,
 		filter: "",
 		remaining: 0,
-		todosByStatus: <any>[],
-		showing: <string><any>undefined,
+		todosByStatus: [] as any[],
+		showing: undefined as any,
 
-		createTodo: function(title: string) {
+		createTodo(title: string) {
 			state.todos.push({title: title.trim(), completed: false})
 		},
-		setStatuses: function(completed: boolean) {
+		setStatuses(completed: boolean) {
 			for (let i = 0; i < state.todos.length; i++) state.todos[i].completed = completed
 		},
-		setStatus: function(todo: any, completed: boolean) {
+		setStatus(todo: any, completed: boolean) {
 			todo.completed = completed
 		},
-		destroy: function(todo: any) {
-			let index = state.todos.indexOf(todo)
+		destroy(todo: any) {
+			const index = state.todos.indexOf(todo)
 			if (index > -1) state.todos.splice(index, 1)
 		},
-		clear: function() {
+		clear() {
 			for (let i = 0; i < state.todos.length; i++) {
 				if (state.todos[i].completed) state.destroy(state.todos[i--])
 			}
 		},
 
-		edit: function(todo: any) {
+		edit(todo: any) {
 			state.editing = todo
 		},
-		update: function(title: string) {
+		update(title: string) {
 			if (state.editing != null) {
 				state.editing.title = title.trim()
 				if (state.editing.title === "") state.destroy(state.editing)
 				state.editing = null
 			}
 		},
-		reset: function() {
+		reset() {
 			state.editing = null
 		},
 
-		computed: function(vnode: m.Vnode<any, any>) {
+		computed(vnode: m.Vnode<any, any>) {
 			state.showing = vnode.attrs.status || ""
-			state.remaining = state.todos.filter(function(todo: any) {return !todo.completed}).length
-			state.todosByStatus = state.todos.filter(function(todo: any) {
+			state.remaining = state.todos.filter((todo: any) => !todo.completed).length
+			state.todosByStatus = state.todos.filter((todo: any) => {
 				switch (state.showing) {
 					case "": return true
 					case "active": return !todo.completed
@@ -658,41 +640,42 @@ const FRAME_BUDGET = 100
 		}
 	}
 
-	//view
-	let Todos: m.Comp<{}, {
+	// view
+	const Todos: m.Comp<{}, {
 		add(e: Event): void
 		toggleAll(): void
 		toggle(todo: any): void
 		focus(vnode: m.VnodeDOM<any, any>, todo: any): void
 		save(e: KeyboardEvent): void
 	}> = {
-		add: function(e: KeyboardEvent) {
+		add(e: KeyboardEvent) {
 			if (e.keyCode === 13) {
-				state.dispatch("createTodo", [(<HTMLInputElement>e.target).value]);
-				(<HTMLInputElement>e.target).value = ""
+				state.dispatch("createTodo", [(e.target as HTMLInputElement).value]);
+				(e.target as HTMLInputElement).value = ""
 			}
 		},
-		toggleAll: function() {
-			state.dispatch("setStatuses", [(<HTMLInputElement>document.getElementById("toggle-all")).checked])
+		toggleAll() {
+			state.dispatch("setStatuses", [(document.getElementById("toggle-all") as HTMLInputElement).checked])
 		},
-		toggle: function(todo: any) {
+		toggle(todo: any) {
 			state.dispatch("setStatus", [todo, !todo.completed])
 		},
-		focus: function(vnode: m.VnodeDOM<any, any>, todo: any) {
+		focus(vnode: m.VnodeDOM<any, any>, todo: any) {
 			if (todo === state.editing && vnode.dom !== document.activeElement) {
-				(<HTMLInputElement>vnode.dom).value = todo.title
-				(<HTMLInputElement>vnode.dom).focus()
-				(<HTMLInputElement>vnode.dom).selectionStart = (<HTMLInputElement>vnode.dom).selectionEnd = todo.title.length
+				const el = vnode.dom as HTMLInputElement
+				el.value = todo.title
+				el.focus()
+				el.selectionStart = el.selectionEnd = todo.title.length
 			}
 		},
-		save: function(e: KeyboardEvent) {
-			if (e.keyCode === 13 || e.type === "blur") state.dispatch("update", [(<HTMLInputElement>e.target).value])
+		save(e: KeyboardEvent) {
+			if (e.keyCode === 13 || e.type === "blur") state.dispatch("update", [(e.target as HTMLInputElement).value])
 			else if (e.keyCode === 27) state.dispatch("reset")
 		},
 		oninit: state.computed,
 		onbeforeupdate: state.computed,
-		view: function(vnode) {
-			let ui = vnode.state
+		view(vnode) {
+			const ui = vnode.state
 			return [
 				m("header.header", [
 					m("h1", "todos"),
@@ -702,14 +685,14 @@ const FRAME_BUDGET = 100
 					m("input#toggle-all[type='checkbox']", {checked: state.remaining === 0, onclick: ui.toggleAll}),
 					m("label[for='toggle-all']", {onclick: ui.toggleAll}, "Mark all as complete"),
 					m("ul#todo-list", [
-						state.todosByStatus.map(function(todo: any) {
+						state.todosByStatus.map((todo: any) => {
 							return m("li", {class: (todo.completed ? "completed" : "") + " " + (todo === state.editing ? "editing" : "")}, [
 								m(".view", [
-									m("input.toggle[type='checkbox']", {checked: todo.completed, onclick: function() {ui.toggle(todo)}}),
-									m("label", {ondblclick: function() {state.dispatch("edit", [todo])}}, todo.title),
-									m("button.destroy", {onclick: function() {state.dispatch("destroy", [todo])}}),
+									m("input.toggle[type='checkbox']", {checked: todo.completed, onclick: () => {ui.toggle(todo)}}),
+									m("label", {ondblclick: () => {state.dispatch("edit", [todo])}}, todo.title),
+									m("button.destroy", {onclick: () => {state.dispatch("destroy", [todo])}}),
 								]),
-								m("input.edit", {onupdate: function(vnode: m.VnodeDOM<any, any>) {ui.focus(vnode, todo)}, onkeypress: ui.save, onblur: ui.save})
+								m("input.edit", {onupdate(vnode: m.VnodeDOM<any, any>) {ui.focus(vnode, todo)}, onkeypress: ui.save, onblur: ui.save})
 							])
 						}),
 					]),
@@ -724,7 +707,7 @@ const FRAME_BUDGET = 100
 						m("li", m("a[href='/active']", {oncreate: m.route.link, class: state.showing === "active" ? "selected" : ""}, "Active")),
 						m("li", m("a[href='/completed']", {oncreate: m.route.link, class: state.showing === "completed" ? "selected" : ""}, "Completed")),
 					]),
-					m("button#clear-completed", {onclick: function() {state.dispatch("clear")}}, "Clear completed"),
+					m("button#clear-completed", {onclick: () => {state.dispatch("clear")}}, "Clear completed"),
 				]) : null,
 			]
 		}
@@ -734,5 +717,4 @@ const FRAME_BUDGET = 100
 		"/": Todos,
 		"/:status": Todos,
 	})
-
-})
+}
