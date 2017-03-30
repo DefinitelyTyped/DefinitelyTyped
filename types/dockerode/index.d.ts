@@ -8,7 +8,6 @@
 import * as stream from 'stream';
 import * as events from 'events';
 
-
 declare namespace Dockerode {
   interface Container {
     inspect(options: {}, callback: Callback<ContainerInspectInfo>): void;
