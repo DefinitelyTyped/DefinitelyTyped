@@ -16,7 +16,7 @@ interface ReactTestRendererJSON {
     $$typeof?: any;
 }
 interface TestRendererOptions {
-    createNodeMock: (element: ReactElement<any>) => any;
+    createNodeMock(element: ReactElement<any>): any;
 }
 // https://github.com/facebook/react/blob/master/src/renderers/testing/ReactTestMount.js#L155
 export function create(nextElement: ReactElement<any>, options?: TestRendererOptions): Renderer;
