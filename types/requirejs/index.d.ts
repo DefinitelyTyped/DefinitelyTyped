@@ -48,7 +48,7 @@ interface RequireError extends Error {
 	/**
 	* Required modules.
 	**/
-	requireModules: string[];
+	requireModules: string[] | null;
 
 	/**
 	* The original error, if there is one (might be null).
