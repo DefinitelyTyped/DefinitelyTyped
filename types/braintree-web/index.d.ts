@@ -7,7 +7,7 @@
  * @module braintree-web/american-express
  * @description This module is for use with Amex Express Checkout. To accept American Express cards, use Hosted Fields.
  */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   export interface AmericanExpress {
     /**
      * @static
@@ -24,22 +24,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class
- * @param {object} options Options
- * @description <strong>You cannot use this constructor directly. Use {@link module:braintree-web/american-express.create|braintree.american-express.create} instead.</strong>
- * @classdesc This class allows you use a nonce to interact with American Express Checkout. To accept American Express cards, use Hosted Fields.
- */
-  export class AmericanExpress {
-    /**
-     * @class
-     * @param {object} options Options
-     * @description <strong>You cannot use this constructor directly. Use {@link module:braintree-web/american-express.create|braintree.american-express.create} instead.</strong>
-     * @classdesc This class allows you use a nonce to interact with American Express Checkout. To accept American Express cards, use Hosted Fields.
-     */
-    constructor(options: any);
 
     /**
      * Gets the rewards balance associated with a Braintree nonce.
@@ -63,7 +47,7 @@ declare namespace BraintreeWeb {
      *   });
      * });
      */
-    public getRewardsBalance(options: { nonce: string }, callback: callback): void;
+    getRewardsBalance(options: { nonce: string }, callback: callback): void;
 
     /**
      * Gets the Express Checkout nonce profile given a nonce from American Express.
@@ -87,121 +71,123 @@ declare namespace BraintreeWeb {
      *   });
      * });
      */
-    public getExpressCheckoutProfile(options: { nonce: string }, callback: callback): void;
+    getExpressCheckoutProfile(options: { nonce: string }, callback: callback): void;
   }
 }
 
 
-// more info https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types/paymentrequest
+declare namespace braintree {
+  // more info https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types/paymentrequest
 
-//  billingContact
-//  Billing contact information for the user.
-//    countryCode
-//Required.The merchant’s two- letter ISO 3166 country code.
-//    currencyCode
-//  Required.The three- letter ISO 4217 currency code for the payment.
-//    lineItems
-//A set of line items that explain recurring payments and additional charges.
-//    merchantCapabilities
-//  Required.The payment capabilities supported by the merchant.The value must be one or more of supports3DS, supportsEMV, supportsCredit, or supportsDebit.
-//    requiredBillingContactFields
-//  The billing information that is required from the user.The value must be one or more of postalAddress, phone, email, or name.
-//    requiredShippingContactFields
-//  The shipping information that is required from the user.The value must be one or more of postalAddress, phone, email, or name.
-//    shippingContact
-//  Shipping contact information for the user.
-//    shippingMethods
-//A set of available shipping methods.Totals for all shipping methods must be non- negative to pass validation.
-//    shippingType
-//  How the items are to be shipped.This property is optional.If specified, it must be one or more of shipping, delivery, storePickup, or servicePickup.The default value is shipping.
-//    supportedNetworks
-//  Required.The payment networks supported by the merchant.The value must be one or more of amex, discover, interac, masterCard, privateLabel, or visa.
-//    total
-//  Required.The total amount for the payment.The total must be greater than zero and have a label to pass validation.
-interface ApplePayPaymentRequest {
-  total: {
-    label: string;
-    amount: string;
-  };
-  countryCode: string;
-  currencyCode: string;
-  supportedNetworks: string[];
-  merchantCapabilities: string[];
+  //  billingContact
+  //  Billing contact information for the user.
+  //    countryCode
+  //Required.The merchant’s two- letter ISO 3166 country code.
+  //    currencyCode
+  //  Required.The three- letter ISO 4217 currency code for the payment.
+  //    lineItems
+  //A set of line items that explain recurring payments and additional charges.
+  //    merchantCapabilities
+  //  Required.The payment capabilities supported by the merchant.The value must be one or more of supports3DS, supportsEMV, supportsCredit, or supportsDebit.
+  //    requiredBillingContactFields
+  //  The billing information that is required from the user.The value must be one or more of postalAddress, phone, email, or name.
+  //    requiredShippingContactFields
+  //  The shipping information that is required from the user.The value must be one or more of postalAddress, phone, email, or name.
+  //    shippingContact
+  //  Shipping contact information for the user.
+  //    shippingMethods
+  //A set of available shipping methods.Totals for all shipping methods must be non- negative to pass validation.
+  //    shippingType
+  //  How the items are to be shipped.This property is optional.If specified, it must be one or more of shipping, delivery, storePickup, or servicePickup.The default value is shipping.
+  //    supportedNetworks
+  //  Required.The payment networks supported by the merchant.The value must be one or more of amex, discover, interac, masterCard, privateLabel, or visa.
+  //    total
+  //  Required.The total amount for the payment.The total must be greater than zero and have a label to pass validation.
+  interface ApplePayPaymentRequest {
+    total: {
+      label: string;
+      amount: string;
+    };
+    countryCode: string;
+    currencyCode: string;
+    supportedNetworks: string[];
+    merchantCapabilities: string[];
 
-  billingContact?: any;
-  shippingContact?: any;
-  shippingMethods?: any;
-  shippingType?: any;
-  requiredBillingContactFields?: any;
-  requiredShippingContactFields?: any;
-}
+    billingContact?: any;
+    shippingContact?: any;
+    shippingMethods?: any;
+    shippingType?: any;
+    requiredBillingContactFields?: any;
+    requiredShippingContactFields?: any;
+  }
 
-declare enum ApplePayStatusCodes {
-  // The requested action succeeded.
-  STATUS_SUCCESS = 1,
-  // The requested action failed.
-  STATUS_FAILURE,
-  // The billing address is not valid.
-  STATUS_INVALID_BILLING_POSTAL_ADDRESS,
-  // The shipping address is not valid.
-  STATUS_INVALID_SHIPPING_POSTAL_ADDRESS,
-  // The shipping contact information is not valid.
-  STATUS_INVALID_SHIPPING_CONTACT,
-  // The required PIN information was not provided. Cards on the China Union Pay payment network may require a PIN to authenticate the transaction.
-  STATUS_PIN_REQUIRED,
-  // The PIN information is not valid.Cards on the China Union Pay network may require a PIN.
-  STATUS_PIN_INCORRECT,
-  // The maximum number of tries for a PIN has been reached and the user has been locked out. Cards on the China Union Pay network may require a PIN.
-  STATUS_PIN_LOCKOUT,
-}
+  export enum ApplePayStatusCodes {
+    // The requested action succeeded.
+    STATUS_SUCCESS = 1,
+    // The requested action failed.
+    STATUS_FAILURE,
+    // The billing address is not valid.
+    STATUS_INVALID_BILLING_POSTAL_ADDRESS,
+    // The shipping address is not valid.
+    STATUS_INVALID_SHIPPING_POSTAL_ADDRESS,
+    // The shipping contact information is not valid.
+    STATUS_INVALID_SHIPPING_CONTACT,
+    // The required PIN information was not provided. Cards on the China Union Pay payment network may require a PIN to authenticate the transaction.
+    STATUS_PIN_REQUIRED,
+    // The PIN information is not valid.Cards on the China Union Pay network may require a PIN.
+    STATUS_PIN_INCORRECT,
+    // The maximum number of tries for a PIN has been reached and the user has been locked out. Cards on the China Union Pay network may require a PIN.
+    STATUS_PIN_LOCKOUT,
+  }
 
-interface ApplePayPayload {
-  merchantIdentifier: string;
-  domainName: string;
-  displayName: string;
-}
+  interface ApplePayPayload {
+    merchantIdentifier: string;
+    domainName: string;
+    displayName: string;
+  }
 
-declare class ApplePaySession {
-  constructor(version: number, request: ApplePayPaymentRequest);
+  export class ApplePaySession {
+    constructor(version: number, request: ApplePayPaymentRequest);
 
-  canMakePayments(): boolean;
+    canMakePayments(): boolean;
 
-  canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
+    canMakePaymentsWithActiveCard(merchantIdentifier: string): boolean;
 
-  completeMerchantValidation(merchantSession: any): void;
+    completeMerchantValidation(merchantSession: any): void;
 
-  abort(): void;
+    abort(): void;
 
-  begin(): void;
+    begin(): void;
 
-  completePayment(status: ApplePayStatusCodes): void;
+    completePayment(status: ApplePayStatusCodes): void;
 
-  completePaymentMethodSelection(newTotal: any, newLineItems: any): void;
+    completePaymentMethodSelection(newTotal: any, newLineItems: any): void;
 
-  completeShippingContactSelection(status: ApplePayStatusCodes, newShippingMethods: any, newTotal: any, newLineItems: any): void;
+    completeShippingContactSelection(status: ApplePayStatusCodes, newShippingMethods: any, newTotal: any, newLineItems: any): void;
 
-  completeShippingMethodSelection(status: ApplePayStatusCodes, newTotal: any, newLineItems: any): void;
+    completeShippingMethodSelection(status: ApplePayStatusCodes, newTotal: any, newLineItems: any): void;
 
-  supportsVersion(version: number): boolean;
+    supportsVersion(version: number): boolean;
 
-  oncancel: (event: any) => void;
+    oncancel: (event: any) => void;
 
-  onpaymentauthorized: (event: any) => void;
+    onpaymentauthorized: (event: any) => void;
 
-  onpaymentmethodselected: (event: any) => void;
+    onpaymentmethodselected: (event: any) => void;
 
-  onshippingcontactselected: (event: any) => void;
+    onshippingcontactselected: (event: any) => void;
 
-  onshippingmethodselected: (event: any) => void;
+    onshippingmethodselected: (event: any) => void;
 
-  onvalidatemerchant: (event: any) => void;
+    onvalidatemerchant: (event: any) => void;
+  }
 }
 
 /**
  * @module braintree-web/apple-pay
  * @description Accept Apple Pay on the Web. *This component is currently in beta and is subject to change.*
  */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   export interface ApplePay {
     /**
      * @static
@@ -218,22 +204,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class
- * @param {object} options Options
- * @description <strong>You cannot use this constructor directly. Use {@link module:braintree-web/apple-pay.create|braintree.apple-pay.create} instead.</strong>
- * @classdesc This class represents an Apple Pay component. Instances of this class have methods for validating the merchant server and tokenizing payments.
- */
-  export class ApplePay {
-    /**
-     * @class
-     * @param {object} options Options
-     * @description <strong>You cannot use this constructor directly. Use {@link module:braintree-web/apple-pay.create|braintree.apple-pay.create} instead.</strong>
-     * @classdesc This class represents an Apple Pay component. Instances of this class have methods for validating the merchant server and tokenizing payments.
-     */
-    constructor(options: any);
 
     /**
      * Merges a payment request with Braintree defaults
@@ -260,7 +230,7 @@ declare namespace BraintreeWeb {
      *   // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
      *
      */
-    public createPaymentRequest(paymentRequest: ApplePayPaymentRequest): ApplePayPaymentRequest
+    createPaymentRequest(paymentRequest: ApplePayPaymentRequest): ApplePayPaymentRequest
 
     /**
      * Validates the merchant website, as required by ApplePaySession before payment can be authorized.
@@ -302,7 +272,7 @@ declare namespace BraintreeWeb {
      *   };
      * });
      */
-    public performValidation(options: { validationURL: string, displayName?: string, merchantIdentifier?: string }, callback: callback): void;
+    performValidation(options: { validationURL: string, displayName?: string, merchantIdentifier?: string }, callback: callback): void;
 
     /**
      * Tokenizes an Apple Pay payment.
@@ -332,16 +302,14 @@ declare namespace BraintreeWeb {
      *  };
      * });
      */
-    public tokenize(options: { token: any }, callback: callback): void;
-
+    tokenize(options: { token: any }, callback: callback): void;
   }
 }
 
 /** @module braintree-web/client */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   /**
  * This object is returned by {@link Client#getConfiguration|getConfiguration}. This information is used extensively by other Braintree modules to properly configure themselves.
- * @typedef {object} Client~configuration
  * @property {object} client The braintree-web/client parameters.
  * @property {string} client.authorization A tokenizationKey or clientToken.
  * @property {object} gatewayConfiguration Gateway-supplied configuration.
@@ -398,30 +366,13 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class
- * @param {Client~configuration} configuration Options
- * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/client.create|braintree.client.create} instead.</strong>
- * @classdesc This class is required by many other Braintree components. It serves as the base API layer that communicates with our servers. It is also capable of being used to formulate direct calls to our servers, such as direct credit card tokenization. See {@link Client#request}.
- */
-  export class Client {
-    /**
-     * @class
-     * @param {Client~configuration} configuration Options
-     * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/client.create|braintree.client.create} instead.</strong>
-     * @classdesc This class is required by many other Braintree components. It serves as the base API layer that communicates with our servers. It is also capable of being used to formulate direct calls to our servers, such as direct credit card tokenization. See {@link Client#request}.
-     */
-    constructor(configuration: Configuration);
-
 
     /**
      * Returns a copy of the configuration values.
      * @public
      * @returns {Client~configuration} configuration
      */
-    public getConfiguration(): Configuration;
+    getConfiguration(): Configuration;
 
     /**
      * Used by other modules to formulate all network requests to the Braintree gateway. It is also capable of being used directly from your own form to tokenize credit card information. However, be sure to satisfy PCI compliance if you use direct card tokenization.
@@ -470,13 +421,12 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public request(options: { method: string, endpoint: string, data: any, timeout?: number }, callback: callback): void;
-
+    request(options: { method: string, endpoint: string, data: any, timeout?: number }, callback: callback): void;
   }
 }
 
 /** @module braintree-web/data-collector */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   export interface DataCollector {
     /**
      * @static
@@ -496,24 +446,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class
- * @global
- * @name DataCollector
- * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/data-collector.create|braintree-web.data-collector.create} instead.</strong>
- * @classdesc This class is used for advanced fraud integration with PayPal and Kount. Instances of this class have {@link DataCollector#deviceData|deviceData} which is used to correlate user sessions with server transactions. Before using DataCollector, make sure you have enabled advanced fraud protection in the Braintree gateway. To use your own Kount ID, contact our support team ([support@braintreepayments.com](mailto:support@braintreepayments.com) or [877.434.2894](tel:877.434.2894)).
- */
-  export class DataCollector {
-    /**
-     * @class
-     * @global
-     * @name DataCollector
-     * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/data-collector.create|braintree-web.data-collector.create} instead.</strong>
-     * @classdesc This class is used for advanced fraud integration with PayPal and Kount. Instances of this class have {@link DataCollector#deviceData|deviceData} which is used to correlate user sessions with server transactions.
-     */
-    constructor();
 
     /**
      * @memberof DataCollector
@@ -534,12 +466,11 @@ declare namespace BraintreeWeb {
      * @returns {void}
      */
     teardown(callback?: callback): void;
-
   }
 }
 
 /** @module braintree-web/hosted-fields */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   /**
    * Fields used in {@link module:braintree-web/hosted-fields~fieldOptions fields options}
    * @typedef {object} field
@@ -578,7 +509,6 @@ declare namespace BraintreeWeb {
   }
 
   /**
-   * @typedef {object} HostedFields~hostedFieldsCard
    * @description Information about the card type, sent in {@link HostedFields~stateObject|stateObjects}.
    * @property {string} type The code-friendly representation of the card type. It will be one of the following strings:
    * - `american-express`
@@ -618,7 +548,6 @@ declare namespace BraintreeWeb {
   }
 
   /**
-   * @typedef {object} HostedFields~hostedFieldsFieldData
    * @description Data about Hosted Fields fields, sent in {@link HostedFields~stateObject|stateObjects}.
    * @property {HTMLElement} container Reference to the container DOM element on your page associated with the current event.
    * @property {boolean} isFocused Whether or not the input is currently focused.
@@ -641,7 +570,6 @@ declare namespace BraintreeWeb {
   }
 
   /**
-   * @typedef {object} HostedFields~stateObject
    * @description The event payload sent from {@link HostedFields#on|on} or {@link HostedFields#getState|getState}.
    * @property {HostedFields~hostedFieldsCard[]} cards
    * This will return an array of potential {@link HostedFields~hostedFieldsCard|cards}. If the card type has been determined, the array will contain only one card.
@@ -679,7 +607,6 @@ declare namespace BraintreeWeb {
   }
 
   /**
-   * @typedef {object} HostedFields~tokenizePayload
    * @property {string} nonce The payment method nonce.
    * @property {object} details Additional account details.
    * @property {string} details.cardType Type of card, ex: Visa, MasterCard.
@@ -781,22 +708,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class HostedFields
- * @param {object} options The Hosted Fields {@link module:braintree-web/hosted-fields.create create} options.
- * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/hosted-fields.create|braintree-web.hosted-fields.create} instead.</strong>
- * @classdesc This class represents a Hosted Fields component produced by {@link module:braintree-web/hosted-fields.create|braintree-web/hosted-fields.create}. Instances of this class have methods for interacting with the input fields within Hosted Fields' iframes.
- */
-  export class HostedFields {
-    /**
-     * @class HostedFields
-     * @param {object} options The Hosted Fields {@link module:braintree-web/hosted-fields.create create} options.
-     * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/hosted-fields.create|braintree-web.hosted-fields.create} instead.</strong>
-     * @classdesc This class represents a Hosted Fields component produced by {@link module:braintree-web/hosted-fields.create|braintree-web/hosted-fields.create}. Instances of this class have methods for interacting with the input fields within Hosted Fields' iframes.
-     */
-    constructor(options: any);
 
     /**
      * @name HostedFields#on
@@ -829,7 +740,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public teardown(callback?: callback): void;
+    teardown(callback?: callback): void;
 
     /**
      * Tokenizes fields and returns a nonce payload.
@@ -872,7 +783,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public tokenize(options?: { vault: boolean }, callback?: callback): void;
+    tokenize(options?: { vault: boolean }, callback?: callback): void;
 
     /**
      * Add a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.
@@ -889,7 +800,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public addClass(field: string, classname: string, callback?: callback): void;
+    addClass(field: string, classname: string, callback?: callback): void;
 
     /**
      * Removes a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.
@@ -910,7 +821,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public removeClass(field: string, classname: string, callback?: callback): void;
+    removeClass(field: string, classname: string, callback?: callback): void;
 
     /**
      * Sets the placeholder of a {@link module:braintree-web/hosted-fields~field field}.
@@ -940,7 +851,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public setPlaceholder(field: string, placeholder: string, callback?: callback): void;
+    setPlaceholder(field: string, placeholder: string, callback?: callback): void;
 
     /**
      * Clear the value of a {@link module:braintree-web/hosted-fields~field field}.
@@ -960,7 +871,7 @@ declare namespace BraintreeWeb {
      * hostedFieldsInstance.clear('cvv');
      * hostedFieldsInstance.clear('expirationDate');
      */
-    public clear(field: string, callback?: callback): void;
+    clear(field: string, callback?: callback): void;
 
     /**
      * Returns an {@link HostedFields~stateObject|object} that includes the state of all fields and possible card types.
@@ -973,14 +884,13 @@ declare namespace BraintreeWeb {
      *   return state.fields[key].isValid;
      * });
      */
-    public getState(): any;
+    getState(): any;
   }
 }
 
 /** @module braintree-web/paypal */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   /**
-   * @typedef {object} PayPal~tokenizeReturn
    * @property {Function} close A handle to close the PayPal checkout flow.
    */
   interface PayPalTokenizeReturn {
@@ -988,7 +898,6 @@ declare namespace BraintreeWeb {
   }
 
   /**
-   * @typedef {object} PayPal~tokenizePayload
    * @property {string} nonce The payment method nonce.
    * @property {string} type The payment method type, always `PayPalAccount`.
    * @property {object} details Additional PayPal account details.
@@ -1082,20 +991,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class
- * @param {object} options see {@link module:braintree-web/paypal.create|paypal.create}
- * @classdesc This class represents a PayPal component. Instances of this class have methods for launching auth dialogs and other programmatic interactions with the PayPal component.
- */
-  export class PayPal {
-    /**
-     * @class
-     * @param {object} options see {@link module:braintree-web/paypal.create|paypal.create}
-     * @classdesc This class represents a PayPal component. Instances of this class have methods for launching auth dialogs and other programmatic interactions with the PayPal component.
-     */
-    constructor(options: any);
 
     /**
      * Launches the PayPal login flow and returns a nonce payload. Only one PayPal login flow should be active at a time. One way to achieve this is to disable your PayPal button while the flow is open.
@@ -1192,7 +1087,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {PayPal~tokenizeReturn} A handle to close the PayPal checkout frame.
      */
-    public tokenize(options: { flow: string, intent: string, offerCredit: boolean, useraction: string, amount: (string | number), currency: string, displayName: string, locale: string, enableShippingAddress: boolean, shippingAddressOverride: PayPalShippingAddress, shippingAddressEditable: boolean, billingAgreementDescription: string }, callback: callback): PayPalTokenizeReturn;
+    tokenize(options: { flow: string, intent: string, offerCredit: boolean, useraction: string, amount: (string | number), currency: string, displayName: string, locale: string, enableShippingAddress: boolean, shippingAddressOverride: PayPalShippingAddress, shippingAddressEditable: boolean, billingAgreementDescription: string }, callback: callback): PayPalTokenizeReturn;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/paypal.create|create}.
@@ -1200,15 +1095,13 @@ declare namespace BraintreeWeb {
      * @param {callback} [callback] Called once teardown is complete. No data is returned if teardown completes successfully.
      * @returns {void}
      */
-    public teardown(callback?: () => void): void;
-
+    teardown(callback?: () => void): void;
   }
 }
 
 /** @module braintree-web/three-d-secure */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   /**
-   * @typedef {object} ThreeDSecure~verifyPayload
    * @property {string} nonce The new payment method nonce produced by the 3D Secure lookup. The original nonce passed into {@link ThreeDSecure#verifyCard|verifyCard} was consumed. This new nonce should be used to transact on your server.
    * @property {object} details Additional account details.
    * @property {string} details.cardType Type of card, ex: Visa, MasterCard.
@@ -1250,23 +1143,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
-   * @class
-   * @param {object} options 3D Secure {@link module:braintree-web/three-d-secure.create create} options
-   * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/three-d-secure.create|braintree.threeDSecure.create} instead.</strong>
-   * @classdesc This class represents a ThreeDSecure component produced by {@link module:braintree-web/three-d-secure.create|braintree.threeDSecure.create}. Instances of this class have a method for launching a 3D Secure authentication flow.
-   */
-  export class ThreeDSecure {
-    /**
-     * @class
-     * @param {object} options 3D Secure {@link module:braintree-web/three-d-secure.create create} options
-     * @description <strong>Do not use this constructor directly. Use {@link module:braintree-web/three-d-secure.create|braintree.threeDSecure.create} instead.</strong>
-     * @classdesc This class represents a ThreeDSecure component produced by {@link module:braintree-web/three-d-secure.create|braintree.threeDSecure.create}. Instances of this class have a method for launching a 3D Secure authentication flow.
-     */
-    constructor(options: any);
-
 
     /**
      * @callback ThreeDSecure~addFrameCallback
@@ -1329,7 +1205,7 @@ declare namespace BraintreeWeb {
      *   }
      * });
      */
-    public verifyCard(options: { nonce: string, amount: number, addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void, removeFrame: () => void }, callback: callback): void;
+    verifyCard(options: { nonce: string, amount: number, addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void, removeFrame: () => void }, callback: callback): void;
 
     /**
      * Cancel the 3DS flow and return the verification payload if available.
@@ -1349,7 +1225,7 @@ declare namespace BraintreeWeb {
      *   verifyPayload.liabilityShiftPossible; // boolean
      * });
      */
-    public cancelVerifyCard(callback: callback): void;
+    cancelVerifyCard(callback: callback): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}
@@ -1357,7 +1233,7 @@ declare namespace BraintreeWeb {
      * @param {errback} [callback] Called once teardown is complete. No data is returned if teardown completes successfully.
      * @returns {void}
      */
-    public teardown(callback?: callback): void;
+    teardown(callback?: callback): void;
   }
 }
 
@@ -1365,9 +1241,8 @@ declare namespace BraintreeWeb {
  * @module braintree-web/unionpay
  * @description This module allows you to accept UnionPay payments. *It is currently in beta and is subject to change.*
  */
-declare namespace BraintreeWeb {
+declare namespace braintree {
   /**
-   * @typedef {object} UnionPay~tokenizePayload
    * @property {string} nonce The payment method nonce.
    * @property {string} type Always <code>CreditCard</code>.
    * @property {object} details Additional account details:
@@ -1388,7 +1263,6 @@ declare namespace BraintreeWeb {
   }
 
   /**
- * @typedef {object} UnionPay~enrollPayload
  * @property {string} enrollmentId UnionPay enrollment ID. This value should be passed to `tokenize`.
  * @property {boolean} smsCodeRequired UnionPay `smsCodeRequired` flag.
  * </p><b>true</b> - the user will receive an SMS code that needs to be supplied for tokenization.
@@ -1400,7 +1274,6 @@ declare namespace BraintreeWeb {
   }
 
   /**
-   * @typedef {object} UnionPay~fetchCapabilitiesPayload
    * @property {boolean} isUnionPay Determines if this card is a UnionPay card.
    * @property {boolean} isDebit Determines if this card is a debit card. This property is only present if `isUnionPay` is `true`.
    * @property {object} unionPay UnionPay specific properties. This property is only present if `isUnionPay` is `true`.
@@ -1443,22 +1316,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class
- * @param {object} options See {@link module:braintree-web/unionpay.create|unionpay.create}.
- * @description <strong>You cannot use this constructor directly. Use {@link module:braintree-web/unionpay.create|braintree-web.unionpay.create} instead.</strong>
- * @classdesc This class represents a UnionPay component. Instances of this class have methods for {@link UnionPay#fetchCapabilities fetching capabilities} of UnionPay cards, {@link UnionPay#enroll enrolling} a UnionPay card, and {@link UnionPay#tokenize tokenizing} a UnionPay card.
- */
-  export class UnionPay {
-    /**
-     * @class
-     * @param {object} options See {@link module:braintree-web/unionpay.create|unionpay.create}.
-     * @description <strong>You cannot use this constructor directly. Use {@link module:braintree-web/unionpay.create|braintree-web.unionpay.create} instead.</strong>
-     * @classdesc This class represents a UnionPay component. Instances of this class have methods for {@link UnionPay#fetchCapabilities fetching capabilities} of UnionPay cards, {@link UnionPay#enroll enrolling} a UnionPay card, and {@link UnionPay#tokenize tokenizing} a UnionPay card.
-     */
-    constructor(options: any);
 
     /**
      * Fetches the capabilities of a card, including whether or not the SMS enrollment process is required.
@@ -1531,7 +1388,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public fetchCapabilities(options: { card: any, hostedFields: HostedFields }, callback: callback): void;
+    fetchCapabilities(options: { card: any, hostedFields: HostedFields }, callback: callback): void;
 
     /**
      * Enrolls a UnionPay card. Use {@link UnionPay#fetchCapabilities|fetchCapabilities} to determine if the SMS enrollment process is required.
@@ -1594,7 +1451,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public enroll(options: { card: any, hostedFields: HostedFields, mobile: any }, callback: callback): void;
+    enroll(options: { card: any, hostedFields: HostedFields, mobile: any }, callback: callback): void;
 
     /**
      * Tokenizes a UnionPay card and returns a nonce payload.
@@ -1643,7 +1500,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public tokenize(options: { card: any, hostedFields: HostedFields, enrollmentId: string, smsCode: string }, callback: callback): void;
+    tokenize(options: { card: any, hostedFields: HostedFields, enrollmentId: string, smsCode: string }, callback: callback): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/unionpay.create|create}. This only needs to be called when using UnionPay with Hosted Fields.
@@ -1659,8 +1516,7 @@ declare namespace BraintreeWeb {
      * });
      * @returns {void}
      */
-    public teardown(callback?: callback): void;
-
+    teardown(callback?: callback): void;
   }
 
   /**
@@ -1683,21 +1539,6 @@ declare namespace BraintreeWeb {
      * @type {string}
      */
     VERSION: string;
-  }
-
-  /**
- * @class
- * @param {object} options See {@link module:braintree-web/us-bank-account.create|us-bank-account.create}.
- * @classdesc This class represents a US Bank Account component. Instances of this class can tokenize raw bank details or present a bank login. <strong>You cannot use this constructor directly. Use {@link module:braintree-web/us-bank-account.create|braintree.us-bank-account.create} instead.</strong>
- */
-  export class USBankAccount {
-    /**
-     * @class
-     * @param {object} options See {@link module:braintree-web/us-bank-account.create|us-bank-account.create}.
-     * @classdesc This class represents a US Bank Account component. Instances of this class can tokenize raw bank details or present a bank login. <strong>You cannot use this constructor directly. Use {@link module:braintree-web/us-bank-account.create|braintree.us-bank-account.create} instead.</strong>
-     */
-    constructor(options: any)
-
 
     /**
      * Tokenizes bank information to return a payment method nonce. You can tokenize bank details by providing information like account and routing numbers. You can also tokenize with a bank login UI that prompts the customer to log into their bank account.
@@ -1778,7 +1619,7 @@ declare namespace BraintreeWeb {
      *   });
      * });
      */
-    public tokenize(options: { mandateText: string, bankDetails: any, bankLogin: any }, callback: callback): void;
+    tokenize(options: { mandateText: string, bankDetails: any, bankLogin: any }, callback: callback): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/us-bank-account.create|create}.
@@ -1786,77 +1627,53 @@ declare namespace BraintreeWeb {
      * @param {callback} [callback] Called once teardown is complete. No data is returned if teardown completes successfully.
      * @returns {void}
      */
-    public teardown(callback?: callback): void;
-
-  }
-
-}
-
-declare namespace BraintreeError {
-  /**
- * Enum for {@link BraintreeError} types.
- * @name BraintreeError.types
- * @enum
- * @readonly
- * @memberof BraintreeError
- * @property {string} CUSTOMER An error caused by the customer.
- * @property {string} MERCHANT An error that is actionable by the merchant.
- * @property {string} NETWORK An error due to a network problem.
- * @property {string} INTERNAL An error caused by Braintree code.
- * @property {string} UNKNOWN An error where the origin is unknown.
- */
-  export enum Types {
-    CUSTOMER,
-    MERCHANT,
-    NETWORK,
-    INTERNAL,
-    UNKNOWN
+    teardown(callback?: callback): void;
   }
 }
 
-/**
-  * @class
-  * @global
-  * @param {object} options Construction options
-  * @classdesc This class is used to report error conditions, frequently as the first parameter to callbacks throughout the Braintree SDK.
-  * @description <strong>You cannot use this constructor directly. Interact with instances of this class through {@link callback callbacks}.</strong>
-  */
-declare class BraintreeError {
-  /**
-   * @class
-   * @global
-   * @param {object} options Construction options
-   * @classdesc This class is used to report error conditions, frequently as the first parameter to callbacks throughout the Braintree SDK.
-   * @description <strong>You cannot use this constructor directly. Interact with instances of this class through {@link callback callbacks}.</strong>
-   */
-  constructor(options: any);
+declare namespace braintree {
+  export namespace BraintreeError {
+    /**
+     * Enum for {@link BraintreeError} types.
+     * @name BraintreeError.types
+     * @enum
+     * @readonly
+     * @memberof BraintreeError
+     * @property {string} CUSTOMER An error caused by the customer.
+     * @property {string} MERCHANT An error that is actionable by the merchant.
+     * @property {string} NETWORK An error due to a network problem.
+     * @property {string} INTERNAL An error caused by Braintree code.
+     * @property {string} UNKNOWN An error where the origin is unknown.
+     */
+    export type Types = "CUSTOMER" | "MERCHANT" | "NETWORK" | "INTERNAL" | "UNKNOWN";
+  }
 
-  /**
-   * @type {string}
-   * @description A code that corresponds to specific errors.
-   */
-  code: string;
+  export interface BraintreeError {
+    /**
+     * @type {string}
+     * @description A code that corresponds to specific errors.
+     */
+    code: string;
 
-  /**
-   * @type {string}
-   * @description A short description of the error.
-   */
-  message: string;
+    /**
+     * @type {string}
+     * @description A short description of the error.
+     */
+    message: string;
 
-  /**
-   * @type {BraintreeError.types}
-   * @description The type of error.
-   */
-  type: BraintreeError.Types;
+    /**
+     * @type {BraintreeError.types}
+     * @description The type of error.
+     */
+    type: BraintreeError.Types;
 
-  /**
-   * @type {object=}
-   * @description Additional information about the error, such as an underlying network error response.
-   */
-  details: any;
-}
+    /**
+     * @type {object=}
+     * @description Additional information about the error, such as an underlying network error response.
+     */
+    details: any;
+  }
 
-declare namespace BraintreeWeb {
   /**
    * @global
    * @callback callback
@@ -1895,39 +1712,40 @@ declare namespace BraintreeWeb {
  *   braintreeClient.create(...);
  * });
  */
-interface BraintreeStatic {
+declare namespace braintree {
   /** @type {module:braintree-web/client} */
-  client: BraintreeWeb.Client;
+  export var client: braintree.Client;
 
   /** @type {module:braintree-web/paypal} */
-  paypal: BraintreeWeb.PayPal;
+  export var paypal: braintree.PayPal;
 
   /** @type {module:braintree-web/hosted-fields} */
-  hostedFields: BraintreeWeb.HostedFields;
+  export var hostedFields: braintree.HostedFields;
 
   /** @type {module:braintree-web/three-d-secure} */
-  threeDSecure: BraintreeWeb.ThreeDSecure;
+  export var threeDSecure: braintree.ThreeDSecure;
 
   /** @type {module:braintree-web/data-collector} */
-  dataCollector: BraintreeWeb.DataCollector;
+  export var dataCollector: braintree.DataCollector;
 
   /** @type {module:braintree-web/american-express} */
-  americanExpress: BraintreeWeb.AmericanExpress;
+  export var americanExpress: braintree.AmericanExpress;
 
   /** @type {module:braintree-web/unionpay} */
-  unionpay: BraintreeWeb.UnionPay;
+  export var unionpay: braintree.UnionPay;
 
   /** @type {module:braintree-web/apple-pay} */
-  applePay: BraintreeWeb.ApplePay;
+  export var applePay: braintree.ApplePay;
 
-     /** @type {module:braintree-web/us-bank-account} */
-  usBankAccount: BraintreeWeb.USBankAccount;
+  /** @type {module:braintree-web/us-bank-account} */
+  export var usBankAccount: braintree.USBankAccount;
 
   /**
    * @description The current version of the SDK, i.e. `3.0.2`.
    * @type {string}
    */
-  VERSION: string;
+  export var VERSION: string;
 }
 
-declare var braintree: BraintreeStatic;
+export = braintree;
+export as namespace braintree;
