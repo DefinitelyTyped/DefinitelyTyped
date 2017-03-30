@@ -599,7 +599,7 @@ declare namespace Dockerode {
 
   interface SecretInfo {
     ID: string;
-    Version:  SecretVersion;
+    Version: SecretVersion;
     CreatedAt: string;
     UpdatedAt?: string;
     Spec?: ServiceSpec;
