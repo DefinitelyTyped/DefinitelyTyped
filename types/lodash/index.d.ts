@@ -17074,23 +17074,23 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns the new array of key-value pairs.
          */
-        toPairs<T extends {}>(object?: T): any[][];
+        toPairs<T extends {}>(object?: T): [string, any][];
 
-        toPairs<T extends {}, TResult>(object?: T): TResult[][];
+        toPairs<T extends {}, TResult>(object?: T): [string, TResult][];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.toPairs
          */
-        toPairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+        toPairs<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.toPairs
          */
-        toPairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+        toPairs<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
     }
 
     //_.toPairsIn
@@ -17101,23 +17101,23 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns the new array of key-value pairs.
          */
-        toPairsIn<T extends {}>(object?: T): any[][];
+        toPairsIn<T extends {}>(object?: T): [string, any][];
 
-        toPairsIn<T extends {}, TResult>(object?: T): TResult[][];
+        toPairsIn<T extends {}, TResult>(object?: T): [string, TResult][];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+        toPairsIn<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+        toPairsIn<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
     }
 
     //_.transform
