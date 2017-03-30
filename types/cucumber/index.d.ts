@@ -63,6 +63,7 @@ declare namespace cucumber {
 
     interface HookOptions{
 	timeout?: number;
+	tags?: any;    
     }
 
     export interface Hooks {
