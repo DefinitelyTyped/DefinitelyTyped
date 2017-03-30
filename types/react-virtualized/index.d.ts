@@ -1,4 +1,4 @@
-// Type definitions for react-virtualized 9.4
+// Type definitions for react-virtualized 9.4.0
 // Project: https://github.com/bvaughn/react-virtualized
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
