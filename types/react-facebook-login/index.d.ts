@@ -9,7 +9,7 @@ import * as React from "react";
 declare namespace ReactFacebookLogin {
     interface ReactFacebookLoginProps {
         appId: string;
-        callback: (userInfo: ReactFacebookLoginInfo) => void;
+        callback(userInfo: ReactFacebookLoginInfo): void;
 
         autoLoad?: boolean;
         buttonStyle?: React.CSSProperties;
@@ -21,7 +21,7 @@ declare namespace ReactFacebookLogin {
         icon?: string | React.ReactNode;
         isDisabled?: boolean;
         language?: string;
-        onClick?: () => void;
+        onClick?(): void;
         reAuthenticate?: boolean;
         redirectUri?: string;
         scope?: string;

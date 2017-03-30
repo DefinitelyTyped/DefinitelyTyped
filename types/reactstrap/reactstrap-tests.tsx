@@ -76,8 +76,7 @@ import {
   Tooltip
 } from 'reactstrap';
 
-
-//--------------- Alert
+// --------------- Alert
 const Examplea = (props: any) => {
   return (
     <div>
@@ -103,7 +102,7 @@ class AlertExample extends React.Component<any, any> {
 
     this.state = {
       visible: true
-    }
+    };
   }
 
   onDismiss = () => {
@@ -127,7 +126,7 @@ function AlertExample1() {
   );
 }
 
-//--------------- Badge
+// --------------- Badge
 class Example2 extends React.Component<any, any> {
   render() {
     return (
@@ -173,7 +172,7 @@ class Example4 extends React.Component<any, any> {
   }
 }
 
-//------------- Breadcrumbs
+// ------------- Breadcrumbs
 const Example5 = (props: any) => {
   return (
     <div>
@@ -206,7 +205,7 @@ const Example6 = (props: any) => {
   );
 };
 
-//------------- Buttons
+// ------------- Buttons
 class Example7 extends React.Component<any, any> {
   render() {
     return (
@@ -243,35 +242,35 @@ const Example9 = (
     <Button color="primary" size="lg">Large Button</Button>{' '}
     <Button color="secondary" size="lg">Large Button</Button>
   </div>
-)
+);
 
 const Example10 = (
   <div>
     <Button color="primary" size="sm">Small Button</Button>{' '}
     <Button color="secondary" size="sm">Small Button</Button>
   </div>
-)
+);
 
 const Example11 = (
   <div>
     <Button color="primary" size="lg" block>Block level button</Button>
     <Button color="secondary" size="lg" block>Block level button</Button>
   </div>
-)
+);
 
 const Example12 = (
   <div>
     <Button color="primary" size="lg" active>Primary link</Button>{' '}
     <Button color="secondary" size="lg" active>Link</Button>
   </div>
-)
+);
 
 const Example13 = (
   <div>
     <Button color="primary" size="lg" disabled>Primary button</Button>{' '}
     <Button color="secondary" size="lg" disabled>Button</Button>
   </div>
-)
+);
 
 class Example14 extends React.Component<any, any> {
   constructor(props: any) {
@@ -320,7 +319,7 @@ class Example14 extends React.Component<any, any> {
   }
 }
 
-//------------- Button Dropdown
+// ------------- Button Dropdown
 class Example15 extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -368,7 +367,7 @@ const Example16 = (
       <DropdownItem>Another Action</DropdownItem>
     </DropdownMenu>
   </ButtonDropdown>
-)
+);
 
 const Example17 = (props: any) => (
   <ButtonDropdown isOpen={true} toggle={() => true}>
@@ -382,7 +381,7 @@ const Example17 = (props: any) => (
       <DropdownItem>Another Action</DropdownItem>
     </DropdownMenu>
   </ButtonDropdown>
-)
+);
 
 const Example18 = (
   <div>
@@ -406,7 +405,7 @@ const Example18 = (
       </DropdownMenu>
     </ButtonDropdown>
   </div>
-)
+);
 
 const Example19 = (
   <ButtonDropdown isOpen={true} toggle={() => true} dropup>
@@ -418,11 +417,9 @@ const Example19 = (
       <DropdownItem>Another Action</DropdownItem>
     </DropdownMenu>
   </ButtonDropdown>
-)
+);
 
-
-
-//--------------- ButtonGroup
+// --------------- ButtonGroup
 class Example20 extends React.Component<any, any> {
   render() {
     return (
@@ -478,7 +475,7 @@ const Example22 = (props: any) => (
       <Button>Right</Button>
     </ButtonGroup>
   </div>
-)
+);
 
 const Example23 = (props: any) => (
   <ButtonGroup>
@@ -494,8 +491,7 @@ const Example23 = (props: any) => (
       </DropdownMenu>
     </ButtonDropdown>
   </ButtonGroup>
-
-)
+);
 
 const Example24 = (props: any) => (
   <ButtonGroup vertical>
@@ -511,10 +507,9 @@ const Example24 = (props: any) => (
       </DropdownMenu>
     </ButtonDropdown>
   </ButtonGroup>
-)
+);
 
-
-//------------------ Cards
+// ------------------ Cards
 const Example25 = (props: any) => {
   return (
     <div>
@@ -862,8 +857,7 @@ const Example36 = (props: any) => {
   );
 };
 
-
-//------------------ Collapse
+// ------------------ Collapse
 
 class Example37 extends React.Component<any, any> {
   constructor(props: any) {
@@ -937,8 +931,7 @@ class Example38 extends React.Component<any, any> {
   }
 }
 
-
-//------- Dropdown
+// ------- Dropdown
 
 class Example39 extends React.Component<any, any> {
   constructor(props: any) {
@@ -987,11 +980,11 @@ const Example40 = (props: any) => (
       <DropdownItem>Another Action</DropdownItem>
     </DropdownMenu>
   </Dropdown>
-)
+);
 
 const Example41 = (props: any) => (
   <DropdownItem header>Header</DropdownItem>
-)
+);
 
 const Example42 = (props: any) => (
   <div>
@@ -1014,7 +1007,7 @@ const Example42 = (props: any) => (
     </Dropdown>
 
   </div>
-)
+);
 
 class Example43 extends React.Component<any, any> {
   constructor(props: any) {
@@ -1071,8 +1064,7 @@ function Example44() {
   );
 }
 
-
-//------------------ Form
+// ------------------ Form
 class Example45 extends React.Component<any, any> {
   render() {
     return (
@@ -1476,7 +1468,7 @@ const Example53 = (props: any) => {
       </InputGroup>
     </div>
   );
-}
+};
 
 const Example54 = (props: any) => {
   return (
@@ -1601,7 +1593,6 @@ const Example59 = (props: any) => {
     </div>
   );
 };
-
 
 const Example60 = (props: any) => {
   return (
@@ -1933,8 +1924,7 @@ const Example71 = () => {
   );
 };
 
-
-//--------------- Modal
+// --------------- Modal
 class ModalExample72 extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -2322,7 +2312,7 @@ class Example80 extends React.Component<any, any> {
   }
 }
 
-//----------- Pagination
+// ----------- Pagination
 class Example81 extends React.Component<any, any> {
   render() {
     return (
@@ -2363,7 +2353,6 @@ class Example81 extends React.Component<any, any> {
   }
 }
 
-
 class Example82 extends React.Component<any, any> {
   render() {
     return (
@@ -2403,7 +2392,6 @@ class Example82 extends React.Component<any, any> {
     );
   }
 }
-
 
 class Example83 extends React.Component<any, any> {
   render() {
@@ -2465,8 +2453,7 @@ class Example84 extends React.Component<any, any> {
   }
 }
 
-
-//------------------------- Popover
+// ------------------------- Popover
 class Example85 extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -2529,7 +2516,7 @@ class PopoverItem extends React.Component<any, any> {
   }
 }
 
-class PopoverExampleMulti extends React.Component<any, {popovers: {placement: string; text: string; }[]}> {
+class PopoverExampleMulti extends React.Component<any, {popovers: Array<{placement: string; text: string; }>}> {
   constructor(props: any) {
     super(props);
 
@@ -2566,8 +2553,7 @@ class PopoverExampleMulti extends React.Component<any, {popovers: {placement: st
   }
 }
 
-
-//------------------------- Progress
+// ------------------------- Progress
 
 const Example86 = (props: any) => {
   return (
@@ -2711,8 +2697,7 @@ const Example92 = (props: any) => {
   );
 };
 
-
-//--------------- Table
+// --------------- Table
 class Example93 extends React.Component<any, any> {
   render() {
     return (
@@ -3103,7 +3088,6 @@ class Example101 extends React.Component<any, any> {
   }
 }
 
-
 class Example102 extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -3131,7 +3115,6 @@ class Example102 extends React.Component<any, any> {
     );
   }
 }
-
 
 class Example103 extends React.Component<any, any> {
   constructor(props: any) {
