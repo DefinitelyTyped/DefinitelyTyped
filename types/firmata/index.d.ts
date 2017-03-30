@@ -153,9 +153,9 @@ declare class Board extends NodeJS.EventEmitter {
 declare namespace Board {
 	// https://github.com/firmata/firmata.js/blob/master/lib/firmata.js#L429-L451
 	interface Options {
-		reportVersionTimeout: number;
-		samplingInterval: number;
-		serialport: SerialPort.options;
+		reportVersionTimeout?: number;
+		samplingInterval?: number;
+		serialport?: SerialPort.options;
 	}
 
 	interface PinModes {
