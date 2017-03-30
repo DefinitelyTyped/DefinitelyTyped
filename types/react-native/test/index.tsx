@@ -97,13 +97,13 @@ const stylesAlt = StyleSheet.create(
 )
 
 class CustomView extends React.Component<{}, {}> {
-    
+
     render() {
         return (
             <Text>Custom View</Text>
         );
     }
-    
+
 }
 
 class Welcome extends React.Component<any, any> {
@@ -121,11 +121,11 @@ class Welcome extends React.Component<any, any> {
 
         rootView.measure((x: number, y: number, width: number, height: number) => {
         });
-        
+
     }
-    
+
     testFindNodeHandle() {
-        
+
         const { rootView, customView } = this.refs;
         
         let nativeComponentHandle = findNodeHandle(rootView);
