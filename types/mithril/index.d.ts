@@ -5,22 +5,21 @@
 // TypeScript Version: 2.2
 
 declare namespace Mithril {
-
 	export interface Lifecycle<Attrs, State> {
 		/** Any property attached to the component object is copied for every instance of the component. This allows simple state initialization. */
 		[propName: string]: any;
 		/** The oninit hook is called before a vnode is touched by the virtual DOM engine. */
-		oninit?: (this: State, vnode: Vnode<Attrs, State>) => any;
+		oninit?(this: State, vnode: Vnode<Attrs, State>): any;
 		/** The oncreate hook is called after a DOM element is created and attached to the document. */
-		oncreate?: (this: State, vnode: VnodeDOM<Attrs, State>) => any;
+		oncreate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
-		onbeforeremove?: (this: State, vnode: VnodeDOM<Attrs, State>) => Promise<any> | void;
+		onbeforeremove?(this: State, vnode: VnodeDOM<Attrs, State>): Promise<any> | void;
 		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
-		onremove?: (this: State, vnode: VnodeDOM<Attrs, State>) => any;
+		onremove?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 		/** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
-		onbeforeupdate?: (this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>) => boolean | void;
+		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
-		onupdate?: (this: State, vnode: VnodeDOM<Attrs, State>) => any;
+		onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 	}
 
 	export interface Hyperscript {
@@ -40,9 +39,9 @@ declare namespace Mithril {
 
 	export interface RouteResolver<State, Params> {
 		/** The onmatch hook is called when the router needs to find a component to render. */
-		render?: (this: State, vnode: Vnode<State, Params>) => Children;
+		render?(this: State, vnode: Vnode<State, Params>): Children;
 		/** The render method is called on every redraw for a matching route. */
-		onmatch?: (args: Params, requestedPath: string) => Component<any, any> | Promise<any> | void;
+		onmatch?(args: Params, requestedPath: string): Component<any, any> | Promise<any> | void;
 	}
 
 	/** This represents a key-value mapping linking routes to components. */
@@ -79,23 +78,19 @@ declare namespace Mithril {
 
 	export interface Mount {
 		/** Mounts a component to a DOM element, enabling it to autoredraw on user events. */
-		(element: Element, component: ComponentTypes<any, any> | null): void;
+		(element: Element, component: ComponentTypes<any, any>): void;
+		/** Unmounts a component from a DOM element. */
+		(element: Element, component: null): void;
 	}
 
-	export interface WithAttr {
-		/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
-		(name: string, callback: (value: any) => any, thisArg?: any): (e: { currentTarget: any, [p: string]: any }) => void;
-	}
+	/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
+	export type WithAttr = (name: string, callback: (value: any) => any, thisArg?: any) => (e: { currentTarget: any, [p: string]: any }) => void;
 
-	export interface ParseQueryString {
-		/** Returns an object with key/value pairs parsed from a string of the form: ?a=1&b=2 */
-		(queryString: string): { [p: string]: any };
-	}
+	/** Returns an object with key/value pairs parsed from a string of the form: ?a=1&b=2 */
+	export type ParseQueryString = (queryString: string) => { [p: string]: any };
 
-	export interface BuildQueryString {
-		/** Turns the key/value pairs of an object into a string of the form: a=1&b=2 */
-		(values: { [p: string]: any }): string;
-	}
+	/** Turns the key/value pairs of an object into a string of the form: a=1&b=2 */
+	export type BuildQueryString = (values: { [p: string]: any }) => string;
 
 	export interface RequestOptions<T> {
 		/** The HTTP method to use. */
@@ -111,17 +106,17 @@ declare namespace Mithril {
 		/** Whether to send cookies to 3rd party domains. */
 		withCredentials?: boolean;
 		/** Exposes the underlying XMLHttpRequest object for low-level configuration. */
-		config?: (xhr: XMLHttpRequest) => any;
+		config?(xhr: XMLHttpRequest): any;
 		/** Headers to append to the request before sending it. */
 		headers?: any;
 		/** A constructor to be applied to each object in the response. */
 		type?: new (o: any) => any;
 		/** A serialization method to be applied to data. Defaults to JSON.stringify, or if options.data is an instance of FormData, defaults to the identity function. */
-		serialize?: (data: any) => any;
+		serialize?(data: any): any;
 		/** A deserialization method to be applied to the response. Defaults to a small wrapper around JSON.parse that returns null for empty responses. */
-		deserialize?: (data: string) => T;
+		deserialize?(data: string): T;
 		/** A hook to specify how the XMLHttpRequest response should be read. Useful for reading response headers and cookies. Defaults to a function that returns xhr.responseText */
-		extract?: (xhr: XMLHttpRequest, options: RequestOptions<T>) => T;
+		extract?(xhr: XMLHttpRequest, options: RequestOptions<T>): T;
 		/** Force the use of the HTTP body section for data in GET requests when set to true, or the use of querystring for other HTTP methods when set to false. Defaults to false for GET requests and true for other methods. */
 		useBody?: boolean;
 		/** If false, redraws mounted components upon completion of the request. If true, it does not. */
@@ -170,19 +165,15 @@ declare namespace Mithril {
 		jsonp: Jsonp;
 	}
 
-	export interface Render {
-		/** Renders a vnode structure into a DOM element. */
-		(el: Element, vnodes: Children): void;
-	}
+	/** Renders a vnode structure into a DOM element. */
+	export type Render = (el: Element, vnodes: Children) => void;
 
 	export interface RenderService {
 		render: Render
 	}
 
-	export interface Redraw {
-		/** Manually triggers a redraw of mounted components. */
-		(): void;
-	}
+	/** Manually triggers a redraw of mounted components. */
+	export type Redraw = () => void;
 
 	export interface RedrawService {
 		redraw: Redraw
@@ -232,10 +223,8 @@ declare namespace Mithril {
 	// In some lifecycle methods, Vnode will have a dom property
 	// and possibly a domSize property.
 	export interface VnodeDOM<Attrs, State> extends Vnode<Attrs, State> {
-
 		/** Points to the element that corresponds to the vnode. */
 		dom: Element;
-
 		/** This defines the number of DOM elements that the vnode represents (starting from the element referenced by the dom property). */
 		domSize?: number;
 	}
@@ -246,7 +235,6 @@ declare namespace Mithril {
 
 	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Any Javascript object that has a view method is a Mithril component. Components can be consumed via the m() utility. */
 	export interface Component<Attrs, State extends Lifecycle<Attrs, State>> extends Lifecycle<Attrs, State> {
-
 		/** Creates a view out of virtual elements. */
 		view(this: State, vnode: Vnode<Attrs, State>): Children | null | void;
 	}
