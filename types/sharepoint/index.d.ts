@@ -1549,7 +1549,7 @@ declare namespace SPAnimation {
     class State {
         SetAttribute(attributeId: Attribute, value: number): void;
         GetAttribute(attributeId: Attribute): number;
-        GetDataIndex(attributeId: Attribute): number
+        GetDataIndex(attributeId: Attribute): number;
     }
 
     class Object {
@@ -5134,7 +5134,8 @@ declare namespace Microsoft.SharePoint.Client.Search {
             get_uiLanguage: () => number;
             set_uiLanguage: (value: number) => void;
 
-            getQuerySuggestionsWithResults: (iNumberOfQuerySuggestions: number,
+            getQuerySuggestionsWithResults: (
+                iNumberOfQuerySuggestions: number,
                 iNumberOfResultSuggestions: number,
                 fPreQuerySuggestions: boolean,
                 fHitHighlighting: boolean,
@@ -5493,7 +5494,8 @@ declare namespace Microsoft.SharePoint.Client.Search {
     namespace Administration {
         class DocumentCrawlLog extends SP.ClientObject {
             constructor(context: SP.ClientContext, site: SP.Site);
-            getCrawledUrls: (getCountOnly: boolean,
+            getCrawledUrls: (
+                getCountOnly: boolean,
                 maxRows: { High: number; Low: number; },
                 queryString: string,
                 isLike: boolean,
@@ -9299,7 +9301,7 @@ declare class SPClientPeoplePicker {
     WebApplicationID: SP.Guid; // '{00000000-0000-0000-0000-000000000000}',
     GetAllUserInfo(): ISPClientPeoplePickerEntity[];
 
-    SetInitialValue(entities: ISPClientPeoplePickerEntity[], initialErrorMsg?: string): void
+    SetInitialValue(entities: ISPClientPeoplePickerEntity[], initialErrorMsg?: string): void;
     AddUserKeys(userKeys: string, bSearch: boolean): void;
     BatchAddUserKeysOperation(allKeys: string[], numProcessed: number): void;
     ResolveAllUsers(fnContinuation: () => void): void;
@@ -9331,7 +9333,7 @@ declare class SPClientPeoplePicker {
     IterateEachProcessedUser(fnCallback: (index: number, user: SPClientPeoplePickerProcessedUser) => void): void;
     HasResolvedUsers(): boolean;
     Validate(): void;
-    ValidateCurrentState(): void
+    ValidateCurrentState(): void;
     GetUnresolvedEntityErrorMessage(): string;
     ShowErrorMessage(msg: string): void;
     ClearServerError(): void;
@@ -11652,7 +11654,7 @@ declare namespace Srch {
         /** Same as $addHandler with safety checks */
         static addHandler(element: Element, eventName: string, handler: (instance: any, eventArgs: any) => void): void;
         /** Same as $removeHandler with safety checks */
-        static removeHandler(element: Element, eventName: string, handler: (instance: any, eventArgs: any) => void): void
+        static removeHandler(element: Element, eventName: string, handler: (instance: any, eventArgs: any) => void): void;
 
         /** Returns true if the specified element is a descendant of the container element */
         static isDescendant(element: Element, container: Element): boolean;
@@ -11670,7 +11672,7 @@ declare namespace Srch {
         static findResultObjectFromDOM(e: Element, type: string): any;
 
         /** Appends specified parameter key and value string to the specified URL */
-        static appendUrlParameter(url: string, keyAndValue: string): string
+        static appendUrlParameter(url: string, keyAndValue: string): string;
 
         /** Ensures that the given URL protocol value is allowed. Returns the specified URL value if the protocol is allowed; empty string otherwise. */
         static ensureAllowedProtocol(value: string): string;
