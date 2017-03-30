@@ -19,10 +19,10 @@ export type AutoSizerProps = {
 export class AutoSizer extends PureComponent<AutoSizerProps, Dimensions> {
     static propTypes: {
         /**
-        * Function responsible for rendering children.
-        * This function should implement the following signature:
-        * ({ height, width }) => PropTypes.element
-        */
+         * Function responsible for rendering children.
+         * This function should implement the following signature:
+         * ({ height, width }) => PropTypes.element
+         */
         children: Validator<(props: Dimensions) => React.ReactNode>,
 
         /** Disable dynamic :height property */
@@ -36,7 +36,7 @@ export class AutoSizer extends PureComponent<AutoSizerProps, Dimensions> {
     };
 
     static defaultProps: {
-        onResize: () => { }
+        onResize: () => {}
     };
 
     constructor(props: AutoSizerProps);

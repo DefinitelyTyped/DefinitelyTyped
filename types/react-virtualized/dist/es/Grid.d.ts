@@ -75,16 +75,16 @@ export type CellSizeAndPositionManager = {
         offset // safe
     }: ContainerSizeAndOffset): number;
     /**
-   * This method returns the size and position for the cell at the specified index.
-   * It just-in-time calculates (or used cached values) for cells leading up to the index.
-   */
+     * This method returns the size and position for the cell at the specified index.
+     * It just-in-time calculates (or used cached values) for cells leading up to the index.
+     */
     getSizeAndPositionOfCell(index: number): SizeAndPositionData;
     getSizeAndPositionOfLastMeasuredCell(): SizeAndPositionData;
     /**
-   * Total size of all cells being measured.
-   * This value will be completedly estimated initially.
-   * As cells as measured the estimate will be updated.
-   */
+     * Total size of all cells being measured.
+     * This value will be completedly estimated initially.
+     * As cells as measured the estimate will be updated.
+     */
     getTotalSize(): number;
     /**
      * Determines a new offset that ensures a certain cell is visible, given the current offset.
@@ -202,7 +202,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
          * Responsible for rendering a cell given an row and column index.
          * Should implement the following interface: ({ columnIndex: number, rowIndex: number }): PropTypes.node
          */
-        cellRenderer: Validator< (props: GridCellProps) => React.ReactNode>,
+        cellRenderer: Validator<(props: GridCellProps) => React.ReactNode>,
 
         /**
          * Responsible for rendering a group of cells given their index ranges.
