@@ -55,7 +55,6 @@ let circleDrag: d3Drag.DragBehavior<SVGCircleElement, CircleDatum, CircleDatum |
 // This drag behavior will use a custom subject accessor to set the subject of the drag event
 let circleCustomDrag: d3Drag.DragBehavior<SVGCircleElement, CircleDatum, CustomSubject | d3Drag.SubjectPosition>;
 
-
 // create new drag behavior ------------------------------------------
 
 circleDrag = d3Drag.drag<SVGCircleElement, CircleDatum>(); // Use short form method
@@ -99,7 +98,6 @@ filterFn = function(d) {
 
 // chainable
 circleDrag = circleDrag.filter(function(d, i, group) {
-
     return (d.color !== 'green' && this.r.baseVal.value < 10) ? !event.button : true; // 'this' is SVGCircleElement and d is CircleDatum
 });
 
@@ -192,9 +190,7 @@ const wrongSelection: Selection<HTMLDivElement, any, any, any> = select<HTMLDivE
 // Test Drag Event Interface
 // -----------------------------------------------------------------------------
 
-
 let e: d3Drag.D3DragEvent<SVGCircleElement, CircleDatum, CircleDatum | d3Drag.SubjectPosition> = event;
-
 
 circleDrag = e.target; // target return drag behavior
 
@@ -223,7 +219,6 @@ handler = e.on('dragged');
 // let wrongHandler3: ((this:SVGRectElement, d:CircleDatum, i: number, group: SVGRectElement[] | NodeListOf<SVGRectElement>)=> void) | undefined = e.on('dragged');
 // fails, handler with wrong datum type
 // let wrongHandler4: ((this:SVGCircleElement, d:{test: number}, i: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>)=> void) | undefined = e.on('dragged');
-
 
 // -----------------------------------------------------------------------------
 // Test dragDisable() and dragEnable()
