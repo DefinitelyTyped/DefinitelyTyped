@@ -22,9 +22,9 @@ myApp.config((
         .dark(true);
 
     var browserColors: ng.material.IBrowserColors = {
-      theme: 'default', 
-      palette: 'neonRed', 
-      hue: '500'  
+        theme: 'default',
+        palette: 'neonRed',
+        hue: '500'
     };
     $mdThemingProvider.enableBrowserColor(browserColors);
 
@@ -45,14 +45,20 @@ myApp.config((
     });
 });
 
-myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {
+myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
             template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
             clickOutsideToClose: true,
             disableBackdrop: true,
             disableParentScroll: false,
-            parent: () => {}
+            parent: () => { },
+            resolve: {
+                r1: () => $q.resolve(),
+                r2: () => Promise.resolve(),
+                r3: ['fakeService', (fake) => $q.resolve()],
+                r4: ['fakeService', (fake) => Promise.resolve()],
+            }
         });
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
@@ -60,8 +66,8 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
 });
 
 myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
-    var colorExpression : ng.material.IColorExpression;
-    var element : Element;
+    var colorExpression: ng.material.IColorExpression;
+    var element: Element;
 
     colorExpression = { color: '#FFFFFF' }
 
@@ -78,10 +84,16 @@ myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IC
     };
 });
 
-myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService) => {
+myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService, $q: ng.IQService) => {
     $scope['openDialog'] = () => {
         $mdDialog.show({
-            template: '<md-dialog>Hello!</md-dialog>'
+            template: '<md-dialog>Hello!</md-dialog>',
+            resolve: {
+                r1: () => $q.resolve(),
+                r2: () => Promise.resolve(),
+                r3: ['fakeService', (fake) => $q.resolve()],
+                r4: ['fakeService', (fake) => Promise.resolve()],
+            }
         });
     };
     $scope['alertDialog'] = () => {
@@ -109,7 +121,12 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
         $mdDialog.show($mdDialog.prompt().placeholder('Prompt input placeholder text'));
     };
     $scope['promptDialog'] = () => {
-        $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
+        $mdDialog.show($mdDialog.prompt().initialValue('Buddy').resolve({
+            r1: () => $q.resolve(),
+            r2: () => Promise.resolve(),
+            r3: ['fakeService', (fake) => $q.resolve()],
+            r4: ['fakeService', (fake) => Promise.resolve()],
+        }));
     };
     $scope['prerenderedDialog'] = () => {
         $mdDialog.show({
@@ -165,38 +182,50 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
         instance.isLockedOpen();
     });
 
-    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => { });
 });
 
-myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
+myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService, $q: ng.IQService) => {
     $scope['openToast'] = () => {
         $mdToast.show($mdToast.simple().textContent('Hello!'));
         $mdToast.updateTextContent('New Content');
     }
 
     $scope['customToast'] = () => {
-        var options = {
+        var options: ng.material.IToastOptions = {
             hideDelay: 3000,
             position: 'top right',
-            controller  : 'ToastCtrl',
-            templateUrl : 'toast-template.html',
-            toastClass: 'my-class'
+            controller: 'ToastCtrl',
+            templateUrl: 'toast-template.html',
+            toastClass: 'my-class',
+            resolve: {
+                r1: () => $q.resolve(),
+                r2: () => Promise.resolve(),
+                r3: ['fakeService', (fake) => $q.resolve()],
+                r4: ['fakeService', (fake) => Promise.resolve()],
+            }
         };
 
         $mdToast.show(options);
     }
 });
 
-myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
+myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService, $q: ng.IQService) => {
     $scope['createPanel'] = () => {
-        var config = {
+        var config: ng.material.IPanelConfig = {
             id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
             disableParentScroll: true,
-            zIndex: 150
+            zIndex: 150,
+            resolve: {
+                r1: () => $q.resolve(),
+                r2: () => Promise.resolve(),
+                r3: ['fakeService', (fake) => $q.resolve()],
+                r4: ['fakeService', (fake) => Promise.resolve()],
+            }
         };
-        
+
         $mdPanel.create(config);
 
         var panelRef = $mdPanel.create(config);
@@ -232,6 +261,6 @@ myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IP
 
     $scope['newPanelAnimation'] = () => {
         $mdPanel.newPanelAnimation().openFrom('.some-target');
-        $mdPanel.newPanelAnimation().openFrom({top: 0, left: 0});
+        $mdPanel.newPanelAnimation().openFrom({ top: 0, left: 0 });
     };
 });
