@@ -83,7 +83,6 @@ export type MasonryState = {
  *   (Items may not span multiple columns.)
  */
 export class Masonry extends PureComponent<MasonryProps, MasonryState> {
-
     static defaultProps: {
         autoHeight: false,
         keyMapper: identity,
@@ -140,6 +139,6 @@ export type resetParams = {
     spacer?: number
 };
 
-export type Positioner = ((index: number) => Position) & {reset: (params: resetParams) => void};
+export type Positioner = ((index: number) => Position) & { reset: (params: resetParams) => void };
 
 export const createCellPositioner: (params: createCellPositionerParams) => Positioner;
