@@ -4269,6 +4269,12 @@ declare namespace chrome.notifications {
         appIconMaskUrl?: string;
         /** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
         imageUrl?: string;
+        /**
+         * Indicates that the notification should remain visible on screen until the user activates or dismisses the notification.
+         * This defaults to false.
+         * @since Chrome 50
+         */
+        requireInteraction?: boolean;
     }
 
     interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> {}
