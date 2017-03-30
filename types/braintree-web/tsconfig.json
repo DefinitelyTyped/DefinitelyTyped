@@ -18,7 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "braintree-web-tests.ts",
-        "braintree-node-tests.ts"
+        "test/web.ts",
+        "test/node.ts"
     ]
 }
