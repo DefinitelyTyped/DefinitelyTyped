@@ -15,7 +15,7 @@ const PEEPS = [
   { id: 3, name: 'David', friends: [ 1, 2 ] }
 ]
 
-const find = (id: number) => PEEPS.find(p => p.id == id)
+const find = (id: number) => PEEPS.find(p => p.id === id)
 
 const RecursiveExample = () => (
   <Router>

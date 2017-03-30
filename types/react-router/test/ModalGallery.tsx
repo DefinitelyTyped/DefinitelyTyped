@@ -17,7 +17,6 @@ import {
 // on top of the old screen.
 
 class ModalSwitch extends React.Component<RouteComponentProps<void>, void> {
-
   // We can pass a location to <Switch/> that will tell it to
   // ignore the router's current location and use the location
   // prop instead.
