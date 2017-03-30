@@ -5,7 +5,7 @@
 
 interface Options {
   duration?: number;
-  easing?: (currentTime: number, beginningTime: number, changeInValue: number, duration: number) => number;
+  easing?(currentTime: number, beginningTime: number, changeInValue: number, duration: number): number;
   start: number;
   end: number;
 }
