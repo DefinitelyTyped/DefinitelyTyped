@@ -1,0 +1,17 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "class-name": true,
+        "indent": [true, "spaces"],
+        "quotemark": [true, "single"],
+        "variable-name": [true, "check-format"],
+
+        "callable-types": false,
+        "ban-types": false,
+        "interface-name": false,
+        "no-empty-interface": false,
+        "max-line-length": false,
+        "unified-signatures": false,
+        "void-return": false
+    }
+}

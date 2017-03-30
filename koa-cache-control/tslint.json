@@ -1,7 +1,0 @@
-{
-  "extends": "../tslint.json",
-
-  "noImplicitAny": "true",
-  "noImplicitThis": "true",
-  "strictNullChecks": "true"
-}

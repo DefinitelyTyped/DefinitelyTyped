@@ -1,0 +1,10 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "ban-types": false,
+    "unified-signatures": false,
+    "array-type": false,
+    "no-empty-interface": false,
+    "dt-header": false
+  }
+}
