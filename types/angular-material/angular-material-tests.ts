@@ -1,15 +1,12 @@
-
-
-var myApp = angular.module('testModule', ['ngMaterial']);
+const myApp = angular.module('testModule', ['ngMaterial']);
 
 myApp.config((
     $mdThemingProvider: ng.material.IThemingProvider,
     $mdIconProvider: ng.material.IIconProvider,
     $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
-
     $mdThemingProvider.alwaysWatchTheme(true);
-    var neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
-        '500': 'ff0000'
+    const neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
+        500: 'ff0000'
     });
     // Register the new color palette map with the name <code>neonRed</code>
     $mdThemingProvider.definePalette('neonRed', neonRedMap);
@@ -21,7 +18,7 @@ myApp.config((
         .warnPalette('red')
         .dark(true);
 
-    var browserColors: ng.material.IBrowserColors = {
+    const browserColors: ng.material.IBrowserColors = {
         theme: 'default',
         palette: 'neonRed',
         hue: '500'
@@ -52,7 +49,6 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
             clickOutsideToClose: true,
             disableBackdrop: true,
             disableParentScroll: false,
-            parent: () => { },
             resolve: {
                 r1: () => $q.resolve(),
                 r2: () => Promise.resolve(),
@@ -66,10 +62,10 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
 });
 
 myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
-    var colorExpression: ng.material.IColorExpression;
-    var element: Element;
+    let colorExpression: ng.material.IColorExpression;
+    let element: Element;
 
-    colorExpression = { color: '#FFFFFF' }
+    colorExpression = { color: '#FFFFFF' };
 
     element = new Element();
 
@@ -77,7 +73,7 @@ myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IC
         $mdColor.applyThemeColors(element, colorExpression);
     };
     $scope['getThemeColor'] = () => {
-        $mdColor.getThemeColor('default-neonRed')
+        $mdColor.getThemeColor('default-neonRed');
     };
     $scope['hasTheme'] = () => {
         $mdColor.hasTheme();
@@ -140,13 +136,12 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
 });
 
 class IconDirective implements ng.IDirective {
-
     private $mdIcon: ng.material.IIcon;
     constructor($mdIcon: ng.material.IIcon) {
         this.$mdIcon = $mdIcon;
     }
 
-    public link($scope: ng.IScope, $elm: ng.IAugmentedJQuery) {
+    link($scope: ng.IScope, $elm: ng.IAugmentedJQuery) {
         this.$mdIcon('android').then((iconEl: Element) => $elm.append(iconEl));
         this.$mdIcon('work:chair').then((iconEl: Element) => $elm.append(iconEl));
         // Load and cache the external SVG using a URL
@@ -167,7 +162,7 @@ myApp.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.IM
 });
 
 myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.material.ISidenavService) => {
-    var componentId = 'left';
+    const componentId = 'left';
     $scope['toggle'] = () => $mdSidenav(componentId).toggle();
     $scope['open'] = () => $mdSidenav(componentId).open();
     $scope['close'] = () => $mdSidenav(componentId).close();
@@ -189,10 +184,10 @@ myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IT
     $scope['openToast'] = () => {
         $mdToast.show($mdToast.simple().textContent('Hello!'));
         $mdToast.updateTextContent('New Content');
-    }
+    };
 
     $scope['customToast'] = () => {
-        var options: ng.material.IToastOptions = {
+        const options: ng.material.IToastOptions = {
             hideDelay: 3000,
             position: 'top right',
             controller: 'ToastCtrl',
@@ -207,12 +202,12 @@ myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IT
         };
 
         $mdToast.show(options);
-    }
+    };
 });
 
 myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService, $q: ng.IQService) => {
     $scope['createPanel'] = () => {
-        var config: ng.material.IPanelConfig = {
+        const config: ng.material.IPanelConfig = {
             id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
@@ -228,7 +223,7 @@ myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IP
 
         $mdPanel.create(config);
 
-        var panelRef = $mdPanel.create(config);
+        let panelRef = $mdPanel.create(config);
         panelRef.open()
             .then((ref: ng.material.IPanelRef) => {
                 ref.addClass('foo');
