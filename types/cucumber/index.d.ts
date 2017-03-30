@@ -19,7 +19,7 @@ declare namespace cucumber {
         hashes: () => {};
     }
 
-    type StepDefinitionParam = string | CallbackStepDefinition | TableDefinition;
+    type StepDefinitionParam = string | number | CallbackStepDefinition | TableDefinition;
 
     interface StepDefinitionCode {
         (...stepArgs: Array<StepDefinitionParam>): PromiseLike<any> | any | void;
@@ -68,8 +68,8 @@ declare namespace cucumber {
     export interface Hooks {
         Before(code: HookCode): void;
         Before(options: HookOptions, code: HookCode): void;
-		    After(code: HookCode): void;
-		    After(options: HookOptions, code: HookCode): void;
+		After(code: HookCode): void;
+		After(options: HookOptions, code: HookCode): void;
         Around(code: AroundCode): void;
         setDefaultTimeout(time: number): void;
         setWorldConstructor(world: (() => void) | ({})): void;
