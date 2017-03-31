@@ -230,8 +230,8 @@ rule = {
     loader: "babel-loader"
 };
 
-declare var require: any;
-declare var path: any;
+declare const require: any;
+declare const path: any;
 configuration = {
     plugins: [
         function(this: webpack.Compiler) {
@@ -383,9 +383,9 @@ plugin = new CommonsChunkPlugin({
 });
 plugin = new webpack.DefinePlugin(definitions);
 plugin = new webpack.DefinePlugin({
-    "VERSION": JSON.stringify("5fa3b9"),
-    "BROWSER_SUPPORTS_HTML5": true,
-    "TWO": "1+1",
+    VERSION: JSON.stringify("5fa3b9"),
+    BROWSER_SUPPORTS_HTML5: true,
+    TWO: "1+1",
     "typeof window": JSON.stringify("object")
 });
 plugin = new webpack.ProvidePlugin(definitions);
@@ -421,6 +421,8 @@ plugin = new webpack.WatchIgnorePlugin(paths);
 plugin = new webpack.LoaderOptionsPlugin({
     debug: true
 });
+plugin = new webpack.EnvironmentPlugin(['a', 'b']);
+plugin = new webpack.EnvironmentPlugin({a: true, b: 'c'});
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
 
 //
@@ -435,7 +437,7 @@ webpack({
 });
 
 // returns a Compiler instance
-var compiler = webpack({
+let compiler = webpack({
     // configuration
 });
 
@@ -473,8 +475,8 @@ webpack({
 }, (err, stats) => {
     if (err)
         return handleFatalError(err);
-    var jsonStats = stats.toJson();
-    var jsonStatsWithAllOptions = stats.toJson({
+    const jsonStats = stats.toJson();
+    const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
         assetsSort: "field",
         cached: true,
@@ -503,13 +505,13 @@ webpack({
     successfullyCompiled();
 });
 
-declare var fs: any;
+declare const fs: any;
 
 compiler = webpack({ });
 compiler.outputFileSystem = fs;
 compiler.run((err, stats) => {
     // ...
-    var fileContent = fs.readFileSync("...");
+    const fileContent = fs.readFileSync("...");
 });
 
 //

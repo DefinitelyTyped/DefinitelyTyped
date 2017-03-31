@@ -1,6 +1,6 @@
 import del = require("del");
 
-var paths = ["build", "dist/**/*.js"];
+let paths = ["build", "dist/**/*.js"];
 
 del(["tmp/*.js", "!tmp/unicorn.js"]);
 
@@ -26,7 +26,6 @@ del("tmp/*.js", {force: true}).then((paths: string[]) => {
     console.log('Deleted files/folders:\n', paths.join('\n'));
 });
 
-var paths: string[];
 paths = del.sync(["tmp/*.js", "!tmp/unicorn.js"]);
 
 paths = del.sync(["tmp/*.js", "!tmp/unicorn.js"], {force: true});

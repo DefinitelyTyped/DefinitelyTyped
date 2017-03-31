@@ -10,7 +10,7 @@ declare namespace Rx {
         hasObservers(): boolean;
     }
 
-    export interface Subject<T> extends ISubject<T> {
+    interface Subject<T> extends ISubject<T> {
     }
 
     interface SubjectStatic {
@@ -18,18 +18,18 @@ declare namespace Rx {
         create<T>(observer?: Observer<T>, observable?: Observable<T>): ISubject<T>;
     }
 
-    export var Subject: SubjectStatic;
+    const Subject: SubjectStatic;
 
-    export interface AsyncSubject<T> extends Subject<T> {
+    interface AsyncSubject<T> extends Subject<T> {
     }
 
     interface AsyncSubjectStatic {
         new <T>(): AsyncSubject<T>;
     }
 
-    export var AsyncSubject: AsyncSubjectStatic;
+    const AsyncSubject: AsyncSubjectStatic;
 
-    export interface BehaviorSubject<T> extends Subject<T> {
+    interface BehaviorSubject<T> extends Subject<T> {
         getValue(): T;
     }
 
@@ -37,16 +37,16 @@ declare namespace Rx {
         new <T>(initialValue: T): BehaviorSubject<T>;
     }
 
-    export var BehaviorSubject: BehaviorSubjectStatic;
+    const BehaviorSubject: BehaviorSubjectStatic;
 
-    export interface ReplaySubject<T> extends Subject<T> {
+    interface ReplaySubject<T> extends Subject<T> {
     }
 
     interface ReplaySubjectStatic {
         new <T>(bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
     }
 
-    export var ReplaySubject: ReplaySubjectStatic;
+    const ReplaySubject: ReplaySubjectStatic;
 
     interface ConnectableObservable<T> extends Observable<T> {
         connect(): IDisposable;
@@ -57,9 +57,9 @@ declare namespace Rx {
         new <T>(): ConnectableObservable<T>;
     }
 
-    export var ConnectableObservable: ConnectableObservableStatic;
+    const ConnectableObservable: ConnectableObservableStatic;
 
-    export interface Observable<T> {
+    interface Observable<T> {
         multicast(subject: Observable<T>): ConnectableObservable<T>;
         multicast<TResult>(subjectSelector: () => ISubject<T>, selector: (source: ConnectableObservable<T>) => Observable<T>): Observable<T>;
         publish(): ConnectableObservable<T>;

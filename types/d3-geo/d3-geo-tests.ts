@@ -597,7 +597,7 @@ const context: d3Geo.GeoContext = {
 
 // geoTransform(...) ====================================================
 
-const transformFunction: { stream: (s: d3Geo.GeoStream) => {} } = d3Geo.geoTransform({});
+const transformFunction: { stream(s: d3Geo.GeoStream): {} } = d3Geo.geoTransform({});
 
 interface CustomTranformProto extends d3Geo.GeoTransformPrototype {
     a: number;
@@ -612,7 +612,7 @@ customTransformProto = {
     a: 10
 };
 
-const t: { stream: (s: d3Geo.GeoStream) => (CustomTranformProto & d3Geo.GeoStream) } = d3Geo.geoTransform(customTransformProto);
+const t: { stream(s: d3Geo.GeoStream): CustomTranformProto & d3Geo.GeoStream } = d3Geo.geoTransform(customTransformProto);
 
 // geoIdentity() ========================================================
 

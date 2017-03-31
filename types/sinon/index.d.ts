@@ -1,6 +1,6 @@
-// Type definitions for Sinon 1.16.0
+// Type definitions for Sinon 2.1.0
 // Project: http://sinonjs.org/
-// Definitions by: William Sears <https://github.com/mrbigdog2u>
+// Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // sinon uses DOM dependencies which are absent in browserless envoronment like node.js
@@ -96,11 +96,16 @@ declare namespace Sinon {
 
     interface SinonStub extends SinonSpy {
         resetBehavior(): void;
+        resetHistory(): void;
         returns(obj: any): SinonStub;
         returnsArg(index: number): SinonStub;
         returnsThis(): SinonStub;
+        resolves(value: any): SinonStub;
         throws(type?: string): SinonStub;
         throws(obj: any): SinonStub;
+        rejects(): SinonStub;
+        rejects(errorType: string): SinonStub;
+        rejects(value: any): SinonStub;
         callsArg(index: number): SinonStub;
         callThrough(): SinonStub;
         callsArgOn(index: number, context: any): SinonStub;
@@ -369,6 +374,7 @@ declare namespace Sinon {
         array: SinonMatcher;
         regexp: SinonMatcher;
         date: SinonMatcher;
+        symbol: SinonMatcher;
         same(obj: any): SinonMatcher;
         typeOf(type: string): SinonMatcher;
         instanceOf(type: any): SinonMatcher;
@@ -421,17 +427,10 @@ declare namespace Sinon {
         (...args: any[]): any;
     }
 
-    interface SinonStatic {
-        config: SinonTestConfig;
-        test(fn: (...args: any[]) => any): SinonTestWrapper;
-        testCase(tests: any): any;
-    }
-
     // Utility overridables
     interface SinonStatic {
         createStubInstance(constructor: any): any;
         format(obj: any): string;
-        log(message: string): void;
         restore(object: any): void;
     }
 }

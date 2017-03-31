@@ -1,6 +1,7 @@
 // Type definitions for React Router 4.0
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -17,28 +18,26 @@ declare module 'react-router-dom' {
     Switch,
     match,
     matchPath,
-    withRouter
+    withRouter,
+    RouterChildContext
   } from 'react-router';
   import * as React from 'react';
   import * as H from 'history';
 
-
   interface BrowserRouterProps {
     basename?: string;
-    getUserConfirmation?: () => void;
+    getUserConfirmation?(): void;
     forceRefresh?: boolean;
     keyLength?: number;
   }
   class BrowserRouter extends React.Component<BrowserRouterProps, void> {}
 
-
   interface HashRouterProps {
     basename?: string;
-    getUserConfirmation?: () => void;
+    getUserConfirmation?(): void;
     hashType?: 'slash' | 'noslash' | 'hashbang';
   }
   class HashRouter extends React.Component<HashRouterProps, void> {}
-
 
   interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
@@ -46,16 +45,14 @@ declare module 'react-router-dom' {
   }
   class Link extends React.Component<LinkProps, void> {}
 
-
   interface NavLinkProps extends LinkProps {
     activeClassName?: string;
     activeStyle?: React.CSSProperties;
     exact?: boolean;
     strict?: boolean;
-    isActive?: (location: H.Location, props: any) => boolean;
+    isActive?(location: H.Location, props: any): boolean;
   }
   class NavLink extends React.Component<NavLinkProps, void> {}
-
 
   export {
     BrowserRouter,
@@ -74,6 +71,7 @@ declare module 'react-router-dom' {
     Switch,
     match, // TypeScript specific, not from React Router itself
     matchPath,
-    withRouter
-  }
+    withRouter,
+    RouterChildContext
+  };
 }

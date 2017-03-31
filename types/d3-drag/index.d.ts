@@ -7,11 +7,9 @@
 
 import { ArrayLike, Selection, ValueFn } from 'd3-selection';
 
-
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
 // --------------------------------------------------------------------------
-
 
 /**
  * DraggedElementBaseType serves as an alias for the 'minimal' data type which can be selected
@@ -19,7 +17,6 @@ import { ArrayLike, Selection, ValueFn } from 'd3-selection';
  * be supported.
  */
 export type DraggedElementBaseType = Element;
-
 
 /**
  * Container element type usable for mouse/touch functions

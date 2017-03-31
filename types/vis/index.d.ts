@@ -71,7 +71,6 @@ interface PointItem extends DataItem {
   y: number;
 }
 
-
 interface DataGroup {
   className?: string;
   content: string;
@@ -154,14 +153,14 @@ interface TimelineOptions {
   groupEditable?: TimelineOptionsGroupEditableType;
   groupOrder?: TimelineOptionsGroupOrderType;
   groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction;
-  groupTemplate?: () => void; // TODO
+  groupTemplate?(): void; // TODO
   height?: HeightWidthType;
   hiddenDates?: any; // TODO
   horizontalScroll?: boolean;
   itemsAlwaysDraggable?: boolean;
   locale?: string;
   locales?: any; // TODO
-  moment?: () => void; // TODO
+  moment?(): void; // TODO
   margin?: TimelineOptionsMarginType;
   max?: DateType;
   maxHeight?: HeightWidthType;
@@ -171,15 +170,15 @@ interface TimelineOptions {
   moveable?: boolean;
   multiselect?: boolean;
   multiselectPerGroup?: boolean;
-  onAdd?: () => void; // TODO
-  onAddGroup?: () => void; // TODO
-  onUpdate?: () => void; // TODO
-  onMove?: () => void; // TODO
-  onMoveGroup?: () => void; // TODO
-  onMoving?: () => void; // TODO
-  onRemove?: () => void; // TODO
-  onRemoveGroup?: () => void; // TODO
-  order?: () => void; // TODO
+  onAdd?(): void; // TODO
+  onAddGroup?(): void; // TODO
+  onUpdate?(): void; // TODO
+  onMove?(): void; // TODO
+  onMoveGroup?(): void; // TODO
+  onMoving?(): void; // TODO
+  onRemove?(): void; // TODO
+  onRemoveGroup?(): void; // TODO
+  order?(): void; // TODO
   orientation?: TimelineOptionsOrientationType;
   rollingMode: boolean;
   selectable?: boolean;
@@ -189,11 +188,11 @@ interface TimelineOptions {
   stack?: boolean;
   snap?: TimelineOptionsSnapFunction;
   start?: DateType;
-  template?: () => void; // TODO
+  template?(): void; // TODO
   throttleRedraw?: number;
   timeAxis?: TimelineTimeAxisOption;
   type?: string;
-  tooltipOnItemUpdateTime?: boolean | { template: (item: any) => any };
+  tooltipOnItemUpdateTime?: boolean | { template(item: any): any };
   verticalScroll?: boolean;
   width?: HeightWidthType;
   zoomable?: boolean;
@@ -276,7 +275,6 @@ interface DataSetQueueOptions {
 }
 
 export class DataSet<T extends DataItem | DataGroup | Node | Edge> {
-
   /**
    * Creates an instance of DataSet.
    *
@@ -539,7 +537,7 @@ interface DataSelectionOptions<T> {
    *
    * @memberOf DataSelectionOptions
    */
-  filter?: (item: T) => boolean;
+  filter?(item: T): boolean;
 
   /**
    * Order the items by a field name or custom sort function.
@@ -581,7 +579,7 @@ interface RangeType {
 
 interface DataAxisSideOption {
   range?: RangeType;
-  format?: () => string;
+  format?(): string;
   title?: TitleOption;
 }
 
@@ -611,7 +609,7 @@ interface Graph2dDataAxisOption {
 
 interface Graph2dDrawPointsOption {
   enabled?: boolean;
-  onRender?: () => boolean; // TODO
+  onRender?(): boolean; // TODO
   size?: number;
   style: Graph2dDrawPointsStyle;
 }
@@ -642,7 +640,7 @@ interface Graph2dOptions {
   legend?: Graph2dLegendOption;
   locale?: string;
   locales?: any; // TODO
-  moment?: () => void; // TODO
+  moment?(): void; // TODO
   max?: DateType;
   maxHeight?: HeightWidthType;
   maxMinorChars?: number;
@@ -840,7 +838,6 @@ type NetworkEvents =
  * @implements {INetwork}
  */
 export class Network {
-
   /**
    * Creates an instance of Network.
    *
@@ -1476,12 +1473,12 @@ export interface ViewPortOptions {
   offset?: Position;
 
   /**
-  * For animation you can either use a Boolean to use it with the default options or
-  * disable it or you can define the duration (in milliseconds) and easing function manually.
-  *
-  * @type {(IAnimationOptions | boolean)}
-  * @memberOf IFitOptions
-  */
+   * For animation you can either use a Boolean to use it with the default options or
+   * disable it or you can define the duration (in milliseconds) and easing function manually.
+   *
+   * @type {(IAnimationOptions | boolean)}
+   * @memberOf IFitOptions
+   */
   animation?: AnimationOptions | boolean;
 }
 
@@ -1510,7 +1507,6 @@ export interface MoveToOptions extends ViewPortOptions {
  * @interface IAnimationOptions
  */
 export interface AnimationOptions {
-
   /**
    * The duration (in milliseconds).
    *
@@ -1539,7 +1535,6 @@ export interface AnimationOptions {
  * @interface IFitOptions
  */
 export interface FitOptions {
-
   /**
    * The nodes can be used to zoom to fit only specific nodes in the view.
    *
@@ -1583,7 +1578,6 @@ export interface BoundingBox {
  * @interface IClusterOptions
  */
 export interface ClusterOptions {
-
   /**
    * Optional for all but the cluster method.
    * The cluster module loops over all nodes that are selected to be in the cluster
@@ -1593,7 +1587,7 @@ export interface ClusterOptions {
    *
    * @memberOf IClusterOptions
    */
-  joinCondition?: (nodeOptions: any) => boolean;
+  joinCondition?(nodeOptions: any): boolean;
 
   /**
    * Optional.
@@ -1605,7 +1599,7 @@ export interface ClusterOptions {
    * @type {(clusterOptions: any, childNodesOptions: any[], childEdgesOptions: any[])}
    * @memberOf IClusterOptions
    */
-  processProperties?: (clusterOptions: any, childNodesOptions: any[], childEdgesOptions: any[]) => any;
+  processProperties?(clusterOptions: any, childNodesOptions: any[], childEdgesOptions: any[]): any;
 
   /**
    * Optional.
@@ -1641,7 +1635,6 @@ export interface ClusterOptions {
  * @interface IOpenClusterOptions
  */
 export interface OpenClusterOptions {
-
   /**
    * A function that can be used to manually position the nodes after the cluster is opened.
    * The containedNodesPositions contain the positions of the nodes in the cluster at the
@@ -1656,9 +1649,9 @@ export interface OpenClusterOptions {
    *
    * @memberOf IOpenClusterOptions
    */
-  releaseFunction: (
+  releaseFunction(
     clusterPosition: Position,
-    containedNodesPositions: { [nodeId: string]: Position }) => { [nodeId: string]: Position };
+    containedNodesPositions: { [nodeId: string]: Position }): { [nodeId: string]: Position };
 }
 
 export interface Position {
@@ -1667,7 +1660,6 @@ export interface Position {
 }
 
 export interface Properties {
-
   nodes: string[];
 
   edges: string[];
@@ -1686,7 +1678,7 @@ export interface Properties {
 }
 
 export interface Callback {
-  callback?: (params?: any) => void;
+  callback?(params?: any): void;
 }
 
 export interface Data {

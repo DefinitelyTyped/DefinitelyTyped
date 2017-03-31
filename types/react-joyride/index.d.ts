@@ -130,7 +130,7 @@ interface Props {
     /**
      * It will be called when the tour's state changes.
      */
-    callback?: (options: any) => void;
+    callback?(options: any): void;
 }
 
 export interface Step {

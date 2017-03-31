@@ -1,8 +1,8 @@
 import * as WebTorrent from 'webtorrent';
 import * as fs from 'fs';
 
-var client = new WebTorrent();
-var magnetURI = '...';
+const client = new WebTorrent();
+const magnetURI = '...';
 
 client.add(magnetURI, {}, torrent => {
     // Got torrent metadata!
@@ -25,7 +25,7 @@ client.add(magnetURI, {}, torrent => {
 
         file.getBlobURL((err, url) => {
             if (err) throw err;
-            var a = document.createElement('a');
+            const a = document.createElement('a');
             // a.download = file.name
             if (url) {
                 a.href = url;
@@ -61,7 +61,7 @@ client.seed('./file.txt', {}, torrent => {
 
 client.add(magnetURI, torrent => {
     // create HTTP server for this torrent
-    var server = torrent.createServer();
+    const server = torrent.createServer();
     server.listen(1234); // start the server listening to a port
 
     // visit http://localhost:<port>/ to see a list of files

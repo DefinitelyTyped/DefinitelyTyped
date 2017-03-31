@@ -39,7 +39,7 @@ export interface ActionContext extends Context {
  */
 export interface Route<C, R> {
   path: string;
-  action: (ctx: ActionContext & C, params: Params) => R | Promise<R> | void;
+  action(ctx: ActionContext & C, params: Params): R | Promise<R> | void;
   children?: Routes<C, R>;
 }
 

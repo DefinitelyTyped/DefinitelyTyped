@@ -4,24 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Stamplay {
-  export function init(appId: string): void;
-  export function User(): StamplayObject;
-  export function Cobject(object: string): StamplayObject;
+  function init(appId: string): void;
+  function User(): StamplayObject;
+  function Cobject(object: string): StamplayObject;
 
-  export interface Model {
+  interface Model {
     signup({}): Promise<any>;
     new(): Model; // This is suspicious, but tests show model instances being constructable...
     get(property: string): any;
     set(property: string, value: any): void;
-    unset(property: string) : void;
-    fetch(id: any) : Promise<any>;
+    unset(property: string): void;
+    fetch(id: any): Promise<any>;
     destroy(): Promise<any>;
     save({}?): Promise<any>;
     upVote(): Promise<any>;
   }
 
-  export interface StamplayObject  {
+  interface StamplayObject  {
       Model: Model;
-      Collection : any;
+      Collection: any;
   }
 }

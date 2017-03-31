@@ -1007,3 +1007,4 @@ describe("Randomize Tests", () => {
 })();
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
+jasmine.MAX_PRETTY_PRINT_DEPTH = 40;

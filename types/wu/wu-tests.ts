@@ -1,6 +1,9 @@
 // adapted from `cat wu.js/test/* |sed '/= require/d'> wu-tests.ts`
 
-declare var describe: any, it: any, mocha: any, assert: {
+declare const describe: any;
+declare const it: any;
+declare const mocha: any;
+declare const assert: {
   iterable: any;
   eqSet<T>(expected: Set<T>, actual: Iterable<T>): any;
   ok: any;
@@ -18,7 +21,7 @@ assert.iterable = (thing: any) => {
 // iterator are in the |expected| set.
 assert.eqSet = (expected: any, actual: any) => {
   assert.iterable(actual);
-  for (var x of actual) {
+  for (const x of actual) {
     assert.ok(expected.has(x));
     expected.delete(x);
   }
@@ -96,23 +99,23 @@ describe("wu.count", () => {
 });
 describe("wu.curryable", () => {
   it("should wait until its given enough arguments", () => {
-    var f = wu.curryable((a, b) => a + b);
+    const f = wu.curryable((a, b) => a + b);
 
-    var f0 = f()()()()();
+    const f0 = f()()()()();
     assert.equal(typeof f0, "function");
 
-    var f1 = f(1);
+    const f1 = f(1);
     assert.equal(typeof f1, "function");
     assert.equal(f1(2), 3);
   });
 
   it("should just call the function when given enough arguments", () => {
-    var f = wu.curryable((a, b) => a + b);
+    const f = wu.curryable((a, b) => a + b);
     assert.equal(f(1, 2), 3);
   });
 
   it("should expect the number of arguments we tell it to", () => {
-    var f = wu.curryable((...args) => 5, 5);
+    const f = wu.curryable((...args) => 5, 5);
     assert.equal(typeof f(1, 2, 3, 4), "function");
     assert.equal(f(1, 2, 3, 4, 5), 5);
   });

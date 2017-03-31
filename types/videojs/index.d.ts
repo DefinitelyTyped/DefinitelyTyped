@@ -12,7 +12,6 @@ export = videojs;
 export as namespace videojs;
 
 declare namespace videojs {
-
 	interface PlayerOptions {
 		techOrder?: string[];
 		html5?: any;

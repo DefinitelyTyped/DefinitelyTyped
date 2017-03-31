@@ -3,9 +3,9 @@ import * as ReactModal from 'react-modal';
 
 class ExampleOfUsingReactModal extends React.Component<{}, {}> {
   render() {
-    var onAfterOpenFn = () => { };
-    var onRequestCloseFn = () => { };
-    var customStyle = {
+    const onAfterOpenFn = () => { };
+    const onRequestCloseFn = () => { };
+    const customStyle = {
       overlay: {
         position: 'fixed',
         top: 0,
@@ -27,7 +27,6 @@ class ExampleOfUsingReactModal extends React.Component<{}, {}> {
         borderRadius: '4px',
         outline: 'none',
         padding: '20px'
-
       }
     };
     return (
@@ -43,4 +42,4 @@ class ExampleOfUsingReactModal extends React.Component<{}, {}> {
       </ReactModal>
     );
   }
-};
+}

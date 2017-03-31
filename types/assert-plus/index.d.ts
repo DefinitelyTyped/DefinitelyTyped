@@ -122,7 +122,6 @@ export function AssertionError(options: any, message ?: string): void;
  */
 export function fail(actual: any, expected: any, message: any, operator: any): void;
 
-
 /**
  * Tests if `value` is truthy. It is equivalent to `assert.equal(!!value, true, message)`.
  *
@@ -352,6 +351,5 @@ export function doesNotThrow(block: any, error ?: any, message ?: string): void;
  * ```
  */
 export function ifError(value: any): void;
-
 
 export as namespace AssertPlus;

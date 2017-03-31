@@ -12,7 +12,7 @@ declare namespace tcp {
     /**
      * Extends Tedious Connection with release function
      */
-    export class PooledConnection extends tedious.Connection {
+    class PooledConnection extends tedious.Connection {
         /**
          * If the connection is issued from a connection pool returns the connection to the pool.
          */
@@ -24,12 +24,12 @@ declare namespace tcp {
      * @param err error if any
      * @param connection issued from the pool
      */
-    export type ConnectionCallback = (err: Error, connection: PooledConnection) => void;
+    type ConnectionCallback = (err: Error, connection: PooledConnection) => void;
 
     /**
      *  Pool Configuration interface
      */
-    export interface PoolConfig {
+    interface PoolConfig {
         /**
          * Minimum concurrent connections
          */

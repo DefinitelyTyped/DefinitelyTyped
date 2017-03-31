@@ -1,6 +1,6 @@
 import * as Awesomplete from 'awesomplete';
 
-var input = document.getElementById("myinput");
+const input = document.getElementById("myinput");
 new Awesomplete(input, {list: "#mylist"});
 
 new Awesomplete(input, {list: document.querySelector("#mylist")});
@@ -9,7 +9,7 @@ new Awesomplete(input, {
     list: ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"]
 });
 
-var awesomplete = new Awesomplete(input);
+const awesomplete = new Awesomplete(input);
 awesomplete.list = ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"];
 
 new Awesomplete(input, {
@@ -46,15 +46,15 @@ new Awesomplete('input[data-multiple]', {
     },
 
     replace: (text: string) => {
-        var before = this.input.value.match(/^.+,\s*|/)[0];
+        const before = this.input.value.match(/^.+,\s*|/)[0];
         this.input.value = before + text + ", ";
     }
 });
 
-var ajax = new XMLHttpRequest();
+const ajax = new XMLHttpRequest();
 ajax.open("GET", "https://restcountries.eu/rest/v1/lang/fr", true);
 ajax.onload = () => {
-    var list = JSON.parse(ajax.responseText).map((i: any) => i.name);
+    const list = JSON.parse(ajax.responseText).map((i: any) => i.name);
     new Awesomplete(document.querySelector("#ajax-example input"), { list });
 };
 ajax.send();

@@ -1,6 +1,6 @@
 // Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -42,7 +42,6 @@ changes:
 - [x] Changed the category of _.bindAll to “Utility”
 - [x] Made _.capitalize uppercase the first character & lowercase the rest
 - [x] Made _.functions return only own method names
-
 
 added 23 array methods:
 - [x] _.concat
@@ -100,7 +99,6 @@ added 13 object methods:
 - [x] _.mergeWith
 - [x] _.omitBy
 - [x] _.pickBy
-
 
 added 8 string methods:
 - [x] _.lowerCase
@@ -237,7 +235,6 @@ Methods:
 - [ ] _.next
 */
 
-
 export = _;
 export as namespace _;
 
@@ -246,7 +243,6 @@ declare var _: _.LoDashStatic;
 type PartialObject<T> = Partial<T>;
 
 declare namespace _ {
-
     type Many<T> = T | T[];
 
     interface LoDashStatic {
@@ -468,7 +464,7 @@ declare namespace _ {
          * @param array The array to compact.
          * @return (Array) Returns the new array of filtered values.
          */
-        compact<T>(array?: List<T>): T[];
+        compact<T>(array?: List<T | undefined>): T[];
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -3202,11 +3198,9 @@ declare namespace _ {
         sortedIndex<W, T>(
             value: T
         ): LoDashExplicitWrapper<number>;
-
-
     }
 
-    //_.sortedIndexBy
+    // _.sortedIndexBy
     interface LoDashStatic {
         /**
          * This method is like `_.sortedIndex` except that it accepts `iteratee`
@@ -5660,15 +5654,25 @@ declare namespace _ {
     //_.zipObject
     interface LoDashStatic {
         /**
-         * The inverse of _.pairs; this method returns an object composed from arrays of property names and values.
-         * Provide either a single two dimensional array, e.g. [[key1, value1], [key2, value2]] or two arrays, one of
-         * property names and one of corresponding values.
+         * This method is like _.fromPairs except that it accepts two arrays, one of property 
+         * identifiers and one of corresponding values.
          *
          * @param props The property names.
          * @param values The property values.
          * @return Returns the new object.
          */
         zipObject<TValues, TResult extends {}>(
+            props: List<StringRepresentable>|List<List<any>>,
+            values?: List<TValues>
+        ): TResult;
+        /**
+         * This method is like _.zipObject except that it supports property paths.
+         *
+         * @param props The property names.
+         * @param values The property values.
+         * @return Returns the new object.
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
             props: List<StringRepresentable>|List<List<any>>,
             values?: List<TValues>
         ): TResult;
@@ -5680,11 +5684,25 @@ declare namespace _ {
             props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): TResult;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            props: List<StringRepresentable>|List<List<any>>,
+            values?: List<any>
+        ): TResult;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            props: List<StringRepresentable>|List<List<any>>,
+            values?: List<any>
+        ): _.Dictionary<any>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDepp(
             props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): _.Dictionary<any>;
@@ -5697,6 +5715,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5704,11 +5728,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
     }
@@ -5720,6 +5756,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5727,11 +5769,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
     }
@@ -5743,6 +5797,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5750,11 +5810,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
     }
@@ -5766,6 +5838,12 @@ declare namespace _ {
         zipObject<TValues, TResult extends {}>(
             values?: List<TValues>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TValues, TResult extends {}>(
+            values?: List<TValues>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
@@ -5773,11 +5851,23 @@ declare namespace _ {
         zipObject<TResult extends {}>(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep<TResult extends {}>(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.zipObject
          */
         zipObject(
+            values?: List<any>
+        ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
+        /**
+         * @see _.zipObjectDeep
+         */
+        zipObjectDeep(
             values?: List<any>
         ): _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
     }
@@ -8662,7 +8752,6 @@ declare namespace _ {
         reduce<T, TResult>(
             collection: NumericDictionary<T>,
             callback: MemoIterator<T, TResult>): TResult;
-
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -9247,7 +9336,6 @@ declare namespace _ {
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             predicate?: string|[string, any]
         ): boolean;
-
 
         /**
          * @see _.some
@@ -10517,7 +10605,6 @@ declare namespace _ {
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
-
     //_.memoize
     interface MemoizedFunction extends Function {
         cache: MapCache;
@@ -11163,7 +11250,6 @@ declare namespace _ {
     }
 
     interface LoDashImplicitArrayWrapper<T> {
-
         /**
          * @see _.clone
          */
@@ -11185,7 +11271,6 @@ declare namespace _ {
     }
 
     interface LoDashExplicitArrayWrapper<T> {
-
         /**
          * @see _.clone
          */
@@ -13875,7 +13960,6 @@ declare namespace _ {
             end: number
         ): boolean;
 
-
         /**
          * @see _.inRange
          */
@@ -14719,7 +14803,6 @@ declare namespace _ {
          */
         create<U extends Object>(properties?: U): LoDashExplicitObjectWrapper<T & U>;
     }
-
 
     //_.defaults
     interface LoDashStatic {
@@ -16593,7 +16676,6 @@ declare namespace _ {
     }
 
     interface LoDashImplicitObjectWrapper<T> {
-
         /**
          * @see _.omit
          */
@@ -16603,7 +16685,6 @@ declare namespace _ {
     }
 
     interface LoDashExplicitObjectWrapper<T> {
-
         /**
          * @see _.omit
          */
@@ -16993,23 +17074,23 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns the new array of key-value pairs.
          */
-        toPairs<T extends {}>(object?: T): any[][];
+        toPairs<T extends {}>(object?: T): [string, any][];
 
-        toPairs<T extends {}, TResult>(object?: T): TResult[][];
+        toPairs<T extends {}, TResult>(object?: T): [string, TResult][];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.toPairs
          */
-        toPairs<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+        toPairs<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.toPairs
          */
-        toPairs<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+        toPairs<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
     }
 
     //_.toPairsIn
@@ -17020,23 +17101,23 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns the new array of key-value pairs.
          */
-        toPairsIn<T extends {}>(object?: T): any[][];
+        toPairsIn<T extends {}>(object?: T): [string, any][];
 
-        toPairsIn<T extends {}, TResult>(object?: T): TResult[][];
+        toPairsIn<T extends {}, TResult>(object?: T): [string, TResult][];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<TResult>(): LoDashImplicitArrayWrapper<TResult[]>;
+        toPairsIn<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<TResult>(): LoDashExplicitArrayWrapper<TResult[]>;
+        toPairsIn<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
     }
 
     //_.transform
@@ -19497,7 +19578,6 @@ declare namespace _ {
         flush(): void;
     }
 }
-
 
 // Backward compatibility with --target es5
 declare global {

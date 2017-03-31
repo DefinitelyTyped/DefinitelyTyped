@@ -8,8 +8,8 @@ videojs("example_video_1").ready(function() {
 
 	this.pause();
 
-	var isPaused: boolean = this.paused();
-	var isPlaying: boolean = !this.paused();
+	const isPaused: boolean = this.paused();
+	const isPlaying: boolean = !this.paused();
 
 	this.src("http://www.example.com/path/to/video.mp4");
 
@@ -21,37 +21,37 @@ videojs("example_video_1").ready(function() {
 	  { type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
 	]);
 
-	var whereYouAt: number = this.currentTime();
+	const whereYouAt: number = this.currentTime();
 
 	this.currentTime(120); // 2 minutes into the video
 
-	var howLongIsThis: number = this.duration();
+	const howLongIsThis: number = this.duration();
 
-	var bufferedTimeRange: TimeRanges = this.buffered();
+	const bufferedTimeRange: TimeRanges = this.buffered();
 
 	// Number of different ranges of time have been buffered. Usually 1.
-	var numberOfRanges: number = bufferedTimeRange.length;
+	const numberOfRanges: number = bufferedTimeRange.length;
 
 	// Time in seconds when the first range starts. Usually 0.
-	var firstRangeStart: number = bufferedTimeRange.start(0);
+	const firstRangeStart: number = bufferedTimeRange.start(0);
 
 	// Time in seconds when the first range ends
-	var firstRangeEnd: number = bufferedTimeRange.end(0);
+	const firstRangeEnd: number = bufferedTimeRange.end(0);
 
 	// Length in seconds of the first time range
-	var firstRangeLength: number = firstRangeEnd - firstRangeStart;
+	const firstRangeLength: number = firstRangeEnd - firstRangeStart;
 
-	var howMuchIsDownloaded: number = this.bufferedPercent();
+	const howMuchIsDownloaded: number = this.bufferedPercent();
 
-	var howLoudIsIt: number = this.volume();
+	const howLoudIsIt: number = this.volume();
 
 	this.volume(0.5); // Set volume to half
 
-	var howWideIsIt: number = this.width();
+	const howWideIsIt: number = this.width();
 
 	this.width(640);
 
-	var howTallIsIt: number = this.height();
+	const howTallIsIt: number = this.height();
 
 	this.height(480);
 
@@ -69,7 +69,6 @@ function testEvents(myPlayer: videojs.Player) {
 	myPlayer.on("error", myFunc);
 	// Removes the specified listener only.
 	myPlayer.off("error", myFunc);
-
 
 	const myFuncWithArg = function(this: videojs.Player, e: Event) {
 		// Do something when the event is fired

@@ -3,9 +3,9 @@
 import bigi = require('bigi');
 import bitcoin = require('bitcoinjs-lib');
 
-declare var it: any;
-declare var describe: any;
-declare var assert: any;
+declare const it: any;
+declare const describe: any;
+declare const assert: any;
 
 describe('bitcoinjs-lib (basic)', () => {
     it('can generate a random bitcoin address', () => {
@@ -13,18 +13,18 @@ describe('bitcoinjs-lib (basic)', () => {
         function rng() { return new Buffer('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'); }
 
         // generate random keyPair
-        var keyPair = bitcoin.ECPair.makeRandom({ rng });
-        var address = keyPair.getAddress();
+        const keyPair = bitcoin.ECPair.makeRandom({ rng });
+        const address = keyPair.getAddress();
 
         assert.strictEqual(address, '1F5VhMHukdnUES9kfXqzPzMeF1GPHKiF64');
     });
 
     it('can generate an address from a SHA256 hash', () => {
-        var hash = bitcoin.crypto.sha256('correct horse battery staple');
-        var d = bigi.fromBuffer(hash);
+        const hash = bitcoin.crypto.sha256('correct horse battery staple');
+        const d = bigi.fromBuffer(hash);
 
-        var keyPair = new bitcoin.ECPair(d);
-        var address = keyPair.getAddress();
+        const keyPair = new bitcoin.ECPair(d);
+        const address = keyPair.getAddress();
 
         assert.strictEqual(address, '1C7zdTfnkzmr13HfA2vNm5SJYRK6nEKyq8');
     });
@@ -33,26 +33,26 @@ describe('bitcoinjs-lib (basic)', () => {
         // for testing only
         function rng() { return new Buffer('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'); }
 
-        var litecoin = bitcoin.networks.litecoin;
+        const litecoin = bitcoin.networks.litecoin;
 
-        var keyPair = bitcoin.ECPair.makeRandom({ network: litecoin, rng });
-        var wif = keyPair.toWIF();
-        var address = keyPair.getAddress();
+        const keyPair = bitcoin.ECPair.makeRandom({ network: litecoin, rng });
+        const wif = keyPair.toWIF();
+        const address = keyPair.getAddress();
 
         assert.strictEqual(address, 'LZJSxZbjqJ2XVEquqfqHg1RQTDdfST5PTn');
         assert.strictEqual(wif, 'T7A4PUSgTDHecBxW1ZiYFrDNRih2o7M8Gf9xpoCgudPF9gDiNvuS');
     });
 
     it('can import an address via WIF', () => {
-        var keyPair = bitcoin.ECPair.fromWIF('Kxr9tQED9H44gCmp6HAdmemAzU3n84H3dGkuWTKvE23JgHMW8gct');
-        var address = keyPair.getAddress();
+        const keyPair = bitcoin.ECPair.fromWIF('Kxr9tQED9H44gCmp6HAdmemAzU3n84H3dGkuWTKvE23JgHMW8gct');
+        const address = keyPair.getAddress();
 
         assert.strictEqual(address, '19AAjaTUbRjQCMuVczepkoPswiZRhjtg31');
     });
 
     it('can create a Transaction', () => {
-        var keyPair = bitcoin.ECPair.fromWIF('L1uyy5qTuGrVXrmrsvHWHgVzW9kKdrp27wBC7Vs6nZDTF2BRUVwy');
-        var tx = new bitcoin.TransactionBuilder();
+        const keyPair = bitcoin.ECPair.fromWIF('L1uyy5qTuGrVXrmrsvHWHgVzW9kKdrp27wBC7Vs6nZDTF2BRUVwy');
+        const tx = new bitcoin.TransactionBuilder();
 
         tx.addInput('aa94ab02c182214f090e99a0d57021caffd0f195a81c24602b1028b130b63e31', 0);
         tx.addOutput('1Gokm82v6DmtwKEB8AiVhm82hyFSsEvBDK', 15000);

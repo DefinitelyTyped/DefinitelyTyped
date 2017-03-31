@@ -9,16 +9,16 @@
 // -------------------------------
 
 /**
-* Copyright 2016 Mattijs Perdeck.
-*
-* This project is licensed under the MIT license.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ * Copyright 2016 Mattijs Perdeck.
+ *
+ * This project is licensed under the MIT license.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 // Declarations of all interfaces and ambient objects, except for JL itself.
 // Provides strong typing in both jsnlog.ts itself and in TypeScript programs that use
@@ -31,8 +31,8 @@ declare namespace JL {
 		defaultAjaxUrl?: string;
 		clientIP?: string;
 		requestId?: string;
-		defaultBeforeSend?: (xhr: XMLHttpRequest) => void;
-		serialize?: (obj: any) => string;
+		defaultBeforeSend?(xhr: XMLHttpRequest): void;
+		serialize?(obj: any): string;
 	}
 
 	interface JSNLogFilterOptions {
@@ -57,7 +57,7 @@ declare namespace JL {
 
 	interface JSNLogAjaxAppenderOptions extends JSNLogAppenderOptions {
 		url?: string;
-		beforeSend?: (xhr: XMLHttpRequest) => void;
+		beforeSend?(xhr: XMLHttpRequest): void;
 	}
 
 	interface JSNLogLogger {

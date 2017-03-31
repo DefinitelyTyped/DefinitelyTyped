@@ -47,7 +47,7 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
-var transformer = sharp()
+let transformer = sharp()
     .resize(300)
     .on('info', (info: sharp.OutputInfo) => {
         console.log('Image height is ' + info.height);
