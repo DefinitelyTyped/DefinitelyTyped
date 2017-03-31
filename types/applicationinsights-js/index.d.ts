@@ -195,8 +195,8 @@ declare module Microsoft.ApplicationInsights.Context {
 
     interface IInternal {
         /**
-        * The SDK version used to create this telemetry item.
-        */
+         * The SDK version used to create this telemetry item.
+         */
         sdkVersion: string;
         /**
          * The SDK agent version.
@@ -206,15 +206,15 @@ declare module Microsoft.ApplicationInsights.Context {
 
     interface ISample {
         /**
-        * Sample rate
-        */
+         * Sample rate
+         */
         sampleRate: number;
     }
 
     interface ISession {
         /**
-        * The session ID.
-        */
+         * The session ID.
+         */
         id: string;
         /**
          * The true if this is the first session
@@ -258,8 +258,8 @@ declare module Microsoft.ApplicationInsights.Context {
 
     interface IUser {
         /**
-        * The telemetry configuration.
-        */
+         * The telemetry configuration.
+         */
         config: any;
         /**
          * The user ID.
@@ -345,12 +345,12 @@ declare module Microsoft.ApplicationInsights.Telemetry {
             measurements: Microsoft.ApplicationInsights.FieldType;
         };
         /**
-        * Constructs a new isntance of the ExceptionTelemetry object
-        */
+         * Constructs a new isntance of the ExceptionTelemetry object
+         */
         constructor(exception: Error, handledAt?: string, properties?: any, measurements?: any, severityLevel?: AI.SeverityLevel);
         /**
-        * Creates a simple exception with 1 stack frame. Useful for manual constracting of exception.
-        */
+         * Creates a simple exception with 1 stack frame. Useful for manual constracting of exception.
+         */
         static CreateSimpleException(message: string, typeName: string, assembly: string, fileName: string, details: string, line: number, handledAt?: string): Telemetry.Exception;
     }
 
@@ -414,8 +414,8 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         getIsValid(): boolean;
         private durationMs;
         /**
-        * Gets the total duration (PLT) in milliseconds. Check getIsValid() before using this method.
-        */
+         * Gets the total duration (PLT) in milliseconds. Check getIsValid() before using this method.
+         */
         getDurationMs(): number;
         /**
          * Constructs a new instance of the PageEventTelemetry object
@@ -423,8 +423,8 @@ declare module Microsoft.ApplicationInsights.Telemetry {
         constructor(name: string, url: string, unused: number, properties?: any, measurements?: any);
         static getPerformanceTiming(): PerformanceTiming;
         /**
-        * Returns true is window performance timing API is supported, false otherwise.
-        */
+         * Returns true is window performance timing API is supported, false otherwise.
+         */
         static isPerformanceTimingSupported(): PerformanceTiming;
         /**
          * As page loads different parts of performance timing numbers get set. When all of them are set we can report it.
@@ -615,16 +615,16 @@ declare module Microsoft.ApplicationInsights {
 
     interface ITelemetryContext {
         /**
-        * The object describing a component tracked by this object.
-        */
+         * The object describing a component tracked by this object.
+         */
         application: Context.IApplication;
         /**
          * The object describing a device tracked by this object.
          */
         device: Context.IDevice;
         /**
-        * The object describing internal settings.
-        */
+         * The object describing internal settings.
+         */
         internal: Context.IInternal;
         /**
          * The object describing a location tracked by this object.
@@ -635,8 +635,8 @@ declare module Microsoft.ApplicationInsights {
          */
         operation: Context.IOperation;
         /**
-        * The object describing sampling settings.
-        */
+         * The object describing sampling settings.
+         */
         sample: Context.ISample;
         /**
          * The object describing a user tracked by this object.
@@ -647,13 +647,13 @@ declare module Microsoft.ApplicationInsights {
          */
         session: Context.ISession;
         /**
-        * Adds telemetry initializer to the collection. Telemetry initializers will be called one by one
-        * before telemetry item is pushed for sending and in the order they were added.
-        */
+         * Adds telemetry initializer to the collection. Telemetry initializers will be called one by one
+         * before telemetry item is pushed for sending and in the order they were added.
+         */
         addTelemetryInitializer(telemetryInitializer: (envelope: Microsoft.ApplicationInsights.IEnvelope) => boolean): any;
         /**
-        * Tracks telemetry object.
-        */
+         * Tracks telemetry object.
+         */
         track(envelope: Microsoft.ApplicationInsights.IEnvelope): any;
     }
 
@@ -662,23 +662,23 @@ declare module Microsoft.ApplicationInsights {
         context: ITelemetryContext;
         queue: Array<() => void>;
         /**
-        * Starts timing how long the user views a page or other item. Call this when the page opens.
-        * This method doesn't send any telemetry. Call {@link stopTrackTelemetry} to log the page when it closes.
-        * @param   name  A string that idenfities this item, unique within this HTML document. Defaults to the document title.
-        */
+         * Starts timing how long the user views a page or other item. Call this when the page opens.
+         * This method doesn't send any telemetry. Call {@link stopTrackTelemetry} to log the page when it closes.
+         * @param   name  A string that idenfities this item, unique within this HTML document. Defaults to the document title.
+         */
         startTrackPage(name?: string): any;
         /**
-        * Logs how long a page or other item was visible, after {@link startTrackPage}. Call this when the page closes.
-        * @param   name  The string you used as the name in startTrackPage. Defaults to the document title.
-        * @param   url   String - a relative or absolute URL that identifies the page or other item. Defaults to the window location.
-        * @param   properties  map[string, string] - additional data used to filter pages and metrics in the portal. Defaults to empty.
-        * @param   measurements    map[string, number] - metrics associated with this page, displayed in Metrics Explorer on the portal. Defaults to empty.
-        */
-        stopTrackPage(name?: string, url?: string, properties?: {
-            [name: string]: string;
-        }, measurements?: {
-            [name: string]: number;
-        }): any;
+         * Logs how long a page or other item was visible, after {@link startTrackPage}. Call this when the page closes.
+         * @param   name  The string you used as the name in startTrackPage. Defaults to the document title.
+         * @param   url   String - a relative or absolute URL that identifies the page or other item. Defaults to the window location.
+         * @param   properties  map[string, string] - additional data used to filter pages and metrics in the portal. Defaults to empty.
+         * @param   measurements    map[string, number] - metrics associated with this page, displayed in Metrics Explorer on the portal. Defaults to empty.
+         */
+        stopTrackPage(
+            name?: string,
+            url?: string,
+            properties?: { [name: string]: string },
+            measurements?: { [name: string]: number }): any;
         /**
          * Logs that a page or other item was viewed.
          * @param   name  The string you used as the name in startTrackPage. Defaults to the document title.
@@ -687,11 +687,11 @@ declare module Microsoft.ApplicationInsights {
          * @param   measurements    map[string, number] - metrics associated with this page, displayed in Metrics Explorer on the portal. Defaults to empty.
          * @param   duration    number - the number of milliseconds it took to load the page. Defaults to undefined. If set to default value, page load time is calculated internally.
          */
-        trackPageView(name?: string, url?: string, properties?: {
-            [name: string]: string;
-        }, measurements?: {
-            [name: string]: number;
-        }, duration?: number): any;
+        trackPageView(
+            name?: string,
+            url?: string,
+            properties?: { [name: string]: string },
+            measurements?: { [name: string]: number }, duration?: number): any;
         /**
          * Start timing an extended event. Call {@link stopTrackEvent} to log the event when it ends.
          * @param   name    A string that identifies this event uniquely within the document.
@@ -703,22 +703,20 @@ declare module Microsoft.ApplicationInsights {
          * @param   properties  map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
          * @param   measurements    map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
          */
-        stopTrackEvent(name: string, properties?: {
-            [name: string]: string;
-        }, measurements?: {
-            [name: string]: number;
-        }): any;
+        stopTrackEvent(
+            name: string,
+            properties?: { [name: string]: string },
+            measurements?: { [name: string]: number }): any;
         /**
-        * Log a user action or other occurrence.
-        * @param   name    A string to identify this event in the portal.
-        * @param   properties  map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
-        * @param   measurements    map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
-        */
-        trackEvent(name: string, properties?: {
-            [name: string]: string;
-        }, measurements?: {
-            [name: string]: number;
-        }): any;
+         * Log a user action or other occurrence.
+         * @param   name    A string to identify this event in the portal.
+         * @param   properties  map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
+         * @param   measurements    map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
+         */
+        trackEvent(
+            name: string,
+            properties?: { [name: string]: string },
+            measurements?: { [name: string]: number }): any;
         /**
          * Log a dependency call
          * @param   id    unique id, this is used by the backend o correlate server requests. Use Util.newId() to generate a unique Id.
@@ -737,11 +735,12 @@ declare module Microsoft.ApplicationInsights {
          * @param   measurements    map[string, number] - metrics associated with this event, displayed in Metrics Explorer on the portal. Defaults to empty.
          * @param   severityLevel   AI.SeverityLevel - severity level
          */
-        trackException(exception: Error, handledAt?: string, properties?: {
-            [name: string]: string;
-        }, measurements?: {
-            [name: string]: number;
-        }, severityLevel?: AI.SeverityLevel): any;
+        trackException(
+            exception: Error,
+            handledAt?: string,
+            properties?: { [name: string]: string },
+            measurements?: { [name: string]: number },
+            severityLevel?: AI.SeverityLevel): any;
         /**
          * Log a numeric value that is not associated with a specific event. Typically used to send regular reports of performance indicators.
          * To send a single measurement, use just the first two parameters. If you take measurements very frequently, you can reduce the
@@ -752,28 +751,30 @@ declare module Microsoft.ApplicationInsights {
          * @param   min The smallest measurement in the sample. Defaults to the average.
          * @param   max The largest measurement in the sample. Defaults to the average.
          */
-        trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: {
-            [name: string]: string;
-        }): any;
+        trackMetric(
+            name: string,
+            average: number,
+            sampleCount?: number,
+            min?: number,
+            max?: number,
+            properties?: { [name: string]: string }): any;
         /**
-        * Log a diagnostic message.
-        * @param    message A message string
-        * @param    properties  map[string, string] - additional data used to filter traces in the portal. Defaults to empty.
-        */
-        trackTrace(message: string, properties?: {
-            [name: string]: string;
-        }): any;
+         * Log a diagnostic message.
+         * @param    message A message string
+         * @param    properties  map[string, string] - additional data used to filter traces in the portal. Defaults to empty.
+         */
+        trackTrace(message: string, properties?: { [name: string]: string }): any;
         /**
          * Immediately send all queued telemetry.
          */
         flush(): any;
         /**
-        * Sets the autheticated user id and the account id in this session.
-        * User auth id and account id should be of type string. They should not contain commas, semi-colons, equal signs, spaces, or vertical-bars.
-        *
-        * @param authenticatedUserId {string} - The authenticated user id. A unique and persistent string that represents each authenticated user in the service.
-        * @param accountId {string} - An optional string to represent the account associated with the authenticated user.
-        */
+         * Sets the autheticated user id and the account id in this session.
+         * User auth id and account id should be of type string. They should not contain commas, semi-colons, equal signs, spaces, or vertical-bars.
+         *
+         * @param authenticatedUserId {string} - The authenticated user id. A unique and persistent string that represents each authenticated user in the service.
+         * @param accountId {string} - An optional string to represent the account associated with the authenticated user.
+         */
         setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string): any;
         /**
          * Clears the authenticated user id and the account id from the user context.

@@ -1,3 +1,16 @@
 {
-  "extends": "../tslint.json"
+  "extends": "../tslint.json",
+  "rules": {
+    "align": false,
+    "array-type": false,
+    "new-parens": false,
+    "no-consecutive-blank-lines": false,
+    "no-redundant-modifiers": false,
+    "interface-over-type-literal": false,
+    "no-relative-import-in-test": false,
+    "no-var": false,
+    "prefer-declare-function": false,
+    "semicolon": false,
+    "trim-file": false
+  }
 }

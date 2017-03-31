@@ -12,8 +12,8 @@ describe("Jasmine fixture extension", () => {
         it("Inserts subelements when given", () => {
             affix('#test2 .something-special');
             expect('.something-special').toExist();
-            var parent = $('#test2 .something-special').parent();
-            var id = parent.attr('id');
+            const parent = $('#test2 .something-special').parent();
+            const id = parent.attr('id');
             expect(id).toBe('test2');
         });
 

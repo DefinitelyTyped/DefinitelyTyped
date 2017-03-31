@@ -91,7 +91,6 @@ declare namespace __Handsontable {
         updateSettings(settings: Object, init?: boolean): void;
         validateCells(callback: Function): void;
     }
-
 }
 
 declare namespace Handsontable {
@@ -507,7 +506,6 @@ declare namespace Handsontable {
 }
 
 declare class Handsontable extends __Handsontable.Core {
-    constructor (element: Element, options: Handsontable.Options);
     static plugins: Handsontable.Plugins;
     static hooks: Handsontable.Hooks;
     static Dom: Handsontable.Dom;

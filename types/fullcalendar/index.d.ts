@@ -102,7 +102,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
      *
      * - EventObject[]
      * - string (JSON feed)
-         * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
+     * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
      */
     events?: any;
 
@@ -112,7 +112,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
      * - EventSource
      * - EventObject[]
      * - string (JSON feed)
-         * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
+     * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
      */
     eventSources?: any[];
 
@@ -145,7 +145,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
 }
 
 /**
-     * Agenda Options - http://fullcalendar.io/docs/agenda/
+ * Agenda Options - http://fullcalendar.io/docs/agenda/
  */
 export interface AgendaOptions {
     allDaySlot?: boolean;
@@ -244,7 +244,7 @@ export interface EventSource extends JQueryAjaxSettings {
      *
      * - EventObject[]
      * - string (JSON feed)
-         * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
+     * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
      */
     events?: any;
 

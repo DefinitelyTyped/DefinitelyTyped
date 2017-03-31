@@ -3,7 +3,6 @@
 // Definitions by: Evan Shortiss <http://github.com/evanshortiss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export type borderType = 'honeywell' | 'norc' | 'ramac' | 'void';
 
 export interface ColumnConfig {
@@ -39,7 +38,7 @@ export interface TableUserConfig {
   columns?: {
     [index: number]: ColumnConfig
   };
-  drawJoin?: (index: number, size: number) => boolean;
+  drawJoin?(index: number, size: number): boolean;
   border?: JoinStruct;
   columnDefault?: ColumnConfig;
 }

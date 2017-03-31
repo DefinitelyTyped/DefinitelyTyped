@@ -21,7 +21,7 @@ export interface uiParams<UIStateShape> {
   state: UIStateShape;
 
   // optional mergeProps passed to react-redux' @connect
-  mergeProps?: (stateProps: any, dispatchProps: any, ownProps: any) => any;
+  mergeProps?(stateProps: any, dispatchProps: any, ownProps: any): any;
 
   // optional `options` passed to react-redux @connect
   options?: {

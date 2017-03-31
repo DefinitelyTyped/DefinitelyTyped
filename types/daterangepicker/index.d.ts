@@ -9,11 +9,21 @@ import moment = require("moment");
 declare global {
     interface JQuery {
         daterangepicker(settings?: daterangepicker.Settings): JQuery;
-        daterangepicker(settings?: daterangepicker.Settings, callback?: (start?: string | Date | moment.Moment, end?: string | Date | moment.Moment, label?: string) => any): JQuery;
+        daterangepicker(settings?: daterangepicker.Settings, callback?: daterangepicker.DataRangePickerCallback): JQuery;
     }
 }
 
+declare const daterangepicker: daterangepicker.DateRangePicker;
+
 declare namespace daterangepicker {
+    type DataRangePickerCallback = (start?: string | Date | moment.Moment, end?: string | Date | moment.Moment, label?: string) => any;
+
+    interface DateRangePicker {
+        new (element: HTMLElement, settings?: daterangepicker.Settings, callback?: DataRangePickerCallback): DateRangePicker;
+
+        startDate: moment.Moment;
+        endDate: moment.Moment;
+    }
 
     interface DatepickerEventObject extends JQueryEventObject {
         date: Date;
