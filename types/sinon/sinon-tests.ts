@@ -100,7 +100,7 @@ function testSandbox() {
     sandbox.restore();
     sandbox.reset();
     sandbox.resetHistory();
-    sandbox.resetBehaviour();
+    sandbox.resetBehavior();
 }
 
 function testPromises() {
