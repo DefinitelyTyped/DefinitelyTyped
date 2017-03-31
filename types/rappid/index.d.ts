@@ -3,8 +3,6 @@
 // Definitions by: Ewout Van Gossum <https://github.com/DenEwout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jointjs" />
-
 import * as joint from 'jointjs';
 import * as Backbone from "backbone";
 

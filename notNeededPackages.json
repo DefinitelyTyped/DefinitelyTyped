@@ -223,10 +223,22 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "Joint JS",
+            "typingsPackageName": "jointjs",
+            "sourceRepoURL": "http://www.jointjs.com/",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
             "asOfVersion": "2.17.2"
+        },
+        {
+            "libraryName": "Joint JS",
+            "typingsPackageName": "jointjs",
+            "sourceRepoURL": "http://www.jointjs.com/",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "jsonschema",
