@@ -17,10 +17,8 @@ const credentials = {
 import oauth2lib = require("simple-oauth2");
 const oauth2 = oauth2lib.create(credentials);
 
-
 // #Authorization Code flow
 (() => {
-
     // Authorization oauth2 URI
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
         redirect_uri: 'http://localhost:3000/callback',
@@ -58,7 +56,6 @@ const oauth2 = oauth2lib.create(credentials);
         });
 })();
 
-
 // #Client Credentials Flow
 (() => {
     const tokenConfig = {};
@@ -73,7 +70,6 @@ const oauth2 = oauth2lib.create(credentials);
         const token = oauth2.accessToken.create(result);
     });
 
-
     // Promises
     // Get the access token object for the client
     oauth2.clientCredentials
@@ -86,7 +82,6 @@ const oauth2 = oauth2lib.create(credentials);
         });
 })();
 
-
 // #Access Token object
 (() => {
     // Sample of a JSON access token (you got it through previous steps)
@@ -97,7 +92,7 @@ const oauth2 = oauth2lib.create(credentials);
     };
 
     // Create the access token wrapper
-    var token = oauth2.accessToken.create(tokenObject);
+    let token = oauth2.accessToken.create(tokenObject);
 
     // Check if the token is expired. If expired it is refreshed.
     if (token.expired()) {
@@ -138,7 +133,6 @@ const oauth2 = oauth2lib.create(credentials);
             console.log('Error revoking token.', error.message);
         });
 })();
-
 
 // #Errors
 // not applicable, as those errors about missing authentication codes are already found by the typescript compiler

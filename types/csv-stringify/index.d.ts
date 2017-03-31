@@ -55,7 +55,6 @@ declare namespace stringify {
          * special values are 'auto', 'unix', 'mac', 'windows', 'unicode'; defaults to 'auto' (discovered in source or 'unix' if no source is specified).
          */
         rowDelimiter?: string;
-
     }
 
     interface Stringifier extends NodeJS.ReadWriteStream {
