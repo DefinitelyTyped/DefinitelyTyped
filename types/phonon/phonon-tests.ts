@@ -42,7 +42,6 @@ phonon.navigator().changePage('page-name', 'optional-parameter');
 let page: string = phonon.navigator().currentPage;
 page = phonon.navigator().previousPage;
 
-
 let ev = document.createEvent('');
 document.on('pagecreated', event => {
   console.log('global state pagecreated: ' + event.detail.page);
@@ -71,7 +70,7 @@ phonon.i18n().getPreference();
 phonon.i18n().getLocale();
 
 // Code examples from http://phonon.quarkdev.com/docs/ajax
-var req = phonon.ajax({
+const req = phonon.ajax({
     method: 'GET',
     url: 'http://mysite.com/api/',
     crossDomain: true,
@@ -127,7 +126,7 @@ phonon.sidePanel('#side-panel-id').close();
 let pAlert = phonon.alert("text", "title", true, "textOk");
 pAlert.on('confirm', () => {});
 
-var pconfirm = phonon.confirm("text", "title", true, "textOk", "textCancel");
+const pconfirm = phonon.confirm("text", "title", true, "textOk", "textCancel");
 pconfirm.on('confirm', () => {});
 pconfirm.on('cancel', () => {});
 
@@ -166,8 +165,8 @@ popover.setList([
     }
 ]);
 popover.setList(['a', 'b', 'c'], item => {
-    var text = typeof item === 'string' ? item : item.text;
-    var value = typeof item === 'string' ? item : item.value;
+    const text = typeof item === 'string' ? item : item.text;
+    const value = typeof item === 'string' ? item : item.value;
     return '<li><a class="padded-list" data-value="' + value + '">' + text + '</a></li>';
 });
 
@@ -196,7 +195,6 @@ popover = phonon.popover()
 phonon.preloader('#my-preloader').show();
 phonon.preloader('#my-preloader').hide();
 
-
 // Code examples from http://phonon.quarkdev.com/docs/tabs
 let tabNumber = 2;
 phonon.tab().setCurrentTab('pageName', tabNumber);
@@ -219,8 +217,8 @@ let app = phonon.navigator();
 app.on({page: 'home', preventClose: false, content: null});
 app.on({page: 'pagetwo', preventClose: true, content: 'pagetwo.html', readyDelay: 1}, activity => {
     let action: string | null = null;
-    var onAction = (evt: any) => {
-        var target = evt.target;
+    const onAction = (evt: any) => {
+        const target = evt.target;
         action = 'ok';
         if (target.getAttribute('data-order') === 'order') {
             phonon.alert('Thank you for your order!', 'Dear customer');
@@ -272,7 +270,7 @@ phonon.options({
     }
 });
 
-var app2 = phonon.navigator();
+const app2 = phonon.navigator();
 app2.on({page: 'home', content: 'home.html'});
 app2.on({page: 'pagedialog', content: 'pagedialog.html'}, activity => {
     activity.onCreate(() => {
@@ -299,7 +297,7 @@ app2.on({page: 'pagedialog', content: 'pagedialog.html'}, activity => {
         const showPrompt = document.querySelector('#show-prompt');
         if (showPrompt) {
             showPrompt.on('tap', () => {
-            var prompt = phonon.prompt('Example', 'Hello');
+            const prompt = phonon.prompt('Example', 'Hello');
             prompt.on('confirm', value => {
                 phonon.alert(value, 'Inserted Value');
             });
@@ -417,7 +415,7 @@ phonon.navigator().on({ page: 'home' }, activity => {
         const input = document.querySelector( '#searchJS' );
         let list = '';
         // external autocomplete
-        var req = phonon.ajax({
+        const req = phonon.ajax({
             method: "GET",
             url: 'https://restcountries.eu/rest/v1/lang/en',
             dataType: "json",
@@ -461,7 +459,7 @@ app3.on({page: 'home', content: null}, activity => {
         element = document.querySelector('#show-confirm');
         if (element) {
             element.on('tap', () => {
-              var confirm = phonon.confirm('Example', 'Hello');
+              const confirm = phonon.confirm('Example', 'Hello');
               confirm.on('confirm', () => {
                 phonon.alert('Confirmed!');
               });
@@ -474,7 +472,7 @@ app3.on({page: 'home', content: null}, activity => {
         element = document.querySelector('#show-prompt');
         if (element) {
           element.on('tap', () => {
-            var prompt = phonon.prompt('Example', 'Hello');
+            const prompt = phonon.prompt('Example', 'Hello');
             prompt.on('confirm', value => {
               phonon.alert(value, 'Inserted Value');
             });
@@ -487,7 +485,7 @@ app3.on({page: 'home', content: null}, activity => {
         element = document.querySelector('#show-indicator');
         if (element) {
           element.on('tap', () => {
-            var indicator = phonon.indicator('Please wait 3 seconds', false);
+            const indicator = phonon.indicator('Please wait 3 seconds', false);
             window.setTimeout(() => {
               indicator.close();
             }, 3000);
@@ -523,9 +521,9 @@ function setupHTML() {
     phonon.i18n().bind();
 }
 
-var setPreference = (evt: any) => {
-    var target = evt.target;
-    var lang = target.getAttribute('data-l');
+const setPreference = (evt: any) => {
+    const target = evt.target;
+    const lang = target.getAttribute('data-l');
     if (lang) {
           phonon.updateLocale(lang);
     }

@@ -84,5 +84,5 @@ declare namespace HtmlWebpackPlugin {
 	/** @deprecated use MinifyOptions */
 	type MinifyConfig = MinifyOptions;
 	/** @deprecated use Options */
-	 type Config = Options;
+	type Config = Options;
 }

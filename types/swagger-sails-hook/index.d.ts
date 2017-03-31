@@ -21,11 +21,11 @@ declare function SwaggerHook(sails: any): SwaggerHook.SailsHook;
 
 declare namespace SwaggerHook {
 	/**
-	* `swagger-sails-hook` object implementing the Sails' hook specification.
-	*
-	* @see {@link http://sailsjs.com/documentation/concepts/extending-sails/hooks/hook-specification|Sails Hook Docs}
-	* @see {@link http://sailsjs.com/documentation/anatomy/api/hooks/my-hook/index-js|Sails Hook Example}
-	*/
+	 * `swagger-sails-hook` object implementing the Sails' hook specification.
+	 *
+	 * @see {@link http://sailsjs.com/documentation/concepts/extending-sails/hooks/hook-specification|Sails Hook Docs}
+	 * @see {@link http://sailsjs.com/documentation/anatomy/api/hooks/my-hook/index-js|Sails Hook Example}
+	 */
 	interface SailsHook {
 		/**
 		 * Perform startup tasks.

@@ -8,7 +8,8 @@ const text = 'Always after me lucky charms.';
 
 let offset = 0;
 const iv = setInterval(() => {
-    let y = 0, dy = 1;
+    let y = 0;
+    let dy = 1;
     for (let i = 0; i < 40; i++) {
         const color = colors[(i + offset) % colors.length];
         const c = text[(i + offset) % text.length];
