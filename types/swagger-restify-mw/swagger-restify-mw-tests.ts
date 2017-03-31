@@ -16,11 +16,9 @@ SwaggerRestify.create(config, (err, swaggerRestify) => {
   app.listen(port);
 });
 
-
 const swaggerSecurityHandlerCb = (err: Error) => {
     // do nothing
 };
-
 
 const configComplex: SwaggerRestify.Config = {
     appRoot: __dirname,

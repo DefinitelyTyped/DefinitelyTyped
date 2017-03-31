@@ -137,7 +137,7 @@ interface BodyParserOptions {
    * A callback to handle any multipart part which is not a file.
    * If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
    */
-  multipartHandler?: () => void;
+  multipartHandler?(): void;
 
   /**
    * A callback to handle any multipart file.
@@ -145,7 +145,7 @@ interface BodyParserOptions {
    * This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />.
    * If this is not provided, the default behaviour is to map the contents into req.params.
    */
-  multipartFileHandler?: () => void;
+  multipartFileHandler?(): void;
 
   /**
    * If you want the uploaded files to include the extensions of the original files (multipart uploads only). Does nothing if multipartFileHandler is defined.
@@ -367,9 +367,9 @@ type TMetricsCallback = 'close' | 'aborted' | undefined;
 
 interface MetricsCallbackOptions {
   /**
-  * Status code of the response. Can be undefined in the case of an `uncaughtException`.
-  * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
-  */
+   * Status code of the response. Can be undefined in the case of an `uncaughtException`.
+   * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
+   */
   statusCode: number;
 
   /**

@@ -18,7 +18,7 @@ interface BasicOptions {
     keepWhitespace?: boolean;
     encoding?: string;
     bufferSize?: number;
-    print?: (display: string, encoding: string) => void;
+    print?(display: string, encoding: string): void;
     history?: boolean;
     cd?: boolean;
     charlist?: string;
@@ -29,7 +29,7 @@ interface BasicOptions {
     exists?: any;
     isFile?: boolean;
     isDirectory?: boolean;
-    validate?: (path: string) => boolean | string;
+    validate?(path: string): boolean | string;
     create?: boolean;
     guide?: boolean;
 }

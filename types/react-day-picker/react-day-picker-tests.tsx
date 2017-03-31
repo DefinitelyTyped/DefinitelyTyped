@@ -47,6 +47,6 @@ class CaptionElement extends React.Component<CaptionElementProps, {}> {
                 { localeUtils.formatMonthTitle(date, locale) }
             </div>
         );
-    };
+    }
 }
 <DayPicker captionElement={ <CaptionElement /> }/>;

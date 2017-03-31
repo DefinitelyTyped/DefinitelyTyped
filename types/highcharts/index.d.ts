@@ -728,11 +728,11 @@ declare namespace Highcharts {
          */
         showLastLabel?: boolean;
         /**
-        * Show the total value for each bar in a stacked column or bar chart.
-        * The label will be placed on top of positive columns and below negative columns.
-        * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
-        * Only used for yAxis
-        */
+         * Show the total value for each bar in a stacked column or bar chart.
+         * The label will be placed on top of positive columns and below negative columns.
+         * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
+         * Only used for yAxis
+         */
         stackLabels?: {
             /**
              * Defines the horizontal alignment of the stack total label. Can be one of "left", "center" or "right".
@@ -820,7 +820,7 @@ declare namespace Highcharts {
          * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient.
          * The stops is an array of tuples, where the first item is a float between 0 and 1 assigning the relative position in the gradient, and the second item is the color.
          */
-        stops?: [number, string][];
+        stops?: Array<[number, string]>;
         /**
          * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
          * a chart. This option overrides the tickPixelInterval option.
@@ -1133,7 +1133,7 @@ declare namespace Highcharts {
          * and maxColor is not sufficient. The stops is an array of tuples, where the first item is a float between 0 and 1
          * assigning the relative position in the gradient, and the second item is the color.
          */
-        stops?: [number, string][];
+        stops?: Array<[number, string]>;
         /**
          * Color for the main tick marks.
          * @default '#C0D0E0'
@@ -1879,7 +1879,7 @@ declare namespace Highcharts {
          * switchRowsAndColumns is set, the columns are interpreted as series.
          * @since 4.0
          */
-        columns?: [string | number][];
+        columns?: Array<[string | number]>;
         /**
          * The callback that is evaluated when the data is finished loading, optionally from an external source, and parsed.
          * The first argument passed is a finished chart options object, containing the series. These options can be
@@ -1962,12 +1962,12 @@ declare namespace Highcharts {
          * async.
          * @since 4.0
          */
-        parsed?(columns: [string | number][]): boolean | void;
+        parsed?(columns: Array<[string | number]>): boolean | void;
         /**
          * The same as the columns input option, but defining rows intead of columns.
          * @since 4.0
          */
-        rows?: [string | number][];
+        rows?: Array<[string | number]>;
         /**
          * An array containing object with Point property names along with what column id the property should be taken from.
          * @since 4.0.4
@@ -5012,7 +5012,7 @@ declare namespace Highcharts {
          *            color: '#FF00FF'
          *        }]
          */
-        data?: number[] | [number, number][] | [string, number][] | DataPoint[];
+        data?: number[] | Array<[number, number]> | Array<[string, number]> | DataPoint[];
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().
@@ -6529,23 +6529,23 @@ declare global {
     interface JQuery {
         highcharts(): Highcharts.ChartObject;
         /**
-        * Creates a new Highcharts.Chart for the current JQuery selector; usually
-        * a div selected by $('#container')
-        * @param {Options} options Options for this chart
-        * @return current {JQuery} selector the current JQuery selector
-        **/
+         * Creates a new Highcharts.Chart for the current JQuery selector; usually
+         * a div selected by $('#container')
+         * @param {Options} options Options for this chart
+         * @return current {JQuery} selector the current JQuery selector
+         */
         highcharts(options: Highcharts.Options): JQuery;
         /**
-        * Creates a new Highcharts.Chart for the current JQuery selector; usually
-        * a div selected by $('#container')
-        * @param {Options} options Options for this chart
-        * @param callback Callback function used to manipulate the constructed chart instance
-        * @return current {JQuery} selector the current JQuery selector
-        **/
+         * Creates a new Highcharts.Chart for the current JQuery selector; usually
+         * a div selected by $('#container')
+         * @param {Options} options Options for this chart
+         * @param callback Callback function used to manipulate the constructed chart instance
+         * @return current {JQuery} selector the current JQuery selector
+         */
         highcharts(options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
     }
 }
 
-declare var Highcharts: Highcharts.Static;
+declare const Highcharts: Highcharts.Static;
 export = Highcharts;
 export as namespace Highcharts;

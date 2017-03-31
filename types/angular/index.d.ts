@@ -413,7 +413,7 @@ declare namespace angular {
     // https://docs.angularjs.org/api/ng/directive/ngModelOptions
     interface INgModelOptions {
         updateOn?: string;
-        debounce?: any;
+        debounce?: number | { [key: string]: number; };
         allowInvalid?: boolean;
         getterSetter?: boolean;
         timezone?: string;
@@ -602,7 +602,7 @@ declare namespace angular {
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
         (delay?: number, invokeApply?: boolean): IPromise<void>;
-        <T>(fn: (...args: any[]) => T, delay?: number, invokeApply?: boolean, ...args: any[]): IPromise<T>;
+        <T>(fn: (...args: any[]) => T | IPromise<T>, delay?: number, invokeApply?: boolean, ...args: any[]): IPromise<T>;
         cancel(promise?: IPromise<any>): boolean;
     }
 

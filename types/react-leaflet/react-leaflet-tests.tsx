@@ -603,8 +603,7 @@ const ZoomControlExample = () => (
     </Map>
 );
 
-
-//MapControl https://github.com/PaulLeCam/react-leaflet/issues/130
+// MapControl https://github.com/PaulLeCam/react-leaflet/issues/130
 const mapControlCenter: [number, number] = [51.505, -0.09];
 class CenterControl extends MapControl<MapControlProps> {  // note we're extending MapControl from react-leaflet, not Component from react
   componentWillMount() {
@@ -612,7 +611,7 @@ class CenterControl extends MapControl<MapControlProps> {  // note we're extendi
     const jsx = (
       // PUT YOUR JSX FOR THE COMPONENT HERE:
       <div {...this.props}>
-        // add your JSX 
+        // add your JSX
       </div>
     );
 

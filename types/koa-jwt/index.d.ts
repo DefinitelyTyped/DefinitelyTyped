@@ -13,7 +13,7 @@ declare namespace jwt {
     interface Options {
         secret: string | Buffer;
         key?: string;
-        getToken?: (opts: jwt.Options) => string;
+        getToken?(opts: jwt.Options): string;
         passthrough?: boolean;
         cookie?: string;
         debug?: boolean;

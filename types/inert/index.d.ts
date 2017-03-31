@@ -12,4 +12,4 @@
 
 /// <reference types="node" />
 
-export var inert: any;
+export const inert: any;

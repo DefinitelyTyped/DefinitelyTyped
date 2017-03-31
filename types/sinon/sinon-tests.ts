@@ -98,6 +98,9 @@ function testSandbox() {
     sandbox.useFakeXMLHttpRequest();
     sandbox.useFakeServer();
     sandbox.restore();
+    sandbox.reset();
+    sandbox.resetHistory();
+    sandbox.resetBehavior();
 }
 
 function testPromises() {

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Tree, { TreeNode, SelectData, CheckData } from 'rc-tree';
 
-
 interface Props {
     keys: string[];
 }
@@ -29,7 +28,6 @@ export class Demo extends React.Component<Props, State> {
     static defaultProps: Props = {
         keys: ['0-0-0-0'],
     };
-
 
     getInitialState() {
     }

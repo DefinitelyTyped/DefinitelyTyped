@@ -5,10 +5,10 @@ import { UserAuthWrapper } from "redux-auth-wrapper";
 const Auth = UserAuthWrapper<any, any, any>({
     allowRedirectBack: true,
     authenticatingSelector(state: any) {
-        return state.auth.loading
+        return state.auth.loading;
     },
     authSelector(state: any) {
-        return state.auth
+        return state.auth;
     },
     FailureComponent: () => (<div />),
     failureRedirectPath: "/401",
@@ -16,7 +16,7 @@ const Auth = UserAuthWrapper<any, any, any>({
     redirectAction: () => ({ type : "redirect" }),
     redirectQueryParamName: "next",
     predicate(authData: any) {
-        return authData.authorized
+        return authData.authorized;
     },
     wrapperDisplayName: "TestAuth"
 });

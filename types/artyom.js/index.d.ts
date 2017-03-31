@@ -22,16 +22,16 @@ interface SpeechRecognition extends EventTarget {
     start(): void;
     stop(): void;
     abort(): void;
-    onaudiostart: (ev: Event) => any;
-    onsoundstart: (ev: Event) => any;
-    onspeechstart: (ev: Event) => any;
-    onspeechend: (ev: Event) => any;
-    onsoundend: (ev: Event) => any;
-    onresult: (ev: SpeechRecognitionEvent) => any;
-    onnomatch: (ev: SpeechRecognitionEvent) => any;
-    onerror: (ev: SpeechRecognitionError) => any;
-    onstart: (ev: Event) => any;
-    onend: (ev: Event) => any;
+    onaudiostart(ev: Event): any;
+    onsoundstart(ev: Event): any;
+    onspeechstart(ev: Event): any;
+    onspeechend(ev: Event): any;
+    onsoundend(ev: Event): any;
+    onresult(ev: SpeechRecognitionEvent): any;
+    onnomatch(ev: SpeechRecognitionEvent): any;
+    onerror(ev: SpeechRecognitionError): any;
+    onstart(ev: Event): any;
+    onend(ev: Event): any;
 }
 
 interface SpeechRecognitionStatic {
@@ -106,7 +106,7 @@ interface SpeechSynthesis extends EventTarget {
     speaking: boolean;
     paused: boolean;
 
-    onvoiceschanged: (ev: Event) => any;
+    onvoiceschanged(ev: Event): any;
     speak(utterance: SpeechSynthesisUtterance): void;
     cancel(): void;
     pause(): void;
@@ -128,13 +128,13 @@ interface SpeechSynthesisUtterance extends EventTarget {
     rate: number;
     pitch: number;
 
-    onstart: (ev: SpeechSynthesisEvent) => any;
-    onend: (ev: SpeechSynthesisEvent) => any;
-    onerror: (ev: SpeechSynthesisErrorEvent) => any;
-    onpause: (ev: SpeechSynthesisEvent) => any;
-    onresume: (ev: SpeechSynthesisEvent) => any;
-    onmark: (ev: SpeechSynthesisEvent) => any;
-    onboundary: (ev: SpeechSynthesisEvent) => any;
+    onstart(ev: SpeechSynthesisEvent): any;
+    onend(ev: SpeechSynthesisEvent): any;
+    onerror(ev: SpeechSynthesisErrorEvent): any;
+    onpause(ev: SpeechSynthesisEvent): any;
+    onresume(ev: SpeechSynthesisEvent): any;
+    onmark(ev: SpeechSynthesisEvent): any;
+    onboundary(ev: SpeechSynthesisEvent): any;
 }
 
 interface SpeechSynthesisUtteranceStatic {
@@ -211,7 +211,7 @@ declare namespace Artyom {
         /** Triggers of the command */
         indexes: string[];
         /** Logic to execute when the command is triggered */
-        action: (i: number, wildcard?: string, full?: string) => void;
+        action(i: number, wildcard?: string, full?: string): void;
         /** Description of the command */
         description?: string;
         /** Flag to specify is a command is either normal or smart */
@@ -502,7 +502,7 @@ declare namespace Artyom {
         /**
          * Method to bla, bla, bla...
          */
-        static getInstance(): ArtyomJS
+        static getInstance(): ArtyomJS;
     }
 }
 

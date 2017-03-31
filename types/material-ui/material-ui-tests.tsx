@@ -109,7 +109,7 @@ function handleTouchTap() {
   alert('onTouchTap triggered on the title component');
 }
 
-const styles = {
+const styles: { [key: string]: React.CSSProperties } = {
   title: {
     cursor: 'pointer',
   },

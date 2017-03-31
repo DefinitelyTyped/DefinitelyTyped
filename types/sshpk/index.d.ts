@@ -5,19 +5,16 @@
 
 /// <reference types="node" />
 
-declare class SshPK {
-}
+declare class SshPK {}
 
 declare namespace SshPK {
-
-  export class Algo {
+  class Algo {
     parts: string[];
     sizePart?: string;
     normalize?: boolean;
   }
 
-
-  export class algInfo {
+  class algInfo {
     dsa: Algo;
     rsa: Algo;
     ecdsa: Algo;
@@ -25,7 +22,7 @@ declare namespace SshPK {
     curve25519: Algo;
   }
 
-  export class algPrivInfo {
+  class algPrivInfo {
     dsa: Algo;
     rsa: Algo;
     ecdsa: Algo;
@@ -33,7 +30,7 @@ declare namespace SshPK {
     curve25519: Algo;
   }
 
-  export class hashAlgs {
+  class hashAlgs {
     md5: boolean;
     sha1: boolean;
     sha256: boolean;
@@ -41,7 +38,7 @@ declare namespace SshPK {
     sha512: boolean;
   }
 
-  export class Curve {
+  class Curve {
     size: number;
     pkcs8oid: string;
     p: Buffer;
@@ -52,21 +49,20 @@ declare namespace SshPK {
     G: Buffer;
   }
 
-  export class curves {
+  class curves {
     nistp256: Curve;
     nistp384: Curve;
     nistp512: Curve;
   }
 
-  export class algs {
+  class algs {
     info: algInfo;
     privInfo: algPrivInfo;
     hashAlgs: hashAlgs;
     curves: curves;
   }
 
-
-  export class Certificate {
+  class Certificate {
     subjects: Identity[];
     issuer: string;
     subjectKey: string;
@@ -101,12 +97,9 @@ declare namespace SshPK {
     static parse(data: string|Buffer, format: string, options: any): Certificate;
 
     static isCertificate(data: string|Buffer, ver: string): boolean;
-
   }
 
-
-  export class DiffieHellman {
-
+  class DiffieHellman {
     constructor(key: Key);
 
     getPublicKey(): Key;
@@ -121,24 +114,23 @@ declare namespace SshPK {
     generateKeys(): PrivateKey;
   }
 
-  export class X9ECParameters {
+  class X9ECParameters {
     G: any;
     g: any;
     n: any;
     h: any;
   }
 
-  export class ECPublic {
+  class ECPublic {
     constructor(params: X9ECParameters, buffer: Buffer);
   }
 
-  export class ECPrivate {
+  class ECPrivate {
     constructor(params: X9ECParameters, buffer: Buffer);
     deriveSharedSecret(pk: Key): Buffer;
   }
 
-
-  export class Verifier {
+  class Verifier {
     constructor(key: Key, hashAlgo: string);
 
     update(chunk: string|Buffer): void;
@@ -146,53 +138,50 @@ declare namespace SshPK {
     verify(signature: string): boolean;
   }
 
-  export class Signer {
-
+  class Signer {
     constructor(key: Key, hashAlgo: string);
 
     update(chunk: string|Buffer): void;
     sign(): Signature;
   }
 
-
-  export class FingerprintFormatError implements Error {
+  class FingerprintFormatError implements Error {
     name: string;
     message: string;
     constructor(fp: Fingerprint, format: string);
   }
 
-  export class InvalidAlgorithmError implements Error {
+  class InvalidAlgorithmError implements Error {
     name: string;
     message: string;
     constructor(algo: string);
   }
 
-  export class KeyParseError implements Error {
+  class KeyParseError implements Error {
     name: string;
     message: string;
     constructor(name: string, format: string, innerErr: any);
   }
 
-  export class SignatureParseError implements Error {
+  class SignatureParseError implements Error {
     name: string;
     message: string;
     constructor(type: string, format: string, innerErr: any);
   }
 
-  export class CertificateParseError implements Error {
+  class CertificateParseError implements Error {
     name: string;
     message: string;
     constructor(name: string, format: string, innerErr: any);
   }
 
-  export class KeyEncryptedError implements Error {
+  class KeyEncryptedError implements Error {
     name: string;
     message: string;
     constructor(name: string, format: string);
   }
 
-
-  export class Fingerprint {
+  class Fingerprint {
     algorithm: string;
     hash: string;
     type: string;
@@ -206,10 +195,9 @@ declare namespace SshPK {
     isFingerprint(obj: string|Buffer, ver: string): boolean;
 
     static parse(fp: string, options: any): Fingerprint;
-
   }
 
-  export class Identity {
+  class Identity {
     cn: string;
     components: string[];
     componentLookup: any;
@@ -233,13 +221,12 @@ declare namespace SshPK {
     static isIdentity(dn: Buffer|string, ver: string): boolean;
   }
 
-
-  export class Format {
+  class Format {
     read: (buf: Buffer, options?: any)  => Buffer;
     write: (key: Key, options?: any) => Buffer;
   }
 
-  export class Formats {
+  class Formats {
     auto: Format;
     pem: Format;
     pkcs1: Format;
@@ -250,11 +237,11 @@ declare namespace SshPK {
     openssh: Format;
   }
 
-  export class Verify {
+  class Verify {
     verify(data: string, fmt: string): boolean;
   }
 
-  export class Key {
+  class Key {
     type: string;
     parts: string;
     part: string;
@@ -278,10 +265,9 @@ declare namespace SshPK {
     static parse(data: string|Buffer, format: string, options: any): Key;
 
     static isKey(obj: string|Buffer, ver: string): boolean;
-
   }
 
-  export class PrivateKey {
+  class PrivateKey {
     constructor(opts: any);
     static formats: Formats;
     toBuffer(format: string, options: any): Buffer;
@@ -293,11 +279,9 @@ declare namespace SshPK {
 
     static parse(data: string|Buffer, format: string, options: any): PrivateKey;
     static isPrivateKey(data: string|Buffer, ver: string): boolean;
-
   }
 
-
-  export class Signature {
+  class Signature {
     constructor(opts: any);
     toBuffer(format: string): Buffer;
     toString(format: string): string;
@@ -305,14 +289,13 @@ declare namespace SshPK {
     static parse(data: string|Buffer, type: string, format: string): Signature;
 
     static isSignature(obj: string|Buffer, ver: string): boolean;
-
   }
 
-  export class SSHPart {
+  class SSHPart {
     data: Buffer;
   }
 
-  export class SSHBuffer {
+  class SSHBuffer {
     constructor(opts: any);
     toBuffer(): Buffer;
     atEnd(): boolean;
@@ -333,47 +316,44 @@ declare namespace SshPK {
     writeChar(buf: string): void;
     writePart(buf: SSHPart): void;
     write(buf: Buffer): void;
-
   }
 
-
-  export function bufferSplit(buf: Buffer, chr: string): Buffer[];
-  export function addRSAMissing(key: PrivateKey): void;
-  export function calculateDSAPublic(g: Buffer, p: Buffer, x: Buffer): Buffer;
-  export function mpNormalize(buf: Buffer): Buffer;
-  export function ecNormalize(buf: Buffer, addZero: boolean): Buffer;
-  export function countZeros(buf: Buffer): number;
-  export function assertCompatible(obj: any, klass: any, needVer: string, name: string): void;
-  export function isCompatible(obj: any, klass: any, needVer: string): boolean;
-  export class OpenSllKeyDeriv {
+  function bufferSplit(buf: Buffer, chr: string): Buffer[];
+  function addRSAMissing(key: PrivateKey): void;
+  function calculateDSAPublic(g: Buffer, p: Buffer, x: Buffer): Buffer;
+  function mpNormalize(buf: Buffer): Buffer;
+  function ecNormalize(buf: Buffer, addZero: boolean): Buffer;
+  function countZeros(buf: Buffer): number;
+  function assertCompatible(obj: any, klass: any, needVer: string, name: string): void;
+  function isCompatible(obj: any, klass: any, needVer: string): boolean;
+  class OpenSllKeyDeriv {
     key: Buffer;
     iv: Buffer;
   }
-  export function opensslKeyDeriv(cipher: string, salt: string, passphrase: string, count: number): OpenSllKeyDeriv;
+  function opensslKeyDeriv(cipher: string, salt: string, passphrase: string, count: number): OpenSllKeyDeriv;
 
-  export class OpensshCipherInfo {
+  class OpensshCipherInfo {
     keySize: number;
     blockSize: number;
     opensslName: string;
   }
-  export function opensshCipherInfo(cipber: string): OpensshCipherInfo;
+  function opensshCipherInfo(cipber: string): OpensshCipherInfo;
 
-  export function parseKey(data: string|Buffer, format: string, options?: any): Key;
-  export function parseFingerprint(fp: string, options?: any): Fingerprint;
-  export function parseSignature(data: string|Buffer, type: string, format: string): Signature;
-  export function parsePrivateKey(data: string|Buffer, format: string, options?: any): PrivateKey;
+  function parseKey(data: string|Buffer, format: string, options?: any): Key;
+  function parseFingerprint(fp: string, options?: any): Fingerprint;
+  function parseSignature(data: string|Buffer, type: string, format: string): Signature;
+  function parsePrivateKey(data: string|Buffer, format: string, options?: any): PrivateKey;
 
-  export function parseCertificate(data: string|Buffer, format: string, options?: any): Certificate;
-  export function createSelfSignedCertificate(subjectOrSubjects: string, key: Key, options?: any): Certificate;
-  export function createCertificate(
+  function parseCertificate(data: string|Buffer, format: string, options?: any): Certificate;
+  function createSelfSignedCertificate(subjectOrSubjects: string, key: Key, options?: any): Certificate;
+  function createCertificate(
     subjectOrSubjects: string, key: Key, issuer: string,
     issuerKey: PrivateKey, options?: any): Certificate;
 
-  export function identityFromDN(dn: string): Identity;
-  export function identityForHost(hostname: string): Identity;
-  export function identityForUser(uid: string): Identity;
-  export function identityForEmail(email: string): Identity;
-
+  function identityFromDN(dn: string): Identity;
+  function identityForHost(hostname: string): Identity;
+  function identityForUser(uid: string): Identity;
+  function identityForEmail(email: string): Identity;
 }
 
 export = SshPK;
