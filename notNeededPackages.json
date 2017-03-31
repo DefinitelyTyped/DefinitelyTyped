@@ -73,6 +73,12 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "EventEmitter3",
+            "typingsPackageName": "eventemitter3",
+            "sourceRepoURL": "https://github.com/primus/eventemitter3",
+            "asOfVersion": "2.0.2"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
