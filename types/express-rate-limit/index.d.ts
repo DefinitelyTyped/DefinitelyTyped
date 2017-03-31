@@ -9,20 +9,20 @@ declare namespace RateLimit {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;
 
     interface Store {
-        incr: (key: string, cb: StoreIncrementCallback) => void;
-        resetAll: () => void;
-        resetKey: (key: string) => void;
+        incr(key: string, cb: StoreIncrementCallback): void;
+        resetAll(): void;
+        resetKey(key: string): void;
     }
 
     interface Options {
         delayAfter?: number;
         delayMs?: number;
-        handlers?: () => any;
+        handlers?(): any;
         headers?: boolean;
-        keyGenerator?: () => string;
+        keyGenerator?(): string;
         max?: number;
         message?: string;
-        skip?: () => boolean;
+        skip?(): boolean;
         statusCode?: number;
         store?: Store;
         windowMs?: number;
