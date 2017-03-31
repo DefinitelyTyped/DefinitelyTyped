@@ -14,7 +14,7 @@ declare namespace Stream {
 		ap<U>(f: Stream<(value: T) => U>): Stream<U>;
 		/** A co-dependent stream that unregisters dependent streams when set to true. */
 		end: Stream<boolean>;
-		/** When a stream is passed as the argument to JSON.stringify(), the value of the stream is serialized.*/
+		/** When a stream is passed as the argument to JSON.stringify(), the value of the stream is serialized. */
 		toJSON(): string;
 		/** Returns the value of the stream. */
 		valueOf(): T;
