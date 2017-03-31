@@ -16,17 +16,17 @@ export namespace g {
     export function toDeg(rad: number): number;
     export function toRad(deg: number, over360: boolean): number;
     export namespace bezier {
-	export function curveThroughPoints(points: dia.Point[]): string[];
-	export function getCurveControlPoints(points:dia.Point[]): [Point[], Point[]];
+	export function curveThroughPoints(points: dia.Point[] | Point[]): string[];
+	export function getCurveControlPoints(points: dia.Point[] | Point[]): [Point[], Point[]];
 	interface CurveDivider {
 	    p0: Point;
 	    p1: Point;
 	    p2: Point;
 	    p3: Point;
 	}
-	export function getCurveDivider(p0: dia.Point, p1: dia.Point, p2: dia.Point, p3: dia.Point): (t: number) => [CurveDivider, CurveDivider];
+	export function getCurveDivider(p0: string | dia.Point | Point, p1: string | dia.Point | Point, p2: string | dia.Point | Point, p3: string| dia.Point | Point): (t: number) => [CurveDivider, CurveDivider];
 	export function getFirectControlPoints(rhs: number[]): number[];
-	export function getInversionSolver(p0: dia.Point, p1: dia.Point, p2: dia.Point, p3: dia.Point): (p: dia.Point) => number;
+	export function getInversionSolver(p0: dia.Point | Point, p1: dia.Point | Point, p2: dia.Point | Point, p3: dia.Point | Point): (p: dia.Point | Point) => number;
     }
     class Ellipse {
 	constructor(c: string | Point | dia.Point, a: number, b: number);
