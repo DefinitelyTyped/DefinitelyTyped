@@ -11,7 +11,7 @@ let $grid = $('.grid').isotope({
         rowHeight: 250
     },
     containerStyle: {
-        'display': 'block'
+        display: 'block'
     },
     filter: 'filter',
     fitRows: {
@@ -21,16 +21,16 @@ let $grid = $('.grid').isotope({
     itemSelector: '.grid-item',
     layoutMode: 'cellsByRow',
     getSortData: {
-        'value': '.value',
-        'key': (itemElm: JQuery): string => {
+        value: '.value',
+        key: (itemElm: JQuery): string => {
             return '.key';
         },
-        'description': (itemElm: JQuery): number => {
+        description: (itemElm: JQuery): number => {
             return 1;
         }
     },
     hiddenStyle: {
-        'display': 'none'
+        display: 'none'
     },
     horiz: {
         verticalAligment: 10
@@ -63,7 +63,7 @@ let $grid = $('.grid').isotope({
         horizontalAlignment: 10
     },
     visibleStyle: {
-        'display': 'inline-block'
+        display: 'inline-block'
     }
 });
 
@@ -73,7 +73,7 @@ $grid = $('.grid').isotope({
         return true;
     },
     sortAscending: {
-        'key': true
+        key: true
     },
     stagger: 'a',
     transitionDuration: 0.4
@@ -81,7 +81,7 @@ $grid = $('.grid').isotope({
 
 // test methods using jquery
 $grid.isotope('addItems', $('.items'));
-$grid.isotope('appended', $('.items')[0])
+$grid.isotope('appended', $('.items')[0]);
 $grid.isotope('hideItemElements', [ new HTMLElement() ]);
 $grid.isotope('insert', new HTMLElement());
 $grid.isotope('prepended', new NodeList());

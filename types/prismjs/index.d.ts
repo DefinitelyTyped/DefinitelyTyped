@@ -38,7 +38,6 @@ export function highlightAll(async: boolean, callback?: (element: Element) => vo
  */
 export function highlightElement(element: Element, async: boolean, callback?: (element: Element) => void): void;
 
-
 /**
  * Low-level function, only use if you know what you’re doing. It accepts a string of text as input and the language
  * definitions to use, and returns a string with the HTML produced.
@@ -144,7 +143,6 @@ interface LanguageDefinition {
 }
 
 interface Languages {
-
     /** Get a defined language's definition */
     [key: string]: LanguageDefinition;
 

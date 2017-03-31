@@ -3,7 +3,6 @@
 // Definitions by: Arvitaly <https://github.com/arvitaly>, nitintutlani <https://github.com/nitintutlani>, Grelinfo <https://github.com/Grelinfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import {
     GraphQLBoolean,
     GraphQLInt,
@@ -123,7 +122,6 @@ interface ConnectionArguments {
     last?: number;
 }
 
-
 // connection/arrayconnection.js
 
 interface ArraySliceMetaInfo {
@@ -154,11 +152,11 @@ export function connectionFromPromisedArray<T>(
  * Given a slice (subset) of an array, returns a connection object for use in
  * GraphQL.
  *
-* This function is similar to `connectionFromArray`, but is intended for use
-* cases where you know the cardinality of the connection, consider it too large
-* to materialize the entire array, and instead wish pass in a slice of the
-* total result large enough to cover the range specified in `args`.
-*/
+ * This function is similar to `connectionFromArray`, but is intended for use
+ * cases where you know the cardinality of the connection, consider it too large
+ * to materialize the entire array, and instead wish pass in a slice of the
+ * total result large enough to cover the range specified in `args`.
+ */
 export function connectionFromArraySlice<T>(
     arraySlice: T[],
     args: ConnectionArguments,
@@ -294,14 +292,13 @@ export function globalIdField(
     idFetcher?: (object: any, context: any, info: GraphQLResolveInfo) => string
 ): GraphQLFieldConfig<any, any>;
 
-
 // node/plural.js
 
 interface PluralIdentifyingRootFieldConfig {
     argName: string;
     inputType: GraphQLInputType;
     outputType: GraphQLOutputType;
-    resolveSingleInput: (input: any, context: any, info: GraphQLResolveInfo) => any;
+    resolveSingleInput(input: any, context: any, info: GraphQLResolveInfo): any;
     description?: string;
 }
 
