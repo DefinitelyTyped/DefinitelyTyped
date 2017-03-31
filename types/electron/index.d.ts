@@ -2608,11 +2608,11 @@ declare namespace Electron {
 		 * Sets menu as the application menu on macOS. On Windows and Linux, the menu
 		 * will be set as each window's top menu.
 		 */
-		static setApplicationMenu(menu: Menu): void;
+		static setApplicationMenu(menu: Menu | null): void;
 		/**
 		 * @returns The application menu if set, or null if not set.
 		 */
-		static getApplicationMenu(): Menu;
+		static getApplicationMenu(): Menu | null;
 		/**
 		 * Sends the action to the first responder of application.
 		 * This is used for emulating default Cocoa menu behaviors,
