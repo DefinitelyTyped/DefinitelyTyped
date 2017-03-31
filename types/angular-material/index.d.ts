@@ -9,21 +9,25 @@ declare var _: string;
 export = _;
 
 declare module 'angular' {
-    export namespace material {
+    namespace material {
+        interface ResolveObject {
+            [index: string]: angular.Injectable<(...args: any[]) => PromiseLike<any>>;
+        }
+
         interface IBottomSheetOptions {
             templateUrl?: string;
             template?: string;
             scope?: angular.IScope; // default: new child scope
             preserveScope?: boolean; // default: false
-            controller?: string | Function;
+            controller?: string | ((...args: any[]) => any);
             locals?: { [index: string]: any };
             clickOutsideToClose?: boolean;
             bindToController?: boolean; // default: false
             disableBackdrop?: boolean;
             escapeToClose?: boolean;
-            resolve?: { [index: string]: () => angular.IPromise<any> };
+            resolve?: ResolveObject;
             controllerAs?: string;
-            parent?: Function | string | Object; // default: root node
+            parent?: string | Element | JQuery | ((scope: ng.IScope, element: JQuery, options: IBottomSheetOptions) => Element | JQuery); // default: root node
             disableParentScroll?: boolean; // default: true
         }
 
@@ -49,16 +53,16 @@ declare module 'angular' {
             clickOutsideToClose(clickOutsideToClose?: boolean): T; // default: false
             escapeToClose(escapeToClose?: boolean): T; // default: true
             focusOnOpen(focusOnOpen?: boolean): T; // default: true
-            controller(controller?: string | Function): T;
+            controller(controller?: string | ((...args: any[]) => any)): T;
             locals(locals?: { [index: string]: any }): T;
             bindToController(bindToController?: boolean): T; // default: false
-            resolve(resolve?: { [index: string]: () => angular.IPromise<any> }): T;
+            resolve(resolve?: ResolveObject): T;
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
-            onComplete(onComplete?: Function): T;
             ariaLabel(ariaLabel: string): T;
         }
 
+        // tslint:disable-next-line no-empty-interface
         interface IAlertDialog extends IPresetDialog<IAlertDialog> {
         }
 
@@ -97,15 +101,15 @@ declare module 'angular' {
             clickOutsideToClose?: boolean; // default: false
             escapeToClose?: boolean; // default: true
             focusOnOpen?: boolean; // default: true
-            controller?: string | Function;
+            controller?: string | ((...args: any[]) => any);
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
-            onShowing?: Function;
-            onComplete?: Function;
-            onRemoving?: Function;
+            onShowing?(scope: ng.IScope, element: JQuery): void;
+            onComplete?(scope: ng.IScope, element: JQuery): void;
+            onRemoving?(element: JQuery, action: ng.IPromise<any>): void;
             skipHide?: boolean;
             multiple?: boolean;
             fullscreen?: boolean; // default: false
@@ -120,9 +124,7 @@ declare module 'angular' {
             cancel(response?: any): void;
         }
 
-        interface IIcon {
-            (id: string): angular.IPromise<Element>; // id is a unique ID or URL
-        }
+        type IIcon = (id: string) => angular.IPromise<Element>; // id is a unique ID or URL
 
         interface IIconProvider {
             icon(id: string, url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
@@ -132,9 +134,7 @@ declare module 'angular' {
             defaultFontSet(name: string): IIconProvider;
         }
 
-        interface IMedia {
-            (media: string): boolean;
-        }
+        type IMedia = (media: string) => boolean;
 
         interface ISidenavObject {
             toggle(): angular.IPromise<void>;
@@ -142,7 +142,7 @@ declare module 'angular' {
             close(): angular.IPromise<void>;
             isOpen(): boolean;
             isLockedOpen(): boolean;
-            onClose(onClose: Function): void;
+            onClose(onClose: () => void): void;
         }
 
         interface ISidenavService {
@@ -163,6 +163,7 @@ declare module 'angular' {
             toastClass(toastClass: string): T;
         }
 
+        // tslint:disable-next-line no-empty-interface
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
         }
 
@@ -175,10 +176,10 @@ declare module 'angular' {
             hideDelay?: number | false; // default (ms): 3000
             position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
             toastClass?: string;
-            controller?: string | Function;
+            controller?: string | ((...args: any[]) => any);
             locals?: { [index: string]: any };
             bindToController?: boolean; // default: false
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
         }
@@ -263,19 +264,19 @@ declare module 'angular' {
 
         interface IThemeConfig {
             disableTheming: boolean;
-            generateOnDemand: boolean;        
+            generateOnDemand: boolean;
             nonce: string;
             defaultTheme: string;
             alwaysWatchTheme: boolean;
-            registeredStyles: Array<string>;
+            registeredStyles: string[];
         }
 
         interface IThemingProvider {
             alwaysWatchTheme(alwaysWatch: boolean): void;
             definePalette(name: string, palette: IPalette): IThemingProvider;
-            enableBrowserColor(browserColors: IBrowserColors): Function;
+            enableBrowserColor(browserColors: IBrowserColors): () => void;
             extendPalette(name: string, palette: IPalette): IPalette;
-            registerStyles(styles: String): void;
+            registerStyles(styles: string): void;
             setDefaultTheme(theme: string): void;
             setNonce(nonce: string): void;
             theme(name: string, inheritFrom?: string): ITheme;
@@ -328,11 +329,11 @@ declare module 'angular' {
             id?: string;
             template?: string;
             templateUrl?: string;
-            controller?: string | Function;
+            controller?: string | ((...args: any[]) => any);
             controllerAs?: string;
             bindToController?: boolean; // default: true
             locals?: { [index: string]: any };
-            resolve?: { [index: string]: () => angular.IPromise<any> }
+            resolve?: ResolveObject;
             attachTo?: string | JQuery | Element;
             propagateContainerEvents?: boolean;
             panelClass?: string;
@@ -346,10 +347,10 @@ declare module 'angular' {
             animation?: IPanelAnimation;
             hasBackdrop?: boolean; // default: false
             disableParentScroll?: boolean; // default: false
-            onDomAdded?: Function;
-            onOpenComplete?: Function;
-            onRemoving?: Function;
-            onDomRemoved?: Function;
+            onDomAdded?(...args: any[]): void;
+            onOpenComplete?(...args: any[]): void;
+            onRemoving?(...args: any[]): void;
+            onDomRemoved?(...args: any[]): void;
             origin?: string | JQuery | Element;
             onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
         }
@@ -442,11 +443,11 @@ declare module 'angular' {
             progressSize?: number;
             strokeWidth?: number;
             duration?: number;
-            easeFn?: Function;
+            easeFn?(t: number, b: number, c: number, d: number): number;
             durationIndeterminate?: number;
             startIndeterminate?: number;
             endIndeterminate?: number;
-            easeFnIndeterminate?: Function;        
+            easeFnIndeterminate?(t: number, b: number, c: number, d: number): number;
         }
 
         interface IProgressCircularProvider {
