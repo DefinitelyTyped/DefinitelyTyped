@@ -5,6 +5,29 @@
 
 /// <reference types="jquery" />
 
+interface JQueryStatic {
+    accordion: { settings: SemanticUI.AccordionSettings };
+    checkbox: { settings: SemanticUI.CheckboxSettings };
+    dimmer: { settings: SemanticUI.DimmerSettings };
+    dropdown: { settings: SemanticUI.DropdownSettings };
+    embed: { settings: SemanticUI.EmbedSettings };
+    modal: { settings: SemanticUI.ModalSettings };
+    nag: { settings: SemanticUI.NagSettings };
+    popup: { settings: SemanticUI.PopupSettings };
+    progress: { settings: SemanticUI.ProgressSettings };
+    rating: { settings: SemanticUI.RatingSettings };
+    search: { settings: SemanticUI.SearchSettings };
+    shape: { settings: SemanticUI.ShapeSettings };
+    sidebar: { settings: SemanticUI.SidebarSettings };
+    sticky: { settings: SemanticUI.StickySettings };
+    tab: { settings: SemanticUI.TabSettings };
+    transition: { settings: SemanticUI.TransitionSettings };
+
+    api: { settings: SemanticUI.ApiSettings };
+    form: { settings: SemanticUI.FormSettings };
+    visibility: { settings: SemanticUI.VisibilitySettings };
+}
+
 interface JQuery {
     // TODO: Do all modules have a 'setting' behavior?
 
@@ -719,7 +742,7 @@ interface JQuery {
     /**
      * Search for value currently set in search input
      */
-    search(behavior: 'query'): JQuery;
+    search(behavior: 'query', callback?: Function): JQuery;
     /**
      * Displays message in search results with text, using template matching type
      */
@@ -739,7 +762,7 @@ interface JQuery {
     /**
      * Search remote endpoint for specified query and display results
      */
-    search(behavior: 'search remote', query: string): JQuery;
+    search(behavior: 'search remote', query: string, callback?: Function): JQuery;
     /**
      * Search object for specified query and return results
      */
@@ -791,11 +814,11 @@ interface JQuery {
     /**
      * Shows results container
      */
-    search(behavior: 'show results'): JQuery;
+    search(behavior: 'show results', callback?: Function): JQuery;
     /**
      * Hides results container
      */
-    search(behavior: 'hide results'): JQuery;
+    search(behavior: 'hide results', callback?: Function): JQuery;
     /**
      * Generates results using parser specified by settings.template
      */
@@ -1301,7 +1324,7 @@ declare namespace SemanticUI {
         /**
          * Event namespace. Makes sure module teardown does not effect other events attached to an element.
          */
-            namespace?: string;
+        namespace?: string;
 
         // endregion
 
@@ -1892,6 +1915,13 @@ declare namespace SemanticUI {
          * @default true
          */
         saveRemoteData?: boolean;
+        /**
+         * When set to true API will be expected to return the complete result set, which will then be filtered clientside to only display matching results.
+         *
+         * @default false
+         * @since 2.2.8
+         */
+        filterRemoteData?: boolean;
 
         // endregion
 
@@ -3014,7 +3044,7 @@ declare namespace SemanticUI {
         /**
          * HTML content to display instead of preformatted title and content
          */
-        html?: string;
+        html?: string | JQuery;
 
         // endregion
 
@@ -4338,6 +4368,13 @@ declare namespace SemanticUI {
          * @default 25
          */
         maxDepth?: number;
+        /**
+         * When enabled only calls remote endpoint for tab data on first load and leaves the DOM undisturbed afterwards.
+         *
+         * @default false
+         * @since 2.2.8
+         */
+        loadOnce?: boolean;
 
         // endregion
 
@@ -4948,6 +4985,9 @@ declare namespace SemanticUI {
          * @default 150
          */
         duration?: number;
+        fields?: {
+            [name: string]: string | string[] | Field;
+        };
 
         // endregion
 
@@ -4995,11 +5035,11 @@ declare namespace SemanticUI {
             /**
              * @default '{name} must be set to a number'
              */
-                number?: string;
+            number?: string;
             /**
              * @default '{name} must be \'{ruleValue}\''
              */
-                is?: string;
+            is?: string;
             /**
              * @default '{name} must be exactly \'{ruleValue}\''
              */
@@ -5093,6 +5133,23 @@ declare namespace SemanticUI {
 
         // endregion
 
+        // region Templates
+
+        templates?: {
+            error?: (errors: string[]) => JQuery;
+            prompt?: (errors: string[]) => JQuery;
+        };
+
+        // endregion
+
+        // region Rules
+
+        rules?: {
+            [name: string]: Function;
+        };
+
+        // endregion
+
         // region DOM Settings
 
         /**
@@ -5169,6 +5226,16 @@ declare namespace SemanticUI {
         // endregion
     }
 
+    interface Field {
+        identifier: string;
+        rules: Rule[];
+    }
+
+    interface Rule {
+        type: string;
+        prompt: string;
+    }
+
     // endregion
 
     // region Visibility
@@ -5196,7 +5263,7 @@ declare namespace SemanticUI {
          *
          * @default false
          */
-            type?: false | 'image' | 'fixed';
+        type?: false | 'image' | 'fixed';
         /**
          * Whether visibility conditions should be checked immediately on init
          *
@@ -5316,6 +5383,8 @@ declare namespace SemanticUI {
          * Element's bottom edge has not passed top of screen
          */
         onBottomPassedReverse?: (this: JQuery) => void;
+        onOnScreen?: (this: JQuery) => void;
+        onOffScreen?: (this: JQuery) => void;
 
         // endregion
 
