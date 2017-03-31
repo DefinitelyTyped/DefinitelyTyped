@@ -23,6 +23,12 @@ declare module 'highcharts' {
         colorAxis?: ColorAxis;
 
         title?: highcharts.TitleOptions;
+        
+        tooltip?: {
+            enabled: boolean;
+        }
+
+        plotOptions?: highcharts.PlotOptions;
     }
 
     interface MapSeriesOptions {
