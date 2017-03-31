@@ -24,9 +24,7 @@ declare module 'highcharts' {
 
         title?: highcharts.TitleOptions;
         
-        tooltip?: {
-            enabled: boolean;
-        }
+        tooltip?: highcharts.TooltipOptions;
 
         plotOptions?: highcharts.PlotOptions;
     }
