@@ -180,7 +180,7 @@ interface TimelineOptions {
   onRemoveGroup?(): void; // TODO
   order?(): void; // TODO
   orientation?: TimelineOptionsOrientationType;
-  rollingMode: boolean;
+  rollingMode?: boolean;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;
