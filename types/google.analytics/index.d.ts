@@ -542,30 +542,63 @@ declare namespace UniversalAnalytics {
         l: number;
         q: any[];
 
-        (command: 'send', hitType: 'event', eventCategory: string, eventAction: string,
-            eventLabel?: string, eventValue?: number, fieldsObject?: FieldsObject): void;
-        (command: 'send', hitType: 'event', fieldsObject: {
+        (
+            command: 'send',
+            hitType: 'event',
             eventCategory: string,
             eventAction: string,
             eventLabel?: string,
             eventValue?: number,
-            nonInteraction?: boolean}): void;
-        (command: 'send', fieldsObject: {
-            hitType: HitType, // 'event'
-            eventCategory: string,
-            eventAction: string,
-            eventLabel?: string,
-            eventValue?: number,
-            nonInteraction?: boolean}): void;
+            fieldsObject?: FieldsObject): void;
+        (
+            command: 'send',
+            hitType: 'event',
+            fieldsObject: {
+                eventCategory: string,
+                eventAction: string,
+                eventLabel?: string,
+                eventValue?: number,
+                nonInteraction?: boolean
+            }): void;
+        (
+            command: 'send',
+            fieldsObject: {
+                hitType: HitType, // 'event'
+                eventCategory: string,
+                eventAction: string,
+                eventLabel?: string,
+                eventValue?: number,
+                nonInteraction?: boolean
+            }): void;
         (command: 'send', hitType: 'pageview', page: string): void;
-        (command: 'send', hitType: 'social',
-            socialNetwork: string, socialAction: string, socialTarget: string): void;
-        (command: 'send', hitType: 'social',
-            fieldsObject: {socialNetwork: string, socialAction: string, socialTarget: string}): void;
-        (command: 'send', hitType: 'timing',
-            timingCategory: string, timingVar: string, timingValue: number): void;
-        (command: 'send', hitType: 'timing',
-            fieldsObject: {timingCategory: string, timingVar: string, timingValue: number}): void;
+        (
+            command: 'send',
+            hitType: 'social',
+            socialNetwork: string,
+            socialAction: string,
+            socialTarget: string): void;
+        (
+            command: 'send',
+            hitType: 'social',
+            fieldsObject: {
+                socialNetwork: string,
+                socialAction: string,
+                socialTarget: string
+            }): void;
+        (
+            command: 'send',
+            hitType: 'timing',
+            timingCategory: string,
+            timingVar: string,
+            timingValue: number): void;
+        (
+            command: 'send',
+            hitType: 'timing',
+            fieldsObject: {
+                timingCategory: string,
+                timingVar: string,
+                timingValue: number
+            }): void;
         (command: 'send', fieldsObject: FieldsObject): void;
         (command: string, hitType: HitType, ...fields: any[]): void;
 

@@ -6,7 +6,6 @@
 /// <reference types="jquery"/>
 
 declare namespace IsotopeLibrary {
-
     type LayoutModes = 'masonry' | 'fitRows' | 'cellsByRow' | 'vertical' | 'packery' | 'masonryHorizontal' | 'fitColumns' | 'cellsByColumn' | 'horiz';
     type Elements = HTMLElement[] | HTMLElement | JQuery | NodeList;
 
@@ -125,9 +124,9 @@ declare namespace IsotopeLibrary {
 
     interface Isotope {
         /**
-        * Adds item elements to the Isotope instance. addItems does not lay out items like appended, prepended, or insert.
-        * @param elements Element, jQuery Object, NodeList, or Array of Elements
-        */
+         * Adds item elements to the Isotope instance. addItems does not lay out items like appended, prepended, or insert.
+         * @param elements Element, jQuery Object, NodeList, or Array of Elements
+         */
         addItems(elements: Elements): void;
         /**
          * Adds and lays out newly appended item elements to the end of the layout.
@@ -266,7 +265,7 @@ declare namespace IsotopeLibrary {
     }
 }
 
-interface Isotope extends IsotopeLibrary.Isotope{ }
+interface Isotope extends IsotopeLibrary.Isotope { }
 
 declare var Isotope: {
     prototype: IsotopeLibrary.Isotope;
@@ -274,11 +273,11 @@ declare var Isotope: {
     /**
      * Get the Isotope instance via its element. Isotope.data() is useful for getting the Isotope instance in JavaScript, after it has been initalized in HTML.
      */
-    data: (element: HTMLElement | string) => IsotopeLibrary.Isotope;
-}
+    data(element: HTMLElement | string): IsotopeLibrary.Isotope;
+};
 
 interface JQuery {
-    // tslint:disable:unified-signatures    
+    // tslint:disable:unified-signatures
     /**
      * Get the Isotope instance from a jQuery object. Isotope instances are useful to access Isotope properties.
      */
@@ -323,7 +322,7 @@ interface JQuery {
      * Reveals hidden items.
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
-    isotope(methodName: 'revealItemElements', elements: IsotopeLibrary.Elements): JQuery;    
+    isotope(methodName: 'revealItemElements', elements: IsotopeLibrary.Elements): JQuery;
     /**
      * Stamps elements in the layout. Isotope will lay out item elements around stamped elements.
      * Stamping is only supported by some layout modes: masonry, packery and masonryhorizontal.

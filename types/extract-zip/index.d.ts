@@ -8,7 +8,7 @@ declare namespace extract {
         dir?: string;
         defaultDirMode?: number;
         defaultFileMode?: number;
-        onEntry?: (entry: any, zipfile: any) => void;
+        onEntry?(entry: any, zipfile: any): void;
     }
 }
 

@@ -2,11 +2,11 @@ import WeakMap = require('es6-weak-map');
 
 new WeakMap<{}, string>();
 
-var tuples: Array<[number, string]> = [ [0, 'foo'], [1, 'bar'] ];
+const tuples: Array<[number, string]> = [ [0, 'foo'], [1, 'bar'] ];
 new WeakMap<number, string>(tuples);
 
-var map = new WeakMap<{}, string>();
-var obj = {};
+const map = new WeakMap<{}, string>();
+const obj = {};
 
 map.set(obj, 'foo');
 map.get(obj);

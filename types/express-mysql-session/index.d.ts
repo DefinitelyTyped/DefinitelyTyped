@@ -30,7 +30,6 @@ declare namespace MySQLStore {
 }
 
 declare class MySQLStore {
-
     /**
      * @param  {MySQLStore.Options} options
      * @param  {any} connection?
