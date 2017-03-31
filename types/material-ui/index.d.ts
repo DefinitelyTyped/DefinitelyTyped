@@ -1213,8 +1213,6 @@ declare namespace __MaterialUI {
         autoLockScrolling?: boolean;
         show?: boolean;
         transitionEnabled?: boolean;
-        onClick?: React.MouseEventHandler<{}>;
-        onTouchTap?: TouchTapEventHandler;
     }
     export class Overlay extends React.Component<OverlayProps, {}> {
     }
@@ -8636,8 +8634,6 @@ declare module 'material-ui/internal/Overlay' {
         show: boolean;
         style?: React.CSSProperties;
         transitionEnabled?: boolean;
-        onClick?: React.MouseEventHandler<{}>;
-        onTouchTap?: __MaterialUI.TouchTapEventHandler;
     }
     class Overlay extends React.Component<OverlayProps, {}> { }
     export default Overlay;
