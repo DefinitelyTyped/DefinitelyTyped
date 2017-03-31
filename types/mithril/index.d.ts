@@ -51,7 +51,7 @@ declare namespace Mithril {
 	export interface RouteOptions {
 		/** Routing parameters. If path has routing parameter slots, the properties of this object are interpolated into the path string. */
 		replace?: boolean;
-		/** The state object to pass to the underlying history.pushState / history.replaceState call.*/
+		/** The state object to pass to the underlying history.pushState / history.replaceState call. */
 		state?: any;
 		/** The title string to pass to the underlying history.pushState / history.replaceState call. */
 		title?: string;
@@ -251,7 +251,7 @@ declare namespace Mithril {
 
 	export type ComponentTypes<A, S> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>
 
-	/** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes.*/
+	/** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */
 	export interface Attributes extends Lifecycle<any, any> {
 		/** The class name(s) for this virtual element, as a space-separated list. */
 		className?: string;
