@@ -17,7 +17,6 @@ function testTransition() {
   );
 }
 
-
 class TestAffix extends React.Component<{}, {}> {
   render(): JSX.Element {
     return (

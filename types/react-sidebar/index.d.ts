@@ -9,7 +9,7 @@ export interface SidebarProps {
     contentClassName?: string;
     docked?: boolean;
     dragToggleDistance?: number;
-    onSetOpen?: () => {};
+    onSetOpen?(): {};
     open?: boolean;
     overlayClassName?: string;
     pullRight?: boolean;

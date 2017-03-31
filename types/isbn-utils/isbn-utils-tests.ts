@@ -1,6 +1,5 @@
 import * as isbn from 'isbn-utils';
 
-
 const isbn10a: isbn.ISBN|null = isbn.parse('4873113369');
 let b: boolean;
 let s: string;

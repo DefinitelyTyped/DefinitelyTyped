@@ -68,7 +68,6 @@ function sqlWithStringPattern() {
     VKBeautify.sql(exampleContent, '   ');
 }
 
-
 /*
  * Minifying
  *
