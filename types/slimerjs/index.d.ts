@@ -3,7 +3,6 @@
 // Definitions by: Alex Wall <https://github.com/alexwall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare var phantom: Phantom;
 declare var slimer: Slimer;
 
@@ -19,7 +18,6 @@ interface Slimer {
 }
 
 interface Phantom {
-
     // Properties
     args: string[];  // DEPRECATED
     cookies: Cookie[];
@@ -40,7 +38,7 @@ interface Phantom {
     injectJs(filename: string): boolean;
 
     // Callbacks
-    onError: (msg: string, trace: string[]) => any;
+    onError(msg: string, trace: string[]): any;
 }
 
 interface Std {
@@ -69,11 +67,10 @@ interface SystemModule {
 interface HttpConf {
     operation: string;
     data: any;
-    headers: any
+    headers: any;
 }
 
 interface WebPage {
-
     // Properties
     canGoBack: boolean;
     canGoForward: boolean;
@@ -106,7 +103,7 @@ interface WebPage {
     viewportSize: Size;
     windowName: string;
     zoomFactor: number;
-    captureContent: Array<RegExp>; // slimerjs only
+    captureContent: RegExp[]; // slimerjs only
 
     // Functions
     addCookie(cookie: Cookie): boolean;
@@ -142,9 +139,9 @@ interface WebPage {
     release(): void;  // DEPRECATED
     reload(): void;
     // render(filename: string): Promise<void>;
+    render(filename: string): void;
     render(filename: string, options?: { format?: string; quality?: string; ratio?: number; onlyViewport?: boolean }): Promise<void>;
     renderBase64(type: string): Promise<string>;
-    render(filename: string): void;
     renderBase64(format: string): string;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): Promise<void>;
     sendEvent(keyboardEventType: string, key: string, null1?: null, null2?: null, modifier?: number): Promise<void>;
@@ -163,23 +160,23 @@ interface WebPage {
     uploadFile(selector: string, filename: string): void;
 
     // Callbacks
-    onAlert: (msg: string) => any;
-    onCallback: () => void;  // EXPERIMENTAL
-    onClosing: (closingPage: WebPage) => any;
-    onConfirm: (msg: string) => boolean;
-    onConsoleMessage: (msg: string, lineNum?: number, sourceId?: string) => any;
-    onError: (msg: string, trace: string[]) => any;
-    onFilePicker: (oldFile: string) => string;
-    onInitialized: () => any;
-    onLoadFinished: (status: string) => any;
-    onLoadStarted: () => any;
-    onNavigationRequested: (url: string, type: string, willNavigate: boolean, main: boolean) => any;
-    onPageCreated: (newPage: WebPage) => any;
-    onPrompt: (msg: string, defaultVal: string) => string;
-    onResourceError: (resourceError: ResourceError) => any;
-    onResourceReceived: (response: ResourceResponse) => any;
-    onResourceRequested: (requestData: ResourceRequest, networkRequest: NetworkRequest) => any;
-    onUrlChanged: (targetUrl: string) => any;
+    onAlert(msg: string): any;
+    onCallback(): void;  // EXPERIMENTAL
+    onClosing(closingPage: WebPage): any;
+    onConfirm(msg: string): boolean;
+    onConsoleMessage(msg: string, lineNum?: number, sourceId?: string): any;
+    onError(msg: string, trace: string[]): any;
+    onFilePicker(oldFile: string): string;
+    onInitialized(): any;
+    onLoadFinished(status: string): any;
+    onLoadStarted(): any;
+    onNavigationRequested(url: string, type: string, willNavigate: boolean, main: boolean): any;
+    onPageCreated(newPage: WebPage): any;
+    onPrompt(msg: string, defaultVal: string): string;
+    onResourceError(resourceError: ResourceError): any;
+    onResourceReceived(response: ResourceResponse): any;
+    onResourceRequested(requestData: ResourceRequest, networkRequest: NetworkRequest): any;
+    onUrlChanged(targetUrl: string): any;
 
     // Callback triggers
     closing(closingPage: WebPage): void;
@@ -203,8 +200,8 @@ interface ResourceError {
 }
 
 interface HttpVersion {
-  major: number,
-  minor: number
+  major: number;
+  minor: number;
 }
 
 interface ResourceResponse {
@@ -261,7 +258,6 @@ interface WebPageSettings {
 }
 
 interface FileSystem {
-
     // Properties
     separator: string;
     workingDirectory: string;
@@ -316,12 +312,11 @@ interface Stream {
 interface WebServerModule {
     registerDirectory(urlpath: string, directoryPath: string): void;
     registerFile(urlpath: string, filePath: string): void;
-    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void
+    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void;
     port: number;
     listen(port: number | string, cb?: (request: WebServerRequest, response: WebServerResponse) => void): boolean;
     // listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
     close(): void;
-
 }
 
 interface WebServerRequest {
@@ -359,14 +354,14 @@ interface ClipRect extends TopLeft, Size {
 }
 
 interface Cookie {
-    name: string,
-    value: string,
-    domain?: string,
-    path: string,
-    httponly?: boolean,
-    secure?: boolean,
-    expires?: string,
-    expiry: number
+    name: string;
+    value: string;
+    domain?: string;
+    path: string;
+    httponly?: boolean;
+    secure?: boolean;
+    expires?: string;
+    expiry: number;
 }
 
 interface WebPageModule {

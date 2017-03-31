@@ -861,7 +861,7 @@ describe('struct', () => {
     });
 
     it('should support prototypal inheritance', () => {
-      interface Rectangle { w: number; h: number; area(): number; };
+      interface Rectangle { w: number; h: number; area(): number; }
       const Rectangle = struct({
         w: Num,
         h: Num

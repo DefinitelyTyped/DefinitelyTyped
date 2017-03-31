@@ -15,7 +15,7 @@ export class WritableStreamBuffer extends stream.Writable {
     constructor(options?: WritableStreamBufferOptions);
     size(): number;
     maxSize(): number;
-    getContents(length?: number): any;
+    getContents(length?: number): Buffer;
     getContentsAsString(encoding?: string, length?: number): string;
 }
 
