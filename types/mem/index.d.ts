@@ -5,7 +5,7 @@
 
 interface Options {
 	maxAge?: number;
-	cacheKey?: (...args: any[]) => string;
+	cacheKey?(...args: any[]): string;
 	cache?: any;
 }
 

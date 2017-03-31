@@ -37,7 +37,7 @@ export function createCodec(options?: CodecOptions): Codec;
 /**
  * The default built-in codec
  */
-export var codec: {
+export const codec: {
   /**
    * The default built-in codec
    */
@@ -72,30 +72,30 @@ export interface Encoder {
   minBufferSize: number;
   offset: number;
   start: number;
-  write: (chunk: any) => void;
-  fetch: () => void;
-  flush: () => void;
-  push: (chunk: any) => void;
-  pull: () => number;
-  read: () => number;
-  reserve: (length: number) => number;
-  send: (buffer: Buffer) => void;
-  encode: (chunk: any) => void;
-  end: (chunk: any) => void;
+  write(chunk: any): void;
+  fetch(): void;
+  flush(): void;
+  push(chunk: any): void;
+  pull(): number;
+  read(): number;
+  reserve(length: number): number;
+  send(buffer: Buffer): void;
+  encode(chunk: any): void;
+  end(chunk: any): void;
 }
 
 export interface Decoder {
   bufferish: any;
   offset: number;
-  fetch: () => void;
-  flush: () => void;
-  pull: () => number;
-  read: () => number;
-  write: (chunk: any) => void;
-  reserve: (length: number) => number;
-  decode: (chunk: any) => void;
-  push: (chunk: any) => void;
-  end: (chunk: any) => void;
+  fetch(): void;
+  flush(): void;
+  pull(): number;
+  read(): number;
+  write(chunk: any): void;
+  reserve(length: number): number;
+  decode(chunk: any): void;
+  push(chunk: any): void;
+  end(chunk: any): void;
 }
 
 export interface EncodeStream extends stream.Transform {
