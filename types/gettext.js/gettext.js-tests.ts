@@ -2,10 +2,10 @@ import * as Gettext from 'gettext.js';
 
 const json: Gettext.JsonData = {
   "": {
-    "locale": "fr",
+    locale: "fr",
     "plural-forms": "nplurals=2; plural=n>1;"
   },
-  "Welcome": "Bienvenue",
+  Welcome: "Bienvenue",
   "There is %1 apple": [
     "Il y a %1 pomme",
     "Il y a %1 pommes"

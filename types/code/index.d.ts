@@ -174,7 +174,7 @@ interface Settings {
     /**
      * Truncate long assertion error messages for readability?
      * Defaults to true.
-    */
+     */
     truncateMessages?: boolean;
     /**
      * Ignore object prototypes when doing a deep comparison?

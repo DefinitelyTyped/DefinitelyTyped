@@ -1,12 +1,15 @@
-const myApp = angular.module('testModule', ['ngMaterial']);
+
+
+var myApp = angular.module('testModule', ['ngMaterial']);
 
 myApp.config((
     $mdThemingProvider: ng.material.IThemingProvider,
     $mdIconProvider: ng.material.IIconProvider,
     $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
+
     $mdThemingProvider.alwaysWatchTheme(true);
-    const neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
-        500: 'ff0000'
+    var neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
+        '500': 'ff0000'
     });
     // Register the new color palette map with the name <code>neonRed</code>
     $mdThemingProvider.definePalette('neonRed', neonRedMap);
@@ -18,10 +21,10 @@ myApp.config((
         .warnPalette('red')
         .dark(true);
 
-    const browserColors: ng.material.IBrowserColors = {
-        theme: 'default',
-        palette: 'neonRed',
-        hue: '500'
+    var browserColors: ng.material.IBrowserColors = {
+      theme: 'default', 
+      palette: 'neonRed', 
+      hue: '500'  
     };
     $mdThemingProvider.enableBrowserColor(browserColors);
 
@@ -42,19 +45,14 @@ myApp.config((
     });
 });
 
-myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
+myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
             template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
             clickOutsideToClose: true,
             disableBackdrop: true,
             disableParentScroll: false,
-            resolve: {
-                r1: () => $q.resolve(),
-                r2: () => Promise.resolve(),
-                r3: ['fakeService', (fake) => $q.resolve()],
-                r4: ['fakeService', (fake) => Promise.resolve()],
-            }
+            parent: () => {}
         });
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
@@ -62,10 +60,10 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
 });
 
 myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
-    let colorExpression: ng.material.IColorExpression;
-    let element: Element;
+    var colorExpression : ng.material.IColorExpression;
+    var element : Element;
 
-    colorExpression = { color: '#FFFFFF' };
+    colorExpression = { color: '#FFFFFF' }
 
     element = new Element();
 
@@ -73,23 +71,17 @@ myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IC
         $mdColor.applyThemeColors(element, colorExpression);
     };
     $scope['getThemeColor'] = () => {
-        $mdColor.getThemeColor('default-neonRed');
+        $mdColor.getThemeColor('default-neonRed')
     };
     $scope['hasTheme'] = () => {
         $mdColor.hasTheme();
     };
 });
 
-myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService, $q: ng.IQService) => {
+myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService) => {
     $scope['openDialog'] = () => {
         $mdDialog.show({
-            template: '<md-dialog>Hello!</md-dialog>',
-            resolve: {
-                r1: () => $q.resolve(),
-                r2: () => Promise.resolve(),
-                r3: ['fakeService', (fake) => $q.resolve()],
-                r4: ['fakeService', (fake) => Promise.resolve()],
-            }
+            template: '<md-dialog>Hello!</md-dialog>'
         });
     };
     $scope['alertDialog'] = () => {
@@ -117,12 +109,7 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
         $mdDialog.show($mdDialog.prompt().placeholder('Prompt input placeholder text'));
     };
     $scope['promptDialog'] = () => {
-        $mdDialog.show($mdDialog.prompt().initialValue('Buddy').resolve({
-            r1: () => $q.resolve(),
-            r2: () => Promise.resolve(),
-            r3: ['fakeService', (fake) => $q.resolve()],
-            r4: ['fakeService', (fake) => Promise.resolve()],
-        }));
+        $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
     };
     $scope['prerenderedDialog'] = () => {
         $mdDialog.show({
@@ -136,12 +123,13 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
 });
 
 class IconDirective implements ng.IDirective {
+
     private $mdIcon: ng.material.IIcon;
     constructor($mdIcon: ng.material.IIcon) {
         this.$mdIcon = $mdIcon;
     }
 
-    link($scope: ng.IScope, $elm: ng.IAugmentedJQuery) {
+    public link($scope: ng.IScope, $elm: ng.IAugmentedJQuery) {
         this.$mdIcon('android').then((iconEl: Element) => $elm.append(iconEl));
         this.$mdIcon('work:chair').then((iconEl: Element) => $elm.append(iconEl));
         // Load and cache the external SVG using a URL
@@ -162,7 +150,7 @@ myApp.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.IM
 });
 
 myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.material.ISidenavService) => {
-    const componentId = 'left';
+    var componentId = 'left';
     $scope['toggle'] = () => $mdSidenav(componentId).toggle();
     $scope['open'] = () => $mdSidenav(componentId).open();
     $scope['close'] = () => $mdSidenav(componentId).close();
@@ -177,53 +165,41 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
         instance.isLockedOpen();
     });
 
-    $scope['onClose'] = $mdSidenav(componentId).onClose(() => { });
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
-myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService, $q: ng.IQService) => {
+myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
     $scope['openToast'] = () => {
         $mdToast.show($mdToast.simple().textContent('Hello!'));
         $mdToast.updateTextContent('New Content');
-    };
+    }
 
     $scope['customToast'] = () => {
-        const options: ng.material.IToastOptions = {
+        var options = {
             hideDelay: 3000,
             position: 'top right',
-            controller: 'ToastCtrl',
-            templateUrl: 'toast-template.html',
-            toastClass: 'my-class',
-            resolve: {
-                r1: () => $q.resolve(),
-                r2: () => Promise.resolve(),
-                r3: ['fakeService', (fake) => $q.resolve()],
-                r4: ['fakeService', (fake) => Promise.resolve()],
-            }
+            controller  : 'ToastCtrl',
+            templateUrl : 'toast-template.html',
+            toastClass: 'my-class'
         };
 
         $mdToast.show(options);
-    };
+    }
 });
 
-myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService, $q: ng.IQService) => {
+myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
     $scope['createPanel'] = () => {
-        const config: ng.material.IPanelConfig = {
+        var config = {
             id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
             disableParentScroll: true,
-            zIndex: 150,
-            resolve: {
-                r1: () => $q.resolve(),
-                r2: () => Promise.resolve(),
-                r3: ['fakeService', (fake) => $q.resolve()],
-                r4: ['fakeService', (fake) => Promise.resolve()],
-            }
+            zIndex: 150
         };
-
+        
         $mdPanel.create(config);
 
-        let panelRef = $mdPanel.create(config);
+        var panelRef = $mdPanel.create(config);
         panelRef.open()
             .then((ref: ng.material.IPanelRef) => {
                 ref.addClass('foo');
@@ -256,6 +232,6 @@ myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IP
 
     $scope['newPanelAnimation'] = () => {
         $mdPanel.newPanelAnimation().openFrom('.some-target');
-        $mdPanel.newPanelAnimation().openFrom({ top: 0, left: 0 });
+        $mdPanel.newPanelAnimation().openFrom({top: 0, left: 0});
     };
 });

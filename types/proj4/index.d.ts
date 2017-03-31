@@ -38,28 +38,28 @@ declare namespace proj4 {
         inverse(coordinates: TemplateCoordinates): number[];
     }
 
-    export const defaultDatum: string;
+    const defaultDatum: string;
 
-    export function Proj(srsCode: any, callback?: any): InterfaceProjection;
+    function Proj(srsCode: any, callback?: any): InterfaceProjection;
 
-    export const WGS84: any;
+    const WGS84: any;
 
     /**
      * Depecrated v3
      */
-    export function Point(x: number, y: number, z?: number): InterfaceCoordinates;
-    export function Point(coordinates: TemplateCoordinates | string): InterfaceCoordinates;
+    function Point(x: number, y: number, z?: number): InterfaceCoordinates;
+    function Point(coordinates: TemplateCoordinates | string): InterfaceCoordinates;
 
-    export function toPoint(array: number[]): InterfaceCoordinates;
+    function toPoint(array: number[]): InterfaceCoordinates;
 
-    export function defs(name: string, projection?: string): any;
-    export function defs(name: string[][]): any;
+    function defs(name: string, projection?: string): any;
+    function defs(name: string[][]): any;
 
-    export function transform(source: InterfaceProjection, dest: InterfaceProjection, point: TemplateCoordinates): any;
+    function transform(source: InterfaceProjection, dest: InterfaceProjection, point: TemplateCoordinates): any;
 
-    export function mgrs(coordinates: number[], accuracy: number): string;
+    function mgrs(coordinates: number[], accuracy: number): string;
 
-    export const version: string;
+    const version: string;
 }
 
 declare function proj4(fromProjection: string, toProjection?: string, coordinates?: proj4.TemplateCoordinates): proj4.Static;
