@@ -1,4 +1,5 @@
 import moment = require("moment")
+import daterangepicker = require("daterangepicker");
 
 function tests_simple() {
     $('#daterange').daterangepicker();
@@ -65,5 +66,15 @@ function tests_simple() {
         showCustomRangeLabel: false
     }, cb);
 
+    $('#endDate').daterangepicker({
+        singleDatePicker: true,
+        startDate: moment()
+    });
 });
+}
+
+declare const host: HTMLElement;
+function test_from_amd() {
+    var picker = new daterangepicker(host);
+    console.log(picker.startDate.format("YYYY-MM-DD");)
 }
