@@ -8,10 +8,9 @@ const port: number = 8000;
 detect(port, (err: Error, _port: number) => {
 });
 
-
 function* yieldSyntax() {
     const _port: number = yield detect(port);
-};
+}
 
 /**
  * use as a promise

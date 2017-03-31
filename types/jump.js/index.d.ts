@@ -12,7 +12,7 @@ declare namespace jump {
     interface Options {
         duration?: number;
         offset?: number;
-        callback?: () => void;
+        callback?(): void;
         easing?: TransitionFunc;
         a11y?: boolean;
     }

@@ -149,7 +149,7 @@ const prf: GraphQLFieldConfig<any, any> = pluralIdentifyingRootField({
 // An example usage of these methods from the test schema:
 const {nodeInterface, nodeField} = nodeDefinitions(
     (globalId) => {
-        var {type, id} = fromGlobalId(globalId);
+        const {type, id} = fromGlobalId(globalId);
         return "data[type][id]";
     },
     (obj) => {
@@ -180,7 +180,8 @@ mutationWithClientMutationId({
     name: "M",
     description: "D",
     inputFields: gifcm,
-    mutateAndGetPayload: (object: any,
+    mutateAndGetPayload: (
+        object: any,
         ctx: any,
         info: GraphQLResolveInfo) => {
         return new Promise<string>((resolve) => {
@@ -191,7 +192,7 @@ mutationWithClientMutationId({
 });
 // An example usage of these methods from the test schema:
 const data: any = {};
-var shipMutation = mutationWithClientMutationId({
+const shipMutation = mutationWithClientMutationId({
     name: 'IntroduceShip',
     inputFields: {
         shipName: {
@@ -212,7 +213,7 @@ var shipMutation = mutationWithClientMutationId({
         }
     },
     mutateAndGetPayload: ({shipName, factionId}) => {
-        var newShip = {
+        const newShip = {
             id: "11",
             name: shipName
         };
@@ -225,7 +226,7 @@ var shipMutation = mutationWithClientMutationId({
     }
 });
 
-var mutationType = new GraphQLObjectType({
+const mutationType = new GraphQLObjectType({
     name: 'Mutation',
     fields: () => ({
         introduceShip: shipMutation
