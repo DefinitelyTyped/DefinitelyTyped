@@ -7,7 +7,6 @@
 
 declare namespace L {
     namespace Control {
-        interface Locate extends L.Control {}
         interface LocateOptions {
             position?: string;
             layer?: L.Layer;
@@ -35,11 +34,10 @@ declare namespace L {
             locateOptions?: L.LocateOptions;
         }
     }
-
     namespace control {
         /**
-          * Creates a Leaflet.Locate control
-          */
-        export function locate(options?: Control.LocateOptions): L.Control.Locate;
+         * Creates a Leaflet.Locate control
+         */
+        function locate(options?: Control.LocateOptions): L.Control;
     }
 }
