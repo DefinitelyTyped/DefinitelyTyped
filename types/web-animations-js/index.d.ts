@@ -3,9 +3,9 @@
 // Definitions by: Kristian Moerch <https://github.com/kritollm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
-declare type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
-declare type AnimationPlayState = "idle" | "pending" | "running" | "paused" | "finished";
+type AnimationEffectTimingFillMode = "none" | "forwards" | "backwards" | "both" | "auto";
+type AnimationEffectTimingPlaybackDirection = "normal" | "reverse" | "alternate" | "alternate-reverse";
+type AnimationPlayState = "idle" | "pending" | "running" | "paused" | "finished";
 
 declare class AnimationPlaybackEvent {
     constructor(target: Animation, currentTime: number, timelineTime: number);
@@ -53,9 +53,7 @@ declare class KeyframeEffect {
     getFrames(): AnimationKeyFrame[];
     remove(): void;
 }
-interface AnimationEventListener {
-    (evt: AnimationPlaybackEvent): void;
-}
+type AnimationEventListener = (evt: AnimationPlaybackEvent) => void;
 
 declare class Animation {
     constructor(effect: KeyframeEffect, timeline?: AnimationTimeline);

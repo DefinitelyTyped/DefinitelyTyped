@@ -39,7 +39,7 @@ declare namespace VError {
         cause?: Error | null | undefined;
         name?: string;
         strict?: boolean;
-        constructorOpt?: (...args: any[]) => void;
+        constructorOpt?(...args: any[]): void;
         info?: Info;
     }
 

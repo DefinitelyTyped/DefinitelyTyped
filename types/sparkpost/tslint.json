@@ -1,8 +1,1 @@
-{
-  "extends": "../tslint.json",
-  "rules": {
-    "only-arrow-functions-2": [
-      false
-    ]
-  }
-}
+{ "extends": "../tslint.json" }
