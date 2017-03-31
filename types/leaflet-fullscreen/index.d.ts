@@ -7,6 +7,6 @@
 
 declare namespace L {
     interface MapOptions {
-        fullscreenControl?: true | {pseudoFullscreen: boolean}
+        fullscreenControl?: true | {pseudoFullscreen: boolean};
     }
 }

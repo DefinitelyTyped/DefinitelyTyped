@@ -32,7 +32,7 @@ interface Tasks {
 interface Task {
     blocking: boolean;
     dep: string[];
-    fn: () => void;
+    fn(): void;
     name: string;
 }
 
@@ -49,12 +49,12 @@ export function start(tasks: string | string[]): typeof shipit;
 export function start(...tasks: string[]): typeof shipit;
 export function task(name: string, depsOrFn: string[] | EmptyCallback, fn?: () => void): typeof shipit;
 
-export var config: {};
-export var domain: any;
-export var doneCallback: any;
-export var environment: string;
-export var seq: any[];
-export var tasks: Tasks;
-export var isRunning: boolean;
+export const config: {};
+export const domain: any;
+export const doneCallback: any;
+export const environment: string;
+export const seq: any[];
+export const tasks: Tasks;
+export const isRunning: boolean;
 
 export as namespace shipit;
