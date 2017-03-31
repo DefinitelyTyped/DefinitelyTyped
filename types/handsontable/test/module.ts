@@ -249,7 +249,7 @@ namespace HandsOnTableModuleTest {
     hot.getRowHeight(123);
     hot.getSchema();
     hot.getSelected();
-    const range: ht.Range = hot.getSelectedRange();
+    const range: Handsontable.Range = hot.getSelectedRange();
     hot.getSettings();
     hot.getSourceData(123, 123, 123, 123);
     hot.getSourceDataAtCell(123, 123);
