@@ -3,8 +3,7 @@
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
- export class GoogleAnalyticsTracker {
+export class GoogleAnalyticsTracker {
     /**
      * Save all tracker related data that is needed to call native methods with proper data.
      * @param trackerId {String}
@@ -22,13 +21,13 @@
      * @param customDimensions {Object}
      * @returns {Object}
      */
-    transformCustomDimensionsFieldsToIndexes(customDimensions: {}): void
+    transformCustomDimensionsFieldsToIndexes(customDimensions: {}): void;
 
     /**
      * Track the current screen/view
      * @param  {String} screenName The name of the current screen
      */
-    trackScreenView(screenName: string): void
+    trackScreenView(screenName: string): void;
 
     /**
      * Track an event that has occured
@@ -36,14 +35,14 @@
      * @param  {String} action         The event action
      * @param  {Object} optionalValues An object containing optional label and value
      */
-    trackEvent(category: string, action: string, optionalValues?: {}): void
+    trackEvent(category: string, action: string, optionalValues?: {}): void;
 
     /**
      * Track the current screen/view with custom dimension values
      * @param  {String} screenName The name of the current screen
      * @param  {Object} customDimensionValues An object containing custom dimension key/value pairs
      */
-    trackScreenViewWithCustomDimensionValues(screenName: string, customDimensionValues: {}): void
+    trackScreenViewWithCustomDimensionValues(screenName: string, customDimensionValues: {}): void;
 
     /**
      * Track an event that has occured with custom dimension values
@@ -57,7 +56,7 @@
       action: string,
       optionalValues: {},
       customDimensionValues: {},
-    ): void
+    ): void;
 
     /**
      * Track an event that has occured
@@ -65,7 +64,7 @@
      * @param  {Number} value         	The timing measurement in milliseconds
      * @param  {Object} optionalValues An object containing optional name and label
      */
-    trackTiming(category: string, value: number, optionalValues: {}): void
+    trackTiming(category: string, value: number, optionalValues: {}): void;
 
     /**
      * Track a purchase event. This uses the Enhanced Ecommerce GA feature.
@@ -79,7 +78,7 @@
       transaction: {},
       eventCategory?: string,
       eventAction?: string,
-    ): void
+    ): void;
 
     /**
      * Track a purchase event. This uses the Enhanced Ecommerce GA feature.
@@ -89,11 +88,11 @@
      * @param  {String} eventAction   The event action, defaults to Purchase
      */
     trackMultiProductsPurchaseEvent(
-      products: {}[],
+      products: Array<{}>,
       ransaction: {},
       eventCategory?: string,
       eventAction?: string
-    ): void
+    ): void;
 
     /**
      * Track a purchase event with custom dimensions. This uses the Enhanced Ecommerce GA feature.
@@ -104,31 +103,31 @@
      * @param  {Object} customDimensionValues An object containing custom dimension key/value pairs
      */
     trackMultiProductsPurchaseEventWithCustomDimensionValues(
-      products: {}[],
+      products: Array<{}>,
       transaction: {},
       eventCategory?: string,
       eventAction?: string,
       customDimensions?: {},
-    ): void
+    ): void;
 
     /**
      * Track an exception
      * @param  {String} error The description of the error
      * @param  {Boolean} fatal A value indiciating if the error was fatal, defaults to false
      */
-    trackException(error: string, fatal?: boolean): void
+    trackException(error: string, fatal?: boolean): void;
 
     /**
      * Sets the current userId for tracking.
      * @param {String} userId The current userId
      */
-    setUser(userId: string): void
+    setUser(userId: string): void;
 
     /**
      * Sets if IDFA (identifier for advertisers) collection should be enabled
      * @param  {Boolean} enabled Defaults to true
      */
-    allowIDFA(enabled?: boolean): void
+    allowIDFA(enabled?: boolean): void;
 
     /**
      * Track a social interaction, Facebook, Twitter, etc.
@@ -136,70 +135,70 @@
      * @param  {String} action
      * @param  {String} targetUrl
      */
-    trackSocialInteraction(network: string, action: string, targetUrl: string): void
+    trackSocialInteraction(network: string, action: string, targetUrl: string): void;
 
     /**
      * Sets if uncaught exceptions should be tracked
      * @param {Boolean} enabled
      */
-    setTrackUncaughtExceptions(enabled: boolean): void
+    setTrackUncaughtExceptions(enabled: boolean): void;
 
     /**
      * Sets the trackers appName
      * The Bundle name is used by default
      * @param {String} appName
      */
-    setAppName(appName: string): void
+    setAppName(appName: string): void;
 
     /**
      * Sets the trackers appVersion
      * @param {String} appVersion
      */
-    setAppVersion(appVersion: string): void
+    setAppVersion(appVersion: string): void;
 
     /**
      * Sets if AnonymizeIp is enabled
      * If enabled the last octet of the IP address will be removed
      * @param {Boolean} enabled
      */
-    setAnonymizeIp(enabled: string): void
+    setAnonymizeIp(enabled: string): void;
 
     /**
      * Sets tracker sampling rate.
      * @param {Float} sampleRatio Percentage 0 - 100
      */
-    setSamplingRate(sampleRatio: number): void
-  }
+    setSamplingRate(sampleRatio: number): void;
+}
 
-  interface GAEvent<T> {
-    event: string
-    payload: T
-  }
+interface GAEvent<T> {
+    event: string;
+    payload: T;
+}
 
-  export class GoogleTagManager {
+export class GoogleTagManager {
     /**
      * Call once to open the container for all subsequent static calls.
      * @param {String} containerId
      */
-    static openContainerWithId(containerId: string): void
+    static openContainerWithId(containerId: string): void;
 
     /**
      * Retrieves a boolean value with the given key from the opened container.
      * @param {String} key
      */
-    static boolForKey(key: string): boolean
+    static boolForKey(key: string): boolean;
 
     /**
      * Retrieves a string with the given key from the opened container.
      * @param {String} key
      */
-    static stringForKey(key: string): string
+    static stringForKey(key: string): string;
 
     /**
      * Retrieves a number with the given key from the opened container.
      * @param {String} key
      */
-    static doubleForKey(key: string): number
+    static doubleForKey(key: string): number;
 
     /**
      * push a datalayer event for Google Analytics through Google Tag Manager.
@@ -207,16 +206,16 @@
      * it must have at least one key "event" with event name
      *         example: {event: "eventName", pageId: "/home"}
      */
-    static pushDataLayerEvent<E>(dictionary: GAEvent<E>): void
-  }
+    static pushDataLayerEvent<E>(dictionary: GAEvent<E>): void;
+}
 
-  export class GoogleAnalyticsSettings {
+export class GoogleAnalyticsSettings {
     /**
      * Sets if OptOut is active and disables Google Analytics
      * This has to be set each time the App starts
      * @param {Boolean} enabled
      */
-    static setOptOut(enabled: boolean): void
+    static setOptOut(enabled: boolean): void;
 
     /**
      * Sets the trackers dispatch interval
@@ -224,12 +223,12 @@
      * are sent to your tracker.
      * @param {Number} intervalInSeconds
      */
-    static setDispatchInterval(intervalInSeconds: number): void
+    static setDispatchInterval(intervalInSeconds: number): void;
 
     /**
      * Sets if the tracker should have dry run enabled.
      * If dry run is enabled, no analytics data will be sent to your tracker.
      * @param {Boolean} enabled
      */
-    static setDryRun(enabled: boolean): void
-  }
+    static setDryRun(enabled: boolean): void;
+}

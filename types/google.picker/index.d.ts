@@ -60,7 +60,7 @@ declare namespace google {
             setSelectableMimeTypes(type:string):PickerBuilder;
 
             // Set the preferred dialog size. The dialog will be auto-centered. It has a minimum size of (566,350) and a maximum size of (1051,650).
-            setSize():PickerBuilder;
+            setSize(width:number, height:number):PickerBuilder;
 
             // Set the dialog title.
             setTitle(title:string):PickerBuilder;

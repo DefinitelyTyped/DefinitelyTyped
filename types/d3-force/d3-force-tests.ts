@@ -6,7 +6,6 @@
  * are not intended as functional tests.
  */
 
-
 import * as d3Force from 'd3-force';
 
 // -------------------------------------------------------------------------------------
@@ -29,7 +28,6 @@ interface Graph {
     nodes: SimNode[];
     links: SimLink[];
 }
-
 
 const graph: Graph = {
     nodes: [
@@ -112,7 +110,6 @@ forceCollide = d3Force.forceCollide<SimNode>((node, index, nodes) => {
     return n.r;
 });
 
-
 // Configure Collision force -----------------------------------------------------------
 
 let radiusAccessor: (node: SimNode, i: number, nodes: SimNode[]) => number;
@@ -139,7 +136,6 @@ num = forceCollide.strength();
 forceCollide = forceCollide.iterations(10);
 num = forceCollide.iterations();
 
-
 // Use Collision force -----------------------------------------------------------------
 
 forceCollide.initialize(graph.nodes);
@@ -156,7 +152,6 @@ forceLink = d3Force.forceLink<SimNode, SimLink>();
 
 // with link data
 forceLink = d3Force.forceLink<SimNode, SimLink>(graph.links);
-
 
 // Configure Link force -----------------------------------------------------------
 
@@ -180,7 +175,6 @@ num = simLink.index!; // Ex-post after link initialization, use ! non-null asser
 num = simLink.value;
 num = simLink.d;
 num = simLink.s;
-
 
 // id (node id accessor)
 
@@ -220,12 +214,10 @@ linkNumberAccessor = forceLink.strength();
 forceLink = forceLink.iterations(10);
 num = forceLink.iterations();
 
-
 // Use Link force -----------------------------------------------------------------
 
 forceLink.initialize(graph.nodes);
 forceLink(0.1); // alpha
-
 
 // ManyBody ============================================================================
 
@@ -255,7 +247,6 @@ simNodeNumberAccessor = forceCharge.strength();
 forceCharge = forceCharge.theta(0.8);
 num = forceCharge.theta();
 
-
 // distanceMin
 
 forceCharge = forceCharge.distanceMin(1);
@@ -266,12 +257,10 @@ num = forceCharge.distanceMin();
 forceCharge = forceCharge.distanceMax(1000);
 num = forceCharge.distanceMax();
 
-
 // Use ManyBody force -----------------------------------------------------------------
 
 forceCharge.initialize(graph.nodes);
 forceCharge(0.1); // alpha
-
 
 // ForceX ==============================================================================
 
@@ -326,7 +315,6 @@ simNodeNumberAccessor = forcePosX.x();
 
 forcePosX.initialize(graph.nodes);
 forcePosX(0.1); // alpha
-
 
 // ForceY ==============================================================================
 
@@ -388,7 +376,6 @@ forcePosY(0.1); // alpha
 
 // Create Force Simulation =============================================================
 
-
 let nodeSimulation: d3Force.Simulation<SimNode, undefined>;
 let nodeLinkSimulation: d3Force.Simulation<SimNode, SimLink>;
 
@@ -435,7 +422,6 @@ num = nodeLinkSimulation.alphaTarget();
 nodeLinkSimulation = nodeLinkSimulation.velocityDecay(0.4);
 num = nodeLinkSimulation.velocityDecay();
 
-
 // force() -----------------------------------------------------------------------------
 
 nodeSimulation = nodeSimulation.force('posx', forcePosX);
@@ -443,7 +429,6 @@ nodeSimulation.force('posy', forcePosY);
 
 // Remove force
 nodeSimulation = nodeSimulation.force('posx', null);
-
 
 nodeLinkSimulation = nodeLinkSimulation.force('link', forceLink);
 
@@ -480,7 +465,6 @@ simLinks = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link')
 
 // fLink = nodeLinkSimulation.force('link')!; // fails, as ForceLink specific properties are missing from 'generic' force
 
-
 // on() --------------------------------------------------------------------------------
 
 function drawLink(d: SimLink) {
@@ -502,7 +486,6 @@ function drawNode(d: SimNode) {
 }
 
 nodeLinkSimulation = nodeLinkSimulation.on('tick', function ticked() {
-
     const that: d3Force.Simulation<SimNode, SimLink> = this;
 
     if (context) {

@@ -132,7 +132,7 @@ interface BaseSchema {
   uniqueItems?: boolean;
   maxProperties?: number;
   minProperties?: number;
-  enum?: (string|boolean|number|{})[];
+  enum?: Array<string | boolean | number | {}>;
   type?: string;
   items?: Schema|Schema[];
 }

@@ -3,9 +3,9 @@
 // Definitions by: Dominic Alie <https://github.com/dalie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as Leaflet from "leaflet";
 
-declare namespace L {
+declare global { namespace L {
     /**
      * Make geometries editable in Leaflet.
      *
@@ -43,12 +43,12 @@ declare namespace L {
         /**
          * Layer used to store edit tools (vertex, line guide…).
          */
-        editLayer?: L.LayerGroup<L.ILayer>;
+        editLayer?: Leaflet.LayerGroup<Leaflet.ILayer>;
 
         /**
          * Default layer used to store drawn features (marker, polyline…).
          */
-        featuresLayer?: L.LayerGroup<L.Polyline|L.Polygon|L.Marker>;
+        featuresLayer?: Leaflet.LayerGroup<L.Polyline|L.Polygon|L.Marker>;
 
         /**
          * Class to be used as vertex, for path editing.
@@ -104,20 +104,20 @@ declare namespace L {
          * Start drawing a polyline. If latlng is given, a first point will be added. In any case, continuing on user
          * click. If options is given, it will be passed to the polyline class constructor.
          */
-        startPolyline(latLng?: LatLng, options?: L.PolylineOptions): L.Polyline;
+        startPolyline(latLng?: LatLng, options?: Leaflet.PolylineOptions): L.Polyline;
 
         /**
          * Start drawing a polygon. If latlng is given, a first point will be added. In any case, continuing on user
          * click. If options is given, it will be passed to the polygon class constructor.
          */
-        startPolygon(latLng?: LatLng, options?: L.PolylineOptions): L.Polygon;
+        startPolygon(latLng?: LatLng, options?: Leaflet.PolylineOptions): L.Polygon;
 
         /**
          * Start adding a marker. If latlng is given, the marker will be shown first at this point. In any case, it
          * will follow the user mouse, and will have a final latlng on next click (or touch). If options is given,
          * it will be passed to the marker class constructor.
          */
-        startMarker(latLng?: LatLng, options?: L.MarkerOptions): L.Marker;
+        startMarker(latLng?: LatLng, options?: Leaflet.MarkerOptions): L.Marker;
 
         /**
          * When you need to stop any ongoing drawing, without needing to know which editor is active.
@@ -255,4 +255,4 @@ declare namespace L {
 
     export interface Polygon extends EditableMixin, PolygonEditor {
     }
-}
+} }

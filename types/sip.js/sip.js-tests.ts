@@ -88,12 +88,8 @@ ua.on('registered', () => { });
 ua.on('unregistered', (args: sipjs.UA.EventArgs.UnregisteredArgs) => { });
 ua.on('registrationFailed', (args: sipjs.UA.EventArgs.RegistrationFailedArgs) => { });
 ua.on('invite', (session: sipjs.Session) => {
-    session.on('progress', (response) => {
-    });
-    session.on('accepted', (response) => {
-    });
-    session.on('rejected', (response) => {
-    });
-
+    session.on('progress', (response) => {});
+    session.on('accepted', (response) => {});
+    session.on('rejected', (response) => {});
 });
 ua.on('message', (message: sipjs.Message) => { });

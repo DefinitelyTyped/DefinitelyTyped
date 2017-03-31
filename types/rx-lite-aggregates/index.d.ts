@@ -6,7 +6,7 @@
 ///<reference types="rx-lite" />
 
 declare namespace Rx {
-    export interface Observable<T> {
+    interface Observable<T> {
         finalValue(): Observable<T>;
         aggregate(accumulator: (acc: T, value: T) => T): Observable<T>;
         aggregate<TAcc>(seed: TAcc, accumulator: (acc: TAcc, value: T) => TAcc): Observable<TAcc>;

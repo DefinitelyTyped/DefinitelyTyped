@@ -835,24 +835,52 @@ declare namespace google.maps {
         getVisible(): boolean;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
         setOptions(options: PolylineOptions): void;
         setPath(path: MVCArray|LatLng[]|LatLngLiteral[]): void; // MVCArray<LatLng>|Array<LatLng|LatLngLiteral>
         setVisible(visible: boolean): void;
     }
 
     export interface PolylineOptions {
+        /** Indicates whether this Polyline handles mouse events. Defaults to true. */
         clickable?: boolean;
+        /**
+         * If set to true, the user can drag this shape over the map.
+         * The geodesic property defines the mode of dragging. Defaults to false.
+         */
         draggable?: boolean;
+        /**
+         * If set to true, the user can edit this shape by dragging the control points shown at the vertices and on
+         * each segment. Defaults to false.
+         */
         editable?: boolean;
+        /**
+         * When true, edges of the polygon are interpreted as geodesic and will follow the curvature of the Earth.
+         * When false, edges of the polygon are rendered as straight lines in screen space. Note that the shape of a
+         * geodesic polygon may appear to change when dragged, as the dimensions are maintained relative to the
+         * surface of the earth. Defaults to false.
+         */
         geodesic?: boolean;
+        /** The icons to be rendered along the polyline. */
         icons?: IconSequence[];
+        /** Map on which to display Polyline. */
         map?: Map;
+        /**
+         * The ordered sequence of coordinates of the Polyline.
+         * This path may be specified using either a simple array of LatLngs, or an MVCArray of LatLngs.
+         * Note that if you pass a simple array, it will be converted to an MVCArray Inserting or removing LatLngs
+         * in the MVCArray will automatically update the polyline on the map.
+         */
         path?: MVCArray|LatLng[]|LatLngLiteral[]; // MVCArray<LatLng>|Array<LatLng|LatLngLiteral>
+        /** The stroke color. All CSS3 colors are supported except for extended named colors. */
         strokeColor?: string;
+        /** The stroke opacity between 0.0 and 1.0. */
         strokeOpacity?: number;
+        /** The stroke width in pixels. */
         strokeWeight?: number;
+        /** Whether this polyline is visible on the map. Defaults to true. */
         visible?: boolean;
+        /** The zIndex compared to other polys. */
         zIndex?: number;
     }
 
@@ -873,7 +901,7 @@ declare namespace google.maps {
         getVisible(): boolean;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
         setOptions(options: PolygonOptions): void;
         setPath(path: MVCArray|LatLng[]|LatLngLiteral[]): void;
         setPaths(paths: MVCArray): void;
@@ -959,7 +987,7 @@ declare namespace google.maps {
         setBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
         setOptions(options: RectangleOptions): void;
         setVisible(visible: boolean): void;
     }
@@ -980,38 +1008,75 @@ declare namespace google.maps {
         zIndex?: number;
     }
 
+    /** A circle on the Earth's surface; also known as a "spherical cap". */
     export class Circle extends MVCObject {
+        /** Create a circle using the passed CircleOptions, which specify the center, radius, and style. */
         constructor(opts?: CircleOptions);
+        /** Gets the LatLngBounds of this Circle. */
         getBounds(): LatLngBounds;
+        /** Returns the center of this circle. */
         getCenter(): LatLng;
+        /** Returns whether this circle can be dragged by the user. */
         getDraggable(): boolean;
+        /** Returns whether this circle can be edited by the user. */
         getEditable(): boolean;
+        /** Returns the map on which this circle is displayed. */
         getMap(): Map;
+        /** Returns the radius of this circle (in meters). */
         getRadius(): number;
+        /** Returns whether this circle is visible on the map. */
         getVisible(): boolean;
+        /** Sets the center of this circle. */
         setCenter(center: LatLng|LatLngLiteral): void;
+        /** If set to true, the user can drag this circle over the map. */
         setDraggable(draggable: boolean): void;
+        /**
+         * If set to true, the user can edit this circle by dragging the control points shown at the center and around
+         * the circumference of the circle.
+         */
         setEditable(editable: boolean): void;
-		setMap(map: Map | null): void;
+        /** Renders the circle on the specified map. If map is set to null, the circle will be removed. */
+        setMap(map: Map | null): void;
         setOptions(options: CircleOptions): void;
+        /** Sets the radius of this circle (in meters). */
         setRadius(radius: number): void;
+        /** Hides this circle if set to false. */
         setVisible(visible: boolean): void;
     }
 
     export interface CircleOptions {
+        /** The center */
         center?: LatLng|LatLngLiteral;
+        /** Indicates whether this Circle handles mouse events. Defaults to true. */
         clickable?: boolean;
+        /** If set to true, the user can drag this circle over the map. Defaults to false. */
         draggable?: boolean;
+        /** 
+         * If set to true, the user can edit this circle by dragging the control points shown at the center and around
+         * the circumference of the circle. Defaults to false.
+         */
         editable?: boolean;
+        /** The fill color. All CSS3 colors are supported except for extended named colors. */
         fillColor?: string;
+        /** The fill opacity between 0.0 and 1.0 */
         fillOpacity?: number;
+        /** Map on which to display Circle. */
         map?: Map;
+        /** The radius in meters on the Earth's surface */
         radius?: number;
+        /** The stroke color. All CSS3 colors are supported except for extended named colors. */
         strokeColor?: string;
+        /** The stroke opacity between 0.0 and 1.0 */
         strokeOpacity?: number;
+        /**
+         * The stroke position. Defaults to CENTER. This property is not supported on Internet Explorer 8 and earlier.
+         */
         strokePosition?: StrokePosition;
+        /** The stroke width in pixels. */
         strokeWeight?: number;
+        /** Whether this circle is visible on the map. Defaults to true. */
         visible?: boolean;
+        /** The zIndex compared to other polys. */
         zIndex?: number;
     }
 
@@ -1036,7 +1101,7 @@ declare namespace google.maps {
         getMap(): Map;
         getOpacity(): number;
         getUrl(): string;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
         setOpacity(opacity: number): void;
     }
 
@@ -1053,7 +1118,7 @@ declare namespace google.maps {
         getProjection(): MapCanvasProjection;
         onAdd(): void;
         onRemove(): void;
-		setMap(map: Map | StreetViewPanorama | null): void;
+        setMap(map: Map | StreetViewPanorama | null): void;
     }
 
     export interface MapPanes {
@@ -1144,7 +1209,7 @@ declare namespace google.maps {
         getPanel(): Element;
         getRouteIndex(): number;
         setDirections(directions: DirectionsResult): void;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
         setOptions(options: DirectionsRendererOptions): void;
         setPanel(panel: Element): void;
         setRouteIndex(routeIndex: number): void;
@@ -1171,20 +1236,59 @@ declare namespace google.maps {
         route(request: DirectionsRequest, callback: (result: DirectionsResult, status: DirectionsStatus) => void ): void;
     }
 
+    /** A directions query to be sent to the DirectionsService. */
     export interface DirectionsRequest {
+        /** If true, instructs the Directions service to avoid ferries where possible. Optional. */
         avoidFerries?: boolean;
+        /** If true, instructs the Directions service to avoid highways where possible. Optional. */
         avoidHighways?: boolean;
+        /** If true, instructs the Directions service to avoid toll roads where possible. Optional. */
         avoidTolls?: boolean;
+        /**
+         * Location of destination. This can be specified as either a string to be geocoded, or a LatLng,
+         * or a Place. Required.
+         */
         destination?: string|LatLng|Place;
-        durationInTraffic?: boolean; /* Deprecated. Use drivingOptions field instead */
+        /** Deprecated. Use drivingOptions field instead */
+        durationInTraffic?: boolean;
+        /**
+         * Settings that apply only to requests where travelMode is DRIVING. This object will have no effect
+         * for other travel modes.
+         */
         drivingOptions?: DrivingOptions;
+        /**
+         * If set to true, the DirectionService will attempt to re-order the supplied intermediate waypoints
+         * to minimize overall cost of the route. If waypoints are optimized, inspect DirectionsRoute.waypoint_order
+         * in the response to determine the new ordering.
+         */
         optimizeWaypoints?: boolean;
+        /**
+         * Location of origin. This can be specified as either a string to be geocoded, or a LatLng, or a Place.
+         * Required.
+         */
         origin?: string|LatLng|Place;
+        /** Whether or not route alternatives should be provided. Optional. */
         provideRouteAlternatives?: boolean;
+        /** Region code used as a bias for geocoding requests. Optional. */
         region?: string;
+        /**
+         * Settings that apply only to requests where travelMode is TRANSIT. This object will have no effect for
+         * other travel modes.
+         */
         transitOptions?: TransitOptions;
+        /** Type of routing requested. Required. */
         travelMode?: TravelMode;
+        /**
+         * Preferred unit system to use when displaying distance. Defaults to the unit system used
+         * in the country of origin.
+         */
         unitSystem?: UnitSystem;
+        /**
+         * Array of intermediate waypoints. Directions will be calculated from the origin to the destination by way
+         * of each waypoint in this array. The maximum allowed waypoints is 8, plus the origin, and destination.
+         * Premium Plan customers are allowed 23 waypoints, plus the origin, and destination.
+         * Waypoints are not supported for transit directions. Optional.
+         */
         waypoints?: DirectionsWaypoint[];
     }
 
@@ -1235,8 +1339,20 @@ declare namespace google.maps {
         PESSIMISTIC
     }
 
+    /**
+     * A DirectionsWaypoint represents a location between origin and destination
+     * through which the trip should be routed.
+     */
     export interface DirectionsWaypoint {
+        /** Waypoint location. Can be an address string, a LatLng, or a Place. Optional. */
         location: LatLng|LatLngLiteral|string;
+        /**
+         * If true, indicates that this waypoint is a stop between the origin and destination.
+         * This has the effect of splitting the route into two legs. If false, indicates that the route
+         * should be biased to go through this waypoint, but not split into two legs. This is useful
+         * if you want to create a route in response to the user dragging waypoints on a map.
+         * This value is true by default. Optional.
+         */
         stopover: boolean;
     }
 
@@ -1255,14 +1371,50 @@ declare namespace google.maps {
         routes: DirectionsRoute[];
     }
 
+    /**
+     * A single route containing a set of legs in a DirectionsResult.
+     * Note that though this object is "JSON-like," it is not strictly JSON,
+     * as it directly and indirectly includes LatLng objects.
+     */
     export interface DirectionsRoute {
+        /** The bounds for this route. */
         bounds: LatLngBounds;
+        /** Copyrights text to be displayed for this route. */
         copyrights: string;
+        /** The total fare for the whole transit trip. Only applicable to transit requests. */
         fare: TransitFare;
+        /**
+         * An array of DirectionsLegs, each of which contains information about the steps of which it is composed.
+         * There will be one leg for each stopover waypoint or destination specified. So a route with no stopover
+         * waypoints will contain one DirectionsLeg and a route with one stopover waypoint will contain two.
+         */
         legs: DirectionsLeg[];
+        /**
+         * An array of LatLngs representing the entire course of this route. The path is simplified in order to make
+         * it suitable in contexts where a small number of vertices is required (such as Static Maps API URLs).
+         */
         overview_path: LatLng[];
+        /**
+         * An encoded polyline representation of the route in overview_path.
+         * This polyline is an approximate (smoothed) path of the resulting directions.
+         */
         overview_polyline: string;
+        /** Warnings to be displayed when showing these directions. */
         warnings: string[];
+        /**
+         * If optimizeWaypoints was set to true, this field will contain the re-ordered permutation
+         * of the input waypoints. For example, if the input was:
+         *   Origin: Los Angeles
+         *   Waypoints: Dallas, Bangor, Phoenix
+         *   Destination: New York
+         * and the optimized output was ordered as follows:
+         *   Origin: Los Angeles
+         *   Waypoints: Phoenix, Dallas, Bangor
+         *   Destination: New York
+         * then this field will be an Array containing the values [2, 0, 1]. Note that the numbering of waypoints
+         * is zero-based. If any of the input waypoints has stopover set to false, this field will be empty,
+         * since route optimization is not available for such queries.
+         */
         waypoint_order: number[];
     }
 
@@ -1624,13 +1776,13 @@ declare namespace google.maps {
     export class BicyclingLayer extends MVCObject {
         constructor();
         getMap(): Map;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
     }
 
     export class FusionTablesLayer extends MVCObject {
         constructor(options: FusionTablesLayerOptions);
         getMap(): Map;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
         setOptions(options: FusionTablesLayerOptions): void;
     }
 
@@ -1701,7 +1853,7 @@ declare namespace google.maps {
         getStatus(): KmlLayerStatus;
         getUrl(): string;
         getZIndex(): number;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
         setUrl(url: string): void;
         setZIndez(zIndex: number): void;
     }
@@ -1772,7 +1924,7 @@ declare namespace google.maps {
     export class TransitLayer extends MVCObject {
         constructor();
         getMap(): void;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
     }
 
     /***** Street View *****/
@@ -1904,7 +2056,7 @@ declare namespace google.maps {
 
     export class StreetViewCoverageLayer extends MVCObject  {
         getMap(): Map;
-		setMap(map: Map | null): void;
+        setMap(map: Map | null): void;
     }
 
     /***** Events *****/
@@ -1953,9 +2105,29 @@ declare namespace google.maps {
         static trigger(instance: any, eventName: string, ...args: any[]): void;
     }
 
+    /**
+     * This object is returned from various mouse events on the map and overlays, 
+     * and contains all the fields shown below.
+     */
     export interface MouseEvent {
+        /** Prevents this event from propagating further. */
         stop(): void;
+        /** The latitude/longitude that was below the cursor when the event occurred. */
         latLng: LatLng;
+    }
+
+    /**
+     * This object is sent in an event when a user clicks on an icon on the map.
+     * The place ID of this place is stored in the placeId member.
+     * To prevent the default info window from showing up, call the stop() method on this event to prevent it being
+     * propagated. Learn more about place IDs in the Places API developer guide.
+     */
+    export interface IconMouseEvent extends MouseEvent {
+        /**
+         * The place ID of the place that was clicked.
+         * This place ID can be used to query more information about the feature that was clicked.
+         */
+        placeId: string;
     }
 
     /* **** Base **** */
@@ -2005,20 +2177,41 @@ declare namespace google.maps {
     export type LatLngLiteral = { lat: number; lng: number }
     export type LatLngBoundsLiteral = { east: number; north: number; south: number; west: number }
 
+    /**
+     * A LatLngBounds instance represents a rectangle in geographical coordinates, including one
+     * that crosses the 180 degrees longitudinal meridian.
+     */
     export class LatLngBounds {
+        /** Constructs a rectangle from the points at its south-west and north-east corners. */
         constructor(sw?: LatLng|LatLngLiteral, ne?: LatLng|LatLngLiteral);
+        /** Returns true if the given lat/lng is in this bounds. */
         contains(latLng: LatLng|LatLngLiteral): boolean;
+        /** Returns true if this bounds approximately equals the given bounds. */
         equals(other: LatLngBounds|LatLngBoundsLiteral): boolean;
+        /** Extends this bounds to contain the given point. */
         extend(point: LatLng|LatLngLiteral): LatLngBounds;
+        /** Computes the center of this LatLngBounds */
         getCenter(): LatLng;
+        /** Returns the north-east corner of this bounds. */
         getNorthEast(): LatLng;
+        /** Returns the south-west corner of this bounds. */
         getSouthWest(): LatLng;
+        /** Returns true if this bounds shares any points with the other bounds. */
         intersects(other: LatLngBounds|LatLngBoundsLiteral): boolean;
+        /** Returns if the bounds are empty. */
         isEmpty(): boolean;
+        /** Converts to JSON representation. This function is intended to be used via JSON.stringify. */
         toJSON(): LatLngBoundsLiteral;
+        /** Converts the given map bounds to a lat/lng span. */
         toSpan(): LatLng;
+        /** Converts to string. */
         toString(): string;
+        /**
+         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the 
+         * southwest corner of the bounding box, while "hi" corresponds to the northeast corner of that box.
+         */
         toUrlValue(precision?: number): string;
+        /** Extends this bounds to contain the union of this and the given bounds. */
         union(other: LatLngBounds|LatLngBoundsLiteral): LatLngBounds;
     }
 
@@ -2044,16 +2237,39 @@ declare namespace google.maps {
     }
 
     /***** MVC *****/
+    /** Base class implementing KVO. */
     export class MVCObject {
+        /**
+         * The MVCObject constructor is guaranteed to be an empty function, and so you may inherit from MVCObject
+         * by simply writing MySubclass.prototype = new google.maps.MVCObject();. Unless otherwise noted,
+         * this is not true of other classes in the API, and inheriting from other classes in the API is not supported.
+         */
         constructor();
+        /**
+         * Adds the given listener function to the given event name. Returns an identifier for this listener
+         * that can be used with google.maps.event.removeListener.
+         */
         addListener(eventName: string, handler: (...args: any[]) => void): MapsEventListener;
+        /** Binds a View to a Model. */
         bindTo(key: string, target: MVCObject, targetKey?: string, noNotify?: boolean): void;
         changed(key: string): void;
+        /** Gets a value. */
         get(key: string): any;
+        /**
+         * Notify all observers of a change on this property. This notifies both objects that are bound
+         * to the object's property as well as the object that it is bound to.
+         */
         notify(key: string): void;
+        /** Sets a value. */
         set(key: string, value: any): void;
+        /** Sets a collection of key-value pairs. */
         setValues(values: any): void;
+        /**
+         * Removes a binding. Unbinding will set the unbound property to the current value.
+         * The object will not be notified, as the value has not changed.
+         */
         unbind(key: string): void;
+        /** Removes all bindings. */
         unbindAll(): void;
     }
 
@@ -2155,7 +2371,7 @@ declare namespace google.maps {
             setBorderColor(borderColor: string): void;
             setChannelNumber(channelNumber: string): void;
             setFormat(format: AdFormat): void;
-			setMap(map: Map | null): void;
+            setMap(map: Map | null): void;
             setPosition(position: ControlPosition): void;
             setTextColor(textColor: string): void;
             setTitleColor(titleColor: string): void;
@@ -2421,19 +2637,51 @@ declare namespace google.maps {
             getDrawingMode(): OverlayType;
             getMap(): Map;
             setDrawingMode(drawingMode: OverlayType): void;
-			setMap(map: Map | null): void;
+            setMap(map: Map | null): void;
             setOptions(options: DrawingManagerOptions): void;
         }
 
+        /** Options for the drawing manager. */
         export interface  DrawingManagerOptions {
+            /**
+             * Options to apply to any new circles created with this DrawingManager. The center and radius properties
+             * are ignored, and the map property of a  new circle is always set to the DrawingManager's map.
+             */
             circleOptions?: CircleOptions;
+            /** The enabled/disabled state of the drawing control. Defaults to true. */
             drawingControl?: boolean;
+            /** The display options for the drawing control. */
             drawingControlOptions?: DrawingControlOptions;
+            /**
+             * The DrawingManager's drawing mode, which defines the type of overlay to be added on the map.
+             * Accepted values are 'marker', 'polygon', 'polyline', 'rectangle', 'circle', or null. A drawing mode
+             * of null means that the user can interact with the map as normal, and clicks do not draw anything.
+             */
             drawingMode?: OverlayType;
+            /**
+             * The Map to which the DrawingManager is attached, which is the Map on which the overlays created
+             * will be placed.
+             */
             map?: Map;
+            /**
+             * Options to apply to any new markers created with this DrawingManager. The position property is ignored,
+             * and the map property of a new marker is always set to the DrawingManager's map.
+             */
             markerOptions?: MarkerOptions;
+            /**
+             * Options to apply to any new polygons created with this DrawingManager. The paths property is ignored,
+             * and the map property of a new polygon is always set to the DrawingManager's map.
+             */
             polygonOptions?: PolygonOptions;
+            /** 
+             * Options to apply to any new polylines created with this DrawingManager. The path property is ignored,
+             * and the map property of a new polyline is always set to the DrawingManager's map.
+             */
             polylineOptions?: PolylineOptions;
+            /**
+             * Options to apply to any new rectangles created with this DrawingManager. The bounds property is ignored,
+             * and the map property of a new rectangle is always set to the DrawingManager's map.
+             */
             rectangleOptions?: RectangleOptions;
         }
 
@@ -2442,16 +2690,43 @@ declare namespace google.maps {
             position?: ControlPosition;
         }
 
+        /** The properties of an overlaycomplete event on a DrawingManager.. */
         export interface OverlayCompleteEvent {
+            /** The completed overlay. */
             overlay: Marker|Polygon|Polyline|Rectangle|Circle;
+            /** The completed overlay's type. */
             type: OverlayType;
         }
 
+        /**
+         * The types of overlay that may be created by the DrawingManager. Specify these by value, or by using the
+         * constant's name. For example, 'polygon' or google.maps.drawing.OverlayType.POLYGON.
+         */
         export enum OverlayType {
+            /**
+             * Specifies that the DrawingManager creates circles, and that the overlay given in the overlaycomplete 
+             * event is a circle.
+             */
             CIRCLE,
+            /**
+             * Specifies that the DrawingManager creates markers, and that the overlay given in the overlaycomplete
+             * event is a marker.
+             */
             MARKER,
+            /**
+             * Specifies that the DrawingManager creates polygons, and that the overlay given in the overlaycomplete
+             * event is a polygon.
+             */
             POLYGON,
+            /**
+             * Specifies that the DrawingManager creates polylines, and that the overlay given in the overlaycomplete
+             * event is a polyline.
+             */
             POLYLINE,
+            /**
+             * Specifies that the DrawingManager creates rectangles, and that the overlay given in the overlaycomplete
+             * event is a rectangle.
+             */
             RECTANGLE
         }
     }
@@ -2470,7 +2745,7 @@ declare namespace google.maps {
             getZIndex(): number;
             setLayerId(layerId: string): void;
             setLayerKey(layerKey: string): void;
-			setMap(map: Map | null): void;
+            setMap(map: Map | null): void;
             setMapId(mapId: string): void;
             setOpacity(opacity: number): void;
             setOptions(options: MapsEngineLayerOptions): void;
@@ -2514,7 +2789,7 @@ declare namespace google.maps {
             setData(data: MVCArray): void;
             setData(data: LatLng[]): void;
             setData(data: WeightedLocation[]): void;
-			setMap(map: Map | null): void;
+            setMap(map: Map | null): void;
         }
 
         export interface HeatmapLayerOptions {

@@ -27,7 +27,7 @@ export interface WriteJsonOptions extends WriteOptions {
 export interface ReadJsonOptions {
     encoding: string;
     flag?: string;
-    reviver: (key: any, value: any) => any;
+    reviver(key: any, value: any): any;
 }
 
 export function copy(src: string, dst: string): Promise<void>;

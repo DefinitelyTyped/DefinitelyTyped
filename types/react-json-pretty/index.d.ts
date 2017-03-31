@@ -14,9 +14,7 @@ declare const JSONPretty: JSONPretty;
 type JSONPretty = ComponentClass<JSONPretty.JSONPrettyProps>;
 
 declare namespace JSONPretty {
-
-    export interface JSONPrettyProps extends HTMLProps<JSONPretty> {
+    interface JSONPrettyProps extends HTMLProps<JSONPretty> {
         json: {} | string;
     }
-
 }

@@ -2,18 +2,18 @@
 // Tests by Igor Oleinikov <https://github.com/Igorbek>
 
 function testPausable() {
-	var o: Rx.Observable<string> = {} as any;
+	const o: Rx.Observable<string> = {} as any;
 
-	var pauser = new Rx.Subject<boolean>();
+	const pauser = new Rx.Subject<boolean>();
 
-	var p = o.pausable(pauser);
+	let p = o.pausable(pauser);
 	p = o.pausableBuffered(pauser);
 }
 
 function testControlled() {
-	var o: Rx.Observable<string> = {} as any;
-	var c = o.controlled();
+	const o: Rx.Observable<string> = {} as any;
+	const c = o.controlled();
 
-	var d: Rx.IDisposable = c.request();
+	let d: Rx.IDisposable = c.request();
 	d = c.request(5);
 }

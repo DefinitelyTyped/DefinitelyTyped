@@ -57,7 +57,7 @@ interface CSSBeautifyOptions {
 interface jsb{
   (js_source_text: string, options?: JsBeautifyOptions) : string ;
   js:(js_source_text: string, options?: JsBeautifyOptions) => string ;
-  beautify_js:(js_source_text: string, options?: JsBeautifyOptions) => string ;
+  js_beautify:(js_source_text: string, options?: JsBeautifyOptions) => string ;
 
   css:(js_source_text: string, options?: CSSBeautifyOptions) => string ;
   css_beautify:(js_source_text: string, options?: CSSBeautifyOptions) => string ;

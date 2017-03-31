@@ -3,7 +3,7 @@ import r = require("revalidate");
 const isValidEmail = r.createValidator(
   message => value => {
     if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      return message
+      return message;
     }
   },
   'Invalid email address'
@@ -12,7 +12,7 @@ const isValidEmail = r.createValidator(
 const isGreaterThan = (n: any) => r.createValidator(
   message => value => {
     if (value && Number(value) <= n) {
-      return message
+      return message;
     }
   },
   field => `${field} must be greater than ${n}`

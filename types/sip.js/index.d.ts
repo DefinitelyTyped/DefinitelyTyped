@@ -3,7 +3,7 @@
 // Definitions by: Kir Dergachev <https://github.com/decyrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface SIP {
+interface SIP {
     UA: {
         new (configuration?: sipjs.ConfigurationParameters): sipjs.UA;
     };
@@ -18,7 +18,6 @@ declare interface SIP {
 }
 
 declare namespace sipjs {
-
     interface URI {
         scheme?: string;
         user?: string;
@@ -164,7 +163,6 @@ declare namespace sipjs {
     }
 
     namespace WebRTC {
-
         interface Options {
             stunServers?: string | string[];
             turnServers?: TurnServer | TurnServer[];
@@ -211,7 +209,7 @@ declare namespace sipjs {
         log?: {
             builtinEnabled?: boolean;
             level?: number | string;
-            connector?: (level: string, category: string, label: string, content: string) => void;
+            connector?(level: string, category: string, label: string, content: string): void;
         };
         mediaHandlerFactory?: WebRTC.MediaHandlerFactory;
         noAnswerTimeout?: number;
