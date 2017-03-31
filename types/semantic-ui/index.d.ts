@@ -1417,23 +1417,23 @@ declare namespace SemanticUI {
         /**
          * Callback before element opens
          */
-        onOpening?: (this: JQuery) => void;
+        onOpening?(this: JQuery): void;
         /**
          * Callback after element is open
          */
-        onOpen?: (this: JQuery) => void;
+        onOpen?(this: JQuery): void;
         /**
          * Callback before element closes
          */
-        onClosing?: (this: JQuery) => void;
+        onClosing?(this: JQuery): void;
         /**
          * Callback after element is closed
          */
-        onClose?: (this: JQuery) => void;
+        onClose?(this: JQuery): void;
         /**
          * Callback on element open or close
          */
-        onChange?: (this: JQuery) => void;
+        onChange?(this: JQuery): void;
 
         // endregion
 
@@ -1518,59 +1518,59 @@ declare namespace SemanticUI {
         /**
          * Callback after a checkbox is either checked or unchecked.
          */
-        onChange?: (this: HTMLElement) => void;
+        onChange?(this: HTMLElement): void;
         /**
          * Callback after a checkbox is checked.
          */
-        onChecked?: (this: HTMLElement) => void;
+        onChecked?(this: HTMLElement): void;
         /**
          * Callback after a checkbox is set to undeterminate.
          */
-        onIndeterminate?: (this: HTMLElement) => void;
+        onIndeterminate?(this: HTMLElement): void;
         /**
          * Callback after a checkbox is set to determinate.
          */
-        onDeterminate?: (this: HTMLElement) => void;
+        onDeterminate?(this: HTMLElement): void;
         /**
          * Callback after a checkbox is unchecked.
          */
-        onUnchecked?: (this: HTMLElement) => void;
+        onUnchecked?(this: HTMLElement): void;
         /**
          * Callback before a checkbox is checked. Can cancel change by returning false
          */
-        beforeChecked?: (this: HTMLElement) => boolean;
+        beforeChecked?(this: HTMLElement): boolean;
         /**
          * Callback before a checkbox is set to undeterminate. Can cancel change by returning false
          */
-        beforeIndeterminate?: (this: HTMLElement) => boolean;
+        beforeIndeterminate?(this: HTMLElement): boolean;
         /**
          * Callback before a checkbox is set to determinate. Can cancel change by returning false
          */
-        beforeDeterminate?: (this: HTMLElement) => boolean;
+        beforeDeterminate?(this: HTMLElement): boolean;
         /**
          * Callback before a checkbox is unchecked. Can cancel change by returning false
          */
-        beforeUnchecked?: (this: HTMLElement) => boolean;
+        beforeUnchecked?(this: HTMLElement): boolean;
         /**
          * Callback after a checkbox is enabled.
          */
-        onEnable?: (this: HTMLElement) => void;
+        onEnable?(this: HTMLElement): void;
         /**
          * Callback after a checkbox is disabled.
          */
-        onDisable?: (this: HTMLElement) => void;
+        onDisable?(this: HTMLElement): void;
         /**
          * Callback after a checkbox is enabled.
          *
          * @deprecated
          */
-        onEnabled?: (this: HTMLElement) => void;
+        onEnabled?(this: HTMLElement): void;
         /**
          * Callback after a checkbox is disabled.
          *
          * @deprecated
          */
-        onDisabled?: (this: HTMLElement) => void;
+        onDisabled?(this: HTMLElement): void;
 
         // endregion
 
@@ -1699,15 +1699,15 @@ declare namespace SemanticUI {
         /**
          * Callback on element show
          */
-        onShow?: (this: JQuery) => void;
+        onShow?(this: JQuery): void;
         /**
          * Callback on element hide
          */
-        onHide?: (this: JQuery) => void;
+        onHide?(this: JQuery): void;
         /**
          * Callback on element show or hide
          */
-        onchange?: (this: JQuery) => void;
+        onchange?(this: JQuery): void;
 
         // endregion
 
@@ -1734,7 +1734,7 @@ declare namespace SemanticUI {
          * Templates used to generate dimmer content
          */
         template?: {
-            dimmer?: () => JQuery;
+            dimmer?(): JQuery;
         };
         /**
          * Class names used to attach style to state
@@ -2108,39 +2108,39 @@ declare namespace SemanticUI {
         /**
          * Is called after a dropdown value changes. Receives the name and value of selection and the active menu element
          */
-        onChange?: (this: JQuery, value: any, text: string, $choice: JQuery) => void;
+        onChange?(this: JQuery, value: any, text: string, $choice: JQuery): void;
         /**
          * Is called after a dropdown selection is added using a multiple select dropdown, only receives the added value
          */
-        onAdd?: (this: JQuery, addedValue: any, addedText: string, $addedChoice: JQuery) => void;
+        onAdd?(this: JQuery, addedValue: any, addedText: string, $addedChoice: JQuery): void;
         /**
          * Is called after a dropdown selection is removed using a multiple select dropdown, only receives the removed value
          */
-        onRemove?: (this: JQuery, removedValue: any, removedText: string, $removedChoice: JQuery) => void;
+        onRemove?(this: JQuery, removedValue: any, removedText: string, $removedChoice: JQuery): void;
         /**
          * Allows you to modify a label before it is added. Expects the jQ DOM element for a label to be returned.
          */
-        onLabelCreate?: (this: JQuery, value: any, text: string) => JQuery;
+        onLabelCreate?(this: JQuery, value: any, text: string): JQuery;
         /**
          * Called when a label is remove, return false; will prevent the label from being removed.
          */
-        onLabelRemove?: (this: JQuery, value: any) => false | void;
+        onLabelRemove?(this: JQuery, value: any): false | void;
         /**
          * Is called after a label is selected by a user
          */
-        onLabelSelect?: (this: JQuery, $selectedLabels: JQuery) => void;
+        onLabelSelect?(this: JQuery, $selectedLabels: JQuery): void;
         /**
          * Is called after a dropdown is searched with no matching values
          */
-        onNoResults?: (this: JQuery, searchValue: any) => void;
+        onNoResults?(this: JQuery, searchValue: any): void;
         /**
          * Is called before a dropdown is shown. If false is returned, dropdown will not be shown.
          */
-        onShow?: (this: JQuery) => false | void;
+        onShow?(this: JQuery): false | void;
         /**
          * Is called before a dropdown is hidden. If false is returned, dropdown will not be hidden.
          */
-        onHide?: (this: JQuery) => false | void;
+        onHide?(this: JQuery): false | void;
 
         // endregion
 
@@ -2436,19 +2436,19 @@ declare namespace SemanticUI {
         /**
          * Callback when iframe is generated
          */
-        onCreate?: (this: JQuery, url: string) => void;
+        onCreate?(this: JQuery, url: string): void;
         /**
          * Whenever an iframe contents is shown
          */
-        onDisplay?: (this: JQuery) => void;
+        onDisplay?(this: JQuery): void;
         /**
          * Callback immediately before Embed is removed from DOM
          */
-        onPlaceholderDisplay?: (this: JQuery) => void;
+        onPlaceholderDisplay?(this: JQuery): void;
         /**
          * Callback when module parameters are determined. Allows you to adjust parameters at run time by returning a new parameters object.
          */
-        onEmbed?: (this: JQuery, parameters: any) => any;
+        onEmbed?(this: JQuery, parameters: any): any;
 
         // endregion
 
@@ -2513,11 +2513,11 @@ declare namespace SemanticUI {
             /**
              * returns html for iframe
              */
-            iframe?: (url: string, parameters: string) => string;
+            iframe?(url: string, parameters: string): string;
             /**
              * returns html for placeholder element
              */
-            placeholder?: (image: string, icon: string) => string;
+            placeholder?(image: string, icon: string): string;
         };
 
         // endregion
@@ -2629,27 +2629,27 @@ declare namespace SemanticUI {
         /**
          * Is called when a modal starts to show.
          */
-        onShow?: (this: JQuery) => void;
+        onShow?(this: JQuery): void;
         /**
          * Is called after a modal has finished showing animating.
          */
-        onVisible?: (this: JQuery) => void;
+        onVisible?(this: JQuery): void;
         /**
          * Is called after a modal starts to hide. If the function returns false, the modal will not hide.
          */
-        onHide?: (this: JQuery, $element: JQuery) => false | void;
+        onHide?(this: JQuery, $element: JQuery): false | void;
         /**
          * Is called after a modal has finished hiding animation.
          */
-        onHidden?: (this: JQuery) => void;
+        onHidden?(this: JQuery): void;
         /**
          * Is called after a positive, approve or ok button is pressed. If the function returns false, the modal will not hide.
          */
-        onApprove?: (this: JQuery, $element: JQuery) => false | void;
+        onApprove?(this: JQuery, $element: JQuery): false | void;
         /**
          * Is called after a negative, deny or cancel button is pressed. If the function returns false the modal will not hide.
          */
-        onDeny?: (this: JQuery, $element: JQuery) => false | void;
+        onDeny?(this: JQuery, $element: JQuery): false | void;
 
         // endregion
 
@@ -2777,7 +2777,7 @@ declare namespace SemanticUI {
 
         // region Callbacks
 
-        onHide?: (this: JQuery) => void;
+        onHide?(this: JQuery): void;
 
         // endregion
 
@@ -2999,31 +2999,31 @@ declare namespace SemanticUI {
         /**
          * Callback on popup element creation, with created popup
          */
-        onCreate?: (this: JQuery, $module: JQuery) => void;
+        onCreate?(this: JQuery, $module: JQuery): void;
         /**
          * Callback immediately before Popup is removed from DOM
          */
-        onRemove?: (this: JQuery, $module: JQuery) => void;
+        onRemove?(this: JQuery, $module: JQuery): void;
         /**
          * Callback before popup is shown. Returning false from this callback will cancel the popup from showing.
          */
-        onShow?: (this: JQuery, $module: JQuery) => false | void;
+        onShow?(this: JQuery, $module: JQuery): false | void;
         /**
          * Callback after popup is shown
          */
-        onVisible?: (this: JQuery, $module: JQuery) => void;
+        onVisible?(this: JQuery, $module: JQuery): void;
         /**
          * Callback before popup is hidden. Returning false from this callback will cancel the popup from hiding.
          */
-        onHide?: (this: JQuery, $module: JQuery) => false | void;
+        onHide?(this: JQuery, $module: JQuery): false | void;
         /**
          * Callback after popup is hidden
          */
-        onHidden?: (this: JQuery, $module: JQuery) => void;
+        onHidden?(this: JQuery, $module: JQuery): void;
         /**
          * Callback after popup cannot be placed on screen
          */
-        onUnplaceable?: (this: JQuery, $module: JQuery) => void;
+        onUnplaceable?(this: JQuery, $module: JQuery): void;
 
         // endregion
 
@@ -3214,23 +3214,23 @@ declare namespace SemanticUI {
         /**
          * Callback on percentage change
          */
-        onChange?: (this: JQuery, percent: number, value: number, total: number) => void;
+        onChange?(this: JQuery, percent: number, value: number, total: number): void;
         /**
          * Callback on success state
          */
-        onSuccess?: (this: JQuery, total: number) => void;
+        onSuccess?(this: JQuery, total: number): void;
         /**
          * Callback on active state
          */
-        onActive?: (this: JQuery, value: number, total: number) => void;
+        onActive?(this: JQuery, value: number, total: number): void;
         /**
          * Callback on error state
          */
-        onError?: (this: JQuery, value: number, total: number) => void;
+        onError?(this: JQuery, value: number, total: number): void;
         /**
          * Callback on warning state
          */
-        onWarning?: (this: JQuery, value: number, total: number) => void;
+        onWarning?(this: JQuery, value: number, total: number): void;
 
         // endregion
 
@@ -3390,7 +3390,7 @@ declare namespace SemanticUI {
         /**
          * Is called after user selects a new rating
          */
-        onRate?: (this: JQuery, value: number) => void;
+        onRate?(this: JQuery, value: number): void;
 
         // endregion
 
@@ -3605,37 +3605,37 @@ declare namespace SemanticUI {
          * The first parameter includes the filtered response results for that element.
          * The function should return false to prevent default action (closing search results and selecting value).
          */
-        onSelect?: (this: JQuery, result: any, response: any) => false | void;
+        onSelect?(this: JQuery, result: any, response: any): false | void;
         /**
          * Callback after processing element template to add HTML to results. Function should return false to prevent default actions.
          */
-        onResultsAdd?: (this: JQuery, html: string) => false | void;
+        onResultsAdd?(this: JQuery, html: string): false | void;
         /**
          * Callback on search query
          */
-        onSearchQuery?: (this: JQuery, query: string) => void;
+        onSearchQuery?(this: JQuery, query: string): void;
         /**
          * Callback on server response
          */
-        onResults?: (this: JQuery, response: any) => void;
+        onResults?(this: JQuery, response: any): void;
         /**
          * Callback when results are opened
          */
-        onResultsOpen?: (this: JQuery) => void;
+        onResultsOpen?(this: JQuery): void;
         /**
          * Callback when results are closed
          */
-        onResultsClose?: (this: JQuery) => void;
+        onResultsClose?(this: JQuery): void;
 
         // endregion
 
         // region Templates
 
         templates?: {
-            escape?: (string: string) => string;
-            message?: (message: string, type: string) => string;
-            category?: (response: any) => string;
-            standard?: (response: any) => string;
+            escape?(string: string): string;
+            message?(message: string, type: string): string;
+            category?(response: any): string;
+            standard?(response: any): string;
         };
 
         // endregion
@@ -3799,11 +3799,11 @@ declare namespace SemanticUI {
         /**
          * Is called before side change
          */
-        beforeChange?: (this: JQuery) => void;
+        beforeChange?(this: JQuery): void;
         /**
          * Is called after visible side change
          */
-        onChange?: (this: JQuery) => void;
+        onChange?(this: JQuery): void;
 
         // endregion
 
@@ -3996,23 +3996,23 @@ declare namespace SemanticUI {
         /**
          * Is called when a sidebar begins animating in.
          */
-        onVisible?: (this: JQuery) => void;
+        onVisible?(this: JQuery): void;
         /**
          * Is called when a sidebar has finished animating in.
          */
-        onShow?: (this: JQuery) => void;
+        onShow?(this: JQuery): void;
         /**
          * Is called when a sidebar begins to hide or show
          */
-        onChange?: (this: JQuery) => void;
+        onChange?(this: JQuery): void;
         /**
          * Is called before a sidebar begins to animate out.
          */
-        onHide?: (this: JQuery) => void;
+        onHide?(this: JQuery): void;
         /**
          * Is called after a sidebar has finished animating out.
          */
-        onHidden?: (this: JQuery) => void;
+        onHidden?(this: JQuery): void;
 
         // endregion
 
@@ -4183,27 +4183,27 @@ declare namespace SemanticUI {
         /**
          * Callback when element is repositioned from layout change
          */
-        onReposition?: (this: JQuery) => void;
+        onReposition?(this: JQuery): void;
         /**
          * Callback when requestAnimationFrame fires from scroll handler.
          */
-        onScroll?: (this: JQuery) => void;
+        onScroll?(this: JQuery): void;
         /**
          * Callback when element is fixed to page
          */
-        onStick?: (this: JQuery) => void;
+        onStick?(this: JQuery): void;
         /**
          * Callback when element is unfixed from page
          */
-        onUnstick?: (this: JQuery) => void;
+        onUnstick?(this: JQuery): void;
         /**
          * Callback when element is bound to top of parent container
          */
-        onTop?: (this: JQuery) => void;
+        onTop?(this: JQuery): void;
         /**
          * Callback when element is bound to bottom of parent container
          */
-        onBottom?: (this: JQuery) => void;
+        onBottom?(this: JQuery): void;
 
         // endregion
 
@@ -4383,19 +4383,19 @@ declare namespace SemanticUI {
         /**
          * Callback only the first time a tab is loaded
          */
-        onFirstLoad?: (this: JQuery, tabPath: string, parameterArray: any[], historyEvent: any) => void;
+        onFirstLoad?(this: JQuery, tabPath: string, parameterArray: any[], historyEvent: any): void;
         /**
          * Callback every time a tab is loaded
          */
-        onLoad?: (this: JQuery, tabPath: string, parameterArray: any[], historyEvent: any) => void;
+        onLoad?(this: JQuery, tabPath: string, parameterArray: any[], historyEvent: any): void;
         /**
          * Called when a tab begins loading remote content
          */
-        onRequest?: (this: JQuery, tabPath: string) => void;
+        onRequest?(this: JQuery, tabPath: string): void;
         /**
          * Called after a tab becomes visible
          */
-        onVisible?: (this: JQuery, tabPath: string) => void;
+        onVisible?(this: JQuery, tabPath: string): void;
 
         // endregion
 
@@ -4408,7 +4408,7 @@ declare namespace SemanticUI {
             /**
              * returns page title
              */
-            determineTitle?: (tabArray: any[]) => string;
+            determineTitle?(tabArray: any[]): string;
         };
         /**
          * Selectors used by module
@@ -4552,19 +4552,19 @@ declare namespace SemanticUI {
         /**
          * Callback on each transition that changes visibility to shown
          */
-        onShow?: (this: JQuery) => void;
+        onShow?(this: JQuery): void;
         /**
          * Callback on each transition that changes visibility to hidden
          */
-        onHide?: (this: JQuery) => void;
+        onHide?(this: JQuery): void;
         /**
          * Callback on animation start, useful for queued animations
          */
-        onStart?: (this: JQuery) => void;
+        onStart?(this: JQuery): void;
         /**
          * Callback on each transition complete
          */
-        onComplete?: (this: JQuery) => void;
+        onComplete?(this: JQuery): void;
 
         // endregion
 
@@ -4773,45 +4773,45 @@ declare namespace SemanticUI {
         /**
          * Allows modifying settings before request, or cancelling request
          */
-        beforeSend?: (settings: ApiSettings) => any;
+        beforeSend?(settings: ApiSettings): any;
         /**
          * Allows modifying XHR object for request
          */
-        beforeXHR?: (xhrObject: JQueryXHR) => any;
+        beforeXHR?(xhrObject: JQueryXHR): any;
         /**
          * Callback that occurs when request is made. Receives both the API success promise and the XHR request promise.
          */
-        onRequest?: (promise: JQueryDeferred<any>, xhr: JQueryXHR) => void;
+        onRequest?(promise: JQueryDeferred<any>, xhr: JQueryXHR): void;
         /**
          * Allows modifying the server's response before parsed by other callbacks to determine API event success
          */
-        onResponse?: (response: any) => void;
+        onResponse?(response: any): void;
         /**
          * Determines whether completed JSON response should be treated as successful
          *
          * @see {@link http://semantic-ui.com/behaviors/api.html#determining-json-success}
          */
-        successTest?: (response: any) => boolean;
+        successTest?(response: any): boolean;
         /**
          * Callback after successful response, JSON response must pass successTest
          */
-        onSuccess?: (response: any, element: JQuery, xhr: JQueryXHR) => void;
+        onSuccess?(response: any, element: JQuery, xhr: JQueryXHR): void;
         /**
          * Callback on request complete regardless of conditions
          */
-        onComplete?: (response: any, element: JQuery, xhr: JQueryXHR) => void;
+        onComplete?(response: any, element: JQuery, xhr: JQueryXHR): void;
         /**
          * Callback on failed response, or JSON response that fails successTest
          */
-        onFailure?: (response: any, element: JQuery) => void;
+        onFailure?(response: any, element: JQuery): void;
         /**
          * Callback on server error from returned status code, or XHR failure.
          */
-        onError?: (errorMessage: string, element: JQuery, xhr: JQueryXHR) => void;
+        onError?(errorMessage: string, element: JQuery, xhr: JQueryXHR): void;
         /**
          * Callback on abort caused by user clicking a link or manually cancelling request.
          */
-        onAbort?: (errorMessage: string, element: JQuery, xhr: JQueryXHR) => void;
+        onAbort?(errorMessage: string, element: JQuery, xhr: JQueryXHR): void;
 
         // endregion
 
@@ -5117,19 +5117,19 @@ declare namespace SemanticUI {
         /**
          * Callback on each valid field
          */
-        onValid?: (this: JQuery) => void;
+        onValid?(this: JQuery): void;
         /**
          * Callback on each invalid field
          */
-        onInvalid?: (this: JQuery) => void;
+        onInvalid?(this: JQuery): void;
         /**
          * Callback if a form is all valid
          */
-        onSuccess?: (this: JQuery, event: JQueryEventObject, fields: any) => void;
+        onSuccess?(this: JQuery, event: JQueryEventObject, fields: any): void;
         /**
          * Callback if any form field is invalid
          */
-        onFailure?: (this: JQuery, formErrors: string[], fields: any) => void;
+        onFailure?(this: JQuery, formErrors: string[], fields: any): void;
 
         // endregion
 
@@ -5346,39 +5346,39 @@ declare namespace SemanticUI {
         /**
          * Element's top edge has passed bottom of screen
          */
-        onTopVisible?: (this: JQuery) => void;
+        onTopVisible?(this: JQuery): void;
         /**
          * Element's top edge has passed top of the screen
          */
-        onTopPassed?: (this: JQuery) => void;
+        onTopPassed?(this: JQuery): void;
         /**
          * Element's bottom edge has passed bottom of screen
          */
-        onBottomVisible?: (this: JQuery) => void;
+        onBottomVisible?(this: JQuery): void;
         /**
          * Any part of an element is visible on screen
          */
-        onPassing?: (this: JQuery) => void;
+        onPassing?(this: JQuery): void;
         /**
          * Element's bottom edge has passed top of screen
          */
-        onBottomPassed?: (this: JQuery) => void;
+        onBottomPassed?(this: JQuery): void;
         /**
          * Element's top edge has not passed bottom of screen
          */
-        onTopVisibleReverse?: (this: JQuery) => void;
+        onTopVisibleReverse?(this: JQuery): void;
         /**
          * Element's top edge has not passed top of the screen
          */
-        onTopPassedReverse?: (this: JQuery) => void;
+        onTopPassedReverse?(this: JQuery): void;
         /**
          * Element's bottom edge has not passed bottom of screen
          */
-        onBottomVisibleReverse?: (this: JQuery) => void;
+        onBottomVisibleReverse?(this: JQuery): void;
         /**
          * Element's top has not passed top of screen but bottom has
          */
-        onPassingReverse?: (this: JQuery) => void;
+        onPassingReverse?(this: JQuery): void;
         /**
          * Element's bottom edge has not passed top of screen
          */
@@ -5395,13 +5395,13 @@ declare namespace SemanticUI {
          *
          * @since 2.2
          */
-        onLoad?: (this: JQuery) => void;
+        onLoad?(this: JQuery): void;
         /**
          * Occurs after all img initialized at the same time have loaded.
          *
          * @since 2.2
          */
-        onAllLoaded?: (this: JQuery) => void;
+        onAllLoaded?(this: JQuery): void;
 
         // endregion
 
@@ -5412,13 +5412,13 @@ declare namespace SemanticUI {
          *
          * @since 2.2
          */
-        onFixed?: (this: JQuery) => void;
+        onFixed?(this: JQuery): void;
         /**
          * Occurs after element has been removed from fixed position
          *
          * @since 2.2
          */
-        onUnfixed?: (this: JQuery) => void;
+        onUnfixed?(this: JQuery): void;
 
         // endregion
 
@@ -5427,11 +5427,11 @@ declare namespace SemanticUI {
         /**
          * Occurs each time an elements calculations are updated
          */
-        onUpdate?: (this: JQuery, calculations: ElementCalculations) => void;
+        onUpdate?(this: JQuery, calculations: ElementCalculations): void;
         /**
          * Occurs whenever element's visibility is refreshed
          */
-        onRefresh?: (this: JQuery) => void;
+        onRefresh?(this: JQuery): void;
 
         // endregion
 

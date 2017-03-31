@@ -1,6 +1,6 @@
 import Pbf = require('pbf');
 
-var pbf = new Pbf(new Uint8Array(1));
+const pbf = new Pbf(new Uint8Array(1));
 new Pbf();
 pbf.buf;
 pbf.pos;

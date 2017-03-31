@@ -35,7 +35,6 @@ export interface SourceMapConverter {
     getProperty(key: string): any;
 }
 
-
 /** Returns source map converter from given object */
 export function fromObject(obj: any): SourceMapConverter;
 
@@ -72,10 +71,10 @@ export function removeComments(src: string): string;
 export function removeMapFileComments(src: string): string;
 
 /** Returns the regex used to find source map comments */
-export var commentRegex: RegExp;
+export const commentRegex: RegExp;
 
 /** Returns the regex used to find source map comments pointing to map files */
-export var mapFileCommentRegex: RegExp;
+export const mapFileCommentRegex: RegExp;
 
 /** Returns a comment that links to an external source map via file.
  * By default, the comment is formatted like: //# sourceMappingURL=..., which you would normally see in a JS source file.

@@ -800,7 +800,7 @@ declare namespace PIXI {
 
         context: CanvasRenderingContext2D | null;
 
-        render(displayObject: PIXI.DisplayObject, renderTexture?: PIXI.RenderTexture, clear?: boolean, transform?: PIXI.Transform, skipUpdateTransform?: boolean): void
+        render(displayObject: PIXI.DisplayObject, renderTexture?: PIXI.RenderTexture, clear?: boolean, transform?: PIXI.Transform, skipUpdateTransform?: boolean): void;
         setBlendMode(blendMode: number): void;
         destroy(removeView?: boolean): void;
         clear(clearColor?: string): void;
@@ -887,7 +887,7 @@ declare namespace PIXI {
         _activeRenderTarget: RenderTarget;
         protected _initContext(): void;
 
-        render(displayObject: PIXI.DisplayObject, renderTexture?: PIXI.RenderTexture, clear?: boolean, transform?: PIXI.Transform, skipUpdateTransform?: boolean): void
+        render(displayObject: PIXI.DisplayObject, renderTexture?: PIXI.RenderTexture, clear?: boolean, transform?: PIXI.Transform, skipUpdateTransform?: boolean): void;
         setObjectRenderer(objectRenderer: ObjectRenderer): void;
         flush(): void;
         setBlendMode(blendMode: number): void;
