@@ -217,6 +217,12 @@
             "asOfVersion": "2.13.0"
         },
         {
+            "libraryName": "MQTT",
+            "typingsPackageName": "mqtt",
+            "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "ng-table",
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
