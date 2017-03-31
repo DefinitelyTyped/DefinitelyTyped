@@ -64,15 +64,15 @@ declare namespace cucumber {
         (scenario: HookScenario, runScenario?: (error: string, callback?: Function) => void): void;
     }
 
-    interface HookOptions{
-	timeout?: number;
+    interface HookOptions {
+        timeout?: number;
     }
 
     export interface Hooks {
-	Before(code: HookCode): void;
-	Before(options: HookOptions, code: HookCode): void;
-	After(code: HookCode): void;
-	After(options: HookOptions, code: HookCode): void;
+        Before(code: HookCode): void;
+        Before(options: HookOptions, code: HookCode): void;
+        After(code: HookCode): void;
+        After(options: HookOptions, code: HookCode): void;
         Around(code: AroundCode): void;
         setDefaultTimeout(time: number): void;
         registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
