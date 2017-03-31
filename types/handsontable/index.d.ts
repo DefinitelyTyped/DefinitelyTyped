@@ -10,7 +10,7 @@ declare namespace __Handsontable {
     // Using the workaround found here: https://github.com/Microsoft/TypeScript/issues/3602
 
     class Core {
-        constructor (element: Element, options: Handsontable.Options);
+        constructor(element: Element, options: Handsontable.Options);
         addHook(key: string, callback: Function|any[]): void;
         addHookOnce(key: string, callback: Function|any[]): void;
         alter(action: string, index: number, amount?: number, source?: string, keepEmptyRows?: boolean): void;
@@ -299,7 +299,6 @@ declare namespace Handsontable {
     }
 
     class Core extends __Handsontable.Core {
-
     }
 
     interface Selection {
