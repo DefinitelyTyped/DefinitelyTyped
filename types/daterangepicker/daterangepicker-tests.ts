@@ -76,5 +76,5 @@ function tests_simple() {
 declare const host: HTMLElement;
 function test_from_amd() {
     var picker = new daterangepicker(host);
-    console.log(picker.startDate.format("YYYY-MM-DD");)
+    console.log(picker.startDate.format("YYYY-MM-DD"));
 }
