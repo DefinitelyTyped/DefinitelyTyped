@@ -742,7 +742,7 @@ interface JQuery {
     /**
      * Search for value currently set in search input
      */
-    search(behavior: 'query', callback?: Function): JQuery;
+    search(behavior: 'query', callback?: () => void): JQuery;
     /**
      * Displays message in search results with text, using template matching type
      */
@@ -762,7 +762,7 @@ interface JQuery {
     /**
      * Search remote endpoint for specified query and display results
      */
-    search(behavior: 'search remote', query: string, callback?: Function): JQuery;
+    search(behavior: 'search remote', query: string, callback?: () => void): JQuery;
     /**
      * Search object for specified query and return results
      */
@@ -814,11 +814,11 @@ interface JQuery {
     /**
      * Shows results container
      */
-    search(behavior: 'show results', callback?: Function): JQuery;
+    search(behavior: 'show results', callback?: () => void): JQuery;
     /**
      * Hides results container
      */
-    search(behavior: 'hide results', callback?: Function): JQuery;
+    search(behavior: 'hide results', callback?: () => void): JQuery;
     /**
      * Generates results using parser specified by settings.template
      */
@@ -5145,7 +5145,7 @@ declare namespace SemanticUI {
         // region Rules
 
         rules?: {
-            [name: string]: Function;
+            [name: string]: (...args: any[]) => boolean;
         };
 
         // endregion

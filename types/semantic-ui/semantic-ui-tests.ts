@@ -184,7 +184,7 @@ function test_form_specifyingValidationRules() {
 
 function test_form_addCustomRule() {
     const user = { adminLevel: 1 };
-    $.fn.form.settings.rules.adminLevel = function (value: any, adminLevel: number) {
+    $.fn.form.settings.rules.adminLevel = (value: any, adminLevel: number) => {
         return (user.adminLevel >= adminLevel);
     };
     $('.ui.form').form({
