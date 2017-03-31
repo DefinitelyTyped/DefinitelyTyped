@@ -1,6 +1,4 @@
 declare namespace Stream {
-	export type Combiner<T> = (...streams: any[]) => T;
-
 	export interface Stream<T> {
 		/** Returns the value of the stream. */
 		(): T;
@@ -26,7 +24,7 @@ declare namespace Stream {
 		/** Creates a stream. */
 		<T>(value?: T): Stream<T>;
 		/** Creates a computed stream that reactively updates if any of its upstreams are updated. */
-		combine<T>(combiner: Combiner<T>, streams: Stream<any>[]): Stream<T>;
+		combine<T>(combiner: (...streams: any[]) => T, streams: Stream<any>[]): Stream<T>;
 		/** Creates a stream whose value is the array of values from an array of streams. */
 		merge(streams: Stream<any>[]): Stream<any[]>;
 		/** Creates a new stream with the results of calling the function on every incoming stream with and accumulator and the incoming value. */
