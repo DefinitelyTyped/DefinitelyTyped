@@ -5,7 +5,16 @@
 
 
 declare namespace moment {
+    interface DurationFormatSettings {
+      template?: string;
+      precision?: number;
+      trim?: boolean|string;
+      forceLength?: boolean;
+    }
+
     interface Duration {
-        format(template: string, precision?: string, settings?: any): string;
+        format(template: string, precision?: number, settings?: DurationFormatSettings): string;
+        format(template: string, settings?: DurationFormatSettings): string;
+        format(settings: DurationFormatSettings): string;
     }
 }
