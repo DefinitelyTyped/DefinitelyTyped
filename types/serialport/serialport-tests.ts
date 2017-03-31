@@ -1,7 +1,3 @@
-// Tests for serialport.d.ts
-// Project: https://github.com/EmergingTechnologyAdvisors/node-serialport
-// Definitions by: Jeremy Foster <https://github.com/codefoster>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
 
 import * as SerialPort from 'serialport';
