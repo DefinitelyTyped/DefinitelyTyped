@@ -8,10 +8,10 @@
 declare namespace Rx {
     interface ObservableStatic {
         /**
-        * Invokes the asynchronous function, surfacing the result through an observable sequence.
-        * @param functionAsync Asynchronous function which returns a Promise to run.
-        * @returns An observable sequence exposing the function's result value, or an exception.
-        */
+         * Invokes the asynchronous function, surfacing the result through an observable sequence.
+         * @param functionAsync Asynchronous function which returns a Promise to run.
+         * @returns An observable sequence exposing the function's result value, or an exception.
+         */
         startAsync<T>(functionAsync: () => IPromise<T>): Observable<T>;
 
         start<T>(func: () => T, context?: any, scheduler?: IScheduler): Observable<T>;

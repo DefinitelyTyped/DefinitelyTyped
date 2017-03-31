@@ -543,8 +543,8 @@ declare class BotUser extends User {
 		parameters?: {
 			displayReasonText?: string;
 			transferDisplayType?: KnuddelTransferDisplayType;
-			onSuccess?: () => void;
-			onError?: (message: string) => void;
+			onSuccess?(): void;
+			onError?(message: string): void;
 		}): void;
 }
 
@@ -1181,26 +1181,45 @@ declare class ExternalServerAccess {
 	 * Macht einen GET-Request auf die übergebene URL und liefert den Inhalt zurück.
 	 * Diese Methode ist eine Convenience-Methode für externalServerAccess.callURL().
 	 */
-	getURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; }): void;
+	getURL(
+		urlString: string,
+		parameters?: {
+			onSuccess?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+			onFailure?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+		}): void;
 	/**
 	 * Macht einen POST-Request auf die übergebene URL und liefert den Inhalt zurück.
 	 * Diese Methode ist eine Convenience-Methode für externalServerAccess.callURL().
 	 */
-	postURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; data?: Json; }): void;
+	postURL(
+		urlString: string,
+		parameters?: {
+			onSuccess?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+			onFailure?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+			data?: Json;
+		}): void;
 	/**
 	 * Macht einen GET-Request auf die übergebene URL. Im Gegensatz zum GET-Request wird der Inhalt der Webseite wird nicht ausgelesen.
 	 * Aus diesem Grund ist diese Methode schneller.
 	 * Diese Methode ist eine Convenience-Methode für externalServerAccess.callURL().
 	 */
-	touchURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; }): void;
+	touchURL(
+		urlString: string,
+		parameters?: {
+			onSuccess?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+			onFailure?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+		}): void;
 	/**
 	 * Macht einen Request auf die übergebene URL.
 	 */
-	callURL(urlString: string, parameters?: { onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-	onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void; method?: ("GET" | "POST"); data?: Json; }): void;
+	callURL(
+		urlString: string,
+		parameters?: {
+			onSuccess?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+			onFailure?(responseData: string, externalServerResponse: ExternalServerResponse): void;
+			method?: ("GET" | "POST");
+			data?: Json;
+		}): void;
 }
 
 /**
@@ -1308,7 +1327,7 @@ declare class KnuddelAccount {
 	 *
 	 * <br ><br ><b>Hinweis:</b> Knuddel an einen Nutzer senden kannst du mit der Methode BotUser/transferKnuddel:method.
 	 */
-	use(knuddelAmount: KnuddelAmount, displayReasonText: string, parameters?: { transferReason?: string; onError?: (message: string) => void; onSuccess?: () => void; }): void;
+	use(knuddelAmount: KnuddelAmount, displayReasonText: string, parameters?: { transferReason?: string; onError?(message: string): void; onSuccess?(): void; }): void;
 }
 
 /**
@@ -1590,7 +1609,13 @@ declare class KnuddelsServer {
 	 * Ist ein KnuddelPot 30 Minuten nach dem Erzeugen noch nicht gesealt,
 	 * so wird vom Server automatisch ein KnuddelPot/refund:method ausgelöst.
 	 */
-	static createKnuddelPot(knuddelAmount: KnuddelAmount, params?: { payoutTimeoutMinutes?: number; shouldSealPot?: (pot: KnuddelPot) => boolean; onPotSealed?: (pot: KnuddelPot) => void; }): KnuddelPot;
+	static createKnuddelPot(
+		knuddelAmount: KnuddelAmount,
+		params?: {
+			payoutTimeoutMinutes?: number;
+			shouldSealPot?(pot: KnuddelPot): boolean;
+			onPotSealed?(pot: KnuddelPot): void;
+		}): KnuddelPot;
 	/**
 	 * Liefert den KnuddelPot mit der angegeben id.
 	 */
@@ -2466,8 +2491,10 @@ declare class UserAccess {
 	 */
 	eachAccessibleUser(
 		callback: (user: User, index: number, accessibleUserCount: number, key?: string) => boolean,
-		parameters?: { onStart?: (accessibleUserCount: number, key?: string) => void;
-	onEnd?: (accessibleUserCount: number, key?: string) => void; }): void;
+		parameters?: {
+			onStart?(accessibleUserCount: number, key?: string): void;
+			onEnd?(accessibleUserCount: number, key?: string): void;
+		}): void;
 }
 
 /**
@@ -2589,8 +2616,8 @@ declare class UserPersistenceNumbers {
 			minimumValue?: number;
 			maximumValue?: number;
 			maximumCount?: number;
-			onStart?: (totalCount: number, key: string) => void;
-			onEnd?: (totalCount: number, key: string) => void;
+			onStart?(totalCount: number, key: string): void;
+			onEnd?(totalCount: number, key: string): void;
 		}): void;
 	/**
 	 * Liefert alle keys, die für User in der Persistence

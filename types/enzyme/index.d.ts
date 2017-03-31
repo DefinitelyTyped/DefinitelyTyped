@@ -203,7 +203,7 @@ interface CommonWrapper<P, S> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      * @param state
-         * @param [callback]
+     * @param [callback]
      */
     setState<K extends keyof S>(state: Pick<S, K>, callback?: () => void): this;
 
@@ -216,8 +216,8 @@ interface CommonWrapper<P, S> {
      * Returns itself.
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
-         * @param props
-         * @param [callback]
+     * @param props
+     * @param [callback]
      */
     setProps<K extends keyof P>(props: Pick<P, K>): this;
 

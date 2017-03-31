@@ -153,8 +153,8 @@ export function bisectRight(array: Date[], x: Date, lo?: number, hi?: number): n
 export const bisect: typeof bisectRight;
 
 export interface Bisector<T, U> {
-    left: (array: T[], x: U, lo?: number, hi?: number) => number;
-    right: (array: T[], x: U, lo?: number, hi?: number) => number;
+    left(array: T[], x: U, lo?: number, hi?: number): number;
+    right(array: T[], x: U, lo?: number, hi?: number): number;
 }
 
 export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;

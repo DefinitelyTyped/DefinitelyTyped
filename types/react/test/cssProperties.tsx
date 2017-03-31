@@ -27,6 +27,9 @@ const justifyContentStyleTest = <div style={justifyContentStyle} />;
 const boxShadowStyle: React.CSSProperties = { boxShadow: '2px 2px 2px 1px rgba(0, 0, 0, 0.2)' };
 const boxShadowStyleTest = <div style={boxShadowStyle} />;
 
+const overflowStyle: React.CSSProperties = { overflow: 'auto', overflowX: 'visible', overflowY: 'scroll' };
+const overflowStyleTest = <div style={overflowStyle} />;
+
 // SVG specific style attribute declarations
 
 const fillOpacityStyle: React.CSSProperties = { fillOpacity: 0.3 };

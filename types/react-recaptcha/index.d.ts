@@ -10,16 +10,16 @@ export = Recaptcha;
 interface RecaptchaProps {
     className?: string;
     elementID?: string;
-    expiredCallback?: () => any;
+    expiredCallback?(): any;
     expiredCallbackName?: string;
-    onloadCallback?: () => any;
+    onloadCallback?(): any;
     onloadCallbackName?: string;
     render?: string;
     size?: string;
     tabindex?: string;
     theme?: "dark" | "light";
     type?: string;
-    verifyCallback?: () => any;
+    verifyCallback?(): any;
     verifyCallbackName?: string;
     sitekey?: string;
 }

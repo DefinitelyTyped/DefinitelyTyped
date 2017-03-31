@@ -751,11 +751,13 @@ describe('FakeRequest', () => {
 });
 
 describe("Jasmine Mock Ajax (for toplevel)", () => {
+	// tslint:disable one-variable-per-declaration
 	let request, anotherRequest, response;
 	let success, error, complete;
 	let client, onreadystatechange;
 	const sharedContext: any = {};
 	let fakeGlobal, mockAjax;
+	// tslint:enable
 
 	beforeEach(() => {
 		const fakeXMLHttpRequest = jasmine.createSpy('realFakeXMLHttpRequest');
@@ -1266,8 +1268,8 @@ describe('ParamParser', () => {
 	});
 
 	it('has a default parser', () => {
-		const parser = this.parser.findParser({ contentType: () => { } }),
-			parsed = parser.parse('3+stooges=shemp&3+stooges=larry%20%26%20moe%20%26%20curly&some%3Dthing=else+entirely');
+		const parser = this.parser.findParser({ contentType: () => { } });
+		const parsed = parser.parse('3+stooges=shemp&3+stooges=larry%20%26%20moe%20%26%20curly&some%3Dthing=else+entirely');
 
 		expect(parsed).toEqual({
 			'3 stooges': ['shemp', 'larry & moe & curly'],
@@ -1284,9 +1286,9 @@ describe('ParamParser', () => {
 					containing: 'stuff'
 				}
 			}
-        },
-			parser = this.parser.findParser({ contentType: () => 'application/json' }),
-			parsed = parser.parse(JSON.stringify(data));
+		};
+		const parser = this.parser.findParser({ contentType: () => 'application/json' });
+		const parsed = parser.parse(JSON.stringify(data));
 
 		expect(parsed).toEqual(data);
 	});
@@ -1300,9 +1302,9 @@ describe('ParamParser', () => {
 					containing: 'stuff'
 				}
 			}
-        },
-			parser = this.parser.findParser({ contentType: () => 'application/json; charset=utf-8' }),
-			parsed = parser.parse(JSON.stringify(data));
+		};
+		const parser = this.parser.findParser({ contentType: () => 'application/json; charset=utf-8' });
+		const parsed = parser.parse(JSON.stringify(data));
 
 		expect(parsed).toEqual(data);
 	});
@@ -1315,8 +1317,8 @@ describe('ParamParser', () => {
 
 		this.parser.add(custom);
 
-		const parser = this.parser.findParser({ contentType: () => { } }),
-			parsed = parser.parse('custom_format');
+		const parser = this.parser.findParser({ contentType: () => { } });
+		const parsed = parser.parse('custom_format');
 
 		expect(parsed).toEqual('parsedFormat');
 		expect(custom.test).toHaveBeenCalled();
@@ -1331,8 +1333,8 @@ describe('ParamParser', () => {
 
 		this.parser.add(custom);
 
-		const parser = this.parser.findParser({ contentType: () => { } }),
-			parsed = parser.parse('custom_format');
+		const parser = this.parser.findParser({ contentType: () => { } });
+		const parsed = parser.parse('custom_format');
 
 		expect(parsed).toEqual({ custom_format: ['undefined'] });
 		expect(custom.test).toHaveBeenCalled();
@@ -1347,8 +1349,8 @@ describe('ParamParser', () => {
 
 		this.parser.add(custom);
 
-		let parser = this.parser.findParser({ contentType: () => { } }),
-			parsed = parser.parse('custom_format');
+		let parser = this.parser.findParser({ contentType: () => { } });
+		let parsed = parser.parse('custom_format');
 
 		expect(parsed).toEqual('parsedFormat');
 
@@ -1541,8 +1543,8 @@ describe('EventBus', () => {
 	});
 
 	it('only triggers callbacks for the specified event', () => {
-		const fooCallback = jasmine.createSpy('foo'),
-			barCallback = jasmine.createSpy('bar');
+		const fooCallback = jasmine.createSpy('foo');
+		const barCallback = jasmine.createSpy('bar');
 
 		this.bus.addEventListener('foo', fooCallback);
 		this.bus.addEventListener('bar', barCallback);
@@ -1599,7 +1601,7 @@ describe('EventBus', () => {
 });
 
 describe("Webmock style mocking", () => {
-	let successSpy, response, fakeGlobal, mockAjax;
+	let successSpy, response, fakeGlobal, mockAjax; // tslint:disable-line one-variable-per-declaration
 
 	const sendRequest = function(fakeGlobal, url?, method?) {
 		url = url || "http://example.com/someApi";
@@ -1685,10 +1687,10 @@ describe("withMock", () => {
 	};
 
 	it("installs the mock for passed in function, and uninstalls when complete", () => {
-		const xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']),
-			xmlHttpRequestCtor = spyOn(window as any, 'XMLHttpRequest').and.returnValue(xmlHttpRequest),
-			fakeGlobal = { XMLHttpRequest: xmlHttpRequestCtor },
-			mockAjax = new MockAjax(fakeGlobal);
+		const xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']);
+		const xmlHttpRequestCtor = spyOn(window as any, 'XMLHttpRequest').and.returnValue(xmlHttpRequest);
+		const fakeGlobal = { XMLHttpRequest: xmlHttpRequestCtor };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.withMock(() => {
 			sendRequest(fakeGlobal);
@@ -1700,10 +1702,10 @@ describe("withMock", () => {
 	});
 
 	it("properly uninstalls when the passed in function throws", () => {
-		const xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']),
-			xmlHttpRequestCtor = spyOn(window as any, 'XMLHttpRequest').and.returnValue(xmlHttpRequest),
-			fakeGlobal = { XMLHttpRequest: xmlHttpRequestCtor },
-			mockAjax = new MockAjax(fakeGlobal);
+		const xmlHttpRequest = jasmine.createSpyObj('XMLHttpRequest', ['open', 'send']);
+		const xmlHttpRequestCtor = spyOn(window as any, 'XMLHttpRequest').and.returnValue(xmlHttpRequest);
+		const fakeGlobal = { XMLHttpRequest: xmlHttpRequestCtor };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		expect(() => {
 			mockAjax.withMock(() => {
@@ -1718,9 +1720,9 @@ describe("withMock", () => {
 
 describe("mockAjax", () => {
 	it("throws an error if installed multiple times", () => {
-		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
-			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
-			mockAjax = new MockAjax(fakeGlobal);
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest');
+		const fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		function doubleInstall() {
 			mockAjax.install();
@@ -1731,9 +1733,9 @@ describe("mockAjax", () => {
 	});
 
 	it("does not throw an error if uninstalled between installs", () => {
-		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
-			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
-			mockAjax = new MockAjax(fakeGlobal);
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest');
+		const fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		function sequentialInstalls() {
 			mockAjax.install();
@@ -1745,9 +1747,9 @@ describe("mockAjax", () => {
 	});
 
 	it("does not replace XMLHttpRequest until it is installed", () => {
-		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
-			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
-			mockAjax = new MockAjax(fakeGlobal);
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest');
+		const fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		fakeGlobal.XMLHttpRequest('foo');
 		expect(fakeXmlHttpRequest).toHaveBeenCalledWith('foo');
@@ -1759,9 +1761,9 @@ describe("mockAjax", () => {
 	});
 
 	it("replaces the global XMLHttpRequest on uninstall", () => {
-		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
-			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
-			mockAjax = new MockAjax(fakeGlobal);
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest');
+		const fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
 		mockAjax.uninstall();
@@ -1771,9 +1773,9 @@ describe("mockAjax", () => {
 	});
 
 	it("clears requests and stubs upon uninstall", () => {
-		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
-			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
-			mockAjax = new MockAjax(fakeGlobal);
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest');
+		const fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
 
@@ -1790,9 +1792,9 @@ describe("mockAjax", () => {
 	});
 
 	it("allows the httpRequest to be retrieved", () => {
-		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
-			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
-			mockAjax = new MockAjax(fakeGlobal);
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest');
+		const fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
 		const request = new (<any> fakeGlobal.XMLHttpRequest)();
@@ -1802,9 +1804,9 @@ describe("mockAjax", () => {
 	});
 
 	it("allows the httpRequests to be cleared", () => {
-		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest'),
-			fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest },
-			mockAjax = new MockAjax(fakeGlobal);
+		const fakeXmlHttpRequest = jasmine.createSpy('fakeXmlHttpRequest');
+		const fakeGlobal = { XMLHttpRequest: fakeXmlHttpRequest };
+		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
 		const request = new (<any> fakeGlobal.XMLHttpRequest)();

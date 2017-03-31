@@ -1728,7 +1728,7 @@ namespace spdevlab {
                     });
                 });
             }
-        };
+        }
     }
 }
 
@@ -2156,7 +2156,7 @@ namespace _ {
         $('#report').children().remove();
         $('#report').append("Failed to get session. Error: " + args.get_message());
     }
-};
+}
 
 // publishing.ts
 // Variables used in various callbacks
@@ -2349,7 +2349,6 @@ namespace App {
                 .then(l => this.lists = l)
                 .catch((e: string) => this.$n.show(e, true))
                 .finally(() => this.$n.remove(loading));
-            ;
         }
     }
 

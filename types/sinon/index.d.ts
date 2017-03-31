@@ -404,6 +404,9 @@ declare namespace Sinon {
         useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
         useFakeServer(): SinonFakeServer;
         restore(): void;
+        reset(): void;
+        resetHistory(): void;
+        resetBehavior(): void;
     }
 
     interface SinonSandboxStatic {

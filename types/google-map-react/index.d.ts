@@ -15,7 +15,7 @@ export interface Options {
   styles?: any[];
   scrollwheel?: boolean;
   panControl?: boolean;
-  mapTypeControl?: boolean,
+  mapTypeControl?: boolean;
   minZoomOverride?: boolean;
   minZoom?: number;
   gestureHandling?: string;
@@ -59,18 +59,18 @@ export interface Props {
   margin?: any[];
   debounced?: boolean;
   layerTypes?: string[];
-  onClick?: ({x, y, lat, lng, event}: { x: number, y: number, lat: number, lng: number, event: any }) => any;
-  onChange?: ({ center, zoom, bounds, marginBounds }: { center: [number, number], zoom: number, bounds: [number, number, number, number], marginBounds: [number, number, number, number] }) => any;
+  onClick?({x, y, lat, lng, event}: { x: number, y: number, lat: number, lng: number, event: any }): any;
+  onChange?({ center, zoom, bounds, marginBounds }: { center: [number, number], zoom: number, bounds: [number, number, number, number], marginBounds: [number, number, number, number] }): any;
   resetBoundsOnResize?: boolean;
-  onChildClick?: (hoverKey: any, childProps: any) => void;
-  onChildMouseEnter?: (hoverKey: any, childProps: any) => void;
-  onChildMouseLeave?: (hoverKey: any, childProps: any) => void;
-  onZoomAnimationStart?: (args: any) => void;
-  onZoomAnimationEnd?: (args: any) => void;
-  onMapTypeIdChange?: (args: any) => void;
-  distanceToMouse?: (pt: {x: number, y: number}, mousePos: {x: number, y: number}) => void;
-  googleMapLoader?: (bootstrapURLKeys: any) => void;
-  onGoogleApiLoaded?: ({map, maps}: { map: any, maps: any }) => void;
+  onChildClick?(hoverKey: any, childProps: any): void;
+  onChildMouseEnter?(hoverKey: any, childProps: any): void;
+  onChildMouseLeave?(hoverKey: any, childProps: any): void;
+  onZoomAnimationStart?(args: any): void;
+  onZoomAnimationEnd?(args: any): void;
+  onMapTypeIdChange?(args: any): void;
+  distanceToMouse?(pt: {x: number, y: number}, mousePos: {x: number, y: number}): void;
+  googleMapLoader?(bootstrapURLKeys: any): void;
+  onGoogleApiLoaded?({map, maps}: { map: any, maps: any }): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 

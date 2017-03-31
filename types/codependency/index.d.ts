@@ -22,7 +22,7 @@ interface RequirePeerFunctionOptions {
 
 interface RequirePeerFunction {
     (name: string, options?: RequirePeerFunctionOptions): any;
-    resolve: (name: string) => DependencyInfo;
+    resolve(name: string): DependencyInfo;
 }
 
 export function register(baseModule: NodeModule, options?: {index: string[]}): RequirePeerFunction;

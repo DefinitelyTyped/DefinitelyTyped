@@ -1,13 +1,12 @@
-// Type definitions for dockerode 2.3
+// Type definitions for dockerode 2.4
 // Project: https://github.com/apocas/dockerode
-// Definitions by: Carl Winkler <https://github.com/seikho>
+// Definitions by: Carl Winkler <https://github.com/seikho>, Nicolas Laplante <https://github.com/nlaplante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import * as stream from 'stream';
 import * as events from 'events';
-
 
 declare namespace Dockerode {
   interface Container {
@@ -94,8 +93,8 @@ declare namespace Dockerode {
     tag(options: {}, callback: Callback<any>): void;
     tag(callback: Callback<any>): void;
 
-    remove(options: {}, callback: Callback<any>): void;
-    remove(callback: Callback<any>): void;
+    remove(options: {}, callback: Callback<ImageRemoveInfo>): void;
+    remove(callback: Callback<ImageRemoveInfo>): void;
 
     modem: any;
     id?: string;
@@ -132,6 +131,49 @@ declare namespace Dockerode {
 
   interface Node {
     inspect(callback: Callback<any>): void;
+
+    modem: any;
+    id?: string;
+  }
+
+  interface Plugin {
+    modem: any;
+    name: string;
+    remote: any;
+
+    inspect(callback: Callback<PluginInspectInfo>): void;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+
+    privileges(callback: Callback<any>): void;
+
+    pull(options: {}, callback: Callback<any>): void;
+
+    enable(options: {}, callback: Callback<any>): void;
+    enable(callback: Callback<any>): void;
+
+    disable(options: {}, callback: Callback<any>): void;
+    disable(callback: Callback<any>): void;
+
+    push(options: {}, callback: Callback<any>): void;
+    push(callback: Callback<any>): void;
+
+    configure(options: {}, callback: Callback<any>): void;
+    configure(callback: Callback<any>): void;
+
+    upgrade(auth: any, options: {}, callback: Callback<any>): void;
+    upgrade(auth: any, callback: Callback<any>): void;
+  }
+
+  interface Secret {
+    inspect(callback: Callback<SecretInfo>): void;
+
+    update(options: {}, callback: Callback<any>): void;
+    update(callback: Callback<any>): void;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
 
     modem: any;
     id?: string;
@@ -546,6 +588,137 @@ declare namespace Dockerode {
     protocol?: "https" | "http";
     timeout?: number;
   }
+
+  interface SecretVersion {
+    Index: number;
+  }
+
+  interface ServiceSpec {
+    Name: string;
+  }
+
+  interface SecretInfo {
+    ID: string;
+    Version: SecretVersion;
+    CreatedAt: string;
+    UpdatedAt?: string;
+    Spec?: ServiceSpec;
+  }
+
+  interface PluginInfo {
+    Id?: string;
+    Name: string;
+    Enabled: boolean;
+    Settings: PluginSettings;
+    PluginReference?: string;
+    Config: PluginConfig;
+  }
+
+  type PluginInspectInfo = PluginInfo;
+
+  interface PluginSettings {
+    Mounts: PluginMount[];
+    Env: string[];
+    Args: string[];
+    Devices: PluginDevice[];
+  }
+
+  interface PluginConfig {
+    Description: string;
+    Documentation: string;
+    Interface: any;
+    Entrypoint: string[];
+    WorkDir: string;
+    User?: User;
+    Network: Network;
+    Linux: Linux;
+    PropagatedMount: string;
+    Mounts: PluginMount[];
+    Env: PluginEnv[];
+    Args: Args;
+    rootfs: any;
+  }
+
+  interface Interface {
+    Types: PluginInterfaceType[];
+    Socket: string;
+  }
+
+  interface PluginInterfaceType {
+    Prefix: string;
+    Capability: string;
+    Version: string;
+  }
+
+  interface PluginMount {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Source: string;
+    Destination: string;
+    Type: string;
+    Options: string[];
+  }
+
+  interface Linux {
+    Capabilities: string[];
+    AllowAllDevices: boolean;
+    Devices: PluginDevice[];
+  }
+
+  interface PluginDevice {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Path: string;
+  }
+
+  interface Network {
+    Type: string;
+  }
+
+  interface PluginEnv {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Value: string;
+  }
+
+  interface Args {
+    Name: string;
+    Description: string;
+    Settable: string[];
+    Value: string;
+  }
+
+  interface User {
+    UID: number;
+    GID: number;
+  }
+
+  interface ImageRemoveInfo {
+    Untagged: string;
+    Deleted: string;
+  }
+
+  interface PruneImagesInfo {
+    ImagesDeleted: ImageRemoveInfo[];
+    SpaceReclaimed: number;
+  }
+
+  interface PruneVolumesInfo {
+    VolumesDeleted: string[];
+    SpaceReclaimed: number;
+  }
+
+  interface PruneContainersInfo {
+    ContainersDeleted: string[];
+    SpaceReclaimed: number;
+  }
+
+  interface PruneNetworksInfo {
+    NetworksDeleted: string[];
+  }
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
@@ -575,6 +748,8 @@ declare class Dockerode {
 
   getVolume(name: string): Dockerode.Volume;
 
+  getPlugin(name: string, remote: any): Dockerode.Plugin;
+
   getService(id: string): Dockerode.Service;
 
   getTask(id: string): Dockerode.Task;
@@ -582,6 +757,8 @@ declare class Dockerode {
   getNode(id: string): Dockerode.Node;
 
   getNetwork(id: string): Dockerode.Network;
+
+  getSecret(id: string): Dockerode.Secret;
 
   getExec(id: string): Dockerode.Exec;
 
@@ -600,11 +777,21 @@ declare class Dockerode {
   listTasks(options: {}, callback: Callback<any[]>): void;
   listTasks(callback: Callback<any[]>): void;
 
+  listSecrets(options: {}, callback: Callback<Dockerode.SecretInfo[]>): void;
+  listSecrets(callback: Callback<Dockerode.SecretInfo[]>): void;
+
+  listPlugins(options: {}, callback: Callback<Dockerode.PluginInfo[]>): void;
+  listPlugins(callback: Callback<Dockerode.PluginInfo[]>): void;
+
   listVolumes(options: {}, callback: Callback<any[]>): void;
   listVolumes(callback: Callback<any[]>): void;
 
   listNetworks(options: {}, callback: Callback<any[]>): void;
   listNetworks(callback: Callback<any[]>): void;
+
+  createSecret(options: {}, callback: Callback<any>): void;
+
+  createPlugin(options: {}, callback: Callback<any>): void;
 
   createVolume(options: {}, callback: Callback<any>): void;
 
@@ -613,6 +800,18 @@ declare class Dockerode {
   createNetwork(options: {}, callback: Callback<any>): void;
 
   searchImages(options: {}, callback: Callback<any>): void;
+
+  pruneImages(options: {}, callback: Callback<Dockerode.PruneImagesInfo>): void;
+  pruneImages(callback: Callback<Dockerode.PruneImagesInfo>): void;
+
+  pruneContainers(options: {}, callback: Callback<Dockerode.PruneContainersInfo>): void;
+  pruneContainers(callback: Callback<Dockerode.PruneContainersInfo>): void;
+
+  pruneVolumes(options: {}, callback: Callback<Dockerode.PruneVolumesInfo>): void;
+  pruneVolumes(callback: Callback<Dockerode.PruneVolumesInfo>): void;
+
+  pruneNetworks(options: {}, callback: Callback<Dockerode.PruneNetworksInfo>): void;
+  pruneNetworks(callback: Callback<Dockerode.PruneNetworksInfo>): void;
 
   info(callback: Callback<any>): void;
 
@@ -637,6 +836,8 @@ declare class Dockerode {
   swarmLeave(options: {}, callback: Callback<any>): void;
 
   swarmUpdate(options: {}, callback: Callback<any>): void;
+
+  swarmInspect(callback: Callback<any>): void;
 
   modem: any;
 }

@@ -14,7 +14,7 @@ declare function affix(selector: string): JQuery;
 
 interface JQuery {
     /** Affixes the given jquery selectors into the element and will be removed after each spec
-    * @param {string} selector The JQuery selector to be added to the dom
-    */
+     * @param {string} selector The JQuery selector to be added to the dom
+     */
     affix(selector: string): JQuery;
 }

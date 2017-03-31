@@ -26,11 +26,11 @@ declare module 'highcharts' {
     }
 
     interface MapSeriesOptions {
-        data?: number[] | [number, number][] | [string, number][] | highcharts.DataPoint[];
+        data?: number[] | Array<[number, number]> | Array<[string, number]> | highcharts.DataPoint[];
 
         dataLabels?: MapSeriesOptionsDataLabels;
 
-        joinBy?: Array<string>;
+        joinBy?: string[];
 
         mapData?: geojson.GeoJsonObject;
 

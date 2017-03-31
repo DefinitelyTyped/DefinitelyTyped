@@ -1990,14 +1990,14 @@ export interface Symbol<This, Datum> {
 /**
  * Constructs a new symbol generator with the default settings.
  */
-export function symbol(): Symbol<any, any>;
+export function symbol(): Symbol<any, any>; // tslint:disable-line ban-types
 
 /**
  * Constructs a new symbol generator with the default settings.
  *
  * The generic corrsponds to the data type of the datum underlying the symbol.
  */
-export function symbol<Datum>(): Symbol<any, Datum>;
+export function symbol<Datum>(): Symbol<any, Datum>; // tslint:disable-line ban-types
 
 /**
  * Constructs a new symbol generator with the default settings.
@@ -2005,7 +2005,7 @@ export function symbol<Datum>(): Symbol<any, Datum>;
  * The first generic corresponds to the "this" context within which the symbol generator is invoked.
  * The second generic corrsponds to the data type of the datum underlying the symbol.
  */
-export function symbol<This, Datum>(): Symbol<This, Datum>;
+export function symbol<This, Datum>(): Symbol<This, Datum>; // tslint:disable-line ban-types
 
 /**
  * An array containing the set of all built-in symbol types: circle, cross, diamond, square, star, triangle, and wye.

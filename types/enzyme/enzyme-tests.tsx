@@ -26,16 +26,15 @@ const MyStatelessComponent = (props: StatelessProps) => <span />;
 
 // ShallowWrapper
 namespace ShallowWrapperTest {
-    var shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
+    let shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
         shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value"/>);
 
-    var reactElement: ReactElement<any>,
-        objectVal: {},
-        boolVal: boolean,
-        stringVal: string,
-        numOrStringVal: number | string,
-        elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>,
-        statelessWrapper: ShallowWrapper<StatelessProps, never>;
+    let reactElement: ReactElement<any>;
+    let boolVal: boolean;
+    let stringVal: string;
+    let numOrStringVal: number | string;
+    let elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>;
+    let statelessWrapper: ShallowWrapper<StatelessProps, never>;
 
     function test_props_state_inferring() {
         let wrapper: ShallowWrapper<MyComponentProps, MyComponentState>;
@@ -257,7 +256,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_instance() {
-        var myComponent: MyComponent = shallowWrapper.instance();
+        const myComponent: MyComponent = shallowWrapper.instance();
     }
 
     function test_update() {
@@ -282,7 +281,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_map() {
-        var arrayNumbers: number[] =
+        const arrayNumbers: number[] =
             shallowWrapper.map(wrapper => wrapper.props().numberProp);
     }
 
@@ -331,18 +330,16 @@ namespace ShallowWrapperTest {
     }
 }
 
-
 // ReactWrapper
 namespace ReactWrapperTest {
-    var reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
+    let reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
         mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value"/>);
 
-    var reactElement: ReactElement<any>,
-        objectVal: {},
-        boolVal: boolean,
-        stringVal: string,
-        elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>,
-        statelessWrapper: ReactWrapper<StatelessProps, never>;
+    let reactElement: ReactElement<any>;
+    let boolVal: boolean;
+    let stringVal: string;
+    let elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>;
+    let statelessWrapper: ReactWrapper<StatelessProps, never>;
 
     function test_prop_state_inferring() {
         let wrapper: ReactWrapper<MyComponentProps, MyComponentState>;
@@ -564,7 +561,7 @@ namespace ReactWrapperTest {
     }
 
     function test_instance() {
-        var myComponent: MyComponent = reactWrapper.instance();
+        const myComponent: MyComponent = reactWrapper.instance();
     }
 
     function test_update() {
@@ -589,7 +586,7 @@ namespace ReactWrapperTest {
     }
 
     function test_map() {
-        var arrayNumbers: number[] =
+        const arrayNumbers: number[] =
             reactWrapper.map(wrapper => wrapper.props().numberProp);
     }
 

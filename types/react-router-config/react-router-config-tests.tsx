@@ -8,13 +8,13 @@ const Root = ({ route }: RouteConfigComponentProps<void>) => (
         {/* child routes won't render without this */}
         {renderRoutes(route && route.routes)}
     </div>
-)
+);
 
 const Home = ({ route }: RouteConfigComponentProps<void>) => (
     <div>
         <h2>Home</h2>
     </div>
-)
+);
 
 const Child = ({ route }: RouteConfigComponentProps<void>) => (
     <div>
@@ -22,13 +22,13 @@ const Child = ({ route }: RouteConfigComponentProps<void>) => (
         {/* child routes won't render without this */}
         {renderRoutes(route && route.routes)}
     </div>
-)
+);
 
 const GrandChild = () => (
     <div>
         <h3>Grand Child</h3>
     </div>
-)
+);
 
 // route config
 const routes: RouteConfig[] = [
@@ -44,7 +44,6 @@ const routes: RouteConfig[] = [
                 path: "/child/:id",
                 component: Child,
                 routes: [{
-
                     path: "/child/:id/grand-child",
                     component: GrandChild
                 }]
@@ -53,7 +52,7 @@ const routes: RouteConfig[] = [
     }
 ];
 
-const branch: MatchedRoute<{}>[] = matchRoutes<{}>(routes, "/child/23");
+const branch: Array<MatchedRoute<{}>> = matchRoutes<{}>(routes, "/child/23");
 // using the routes shown earlier, this returns
 // [
 //   routes[0],

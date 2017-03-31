@@ -75,7 +75,7 @@ declare namespace Parsimmon {
 	interface Parser<T> {
 		/**
 		 * parse the string
-		*/
+		 */
 		parse(input: string): Result<T>;
 		/**
 		 * Like parser.parse(input) but either returns the parsed value or throws
@@ -91,7 +91,7 @@ declare namespace Parsimmon {
 		 * returns a new parser which tries parser, and on success calls the given function
 		 * with the result of the parse, which is expected to return another parser, which
 		 * will be tried next
-		*/
+		 */
 		chain<U>(next: (result: T) => Parser<U>): Parser<U>;
 		/**
 		 * returns a new parser which tries parser, and on success calls the given function
@@ -254,8 +254,8 @@ declare namespace Parsimmon {
 	type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
 	type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
 	type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
-		/**
-		 * allows to add custom primitive parsers.
+	/**
+	 * allows to add custom primitive parsers.
 	 */
 	function custom<U>(parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>): Parser<U>;
 

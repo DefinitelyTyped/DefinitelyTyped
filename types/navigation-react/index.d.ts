@@ -22,7 +22,7 @@ interface LinkProps extends HTMLProps<HTMLAnchorElement> {
     /**
      * Handles Link click events
      */
-    navigating?: (e: MouseEvent, domId: string, link: string) => boolean;
+    navigating?(e: MouseEvent, domId: string, link: string): boolean;
     /**
      * The State Navigator
      */
