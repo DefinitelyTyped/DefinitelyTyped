@@ -178,8 +178,8 @@ export function dropWhile<TResult, TInput>(pred: (input: TInput) => boolean): Tr
 export class PartitionBy<TResult, TInput> implements Transformer<TResult, TInput> {
   constructor(f: (input: TInput) => any, xf: Transformer<TResult, TInput[]>);
   ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult
-  ['@@transducer/result'](result: TResult): TResult
+  ['@@transducer/step'](result: TResult, input: TInput): TResult;
+  ['@@transducer/result'](result: TResult): TResult;
 }
 
 /**
@@ -192,8 +192,8 @@ export function partitionBy<TResult, TInput>(f: (input: TInput) => any): Transdu
 export class PartitionAll<TResult, TInput> implements Transformer<TResult, TInput> {
   constructor(n: number, xf: Transformer<TResult, TInput[]>);
   ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult
-  ['@@transducer/result'](result: TResult): TResult
+  ['@@transducer/step'](result: TResult, input: TInput): TResult;
+  ['@@transducer/result'](result: TResult): TResult;
 }
 
 /**
@@ -205,8 +205,8 @@ export function partitionAll<TResult, TInput>(n: number): Transducer<TResult, TI
 export class Completing<TResult, TCompleteResult, TInput> implements CompletingTransformer<TResult, TCompleteResult, TInput> {
   constructor(cf: (result: TResult) => TCompleteResult, xf: Transformer<TResult, TInput>);
   ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult
-  ['@@transducer/result'](result: TResult): TCompleteResult
+  ['@@transducer/step'](result: TResult, input: TInput): TResult;
+  ['@@transducer/result'](result: TResult): TCompleteResult;
 }
 
 /**
@@ -218,8 +218,8 @@ export function completing<TResult, TCompleteResult, TInput>(cf: (result: TResul
 export class Wrap<TResult, TInput> implements Transformer<TResult, TInput> {
   constructor(stepFn: Reducer<TResult, TInput>, xf: Transformer<TResult, TInput>);
   ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult
-  ['@@transducer/result'](result: TResult): TResult
+  ['@@transducer/step'](result: TResult, input: TInput): TResult;
+  ['@@transducer/result'](result: TResult): TResult;
 }
 
 /**

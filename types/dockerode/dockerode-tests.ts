@@ -56,3 +56,69 @@ docker.createContainer({ Tty: true }, (err, container) => {
     // NOOP
   });
 });
+
+docker.pruneContainers((err, response) => {
+  	// NOOP
+});
+
+docker.pruneImages((err, response) => {
+  // NOOP
+});
+
+docker.pruneNetworks((err, response) => {
+  // NOOP
+});
+
+docker.pruneVolumes((err, response) => {
+  // NOOP
+});
+
+const plugin = docker.getPlugin('pluginName', 'remoteName');
+plugin.configure((err, response) => {
+  // NOOP;
+});
+
+plugin.disable((err, response) => {
+ // NOOP
+});
+
+plugin.enable((err, response) => {
+  // NOOP
+});
+
+plugin.inspect((err, response) => {
+  // NOOP
+});
+
+plugin.privileges((err, response) => {
+  // NOOP
+});
+
+plugin.pull({}, (err, response) => {
+  // NOOP
+});
+
+plugin.push((err, response) => {
+  // NOOP
+});
+
+plugin.remove((err, response) => {
+  // NOOP
+});
+
+plugin.upgrade({}, (err, response) => {
+  // NOOP
+});
+
+const secret = docker.getSecret('secretName');
+secret.inspect((err, response) => {
+  // NOOP
+});
+
+secret.remove((err, response) => {
+  // NOOP
+});
+
+secret.update((err, response) => {
+  // NOOP
+});

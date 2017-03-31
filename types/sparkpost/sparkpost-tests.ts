@@ -6,7 +6,7 @@ let client = new SparkPost(key);
 // Callback
 client.get({
   uri: "metrics/domains"
-}, function(err, data) {
+}, (err, data) => {
   if (err) {
     console.log(err);
     return;
@@ -27,7 +27,7 @@ client.get({
   });
 
 // Callback
-client.inboundDomains.create({ domain: 'example1.com' }, function(err, res) {
+client.inboundDomains.create({ domain: 'example1.com' }, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -48,7 +48,7 @@ client.inboundDomains.create({ domain: 'example1.com' })
 });
 
 // Callback
-client.inboundDomains.delete("example1.com", function(err, res) {
+client.inboundDomains.delete("example1.com", (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -69,7 +69,7 @@ client.inboundDomains.delete('example1.com')
 });
 
 // Callback
-client.inboundDomains.get("example1.com", function(err, res) {
+client.inboundDomains.get("example1.com", (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -90,7 +90,7 @@ client.inboundDomains.get('example1.com')
 });
 
 // Callback
-client.inboundDomains.list(function(err, res) {
+client.inboundDomains.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -111,7 +111,7 @@ client.inboundDomains.list()
 });
 
 // Callback
-client.messageEvents.search({}, function(err, res) {
+client.messageEvents.search({}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -124,7 +124,7 @@ client.messageEvents.search({}, function(err, res) {
 client.messageEvents.search({
   events: "click",
   campaign_ids: "monday_mailshot"
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -141,7 +141,7 @@ client.messageEvents.search({
   per_page: 5,
   events: ["bounce", "out_of_band"],
   bounce_classes: [10]
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -212,7 +212,7 @@ client.recipientLists.create({
       }
     }
   ]
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -251,7 +251,7 @@ client.recipientLists.create({
 });
 
 // Callback
-client.recipientLists.delete("UNIQUE_TEST_ID", function(err, res) {
+client.recipientLists.delete("UNIQUE_TEST_ID", (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -272,7 +272,7 @@ client.recipientLists.delete('UNIQUE_TEST_ID')
 });
 
 // Callback
-client.recipientLists.list(function(err, res) {
+client.recipientLists.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -293,7 +293,7 @@ client.recipientLists.list()
 });
 
 // Callback
-client.recipientLists.get('UNIQUE_TEST_ID', function(err, res) {
+client.recipientLists.get('UNIQUE_TEST_ID', (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -305,7 +305,7 @@ client.recipientLists.get('UNIQUE_TEST_ID', function(err, res) {
 // Callback
 client.recipientLists.get('UNIQUE_TEST_ID', {
   show_recipients: true
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -356,7 +356,7 @@ client.recipientLists.update('EXISTING_TEST_ID', {
       }
     }
   ]
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -399,7 +399,7 @@ client.relayWebhooks.create({
   match: {
     domain: "inbound.example.com"
   }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -426,7 +426,7 @@ client.relayWebhooks.create({
 });
 
 // Callback
-client.relayWebhooks.delete("123456789", function(err, res) {
+client.relayWebhooks.delete("123456789", (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -447,7 +447,7 @@ client.relayWebhooks.delete('123456789')
 });
 
 // Callback
-client.relayWebhooks.get('123456789', function(err, res) {
+client.relayWebhooks.get('123456789', (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -467,7 +467,7 @@ client.relayWebhooks.get('123456789')
     console.log(err);
 });
 
-client.relayWebhooks.list(function(err, res) {
+client.relayWebhooks.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -490,7 +490,7 @@ client.relayWebhooks.list()
 // Callback
 client.relayWebhooks.update('123456789', {
   target: "http://client.test.com/test-webhook"
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -516,12 +516,12 @@ client.relayWebhooks.update('123456789', {
 client.sendingDomains.create({
   domain: "example1.com",
   dkim: {
-    "private": "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==",
-    "public": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==",
+    private: "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==",
+    public: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==",
     selector: "brisbane",
     headers: "from:to:subject:date"
   }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -534,8 +534,8 @@ client.sendingDomains.create({
 client.sendingDomains.create({
     domain: 'example1.com',
     dkim: {
-      'private': 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==',
-      'public': 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
+      private: 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/==',
+      public: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
       selector: 'brisbane',
       headers: 'from:to:subject:date'
     }
@@ -550,7 +550,7 @@ client.sendingDomains.create({
 });
 
 // Callback
-client.sendingDomains.delete("example1.com", function(err, data) {
+client.sendingDomains.delete("example1.com", (err, data) => {
   if (err) {
     console.log(err);
   } else {
@@ -571,7 +571,7 @@ client.sendingDomains.delete('example1.com')
 });
 
 // Callback
-client.sendingDomains.list(function(err, res) {
+client.sendingDomains.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -592,7 +592,7 @@ client.sendingDomains.list()
 });
 
 // Callback
-client.sendingDomains.get('example1.com', function(err, res) {
+client.sendingDomains.get('example1.com', (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -615,12 +615,12 @@ client.sendingDomains.get('example1.com')
 // Callback
 client.sendingDomains.update('example1.com', {
   dkim: {
-    "private": "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==",
-    "public": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==",
+    private: "MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==",
+    public: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==",
     selector: "hello_selector",
     headers: "from:to:subject:date"
   }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -631,8 +631,8 @@ client.sendingDomains.update('example1.com', {
 
 client.sendingDomains.update('example1.com', {
 	dkim: {
-      'private': 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==',
-      'public': 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
+      private: 'MIICXgIBAAKBgQC+W6scd3XWwvC/hPRksfDYFi3ztgyS9OSqnnjtNQeDdTSD1DRx/Y1g==',
+      public: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+W6scd3XWwvC/==',
       selector: 'hello_selector',
       headers: 'from:to:subject:date'
     }
@@ -652,7 +652,7 @@ client.sendingDomains.verify('example1.com', {
 	spf_verify: true,
 	abuse_at_verify: true,
 	postmaster_at_verify: true
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -664,7 +664,7 @@ client.sendingDomains.verify('example1.com', {
 // Callback
 client.sendingDomains.verify('example1.com', {
 	dkim_verify: false
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -697,7 +697,7 @@ client.subaccounts.create({
     "smtp/inject",
     "transmissions/modify"
   ]
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -725,7 +725,7 @@ client.subaccounts.create({
 });
 
 // Callback
-client.subaccounts.list(function(err, res) {
+client.subaccounts.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -746,7 +746,7 @@ client.subaccounts.list()
 });
 
 // Callback
-client.subaccounts.get(123, function(err, res) {
+client.subaccounts.get(123, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -770,7 +770,7 @@ client.subaccounts.get('123')
 client.subaccounts.update('123', {
   name: "Test Subaccount",
   status: "suspended"
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -794,7 +794,7 @@ client.subaccounts.update('123', {
 });
 
 // Callback
-client.suppressionList.delete('test@test.com', function(err, data) {
+client.suppressionList.delete('test@test.com', (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
     console.log(err);
@@ -827,7 +827,7 @@ client.suppressionList.get('test@test.com')
 });
 
 // Callback
-client.suppressionList.get('test@test.com', function(err, data) {
+client.suppressionList.get('test@test.com', (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
     console.log(err);
@@ -857,7 +857,7 @@ client.suppressionList.list({
     from: '2015-05-07T00:00:00+0000',
     to: '2015-05-07T23:59:59+0000',
     limit: 5
-}, function(err, data) {
+}, (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
     console.log(err);
@@ -868,7 +868,7 @@ client.suppressionList.list({
 });
 
 // Callback
-client.suppressionList.list(function(err, data) {
+client.suppressionList.list((err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
     console.log(err);
@@ -900,7 +900,7 @@ client.suppressionList.upsert({
     transactional: false,
     non_transactional: true,
     description: 'Test description 1'
-}, function(err, data) {
+}, (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
     console.log(err);
@@ -960,7 +960,7 @@ client.suppressionList.upsert([
       non_transactional: false,
       description: 'Test description 3'
     }
-], function(err, data) {
+], (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
     console.log(err);
@@ -979,7 +979,7 @@ client.templates.create({
       subject: "Test email template!",
       html: "<b>This is a test email template!</b>"
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1008,7 +1008,7 @@ client.templates.create({
 });
 
 // Callback
-client.templates.delete("TEST_ID", function(err, res) {
+client.templates.delete("TEST_ID", (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1029,7 +1029,7 @@ client.templates.delete('TEST_ID')
 });
 
 // Callback
-client.templates.list(function(err, res) {
+client.templates.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1052,7 +1052,7 @@ client.templates.list()
 // Callback
 client.templates.get('TEST_ID', {
   draft: true
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1062,7 +1062,7 @@ client.templates.get('TEST_ID', {
 });
 
 // Callback
-client.templates.get('TEST_ID', function(err, res) {
+client.templates.get('TEST_ID', (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1085,7 +1085,7 @@ client.templates.get('TEST_ID')
 // Callback
 client.templates.preview('TEST_ID', {
   substitution_data: {}
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1120,7 +1120,7 @@ client.templates.update('TEST_ID', {
       html: "<b>This is a published test email template! Updated!</b>"
     },
 }, { update_published: true },
-function(err, res) {
+(err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1136,7 +1136,7 @@ client.templates.update('TEST_ID', {
       subject: "Updated Test email template!",
       html: "<b>This is a test email template! Updated!</b>"
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1163,7 +1163,7 @@ client.templates.update('TEST_ID', {
   });
 
 // Callback
-client.transmissions.list(function(err, res) {
+client.transmissions.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1184,7 +1184,7 @@ client.transmissions.list()
 
 client.transmissions.list({
   campaign_id: "my_campaign"
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1195,7 +1195,7 @@ client.transmissions.list({
 
 client.transmissions.list({
   template_id: "my_template"
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1205,7 +1205,7 @@ client.transmissions.list({
 });
 
 // Callback
-client.transmissions.get("YOUR-TRANSMISSION-KEY", function(err, res) {
+client.transmissions.get("YOUR-TRANSMISSION-KEY", (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1238,7 +1238,7 @@ client.transmissions.send({
       open_tracking: true,
       click_tracking: true
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1253,7 +1253,7 @@ client.transmissions.send({
     content: {
       email_rfc822: "Content-Type: text/plain\nFrom: From Envelope <from@example.com>\nSubject: Example Email\n\nHello World"
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1310,7 +1310,7 @@ client.transmissions.send({
       text: "Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n Hurry, this offer is only to {{customer_type}}\n {{sender}}",
       html: "<p>Hi {{address.name}} \nSave big this Christmas in your area {{place}}! \nClick http://www.mysite.com and get huge discount\n</p>"
 	}
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1350,7 +1350,7 @@ client.transmissions.send({
       text: "An example email using bcc with SparkPost to the {{recipient_type}} recipient.",
       html: "<p>An example email using bcc with SparkPost to the {{recipient_type}} recipient.</p>"
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1388,13 +1388,13 @@ client.transmissions.send({
         email: "from@example.com"
       },
       headers: {
-        "CC": "\"Carbon Copy Recipient\" <cc.recipient@example.com>"
+        CC: "\"Carbon Copy Recipient\" <cc.recipient@example.com>"
       },
       subject: "Example email using cc",
       text: "An example email using cc with SparkPost to the {{recipient_type}} recipient.",
       html: "<p>An example email using cc with SparkPost to the {{recipient_type}} recipient.</p>"
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1414,7 +1414,7 @@ client.transmissions.send({
       html: "<html><body><p>Hello World</p></body></html>",
       text: "Hello World!"
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1433,7 +1433,7 @@ client.transmissions.send({
       subject: "Example Email for Stored List and Template",
       template_id: "my-template"
     }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1451,7 +1451,7 @@ client.transmissions.send({
     recipients: [{ address: { email: "rick.sanchez@rickandmorty100years.com", name: "Rick Sanchez" } }]
 }, {
 	num_rcpt_errors: 3
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1459,7 +1459,6 @@ client.transmissions.send({
     console.log("What up my glib globs! SparkPost!");
   }
 });
-
 
 // Promise
 client.transmissions.send({
@@ -1548,7 +1547,7 @@ client.transmissions.send({
         email: 'from@example.com'
       },
       headers: {
-        'CC': '"Carbon Copy Recipient" <cc.recipient@example.com>'
+        CC: '"Carbon Copy Recipient" <cc.recipient@example.com>'
       },
       subject: 'Example email using cc',
       text: 'An example email using cc with SparkPost to the {{recipient_type}} recipient.',
@@ -1575,7 +1574,7 @@ client.webhooks.create({
     "open",
     "click"
   ]
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1606,7 +1605,7 @@ client.webhooks.create({
 });
 
 // Callback
-client.webhooks.delete("TEST_WEBHOOK_UUID", function(err, res) {
+client.webhooks.delete("TEST_WEBHOOK_UUID", (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1629,7 +1628,7 @@ client.webhooks.delete('TEST_WEBHOOK_UUID')
 // Callback
 client.webhooks.get('TEST_WEBHOOK_UUID', {
     timezone: 'America/New_York'
-}, function(err, data) {
+}, (err, data) => {
   if (err) {
     console.log('Whoops! Something went wrong');
     console.log(err);
@@ -1655,7 +1654,7 @@ client.webhooks.get('TEST_WEBHOOK_UUID', {
 // Callback
 client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
   limit: 1000
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1678,7 +1677,7 @@ client.webhooks.getBatchStatus('TEST_WEBHOOK_UUID', {
   });
 
 // Callback
-client.webhooks.getDocumentation(function(err, res) {
+client.webhooks.getDocumentation((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1701,7 +1700,7 @@ client.webhooks.getDocumentation()
 // Callback
 client.webhooks.getSamples({
   events: "bounce"
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1724,7 +1723,7 @@ client.webhooks.getSamples({
 });
 
 // Callback
-client.webhooks.list(function(err, res) {
+client.webhooks.list((err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1751,7 +1750,7 @@ client.webhooks.update('TEST_WEBHOOK_UUID', {
     "policy_rejection",
     "delay"
   ]
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {
@@ -1782,7 +1781,7 @@ client.webhooks.validate('TEST_WEBHOOK_UUID', {
   message: {
     msys: {}
   }
-}, function(err, res) {
+}, (err, res) => {
   if (err) {
     console.log(err);
   } else {

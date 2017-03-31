@@ -16,16 +16,16 @@ interface InjectedProps<AuthData> {
 
 export interface AuthWrapperConfig<State, Props, AuthData> {
     allowRedirectBack?: boolean | ((location: Location, redirectPath: string) => boolean);
-    authenticatingSelector?: (state: State, ownProps?: Props) => boolean;
-    authSelector: (state: State, ownProps?: Props) => AuthData;
+    authenticatingSelector?(state: State, ownProps?: Props): boolean;
+    authSelector(state: State, ownProps?: Props): AuthData;
     FailureComponent?: ReactType;
     failureRedirectPath?: string | ((state: State, ownProps?: Props) => string);
     LoadingComponent?: ReactType;
     redirectQueryParamName?: string;
     wrapperDisplayName?: string;
-    predicate?: (authData: AuthData) => boolean;
-    propMapper?: (ownProps: Props) => InjectedProps<AuthData> & Props;
-    redirectAction?: (...args: any[]) => Action;
+    predicate?(authData: AuthData): boolean;
+    propMapper?(ownProps: Props): InjectedProps<AuthData> & Props;
+    redirectAction?(...args: any[]): Action;
 }
 
 type AuthDecorator<Props> = (component: ComponentConstructor<Props>) => ComponentClass<Props>;

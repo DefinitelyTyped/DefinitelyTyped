@@ -1,4 +1,4 @@
-export var enabled: boolean;
+export const enabled: boolean;
 
 export function strip(str: string): string;
 export function stripColors(str: string): string;

@@ -3,9 +3,9 @@ import * as http from 'http';
 
 const server = http.createServer((req, res) => {
     const cookies = new Cookies(req, res);
-    let unsigned: string,
-        signed: string,
-        tampered: string;
+    let unsigned: string;
+    let signed: string;
+    let tampered: string;
 
     if (req.url === "/set") {
         cookies

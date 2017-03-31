@@ -11,59 +11,59 @@ import * as React from 'react';
 // which already declares things with some of the same names
 
 interface LeafletLayerEvents {
-    onbaselayerchange?: (event: Leaflet.LayersControlEvent) => void;
-    onoverlayadd?: (event: Leaflet.LayersControlEvent) => void;
-    onoverlayremove?: (event: Leaflet.LayersControlEvent) => void;
-    onlayeradd?: (event: Leaflet.LayerEvent) => void;
-    onlayerremove?: (event: Leaflet.LayerEvent) => void;
+    onbaselayerchange?(event: Leaflet.LayersControlEvent): void;
+    onoverlayadd?(event: Leaflet.LayersControlEvent): void;
+    onoverlayremove?(event: Leaflet.LayersControlEvent): void;
+    onlayeradd?(event: Leaflet.LayerEvent): void;
+    onlayerremove?(event: Leaflet.LayerEvent): void;
 }
 interface LeafletMapStateChangeEvents {
-    onzoomlevelschange?: (event: Leaflet.Event) => void;
-    onresize?: (event: Leaflet.ResizeEvent) => void;
-    onunload?: (event: Leaflet.Event) => void;
-    onviewreset?: (event: Leaflet.Event) => void;
-    onload?: (event: Leaflet.Event) => void;
-    onzoomstart?: (event: Leaflet.Event) => void;
-    onmovestart?: (event: Leaflet.Event) => void;
-    onzoom?: (event: Leaflet.Event) => void;
-    onmove?: (event: Leaflet.Event) => void;
-    onzoomend?: (event: Leaflet.Event) => void;
-    onmoveend?: (event: Leaflet.Event) => void;
+    onzoomlevelschange?(event: Leaflet.Event): void;
+    onresize?(event: Leaflet.ResizeEvent): void;
+    onunload?(event: Leaflet.Event): void;
+    onviewreset?(event: Leaflet.Event): void;
+    onload?(event: Leaflet.Event): void;
+    onzoomstart?(event: Leaflet.Event): void;
+    onmovestart?(event: Leaflet.Event): void;
+    onzoom?(event: Leaflet.Event): void;
+    onmove?(event: Leaflet.Event): void;
+    onzoomend?(event: Leaflet.Event): void;
+    onmoveend?(event: Leaflet.Event): void;
 }
 interface LeafletPopupEvents {
-    onpopupopen?: (event: Leaflet.PopupEvent) => void;
-    onpopupclose?: (event: Leaflet.PopupEvent) => void;
-    onautopanstart?: (event: Leaflet.Event) => void;
+    onpopupopen?(event: Leaflet.PopupEvent): void;
+    onpopupclose?(event: Leaflet.PopupEvent): void;
+    onautopanstart?(event: Leaflet.Event): void;
 }
 interface LeafletTooltipEvents {
-    ontooltipopen?: (event: Leaflet.TooltipEvent) => void;
-    ontooltipclose?: (event: Leaflet.TooltipEvent) => void;
+    ontooltipopen?(event: Leaflet.TooltipEvent): void;
+    ontooltipclose?(event: Leaflet.TooltipEvent): void;
 }
 interface LeafletLocationEvents {
-    onlocationerror?: (event: Leaflet.ErrorEvent) => void;
-    onlocationfound?: (event: Leaflet.LocationEvent) => void;
+    onlocationerror?(event: Leaflet.ErrorEvent): void;
+    onlocationfound?(event: Leaflet.LocationEvent): void;
 }
 interface LeafletInteractionEvents {
-    onclick?: (event: Leaflet.MouseEvent) => void;
-    ondblclick?: (event: Leaflet.MouseEvent) => void;
-    onmousedown?: (event: Leaflet.MouseEvent) => void;
-    onmouseup?: (event: Leaflet.MouseEvent) => void;
-    onmouseover?: (event: Leaflet.MouseEvent) => void;
-    onmouseout?: (event: Leaflet.MouseEvent) => void;
-    onmousemove?: (event: Leaflet.MouseEvent) => void;
-    oncontextmenu?: (event: Leaflet.MouseEvent) => void;
-    onkeypress?: (event: Leaflet.KeyboardEvent) => void;
-    onpreclick?: (event: Leaflet.MouseEvent) => void;
+    onclick?(event: Leaflet.MouseEvent): void;
+    ondblclick?(event: Leaflet.MouseEvent): void;
+    onmousedown?(event: Leaflet.MouseEvent): void;
+    onmouseup?(event: Leaflet.MouseEvent): void;
+    onmouseover?(event: Leaflet.MouseEvent): void;
+    onmouseout?(event: Leaflet.MouseEvent): void;
+    onmousemove?(event: Leaflet.MouseEvent): void;
+    oncontextmenu?(event: Leaflet.MouseEvent): void;
+    onkeypress?(event: Leaflet.KeyboardEvent): void;
+    onpreclick?(event: Leaflet.MouseEvent): void;
 }
 interface LeafletOtherEvents {
-    onzoomanim?: (event: Leaflet.ZoomAnimEvent) => void;
+    onzoomanim?(event: Leaflet.ZoomAnimEvent): void;
 }
 interface LeafletDraggingEvents {
-    ondragstart?: (event: Leaflet.Event) => void;
-    onmovestart?: (event: Leaflet.Event) => void;
-    ondrag?: (event: Leaflet.Event) => void;
-    ondragend?: (event: Leaflet.DragEndEvent) => void;
-    onmoveend?: (event: Leaflet.Event) => void;
+    ondragstart?(event: Leaflet.Event): void;
+    onmovestart?(event: Leaflet.Event): void;
+    ondrag?(event: Leaflet.Event): void;
+    ondragend?(event: Leaflet.DragEndEvent): void;
+    onmoveend?(event: Leaflet.Event): void;
 }
 
 interface MapProps extends React.HTMLProps<Map>,
@@ -92,16 +92,16 @@ export const Pane: React.ComponentClass<PaneProps>;
 
 // There is no Layer class, these are the base props for all layers on the map
 interface LayerProps extends LeafletInteractionEvents {
-    onadd?: (event: Leaflet.Event) => void;
-    onremove?: (event: Leaflet.Event) => void;
+    onadd?(event: Leaflet.Event): void;
+    onremove?(event: Leaflet.Event): void;
 
     // Popup events
-    onpopupopen?: (event: Leaflet.PopupEvent) => void;
-    onpopupclose?: (event: Leaflet.PopupEvent) => void;
+    onpopupopen?(event: Leaflet.PopupEvent): void;
+    onpopupclose?(event: Leaflet.PopupEvent): void;
 
     // Tooltip events
-    ontooltipopen?: (event: Leaflet.TooltipEvent) => void;
-    ontooltipclose?: (event: Leaflet.TooltipEvent) => void;
+    ontooltipopen?(event: Leaflet.TooltipEvent): void;
+    ontooltipclose?(event: Leaflet.TooltipEvent): void;
 }
 
 interface MarkerProps extends LayerProps, LeafletDraggingEvents {
@@ -129,12 +129,12 @@ interface GridLayerProps extends LayerProps {
     opacity?: number;
     zIndex?: number;
 
-    onloading?: (event: Leaflet.Event) => void;
-    ontileunload?: (event: Leaflet.TileEvent) => void;
-    ontileloadstart?: (event: Leaflet.TileEvent) => void;
-    ontileerror?: (event: Leaflet.TileErrorEvent) => void;
-    ontileload?: (event: Leaflet.TileEvent) => void;
-    onload?: (event: Leaflet.Event) => void;
+    onloading?(event: Leaflet.Event): void;
+    ontileunload?(event: Leaflet.TileEvent): void;
+    ontileloadstart?(event: Leaflet.TileEvent): void;
+    ontileerror?(event: Leaflet.TileErrorEvent): void;
+    ontileload?(event: Leaflet.TileEvent): void;
+    onload?(event: Leaflet.Event): void;
 }
 export const GridLayer: React.ComponentClass<GridLayerProps>;
 
@@ -221,8 +221,8 @@ export namespace LayersControl {
 interface MapControlProps {
     position?: Leaflet.ControlPosition;
 }
-declare class MapControl<T extends MapControlProps> extends React.Component<T, any> {
-    leafletElement?: L.Control
+export class MapControl<T extends MapControlProps> extends React.Component<T, any> {
+    leafletElement?: L.Control;
 }
 
 interface ScaleControlProps {

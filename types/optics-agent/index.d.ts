@@ -21,7 +21,7 @@ export interface Options {
    *
    * You shouldn't need to set this unless you are debugging.
    */
-  normalizeQuery?: (graphQLResolveInfo: any) => string;
+  normalizeQuery?(graphQLResolveInfo: any): string;
 
   /**
    * Where to send the reports. Defaults to the production Optics endpoint, or the OPTICS_ENDPOINT_URL environment variable if it is set.

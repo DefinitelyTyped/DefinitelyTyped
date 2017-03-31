@@ -24,23 +24,20 @@ declare module 'react-router-dom' {
   import * as React from 'react';
   import * as H from 'history';
 
-
   interface BrowserRouterProps {
     basename?: string;
-    getUserConfirmation?: () => void;
+    getUserConfirmation?(): void;
     forceRefresh?: boolean;
     keyLength?: number;
   }
   class BrowserRouter extends React.Component<BrowserRouterProps, void> {}
 
-
   interface HashRouterProps {
     basename?: string;
-    getUserConfirmation?: () => void;
+    getUserConfirmation?(): void;
     hashType?: 'slash' | 'noslash' | 'hashbang';
   }
   class HashRouter extends React.Component<HashRouterProps, void> {}
-
 
   interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
@@ -48,16 +45,14 @@ declare module 'react-router-dom' {
   }
   class Link extends React.Component<LinkProps, void> {}
 
-
   interface NavLinkProps extends LinkProps {
     activeClassName?: string;
     activeStyle?: React.CSSProperties;
     exact?: boolean;
     strict?: boolean;
-    isActive?: (location: H.Location, props: any) => boolean;
+    isActive?(location: H.Location, props: any): boolean;
   }
   class NavLink extends React.Component<NavLinkProps, void> {}
-
 
   export {
     BrowserRouter,
@@ -78,5 +73,5 @@ declare module 'react-router-dom' {
     matchPath,
     withRouter,
     RouterChildContext
-  }
+  };
 }

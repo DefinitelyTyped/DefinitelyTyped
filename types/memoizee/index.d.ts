@@ -10,10 +10,10 @@ declare namespace memoizee {
     max?: number;
     preFetch?: number | true;
     promise?: boolean;
-    dispose?: (value: any) => void;
+    dispose?(value: any): void;
     async?: boolean;
     primitive?: boolean;
-    normalizer?: (value: any) => void;
+    normalizer?(value: any): void;
     resolvers?: Array<(arg: any) => any>;
   }
 
@@ -23,7 +23,7 @@ declare namespace memoizee {
   }
 }
 
-// tslint:disable:forbidden-types
+// tslint:disable-next-line ban-types
 declare function memoizee<F extends Function>(f: F, options?: memoizee.Options): F & memoizee.Memoized<F>;
 
 export = memoizee;
