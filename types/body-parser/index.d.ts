@@ -17,11 +17,11 @@ declare namespace bodyParser {
         inflate?: boolean;
         limit?: number | string;
         type?: string | string[] | ((req: Request) => any);
-        verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
+        verify?(req: Request, res: Response, buf: Buffer, encoding: string): void;
     }
 
     interface OptionsJson extends Options {
-        reviever?: (key: string, value: any) => any;
+        reviever?(key: string, value: any): any;
         strict?: boolean;
     }
 
