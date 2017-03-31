@@ -1,4 +1,4 @@
-// Type definitions for vis.js 4.17
+// Type definitions for vis.js 4.18
 // Project: https://github.com/almende/vis
 // Definitions by: Michaël Bitard <https://github.com/MichaelBitard>
 //                 MacLeod Broad <https://github.com/macleodbroad-wf>
@@ -180,7 +180,7 @@ interface TimelineOptions {
   onRemoveGroup?(): void; // TODO
   order?(): void; // TODO
   orientation?: TimelineOptionsOrientationType;
-  rollingMode: boolean;
+  rollingMode?: boolean;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;
