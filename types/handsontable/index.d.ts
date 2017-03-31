@@ -519,5 +519,5 @@ declare class Handsontable extends __Handsontable.Core {
 declare module "handsontable" {
     export = Handsontable;
 }
-//export = Handsontable;
-//export as namespace Handsontable;
+// export = Handsontable;
+// export as namespace Handsontable;
