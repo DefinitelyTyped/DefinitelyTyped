@@ -125,7 +125,7 @@ export class Matrix4x4 {
     size: { rows: number, columns: number };
     values: number[];
 
-    determinant(): number
+    determinant(): number;
     inverse(): Matrix4x4;
     negate(): Matrix4x4;
     transpose(): Matrix4x4;

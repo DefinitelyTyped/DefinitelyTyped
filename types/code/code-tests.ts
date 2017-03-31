@@ -16,7 +16,7 @@ expect([1, 2, 3]).to.part.include([1, 4]);
 
 expect(10, "Age").to.be.above(5);
 
-const func = function() { return arguments; };
+const func = function() { return arguments; }; // tslint:disable-line only-arrow-functions
 expect(func()).to.be.arguments();
 
 expect([1, 2]).to.be.an.array();
