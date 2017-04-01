@@ -111,6 +111,7 @@ declare namespace WebSocket {
         host?: string;
         port?: number;
         server?: http.Server | https.Server;
+        backlog?: number;
         verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync;
         handleProtocols?: any;
         path?: string;
