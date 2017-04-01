@@ -1,5 +1,5 @@
 // Type definitions for Bitwig Studio Control Surface Scripting API v2.0.0
-// Project: http://bitwig.com
+// Project: https://bitwig.com
 // Definitions by: Joseph Larson <https://github.com/joslarson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -724,7 +724,7 @@ declare namespace API {
         a callback function that receives a single boolean parameter
          * @since API version 1
          */
-        addExistsObserver(callback?: Function): void;
+        addExistsObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Value that reports the underlying total count of column entries (not the size of the column window).
@@ -891,7 +891,7 @@ declare namespace API {
         the scroll position, or `-1` in case the column has no content.
          * @since API version 1
          */
-        addScrollPositionObserver(callback?: Function): void;
+        addScrollPositionObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports if the column entries can be scrolled further up.
@@ -900,7 +900,7 @@ declare namespace API {
         a callback function that receives a single boolean parameter
          * @since API version 1
          */
-        addCanScrollUpObserver(callback?: Function): void;
+        addCanScrollUpObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports if the column entries can be scrolled further down.
@@ -909,7 +909,7 @@ declare namespace API {
         a callback function that receives a single boolean parameter
          * @since API version 1
          */
-        addCanScrollDownObserver(callback?: Function): void;
+        addCanScrollDownObserver(callback?: (...args: any[]) => any): void;
 
     }
 
@@ -1029,7 +1029,7 @@ declare namespace API {
         [0..range-1].
          * @since API version 1
          */
-        addVuMeterObserver(range?: any, channel?: any, peak?: any, callback?: Function): void;
+        addVuMeterObserver(range?: any, channel?: any, peak?: any, callback?: (...args: any[]) => any): void;
 
         /**
          * Returns an array of the playing notes.
@@ -1076,7 +1076,7 @@ declare namespace API {
         a callback function that takes a single boolean parameter.
          * @since API version 1
          */
-        addIsSelectedInMixerObserver(callback?: Function): void;
+        addIsSelectedInMixerObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Tries to scroll the contents of the arrangement editor so that the channel becomes visible.
@@ -1418,7 +1418,7 @@ declare namespace API {
         playing (`2`).
          * @since API version 1
          */
-        addStepDataObserver(callback?: Function): void;
+        addStepDataObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Value that reports note grid cells as they get played by the sequencer.
@@ -1688,7 +1688,7 @@ declare namespace API {
         boolean parameter indicating if the slot at that index is selected (`true`) or not (`false`)
          * @since API version 1
          */
-        addIsSelectedObserver(callback?: Function): void;
+        addIsSelectedObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports which slots contain clips.
@@ -1699,7 +1699,7 @@ declare namespace API {
         (`false`)
          * @since API version 1
          */
-        addHasContentObserver(callback?: Function): void;
+        addHasContentObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports the playback state of clips / slots. The reported states include
@@ -1713,7 +1713,7 @@ declare namespace API {
         actual playback state (`false`)
          * @since API version 1
          */
-        addPlaybackStateObserver(callback?: Function): void;
+        addPlaybackStateObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports which slots have clips that are currently playing.
@@ -1724,7 +1724,7 @@ declare namespace API {
         (`true`) or not (`false`)
          * @since API version 1
          */
-        addIsPlayingObserver(callback?: Function): void;
+        addIsPlayingObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports which slots have clips that are currently recording.
@@ -1735,7 +1735,7 @@ declare namespace API {
         (`true`) or not (`false`)
          * @since API version 1
          */
-        addIsRecordingObserver(callback?: Function): void;
+        addIsRecordingObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Add an observer if clip playback is queued on the slot.
@@ -1746,7 +1746,7 @@ declare namespace API {
         playback (`true`) or not (`false`)
          * @since API version 1
          */
-        addIsPlaybackQueuedObserver(callback?: Function): void;
+        addIsPlaybackQueuedObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Add an observer if clip recording is queued on the slot.
@@ -1757,7 +1757,7 @@ declare namespace API {
         recording (`true`) or not (`false`)
          * @since API version 1
          */
-        addIsRecordingQueuedObserver(callback?: Function): void;
+        addIsRecordingQueuedObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Add an observer if clip playback is queued to stop on the slot.
@@ -1768,7 +1768,7 @@ declare namespace API {
         stop (`true`) or not (`false`)
          * @since API version 1
          */
-        addIsStopQueuedObserver(callback?: Function): void;
+        addIsStopQueuedObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports the colors of clip in the current slot window.
@@ -1779,7 +1779,7 @@ declare namespace API {
         blue coordinate of the RBG color value
          * @since API version 1
          */
-        addColorObserver(callback?: Function): void;
+        addColorObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Specifies if the Bitwig Studio clip launcher should indicate which slots are part of the window. By
@@ -1882,7 +1882,7 @@ declare namespace API {
         configured window, and 2. the name of the scene/slot (string)
          * @since API version 1
          */
-        addNameObserver(callback?: Function): void;
+        addNameObserver(callback?: (...args: any[]) => any): void;
 
     }
 
@@ -2488,7 +2488,7 @@ declare namespace API {
         a callback function that receives a single boolean parameter
          * @since API version 1
          */
-        addPreviousParameterPageEnabledObserver(callback?: Function): void;
+        addPreviousParameterPageEnabledObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports if there is a next parameter page.
@@ -2497,7 +2497,7 @@ declare namespace API {
         a callback function that receives a single boolean parameter
          * @since API version 1
          */
-        addNextParameterPageEnabledObserver(callback?: Function): void;
+        addNextParameterPageEnabledObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Switches to the parameter page at the given page index.
@@ -2563,7 +2563,7 @@ declare namespace API {
         a callback function that receives a single page index parameter (integer)
          * @since API version 1
          */
-        addSelectedPageObserver(valueWhenUnassigned?: any, callback?: Function): void;
+        addSelectedPageObserver(valueWhenUnassigned?: any, callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports the name of the active modulation source.
@@ -2577,7 +2577,7 @@ declare namespace API {
         a callback function that receives a single name parameter (string)
          * @since API version 1
          */
-        addActiveModulationSourceObserver(len?: any, textWhenUnassigned?: any, callback?: Function): void;
+        addActiveModulationSourceObserver(len?: any, textWhenUnassigned?: any, callback?: (...args: any[]) => any): void;
 
         /**
          * Registers an observer that reports the names of the devices parameter pages.
@@ -2587,7 +2587,7 @@ declare namespace API {
         parameter pages
          * @since API version 1
          */
-        addPageNamesObserver(callback?: Function): void;
+        addPageNamesObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Value that reports if the device is enabled.
@@ -2686,7 +2686,7 @@ declare namespace API {
         function with the signature (String[])
          * @since API version 1
          */
-        addDirectParameterIdObserver(callback?: Function): void;
+        addDirectParameterIdObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Adds an observer for the parameter names (initial and changes) of all parameters for the device.
@@ -2697,7 +2697,7 @@ declare namespace API {
         function with the signature (String ID, String name)
          * @since API version 1
          */
-        addDirectParameterNameObserver(maxChars?: any, callback?: Function): void;
+        addDirectParameterNameObserver(maxChars?: any, callback?: (...args: any[]) => any): void;
 
         /**
          * Returns an observer that reports changes of parameter display values, i.e. parameter values formatted as
@@ -2713,7 +2713,7 @@ declare namespace API {
         parameters.
          * @since API version 1
          */
-        addDirectParameterValueDisplayObserver(maxChars?: any, callback?: Function): DirectParameterValueDisplayObserver;
+        addDirectParameterValueDisplayObserver(maxChars?: any, callback?: (...args: any[]) => any): DirectParameterValueDisplayObserver;
 
         /**
          * Adds an observer for the parameter display value (initial and changes) of all parameters for the device.
@@ -2723,7 +2723,7 @@ declare namespace API {
         accessible 'Number.NaN' (not-a-number) is reported, can be checked with 'isNaN(value)'.
          * @since API version 1
          */
-        addDirectParameterNormalizedValueObserver(callback?: Function): void;
+        addDirectParameterNormalizedValueObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Sets the parameter with the specified `id` to the given `value` according to the given `resolution`.
@@ -2872,7 +2872,7 @@ declare namespace API {
         a callback function that takes a single boolean parameter
          * @since API version 1
          */
-        addCanScrollDownObserver(callback?: Function): void;
+        addCanScrollDownObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Browses for content to insert a device at the given index inside this bank.
@@ -2915,7 +2915,7 @@ declare namespace API {
         a callback function that takes a single boolean parameter.
          * @since API version 1
          */
-        addIsSelectedInEditorObserver(callback?: Function): void;
+        addIsSelectedInEditorObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Returns an object that provides bank-wise navigation of devices.
@@ -3579,7 +3579,7 @@ declare namespace API {
          * @param {java.lang.Runnable} callback
          * @param {long} delay
          */
-        scheduleTask(callback?: Function, delay?: number): void;
+        scheduleTask(callback?: (...args: any[]) => any, delay?: number): void;
 
         /**
          * Requests that the driver's flush method gets called.
@@ -3700,7 +3700,7 @@ declare namespace API {
         {@link RemoteConnection} parameter is passed into the callback function.
         @since API version 1
          */
-        connectToRemoteHost(host?: any, port?: any, callback?: Function): void;
+        connectToRemoteHost(host?: any, port?: any, callback?: (...args: any[]) => any): void;
 
         /**
          * Sends a UDP (User Datagram Protocol) packet with the given data to the specified host.
@@ -3729,7 +3729,7 @@ declare namespace API {
          * @return {boolean} {@true} if was possible to bind the port, false otherwise
         @since API version 1
          */
-        addDatagramPacketObserver(name?: any, port?: any, callback?: Function): boolean;
+        addDatagramPacketObserver(name?: any, port?: any, callback?: (...args: any[]) => any): boolean;
 
         /**
          * Creates a {@link PopupBrowser} that represents the pop-up browser in Bitwig Studio.
@@ -3864,7 +3864,7 @@ declare namespace API {
         value 2. the data2 value
         @since API version 1
          */
-        setMidiCallback(callback?: Function): void;
+        setMidiCallback(callback?: (...args: any[]) => any): void;
 
         /**
          * Registers a callback for receiving sysex MIDI messages on this MIDI input port.
@@ -3873,7 +3873,7 @@ declare namespace API {
         a callback function that takes a single string argument
         @since API version 1
          */
-        setSysexCallback(callback?: Function): void;
+        setSysexCallback(callback?: (...args: any[]) => any): void;
 
         /**
          * Creates a note input that appears in the track input choosers in Bitwig Studio. This method must be
@@ -4321,7 +4321,7 @@ declare namespace API {
          * @return {ObjectType[]}
          * @since API version 2
          */
-        get(): Object[];
+        get(): object[];
 
     }
 
@@ -4757,7 +4757,7 @@ declare namespace API {
         a callback function that receives a single numeric parameter with double precision.
          * @since API version 1
          */
-        addRawValueObserver(callback?: Function): void;
+        addRawValueObserver(callback?: (...args: any[]) => any): void;
 
     }
 
@@ -4783,7 +4783,7 @@ declare namespace API {
         a callback function that doesn't receive any parameters
          * @since API version 1
          */
-        setDisconnectCallback(callback?: Function): void;
+        setDisconnectCallback(callback?: (...args: any[]) => any): void;
 
         /**
          * Sets the callback used for receiving data.
@@ -4796,7 +4796,7 @@ declare namespace API {
         a callback function with the signature `(byte[] data)`
          * @since API version 1
          */
-        setReceiveCallback(callback?: Function): void;
+        setReceiveCallback(callback?: (...args: any[]) => any): void;
 
         /**
          * Sends data to the remote host.
@@ -4842,7 +4842,7 @@ declare namespace API {
         a callback function which receives a single {@link RemoteConnection} argument
          * @since API version 1
          */
-        setClientConnectCallback(callback?: Function): void;
+        setClientConnectCallback(callback?: (...args: any[]) => any): void;
 
         /**
          * Gets the actual port used for the remote socket, which might differ from the originally requested port
@@ -4877,7 +4877,7 @@ declare namespace API {
         a callback function that takes a single boolean parameter.
          * @since API version 1
          */
-        addIsSelectedInEditorObserver(callback?: Function): void;
+        addIsSelectedInEditorObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Selects the scene in Bitwig Studio.
@@ -5359,7 +5359,7 @@ declare namespace API {
         a callback function that does not receive any argument.
          * @since API version 1
          */
-        addSignalObserver(callback?: Function): void;
+        addSignalObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Fires the action or event represented by the signal object.
@@ -5656,7 +5656,7 @@ declare namespace API {
         2. the name string
          * @since API version 1
          */
-        addPitchNamesObserver(callback?: Function): void;
+        addPitchNamesObserver(callback?: (...args: any[]) => any): void;
 
         /**
          * Plays a note on the track with a default duration and the given key and velocity.
@@ -5912,7 +5912,7 @@ declare namespace API {
         Studio document
          * @since API version 1
          */
-        addSceneScrollPositionObserver(callback?: Function, valueWhenUnassigned?: any): void;
+        addSceneScrollPositionObserver(callback?: (...args: any[]) => any, valueWhenUnassigned?: any): void;
 
         /**
          * Causes this bank to follow the supplied cursor. When the cursor moves to a new item the bank will be
@@ -6298,7 +6298,7 @@ declare namespace API {
         a callback function that receives a single parameter
          * @since API version 1
          */
-        addValueObserver(callback?: Function): void;
+        addValueObserver(callback?: (...args: any[]) => any): void;
 
     }
 
