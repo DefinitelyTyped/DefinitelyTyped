@@ -119,8 +119,8 @@ interface WebPage {
     // evaluate<T1, T2, R>(callback: (arg1: T1, arg2: T2) => R, arg1: T1, arg2: T2): Promise<R>;
     // evaluate<T1, T2, T3, R>(callback: (arg1: T1, arg2: T2, arg3: T3) => R, arg1: T1, arg2: T2, arg3: T3): Promise<R>;
     // evaluate<R>(callback: (...args: any[]) => R, ...args: any[]): Promise<R>;
-    evaluate<R>(callback: () => R, ...args: any[]): R;
-    evaluateAsync(fn: () => void): void;
+    evaluate<R>(callback: (...args: any[]) => R, ...args: any[]): R;
+    evaluateAsync(fn: (...args: any[]) => void, delayMilli: number, ...args: any[]): void;
     evaluateJavaScript(str: string): any; // :TODO: elaborate this when documentation improves
     getPage(windowName: string): WebPage;
     go(index: number): void;
@@ -369,6 +369,64 @@ interface WebPageModule {
   exit(returnValue?: number): void;
 }
 
+interface Opts {
+ mode: string,
+ charset: string,
+ nobuffer: boolean
+}
+
+interface fs {
+   changeWorkingDirectory(path: string): void;
+   workingDirectory: string;
+   exists(path: string): boolean;
+   isFile(path: string): boolean;
+   isDirectory(path: string): boolean;
+   isReadable(path: string): boolean;
+   isWritable(path: string): boolean;
+   isLink(path: string): boolean;
+   size(path: string): number;
+   lastModified(path: string): Date;
+   read(path: string, mode: string): string;
+   /*
+     Mode is a string that can contain character which describes a characteristic of the returned stream.
+     If the string contains "r", the file is opened in read-only mode.
+     "w" opens the file in write-only mode.
+     "b" opens the file in binary mode. If "b" is not present, the file is
+         opened in text mode, and its contents are assumed to be UTF-8.
+     "a" means to open as "append" mode: the file is open in write-only mode and all written character are append to the file
+   */
+   write(path: string, content: any, mode: string): void;
+   separator: string;
+   // last argument should be the filename
+   join(basepath: string, dirname: string, ...args: string[]): string;
+   split(path: string): Array<string>;
+   directory(path: string): string;
+   dirname(path: string): string;
+   base(path: string): string;
+   basename(path: string): string;
+   absolute(path: string): string;
+   extension(path: string, withoutdot: boolean): string;
+   list(path: string): Array<string>;
+   open(filename: string, opts: Opts): void;
+   remove(path: string): void;
+   makeDirectory(path: string): void;
+   makeTree(path: string): void;
+   mkpath(path: string): void;
+   removeDirectory(path: string): void;
+   removeTree(path: string): void;
+   rmdir(path: string): void;
+   copy(source: string, target: string): void;
+   copyTree(source: string, target: string): void;
+   rename(path: string, newname: string): void;
+   move(source: string, target: string): void;
+   touch(path: string, date: Date): void;
+   readLink(path: string): string;
+   isAbsolute(path: string): boolean;
+   isExecutable(path: string): boolean;
+}
+
 declare function require(module: "webpage"): WebPageModule;
 declare function require(module: "webserver"): WebServerModule;
 declare function require(module: "system"): SystemModule;
+declare function require(module: "fs"): SystemModule;
+declare function require(module: any): any;
