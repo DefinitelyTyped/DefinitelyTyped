@@ -3,7 +3,6 @@
 // Definitions by: Swint De Coninck <https://github.com/SwintDC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace moment {
     interface DurationFormatSettings {
       template?: string;
