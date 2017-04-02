@@ -312,7 +312,7 @@ interface Stream {
 interface WebServer {
     registerDirectory(urlpath: string, directoryPath: string): void;
     registerFile(urlpath: string, filePath: string): void;
-    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void
+    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void;
     port: number;
     listen(port: number | string, cb?: (request: WebServerRequest, response: WebServerResponse) => void): boolean;
     // listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
