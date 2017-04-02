@@ -1,4 +1,4 @@
-// Type definitions for pidusage 1.0.2
+// Type definitions for node-procfs-stats 1.0.2
 // Project: https://github.com/soldair/node-procfs-stats
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,7 +31,7 @@ declare module "procfs-stats" {
             guest_nice: string;
         }
 
-        export interface Disk {
+        export interface DiskStat {
             device_number: string;
             device_number_minor: string;
             device: string;
@@ -307,7 +307,7 @@ declare module "procfs-stats" {
             argv(callback: Callback<string[]>): never;
             cpu(callback: Callback<Cpu>): never;
             cwd(callback: Callback<string>): never;
-            disk(callback: Callback<Disk[]>): never;
+            disk(callback: Callback<DiskStat[]>): never;
             env(callback: Callback<string[]>): never;
             fd(fdPath: string, callback: Callback<FileDescriptor>): never;
             fds(callback: Callback<string[]>): never;
