@@ -1,4 +1,4 @@
-import fs = require('fs-extra');
+import * as fs from 'fs-extra';
 import * as Path from 'path';
 
 const src = "";
