@@ -183,7 +183,7 @@ class TestApp extends React.Component<{}, {}> {
             "hello": "Hello, {name}!"
         };
         return (
-            <IntlProvider locale="en" formats={{}} messages={messages} defaultLocale="en" defaultFormats={messages}>
+            <IntlProvider locale="en" formats={{}} messages={messages} textComponent='span' defaultLocale="en" defaultFormats={messages}>
                 <SomeComponentWithIntl className="just-for-test" />
                 <SomeFunctionalComponentWithIntl className="another-one" />
             </IntlProvider>
