@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "pidusage-tests.ts"
+        "throng-tests.ts"
     ]
 }
