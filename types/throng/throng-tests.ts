@@ -3,7 +3,7 @@ import throng = require("throng");
 function masterFunction() { }
 function startFunction(id: number) { }
 
-throng((id) => {});
+throng((id: number) => {});
 
 throng(startFunction);
 throng(3, startFunction);
