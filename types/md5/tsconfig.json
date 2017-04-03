@@ -17,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
-        "md5-tests.ts"
+        "md5-tests.ts",
+        "md5-import-tests.ts"
     ]
 }
