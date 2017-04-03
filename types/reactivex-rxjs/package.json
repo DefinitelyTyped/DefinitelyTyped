@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "description": "Exposes Rx global namespace ",
+  "main": "index.d.ts",
+  "dependencies": {
+    "@reactivex/rxjs": "^5.1.0"
+  }
+}
