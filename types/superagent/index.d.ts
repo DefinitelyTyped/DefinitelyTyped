@@ -9,18 +9,18 @@ import stream = require('stream');
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
-declare var request: request.SuperAgentStatic;
+declare const request: request.SuperAgentStatic;
 
 declare namespace request {
-    interface SuperAgentRequest extends Request { }
-    interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
+    export interface SuperAgentRequest extends Request { }
+    export interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
         (url: string): SuperAgentRequest;
         (method: string, url: string): SuperAgentRequest;
 
         agent(): SuperAgent<SuperAgentRequest>;
     }
 
-    interface SuperAgent<Req> extends stream.Stream {
+    export interface SuperAgent<Req> extends stream.Stream {
         get(url: string, callback?: CallbackHandler): Req;
         post(url: string, callback?: CallbackHandler): Req;
         put(url: string, callback?: CallbackHandler): Req;
@@ -54,7 +54,7 @@ declare namespace request {
       attachCookies(req: Req): void;
     }
 
-    interface Response extends NodeJS.ReadableStream {
+    export interface Response extends NodeJS.ReadableStream {
         text: string;
         body: any;
         files: any;
