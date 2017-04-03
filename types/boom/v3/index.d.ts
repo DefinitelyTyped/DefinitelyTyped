@@ -1,4 +1,4 @@
-// Type definitions for boom
+// Type definitions for boom 3.2
 // Project: http://github.com/hapijs/boom
 // Definitions by: Igor Rogatty <http://github.com/rogatty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
