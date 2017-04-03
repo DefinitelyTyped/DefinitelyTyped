@@ -1,4 +1,3 @@
-
 Rx.Observable.of(1);
 
 let x = new Rx.Subject();
