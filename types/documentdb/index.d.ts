@@ -550,7 +550,7 @@ export declare class DocumentClient {
      * @param [options] - The request options.
      * @param callback  - The callback for the request.
     */
-    public createDatabase(body: UniqueId, options: RequestOptions, callback: RequestCallback<DatabaseMeta>): void;
+    createDatabase(body: UniqueId, options: RequestOptions, callback: RequestCallback<DatabaseMeta>): void;
     createDatabase(body: UniqueId, callback: RequestCallback<DatabaseMeta>): void;
 
     /**
@@ -566,7 +566,7 @@ export declare class DocumentClient {
      * @param [options]     - The request options.
      * @param callback      - The callback for the request.
      */
-    public createCollection(databaseLink: string, body: Collection, options: RequestOptions, callback: RequestCallback<CollectionMeta>): void;
+    createCollection(databaseLink: string, body: Collection, options: RequestOptions, callback: RequestCallback<CollectionMeta>): void;
     createCollection(databaseLink: string, body: Collection, callback: RequestCallback<CollectionMeta>): void;
 
     /**
@@ -581,7 +581,7 @@ export declare class DocumentClient {
      * @param [options]         - The request options.
      * @param callback          - The callback for the request.
      */
-    public createStoredProcedure(collectionLink: string, procedure: Procedure, options: RequestOptions, callback: RequestCallback<ProcedureMeta>): void;
+    createStoredProcedure(collectionLink: string, procedure: Procedure, options: RequestOptions, callback: RequestCallback<ProcedureMeta>): void;
     createStoredProcedure(collectionLink: string, procedure: Procedure, callback: RequestCallback<ProcedureMeta>): void;
 
     /**
@@ -595,7 +595,7 @@ export declare class DocumentClient {
      * @param [options]         - The request options.
      * @param callback          - The callback for the request.
      */
-    public createUserDefinedFunction(collectionLink: string, udf: UserDefinedFunction, options: RequestOptions, callback: RequestCallback<UserDefinedFunctionMeta>): void;
+    createUserDefinedFunction(collectionLink: string, udf: UserDefinedFunction, options: RequestOptions, callback: RequestCallback<UserDefinedFunctionMeta>): void;
     createUserDefinedFunction(collectionLink: string, udf: UserDefinedFunction, callback: RequestCallback<UserDefinedFunctionMeta>): void;
 
     /**
@@ -609,7 +609,7 @@ export declare class DocumentClient {
      * @param [options]       - The request options.
      * @param callback        - The callback for the request.
      */
-    public createTrigger(collectionLink: string, trigger: Trigger, options: RequestOptions, callback: RequestCallback<TriggerMeta>): void;
+    createTrigger(collectionLink: string, trigger: Trigger, options: RequestOptions, callback: RequestCallback<TriggerMeta>): void;
     createTrigger(collectionLink: string, trigger: Trigger, callback: RequestCallback<TriggerMeta>): void;
 
     /**
@@ -623,7 +623,7 @@ export declare class DocumentClient {
      * @param [options]         - The request options.
      * @param callback 			- The callback for the request.
      */
-    public createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, options: CreateDocumentRequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+    createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, options: CreateDocumentRequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
     createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
 
     /**
@@ -633,7 +633,7 @@ export declare class DocumentClient {
      * @param options       - Request options
      * @param callback      - Callback for the request
      */
-    public createPermission(userLink:string, body:Permission, options:RequestOptions, callback:RequestCallback<PermissionMeta>): void;
+    createPermission(userLink:string, body:Permission, options:RequestOptions, callback:RequestCallback<PermissionMeta>): void;
     createPermission(userLink:string, body:Permission, callback:RequestCallback<PermissionMeta>): void;
 
     /**
@@ -653,7 +653,7 @@ export declare class DocumentClient {
      * @param options       - The request options
      * @param callback      - The callback for the request.
      */
-    public executeStoredProcedure<TResult>(procedureLink: string, params: any[], options:RequestOptions, callback: RequestCallback<TResult>): void;
+    executeStoredProcedure<TResult>(procedureLink: string, params: any[], options:RequestOptions, callback: RequestCallback<TResult>): void;
     executeStoredProcedure<TResult>(procedureLink: string, params: any[], callback: RequestCallback<TResult>): void;
     executeStoredProcedure<TResult>(procedureLink: string, options:RequestOptions, callback: RequestCallback<TResult>): void;
 
@@ -662,7 +662,7 @@ export declare class DocumentClient {
      * @param [options] - The feed options.
      * @returns         - An instance of QueryIterator to handle reading feed.
      */
-    public queryDatabases(query: DocumentQuery, options?:FeedOptions): QueryIterator<DatabaseMeta>;
+    queryDatabases(query: DocumentQuery, options?:FeedOptions): QueryIterator<DatabaseMeta>;
 
     /**
      * Query the collections for the database.
@@ -671,7 +671,7 @@ export declare class DocumentClient {
      * @param [options]     - Represents the feed options.
      * @returns             - An instance of queryIterator to handle reading feed.
      */
-    public queryCollections(databaseLink: string, query: DocumentQuery, options?:FeedOptions): QueryIterator<CollectionMeta>;
+    queryCollections(databaseLink: string, query: DocumentQuery, options?:FeedOptions): QueryIterator<CollectionMeta>;
 
     /**
      * Query the storedProcedures for the collection.
@@ -680,7 +680,7 @@ export declare class DocumentClient {
      * @param [options]         - Represents the feed options.
      * @returns                 - An instance of queryIterator to handle reading feed.
      */
-    public queryStoredProcedures(collectionLink: string, query: DocumentQuery, options?:FeedOptions): QueryIterator<ProcedureMeta>;
+    queryStoredProcedures(collectionLink: string, query: DocumentQuery, options?:FeedOptions): QueryIterator<ProcedureMeta>;
 
     /**
      * Query the user-defined functions for the collection.
@@ -689,7 +689,7 @@ export declare class DocumentClient {
      * @param [options]         - Represents the feed options.
      * @returns                 - An instance of queryIterator to handle reading feed.
      */
-    public queryUserDefinedFunctions(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<UserDefinedFunctionMeta>;
+    queryUserDefinedFunctions(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<UserDefinedFunctionMeta>;
 
     /**
     * Query the documents for the collection.
@@ -698,7 +698,7 @@ export declare class DocumentClient {
     * @param [options]      - Represents the feed options.
     * @returns              - An instance of queryIterator to handle reading feed.
     */
-    public queryDocuments<TDocument>(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<RetrievedDocument<TDocument>>;
+    queryDocuments<TDocument>(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<RetrievedDocument<TDocument>>;
 
     /**
      * Query the triggers for the collection.
@@ -707,7 +707,7 @@ export declare class DocumentClient {
      * @param {FeedOptions} [options]         - Represents the feed options.
      * @returns {QueryIterator}               - An instance of queryIterator to handle reading feed.
      */
-    public queryTriggers(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<TriggerMeta>;
+    queryTriggers(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<TriggerMeta>;
 
     /**
      * Query the attachments for the document.
@@ -754,7 +754,7 @@ export declare class DocumentClient {
      * @param [options]     - The request options.
      * @param callback      - The callback for the request. 
     */
-    public deleteDocument(documentLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
+    deleteDocument(documentLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
     deleteDocument(documentLink: string, callback: RequestCallback<void>): void;
 
     /**
@@ -763,7 +763,7 @@ export declare class DocumentClient {
      * @param [options]     - The request options.
      * @param callback      - The callback for the request. 
     */
-    public deleteDatabase(databaseLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
+    deleteDatabase(databaseLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
     deleteDatabase(databaseLink: string, callback: RequestCallback<void>): void;
 
     /**
@@ -772,7 +772,7 @@ export declare class DocumentClient {
      * @param [options]         - The request options.
      * @param callback          - The callback for the request. 
     */
-    public deleteCollection(collectionLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
+    deleteCollection(collectionLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
     deleteCollection(collectionLink: string, callback: RequestCallback<void>): void;
 
     /**
@@ -781,7 +781,7 @@ export declare class DocumentClient {
      * @param [options]     - The request options.
      * @param callback      - The callback for the request.
     */
-    public deleteStoredProcedure(procedureLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
+    deleteStoredProcedure(procedureLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
     deleteStoredProcedure(procedureLink: string, callback: RequestCallback<void>): void;
 
     /**
@@ -845,7 +845,7 @@ export declare class DocumentClient {
      * @param {RequestOptions} [options] - The request options.
      * @param {RequestCallback} callback - The callback for the request.
      */
-    public replaceDocument<TDocument>(documentLink: string, document: NewDocument<TDocument>, options: RequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+    replaceDocument<TDocument>(documentLink: string, document: NewDocument<TDocument>, options: RequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
     replaceDocument<TDocument>(documentLink: string, document: NewDocument<TDocument>, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
 
     /**
@@ -855,7 +855,7 @@ export declare class DocumentClient {
      * @param [options]     - The request options.
      * @param callback      - The callback for the request.
      */
-    public replaceStoredProcedure(procedureLink: string, procedure: Procedure, options: RequestOptions, callback: RequestCallback<ProcedureMeta>): void;
+    replaceStoredProcedure(procedureLink: string, procedure: Procedure, options: RequestOptions, callback: RequestCallback<ProcedureMeta>): void;
     replaceStoredProcedure(procedureLink: string, procedure: Procedure, callback: RequestCallback<ProcedureMeta>): void;
 
     /**
