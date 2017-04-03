@@ -12,6 +12,11 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "@vimeo": [
+                "@vimeo/player"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
