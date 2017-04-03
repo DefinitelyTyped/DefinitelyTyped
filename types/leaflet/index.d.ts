@@ -1302,6 +1302,7 @@ declare namespace L {
 
     class Map extends Evented {
         constructor(element: string | HTMLElement, options?: MapOptions);
+        options: MapOptions;
         getRenderer(layer: Path): Renderer;
 
         // Methods for layers and controls
