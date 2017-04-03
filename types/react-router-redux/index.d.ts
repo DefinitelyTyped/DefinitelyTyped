@@ -20,26 +20,26 @@ import {
 import * as React from 'react';
 
 export interface ConnectedRouterProps<State> {
-    store?: Store<State>,
-    history?: History
+    store?: Store<State>;
+    history?: History;
 }
 export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, {}> {}
 
 export const LOCATION_CHANGE: string;
 
 export interface RouterState {
-    location: Location | null
+    location: Location | null;
 }
 
-export function routerReducer(state?: RouterState, action?: RouterAction): RouterState
+export function routerReducer(state?: RouterState, action?: RouterAction): RouterState;
 
 export const CALL_HISTORY_METHOD: string;
 
-export function push(location: LocationDescriptor, state?: LocationState): RouterAction
-export function replace(location: LocationDescriptor, state?: LocationState): RouterAction
-export function go(n: number): RouterAction
-export function goBack(): RouterAction
-export function goForward(): RouterAction
+export function push(location: LocationDescriptor, state?: LocationState): RouterAction;
+export function replace(location: LocationDescriptor, state?: LocationState): RouterAction;
+export function go(n: number): RouterAction;
+export function goBack(): RouterAction;
+export function goForward(): RouterAction;
 
 export const routerAction: {
     push: typeof push
@@ -47,17 +47,16 @@ export const routerAction: {
     go: typeof go
     goBack: typeof goBack
     goForward: typeof goForward
-}
+};
 
 export interface LocationActionPayload {
-    method: string,
-    args?: any[],
+    method: string;
+    args?: any[];
 }
 
 export interface RouterAction extends Action {
-    type: typeof CALL_HISTORY_METHOD,
-    payload: LocationActionPayload
+    type: typeof CALL_HISTORY_METHOD;
+    payload: LocationActionPayload;
 }
 
-export function routerMiddleware(history: History): Middleware
-
+export function routerMiddleware(history: History): Middleware;
