@@ -148,6 +148,11 @@ interface tinycolorInstance {
     getBrightness(): number;
 
     /**
+     * Returns the perceived luminance of a color, from 0-1.
+     */
+    getLuminance(): number;
+
+    /**
      * Sets the alpha value on the current color.
      *
      * @param alpha - The new alpha value. The accepted range is 0-1.
