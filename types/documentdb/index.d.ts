@@ -6,7 +6,7 @@
 
 
 /** The feed options and query methods.*/
-interface FeedOptions {
+interface FeedOptions extends RequestOptions {
 
     /** Max number of items to be returned in the enumeration operation. */
     maxItemCount?: number;
@@ -18,7 +18,7 @@ interface FeedOptions {
     sessionToken?: string;
 
     /** Allow scan on the queries which couldn't be served as indexing was opted out on the requested paths. */
-    EnableScanInQuery?: boolean;
+    enableScanInQuery?: boolean;
 }
 
 /** Options that can be specified for a request issued to the DocumentDB servers. */
@@ -52,17 +52,33 @@ interface RequestOptions {
     /** Expiry time (in seconds) for resource token associated with permission (applicable only for requests on permissions).*/
     resourceTokenExpirySeconds?: number;
 
-    /** Disables the automatic id generation. If id is missing in the body and this option is true, an error will be returned. */
-    disableAutomaticIdGeneration?: boolean;
-
     /** Offer type when creating document collections. */
-    offerType?: string
+    offerType?: string;
+
+    /**
+     * The user specified throughput when creating document collections.
+     * 
+     * Expressed in units of 100 request units per second. This can be between 400 and 250,000 (or higher by requesting a limit increase).
+     * 
+     * If the x-ms-offer-throughput is over 10,000, then the collection must include a partitionKey definition. If the x-ms-offer-throughput is equal to or under 10,000, then the collection must not include a partitionKey definition.
+     * 
+     * One of x-ms-offer-throughput or x-ms-offer-type must be specified. Both headers cannot be specified together. */
+    offerThroughput?: string;
 
     /** The partition key value for the requested document or attachment operation. Required for operations against documents and attachments when the collection definition includes a partition key definition. */
     partitionKey?: string|string[];
+
+    /** If the collection is partitioned, this must be set to True to allow execution across multiple partitions. Queries that filter against a single partition key, or against single-partitioned collections do not need to set the header. */
+    enableCrossPartitionQuery?: boolean;
+
+    /** If true, parallelize cross-partition queries */
+    maxDegreeOfParallelism?: boolean;
+
+    /** If true, populate quota in response */
+    populateQuotaInfo?:boolean;
 }
 
-interface CreateDocumentRequestOptions extends RequestOptions {
+interface DocumentOptions extends RequestOptions {
     /** Disables the automatic id generation. If id is missing in the body and this option is true, an error will be returned. */
     disableAutomaticIdGeneration?: boolean;
 }
@@ -131,6 +147,9 @@ interface AbstractMeta extends UniqueId {
 interface NewDocument<TContent> extends UniqueId {
     /** The time to live in seconds of the document. */
     ttl?: number;
+
+    /** Custom properties */
+    [key:string]: any;
 }
 
 /** Represents a document retrieved from storage. 
@@ -318,7 +337,7 @@ export interface RetryOptions {
 }
 
 
-export interface MediaOptions {
+export interface MediaOptions extends RequestOptions {
     /** HTTP Slug header value. */
     slug?: string;
 
@@ -363,24 +382,40 @@ export interface PartitionKeyMap {
 
 export type DocumentQuery = SqlQuerySpec | string;
 
+/**
+ * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * DEPRECATED Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ */
 export interface PartitionResolver {
     /**
      * Extracts the partition key from the specified document using the partitionKeyExtractor
      * @param document - The document from which to extract the partition key.
      */
-    getPartitionKey(document:any): any;
+    getPartitionKey(document:any): string;
 
     /**
      * Given a partition key, returns the correct collection link for creating a document.
      * @param partitionKey - The partition key used to determine the target collection for create
      */
-    resolveForCreate(partitionKey:any): string;
+    resolveForCreate(partitionKey:string): string;
 
     /**
      * Given a partition key, returns a list of collection links to read from.
      * @param partitionKey - The partition key used to determine the target collection for query
      */
     resolveForRead(partitionKey:any): string[];
+}
+
+/**
+ * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * DEPRECATED Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ */
+export interface ConsistentHashRingOptions {
+    /** Function to compute the hash for a given link or partition key */
+    computeHash?: (key:string|number, seed:number) => number;
+
+    /** Number of points in the ring to assign to each collection link */
+    numberOfVirtualNodesPerCollection?: number;
 }
 
 /** Represents a QueryIterator Object, an implmenetation of feed or query response that enables traversal and iterating over the response in the Azure DocumentDB database service. */
@@ -438,48 +473,62 @@ export declare class QueryIterator<TResultRow> {
     toArray(callback:RequestCallback<TResultRow[]>): void
 }
 
-/** HashPartitionResolver implements partitioning based on the value of a hash function, allowing you to evenly distribute requests and data across a number of partitions for the Azure DocumentDB database service. */
+/** 
+ * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * DEPRECATED Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * HashPartitionResolver implements partitioning based on the value of a hash function, allowing you to evenly distribute requests and data across a number of partitions for the Azure DocumentDB database service. */
 export declare class HashPartitionResolver implements PartitionResolver {
 
     /**
-     * Create new HashPartitionResolver
+     * DEPRECATED Create new HashPartitionResolver
+     * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
      * @param partitionKeyExtractor - If partitionKeyExtractor is a string, it should be the name of the property in the document to execute the hashing on. If partitionKeyExtractor is a function, it should be a function to extract the partition key from an object.
+     * @param collectionLink        - Array of strings in the format 'dbs/foo/colls/bar'
+     * @param options               - Options forr the ConsistentHashRing (MurmurHash)
      */
-    constructor(partitionKeyExtractor:string|((obj:any) => any));
+    constructor(partitionKeyExtractor:string|((obj:any) => any), collectionLinks:string[], options?:ConsistentHashRingOptions);
 
     /**
      * Extracts the partition key from the specified document using the partitionKeyExtractor
      * @param document - The document from which to extract the partition key.
      */
-    getPartitionKey(document:any): any;
+    getPartitionKey(document:any): string;
 
     /**
      * Given a partition key, returns the correct collection link for creating a document.
      * @param partitionKey - The partition key used to determine the target collection for create
      */
-    resolveForCreate(partitionKey:any): string;
+    resolveForCreate(partitionKey:string): string;
 
     /**
      * Given a partition key, returns a list of collection links to read from.
      * @param partitionKey - The partition key used to determine the target collection for query
      */
-    resolveForRead(partitionKey:any): string[];
+    resolveForRead(partitionKey:string): string[];
 }
 
-/** Represents a range object used by the RangePartitionResolver in the Azure DocumentDB database service. */
+/** 
+ * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * DEPRECATED Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * Represents a range object used by the RangePartitionResolver in the Azure DocumentDB database service. */
 export declare class Range {
 
     /**
-     * Create new Range object
+     * DEPRECATED Create new Range object
+     * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
      * @param options -  The Range constructor options.
      */
     constructor(options:RangeOptions);
 }
 
-/** RangePartitionResolver implements partitioning using a partition map of ranges of values to a collection link in the Azure DocumentDB database service. */
+/** 
+ * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * DEPRECATED Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
+ * RangePartitionResolver implements partitioning using a partition map of ranges of values to a collection link in the Azure DocumentDB database service. */
 export declare class RangePartitionResolver implements PartitionResolver {
     /**
-     * Create new RangePartitionResolver object
+     * DEPRECATED Create new RangePartitionResolver object
+     * @deprecated Support for IPartitionResolver is now obsolete. It's recommended that you use Partitioned Collections for higher storage and throughput.
      * @param partitionKeyExtractor - If partitionKeyExtractor is a string, it should be the name of the property in the document to execute the hashing on. If partitionKeyExtractor is a function, it should be a function to extract the partition key from an object. 
      * @param partitionKeyMap       - The map from Range to collection link that is used for partitioning requests.
      * @param [compareFunction]       - Optional function that accepts two arguments a and b and returns a negative value if a < b, zero if a = b, or a positive value if a > b.
@@ -490,19 +539,19 @@ export declare class RangePartitionResolver implements PartitionResolver {
      * Extracts the partition key from the specified document using the partitionKeyExtractor
      * @param document - The document from which to extract the partition key.
      */
-    getPartitionKey(document:any): any;
+    getPartitionKey(document:any): string;
 
     /**
      * Given a partition key, returns the correct collection link for creating a document.
      * @param partitionKey - The partition key used to determine the target collection for create
      */
-    resolveForCreate(partitionKey:any): string;
+    resolveForCreate(partitionKey:string): string;
 
     /**
      * Given a partition key, returns a list of collection links to read from.
      * @param partitionKey - The partition key used to determine the target collection for query
      */
-    resolveForRead(partitionKey:any): string[];
+    resolveForRead(partitionKey:string): string[];
 }
 
 /** Provides a client-side logical representation of the Azure DocumentDB database account. This client is used to configure and execute requests against the service.
@@ -623,7 +672,7 @@ export declare class DocumentClient {
      * @param [options]         - The request options.
      * @param callback 			- The callback for the request.
      */
-    createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, options: CreateDocumentRequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+    createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, options: DocumentOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
     createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
 
     /**
@@ -1151,7 +1200,7 @@ export declare class DocumentClient {
      * @param options       - The request options.
      * @param callback      - The callback for the request.
      */
-    upsertDocument<T>(documentsFeedOrDatabaseLink:string, body:NewDocument<T>, options:CreateDocumentRequestOptions, callback:RequestCallback<RetrievedDocument<T>>): void;
+    upsertDocument<T>(documentsFeedOrDatabaseLink:string, body:NewDocument<T>, options:DocumentOptions, callback:RequestCallback<RetrievedDocument<T>>): void;
     upsertDocument<T>(documentsFeedOrDatabaseLink:string, body:NewDocument<T>, callback:RequestCallback<RetrievedDocument<T>>): void;
 
     /**

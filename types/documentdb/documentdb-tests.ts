@@ -16,7 +16,7 @@ const client3 = new ddb.DocumentClient('host', auth1, connectionPolicy, 'Strong'
 /** DocumentClient methods */
 const requestOptions1: ddb.RequestOptions = { };
 const mediaOptions1: ddb.MediaOptions = { };
-const docOptions1: ddb.CreateDocumentRequestOptions = { };
+const docOptions1: ddb.DocumentOptions = { };
 const attachment1: ddb.Attachment = { id:'1', contentType:'foo/bar', media:'foo' };
 const stream1:NodeJS.ReadableStream = null;
 const index1:ddb.Index = { Kind:'Hash', DataType:'foo', Precision:0.1 };
@@ -217,8 +217,10 @@ qi1.toArray((err:ddb.QueryError, resource:Row[], responseHeaders:any) => void 0)
 
 
 /** HashPartitionResolver constructor */
-const hpr1 = new ddb.HashPartitionResolver('foo');
-const hpr2 = new ddb.HashPartitionResolver((obj:any) => obj.foo);
+const hashOptions1: ddb.ConsistentHashRingOptions = { computeHash: (obj:any) => obj.foo };
+const hashOptions2: ddb.ConsistentHashRingOptions = { numberOfVirtualNodesPerCollection: 100 };
+const hpr1 = new ddb.HashPartitionResolver('foo', ['dbs/foo/colls/bar'], hashOptions1);
+const hpr2 = new ddb.HashPartitionResolver((obj:any) => obj.foo, ['dbs/foo/colls/bar']);
 
 /** HashPartitionResolver methods */
 const hashPartitionKey1:any = hpr1.getPartitionKey(document1);
