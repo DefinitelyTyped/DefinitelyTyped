@@ -1,5 +1,4 @@
 {
-  "version": "1.0.0",
   "description": "Exposes Rx global namespace ",
   "main": "index.d.ts",
 
