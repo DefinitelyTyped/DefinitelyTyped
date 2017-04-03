@@ -72,12 +72,6 @@ export interface VimeoCuePointData extends Object {
     customKey:string
 }
 
-export interface VimeoEvents {
-    time:number
-    data:object
-    id:string
-}
-
 export interface VimeoTextTrack {
     language:string
     kind:string
@@ -108,8 +102,6 @@ export interface VimeoPromise<Result, Reason> extends Promise<Result> {
     ): Promise<Result>
 }
 
-
 /*~ You can declare properties of the module using const, let, or var */
 export const playerMap: WeakMap<any, any>
 export const readyMap: WeakMap<any, any>
-
