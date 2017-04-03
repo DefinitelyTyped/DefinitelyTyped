@@ -13,6 +13,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "anydb-sql",
+            "typingsPackageName": "anydb-sql",
+            "sourceRepoURL": "https://github.com/doxout/anydb-sql",
+            "asOfVersion": "0.6.46"
+        },
+        {
             "libraryName": "Argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
