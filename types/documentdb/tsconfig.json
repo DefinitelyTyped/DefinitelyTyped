@@ -11,12 +11,13 @@
         "baseUrl": "../",
         "typeRoots": [
             "../"
-        ],
+        ],  
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "../node/index.d.ts",
         "index.d.ts",
         "documentdb-tests.ts"
     ]

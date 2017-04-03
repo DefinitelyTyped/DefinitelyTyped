@@ -1,6 +1,6 @@
 // Type definitions for DocumentDB
 // Project: https://github.com/Azure/azure-documentdb-node
-// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>
+// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>, Chris Stone <https://github.com/ctstone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/documentdb
 
 
@@ -16,6 +16,9 @@ interface FeedOptions {
 
     /** Token for use with Session consistency. */
     sessionToken?: string;
+
+    /** Allow scan on the queries which couldn't be served as indexing was opted out on the requested paths. */
+    EnableScanInQuery?: boolean;
 }
 
 /** Options that can be specified for a request issued to the DocumentDB servers. */
@@ -49,6 +52,17 @@ interface RequestOptions {
     /** Expiry time (in seconds) for resource token associated with permission (applicable only for requests on permissions).*/
     resourceTokenExpirySeconds?: number;
 
+    /** Disables the automatic id generation. If id is missing in the body and this option is true, an error will be returned. */
+    disableAutomaticIdGeneration?: boolean;
+
+    /** Offer type when creating document collections. */
+    offerType?: string
+
+    /** The partition key value for the requested document or attachment operation. Required for operations against documents and attachments when the collection definition includes a partition key definition. */
+    partitionKey: string|string[];
+}
+
+interface CreateDocumentRequestOptions extends RequestOptions {
     /** Disables the automatic id generation. If id is missing in the body and this option is true, an error will be returned. */
     disableAutomaticIdGeneration?: boolean;
 }
@@ -91,17 +105,6 @@ interface RequestCallback<TResult> {
     (error: QueryError, resource: TResult, responseHeaders: any): void;
 }
 
-/** Represents the result returned from a query. */
-interface QueryIterator<TResultRow> {
-    current(): TResultRow;
-    executeNext(callback: (error: QueryError, result: TResultRow[], responseHeaders? : any) => void): void;
-    forEach(iteratorFunction : (error: QueryError, element: TResultRow, responseHeaders? : any) => void): void;
-    hasMoreResults(): boolean;
-    nextItem(callback: (error: QueryError, item: TResultRow, responseHeaders? : any) => void): void;
-    reset(): void;
-    toArray(callback: (error: QueryError, result: TResultRow[], responseHeaders? : any) => void): void
-}
-
 /** Reprents an object with a unique identifier. */
 interface UniqueId {
 
@@ -126,12 +129,8 @@ interface AbstractMeta extends UniqueId {
 
 /** Represents a custom document for storing in DocumentDB  */
 interface NewDocument<TContent> extends UniqueId {
-
-    /** A custom property for containing the actual JSON object representing the document. 
-      * Define a custom property in order to disambiguate the JSON document from the metadata added by Azure.
-      * This property is optional and the name is application-specific.
-      */
-    // doc: TContent;
+    /** The time to live in seconds of the document. */
+    ttl?: number;
 }
 
 /** Represents a document retrieved from storage. 
@@ -182,56 +181,69 @@ export interface AuthOptions {
 export interface Procedure extends UniqueId {
 
     /** The function representing the stored procedure. */
-    body(...params: any[]): void;
+    body(...params: any[]): void | string;
 }
 
 /** Represents a DocumentDB user-defined function. */
 export interface UserDefinedFunction extends UniqueId {
 
+    /** Type of function */
+    userDefinedFunctionType?: UserDefinedFunctionType;
+
     /** The function representing the user-defined function. */
-    body(...params: any[]): void;
+    body(...params: any[]): void | string;
 }
 
 /** Represents a DocumentDB trigger. */
 export interface Trigger extends UniqueId {
     /** The type of the trigger. Should be either 'pre' or 'post'. */
-    triggerType: string;
+    triggerType?: TriggerType;
 
     /** The trigger operation. Should be one of 'all', 'create', 'update', 'delete', or 'replace'. */
-    triggerOperation: string;
+    triggerOperation: TriggerOperation;
 
     /** The function representing the trigger. */
-    body(...params: any[]): void;
+    body(...params: any[]): void | string;
 }
 
 /** Represents DocumentDB collection. */
 export interface Collection extends UniqueId {
 
+    /** The indexing policy associated with the collection. */
     indexingPolicy?: IndexingPolicy;
+
+    /** The default time to live in seconds for documents in a collection. */
+    defaultTtl?: number;
 }
 
-/** The Indexing Path
-* <p> Indexing paths hints to optimize indexing. <br>
-*     Indexing paths allow tradeoff between indexing storage and query performance
-* </p>
-*/
-interface IndexingPath {
+/** Represents a DocumentDB attachment */
+export interface Attachment {
+    /** The MIME contentType of the attachment. */
+    contentType: string;
 
-    /** The indexing type(range or hash) {@link IndexType}.*/
-    IndexType: string;
+    /** Media link associated with the attachment content. */
+    media:string;
 
-    /** Path to be indexed.*/
-    Path: string;
+    /** Other properties */
+    [name:string]: string;
+}
 
-    /** Precision for this particular Index type for numeric data. */
-    NumericPrecision: number;
+export interface AttachmentMeta extends Attachment, AbstractMeta {
+}
 
-    /** Precision for this particular Index type for string data. */
-    StringPrecision: number;
+export interface Permission extends UniqueId {
+    /** The mode of the permission */
+    permissionMode: PermissionMode;
+
+    /** The link of the resource that the permission will be applied to. */
+    resource: string;
+}
+
+export interface PermissionMeta extends Permission, AbstractMeta {
 }
 
 /**  The Indexing Policy represents the indexing policy configuration for a collection. */
-interface IndexingPolicy {
+export interface IndexingPolicy {
 
     /** Specifies whether automatic indexing is enabled for a collection.
         <p>In automatic indexing, documents can be explicitly excluded from indexing using {@link RequestOptions}.
@@ -239,13 +251,249 @@ interface IndexingPolicy {
     automatic: boolean;
 
     /** The indexing mode (consistent or lazy) {@link IndexingMode}. */
-    indexingMode: string;
+    indexingMode: IndexingMode;
 
-    /** An array of {@link IndexingPath} represents The paths to be incuded for indexing. */
-    IncludedPaths: IndexingPath[];
+    /** Represents the paths to be included for indexing. */
+    IncludedPaths: IncludedPath[];
 
-    /** An array of strings representing the paths to be excluded from indexing. */
-    ExcludedPaths: string[];
+    /** Represents the paths to be excluded from indexing. */
+    ExcludedPaths: ExcludedPath[];
+}
+
+interface ExcludedPath {
+    Path: string;
+}
+
+interface IncludedPath {
+    /** Path to be indexed */
+    Path: string;
+    Indexes: Index[];
+}
+
+/** Specifies the supported Index types. */
+interface Index {
+    Kind: IndexKind;
+    DataType: string;
+    Precision: number
+}
+
+/** ConnectionPolicy */
+export interface ConnectionPolicy {
+    /** Attachment content (aka media) download mode.  */
+    MediaReadMode: MediaReadMode;
+
+    /** Time to wait for response from network peer for attachment content (aka media) operations. Represented in milliseconds. */
+    MediaRequestTimeout: number;
+
+    /** Request timeout (time to wait for response from network peer). Represented in milliseconds. */
+    RequestTimeout: number;
+
+    /** Flag to enable/disable automatic redirecting of requests based on read/write operations. */
+    EnableEndpointDiscovery: boolean;
+
+    /** List of azure regions to be used as preferred locations for read requests. */
+    PreferredLocations: any[];
+
+    /** RetryOptions instance which defines several configurable properties used during retry. */
+    RetryOptions: RetryOptions;
+
+    /** Flag to disable SSL verification for the requests. SSL verification is enabled by default. Don't set this when targeting production endpoints. This is intended to be used only when targeting emulator endpoint to avoid failing your requests with SSL related error. */
+    DisableSSLVerification: boolean;
+}
+
+
+
+/** RetryOptions */
+export interface RetryOptions {
+    MaxRetryAttemptCount?: number;
+    FixedRetryIntervalInMilliseconds?: number;
+    MaxWaitTimeInSeconds?: number;
+}
+
+
+export interface MediaOptions {
+    /** HTTP Slug header value. */
+    slug?: string;
+
+    /** HTTP ContentType header value. */
+    contentType: string;
+}
+
+export interface DatabaseAccountRequestOptions extends RequestOptions {
+    /** The endpoint url whose database account needs to be retrieved. If not present, current client's url will be used. */
+    urlConnection: string;
+}
+
+export interface DatabaseAccount {
+    DatabasesLink: string;
+    MediaLink: string;
+    MaxMediaStorageUsageInMB: number;
+    CurrentMediaStorageUsageInMB: number;
+    ConsistencyPolicy: ConsistencyPolicy;
+    WritableLocations: string[];
+    ReadableLocations: string[];
+}
+
+export interface ConsistencyPolicy {
+    defaultConsistencyLevel: ConsistencyLevel;
+    maxStalenessPrefix: number;
+    maxStalenessIntervalInSeconds: number;
+}
+
+export interface RangeOptions {
+    
+    /** The low value in the range. */
+    low: any;
+
+    /** The high value in the range. */
+    high:any;
+}
+
+export interface PartitionKeyMap {
+    link:string;
+    range:Range;
+}
+
+export interface PartitionResolver {
+    /**
+     * Extracts the partition key from the specified document using the partitionKeyExtractor
+     * @param document - The document from which to extract the partition key.
+     */
+    getPartitionKey(document:any): any;
+
+    /**
+     * Given a partition key, returns the correct collection link for creating a document.
+     * @param partitionKey - The partition key used to determine the target collection for create
+     */
+    resolveForCreate(partitionKey:any): string;
+
+    /**
+     * Given a partition key, returns a list of collection links to read from.
+     * @param partitionKey - The partition key used to determine the target collection for query
+     */
+    resolveForRead(partitionKey:any): string[];
+}
+
+/** Represents a QueryIterator Object, an implmenetation of feed or query response that enables traversal and iterating over the response in the Azure DocumentDB database service. */
+export declare class QueryIterator<TResultRow> {
+
+    /**
+     * Constructs a QueryIterator object
+     * @param documentclient    - The documentclient object.
+     * @param query             - A SQL query.
+     * @param options           - Represents the feed options.
+     * @param fetchFunctions    - A function to retrieve each page of data. An array of functions may be used to query more than one partition.
+     * @param resourceLinkopt   - An optional parameter that represents the resourceLink (will be used in orderby/top/parallel query)
+     */
+    constructor(documentclient:DocumentClient, query:SqlQuerySpec|string, options:FeedOptions, fetchFunctions:RequestCallback<TResultRow>|RequestCallback<TResultRow>[], resourceLinkopt?:string);
+
+    /**
+     * Retrieve the current element on the QueryIterator.
+     * @param callback Function to execute for the current element.
+     */
+    current(callback:RequestCallback<TResultRow>): void;
+
+    /**
+     * Retrieve the next batch of the feed and pass them as an array to a function
+     * @param callback Function execute on the feed response.
+     */
+    executeNext(callback:RequestCallback<TResultRow[]>): void;
+
+    /**
+     * Execute a provided function once per feed element.
+     * @param callback Function to execute for each element. the function takes two parameters error, element. Note: the last element the callback will be called on will be undefined. If the callback explicitly returned false, the loop gets stopped.
+     */
+    forEach(callback:RequestCallback<TResultRow>): void;
+
+    /**
+     * @deprecated
+     * Instead check if callback(undefined, undefined) is invoked by nextItem(callback) or current(callback) Determine if there are still remaining resources to processs based on the value of the continuation token or the elements remaining on the current batch in the QueryIterator.
+     */
+    hasMoreResults(): boolean;
+
+    /**
+     * Execute a provided function on the next element in the QueryIterator.
+     * @param callback Function to execute for each element.
+     */
+    nextItem(callback:RequestCallback<TResultRow>): void;
+
+    /**
+     * Reset the QueryIterator to the beginning and clear all the resources inside it
+     */
+    reset(): void;
+
+    /**
+     * Retrieve all the elements of the feed and pass them as an array to a function
+     * @param callback Function execute on the feed response.
+     */
+    toArray(callback:RequestCallback<TResultRow[]>): void
+}
+
+/** HashPartitionResolver implements partitioning based on the value of a hash function, allowing you to evenly distribute requests and data across a number of partitions for the Azure DocumentDB database service. */
+export declare class HashPartitionResolver implements PartitionResolver {
+
+    /**
+     * Create new HashPartitionResolver
+     * @param partitionKeyExtractor - If partitionKeyExtractor is a string, it should be the name of the property in the document to execute the hashing on. If partitionKeyExtractor is a function, it should be a function to extract the partition key from an object.
+     */
+    constructor(partitionKeyExtractor:string|((obj:any) => any));
+
+    /**
+     * Extracts the partition key from the specified document using the partitionKeyExtractor
+     * @param document - The document from which to extract the partition key.
+     */
+    getPartitionKey(document:any): any;
+
+    /**
+     * Given a partition key, returns the correct collection link for creating a document.
+     * @param partitionKey - The partition key used to determine the target collection for create
+     */
+    resolveForCreate(partitionKey:any): string;
+
+    /**
+     * Given a partition key, returns a list of collection links to read from.
+     * @param partitionKey - The partition key used to determine the target collection for query
+     */
+    resolveForRead(partitionKey:any): string[];
+}
+
+/** Represents a range object used by the RangePartitionResolver in the Azure DocumentDB database service. */
+export declare class Range {
+
+    /**
+     * Create new Range object
+     * @param options -  The Range constructor options.
+     */
+    constructor(options:RangeOptions);
+}
+
+/** RangePartitionResolver implements partitioning using a partition map of ranges of values to a collection link in the Azure DocumentDB database service. */
+export declare class RangePartitionResolver implements PartitionResolver {
+    /**
+     * Create new RangePartitionResolver object
+     * @param partitionKeyExtractor - If partitionKeyExtractor is a string, it should be the name of the property in the document to execute the hashing on. If partitionKeyExtractor is a function, it should be a function to extract the partition key from an object. 
+     * @param partitionKeyMap       - The map from Range to collection link that is used for partitioning requests.
+     * @param [compareFunction]       - Optional function that accepts two arguments a and b and returns a negative value if a < b, zero if a = b, or a positive value if a > b.
+     */
+    constructor(partitionKeyExtractor:string|((obj:any) => any), partitionKeyMap:PartitionKeyMap[], compareFunction?:(a:any, b:any) => number);
+
+    /**
+     * Extracts the partition key from the specified document using the partitionKeyExtractor
+     * @param document - The document from which to extract the partition key.
+     */
+    getPartitionKey(document:any): any;
+
+    /**
+     * Given a partition key, returns the correct collection link for creating a document.
+     * @param partitionKey - The partition key used to determine the target collection for create
+     */
+    resolveForCreate(partitionKey:any): string;
+
+    /**
+     * Given a partition key, returns a list of collection links to read from.
+     * @param partitionKey - The partition key used to determine the target collection for query
+     */
+    resolveForRead(partitionKey:any): string[];
 }
 
 /** Provides a client-side logical representation of the Azure DocumentDB database account. This client is used to configure and execute requests against the service.
@@ -258,7 +506,28 @@ export declare class DocumentClient {
      * @param [connectionPolicy]      - An instance of {@link ConnectionPolicy} class. This parameter is optional and the default connectionPolicy will be used if omitted.
      * @param [consistencyLevel]      - An optional parameter that represents the consistency level. It can take any value from {@link ConsistencyLevel}.
     */
-    constructor(urlConnection: string, auth: AuthOptions, connectionPolicy?: any, consistencyLevel?: string);
+    constructor(urlConnection: string, auth: AuthOptions, connectionPolicy?: ConnectionPolicy, consistencyLevel?: ConsistencyLevel);
+
+    /** Create an attachment for the document object.
+     * <p>
+     *  Each document may contain zero or more attachments. Attachments can be of any MIME type - text, image, binary data. <br>
+     *  These are stored externally in Azure Blob storage. Attachments are automatically deleted when the parent document is deleted. 
+     * </p> 
+     * @param documentLink  - The self-link of the document.
+     * @param body          - The metadata the defines the attachment media like media, contentType. It can include any other properties as part of the metedata
+     * @param [options]     - The request options.
+     * @param callback      - The callback for the request.
+     * */
+    createAttachment(documentLink:string, body:Attachment, options:RequestOptions, callback:RequestCallback<AttachmentMeta>): void;
+
+    /**
+     * 
+     * @param documentLink      - The self-link of the document.
+     * @param readableStream    - The stream that represents the media itself that needs to be uploaded.
+     * @param [options]         - The request options.
+     * @param callback          - The callback for the request.
+     */
+    createAttachmentAndUploadMedia(documentLink:string, readableStream:NodeJS.ReadableStream, options:MediaOptions, callback:RequestCallback<AttachmentMeta>): void;
 
     /** Send a request for creating a database. 
      * <p>
@@ -333,27 +602,47 @@ export declare class DocumentClient {
      * There is no set schema for JSON documents. They may contain any number of custom properties as well as an optional list of attachments. <br>
      * A Document is an application resource and can be authorized using the master key or resource keys
      * </p>
-     * @param collectionLink    - The self-link of the collection.
+     * @param documentsFeedOrDatabaseLink    - The self-link of the collection.
      * @param document          - Represents the body of the document. Can contain any number of user defined properties.
      * @param [options]         - The request options.
      * @param callback 			- The callback for the request.
      */
-    public createDocument<TDocument>(collectionSelfLink: string, document: NewDocument<TDocument>, options: RequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+    public createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, options: CreateDocumentRequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+
+    /**
+     * Create a permission. A permission represents a per-User Permission to access a specific resource e.g. Document or Collection.
+     * @param userLink      - Self-link of the user.
+     * @param body          - Permission body
+     * @param options       - Request options
+     * @param callback      - Callback for the request
+     */
+    public createPermission(userLink:string, body:Permission, options:RequestOptions, callback:RequestCallback<PermissionMeta>): void;
+
+    /**
+     * 
+     * @param databaseLink  - The self-link of the database.
+     * @param body          - Represents the body of the user.
+     * @param options       - The request options.
+     * @param callback      - The callback for the request.
+     */
+    createUser(databaseLink:string, body:UniqueId, options:RequestOptions, callback:RequestCallback<AbstractMeta>): void;
 
     /**
      * Execute the StoredProcedure represented by the object.
      * @param procedureLink - The self-link of the stored procedure.
      * @param [params]      - Represents the parameters of the stored procedure.
+     * @param options       - The request options
      * @param callback      - The callback for the request.
      */
-    public executeStoredProcedure<TDocument>(procedureLink: string, params: any[], callback: RequestCallback<TDocument>): void;
+    public executeStoredProcedure<TResult>(procedureLink: string, params: any[], options:RequestOptions, callback: RequestCallback<TResult>): void;
+    executeStoredProcedure<TResult>(procedureLink: string, params: any[], callback: RequestCallback<TResult>): void;
 
     /** Lists all databases that satisfy a query. 
      * @param query     - A SQL query string.
      * @param [options] - The feed options.
      * @returns         - An instance of QueryIterator to handle reading feed.
      */
-    public queryDatabases(query: string | SqlQuerySpec): QueryIterator<DatabaseMeta>;
+    public queryDatabases(query: string | SqlQuerySpec, options?:FeedOptions): QueryIterator<DatabaseMeta>;
 
     /**
      * Query the collections for the database.
@@ -362,7 +651,7 @@ export declare class DocumentClient {
      * @param [options]     - Represents the feed options.
      * @returns             - An instance of queryIterator to handle reading feed.
      */
-    public queryCollections(databaseLink: string, query: string | SqlQuerySpec): QueryIterator<CollectionMeta>;
+    public queryCollections(databaseLink: string, query: string | SqlQuerySpec, options?:FeedOptions): QueryIterator<CollectionMeta>;
 
     /**
      * Query the storedProcedures for the collection.
@@ -371,7 +660,7 @@ export declare class DocumentClient {
      * @param [options]         - Represents the feed options.
      * @returns                 - An instance of queryIterator to handle reading feed.
      */
-    public queryStoredProcedures(collectionLink: string, query: string | SqlQuerySpec): QueryIterator<ProcedureMeta>;
+    public queryStoredProcedures(collectionLink: string, query: string | SqlQuerySpec, options?:FeedOptions): QueryIterator<ProcedureMeta>;
 
     /**
      * Query the user-defined functions for the collection.
@@ -399,6 +688,45 @@ export declare class DocumentClient {
      * @returns {QueryIterator}               - An instance of queryIterator to handle reading feed.
      */
     public queryTriggers(collectionLink: string, query: string | SqlQuerySpec, options?: FeedOptions): QueryIterator<TriggerMeta>;
+
+    /**
+     * Query the attachments for the document.
+     * @param documentLink      - The self-link of the document.
+     * @param query             - A SQL query.
+     * @param [options]         - Represents the feed options.
+     */
+    queryAttachments<T>(documentLink:string, query:SqlQuerySpec|string, options?:FeedOptions): QueryIterator<T>;
+
+    /**
+     * Query the conflicts for the collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param query             - A SQL query.
+     * @param [options]         - Represents the feed options.
+     */
+    queryConflicts(collectionLink:string, query:SqlQuerySpec|string, options?:FeedOptions): QueryIterator<any>;
+
+    /**
+     * Lists all offers that satisfy a query.
+     * @param query     - A SQL query.
+     * @param options   - The feed options.
+     */
+    queryOffers<T>(query:SqlQuerySpec|string, options:FeedOptions): QueryIterator<T>;
+
+    /**
+     * Query the permission for the user.
+     * @param userLink  - The self-link of the user.
+     * @param query     - A SQL query.
+     * @param options   - Feed options.
+     */
+    queryPermissions(userLink:string, query:SqlQuerySpec|string, options:FeedOptions): QueryIterator<PermissionMeta>;
+
+    /**
+     * Query the users for the database.
+     * @param databaseLink  - The self-link of the database.
+     * @param query         - A SQL query.
+     * @param options       - Represents the feed options.
+     */
+    queryUsers(databaseLink:string, query:SqlQuerySpec|string, options:FeedOptions): QueryIterator<AbstractMeta>;
 
     /**
      * Delete the document object.
@@ -433,6 +761,54 @@ export declare class DocumentClient {
     public deleteStoredProcedure(procedureLink: string, options: RequestOptions, callback: RequestCallback<void>): void;
 
     /**
+     * Delete an attachment
+     * @param attachmentLink    - The self-link of the attachment.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    deleteAttachment(attachmentLink:string, options:RequestOptions, callback:RequestCallback<void>): void
+
+    /**
+     * Delete a conflict
+     * @param conflictLink      - The self-link of the conflict.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    deleteConflict(conflictLink:string, options:RequestOptions, callback:RequestCallback<void>): void;
+
+    /**
+     * Delete a permission
+     * @param permissionLink    - The self-link of the permission.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    deletePermission(permissionLink:string, options:RequestOptions, callback:RequestCallback<void>): void;
+
+    /**
+     * Delete a trigger
+     * @param triggerLink       - The self-link of the trigger.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    deleteTrigger(triggerLink:string, options:RequestOptions, callback:RequestCallback<void>): void;
+
+    /**
+     * Delete a user
+     * @param userLink          - The self-link of the user.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    deleteUser(userLink:string, options:RequestOptions, callback:RequestCallback<void>):void;
+
+    /**
+     * Delete a user-defined function
+     * @param udfLink           - The self-link of the user defined function.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    deleteUserDefinedFunction(udfLink:string, options:RequestOptions, callback:RequestCallback<void>):void;
+
+    /**
      * Replace the document object.
      * @param {string} documentLink      - The self-link of the document.
      * @param {object} document          - Represent the new document body.
@@ -449,4 +825,369 @@ export declare class DocumentClient {
      * @param callback      - The callback for the request.
      */
     public replaceStoredProcedure(procedureLink: string, procedure: Procedure, options: RequestOptions, callback: RequestCallback<ProcedureMeta>): void;
+
+    /**
+     * Replace the attachment object.
+     * @param attachmentLink    - The self-link of the attachment.
+     * @param attachment        - Represent the new attachment body.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    replaceAttachment(attachmentLink:string, attachment:Attachment, options:RequestOptions, callback:RequestCallback<AttachmentMeta>): void;
+
+    /**
+     * Replace the document collection.
+     * @param collectionLink    - The self-link of the document collection.
+     * @param collection        - Represent the new document collection body.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    replaceCollection(collectionLink:string, collection:Collection, options:RequestOptions, callback:RequestCallback<CollectionMeta>): void;
+
+    /**
+     * Replace the offer object.
+     * @param offerLink     - The self-link of the offer.
+     * @param offer         - Represent the new offer body.
+     * @param callback      - The callback for the request.
+     */
+    replaceOffer(offerLink:string, offer:any, callback:RequestCallback<any>): void;
+
+    /**
+     * Replace the permission object.
+     * @param permissionLink    - The self-link of the permission.
+     * @param permission        - Represent the new permission body.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    replacePermission(permissionLink:string, permission:Permission, options:RequestOptions, callback:RequestCallback<PermissionMeta>): void;
+
+    /**
+     * Replace the trigger object.
+     * @param triggerLink   - The self-link of the trigger.
+     * @param trigger       - Represent the new trigger body.
+     * @param options       - The request options.
+     * @param callback      - The callback for the request.
+     */
+    replaceTrigger(triggerLink:string, trigger:Trigger, options:RequestOptions, callback:RequestCallback<TriggerMeta>): void;
+
+    /**
+     * Replace the user object.
+     * @param userLink      - The self-link of the user.
+     * @param user          - Represent the new user body.
+     * @param options       - The request options.
+     * @param callback      - The callback for the request.
+     */
+    replaceUser(userLink:string, user:UniqueId, options:RequestOptions, callback:RequestCallback<AbstractMeta>): void;
+
+    /**
+     * Replace the UserDefinedFunction object.
+     * @param udfLink       - The self-link of the user defined function.
+     * @param udf           - Represent the new udf body.
+     * @param options       - The request options.
+     * @param callback      - The callback for the request.
+     */
+    replaceUserDefinedFunction(udfLink:string, udf:UserDefinedFunction, options:RequestOptions, callback:RequestCallback<UserDefinedFunctionMeta>): void;
+
+
+    /**
+     * Read an Attachment object.
+     * @param attachmentLink    - The self-link of the attachment.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readAttachment(attachmentLink:string, options:RequestOptions, callback:RequestCallback<AttachmentMeta>): void
+
+    /**
+     * Get all attachments for this document.
+     * @param documentLink      - The self-link of the document.
+     * @param options           - The feed options.
+     */
+    readAttachments(documentLink:string, options:FeedOptions): QueryIterator<AttachmentMeta[]>;
+
+    /**
+     * Read a collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readCollection(collectionLink:string, options:RequestOptions, callback:RequestCallback<CollectionMeta>): void;
+
+    /**
+     * Get all collections in this database.
+     * @param databaseLink      - The self-link of the database.
+     * @param options           - The feed options.
+     */
+    readCollections(databaseLink:string, options:FeedOptions): QueryIterator<CollectionMeta[]>;
+
+    /**
+     * Read a conflict.
+     * @param conflictLink      - The self-link of the conflict.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readConflict(conflictLink:string, options:RequestOptions, callback:RequestCallback<any>): void;
+
+    /**
+     * Get all conflicts in this collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param options           - The feed options.
+     */
+    readConflicts(collectionLink:string, options:FeedOptions): QueryIterator<any>;
+
+    /**
+     * Read a database.
+     * @param databaseLink      - The self-link of the database.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readDatabase(databaseLink:string, options:RequestOptions, callback:RequestCallback<DatabaseMeta>): void;
+
+    /**
+     * List all databases.
+     * @param options       - The request options.
+     */
+    readDatabases(options:FeedOptions): QueryIterator<DatabaseMeta>;
+
+    /**
+     * Read a document.
+     * @param documentLink      - The self-link of the document.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readDocument<T>(documentLink:string, options:RequestOptions, callback:RequestCallback<RetrievedDocument<T>>): void;
+
+    /**
+     * Get all documents in this collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param options           - The feed options.
+     */
+    readDocuments<T>(collectionLink:string, options:FeedOptions): QueryIterator<RetrievedDocument<T>>;
+
+    /**
+     * Read the media for the attachment object.
+     * @param mediaLink     - The media link of the media in the attachment.
+     * @param callback      - The callback for the request, the result parameter can be a buffer or a stream depending on the value of MediaReadMode
+     */
+    readMedia(mediaLink:string, callback:RequestCallback<Buffer|NodeJS.ReadableStream>): void;
+
+    /**
+     * Read an offer.
+     * @param offerLink     - The self-link of the offer.
+     * @param callback      - The callback for the request.
+     */
+    readOffer(offerLink:string, callback:RequestCallback<any>): void;
+
+    /**
+     * List all offers
+     * @param options       - The feed options.
+     */
+    readOffers(options:FeedOptions): QueryIterator<any[]>;
+
+    /**
+     * Read a permission.
+     * @param permissionLink    - The self-link of the permission.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readPermission(permissionLink:string, options:RequestOptions, callback:RequestCallback<PermissionMeta>): void;
+
+    /**
+     * Get all permissions for this user.
+     * @param userLink          - The self-link of the user.
+     * @param feedOptions       - The feed options
+     */
+    readPermissions(userLink:string, feedOptions:FeedOptions): QueryIterator<PermissionMeta>;
+
+    /**
+     * 
+     * @param sprocLink         - The self-link of the stored procedure.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readStoredProcedure(sprocLink:string, options:RequestOptions, callback:RequestCallback<ProcedureMeta>): void;
+
+    /**
+     * Get all StoredProcedures in this collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param options           - The feed options.
+     */
+    readStoredProcedures(collectionLink:string, options:RequestOptions): QueryIterator<ProcedureMeta[]>;
+
+    /**
+     * Reads a trigger object.
+     * @param triggerLink       - The self-link of the trigger.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    readTrigger(triggerLink:string, options:RequestOptions, callback:RequestCallback<TriggerMeta>): void;
+
+    /**
+     * Get all triggers in this collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param options           - The feed options.
+     */
+    readTriggers(collectionLink:string, options:FeedOptions): QueryIterator<TriggerMeta[]>;
+
+    /**
+     * Reads a user.
+     * @param userLink  - The self-link of the user.
+     * @param options   - The request options.
+     * @param callback  - The callback for the request.
+     */
+    readUser(userLink:string, options:RequestOptions, callback:RequestCallback<AbstractMeta>): void;
+
+    /**
+     * Reads a udf object.
+     * @param udfLink   - The self-link of the user defined function.
+     * @param options   - The request options.
+     * @param callback  - The callback for the request.
+     */
+    readUserDefinedFunction(udfLink:string, options:RequestOptions, callback:RequestCallback<UserDefinedFunctionMeta>): void;
+
+    /**
+     * Get all UserDefinedFunctions in this collection.
+     * @param collectionLink    - The self-link of the collection.
+     * @param options           - The feed options.
+     */
+    readUserDefinedFunctions(collectionLink:string, options:FeedOptions): QueryIterator<UserDefinedFunctionMeta[]>;
+
+    /**
+     * Get all users in this database.
+     * @param databaseLink      - The self-link of the database.
+     * @param feedOptions       - The feed options.
+     */
+    readUsers(databaseLink:string, feedOptions:FeedOptions): QueryIterator<AbstractMeta[]>;
+
+    /**
+     * Update media for the attachment
+     * @param mediaLink         - The media link of the media in the attachment.
+     * @param readableStream    - The stream that represents the media itself that needs to be uploaded.
+     * @param options           - options for the media
+     * @param callback          - The callback for the request.
+     */
+    updateMedia(mediaLink:string, readableStream:NodeJS.ReadableStream, options:MediaOptions, callback:RequestCallback<any>): void;
+    
+    /**
+     * Upsert an attachment for the document object.
+     * <p>
+     *  Each document may contain zero or more attachments. Attachments can be of any MIME type - text, image, binary data. 
+     *  These are stored externally in Azure Blob storage. Attachments are automatically deleted when the parent document is deleted.
+     * </p>
+     * @param documentLink  - The self-link of the document.
+     * @param body          - The metadata the defines the attachment media like media, contentType. It can include any other properties as part of the metedata.
+     * @param options       - The request options.
+     * @param callback      - The callback for the request.
+     */
+    upsertAttachment(documentLink:string, body:Attachment, options:RequestOptions, callback:RequestCallback<AttachmentMeta>): void;
+
+    /**
+     * Upsert an attachment for the document object.
+     * @param documentLink      - The self-link of the document.
+     * @param readableStream    - the stream that represents the media itself that needs to be uploaded.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    upsertAttachmentAndUploadMedia(documentLink:string, readableStream:NodeJS.ReadableStream, options:MediaOptions, callback:RequestCallback<any>): void;
+
+    /**
+     * Upsert a document.
+     * <p>
+     *  There is no set schema for JSON documents. They may contain any number of custom properties as well as an optional list of attachments. 
+     *  A Document is an application resource and can be authorized using the master key or resource keys
+     * </p>
+     * @param documentsFeedOrDatabaseLink   - The collection link or database link if using a partition resolver
+     * @param body          - Represents the body of the document. Can contain any number of user defined properties.
+     * @param options       - The request options.
+     * @param callback      - The callback for the request.
+     */
+    upsertDocument<T>(documentsFeedOrDatabaseLink:string, body:NewDocument<T>, options:CreateDocumentRequestOptions, callback:RequestCallback<RetrievedDocument<T>>): void;
+
+    /**
+     * Upsert a permission.
+     * <p>
+     *  A permission represents a per-User Permission to access a specific resource e.g. Document or Collection.
+     * </p>
+     * @param userLink  - The self-link of the user.
+     * @param body      - Represents the body of the permission.
+     * @param options   - The request options.
+     * @param callback  - The callback for the request.
+     */
+    upsertPermission(userLink:string, body:Permission, options:RequestOptions, callback:RequestCallback<PermissionMeta>): void;
+
+    /**
+     * Upsert a StoredProcedure.
+     * <p>
+     *  DocumentDB allows stored procedures to be executed in the storage tier, directly against a document collection. The script 
+     *  gets executed under ACID transactions on the primary storage partition of the specified collection. For additional details, 
+     *  refer to the server-side JavaScript API documentation.
+     * </p>
+     * @param collectionLink    - The self-link of the collection.
+     * @param sproc             - Represents the body of the stored procedure.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    upsertStoredProcedure(collectionLink:string, sproc:Procedure, options:RequestOptions, callback:RequestCallback<ProcedureMeta>): void;
+
+    /**
+     * Upsert a trigger.
+     * <p>
+     *  DocumentDB supports pre and post triggers defined in JavaScript to be executed on creates, updates and deletes. 
+     *  For additional details, refer to the server-side JavaScript API documentation.
+     * </p>
+     * @param collectionLink    - The self-link of the collection.
+     * @param trigger           - Represents the body of the trigger.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    upsertTrigger(collectionLink:string, trigger:Trigger, options:RequestOptions, callback:RequestCallback<TriggerMeta>): void;
+
+    /**
+     * Upsert a database user.
+     * @param databaseLink  - The self-link of the database.
+     * @param body          - Represents the body of the user.
+     * @param options       - The request options.
+     * @param callback      - The callback for the request.
+     */
+    upsertUser(databaseLink:string, body:UniqueId, options:RequestOptions, callback:RequestCallback<AbstractMeta>): void;
+
+    /**
+     * Upsert a UserDefinedFunction.
+     * <p>
+     *  DocumentDB supports JavaScript UDFs which can be used inside queries, stored procedures and triggers. 
+     *  For additional details, refer to the server-side JavaScript API documentation.
+     * </p>
+     * @param collectionLink    - The self-link of the collection.
+     * @param udf               - Represents the body of the userDefinedFunction.
+     * @param options           - The request options.
+     * @param callback          - The callback for the request.
+     */
+    upsertUserDefinedFunction(collectionLink:string, udf:UserDefinedFunction, options:RequestOptions, callback:RequestCallback<UserDefinedFunctionMeta>): void;
+
+    /**
+     * Gets the Database account information.
+     * @param options       - The request options
+     * @param callback      - The callback for the request
+     */
+    getDatabaseAccount(options:DatabaseAccountRequestOptions, callback:RequestCallback<DatabaseAccount>):void;
+
+    /**
+     * Gets the curent read endpoint for a geo-replicated database account.
+     * @param callback      - The callback for the request
+     */
+    getReadEndpoint(callback:RequestCallback<string>):void;
+
+    /**
+     * Gets the curent write endpoint for a geo-replicated database account.
+     * @param callback      - The callback for the request
+     */
+    getWriteEndpoint(callback:RequestCallback<string>):void;
 }
+
+export type MediaReadMode = 'Buffered' | 'Streamed';
+export type ConsistencyLevel = 'Strong' | 'BoundedStaleness' | 'Session' | 'Eventual';
+export type IndexingMode = 'Consistent' | 'Lazy';
+export type IndexKind = 'Hash' | 'Range' | 'Spatial';
+export type PermissionMode = 'None' | 'Read' | 'All';
+export type TriggerType = 'Pre' | 'Post' | 'pre' | 'post';
+export type TriggerOperation = 'All' | 'Create' | 'Update' | 'Delete' | 'Replace' | 'all' | 'create' | 'update' | 'delete' | 'replace';
+export type UserDefinedFunctionType = 'Javascript';
