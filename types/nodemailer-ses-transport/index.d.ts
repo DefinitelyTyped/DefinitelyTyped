@@ -3,7 +3,7 @@
 // Definitions by: Seth Westphal <https://github.com/westy92/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as AWS from 'aws-sdk';
+import * as AWS from "aws-sdk";
 import { HTTPOptions } from "aws-sdk/lib/config";
 import * as nodemailer from "nodemailer";
 
