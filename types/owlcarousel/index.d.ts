@@ -58,5 +58,5 @@ interface IOwlCarouselOptions {
 }
 
 interface JQuery {
-    owlCarousel(options?: any): JQuery;
+    owlCarousel(options?: IOwlCarouselOptions): JQuery;
 }
