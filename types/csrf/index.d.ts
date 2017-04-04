@@ -1,51 +1,43 @@
-// Type definitions for csrf 3.0.6
-// Project: https://github.com/pillarjs/csrf
-// Definitions by: Markis Taylor <https://github.com/markis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare namespace csrf {
+declare class Tokens {
     /**
-     * The callback from creating a secret
+     * Token generation/verification class.
      */
+    constructor(options?: Tokens.TokensOptions);
+
+    /**
+     * Create a new CSRF token.
+     */
+    create(secret: string): string;
+
+    /**
+     * Create a new secret key.
+     */
+    secret(callback?: Tokens.SecretCallback): Promise<string>;
+
+    /**
+     * Create a new secret key synchronously.
+     */
+    secretSync(): string;
+
+    /**
+     * Verify if a given token is valid for a given secret.
+     */
+    verify(secret: string, token: string): boolean;
+}
+
+declare namespace Tokens {
     type SecretCallback = (err: Error | null, secret: string) => void;
 
     interface TokensOptions {
         /**
-         * The string length of the salt (default: 8)
-         */
+        * The string length of the salt (default: 8)
+        */
         saltLength: number;
         /**
-         * The byte length of the secret key (default: 18)
-         */
+        * The byte length of the secret key (default: 18)
+        */
         secretLength: number;
-    }
-
-    class Tokens {
-        /**
-         * Token generation/verification class.
-         */
-        constructor(options?: TokensOptions)
-
-        /**
-         * Create a new CSRF token.
-         */
-        create(secret: string): string;
-
-        /**
-         * Create a new secret key.
-         */
-        secret(callback?: SecretCallback): Promise<string>;
-
-        /**
-         * Create a new secret key synchronously.
-         */
-        secretSync(): string;
-
-        /**
-         * Verify if a given token is valid for a given secret.
-         */
-        verify(secret: string, token: string): boolean;
     }
 }
 
-export = csrf.Tokens;
+export = Tokens;
