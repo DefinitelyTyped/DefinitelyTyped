@@ -8,21 +8,19 @@ import * as React from "react";
 
 declare namespace ReactOnClickOutside {
     interface OnClickOutsideComponent {
-        handleClickOutside(e: React.MouseEvent<any>): void
+        handleClickOutside(e: React.MouseEvent<any>): void;
     }
 
     interface OnClickOutsideProps {
-        disableOnClickOutside?: boolean | Function
-        enableOnClickOutside?: Function
-        eventTypes?: string | Array<string>
-        outsideClickIgnoreClass?: string
-        preventDefault?: boolean
-        stopPropagation?: boolean
+        disableOnClickOutside?: boolean;
+        eventTypes?: string | string[];
+        outsideClickIgnoreClass?: string;
+        preventDefault?: boolean;
+        stopPropagation?: boolean;
     }
 
-    interface OnClickOutside {
-        <A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A & OnClickOutsideProps>
-    }
+    type OnClickOutside = <A>(component: React.ComponentClass<A> | React.StatelessComponent<A>) =>
+        React.ComponentClass<A & OnClickOutsideProps>;
 }
 
 declare const ReactOnClickOutside: ReactOnClickOutside.OnClickOutside;
