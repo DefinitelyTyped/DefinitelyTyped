@@ -1,15 +1,15 @@
-import * as React from "react"
-import { Component, StatelessComponent, MouseEvent } from "react"
-import { render } from "react-dom"
-import * as onClickOutside from "react-onclickoutside"
+import * as React from "react";
+import { Component, StatelessComponent, MouseEvent } from "react";
+import { render } from "react-dom";
+import * as onClickOutside from "react-onclickoutside";
 
-interface TestProps {}
+const TestStateless: StatelessComponent<{}> = (props) => {
+    return (
+        <div>Test</div>
+    );
+};
 
-var TestStateless: StatelessComponent<TestProps> = (props: TestProps) => {
-    return (<div>Test</div>)
-}
-
-var TestStatelessWrapped = onClickOutside(TestStateless)
+const TestStatelessWrapped = onClickOutside(TestStateless);
 
 render(
     <TestStatelessWrapped eventTypes="click"
@@ -18,4 +18,4 @@ render(
                           stopPropagation
                           outsideClickIgnoreClass="ignore" />,
     document.getElementById("main")
-)
+);
