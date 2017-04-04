@@ -1,10 +1,10 @@
-import * as m from 'mithril'
+import {jsonp} from 'mithril/request'
 
 interface Result {
 	id: number
 }
 
-m.jsonp<Result>('/item').then(data => {
+jsonp<Result>('/item').then(data => {
 	console.log(data.id)
 })
 
@@ -15,7 +15,7 @@ class User {
 	}
 }
 
-m.jsonp<User>({
+jsonp<User>({
 	url: '/user',
 	data: {test: 'abc'},
 	type: User,
