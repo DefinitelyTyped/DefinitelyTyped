@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "bugsnag-tests.ts"
+        "bugsnag-js-tests.ts"
     ]
 }
