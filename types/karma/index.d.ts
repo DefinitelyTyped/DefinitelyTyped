@@ -206,6 +206,14 @@ declare namespace karma {
          */
         colors?: boolean;
         /**
+         * @default 'Infinity'
+         * @description How many browsers Karma launches in parallel.
+         * Especially on services like SauceLabs and Browserstack, it makes sense only to launch a limited
+         * amount of browsers at once, and only start more when those have finished. Using this configuration,
+         * you can specify how many browsers should be running at once at any given point in time.
+         */
+        concurrency?: number;
+        /**
          * @default []
          * @description List of files/patterns to exclude from loaded files.
          */
