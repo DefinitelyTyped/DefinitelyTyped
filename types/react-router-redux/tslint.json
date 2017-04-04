@@ -1,6 +1,3 @@
 {
-    "extends": "../tslint.json",
-    "rules": {
-        "banned-types": false
-    }
+    "extends": "../tslint.json"
 }
