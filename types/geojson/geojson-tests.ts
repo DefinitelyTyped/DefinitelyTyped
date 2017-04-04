@@ -64,16 +64,13 @@ let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
     properties: null
 };
 
-
 let point: GeoJSON.Point = {
 	type: "Point",
 	coordinates: [100.0, 0.0]
 };
 
-
 // This type is commonly used in the turf package
 let pointCoordinates: number[] = point.coordinates;
-
 
 let lineString: GeoJSON.LineString = {
 	type: "LineString",

@@ -1,9 +1,8 @@
-
 import spatialite = require("spatialite");
 
 function applySpatialFunctions() {
     console.log("");
-    var spatialDb: spatialite.Database = new spatialite.Database('spatialite', () => {
+    const spatialDb: spatialite.Database = new spatialite.Database('spatialite', () => {
         spatialDb.spatialite((err) => {
             if (err) {
                 console.error(err);
@@ -12,14 +11,12 @@ function applySpatialFunctions() {
     });
 }
 
-
 // Following tests taken from the sqlite3 typings
 
 spatialite.verbose();
 
 // This line is enhanced to fulfill the `strictNullChecks` option
-var db: spatialite.Database = new spatialite.Database('chain.sqlite3', () => {});
-// var db: spatialite.Database
+let db: spatialite.Database = new spatialite.Database('chain.sqlite3', () => {});
 
 function createDb() {
     console.log("createDb chain");
@@ -33,9 +30,9 @@ function createTable() {
 
 function insertRows() {
     console.log("insertRows Ipsum i");
-    var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+    const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
 
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
         stmt.run("Ipsum " + i);
     }
 
@@ -73,8 +70,8 @@ runChainExample();
 db.serialize(() => {
   db.run("CREATE TABLE lorem (info TEXT)");
 
-  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
+  const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+  for (let i = 0; i < 10; i++) {
       stmt.run("Ipsum " + i);
   }
   stmt.finalize();

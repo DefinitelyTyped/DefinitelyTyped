@@ -153,7 +153,7 @@ declare namespace UIkit {
      * <th>Parameter</th>
      * <th>Description</th>
      * </tr>
-
+     *
      * <tr>
      * <td><code>show.uk.modal</code></td>
      * <td>event</td>
@@ -168,15 +168,14 @@ declare namespace UIkit {
      * @example
      * <pre><code>
      * $('.modalSelector').on({
-	 *
-	 *	'show.uk.modal': function(){
-	 *    console.log("Modal is visible.");
-	 *	},
-	 *
-	 *   'hide.uk.modal': function(){
-	 *    console.log("Element is not visible.");
-	 *  }
-	 *	});
+     *     'show.uk.modal': function(){
+     *         console.log("Modal is visible.");
+     *     },
+     *
+     *     'hide.uk.modal': function(){
+     *         console.log("Element is not visible.");
+     *     }
+     * });
      * </code></pre>
      */
     interface Modal {
@@ -227,10 +226,10 @@ declare namespace UIkit {
          * var modal = UIkit.modal(".modalSelector");
          *
          * if ( modal.isActive() ) {
-	     *   modal.hide();
-	     *   } else {
-	     *   modal.show();
-	     * }
+         *   modal.hide();
+         *   } else {
+         *   modal.show();
+         * }
          * </code></pre>
          */
         (selector: string|JQuery, options?: ModalOptions): ModalElement;
@@ -326,7 +325,6 @@ declare namespace UIkit {
          * Init element manually
          */
         (element: string|JQuery, options?: LightBoxOptions): LightBoxElement;
-
     }
     type CallbackAutoComplete = () => string;
     interface AutoCompleteOptions {
@@ -420,7 +418,6 @@ declare namespace UIkit {
          * @default 'auto'
          */
         pos?: string;
-
     }
     /**
      * Create a toggleable dropdown with an datepicker
@@ -711,7 +708,6 @@ declare namespace UIkit {
      */
     type SlideShow = (element: string|JQuery, options: SlideShowOptions) => any;
     interface ParallaxOptions {
-
         /**
          * Animation velocity during scrolling
          * @default 0.5
@@ -736,7 +732,6 @@ declare namespace UIkit {
          * integer / string
          */
         media?: number|string;
-
     }
     /**
      * Animate CSS properties depending on the scroll position of the document.
@@ -899,7 +894,6 @@ declare namespace UIkit {
          * integer
          */
         delay?: number;
-
     }
     /**
      * Easily create a nicely looking search.
@@ -1020,7 +1014,6 @@ declare namespace UIkit {
          * string
          */
         emptyClass?: string;
-
     }
     /**
      * Create nestable lists that can be sorted by drag and drop.
@@ -1091,7 +1084,6 @@ declare namespace UIkit {
          * string
          */
         dragCustomClass?: string;
-
     }
     /**
      * Create sortable grids and lists to rearrange the order of its elements.
@@ -1197,7 +1189,6 @@ declare namespace UIkit {
          * mixed
          */
         boundary?: boolean|string;
-
     }
     /**
      * Make elements remain at the top of the viewport, like a sticky navbar.
@@ -1244,7 +1235,6 @@ declare namespace UIkit {
          * Integer between 0 and 24
          */
         end?: number;
-
     }
     /**
      * Create a timepicker which can easily be used by selecting a time value from a pre filled dropdown.
@@ -1294,7 +1284,6 @@ declare namespace UIkit {
          * string
          */
         activeClass?: string;
-
     }
     /**
      * Easily create a nicely looking tooltip.
@@ -1351,19 +1340,19 @@ declare namespace UIkit {
          * (text|json)
          */
         "type"?: string;
-        before?: (settings: UploadOptions, files: string|string[]) => any;
-        beforeAll?: (files: string|string[]) => any;
-        beforeSend?: (xhr: XMLHttpRequest) => any;
-        progress?: (percent: number) => any;
-        complete?: (response: any, xhr: XMLHttpRequest) => any;
-        allcomplete?: (response: any, xhr: XMLHttpRequest) => any;
-        notallowed?: (file: string|string[], settings: UploadOptions) => any;
-        loadstart?: (event: any) => any;
-        load?: (event: any) => any;
-        loadend?: (event: any) => any;
-        error?: (event: any) => any;
-        abort?: (event: any) => any;
-        readystatechange?: (event: any) => any;
+        before?(settings: UploadOptions, files: string|string[]): any;
+        beforeAll?(files: string|string[]): any;
+        beforeSend?(xhr: XMLHttpRequest): any;
+        progress?(percent: number): any;
+        complete?(response: any, xhr: XMLHttpRequest): any;
+        allcomplete?(response: any, xhr: XMLHttpRequest): any;
+        notallowed?(file: string|string[], settings: UploadOptions): any;
+        loadstart?(event: any): any;
+        load?(event: any): any;
+        loadend?(event: any): any;
+        error?(event: any): any;
+        abort?(event: any): any;
+        readystatechange?(event: any): any;
     }
 
     /**
@@ -1430,25 +1419,25 @@ declare namespace UIkit {
      * </table>
      */
     type Upload = (element: string|JQuery, options: UploadOptions) => any;
-    var dropdown: Dropdown;
-    var modal: Modal;
-    var lightbox: LightBox;
-    var offcanvas: OffCanvas;
-    var autocomplete: AutoComplete;
-    var datepicker: DatePicker;
-    var htmleditor: HtmlEditor;
-    var slider: Slider;
-    var slideset: SlideSet;
-    var slideshow: SlideShow;
-    var parallax: Parallax;
-    var accordion: Accordion;
-    var notify: Notify;
-    var search: Search;
-    var nestable: Nestable;
-    var sortable: Sortable;
-    var sticky: Sticky;
-    var timepicker: Timepicker;
-    var tooltip: Tooltip;
-    var uploadSelect: Upload;
-    var uploadDrop: Upload;
+    const dropdown: Dropdown;
+    const modal: Modal;
+    const lightbox: LightBox;
+    const offcanvas: OffCanvas;
+    const autocomplete: AutoComplete;
+    const datepicker: DatePicker;
+    const htmleditor: HtmlEditor;
+    const slider: Slider;
+    const slideset: SlideSet;
+    const slideshow: SlideShow;
+    const parallax: Parallax;
+    const accordion: Accordion;
+    const notify: Notify;
+    const search: Search;
+    const nestable: Nestable;
+    const sortable: Sortable;
+    const sticky: Sticky;
+    const timepicker: Timepicker;
+    const tooltip: Tooltip;
+    const uploadSelect: Upload;
+    const uploadDrop: Upload;
 }

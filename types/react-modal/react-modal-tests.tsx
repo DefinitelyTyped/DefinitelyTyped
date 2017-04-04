@@ -42,4 +42,4 @@ class ExampleOfUsingReactModal extends React.Component<{}, {}> {
       </ReactModal>
     );
   }
-};
+}

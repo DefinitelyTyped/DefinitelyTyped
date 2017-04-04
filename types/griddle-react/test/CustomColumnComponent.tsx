@@ -64,7 +64,7 @@ class CustomColumnComponentGrid extends React.Component<any, any> {
         sortDescendingComponent={<span className="fa fa-sort-alpha-desc"/>}
         customRowComponent={LinkComponent} />
     );
-  };
+  }
 }
 
 export default CustomColumnComponentGrid;

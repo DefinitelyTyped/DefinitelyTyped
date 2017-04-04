@@ -85,6 +85,12 @@
             "asOfVersion": "0.0.0"
         },
         {
+            "libraryName": "github",
+            "typingsPackageName": "github",
+            "sourceRepoURL": "https://github.com/mikedeboer/node-github",
+            "asOfVersion": "7.1.0"
+        },
+        {
             "libraryName": "Facebook's Immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
@@ -157,10 +163,10 @@
             "asOfVersion": "1.0.0"
         },
         {
-             "libraryName": "localforage",
-             "typingsPackageName": "localforage",
-             "sourceRepoURL": "https://github.com/localForage/localForage",
-             "asOfVersion": "0.0.34"
+            "libraryName": "localforage",
+            "typingsPackageName": "localforage",
+            "sourceRepoURL": "https://github.com/localForage/localForage",
+            "asOfVersion": "0.0.34"
         },
         {
             "libraryName": "lower-case",
