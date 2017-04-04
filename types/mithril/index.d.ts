@@ -4,6 +4,32 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+/** Manually triggers a redraw of mounted components. */
+declare function redraw(): void;
+
+/** Renders a vnode structure into a DOM element. */
+declare function render(el: Element, vnodes: Mithril.Children): void;
+
+/** Mounts a component to a DOM element, enabling it to autoredraw on user events. */
+declare function mount(element: Element, component: Mithril.ComponentTypes<any, any>): void;
+/** Unmounts a component from a DOM element. */
+declare function mount(element: Element, component: null): void;
+
+/** Makes an XHR request and returns a promise. */
+declare function request <T>(options: Mithril.RequestOptions<T> & { url: string }): Promise<T>;
+/** Makes an XHR request and returns a promise. */
+declare function request <T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
+
+/** Makes a JSON-P request and returns a promise. */
+declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>;
+/** Makes a JSON-P request and returns a promise. */
+declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>;
+
+/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
+declare function withAttr(name: string, callback: (value: any) => any): (e: { currentTarget: any, [p: string]: any }) => void;
+/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
+declare function withAttr<T>(name: string, callback: (this: T, value: any) => any, thisArg: T): (e: { currentTarget: any, [p: string]: any }) => void;
+
 declare namespace Mithril {
 	export interface Lifecycle<Attrs, State> {
 		/** The oninit hook is called before a vnode is touched by the virtual DOM engine. */
@@ -74,20 +100,6 @@ declare namespace Mithril {
 		param(): any;
 	}
 
-	export interface Mount {
-		/** Mounts a component to a DOM element, enabling it to autoredraw on user events. */
-		(element: Element, component: ComponentTypes<any, any>): void;
-		/** Unmounts a component from a DOM element. */
-		(element: Element, component: null): void;
-	}
-
-	export interface WithAttr {
-		/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
-		(name: string, callback: (value: any) => any): (e: { currentTarget: any, [p: string]: any }) => void;
-		/** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
-		<T>(name: string, callback: (this: T, value: any) => any, thisArg: T): (e: { currentTarget: any, [p: string]: any }) => void;
-	}
-
 	export interface RequestOptions<T> {
 		/** The HTTP method to use. */
 		method?: string;
@@ -119,13 +131,6 @@ declare namespace Mithril {
 		background?: boolean;
 	}
 
-	export interface Request {
-		/** Makes an XHR request and returns a promise. */
-		<T>(options: RequestOptions<T> & { url: string }): Promise<T>;
-		/** Makes an XHR request and returns a promise. */
-		<T>(url: string, options?: RequestOptions<T>): Promise<T>;
-	}
-
 	export interface JsonpOptions {
 		/** The data to be interpolated into the URL and serialized into the querystring. */
 		data?: any;
@@ -139,43 +144,14 @@ declare namespace Mithril {
 		background?: boolean;
 	}
 
-	export interface Jsonp {
-		/** Makes a JSON-P request and returns a promise. */
-		<T>(options: JsonpOptions & { url: string }): Promise<T>;
-		/** Makes a JSON-P request and returns a promise. */
-		<T>(url: string, options?: JsonpOptions): Promise<T>;
-	}
-
-	export interface RequestService {
-		request: Request;
-		jsonp: Jsonp;
-	}
-
-	/** Renders a vnode structure into a DOM element. */
-	export type Render = (el: Element, vnodes: Children) => void;
-
-	export interface RenderService {
-		render: Render
-	}
-
-	/** Manually triggers a redraw of mounted components. */
-	export type Redraw = () => void;
-
-	export interface RedrawService {
-		redraw: Redraw
-		render: Render
-	}
-
 	export interface Static extends Hyperscript {
 		route: Route;
-		/** Activates a component, enabling it to autoredraw on user events. */
-		mount: Mount;
-		/** Returns a event handler that can be bound to an element, firing with the specified property. */
-		withAttr: WithAttr;
-		render: Render;
-		redraw: Redraw;
-		request: Request;
-		jsonp: Jsonp;
+		mount: typeof mount;
+		withAttr: typeof withAttr;
+		render: typeof render;
+		redraw: typeof redraw;
+		request: typeof request;
+		jsonp: typeof jsonp;
 		/** Returns an object with key/value pairs parsed from a string of the form: ?a=1&b=2 */
 		parseQueryString(queryString: string): { [p: string]: any };
 		/** Turns the key/value pairs of an object into a string of the form: a=1&b=2 */
@@ -249,6 +225,7 @@ declare namespace Mithril {
 	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Any Javascript object that has a view method is a Mithril component. Components can be consumed via the m() utility. */
 	export type Comp<Attrs, State extends Lifecycle<Attrs, State>> = Component<Attrs, State> & State;
 
+	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Components can be consumed via the m() utility. */
 	export type ComponentTypes<A, S> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>
 
 	/** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */

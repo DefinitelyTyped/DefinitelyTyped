@@ -1,3 +1,10 @@
-import { Render } from "mithril";
-declare const render: Render;
-export = render;
+import { render } from "mithril";
+
+declare namespace RenderService {
+	export interface Static {
+		render: typeof render;
+	}
+}
+
+declare const RenderService: RenderService.Static;
+export = RenderService;
