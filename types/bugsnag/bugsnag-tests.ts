@@ -1,6 +1,6 @@
 /* tslint:disable void-return */
 
-import bugsnag = require('bugsnag'); // import * as bugsnag from 'bugsnag'; fails with ts2540 error at lines 48 and 49
+import bugsnag = require('bugsnag'); // import * as bugsnag from 'bugsnag'; fails with ts2540 error at lines 60 and 61
 
 import * as connect from 'connect';
 import * as express from 'express';
