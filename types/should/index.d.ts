@@ -42,6 +42,7 @@ interface ShouldAssertion {
   Class(): ShouldAssertion;
   Undefined(): ShouldAssertion;
   Null(): ShouldAssertion;
+  Promise(): ShouldAssertion;
   generator(): ShouldAssertion;
   iterable(): ShouldAssertion;
   iterator(): ShouldAssertion;
@@ -91,6 +92,14 @@ interface ShouldAssertion {
   startWith(expected: string, message?: any): ShouldAssertion;
   endWith(expected: string, message?: any): ShouldAssertion;
   throw(message?: any): ShouldAssertion;
+
+  //promises
+  eventually: ShouldAssertion;
+  finally: ShouldAssertion;
+  fulfilled(): Promise<any>;
+  fulfilledWith(value: any): Promise<any>
+  rejected(): Promise<any>;
+  rejectedWith(err: Error | string | RegExp): Promise<any>;
 
   //http
   header(field: string, val?: string): ShouldAssertion;
