@@ -31,6 +31,12 @@
             "asOfVersion": "2.7.0"
         },
         {
+            "libraryName": "axe-core",
+            "typingsPackageName": "axe-core",
+            "sourceRepoURL": "https://github.com/dequelabs/axe-core",
+            "asOfVersion": "2.0.7"
+        },
+        {
             "libraryName": "axios",
             "typingsPackageName": "axios",
             "sourceRepoURL": "https://github.com/mzabriskie/axios",
