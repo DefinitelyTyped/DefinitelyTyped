@@ -138,6 +138,12 @@ function testScheduleJob() {
 
     var date: Date = new Date();
     var job:nodeSchedule.Job = nodeSchedule.scheduleJob(date, callback);
+
+    var job:nodeSchedule.Job = nodeSchedule.scheduleJob({hour: 14, minute: 30, dayOfWeek: 0}, callback);
+
+    var startDate: Date = new Date();
+    var endDate: Date = new Date(startDate.getDate() + 10000);
+    var job:nodeSchedule.Job = nodeSchedule.scheduleJob({start: startDate, end: endDate, rule: "* * * * * *"}, callback);
 }
 
 function testRescheduleJob() {

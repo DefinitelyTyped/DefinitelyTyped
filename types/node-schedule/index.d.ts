@@ -47,7 +47,7 @@ export class Job extends EventEmitter {
     /**
      * removes an Invocation from this Job's tracking list. For internal use.
      * @internal
-     * @param invocation {Invocation}
+     * @param {Invocation} invocation
      * @return boolean whether the invocation was successful. Removing an Invocation that doesn't exist, returns false.
      */
         stopTrackingInvocation(invocation:Invocation):boolean;
@@ -61,26 +61,26 @@ export class Job extends EventEmitter {
     /**
      * set the number of currently running Jobs.
      * @internal
-     * @param triggeredJobs
+     * @param {number} triggeredJobs
      */
         setTriggeredJobs(triggeredJobs:number):void;
 
     /**
      * cancel all pending Invocations of this Job.
-     * @param reschedule {boolean} whether to reschedule the canceled Invocations.
+     * @param {boolean} reschedule whether to reschedule the canceled Invocations.
      */
         cancel(reschedule?:boolean):boolean;
 
     /**
      * cancel the next Invocation of this Job.
-     * @param reschedule {boolean} whether to reschedule the canceled Invocation.
+     * @param {boolean} reschedule whether to reschedule the canceled Invocation.
      * @return {boolean} whether cancelation was successful
      */
         cancelNext(reschedule?:boolean):boolean;
 
     /**
      * Changes the scheduling information for this Job.
-     * @param spec {RecurrenceRule|string|number} the
+     * @param {RecurrenceRule|string|number} spec
      * @return {boolean} whether the reschedule was successful
      */
         reschedule(spec:RecurrenceRule|string|number):boolean;
@@ -126,8 +126,8 @@ export class Range {
      *
      * @constructor
      * @param {number} start The start.
-     * @param {end}    end   The end.
-     * @param {step}   step  The step.
+     * @param {number} end   The end.
+     * @param {number} step  The step.
      */
     constructor(start?: number, end?: number, step?: number);
 
@@ -215,9 +215,36 @@ export class RecurrenceRule {
 }
 
 /**
- * Recurrence rule specification.
+ * Recurrence rule specification using a date range and cron expression.
  */
-export interface RecurrenceSpec {
+export interface RecurrenceSpecDateRange {
+    /**
+     * Starting date in date range.
+     *
+     * @public
+     * @type {Date|string|number}
+     */
+    start: Date | string | number;
+    /**
+     * Ending date in date range.
+     *
+     * @public
+     * @type {Date|string|number}
+     */
+    end: Date | string | number;
+    /**
+     * Cron expression string.
+     *
+     * @public
+     * @type {string}
+     */
+    rule: string;
+}
+
+/**
+ * Recurrence rule specification using object literal syntax.
+ */
+export interface RecurrenceSpecObjLit {
     /**
      * Day of the month.
      *
@@ -328,27 +355,27 @@ export class Invocation {
  * Create a schedule job.
  *
  * @param {string}                                    name     name for the new Job
- * @param {RecurrenceRule|RecurrenceSpec|Date|string} rule     scheduling info
+ * @param {RecurrenceRule|RecurrenceSpecDateRange|RecurrenceSpecObjLit|Date|string} rule     scheduling info
  * @param {JobCallback}                               callback callback to be executed on each invocation
  */
-    export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpec | Date | string, callback: JobCallback): Job;
+    export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
 
 /**
  * Create a schedule job.
  *
- * @param {RecurrenceRule|RecurrenceSpec|Date|string} rule     scheduling info
+ * @param {RecurrenceRule|RecurrenceSpecDateRange|RecurrenceSpecObjLit|Date|string} rule     scheduling info
  * @param {JobCallback}                               callback callback to be executed on each invocation
  */
-    export function scheduleJob(rule: RecurrenceRule | RecurrenceSpec | Date | string, callback: JobCallback): Job;
+    export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
 
 /**
  * Changes the timing of a Job, canceling all pending invocations.
  *
- * @param job {Job}
- * @param spec {JobCallback} the new timing for this Job
+ * @param {Job|string} job
+ * @param {RecurrenceRule|RecurrenceSpecDateRange|RecurrenceSpecObjLit|Date|string} spec The new timing for this Job.
  * @return {Job} if the job could be rescheduled, {null} otherwise.
  */
-    export function rescheduleJob(job: Job | string, spec: RecurrenceRule | RecurrenceSpec | Date | string): Job;
+    export function rescheduleJob(job: Job | string, spec: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string): Job;
 
 /**
  * Dictionary of all Jobs, accessible by name.
