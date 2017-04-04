@@ -155,10 +155,12 @@ interface RetrievedDocument<TContent> extends NewDocument<TContent>, AbstractMet
 }
 
 /** Represents the meta data for a database. */
+// tslint:disable-next-line:no-empty-interface
 interface DatabaseMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a collection. */
+// tslint:disable-next-line:no-empty-interface
 interface CollectionMeta extends AbstractMeta {
 }
 
@@ -168,6 +170,7 @@ interface ProcedureMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a user-defined function. */
+// tslint:disable-next-line:no-empty-interface
 interface UserDefinedFunctionMeta extends AbstractMeta {
 }
 
@@ -201,6 +204,7 @@ export interface AuthOptions {
 }
 
 /** Represents a DocumentDB stored procecedure. */
+// tslint:disable-next-line:no-empty-interface
 export interface Procedure extends UserScriptable {
 }
 
