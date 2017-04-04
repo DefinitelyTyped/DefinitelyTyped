@@ -394,6 +394,7 @@ declare namespace Sinon {
     }
 
     interface SinonSandbox {
+        assert: SinonAssert;
         clock: SinonFakeTimers;
         requests: SinonFakeXMLHttpRequest;
         server: SinonFakeServer;
@@ -407,6 +408,8 @@ declare namespace Sinon {
         reset(): void;
         resetHistory(): void;
         resetBehavior(): void;
+        verify(): void;
+        verifyAndRestore(): void;
     }
 
     interface SinonSandboxStatic {
