@@ -2,7 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -286,7 +286,7 @@ declare namespace React {
     // Event System
     // ----------------------------------------------------------------------
 
-    interface SyntheticEvent<T, NativeEvent extends Event> {
+    interface SyntheticEvent<T, NativeEvent extends Event = Event> {
         bubbles: boolean;
         currentTarget: EventTarget & T;
         cancelable: boolean;
@@ -313,7 +313,7 @@ declare namespace React {
         data: string;
     }
 
-    interface DragEvent<T> extends BaseMouseEvent<T, NativeDragEvent> {
+    interface DragEvent<T> extends MouseEvent<T, NativeDragEvent> {
         dataTransfer: DataTransfer;
     }
 
@@ -321,10 +321,10 @@ declare namespace React {
         relatedTarget: EventTarget;
     }
 
-    interface FormEvent<T> extends SyntheticEvent<T, Event> {
+    interface FormEvent<T> extends SyntheticEvent<T> {
     }
 
-    interface ChangeEvent<T> extends SyntheticEvent<T, Event> {
+    interface ChangeEvent<T> extends SyntheticEvent<T> {
         target: EventTarget & T;
     }
 
@@ -343,7 +343,7 @@ declare namespace React {
         which: number;
     }
 
-    interface BaseMouseEvent<T, NativeEvent extends NativeMouseEvent> extends SyntheticEvent<T, NativeEvent> {
+    interface MouseEvent<T, NativeEvent extends NativeMouseEvent = NativeMouseEvent> extends SyntheticEvent<T, NativeEvent> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -358,9 +358,6 @@ declare namespace React {
         screenX: number;
         screenY: number;
         shiftKey: boolean;
-    }
-
-    interface MouseEvent<T> extends BaseMouseEvent<T, NativeMouseEvent> {
     }
 
     interface TouchEvent<T> extends SyntheticEvent<T, NativeTouchEvent> {
@@ -379,7 +376,7 @@ declare namespace React {
         view: AbstractView;
     }
 
-    interface WheelEvent<T> extends BaseMouseEvent<T, NativeWheelEvent> {
+    interface WheelEvent<T> extends MouseEvent<T, NativeWheelEvent> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
@@ -402,11 +399,11 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    interface EventHandler<E extends SyntheticEvent<any, any>> {
+    interface EventHandler<E extends SyntheticEvent<any>> {
         (event: E): void;
     }
 
-    type ReactEventHandler<T> = EventHandler<SyntheticEvent<T, Event>>;
+    type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
 
     type ClipboardEventHandler<T> = EventHandler<ClipboardEvent<T>>;
     type CompositionEventHandler<T> = EventHandler<CompositionEvent<T>>;
