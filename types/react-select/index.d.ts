@@ -178,6 +178,10 @@ declare namespace ReactSelectClass {
          * if true, a loading spinner will be shown at the right side.
          * @default false
          */
+         instanceId?: string;
+        /** 
+         *custom instance for server rendering
+         **/
         isLoading?: boolean;
         /**
          * (legacy mode) joins multiple values into a single form field with the delimiter
