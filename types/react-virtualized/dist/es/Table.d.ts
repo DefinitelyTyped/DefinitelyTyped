@@ -1,7 +1,7 @@
 import { Validator, Requireable, PureComponent, Component } from 'react';
 import { CellMeasurerCache } from './CellMeasurer';
 import { Index, Alignment, ScrollEventData, IndexRange, OverscanIndexRange } from '../../index';
-import { Grid } from './Grid';
+import { Grid, GridCoreProps } from './Grid';
 
 export type TableCellDataGetterParams = {
     columnData?: any,
@@ -155,7 +155,7 @@ export type HeaderMouseEventHandlerParams = {
 }
 
 // ref: https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
-export type TableProps = {
+export type TableProps = GridCoreProps & {
     deferredMeasurementCache?: CellMeasurerCache;
     autoHeight?: boolean;
     children?: React.ReactChildren;
