@@ -2612,12 +2612,14 @@ export interface PickerIOSItemStatic extends React.ComponentClass<PickerIOSItemP
 /**
  * @see Picker.js
  */
-export interface PickerItemProperties extends React.Props<PickerItemStatic> {
+export interface PickerItemProperties extends React.Props<PickerItem> {
+    testID?: string
+    color?: string
     label: string
     value?: any
 }
 
-export interface PickerItemStatic extends React.ComponentClass<PickerItemProperties> {
+export interface PickerItem extends React.ComponentClass<PickerItemProperties> {
 }
 
 export interface PickerPropertiesIOS extends ViewProperties, React.Props<PickerStatic> {
@@ -2697,7 +2699,7 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
  */
 export interface PickerStatic extends React.ComponentClass<PickerProperties> {
 
-        /**
+    /**
      * On Android, display the options in a dialog.
      */
     MODE_DIALOG: string
@@ -2706,7 +2708,7 @@ export interface PickerStatic extends React.ComponentClass<PickerProperties> {
      */
     MODE_DROPDOWN: string
 
-    Item?: PickerItemStatic
+    Item: PickerItem
 }
 
 /**
