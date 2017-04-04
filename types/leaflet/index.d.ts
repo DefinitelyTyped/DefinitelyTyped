@@ -424,8 +424,8 @@ declare namespace L {
         getTooltip(): Tooltip | undefined;
 
         // Extension methods
-        onAdd?(map: Map): this;
-        onRemove?(map: Map): this;
+        onAdd(map: Map): this;
+        onRemove(map: Map): this;
         getEvents?(): {[name: string]: (event: Event) => void};
         getAttribution?(): string | null;
         beforeAdd?(map: Map): this;
