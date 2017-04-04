@@ -68,16 +68,16 @@ export abstract class Message {
     oneof: number[],
     value: FieldValue): void;
   static computeOneofCase(msg: Message, oneof: number[]): number;
-  static getWrapperField<T>(
+  static getWrapperField<T extends Message>(
     msg: Message,
     ctor: {new() : T},
     fieldNumber: number,
     required?: number): T;
-  static getRepeatedWrapperField<T>(
+  static getRepeatedWrapperField<T extends Message>(
     msg: Message,
     ctor: {new() : T},
     fieldNumber: number): T[];
-  static setWrapperField<T>(
+  static setWrapperField<T extends Message>(
     msg: Message,
     fieldNumber: number,
     value?: (T|Map<any, any>)): void;
@@ -86,11 +86,11 @@ export abstract class Message {
     fieldNumber: number,
     oneof: number[],
     value: any): void;
-  static setRepeatedWrapperField<T>(
+  static setRepeatedWrapperField<T extends Message>(
     msg: Message,
     fieldNumber: number,
-    value?: T): void;
-  static addToRepeatedWrapperField<T>(
+    value?: T[]): void;
+  static addToRepeatedWrapperField<T extends Message>(
     msg: Message,
     fieldNumber: number,
     value: T | undefined,
