@@ -37,6 +37,12 @@
             "asOfVersion": "2.3.1"
         },
         {
+            "libraryName": "cheap-ruler",
+            "typingsPackageName": "cheap-ruler",
+            "sourceRepoURL": "https://github.com/mapbox/cheap-ruler",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
