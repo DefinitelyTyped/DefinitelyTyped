@@ -424,11 +424,11 @@ declare namespace L {
         getTooltip(): Tooltip | undefined;
 
         // Extension methods
-        onAdd?: (map: Map) => this;
-        onRemove?: (map: Map) => this;
-        getEvents?: () => {[name: string]: (event: Event) => void};
-        getAttribution?: () => string | null;
-        beforeAdd?: (map: Map) => this;
+        onAdd(map: Map): this;
+        onRemove(map: Map): this;
+        getEvents?(): {[name: string]: (event: Event) => void};
+        getAttribution?(): string | null;
+        beforeAdd?(map: Map): this;
     }
 
     interface GridLayerOptions {
@@ -992,8 +992,8 @@ declare namespace L {
         remove(): this;
 
         // Extension methods
-        onAdd?: (map: Map) => HTMLElement;
-        onRemove?: (map: Map) => void;
+        onAdd?(map: Map): HTMLElement;
+        onRemove?(map: Map): void;
 
         options: ControlOptions;
     }
@@ -1175,8 +1175,8 @@ declare namespace L {
         enabled(): boolean;
 
         // Extension methods
-        addHooks?: () => void;
-        removeHooks?: () => void;
+        addHooks?(): void;
+        removeHooks?(): void;
     }
 
     interface Event {
