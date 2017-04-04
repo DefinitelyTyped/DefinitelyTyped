@@ -4,6 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+type NativeAnimationEvent = AnimationEvent;
+type NativeClipboardEvent = ClipboardEvent;
+type NativeCompositionEvent = CompositionEvent;
+type NativeDragEvent = DragEvent;
+type NativeFocusEvent = FocusEvent;
+type NativeKeyboardEvent = KeyboardEvent;
+type NativeMouseEvent = MouseEvent;
+type NativeTouchEvent = TouchEvent;
+type NativeTransitionEvent = TransitionEvent;
+type NativeUIEvent = UIEvent;
+type NativeWheelEvent = WheelEvent;
+
 export = React;
 export as namespace React;
 
@@ -274,14 +286,14 @@ declare namespace React {
     // Event System
     // ----------------------------------------------------------------------
 
-    interface SyntheticEvent<T> {
+    interface SyntheticEvent<T, NativeEvent extends Event> {
         bubbles: boolean;
         currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
         isTrusted: boolean;
-        nativeEvent: Event;
+        nativeEvent: NativeEvent;
         preventDefault(): void;
         isDefaultPrevented(): boolean;
         stopPropagation(): void;
@@ -293,30 +305,30 @@ declare namespace React {
         type: string;
     }
 
-    interface ClipboardEvent<T> extends SyntheticEvent<T> {
+    interface ClipboardEvent<T> extends SyntheticEvent<T, NativeClipboardEvent> {
         clipboardData: DataTransfer;
     }
 
-    interface CompositionEvent<T> extends SyntheticEvent<T> {
+    interface CompositionEvent<T> extends SyntheticEvent<T, NativeCompositionEvent> {
         data: string;
     }
 
-    interface DragEvent<T> extends MouseEvent<T> {
+    interface DragEvent<T> extends BaseMouseEvent<T, NativeDragEvent> {
         dataTransfer: DataTransfer;
     }
 
-    interface FocusEvent<T> extends SyntheticEvent<T> {
+    interface FocusEvent<T> extends SyntheticEvent<T, NativeFocusEvent> {
         relatedTarget: EventTarget;
     }
 
-    interface FormEvent<T> extends SyntheticEvent<T> {
+    interface FormEvent<T> extends SyntheticEvent<T, Event> {
     }
 
-    interface ChangeEvent<T> extends SyntheticEvent<T> {
+    interface ChangeEvent<T> extends SyntheticEvent<T, Event> {
         target: EventTarget & T;
     }
 
-    interface KeyboardEvent<T> extends SyntheticEvent<T> {
+    interface KeyboardEvent<T> extends SyntheticEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
@@ -331,7 +343,7 @@ declare namespace React {
         which: number;
     }
 
-    interface MouseEvent<T> extends SyntheticEvent<T> {
+    interface BaseMouseEvent<T, NativeEvent extends NativeMouseEvent> extends SyntheticEvent<T, NativeEvent> {
         altKey: boolean;
         button: number;
         buttons: number;
@@ -348,7 +360,10 @@ declare namespace React {
         shiftKey: boolean;
     }
 
-    interface TouchEvent<T> extends SyntheticEvent<T> {
+    interface MouseEvent<T> extends BaseMouseEvent<T, NativeMouseEvent> {
+    }
+
+    interface TouchEvent<T> extends SyntheticEvent<T, NativeTouchEvent> {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
@@ -359,25 +374,25 @@ declare namespace React {
         touches: TouchList;
     }
 
-    interface UIEvent<T> extends SyntheticEvent<T> {
+    interface UIEvent<T> extends SyntheticEvent<T, NativeUIEvent> {
         detail: number;
         view: AbstractView;
     }
 
-    interface WheelEvent<T> extends MouseEvent<T> {
+    interface WheelEvent<T> extends BaseMouseEvent<T, NativeWheelEvent> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
     }
 
-    interface AnimationEvent<T> extends SyntheticEvent<T> {
+    interface AnimationEvent<T> extends SyntheticEvent<T, NativeAnimationEvent> {
         animationName: string;
         pseudoElement: string;
         elapsedTime: number;
     }
 
-    interface TransitionEvent<T> extends SyntheticEvent<T> {
+    interface TransitionEvent<T> extends SyntheticEvent<T, NativeTransitionEvent> {
         propertyName: string;
         pseudoElement: string;
         elapsedTime: number;
@@ -387,11 +402,11 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    interface EventHandler<E extends SyntheticEvent<any>> {
+    interface EventHandler<E extends SyntheticEvent<any, any>> {
         (event: E): void;
     }
 
-    type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
+    type ReactEventHandler<T> = EventHandler<SyntheticEvent<T, Event>>;
 
     type ClipboardEventHandler<T> = EventHandler<ClipboardEvent<T>>;
     type CompositionEventHandler<T> = EventHandler<CompositionEvent<T>>;
