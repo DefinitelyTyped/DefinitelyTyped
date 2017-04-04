@@ -19,15 +19,15 @@ declare namespace FusionCharts {
 
         cancelled: boolean;
 
-        stopPropagation: () => void;
+        stopPropagation(): void;
 
         prevented: boolean;
 
-        preventDefault: () => void;
+        preventDefault(): void;
 
         detached: boolean;
 
-        detachHandler: () => void;
+        detachHandler(): void;
     }
 
     interface ChartObject {

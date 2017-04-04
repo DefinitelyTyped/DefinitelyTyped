@@ -58,37 +58,36 @@ interface AffixProps {
 	/**
 	 * Callback fired when the right before the `affixStyle` and `affixStyle` props are rendered
 	 */
-	onAffix?: () => void;
+	onAffix?(): void;
 	/**
 	 * Callback fired after the component `affixStyle` and `affixClassName` props have been rendered.
 	 */
-	onAffixed?: () => void;
+	onAffixed?(): void;
 
 	/**
 	 * Callback fired when the right before the `topStyle` and `topClassName` props are rendered
 	 */
-	onAffixTop?: () => void;
+	onAffixTop?(): void;
 
 	/**
 	 * Callback fired after the component `topStyle` and `topClassName` props have been rendered.
 	 */
-	onAffixedTop?: () => void;
+	onAffixedTop?(): void;
 
 	/**
 	 * Callback fired when the right before the `bottomStyle` and `bottomClassName` props are rendered
 	 */
-	onAffixBottom?: () => void;
+	onAffixBottom?(): void;
 
 	/**
 	 * Callback fired after the component `bottomStyle` and `bottomClassName` props have been rendered.
 	 */
-	onAffixedBottom?: () => void;
+	onAffixedBottom?(): void;
 }
 export class Affix extends React.Component<AffixProps, {}> { }
 
 // <AutoAffix />
 interface AutoAffixProps extends AffixProps {
-
 	/**
 	 * The logical container node or component for determining offset from bottom
 	 * of viewport, or a function that returns it
@@ -155,32 +154,31 @@ interface TransitionProps {
 	/**
 	 * Callback fired before the "entering" classes are applied
 	 */
-	onEnter?: (element: Element) => void;
+	onEnter?(element: Element): void;
 
 	/**
 	 * Callback fired after the "entering" classes are applied
 	 */
-	onEntering?: (element: Element) => void;
+	onEntering?(element: Element): void;
 
 	/**
 	 * Callback fired after the "enter" classes are applied
 	 */
-	onEntered?: (element: Element) => void;
+	onEntered?(element: Element): void;
 
 	/**
 	 * Callback fired before the "exiting" classes are applied
 	 */
-	onExit?: (element: Element) => void;
+	onExit?(element: Element): void;
 
 	/**
 	 * Callback fired after the "exiting" classes are applied
 	 */
-	onExiting?: (element: Element) => void;
+	onExiting?(element: Element): void;
 
 	/**
 	 * Callback fired after the "exited" classes are applied
 	 */
-	onExited?: (element: Element) => void;
+	onExited?(element: Element): void;
 }
 export class Transition extends React.Component<TransitionProps, {}> { }
-

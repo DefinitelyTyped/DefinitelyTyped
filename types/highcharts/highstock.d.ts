@@ -105,7 +105,7 @@ declare global {
          * a div selected by $('#container')
          * @param {Highcharts.Options} options Options for this chart
          * @return current {JQuery} selector the current JQuery selector
-         **/
+         */
         highcharts(type: "StockChart", options: Highstock.Options): JQuery;
         /**
          * Creates a new Highcharts.Chart for the current JQuery selector; usually
@@ -113,7 +113,7 @@ declare global {
          * @param {Highcharts.Options} options Options for this chart
          * @param callback Callback function used to manipulate the constructed chart instance
          * @return current {JQuery} selector the current JQuery selector
-         **/
+         */
         highcharts(type: "StockChart", options: Highstock.Options, callback: (chart: Highstock.ChartObject) => void): JQuery;
 
         highcharts(type: string): Highcharts.ChartObject;
@@ -122,6 +122,6 @@ declare global {
     }
 }
 
-declare var Highstock: Highstock.Static;
+declare const Highstock: Highstock.Static;
 export = Highstock;
 export as namespace Highstock;

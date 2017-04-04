@@ -45,7 +45,7 @@ interface ReactPaginateProps {
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.
      */
-    onPageChange?: (selectedItem: {selected: number}) => void;
+    onPageChange?(selectedItem: {selected: number}): void;
 
     /**
      * The initial page selected.
@@ -110,7 +110,7 @@ interface ReactPaginateProps {
     /**
      * The method is called to generate the href attribute value on tag a of each page element.
      */
-    hrefBuilder?: (pageIndex: number) => void;
+    hrefBuilder?(pageIndex: number): void;
 }
 
 declare const ReactPaginate: React.ComponentClass<ReactPaginateProps>;

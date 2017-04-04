@@ -552,17 +552,17 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      */
     filter(selector: string): Selection<GElement, Datum, PElement, PDatum>;
     /**
-    * Filters the selection, returning a new selection that contains only the elements for
-    * which the specified filter is true.
-    *
-    * The returned filtered selection preserves the parents of this selection, but like array.filter,
-    * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
-    *
-    * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
-    * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
-    *
-    * @param selector A CSS selector string to match when filtering.
-    */
+     * Filters the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param selector A CSS selector string to match when filtering.
+     */
     filter<FilteredElement extends BaseType>(selector: string): Selection<FilteredElement, Datum, PElement, PDatum>;
     /**
      * Filter the selection, returning a new selection that contains only the elements for

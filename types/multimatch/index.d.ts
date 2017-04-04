@@ -14,7 +14,6 @@
 declare function multimatch(paths: string[], patterns: string | string[], options?: multimatch.MultimatchOptions): string[];
 
 declare namespace multimatch {
-
 	/**
 	 * Options based on [minimatch](https://github.com/isaacs/minimatch#minimatchmatchlist-pattern-options)
 	 */
@@ -67,7 +66,6 @@ declare namespace multimatch {
 		 */
 		flipNegate?: boolean;
 	}
-
 }
 
 export = multimatch;

@@ -49,7 +49,7 @@ declare namespace L {
         function clipPolygon(points: Point[], bounds: BoundsExpression, round?: boolean): Point[];
     }
 
-    module DomUtil {
+    namespace DomUtil {
         /**
          * Get Element by its ID or with the given HTML-Element
          */
@@ -796,7 +796,7 @@ declare namespace L {
          * }
          * ```
          */
-        pointToLayer?: (geoJsonPoint: GeoJSONFeature<GeoJSONPoint>, latlng: LatLng) => Layer; // should import GeoJSON typings
+        pointToLayer?(geoJsonPoint: GeoJSONFeature<GeoJSONPoint>, latlng: LatLng): Layer; // should import GeoJSON typings
 
         /**
          * A Function defining the Path options for styling GeoJSON lines and polygons,
@@ -822,7 +822,7 @@ declare namespace L {
          * function (feature, layer) {}
          * ```
          */
-        onEachFeature?: (feature: GeoJSONFeature<GeoJSONGeometryObject>, layer: Layer) => void;
+        onEachFeature?(feature: GeoJSONFeature<GeoJSONGeometryObject>, layer: Layer): void;
 
         /**
          * A Function that will be used to decide whether to show a feature or not.
@@ -835,13 +835,13 @@ declare namespace L {
          * }
          * ```
          */
-        filter?: (geoJsonFeature: GeoJSONFeature<GeoJSONGeometryObject>) => boolean;
+        filter?(geoJsonFeature: GeoJSONFeature<GeoJSONGeometryObject>): boolean;
 
         /**
          * A Function that will be used for converting GeoJSON coordinates to LatLngs.
          * The default is the coordsToLatLng static method.
          */
-        coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng; // check if LatLng has an altitude property
+        coordsToLatLng?(coords: [number, number] | [number, number, number]): LatLng; // check if LatLng has an altitude property
     }
 
     /**

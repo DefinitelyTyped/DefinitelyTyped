@@ -185,7 +185,6 @@ interface OptionsLB {
 }
 
 declare namespace lb {
-
       /**
        * compileToBrowserify
        *
@@ -197,7 +196,6 @@ declare namespace lb {
        */
 
       class compileToBrowserify {
-
             /**
              * Application identifier used to load the correct boot configuration when
              * building multiple applications using browserify.

@@ -49,7 +49,6 @@ interface MasterContext {
 }
 
 class Master extends Component<any, any> {
-
 	static contextTypes: ValidationMap<any> = {
 		router: routerShape
 	};
@@ -57,7 +56,7 @@ class Master extends Component<any, any> {
 	context: MasterContext;
 
 	navigate() {
-		var router = this.context.router;
+		const router = this.context.router;
 		router.push("/users");
 		router.push({
 			pathname: "/users/12",
@@ -73,7 +72,6 @@ class Master extends Component<any, any> {
 			<p>{this.props.children}</p>
 		</div>;
 	}
-
 }
 
 interface DashboardProps {
@@ -84,7 +82,7 @@ class Dashboard extends React.Component<DashboardProps, {}> {
     static staticMethodToBeHoisted(): void {}
 
 	navigate() {
-		var router = this.props.router;
+		const router = this.props.router;
 		router.push("/users");
 		router.push({
 			pathname: "/users/12",
@@ -98,7 +96,6 @@ class Dashboard extends React.Component<DashboardProps, {}> {
 			This is a dashboard
 		</div>;
 	}
-
 }
 
 const DashboardWithRouter = withRouter(Dashboard);
@@ -106,28 +103,23 @@ const DashboardWithRouter = withRouter(Dashboard);
 DashboardWithRouter.staticMethodToBeHoisted();
 
 class NotFound extends React.Component<{}, {}> {
-
 	render() {
 		return <div>
 			This path does not exists
 		</div>;
 	}
-
 }
 
 type UsersProps = RouteComponentProps<{}, {}>;
 
 class Users extends React.Component<UsersProps, {}> {
-
 	render() {
 		const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
 		</div>;
 	}
-
 }
-
 
 ReactDOM.render((
 	<Router history={hashHistory}>

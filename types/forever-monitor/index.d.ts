@@ -32,7 +32,7 @@ export interface Options {
     logFile?: string;
     outFile?: string;
     errFile?: string;
-    parser?: (command: string, args: string[]) => { command: string, args: string[] };
+    parser?(command: string, args: string[]): { command: string, args: string[] };
 }
 
 export function start(script: string, options?: Options): Monitor;
@@ -41,7 +41,6 @@ export function checkProcess(pid: number): boolean;
 export const version: string;
 
 export class Monitor extends NodeJS.EventEmitter {
-
     /**
      * @param script - Location of the target script to run.
      * @param [options] - Configuration for this instance.

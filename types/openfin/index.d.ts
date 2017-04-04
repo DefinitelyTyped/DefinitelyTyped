@@ -19,7 +19,7 @@
  * Overview
  * When running within the OpenFin Runtime your web applications have access to the "fin" namespace and all the modules within the API
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "document" objects.
- **/
+ */
 declare namespace fin {
 	const desktop: OpenFinDesktop;
 
@@ -38,7 +38,9 @@ declare namespace fin {
 		 * Creates a new Application.
 		 * An object representing an application. Allows the developer to create, execute, show/close an application as well as listen to application events.
 		 */
-		new (options: ApplicationOptions, callback?: (successObj: { httpResponseCode: number }) => void,
+		new (
+			options: ApplicationOptions,
+			callback?: (successObj: { httpResponseCode: number }) => void,
 			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinApplication;
 		/**
 		 * Returns an Application object that represents an existing application.
@@ -62,7 +64,8 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinApplicationEventType,
+		addEventListener(
+			type: OpenFinApplicationEventType,
 			listener: (event: ApplicationBaseEvent
 				| TrayIconClickedEvent
 				| WindowEvent
@@ -70,7 +73,8 @@ declare namespace fin {
 				| WindowAuthRequested
 				| WindowNavigationRejectedEvent
 				| WindowEndLoadEvent) => void,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the application and any child windows created by the application.
 		 */
@@ -110,7 +114,8 @@ declare namespace fin {
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinApplicationEventType,
+		removeEventListener(
+			type: OpenFinApplicationEventType,
 			previouslyRegisteredListener: (event: ApplicationBaseEvent
 				| TrayIconClickedEvent
 				| WindowEvent
@@ -118,7 +123,8 @@ declare namespace fin {
 				| WindowAuthRequested
 				| WindowNavigationRejectedEvent
 				| WindowEndLoadEvent) => any,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes the application's icon from the tray.
 		 */
@@ -423,12 +429,18 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void,
+		addEventListener(
+			type: OpenFinExternalApplicationEventType,
+			listener: () => void,
+			callback?: () => void,
 			errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinExternalApplicationEventType, listener: () => void, callback?: () => void,
+		removeEventListener(
+			type: OpenFinExternalApplicationEventType,
+			listener: () => void,
+			callback?: () => void,
 			errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 	}
 
@@ -466,17 +478,35 @@ declare namespace fin {
 		 * Subscribes to messages from the specified application on the specified topic. If the subscription is for a uuid, [name],
 		 * topic combination that has already been published to upon subscription you will receive the last 20 missed messages in the order they were published.
 		 */
-		subscribe(senderUuid: string, name: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
-		subscribe(senderUuid: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
+		subscribe(
+			senderUuid: string,
+			name: string,
+			topic: string,
+			listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
+		subscribe(
+			senderUuid: string,
+			topic: string,
+			listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Unsubscribes to messages from the specified application on the specified topic.
 		 */
-		unsubscribe(senderUuid: string, name: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
-		unsubscribe(senderUuid: string, topic: string, listener: (message: any, uuid: string, name: string) => void,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
+		unsubscribe(
+			senderUuid: string,
+			name: string,
+			topic: string,
+			listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
+		unsubscribe(
+			senderUuid: string,
+			topic: string,
+			listener: (message: any, uuid: string, name: string) => void,
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 	}
 
 	interface OpenFinNotificationStatic {
@@ -570,9 +600,11 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinSystemEventType,
+		addEventListener(
+			type: OpenFinSystemEventType,
 			listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Clears cached data containing window state/positions,
 		 * application resource files (images, HTML, JavaScript files), cookies, and items stored in the Local Storage.
@@ -585,8 +617,11 @@ declare namespace fin {
 		/**
 		 * Downloads the given application asset
 		 */
-		downloadAsset(assetObj: AppAssetInfo, progressListener?: (progress: { downloadedBytes: number, totalBytes: number }) => void,
-			callback?: (successObj: { path: string }) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): void;
+		downloadAsset(
+			assetObj: AppAssetInfo,
+			progressListener?: (progress: { downloadedBytes: number, totalBytes: number }) => void,
+			callback?: (successObj: { path: string }) => void,
+			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): void;
 		/**
 		 * Exits the Runtime.
 		 */
@@ -671,16 +706,19 @@ declare namespace fin {
 		/**
 		 * This function call will register a unique id and produce a token. The token can be used to broker an external connection.
 		 */
-		registerExternalConnection(uuid: string, callback?: (detail: {
-			/**
-			 * this will be unique each time
-			 */
-			token: string;
-			/**
-			 * "remote-connection-uuid"
-			 */
-			uuid: string;
-		}) => void, errorCallback?: (reason: string) => void): void;
+		registerExternalConnection(
+			uuid: string,
+			callback?: (detail: {
+				/**
+				 * this will be unique each time
+				 */
+				token: string;
+				/**
+				 * "remote-connection-uuid"
+				 */
+				uuid: string;
+			}) => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes the process entry for the passed UUID obtained from a prior call of fin.desktop.System.launchExternalProcess().
 		 */
@@ -688,7 +726,8 @@ declare namespace fin {
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinSystemEventType,
+		removeEventListener(
+			type: OpenFinSystemEventType,
 			listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void,
 			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
@@ -698,9 +737,16 @@ declare namespace fin {
 		/**
 		 * Attempt to close an external process. The process will be terminated if it has not closed after the elapsed timeout in milliseconds.
 		 */
-		terminateExternalProcess(processUuid: string, timeout: number, killTree: boolean, callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
+		terminateExternalProcess(
+			processUuid: string,
+			timeout: number,
+			killTree: boolean,
+			callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
 			errorCallback?: (reason: string) => void): void;
-		terminateExternalProcess(processUuid: string, timeout: number, callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
+		terminateExternalProcess(
+			processUuid: string,
+			timeout: number,
+			callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
 			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Update the OpenFin Runtime Proxy settings.
@@ -932,7 +978,7 @@ declare namespace fin {
 		 * over any 'args' set in the 'app.json'.
 		 */
 		arguments?: string;
-		listener?: (result: {
+		listener?(result: {
 			/**
 			 * "Exited" Or "released" on a call to releaseExternalProcess
 			 */
@@ -945,7 +991,7 @@ declare namespace fin {
 			 * Process exit code
 			 */
 			exitCode?: number;
-		}) => void;
+		}): void;
 		certificate?: CertificationInfo;
 	}
 
@@ -974,7 +1020,7 @@ declare namespace fin {
 
 	interface ExternalProcessInfo {
 		pid?: number;
-		listener?: (result: {
+		listener?(result: {
 			/**
 			 * "Exited" Or "released" on a call to releaseExternalProcess
 			 */
@@ -984,10 +1030,10 @@ declare namespace fin {
 			 */
 			uuid?: string;
 			/*
-			 * Process exit code
-			 */
+				* Process exit code
+				*/
 			exitCode?: number;
-		}) => void;
+		}): void;
 	}
 
 	interface OpenFinWindowStatic {
@@ -1005,7 +1051,9 @@ declare namespace fin {
 		 * @param {Function} [callback] - Called if the window creation was successful
 		 * @param {number} [callback.successObj] - httpResponseCode
 		 */
-		new (options: WindowOptions, callback?: (successObj: { httpResponseCode: number }) => void,
+		new (
+			options: WindowOptions,
+			callback?: (successObj: { httpResponseCode: number }) => void,
 			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
 		/**
 		 * Returns an instance of the current window.
@@ -1049,14 +1097,16 @@ declare namespace fin {
 		/**
 		 * Registers an event listener on the specified event.
 		 */
-		addEventListener(type: OpenFinWindowEventType, listener: (event: WindowBaseEvent
-			| WindowAuthRequestedEvent
-			| WindowBoundsEvent
-			| WindowExternalProcessStartedEvent
-			| WindowExternalProcessExited
-			| WindowGroupChangedEvent
-			| WindowHiddenEvent
-			| Window_NavigationRejectedEvent) => void,
+		addEventListener(
+			type: OpenFinWindowEventType,
+			listener: (event: WindowBaseEvent
+				| WindowAuthRequestedEvent
+				| WindowBoundsEvent
+				| WindowExternalProcessStartedEvent
+				| WindowExternalProcessExited
+				| WindowGroupChangedEvent
+				| WindowHiddenEvent
+				| Window_NavigationRejectedEvent) => void,
 			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Performs the specified window transitions
@@ -1167,7 +1217,8 @@ declare namespace fin {
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
-		removeEventListener(type: OpenFinWindowEventType,
+		removeEventListener(
+			type: OpenFinWindowEventType,
 			listener: (event: WindowBaseEvent
 				| WindowAuthRequestedEvent
 				| WindowBoundsEvent
@@ -1176,7 +1227,8 @@ declare namespace fin {
 				| WindowGroupChangedEvent
 				| WindowHiddenEvent
 				| Window_NavigationRejectedEvent) => void,
-			callback?: () => void, errorCallback?: (reason: string) => void): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Resizes the window by a specified amount.
 		 */

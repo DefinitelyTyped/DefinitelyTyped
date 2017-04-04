@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface BabelCodeFrameOptions {
-    /** Syntax highlight the code as JavaScript for terminals. default: false*/
+    /** Syntax highlight the code as JavaScript for terminals. default: false */
     highlightCode?: boolean;
     /**  The number of lines to show above the error. default: 2 */
     linesBelow?:	number;

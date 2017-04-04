@@ -42,6 +42,5 @@ currencyFormatter.format(-10, {
 
 // => ($10)
 
-
 import currencies = require('currency-formatter/currencies');
 currencies === currencyFormatter.currencies;

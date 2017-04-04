@@ -33,8 +33,10 @@ function sample1() {
 }
 
 function sample2() {
-  let dot: fabric.Circle, i: number;
-  let t1: number, t2: number;
+  let dot: fabric.Circle;
+  let i: number;
+  let t1: number;
+  let t2: number;
   const startTimer = () => {
     t1 = new Date().getTime();
     return t1;
@@ -42,16 +44,16 @@ function sample2() {
   const stopTimer = () => {
     t2 = new Date().getTime();
     return t2 - t1;
-  },
-    getRandomInt = fabric.util.getRandomInt,
-    rainbow = ["#ffcc66", "#ccff66", "#66ccff", "#ff6fcf", "#ff6666"],
-    rainbowEnd = rainbow.length - 1;
+  };
+  const getRandomInt = fabric.util.getRandomInt;
+  const rainbow = ["#ffcc66", "#ccff66", "#66ccff", "#ff6fcf", "#ff6666"];
+  const rainbowEnd = rainbow.length - 1;
 
   //
   // Rendering canvas #1
   //
-  const canvas1 = new fabric.Canvas('c1', { backgroundColor: "#000" }),
-    results1 = document.getElementById('results-c1');
+  const canvas1 = new fabric.Canvas('c1', { backgroundColor: "#000" });
+  const results1 = document.getElementById('results-c1');
 
   startTimer();
   for (i = 100; i >= 0; i--) {
@@ -68,8 +70,8 @@ function sample2() {
   //
   // Rendering canvas #2
   //
-  const canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddRemove: false }),
-    results2 = document.getElementById('results-c2');
+  const canvas2 = new fabric.Canvas('c2', { backgroundColor: "#000", renderOnAddRemove: false });
+  const results2 = document.getElementById('results-c2');
 
   startTimer();
   for (i = 1000; i >= 0; i--) {
@@ -101,8 +103,8 @@ function sample3() {
     }
   }
 
-  const canvas = new fabric.Canvas('c', { backgroundImage: '../lib/bg.png' }),
-    f = fabric.Image.filters;
+  const canvas = new fabric.Canvas('c', { backgroundImage: '../lib/bg.png' });
+  const f = fabric.Image.filters;
 
   canvas.on({
     'object:selected': () => {
@@ -296,12 +298,12 @@ function sample5() {
 
   const canvas = new fabric.Canvas('c', { selection: false });
 
-  const line = makeLine([250, 125, 250, 175]),
-    line2 = makeLine([250, 175, 250, 250]),
-    line3 = makeLine([250, 250, 300, 350]),
-    line4 = makeLine([250, 250, 200, 350]),
-    line5 = makeLine([250, 175, 175, 225]),
-    line6 = makeLine([250, 175, 325, 225]);
+  const line = makeLine([250, 125, 250, 175]);
+  const line2 = makeLine([250, 175, 250, 250]);
+  const line3 = makeLine([250, 250, 300, 350]);
+  const line4 = makeLine([250, 250, 200, 350]);
+  const line5 = makeLine([250, 175, 175, 225]);
+  const line6 = makeLine([250, 175, 325, 225]);
 
   canvas.add(line, line2, line3, line4, line5, line6);
 
@@ -341,9 +343,9 @@ function sample6() {
       const p = canvas.getPointer(options.e);
 
       canvas.forEachObject(obj => {
-        const distX = Math.abs(p.x - obj.left),
-          distY = Math.abs(p.y - obj.top),
-          dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
+        const distX = Math.abs(p.x - obj.left);
+        const distY = Math.abs(p.y - obj.top);
+        const dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
         obj.setOpacity(1 / (dist / 20));
       });
     });
@@ -436,13 +438,13 @@ function sample8() {
       element = element.parentNode;
     }
 
-    const className = element.className,
-      offset = 50,
-      left = fabric.util.getRandomInt(0 + offset, 700 - offset),
-      top = fabric.util.getRandomInt(0 + offset, 500 - offset),
-      angle = fabric.util.getRandomInt(-20, 40),
-      width = fabric.util.getRandomInt(30, 50),
-      opacity = ((min: number, max: number) => Math.random() * (max - min) + min)(0.5, 1);
+    const className = element.className;
+    const offset = 50;
+    const left = fabric.util.getRandomInt(0 + offset, 700 - offset);
+    const top = fabric.util.getRandomInt(0 + offset, 500 - offset);
+    const angle = fabric.util.getRandomInt(-20, 40);
+    const width = fabric.util.getRandomInt(30, 50);
+    const opacity = ((min: number, max: number) => Math.random() * (max - min) + min)(0.5, 1);
 
     switch (className) {
       case 'rect':
@@ -508,7 +510,7 @@ function sample8() {
 
       case 'shape':
         const id: any = element.id;
-		const match = /\d+$/.exec(id);
+        const match = /\d+$/.exec(id);
         if (match) {
           fabric.loadSVGFromURL('../assets/' + match[0] + '.svg', (objects, options) => {
             const loadedObject = fabric.util.groupSVGElements(objects, options);
@@ -556,8 +558,8 @@ function sample8() {
 
   const removeSelectedEl = document.getElementById('remove-selected');
   removeSelectedEl.onclick = () => {
-    const activeObject = canvas.getActiveObject(),
-      activeGroup = canvas.getActiveGroup();
+    const activeObject = canvas.getActiveObject();
+    const activeGroup = canvas.getActiveGroup();
     if (activeObject) {
       canvas.remove(activeObject);
     } else if (activeGroup) {
@@ -579,8 +581,8 @@ function sample8() {
     };
   };
 
-  const supportsSlider = supportsInputOfType('range'),
-    supportsColorpicker = supportsInputOfType('color');
+  const supportsSlider = supportsInputOfType('range');
+  const supportsColorpicker = supportsInputOfType('color');
 
   if (supportsSlider()) {
     (() => {
@@ -603,8 +605,8 @@ function sample8() {
       canvas.calcOffset();
 
       slider.onchange = function() {
-        const activeObject = canvas.getActiveObject(),
-          activeGroup = canvas.getActiveGroup();
+        const activeObject = canvas.getActiveObject();
+        const activeGroup = canvas.getActiveGroup();
 
         if (activeObject || activeGroup) {
           (activeObject || activeGroup).setOpacity(parseInt(this.value, 10) / 100);
@@ -634,8 +636,8 @@ function sample8() {
       canvas.calcOffset();
 
       colorpicker.onchange = function() {
-        const activeObject = canvas.getActiveObject(),
-          activeGroup = canvas.getActiveGroup();
+        const activeObject = canvas.getActiveObject();
+        const activeGroup = canvas.getActiveGroup();
 
         if (activeObject || activeGroup) {
           (activeObject || activeGroup).setFill(this.value);
@@ -748,10 +750,10 @@ function sample8() {
     }
   });
 
-  const drawingModeEl = document.getElementById('drawing-mode'),
-    drawingOptionsEl = document.getElementById('drawing-mode-options'),
-    drawingColorEl = <HTMLInputElement> document.getElementById('drawing-color'),
-    drawingLineWidthEl = <HTMLInputElement> document.getElementById('drawing-line-width');
+  const drawingModeEl = document.getElementById('drawing-mode');
+  const drawingOptionsEl = document.getElementById('drawing-mode-options');
+  const drawingColorEl = <HTMLInputElement> document.getElementById('drawing-color');
+  const drawingLineWidthEl = <HTMLInputElement> document.getElementById('drawing-line-width');
 
   drawingModeEl.onclick = () => {
     const canvasWithDrawingMode: any = canvas;
