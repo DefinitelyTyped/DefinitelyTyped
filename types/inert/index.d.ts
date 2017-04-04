@@ -42,9 +42,8 @@ declare module 'hapi' {
          *  * a single path string used as the prefix for any resources requested by appending the request path parameter to the provided string.
          *  * an array of path strings. Each path will be attempted in order until a match is found (by following the same process as the single path string).
          *  * a function with the signature function(request) which returns the path string or an array of path strings. If the function returns an error, the error is passed back to the client in the response.
-         * TODO check what type of Error the "function returns an error" can be or is it raising an error which is caught?
          */
-        path: string | string[] | IRequestHandler<string> | IRequestHandler<string[]>;
+        path: string | string[] | IRequestHandler<string | string[] | Error>;
         /** index - optional boolean|string|string[], determines if an index file will be served if found in the folder when requesting a directory. The given string or strings specify the name(s) of the index file to look for. If true, looks for 'index.html'. Any falsy value disables index file lookup. Defaults to true. */
         index?: boolean | string | string[];
         /** listing - optional boolean, determines if directory listing is generated when a directory is requested without an index document. Defaults to false. */

@@ -23,6 +23,14 @@ var fileHandler: HapiES6.IFileHandler = {
 }
 
 var directoryHandler: HapiES6.IDirectoryHandler = {
-    path: '',
+    path: function(){
+        if(Math.random() > 0.5) {
+            return '';
+        }
+        else if(Math.random() > 0) {
+            return [''];
+        }
+        return new Error('');
+    },
     listing: true,
 }
