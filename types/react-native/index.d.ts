@@ -3909,11 +3909,17 @@ export interface TouchableWithoutFeedbackIOSProperties {
  */
 export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeedbackAndroidProperties, TouchableWithoutFeedbackIOSProperties {
 
+    /**
+     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
+     * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
+     */
+    accessibilityLabel?: string;
 
     /**
-     * Called when the touch is released, but not if cancelled (e.g. by a scroll that steals the responder lock).
+     * When true, indicates that the view is an accessibility element.
+     * By default, all the touchable elements are accessible.
      */
-    accessible?: boolean
+    accessible?: boolean;
 
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
