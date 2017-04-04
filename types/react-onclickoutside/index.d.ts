@@ -20,10 +20,10 @@ declare namespace ReactOnClickOutside {
         stopPropagation?: boolean
     }
 
-    interface onClickOutside {
+    interface OnClickOutside {
         <A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A & OnClickOutsideProps>
     }
 }
 
-declare const onClickOutside: ReactOnClickOutside.onClickOutside
-export = onClickOutside;
+declare const ReactOnClickOutside: ReactOnClickOutside.OnClickOutside;
+export = ReactOnClickOutside;
