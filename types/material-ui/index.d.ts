@@ -783,6 +783,7 @@ declare namespace __MaterialUI {
             expandable?: boolean;
             showExpandableButton?: boolean;
             style?: React.CSSProperties;
+            className?: string;
         }
         export class CardActions extends React.Component<CardActionsProps, {}> {
         }
@@ -808,6 +809,7 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleColor?: string;
             titleStyle?: React.CSSProperties;
+            className?: string;
         }
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
@@ -830,6 +832,7 @@ declare namespace __MaterialUI {
             color?: string;
             expandable?: boolean;
             style?: React.CSSProperties;
+            className?: string;
         }
         export class CardText extends React.Component<CardTextProps, {}> {
         }
