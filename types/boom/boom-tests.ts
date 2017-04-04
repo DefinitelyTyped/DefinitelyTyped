@@ -1,7 +1,9 @@
 
 import Boom = require('boom');
 
-Boom.wrap(new Error('test'), 400, 'some message');
+var bo = Boom.wrap(new Error('test'), 400, 'some message');
+var a: string = bo.output.headers['some header'];
+
 Boom.create(500, 'Internal server error', { timestamp: Date.now() });
 
 Boom.badRequest('message', {some: 'data'});

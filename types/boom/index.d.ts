@@ -29,11 +29,8 @@ declare namespace Boom {
     export interface Output {
         /** statusCode - the HTTP status code (typically 4xx or 5xx). */
         statusCode: number;
-        /**
-         * headers - an object containing any HTTP headers where each key is a header name and value is the header content.
-         * TODO can we limit value type any to string?
-         */
-        headers: {[index: string]: any};
+        /** headers - an object containing any HTTP headers where each key is a header name and value is the header content. (Limited value type to string https://github.com/hapijs/boom/issues/151 ) */
+        headers: {[index: string]: string};
         /** payload - the formatted object used as the response payload (stringified). Can be directly manipulated but any changes will be lost if reformat() is called. Any content allowed and by default includes the following content: */
         payload: {
             /** statusCode - the HTTP status code, derived from error.output.statusCode. */
