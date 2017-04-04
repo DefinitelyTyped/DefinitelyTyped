@@ -1,4 +1,4 @@
-// Type definitions for should.js v8.1.1
+// Type definitions for should.js v8.3.0
 // Project: https://github.com/shouldjs/should.js
 // Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
