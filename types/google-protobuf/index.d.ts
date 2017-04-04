@@ -76,7 +76,7 @@ export abstract class Message {
   static getRepeatedWrapperField<T>(
     msg: Message,
     ctor: {new() : T},
-    fieldNumber: number): Message[];
+    fieldNumber: number): T[];
   static setWrapperField<T>(
     msg: Message,
     fieldNumber: number,
