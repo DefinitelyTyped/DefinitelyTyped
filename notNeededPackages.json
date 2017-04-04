@@ -55,6 +55,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "azure-mobile-apps",
+            "typingsPackageName": "azure-mobile-apps",
+            "sourceRepoURL": "https://github.com/Azure/azure-mobile-apps-node/",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
