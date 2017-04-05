@@ -7156,7 +7156,7 @@ export interface UIManagerStatic {
             quality ?: number,
         }
     ) => Promise<string>
-                              
+
     /**
      * Determines the location on screen, width, and height of the given view and
      * returns the values via an async callback. If successful, the callback will
@@ -7204,8 +7204,8 @@ export interface UIManagerStatic {
     measureLayout(
         node: number,
         relativeToNativeNode: number,
-        onSuccess: MeasureLayoutOnSuccessCallback,
-        onFail: () => void /* currently unused */
+        onFail: () => void, /* currently unused */
+        onSuccess: MeasureLayoutOnSuccessCallback
     ): void;
 }
 
