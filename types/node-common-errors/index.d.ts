@@ -1,9 +1,9 @@
-import * as express from 'express';
-
 // Type definitions for node-common-errors 0.4
 // Project: https://github.com/shutterstock/node-errors
 // Definitions by: Ian Copp <https://github.com/icopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import * as express from 'express';
 
 type GenerateMessageMethod = () => string;
 
