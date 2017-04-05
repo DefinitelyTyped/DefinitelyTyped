@@ -28,8 +28,33 @@ declare namespace karma {
         stopper: Stopper;
         launcher: Launcher;
         VERSION: string;
+        constants: Constants;
     }
 
+    interface Constants {
+        VERSION: string;
+        DEFAULT_PORT: number;
+        DEFAULT_HOSTNAME: string;
+        DEFAULT_LISTEN_ADDR: string;
+        LOG_DISABLE: string;
+        LOG_ERROR: string;
+        LOG_WARN: string;
+        LOG_INFO: string;
+        LOG_DEBUG: string;
+        LOG_LOG: string;
+        LOG_PRIORITIES: string[];
+        COLOR_PATTERN: string;
+        NO_COLOR_PATTERN: string;
+        CONSOLE_APPENDER: {
+            type: string;
+            layout: {
+                type: string;
+                pattern: string;
+            };
+        };
+        EXIT_CODE: string;
+    }
+    
     interface LauncherStatic {
         generateId(): string;
         //TODO: injector should be of type `di.Injector`
