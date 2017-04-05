@@ -667,3 +667,10 @@ knex.seed.make(name);
 
 knex.seed.run(config);
 knex.seed.run();
+
+
+knex.schema
+  .dropTableIfExists('A')
+  .createTable('A', table => {
+    table.integer('C').unsigned().references('B.id').notNullable();
+  });
