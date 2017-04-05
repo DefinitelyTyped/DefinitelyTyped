@@ -26,7 +26,7 @@ declare namespace ClickOut {
 }
 
 /**
- * Wraps a React.Stateless component with clickout
+ * Wraps a React.Stateless or React.Component with clickout
  * Must pass handleClickOutside as a prop or implement ClickOut.HandleClickOutside
  * @param component
  * @constructor
