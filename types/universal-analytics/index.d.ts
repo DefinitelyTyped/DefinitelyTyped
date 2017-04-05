@@ -92,11 +92,8 @@ declare namespace ua {
     }
 
     class Visitor {
-        constructor(options: VisitorOptions);
-        constructor(accountID: string);
-        constructor(accountID: string, uuid: string);
-        constructor(accountID: string, options: VisitorOptions);
-        constructor(accountID: string, uuid: string, options: VisitorOptions, context?: { [key: string]: any }, persistentParams?: { [key: string]: any });
+        constructor(accountID: VisitorOptions | string);
+        constructor(accountID: string, uuid: VisitorOptions | string, context?: { [key: string]: any }, persistentParams?: { [key: string]: any });
 
         debug(debug?: boolean): Visitor;
 
@@ -104,14 +101,12 @@ declare namespace ua {
 
         set(key: string | number, value: any): void;
 
-        pageview(params: PageviewParams, callback?: Callback): Visitor;
-        pageview(path: string, callback?: Callback): Visitor;
+        pageview(path: PageviewParams | string, callback?: Callback): Visitor;
         pageview(path: string, hostname: string, callback?: Callback): Visitor;
         pageview(path: string, hostname: string, title: string, callback?: Callback): Visitor;
         pageview(path: string, hostname: string, title: string, params: PageviewParams, callback?: Callback): Visitor;
 
-        pv(params: PageviewParams, callback?: Callback): Visitor;
-        pv(path: string, callback?: Callback): Visitor;
+        pv(path: PageviewParams | string, callback?: Callback): Visitor;
         pv(path: string, hostname: string, callback?: Callback): Visitor;
         pv(path: string, hostname: string, title: string, callback?: Callback): Visitor;
         pv(path: string, hostname: string, title: string, params: PageviewParams, callback?: Callback): Visitor;
@@ -135,45 +130,39 @@ declare namespace ua {
         e(category: string, action: string, label: string, value: string | number, callback?: Callback): Visitor;
         e(category: string, action: string, label: string, value: string | number, params: EventParams, callback?: Callback): Visitor;
 
-        transaction(params: TransactionParams, callback?: Callback): Visitor;
-        transaction(id: string, callback?: Callback): Visitor;
+        transaction(id: TransactionParams | string, callback?: Callback): Visitor;
         transaction(id: string, revenue: string | number, callback?: Callback): Visitor;
         transaction(id: string, revenue: string | number, shipping: string | number, callback?: Callback): Visitor;
         transaction(id: string, revenue: string | number, shipping: string | number, tax: string | number, callback?: Callback): Visitor;
         transaction(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, callback?: Callback): Visitor;
         transaction(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, params: TransactionParams, callback?: Callback): Visitor;
 
-        t(params: TransactionParams, callback?: Callback): Visitor;
-        t(id: string, callback?: Callback): Visitor;
+        t(id: TransactionParams | string, callback?: Callback): Visitor;
         t(id: string, revenue: string | number, callback?: Callback): Visitor;
         t(id: string, revenue: string | number, shipping: string | number, callback?: Callback): Visitor;
         t(id: string, revenue: string | number, shipping: string | number, tax: string | number, callback?: Callback): Visitor;
         t(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, callback?: Callback): Visitor;
         t(id: string, revenue: string | number, shipping: string | number, tax: string | number, affiliation: string, params: TransactionParams, callback?: Callback): Visitor;
 
-        item(params: ItemParams, callback?: Callback): Visitor;
-        item(price: string | number, callback?: Callback): Visitor;
+        item(price: ItemParams | string | number, callback?: Callback): Visitor;
         item(price: string | number, quantity: string | number, callback?: Callback): Visitor;
         item(price: string | number, quantity: string | number, sku: string, callback?: Callback): Visitor;
         item(price: string | number, quantity: string | number, sku: string, name: string, callback?: Callback): Visitor;
         item(price: string | number, quantity: string | number, sku: string, name: string, variation: string, callback?: Callback): Visitor;
         item(price: string | number, quantity: string | number, sku: string, name: string, variation: string, params: ItemParams, callback?: Callback): Visitor;
 
-        i(params: ItemParams, callback?: Callback): Visitor;
-        i(price: string | number, callback?: Callback): Visitor;
+        i(price: ItemParams | string | number, callback?: Callback): Visitor;
         i(price: string | number, quantity: string | number, callback?: Callback): Visitor;
         i(price: string | number, quantity: string | number, sku: string, callback?: Callback): Visitor;
         i(price: string | number, quantity: string | number, sku: string, name: string, callback?: Callback): Visitor;
         i(price: string | number, quantity: string | number, sku: string, name: string, variation: string, callback?: Callback): Visitor;
         i(price: string | number, quantity: string | number, sku: string, name: string, variation: string, params: ItemParams, callback?: Callback): Visitor;
 
-        exception(params: ExceptionParams, callback?: Callback): Visitor;
-        exception(description: string, callback?: Callback): Visitor;
+        exception(description: ExceptionParams | string, callback?: Callback): Visitor;
         exception(description: string, fatal: boolean, callback?: Callback): Visitor;
         exception(description: string, fatal: boolean, params: ExceptionParams, callback?: Callback): Visitor;
 
-        timing(params: TimingParams, callback?: Callback): Visitor;
-        timing(category: string, callback?: Callback): Visitor;
+        timing(category: TimingParams | string, callback?: Callback): Visitor;
         timing(category: string, variable: string, callback?: Callback): Visitor;
         timing(category: string, variable: string, time: string | number, callback?: Callback): Visitor;
         timing(category: string, variable: string, time: string | number, label: string, callback?: Callback): Visitor;
@@ -182,14 +171,12 @@ declare namespace ua {
         send(fn?: (error: any, response: any, body: any) => void): void;
     }
 
-    function createFromSession(session?: Session): Visitor & void;
+    function createFromSession(session?: Session): Visitor;
 
     function middleware(tid: string, options?: ua.MiddlewareOptions): (req: any, res: any, next: (err: any) => void) => void;
 }
 
-declare function ua(options: ua.VisitorOptions): ua.Visitor;
-declare function ua(accountID: string): ua.Visitor;
-declare function ua(accountID: string, uuid: string): ua.Visitor;
-declare function ua(accountID: string, options: ua.VisitorOptions): ua.Visitor;
+declare function ua(accountID: ua.VisitorOptions | string): ua.Visitor;
+declare function ua(accountID: string, uuid: ua.VisitorOptions | string): ua.Visitor;
 declare function ua(accountID: string, uuid: string, options: ua.VisitorOptions): ua.Visitor;
 export = ua;
