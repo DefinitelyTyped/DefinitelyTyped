@@ -5,12 +5,11 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare module 'angular' {
-    export namespace blockUI {
-
-        interface IBlockUIConfig {
+    namespace blockUI {
+        interface BlockUIConfig {
             /**
              * Changes the default message to be used when no message
              * has been provided to the start method of the service.
@@ -72,7 +71,7 @@ declare module 'angular' {
              * @param {angular.IRequestConfig} config - the Angular request config object.
              *
              */
-            requestFilter?: (config: angular.IRequestConfig) => (string | boolean);
+            requestFilter?(config: angular.IRequestConfig): (string | boolean);
 
             /**
              * When the module is started it will inject the main block element
@@ -107,7 +106,7 @@ declare module 'angular' {
             blockBrowserNavigation?: boolean;
         }
 
-        interface IBlockUIService {
+        interface BlockUIService {
             /**
              * The start method will start the user interface block.
              * Because multiple user interface elements can request
@@ -132,19 +131,19 @@ declare module 'angular' {
              *     If no argument is specified the default text message
              *     from the configuration is used.
              */
-            start: (messageOrOptions?: (string | IBlockUIConfig)) => void;
+            start(messageOrOptions?: (string | BlockUIConfig)): void;
 
             /**
              * This will decrease the block count.
              *
              * The block will end if the count is 0.
              */
-            stop: () => void;
+            stop(): void;
 
             /**
              * The reset will force an unblock by setting the block count to 0.
              */
-            reset: () => void;
+            reset(): void;
 
             /**
              * Queues a callback function to be called when the block has finished.
@@ -152,7 +151,7 @@ declare module 'angular' {
              * This can be useful whenever you wish to redirect the user
              * to a different location while there are still pending AJAX requests.
              */
-            done: () => void;
+            done(): void;
 
             /**
              * Allows the message shown in the overlay to be updated
@@ -160,12 +159,12 @@ declare module 'angular' {
              *
              * @param {string} message - The message to show in the overlay.
              */
-            message: (message: string) => void;
+            message(message: string): void;
 
             /**
              * Returns whether currently a block is shown for the instance or not.
              */
-            isBlocking: () => boolean;
+            isBlocking(): boolean;
         }
     }
 }

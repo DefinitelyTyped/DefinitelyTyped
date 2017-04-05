@@ -1,6 +1,6 @@
-var app: angular.IModule = angular.module('at', ['blockUI']);
+let app: angular.IModule = angular.module('at', ['blockUI']);
 
-app.config((blockUIConfig: angular.blockUI.IBlockUIConfig) => {
+app.config((blockUIConfig: angular.blockUI.BlockUIConfig) => {
     blockUIConfig.message = 'Please stop clicking!';
     blockUIConfig.delay = 100;
     blockUIConfig.template = '<pre><code>{{ state | json }}</code></pre>';
@@ -11,14 +11,14 @@ app.config((blockUIConfig: angular.blockUI.IBlockUIConfig) => {
     blockUIConfig.cssClass = 'block-ui my-custom-class';
     blockUIConfig.blockBrowserNavigation = true;
 
-    blockUIConfig.requestFilter = function (config) {
+    blockUIConfig.requestFilter = (config) => {
         if (config.url.match(/^\/api\/quote($|\/).*/)) {
             return false;
         }
         return true;
     };
 
-    blockUIConfig.requestFilter = function (config) {
+    blockUIConfig.requestFilter = (config) => {
         if (config.url.match(/^\/api\/quote($|\/).*/)) {
             return 'Hello World';
         }
@@ -26,7 +26,7 @@ app.config((blockUIConfig: angular.blockUI.IBlockUIConfig) => {
     };
 });
 
-app.controller('Ctrl', ($scope: ng.IScope, blockUI: angular.blockUI.IBlockUIService) => {
+app.controller('Ctrl', ($scope: ng.IScope, blockUI: angular.blockUI.BlockUIService) => {
     blockUI.start();
     blockUI.start('Hello');
     blockUI.start({});
