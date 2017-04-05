@@ -273,7 +273,7 @@ export namespace tinymce {
 
     autosave_prefix?: string;
 
-    autosave_restore_when_empty? : boolean;
+    autosave_restore_when_empty?: boolean;
 
     autosave_retention?: string;
   }
