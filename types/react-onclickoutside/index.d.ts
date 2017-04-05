@@ -1,27 +1,43 @@
 // Type definitions for react-onclickoutside v5.7.0
 // Project: https://github.com/Pomax/react-onclickoutside
-// Definitions by: Karol Janyst <https://github.com/LKay>
+// Definitions by: Karol Janyst <https://github.com/LKay> and cwmoo740 <https://github.com/cwmoo740>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from "react";
+import * as React from 'react';
 
-declare namespace ReactOnClickOutside {
-    interface OnClickOutsideComponent {
-        handleClickOutside(e: React.MouseEvent<any>): void;
+declare namespace ClickOut {
+    interface HandleClickOutside<T> {
+        handleClickOutside: React.MouseEventHandler<T>;
     }
 
-    interface OnClickOutsideProps {
-        disableOnClickOutside?: boolean;
-        eventTypes?: string | string[];
-        outsideClickIgnoreClass?: string;
-        preventDefault?: boolean;
-        stopPropagation?: boolean;
+    interface InjectedProps {
+        disableOnClickOutside(): void;
+        enableOnClickOutside(): void;
     }
 
-    type OnClickOutside = <A>(component: React.ComponentClass<A> | React.StatelessComponent<A>) =>
-        React.ComponentClass<A & OnClickOutsideProps>;
+    interface Props {
+        disableOnClickOutside: boolean;
+        eventTypes: string | string[];
+        outsideClickIgnoreClass: string;
+        preventDefault: boolean;
+        stopPropagation: boolean;
+    }
 }
 
-declare const ReactOnClickOutside: ReactOnClickOutside.OnClickOutside;
-export = ReactOnClickOutside;
+/**
+ * Wraps a React.Stateless component with clickout
+ * Must pass handleClickOutside as a prop or implement ClickOut.HandleClickOutside
+ * @param component
+ * @constructor
+ */
+declare function ClickOut<OwnProps>(
+    component: Stateless<OwnProps> | Component<OwnProps>
+): React.ComponentClass<OwnProps & Partial<ClickOut.Props>>;
+
+type Stateless<T> = React.StatelessComponent<T & ClickOut.InjectedProps & ClickOut.HandleClickOutside<any>>;
+
+type Component<T> = React.ComponentClass<T & ClickOut.InjectedProps> |
+    React.ComponentClass<T & ClickOut.InjectedProps & ClickOut.HandleClickOutside<any>>;
+
+export = ClickOut;
