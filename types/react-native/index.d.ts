@@ -1,6 +1,7 @@
 // Type definitions for react-native 0.43
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
+//                 Fedor Nezhivoi <https://github.com/gyzerok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
