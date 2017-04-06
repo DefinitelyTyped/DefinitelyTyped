@@ -58,6 +58,7 @@ declare module 'react-router-dom' {
     BrowserRouter,
     HashRouter,
     LinkProps, // TypeScript specific, not from React Router itself
+    NavLinkProps, // TypeScript specific, not from React Router itself
     Link,
     NavLink,
     Prompt,
