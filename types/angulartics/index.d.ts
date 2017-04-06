@@ -3,7 +3,7 @@
 // Definitions by: Steven Fan <https://github.com/stevenfan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as angular from 'angular';
+/// <reference types="angular" />
 
 declare namespace angulartics {
 
