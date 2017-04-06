@@ -7156,6 +7156,57 @@ export interface UIManagerStatic {
             quality ?: number,
         }
     ) => Promise<string>
+
+    /**
+     * Determines the location on screen, width, and height of the given view and
+     * returns the values via an async callback. If successful, the callback will
+     * be called with the following arguments:
+     *
+     *  - x
+     *  - y
+     *  - width
+     *  - height
+     *  - pageX
+     *  - pageY
+     *
+     * Note that these measurements are not available until after the rendering
+     * has been completed in native. If you need the measurements as soon as
+     * possible, consider using the [`onLayout`
+     * prop](docs/view.html#onlayout) instead.
+     */
+    measure(node: number, callback: MeasureOnSuccessCallback): void;
+
+    /**
+     * Determines the location of the given view in the window and returns the
+     * values via an async callback. If the React root view is embedded in
+     * another native view, this will give you the absolute coordinates. If
+     * successful, the callback will be called with the following
+     * arguments:
+     *
+     *  - x
+     *  - y
+     *  - width
+     *  - height
+     *
+     * Note that these measurements are not available until after the rendering
+     * has been completed in native.
+     */
+    measureInWindow(node: number, callback: MeasureInWindowOnSuccessCallback): void;
+
+    /**
+     * Like [`measure()`](#measure), but measures the view relative an ancestor,
+     * specified as `relativeToNativeNode`. This means that the returned x, y
+     * are relative to the origin x, y of the ancestor view.
+     *
+     * As always, to obtain a native node handle for a component, you can use
+     * `React.findNodeHandle(component)`.
+     */
+    measureLayout(
+        node: number,
+        relativeToNativeNode: number,
+        onFail: () => void, /* currently unused */
+        onSuccess: MeasureLayoutOnSuccessCallback
+    ): void;
 }
 
 export interface SwitchPropertiesIOS extends ViewProperties, React.Props<SwitchStatic> {
