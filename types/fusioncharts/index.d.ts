@@ -3,9 +3,7 @@
 // Definitions by: Rohit Kumar <https://github.com/rohitkr>, Shivaraj KV <https://github.com/shivarajkv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace FusionCharts {
-
     type ChartDataFormats = 'json' | 'jsonurl' | 'csv' | 'xml' | 'xmlurl';
 
     type ImageHAlign = 'left' | 'right' | 'middle';
@@ -21,19 +19,18 @@ declare namespace FusionCharts {
 
         cancelled: boolean;
 
-        stopPropagation: () => void;
+        stopPropagation(): void;
 
         prevented: boolean;
 
-        preventDefault: () => void;
+        preventDefault(): void;
 
         detached: boolean;
 
-        detachHandler: () => void;
+        detachHandler(): void;
     }
 
     interface ChartObject {
-
         type?: string;
 
         id?: string;
@@ -251,7 +248,6 @@ declare namespace FusionCharts {
         configure(options: {}): void;
 
         ref: {};
-
     }
 
     interface FusionChartStatic {
@@ -286,10 +282,7 @@ declare namespace FusionCharts {
         options: {};
 
         debugger: Debugger;
-
-
     }
-
 }
 
 declare var FusionCharts: FusionCharts.FusionChartStatic;
