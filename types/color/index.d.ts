@@ -66,6 +66,7 @@ declare namespace Color {
         keyword(): string | undefined;
         hex(color: string): Color;
         hex(): string;
+        rgb(): Color;
         rgbNumber(): number;
         luminosity(): number;
         contrast(color: Color): number;
