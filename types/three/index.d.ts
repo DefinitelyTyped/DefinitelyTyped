@@ -2658,7 +2658,7 @@ declare namespace THREE {
         displacementScale?: number;
         displacementBias?: number;
         roughnessMap?: Texture;
-        metalMap?: Texture;
+        metalnessMap?: Texture;
         alphaMap?: Texture;
         envMap?: Texture;
         envMapIntensity?: number;
@@ -2693,7 +2693,7 @@ declare namespace THREE {
         displacementScale: number;
         displacementBias: number;
         roughnessMap: Texture;
-        metalMap: Texture;
+        metalnessMap: Texture;
         alphaMap: Texture;
         envMap: Texture;
         envMapIntensity: number;
