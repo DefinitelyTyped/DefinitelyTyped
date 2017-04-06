@@ -290,3 +290,17 @@ var circle2 = new google.maps.Circle({
     strokeOpacity: 0.5,
     strokeWeight: 1
 });
+
+/***** StreetViewPanorama *****/
+var panoramaOptions: google.maps.StreetViewPanoramaOptions = {
+    zoom: 0,
+    pano: 'reception',
+    scrollwheel: false,
+    mode: 'webgl',
+    disableDefaultUI: true,
+    linksControl: true,
+    visible: true,
+    motionTracking: true,
+    motionTrackingControl: true
+};
+var panorama = new google.maps.StreetViewPanorama(document.createElement("div"), panoramaOptions);
