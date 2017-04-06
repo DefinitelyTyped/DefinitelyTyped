@@ -1,7 +1,8 @@
 
 import { FusionChartStatic } from "fusioncharts";
 
-declare var fint: (H: FusionChartStatic) => FusionChartStatic;
-export = fint;
-export as namespace fint;
+declare namespace Fint {}
+declare var Fint: (H: FusionChartStatic) => FusionChartStatic;
+export = Fint;
+export as namespace Fint;
 

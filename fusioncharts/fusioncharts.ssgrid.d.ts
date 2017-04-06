@@ -1,7 +1,8 @@
 
 import { FusionChartStatic } from "fusioncharts";
 
-declare var ssgrid: (H: FusionChartStatic) => FusionChartStatic;
-export = ssgrid;
-export as namespace ssgrid;
+declare namespace Ssgrid {}
+declare var Ssgrid: (H: FusionChartStatic) => FusionChartStatic;
+export = Ssgrid;
+export as namespace Ssgrid;
 

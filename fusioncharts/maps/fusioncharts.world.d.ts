@@ -1,7 +1,8 @@
 
 import { FusionChartStatic } from "fusioncharts";
 
-declare var world: (H: FusionChartStatic) => FusionChartStatic;
-export = world;
-export as namespace world;
+declare namespace World {}
+declare var World: (H: FusionChartStatic) => FusionChartStatic;
+export = World;
+export as namespace World;
 
