@@ -99,7 +99,8 @@ interface ShouldAssertion {
   fulfilled(): Promise<any>;
   fulfilledWith(value: any): Promise<any>
   rejected(): Promise<any>;
-  rejectedWith(err: Error | string | RegExp): Promise<any>;
+  rejectedWith(message: (string | Function | RegExp), properties?: Object): Promise<any>;
+  rejectedWith(errType: Object): Promise<any>;
 
   //http
   header(field: string, val?: string): ShouldAssertion;
