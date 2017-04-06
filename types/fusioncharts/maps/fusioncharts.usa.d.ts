@@ -1,5 +1,8 @@
+
 import { FusionChartStatic } from "fusioncharts";
 
-declare function usa(H: FusionChartStatic): FusionChartStatic;
-export = usa;
-export as namespace usa;
+declare namespace Usa {}
+declare var Usa: (H: FusionChartStatic) => FusionChartStatic;
+export = Usa;
+export as namespace Usa;
+

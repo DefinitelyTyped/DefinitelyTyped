@@ -1,5 +1,8 @@
+
 import { FusionChartStatic } from "fusioncharts";
 
-declare function gantt(H: FusionChartStatic): FusionChartStatic;
-export = gantt;
-export as namespace gantt;
+declare namespace Gantt {}
+declare var Gantt: (H: FusionChartStatic) => FusionChartStatic;
+export = Gantt;
+export as namespace Gantt;
+

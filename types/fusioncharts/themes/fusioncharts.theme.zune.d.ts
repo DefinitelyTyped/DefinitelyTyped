@@ -1,5 +1,8 @@
+
 import { FusionChartStatic } from "fusioncharts";
 
-declare function zune(H: FusionChartStatic): FusionChartStatic;
-export = zune;
-export as namespace zune;
+declare namespace Zune {}
+declare var Zune: (H: FusionChartStatic) => FusionChartStatic;
+export = Zune;
+export as namespace Zune;
+
