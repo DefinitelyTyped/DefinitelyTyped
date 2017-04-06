@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "history": ["history/v2"],
+            "history/*": ["history/v2/*"]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "history-tests.ts",
+        "lib/actions.d.ts",
+        "lib/createBrowserHistory.d.ts",
+        "lib/createHashHistory.d.ts",
+        "lib/createLocation.d.ts",
+        "lib/createMemoryHistory.d.ts",
+        "lib/DOMUtils.d.ts",
+        "lib/useBasename.d.ts",
+        "lib/useBeforeUnload.d.ts",
+        "lib/useQueries.d.ts"
+    ]
+}

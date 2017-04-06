@@ -1,0 +1,7 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "ban-types": false,
+        "no-empty-interface": false
+    }
+}
