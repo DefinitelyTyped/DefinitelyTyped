@@ -62,7 +62,7 @@ interface RequestOptions {
      *
      * One of x-ms-offer-throughput or x-ms-offer-type must be specified. Both headers cannot be specified together.
      */
-    offerThroughput?: string;
+    offerThroughput?: number;
 
     /**
      * The partition key value for the requested document or attachment operation.
@@ -230,6 +230,15 @@ export interface Collection extends UniqueId {
 
     /** The default time to live in seconds for documents in a collection. */
     defaultTtl?: number;
+
+    /**
+     * This value is used to configure the partition key to be used for partitioning data into multiple partitions.
+     *
+     * If the x-ms-offer-throughput is over 10,000, then the collection must include a partitionKey definition.
+     *
+     * If the x-ms-offer-throughput is equal to or under 10,000, then the collection must not include a partitionKey definition.
+     */
+    partitionKey?: string;
 }
 
 /** Represents a DocumentDB attachment */
@@ -372,6 +381,22 @@ export interface RangeOptions {
 export interface PartitionKeyMap {
     link: string;
     range: Range;
+}
+
+export interface CollectionPartitionKey {
+    /**
+     * An array of paths using which data within the collection can be partitioned.
+     * 
+     * Paths must not contain a wildcard or a trailing slash. For example, the JSON property “AccountNumber” is specified as “/AccountNumber”. 
+     * 
+     * The array must contain only a single value.
+     */
+    path: string[];
+
+    /**
+     * The algorithm used for partitioning. Only Hash is supported.
+     */
+    kind: PartitionKind;
 }
 
 export type DocumentQuery = SqlQuerySpec | string;
@@ -1322,3 +1347,4 @@ export type PermissionMode = 'None' | 'Read' | 'All';
 export type TriggerType = 'Pre' | 'Post' | 'pre' | 'post';
 export type TriggerOperation = 'All' | 'Create' | 'Update' | 'Delete' | 'Replace' | 'all' | 'create' | 'update' | 'delete' | 'replace';
 export type UserDefinedFunctionType = 'Javascript';
+export type PartitionKind = 'Hash';
