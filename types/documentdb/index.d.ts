@@ -238,7 +238,7 @@ export interface Collection extends UniqueId {
      *
      * If the x-ms-offer-throughput is equal to or under 10,000, then the collection must not include a partitionKey definition.
      */
-    partitionKey?: string;
+    partitionKey?: CollectionPartitionKey;
 }
 
 /** Represents a DocumentDB attachment */
