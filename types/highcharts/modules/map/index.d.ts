@@ -13,16 +13,13 @@ declare module 'highcharts' {
 
     interface MapOptions {
         chart?: highcharts.ChartOptions;
-
         legend?: highcharts.LegendOptions;
-
         mapNavigation?: Navigation;
-
+        plotOptions?: highcharts.PlotOptions;
         series?: MapSeriesOptions[];
-
         colorAxis?: ColorAxis;
-
         title?: highcharts.TitleOptions;
+        tooltip?: highcharts.TooltipOptions;
     }
 
     interface MapSeriesOptions {
