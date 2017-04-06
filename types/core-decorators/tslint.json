@@ -1,0 +1,7 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "callable-types": false,
+        "ban-types": false
+    }
+}

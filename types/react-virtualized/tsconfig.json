@@ -1,0 +1,50 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "jsx": "react",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "dist/es/ArrowKeyStepper.d.ts",
+        "dist/es/AutoSizer.d.ts",
+        "dist/es/CellMeasurer.d.ts",
+        "dist/es/Collection.d.ts",
+        "dist/es/ColumnSizer.d.ts",
+        "dist/es/Grid.d.ts",
+        "dist/es/InfiniteLoader.d.ts",
+        "dist/es/List.d.ts",
+        "dist/es/Masonry.d.ts",
+        "dist/es/MultiGrid.d.ts",
+        "dist/es/ScrollSync.d.ts",
+        "dist/es/Table.d.ts",
+        "dist/es/WindowScroller.d.ts",
+        "dist/commonjs/ArrowKeyStepper.d.ts",
+        "dist/commonjs/AutoSizer.d.ts",
+        "dist/commonjs/CellMeasurer.d.ts",
+        "dist/commonjs/Collection.d.ts",
+        "dist/commonjs/ColumnSizer.d.ts",
+        "dist/commonjs/Grid.d.ts",
+        "dist/commonjs/InfiniteLoader.d.ts",
+        "dist/commonjs/List.d.ts",
+        "dist/commonjs/Masonry.d.ts",
+        "dist/commonjs/MultiGrid.d.ts",
+        "dist/commonjs/ScrollSync.d.ts",
+        "dist/commonjs/Table.d.ts",
+        "dist/commonjs/WindowScroller.d.ts",
+        "react-virtualized-tests.tsx"
+    ]
+}
