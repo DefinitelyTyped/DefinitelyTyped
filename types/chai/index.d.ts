@@ -703,7 +703,7 @@ declare namespace Chai {
          * @param property   Potential contained property of object.
          * @param message   Message to display on error.
          */
-        property<T>(object: T, property: keyof T, message?: string): void;
+        property<T>(object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that object has a property named by property.
@@ -713,7 +713,7 @@ declare namespace Chai {
          * @param property   Potential contained property of object.
          * @param message   Message to display on error.
          */
-        notProperty<T>(object: T, property: keyof T, message?: string): void;
+        notProperty<T>(object: T, property: string /* keyof T */, message?: string): void;
 
         /**
          * Asserts that object has a property named by property, which can be a string
@@ -747,7 +747,7 @@ declare namespace Chai {
          * @param value   Potential expected property value.
          * @param message   Message to display on error.
          */
-        propertyVal<T, V>(object: T, property: keyof T, value: V, message?: string): void;
+        propertyVal<T, V>(object: T, property: string /* keyof T */, value: V, message?: string): void;
 
         /**
          * Asserts that object has a property named by property with value given by value.
@@ -759,7 +759,7 @@ declare namespace Chai {
          * @param value   Potential expected property value.
          * @param message   Message to display on error.
          */
-        propertyNotVal<T, V>(object: T, property: keyof T, value: V, message?: string): void;
+        propertyNotVal<T, V>(object: T, property: string /* keyof T */, value: V, message?: string): void;
 
         /**
          * Asserts that object has a property named by property, which can be a string
@@ -1032,7 +1032,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be modified.
          * @param message   Message to display on error.
          */
-        changes<T>(modifier: Function, object: T, property: keyof T, message?: string): void
+        changes<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
 
         /**
          * Asserts that a function does not change the value of a property.
@@ -1043,7 +1043,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be modified.
          * @param message   Message to display on error.
          */
-        doesNotChange<T>(modifier: Function, object: T, property: keyof T, message?: string): void
+        doesNotChange<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
 
         /**
          * Asserts that a function increases an object property.
@@ -1054,7 +1054,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be increased.
          * @param message   Message to display on error.
          */
-        increases<T>(modifier: Function, object: T, property: keyof T, message?: string): void
+        increases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
 
         /**
          * Asserts that a function does not increase an object property.
@@ -1065,7 +1065,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be increased.
          * @param message   Message to display on error.
          */
-        doesNotIncrease<T>(modifier: Function, object: T, property: keyof T, message?: string): void
+        doesNotIncrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
 
         /**
          * Asserts that a function decreases an object property.
@@ -1076,7 +1076,7 @@ declare namespace Chai {
          * @param property   Property of object expected to be decreased.
          * @param message   Message to display on error.
          */
-        decreases<T>(modifier: Function, object: T, property: keyof T, message?: string): void
+        decreases<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
 
         /**
          * Asserts that a function does not decrease an object property.
@@ -1087,7 +1087,7 @@ declare namespace Chai {
          * @param property   Property of object expected not to be decreased.
          * @param message   Message to display on error.
          */
-        doesNotDecrease<T>(modifier: Function, object: T, property: keyof T, message?: string): void
+        doesNotDecrease<T>(modifier: Function, object: T, property: string /* keyof T */, message?: string): void
 
         /**
          * Asserts if value is not a false value, and throws if it is a true value.
