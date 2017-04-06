@@ -1,6 +1,6 @@
 // Type definitions for echarts
 // Project: http://echarts.baidu.com/
-// Definitions by: Xie Jingyang <https://github.com/xieisabug>
+// Definitions by: Xie Jingyang <https://github.com/xieisabug>, AntiMoron <https://github.com/AntiMoron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ECharts {
