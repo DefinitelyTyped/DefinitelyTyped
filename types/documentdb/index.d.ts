@@ -391,7 +391,7 @@ export interface CollectionPartitionKey {
      * 
      * The array must contain only a single value.
      */
-    path: string[];
+    paths: string[];
 
     /**
      * The algorithm used for partitioning. Only Hash is supported.
