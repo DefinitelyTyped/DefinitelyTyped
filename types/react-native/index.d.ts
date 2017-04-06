@@ -1,6 +1,7 @@
-// Type definitions for react-native 0.42
+// Type definitions for react-native 0.43
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
+//                 Fedor Nezhivoi <https://github.com/gyzerok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -531,9 +532,7 @@ export interface LayoutAnimationStatic {
     spring: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
 }
 
-export type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
-export type FlexJustifyType = "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
-export type FlexDirection = "row" | "column" | "row-reverse" | "column-reverse";
+type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
 
 /**
  * Flex Prop Types
@@ -541,9 +540,9 @@ export type FlexDirection = "row" | "column" | "row-reverse" | "column-reverse";
  * @see LayoutPropTypes.js
  */
 export interface FlexStyle {
-
-    alignItems?: FlexAlignType;
-    alignSelf?: "auto" | FlexAlignType;
+    alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around"
+    alignItems?: FlexAlignType
+    alignSelf?: "auto" | FlexAlignType
     borderBottomWidth?: number
     borderLeftWidth?: number
     borderRightWidth?: number
@@ -551,18 +550,14 @@ export interface FlexStyle {
     borderWidth?: number
     bottom?: number | string
     flex?: number
+    flexBasis?: number | string
+    flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
     flexGrow?: number
     flexShrink?: number
-    flexBasis?: number | string
-    flexDirection?: FlexDirection
     flexWrap?: "wrap" | "nowrap"
     height?: number | string
-    justifyContent?: FlexJustifyType
+    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around"
     left?: number | string
-    minWidth?: number | string
-    maxWidth?: number | string
-    minHeight?: number | string
-    maxHeight?: number | string
     margin?: number | string
     marginBottom?: number | string
     marginHorizontal?: number | string
@@ -570,6 +565,10 @@ export interface FlexStyle {
     marginRight?: number | string
     marginTop?: number | string
     marginVertical?: number | string
+    maxHeight?: number | string
+    maxWidth?: number | string
+    minHeight?: number | string
+    minWidth?: number | string
     overflow?: "visible" | "hidden" | "scroll"
     padding?: number | string
     paddingBottom?: number | string
@@ -582,11 +581,12 @@ export interface FlexStyle {
     right?: number | string
     top?: number | string
     width?: number | string
+    zIndex?: number
 
     /**
      * @platform ios
      */
-    zIndex?: number
+    direction?: 'inherit' | 'ltr' | 'rtl'
 }
 
 /**
