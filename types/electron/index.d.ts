@@ -2605,8 +2605,11 @@ declare namespace Electron {
 		 */
 		constructor();
 		/**
-		 * Sets menu as the application menu on macOS. On Windows and Linux, the menu
-		 * will be set as each window's top menu.
+		 * Sets menu as the application menu on macOS. On Windows and Linux, the
+		 * menu will be set as each window's top menu.
+		 *
+		 * Passing null will remove the menu bar on Windows and Linux but has no
+		 * effect on macOS.
 		 */
 		static setApplicationMenu(menu: Menu | null): void;
 		/**
