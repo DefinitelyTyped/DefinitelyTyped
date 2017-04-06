@@ -24,13 +24,13 @@ declare module 'react-router' {
 		router: {
 			history: H.History
 			route: {
-				location: H.Location,
+				location: H.LocationDescriptor,
 				match: match<P>
 			}
 		}
 	}
   interface MemoryRouterProps {
-    initialEntries?: H.Location[];
+    initialEntries?: H.LocationDescriptor[];
     initialIndex?: number;
     getUserConfirmation?: () => void;
     keyLength?: number;
@@ -39,7 +39,7 @@ declare module 'react-router' {
 
 
   interface PromptProps {
-    message: string | ((location: H.Location) => void);
+    message: string | ((location: H.LocationDescriptor) => void);
     when?: boolean;
   }
   class Prompt extends React.Component<PromptProps, void> {}
@@ -55,12 +55,12 @@ declare module 'react-router' {
 
   interface RouteComponentProps<P> {
     match: match<P>;
-    location: H.Location;
+    location: H.LocationDescriptor;
     history: H.History;
   }
 
   interface RouteProps {
-    location?: H.Location;
+    location?: H.LocationDescriptor;
     component?: React.SFC<RouteComponentProps<any> | void> | React.ComponentClass<RouteComponentProps<any> | void>;
     render?: (props: RouteComponentProps<any>) => React.ReactNode;
     children?: (props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode;
