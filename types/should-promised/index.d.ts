@@ -4,9 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ShouldAssertion {
-    Promise: ShouldAssertion;
-    fulfilled: Promise<any>;
-    rejected: Promise<any>;
-    finally: ShouldAssertion;
-    eventually: ShouldAssertion;
+  // all of the extensions are now part of should itself
 }
