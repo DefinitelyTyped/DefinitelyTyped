@@ -11,6 +11,10 @@
 declare namespace ReactIntl {
 
     interface Values {
+        [key: string]: string | JSX.Element;
+    }
+
+    interface HTMLValues {
         [key: string]: string;
     }
 
@@ -71,7 +75,7 @@ declare namespace ReactIntl {
         formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
         formatPlural: (value: number, options?: FormattedPlural.Base) => keyof FormattedPlural.PropsBase;
         formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Values) => string;
-        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Values) => string;
+        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: HTMLValues) => string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
