@@ -22,3 +22,24 @@ classNames(null, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
 
 // Supporting booleans is tricky since we should only support passing in false, which is ignored
 //classNames(false, 'bar', 0, 1, { baz: null }, ''); // => 'bar 1'
+
+// truthy and falsy values (not only booleans) are allowed for ClassDictionary parameters
+classNames({
+    // falsy:
+    emptyString: "",
+    noNumber: NaN,
+    null: null,
+    zero: 0,
+    negativeZero: -0,
+    false: false,
+    undefined: undefined,
+
+    // truthy (literally anything else):
+    nonEmptyString: "foobar",
+    whitespace: ' ',
+    function: Object.prototype.toString,
+    emptyObject: {},
+    nonEmptyObject: {a: 1, b: 2},
+    emptyList: [],
+    nonEmptyList: [1, 2, 3]
+}) // => 'nonEmptyString whitespace function emptyObject nonEmptyObject emptyList nonEmptyList'
