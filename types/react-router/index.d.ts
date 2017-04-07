@@ -30,7 +30,7 @@ declare module 'react-router' {
 		}
 	}
   interface MemoryRouterProps {
-    initialEntries?: H.Location[];
+    initialEntries?: H.LocationDescriptor[];
     initialIndex?: number;
     getUserConfirmation?: () => void;
     keyLength?: number;
