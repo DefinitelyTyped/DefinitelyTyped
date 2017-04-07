@@ -21,6 +21,7 @@
     "test/CustomLink.tsx",
     "test/ModalGallery.tsx",
     "test/NavigateWithContext.tsx",
+    "test/MemoryRouter.tsx",
     "test/NoMatch.tsx",
     "test/Params.tsx",
     "test/PreventingTransitions.tsx",
