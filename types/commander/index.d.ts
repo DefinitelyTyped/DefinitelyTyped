@@ -1,27 +1,53 @@
-// Type definitions for commanderjs 2.3.0
+// Type definitions for commander 2.9
 // Project: https://github.com/visionmedia/commander.js
-// Definitions by: Marcelo Dezem <http://github.com/mdezem>, vvakame <http://github.com/vvakame>
+// Definitions by: Alan Agius <https://github.com/alan-agius4/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare var commander: commander.IExportedCommand;
-export = commander;
-
 declare namespace commander {
-    interface ICommandStatic {
+
+    interface CommandOptions {
+        noHelp?: boolean;
+        isDefault?: boolean;
+    }
+
+    interface ParseOptionsResult {
+        args: string[];
+        unknown: string[];
+    }
+
+    class Option {
+        /**
+         * Initialize a new `Option` with the given `flags` and `description`.
+         *
+         * @param {string} flags
+         * @param {string} [description]
+         */
+        constructor(flags: string, description?: string);
+    }
+
+    class Command extends NodeJS.EventEmitter {
+        args: string[];
+
         /**
          * Initialize a new `Command`.
          *
-         * @param {String} name
-         * @api public
+         * @param {string} [name]
          */
-        new (name?:string):ICommand;
-    }
+        constructor(name?: string);
 
-    interface ICommand extends NodeJS.EventEmitter {
-        args: string[];
-        _args: { required:boolean; name: string; }[];
+        /**
+         * Set the program version to `str`.
+         *
+         * This method auto-registers the "-V, --version" flag
+         * which will print the version number when passed.
+         *
+         * @param {string} str
+         * @param {string} [flags]
+         * @returns {Command} for chaining
+         */
+        version(str: string, flags?: string): Command;
 
         /**
          * Add command `name`.
@@ -35,8 +61,7 @@ declare namespace commander {
          * will be passed as the first arg, followed by
          * the rest of __ARGV__ remaining.
          *
-         * Examples:
-         *
+         * @example
          *      program
          *        .version('0.0.1')
          *        .option('-C, --chdir <path>', 'change the working directory')
@@ -46,75 +71,78 @@ declare namespace commander {
          *      program
          *        .command('setup')
          *        .description('run remote setup commands')
-         *        .action(function(){
+         *        .action(function() {
          *          console.log('setup');
          *        });
          *
          *      program
          *        .command('exec <cmd>')
          *        .description('run the given remote command')
-         *        .action(function(cmd){
+         *        .action(function(cmd) {
          *          console.log('exec "%s"', cmd);
+         *        });
+         *
+         *      program
+         *        .command('teardown <dir> [otherDirs...]')
+         *        .description('run teardown commands')
+         *        .action(function(dir, otherDirs) {
+         *          console.log('dir "%s"', dir);
+         *          if (otherDirs) {
+         *            otherDirs.forEach(function (oDir) {
+         *              console.log('dir "%s"', oDir);
+         *            });
+         *          }
          *        });
          *
          *      program
          *        .command('*')
          *        .description('deploy the given env')
-         *        .action(function(env){
+         *        .action(function(env) {
          *          console.log('deploying "%s"', env);
          *        });
          *
          *      program.parse(process.argv);
          *
-         * @param {String} name
-         * @param {String} [desc]
-         * @param {Mixed} [opts]
-         * @return {Command} the new command
-         * @api public
+         * @param {string} name
+         * @param {string} [desc] for git-style sub-commands
+         * @param {CommandOptions} [opts] command options
+         * @returns {Command} the new command
          */
-        command(name:string, desc?:string, opts?: any):ICommand;
+        command(name: string, desc?: string, opts?: CommandOptions): Command;
+
 
         /**
-         * Set / get the arguments usage `str`.
-         */
-        arguments(str: string):ICommand;
-
-        /**
-         * Add an implicit `help [cmd]` subcommand
-         * which invokes `--help` for the given command.
+         * Define argument syntax for the top-level command.
          *
-         * @api private
+         * @param {string} desc
+         * @returns {Command} for chaining
          */
-        addImplicitHelpCommand():void;
+        arguments(desc: string): Command;
 
         /**
          * Parse expected `args`.
          *
          * For example `["[type]"]` becomes `[{ required: false, name: 'type' }]`.
          *
-         * @param {Array} args
-         * @return {Command} for chaining
-         * @api public
+         * @param {string[]} args
+         * @returns {Command} for chaining
          */
-        parseExpectedArgs(args:string[]):ICommand;
-
+        parseExpectedArgs(args: string[]): Command;
         /**
          * Register callback `fn` for the command.
          *
-         * Examples:
-         *
+         * @example
          *      program
          *        .command('help')
          *        .description('display verbose help')
-         *        .action(function(){
+         *        .action(function() {
          *           // output help here
          *        });
          *
-         * @param {Function} fn
-         * @return {Command} for chaining
-         * @api public
-         */
-        action(fn:(...args:any[])=>void):ICommand;
+         * @param {(...args: any[]) => void} fn
+         * @returns {Command} for chaining
+        */
+        action(fn: (...args: any[]) => void): Command;
 
         /**
          * Define option with `flags`, `description` and optional
@@ -128,8 +156,7 @@ declare namespace commander {
          *    "-p|--pepper"
          *    "-p --pepper"
          *
-         * Examples:
-         *
+         *@example
          *     // simple boolean defaulting to false
          *     program.option('-p, --pepper', 'add pepper');
          *
@@ -157,260 +184,91 @@ declare namespace commander {
          *     // optional argument
          *     program.option('-c, --cheese [type]', 'add cheese [marble]');
          *
-         * @param {String} flags
-         * @param {String} description
-         * @param {Function|Mixed} fn or default
-         * @param {Mixed} defaultValue
-         * @return {Command} for chaining
-         * @api public
+         * @param {string} flags
+         * @param {string} [description]
+         * @param {((arg1: any, arg2: any) => void) | RegExp} [fn] function or default
+         * @param {*} [defaultValue]
+         * @returns {Command} for chaining
          */
-        option(flags:string, description?:string, fn?:((arg1:any, arg2:any)=>void)|RegExp, defaultValue?:any):ICommand;
-        option(flags:string, description?:string, defaultValue?:any):ICommand;
+        option(flags: string, description?: string, fn?: ((arg1: any, arg2: any) => void) | RegExp, defaultValue?: any): Command;
+        option(flags: string, description?: string, defaultValue?: any): Command;
 
         /**
          * Allow unknown options on the command line.
          *
-         * @param {Boolean} arg if `true` or omitted, no error will be thrown
-         * for unknown options.
-         * @api public
+         * @param {boolean} [arg] if `true` or omitted, no error will be thrown for unknown options.
+         * @returns {Command} for chaining
          */
-        allowUnknownOption(arg?: boolean):ICommand;
+        allowUnknownOption(arg?: boolean): Command;
 
         /**
          * Parse `argv`, settings options and invoking commands when defined.
          *
-         * @param {Array} argv
-         * @return {Command} for chaining
-         * @api public
+         * @param {string[]} argv
+         * @returns {Command} for chaining
          */
-        parse(argv:string[]):ICommand;
+        parse(argv: string[]): Command;
 
         /**
-         * Execute a sub-command executable.
+         * Parse options from `argv` returning `argv` void of these options.
          *
-         * @param {Array} argv
-         * @param {Array} args
-         * @param {Array} unknown
-         * @api private
+         * @param {string[]} argv
+         * @returns {ParseOptionsResult}
          */
-        executeSubCommand(argv:string[], args:string[], unknown:string[]):any; /* child_process.ChildProcess */
-
-        /**
-         * Normalize `args`, splitting joined short flags. For example
-         * the arg "-abc" is equivalent to "-a -b -c".
-         * This also normalizes equal sign and splits "--abc=def" into "--abc def".
-         *
-         * @param {Array} args
-         * @return {Array}
-         * @api private
-         */
-        normalize(args:string[]):string[];
-
-        /**
-         * Parse command `args`.
-         *
-         * When listener(s) are available those
-         * callbacks are invoked, otherwise the "*"
-         * event is emitted and those actions are invoked.
-         *
-         * @param {Array} args
-         * @return {Command} for chaining
-         * @api private
-         */
-        parseArgs(args:string[], unknown:string[]):ICommand;
-
-        /**
-         * Return an option matching `arg` if any.
-         *
-         * @param {String} arg
-         * @return {Option}
-         * @api private
-         */
-        optionFor(arg:string):IOption;
-
-        /**
-         * Parse options from `argv` returning `argv`
-         * void of these options.
-         *
-         * @param {Array} argv
-         * @return {Array}
-         * @api public
-         */
-        parseOptions(argv:string[]): {args:string[]; unknown:string[];};
+        parseOptions(argv: string[]): ParseOptionsResult;
 
         /**
          * Return an object containing options as key-value pairs
          *
-         * @return {Object}
-         * @api public
+         * @returns {{[key: string]: string}}
          */
-        opts():any;
-
-        /**
-         * Argument `name` is missing.
-         *
-         * @param {String} name
-         * @api private
-         */
-        missingArgument(name:string):void;
-
-        /**
-         * `Option` is missing an argument, but received `flag` or nothing.
-         *
-         * @param {String} option
-         * @param {String} flag
-         * @api private
-         */
-        optionMissingArgument(option:{flags:string;}, flag?:string):void;
-
-        /**
-         * Unknown option `flag`.
-         *
-         * @param {String} flag
-         * @api private
-         */
-        unknownOption(flag:string):void;
-
-        /**
-         * Set the program version to `str`.
-         *
-         * This method auto-registers the "-V, --version" flag
-         * which will print the version number when passed.
-         *
-         * @param {String} str
-         * @param {String} flags
-         * @return {Command} for chaining
-         * @api public
-         */
-        version(str:string, flags?:string):ICommand;
+        opts(): { [key: string]: string };
 
         /**
          * Set the description to `str`.
          *
-         * @param {String} str
-         * @return {String|Command}
-         * @api public
+         * @param {string} str
+         * @return {(Command | string)}
          */
-        description(str:string):ICommand;
-        description():string;
+        description(str: string): Command;
+        description(): string;
 
         /**
-         * Set an alias for the command
+         * Set an alias for the command.
          *
-         * @param {String} alias
-         * @return {String|Command}
-         * @api public
+         * @param {string} alias
+         * @return {(Command | string)}
          */
-        alias(alias:string):ICommand;
-        alias():string;
+        alias(alias: string): Command;
+        alias(): string;
 
         /**
-         * Set / get the command usage `str`.
+         * Set or get the command usage.
          *
-         * @param {String} str
-         * @return {String|Command}
-         * @api public
+         * @param {string} str
+         * @return {(Command | string)}
          */
-        usage(str:string):ICommand;
-        usage():string;
+        usage(str: string): Command;
+        usage(): string;
 
         /**
-         * Get the name of the command
+         * Get the name of the command.
          *
-         * @param {String} name
-         * @return {String|Command}
-         * @api public
+         * @return {string}
          */
-        name():string;
+        name(): string;
 
         /**
-         * Return the largest option length.
+         * Output help information for this command.
          *
-         * @return {Number}
-         * @api private
+         * @param {() => void} [cb] Callback method
          */
-        largestOptionLength():number;
+        outputHelp(cb?: () => void): void;
 
-        /**
-         * Return help for options.
-         *
-         * @return {String}
-         * @api private
-         */
-        optionHelp():string;
-
-        /**
-         * Return command help documentation.
-         *
-         * @return {String}
-         * @api private
-         */
-        commandHelp():string;
-
-        /**
-         * Return program help documentation.
-         *
-         * @return {String}
-         * @api private
-         */
-        helpInformation():string;
-
-        /**
-         * Output help information for this command
-         *
-         * @api public
-         */
-        outputHelp():void;
-
-        /**
-         * Output help information and exit.
-         *
-         * @api public
-         */
-        help():void;
-    }
-
-    interface IOptionStatic {
-        /**
-         * Initialize a new `Option` with the given `flags` and `description`.
-         *
-         * @param {String} flags
-         * @param {String} description
-         * @api public
-         */
-        new (flags:string, description?:string):IOption;
-    }
-
-    interface IOption {
-        flags:string;
-        required:boolean;
-        optional:boolean;
-        bool:boolean;
-        short?:string;
-        long:string;
-        description:string;
-
-        /**
-         * Return option name.
-         *
-         * @return {String}
-         * @api private
-         */
-        name():string;
-
-        /**
-         * Check if `arg` matches the short or long flag.
-         *
-         * @param {String} arg
-         * @return {Boolean}
-         * @api private
-         */
-        is(arg:string):boolean;
-    }
-
-    interface IExportedCommand extends ICommand {
-        Command: commander.ICommandStatic;
-        Option: commander.IOptionStatic;
-        [key: string]: any;
+        /** Output help information and exit. */
+        help(): void;
     }
 }
+
+declare var command: commander.Command & { [key: string]: any };
+export = command;
