@@ -18,6 +18,14 @@ declare namespace commander {
     }
 
     class Option {
+        flags: string;
+        required: boolean;
+        optional: boolean;
+        bool: boolean;
+        short?: string;
+        long: string;
+        description: string;
+
         /**
          * Initialize a new `Option` with the given `flags` and `description`.
          *
