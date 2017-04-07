@@ -65,7 +65,8 @@ declare module "graphlib" {
 		setNodes(names: string[], label?: any): Graph;
 
 		/**
-		 * Sets node p as a parent for node v. Method throws an exception in case of
+		 * Sets node p as a parent for node v if it is defined, or removes the
+		 * parent for v if p is undefined. Method throws an exception in case of
 		 * invoking it in context of noncompound graph.
 		 * Average-case complexity: O(1).
 		 * 
@@ -73,7 +74,7 @@ declare module "graphlib" {
 		 * @argument p - node to be parent for v.
 		 * @returns the graph, allowing this to be chained with other functions.
 		 */
-		setParent(v: string, p: string): Graph;
+		setParent(v: string, p?: string): Graph;
 
 		/**
 		 * Gets parent node for node v.

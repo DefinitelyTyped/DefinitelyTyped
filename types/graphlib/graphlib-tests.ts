@@ -23,6 +23,7 @@ function test_graph() {
   g.setDefaultEdgeLabel(() => 'e42');
   g.setNodes(['a', 'b', 'c'], 42);
   g.setParent('d', 'a');
+  g.setParent('d');
   g.parent('d');
   g.children('a');
   g.filterNodes(v => true);
