@@ -578,6 +578,7 @@ configuration = {
 };
 
 const resolve: webpack.Resolve = {
+    symlinks: false,
     cachePredicate: 'boo' // why does this test _not_ fail!?
 };
 
