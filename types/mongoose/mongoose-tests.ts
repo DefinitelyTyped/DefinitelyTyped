@@ -1050,7 +1050,7 @@ aggregate.unwind(
     includeArrayIndex: "idx",
     preserveNullAndEmptyArrays: true
   });
-  
+
 /*
  * section schematype.js
  * http://mongoosejs.com/docs/api.html#schematype-js
@@ -1215,6 +1215,10 @@ MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
 MongoModel.findById(999, function (err, doc) {
   doc.increment();
   doc.save(cb).then(cb).catch(cb);
+  doc.save({ validateBeforeSave: false }, cb).then(cb).catch(cb);
+  doc.save({ safe: true }, cb).then(cb).catch(cb);
+  doc.save({ safe: { w: 2, j: true } }, cb).then(cb).catch(cb);
+  doc.save({ safe: { w: 'majority', wtimeout: 10000 } }, cb).then(cb).catch(cb);
 });
 MongoModel = (new MongoModel()).model('MongoModel');
 var mongoModel = new MongoModel();
