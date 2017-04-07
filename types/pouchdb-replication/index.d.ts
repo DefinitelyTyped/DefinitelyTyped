@@ -1,4 +1,4 @@
-// Type definitions for pouchdb-replication v6.0.7
+// Type definitions for pouchdb-replication v6.1.2
 // Project: https://pouchdb.com/
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
