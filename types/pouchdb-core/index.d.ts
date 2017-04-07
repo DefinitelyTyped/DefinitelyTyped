@@ -1,6 +1,6 @@
-// Type definitions for pouchdb-core v6.0.7
+// Type definitions for pouchdb-core v6.1.2
 // Project: https://pouchdb.com/
-// Definitions by: Jakub Navratil <https://github.com/trubit>, Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
+// Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>, Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -54,6 +54,15 @@ declare namespace PouchDB {
         interface RevisionInfo {
             rev: RevisionId;
             status: Availability;
+        }
+        interface RevisionDiffList {
+            [documentId : string]: string[];
+        }
+        interface RevisionDiff {
+            [change : string]: string[];
+        }
+        interface RevisionDiffResponse {
+            [documentId : string]: RevisionDiff
         }
 
         interface IdMeta {
@@ -206,6 +215,13 @@ declare namespace PouchDB {
             new_edits?: boolean;
         }
 
+        interface BulkGetOptions extends Options {
+            docs: any,
+            revs?: boolean,
+            attachments?: boolean,
+            binary?: boolean
+        }
+
         interface ChangesMeta {
             _conflicts?: RevisionId[];
             _deleted?: boolean;
@@ -320,6 +336,9 @@ declare namespace PouchDB {
 
             /** Return attachment data as Blobs/Buffers, instead of as base64-encoded strings. */
             binary?: boolean;
+
+            /** Forces retrieving latest “leaf” revision, no matter what rev was requested. */
+            latest?: boolean;
         }
 
         interface GetOpenRevisions extends Options {
@@ -332,7 +351,6 @@ declare namespace PouchDB {
             revs?: boolean;
         }
 
-        /** @todo does this have any other properties? */
         interface PutOptions extends Options {
         }
         interface PostOptions extends PutOptions {
@@ -340,9 +358,6 @@ declare namespace PouchDB {
 
         interface CompactOptions extends Core.Options {
           interval?: number;
-        }
-
-        interface InfoOptions extends Options {
         }
 
         interface RemoveAttachmentResponse extends BasicResponse {
@@ -563,8 +578,6 @@ declare namespace PouchDB {
          * see inconsistent results.
          */
         put(doc: Core.PutDocument<Content>,
-            id: Core.DocumentId | null,
-            revision: Core.RevisionId | null,
             options: Core.PutOptions | null,
             callback: Core.Callback<Core.Error, Core.Response>): void;
 
@@ -577,8 +590,6 @@ declare namespace PouchDB {
          * see inconsistent results.
          */
         put(doc: Core.PutDocument<Content>,
-            id?: Core.DocumentId,
-            revision?: Core.RevisionId,
             options?: Core.PutOptions): Promise<Core.Response>;
 
         /** Remove a doc from the database */
@@ -602,11 +613,10 @@ declare namespace PouchDB {
                options?: Core.Options): Promise<Core.Response>;
 
         /** Get database information */
-        info(options: Core.InfoOptions | null,
-            callback: Core.Callback<any, Core.DatabaseInfo>): void;
+        info(callback: Core.Callback<any, Core.DatabaseInfo>): void;
 
         /** Get database information */
-        info(options?: Core.InfoOptions): Promise<Core.DatabaseInfo>;
+        info(): Promise<Core.DatabaseInfo>;
 
         /**
          * A list of changes made to documents in the database, in the order they were made.
@@ -711,11 +721,18 @@ declare namespace PouchDB {
             rev: Core.RevisionId): Promise<Core.RemoveAttachmentResponse>;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
-        bulkGet(options: any,
+        bulkGet(options: Core.BulkGetOptions,
             callback: Core.Callback<any, any>): void;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
-        bulkGet(options: any): Promise<any>;
+        bulkGet(options: Core.BulkGetOptions): Promise<any>;
+
+        /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
+        revsDiff(diff : Core.RevisionDiffList,
+            callback: Core.Callback<Core.Error, Core.RevisionDiffResponse>): void;
+
+        /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
+        revsDiff(diff : Core.RevisionDiffList): Promise<Core.RevisionDiffResponse>;
     }
 }
 
