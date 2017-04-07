@@ -1,8 +1,8 @@
 import { Eureka } from 'eureka-js-client';
 
-// example configuration 
+// example configuration
 let client = new Eureka({
-  // application instance information 
+  // application instance information
   instance: {
     app: 'jqservice',
     hostName: 'localhost',
@@ -14,7 +14,7 @@ let client = new Eureka({
     },
   },
   eureka: {
-    // eureka server host / port 
+    // eureka server host / port
     host: '192.168.99.100',
     port: 32768,
   }
