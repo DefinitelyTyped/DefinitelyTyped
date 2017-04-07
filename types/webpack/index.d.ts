@@ -263,6 +263,13 @@ declare namespace webpack {
          * Defaults to `() => true`.
          */
         cachePredicate?(data: { path: string, request: string }): boolean;
+
+        /**
+         * Whether to resolve symlinks to their symlinked location.
+         *
+         * Defaults to `true`
+         */
+        symlinks?: boolean;
     }
 
     interface OldResolve {
