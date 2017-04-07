@@ -270,5 +270,5 @@ declare namespace commander {
     }
 }
 
-declare var command: commander.Command & { [key: string]: any };
+declare var command: commander.Command & commander.Option &  { [key: string]: any };
 export = command;
