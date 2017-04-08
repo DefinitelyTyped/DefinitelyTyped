@@ -11,4 +11,3 @@ let testObj: any = {
     nodeIsRequired: PropTypes.node.isRequired,
     elementIsRequired: PropTypes.element.isRequired
 };
-console.log(testObj);
