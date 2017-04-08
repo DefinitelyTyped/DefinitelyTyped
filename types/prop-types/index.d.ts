@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-interface Validator<T> {
-    (object: T, key: string, componentName: string, ...rest: any[]): Error | null;
-}
+type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null
 
 interface Requireable<T> extends Validator<T> {
     isRequired: Validator<T>;
@@ -14,22 +12,18 @@ interface Requireable<T> extends Validator<T> {
 
 type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
 
-declare namespace ReactPropTypes {
-    let any: Requireable<any>;
-    let array: Requireable<any>;
-    let bool: Requireable<any>;
-    let func: Requireable<any>;
-    let number: Requireable<any>;
-    let object: Requireable<any>;
-    let string: Requireable<any>;
-    let node: Requireable<any>;
-    let element: Requireable<any>;
-    function instanceOf(expectedClass: {}): Requireable<any>;
-    function oneOf(types: any[]): Requireable<any>;
-    function oneOfType(types: Array<Validator<any>>): Requireable<any>;
-    function arrayOf(type: Validator<any>): Requireable<any>;
-    function objectOf(type: Validator<any>): Requireable<any>;
-    function shape(type: ValidationMap<any>): Requireable<any>;
-}
-
-export = ReactPropTypes;
+declare var any: Requireable<any>;
+declare var array: Requireable<any>;
+declare var bool: Requireable<any>;
+declare var func: Requireable<any>;
+declare var number: Requireable<any>;
+declare var object: Requireable<any>;
+declare var string: Requireable<any>;
+declare var node: Requireable<any>;
+declare var element: Requireable<any>;
+declare function instanceOf(expectedClass: {}): Requireable<any>;
+declare function oneOf(types: any[]): Requireable<any>;
+declare function oneOfType(types: Array<Validator<any>>): Requireable<any>;
+declare function arrayOf(type: Validator<any>): Requireable<any>;
+declare function objectOf(type: Validator<any>): Requireable<any>;
+declare function shape(type: ValidationMap<any>): Requireable<any>;
