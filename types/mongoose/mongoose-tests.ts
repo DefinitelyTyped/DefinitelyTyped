@@ -1220,6 +1220,13 @@ MongoModel.findById(999, function (err, doc) {
   doc.save({ safe: true }, handleSave).then(cb).catch(cb);
   doc.save({ safe: { w: 2, j: true } }, handleSave).then(cb).catch(cb);
   doc.save({ safe: { w: 'majority', wtimeout: 10000 } }, handleSave).then(cb).catch(cb);
+
+  // test if Typescript can infer the types of (err, product, numAffected)
+  doc.save(function(err, product, numAffected) { product.save(); })
+    .then(function(p) { p.save() }).catch(cb);
+  doc.save({ validateBeforeSave: false }, function(err, product, numAffected) {
+    product.save();
+  }).then(function(p) { p.save() }).catch(cb);
 });
 MongoModel = (new MongoModel()).model('MongoModel');
 var mongoModel = new MongoModel();
