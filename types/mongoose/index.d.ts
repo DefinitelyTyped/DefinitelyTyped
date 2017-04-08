@@ -2550,7 +2550,8 @@ declare module "mongoose" {
      * @param options.validateBeforeSave set to false to save without validating.
      * @param fn optional callback
      */
-    save(options?: SaveOptions, fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
+    save(fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
+    save(options: SaveOptions, fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
 
     /**
      * Version using default version key. See http://mongoosejs.com/docs/guide.html#versionKey
