@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module 'prop-types' {
+declare module PropTypes {
     type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
 
     interface Requireable<T> extends Validator<T> {
@@ -28,4 +28,8 @@ declare module 'prop-types' {
     function arrayOf(type: Validator<any>): Requireable<any>;
     function objectOf(type: Validator<any>): Requireable<any>;
     function shape(type: ValidationMap<any>): Requireable<any>;
+}
+
+declare module 'prop-types' {
+    export = PropTypes;
 }
