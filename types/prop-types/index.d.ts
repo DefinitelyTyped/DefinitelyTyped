@@ -5,24 +5,23 @@
 // TypeScript Version: 2.2
 
 declare module 'prop-types' {
-    
     type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
-    
+
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
     }
-    
+
     type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
-    
-    var any: Requireable<any>;
-    var array: Requireable<any>;
-    var bool: Requireable<any>;
-    var func: Requireable<any>;
-    var number: Requireable<any>;
-    var object: Requireable<any>;
-    var string: Requireable<any>;
-    var node: Requireable<any>;
-    var element: Requireable<any>;
+
+    let any: Requireable<any>;
+    let array: Requireable<any>;
+    let bool: Requireable<any>;
+    let func: Requireable<any>;
+    let number: Requireable<any>;
+    let object: Requireable<any>;
+    let string: Requireable<any>;
+    let node: Requireable<any>;
+    let element: Requireable<any>;
     function instanceOf(expectedClass: {}): Requireable<any>;
     function oneOf(types: any[]): Requireable<any>;
     function oneOfType(types: Array<Validator<any>>): Requireable<any>;
