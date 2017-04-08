@@ -33,3 +33,4 @@ declare namespace ReactPropTypes {
 }
 
 export = ReactPropTypes;
+
