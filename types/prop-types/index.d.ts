@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
+declare type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
 
-interface Requireable<T> extends Validator<T> {
+declare interface Requireable<T> extends Validator<T> {
     isRequired: Validator<T>;
 }
 
