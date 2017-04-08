@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "types-tests.ts"
+        "prop-types-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
