@@ -1,4 +1,4 @@
-let options = {}
+let options = {};
 
 $('#autocomplete').autocomplete('disable');
 $('#autocomplete').autocomplete('setOptions', options);
@@ -13,7 +13,7 @@ $('#autocomplete').autocomplete({
     }
 });
 
-var countries = [
+let countries = [
     { value: 'Andorra', data: 'AD' },
     // ...
     { value: 'Zimbabwe', data: 'ZZ' }
@@ -35,12 +35,12 @@ $('#autocomplete').autocomplete({
             })
         };
     }
-})
+});
 
 let groups = [
     { value: 'Chicago Blackhawks', data: { category: 'NHL' } },
     { value: 'Chicago Bulls', data: { category: 'NBA' } }
-]
+];
 
 $('#autocomplete').autocomplete({
     lookup: groups,
