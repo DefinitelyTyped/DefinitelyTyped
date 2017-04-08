@@ -11,7 +11,7 @@ export interface EventArgs {
     nonInteraction?: boolean;
 }
 
-interface GaOptions {
+export interface GaOptions {
     name?: string;
     clientId?: string;
     sampleRate?: number;
@@ -24,6 +24,7 @@ interface GaOptions {
     legacyCookieDomain?: string;
     legacyHistoryImport?: boolean;
     allowLinker?: boolean;
+    userId?: string;
 }
 
 export interface InitializeOptions {
@@ -36,19 +37,19 @@ export interface FieldsObject {
     [i: string]: any;
 }
 
-interface TimingArgs {
+export interface TimingArgs {
     category: string;
     variable: string;
     value: number;
     label?: string;
 }
 
-interface Plugin {
+export interface Plugin {
     require(name: string, options: any): void;
     execute(pluginName: string, action: string, actionTypeOrPayload: string|Object, payload?: Object): void;
 }
 
-interface OutboundLinkArgs {
+export interface OutboundLinkArgs {
     label: string;
 }
 
