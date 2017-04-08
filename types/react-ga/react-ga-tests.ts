@@ -19,7 +19,6 @@ describe("Testing react-ga initialize object", () => {
 describe("Testing react-ga pageview calls", () => {
     it("Able to make pageview calls", () => {
         ga.initialize("UA-65432-1");
-
         ga.pageview("http://telshin.com");
     });
 });
@@ -62,17 +61,17 @@ describe("Testing react-ga set calls", () => {
 
 describe("Testing react-ga v2.1.2", () => {
     it("Able to make ga calls", () => {
-        const gaObject: Function = __reactGA.ga();
+        const gaObject: Function = ga.ga();
     });
     it("Able to make send calls", () => {
-        let fieldObject: __reactGA.FieldsObject = {
+        let fieldObject: ga.FieldsObject = {
             page: '/users'
         };
 
-        __reactGA.send(fieldObject);
+        ga.send(fieldObject);
     });
     it("Able to make timing calls", () => {
-        __reactGA.timing({
+        ga.timing({
             category: 'string',
             variable: 'string',
             value: 1,
@@ -80,14 +79,14 @@ describe("Testing react-ga v2.1.2", () => {
         })
     });
     it("Able to make exception calls", () => {
-        let fieldObject: __reactGA.FieldsObject = {
+        let fieldObject: ga.FieldsObject = {
             page: '/users'
         };
-        __reactGA.exception(fieldObject);
+        ga.exception(fieldObject);
     });
     it("Able to make plugin object calls", () => {
-        const execute = __reactGA.plugin.execute;
-        const require = __reactGA.plugin.require;
+        const execute = ga.plugin.execute;
+        const require = ga.plugin.require;
         const payload = {};
 
         execute('name', 'action', payload);
@@ -95,6 +94,6 @@ describe("Testing react-ga v2.1.2", () => {
         require('name', {});
     });
     it("Able to make outboundLink calls", () => {
-        __reactGA.outboundLink({label: 'string'}, () => {});
+        ga.outboundLink({label: 'string'}, () => {});
     });
 });
