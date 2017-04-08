@@ -12,7 +12,7 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export { Binary, Double, Long, MaxKey, MinKey, ObjectID, Timestamp } from 'bson';
+export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {
