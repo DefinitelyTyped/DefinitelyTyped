@@ -15,21 +15,21 @@ interface Requireable<T> extends Validator<T> {
 type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
 
 declare namespace ReactPropTypes {
-    export var any: Requireable<any>;
-    export var array: Requireable<any>;
-    export var bool: Requireable<any>;
-    export var func: Requireable<any>;
-    export var number: Requireable<any>;
-    export var object: Requireable<any>;
-    export var string: Requireable<any>;
-    export var node: Requireable<any>;
-    export var element: Requireable<any>;
-    export function instanceOf(expectedClass: {}): Requireable<any>;
-    export function oneOf(types: any[]): Requireable<any>;
-    export function oneOfType(types: Validator<any>[]): Requireable<any>;
-    export function arrayOf(type: Validator<any>): Requireable<any>;
-    export function objectOf(type: Validator<any>): Requireable<any>;
-    export function shape(type: ValidationMap<any>): Requireable<any>;
+    let any: Requireable<any>;
+    let array: Requireable<any>;
+    let bool: Requireable<any>;
+    let func: Requireable<any>;
+    let number: Requireable<any>;
+    let object: Requireable<any>;
+    let string: Requireable<any>;
+    let node: Requireable<any>;
+    let element: Requireable<any>;
+    function instanceOf(expectedClass: {}): Requireable<any>;
+    function oneOf(types: any[]): Requireable<any>;
+    function oneOfType(types: Array<Validator<any>>): Requireable<any>;
+    function arrayOf(type: Validator<any>): Requireable<any>;
+    function objectOf(type: Validator<any>): Requireable<any>;
+    function shape(type: ValidationMap<any>): Requireable<any>;
 }
 
 export = ReactPropTypes;
