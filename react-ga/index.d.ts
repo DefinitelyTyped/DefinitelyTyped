@@ -12,10 +12,25 @@ declare namespace __reactGA {
         nonInteraction?: boolean;
     }
 
+    interface GaOptions {
+        name?: string;
+        clientId?: string;
+        sampleRate?: number;
+        siteSpeedSampleRate?: number;
+        alwaysSendReferrer?: boolean;
+        allowAnchor?: boolean;
+        cookieName?: string;
+        cookieDomain?: string;
+        cookieExpires?: number;
+        legacyCookieDomain?: string;
+        legacyHistoryImport?: boolean;
+        allowLinker?: boolean;
+    }
+
     export interface InitializeOptions {
         debug?: boolean;
         titleCase?: boolean;
-        gaOptions?: string;
+        gaOptions?: GaOptions;
     }
 
     export interface FieldsObject {
