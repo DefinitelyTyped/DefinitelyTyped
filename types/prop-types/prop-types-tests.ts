@@ -5,7 +5,7 @@ interface Props {
     any: any;
     array: string[];
     bool: boolean;
-    func: () => void;
+    func: any;
     string: string;
     number: number;
     object: {};
