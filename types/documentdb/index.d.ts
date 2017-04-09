@@ -142,7 +142,7 @@ interface AbstractMeta extends UniqueId {
 }
 
 /** Represents a custom document for storing in DocumentDB  */
-interface NewDocument<TContent> extends UniqueId {
+interface NewDocument extends UniqueId {
     /** The time to live in seconds of the document. */
     ttl?: number;
 
@@ -151,7 +151,7 @@ interface NewDocument<TContent> extends UniqueId {
 }
 
 /** Represents a document retrieved from storage. */
-interface RetrievedDocument<TContent> extends NewDocument<TContent>, AbstractMeta {
+interface RetrievedDocument extends NewDocument, AbstractMeta {
 }
 
 /** Represents the meta data for a database. */
@@ -723,8 +723,8 @@ export class DocumentClient {
      * @param [options]         - The request options.
      * @param callback 			- The callback for the request.
      */
-    createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, options: DocumentOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
-    createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument<TDocument>, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+    createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument, options: DocumentOptions, callback: RequestCallback<RetrievedDocument>): void;
+    createDocument<TDocument>(documentsFeedOrDatabaseLink: string, document: NewDocument, callback: RequestCallback<RetrievedDocument>): void;
 
     /**
      * Create a permission. A permission represents a per-User Permission to access a specific resource e.g. Document or Collection.
@@ -797,7 +797,7 @@ export class DocumentClient {
      * @param [options]      - Represents the feed options.
      * @returns              - An instance of queryIterator to handle reading feed.
      */
-    queryDocuments<TDocument>(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<RetrievedDocument<TDocument>>;
+    queryDocuments<TDocument>(collectionLink: string, query: DocumentQuery, options?: FeedOptions): QueryIterator<RetrievedDocument>;
 
     /**
      * Query the triggers for the collection.
@@ -944,8 +944,8 @@ export class DocumentClient {
      * @param {RequestOptions} [options] - The request options.
      * @param {RequestCallback} callback - The callback for the request.
      */
-    replaceDocument<TDocument>(documentLink: string, document: NewDocument<TDocument>, options: RequestOptions, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
-    replaceDocument<TDocument>(documentLink: string, document: NewDocument<TDocument>, callback: RequestCallback<RetrievedDocument<TDocument>>): void;
+    replaceDocument<TDocument>(documentLink: string, document: NewDocument, options: RequestOptions, callback: RequestCallback<RetrievedDocument>): void;
+    replaceDocument<TDocument>(documentLink: string, document: NewDocument, callback: RequestCallback<RetrievedDocument>): void;
 
     /**
      * Replace the StoredProcedure object.
@@ -1094,15 +1094,15 @@ export class DocumentClient {
      * @param options           - The request options.
      * @param callback          - The callback for the request.
      */
-    readDocument<T>(documentLink: string, options: RequestOptions, callback: RequestCallback<RetrievedDocument<T>>): void;
-    readDocument<T>(documentLink: string, callback: RequestCallback<RetrievedDocument<T>>): void;
+    readDocument(documentLink: string, options: RequestOptions, callback: RequestCallback<RetrievedDocument>): void;
+    readDocument(documentLink: string, callback: RequestCallback<RetrievedDocument>): void;
 
     /**
      * Get all documents in this collection.
      * @param collectionLink    - The self-link of the collection.
      * @param options           - The feed options.
      */
-    readDocuments<T>(collectionLink: string, options?: FeedOptions): QueryIterator<RetrievedDocument<T>>;
+    readDocuments(collectionLink: string, options?: FeedOptions): QueryIterator<RetrievedDocument>;
 
     /**
      * Read the media for the attachment object.
@@ -1249,8 +1249,8 @@ export class DocumentClient {
      * @param options       - The request options.
      * @param callback      - The callback for the request.
      */
-    upsertDocument<T>(documentsFeedOrDatabaseLink: string, body: NewDocument<T>, options: DocumentOptions, callback: RequestCallback<RetrievedDocument<T>>): void;
-    upsertDocument<T>(documentsFeedOrDatabaseLink: string, body: NewDocument<T>, callback: RequestCallback<RetrievedDocument<T>>): void;
+    upsertDocument<T>(documentsFeedOrDatabaseLink: string, body: NewDocument, options: DocumentOptions, callback: RequestCallback<RetrievedDocument>): void;
+    upsertDocument<T>(documentsFeedOrDatabaseLink: string, body: NewDocument, callback: RequestCallback<RetrievedDocument>): void;
 
     /**
      * Upsert a permission.
