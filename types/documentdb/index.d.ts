@@ -251,7 +251,7 @@ export interface Attachment {
     media: string;
 
     /** Other properties */
-    [name: string]: string;
+    [name: string]: any;
 }
 
 export interface AttachmentMeta extends Attachment, AbstractMeta {
