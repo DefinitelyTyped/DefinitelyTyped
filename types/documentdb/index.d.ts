@@ -386,9 +386,9 @@ export interface PartitionKeyMap {
 export interface CollectionPartitionKey {
     /**
      * An array of paths using which data within the collection can be partitioned.
-     * 
-     * Paths must not contain a wildcard or a trailing slash. For example, the JSON property “AccountNumber” is specified as “/AccountNumber”. 
-     * 
+     *
+     * Paths must not contain a wildcard or a trailing slash. For example, the JSON property “AccountNumber” is specified as “/AccountNumber”.
+     *
      * The array must contain only a single value.
      */
     paths: string[];
