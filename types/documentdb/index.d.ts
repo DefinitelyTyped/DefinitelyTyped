@@ -181,6 +181,7 @@ interface TriggerMeta extends AbstractMeta {
     triggerOperation: string;
 }
 
+/** A user-defined function may either be defined in string form or as a real function */
 export type UserFunction = ((...params: any[]) => void) | string;
 
 interface UserScriptable extends UniqueId {
