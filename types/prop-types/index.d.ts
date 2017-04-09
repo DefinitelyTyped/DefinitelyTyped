@@ -4,32 +4,26 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module PropTypes {
-    type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
+export type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
 
-    interface Requireable<T> extends Validator<T> {
-        isRequired: Validator<T>;
-    }
-
-    type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
-
-    let any: Requireable<any>;
-    let array: Requireable<any>;
-    let bool: Requireable<any>;
-    let func: Requireable<any>;
-    let number: Requireable<any>;
-    let object: Requireable<any>;
-    let string: Requireable<any>;
-    let node: Requireable<any>;
-    let element: Requireable<any>;
-    function instanceOf(expectedClass: {}): Requireable<any>;
-    function oneOf(types: any[]): Requireable<any>;
-    function oneOfType(types: Array<Validator<any>>): Requireable<any>;
-    function arrayOf(type: Validator<any>): Requireable<any>;
-    function objectOf(type: Validator<any>): Requireable<any>;
-    function shape(type: ValidationMap<any>): Requireable<any>;
+export interface Requireable<T> extends Validator<T> {
+    isRequired: Validator<T>;
 }
 
-declare module 'prop-types' {
-    export = PropTypes;
-}
+export type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
+
+export let any: Requireable<any>;
+export let array: Requireable<any>;
+export let bool: Requireable<any>;
+export let func: Requireable<any>;
+export let number: Requireable<any>;
+export let object: Requireable<any>;
+export let string: Requireable<any>;
+export let node: Requireable<any>;
+export let element: Requireable<any>;
+export function instanceOf(expectedClass: {}): Requireable<any>;
+export function oneOf(types: any[]): Requireable<any>;
+export function oneOfType(types: Array<Validator<any>>): Requireable<any>;
+export function arrayOf(type: Validator<any>): Requireable<any>;
+export function objectOf(type: Validator<any>): Requireable<any>;
+export function shape(type: ValidationMap<any>): Requireable<any>;
