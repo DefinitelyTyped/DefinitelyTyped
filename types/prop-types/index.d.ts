@@ -12,15 +12,15 @@ export interface Requireable<T> extends Validator<T> {
 
 export type ValidationMap<T> = {[K in keyof T]?: Validator<T> };
 
-export let any: Requireable<any>;
-export let array: Requireable<any>;
-export let bool: Requireable<any>;
-export let func: Requireable<any>;
-export let number: Requireable<any>;
-export let object: Requireable<any>;
-export let string: Requireable<any>;
-export let node: Requireable<any>;
-export let element: Requireable<any>;
+export const any: Requireable<any>;
+export const array: Requireable<any>;
+export const bool: Requireable<any>;
+export const func: Requireable<any>;
+export const number: Requireable<any>;
+export const object: Requireable<any>;
+export const string: Requireable<any>;
+export const node: Requireable<any>;
+export const element: Requireable<any>;
 export function instanceOf(expectedClass: {}): Requireable<any>;
 export function oneOf(types: any[]): Requireable<any>;
 export function oneOfType(types: Array<Validator<any>>): Requireable<any>;
