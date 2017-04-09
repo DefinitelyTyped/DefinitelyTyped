@@ -61,7 +61,7 @@ describe("Testing react-ga set calls", () => {
 
 describe("Testing react-ga v2.1.2", () => {
     it("Able to make ga calls", () => {
-        const gaObject: Function = ga.ga();
+        ga.ga();
     });
     it("Able to make send calls", () => {
         let fieldObject: ga.FieldsObject = {
@@ -76,7 +76,7 @@ describe("Testing react-ga v2.1.2", () => {
             variable: 'string',
             value: 1,
             label: 'string'
-        })
+        });
     });
     it("Able to make exception calls", () => {
         let fieldObject: ga.FieldsObject = {

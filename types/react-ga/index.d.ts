@@ -46,7 +46,7 @@ export interface TimingArgs {
 
 export interface Plugin {
     require(name: string, options: any): void;
-    execute(pluginName: string, action: string, actionTypeOrPayload: string|Object, payload?: Object): void;
+    execute(pluginName: string, action: string, actionTypeOrPayload: string|any, payload?: any): void;
 }
 
 export interface OutboundLinkArgs {
@@ -54,7 +54,7 @@ export interface OutboundLinkArgs {
 }
 
 export function initialize(trackingCode: string, options?: InitializeOptions): void;
-export function ga(): Function;
+export function ga(): any;
 export function set(fieldsObject: FieldsObject): void;
 export function send(fieldsObject: FieldsObject): void;
 export function pageview(path: string): void;
@@ -63,4 +63,4 @@ export function timing(args: TimingArgs): void;
 export function event(args: EventArgs): void;
 export function exception(fieldsObject: FieldsObject): void;
 export const plugin: Plugin;
-export function outboundLink(args: OutboundLinkArgs, hitCallback: Function): void;
+export function outboundLink(args: OutboundLinkArgs, hitCallback: () => void): void;
