@@ -8,16 +8,19 @@ import * as React from "react";
 
 interface HelmetProps {
     base?: any;
+    bodyAttributes: Object;
     defaultTitle?: string;
+    encodeSpecialCharacters?: boolean;
     htmlAttributes?: any;
+    onChangeClientState?: (newState: any) => void;
     link?: Array<any>;
     meta?: Array<any>;
+    noscript?: Array<any>;
     script?: Array<any>;
     style?: Array<any>;
     title?: string;
+    titleAttributes: Object;
     titleTemplate?: string;
-    onChangeClientState?: (newState: any) => void;
-    encodeSpecialCharacters?: boolean;
 }
 
 export class Helmet extends React.Component<HelmetProps, any> {
