@@ -1,5 +1,0 @@
-- [ ] I tried using the latest `xxxx/xxxx.d.ts` file in this repo and had problems.
-- [ ] I tried using the latest stable version of tsc. https://www.npmjs.com/package/typescript
-- [ ] I have a question that is inappropriate for [StackOverflow](https://stackoverflow.com/).  (Please ask any appropriate questions there).
-- [ ] I want to talk about `xxxx/xxxx.d.ts`.
-  - The authors of that type definition are cc/ @....

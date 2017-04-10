@@ -1,0 +1,14 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "ban-types": false,
+        "interface-name": false,
+        "no-empty-interface": false,
+        "no-single-declare-module": false,
+        "unified-signatures": false,
+
+        "class-name": true,
+        "indent": [true, "spaces"],
+        "quotemark": [true, "double"]
+    }
+}
