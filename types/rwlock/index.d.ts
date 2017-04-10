@@ -10,27 +10,21 @@ declare class ReadWriteGeneric<T> {
   writeLock(key: string, callback: T, options?: ReadWriteLock.Options): void;
 }
 declare namespace ReadWriteLock {
-  interface Release {
-    (): void;
-  }
+  type Release = () => void;
 
-  interface Callback {
-    (release: Release): void;
-  }
+  type Callback = (release: Release) => void;
 
-  interface AsyncCallback {
-    (err: Error, release: Release): void;
-  }
+  type AsyncCallback = (err: Error, release: Release) => void;
 
   interface Options {
     scope?: any;
     timeout?: number;
-    timeoutCallback?: () => void;
+    timeoutCallback(): void;
   }
 }
 
-declare class ReadWriteLock extends ReadWriteGeneric<ReadWriteLock.Callback>{
+declare class ReadWriteLock extends ReadWriteGeneric<ReadWriteLock.Callback> {
   constructor();
   async: ReadWriteGeneric<ReadWriteLock.AsyncCallback>;
 }
-export = ReadWriteLock
+export = ReadWriteLock;
