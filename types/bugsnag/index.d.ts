@@ -1,90 +1,69 @@
-// Type definitions for Bugsnag v2.5.0
-// Project: https://github.com/bugsnag/bugsnag-js
-// Definitions by: Delisa Mason <https://github.com/kattrali>
+// Type definitions for bugsnag-node v1.9.1
+// Project: https://github.com/bugsnag/bugsnag-node
+// Definitions by: Iker Pérez Brunelli <https://github.com/DarkerTV>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface BugsnagUser {
-    id?:    string,
-    name?:  string,
-    email?: string
+import * as express from 'express';
+import * as Koa from 'koa';
+import * as restify from 'restify';
+
+declare namespace bugsnag {
+    interface Bugsnag {
+        metaData: { [key: string]: any };
+        requestData: { [key: string]: any };
+        register(apiKey: string, options?: ConfigurationOptions): Bugsnag;
+        configure(options: ConfigurationOptions): void;
+        notify(error: string | Error, cb?: (error: Error, response: any) => void): void;
+        notify(error: string | Error, options: NotifyOptions, cb?: (error: Error, response: any) => void): void;
+        errorHandler: ErrorHandler;
+        createErrorHandler(apiKey: string, options?: ConfigurationOptions): ErrorHandler;
+        requestHandler: express.RequestHandler;
+        createRequestHandler(apiKey: string, options?: ConfigurationOptions): express.RequestHandler;
+        restifyHandler(req: restify.Request, res: restify.Response, route: restify.Route, err: Error): void;
+        koaHandler(err: Error, ctx: Koa.Context): void;
+        intercept<T>(cb?: (...args: any[]) => T): (error: any, ...args: any[]) => T & void; // tslint:disable-line void-return
+        autoNotify(cb: () => void): any;
+        autoNotify(options: NotifyOptions, cb: () => void): any;
+        shouldNotify(): boolean;
+        onBeforeNotify(cb: (notification: any) => boolean | void): void;
+    }
+
+    interface ConfigurationOptions {
+        logger?: any;
+        logLevel?: string;
+        releaseStage?: string;
+        appVersion?: string;
+        autoNotify?: boolean;
+        useSSL?: boolean;
+        filters?: string[];
+        notifyReleaseStages?: string[];
+        notifyHost?: string;
+        notifyPort?: number;
+        notifyPath?: string;
+        metaData?: { [key: string]: any };
+        onUncaughtError?(error: string | Error): void;
+        hostname?: string;
+        proxy?: string;
+        headers?: { [key: string]: string };
+        projectRoot?: string;
+        packageJSON?: string;
+        sendCode?: boolean;
+    }
+
+    type ErrorHandler = (err: Error | any, req: express.Request, res: express.Response, next: express.NextFunction) => void;
+
+    interface NotifyOptions {
+        errorName?: string;
+        userId?: string | number;
+        user?: { [key: string]: any };
+        context?: string;
+        groupingHash?: string;
+        severity?: 'error' | 'warning' | 'info';
+        req?: { [key: string]: any };
+        apiKey?: string;
+        [key: string]: any;
+    }
 }
 
-interface BugsnagStatic {
-    /** Bugsnag project API key */
-    apiKey: string;
-    /** The client application version */
-    appVersion: string;
-    /** true if Bugsnag should be automatically notified of errors which are
-     *  sent to `window.onerror`
-     */
-    autoNotify: boolean;
-    /** Callback run before error reports are sent to Bugsnag.
-     *  Payload and metadata information can be altered or removed altogether.
-     *  To cancel sending the report, return false from this function.
-     */
-    beforeNotify: (payload: any, metaData: any) => boolean;
-    /** The pathname of the current page, not including the fragment identifier
-     *  nor search parameters
-     */
-    context: string;
-    /** Disables console-based logging. Defaults to false. */
-    disableLog: boolean;
-    /** The address used to send errors to Bugsnag. The default is
-     *  `https://notify.bugsnag.com/js`
-     */
-    endpoint: string;
-    /** Enables sending inline scripts on the page to Bugsnag to assist with
-     *  debugging. Defaults to true
-     */
-    inlineScript: boolean;
-    /** The maximum depth to parse the error stack */
-    maxDepth: number;
-    /** Additional metadata to send to Bugsnag with every error. */
-    metaData: any;
-    /** The method used for the notify request. The default is a temporary
-     *  JavaScript image object, however Chrome apps/extensions and other
-     *  applications where XHR is needed can use `xhr` instead.
-     */
-    notifyHandler: string;
-    /** The releases stages during which Bugsnag will be notified of errors. */
-    notifyReleaseStages: string[];
-    /** The recorded root of the project. The default is the current host
-     *  address (protocol and domain).
-     */
-    projectRoot: string;
-    /** Current phase of the application release process. The default is
-     *  `production`
-     */
-    releaseStage: string;
-    /** Information about the current user which is sent to Bugsnag with
-     *  exception reports
-     */
-    user: BugsnagUser;
-
-    /** Continue catching exceptions after the page error limit is reached.
-     *  Useful for long-running single-page apps
-     */
-    refresh(): void;
-
-    /** Remove Bugsnag from the window object and restore the previous
-     *  binding
-     */
-    noConflict(): BugsnagStatic;
-
-    /** Send caught exceptions to Bugsnag. Valid severity values are `info`,
-     *  `warning`, and `error`, in order of increasing severity.
-    */
-    notifyException(exception: Error, name?: string, metaData?: any,
-                    severity?: string): void;
-
-    /** Send custom errors to Bugsnag */
-    notify(name: string, message: string, metaData?: any,
-           severity?: string): void;
-}
-
-declare var Bugsnag: BugsnagStatic;
-
-declare module "Bugsnag" {
-    export = Bugsnag;
-}
-
+declare const bugsnag: bugsnag.Bugsnag;
+export = bugsnag;

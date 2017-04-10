@@ -25,6 +25,12 @@
             "asOfVersion": "0.14.0"
         },
         {
+            "libraryName": "Bugsnag Browser",
+            "typingsPackageName": "bugsnag-js",
+            "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
