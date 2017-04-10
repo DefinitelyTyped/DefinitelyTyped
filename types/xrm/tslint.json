@@ -1,0 +1,17 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        // TODOs
+        "unified-signatures": false,
+        "class-name": true,
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "quotemark": [
+            true,
+            "double"
+        ],
+        "jsdoc-format": true
+    }
+}

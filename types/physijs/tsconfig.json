@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/body.ts",
+        "test/collisions.ts",
+        "test/compound.ts",
+        "test/constraints_car.ts",
+        "test/heightfield.ts",
+        "test/jenga.ts",
+        "test/memorytest.ts",
+        "test/memorytest-compound.ts",
+        "test/memorytest-convex.ts",
+        "test/shapes.ts",
+        "test/vehicle.ts"
+    ]
+}
