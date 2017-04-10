@@ -651,7 +651,7 @@ declare namespace __MaterialUI {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         disabled?: boolean;
-				fullWidth?: boolean;
+        fullWidth?: boolean;
         hoverColor?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;
