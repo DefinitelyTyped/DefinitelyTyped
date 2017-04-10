@@ -1,4 +1,4 @@
-// Type definitions for kue 0.9.x
+// Type definitions for kue 0.11.x
 // Project: https://github.com/Automattic/kue
 // Definitions by: Nicholas Penree <http://github.com/drudge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
