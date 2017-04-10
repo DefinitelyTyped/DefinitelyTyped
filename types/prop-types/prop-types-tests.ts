@@ -1,5 +1,4 @@
 import * as PropTypes from "prop-types";
-import * as React from "react";
 
 interface Props {
     any: any;
@@ -13,7 +12,7 @@ interface Props {
     element: any;
 }
 
-let propTypes: React.ValidationMap<Props> = {
+let propTypes: PropTypes.ValidationMap<Props> = {
     any: PropTypes.any.isRequired,
     array: PropTypes.array.isRequired,
     bool: PropTypes.bool.isRequired,
