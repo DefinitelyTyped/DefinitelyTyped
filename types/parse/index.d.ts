@@ -82,7 +82,7 @@ declare namespace Parse {
     class Promise<T> implements IPromise<T> {
 
         static as<U>(resolvedValue: U): Promise<U>;
-        static error<U, V>(error: U): Promise<V>;
+        static error(error: any): Promise<any>;
         static is(possiblePromise: any): Boolean;
         static when(promises: IPromise<any>[]): Promise<any>;
         static when(...promises: IPromise<any>[]): Promise<any>;
@@ -285,10 +285,6 @@ declare namespace Parse {
         remove(object: T): void;
     }
 
-    interface ObjectConstructor<T> {
-        new (options?: any): T;
-    }
-
     /**
      * Creates a new model with defined attributes. A client id (cid) is
      * automatically generated and assigned for you.
@@ -330,12 +326,12 @@ declare namespace Parse {
         constructor(attributes?: string[], options?: any);
 
         static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fetchAll<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T>;
-        static fetchAllIfNeeded<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T>;
-        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T>;
+        static fetchAll<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
+        static fetchAllIfNeeded<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
+        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
 
-        static registerSubclass<T extends Object>(className: string, clazz: ObjectConstructor<T>): void;
+        static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
 
         initialize(): void;
         add(attr: string, item: any): Object;
@@ -581,7 +577,7 @@ declare namespace Parse {
         className: string;
 
         constructor(objectClass: string);
-        constructor(objectClass: ObjectConstructor<T>);
+        constructor(objectClass: new(...args: any[]) => T);
 
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
@@ -740,7 +736,7 @@ declare namespace Parse {
         isCurrent(): boolean;
 
         getEmail(): string | undefined;
-        setEmail(email: string, options: SuccessFailureOptions): boolean;
+        setEmail(email: string, options?: SuccessFailureOptions): boolean;
 
         getUsername(): string | undefined;
         setUsername(username: string, options?: SuccessFailureOptions): boolean;
@@ -868,8 +864,8 @@ declare namespace Parse {
         }
 
         interface FunctionResponse {
-            success?: (response: any) => void;
-            error?: (response: any) => void;
+            success: (response: any) => void;
+            error: (response: any) => void;
         }
 
         interface Cookie {
@@ -888,7 +884,7 @@ declare namespace Parse {
         interface BeforeDeleteResponse extends FunctionResponse {}
         interface BeforeSaveRequest extends SaveRequest {}
         interface BeforeSaveResponse extends FunctionResponse {
-            success?: () => void;
+            success: () => void;
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
@@ -909,7 +905,7 @@ declare namespace Parse {
          *     import Buffer = require("buffer").Buffer;
          */
         var HTTPOptions: new () => HTTPOptions;
-        interface HTTPOptions extends FunctionResponse {
+        interface HTTPOptions {
             /**
              * The body of the request.
              * If it is a JSON object, then the Content-Type set in the headers must be application/x-www-form-urlencoded or application/json.
@@ -939,6 +935,9 @@ declare namespace Parse {
              * The url to send the request to.
              */
             url: string;
+
+            success?: (response: any) => void;
+            error?: (response: any) => void;
         }
     }
 
