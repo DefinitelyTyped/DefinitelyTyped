@@ -193,6 +193,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "maquette",
+            "typingsPackageName": "maquette",
+            "sourceRepoURL": "http://maquettejs.org/",
+            "asOfVersion": "2.1.6"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
