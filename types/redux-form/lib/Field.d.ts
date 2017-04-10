@@ -185,7 +185,10 @@ interface WrappedFieldProps<S> {
 /**
  * These props are meant to be destructured into your <input/> component.
  */
-type EventOrValueHandler<Event> = (eventOrValue: Event | FieldValue, newValue: FieldValue, previousValue: FieldValue) => void;
+interface EventOrValueHandler<Event> {
+    (event: Event): void;
+    (value: FieldValue, newValue: FieldValue, previousValue: FieldValue): void;
+}
 
 interface WrappedFieldInputProps {
     /**
