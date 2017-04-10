@@ -19,7 +19,7 @@ interface Profile extends passport.Profile {
     _accessLevel: string;
 }
 
-interface IStrategyOption {
+interface IStrategyOptionBase {
     consumerKey: string;
     consumerSecret: string;
     callbackURL: string;
@@ -35,7 +35,11 @@ interface IStrategyOption {
     skipExtendedUserProfile?: boolean;
 }
 
-interface IStrategyOptionWithRequest  extends IStrategyOption {
+interface IStrategyOption extends IStrategyOptionBase {
+    passReqToCallback?: false;
+}
+
+interface IStrategyOptionWithRequest  extends IStrategyOptionBase {
     passReqToCallback: true;
 }
 
