@@ -24,7 +24,6 @@ interface IStrategyOption {
     consumerSecret: string;
     callbackURL: string;
 
-    passReqToCallback?: true;
     includeEmail?: true;
 
     reguestTokenURL?: string;
@@ -36,9 +35,16 @@ interface IStrategyOption {
     skipExtendedUserProfile?: boolean;
 }
 
+interface IStrategyOptionWithRequest  extends IStrategyOption {
+    passReqToCallback: true;
+}
+
 declare class Strategy implements passport.Strategy {
     constructor(options: IStrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    constructor(options: IStrategyOptionWithRequest,
+        verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+
     name: string;
     authenticate: (req: express.Request, options?: Object) => void;
 }
