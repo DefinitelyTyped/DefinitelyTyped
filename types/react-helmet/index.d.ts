@@ -1,16 +1,23 @@
 // Type definitions for react-helmet 5.0
 // Project: https://github.com/nfl/react-helmet
-// Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>, François Nguyen <https://github.com/lith-light-g>
+// Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>, François Nguyen <https://github.com/lith-light-g>, Kok Sam <https://github.com/sammkj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 import * as React from "react";
 
 interface HelmetProps {
-    encodeSpecialCharacters?: boolean;
-    titleTemplate?: string;
+    base?: any;
     defaultTitle?: string;
-    onChangeClientState?: (nextState: any) => any
+    htmlAttributes?: any;
+    link?: Array<any>;
+    meta?: Array<any>;
+    script?: Array<any>;
+    style?: Array<any>;
+    title?: string;
+    titleTemplate?: string;
+    onChangeClientState?: (newState: any) => void;
+    encodeSpecialCharacters?: boolean;
 }
 
 export class Helmet extends React.Component<HelmetProps, any> {
