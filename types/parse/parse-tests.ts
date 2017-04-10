@@ -244,8 +244,8 @@ function test_user_acl_roles() {
     var game = new Game();
     game.set("score", new GameScore());
     game.setACL(new Parse.ACL(Parse.User.current()));
-    game.save().then((game: Game) => {
-    });
+    game.save().then((game: Game) => {});
+    game.save(null, { useMasterKey: true });
 
     var groupACL = new Parse.ACL();
 

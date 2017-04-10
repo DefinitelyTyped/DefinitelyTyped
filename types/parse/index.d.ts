@@ -361,7 +361,7 @@ declare namespace Parse {
         previousAttributes(): any;
         relation(attr: string): Relation<Object, Object>;
         remove(attr: string, item: any): any;
-        save(attrs?: { [key: string]: any }, options?: Object.SaveOptions): Promise<Object>;
+        save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<Object>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<Object>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
