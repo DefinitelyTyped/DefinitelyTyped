@@ -81,8 +81,8 @@ export declare class Job extends events.EventEmitter {
     get(key: string, fn?: Function): Job;
     progress(complete: number, total: number, data?: any): Job;
     delay(ms: number | Date): Job;
-    removeOnComplete(param: any): void;
-    backoff(param: any): void;
+    removeOnComplete(param: any): Job;
+    backoff(param: any): Job;
     ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string | number): Job;
