@@ -1068,7 +1068,7 @@ declare namespace Parse {
             push_time?: Date;
             expiration_time?: Date;
             expiration_interval?: number;
-            where?: Query<Object>;
+            where?: Query<Installation>;
             data?: any;
             alert?: string;
             badge?: string;
