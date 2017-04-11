@@ -46,6 +46,15 @@ class Test extends React.Component<React.Props<{}>, {}> {
                     itemComponent={itemComponent}
                  />
             </div>
+            <div>
+                <Calendar disabled readOnly />
+                <Combobox disabled readOnly dropUp />
+                <DateTimePicker disabled readOnly dropUp />
+                <DropdownList disabled readOnly dropUp />
+                <Multiselect disabled readOnly dropUp />
+                <NumberPicker disabled readOnly />
+                <SelectList disabled readOnly/>
+            </div>
         </div>
         )
     }
