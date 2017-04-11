@@ -4,8 +4,8 @@ const font = new FontFace("Example", "url(...)", {
 });
 font.load();
 font.loaded.then((fontFace: FontFace) => {
-  fontFace.status
-  fontFace.family
+    fontFace.status;
+    fontFace.family;
 }, (fontFace: FontFace) => {});
 
 const a: boolean = document.fonts.check("12px Example");
