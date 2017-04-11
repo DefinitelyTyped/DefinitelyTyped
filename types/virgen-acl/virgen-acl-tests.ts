@@ -1,8 +1,8 @@
 
-import virgen = require('virgen-acl')
+import {Acl} from 'virgen-acl'
 
 
-const acl = new virgen.Acl()
+const acl = new Acl()
 
 
 acl.addRole("user")

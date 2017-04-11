@@ -1,53 +1,56 @@
 
 
-export interface IResourceProp {
-    resource_id:string;
-}
+declare module 'virgen-acl' {
 
-export interface IResourceGetter {
-    getResourceId():string;
-}
+    interface IResourceProp {
+        resource_id:string;
+    }
 
-export type IResource = IResourceGetter | IResourceProp | string
+    interface IResourceGetter {
+        getResourceId():string;
+    }
 
-
-
-export interface IRoleProp {
-    role_id:string;
-}
-
-export interface IRoleGetter {
-    getRoleId():string;
-}
-
-export type IRole = IRoleGetter | IRoleProp | string
+    type IResource = IResourceGetter | IResourceProp | string
 
 
+    interface IRoleProp {
+        role_id:string;
+    }
 
-export interface IQueryCallback {
-    (err?:Error, result?:boolean): void
-}
+    interface IRoleGetter {
+        getRoleId():string;
+    }
 
-export interface IAssertion<Ro extends IRole, Re extends IResource> {
-    (err:Error, role:Ro, resource:Re, action:string, result:IAssertionResult, next:Function): void
-}
-
-export interface IAssertionResult {
-    (error?:Error, result?:boolean): void
-}
+    type IRole = IRoleGetter | IRoleProp | string
 
 
-export class Acl {
 
-    addRole(role:string, parent?:string):void
+    interface IQueryCallback {
+        (err?:Error, result?:boolean): void
+    }
 
-    addResource(resource:string, parent?:string):void
+    interface IAssertion<Ro extends IRole, Re extends IResource> {
+        (err:Error, role:Ro, resource:Re, action:string, result:IAssertionResult, next:Function): void
+    }
 
-    allow<Ro extends IRole, Re extends IResource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|IAssertion<Ro, Re>):void
+    interface IAssertionResult {
+        (error?:Error, result?:boolean): void
+    }
 
-    deny<Ro extends IRole, Re extends IResource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|IAssertion<Ro, Re>):void
 
-    query(role:IRole, resource:IResource, action:string, done:IQueryCallback):void
+    class Acl {
+
+        addRole(role:string, parent?:string):void
+
+        addResource(resource:string, parent?:string):void
+
+        allow<Ro extends IRole, Re extends IResource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|IAssertion<Ro, Re>):void
+
+        deny<Ro extends IRole, Re extends IResource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|IAssertion<Ro, Re>):void
+
+        query(role:IRole, resource:IResource, action:string, done:IQueryCallback):void
+
+    }
 
 }
 
