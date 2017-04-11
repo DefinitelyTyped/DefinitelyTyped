@@ -23,23 +23,23 @@ acl.query("user", "resource", "do stuff", (err, allowed) => {})
 
 
 const userProp = {
-  role_id: "user"
+    role_id: "user"
 }
 
 const userGetter = {
-  getRoleId() {
-    return "user"
-  } 
+    getRoleId() {
+        return "user"
+    } 
 }
 
 const resourceProp = {
-  resource_id: "resource"
+    resource_id: "resource"
 }
 
 const resourceGetter = {
-  getResourceId() {
-    return "resource"
-  }
+    getResourceId() {
+        return "resource"
+    }
 }
 
 acl.query(userProp, resourceProp, "do stuff", () => {})
