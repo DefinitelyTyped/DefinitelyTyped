@@ -1,10 +1,11 @@
-// Type definitions for Enzyme 2.7
+// Type definitions for Enzyme 2.7.1
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
 //                 Ivo Stratev <https://github.com/NoHomey>
 //                 Tom Crockett <https://github.com/pelotom>
-//                 jwbay <https://githb.com/jwbay>
+//                 jwbay <https://github.com/jwbay>
+//                 huhuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -340,7 +341,7 @@ interface CommonWrapper<P, S> {
 }
 
 export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
-    shallow(): ShallowWrapper<P, S>;
+    shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
     unmount(): ShallowWrapper<any, any>;
 
     /**
