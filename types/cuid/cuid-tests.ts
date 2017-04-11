@@ -1,4 +1,5 @@
 
-import cuid = require('cuid')
+import * as cuid from 'cuid';
 
-var result: string = cuid();
+var cuidResult: string = cuid();
+var slugResult: string = cuid.slug();
