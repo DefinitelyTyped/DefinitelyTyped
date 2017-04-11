@@ -3,59 +3,44 @@
 // Definitions by: Jørn Andre Tangen <https://github.com/gorillatron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-declare namespace virgenacl {
-
-    interface IResourceProp {
-        resource_id:string;
-    }
-
-    interface IResourceGetter {
-        getResourceId():string;
-    }
-
-    type IResource = IResourceGetter | IResourceProp | string
-
-
-    interface IRoleProp {
-        role_id:string;
-    }
-
-    interface IRoleGetter {
-        getRoleId():string;
-    }
-
-    type IRole = IRoleGetter | IRoleProp | string
-
-
-
-    interface IQueryCallback {
-        (err?:Error, result?:boolean): void
-    }
-
-    interface IAssertion<Ro extends IRole, Re extends IResource> {
-        (err:Error, role:Ro, resource:Re, action:string, result:IAssertionResult, next:Function): void
-    }
-
-    interface IAssertionResult {
-        (error?:Error, result?:boolean): void
-    }
-
-
-    class Acl {
-
-        addRole(role:string, parent?:string):void
-
-        addResource(resource:string, parent?:string):void
-
-        allow<Ro extends IRole, Re extends IResource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|IAssertion<Ro, Re>):void
-
-        deny<Ro extends IRole, Re extends IResource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|IAssertion<Ro, Re>):void
-
-        query(role:IRole, resource:IResource, action:string, done:IQueryCallback):void
-
-    }
-
+export interface ResourceProp {
+    resource_id:string;
 }
 
-export = virgenacl
+export interface ResourceGetter {
+    getResourceId():string;
+}
+
+export type Resource = ResourceGetter | ResourceProp | string
+
+export interface RoleProp {
+    role_id:string;
+}
+
+export interface RoleGetter {
+    getRoleId():string;
+}
+
+export type Role = RoleGetter | RoleProp | string;
+
+export type QueryCallback = (err?:Error, result?:boolean) => void;
+
+export type Assertion<Ro extends Role, Re extends Resource> = (err:Error, role:Ro, resource:Re, action:string, result:IAssertionResult, next:Function) => void;
+
+export interface IAssertionResult {
+    (error?:Error, result?:boolean): void;
+}
+
+export class Acl {
+
+    addRole(role:string, parent?:string):void;
+
+    addResource(resource:string, parent?:string):void
+
+    allow<Ro extends Role, Re extends Resource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|Assertion<Ro, Re>):void
+
+    deny<Ro extends Role, Re extends Resource> (role?:string, resource?:string, actions?:string[], assertion?:boolean|Assertion<Ro, Re>):void
+
+    query(role:Role, resource:Resource, action:string, done:QueryCallback):void;
+
+}
