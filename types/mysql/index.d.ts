@@ -101,6 +101,7 @@ interface IPoolCluster {
     add(group: string, config: IPoolConfig): void;
 
     end(): void;
+    end(callback: (err: IError, ...args: any[]) => void): void;
 
     getConnection(callback: (err: IError, connection: IConnection) => void): void;
     getConnection(group: string, callback: (err: IError, connection: IConnection) => void): void;
