@@ -730,8 +730,8 @@ declare namespace Parse {
         static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
 
-        signUp(attrs: any, options?: SuccessFailureOptions): Promise<User>;
-        logIn(options?: SuccessFailureOptions): Promise<User>;
+        signUp(attrs: any, options?: SuccessFailureOptions): Promise<this>;
+        logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
