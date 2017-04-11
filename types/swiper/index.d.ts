@@ -28,6 +28,7 @@ interface SwiperOptions {
     freeMode?: boolean;
     freeModeMomentum?: boolean;
     freeModeMomentumRatio?: number;
+    freeModeMomentumVelocityRatio?: number;
     freeModeMomentumBounce?: boolean;
     freeModeMomentumBounceRatio?: number;
     freeModeMinimumVelocity?: number;
