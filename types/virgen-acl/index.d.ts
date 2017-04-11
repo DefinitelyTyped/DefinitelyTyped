@@ -1,6 +1,6 @@
 
 
-declare module 'virgen-acl' {
+declare namespace virgenacl {
 
     interface IResourceProp {
         resource_id:string;
@@ -53,4 +53,6 @@ declare module 'virgen-acl' {
     }
 
 }
+
+export = virgenacl
 
