@@ -1,4 +1,4 @@
-// Type definitions for Parse v1.2.19
+// Type definitions for parse v1.9.2
 // Project: https://parse.com/
 // Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
