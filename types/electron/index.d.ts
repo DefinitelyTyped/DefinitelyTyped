@@ -2195,7 +2195,7 @@ declare namespace Electron {
 		/**
 		 * Normalize the keyboard access keys across platforms.
 		 */
-		normalizeAccessKeys?: boolean
+		normalizeAccessKeys?: boolean;
 	}
 
 	interface SaveDialogOptions {
@@ -2223,7 +2223,7 @@ declare namespace Electron {
 		/**
 		 * macOS - Show the tags input box, defaults to true.
 		 */
-		showsTagField?: boolean
+		showsTagField?: boolean;
 	}
 
 	interface ShowMessageBoxOptions {
