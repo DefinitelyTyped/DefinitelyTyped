@@ -267,22 +267,22 @@ declare namespace Parse {
      * A class that is used to access all of the children of a many-to-many relationship.
      * Each instance of Parse.Relation is associated with a particular parent object and key.
      */
-    class Relation<S extends Object, T extends Object> extends BaseObject {
+    class Relation extends BaseObject {
 
-        parent: S;
+        parent: Object;
         key: string;
         targetClassName: string;
 
-        constructor(parent?: S, key?: string);
+        constructor(parent?: Object, key?: string);
 
         //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: T): void;
+        add(object: Object): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
-        query(): Query<T>;
+        query(): Query;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: T): void;
+        remove(object: Object): void;
     }
 
     /**
@@ -355,7 +355,7 @@ declare namespace Parse {
         op(attr: string): any;
         previous(attr: string): any;
         previousAttributes(): any;
-        relation(attr: string): Relation<this, Object>;
+        relation(attr: string): Relation;
         remove(attr: string, item: any): any;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
@@ -429,7 +429,7 @@ declare namespace Parse {
 
         model: Object;
         models: Object[];
-        query: Query<Object>;
+        query: Query;
         comparator: (object: Object) => any;
 
         constructor(models?: Object[], options?: Collection.Options);
@@ -454,7 +454,7 @@ declare namespace Parse {
     namespace Collection {
         interface Options {
             model?: Object;
-            query?: Query<Object>;
+            query?: Query;
             comparator?: string;
         }
 
@@ -571,59 +571,59 @@ declare namespace Parse {
      *   }
      * });</pre></p>
      */
-    class Query<T extends Object> extends BaseObject {
+    class Query extends BaseObject {
 
         objectClass: any;
         className: string;
 
         constructor(objectClass: string);
-        constructor(objectClass: new(...args: any[]) => T);
+        constructor(objectClass: new(...args: any[]) => Object);
 
-        static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
+        static or<U extends Object>(...var_args: Query[]): Query;
 
-        addAscending(key: string): Query<T>;
-        addAscending(key: string[]): Query<T>;
-        addDescending(key: string): Query<T>;
-        addDescending(key: string[]): Query<T>;
-        ascending(key: string): Query<T>;
-        ascending(key: string[]): Query<T>;
+        addAscending(key: string): Query;
+        addAscending(key: string[]): Query;
+        addDescending(key: string): Query;
+        addDescending(key: string[]): Query;
+        ascending(key: string): Query;
+        ascending(key: string[]): Query;
         collection(items?: Object[], options?: Collection.Options): Collection<Object>;
-        containedIn(key: string, values: any[]): Query<T>;
-        contains(key: string, substring: string): Query<T>;
-        containsAll(key: string, values: any[]): Query<T>;
+        containedIn(key: string, values: any[]): Query;
+        contains(key: string, substring: string): Query;
+        containsAll(key: string, values: any[]): Query;
         count(options?: Query.CountOptions): Promise<number>;
-        descending(key: string): Query<T>;
-        descending(key: string[]): Query<T>;
-        doesNotExist(key: string): Query<T>;
-        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
-        doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
+        descending(key: string): Query;
+        descending(key: string[]): Query;
+        doesNotExist(key: string): Query;
+        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
+        doesNotMatchQuery<U extends Object>(key: string, query: Query): Query;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith(key: string, suffix: string): Query<T>;
-        equalTo(key: string, value: any): Query<T>;
-        exists(key: string): Query<T>;
-        find(options?: Query.FindOptions): Promise<T[]>;
-        first(options?: Query.FirstOptions): Promise<T | undefined>;
-        get(objectId: string, options?: Query.GetOptions): Promise<T>;
-        greaterThan(key: string, value: any): Query<T>;
-        greaterThanOrEqualTo(key: string, value: any): Query<T>;
-        include(key: string): Query<T>;
-        include(keys: string[]): Query<T>;
-        lessThan(key: string, value: any): Query<T>;
-        lessThanOrEqualTo(key: string, value: any): Query<T>;
-        limit(n: number): Query<T>;
-        matches(key: string, regex: RegExp, modifiers: any): Query<T>;
-        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
-        matchesQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
-        near(key: string, point: GeoPoint): Query<T>;
-        notContainedIn(key: string, values: any[]): Query<T>;
-        notEqualTo(key: string, value: any): Query<T>;
-        select(...keys: string[]): Query<T>;
-        skip(n: number): Query<T>;
-        startsWith(key: string, prefix: string): Query<T>;
-        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
-        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
-        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
-        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        endsWith(key: string, suffix: string): Query;
+        equalTo(key: string, value: any): Query;
+        exists(key: string): Query;
+        find(options?: Query.FindOptions): Promise<Object[]>;
+        first(options?: Query.FirstOptions): Promise<Object | undefined>;
+        get(objectId: string, options?: Query.GetOptions): Promise<Object>;
+        greaterThan(key: string, value: any): Query;
+        greaterThanOrEqualTo(key: string, value: any): Query;
+        include(key: string): Query;
+        include(keys: string[]): Query;
+        lessThan(key: string, value: any): Query;
+        lessThanOrEqualTo(key: string, value: any): Query;
+        limit(n: number): Query;
+        matches(key: string, regex: RegExp, modifiers: any): Query;
+        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
+        matchesQuery<U extends Object>(key: string, query: Query): Query;
+        near(key: string, point: GeoPoint): Query;
+        notContainedIn(key: string, values: any[]): Query;
+        notEqualTo(key: string, value: any): Query;
+        select(...keys: string[]): Query;
+        skip(n: number): Query;
+        startsWith(key: string, prefix: string): Query;
+        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query;
+        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query;
+        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query;
+        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query;
     }
 
     namespace Query {
@@ -651,8 +651,8 @@ declare namespace Parse {
 
         constructor(name: string, acl: ACL);
 
-        getRoles(): Relation<Role, Role>;
-        getUsers(): Relation<Role, User>;
+        getRoles(): Relation;
+        getUsers(): Relation;
         getName(): string;
         setName(name: string, options?: SuccessFailureOptions): any;
     }
@@ -1068,7 +1068,7 @@ declare namespace Parse {
             push_time?: Date;
             expiration_time?: Date;
             expiration_interval?: number;
-            where?: Query<Object>;
+            where?: Query;
             data?: any;
             alert?: string;
             badge?: string;
