@@ -1,4 +1,4 @@
-// Type definitions for virgen-acl 0.0.21
+// Type definitions for virgen-acl v0.0.21
 // Project: https://github.com/djvirgen/virgen-acl
 // Definitions by: Jørn Andre Tangen @gorillatron
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
