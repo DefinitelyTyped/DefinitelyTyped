@@ -1,6 +1,6 @@
-import * as wx from 'wx';
+import { scanQRCode } from 'wx';
 
-wx.scanQRCode({
+scanQRCode({
 	needResult: 0,
 	scanType: ['qrCode'],
 	success(res) {

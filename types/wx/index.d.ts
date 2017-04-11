@@ -6,7 +6,7 @@
 2. import * as wx from 'wx';
  =============================================== */
 
-declare module 'wx' {
+declare namespace wx {
 	type ImageSizeType = 'original' | 'compressed';
 	type ImageSourceType = 'album' | 'camera';
 	type VideoSourceType = 'album' | 'camera';
@@ -77,14 +77,14 @@ declare module 'wx' {
 		"menuItem:share:email" |	// 邮件
 		"menuItem:share:brand";	// 一些特殊公众号
 
-	type menuList = (menuBase | menuProtected | menuShare)[];
+	type menuList = Array<menuBase | menuProtected | menuShare>;
 
 	function config(conf: {
 		debug?: boolean; // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 		appId: string; // 必填，公众号的唯一标识
 		timestamp: number; // 必填，生成签名的时间戳
 		nonceStr: string; // 必填，生成签名的随机串
-		signature: string;// 必填，签名，见附录1
+		signature: string; // 必填，签名，见附录1
 		jsApiList: jsApiList; // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	}): void;
 
@@ -175,7 +175,6 @@ declare module 'wx' {
 	 */
 	function onMenuShareWeibo(params: IonMenuShareWeibo): void;
 
-
 	interface IonMenuShareQZone extends BaseParams {
 		title: string; // 分享标题
 		desc: string; // 分享描述
@@ -197,9 +196,9 @@ declare module 'wx' {
 		/** 最多可以选择的图片张数，默认9 */
 		count?: number;
 		/** original 原图，compressed 压缩图，默认二者都有 */
-		sizeType?: Array<ImageSizeType>;
+		sizeType?: ImageSizeType[];
 		/** album 从相册选图，camera 使用相机，默认二者都有 */
-		sourceType?: Array<ImageSourceType>;
+		sourceType?: ImageSourceType[];
 		/** 成功则返回图片的本地文件路径列表 tempFilePaths */
 		success(res: {
 			sourceType: string;	// weixin album camera
@@ -267,7 +266,7 @@ declare module 'wx' {
 	function onVoiceRecordEnd(params: IonVoiceRecordEnd): void;
 
 	interface IplaypausestopVoice extends BaseParams {
-		localId: '' // 需要播放的音频的本地ID，由stopRecord接口获得
+		localId: string; // 需要播放的音频的本地ID，由stopRecord接口获得
 	}
 	/**
 	 * 播放语音接口
@@ -298,7 +297,13 @@ declare module 'wx' {
 	}
 	/**
 	 * 上传语音接口
-	 * 备注：上传语音有效期3天，可用微信多媒体接口下载语音到自己的服务器，此处获得的 serverId 即 media_id，参考文档../12 / 58bfcfabbd501c7cd77c19bd9cfa8354.html 目前多媒体文件下载接口的频率限制为10000次/ 天，如需要调高频率，请邮件weixin - open@qq.com, 邮件主题为【申请多媒体接口调用量】，请对你的项目进行简单描述，附上产品体验链接，并对用户量和使用量进行说明。
+	 * 备注：上传语音有效期3天，可用微信多媒体接口下载语音到自己的服务器
+	 * ，此处获得的 serverId 即 media_id，参考文档
+	 * ../12 / 58bfcfabbd501c7cd77c19bd9cfa8354.html
+	 * 目前多媒体文件下载接口的频率限制为10000次/ 天，
+	 * 如需要调高频率，请邮件weixin - open@qq.com,
+	 * 邮件主题为【申请多媒体接口调用量】，请对你的项目进行简单描述，
+	 * 附上产品体验链接，并对用户量和使用量进行说明。
 	 */
 	function uploadVoice(params: IupdownloadVoice): void;
 	/**
@@ -348,7 +353,7 @@ declare module 'wx' {
 	function openLocation(params: IopenLocation): void;
 
 	interface IgetLocation extends BaseParams {
-		type: 'wgs84' | 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+		type: 'wgs84' | 'gcj02'; // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
 		success(res: {
 			latitude: number; // 纬度，浮点数，范围为90 ~ -90
 			longitude: number; // 经度，浮点数，范围为180 ~ -180。
@@ -363,8 +368,8 @@ declare module 'wx' {
 	/*=============================地理位置================================*/
 	/*=============================摇一摇周边================================*/
 	interface IstartSearchBeacons extends BaseParams {
-		ticket: string;  //摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
-		//开启查找完成后的回调函数
+		ticket: string;  // 摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
+		// 开启查找完成后的回调函数
 		complete(argv: any): void;
 	}
 	/**
@@ -374,7 +379,7 @@ declare module 'wx' {
 	function startSearchBeacons(params: IstartSearchBeacons): void;
 
 	interface IstopSearchBeacons extends BaseParams {
-		//关闭查找完成后的回调函数
+		// 关闭查找完成后的回调函数
 		complete(res: any): void;
 	}
 
@@ -384,7 +389,7 @@ declare module 'wx' {
 	function stopSearchBeacons(params: IstopSearchBeacons): void;
 
 	interface IonSearchBeacons extends BaseParams {
-		//回调函数，可以数组形式取得该商家注册的在周边的相关设备列表
+		// 回调函数，可以数组形式取得该商家注册的在周边的相关设备列表
 		complete(argv: any): void;
 	}
 	/**
@@ -410,7 +415,7 @@ declare module 'wx' {
 	function closeWindow(): void;
 
 	interface IhideMenuItems extends BaseParams {
-		menuList: (menuProtected | menuShare)[]; // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+		menuList: Array<menuProtected | menuShare>; // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
 	}
 	/**
 	 * 批量隐藏功能按钮接口
@@ -467,7 +472,7 @@ declare module 'wx' {
 		shopId: string; // 门店Id
 		cardType: string; // 卡券类型
 		cardId: string; // 卡券Id
-		timestamp: 0, // 卡券签名时间戳
+		timestamp: number; // 卡券签名时间戳
 		nonceStr: string; // 卡券签名随机串
 		signType: string; // 签名方式，默认'SHA1'
 		cardSign: string; // 卡券签名
@@ -481,10 +486,10 @@ declare module 'wx' {
 	function chooseCard(params: IchooseCard): void;
 
 	interface IaddCard extends BaseParams {
-		cardList: {
+		cardList: Array<{
 			cardId: string;
 			cardExt: string;
-		}[]; // 需要添加的卡券列表
+		}>; // 需要添加的卡券列表
 		success(res: { cardList: string[]; }): void;
 	}
 	/**
@@ -493,10 +498,10 @@ declare module 'wx' {
 	function addCard(): void;
 
 	interface IopenCard extends BaseParams {
-		cardList: [{
+		cardList: Array<{
 			cardId: string;
 			code: string;
-		}]// 需要打开的卡券列表
+		}>; // 需要打开的卡券列表
 	}
 	/**
 	 * 查看微信卡包中的卡券接口
@@ -529,3 +534,6 @@ declare module 'wx' {
 	function chooseWXPay(params: IchooseWXPay): void;
 	/*=============================微信支付================================*/
 }
+
+declare function wx(): void;
+export = wx;

@@ -34,7 +34,7 @@ declare namespace wx {
 		/** 页面的初始数据 */
 		data?: any;
 		/** 生命周期函数--监听页面加载 */
-		onLoad?: (options: any) => void;
+		onLoad?(options: any): void;
 		/** 生命周期函数--监听页面渲染完成 */
 		onReady?: NoneParamCallback;
 		/** 生命周期函数--监听页面显示 */
@@ -62,7 +62,7 @@ declare namespace wx {
 		 * 当小程序从前台进入后台，会触发 onHide
 		 */
 		onHide?: NoneParamCallback;
-		[key: string]: any
+		[key: string]: any;
 	}
 
 	interface BaseOptions {
@@ -119,7 +119,6 @@ declare namespace wx {
 	 */
 	function uploadFile(options: UploadFileOptions): void;
 
-
 	interface DownloadFileOptions extends BaseOptions {
 		/** 下载资源的 url */
 		url: string;
@@ -156,7 +155,6 @@ declare namespace wx {
 	 */
 	function connectSocket(options: ConnectSocketOptions): void;
 
-
 	/** 监听WebSocket连接打开事件。 */
 	function onSocketOpen(callback: OneParamCallback): void;
 
@@ -164,7 +162,7 @@ declare namespace wx {
 	function onSocketError(callback: ErrorCallback): void;
 
 	interface SendSocketMessageOptions extends BaseOptions {
-		/**	需要发送的内容 */
+		/** 需要发送的内容 */
 		data: string;
 	}
 	/**
@@ -172,7 +170,6 @@ declare namespace wx {
 	 * 并在 wx.onSocketOpen 回调之后才能发送。
 	 */
 	function sendSocketMessage(options: SendSocketMessageOptions): void;
-
 
 	/**
 	 * 监听WebSocket接受到服务器的消息事件。
@@ -202,11 +199,11 @@ declare namespace wx {
 		/** 最多可以选择的图片张数，默认9 */
 		count?: number;
 		/** original 原图，compressed 压缩图，默认二者都有 */
-		sizeType?: Array<ImageSizeType>;
+		sizeType?: ImageSizeType[];
 		/** album 从相册选图，camera 使用相机，默认二者都有 */
-		sourceType?: Array<ImageSourceType>;
+		sourceType?: ImageSourceType[];
 		/** 成功则返回图片的本地文件路径列表 tempFilePaths */
-		success: (res: TempFilesData) => void;
+		success(res: TempFilesData): void;
 	}
 	/**
 	 * 从本地相册选择图片或使用相机拍照。
@@ -217,7 +214,7 @@ declare namespace wx {
 		/** 当前显示图片的链接，不填则默认为 urls 的第一张 */
 		current?: string;
 		/** 需要预览的图片链接列表 */
-		urls: Array<string>;
+		urls: string[];
 	}
 	/**
 	 * 预览图片。
@@ -279,7 +276,6 @@ declare namespace wx {
 	 * 结束播放语音。
 	 */
 	function stopVoice(): void;
-
 }
 // 媒体-----音乐播放控制
 declare namespace wx {
@@ -374,7 +370,6 @@ declare namespace wx {
 	 * @example
 	 * <!-- audio.wxml -->
 	 * <audio  src="{{src}}" id="myAudio" ></audio>
-
 	 * <button type="primary" bindtap="audioPlay">播放</button>
 	 * <button type="primary" bindtap="audioPause">暂停</button>
 	 * <button type="primary" bindtap="audio14">设置当前播放时间为14秒</button>
@@ -384,7 +379,10 @@ declare namespace wx {
 	 * onReady: function (e) {
 	 * 	// 使用 wx.createAudioContext 获取 audio 上下文 context
 	 * 	this.audioCtx = wx.createAudioContext('myAudio')
-	 * 	this.audioCtx.setSrc('http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46')
+	 * 	this.audioCtx.setSrc('http://ws.stream.qqmusic.qq.com/
+	 * M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&
+	 * uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&
+	 * fromtag=46')
 	 * 	this.audioCtx.play()
 	 * },
 	 * data: {
@@ -410,13 +408,13 @@ declare namespace wx {
 declare namespace wx {
 	interface ChooseVideoOptions extends BaseOptions {
 		/** album 从相册选视频，camera 使用相机拍摄，默认为：['album', 'camera'] */
-		sourceType?: Array<VideoSourceType>;
+		sourceType?: VideoSourceType[];
 		/** 拍摄视频最长拍摄时间，单位秒。最长支持60秒 */
 		maxDuration?: number;
 		/** 前置或者后置摄像头，默认为前后都有，即：['front', 'back'] */
-		camera?: Array<CameraDevice>;
+		camera?: CameraDevice[];
 		/** 接口调用成功，返回视频文件的临时文件路径，详见返回参数说明 */
-		success?: (res: VideoData) => void;
+		success?(res: VideoData): void;
 	}
 	/**
 	 * 拍摄视频或从手机相册中选视频，返回视频的临时文件路径。
@@ -475,7 +473,7 @@ declare namespace wx {
 		/** 需要保存的文件的临时路径 */
 		tempFilePath: string;
 		/** 返回文件的保存路径，res = {savedFilePath: '文件的保存路径'} */
-		success?: (res: SavedFileData) => void;
+		success?(res: SavedFileData): void;
 	}
 	/**
 	 * 保存文件到本地。
@@ -510,7 +508,7 @@ declare namespace wx {
 
 	interface GetSavedFileListOptions extends BaseOptions {
 		/** 接口调用成功的回调函数 */
-		success?: (res: GetSavedFileListData) => void;
+		success?(res: GetSavedFileListData): void;
 	}
 	/**
 	 * 获取本地已保存的文件列表
@@ -534,15 +532,14 @@ declare namespace wx {
 	interface GetSavedFileInfoOptions extends BaseOptions {
 		filePath: string;
 		/** 接口调用成功的回调函数 */
-		success?: (res: SavedFileInfoData) => void;
+		success?(res: SavedFileInfoData): void;
 	}
 	/**
 	 * 获取本地文件的文件信息
 	 */
 	function getSavedFileInfo(options: GetSavedFileInfoOptions): void;
 
-	interface RemoveSavedFileOptions extends BaseOptions {
-	}
+	type RemoveSavedFileOptions = BaseOptions;
 	/**
 	 * 删除本地存储的文件
 	 */
@@ -654,7 +651,7 @@ declare namespace wx {
 		/** 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于wx.openLocation的坐标 */
 		type?: 'wgs84' | 'gcj02';
 		/** 接口调用成功的回调函数，返回内容详见返回参数说明。 */
-		success: (res: LocationData) => void;
+		success(res: LocationData): void;
 	}
 	/**
 	 * 获取当前的地理位置、速度。
@@ -705,7 +702,6 @@ declare namespace wx {
 	 * 使用微信内置地图查看位置
 	 */
 	function openLocation(options: OpenLocationOptions): void;
-
 }
 // 位置-----地图组件控制
 declare namespace wx {
@@ -751,7 +747,7 @@ declare namespace wx {
 	}
 	interface GetSystemInfoOptions extends BaseOptions {
 		/** 成功获取系统信息的回调 */
-		success: (res: SystemInfo) => void;
+		success(res: SystemInfo): void;
 	}
 	/**
 	 * 获取系统信息。
@@ -764,11 +760,11 @@ declare namespace wx {
 	type networkType = '2g' | '3g' | '4g' | 'wifi' | 'unknown' | 'none';
 	interface NetworkTypeData {
 		/** 返回网络类型2g，3g，4g，wifi */
-		networkType: networkType
+		networkType: networkType;
 	}
 	interface GetNetworkTypeOptions extends BaseOptions {
 		/** 接口调用成功，返回网络类型 networkType */
-		success: (res: NetworkTypeData) => void;
+		success(res: NetworkTypeData): void;
 	}
 	/**
 	 * 获取网络类型。
@@ -801,7 +797,7 @@ declare namespace wx {
 	 */
 	function onAccelerometerChange(callback: AccelerometerChangeCallback): void;
 
-	interface AccelerometerOptions extends BaseOptions { }
+	type AccelerometerOptions = BaseOptions;
 	/**
 	 * 开始监听加速度数据。
 	 * 基础库版本 1.1.0 开始支持，低版本需做兼容处理
@@ -826,7 +822,7 @@ declare namespace wx {
 	 * 监听罗盘数据，频率：5次/秒，接口调用后会自动开始监听，可使用wx.stopCompass停止监听。
 	 */
 	function onCompassChange(callback: CompassChangeCallback): void;
-	interface CompassOptions extends BaseOptions { }
+	type CompassOptions = BaseOptions;
 	/**
 	 * 开始监听罗盘数据。
 	 * 基础库版本 1.1.0 开始支持，低版本需做兼容处理
@@ -1034,13 +1030,6 @@ declare namespace wx {
 	 * 断开与低功耗蓝牙设备的连接
 	 */
 	function closeBLEConnection(options: CloseBLEConnectionOptions): void;
-	/**
-	 * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等等
-	 */
-	function onBLEConnectionStateChanged(callback: (res: {
-		deviceId: string;
-		connected: boolean;
-	}) => void): void;
 
 	interface GetBLEDeviceServicesOptions extends BaseOptions {
 		/**
@@ -1051,10 +1040,10 @@ declare namespace wx {
 		 * 成功则返回本机蓝牙适配器状态
 		 */
 		success(res: {
-			services: {
+			services: Array<{
 				uuid: string;
 				isPrimary: boolean;
-			}[];
+			}>;
 		} & ErrMsgResponse): void;
 	}
 	/**
@@ -1075,9 +1064,9 @@ declare namespace wx {
 		 * 成功则返回本机蓝牙适配器状态
 		 */
 		success(res: {
-			characteristics: {
+			characteristics: Array<{
 				uuid: string;
-				properties: {
+				properties: Array<{
 					/**
 					 * 该特征值是否支持 read 操作
 					 */
@@ -1094,8 +1083,8 @@ declare namespace wx {
 					 * 该特征值是否支持 indicate 操作
 					 */
 					indicate: boolean;
-				}[];
-			}[];
+				}>;
+			}>;
 		} & ErrMsgResponse): void;
 	}
 	/**
@@ -1153,18 +1142,16 @@ declare namespace wx {
 	/**
 	 * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等等。
 	 */
-	function onBLEConnectionStateChanged(callback: (
-		res: {
-			/**
-			 * 蓝牙设备 id，参考 device 对象
-			 */
-			deviceId: string;
-			/**
-			 * 连接目前的状态
-			 */
-			connected: boolean;
-		}
-	) => void): void;
+	function onBLEConnectionStateChanged(callback: (res: {
+		/**
+		 * 蓝牙设备 id，参考 device 对象
+		 */
+		deviceId: string;
+		/**
+		 * 连接目前的状态
+		 */
+		connected: boolean;
+	}) => void): void;
 	/**
 	 * 监听低功耗蓝牙设备的特征值变化。必须先启用notify接口才能接收到设备推送的notification。
 	 */
@@ -1371,10 +1358,10 @@ declare namespace wx {
 	}
 
 	interface Animator {
-		actions: Array<AnimationAction>;
+		actions: AnimationAction[];
 	}
 	interface AnimationAction {
-		animates: Array<Animate>;
+		animates: Animate[];
 		option: AnimationActionOption;
 	}
 	interface AnimationActionOption {
@@ -1388,7 +1375,7 @@ declare namespace wx {
 	}
 	interface Animate {
 		type: string;
-		args: Array<any>;
+		args: any[];
 	}
 
 	/**
@@ -1495,14 +1482,19 @@ declare namespace wx {
 		 */
 		matrix(a: number, b: number, c: number, d: number, tx: number, ty: number): Animation;
 		/** 同transform-function matrix3d */
-		matrix3d(a1: number, b1: number, c1: number, d1: number, a2: number, b2: number, c2: number, d2: number, a3: number, b3: number, c3: number, d3: number, a4: number, b4: number, c4: number, d4: number): Animation;
+		matrix3d(
+			a1: number, b1: number, c1: number, d1: number, a2: number,
+			b2: number, c2: number, d2: number, a3: number, b3: number,
+			c3: number, d3: number, a4: number, b4: number, c4: number,
+			d4: number
+		): Animation;
 	}
 }
 // 界面-----绘图
 declare namespace wx {
 	interface CanvasAction {
 		method: string;
-		data: Array<CanvasAction> | Array<number | string>
+		data: CanvasAction[] | Array<number | string>;
 	}
 	type LineCapType = 'butt' | 'round' | 'square';
 	type LineJoinType = 'bevel' | 'round' | 'miter';
@@ -1511,7 +1503,7 @@ declare namespace wx {
 	 */
 	interface CanvasContext {
 		/** 获取当前context上存储的绘图动作(不推荐使用) */
-		getActions(): Array<CanvasAction>;
+		getActions(): CanvasAction[];
 		/** 清空当前的存储绘图动作(不推荐使用) */
 		clearActions(): void;
 		/**
@@ -1801,7 +1793,7 @@ declare namespace wx {
 		 * 绘图动作数组，由 wx.createContext 创建的 context，
 		 * 调用 getActions 方法导出绘图动作数组。
 		 */
-		actions: Array<CanvasAction>;
+		actions: CanvasAction[];
 	}
 	/**
 	 * 绘制画布
@@ -1840,9 +1832,13 @@ declare namespace wx {
 declare namespace wx {
 	/**
 	 * 登录态维护
-	 * 通过 wx.login() 获取到用户登录态之后，需要维护登录态。开发者要注意不应该直接把 session_key、openid 等字段作为用户的标识或者 session 的标识，而应该自己派发一个 session 登录态（请参考登录时序图）。对于开发者自己生成的 session，应该保证其安全性且不应该设置较长的过期时间。session 派发到小程序客户端之后，可将其存储在 storage ，用于后续通信使用。
-	 * 通过wx.checkSession() 检测用户登录态是否失效。并决定是否调用wx.login() 重新获取登录态
-	 *
+	 * 通过 wx.login() 获取到用户登录态之后，需要维护登录态。
+	 * 开发者要注意不应该直接把 session_key、openid 等字段作为用户的标识
+	 * 或者 session 的标识，而应该自己派发一个 session 登录态（请参考登录时序图）。
+	 * 对于开发者自己生成的 session，应该保证其安全性且不应该设置较长的过期时间。
+	 * session 派发到小程序客户端之后，可将其存储在 storage ，用于后续通信使用。
+	 * 通过wx.checkSession() 检测用户登录态是否失效。并决定是否调用wx.login()
+	 * 重新获取登录态
 	 */
 	interface LoginResponse {
 		/** 调用结果 */
@@ -1850,12 +1846,13 @@ declare namespace wx {
 		/** 用户允许登录后，回调内容会带上 code（有效期五分钟），
 		 * 开发者需要将 code 发送到开发者服务器后台，
 		 * 使用code 换取 session_key api，
-		 * 将 code 换成 openid 和 session_key */
+		 * 将 code 换成 openid 和 session_key
+		 */
 		code: string;
 	}
 	interface LoginOptions extends BaseOptions {
 		/** 接口调用成功的回调函数 */
-		success?: (res: LoginResponse) => void;
+		success?(res: LoginResponse): void;
 	}
 
 	/**
@@ -1864,8 +1861,7 @@ declare namespace wx {
 	 * 用户数据的加解密通讯需要依赖会话密钥完成。
 	 */
 	function login(option: LoginOptions): void;
-	interface CheckSessionOption extends BaseOptions {
-	}
+	type CheckSessionOption = BaseOptions;
 	/**
 	 * 检测当前用户登录态是否有效。
 	 * 通过wx.login获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用wx.checkSession接口检测当前用户登录态是否有效。登录态过期后开发者可以再调用wx.login获取新的用户登录态。
@@ -1896,7 +1892,7 @@ declare namespace wx {
 	}
 	interface GetUserInfoOptions extends BaseOptions {
 		/** 接口调用成功的回调函数 */
-		success?: (res: UserInfoResponse) => void;
+		success?(res: UserInfoResponse): void;
 	}
 	/**
 	 * 获取用户信息，需要先调用 wx.login 接口。
@@ -1946,7 +1942,7 @@ declare namespace wx {
 		onShareAppMessage(): ShareAppMessage;
 	}
 
-	interface ShareMenuOptions extends BaseOptions { }
+	type ShareMenuOptions = BaseOptions;
 	/**
 	 * 显示分享按钮
 	 *
@@ -2099,13 +2095,11 @@ declare namespace wx {
 		 */
 		setData(data: any): void;
 	}
-	interface PageConstructor {
-		/**
-		 * Page() 函数用来注册一个页面。
-		 * 接受一个 object 参数，其指定页面的初始数据、生命周期函数、事件处理函数等。
-		 */
-		(options: wx.PageOptions): void;
-	}
+	/**
+	 * Page() 函数用来注册一个页面。
+	 * 接受一个 object 参数，其指定页面的初始数据、生命周期函数、事件处理函数等。
+	 */
+	type PageConstructor = (options: wx.PageOptions) => void;
 }
 declare var Page: wx.PageConstructor;
 // App
@@ -2117,13 +2111,11 @@ declare namespace wx {
 		 */
 		getCurrentPage(): Page;
 	}
-	interface AppConstructor {
-		/**
-		 * App() 函数用来注册一个小程序。
-		 * 接受一个 object 参数，其指定小程序的生命周期函数等。
-		 */
-		(options: wx.AppOptions): void;
-	}
+	/**
+	 * App() 函数用来注册一个小程序。
+	 * 接受一个 object 参数，其指定小程序的生命周期函数等。
+	 */
+	type AppConstructor = (options: wx.AppOptions) => void;
 }
 declare var App: wx.AppConstructor;
 
