@@ -1,8 +1,8 @@
-// Type definitions for react-data-grid 1.0.4
+// Type definitions for react-data-grid 2.0
 // Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>
+// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="react" />
 
@@ -18,7 +18,7 @@ declare namespace AdazzleReactDataGrid {
          * Gets the data to render in each row. Required.
          * Can be an array or a function that takes an index and returns an object.
          */
-        rowGetter: Array<Object> | ((rowIdx: number) => Object)
+        rowGetter: Array<object> | ((rowIdx: number) => object)
         /**
          * The total number of rows to render. Required.
          */
@@ -148,7 +148,7 @@ declare namespace AdazzleReactDataGrid {
          * Called when a row is selected.
          * @param rows The (complete) current selection of rows.
          */
-        onRowSelect?: (rows: Array<Object>) => void
+        onRowSelect?: (rows: Array<object>) => void
         /**
          * A property that's unique to every row.
          * This property is required to enable row selection.
@@ -191,6 +191,13 @@ declare namespace AdazzleReactDataGrid {
                 isSelectedKey?: string;
             }
         }
+        /**
+         * An event function called when a row is clicked.
+         * Clicking the header row will trigger a call with -1 for the rowIdx.
+         * @param rowIdx zero index number of row clicked
+         * @param row object behind the row
+         */
+        onRowClick?: (rowIdx : number, row : object) => void
     }
 
     /**
@@ -235,7 +242,11 @@ declare namespace AdazzleReactDataGrid {
          * Whether the rows in the grid can be filtered by this column.
          * @default false
          */
-        filterable?: boolean
+        filterable?: boolean;
+        /**
+         * A custom formatter for this column's filter.
+         */
+        filterRenderer?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>;
         /**
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
@@ -258,6 +269,14 @@ declare namespace AdazzleReactDataGrid {
         events?: {
             [name: string]: ColumnEventCallback
         }
+        /**
+         * Retrieve meta data about the row, optionally provide column as a second argument
+         */
+        getRowMetaData?: (rowdata: any, column?: Column) => any;
+        /**
+         * A class name to be applied to the cells in the column
+         */
+        cellClass?: string;
     }
 
     interface ColumnEventCallback {
@@ -280,7 +299,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns that were updated and their values.
          */
-        updated: Object
+        updated: object
         /**
          * The name of the column that was updated.
          */
@@ -328,7 +347,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The values of the row.
          */
-        rowData: Object
+        rowData: object
         /**
          * The double click event.
          */
@@ -380,7 +399,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns that were updated and their values.
          */
-        updated: Object
+        updated: object
         /**
          * The action that occurred to trigger this event.
          * One of 'cellUpdate', 'cellDrag', 'columnFill', or 'copyPaste'.
@@ -472,7 +491,7 @@ declare module "react-data-grid" {
     export = ReactDataGrid;
 }
 
-declare module "react-data-grid/addons" {
+declare module "react-data-grid-addons" {
     import Plugins = AdazzleReactDataGridPlugins;
     import Editors = Plugins.Editors;
     import Formatters = Plugins.Formatters;
