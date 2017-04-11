@@ -337,6 +337,6 @@ window.onload=()=>{
         var myInvertedMatrix = myMatrix.invert();
 
         g.animate({ transform: myMatrix },3000, mina.bounce, function() { g.animate({ transform: myInvertedMatrix }, 3000, mina.bounce) } );
-        console.log( g.transform(), g.matrix, myMatrix.split() );
+        console.log( g.transform(), myMatrix.split() );
     }
 }

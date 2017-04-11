@@ -20,8 +20,7 @@ interface BaseFieldArrayProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor,
-    // component?: Component<P, any> | StatelessComponent<P>,
+    component?: ComponentConstructor<any>,
 
     /**
      * Allows you to to provide a field-level validation rule. The function will be given the
@@ -29,7 +28,7 @@ interface BaseFieldArrayProps {
      * should return `undefined`, if the field is invalid, it should return an error
      * (usually, but not necessarily, a `String`).
      */
-    validate?: Validator|Validator[];
+    validate?: Validator | Validator[];
 
     /**
      * Allows you to to provide a field-level warning rule. The function will be given the
@@ -37,7 +36,7 @@ interface BaseFieldArrayProps {
      * it should return the warning (usually, but not necessarily, a `String`). If the field
      * does not need a warning, it should return `undefined`.
      */
-    warn?: Validator|Validator[];
+    warn?: Validator | Validator[];
 
     /**
      * If true, the rendered component will be available with the
@@ -46,7 +45,7 @@ interface BaseFieldArrayProps {
      */
     withRef?: boolean;
 
-    props?: Object;
+    props?: any;
 }
 
 /**
@@ -100,7 +99,6 @@ export class FieldArray extends Component<any, {}> implements GenericFieldArray<
  */
 interface WrappedFieldArrayProps<T> {
     fields: FieldsProps<T>;
-
     meta: FieldArrayMetaProps;
 }
 
@@ -181,6 +179,11 @@ interface FieldArrayMetaProps {
      * _error key on the array.
      */
     error?: string;
+
+    /**
+     * Name of your form provided to `reduxForm()` as the `form` config property.
+     */
+    form: string;
 
     /**
      * true if the field array value fails validation (has a validation error).

@@ -1,4 +1,4 @@
-// Type definitions for hapi 16.0.0
+// Type definitions for hapi 16.0.1
 // Project: http://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,16 +16,9 @@ interface IDictionary<T> {
     [key: string]: T;
 }
 
-interface IThenable<R> {
-    then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IThenable<U>;
-    then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IThenable<U>;
-}
+export declare type IThenable<R> = PromiseLike<R>
 
-interface IPromise<R> extends IThenable<R> {
-    then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
-    then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IPromise<U>;
-    catch<U>(onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
-}
+export declare type IPromise<R> = Promise<R>
 
 export interface IHeaderOptions {
     append?: boolean;

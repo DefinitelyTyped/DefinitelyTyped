@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ComponentConstructor, Formatter, Parser, FieldValue } from "../index";
+import { ComponentConstructor, Formatter, Parser, FieldValue, WrappedFieldProps } from "../index";
 
 /**
  * These are the props to give to `Field`.
@@ -18,7 +18,7 @@ interface BaseFieldsProps {
      * A Component or stateless function that will be given all the props necessary
      * to render the field inputs.
      */
-    component?: ComponentConstructor | 'input' | 'select' | 'textarea';
+    component?: ComponentConstructor<any>;
 
     /**
      * Formats the value from the Redux store to be displayed in the field input.
@@ -35,7 +35,7 @@ interface BaseFieldsProps {
     /**
      * Don't use.
      */
-    props?: Object;
+    props?: any;
 
     /**
      * Parses the value given from the field input component to the type that you want stored in the Redux store.
@@ -77,7 +77,7 @@ export interface GenericFields<T, FieldsCustomProps> extends Component<BaseField
      * For example, if your names are [ 'name.first', 'name.last', 'email' ], the values will be
      * { name: { first: 'John', last: 'Smith' }, email: 'john@email.com' }
      */
-    values: {[name: string]: FieldValue};
+    values: { [name: string]: FieldValue };
 
     getRenderedComponent(): Component<BaseFieldsProps & FieldsCustomProps, any>;
 }
@@ -106,7 +106,11 @@ export class Fields extends Component<any, {}> implements GenericFields<any, any
      * For example, if your names are [ 'name.first', 'name.last', 'email' ], the values will be
      * { name: { first: 'John', last: 'Smith' }, email: 'john@email.com' }
      */
-    values: {[name: string]: FieldValue};
+    values: { [name: string]: FieldValue };
 
     getRenderedComponent(): Component<any, any>;
+}
+
+interface WrappedFieldsProps<S> {
+    [name: string]: WrappedFieldsProps<S> & WrappedFieldProps<S>
 }

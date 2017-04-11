@@ -1,6 +1,7 @@
-// Type definitions for react-native 0.42
+// Type definitions for react-native 0.43
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
+//                 Fedor Nezhivoi <https://github.com/gyzerok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -531,9 +532,7 @@ export interface LayoutAnimationStatic {
     spring: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
 }
 
-export type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
-export type FlexJustifyType = "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
-export type FlexDirection = "row" | "column" | "row-reverse" | "column-reverse";
+type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
 
 /**
  * Flex Prop Types
@@ -541,9 +540,9 @@ export type FlexDirection = "row" | "column" | "row-reverse" | "column-reverse";
  * @see LayoutPropTypes.js
  */
 export interface FlexStyle {
-
-    alignItems?: FlexAlignType;
-    alignSelf?: "auto" | FlexAlignType;
+    alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around"
+    alignItems?: FlexAlignType
+    alignSelf?: "auto" | FlexAlignType
     borderBottomWidth?: number
     borderLeftWidth?: number
     borderRightWidth?: number
@@ -551,18 +550,14 @@ export interface FlexStyle {
     borderWidth?: number
     bottom?: number | string
     flex?: number
+    flexBasis?: number | string
+    flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
     flexGrow?: number
     flexShrink?: number
-    flexBasis?: number | string
-    flexDirection?: FlexDirection
     flexWrap?: "wrap" | "nowrap"
     height?: number | string
-    justifyContent?: FlexJustifyType
+    justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around"
     left?: number | string
-    minWidth?: number | string
-    maxWidth?: number | string
-    minHeight?: number | string
-    maxHeight?: number | string
     margin?: number | string
     marginBottom?: number | string
     marginHorizontal?: number | string
@@ -570,6 +565,10 @@ export interface FlexStyle {
     marginRight?: number | string
     marginTop?: number | string
     marginVertical?: number | string
+    maxHeight?: number | string
+    maxWidth?: number | string
+    minHeight?: number | string
+    minWidth?: number | string
     overflow?: "visible" | "hidden" | "scroll"
     padding?: number | string
     paddingBottom?: number | string
@@ -582,11 +581,12 @@ export interface FlexStyle {
     right?: number | string
     top?: number | string
     width?: number | string
+    zIndex?: number
 
     /**
      * @platform ios
      */
-    zIndex?: number
+    direction?: 'inherit' | 'ltr' | 'rtl'
 }
 
 /**
@@ -2612,12 +2612,14 @@ export interface PickerIOSItemStatic extends React.ComponentClass<PickerIOSItemP
 /**
  * @see Picker.js
  */
-export interface PickerItemProperties extends React.Props<PickerItemStatic> {
+export interface PickerItemProperties extends React.Props<PickerItem> {
+    testID?: string
+    color?: string
     label: string
     value?: any
 }
 
-export interface PickerItemStatic extends React.ComponentClass<PickerItemProperties> {
+export interface PickerItem extends React.ComponentClass<PickerItemProperties> {
 }
 
 export interface PickerPropertiesIOS extends ViewProperties, React.Props<PickerStatic> {
@@ -2697,7 +2699,7 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
  */
 export interface PickerStatic extends React.ComponentClass<PickerProperties> {
 
-        /**
+    /**
      * On Android, display the options in a dialog.
      */
     MODE_DIALOG: string
@@ -2706,7 +2708,7 @@ export interface PickerStatic extends React.ComponentClass<PickerProperties> {
      */
     MODE_DROPDOWN: string
 
-    Item?: PickerItemStatic
+    Item: PickerItem
 }
 
 /**
@@ -3909,11 +3911,17 @@ export interface TouchableWithoutFeedbackIOSProperties {
  */
 export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeedbackAndroidProperties, TouchableWithoutFeedbackIOSProperties {
 
+    /**
+     * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
+     * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
+     */
+    accessibilityLabel?: string;
 
     /**
-     * Called when the touch is released, but not if cancelled (e.g. by a scroll that steals the responder lock).
+     * When true, indicates that the view is an accessibility element.
+     * By default, all the touchable elements are accessible.
      */
-    accessible?: boolean
+    accessible?: boolean;
 
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
@@ -7148,6 +7156,57 @@ export interface UIManagerStatic {
             quality ?: number,
         }
     ) => Promise<string>
+
+    /**
+     * Determines the location on screen, width, and height of the given view and
+     * returns the values via an async callback. If successful, the callback will
+     * be called with the following arguments:
+     *
+     *  - x
+     *  - y
+     *  - width
+     *  - height
+     *  - pageX
+     *  - pageY
+     *
+     * Note that these measurements are not available until after the rendering
+     * has been completed in native. If you need the measurements as soon as
+     * possible, consider using the [`onLayout`
+     * prop](docs/view.html#onlayout) instead.
+     */
+    measure(node: number, callback: MeasureOnSuccessCallback): void;
+
+    /**
+     * Determines the location of the given view in the window and returns the
+     * values via an async callback. If the React root view is embedded in
+     * another native view, this will give you the absolute coordinates. If
+     * successful, the callback will be called with the following
+     * arguments:
+     *
+     *  - x
+     *  - y
+     *  - width
+     *  - height
+     *
+     * Note that these measurements are not available until after the rendering
+     * has been completed in native.
+     */
+    measureInWindow(node: number, callback: MeasureInWindowOnSuccessCallback): void;
+
+    /**
+     * Like [`measure()`](#measure), but measures the view relative an ancestor,
+     * specified as `relativeToNativeNode`. This means that the returned x, y
+     * are relative to the origin x, y of the ancestor view.
+     *
+     * As always, to obtain a native node handle for a component, you can use
+     * `React.findNodeHandle(component)`.
+     */
+    measureLayout(
+        node: number,
+        relativeToNativeNode: number,
+        onFail: () => void, /* currently unused */
+        onSuccess: MeasureLayoutOnSuccessCallback
+    ): void;
 }
 
 export interface SwitchPropertiesIOS extends ViewProperties, React.Props<SwitchStatic> {
