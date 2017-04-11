@@ -1,6 +1,6 @@
 // Type definitions for wx-app 1.0
-// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/index.html (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: taoqf <https://github.com/taoqf> <tao_qiufeng@126.com>
+// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/index.html
+// Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* =================== USAGE ===================
 1. Create file xxx.ts
