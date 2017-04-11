@@ -1,8 +1,8 @@
 
-import {Acl} from 'virgen-acl'
+import virgen = require('virgen-acl')
 
 
-const acl = new Acl()
+const acl = new virgen.Acl()
 
 
 acl.addRole("user")
@@ -19,9 +19,7 @@ acl.deny("foo")
 acl.deny("foo", "resource", ["do stuff", "more stuff"])
 
 
-acl.query("user", "resource", "do stuff", (err, allowed) => {
-  console.log("allowed", allowed)
-})
+acl.query("user", "resource", "do stuff", (err, allowed) => {})
 
 
 const userProp = {
