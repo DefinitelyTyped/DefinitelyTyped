@@ -334,18 +334,18 @@ declare namespace Parse {
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
 
         initialize(): void;
-        add(attr: string, item: any): Object;
+        add(attr: string, item: any): this;
         addUnique(attr: string, item: any): any;
-        change(options: any): Object;
+        change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
-        clone(): Object;
-        destroy(options?: Object.DestroyOptions): Promise<Object>;
+        clone(): this;
+        destroy(options?: Object.DestroyOptions): Promise<this>;
         dirty(attr: String): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
-        fetch(options?: Object.FetchOptions): Promise<Object>;
+        fetch(options?: Object.FetchOptions): Promise<this>;
         get(attr: string): any | undefined;
         getACL(): ACL | undefined;
         has(attr: string): boolean;
@@ -355,10 +355,10 @@ declare namespace Parse {
         op(attr: string): any;
         previous(attr: string): any;
         previousAttributes(): any;
-        relation(attr: string): Relation<Object, Object>;
+        relation(attr: string): Relation<this, Object>;
         remove(attr: string, item: any): any;
-        save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<Object>;
-        save(key: string, value: any, options?: Object.SaveOptions): Promise<Object>;
+        save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
+        save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         unset(attr: string, options?: any): any;
