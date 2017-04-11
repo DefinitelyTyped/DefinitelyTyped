@@ -17,7 +17,7 @@ export class TBinaryProtocol {}
  * Server side
  */
 export interface ThriftServer {
-     listen(port: number): any;
+    listen(port: number): any;
 }
 
 export function createServer(generatedService: any, serviceMethods: any): ThriftServer;
@@ -25,10 +25,16 @@ export function createServer(generatedService: any, serviceMethods: any): Thrift
 /**
  * Client side
  */
+export type ConnexionEvent = 'open' | 'message' | 'close' | 'error';
+
 export interface ClientConnectionParams {
-     transport: TJSONProtocol | TBinaryProtocol;
-     protocol: TBufferedTransport | TXHRTransport;
+    transport: TJSONProtocol | TBinaryProtocol;
+    protocol: TBufferedTransport | TXHRTransport;
 }
 
-export function createConnection(host: string, port: number, params: ClientConnectionParams): {};
+export interface ClientConnection {
+    on(event: ConnexionEvent, callback: (...args: any[]) => void): void;
+}
+
+export function createConnection(host: string, port: number, params: ClientConnectionParams): ClientConnection;
 export function createClient(generatedService: any, connection: {}): any;
