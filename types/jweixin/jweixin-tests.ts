@@ -1,4 +1,4 @@
-import { scanQRCode } from 'wx';
+import { scanQRCode } from 'jweixin';
 
 scanQRCode({
 	needResult: 0,

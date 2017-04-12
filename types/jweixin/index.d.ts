@@ -3,7 +3,11 @@
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* =================== USAGE ===================
-2. import * as wx from 'wx';
+import * as wx from 'jweixin';
+wx.config(...);
+or
+import { config } from 'jweixin';
+config();
  =============================================== */
 
 declare namespace wx {

@@ -1,10 +1,10 @@
 // Type definitions for wx-app 1.0
-// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/index.html
+// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* =================== USAGE ===================
 1. Create file xxx.ts
-2. import {} from 'wx-app';
+2. import {} from 'weixin-app';
  =============================================== */
 
 declare namespace wx {
