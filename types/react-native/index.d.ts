@@ -19,6 +19,8 @@
 
 /// <reference types="react" />
 
+import {type} from "../doctrine/index";
+import NullableType = type.NullableType;
 export type MeasureOnSuccessCallback = (
         x: number,
         y: number,
