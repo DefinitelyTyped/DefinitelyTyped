@@ -19,6 +19,8 @@
 
 /// <reference types="react" />
 
+import {type} from "../doctrine/index";
+import NullableType = type.NullableType;
 export type MeasureOnSuccessCallback = (
         x: number,
         y: number,
@@ -3409,25 +3411,62 @@ export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<Im
     queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
 }
 
+export interface ViewToken {
+    item: any;
+    key: string;
+    index: number | null;
+    isViewable: boolean;
+    section?: any;
+}
+
+export interface ViewabilityConfig {
+    /**
+     * Minimum amount of time (in milliseconds) that an item must be physically viewable before the
+     * viewability callback will be fired. A high number means that scrolling through content without
+     * stopping will not mark the content as viewable.
+     */
+    minimumViewTime?: number;
+
+    /**
+     * Percent of viewport that must be covered for a partially occluded item to count as
+     * "viewable", 0-100. Fully visible items are always considered viewable. A value of 0 means
+     * that a single pixel in the viewport makes the item viewable, and a value of 100 means that
+     * an item must be either entirely visible or cover the entire viewport to count as viewable.
+     */
+    viewAreaCoveragePercentThreshold?: number;
+
+    /**
+     * Similar to `viewAreaPercentThreshold`, but considers the percent of the item that is visible,
+     * rather than the fraction of the viewable area it covers.
+     */
+    itemVisiblePercentThreshold?: number;
+
+    /**
+     * Nothing is considered viewable until the user scrolls or `recordInteraction` is called after
+     * render.
+     */
+    waitForInteraction?: boolean;
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
-export interface FlatListProperties extends React.Props<FlatListStatic> {
+export interface FlatListProperties<ItemT> extends React.Props<FlatListStatic<ItemT>> {
 
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentClass<any>
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     /**
      * Rendered at the bottom of all the items.
      */
-    ListFooterComponent?: React.ComponentClass<any>
+    ListFooterComponent?: React.ComponentClass<any> | null
 
     /**
      * Rendered at the top of all the items.
      */
-    ListHeaderComponent?: React.ComponentClass<any>
+    ListHeaderComponent?: React.ComponentClass<any> | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -3438,7 +3477,7 @@ export interface FlatListProperties extends React.Props<FlatListStatic> {
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
-    data?: any[]
+    data: ItemT[] | null;
 
     /**
      * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
@@ -3452,7 +3491,7 @@ export interface FlatListProperties extends React.Props<FlatListStatic> {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: (data: Array<any>, index: number) => {length: number, offset: number, index: number}
+    getItemLayout?: (data: Array<ItemT> | null, index: number) => {length: number, offset: number, index: number}
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
@@ -3464,7 +3503,7 @@ export interface FlatListProperties extends React.Props<FlatListStatic> {
      * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
      * falls back to using the index, like React does.
      */
-    keyExtractor?: (item: any, index: number) => string
+    keyExtractor?: (item: ItemT, index: number) => string
 
     legacyImplementation?: boolean
 
@@ -3477,7 +3516,7 @@ export interface FlatListProperties extends React.Props<FlatListStatic> {
     /**
      * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
      */
-    onEndReached?: (info: {distanceFromEnd: number}) => void
+    onEndReached?: ((info: {distanceFromEnd: number}) => void) | null
 
     /**
      * How far from the end (in units of visible length of the list) the bottom edge of the
@@ -3485,23 +3524,23 @@ export interface FlatListProperties extends React.Props<FlatListStatic> {
      * Thus a value of 0.5 will trigger `onEndReached` when the end of the content is
      * within half the visible length of the list.
      */
-    onEndReachedThreshold?: number
+    onEndReachedThreshold?: number | null
 
     /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
      * Make sure to also set the refreshing prop correctly.
      */
-    onRefresh?: () => void
+    onRefresh?: (() => void) | null
 
     /**
      * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
      */
-    onViewableItemsChanged?: (info: {viewableItems: Array<any>, changed: Array<any>}) => void
+    onViewableItemsChanged?: ((info: {viewableItems: Array<ViewToken>, changed: Array<ViewToken>}) => void) | null
 
     /**
      * Set this true while waiting for new data from a refresh.
      */
-    refreshing?: boolean
+    refreshing?: boolean | null
 
     /**
      * Takes an item from data and renders it into the list. Typical usage:
@@ -3516,17 +3555,17 @@ export interface FlatListProperties extends React.Props<FlatListStatic> {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: any) => React.ReactElement<any>
+    renderItem: (info: ItemT) => React.ReactElement<any> | null
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
      */
     viewabilityConfig?: any
 
-    ref?: React.Ref<FlatListStatic & ViewStatic>
+    ref?: React.Ref<FlatListStatic<ItemT> & ViewStatic>
 }
 
-export interface FlatListStatic extends React.ComponentClass<FlatListProperties> {
+export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProperties<ItemT>> {
 
     /**
      * Exports some data, e.g. for perf investigations or analytics.
@@ -3541,25 +3580,25 @@ export interface FlatListStatic extends React.ComponentClass<FlatListProperties>
     /**
      * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
      */
-    scrollToEnd:(params?: {animated?: boolean}) => void
+    scrollToEnd: (params?: {animated?: boolean}) => void
 
     /**
      * Scrolls to the item at a the specified index such that it is positioned in the viewable area
      * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToIndex:(params: {animated?: boolean, index: number, viewPosition?: number}) => void
+    scrollToIndex: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem:(params: {animated?: boolean, index: number, viewPosition?: number}) => void
+    scrollToItem: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
      */
-    scrollToOffset:(params: {animated?: boolean, offset: number}) => void
+    scrollToOffset: (params: {animated?: boolean, offset: number}) => void
 
     /**
      * Tells the list an interaction has occured, which should trigger viewability calculations,
@@ -8365,8 +8404,8 @@ export type Image = ImageStatic
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
 
-export var FlatList: FlatListStatic
-export type FlatList = FlatListStatic
+export var FlatList: FlatListStatic<any>
+export type FlatList<ItemT> = FlatListStatic<ItemT>
 
 export var LayoutAnimation: LayoutAnimationStatic
 export type LayoutAnimation = LayoutAnimationStatic
