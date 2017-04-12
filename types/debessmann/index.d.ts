@@ -10,11 +10,11 @@ export class EventId {
 
 export class Event {
     _id: EventId;
-    id: string;
-    timestamp: string;
-    payload: any;
+    timestamp?: string;
+    id?: string;
+    payload?: any;
     headers: { [key: string]: string; };
-    metrics: { [key: string]: number; };
+    metrics?: { [key: string]: number; };
 }
 
 export class DM {
