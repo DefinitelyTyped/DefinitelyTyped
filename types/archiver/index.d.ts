@@ -1,4 +1,4 @@
-// Type definitions for archiver v0.15.0
+// Type definitions for archiver v1.3.0
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by: Esri <https://github.com/archiverjs/node-archiver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,13 +35,31 @@ declare namespace archiver {
 
         directory(dirpath: string, destpath: nameInterface | string): void;
         directory(dirpath: string, destpath: nameInterface | string, data: any | Function): void;
+        
+        file(filepath: string, data: EntryData): void;
+        glob(pattern: string, options: any, data: EntryData): void;
 
         bulk(mappings: any): void;
         finalize(): void;
     }
 
     export interface Options {
-
+        statConcurrency?: number;
+    }
+    
+    export interface EntryData {
+        name: string;
+        date?: string | Date;
+        mode?: number;
+        prefix?: string;
+        stats?: FS.Stats;
+    }
+    
+    export interface ZipEntryData extends EntryData {
+        store?: boolean;
+    }
+    
+    export interface TarEntryData extends EntryData {
     }
 }
 
