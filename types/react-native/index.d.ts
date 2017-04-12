@@ -3410,6 +3410,166 @@ export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<Im
 }
 
 /**
+ * @see https://facebook.github.io/react-native/docs/flatlist.html#props
+ */
+export interface FlatListProperties extends React.Props<FlatListStatic> {
+
+    /**
+     * Rendered in between each item, but not at the top or bottom
+     */
+    ItemSeparatorComponent?: React.ComponentClass<any>
+
+    /**
+     * Rendered at the bottom of all the items.
+     */
+    ListFooterComponent?: React.ComponentClass<any>
+
+    /**
+     * Rendered at the top of all the items.
+     */
+    ListHeaderComponent?: React.ComponentClass<any>
+
+    /**
+     * Optional custom style for multi-item rows generated when numColumns > 1
+     */
+    columnWrapperStyle?: ViewStyle
+
+    /**
+     * For simplicity, data is just a plain array. If you want to use something else,
+     * like an immutable list, use the underlying VirtualizedList directly.
+     */
+    data?: any[]
+
+    /**
+     * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
+     * content if you know the height of items a priori. getItemLayout is the most efficient,
+     * and is easy to use if you have fixed height items, for example:
+     * ```
+     * getItemLayout={(data, index) => (
+     *   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+     * )}
+     * ```
+     * Remember to include separator length (height or width) in your offset calculation if you specify
+     * `ItemSeparatorComponent`.
+     */
+    getItemLayout?: (data: Array<any>, index: number) => {length: number, offset: number, index: number}
+
+    /**
+     * If true, renders items next to each other horizontally instead of stacked vertically.
+     */
+    horizontal?: boolean
+
+    /**
+     * Used to extract a unique key for a given item at the specified index. Key is used for caching
+     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
+     * falls back to using the index, like React does.
+     */
+    keyExtractor?: (item: any, index: number) => string
+
+    legacyImplementation?: boolean
+
+    /**
+     * Multiple columns can only be rendered with `horizontal={false}` and will zig-zag like a `flexWrap` layout.
+     * Items should all be the same height - masonry layouts are not supported.
+     */
+    numColumns?: number
+
+    /**
+     * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
+     */
+    onEndReached?: (info: {distanceFromEnd: number}) => void
+
+    /**
+     * How far from the end (in units of visible length of the list) the bottom edge of the
+     * list must be from the end of the content to trigger the `onEndReached` callback.
+     * Thus a value of 0.5 will trigger `onEndReached` when the end of the content is
+     * within half the visible length of the list.
+     */
+    onEndReachedThreshold?: number
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
+     * Make sure to also set the refreshing prop correctly.
+     */
+    onRefresh?: () => void
+
+    /**
+     * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
+     */
+    onViewableItemsChanged?: (info: {viewableItems: Array<any>, changed: Array<any>}) => void
+
+    /**
+     * Set this true while waiting for new data from a refresh.
+     */
+    refreshing?: boolean
+
+    /**
+     * Takes an item from data and renders it into the list. Typical usage:
+     * ```
+     * _renderItem = ({item}) => (
+     *   <TouchableOpacity onPress={() => this._onPress(item)}>
+     *     <Text>{item.title}}</Text>
+     *   <TouchableOpacity/>
+     * );
+     * ...
+     * <FlatList data={[{title: 'Title Text', key: 'item1'}]} renderItem={this._renderItem} />
+     * ```
+     * Provides additional metadata like `index` if you need it.
+     */
+    renderItem: (info: any) => React.ReactElement<any>
+
+    /**
+     * See `ViewabilityHelper` for flow type and further documentation.
+     */
+    viewabilityConfig?: any
+
+    ref?: React.Ref<FlatListStatic & ViewStatic>
+}
+
+export interface FlatListStatic extends React.ComponentClass<FlatListProperties> {
+
+    /**
+     * Exports some data, e.g. for perf investigations or analytics.
+     */
+    getMetrics: () => {
+        contentLength: number,
+        totalRows: number,
+        renderedRows: number,
+        visibleRows: number,
+    }
+
+    /**
+     * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
+     */
+    scrollToEnd:(params?: {animated?: boolean}) => void
+
+    /**
+     * Scrolls to the item at a the specified index such that it is positioned in the viewable area
+     * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
+     * May be janky without `getItemLayout` prop.
+     */
+    scrollToIndex:(params: {animated?: boolean, index: number, viewPosition?: number}) => void
+
+    /**
+     * Requires linear scan through data - use `scrollToIndex` instead if possible.
+     * May be janky without `getItemLayout` prop.
+     */
+    scrollToItem:(params: {animated?: boolean, index: number, viewPosition?: number}) => void
+
+    /**
+     * Scroll to a specific content pixel offset, like a normal `ScrollView`.
+     */
+    scrollToOffset:(params: {animated?: boolean, offset: number}) => void
+
+    /**
+     * Tells the list an interaction has occured, which should trigger viewability calculations,
+     * e.g. if waitForInteractions is true and the user has not scrolled. This is typically called
+     * by taps on items or by navigation actions.
+     */
+    recordInteraction: () => void
+}
+
+/**
  * @see https://facebook.github.io/react-native/docs/listview.html#props
  */
 export interface ListViewProperties extends ScrollViewProperties, React.Props<ListViewStatic> {
@@ -8204,6 +8364,9 @@ export type Image = ImageStatic
 
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
+
+export var FlatList: FlatListStatic
+export type FlatList = FlatListStatic
 
 export var LayoutAnimation: LayoutAnimationStatic
 export type LayoutAnimation = LayoutAnimationStatic
