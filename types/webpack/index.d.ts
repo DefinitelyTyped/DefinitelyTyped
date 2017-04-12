@@ -265,6 +265,11 @@ declare namespace webpack {
         cachePredicate?(data: { path: string, request: string }): boolean;
 
         /**
+         * A list of additional resolve plugins which should be applied.
+         */
+        plugins?: ResolvePlugin[];
+
+        /**
          * Whether to resolve symlinks to their symlinked location.
          *
          * Defaults to `true`
@@ -592,6 +597,10 @@ declare namespace webpack {
 
     abstract class Plugin implements Tapable.Plugin {
         apply(compiler: Compiler): void;
+    }
+
+    abstract class ResolvePlugin implements Tapable.Plugin {
+        apply(resolver: any /* EnhancedResolve.Resolver */): void;
     }
 
     abstract class Stats {
