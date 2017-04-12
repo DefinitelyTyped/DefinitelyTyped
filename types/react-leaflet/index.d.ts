@@ -1,8 +1,8 @@
-// Type definitions for react-leaflet 1.0
+// Type definitions for react-leaflet 1.1
 // Project: https://github.com/PaulLeCam/react-leaflet
-// Definitions by: Dave Leaver <https://github.com/danzel>
+// Definitions by: Dave Leaver <https://github.com/danzel>, David Schneider <https://github.com/davschne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import * as Leaflet from 'leaflet';
 import * as React from 'react';
