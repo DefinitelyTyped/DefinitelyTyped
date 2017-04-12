@@ -699,7 +699,7 @@ export namespace ui {
     create(settings: any): Control;
   }
 
-  export class Control {
+  class Control {
     constructor();
 
     $el: JQuery;
@@ -836,7 +836,7 @@ export namespace dom {
     uniqueId(prefix?: string): string;
   }
 
-  export class DOMUtils implements DOMUtils {
+  class DOMUtils implements DOMUtils {
     constructor(doc: Document, settings?: {});
   }
 
@@ -954,7 +954,7 @@ export namespace dom {
     wrapInner(content: string): DomQuery;
   }
 
-  export class DomQuery implements DomQuery {
+  class DomQuery implements DomQuery {
     constructor(selector?: string, context?: Document);
   }
 
@@ -1022,7 +1022,7 @@ export namespace dom {
     setRng(rng: Range, forward?: boolean): void;
   }
 
-  export class Selection implements Selection {
+  class Selection implements Selection {
     constructor(dom: DOMUtils, win: Window, editor: Editor, serializer: Serializer);
   }
 
@@ -1040,7 +1040,7 @@ export namespace dom {
     setRules(rules: string): void;
   }
 
-  export class Serializer implements Serializer {
+  class Serializer implements Serializer {
     constructor(settings: {}, editor?: Editor);
   }
 
@@ -1086,7 +1086,7 @@ export namespace html {
     parse(html: string, args?: {}): html.Node;
   }
 
-  export class DomParser implements DomParser {
+  class DomParser implements DomParser {
     constructor(settings: {}, schema: html.Schema);
   }
 
@@ -1132,7 +1132,7 @@ export namespace html {
     wrap(wrapperNode: html.Node): html.Node;
   }
 
-  export class Node implements Node {
+  class Node implements Node {
     constructor(name: string, type: number);
   }
 
@@ -1140,7 +1140,7 @@ export namespace html {
     parse(html: string): void;
   }
 
-  export class SaxParser implements SaxParser {
+  class SaxParser implements SaxParser {
     constructor(settings: {}, schema: html.Schema);
   }
 
@@ -1188,7 +1188,7 @@ export namespace html {
     setValidElements(valid_elements: string): void;
   }
 
-  export class Schema implements Schema {
+  class Schema implements Schema {
     constructor(settings: {});
   }
 
@@ -1196,7 +1196,7 @@ export namespace html {
     serialize(node: html.Node): string;
   }
 
-  export class Serializer implements Serializer {
+  class Serializer implements Serializer {
     constructor(settings: {}, schema: html.Schema);
   }
 
@@ -1242,7 +1242,7 @@ export namespace util {
     toRgb(): {};
   }
 
-  export class Color implements Color {
+  class Color implements Color {
     constructor(value: string | {});
   }
 
@@ -1316,7 +1316,7 @@ export namespace util {
     setItem(key: string, value: string): void;
   }
 
-  export class Observable {
+  class Observable {
     fire(name: string, args?: {}, bubble?: boolean): {};
 
     hasEventListeners(name: string): boolean;
@@ -1374,7 +1374,7 @@ export namespace util {
     toRelative(uri: string): string;
   }
 
-  export class URI implements URI {
+  class URI implements URI {
     constructor(url: string, settings?: {});
   }
 
