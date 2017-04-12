@@ -577,7 +577,18 @@ configuration = {
     }
 };
 
+class TestResolvePlugin implements webpack.ResolvePlugin {
+    apply(resolver: any) {
+        resolver.plugin('before-existing-directory', (request: any, callback: any) => {
+            callback();
+        });
+    }
+}
+
 const resolve: webpack.Resolve = {
+    plugins: [
+        new TestResolvePlugin()
+    ],
     symlinks: false,
     cachePredicate: 'boo' // why does this test _not_ fail!?
 };
