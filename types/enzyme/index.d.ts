@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 2.7.1
+// Type definitions for Enzyme 2.7
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
