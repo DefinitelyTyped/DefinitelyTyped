@@ -132,6 +132,19 @@ export class Pane<P extends PaneProps, S extends PaneState> extends React.Compon
     getPane(name: string): HTMLElement | undefined;
 }
 
+export interface MapLayerProps extends MapComponentProps {
+    children?: Children;
+}
+export interface LayerContainer {
+    addLayer(layer: Leaflet.Layer): this;
+    removeLayer(layer: number | Leaflet.Layer): this;
+}
+export class MapLayer<P extends MapLayerProps, E extends Leaflet.Class> extends MapComponent<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+    readonly layerContainer: LayerContainer | Leaflet.Map;
+}
+
 // There is no Layer class, these are the base props for all layers on the map
 interface LayerProps extends LeafletInteractionEvents {
     onadd?(event: Leaflet.Event): void;
