@@ -257,7 +257,7 @@ declare namespace TestUtils {
      * @returns {T} 
      */
     export function isCompositeComponentWithType<T extends Component<any, any>, C extends ComponentClass<any>>(
-        instance: ReactInstance, type: ClassType<any, T, C>): T;
+        instance: ReactInstance, type: ClassType<any, T, C>): boolean;
 
     /**
      * Traverse all components in `tree` and accumulate all components where
