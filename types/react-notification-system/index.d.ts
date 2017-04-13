@@ -68,9 +68,8 @@ declare namespace NotificationSystem {
         ActionWrapper?: WrapperStyle;
     }
 
-    export interface Attributes {
+    export interface Attributes extends React.ClassAttributes<System> {
         noAnimation?: boolean;
-        ref?: string | ((instance: System) => any);
         style?: Style | boolean;
         allowHTML?: boolean;
     }
