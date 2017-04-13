@@ -49,6 +49,7 @@ function test_geoChart() {
         sizeAxis: { minValue: 0, maxValue: 100 },
         region: '155', // Western Europe
         displayMode: 'markers',
+        defaultColor: '#ffffff',
         colorAxis: {colors: ['#e7711c', '#4374e0']} // orange to blue
     };
 
