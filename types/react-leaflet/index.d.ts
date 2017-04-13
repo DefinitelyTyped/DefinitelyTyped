@@ -212,10 +212,13 @@ export class ImageOverlay<P extends ImageOverlayProps, E extends Leaflet.ImageOv
     getChildContext(): { popupContainer: E };
 }
 
-interface WMSTileLayerProps extends TileLayerProps {
+export interface WMSTileLayerProps extends GridLayerProps, Leaflet.WMSOptions {
     url: string;
+    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
+    // Leaflet.WMSOptions, so we hack it here to allow any type.
+    crossOrigin?: any;
 }
-export const WMSTileLayer: React.ComponentClass<WMSTileLayerProps>;
+export class WMSTileLayer<P extends WMSTileLayerProps, E extends Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
 
 // Path is an abstract class
 // tslint:disable-next-line:no-empty-interface
