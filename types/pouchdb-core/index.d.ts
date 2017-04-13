@@ -1,6 +1,6 @@
 // Type definitions for pouchdb-core v6.1.2
 // Project: https://pouchdb.com/
-// Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>, Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
+// Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -55,14 +55,14 @@ declare namespace PouchDB {
             rev: RevisionId;
             status: Availability;
         }
-        interface RevisionDiffList {
-            [documentId : string]: string[];
+        interface RevisionDiffOptions {
+            [DocumentId : string]: string[];
         }
         interface RevisionDiff {
             [change : string]: string[];
         }
         interface RevisionDiffResponse {
-            [documentId : string]: RevisionDiff
+            [DocumentId : string]: RevisionDiff
         }
 
         interface IdMeta {
@@ -728,11 +728,11 @@ declare namespace PouchDB {
         bulkGet(options: Core.BulkGetOptions): Promise<any>;
 
         /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
-        revsDiff(diff : Core.RevisionDiffList,
+        revsDiff(diff : Core.RevisionDiffOptions,
             callback: Core.Callback<Core.Error, Core.RevisionDiffResponse>): void;
 
         /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
-        revsDiff(diff : Core.RevisionDiffList): Promise<Core.RevisionDiffResponse>;
+        revsDiff(diff : Core.RevisionDiffOptions): Promise<Core.RevisionDiffResponse>;
     }
 }
 
