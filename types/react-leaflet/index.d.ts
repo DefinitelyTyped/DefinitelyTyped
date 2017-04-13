@@ -304,11 +304,11 @@ export namespace LayersControl {
     export class Overlay<P extends ControlledLayerProps> extends ControlledLayer<P> { }
 }
 
-interface MapControlProps {
-    position?: Leaflet.ControlPosition;
-}
-export class MapControl<T extends MapControlProps> extends React.Component<T, any> {
-    leafletElement?: L.Control;
+export type MapControlProps = Leaflet.ControlOptions;
+export class MapControl<P extends MapControlProps, E extends Leaflet.Control> extends React.Component<P, any> {
+    leafletElement: E;
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
 interface ScaleControlProps {
