@@ -245,10 +245,10 @@ export interface PolylineProps extends PathProps {
 }
 export class Polyline<P extends PolylineProps, E extends Leaflet.Polyline> extends Path<P, E> { }
 
-interface PolygonProps extends PathProps {
+export interface PolygonProps extends PathProps {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
 }
-export const Polygon: React.ComponentClass<PolygonProps>;
+export class Polygon<P extends PolygonProps, E extends Leaflet.Polygon> extends Path<P, E> { }
 
 interface RectangleProps extends PathProps {
     bounds: Leaflet.LatLngBoundsExpression;
