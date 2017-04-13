@@ -159,12 +159,97 @@ interface LayerProps extends LeafletInteractionEvents {
     ontooltipclose?(event: Leaflet.TooltipEvent): void;
 }
 
+export interface GridLayerProps extends MapLayerProps, Leaflet.GridLayerOptions {
+    opacity?: number;
+    zIndex?: number;
+}
+export class GridLayer<P extends GridLayerProps, E extends Leaflet.GridLayer> extends MapLayer<P, E> {}
+
+export interface TileLayerProps extends GridLayerProps, Leaflet.TileLayerOptions {
+    url: string;
+    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
+    // Leaflet.TileLayerOptions, so we hack it here to allow any type.
+    crossOrigin?: any;
+}
+export class TileLayer<P extends TileLayerProps, E extends Leaflet.TileLayer> extends GridLayer<P, E> { }
+
+export interface WMSTileLayerProps extends GridLayerProps, Leaflet.WMSOptions {
+    url: string;
+    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
+    // Leaflet.WMSOptions, so we hack it here to allow any type.
+    crossOrigin?: any;
+}
+export class WMSTileLayer<P extends WMSTileLayerProps, E extends Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
+
+export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOptions {
+    bounds: Leaflet.LatLngBoundsExpression;
+    url: string;
+    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
+    // Leaflet.ImageOverlayOptions, so we hack it here to allow any type.
+    crossOrigin?: any;
+}
+export class ImageOverlay<P extends ImageOverlayProps, E extends Leaflet.ImageOverlay> extends MapLayer<P, E> {
+    getChildContext(): { popupContainer: E };
+}
+
+export interface LayerGroupProps extends MapLayerProps { }
+export class LayerGroup<P extends LayerGroupProps, E extends Leaflet.LayerGroup> extends MapLayer<P, E> {
+    getChildContext(): { layerContainer: E };
+}
+
 export interface MarkerProps extends MapLayerProps, Leaflet.MarkerOptions {
     position: Leaflet.LatLngExpression;
 }
 export class Marker<P extends MarkerProps, E extends Leaflet.Marker> extends MapLayer<P, E> {
     getChildContext(): { popupContainer: E };
 }
+
+export interface PathProps extends MapLayerProps, Leaflet.PathOptions { }
+export abstract class Path<P extends PathProps, E> extends MapLayer<P, E> {
+    getChildContext(): { popupContainer: E };
+    getPathOptions(props: P): Leaflet.PathOptions;
+    setStyle(options: React.CSSProperties): void;
+    setStyleIfChanged(fromProps: P, toProps: P): void;
+}
+
+export interface CircleProps extends PathProps {
+    center: Leaflet.LatLngExpression;
+    radius?: number;
+}
+export class Circle<P extends CircleProps, E extends Leaflet.Circle> extends Path<P, E> { }
+
+export interface CircleMarkerProps extends PathProps {
+    center: Leaflet.LatLngExpression;
+    radius?: number;
+}
+export class CircleMarker<P extends CircleMarkerProps, E extends Leaflet.CircleMarker> extends Path<P, E> { }
+
+export interface FeatureGroupProps extends PathProps { }
+export class FeatureGroup<P extends FeatureGroupProps, E extends Leaflet.FeatureGroup> extends Path<P, E> {
+    getChildContext(): { layerContainer: E, popupContainer: E };
+}
+
+export interface GeoJSONProps extends PathProps, Leaflet.GeoJSONOptions {
+    // Type of property `data` is incompatible with React.HTMLAttributes and, so we hack it here to allow any type.
+    data: any;
+    style?: Leaflet.StyleFunction;
+}
+export class GeoJSON<P extends GeoJSONProps, E extends Leaflet.GeoJSON> extends Path<P, E> { }
+
+export interface PolylineProps extends PathProps {
+    positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
+}
+export class Polyline<P extends PolylineProps, E extends Leaflet.Polyline> extends Path<P, E> { }
+
+export interface PolygonProps extends PathProps {
+    positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
+}
+export class Polygon<P extends PolygonProps, E extends Leaflet.Polygon> extends Path<P, E> { }
+
+export interface RectangleProps extends PathProps {
+    bounds: Leaflet.LatLngBoundsExpression;
+}
+export class Rectangle<P extends RectangleProps, E extends Leaflet.Rectangle> extends Path<P, E> { }
 
 export interface PopupProps extends Leaflet.PopupOptions {
     children?: Children;
@@ -187,90 +272,12 @@ export class Tooltip<P extends TooltipProps, E extends Leaflet.Tooltip> extends 
     removeTooltipContent(): void;
 }
 
-export interface GridLayerProps extends MapLayerProps, Leaflet.GridLayerOptions {
-    opacity?: number;
-    zIndex?: number;
+export type MapControlProps = Leaflet.ControlOptions;
+export class MapControl<P extends MapControlProps, E extends Leaflet.Control> extends React.Component<P, any> {
+    leafletElement: E;
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
 }
-export class GridLayer<P extends GridLayerProps, E extends Leaflet.GridLayer> extends MapLayer<P, E> {}
-
-export interface TileLayerProps extends GridLayerProps, Leaflet.TileLayerOptions {
-    url: string;
-    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
-    // Leaflet.TileLayerOptions, so we hack it here to allow any type.
-    crossOrigin?: any;
-}
-export class TileLayer<P extends TileLayerProps, E extends Leaflet.TileLayer> extends GridLayer<P, E> { }
-
-export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOptions {
-    bounds: Leaflet.LatLngBoundsExpression;
-    url: string;
-    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
-    // Leaflet.ImageOverlayOptions, so we hack it here to allow any type.
-    crossOrigin?: any;
-}
-export class ImageOverlay<P extends ImageOverlayProps, E extends Leaflet.ImageOverlay> extends MapLayer<P, E> {
-    getChildContext(): { popupContainer: E };
-}
-
-export interface WMSTileLayerProps extends GridLayerProps, Leaflet.WMSOptions {
-    url: string;
-    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
-    // Leaflet.WMSOptions, so we hack it here to allow any type.
-    crossOrigin?: any;
-}
-export class WMSTileLayer<P extends WMSTileLayerProps, E extends Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
-
-export interface PathProps extends MapLayerProps, Leaflet.PathOptions { }
-export abstract class Path<P extends PathProps, E> extends MapLayer<P, E> {
-    getChildContext(): { popupContainer: E };
-    getPathOptions(props: P): Leaflet.PathOptions;
-    setStyle(options: React.CSSProperties): void;
-    setStyleIfChanged(fromProps: P, toProps: P): void;
-}
-
-export interface CircleProps extends PathProps {
-    center: Leaflet.LatLngExpression;
-    radius?: number;
-}
-export class Circle<P extends CircleProps, E extends Leaflet.Circle> extends Path<P, E> { }
-
-export interface CircleMarkerProps extends PathProps {
-    center: Leaflet.LatLngExpression;
-    radius?: number;
-}
-export class CircleMarker<P extends CircleMarkerProps, E extends Leaflet.CircleMarker> extends Path<P, E> { }
-
-export interface PolylineProps extends PathProps {
-    positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
-}
-export class Polyline<P extends PolylineProps, E extends Leaflet.Polyline> extends Path<P, E> { }
-
-export interface PolygonProps extends PathProps {
-    positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
-}
-export class Polygon<P extends PolygonProps, E extends Leaflet.Polygon> extends Path<P, E> { }
-
-export interface RectangleProps extends PathProps {
-    bounds: Leaflet.LatLngBoundsExpression;
-}
-export class Rectangle<P extends RectangleProps, E extends Leaflet.Rectangle> extends Path<P, E> { }
-
-export interface LayerGroupProps extends MapLayerProps { }
-export class LayerGroup<P extends LayerGroupProps, E extends Leaflet.LayerGroup> extends MapLayer<P, E> {
-    getChildContext(): { layerContainer: E };
-}
-
-export interface FeatureGroupProps extends PathProps { }
-export class FeatureGroup<P extends FeatureGroupProps, E extends Leaflet.FeatureGroup> extends Path<P, E> {
-    getChildContext(): { layerContainer: E, popupContainer: E };
-}
-
-export interface GeoJSONProps extends PathProps, Leaflet.GeoJSONOptions {
-    // Type of property `data` is incompatible with React.HTMLAttributes and, so we hack it here to allow any type.
-    data: any;
-    style?: Leaflet.StyleFunction;
-}
-export class GeoJSON<P extends GeoJSONProps, E extends Leaflet.GeoJSON> extends Path<P, E> { }
 
 export interface AttributionControlProps extends MapControlProps, Leaflet.Control.AttributionOptions { }
 export class AttributionControl<P extends AttributionControlProps, E extends Leaflet.Control.Attribution> extends MapControl<P, E> { }
@@ -302,13 +309,6 @@ export namespace LayersControl {
     }
     export class BaseLayer<P extends ControlledLayerProps> extends ControlledLayer<P> { }
     export class Overlay<P extends ControlledLayerProps> extends ControlledLayer<P> { }
-}
-
-export type MapControlProps = Leaflet.ControlOptions;
-export class MapControl<P extends MapControlProps, E extends Leaflet.Control> extends React.Component<P, any> {
-    leafletElement: E;
-    createLeafletElement(props: P): E;
-    updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
 export interface ScaleControlProps extends MapControlProps, Leaflet.Control.ScaleOptions { }
