@@ -314,7 +314,5 @@ export class MapControl<P extends MapControlProps, E extends Leaflet.Control> ex
 export interface ScaleControlProps extends MapControlProps, Leaflet.Control.ScaleOptions { }
 export class ScaleControl<P extends ScaleControlProps, E extends Leaflet.Control.Scale> extends MapControl<P, E> { }
 
-interface ZoomControlProps {
-    position: Leaflet.ControlPosition;
-}
-export const ZoomControl: React.ComponentClass<ZoomControlProps>;
+export interface ZoomControlProps extends MapControlProps, Leaflet.Control.ZoomOptions {}
+export class ZoomControl<P extends ZoomControlProps, E extends Leaflet.Control.Zoom> extends MapControl<P, E> { }
