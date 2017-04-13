@@ -1,11 +1,11 @@
-import React = require('react');
-import NotificationSystem = require('react-notification-system');
-
+import * as React from 'react';
+import * as NotificationSystem from 'react-notification-system';
 
 class MyComponent extends React.Component<any, any> {
     private notificationSystem: NotificationSystem.System = null;
 
     private notification: NotificationSystem.Notification = {
+        title: 'Notification title',
         message: 'Notification message',
         level: 'success',
         action: {
@@ -26,7 +26,7 @@ class MyComponent extends React.Component<any, any> {
 
     render() {
 
-        var style = {
+        const style: NotificationSystem.Style = {
             NotificationItem: { // Override the notification item
                 DefaultStyle: { // Applied to every notification, regardless of the notification level
                     margin: '10px 5px 2px 1px'
@@ -38,8 +38,9 @@ class MyComponent extends React.Component<any, any> {
             }
         };
 
-        var attributes: NotificationSystem.Attributes = {
+        const attributes: NotificationSystem.Attributes = {
             style: {
+                ...style,
                 Containers: {
                     DefaultStyle: {
                         margin: '10px 5px 2px 1px'
@@ -53,10 +54,12 @@ class MyComponent extends React.Component<any, any> {
             }
         };
 
-        var ref = (instance: NotificationSystem.System) => {
+        const ref = (instance: NotificationSystem.System) => {
             this.notificationSystem = instance
         }
 
-        return React.createElement(NotificationSystem, { title: "NotificationTitile", style: style, ref: ref } as NotificationSystem.Attributes);
+        return (
+            <NotificationSystem style={style} ref={ref}/>
+        )
     }
 }
