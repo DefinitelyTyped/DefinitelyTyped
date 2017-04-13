@@ -240,10 +240,10 @@ export interface CircleMarkerProps extends PathProps {
 }
 export class CircleMarker<P extends CircleMarkerProps, E extends Leaflet.CircleMarker> extends Path<P, E> { }
 
-interface PolylineProps extends PathProps {
+export interface PolylineProps extends PathProps {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
 }
-export const Polyline: React.ComponentClass<PolylineProps>;
+export class Polyline<P extends PolylineProps, E extends Leaflet.Polyline> extends Path<P, E> { }
 
 interface PolygonProps extends PathProps {
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
