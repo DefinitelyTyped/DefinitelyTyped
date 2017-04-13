@@ -2,10 +2,10 @@
     "files": [
         "index.d.ts",
         "react-dom-tests.ts",
-        "server.d.ts",
-        "server-tests.ts",
-        "test-utils.d.ts",
-        "test-utils-tests.ts"
+        "./server/index.d.ts",
+        "./server/server-tests.ts",
+        "./test-utils/index.d.ts",
+        "./test-utils/test-utils-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
