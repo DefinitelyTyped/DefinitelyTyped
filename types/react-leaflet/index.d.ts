@@ -88,21 +88,31 @@ export class MapComponent<P extends MapComponentProps, E extends Leaflet.Class> 
     getOptions(props: P): P;
 }
 
-interface MapProps extends React.HTMLProps<Map>,
-    LeafletLayerEvents, LeafletMapStateChangeEvents, LeafletPopupEvents, LeafletTooltipEvents, LeafletLocationEvents, LeafletInteractionEvents, LeafletOtherEvents, Leaflet.MapOptions {
+export interface MapProps extends MapComponentProps, Leaflet.MapOptions {
     animate?: boolean;
     bounds?: Leaflet.LatLngBoundsExpression;
     boundsOptions?: Leaflet.FitBoundsOptions;
+    center?: Leaflet.LatLngExpression;
+    children?: Children;
     className?: string;
+    id?: string,
+    maxBounds?: Leaflet.LatLngBoundsExpression;
+    maxZoom?: number;
+    minZoom?: number;
     style?: React.CSSProperties;
     useFlyTo?: boolean;
-
-    id?: string;
+    zoom?: number;
 }
-type Map = React.ComponentClass<MapProps>;
-export const Map: Map;
-interface MapInstance extends React.Component<MapProps, {}> {
-    leafletElement: Leaflet.Map;
+
+export class Map<P extends MapProps, E extends Leaflet.Map> extends MapComponent<P, E> {
+    className?: string;
+    container: HTMLDivElement;
+    getChildContext(): { layerContainer: E, map: E };
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+    bindContainer(container: HTMLDivElement): void;
+    shouldUpdateCenter(next: Leaflet.LatLngExpression, prev: Leaflet.LatLngExpression): boolean;
+    shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;
 }
 
 interface PaneProps {
