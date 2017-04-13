@@ -272,10 +272,8 @@ export interface GeoJSONProps extends PathProps, Leaflet.GeoJSONOptions {
 }
 export class GeoJSON<P extends GeoJSONProps, E extends Leaflet.GeoJSON> extends Path<P, E> { }
 
-interface AttributionControlProps {
-    position?: Leaflet.ControlPosition;
-}
-export const AttributionControl: React.ComponentClass<AttributionControlProps>;
+export interface AttributionControlProps extends MapControlProps, Leaflet.Control.AttributionOptions { }
+export class AttributionControl<P extends AttributionControlProps, E extends Leaflet.Control.Attribution> extends MapControl<P, E> { }
 
 interface LayersControlProps {
     position?: Leaflet.ControlPosition;
