@@ -115,12 +115,22 @@ export class Map<P extends MapProps, E extends Leaflet.Map> extends MapComponent
     shouldUpdateBounds(next: Leaflet.LatLngBoundsExpression, prev: Leaflet.LatLngBoundsExpression): boolean;
 }
 
-interface PaneProps {
+export interface PaneProps extends MapComponentProps {
     name?: string;
     style?: React.CSSProperties;
     className?: string;
 }
-export const Pane: React.ComponentClass<PaneProps>;
+export interface PaneState {
+    name?: string;
+}
+export class Pane<P extends PaneProps, S extends PaneState> extends React.Component<P, S> {
+    getChildContext(): { pane: string };
+    createPane(props: P): void;
+    removePane(): void;
+    setStyle(arg: { style?: string, className?: string }): void;
+    getParentPane(): HTMLElement | undefined;
+    getPane(name: string): HTMLElement | undefined;
+}
 
 // There is no Layer class, these are the base props for all layers on the map
 interface LayerProps extends LeafletInteractionEvents {
