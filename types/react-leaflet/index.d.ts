@@ -77,6 +77,17 @@ type LeafletEvents = LeafletLayerEvents
     & LeafletOtherEvents
     & LeafletDraggingEvents;
 
+type MapComponentProps = React.HTMLProps<MapProps> & LeafletEvents;
+
+export class MapComponent<P extends MapComponentProps, E extends Leaflet.Class> extends React.Component<P, {}> {
+    _leafletEvents: LeafletEvents;
+    leafletElement: E;
+    extractLeafletEvents(props: P): LeafletEvents;
+    bindLeafletEvents(next: LeafletEvents, prev: LeafletEvents): LeafletEvents;
+    fireLeafletEvent(type: string, data: any): void;
+    getOptions(props: P): P;
+}
+
 interface MapProps extends React.HTMLProps<Map>,
     LeafletLayerEvents, LeafletMapStateChangeEvents, LeafletPopupEvents, LeafletTooltipEvents, LeafletLocationEvents, LeafletInteractionEvents, LeafletOtherEvents, Leaflet.MapOptions {
     animate?: boolean;
