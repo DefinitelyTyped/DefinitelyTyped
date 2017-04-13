@@ -220,9 +220,12 @@ export interface WMSTileLayerProps extends GridLayerProps, Leaflet.WMSOptions {
 }
 export class WMSTileLayer<P extends WMSTileLayerProps, E extends Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
 
-// Path is an abstract class
-// tslint:disable-next-line:no-empty-interface
-interface PathProps extends LeafletLayerEvents, LeafletInteractionEvents, Leaflet.PathOptions {
+export interface PathProps extends MapLayerProps, Leaflet.PathOptions { }
+export abstract class Path<P extends PathProps, E> extends MapLayer<P, E> {
+    getChildContext(): { popupContainer: E };
+    getPathOptions(props: P): Leaflet.PathOptions;
+    setStyle(options: React.CSSProperties): void;
+    setStyleIfChanged(fromProps: P, toProps: P): void;
 }
 
 interface CircleProps extends PathProps {
