@@ -21,7 +21,6 @@ class MyComponent extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        this.notificationSystem = this.refs['notificationSystem'] as NotificationSystem.System;
         this.addNotification();
     }
 
@@ -54,6 +53,10 @@ class MyComponent extends React.Component<any, any> {
             }
         };
 
-        return React.createElement(NotificationSystem, { title: "NotificationTitile", style: style, } as NotificationSystem.Attributes);
+        var ref = (instance: NotificationSystem.System) => {
+            this.notificationSystem = instance
+        }
+
+        return React.createElement(NotificationSystem, { title: "NotificationTitile", style: style, ref: ref } as NotificationSystem.Attributes);
     }
 }
