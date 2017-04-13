@@ -8,7 +8,7 @@ import * as React from "react";
 
 interface HelmetProps {
     base?: any;
-    bodyAttributes: Object;
+    bodyAttributes?: Object;
     defaultTitle?: string;
     encodeSpecialCharacters?: boolean;
     htmlAttributes?: any;
@@ -19,7 +19,7 @@ interface HelmetProps {
     script?: Array<any>;
     style?: Array<any>;
     title?: string;
-    titleAttributes: Object;
+    titleAttributes?: Object;
     titleTemplate?: string;
 }
 
