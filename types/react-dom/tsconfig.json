@@ -1,7 +1,10 @@
 {
     "files": [
         "index.d.ts",
-        "server.d.ts"
+        "server.d.ts",
+        "./test-utils/index.d.ts",
+        "./test-utils/test-utils-tests.tsx",
+        "react-dom-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -9,6 +12,7 @@
             "es6",
             "dom"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
