@@ -228,11 +228,11 @@ export abstract class Path<P extends PathProps, E> extends MapLayer<P, E> {
     setStyleIfChanged(fromProps: P, toProps: P): void;
 }
 
-interface CircleProps extends PathProps {
+export interface CircleProps extends PathProps {
     center: Leaflet.LatLngExpression;
     radius?: number;
 }
-export const Circle: React.ComponentClass<CircleProps>;
+export class Circle<P extends CircleProps, E extends Leaflet.Circle> extends Path<P, E> { }
 
 interface CircleMarkerProps extends PathProps {
     center: Leaflet.LatLngExpression;
