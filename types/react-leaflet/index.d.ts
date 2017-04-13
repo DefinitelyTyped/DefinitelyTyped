@@ -177,9 +177,15 @@ export class Popup<P extends PopupProps, E extends Leaflet.Popup> extends MapCom
     removePopupContent(): void;
 }
 
-// tslint:disable-next-line:no-empty-interface
-interface TooltipProps extends LayerProps, Leaflet.TooltipOptions { }
-export const Tooltip: React.ComponentClass<TooltipProps>;
+export interface TooltipProps extends Leaflet.TooltipOptions {
+    children?: Children;
+}
+export class Tooltip<P extends TooltipProps, E extends Leaflet.Tooltip> extends MapComponent<P, E> {
+    onTooltipOpen(arg: { tooltip: E }): void;
+    onTooltipClose(arg: { tooltip: E }): void;
+    renderTooltipContent(): void;
+    removeTooltipContent(): void;
+}
 
 interface GridLayerProps extends LayerProps {
     opacity?: number;
