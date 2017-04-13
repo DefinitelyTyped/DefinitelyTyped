@@ -201,11 +201,16 @@ export interface TileLayerProps extends GridLayerProps, Leaflet.TileLayerOptions
 }
 export class TileLayer<P extends TileLayerProps, E extends Leaflet.TileLayer> extends GridLayer<P, E> { }
 
-interface ImageOverlayProps extends LayerProps, LeafletInteractionEvents {
+export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOptions {
+    bounds: Leaflet.LatLngBoundsExpression;
     url: string;
-    opacity?: string;
+    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
+    // Leaflet.ImageOverlayOptions, so we hack it here to allow any type.
+    crossOrigin?: any;
 }
-export const ImageOverlay: React.ComponentClass<ImageOverlayProps>;
+export class ImageOverlay<P extends ImageOverlayProps, E extends Leaflet.ImageOverlay> extends MapLayer<P, E> {
+    getChildContext(): { popupContainer: E };
+}
 
 interface WMSTileLayerProps extends TileLayerProps {
     url: string;
