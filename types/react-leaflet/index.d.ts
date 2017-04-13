@@ -187,18 +187,11 @@ export class Tooltip<P extends TooltipProps, E extends Leaflet.Tooltip> extends 
     removeTooltipContent(): void;
 }
 
-interface GridLayerProps extends LayerProps {
+export interface GridLayerProps extends MapLayerProps, Leaflet.GridLayerOptions {
     opacity?: number;
     zIndex?: number;
-
-    onloading?(event: Leaflet.Event): void;
-    ontileunload?(event: Leaflet.TileEvent): void;
-    ontileloadstart?(event: Leaflet.TileEvent): void;
-    ontileerror?(event: Leaflet.TileErrorEvent): void;
-    ontileload?(event: Leaflet.TileEvent): void;
-    onload?(event: Leaflet.Event): void;
 }
-export const GridLayer: React.ComponentClass<GridLayerProps>;
+export class GridLayer<P extends GridLayerProps, E extends Leaflet.GridLayer> extends MapLayer<P, E> {}
 
 interface TileLayerProps extends GridLayerProps, Leaflet.TileLayerOptions {
     url: string;
