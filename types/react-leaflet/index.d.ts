@@ -10,6 +10,8 @@ import * as React from 'react';
 // All events need to be lowercase so they don't collide with React.DOMAttributes<T>
 // which already declares things with some of the same names
 
+type Children = React.ReactNode | React.ReactNode[];
+
 interface LeafletLayerEvents {
     onbaselayerchange?(event: Leaflet.LayersControlEvent): void;
     onoverlayadd?(event: Leaflet.LayersControlEvent): void;
