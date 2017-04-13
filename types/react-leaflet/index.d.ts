@@ -255,9 +255,10 @@ export interface RectangleProps extends PathProps {
 }
 export class Rectangle<P extends RectangleProps, E extends Leaflet.Rectangle> extends Path<P, E> { }
 
-// tslint:disable-next-line:no-empty-interface
-interface LayerGroupProps extends LayerProps { }
-export const LayerGroup: React.ComponentClass<LayerGroupProps>;
+export interface LayerGroupProps extends MapLayerProps { }
+export class LayerGroup<P extends LayerGroupProps, E extends Leaflet.LayerGroup> extends MapLayer<P, E> {
+    getChildContext(): { layerContainer: E };
+}
 
 // tslint:disable-next-line:no-empty-interface
 interface FeatureGroupProps extends LayerGroupProps, Leaflet.PathOptions { }
