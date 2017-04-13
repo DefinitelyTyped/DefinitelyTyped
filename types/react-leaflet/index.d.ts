@@ -265,10 +265,12 @@ export class FeatureGroup<P extends FeatureGroupProps, E extends Leaflet.Feature
     getChildContext(): { layerContainer: E, popupContainer: E };
 }
 
-interface GeoJSONProps extends FeatureGroupProps, Leaflet.GeoJSONOptions {
-    data: GeoJSON.GeoJsonObject;
+export interface GeoJSONProps extends PathProps, Leaflet.GeoJSONOptions {
+    // Type of property `data` is incompatible with React.HTMLAttributes and, so we hack it here to allow any type.
+    data: any;
+    style?: Leaflet.StyleFunction;
 }
-export const GeoJSON: React.ComponentClass<GeoJSONProps>;
+export class GeoJSON<P extends GeoJSONProps, E extends Leaflet.GeoJSON> extends Path<P, E> { }
 
 interface AttributionControlProps {
     position?: Leaflet.ControlPosition;
