@@ -166,10 +166,16 @@ export class Marker<P extends MarkerProps, E extends Leaflet.Marker> extends Map
     getChildContext(): { popupContainer: E };
 }
 
-interface PopupProps extends LayerProps, Leaflet.PopupOptions {
+export interface PopupProps extends Leaflet.PopupOptions {
+    children?: Children;
     position?: Leaflet.LatLngExpression;
 }
-export const Popup: React.ComponentClass<PopupProps>;
+export class Popup<P extends PopupProps, E extends Leaflet.Popup> extends MapComponent<P, E> {
+    onPopupOpen(arg: { popup: E }): void;
+    onPopupClose(arg: { popup: E }): void;
+    renderPopupContent(): void;
+    removePopupContent(): void;
+}
 
 // tslint:disable-next-line:no-empty-interface
 interface TooltipProps extends LayerProps, Leaflet.TooltipOptions { }
