@@ -159,16 +159,11 @@ interface LayerProps extends LeafletInteractionEvents {
     ontooltipclose?(event: Leaflet.TooltipEvent): void;
 }
 
-interface MarkerProps extends LayerProps, LeafletDraggingEvents {
+export interface MarkerProps extends MapLayerProps, Leaflet.MarkerOptions {
     position: Leaflet.LatLngExpression;
-    draggable?: boolean;
-    icon?: Leaflet.BaseIcon;
-    zIndexOffset?: number;
-    opacity?: number;
 }
-export const Marker: React.ComponentClass<MarkerProps>;
-interface MarkerInstance extends React.Component<MarkerProps, {}> {
-    leafletElement: Leaflet.Marker;
+export class Marker<P extends MarkerProps, E extends Leaflet.Marker> extends MapLayer<P, E> {
+    getChildContext(): { popupContainer: E };
 }
 
 interface PopupProps extends LayerProps, Leaflet.PopupOptions {
