@@ -260,9 +260,10 @@ export class LayerGroup<P extends LayerGroupProps, E extends Leaflet.LayerGroup>
     getChildContext(): { layerContainer: E };
 }
 
-// tslint:disable-next-line:no-empty-interface
-interface FeatureGroupProps extends LayerGroupProps, Leaflet.PathOptions { }
-export const FeatureGroup: React.ComponentClass<FeatureGroupProps>;
+export interface FeatureGroupProps extends PathProps { }
+export class FeatureGroup<P extends FeatureGroupProps, E extends Leaflet.FeatureGroup> extends Path<P, E> {
+    getChildContext(): { layerContainer: E, popupContainer: E };
+}
 
 interface GeoJSONProps extends FeatureGroupProps, Leaflet.GeoJSONOptions {
     data: GeoJSON.GeoJsonObject;
