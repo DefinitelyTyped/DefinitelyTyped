@@ -1550,12 +1550,12 @@ declare namespace Blessed {
             setScrollPerc(perc: number): void;
             /**
              * Get the current scroll index in lines.
-            getScroll(): void; 
             */
+            getScroll(): number;
             /**
              * Get the actual height of the scrolling area.
             */
-            getScrollHeight(): void;
+            getScrollHeight(): number;
             /**
              * Get the current scroll index in percentage.
             */
