@@ -275,18 +275,33 @@ export class GeoJSON<P extends GeoJSONProps, E extends Leaflet.GeoJSON> extends 
 export interface AttributionControlProps extends MapControlProps, Leaflet.Control.AttributionOptions { }
 export class AttributionControl<P extends AttributionControlProps, E extends Leaflet.Control.Attribution> extends MapControl<P, E> { }
 
-interface LayersControlProps {
-    position?: Leaflet.ControlPosition;
+export interface LayersControlProps extends MapControlProps {
+    baseLayers?: Leaflet.Control.LayersObject;
+    children?: Children;
+    overlays?: Leaflet.Control.LayersObject;
 }
-export const LayersControl: React.ComponentClass<LayersControlProps> & { BaseLayer: LayersControl.BaseLayer, Overlay: LayersControl.Overlay };
+export class LayersControl<P extends AttributionControlProps, E extends Leaflet.Control.Layers> extends MapControl<P, E> { }
 
 export namespace LayersControl {
-    interface LayersControlLayerProps {
-        name: string;
+    interface BaseControlledLayerProps {
         checked?: boolean;
+        children?: Children;
+        removeLayer?(layer: Leaflet.Layer): void;
+        removeLayerControl?(layer: Leaflet.Layer): void;
     }
-    type BaseLayer = React.ComponentClass<LayersControlLayerProps>;
-    type Overlay = React.ComponentClass<LayersControlLayerProps>;
+    interface ControlledLayerProps extends BaseControlledLayerProps {
+        addBaseLayer?(layer: Leaflet.Layer, name: string, checked: boolean): void;
+        addOverlay?(layer: Leaflet.Layer, name: string, checked: boolean): void;
+        name: string;
+    }
+    class ControlledLayer<P extends BaseControlledLayerProps> extends React.Component<P, any> {
+        layer?: Leaflet.Layer;
+        getChildContext(): { layerContainer: LayerContainer };
+        addLayer(): void;
+        removeLayer(layer: Leaflet.Layer): void;
+    }
+    export class BaseLayer<P extends ControlledLayerProps> extends ControlledLayer<P> { }
+    export class Overlay<P extends ControlledLayerProps> extends ControlledLayer<P> { }
 }
 
 interface MapControlProps {
