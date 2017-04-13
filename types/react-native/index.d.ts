@@ -2936,12 +2936,12 @@ export interface RecyclerViewBackedScrollViewStatic extends ScrollResponderMixin
         x?: number,
         animated?: boolean
     ): void;
-                    
+
     /**
      * A helper function that scrolls to the end of the scrollview;
-     * If this is a vertical ScrollView, it scrolls to the bottom. 
+     * If this is a vertical ScrollView, it scrolls to the bottom.
      * If this is a horizontal ScrollView scrolls to the right.
-     * 
+     *
      * The options object has an animated prop, that enables the scrolling animation or not.
      * The animated prop defaults to true
      */
