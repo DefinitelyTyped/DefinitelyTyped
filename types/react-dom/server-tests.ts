@@ -6,10 +6,10 @@ declare function it(desc: string, f: () => void): void;
 
 describe('ReactDOMServer', () => {
     it('renderToString', () => {
-        const content: string = ReactDOMServer.renderToString(<div></div>);
+        const content: string = ReactDOMServer.renderToString(React.createElement('div'));
     });
 
     it('renderToStaticMarkup', () => {
-        const content: string = ReactDOMServer.renderToStaticMarkup(<div></div>);
+        const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement('div'));
     });
 });
