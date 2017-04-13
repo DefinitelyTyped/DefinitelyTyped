@@ -250,10 +250,10 @@ export interface PolygonProps extends PathProps {
 }
 export class Polygon<P extends PolygonProps, E extends Leaflet.Polygon> extends Path<P, E> { }
 
-interface RectangleProps extends PathProps {
+export interface RectangleProps extends PathProps {
     bounds: Leaflet.LatLngBoundsExpression;
 }
-export const Rectangle: React.ComponentClass<RectangleProps>;
+export class Rectangle<P extends RectangleProps, E extends Leaflet.Rectangle> extends Path<P, E> { }
 
 // tslint:disable-next-line:no-empty-interface
 interface LayerGroupProps extends LayerProps { }
