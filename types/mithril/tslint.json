@@ -7,7 +7,7 @@
         "space-before-function-paren": [false, "always"],
         "max-line-length": [false, 200],
         "no-empty-interface": false,
-        "no-redundant-modifiers": false,
+        "strict-export-declare-modifiers": false,
         "only-arrow-functions": [false],
         "prefer-for-of": false,
         "unified-signatures": false,

@@ -16,7 +16,7 @@
     "no-empty-interface": false,
     "no-internal-module": false,
     "no-padding": false,
-    "no-redundant-modifiers": false,
+    "strict-export-declare-modifiers": false,
     "no-string-throw": false,
     "no-var": false,
     "object-literal-shorthand": false,
