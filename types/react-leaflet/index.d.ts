@@ -68,6 +68,15 @@ interface LeafletDraggingEvents {
     onmoveend?(event: Leaflet.Event): void;
 }
 
+type LeafletEvents = LeafletLayerEvents
+    & LeafletMapStateChangeEvents
+    & LeafletPopupEvents
+    & LeafletTooltipEvents
+    & LeafletLocationEvents
+    & LeafletInteractionEvents
+    & LeafletOtherEvents
+    & LeafletDraggingEvents;
+
 interface MapProps extends React.HTMLProps<Map>,
     LeafletLayerEvents, LeafletMapStateChangeEvents, LeafletPopupEvents, LeafletTooltipEvents, LeafletLocationEvents, LeafletInteractionEvents, LeafletOtherEvents, Leaflet.MapOptions {
     animate?: boolean;
