@@ -253,6 +253,8 @@ export interface IRange {
 }
 
 export interface IUtils {
+    /** converts an array of arrays of JS data to a worksheet. */
+	aoa_to_sheet<T>(data:Array, opts?:any);
     /** Converts a worksheet object to an array of JSON objects */
     sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
         raw?: boolean;
