@@ -6375,6 +6375,7 @@ export interface DatePickerAndroidOpenOption {
     date?: Date | number
     minDate?: Date | number
     maxDate?: Date | number
+    mode?: 'calendar' | 'spinner' | 'default'
 }
 
 // Deduced from DatePickerAndroid.android.js
