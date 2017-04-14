@@ -97,7 +97,7 @@ numStream.collect({
 });
 
 var groupingResult = myStream.groupBy(lst => lst.name);
-var elems = groupingResult["hello"].elems;
+var length = groupingResult["hello"].length;
 groupingResult = myStream.groupingBy(lst => lst.name);
 groupingResult = myStream.groupBy("name");
 groupingResult = myStream.groupingBy("name");
