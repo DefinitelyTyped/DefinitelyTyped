@@ -5,10 +5,10 @@ import {
     ReactHTMLElement, DOMAttributes, SFC
 } from 'react';
 
-export = TestUtils;
+export = ReactTestUtils;
 
-declare namespace TestUtils {
-    export interface OptionalEventProperties {
+declare namespace ReactTestUtils {
+    interface OptionalEventProperties {
         bubbles?: boolean;
         cancelable?: boolean;
         currentTarget?: EventTarget;
@@ -23,7 +23,7 @@ declare namespace TestUtils {
         type?: string;
     }
 
-    export interface SyntheticEventData extends OptionalEventProperties {
+    interface SyntheticEventData extends OptionalEventProperties {
         altKey?: boolean;
         button?: number;
         buttons?: number;
@@ -57,13 +57,13 @@ declare namespace TestUtils {
         which?: number;
     }
 
-    export type EventSimulator = (element: Element | Component<any, any>, eventData?: SyntheticEventData) => void;
+    type EventSimulator = (element: Element | Component<any, any>, eventData?: SyntheticEventData) => void;
 
-    export interface MockedComponentClass {
+    interface MockedComponentClass {
         new (): any;
     }
 
-    export interface ShallowRenderer {
+    interface ShallowRenderer {
         /**
          * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
          *
@@ -97,41 +97,41 @@ declare namespace TestUtils {
      * Simulate an event dispatch on a DOM node with optional `eventData` event data.
      * `Simulate` has a method for every event that React understands.
      */
-    export namespace Simulate {
-        export const blur: EventSimulator;
-        export const change: EventSimulator;
-        export const click: EventSimulator;
-        export const copy: EventSimulator;
-        export const cut: EventSimulator;
-        export const doubleClick: EventSimulator;
-        export const drag: EventSimulator;
-        export const dragEnd: EventSimulator;
-        export const dragEnter: EventSimulator;
-        export const dragExit: EventSimulator;
-        export const dragLeave: EventSimulator;
-        export const dragOver: EventSimulator;
-        export const dragStart: EventSimulator;
-        export const drop: EventSimulator;
-        export const focus: EventSimulator;
-        export const input: EventSimulator;
-        export const keyDown: EventSimulator;
-        export const keyPress: EventSimulator;
-        export const keyUp: EventSimulator;
-        export const mouseDown: EventSimulator;
-        export const mouseEnter: EventSimulator;
-        export const mouseLeave: EventSimulator;
-        export const mouseMove: EventSimulator;
-        export const mouseOut: EventSimulator;
-        export const mouseOver: EventSimulator;
-        export const mouseUp: EventSimulator;
-        export const paste: EventSimulator;
-        export const scroll: EventSimulator;
-        export const submit: EventSimulator;
-        export const touchCancel: EventSimulator;
-        export const touchEnd: EventSimulator;
-        export const touchMove: EventSimulator;
-        export const touchStart: EventSimulator;
-        export const wheel: EventSimulator;
+    namespace Simulate {
+        const blur: EventSimulator;
+        const change: EventSimulator;
+        const click: EventSimulator;
+        const copy: EventSimulator;
+        const cut: EventSimulator;
+        const doubleClick: EventSimulator;
+        const drag: EventSimulator;
+        const dragEnd: EventSimulator;
+        const dragEnter: EventSimulator;
+        const dragExit: EventSimulator;
+        const dragLeave: EventSimulator;
+        const dragOver: EventSimulator;
+        const dragStart: EventSimulator;
+        const drop: EventSimulator;
+        const focus: EventSimulator;
+        const input: EventSimulator;
+        const keyDown: EventSimulator;
+        const keyPress: EventSimulator;
+        const keyUp: EventSimulator;
+        const mouseDown: EventSimulator;
+        const mouseEnter: EventSimulator;
+        const mouseLeave: EventSimulator;
+        const mouseMove: EventSimulator;
+        const mouseOut: EventSimulator;
+        const mouseOver: EventSimulator;
+        const mouseUp: EventSimulator;
+        const paste: EventSimulator;
+        const scroll: EventSimulator;
+        const submit: EventSimulator;
+        const touchCancel: EventSimulator;
+        const touchEnd: EventSimulator;
+        const touchMove: EventSimulator;
+        const touchStart: EventSimulator;
+        const wheel: EventSimulator;
     }
 
     /**
@@ -142,13 +142,13 @@ declare namespace TestUtils {
      * @param {DOMElement<any, T>} element
      * @returns {T}
      */
-    export function renderIntoDocument<T extends Element>(
+    function renderIntoDocument<T extends Element>(
         element: DOMElement<any, T>): T;
-    export function renderIntoDocument(
+    function renderIntoDocument(
         element: SFCElement<any>): void;
-    export function renderIntoDocument<T extends Component<any, any>>(
+    function renderIntoDocument<T extends Component<any, any>>(
         element: CElement<any, T>): T;
-    export function renderIntoDocument<P>(
+    function renderIntoDocument<P>(
         element: ReactElement<P>): Component<P, {}> | Element | void;
 
     /**
@@ -161,8 +161,8 @@ declare namespace TestUtils {
      * @param {string} [mockTagName]
      * @returns {typeof TestUtils}
      */
-    export function mockComponent(
-        mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
+    function mockComponent(
+        mocked: MockedComponentClass, mockTagName?: string): typeof ReactTestUtils;
 
     /**
      * Returns `true` if `element` is any React element.
@@ -171,7 +171,7 @@ declare namespace TestUtils {
      * @param {*} element
      * @returns {boolean}
      */
-    export function isElement(element: any): boolean;
+    function isElement(element: any): boolean;
 
     /**
      * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
@@ -182,7 +182,7 @@ declare namespace TestUtils {
      * @param {string} type
      * @returns {element is ReactHTMLElement<T>}
      */
-    export function isElementOfType<T extends HTMLElement>(
+    function isElementOfType<T extends HTMLElement>(
         element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
     /**
      * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
@@ -194,7 +194,7 @@ declare namespace TestUtils {
      * @param {string} type
      * @returns {element is DOMElement<P, T>}
      */
-    export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
+    function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
         element: ReactElement<any>, type: string): element is DOMElement<P, T>;
     /**
      * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
@@ -205,7 +205,7 @@ declare namespace TestUtils {
      * @param {SFC<P>} type
      * @returns {element is SFCElement<P>}
      */
-    export function isElementOfType<P>(
+    function isElementOfType<P>(
         element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
     /**
      * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
@@ -218,7 +218,7 @@ declare namespace TestUtils {
      * @param {ClassType<P, T, C>} type
      * @returns {element is CElement<P, T>}
      */
-    export function isElementOfType<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+    function isElementOfType<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
         element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
 
     /**
@@ -228,7 +228,7 @@ declare namespace TestUtils {
      * @param {ReactInstance} instance
      * @returns {instance is Element}
      */
-    export function isDOMComponent(instance: ReactInstance): instance is Element;
+    function isDOMComponent(instance: ReactInstance): instance is Element;
     /**
      * Returns `true` if `instance` is a user-defined component, such as a class or a function.
      *
@@ -236,7 +236,7 @@ declare namespace TestUtils {
      * @param {ReactInstance} instance
      * @returns {instance is Component<any, any>}
      */
-    export function isCompositeComponent(instance: ReactInstance): instance is Component<any, any>;
+    function isCompositeComponent(instance: ReactInstance): instance is Component<any, any>;
     /**
      * Returns `true` if `instance` is a component whose type is of a React `componentClass`.
      *
@@ -247,7 +247,7 @@ declare namespace TestUtils {
      * @param {ClassType<any, T, C>} type
      * @returns {T}
      */
-    export function isCompositeComponentWithType<T extends Component<any, any>, C extends ComponentClass<any>>(
+    function isCompositeComponentWithType<T extends Component<any, any>, C extends ComponentClass<any>>(
         instance: ReactInstance, type: ClassType<any, T, C>): boolean;
 
     /**
@@ -260,7 +260,7 @@ declare namespace TestUtils {
      * @param {(i: ReactInstance) => boolean} fn
      * @returns {ReactInstance[]}
      */
-    export function findAllInRenderedTree(
+    function findAllInRenderedTree(
         root: Component<any, any>,
         fn: (i: ReactInstance) => boolean): ReactInstance[];
 
@@ -273,7 +273,7 @@ declare namespace TestUtils {
      * @param {string} className
      * @returns {Element[]}
      */
-    export function scryRenderedDOMComponentsWithClass(
+    function scryRenderedDOMComponentsWithClass(
         root: Component<any, any>,
         className: string): Element[];
     /**
@@ -286,7 +286,7 @@ declare namespace TestUtils {
      * @param {string} className
      * @returns {Element}
      */
-    export function findRenderedDOMComponentWithClass(
+    function findRenderedDOMComponentWithClass(
         root: Component<any, any>,
         className: string): Element;
 
@@ -299,7 +299,7 @@ declare namespace TestUtils {
      * @param {string} tagName
      * @returns {Element[]}
      */
-    export function scryRenderedDOMComponentsWithTag(
+    function scryRenderedDOMComponentsWithTag(
         root: Component<any, any>,
         tagName: string): Element[];
     /**
@@ -312,7 +312,7 @@ declare namespace TestUtils {
      * @param {string} tagName
      * @returns {Element}
      */
-    export function findRenderedDOMComponentWithTag(
+    function findRenderedDOMComponentWithTag(
         root: Component<any, any>,
         tagName: string): Element;
 
@@ -326,7 +326,7 @@ declare namespace TestUtils {
      * @param {ClassType<any, T, C>} type
      * @returns {T[]}
      */
-    export function scryRenderedComponentsWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
+    function scryRenderedComponentsWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
         root: Component<any, any>,
         type: ClassType<any, T, C>): T[];
 
@@ -342,7 +342,7 @@ declare namespace TestUtils {
      * @param {ClassType<any, T, C>} type
      * @returns {T}
      */
-    export function findRenderedComponentWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
+    function findRenderedComponentWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
         root: Component<any, any>,
         type: ClassType<any, T, C>): T;
 
@@ -352,5 +352,5 @@ declare namespace TestUtils {
      * @export
      * @returns {ShallowRenderer}
      */
-    export function createRenderer(): ShallowRenderer;
+    function createRenderer(): ShallowRenderer;
 }
