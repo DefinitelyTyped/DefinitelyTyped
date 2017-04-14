@@ -98,40 +98,40 @@ declare namespace TestUtils {
      * `Simulate` has a method for every event that React understands.
      */
     export namespace Simulate {
-        export var blur: EventSimulator;
-        export var change: EventSimulator;
-        export var click: EventSimulator;
-        export var copy: EventSimulator;
-        export var cut: EventSimulator;
-        export var doubleClick: EventSimulator;
-        export var drag: EventSimulator;
-        export var dragEnd: EventSimulator;
-        export var dragEnter: EventSimulator;
-        export var dragExit: EventSimulator;
-        export var dragLeave: EventSimulator;
-        export var dragOver: EventSimulator;
-        export var dragStart: EventSimulator;
-        export var drop: EventSimulator;
-        export var focus: EventSimulator;
-        export var input: EventSimulator;
-        export var keyDown: EventSimulator;
-        export var keyPress: EventSimulator;
-        export var keyUp: EventSimulator;
-        export var mouseDown: EventSimulator;
-        export var mouseEnter: EventSimulator;
-        export var mouseLeave: EventSimulator;
-        export var mouseMove: EventSimulator;
-        export var mouseOut: EventSimulator;
-        export var mouseOver: EventSimulator;
-        export var mouseUp: EventSimulator;
-        export var paste: EventSimulator;
-        export var scroll: EventSimulator;
-        export var submit: EventSimulator;
-        export var touchCancel: EventSimulator;
-        export var touchEnd: EventSimulator;
-        export var touchMove: EventSimulator;
-        export var touchStart: EventSimulator;
-        export var wheel: EventSimulator;
+        export const blur: EventSimulator;
+        export const change: EventSimulator;
+        export const click: EventSimulator;
+        export const copy: EventSimulator;
+        export const cut: EventSimulator;
+        export const doubleClick: EventSimulator;
+        export const drag: EventSimulator;
+        export const dragEnd: EventSimulator;
+        export const dragEnter: EventSimulator;
+        export const dragExit: EventSimulator;
+        export const dragLeave: EventSimulator;
+        export const dragOver: EventSimulator;
+        export const dragStart: EventSimulator;
+        export const drop: EventSimulator;
+        export const focus: EventSimulator;
+        export const input: EventSimulator;
+        export const keyDown: EventSimulator;
+        export const keyPress: EventSimulator;
+        export const keyUp: EventSimulator;
+        export const mouseDown: EventSimulator;
+        export const mouseEnter: EventSimulator;
+        export const mouseLeave: EventSimulator;
+        export const mouseMove: EventSimulator;
+        export const mouseOut: EventSimulator;
+        export const mouseOver: EventSimulator;
+        export const mouseUp: EventSimulator;
+        export const paste: EventSimulator;
+        export const scroll: EventSimulator;
+        export const submit: EventSimulator;
+        export const touchCancel: EventSimulator;
+        export const touchEnd: EventSimulator;
+        export const touchMove: EventSimulator;
+        export const touchStart: EventSimulator;
+        export const wheel: EventSimulator;
     }
 
     /**
