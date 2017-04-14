@@ -161,7 +161,7 @@ If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. 
     "extends": "dtslint/dt.json",
     "rules": {
         // This package uses the Function type, and it will take effort to fix.
-        "forbidden-types": false
+        "ban-types": false
     }
 }
 ```
