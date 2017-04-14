@@ -140,7 +140,7 @@ export interface BaseSchema {
 export interface Schema extends BaseSchema {
   $ref?: string;
   allOf?: Schema[];
-  additionalProperties?: boolean;
+  additionalProperties?: Schema;
   properties?: {[propertyName: string]: Schema};
   discriminator?: string;
   readOnly?: boolean;
