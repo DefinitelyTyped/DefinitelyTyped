@@ -1,6 +1,6 @@
 ## Known Problems & Workarounds
 
-### **The type of `setState` is will be overly strict prior to TS 2.1.5**
+### **The type of `setState` is overly strict prior to TS 2.1.5**
 Starting with TypeScript 2.1, its more correct than it used to be, with a caveat: optional parameters on state interfaces are no longer valid. This issue is corrected in 2.1.5 (and beyond) and thus `Pick<S, K>` becomes ideal.
 
 ```ts

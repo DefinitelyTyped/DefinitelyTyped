@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -18,8 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/maybe-tests.ts",
-        "test/writer-tests.ts",
-        "test/either-tests.ts"
+        "eureka-js-client-tests.ts"
     ]
 }

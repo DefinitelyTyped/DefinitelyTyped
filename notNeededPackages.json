@@ -25,6 +25,12 @@
             "asOfVersion": "0.14.0"
         },
         {
+            "libraryName": "Bugsnag Browser",
+            "typingsPackageName": "bugsnag-js",
+            "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
@@ -193,6 +199,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "maquette",
+            "typingsPackageName": "maquette",
+            "sourceRepoURL": "http://maquettejs.org/",
+            "asOfVersion": "2.1.6"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
@@ -355,6 +367,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "TsMonad",
+            "typingsPackageName": "tsmonad",
+            "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
+            "asOfVersion": "0.5.0"
+        },
+        {
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
@@ -395,6 +413,12 @@
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "xml-js",
+            "typingsPackageName": "xml-js",
+            "sourceRepoURL": "https://github.com/nashwaan/xml-js",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "@xmpp/jid",

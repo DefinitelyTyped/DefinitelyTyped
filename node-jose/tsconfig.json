@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "xml-js-tests.ts"
+        "node-jose-tests.ts"
     ]
 }
