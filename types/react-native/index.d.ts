@@ -4709,7 +4709,6 @@ export interface SystraceStatic {
      */
     measureMethods(object: any, objectName: string, methodNames: Array<string>): void
 
-    // tslint:disable:forbidden-types
     /**
      * Returns an profiled version of the input function. For example, you can:
      * JSON.parse = Systrace.measure('JSON', 'parse', JSON.parse);
@@ -4720,7 +4719,6 @@ export interface SystraceStatic {
      * @return {function} replacement function
      */
     measure<T extends Function>(objName: string, fnName: string, func: T): T
-    // tslint:enable:forbidden-types
 }
 
 /**
