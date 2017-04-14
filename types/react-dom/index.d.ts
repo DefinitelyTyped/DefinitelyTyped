@@ -4,14 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export as namespace ReactDOM;
 export = ReactDOM;
 
-import { ReactInstance, Component, ComponentState,
-         ReactElement, SFCElement, CElement,
-         DOMAttributes, DOMElement } from 'react';
+import {
+    ReactInstance, Component, ComponentState,
+    ReactElement, SFCElement, CElement,
+    DOMAttributes, DOMElement
+} from 'react';
 
-declare namespace ReactDOM {
+declare module ReactDOM {
     function findDOMNode<E extends Element>(instance: ReactInstance): E;
     function findDOMNode(instance: ReactInstance): Element;
 
@@ -34,7 +35,7 @@ declare namespace ReactDOM {
 
     function unmountComponentAtNode(container: Element): boolean;
 
-    var version: string;
+    const version: string;
 
     function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: A, b: B): void;
     function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
