@@ -61,7 +61,7 @@ declare module 'react-router' {
 
   interface RouteProps {
     location?: H.Location;
-    component?: React.SFC<RouteComponentProps<any> | void> | React.ComponentClass<RouteComponentProps<any> | void>;
+    component?: React.SFC<RouteComponentProps<any> | void | {}> | React.ComponentClass<RouteComponentProps<any> | void | {}>;
     render?: (props: RouteComponentProps<any>) => React.ReactNode;
     children?: (props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode;
     path?: string;
