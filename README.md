@@ -153,12 +153,12 @@ If a package was never on DefinitelyTyped, it does not need to be added to `notN
 
 #### Lint
 
-To lint a package, just add a `tslint.json` to that package containing `{ "extends": "../tslint.json" }`. All new packages must be linted.
+To lint a package, just add a `tslint.json` to that package containing `{ "extends": "dtslint/dt.json" }`. All new packages must be linted.
 If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
 
 ```js
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         // This package uses the Function type, and it will take effort to fix.
         "forbidden-types": false
