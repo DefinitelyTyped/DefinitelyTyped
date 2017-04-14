@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FuzzySet {
-    get(candidate: string): [number, string][];
+    get(candidate: string): Array<[number, string]>;
     add(value: string): boolean;
     length(): number;
     isEmpty(): boolean;
