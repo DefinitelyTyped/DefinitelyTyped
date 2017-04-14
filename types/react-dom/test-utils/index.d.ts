@@ -7,7 +7,6 @@ import {
 
 import * as ReactTestUtils from ".";
 
-
 export interface OptionalEventProperties {
     bubbles?: boolean;
     cancelable?: boolean;
