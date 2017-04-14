@@ -11,7 +11,7 @@ See the [TypeScript handbook](http://www.typescriptlang.org/docs/handbook/declar
 
 ### npm
 
-This is the preferred method. This is only available for TypeScript 2.0+ users. For these typeings:
+This is the preferred method. This is only available for TypeScript 2.0+ users. For these typings:
 
 ```sh
 npm install --save-dev @types/angular-hotkeys
