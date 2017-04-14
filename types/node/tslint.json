@@ -1,5 +1,5 @@
 {
-  "extends": "../tslint.json",
+  "extends": "dtslint/dt.json",
   "rules": {
     // All are TODOs
     "adjacent-overload-signatures": false,
@@ -16,7 +16,6 @@
     "no-empty-interface": false,
     "no-internal-module": false,
     "no-padding": false,
-    "no-redundant-modifiers": false,
     "no-string-throw": false,
     "no-var": false,
     "object-literal-shorthand": false,
@@ -24,6 +23,7 @@
     "only-arrow-functions": false,
     "prefer-method-signature": false,
     "semicolon": false,
+    "strict-export-declare-modifiers": false,
     "typedef-whitespace": false,
     "unified-signatures": false,
     "whitespace": false
