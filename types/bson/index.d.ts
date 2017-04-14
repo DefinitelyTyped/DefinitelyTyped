@@ -1,4 +1,4 @@
-// Type definitions for bson 1.0
+// Type definitions for bson 1.0.4
 // Project: https://github.com/mongodb/js-bson
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
 //                 Federico Caselli <https://github.com/CaselIT>
@@ -107,6 +107,14 @@ export class Long {
     toString(radix?: number): string;
     xor(other: Long): Long;
 }
+export class Decimal128 {
+    static fromString(s: string): Decimal128;
+
+    constructor(bytes: Buffer);
+
+    toJSON(): string;
+    toString(): string;
+}
 export class MaxKey {
     constructor();
 }
@@ -135,7 +143,7 @@ export class ObjectID {
     static createFromTime(time: number): ObjectID;
     /**
      * Checks if a value is a valid bson ObjectID
-     * 
+     *
      * @return {boolean} return true if the value is a valid bson ObjectID, return false otherwise.
      */
     static isValid(id: string | number | ObjectID): boolean;

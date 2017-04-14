@@ -13,11 +13,11 @@ export interface WriteOptions {
     flag?: string;
 }
 
-type JsonReplacerArray = Array<number | string>;
+export type JsonReplacerArray = Array<number | string>;
 
-type JsonReplacerFunction = (key: string, value: any) => any;
+export type JsonReplacerFunction = (key: string, value: any) => any;
 
-type JsonReplacer = JsonReplacerArray | JsonReplacerFunction;
+export type JsonReplacer = JsonReplacerArray | JsonReplacerFunction;
 
 export interface WriteJsonOptions extends WriteOptions {
     spaces?: number;

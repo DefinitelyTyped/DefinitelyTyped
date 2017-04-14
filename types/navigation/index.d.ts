@@ -6,7 +6,7 @@
 /**
  * Defines a contract a class must implement in order to configure a State
  */
-interface StateInfo {
+export interface StateInfo {
     /**
      * Gets the unique key
      */
@@ -155,7 +155,7 @@ export class State implements StateInfo {
  * Defines a contract a class must implement in order to manage the browser
  * Url
  */
-interface HistoryManager {
+export interface HistoryManager {
     /**
      * Gets or sets a value indicating whether to disable browser history
      */
@@ -396,7 +396,7 @@ export class StateContext {
  * Fluently manages all navigation. These can be forward, backward or
  * refreshing the current State
  */
-interface FluentNavigator {
+export interface FluentNavigator {
     /**
      * Gets the current Url
      */

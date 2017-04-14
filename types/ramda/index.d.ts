@@ -15,7 +15,7 @@ declare namespace R {
     }
 
     interface Functor<T> {
-        map<T>(a: any): T;
+        map<U>(fn: (t: T) => U): Functor<U>;
     }
 
     interface ObjectIterator<T, TResult> {
