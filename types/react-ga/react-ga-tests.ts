@@ -19,7 +19,6 @@ describe("Testing react-ga initialize object", () => {
 describe("Testing react-ga pageview calls", () => {
     it("Able to make pageview calls", () => {
         ga.initialize("UA-65432-1");
-
         ga.pageview("http://telshin.com");
     });
 });
@@ -57,5 +56,44 @@ describe("Testing react-ga set calls", () => {
         };
 
         ga.set(fieldObject);
+    });
+});
+
+describe("Testing react-ga v2.1.2", () => {
+    it("Able to make ga calls", () => {
+        ga.ga();
+    });
+    it("Able to make send calls", () => {
+        let fieldObject: ga.FieldsObject = {
+            page: '/users'
+        };
+
+        ga.send(fieldObject);
+    });
+    it("Able to make timing calls", () => {
+        ga.timing({
+            category: 'string',
+            variable: 'string',
+            value: 1,
+            label: 'string'
+        });
+    });
+    it("Able to make exception calls", () => {
+        let fieldObject: ga.FieldsObject = {
+            page: '/users'
+        };
+        ga.exception(fieldObject);
+    });
+    it("Able to make plugin object calls", () => {
+        const execute = ga.plugin.execute;
+        const require = ga.plugin.require;
+        const payload = {};
+
+        execute('name', 'action', payload);
+        execute('name', 'action', 'type', payload);
+        require('name', {});
+    });
+    it("Able to make outboundLink calls", () => {
+        ga.outboundLink({label: 'string'}, () => {});
     });
 });

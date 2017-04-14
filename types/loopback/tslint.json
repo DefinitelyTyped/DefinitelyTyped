@@ -1,7 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
+        // TODOs
         "jsdoc-format": false,
         "prefer-method-signature": false
     }
