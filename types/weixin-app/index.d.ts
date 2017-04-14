@@ -34,15 +34,15 @@ declare namespace wx {
 		/** 页面的初始数据 */
 		data?: any;
 		/** 生命周期函数--监听页面加载 */
-		onLoad?(options: any): void;
+		onLoad?(this: Page, options: any): void;
 		/** 生命周期函数--监听页面渲染完成 */
-		onReady?: NoneParamCallback;
+		onReady?(this: Page): void;
 		/** 生命周期函数--监听页面显示 */
-		onShow?: NoneParamCallback;
+		onShow?(this: Page): void;
 		/** 生命周期函数--监听页面隐藏 */
-		onHide?: NoneParamCallback;
+		onHide?(this: Page): void;
 		/** 生命周期函数--监听页面卸载 */
-		onUnload?: NoneParamCallback;
+		onUnload?(this: Page): void;
 		[key: string]: any;
 	}
 
@@ -51,17 +51,17 @@ declare namespace wx {
 		 * 生命周期函数--监听小程序初始化
 		 * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
 		 */
-		onLaunch?: NoneParamCallback;
+		onLaunch?(this: App): void;
 		/**
 		 * 生命周期函数--监听小程序显示
 		 * 当小程序启动，或从后台进入前台显示，会触发 onShow
 		 */
-		onShow?: NoneParamCallback;
+		onShow?(this: App): void;
 		/**
 		 * 生命周期函数--监听小程序隐藏
 		 * 当小程序从前台进入后台，会触发 onHide
 		 */
-		onHide?: NoneParamCallback;
+		onHide?(this: App): void;
 		[key: string]: any;
 	}
 
