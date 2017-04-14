@@ -10,7 +10,7 @@ import { Component, HTMLProps } from 'react';
 /**
  * Defines the Link Props contract
  */
-interface LinkProps extends HTMLProps<HTMLAnchorElement> {
+export interface LinkProps extends HTMLProps<HTMLAnchorElement> {
     /**
      * Indicates whether Links listen for navigate events
      */
@@ -32,7 +32,7 @@ interface LinkProps extends HTMLProps<HTMLAnchorElement> {
 /**
  * Defines the Refresh Link Props contract
  */
-interface RefreshLinkProps extends LinkProps {
+export interface RefreshLinkProps extends LinkProps {
     /**
      * The NavigationData to pass
      */
@@ -63,7 +63,7 @@ export class RefreshLink extends Component<RefreshLinkProps, any> { }
 /**
  * Defines the Navigation Link Props contract
  */
-interface NavigationLinkProps extends RefreshLinkProps {
+export interface NavigationLinkProps extends RefreshLinkProps {
     /**
      * The key of the State to navigate to
      */
@@ -78,7 +78,7 @@ export class NavigationLink extends Component<NavigationLinkProps, any> { }
 /**
  * Defines the Navigation Back Link Props contract
  */
-interface NavigationBackLinkProps extends RefreshLinkProps {
+export interface NavigationBackLinkProps extends RefreshLinkProps {
     /**
      * Starting at 1, The number of Crumb steps to go back
      */

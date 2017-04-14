@@ -5,6 +5,7 @@
         "ban-types": false,
         "interface-name": false,
         "no-empty-interface": false,
+        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }
