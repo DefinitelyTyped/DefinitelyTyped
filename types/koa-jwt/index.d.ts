@@ -7,7 +7,7 @@ import Koa = require("koa");
 
 export = jwt;
 
-declare function jwt(options: jwt.Options): Koa.Middleware;
+declare function jwt(options: jwt.Options): jwt.Middleware;
 
 declare namespace jwt {
     interface Options {
@@ -17,5 +17,9 @@ declare namespace jwt {
         passthrough?: boolean;
         cookie?: string;
         debug?: boolean;
+    }
+
+    interface Middleware extends Koa.Middleware {
+        unless(params?: any): any;
     }
 }
