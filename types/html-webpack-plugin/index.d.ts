@@ -1,4 +1,4 @@
-// Type definitions for html-webpack-plugin 2.11
+// Type definitions for html-webpack-plugin 2.28
 // Project: https://github.com/ampedandwired/html-webpack-plugin
 // Definitions by: Simon Hartcher <https://github.com/deevus>, Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

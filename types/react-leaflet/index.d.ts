@@ -19,7 +19,7 @@ interface LeafletLayerEvents {
     onlayeradd?(event: Leaflet.LayerEvent): void;
     onlayerremove?(event: Leaflet.LayerEvent): void;
 }
-interface LeafletMapStateChangeEvents {
+export interface LeafletMapStateChangeEvents {
     onzoomlevelschange?(event: Leaflet.Event): void;
     onresize?(event: Leaflet.ResizeEvent): void;
     onunload?(event: Leaflet.Event): void;
@@ -32,20 +32,20 @@ interface LeafletMapStateChangeEvents {
     onzoomend?(event: Leaflet.Event): void;
     onmoveend?(event: Leaflet.Event): void;
 }
-interface LeafletPopupEvents {
+export interface LeafletPopupEvents {
     onpopupopen?(event: Leaflet.PopupEvent): void;
     onpopupclose?(event: Leaflet.PopupEvent): void;
     onautopanstart?(event: Leaflet.Event): void;
 }
-interface LeafletTooltipEvents {
+export interface LeafletTooltipEvents {
     ontooltipopen?(event: Leaflet.TooltipEvent): void;
     ontooltipclose?(event: Leaflet.TooltipEvent): void;
 }
-interface LeafletLocationEvents {
+export interface LeafletLocationEvents {
     onlocationerror?(event: Leaflet.ErrorEvent): void;
     onlocationfound?(event: Leaflet.LocationEvent): void;
 }
-interface LeafletInteractionEvents {
+export interface LeafletInteractionEvents {
     onclick?(event: Leaflet.MouseEvent): void;
     ondblclick?(event: Leaflet.MouseEvent): void;
     onmousedown?(event: Leaflet.MouseEvent): void;
@@ -57,10 +57,10 @@ interface LeafletInteractionEvents {
     onkeypress?(event: Leaflet.KeyboardEvent): void;
     onpreclick?(event: Leaflet.MouseEvent): void;
 }
-interface LeafletOtherEvents {
+export interface LeafletOtherEvents {
     onzoomanim?(event: Leaflet.ZoomAnimEvent): void;
 }
-interface LeafletDraggingEvents {
+export interface LeafletDraggingEvents {
     ondragstart?(event: Leaflet.Event): void;
     onmovestart?(event: Leaflet.Event): void;
     ondrag?(event: Leaflet.Event): void;
@@ -146,7 +146,7 @@ export class MapLayer<P extends MapLayerProps, E extends Leaflet.Class> extends 
 }
 
 // There is no Layer class, these are the base props for all layers on the map
-interface LayerProps extends LeafletInteractionEvents {
+export interface LayerProps extends LeafletInteractionEvents {
     onadd?(event: Leaflet.Event): void;
     onremove?(event: Leaflet.Event): void;
 
