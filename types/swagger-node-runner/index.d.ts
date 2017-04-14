@@ -92,13 +92,13 @@ export interface Config {
 }
 
 /** Internally stored version of config */
-interface ConfigInternal {
+export interface ConfigInternal {
     /** Config of SwaggerNodeRunner  */
     swagger?: Config;
 }
 
 /** Middleware used by `swagger-tools` */
-type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
+export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
 
 /**
  * @param  {any} request
@@ -116,7 +116,7 @@ export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:
  * `(request, securityDefinition, scopes, callback)`
  */
-interface SwaggerSecurityHandlers {
+export interface SwaggerSecurityHandlers {
     [name: string]: SwaggerToolsSecurityHandler;
 }
 
@@ -201,7 +201,7 @@ export interface Runner extends EventEmitter {
 }
 
 /** base used by all middleware versions */
-interface Middleware {
+export interface Middleware {
     /** Back-reference to `Runner` that has created this middleware */
     runner: Runner;
 }

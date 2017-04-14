@@ -1,4 +1,13 @@
 {
+<<<<<<< HEAD
+    "extends": "../tslint.json",
+    "rules": {
+        "comment-format": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "strict-export-declare-modifiers": false
+    }
+=======
   "extends": "dtslint/dt.json",
   "rules": {
     "comment-format": false,
@@ -6,4 +15,5 @@
     "no-padding": false,
     "strict-export-declare-modifiers": false
   }
+>>>>>>> master
 }
