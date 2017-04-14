@@ -1,4 +1,4 @@
-// Type definitions for react-ga 2.1.2
+// Type definitions for react-ga 2.1
 // Project: https://github.com/react-ga/react-ga
 // Definitions by: Tim Aldridge <https://github.com/telshin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
