@@ -59,7 +59,8 @@ declare namespace PouchDB {
             [DocumentId : string]: string[];
         }
         interface RevisionDiff {
-            [change : string]: string[];
+            missing?: string[];
+            possible_ancestors?: string[];
         }
         interface RevisionDiffResponse {
             [DocumentId : string]: RevisionDiff
