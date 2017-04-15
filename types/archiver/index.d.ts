@@ -25,6 +25,7 @@ declare function archiver(format: archiver.Format, options?: archiver.Options): 
 declare namespace archiver {
 
     type Format = 'zip' | 'tar';
+    export function create(format: string, options?: Options): Archiver;
 
     export interface FileParams {
         name?: string;

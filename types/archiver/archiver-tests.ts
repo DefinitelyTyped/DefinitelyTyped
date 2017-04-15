@@ -1,10 +1,10 @@
-import Archiver = require('archiver');
-import FS = require('fs');
+import * as Archiver from 'archiver';
+import * as fs from 'fs';
 
 var archiver = Archiver.create('zip');
 
-var writeStream = FS.createWriteStream('./archiver.d.ts');
-var readStream = FS.createReadStream('./archiver.d.ts');
+var writeStream = fs.createWriteStream('./archiver.d.ts');
+var readStream = fs.createReadStream('./archiver.d.ts');
 
 archiver.pipe(writeStream);
 archiver.append(readStream, {name: 'archiver.d.ts'});
