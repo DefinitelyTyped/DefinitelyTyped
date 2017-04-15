@@ -2066,6 +2066,11 @@ declare module 'material-ui/DatePicker' {
     export default DatePicker;
 }
 
+declare module 'material-ui/DatePicker/DatePickerDialog' {
+    export import DatePickerDialog = __MaterialUI.DatePicker.DatePickerDialog;
+    export default DatePickerDialog;
+}
+
 declare module 'material-ui/Dialog' {
     export import Dialog = __MaterialUI.Dialog;
     export default Dialog;
