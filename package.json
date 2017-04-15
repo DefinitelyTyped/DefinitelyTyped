@@ -12,16 +12,16 @@
     "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
   },
   "engines": {
-    "node": ">= 6.9.1"
+    "node": ">=7.8.0"
   },
   "scripts": {
     "compile-scripts": "tsc -p scripts",
-    "new-package": "node scripts/new-package.js",
     "not-needed": "node scripts/not-needed.js",
-    "lint": "node scripts/lint.js",
-    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 1"
+    "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed --nProcesses 1",
+    "lint": "dtslint types"
   },
   "devDependencies": {
+    "dtslint": "Microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
   }
 }
