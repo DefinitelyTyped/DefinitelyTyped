@@ -13,6 +13,14 @@ archiver.finalize();
 archiver.directory('./path', './someOtherPath');
 archiver.directory('./path', { name: "testName" });
 
+archiver.append(readStream, {
+    name: "sub/folder.xml"
+});
+
+archiver.glob("**", {
+    cwd: 'path/to/files',
+});
+
 archiver.directory('./', "", {});
 archiver.directory('./', { name: 'test' }, {});
 
