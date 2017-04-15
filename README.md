@@ -110,13 +110,14 @@ Your package should have this structure:
 | tsconfig.json | This allows you to run `tsc` within the package. |
 | tslint.json | Enables linting. |
 
-Generate these by running `npm run new-package -- new-package-name`.
+Generate these by running `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module`.
+See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
 You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/base64-js).
+For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
 
 #### Common mistakes
@@ -152,23 +153,23 @@ If a package was never on DefinitelyTyped, it does not need to be added to `notN
 
 #### Lint
 
-To lint a package, just add a `tslint.json` to that package containing `{ "extends": "../tslint.json" }`. All new packages must be linted.
+To lint a package, just add a `tslint.json` to that package containing `{ "extends": "dtslint/dt.json" }`. All new packages must be linted.
 If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
 
-```json
+```js
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         // This package uses the Function type, and it will take effort to fix.
-        "forbidden-types": false
+        "ban-types": false
     }
 }
 ```
 
-(To indicate that a lint rule truly does not apply, use `// tslint:disable:rule-name` or better, `//tslint:disable-next-line:rule-name`.)
+(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
-Only `.d.ts` files are linted.
-Test the linter by running `npm run lint -- package-name`. Do not use a globally installed tslint.
+Test by running `npm run lint package-name` where `package-name` is the name of your package.
+This script uses [dtslint](https://github.com/Microsoft/dtslint).
 
 
 ## FAQ
@@ -191,7 +192,7 @@ If you're adding a new major version of a library, you can copy `index.d.ts` to 
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
-A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/pikaday/package.json).
+A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
@@ -231,7 +232,7 @@ Before making your change, please create a new subfolder with the current versio
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
 
-For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/history/v2/tsconfig.json) looks like:
+For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
 
 ```json
 {
@@ -250,10 +251,14 @@ For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/Defi
 ```
 
 Please note that unless upgrading something backwards-compatible like `node`, all packages depending of the updated package need a path mapping to it, as well as packages depending on *those*.
-For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
-transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/react-router-bootstrap/tsconfig.json).
+For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
+transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+#### The file history in GitHub looks incomplete.
+
+GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 
 ## License
