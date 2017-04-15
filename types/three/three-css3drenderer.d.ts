@@ -11,6 +11,8 @@ export class CSS3DSprite extends CSS3DObject {
 
 }
 
+// This renderer does not work in IE. Can be found here for more information.
+// https://github.com/mrdoob/three.js/issues/4783
 export class CSS3DRenderer {
     constructor();
 
