@@ -1,4 +1,4 @@
-// Type definitions for archiver v1.3
+// Type definitions for archiver 1.3
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,6 @@ import * as express from 'express';
 declare function archiver(format: archiver.Format, options?: archiver.Options): archiver.Archiver;
 
 declare namespace archiver {
-
     type Format = 'zip' | 'tar';
     function create(format: string, options?: Options): Archiver;
 
@@ -42,7 +41,7 @@ declare namespace archiver {
         pipe(stream: fs.WriteStream | express.Response): void;
     }
 
-    export interface Options {
+    interface Options {
         store?: boolean;
         gzip?: boolean;
         gzipOptions?: {
