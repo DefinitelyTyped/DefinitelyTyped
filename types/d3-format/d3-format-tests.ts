@@ -78,11 +78,20 @@ localeDef = {
   numerals : ["\u0660", "\u0661", "\u0662", "\u0663", "\u0664", "\u0665", "\u0666", "\u0667", "\u0668", "\u0669"]
 }
 
+localeDef = {
+  decimal: "\u066b",
+  thousands: "\u066c",
+  grouping: [3],
+  currency: ["", ""],
+  percent : "\u202f%"
+}
+
 let decimal: string = localeDef.decimal;
 let thousands: string = localeDef.thousands;
 let grouping: Array<number> = localeDef.grouping;
 let currency: [string, string] = localeDef.currency;
 let numerals: string[] | undefined = localeDef.numerals;
+let percent: string | undefined = localeDef.percent;
 
 localeObj = d3Format.formatLocale(localeDef);
 

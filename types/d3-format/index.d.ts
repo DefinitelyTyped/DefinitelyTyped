@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-format module 1.1
+// Type definitions for D3JS d3-format module 1.2
 // Project: https://github.com/d3/d3-format/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.2.0
 
 /**
  * Specification of locale to use when creating a new FormatLocaleObject
@@ -27,9 +27,13 @@ export interface FormatLocaleDefinition {
      */
     currency: [string, string];
     /**
-     * An array of ten strings to replace the numerals 0-9.
+     * An optional array of ten strings to replace the numerals 0-9.
      */
     numerals?: string[];
+    /**
+     * An optional symbol to replace the `percent` suffix; the percent suffix (defaults to "%")
+     */
+    percent?: string;
 }
 
 /**
