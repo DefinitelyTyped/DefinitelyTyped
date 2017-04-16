@@ -40,7 +40,6 @@ export interface FormatLocaleDefinition {
  * A Format Locale Object
  */
 export interface FormatLocaleObject {
-
     /**
      * Returns a new format function for the given string specifier. The returned function
      * takes a number as the only argument, and returns a string representing the formatted number.
@@ -222,7 +221,6 @@ export function precisionFixed(step: number): number;
  * @param value Reference value determines which SI prefix will be used.
  */
 export function precisionPrefix(step: number, value: number): number;
-
 
 /**
  * Returns a suggested decimal precision for format types that round to significant digits
