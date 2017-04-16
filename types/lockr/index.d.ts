@@ -3,9 +3,7 @@
 // Definitions by: Dror Weiss <https://github.com/droritos>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var Lockr: lockr.LockrStatic;
-
-declare module lockr {
+declare namespace lockr {
     interface LockrStatic {
 
         /**
@@ -109,5 +107,6 @@ declare module lockr {
 
 
 declare module "lockr" {
-    export = Lockr;
+	var lockr: lockr.LockrStatic;
+    export = lockr;
 }
