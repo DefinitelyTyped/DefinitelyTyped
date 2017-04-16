@@ -11,7 +11,7 @@ import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
 
-declare class WebSocket extends events.EventEmitter {
+export declare class WebSocket extends events.EventEmitter {
     static CONNECTING: number;
     static OPEN: number;
     static CLOSING: number;
@@ -77,7 +77,7 @@ declare class WebSocket extends events.EventEmitter {
     addListener(event: string, listener: () => void): this;
 }
 
-declare namespace WebSocket {
+export declare namespace WebSocket {
 
     type VerifyClientCallbackSync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }) => boolean;
     type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
@@ -149,5 +149,3 @@ declare namespace WebSocket {
     export function connect(address: string, openListener?: Function): void;
     export function createConnection(address: string, openListener?: Function): void;
 }
-
-export = WebSocket;
