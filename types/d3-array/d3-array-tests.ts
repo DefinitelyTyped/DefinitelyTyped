@@ -389,9 +389,13 @@ mergedArray = d3Array.shuffle(mergedArray, 1, 3);
 
 numbersArray = d3Array.ticks(1, 10, 5);
 
+// tickIncrement() ------------------------------------------------------------------
+
+let numDiff: number = d3Array.tickIncrement(1, 10, 5);
+
 // tickStep() ------------------------------------------------------------------
 
-numbersArray = d3Array.tickStep(1, 10, 5);
+numDiff = d3Array.tickStep(1, 10, 5);
 
 // transpose() -----------------------------------------------------------------
 
