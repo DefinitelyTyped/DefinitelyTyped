@@ -550,7 +550,7 @@
             "libraryName": "uk.co.workingedge.phonegap.plugin.istablet",
             "typingsPackageName": "uk.co.workingedge.phonegap.plugin.istablet",
             "sourceRepoURL": "https://github.com/dpa99c/phonegap-istablet",
-            "asOfVersion": "1.1.1"
+            "asOfVersion": "1.1.3"
         },
         {
             "libraryName": "upper-case",
