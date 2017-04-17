@@ -1,0 +1,8 @@
+{
+  "name": "ramda",
+  "main": "index.d.ts",
+  "version": "0.22.1",
+  "homepage": "https://github.com/types/npm-ramda",
+  "author": "Erwin Poeze <erwin@mope.mobi>",
+  "description": "Type definitions for Ramda"
+}
