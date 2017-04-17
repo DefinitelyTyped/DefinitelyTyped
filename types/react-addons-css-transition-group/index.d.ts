@@ -5,10 +5,10 @@
 // TypeScript Version: 2.1
 
 import 'react-addons-transition-group';
-import { ComponentClass, ReactCSSTransitionGroupProps } from 'react';
+import { ComponentClass, CSSTransitionGroupProps } from 'react';
 
 declare module 'react' {
-    interface ReactCSSTransitionGroupTransitionName {
+    interface CSSTransitionGroupTransitionName {
         enter: string;
         enterActive?: string;
         leave: string;
@@ -17,8 +17,8 @@ declare module 'react' {
         appearActive?: string;
     }
 
-    export interface ReactCSSTransitionGroupProps extends TransitionGroupProps<ReactCSSTransitionGroup> {
-        transitionName: string | ReactCSSTransitionGroupTransitionName;
+    export interface CSSTransitionGroupProps extends HTMLTransitionGroupProps<ReactCSSTransitionGroup> {
+        transitionName: string | CSSTransitionGroupTransitionName;
         transitionAppear?: boolean;
         transitionAppearTimeout?: number;
         transitionEnter?: boolean;
@@ -29,5 +29,5 @@ declare module 'react' {
 }
 
 declare var ReactCSSTransitionGroup: ReactCSSTransitionGroup;
-type ReactCSSTransitionGroup = ComponentClass<ReactCSSTransitionGroupProps>;
+type ReactCSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
 export = ReactCSSTransitionGroup;
