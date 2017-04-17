@@ -2191,7 +2191,15 @@ declare namespace Electron {
 		/**
 		 * Contains which features the dialog should use.
 		 */
-		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles')[];
+		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles' | 'promptToCreate' | 'noResolveAliases')[];
+		/**
+		 * Normalize the keyboard access keys across platforms.
+		 */
+		normalizeAccessKeys?: boolean;
+		/**
+		 * Message to display above input boxes.
+		 */
+		message?: string;
 	}
 
 	interface SaveDialogOptions {
@@ -2208,6 +2216,18 @@ declare namespace Electron {
 			name: string;
 			extensions: string[];
 		}[];
+		/**
+		 * macOS - Message to display above text fields.
+		 */
+		message?: string;
+		/**
+		 * macOS - Custom label for the text displayed in front of the filename text field.
+		 */
+		nameFieldLabel?: string;
+		/**
+		 * macOS - Show the tags input box, defaults to true.
+		 */
+		showsTagField?: boolean;
 	}
 
 	interface ShowMessageBoxOptions {
