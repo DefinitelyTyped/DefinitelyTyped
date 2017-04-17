@@ -133,6 +133,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "electron-builder",
+            "typingsPackageName": "electron-builder",
+            "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
+            "asOfVersion": "2.8.0"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
