@@ -2,6 +2,8 @@
 // Project: https://github.com/chieffancypants/angular-hotkeys
 // Definitions by: Jason Zhao <https://github.com/jlz27>, Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//readme written by David Valentine <https://github.com/dvalenti314/>
+
 
 /// <reference types="angular" />
 
