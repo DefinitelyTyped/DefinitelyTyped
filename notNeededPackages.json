@@ -427,6 +427,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "svg.js",
+            "typingsPackageName": "svg.js",
+            "sourceRepoURL": "http://www.svgjs.com/",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "swap-case",
             "typingsPackageName": "swap-case",
             "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
