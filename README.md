@@ -216,7 +216,7 @@ If default imports work in your environment, consider turning on the [`--allowSy
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
 
-#### I want to use features from TypeScript 2.1.
+#### I want to use features from TypeScript 2.1 or above.
 
 Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
 
@@ -257,6 +257,11 @@ For example, `react-router` depends on `history@2`, so [react-router `tsconfig.j
 transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+#### What about scoped packages?
+
+Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+
 
 #### The file history in GitHub looks incomplete.
 
