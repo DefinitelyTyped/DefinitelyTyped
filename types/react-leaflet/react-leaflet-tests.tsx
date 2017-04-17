@@ -132,12 +132,12 @@ export class BoundsExample extends Component<undefined, BoundsExampleState> {
                 <Rectangle
                     bounds={outer}
                     color={this.state.bounds === outer ? 'red' : 'white'}
-                    onClick={this.onClickOuter}
+                    onclick={this.onClickOuter}
                 />
                 <Rectangle
                     bounds={inner}
                     color={this.state.bounds === inner ? 'red' : 'white'}
-                    onClick={this.onClickInner}
+                    onclick={this.onClickInner}
                 />
             </Map>
         );
@@ -267,7 +267,7 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
                 />
                 <Marker
                     draggable={this.state.draggable}
-                    onDragEnd={this.updatePosition}
+                    ondragend={this.updatePosition}
                     position={markerPosition}
                     ref='marker'
                 >
@@ -321,7 +321,7 @@ export class EventsExample extends Component<undefined, EventsExampleState> {
             <Map
                 center={this.state.latlng}
                 // length={4} -- unimplemented; What component in the inheritance chain defines this property?
-                onClick={this.handleClick}
+                onclick={this.handleClick}
                 // NB: lowercase prop for Leaflet event handler
                 onlocationfound={this.handleLocationFound}
                 ref="map"
@@ -654,7 +654,7 @@ export class WMSTileLayerExample extends Component<undefined, WMSTileLayerExampl
             <Map
                 center={[this.state.lat, this.state.lng]}
                 zoom={this.state.zoom}
-                onClick={this.onClick}
+                onclick={this.onClick}
             >
                 <TileLayer
                     attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
