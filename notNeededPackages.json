@@ -505,6 +505,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "webcola",
+            "typingsPackageName": "webcola",
+            "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "x2js",
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
