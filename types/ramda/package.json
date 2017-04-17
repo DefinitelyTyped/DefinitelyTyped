@@ -1,5 +1,4 @@
 {
-  "name": "@types/ramda",
   "version": "0.23.0-RC1",
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
