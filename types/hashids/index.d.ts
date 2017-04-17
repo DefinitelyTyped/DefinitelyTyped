@@ -5,10 +5,10 @@
 
 /// <reference types="node" />
 
-declare namespace Hashids {
+declare module 'hashids' {
 
-    export interface IHashids {
-        new(salt: string, minHashLength?: number, alphabet?: string): IHashids;
+    export class Hashids {
+        constructor(salt: string, minHashLength?: number, alphabet?: string);
         version: string;
         minAlphabetLength: number;
         sepDiv: number;
@@ -29,6 +29,3 @@ declare namespace Hashids {
         unhash(input: string[], alphabet: string): number;
     }
 }
-
-declare var hashids: Hashids.IHashids;
-export = hashids;
