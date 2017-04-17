@@ -111,6 +111,13 @@ type LeafletEvents = MapEvents
     & FeatureGroupEvents
     & LayersControlEvents;
 
+// Most react-leaflet components take two type parameters:
+// - P : the component's props object
+// - E : the corresponding Leaflet element
+
+// These type parameters aren't needed for instantiating a component, but they are useful for
+// extending react-leaflet classes.
+
 export class MapComponent<P, E extends Leaflet.Class> extends React.Component<P, {}> {
     _leafletEvents: LeafletEvents;
     leafletElement: E;
