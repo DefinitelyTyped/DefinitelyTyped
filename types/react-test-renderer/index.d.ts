@@ -6,16 +6,16 @@
 
 import { ReactElement } from "react";
 
-interface Renderer {
+export interface Renderer {
     toJSON(): ReactTestRendererJSON;
 }
-interface ReactTestRendererJSON {
+export interface ReactTestRendererJSON {
     type: string;
     props: { [propName: string]: string };
     children: null | Array<string | ReactTestRendererJSON>;
     $$typeof?: any;
 }
-interface TestRendererOptions {
+export interface TestRendererOptions {
     createNodeMock(element: ReactElement<any>): any;
 }
 // https://github.com/facebook/react/blob/master/src/renderers/testing/ReactTestMount.js#L155

@@ -61,7 +61,10 @@ mongoose.STATES.hasOwnProperty('');
 mongoose.connection.on('error', cb);
 new mongoose.mongo.MongoError('error').stack;
 mongoose.SchemaTypes.String;
+mongoose.SchemaTypes.ObjectId;
+mongoose.SchemaTypes.Decimal128;
 mongoose.Types.ObjectId;
+mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
 
 /*
@@ -228,6 +231,7 @@ var schema: mongoose.Schema = new mongoose.Schema({
   age:     { type: Number, min: 18, max: 65 },
   mixed:   mongoose.Schema.Types.Mixed,
   _someId: mongoose.Schema.Types.ObjectId,
+  someDecimal:mongoose.Schema.Types.Decimal128,
   array:      [],
   ofString:   [String],
   ofNumber:   [Number],
@@ -584,6 +588,23 @@ mongooseBuffer.write('world', 3, 2, 1).toFixed();
 mongooseBuffer.compare(mongooseBuffer);
 /* inherited static properties */
 mongoose.Types.Buffer.from([1, 2, 3]);
+
+/*
+ * section types/decimal128.js
+ * http://mongoosejs.com/docs/api.html#types-decimal128-js
+ */
+var decimal128: mongoose.Types.Decimal128 = mongoose.Types.Decimal128.fromString('123.45678901234567');
+decimal128 = new mongoose.Types.Decimal128(new Buffer('12345'));
+/* practical examples */
+export interface ILargeValuesSchema extends mongoose.MongooseDocument {
+  sum: mongoose.Schema.Types.Decimal128;
+}
+export var LargeValuesSchema = new mongoose.Schema({
+  sum: {
+    type: mongoose.Schema.Types.Decimal128,
+    required: true
+  }
+});
 
 /*
  * section types/objectid.js
@@ -1050,7 +1071,7 @@ aggregate.unwind(
     includeArrayIndex: "idx",
     preserveNullAndEmptyArrays: true
   });
-  
+
 /*
  * section schematype.js
  * http://mongoosejs.com/docs/api.html#schematype-js

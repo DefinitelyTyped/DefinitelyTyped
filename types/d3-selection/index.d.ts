@@ -159,7 +159,7 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<
  * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
  * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
  */
-interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
     // Sub-selection -------------------------
 
     /**
@@ -852,7 +852,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
  * Selects the root element, document.documentElement. This function can also be used to test for selections
  * (instanceof d3.selection) or to extend the selection prototype.
  */
-type SelectionFn = () => Selection<HTMLElement, any, null, undefined>;
+export type SelectionFn = () => Selection<HTMLElement, any, null, undefined>;
 
 /**
  * Selects the root element, document.documentElement. This function can also be used to test for selections
@@ -867,7 +867,7 @@ export const selection: SelectionFn;
 /**
  * A D3 Base Event
  */
-interface BaseEvent {
+export interface BaseEvent {
     /**
      * Event type
      */

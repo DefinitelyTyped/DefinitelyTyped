@@ -1039,7 +1039,7 @@ declare namespace kendo.data {
     class DataSource extends Observable{
         options: DataSourceOptions;
 
-        transports: any;
+        transport: any;
 
         static create(options?: DataSourceOptions): DataSource;
 

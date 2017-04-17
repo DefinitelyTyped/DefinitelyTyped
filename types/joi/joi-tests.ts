@@ -162,6 +162,21 @@ schemaMap = {
 	a: numSchema,
 	b: strSchema
 };
+schemaMap = {
+	a: numSchema,
+	b: {
+		b1: strSchema,
+		b2: anySchema
+	}
+};
+schemaMap = {
+	a: numSchema,
+	b: [
+		{ b1: strSchema },
+		{ b2: anySchema }
+	],
+	c: arrSchema
+};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -237,6 +252,8 @@ arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.ordered(anySchema);
 arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema);
+arrSchema = arrSchema.ordered(schemaMap);
+arrSchema = arrSchema.ordered([schemaMap, schemaMap]);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
@@ -246,6 +263,9 @@ arrSchema = arrSchema.unique();
 arrSchema = arrSchema.items(numSchema);
 arrSchema = arrSchema.items(numSchema, strSchema);
 arrSchema = arrSchema.items([numSchema, strSchema]);
+arrSchema = arrSchema.items(schemaMap);
+arrSchema = arrSchema.items(schemaMap, schemaMap);
+arrSchema = arrSchema.items([schemaMap, schemaMap]);
 
 // - - - - - - - -
 
@@ -817,6 +837,7 @@ namespace validate_tests {
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = Joi.compile(obj);
+schema = Joi.compile(schemaMap);
 
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);

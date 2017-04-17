@@ -86,7 +86,7 @@ function tsconfig() {
 }
 
 function tslint() {
-    return `{ "extends": "../tslint.json" }\n`;
+    return `{ "extends": "dtslint/dt.json" }\n`;
 }
 
 

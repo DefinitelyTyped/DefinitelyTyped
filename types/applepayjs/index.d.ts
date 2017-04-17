@@ -1,4 +1,4 @@
-// Type definitions for Apple Pay JS 1.0
+// Type definitions for Apple Pay JS 1.0.1
 // Project: https://developer.apple.com/reference/applepayjs
 // Definitions by: Martin Costello <https://martincostello.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -392,7 +392,7 @@ declare namespace ApplePayJS {
         /**
          * A set of shipping method objects that describe the available shipping methods.
          */
-        shippingMethods?: ApplePayShippingMethod[] | string[];
+        shippingMethods?: ApplePayShippingMethod[];
 
         /**
          * How the items are to be shipped.

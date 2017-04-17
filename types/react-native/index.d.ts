@@ -4558,10 +4558,14 @@ export namespace StyleSheet {
 
     type Style = ViewStyle | TextStyle | ImageStyle
 
+    type NamedStyles<T> = {
+        [P in keyof T]: Style;
+    }
+
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T>( styles: T ): T;
+    export function create<T extends NamedStyles<T>>( styles: T ): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -4705,7 +4709,6 @@ export interface SystraceStatic {
      */
     measureMethods(object: any, objectName: string, methodNames: Array<string>): void
 
-    // tslint:disable:forbidden-types
     /**
      * Returns an profiled version of the input function. For example, you can:
      * JSON.parse = Systrace.measure('JSON', 'parse', JSON.parse);
@@ -4716,7 +4719,6 @@ export interface SystraceStatic {
      * @return {function} replacement function
      */
     measure<T extends Function>(objName: string, fnName: string, func: T): T
-    // tslint:enable:forbidden-types
 }
 
 /**
