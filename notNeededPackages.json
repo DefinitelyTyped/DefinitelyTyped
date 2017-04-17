@@ -205,6 +205,12 @@
             "asOfVersion": "1.1.1"
         },
         {
+            "libraryName": "knockout-paging",
+            "typingsPackageName": "knockout-paging",
+            "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
+            "asOfVersion": "0.3.1"
+        },
+        {
             "libraryName": "Linq.JS",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
