@@ -1,6 +1,6 @@
-// Type definitions for material-ui v0.16.0
+// Type definitions for material-ui v0.17.1
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>, Igor Belagorudsky <https://github.com/theigor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -651,6 +651,7 @@ declare namespace __MaterialUI {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         disabled?: boolean;
+        fullWidth?: boolean;
         hoverColor?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;

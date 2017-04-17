@@ -90,6 +90,9 @@ function testNine() {
 
 function testSandbox() {
     var sandbox = sinon.sandbox.create();
+
+    sandbox.assert.notCalled(sinon.spy());
+
     if (sandbox.spy().called) {
         sandbox.stub(objectUnderTest, "process").yieldsTo("success");
         sandbox.mock(objectUnderTest).expects("process").once();
@@ -101,6 +104,8 @@ function testSandbox() {
     sandbox.reset();
     sandbox.resetHistory();
     sandbox.resetBehavior();
+    sandbox.verify();
+    sandbox.verifyAndRestore();
 }
 
 function testPromises() {

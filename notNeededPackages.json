@@ -25,6 +25,12 @@
             "asOfVersion": "0.14.0"
         },
         {
+            "libraryName": "Bugsnag Browser",
+            "typingsPackageName": "bugsnag-js",
+            "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
+            "asOfVersion": "3.1.0"
+        },
+        {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
@@ -35,6 +41,12 @@
             "typingsPackageName": "change-case",
             "sourceRepoURL": "https://github.com/blakeembrey/change-case",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "cheap-ruler",
+            "typingsPackageName": "cheap-ruler",
+            "sourceRepoURL": "https://github.com/mapbox/cheap-ruler",
+            "asOfVersion": "2.5.0"
         },
         {
             "libraryName": "constant-case",
@@ -73,6 +85,12 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "FastSimplexNoise",
+            "typingsPackageName": "fast-simplex-noise",
+            "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
@@ -83,6 +101,12 @@
             "typingsPackageName": "gaea-model",
             "sourceRepoURL": "https://github.com/ascoders/gaea-model",
             "asOfVersion": "0.0.0"
+        },
+        {
+            "libraryName": "github",
+            "typingsPackageName": "github",
+            "sourceRepoURL": "https://github.com/mikedeboer/node-github",
+            "asOfVersion": "7.1.0"
         },
         {
             "libraryName": "Facebook's Immutable",
@@ -157,10 +181,10 @@
             "asOfVersion": "1.0.0"
         },
         {
-             "libraryName": "localforage",
-             "typingsPackageName": "localforage",
-             "sourceRepoURL": "https://github.com/localForage/localForage",
-             "asOfVersion": "0.0.34"
+            "libraryName": "localforage",
+            "typingsPackageName": "localforage",
+            "sourceRepoURL": "https://github.com/localForage/localForage",
+            "asOfVersion": "0.0.34"
         },
         {
             "libraryName": "lower-case",
@@ -173,6 +197,12 @@
             "typingsPackageName": "lower-case-first",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case-first",
             "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "maquette",
+            "typingsPackageName": "maquette",
+            "sourceRepoURL": "http://maquettejs.org/",
+            "asOfVersion": "2.1.6"
         },
         {
             "libraryName": "mobservable",
@@ -337,6 +367,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "TsMonad",
+            "typingsPackageName": "tsmonad",
+            "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
+            "asOfVersion": "0.5.0"
+        },
+        {
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
@@ -377,6 +413,12 @@
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "xml-js",
+            "typingsPackageName": "xml-js",
+            "sourceRepoURL": "https://github.com/nashwaan/xml-js",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "@xmpp/jid",

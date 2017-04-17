@@ -5702,7 +5702,7 @@ declare namespace _ {
         /**
          * @see _.zipObjectDeep
          */
-        zipObjectDepp(
+        zipObjectDeep(
             props: List<StringRepresentable>|List<List<any>>,
             values?: List<any>
         ): _.Dictionary<any>;

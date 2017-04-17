@@ -8,9 +8,9 @@ import { ComponentClass, StatelessComponent, ReactType } from "react";
 import { Action } from "redux";
 import { Location } from "history";
 
-type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
 
-interface InjectedProps<AuthData> {
+export interface InjectedProps<AuthData> {
     authData?: AuthData;
 }
 
@@ -28,6 +28,6 @@ export interface AuthWrapperConfig<State, Props, AuthData> {
     redirectAction?(...args: any[]): Action;
 }
 
-type AuthDecorator<Props> = (component: ComponentConstructor<Props>) => ComponentClass<Props>;
+export type AuthDecorator<Props> = (component: ComponentConstructor<Props>) => ComponentClass<Props>;
 
 export function UserAuthWrapper<State, Props, AuthData>(config: AuthWrapperConfig<State, Props, AuthData>): AuthDecorator<Props>;

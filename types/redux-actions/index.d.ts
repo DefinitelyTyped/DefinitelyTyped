@@ -7,38 +7,38 @@ export as namespace ReduxActions;
 
 // FSA-compliant action.
 // See: https://github.com/acdlite/flux-standard-action
-interface BaseAction {
+export interface BaseAction {
     type: string;
 }
 
-interface Action<Payload> extends BaseAction {
+export interface Action<Payload> extends BaseAction {
     payload?: Payload;
     error?: boolean;
 }
 
-interface ActionMeta<Payload, Meta> extends Action<Payload> {
+export interface ActionMeta<Payload, Meta> extends Action<Payload> {
     meta: Meta;
 }
 
-interface ReducerMap<State, Payload> {
+export interface ReducerMap<State, Payload> {
     [actionType: string]: Reducer<State, Payload> | ReducerNextThrow<State, Payload>;
 }
 
-interface ReducerMapMeta<State, Payload, Meta> {
+export interface ReducerMapMeta<State, Payload, Meta> {
     [actionType: string]: Reducer<State, Payload> | ReducerNextThrow<State, Payload>;
 }
 
-interface ReducerNextThrow<State, Payload> {
+export interface ReducerNextThrow<State, Payload> {
     next?(state: State, action: Action<Payload>): State;
     throw?(state: State, action: Action<Payload>): State;
 }
 
-interface ReducerNextThrowMeta<State, Payload, Meta> {
+export interface ReducerNextThrowMeta<State, Payload, Meta> {
     next?(state: State, action: ActionMeta<Payload, Meta>): State;
     throw?(state: State, action: ActionMeta<Payload, Meta>): State;
 }
 
-type ActionFunctions<Payload> =
+export type ActionFunctions<Payload> =
     ActionFunction0<Action<Payload>> |
     ActionFunction1<any, Action<Payload>> |
     ActionFunction2<any, any, Action<Payload>> |
@@ -46,17 +46,17 @@ type ActionFunctions<Payload> =
     ActionFunction4<any, any, any, any, Action<Payload>> |
     ActionFunctionAny<Action<Payload>>;
 
-type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
+export type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
 
-type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMeta<Payload, Meta>) => State;
+export type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMeta<Payload, Meta>) => State;
 
 /** argument inferring borrowed from lodash definitions */
-type ActionFunction0<R> = () => R;
-type ActionFunction1<T1, R> = (t1: T1) => R;
-type ActionFunction2<T1, T2, R> = (t1: T1, t2: T2) => R;
-type ActionFunction3<T1, T2, T3, R>  = (t1: T1, t2: T2, t3: T3) => R;
-type ActionFunction4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
-type ActionFunctionAny<R> = (...args: any[]) => R;
+export type ActionFunction0<R> = () => R;
+export type ActionFunction1<T1, R> = (t1: T1) => R;
+export type ActionFunction2<T1, T2, R> = (t1: T1, t2: T2) => R;
+export type ActionFunction3<T1, T2, T3, R>  = (t1: T1, t2: T2, t3: T3) => R;
+export type ActionFunction4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
+export type ActionFunctionAny<R> = (...args: any[]) => R;
 
 export function createAction<Payload>(
     actionType: string,
