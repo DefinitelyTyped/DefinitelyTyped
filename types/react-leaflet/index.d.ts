@@ -77,7 +77,7 @@ type LeafletEvents = LeafletLayerEvents
     & LeafletOtherEvents
     & LeafletDraggingEvents;
 
-type MapComponentProps = React.HTMLProps<MapProps> & LeafletEvents;
+type MapComponentProps = LeafletEvents;
 
 export class MapComponent<P extends MapComponentProps, E extends Leaflet.Class> extends React.Component<P, {}> {
     _leafletEvents: LeafletEvents;
@@ -167,26 +167,17 @@ export class GridLayer<P extends GridLayerProps, E extends Leaflet.GridLayer> ex
 
 export interface TileLayerProps extends GridLayerProps, Leaflet.TileLayerOptions {
     url: string;
-    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
-    // Leaflet.TileLayerOptions, so we hack it here to allow any type.
-    crossOrigin?: any;
 }
 export class TileLayer<P extends TileLayerProps, E extends Leaflet.TileLayer> extends GridLayer<P, E> { }
 
 export interface WMSTileLayerProps extends GridLayerProps, Leaflet.WMSOptions {
     url: string;
-    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
-    // Leaflet.WMSOptions, so we hack it here to allow any type.
-    crossOrigin?: any;
 }
 export class WMSTileLayer<P extends WMSTileLayerProps, E extends Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
 
 export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOptions {
     bounds: Leaflet.LatLngBoundsExpression;
     url: string;
-    // Type of property `crossOrigin` is incompatible in React.HTMLAttributes and
-    // Leaflet.ImageOverlayOptions, so we hack it here to allow any type.
-    crossOrigin?: any;
 }
 export class ImageOverlay<P extends ImageOverlayProps, E extends Leaflet.ImageOverlay> extends MapLayer<P, E> {
     getChildContext(): { popupContainer: E };
@@ -230,8 +221,7 @@ export class FeatureGroup<P extends FeatureGroupProps, E extends Leaflet.Feature
 }
 
 export interface GeoJSONProps extends PathProps, Leaflet.GeoJSONOptions {
-    // Type of property `data` is incompatible with React.HTMLAttributes and, so we hack it here to allow any type.
-    data: any;
+    data: GeoJSON.GeoJsonObject;
     style?: Leaflet.StyleFunction;
 }
 export class GeoJSON<P extends GeoJSONProps, E extends Leaflet.GeoJSON> extends Path<P, E> { }
