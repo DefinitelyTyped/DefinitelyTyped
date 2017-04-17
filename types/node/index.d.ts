@@ -344,6 +344,10 @@ declare namespace NodeJS {
         system: number;
     }
 
+    export interface ProcessEnv {
+        [key: string]: string;
+    }
+
     export interface ProcessVersions {
         http_parser: string;
         node: string;
@@ -375,7 +379,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): void;
         exitCode: number;
         getgid(): number;
@@ -895,7 +899,7 @@ declare module "cluster" {
     export interface Cluster extends events.EventEmitter {
         Worker: Worker;
         disconnect(callback?: Function): void;
-        fork(env?: any): Worker;
+        fork(env?: ProcessEnv): Worker;
         isMaster: boolean;
         isWorker: boolean;
         // TODO: cluster.schedulingPolicy
@@ -973,7 +977,7 @@ declare module "cluster" {
     }
 
     export function disconnect(callback?: Function): void;
-    export function fork(env?: any): Worker;
+    export function fork(env?: ProcessEnv): Worker;
     export var isMaster: boolean;
     export var isWorker: boolean;
     // TODO: cluster.schedulingPolicy
@@ -1672,7 +1676,7 @@ declare module "child_process" {
 
     export interface SpawnOptions {
         cwd?: string;
-        env?: any;
+        env?: ProcessEnv;
         stdio?: any;
         detached?: boolean;
         uid?: number;
@@ -1683,7 +1687,7 @@ declare module "child_process" {
 
     export interface ExecOptions {
         cwd?: string;
-        env?: any;
+        env?: ProcessEnv;
         shell?: string;
         timeout?: number;
         maxBuffer?: number;
@@ -1705,7 +1709,7 @@ declare module "child_process" {
 
     export interface ExecFileOptions {
         cwd?: string;
-        env?: any;
+        env?: ProcessEnv;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
@@ -1731,7 +1735,7 @@ declare module "child_process" {
 
     export interface ForkOptions {
         cwd?: string;
-        env?: any;
+        env?: ProcessEnv;
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
@@ -1744,7 +1748,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
-        env?: any;
+        env?: ProcessEnv;
         uid?: number;
         gid?: number;
         timeout?: number;
@@ -1780,7 +1784,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
-        env?: any;
+        env?: ProcessEnv;
         shell?: string;
         uid?: number;
         gid?: number;
@@ -1804,7 +1808,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
-        env?: any;
+        env?: ProcessEnv;
         uid?: number;
         gid?: number;
         timeout?: number;
