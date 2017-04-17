@@ -415,6 +415,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "typingsPackageName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "sourceRepoURL": "https://github.com/dpa99c/phonegap-istablet",
+            "asOfVersion": "1.1.1"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
