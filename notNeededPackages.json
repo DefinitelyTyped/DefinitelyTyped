@@ -259,6 +259,12 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "mendixmodelsdk",
+            "typingsPackageName": "mendixmodelsdk",
+            "sourceRepoURL": "http://www.mendix.com",
+            "asOfVersion": "0.8.1"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
