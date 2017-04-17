@@ -25,6 +25,7 @@ import {
     View,
     ViewStyle,
     ViewPagerAndroid,
+    FlatList,
     findNodeHandle
 } from 'react-native';
 
@@ -191,3 +192,12 @@ profiledJSONParse('[]')
 InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => 'done')
+
+export class FlatListTest {
+    render() {
+        <FlatList
+            data={[1, 2, 3, 4, 5]}
+            renderItem={(itemInfo: number) => <View><Text>{itemInfo}</Text></View>}
+        />
+    }
+}
