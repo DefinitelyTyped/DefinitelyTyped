@@ -365,6 +365,24 @@ namespace common_copy_paste {
 	boolSchema = boolSchema.strict();
 	boolSchema = boolSchema.concat(x);
 
+	boolSchema = boolSchema.truthy(str);
+	boolSchema = boolSchema.truthy(num);
+	boolSchema = boolSchema.truthy(strArr);
+	boolSchema = boolSchema.truthy(numArr);
+	boolSchema = boolSchema.truthy(str, str);
+	boolSchema = boolSchema.truthy(strArr, str);
+	boolSchema = boolSchema.truthy(str, strArr);
+	boolSchema = boolSchema.truthy(strArr, strArr);
+	boolSchema = boolSchema.falsy(str);
+	boolSchema = boolSchema.falsy(num);
+	boolSchema = boolSchema.falsy(strArr);
+	boolSchema = boolSchema.falsy(numArr);
+	boolSchema = boolSchema.falsy(str, str);
+	boolSchema = boolSchema.falsy(strArr, str);
+	boolSchema = boolSchema.falsy(str, strArr);
+	boolSchema = boolSchema.falsy(strArr, strArr);
+	boolSchema = boolSchema.insensitive(bool);
+
 	altSchema = boolSchema.when(str, whenOpts);
 	altSchema = boolSchema.when(ref, whenOpts);
 }
