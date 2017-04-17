@@ -10,8 +10,6 @@ export = jwt;
 declare function jwt(options: jwt.Options): jwt.Middleware;
 
 declare namespace jwt {
-    type booleanReturn = (args?: any) => boolean;
-
     interface Options {
         secret: string | Buffer;
         key?: string;
@@ -25,7 +23,7 @@ declare namespace jwt {
         method?: string | string[];
         path?: string | string[] | RegExp | RegExp[];
         ext?: string| string[];
-        custom?: booleanReturn;
+        custom?(ctx?: Koa.Context): boolean;
         useOriginalUrl?: boolean;
     }
 
