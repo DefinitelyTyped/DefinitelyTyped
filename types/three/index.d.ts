@@ -2228,7 +2228,7 @@ declare namespace THREE {
         texturePass: string;
         crossOrigin: string;
 
-        load(url: string, onLoad?: (object: Object3D) => void): void;
+        load(url: string, onLoad?: (object: Object3D) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: Error | ErrorEvent) => void): void;
         setTexturePath( value: string ): void;
         setCrossOrigin(crossOrigin: string): void;
         parse<T extends Object3D>(json: any, onLoad?: (object: Object3D) => void): T;
@@ -2658,7 +2658,7 @@ declare namespace THREE {
         displacementScale?: number;
         displacementBias?: number;
         roughnessMap?: Texture;
-        metalMap?: Texture;
+        metalnessMap?: Texture;
         alphaMap?: Texture;
         envMap?: Texture;
         envMapIntensity?: number;
@@ -2693,7 +2693,7 @@ declare namespace THREE {
         displacementScale: number;
         displacementBias: number;
         roughnessMap: Texture;
-        metalMap: Texture;
+        metalnessMap: Texture;
         alphaMap: Texture;
         envMap: Texture;
         envMapIntensity: number;
