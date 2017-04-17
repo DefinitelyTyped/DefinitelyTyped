@@ -121,6 +121,12 @@
             "asOfVersion": "7.1.0"
         },
         {
+            "libraryName": "gulp-typescript",
+            "typingsPackageName": "gulp-typescript",
+            "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
+            "asOfVersion": "2.13.0"
+        },
+        {
             "libraryName": "Facebook's Immutable",
             "typingsPackageName": "immutable",
             "sourceRepoURL": "https://github.com/facebook/immutable-js",
