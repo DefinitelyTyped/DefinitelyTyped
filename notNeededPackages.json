@@ -271,6 +271,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "parse5",
+            "typingsPackageName": "parse5",
+            "sourceRepoURL": "https://github.com/inikulin/parse5",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "pascal-case",
             "typingsPackageName": "pascal-case",
             "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
