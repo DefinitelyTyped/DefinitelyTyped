@@ -43,10 +43,10 @@
             "asOfVersion": "0.14.0"
         },
         {
-            "libraryName": "Bugsnag Browser",
-            "typingsPackageName": "bugsnag-js",
-            "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
-            "asOfVersion": "3.1.0"
+            "libraryName": "azure-mobile-apps",
+            "typingsPackageName": "azure-mobile-apps",
+            "sourceRepoURL": "https://github.com/Azure/azure-mobile-apps-node/",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "BabylonJS",
@@ -55,10 +55,10 @@
             "asOfVersion": "2.4.1"
         },
         {
-            "libraryName": "azure-mobile-apps",
-            "typingsPackageName": "azure-mobile-apps",
-            "sourceRepoURL": "https://github.com/Azure/azure-mobile-apps-node/",
-            "asOfVersion": "3.0.0"
+            "libraryName": "Bugsnag Browser",
+            "typingsPackageName": "bugsnag-js",
+            "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "camel-case",
@@ -121,28 +121,28 @@
             "asOfVersion": "3.4.0"
         },
         {
-            "libraryName": "EventEmitter3",
-            "typingsPackageName": "eventemitter3",
-            "sourceRepoURL": "https://github.com/primus/eventemitter3",
-            "asOfVersion": "2.0.2"
-        },
-        {
-            "libraryName": "FastSimplexNoise",
-            "typingsPackageName": "fast-simplex-noise",
-            "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
-            "asOfVersion": "3.0.0"
-        },
-        {
             "libraryName": "electron-builder",
             "typingsPackageName": "electron-builder",
             "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "EventEmitter3",
+            "typingsPackageName": "eventemitter3",
+            "sourceRepoURL": "https://github.com/primus/eventemitter3",
+            "asOfVersion": "2.0.2"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
             "asOfVersion": "1.1.5"
+        },
+        {
+            "libraryName": "FastSimplexNoise",
+            "typingsPackageName": "fast-simplex-noise",
+            "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "FineUploader",
@@ -511,16 +511,16 @@
             "asOfVersion": "1.1.2"
         },
         {
-            "libraryName": "tcomb",
-            "typingsPackageName": "tcomb",
-            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
-            "asOfVersion": "2.6.0"
-        },
-        {
             "libraryName": "Tabris.js",
             "typingsPackageName": "tabris",
             "sourceRepoURL": "http://tabrisjs.com",
             "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "tcomb",
+            "typingsPackageName": "tcomb",
+            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "asOfVersion": "2.6.0"
         },
         {
             "libraryName": "title-case",
