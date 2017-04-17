@@ -1599,7 +1599,7 @@ declare namespace React {
         /**
          * The position property controls the type of positioning used by an element within its parent elements. The effect of the position property depends on a lot of factors, for example the position property of parent elements.
          */
-        position?: CSSWideKeyword | any;
+        position?: CSSWideKeyword | "static" | "relative" | "absolute" | "fixed" | "sticky";
 
         /**
          * Obsolete: unsupported.
