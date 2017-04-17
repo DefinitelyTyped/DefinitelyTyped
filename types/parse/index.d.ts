@@ -2,6 +2,7 @@
 // Project: https://parse.com/
 // Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="jquery" />
@@ -267,7 +268,7 @@ declare namespace Parse {
      * A class that is used to access all of the children of a many-to-many relationship.
      * Each instance of Parse.Relation is associated with a particular parent object and key.
      */
-    class Relation<S extends Object, T extends Object> extends BaseObject {
+    class Relation<S extends Object = Object, T extends Object = Object> extends BaseObject {
 
         parent: S;
         key: string;
@@ -571,7 +572,7 @@ declare namespace Parse {
      *   }
      * });</pre></p>
      */
-    class Query<T extends Object> extends BaseObject {
+    class Query<T extends Object = Object> extends BaseObject {
 
         objectClass: any;
         className: string;
