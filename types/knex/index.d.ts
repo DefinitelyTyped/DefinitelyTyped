@@ -345,7 +345,7 @@ declare namespace Knex {
         hasTable(tableName: string): Promise<boolean>;
         hasColumn(tableName: string, columnName: string): Promise<boolean>;
         table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
-        dropTableIfExists(tableName: string): Promise<void>;
+        dropTableIfExists(tableName: string): SchemaBuilder;
         raw(statement: string): SchemaBuilder;
         withSchema(schemaName: string): SchemaBuilder;
     }
@@ -428,7 +428,7 @@ declare namespace Knex {
         index(indexName?: string, indexType?: string): ColumnBuilder;
     }
 
-    interface ReferencingColumnBuilder {
+    interface ReferencingColumnBuilder extends ColumnBuilder {
         inTable(tableName: string): ColumnBuilder;
     }
 
