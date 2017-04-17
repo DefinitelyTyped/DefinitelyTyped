@@ -5,5 +5,9 @@
     "noEmit": true,
     "noImplicitAny": true,
     "strictNullChecks": true
-  }
+  },
+  "files": [
+    "index.d.ts",
+    "tests/test.ts"
+  ]
 }
