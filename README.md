@@ -72,8 +72,8 @@ Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
 Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
-then follow the instructions for [Edit an existing package](#edit-an-existing-package) or
-[Create a new package](#create-a-new-package).
+then follow the instructions to [edit an existing package](#edit-an-existing-package) or
+[create a new package](#create-a-new-package).
 
 
 ### Make a pull request
