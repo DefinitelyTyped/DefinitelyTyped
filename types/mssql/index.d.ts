@@ -234,6 +234,7 @@ export declare class Request extends events.EventEmitter {
     public input(name: string, type: any, value: any): Request;
     public output(name: string, type: any, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
+    public query(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
     public query(command: string): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;

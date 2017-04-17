@@ -144,6 +144,7 @@ function test_promise_returns() {
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
     request.query<Entity>('SELECT 1 as value').then(res => {    });
+    request.query`SELECT ${1} as value`.then(res => {    });
     request.execute('procedure_name').then((recordset) => { });
 }
 
