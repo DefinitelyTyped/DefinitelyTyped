@@ -4,17 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="aws-sdk" />
 
 import * as stream from 'stream';
 import * as AWS from 'aws-sdk';
 
 declare namespace s3Stream {
-    export interface S3StreamUploader {
-        upload(destinationDetails: AWS.s3.PutObjectRequest, sessionDetails?: any): S3WriteStream;
+    interface S3StreamUploader {
+        upload(destinationDetails: AWS.S3.PutObjectRequest, sessionDetails?: any): S3WriteStream;
     }
 
-    export interface S3WriteStream extends stream.Writable {
+    interface S3WriteStream extends stream.Writable {
         maxPartSize(sizeInBytes: number): void;
         concurrentParts(numberOfParts: number): void;
     }

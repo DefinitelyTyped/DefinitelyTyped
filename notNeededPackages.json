@@ -25,6 +25,12 @@
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "aws-sdk",
+            "typingsPackageName": "aws-sdk",
+            "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
+            "asOfVersion": "2.7.0"
+        },
+        {
             "libraryName": "axios",
             "typingsPackageName": "axios",
             "sourceRepoURL": "https://github.com/mzabriskie/axios",
