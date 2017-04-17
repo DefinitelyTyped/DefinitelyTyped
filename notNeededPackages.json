@@ -445,6 +445,12 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "route-recognizer",
+            "typingsPackageName": "route-recognizer",
+            "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
