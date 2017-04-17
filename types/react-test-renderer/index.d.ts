@@ -8,7 +8,7 @@ import { ReactElement } from "react";
 
 export interface Renderer {
     toJSON(): ReactTestRendererJSON;
-    unmount(nextElement: any): void;
+    unmount(nextElement?: ReactElement<any>): void;
 }
 export interface ReactTestRendererJSON {
     type: string;
