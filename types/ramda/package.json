@@ -1,15 +1,9 @@
 {
-  "scripts": {
-    "lint": "echo linting... && tslint index.d.ts",
-    "test": "echo testing errors... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs ramda-tests.ts --noEmit",
-    "types": "echo testing types... && bash test.sh"
-  },
-  "devDependencies": {
+  "dependencies": {
     "ramda": "0.23.0",
     "tslint": "^4.2.0",
     "tslint-config-typings": "^0.3.1",
     "typescript": "^2.2.1-insiders.20170209",
     "typings-checker": "github:tycho01/typings-checker"
-  },
-  "typings": "index.d.ts"
+  }
 }
