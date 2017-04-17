@@ -80,11 +80,6 @@ export class AnimateExample extends Component<undefined, AnimateExampleState> {
                     animate={this.state.animate}
                     center={this.state.latlng}
                     // length={4} -- unimplemented; What component in the inheritance chain defines this property?
-
-                    // We use a lowercase property to create a Leaflet event handler. This type is
-                    // incompatible with that of the onClick property defined in React.DOMAttributes,
-                    // because the latter takes a React Event parameter whereas this type takes a
-                    // Leaflet event parameter.
                     onclick={this.handleClick}
                     ref="map"
                     zoom={13}
@@ -543,7 +538,6 @@ export class TooltipExample extends Component<undefined, TooltipExampleState> {
                 <Circle
                     center={center}
                     fillColor='blue'
-                    // NB: lowercase prop for Leaflet event handler
                     onclick={this.onClickCircle}
                     radius={200}
                 >
