@@ -1,15 +1,20 @@
-import fs = require('fs-extra');
+import * as fs from 'fs-extra';
 import * as Path from 'path';
 
-var src: string;
-var dest: string;
-var file: string;
-var dir: string;
-var path: string;
-var data: any;
-var object: Object;
-var errorCallback: (err: Error) => void;
-var openOpts: fs.OpenOptions;
+const src = "";
+const dest = "";
+const file = "";
+const dir = "";
+const path = "";
+const data = "";
+const object = {};
+const errorCallback = (err: Error) => {};
+const readOptions: fs.ReadOptions = {
+ 	reviver : {}
+};
+const writeOptions: fs.WriteOptions = {
+ 	replacer: {}
+};
 
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, (src: string) => {
@@ -71,23 +76,23 @@ fs.outputJsonSync(file, data);
 fs.outputJSONSync(file, data);
 
 fs.readJson(file, (error: Error, jsonObject: any) => {});
-fs.readJson(file, openOpts, (error: Error, jsonObject: any) => {});
+fs.readJson(file, readOptions, (error: Error, jsonObject: any) => {});
 fs.readJSON(file, (error: Error, jsonObject: any) => {});
-fs.readJSON(file, openOpts, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, readOptions, (error: Error, jsonObject: any) => {});
 
-fs.readJsonSync(file, openOpts);
-fs.readJSONSync(file, openOpts);
+fs.readJsonSync(file, readOptions);
+fs.readJSONSync(file, readOptions);
 
 fs.remove(dir, errorCallback);
 fs.removeSync(dir);
 
 fs.writeJson(file, object, errorCallback);
-fs.writeJson(file, object, openOpts, errorCallback);
+fs.writeJson(file, object, writeOptions, errorCallback);
 fs.writeJSON(file, object, errorCallback);
-fs.writeJSON(file, object, openOpts, errorCallback);
+fs.writeJSON(file, object, writeOptions, errorCallback);
 
-fs.writeJsonSync(file, object, openOpts);
-fs.writeJSONSync(file, object, openOpts);
+fs.writeJsonSync(file, object, writeOptions);
+fs.writeJSONSync(file, object, writeOptions);
 
 fs.ensureDir(path, errorCallback);
 fs.ensureDirSync(path);

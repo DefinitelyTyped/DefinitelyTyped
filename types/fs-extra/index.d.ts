@@ -1,4 +1,4 @@
-// Type definitions for fs-extra v2.0.0
+// Type definitions for fs-extra 2.1
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: midknight41 <https://github.com/midknight41>, Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,34 +41,34 @@ export declare function outputJsonSync(file: string, data: any): void;
 export declare function outputJSONSync(file: string, data: any): void;
 
 export declare function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export declare function readJson(file: string, options: OpenOptions, callback: (err: Error, jsonObject: any) => void): void;
+export declare function readJson(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
 export declare function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export declare function readJSON(file: string, options: OpenOptions, callback: (err: Error, jsonObject: any) => void): void;
+export declare function readJSON(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
 
-export declare function readJsonSync(file: string, options?: OpenOptions): any;
-export declare function readJSONSync(file: string, options?: OpenOptions): any;
+export declare function readJsonSync(file: string, options?: ReadOptions): any;
+export declare function readJSONSync(file: string, options?: ReadOptions): any;
 
 export declare function remove(dir: string, callback?: (err: Error) => void): void;
 export declare function removeSync(dir: string): void;
 
 export declare function writeJson(file: string, object: any, callback?: (err: Error) => void): void;
-export declare function writeJson(file: string, object: any, options?: OpenOptions, callback?: (err: Error) => void): void;
+export declare function writeJson(file: string, object: any, options?: WriteOptions, callback?: (err: Error) => void): void;
 export declare function writeJSON(file: string, object: any, callback?: (err: Error) => void): void;
-export declare function writeJSON(file: string, object: any, options?: OpenOptions, callback?: (err: Error) => void): void;
+export declare function writeJSON(file: string, object: any, options?: WriteOptions, callback?: (err: Error) => void): void;
 
-export declare function writeJsonSync(file: string, object: any, options?: OpenOptions): void;
-export declare function writeJSONSync(file: string, object: any, options?: OpenOptions): void;
+export declare function writeJsonSync(file: string, object: any, options?: WriteOptions): void;
+export declare function writeJSONSync(file: string, object: any, options?: WriteOptions): void;
 
-export declare function ensureDir(path: string, cb: (err: Error) => void): void;
+export declare function ensureDir(path: string, callback: (err: Error) => void): void;
 export declare function ensureDirSync(path: string): void;
 
-export declare function ensureFile(path: string, cb: (err: Error) => void): void;
+export declare function ensureFile(path: string, callback: (err: Error) => void): void;
 export declare function ensureFileSync(path: string): void;
 
-export declare function ensureLink(path: string, cb: (err: Error) => void): void;
+export declare function ensureLink(path: string, callback: (err: Error) => void): void;
 export declare function ensureLinkSync(path: string): void;
 
-export declare function ensureSymlink(path: string, cb: (err: Error) => void): void;
+export declare function ensureSymlink(path: string, callback: (err: Error) => void): void;
 export declare function ensureSymlinkSync(path: string): void;
 
 export declare function emptyDir(path: string, callback?: (err: Error) => void): void;
@@ -127,11 +127,13 @@ export interface CopyFilterFunction {
 export type CopyFilter = CopyFilterFunction | RegExp;
 
 export interface CopyOptions {
-    clobber?: boolean
-    preserveTimestamps?: boolean
-    dereference?: boolean
-    filter?: CopyFilter
-    recursive?: boolean
+    clobber?: boolean;
+    dereference?: boolean;
+    overwrite?: boolean;
+    preserveTimestamps?: boolean;
+    errorOnExist?: boolean;
+    filter?: CopyFilter;
+    recursive?: boolean;
 }
 
 export interface MoveOptions {
@@ -139,14 +141,21 @@ export interface MoveOptions {
     limit?: number;
 }
 
-export interface MoveOptions {
-    clobber? : boolean;
-    limit?: number;
-}
-
-export interface OpenOptions {
+export interface ReadOptions {
+    throws?: boolean;
+    fs?: Object;
+    reviver?: any;
     encoding?: string;
     flag?: string;
+}
+
+export interface WriteOptions {
+    fs?: Object;
+    replacer?: any;
+    spaces?: number;
+    encoding?: string;
+    flag?: string;
+    mode?: number;
 }
 
 export interface MkdirOptions {
