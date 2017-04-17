@@ -44,7 +44,7 @@ declare namespace Radium {
      * StyleRoot component properties
      */
     export interface StyleRootProps extends React.HTMLProps<StyleRoot> {
-         radiumConfig: RadiumConfig
+         radiumConfig?: RadiumConfig
     }
     /**
      * <StyleRoot />
