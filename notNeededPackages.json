@@ -457,6 +457,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "vso-node-api",
+            "typingsPackageName": "vso-node-api",
+            "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "vuejs",
             "typingsPackageName": "vue",
             "sourceRepoURL": "https://github.com/vuejs/vue",
