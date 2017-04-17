@@ -95,11 +95,11 @@ declare namespace THREE {
     export const OneMinusSrcAlphaFactor: BlendingDstFactor;
     export const DstAlphaFactor: BlendingDstFactor;
     export const OneMinusDstAlphaFactor: BlendingDstFactor;
+    export const DstColorFactor: BlendingDstFactor;
+    export const OneMinusDstColorFactor: BlendingDstFactor;
 
    // custom blending src factors
     export enum BlendingSrcFactor { }
-    export const DstColorFactor: BlendingSrcFactor;
-    export const OneMinusDstColorFactor: BlendingSrcFactor;
     export const SrcAlphaSaturateFactor: BlendingSrcFactor;
 
     // depth modes
@@ -2323,8 +2323,8 @@ declare namespace THREE {
         opacity?: number;
         transparent?: boolean;
         blending?: Blending;
-        blendSrc?: BlendingDstFactor;
-        blendDst?: BlendingSrcFactor;
+        blendSrc?: BlendingSrcFactor | BlendingDstFactor;
+        blendDst?: BlendingDstFactor;
         blendEquation?: BlendingEquation;
         blendSrcAlpha?: number;
         blendDstAlpha?: number;
@@ -2392,12 +2392,12 @@ declare namespace THREE {
         /**
          * Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
          */
-        blendSrc: BlendingDstFactor;
+        blendSrc: BlendingSrcFactor | BlendingDstFactor;
 
         /**
          * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
          */
-        blendDst: BlendingSrcFactor;
+        blendDst: BlendingDstFactor;
 
         /**
          * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is AddEquation.
