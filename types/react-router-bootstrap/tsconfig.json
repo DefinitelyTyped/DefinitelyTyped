@@ -14,10 +14,8 @@
             "../"
         ],
         "paths": {
-            "history": ["history/v3"],
-            "history/*": ["history/v3/*"],
-            "react-router": ["react-router/v3"],
-            "react-router/*": ["react-router/v3/*"]
+            "react-router-dom": ["react-router-dom"],
+            "react-router-dom/*": ["react-router-dom/*"]
         },
         "types": [],
         "noEmit": true,
@@ -25,8 +23,8 @@
     },
     "files": [
         "index.d.ts",
-        "lib/IndexLinkContainer.d.ts",
-        "lib/LinkContainer.d.ts",
+        "src/IndexLinkContainer.d.ts",
+        "src/LinkContainer.d.ts",
         "react-router-bootstrap-tests.tsx"
     ]
 }
