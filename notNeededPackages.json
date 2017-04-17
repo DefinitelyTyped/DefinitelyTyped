@@ -355,6 +355,12 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "reselect",
+            "typingsPackageName": "reselect",
+            "sourceRepoURL": "https://github.com/rackt/reselect",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
