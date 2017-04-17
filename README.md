@@ -71,7 +71,9 @@ Add to your `tsconfig.json`:
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
-Once you've tested your definitions with real code, make a PR contributing the definition by copying `types/foo` to `DefinitelyTyped/foo` and adding a `tsconfig.json` and `foo-tests.ts`.
+Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
+then follow the instructions to [edit an existing package](#edit-an-existing-package) or
+[create a new package](#create-a-new-package).
 
 
 ### Make a pull request
@@ -83,7 +85,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 #### Edit an existing package
 
-* `cd my-package-to-edit`
+* `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
