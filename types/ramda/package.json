@@ -1,5 +1,4 @@
 {
-  "version": "0.23.0-RC1",
   "scripts": {
     "lint": "echo linting... && tslint index.d.ts",
     "test": "echo testing errors... && ./node_modules/typescript/bin/tsc --lib \"es2015\" --module commonjs ramda-tests.ts --noEmit",
