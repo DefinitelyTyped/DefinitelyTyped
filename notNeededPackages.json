@@ -397,6 +397,12 @@
             "asOfVersion": "2.2.0"
         },
         {
+            "libraryName": "rest-io",
+            "typingsPackageName": "rest-io",
+            "sourceRepoURL": "https://github.com/EnoF/rest-io",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
