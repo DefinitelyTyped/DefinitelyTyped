@@ -515,8 +515,5 @@ declare class Handsontable extends __Handsontable.Core {
     static editors: Handsontable.Editors;
 }
 
-declare module "handsontable" {
-    export = Handsontable;
-}
-// export = Handsontable;
-// export as namespace Handsontable;
+export = Handsontable;
+export as namespace Handsontable;
