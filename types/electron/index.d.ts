@@ -277,8 +277,8 @@ declare namespace Electron {
 		 */
 		setName(name: string): void;
 		/**
-			* @returns The current application locale.
-			*/
+		  * @returns The current application locale.
+		  */
 		getLocale(): string;
 		/**
 		 * Adds path to recent documents list.
