@@ -49,6 +49,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "BabylonJS",
+            "typingsPackageName": "babylonjs",
+            "sourceRepoURL": "http://www.babylonjs.com/",
+            "asOfVersion": "2.4.1"
+        },
+        {
             "libraryName": "camel-case",
             "typingsPackageName": "camel-case",
             "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
