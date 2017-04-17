@@ -331,6 +331,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "pg-promise",
+            "typingsPackageName": "pg-promise",
+            "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",
+            "asOfVersion": "5.4.3"
+        },
+        {
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
