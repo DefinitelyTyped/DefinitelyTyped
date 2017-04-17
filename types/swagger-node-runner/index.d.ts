@@ -1,4 +1,4 @@
-// Type definitions for swagger-node-runner 0.7
+// Type definitions for swagger-node-runner 0.5
 // Project: https://www.npmjs.com/package/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,24 +42,28 @@ import * as Restify from "restify";
 export interface Config {
     /** Path to app */
     appRoot: string;
-    /** If `true` API is in mock mode
+    /**
+     * If `true` API is in mock mode
      *
      * default is `false`
      */
     mockMode?: boolean;
-    /** If `true` resonse is validated
+    /**
+     * If `true` resonse is validated
      *
      * default is `true`
      */
     validateResponse?: boolean;
     /** Sets `NODE_CONFIG_DIR` env if not set yet */
     configDir?: string;
-    /** Swagger controller directories
+    /**
+     * Swagger controller directories
      *
      * default is array with `/api/controllers` relative to `appRoot`
      */
     controllersDirs?: string[];
-    /** Swagger mock controller directories
+    /**
+     * Swagger mock controller directories
      *
      * default is array with `/api/mocks` relative to `appRoot`
      */
@@ -70,7 +74,8 @@ export interface Config {
      * default is `[api/fittings]`
      */
     fittingsDirs?: string[];
-    /** Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
+    /**
+     * Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
      *
      * default is `undefined`
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
@@ -202,7 +207,7 @@ export interface Runner extends EventEmitter {
 
 /** base used by all middleware versions */
 export interface Middleware {
-    /** Back-reference to `Runner` that has created this middleware */
+    /** Back-reference to `swagger-node-runner`s `Runner` that has created this middleware */
     runner: Runner;
 }
 
