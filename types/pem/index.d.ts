@@ -3,7 +3,7 @@
 // Definitions by: Anthony Trinh <https://github.com/tony19>, Ruslan Arkhipau <https://github.com/DethAriel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ModuleConfiguration {
+export interface ModuleConfiguration {
     /**
      * Path to OpenSSL binaries
      */
@@ -12,24 +12,24 @@ interface ModuleConfiguration {
 
 export type PrivateKeyCipher = "aes128" | "aes192" | "aes256" | "camellia128" | "camellia192" | "camellia256" | "des" | "des3" | "idea" | string; // allow for additions in future
 
-interface PrivateKeyCreationOptions {
+export interface PrivateKeyCreationOptions {
     cipher: PrivateKeyCipher;
     password: string;
 }
 
-interface Pkcs12CreationOptions {
+export interface Pkcs12CreationOptions {
     cipher?: PrivateKeyCipher;
     clientKeyPassword?: string;
     certFiles?: string[];
 }
 
-interface Pkcs12ReadOptions {
+export interface Pkcs12ReadOptions {
     p12Password?: string;
     clientKeyPassword?: string;
 }
 
 export type HashFunction = 'md5' | 'sha1' | 'sha256' | string;
-interface CSRCreationOptions {
+export interface CSRCreationOptions {
     /**
      *  Optional client key to use
      */
@@ -81,7 +81,7 @@ interface CSRCreationOptions {
     altNames?: string[];
 }
 
-interface CertificateCreationOptions extends CSRCreationOptions {
+export interface CertificateCreationOptions extends CSRCreationOptions {
     /**
      * Private key for signing the certificate, if not defined a new one is generated
      */
@@ -118,14 +118,14 @@ interface CertificateCreationOptions extends CSRCreationOptions {
     config?: string;
 }
 
-interface CertificateCreationResult {
+export interface CertificateCreationResult {
     certificate: any;
     csr: string;
     clientKey: string;
     serviceKey: string;
 }
 
-interface CertificateSubjectReadResult {
+export interface CertificateSubjectReadResult {
     country: string;
     state: string;
     locality: string;
@@ -135,7 +135,7 @@ interface CertificateSubjectReadResult {
     emailAddress: string;
 }
 
-type Callback<T> = (error: any, result: T) => any;
+export type Callback<T> = (error: any, result: T) => any;
 
 /**
  * Creates a private key

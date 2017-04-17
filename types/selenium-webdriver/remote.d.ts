@@ -6,7 +6,7 @@ import * as webdriver from './index';
  *
  * @record
  */
-interface ServiceOptions { }
+export interface ServiceOptions { }
 
 /**
  * Manages the life and death of a native executable WebDriver server.

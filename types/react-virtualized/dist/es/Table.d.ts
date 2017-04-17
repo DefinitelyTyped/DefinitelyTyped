@@ -202,7 +202,7 @@ export const defaultTableHeaderRenderer: () => Array<React.ReactElement<TableHea
 export const defaultTableHeaderRowRenderer: TableHeaderRowRenderer;
 export const defaultTableRowRenderer: TableRowRenderer;
 
-type SortDirectionStatic = {
+export type SortDirectionStatic = {
     /**
      * Sort items in ascending order.
      * This means arranging from the lowest value to the highest (e.g. a-z, 0-9).

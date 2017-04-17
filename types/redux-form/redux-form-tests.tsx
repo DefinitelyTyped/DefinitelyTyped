@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps } from "redux-form";
+import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps } from "redux-form";
 
 interface CustomComponentProps {
     customProp: string;
@@ -8,11 +8,17 @@ interface CustomComponentProps {
 
 class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps, {}> {
     render() {
+        const {
+            input,
+            meta : { touched },
+            customProp
+        } = this.props
+
         return (
             <div>
-                <span>{this.props.customProp}</span>
-                <p>Field: {this.props.meta.touched ? 'touched' : 'pristine'}</p>
-                <input {...this.props.input} />
+                <span>{customProp}</span>
+                <p>Field: {touched ? 'touched' : 'pristine'}</p>
+                <input {...input} />
             </div>
         );
     }
@@ -33,7 +39,7 @@ interface FormData {
 @reduxForm<FormData, any, any>({
     form: 'myForm'
 })
-class MyForm extends Component<{}, {}> {
+class MyForm extends Component<any, any> {
     render() {
         return (
             <div>
@@ -51,14 +57,13 @@ class MyForm extends Component<{}, {}> {
     }
 }
 
-const MyStatelessFunctionalComponent: React.SFC<void> = () => <div/>;
+const MyStatelessFunctionalComponent: React.SFC<any> = () => <div/>;
 
 reduxForm({
     form: 'mySFCForm'
 })(MyStatelessFunctionalComponent);
 
-@reduxForm<FormData, any, any>({})
-class MyDynamicForm extends Component<void, undefined> {
+class MyReusableForm extends Component<void, undefined> {
     render() {
         return (
             <div>

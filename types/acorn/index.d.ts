@@ -63,7 +63,7 @@ declare namespace acorn {
     class SourceLocation implements ESTree.SourceLocation {
         start: Position;
         end: Position;
-        source?: string;
+        source?: string | null;
 
         constructor(p: Parser, start: Position, end: Position);
     }
