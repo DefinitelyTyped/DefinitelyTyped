@@ -517,6 +517,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "Tabris.js",
+            "typingsPackageName": "tabris",
+            "sourceRepoURL": "http://tabrisjs.com",
+            "asOfVersion": "1.8.0"
+        },
+        {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
             "sourceRepoURL": "https://github.com/blakeembrey/title-case",
