@@ -397,6 +397,12 @@
             "asOfVersion": "3.6.0"
         },
         {
+            "libraryName": "redux-batched-actions",
+            "typingsPackageName": "redux-batched-actions",
+            "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
+            "asOfVersion": "0.1.5"
+        },
+        {
             "libraryName": "redux-persist",
             "typingsPackageName": "redux-persist",
             "sourceRepoURL": "https://github.com/rt2zz/redux-persist",
