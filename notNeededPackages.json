@@ -415,6 +415,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "tcomb",
+            "typingsPackageName": "tcomb",
+            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "asOfVersion": "2.6.0"
+        },
+        {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
             "sourceRepoURL": "https://github.com/blakeembrey/title-case",
