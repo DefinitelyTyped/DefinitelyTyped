@@ -193,6 +193,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "JSNLog",
+            "typingsPackageName": "jsnlog",
+            "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
+            "asOfVersion": "2.17.2"
+        },
+        {
             "libraryName": "jsonschema",
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
