@@ -668,7 +668,7 @@ interface Obj { a: number; b: number };
     const stringFunctor = {
         map: (fn: (c: number) => number) => {
             var chars = "Ifmmp!Xpsme".split("");
-            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("");
+            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("") as any;
         }
     };
     R.map((x: number) => x-1, stringFunctor); // => "Hello World"
@@ -1984,4 +1984,11 @@ class Why {
     R.intersperse(',', ['foo', 'bar']); //=> ['foo', ',', 'bar']
     R.intersperse(0, [1, 2]); //=> [1, 0, 2]
     R.intersperse(0, [1]); //=> [1]
+}
+
+{
+    const functor = {
+        map: (fn: (x: string) => string) => functor
+    }
+    R.map(x => x.trim(), functor)
 }

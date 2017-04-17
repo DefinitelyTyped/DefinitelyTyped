@@ -115,11 +115,11 @@ export class Masonry extends PureComponent<MasonryProps, MasonryState> {
     render(): JSX.Element;
 }
 
-type emptyObject = {}
+export type emptyObject = {}
 
-type identity = <T>(value: T) => T;
+export type identity = <T>(value: T) => T;
 
-type noop = () => void;
+export type noop = () => void;
 
 export type Position = {
     left: number,

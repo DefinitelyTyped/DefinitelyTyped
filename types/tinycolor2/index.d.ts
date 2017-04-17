@@ -1,6 +1,6 @@
 // Type definitions for tinycolor v1.1.1
 // Project: https://github.com/bgrins/TinyColor
-// Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
+// Definitions by: Mordechai Zuber <https://github.com/M-Zuber>, Geert Jansen <https://github.com/geertjansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var tinycolor: tinycolor;
@@ -146,6 +146,11 @@ interface tinycolorInstance {
      * Returns the perceived brightness of the color, from 0-255.
      */
     getBrightness(): number;
+
+    /**
+     * Returns the perceived luminance of a color, from 0-1.
+     */
+    getLuminance(): number;
 
     /**
      * Sets the alpha value on the current color.

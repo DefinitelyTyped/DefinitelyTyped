@@ -151,7 +151,7 @@ export interface ValidationResult<T> {
 }
 
 export interface SchemaMap {
-    [key: string]: Schema;
+    [key: string]: Schema | SchemaMap | (Schema | SchemaMap)[];
 }
 
 export interface Schema extends AnySchema<Schema> {
@@ -506,15 +506,20 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
      *
      * @param type - a joi schema object to validate each array item against.
      */
-    items(type: Schema, ...types: Schema[]): ArraySchema;
+    items(...types: Schema[]): ArraySchema;
+    items(...types: SchemaMap[]): ArraySchema;
     items(types: Schema[]): ArraySchema;
+    items(types: SchemaMap[]): ArraySchema;
 
     /**
      * Lists the types in sequence order for the array values where:
      * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
      * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
      */
-    ordered(type: Schema, ...types: Schema[]): ArraySchema;
+    ordered(...types: Schema[]): ArraySchema;
+    ordered(...types: SchemaMap[]): ArraySchema;
+    ordered(types: Schema[]): ArraySchema;
+    ordered(types: SchemaMap[]): ArraySchema;
 
     /**
      * Specifies the minimum number of items in the array.

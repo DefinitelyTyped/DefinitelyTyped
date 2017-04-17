@@ -1307,6 +1307,8 @@ declare module "mongoose" {
     //   the ObjectIdConstructor, so we add the interface below
     interface ObjectId extends mongodb.ObjectID {}
 
+    class Decimal128 extends mongodb.Decimal128 {}
+
     /*
       * section types/embedded.js
       * http://mongoosejs.com/docs/api.html#types-embedded-js
@@ -2012,6 +2014,20 @@ declare module "mongoose" {
          * @param turnOn auto generated ObjectId defaults
          */
         auto(turnOn: boolean): this;
+
+        /** Check if the given value satisfies a required validator. */
+        checkRequired(value: any, doc: MongooseDocument): boolean;
+
+        /** This schema type's name, to defend against minifiers that mangle function names. */
+        static schemaName: string;
+      }
+      /*
+        * section schema/decimal128.js
+        * http://mongoosejs.com/docs/api.html#schema-decimal128-js
+        */
+      class Decimal128 extends SchemaType {
+        /** Decimal128 SchemaType constructor. */
+        constructor(key: string, options?: Object);
 
         /** Check if the given value satisfies a required validator. */
         checkRequired(value: any, doc: MongooseDocument): boolean;

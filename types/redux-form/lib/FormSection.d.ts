@@ -12,6 +12,4 @@ interface FormSectionProps {
  * multiple forms. It does this by prefixing the name of Field, Fields and FieldArray children, at any depth,
  * with the value specified in the name prop.
  */
-export class FormSection extends Component<FormSectionProps, any> {
-
-}
+export class FormSection extends Component<FormSectionProps, any> {}

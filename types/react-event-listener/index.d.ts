@@ -6,7 +6,7 @@
 
 import * as React from "react";
 
-interface EventOptions {
+export interface EventOptions {
     /**
      * @default false
      */
