@@ -271,6 +271,12 @@
             "asOfVersion": "1.2.5"
         },
         {
+            "libraryName": "mobservable-react",
+            "typingsPackageName": "mobservable-react",
+            "sourceRepoURL": "https://github.com/mweststrate/mobservable-react",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
