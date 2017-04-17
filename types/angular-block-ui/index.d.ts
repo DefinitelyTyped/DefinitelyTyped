@@ -1,9 +1,7 @@
-// Type definitions for angular-block-ui v0.2.2
+// Type definitions for angular-block-ui 0.2
 // Project: https://github.com/McNull/angular-block-ui
 // Definitions by: Lasse Nørregaard <https://github.com/lassebn>, Stephan Classen <https://github.com/sclassen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="angular" />
 
 import * as angular from "angular";
 
