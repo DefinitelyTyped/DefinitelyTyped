@@ -6,38 +6,33 @@
 
 import * as React from 'react';
 
-declare namespace ClickOut {
+declare namespace OnClickOut {
     interface HandleClickOutside<T> {
         handleClickOutside: React.MouseEventHandler<T>;
     }
 
-    interface InjectedProps {
+    interface InjectedOnClickOutProps {
         disableOnClickOutside(): void;
         enableOnClickOutside(): void;
     }
 
-    interface Props {
-        disableOnClickOutside: boolean;
-        eventTypes: string | string[];
-        outsideClickIgnoreClass: string;
-        preventDefault: boolean;
-        stopPropagation: boolean;
+    interface OnClickOutProps {
+        disableOnClickOutside?: boolean;
+        eventTypes?: string | string[];
+        outsideClickIgnoreClass?: string;
+        preventDefault?: boolean;
+        stopPropagation?: boolean;
     }
 }
 
-/**
- * Wraps a React.Stateless or React.Component with clickout
- * Must pass handleClickOutside as a prop or implement ClickOut.HandleClickOutside
- * @param component
- * @constructor
- */
-declare function ClickOut<OwnProps>(
-    component: Stateless<OwnProps> | Component<OwnProps>
-): React.ComponentClass<OwnProps & Partial<ClickOut.Props>>;
+type DecoratedComponent<P> = React.ComponentClass<P & OnClickOut.OnClickOutProps>;
 
-type Stateless<T> = React.StatelessComponent<T & ClickOut.InjectedProps & ClickOut.HandleClickOutside<any>>;
+declare function OnClickOut<P>(
+    component: React.StatelessComponent<P & OnClickOut.InjectedOnClickOutProps & OnClickOut.HandleClickOutside<any>>
+): DecoratedComponent<P>;
 
-type Component<T> = React.ComponentClass<T & ClickOut.InjectedProps> |
-    React.ComponentClass<T & ClickOut.InjectedProps & ClickOut.HandleClickOutside<any>>;
+declare function OnClickOut<P>(
+    component: React.ComponentClass<P & OnClickOut.InjectedOnClickOutProps & Partial<OnClickOut.HandleClickOutside<any>>>
+): DecoratedComponent<P>;
 
-export = ClickOut;
+export = OnClickOut;
