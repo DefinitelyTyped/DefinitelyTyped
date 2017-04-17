@@ -77,7 +77,7 @@ webFrame.registerURLSchemeAsPrivileged('app', {
 webFrame.insertText('text');
 
 webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
-		console.log(result);
+    console.log(result);
 }).then((result: string) => console.log('OK:' + result));
 
 console.log(webFrame.getResourceUsage());
@@ -149,25 +149,25 @@ function getUserMediaError(error: Error) {
 
 /*
 <div id="holder">
-	Drag your file here
+  Drag your file here
 </div>
 */
 
 var holder = document.getElementById('holder');
 
 holder.ondragover = function () {
-		return false;
+    return false;
 };
 
 holder.ondragleave = holder.ondragend = function () {
-		return false;
+    return false;
 };
 
 holder.ondrop = function (e) {
-		e.preventDefault();
-		var file = e.dataTransfer.files[0];
-		console.log('File you dragged here is', file.path);
-		return false;
+    e.preventDefault();
+    var file = e.dataTransfer.files[0];
+    console.log('File you dragged here is', file.path);
+    return false;
 };
 
 // nativeImage
@@ -259,9 +259,9 @@ webview.send('ping');
 webview.capturePage((image) => { console.log(image); });
 
 {
-		const opened: boolean = webview.isDevToolsOpened();
-		const focused: boolean = webview.isDevToolsFocused();
-		const focused2: boolean = webview.getWebContents().isFocused();
+    const opened: boolean = webview.isDevToolsOpened();
+    const focused: boolean = webview.isDevToolsFocused();
+    const focused2: boolean = webview.getWebContents().isFocused();
 }
 
 // In guest page.
