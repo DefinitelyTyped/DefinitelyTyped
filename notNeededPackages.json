@@ -367,6 +367,12 @@
             "asOfVersion": "0.7.3"
         },
         {
+            "libraryName": "sendgrid",
+            "typingsPackageName": "sendgrid",
+            "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
+            "asOfVersion": "4.3.0"
+        },
+        {
             "libraryName": "sentence-case",
             "typingsPackageName": "sentence-case",
             "sourceRepoURL": "https://github.com/blakeembrey/sentence-case",
