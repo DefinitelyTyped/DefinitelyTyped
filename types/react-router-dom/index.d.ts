@@ -50,7 +50,7 @@ declare module 'react-router-dom' {
     activeStyle?: React.CSSProperties;
     exact?: boolean;
     strict?: boolean;
-    isActive?(location: H.Location, props: any): boolean;
+    isActive?<P>(match: match<P>, location: H.Location): boolean;
   }
   class NavLink extends React.Component<NavLinkProps, void> {}
 
@@ -58,6 +58,7 @@ declare module 'react-router-dom' {
     BrowserRouter,
     HashRouter,
     LinkProps, // TypeScript specific, not from React Router itself
+    NavLinkProps, // TypeScript specific, not from React Router itself
     Link,
     NavLink,
     Prompt,

@@ -16,7 +16,7 @@ import * as moment from "moment";
 
 export as namespace BootstrapV3DatetimePicker;
 
-type InputParser = (input: string | Date | moment.Moment) => moment.Moment;
+export type InputParser = (input: string | Date | moment.Moment) => moment.Moment;
 
 export interface Datetimepicker {
 	/** Clears the datepicker by setting the value to null */
@@ -576,7 +576,7 @@ export interface UpdateEvent extends JQueryEventObject {
 	viewDate: moment.Moment;
 }
 
-type EventName = "dp.show" | "dp.hide" | "dp.error";
+export type EventName = "dp.show" | "dp.hide" | "dp.error";
 
 declare global {
 	interface JQuery {
