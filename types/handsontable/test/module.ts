@@ -1,3 +1,5 @@
+import Handsontable = require("handsontable");
+
 function test_HandsontableInit() {
   const elem = document.createElement('div');
   const hot = new Handsontable(elem, {
@@ -248,7 +250,7 @@ function test_HandsontableMethods() {
   hot.getRowHeight(123);
   hot.getSchema();
   hot.getSelected();
-  const range: ht.Range = hot.getSelectedRange();
+  const range: Handsontable.Range = hot.getSelectedRange();
   hot.getSettings();
   hot.getSourceData(123, 123, 123, 123);
   hot.getSourceDataAtCell(123, 123);
@@ -294,6 +296,6 @@ function test_HandsontableMethods() {
 
 class MyCustomHotPlugin extends Handsontable.plugins.BasePlugin {
   isEnabled(): boolean {
-     return !!this.hot.getSettings().manualRowMove;
+    return !!this.hot.getSettings().manualRowMove;
   }
 }
