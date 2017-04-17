@@ -73,6 +73,12 @@
             "asOfVersion": "2.6.0"
         },
         {
+            "libraryName": "DevExtreme",
+            "typingsPackageName": "devextreme",
+            "sourceRepoURL": "http://js.devexpress.com/",
+            "asOfVersion": "16.2.1"
+        },
+        {
             "libraryName": "Dexie.js",
             "typingsPackageName": "dexie",
             "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
