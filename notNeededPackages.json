@@ -277,6 +277,12 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "Onsen UI",
+            "typingsPackageName": "onsenui",
+            "sourceRepoURL": "http://onsen.io",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
