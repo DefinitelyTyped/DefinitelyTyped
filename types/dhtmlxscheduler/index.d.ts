@@ -1044,6 +1044,7 @@ interface SchedulerLocaleLabels {
 	confirm_deleting: string;
 	section_description: string;
 	section_time: string;
+	unit_tab: string;
 }
 
 interface SchedulerLocale {
