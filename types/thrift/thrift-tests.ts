@@ -1,6 +1,10 @@
-// Currently, the thrift bindings are minimal just to support the thrift generated
-// evernote bindings. Add more tests if you flesh out and plan to use the thrift
-// bindings more deeply.
-import evernote = require("evernote");
+import Thrift = require('thrift');
 
-1 + 1;
+const fakeGeneratedService: any = {};
+const fakeServiceMethods: any = {};
+const fakeConnectionParams: any = {};
+
+Thrift.createServer(fakeGeneratedService, fakeServiceMethods);
+
+const clientConnection = Thrift.createConnection('0.0.0.0', 1234, fakeConnectionParams);
+Thrift.createClient(fakeGeneratedService, clientConnection);
