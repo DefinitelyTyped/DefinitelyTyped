@@ -1,4 +1,3 @@
-
 /**
  * Created by jcabresos on 4/19/2014.
  */
@@ -6,7 +5,7 @@ import passport = require('passport');
 import github = require('passport-github');
 
 // just some test model
-var User = {
+const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
         callback(null, { username: 'james' });
     }
