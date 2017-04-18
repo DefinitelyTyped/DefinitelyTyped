@@ -7211,7 +7211,7 @@ export interface PushNotificationIOSStatic {
      * This method returns a promise that resolves to either the notification
      * object if the app was launched by a push notification, or `null` otherwise.
      */
-    getInitialNotification(): PushNotification
+    getInitialNotification(): Promise<PushNotification>
 }
 
 export interface SettingsStatic {
