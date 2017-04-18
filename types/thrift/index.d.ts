@@ -1,9 +1,11 @@
-// Type definitions for thrift 0.10.0
+// Type definitions for thrift 0.10
 // Project: https://www.npmjs.com/package/thrift
 // Definitions by: Kamek <https://github.com/kamek-pf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace Thrift;
+
+export class TException {}
 
 /**
  * Protocols and Transports
