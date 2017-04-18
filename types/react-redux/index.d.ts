@@ -1,6 +1,6 @@
 // Type definitions for react-redux 4.4.0
 // Project: https://github.com/rackt/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>
+// Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>, Thomas Hasner <https://github.com/thasner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -9,22 +9,14 @@ import * as Redux from 'redux';
 
 type ComponentClass<P> = React.ComponentClass<P>;
 type StatelessComponent<P> = React.StatelessComponent<P>;
+type Component<P> = ComponentClass<P> | StatelessComponent<P>;
 type ReactNode = React.ReactNode;
 type Store<S> = Redux.Store<S>;
 type Dispatch<S> = Redux.Dispatch<S>;
 type ActionCreator<A> = Redux.ActionCreator<A>;
 
-interface ComponentDecorator<TOriginalProps, TOwnProps> {
-    (component: ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
-}
-
-/**
- * Decorator that infers the type from the original component
- *
- * Can't use the above decorator because it would default the type to {}
- */
-export interface InferableComponentDecorator {
-    <P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
+interface ComponentDecorator<TStateProps, TDispatchProps, TOwnProps> {
+    (component: Component<TStateProps & TDispatchProps & TOwnProps>): ComponentClass<TOwnProps>;
 }
 
 /**
@@ -46,14 +38,14 @@ export interface InferableComponentDecorator {
  * @param mergeProps
  * @param options
  */
-export declare function connect(): InferableComponentDecorator;
+export declare function connect<TOwnProps>(): ComponentDecorator<void, void, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps?: MapStateToProps<TStateProps, TOwnProps> | MapStateToPropsFactory<TStateProps, TOwnProps>,
     mapDispatchToProps?: MapDispatchToProps<TDispatchProps, TOwnProps> | MapDispatchToPropsFactory<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
-): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+): ComponentDecorator<TStateProps, TDispatchProps, TOwnProps>;
 
 interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;
