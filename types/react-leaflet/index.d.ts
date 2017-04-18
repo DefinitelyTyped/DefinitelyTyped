@@ -305,14 +305,14 @@ export class Tooltip<P extends TooltipProps, E extends Leaflet.Tooltip> extends 
     removeTooltipContent(): void;
 }
 
-export interface MapControlProps extends Leaflet.ControlOptions { }
+export type MapControlProps = Leaflet.ControlOptions;
 export class MapControl<P extends MapControlProps, E extends Leaflet.Control> extends React.Component<P, {}> {
     leafletElement: E;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
-export interface AttributionControlProps extends Leaflet.Control.AttributionOptions { }
+export type AttributionControlProps = Leaflet.Control.AttributionOptions;
 export class AttributionControl<P extends AttributionControlProps, E extends Leaflet.Control.Attribution> extends MapControl<P, E> { }
 
 export interface LayersControlProps extends LayersControlEvents, Leaflet.Control.LayersOptions {
@@ -344,8 +344,8 @@ export namespace LayersControl {
     class Overlay<P extends ControlledLayerProps> extends ControlledLayer<P> { }
 }
 
-export interface ScaleControlProps extends Leaflet.Control.ScaleOptions { }
+export type ScaleControlProps = Leaflet.Control.ScaleOptions;
 export class ScaleControl<P extends ScaleControlProps, E extends Leaflet.Control.Scale> extends MapControl<P, E> { }
 
-export interface ZoomControlProps extends Leaflet.Control.ZoomOptions { }
+export type ZoomControlProps = Leaflet.Control.ZoomOptions;
 export class ZoomControl<P extends ZoomControlProps, E extends Leaflet.Control.Zoom> extends MapControl<P, E> { }
