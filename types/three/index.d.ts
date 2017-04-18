@@ -5128,7 +5128,7 @@ declare namespace THREE {
         height: number;
         scissor: Vector4;
         scissorTest: boolean;
-        viewpport: Vector4;
+        viewport: Vector4;
         texture: Texture;
         depthBuffer: boolean;
         stencilBuffer: boolean;
