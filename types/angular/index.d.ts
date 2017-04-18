@@ -1978,9 +1978,9 @@ declare namespace angular {
             get(name: '$window'): IWindowService;
             get<T>(name: '$xhrFactory'): IXhrFactory<T>;
             has(name: string): boolean;
-            instantiate<T>(typeConstructor: Function, locals?: any): T;
+            instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
-            invoke(func: Function, context?: any, locals?: any): any;
+            invoke<T>(func: (...args: any[]) => T, context?: any, locals?: any): T;
             strictDi: boolean;
         }
 
