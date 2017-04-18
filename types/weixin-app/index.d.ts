@@ -2117,6 +2117,39 @@ declare namespace wx {
 	 */
 	type AppConstructor = (options: wx.AppOptions) => void;
 }
+
+declare namespace wx {
+	interface EventTarget {
+		id: string;
+		tagName: string;
+		dataset: { [name: string]: string; };
+	}
+	interface BaseEvent {
+		type: 'tap' | 'touchstart' | 'touchmove' | 'touchcancel' | 'touchend' | 'tap' | 'longtap';
+		timeStamp: number;
+		currentTarget: EventTarget;
+		target: EventTarget;
+	}
+}
+
+declare namespace wx {
+	interface InputEvent extends BaseEvent {
+		detail: {
+			target: EventTarget;
+			value: string;
+		};
+	}
+}
+
+declare namespace wx {
+	interface FormEvent extends BaseEvent {
+		detail: {
+			target: EventTarget;
+			value: { [name: string]: string | boolean | number; };
+		};
+	}
+}
+
 declare var App: wx.AppConstructor;
 
 /**
