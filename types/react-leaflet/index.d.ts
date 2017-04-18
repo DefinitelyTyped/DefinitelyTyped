@@ -134,7 +134,7 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     center?: Leaflet.LatLngExpression;
     children?: Children;
     className?: string;
-    id?: string,
+    id?: string;
     maxBounds?: Leaflet.LatLngBoundsExpression;
     maxZoom?: number;
     minZoom?: number;
