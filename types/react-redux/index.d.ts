@@ -20,6 +20,15 @@ interface ComponentDecorator<TStateProps, TDispatchProps, TOwnProps> {
 }
 
 /**
+ * Decorator that infers the type from the original component
+ *
+ * Can't use the above decorator because it would default the type to {}
+ */
+export interface InferableComponentDecorator<IOwnProps> {
+    <T extends Component<IOwnProps>>(component: T): T;
+}
+
+/**
  * Connects a React component to a Redux store.
  *
  * - Without arguments, just wraps the component, without changing the behavior / props
@@ -38,7 +47,7 @@ interface ComponentDecorator<TStateProps, TDispatchProps, TOwnProps> {
  * @param mergeProps
  * @param options
  */
-export declare function connect<TOwnProps>(): ComponentDecorator<void, void, TOwnProps>;
+export declare function connect<TOwnProps>(): InferableComponentDecorator<TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps?: MapStateToProps<TStateProps, TOwnProps> | MapStateToPropsFactory<TStateProps, TOwnProps>,
@@ -84,9 +93,9 @@ interface Options {
      */
     pure?: boolean;
     /**
-    * If true, stores a ref to the wrapped component instance and makes it available via
-    * getWrappedInstance() method. Defaults to false.
-    */
+     * If true, stores a ref to the wrapped component instance and makes it available via
+     * getWrappedInstance() method. Defaults to false.
+     */
     withRef?: boolean;
 }
 
