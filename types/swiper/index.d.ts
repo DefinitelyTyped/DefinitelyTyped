@@ -292,7 +292,7 @@ declare class Swiper {
 
     slidePrev(runCallbacks?: boolean, speed?: number): void;
     slideNext(runCallbacks?: boolean, speed?: number): void;
-    slideTo(index: number, runCallbacks?: boolean, speed?: number): void;
+    slideTo(index: number, speed?: number, runCallbacks?: boolean): void;
     update(updateTranslate?: boolean): void;
     onResize(): void;
     detachEvents(): void;
