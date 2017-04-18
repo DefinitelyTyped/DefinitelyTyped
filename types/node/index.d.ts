@@ -290,7 +290,6 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        isTTY?: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string | null): this;
         pause(): this;
@@ -305,7 +304,6 @@ declare namespace NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        isTTY?: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -364,10 +362,14 @@ declare namespace NodeJS {
                   | 'sunos'
                   | 'win32';
 
+    export interface Socket extends ReadWriteStream {
+        isTTY?: true;
+    }
+
     export interface Process extends EventEmitter {
-        stdout: WritableStream;
-        stderr: WritableStream;
-        stdin: ReadableStream;
+        stdout: Socket;
+        stderr: Socket;
+        stdin: Socket;
         argv: string[];
         argv0: string;
         execArgv: string[];
@@ -2490,15 +2492,15 @@ declare module "fs" {
     export function futimesSync(fd: number, atime: Date, mtime: Date): void;
     export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fsyncSync(fd: number): void;
-    export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+    export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
     export function write(fd: number, buffer: Buffer, offset: number, length: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
     export function write(fd: number, data: any, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function write(fd: number, data: any, offset: number, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
-    export function writeSync(fd: number, data: any, position?: number, enconding?: string): number;
-    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): number;
+    export function writeSync(fd: number, data: any, position?: number | null, enconding?: string): number;
+    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
+    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): number;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -3424,6 +3426,7 @@ declare module "stream" {
     class internal extends events.EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
+
     namespace internal {
 
         export class Stream extends internal { }
@@ -3432,13 +3435,13 @@ declare module "stream" {
             highWaterMark?: number;
             encoding?: string;
             objectMode?: boolean;
-            read?: (size?: number) => any;
+            read?: (this: Readable, size?: number) => any;
         }
 
-        export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
+        export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
             constructor(opts?: ReadableOptions);
-            protected _read(size: number): void;
+            _read(size: number): void;
             read(size?: number): any;
             setEncoding(encoding: string): this;
             pause(): this;
@@ -3447,7 +3450,7 @@ declare module "stream" {
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
-            wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
+            wrap(oldStream: NodeJS.ReadableStream): Readable;
             push(chunk: any, encoding?: string): boolean;
 
             /**
@@ -3518,12 +3521,13 @@ declare module "stream" {
             writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
         }
 
-        export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
+        export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
-            protected _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
+            setDefaultEncoding(encoding: string): this;
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
@@ -3602,16 +3606,13 @@ declare module "stream" {
         }
 
         // Note: Duplex extends both Readable and Writable.
-        export class Duplex extends Readable implements NodeJS.ReadWriteStream {
-            // Readable
-            pause(): this;
-            resume(): this;
-            // Writeable
+        export class Duplex extends Readable implements Writable {
             writable: boolean;
             constructor(opts?: DuplexOptions);
-            protected _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
+            setDefaultEncoding(encoding: string): this;
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
@@ -3622,28 +3623,9 @@ declare module "stream" {
             flush?: (callback: Function) => any;
         }
 
-        // Note: Transform lacks the _read and _write methods of Readable/Writable.
-        export class Transform extends events.EventEmitter implements NodeJS.ReadWriteStream {
-            readable: boolean;
-            writable: boolean;
+        export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
-            protected _transform(chunk: any, encoding: string, callback: Function): void;
-            protected _flush(callback: Function): void;
-            read(size?: number): any;
-            setEncoding(encoding: string): this;
-            pause(): this;
-            resume(): this;
-            isPaused(): boolean;
-            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-            unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
-            unshift(chunk: any): void;
-            wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
-            push(chunk: any, encoding?: string): boolean;
-            write(chunk: any, cb?: Function): boolean;
-            write(chunk: any, encoding?: string, cb?: Function): boolean;
-            end(): void;
-            end(chunk: any, cb?: Function): void;
-            end(chunk: any, encoding?: string, cb?: Function): void;
+            _transform(chunk: any, encoding: string, callback: Function): void;
         }
 
         export class PassThrough extends Transform { }

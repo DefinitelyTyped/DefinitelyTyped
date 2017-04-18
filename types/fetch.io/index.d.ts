@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-type TUrl = string;
+export type TUrl = string;
 
-type TMethod = 'delete' | 'get' | 'head' | 'options' | 'post' | 'put';
+export type TMethod = 'delete' | 'get' | 'head' | 'options' | 'post' | 'put';
 
-interface Query {
+export interface Query {
   [key: string]: number | boolean | string;
 }
 
-interface Header {
+export interface Header {
   [key: string]: string;
 }
 
-interface Options extends RequestInit {
+export interface Options extends RequestInit {
   prefix?: string;
 
   query?: Query;

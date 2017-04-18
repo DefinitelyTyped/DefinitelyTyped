@@ -4,36 +4,42 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace jsonpatch {
-    type OpPatch = AddPath | RemovePath | ReplacePath | MovePath | CopyPath | TestPath;
+    type OpPatch = AddPatch | RemovePatch | ReplacePatch | MovePatch | CopyPatch | TestPatch;
     interface Patch {
-        op: string;
-    }
-    interface AddPath extends Patch {
         path: string;
+    }
+    interface AddPatch extends Patch {
+        op: 'add';
         value: any;
     }
-    interface RemovePath extends Patch {
-        path: string;
+    interface RemovePatch extends Patch {
+        op: 'remove';
     }
-    interface ReplacePath extends Patch {
-        path: string;
+    interface ReplacePatch extends Patch {
+        op: 'replace';
         value: any;
     }
-    interface MovePath extends Patch {
+    interface MovePatch extends Patch {
+        op: 'move';
         from: string;
-        path: string;
     }
-    interface CopyPath extends Patch {
+    interface CopyPatch extends Patch {
+        op: 'copy';
         from: string;
-        path: string;
     }
-    interface TestPath extends Patch {
-        path: string;
+    interface TestPatch extends Patch {
+        op: 'test';
         value: any;
     }
 
     function apply(document: any, patches: OpPatch[]): any;
     function compile(patches: OpPatch[]): (document: any) => any;
+
+    class JSONPatchError extends Error { }
+    class InvalidPointerError extends Error { }
+    class InvalidPatchError extends JSONPatchError { }
+    class PatchConflictError extends JSONPatchError { }
+    class PatchTestFailed extends Error { }
 }
 
 export = jsonpatch;

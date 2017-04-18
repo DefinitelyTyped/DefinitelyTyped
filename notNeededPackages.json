@@ -13,16 +13,52 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "anydb-sql",
+            "typingsPackageName": "anydb-sql",
+            "sourceRepoURL": "https://github.com/doxout/anydb-sql",
+            "asOfVersion": "0.6.46"
+        },
+        {
             "libraryName": "Argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
             "asOfVersion": "0.15.0"
         },
         {
+            "libraryName": "aws-sdk",
+            "typingsPackageName": "aws-sdk",
+            "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "axe-core",
+            "typingsPackageName": "axe-core",
+            "sourceRepoURL": "https://github.com/dequelabs/axe-core",
+            "asOfVersion": "2.0.7"
+        },
+        {
             "libraryName": "axios",
             "typingsPackageName": "axios",
             "sourceRepoURL": "https://github.com/mzabriskie/axios",
             "asOfVersion": "0.14.0"
+        },
+        {
+            "libraryName": "azure-mobile-apps",
+            "typingsPackageName": "azure-mobile-apps",
+            "sourceRepoURL": "https://github.com/Azure/azure-mobile-apps-node/",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "BabylonJS",
+            "typingsPackageName": "babylonjs",
+            "sourceRepoURL": "http://www.babylonjs.com/",
+            "asOfVersion": "2.4.1"
+        },
+        {
+            "libraryName": "Bugsnag Browser",
+            "typingsPackageName": "bugsnag-js",
+            "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "camel-case",
@@ -37,6 +73,12 @@
             "asOfVersion": "2.3.1"
         },
         {
+            "libraryName": "cheap-ruler",
+            "typingsPackageName": "cheap-ruler",
+            "sourceRepoURL": "https://github.com/mapbox/cheap-ruler",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "constant-case",
             "typingsPackageName": "constant-case",
             "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
@@ -47,6 +89,12 @@
             "typingsPackageName": "date-fns",
             "sourceRepoURL": "https://github.com/date-fns/date-fns",
             "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "DevExtreme",
+            "typingsPackageName": "devextreme",
+            "sourceRepoURL": "http://js.devexpress.com/",
+            "asOfVersion": "16.2.1"
         },
         {
             "libraryName": "Dexie.js",
@@ -73,6 +121,30 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "electron-builder",
+            "typingsPackageName": "electron-builder",
+            "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
+            "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "EventEmitter3",
+            "typingsPackageName": "eventemitter3",
+            "sourceRepoURL": "https://github.com/primus/eventemitter3",
+            "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "JSON-Patch",
+            "typingsPackageName": "fast-json-patch",
+            "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
+            "asOfVersion": "1.1.5"
+        },
+        {
+            "libraryName": "FastSimplexNoise",
+            "typingsPackageName": "fast-simplex-noise",
+            "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "FineUploader",
             "typingsPackageName": "fine-uploader",
             "sourceRepoURL": "http://fineuploader.com/",
@@ -89,6 +161,12 @@
             "typingsPackageName": "github",
             "sourceRepoURL": "https://github.com/mikedeboer/node-github",
             "asOfVersion": "7.1.0"
+        },
+        {
+            "libraryName": "gulp-typescript",
+            "typingsPackageName": "gulp-typescript",
+            "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
+            "asOfVersion": "2.13.0"
         },
         {
             "libraryName": "Facebook's Immutable",
@@ -145,10 +223,28 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "JSNLog",
+            "typingsPackageName": "jsnlog",
+            "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
+            "asOfVersion": "2.17.2"
+        },
+        {
             "libraryName": "jsonschema",
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
             "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "knockout-paging",
+            "typingsPackageName": "knockout-paging",
+            "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
+            "asOfVersion": "0.3.1"
+        },
+        {
+            "libraryName": "knockout-pre-rendered",
+            "typingsPackageName": "knockout-pre-rendered",
+            "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-pre-rendered",
+            "asOfVersion": "0.7.1"
         },
         {
             "libraryName": "Linq.JS",
@@ -181,10 +277,28 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "maquette",
+            "typingsPackageName": "maquette",
+            "sourceRepoURL": "http://maquettejs.org/",
+            "asOfVersion": "2.1.6"
+        },
+        {
+            "libraryName": "mendixmodelsdk",
+            "typingsPackageName": "mendixmodelsdk",
+            "sourceRepoURL": "http://www.mendix.com",
+            "asOfVersion": "0.8.1"
+        },
+        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
             "asOfVersion": "1.2.5"
+        },
+        {
+            "libraryName": "mobservable-react",
+            "typingsPackageName": "mobservable-react",
+            "sourceRepoURL": "https://github.com/mweststrate/mobservable-react",
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "Moment",
@@ -211,10 +325,22 @@
             "asOfVersion": "1.9.3"
         },
         {
+            "libraryName": "Onsen UI",
+            "typingsPackageName": "onsenui",
+            "sourceRepoURL": "http://onsen.io",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "param-case",
             "typingsPackageName": "param-case",
             "sourceRepoURL": "https://github.com/blakeembrey/param-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "parse5",
+            "typingsPackageName": "parse5",
+            "sourceRepoURL": "https://github.com/inikulin/parse5",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "pascal-case",
@@ -229,10 +355,22 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "pg-promise",
+            "typingsPackageName": "pg-promise",
+            "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",
+            "asOfVersion": "5.4.3"
+        },
+        {
             "libraryName": "pixi-spine",
             "typingsPackageName": "pixi-spine",
             "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
             "asOfVersion": "1.4.2"
+        },
+        {
+            "libraryName": "pkcs11js",
+            "typingsPackageName": "pkcs11js",
+            "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
+            "asOfVersion": "1.0.4"
         },
         {
             "libraryName": "poly2tri.js",
@@ -265,6 +403,12 @@
             "asOfVersion": "3.6.0"
         },
         {
+            "libraryName": "redux-batched-actions",
+            "typingsPackageName": "redux-batched-actions",
+            "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
+            "asOfVersion": "0.1.5"
+        },
+        {
             "libraryName": "redux-persist",
             "typingsPackageName": "redux-persist",
             "sourceRepoURL": "https://github.com/rt2zz/redux-persist",
@@ -289,10 +433,34 @@
             "asOfVersion": "2.1.0"
         },
         {
+            "libraryName": "reselect",
+            "typingsPackageName": "reselect",
+            "sourceRepoURL": "https://github.com/rackt/reselect",
+            "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "rest-io",
+            "typingsPackageName": "rest-io",
+            "sourceRepoURL": "https://github.com/EnoF/rest-io",
+            "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "route-recognizer",
+            "typingsPackageName": "route-recognizer",
+            "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
+            "asOfVersion": "0.3.0"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
             "asOfVersion": "0.7.3"
+        },
+        {
+            "libraryName": "sendgrid",
+            "typingsPackageName": "sendgrid",
+            "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
+            "asOfVersion": "4.3.0"
         },
         {
             "libraryName": "sentence-case",
@@ -331,16 +499,40 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "svg.js",
+            "typingsPackageName": "svg.js",
+            "sourceRepoURL": "http://www.svgjs.com/",
+            "asOfVersion": "2.3.1"
+        },
+        {
             "libraryName": "swap-case",
             "typingsPackageName": "swap-case",
             "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "Tabris.js",
+            "typingsPackageName": "tabris",
+            "sourceRepoURL": "http://tabrisjs.com",
+            "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "tcomb",
+            "typingsPackageName": "tcomb",
+            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "asOfVersion": "2.6.0"
+        },
+        {
             "libraryName": "title-case",
             "typingsPackageName": "title-case",
             "sourceRepoURL": "https://github.com/blakeembrey/title-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "TsMonad",
+            "typingsPackageName": "tsmonad",
+            "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
+            "asOfVersion": "0.5.0"
         },
         {
             "libraryName": "TypeScript",
@@ -355,6 +547,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "typingsPackageName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "sourceRepoURL": "https://github.com/dpa99c/phonegap-istablet",
+            "asOfVersion": "1.1.3"
+        },
+        {
             "libraryName": "upper-case",
             "typingsPackageName": "upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
@@ -365,6 +563,12 @@
             "typingsPackageName": "upper-case-first",
             "sourceRepoURL": "https://github.com/blakeembrey/upper-case-first",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "vso-node-api",
+            "typingsPackageName": "vso-node-api",
+            "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "vuejs",
@@ -379,16 +583,34 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "webcola",
+            "typingsPackageName": "webcola",
+            "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "x2js",
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "xml-js",
+            "typingsPackageName": "xml-js",
+            "sourceRepoURL": "https://github.com/nashwaan/xml-js",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "@xmpp/jid",
             "typingsPackageName": "xmpp-jid",
             "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
             "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "Zone.js",
+            "typingsPackageName": "zone.js",
+            "sourceRepoURL": "https://github.com/angular/zone.js",
+            "asOfVersion": "0.5.12"
         }
     ]
 }

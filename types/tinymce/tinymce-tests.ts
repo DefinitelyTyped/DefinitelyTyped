@@ -1,4 +1,4 @@
-import { tinymce } from 'tinymce';
+import * as tinymce from 'tinymce';
 
 tinymce.init({
   selector: 'textarea',

@@ -3,24 +3,23 @@
 // Definitions by: Seth Westphal <https://github.com/westy92/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "nodemailer-ses-transport" {
-	import * as AWS from 'aws-sdk';
-	import * as nodemailer from "nodemailer";
+import * as AWS from "aws-sdk";
+import { HTTPOptions } from "aws-sdk/lib/config";
+import * as nodemailer from "nodemailer";
 
-	namespace sesTransport {
-		export interface SesOptions {
-			ses?: AWS.SES;
-			accessKeyId?: string;
-			secretAccessKey?: string;
-			sessionToken?: string;
-			region?: string;
-			httpOptions?: AWS.HttpOptions;
-			rateLimit?: number;
-			maxConnections?: number;
-		}
+declare namespace sesTransport {
+	interface SesOptions {
+		ses?: AWS.SES;
+		accessKeyId?: string;
+		secretAccessKey?: string;
+		sessionToken?: string;
+		region?: string;
+		httpOptions?: HTTPOptions;
+		rateLimit?: number;
+		maxConnections?: number;
 	}
-
-	function sesTransport(options: sesTransport.SesOptions): nodemailer.Transport;
-
-	export = sesTransport;
 }
+
+declare function sesTransport(options: sesTransport.SesOptions): nodemailer.Transport;
+
+export = sesTransport;

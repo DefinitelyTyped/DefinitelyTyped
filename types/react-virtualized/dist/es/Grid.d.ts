@@ -126,16 +126,13 @@ export type GridCellRangeProps = {
     scrollTop: number
 }
 export type GridCellRangeRenderer = (params: GridCellRangeProps) => React.ReactNode[];
-// TODO  add proper typing
-export type GridProps = {
+
+export type GridCoreProps = {
     'aria-label'?: string;
     autoContainerWidth?: boolean;
     autoHeight?: boolean;
-    cellRenderer: GridCellRenderer;
     cellRangeRenderer?: GridCellRangeRenderer;
     className?: string;
-    columnCount: number;
-    columnWidth: number | ((params: Index) => number);
     containerStyle?: React.CSSProperties;
     deferredMeasurementCache?: CellMeasurerCache;
     estimatedColumnSize?: number;
@@ -143,6 +140,7 @@ export type GridProps = {
     getScrollbarSize?: () => number;
     height: number;
     id?: string;
+    isScrolling?: boolean,
     noContentRenderer?: () => React.ReactNode;
     onScroll?: (params: ScrollParams) => any;
     onSectionRendered?: (params: SectionRenderedParams) => any;
@@ -160,6 +158,12 @@ export type GridProps = {
     style?: React.CSSProperties;
     tabIndex?: number;
     width: number;
+}
+
+export type GridProps = GridCoreProps & {
+    cellRenderer: GridCellRenderer;
+    columnCount: number;
+    columnWidth: number | ((params: Index) => number);
 };
 
 export type ScrollDirection = 'horizontal' | 'vertical';
@@ -273,6 +277,12 @@ export class Grid extends PureComponent<GridProps, GridState> {
          * Optional custom id to attach to root Grid element.
          */
         id: Requireable<string>,
+
+        /**
+         * Override internal is-scrolling state tracking.
+         * This property is primarily intended for use with the WindowScroller component.
+         */
+        isScrolling: Requireable<boolean>,
 
         /**
          * Optional renderer to be used in place of rows when either :rowCount or :columnCount is 0.

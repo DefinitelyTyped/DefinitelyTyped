@@ -14,10 +14,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "react-notification-system-tests.ts"
+        "react-notification-system-tests.tsx"
     ]
 }

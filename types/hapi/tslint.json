@@ -1,0 +1,15 @@
+{
+	"extends": "../tslint.json",
+	"rules": {
+		"indent": [true, "tabs"],
+
+		// All TODOs
+		"ban-types": false,
+		"callable-types": false,
+		"interface-name": false,
+		"jsdoc-format": false,
+		"max-line-length": false,
+		"no-empty-interface": false,
+		"unified-signatures": false
+	}
+}
