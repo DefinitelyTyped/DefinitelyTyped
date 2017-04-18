@@ -9,7 +9,7 @@ import {
   ViewStyle
 } from 'react-native';
 
-interface SwiperProperties extends React.Props<Swiper> {
+export interface SwiperProperties extends React.Props<Swiper> {
   horizontal?: boolean;
 
   style?: ViewStyle;

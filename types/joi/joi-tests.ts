@@ -162,6 +162,21 @@ schemaMap = {
 	a: numSchema,
 	b: strSchema
 };
+schemaMap = {
+	a: numSchema,
+	b: {
+		b1: strSchema,
+		b2: anySchema
+	}
+};
+schemaMap = {
+	a: numSchema,
+	b: [
+		{ b1: strSchema },
+		{ b2: anySchema }
+	],
+	c: arrSchema
+};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -237,6 +252,8 @@ arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.ordered(anySchema);
 arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema);
+arrSchema = arrSchema.ordered(schemaMap);
+arrSchema = arrSchema.ordered([schemaMap, schemaMap]);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
@@ -246,6 +263,9 @@ arrSchema = arrSchema.unique();
 arrSchema = arrSchema.items(numSchema);
 arrSchema = arrSchema.items(numSchema, strSchema);
 arrSchema = arrSchema.items([numSchema, strSchema]);
+arrSchema = arrSchema.items(schemaMap);
+arrSchema = arrSchema.items(schemaMap, schemaMap);
+arrSchema = arrSchema.items([schemaMap, schemaMap]);
 
 // - - - - - - - -
 
@@ -344,6 +364,24 @@ namespace common_copy_paste {
 	boolSchema = boolSchema.options(validOpts);
 	boolSchema = boolSchema.strict();
 	boolSchema = boolSchema.concat(x);
+
+	boolSchema = boolSchema.truthy(str);
+	boolSchema = boolSchema.truthy(num);
+	boolSchema = boolSchema.truthy(strArr);
+	boolSchema = boolSchema.truthy(numArr);
+	boolSchema = boolSchema.truthy(str, str);
+	boolSchema = boolSchema.truthy(strArr, str);
+	boolSchema = boolSchema.truthy(str, strArr);
+	boolSchema = boolSchema.truthy(strArr, strArr);
+	boolSchema = boolSchema.falsy(str);
+	boolSchema = boolSchema.falsy(num);
+	boolSchema = boolSchema.falsy(strArr);
+	boolSchema = boolSchema.falsy(numArr);
+	boolSchema = boolSchema.falsy(str, str);
+	boolSchema = boolSchema.falsy(strArr, str);
+	boolSchema = boolSchema.falsy(str, strArr);
+	boolSchema = boolSchema.falsy(strArr, strArr);
+	boolSchema = boolSchema.insensitive(bool);
 
 	altSchema = boolSchema.when(str, whenOpts);
 	altSchema = boolSchema.when(ref, whenOpts);
@@ -817,6 +855,7 @@ namespace validate_tests {
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = Joi.compile(obj);
+schema = Joi.compile(schemaMap);
 
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);

@@ -1,4 +1,4 @@
-// Type definitions for archiver v0.15.0
+// Type definitions for archiver 1.3
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by: Esri <https://github.com/archiverjs/node-archiver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,30 +18,33 @@
 import * as FS from 'fs';
 import * as STREAM from 'stream';
 
-
-declare function archiver(format: string, options?: archiver.Options): archiver.Archiver;
+declare function archiver(format: string, options?: {}): archiver.Archiver;
 
 declare namespace archiver {
+    function create(format: string, options?: {}): Archiver;
+    function registerFormat(format: string, module: Function): void;
 
-    export function create(format: string, options?: Options): Archiver;
-
-
-    export interface nameInterface {
+    interface nameInterface {
         name?: string;
     }
 
-    export interface Archiver extends STREAM.Transform {
-        append(source: STREAM.Readable | Buffer | string, name: nameInterface): void;
+    interface Archiver extends STREAM.Transform {
+        abort(): this;
+        append(source: STREAM.Readable | Buffer | string, name: nameInterface): this;
 
-        directory(dirpath: string, destpath: nameInterface | string): void;
-        directory(dirpath: string, destpath: nameInterface | string, data: any | Function): void;
+        bulk(mappings: any): this;
 
-        bulk(mappings: any): void;
-        finalize(): void;
-    }
+        directory(dirpath: string, destpath: nameInterface | string, data?: any | Function): this;
 
-    export interface Options {
+        file(filepath: string, data: any): this;
+        glob(pattern: string, options: {}, data: any): this;
+        finalize(): this;
 
+        setFormat(format: string): this;
+        setModule(module: Function): this;
+
+        pointer(): number;
+        use(plugin: Function): this;
     }
 }
 

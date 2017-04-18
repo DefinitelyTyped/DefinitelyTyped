@@ -8,12 +8,14 @@ import * as moment from "moment";
 declare module "moment" {
     interface Duration {
         format(template: string, precision?: number, settings?: DurationFormatSettings): string;
+        format(template: string, settings?: DurationFormatSettings): string;
+        format(settings: DurationFormatSettings): string;
     }
 
     interface DurationFormatSettings {
-        template: string;
-        precision: number;
-        trim: boolean;
-        forceLength: boolean;
+        template?: string;
+        precision?: number;
+        trim?: boolean;
+        forceLength?: boolean;
     }
 }

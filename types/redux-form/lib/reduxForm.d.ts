@@ -34,7 +34,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * the name of your form and the key to where your form's state will be
      * mounted under the redux-form reducer
      */
-    form: string;
+    form?: string;
 
     /**
      * field names for which onBlur should trigger a call to the asyncValidate

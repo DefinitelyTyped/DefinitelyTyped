@@ -41,6 +41,7 @@ declare namespace inquirer {
     }
 
     interface PromptModule {
+        (questions: Questions): Promise<Answers>;
         (questions: Questions, cb: (answers: Answers) => any): ui.Prompt;
         /**
          * Register a prompt type
