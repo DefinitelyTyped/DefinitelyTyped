@@ -3454,6 +3454,55 @@ class SelectFieldExampleError extends React.Component<{}, {value?: number}> {
   }
 }
 
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
+class SelectFieldExampleMultiSelect extends React.Component<{}, {values?: string[]}> {
+
+  constructor(props) {
+    super(props);
+    this.state = {values: []};
+  }
+
+  handleChange = (event, index, values) => this.setState({values});
+
+  menuItems(values) {
+    return names.map((name) => (
+      <MenuItem
+        key={name}
+        insetChildren={true}
+        checked={values && values.includes(name)}
+        value={name}
+        primaryText={name}
+      />
+    ));
+  }
+
+  render() {
+    const {values} = this.state;
+    return (
+      <SelectField
+        multiple={true}
+        hintText="Select a name"
+        value={values}
+        onChange={this.handleChange}
+      >
+        {this.menuItems(values)}
+      </SelectField>
+    );
+  }
+}
+
 
 // "http://www.material-ui.com/#/components/slider"
 const SliderExampleSimple = () => (

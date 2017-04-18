@@ -1327,6 +1327,7 @@ declare namespace __MaterialUI {
         iconStyle?: React.CSSProperties;
         id?: string;
         labelStyle?: React.CSSProperties;
+        multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler<{}>;
