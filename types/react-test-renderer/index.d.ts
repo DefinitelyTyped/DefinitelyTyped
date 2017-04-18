@@ -1,6 +1,6 @@
 // Type definitions for react-test-renderer 15.4
 // Project: https://facebook.github.io/react/
-// Definitions by: Arvitaly <https://github.com/arvitaly>
+// Definitions by: Arvitaly <https://github.com/arvitaly>, Lochbrunner <https://github.com/lochbrunner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -8,6 +8,7 @@ import { ReactElement } from "react";
 
 export interface Renderer {
     toJSON(): ReactTestRendererJSON;
+    unmount(nextElement?: ReactElement<any>): void;
 }
 export interface ReactTestRendererJSON {
     type: string;
