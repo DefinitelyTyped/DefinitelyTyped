@@ -24,8 +24,8 @@ interface ComponentDecorator<TStateProps, TDispatchProps, TOwnProps> {
  *
  * Can't use the above decorator because it would default the type to {}
  */
-export interface InferableComponentDecorator<IOwnProps> {
-    <T extends Component<IOwnProps>>(component: T): T;
+export interface InferableComponentDecorator<TOwnProps> {
+    <T extends Component<TOwnProps>>(component: T): T;
 }
 
 /**
