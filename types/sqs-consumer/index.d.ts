@@ -1,4 +1,4 @@
-// Type definitions for sqs-consumer
+// Type definitions for sqs-consumer 3.5
 // Project: https://github.com/BBC/sqs-consumer
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference types="node" />
 import { SQS } from "aws-sdk";
 
-interface Options {
+export interface Options {
   queueUrl: string;
   handleMessage(message: SQS.Message, done: Function): any;
   region?: string;
@@ -19,7 +19,7 @@ interface Options {
   sqs?: SQS;
 }
 
-interface Consumer extends NodeJS.EventEmitter {
+export interface Consumer extends NodeJS.EventEmitter {
   start(): void;
   stop(): void;
 }

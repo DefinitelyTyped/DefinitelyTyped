@@ -1,9 +1,7 @@
-// Type definitions for sinon-test v1.0.1
+// Type definitions for sinon-test 1.0
 // Project: https://github.com/sinonjs/sinon-test
 // Definitions by: Francis Saul <https://github.com/mummybot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="sinon" />
 
 import * as Sinon from 'sinon';
 

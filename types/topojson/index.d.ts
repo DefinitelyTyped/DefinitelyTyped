@@ -1,4 +1,4 @@
-// Type definitions for topojson 3.0.0
+// Type definitions for topojson 3.0
 // Project: https://github.com/topojson/topojson
 // Definitions by: Ricardo Mello <https://github.com/ricardo-mello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
