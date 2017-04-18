@@ -1,9 +1,6 @@
-// Type definitions for Kendo UI Professional v2017.1.118
+// Type definitions for Kendo UI Professional v2017.1.223
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="jquery" />
 
 declare namespace kendo {
     function culture(): {
@@ -571,7 +568,6 @@ declare namespace kendo.data {
         isAllDay?: boolean;
         id?: any;
         start?: Date;
-        taskId?: number;
         startTimezone?: string;
         recurrenceId?: any;
         recurrenceRule?: string;
@@ -584,7 +580,7 @@ declare namespace kendo.data {
         static fields: DataSourceSchemaModelFields;
 
         constructor(data?: SchedulerEventData);
-        taskId: number;
+
         description: string;
         end: Date;
         endTimezone: string;
@@ -668,9 +664,6 @@ declare namespace kendo.data {
 
         constructor(data?: any);
         init(data?: any): void;
-
-        duration(): number;
-        isMilestone(): boolean;
     }
 
     class GanttDependency extends Model {
@@ -724,13 +717,6 @@ declare namespace kendo.data {
         insert(index: number, model: Object): kendo.data.GanttTask;
         insert(index: number, model: kendo.data.GanttTask): kendo.data.GanttTask;
         remove(model: kendo.data.GanttTask): void;
-        taskAllChildren(task?: kendo.data.GanttTask): kendo.data.GanttTask[];
-        taskChildren(task?: kendo.data.GanttTask): kendo.data.GanttTask[];
-        taskLevel(task: kendo.data.GanttTask): number;
-        taskParent(task: kendo.data.GanttTask): kendo.data.GanttTask;
-        taskSibling(task: kendo.data.GanttTask): kendo.data.GanttTask[];
-        taskTree(task?: kendo.data.GanttTask): kendo.data.GanttTask[];
-        update(task: kendo.data.GanttTask, taskInfo: Object): void;
     }
 
     class GanttDependencyDataSource extends DataSource {
@@ -744,9 +730,6 @@ declare namespace kendo.data {
         insert(index: number, model: Object): kendo.data.GanttDependency;
         insert(index: number, model: kendo.data.GanttDependency): kendo.data.GanttDependency;
         remove(model: kendo.data.GanttDependency): void;
-        successors(id: string | number | Object): kendo.data.GanttDependency[];
-        predecessors(id: string | number | Object): kendo.data.GanttDependency[];
-        dependencies(id: string | number | Object): kendo.data.GanttDependency[];
     }
 
     class HierarchicalDataSource extends DataSource {
@@ -1039,8 +1022,6 @@ declare namespace kendo.data {
     class DataSource extends Observable{
         options: DataSourceOptions;
 
-        transport: any;
-
         static create(options?: DataSourceOptions): DataSource;
 
         constructor(options?: DataSourceOptions);
@@ -1099,7 +1080,6 @@ declare namespace kendo.data {
         static process(data: any[], options: DataSourceTransportReadOptionsData): QueryResult;
 
         constructor(data: any[]);
-        constructor(data: ObservableArray);
         toArray(): any[];
         range(intex: number, count: number): kendo.data.Query;
         skip(count: number): kendo.data.Query;
@@ -1437,7 +1417,6 @@ declare namespace kendo.ui {
         hint?: Function|JQuery;
         holdToDrag?: boolean;
         ignore?: string;
-        cancelHold(): void;
         drag?(e: DraggableEvent): void;
         dragcancel?(e: DraggableEvent): void;
         dragend?(e: DraggableEvent): void;
@@ -1553,15 +1532,6 @@ declare namespace kendo.drawing.pdf {
 }
 
 declare namespace kendo.ui {
-    class AgendaView implements kendo.ui.SchedulerView {
-        static fn: AgendaView;
-
-        startDate(): Date;
-        endDate(): Date;
-
-        static extend(proto: Object): AgendaView;
-    }
-
     class Alert extends kendo.ui.Dialog {
 
         static fn: Alert;
@@ -2498,7 +2468,6 @@ declare namespace kendo.ui {
         static fn: DropDownList;
 
         options: DropDownListOptions;
-        popup: kendo.ui.Popup;
 
         dataSource: kendo.data.DataSource;
         span: JQuery;
@@ -3646,7 +3615,6 @@ declare namespace kendo.ui {
         text?: GridColumnCommandItemText;
         className?: string;
         click?: Function;
-        template?: string;
     }
 
     interface GridColumnFilterableCell {
@@ -3707,7 +3675,6 @@ declare namespace kendo.ui {
         width?: string|number;
         values?: any;
         menu?: boolean;
-        type?: any;
     }
 
     interface GridEditable {
@@ -4108,7 +4075,7 @@ declare namespace kendo.ui {
         dataItem(row: string): kendo.data.ObservableObject;
         dataItem(row: Element): kendo.data.ObservableObject;
         dataItem(row: JQuery): kendo.data.ObservableObject;
-        dataItems(): void;
+        dataItems(): kendo.data.ObservableArray;
         destroy(): void;
         edit(item: JQuery): void;
         items(): any;
@@ -4638,6 +4605,7 @@ declare namespace kendo.ui {
         culture?: string;
         decimals?: number;
         downArrowText?: string;
+        factor?: number;
         format?: string;
         max?: number;
         min?: number;
@@ -5290,7 +5258,6 @@ declare namespace kendo.ui {
         enable(enable: boolean): void;
         value(): any;
         value(selectionStart: number, selectionEnd: number): void;
-        values(): any;
         resize(): void;
 
     }
@@ -5813,6 +5780,13 @@ declare namespace kendo.ui {
 
         destroy(): void;
         enable(enable: boolean): void;
+        max(): number;
+        max(value: number): void;
+        max(value: string): void;
+        min(): number;
+        min(value: number): void;
+        min(value: string): void;
+        setOptions(options: any): void;
         value(): number;
         value(value: number): void;
         resize(): void;
@@ -6941,6 +6915,7 @@ declare namespace kendo.ui {
         options: TreeListOptions;
 
         dataSource: kendo.data.DataSource;
+        columns: any;
 
         element: JQuery;
         wrapper: JQuery;
@@ -7511,7 +7486,6 @@ declare namespace kendo.ui {
         extension?: string;
         name?: string;
         size?: number;
-	uid?: string;
     }
 
     interface UploadLocalization {
@@ -8505,8 +8479,9 @@ declare namespace kendo.drawing {
 
         constructor(options?: PathOptions);
 
-        static fromPoints(points: any): kendo.drawing.Path;
-        static fromRect(rect: kendo.geometry.Rect): kendo.drawing.Path;
+        static fromArc(arc: kendo.geometry.Arc, options?: any): kendo.drawing.Path;
+        static fromPoints(points: any, options?: any): kendo.drawing.Path;
+        static fromRect(rect: kendo.geometry.Rect, options?: any): kendo.drawing.Path;
         static parse(svgPath: string, options?: any): kendo.drawing.Path;
 
         bbox(): kendo.geometry.Rect;
@@ -9455,7 +9430,6 @@ declare namespace kendo.dataviz.ui {
         type?: string;
         visible?: boolean;
         weekStartDay?: number;
-        axisCrossingValues?: number[];
         notes?: ChartCategoryAxisItemNotes;
     }
 
@@ -18495,8 +18469,7 @@ declare namespace kendo.ooxml {
     interface WorkbookSheetRow {
         cells?: WorkbookSheetRowCell[];
         index?: number;
-        height?: number;      
-        type?: "header" | "footer" | "group-header" | "group-footer" | "data";
+        height?: number;
     }
 
     interface WorkbookSheet {
@@ -18753,10 +18726,16 @@ declare namespace kendo.dataviz.geometry {
         setHeight(value: number): kendo.geometry.Size;
 
     }
-    
+
     interface SizeOptions {
         name?: string;
     }
+    interface SizeEvent {
+        sender: Size;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
 
     class Transformation extends Observable {
 
@@ -19246,8 +19225,9 @@ declare namespace kendo.dataviz.drawing {
 
         constructor(options?: PathOptions);
 
-        static fromPoints(points: any): kendo.drawing.Path;
-        static fromRect(rect: kendo.geometry.Rect): kendo.drawing.Path;
+        static fromArc(arc: kendo.geometry.Arc, options?: any): kendo.drawing.Path;
+        static fromPoints(points: any, options?: any): kendo.drawing.Path;
+        static fromRect(rect: kendo.geometry.Rect, options?: any): kendo.drawing.Path;
         static parse(svgPath: string, options?: any): kendo.drawing.Path;
 
         bbox(): kendo.geometry.Rect;
