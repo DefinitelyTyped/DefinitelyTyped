@@ -2,7 +2,7 @@
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>, Felix Albert <f.albert.work@icloud.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3.0
 
 export function myMethod(a: string): string
 export function myOtherMethod(a: number): number

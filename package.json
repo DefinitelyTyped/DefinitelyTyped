@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "dtslint": "Microsoft/dtslint#production",
-    "types-publisher": "Microsoft/types-publisher#production"
+    "types-publisher": "Microsoft/types-publisher#production",
+    "typescript": "^2.3.0-dev.20170418"
   }
 }
