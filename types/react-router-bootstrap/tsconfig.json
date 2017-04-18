@@ -19,8 +19,8 @@
     },
     "files": [
         "index.d.ts",
-        "src/IndexLinkContainer.d.ts",
-        "src/LinkContainer.d.ts",
+        "lib/IndexLinkContainer.d.ts",
+        "lib/LinkContainer.d.ts",
         "react-router-bootstrap-tests.tsx"
     ]
 }
