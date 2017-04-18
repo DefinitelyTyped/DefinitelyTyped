@@ -9,10 +9,6 @@ import { ReactElement } from 'react';
  * If you call `ReactDOM.render()` on a node that already has this server-rendered markup,
  * React will preserve it and only attach event handlers, allowing you
  * to have a very performant first-load experience.
- *
- * @export
- * @param {ReactElement<any>} element
- * @returns {string}
  */
 export function renderToString(element: ReactElement<any>): string;
 
@@ -21,10 +17,6 @@ export function renderToString(element: ReactElement<any>): string;
  * such as `data-reactid`, that React uses internally. This is useful if you want
  * to use React as a simple static page generator, as stripping away the extra
  * attributes can save lots of bytes.
- *
- * @export
- * @param {ReactElement<any>} element
- * @returns {string}
  */
 export function renderToStaticMarkup(element: ReactElement<any>): string;
 export const version: string;
