@@ -87,7 +87,7 @@ export declare class Client extends events.EventEmitter {
 
     connect(callback?: (err: Error) => void): void;
     end(callback?: (err: Error) => void): void;
-    release(): void;
+    release(err?: Error): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
