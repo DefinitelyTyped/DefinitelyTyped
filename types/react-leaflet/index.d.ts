@@ -75,7 +75,7 @@ export interface TileLayerEvents {
     ontileerror?(event: Leaflet.TileEvent): void;
 }
 
-interface PathEvents {
+export interface PathEvents {
     onclick?(event: Leaflet.MouseEvent): void;
     ondblclick?(event: Leaflet.MouseEvent): void;
     onmousedown?(event: Leaflet.MouseEvent): void;
