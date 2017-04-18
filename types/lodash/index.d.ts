@@ -5654,7 +5654,7 @@ declare namespace _ {
     //_.zipObject
     interface LoDashStatic {
         /**
-         * This method is like _.fromPairs except that it accepts two arrays, one of property 
+         * This method is like _.fromPairs except that it accepts two arrays, one of property
          * identifiers and one of corresponding values.
          *
          * @param props The property names.
@@ -12844,7 +12844,7 @@ declare namespace _ {
          * @param value The value to check.
          * @returns Returns true if value is correctly classified, else false.
          */
-        isWeakMap<K extends object, V>(value?: any): value is WeakMap<K, V>;
+        isWeakMap<K extends Object, V>(value?: any): value is WeakMap<K, V>;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
