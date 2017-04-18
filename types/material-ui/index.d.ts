@@ -1332,6 +1332,7 @@ declare namespace __MaterialUI {
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler<{}>;
         selectFieldRoot?: React.CSSProperties;
+        selectionRenderer?: (value: any) => React.ReactNode;
         style?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;
