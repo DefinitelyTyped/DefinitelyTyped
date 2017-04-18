@@ -1700,6 +1700,7 @@ export class WindowScrollerExample extends PureComponent<any, any> {
                                     autoHeight
                                     className={'styles.List'}
                                     height={height}
+                                    isScrolling={isScrolling}
                                     overscanRowCount={2}
                                     rowCount={list.size}
                                     rowHeight={30}

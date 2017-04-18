@@ -40,7 +40,7 @@ gulp.task('default', function () {
 
 
 // options.additionalStreams
-import * as ts from 'gulp-typescript';
+declare function ts(): any;
 
 // create stream of virtual files
 var tsStream = gulp.src('src/**/*.ts')

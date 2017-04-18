@@ -1,6 +1,6 @@
 // Type definitions for material-ui v0.17.1
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>, Igor Belagorudsky <https://github.com/theigor>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>, Igor Belagorudsky <https://github.com/theigor>, Daniel Roth <https://github.com/DaIgeb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -784,6 +784,7 @@ declare namespace __MaterialUI {
             expandable?: boolean;
             showExpandableButton?: boolean;
             style?: React.CSSProperties;
+            className?: string;
         }
         export class CardActions extends React.Component<CardActionsProps, {}> {
         }
@@ -809,6 +810,7 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleColor?: string;
             titleStyle?: React.CSSProperties;
+            className?: string;
         }
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
@@ -831,6 +833,7 @@ declare namespace __MaterialUI {
             color?: string;
             expandable?: boolean;
             style?: React.CSSProperties;
+            className?: string;
         }
         export class CardText extends React.Component<CardTextProps, {}> {
         }
@@ -1214,6 +1217,8 @@ declare namespace __MaterialUI {
         autoLockScrolling?: boolean;
         show?: boolean;
         transitionEnabled?: boolean;
+        onClick?: React.MouseEventHandler<{}>;
+        onTouchTap?: TouchTapEventHandler;
     }
     export class Overlay extends React.Component<OverlayProps, {}> {
     }
@@ -1797,6 +1802,9 @@ declare namespace __MaterialUI {
         underlineStyle?: React.CSSProperties;
         value?: string | number;
         autoFocus?: boolean;
+        min?: number;
+        max?: number;
+        step?: number;
     }
     export class TextField extends React.Component<TextFieldProps, {}> {
         blur(): void;
@@ -8635,6 +8643,8 @@ declare module 'material-ui/internal/Overlay' {
         show: boolean;
         style?: React.CSSProperties;
         transitionEnabled?: boolean;
+        onClick?: React.MouseEventHandler<{}>;
+        onTouchTap?: __MaterialUI.TouchTapEventHandler;
     }
     class Overlay extends React.Component<OverlayProps, {}> { }
     export default Overlay;

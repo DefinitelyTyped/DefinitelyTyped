@@ -2191,7 +2191,15 @@ declare namespace Electron {
 		/**
 		 * Contains which features the dialog should use.
 		 */
-		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles')[];
+		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles' | 'promptToCreate' | 'noResolveAliases')[];
+		/**
+		 * Normalize the keyboard access keys across platforms.
+		 */
+		normalizeAccessKeys?: boolean;
+		/**
+		 * Message to display above input boxes.
+		 */
+		message?: string;
 	}
 
 	interface SaveDialogOptions {
@@ -2208,6 +2216,18 @@ declare namespace Electron {
 			name: string;
 			extensions: string[];
 		}[];
+		/**
+		 * macOS - Message to display above text fields.
+		 */
+		message?: string;
+		/**
+		 * macOS - Custom label for the text displayed in front of the filename text field.
+		 */
+		nameFieldLabel?: string;
+		/**
+		 * macOS - Show the tags input box, defaults to true.
+		 */
+		showsTagField?: boolean;
 	}
 
 	interface ShowMessageBoxOptions {
@@ -2605,14 +2625,17 @@ declare namespace Electron {
 		 */
 		constructor();
 		/**
-		 * Sets menu as the application menu on macOS. On Windows and Linux, the menu
-		 * will be set as each window's top menu.
+		 * Sets menu as the application menu on macOS. On Windows and Linux, the
+		 * menu will be set as each window's top menu.
+		 *
+		 * Passing null will remove the menu bar on Windows and Linux but has no
+		 * effect on macOS.
 		 */
-		static setApplicationMenu(menu: Menu): void;
+		static setApplicationMenu(menu: Menu | null): void;
 		/**
 		 * @returns The application menu if set, or null if not set.
 		 */
-		static getApplicationMenu(): Menu;
+		static getApplicationMenu(): Menu | null;
 		/**
 		 * Sends the action to the first responder of application.
 		 * This is used for emulating default Cocoa menu behaviors,
