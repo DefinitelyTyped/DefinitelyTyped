@@ -16,9 +16,9 @@ declare namespace AdazzleReactDataGrid {
     interface GridProps {
         /**
          * Gets the data to render in each row. Required.
-         * Can be an array or a function that takes an index and returns an object.
+         * Can be an array or a function that takes an index and returns an Object.
          */
-        rowGetter: Array<object> | ((rowIdx: number) => object)
+        rowGetter: Array<Object> | ((rowIdx: number) => Object)
         /**
          * The total number of rows to render. Required.
          */
@@ -148,7 +148,7 @@ declare namespace AdazzleReactDataGrid {
          * Called when a row is selected.
          * @param rows The (complete) current selection of rows.
          */
-        onRowSelect?: (rows: Array<object>) => void
+        onRowSelect?: (rows: Array<Object>) => void
         /**
          * A property that's unique to every row.
          * This property is required to enable row selection.
@@ -178,7 +178,7 @@ declare namespace AdazzleReactDataGrid {
          */
         rowScrollTimeout?: number
         /**
-         * Options object for selecting rows
+         * Options Object for selecting rows
          */
         rowSelection?: {
             showCheckbox?: boolean
@@ -195,9 +195,9 @@ declare namespace AdazzleReactDataGrid {
          * An event function called when a row is clicked.
          * Clicking the header row will trigger a call with -1 for the rowIdx.
          * @param rowIdx zero index number of row clicked
-         * @param row object behind the row
+         * @param row Object behind the row
          */
-        onRowClick?: (rowIdx : number, row : object) => void
+        onRowClick?: (rowIdx : number, row : Object) => void
     }
 
     /**
@@ -299,7 +299,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns that were updated and their values.
          */
-        updated: object
+        updated: Object
         /**
          * The name of the column that was updated.
          */
@@ -347,7 +347,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The values of the row.
          */
-        rowData: object
+        rowData: Object
         /**
          * The double click event.
          */
@@ -399,7 +399,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns that were updated and their values.
          */
-        updated: object
+        updated: Object
         /**
          * The action that occurred to trigger this event.
          * One of 'cellUpdate', 'cellDrag', 'columnFill', or 'copyPaste'.
@@ -469,8 +469,8 @@ declare namespace AdazzleReactDataGridPlugins {
     }
     export namespace Data {
         export const Selectors: {
-            getRows: Function;
-            getSelectedRowsByKey: Function;
+            getRows: (state: Object) => Object[];
+            getSelectedRowsByKey: (state: Object) => Object[];
         }
     }
     // TODO: re-export the react-contextmenu typings once those exist
