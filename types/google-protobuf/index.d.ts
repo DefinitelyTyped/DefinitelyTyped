@@ -17,7 +17,7 @@ export abstract class Message {
     data: Message.MessageArray,
     messageId: (string | number),
     suggestedPivot: number,
-    repeatedFields: number[],
+    repeatedFields?: number[],
     oneofFields?: number[][] | null): void;
   static toObjectList<T extends Message>(
     field: T[],
@@ -68,34 +68,34 @@ export abstract class Message {
     oneof: number[],
     value: FieldValue): void;
   static computeOneofCase(msg: Message, oneof: number[]): number;
-  static getWrapperField(
+  static getWrapperField<T extends Message>(
     msg: Message,
-    ctor: typeof Message,
+    ctor: {new() : T},
     fieldNumber: number,
-    required?: number): Message;
-  static getRepeatedWrapperField(
+    required?: number): T;
+  static getRepeatedWrapperField<T extends Message>(
     msg: Message,
-    ctor: typeof Message,
-    fieldNumber: number): Message[];
-  static setWrapperField(
+    ctor: {new() : T},
+    fieldNumber: number): T[];
+  static setWrapperField<T extends Message>(
     msg: Message,
     fieldNumber: number,
-    value?: (Message|Map<any, any>)): void;
+    value?: (T|Map<any, any>)): void;
   static setOneofWrapperField(
     msg: Message,
     fieldNumber: number,
     oneof: number[],
     value: any): void;
-  static setRepeatedWrapperField(
+  static setRepeatedWrapperField<T extends Message>(
     msg: Message,
     fieldNumber: number,
-    value: any): void;
-  static addToRepeatedWrapperField(
+    value?: T[]): void;
+  static addToRepeatedWrapperField<T extends Message>(
     msg: Message,
     fieldNumber: number,
-    value: any,
-    ctor: typeof Message,
-    index: number): any;
+    value: T | undefined,
+    ctor: {new() : T},
+    index?: number): T;
   static toMap(
     field: any[],
     mapKeyGetterFn: (field: any) => string,

@@ -27,7 +27,7 @@ declare module "dagre" {
     }
 }
 
-interface Render {
+export interface Render {
     // see http://cpettitt.github.io/project/dagre-d3/latest/demo/user-defined.html for example usage
     arrows(): { [arrowStyleName: string]: (parent: d3.Selection<any>, id: string, edge: dagre.Edge, type: string) => void };
     (selection: d3.Selection<any>, g: dagre.graphlib.Graph): void;

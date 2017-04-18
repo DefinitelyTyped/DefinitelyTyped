@@ -13,13 +13,13 @@ import express = require('express');
 interface IStrategyOptions {
     usernameField?: string;
     passwordField?: string;
-    passReqToCallback?: boolean;
+    passReqToCallback?: false;
 }
 
 interface IStrategyOptionsWithRequest {
     usernameField?: string;
     passwordField?: string;
-    passReqToCallback: boolean;
+    passReqToCallback: true;
 }
 
 interface IVerifyOptions {

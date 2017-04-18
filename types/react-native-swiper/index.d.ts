@@ -1,6 +1,6 @@
 // Type definitions for react-native-swiper 1.5
 // Project: https://github.com/leecade/react-native-swiper#readme
-// Definitions by: CaiHuan <https://github.com/CaiHuan>
+// Definitions by: CaiHuan <https://github.com/CaiHuan>,  HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -9,7 +9,7 @@ import {
   ViewStyle
 } from 'react-native';
 
-interface SwiperProperties extends React.Props<Swiper> {
+export interface SwiperProperties extends React.Props<Swiper> {
   horizontal?: boolean;
 
   style?: ViewStyle;
@@ -57,6 +57,12 @@ interface SwiperProperties extends React.Props<Swiper> {
   dotColor?: string;
 
   activeDotColor?: string;
+
+  height?: number;
+
+  width?: number;
+
+  paginationStyle?: ViewStyle;
 }
 
 export default class Swiper extends React.Component<SwiperProperties, {}> {
