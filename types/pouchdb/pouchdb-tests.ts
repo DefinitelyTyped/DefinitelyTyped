@@ -92,12 +92,12 @@ namespace PouchDBTests {
 
         db.put(model).then((error) => {
         });
-        db.put(model, null, null, null, (error) => {
+        db.put(model, null, (error) => {
         });
 
         db.info().then((info) => {
         });
-        db.info({ ajax: { cache: true }}, (error, result) => {
+        db.info((error, result) => {
         });
 
         db.viewCleanup().catch((error) => {
