@@ -186,11 +186,6 @@ This usually happens within an hour of changes being merged.
 If the module you're referencing is an external module (uses `export`), use an import.
 If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
-#### What do I do about older versions of typings?
-
-Currently we don't support this, though it is [planned](https://github.com/Microsoft/types-publisher/issues/3).
-If you're adding a new major version of a library, you can copy `index.d.ts` to `foo-v2.3.d.ts` and edit `index.d.ts` to be the new version.
-
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
