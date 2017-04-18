@@ -40,8 +40,8 @@ interface __config {
   variableWidth?: boolean
   useCSS?: boolean
   vertical?: boolean
-  afterChange?: (() => void)
-  beforeChange?: (() => void)
+  afterChange?: ((currentSlide: number) => void)
+  beforeChange?: ((currentSlide: number, nextSlide: number) => void)
   slickGoTo?: number // int
 }
 

@@ -15,20 +15,20 @@ if (program['pineapple']) console.log('  - pineapple');
 if (program['bbq']) console.log('  - bbq');
 console.log('  - %s cheese', program['cheese']);
 
-function range(val:string) {
+function range(val: string) {
     return val.split('..').map(Number);
 }
 
-function list(val:string) {
+function list(val: string) {
     return val.split(',');
 }
 
-function collect(val:string, memo:string[]) {
+function collect(val: string, memo: string[]) {
     memo.push(val);
     return memo;
 }
 
-function increaseVerbosity(v:any, total:number) {
+function increaseVerbosity(v: any, total: number) {
     return total + 1;
 }
 
@@ -80,11 +80,11 @@ program
     });
 
 program
-  .version('0.0.1')
-  .arguments('<cmd> [env]')
-  .action(function (cmd, env) {
-     console.log(cmd, env);
-  });
+    .version('0.0.1')
+    .arguments('<cmd> [env]')
+    .action((cmd, env) => {
+        console.log(cmd, env);
+    });
 
 program.parse(process.argv);
 

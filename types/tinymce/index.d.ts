@@ -7,1390 +7,1388 @@
 
 /// <reference types="jquery" />
 
-export namespace tinymce {
-  const DOM: dom.DOMUtils;
+export const DOM: dom.DOMUtils;
 
-  const PluginManager: AddOnManager;
+export const PluginManager: AddOnManager;
 
-  const ScriptLoader: dom.ScriptLoader;
+export const ScriptLoader: dom.ScriptLoader;
 
-  const ThemeManager: AddOnManager;
+export const ThemeManager: AddOnManager;
 
-  const EditorManager: EditorManager;
+export const EditorManager: EditorManager;
 
-  const baseURL: string;
+export const baseURL: string;
 
-  const activeEditor: Editor;
+export const activeEditor: Editor;
 
-  function create(s: string, p: {}, root?: {}): void;
+export function create(s: string, p: {}, root?: {}): void;
 
-  function createNS(n: string, o: {}): {};
+export function createNS(n: string, o: {}): {};
 
-  function each(o: {}, cb: () => void, s?: {}): void;
+export function each(o: {}, cb: () => void, s?: {}): void;
 
-  function explode(s: string, d: string): void;
+export function explode(s: string, d: string): void;
 
-  function grep(a: any[], f: () => void): any[];
+export function grep(a: any[], f: () => void): any[];
 
-  function inArray(item: any, arr: any[]): number;
+export function inArray(item: any, arr: any[]): number;
 
-  function is(obj: {}, type?: string): boolean;
+export function is(obj: {}, type?: string): boolean;
 
-  function isArray(obj: {}): boolean;
+export function isArray(obj: {}): boolean;
 
-  function makeMap(items: any[], delim?: string, map?: {}): {};
+export function makeMap(items: any[], delim?: string, map?: {}): {};
 
-  function map(array: any[], callback: () => void): any[];
+export function map(array: any[], callback: () => void): any[];
 
-  function resolve(n: string, o?: {}): {};
+export function resolve(n: string, o?: {}): {};
 
-  function toArray(obj: {}): any[];
+export function toArray(obj: {}): any[];
 
-  function trim(s: string): string;
+export function trim(s: string): string;
 
-  function walk(o: {}, f: () => void, n?: string, s?: string): void;
+export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 
-  function init(settings: Settings): void;
+export function init(settings: Settings): void;
 
-  interface Settings {
-    table_toolbar?: boolean;
+interface Settings {
+  table_toolbar?: boolean;
 
-    auto_focus?: string;
+  auto_focus?: string;
 
-    cache_suffix?: string;
+  cache_suffix?: string;
 
-    content_security_policy?: string;
+  content_security_policy?: string;
 
-    external_plugins?: {};
+  external_plugins?: {};
 
-    hidden_input?: boolean;
+  hidden_input?: boolean;
 
-    init_instance_callback?(editor: Editor): void;
+  init_instance_callback?(editor: Editor): void;
 
-    plugins?: string | string[];
+  plugins?: string | string[];
 
-    selector?: string;
+  selector?: string;
 
-    setup?(edtor: Editor): void;
+  setup?(edtor: Editor): void;
 
-    target?: Element;
+  target?: Element;
 
-    color_picker_callback?(callback: (hexColor: string) => void, value: string): void;
+  color_picker_callback?(callback: (hexColor: string) => void, value: string): void;
 
-    elementpath?: boolean;
+  elementpath?: boolean;
 
-    event_root?: boolean;
+  event_root?: boolean;
 
-    fixed_toolbar_container?: string;
+  fixed_toolbar_container?: string;
 
-    height?: number;
+  height?: number;
 
-    inline?: boolean;
+  inline?: boolean;
 
-    insert_button_items?: string;
+  insert_button_items?: string;
 
-    insert_toolbar?: string;
+  insert_toolbar?: string;
 
-    max_height?: number;
+  max_height?: number;
 
-    max_width?: number;
+  max_width?: number;
 
-    menu?: settings.Menu;
+  menu?: settings.Menu;
 
-    menubar?: string | boolean;
+  menubar?: string | boolean;
 
-    min_height?: number;
+  min_height?: number;
 
-    min_width?: number;
+  min_width?: number;
 
-    preview_styles?: boolean | string;
+  preview_styles?: boolean | string;
 
-    removed_menuitems?: string;
+  removed_menuitems?: string;
 
-    resize?: boolean | string;
+  resize?: boolean | string;
 
-    selection_toolbar?: string;
+  selection_toolbar?: string;
 
-    skin_url?: string;
+  skin_url?: string;
 
-    skin?: string;
+  skin?: string;
 
-    statusbar?: boolean;
+  statusbar?: boolean;
 
-    theme_url?: string;
+  theme_url?: string;
 
-    theme?: string;
+  theme?: string;
 
-    toolbar?: boolean | string | string[];
+  toolbar?: boolean | string | string[];
 
-    width?: number;
+  width?: number;
 
-    body_class?: string;
+  body_class?: string;
 
-    body_id?: string;
+  body_id?: string;
 
-    content_css?: string;
+  content_css?: string;
 
-    content_style?: string;
+  content_style?: string;
 
-    visual_anchor_class?: string;
+  visual_anchor_class?: string;
 
-    visual_table_class?: string;
+  visual_table_class?: string;
 
-    visual?: boolean;
+  visual?: boolean;
 
-    allow_conditional_comments?: boolean;
+  allow_conditional_comments?: boolean;
 
-    allow_html_in_named_anchor?: boolean;
+  allow_html_in_named_anchor?: boolean;
 
-    allow_unsafe_link_target?: boolean;
+  allow_unsafe_link_target?: boolean;
 
-    convert_fonts_to_spans?: boolean;
+  convert_fonts_to_spans?: boolean;
 
-    custom_elements?: string;
+  custom_elements?: string;
 
-    doctype?: string;
+  doctype?: string;
 
-    element_format?: string;
+  element_format?: string;
 
-    encoding?: string;
+  encoding?: string;
 
-    entities?: string;
+  entities?: string;
 
-    entity_encoding?: string;
+  entity_encoding?: string;
 
-    extended_valid_elements?: string;
+  extended_valid_elements?: string;
 
-    fix_list_elements?: boolean;
+  fix_list_elements?: boolean;
 
-    force_hex_style_colors?: boolean;
+  force_hex_style_colors?: boolean;
 
-    forced_root_block?: string;
+  forced_root_block?: string;
 
-    forced_root_block_attrs?: {};
+  forced_root_block_attrs?: {};
 
-    invalid_elements?: string;
+  invalid_elements?: string;
 
-    invalid_styles?: string | {};
+  invalid_styles?: string | {};
 
-    keep_styles?: boolean;
+  keep_styles?: boolean;
 
-    protect?: RegExp[];
+  protect?: RegExp[];
 
-    remove_trailing_brs?: boolean;
+  remove_trailing_brs?: boolean;
 
-    schema?: string;
+  schema?: string;
 
-    valid_children?: string;
+  valid_children?: string;
 
-    valid_classes?: string | {};
+  valid_classes?: string | {};
 
-    valid_elements?: string;
+  valid_elements?: string;
 
-    valid_styles?: {};
+  valid_styles?: {};
 
-    block_formats?: string;
+  block_formats?: string;
 
-    font_formats?: string;
+  font_formats?: string;
 
-    fontsize_formats?: string;
+  fontsize_formats?: string;
 
-    formats?: {};
+  formats?: {};
 
-    removeFormat?: Array<{}>;
+  removeFormat?: Array<{}>;
 
-    indentation?: string;
+  indentation?: string;
 
-    style_formats?: Array<{}>;
+  style_formats?: Array<{}>;
 
-    style_formats_autohide?: boolean;
+  style_formats_autohide?: boolean;
 
-    style_formats_merge?: boolean;
+  style_formats_merge?: boolean;
 
-    browser_spellcheck?: boolean;
+  browser_spellcheck?: boolean;
 
-    gecko_spellcheck?: boolean;
+  gecko_spellcheck?: boolean;
 
-    automatic_uploads?: boolean;
+  automatic_uploads?: boolean;
 
-    file_browser_callback?(field_name: string, url: string, type: string, win: Window): void;
+  file_browser_callback?(field_name: string, url: string, type: string, win: Window): void;
 
-    file_browser_callback_types?: string;
+  file_browser_callback_types?: string;
 
-    file_picker_callback?(callback: (filename: string, metadata: {}) => void, valud: string, meta: {}): void;
+  file_picker_callback?(callback: (filename: string, metadata: {}) => void, valud: string, meta: {}): void;
 
-    file_picker_types?: string;
+  file_picker_types?: string;
 
-    images_dataimg_filter?(img: any): void;
+  images_dataimg_filter?(img: any): void;
 
-    images_reuse_filename?: boolean;
+  images_reuse_filename?: boolean;
 
-    images_upload_base_path?: string;
+  images_upload_base_path?: string;
 
-    images_upload_credentials?: boolean;
+  images_upload_credentials?: boolean;
 
-    images_upload_handler?(blobInfo: any, success: (msg: string) => void, failure: (msg: string) => void): void;
+  images_upload_handler?(blobInfo: any, success: (msg: string) => void, failure: (msg: string) => void): void;
 
-    images_upload_url?: string;
+  images_upload_url?: string;
 
-    directionality?: string;
+  directionality?: string;
 
-    language?: string;
+  language?: string;
 
-    language_url?: string;
+  language_url?: string;
 
-    allow_script_urls?: boolean;
+  allow_script_urls?: boolean;
 
-    convert_urls?: boolean;
+  convert_urls?: boolean;
 
-    document_base_url?: string;
+  document_base_url?: string;
 
-    relative_urls?: boolean;
+  relative_urls?: boolean;
 
-    remove_script_host?: boolean;
+  remove_script_host?: boolean;
 
-    urlconverter_callback?(url: string, node: HTMLElement, on_save: boolean, name: string): void;
+  urlconverter_callback?(url: string, node: HTMLElement, on_save: boolean, name: string): void;
 
-    anchor_bottom?: string;
+  anchor_bottom?: string;
 
-    anchor_top?: string;
+  anchor_top?: string;
 
-    br_in_pre?: boolean;
+  br_in_pre?: boolean;
 
-    custom_undo_redo_levels?: number;
+  custom_undo_redo_levels?: number;
 
-    end_container_on_empty_block?: boolean;
+  end_container_on_empty_block?: boolean;
 
-    nowrap?: boolean;
+  nowrap?: boolean;
 
-    object_resizing?: boolean | string;
+  object_resizing?: boolean | string;
 
-    type_ahead_urls?: boolean;
+  type_ahead_urls?: boolean;
+}
+
+export namespace settings {
+  interface Menu {
+    file: MenuItem;
+    edit: MenuItem;
+    insert: MenuItem;
+    view: MenuItem;
+    format: MenuItem;
+    table: MenuItem;
+    tools: MenuItem;
   }
 
-  namespace settings {
-    interface Menu {
-      file: MenuItem;
-      edit: MenuItem;
-      insert: MenuItem;
-      view: MenuItem;
-      format: MenuItem;
-      table: MenuItem;
-      tools: MenuItem;
-    }
+  interface MenuItem {
+    title: string;
+    items: string;
+  }
+}
 
-    interface MenuItem {
-      title: string;
-      items: string;
-    }
+export interface AddOnManager {
+  add(id: string, addOn: (editor: Editor, url: string) => void): Theme | Plugin;
+
+  addComponents(pluginName: string, scripts: string[]): void;
+
+  get(name: string): Theme | Plugin;
+
+  load(name: string, addOnUrl: string, success?: () => void, scope?: {}, failure?: () => void): void;
+
+  requireLangPack(name: string, languages?: string): void;
+}
+
+export class Editor extends util.Observable {
+  constructor(id: string, settings: Settings, editorManager: EditorManager);
+
+  $: dom.DomQuery;
+
+  baseURI: util.URI;
+
+  contentCSS: string[];
+
+  contentStyles: string[];
+
+  documentBaseURI: util.URI;
+
+  dom: dom.DOMUtils;
+
+  formatter: Formatter;
+
+  id: string;
+
+  initialized: boolean;
+
+  notificationManager: notificationManager;
+
+  parser: html.DomParser;
+
+  schema: html.Schema;
+
+  selection: dom.Selection;
+
+  serializer: dom.Serializer;
+
+  settings: Settings;
+
+  theme: Theme;
+
+  undoManager: UndoManager;
+
+  WindowManager: WindowManager;
+
+  addButton(name: string, settings: {}): void;
+
+  addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
+
+  addContextToolbar(predicate: () => void, items: string): void;
+
+  addMenuItem(name: string, settings: {}): void;
+
+  addQueryStateHandler(name: string, callback: () => boolean, scope?: {}): void;
+
+  addQueryValueHandler(name: string, callback: () => {}, scope?: {}): void;
+
+  addShortcut(pattern: string, desc: string, cmdFunc: string, sc?: {}): boolean;
+
+  addSidebar(name: string, settings: {}): void;
+
+  addVisual(elm?: Element): void;
+
+  convertURL(url: string, name: string, elm: string): string;
+
+  destroy(automatic?: boolean): void;
+
+  execCallback(name: string): {};
+
+  execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
+
+  focus(skipFocus: boolean): void;
+
+  getBody(): HTMLBodyElement;
+
+  getContainer(): Element;
+
+  getContent(args?: {}): string;
+
+  getContentAreaContainer(): Element;
+
+  getDoc(): Document;
+
+  getElement(): Element;
+
+  getLang(name: string, defaultVal?: string): void;
+
+  getParam(name: string, defaultVal?: string, type?: string): string;
+
+  getWin(): Window;
+
+  hasEventListeners(name: string): boolean;
+
+  hide(): void;
+
+  init(): void;
+
+  insertContent(content: string, args?: {}): void;
+
+  isDirty(): boolean;
+
+  isHidden(): boolean;
+
+  load(args?: {}): string;
+
+  nodeChanged(args?: {}): void;
+
+  queryCommandState(cmd: string): boolean;
+
+  queryCommandSupported(cmd: string): boolean;
+
+  queryCommandValue(cmd: string): {};
+
+  remove(): void;
+
+  render(): void;
+
+  save(args: {}): string;
+
+  setContent(content: string, args?: {}): string;
+
+  setDirty(state: boolean): void;
+
+  setMode(mode: string): void;
+
+  setProgressState(state: boolean, time: number): boolean;
+
+  show(): void;
+
+  translate(text: string): string;
+
+  uploadImages(callback: () => void): Promise<any>;
+}
+
+interface EditorCommands {
+  addCommands(command_list: {}, type?: string): void;
+
+  execCommand(command: string, ui?: boolean, value?: {}, args?: {}): boolean;
+
+  queryCommandState(command: string): boolean | number;
+
+  queryCommandSupported(command: string): boolean;
+
+  queryCommandValue(command: string): {};
+}
+
+interface EditorManager extends util.Observable {
+  $: dom.DomQuery;
+
+  activeEditor: Editor;
+
+  baseURI: util.URI;
+
+  baseURL: string;
+
+  documentBaseURL: string;
+
+  editors: Editor[];
+
+  i18n: {};
+
+  majorVersion: string;
+
+  minorVersion: string;
+
+  releaseDate: string;
+
+  suffix: string;
+
+  add(editor: Editor): Editor;
+
+  addI18n(code: string, items: {}): void;
+
+  createEditor(id: string, settings: {}): Editor;
+
+  execCommand(cmd: string, ui?: boolean, value?: string): boolean;
+
+  get(id: string): Editor;
+
+  init(settings: Settings): Promise<Editor>;
+
+  overrideDefaults(defaultSettings: {}): void;
+
+  remove(selector: Editor): Editor;
+
+  setActive(editor: Editor): void;
+
+  translate(text: string): string;
+
+  triggerSave(): void;
+}
+
+interface Env {
+  android: boolean;
+
+  ceFalse: boolean;
+
+  contentEditable: boolean;
+
+  documentMode: boolean;
+
+  fileApi: boolean;
+
+  gecko: boolean;
+
+  iOS: boolean;
+
+  ie: boolean;
+
+  mac: boolean;
+
+  noCaretAfter: boolean;
+
+  opera: boolean;
+
+  range: boolean;
+
+  transparentSrc: boolean;
+
+  webKit: boolean;
+}
+
+export namespace Events {
+  interface Event {
+    type: string;
+
+    target: string;
+
+    isDefaultPrevented(): boolean;
+
+    isImmediatePropagationStopped(): boolean;
+
+    isPropagationStopped(): boolean;
+
+    preventDefault(): void;
+
+    stopImmediatePropagation(): void;
+
+    stopPropagation(): void;
   }
 
-  interface AddOnManager {
-    add(id: string, addOn: (editor: Editor, url: string) => void): Theme | Plugin;
-
-    addComponents(pluginName: string, scripts: string[]): void;
-
-    get(name: string): Theme | Plugin;
-
-    load(name: string, addOnUrl: string, success?: () => void, scope?: {}, failure?: () => void): void;
-
-    requireLangPack(name: string, languages?: string): void;
+  interface FocusBlurEvent extends Event {
+    blurredEditor: Editor;
   }
 
-  class Editor extends util.Observable {
-    constructor(id: string, settings: Settings, editorManager: tinymce.EditorManager);
+  interface ContentEvent extends Event {
+    format: string;
 
-    $: dom.DomQuery;
+    set: boolean;
 
-    baseURI: util.URI;
+    content: string;
+  }
 
-    contentCSS: string[];
+  interface ProcessEvent extends Event {
+    content: string;
 
-    contentStyles: string[];
+    forced_root_block: string;
 
-    documentBaseURI: util.URI;
+    format: string;
 
-    dom: dom.DOMUtils;
+    get: boolean;
 
-    formatter: Formatter;
+    get_inner: boolean;
 
-    id: string;
+    node: Node;
 
-    initialized: boolean;
+    selection: true;
+  }
 
-    notificationManager: notificationManager;
+  interface NodeChangeEvent extends Event {
+    element: Node;
 
-    parser: html.DomParser;
+    parents: Node[];
 
-    schema: html.Schema;
+    selectionChange: boolean;
+  }
 
-    selection: dom.Selection;
+  interface UndoRedoEvent extends Event {
+    level: {};
+  }
 
-    serializer: dom.Serializer;
+  interface ChangeEvent extends Event {
+    lastLevel: {};
 
-    settings: Settings;
+    level: {};
+  }
 
-    theme: Theme;
+  interface CommandEvent extends Event {
+    command: string;
 
-    undoManager: UndoManager;
+    ui: boolean;
 
-    WindowManager: WindowManager;
+    value: string;
+  }
+}
 
-    addButton(name: string, settings: {}): void;
+export class FocusManager {
+  constructor();
+  static isEditorUIElement(elm: Element): boolean;
+}
 
-    addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
+interface Formatter {
+  apply(name: string, vars?: {}, node?: html.Node): void;
 
-    addContextToolbar(predicate: () => void, items: string): void;
+  canApply(name: string): boolean;
 
-    addMenuItem(name: string, settings: {}): void;
+  formatChanged(formats: string, callback: () => void, similar: boolean): void;
 
-    addQueryStateHandler(name: string, callback: () => boolean, scope?: {}): void;
+  get(name?: string): any[] | {};
 
-    addQueryValueHandler(name: string, callback: () => {}, scope?: {}): void;
+  getCssText(format: string): string;
 
-    addShortcut(pattern: string, desc: string, cmdFunc: string, sc?: {}): boolean;
+  match(name: string, vars?: {}, node?: html.Node): boolean;
 
-    addSidebar(name: string, settings: {}): void;
+  matchAll(names: any[], vars?: {}): any[];
 
-    addVisual(elm?: Element): void;
+  matchNode(node: html.Node, name: string, vars: {}, similar: boolean): {};
 
-    convertURL(url: string, name: string, elm: string): string;
+  register(name: {}, format?: {}): void;
 
-    destroy(automatic?: boolean): void;
+  remove(name: string, vars?: {}, node?: html.Node): void;
 
-    execCallback(name: string): {};
+  toggle(name: string, vars?: {}, node?: html.Node): void;
 
-    execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
+  unregister(name: string): void;
+}
 
-    focus(skipFocus: boolean): void;
+export class Formatter implements Formatter {
+  constructor(ed: Editor);
+}
 
-    getBody(): HTMLBodyElement;
+interface Shortcuts {
+  add(pattern: string, desc: string, cmdFunc: () => void | string, scope?: {}): boolean;
 
-    getContainer(): Element;
+  remove(pattern: string): boolean;
+}
+
+interface Theme {
+  renderUI(obj: {}): {};
+}
+
+interface UndoManager {
+  add(level?: {}, event?: DocumentEvent): {};
+
+  beforeChange(): void;
+
+  clear(): void;
+
+  extra(callback1: () => void, callback2: () => void): void;
+
+  hasRedo(): boolean;
+
+  hasUndo(): boolean;
+
+  redo(): {};
+
+  transact(callback: () => void): {};
+
+  undo(): {};
+}
+
+interface WindowManager {
+  alert(message: string, callback: () => void, scope?: {}): void;
+
+  close(): void;
+
+  confirm(message: string, callback: () => void, scope?: {}): void;
+
+  getParams(): {};
+
+  getWindows(): Window[];
+
+  open(args: {}, params: {}): void;
+
+  setParams(params: {}): void;
+}
+
+interface notificationManager {
+  close(): void;
+
+  getNotifications(): Array<{}>;
+
+  open(args?: {}): void;
+}
+
+export namespace ui {
+  interface ControlSettings {
+    menu: ui.Menu;
+  }
+
+  interface Collection {}
+
+  interface Container {
+    add(items: any): Collection;
+    items(): Collection;
+  }
+
+  interface Moveable {
+    moveRel(elm: Node, rel: string): Control;
+  }
+
+  interface FloatPanel extends Control, Moveable {}
+
+  interface Menu extends FloatPanel, Control, Container {}
+
+  interface Factory {
+    create(settings: any): Control;
+  }
+
+  class Control {
+    constructor();
+
+    $el: JQuery;
+    on(name: string, callback: string): ui.Control;
+    tooltip(): Control;
+    settings: ControlSettings;
+    disabled(state: boolean): void;
+    active(state: boolean): void;
+  }
+}
+
+export namespace dom {
+  interface BookmarkManager {
+    getBookmark(type?: number, normalized?: boolean): {};
+
+    isBookmarkNode(node: HTMLElement): boolean;
+
+    moveToBookmark(bookmark: {}): boolean;
+  }
+
+  interface DOMUtils {
+    add<T>(parentElm: string, name: string, attrs?: {}, html?: string, create?: boolean): Element | T[];
+
+    addClass<T>(elm: string, cls: string): string | T[];
+
+    addStyle(cssText: string): void;
+
+    bind(target: Element, name: string, func: () => void, scope?: {}): () => void;
+
+    create(name: string, attrs?: {}, html?: string): Element;
+
+    createFragment(html: string): DocumentFragment;
+
+    createHTML(name: string, attrs?: {}, html?: string): string;
+
+    createRng(): Range;
+
+    decode(s: string): string;
+
+    destroy(): void;
+
+    encode(text: string): string;
+
+    findCommonAncestor(a: Element, b: Element): Element;
+
+    fire(target: Node, name: string, evt: {}): Event;
+
+    get(n: string): Element;
+
+    getAttrib(elm: string, name: string, defaultVal: string): string;
+
+    getAttribs(elm?: HTMLElement): NodeList;
+
+    getNext(node: Node, selector: string): Node;
+
+    getOuterHTML(elm: string): string;
+
+    getParent(node: Node, selector: any, root?: Node): Node;
+
+    getParents<T>(node: Node, selector: () => void, root?: Node): T[];
+
+    getPos(elm: Element, rootElm?: Element): {};
+
+    getPrev(node: Node, selector: string): Node;
+
+    getRect(elm: Element): {};
+
+    getRoot(): Element;
+
+    getSize(elm: Element): {};
+
+    getStyle(elm: string, name: string, computed: boolean): string;
+
+    getViewPort(win?: Window): {};
+
+    hasClass(elm: string, cls: string): boolean;
+
+    hide(elm: string): void;
+
+    insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
+
+    is(elm: Node, selector: string): void;
+
+    isBlock(node: Node): boolean;
+
+    isEmpty(elements?: {}): boolean;
+
+    isHidden(elm: string): boolean;
+
+    loadCSS(url: string): void;
+
+    nodeIndex(node: Node, normalized?: boolean): number;
+
+    parseStyle(cssText: string): {};
+
+    remove<T>(node: string, keepChildren?: boolean): Element | T[];
+
+    removeAllAttribs(e: Element): void;
+
+    removeClass<T>(elm: string, cls: string): string | T[];
+
+    rename(elm: Element, name: string): Element;
+
+    replace(newElm: Element, oldElm: Element, keepChildren?: boolean): void;
+
+    run<T>(elm: string, func: () => void, scope?: {}): {} | T[];
+
+    select<T>(selector: string, scope?: {}): T[];
+
+    serializeStyle(styles: {}, name?: string): string;
+
+    setAttrib(elm: Element, name: string, value: string): void;
+
+    setAttribs(elm: Element, attrs: {}): void;
+
+    setHTML(elm: Element, html: string): void;
+
+    setOuterHTML(elm: Element, html: {}): void;
+
+    setStyle(elm: string, name: string, value: string): void;
+
+    setStyles(elm: Element, styles: {}): void;
+
+    show(elm: string): void;
+
+    split(parentElm: Element, splitElm: Element, replacementElm?: Element): Element;
+
+    toHex(rgbVal: string): string;
+
+    toggleClass(elm: Element, cls: string, state?: string): void;
+
+    unbind<T>(target: Element, name: string, func: () => void): boolean | T[];
+
+    uniqueId(prefix?: string): string;
+  }
+
+  class DOMUtils implements DOMUtils {
+    constructor(doc: Document, settings?: {});
+  }
+
+  interface DomQuery {
+    add<T>(items: T[], sort?: boolean): DomQuery;
+
+    addClass(className: string): DomQuery;
+
+    after(content: string): DomQuery;
+
+    append(content: string): DomQuery;
+
+    appendTo(val: string): DomQuery;
+
+    attr(name: string, value?: string): DomQuery | string;
+
+    before(content: string): DomQuery;
+
+    children(node: Element | string): DomQuery;
+
+    clone(): DomQuery;
+
+    closest(selector: string): DomQuery;
+
+    contents(node: Element | string): DomQuery;
+
+    css(name: string, value?: string): DomQuery | string;
+
+    each(callback: () => void): DomQuery;
+
+    each(obj: {}, callback: () => void): void;
+
+    empty(): DomQuery;
+
+    eq(index: number): DomQuery;
+
+    extend(target: {}, object: {}): {};
+
+    filter(selector: string): DomQuery;
+
+    find(selector: string): DomQuery;
+
+    first(): DomQuery;
+
+    grep<T>(array: T[], callback: () => void): T[];
+
+    hasClass(className: string): boolean;
+
+    hide(): DomQuery;
+
+    html(value?: string): DomQuery | string;
+
+    inArray<T>(item: {}, array: T[]): number;
+
+    is(selector: string): boolean;
+
+    isArray(array: {}): boolean;
+
+    last(): DomQuery;
+
+    makeArray<T>(object: {}): T[];
+
+    next(node: Element | string): DomQuery;
+
+    nextUntil(node: Element | string, until: string): DomQuery;
+
+    off(name?: string, callback?: () => void): DomQuery;
+
+    offset(offset?: {}): {} | DomQuery;
+
+    on(name: string, callback: () => void): DomQuery;
+
+    parent(node: Element | string): DomQuery;
+
+    parents(node: Element | string): DomQuery;
+
+    parentsUntil(node: Element | string, until: string): DomQuery;
+
+    prepend(content: string): DomQuery;
+
+    prependTo(val: string): DomQuery;
+
+    prev(node: Element | string): DomQuery;
+
+    prevUntil(node: Element | string, until: string): DomQuery;
+
+    remove(): DomQuery;
+
+    removeAttr(name: string): DomQuery | string;
+
+    removeClass(className: string): DomQuery;
+
+    replaceWith(content: string): DomQuery;
+
+    show(): DomQuery;
+
+    slice(start: number, end?: number): DomQuery;
+
+    text(value?: string): DomQuery | string;
+
+    toArray<T>(): T[];
+
+    toggleClass(className: string, state?: boolean): DomQuery;
+
+    trigger(name: string): DomQuery;
+
+    trim(str: string): string;
+
+    unwrap(): DomQuery;
+
+    wrap(content: string): DomQuery;
+
+    wrapAll(content: string): DomQuery;
+
+    wrapInner(content: string): DomQuery;
+  }
+
+  class DomQuery implements DomQuery {
+    constructor(selector?: string, context?: Document);
+  }
+
+  interface EventUtils {
+    bind(target: {}, names: string, callback: () => void, scope: {}): () => void;
+
+    clean(target: {}): EventUtils;
+
+    fire(target: {}, name: string, args?: {}): EventUtils;
+
+    unbind(target: {}, names?: string, callback?: () => void): EventUtils;
+  }
+
+  interface RangeUtils {
+    compareRanges(rng1: Range, rng2: Range): boolean;
+
+    getCaretRangeFromPoint(clientX: number, clientY: number, doc: Document): Range;
+  }
+
+  interface ScriptLoader {
+    add(url: string, success?: () => void, scope?: {}, failure?: () => void): void;
+
+    isDone(url: string): boolean;
+
+    load(url: string, callback1?: () => void, callback2?: () => void): void;
+
+    loadQueue(success?: () => void, failure?: () => void, scope?: {}): void;
+
+    loadScripts(scripts: string[], callback1?: () => void, scope?: {}, callback2?: () => void): void;
+
+    markDone(url: string): void;
+  }
+
+  interface Selection {
+    collapse(toStart?: boolean): void;
+
+    getBookmark(type?: number, normalized?: boolean): {};
 
     getContent(args?: {}): string;
 
-    getContentAreaContainer(): Element;
+    getEnd(real?: boolean): Element;
 
-    getDoc(): Document;
+    getNode(): Element;
 
-    getElement(): Element;
+    getRng(w3c: boolean): Range;
 
-    getLang(name: string, defaultVal?: string): void;
+    getSel(): Selection;
 
-    getParam(name: string, defaultVal?: string, type?: string): string;
+    getStart(real?: boolean): Element;
 
-    getWin(): Window;
+    isCollapsed(): boolean;
 
-    hasEventListeners(name: string): boolean;
+    moveToBookmark(bookmark: {}): boolean;
 
-    hide(): void;
+    select(node: Element, content?: boolean): Element;
 
-    init(): void;
+    selectorChanged(selector: string, callback: () => void): void;
 
-    insertContent(content: string, args?: {}): void;
+    setContent(content: string, args?: {}): void;
 
-    isDirty(): boolean;
+    setCursorLocation(node?: html.Node, offset?: number): void;
 
-    isHidden(): boolean;
+    setNode(elm: Element): Element;
 
-    load(args?: {}): string;
-
-    nodeChanged(args?: {}): void;
-
-    queryCommandState(cmd: string): boolean;
-
-    queryCommandSupported(cmd: string): boolean;
-
-    queryCommandValue(cmd: string): {};
-
-    remove(): void;
-
-    render(): void;
-
-    save(args: {}): string;
-
-    setContent(content: string, args?: {}): string;
-
-    setDirty(state: boolean): void;
-
-    setMode(mode: string): void;
-
-    setProgressState(state: boolean, time: number): boolean;
-
-    show(): void;
-
-    translate(text: string): string;
-
-    uploadImages(callback: () => void): Promise<any>;
+    setRng(rng: Range, forward?: boolean): void;
   }
 
-  interface EditorCommands {
-    addCommands(command_list: {}, type?: string): void;
-
-    execCommand(command: string, ui?: boolean, value?: {}, args?: {}): boolean;
-
-    queryCommandState(command: string): boolean | number;
-
-    queryCommandSupported(command: string): boolean;
-
-    queryCommandValue(command: string): {};
+  class Selection implements Selection {
+    constructor(dom: DOMUtils, win: Window, editor: Editor, serializer: Serializer);
   }
 
-  interface EditorManager extends util.Observable {
-    $: dom.DomQuery;
+  interface Serializer {
+    addAttributeFilter(callback: () => void): void;
 
-    activeEditor: Editor;
+    addNodeFilter(callback: () => void): void;
 
-    baseURI: util.URI;
+    addRules(rules: string): void;
 
-    baseURL: string;
+    addTempAttr(name: string): void;
 
-    documentBaseURL: string;
+    serialize(node: HTMLElement, args: {}): void;
 
-    editors: Editor[];
-
-    i18n: {};
-
-    majorVersion: string;
-
-    minorVersion: string;
-
-    releaseDate: string;
-
-    suffix: string;
-
-    add(editor: Editor): Editor;
-
-    addI18n(code: string, items: {}): void;
-
-    createEditor(id: string, settings: {}): Editor;
-
-    execCommand(cmd: string, ui?: boolean, value?: string): boolean;
-
-    get(id: string): Editor;
-
-    init(settings: Settings): Promise<Editor>;
-
-    overrideDefaults(defaultSettings: {}): void;
-
-    remove(selector: Editor): Editor;
-
-    setActive(editor: Editor): void;
-
-    translate(text: string): string;
-
-    triggerSave(): void;
+    setRules(rules: string): void;
   }
 
-  interface Env {
-    android: boolean;
-
-    ceFalse: boolean;
-
-    contentEditable: boolean;
-
-    documentMode: boolean;
-
-    fileApi: boolean;
-
-    gecko: boolean;
-
-    iOS: boolean;
-
-    ie: boolean;
-
-    mac: boolean;
-
-    noCaretAfter: boolean;
-
-    opera: boolean;
-
-    range: boolean;
-
-    transparentSrc: boolean;
-
-    webKit: boolean;
+  class Serializer implements Serializer {
+    constructor(settings: {}, editor?: Editor);
   }
 
-  namespace Events {
-    interface Event {
-      type: string;
+  interface TreeWalker {
+    current(): html.Node;
 
-      target: string;
+    next(): html.Node;
 
-      isDefaultPrevented(): boolean;
+    prev(): html.Node;
+  }
+}
 
-      isImmediatePropagationStopped(): boolean;
+export class TreeWalker implements TreeWalker {
+  constructor(startNode: html.Node, rootNode: html.Node);
+}
 
-      isPropagationStopped(): boolean;
+export namespace geom {
+  interface Rect {
+    clamp(rect: Rect, clampRect: Rect, fixedSize: boolean): Rect;
 
-      preventDefault(): void;
+    create(x: number, y: number, w: number, h: number): Rect;
 
-      stopImmediatePropagation(): void;
+    findBestRelativePosition(rect: Rect, targetRect: Rect, constrainRect: Rect, rels: any[]): void;
 
-      stopPropagation(): void;
-    }
+    fromClientRect(clientRect: ClientRect): Rect;
 
-    interface FocusBlurEvent extends Event {
-      blurredEditor: Editor;
-    }
+    inflate(rect: Rect, w: number, h: number): Rect;
 
-    interface ContentEvent extends Event {
-      format: string;
+    intersect(rect: Rect, cropRect: Rect): Rect;
 
-      set: boolean;
+    relativePosition(rect: Rect, targetRect: Rect, rel: string): void;
+  }
+}
 
-      content: string;
-    }
+export namespace html {
+  interface DomParser {
+    addAttributeFilter(attributes: string, callback: () => void): void;
 
-    interface ProcessEvent extends Event {
-      content: string;
+    addNodeFilter(attributes: string, callback: () => void): void;
 
-      forced_root_block: string;
+    filterNode(node: html.Node): html.Node;
 
-      format: string;
-
-      get: boolean;
-
-      get_inner: boolean;
-
-      node: Node;
-
-      selection: true;
-    }
-
-    interface NodeChangeEvent extends Event {
-      element: Node;
-
-      parents: Node[];
-
-      selectionChange: boolean;
-    }
-
-    interface UndoRedoEvent extends Event {
-      level: {};
-    }
-
-    interface ChangeEvent extends Event {
-      lastLevel: {};
-
-      level: {};
-    }
-
-    interface CommandEvent extends Event {
-      command: string;
-
-      ui: boolean;
-
-      value: string;
-    }
+    parse(html: string, args?: {}): html.Node;
   }
 
-  class FocusManager {
-    constructor();
-    static isEditorUIElement(elm: Element): boolean;
+  class DomParser implements DomParser {
+    constructor(settings: {}, schema: html.Schema);
   }
 
-  interface Formatter {
-    apply(name: string, vars?: {}, node?: html.Node): void;
+  interface Entities {
+    decode(text: string): string;
 
-    canApply(name: string): boolean;
+    encodeAllRaw(text: string): string;
 
-    formatChanged(formats: string, callback: () => void, similar: boolean): void;
+    encodeNamed(text: string, attr?: boolean, entities?: {}): string;
 
-    get(name?: string): any[] | {};
+    encodeNumeric(text: string, attr?: boolean): string;
 
-    getCssText(format: string): string;
+    encodeRaw(text: string, attr?: boolean): string;
 
-    match(name: string, vars?: {}, node?: html.Node): boolean;
-
-    matchAll(names: any[], vars?: {}): any[];
-
-    matchNode(node: html.Node, name: string, vars: {}, similar: boolean): {};
-
-    register(name: {}, format?: {}): void;
-
-    remove(name: string, vars?: {}, node?: html.Node): void;
-
-    toggle(name: string, vars?: {}, node?: html.Node): void;
-
-    unregister(name: string): void;
+    getEncodeFunc(name: string, entities?: string): () => void;
   }
 
-  class Formatter implements Formatter {
-    constructor(ed: Editor);
+  interface Node {
+    append(node: html.Node): html.Node;
+
+    attr(name: string, value?: string): string | html.Node;
+
+    clone(): html.Node;
+
+    create(name: string, attrs: {}): void;
+
+    empty(): html.Node;
+
+    getAll(name: string): html.Node[];
+
+    insert(node: html.Node, ref_node: html.Node, before?: boolean): html.Node;
+
+    isEmpty(elements: {}): boolean;
+
+    remove(): html.Node;
+
+    replace(node: html.Node): html.Node;
+
+    unwrap(): void;
+
+    walk(prev?: boolean): html.Node;
+
+    wrap(wrapperNode: html.Node): html.Node;
   }
 
-  interface Shortcuts {
-    add(pattern: string, desc: string, cmdFunc: () => void | string, scope?: {}): boolean;
-
-    remove(pattern: string): boolean;
+  class Node implements Node {
+    constructor(name: string, type: number);
   }
 
-  interface Theme {
-    renderUI(obj: {}): {};
+  interface SaxParser {
+    parse(html: string): void;
   }
 
-  interface UndoManager {
-    add(level?: {}, event?: DocumentEvent): {};
-
-    beforeChange(): void;
-
-    clear(): void;
-
-    extra(callback1: () => void, callback2: () => void): void;
-
-    hasRedo(): boolean;
-
-    hasUndo(): boolean;
-
-    redo(): {};
-
-    transact(callback: () => void): {};
-
-    undo(): {};
+  class SaxParser implements SaxParser {
+    constructor(settings: {}, schema: html.Schema);
   }
 
-  interface WindowManager {
-    alert(message: string, callback: () => void, scope?: {}): void;
+  interface Schema {
+    addCustomElements(custom_elements: string): void;
 
-    close(): void;
+    addValidChildren(valid_children: string): void;
 
-    confirm(message: string, callback: () => void, scope?: {}): void;
+    addValidElements(valid_elements: string): void;
 
-    getParams(): {};
+    getBlockElements(): {};
 
-    getWindows(): Window[];
+    getBoolAttrs(): {};
 
-    open(args: {}, params: {}): void;
+    getCustomElements(): {};
 
-    setParams(params: {}): void;
+    getElementRule(name: string): {};
+
+    getInvalidStyles(): void;
+
+    getMoveCaretBeforeOnEnterElements(): {};
+
+    getNonEmptyElements(): {};
+
+    getSelfClosingElements(): {};
+
+    getShortEndedElements(): {};
+
+    getSpecialElements(): {};
+
+    getTextBlockElements(): {};
+
+    getTextInlineElements(): {};
+
+    getValidClasses(): void;
+
+    getValidStyles(): void;
+
+    getWhiteSpaceElements(): {};
+
+    isValid(name: string, attr?: string): boolean;
+
+    isValidChild(name: string, child: string): boolean;
+
+    setValidElements(valid_elements: string): void;
   }
 
-  interface notificationManager {
-    close(): void;
-
-    getNotifications(): Array<{}>;
-
-    open(args?: {}): void;
-  }
-
-  namespace ui {
-    interface ControlSettings {
-      menu: ui.Menu;
-    }
-
-    interface Collection {}
-
-    interface Container {
-      add(items: any): Collection;
-      items(): Collection;
-    }
-
-    interface Moveable {
-      moveRel(elm: Node, rel: string): Control;
-    }
-
-    interface FloatPanel extends Control, Moveable {}
-
-    interface Menu extends FloatPanel, Control, Container {}
-
-    interface Factory {
-      create(settings: any): Control;
-    }
-
-    class Control {
-      constructor();
-
-      $el: JQuery;
-      on(name: string, callback: string): tinymce.ui.Control;
-      tooltip(): Control;
-      settings: ControlSettings;
-      disabled(state: boolean): void;
-      active(state: boolean): void;
-    }
-  }
-
-  namespace dom {
-    interface BookmarkManager {
-      getBookmark(type?: number, normalized?: boolean): {};
-
-      isBookmarkNode(node: HTMLElement): boolean;
-
-      moveToBookmark(bookmark: {}): boolean;
-    }
-
-    interface DOMUtils {
-      add<T>(parentElm: string, name: string, attrs?: {}, html?: string, create?: boolean): Element | T[];
-
-      addClass<T>(elm: string, cls: string): string | T[];
-
-      addStyle(cssText: string): void;
-
-      bind(target: Element, name: string, func: () => void, scope?: {}): () => void;
-
-      create(name: string, attrs?: {}, html?: string): Element;
-
-      createFragment(html: string): DocumentFragment;
-
-      createHTML(name: string, attrs?: {}, html?: string): string;
-
-      createRng(): Range;
-
-      decode(s: string): string;
-
-      destroy(): void;
-
-      encode(text: string): string;
-
-      findCommonAncestor(a: Element, b: Element): Element;
-
-      fire(target: Node, name: string, evt: {}): Event;
-
-      get(n: string): Element;
-
-      getAttrib(elm: string, name: string, defaultVal: string): string;
-
-      getAttribs(elm?: HTMLElement): NodeList;
-
-      getNext(node: Node, selector: string): Node;
-
-      getOuterHTML(elm: string): string;
-
-      getParent(node: Node, selector: any, root?: Node): Node;
-
-      getParents<T>(node: Node, selector: () => void, root?: Node): T[];
-
-      getPos(elm: Element, rootElm?: Element): {};
-
-      getPrev(node: Node, selector: string): Node;
-
-      getRect(elm: Element): {};
-
-      getRoot(): Element;
-
-      getSize(elm: Element): {};
-
-      getStyle(elm: string, name: string, computed: boolean): string;
-
-      getViewPort(win?: Window): {};
-
-      hasClass(elm: string, cls: string): boolean;
-
-      hide(elm: string): void;
-
-      insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
-
-      is(elm: Node, selector: string): void;
-
-      isBlock(node: Node): boolean;
-
-      isEmpty(elements?: {}): boolean;
-
-      isHidden(elm: string): boolean;
-
-      loadCSS(url: string): void;
-
-      nodeIndex(node: Node, normalized?: boolean): number;
-
-      parseStyle(cssText: string): {};
-
-      remove<T>(node: string, keepChildren?: boolean): Element | T[];
-
-      removeAllAttribs(e: Element): void;
-
-      removeClass<T>(elm: string, cls: string): string | T[];
-
-      rename(elm: Element, name: string): Element;
-
-      replace(newElm: Element, oldElm: Element, keepChildren?: boolean): void;
-
-      run<T>(elm: string, func: () => void, scope?: {}): {} | T[];
-
-      select<T>(selector: string, scope?: {}): T[];
-
-      serializeStyle(styles: {}, name?: string): string;
-
-      setAttrib(elm: Element, name: string, value: string): void;
-
-      setAttribs(elm: Element, attrs: {}): void;
-
-      setHTML(elm: Element, html: string): void;
-
-      setOuterHTML(elm: Element, html: {}): void;
-
-      setStyle(elm: string, name: string, value: string): void;
-
-      setStyles(elm: Element, styles: {}): void;
-
-      show(elm: string): void;
-
-      split(parentElm: Element, splitElm: Element, replacementElm?: Element): Element;
-
-      toHex(rgbVal: string): string;
-
-      toggleClass(elm: Element, cls: string, state?: string): void;
-
-      unbind<T>(target: Element, name: string, func: () => void): boolean | T[];
-
-      uniqueId(prefix?: string): string;
-    }
-
-    class DOMUtils implements DOMUtils {
-      constructor(doc: Document, settings?: {});
-    }
-
-    interface DomQuery {
-      add<T>(items: T[], sort?: boolean): DomQuery;
-
-      addClass(className: string): DomQuery;
-
-      after(content: string): DomQuery;
-
-      append(content: string): DomQuery;
-
-      appendTo(val: string): DomQuery;
-
-      attr(name: string, value?: string): DomQuery | string;
-
-      before(content: string): DomQuery;
-
-      children(node: Element | string): DomQuery;
-
-      clone(): DomQuery;
-
-      closest(selector: string): DomQuery;
-
-      contents(node: Element | string): DomQuery;
-
-      css(name: string, value?: string): DomQuery | string;
-
-      each(callback: () => void): DomQuery;
-
-      each(obj: {}, callback: () => void): void;
-
-      empty(): DomQuery;
-
-      eq(index: number): DomQuery;
-
-      extend(target: {}, object: {}): {};
-
-      filter(selector: string): DomQuery;
-
-      find(selector: string): DomQuery;
-
-      first(): DomQuery;
-
-      grep<T>(array: T[], callback: () => void): T[];
-
-      hasClass(className: string): boolean;
-
-      hide(): DomQuery;
-
-      html(value?: string): DomQuery | string;
-
-      inArray<T>(item: {}, array: T[]): number;
-
-      is(selector: string): boolean;
-
-      isArray(array: {}): boolean;
-
-      last(): DomQuery;
-
-      makeArray<T>(object: {}): T[];
-
-      next(node: Element | string): DomQuery;
-
-      nextUntil(node: Element | string, until: string): DomQuery;
-
-      off(name?: string, callback?: () => void): DomQuery;
-
-      offset(offset?: {}): {} | DomQuery;
-
-      on(name: string, callback: () => void): DomQuery;
-
-      parent(node: Element | string): DomQuery;
-
-      parents(node: Element | string): DomQuery;
-
-      parentsUntil(node: Element | string, until: string): DomQuery;
-
-      prepend(content: string): DomQuery;
-
-      prependTo(val: string): DomQuery;
-
-      prev(node: Element | string): DomQuery;
-
-      prevUntil(node: Element | string, until: string): DomQuery;
-
-      remove(): DomQuery;
-
-      removeAttr(name: string): DomQuery | string;
-
-      removeClass(className: string): DomQuery;
-
-      replaceWith(content: string): DomQuery;
-
-      show(): DomQuery;
-
-      slice(start: number, end?: number): DomQuery;
-
-      text(value?: string): DomQuery | string;
-
-      toArray<T>(): T[];
-
-      toggleClass(className: string, state?: boolean): DomQuery;
-
-      trigger(name: string): DomQuery;
-
-      trim(str: string): string;
-
-      unwrap(): DomQuery;
-
-      wrap(content: string): DomQuery;
-
-      wrapAll(content: string): DomQuery;
-
-      wrapInner(content: string): DomQuery;
-    }
-
-    class DomQuery implements DomQuery {
-      constructor(selector?: string, context?: Document);
-    }
-
-    interface EventUtils {
-      bind(target: {}, names: string, callback: () => void, scope: {}): () => void;
-
-      clean(target: {}): EventUtils;
-
-      fire(target: {}, name: string, args?: {}): EventUtils;
-
-      unbind(target: {}, names?: string, callback?: () => void): EventUtils;
-    }
-
-    interface RangeUtils {
-      compareRanges(rng1: Range, rng2: Range): boolean;
-
-      getCaretRangeFromPoint(clientX: number, clientY: number, doc: Document): Range;
-    }
-
-    interface ScriptLoader {
-      add(url: string, success?: () => void, scope?: {}, failure?: () => void): void;
-
-      isDone(url: string): boolean;
-
-      load(url: string, callback1?: () => void, callback2?: () => void): void;
-
-      loadQueue(success?: () => void, failure?: () => void, scope?: {}): void;
-
-      loadScripts(scripts: string[], callback1?: () => void, scope?: {}, callback2?: () => void): void;
-
-      markDone(url: string): void;
-    }
-
-    interface Selection {
-      collapse(toStart?: boolean): void;
-
-      getBookmark(type?: number, normalized?: boolean): {};
-
-      getContent(args?: {}): string;
-
-      getEnd(real?: boolean): Element;
-
-      getNode(): Element;
-
-      getRng(w3c: boolean): Range;
-
-      getSel(): Selection;
-
-      getStart(real?: boolean): Element;
-
-      isCollapsed(): boolean;
-
-      moveToBookmark(bookmark: {}): boolean;
-
-      select(node: Element, content?: boolean): Element;
-
-      selectorChanged(selector: string, callback: () => void): void;
-
-      setContent(content: string, args?: {}): void;
-
-      setCursorLocation(node?: html.Node, offset?: number): void;
-
-      setNode(elm: Element): Element;
-
-      setRng(rng: Range, forward?: boolean): void;
-    }
-
-    class Selection implements Selection {
-      constructor(dom: DOMUtils, win: Window, editor: Editor, serializer: Serializer);
-    }
-
-    interface Serializer {
-      addAttributeFilter(callback: () => void): void;
-
-      addNodeFilter(callback: () => void): void;
-
-      addRules(rules: string): void;
-
-      addTempAttr(name: string): void;
-
-      serialize(node: HTMLElement, args: {}): void;
-
-      setRules(rules: string): void;
-    }
-
-    class Serializer implements Serializer {
-      constructor(settings: {}, editor?: Editor);
-    }
-
-    interface TreeWalker {
-      current(): html.Node;
-
-      next(): html.Node;
-
-      prev(): html.Node;
-    }
-  }
-
-  class TreeWalker implements TreeWalker {
-    constructor(startNode: html.Node, rootNode: html.Node);
-  }
-
-  namespace geom {
-    interface Rect {
-      clamp(rect: Rect, clampRect: Rect, fixedSize: boolean): Rect;
-
-      create(x: number, y: number, w: number, h: number): Rect;
-
-      findBestRelativePosition(rect: Rect, targetRect: Rect, constrainRect: Rect, rels: any[]): void;
-
-      fromClientRect(clientRect: ClientRect): Rect;
-
-      inflate(rect: Rect, w: number, h: number): Rect;
-
-      intersect(rect: Rect, cropRect: Rect): Rect;
-
-      relativePosition(rect: Rect, targetRect: Rect, rel: string): void;
-    }
-  }
-
-  namespace html {
-    interface DomParser {
-      addAttributeFilter(attributes: string, callback: () => void): void;
-
-      addNodeFilter(attributes: string, callback: () => void): void;
-
-      filterNode(node: html.Node): html.Node;
-
-      parse(html: string, args?: {}): html.Node;
-    }
-
-    class DomParser implements DomParser {
-      constructor(settings: {}, schema: html.Schema);
-    }
-
-    interface Entities {
-      decode(text: string): string;
-
-      encodeAllRaw(text: string): string;
-
-      encodeNamed(text: string, attr?: boolean, entities?: {}): string;
-
-      encodeNumeric(text: string, attr?: boolean): string;
-
-      encodeRaw(text: string, attr?: boolean): string;
-
-      getEncodeFunc(name: string, entities?: string): () => void;
-    }
-
-    interface Node {
-      append(node: html.Node): html.Node;
-
-      attr(name: string, value?: string): string | html.Node;
-
-      clone(): html.Node;
-
-      create(name: string, attrs: {}): void;
-
-      empty(): html.Node;
-
-      getAll(name: string): html.Node[];
-
-      insert(node: html.Node, ref_node: html.Node, before?: boolean): html.Node;
-
-      isEmpty(elements: {}): boolean;
-
-      remove(): html.Node;
-
-      replace(node: html.Node): html.Node;
-
-      unwrap(): void;
-
-      walk(prev?: boolean): html.Node;
-
-      wrap(wrapperNode: html.Node): html.Node;
-    }
-
-    class Node implements Node {
-      constructor(name: string, type: number);
-    }
-
-    interface SaxParser {
-      parse(html: string): void;
-    }
-
-    class SaxParser implements SaxParser {
-      constructor(settings: {}, schema: html.Schema);
-    }
-
-    interface Schema {
-      addCustomElements(custom_elements: string): void;
-
-      addValidChildren(valid_children: string): void;
-
-      addValidElements(valid_elements: string): void;
-
-      getBlockElements(): {};
-
-      getBoolAttrs(): {};
-
-      getCustomElements(): {};
-
-      getElementRule(name: string): {};
-
-      getInvalidStyles(): void;
-
-      getMoveCaretBeforeOnEnterElements(): {};
-
-      getNonEmptyElements(): {};
-
-      getSelfClosingElements(): {};
-
-      getShortEndedElements(): {};
-
-      getSpecialElements(): {};
-
-      getTextBlockElements(): {};
-
-      getTextInlineElements(): {};
-
-      getValidClasses(): void;
-
-      getValidStyles(): void;
-
-      getWhiteSpaceElements(): {};
-
-      isValid(name: string, attr?: string): boolean;
-
-      isValidChild(name: string, child: string): boolean;
-
-      setValidElements(valid_elements: string): void;
-    }
-
-    class Schema implements Schema {
-      constructor(settings: {});
-    }
-
-    interface Serializer {
-      serialize(node: html.Node): string;
-    }
-
-    class Serializer implements Serializer {
-      constructor(settings: {}, schema: html.Schema);
-    }
-
-    interface Styles {
-      parse(css: string): {};
-
-      serialize(styles: {}, elementName: string): string;
-
-      toHex(color: string): string;
-    }
-
-    interface Writer {
-      cdata(text: string): void;
-
-      doctype(text: string): void;
-
-      end(name: string): void;
-
-      getContent(): string;
-
-      pi(name: string, text: string): void;
-
-      reset(): void;
-
-      start(name: string, attrs?: any[], empty?: boolean): void;
-
-      text(text: string, raw: boolean): void;
-    }
-  }
-
-  class Writer implements Writer {
+  class Schema implements Schema {
     constructor(settings: {});
   }
 
-  namespace util {
-    interface Color {
-      parse(value: {}): util.Color;
+  interface Serializer {
+    serialize(node: html.Node): string;
+  }
 
-      toHex(): string;
+  class Serializer implements Serializer {
+    constructor(settings: {}, schema: html.Schema);
+  }
 
-      toHsv(): {};
+  interface Styles {
+    parse(css: string): {};
 
-      toRgb(): {};
-    }
+    serialize(styles: {}, elementName: string): string;
 
-    class Color implements Color {
-      constructor(value: string | {});
-    }
+    toHex(color: string): string;
+  }
 
-    interface Delay {
-      clearInterval(interval: number): void;
+  interface Writer {
+    cdata(text: string): void;
 
-      clearTimeout(timeout: number): void;
+    doctype(text: string): void;
 
-      debounce(callback: () => void, time: number): () => void;
+    end(name: string): void;
 
-      requestAnimationFrame(callback: () => void, element?: HTMLElement): void;
+    getContent(): string;
 
-      setEditorInterval(callback: () => void, time: number): number;
+    pi(name: string, text: string): void;
 
-      setEditorTimeout(editor: Editor, callback: () => void, time: number): number;
+    reset(): void;
 
-      setInterval(callback: () => void, time: number): number;
+    start(name: string, attrs?: any[], empty?: boolean): void;
 
-      setTimeout(callback: () => void, time: number): number;
-    }
+    text(text: string, raw: boolean): void;
+  }
+}
 
-    interface EventDispatcher {
-      fire(name: string, args?: {}): {};
+export class Writer implements Writer {
+  constructor(settings: {});
+}
 
-      has(name: string): boolean;
+export namespace util {
+  interface Color {
+    parse(value: {}): util.Color;
 
-      isNative(name: string): boolean;
+    toHex(): string;
 
-      off(name: string, callback?: () => void): {};
+    toHsv(): {};
 
-      on(name: string, callback: () => void, first?: boolean): {};
+    toRgb(): {};
+  }
 
-      once(name: string, callback: () => void, first: boolean): {};
-    }
+  class Color implements Color {
+    constructor(value: string | {});
+  }
 
-    interface i18n {
-      rtl: boolean;
+  interface Delay {
+    clearInterval(interval: number): void;
 
-      add(code: string, items: Array<{}>): void;
+    clearTimeout(timeout: number): void;
 
-      getCode(): string;
+    debounce(callback: () => void, time: number): () => void;
 
-      setCode(newCode: string): void;
+    requestAnimationFrame(callback: () => void, element?: HTMLElement): void;
 
-      translate(text: string): string;
-    }
+    setEditorInterval(callback: () => void, time: number): number;
 
-    interface JSON {
-      parse(s: string): {};
+    setEditorTimeout(editor: Editor, callback: () => void, time: number): number;
 
-      serialize(obj: {}, quote?: string): string;
-    }
+    setInterval(callback: () => void, time: number): number;
 
-    interface JSONRequest {
-      send(args: {}): void;
+    setTimeout(callback: () => void, time: number): number;
+  }
 
-      sendRPC(o: {}): void;
-    }
+  interface EventDispatcher {
+    fire(name: string, args?: {}): {};
 
-    interface LocalStorage {
-      length: number;
+    has(name: string): boolean;
 
-      clear(): void;
+    isNative(name: string): boolean;
 
-      getItem(key: string): string;
+    off(name: string, callback?: () => void): {};
 
-      key(index: number): string;
+    on(name: string, callback: () => void, first?: boolean): {};
 
-      removeItem(key: string): void;
+    once(name: string, callback: () => void, first: boolean): {};
+  }
 
-      setItem(key: string, value: string): void;
-    }
+  interface i18n {
+    rtl: boolean;
 
-    class Observable {
-      fire(name: string, args?: {}, bubble?: boolean): {};
+    add(code: string, items: Array<{}>): void;
 
-      hasEventListeners(name: string): boolean;
+    getCode(): string;
 
-      off(name?: string, callback?: () => void): {};
+    setCode(newCode: string): void;
 
-      on(name: string, callback: (event: any) => void, first?: boolean): {};
+    translate(text: string): string;
+  }
 
-      once(name: string, callback: (event: any) => void): {};
-    }
+  interface JSON {
+    parse(s: string): {};
 
-    interface Tools {
-      create(s: string, p: {}, root?: {}): void;
+    serialize(obj: {}, quote?: string): string;
+  }
 
-      createNS(n: string, o?: {}): {};
+  interface JSONRequest {
+    send(args: {}): void;
 
-      each(o: {}, cb: () => void, s?: {}): void;
+    sendRPC(o: {}): void;
+  }
 
-      explode(s: string, d: string): void;
+  interface LocalStorage {
+    length: number;
 
-      grep<T>(a: T[], f: () => void): T[];
+    clear(): void;
 
-      inArray<T>(item: T, arr: T[]): number;
+    getItem(key: string): string;
 
-      is(obj: {}, type: string): boolean;
+    key(index: number): string;
 
-      isArray(obj: {}): boolean;
+    removeItem(key: string): void;
 
-      makeMap<T>(items: T[], delim?: string, map?: {}): {};
+    setItem(key: string, value: string): void;
+  }
 
-      map<T, S>(array: T[], callback: (c: T) => S): S[];
+  class Observable {
+    fire(name: string, args?: {}, bubble?: boolean): {};
 
-      resolve(n: string, o?: {}): {};
+    hasEventListeners(name: string): boolean;
 
-      toArray<T>(obj: {}): T[];
+    off(name?: string, callback?: () => void): {};
 
-      trim(s: string): string;
+    on(name: string, callback: (event: any) => void, first?: boolean): {};
 
-      walk(o: {}, f: () => void, n?: string, s?: string): void;
-    }
+    once(name: string, callback: (event: any) => void): {};
+  }
 
-    interface URI {
-      getURI(noProtoHost: boolean): URI;
+  interface Tools {
+    create(s: string, p: {}, root?: {}): void;
 
-      isSameOrigin(uri: util.URI): boolean;
+    createNS(n: string, o?: {}): {};
 
-      setPath(path: string): void;
+    each(o: {}, cb: () => void, s?: {}): void;
 
-      toAbsPath(base: string, path: string): void;
+    explode(s: string, d: string): void;
 
-      toAbsolute(uri: string, noHost: boolean): string;
+    grep<T>(a: T[], f: () => void): T[];
 
-      toRelPath(base: string, path: string): void;
+    inArray<T>(item: T, arr: T[]): number;
 
-      toRelative(uri: string): string;
-    }
+    is(obj: {}, type: string): boolean;
 
-    class URI implements URI {
-      constructor(url: string, settings?: {});
-    }
+    isArray(obj: {}): boolean;
 
-    interface XHR {
-      fire(name: string, args?: {}, bubble?: boolean): {};
+    makeMap<T>(items: T[], delim?: string, map?: {}): {};
 
-      hasEventListeners(name: string): boolean;
+    map<T, S>(array: T[], callback: (c: T) => S): S[];
 
-      off(name?: string, callback?: () => void): {};
+    resolve(n: string, o?: {}): {};
 
-      on(name: string, callback: () => void, first?: boolean): {};
+    toArray<T>(obj: {}): T[];
 
-      once(name: string, callback: () => void): {};
+    trim(s: string): string;
 
-      send(settings: {}): void;
-    }
+    walk(o: {}, f: () => void, n?: string, s?: string): void;
+  }
+
+  interface URI {
+    getURI(noProtoHost: boolean): URI;
+
+    isSameOrigin(uri: util.URI): boolean;
+
+    setPath(path: string): void;
+
+    toAbsPath(base: string, path: string): void;
+
+    toAbsolute(uri: string, noHost: boolean): string;
+
+    toRelPath(base: string, path: string): void;
+
+    toRelative(uri: string): string;
+  }
+
+  class URI implements URI {
+    constructor(url: string, settings?: {});
+  }
+
+  interface XHR {
+    fire(name: string, args?: {}, bubble?: boolean): {};
+
+    hasEventListeners(name: string): boolean;
+
+    off(name?: string, callback?: () => void): {};
+
+    on(name: string, callback: () => void, first?: boolean): {};
+
+    once(name: string, callback: () => void): {};
+
+    send(settings: {}): void;
   }
 }

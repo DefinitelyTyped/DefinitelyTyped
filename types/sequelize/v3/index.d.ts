@@ -3211,6 +3211,11 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
+                     
+        /**
+         * Apply DISTINCT(col) for FindAndCount(all)
+         */
+        distinct?: boolean;
     }
 
     /**

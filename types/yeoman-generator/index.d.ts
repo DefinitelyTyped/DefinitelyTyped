@@ -6,7 +6,7 @@
 import { EventEmitter } from 'events';
 import { Questions, Answers } from 'inquirer';
 
-declare type Callback = (err: any) => void;
+type Callback = (err: any) => void;
 
 declare namespace Base {
     class Storage {

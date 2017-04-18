@@ -32,8 +32,8 @@ klaw('/some/dir')
 
 // README.md: Example (ignore hidden directories):
 
-var filterFunc = function(item: klaw.Item): boolean {
-    var basename = path.basename(item.path)
+var filterFunc = function(item: string): boolean {
+    var basename = path.basename(item);
     return basename === '.' || basename[0] !== '.'
 }
 

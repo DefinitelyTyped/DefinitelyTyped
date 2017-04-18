@@ -53,6 +53,18 @@ namespace PouchDBCoreTests {
         });
     }
 
+    function testBulkGet() {
+        const db = new PouchDB<{}>();
+        db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((result) => {});
+        db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}, (error, response) => {});
+    }
+
+    function testRevsDiff() {
+        const db = new PouchDB<{}>();
+        db.revsDiff({'a': ['1-a', '2-b']}).then((result) => {});
+        db.revsDiff({'a': ['1-a', '2-b']}, (error, response) => {});
+    }
+
     function testCompact() {
       const db = new PouchDB<{}>();
       // Promise version
@@ -92,12 +104,12 @@ namespace PouchDBCoreTests {
 
         db.put(model).then((error) => {
         });
-        db.put(model, null, null, null, (error) => {
+        db.put(model, null, (error) => {
         });
 
         db.info().then((info) => {
         });
-        db.info({ ajax: { cache: true }}, (error, result) => {
+        db.info((error, result) => {
         });
 
         PouchDB.debug.enable('*');

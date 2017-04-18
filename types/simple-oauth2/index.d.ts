@@ -8,7 +8,7 @@ import Bluebird = require("bluebird");
 /** Creates a new simple-oauth2 client with the passed configuration */
 export function create(options: ModuleOptions): OAuthClient;
 
-interface ModuleOptions {
+export interface ModuleOptions {
     client: {
         /** Service registered client id. Required. */
         id: string,
@@ -41,9 +41,9 @@ interface ModuleOptions {
     };
 }
 
-type TokenType = "access_token" | "refresh_token";
+export type TokenType = "access_token" | "refresh_token";
 
-interface AccessToken {
+export interface AccessToken {
     token: {};
 
     /** Check if the access token is expired or not */
@@ -55,16 +55,16 @@ interface AccessToken {
     revoke(tokenType: TokenType, callback?: (error: any) => void): Bluebird<void>;
 }
 
-interface Token {
+export interface Token {
     [x: string]: any;
 }
-type AuthorizationCode = string;
-interface AuthorizationTokenConfig {
+export type AuthorizationCode = string;
+export interface AuthorizationTokenConfig {
     code: AuthorizationCode;
     redirect_uri: string;
 }
 
-interface PasswordTokenConfig {
+export interface PasswordTokenConfig {
     /** A string that represents the registered username */
     username: string;
     /** A string that represents the registered password. */
@@ -73,7 +73,7 @@ interface PasswordTokenConfig {
     scope: string;
 }
 
-interface ClientCredentialTokenConfig {
+export interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
     scope?: string;
 }
