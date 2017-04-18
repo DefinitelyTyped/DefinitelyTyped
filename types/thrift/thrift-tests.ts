@@ -1,4 +1,4 @@
-import Thrift = require('thrift');
+import * as Thrift from 'thrift';
 
 const fakeGeneratedService: any = {};
 const fakeServiceMethods: any = {};
