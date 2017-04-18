@@ -2,7 +2,6 @@
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>, Felix Albert <f.albert.work@icloud.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 declare module "@vimeo/player" {
 
