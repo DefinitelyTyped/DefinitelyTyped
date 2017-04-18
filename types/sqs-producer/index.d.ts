@@ -1,4 +1,4 @@
-// Type definitions for sqs-producer
+// Type definitions for sqs-producer 1.5
 // Project: https://github.com/BBC/sqs-producer
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,29 +6,29 @@
 /// <reference types="node" />
 import { SQS } from "aws-sdk";
 
-interface Options {
+export interface Options {
   queueUrl: string;
   region?: string;
   batchSize?: number;
   sqs?: SQS;
 }
 
-type ProducerCallback<T> = (err?: Error, data?: T) => any;
+export type ProducerCallback<T> = (err?: Error, data?: T) => any;
 
-interface ProducerMessageAttribute {
+export interface ProducerMessageAttribute {
   DataType: "String" | "Binary";
   StringValue?: string;
   BinaryValue?: Buffer;
 }
 
-interface ProducerMessage {
+export interface ProducerMessage {
   id: string;
   body: string;
   messageAttributes?: { [key: string]: ProducerMessageAttribute };
   delaySeconds?: number;
 }
 
-interface Producer {
+export interface Producer {
   send(messages: string[] | ProducerMessage[], cb: ProducerCallback<void>): void;
   queueSize(cb: ProducerCallback<number>): void;
 }

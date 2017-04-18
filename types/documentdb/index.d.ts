@@ -1,4 +1,4 @@
-// Type definitions for DocumentDB 1.10.2
+// Type definitions for DocumentDB 1.10
 // Project: https://github.com/Azure/azure-documentdb-node
 // Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>, Chris Stone <https://github.com/ctstone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/documentdb
@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 /** The feed options and query methods. */
-interface FeedOptions extends RequestOptions {
+export interface FeedOptions extends RequestOptions {
     /** Max number of items to be returned in the enumeration operation. */
     maxItemCount?: number;
 
@@ -21,7 +21,7 @@ interface FeedOptions extends RequestOptions {
 }
 
 /** Options that can be specified for a request issued to the DocumentDB servers. */
-interface RequestOptions {
+export interface RequestOptions {
     /** Indicates what is the pre trigger to be invoked before the operation. */
     preTriggerInclude?: string;
 
@@ -86,13 +86,13 @@ interface RequestOptions {
     populateQuotaInfo?: boolean;
 }
 
-interface DocumentOptions extends RequestOptions {
+export interface DocumentOptions extends RequestOptions {
     /** Disables the automatic id generation. If id is missing in the body and this option is true, an error will be returned. */
     disableAutomaticIdGeneration?: boolean;
 }
 
 /** The Sql query parameter. */
-interface SqlParameter {
+export interface SqlParameter {
     /** The name of the parameter. */
     name: string;
 
@@ -101,7 +101,7 @@ interface SqlParameter {
 }
 
 /** The Sql query specification. */
-interface SqlQuerySpec {
+export interface SqlQuerySpec {
     /** The body of the query. */
     query: string;
 
@@ -110,7 +110,7 @@ interface SqlQuerySpec {
 }
 
 /** Represents the error object returned from a failed query. */
-interface QueryError {
+export interface QueryError {
     /** The response code corresponding to the error. */
     code: number;
 
@@ -119,16 +119,16 @@ interface QueryError {
 }
 
 /** The callback to execute after the request execution. */
-type RequestCallback<TResult> = (error: QueryError, resource: TResult, responseHeaders: any) => void;
+export type RequestCallback<TResult> = (error: QueryError, resource: TResult, responseHeaders: any) => void;
 
 /** Reprents an object with a unique identifier. */
-interface UniqueId {
+export interface UniqueId {
     /** The user-defined unique identifier for a document or other DocumentDB object (database, collection, procedure...) */
     id: string;
 }
 
 /** Represents the common meta data for all DocumentDB objects. */
-interface AbstractMeta extends UniqueId {
+export interface AbstractMeta extends UniqueId {
     /** The self link. */
     _self: string;
 
@@ -142,7 +142,7 @@ interface AbstractMeta extends UniqueId {
 }
 
 /** Represents a custom document for storing in DocumentDB  */
-interface NewDocument extends UniqueId {
+export interface NewDocument extends UniqueId {
     /** The time to live in seconds of the document. */
     ttl?: number;
 
@@ -151,31 +151,31 @@ interface NewDocument extends UniqueId {
 }
 
 /** Represents a document retrieved from storage. */
-interface RetrievedDocument extends NewDocument, AbstractMeta {
+export interface RetrievedDocument extends NewDocument, AbstractMeta {
 }
 
 /** Represents the meta data for a database. */
 // tslint:disable-next-line:no-empty-interface
-interface DatabaseMeta extends AbstractMeta {
+export interface DatabaseMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a collection. */
 // tslint:disable-next-line:no-empty-interface
-interface CollectionMeta extends Collection, AbstractMeta {
+export interface CollectionMeta extends Collection, AbstractMeta {
 }
 
 /** Represents the meta data for a stored procedure. */
-interface ProcedureMeta extends AbstractMeta {
+export interface ProcedureMeta extends AbstractMeta {
     body: string;
 }
 
 /** Represents the meta data for a user-defined function. */
 // tslint:disable-next-line:no-empty-interface
-interface UserDefinedFunctionMeta extends AbstractMeta {
+export interface UserDefinedFunctionMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a trigger. */
-interface TriggerMeta extends AbstractMeta {
+export interface TriggerMeta extends AbstractMeta {
     body: string;
     triggerType: string;
     triggerOperation: string;
@@ -184,7 +184,7 @@ interface TriggerMeta extends AbstractMeta {
 /** A user-defined function may either be defined in string form or as a real function */
 export type UserFunction = ((...params: any[]) => void) | string;
 
-interface UserScriptable extends UniqueId {
+export interface UserScriptable extends UniqueId {
     /** The user function. Must set one of body or serverscript */
     body?: UserFunction;
 
@@ -283,18 +283,18 @@ export interface IndexingPolicy {
     ExcludedPaths: ExcludedPath[];
 }
 
-interface ExcludedPath {
+export interface ExcludedPath {
     Path: string;
 }
 
-interface IncludedPath {
+export interface IncludedPath {
     /** Path to be indexed */
     Path: string;
     Indexes: Index[];
 }
 
 /** Specifies the supported Index types. */
-interface Index {
+export interface Index {
     Kind: IndexKind;
     DataType: string;
     Precision: number;

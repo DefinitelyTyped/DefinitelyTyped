@@ -1,4 +1,4 @@
-// Type definitions for prop-types v15.5.4
+// Type definitions for prop-types 15.5
 // Project: https://github.com/reactjs/prop-types
 // Definitions by: DovydasNavickas <https://github.com/DovydasNavickas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
