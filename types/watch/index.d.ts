@@ -10,7 +10,7 @@
 import fs = require("fs");
 import events = require("events");
 
-type FileOrFiles = fs.Stats | {[key: string]: fs.Stats};
+export type FileOrFiles = fs.Stats | {[key: string]: fs.Stats};
 
 export interface Monitor extends events.EventEmitter {
     files: {[key: string]: fs.Stats};
@@ -23,7 +23,7 @@ export interface Monitor extends events.EventEmitter {
 
 export interface Options {
     ignoreDotFiles?: boolean;
-    filter?: (path: string, stat: fs.Stats) => boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
     interval?: number;
     ignoreUnreadableDir?: boolean;
     ignoreNotPermitted?: boolean;
