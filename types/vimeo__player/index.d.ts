@@ -2,7 +2,7 @@
 // Project: https: //github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https: //github.com/denisyilmaz>, Felix Albert <f.albert.work@icloud.com>
 // Definitions: https: //github.com/DefinitelyTyped/DefinitelyTyped
-
+// tslint:disable-next-line no-single-declare-module
 declare module "@vimeo/player" {
     function myMethod(a: string): string;
     function myOtherMethod(a: number): number;
