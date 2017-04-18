@@ -1,6 +1,6 @@
 // Type definitions for TinyMCE 4.5
 // Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc/>
+// Definitions by: Martin Duparc <https://github.com/martinduparc/>, Poul Poulsen <https://github.com/ipoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Work In Progress
@@ -265,6 +265,16 @@ interface Settings {
   object_resizing?: boolean | string;
 
   type_ahead_urls?: boolean;
+
+  autosave_ask_before_unload?: boolean;
+
+  autosave_interval?: string;
+
+  autosave_prefix?: string;
+
+  autosave_restore_when_empty?: boolean;
+
+  autosave_retention?: string;
 }
 
 export namespace settings {
