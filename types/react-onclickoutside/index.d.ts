@@ -1,35 +1,29 @@
-// Type definitions for react-onclickoutside 5.7
+// Type definitions for react-onclickoutside v5.7.0
 // Project: https://github.com/Pomax/react-onclickoutside
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from 'react';
+import * as React from "react";
 
-declare namespace OnClickOut {
-    interface HandleClickOutside<T> {
-        handleClickOutside: React.MouseEventHandler<T>;
+declare namespace ReactOnClickOutside {
+    interface OnClickOutsideComponent {
+        handleClickOutside(e: React.MouseEvent<any>): void
     }
 
-    interface InjectedOnClickOutProps {
-        disableOnClickOutside(): void;
-        enableOnClickOutside(): void;
+    interface OnClickOutsideProps {
+        disableOnClickOutside?: boolean | Function
+        enableOnClickOutside?: Function
+        eventTypes?: string | Array<string>
+        outsideClickIgnoreClass?: string
+        preventDefault?: boolean
+        stopPropagation?: boolean
     }
 
-    interface OnClickOutProps {
-        disableOnClickOutside?: boolean;
-        eventTypes?: string | string[];
-        outsideClickIgnoreClass?: string;
-        preventDefault?: boolean;
-        stopPropagation?: boolean;
+    interface onClickOutside {
+        <A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A & OnClickOutsideProps>
     }
 }
 
-type DecoratedComponent<P> = React.ComponentClass<P & OnClickOut.OnClickOutProps>;
-
-declare function OnClickOut<P>(
-	component: React.StatelessComponent<P & OnClickOut.InjectedOnClickOutProps & OnClickOut.HandleClickOutside<any>> |
-		   React.ComponentClass<P & OnClickOut.InjectedOnClickOutProps & Partial<OnClickOut.HandleClickOutside<any>>>
-): DecoratedComponent<P>;
-
-export = OnClickOut;
+declare const onClickOutside: ReactOnClickOutside.onClickOutside
+export = onClickOutside;
