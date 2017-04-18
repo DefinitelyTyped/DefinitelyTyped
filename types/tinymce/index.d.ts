@@ -1,6 +1,6 @@
 // Type definitions for TinyMCE 4.5
 // Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc/>
+// Definitions by: Martin Duparc <https://github.com/martinduparc/>, Poul Poulsen <https://github.com/ipoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Work In Progress
@@ -51,7 +51,7 @@ export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 
 export function init(settings: Settings): void;
 
-interface Settings {
+export interface Settings {
   table_toolbar?: boolean;
 
   auto_focus?: string;
@@ -265,6 +265,16 @@ interface Settings {
   object_resizing?: boolean | string;
 
   type_ahead_urls?: boolean;
+
+  autosave_ask_before_unload?: boolean;
+
+  autosave_interval?: string;
+
+  autosave_prefix?: string;
+
+  autosave_restore_when_empty?: boolean;
+
+  autosave_retention?: string;
 }
 
 export namespace settings {
@@ -424,7 +434,7 @@ export class Editor extends util.Observable {
   uploadImages(callback: () => void): Promise<any>;
 }
 
-interface EditorCommands {
+export interface EditorCommands {
   addCommands(command_list: {}, type?: string): void;
 
   execCommand(command: string, ui?: boolean, value?: {}, args?: {}): boolean;
@@ -436,7 +446,7 @@ interface EditorCommands {
   queryCommandValue(command: string): {};
 }
 
-interface EditorManager extends util.Observable {
+export interface EditorManager extends util.Observable {
   $: dom.DomQuery;
 
   activeEditor: Editor;
@@ -482,7 +492,7 @@ interface EditorManager extends util.Observable {
   triggerSave(): void;
 }
 
-interface Env {
+export interface Env {
   android: boolean;
 
   ceFalse: boolean;
@@ -591,7 +601,7 @@ export class FocusManager {
   static isEditorUIElement(elm: Element): boolean;
 }
 
-interface Formatter {
+export interface Formatter {
   apply(name: string, vars?: {}, node?: html.Node): void;
 
   canApply(name: string): boolean;
@@ -621,17 +631,17 @@ export class Formatter implements Formatter {
   constructor(ed: Editor);
 }
 
-interface Shortcuts {
+export interface Shortcuts {
   add(pattern: string, desc: string, cmdFunc: () => void | string, scope?: {}): boolean;
 
   remove(pattern: string): boolean;
 }
 
-interface Theme {
+export interface Theme {
   renderUI(obj: {}): {};
 }
 
-interface UndoManager {
+export interface UndoManager {
   add(level?: {}, event?: DocumentEvent): {};
 
   beforeChange(): void;
@@ -651,7 +661,7 @@ interface UndoManager {
   undo(): {};
 }
 
-interface WindowManager {
+export interface WindowManager {
   alert(message: string, callback: () => void, scope?: {}): void;
 
   close(): void;
@@ -667,7 +677,7 @@ interface WindowManager {
   setParams(params: {}): void;
 }
 
-interface notificationManager {
+export interface notificationManager {
   close(): void;
 
   getNotifications(): Array<{}>;
