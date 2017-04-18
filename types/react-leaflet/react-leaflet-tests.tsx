@@ -49,13 +49,13 @@ export class AnimateExample extends Component<undefined, AnimateExampleState> {
         this.setState({
             latlng: e.latlng,
         });
-    };
+    }
 
     toggleAnimate = () => {
         this.setState({
             animate: !this.state.animate,
         });
-    };
+    }
 
     render() {
         const marker = this.state.hasLocation ? (
@@ -116,11 +116,11 @@ export class BoundsExample extends Component<undefined, BoundsExampleState> {
 
     onClickInner = () => {
         this.setState({ bounds: inner });
-    };
+    }
 
     onClickOuter = () => {
         this.setState({ bounds: outer });
-    };
+    }
 
     render() {
         return (
@@ -243,7 +243,7 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
 
     toggleDraggable = () => {
         this.setState({ draggable: !this.state.draggable });
-    };
+    }
 
     updatePosition = () => {
         const {
@@ -253,7 +253,7 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
         this.setState({
             marker: { lat, lng },
         });
-    };
+    }
 
     render() {
         const position: Leaflet.LatLngExpression = [this.state.center.lat, this.state.center.lng];
@@ -299,14 +299,14 @@ export class EventsExample extends Component<undefined, EventsExampleState> {
 
     handleClick = () => {
         (this.refs.map as Map<MapProps, Leaflet.Map>).leafletElement.locate();
-    };
+    }
 
     handleLocationFound = (e: Leaflet.LocationEvent) => {
         this.setState({
             hasLocation: true,
             latlng: e.latlng,
         });
-    };
+    }
 
     render() {
         const marker = this.state.hasLocation ? (
