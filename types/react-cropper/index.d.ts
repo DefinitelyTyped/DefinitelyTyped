@@ -73,14 +73,28 @@ declare class ReactCropper extends React.Component<ReactCropperProps, {}> implem
     * Zoom out: requires a negative number (ratio < 0)
     */
     zoom(ratio: number): void;
-
+	
+	/** 
+    * Zoom the canvas (image wrapper) to an absolute ratio. 
+    * Zoom in: requires a positive number (ratio > 0) 
+    * Zoom out: requires a negative number (ratio < 0) 
+    */ 
+    zoomTo(ratio: number): void;
+	
     /**
     * Rotate the canvas (image wrapper) with a relative degree.
     * Rotate right: requires a positive number (degree > 0)
     * Rotate left: requires a negative number (degree < 0)
     */
     rotate(degree: number): void;
-
+	
+	/** 
+    * Rotate the canvas (image wrapper) to an absolute degree. 
+    * Rotate right: requires a positive number (degree > 0) 
+    * Rotate left: requires a negative number (degree < 0) 
+    */ 
+    rotateTo(degree: number): void;
+	
     /**
     * Clear the crop box.
     */
