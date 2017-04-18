@@ -1,4 +1,4 @@
-// Type definitions for hapi 16.0.1
+// Type definitions for hapi 16.0
 // Project: http://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ import stream = require("stream");
 import Events = require("events");
 import url = require("url");
 
-interface IDictionary<T> {
+export interface IDictionary<T> {
 	[key: string]: T;
 }
 
@@ -257,7 +257,7 @@ export interface IServerViewsConfiguration extends IServerViewsAdditionalOptions
 	defaultExtension?: string;
 }
 
-interface IReplyMethods {
+export interface IReplyMethods {
 	/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
 	 * The data argument is only used for passing back authentication data and is ignored elsewhere. */
 	continue(credentialData?: any): void;

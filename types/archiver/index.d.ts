@@ -1,4 +1,4 @@
-// Type definitions for archiver v1.3.0
+// Type definitions for archiver 1.3
 // Project: https://github.com/archiverjs/node-archiver
 // Definitions by: Esri <https://github.com/archiverjs/node-archiver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

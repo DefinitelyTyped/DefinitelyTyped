@@ -1,9 +1,8 @@
-// Type definitions for multer-s3
+// Type definitions for multer-s3 2.7
 // Project: https://github.com/badunk/multer-s3
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
-/// <reference types="multer" />
 import * as AWS from "aws-sdk";
 import { StorageEngine } from "multer";
 

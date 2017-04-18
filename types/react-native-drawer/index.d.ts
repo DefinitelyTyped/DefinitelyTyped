@@ -6,17 +6,17 @@
 import * as React from 'react';
 import { ViewStyle, ScaledSize } from 'react-native';
 
-interface NestedViewStyles {
+export interface NestedViewStyles {
     main?: ViewStyle;
     drawerOverlay?: ViewStyle;
     mainOverlay?: ViewStyle;
 }
 
-interface DrawerStyles extends NestedViewStyles {
+export interface DrawerStyles extends NestedViewStyles {
     drawer?: ViewStyle;
 }
 
-type TweenFunctions = 'linear' |
+export type TweenFunctions = 'linear' |
     'easeInQuad' |
     'easeOutQuad' |
     'easeInOutQuad' |

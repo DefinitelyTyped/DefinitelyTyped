@@ -1,4 +1,4 @@
-// Type definitions for node-schedule
+// Type definitions for node-schedule 1.2
 // Project: https://github.com/tejasmanohar/node-schedule/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner <https://github.com/flowpl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ import { EventEmitter } from 'events';
 /**
  * The callback executed by a Job
  */
-type JobCallback = () => void;
+export type JobCallback = () => void;
 
 /**
  * Scheduler jobs.
@@ -138,8 +138,8 @@ export class Range {
     contains(value: number): boolean;
 }
 
-type Recurrence = number | Range | string;
-type RecurrenceSegment = Recurrence | Recurrence[];
+export type Recurrence = number | Range | string;
+export type RecurrenceSegment = Recurrence | Recurrence[];
 
 /**
  * Recurrence rules.
