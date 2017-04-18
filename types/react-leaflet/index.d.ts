@@ -10,7 +10,7 @@ import * as React from 'react';
 // All events need to be lowercase so they don't collide with React.DOMAttributes<T>
 // which already declares things with some of the same names
 
-type Children = React.ReactNode | React.ReactNode[];
+export type Children = React.ReactNode | React.ReactNode[];
 
 export interface MapEvents {
     onclick?(event: Leaflet.MouseEvent): void;
@@ -49,7 +49,7 @@ export interface MapEvents {
     onpopupclose?(event: Leaflet.PopupEvent): void;
 }
 
-interface MarkerEvents {
+export interface MarkerEvents {
     onclick?(event: Leaflet.MouseEvent): void;
     ondblclick?(event: Leaflet.MouseEvent): void;
     onmousedown?(event: Leaflet.MouseEvent): void;
@@ -66,7 +66,7 @@ interface MarkerEvents {
     onpopupclose?(event: Leaflet.PopupEvent): void;
 }
 
-interface TileLayerEvents {
+export interface TileLayerEvents {
     onloading?(event: Leaflet.Event): void;
     onload?(event: Leaflet.Event): void;
     ontileloadstart?(event: Leaflet.TileEvent): void;
@@ -88,7 +88,7 @@ interface PathEvents {
     onpopupclose?(event: Leaflet.PopupEvent): void;
 }
 
-interface FeatureGroupEvents {
+export interface FeatureGroupEvents {
     onclick?(event: Leaflet.MouseEvent): void;
     ondblclick?(event: Leaflet.MouseEvent): void;
     onmouseover?(event: Leaflet.MouseEvent): void;
@@ -98,13 +98,13 @@ interface FeatureGroupEvents {
     onlayerremove?(event: Leaflet.LayerEvent): void;
 }
 
-interface LayersControlEvents {
+export interface LayersControlEvents {
     onbaselayerchange?(event: Leaflet.LayersControlEvent): void;
     onoverlayadd?(event: Leaflet.LayersControlEvent): void;
     onoverlayremove?(event: Leaflet.LayersControlEvent): void;
 }
 
-type LeafletEvents = MapEvents
+export type LeafletEvents = MapEvents
     & MarkerEvents
     & TileLayerEvents
     & PathEvents
@@ -340,8 +340,8 @@ export namespace LayersControl {
         addLayer(): void;
         removeLayer(layer: Leaflet.Layer): void;
     }
-    export class BaseLayer<P extends ControlledLayerProps> extends ControlledLayer<P> { }
-    export class Overlay<P extends ControlledLayerProps> extends ControlledLayer<P> { }
+    class BaseLayer<P extends ControlledLayerProps> extends ControlledLayer<P> { }
+    class Overlay<P extends ControlledLayerProps> extends ControlledLayer<P> { }
 }
 
 export interface ScaleControlProps extends Leaflet.Control.ScaleOptions { }
