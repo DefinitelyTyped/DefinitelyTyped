@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+export as namespace ReactDOM;
+
 import {
     ReactInstance, Component, ComponentState,
     ReactElement, SFCElement, CElement,
