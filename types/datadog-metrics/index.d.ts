@@ -36,7 +36,6 @@ export interface BufferedMetricsLoggerOptions {
 }
 
 export class BufferedMetricsLogger {
-
     constructor(options: BufferedMetricsLoggerOptions);
 
     /**
