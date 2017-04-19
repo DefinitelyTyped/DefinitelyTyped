@@ -16,7 +16,7 @@ declare class Variable {
   toString(): string;
 }
 
-declare type Union = string | number | algebra.js.Fraction | Term;
+type Union = string | number | algebra.js.Fraction | Term;
 
 declare namespace algebra.js {
   function parse(input: string): Equation | Expression;

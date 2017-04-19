@@ -7,7 +7,7 @@
 
 export const jui: JuiStatic;
 
-interface UtilBase {
+export interface UtilBase {
     /**
      * @property browser check browser agent
      * @property {Boolean} browser.webkit  Webkit 브라우저 체크
@@ -329,7 +329,7 @@ interface UtilBase {
     scrollWidth(): number;
 }
 
-interface JuiStatic {
+export interface JuiStatic {
     /**
      * @method ready
      *
@@ -436,11 +436,11 @@ interface JuiStatic {
      create(type: string, selector: any, options?: {}): any;
 }
 
-interface UICollection {
+export interface UICollection {
     destroy(): void;
 }
 
-interface UICore {
+export interface UICore {
     tpl?: any;
 
     event?: any;
@@ -673,12 +673,12 @@ export interface UtilColor {
     darken(color: string, rate: number): string;
 }
 
-interface UtilBase64 {
+export interface UtilBase64 {
     encode(input: string): string;
     decode(input: string): string;
 }
 
-interface UtilKeyParser {
+export interface UtilKeyParser {
     /**
      * @method isIndexDepth
      *
@@ -724,7 +724,7 @@ interface UtilKeyParser {
     getParentIndex(index: string): string;
 }
 
-interface UtilMath {
+export interface UtilMath {
     /**
      * @method rotate
      *

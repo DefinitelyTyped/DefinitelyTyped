@@ -68,11 +68,11 @@ export const SrcAlphaFactor: BlendingDstFactor;
 export const OneMinusSrcAlphaFactor: BlendingDstFactor;
 export const DstAlphaFactor: BlendingDstFactor;
 export const OneMinusDstAlphaFactor: BlendingDstFactor;
+export const DstColorFactor: BlendingDstFactor;
+export const OneMinusDstColorFactor: BlendingDstFactor;
 
 // custom blending src factors
 export enum BlendingSrcFactor { }
-export const DstColorFactor: BlendingSrcFactor;
-export const OneMinusDstColorFactor: BlendingSrcFactor;
 export const SrcAlphaSaturateFactor: BlendingSrcFactor;
 
 // depth modes
@@ -2201,7 +2201,7 @@ export class ObjectLoader {
     texturePass: string;
     crossOrigin: string;
 
-    load(url: string, onLoad?: (object: Object3D) => void): void;
+    load(url: string, onLoad?: (object: Object3D) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: Error | ErrorEvent) => void): void;
     setTexturePath( value: string ): void;
     setCrossOrigin(crossOrigin: string): void;
     parse<T extends Object3D>(json: any, onLoad?: (object: Object3D) => void): T;
@@ -2296,8 +2296,8 @@ export interface MaterialParameters {
     opacity?: number;
     transparent?: boolean;
     blending?: Blending;
-    blendSrc?: BlendingDstFactor;
-    blendDst?: BlendingSrcFactor;
+    blendSrc?: BlendingSrcFactor | BlendingDstFactor;
+    blendDst?: BlendingDstFactor;
     blendEquation?: BlendingEquation;
     blendSrcAlpha?: number;
     blendDstAlpha?: number;
@@ -2365,12 +2365,12 @@ export class Material extends EventDispatcher {
     /**
      * Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
      */
-    blendSrc: BlendingDstFactor;
+    blendSrc: BlendingSrcFactor | BlendingDstFactor;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
      */
-    blendDst: BlendingSrcFactor;
+    blendDst: BlendingDstFactor;
 
     /**
      * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is AddEquation.
@@ -2631,7 +2631,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     displacementScale?: number;
     displacementBias?: number;
     roughnessMap?: Texture;
-    metalMap?: Texture;
+    metalnessMap?: Texture;
     alphaMap?: Texture;
     envMap?: Texture;
     envMapIntensity?: number;
@@ -2666,7 +2666,7 @@ export class MeshStandardMaterial extends Material {
     displacementScale: number;
     displacementBias: number;
     roughnessMap: Texture;
-    metalMap: Texture;
+    metalnessMap: Texture;
     alphaMap: Texture;
     envMap: Texture;
     envMapIntensity: number;
@@ -5099,7 +5099,7 @@ export class WebGLRenderTarget extends EventDispatcher {
     height: number;
     scissor: Vector4;
     scissorTest: boolean;
-    viewpport: Vector4;
+    viewport: Vector4;
     texture: Texture;
     depthBuffer: boolean;
     stencilBuffer: boolean;
