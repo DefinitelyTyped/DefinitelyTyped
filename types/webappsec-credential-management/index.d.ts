@@ -20,18 +20,18 @@
  * ************************************************************************** */
 
 interface Request extends Object, Body {
-    readonly cache: string;
-    readonly credentials: string;
-    readonly destination: string;
+    readonly cache: "default" | "no-store" | "reload" | "no-cache" | "force-cache";
+    readonly credentials: "omit" | "same-origin" | "include";
+    readonly destination: "" | "document" | "sharedworker" | "subresource" | "unknown" | "worker";
     readonly headers: Headers;
     readonly integrity: string;
     readonly keepalive: boolean;
     readonly method: string;
-    readonly mode: string;
-    readonly redirect: string;
+    readonly mode: "navigate" | "same-origin" | "no-cors" | "cors";
+    readonly redirect: "follow" | "error" | "manual";
     readonly referrer: string;
-    readonly referrerPolicy: string;
-    readonly type: string;
+    readonly referrerPolicy: "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
+    readonly type: "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
     readonly url: string;
     clone(): Request;
 }
@@ -61,7 +61,7 @@ interface Response extends Object, Body {
     readonly ok: boolean;
     readonly status: number;
     readonly statusText: string;
-    readonly type: string;
+    readonly type: "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
     readonly url: string;
     clone(): Response;
 }
@@ -174,11 +174,11 @@ interface RequestInit {
     headers?: any;
     body?: any;
     referrer?: string;
-    referrerPolicy?: string;
-    mode?: string;
-    credentials?: string;
-    cache?: string;
-    redirect?: string;
+    referrerPolicy?: "" | "no-referrer" | "no-referrer-when-downgrade" | "origin-only" | "origin-when-cross-origin" | "unsafe-url";
+    mode?: "navigate" | "same-origin" | "no-cors" | "cors";
+    credentials?: "omit" | "same-origin" | "include";
+    cache?: "default" | "no-store" | "reload" | "no-cache" | "force-cache";
+    redirect?: "follow" | "error" | "manual";
     integrity?: string;
     keepalive?: boolean;
     window?: any;
