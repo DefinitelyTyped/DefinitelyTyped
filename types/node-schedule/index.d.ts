@@ -1,4 +1,4 @@
-// Type definitions for node-schedule
+// Type definitions for node-schedule 1.2
 // Project: https://github.com/tejasmanohar/node-schedule/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner <https://github.com/flowpl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,9 +10,7 @@ import { EventEmitter } from 'events';
 /**
  * The callback executed by a Job
  */
-export interface JobCallback {
-        ():void;
-}
+export type JobCallback = () => void;
 
 /**
  * Scheduler jobs.
@@ -23,7 +21,7 @@ export class Job extends EventEmitter {
     /**
      * This Job's name. read-only.
      */
-        name:string;
+        name: string;
 
     /**
      * Use the function scheduleJob() to create new Job objects.
@@ -34,78 +32,78 @@ export class Job extends EventEmitter {
      * @param {JobCallback|Function} job      either this Job's callback or an optional callback function
      * @param {Function}             callback optional callback that is executed right before the JobCallback
      */
-        constructor(name: string|JobCallback, job?: JobCallback|Function, callback?: Function);
+        constructor(name: string|JobCallback, job?: JobCallback|(() => void), callback?: () => void);
 
     /**
      * Adds an Invocation to this job. For internal use.
      * @internal
-     * @param {Invocation} invokation
+     * @param {Invocation} invocation
      * @return {boolean} whether the invocation could be added
      */
-        trackInvocation(invokation:Invocation):boolean;
+        trackInvocation(invocation: Invocation): boolean;
 
     /**
      * removes an Invocation from this Job's tracking list. For internal use.
      * @internal
-     * @param invocation {Invocation}
+     * @param {Invocation} invocation
      * @return boolean whether the invocation was successful. Removing an Invocation that doesn't exist, returns false.
      */
-        stopTrackingInvocation(invocation:Invocation):boolean;
+        stopTrackingInvocation(invocation: Invocation): boolean;
 
     /**
      * @internal
      * @return {number} the number of currently running instances of this Job.
      */
-        triggeredJobs():number;
+        triggeredJobs(): number;
 
     /**
      * set the number of currently running Jobs.
      * @internal
-     * @param triggeredJobs
+     * @param {number} triggeredJobs
      */
-        setTriggeredJobs(triggeredJobs:number):void;
+        setTriggeredJobs(triggeredJobs: number): void;
 
     /**
      * cancel all pending Invocations of this Job.
-     * @param reschedule {boolean} whether to reschedule the canceled Invocations.
+     * @param {boolean} reschedule whether to reschedule the canceled Invocations.
      */
-        cancel(reschedule?:boolean):boolean;
+        cancel(reschedule?: boolean): boolean;
 
     /**
      * cancel the next Invocation of this Job.
-     * @param reschedule {boolean} whether to reschedule the canceled Invocation.
+     * @param {boolean} reschedule whether to reschedule the canceled Invocation.
      * @return {boolean} whether cancelation was successful
      */
-        cancelNext(reschedule?:boolean):boolean;
+        cancelNext(reschedule?: boolean): boolean;
 
     /**
      * Changes the scheduling information for this Job.
-     * @param spec {RecurrenceRule|string|number} the
+     * @param {RecurrenceRule|string|number} spec
      * @return {boolean} whether the reschedule was successful
      */
-        reschedule(spec:RecurrenceRule|string|number):boolean;
+        reschedule(spec: RecurrenceRule|string|number): boolean;
 
     /**
      * Returns the Date on which this Job will be run next.
      * @return {Date}
      */
-        nextInvocation():Date;
+        nextInvocation(): Date;
 
     /**
      * @return Invocation[] a list of all pending Invocations
      */
-        pendingInvocations():Invocation[];
+        pendingInvocations(): Invocation[];
 
     /**
      * run this Job immediately.
      */
-        invoke():void;
+        invoke(): void;
 
     /**
      * schedule this Job to be run on the specified date.
      * @param date {Date}
      */
-        runOnDate(date:Date): void;
+        runOnDate(date: Date): void;
 
     /**
      * set scheduling information
@@ -126,8 +124,8 @@ export class Range {
      *
      * @constructor
      * @param {number} start The start.
-     * @param {end}    end   The end.
-     * @param {step}   step  The step.
+     * @param {number} end   The end.
+     * @param {number} step  The step.
      */
     constructor(start?: number, end?: number, step?: number);
 
@@ -140,8 +138,8 @@ export class Range {
     contains(value: number): boolean;
 }
 
-    type Recurrence = number | Range | string;
-    type RecurrenceSegment = Recurrence | Recurrence[];
+export type Recurrence = number | Range | string;
+export type RecurrenceSegment = Recurrence | Recurrence[];
 
 /**
  * Recurrence rules.
@@ -151,7 +149,7 @@ export class RecurrenceRule {
      * Day of the month.
      *
      * @public
-         * @type {RecurrenceSegment}
+     * @type {RecurrenceSegment}
      */
         date: RecurrenceSegment;
 
@@ -159,7 +157,7 @@ export class RecurrenceRule {
      * Day of the week.
      *
      * @public
-         * @type {RecurrenceSegment}
+     * @type {RecurrenceSegment}
      */
         dayOfWeek: RecurrenceSegment;
 
@@ -167,7 +165,7 @@ export class RecurrenceRule {
      * Hour.
      *
      * @public
-         * @type {RecurrenceSegment}
+     * @type {RecurrenceSegment}
      */
         hour: RecurrenceSegment;
 
@@ -175,7 +173,7 @@ export class RecurrenceRule {
      * Minute.
      *
      * @public
-         * @type {RecurrenceSegment}
+     * @type {RecurrenceSegment}
      */
         minute: RecurrenceSegment;
 
@@ -183,7 +181,7 @@ export class RecurrenceRule {
      * Month.
      *
      * @public
-         * @type {RecurrenceSegment}
+     * @type {RecurrenceSegment}
      */
         month: RecurrenceSegment;
 
@@ -191,7 +189,7 @@ export class RecurrenceRule {
      * Second.
      *
      * @public
-         * @type {RecurrenceSegment}
+     * @type {RecurrenceSegment}
      */
         second: RecurrenceSegment;
 
@@ -199,25 +197,54 @@ export class RecurrenceRule {
      * Year.
      *
      * @public
-         * @type {RecurrenceSegment}
+     * @type {RecurrenceSegment}
      */
         year: RecurrenceSegment;
 
-        constructor(year?: RecurrenceSegment,
+        constructor(
+            year?: RecurrenceSegment,
             month?: RecurrenceSegment,
             date?: RecurrenceSegment,
             dayOfWeek?: RecurrenceSegment,
             hour?: RecurrenceSegment,
             minute?: RecurrenceSegment,
-            second?: RecurrenceSegment);
+            second?: RecurrenceSegment
+        );
 
-        nextInvocationDate(base:Date):Date;
+        nextInvocationDate(base: Date): Date;
 }
 
 /**
- * Recurrence rule specification.
+ * Recurrence rule specification using a date range and cron expression.
  */
-export interface RecurrenceSpec {
+export interface RecurrenceSpecDateRange {
+    /**
+     * Starting date in date range.
+     *
+     * @public
+     * @type {Date|string|number}
+     */
+    start: Date | string | number;
+    /**
+     * Ending date in date range.
+     *
+     * @public
+     * @type {Date|string|number}
+     */
+    end: Date | string | number;
+    /**
+     * Cron expression string.
+     *
+     * @public
+     * @type {string}
+     */
+    rule: string;
+}
+
+/**
+ * Recurrence rule specification using object literal syntax.
+ */
+export interface RecurrenceSpecObjLit {
     /**
      * Day of the month.
      *
@@ -287,7 +314,7 @@ export class Invocation {
      * @public
      * @type {Date}
      */
-    public fireDate: Date;
+    fireDate: Date;
 
     /**
      * Job.
@@ -295,7 +322,7 @@ export class Invocation {
      * @public
      * @type {Job}
      */
-    public job: Job;
+    job: Job;
 
     /**
      * Recurrence rule.
@@ -303,7 +330,7 @@ export class Invocation {
      * @public
      * @type {RecurrenceRule}
      */
-    public recurrenceRule: RecurrenceRule;
+    recurrenceRule: RecurrenceRule;
 
     /**
      * Timer identifier.
@@ -311,7 +338,7 @@ export class Invocation {
      * @public
      * @type {number}
      */
-    public timerID: number;
+    timerID: number;
 
     /**
      * Constructor.
@@ -328,32 +355,32 @@ export class Invocation {
  * Create a schedule job.
  *
  * @param {string}                                    name     name for the new Job
- * @param {RecurrenceRule|RecurrenceSpec|Date|string} rule     scheduling info
+ * @param {RecurrenceRule|RecurrenceSpecDateRange|RecurrenceSpecObjLit|Date|string} rule     scheduling info
  * @param {JobCallback}                               callback callback to be executed on each invocation
  */
-    export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpec | Date | string, callback: JobCallback): Job;
+export function scheduleJob(name: string, rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
 
 /**
  * Create a schedule job.
  *
- * @param {RecurrenceRule|RecurrenceSpec|Date|string} rule     scheduling info
+ * @param {RecurrenceRule|RecurrenceSpecDateRange|RecurrenceSpecObjLit|Date|string} rule     scheduling info
  * @param {JobCallback}                               callback callback to be executed on each invocation
  */
-    export function scheduleJob(rule: RecurrenceRule | RecurrenceSpec | Date | string, callback: JobCallback): Job;
+export function scheduleJob(rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string, callback: JobCallback): Job;
 
 /**
  * Changes the timing of a Job, canceling all pending invocations.
  *
- * @param job {Job}
- * @param spec {JobCallback} the new timing for this Job
+ * @param {Job|string} job
+ * @param {RecurrenceRule|RecurrenceSpecDateRange|RecurrenceSpecObjLit|Date|string} spec The new timing for this Job.
  * @return {Job} if the job could be rescheduled, {null} otherwise.
  */
-    export function rescheduleJob(job: Job | string, spec: RecurrenceRule | RecurrenceSpec | Date | string): Job;
+export function rescheduleJob(job: Job | string, spec: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string): Job;
 
 /**
  * Dictionary of all Jobs, accessible by name.
  */
-    export let scheduledJobs:{[jobName:string]:Job};
+export let scheduledJobs: {[jobName: string]: Job};
 
 /**
  * Cancels the job.
@@ -361,4 +388,4 @@ export class Invocation {
  * @param {Job} job The job.
  * @returns {boolean} {true} if the job has been cancelled with success, otherwise, {false}.
  */
-    export function cancelJob(job: Job|string): boolean;
+export function cancelJob(job: Job|string): boolean;

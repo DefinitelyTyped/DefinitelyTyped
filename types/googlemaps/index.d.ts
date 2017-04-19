@@ -1933,6 +1933,7 @@ declare namespace google.maps {
         controls: MVCArray[]; // Array<MVCArray<Node>>
         getLinks(): StreetViewLink[];
         getLocation():  StreetViewLocation;
+        getMotionTracking(): boolean;
         getPano(): string;
         getPhotographerPov(): StreetViewPov;
         getPosition(): LatLng;
@@ -1942,6 +1943,7 @@ declare namespace google.maps {
         getZoom(): number;
         registerPanoProvider(provider: (input: string) => StreetViewPanoramaData): void;
         setLinks(links: Array<StreetViewLink>): void;
+        setMotionTracking(motionTracking: boolean): void;
         setOptions(options: StreetViewPanoramaOptions): void;
         setPano(pano: string): void;
         setPosition(latLng: LatLng|LatLngLiteral): void;
@@ -1970,6 +1972,9 @@ declare namespace google.maps {
         fullscreenControlOptions?: FullscreenControlOptions;
         imageDateControl?: boolean;
         linksControl?: boolean;
+        motionTracking?: boolean;
+        motionTrackingControl?: boolean;
+        motionTrackingControlOptions?: MotionTrackingControlOptions;
         mode?: "html4" | "html5" |"webgl";
         panControl?: boolean;
         panControlOptions?: PanControlOptions;
@@ -2057,6 +2062,10 @@ declare namespace google.maps {
     export class StreetViewCoverageLayer extends MVCObject  {
         getMap(): Map;
         setMap(map: Map | null): void;
+    }
+
+    export interface MotionTrackingControlOptions {
+        position?: ControlPosition;
     }
 
     /***** Events *****/

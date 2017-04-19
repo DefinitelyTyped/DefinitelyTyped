@@ -1618,6 +1618,24 @@ matchPhrases(['foo', 'bar', 'baz']);
 }
 
 () => {
+    var sortByAgeDescending = R.sortBy(R.compose(R.negate, R.prop('age')));
+    var alice = {
+      name: 'ALICE',
+      age: 101
+    };
+    var bob = {
+      name: 'Bob',
+      age: -10
+    };
+    var clara = {
+      name: 'clara',
+      age: 314.159
+    };
+    var people = [clara, bob, alice];
+    sortByAgeDescending(people); //=> [alice, bob, clara]
+}
+
+() => {
     var sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('name')));
     var alice = {
       name: 'ALICE',

@@ -39,7 +39,7 @@ export interface Header extends BaseSchema {
 }
 
 // ----------------------------- Parameter -----------------------------------
-interface BaseParameter {
+export interface BaseParameter {
   name: string;
   in: string;
   required?: boolean;
@@ -69,7 +69,7 @@ export interface FormDataParameter extends BaseParameter, BaseSchema {
   collectionFormat?: string;
 }
 
-type Parameter =
+export type Parameter =
   BodyParameter |
   FormDataParameter |
   QueryParameter |
@@ -114,7 +114,7 @@ export interface Response {
 }
 
 // ------------------------------ Schema -------------------------------------
-interface BaseSchema {
+export interface BaseSchema {
   format?: string;
   title?: string;
   description?: string;
@@ -159,7 +159,7 @@ export interface XML {
 }
 
 // ----------------------------- Security ------------------------------------
-interface BaseSecurity {
+export interface BaseSecurity {
   type: string;
   description?: string;
 }
@@ -174,7 +174,7 @@ export interface ApiKeySecurity extends BaseSecurity {
   in: string;
 }
 
-interface BaseOAuthSecuirty extends BaseSecurity {
+export interface BaseOAuthSecuirty extends BaseSecurity {
   flow: string;
 }
 
@@ -202,7 +202,7 @@ export interface OAuthScope {
   [scopeName: string]: string;
 }
 
-type Security =
+export type Security =
   BasicAuthenticationSecurity |
   OAuth2AccessCodeSecurity |
   OAuth2ApplicationSecurity |

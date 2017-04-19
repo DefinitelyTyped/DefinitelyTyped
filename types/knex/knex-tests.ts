@@ -22,6 +22,19 @@ var knex = Knex({
   }
 });
 
+var knex = Knex({
+  debug: true,
+  client: 'mssql',
+  connection: {
+    user    : 'your_database_user',
+    password: 'your_database_password',
+    server  : 'your_database_server',
+    options : {
+      database: 'myapp_test'
+    }
+  }
+});
+
 // Mariasql configuration
 var knex = Knex({
   debug: true,
@@ -667,3 +680,10 @@ knex.seed.make(name);
 
 knex.seed.run(config);
 knex.seed.run();
+
+
+knex.schema
+  .dropTableIfExists('A')
+  .createTable('A', table => {
+    table.integer('C').unsigned().references('B.id').notNullable();
+  });
