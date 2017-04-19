@@ -552,6 +552,10 @@ declare namespace mapboxgl {
 	export class CanvasSource implements Source, CanvasSourceOptions {
 		type: "canvas";
 
+		coordinates: number[][];
+
+		canvas: string;
+
 		getCanvas(): HTMLCanvasElement;
 
 		setCoordinates(coordinates: number[][]): this;
