@@ -186,6 +186,7 @@ declare namespace ReactIntl {
             messages?: any;
             defaultLocale?: string;
             defaultFormats?: any;
+            textComponent?: any;
         }
     }
 
