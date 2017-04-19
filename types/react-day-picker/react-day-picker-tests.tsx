@@ -5,10 +5,22 @@ function isSunday(day: Date) {
     return day.getDay() === 0;
 }
 
+function handleDayClick(day: Date, { isSunday, outside }: DayPicker.DayModifiers) {
+    if (isSunday) {
+        console.log('You clicked a Sunday');
+    }
+    if (outside) {
+        console.log('This day is outside the range');
+    }
+}
+
 function MyComponent() {
     return (
         <DayPicker
-            initialMonth={ new Date(2016, 1) } localeUtils={DayPicker.LocaleUtils} modifiers={{ isSunday }}
+            initialMonth={ new Date(2016, 1) }
+            localeUtils={ DayPicker.LocaleUtils }
+            modifiers={{ isSunday }}
+            onDayClick={ handleDayClick }
         />
     );
 }
