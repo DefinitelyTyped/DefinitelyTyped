@@ -26,6 +26,7 @@ import {
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
+    SectionList,
     findNodeHandle
 } from 'react-native';
 
@@ -198,6 +199,23 @@ export class FlatListTest {
         <FlatList
             data={[1, 2, 3, 4, 5]}
             renderItem={(itemInfo: number) => <View><Text>{itemInfo}</Text></View>}
+        />
+    }
+}
+
+export class SectionListTest {
+    render() {
+        var sections = [{
+            key: 's1',
+            data: ['A', 'B', 'C', 'D', 'E']
+        },{
+            key: 's2',
+            data: ['A2', 'B2', 'C2', 'D2', 'E2']
+        }];
+
+        <SectionList
+            sections={sections}
+            renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
         />
     }
 }
