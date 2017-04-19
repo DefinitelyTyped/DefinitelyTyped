@@ -1,7 +1,7 @@
 import * as r from "rethinkdb";
 
-function errorAndCursorCallback(err: Error, cursor: r.Cursor): void {}
-function cursorCallback(cursor: r.Cursor): void {}
+function errorAndCursorCallback<T>(err: Error, cursor: r.CursorResult<T>): void {}
+function cursorCallback<T>(cursor: r.CursorResult<T>): void {}
 
 r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Connection) {
     console.log("HI", err, conn);
@@ -35,7 +35,7 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
         .between("james", "beth")
         .limit(4)
         .run(conn, function(err, cursor) {
-          cursor.toArray<string>((err, strings) => {
+          cursor.toArray((err, strings) => {
             console.log(strings);
           });
         });
@@ -73,7 +73,7 @@ r.connect({ host: "localhost", port: 28015 }).then(function(conn: r.Connection) 
         .between("james", "beth")
         .limit(4)
         .run(conn)
-        .then((cursor: r.Cursor) => {
+        .then((cursor) => {
           cursor.toArray().then((rows: any[]) => {
             console.log(rows);
           });
