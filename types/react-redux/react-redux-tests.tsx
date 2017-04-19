@@ -376,3 +376,23 @@ namespace TestTOwnPropsInference {
     // This should not compile, which is good.
     // React.createElement(ConnectedWithTypeHint, { missingOwn: true });
 }
+
+// Inference of original stateless component type from HOC type
+namespace TestOriginalComponentTypeInference {
+    interface OwnProps {
+        own: string;
+    }
+
+    interface StateProps {
+        state: string;
+    }
+
+    interface DispatchProps {
+        dispatch: string;
+    }
+
+    const hoc = connect<StateProps, DispatchProps, OwnProps>(null, null);
+
+    // Original props should consist of own, state and dispatch props
+    hoc(({own, state, dispatch}) => <i/>);
+}
