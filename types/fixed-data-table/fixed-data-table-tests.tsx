@@ -93,7 +93,11 @@ class MyTextCell extends React.Component<MyCellProps, {}> {
         const {rowIndex, field, myData} = this.props;
 
         return (
-                <Cell {...this.props} className="text-cell">
+                <Cell height={this.props.height}
+                      width={this.props.height}
+                      columnKey={this.props.columnKey}
+                      rowIndex={this.props.rowIndex}
+                      className="text-cell">
                     {myData[rowIndex][field]}
                 </Cell>
             );
@@ -106,7 +110,11 @@ class MyLinkCell extends React.Component<MyCellProps, {}> {
         const link: string = myData[rowIndex][field];
 
         return (
-            <Cell {...this.props} className="link-cell">
+            <Cell width={this.props.width}
+                      height={this.props.height}
+                      rowIndex={this.props.rowIndex}
+                      columnKey={this.props.columnKey}
+                      className="link-cell">
                 <a href={link}>{link}</a>
             </Cell>
         );
