@@ -446,7 +446,7 @@ function stream_readable_pipe_test() {
 
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
-    assert(typeof rs.path === 'Buffer');
+    assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
