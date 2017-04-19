@@ -1,6 +1,6 @@
 // Type definitions for mailgen 2.0
 // Project: https://github.com/eladnava/mailgen#readme
-// Definitions by: Kiet Thanh Vo <https://github.com/vothanhkiet>
+// Definitions by: Kiet Thanh Vo <https://github.com/vothanhkiet>, Jordan Farrer <https://github.com/jordanfarrer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import Option = Mailgen.Option;
 import Content = Mailgen.Content;
@@ -29,6 +29,7 @@ declare namespace Mailgen {
         name: string;
         link: string;
         logo?: string;
+        copyright?: string;
     }
 
     interface Content {
@@ -36,10 +37,32 @@ declare namespace Mailgen {
     }
 
     interface ContentBody {
-        name: string;
-        intro: string;
-        action?: Action;
-        outro: string;
+        name?: string;
+        greeting?: string;
+        signature?: string;
+        title?: string;
+        intro?: string | string[];
+        action?: Action | Action[];
+        table?: Table;
+        dictionary?: any;
+        goToAction?: GoToAction;
+        outro?: string | string[];
+    }
+
+    interface Table {
+        data: any[];
+        columns?: ColumnOptions[];
+    }
+
+    interface ColumnOptions {
+        customWidth: any;
+        customAlignment: any;
+    }
+
+    interface GoToAction {
+        text: string;
+        link: string;
+        description: string;
     }
 
     interface Action {
