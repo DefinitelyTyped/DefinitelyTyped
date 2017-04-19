@@ -1,6 +1,6 @@
-// Type definitions for joi v10.0.0
+// Type definitions for joi v10.3.0
 // Project: https://github.com/hapijs/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <hhttps://github.com/GaelMagnan>, Rytis Alekna <hhttps://github.com/ralekna>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <https://github.com/GaelMagnan>, Rytis Alekna <https://github.com/ralekna>, Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
@@ -25,9 +25,13 @@ export interface ValidationOptions {
      */
     skipFunctions?: boolean;
     /**
-     * when true, unknown keys are deleted (only when value is an object). Defaults to false.
+     * remove unknown elements from objects and arrays. Defaults to false
+     * - when true, all unknown elements will be removed
+     * - when an object:
+     *      - arrays - set to true to remove unknown items from arrays.
+     *      - objects - set to true to remove unknown keys from objects
      */
-    stripUnknown?: boolean;
+    stripUnknown?: boolean | {arrays: boolean} | {objects: boolean} | {arrays: boolean; objects: boolean};
     /**
      * overrides individual error messages. Defaults to no override ({}).
      */
