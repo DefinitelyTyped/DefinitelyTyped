@@ -53,7 +53,7 @@ export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapDispatchToProps?: MapDispatchToProps<TDispatchProps, TOwnProps> | MapDispatchToPropsFactory<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
-): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+): ComponentDecorator<TStateProps & TDispatchProps & TOwnProps, TOwnProps>;
 
 interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;
