@@ -3615,6 +3615,85 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     recordInteraction: () => void
 }
 
+export interface SectionListData<ItemT> {
+
+    data: ItemT[]
+
+    key: string
+
+    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+
+    keyExtractor?: (item: ItemT, index: number) => string
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html
+ */
+export interface SectionListProperties<ItemT> extends ScrollViewProperties {
+
+    /**
+     * An array of objects with data for each section.
+     */
+    sections: SectionListData<ItemT>[]
+
+    /**
+     * Used to extract a unique key for a given item at the specified index. Key is used for caching
+     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
+     * falls back to using the index, like React does.
+     */
+    keyExtractor?: (item: ItemT, index: number) => string
+
+    /**
+     * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
+     */
+    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+
+    /**
+     * Rendered at the top of each section. Sticky headers are not yet supported.
+     */
+    renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+
+    /**
+     * Rendered in between each item, but not at the top or bottom
+     */
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered at the bottom of all the items.
+     */
+    ListFooterComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered at the top of all the items.
+     */
+    ListHeaderComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered in between each section.
+     */
+    SectionSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
+     * Make sure to also set the refreshing prop correctly.
+     */
+    onRefresh?: (() => void) | null
+
+    /**
+     * Set this true while waiting for new data from a refresh.
+     */
+    refreshing?: boolean | null
+
+    /**
+     * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
+     */
+    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+}
+
+export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
+
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/listview.html#props
  */
@@ -8466,6 +8545,9 @@ export type StatusBar = StatusBarStatic
 
 export var ScrollView: ScrollViewStatic
 export type ScrollView = ScrollViewStatic
+
+export var SectionList: SectionListStatic<any>
+export type SectionList<ItemT> = SectionListStatic<ItemT>
 
 export var SnapshotViewIOS: SnapshotViewIOSStatic
 export type SnapshotViewIOS = SnapshotViewIOSStatic
