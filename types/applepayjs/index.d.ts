@@ -1,4 +1,4 @@
-// Type definitions for Apple Pay JS 1.0.1
+// Type definitions for Apple Pay JS 1.0
 // Project: https://developer.apple.com/reference/applepayjs
 // Definitions by: Martin Costello <https://martincostello.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
