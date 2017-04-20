@@ -3,30 +3,30 @@
 // Definitions by: ghoullier <https://github.com/ghoullier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface HandshakeFields {
+export interface HandshakeFields {
   ext: any;
 }
 
-interface AbstractHandshakeOptions {
+export interface AbstractHandshakeOptions {
   authType: string;
   sandboxId: string;
   deploymentId: string;
 }
 
-interface CredentialsHandshakeOptions {
+export interface CredentialsHandshakeOptions {
   authType: string;
   deploymentId: string;
   login: string;
   password: string;
 }
 
-interface TokenHandshakeOptions {
+export interface TokenHandshakeOptions {
   authType: string;
   deploymentId: string;
   token: string;
 }
 
-interface AbstractHandshake {
+export interface AbstractHandshake {
   authType: string;
   authVersion: string;
   sandboxId: string;
@@ -34,35 +34,35 @@ interface AbstractHandshake {
   getHandshakeFields(client: Client): HandshakeFields;
 }
 
-interface CredentialsAuthData {
+export interface CredentialsAuthData {
   login: string;
   password: string;
 }
 
-interface CredentialsHandshake extends AbstractHandshake {
+export interface CredentialsHandshake extends AbstractHandshake {
   login: string;
   password: string;
   authData: CredentialsAuthData;
 }
 
-interface TokenAuthData {
+export interface TokenAuthData {
   token: string;
 }
 
-interface TokenHandshake extends AbstractHandshake {
+export interface TokenHandshake extends AbstractHandshake {
   token: string;
   authData: TokenAuthData;
 }
 
-type AuthenticationCallback = () => AbstractHandshake;
+export type AuthenticationCallback = () => AbstractHandshake;
 
-type AsyncMacroServicePublisher = (method: string, parameters: any, hardFail?: boolean, debug?: number) => Promise<any>;
+export type AsyncMacroServicePublisher = (method: string, parameters: any, hardFail?: boolean, debug?: number) => Promise<any>;
 
-type MacroServicePublisher = (method: string, parameters: any, hardFail?: boolean, debug?: number) => void;
+export type MacroServicePublisher = (method: string, parameters: any, hardFail?: boolean, debug?: number) => void;
 
-type ServicePublisher = (method: string, parameters: any) => void;
+export type ServicePublisher = (method: string, parameters: any) => void;
 
-interface Options {
+export interface Options {
   apiUrl?: string;
   sandboxId: string;
   forceHttps?: boolean;
@@ -70,55 +70,55 @@ interface Options {
   transports?: any[];
 }
 
-interface ClientOptions extends Options {
+export interface ClientOptions extends Options {
   authentication(): AbstractHandshake;
 }
 
-interface WeakClientOptions extends Options {
+export interface WeakClientOptions extends Options {
   deploymentId?: string;
 }
 
-interface Services {
+export interface Services {
   Macro: AsyncMacroService;
   Messaging: Service;
 }
 
-interface Service {
+export interface Service {
   DEFAULT_DEPLOYMENT_ID: string;
   $publish: ServicePublisher;
 }
 
-interface AsyncMacroService {
+export interface AsyncMacroService {
   DEFAULT_DEPLOYMENT_ID: string;
   $publish: AsyncMacroServicePublisher;
 }
 
-interface MacroService {
+export interface MacroService {
   DEFAULT_DEPLOYMENT_ID: string;
   $publish: MacroServicePublisher;
 }
 
-interface ServiceDeclaration {
+export interface ServiceDeclaration {
   Type: Service;
   deploymentId?: string;
 }
 
-interface Token {
+export interface Token {
   token: string;
 }
 
-interface Credentials {
+export interface Credentials {
   login: string;
   password: string;
 }
 
-interface ClientHelper {
+export interface ClientHelper {
   authentication: AuthenticationCallback;
   servers: Promise<string[]>;
   getUniqRequestId(): string;
 }
 
-type ConnectionStatusHandler = number;
+export type ConnectionStatusHandler = number;
 
 export class Authentication {
   static delegating({ token }: TokenAuthData): TokenHandshake;
