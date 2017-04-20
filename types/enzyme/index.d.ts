@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 2.7.1
+// Type definitions for Enzyme 2.7
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
@@ -12,7 +12,7 @@
 /// <reference types="cheerio" />
 import { ReactElement, Component, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
-type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
+export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
 export class ElementClass extends Component<any, any> {
 }
@@ -21,11 +21,11 @@ export class ElementClass extends Component<any, any> {
  * The optional static properties on them break overload ordering for wrapper methods if they're not
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
-interface ComponentClass<Props> {
+export interface ComponentClass<Props> {
     new(props?: Props, context?: any): Component<Props, any>;
 }
 
-type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
+export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
 
 /**
  * Many methods in Enzyme's API accept a selector as an argument. Selectors in Enzyme can fall into one of the
@@ -42,7 +42,7 @@ export interface EnzymePropSelector {
 }
 export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<any> | EnzymePropSelector;
 
-interface CommonWrapper<P, S> {
+export interface CommonWrapper<P, S> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
      * @param predicate

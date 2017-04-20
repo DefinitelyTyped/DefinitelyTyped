@@ -23,9 +23,9 @@ export interface RouterAction extends Action {
     payload?: LocationActionPayload;
 }
 
-type LocationAction = (nextLocation: LocationDescriptor) => RouterAction;
-type GoAction = (n: number) => RouterAction;
-type NavigateAction = () => RouterAction;
+export type LocationAction = (nextLocation: LocationDescriptor) => RouterAction;
+export type GoAction = (n: number) => RouterAction;
+export type NavigateAction = () => RouterAction;
 
 export const push: LocationAction;
 export const replace: LocationAction;
@@ -33,7 +33,7 @@ export const go: GoAction;
 export const goBack: NavigateAction;
 export const goForward: NavigateAction;
 
-interface RouteActions {
+export interface RouteActions {
     push: typeof push;
     replace: typeof replace;
     go: typeof go;

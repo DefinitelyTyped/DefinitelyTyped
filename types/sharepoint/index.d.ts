@@ -4741,6 +4741,7 @@ declare namespace SP {
         get_serverRelativeUrl(): string;
         set_serverRelativeUrl(value: string): void;
         get_showUrlStructureForCurrentUser(): boolean;
+        get_siteLogoUrl(): string;
         get_siteGroups(): SP.GroupCollection;
         get_siteUserInfoList(): SP.List;
         get_siteUsers(): SP.UserCollection;

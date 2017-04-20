@@ -24,7 +24,7 @@ export class Driver extends webdriver.WebDriver {
     static createSession(opt_config?: Options | webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService | http.Executor, opt_flow?: webdriver.promise.ControlFlow): Driver;
 }
 
-interface IOptionsValues {
+export interface IOptionsValues {
     args: string[];
     binary?: string;
     detach: boolean;
@@ -34,7 +34,7 @@ interface IOptionsValues {
     prefs?: any;
 }
 
-interface IPerfLoggingPrefs {
+export interface IPerfLoggingPrefs {
     enableNetwork: boolean;
     enablePage: boolean;
     enableTimeline: boolean;

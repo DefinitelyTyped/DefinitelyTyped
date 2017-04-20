@@ -28,7 +28,7 @@ export interface Progress {
     step: Step;
 }
 
-interface Locale {
+export interface Locale {
     back?: string;
     close?: string;
     last?: string;
@@ -36,7 +36,7 @@ interface Locale {
     skip?: string;
 }
 
-interface Props {
+export interface Props {
     /**
      * The tour's steps. Defaults to []
      */

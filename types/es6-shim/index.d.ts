@@ -2,6 +2,7 @@
 // Project: https://github.com/paulmillr/es6-shim
 // Definitions by: Ron Buckton <http://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare type PropertyKey = string | number | symbol;
 
@@ -593,7 +594,7 @@ interface SetConstructor {
 
 declare var Set: SetConstructor;
 
-interface WeakMap<K, V> {
+interface WeakMap<K extends object, V> {
     delete(key: K): boolean;
     get(key: K): V;
     has(key: K): boolean;
@@ -601,8 +602,8 @@ interface WeakMap<K, V> {
 }
 
 interface WeakMapConstructor {
-    new <K, V>(): WeakMap<K, V>;
-    new <K, V>(iterable: IterableShim<[K, V]>): WeakMap<K, V>;
+    new <K extends object, V>(): WeakMap<K, V>;
+    new <K extends object, V>(iterable: IterableShim<[K, V]>): WeakMap<K, V>;
     prototype: WeakMap<any, any>;
 }
 
