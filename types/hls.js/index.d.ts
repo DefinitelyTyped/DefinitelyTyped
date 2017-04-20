@@ -1,10 +1,10 @@
-// Type definitions for hls.js 0.7.x
+// Type definitions for hls.js 0.7
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Hls {
-  export interface ErrorDetails {
+  interface ErrorDetails {
     /**
      * raised when manifest loading fails because of a network error
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.MANIFEST_LOAD_ERROR, fatal : true, url : manifest URL, response : { code: error code, text: error text }, loader : URL loader }
@@ -81,7 +81,8 @@ declare namespace Hls {
      */
     BUFFER_STALLED_ERROR: string;
     /**
-     * raised when no data can be appended anymore in media buffer because it is full. this error is recovered automatically by performing a smooth level switching that empty buffers (without disrupting the playback) and reducing the max buffer length.
+     * raised when no data can be appended anymore in media buffer because it is full.
+     * This error is recovered automatically by performing a smooth level switching that empty buffers (without disrupting the playback) and reducing the max buffer length.
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_FULL_ERROR, fatal : false }
      */
     BUFFER_FULL_ERROR: string;
@@ -92,7 +93,7 @@ declare namespace Hls {
     BUFFER_SEEK_OVER_HOLE: string;
   }
 
-  export interface ErrorTypes {
+  interface ErrorTypes {
     /**
      * network related errors
      */
@@ -107,7 +108,7 @@ declare namespace Hls {
     OTHER_ERROR: string;
   }
 
-  export interface Config {
+  interface Config {
     /**
      * (default: true)
      * if set to true, start level playlist and first fragments will be loaded automatically, after triggering of Hls.Events.MANIFEST_PARSED event
@@ -134,7 +135,10 @@ declare namespace Hls {
     debug?: boolean;
     /**
      * (default: undefined)
-     * if audio codec is not signaled in variant manifest, or if only a stream manifest is provided, hls.js tries to guess audio codec by parsing audio sampling rate in ADTS header. If sampling rate is less or equal than 22050 Hz, then hls.js assumes it is HE-AAC, otherwise it assumes it is AAC-LC. This could result in bad guess, leading to audio decode error, ending up in media error. It is possible to hint default audiocodec to hls.js by configuring this value as below:
+     * if audio codec is not signaled in variant manifest, or if only a stream manifest is provided, hls.js tries to guess audio codec by parsing audio sampling rate in ADTS header.
+     * If sampling rate is less or equal than 22050 Hz, then hls.js assumes it is HE-AAC, otherwise it assumes it is AAC-LC.
+     * This could result in bad guess, leading to audio decode error, ending up in media error.
+     * It is possible to hint default audiocodec to hls.js by configuring this value as below:
      * mp4a.40.2 (AAC-LC) or
      * mp4a.40.5 (HE-AAC) or
      * undefined (guess based on sampling rate)
@@ -147,14 +151,17 @@ declare namespace Hls {
     initialLiveManifestSize: number;
     /**
      * (default: 30 seconds)
-     * Maximum buffer length in seconds. If buffer length is/become less than this value, a new fragment will be loaded. This is the guaranteed buffer length hls.js will try to reach, regardless of maxBufferSize.
+     * Maximum buffer length in seconds. If buffer length is/become less than this value, a new fragment will be loaded.
+     * This is the guaranteed buffer length hls.js will try to reach, regardless of maxBufferSize.
      */
     maxBufferLength?: number;
     /**
      * (default 600s)
      * Maximum buffer length in seconds. Hls.js will never exceed this value, even if maxBufferSize is not reached yet.
-     * hls.js tries to buffer up to a maximum number of bytes (60 MB by default) rather than to buffer up to a maximum nb of seconds. this is to mimic the browser behaviour (the buffer eviction algorithm is starting after the browser detects that video buffer size reaches a limit in bytes)
-     * maxBufferLength is the minimum guaranteed buffer length that hls.js will try to achieve, even if that value exceeds the amount of bytes 60 MB of memory. maxMaxBufferLength acts as a capping value, as if bitrate is really low, you could need more than one hour of buffer to fill 60 MB.
+     * hls.js tries to buffer up to a maximum number of bytes (60 MB by default) rather than to buffer up to a maximum nb of seconds.
+     * This is to mimic the browser behaviour (the buffer eviction algorithm is starting after the browser detects that video buffer size reaches a limit in bytes)
+     * maxBufferLength is the minimum guaranteed buffer length that hls.js will try to achieve, even if that value exceeds the amount of bytes 60 MB of memory.
+     * maxMaxBufferLength acts as a capping value, as if bitrate is really low, you could need more than one hour of buffer to fill 60 MB.
      */
     maxMaxBufferLength?: number;
     /**
@@ -164,7 +171,9 @@ declare namespace Hls {
     maxBufferSize?: number;
     /**
      * (default: 0.5 seconds)
-     * 'Maximum' inter-fragment buffer hole tolerance that hls.js can cope with when searching for the next fragment to load. When switching between quality level, fragments might not be perfectly aligned. This could result in small overlapping or hole in media buffer. This tolerance factor helps cope with this.
+     * 'Maximum' inter-fragment buffer hole tolerance that hls.js can cope with when searching for the next fragment to load. When switching between quality level,
+     * fragments might not be perfectly aligned.
+     * This could result in small overlapping or hole in media buffer. This tolerance factor helps cope with this.
      */
     maxBufferHole?: number;
     /**
@@ -178,32 +187,39 @@ declare namespace Hls {
     maxStarvationDelay?: number;
     /**
      * (default: 2s)
-     * In case playback is stalled, and a buffered range is available upfront, less than maxSeekHole seconds from current media position, hls.js will jump over this buffer hole to reach the beginning of this following buffered range. maxSeekHole allows to configure this jumpable threshold.
+     * In case playback is stalled, and a buffered range is available upfront, less than maxSeekHole seconds from current media position,
+     * hls.js will jump over this buffer hole to reach the beginning of this following buffered range.
+     * maxSeekHole allows to configure this jumpable threshold.
      */
     maxSeekHole?: number;
     /**
      * (default: 0.5s)
-     * media element is expected to play and if currentTime has not moved for more than lowBufferWatchdogPeriod and if there are less than maxBufferHole seconds buffered upfront, hls.js will try to nudge playhead to recover playback
+     * media element is expected to play and if currentTime has not moved for more than lowBufferWatchdogPeriod and if there are less than maxBufferHole seconds buffered upfront,
+     * hls.js will try to nudge playhead to recover playback
      */
     lowBufferWatchdogPeriod: number;
     /**
      * (default: 3s)
-     * if media element is expected to play and if currentTime has not moved for more than highBufferWatchdogPeriod and if there are more than maxBufferHole seconds buffered upfront, hls.js will try to nudge playhead to recover playback
+     * if media element is expected to play and if currentTime has not moved for more than highBufferWatchdogPeriod and if there are more than maxBufferHole seconds buffered upfront,
+     * hls.js will try to nudge playhead to recover playback
      */
     highBufferWatchdogPeriod: number;
     /**
      * (default: 0.1s)
-     * In case playback continues to stall after first playhead nudging, currentTime will be nudged evenmore following nudgeOffset to try to restore playback. media.currentTime += (nb nudge retry -1)*nudgeOffset
+     * In case playback continues to stall after first playhead nudging, currentTime will be nudged evenmore following nudgeOffset to try to restore playback.
+     * media.currentTime += (nb nudge retry -1)*nudgeOffset
      */
     nudgeOffset: number;
     /**
      * (default: 3s)
-     * In case playback continues to stall after first playhead nudging, currentTime will be nudged evenmore following nudgeOffset to try to restore playback. media.currentTime += (nb nudge retry -1)*nudgeOffset
+     * In case playback continues to stall after first playhead nudging, currentTime will be nudged evenmore following nudgeOffset to try to restore playback.
+     * media.currentTime += (nb nudge retry -1)*nudgeOffset
      */
     nudgeMaxRetry: number;
     /**
      * (default 0.2s)
-     * This tolerance factor is used during fragment lookup. Instead of checking whether buffered.end is located within [start, end] range, frag lookup will be done by checking within [start-maxFragLookUpTolerance, end-maxFragLookUpTolerance] range.
+     * This tolerance factor is used during fragment lookup.
+     * Instead of checking whether buffered.end is located within [start, end] range, frag lookup will be done by checking within [start-maxFragLookUpTolerance, end-maxFragLookUpTolerance] range.
      * This tolerance factor is used to cope with situations like:
      *      buffered.end = 9.991
      *      frag[0] : [0,10]
@@ -225,22 +241,32 @@ declare namespace Hls {
     maxFragLookUpTolerance?: number;
     /**
      * (default: 3)
-     * edge of live delay, expressed in multiple of EXT-X-TARGETDURATION. if set to 3, playback will start from fragment N-3, N being the last fragment of the live playlist. decreasing this value is likely to cause playback stalls.
+     * edge of live delay, expressed in multiple of EXT-X-TARGETDURATION. if set to 3, playback will start from fragment N-3, N being the last fragment of the live playlist.
+     * Decreasing this value is likely to cause playback stalls.
      */
     liveSyncDurationCount?: number;
     /**
      * (default: undefined)
-     * Alternative parameter to liveSyncDurationCount, expressed in seconds vs number of segments. If defined in the configuration object, liveSyncDuration will take precedence over the default liveSyncDurationCount. You can't define this parameter and either liveSyncDurationCount or liveMaxLatencyDurationCount in your configuration object at the same time. A value too low (inferior to ~3 segment durations) is likely to cause playback stalls.
+     * Alternative parameter to liveSyncDurationCount, expressed in seconds vs number of segments.
+     * If defined in the configuration object, liveSyncDuration will take precedence over the default liveSyncDurationCount.
+     * You can't define this parameter and either liveSyncDurationCount or liveMaxLatencyDurationCount in your configuration object at the same time.
+     * A value too low (inferior to ~3 segment durations) is likely to cause playback stalls.
      */
     liveSyncDuration?: number;
     /**
      * (default: Infinity)
-     * maximum delay allowed from edge of live, expressed in multiple of EXT-X-TARGETDURATION. if set to 10, the player will seek back to liveSyncDurationCount whenever the next fragment to be loaded is older than N-10, N being the last fragment of the live playlist. If set, this value must be stricly superior to liveSyncDurationCount a value too close from liveSyncDurationCount is likely to cause playback stalls.
+     * maximum delay allowed from edge of live, expressed in multiple of EXT-X-TARGETDURATION.
+     * If set to 10, the player will seek back to liveSyncDurationCount whenever the next fragment to be loaded is older than N-10, N being the last fragment of the live playlist.
+     * If set, this value must be stricly superior to liveSyncDurationCount a value too close from liveSyncDurationCount is likely to cause playback stalls.
      */
     liveMaxLatencyDurationCount?: number;
     /**
      * (default: undefined)
-     * Alternative parameter to liveMaxLatencyDurationCount, expressed in seconds vs number of segments. If defined in the configuration object, liveMaxLatencyDuration will take precedence over the default liveMaxLatencyDurationCount. If set, this value must be stricly superior to liveSyncDuration which must be defined as well. You can't define this parameter and either liveSyncDurationCount or liveMaxLatencyDurationCount in your configuration object at the same time. A value too close from liveSyncDuration is likely to cause playback stalls.
+     * Alternative parameter to liveMaxLatencyDurationCount, expressed in seconds vs number of segments.
+     * If defined in the configuration object, liveMaxLatencyDuration will take precedence over the default liveMaxLatencyDurationCount.
+     * If set, this value must be stricly superior to liveSyncDuration which must be defined as well.
+     * You can't define this parameter and either liveSyncDurationCount or liveMaxLatencyDurationCount in your configuration object at the same time.
+     * A value too close from liveSyncDuration is likely to cause playback stalls.
      */
     liveMaxLatencyDuration?: number;
     /**
@@ -261,7 +287,8 @@ declare namespace Hls {
     startLevel?: number;
     /**
      * (default: 10000ms for level and manifest)
-     * URL Loader timeout. A timeout callback will be triggered if loading duration exceeds this timeout. no further action will be done : the load operation will not be cancelled/aborted. It is up to the application to catch this event and treat it as needed.
+     * URL Loader timeout. A timeout callback will be triggered if loading duration exceeds this timeout. no further action will be done : the load operation will not be cancelled/aborted.
+     * It is up to the application to catch this event and treat it as needed.
      */
     manifestLoadingTimeOut?: number;
     /**
@@ -271,7 +298,8 @@ declare namespace Hls {
     manifestLoadingMaxRetry?: number;
     /**
      * (default: 1000 ms)
-     * Initial delay between XMLHttpRequest error and first load retry (in ms). Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Initial delay between XMLHttpRequest error and first load retry (in ms).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     manifestLoadingRetryDelay?: number;
@@ -282,7 +310,8 @@ declare namespace Hls {
     manifestLoadingMaxRetryTimeout?: number;
     /**
      * (default: 60000ms for fragment)
-     * URL Loader timeout. A timeout callback will be triggered if loading duration exceeds this timeout. no further action will be done : the load operation will not be cancelled/aborted. It is up to the application to catch this event and treat it as needed.
+     * URL Loader timeout. A timeout callback will be triggered if loading duration exceeds this timeout. no further action will be done : the load operation will not be cancelled/aborted.
+     * It is up to the application to catch this event and treat it as needed.
      */
     levelLoadingTimeOut?: number;
     /**
@@ -292,35 +321,38 @@ declare namespace Hls {
     levelLoadingMaxRetry?: number;
     /**
      * (default: 1000 ms)
-     * Initial delay between XMLHttpRequest error and first load retry (in ms). Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Initial delay between XMLHttpRequest error and first load retry (in ms).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     levelLoadingRetryDelay?: number;
     /**
-    * (default: 64000 ms)
-    * Maximum frag/manifest/key retry timeout (in milliseconds) in case I/O errors are met.
-    */
+     * (default: 64000 ms)
+     * Maximum frag/manifest/key retry timeout (in milliseconds) in case I/O errors are met.
+     */
     levelLoadingMaxRetryTimeout?: number;
     /**
      * (default: 60000ms for fragment)
-     * URL Loader timeout. A timeout callback will be triggered if loading duration exceeds this timeout. no further action will be done : the load operation will not be cancelled/aborted. It is up to the application to catch this event and treat it as needed.
+     * URL Loader timeout. A timeout callback will be triggered if loading duration exceeds this timeout. no further action will be done : the load operation will not be cancelled/aborted.
+     * It is up to the application to catch this event and treat it as needed.
      */
     fragLoadingTimeOut?: number;
     /**
-    * (default: 3)
-    * Max number of load retries.
-    */
+     * (default: 3)
+     * Max number of load retries.
+     */
     fragLoadingMaxRetry?: number;
     /**
      * (default: 1000 ms)
-     * Initial delay between XMLHttpRequest error and first load retry (in ms). Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
+     * Initial delay between XMLHttpRequest error and first load retry (in ms).
+     * Any I/O error will trigger retries every 500ms,1s,2s,4s,8s, ... capped to fragLoadingMaxRetryTimeout / manifestLoadingMaxRetryTimeout / levelLoadingMaxRetryTimeout value (exponential backoff).
      * Prefetch start fragment although media not attached.
      */
     fragLoadingRetryDelay?: number;
     /**
-    * (default: 64000 ms)
-    * Maximum frag/manifest/key retry timeout (in milliseconds) in case I/O errors are met.
-    */
+     * (default: 64000 ms)
+     * Maximum frag/manifest/key retry timeout (in milliseconds) in case I/O errors are met.
+     */
     fragLoadingMaxRetryDelay?: number;
     /**
      * (default: false)
@@ -329,7 +361,8 @@ declare namespace Hls {
     startFragPrefech?: boolean;
     /**
      * (default: 3)
-     * Max number of sourceBuffer.appendBuffer() retry upon error. Such error could happen in loop with UHD streams, when internal buffer is full. (Quota Exceeding Error will be triggered). In that case we need to wait for the browser to evict some data before being able to append buffer correctly.
+     * Max number of sourceBuffer.appendBuffer() retry upon error. Such error could happen in loop with UHD streams, when internal buffer is full. (Quota Exceeding Error will be triggered).
+     * In that case we need to wait for the browser to evict some data before being able to append buffer correctly.
      */
     appendErrorMaxRetry?: number;
     /**
@@ -354,15 +387,17 @@ declare namespace Hls {
     /**
      * (default: undefined)
      * XMLHttpRequest customization callback for default XHR based loader.
-     * Parameter should be a function with two arguments (xhr: XMLHttpRequest, url: string). If xhrSetup is specified, default loader will invoke it before calling xhr.send(). This allows user to easily modify/setup XHR.
+     * Parameter should be a function with two arguments (xhr: XMLHttpRequest, url: string).
+     * If xhrSetup is specified, default loader will invoke it before calling xhr.send(). This allows user to easily modify/setup XHR.
      */
-    xhrSetup?: (xhr: XMLHttpRequest, url: string) => void;
+    xhrSetup?(xhr: XMLHttpRequest, url: string): void;
     /**
      * (default: undefined)
      * Fetch customization callback for Fetch based loader.
-     * Parameter should be a function with two arguments (context and Request Init Params). If fetchSetup is specified and Fetch loader is used, fetchSetup will be triggered to instantiate Request Object. This allows user to easily tweak Fetch loader.
+     * Parameter should be a function with two arguments (context and Request Init Params).
+     * If fetchSetup is specified and Fetch loader is used, fetchSetup will be triggered to instantiate Request Object. This allows user to easily tweak Fetch loader.
      */
-    fetchSetup?: (context: any, initParams: any) => Request;
+    fetchSetup?(context: any, initParams: any): Request;
     /**
      * (default: internal ABR controller)
      * Customized Adaptive Bitrate Streaming Controller.
@@ -406,35 +441,42 @@ declare namespace Hls {
     captionsTextTrack2LanguageCode?: string;
     /**
      * (default: false)
-     * If a segment's video track is shorter than its audio track by > min(maxSeekHole, maxBufferHole), extend the final video frame's duration to match the audio track's duration. This helps playback continue in certain cases that might otherwise get stuck.
+     * If a segment's video track is shorter than its audio track by > min(maxSeekHole, maxBufferHole), extend the final video frame's duration to match the audio track's duration.
+     * This helps playback continue in certain cases that might otherwise get stuck.
      */
     stretchShortVideoTrack?: boolean;
     /**
      * (default: true)
-     * Whether or not to force having a key frame in the first AVC sample after a discontinuity. If set to true, after a discontinuity, the AVC samples without any key frame will be dropped until finding one that contains a key frame. If set to false, all AVC samples will be kept, which can help avoid holes in the stream. Setting this parameter to false can also generate decoding weirdness when switching level or seeking.
+     * Whether or not to force having a key frame in the first AVC sample after a discontinuity.
+     * If set to true, after a discontinuity, the AVC samples without any key frame will be dropped until finding one that contains a key frame.
+     * If set to false, all AVC samples will be kept, which can help avoid holes in the stream. Setting this parameter to false can also generate decoding weirdness when switching level or seeking.
      */
     forceKeyFrameOnDiscontinuity?: boolean;
     /**
      * (default: 5.0)
-     * Fast bitrate Exponential moving average half-life, used to compute average bitrate for Live streams. Half of the estimate is based on the last abrEwmaFastLive seconds of sample history. Each of the sample is weighted by the fragment loading duration.
+     * Fast bitrate Exponential moving average half-life, used to compute average bitrate for Live streams.
+     * Half of the estimate is based on the last abrEwmaFastLive seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than 0
      */
     abrEwmaFastLive?: number;
     /**
      * (default: 9.0)
-     * Slow bitrate Exponential moving average half-life, used to compute average bitrate for Live streams. Half of the estimate is based on the last abrEwmaSlowLive seconds of sample history. Each of the sample is weighted by the fragment loading duration.
+     * Slow bitrate Exponential moving average half-life, used to compute average bitrate for Live streams.
+     * Half of the estimate is based on the last abrEwmaSlowLive seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than abrEwmaFastLive
      */
     arbEwmaSlowLive?: number;
     /**
      * (default: 4.0)
-     * Fast bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams. Half of the estimate is based on the last abrEwmaFastVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
+     * Fast bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams.
+     * Half of the estimate is based on the last abrEwmaFastVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than 0
      */
     arbEwmaFastVod?: number;
     /**
      * (default: 15.0)
-     * Slow bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams. Half of the estimate is based on the last abrEwmaSlowVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
+     * Slow bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams.
+     * Half of the estimate is based on the last abrEwmaSlowVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than abrEwmaFastVoD
      */
     arbEwmaSlowVod?: number;
@@ -446,27 +488,31 @@ declare namespace Hls {
     arbEwmaDefaultEstimate?: number;
     /**
      * (default: 0.8)
-     * Scale factor to be applied against measured bandwidth average, to determine whether we can stay on current or lower quality level. If abrBandWidthFactor * bandwidth average < level.bitrate then ABR can switch to that level providing that it is equal or less than current level.
+     * Scale factor to be applied against measured bandwidth average, to determine whether we can stay on current or lower quality level.
+     * If abrBandWidthFactor * bandwidth average < level.bitrate then ABR can switch to that level providing that it is equal or less than current level.
      */
     arbBandWidthFactor?: number;
     /**
      * (default: 0.7)
-     * Scale factor to be applied against measured bandwidth average, to determine whether we can switch up to a higher quality level. If abrBandWidthUpFactor * bandwidth average < level.bitrate then ABR can switch up to that quality level.
+     * Scale factor to be applied against measured bandwidth average, to determine whether we can switch up to a higher quality level.
+     * If abrBandWidthUpFactor * bandwidth average < level.bitrate then ABR can switch up to that quality level.
      */
     arbBandWidthUpFactor?: number;
     /**
      * (default: false)
-     * max bitrate used in ABR by avg measured bitrate i.e. if bitrate signaled in variant manifest for a given level is 2Mb/s but average bitrate measured on this level is 2.5Mb/s, then if config value is set to true, ABR will use 2.5 Mb/s for this quality level.
+     * max bitrate used in ABR by avg measured bitrate i.e. if bitrate signaled in variant manifest for a given level is 2Mb/s but average bitrate measured on this level is 2.5Mb/s,
+     * then if config value is set to true, ABR will use 2.5 Mb/s for this quality level.
      */
     abrMaxWithRealBitrate?: boolean;
     /**
      * (default: 0)
-     * Return the capping/min bandwidth value that could be used by automatic level selection algorithm. Useful when browser or tab of the browser is not in the focus and bandwidth drops
+     * Return the capping/min bandwidth value that could be used by automatic level selection algorithm.
+     * Useful when browser or tab of the browser is not in the focus and bandwidth drops
      */
     minAutoBitrate?: number;
   }
 
-  export interface Events {
+  interface Events {
     /**
      * fired to attach Media to hls instance
      * data: { video , mediaSource }
@@ -579,7 +625,15 @@ declare namespace Hls {
     FRAG_PARSING_METADATA: string;
     /**
      * fired when moof/mdat have been extracted from fragment
-     * data: { id: demuxer id, moof : moof MP4 box, mdat : mdat MP4 box, startPTS : PTS of first sample, endPTS : PTS of last sample, startDTS : DTS of first sample, endDTS : DTS of last sample, type : stream type (audio or video), nb : number of samples}
+     * data: { id: demuxer id,
+     *        moof : moof MP4 box,
+     *        mdat : mdat MP4 box,
+     *        startPTS : PTS of first sample,
+     *        endPTS : PTS of last sample,
+     *        startDTS : DTS of first sample,
+     *        endDTS : DTS of last sample,
+     *        type : stream type (audio or video),
+     *        nb : number of samples}
      */
     FRAG_PARSING_DATA: string;
     /**
@@ -599,7 +653,9 @@ declare namespace Hls {
     FRAG_CHANGED: string;
     /**
      * triggered when FPS drop in last monitoring period is higher than given threshold
-     * data: { curentDropped : nb of dropped frames in last monitoring period, currentDecoded : nb of decoded frames in last monitoring period, totalDropped : total dropped frames on this video element }
+     * data: { curentDropped : nb of dropped frames in last monitoring period,
+     *         currentDecoded : nb of decoded frames in last monitoring period,
+     *         totalDropped : total dropped frames on this video element }
      */
     FPS_DROP: string;
     /**
@@ -622,7 +678,7 @@ declare namespace Hls {
   /**
    * a Level object represents a given quality level and contains quality level related info
    */
-  export interface Level {
+  interface Level {
     /**
      * level url. might contain sever items if failover/redundant streams are found in the manifest
      */
@@ -656,7 +712,7 @@ declare namespace Hls {
   /**
    * a LevelDetails object contains level details retrieved after level playlist parsing
    */
-  export interface LevelDetails {
+  interface LevelDetails {
     /**
      * protocol version
      */
@@ -698,7 +754,7 @@ declare namespace Hls {
   /**
    * the Fragment object contains fragment related info
    */
-  export interface Fragment {
+  interface Fragment {
     /**
      * fragment duration
      */
@@ -737,7 +793,7 @@ declare namespace Hls {
     title: string;
   }
 
-  export interface Data {
+  interface Data {
     /**
      * videoElement
      */
@@ -854,7 +910,7 @@ declare namespace Hls {
    * (default: internal ABR controller)
    * Customized Adaptive Bitrate Streaming Controller.
    */
-  export interface AbrController {
+  interface AbrController {
     /**
      * get: capping/max level value that could be used by ABR Controller
      * set: capping/max level value that could be used by ABR Controller
@@ -884,19 +940,19 @@ declare namespace Hls {
   /**
    *  Customized text track syncronization controller.
    */
-  export interface TimelineController {
+  interface TimelineController {
     /**d
      * clean-up all used resources
      */
     destory(): void;
   }
 
-  export interface LoaderResponse {
+  interface LoaderResponse {
     url: string;
     data: string | ArrayBuffer;
   }
 
-  export interface LoaderStats {
+  interface LoaderStats {
     /**
      * performance.now() just after load() has been called
      */
@@ -923,7 +979,7 @@ declare namespace Hls {
     total: number;
   }
 
-  export interface LoaderError {
+  interface LoaderError {
     /**
      * error code
      */
@@ -934,7 +990,7 @@ declare namespace Hls {
     text: string;
   }
 
-  export interface HlsStats {
+  interface HlsStats {
     /**
      * performance.now() just after load() has been called
      */
@@ -952,7 +1008,7 @@ declare namespace Hls {
     length?: number;
   }
 
-  export interface Loader {
+  interface Loader {
     load(context: LoaderContext, config: LoaderConfig, callbacks: LoaderCallbacks): void;
     /**
      * Abort any loading in progress.
@@ -964,7 +1020,7 @@ declare namespace Hls {
     destroy(): void;
   }
 
-  export interface LoaderContext {
+  interface LoaderContext {
     /**
      * target URL
      */
@@ -1000,7 +1056,7 @@ declare namespace Hls {
     level: number;
   }
 
-  export interface LoaderConfig {
+  interface LoaderConfig {
     /**
      * Max number of load retries
      */
@@ -1019,11 +1075,11 @@ declare namespace Hls {
     maxRetryDelay: number;
   }
 
-  export interface LoaderCallbacks {
-    onSuccess: (response: LoaderResponse, stats: LoaderStats, context: LoaderContext) => void;
-    onProgress: (stats: LoaderStats, context: LoaderContext, data: string | ArrayBuffer) => void;
-    onError: (error: LoaderError, context: LoaderContext) => void;
-    onTimeout: (stats: LoaderStats, context: LoaderContext) => void;
+  interface LoaderCallbacks {
+    onSuccess(response: LoaderResponse, stats: LoaderStats, context: LoaderContext): void;
+    onProgress(stats: LoaderStats, context: LoaderContext, data: string | ArrayBuffer): void;
+    onError(error: LoaderError, context: LoaderContext): void;
+    onTimeout(stats: LoaderStats, context: LoaderContext): void;
   }
 }
 
@@ -1201,3 +1257,5 @@ interface Hls {
 declare var Hls: HlsFactory;
 export as namespace Hls;
 export = Hls;
+
+// TypeScript Version: 2.2
