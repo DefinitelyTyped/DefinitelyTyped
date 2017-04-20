@@ -5909,6 +5909,7 @@ declare namespace _ {
         chain(value: string): LoDashExplicitWrapper<string>;
         chain(value: boolean): LoDashExplicitWrapper<boolean>;
         chain<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+        chain<T>(value: ReadonlyArray<T>): LoDashExplicitArrayWrapper<T>;
         chain<T extends {}>(value: T): LoDashExplicitObjectWrapper<T>;
         chain(value: any): LoDashExplicitWrapper<any>;
     }
@@ -6135,6 +6136,11 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashImplicitArrayWrapper<T>;
+            
+        /**
+         * @see _.plant
+         */
+        plant<T>(value: ReadonlyArray<T>): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.plant
@@ -6172,6 +6178,11 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+            
+        /**
+         * @see _.plant
+         */
+        plant<T>(value: ReadonlyArray<T>): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.plant
