@@ -41,15 +41,14 @@ interface FittingDef {
     [prop: string]: any;
 }
 
-/** Middleware style `next` callback  */
-type Callback = (err: Error | null | undefined, res?: any) => void;
-
 /**
  * Fitting Execution Function
  *
  * Will be called called when the `Pipe` it is contained it gets 'played'
  */
-type Fitting = (context: FittingContext, next: Callback) => void;
+type Fitting = (
+    context: FittingContext, 
+    next: {(err: Error | null | undefined, res?: any): void}) => void;
 
 /**
  * Fitting creation Function
@@ -171,8 +170,8 @@ export class Pipe {
     /** Redirect the flow to another pipe (aka. pipeline). */
     siphon(options: PipeworksOptions, pipe: Fitting): Pipe;
     /**
-     * Send something down the pipe (aka. pipeline)! Any number of arguments can be sent,
-     * but often there's just a single context object.
+     * Send something down the pipe (aka. pipeline)! Any number of arguments
+     * can be sent, but often there's just a single `context` object.
      */
-    flow(context: any): Pipe;
+    flow(...args: any[]): Pipe;
 }
