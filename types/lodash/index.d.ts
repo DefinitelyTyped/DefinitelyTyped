@@ -5908,7 +5908,6 @@ declare namespace _ {
         chain(value: number): LoDashExplicitWrapper<number>;
         chain(value: string): LoDashExplicitWrapper<string>;
         chain(value: boolean): LoDashExplicitWrapper<boolean>;
-        chain<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
         chain<T>(value: ReadonlyArray<T>): LoDashExplicitArrayWrapper<T>;
         chain<T extends {}>(value: T): LoDashExplicitObjectWrapper<T>;
         chain(value: any): LoDashExplicitWrapper<any>;
