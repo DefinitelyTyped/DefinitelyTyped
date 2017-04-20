@@ -1,4 +1,3 @@
-/* tslint:disable */
 import { Controller, Service, Application } from 'egg';
 
 // controller
@@ -10,10 +9,10 @@ class FooController extends Controller {
 
 // add user controller and service
 declare module 'egg' {
-  export interface controller {
+  interface controller {
     foo: FooController;
   }
-  export interface service {
+  interface service {
     foo: FooService;
   }
 }
@@ -32,4 +31,3 @@ function router(app: Application) {
   app.get('/foo', controller.foo.getData);
   app.post('/', controller.foo.getData);
 }
-/* tslint:enable*/

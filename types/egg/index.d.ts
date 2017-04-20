@@ -2,6 +2,7 @@
 // Project: https://github.com/eggjs/egg
 // Definitions by: Eward Song <https://github.com/sheperdwind/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as accepts from 'accepts';
 import * as KoaApplication from 'koa';
