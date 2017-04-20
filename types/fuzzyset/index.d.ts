@@ -13,6 +13,5 @@ interface FuzzySet {
 
 declare function FuzzySet(source: string[], useLevenshtein?: boolean, gramSizeLower?: number, gramSizeUpper?: number): FuzzySet;
 
-declare module 'fuzzyset' {
-    export = FuzzySet;
-}
+export = FuzzySet;
+export as namespace FuzzySet;
