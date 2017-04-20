@@ -1,5 +1,5 @@
 // Type definitions for fuzzset 1.0
-// Project: https://github.com/Glench/fuzzyset.js
+// Project: https://github.com/washt/fuzzyset
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
