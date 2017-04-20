@@ -25,7 +25,7 @@ class MyComponent extends Component<MyComponentProps, MyComponentState> {
 const MyStatelessComponent = (props: StatelessProps) => <span />;
 
 // ShallowWrapper
-namespace ShallowWrapperTest {
+function ShallowWrapperTest() {
     let shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
         shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value"/>);
 
@@ -331,7 +331,7 @@ namespace ShallowWrapperTest {
 }
 
 // ReactWrapper
-namespace ReactWrapperTest {
+function ReactWrapperTest() {
     let reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
         mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value"/>);
 
@@ -631,7 +631,7 @@ namespace ReactWrapperTest {
 }
 
 // CheerioWrapper
-namespace CheerioWrapperTest {
+function CheerioWrapperTest() {
     const wrapper: Cheerio =
         shallow(<div />).render() ||
         mount(<div />).render();
