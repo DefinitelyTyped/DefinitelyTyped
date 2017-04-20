@@ -80,6 +80,7 @@ interface NodeModule {
     loaded: boolean;
     parent: NodeModule | null;
     children: NodeModule[];
+    hot: any;
 }
 
 declare var module: NodeModule;
