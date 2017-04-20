@@ -1,7 +1,7 @@
 import FuzzySet = require('fuzzyset');
 
-let fuzzyset: FuzzySet = FuzzySet(['coucou', 'foo', 'bar', 'toto']);
-let results = fuzzyset.get('foo');
+const fuzzyset: FuzzySet = FuzzySet(['coucou', 'foo', 'bar', 'toto']);
+const results = fuzzyset.get('foo');
 
 fuzzyset.length();
 
