@@ -357,13 +357,12 @@ namespace TestTOwnPropsInference {
         return { state: 'string' };
     }
 
-    // `OwnProps` can not be inferred, which is good
-    // const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
-    // Otherwise, this compiles, which is bad.
-    // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
-
+    const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
     const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+
+    // This compiles, which is bad.
+    React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
     React.createElement(ConnectedWithOwnProps, { own: 'string' });
@@ -375,7 +374,7 @@ namespace TestTOwnPropsInference {
     React.createElement(ConnectedWithTypeHint, { own: 'string' });
 
     // This should not compile, which is good.
-    // React.createElement(ConnectedWithTypeHint, { missingOwn: true });
+    // React.createElement(ConnectedWithTypeHint, { anything: 'goes!' });
 }
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16021
