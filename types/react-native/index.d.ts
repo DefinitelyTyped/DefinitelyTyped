@@ -7016,28 +7016,42 @@ export type Permission =
     "android.permission.READ_EXTERNAL_STORAGE" |
     "android.permission.WRITE_EXTERNAL_STORAGE"
 
+export type PermissionStatus = "granted" | "denied" | "never_ask_again"
+
 export interface PermissionsAndroidStatic {
+    /**
+     * A list of permission results that are returned
+     */
+    RESULTS: {[key: string]: PermissionStatus}
     /**
      * A list of specified "dangerous" permissions that require prompting the user
      */
     PERMISSIONS: {[key: string]: Permission}
     new(): PermissionsAndroidStatic
     /**
-     * Returns a promise resolving to a boolean value as to whether the specified
-     * permissions has been granted
+     * Deprecated
      */
     checkPermission(permission: Permission): Promise<boolean>
     /**
+     * Returns a promise resolving to a boolean value as to whether the specified
+     * permissions has been granted
+     */
+    check(permission: Permission): Promise<boolean>
+    /**
+     * Deprecated
+     */
+    requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>
+    /**
      * Prompts the user to enable a permission and returns a promise resolving to a
-     * boolean value indicating whether the user allowed or denied the request
+     * string value indicating whether the user allowed or denied the request
      *
      * If the optional rationale argument is included (which is an object with a
-     * `title` and `message`), this function checks with the OS whether it is
-     * necessary to show a dialog explaining why the permission is needed
+     * title and message), this function checks with the OS whether it is necessary
+     * to show a dialog explaining why the permission is needed
      * (https://developer.android.com/training/permissions/requesting.html#explain)
      * and then shows the system permission dialog
      */
-    requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>
+    request(permission: Permission, rationale?: Rationale): Promise<string>
 }
 
 export interface PushNotificationPermissions {
