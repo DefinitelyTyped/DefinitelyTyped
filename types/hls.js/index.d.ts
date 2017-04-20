@@ -2,111 +2,297 @@
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace Hls {
-  interface ErrorDetails {
+  /**
+   * Hls events
+   */
+  namespace Events {
+    /**
+     * fired to attach Media to hls instance
+     * data: { video , mediaSource }
+     */
+    const MEDIA_ATTACHING: string;
+    /**
+     * fired when Media has been succesfully attached to hls instance
+     * data: { video , mediaSource }
+     */
+    const MEDIA_ATTACHED: string;
+    /**
+     * fired before detaching Media from hls instance
+     * data: { }
+     */
+    const MEDIA_DETACHING: string;
+    /**
+     * fired when Media has been detached from hls instance
+     * data: { }
+     */
+    const MEDIA_DETACHED: string;
+    /**
+     * fired to signal that a manifest loading starts
+     * data: { url : manifestURL }
+     */
+    const MANIFEST_LOADING: string;
+    /**
+     * fired after manifest has been loaded
+     * data: { levels : [available quality levels] , audioTracks : [ available audio tracks], url : manifestURL, stats : { trequest, tfirst, tload, mtime}}
+     */
+    const MANIFEST_LOADED: string;
+    /**
+     * fired after manifest has been parsed
+     * data: { levels : [ available quality levels ], firstLevel : index of first quality level appearing in Manifest }
+     */
+    const MANIFEST_PARSED: string;
+    /**
+     * fired when a level playlist loading starts
+     * data: { url : level URL, level : id of level being loaded }
+     */
+    const LEVEL_LOADING: string;
+    /**
+     * fired when a level playlist loading finishes
+     * data: { details : levelDetails object, levelId : id of loaded level, stats : { trequest, tfirst, tload, mtime } }
+     */
+    const LEVEL_LOADED: string;
+    /**
+     * fired when a level's details have been updated based on previous details, after it has been loaded
+     * data: { details : levelDetails object, level : id of updated level }
+     */
+    const LEVEL_UPDATED: string;
+    /**
+     * fired when a level's PTS information has been updated after parsing a fragment
+     * data: { details: levelDetails object, level : id of updated level, drift: PTS drift observed when parsing last fragment }
+     */
+    const LEVEL_PTS_UPDATED: string;
+    /**
+     * fired when a level switch is requested
+     * data: { level: Level }
+     */
+    const LEVEL_SWITCHING: string;
+    /**
+     * fired when a level switch is effective
+     * data: { level: level object }
+     */
+    const LEVEL_SWITCHED: string;
+    /**
+     * fired when a decryption key loading starts
+     * data: { frag: fragment object }
+     */
+    const KEY_LOADING: string;
+    /**
+     * fired when a decryption key loading is completed
+     * data: { frag: fragment object }
+     */
+    const KEY_LOADED: string;
+    /**
+     * fired when first timestamp has been found
+     * data: { id: demuxer id, frag: fragment object, initPTS: initPTS }
+     */
+    const INIT_PTS_FOUND: string;
+    /**
+     * fired when a fragment loading starts
+     * data: { frag : fragment object }
+     */
+    const FRAG_LOADING: string;
+    /**
+     * fired when a fragment load is in progress
+     * data: { frag : fragment object with frag.loaded=stats.loaded, stats : { trequest, tfirst, loaded, total } }
+     */
+    const FRAG_LOAD_PROGRESS: string;
+    /**
+     * fired when a fragment loading is completed
+     * data: { frag : fragment object, payload : fragment payload, stats : { trequest, tfirst, tload, length}}
+     */
+    const FRAG_LOADED: string;
+    /**
+     * fired when a fragment decryption is completed
+     * data: { id: demuxer id, frag: fragment object, stats: { tstart, tdecrypt } }
+     */
+    const FRAG_DECRYPTED: string;
+    /**
+     * fired when Init Segment has been extracted from fragment
+     * data: { id: demuxer id, moov : moov MP4 box, codecs : codecs found while parsing fragment}
+     */
+    const FRAG_PARSING_INIT_SEGMENT: string;
+    /**
+     * fired when parsing id3 is completed
+     * data: { id: demuxer id, samples : [ id3 pes - pts and dts timestamp are relative, values are in seconds]}
+     */
+    const FRAG_PARSING_METADATA: string;
+    /**
+     * fired when moof/mdat have been extracted from fragment
+     * data: { id: demuxer id,
+     *        moof : moof MP4 box,
+     *        mdat : mdat MP4 box,
+     *        startPTS : PTS of first sample,
+     *        endPTS : PTS of last sample,
+     *        startDTS : DTS of first sample,
+     *        endDTS : DTS of last sample,
+     *        type : stream type (audio or video),
+     *        nb : number of samples}
+     */
+    const FRAG_PARSING_DATA: string;
+    /**
+     * fired when fragment parsing is completed
+     * data: { id: demuxer id}
+     */
+    const FRAG_PARSED: string;
+    /**
+     * fired when fragment remuxed MP4 boxes have all been appended into SourceBuffer
+     * data: { id: demuxer id, frag : fragment object, stats : { trequest, tfirst, tload, tparsed, tbuffered, length} }
+     */
+    const FRAG_BUFFERED: string;
+    /**
+     * fired when fragment matching with current video position is changing
+     * data: { frag : fragment object }
+     */
+    const FRAG_CHANGED: string;
+    /**
+     * triggered when FPS drop in last monitoring period is higher than given threshold
+     * data: { curentDropped : nb of dropped frames in last monitoring period,
+     *         currentDecoded : nb of decoded frames in last monitoring period,
+     *         totalDropped : total dropped frames on this video element }
+     */
+    const FPS_DROP: string;
+    /**
+     * triggered when FPS drop triggers auto level capping
+     * data: { level: suggested new auto level capping by fps controller, droppedLevel : level has to much dropped frame will be restricted }
+     */
+    const FPS_DROP_LEVEL_CAPPING: string;
+    /**
+     *  Identifier for an error event
+     * data: { type : error type, details : error details, fatal : is error fatal or not, other error specific data }
+     */
+    const ERROR: string;
+    /**
+     * fired when hls.js instance starts destroying. Different from MEDIA_DETACHED as one could want to detach and reattach a video to the instance of hls.js to handle mid-rolls for example.
+     * data: { }
+     */
+    const DESTROYING: string;
+  }
+
+  /**
+   * Hls error details
+   */
+  namespace ErrorDetails {
     /**
      * raised when manifest loading fails because of a network error
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.MANIFEST_LOAD_ERROR, fatal : true, url : manifest URL, response : { code: error code, text: error text }, loader : URL loader }
      */
-    MANIFEST_LOAD_ERROR: string;
+    const MANIFEST_LOAD_ERROR: string;
     /**
      * raised when manifest loading fails because of a timeout
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.MANIFEST_LOAD_TIMEOUT, fatal : true, url : manifest URL, loader : URL loader }
      */
-    MANIFEST_LOAD_TIMEOUT: string;
+    const MANIFEST_LOAD_TIMEOUT: string;
     /**
      * raised when manifest parsing failed to find proper content
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.MANIFEST_PARSING_ERROR, fatal : true, url : manifest URL, reason : parsing error reason }
      */
-    MANIFEST_PARSING_ERROR: string;
+    const MANIFEST_PARSING_ERROR: string;
     /**
      * raised when level loading fails because of a network error
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.LEVEL_LOAD_ERROR, fatal : true, url : level URL, response : { code: error code, text: error text }, loader : URL loader }
      */
-    LEVEL_LOAD_ERROR: string;
+    const LEVEL_LOAD_ERROR: string;
     /**
      * raised when level loading fails because of a timeout
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.LEVEL_LOAD_TIMEOUT, fatal : true, url : level URL, loader : URL loader }
      */
-    LEVEL_LOAD_TIMEOUT: string;
+    const LEVEL_LOAD_TIMEOUT: string;
     /**
      * raised when level switching fails
      * data: { type : OTHER_ERROR, details : Hls.ErrorDetails.LEVEL_SWITCH_ERROR, fatal : false, level : failed level index, reason : failure reason }
      */
-    LEVEL_SWITCH_ERROR: string;
+    const LEVEL_SWITCH_ERROR: string;
     /**
      * raised when fragment loading fails because of a network error
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_LOAD_ERROR, fatal : true or false, frag : fragment object, response : { code: error code, text: error text } }
      */
-    FRAG_LOAD_ERROR: string;
+    const FRAG_LOAD_ERROR: string;
     /**
      * raised upon detection of same fragment being requested in loop
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_LOOP_LOADING_ERROR, fatal : true or false, frag : fragment object }
      */
-    FRAG_LOOP_LOADING_ERROR: string;
+    const FRAG_LOOP_LOADING_ERROR: string;
     /**
      * raised when fragment loading fails because of a timeout
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_LOAD_TIMEOUT, fatal : true or false, frag : fragment object }
      */
-    FRAG_LOAD_TIMEOUT: string;
+    const FRAG_LOAD_TIMEOUT: string;
     /**
      * raised when fragment parsing fails
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_PARSING_ERROR, fatal : true or false, reason : failure reason }
      */
-    FRAG_PARSING_ERROR: string;
+    const FRAG_PARSING_ERROR: string;
     /**
      * raised when manifest only contains quality level with codecs incompatible with MediaSource Engine.
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR, fatal : true, url : manifest URL }
      */
-    MANIFEST_INCOMPATIBLE_CODECS_ERROR: string;
+    const MANIFEST_INCOMPATIBLE_CODECS_ERROR: string;
     /**
      *  raised when MediaSource fails to add new sourceBuffer
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_ADD_CODEC_ERROR, fatal : false, err : error raised by MediaSource, mimeType: mimeType on which the failure happened }
      */
-    BUFFER_ADD_CODEC_ERROR: string;
+    const BUFFER_ADD_CODEC_ERROR: string;
     /**
      * raised when exception is raised while calling buffer append
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_APPEND_ERROR, fatal : true, frag : fragment object }
      */
-    BUFFER_APPEND_ERROR: string;
+    const BUFFER_APPEND_ERROR: string;
     /**
      * raised when exception is raised during buffer appending
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_APPENDING_ERROR, fatal : false }
      */
-    BUFFER_APPENDING_ERROR: string;
+    const BUFFER_APPENDING_ERROR: string;
     /**
      * raised when playback is stuck because buffer is running out of data
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_STALLED_ERROR, fatal : false }
      */
-    BUFFER_STALLED_ERROR: string;
+    const BUFFER_STALLED_ERROR: string;
     /**
      * raised when no data can be appended anymore in media buffer because it is full.
      * This error is recovered automatically by performing a smooth level switching that empty buffers (without disrupting the playback) and reducing the max buffer length.
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_FULL_ERROR, fatal : false }
      */
-    BUFFER_FULL_ERROR: string;
+    const BUFFER_FULL_ERROR: string;
     /**
      * raised after hls.js seeks over a buffer hole to unstuck the playback,
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_SEEK_OVER_HOLE, fatal : false, hole : hole duration }
      */
-    BUFFER_SEEK_OVER_HOLE: string;
+    const BUFFER_SEEK_OVER_HOLE: string;
   }
 
-  interface ErrorTypes {
+  /**
+   * Hls error types
+   */
+  namespace ErrorTypes {
     /**
      * network related errors
      */
-    NETWORK_ERROR: string;
+    const NETWORK_ERROR: string;
     /**
      * media/video related errors
      */
-    MEDIA_ERROR: string;
+    const MEDIA_ERROR: string;
     /**
      * all other erros
      */
-    OTHER_ERROR: string;
+    const OTHER_ERROR: string;
   }
+  /**
+   * override Hls default configuration
+   * this configuration will be applied by default to all instances
+   */
+  let DefaultConfig: Config;
+  /**
+   * checks whether your browser is supporting MediaSource Extensions
+   */
+  const isSupported: boolean;
+  /**
+   * returns hls.js dist version number
+   */
+  const version: number;
 
   interface Config {
     /**
@@ -510,169 +696,6 @@ declare namespace Hls {
      * Useful when browser or tab of the browser is not in the focus and bandwidth drops
      */
     minAutoBitrate?: number;
-  }
-
-  interface Events {
-    /**
-     * fired to attach Media to hls instance
-     * data: { video , mediaSource }
-     */
-    MEDIA_ATTACHING: string;
-    /**
-     * fired when Media has been succesfully attached to hls instance
-     * data: { video , mediaSource }
-     */
-    MEDIA_ATTACHED: string;
-    /**
-     * fired before detaching Media from hls instance
-     * data: { }
-     */
-    MEDIA_DETACHING: string;
-    /**
-     * fired when Media has been detached from hls instance
-     * data: { }
-     */
-    MEDIA_DETACHED: string;
-    /**
-     * fired to signal that a manifest loading starts
-     * data: { url : manifestURL }
-     */
-    MANIFEST_LOADING: string;
-    /**
-     * fired after manifest has been loaded
-     * data: { levels : [available quality levels] , audioTracks : [ available audio tracks], url : manifestURL, stats : { trequest, tfirst, tload, mtime}}
-     */
-    MANIFEST_LOADED: string;
-    /**
-     * fired after manifest has been parsed
-     * data: { levels : [ available quality levels ], firstLevel : index of first quality level appearing in Manifest }
-     */
-    MANIFEST_PARSED: string;
-    /**
-     * fired when a level playlist loading starts
-     * data: { url : level URL, level : id of level being loaded }
-     */
-    LEVEL_LOADING: string;
-    /**
-     * fired when a level playlist loading finishes
-     * data: { details : levelDetails object, levelId : id of loaded level, stats : { trequest, tfirst, tload, mtime } }
-     */
-    LEVEL_LOADED: string;
-    /**
-     * fired when a level's details have been updated based on previous details, after it has been loaded
-     * data: { details : levelDetails object, level : id of updated level }
-     */
-    LEVEL_UPDATED: string;
-    /**
-     * fired when a level's PTS information has been updated after parsing a fragment
-     * data: { details: levelDetails object, level : id of updated level, drift: PTS drift observed when parsing last fragment }
-     */
-    LEVEL_PTS_UPDATED: string;
-    /**
-     * fired when a level switch is requested
-     * data: { level: Level }
-     */
-    LEVEL_SWITCHING: string;
-    /**
-     * fired when a level switch is effective
-     * data: { level: level object }
-     */
-    LEVEL_SWITCHED: string;
-    /**
-     * fired when a decryption key loading starts
-     * data: { frag: fragment object }
-     */
-    KEY_LOADING: string;
-    /**
-     * fired when a decryption key loading is completed
-     * data: { frag: fragment object }
-     */
-    KEY_LOADED: string;
-    /**
-     * fired when first timestamp has been found
-     * data: { id: demuxer id, frag: fragment object, initPTS: initPTS }
-     */
-    INIT_PTS_FOUND: string;
-    /**
-     * fired when a fragment loading starts
-     * data: { frag : fragment object }
-     */
-    FRAG_LOADING: string;
-    /**
-     * fired when a fragment load is in progress
-     * data: { frag : fragment object with frag.loaded=stats.loaded, stats : { trequest, tfirst, loaded, total } }
-     */
-    FRAG_LOAD_PROGRESS: string;
-    /**
-     * fired when a fragment loading is completed
-     * data: { frag : fragment object, payload : fragment payload, stats : { trequest, tfirst, tload, length}}
-     */
-    FRAG_LOADED: string;
-    /**
-     * fired when a fragment decryption is completed
-     * data: { id: demuxer id, frag: fragment object, stats: { tstart, tdecrypt } }
-     */
-    FRAG_DECRYPTED: string;
-    /**
-     * fired when Init Segment has been extracted from fragment
-     * data: { id: demuxer id, moov : moov MP4 box, codecs : codecs found while parsing fragment}
-     */
-    FRAG_PARSING_INIT_SEGMENT: string;
-    /**
-     * fired when parsing id3 is completed
-     * data: { id: demuxer id, samples : [ id3 pes - pts and dts timestamp are relative, values are in seconds]}
-     */
-    FRAG_PARSING_METADATA: string;
-    /**
-     * fired when moof/mdat have been extracted from fragment
-     * data: { id: demuxer id,
-     *        moof : moof MP4 box,
-     *        mdat : mdat MP4 box,
-     *        startPTS : PTS of first sample,
-     *        endPTS : PTS of last sample,
-     *        startDTS : DTS of first sample,
-     *        endDTS : DTS of last sample,
-     *        type : stream type (audio or video),
-     *        nb : number of samples}
-     */
-    FRAG_PARSING_DATA: string;
-    /**
-     * fired when fragment parsing is completed
-     * data: { id: demuxer id}
-     */
-    FRAG_PARSED: string;
-    /**
-     * fired when fragment remuxed MP4 boxes have all been appended into SourceBuffer
-     * data: { id: demuxer id, frag : fragment object, stats : { trequest, tfirst, tload, tparsed, tbuffered, length} }
-     */
-    FRAG_BUFFERED: string;
-    /**
-     * fired when fragment matching with current video position is changing
-     * data: { frag : fragment object }
-     */
-    FRAG_CHANGED: string;
-    /**
-     * triggered when FPS drop in last monitoring period is higher than given threshold
-     * data: { curentDropped : nb of dropped frames in last monitoring period,
-     *         currentDecoded : nb of decoded frames in last monitoring period,
-     *         totalDropped : total dropped frames on this video element }
-     */
-    FPS_DROP: string;
-    /**
-     * triggered when FPS drop triggers auto level capping
-     * data: { level: suggested new auto level capping by fps controller, droppedLevel : level has to much dropped frame will be restricted }
-     */
-    FPS_DROP_LEVEL_CAPPING: string;
-    /**
-     *  Identifier for an error event
-     * data: { type : error type, details : error details, fatal : is error fatal or not, other error specific data }
-     */
-    ERROR: string;
-    /**
-     * fired when hls.js instance starts destroying. Different from MEDIA_DETACHED as one could want to detach and reattach a video to the instance of hls.js to handle mid-rolls for example.
-     * data: { }
-     */
-    DESTROYING: string;
   }
 
   /**
@@ -1083,39 +1106,11 @@ declare namespace Hls {
   }
 }
 
-interface HlsFactory {
+declare class Hls {
   /**
    * Constructor. Can be provided an HlsConfig object as default properties and or overrides
    */
-  new (config?: Hls.Config): Hls;
-  /**
-   * Hls events
-   */
-  Events: Hls.Events;
-  /**
-   * Hls error details
-   */
-  ErrorDetails: Hls.ErrorDetails;
-  /**
-   * Hls error types
-   */
-  ErrorTypes: Hls.ErrorTypes;
-  /**
-   * override Hls default configuration
-   * this configuration will be applied by default to all instances
-   */
-  DefaultConfig: Hls.Config;
-  /**
-   * checks whether your browser is supporting MediaSource Extensions
-   */
-  isSupported: boolean;
-  /**
-   * returns hls.js dist version number
-   */
-  version: number;
-}
-
-interface Hls {
+  constructor(config?: Hls.Config)
   /**
    * return array of available quality levels
    */
@@ -1254,8 +1249,5 @@ interface Hls {
   on(event: string, callback: (event: string, data: Hls.Data) => void): void;
 }
 
-declare var Hls: HlsFactory;
 export as namespace Hls;
 export = Hls;
-
-// TypeScript Version: 2.2
