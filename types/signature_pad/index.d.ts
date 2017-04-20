@@ -46,7 +46,7 @@ declare namespace SignaturePad {
 	    /**
 	    *   (float or function) Radius of a single dot.
 	    */
-	    dotSize?: Function;
+	    dotSize?: number | Function;
 	    /**
 	    *   (string) Color used to draw the lines. Can be any color format accepted by context.fillStyle.
 	    *   Defaults to "black".
