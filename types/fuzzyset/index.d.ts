@@ -1,5 +1,5 @@
 // Type definitions for fuzzset 1.0
-// Project: https://github.com/axiak/fuzzyset
+// Project: https://github.com/Glench/fuzzyset.js
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -12,3 +12,7 @@ interface FuzzySet {
 }
 
 declare function FuzzySet(source: string[], useLevenshtein?: boolean, gramSizeLower?: number, gramSizeUpper?: number): FuzzySet;
+
+declare module 'fuzzyset' {
+    export = FuzzySet;
+}
