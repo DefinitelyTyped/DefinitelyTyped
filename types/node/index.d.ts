@@ -3662,7 +3662,7 @@ declare module "util" {
     export function isNull(object: any): object is null;
     export function isNullOrUndefined(object: any): object is null | undefined;
     export function isNumber(object: any): object is number;
-    export function isObject(object: any): object is Object;
+    export function isObject(object: any): object is object;
     export function isPrimitive(object: any): boolean;
     export function isString(object: any): object is string;
     export function isSymbol(object: any): object is Symbol;
