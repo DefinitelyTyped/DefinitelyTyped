@@ -208,7 +208,7 @@ export class SectionListTest {
         var sections = [{
             key: 's1',
             data: ['A', 'B', 'C', 'D', 'E']
-        },{
+        }, {
             key: 's2',
             data: ['A2', 'B2', 'C2', 'D2', 'E2']
         }];
