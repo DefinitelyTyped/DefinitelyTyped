@@ -3,8 +3,16 @@
 // Definitions by: slawiko <https://github.com/slawiko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = cookie;
-export as namespace cookie;
+declare module 'cookie_js' {
+  export = cookie;
+}
+
+/**
+ * https://github.com/DefinitelyTyped/DefinitelyTyped/pull/16025#issuecomment-295784660
+ */
+declare module 'cookiejs' {
+  export = cookie;
+}
 
 declare function cookie(key : string, fallback?: string) : string;
 declare function cookie(keys : string[], fallback?: string) : string;
