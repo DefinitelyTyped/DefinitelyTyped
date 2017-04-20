@@ -1244,12 +1244,11 @@ const DatePickerExampleDisableDates = () => (
   </div>
 );
 
-let DateTimeFormat = new Intl.DateTimeFormat('fr');
 const DatePickerExampleInternational = () => (
   <div>
     <DatePicker
       hintText="fr locale"
-      DateTimeFormat={DateTimeFormat}
+      DateTimeFormat={Intl.DateTimeFormat}
       okLabel="OK"
       cancelLabel="Annuler"
       locale="fr"
