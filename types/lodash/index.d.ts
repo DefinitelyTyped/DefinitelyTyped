@@ -6134,7 +6134,7 @@ declare namespace _ {
         /**
          * @see _.plant
          */
-        plant<T>(value: T[]): LoDashImplicitArrayWrapper<T>;
+        plant<T>(value: ReadonlyArray<T>): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.plant
@@ -6171,7 +6171,7 @@ declare namespace _ {
         /**
          * @see _.plant
          */
-        plant<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+        plant<T>(value: ReadonlyArray<T>): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.plant
