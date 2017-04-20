@@ -2,9 +2,6 @@
 // Project: https://github.com/florian/cookie.js
 // Definitions by: slawiko <https://github.com/slawiko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/**
- * Shortcut for cookie.get()
- */
 
 export = cookie;
 export as namespace cookie;
