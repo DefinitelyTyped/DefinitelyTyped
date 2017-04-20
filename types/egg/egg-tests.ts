@@ -9,10 +9,10 @@ class FooController extends Controller {
 
 // add user controller and service
 declare module 'egg' {
-  interface controller {
+  interface Controllers {
     foo: FooController;
   }
-  interface service {
+  interface Services {
     foo: FooService;
   }
 }
