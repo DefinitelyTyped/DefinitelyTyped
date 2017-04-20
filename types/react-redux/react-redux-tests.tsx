@@ -67,7 +67,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
     (dispatch: Dispatch<CounterState>, ownProps: {}) => mapDispatchToProps
 )(Counter);
 // only first argument
-connect<ICounterStateProps, {}>(
+connect<ICounterStateProps, {}, {}>(
     () => mapStateToProps
 )(Counter);
 // wrap only one argument
@@ -129,10 +129,10 @@ declare var todoActionCreators: { [type: string]: (...args: any[]) => any; };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
 
 ReactDOM.render(
-  <Provider store={store}>
-    {() => <MyRootComponent />}
-  </Provider>,
-  document.body
+    <Provider store={store}>
+        {() => <MyRootComponent />}
+    </Provider>,
+    document.body
 );
 
 //TODO: for React Router 0.13
@@ -363,7 +363,7 @@ namespace TestTOwnPropsInference {
     // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
 
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
-    const ConnectedWithTypeHint = connect<StateProps, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+    const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
 
     // This compiles, as expected.
     React.createElement(ConnectedWithOwnProps, { own: 'string' });
@@ -410,7 +410,7 @@ namespace TestMergedPropsInference {
         return { dispatch: 'string' };
     }
 
-    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
@@ -418,7 +418,7 @@ namespace TestMergedPropsInference {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<DispatchProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
         (stateProps: undefined, dispatchProps: DispatchProps) => ({
@@ -426,7 +426,7 @@ namespace TestMergedPropsInference {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<OwnProps, MergedProps>(
+    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
