@@ -2,7 +2,7 @@
 
 // Based on https://github.com/js-coder/cookie.js/blob/gh-pages/tests/spec.js
 
-import cookie = require("cookiejs");
+import cookie = require("cookie_js");
 
 cookie.set({a: '1', b: '2', c: '3'});
 
