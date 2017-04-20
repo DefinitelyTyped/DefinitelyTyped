@@ -22,7 +22,7 @@ export type Position = number[];
 /***
 * http://geojson.org/geojson-spec.html#geometry-objects
 */
-interface DirectGeometryObject extends GeoJsonObject {
+export interface DirectGeometryObject extends GeoJsonObject {
     coordinates: Position[][][] | Position[][] | Position[] | Position;
 }
 /**

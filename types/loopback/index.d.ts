@@ -84,7 +84,7 @@ declare namespace l {
              *   as the request handle
              * listen(cb?: () => void):http.Serve
              *
-            */
+             */
             // listen(port?: number, cb?: () => void): any;
 
             /**
@@ -253,25 +253,25 @@ declare namespace l {
       // interface Send extends core.Send { }
 
       /**
-      * LoopBack core module. It provides static properties and
-      * methods to create models and data sources. The module itself is a function
-      * that creates loopback `app`. For example:
-      *
-      * ```js
-      * var loopback = require('loopback');
-      * var app = loopback();
-      * ```
-      *
-      * @property {string} version Version of LoopBack framework.  Static read-only property.
-      * @property {string} mime
-      * @property {boolean} isBrowser True if running in a browser environment; false otherwise.  Static read-only property.
-      * @property {boolean} isServer True if running in a server environment; false otherwise.  Static read-only property.
-      * @property {Registry} registry The global `Registry` object.
-      * @property {string} faviconFile Path to a default favicon shipped with LoopBack.
-      * Use as follows: `app.use(require('serve-favicon')(loopback.faviconFile));`
-      * @class loopback
-      * @header loopback
-      */
+       * LoopBack core module. It provides static properties and
+       * methods to create models and data sources. The module itself is a function
+       * that creates loopback `app`. For example:
+       *
+       * ```js
+       * var loopback = require('loopback');
+       * var app = loopback();
+       * ```
+       *
+       * @property {string} version Version of LoopBack framework.  Static read-only property.
+       * @property {string} mime
+       * @property {boolean} isBrowser True if running in a browser environment; false otherwise.  Static read-only property.
+       * @property {boolean} isServer True if running in a server environment; false otherwise.  Static read-only property.
+       * @property {Registry} registry The global `Registry` object.
+       * @property {string} faviconFile Path to a default favicon shipped with LoopBack.
+       * Use as follows: `app.use(require('serve-favicon')(loopback.faviconFile));`
+       * @class loopback
+       * @header loopback
+       */
       class loopback {
             /** Version of LoopBack framework.  Static read-only property. */
             version: string;
@@ -602,30 +602,30 @@ declare namespace l {
             constructor(context: Context);
 
             /**
-            * Add a principal to the context
-            * @param {string} principalType The principal type
-            * @param {*} principalId The principal id
-            * @param {string} [principalName] The principal name
-            * @returns {boolean}
-            */
+             * Add a principal to the context
+             * @param {string} principalType The principal type
+             * @param {*} principalId The principal id
+             * @param {string} [principalName] The principal name
+             * @returns {boolean}
+             */
             addPrincipal(principalType: string, principalId: any, principalName?: string): boolean;
 
             /**
-            * Get the user id
-            * @returns {*}
-            */
+             * Get the user id
+             * @returns {*}
+             */
             getUserId(): any;
 
             /**
-            * Get the application id
-            * @returns {*}
-            */
+             * Get the application id
+             * @returns {*}
+             */
             getAppId(): any;
 
             /**
-            * Check if the access context has authenticated principals
-            * @returns {boolean}
-            */
+             * Check if the access context has authenticated principals
+             * @returns {boolean}
+             */
             isAuthenticated(): boolean;
       }
 
@@ -648,7 +648,7 @@ declare namespace l {
             principals: Principal[];
 
             /** The model class */
-            model: () => void;
+            model(): void;
 
             /** The model name */
             modelName: string;
@@ -1307,30 +1307,30 @@ declare namespace l {
             static replicate(since?: number, targetModel?: Model, options?: any, optionsFilter?: any, callback?: (err: Error, conflicts: Conflict[], param: any) => void): void;
 
             /**
-            * Update multiple instances that match the where clause.
-            *
-            * Example:
-            *
-            *```js
-            * Employee.updateAll({managerId: 'x001'}, {managerId: 'x002'}, function(err, info) {
-            *     ...
-            * });
-            * ```
-            *
-            * @param {any} [where] Optional `where` filter, like
-            * ```
-            * { key: val, key2: {gt: 'val2'}, ...}
-            * ```
-            * <br/>see
-            * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
-            * @param {any} data any containing data to replace matching instances, if any.
-            *
-            * @callback {() => void} callback Callback function called with `(err, info)` arguments.  Required.
-            * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
-            * @param {any} info Additional information about the command outcome.
-            * @param {number} info.count number of instances (rows, documents) updated.
-            *
-            */
+             * Update multiple instances that match the where clause.
+             *
+             * Example:
+             *
+             * ```js
+             * Employee.updateAll({managerId: 'x001'}, {managerId: 'x002'}, function(err, info) {
+             *     ...
+             * });
+             * ```
+             *
+             * @param {any} [where] Optional `where` filter, like
+             * ```
+             * { key: val, key2: {gt: 'val2'}, ...}
+             * ```
+             * <br/>see
+             * [Where filter](docs.strongloop.com/display/LB/Where+filter#Wherefilter-Whereclauseforothermethods).
+             * @param {any} data any containing data to replace matching instances, if any.
+             *
+             * @callback {() => void} callback Callback function called with `(err, info)` arguments.  Required.
+             * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
+             * @param {any} info Additional information about the command outcome.
+             * @param {number} info.count number of instances (rows, documents) updated.
+             *
+             */
             static updateAll(where?: any, data?: any, callback?: (err: Error, info: any, infoCount: number) => void): void;
 
             /**
@@ -1583,7 +1583,7 @@ declare namespace l {
                   searchDefaultTokenKeys?: boolean,
                   enableDoublecheck?: boolean,
                   overwriteExistingToken?: boolean,
-                  model?: () => void|string,
+                  model?(): void|string,
                   currentUserLiteral?: string
             }): void;
 
@@ -1640,12 +1640,12 @@ declare namespace l {
             static findForRequest(req: any, options?: any, callback?: (err: Error, token: AccessToken) => void): void;
 
             /**
-            * Validate the token.
-            *
-            * @callback {() => void} callback
-            * @param {Error} err
-            * @param {boolean} isValid
-            */
+             * Validate the token.
+             *
+             * @callback {() => void} callback
+             * @param {Error} err
+             * @param {boolean} isValid
+             */
             validate(callback: (err: Error, isValid: boolean) => void): void;
 
             // **NOTE** Deprecate for 3.x
@@ -1700,7 +1700,7 @@ declare namespace l {
              *  - ALLOW: Explicitly grants access to the resource.
              *  - AUDIT: Log, in a system-dependent way, the access specified in the permissions component of the ACL entry.
              *  - DENY: Explicitly denies access to the resource.
-            */
+             */
             permission: 'ALARM' | 'ALLOW' | 'AUDIT' | 'DENY';
 
             /** principalType Type of the principal; one of: Application, Use, Role. */
@@ -1877,7 +1877,7 @@ declare namespace l {
              *  pushSettings.apns.feedbackOptions.batchFeedback (APNS).
              *  pushSettings.apns.feedbackOptions.interval (APNS).
              *  pushSettings.gcm.serverApiKey: Google Cloud Messaging API key.
-            */
+             */
             pushSetings: {
                   apns: {
                         production: boolean;
@@ -1947,22 +1947,22 @@ declare namespace l {
       }
 
       /**
-      * Change list entry.
-      *
-      * @property {string} id Hash of the modelName and ID.
-      * @property {string} rev The current model revision.
-      * @property {string} prev The previous model revision.
-      * @property {number} checkpoint The current checkpoint at time of the change.
-      * @property {string} modelName Model name.
-      * @property {string} modelId Model ID.
-      * @property {any} settings Extends the `Model.settings` object.
-      * @property {string} settings.hashAlgorithm Algorithm used to create cryptographic hash, used as argument
-      * to [crypto.createHash](nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm).  Default is sha1.
-      * @property {boolean} settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
-      * However, if this setting is true, then errors will not throw exceptions.
-      * @class Change
-      * @inherits {PersistedModel}
-      */
+       * Change list entry.
+       *
+       * @property {string} id Hash of the modelName and ID.
+       * @property {string} rev The current model revision.
+       * @property {string} prev The previous model revision.
+       * @property {number} checkpoint The current checkpoint at time of the change.
+       * @property {string} modelName Model name.
+       * @property {string} modelId Model ID.
+       * @property {any} settings Extends the `Model.settings` object.
+       * @property {string} settings.hashAlgorithm Algorithm used to create cryptographic hash, used as argument
+       * to [crypto.createHash](nodejs.org/api/crypto.html#crypto_crypto_createhash_algorithm).  Default is sha1.
+       * @property {boolean} settings.ignoreErrors By default, when changes are rectified, an error will throw an exception.
+       * However, if this setting is true, then errors will not throw exceptions.
+       * @class Change
+       * @inherits {PersistedModel}
+       */
       class Change extends PersistedModel {
             /** Hash of the modelName and ID. */
             id: string;
@@ -1998,34 +1998,34 @@ declare namespace l {
             static bothDeleted(a: Change, b: Change): void;
 
             /**
-            * Determine the differences for a given model since a given checkpoint.
-            *
-            * The callback will contain an error or `result`.
-            *
-            * **result**
-            *
-            * ```js
-            * {
-            *   deltas: Array,
-            *   conflicts: Array
-            * }
-            * ```
-            *
-            * **deltas**
-            *
-            * An Array of changes that differ from `remoteChanges`.
-            *
-            * **conflicts**
-            *
-            * An Array of changes that conflict with `remoteChanges`.
-            *
-            * @param  {string}   modelName
-            * @param  {number}   since         Compare changes after this checkpoint
-            * @param  {Change[]} remoteChanges A set of changes to compare
-            * @callback  {() => void} callback
-            * @param {Error} err
-            * @param {any} result See above.
-            */
+             * Determine the differences for a given model since a given checkpoint.
+             *
+             * The callback will contain an error or `result`.
+             *
+             * **result**
+             *
+             * ```js
+             * {
+             *   deltas: Array,
+             *   conflicts: Array
+             * }
+             * ```
+             *
+             * **deltas**
+             *
+             * An Array of changes that differ from `remoteChanges`.
+             *
+             * **conflicts**
+             *
+             * An Array of changes that conflict with `remoteChanges`.
+             *
+             * @param  {string}   modelName
+             * @param  {number}   since         Compare changes after this checkpoint
+             * @param  {Change[]} remoteChanges A set of changes to compare
+             * @callback  {() => void} callback
+             * @param {Error} err
+             * @param {any} result See above.
+             */
             // static diff(modelName: string, since: number, remoteChanges: Change[], callback: (err: Error, result: any) => void): void;
 
             /**
@@ -2278,8 +2278,8 @@ declare namespace l {
             static send(callback: () => void, options: { from: string; to: string; subject: string; text: string; html: string; }): void;
 
             /**
-            * A shortcut for Email.send(this).
-            */
+             * A shortcut for Email.send(this).
+             */
             send(): void;
       }
 
@@ -2702,7 +2702,7 @@ declare namespace l {
              * @callback {() => void} cb The callback function
              * @param {string|Error} err The error string or object
              * @param {AccessToken} token The generated access token object
-            */
+             */
             createAccessToken(ttl: number, options?: any, cb?: (err: string|Error, token: AccessToken) => void): void;
 
             /**
@@ -2745,7 +2745,7 @@ declare namespace l {
              *  object, instead simply execute the callback with the token! User saving
              *  and email sending will be handled in the `verify()` method
              */
-            verify(options: {type: string, to: string, from: string, subject: string, text: string, template: string, redirect: string, generateVerificationToken: () => void}): void;
+            verify(options: {type: string, to: string, from: string, subject: string, text: string, template: string, redirect: string, generateVerificationToken(): void}): void;
       }
 }
 

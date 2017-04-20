@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -301,6 +301,7 @@ declare namespace google {
             backgroundColor?: any;
             colorAxis?: ChartColorAxis;
             datalessRegionColor?: string;
+            defaultColor?: string;
             displayMode?: string;
             enableRegionInteractivity?: boolean;
             height?: number;

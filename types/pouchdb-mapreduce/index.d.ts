@@ -1,6 +1,6 @@
-// Type definitions for pouchdb-mapreduce v5.4.4
+// Type definitions for pouchdb-mapreduce v6.1.2
 // Project: https://pouchdb.com/
-// Definitions by: Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
+// Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="pouchdb-core" />
@@ -76,7 +76,7 @@ declare namespace PouchDB {
          * to take up space on disk. viewCleanup() removes these unnecessary
          * index files.
          */
-        viewCleanup(callback: PouchDB.Core.Callback<any,void>): void;
+        viewCleanup(callback: PouchDB.Core.Callback<any,Core.BasicResponse>): void;
         /**
          * Cleans up any stale map/reduce indexes.
          *
@@ -85,7 +85,7 @@ declare namespace PouchDB {
          * to take up space on disk. viewCleanup() removes these unnecessary
          * index files.
          */
-        viewCleanup(): Promise<void>;
+        viewCleanup(): Promise<Core.BasicResponse>;
 
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries

@@ -1059,7 +1059,7 @@ declare namespace PIXI {
         getRenderTarget(clear?: boolean, resolution?: number): RenderTarget;
         returnRenderTarget(renderTarget: RenderTarget): RenderTarget;
         calculateScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
-        calculateNormalisedScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
+        calculateNormalizedScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
         calculateSpriteMatrix(outputMatrix: Matrix, sprite: Sprite): Matrix;
         destroy(): void;
         emptyPool(): void;

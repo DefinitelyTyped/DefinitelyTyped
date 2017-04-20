@@ -4740,6 +4740,12 @@ const TextFieldExampleSimple = () => (
     <TextField
       hintText="Full width"
       fullWidth={true}
+    /><br />
+    <TextField
+      type="number"
+      min={5}
+      max={50}
+      step={5}
     />
   </div>
 );
