@@ -1,6 +1,6 @@
-// Type definitions for material-ui v0.17.1
+// Type definitions for material-ui v0.17.4
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>, Igor Belagorudsky <https://github.com/theigor>, Daniel Roth <https://github.com/DaIgeb>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -531,6 +531,17 @@ declare namespace __MaterialUI {
             vertical: vertical;
         }
 
+        interface utils {
+            getWeekArray: (date: Date, firstDayOfWeek: number) => (Date | null)[][];
+            getYear: (date: Date) => number;
+            setYear: (date: Date, year: number) => Date;
+            addDays: (date: Date, days: number) => Date;
+            addMonths: (date: Date, months: number) => Date;
+            addYears: (date: Date, years: number) => Date;
+            getFirstDayOfMonth: (date: Date) => Date;
+            monthDiff: (date1: Date, date2: Date) => number;
+        }
+
         type corners = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
         type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
     }
@@ -869,7 +880,7 @@ declare namespace __MaterialUI {
     namespace DatePicker {
         interface DatePickerProps {
             // <TextField/> is the element that get the 'other' properties
-            DateTimeFormat?: Intl.DateTimeFormat;
+            DateTimeFormat?: typeof Intl.DateTimeFormat;
             autoOk?: boolean;
             cancelLabel?: React.ReactNode;
             container?: "dialog" | "inline";
@@ -916,13 +927,14 @@ declare namespace __MaterialUI {
             underlineFocusStyle?: React.CSSProperties;
             underlineShow?: boolean;
             underlineStyle?: React.CSSProperties;
+            utils?: propTypes.utils;
         }
         export class DatePicker extends React.Component<DatePickerProps, {}> {
         }
 
         interface DatePickerDialogProps {
             // <Container/> is the element that get the 'other' properties
-            DateTimeFormat?: Intl.DateTimeFormat;
+            DateTimeFormat?: typeof Intl.DateTimeFormat;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             autoOk?: boolean;
             cancelLabel?: React.ReactNode;
@@ -940,8 +952,11 @@ declare namespace __MaterialUI {
             onShow?: () => void;
             shouldDisableDate?: (day: Date) => boolean;
             style?: React.CSSProperties;
+            utils?: propTypes.utils;
         }
         export class DatePickerDialog extends React.Component<DatePickerDialogProps, {}> {
+            public show(): void;
+            public dismiss(): void;
         }
     }
 
@@ -2049,6 +2064,11 @@ declare module 'material-ui/CircularProgress' {
 declare module 'material-ui/DatePicker' {
     export import DatePicker = __MaterialUI.DatePicker.DatePicker;
     export default DatePicker;
+}
+
+declare module 'material-ui/DatePicker/DatePickerDialog' {
+    export import DatePickerDialog = __MaterialUI.DatePicker.DatePickerDialog;
+    export default DatePickerDialog;
 }
 
 declare module 'material-ui/Dialog' {
