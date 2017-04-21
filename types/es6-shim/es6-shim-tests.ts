@@ -1,11 +1,15 @@
-import './index'
+declare const require: (module: string) => Object;
+if (require !== null) {
+  require('es6-shim');
+}
 
 interface Point { x: number; y: number; }
 interface Point3D extends Point { z: number; }
 
 let a: any;
 let s: string = '';
-let i: number;
+let i: number = 2;
+let iOrUndef: number | undefined;
 let b: boolean;
 let f: () => void = () => {};
 let o: Object;
@@ -54,8 +58,8 @@ let promiseOfVoid: Promise<void>;
 
 point = Object.assign(point, point);
 b = Object.is(point, point);
-Object.setPrototypeOf(point, point);
-point = arrayOfPoint.find(p => b);
+Object.setPrototypeOf(point, {});
+pointOrUndef = arrayOfPoint.find(p => b);
 i = arrayOfPoint.findIndex(p => b);
 arrayOfPoint = arrayOfPoint.fill(point, i, arrayOfPoint.length);
 arrayOfPoint = arrayOfPoint.copyWithin(i, i, i);
@@ -71,7 +75,7 @@ b = s.includes(s, i);
 b = s.endsWith(s, i);
 s = s.repeat(i);
 b = s.startsWith(s, i);
-s = String.fromCodePoint(i, i);
+s = String.fromCodePoint(2 as number, 3 as number);
 s = String.raw`abc`;
 s = r.flags;
 i = Number.EPSILON;
@@ -186,6 +190,8 @@ promiseOfPoint = new Promise<Point>((resolve, reject) => resolve(point));
 promiseOfPoint = new Promise<Point>((resolve, reject) => resolve(promiseOfPoint));
 promiseOfPoint = new Promise<Point>((resolve, reject) => resolve(promiseLikeOfPoint));
 promiseOfPoint = new Promise<Point>((resolve, reject) => reject(e));
+// To prevent UnhandledPromiseRejectionWarning
+promiseOfPoint.catch(() => {});
 promiseOfArrayOfPoint = Promise.all(arrayOfPoint);
 promiseOfArrayOfPoint = Promise.all(iterableOfPoint);
 promiseOfPoint = Promise.race(arrayOfPoint);
@@ -195,7 +201,11 @@ promiseOfPoint = Promise.resolve(point3d);
 promiseOfPoint = Promise.resolve(promiseOfPoint);
 promiseOfPoint = Promise.resolve(promiseLikeOfPoint);
 promiseOfVoid = Promise.reject(e);
+// To prevent UnhandledPromiseRejectionWarning
+promiseOfVoid.catch(() => {});
 promiseOfPoint = Promise.reject<Point>(e);
+// To prevent UnhandledPromiseRejectionWarning
+promiseOfPoint.catch(() => {});
 a = Reflect.apply(f, a, arrayLikeOfAny);
 a = Reflect.construct(f, arrayLikeOfAny);
 b = Reflect.defineProperty(a, s, pd);
@@ -205,9 +215,9 @@ b = Reflect.deleteProperty(a, s);
 b = Reflect.deleteProperty(a, i);
 b = Reflect.deleteProperty(a, sym);
 iterableIteratorOfAny = Reflect.enumerate(a);
-a = Reflect.get(a, s, a);
-a = Reflect.get(a, i, a);
-a = Reflect.get(a, sym, a);
+Reflect.get(a, s, a);
+Reflect.get(a, i, a);
+Reflect.get(a, sym, a);
 pd = Reflect.getOwnPropertyDescriptor(a, s);
 pd = Reflect.getOwnPropertyDescriptor(a, i);
 pd = Reflect.getOwnPropertyDescriptor(a, sym);
