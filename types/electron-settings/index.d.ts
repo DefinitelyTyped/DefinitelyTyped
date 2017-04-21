@@ -24,112 +24,7 @@ interface SettingsOptions {
     prettify?: boolean;
 }
 
-declare class Settings extends NodeJS.EventEmitter {
-    /**
-     * The absolute path to the settings file on the disk.
-     */
-    private _settingsFilePath: string;
-
-    /**
-     * The FSWatcher instance. This will watch if the settings file and
-     * notify key path observers.
-     */
-    private _fsWatcher: fs.FSWatcher;
-
-    private _handleSettingsFileChange: () => any;
-
-    /**
-     * ElectronSettings event names.
-     */
-    readonly FSWatcherEvents: {
-        CHANGE: 'change'
-        RENAME: 'rename'
-    };
-
-    /**
-     * Settings event names.
-     */
-    readonly Events: {
-        CHANGE: 'change'
-    };
-
-    constructor();
-
-    /**
-     * Watches the settings file for changes using the native `FSWatcher`
-     * class in case the settings file is changed outside of ElectronSettings'
-     * jursidiction.
-     */
-    private _watchSettings(): void;
-
-    /**
-     * Unwatches the settings file by closing the FSWatcher and nullifying its
-     * references. If the `reset` parameter is true, attempt to watch the
-     * settings file again.
-     */
-    private _unwatchSettings(reset?: boolean): void;
-
-    /**
-     * Ensures that the settings file exists, then initializes the FSWatcher.
-     * @throws Error
-     */
-    private _ensureSettings(): void;
-
-    /**
-     * Writes the settings to the disk.
-     * @throws Error
-     */
-    private _writeSettings(obj: JsonValue, opts: SettingsOptions): void;
-
-    /**
-     * Returns the parsed contents of the settings file.
-     */
-    private _readSettings(): JsonValue;
-
-    /**
-     * Called when the settings file has been changed or renamed
-     * (moved/deleted).
-     */
-    private _onSettingsFileChange(eventType: string): void;
-
-    /**
-     * Broadcasts the internal "change" event.
-     * @emits ElectronSettings#change
-     */
-    private _emitChangeEvent(): void;
-
-    /**
-     * Returns a boolean indicating whether the settings object contains
-     * the given key path.
-     */
-    private _checkKeyPathExists(keyPath: string): boolean;
-
-    /**
-     * Sets the value at the given key path, or the entire settings object if
-     * an empty key path is given.
-     */
-    private _setValueAtKeyPath(keyPath: string, value: JsonValue, opts: SettingsOptions): void;
-
-    /**
-     * Returns the value at the given key path, or sets the value at that key
-     * path to the default value, if provided, if the key does not exist. If an
-     * empty key path is given, the entire settings object will be returned.
-     */
-    private _getValueAtKeyPath(keyPath: string, defaultValue: any): JsonValue;
-
-    /**
-     * Deletes the key and value at the given key path, or clears the entire
-     * settings object if an empty key path is given.
-     */
-    private _deleteValueAtKeyPath(keyPath: string, opts: SettingsOptions): void;
-
-    /**
-     * Watches the given key path for changes and calls the given handler if the
-     * value changes. To unsubscribe from changes, call `dispose()` on the
-     * Observer instance that is returned.
-     */
-    private _watchValueAtKeyPath(keyPath: string, handler: SettingsHandler): SettingsObserver;
-
+interface Settings extends NodeJS.EventEmitter {
     /**
      * Returns a boolean indicating whether the settings object contains the
      * given key path.
@@ -216,44 +111,12 @@ declare class Settings extends NodeJS.EventEmitter {
     file(): string;
 }
 
-declare class SettingsObserver {
-    /**
-     * A reference to the Settings instance.
-     */
-    private _settings: Settings;
-
-    /**
-     * The key path that this observer instance is watching for changes.
-     */
-    private _keyPath: string;
-
-    /**
-     * The handler function to be called when the value at the observed key path
-     * is changed.
-     */
-    private _handler: SettingsHandler;
-
-    /**
-     * The current value of the setting at the given key path.
-     */
-    private _currentValue: JsonValue;
-
-    constructor(settings: Settings, keyPath: string, handler: SettingsHandler, currentValue: JsonValue);
-
-    /**
-     * Initializes this instance.
-     */
-    private _init(): void;
-
-    /**
-     * Called when the settings file is changed.
-     */
-    private _onChange(): void;
-
+interface SettingsObserver {
     /**
      * Disposes of this Observer instance.
      */
     dispose(): void;
 }
 
-export = new Settings();
+declare var settings: Settings;
+export = settings;
