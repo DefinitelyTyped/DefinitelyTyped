@@ -5,19 +5,19 @@
 
 // Last module patch version validated against: 0.4.2
 
-// TODO: Find robust approach to defining SankeyNode and SankeyLink given the circular definitons inherent in the JS implementation
-// TODO: Definitions are based on actural JS code, as d3-sankey API documentation misses key methods and refers to the use of accessor functions, when
-// the source code does not support it. API documentation should be clarified as a separate step.
+export type SankeyExtraProperties = {[key: string]: any};
 
-export interface SankeyNode {
+export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
-     * Array of links which have this node as source
+     * Array of links which have this node as source.
+     * This property is calculated internally by the Sankey layout generator.
      */
-    sourceLinks?: SankeyLink[];
+    sourceLinks?: SankeyLink<N, L>[];
     /**
-     * Array of links which have this node as target
+     * Array of links which have this node as target.
+     * This property is calculated internally by the Sankey layout generator.
      */
-    targetLinks?: SankeyLink[];
+    targetLinks?: SankeyLink<N, L>[];
     /**
      * Node value calculated by Sankey Layout Generator based on values of incoming and outgoing links
      */
@@ -40,19 +40,21 @@ export interface SankeyNode {
     dy?: number;
 }
 
-export interface SankeyLink<N extends SankeyNode> {
+export type SankeyNode<N extends SankeyExtraProperties, L extends SankeyExtraProperties> = N & SankeyNodeMinimal<N, L>;
+
+export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
      * Source node of the link. For convenience, when initializing a Sankey layout, source may be the index of the source node in the nodes array
      * passed into the Sankey layout generator. Once the layout(...) method is invoked, the numeric index will be replaced with the corresponding
      * source node object.
      */
-    source: number | N;
+    source: number | SankeyNode<N, L>;
     /**
      * Target node of the link. For convenience, when initializing a Sankey layout, target may be the index of the target node in the nodes array
      * passed into the Sankey layout generator. Once the layout(...) method is invoked, the numeric index will be replaced with the corresponding
      * target node object.
      */
-    target: number | N;
+    target: number | SankeyNode<N, L>;
     /**
      * Value of the link
      */
@@ -72,13 +74,15 @@ export interface SankeyLink<N extends SankeyNode> {
 
 }
 
-export interface SankeyLinkPathGenerator<L extends SankeyLink> {
+export type SankeyLink<N extends SankeyExtraProperties, L extends SankeyExtraProperties> = L & SankeyLinkMinimal<N, L>;
+
+export interface SankeyLinkPathGenerator<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
      * Return svg path string for a given link.
      *
      * @param link A Sankey diagram link, for which the layout has already been calculated.
      */
-    (link: L): string;
+    (link: SankeyLink<N, L>): string;
     /**
      * Returns the current curvature used to calculate svg paths for links.
      * The default curvature is 0.5.
@@ -92,7 +96,8 @@ export interface SankeyLinkPathGenerator<L extends SankeyLink> {
     curvature(curvature: number): this;
 }
 
-export interface SankeyLayout<N extends SankeyNode, L extends SankeyLink> {
+
+export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
      * Return the current width of a node in pixels, which defaults to 24.
      */
@@ -119,11 +124,14 @@ export interface SankeyLayout<N extends SankeyNode, L extends SankeyLink> {
      */
     nodePadding(padding: number): this;
 
-    nodes(): N[];
-    nodes(nodes: N[]): this;
+    /**
+     * Return the current array of nodes.
+     */
+    nodes(): SankeyNode<N,L>[];
+    nodes(nodes: SankeyNode<N,L>[]): this;
 
-    links(): L[];
-    links(links: L[]): this;
+    links(): SankeyLink<N,L>[];
+    links(links: SankeyLink<N,L>[]): this;
 
     layout(iterations: number):this;
 
@@ -148,9 +156,9 @@ export interface SankeyLayout<N extends SankeyNode, L extends SankeyLink> {
      * Obtain an svg path generator for the links of the calculated Sankey diagram layout.
      * By default the path  generator uses a curvature of 0.5.
      */
-    link():SankeyLinkPathGenerator<L>;
+    link():SankeyLinkPathGenerator<N, L>;
 
 }
 
-export function sankey(): SankeyLayout<SankeyNode, SankeyLink<SankeyNode>>;
-export function sankey<N extends SankeyNode, L extends SankeyLink<N>>(): SankeyLayout<N, L>;
+export function sankey(): SankeyLayout<{}, {}>;
+export function sankey<N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): SankeyLayout<N, L>;

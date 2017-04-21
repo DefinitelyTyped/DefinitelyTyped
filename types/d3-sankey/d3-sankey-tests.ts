@@ -13,14 +13,21 @@ import {select, Selection} from 'd3-selection';
 // Preparatory Steps
 // ---------------------------------------------------------------------------
 
-interface SNode extends d3Sankey.SankeyNode {
+// Create interfaces for the user-provided node/link attributes, which are NOT mandated or calculated by
+// the Sankey layout generator. The latter are reflected in the SankeyNode and SankeyLink interfaces provided
+// by the definitions file
+interface SNodeExtra {
     nodeId: number;
     name: string;
 }
 
-interface SLink extends d3Sankey.SankeyLink<SNode>{
+interface SLinkExtra {
     uom: string;
 }
+
+// For convenience
+type SNode = d3Sankey.SankeyNode<SNodeExtra, SLinkExtra>;
+type SLink = d3Sankey.SankeyLink<SNodeExtra, SLinkExtra>;
 
 interface DAG {
     nodes: SNode[];
@@ -82,9 +89,6 @@ const graph: DAG = {
   }]
 };
 
-let sNode: SNode;
-let sLink: SLink;
-
 let sNodes: SNode[];
 let sLinks: SLink[];
 
@@ -98,8 +102,8 @@ let svgPathString: string;
 // Obtain SankeyLayout Generator
 // ---------------------------------------------------------------------------
 
-let slgDefault: d3Sankey.SankeyLayout<d3Sankey.SankeyNode, d3Sankey.SankeyLink<d3Sankey.SankeyNode>> = d3Sankey.sankey();
-let slgDAG: d3Sankey.SankeyLayout<SNode, SLink> = d3Sankey.sankey<SNode, SLink>();
+let slgDefault: d3Sankey.SankeyLayout<{}, {}> = d3Sankey.sankey();
+let slgDAG: d3Sankey.SankeyLayout<SNodeExtra, SLinkExtra> = d3Sankey.sankey<SNodeExtra, SLinkExtra>();
 
 // ---------------------------------------------------------------------------
 // NodeWidth
@@ -172,7 +176,7 @@ sLinks = slgDAG.links();
 // ---------------------------------------------------------------------------
 
 // test return type for chainability
-slgDAG = slgDAG.layout(32);
+slgDAG = slgDAG.layout(22);
 
 // ---------------------------------------------------------------------------
 // Relayout
