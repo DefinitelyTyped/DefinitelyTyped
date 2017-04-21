@@ -106,9 +106,8 @@ declare module "fluent-ffmpeg" {
     }
 
     class FfmpegCommand extends events.EventEmitter {
-        constructor();
-        constructor(options: FfmpegCommandOptions);
-        constructor(input: string | stream.Readable, options: FfmpegCommandOptions);
+        constructor(options?: FfmpegCommandOptions);
+        constructor(input?: string | stream.Readable, options?: FfmpegCommandOptions);
 
         // options/inputs
         mergeAdd(source: string | stream.Readable): FfmpegCommand;
@@ -297,9 +296,8 @@ declare module "fluent-ffmpeg" {
         concat(target: string | stream.Writable, options?: { end?: boolean }): FfmpegCommand;
     }
 
-    function Ffmpeg(): FfmpegCommand;
-    function Ffmpeg(options: FfmpegCommandOptions): FfmpegCommand;
-    function Ffmpeg(input: string | stream.Readable, options: FfmpegCommandOptions): FfmpegCommand;
+    function Ffmpeg(options?: FfmpegCommandOptions): FfmpegCommand;
+    function Ffmpeg(input?: string | stream.Readable, options?: FfmpegCommandOptions): FfmpegCommand;
 
     namespace Ffmpeg { }
 
