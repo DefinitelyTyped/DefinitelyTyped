@@ -275,10 +275,12 @@ declare module "fluent-ffmpeg" {
         getAvailableFormats(callback: FormatsCallback): void;
 
         // ffprobe
+        /* tslint:disable:unified-signatures */
         ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+        /* tslint:enable:unified-signatures */
 
         // recipes
         saveToFile(output: string): FfmpegCommand;
