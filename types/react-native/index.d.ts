@@ -8073,6 +8073,26 @@ export interface ImageStoreStatic {
 export type fetch = (url: string, options?: Object) => Promise<any>
 export const fetch: fetch;
 
+interface FormDataHeaders {
+    [name: string]: string
+};
+
+interface FormDataPart1 {
+    string: string;
+    headers: FormDataHeaders;
+};
+interface FormDataPart2 {
+    uri: string;
+    headers: FormDataHeaders;
+    name?: string;
+    type?: string;
+}
+
+export class FormData {
+    append(key: string, value: any): void;
+    getParts(): Array<FormDataPart1 | FormDataPart2>;
+}
+
 // Timers polyfill
 export type timedScheduler = (fn: string | (() => any), delay?: number) => number
 export type setTimeout = timedScheduler
