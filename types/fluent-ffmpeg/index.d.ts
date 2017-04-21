@@ -311,5 +311,7 @@ declare module "fluent-ffmpeg" {
     function Ffmpeg(options: FfmpegCommandOptions): FfmpegCommand
     function Ffmpeg(input: string | stream.Readable, options: FfmpegCommandOptions): FfmpegCommand
 
+    namespace Ffmpeg { }
+
     export = Ffmpeg
 }
