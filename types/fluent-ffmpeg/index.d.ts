@@ -31,7 +31,7 @@ declare module "fluent-ffmpeg" {
         filter: string;
         inputs: string | string[];
         outputs: string | string[];
-        options?: object | string | any[];
+        options?: any | string | any[];
     }
 
     type GetPreset = (command: FfmpegCommand) => string;
