@@ -1,5 +1,5 @@
-import * as m from 'mithril'
-import {Component, FactoryComponent, Vnode} from 'mithril'
+import * as m from 'mithril';
+import {Component, FactoryComponent, Vnode} from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -8,16 +8,16 @@ import {Component, FactoryComponent, Vnode} from 'mithril'
 function comp0() {
 	return {
 		view() {
-			return m('span', "Test")
+			return m('span', "Test");
 		}
-	}
+	};
 }
 
 // Mount the component
-m.mount(document.getElementById('comp0')!, comp0)
+m.mount(document.getElementById('comp0')!, comp0);
 
 // Unmount the component
-m.mount(document.getElementById('comp0')!, null)
+m.mount(document.getElementById('comp0')!, null);
 
 ///////////////////////////////////////////////////////////
 // 1.
@@ -25,13 +25,13 @@ m.mount(document.getElementById('comp0')!, null)
 //
 function comp1() {
 	return {
-		oncreate ({dom}) {
+		oncreate({dom}) {
 			// vnode.dom type inferred
 		},
-		view (vnode) {
-			return m('span', "Test")
+		view(vnode) {
+			return m('span', "Test");
 		}
-	} as Component<{},{}>
+	} as Component<{}, {}>;
 }
 
 ///////////////////////////////////////////////////////////
@@ -40,17 +40,15 @@ function comp1() {
 // style to infer factory vnode type.
 //
 interface Comp2Attrs {
-	title: string
-	description: string
+	title: string;
+	description: string;
 }
 
-const comp2 = function (vnode) { // vnode is inferred
-	return {
-		view ({attrs: {title, description}}) { // Comp2Attrs type is inferred
-			return [m('h2', title), m('p', description)]
-		}
+const comp2: FactoryComponent<Comp2Attrs> = vnode => ({ // vnode is inferred
+	view({attrs: {title, description}}) { // Comp2Attrs type is inferred
+		return [m('h2', title), m('p', description)];
 	}
-} as FactoryComponent<Comp2Attrs>
+});
 
 ///////////////////////////////////////////////////////////
 // 3.
@@ -58,31 +56,29 @@ const comp2 = function (vnode) { // vnode is inferred
 // Uses comp2 with typed attrs and makes use of `onremove`
 // lifecycle method.
 //
-const comp3 = function() {
-	return {
-		oncreate ({dom}) {
-			// Can do stuff with dom
-		},
-		view ({attrs}) {
-			return m('.page',
-				m('h1', attrs.pageHead),
-				m(comp2,
-					{
-						// attrs is type checked - nice!
-						title: "A Title",
-						description: "Some descriptive text.",
-						onremove: (vnode) => {
-							console.log("comp2 was removed")
-						},
-					}
-				),
-				// Test other hyperscript parameter variations
-				m(comp1, m(comp1)),
-				m('br')
-			)
-		}
+const comp3: FactoryComponent<{pageHead: string}> = () => ({
+	oncreate({dom}) {
+		// Can do stuff with dom
+	},
+	view({attrs}) {
+		return m('.page',
+			m('h1', attrs.pageHead),
+			m(comp2,
+				{
+					// attrs is type checked - nice!
+					title: "A Title",
+					description: "Some descriptive text.",
+					onremove(vnode) {
+						console.log("comp2 was removed");
+					},
+				}
+			),
+			// Test other hyperscript parameter variations
+			m(comp1, m(comp1)),
+			m('br')
+		);
 	}
-} as FactoryComponent<{pageHead: string}>
+});
 
 ///////////////////////////////////////////////////////////
 // 4.
@@ -90,21 +86,21 @@ const comp3 = function() {
 // to hold state.
 //
 interface Comp4Attrs {
-	name: string
+	name: string;
 }
 
-function comp4(): Component<Comp4Attrs,{}> {
-	let count = 0
+function comp4(): Component<Comp4Attrs, {}> {
+	let count = 0;
 
-	function add (num: number) {
-		count += num
+	function add(num: number) {
+		count += num;
 	}
 
 	return {
 		oninit() {
-			count = 0
+			count = 0;
 		},
-		view ({attrs}) {
+		view({attrs}) {
 			return [
 				m('h1', `This ${attrs.name} has been clicked ${count} times`),
 				m('button',
@@ -113,9 +109,9 @@ function comp4(): Component<Comp4Attrs,{}> {
 					},
 					"Click me"
 				)
-			]
+			];
 		}
-	}
+	};
 }
 
 ///////////////////////////////////////////////////////////
@@ -124,28 +120,28 @@ function comp4(): Component<Comp4Attrs,{}> {
 // Uses vnode.state instead of closure.
 //
 interface Comp5State {
-	count: number
-	add (num: number): void
+	count: number;
+	add(num: number): void;
 }
 
-function comp5(): Component<Comp4Attrs,Comp5State> {
+function comp5(): Component<Comp4Attrs, Comp5State> {
 	return {
-		oninit ({state}) {
-			state.count = 0
-			state.add = num => {state.count += num}
+		oninit({state}) {
+			state.count = 0;
+			state.add = num => { state.count += num; };
 		},
-		view ({attrs, state}) {
+		view({attrs, state}) {
 			return [
 				m('h1', `This ${attrs.name} has been clicked ${state.count} times`),
 				m('button',
 					{
-						onclick: () => {state.add(1)}
+						onclick() { state.add(1); }
 					},
 					"Click me"
 				)
-			]
+			];
 		}
-	}
+	};
 }
 
 ///////////////////////////////////////////////////////////
@@ -159,21 +155,21 @@ m.route(document.body, '/', {
 	'/comp3': comp3,
 	'/comp4': comp4,
 	'/comp5': comp5
-})
+});
 
 ///////////////////////////////////////////////////////////
 //
 // Concise module example with default export
 //
 interface Attrs {
-	name: string
+	name: string;
 }
 
-export default (): Component<Attrs,{}> => {
-	let count = 0
+export default (): Component<Attrs, {}> => {
+	let count = 0;
 	return {
-		view ({attrs}) {
-			return m('span', `name: ${attrs.name}, count: ${count}`)
+		view({attrs}) {
+			return m('span', `name: ${attrs.name}, count: ${count}`);
 		}
-	}
-}
+	};
+};

@@ -20,3 +20,6 @@ var response1: string = grecaptcha.getResponse(id1);
 
 // reset takes a number
 grecaptcha.reset(id1);
+
+grecaptcha.execute();
+grecaptcha.execute(id1);

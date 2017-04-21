@@ -4591,75 +4591,75 @@ namespace TestMap {
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => TResult;
 
     {
-        let result: TResult[];
+        _.map(array);  // $ExpectType number[]
+        _.map(array, listIterator);  // $ExpectType TResult[]
 
-        result = _.map<number, TResult>(array);
-        result = _.map<number, TResult>(array, listIterator);
-        result = _.map<number, TResult>(array, '');
+        _.map(list);  // $ExpectType number[]
+        _.map(list, listIterator);  // $ExpectType TResult[]
 
-        result = _.map<number, TResult>(list);
-        result = _.map<number, TResult>(list, listIterator);
-        result = _.map<number, TResult>(list, '');
-
-        result = _.map<number, TResult>(dictionary);
-        result = _.map<number, TResult>(dictionary, dictionaryIterator);
-        result = _.map<number, TResult>(dictionary, '');
+        _.map(dictionary);  // $ExpectType number[]
+        _.map(dictionary, dictionaryIterator);  // $ExpectType TResult[]
     }
 
     {
-        let result: boolean[];
-
-        result = _.map<number, {}>(array, {});
-        result = _.map<number, {}>(list, {});
-        result = _.map<number, {}>(dictionary, {});
+        // _.matches iteratee shorthand.
+        _.map(array, {});  // $ExpectType boolean[]
+        _.map(list, {});  // $ExpectType boolean[]
+        _.map(dictionary, {});  // $ExpectType boolean[]
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
+        _(array).map().value();  // $ExpectType number[]
+        _(array).map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _<number>(array).map<TResult>();
-        result = _<number>(array).map<TResult>(listIterator);
-        result = _<number>(array).map<TResult>('');
+        _(list).map().value();  // $ExpectType number[]
+        _(list).map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _(list).map<number, TResult>();
-        result = _(list).map<number, TResult>(listIterator);
-        result = _(list).map<number, TResult>('');
-
-        result = _(dictionary).map<number, TResult>();
-        result = _(dictionary).map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).map<number, TResult>('');
+        _(dictionary).map().value();  // $ExpectType number[]
+        _(dictionary).map(dictionaryIterator).value();  // $ExpectType TResult[]
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<boolean>;
-
-        result = _<number>(array).map<{}>({});
-        result = _(list).map<{}>({});
-        result = _(dictionary).map<{}>({});
+        _(array).map({}).value();  // $ExpectType boolean[]
+        _(list).map({}).value();  // $ExpectType boolean[]
+        _(dictionary).map({}).value();  // $ExpectType boolean[]
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
+        _(array).chain().map().value();  // $ExpectType number[]
+        _(array).chain().map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _<number>(array).chain().map<TResult>();
-        result = _<number>(array).chain().map<TResult>(listIterator);
-        result = _<number>(array).chain().map<TResult>('');
+        _(list).chain().map().value();  // $ExpectType number[]
+        _(list).chain().map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _(list).chain().map<number, TResult>();
-        result = _(list).chain().map<number, TResult>(listIterator);
-        result = _(list).chain().map<number, TResult>('');
-
-        result = _(dictionary).chain().map<number, TResult>();
-        result = _(dictionary).chain().map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).chain().map<number, TResult>('');
+        _(dictionary).chain().map().value();  // $ExpectType number[]
+        _(dictionary).chain().map(dictionaryIterator).value();  // $ExpectType TResult[]
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<boolean>;
 
-        result = _<number>(array).chain().map<{}>({});
-        result = _(list).chain().map<{}>({});
-        result = _(dictionary).chain().map<{}>({});
+        result = _<number>(array).chain().map({});
+        result = _(list).chain().map({});
+        result = _(dictionary).chain().map({});
+    }
+
+    {
+        // "pluck"-style map.
+        _.map([{a: 1}, {a: 2}], 'a');  // $ExpectType number[]
+        _.map({a: {b: 'str'}, c: {b: 1}}, 'b');  // ExpectType (string | number)[]
+
+        _([{a: 1}, {a: 2}]).map('a').value();  // $ExpectType number[]
+        _.chain([{a: 1}, {a: 2}]).map('a').value();  // $ExpectType number[]
+        _([{a: 1}, {a: 2}]).chain().map('a').value();  // $ExpectType number[]
+    }
+
+    {
+        // $ExpectType number[]
+        _.map(['a', 'b', 'c'], (
+            v,  // $ExpectType string
+            k  // $ExpectType number
+          ) => k);
     }
 }
 

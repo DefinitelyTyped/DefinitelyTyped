@@ -48,6 +48,10 @@ function StepSample() {
         Given(/^a variable set to (\d+)$/, (x: string) => {
             console.log("the number is: " + x);
         });
+        
+        Given(/^a variable set to (\d+)$/, (x: number) => {
+            console.log(typeof x);
+        });
 
         Given(/^I am on the Cucumber.js GitHub repository$/, function (callback: Callback) {
             this.visit('https://github.com/cucumber/cucumber-js', callback);

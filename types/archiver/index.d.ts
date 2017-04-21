@@ -22,8 +22,10 @@ declare function archiver(format: archiver.Format, options?: archiver.ArchiverOp
 
 declare namespace archiver {
     type Format = 'zip' | 'tar';
-    function create(format: string, options?: ArchiverOptions): Archiver;
 
+    function create(format: string, options?: ArchiverOptions): Archiver;
+    function registerFormat(format: string, module: Function): void;
+  
     interface EntryData {
         name?: string;
         prefix?: string;
@@ -31,17 +33,24 @@ declare namespace archiver {
     }
 
     interface Archiver extends stream.Transform {
+        abort(): this;
         append(source: stream.Readable | Buffer | string, name?: EntryData): void;
 
-        directory(dirpath: string, options: EntryData | string, data?: EntryData): void;
+        bulk(mappings: any): this;
 
-        bulk(mappings: any): void;
-        finalize(): void;
+        directory(dirpath: string, options: EntryData | string, data?: EntryData): this;
 
+        file(filename: string, data: EntryData): this;
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): void;
-        file(filename: string, data: EntryData): void;
+        finalize(): this;
 
         pipe(stream: fs.WriteStream | express.Response): void;
+  
+        setFormat(format: string): this;
+        setModule(module: Function): this;
+  
+        pointer(): number;
+        use(plugin: Function): this;
     }
 
     interface ArchiverOptions {
