@@ -60,19 +60,19 @@ declare module 'angular' {
              */
             set(key: string, val: string): boolean;
             /**
-     * Directly adds a value to cookies with an expiration.
-     * Note: Typically used as a fallback if local storage is not supported.
-     * Returns: Boolean
-     * @param key
-     * @param val
-     * @param daysToExpiry
-     */
+             * Directly adds a value to cookies with an expiration.
+             * Note: Typically used as a fallback if local storage is not supported.
+             * Returns: Boolean
+             * @param key
+             * @param val
+             * @param daysToExpiry
+             */
             set(key: string, val: string, daysToExpiry: number): boolean;
             /**
-                     * Directly get a value from a cookie.
-                     * Returns: value from local storage
-                     * @param key
-                     */
+             * Directly get a value from a cookie.
+             * Returns: value from local storage
+             * @param key
+             */
             get(key: string): string;
             /**
              * Remove directly value from a cookie.
@@ -84,7 +84,6 @@ declare module 'angular' {
              * Remove all data for this app from cookie.
              */
             clearAll(): any;
-
         }
         
         type StorageType = 'localStorage' | 'sessionStorage';
