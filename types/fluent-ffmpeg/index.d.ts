@@ -1,4 +1,4 @@
-// Type definitions for node-fluent-ffmpeg
+// Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>, DingWeizhe <https://github.com/DingWeizhe>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
