@@ -105,10 +105,10 @@ declare module "fluent-ffmpeg" {
         size?: string
     }
 
-    interface FfmpegCommand extends events.EventEmitter {
-        constructor(): FfmpegCommand
-        constructor(options: FfmpegCommandOptions): FfmpegCommand
-        constructor(input: string | stream.Readable, options: FfmpegCommandOptions): FfmpegCommand
+    class FfmpegCommand extends events.EventEmitter {
+        constructor();
+        constructor(options: FfmpegCommandOptions);
+        constructor(input: string | stream.Readable, options: FfmpegCommandOptions);
 
         // options/inputs
         mergeAdd(source: string | stream.Readable): FfmpegCommand
