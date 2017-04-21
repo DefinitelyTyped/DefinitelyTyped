@@ -9,7 +9,7 @@ import * as Immutable from 'immutable';
 
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 type SyntheticEvent = React.SyntheticEvent<{}>;
-
+export as namespace Draft;
 declare namespace Draft {
     namespace Component {
         namespace Base {
