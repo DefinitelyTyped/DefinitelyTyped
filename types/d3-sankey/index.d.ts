@@ -6,11 +6,11 @@
 // Last module patch version validated against: 0.4.2
 
 /**
- * A helper type as an extension reference for user-provided properties of
+ * A helper interface as an extension reference for user-provided properties of
  * nodes and links in the graph, which are not required or calculated by
  * the Sankey Layout Generator
  */
-export type SankeyExtraProperties = { [key: string]: any };
+export interface SankeyExtraProperties { [key: string]: any }
 
 /**
  * Helper interface to define the properties of Sankey Nodes. Calculated properties may only be defined,
@@ -29,12 +29,12 @@ export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends Sa
      * Array of links which have this node as source.
      * This property is calculated internally by the Sankey layout generator.
      */
-    sourceLinks?: SankeyLink<N, L>[];
+    sourceLinks?: Array<SankeyLink<N, L>>;
     /**
      * Array of links which have this node as target.
      * This property is calculated internally by the Sankey layout generator.
      */
-    targetLinks?: SankeyLink<N, L>[];
+    targetLinks?: Array<SankeyLink<N, L>>;
     /**
      * Node value calculated by Sankey Layout Generator based on values of incoming and outgoing links
      */
@@ -112,7 +112,6 @@ export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends Sa
      * Vertical end position of the link (at target node) calculated by Sankey layout generator
      */
     ty?: number;
-
 }
 
 /**
@@ -195,24 +194,24 @@ export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyE
     /**
      * Return the current array of nodes.
      */
-    nodes(): SankeyNode<N, L>[];
+    nodes(): Array<SankeyNode<N, L>>;
     /**
      * Set the array of nodes to be used for the Sankey layout and return this Sankey layout generator.
      *
      * @param nodes Array of nodes.
      */
-    nodes(nodes: SankeyNode<N, L>[]): this;
+    nodes(nodes: Array<SankeyNode<N, L>>): this;
 
     /**
      * Return the current array of links.
      */
-    links(): SankeyLink<N, L>[];
+    links(): Array<SankeyLink<N, L>>;
     /**
      * Set the array of links to be used for the Sankey layout and return this Sankey layout generator.
      *
      * @param links Array of links.
      */
-    links(links: SankeyLink<N, L>[]): this;
+    links(links: Array<SankeyLink<N, L>>): this;
 
     /**
      * Calculate the Sankey layout.
@@ -243,7 +242,6 @@ export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyE
      * By default the path  generator uses a curvature of 0.5.
      */
     link(): SankeyLinkPathGenerator<N, L>;
-
 }
 
 /**

@@ -35,7 +35,7 @@ interface DAG {
 }
 
 const graph: DAG = {
-  "nodes": [{
+  nodes: [{
     nodeId: 0,
     name: "node0"
   }, {
@@ -51,7 +51,7 @@ const graph: DAG = {
     nodeId: 4,
     name: "node4"
   }],
-  "links": [{
+  links: [{
     source: 0,
     target: 2,
     value: 2,
@@ -170,7 +170,6 @@ slgDAG = slgDAG.links(graph.links);
 // Get -----------------------------------------------------------------------
 
 sLinks = slgDAG.links();
-
 
 // ---------------------------------------------------------------------------
 // Compute Layout
