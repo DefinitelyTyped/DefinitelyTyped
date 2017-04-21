@@ -4,14 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace wx {
-	type NoneParamCallback = () => void;
-	type ResponseCallback = (res: any) => void;
-	type DataResponseCallback = (res: DataResponse) => void;
-	type ErrMsgResponseCallback = (res: ErrMsgResponse) => void;
-	type TempFileResponseCallback = (res: TempFileResponse) => void;
-	type ErrorCallback = (error: any) => void;
-	type EventCallback = (event: any) => void;
-
 	interface DataResponse {
 		/** 回调函数返回的内容 */
 		data: any;
@@ -62,11 +54,11 @@ declare namespace wx {
 
 	interface BaseOptions {
 		/** 接口调用成功的回调函数 */
-		success?: ResponseCallback;
+		success?: (res: any) => void;
 		/** 接口调用失败的回调函数 */
-		fail?: ResponseCallback;
+		fail?: (res: any) => void;
 		/** 接口调用结束的回调函数（调用成功、失败都会执行） */
-		complete?: ResponseCallback;
+		complete?: (res: any) => void;
 	}
 }
 // 发起请求
@@ -84,7 +76,7 @@ declare namespace wx {
 		/** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
 		method?: string;
 		/** 收到开发者服务成功返回的回调函数，res = {data: '开发者服务器返回的内容'} */
-		success?: DataResponseCallback;
+		success?: (res: DataResponse) => void;
 	}
 	/**
 	 * wx.request发起的是https请求。一个微信小程序，同时只能有5个网络请求连接。
@@ -122,7 +114,7 @@ declare namespace wx {
 		/** HTTP 请求 Header */
 		header?: RequestHeader;
 		/** 下载成功后以 tempFilePath 的形式传给页面，res = {tempFilePath: '文件的临时路径'} */
-		success?: TempFileResponseCallback;
+		success?: (res: TempFileResponse) => void;
 	}
 	/**
 	 * 下载文件资源到本地。客户端直接发起一个 HTTP GET 请求，
@@ -154,7 +146,7 @@ declare namespace wx {
 	function onSocketOpen(callback: () => void): void;
 
 	/** 监听WebSocket错误。 */
-	function onSocketError(callback: ErrorCallback): void;
+	function onSocketError(callback: (error: any) => void): void;
 
 	interface SendSocketMessageOptions extends BaseOptions {
 		/** 需要发送的内容 */
@@ -169,7 +161,7 @@ declare namespace wx {
 	/**
 	 * 监听WebSocket接受到服务器的消息事件。
 	 */
-	function onSocketMessage(callback: DataResponseCallback): void;
+	function onSocketMessage(callback: (res: DataResponse) => void): void;
 
 	/**
 	 * 关闭WebSocket连接。
@@ -177,7 +169,7 @@ declare namespace wx {
 	function closeSocket(): void;
 
 	/** 监听WebSocket关闭。 */
-	function onSocketClose(callback: ResponseCallback): void;
+	function onSocketClose(callback: () => void): void;
 }
 // 媒体-----图片
 declare namespace wx {
@@ -232,7 +224,7 @@ declare namespace wx {
 declare namespace wx {
 	interface StartRecordOptions extends BaseOptions {
 		/** 录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'} */
-		success?: TempFileResponseCallback;
+		success?: (res: TempFileResponse) => void;
 	}
 
 	/**
@@ -291,9 +283,9 @@ declare namespace wx {
 		/** 接口调用成功的回调函数 */
 		success?: GetBackgroundAudioPlayerStateSuccessCallback;
 		/** 接口调用失败的回调函数 */
-		fail?: NoneParamCallback;
+		fail?: () => void;
 		/** 接口调用结束的回调函数（调用成功、失败都会执行） */
-		complete?: NoneParamCallback;
+		complete?: () => void;
 	}
 	/** 获取音乐播放状态。 */
 	function getBackgroundAudioPlayerState(options: GetBackgroundAudioPlayerStateOptions): void;
@@ -327,13 +319,13 @@ declare namespace wx {
 	function stopBackgroundAudio(): void;
 
 	/** 监听音乐播放。 */
-	function onBackgroundAudioPlay(callback: NoneParamCallback): void;
+	function onBackgroundAudioPlay(callback: () => void): void;
 
 	/** 监听音乐暂停。 */
-	function onBackgroundAudioPause(callback: NoneParamCallback): void;
+	function onBackgroundAudioPause(callback: () => void): void;
 
 	/** 监听音乐停止。 */
-	function onBackgroundAudioStop(callback: NoneParamCallback): void;
+	function onBackgroundAudioStop(callback: () => void): void;
 }
 // 媒体-----音频组件控制
 declare namespace wx {
@@ -576,7 +568,7 @@ declare namespace wx {
 		/** 本地缓存中的指定的 key */
 		key: string;
 		/** 接口调用的回调函数,res = {data: key对应的内容} */
-		success: DataResponseCallback;
+		success: (res: DataResponse) => void;
 	}
 	/**
 	 * 从本地缓存中异步获取指定 key 对应的内容。
@@ -615,7 +607,7 @@ declare namespace wx {
 	function getStorageInfoSync(): GetStorageInfoOptions;
 	interface RemoveStorageOptions extends BaseOptions {
 		key: string;
-		success?: DataResponseCallback;
+		success?: (res: DataResponse) => void;
 	}
 	function removeStorage(options: RemoveStorageOptions): void;
 	function removeStorageSync(key: string): DataResponse;
@@ -872,7 +864,7 @@ declare namespace wx {
 declare namespace wx {
 	interface ClipboardDataOptions extends BaseOptions {
 		data: string;
-		success?: DataResponseCallback;
+		success?: (res: DataResponse) => void;
 	}
 	/**
 	 * 设置系统剪贴板的内容
@@ -890,14 +882,14 @@ declare namespace wx {
 // 设备-----蓝牙
 declare namespace wx {
 	interface OpenBluetoothAdapterOptions extends BaseOptions {
-		success: ResponseCallback;
+		success: (res: any) => void;
 	}
 	/**
 	 * 初始化蓝牙适配器
 	 */
 	function openBluetoothAdapter(options: OpenBluetoothAdapterOptions): void;
 	interface CloseBluetoothAdapterOptions extends BaseOptions {
-		success: ResponseCallback;
+		success: (res: any) => void;
 	}
 	/**
 	 * 关闭蓝牙模块。调用该方法将断开所有已建立的链接并释放系统资源
@@ -931,7 +923,7 @@ declare namespace wx {
 	 */
 	function onBluetoothAdapterStateChange(callback: (res: BluetoothAdapterState) => void): void;
 	interface StartBluetoothDevicesDiscoveryOptions extends BaseOptions {
-		success: ErrMsgResponseCallback;
+		success: (res: ErrMsgResponse) => void;
 		/**
 		 * 蓝牙设备主 service 的 uuid 列表
 		 * 某些蓝牙设备会广播自己的主 service 的 uuid。如果这里传入该数组，那么根据该 uuid 列表，只搜索有这个主服务的设备。
@@ -951,7 +943,7 @@ declare namespace wx {
 	 */
 	function startBluetoothDevicesDiscovery(options: StartBluetoothDevicesDiscoveryOptions): void;
 	interface StopBluetoothDevicesDiscoveryOptions extends BaseOptions {
-		success: ErrMsgResponseCallback;
+		success: (res: ErrMsgResponse) => void;
 	}
 	/**
 	 * 停止搜寻附近的蓝牙外围设备。请在确保找到需要连接的设备后调用该方法停止搜索。
@@ -1007,7 +999,7 @@ declare namespace wx {
 	function getConnectedBluetoothDevices(options: GetConnectedBluetoothDevicesOptions): void;
 
 	interface CreateBLEConnectionOptions extends BaseOptions {
-		success: ErrMsgResponseCallback;
+		success: (res: ErrMsgResponse) => void;
 	}
 	/**
 	 * 低功耗蓝牙接口
@@ -1019,7 +1011,7 @@ declare namespace wx {
 		 * 蓝牙设备 id，参考 getDevices 接口
 		 */
 		deviceId: string;
-		success: ErrMsgResponseCallback;
+		success: (res: ErrMsgResponse) => void;
 	}
 	/**
 	 * 断开与低功耗蓝牙设备的连接
