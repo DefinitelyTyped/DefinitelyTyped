@@ -1,4 +1,4 @@
-import ffmpeg = require("fluent-ffmpeg")
+import * as ffmpeg from "fluent-ffmpeg";
 
 let source: string, format: string, output: string
 
