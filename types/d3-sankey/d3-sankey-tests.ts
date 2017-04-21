@@ -93,6 +93,8 @@ let sNodes: SNode[];
 let sLinks: SLink[];
 
 let num: number;
+let numMaybe: number | undefined;
+let str: string;
 let size: [number, number];
 
 const svgLinkPaths = select<SVGSVGElement, undefined>('svg').selectAll<SVGPathElement, SLink>('.linkPath');
@@ -206,6 +208,51 @@ svgLinkPaths.attr('d', pathGen);
 // Shape test Node/Link related interfaces and types
 // ---------------------------------------------------------------------------
 
+// Sankey Node --------------------------------------------------------------
 
+let sNode = sNodes[0];
 
+// User-specified extra properties:
 
+num = sNode.nodeId;
+str = sNode.name;
+
+// Sankey Layout calculated (if layout has been run, otherwise undefined):
+
+numMaybe = sNode.dx;
+numMaybe = sNode.x;
+numMaybe = sNode.dy;
+numMaybe = sNode.y;
+numMaybe = sNode.value;
+
+let linksArrMaybe: SLink[] | undefined;
+
+linksArrMaybe = sNode.sourceLinks;
+linksArrMaybe = sNode.targetLinks;
+
+// Sankey Link --------------------------------------------------------------
+
+let sLink = sLinks[0];
+
+// User-specified extra properties:
+
+str = sLink.uom;
+
+// Sankey Layout mandated link properties:
+
+num = sLink.value;
+
+// Node depending on initialization strategy and whether
+// layout(...) was invoked, the source and target nodes may be numbers
+// objects without the Sankey layout coordinates, or objects with calculated
+// information
+let numOrSankeyNode: number  | SNode;
+
+numOrSankeyNode = sLink.source;
+numOrSankeyNode = sLink.target;
+
+// Sankey Layout calculated (if layout has been run, otherwise undefined):
+
+numMaybe = sLink.sy;
+numMaybe = sLink.ty;
+numMaybe = sLink.dy;
