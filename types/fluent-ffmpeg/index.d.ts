@@ -34,9 +34,7 @@ declare module "fluent-ffmpeg" {
         options?: Object | string | any[]
     }
 
-    interface GetPreset {
-        (command: FfmpegCommand): string
-    }
+    type GetPreset = (command: FfmpegCommand) => string
 
     interface Filter {
         description: string
@@ -48,9 +46,7 @@ declare module "fluent-ffmpeg" {
     interface Filters {
         [key: string]: Filter
     }
-    interface FiltersCallback {
-        (err: Error, filters: Filters): void
-    }
+    type FiltersCallback = (err: Error, filters: Filters) => void
 
     interface Codec {
         type: string
@@ -67,9 +63,7 @@ declare module "fluent-ffmpeg" {
     interface Codecs {
         [key: string]: Codec
     }
-    interface CodecsCallback {
-        (err: Error, codecs: Codecs): void
-    }
+    type CodecsCallback = (err: Error, codecs: Codecs) => void;
 
     interface Encoder {
         type: string
@@ -83,9 +77,7 @@ declare module "fluent-ffmpeg" {
     interface Encoders {
         [key: string]: Encoder
     }
-    interface EncodersCallback {
-        (err: Error, encoders: Encoders): void
-    }
+    type EncodersCallback = (err: Error, encoders: Encoders) => void
 
     interface Format {
         description: string
@@ -95,9 +87,7 @@ declare module "fluent-ffmpeg" {
     interface Formats {
         [key: string]: Format
     }
-    interface FormatsCallback {
-        (err: Error, formats: Formats): void
-    }
+    type FormatsCallback = (err: Error, formats: Formats) => void;
 
     interface FfprobeData {
         stream: any[]
