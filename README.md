@@ -186,11 +186,6 @@ This usually happens within an hour of changes being merged.
 If the module you're referencing is an external module (uses `export`), use an import.
 If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
-#### What do I do about older versions of typings?
-
-Currently we don't support this, though it is [planned](https://github.com/Microsoft/types-publisher/issues/3).
-If you're adding a new major version of a library, you can copy `index.d.ts` to `foo-v2.3.d.ts` and edit `index.d.ts` to be the new version.
-
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
@@ -216,7 +211,7 @@ If default imports work in your environment, consider turning on the [`--allowSy
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
 
-#### I want to use features from TypeScript 2.1.
+#### I want to use features from TypeScript 2.1 or above.
 
 Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
 
@@ -257,6 +252,11 @@ For example, `react-router` depends on `history@2`, so [react-router `tsconfig.j
 transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+#### What about scoped packages?
+
+Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+
 
 #### The file history in GitHub looks incomplete.
 

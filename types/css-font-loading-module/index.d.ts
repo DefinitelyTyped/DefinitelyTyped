@@ -3,12 +3,12 @@
 // Definitions by: slikts <https://github.com/slikts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
-type FontFaceSetLoadStatus = 'loading' | 'loaded';
-type BinaryData = ArrayBuffer | ArrayBufferView;
-type EventHandler = (event: Event) => void;
+export type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
+export type FontFaceSetLoadStatus = 'loading' | 'loaded';
+export type BinaryData = ArrayBuffer | ArrayBufferView;
+export type EventHandler = (event: Event) => void;
 
-interface FontFaceDescriptors {
+export interface FontFaceDescriptors {
     style?: string;
     weight?: string;
     stretch?: string;
@@ -17,7 +17,7 @@ interface FontFaceDescriptors {
     featureSettings?: string;
 }
 
-interface FontFaceSet extends Set<FontFace> {
+export interface FontFaceSet extends Set<FontFace> {
     // events for when loading state changes
     onloading: EventHandler;
     onloadingdone: EventHandler;
@@ -57,5 +57,3 @@ declare global {
         fonts: FontFaceSet;
     }
 }
-
-export {};

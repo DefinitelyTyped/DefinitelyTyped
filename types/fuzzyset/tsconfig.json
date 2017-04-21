@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-jose-tests.ts"
+        "fuzzyset-tests.ts"
     ]
 }

@@ -11,3 +11,7 @@ app.use(jwt({
     secret: 'some-secret-key',
     key: 'auth'
 }));
+
+app.use(jwt({
+    secret: 'some-secret-key'
+}).unless({method: 'OPTIONS'}));

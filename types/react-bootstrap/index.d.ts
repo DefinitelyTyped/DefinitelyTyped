@@ -180,6 +180,7 @@ declare namespace ReactBootstrap {
 
     // <DropdownButton />
     interface DropdownButtonBaseProps extends DropdownBaseProps {
+        block?: boolean;
         bsSize?: Sizes;
         bsStyle?: string;
         navItem?: boolean;
