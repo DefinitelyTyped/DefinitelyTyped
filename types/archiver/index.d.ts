@@ -34,14 +34,14 @@ declare namespace archiver {
 
     interface Archiver extends stream.Transform {
         abort(): this;
-        append(source: stream.Readable | Buffer | string, name?: EntryData): void;
+        append(source: stream.Readable | Buffer | string, name?: EntryData): this;
 
         bulk(mappings: any): this;
 
         directory(dirpath: string, options: EntryData | string, data?: EntryData): this;
 
         file(filename: string, data: EntryData): this;
-        glob(pattern: string, options?: glob.IOptions, data?: EntryData): void;
+        glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
         finalize(): this;
 
         pipe(stream: fs.WriteStream | express.Response): void;
