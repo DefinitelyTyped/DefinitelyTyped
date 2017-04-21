@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "es6-shim": "0.34"
+  }
+}
