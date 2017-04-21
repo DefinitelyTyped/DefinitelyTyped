@@ -189,8 +189,23 @@ slgDAG = slgDAG.relayout();
 // Obtain and Use Link SVG Path Generator
 // ---------------------------------------------------------------------------
 
-let pathGen: (link: SLink) => string;
+let pathGen: d3Sankey.SankeyLinkPathGenerator<SNodeExtra, SLinkExtra>;
 
 pathGen = slgDAG.link();
 
+// Adjust Link SVG Path Generator curvature ----------------------------------
+
+// test return type
+pathGen = pathGen.curvature(0.6);
+num = pathGen.curvature();
+
+
 svgLinkPaths.attr('d', pathGen);
+
+// ---------------------------------------------------------------------------
+// Shape test Node/Link related interfaces and types
+// ---------------------------------------------------------------------------
+
+
+
+
