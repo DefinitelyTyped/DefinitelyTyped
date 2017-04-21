@@ -34,9 +34,9 @@ declare namespace Boom {
         /** headers - an object containing any HTTP headers where each key is a header name and value is the header content. (Limited value type to string https://github.com/hapijs/boom/issues/151 ) */
         headers: {[index: string]: string};
         /** payload - the formatted object used as the response payload (stringified). Can be directly manipulated but any changes will be lost if reformat() is called. Any content allowed and by default includes the following content: */
-        payload: IPayload;
+        payload: Payload;
     }
-    export interface IPayload {
+    export interface Payload {
         /** statusCode - the HTTP status code, derived from error.output.statusCode. */
         statusCode: number;
         /** error - the HTTP status message (e.g. 'Bad Request', 'Internal Server Error') derived from statusCode. */

@@ -48,8 +48,8 @@ error.reformat();
  * Add a custom key to the payload
  */
 
-interface ICustomPayload extends Boom.IPayload {
+interface CustomPayload extends Boom.Payload {
     custom: string;
 }
 
-(error.output.payload as ICustomPayload).custom = 'abc_123';
+(error.output.payload as CustomPayload).custom = 'abc_123';
