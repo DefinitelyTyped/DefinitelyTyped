@@ -5,8 +5,25 @@
 
 // Last module patch version validated against: 0.4.2
 
-export type SankeyExtraProperties = {[key: string]: any};
+/**
+ * A helper type as an extension reference for user-provided properties of
+ * nodes and links in the graph, which are not required or calculated by
+ * the Sankey Layout Generator
+ */
+export type SankeyExtraProperties = { [key: string]: any };
 
+/**
+ * Helper interface to define the properties of Sankey Nodes. Calculated properties may only be defined,
+ * once the layout(...) method of the Sankey layout generator has been invoked.
+ *
+ * The first generic N refers to user-defined properties contained in the node data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyNodeMinimal interface.
+ *
+ * The second generic L refers to user-defined properties contained in the link data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyLinkMinimal interface.
+ */
 export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
      * Array of links which have this node as source.
@@ -40,8 +57,32 @@ export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends Sa
     dy?: number;
 }
 
+/**
+ * Sankey Node type including both user-defined node data elements as well as those
+ * calculated once the layout(...) method of the Sankey layout generators has been invoked.
+ *
+ * The first generic N refers to user-defined properties contained in the node data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyNodeMinimal interface.
+ *
+ * The second generic L refers to user-defined properties contained in the link data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyLinkMinimal interface.
+ */
 export type SankeyNode<N extends SankeyExtraProperties, L extends SankeyExtraProperties> = N & SankeyNodeMinimal<N, L>;
 
+/**
+ * Helper interface to define the properties of Sankey Links. Calculated properties may only be defined,
+ * once the layout(...) method of the Sankey layout generator has been invoked.
+ *
+ * The first generic N refers to user-defined properties contained in the node data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyNodeMinimal interface.
+ *
+ * The second generic L refers to user-defined properties contained in the link data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyLinkMinimal interface.
+ */
 export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
      * Source node of the link. For convenience, when initializing a Sankey layout, source may be the index of the source node in the nodes array
@@ -74,11 +115,28 @@ export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends Sa
 
 }
 
+/**
+ * Sankey Link type including both user-defined link data elements, those required by the Sankey layout generator,
+ *  as well as those calculated once the layout(...) method of the layout generator has been invoked.
+ *
+ * The first generic N refers to user-defined properties contained in the node data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyNodeMinimal interface.
+ *
+ * The second generic L refers to user-defined properties contained in the link data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyLinkMinimal interface.
+ */
 export type SankeyLink<N extends SankeyExtraProperties, L extends SankeyExtraProperties> = L & SankeyLinkMinimal<N, L>;
 
+/**
+ * An svg path generator factory for the link paths in a calculated Sankey Layout.
+ */
 export interface SankeyLinkPathGenerator<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
      * Return svg path string for a given link.
+     *
+     * IMPORTANT: Only invoke for link data with Sankey Layout information previosuly calculated.
      *
      * @param link A Sankey diagram link, for which the layout has already been calculated.
      */
@@ -87,7 +145,7 @@ export interface SankeyLinkPathGenerator<N extends SankeyExtraProperties, L exte
      * Returns the current curvature used to calculate svg paths for links.
      * The default curvature is 0.5.
      */
-    curvature():number;
+    curvature(): number;
     /**
      * Set the curvature used to calculate svg paths for links and return the updated link path generator.
      *
@@ -96,7 +154,17 @@ export interface SankeyLinkPathGenerator<N extends SankeyExtraProperties, L exte
     curvature(curvature: number): this;
 }
 
-
+/**
+ * A Sankey layout generator.
+ *
+ * The first generic N refers to user-defined properties contained in the node data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyNodeMinimal interface.
+ *
+ * The second generic L refers to user-defined properties contained in the link data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyLinkMinimal interface.
+ */
 export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
      * Return the current width of a node in pixels, which defaults to 24.
@@ -127,19 +195,37 @@ export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyE
     /**
      * Return the current array of nodes.
      */
-    nodes(): SankeyNode<N,L>[];
-    nodes(nodes: SankeyNode<N,L>[]): this;
+    nodes(): SankeyNode<N, L>[];
+    /**
+     * Set the array of nodes to be used for the Sankey layout and return this Sankey layout generator.
+     *
+     * @param nodes Array of nodes.
+     */
+    nodes(nodes: SankeyNode<N, L>[]): this;
 
-    links(): SankeyLink<N,L>[];
-    links(links: SankeyLink<N,L>[]): this;
+    /**
+     * Return the current array of links.
+     */
+    links(): SankeyLink<N, L>[];
+    /**
+     * Set the array of links to be used for the Sankey layout and return this Sankey layout generator.
+     *
+     * @param links Array of links.
+     */
+    links(links: SankeyLink<N, L>[]): this;
 
-    layout(iterations: number):this;
+    /**
+     * Calculate the Sankey layout.
+     *
+     * @param iterations Number of iterations to run the iterative relaxation algorithm for node placement.
+     */
+    layout(iterations: number): this;
 
     /**
      * Recalculate the depth of links and return this Sankey layout generator.
      * Primarily used when a node is moved vertically.
      */
-    relayout():this;
+    relayout(): this;
 
     /**
      * Get the current size of the layout in pixels. The size is a two element array of [width, height] which defaults to [1, 1].
@@ -150,15 +236,32 @@ export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyE
      *
      * @param size A two element array of [width, height] in pixels which defaults to [1, 1].
      */
-    size(size: [number, number]):this;
+    size(size: [number, number]): this;
 
     /**
      * Obtain an svg path generator for the links of the calculated Sankey diagram layout.
      * By default the path  generator uses a curvature of 0.5.
      */
-    link():SankeyLinkPathGenerator<N, L>;
+    link(): SankeyLinkPathGenerator<N, L>;
 
 }
 
+/**
+ * Get a Sankey layout generator.
+ *
+ * Invoking sankey() without generics, means the node type and link type assume no user-defined attributes, i.e.
+ * only the attributes internally used by the Sankey layout generator.
+ */
 export function sankey(): SankeyLayout<{}, {}>;
+/**
+ * Get a Sankey layout generator.
+ *
+ * The first generic N refers to user-defined properties contained in the node data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyNodeMinimal interface.
+ *
+ * The second generic L refers to user-defined properties contained in the link data passed into
+ * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
+ * SankeyLinkMinimal interface.
+ */
 export function sankey<N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): SankeyLayout<N, L>;

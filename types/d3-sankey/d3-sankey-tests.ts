@@ -97,8 +97,7 @@ let numMaybe: number | undefined;
 let str: string;
 let size: [number, number];
 
-const svgLinkPaths = select<SVGSVGElement, undefined>('svg').selectAll<SVGPathElement, SLink>('.linkPath');
-let svgPathString: string;
+const svgLinkPaths = select<SVGSVGElement, undefined>('svg').selectAll<SVGPathElement, SLink>('.linkPath'); // assume mock DOM
 
 // ---------------------------------------------------------------------------
 // Obtain SankeyLayout Generator
@@ -201,7 +200,9 @@ pathGen = slgDAG.link();
 pathGen = pathGen.curvature(0.6);
 num = pathGen.curvature();
 
+// uses
 
+let svgPathString: string = pathGen(slgDAG.links()[0]);
 svgLinkPaths.attr('d', pathGen);
 
 // ---------------------------------------------------------------------------
