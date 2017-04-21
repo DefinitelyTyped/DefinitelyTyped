@@ -10,7 +10,7 @@
  * nodes and links in the graph, which are not required or calculated by
  * the Sankey Layout Generator
  */
-export interface SankeyExtraProperties { [key: string]: any }
+export interface SankeyExtraProperties { [key: string]: any; }
 
 /**
  * Helper interface to define the properties of Sankey Nodes. Calculated properties may only be defined,
