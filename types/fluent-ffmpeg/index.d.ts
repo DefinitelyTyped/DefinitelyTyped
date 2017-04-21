@@ -5,10 +5,10 @@
 
 /// <reference types="node" />
 
-declare module "fluent-ffmpeg" {
-    import * as events from "events";
-    import * as stream from "stream";
+import * as events from "events";
+import * as stream from "stream";
 
+declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
         error(...data: any[]): void;
         warning(...data: any[]): void;
@@ -297,11 +297,8 @@ declare module "fluent-ffmpeg" {
         concatenate(target: string | stream.Writable, options?: { end?: boolean }): FfmpegCommand;
         concat(target: string | stream.Writable, options?: { end?: boolean }): FfmpegCommand;
     }
-
-    function Ffmpeg(options?: FfmpegCommandOptions): FfmpegCommand;
-    function Ffmpeg(input?: string | stream.Readable, options?: FfmpegCommandOptions): FfmpegCommand;
-
-    namespace Ffmpeg { }
-
-    export = Ffmpeg;
 }
+declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
+declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
+
+export = Ffmpeg;
