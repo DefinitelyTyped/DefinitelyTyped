@@ -28,10 +28,13 @@ export interface Options {
 	parse_url?: boolean;	// (experimental, default false) try to optimize QR-code for URLs.
 }
 
-export function image(text: string, level_or_optoins?: ec_level | Options): NodeJS.ReadableStream;
+export function image(text: string, level?: ec_level): NodeJS.ReadableStream;
+export function image(text: string, optoins?: Options): NodeJS.ReadableStream;
 
-export function imageSync(text: string, level_or_optoins?: ec_level | Options): string | Buffer;
+export function imageSync(text: string, level?: ec_level): Buffer;
+export function imageSync(text: string, optoins?: Options): string | Buffer;
 
-export function svgObject(text: string, level_or_optoins?: ec_level | Options): any;
+export function svgObject(text: string, level?: ec_level): any;
+export function svgObject(text: string, optoins?: Options): any;
 
 export function matrix(text: string, level?: ec_level): any[][];
