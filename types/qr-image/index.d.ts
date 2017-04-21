@@ -7,22 +7,17 @@
 
 /**
  * error correction level. One of L, M, Q, H. Default M.
- *
- * @export
  */
 export type ec_level = 'L' | 'M' | 'Q' | 'H';
 
 /**
  * image type. Possible values png (default), svg, pdf and eps.
- *
- * @export
  */
 export type image_type = 'png' | 'svg' | 'pdf' | 'eps';
 
 /**
  * image options object:
  *
- * @export
  * @interface IOptions
  */
 export interface Options {
