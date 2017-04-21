@@ -119,13 +119,13 @@ export interface SankeyLayout<N extends SankeyNode, L extends SankeyLink> {
      */
     nodePadding(padding: number): this;
 
-    nodes(): () => N[];
+    nodes(): N[];
     nodes(nodes: N[]): this;
 
-    links(): () => L[];
+    links(): L[];
     links(links: L[]): this;
 
-    layout(iterations?: number):this;
+    layout(iterations: number):this;
 
     /**
      * Recalculate the depth of links and return this Sankey layout generator.
@@ -152,4 +152,5 @@ export interface SankeyLayout<N extends SankeyNode, L extends SankeyLink> {
 
 }
 
-export function sankey<N extends SankeyNode, L extends SankeyLink>(): SankeyLayout<N, L>;
+export function sankey(): SankeyLayout<SankeyNode, SankeyLink<SankeyNode>>;
+export function sankey<N extends SankeyNode, L extends SankeyLink<N>>(): SankeyLayout<N, L>;
