@@ -2,14 +2,9 @@
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/* =================== USAGE ===================
-1. Create file xxx.ts
-2. import {} from 'weixin-app';
- =============================================== */
 
 declare namespace wx {
 	type NoneParamCallback = () => void;
-	type OneParamCallback = (data: any) => void;
 	type ResponseCallback = (res: any) => void;
 	type DataResponseCallback = (res: DataResponse) => void;
 	type ErrMsgResponseCallback = (res: ErrMsgResponse) => void;
@@ -156,7 +151,7 @@ declare namespace wx {
 	function connectSocket(options: ConnectSocketOptions): void;
 
 	/** 监听WebSocket连接打开事件。 */
-	function onSocketOpen(callback: OneParamCallback): void;
+	function onSocketOpen(callback: () => void): void;
 
 	/** 监听WebSocket错误。 */
 	function onSocketError(callback: ErrorCallback): void;
