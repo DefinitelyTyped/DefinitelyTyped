@@ -24,6 +24,8 @@ declare namespace Boom {
         output: Output;
         /** reformat() - rebuilds error.output using the other object properties. */
         reformat: () => string;
+        /** "If message is unset, the 'error' segment of the header will not be present and isMissing will be true on the error object." mentioned in @see {@link https://github.com/hapijs/boom#boomunauthorizedmessage-scheme-attributes} */
+        isMissing?: boolean;
     }
 
     export interface Output {
@@ -32,14 +34,17 @@ declare namespace Boom {
         /** headers - an object containing any HTTP headers where each key is a header name and value is the header content. (Limited value type to string https://github.com/hapijs/boom/issues/151 ) */
         headers: {[index: string]: string};
         /** payload - the formatted object used as the response payload (stringified). Can be directly manipulated but any changes will be lost if reformat() is called. Any content allowed and by default includes the following content: */
-        payload: {
-            /** statusCode - the HTTP status code, derived from error.output.statusCode. */
-            statusCode: number;
-            /** error - the HTTP status message (e.g. 'Bad Request', 'Internal Server Error') derived from statusCode. */
-            error: string;
-            /** message - the error message derived from error.message. */
-            message: string;
-        }
+        payload: Payload;
+    }
+    export interface Payload {
+        /** statusCode - the HTTP status code, derived from error.output.statusCode. */
+        statusCode: number;
+        /** error - the HTTP status message (e.g. 'Bad Request', 'Internal Server Error') derived from statusCode. */
+        error: string;
+        /** message - the error message derived from error.message. */
+        message: string;
+        // Excluded this to aid typing of the other values.  See tests for example casting to a custom interface to manipulate the payload
+        // [anyContent: string]: any;
     }
 
     /**
