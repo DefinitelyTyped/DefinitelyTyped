@@ -1,4 +1,5 @@
-import recase = require('recase');
+import * as Recase from 'recase';
+const recase = Recase.create({exceptions: {FOO: 'foo'}});
 
 const snake = recase.snakeCopy(
     {
@@ -23,3 +24,10 @@ const camel = recase.camelCopy(
         },
     },
 );
+
+recase.snakeCopy(1);
+recase.camelCopy(2);
+recase.snakeCopy('a');
+recase.camelCopy('b');
+recase.snakeCopy(['c', '1']);
+recase.snakeCopy(['d', '1']);

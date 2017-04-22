@@ -3,18 +3,14 @@
 // Definitions by: Mikal Madsen <https://github.com/18steps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+type Reviver = (this: {}, key: string, value: any) => any;
 export function transform(text: string): string;
-export function parse(text: string, reviver: (this: {}, key: string, value: any) => any): {};
+export function parse(text: string, reviver: Reviver): {};
 export function parse(text: string, opts?: {
+    reviver?: Reviver,
     relaxed?: boolean,
     warnings?: boolean,
     tolerant?: boolean,
     duplicate?: boolean,
 }): {};
 export function stringify(obj: any): string;
-
-export default {
-    transform,
-    parse,
-    stringify,
-};

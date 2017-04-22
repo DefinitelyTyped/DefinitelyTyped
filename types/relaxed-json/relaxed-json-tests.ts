@@ -1,9 +1,9 @@
-import RJSON from 'relaxed-json';
+import * as RJSON from 'relaxed-json';
 
 const relaxedString = `
     {                               // comment
         foo: "bar",                 // identifier
-        "arr": [1,2,3,]             // trailing comma in array
+        "arr": [1,2,3,],            // trailing comma in array
         "single-quoted": 'string',
         'trailing': 4,
     },
@@ -11,22 +11,35 @@ const relaxedString = `
 
 RJSON.transform(relaxedString);
 
-RJSON.parse(relaxedString, (key, value) =>
-    typeof value === 'number'
-        ? value * 2 // return value * 2 for numbers
-        : value     // return everything else unchanged
-);
+function revive(key: string, value: any): any {
+    return typeof value === 'number'
+        ? value * 2  // return value * 2 for numbers
+        : value;     // return everything else unchanged
+}
+
+RJSON.parse(relaxedString, revive);
 
 RJSON.parse(relaxedString, {
+    reviver: revive,
     relaxed: true,
     warnings: true,
     tolerant: true,
     duplicate: true,
 });
 
+RJSON.parse(relaxedString, {
+    tolerant: false,
+    duplicate: true,
+});
+
+RJSON.parse(relaxedString, {
+    reviver: revive,
+});
+
 RJSON.parse(relaxedString, {});
 
-RJSON.parse(relaxedString);
+const parsed = RJSON.parse(relaxedString);
+RJSON.stringify(parsed);
 
 RJSON.stringify({
     foo: 'bar',
