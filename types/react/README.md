@@ -1,31 +1,5 @@
 ## Known Problems & Workarounds
 
-### **The type of `setState` is will be overly strict prior to TS 2.1.5**
-Starting with TypeScript 2.1, its more correct than it used to be, with a caveat: optional parameters on state interfaces are no longer valid. This issue is corrected in 2.1.5 (and beyond) and thus `Pick<S, K>` becomes ideal.
-
-```ts
-interface FooState {
-    bar: string;
-    foo?: string;
-}
-
-const defaultFooState: FooState = {
-    bar: "Hi",
-    foo: undefined,
-};
-
-class Foo extends React.Component<{}, FooState> {
-    public doStuff() {
-        this.setState(defaultFooState);
-    }
-}
-```
-
-Prior to 2.1.5, this code will produce an error. The other way the types could be written (using `Partial<>` instead of `Pick<>`) would allow for you to set `undefined` to a parameter that is not allowed
-to be `undefined`, which could lead to bugs. Users who want to keep optional state parameters should continue to use the hack of `setState({...} as any);` in versions prior to 2.1.5.
-
-(This caveat should be dropped after no later than March 2017, maybe sooner.)
-  
 ### **The type of `cloneElement` is incorrect.**
 This is similar to the `setState` problem, in that `cloneElement(element, props)` should should accept a `props` object with a subset of the properties on `element.props`. There is an additional complication, however—React attributes, such as `key` and `ref`, should also be accepted in `props`, but should not exist on `element.props`. The "correct" way to model this, then, is with
 ```ts

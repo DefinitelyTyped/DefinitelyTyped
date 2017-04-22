@@ -1,5 +1,5 @@
-// Type definitions for cookie.js v1.0.0
-// Project: https://github.com/js-coder/cookie.js
+// Type definitions for cookie.js v1.2.2
+// Project: https://github.com/florian/cookie.js
 // Definitions by: Boltmade <https://github.com/Boltmade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /**
@@ -27,6 +27,11 @@ declare namespace cookie {
   export function remove(key : string) : void;
   export function remove(keys : string[]) : void;
   export function remove(...args : string[]) : void;
+  /**
+   * Remove cookies that were set with custom options (e.g. specifing domain or path)
+   */
+  export function removeSpecific(key : string, options?: any) : void;
+  export function removeSpecific(keys : string[], options?: any): void;
   /**
    * Remove all cookies
    */

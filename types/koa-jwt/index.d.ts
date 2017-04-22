@@ -7,7 +7,7 @@ import Koa = require("koa");
 
 export = jwt;
 
-declare function jwt(options: jwt.Options): Koa.Middleware;
+declare function jwt(options: jwt.Options): jwt.Middleware;
 
 declare namespace jwt {
     interface Options {
@@ -18,4 +18,16 @@ declare namespace jwt {
         cookie?: string;
         debug?: boolean;
     }
+
+    interface UnlessOptions {
+        method?: string | string[];
+        path?: string | string[] | RegExp | RegExp[];
+        ext?: string| string[];
+        custom?(ctx?: Koa.Context): boolean;
+        useOriginalUrl?: boolean;
+    }
+
+    type Middleware = Koa.Middleware & {
+        unless(options?: jwt.UnlessOptions): any;
+    };
 }

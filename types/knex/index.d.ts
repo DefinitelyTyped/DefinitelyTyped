@@ -345,7 +345,7 @@ declare namespace Knex {
         hasTable(tableName: string): Promise<boolean>;
         hasColumn(tableName: string, columnName: string): Promise<boolean>;
         table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
-        dropTableIfExists(tableName: string): Promise<void>;
+        dropTableIfExists(tableName: string): SchemaBuilder;
         raw(statement: string): SchemaBuilder;
         withSchema(schemaName: string): SchemaBuilder;
     }
@@ -428,7 +428,7 @@ declare namespace Knex {
         index(indexName?: string, indexType?: string): ColumnBuilder;
     }
 
-    interface ReferencingColumnBuilder {
+    interface ReferencingColumnBuilder extends ColumnBuilder {
         inTable(tableName: string): ColumnBuilder;
     }
 
@@ -456,7 +456,7 @@ declare namespace Knex {
         client?: string;
         dialect?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
-            MySqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
+            MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
         acquireConnectionTimeout?: number;
@@ -473,6 +473,14 @@ declare namespace Knex {
         instanceName?: string;
         debug?: boolean;
         requestTimeout?: number;
+    }
+
+    interface MsSqlConnectionConfig {
+        user: string;
+        password: string;
+        server: string;
+        database: string;
+        options: MsSqlOptionsConfig;
     }
 
     // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods
@@ -537,6 +545,17 @@ declare namespace Knex {
     interface Sqlite3ConnectionConfig {
         filename: string;
         debug?: boolean;
+    }
+
+    interface MsSqlOptionsConfig {
+        encrypt?: boolean;
+        port?: number;
+        domain?: string;
+        connectionTimeout?: number;
+        requestTimeout?: number;
+        stream?: boolean;
+        parseJSON?: boolean;
+        pool?: PoolConfig;
     }
 
     interface SocketConnectionConfig {
