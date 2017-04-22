@@ -31,7 +31,7 @@ declare namespace commander {
          * @param {string} flags
          * @param {string} [description]
          */
-        (flags: string, description?: string): Option;
+        new (flags: string, description?: string): Option;
     }
 
     interface Command extends NodeJS.EventEmitter {
@@ -42,7 +42,7 @@ declare namespace commander {
          *
          * @param {string} [name]
          */
-        (name?: string): Command;
+        new (name?: string): Command;
 
         /**
          * Set the program version to `str`.
@@ -276,7 +276,6 @@ declare namespace commander {
     }
 
     interface StaticCommander extends commander.Command {
-        new (name?: string): Command;
         Option: commander.Option;
         Command: commander.Command
         ParseOptionsResult: commander.ParseOptionsResult;
