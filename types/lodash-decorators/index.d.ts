@@ -11,15 +11,13 @@ declare module "lodash-decorators" {
 
     type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
 
-    type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
+    type PropertyDecorator = (target: object, propertyKey: string | symbol) => void;
 
-    interface MethodDecorator {
-        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
-    }
+    type MethodDecorator = <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
 
-    type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
+    type ParameterDecorator = (target: object, propertyKey: string | symbol, parameterIndex: number) => void;
 
-    type TypedMethodDecorator<TFunction extends Function> = (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
+    type TypedMethodDecorator<TFunction extends Function> = (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
 
     interface MethodDecoratorWithAccessor extends MethodDecorator, Accessor<MethodDecorator> { }
 
@@ -158,17 +156,13 @@ declare module "lodash-decorators" {
 
 declare module "lodash-decorators/extensions" {
     // Originally copied from ../node_modules/typescript/lib/lib.es6.d.ts
-    interface ClassDecorator {
-        <TFunction extends Function>(target: TFunction): TFunction | void;
-    }
+    type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
 
-    type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
+    type PropertyDecorator = (target: object, propertyKey: string | symbol) => void;
 
-    interface MethodDecorator {
-        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
-    }
+    type MethodDecorator = <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
 
-    type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
+    type ParameterDecorator = (target: object, propertyKey: string | symbol, parameterIndex: number) => void;
 
     interface DeprecatedDecorator extends MethodDecorator, ClassDecorator {
         methodAction(fn: Function & { name: string }): void;
@@ -201,17 +195,15 @@ declare module "lodash-decorators/extensions" {
 
 declare module "lodash-decorators/validate" {
     // Originally copied from ../node_modules/typescript/lib/lib.es6.d.ts
-    interface ClassDecorator {
-        <TFunction extends Function>(target: TFunction): TFunction | void;
-    }
+    type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
 
-    type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
+    type PropertyDecorator = (target: object, propertyKey: string | symbol) => void;
 
-    type MethodDecorator = <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
+    type MethodDecorator = <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
 
-    type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
+    type ParameterDecorator = (target: object, propertyKey: string | symbol, parameterIndex: number) => void;
 
-    type TypedMethodDecorator<TFunction extends Function> = (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
+    type TypedMethodDecorator<TFunction extends Function> = (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
 
     type Predicate<T> = (t: T) => boolean;
 
