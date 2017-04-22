@@ -1,6 +1,6 @@
-// Type definitions for lodash-decorators 1.0.5
+// Type definitions for lodash-decorators v3.0
 // Project: https://github.com/steelsojka/lodash-decorators
-// Definitions by: Qubo <https://github.com/tkqubo>
+// Definitions by: Alan Agius <https://github.com/alan-agius4>, Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -8,75 +8,86 @@
 
 declare module "lodash-decorators" {
     // Originally copied from ../node_modules/typescript/lib/lib.es6.d.ts
-    export interface ClassDecorator {
-        <TFunction extends Function>(target: TFunction): TFunction|void;
-    }
-    export interface PropertyDecorator {
-        (target: Object, propertyKey: string | symbol): void;
-    }
-    export interface MethodDecorator {
-        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
-    }
-    export interface ParameterDecorator {
-        (target: Object, propertyKey: string | symbol, parameterIndex: number): void;
-    }
 
-    export interface TypedMethodDecorator<TFunction extends Function> {
-        (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>): TypedPropertyDescriptor<TFunction> | void;
-    }
+    type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
 
-    export interface MethodDecoratorWithAccessor extends MethodDecorator, Accessor<MethodDecorator> {
-    }
+    type PropertyDecorator = (target: object, propertyKey: string | symbol) => void;
 
-    export interface Accessor<T> {
+    type MethodDecorator = <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
+
+    type ParameterDecorator = (target: object, propertyKey: string | symbol, parameterIndex: number) => void;
+
+    type TypedMethodDecorator<TFunction extends Function> = (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
+
+    interface MethodDecoratorWithAccessor extends MethodDecorator, Accessor<MethodDecorator> { }
+
+    interface Accessor<T> {
         set: T;
         get: T;
         proto: T;
     }
 
-    export interface DebounceDecorator {
+    interface DebounceDecorator {
         (wait: number, options?: _.DebounceSettings): MethodDecorator;
     }
-    export interface ThrottleDecorator {
+
+    interface ThrottleDecorator {
         (wait: number, options?: _.ThrottleSettings): MethodDecorator;
     }
-    export interface MemoizeDecorator {
+
+    interface MemoizeDecorator {
         (resolver?: Function): MethodDecorator;
     }
-    export interface AfterDecorator {
+
+    interface AfterDecorator {
         (n: number): MethodDecorator;
     }
-    export interface BeforeDecorator {
+
+    interface BeforeDecorator {
         (n: number): MethodDecorator;
     }
-    export interface AryDecorator {
+
+    interface AryDecorator {
         (n: number): MethodDecorator;
     }
-    export interface CurryDecorator {
+
+    interface CurryDecorator {
         (arity?: number): MethodDecorator;
     }
-    export interface CurryRightDecorator {
+
+    interface CurryRightDecorator {
         (arity?: number): MethodDecorator;
     }
-    export interface RestParamDecorator {
+
+    interface RestDecorator {
         (start?: number): MethodDecorator;
     }
-    export interface PartialDecorator {
-        (func: Function|string, ...args: any[]): MethodDecorator;
+
+    interface OverArgsDecorator {
+        (func: Function, ...transforms: Function[]): MethodDecorator;
     }
-    export interface WrapDecorator {
-        (wrapper: ((func: Function, ...args: any[]) => any)|string): MethodDecorator;
+
+    interface PartialDecorator {
+        (func: Function | string, ...args: any[]): MethodDecorator;
     }
-    export interface ComposeDecorator {
-        (...funcs: (Function|string)[]): MethodDecorator;
+
+    interface WrapDecorator {
+        (wrapper: ((func: Function, ...args: any[]) => any) | string): MethodDecorator;
     }
-    export interface DelayDecorator {
+
+    interface ComposeDecorator {
+        (...funcs: Array<(Function | string)>): MethodDecorator;
+    }
+
+    interface DelayDecorator {
         (wait: number, ...args: any[]): MethodDecorator;
     }
-    export interface DeferDecorator {
+
+    interface DeferDecorator {
         (...args: any[]): MethodDecorator;
     }
-    export interface BindDecorator {
+
+    interface BindDecorator {
         (): TypedMethodDecorator<(<R>() => R)>;
         <T1>(param1?: T1):
             TypedMethodDecorator<(<R>(param1: T1) => R)>;
@@ -91,161 +102,166 @@ declare module "lodash-decorators" {
         <T1, T2, T3, T4, T5, T6>(param1?: T1, param2?: T2, param3?: T3, param4?: T4, param5?: T5, param6?: T6):
             TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5, param6: T6) => R)>;
     }
-    export interface BindAllDecorator {
+
+    interface BindAllDecorator {
         (...methodNames: string[]): ClassDecorator;
     }
-    export interface ModArgsDecorator {
-        (...transforms: Function[]): MethodDecorator;
-    }
 
-    export const debounce: DebounceDecorator & Accessor<DebounceDecorator>;
-    export const Debounce: DebounceDecorator & Accessor<DebounceDecorator>;
+    const debounce: DebounceDecorator & Accessor<DebounceDecorator>;
+    const Debounce: DebounceDecorator & Accessor<DebounceDecorator>;
 
-    export const throttle: ThrottleDecorator & Accessor<ThrottleDecorator>;
-    export const Throttle: ThrottleDecorator & Accessor<ThrottleDecorator>;
+    const throttle: ThrottleDecorator & Accessor<ThrottleDecorator>;
+    const Throttle: ThrottleDecorator & Accessor<ThrottleDecorator>;
 
-    export const memoize: MemoizeDecorator & Accessor<MemoizeDecorator>;
-    export const Memoize: MemoizeDecorator & Accessor<MemoizeDecorator>;
+    const memoize: MemoizeDecorator & Accessor<MemoizeDecorator>;
+    const Memoize: MemoizeDecorator & Accessor<MemoizeDecorator>;
 
-    export const after: AfterDecorator & Accessor<AfterDecorator>;
-    export const After: AfterDecorator & Accessor<AfterDecorator>;
+    const after: AfterDecorator & Accessor<AfterDecorator>;
+    const After: AfterDecorator & Accessor<AfterDecorator>;
 
-    export const before: BeforeDecorator & Accessor<BeforeDecorator>;
-    export const Before: BeforeDecorator & Accessor<BeforeDecorator>;
+    const before: BeforeDecorator & Accessor<BeforeDecorator>;
+    const Before: BeforeDecorator & Accessor<BeforeDecorator>;
 
-    export const ary: AryDecorator & Accessor<AryDecorator>;
-    export const Ary: AryDecorator & Accessor<AryDecorator>;
+    const ary: AryDecorator & Accessor<AryDecorator>;
+    const Ary: AryDecorator & Accessor<AryDecorator>;
 
-    export const curry: CurryDecorator & Accessor<CurryDecorator>;
-    export const Curry: CurryDecorator & Accessor<CurryDecorator>;
+    const curry: CurryDecorator & Accessor<CurryDecorator>;
+    const Curry: CurryDecorator & Accessor<CurryDecorator>;
 
-    export const curryRight: CurryRightDecorator & Accessor<CurryRightDecorator>;
-    export const CurryRight: CurryRightDecorator & Accessor<CurryRightDecorator>;
+    const curryRight: CurryRightDecorator & Accessor<CurryRightDecorator>;
+    const CurryRight: CurryRightDecorator & Accessor<CurryRightDecorator>;
 
-    export const restParam: RestParamDecorator & Accessor<RestParamDecorator>;
-    export const RestParam: RestParamDecorator & Accessor<RestParamDecorator>;
+    const overArgs: OverArgsDecorator & Accessor<OverArgsDecorator>;
+    const OverArgs: OverArgsDecorator & Accessor<OverArgsDecorator>;
 
-    export const partial: PartialDecorator & Accessor<PartialDecorator>;
-    export const Partial: PartialDecorator & Accessor<PartialDecorator>;
+    const rest: RestDecorator & Accessor<RestDecorator>;
+    const Rest: RestDecorator & Accessor<RestDecorator>;
 
-    export const partialRight: PartialDecorator & Accessor<PartialDecorator>;
-    export const PartialRight: PartialDecorator & Accessor<PartialDecorator>;
+    const partial: PartialDecorator & Accessor<PartialDecorator>;
+    const Partial: PartialDecorator & Accessor<PartialDecorator>;
 
-    export const wrap: WrapDecorator & Accessor<WrapDecorator>;
-    export const Wrap: WrapDecorator & Accessor<WrapDecorator>;
+    const partialRight: PartialDecorator & Accessor<PartialDecorator>;
+    const PartialRight: PartialDecorator & Accessor<PartialDecorator>;
 
-    export const compose: ComposeDecorator & Accessor<ComposeDecorator>;
-    export const Compose: ComposeDecorator & Accessor<ComposeDecorator>;
+    const wrap: WrapDecorator & Accessor<WrapDecorator>;
+    const Wrap: WrapDecorator & Accessor<WrapDecorator>;
 
-    export const flow: ComposeDecorator & Accessor<ComposeDecorator>;
-    export const Flow: ComposeDecorator & Accessor<ComposeDecorator>;
+    const flow: ComposeDecorator & Accessor<ComposeDecorator>;
+    const Flow: ComposeDecorator & Accessor<ComposeDecorator>;
 
-    export const flowRight: ComposeDecorator & Accessor<ComposeDecorator>;
-    export const FlowRight: ComposeDecorator & Accessor<ComposeDecorator>;
+    const flowRight: ComposeDecorator & Accessor<ComposeDecorator>;
+    const FlowRight: ComposeDecorator & Accessor<ComposeDecorator>;
 
-    export const backflow: ComposeDecorator & Accessor<ComposeDecorator>;
-    export const Backflow: ComposeDecorator & Accessor<ComposeDecorator>;
+    const delay: DelayDecorator & Accessor<DelayDecorator>;
+    const Delay: DelayDecorator & Accessor<DelayDecorator>;
 
-    export const delay: DelayDecorator & Accessor<DelayDecorator>;
-    export const Delay: DelayDecorator & Accessor<DelayDecorator>;
+    const defer: DeferDecorator & Accessor<DeferDecorator>;
+    const Defer: DeferDecorator & Accessor<DeferDecorator>;
 
-    export const defer: DeferDecorator & Accessor<DeferDecorator>;
-    export const Defer: DeferDecorator & Accessor<DeferDecorator>;
+    const bind: BindDecorator & Accessor<BindDecorator>;
+    const Bind: BindDecorator & Accessor<BindDecorator>;
 
-    export const bind: BindDecorator & Accessor<BindDecorator>;
-    export const Bind: BindDecorator & Accessor<BindDecorator>;
+    const bindAll: BindAllDecorator;
+    const BindAll: BindAllDecorator;
 
-    export const bindAll: BindAllDecorator;
-    export const BindAll: BindAllDecorator;
+    const once: MethodDecoratorWithAccessor;
+    const Once: MethodDecoratorWithAccessor;
 
-    export const modArgs: ModArgsDecorator & Accessor<ModArgsDecorator>;
-    export const ModArgs: ModArgsDecorator & Accessor<ModArgsDecorator>;
+    const attempt: MethodDecoratorWithAccessor;
+    const Attempt: MethodDecoratorWithAccessor;
 
-    export const once: MethodDecoratorWithAccessor;
-    export const Once: MethodDecoratorWithAccessor;
+    const spread: MethodDecoratorWithAccessor;
+    const Spread: MethodDecoratorWithAccessor;
 
-    export const spread: MethodDecoratorWithAccessor;
-    export const Spread: MethodDecoratorWithAccessor;
+    const rearg: MethodDecoratorWithAccessor;
+    const Rearg: MethodDecoratorWithAccessor;
 
-    export const rearg: MethodDecoratorWithAccessor;
-    export const Rearg: MethodDecoratorWithAccessor;
+    const negate: MethodDecoratorWithAccessor;
+    const Negate: MethodDecoratorWithAccessor;
 
-    export const negate: MethodDecoratorWithAccessor;
-    export const Negate: MethodDecoratorWithAccessor;
+    const tap: MethodDecoratorWithAccessor;
+    const Tap: MethodDecoratorWithAccessor;
 
-    export const tap: MethodDecoratorWithAccessor;
-    export const Tap: MethodDecoratorWithAccessor;
+    const flip: MethodDecoratorWithAccessor;
+    const Flip: MethodDecoratorWithAccessor;
 }
 
 declare module "lodash-decorators/extensions" {
     // Originally copied from ../node_modules/typescript/lib/lib.es6.d.ts
-    export interface ClassDecorator {
-        <TFunction extends Function>(target: TFunction): TFunction|void;
-    }
-    export interface PropertyDecorator {
-        (target: Object, propertyKey: string | symbol): void;
-    }
-    export interface MethodDecorator {
-        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
-    }
-    export interface ParameterDecorator {
-        (target: Object, propertyKey: string | symbol, parameterIndex: number): void;
+    interface ClassDecorator {
+        <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
-    export interface DeprecatedDecorator extends MethodDecorator, ClassDecorator {
+    interface PropertyDecorator {
+        (target: object, propertyKey: string | symbol): void;
+    }
+
+    interface MethodDecorator {
+        <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
+    }
+
+    interface ParameterDecorator {
+        (target: object, propertyKey: string | symbol, parameterIndex: number): void;
+    }
+
+    interface DeprecatedDecorator extends MethodDecorator, ClassDecorator {
         methodAction(fn: Function & { name: string }): void;
     }
 
-    export const deprecated: DeprecatedDecorator;
-    export const Deprecated: DeprecatedDecorator;
+    const deprecated: DeprecatedDecorator;
+    const Deprecated: DeprecatedDecorator;
 
-    export const writable: (writable?: boolean) => MethodDecorator;
-    export const Writable: (writable?: boolean) => MethodDecorator;
+    function writable(writable?: boolean): MethodDecorator;
+    function Writable(writable?: boolean): MethodDecorator;
 
-    export const configurable: (configurable?: boolean) => MethodDecorator;
-    export const Configurable: (configurable?: boolean) => MethodDecorator;
+    function configurable(configurable?: boolean): MethodDecorator;
+    function Configurable(configurable?: boolean): MethodDecorator;
 
-    export const returnsArg: (index?: number) => MethodDecorator;
-    export const ReturnsArg: (index?: number) => MethodDecorator;
+    function returnsArg(index?: number): MethodDecorator;
+    function ReturnsArg(index?: number): MethodDecorator;
 
-    export const enumerable: (enumerable?: boolean) => MethodDecorator;
-    export const Enumerable: (enumerable?: boolean) => MethodDecorator;
+    function enumerable(enumerable?: boolean): MethodDecorator;
+    function Enumerable(enumerable?: boolean): MethodDecorator;
 
-    export const nonenumerable: MethodDecorator;
-    export const Nonenumerable: MethodDecorator;
+    const nonenumerable: MethodDecorator;
+    const Nonenumerable: MethodDecorator;
 
-    export const nonconfigurable: MethodDecorator;
-    export const Nonconfigurable: MethodDecorator;
+    const nonconfigurable: MethodDecorator;
+    const Nonconfigurable: MethodDecorator;
 
-    export const readonly: MethodDecorator;
-    export const Readonly: MethodDecorator;
+    const readonly: MethodDecorator;
+    const Readonly: MethodDecorator;
 }
 
 declare module "lodash-decorators/validate" {
     // Originally copied from ../node_modules/typescript/lib/lib.es6.d.ts
-    export interface ClassDecorator {
-        <TFunction extends Function>(target: TFunction): TFunction|void;
-    }
-    export interface PropertyDecorator {
-        (target: Object, propertyKey: string | symbol): void;
-    }
-    export interface MethodDecorator {
-        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
-    }
-    export interface ParameterDecorator {
-        (target: Object, propertyKey: string | symbol, parameterIndex: number): void;
+    interface ClassDecorator {
+        <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
-    export interface TypedMethodDecorator<TFunction extends Function> {
-        (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>): TypedPropertyDescriptor<TFunction> | void;
+    interface PropertyDecorator {
+        (target: object, propertyKey: string | symbol): void;
     }
 
-    export interface Predicate<T> {
+    interface MethodDecorator {
+        <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
+    }
+
+    interface ParameterDecorator {
+        (target: object, propertyKey: string | symbol, parameterIndex: number): void;
+    }
+
+    interface TypedMethodDecorator<TFunction extends Function> {
+        (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>): TypedPropertyDescriptor<TFunction> | void;
+    }
+
+    interface Predicate<T> {
         (t: T): boolean;
     }
-    type Predicates<T> = Predicate<T>|Predicate<T>[];
 
-    export interface ValidateDecorator {
+    type Predicates<T> = Predicate<T> | Array<Predicate<T>>;
+
+    interface ValidateDecorator {
         <T1>(p1: Predicates<T1>):
             TypedMethodDecorator<(<R>(param1: T1) => R)>;
         <T1, T2>(p1: Predicates<T1>, p2?: Predicates<T2>):
@@ -260,13 +276,13 @@ declare module "lodash-decorators/validate" {
             TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5, param6: T6) => R)>;
     }
 
-    export interface ValidateReturnDecorator {
+    interface ValidateReturnDecorator {
         <R>(p1: Predicates<R>): TypedMethodDecorator<((...args: any[]) => R)>;
     }
 
-    export const validate: ValidateDecorator;
-    export const Validate: ValidateDecorator;
+    const validate: ValidateDecorator;
+    const Validate: ValidateDecorator;
 
-    export const validateReturn: ValidateReturnDecorator;
-    export const ValidateReturn: ValidateReturnDecorator;
+    const validateReturn: ValidateReturnDecorator;
+    const ValidateReturn: ValidateReturnDecorator;
 }
