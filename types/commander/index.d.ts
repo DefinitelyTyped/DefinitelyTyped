@@ -275,7 +275,7 @@ declare namespace commander {
         help(): void;
     }
 
-    interface StaticCommander {
+    interface StaticCommander extends commander.Command {
         new (name?: string): Command;
         Option: commander.Option;
         Command: commander.Command
