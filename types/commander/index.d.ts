@@ -275,14 +275,15 @@ declare namespace commander {
         help(): void;
     }
 
-    interface ExportedCommander extends commander.Command {
+    interface StaticCommander {
         new (name?: string): Command;
         Option: commander.Option;
+        Command: commander.Command
         ParseOptionsResult: commander.ParseOptionsResult;
         CommandOptions: commander.CommandOptions;
         [key: string]: any;
     }
 }
 
-declare const commander: commander.ExportedCommander;
+declare const commander: commander.StaticCommander;
 export = commander;
