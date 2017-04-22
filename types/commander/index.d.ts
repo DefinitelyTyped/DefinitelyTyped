@@ -6,7 +6,6 @@
 /// <reference types="node" />
 
 declare namespace commander {
-
     interface CommandOptions {
         noHelp?: boolean;
         isDefault?: boolean;
@@ -17,7 +16,7 @@ declare namespace commander {
         unknown: string[];
     }
 
-    class Option {
+    interface Option {
         flags: string;
         required: boolean;
         optional: boolean;
@@ -32,10 +31,10 @@ declare namespace commander {
          * @param {string} flags
          * @param {string} [description]
          */
-        constructor(flags: string, description?: string);
+        new (flags: string, description?: string): Option;
     }
 
-    class Command extends NodeJS.EventEmitter {
+    interface Command extends NodeJS.EventEmitter {
         args: string[];
 
         /**
@@ -43,7 +42,7 @@ declare namespace commander {
          *
          * @param {string} [name]
          */
-        constructor(name?: string);
+        new (name?: string): Command;
 
         /**
          * Set the program version to `str`.
@@ -118,7 +117,6 @@ declare namespace commander {
          */
         command(name: string, desc?: string, opts?: CommandOptions): Command;
 
-
         /**
          * Define argument syntax for the top-level command.
          *
@@ -149,7 +147,7 @@ declare namespace commander {
          *
          * @param {(...args: any[]) => void} fn
          * @returns {Command} for chaining
-        */
+         */
         action(fn: (...args: any[]) => void): Command;
 
         /**
@@ -164,7 +162,7 @@ declare namespace commander {
          *    "-p|--pepper"
          *    "-p --pepper"
          *
-         *@example
+         * @example
          *     // simple boolean defaulting to false
          *     program.option('-p, --pepper', 'add pepper');
          *
@@ -278,5 +276,5 @@ declare namespace commander {
     }
 }
 
-declare var command: commander.Command & commander.Option & { [key: string]: any };
-export = command;
+declare const commander: commander.ParseOptionsResult & commander.CommandOptions & commander.Command & commander.Option & { [key: string]: any };
+export = commander;
