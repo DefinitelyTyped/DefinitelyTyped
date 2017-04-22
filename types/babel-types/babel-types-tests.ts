@@ -24,3 +24,5 @@ if (t.isBinaryExpression(ast)) {
 }
 t.assertBinaryExpression(ast);
 t.assertBinaryExpression(ast, { operator: "*" });
+
+var exp: t.Expression = t.nullLiteral();
