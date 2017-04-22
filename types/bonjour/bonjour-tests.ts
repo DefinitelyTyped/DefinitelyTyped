@@ -9,11 +9,11 @@ let service: bonjour.Service;
 let browserOptions: bonjour.BrowserOptions;
 let browser: bonjour.Browser;
 
-bonjourOptions = { interface: '192.168.0.80', port: 5353 };
+bonjourOptions = {};
 bonjourInstance = bonjour(bonjourOptions);
 
-serviceOptions = { name: 'My Web Server', type: 'http', port: 3000 };
+serviceOptions = { name: 'ich-investor-nicolas', type: 'http', port: 3001 };
 service = bonjourInstance.publish(serviceOptions);
 
-browserOptions = { protocol: 'tcp', type: 'http' };
-browser = bonjourInstance.find(browserOptions);
+// browserOptions = { protocol: 'tcp', type: 'http' };
+// browser = bonjourInstance.find(browserOptions);
