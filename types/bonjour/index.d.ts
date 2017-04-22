@@ -78,7 +78,7 @@ declare namespace bonjour {
         publish(options: ServiceOptions): Service;
         unpublishAll(cb?: () => void): void;
         find(options: BrowserOptions, onUp?: (service: Service) => void): Browser;
-        findOne(options: BonjourOptions, cb?: (service: Service) => void): Browser;
+        findOne(options: BrowserOptions, cb?: (service: Service) => void): Browser;
         destroy(): void;
     }
 
