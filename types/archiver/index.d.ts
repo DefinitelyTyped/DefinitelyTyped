@@ -25,7 +25,7 @@ declare namespace archiver {
 
     function create(format: string, options?: ArchiverOptions): Archiver;
     function registerFormat(format: string, module: Function): void;
-  
+
     interface EntryData {
         name?: string;
         prefix?: string;
@@ -45,10 +45,10 @@ declare namespace archiver {
         finalize(): this;
 
         pipe(stream: fs.WriteStream | express.Response): void;
-  
+
         setFormat(format: string): this;
         setModule(module: Function): this;
-  
+
         pointer(): number;
         use(plugin: Function): this;
     }
