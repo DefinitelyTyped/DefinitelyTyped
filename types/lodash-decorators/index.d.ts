@@ -1,8 +1,7 @@
-// Type definitions for lodash-decorators v3.0
+// Type definitions for lodash-decorators 3.0
 // Project: https://github.com/steelsojka/lodash-decorators
 // Definitions by: Alan Agius <https://github.com/alan-agius4>, Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="lodash" />
 
@@ -11,13 +10,15 @@ declare module "lodash-decorators" {
 
     type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
 
-    type PropertyDecorator = (target: object, propertyKey: string | symbol) => void;
+    type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
 
-    type MethodDecorator = <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
+    interface MethodDecorator {
+        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
+    }
 
-    type ParameterDecorator = (target: object, propertyKey: string | symbol, parameterIndex: number) => void;
+    type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
 
-    type TypedMethodDecorator<TFunction extends Function> = (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
+    type TypedMethodDecorator<TFunction extends Function> = (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
 
     interface MethodDecoratorWithAccessor extends MethodDecorator, Accessor<MethodDecorator> { }
 
@@ -27,65 +28,35 @@ declare module "lodash-decorators" {
         proto: T;
     }
 
-    interface DebounceDecorator {
-        (wait: number, options?: _.DebounceSettings): MethodDecorator;
-    }
+    type DebounceDecorator = (wait: number, options?: _.DebounceSettings) => MethodDecorator;
 
-    interface ThrottleDecorator {
-        (wait: number, options?: _.ThrottleSettings): MethodDecorator;
-    }
+    type ThrottleDecorator = (wait: number, options?: _.ThrottleSettings) => MethodDecorator;
 
-    interface MemoizeDecorator {
-        (resolver?: Function): MethodDecorator;
-    }
+    type MemoizeDecorator = (resolver?: Function) => MethodDecorator;
 
-    interface AfterDecorator {
-        (n: number): MethodDecorator;
-    }
+    type AfterDecorator = (n: number) => MethodDecorator;
 
-    interface BeforeDecorator {
-        (n: number): MethodDecorator;
-    }
+    type BeforeDecorator = (n: number) => MethodDecorator;
 
-    interface AryDecorator {
-        (n: number): MethodDecorator;
-    }
+    type AryDecorator = (n: number) => MethodDecorator;
 
-    interface CurryDecorator {
-        (arity?: number): MethodDecorator;
-    }
+    type CurryDecorator = (arity?: number) => MethodDecorator;
 
-    interface CurryRightDecorator {
-        (arity?: number): MethodDecorator;
-    }
+    type CurryRightDecorator = (arity?: number) => MethodDecorator;
 
-    interface RestDecorator {
-        (start?: number): MethodDecorator;
-    }
+    type RestDecorator = (start?: number) => MethodDecorator;
 
-    interface OverArgsDecorator {
-        (func: Function, ...transforms: Function[]): MethodDecorator;
-    }
+    type OverArgsDecorator = (func: Function, ...transforms: Function[]) => MethodDecorator;
 
-    interface PartialDecorator {
-        (func: Function | string, ...args: any[]): MethodDecorator;
-    }
+    type PartialDecorator = (func: Function | string, ...args: any[]) => MethodDecorator;
 
-    interface WrapDecorator {
-        (wrapper: ((func: Function, ...args: any[]) => any) | string): MethodDecorator;
-    }
+    type WrapDecorator = (wrapper: ((func: Function, ...args: any[]) => any) | string) => MethodDecorator;
 
-    interface ComposeDecorator {
-        (...funcs: Array<(Function | string)>): MethodDecorator;
-    }
+    type ComposeDecorator = (...funcs: Array<(Function | string)>) => MethodDecorator;
 
-    interface DelayDecorator {
-        (wait: number, ...args: any[]): MethodDecorator;
-    }
+    type DelayDecorator = (wait: number, ...args: any[]) => MethodDecorator;
 
-    interface DeferDecorator {
-        (...args: any[]): MethodDecorator;
-    }
+    type DeferDecorator = (...args: any[]) => MethodDecorator;
 
     interface BindDecorator {
         (): TypedMethodDecorator<(<R>() => R)>;
@@ -103,9 +74,7 @@ declare module "lodash-decorators" {
             TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5, param6: T6) => R)>;
     }
 
-    interface BindAllDecorator {
-        (...methodNames: string[]): ClassDecorator;
-    }
+    type BindAllDecorator = (...methodNames: string[]) => ClassDecorator;
 
     const debounce: DebounceDecorator & Accessor<DebounceDecorator>;
     const Debounce: DebounceDecorator & Accessor<DebounceDecorator>;
@@ -192,17 +161,13 @@ declare module "lodash-decorators/extensions" {
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
-    interface PropertyDecorator {
-        (target: object, propertyKey: string | symbol): void;
-    }
+    type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
 
     interface MethodDecorator {
-        <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
+        <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
     }
 
-    interface ParameterDecorator {
-        (target: object, propertyKey: string | symbol, parameterIndex: number): void;
-    }
+    type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
 
     interface DeprecatedDecorator extends MethodDecorator, ClassDecorator {
         methodAction(fn: Function & { name: string }): void;
@@ -239,25 +204,15 @@ declare module "lodash-decorators/validate" {
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
-    interface PropertyDecorator {
-        (target: object, propertyKey: string | symbol): void;
-    }
+    type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
 
-    interface MethodDecorator {
-        <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
-    }
+    type MethodDecorator = <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
 
-    interface ParameterDecorator {
-        (target: object, propertyKey: string | symbol, parameterIndex: number): void;
-    }
+    type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
 
-    interface TypedMethodDecorator<TFunction extends Function> {
-        (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>): TypedPropertyDescriptor<TFunction> | void;
-    }
+    type TypedMethodDecorator<TFunction extends Function> = (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<TFunction>) => TypedPropertyDescriptor<TFunction> | void;
 
-    interface Predicate<T> {
-        (t: T): boolean;
-    }
+    type Predicate<T> = (t: T) => boolean;
 
     type Predicates<T> = Predicate<T> | Array<Predicate<T>>;
 
@@ -276,9 +231,7 @@ declare module "lodash-decorators/validate" {
             TypedMethodDecorator<(<R>(param1: T1, param2: T2, param3: T3, param4: T4, param5: T5, param6: T6) => R)>;
     }
 
-    interface ValidateReturnDecorator {
-        <R>(p1: Predicates<R>): TypedMethodDecorator<((...args: any[]) => R)>;
-    }
+    type ValidateReturnDecorator = <R>(p1: Predicates<R>) => TypedMethodDecorator<((...args: any[]) => R)>;
 
     const validate: ValidateDecorator;
     const Validate: ValidateDecorator;
