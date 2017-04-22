@@ -29,7 +29,8 @@ interface Batch {
     keyEncoding?: Encoding;
     valueEncoding?: Encoding;
 }
-interface LevelUp {
+
+interface LevelUpBase<BatchType extends Batch> {
     open(callback ?: (error : any) => any): void;
     close(callback ?: (error : any) => any): void;
     put(key: any, value: any, callback ?: (error: any) => any): void;
@@ -41,8 +42,8 @@ interface LevelUp {
     del(key: any, options ?: { keyEncoding?: Encoding; sync?: boolean }, callback ?: (error: any) => any): void;
 
 
-    batch(array: Batch[], options?: { keyEncoding?: Encoding; valueEncoding?: Encoding; sync?: boolean }, callback?: (error?: any)=>any): void;
-    batch(array: Batch[], callback?: (error?: any)=>any): void;
+    batch(array: BatchType[], options?: { keyEncoding?: Encoding; valueEncoding?: Encoding; sync?: boolean }, callback?: (error?: any)=>any): void;
+    batch(array: BatchType[], callback?: (error?: any)=>any): void;
     batch():LevelUpChain;
     isOpen():boolean;
     isClosed():boolean;
@@ -53,6 +54,8 @@ interface LevelUp {
     destroy(location: string, callback?: Function): void;
     repair(location: string, callback?: Function): void;
 }
+
+type LevelUp = LevelUpBase<Batch>
 
 interface LevelUpChain {
     put(key: any, value: any): LevelUpChain;
