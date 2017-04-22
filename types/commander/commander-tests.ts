@@ -4,7 +4,7 @@ interface ExtendedOptions extends program.CommandOptions {
     isNew: any;
 }
 
-const programInstance = new program.Command();
+const programInstance = new program("hello");
 
 program
     .version('0.0.1')

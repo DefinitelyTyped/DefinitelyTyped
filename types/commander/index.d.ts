@@ -42,7 +42,7 @@ declare namespace commander {
          *
          * @param {string} [name]
          */
-        new (name?: string): Command;
+        (name?: string): Command;
 
         /**
          * Set the program version to `str`.
@@ -274,7 +274,15 @@ declare namespace commander {
         /** Output help information and exit. */
         help(): void;
     }
+
+    interface ExportedCommander extends commander.Command {
+        new (name?: string): Command;
+        Option: commander.Option;
+        ParseOptionsResult: commander.ParseOptionsResult;
+        CommandOptions: commander.CommandOptions;
+        [key: string]: any;
+    }
 }
 
-declare const commander: commander.ParseOptionsResult & commander.CommandOptions & commander.Command & commander.Option & { [key: string]: any };
+declare const commander: commander.ExportedCommander;
 export = commander;
