@@ -171,6 +171,11 @@ declare namespace gapi.auth2 {
     getAuthResponse(includeAuthorizationData?: boolean): AuthResponse;
 
     /**
+     * Forces a refresh of the access token, and then returns a Promise for the new AuthResponse.
+     */
+    reloadAuthResponse(): Promise<AuthResponse>;
+    
+    /**
      * Returns true if the user granted the specified scopes.
      */
     hasGrantedScopes(scopes: string): boolean;
