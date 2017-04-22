@@ -4,6 +4,8 @@ interface ExtendedOptions extends program.CommandOptions {
     isNew: any;
 }
 
+const programInstance = new program();
+
 program
     .version('0.0.1')
     .option('-p, --peppers', 'Add peppers')

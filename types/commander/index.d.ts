@@ -31,7 +31,7 @@ declare namespace commander {
          * @param {string} flags
          * @param {string} [description]
          */
-        new (flags: string, description?: string): Option;
+        (flags: string, description?: string): Option;
     }
 
     interface Command extends NodeJS.EventEmitter {
