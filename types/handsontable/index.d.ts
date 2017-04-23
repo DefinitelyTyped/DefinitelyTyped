@@ -79,7 +79,7 @@ declare namespace __Handsontable {
         selectCellByProp(row: number, prop: string, endRow?: number, endProp?: string, scrollToCell?: boolean): boolean;
         setCellMeta(row: number, col: number, key: string, val: string): void;
         setCellMetaObject(row: number, col: number, prop: Object): void;
-        setDataAtCell(row: number|any[], col: number, value: string, source?: string): void;
+        setDataAtCell(row: number, col: number, value: string, source?: string): void;
         setDataAtCell(changes: [number, number, any][]): void;
         setDataAtRowProp(row: number|any[], prop: string, value: string, source?: string): void;
         spliceCol(col: number, index: number, amount: number, elements?: any): void;
