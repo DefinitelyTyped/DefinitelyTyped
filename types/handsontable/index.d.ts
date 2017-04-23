@@ -1,4 +1,4 @@
-// Type definitions for Handsontable 0.31.2
+// Type definitions for Handsontable 0.31
 // Project: https://handsontable.com/
 // Definitions by: Handsoncode sp. z o.o. <http://handsoncode.net/>, Ryan Riley <https://github.com/panesofglass>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped\
@@ -80,7 +80,7 @@ declare namespace __Handsontable {
         setCellMeta(row: number, col: number, key: string, val: string): void;
         setCellMetaObject(row: number, col: number, prop: Object): void;
         setDataAtCell(row: number, col: number, value: string, source?: string): void;
-        setDataAtCell(changes: [number, number, any][]): void;
+        setDataAtCell(changes: Array<[number, number, any]>): void;
         setDataAtRowProp(row: number|any[], prop: string, value: string, source?: string): void;
         spliceCol(col: number, index: number, amount: number, elements?: any): void;
         spliceRow(row: number, index: number, amount: number, elements?: any): void;
