@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 ///<reference types="node" />
 
-declare module 'bonjour' {
-    var bjr: bonjour.Bonjour;
-    export = bjr;
-}
+declare function bonjour(opts?: bonjour.BonjourOptions): bonjour.Bonjour;
+export = bonjour;
 declare namespace bonjour {
     /**
      * Start a browser
@@ -81,5 +79,4 @@ declare namespace bonjour {
         findOne(options: BrowserOptions, cb?: (service: Service) => void): Browser;
         destroy(): void;
     }
-
 }
