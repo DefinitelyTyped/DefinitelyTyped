@@ -1,0 +1,104 @@
+/// <reference types="jasmine" />
+
+describe("Testing react-ga initialize object", () => {
+    it("Able to initialize react-ga object", () => {
+        let ga = __reactGA;
+        ga.initialize("UA-65432-1");
+    });
+    it("Able to initailize react-ga object", () => {
+        let ga = __reactGA;
+
+        let options: __reactGA.InitializeOptions = {
+            debug: true,
+        }
+
+        ga.initialize("UA-65432-1", options);
+    });
+});
+
+describe("Testing react-ga pageview calls", () => {
+    it("Able to make pageview calls", () => {
+        let ga = __reactGA;
+        ga.initialize("UA-65432-1");
+
+        ga.pageview("http://telshin.com");
+    });
+});
+
+describe("Testing react-ga modal calls", () => {
+    it("Able to make modal calls", () => {
+        let ga = __reactGA;
+        ga.initialize("UA-65432-1");
+
+        ga.modalview("Test modal");
+    });
+});
+
+describe("Testing react-ga event calls", () => {
+    it("Able to make event calls", () => {
+        let ga = __reactGA;
+        ga.initialize("UA-65432-1");
+
+        let options: __reactGA.EventArgs = {
+            category: "Test",
+            action: "CI",
+            label: "Running Jasmine tests for react-ga typscript library",
+            value: 4,
+            nonInteraction: true,
+        }
+
+        ga.event(options);
+    });
+});
+
+describe("Testing react-ga set calls", () => {
+    it("Able to make set calls", () => {
+        let ga = __reactGA;
+        ga.initialize("UA-65432-1");
+
+        let fieldObject: __reactGA.FieldsObject = {
+            page: '/users'
+        };
+
+        ga.set(fieldObject);
+    });
+});
+
+describe("Testing react-ga v2.1.2", () => {
+    it("Able to make ga calls", () => {
+        const gaObject: Function = __reactGA.ga();
+    });
+    it("Able to make send calls", () => {
+        let fieldObject: __reactGA.FieldsObject = {
+            page: '/users'
+        };
+
+        __reactGA.send(fieldObject);
+    });
+    it("Able to make timing calls", () => {
+        __reactGA.timing({
+            category: 'string',
+            variable: 'string',
+            value: 1,
+            label: 'string'
+        })
+    });
+    it("Able to make exception calls", () => {
+        let fieldObject: __reactGA.FieldsObject = {
+            page: '/users'
+        };
+        __reactGA.exception(fieldObject);
+    });
+    it("Able to make plugin object calls", () => {
+        const execute = __reactGA.plugin.execute;
+        const require = __reactGA.plugin.require;
+        const payload = {};
+
+        execute('name', 'action', payload);
+        execute('name', 'action', 'type', payload);
+        require('name', {});
+    });
+    it("Able to make outboundLink calls", () => {
+        __reactGA.outboundLink({label: 'string'}, () => {});
+    });
+});
