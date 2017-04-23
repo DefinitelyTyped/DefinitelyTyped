@@ -16,7 +16,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "jquery.growl-tests.ts"
+        "index.d.ts"
     ]
 }
