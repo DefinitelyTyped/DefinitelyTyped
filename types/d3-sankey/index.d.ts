@@ -26,12 +26,12 @@ export interface SankeyExtraProperties { [key: string]: any; }
  */
 export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
-     * Array of links which have this node as source.
+     * Array of links which have this node as their source.
      * This property is calculated internally by the Sankey layout generator.
      */
     sourceLinks?: Array<SankeyLink<N, L>>;
     /**
-     * Array of links which have this node as target.
+     * Array of links which have this node as their target.
      * This property is calculated internally by the Sankey layout generator.
      */
     targetLinks?: Array<SankeyLink<N, L>>;
@@ -101,7 +101,7 @@ export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends Sa
      */
     value: number;
     /**
-     * Link width calculated by Sankey layout generator
+     * Link breadth calculated by Sankey layout generator based on the link value
      */
     dy?: number;
     /**
@@ -166,7 +166,7 @@ export interface SankeyLinkPathGenerator<N extends SankeyExtraProperties, L exte
  */
 export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyExtraProperties> {
     /**
-     * Return the current width of a node in pixels, which defaults to 24.
+     * Return the current node width, which defaults to 24.
      */
     nodeWidth(): number;
     /**
@@ -177,7 +177,7 @@ export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyE
     nodeWidth(width: number): this;
 
     /**
-     * Return the current node padding in pixels, which defaults to 8.
+     * Return the current node padding, which defaults to 8.
      *
      * Node padding refers to the vertical space between nodes which occupy the same horizontal space.
      */
@@ -192,54 +192,56 @@ export interface SankeyLayout<N extends SankeyExtraProperties, L extends SankeyE
     nodePadding(padding: number): this;
 
     /**
-     * Return the current array of nodes.
+     * Return the current array of nodes, which defaults to [].
      */
     nodes(): Array<SankeyNode<N, L>>;
     /**
-     * Set the array of nodes to be used for the Sankey layout and return this Sankey layout generator.
+     * Set the sankey generator's nodes to the specified array of objects and returns this sankey layout generator.
      *
      * @param nodes Array of nodes.
      */
     nodes(nodes: Array<SankeyNode<N, L>>): this;
 
     /**
-     * Return the current array of links.
+     * Return the current array of links, which defaults to [].
      */
     links(): Array<SankeyLink<N, L>>;
     /**
-     * Set the array of links to be used for the Sankey layout and return this Sankey layout generator.
+     * Set the sankey generator's links to the specified array of objects and returns this sankey layout generator.
      *
      * @param links Array of links.
      */
     links(links: Array<SankeyLink<N, L>>): this;
 
     /**
-     * Calculate the Sankey layout.
+     * Runs the sankey layout algorithm updating the nodes and links with their respective layout information and returns this sankey generator.
      *
-     * @param iterations Number of iterations to run the iterative relaxation algorithm for node placement.
+     * @param iterations Number of passes to be used in the iterative relaxation algorithm for node placement.
      */
     layout(iterations: number): this;
 
     /**
      * Recalculate the depth of links and return this Sankey layout generator.
-     * Primarily used when a node is moved vertically.
+     * This methods is primarily used when a node is moved vertically, e.g. using d3-drag.
      */
     relayout(): this;
 
     /**
-     * Get the current size of the layout in pixels. The size is a two element array of [width, height] which defaults to [1, 1].
+     * Return the current layout size in pixels. The size is a two element array of [width, height] which defaults to [1, 1].
      */
     size(): [number, number];
     /**
-     * Set the size of the layout in pixels and return this Sankey layout generator.
+     * Set the size of the layout and return this Sankey layout generator.
      *
      * @param size A two element array of [width, height] in pixels which defaults to [1, 1].
      */
     size(size: [number, number]): this;
 
     /**
-     * Obtain an svg path generator for the links of the calculated Sankey diagram layout.
-     * By default the path  generator uses a curvature of 0.5.
+     * Return a Sankey link path generator for the links based on the calculated Sankey diagram layout.
+     * The link path generator can be invoked as a function being passed as its argument a link object
+     * with calculated layout information. It returns the computed <svg> path string for the link.
+     * By default the link path generator uses a curvature of 0.5.
      */
     link(): SankeyLinkPathGenerator<N, L>;
 }
