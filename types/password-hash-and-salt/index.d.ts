@@ -8,6 +8,7 @@ interface Password {
     verifyAgainst(hash: string, cb: (error: string, verified: boolean) => void): void;
 }
 
-declare const password: (password: string) => Password;
+declare function password(password: string): Password;
 
-export = password;
+declare const _: typeof password;
+export = _;
