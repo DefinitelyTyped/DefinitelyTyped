@@ -1,4 +1,4 @@
-// Type definitions for Handsontable 0.31
+// Type definitions for Handsontable 0.31.2
 // Project: https://handsontable.com/
 // Definitions by: Handsoncode sp. z o.o. <http://handsoncode.net/>, Ryan Riley <https://github.com/panesofglass>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped\
@@ -80,6 +80,7 @@ declare namespace __Handsontable {
         setCellMeta(row: number, col: number, key: string, val: string): void;
         setCellMetaObject(row: number, col: number, prop: Object): void;
         setDataAtCell(row: number|any[], col: number, value: string, source?: string): void;
+        setDataAtCell(changes: [number, number, any][]): void;
         setDataAtRowProp(row: number|any[], prop: string, value: string, source?: string): void;
         spliceCol(col: number, index: number, amount: number, elements?: any): void;
         spliceRow(row: number, index: number, amount: number, elements?: any): void;
@@ -218,7 +219,7 @@ declare namespace Handsontable {
         // hooks
         afterAutofillApplyValues?(startArea: any[], entireArea: any[]): void;
         afterCellMetaReset?(): void;
-        afterChange?(changes: any[], source: string): void;
+        afterChange?(changes: [number, number, string, any][], source: string): void;
         afterChangesObserved?(): void;
         afterColumnMove?(startColumn: number, endColumn: number): void;
         afterColumnResize?(currentColumn: number, newSize: number, isDoubleClick: boolean): void;
@@ -241,6 +242,7 @@ declare namespace Handsontable {
         afterInit?(): void;
         afterLoadData?(firstTime: boolean): void;
         afterMomentumScroll?(): void;
+        afterOnCellCornerDblClick?(event: Object): void;
         afterOnCellCornerMouseDown?(event: Object): void;
         afterOnCellMouseDown?(event: Object, coords: Object, TD: Element): void;
         afterOnCellMouseOver?(event: Object, coords: Object, TD: Element): void;
@@ -412,6 +414,7 @@ declare namespace Handsontable {
         getWindowScrollTop(): number;
         outerHeight(element: HTMLElement): number;
         hasClass(element: HTMLElement, className: string): boolean | undefined;
+        empty(element: HTMLElement): void;
     }
 
     interface ArrayMapper {
