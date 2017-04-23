@@ -219,7 +219,7 @@ declare namespace Handsontable {
         // hooks
         afterAutofillApplyValues?(startArea: any[], entireArea: any[]): void;
         afterCellMetaReset?(): void;
-        afterChange?(changes: [number, number, string, any][], source: string): void;
+        afterChange?(changes: [number, number, any, any][], source?: string): void;
         afterChangesObserved?(): void;
         afterColumnMove?(startColumn: number, endColumn: number): void;
         afterColumnResize?(currentColumn: number, newSize: number, isDoubleClick: boolean): void;
