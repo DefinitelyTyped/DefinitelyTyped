@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "detect-hover": "^1.0.1",
+        "detect-passive-events": "^1.0.2",
+        "detect-pointer": "^1.0.1",
+        "detect-touch-events": "^1.0.1"
+    }
+}
