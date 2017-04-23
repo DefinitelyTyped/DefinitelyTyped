@@ -10,7 +10,7 @@
  * @param service The string service name.
  * @param account The string account name.
  *
- * @returns Promise, which on success yields the password string or error string on failures.
+ * @returns A promise for the password string.
  */
 export declare function getPassword(service: string, account: string): Promise<string>;
 
@@ -21,9 +21,9 @@ export declare function getPassword(service: string, account: string): Promise<s
  * @param account The string account name.
  * @param password The string password.
  *
- * @returns Promise, which on success yields empty string or error string on failure.
+ * @returns A promise for the set password completion.
  */
-export declare function setPassword(service: string, account: string, password: string): Promise<string>;
+export declare function setPassword(service: string, account: string, password: string): Promise<void>;
 
 /**
  * Delete the stored password for the service and account.
@@ -31,15 +31,15 @@ export declare function setPassword(service: string, account: string, password: 
  * @param service The string service name.
  * @param account The string account name.
  *
- * @returns Promise, which on success yields empty string or error string on failure
+ * @returns A promise for the deletion status. True on success.
  */
-export declare function deletePassword(service: string, account: string): Promise<string>;
+export declare function deletePassword(service: string, account: string): Promise<boolean>;
 
 /**
  * Find a password for the service in the keychain.
  *
  * @param service The string service name.
  *
- * @returns Promise, which on success yields the password string or error string on failure.
+ * @returns A promise for the password string.
  */
 export declare function findPassword(service: string): Promise<string>;
