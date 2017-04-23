@@ -79,18 +79,16 @@ declare namespace ReactGridLayout {
 
     type Layouts = {
         [P in Breakpoints]: Layout;
-    }
+    };
 
-    interface ItemCallback {
-        (
-            layout: Layout[],
-            oldItem: Layout,
-            newItem: Layout,
-            placeholder: Layout,
-            event: MouseEvent,
-            element: HTMLElement
-        ): void;
-    }
+    type ItemCallback = (
+        layout: Layout[],
+        oldItem: Layout,
+        newItem: Layout,
+        placeholder: Layout,
+        event: MouseEvent,
+        element: HTMLElement
+    ) => void;
 
     interface CoreProps {
         /**
@@ -209,7 +207,6 @@ declare namespace ReactGridLayout {
     }
 
     interface ReactGridLayoutProps extends CoreProps {
-
         /**
          * Number of columns in this layout.
          */
@@ -238,7 +235,6 @@ declare namespace ReactGridLayout {
     }
 
     interface ResponsiveProps extends CoreProps {
-
         /**
          * `{name: pxVal}, e.g. {lg: 1200, md: 996, sm: 768, xs: 480}`
          *
