@@ -124,7 +124,7 @@ declare namespace Knex {
         min(columnName: string): QueryBuilder;
         max(columnName: string): QueryBuilder;
         sum(columnName: string): QueryBuilder;
-        sumDistinct(columnName: string): QueryBuider;
+        sumDistinct(columnName: string): QueryBuilder;
         avg(columnName: string): QueryBuilder;
         avgDistinct(columnName: string): QueryBuilder;
         increment(columnName: string, amount?: number): QueryBuilder;
