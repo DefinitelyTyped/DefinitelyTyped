@@ -12461,6 +12461,7 @@ declare module olx {
          *     geometryName: (string|undefined),
          *     condition: (ol.EventsConditionType|undefined),
          *     freehandCondition: (ol.EventsConditionType|undefined),
+         *     freehand: (boolean|undefined)
          *     wrapX: (boolean|undefined)}}
          */
         interface DrawOptions {
@@ -12477,6 +12478,7 @@ declare module olx {
             geometryName?: string;
             condition?: ol.EventsConditionType;
             freehandCondition?: ol.EventsConditionType;
+            freehand?:boolean;
             wrapX?: boolean;
         }
 
