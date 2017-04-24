@@ -79,6 +79,7 @@ declare namespace Sinon {
         alwaysReturned(obj: any): boolean;
         invokeCallback(...args: any[]): void;
         getCall(n: number): SinonSpyCall;
+        getCalls(): SinonSpyCall[];
         reset(): void;
         printf(format: string, ...args: any[]): string;
         restore(): void;
@@ -260,6 +261,8 @@ declare namespace Sinon {
         setResponseBody(body: string): void;
         respond(status: number, headers: any, body: string): void;
         autoRespond(ms: number): void;
+        error(): void;
+        onerror(): void;
     }
 
     interface SinonFakeXMLHttpRequestStatic {
@@ -394,6 +397,7 @@ declare namespace Sinon {
     }
 
     interface SinonSandbox {
+        assert: SinonAssert;
         clock: SinonFakeTimers;
         requests: SinonFakeXMLHttpRequest;
         server: SinonFakeServer;
@@ -407,6 +411,8 @@ declare namespace Sinon {
         reset(): void;
         resetHistory(): void;
         resetBehavior(): void;
+        verify(): void;
+        verifyAndRestore(): void;
     }
 
     interface SinonSandboxStatic {

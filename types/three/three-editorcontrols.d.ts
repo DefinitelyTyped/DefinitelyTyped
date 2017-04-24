@@ -1,28 +1,19 @@
-// Type definitions for three.js (EditorControls.js)
-// Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/EditorControls.js
-// Definitions by: Qinsi ZHU <https://github.com/qszhusightp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Camera, EventDispatcher, Object3D, Vector3 } from "./three-core";
 
+export class EditorControls extends EventDispatcher {
 
-declare namespace THREE {
+    constructor(object: Camera, domElement?: HTMLElement);
 
-    class EditorControls extends EventDispatcher {
+    enabled: boolean;
+    center: Vector3;
 
-        constructor(object: Camera, domElement?: HTMLElement);
+    focus(target: Object3D, frame: boolean): void;
 
-        enabled: boolean;
-        center: THREE.Vector3;
+    pan(delta: Vector3): void;
 
-        focus(target: THREE.Object3D, frame: boolean): void;
+    zoom(delta: Vector3): void;
 
-        pan(delta: THREE.Vector3): void;
+    rotate(delta: Vector3): void;
 
-        zoom(delta: THREE.Vector3): void;
-
-        rotate(delta: THREE.Vector3): void;
-
-        dispose(): void;
-
-    }
-
+    dispose(): void;
 }

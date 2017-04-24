@@ -3,7 +3,8 @@
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
 //   Yuki Kokubun <https://github.com/Kuniwak>,
 //   Craig Nishina <https://github.com/cnishina>,
-//   Simon Gellis <https://github.com/SupernaviX>
+//   Simon Gellis <https://github.com/SupernaviX>,
+//   Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -1511,17 +1512,17 @@ export namespace until {
   function urlMatches(regex: RegExp): Condition<boolean>;
 }
 
-interface ILocation {
+export interface ILocation {
   x: number;
   y: number;
 }
 
-interface ISize {
+export interface ISize {
   width: number;
   height: number;
 }
 
-interface IButton {
+export interface IButton {
   LEFT: string;
   MIDDLE: string;
   RIGHT: string;
@@ -1536,7 +1537,7 @@ interface IButton {
  */
 export const Button: IButton;
 
-interface IKey {
+export interface IKey {
   NULL: string;
   CANCEL: string;  // ^break
   HELP: string;
@@ -1927,12 +1928,12 @@ export class TouchSequence {
   flickElement(elem: WebElement, offset: IOffset, speed: number): TouchSequence;
 }
 
-interface IOffset {
+export interface IOffset {
   x: number;
   y: number;
 }
 
-interface ISpeed {
+export interface ISpeed {
   xspeed: number;
   yspeed: number;
 }
@@ -2070,7 +2071,7 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
  * Recognized browser names.
  * @enum {string}
  */
-interface IBrowser {
+export interface IBrowser {
   ANDROID: string;
   CHROME: string;
   EDGE: string;
@@ -2087,7 +2088,7 @@ interface IBrowser {
 
 export const Browser: IBrowser;
 
-interface ProxyConfig {
+export interface ProxyConfig {
   proxyType: string;
   proxyAutoconfigUrl?: string;
   ftpProxy?: string;
@@ -2498,7 +2499,7 @@ export class By {
  *     {tagName: string}|
  *     {xpath: string})}
  */
-type ByHash = { className: string } |
+export type ByHash = { className: string } |
   { css: string } |
   { id: string } |
   { js: string } |
@@ -2508,13 +2509,13 @@ type ByHash = { className: string } |
   { tagName: string } |
   { xpath: string };
 
-  export type Locator = By | Function | ByHash;
+export type Locator = By | Function | ByHash;
 
 /**
  * Common webdriver capability keys.
  * @enum {string}
  */
-interface ICapability {
+export interface ICapability {
   /**
    * Indicates whether a driver should accept all SSL certs by default. This
    * capability only applies when requesting a new session. To query whether
@@ -2765,7 +2766,7 @@ export class Capabilities {
 /**
  * An enumeration of valid command string.
  */
-interface ICommandName {
+export interface ICommandName {
   GET_SERVER_STATUS: string;
 
   NEW_SESSION: string;
@@ -3110,7 +3111,7 @@ export class Navigation {
   // endregion
 }
 
-interface IWebDriverOptionsCookie {
+export interface IWebDriverOptionsCookie {
   /**
    * The name of the cookie.
    */
@@ -3157,9 +3158,9 @@ interface IWebDriverOptionsCookie {
    * @type {(!Date|number|undefined)}
    */
   expiry?: number | Date;
-  }
+}
 
-  interface IWebDriverCookie extends IWebDriverOptionsCookie {
+export interface IWebDriverCookie extends IWebDriverOptionsCookie {
     /**
      * When the cookie expires.
      *
@@ -3539,10 +3540,10 @@ export class FileDetector {
   handleFile(driver: WebDriver, path: string): promise.Promise<string>;
 }
 
-  type CreateSessionCapabilities = Capabilities | {
-    desired?: Capabilities,
-    required?: Capabilities
-  };
+export type CreateSessionCapabilities = Capabilities | {
+  desired?: Capabilities,
+  required?: Capabilities
+};
 
 /**
  * Creates a new WebDriver client, which provides control over a browser.
@@ -4105,25 +4106,25 @@ export class WebDriver {
   // endregion
 }
 
-  /**
-   * A thenable wrapper around a {@linkplain webdriver.IWebDriver IWebDriver}
-   * instance that allows commands to be issued directly instead of having to
-   * repeatedly call `then`:
-   *
-   *     let driver = new Builder().build();
-   *     driver.then(d => d.get(url));  // You can do this...
-   *     driver.get(url);               // ...or this
-   *
-   * If the driver instance fails to resolve (e.g. the session cannot be created),
-   * every issued command will fail.
-   *
-   * @extends {webdriver.IWebDriver}
-   * @extends {promise.IThenable<!webdriver.IWebDriver>}
-   * @interface
-   */
-  interface ThenableWebDriver extends WebDriver, promise.IThenable<WebDriver> { }
+/**
+ * A thenable wrapper around a {@linkplain webdriver.IWebDriver IWebDriver}
+ * instance that allows commands to be issued directly instead of having to
+ * repeatedly call `then`:
+ *
+ *     let driver = new Builder().build();
+ *     driver.then(d => d.get(url));  // You can do this...
+ *     driver.get(url);               // ...or this
+ *
+ * If the driver instance fails to resolve (e.g. the session cannot be created),
+ * every issued command will fail.
+ *
+ * @extends {webdriver.IWebDriver}
+ * @extends {promise.IThenable<!webdriver.IWebDriver>}
+ * @interface
+ */
+export interface ThenableWebDriver extends WebDriver, promise.IThenable<WebDriver> { }
 
-interface IWebElementId {
+export interface IWebElementId {
   [ELEMENT: string]: string;
 }
 
@@ -4150,7 +4151,7 @@ interface IWebElementId {
  *   });
  * </code></pre>
  */
-interface IWebElement {
+export interface IWebElement {
   // region Methods
 
   /**
@@ -4345,7 +4346,7 @@ interface IWebElement {
   // endregion
 }
 
-interface IWebElementFinders {
+export interface IWebElementFinders {
   /**
    * Schedule a command to find a descendant of this element. If the element
    * cannot be found, a {@code bot.ErrorCode.NO_SUCH_ELEMENT} result will
@@ -4407,7 +4408,7 @@ interface IWebElementFinders {
  * @constructor
  * @template T
  */
-interface Serializable<T> {
+export interface Serializable<T> {
   /**
    * Returns either this instance's serialized represention, if immediately
    * available, or a promise for its serialized representation. This function is

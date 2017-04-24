@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {ReactWidgetsCommonDropdownProps} from './CommonProps';
 
-interface DateTimePickerProps extends React.Props<DateTimePickerClass> {
+interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePickerClass> {
     /**
      * Whether to show the date picker button.
      * @default true
@@ -116,12 +117,6 @@ interface DateTimePickerProps extends React.Props<DateTimePickerClass> {
      * The speed, in milliseconds, of the either dropdown animation.
      */
     duration?: number;
-    /**
-     * Mark whether the widget should render right-to-left. This property can also be implicitly
-     * passed to the widget through a childContext prop (isRtl) this allows higher level
-     * application components to specify the direction.
-     */
-    isRtl?: boolean;
     /**
      * Object hash containing display text and/or text for screen readers. Use the messages
      * object to localize widget text and increase accessibility.
