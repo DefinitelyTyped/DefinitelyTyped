@@ -627,6 +627,7 @@ declare namespace __MaterialUI {
     // non generally overridden elements of EnhancedButton
     interface SharedEnhancedButtonProps<T> {
         centerRipple?: boolean;
+        className?: string;
         disableFocusRipple?: boolean;
         disableKeyboardFocus?: boolean;
         disableTouchRipple?: boolean;
