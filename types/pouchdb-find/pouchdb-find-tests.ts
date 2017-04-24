@@ -19,7 +19,7 @@ function testFind() {
         selector: {
             // test id
             _id: {
-                gt: null
+                $gt: null
             },
 
             // conditions

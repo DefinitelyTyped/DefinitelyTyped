@@ -1,5 +1,3 @@
-/// <reference types="tween.js" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_periodictable.html
 
 () => {

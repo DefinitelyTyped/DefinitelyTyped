@@ -470,6 +470,22 @@ namespace TestInjector {
 
     $injector.annotate(() => {});
     $injector.annotate(() => {}, true);
+
+    // $injector.instantiate
+    {
+        class Foobar {
+            constructor($q) {}
+        }
+        let result: Foobar = $injector.instantiate(Foobar);
+    }
+
+    // $injector.invoke
+    {
+        function foobar(v: boolean): number {
+            return 7;
+        }
+        let result: number = $injector.invoke(foobar);
+    }
 }
 
 // Promise signature tests
