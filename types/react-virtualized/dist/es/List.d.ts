@@ -1,12 +1,12 @@
 import { PureComponent, Validator, Requireable } from 'react'
-import { Grid, GridCellProps } from './Grid'
+import { Grid, GridCoreProps, GridCellProps } from './Grid'
 import { Index, IndexRange, Alignment } from '../../index'
 import { CellMeasurerCache } from './CellMeasurer'
 
 export type ListRowProps = GridCellProps & { index: number, style: React.CSSProperties };
 
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
-export type ListProps = {
+export type ListProps = GridCoreProps & {
     deferredMeasurementCache?: CellMeasurerCache;
     className?: string;
     autoHeight?: boolean;

@@ -1,5 +1,5 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
         "align": false,
@@ -13,6 +13,7 @@
         "jsdoc-format": false,
         "max-line-length": false,
         "no-empty-interface": false,
+        "no-namespace": false,
         "no-trailing-whitespace": false,
         "object-literal-key-quotes": false,
         "one-line": false,

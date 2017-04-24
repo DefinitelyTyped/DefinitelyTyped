@@ -41,6 +41,62 @@ declare namespace Office {
          */
         DocumentOpened
     }
+    export enum HostType {
+        /**
+         * Host is Word
+         */
+        Word,
+        /**
+         * Host is Excel
+         */
+        Excel,
+        /**
+         * Host is PowerPoint
+         */	
+        PowerPoint,
+        /**
+         * Host is Outlook
+         */
+        Outlook,
+        /**
+         * Host is OneNote
+         */
+        OneNote,
+        /**
+         * Host is Project
+         */		
+        Project,
+        /**
+         * Host is Access
+         */
+        Access		
+    }
+    export enum PlatformType {
+        /**
+         * Platform is PC
+         */
+        PC,
+        /**
+         * Platform is Web
+         */
+        OfficeOnline,
+        /**
+         * Platform is Mac
+         */
+        Mac,
+        /**
+         * Platform is iOS
+         */
+        iOS,
+        /**
+         * Platform is Android
+         */
+        Android,
+        /**
+         * Platform is Winrt
+         */
+        Universal
+    }
     // Objects
     export interface AsyncResult {
         asyncContext: any;
@@ -55,6 +111,13 @@ declare namespace Office {
         officeTheme: OfficeTheme;
         touchEnabled: boolean;
         ui: UI;
+        host: HostType;
+        platform: PlatformType;
+        diagnostics: {
+            host: HostType;
+            platform: PlatformType;
+            version: string;
+        };
         requirements: {
             /**
              * Check if the specified requirement set is supported by the host Office application.

@@ -1244,12 +1244,11 @@ const DatePickerExampleDisableDates = () => (
   </div>
 );
 
-let DateTimeFormat = new Intl.DateTimeFormat('fr');
 const DatePickerExampleInternational = () => (
   <div>
     <DatePicker
       hintText="fr locale"
-      DateTimeFormat={DateTimeFormat}
+      DateTimeFormat={Intl.DateTimeFormat}
       okLabel="OK"
       cancelLabel="Annuler"
       locale="fr"
@@ -4740,6 +4739,12 @@ const TextFieldExampleSimple = () => (
     <TextField
       hintText="Full width"
       fullWidth={true}
+    /><br />
+    <TextField
+      type="number"
+      min={5}
+      max={50}
+      step={5}
     />
   </div>
 );

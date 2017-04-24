@@ -50,7 +50,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     weekNumbers?: boolean;
     weekNumberCalculation?: any; // String/Function
     businessHours?: boolean | BusinessHours | BusinessHours[];
-    height?: number;
+    height?: number | 'auto' | 'parent';
     contentHeight?: number;
     aspectRatio?: number;
     handleWindowResize?: boolean;
@@ -150,7 +150,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
 export interface AgendaOptions {
     allDaySlot?: boolean;
     allDayText?: string;
-    slotDuration?: moment.Duration;
+    slotDuration?: moment.DurationInputArg1;
     slotLabelFormat?: string;
     slotLabelInterval?: moment.Duration;
     snapDuration?: moment.Duration;

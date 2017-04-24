@@ -17,7 +17,7 @@ import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
  * without 'd3-zoom' (and related code in 'd3-selection') trying to use properties internally which would otherwise not
  * be supported.
  */
-type ZoomedElementBaseType = Element;
+export type ZoomedElementBaseType = Element;
 
 /**
  * Minimal interface for a continuous scale.

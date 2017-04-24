@@ -10,7 +10,7 @@ import {Request, Response} from 'hapi';
  * @param decoded the *decoded* but *unverified* JWT received from client
  * @param callback the key lookup callback
  */
-type KeyLookup = (decoded: any, callback: KeyLookupCallback) => void;
+export type KeyLookup = (decoded: any, callback: KeyLookupCallback) => void;
 
 /**
  * Called when key lookup function has completed
@@ -21,7 +21,7 @@ type KeyLookup = (decoded: any, callback: KeyLookupCallback) => void;
  * to use in `validateFunc` which can be accessed via
  * `request.plugins['hapi-auth-jwt2'].extraInfo`
  */
-type KeyLookupCallback = (err: any, key: string, extraInfo?: any) => void;
+export type KeyLookupCallback = (err: any, key: string, extraInfo?: any) => void;
 
 /**
  * Called when Validation has completed
@@ -30,7 +30,7 @@ type KeyLookupCallback = (err: any, key: string, extraInfo?: any) => void;
  * @param valid `true` if the JWT was valid, otherwise `false`
  * @param credentials alternative credentials to be set instead of `decoded`
  */
-type ValidateCallback = (err: any, valid: boolean, credentials?: any) => void;
+export type ValidateCallback = (err: any, valid: boolean, credentials?: any) => void;
 
 /**
  * Options passed to `hapi.auth.strategy` when this plugin is used
