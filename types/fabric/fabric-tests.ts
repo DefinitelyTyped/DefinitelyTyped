@@ -1,5 +1,3 @@
-import * as fabric from "fabric";
-
 function sample1() {
   const canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
@@ -261,18 +259,18 @@ function sample4() {
   });
 }
 
-declare module "fabric" {
-  export interface CircleWithLineInfos extends Circle {
-    line1?: Line;
-    line2?: Line;
-    line3?: Line;
-    line4?: Line;
+namespace myfabric {
+  export interface CircleWithLineInfos extends fabric.Circle {
+    line1?: fabric.Line;
+    line2?: fabric.Line;
+    line3?: fabric.Line;
+    line4?: fabric.Line;
   }
 }
 
 function sample5() {
   const makeCircle = (left: number, top: number, line1?: fabric.Line, line2?: fabric.Line, line3?: fabric.Line, line4?: fabric.Line): fabric.Circle => {
-    const c = <fabric.CircleWithLineInfos> new fabric.Circle({
+    const c = <myfabric.CircleWithLineInfos> new fabric.Circle({
       left,
       top,
       strokeWidth: 5,
@@ -319,7 +317,7 @@ function sample5() {
     );
 
   canvas.on('object:moving', e => {
-    const p = <fabric.CircleWithLineInfos> e.target;
+    const p = <myfabric.CircleWithLineInfos> e.target;
     p.line1 && p.line1.set({ 'x2': p.left, 'y2': p.top });
     p.line2 && p.line2.set({ 'x1': p.left, 'y1': p.top });
     p.line3 && p.line3.set({ 'x1': p.left, 'y1': p.top });
@@ -353,8 +351,8 @@ function sample6() {
   });
 }
 
-declare module "fabric" {
-  export interface ImageWithInfo extends Image {
+namespace myfabric {
+  export interface ImageWithInfo extends fabric.Image {
     movingLeft: boolean;
   }
 }
@@ -364,7 +362,7 @@ function sample7() {
 
   setInterval(() => {
     fabric.Image.fromURL('../assets/ladybug.png', obj => {
-      const img = <fabric.ImageWithInfo> obj;
+      const img = <myfabric.ImageWithInfo> obj;
       img.set('left', fabric.util.getRandomInt(200, 600)).set('top', -50);
       img.movingLeft = !!Math.round(Math.random());
       canvas.add(img);
@@ -373,7 +371,7 @@ function sample7() {
 
   const animate = (function animate() {
     canvas.forEachObject(obj => {
-      const img = <fabric.ImageWithInfo> obj;
+      const img = <myfabric.ImageWithInfo> obj;
       img.left += (img.movingLeft ? -1 : 1);
       img.top += 1;
       if (img.left > 900 || img.top > 500) {
@@ -610,7 +608,7 @@ function sample8() {
         const activeGroup = canvas.getActiveGroup();
 
         if (activeObject || activeGroup) {
-          (activeObject || activeGroup).setOpacity(parseInt(this.value, 10) / 100);
+          (activeObject || activeGroup).setOpacity(parseInt((<HTMLInputElement> this).value, 10) / 100);
           canvas.renderAll();
         }
       };
@@ -641,7 +639,7 @@ function sample8() {
         const activeGroup = canvas.getActiveGroup();
 
         if (activeObject || activeGroup) {
-          (activeObject || activeGroup).setFill(this.value);
+          (activeObject || activeGroup).setFill((<HTMLInputElement> this).value);
           canvas.renderAll();
         }
       };
@@ -850,16 +848,16 @@ function sample8() {
       const activeObject = canvas.getActiveObject();
 
       if (activeObject && activeObject.type === 'text') {
-        this.value = (<fabric.Text> activeObject).text;
+        (<HTMLInputElement> this).value = (<fabric.Text> activeObject).text;
       }
     };
     textEl.onkeyup = function(e) {
       const activeObject = canvas.getActiveObject();
       if (activeObject) {
-        if (!this.value) {
+        if (!(<HTMLInputElement> this).value) {
           canvas.discardActiveObject();
         } else {
-          (<fabric.Text> activeObject).text = this.value;
+          (<fabric.Text> activeObject).text = (<HTMLInputElement> this).value;
         }
         canvas.renderAll();
       }
@@ -1007,7 +1005,7 @@ function sample8() {
       slider.onchange = function() {
         const activeObject = <fabric.Text> canvas.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
-          activeObject.lineHeight = +this.value;
+          activeObject.lineHeight = +(<HTMLInputElement> this).value;
           canvas.renderAll();
         }
       };
