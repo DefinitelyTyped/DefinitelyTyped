@@ -8073,24 +8073,23 @@ export interface ImageStoreStatic {
 export type fetch = (url: string, options?: Object) => Promise<any>
 export const fetch: fetch;
 
-interface FormDataHeaders {
+export interface FormDataHeaders {
     [name: string]: string
 };
 
-interface FormDataPart1 {
+export type FormDataPart {
     string: string;
     headers: FormDataHeaders;
-};
-interface FormDataPart2 {
+} | {
     uri: string;
     headers: FormDataHeaders;
     name?: string;
     type?: string;
-}
+};
 
 export class FormData {
     append(key: string, value: any): void;
-    getParts(): Array<FormDataPart1 | FormDataPart2>;
+    getParts(): Array<FormDataPart>;
 }
 
 // Timers polyfill
