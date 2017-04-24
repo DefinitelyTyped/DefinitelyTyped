@@ -1658,6 +1658,14 @@ interface JQuery {
      */
     css(propertyName: string): string;
     /**
+     * Get the value of style properties for the first element in the set of matched elements.
+     * Results in an object of property-value pairs.
+     *
+     * @param propertyNames An array of one or more CSS properties.
+     * @see {@link https://api.jquery.com/css/#css-propertyNames}
+     */
+    css(propertyNames: string[]): any;
+    /**
      * Set one or more CSS properties for the set of matched elements.
      *
      * @param propertyName A CSS property name.
