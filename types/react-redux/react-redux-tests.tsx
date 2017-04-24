@@ -343,7 +343,7 @@ namespace TestTOwnPropsInference {
         state: string;
     }
 
-    class OwnPropsComponent extends React.Component<OwnProps & StateProps, {}> {
+    class OwnPropsComponent extends React.Component<OwnProps & StateProps, void> {
         render() {
             return <div/>;
         }
@@ -359,7 +359,7 @@ namespace TestTOwnPropsInference {
 
     const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
-    const ConnectedWithTypeHint = connect<StateProps, {}, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+    const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
 
     // This compiles, which is bad.
     React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });

@@ -662,7 +662,11 @@ declare module IORedis {
          */
         enableReadyCheck?: boolean;
         keyPrefix?: string;
-        retryStrategy?: (times: number) => number;
+        /**
+         * When the return value isn't a number, ioredis will stop trying to reconnect.
+         * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
+         */
+        retryStrategy?: (times: number) => number | false;
         reconnectOnError?: (error: Error) => boolean;
         /**
          * By default, if there is no active connection to the Redis server, commands are added to a queue

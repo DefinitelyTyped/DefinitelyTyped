@@ -257,11 +257,6 @@ class Library extends bookshelf.Model<Library> {
 /* new Model(), see http://bookshelfjs.org/#Model */
 
 {
-	new Book({
-		title: "One Thousand and One Nights",
-		author: "Scheherazade"
-	});
-
 	class Book extends bookshelf.Model<Book> {
 		get tableName() { return 'documents'; }
 
@@ -273,6 +268,11 @@ class Library extends bookshelf.Model<Library> {
 			});
 		}
 	}
+
+	new Book({
+		title: "One Thousand and One Nights",
+		author: "Scheherazade"
+	});
 }
 
 /* model.initialize(), see http://bookshelfjs.org/#Model-instance-initialize */

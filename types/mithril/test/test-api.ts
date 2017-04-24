@@ -116,7 +116,7 @@ const FRAME_BUDGET = 100;
 
 {
 	// define a component
-	const Greeter: m.Comp<{}, {}> = {
+	const Greeter: m.Comp<{ style: string }, {}> = {
 		view(vnode) {
 			return m("div", vnode.attrs, ["Hello ", vnode.children]);
 		}

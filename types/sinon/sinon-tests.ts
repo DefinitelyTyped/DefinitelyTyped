@@ -147,3 +147,11 @@ class TestCreateStubInstance {
 }
 
 sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+
+function testGetCalls() {
+    var double = sinon.spy((a: number) => a * 2);
+    double(2);
+    double(4);
+    double.getCall(0).args.length === 1;
+    double.getCalls().find(call => call.args[0] === 4).returnValue === 8;
+}

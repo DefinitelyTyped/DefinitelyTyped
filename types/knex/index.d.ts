@@ -120,10 +120,13 @@ declare namespace Knex {
 
         // Aggregation
         count(columnName?: string): QueryBuilder;
+        countDistinct(columnName?: string): QueryBuilder;
         min(columnName: string): QueryBuilder;
         max(columnName: string): QueryBuilder;
         sum(columnName: string): QueryBuilder;
+        sumDistinct(columnName: string): QueryBuilder;
         avg(columnName: string): QueryBuilder;
+        avgDistinct(columnName: string): QueryBuilder;
         increment(columnName: string, amount?: number): QueryBuilder;
         decrement(columnName: string, amount?: number): QueryBuilder;
 
