@@ -901,10 +901,7 @@ declare namespace l {
                 | NextFunction, next?: NextFunction) => void): void;
 
             afterRemoteError(method: string, callback: NextFunction): void;
-
       }
-
-
 
       /**
        * SharedClass
