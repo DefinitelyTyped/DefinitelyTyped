@@ -120,12 +120,12 @@ export interface Config<FormData extends DataShape, P, S> {
      * @param submitError The error object that caused the submission to fail. If `errors` is set this will be most
      *                    likely a `SubmissionError`, otherwise it can be any error or null.
      */
-    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<S>, submitError: any): void;
+    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<S>, submitError: any, props: P): void;
 
     /**
      * A callback function that will be called when a submission succeeds.
      */
-    onSubmitSuccess?(result: any, dispatch: Dispatch<S>): void;
+    onSubmitSuccess?(result: any, dispatch: Dispatch<S>, props: P): void;
 
     /**
      * If specified, all the props normally passed into your decorated
