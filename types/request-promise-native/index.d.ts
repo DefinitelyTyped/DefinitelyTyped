@@ -6,13 +6,15 @@
 declare module 'request-promise-native' {
     import request = require('request');
     import http = require('http');
+    import errors = require('request-promise-native/errors');
 
     namespace requestPromise {
         interface RequestPromise extends request.Request {
             then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult> | void): Promise<TResult>;
-
             catch(onrejected?: (reason: any) => any | PromiseLike<any> | void): Promise<any>;
-
+            catch(type: errors.RequestErrorConstructor, onrejected?: (reason: errors.RequestError) => void): Promise<any>;
+            catch(type: errors.StatusCodeErrorConstructor, onrejected?: (reason: errors.StatusCodeError) => void): Promise<any>;
+            catch(type: errors.TransformErrorConstructor, onrejected?: (reason: errors.TransformError) => void): Promise<any>;
             promise(): Promise<any>;
             cancel(): void;
         }
