@@ -34,6 +34,7 @@ declare namespace ReCaptchaV2
     execute(opt_widget_id?: number): void;
   }
 
+  type Badge = "bottomright" | "bottomleft" | "inline";
   type Theme = "light" | "dark";
   type Type = "image" | "audio";
   type Size = "normal" | "compact";
@@ -44,6 +45,13 @@ declare namespace ReCaptchaV2
       * Your sitekey.
       **/
     sitekey: string;
+    /**
+      * Optional. Reposition the reCAPTCHA badge. 'inline' allows you to control the CSS.
+      * Accepted values: "bottomright", "bottomleft", "inline"
+      * @default "bottomright"
+      * @type {Badge}
+      **/
+    badge?: Badge;
     /**
       * Optional. The color theme of the widget.
       * Accepted values: "light", "dark"
