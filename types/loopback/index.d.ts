@@ -892,15 +892,15 @@ declare namespace l {
              * loopback 3.x Remote hooks
              * http://loopback.io/doc/en/lb3/Remote-hooks.html
              * @param method
-             * @param fn
+             * @param backback
              */
-            beforeRemote(method: string, backback: (ctx: Context, modelInstanceOrNext: Model
+            beforeRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model
                 | NextFunction, next?: NextFunction)=>void): void;
 
-            afterRemote(method: string, backback: (ctx: Context, modelInstanceOrNext: Model
+            afterRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model
                 | NextFunction, next?: NextFunction) => void): void;
 
-            afterRemoteError(method: string, next: NextFunction): void;
+            afterRemoteError(method: string, callback: NextFunction): void;
 
       }
 
