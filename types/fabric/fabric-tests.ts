@@ -124,11 +124,12 @@ function sample3() {
     }
   });
 
-  fabric.Image.fromURL('../assets/printio.png', img => {
+  const image = fabric.Image.fromURL('../assets/printio.png', img => {
     const oImg = img.set({ left: 300, top: 300, angle: -15 }).scale(0.9);
     canvas.add(oImg).renderAll();
     canvas.setActiveObject(oImg);
   });
+  image.setSrc('../assets/printio.png');
 
   $('grayscale').onclick = function(this: HTMLInputElement) {
     applyFilter(0, this.checked && new f.Grayscale());
