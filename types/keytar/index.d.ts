@@ -12,7 +12,7 @@
  *
  * @returns A promise for the password string.
  */
-export declare function getPassword(service: string, account: string): Promise<string>;
+export declare function getPassword(service: string, account: string): Promise<string | null>;
 
 /**
  * Add the password for the service and account to the keychain.
@@ -42,4 +42,4 @@ export declare function deletePassword(service: string, account: string): Promis
  *
  * @returns A promise for the password string.
  */
-export declare function findPassword(service: string): Promise<string>;
+export declare function findPassword(service: string): Promise<string | null>;
