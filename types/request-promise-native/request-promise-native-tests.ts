@@ -1,4 +1,5 @@
 import * as rp from 'request-promise-native';
+import * as errors from 'request-promise-native/errors';
 
 rp('http://www.google.com')
     .then(console.dir)
