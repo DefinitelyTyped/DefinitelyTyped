@@ -3,10 +3,7 @@
 // Definitions by: Guo Yunhe <https://github.com/guoyunhe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = JsSearch;
-export as namespace JsSearch;
-
-declare namespace JsSearch {
+declare module "js-search" {
 
     class Search {
 

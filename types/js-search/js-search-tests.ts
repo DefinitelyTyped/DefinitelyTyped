@@ -1,3 +1,5 @@
+import { Search, ITokenizer, StopWordsMap, StopWordsTokenizer, StemmingTokenizer, SimpleTokenizer, UnorderedSearchIndex } from "js-search";
+
 var theGreatGatsby = {
   isbn: '9781597226769',
   title: 'The Great Gatsby',
@@ -23,7 +25,7 @@ var angelsAndDemons = {
   tags: ['book', 'mystery']
 };
 
-var search = new JsSearch.Search('isbn');
+var search = new Search('isbn');
 search.addIndex('title');
 search.addIndex(['author', 'name']);
 search.addIndex('tags')
@@ -35,8 +37,8 @@ search.search('scott');  // [theGreatGatsby]
 search.search('dan');    // [angelsAndDemons, theDaVinciCode]
 search.search('mystery') // [angelsAndDemons, theDaVinciCode]
 
-search.tokenizer = <JsSearch.ITokenizer>{
-  tokenize(text /* string */) {
+search.tokenizer = <ITokenizer>{
+  tokenize(text: any) {
     // Convert text to an Array of strings and return the Array
   }
 };
@@ -45,12 +47,12 @@ search.tokenizer = <JsSearch.ITokenizer>{
 // Function should accept a string param and return a string
 var stemmer = function () { return 'foobar' };
 
-search.tokenizer = new JsSearch.StemmingTokenizer(stemmer, new JsSearch.SimpleTokenizer());
+search.tokenizer = new StemmingTokenizer(stemmer, new SimpleTokenizer());
 
 
-search.tokenizer = new JsSearch.StopWordsTokenizer(new JsSearch.SimpleTokenizer());
+search.tokenizer = new StopWordsTokenizer(new SimpleTokenizer());
 
-JsSearch.StopWordsMap.the = false; // Do not treat "the" as a stop word
-JsSearch.StopWordsMap.bob = true;  // Treat "bob" as a stop word
+StopWordsMap.the = false; // Do not treat "the" as a stop word
+StopWordsMap.bob = true;  // Treat "bob" as a stop word
 
-search.searchIndex = new JsSearch.UnorderedSearchIndex();
+search.searchIndex = new UnorderedSearchIndex();
