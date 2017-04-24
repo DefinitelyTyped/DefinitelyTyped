@@ -1,20 +1,19 @@
 import * as bonjour from 'bonjour';
 
-var bonjourOptions: bonjour.BonjourOptions;
-var bonjourInstance: bonjour.Bonjour;
+let bonjourOptions: Bonjour.BonjourOptions;
+let bonjourInstance: Bonjour;
 
-var serviceOptions: bonjour.ServiceOptions;
-var service: bonjour.Service;
+let serviceOptions: Bonjour.ServiceOptions;
+let service: Bonjour.Service;
 
-var browserOptions: bonjour.BrowserOptions;
-var browser: bonjour.Browser;
+let browserOptions: Bonjour.BrowserOptions;
+let browser: Bonjour.Browser;
 
 bonjourOptions = { interface: '192.168.1.1', port: 5353 };
-bonjourInstance = new bonjour.Bonjour(bonjourOptions);
+bonjourInstance = bonjour(bonjourOptions);
 
 serviceOptions = { name: 'My Web Server', type: 'http', port: 3000 };
 service = bonjourInstance.publish(serviceOptions);
 
 browserOptions = { protocol: 'tcp', type: 'http' };
-browser = bonjour.find(browserOptions);
-
+browser = bonjourInstance.find(browserOptions, (service: Bonjour.Service) => { });
