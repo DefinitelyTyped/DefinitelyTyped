@@ -11,7 +11,7 @@
 ************************************************/
 
 import * as core from "express-serve-static-core";
-import {NextFunction} from "../express-serve-static-core/index";
+import {NextFunction} from "../express/index";
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {
@@ -886,8 +886,6 @@ declare namespace l {
              * Add any setup or configuration code you want executed when the model is created.
              * See  [Setting up a custom model](docs.strongloop.com/display/LB/Extending+built-in+models#Extendingbuilt-inmodels-Settingupacustommodel)
              */
-            static setup(): void;
-
             static setup(): void;
 
             /**
