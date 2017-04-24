@@ -8077,7 +8077,7 @@ export interface FormDataHeaders {
     [name: string]: string
 };
 
-export type FormDataPart {
+export type FormDataPart = {
     string: string;
     headers: FormDataHeaders;
 } | {
