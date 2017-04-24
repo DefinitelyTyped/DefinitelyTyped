@@ -1,7 +1,15 @@
 import dotenv = require('dotenv');
 
-const env = dotenv.config();
-const dbUrl: string | null = env.error || !env.parsed ? null : env.parsed['DATABASE_URL'];
+// typically, result will be an Object
+const env = dotenv.config({
+    silent: true
+});
+const dbUrl: string | null = !env ? null : env['DATABASE_URL'];
+
+// ... but it might also be `false`
+const result = dotenv.config({
+    path: '.non-existing-env'
+});
 
 dotenv.config({
     path: '.env'
