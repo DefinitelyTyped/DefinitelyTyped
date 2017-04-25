@@ -29,3 +29,7 @@ index2.points.map(p => [p.x, p.y]);
 const latlng = [[60, 110], [40, 130]];
 kdbush(latlng, p => p[1], p => p[0]);
 kdbush(latlng, p => p[1], p => p[0], 64, Int32Array);
+
+// z coordinate (does not require Get callbacks)
+const pointsZ = [[110, 60, 4000], [130, 40, 3000]];
+kdbush(pointsZ);

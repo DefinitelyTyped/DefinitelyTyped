@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Points = number[][];
-type Get<T> = (p: T) => void;
+type Get<T> = (point: T) => number;
+type ArrayType = typeof Int32Array | typeof Array
 
 declare class KDBush<T> {
   ids: number[];
@@ -17,7 +18,7 @@ declare class KDBush<T> {
 
 interface KDBushStatic {
   (points: Points): KDBush<Points>;
-  <T>(points: T[], getX: Get<T>, getY: Get<T>, nodeSize?: number, ArrayType?: any): KDBush<T>;
+  <T>(points: T[], getX: Get<T>, getY: Get<T>, nodeSize?: number, ArrayType?: ArrayType): KDBush<T>;
 }
 
 declare const kdbush: KDBushStatic;
