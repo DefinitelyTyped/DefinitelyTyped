@@ -59,11 +59,17 @@ declare module 'react-router' {
     history: H.History;
   }
 
+  interface RouteComponentMaybeProps<P> {
+    match: match<P>|null;
+    location: H.Location;
+    history: H.History;
+  }
+
   interface RouteProps {
     location?: H.Location;
     component?: React.SFC<RouteComponentProps<any> | void> | React.ComponentClass<RouteComponentProps<any> | void>;
     render?: (props: RouteComponentProps<any>) => React.ReactNode;
-    children?: (props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode;
+    children?: (props: RouteComponentMaybeProps<any>) => React.ReactNode | React.ReactNode;
     path?: string;
     exact?: boolean;
     strict?: boolean;
