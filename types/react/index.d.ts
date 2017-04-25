@@ -2097,6 +2097,7 @@ declare namespace React {
         charSet?: string;
         challenge?: string;
         checked?: boolean;
+        cite?: string;
         classID?: string;
         className?: string;
         cols?: number;
