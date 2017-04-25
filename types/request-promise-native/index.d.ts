@@ -8,8 +8,8 @@ import http = require('http');
 
 declare namespace requestPromise {
     interface RequestPromise extends request.Request {
-        then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
-        then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
+        then<TResult>(onfulfilled?: (value: request.RequestResponse) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
+        then<TResult>(onfulfilled?: (value: request.RequestResponse) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
         catch(onrejected?: (reason: any) => any | PromiseLike<any>): Promise<any>;
         catch(onrejected?: (reason: any) => void): Promise<any>;
         promise(): Promise<any>;
