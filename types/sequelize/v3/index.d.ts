@@ -1,6 +1,6 @@
 // Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
+// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>, Bill Drosatos <https://github.com/drosi94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3211,7 +3211,7 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-                     
+
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -5199,6 +5199,13 @@ declare namespace sequelize {
          * Defaults to false
          */
         benchmark?: boolean;
+
+        /**
+         * Set database character set encoding.
+         *
+         * Defaults to 'utf-8'
+         */
+        charset?: string;
     }
 
     /**
