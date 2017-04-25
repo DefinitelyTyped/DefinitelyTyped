@@ -1,6 +1,6 @@
 // Type definitions for Gulp v4.0.x
 // Project: http://gulpjs.com
-// Definitions by: Drew Noakes <https://drewnoakes.com>, Juan Arroyave <http://jarroyave.co>
+// Definitions by: Drew Noakes <https://drewnoakes.com>, Juan Arroyave <http://jarroyave.co>, Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
