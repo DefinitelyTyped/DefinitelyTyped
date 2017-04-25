@@ -12,6 +12,7 @@
     archiver.finalize();
 
  =============================================== */
+/// <reference types="node" />
 
 import * as FS from 'fs';
 import * as STREAM from 'stream';
