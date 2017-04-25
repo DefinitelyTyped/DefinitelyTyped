@@ -7,10 +7,10 @@ declare function throng(options: throng.WorkerCallback | throng.Options | number
 declare namespace throng {
     type WorkerCallback = (id: number) => void;
 
-    interface Options {
+    class Options {
         grace?: number;
         lifetime?: number;
-        master: () => void;
+        master(): void;
         start: WorkerCallback;
         workers: number;
     }
