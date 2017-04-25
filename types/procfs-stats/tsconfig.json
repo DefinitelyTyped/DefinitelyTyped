@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "throng-tests.ts"
+        "procfs-stats-tests.ts"
     ]
 }
