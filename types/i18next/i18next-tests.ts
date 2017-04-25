@@ -69,7 +69,7 @@ i18n.t('helloWorldInterpolated', <i18n.TranslationOptions> {
     name: "world"
 });
 
-I18n.exists("helloWorld");
+i18n.exists("helloWorld");
 
 const options:i18n.Options = i18n.options;
 const currentLanguage:string = i18n.language;
