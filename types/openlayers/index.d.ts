@@ -5256,6 +5256,15 @@ declare module ol {
             extend(feature: ol.Feature): void;
 
             /**
+             * Create a `geometryFunction` that will create a box-shaped polygon (aligned
+             * with the coordinate system axes).  Use this with the draw interaction and
+             * `type: 'Circle'` to return a box instead of a circle geometry.
+             * @return {ol.DrawGeometryFunctionType} Function that draws a box-shaped polygon.
+             * @api
+             */
+            static createBox(): ol.DrawGeometryFunctionType;
+
+            /**
              * Create a `geometryFunction` for `mode: 'Circle'` that will create a regular
              * polygon with a user specified number of sides and start angle instead of an
              * `ol.geom.Circle` geometry.
