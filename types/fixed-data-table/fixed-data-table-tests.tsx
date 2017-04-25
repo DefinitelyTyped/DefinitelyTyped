@@ -111,10 +111,10 @@ class MyLinkCell extends React.Component<MyCellProps, {}> {
 
         return (
             <Cell width={this.props.width}
-                      height={this.props.height}
-                      rowIndex={this.props.rowIndex}
-                      columnKey={this.props.columnKey}
-                      className="link-cell">
+                  height={this.props.height}
+                  rowIndex={this.props.rowIndex}
+                  columnKey={this.props.columnKey}
+                  className="link-cell">
                 <a href={link}>{link}</a>
             </Cell>
         );
