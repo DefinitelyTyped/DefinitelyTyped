@@ -328,4 +328,3 @@ declare namespace procfs {
 }
 
 export = procfs;
-export as namespace procfs;
