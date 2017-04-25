@@ -1,36 +1,35 @@
-// test file for masonry-layout.d.ts
 import * as $ from "jquery";
-import { Masonry } from "./index";
+import Masonry = require("masonry-layout");
 
 // responsive layouts
-// function testResponsiveLayouts() {
-//     $(document).ready(function () {
-//         $('.grid').masonry({
-//             itemSelector: '.grid-item',
-//             columnWidth: '.grid-sizer',
-//             percentPosition: true
-//         });
-//     });
-// };
+function testResponsiveLayouts() {
+    $(document).ready(() => {
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer',
+            percentPosition: true
+        });
+    });
+}
 
 // recommended Options
 function testRecommendedOptions() {
-    // $(document).ready(function () {
-    //     $('.grid').masonry({
-    //         columnWidth: 200,
-    //         itemSelector: '.grid-item'
-    //     });
-    // });
+    $(document).ready(() => {
+        $('.grid').masonry({
+            columnWidth: 200,
+            itemSelector: '.grid-item'
+        });
+    });
 
-    var msnry = new Masonry('.grid', {
+    const msnry = new Masonry('.grid', {
         columnWidth: 200,
         itemSelector: '.grid-item'
     });
-};
+}
 
 // extended Options
 function testExtendedOptions() {
-    var msnry = new Masonry('.grid', {
+    const msnry = new Masonry('.grid', {
         itemSelector: '.grid-item',
         columnWidth: '.grid-sizer',
         percentPosition: true,
@@ -46,4 +45,4 @@ function testExtendedOptions() {
         resize: true,
         initLayout: true
     });
-};
+}

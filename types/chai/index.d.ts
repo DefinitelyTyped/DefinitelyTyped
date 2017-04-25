@@ -785,7 +785,7 @@ declare namespace Chai {
          * @param value   Potential expected property value.
          * @param message   Message to display on error.
          */
-        deepPropertyNotVal<T, V>(object: T, property: string, value: T, message?: string): void;
+        deepPropertyNotVal<T, V>(object: T, property: string, value: V, message?: string): void;
 
         /**
          * Asserts that object has a length property with the expected value.

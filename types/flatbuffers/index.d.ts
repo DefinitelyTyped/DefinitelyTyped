@@ -502,7 +502,19 @@ declare namespace flatbuffers {
      * @param {number} offset
      * @param {number} value
      */
+    writeUint8(offset: number, value: number): void;
+
+    /**
+     * @param {number} offset
+     * @param {number} value
+     */
     writeInt16(offset: number, value: number): void;
+
+    /**
+     * @param {number} offset
+     * @param {number} value
+     */
+    writeUint16(offset: number, value: number): void;
 
     /**
      * @param {number} offset
@@ -512,9 +524,21 @@ declare namespace flatbuffers {
 
     /**
      * @param {number} offset
+     * @param {number} value
+     */
+    writeUint32(offset: number, value: number): void;
+
+    /**
+     * @param {number} offset
      * @param {flatbuffers.Long} value
      */
     writeInt64(offset: number, value: Long): void;
+
+    /**
+     * @param {number} offset
+     * @param {flatbuffers.Long} value
+     */
+    writeUint64(offset: number, value: Long): void;
 
     /**
      * @param {number} offset

@@ -1234,8 +1234,20 @@ MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].__v;
 });
 MongoModel.findById(999, function (err, doc) {
+  var handleSave = function(err: Error, product: mongoose.Document, numAffected: number) {};
   doc.increment();
-  doc.save(cb).then(cb).catch(cb);
+  doc.save(handleSave).then(cb).catch(cb);
+  doc.save({ validateBeforeSave: false }, handleSave).then(cb).catch(cb);
+  doc.save({ safe: true }, handleSave).then(cb).catch(cb);
+  doc.save({ safe: { w: 2, j: true } }, handleSave).then(cb).catch(cb);
+  doc.save({ safe: { w: 'majority', wtimeout: 10000 } }, handleSave).then(cb).catch(cb);
+
+  // test if Typescript can infer the types of (err, product, numAffected)
+  doc.save(function(err, product, numAffected) { product.save(); })
+    .then(function(p) { p.save() }).catch(cb);
+  doc.save({ validateBeforeSave: false }, function(err, product, numAffected) {
+    product.save();
+  }).then(function(p) { p.save() }).catch(cb);
 });
 MongoModel = (new MongoModel()).model('MongoModel');
 var mongoModel = new MongoModel();

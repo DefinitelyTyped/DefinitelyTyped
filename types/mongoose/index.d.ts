@@ -2566,6 +2566,7 @@ declare module "mongoose" {
      * @param options.validateBeforeSave set to false to save without validating.
      * @param fn optional callback
      */
+    save(options?: SaveOptions, fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
     save(fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
 
     /**
@@ -2573,6 +2574,21 @@ declare module "mongoose" {
      * If you're using another key, you will have to access it using []: doc[_myVersionKey]
      */
     __v?: number;
+  }
+
+  interface SaveOptions {
+    safe?: boolean | WriteConcern;
+    validateBeforeSave?: boolean;
+  }
+
+  interface WriteConcern {
+    j?: boolean;
+    w?: number | 'majority' | TagSet;
+    wtimeout?: number;
+  }
+
+  interface TagSet {
+    [k: string]: string;
   }
 
   interface ModelProperties {
