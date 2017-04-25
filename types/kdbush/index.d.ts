@@ -5,7 +5,7 @@
 
 type Points = number[][];
 type Get<T> = (point: T) => number;
-type ArrayType = typeof Int32Array | typeof Array
+type ArrayType = typeof Int32Array | typeof Array;
 
 declare class KDBush<T> {
   ids: number[];
