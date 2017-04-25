@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "muc.d.ts",
         "strophe-tests.ts"
     ]
 }
