@@ -131,9 +131,9 @@ declare namespace gapi.auth2 {
     id_token: string;
     login_hint: string;
     scope: string;
-    expires_in: string;
-    first_issued_at: string;
-    expires_at: string;
+    expires_in: number;
+    first_issued_at: number;
+    expires_at: number;
   }
 
   /**
