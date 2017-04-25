@@ -108,7 +108,7 @@ declare namespace i18n {
 
         t(key: string, options?: TranslationOptions): string | any | Array<any>;
 
-        exists(key, options?: TranslationOptions): boolean;
+        exists(key: string, options?: TranslationOptions): boolean;
 
         setDefaultNamespace(ns: string): void;
 
