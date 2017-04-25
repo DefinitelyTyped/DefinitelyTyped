@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "babel.d.ts",
         "react-loadable-tests.tsx"
     ]
 }
