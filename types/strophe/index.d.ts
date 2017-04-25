@@ -382,27 +382,6 @@ declare namespace Strophe {
      */
     function addConnectionPlugin(name: string, ptype: any): void;
 
-    var Builder: {
-        /** Constructor: Strophe.Builder
-         *  Create a Strophe.Builder object.
-         *
-         *  The attributes should be passed in object notation.  For example
-         *  > var b = new Builder('message', {to: 'you', from: 'me'});
-         *  or
-         *  > var b = new Builder('messsage', {'xml:lang': 'en'});
-         *
-         *  Parameters:
-         *    (String) name - The name of the root element.
-         *    (Object) attrs - The attributes for the root element in object notation.
-         *
-         *  Returns:
-         *    A new Strophe.Builder.
-         */
-        new (name: string, attrs?: any): Builder;
-        prototype: any;
-    }
-
-
     /** Class: Strophe.Builder
      *  XML DOM builder.
      *
@@ -428,7 +407,25 @@ declare namespace Strophe {
      *  > builder.c('child1', ...).up().c('child2', ...)
      *  The next operation on the Builder will be relative to the second child.
      */
-    interface Builder {
+    class Builder {
+
+        /** Constructor: Strophe.Builder
+         *  Create a Strophe.Builder object.
+         *
+         *  The attributes should be passed in object notation.  For example
+         *  > var b = new Builder('message', {to: 'you', from: 'me'});
+         *  or
+         *  > var b = new Builder('messsage', {'xml:lang': 'en'});
+         *
+         *  Parameters:
+         *    (String) name - The name of the root element.
+         *    (Object) attrs - The attributes for the root element in object notation.
+         *
+         *  Returns:
+         *    A new Strophe.Builder.
+         */
+        constructor(name: string, attrs?: any);
+
         /** Function: tree
         *  Return the DOM tree.
         *
@@ -544,7 +541,39 @@ declare namespace Strophe {
         protocol?: string;
         sync?: boolean;
     }
-    var Connection: {
+
+    /** Class: Strophe.Connection
+     *  XMPP Connection manager.
+     *
+     *  This class is the main part of Strophe.  It manages a BOSH connection
+     *  to an XMPP server and dispatches events to the user callbacks as
+     *  data arrives.  It supports SASL PLAIN, SASL DIGEST-MD5, SASL SCRAM-SHA1
+     *  and legacy authentication.
+     *
+     *  After creating a Strophe.Connection object, the user will typically
+     *  call connect() with a user supplied callback to handle connection level
+     *  events like authentication failure, disconnection, or connection
+     *  complete.
+     *
+     *  The user will also have several event handlers defined by using
+     *  addHandler() and addTimedHandler().  These will allow the user code to
+     *  respond to interesting stanzas or do something periodically with the
+     *  connection.  These handlers will be active once authentication is
+     *  finished.
+     *
+     *  To send data to the connection, use send().
+     */
+    class Connection {
+
+        jid: string;
+        authzid: string;
+        pass: string;
+        authcid: string;
+        domain: string;
+        servtype: string;
+        maxRetries: number;
+        //todo: what other members are meant to be public?
+
         /** Constructor: Strophe.Connection
          *  Create and initialize a Strophe.Connection object.
          *
@@ -592,48 +621,14 @@ declare namespace Strophe {
          *  Returns:
          *    A new Strophe.Connection object.
          */
-        new (service: string, options?: ConnectionOptions): Connection;
-        prototype: any;
-    }
-
-    /** Class: Strophe.Connection
-     *  XMPP Connection manager.
-     *
-     *  This class is the main part of Strophe.  It manages a BOSH connection
-     *  to an XMPP server and dispatches events to the user callbacks as
-     *  data arrives.  It supports SASL PLAIN, SASL DIGEST-MD5, SASL SCRAM-SHA1
-     *  and legacy authentication.
-     *
-     *  After creating a Strophe.Connection object, the user will typically
-     *  call connect() with a user supplied callback to handle connection level
-     *  events like authentication failure, disconnection, or connection
-     *  complete.
-     *
-     *  The user will also have several event handlers defined by using
-     *  addHandler() and addTimedHandler().  These will allow the user code to
-     *  respond to interesting stanzas or do something periodically with the
-     *  connection.  These handlers will be active once authentication is
-     *  finished.
-     *
-     *  To send data to the connection, use send().
-     */
-    interface Connection {
-
-        jid: string;
-        authzid: string;
-        pass: string;
-        authcid: string;
-        domain: string;
-        servtype: string;
-        maxRetries: number;
-        //todo: what other members are meant to be public?
+        constructor(service: string, options?: ConnectionOptions);
 
         /** Function: reset
-        *  Reset the connection.
-        *
-        *  This function should be called after a connection is disconnected
-        *  before that connection is reused.
-        */
+         *  Reset the connection.
+         *
+         *  This function should be called after a connection is disconnected
+         *  before that connection is reused.
+         */
         reset(): void;
 
         /** Function: pause
