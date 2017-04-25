@@ -192,3 +192,10 @@ gulp.task('one', gulp.parallel('someCompanyTask', function (done) {
     console.log('in task one');
     done();
 }));
+
+
+gulp.symlink("path/to/dir");
+
+gulp.symlink(() => {
+    return "resolved/path/to/dir";
+});

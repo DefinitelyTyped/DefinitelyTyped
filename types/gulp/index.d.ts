@@ -12,8 +12,7 @@ import * as fs from "fs";
 import { Duplex } from "stream";
 
 declare namespace GulpClient {
-
-    export type Globs = string | Array<string>;
+    type Globs = string | string[];
 
     type TasksArray<T> = Array<string | TaskFunction | T>;
     type Task = TasksArray<TasksArray<any>> | string | TaskFunction;
@@ -27,7 +26,7 @@ declare namespace GulpClient {
         allowEmpty?: boolean;
     }
 
-    export interface DestOptions {
+    interface DestOptions {
         /**
          * cwd for the output folder, only has an effect if provided output folder is relative.
          * @default process.cwd()
@@ -77,7 +76,7 @@ declare namespace GulpClient {
         (done?: () => void): void | Duplex | NodeJS.Process | any;
     }
 
-    export interface Gulp {
+    interface Gulp {
         /**
          * Emits files matching provided glob or array of globs. Returns a stream of Vinyl files that can be piped to plugins.
          * @param globs Glob or array of globs to read.
@@ -98,7 +97,7 @@ declare namespace GulpClient {
          * @param folder A folder path or a function that receives in a file and returns a folder path.
          * @param options
          */
-        symlink(folder: string | Function, options?: SymlinkOptions): Duplex;
+        symlink(folder: string | (() => string), options?: SymlinkOptions): Duplex;
 
         /**
          * Define a task exposed to gulp-cli, gulp.series, gulp.parallel and gulp.lastRun; inherited from undertaker.
@@ -127,8 +126,8 @@ declare namespace GulpClient {
          * time. If an error occurs, all execution will complete.
          */
         parallel(task: Task): TaskFunction;
-        parallel(...tasks: Array<Task>): TaskFunction;
-        parallel(tasks: Array<Task>): TaskFunction;
+        parallel(...tasks: Task[]): TaskFunction;
+        parallel(tasks: Task[]): TaskFunction;
 
         /**
          * Takes a number of task names or functions and returns a function of the composed tasks or functions.
@@ -137,8 +136,8 @@ declare namespace GulpClient {
          * If an error occurs, execution will stop.
          */
         series(task: Task): TaskFunction;
-        series(...tasks: Array<Task>): TaskFunction;
-        series(tasks: Array<Task>): TaskFunction;
+        series(...tasks: Task[]): TaskFunction;
+        series(tasks: Task[]): TaskFunction;
 
         /**
          * akes a path string, an array of path strings, a glob string or an array of glob strings as globs to watch on the filesystem.
@@ -206,7 +205,6 @@ declare namespace GulpClient {
          */
         alwaysStat?: boolean;
     }
-
 }
 
 declare var GulpClient: GulpClient.Gulp;
