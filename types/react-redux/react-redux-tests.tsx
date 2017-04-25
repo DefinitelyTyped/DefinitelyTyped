@@ -361,8 +361,8 @@ namespace TestTOwnPropsInference {
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
     const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
 
-    // This compiles, which is bad.
-    React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
+    // This should not compile, which is good.
+    // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
     React.createElement(ConnectedWithOwnProps, { own: 'string' });
