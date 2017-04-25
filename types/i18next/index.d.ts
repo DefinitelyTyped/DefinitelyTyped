@@ -49,6 +49,8 @@ declare namespace i18n {
         joinArrays?: string;
         postProcess?: string | any[];
         interpolation?: InterpolationOptions;
+        //add an indexer to assure that interpolation arguments can be passed
+        [x: string]: any;
     }
 
     interface Options {
@@ -106,7 +108,7 @@ declare namespace i18n {
 
         t(key: string, options?: TranslationOptions): string | any | Array<any>;
 
-        exists(): boolean;
+        exists(key, options?: TranslationOptions): boolean;
 
         setDefaultNamespace(ns: string): void;
 
