@@ -3,15 +3,14 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function throng(options: throng.WorkerCallback | throng.Options | number, startFunction?: throng.WorkerCallback): never;
+declare function throng(options: throng.WorkerCallback | throng.Options | number, startFunction?: throng.WorkerCallback): void;
 declare namespace throng {
-    type MasterCallback = () => void;
     type WorkerCallback = (id: number) => void;
 
     interface Options {
         grace?: number;
         lifetime?: number;
-        master: MasterCallback;
+        master: () => void;
         start: WorkerCallback;
         workers: number;
     }
