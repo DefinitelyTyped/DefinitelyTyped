@@ -8,7 +8,5 @@ export interface Stat {
     memory: number;
 }
 
-export type StatCallback = (error: Error, stat: Stat) => void;
-
-export function stat(pid: number, callback: StatCallback): never;
-export function unmonitor(pid: number): never;
+export function stat(pid: number, callback: (error: Error, stat: Stat) => void): void;
+export function unmonitor(pid: number): void;
