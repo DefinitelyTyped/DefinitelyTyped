@@ -32,8 +32,8 @@ export class Helmet extends React.Component<HelmetProps, any> {
 
 export interface HelmetData {
     base: HelmetDatum;
-    bodyAttributes: HelmetAttributesTagObject;
-    htmlAttributes: HelmetAttributesTagObject;
+    bodyAttributes: HelmetHTMLBodyDatum;
+    htmlAttributes: HelmetHTMLElementDatum;
     link: HelmetDatum;
     meta: HelmetDatum;
     noscript: HelmetDatum;
@@ -48,9 +48,14 @@ export interface HelmetDatum {
     toComponent(): React.Component<any, any>;
 }
 
-export interface HelmetAttributesTagObject {
+export interface HelmetHTMLBodyDatum {
     toString(): string;
-    toComponent(): React.HTMLAttributes<HTMLBodyElement | HTMLElement>;
+    toComponent(): React.HTMLAttributes<HTMLBodyElement>;
+}
+
+export interface HelmetHTMLElementDatum {
+    toString(): string;
+    toComponent(): React.HTMLAttributes<HTMLElement>;
 }
 
 export const peek: () => HelmetData;
