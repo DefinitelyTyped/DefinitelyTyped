@@ -7,6 +7,8 @@
 import * as React from 'react'
 import {
   Animated,
+  ViewStyle,
+  TextStyle
 } from 'react-native'
 
 export type HeaderMode = 'float' | 'screen' | 'none'
@@ -508,6 +510,68 @@ export declare function StackNavigator(
   stackConfig: StackNavigatorConfig = {}
 ): NavigationContainer
 
+/**
+ * Drawer Navigator
+ */
+export type DrawNavigatorConfig = {
+  drawerWidth?: number,
+  drawerPosition?: 'left'|'right',
+  contentComponent?: React.ReactElement<any>,
+  contentOptions?: {
+    activeTintColor?: string,
+    activeBackgroundColor?: string,
+    inactiveTintColor?: string,
+    inactiveBackgroundColor?: string,
+    style?: ViewStyle,
+    labelStyle?: TextStyle
+  }
+}
+
+export declare function DrawerNavigator(
+  routeConfigMap: NavigationRouteConfigMap,
+  drawConfig: DrawNavigatorConfig = {}
+): NavigationContainer;
+
+/**
+ * Tab Navigator
+ */
+export type TabNavigatorConfig = {
+  tabBarComponent?: React.ReactElement<any>,
+  tabBarPosition?: 'top'|'bottom',
+  swipeEnabled?: boolean,
+  animationEnabled?: boolean,
+  lazy?: boolean,
+  tabBarOptions?: {
+    activeTintColor?: string,
+    activeBackgroundColor?: string,
+    inactiveTintColor?: string,
+    inactiveBackgroundColor?: string,
+    showLabel?: boolean,
+    style?: ViewStyle,
+    labelStyle?: TextStyle,
+
+    // Top
+    showIcon?: boolean,
+    upperCaseLabel?: boolean,
+    pressColor?: string,
+    pressOpacity?: number,
+    scrollEnabled?: boolean,
+    tabStyle?: ViewStyle,
+    indicatorStyle?: ViewStyle
+  }
+  initialRouteName?: string,
+  order?: Array<string>,
+  paths?: any     // TODO: better def
+  backBehavior?: 'initialRoute'|'none'
+}
+
+export declare function TabNavigator(
+  routeConfigMap: NavigationRouteConfigMap,
+  drawConfig: TabNavigatorConfig = {}
+): NavigationContainer;
+/**
+ * Screen Options
+ */
 export interface StackNavigatorScreenOptions {
   title?: string;
   headerVisible?: boolean;
