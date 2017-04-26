@@ -26,7 +26,6 @@ const ConnectedComponent = connect(() => ({}), () => ({}))((props) => {
 })
 
 const Routing = () => (
-  // Cannot pass this component.
   <Router>
     <Route path="/sfc" component={EmptyPropsSfc} />
     <Route path="/class" component={EmptyPropsClassComponent} />
