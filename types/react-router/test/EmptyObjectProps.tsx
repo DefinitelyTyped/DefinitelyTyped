@@ -19,7 +19,7 @@ class EmptyPropsClassComponent extends React.Component<{}, void> {
   }
 }
 
-const ConnectedComponent = connect(() => ({}), {})((props) => {
+const ConnectedComponent = connect(() => ({}), () => ({}))((props) => {
   return <div>
     <h2>Empty Props Connected Class</h2>
   </div>
