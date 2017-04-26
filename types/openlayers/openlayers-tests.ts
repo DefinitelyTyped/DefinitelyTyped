@@ -38,6 +38,7 @@ let feature: ol.Feature;
 let featureArray: Array<ol.Feature>;
 let featureCollection: ol.Collection<ol.Feature>;
 let featureFormat: ol.format.Feature;
+let featureFormatArray: ol.format.Feature[];
 let featureUrlFunction: ol.FeatureUrlFunction;
 let graticule: ol.Graticule;
 let geometriesArray: Array<ol.geom.Geometry>;
@@ -608,10 +609,10 @@ writeOptions.featureProjection = projection;
 writeOptions.rightHanded = false;
 
 // Test functions
-feature = geojsonFormat.readFeature("json");
-feature = geojsonFormat.readFeature("json", readOptions);
-featureArray = geojsonFormat.readFeatures("json");
-featureArray = geojsonFormat.readFeatures("json", readOptions);
+featureFormat = geojsonFormat.readFeature("json");
+featureFormat = geojsonFormat.readFeature("json", readOptions);
+featureFormatArray = geojsonFormat.readFeatures("json");
+featureFormatArray = geojsonFormat.readFeatures("json", readOptions);
 geometry = geojsonFormat.readGeometry("geometry");
 geometry = geojsonFormat.readGeometry("geometry", readOptions);
 stringValue = geojsonFormat.writeFeature(feature);
