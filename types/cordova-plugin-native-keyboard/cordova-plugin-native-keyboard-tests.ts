@@ -25,6 +25,8 @@ NativeKeyboard.hideMessenger(
     () => {},
     () => {});
 
+NativeKeyboard.hideMessenger();
+
 /**
  * Hide Messenger Keyboard
  */

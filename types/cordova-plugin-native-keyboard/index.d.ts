@@ -24,8 +24,8 @@ interface NativeKeyboard {
     hideMessenger(
         options?: NativeKeyboardHideOptions,
         onSuccess?: () => void,
-        onError?: (err: any) => void)
-        : void;
+        onError?: (err: any) => void
+    ): void;
 
     /**
      * Show a previously hidden keyboard
@@ -94,27 +94,27 @@ interface NativeKeyboardShowOptions {
      * Callback function, which is being called as soon as the user submits
      * @param text
      */
-    onSubmit: (text: string) => void;
+    onSubmit(text: string): void;
 
     /**
      * Callback function which is being executed as soon as the keyboard will show
      */
-    onKeyboardWillShow?: () => void;
+    onKeyboardWillShow?(): void;
 
     /**
      * Callback function which is being executed as soon as the keyboard did show
      */
-    onKeyboardDidShow?: () => void;
+    onKeyboardDidShow?(): void;
 
     /**
      * Callback function which is being executed as soon as the keyboard will hide
      */
-    onKeyboardWillHide?: () => void;
+    onKeyboardWillHide?(): void;
 
     /**
      * Callback function which is being executed as soon as the keyboard did hide
      */
-    onKeyboardDidHide?: () => void;
+    onKeyboardDidHide?(): void;
 
     /**
      * Callback function which is being executed as soon as the entered text changes. Will
@@ -122,7 +122,7 @@ interface NativeKeyboardShowOptions {
      *
      * @param text
      */
-    onTextChanged?: (text: string) => void;
+    onTextChanged?(text: string): void;
 
     /**
      * DOM element, which should be scrolled automatically
@@ -284,7 +284,7 @@ interface ButtonOptions {
     /**
      * A callback being executed as soon as the button is clicked
      */
-    onPress: () => void;
+    onPress(): void;
 }
 
 interface LeftButtonOptions extends ButtonOptions {
