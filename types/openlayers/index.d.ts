@@ -11255,7 +11255,7 @@ declare module ol {
      * undefined.
      * @typedef {ol.proj.Projection|string|undefined} ol.ProjectionLike
      */
-    type ProjectionLike = (ol.proj.Projection | string | undefined);
+    type ProjectionLike = (proj.Projection | string | undefined);
 
     /**
      * A function that takes an array of input data, performs some operation, and
