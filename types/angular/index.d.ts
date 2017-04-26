@@ -1981,6 +1981,7 @@ declare namespace angular {
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
             invoke<T>(func: (...args: any[]) => T, context?: any, locals?: any): T;
+            invoke(func: Function, context?: any, locals?: any): any;
             strictDi: boolean;
         }
 
