@@ -73,6 +73,8 @@ interface DatepickerCustomFormatOptions {
 interface DatepickerEventObject extends JQueryEventObject {
     date: Date;
     dates: Date[];
+    format(ix?:number): string;
+    format(format?: string): string;
     format(ix?:number, format?: string): string;
 }
 
