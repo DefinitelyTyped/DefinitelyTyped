@@ -1,6 +1,6 @@
 // Type definitions for tmp v0.0.28
 // Project: https://www.npmjs.com/package/tmp
-// Definitions by: Jared Klopper <https://github.com/optical>
+// Definitions by: Jared Klopper <https://github.com/optical>, Gyusun Yeom <https://github.com/Perlmint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -8,6 +8,8 @@
 declare namespace tmp {
     interface Options extends SimpleOptions {
         mode?: number;
+        discardDescriptor?: boolean;
+        detachDescriptor?: boolean;
     }
 
     interface SimpleOptions {
