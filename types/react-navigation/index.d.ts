@@ -508,3 +508,38 @@ export declare function StackNavigator(
   stackConfig: StackNavigatorConfig = {}
 ): NavigationContainer
 
+export interface StackNavigatorScreenOptions {
+  title?: string;
+  headerVisible?: boolean;
+  headerTitle?: string|React.ReactElement<any>;
+  headerBackTitle?: string|null;
+  headerTruncatedBackTitle?: string;
+  headerRight?: React.ReactElement<any>;
+  headerLeft?: React.ReactElement<any>;
+  headerStyle?: ViewStyle;
+  headerTitleStyle?: ViewStyle;
+  headerTintColor?: string;
+  headerPressColorAndroid?: string;
+  gesturesEnabled?: boolean;
+}
+
+export interface TabNavigatorScreenOptions {
+  title?: string;
+  tabBarVisible?: boolean;
+  tabBarIcon?: React.ReactElement<any>;
+  tabBarLaben?: string
+      |React.ReactElement<any>
+      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
+  ;
+}
+
+export interface DrawerNavigatorScreenOptions {
+  title?: string;
+  drawerLabel?: string
+      |React.ReactElement<any>
+      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
+  ;
+  drawerIcon?: React.ReactElement<any>
+      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
+  ;
+}
