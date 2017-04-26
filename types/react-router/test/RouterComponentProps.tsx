@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom'
 import { connect } from "react-redux"
 
+// Empty Props
+
 const EmptyPropsSfc = (props: {}) => (
   <div>
     <h2>Empty Props SFC</h2>
@@ -18,6 +20,8 @@ class EmptyPropsClassComponent extends React.Component<{}, void> {
     </div>
   }
 }
+
+// Redux connect Props
 
 const ConnectedComponent = connect(() => ({}), () => ({}))((props) => {
   return <div>
