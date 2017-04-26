@@ -143,7 +143,7 @@ declare module ol {
          * @return {ol.Collection.<T>} This collection.
          * @api stable
          */
-        extend(arr: T[]): ol.Collection<T>;
+        extend(arr: T[]): Collection<T>;
 
         /**
          * Iterate over each element, calling the provided callback.
@@ -260,7 +260,7 @@ declare module ol {
              * @param {ol.Collection.EventType} type Type.
              * @param {*=} opt_element Element.
              */
-            constructor(type: ol.Collection.EventType, opt_element?: any);
+            constructor(type: Collection.EventType, opt_element?: any);
 
             /**
              * The element that is added to or removed from the collection.
@@ -288,7 +288,7 @@ declare module ol {
          * @return {ol.Color} Color.
          * @api
          */
-        function asArray(color: (ol.Color | string)): ol.Color;
+        function asArray(color: (Color | string)): Color;
 
         /**
          * Return the color as an rgba string.
@@ -296,7 +296,7 @@ declare module ol {
          * @return {string} Rgba string.
          * @api
          */
-        function asString(color: (ol.Color | string)): string;
+        function asString(color: (Color | string)): string;
 
     }
 
@@ -311,7 +311,7 @@ declare module ol {
          * @return {ol.ColorLike} The color as an ol.ColorLike
          * @api
          */
-        function asColorLike(color: (ol.Color | ol.ColorLike)): ol.ColorLike;
+        function asColorLike(color: (Color | ColorLike)): ColorLike;
 
     }
 
@@ -352,7 +352,7 @@ declare module ol {
              * @this {ol.control.Attribution}
              * @api
              */
-            static render(mapEvent: ol.MapEvent): void;
+            static render(mapEvent: MapEvent): void;
 
             /**
              * Return `true` if the attribution is collapsible, `false` otherwise.
@@ -453,7 +453,7 @@ declare module ol {
              * @return {ol.Map} Map.
              * @api stable
              */
-            getMap(): ol.Map;
+            getMap(): Map;
 
             /**
              * Remove the control from its current map and attach it to the new map.
@@ -462,7 +462,7 @@ declare module ol {
              * @param {ol.Map} map Map.
              * @api stable
              */
-            setMap(map: ol.Map): void;
+            setMap(map: Map): void;
 
             /**
              * This function is used to set a target element for the control. It has no
@@ -525,10 +525,10 @@ declare module ol {
          * * {@link ol.control.Attribution}
          *
          * @param {olx.control.DefaultsOptions=} opt_options Defaults options.
-         * @return {ol.Collection.<ol.control.Control>} Controls.
+         * @return {ol.Collection.<control.Control>} Controls.
          * @api stable
          */
-        function defaults(opt_options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
+        function defaults(opt_options?: olx.control.DefaultsOptions): Collection<control.Control>;
 
         /**
          * @classdesc
@@ -565,7 +565,7 @@ declare module ol {
              * @this {ol.control.MousePosition}
              * @api
              */
-            static render(mapEvent: ol.MapEvent): void;
+            static render(mapEvent: MapEvent): void;
 
             /**
              * Return the coordinate format type used to render the current position or
@@ -575,7 +575,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            getCoordinateFormat(): (ol.CoordinateFormatType);
+            getCoordinateFormat(): (CoordinateFormatType);
 
             /**
              * Return the projection that is used to report the mouse position.
@@ -584,7 +584,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            getProjection(): (ol.proj.Projection);
+            getProjection(): (proj.Projection);
 
             /**
              * Set the coordinate format type used to render the current position.
@@ -593,7 +593,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            setCoordinateFormat(format: ol.CoordinateFormatType): void;
+            setCoordinateFormat(format: CoordinateFormatType): void;
 
             /**
              * Set the projection that is used to report the mouse position.
@@ -602,7 +602,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            setProjection(projection: ol.proj.Projection): void;
+            setProjection(projection: proj.Projection): void;
 
         }
 
@@ -631,7 +631,7 @@ declare module ol {
              * @this {ol.control.OverviewMap}
              * @api
              */
-            static render(mapEvent: ol.MapEvent): void;
+            static render(mapEvent: MapEvent): void;
 
             /**
              * Return `true` if the overview map is collapsible, `false` otherwise.
@@ -668,7 +668,7 @@ declare module ol {
              * @return {ol.Map} Overview map.
              * @api
              */
-            getOverviewMap(): ol.Map;
+            getOverviewMap(): Map;
 
         }
 
@@ -703,7 +703,7 @@ declare module ol {
              * @this {ol.control.Rotate}
              * @api
              */
-            static render(mapEvent: ol.MapEvent): void;
+            static render(mapEvent: MapEvent): void;
 
         }
 
@@ -747,7 +747,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            getUnits(): (ol.control.ScaleLine.Units);
+            getUnits(): (control.ScaleLine.Units);
 
             /**
              * Update the scale line element.
@@ -755,7 +755,7 @@ declare module ol {
              * @this {ol.control.ScaleLine}
              * @api
              */
-            static render(mapEvent: ol.MapEvent): void;
+            static render(mapEvent: MapEvent): void;
 
             /**
              * Set the units to use in the scale line.
@@ -763,7 +763,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            setUnits(units: ol.control.ScaleLine.Units): void;
+            setUnits(units: control.ScaleLine.Units): void;
         }
 
         module ScaleLine {
@@ -843,7 +843,7 @@ declare module ol {
              * @this {ol.control.ZoomSlider}
              * @api
              */
-            static render(mapEvent: ol.MapEvent): void;
+            static render(mapEvent: MapEvent): void;
 
         }
 
@@ -893,7 +893,7 @@ declare module ol {
          * @return {ol.Coordinate} The input coordinate adjusted by the given delta.
          * @api stable
          */
-        function add(coordinate: ol.Coordinate, delta: ol.Coordinate): ol.Coordinate;
+        function add(coordinate: Coordinate, delta: Coordinate): Coordinate;
 
         /**
          * Returns a {@link ol.CoordinateFormatType} function that can be used to format
@@ -918,7 +918,7 @@ declare module ol {
          * @return {ol.CoordinateFormatType} Coordinate format.
          * @api stable
          */
-        function createStringXY(opt_fractionDigits?: number): ol.CoordinateFormatType;
+        function createStringXY(opt_fractionDigits?: number): CoordinateFormatType;
 
         /**
          * Transforms the given {@link ol.Coordinate} to a string using the given string
@@ -947,7 +947,7 @@ declare module ol {
          * @return {string} Formatted coordinate.
          * @api stable
          */
-        function format(coordinate: (ol.Coordinate), template: string, opt_fractionDigits?: number): string;
+        function format(coordinate: (Coordinate), template: string, opt_fractionDigits?: number): string;
 
         /**
          * Rotate `coordinate` by `angle`. `coordinate` is modified in place and
@@ -965,7 +965,7 @@ declare module ol {
          * @return {ol.Coordinate} Coordinate.
          * @api stable
          */
-        function rotate(coordinate: ol.Coordinate, angle: number): ol.Coordinate;
+        function rotate(coordinate: Coordinate, angle: number): Coordinate;
 
         /**
          * Format a geographic coordinate with the hemisphere, degrees, minutes, and
@@ -989,7 +989,7 @@ declare module ol {
          * @return {string} Hemisphere, degrees, minutes and seconds.
          * @api stable
          */
-        function toStringHDMS(coordinate?: ol.Coordinate, opt_fractionDigits?: number): string;
+        function toStringHDMS(coordinate?: Coordinate, opt_fractionDigits?: number): string;
 
         /**
          * Format a coordinate as a comma delimited string.
@@ -1012,7 +1012,7 @@ declare module ol {
          * @return {string} XY.
          * @api stable
          */
-        function toStringXY(coordinate?: ol.Coordinate, opt_fractionDigits?: number): string;
+        function toStringXY(coordinate?: Coordinate, opt_fractionDigits?: number): string;
 
     }
 
@@ -1273,7 +1273,7 @@ declare module ol {
              * @return {boolean} True if only the alt key is pressed.
              * @api stable
              */
-            function altKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function altKeyOnly(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if only the alt-key and shift-key is pressed, `false` otherwise
@@ -1283,7 +1283,7 @@ declare module ol {
              * @return {boolean} True if only the alt and shift keys are pressed.
              * @api stable
              */
-            function altShiftKeysOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function altShiftKeysOnly(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return always true.
@@ -1293,7 +1293,7 @@ declare module ol {
              * @function
              * @api stable
              */
-            function always(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function always(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if the event is a `click` event, `false` otherwise.
@@ -1302,7 +1302,7 @@ declare module ol {
              * @return {boolean} True if the event is a map `click` event.
              * @api stable
              */
-            function click(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function click(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return always false.
@@ -1312,7 +1312,7 @@ declare module ol {
              * @function
              * @api stable
              */
-            function never(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function never(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if the browser event is a `pointermove` event, `false`
@@ -1322,7 +1322,7 @@ declare module ol {
              * @return {boolean} True if the browser event is a `pointermove` event.
              * @api
              */
-            function pointerMove(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function pointerMove(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if the event is a map `singleclick` event, `false` otherwise.
@@ -1331,7 +1331,7 @@ declare module ol {
              * @return {boolean} True if the event is a map `singleclick` event.
              * @api stable
              */
-            function singleClick(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function singleClick(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if the event is a map `dblclick` event, `false` otherwise.
@@ -1340,7 +1340,7 @@ declare module ol {
              * @return {boolean} True if the event is a map `dblclick` event.
              * @api stable
              */
-            function doubleClick(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function doubleClick(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if no modifier key (alt-, shift- or platform-modifier-key) is
@@ -1350,7 +1350,7 @@ declare module ol {
              * @return {boolean} True only if there no modifier keys are pressed.
              * @api stable
              */
-            function noModifierKeys(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function noModifierKeys(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if only the platform-modifier-key (the meta-key on Mac,
@@ -1361,7 +1361,7 @@ declare module ol {
              * @return {boolean} True if only the platform modifier key is pressed.
              * @api stable
              */
-            function platformModifierKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function platformModifierKeyOnly(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if only the shift-key is pressed, `false` otherwise (e.g. when
@@ -1371,7 +1371,7 @@ declare module ol {
              * @return {boolean} True if only the shift key is pressed.
              * @api stable
              */
-            function shiftKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function shiftKeyOnly(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if the target element is not editable, i.e. not a `<input>`-,
@@ -1381,7 +1381,7 @@ declare module ol {
              * @return {boolean} True only if the target element is not editable.
              * @api
              */
-            function targetNotEditable(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function targetNotEditable(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if the event originates from a mouse device.
@@ -1390,7 +1390,7 @@ declare module ol {
              * @return {boolean} True if the event originates from a mouse device.
              * @api stable
              */
-            function mouseOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function mouseOnly(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Return `true` if the event originates from a primary pointer in
@@ -1401,7 +1401,7 @@ declare module ol {
              * @return {boolean} True if the event originates from a primary pointer.
              * @api
              */
-            function primaryAction(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function primaryAction(mapBrowserEvent: MapBrowserEvent): boolean;
 
         }
 
@@ -1516,11 +1516,11 @@ declare module ol {
         /**
          * Build an extent that includes all given coordinates.
          *
-         * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+         * @param {Array.<Coordinate>} coordinates Coordinates.
          * @return {ol.Extent} Bounding extent.
          * @api stable
          */
-        function boundingExtent(coordinates: ol.Coordinate[]): ol.Extent;
+        function boundingExtent(coordinates: Coordinate[]): Extent;
 
         /**
          * Return extent increased by the provided value.
@@ -1530,7 +1530,7 @@ declare module ol {
          * @return {ol.Extent} Extent.
          * @api stable
          */
-        function buffer(extent: ol.Extent, value: number, opt_extent?: ol.Extent): ol.Extent;
+        function buffer(extent: Extent, value: number, opt_extent?: Extent): Extent;
 
         /**
          * Check if the passed coordinate is contained or on the edge of the extent.
@@ -1540,7 +1540,7 @@ declare module ol {
          * @return {boolean} The coordinate is contained in the extent.
          * @api stable
          */
-        function containsCoordinate(extent: ol.Extent, coordinate: ol.Coordinate): boolean;
+        function containsCoordinate(extent: Extent, coordinate: Coordinate): boolean;
 
         /**
          * Check if one extent contains another.
@@ -1554,7 +1554,7 @@ declare module ol {
          *     first.
          * @api stable
          */
-        function containsExtent(extent1: ol.Extent, extent2: ol.Extent): boolean;
+        function containsExtent(extent1: Extent, extent2: Extent): boolean;
 
         /**
          * Check if the passed coordinate is contained or on the edge of the extent.
@@ -1565,14 +1565,14 @@ declare module ol {
          * @return {boolean} The x, y values are contained in the extent.
          * @api stable
          */
-        function containsXY(extent: ol.Extent, x: number, y: number): boolean;
+        function containsXY(extent: Extent, x: number, y: number): boolean;
 
         /**
          * Create an empty extent.
          * @return {ol.Extent} Empty extent.
          * @api stable
          */
-        function createEmpty(): ol.Extent;
+        function createEmpty(): Extent;
 
         /**
          * Determine if two extents are equivalent.
@@ -1581,7 +1581,7 @@ declare module ol {
          * @return {boolean} The two extents are equivalent.
          * @api stable
          */
-        function equals(extent1: ol.Extent, extent2: ol.Extent): boolean;
+        function equals(extent1: Extent, extent2: Extent): boolean;
 
         /**
          * Modify an extent to include another extent.
@@ -1590,7 +1590,7 @@ declare module ol {
          * @return {ol.Extent} A reference to the first (extended) extent.
          * @api stable
          */
-        function extend(extent1: ol.Extent, extent2: ol.Extent): ol.Extent;
+        function extend(extent1: Extent, extent2: Extent): Extent;
 
         /**
          * Get the bottom left coordinate of an extent.
@@ -1598,7 +1598,7 @@ declare module ol {
          * @return {ol.Coordinate} Bottom left coordinate.
          * @api stable
          */
-        function getBottomLeft(extent: ol.Extent): ol.Coordinate;
+        function getBottomLeft(extent: Extent): Coordinate;
 
         /**
          * Get the bottom right coordinate of an extent.
@@ -1606,7 +1606,7 @@ declare module ol {
          * @return {ol.Coordinate} Bottom right coordinate.
          * @api stable
          */
-        function getBottomRight(extent: ol.Extent): ol.Coordinate;
+        function getBottomRight(extent: Extent): Coordinate;
 
         /**
          * Get the center coordinate of an extent.
@@ -1614,7 +1614,7 @@ declare module ol {
          * @return {ol.Coordinate} Center.
          * @api stable
          */
-        function getCenter(extent: ol.Extent): ol.Coordinate;
+        function getCenter(extent: Extent): Coordinate;
 
         /**
          * Get the height of an extent.
@@ -1622,7 +1622,7 @@ declare module ol {
          * @return {number} Height.
          * @api stable
          */
-        function getHeight(extent: ol.Extent): number;
+        function getHeight(extent: Extent): number;
 
         /**
          * Get the intersection of two extents.
@@ -1632,7 +1632,7 @@ declare module ol {
          * @return {ol.Extent} Intersecting extent.
          * @api stable
          */
-        function getIntersection(extent1: ol.Extent, extent2: ol.Extent, opt_extent?: ol.Extent): ol.Extent;
+        function getIntersection(extent1: Extent, extent2: Extent, opt_extent?: Extent): Extent;
 
         /**
          * Get the size (width, height) of an extent.
@@ -1640,7 +1640,7 @@ declare module ol {
          * @return {ol.Size} The extent size.
          * @api stable
          */
-        function getSize(extent: ol.Extent): ol.Size;
+        function getSize(extent: Extent): Size;
 
         /**
          * Get the top left coordinate of an extent.
@@ -1648,7 +1648,7 @@ declare module ol {
          * @return {ol.Coordinate} Top left coordinate.
          * @api stable
          */
-        function getTopLeft(extent: ol.Extent): ol.Coordinate;
+        function getTopLeft(extent: Extent): Coordinate;
 
         /**
          * Get the top right coordinate of an extent.
@@ -1656,7 +1656,7 @@ declare module ol {
          * @return {ol.Coordinate} Top right coordinate.
          * @api stable
          */
-        function getTopRight(extent: ol.Extent): ol.Coordinate;
+        function getTopRight(extent: Extent): Coordinate;
 
         /**
          * Get the width of an extent.
@@ -1664,7 +1664,7 @@ declare module ol {
          * @return {number} Width.
          * @api stable
          */
-        function getWidth(extent: ol.Extent): number;
+        function getWidth(extent: Extent): number;
 
         /**
          * Determine if one extent intersects another.
@@ -1673,7 +1673,7 @@ declare module ol {
          * @return {boolean} The two extents intersect.
          * @api stable
          */
-        function intersects(extent1: ol.Extent, extent2: ol.Extent): boolean;
+        function intersects(extent1: Extent, extent2: Extent): boolean;
 
         /**
          * Determine if an extent is empty.
@@ -1681,7 +1681,7 @@ declare module ol {
          * @return {boolean} Is empty.
          * @api stable
          */
-        function isEmpty(extent: ol.Extent): boolean;
+        function isEmpty(extent: Extent): boolean;
 
         /**
          * Apply a transform function to the extent.
@@ -1692,7 +1692,7 @@ declare module ol {
          * @return {ol.Extent} Extent.
          * @api stable
          */
-        function applyTransform(extent: ol.Extent, transformFn: ol.TransformFunction, opt_extent?: ol.Extent): ol.Extent;
+        function applyTransform(extent: Extent, transformFn: TransformFunction, opt_extent?: Extent): Extent;
 
     }
 
@@ -1787,7 +1787,7 @@ declare module ol {
          *     include a Geometry associated with a `geometry` key.
          * @api stable
          */
-        constructor(opt_geometryOrProperties?: (ol.geom.Geometry | { [k: string]: any }));
+        constructor(opt_geometryOrProperties?: (geom.Geometry | { [k: string]: any }));
 
         /**
          * Clone this feature. If the original feature has a geometry it
@@ -1795,7 +1795,7 @@ declare module ol {
          * @return {ol.Feature} The clone.
          * @api stable
          */
-        clone(): ol.Feature;
+        clone(): Feature;
 
         /**
          * Get the feature's default geometry.  A feature may have any number of named
@@ -1805,7 +1805,7 @@ declare module ol {
          * @api stable
          * @observable
          */
-        getGeometry(): (ol.geom.Geometry);
+        getGeometry(): (geom.Geometry);
 
         /**
          * Get the feature identifier.  This is a stable identifier for the feature and
@@ -1829,12 +1829,12 @@ declare module ol {
         /**
          * Get the feature's style.  This return for this method depends on what was
          * provided to the {@link ol.Feature#setStyle} method.
-         * @return {ol.style.Style|Array.<ol.style.Style>|
+         * @return {ol.style.Style|Array.<style.Style>|
          *     ol.FeatureStyleFunction} The feature style.
          * @api stable
          * @observable
          */
-        getStyle(): (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction);
+        getStyle(): (style.Style | style.Style[] | FeatureStyleFunction);
 
         /**
          * Get the feature's style function.
@@ -1842,7 +1842,7 @@ declare module ol {
          * representing the current style of this feature.
          * @api stable
          */
-        getStyleFunction(): (ol.FeatureStyleFunction);
+        getStyleFunction(): (FeatureStyleFunction);
 
         /**
          * Set the default geometry for the feature.  This will update the property
@@ -1851,18 +1851,18 @@ declare module ol {
          * @api stable
          * @observable
          */
-        setGeometry(geometry: (ol.geom.Geometry)): void;
+        setGeometry(geometry: (geom.Geometry)): void;
 
         /**
          * Set the style for the feature.  This can be a single style object, an array
          * of styles, or a function that takes a resolution and returns an array of
          * styles. If it is `null` the feature has no style (a `null` style).
-         * @param {ol.style.Style|Array.<ol.style.Style>|
+         * @param {ol.style.Style|Array.<style.Style>|
          *     ol.FeatureStyleFunction} style Style for this feature.
          * @api stable
          * @observable
          */
-        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction)): void;
+        setStyle(style: (style.Style | style.Style[] | FeatureStyleFunction)): void;
 
         /**
          * Set the feature id.  The feature id is considered stable and may be used when
@@ -1900,7 +1900,7 @@ declare module ol {
          * @return {ol.FeatureLoader} The feature loader.
          * @api
          */
-        function tile(url: (string | ol.FeatureUrlFunction), format: ol.format.Feature): ol.FeatureLoader;
+        function tile(url: (string | FeatureUrlFunction), format: format.Feature): FeatureLoader;
 
         /**
          * Create an XHR feature loader for a `url` and `format`. The feature loader
@@ -1911,7 +1911,7 @@ declare module ol {
          * @return {ol.FeatureLoader} The feature loader.
          * @api
          */
-        function xhr(url: (string | ol.FeatureUrlFunction), format: ol.format.Feature): ol.FeatureLoader;
+        function xhr(url: (string | FeatureUrlFunction), format: format.Feature): FeatureLoader;
 
     }
 
@@ -1951,7 +1951,7 @@ declare module ol {
              * @return {ol.Feature} Feature.
              * @api
              */
-            readFeature(source: (ArrayBuffer | Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: (ArrayBuffer | Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature;
 
             /**
              * Read all features from a EsriJSON source.  Works with both Feature and
@@ -1960,10 +1960,10 @@ declare module ol {
              * @function
              * @param {ArrayBuffer|Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api
              */
-            readFeatures(source: (ArrayBuffer | Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (ArrayBuffer | Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read a geometry from a EsriJSON source.
@@ -1974,7 +1974,7 @@ declare module ol {
              * @return {ol.geom.Geometry} Geometry.
              * @api
              */
-            readGeometry(source: (ArrayBuffer | Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.geom.Geometry;
+            readGeometry(source: (ArrayBuffer | Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): geom.Geometry;
 
             /**
              * Read the projection from a EsriJSON source.
@@ -1984,7 +1984,7 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api
              */
-            readProjection(source: (ArrayBuffer | Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (ArrayBuffer | Document | Node | GlobalObject | string)): proj.Projection;
 
             /**
              * Encode a geometry as a EsriJSON string.
@@ -1995,7 +1995,7 @@ declare module ol {
              * @return {string} EsriJSON.
              * @api
              */
-            writeGeometry(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): string;
+            writeGeometry(geometry: geom.Geometry, opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode a geometry as a EsriJSON object.
@@ -2005,7 +2005,7 @@ declare module ol {
              * @return {EsriJSONGeometry} Object.
              * @api
              */
-            writeGeometryObject(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): EsriJSONGeometry;
+            writeGeometryObject(geometry: geom.Geometry, opt_options?: olx.format.WriteOptions): EsriJSONGeometry;
 
             /**
              * Encode a feature as a EsriJSON Feature string.
@@ -2016,7 +2016,7 @@ declare module ol {
              * @return {string} EsriJSON.
              * @api
              */
-            writeFeature(feature: ol.Feature, opt_options?: olx.format.WriteOptions): string;
+            writeFeature(feature: Feature, opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode a feature as a esriJSON Feature object.
@@ -2026,28 +2026,28 @@ declare module ol {
              * @return {Object} Object.
              * @api
              */
-            writeFeatureObject(feature: ol.Feature, opt_options?: olx.format.WriteOptions): GlobalObject;
+            writeFeatureObject(feature: Feature, opt_options?: olx.format.WriteOptions): GlobalObject;
 
             /**
              * Encode an array of features as EsriJSON.
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Write options.
              * @return {string} EsriJSON.
              * @api
              */
-            writeFeatures(features: ol.Feature[], opt_options?: olx.format.WriteOptions): string;
+            writeFeatures(features: Feature[], opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode an array of features as a EsriJSON object.
              *
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Write options.
              * @return {Object} EsriJSON Object.
              * @api
              */
-            writeFeaturesObject(features: ol.Feature[], opt_options?: olx.format.WriteOptions): GlobalObject;
+            writeFeaturesObject(features: Feature[], opt_options?: olx.format.WriteOptions): GlobalObject;
 
         }
 
@@ -2118,7 +2118,7 @@ declare module ol {
              * @return {ol.Feature} Feature.
              * @api stable
              */
-            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature;
 
             /**
              * Read all features from a GeoJSON source.  Works with both Feature and
@@ -2127,10 +2127,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read a geometry from a GeoJSON source.
@@ -2141,7 +2141,7 @@ declare module ol {
              * @return {ol.geom.Geometry} Geometry.
              * @api stable
              */
-            readGeometry(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.geom.Geometry;
+            readGeometry(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): geom.Geometry;
 
             /**
              * Read the projection from a GeoJSON source.
@@ -2151,7 +2151,7 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api stable
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
             /**
              * Encode a feature as a GeoJSON Feature string.
@@ -2162,7 +2162,7 @@ declare module ol {
              * @return {string} GeoJSON.
              * @api stable
              */
-            writeFeature(feature: ol.Feature, opt_options?: olx.format.WriteOptions): string;
+            writeFeature(feature: Feature, opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode a feature as a GeoJSON Feature object.
@@ -2172,28 +2172,28 @@ declare module ol {
              * @return {GeoJSONFeature} Object.
              * @api stable
              */
-            writeFeatureObject(feature: ol.Feature, opt_options?: olx.format.WriteOptions): GeoJSONFeature;
+            writeFeatureObject(feature: Feature, opt_options?: olx.format.WriteOptions): GeoJSONFeature;
 
             /**
              * Encode an array of features as GeoJSON.
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Write options.
              * @return {string} GeoJSON.
              * @api stable
              */
-            writeFeatures(features: ol.Feature[], opt_options?: olx.format.WriteOptions): string;
+            writeFeatures(features: Feature[], opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode an array of features as a GeoJSON object.
              *
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Write options.
              * @return {GeoJSONFeatureCollection} GeoJSON Object.
              * @api stable
              */
-            writeFeaturesObject(features: ol.Feature[], opt_options?: olx.format.WriteOptions): GeoJSONFeatureCollection;
+            writeFeaturesObject(features: Feature[], opt_options?: olx.format.WriteOptions): GeoJSONFeatureCollection;
 
             /**
              * Encode a geometry as a GeoJSON string.
@@ -2204,7 +2204,7 @@ declare module ol {
              * @return {string} GeoJSON.
              * @api stable
              */
-            writeGeometry(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): string;
+            writeGeometry(geometry: geom.Geometry, opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode a geometry as a GeoJSON object.
@@ -2214,7 +2214,7 @@ declare module ol {
              * @return {GeoJSONGeometry|GeoJSONGeometryCollection} Object.
              * @api stable
              */
-            writeGeometryObject(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): (GeoJSONGeometry | GeoJSONGeometryCollection);
+            writeGeometryObject(geometry: geom.Geometry, opt_options?: olx.format.WriteOptions): (GeoJSONGeometry | GeoJSONGeometryCollection);
 
         }
 
@@ -2249,23 +2249,23 @@ declare module ol {
              * Encode an array of features in GML 3.1.1 Simple Features.
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Options.
              * @return {string} Result.
              * @api stable
              */
-            writeFeatures(features: ol.Feature[], opt_options?: olx.format.WriteOptions): string;
+            writeFeatures(features: Feature[], opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode an array of features in the GML 3.1.1 format as an XML node.
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Options.
              * @return {Node} Node.
              * @api
              */
-            writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
+            writeFeaturesNode(features: Feature[], opt_options?: olx.format.WriteOptions): Node;
 
         }
 
@@ -2329,28 +2329,28 @@ declare module ol {
              * @return {Node} Node.
              * @api
              */
-            writeGeometryNode(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): Node;
+            writeGeometryNode(geometry: geom.Geometry, opt_options?: olx.format.WriteOptions): Node;
 
             /**
              * Encode an array of features in GML 3.1.1 Simple Features.
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Options.
              * @return {string} Result.
              * @api stable
              */
-            writeFeatures(features: ol.Feature[], opt_options?: olx.format.WriteOptions): string;
+            writeFeatures(features: Feature[], opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode an array of features in the GML 3.1.1 format as an XML node.
              *
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Options.
              * @return {Node} Node.
              * @api
              */
-            writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
+            writeFeaturesNode(features: Feature[], opt_options?: olx.format.WriteOptions): Node;
 
         }
 
@@ -2391,10 +2391,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
         }
 
@@ -2430,7 +2430,7 @@ declare module ol {
              * @return {ol.Feature} Feature.
              * @api stable
              */
-            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature;
 
             /**
              * Read all features from a GPX source.
@@ -2440,10 +2440,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read the projection from a GPX source.
@@ -2453,7 +2453,7 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api stable
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
             /**
              * Encode an array of features in the GPX format.
@@ -2461,24 +2461,24 @@ declare module ol {
              * as tracks (`<trk>`).
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Write options.
              * @return {string} Result.
              * @api stable
              */
-            writeFeatures(features: ol.Feature[], opt_options?: olx.format.WriteOptions): string;
+            writeFeatures(features: Feature[], opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode an array of features in the GPX format as an XML node.
              * LineString geometries are output as routes (`<rte>`), and MultiLineString
              * as tracks (`<trk>`).
              *
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Options.
              * @return {Node} Node.
              * @api
              */
-            writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
+            writeFeaturesNode(features: Feature[], opt_options?: olx.format.WriteOptions): Node;
 
         }
 
@@ -2518,7 +2518,7 @@ declare module ol {
              * @return {ol.Feature} Feature.
              * @api
              */
-            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature;
 
             /**
              * Read the feature from the source. As IGC sources contain a single
@@ -2527,10 +2527,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read the projection from the IGC source.
@@ -2540,7 +2540,7 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
         }
 
@@ -2605,7 +2605,7 @@ declare module ol {
              * @return {ol.Feature} Feature.
              * @api stable
              */
-            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature;
 
             /**
              * Read all features from a KML source. MultiGeometries are converted into
@@ -2615,10 +2615,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read the name of the KML.
@@ -2646,30 +2646,30 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api stable
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
             /**
              * Encode an array of features in the KML format. GeometryCollections, MultiPoints,
              * MultiLineStrings, and MultiPolygons are output as MultiGeometries.
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Options.
              * @return {string} Result.
              * @api stable
              */
-            writeFeatures(features: ol.Feature[], opt_options?: olx.format.WriteOptions): string;
+            writeFeatures(features: Feature[], opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode an array of features in the KML format as an XML node. GeometryCollections,
              * MultiPoints, MultiLineStrings, and MultiPolygons are output as MultiGeometries.
              *
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Options.
              * @return {Node} Node.
              * @api
              */
-            writeFeaturesNode(features: ol.Feature[], opt_options?: olx.format.WriteOptions): Node;
+            writeFeaturesNode(features: Feature[], opt_options?: olx.format.WriteOptions): Node;
 
         }
 
@@ -2698,13 +2698,13 @@ declare module ol {
              * @inheritDoc
              * @api
              */
-            readFeatures(source: (Document | Node | ArrayBuffer | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | ArrayBuffer | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * @inheritDoc
              * @api
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
             /**
              * Sets the layers that features will be read from.
@@ -2727,7 +2727,7 @@ declare module ol {
              * @returns {!ol.format.filter.Intersects} `<Intersects>` operator.
              * @api
              */
-            function intersects(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string): ol.format.filter.Intersects;
+            function intersects(geometryName: string, geometry: geom.Geometry, opt_srsName?: string): format.filter.Intersects;
 
             /**
              * @classdesc
@@ -2788,7 +2788,7 @@ declare module ol {
                  * @extends {ol.format.filter.Filter}
                  * @api
                  */
-                constructor(tagName: string, geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+                constructor(tagName: string, geometryName: string, geometry: geom.Geometry, opt_srsName?: string);
             }
 
             /**
@@ -2818,7 +2818,7 @@ declare module ol {
                  * @extends {ol.format.filter.Spatial}
                  * @api
                  */
-                constructor(geometryName: string, geometry: ol.geom.Geometry, opt_srsName?: string);
+                constructor(geometryName: string, geometry: geom.Geometry, opt_srsName?: string);
             }
         }
 
@@ -2849,10 +2849,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read the projection from an OSM source.
@@ -2862,7 +2862,7 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api stable
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
         }
 
@@ -2954,7 +2954,7 @@ declare module ol {
              * @return {ol.Feature} Feature.
              * @api stable
              */
-            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature;
 
             /**
              * Read the feature from the source. As Polyline sources contain a single
@@ -2963,10 +2963,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read the geometry from the source.
@@ -2977,7 +2977,7 @@ declare module ol {
              * @return {ol.geom.Geometry} Geometry.
              * @api stable
              */
-            readGeometry(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.geom.Geometry;
+            readGeometry(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): geom.Geometry;
 
             /**
              * Read the projection from a Polyline source.
@@ -2987,7 +2987,7 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api stable
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
             /**
              * Write a single geometry in Polyline format.
@@ -2998,7 +2998,7 @@ declare module ol {
              * @return {string} Geometry.
              * @api stable
              */
-            writeGeometry(geometry: ol.geom.Geometry, opt_options?: olx.format.WriteOptions): string;
+            writeGeometry(geometry: geom.Geometry, opt_options?: olx.format.WriteOptions): string;
 
         }
 
@@ -3051,10 +3051,10 @@ declare module ol {
              *
              * @function
              * @param {Document|Node|Object|string} source Source.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string)): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string)): Feature[];
 
             /**
              * Read the projection from a TopoJSON source.
@@ -3064,7 +3064,7 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api stable
              */
-            readProjection(object: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(object: (Document | Node | GlobalObject | string)): proj.Projection;
 
         }
 
@@ -3103,10 +3103,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read transaction response of the source.
@@ -3115,7 +3115,7 @@ declare module ol {
              * @return {ol.WFSTransactionResponse|undefined} Transaction response.
              * @api stable
              */
-            readTransactionResponse(source: (Document | Node | GlobalObject | string)): (ol.WFSTransactionResponse);
+            readTransactionResponse(source: (Document | Node | GlobalObject | string)): (WFSTransactionResponse);
 
             /**
              * Read feature collection metadata of the source.
@@ -3125,7 +3125,7 @@ declare module ol {
              *     FeatureCollection metadata.
              * @api stable
              */
-            readFeatureCollectionMetadata(source: (Document | Node | GlobalObject | string)): (ol.WFSFeatureCollectionMetadata);
+            readFeatureCollectionMetadata(source: (Document | Node | GlobalObject | string)): (WFSFeatureCollectionMetadata);
 
             /**
              * Encode format as WFS `GetFeature` and return the Node.
@@ -3139,14 +3139,14 @@ declare module ol {
             /**
              * Encode format as WFS `Transaction` and return the Node.
              *
-             * @param {Array.<ol.Feature>} inserts The features to insert.
-             * @param {Array.<ol.Feature>} updates The features to update.
-             * @param {Array.<ol.Feature>} deletes The features to delete.
+             * @param {Array.<Feature>} inserts The features to insert.
+             * @param {Array.<Feature>} updates The features to update.
+             * @param {Array.<Feature>} deletes The features to delete.
              * @param {olx.format.WFSWriteTransactionOptions} options Write options.
              * @return {Node} Result.
              * @api stable
              */
-            writeTransaction(inserts: ol.Feature[], updates: ol.Feature[], deletes: ol.Feature[], options: olx.format.WFSWriteTransactionOptions): Node;
+            writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: olx.format.WFSWriteTransactionOptions): Node;
 
             /**
              * Read the projection from a WFS source.
@@ -3156,7 +3156,7 @@ declare module ol {
              * @return {?ol.proj.Projection} Projection.
              * @api stable
              */
-            readProjection(source: (Document | Node | GlobalObject | string)): ol.proj.Projection;
+            readProjection(source: (Document | Node | GlobalObject | string)): proj.Projection;
 
         }
 
@@ -3192,7 +3192,7 @@ declare module ol {
              * @return {ol.Feature} Feature.
              * @api stable
              */
-            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature;
 
             /**
              * Read all features from a WKT source.
@@ -3200,10 +3200,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Read options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
             /**
              * Read a single geometry from a WKT source.
@@ -3214,7 +3214,7 @@ declare module ol {
              * @return {ol.geom.Geometry} Geometry.
              * @api stable
              */
-            readGeometry(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.geom.Geometry;
+            readGeometry(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): geom.Geometry;
 
             /**
              * Encode a feature as a WKT string.
@@ -3225,18 +3225,18 @@ declare module ol {
              * @return {string} WKT string.
              * @api stable
              */
-            writeFeature(feature: ol.Feature, opt_options?: olx.format.WriteOptions): string;
+            writeFeature(feature: Feature, opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Encode an array of features as a WKT string.
              *
              * @function
-             * @param {Array.<ol.Feature>} features Features.
+             * @param {Array.<Feature>} features Features.
              * @param {olx.format.WriteOptions=} opt_options Write options.
              * @return {string} WKT string.
              * @api stable
              */
-            writeFeatures(features: ol.Feature[], opt_options?: olx.format.WriteOptions): string;
+            writeFeatures(features: Feature[], opt_options?: olx.format.WriteOptions): string;
 
             /**
              * Write a single geometry as a WKT string.
@@ -3246,7 +3246,7 @@ declare module ol {
              * @return {string} WKT string.
              * @api stable
              */
-            writeGeometry(geometry: ol.geom.Geometry): string;
+            writeGeometry(geometry: geom.Geometry): string;
 
         }
 
@@ -3310,10 +3310,10 @@ declare module ol {
              * @function
              * @param {Document|Node|Object|string} source Source.
              * @param {olx.format.ReadOptions=} opt_options Options.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): ol.Feature[];
+            readFeatures(source: (Document | Node | GlobalObject | string), opt_options?: olx.format.ReadOptions): Feature[];
 
         }
 
@@ -3462,7 +3462,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getAccuracyGeometry(): ol.geom.Geometry;
+        getAccuracyGeometry(): geom.Geometry;
 
         /**
          * Get the altitude associated with the position.
@@ -3497,7 +3497,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getPosition(): (ol.Coordinate);
+        getPosition(): (Coordinate);
 
         /**
          * Get the projection associated with the position.
@@ -3506,7 +3506,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getProjection(): (ol.proj.Projection);
+        getProjection(): (proj.Projection);
 
         /**
          * Get the speed in meters per second.
@@ -3543,7 +3543,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setProjection(projection: ol.proj.Projection): void;
+        setProjection(projection: proj.Projection): void;
 
         /**
          * Enable or disable tracking.
@@ -3593,21 +3593,21 @@ declare module ol {
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api
              */
-            constructor(center: ol.Coordinate, opt_radius?: number, opt_layout?: ol.geom.GeometryLayout);
+            constructor(center: Coordinate, opt_radius?: number, opt_layout?: geom.GeometryLayout);
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.Circle} Clone.
              * @api
              */
-            clone(): ol.geom.Circle;
+            clone(): geom.Circle;
 
             /**
              * Return the center of the circle as {@link ol.Coordinate coordinate}.
              * @return {ol.Coordinate} Center.
              * @api
              */
-            getCenter(): ol.Coordinate;
+            getCenter(): Coordinate;
 
             /**
              * Return the radius of the circle.
@@ -3620,20 +3620,20 @@ declare module ol {
              * @inheritDoc
              * @api
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the center of the circle as {@link ol.Coordinate coordinate}.
              * @param {ol.Coordinate} center Center.
              * @api
              */
-            setCenter(center: ol.Coordinate): void;
+            setCenter(center: Coordinate): void;
 
             /**
              * Set the center (as {@link ol.Coordinate coordinate}) and the radius (as
@@ -3643,7 +3643,7 @@ declare module ol {
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api
              */
-            setCenterAndRadius(center: ol.Coordinate, radius: number, opt_layout?: ol.geom.GeometryLayout): void;
+            setCenterAndRadius(center: Coordinate, radius: number, opt_layout?: geom.GeometryLayout): void;
 
             /**
              * Set the radius of the circle. The radius is in the units of the projection.
@@ -3707,7 +3707,7 @@ declare module ol {
              * @return {ol.Coordinate} Closest point.
              * @api stable
              */
-            getClosestPoint(point: ol.Coordinate, opt_closestPoint?: ol.Coordinate): ol.Coordinate;
+            getClosestPoint(point: Coordinate, opt_closestPoint?: Coordinate): Coordinate;
 
             /**
              * Returns true if this geometry includes the specified coordinate. If the
@@ -3716,7 +3716,7 @@ declare module ol {
              * @return {boolean} Contains coordinate.
              * @api
              */
-            intersectsCoordinate(coordinate: ol.Coordinate): boolean;
+            intersectsCoordinate(coordinate: Coordinate): boolean;
 
             /**
              * Get the extent of the geometry.
@@ -3724,7 +3724,7 @@ declare module ol {
              * @return {ol.Extent} extent Extent.
              * @api stable
              */
-            getExtent(opt_extent?: ol.Extent): ol.Extent;
+            getExtent(opt_extent?: Extent): Extent;
 
             /**
              * Rotate the geometry around a given coordinate. This modifies the geometry
@@ -3734,7 +3734,7 @@ declare module ol {
              * @param {ol.Coordinate} anchor The rotation center.
              * @api
              */
-            rotate(angle: number, anchor: ol.Coordinate): void;
+            rotate(angle: number, anchor: Coordinate): void;
 
             /**
              * Scale the geometry (with an optional origin).  This modifies the geometry
@@ -3747,7 +3747,7 @@ declare module ol {
              *     of the geometry extent).
              * @api
              */
-            scale(sx: number, opt_sy?: number, opt_anchor?: ol.Coordinate): void;
+            scale(sx: number, opt_sy?: number, opt_anchor?: Coordinate): void;
 
             /**
              * Create a simplified version of this geometry.  For linestrings, this uses
@@ -3761,7 +3761,7 @@ declare module ol {
              *     geometry.
              * @api
              */
-            simplify(tolerance: number): ol.geom.Geometry;
+            simplify(tolerance: number): geom.Geometry;
 
             /**
              * Transform each coordinate of the geometry from one coordinate reference
@@ -3778,14 +3778,14 @@ declare module ol {
              *     modified in place.
              * @api stable
              */
-            transform(source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.geom.Geometry;
+            transform(source: ProjectionLike, destination: ProjectionLike): geom.Geometry;
 
             /**
              * Get the type of this geometry.
              * @abstract
              * @return {ol.geom.GeometryType} Geometry type.
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
         }
 
         /**
@@ -3794,7 +3794,7 @@ declare module ol {
          *
          * @constructor
          * @extends {ol.geom.Geometry}
-         * @param {Array.<ol.geom.Geometry>=} opt_geometries Geometries.
+         * @param {Array.<geom.Geometry>=} opt_geometries Geometries.
          * @api stable
          */
         class GeometryCollection extends ol.geom.Geometry {
@@ -3804,49 +3804,49 @@ declare module ol {
              *
              * @constructor
              * @extends {ol.geom.Geometry}
-             * @param {Array.<ol.geom.Geometry>=} opt_geometries Geometries.
+             * @param {Array.<geom.Geometry>=} opt_geometries Geometries.
              * @api stable
              */
-            constructor(opt_geometries?: ol.geom.Geometry[]);
+            constructor(opt_geometries?: geom.Geometry[]);
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.GeometryCollection} Clone.
              * @api stable
              */
-            clone(): ol.geom.GeometryCollection;
+            clone(): geom.GeometryCollection;
 
             /**
              * Return the geometries that make up this geometry collection.
-             * @return {Array.<ol.geom.Geometry>} Geometries.
+             * @return {Array.<geom.Geometry>} Geometries.
              * @api stable
              */
-            getGeometries(): ol.geom.Geometry[];
+            getGeometries(): geom.Geometry[];
 
             /**
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the geometries that make up this geometry collection.
-             * @param {Array.<ol.geom.Geometry>} geometries Geometries.
+             * @param {Array.<geom.Geometry>} geometries Geometries.
              * @api stable
              */
-            setGeometries(geometries: ol.geom.Geometry[]): void;
+            setGeometries(geometries: geom.Geometry[]): void;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            applyTransform(transformFn: ol.TransformFunction): void;
+            applyTransform(transformFn: TransformFunction): void;
 
             /**
              * Translate the geometry.
@@ -3865,7 +3865,7 @@ declare module ol {
          *
          * @constructor
          * @extends {ol.geom.SimpleGeometry}
-         * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+         * @param {Array.<Coordinate>} coordinates Coordinates.
          * @param {ol.geom.GeometryLayout=} opt_layout Layout.
          * @api stable
          */
@@ -3877,18 +3877,18 @@ declare module ol {
              *
              * @constructor
              * @extends {ol.geom.SimpleGeometry}
-             * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+             * @param {Array.<Coordinate>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            constructor(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Coordinate[], opt_layout?: geom.GeometryLayout);
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.LinearRing} Clone.
              * @api stable
              */
-            clone(): ol.geom.LinearRing;
+            clone(): geom.LinearRing;
 
             /**
              * Return the area of the linear ring on projected plane.
@@ -3899,24 +3899,24 @@ declare module ol {
 
             /**
              * Return the coordinates of the linear ring.
-             * @return {Array.<ol.Coordinate>} Coordinates.
+             * @return {Array.<Coordinate>} Coordinates.
              * @api stable
              */
-            getCoordinates(): ol.Coordinate[];
+            getCoordinates(): Coordinate[];
 
             /**
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * Set the coordinates of the linear ring.
-             * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+             * @param {Array.<Coordinate>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
+            setCoordinates(coordinates: Coordinate[], opt_layout?: geom.GeometryLayout): void;
 
         }
 
@@ -3926,7 +3926,7 @@ declare module ol {
          *
          * @constructor
          * @extends {ol.geom.SimpleGeometry}
-         * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+         * @param {Array.<Coordinate>} coordinates Coordinates.
          * @param {ol.geom.GeometryLayout=} opt_layout Layout.
          * @api stable
          */
@@ -3937,25 +3937,25 @@ declare module ol {
              *
              * @constructor
              * @extends {ol.geom.SimpleGeometry}
-             * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+             * @param {Array.<Coordinate>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            constructor(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Coordinate[], opt_layout?: geom.GeometryLayout);
 
             /**
              * Append the passed coordinate to the coordinates of the linestring.
              * @param {ol.Coordinate} coordinate Coordinate.
              * @api stable
              */
-            appendCoordinate(coordinate: ol.Coordinate): void;
+            appendCoordinate(coordinate: Coordinate): void;
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.LineString} Clone.
              * @api stable
              */
-            clone(): ol.geom.LineString;
+            clone(): geom.LineString;
 
             /**
              * Iterate over each segment, calling the provided callback.
@@ -3986,14 +3986,14 @@ declare module ol {
              * @return {ol.Coordinate} Coordinate.
              * @api stable
              */
-            getCoordinateAtM(m: number, opt_extrapolate?: boolean): ol.Coordinate;
+            getCoordinateAtM(m: number, opt_extrapolate?: boolean): Coordinate;
 
             /**
              * Return the coordinates of the linestring.
-             * @return {Array.<ol.Coordinate>} Coordinates.
+             * @return {Array.<Coordinate>} Coordinates.
              * @api stable
              */
-            getCoordinates(): ol.Coordinate[];
+            getCoordinates(): Coordinate[];
 
             /**
              * Return the coordinate at the provided fraction along the linestring.
@@ -4005,7 +4005,7 @@ declare module ol {
              * @return {ol.Coordinate} Coordinate of the interpolated point.
              * @api
              */
-            getCoordinateAt(fraction: number, opt_dest?: ol.Coordinate): ol.Coordinate;
+            getCoordinateAt(fraction: number, opt_dest?: Coordinate): Coordinate;
 
             /**
              * Return the length of the linestring on projected plane.
@@ -4018,21 +4018,21 @@ declare module ol {
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the coordinates of the linestring.
-             * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+             * @param {Array.<Coordinate>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
+            setCoordinates(coordinates: Coordinate[], opt_layout?: geom.GeometryLayout): void;
 
         }
 
@@ -4042,7 +4042,7 @@ declare module ol {
          *
          * @constructor
          * @extends {ol.geom.SimpleGeometry}
-         * @param {Array.<Array.<ol.Coordinate>>} coordinates Coordinates.
+         * @param {Array.<Array.<Coordinate>>} coordinates Coordinates.
          * @param {ol.geom.GeometryLayout=} opt_layout Layout.
          * @api stable
          */
@@ -4053,25 +4053,25 @@ declare module ol {
              *
              * @constructor
              * @extends {ol.geom.SimpleGeometry}
-             * @param {Array.<Array.<ol.Coordinate>>} coordinates Coordinates.
+             * @param {Array.<Array.<Coordinate>>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            constructor(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Coordinate[][], opt_layout?: geom.GeometryLayout);
 
             /**
              * Append the passed linestring to the multilinestring.
              * @param {ol.geom.LineString} lineString LineString.
              * @api stable
              */
-            appendLineString(lineString: ol.geom.LineString): void;
+            appendLineString(lineString: geom.LineString): void;
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.MultiLineString} Clone.
              * @api stable
              */
-            clone(): ol.geom.MultiLineString;
+            clone(): geom.MultiLineString;
 
             /**
              * Returns the coordinate at `m` using linear interpolation, or `null` if no
@@ -4095,14 +4095,14 @@ declare module ol {
              * @return {ol.Coordinate} Coordinate.
              * @api stable
              */
-            getCoordinateAtM(m: number, opt_extrapolate?: boolean, opt_interpolate?: boolean): ol.Coordinate;
+            getCoordinateAtM(m: number, opt_extrapolate?: boolean, opt_interpolate?: boolean): Coordinate;
 
             /**
              * Return the coordinates of the multilinestring.
-             * @return {Array.<Array.<ol.Coordinate>>} Coordinates.
+             * @return {Array.<Array.<Coordinate>>} Coordinates.
              * @api stable
              */
-            getCoordinates(): ol.Coordinate[][];
+            getCoordinates(): Coordinate[][];
 
             /**
              * Return the linestring at the specified index.
@@ -4110,34 +4110,34 @@ declare module ol {
              * @return {ol.geom.LineString} LineString.
              * @api stable
              */
-            getLineString(index: number): ol.geom.LineString;
+            getLineString(index: number): geom.LineString;
 
             /**
              * Return the linestrings of this multilinestring.
-             * @return {Array.<ol.geom.LineString>} LineStrings.
+             * @return {Array.<geom.LineString>} LineStrings.
              * @api stable
              */
-            getLineStrings(): ol.geom.LineString[];
+            getLineStrings(): geom.LineString[];
 
             /**
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the coordinates of the multilinestring.
-             * @param {Array.<Array.<ol.Coordinate>>} coordinates Coordinates.
+             * @param {Array.<Array.<Coordinate>>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            setCoordinates(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout): void;
+            setCoordinates(coordinates: Coordinate[][], opt_layout?: geom.GeometryLayout): void;
 
         }
 
@@ -4147,7 +4147,7 @@ declare module ol {
          *
          * @constructor
          * @extends {ol.geom.SimpleGeometry}
-         * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+         * @param {Array.<Coordinate>} coordinates Coordinates.
          * @param {ol.geom.GeometryLayout=} opt_layout Layout.
          * @api stable
          */
@@ -4158,32 +4158,32 @@ declare module ol {
              *
              * @constructor
              * @extends {ol.geom.SimpleGeometry}
-             * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+             * @param {Array.<Coordinate>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            constructor(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Coordinate[], opt_layout?: geom.GeometryLayout);
 
             /**
              * Append the passed point to this multipoint.
              * @param {ol.geom.Point} point Point.
              * @api stable
              */
-            appendPoint(point: ol.geom.Point): void;
+            appendPoint(point: geom.Point): void;
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.MultiPoint} Clone.
              * @api stable
              */
-            clone(): ol.geom.MultiPoint;
+            clone(): geom.MultiPoint;
 
             /**
              * Return the coordinates of the multipoint.
-             * @return {Array.<ol.Coordinate>} Coordinates.
+             * @return {Array.<Coordinate>} Coordinates.
              * @api stable
              */
-            getCoordinates(): ol.Coordinate[];
+            getCoordinates(): Coordinate[];
 
             /**
              * Return the point at the specified index.
@@ -4191,34 +4191,34 @@ declare module ol {
              * @return {ol.geom.Point} Point.
              * @api stable
              */
-            getPoint(index: number): ol.geom.Point;
+            getPoint(index: number): geom.Point;
 
             /**
              * Return the points of this multipoint.
-             * @return {Array.<ol.geom.Point>} Points.
+             * @return {Array.<geom.Point>} Points.
              * @api stable
              */
-            getPoints(): ol.geom.Point[];
+            getPoints(): geom.Point[];
 
             /**
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the coordinates of the multipoint.
-             * @param {Array.<ol.Coordinate>} coordinates Coordinates.
+             * @param {Array.<Coordinate>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            setCoordinates(coordinates: ol.Coordinate[], opt_layout?: ol.geom.GeometryLayout): void;
+            setCoordinates(coordinates: Coordinate[], opt_layout?: geom.GeometryLayout): void;
 
         }
 
@@ -4228,7 +4228,7 @@ declare module ol {
          *
          * @constructor
          * @extends {ol.geom.SimpleGeometry}
-         * @param {Array.<Array.<Array.<ol.Coordinate>>>} coordinates Coordinates.
+         * @param {Array.<Array.<Array.<Coordinate>>>} coordinates Coordinates.
          * @param {ol.geom.GeometryLayout=} opt_layout Layout.
          * @api stable
          */
@@ -4239,25 +4239,25 @@ declare module ol {
              *
              * @constructor
              * @extends {ol.geom.SimpleGeometry}
-             * @param {Array.<Array.<Array.<ol.Coordinate>>>} coordinates Coordinates.
+             * @param {Array.<Array.<Array.<Coordinate>>>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            constructor(coordinates: ol.Coordinate[][][], opt_layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Coordinate[][][], opt_layout?: geom.GeometryLayout);
 
             /**
              * Append the passed polygon to this multipolygon.
              * @param {ol.geom.Polygon} polygon Polygon.
              * @api stable
              */
-            appendPolygon(polygon: ol.geom.Polygon): void;
+            appendPolygon(polygon: geom.Polygon): void;
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.MultiPolygon} Clone.
              * @api stable
              */
-            clone(): ol.geom.MultiPolygon;
+            clone(): geom.MultiPolygon;
 
             /**
              * Return the area of the multipolygon on projected plane.
@@ -4276,17 +4276,17 @@ declare module ol {
              *     (clockwise for exterior and counter-clockwise for interior rings).
              *     By default, coordinate orientation will depend on how the geometry was
              *     constructed.
-             * @return {Array.<Array.<Array.<ol.Coordinate>>>} Coordinates.
+             * @return {Array.<Array.<Array.<Coordinate>>>} Coordinates.
              * @api stable
              */
-            getCoordinates(opt_right?: boolean): ol.Coordinate[][][];
+            getCoordinates(opt_right?: boolean): Coordinate[][][];
 
             /**
              * Return the interior points as {@link ol.geom.MultiPoint multipoint}.
              * @return {ol.geom.MultiPoint} Interior points.
              * @api stable
              */
-            getInteriorPoints(): ol.geom.MultiPoint;
+            getInteriorPoints(): geom.MultiPoint;
 
             /**
              * Return the polygon at the specified index.
@@ -4294,34 +4294,34 @@ declare module ol {
              * @return {ol.geom.Polygon} Polygon.
              * @api stable
              */
-            getPolygon(index: number): ol.geom.Polygon;
+            getPolygon(index: number): geom.Polygon;
 
             /**
              * Return the polygons of this multipolygon.
-             * @return {Array.<ol.geom.Polygon>} Polygons.
+             * @return {Array.<geom.Polygon>} Polygons.
              * @api stable
              */
-            getPolygons(): ol.geom.Polygon[];
+            getPolygons(): geom.Polygon[];
 
             /**
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the coordinates of the multipolygon.
-             * @param {Array.<Array.<Array.<ol.Coordinate>>>} coordinates Coordinates.
+             * @param {Array.<Array.<Array.<Coordinate>>>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            setCoordinates(coordinates: ol.Coordinate[][][], opt_layout?: ol.geom.GeometryLayout): void;
+            setCoordinates(coordinates: Coordinate[][][], opt_layout?: geom.GeometryLayout): void;
 
         }
 
@@ -4346,33 +4346,33 @@ declare module ol {
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            constructor(coordinates: ol.Coordinate, opt_layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Coordinate, opt_layout?: geom.GeometryLayout);
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.Point} Clone.
              * @api stable
              */
-            clone(): ol.geom.Point;
+            clone(): geom.Point;
 
             /**
              * Return the coordinate of the point.
              * @return {ol.Coordinate} Coordinates.
              * @api stable
              */
-            getCoordinates(): ol.Coordinate;
+            getCoordinates(): Coordinate;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the coordinate of the point.
@@ -4380,7 +4380,7 @@ declare module ol {
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            setCoordinates(coordinates: ol.Coordinate, opt_layout?: ol.geom.GeometryLayout): void;
+            setCoordinates(coordinates: Coordinate, opt_layout?: geom.GeometryLayout): void;
 
         }
 
@@ -4390,7 +4390,7 @@ declare module ol {
          *
          * @constructor
          * @extends {ol.geom.SimpleGeometry}
-         * @param {Array.<Array.<ol.Coordinate>>} coordinates Coordinates.
+         * @param {Array.<Array.<Coordinate>>} coordinates Coordinates.
          * @param {ol.geom.GeometryLayout=} opt_layout Layout.
          * @api stable
          */
@@ -4401,25 +4401,25 @@ declare module ol {
              *
              * @constructor
              * @extends {ol.geom.SimpleGeometry}
-             * @param {Array.<Array.<ol.Coordinate>>} coordinates Coordinates.
+             * @param {Array.<Array.<Coordinate>>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            constructor(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Coordinate[][], opt_layout?: geom.GeometryLayout);
 
             /**
              * Append the passed linear ring to this polygon.
              * @param {ol.geom.LinearRing} linearRing Linear ring.
              * @api stable
              */
-            appendLinearRing(linearRing: ol.geom.LinearRing): void;
+            appendLinearRing(linearRing: geom.LinearRing): void;
 
             /**
              * Make a complete copy of the geometry.
              * @return {!ol.geom.Polygon} Clone.
              * @api stable
              */
-            clone(): ol.geom.Polygon;
+            clone(): geom.Polygon;
 
             /**
              * Return the area of the polygon on projected plane.
@@ -4438,17 +4438,17 @@ declare module ol {
              *     (clockwise for exterior and counter-clockwise for interior rings).
              *     By default, coordinate orientation will depend on how the geometry was
              *     constructed.
-             * @return {Array.<Array.<ol.Coordinate>>} Coordinates.
+             * @return {Array.<Array.<Coordinate>>} Coordinates.
              * @api stable
              */
-            getCoordinates(opt_right?: boolean): ol.Coordinate[][];
+            getCoordinates(opt_right?: boolean): Coordinate[][];
 
             /**
              * Return an interior point of the polygon.
              * @return {ol.geom.Point} Interior point.
              * @api stable
              */
-            getInteriorPoint(): ol.geom.Point;
+            getInteriorPoint(): geom.Point;
 
             /**
              * Return the number of rings of the polygon,  this includes the exterior
@@ -4469,34 +4469,34 @@ declare module ol {
              * @return {ol.geom.LinearRing} Linear ring.
              * @api stable
              */
-            getLinearRing(index: number): ol.geom.LinearRing;
+            getLinearRing(index: number): geom.LinearRing;
 
             /**
              * Return the linear rings of the polygon.
-             * @return {Array.<ol.geom.LinearRing>} Linear rings.
+             * @return {Array.<geom.LinearRing>} Linear rings.
              * @api stable
              */
-            getLinearRings(): ol.geom.LinearRing[];
+            getLinearRings(): geom.LinearRing[];
 
             /**
              * @inheritDoc
              * @api stable
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            intersectsExtent(extent: ol.Extent): boolean;
+            intersectsExtent(extent: Extent): boolean;
 
             /**
              * Set the coordinates of the polygon.
-             * @param {Array.<Array.<ol.Coordinate>>} coordinates Coordinates.
+             * @param {Array.<Array.<Coordinate>>} coordinates Coordinates.
              * @param {ol.geom.GeometryLayout=} opt_layout Layout.
              * @api stable
              */
-            setCoordinates(coordinates: ol.Coordinate[][], opt_layout?: ol.geom.GeometryLayout): void;
+            setCoordinates(coordinates: Coordinate[][], opt_layout?: geom.GeometryLayout): void;
 
             /**
              * Create an approximation of a circle on the surface of a sphere.
@@ -4509,7 +4509,7 @@ declare module ol {
              * @return {ol.geom.Polygon} The "circular" polygon.
              * @api stable
              */
-            static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, opt_n?: number): ol.geom.Polygon;
+            static circular(sphere: Sphere, center: Coordinate, radius: number, opt_n?: number): geom.Polygon;
 
             /**
              * Create a polygon from an extent. The layout used is `XY`.
@@ -4517,7 +4517,7 @@ declare module ol {
              * @return {ol.geom.Polygon} The polygon.
              * @api
              */
-            static fromExtent(extent: ol.Extent): ol.geom.Polygon;
+            static fromExtent(extent: Extent): geom.Polygon;
 
             /**
              * Create a regular polygon from a circle.
@@ -4528,7 +4528,7 @@ declare module ol {
              * @return {ol.geom.Polygon} Polygon geometry.
              * @api
              */
-            static fromCircle(circle: ol.geom.Circle, opt_sides?: number, opt_angle?: number): ol.geom.Polygon;
+            static fromCircle(circle: geom.Circle, opt_sides?: number, opt_angle?: number): geom.Polygon;
 
         }
 
@@ -4558,27 +4558,27 @@ declare module ol {
              * @return {ol.Coordinate} First coordinate.
              * @api stable
              */
-            getFirstCoordinate(): ol.Coordinate;
+            getFirstCoordinate(): Coordinate;
 
             /**
              * Return the last coordinate of the geometry.
              * @return {ol.Coordinate} Last point.
              * @api stable
              */
-            getLastCoordinate(): ol.Coordinate;
+            getLastCoordinate(): Coordinate;
 
             /**
              * Return the {@link ol.geom.GeometryLayout layout} of the geometry.
              * @return {ol.geom.GeometryLayout} Layout.
              * @api stable
              */
-            getLayout(): ol.geom.GeometryLayout;
+            getLayout(): geom.GeometryLayout;
 
             /**
              * @inheritDoc
              * @api stable
              */
-            applyTransform(transformFn: ol.TransformFunction): void;
+            applyTransform(transformFn: TransformFunction): void;
 
             /**
              * @inheritDoc
@@ -4610,21 +4610,21 @@ declare module ol {
          * @return {ol.Map} The map.
          * @api
          */
-        getMap(): ol.Map;
+        getMap(): Map;
 
         /**
          * Get the list of meridians.  Meridians are lines of equal longitude.
-         * @return {Array.<ol.geom.LineString>} The meridians.
+         * @return {Array.<geom.LineString>} The meridians.
          * @api
          */
-        getMeridians(): ol.geom.LineString[];
+        getMeridians(): geom.LineString[];
 
         /**
          * Get the list of parallels.  Pallels are lines of equal latitude.
-         * @return {Array.<ol.geom.LineString>} The parallels.
+         * @return {Array.<geom.LineString>} The parallels.
          * @api
          */
-        getParallels(): ol.geom.LineString[];
+        getParallels(): geom.LineString[];
 
         /**
          * Set the map for this graticule.  The graticule will be rendered on the
@@ -4632,7 +4632,7 @@ declare module ol {
          * @param {ol.Map} map Map.
          * @api
          */
-        setMap(map: ol.Map): void;
+        setMap(map: Map): void;
 
     }
 
@@ -4699,7 +4699,7 @@ declare module ol {
      * @param {ol.Extent} extent Extent.
      * @param {number|undefined} resolution Resolution.
      * @param {number} pixelRatio Pixel ratio.
-     * @param {Array.<ol.Attribution>} attributions Attributions.
+     * @param {Array.<Attribution>} attributions Attributions.
      * @param {string} src Image source URI.
      * @param {?string} crossOrigin Cross origin.
      * @param {ol.ImageLoadFunctionType} imageLoadFunction Image load function.
@@ -4711,12 +4711,12 @@ declare module ol {
          * @param {ol.Extent} extent Extent.
          * @param {number|undefined} resolution Resolution.
          * @param {number} pixelRatio Pixel ratio.
-         * @param {Array.<ol.Attribution>} attributions Attributions.
+         * @param {Array.<Attribution>} attributions Attributions.
          * @param {string} src Image source URI.
          * @param {?string} crossOrigin Cross origin.
          * @param {ol.ImageLoadFunctionType} imageLoadFunction Image load function.
          */
-        constructor(extent: ol.Extent, resolution: (number), pixelRatio: number, attributions: ol.Attribution[], src: string, crossOrigin?: string, imageLoadFunction?: ol.ImageLoadFunctionType);
+        constructor(extent: Extent, resolution: (number), pixelRatio: number, attributions: Attribution[], src: string, crossOrigin?: string, imageLoadFunction?: ImageLoadFunctionType);
 
         /**
          * Get the HTML image element (may be a Canvas, Image, or Video).
@@ -4743,7 +4743,7 @@ declare module ol {
      * @param {number|undefined} resolution Resolution.
      * @param {number} pixelRatio Pixel ratio.
      * @param {ol.ImageState} state State.
-     * @param {Array.<ol.Attribution>} attributions Attributions.
+     * @param {Array.<Attribution>} attributions Attributions.
      */
     class ImageBase extends ol.events.EventTarget {
         /**
@@ -4753,9 +4753,9 @@ declare module ol {
          * @param {number|undefined} resolution Resolution.
          * @param {number} pixelRatio Pixel ratio.
          * @param {ol.ImageState} state State.
-         * @param {Array.<ol.Attribution>} attributions Attributions.
+         * @param {Array.<Attribution>} attributions Attributions.
          */
-        constructor(extent: ol.Extent, resolution: (number), pixelRatio: number, state: ol.ImageState, attributions: ol.Attribution[]);
+        constructor(extent: Extent, resolution: (number), pixelRatio: number, state: ImageState, attributions: Attribution[]);
 
     }
 
@@ -4780,7 +4780,7 @@ declare module ol {
          * @param {?string} crossOrigin Cross origin.
          * @param {ol.TileLoadFunctionType} tileLoadFunction Tile load function.
          */
-        constructor(tileCoord: ol.TileCoord, state: ol.Tile.State, src: string, crossOrigin?: string, tileLoadFunction?: ol.TileLoadFunctionType);
+        constructor(tileCoord: TileCoord, state: Tile.State, src: string, crossOrigin?: string, tileLoadFunction?: TileLoadFunctionType);
 
         /**
          * Get the image element for this tile.
@@ -4848,7 +4848,7 @@ declare module ol {
              * @this {ol.interaction.DoubleClickZoom}
              * @api
              */
-            static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            static handleEvent(mapBrowserEvent: MapBrowserEvent): boolean;
 
         }
 
@@ -4901,7 +4901,7 @@ declare module ol {
              * @implements {oli.interaction.DragAndDropEvent}
              * @param {ol.interaction.DragAndDropEventType} type Type.
              * @param {File} file File.
-             * @param {Array.<ol.Feature>=} opt_features Features.
+             * @param {Array.<Feature>=} opt_features Features.
              * @param {ol.proj.Projection=} opt_projection Projection.
              */
             class Event extends ol.events.Event {
@@ -4915,17 +4915,17 @@ declare module ol {
                  * @implements {oli.interaction.DragAndDropEvent}
                  * @param {ol.interaction.DragAndDropEventType} type Type.
                  * @param {File} file File.
-                 * @param {Array.<ol.Feature>=} opt_features Features.
+                 * @param {Array.<Feature>=} opt_features Features.
                  * @param {ol.proj.Projection=} opt_projection Projection.
                  */
-                constructor(type: ol.interaction.DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
+                constructor(type: interaction.DragAndDropEventType, file: File, opt_features?: Feature[], opt_projection?: proj.Projection);
     
                 /**
                  * The features parsed from dropped data.
-                 * @type {Array.<ol.Feature>|undefined}
+                 * @type {Array.<Feature>|undefined}
                  * @api stable
                  */
-                features: ol.Feature[];
+                features: Feature[];
     
                 /**
                  * The dropped file.
@@ -4939,7 +4939,7 @@ declare module ol {
                  * @type {ol.proj.Projection|undefined}
                  * @api
                  */
-                projection: ol.proj.Projection;
+                projection: proj.Projection;
     
             }
 
@@ -4989,7 +4989,7 @@ declare module ol {
              * @return {ol.geom.Polygon} Geometry.
              * @api stable
              */
-            getGeometry(): ol.geom.Polygon;
+            getGeometry(): geom.Polygon;
 
         }
 
@@ -5022,7 +5022,7 @@ declare module ol {
                  * @constructor
                  * @implements {oli.DragBoxEvent}
                  */
-                constructor(type: string, coordinate: ol.Coordinate, mapBrowserEvent: ol.MapBrowserEvent);
+                constructor(type: string, coordinate: Coordinate, mapBrowserEvent: MapBrowserEvent);
         
                 /**
                  * The coordinate of the drag event.
@@ -5030,14 +5030,14 @@ declare module ol {
                  * @type {ol.Coordinate}
                  * @api stable
                  */
-                coordinate: ol.Coordinate;
+                coordinate: Coordinate;
         
                 /**
                  * @const
                  * @type {ol.MapBrowserEvent}
                  * @api
                  */
-                mapBrowserEvent: ol.MapBrowserEvent;
+                mapBrowserEvent: MapBrowserEvent;
         
             }
 
@@ -5194,14 +5194,14 @@ declare module ol {
                  * @param {ol.interaction.DrawEventType} type Type.
                  * @param {ol.Feature} feature The feature drawn.
                  */
-                constructor(type: ol.interaction.DrawEventType, feature: ol.Feature);
+                constructor(type: interaction.DrawEventType, feature: Feature);
     
                 /**
                  * The feature being drawn.
                  * @type {ol.Feature}
                  * @api stable
                  */
-                feature: ol.Feature;
+                feature: Feature;
     
             }
 
@@ -5253,7 +5253,7 @@ declare module ol {
              * @param {!ol.Feature} feature Feature to be extended.
              * @api
              */
-            extend(feature: ol.Feature): void;
+            extend(feature: Feature): void;
 
             /**
              * Create a `geometryFunction` for `mode: 'Circle'` that will create a regular
@@ -5268,7 +5268,7 @@ declare module ol {
              *     polygon.
              * @api
              */
-            static createRegularPolygon(opt_sides?: number, opt_angle?: number): ol.DrawGeometryFunctionType;
+            static createRegularPolygon(opt_sides?: number, opt_angle?: number): DrawGeometryFunctionType;
 
         }
 
@@ -5291,11 +5291,11 @@ declare module ol {
          * * {@link ol.interaction.DragZoom}
          *
          * @param {olx.interaction.DefaultsOptions=} opt_options Defaults options.
-         * @return {ol.Collection.<ol.interaction.Interaction>} A collection of
+         * @return {ol.Collection.<interaction.Interaction>} A collection of
          * interactions to be used with the ol.Map constructor's interactions option.
          * @api stable
          */
-        function defaults(opt_options?: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
+        function defaults(opt_options?: olx.interaction.DefaultsOptions): Collection<interaction.Interaction>;
 
         /**
          * @classdesc
@@ -5347,7 +5347,7 @@ declare module ol {
              * @return {ol.Map} Map.
              * @api
              */
-            getMap(): ol.Map;
+            getMap(): Map;
 
             /**
              * Activate or deactivate the interaction.
@@ -5405,7 +5405,7 @@ declare module ol {
              * @this {ol.interaction.KeyboardPan}
              * @api
              */
-            static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            static handleEvent(mapBrowserEvent: MapBrowserEvent): boolean;
 
         }
 
@@ -5455,7 +5455,7 @@ declare module ol {
              * @this {ol.interaction.KeyboardZoom}
              * @api
              */
-            static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            static handleEvent(mapBrowserEvent: MapBrowserEvent): boolean;
 
         }
 
@@ -5472,7 +5472,7 @@ declare module ol {
              * @extends {ol.events.Event}
              * @implements {oli.ModifyEvent}
              * @param {ol.ModifyEventType} type Type.
-             * @param {ol.Collection.<ol.Feature>} features The features modified.
+             * @param {ol.Collection.<Feature>} features The features modified.
              * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
              *     {@link ol.MapBrowserPointerEvent}.
              */
@@ -5486,25 +5486,25 @@ declare module ol {
                  * @extends {ol.events.Event}
                  * @implements {oli.ModifyEvent}
                  * @param {ol.ModifyEventType} type Type.
-                 * @param {ol.Collection.<ol.Feature>} features The features modified.
+                 * @param {ol.Collection.<Feature>} features The features modified.
                  * @param {ol.MapBrowserPointerEvent} mapBrowserPointerEvent Associated
                  *     {@link ol.MapBrowserPointerEvent}.
                  */
-                constructor(type: ol.ModifyEventType, features: ol.Collection<ol.Feature>, mapBrowserPointerEvent: ol.MapBrowserPointerEvent);
+                constructor(type: ModifyEventType, features: Collection<Feature>, mapBrowserPointerEvent: MapBrowserPointerEvent);
     
                 /**
                  * The features being modified.
-                 * @type {ol.Collection.<ol.Feature>}
+                 * @type {ol.Collection.<Feature>}
                  * @api
                  */
-                features: ol.Collection<ol.Feature>;
+                features: Collection<Feature>;
     
                 /**
                  * Associated {@link ol.MapBrowserEvent}.
                  * @type {ol.MapBrowserEvent}
                  * @api
                  */
-                mapBrowserEvent: ol.MapBrowserEvent;
+                mapBrowserEvent: MapBrowserEvent;
     
             }
 
@@ -5571,7 +5571,7 @@ declare module ol {
              * @this {ol.interaction.MouseWheelZoom}
              * @api
              */
-            static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            static handleEvent(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Enable or disable using the mouse's location as an anchor when zooming
@@ -5675,7 +5675,7 @@ declare module ol {
              * @this {ol.interaction.Pointer}
              * @api
              */
-            static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            static handleEvent(mapBrowserEvent: MapBrowserEvent): boolean;
 
         }
 
@@ -5689,8 +5689,8 @@ declare module ol {
              * this type.
              *
              * @param {string} type The event type.
-             * @param {Array.<ol.Feature>} selected Selected features.
-             * @param {Array.<ol.Feature>} deselected Deselected features.
+             * @param {Array.<Feature>} selected Selected features.
+             * @param {Array.<Feature>} deselected Deselected features.
              * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
              *     {@link ol.MapBrowserEvent}.
              * @implements {oli.SelectEvent}
@@ -5704,36 +5704,36 @@ declare module ol {
                  * this type.
                  *
                  * @param {string} type The event type.
-                 * @param {Array.<ol.Feature>} selected Selected features.
-                 * @param {Array.<ol.Feature>} deselected Deselected features.
+                 * @param {Array.<Feature>} selected Selected features.
+                 * @param {Array.<Feature>} deselected Deselected features.
                  * @param {ol.MapBrowserEvent} mapBrowserEvent Associated
                  *     {@link ol.MapBrowserEvent}.
                  * @implements {oli.SelectEvent}
                  * @extends {ol.events.Event}
                  * @constructor
                  */
-                constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
+                constructor(type: string, selected: Feature[], deselected: Feature[], mapBrowserEvent: MapBrowserEvent);
     
                 /**
                  * Selected features array.
-                 * @type {Array.<ol.Feature>}
+                 * @type {Array.<Feature>}
                  * @api
                  */
-                selected: ol.Feature[];
+                selected: Feature[];
     
                 /**
                  * Deselected features array.
-                 * @type {Array.<ol.Feature>}
+                 * @type {Array.<Feature>}
                  * @api
                  */
-                deselected: ol.Feature[];
+                deselected: Feature[];
     
                 /**
                  * Associated {@link ol.MapBrowserEvent}.
                  * @type {ol.MapBrowserEvent}
                  * @api
                  */
-                mapBrowserEvent: ol.MapBrowserEvent;
+                mapBrowserEvent: MapBrowserEvent;
     
             }
 
@@ -5780,10 +5780,10 @@ declare module ol {
 
             /**
              * Get the selected features.
-             * @return {ol.Collection.<ol.Feature>} Features collection.
+             * @return {ol.Collection.<Feature>} Features collection.
              * @api stable
              */
-            getFeatures(): ol.Collection<ol.Feature>;
+            getFeatures(): Collection<Feature>;
 
             /**
              * Returns the associated {@link ol.layer.Vector vectorlayer} of
@@ -5794,7 +5794,7 @@ declare module ol {
              * @return {ol.layer.Vector} Layer.
              * @api
              */
-            getLayer(feature: (ol.Feature | ol.render.Feature)): ol.layer.Vector;
+            getLayer(feature: (Feature | render.Feature)): layer.Vector;
 
             /**
              * Handles the {@link ol.MapBrowserEvent map browser event} and may change the
@@ -5804,7 +5804,7 @@ declare module ol {
              * @this {ol.interaction.Select}
              * @api
              */
-            static handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            static handleEvent(mapBrowserEvent: MapBrowserEvent): boolean;
 
             /**
              * Remove the interaction from its current map, if any,  and attach it to a new
@@ -5812,7 +5812,7 @@ declare module ol {
              * @param {ol.Map} map Map.
              * @api stable
              */
-            setMap(map: ol.Map): void;
+            setMap(map: Map): void;
 
         }
 
@@ -5870,7 +5870,7 @@ declare module ol {
              *     Defaults to `true`.
              * @api
              */
-            addFeature(feature: ol.Feature, opt_listen?: boolean): void;
+            addFeature(feature: Feature, opt_listen?: boolean): void;
 
             /**
              * Remove a feature from the collection of features that we may snap to.
@@ -5879,7 +5879,7 @@ declare module ol {
              *     or not. Defaults to `true`.
              * @api
              */
-            removeFeature(feature: ol.Feature, opt_unlisten?: boolean): void;
+            removeFeature(feature: Feature, opt_unlisten?: boolean): void;
 
         }
 
@@ -5896,7 +5896,7 @@ declare module ol {
              * @extends {ol.events.Event}
              * @implements {oli.interaction.TranslateEvent}
              * @param {ol.interaction.TranslateEventType} type Type.
-             * @param {ol.Collection.<ol.Feature>} features The features translated.
+             * @param {ol.Collection.<Feature>} features The features translated.
              * @param {ol.Coordinate} coordinate The event coordinate.
              */
             class Event extends ol.events.Event {
@@ -5909,17 +5909,17 @@ declare module ol {
                  * @extends {ol.events.Event}
                  * @implements {oli.interaction.TranslateEvent}
                  * @param {ol.interaction.TranslateEventType} type Type.
-                 * @param {ol.Collection.<ol.Feature>} features The features translated.
+                 * @param {ol.Collection.<Feature>} features The features translated.
                  * @param {ol.Coordinate} coordinate The event coordinate.
                  */
-                constructor(type: ol.interaction.TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
+                constructor(type: interaction.TranslateEventType, features: Collection<Feature>, coordinate: Coordinate);
     
                 /**
                  * The features being translated.
-                 * @type {ol.Collection.<ol.Feature>}
+                 * @type {ol.Collection.<Feature>}
                  * @api
                  */
-                features: ol.Collection<ol.Feature>;
+                features: Collection<Feature>;
     
                 /**
                  * The coordinate of the drag event.
@@ -5927,7 +5927,7 @@ declare module ol {
                  * @type {ol.Coordinate}
                  * @api
                  */
-                coordinate: ol.Coordinate;
+                coordinate: Coordinate;
     
             }
 
@@ -6031,7 +6031,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            getExtent(): (ol.Extent);
+            getExtent(): (Extent);
 
             /**
              * Return the maximum resolution of the layer.
@@ -6081,7 +6081,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            setExtent(extent: (ol.Extent)): void;
+            setExtent(extent: (Extent)): void;
 
             /**
              * Set the maximum resolution at which the layer is visible.
@@ -6154,22 +6154,22 @@ declare module ol {
             /**
              * Returns the {@link ol.Collection collection} of {@link ol.layer.Layer layers}
              * in this group.
-             * @return {!ol.Collection.<ol.layer.Base>} Collection of
+             * @return {!ol.Collection.<layer.Base>} Collection of
              *   {@link ol.layer.Base layers} that are part of this group.
              * @observable
              * @api stable
              */
-            getLayers(): ol.Collection<ol.layer.Base>;
+            getLayers(): Collection<layer.Base>;
 
             /**
              * Set the {@link ol.Collection collection} of {@link ol.layer.Layer layers}
              * in this group.
-             * @param {!ol.Collection.<ol.layer.Base>} layers Collection of
+             * @param {!ol.Collection.<layer.Base>} layers Collection of
              *   {@link ol.layer.Base layers} that are part of this group.
              * @observable
              * @api stable
              */
-            setLayers(layers: ol.Collection<ol.layer.Base>): void;
+            setLayers(layers: Collection<layer.Base>): void;
 
         }
 
@@ -6336,7 +6336,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            getSource(): ol.source.Source;
+            getSource(): source.Source;
 
             /**
              * Sets the layer to be rendered on top of other layers on a map. The map will
@@ -6350,7 +6350,7 @@ declare module ol {
              * @param {ol.Map} map Map.
              * @api
              */
-            setMap(map: ol.Map): void;
+            setMap(map: Map): void;
 
             /**
              * Set the layer source.
@@ -6358,7 +6358,7 @@ declare module ol {
              * @observable
              * @api stable
              */
-            setSource(source: ol.source.Source): void;
+            setSource(source: source.Source): void;
 
         }
 
@@ -6461,23 +6461,23 @@ declare module ol {
              * @return {ol.source.Vector} Source.
              * @api stable
              */
-            getSource(): ol.source.Vector;
+            getSource(): source.Vector;
 
             /**
              * Get the style for features.  This returns whatever was passed to the `style`
              * option at construction or to the `setStyle` method.
-             * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
+             * @return {ol.style.Style|Array.<style.Style>|ol.StyleFunction}
              *     Layer style.
              * @api stable
              */
-            getStyle(): (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+            getStyle(): (style.Style | style.Style[] | StyleFunction);
 
             /**
              * Get the style function.
              * @return {ol.StyleFunction|undefined} Layer style function.
              * @api stable
              */
-            getStyleFunction(): (ol.StyleFunction);
+            getStyleFunction(): (StyleFunction);
 
             /**
              * Set the style for features.  This can be a single style object, an array
@@ -6486,11 +6486,11 @@ declare module ol {
              * it is `null` the layer has no style (a `null` style), so only features
              * that have their own styles will be rendered in the layer. See
              * {@link ol.style} for information on the default style.
-             * @param {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|null|undefined}
+             * @param {ol.style.Style|Array.<style.Style>|ol.StyleFunction|null|undefined}
              *     style Layer style.
              * @api stable
              */
-            setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction)): void;
+            setStyle(style: (style.Style | style.Style[] | StyleFunction)): void;
 
         }
 
@@ -6581,28 +6581,28 @@ declare module ol {
          * Strategy function for loading all features with a single request.
          * @param {ol.Extent} extent Extent.
          * @param {number} resolution Resolution.
-         * @return {Array.<ol.Extent>} Extents.
+         * @return {Array.<Extent>} Extents.
          * @api
          */
-        function all(extent: ol.Extent, resolution: number): ol.Extent[];
+        function all(extent: Extent, resolution: number): Extent[];
 
         /**
          * Strategy function for loading features based on the view's extent and
          * resolution.
          * @param {ol.Extent} extent Extent.
          * @param {number} resolution Resolution.
-         * @return {Array.<ol.Extent>} Extents.
+         * @return {Array.<Extent>} Extents.
          * @api
          */
-        function bbox(extent: ol.Extent, resolution: number): ol.Extent[];
+        function bbox(extent: Extent, resolution: number): Extent[];
 
         /**
          * Creates a strategy function for loading features based on a tile grid.
          * @param {ol.tilegrid.TileGrid} tileGrid Tile grid.
-         * @return {function(ol.Extent, number): Array.<ol.Extent>} Loading strategy.
+         * @return {function(ol.Extent, number): Array.<Extent>} Loading strategy.
          * @api
          */
-        function tile(tileGrid: ol.tilegrid.TileGrid): ((extent: ol.Extent, i: number) => ol.Extent[]);
+        function tile(tileGrid: tilegrid.TileGrid): ((extent: Extent, i: number) => Extent[]);
 
     }
 
@@ -6712,14 +6712,14 @@ declare module ol {
          * @param {ol.control.Control} control Control.
          * @api stable
          */
-        addControl(control: ol.control.Control): void;
+        addControl(control: control.Control): void;
 
         /**
          * Add the given interaction to the map.
          * @param {ol.interaction.Interaction} interaction Interaction to add.
          * @api stable
          */
-        addInteraction(interaction: ol.interaction.Interaction): void;
+        addInteraction(interaction: interaction.Interaction): void;
 
         /**
          * Adds the given layer to the top of this map. If you want to add a layer
@@ -6728,14 +6728,14 @@ declare module ol {
          * @param {ol.layer.Base} layer Layer.
          * @api stable
          */
-        addLayer(layer: ol.layer.Base): void;
+        addLayer(layer: layer.Base): void;
 
         /**
          * Add the given overlay to the map.
          * @param {ol.Overlay} overlay Overlay.
          * @api stable
          */
-        addOverlay(overlay: ol.Overlay): void;
+        addOverlay(overlay: Overlay): void;
 
         /**
          * Detect features that intersect a pixel on the viewport, and execute a
@@ -6762,9 +6762,9 @@ declare module ol {
          * @api stable
          */
         forEachFeatureAtPixel<T>(
-            pixel: ol.Pixel,
-            callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T),
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            pixel: Pixel,
+            callback: ((feature: (Feature | render.Feature), layer: layer.Layer) => T),
+            opt_layerFilter?: ((layer: layer.Layer) => boolean)
         ): (T);
 
         /**
@@ -6790,7 +6790,7 @@ declare module ol {
          * @template S,T,U
          * @api stable
          */
-        forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((layer: ol.layer.Layer, color: ol.Color) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachLayerAtPixel<S, T, U>(pixel: Pixel, callback: ((layer: layer.Layer, color: Color) => T), opt_this?: S, opt_layerFilter?: ((layer: layer.Layer) => boolean), opt_this2?: U): (T);
 
         /**
          * Detect if features intersect a pixel on the viewport. Layers included in the
@@ -6806,8 +6806,8 @@ declare module ol {
          * @api
          */
         hasFeatureAtPixel(
-            pixel: ol.Pixel,
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            pixel: Pixel,
+            opt_layerFilter?: ((layer: layer.Layer) => boolean)
         ): boolean;
 
         /**
@@ -6816,7 +6816,7 @@ declare module ol {
          * @return {ol.Coordinate} Coordinate.
          * @api stable
          */
-        getEventCoordinate(event: Event): ol.Coordinate;
+        getEventCoordinate(event: Event): Coordinate;
 
         /**
          * Returns the map pixel position for a browser event relative to the viewport.
@@ -6824,7 +6824,7 @@ declare module ol {
          * @return {ol.Pixel} Pixel.
          * @api stable
          */
-        getEventPixel(event: Event): ol.Pixel;
+        getEventPixel(event: Event): Pixel;
 
         /**
          * Get the target in which this map is rendered.
@@ -6853,23 +6853,23 @@ declare module ol {
          * @return {ol.Coordinate} The coordinate for the pixel position.
          * @api stable
          */
-        getCoordinateFromPixel(pixel: ol.Pixel): ol.Coordinate;
+        getCoordinateFromPixel(pixel: Pixel): Coordinate;
 
         /**
          * Get the map controls. Modifying this collection changes the controls
          * associated with the map.
-         * @return {ol.Collection.<ol.control.Control>} Controls.
+         * @return {ol.Collection.<control.Control>} Controls.
          * @api stable
          */
-        getControls(): ol.Collection<ol.control.Control>;
+        getControls(): Collection<control.Control>;
 
         /**
          * Get the map overlays. Modifying this collection changes the overlays
          * associated with the map.
-         * @return {ol.Collection.<ol.Overlay>} Overlays.
+         * @return {ol.Collection.<Overlay>} Overlays.
          * @api stable
          */
-        getOverlays(): ol.Collection<ol.Overlay>;
+        getOverlays(): Collection<Overlay>;
 
         /**
          * Get an overlay by its identifier (the value returned by overlay.getId()).
@@ -6879,17 +6879,17 @@ declare module ol {
          * @return {ol.Overlay} Overlay.
          * @api
          */
-        getOverlayById(id: (string | number)): ol.Overlay;
+        getOverlayById(id: (string | number)): Overlay;
 
         /**
          * Get the map interactions. Modifying this collection changes the interactions
          * associated with the map.
          *
          * Interactions are used for e.g. pan, zoom and rotate.
-         * @return {ol.Collection.<ol.interaction.Interaction>} Interactions.
+         * @return {ol.Collection.<interaction.Interaction>} Interactions.
          * @api stable
          */
-        getInteractions(): ol.Collection<ol.interaction.Interaction>;
+        getInteractions(): Collection<interaction.Interaction>;
 
         /**
          * Get the layergroup associated with this map.
@@ -6897,14 +6897,14 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getLayerGroup(): ol.layer.Group;
+        getLayerGroup(): layer.Group;
 
         /**
          * Get the collection of layers associated with this map.
-         * @return {!ol.Collection.<ol.layer.Base>} Layers.
+         * @return {!ol.Collection.<layer.Base>} Layers.
          * @api stable
          */
-        getLayers(): ol.Collection<ol.layer.Base>;
+        getLayers(): Collection<layer.Base>;
 
         /**
          * Get the pixel for a coordinate.  This takes a coordinate in the map view
@@ -6913,7 +6913,7 @@ declare module ol {
          * @return {ol.Pixel} A pixel position in the map viewport.
          * @api stable
          */
-        getPixelFromCoordinate(coordinate: ol.Coordinate): ol.Pixel;
+        getPixelFromCoordinate(coordinate: Coordinate): Pixel;
 
         /**
          * Get the size of this map.
@@ -6921,7 +6921,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getSize(): (ol.Size);
+        getSize(): (Size);
 
         /**
          * Get the view associated with this map. A view manages properties such as
@@ -6930,7 +6930,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getView(): ol.View;
+        getView(): View;
 
         /**
          * Get the element that serves as the map viewport.
@@ -6958,7 +6958,7 @@ declare module ol {
          *     if the control was not found).
          * @api stable
          */
-        removeControl(control: ol.control.Control): (ol.control.Control);
+        removeControl(control: control.Control): (control.Control);
 
         /**
          * Remove the given interaction from the map.
@@ -6967,7 +6967,7 @@ declare module ol {
          *     undefined if the interaction was not found).
          * @api stable
          */
-        removeInteraction(interaction: ol.interaction.Interaction): (ol.interaction.Interaction);
+        removeInteraction(interaction: interaction.Interaction): (interaction.Interaction);
 
         /**
          * Removes the given layer from the map.
@@ -6976,7 +6976,7 @@ declare module ol {
          *     layer was not found).
          * @api stable
          */
-        removeLayer(layer: ol.layer.Base): (ol.layer.Base);
+        removeLayer(layer: layer.Base): (layer.Base);
 
         /**
          * Remove the given overlay from the map.
@@ -6985,7 +6985,7 @@ declare module ol {
          *     if the overlay was not found).
          * @api stable
          */
-        removeOverlay(overlay: ol.Overlay): (ol.Overlay);
+        removeOverlay(overlay: Overlay): (Overlay);
 
         /**
          * Sets the layergroup of this map.
@@ -6994,7 +6994,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setLayerGroup(layerGroup: ol.layer.Group): void;
+        setLayerGroup(layerGroup: layer.Group): void;
 
         /**
          * Set the size of this map.
@@ -7002,7 +7002,7 @@ declare module ol {
          * @observable
          * @api
          */
-        setSize(size: (ol.Size)): void;
+        setSize(size: (Size)): void;
 
         /**
          * Set the target element to render this map into.
@@ -7019,7 +7019,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setView(view: ol.View): void;
+        setView(view: View): void;
 
         /**
          * Force a recalculation of the map viewport size.  This should be called when
@@ -7059,7 +7059,7 @@ declare module ol {
          * @param {boolean=} opt_dragging Is the map currently being dragged?
          * @param {?olx.FrameState=} opt_frameState Frame state.
          */
-        constructor(type: string, map: ol.Map, browserEvent: Event, opt_dragging?: boolean, opt_frameState?: olx.FrameState);
+        constructor(type: string, map: Map, browserEvent: Event, opt_dragging?: boolean, opt_frameState?: olx.FrameState);
 
         /**
          * The original browser event.
@@ -7074,14 +7074,14 @@ declare module ol {
          * @type {ol.Pixel}
          * @api stable
          */
-        pixel: ol.Pixel;
+        pixel: Pixel;
 
         /**
          * The coordinate of the original browser event.
          * @type {ol.Coordinate}
          * @api stable
          */
-        coordinate: ol.Coordinate;
+        coordinate: Coordinate;
 
         /**
          * Indicates if the map is currently being dragged. Only set for
@@ -7115,12 +7115,12 @@ declare module ol {
         //  * @param {?olx.FrameState=} opt_frameState Frame state.
         //  */
         // constructor (type: string,
-        //           map: ol.Map,
-        //           pointerEvent: ol.pointer.PointerEvent,
+        //           map: Map,
+        //           pointerEvent: pointer.PointerEvent,
         //           opt_dragging?: boolean,
         //           opt_frameState?: olx.FrameState)
 
-        pointerEvent: ol.pointer.PointerEvent;
+        pointerEvent: pointer.PointerEvent;
     }
 
     /**
@@ -7148,14 +7148,14 @@ declare module ol {
          * @param {ol.Map} map Map.
          * @param {?olx.FrameState=} opt_frameState Frame state.
          */
-        constructor(type: string, map: ol.Map, opt_frameState?: olx.FrameState);
+        constructor(type: string, map: Map, opt_frameState?: olx.FrameState);
 
         /**
          * The map where the event occurred.
          * @type {ol.Map}
          * @api stable
          */
-        map: ol.Map;
+        map: Map;
 
         /**
          * The frame state at the time of the event.
@@ -7384,11 +7384,11 @@ declare module ol {
 
         /**
          * Removes an event listener using the key returned by `on()` or `once()`.
-         * @param {ol.EventsKey|Array.<ol.EventsKey>} key The key returned by `on()`
+         * @param {ol.EventsKey|Array.<EventsKey>} key The key returned by `on()`
          *     or `once()` (or an array of keys).
          * @api stable
          */
-        static unByKey(key: (ol.EventsKey | ol.EventsKey[])): void;
+        static unByKey(key: (EventsKey | EventsKey[])): void;
 
         /**
          * Increases the revision counter and dispatches a 'change' event.
@@ -7407,7 +7407,7 @@ declare module ol {
          * @function
          * @api
          */
-        dispatchEvent(event: (GlobalObject | ol.events.Event | string)): void;
+        dispatchEvent(event: (GlobalObject | events.Event | string)): void;
 
         /**
          * Get the version number for this object.  Each time the object is modified,
@@ -7422,24 +7422,24 @@ declare module ol {
          * @param {string|Array.<string>} type The event type or array of event types.
          * @param {function(?): ?} listener The listener function.
          * @param {Object=} opt_this The object to use as `this` in `listener`.
-         * @return {ol.EventsKey|Array.<ol.EventsKey>} Unique key for the listener. If
+         * @return {ol.EventsKey|Array.<EventsKey>} Unique key for the listener. If
          *     called with an array of event types as the first argument, the return
          *     will be an array of keys.
          * @api stable
          */
-        on(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
+        on(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (EventsKey | EventsKey[]);
 
         /**
          * Listen once for a certain type of event.
          * @param {string|Array.<string>} type The event type or array of event types.
          * @param {function(?): ?} listener The listener function.
          * @param {Object=} opt_this The object to use as `this` in `listener`.
-         * @return {ol.EventsKey|Array.<ol.EventsKey>} Unique key for the listener. If
+         * @return {ol.EventsKey|Array.<EventsKey>} Unique key for the listener. If
          *     called with an array of event types as the first argument, the return
          *     will be an array of keys.
          * @api stable
          */
-        once(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
+        once(type: (string | string[]), listener: Function, opt_this?: GlobalObject): (EventsKey | EventsKey[]);
 
         /**
          * Unlisten for a certain type of event.
@@ -7526,7 +7526,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getMap(): (ol.Map);
+        getMap(): (Map);
 
         /**
          * Get the offset of this overlay.
@@ -7543,7 +7543,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getPosition(): (ol.Coordinate);
+        getPosition(): (Coordinate);
 
         /**
          * Get the current positioning of this overlay.
@@ -7552,7 +7552,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getPositioning(): ol.OverlayPositioning;
+        getPositioning(): OverlayPositioning;
 
         /**
          * Set the DOM element to be associated with this overlay.
@@ -7568,7 +7568,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setMap(map: (ol.Map)): void;
+        setMap(map: (Map)): void;
 
         /**
          * Set the offset for this overlay.
@@ -7586,7 +7586,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setPosition(position: (ol.Coordinate)): void;
+        setPosition(position: (Coordinate)): void;
 
         /**
          * Set the positioning for this overlay.
@@ -7595,7 +7595,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setPositioning(positioning: ol.OverlayPositioning): void;
+        setPositioning(positioning: OverlayPositioning): void;
 
     }
 
@@ -7685,7 +7685,7 @@ declare module ol {
         /**
          * Meters per unit lookup table.
          * @const
-         * @type {Object.<ol.proj.Units, number>}
+         * @type {Object.<proj.Units, number>}
          * @api stable
          */
         const METERS_PER_UNIT: { [k: string]: number };
@@ -7765,14 +7765,14 @@ declare module ol {
              * @return {ol.Extent} Extent.
              * @api stable
              */
-            getExtent(): ol.Extent;
+            getExtent(): Extent;
 
             /**
              * Get the units of this projection.
              * @return {ol.proj.Units} Units.
              * @api stable
              */
-            getUnits(): ol.proj.Units;
+            getUnits(): proj.Units;
 
             /**
              * Get the amount of meters per unit of this projection.  If the projection is
@@ -7788,7 +7788,7 @@ declare module ol {
              * @return {ol.Extent} Extent.
              * @api
              */
-            getWorldExtent(): ol.Extent;
+            getWorldExtent(): Extent;
 
             /**
              * Is this projection a global projection which spans the whole world?
@@ -7809,7 +7809,7 @@ declare module ol {
              * @param {ol.Extent} extent Extent.
              * @api stable
              */
-            setExtent(extent: ol.Extent): void;
+            setExtent(extent: Extent): void;
 
             /**
              * Set the world extent for this projection.
@@ -7817,14 +7817,14 @@ declare module ol {
              *     [minlon, minlat, maxlon, maxlat].
              * @api
              */
-            setWorldExtent(worldExtent: ol.Extent): void;
+            setWorldExtent(worldExtent: Extent): void;
 
             /**
              * Set the getPointResolution function for this projection.
              * @param {function(number, ol.Coordinate):number} func Function
              * @api
              */
-            setGetPointResolution(func: ((resolution: number, coords: ol.Coordinate) => number)): void;
+            setGetPointResolution(func: ((resolution: number, coords: Coordinate) => number)): void;
 
             /**
              * Get the resolution of the point in degrees or distance units.
@@ -7841,7 +7841,7 @@ declare module ol {
              * @return {number} Point resolution in projection units.
              * @api
              */
-            getPointResolution(resolution: number, point: ol.Coordinate): number;
+            getPointResolution(resolution: number, point: Coordinate): number;
 
         }
 
@@ -7863,10 +7863,10 @@ declare module ol {
          * Registers transformation functions that don't alter coordinates. Those allow
          * to transform between projections with equal meaning.
          *
-         * @param {Array.<ol.proj.Projection>} projections Projections.
+         * @param {Array.<proj.Projection>} projections Projections.
          * @api
          */
-        function addEquivalentProjections(projections: ol.proj.Projection[]): void;
+        function addEquivalentProjections(projections: proj.Projection[]): void;
 
         /**
          * Add a Projection object to the list of supported projections that can be
@@ -7875,7 +7875,7 @@ declare module ol {
          * @param {ol.proj.Projection} projection Projection instance.
          * @api stable
          */
-        function addProjection(projection: ol.proj.Projection): void;
+        function addProjection(projection: proj.Projection): void;
 
         /**
          * Registers coordinate transform functions to convert coordinates between the
@@ -7886,17 +7886,17 @@ declare module ol {
          *
          * @param {ol.ProjectionLike} source Source projection.
          * @param {ol.ProjectionLike} destination Destination projection.
-         * @param {function(ol.Coordinate): ol.Coordinate} forward The forward transform
+         * @param {function(ol.Coordinate): Coordinate} forward The forward transform
          *     function (that is, from the source projection to the destination
          *     projection) that takes a {@link ol.Coordinate} as argument and returns
          *     the transformed {@link ol.Coordinate}.
-         * @param {function(ol.Coordinate): ol.Coordinate} inverse The inverse transform
+         * @param {function(ol.Coordinate): Coordinate} inverse The inverse transform
          *     function (that is, from the destination projection to the source
          *     projection) that takes a {@link ol.Coordinate} as argument and returns
          *     the transformed {@link ol.Coordinate}.
          * @api stable
          */
-        function addCoordinateTransforms(source: ol.ProjectionLike, destination: ol.ProjectionLike, forward: ((coords: ol.Coordinate) => ol.Coordinate), inverse: ((coords: ol.Coordinate) => ol.Coordinate)): void;
+        function addCoordinateTransforms(source: ProjectionLike, destination: ProjectionLike, forward: ((coords: Coordinate) => Coordinate), inverse: ((coords: Coordinate) => Coordinate)): void;
 
         /**
          * Transforms a coordinate from longitude/latitude to a different projection.
@@ -7907,7 +7907,7 @@ declare module ol {
          * @return {ol.Coordinate} Coordinate projected to the target projection.
          * @api stable
          */
-        function fromLonLat(coordinate: ol.Coordinate, opt_projection?: ol.ProjectionLike): ol.Coordinate;
+        function fromLonLat(coordinate: Coordinate, opt_projection?: ProjectionLike): Coordinate;
 
         /**
          * Transforms a coordinate to longitude/latitude.
@@ -7918,7 +7918,7 @@ declare module ol {
          *     with longitude as 1st and latitude as 2nd element.
          * @api stable
          */
-        function toLonLat(coordinate: ol.Coordinate, opt_projection?: ol.ProjectionLike): ol.Coordinate;
+        function toLonLat(coordinate: Coordinate, opt_projection?: ProjectionLike): Coordinate;
 
         /**
          * Fetches a Projection object for the code specified.
@@ -7929,7 +7929,7 @@ declare module ol {
          * @return {ol.proj.Projection} Projection object, or null if not in list.
          * @api stable
          */
-        function get(projectionLike: ol.ProjectionLike): ol.proj.Projection;
+        function get(projectionLike: ProjectionLike): proj.Projection;
 
         /**
          * Checks if two projections are the same, that is every coordinate in one
@@ -7941,7 +7941,7 @@ declare module ol {
          * @return {boolean} Equivalent.
          * @api
          */
-        function equivalent(projection1: ol.proj.Projection, projection2: ol.proj.Projection): boolean;
+        function equivalent(projection1: proj.Projection, projection2: proj.Projection): boolean;
 
         /**
          * Given the projection-like objects, searches for a transformation
@@ -7953,7 +7953,7 @@ declare module ol {
          * @return {ol.TransformFunction} Transform function.
          * @api stable
          */
-        function getTransform(source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.TransformFunction;
+        function getTransform(source: ProjectionLike, destination: ProjectionLike): TransformFunction;
 
         /**
          * Transforms a coordinate from source projection to destination projection.
@@ -7967,7 +7967,7 @@ declare module ol {
          * @param {ol.ProjectionLike} source Source projection-like.
          * @param {ol.ProjectionLike} destination Destination projection-like.
          */
-        function transform(coordinate: ol.Coordinate, source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.Coordinate;
+        function transform(coordinate: Coordinate, source: ProjectionLike, destination: ProjectionLike): Coordinate;
 
         /**
          * Transforms an extent from source projection to destination projection.  This
@@ -7979,7 +7979,7 @@ declare module ol {
          * @return {ol.Extent} The transformed extent.
          * @api stable
          */
-        function transformExtent(extent: ol.Extent, source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.Extent;
+        function transformExtent(extent: Extent, source: ProjectionLike, destination: ProjectionLike): Extent;
 
         /**
          * Get the resolution of the point in degrees or distance units. For
@@ -7994,9 +7994,9 @@ declare module ol {
          * @return {number} Point to find adjusted resolution at.
          */
         function getPointResolution(
-            projection: ol.proj.Projection,
+            projection: proj.Projection,
             resolution: number,
-            point: ol.Coordinate
+            point: Coordinate
         ): number;
     }
 
@@ -8045,7 +8045,7 @@ declare module ol {
                  * @param {number} viewRotation View rotation.
                  * @struct
                  */
-                constructor(context: CanvasRenderingContext2D, pixelRatio: number, extent: ol.Extent, transform: any, viewRotation: number);
+                constructor(context: CanvasRenderingContext2D, pixelRatio: number, extent: Extent, transform: any, viewRotation: number);
 
                 /**
                  * Render a circle geometry into the canvas.  Rendering is immediate and uses
@@ -8054,7 +8054,7 @@ declare module ol {
                  * @param {ol.geom.Circle} geometry Circle geometry.
                  * @api
                  */
-                drawCircle(geometry: ol.geom.Circle): void;
+                drawCircle(geometry: geom.Circle): void;
 
                 /**
                  * Set the rendering style.  Note that since this is an immediate rendering API,
@@ -8063,7 +8063,7 @@ declare module ol {
                  * @param {ol.style.Style} style The rendering style.
                  * @api
                  */
-                setStyle(style: ol.style.Style): void;
+                setStyle(style: style.Style): void;
 
                 /**
                  * Render a geometry into the canvas.  Call
@@ -8072,7 +8072,7 @@ declare module ol {
                  * @param {ol.geom.Geometry|ol.render.Feature} geometry The geometry to render.
                  * @api
                  */
-                drawGeometry(geometry: (ol.geom.Geometry | ol.render.Feature)): void;
+                drawGeometry(geometry: (geom.Geometry | render.Feature)): void;
 
                 /**
                  * Render a feature into the canvas.  Note that any `zIndex` on the provided
@@ -8084,7 +8084,7 @@ declare module ol {
                  * @param {ol.style.Style} style Style.
                  * @api
                  */
-                drawFeature(feature: ol.Feature, style: ol.style.Style): void;
+                drawFeature(feature: Feature, style: style.Style): void;
 
             }
 
@@ -8111,14 +8111,14 @@ declare module ol {
              * @param {?CanvasRenderingContext2D=} opt_context Context.
              * @param {?ol.webgl.Context=} opt_glContext WebGL Context.
              */
-            constructor(type: ol.render.EventType, opt_vectorContext?: ol.render.VectorContext, opt_frameState?: olx.FrameState, opt_context?: CanvasRenderingContext2D, opt_glContext?: any);
+            constructor(type: render.EventType, opt_vectorContext?: render.VectorContext, opt_frameState?: olx.FrameState, opt_context?: CanvasRenderingContext2D, opt_glContext?: any);
 
             /**
              * For canvas, this is an instance of {@link ol.render.canvas.Immediate}.
              * @type {ol.render.VectorContext|undefined}
              * @api
              */
-            vectorContext: ol.render.VectorContext;
+            vectorContext: render.VectorContext;
 
             /**
              * An object representing the current render frame state.
@@ -8172,7 +8172,7 @@ declare module ol {
              * @param {Array.<number>|Array.<Array.<number>>} ends Ends or Endss.
              * @param {Object.<string, *>} properties Properties.
              */
-            constructor(type: ol.geom.GeometryType, flatCoordinates: number[], ends: (number[] | number[][]), properties: { [k: string]: any });
+            constructor(type: geom.GeometryType, flatCoordinates: number[], ends: (number[] | number[][]), properties: { [k: string]: any });
 
             /**
              * Get a feature property by its key.
@@ -8187,14 +8187,14 @@ declare module ol {
              * @return {ol.Extent} Extent.
              * @api
              */
-            getExtent(): ol.Extent;
+            getExtent(): Extent;
 
             /**
              * Get the feature for working with its geometry.
              * @return {ol.render.Feature} Feature.
              * @api
              */
-            getGeometry(): ol.render.Feature;
+            getGeometry(): render.Feature;
 
             /**
              * Get the feature properties.
@@ -8208,7 +8208,7 @@ declare module ol {
              * @return {ol.geom.GeometryType} Geometry type.
              * @api
              */
-            getType(): ol.geom.GeometryType;
+            getType(): geom.GeometryType;
 
         }
 
@@ -8251,7 +8251,7 @@ declare module ol {
          * @return {ol.render.canvas.Immediate} Canvas Immediate.
          * @api
          */
-        function toContext(context: CanvasRenderingContext2D, opt_options?: olx.render.ToContextOptions): ol.render.canvas.Immediate;
+        function toContext(context: CanvasRenderingContext2D, opt_options?: olx.render.ToContextOptions): render.canvas.Immediate;
 
     }
 
@@ -8299,7 +8299,7 @@ declare module ol {
              * @type {ol.Attribution}
              * @api
              */
-            static TOS_ATTRIBUTION: ol.Attribution;
+            static TOS_ATTRIBUTION: Attribution;
 
         }
 
@@ -8380,7 +8380,7 @@ declare module ol {
              * @return {ol.source.Vector} Source.
              * @api
              */
-            getSource(): ol.source.Vector;
+            getSource(): source.Vector;
 
             /**
              * Set the distance in pixels between clusters.
@@ -8414,7 +8414,7 @@ declare module ol {
              * @param {ol.SourceImageOptions} options Single image source options.
              * @api
              */
-            constructor(options: ol.SourceImageOptions);
+            constructor(options: SourceImageOptions);
 
         }
 
@@ -8441,14 +8441,14 @@ declare module ol {
              * @param {string} type Type.
              * @param {ol.Image} image The image.
              */
-            constructor(type: string, image: ol.Image);
+            constructor(type: string, image: Image);
 
             /**
              * The image related to the event.
              * @type {ol.Image}
              * @api
              */
-            image: ol.Image;
+            image: Image;
 
         }
 
@@ -8498,7 +8498,7 @@ declare module ol {
              * @return {ol.ImageLoadFunctionType} The image load function.
              * @api
              */
-            getImageLoadFunction(): ol.ImageLoadFunctionType;
+            getImageLoadFunction(): ImageLoadFunctionType;
 
             /**
              * Return the URL used for this ArcGIS source.
@@ -8512,7 +8512,7 @@ declare module ol {
              * @param {ol.ImageLoadFunctionType} imageLoadFunction Image load function.
              * @api
              */
-            setImageLoadFunction(imageLoadFunction: ol.ImageLoadFunctionType): void;
+            setImageLoadFunction(imageLoadFunction: ImageLoadFunctionType): void;
 
             /**
              * Set the URL to use for requests.
@@ -8589,7 +8589,7 @@ declare module ol {
              * @return {ol.ImageLoadFunctionType} The image load function.
              * @api
              */
-            getImageLoadFunction(): ol.ImageLoadFunctionType;
+            getImageLoadFunction(): ImageLoadFunctionType;
 
             /**
              * Update the user-provided params.
@@ -8603,7 +8603,7 @@ declare module ol {
              * @param {ol.ImageLoadFunctionType} imageLoadFunction Image load function.
              * @api
              */
-            setImageLoadFunction(imageLoadFunction: ol.ImageLoadFunctionType): void;
+            setImageLoadFunction(imageLoadFunction: ImageLoadFunctionType): void;
 
         }
 
@@ -8672,23 +8672,23 @@ declare module ol {
              * @return {ol.source.Vector} Source.
              * @api
              */
-            getSource(): ol.source.Vector;
+            getSource(): source.Vector;
 
             /**
              * Get the style for features.  This returns whatever was passed to the `style`
              * option at construction or to the `setStyle` method.
-             * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
+             * @return {ol.style.Style|Array.<style.Style>|ol.StyleFunction}
              *     Layer style.
              * @api stable
              */
-            getStyle(): (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+            getStyle(): (style.Style | style.Style[] | StyleFunction);
 
             /**
              * Get the style function.
              * @return {ol.StyleFunction|undefined} Layer style function.
              * @api stable
              */
-            getStyleFunction(): (ol.StyleFunction);
+            getStyleFunction(): (StyleFunction);
 
             /**
              * Set the style for features.  This can be a single style object, an array
@@ -8697,11 +8697,11 @@ declare module ol {
              * it is `null` the layer has no style (a `null` style), so only features
              * that have their own styles will be rendered in the layer. See
              * {@link ol.style} for information on the default style.
-             * @param {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined}
+             * @param {ol.style.Style|Array.<style.Style>|ol.StyleFunction|undefined}
              *     style Layer style.
              * @api stable
              */
-            setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction)): void;
+            setStyle(style: (style.Style | style.Style[] | StyleFunction)): void;
 
         }
 
@@ -8742,7 +8742,7 @@ declare module ol {
              * @return {string|undefined} GetFeatureInfo URL.
              * @api stable
              */
-            getGetFeatureInfoUrl(coordinate: ol.Coordinate, resolution: number, projection: ol.ProjectionLike, params: GlobalObject): (string);
+            getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: GlobalObject): (string);
 
             /**
              * Get the user-provided params, i.e. those passed to the constructor through
@@ -8757,7 +8757,7 @@ declare module ol {
              * @return {ol.ImageLoadFunctionType} The image load function.
              * @api
              */
-            getImageLoadFunction(): ol.ImageLoadFunctionType;
+            getImageLoadFunction(): ImageLoadFunctionType;
 
             /**
              * Return the URL used for this WMS source.
@@ -8771,7 +8771,7 @@ declare module ol {
              * @param {ol.ImageLoadFunctionType} imageLoadFunction Image load function.
              * @api
              */
-            setImageLoadFunction(imageLoadFunction: ol.ImageLoadFunctionType): void;
+            setImageLoadFunction(imageLoadFunction: ImageLoadFunctionType): void;
 
             /**
              * Set the URL to use for requests.
@@ -8817,7 +8817,7 @@ declare module ol {
              * @type {ol.Attribution}
              * @api
              */
-            static ATTRIBUTION: ol.Attribution;
+            static ATTRIBUTION: Attribution;
 
         }
 
@@ -8855,7 +8855,7 @@ declare module ol {
              *     in a worker.
              * @api
              */
-            setOperation(operation: ol.RasterOperation, opt_lib?: GlobalObject): void;
+            setOperation(operation: RasterOperation, opt_lib?: GlobalObject): void;
 
         }
 
@@ -8891,7 +8891,7 @@ declare module ol {
              * @type {ol.Extent}
              * @api
              */
-            extent: ol.Extent;
+            extent: Extent;
 
             /**
              * The pixel resolution (map units per pixel).
@@ -8943,14 +8943,14 @@ declare module ol {
              * @param {ol.SourceSourceOptions} options Source options.
              * @api stable
              */
-            constructor(options: ol.SourceSourceOptions);
+            constructor(options: SourceSourceOptions);
 
             /**
              * Get the attributions of the source.
-             * @return {Array.<ol.Attribution>} Attributions.
+             * @return {Array.<Attribution>} Attributions.
              * @api stable
              */
-            getAttributions(): ol.Attribution[];
+            getAttributions(): Attribution[];
 
             /**
              * Get the logo of the source.
@@ -8964,14 +8964,14 @@ declare module ol {
              * @return {ol.proj.Projection} Projection.
              * @api
              */
-            getProjection(): ol.proj.Projection;
+            getProjection(): proj.Projection;
 
             /**
              * Get the state of the source, see {@link ol.source.State} for possible states.
              * @return {ol.source.State} State.
              * @api
              */
-            getState(): ol.source.State;
+            getState(): source.State;
 
             /**
              * Refreshes the source and finally dispatches a 'change' event.
@@ -8986,7 +8986,7 @@ declare module ol {
              *     `Array<{@link ol.Attribution}>` or `undefined`.
              * @api
              */
-            setAttributions(attributions: (ol.AttributionLike)): void;
+            setAttributions(attributions: (AttributionLike)): void;
 
         }
 
@@ -9036,14 +9036,14 @@ declare module ol {
              * @param {ol.SourceTileOptions} options Tile source options.
              * @api
              */
-            constructor(options: ol.SourceTileOptions);
+            constructor(options: SourceTileOptions);
 
             /**
              * Return the tile grid of the tile source.
              * @return {ol.tilegrid.TileGrid} Tile grid.
              * @api stable
              */
-            getTileGrid(): ol.tilegrid.TileGrid;
+            getTileGrid(): tilegrid.TileGrid;
 
         }
 
@@ -9070,14 +9070,14 @@ declare module ol {
              * @param {string} type Type.
              * @param {ol.Tile} tile The tile.
              */
-            constructor(type: string, tile: ol.Tile);
+            constructor(type: string, tile: Tile);
 
             /**
              * The tile related to the event.
              * @type {ol.Tile}
              * @api
              */
-            tile: ol.Tile;
+            tile: Tile;
 
         }
 
@@ -9202,7 +9202,7 @@ declare module ol {
              * @param {ol.tilegrid.TileGrid} tilegrid Tile grid to use for the projection.
              * @api
              */
-            setTileGridForProjection(projection: ol.ProjectionLike, tilegrid: ol.tilegrid.TileGrid): void;
+            setTileGridForProjection(projection: ProjectionLike, tilegrid: tilegrid.TileGrid): void;
 
         }
 
@@ -9276,7 +9276,7 @@ declare module ol {
              * @template T
              * @api
              */
-            forDataAtCoordinateAndResolution<T>(coordinate: ol.Coordinate, resolution: number, callback: ((d: any) => any), opt_this?: T, opt_request?: boolean): void;
+            forDataAtCoordinateAndResolution<T>(coordinate: Coordinate, resolution: number, callback: ((d: any) => any), opt_this?: T, opt_request?: boolean): void;
 
         }
 
@@ -9315,7 +9315,7 @@ declare module ol {
              * @return {string|undefined} GetFeatureInfo URL.
              * @api stable
              */
-            getGetFeatureInfoUrl(coordinate: ol.Coordinate, resolution: number, projection: ol.ProjectionLike, params: GlobalObject): (string);
+            getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: GlobalObject): (string);
 
             /**
              * Get the user-provided params, i.e. those passed to the constructor through
@@ -9353,21 +9353,21 @@ declare module ol {
              * @extends {ol.source.Tile}
              * @param {ol.SourceUrlTileOptions} options Image tile options.
              */
-            constructor(options: ol.SourceUrlTileOptions);
+            constructor(options: SourceUrlTileOptions);
 
             /**
              * Return the tile load function of the source.
              * @return {ol.TileLoadFunctionType} TileLoadFunction
              * @api
              */
-            getTileLoadFunction(): ol.TileLoadFunctionType;
+            getTileLoadFunction(): TileLoadFunctionType;
 
             /**
              * Return the tile URL function of the source.
              * @return {ol.TileUrlFunctionType} TileUrlFunction
              * @api
              */
-            getTileUrlFunction(): ol.TileUrlFunctionType;
+            getTileUrlFunction(): TileUrlFunctionType;
 
             /**
              * Return the URLs used for this source.
@@ -9383,7 +9383,7 @@ declare module ol {
              * @param {ol.TileLoadFunctionType} tileLoadFunction Tile load function.
              * @api
              */
-            setTileLoadFunction(tileLoadFunction: ol.TileLoadFunctionType): void;
+            setTileLoadFunction(tileLoadFunction: TileLoadFunctionType): void;
 
             /**
              * Set the tile URL function of the source.
@@ -9391,7 +9391,7 @@ declare module ol {
              * @param {string=} opt_key Optional new tile key for the source.
              * @api
              */
-            setTileUrlFunction(tileUrlFunction: ol.TileUrlFunctionType, opt_key?: string): void;
+            setTileUrlFunction(tileUrlFunction: TileUrlFunctionType, opt_key?: string): void;
 
             /**
              * Set the URL to use for requests.
@@ -9443,14 +9443,14 @@ declare module ol {
              * @param {ol.Feature} feature Feature to add.
              * @api stable
              */
-            addFeature(feature: ol.Feature): void;
+            addFeature(feature: Feature): void;
 
             /**
              * Add a batch of features to the source.
-             * @param {Array.<ol.Feature>} features Features to add.
+             * @param {Array.<Feature>} features Features to add.
              * @api stable
              */
-            addFeatures(features: ol.Feature[]): void;
+            addFeatures(features: Feature[]): void;
 
             /**
              * Remove all features from the source.
@@ -9471,7 +9471,7 @@ declare module ol {
              * @template T,S
              * @api stable
              */
-            forEachFeature<T, S>(callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeature<T, S>(callback: ((feature: Feature) => S), opt_this?: T): (S);
 
             /**
              * Iterate through all features whose bounding box intersects the provided
@@ -9494,7 +9494,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachFeatureInExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeatureInExtent<T, S>(extent: Extent, callback: ((feature: Feature) => S), opt_this?: T): (S);
 
             /**
              * Iterate through all features whose geometry intersects the provided extent,
@@ -9513,31 +9513,31 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachFeatureIntersectingExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeatureIntersectingExtent<T, S>(extent: Extent, callback: ((feature: Feature) => S), opt_this?: T): (S);
 
             /**
              * Get the features collection associated with this source. Will be `null`
              * unless the source was configured with `useSpatialIndex` set to `false`, or
              * with an {@link ol.Collection} as `features`.
-             * @return {ol.Collection.<ol.Feature>} The collection of features.
+             * @return {ol.Collection.<Feature>} The collection of features.
              * @api
              */
-            getFeaturesCollection(): ol.Collection<ol.Feature>;
+            getFeaturesCollection(): Collection<Feature>;
 
             /**
              * Get all features on the source.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            getFeatures(): ol.Feature[];
+            getFeatures(): Feature[];
 
             /**
              * Get all features whose geometry intersects the provided coordinate.
              * @param {ol.Coordinate} coordinate Coordinate.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api stable
              */
-            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+            getFeaturesAtCoordinate(coordinate: Coordinate): Feature[];
 
             /**
              * Get all features in the provided extent.  Note that this returns all features
@@ -9547,10 +9547,10 @@ declare module ol {
              * This method is not available when the source is configured with
              * `useSpatialIndex` set to `false`.
              * @param {ol.Extent} extent Extent.
-             * @return {Array.<ol.Feature>} Features.
+             * @return {Array.<Feature>} Features.
              * @api
              */
-            getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
+            getFeaturesInExtent(extent: Extent): Feature[];
 
             /**
              * Get the closest feature to the provided coordinate.
@@ -9564,7 +9564,7 @@ declare module ol {
              * @return {ol.Feature} Closest feature.
              * @api stable
              */
-            getClosestFeatureToCoordinate(coordinate: ol.Coordinate, opt_filter?: ((feature: ol.Feature) => boolean)): ol.Feature;
+            getClosestFeatureToCoordinate(coordinate: Coordinate, opt_filter?: ((feature: Feature) => boolean)): Feature;
 
             /**
              * Get the extent of the features currently in the source.
@@ -9574,7 +9574,7 @@ declare module ol {
              * @return {!ol.Extent} Extent.
              * @api stable
              */
-            getExtent(): ol.Extent;
+            getExtent(): Extent;
 
             /**
              * Get a feature by its identifier (the value returned by feature.getId()).
@@ -9585,7 +9585,7 @@ declare module ol {
              * @return {ol.Feature} The feature (or `null` if not found).
              * @api stable
              */
-            getFeatureById(id: (string | number)): ol.Feature;
+            getFeatureById(id: (string | number)): Feature;
 
             /**
              * Get the format associated with this source.
@@ -9593,7 +9593,7 @@ declare module ol {
              * @return {ol.format.Feature|undefined} The feature format.
              * @api
              */
-            getFormat(): (ol.format.Feature);
+            getFormat(): (format.Feature);
 
             /**
              * Get the url associated with this source.
@@ -9601,7 +9601,7 @@ declare module ol {
              * @return {string|ol.FeatureUrlFunction|undefined} The url.
              * @api
              */
-            getUrl(): (string | ol.FeatureUrlFunction);
+            getUrl(): (string | FeatureUrlFunction);
 
             /**
              * Remove a single feature from the source.  If you want to remove all features
@@ -9610,7 +9610,7 @@ declare module ol {
              * @param {ol.Feature} feature Feature to remove.
              * @api stable
              */
-            removeFeature(feature: ol.Feature): void;
+            removeFeature(feature: Feature): void;
 
         }
 
@@ -9637,14 +9637,14 @@ declare module ol {
              * @param {string} type Type.
              * @param {ol.Feature=} opt_feature Feature.
              */
-            constructor(type: string, opt_feature?: ol.Feature);
+            constructor(type: string, opt_feature?: Feature);
 
             /**
              * The feature being added or removed.
              * @type {ol.Feature|undefined}
              * @api stable
              */
-            feature: ol.Feature;
+            feature: Feature;
 
         }
 
@@ -9761,7 +9761,7 @@ declare module ol {
              * @return {ol.source.WMTSRequestEncoding} Request encoding.
              * @api
              */
-            getRequestEncoding(): ol.source.WMTSRequestEncoding;
+            getRequestEncoding(): source.WMTSRequestEncoding;
 
             /**
              * Return the style of the WMTS source.
@@ -9928,13 +9928,13 @@ declare module ol {
          * Polygons on a Sphere", JPL Publication 07-03, Jet Propulsion
          * Laboratory, Pasadena, CA, June 2007
          *
-         * @param {Array.<ol.Coordinate>} coordinates List of coordinates of a linear
+         * @param {Array.<Coordinate>} coordinates List of coordinates of a linear
          * ring. If the ring is oriented clockwise, the area will be positive,
          * otherwise it will be negative.
          * @return {number} Area.
          * @api
          */
-        geodesicArea(coordinates: ol.Coordinate[]): number;
+        geodesicArea(coordinates: Coordinate[]): number;
 
         /**
          * Returns the distance from c1 to c2 using the haversine formula.
@@ -9944,7 +9944,7 @@ declare module ol {
          * @return {number} Haversine distance.
          * @api
          */
-        haversineDistance(c1: ol.Coordinate, c2: ol.Coordinate): number;
+        haversineDistance(c1: Coordinate, c2: Coordinate): number;
 
     }
 
@@ -10094,7 +10094,7 @@ declare module ol {
              * @return {ol.style.Fill} Fill style.
              * @api
              */
-            getFill(): ol.style.Fill;
+            getFill(): style.Fill;
 
             /**
              * Get the image used to render the circle.
@@ -10116,7 +10116,7 @@ declare module ol {
              * @return {ol.style.Stroke} Stroke style.
              * @api
              */
-            getStroke(): ol.style.Stroke;
+            getStroke(): style.Stroke;
 
             /**
              * Set the circle radius.
@@ -10152,7 +10152,7 @@ declare module ol {
              * @return {ol.Color|ol.ColorLike} Color.
              * @api
              */
-            getColor(): (ol.Color | ol.ColorLike);
+            getColor(): (Color | ColorLike);
 
             /**
              * Set the color.
@@ -10160,7 +10160,7 @@ declare module ol {
              * @param {ol.Color|ol.ColorLike} color Color.
              * @api
              */
-            setColor(color: (ol.Color | ol.ColorLike)): void;
+            setColor(color: (Color | ColorLike)): void;
 
         }
 
@@ -10228,7 +10228,7 @@ declare module ol {
              * @inheritDoc
              * @api
              */
-            getSize(): ol.Size;
+            getSize(): Size;
 
             /**
              * Load not yet loaded URI.
@@ -10262,7 +10262,7 @@ declare module ol {
              * @param {ol.StyleImageOptions} options Options.
              * @api
              */
-            constructor(options: ol.StyleImageOptions);
+            constructor(options: StyleImageOptions);
 
             /**
              * Get the symbolizer opacity.
@@ -10368,7 +10368,7 @@ declare module ol {
              * @return {ol.style.Fill} Fill style.
              * @api
              */
-            getFill(): ol.style.Fill;
+            getFill(): style.Fill;
 
             /**
              * @inheritDoc
@@ -10407,14 +10407,14 @@ declare module ol {
              * @inheritDoc
              * @api
              */
-            getSize(): ol.Size;
+            getSize(): Size;
 
             /**
              * Get the stroke style for the shape.
              * @return {ol.style.Stroke} Stroke style.
              * @api
              */
-            getStroke(): ol.style.Stroke;
+            getStroke(): style.Stroke;
 
         }
 
@@ -10448,7 +10448,7 @@ declare module ol {
              * @return {ol.Color|string} Color.
              * @api
              */
-            getColor(): (ol.Color | string);
+            getColor(): (Color | string);
 
             /**
              * Get the line cap type for the stroke.
@@ -10491,7 +10491,7 @@ declare module ol {
              * @param {ol.Color|string} color Color.
              * @api
              */
-            setColor(color: (ol.Color | string)): void;
+            setColor(color: (Color | string)): void;
 
             /**
              * Set the line cap.
@@ -10573,7 +10573,7 @@ declare module ol {
              * be rendered with this style.
              * @api
              */
-            getGeometry(): (string | ol.geom.Geometry | ol.StyleGeometryFunction);
+            getGeometry(): (string | geom.Geometry | StyleGeometryFunction);
 
             /**
              * Get the function used to generate a geometry for rendering.
@@ -10581,35 +10581,35 @@ declare module ol {
              * and returns the geometry to render instead of the feature's geometry.
              * @api
              */
-            getGeometryFunction(): ol.StyleGeometryFunction;
+            getGeometryFunction(): StyleGeometryFunction;
 
             /**
              * Get the fill style.
              * @return {ol.style.Fill} Fill style.
              * @api
              */
-            getFill(): ol.style.Fill;
+            getFill(): style.Fill;
 
             /**
              * Get the image style.
              * @return {ol.style.Image} Image style.
              * @api
              */
-            getImage(): ol.style.Image;
+            getImage(): style.Image;
 
             /**
              * Get the stroke style.
              * @return {ol.style.Stroke} Stroke style.
              * @api
              */
-            getStroke(): ol.style.Stroke;
+            getStroke(): style.Stroke;
 
             /**
              * Get the text style.
              * @return {ol.style.Text} Text style.
              * @api
              */
-            getText(): ol.style.Text;
+            getText(): style.Text;
 
             /**
              * Get the z-index for the style.
@@ -10623,7 +10623,7 @@ declare module ol {
              * @param {ol.style.Fill} fill Fill style.
              * @api
              */
-            setFill(fill: ol.style.Fill):void;
+            setFill(fill: style.Fill):void;
 
             /**
              * Set a geometry that is rendered instead of the feature's geometry.
@@ -10633,28 +10633,28 @@ declare module ol {
              *     for this style.
              * @api
              */
-            setGeometry(geometry: (string | ol.geom.Geometry | ol.StyleGeometryFunction)): void;
+            setGeometry(geometry: (string | geom.Geometry | StyleGeometryFunction)): void;
 
             /**
              * Set the image style.
              * @param {ol.style.Image} image Image style.
              * @api
              */
-            setImage(image: ol.style.Image): void;
+            setImage(image: style.Image): void;
 
             /**
              * Set the stroke style.
              * @param {ol.style.Stroke} stroke Stroke style.
              * @api
              */
-            setStroke(stroke: ol.style.Stroke): void;
+            setStroke(stroke: style.Stroke): void;
 
             /**
              * Set the text style.
              * @param {ol.style.Text} text Text style.
              * @api
              */
-            setText(text: ol.style.Text): void;
+            setText(text: style.Text): void;
 
             /**
              * Set the z-index.
@@ -10711,7 +10711,7 @@ declare module ol {
              * @return {ol.style.Fill} Fill style.
              * @api
              */
-            getFill(): ol.style.Fill;
+            getFill(): style.Fill;
 
             /**
              * Determine whether the text rotates with the map.
@@ -10739,7 +10739,7 @@ declare module ol {
              * @return {ol.style.Stroke} Stroke style.
              * @api
              */
-            getStroke(): ol.style.Stroke;
+            getStroke(): style.Stroke;
 
             /**
              * Get the text to be rendered.
@@ -10792,7 +10792,7 @@ declare module ol {
              * @param {ol.style.Fill} fill Fill style.
              * @api
              */
-            setFill(fill: ol.style.Fill): void;
+            setFill(fill: style.Fill): void;
 
             /**
              * Set the rotation.
@@ -10816,7 +10816,7 @@ declare module ol {
              * @param {ol.style.Stroke} stroke Stroke style.
              * @api
              */
-            setStroke(stroke: ol.style.Stroke): void;
+            setStroke(stroke: style.Stroke): void;
 
             /**
              * Set the text.
@@ -10865,14 +10865,14 @@ declare module ol {
          * @param {ol.TileCoord} tileCoord Tile coordinate.
          * @param {ol.Tile.State} state State.
          */
-        constructor(tileCoord: ol.TileCoord, state: ol.Tile.State);
+        constructor(tileCoord: TileCoord, state: Tile.State);
 
         /**
          * Get the tile coordinate for this tile.
          * @return {ol.TileCoord} The tile coordinate.
          * @api
          */
-        getTileCoord(): ol.TileCoord;
+        getTileCoord(): TileCoord;
 
         /**
          * Load the image or retry if loading previously failed.
@@ -10899,7 +10899,7 @@ declare module ol {
          * @return {ol.tilegrid.TileGrid} Tile grid instance.
          * @api
          */
-        function createXYZ(opt_options?: olx.tilegrid.XYZOptions): ol.tilegrid.TileGrid;
+        function createXYZ(opt_options?: olx.tilegrid.XYZOptions): tilegrid.TileGrid;
 
         /**
          * @classdesc
@@ -10932,7 +10932,7 @@ declare module ol {
              * @param {function(ol.TileCoord)} callback Function called with each tile coordinate.
              * @api
              */
-            forEachTileCoord(extent: ol.Extent, zoom: number, callback: ((coords: ol.TileCoord) => any)): void;
+            forEachTileCoord(extent: Extent, zoom: number, callback: ((coords: TileCoord) => any)): void;
 
             /**
              * Get the maximum zoom level for the grid.
@@ -10954,7 +10954,7 @@ declare module ol {
              * @return {ol.Coordinate} Origin.
              * @api stable
              */
-            getOrigin(z: number): ol.Coordinate;
+            getOrigin(z: number): Coordinate;
 
             /**
              * Get the resolution for the given zoom level.
@@ -10979,7 +10979,7 @@ declare module ol {
              * @return {ol.Extent} Extent.
              * @api
              */
-            getTileCoordExtent(tileCoord: ol.TileCoord, opt_extent?: ol.Extent): ol.Extent;
+            getTileCoordExtent(tileCoord: TileCoord, opt_extent?: Extent): Extent;
 
             /**
              * Get the tile coordinate for the given map coordinate and resolution.  This
@@ -10992,7 +10992,7 @@ declare module ol {
              * @return {ol.TileCoord} Tile coordinate.
              * @api
              */
-            getTileCoordForCoordAndResolution(coordinate: ol.Coordinate, resolution: number, opt_tileCoord?: ol.TileCoord): ol.TileCoord;
+            getTileCoordForCoordAndResolution(coordinate: Coordinate, resolution: number, opt_tileCoord?: TileCoord): TileCoord;
 
             /**
              * Get a tile coordinate given a map coordinate and zoom level.
@@ -11002,7 +11002,7 @@ declare module ol {
              * @return {ol.TileCoord} Tile coordinate.
              * @api
              */
-            getTileCoordForCoordAndZ(coordinate: ol.Coordinate, z: number, opt_tileCoord?: ol.TileCoord): ol.TileCoord;
+            getTileCoordForCoordAndZ(coordinate: Coordinate, z: number, opt_tileCoord?: TileCoord): TileCoord;
 
             /**
              * Get the tile size for a zoom level. The type of the return value matches the
@@ -11012,7 +11012,7 @@ declare module ol {
              * @return {number|ol.Size} Tile size.
              * @api stable
              */
-            getTileSize(z: number): (number | ol.Size);
+            getTileSize(z: number): (number | Size);
 
             /**
              * @param {number} resolution Resolution.
@@ -11065,16 +11065,16 @@ declare module ol {
              * @return {ol.tilegrid.WMTS} WMTS tileGrid instance.
              * @api
              */
-            static createFromCapabilitiesMatrixSet(matrixSet: GlobalObject, opt_extent?: ol.Extent): ol.tilegrid.WMTS;
+            static createFromCapabilitiesMatrixSet(matrixSet: GlobalObject, opt_extent?: Extent): tilegrid.WMTS;
 
         }
 
     }
 
     /**
-     * @typedef {string|Array.<string>|ol.Attribution|Array.<ol.Attribution>}
+     * @typedef {string|Array.<string>|ol.Attribution|Array.<Attribution>}
      */
-    type AttributionLike = (string | string[] | ol.Attribution | ol.Attribution[]);
+    type AttributionLike = (string | string[] | Attribution | Attribution[]);
 
     /**
      * A function returning the canvas element (`{HTMLCanvasElement}`)
@@ -11088,7 +11088,7 @@ declare module ol {
      * @typedef {function(this:ol.source.ImageCanvas, ol.Extent, number,
      *     number, ol.Size, ol.proj.Projection): HTMLCanvasElement}
      */
-    type CanvasFunctionType = (extent: ol.Extent, resolution: number, pixelRatio: number, size: ol.Size, proj: ol.proj.Projection) => HTMLCanvasElement;
+    type CanvasFunctionType = (extent: Extent, resolution: number, pixelRatio: number, size: Size, proj: proj.Projection) => HTMLCanvasElement;
 
     /**
      * A color represented as a short array [red, green, blue, alpha].
@@ -11119,7 +11119,7 @@ declare module ol {
      *
      * @typedef {function((ol.Coordinate|undefined)): string}
      */
-    type CoordinateFormatType = (coords?: ol.Coordinate) => string;
+    type CoordinateFormatType = (coords?: Coordinate) => string;
 
     /**
      * A function that takes a {@link ol.MapBrowserEvent} and two
@@ -11127,18 +11127,18 @@ declare module ol {
      * true should be returned.
      * @typedef {function(ol.MapBrowserEvent, ol.Pixel, ol.Pixel):boolean}
      */
-    type DragBoxEndConditionType = (event: ol.MapBrowserEvent, pixel1: ol.Pixel, pixel2: ol.Pixel) => boolean;
+    type DragBoxEndConditionType = (event: MapBrowserEvent, pixel1: Pixel, pixel2: Pixel) => boolean;
 
     /**
      * Function that takes coordinates and an optional existing geometry as
      * arguments, and returns a geometry. The optional existing geometry is the
      * geometry that is returned when the function is called without a second
      * argument.
-     * @typedef {function(!(ol.Coordinate|Array.<ol.Coordinate>|
-     *     Array.<Array.<ol.Coordinate>>), ol.geom.SimpleGeometry=):
+     * @typedef {function(!(ol.Coordinate|Array.<Coordinate>|
+     *     Array.<Array.<Coordinate>>), ol.geom.SimpleGeometry=):
      *     ol.geom.SimpleGeometry}
      */
-    type DrawGeometryFunctionType = (coords: (ol.Coordinate | ol.Coordinate[] | ol.Coordinate[][]), geo: ol.geom.SimpleGeometry) => ol.geom.SimpleGeometry;
+    type DrawGeometryFunctionType = (coords: (Coordinate | Coordinate[] | Coordinate[][]), geo: geom.SimpleGeometry) => geom.SimpleGeometry;
 
     /**
      * A function that takes an {@link ol.MapBrowserEvent} and returns a
@@ -11146,16 +11146,16 @@ declare module ol {
      *
      * @typedef {function(ol.MapBrowserEvent): boolean}
      */
-    type EventsConditionType = (event: ol.MapBrowserEvent) => boolean;
+    type EventsConditionType = (event: MapBrowserEvent) => boolean;
 
     /**
      * Key to use with {@link ol.Observable#unByKey}.
      *
      * @typedef {{bindTo: (Object|undefined),
-     *     boundListener: (ol.EventsListenerFunctionType|undefined),
+     *     boundListener: (EventsListenerFunctionType|undefined),
      *     callOnce: boolean,
      *     deleteIndex: (number|undefined),
-     *     listener: ol.EventsListenerFunctionType,
+     *     listener: EventsListenerFunctionType,
      *     target: (EventTarget|ol.events.EventTarget),
      *     type: string}}
      */
@@ -11181,17 +11181,17 @@ declare module ol {
      * @typedef {function(this:ol.source.Vector, ol.Extent, number,
      *                    ol.proj.Projection)}
      */
-    type FeatureLoader = (extent: ol.Extent, resolution: number, proj: ol.proj.Projection) => void;
+    type FeatureLoader = (extent: Extent, resolution: number, proj: proj.Projection) => void;
 
     /**
      * A function that returns an array of {@link ol.style.Style styles} given a
      * resolution. The `this` keyword inside the function references the
      * {@link ol.Feature} to be styled.
      *
-     * @typedef {function(this: ol.Feature, number):
-     *     (ol.style.Style|Array.<ol.style.Style>)}
+     * @typedef {function(this: Feature, number):
+     *     (ol.style.Style|Array.<style.Style>)}
      */
-    type FeatureStyleFunction = (resolution: number) => (ol.style.Style | ol.style.Style[]);
+    type FeatureStyleFunction = (resolution: number) => (style.Style | style.Style[]);
 
     /**
      * {@link ol.source.Vector} sources use a function of this type to get the url
@@ -11203,7 +11203,7 @@ declare module ol {
      * `{string}` representing the URL.
      * @typedef {function(ol.Extent, number, ol.proj.Projection) : string}
      */
-    type FeatureUrlFunction = (extent: ol.Extent, resolution: number, proj: ol.proj.Projection) => string;
+    type FeatureUrlFunction = (extent: Extent, resolution: number, proj: proj.Projection) => string;
 
     /**
      * A function that takes an {@link ol.Image} for the image and a `{string}` for
@@ -11221,16 +11221,16 @@ declare module ol {
      *
      * @typedef {function(ol.Image, string)}
      */
-    type ImageLoadFunctionType = (image: ol.Image, url: string) => void;
+    type ImageLoadFunctionType = (image: Image, url: string) => void;
 
     /**
      * A function that takes an {@link ol.Extent} and a resolution as arguments, and
      * returns an array of {@link ol.Extent} with the extents to load. Usually this
      * is one of the standard {@link ol.loadingstrategy} strategies.
      *
-     * @typedef {function(ol.Extent, number): Array.<ol.Extent>}
+     * @typedef {function(ol.Extent, number): Array.<Extent>}
      */
-    type LoadingStrategy = (extent: ol.Extent, resolution: number) => ol.Extent[];
+    type LoadingStrategy = (extent: Extent, resolution: number) => Extent[];
 
     type ModifyEventType = string;
 
@@ -11248,7 +11248,7 @@ declare module ol {
      * `false` to remove it.
      * @typedef {function(ol.Map, ?olx.FrameState): boolean}
      */
-    type PreRenderFunction = (map: ol.Map, state?: olx.FrameState) => boolean;
+    type PreRenderFunction = (map: Map, state?: olx.FrameState) => boolean;
 
     /**
      * A projection as {@link ol.proj.Projection}, SRS identifier string or
@@ -11283,7 +11283,7 @@ declare module ol {
      * @typedef {function((ol.Feature|ol.render.Feature), ol.layer.Layer):
      *     boolean}
      */
-    type SelectFilterFunction = (feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => boolean;
+    type SelectFilterFunction = (feature: (Feature | render.Feature), layer: layer.Layer) => boolean;
 
     /**
      * An array of numbers representing a size: `[width, height]`.
@@ -11292,92 +11292,92 @@ declare module ol {
     type Size = [number, number];
 
     /**
-     * @typedef {{attributions: (ol.AttributionLike|undefined),
+     * @typedef {{attributions: (AttributionLike|undefined),
      *            extent: (null|ol.Extent|undefined),
      *            logo: (string|olx.LogoOptions|undefined),
-     *            projection: ol.ProjectionLike,
+     *            projection: ProjectionLike,
      *            resolutions: (Array.<number>|undefined),
-     *            state: (ol.source.State|undefined)}}
+     *            state: (source.State|undefined)}}
      */
     interface SourceImageOptions {
-        attributions?: ol.AttributionLike;
-        extent?: (ol.Extent);
+        attributions?: AttributionLike;
+        extent?: (Extent);
         logo?: (string | olx.LogoOptions);
-        projection: ol.ProjectionLike;
+        projection: ProjectionLike;
         resolutions?: number[];
-        state?: ol.source.State;
+        state?: source.State;
     }
 
     /**
-     * @typedef {{attributions: (ol.AttributionLike|undefined),
+     * @typedef {{attributions: (AttributionLike|undefined),
      *            logo: (string|olx.LogoOptions|undefined),
-     *            projection: ol.ProjectionLike,
-     *            state: (ol.source.State|undefined),
+     *            projection: ProjectionLike,
+     *            state: (source.State|undefined),
      *            wrapX: (boolean|undefined)}}
      */
     interface SourceSourceOptions {
-        attributions?: ol.AttributionLike;
+        attributions?: AttributionLike;
         logo?: (string | olx.LogoOptions);
-        projection: ol.ProjectionLike;
-        state?: ol.source.State;
+        projection: ProjectionLike;
+        state?: source.State;
         wrapX?: boolean;
     }
 
     /**
-     * @typedef {{attributions: (ol.AttributionLike|undefined),
+     * @typedef {{attributions: (AttributionLike|undefined),
      *            cacheSize: (number|undefined),
-     *            extent: (ol.Extent|undefined),
+     *            extent: (Extent|undefined),
      *            logo: (string|olx.LogoOptions|undefined),
      *            opaque: (boolean|undefined),
-     *            projection: ol.ProjectionLike,
-     *            state: (ol.source.State|undefined),
-     *            tileGrid: (ol.tilegrid.TileGrid|undefined),
-     *            tileLoadFunction: ol.TileLoadFunctionType,
+     *            projection: ProjectionLike,
+     *            state: (source.State|undefined),
+     *            tileGrid: (tilegrid.TileGrid|undefined),
+     *            tileLoadFunction: TileLoadFunctionType,
      *            tilePixelRatio: (number|undefined),
-     *            tileUrlFunction: (ol.TileUrlFunctionType|undefined),
+     *            tileUrlFunction: (TileUrlFunctionType|undefined),
      *            url: (string|undefined),
      *            urls: (Array.<string>|undefined),
      *            wrapX: (boolean|undefined)}}
      */
     interface SourceUrlTileOptions {
-        attributions?: ol.AttributionLike;
+        attributions?: AttributionLike;
         cacheSize?: number;
-        extent?: ol.Extent;
+        extent?: Extent;
         logo?: (string | olx.LogoOptions);
         opaque?: boolean;
-        projection: ol.ProjectionLike;
-        state?: ol.source.State;
-        tileGrid?: ol.tilegrid.TileGrid;
-        tileLoadFunction: ol.TileLoadFunctionType;
+        projection: ProjectionLike;
+        state?: source.State;
+        tileGrid?: tilegrid.TileGrid;
+        tileLoadFunction: TileLoadFunctionType;
         tilePixelRatio?: number;
-        tileUrlFunction?: ol.TileUrlFunctionType;
+        tileUrlFunction?: TileUrlFunctionType;
         url?: string;
         urls?: string[];
         wrapX?: boolean;
     }
 
     /**
-     * @typedef {{attributions: (ol.AttributionLike|undefined),
+     * @typedef {{attributions: (AttributionLike|undefined),
      *            cacheSize: (number|undefined),
-     *            extent: (ol.Extent|undefined),
+     *            extent: (Extent|undefined),
      *            logo: (string|olx.LogoOptions|undefined),
      *            opaque: (boolean|undefined),
      *            tilePixelRatio: (number|undefined),
-     *            projection: ol.ProjectionLike,
-     *            state: (ol.source.State|undefined),
-     *            tileGrid: (ol.tilegrid.TileGrid|undefined),
+     *            projection: ProjectionLike,
+     *            state: (source.State|undefined),
+     *            tileGrid: (tilegrid.TileGrid|undefined),
      *            wrapX: (boolean|undefined)}}
      */
     interface SourceTileOptions {
-        attributions?: ol.AttributionLike;
+        attributions?: AttributionLike;
         cacheSize?: number;
-        extent?: ol.Extent;
+        extent?: Extent;
         logo?: (string | olx.LogoOptions);
         opaque?: boolean;
         tilePixelRatio?: number;
-        projection: ol.ProjectionLike;
-        state?: ol.source.State;
-        tileGrid?: ol.tilegrid.TileGrid;
+        projection: ProjectionLike;
+        state?: source.State;
+        tileGrid?: tilegrid.TileGrid;
         wrapX?: boolean;
     }
 
@@ -11402,9 +11402,9 @@ declare module ol {
      * or an array of them. This way e.g. a vector layer can be styled.
      *
      * @typedef {function((ol.Feature|ol.render.Feature), number):
-     *     (ol.style.Style|Array.<ol.style.Style>)}
+     *     (ol.style.Style|Array.<style.Style>)}
      */
-    type StyleFunction = (feature: (ol.Feature | ol.render.Feature), resolution: number) => (ol.style.Style | ol.style.Style[]);
+    type StyleFunction = (feature: (Feature | render.Feature), resolution: number) => (style.Style | style.Style[]);
 
     /**
      * A function that takes an {@link ol.Feature} as argument and returns an
@@ -11413,7 +11413,7 @@ declare module ol {
      * @typedef {function((ol.Feature|ol.render.Feature)):
      *     (ol.geom.Geometry|ol.render.Feature|undefined)}
      */
-    type StyleGeometryFunction = (feature: (ol.Feature | ol.render.Feature)) => (ol.geom.Geometry | ol.render.Feature);
+    type StyleGeometryFunction = (feature: (Feature | render.Feature)) => (geom.Geometry | render.Feature);
 
     /**
      * An array of three numbers representing the location of a tile in a tile
@@ -11428,7 +11428,7 @@ declare module ol {
      *
      * @typedef {function(ol.Tile, string)}
      */
-    type TileLoadFunctionType = (tile: ol.Tile, url: string) => void;
+    type TileLoadFunctionType = (tile: Tile, url: string) => void;
 
     /**
      * {@link ol.source.Tile} sources use a function of this type to get the url
@@ -11443,7 +11443,7 @@ declare module ol {
      * @typedef {function(ol.TileCoord, number,
      *           ol.proj.Projection): (string|undefined)}
      */
-    type TileUrlFunctionType = (coords: ol.TileCoord, pixelRatio: number, proj: ol.proj.Projection) => string;
+    type TileUrlFunctionType = (coords: TileCoord, pixelRatio: number, proj: proj.Projection) => string;
 
     /**
      * A transform function accepts an array of input coordinate values, an optional
@@ -11458,7 +11458,7 @@ declare module ol {
     /**
      * Number of features; bounds/extent.
      * @typedef {{numberOfFeatures: number,
-     *            bounds: ol.Extent}}
+     *            bounds: Extent}}
      */
     type WFSFeatureCollectionMetadata = Object;
 
@@ -11490,34 +11490,34 @@ declare module ol {
          * @param {ol.format.Feature} format Feature format.
          * @param {ol.TileLoadFunctionType} tileLoadFunction Tile load function.
          */
-        constructor(tileCoord: ol.TileCoord, state: ol.Tile.State, src: string, format: ol.format.Feature, tileLoadFunction: ol.TileLoadFunctionType);
+        constructor(tileCoord: TileCoord, state: Tile.State, src: string, format: format.Feature, tileLoadFunction: TileLoadFunctionType);
 
         /**
          * Get the feature format assigned for reading this tile's features.
          * @return {ol.format.Feature} Feature format.
          * @api
          */
-        getFormat(): ol.format.Feature;
+        getFormat(): format.Feature;
 
         /**
-         * @param {Array.<ol.Feature>} features Features.
+         * @param {Array.<Feature>} features Features.
          * @api
          */
-        setFeatures(features: ol.Feature[]): void;
+        setFeatures(features: Feature[]): void;
 
         /**
          * Set the projection of the features that were added with {@link #setFeatures}.
          * @param {ol.proj.Projection} projection Feature projection.
          * @api
          */
-        setProjection(projection: ol.proj.Projection): void;
+        setProjection(projection: proj.Projection): void;
 
         /**
          * Set the feature loader for reading this tile's features.
          * @param {ol.FeatureLoader} loader Feature loader.
          * @api
          */
-        setLoader(loader: ol.FeatureLoader): void;
+        setLoader(loader: FeatureLoader): void;
 
     }
 
@@ -11644,7 +11644,7 @@ declare module ol {
          * @return {ol.Coordinate|undefined} Constrained center.
          * @api
          */
-        constrainCenter(center: (ol.Coordinate)): (ol.Coordinate);
+        constrainCenter(center: (Coordinate)): (Coordinate);
 
         /**
          * Get the constrained resolution of this view.
@@ -11671,7 +11671,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        getCenter(): (ol.Coordinate);
+        getCenter(): (Coordinate);
 
         /**
          * Calculate the extent for the current view state and the passed size.
@@ -11682,7 +11682,7 @@ declare module ol {
          * @return {ol.Extent} Extent.
          * @api stable
          */
-        calculateExtent(size: ol.Size): ol.Extent;
+        calculateExtent(size: Size): Extent;
 
         /**
          * Get the maximum resolution of the view.
@@ -11703,7 +11703,7 @@ declare module ol {
          * @return {ol.proj.Projection} The projection of the view.
          * @api stable
          */
-        getProjection(): ol.proj.Projection;
+        getProjection(): proj.Projection;
 
         /**
          * Get the view resolution.
@@ -11746,7 +11746,7 @@ declare module ol {
          * @param {olx.view.FitOptions=} opt_options Options.
          * @api
          */
-        fit(geometry: (ol.geom.SimpleGeometry | ol.Extent), opt_options?: olx.view.FitOptions): void;
+        fit(geometry: (geom.SimpleGeometry | Extent), opt_options?: olx.view.FitOptions): void;
 
         /**
          * Center on coordinate and view position.
@@ -11755,7 +11755,7 @@ declare module ol {
          * @param {ol.Pixel} position Position on the view to center on.
          * @api
          */
-        centerOn(coordinate: ol.Coordinate, size: ol.Size, position: ol.Pixel): void;
+        centerOn(coordinate: Coordinate, size: Size, position: Pixel): void;
 
         /**
          * Rotate the view around a given coordinate.
@@ -11763,7 +11763,7 @@ declare module ol {
          * @param {ol.Coordinate=} opt_anchor The rotation center.
          * @api stable
          */
-        rotate(rotation: number, opt_anchor?: ol.Coordinate): void;
+        rotate(rotation: number, opt_anchor?: Coordinate): void;
 
         /**
          * Set the center of the current view.
@@ -11771,7 +11771,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setCenter(center: (ol.Coordinate)): void;
+        setCenter(center: (Coordinate)): void;
 
         /**
          * Set the resolution for this view.
