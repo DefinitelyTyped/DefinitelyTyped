@@ -6,8 +6,7 @@
 
 import * as React from 'react';
 
-// tslint:disable-next-line strict-export-declare-modifiers
-type LoadedComponent<Props> = React.ComponentClass<Props> | React.SFC<Props>;
+export type LoadedComponent<Props> = React.ComponentClass<Props> | React.SFC<Props>;
 
 export interface LoadingComponentProps {
     isLoading: boolean;
