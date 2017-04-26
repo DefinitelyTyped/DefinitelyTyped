@@ -64,6 +64,11 @@ declare namespace Knex {
         fullOuterJoin: Join;
         crossJoin: Join;
 
+        // Withs
+        with: With;
+        withRaw: WithRaw;
+        withWrapped: WithWrapped;
+
         // Wheres
         where: Where;
         andWhere: Where;
@@ -201,6 +206,18 @@ declare namespace Knex {
 
     interface JoinRaw {
         (tableName: string, binding?: Value): QueryBuilder;
+    }
+
+    interface With extends WithRaw, WithWrapped {
+    }
+
+    interface WithRaw {
+        (alias: string, raw: Raw): QueryBuilder;
+        (alias: string, sql: string, bindings?: Value[] | Object): QueryBuilder;
+    }
+
+    interface WithWrapped {
+        (alias: string, callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
     }
 
     interface Where extends WhereRaw, WhereWrapped, WhereNull {
