@@ -12761,7 +12761,7 @@ declare module olx {
 
 
         /**
-         * @typedef {{renderOrder: (function(ol.Feature, ol.Feature):number|null|undefined),
+         * @typedef {{renderOrder: (function(feature1: ol.Feature, feature2: ol.Feature):number|null|undefined),
          *     minResolution: (number|undefined),
          *     maxResolution: (number|undefined),
          *     opacity: (number|undefined),
