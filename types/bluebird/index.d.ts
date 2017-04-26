@@ -726,7 +726,28 @@ declare namespace Bluebird {
    *
    * `Promise.some` and `Promise.any` use `AggregateError` as rejection reason when they fail.
    */
-  export class AggregateError extends Error {}
+  export class AggregateError extends Error implements ArrayLike<Error> {
+    length: number;
+    [index: number]: Error;
+    join(separator?: string): string;
+    pop(): Error;
+    push(...errors: Error[]): number;
+    shift(): Error;
+    unshift(...errors: Error[]): number;
+    slice(begin?: number, end?: number): AggregateError;
+    filter(callback: (element: Error, index: number, array: AggregateError) => boolean, thisArg?: any): AggregateError;
+    forEach(callback: (element: Error, index: number, array: AggregateError) => void, thisArg?: any): undefined;
+    some(callback: (element: Error, index: number, array: AggregateError) => boolean, thisArg?: any): boolean;
+    every(callback: (element: Error, index: number, array: AggregateError) => boolean, thisArg?: any): boolean;
+    map(callback: (element: Error, index: number, array: AggregateError) => boolean, thisArg?: any): AggregateError;
+    indexOf(searchElement: Error, fromIndex?: number): number;
+    lastIndexOf(searchElement: Error, fromIndex?: number): number;
+    reduce(callback: (accumulator: any, element: Error, index: number, array: AggregateError) => any, initialValue?: any): any;
+    reduceRight(callback: (previousValue: any, element: Error, index: number, array: AggregateError) => any, initialValue?: any): any;
+    sort(compareFunction?: (errLeft: Error, errRight: Error) => number): AggregateError;
+    reverse(): AggregateError;
+  }
+
 
   /**
    * returned by `Bluebird.disposer()`.
