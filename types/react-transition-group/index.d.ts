@@ -1,9 +1,6 @@
 // Type definitions for react-transition-group 1.1
 // Project: https://github.com/reactjs/react-transition-group
-// Definitions by: Asana <https://asana.com>,
-//                 AssureSign <http://www.assuresign.com>,
-//                 Microsoft <https://microsoft.com>,
-//                 Karol Janyst <https://github.com/LKay>
+// Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
