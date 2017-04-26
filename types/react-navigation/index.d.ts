@@ -236,7 +236,7 @@ export type NavigationNavigator<T> = React.ComponentClass<T> & {
 }
 
 export type NavigationParams = {
-  [key: string]: string,
+  [key: string]: any,
 }
 
 export type NavigationNavigateAction = {
