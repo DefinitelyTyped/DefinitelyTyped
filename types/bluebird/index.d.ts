@@ -726,7 +726,7 @@ declare namespace Bluebird {
    *
    * `Promise.some` and `Promise.any` use `AggregateError` as rejection reason when they fail.
    */
-  export class AggregateError extends Error {}
+  export class AggregateError extends Array<Error> {}
 
   /**
    * returned by `Bluebird.disposer()`.
