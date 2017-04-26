@@ -240,7 +240,7 @@ export type NavigationParams = {
 }
 
 export type NavigationNavigateAction = {
-  type: 'Navigation/NAVIGATE',
+  type?: 'Navigation/NAVIGATE',
   routeName: string,
   params?: NavigationParams,
 
@@ -249,12 +249,12 @@ export type NavigationNavigateAction = {
 }
 
 export type NavigationBackAction = {
-  type: 'Navigation/BACK',
+  type?: 'Navigation/BACK',
   key?: string,
 }
 
 export type NavigationSetParamsAction = {
-  type: 'Navigation/SET_PARAMS',
+  type?: 'Navigation/SET_PARAMS',
 
   // The key of the route where the params should be set
   key: string,
@@ -264,18 +264,18 @@ export type NavigationSetParamsAction = {
 }
 
 export type NavigationInitAction = {
-  type: 'Navigation/INIT',
+  type?: 'Navigation/INIT',
   params?: NavigationParams,
 }
 
 export type NavigationResetAction = {
-  type: 'Navigation/RESET',
+  type?: 'Navigation/RESET',
   index: number,
   actions: NavigationNavigateAction[],
 }
 
 export type NavigationUriAction = {
-  type: 'Navigation/URI',
+  type?: 'Navigation/URI',
   uri: string,
 }
 
@@ -320,6 +320,13 @@ export type NavigationAction =
   | NavigationInitAction
   | NavigationStackAction
   | NavigationTabAction
+
+export namespace NavigationActions {
+  export function navigate(options: NavigationNavigateAction): any;
+  export function reset(options: NavigationResetAction): any;
+  export function back(options: NavigationBackAction): any;
+  export function setParams(options: NavigationSetParamsAction): any;
+}
 
 export type NavigationRouteConfig<T> = T & {
   navigationOptions?: NavigationScreenOptions,
