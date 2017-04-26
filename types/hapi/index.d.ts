@@ -1008,7 +1008,7 @@ export interface IServerInjectResponse {
 		req: http.IncomingMessage;
 		res: http.ServerResponse
 	};
-	result: string;
+	result: any;
 	request: Request;
 }
 
