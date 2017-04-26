@@ -50,7 +50,7 @@ export type NavigationState = {
   routes: Array<NavigationRoute | (NavigationRoute & NavigationState)>,
 }
 
-export type NavigationRoute = {
+export type NavigationRoute<P> = {
   /**
    * React's key used by some navigators. No need to specify these manually,
    * they will be defined by the router.
@@ -69,7 +69,7 @@ export type NavigationRoute = {
    * Params passed to this route when navigating to it,
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
-  params?: NavigationParams,
+  params: P,
 }
 
 export type NavigationRouter = {
@@ -364,8 +364,8 @@ export type NavigationScreenProp<S, A> = NavigationProp<S, A> & {
   setParams: (newParams: NavigationParams) => boolean,
 }
 
-export type NavigationNavigatorProps = {
-  navigation: NavigationProp<NavigationRoute, NavigationAction>,
+export type NavigationNavigatorProps<P> = {
+  navigation: NavigationProp<NavigationRoute<P>, NavigationAction>,
 }
 
 /**
