@@ -2295,7 +2295,7 @@ export class Server extends Events.EventEmitter {
 	register(
 		plugins: any | any[],
 		options: {
-			select: string | string[];
+			select?: string | string[];
 			routes: {
 				prefix: string; vhost?: string | string[]
 			};
@@ -2304,7 +2304,7 @@ export class Server extends Events.EventEmitter {
 	register(
 		plugins: any | any[],
 		options: {
-			select: string | string[];
+			select?: string | string[];
 			routes: {
 				prefix: string; vhost?: string | string[]
 			};
