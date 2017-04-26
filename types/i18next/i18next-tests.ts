@@ -53,7 +53,8 @@ i18n.init({
     interpolation: <i18n.InterpolationOptions>{},
     detection: null,
     backend: null,
-    cache: null
+    cache: null,
+    wait: false
 });
 
 i18n.t('helloWorld', <i18n.TranslationOptions> {

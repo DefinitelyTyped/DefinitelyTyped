@@ -83,6 +83,7 @@ declare namespace i18n {
         detection?: any;
         backend?: any;
         cache?: any;
+        wait?: boolean;
     }
 
     type TranslationFunction = (key: string, options?: TranslationOptions) => string;
