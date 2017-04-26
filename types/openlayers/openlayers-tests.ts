@@ -662,6 +662,12 @@ draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsStyle
 });
+ol.interaction.Draw.createBox();
+ol.interaction.Draw.createRegularPolygon();
+ol.interaction.Draw.createRegularPolygon(4);
+ol.interaction.Draw.createRegularPolygon(4,0);
+
+
 let styleFunctionAsArray = function(feature: ol.Feature, resolution: number): ol.style.Style[] { return styleArray; }
 draw = new ol.interaction.Draw({
     type: "Point",
