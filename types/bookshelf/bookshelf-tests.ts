@@ -481,6 +481,15 @@ new Book({'ISBN-13': '9780440180296'})
 
 /* model.fetchAll(), see http://bookshelfjs.org/#Model-instance-fetchAll */
 
+{
+	(new User).fetchAll({
+		columns: ['id', 'name'],
+		withRelated: ['posts.tags']
+	}).then((user: any) => {
+		console.log(user);
+	})
+}
+
 /* model.format(), see http://bookshelfjs.org/#Model-instance-format */
 
 /* model.get(), see http://bookshelfjs.org/#Model-instance-get */

@@ -1,6 +1,6 @@
 // Type definitions for bookshelfjs v0.8.2
 // Project: http://bookshelfjs.org/
-// Definitions by: Andrew Schurman <http://github.com/arcticwaters>
+// Definitions by: Andrew Schurman <http://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -278,8 +278,7 @@ declare namespace Bookshelf {
 		[index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder;
 	}
 
-	interface FetchAllOptions extends SyncOptions {
-		require?: boolean;
+	interface FetchAllOptions extends FetchOptions {
 	}
 
 	interface SaveOptions extends SyncOptions {
