@@ -83,7 +83,11 @@ declare namespace i18n {
         detection?: any;
         backend?: any;
         cache?: any;
-        wait?: boolean;
+    }
+
+    // init options for react-i18next
+    interface ReactOptions {
+      wait?: boolean;
     }
 
     type TranslationFunction = (key: string, options?: TranslationOptions) => string;
@@ -91,7 +95,7 @@ declare namespace i18n {
     interface I18n {
         //constructor(options?: Options, callback?: (err: any, t: TranslationFunction) => void);
 
-        init(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
+        init(options?: Options&ReactOptions, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
         loadResources(callback?: (err: any) => void): void;
 
