@@ -3,6 +3,7 @@
 // Definitions by: Steve Baker <https://github.com/stkb/>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as Dispatcher from "./lib/Dispatcher";
 
