@@ -18,6 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.ts",
         "modules/index.d.ts",
         "modules/components/Button.d.ts",
         "modules/components/Element.d.ts",
