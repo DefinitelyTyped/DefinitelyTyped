@@ -542,6 +542,12 @@ interface ShellConfig {
      * @type {boolean}
      */
     fatal: boolean;
+
+    /**
+     * Absolute path of the Node binary. Default is null (inferred).
+     * @type {string|null}
+     */
+    execPath: string | null;
 }
 
 /**

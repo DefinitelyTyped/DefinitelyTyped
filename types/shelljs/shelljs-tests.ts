@@ -22,6 +22,8 @@ shell.ls("*.js").forEach( file => {
 
 shell.cd("..");
 
+shell.config.execPath = shell.which('node');
+
 // Run external tool synchronously
 if (shell.exec('git commit -am "Auto-commit"').code !== 0)
 {
