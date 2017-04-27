@@ -41,3 +41,23 @@ class TableDecorated extends React.Component<TableDecoratedProps, {}> {
         </div>;
     }
 }
+
+
+interface TableProps extends CSSModules.InjectedCSSModuleProps {
+
+}
+
+class Svg extends React.Component<TableProps, {}> {
+    render () {
+        const { styles } = this.props;
+
+        return <svg styleName='table'>
+            <g styleName='row'>
+                <rect styleName='cell' />
+                <rect styleName='cell' />
+            </g>
+        </svg>;
+    }
+}
+
+const SvgHOC = CSSModules(Svg, styles);
