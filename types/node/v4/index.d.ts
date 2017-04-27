@@ -459,7 +459,7 @@ interface NodeBuffer extends Uint8Array {
     equals(otherBuffer: Buffer): boolean;
     compare(otherBuffer: Buffer): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
-    slice(start?: number, end?: number): Buffer;
+    slice(start?: number, end?: number): this;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
     writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
     writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
