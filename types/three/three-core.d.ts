@@ -3922,7 +3922,7 @@ export class Triangle {
     plane(optionalTarget?: Vector3): Plane;
     barycoordFromPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
     containsPoint(point: Vector3): boolean;
-    closestPointToPoint(): Vector3;
+    closestPointToPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
     equals(triangle: Triangle): boolean;
 
     static normal(a: Vector3, b: Vector3, c: Vector3, optionalTarget?: Vector3): Vector3;
