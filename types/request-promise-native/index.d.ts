@@ -22,6 +22,7 @@ declare namespace requestPromise {
         resolveWithFullResponse?: boolean;
     }
 
+    export type FullResponse = request.RequestResponse;
     export type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     export type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     export type Options = OptionsWithUri | OptionsWithUrl;
