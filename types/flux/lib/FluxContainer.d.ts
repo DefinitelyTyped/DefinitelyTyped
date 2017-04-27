@@ -35,14 +35,14 @@ export interface RealOptions {
     withContext?: boolean;
 }
 
-type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
+export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
 
 export interface ComponentStatic<TProps, TState, TContext> {
     getStores(maybeProps?: TProps, maybeContext?: TContext): Array<FluxStore<any>>;
     calculateState(prevState: TState, maybeProps?: TProps, maybeContext?: TContext): TState;
 }
 
-type Component<TProps, TState, TContext> = ComponentConstructor<TProps> & ComponentStatic<TProps, TState, TContext>;
+export type Component<TProps, TState, TContext> = ComponentConstructor<TProps> & ComponentStatic<TProps, TState, TContext>;
 
 /**
  * Create is used to transform a react class into a container
