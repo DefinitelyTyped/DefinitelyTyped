@@ -12,6 +12,7 @@ declare namespace Popper {
     modifiers?: {
       order?: number,
       enabled?: boolean,
+      fn?: Function,
       'function'?: Function,
       onLoad?: Function,
       applyStyle?: {
