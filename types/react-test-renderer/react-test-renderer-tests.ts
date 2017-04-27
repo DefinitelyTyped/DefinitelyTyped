@@ -1,6 +1,6 @@
 import React = require("react");
 import { create } from "react-test-renderer";
-import * as ReactTestUtils from './shallow';
+import { createRenderer } from 'react-test-renderer/shallow';
 
 const tree = create(React.createElement("div"), {
     createNodeMock: (el: React.ReactElement<any>) => {
@@ -18,6 +18,6 @@ tree.$$typeof = "t";
 class TestComponent extends React.Component<{}, {}> { }
 
 const component = React.createElement(TestComponent);
-const shallowRenderer = ReactTestUtils.createRenderer();
+const shallowRenderer = createRenderer();
 shallowRenderer.render(component);
 shallowRenderer.getRenderOutput();
