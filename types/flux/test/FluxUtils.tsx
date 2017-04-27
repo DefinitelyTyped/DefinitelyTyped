@@ -56,8 +56,11 @@ class CounterContainer extends React.Component<Props, State> {
         </div>;
     }
 }
-const ContainerComponentner = Container.create<Props, State>(CounterContainer, { withProps: true });
 
+const ContainerComponentnerOld = Container.create(CounterContainer, { withProps: true });
+<ContainerComponentnerOld a="string" b={false} />
+
+const ContainerComponentner = Container.create<Props>(CounterContainer, { withProps: true });
 <ContainerComponentner a="string" b={false} />;
 
 // Functional flux container with Store

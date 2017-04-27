@@ -41,12 +41,17 @@ export interface Component<TProps, TState> {
 }
 
 /**
+ * @deprecated Backward compatibility for wrong implementation.
+ */
+export function create<TComponent>(base: TComponent, options?: RealOptions): React.ComponentClass<any>;
+
+/**
  * Create is used to transform a react class into a container
  * that updates its state when relevant stores change.
  * The provided base class must have static methods getStores() and calculateState().
  */
-// TODO: Waiting TS 2.3 release to set default generic values as any.
-export function create<TProps, TState>(base: Component<TProps, TState>, options?: RealOptions): React.ComponentClass<TProps>;
+export function create<TProps, TStatic>(base: Component<TProps, any> & TStatic, options?: RealOptions): React.ComponentClass<TProps> & TStatic;
+export function create<TProps>(base: Component<TProps, any>, options?: RealOptions): React.ComponentClass<TProps>;
 
 /**
  * This is a way to connect stores to a functional stateless view.
