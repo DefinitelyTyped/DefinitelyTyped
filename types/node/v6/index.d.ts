@@ -359,12 +359,12 @@ declare namespace NodeJS {
     }
 
     export interface WriteStream extends Socket {
-        columns: number;
-        rows: number;
+        columns?: number;
+        rows?: number;
     }
     export interface ReadStream extends Socket {
-        isRaw: boolean;
-        setRawMode(mode: boolean): void;
+        isRaw?: boolean;
+        setRawMode?(mode: boolean): void;
     }
 
     export interface Process extends EventEmitter {
