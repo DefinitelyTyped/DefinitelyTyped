@@ -184,7 +184,7 @@ export interface EventDraggingResizingOptions {
 */
 export interface SelectionOptions {
     selectable?: boolean;
-    selectHelper?: boolean | ((start: moment.Moment, end: moment.Moment) => HTMLElement);
+    selectHelper?: boolean;
     unselectAuto?: boolean;
     unselectCancel?: string;
     selectOverlap?: boolean | ((event: EventObject) => boolean);
