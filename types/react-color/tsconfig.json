@@ -41,6 +41,7 @@
         "lib/components/slider/Slider.d.ts",
         "lib/components/swatches/Swatches.d.ts",
         "lib/components/twitter/Twitter.d.ts",
+        "lib/helpers/color.d.ts",
         "react-color-tests.tsx"
     ]
 }

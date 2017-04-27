@@ -1,6 +1,9 @@
 import { Component } from "react";
-import { CustomPickerProps } from "react-color";
+import { Color, CustomPickerProps, HSLColor, HSVColor } from "react-color";
 
-export type SaturationProps = CustomPickerProps<Saturation>;
+export interface SaturationProps extends CustomPickerProps<Saturation> {
+  hsl: HSLColor;
+  hsv: HSVColor;
+}
 
 export default class Saturation extends Component<SaturationProps, any> {}

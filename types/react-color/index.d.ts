@@ -13,6 +13,13 @@ export interface HSLColor {
     s: number;
 }
 
+export interface HSVColor {
+    a?: number;
+    h: number;
+    s: number;
+    v: number;
+}
+
 export interface RGBColor {
     a?: number;
     b: number;
@@ -26,6 +33,15 @@ export interface ColorResult {
     hex: string;
     hsl: HSLColor;
     rgb: RGBColor;
+}
+
+export interface ColorState {
+    hex: string;
+    hsl?: HSLColor;
+    hsv?: HSVColor;
+    rgb?: RGBColor;
+    oldHue?: number;
+    source?: string;
 }
 
 export type ColorChangeHandler = (color: ColorResult) => void;
