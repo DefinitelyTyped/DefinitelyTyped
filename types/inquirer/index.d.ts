@@ -106,6 +106,10 @@ declare namespace inquirer {
          */
         when?: boolean | ((answers: Answers) => boolean);
         paginated?: boolean;
+        /**
+         * Change the number of lines that will be rendered when using list, rawList, expand or checkbox.
+         */
+        pageSize?: number;
     }
 
     /**
