@@ -58,7 +58,7 @@ class CounterContainer extends React.Component<Props, State> {
 }
 
 const ContainerComponentnerOld = Container.create(CounterContainer, { withProps: true });
-<ContainerComponentnerOld a="string" b={false} />
+<ContainerComponentnerOld a="string" b={false} />;
 
 const ContainerComponentner = Container.create<Props>(CounterContainer, { withProps: true });
 <ContainerComponentner a="string" b={false} />;
