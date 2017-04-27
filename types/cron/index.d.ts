@@ -14,6 +14,7 @@ interface CronJobStatic {
 interface CronJob {
     start(): void;
     stop(): void;
+    running: boolean | undefined;
 }
 export declare var CronJob: CronJobStatic;
 
