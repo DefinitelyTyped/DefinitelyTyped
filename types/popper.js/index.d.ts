@@ -1,5 +1,3 @@
-// Copyright 2017 Canva Inc. All Rights Reserved.
-
 // Type definitions for popper.js v1.8.5
 // Project: https://github.com/FezVrasta/popper.js/
 // Definitions by: rhysd <https://rhysd.github.io>, joscha <https://github.com/joscha>
