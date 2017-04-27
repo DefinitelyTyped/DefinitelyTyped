@@ -5,6 +5,8 @@ let bool: boolean;
 let num: number;
 let metadata: any;
 let obj: any = {};
+let timestampFnReturnsBoolean: () => boolean;
+let timestampFnReturnsString: () => string;
 
 winston.level = 'debug';
 
@@ -58,6 +60,9 @@ bool = containerInstance.has(str);
 logger = containerInstance.get(str, loggerOptions);
 containerInstance.close(str);
 
+timestampFnReturnsBoolean = () => true;
+timestampFnReturnsString = () => new Date().toISOString();
+
 transport = winston.transports.Console;
 transport = winston.transports.DailyRotateFile;
 transport = winston.transports.File;
@@ -102,7 +107,7 @@ winston.query((err: Error, results: any): void => {
 
 logger = winston.add(transport, transportOptions);
 logger = winston.remove(transport);
-logger = winston.add(transport, {filename: 'path/to/file.log'});
+logger = winston.add(transport, { filename: 'path/to/file.log' });
 
 winston.clear();
 logger = winston.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any): void => {
@@ -149,7 +154,7 @@ logger.handleExceptions(transport);
 logger.unhandleExceptions(transport);
 logger = logger.add(transport, transportOptions, bool);
 logger = logger.add(transport);
-logger = logger.add(transport, {filename: 'path/to/file.log'});
+logger = logger.add(transport, { filename: 'path/to/file.log' });
 
 logger.clear();
 logger = logger.remove(transport);
@@ -165,7 +170,7 @@ profiler.start = new Date();
 
 let testRewriter: winston.MetadataRewriter;
 testRewriter = (level: string, msg: string, meta: any): any => {
-    return meta;
+  return meta;
 };
 
 logger.rewriters.push(testRewriter);
@@ -239,12 +244,33 @@ logger = new (winston.Logger)({
       json: bool,
     }),
     new (winston.transports.Memory)({
+      name: 'timestampAsBoolean',
       level: str,
       json: bool,
       colorize: bool,
       showLevel: bool,
       depth: num,
       timestamp: bool,
+      label: str,
+    }),
+    new (winston.transports.Memory)({
+      name: 'timestampAsFunctionReturnsBoolean',
+      level: str,
+      json: bool,
+      colorize: bool,
+      showLevel: bool,
+      depth: num,
+      timestamp: timestampFnReturnsBoolean,
+      label: str,
+    }),
+    new (winston.transports.Memory)({
+      name: 'timestampAsFunctionReturnsString',
+      level: str,
+      json: bool,
+      colorize: bool,
+      showLevel: bool,
+      depth: num,
+      timestamp: timestampFnReturnsString,
       label: str,
     }),
     new (winston.transports.Webhook)({
@@ -255,7 +281,7 @@ logger = new (winston.Logger)({
       method: str,
       path: str,
       auth: { username: str, password: str },
-      ssl: {ca: {}},
+      ssl: { ca: {} },
     }),
   ]
 });
@@ -281,7 +307,7 @@ declare module 'winston' {
   }
 }
 const customLevelLogger = new winston.Logger({
-  levels: {yay: 0, haha: 1, hoho: 2},
+  levels: { yay: 0, haha: 1, hoho: 2 },
   transports: [
     new (winston.transports.Console)()
   ]
