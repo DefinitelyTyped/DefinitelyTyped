@@ -21,10 +21,10 @@ function basics() {
     }
 
     class Renderer {
-        private renderer: PIXI.WebGLRenderer
+        private renderer: PIXI.WebGLRenderer;
         constructor() {
             // Renderer should allow options from both WebGLRenderer and underlying SystemRenderer
-            this.renderer = new PIXI.WebGLRenderer(0, 0, { backgroundColor : 0x272d37, forceFXAA: true })
+            this.renderer = new PIXI.WebGLRenderer(0, 0, { backgroundColor : 0x272d37, forceFXAA: true });
         }
     }
 
