@@ -2,6 +2,7 @@
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Typescript Version: 2.3
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.2/api/
 
@@ -996,8 +997,10 @@ export interface WriteOpResult {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~resultCallback
 export type CursorResult = any | void | boolean;
 
+type Default = { [key: string]: any };
+
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-export class Cursor<T> extends Readable {
+export class Cursor<T = Default> extends Readable {
 
     sortValue: string;
     timeout: boolean;
@@ -1048,8 +1051,8 @@ export class Cursor<T> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#min
     min(min: number): Cursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#next
-    next(): Promise<CursorResult>;
-    next(callback: MongoCallback<CursorResult>): void;
+    next(): Promise<T>;
+    next(callback: MongoCallback<T>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#project
     project(value: Object): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#read
@@ -1101,7 +1104,7 @@ export interface EndCallback {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#~resultCallback
 export type AggregationCursorResult = any | void;
 //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
-export class AggregationCursor<T> extends Readable {
+export class AggregationCursor<T = Default> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
     batchSize(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#clone
@@ -1127,8 +1130,8 @@ export class AggregationCursor<T> extends Readable {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#maxTimeMS
     maxTimeMS(value: number): AggregationCursor<T>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#next
-    next(): Promise<AggregationCursorResult>;
-    next(callback: MongoCallback<AggregationCursorResult>): void;
+    next(): Promise<T>;
+    next(callback: MongoCallback<T>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#out
     out(destination: string): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#project
