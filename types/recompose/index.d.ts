@@ -143,18 +143,32 @@ declare module 'recompose' {
         contextTypes: ValidationMap<TContext>
     ) : InferableComponentEnhancer;
 
-    // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
-    interface ReactLifeCycleFunctions {
-        componentWillMount?: Function;
-        componentDidMount?: Function;
-        componentWillReceiveProps?: Function;
-        shouldComponentUpdate?: Function;
-        componentWillUpdate?: Function;
-        componentDidUpdate?: Function;
-        componentWillUnmount?: Function;
+    interface ReactLifeCycleFunctionsThisArguments<TProps, TState> {
+        props: TProps,
+        state: TState,
+        setState<TKeyOfState extends keyof TState>(f: (prevState: TState, props: TProps) => Pick<TState, TKeyOfState>, callback?: () => any): void;
+        setState<TKeyOfState extends keyof TState>(state: Pick<TState, TKeyOfState>, callback?: () => any): void;
+        forceUpdate(callBack?: () => any): void;
+
+        context: any;
+        refs: {
+            [key: string]: React.ReactInstance
+        };
     }
-    export function lifecycle(
-        spec: ReactLifeCycleFunctions
+    
+    // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
+    interface ReactLifeCycleFunctions<TProps, TState> {
+        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
+        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
+        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps:TProps) => void;
+        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps:TProps, nextState: TState) => boolean;
+        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps:TProps, nextState: TState) => void;
+        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, prevProps:TProps, prevState: TState) => void;
+        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
+    }
+
+    export function lifecycle<TProps, TState>(
+        spec: ReactLifeCycleFunctions<TProps, TState>
     ): InferableComponentEnhancer;
 
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
