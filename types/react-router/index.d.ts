@@ -11,6 +11,7 @@
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
+//                 Jérémy Fauvel <https://github.com/grmiade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -49,6 +50,9 @@ declare module 'react-router' {
     to: H.LocationDescriptor;
     push?: boolean;
     from?: string;
+    path?: string;
+    exact?: boolean;
+    strict?: boolean;
   }
   class Redirect extends React.Component<RedirectProps, void> {}
 
