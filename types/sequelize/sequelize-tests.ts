@@ -1,5 +1,4 @@
 import Sequelize = require("sequelize");
-import Promise = require('bluebird');
 
 //
 //  Fixtures
@@ -978,7 +977,7 @@ User.create( { title : 'Chair', creator : { first_name : 'Matt', last_name : 'Ha
 User.create( { id : 1, title : 'e', Tags : [{ id : 1, name : 'c' }, { id : 2, name : 'd' }] }, { include : [User] } );
 User.create( { id : 'My own ID!' } ).then( ( i ) => i.isNewRecord );
 
-let findOrRetVal: Promise<[AnyInstance, boolean]>;
+let findOrRetVal: PromiseLike<[AnyInstance, boolean]>;
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' } } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );

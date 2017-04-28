@@ -7,7 +7,6 @@
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference types="lodash" />
-/// <reference types="bluebird" />
 /// <reference types="validator" />
 
 
@@ -57,7 +56,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance>;
+        (options?: BelongsToGetAssociationMixinOptions): PromiseLike<TInstance>;
     }
 
     /**
@@ -98,7 +97,7 @@ declare namespace sequelize {
         (
             newAssociation?: TInstance | TInstancePrimaryKey,
             options?: BelongsToSetAssociationMixinOptions | InstanceSaveOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -134,7 +133,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -171,7 +170,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance>;
+        (options?: HasOneGetAssociationMixinOptions): PromiseLike<TInstance>;
     }
 
     /**
@@ -212,7 +211,7 @@ declare namespace sequelize {
         (
             newAssociation?: TInstance | TInstancePrimaryKey,
             options?: HasOneSetAssociationMixinOptions | HasOneGetAssociationMixinOptions | InstanceSaveOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -248,7 +247,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: HasOneCreateAssociationMixinOptions | HasOneSetAssociationMixinOptions | CreateOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -298,7 +297,7 @@ declare namespace sequelize {
          * Get everything currently associated with this, using an optional where clause.
          * @param options The options to use when getting the associations.
          */
-        (options?: HasManyGetAssociationsMixinOptions): Promise<TInstance[]>;
+        (options?: HasManyGetAssociationsMixinOptions): PromiseLike<TInstance[]>;
     }
 
     /**
@@ -348,7 +347,7 @@ declare namespace sequelize {
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
             options?: HasManySetAssociationsMixinOptions | FindOptions | InstanceUpdateOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -397,7 +396,7 @@ declare namespace sequelize {
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
             options?: HasManyAddAssociationsMixinOptions | InstanceUpdateOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -446,7 +445,7 @@ declare namespace sequelize {
         (
             newAssociation?: TInstance | TInstancePrimaryKey,
             options?: HasManyAddAssociationMixinOptions | InstanceUpdateOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -489,7 +488,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: HasManyCreateAssociationMixinOptions | CreateOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -532,7 +531,7 @@ declare namespace sequelize {
         (
             oldAssociated?: TInstance | TInstancePrimaryKey,
             options?: HasManyRemoveAssociationMixinOptions | InstanceUpdateOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -575,7 +574,7 @@ declare namespace sequelize {
         (
             oldAssociateds?: Array<TInstance | TInstancePrimaryKey>,
             options?: HasManyRemoveAssociationsMixinOptions | InstanceUpdateOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -618,7 +617,7 @@ declare namespace sequelize {
         (
             target: TInstance | TInstancePrimaryKey,
             options?: HasManyHasAssociationMixinOptions | HasManyGetAssociationsMixinOptions
-        ): Promise<boolean>;
+        ): PromiseLike<boolean>;
     }
 
     /**
@@ -661,7 +660,7 @@ declare namespace sequelize {
         (
             targets: Array<TInstance | TInstancePrimaryKey>,
             options?: HasManyHasAssociationsMixinOptions | HasManyGetAssociationsMixinOptions
-        ): Promise<boolean>;
+        ): PromiseLike<boolean>;
     }
 
     /**
@@ -711,7 +710,7 @@ declare namespace sequelize {
          * Count everything currently associated with this, using an optional where clause.
          * @param options The options to use when counting the associations.
          */
-        (options?: HasManyCountAssociationsMixinOptions): Promise<number>;
+        (options?: HasManyCountAssociationsMixinOptions): PromiseLike<number>;
     }
 
     /**
@@ -761,7 +760,7 @@ declare namespace sequelize {
          * Get everything currently associated with this, using an optional where clause.
          * @param options The options to use when getting the associations.
          */
-        (options?: BelongsToManyGetAssociationsMixinOptions): Promise<TInstance[]>;
+        (options?: BelongsToManyGetAssociationsMixinOptions): PromiseLike<TInstance[]>;
     }
 
     /**
@@ -811,7 +810,7 @@ declare namespace sequelize {
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
             options?: BelongsToManySetAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -860,7 +859,7 @@ declare namespace sequelize {
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
             options?: BelongsToManyAddAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -909,7 +908,7 @@ declare namespace sequelize {
         (
             newAssociation?: TInstance | TInstancePrimaryKey,
             options?: BelongsToManyAddAssociationMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -952,7 +951,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: BelongsToManyCreateAssociationMixinOptions | CreateOptions | TJoinTableAttributes
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -995,7 +994,7 @@ declare namespace sequelize {
         (
             oldAssociated?: TInstance | TInstancePrimaryKey,
             options?: BelongsToManyRemoveAssociationMixinOptions | InstanceDestroyOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -1038,7 +1037,7 @@ declare namespace sequelize {
         (
             oldAssociateds?: Array<TInstance | TInstancePrimaryKey>,
             options?: BelongsToManyRemoveAssociationsMixinOptions | InstanceDestroyOptions
-        ): Promise<void>;
+        ): PromiseLike<void>;
     }
 
     /**
@@ -1081,7 +1080,7 @@ declare namespace sequelize {
         (
             target: TInstance | TInstancePrimaryKey,
             options?: BelongsToManyHasAssociationMixinOptions | BelongsToManyGetAssociationsMixinOptions
-        ): Promise<boolean>;
+        ): PromiseLike<boolean>;
     }
 
     /**
@@ -1124,7 +1123,7 @@ declare namespace sequelize {
         (
             targets: Array<TInstance | TInstancePrimaryKey>,
             options?: BelongsToManyHasAssociationsMixinOptions | BelongsToManyGetAssociationsMixinOptions
-        ): Promise<boolean>;
+        ): PromiseLike<boolean>;
     }
 
     /**
@@ -1174,7 +1173,7 @@ declare namespace sequelize {
          * Count everything currently associated with this, using an optional where clause.
          * @param options The options to use when counting the associations.
          */
-        (options?: BelongsToManyCountAssociationsMixinOptions): Promise<number>;
+        (options?: BelongsToManyCountAssociationsMixinOptions): PromiseLike<number>;
     }
 
     /**
@@ -2782,7 +2781,7 @@ declare namespace sequelize {
          * called with an instance of `Sequelize.ValidationError`. This error will have a property for each of the
          * fields for which validation failed, with the error message for that field.
          */
-        save(options?: InstanceSaveOptions): Promise<this>;
+        save(options?: InstanceSaveOptions): PromiseLike<this>;
 
         /**
          * Refresh the current instance in-place, i.e. update the object with current data from the DB and return
@@ -2790,7 +2789,7 @@ declare namespace sequelize {
          * return a new instance. With this method, all references to the Instance are updated with the new data
          * and no new objects are created.
          */
-        reload(options?: FindOptions): Promise<this>;
+        reload(options?: FindOptions): PromiseLike<this>;
 
         /**
          * Validate the attribute of this instance according to validation rules set in the model definition.
@@ -2800,26 +2799,26 @@ declare namespace sequelize {
          *
          * @param options.skip An array of strings. All properties that are in this array will not be validated
          */
-        validate(options?: { skip?: string[] }): Promise<ValidationError>;
+        validate(options?: { skip?: string[] }): PromiseLike<ValidationError>;
 
         /**
          * This is the same as calling `set` and then calling `save`.
          */
-        update(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
-        update(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(key: string, value: any, options?: InstanceUpdateOptions): Promise<this>;
-        updateAttributes(keys: Object, options?: InstanceUpdateOptions): Promise<this>;
+        update(key: string, value: any, options?: InstanceUpdateOptions): PromiseLike<this>;
+        update(keys: Object, options?: InstanceUpdateOptions): PromiseLike<this>;
+        updateAttributes(key: string, value: any, options?: InstanceUpdateOptions): PromiseLike<this>;
+        updateAttributes(keys: Object, options?: InstanceUpdateOptions): PromiseLike<this>;
 
         /**
          * Destroy the row corresponding to this instance. Depending on your setting for paranoid, the row will
          * either be completely deleted, or have its deletedAt timestamp set to the current time.
          */
-        destroy(options?: InstanceDestroyOptions): Promise<void>;
+        destroy(options?: InstanceDestroyOptions): PromiseLike<void>;
 
         /**
          * Restore the row corresponding to this instance. Only available for paranoid models.
          */
-        restore(options?: InstanceRestoreOptions): Promise<void>;
+        restore(options?: InstanceRestoreOptions): PromiseLike<void>;
 
         /**
          * Increment the value of one or more columns. This is done in the database, which means it does not use
@@ -2842,7 +2841,7 @@ declare namespace sequelize {
          *               If and object is provided, each column is incremented by the value given.
          */
         increment(fields: string | string[] | Object,
-            options?: InstanceIncrementDecrementOptions): Promise<this>;
+            options?: InstanceIncrementDecrementOptions): PromiseLike<this>;
 
         /**
          * Decrement the value of one or more columns. This is done in the database, which means it does not use
@@ -2865,7 +2864,7 @@ declare namespace sequelize {
          *               If and object is provided, each column is decremented by the value given
          */
         decrement(fields: string | string[] | Object,
-            options?: InstanceIncrementDecrementOptions): Promise<this>;
+            options?: InstanceIncrementDecrementOptions): PromiseLike<this>;
 
         /**
          * Check whether all values of this and `other` Instance are the same
@@ -3550,14 +3549,14 @@ declare namespace sequelize {
          * Sync this Model to the DB, that is create the table. Upon success, the callback will be called with the
          * model instance (this)
          */
-        sync(options?: SyncOptions): Promise<this>;
+        sync(options?: SyncOptions): PromiseLike<this>;
 
         /**
          * Drop the table represented by this Model
          *
          * @param options
          */
-        drop(options?: DropOptions): Promise<void>;
+        drop(options?: DropOptions): PromiseLike<void>;
 
         /**
          * Apply a schema to this model. For postgres, this will actually place the schema in front of the table
@@ -3717,22 +3716,22 @@ declare namespace sequelize {
          *
          * @see    {Sequelize#query}
          */
-        findAll(options?: FindOptions): Promise<TInstance[]>;
-        all(optionz?: FindOptions): Promise<TInstance[]>;
+        findAll(options?: FindOptions): PromiseLike<TInstance[]>;
+        all(optionz?: FindOptions): PromiseLike<TInstance[]>;
 
         /**
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
-        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
+        findById(identifier?: number | string, options?: FindOptions): PromiseLike<TInstance>;
+        findByPrimary(identifier?: number | string, options?: FindOptions): PromiseLike<TInstance>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
          * instance.
          */
-        findOne(options?: FindOptions): Promise<TInstance>;
-        find(options?: FindOptions): Promise<TInstance>;
+        findOne(options?: FindOptions): PromiseLike<TInstance>;
+        find(options?: FindOptions): PromiseLike<TInstance>;
 
         /**
          * Run an aggregation method on the specified field
@@ -3743,14 +3742,14 @@ declare namespace sequelize {
          * @return Returns the aggregate result cast to `options.dataType`, unless `options.plain` is false, in
          *     which case the complete data result is returned.
          */
-        aggregate(field: string, aggregateFunction: string, options?: AggregateOptions): Promise<Object>;
+        aggregate(field: string, aggregateFunction: string, options?: AggregateOptions): PromiseLike<Object>;
 
         /**
          * Count the number of records matching the provided where clause.
          *
          * If you provide an `include` option, the number of matching associations will be counted instead.
          */
-        count(options?: CountOptions): Promise<number>;
+        count(options?: CountOptions): PromiseLike<number>;
 
         /**
          * Find all the rows matching your query, within a specified offset / limit, and get the total number of
@@ -3787,23 +3786,23 @@ declare namespace sequelize {
          * without
          * profiles will be counted
          */
-        findAndCount(options?: FindOptions): Promise<{ rows: TInstance[], count: number }>;
-        findAndCountAll(options?: FindOptions): Promise<{ rows: TInstance[], count: number }>;
+        findAndCount(options?: FindOptions): PromiseLike<{ rows: TInstance[], count: number }>;
+        findAndCountAll(options?: FindOptions): PromiseLike<{ rows: TInstance[], count: number }>;
 
         /**
          * Find the maximum value of field
          */
-        max(field: string, options?: AggregateOptions): Promise<any>;
+        max(field: string, options?: AggregateOptions): PromiseLike<any>;
 
         /**
          * Find the minimum value of field
          */
-        min(field: string, options?: AggregateOptions): Promise<any>;
+        min(field: string, options?: AggregateOptions): PromiseLike<any>;
 
         /**
          * Find the sum of field
          */
-        sum(field: string, options?: AggregateOptions): Promise<number>;
+        sum(field: string, options?: AggregateOptions): PromiseLike<number>;
 
         /**
          * Builds a new model instance. Values is an object of key value pairs, must be defined but can be empty.
@@ -3818,14 +3817,14 @@ declare namespace sequelize {
         /**
          * Builds a new model instance and calls save on it.
          */
-        create(values?: TAttributes, options?: CreateOptions): Promise<TInstance>;
+        create(values?: TAttributes, options?: CreateOptions): PromiseLike<TInstance>;
 
         /**
          * Find a row that matches the query, or build (but don't save) the row if none is found.
          * The successfull result of the promise will be (instance, initialized) - Make sure to use .spread()
          */
-        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
-        findOrBuild(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
+        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): PromiseLike<[TInstance, boolean]>;
+        findOrBuild(options: FindOrInitializeOptions<TAttributes>): PromiseLike<[TInstance, boolean]>;
 
         /**
          * Find a row that matches the query, or build and save the row if none is found
@@ -3838,13 +3837,13 @@ declare namespace sequelize {
          * an instance of sequelize.TimeoutError will be thrown instead. If a transaction is created, a savepoint
          * will be created instead, and any unique constraint violation will be handled internally.
          */
-        findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
+        findOrCreate(options: FindOrInitializeOptions<TAttributes>): PromiseLike<[TInstance, boolean]>;
 
         /**
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
              * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
              */
-        findCreateFind(options: FindCreateFindOptions<TAttributes>): Promise<[TInstance, boolean]>;
+        findCreateFind(options: FindCreateFindOptions<TAttributes>): PromiseLike<[TInstance, boolean]>;
 
         /**
  * Insert or update a single row. An update will be executed if a row which matches the supplied values on
@@ -3865,8 +3864,8 @@ declare namespace sequelize {
  * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
  * whether the row was inserted or not.
  */
-        upsert(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
-        insertOrUpdate(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
+        upsert(values: TAttributes, options?: UpsertOptions): PromiseLike<boolean>;
+        insertOrUpdate(values: TAttributes, options?: UpsertOptions): PromiseLike<boolean>;
 
         /**
          * Create and insert multiple instances in bulk.
@@ -3879,37 +3878,37 @@ declare namespace sequelize {
          *
          * @param records List of objects (key/value pairs) to create instances from
          */
-        bulkCreate(records: TAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
+        bulkCreate(records: TAttributes[], options?: BulkCreateOptions): PromiseLike<TInstance[]>;
 
         /**
          * Truncate all instances of the model. This is a convenient method for Model.destroy({ truncate: true }).
          */
-        truncate(options?: TruncateOptions): Promise<void>;
+        truncate(options?: TruncateOptions): PromiseLike<void>;
 
         /**
          * Delete multiple instances, or set their deletedAt timestamp to the current time if `paranoid` is enabled.
          *
-         * @return Promise<number> The number of destroyed rows
+         * @return PromiseLike<number> The number of destroyed rows
          */
-        destroy(options?: DestroyOptions): Promise<number>;
+        destroy(options?: DestroyOptions): PromiseLike<number>;
 
         /**
          * Restore multiple instances if `paranoid` is enabled.
          */
-        restore(options?: RestoreOptions): Promise<void>;
+        restore(options?: RestoreOptions): PromiseLike<void>;
 
         /**
          * Update multiple instances that match the where options. The promise returns an array with one or two
          * elements. The first element is always the number of affected rows, while the second element is the actual
          * affected rows (only supported in postgres with `options.returning` true.)
          */
-        update(values: TAttributes, options: UpdateOptions): Promise<[number, TInstance[]]>;
+        update(values: TAttributes, options: UpdateOptions): PromiseLike<[number, TInstance[]]>;
 
         /**
          * Run a describe query on the table. The result will be return to the listener as a hash of attributes and
          * their types.
          */
-        describe(): Promise<Object>;
+        describe(): PromiseLike<Object>;
 
         /**
          * Unscope the model
@@ -3963,31 +3962,31 @@ declare namespace sequelize {
          *
          * @param schema The schema to query. Applies only to Postgres.
          */
-        createSchema(schema?: string, options?: QueryInterfaceOptions): Promise<void>;
+        createSchema(schema?: string, options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Drops the specified schema (table).
          *
          * @param schema The schema to query. Applies only to Postgres.
          */
-        dropSchema(schema?: string, options?: QueryInterfaceOptions): Promise<void>;
+        dropSchema(schema?: string, options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Drops all tables.
          */
-        dropAllSchemas(options?: QueryInterfaceOptions): Promise<void>;
+        dropAllSchemas(options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Queries all table names in the database.
          *
          * @param options
          */
-        showAllSchemas(options?: QueryOptions): Promise<Object>;
+        showAllSchemas(options?: QueryOptions): PromiseLike<Object>;
 
         /**
          * Return database version
          */
-        databaseVersion(options?: QueryInterfaceOptions): Promise<string>;
+        databaseVersion(options?: QueryInterfaceOptions): PromiseLike<string>;
 
         /**
          * Creates a table with specified attributes.
@@ -3997,7 +3996,7 @@ declare namespace sequelize {
          * @param options       Query options.
          */
         createTable(tableName: string | { schema?: string, tableName?: string }, attributes: DefineAttributes,
-            options?: QueryOptions): Promise<void>;
+            options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Drops the specified table.
@@ -4005,148 +4004,148 @@ declare namespace sequelize {
          * @param tableName Table name.
          * @param options   Query options, particularly "force".
          */
-        dropTable(tableName: string, options?: QueryOptions): Promise<void>;
+        dropTable(tableName: string, options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Drops all tables.
          *
          * @param options
          */
-        dropAllTables(options?: QueryOptions): Promise<void>;
+        dropAllTables(options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Drops all defined enums
          *
          * @param options
          */
-        dropAllEnums(options?: QueryOptions): Promise<void>;
+        dropAllEnums(options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Renames a table
          */
-        renameTable(before: string, after: string, options?: QueryInterfaceOptions): Promise<void>;
+        renameTable(before: string, after: string, options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Returns all tables
          */
-        showAllTables(options?: QueryOptions): Promise<string[]>;
+        showAllTables(options?: QueryOptions): PromiseLike<string[]>;
 
         /**
          * Describe a table
          */
         describeTable(tableName: string | { schema?: string, tableName?: string },
-            options?: string | { schema?: string, schemaDelimeter?: string, logging?: boolean | Function }): Promise<Object>;
+            options?: string | { schema?: string, schemaDelimeter?: string, logging?: boolean | Function }): PromiseLike<Object>;
 
         /**
          * Adds a new column to a table
          */
         addColumn(table: string, key: string, attribute: DefineAttributeColumnOptions | DataTypeAbstract,
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Removes a column from a table
          */
-        removeColumn(table: string, attribute: string, options?: QueryInterfaceOptions): Promise<void>;
+        removeColumn(table: string, attribute: string, options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Changes a column
          */
         changeColumn(tableName: string | { schema?: string, tableName?: string }, attributeName: string,
             dataTypeOrOptions?: string | DataTypeAbstract | DefineAttributeColumnOptions,
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Renames a column
          */
         renameColumn(tableName: string | { schema?: string, tableName?: string }, attrNameBefore: string,
             attrNameAfter: string,
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Adds a new index to a table
          */
         addIndex(tableName: string | Object, attributes: string[], options?: QueryOptions,
-            rawTablename?: string): Promise<void>;
+            rawTablename?: string): PromiseLike<void>;
 
         /**
          * Shows the index of a table
          */
-        showIndex(tableName: string | Object, options?: QueryOptions): Promise<Object>;
+        showIndex(tableName: string | Object, options?: QueryOptions): PromiseLike<Object>;
 
         /**
          * Put a name to an index
          */
-        nameIndexes(indexes: string[], rawTablename: string): Promise<void>;
+        nameIndexes(indexes: string[], rawTablename: string): PromiseLike<void>;
 
         /**
          * Returns all foreign key constraints of a table
          */
-        getForeignKeysForTables(tableNames: string, options?: QueryInterfaceOptions): Promise<Object>;
+        getForeignKeysForTables(tableNames: string, options?: QueryInterfaceOptions): PromiseLike<Object>;
 
         /**
          * Removes an index of a table
          */
         removeIndex(tableName: string, indexNameOrAttributes: string[] | string,
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Inserts a new record
          */
         insert(instance: Instance<any>, tableName: string, values: Object,
-            options?: QueryOptions): Promise<Object>;
+            options?: QueryOptions): PromiseLike<Object>;
 
         /**
          * Inserts or Updates a record in the database
          */
         upsert(tableName: string, values: Object, updateValues: Object, model: Model<any, any>,
-            options?: QueryOptions): Promise<Object>;
+            options?: QueryOptions): PromiseLike<Object>;
 
         /**
          * Inserts multiple records at once
          */
         bulkInsert(tableName: string, records: Object[], options?: QueryOptions,
-            attributes?: string[] | string): Promise<Object>;
+            attributes?: string[] | string): PromiseLike<Object>;
 
         /**
          * Updates a row
          */
         update(instance: Instance<any>, tableName: string, values: Object, identifier: Object,
-            options?: QueryOptions): Promise<Object>;
+            options?: QueryOptions): PromiseLike<Object>;
 
         /**
          * Updates multiple rows at once
          */
         bulkUpdate(tableName: string, values: Object, identifier: Object, options?: QueryOptions,
-            attributes?: string[] | string): Promise<Object>;
+            attributes?: string[] | string): PromiseLike<Object>;
 
         /**
          * Deletes a row
          */
         "delete"(instance: Instance<any>, tableName: string, identifier: Object,
-            options?: QueryOptions): Promise<Object>;
+            options?: QueryOptions): PromiseLike<Object>;
 
         /**
          * Deletes multiple rows at once
          */
         bulkDelete(tableName: string, identifier: Object, options?: QueryOptions,
-            model?: Model<any, any>): Promise<Object>;
+            model?: Model<any, any>): PromiseLike<Object>;
 
         /**
          * Returns selected rows
          */
-        select(model: Model<any, any>, tableName: string, options?: QueryOptions): Promise<Object[]>;
+        select(model: Model<any, any>, tableName: string, options?: QueryOptions): PromiseLike<Object[]>;
 
         /**
          * Increments a row value
          */
         increment(instance: Instance<any>, tableName: string, values: Object, identifier: Object,
-            options?: QueryOptions): Promise<Object>;
+            options?: QueryOptions): PromiseLike<Object>;
 
         /**
          * Selects raw without parsing the string into an object
          */
         rawSelect(tableName: string, options: QueryOptions, attributeSelector: string | string[],
-            model?: Model<any, any>): Promise<string[]>;
+            model?: Model<any, any>): PromiseLike<string[]>;
 
         /**
          * Postgres only. Creates a trigger on specified table to call the specified function with supplied
@@ -4154,36 +4153,36 @@ declare namespace sequelize {
          */
         createTrigger(tableName: string, triggerName: string, timingType: string, fireOnArray: any[],
             functionName: string, functionParams: any[], optionsArray: string[],
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Postgres only. Drops the specified trigger.
          */
-        dropTrigger(tableName: string, triggerName: string, options?: QueryInterfaceOptions): Promise<void>;
+        dropTrigger(tableName: string, triggerName: string, options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Postgres only. Renames a trigger
          */
         renameTrigger(tableName: string, oldTriggerName: string, newTriggerName: string,
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Postgres only. Create a function
          */
         createFunction(functionName: string, params: any[], returnType: string, language: string,
-            body: string, options?: QueryOptions): Promise<void>;
+            body: string, options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Postgres only. Drops a function
          */
         dropFunction(functionName: string, params: any[],
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Postgres only. Rename a function
          */
         renameFunction(oldFunctionName: string, params: any[], newFunctionName: string,
-            options?: QueryInterfaceOptions): Promise<void>;
+            options?: QueryInterfaceOptions): PromiseLike<void>;
 
         /**
          * Escape an identifier (e.g. a table or attribute name). If force is true, the identifier will be quoted
@@ -4210,32 +4209,32 @@ declare namespace sequelize {
         /**
          * Set option for autocommit of a transaction
          */
-        setAutocommit(transaction: Transaction, value: boolean, options?: QueryOptions): Promise<void>;
+        setAutocommit(transaction: Transaction, value: boolean, options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Set the isolation level of a transaction
          */
-        setIsolationLevel(transaction: Transaction, value: string, options?: QueryOptions): Promise<void>;
+        setIsolationLevel(transaction: Transaction, value: string, options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Begin a new transaction
          */
-        startTransaction(transaction: Transaction, options?: QueryOptions): Promise<void>;
+        startTransaction(transaction: Transaction, options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Defer constraints
          */
-        deferConstraints(transaction: Transaction, options?: QueryOptions): Promise<void>;
+        deferConstraints(transaction: Transaction, options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Commit an already started transaction
          */
-        commitTransaction(transaction: Transaction, options?: QueryOptions): Promise<void>;
+        commitTransaction(transaction: Transaction, options?: QueryOptions): PromiseLike<void>;
 
         /**
          * Rollback ( revert ) a transaction that has'nt been commited
          */
-        rollbackTransaction(transaction: Transaction, options?: QueryOptions): Promise<void>;
+        rollbackTransaction(transaction: Transaction, options?: QueryOptions): PromiseLike<void>;
 
     }
 
@@ -5543,7 +5542,7 @@ declare namespace sequelize {
          * @param sql
          * @param options Query options
          */
-        query(sql: string | { query: string, values: any[] }, options?: QueryOptions): Promise<any>;
+        query(sql: string | { query: string, values: any[] }, options?: QueryOptions): PromiseLike<any>;
 
         /**
          * Execute a query which would set an environment or user variable. The variables are set per connection,
@@ -5554,7 +5553,7 @@ declare namespace sequelize {
          * @param variables Object with multiple variables.
          * @param options Query options.
          */
-        set(variables: Object, options: QueryOptionsTransactionRequired): Promise<any>;
+        set(variables: Object, options: QueryOptionsTransactionRequired): PromiseLike<any>;
 
         /**
          * Escape value.
@@ -5574,7 +5573,7 @@ declare namespace sequelize {
          * @param options Options supplied
          * @param options.logging A function that logs sql queries, or false for no logging
          */
-        createSchema(schema: string, options: { logging?: boolean | Function }): Promise<any>;
+        createSchema(schema: string, options: { logging?: boolean | Function }): PromiseLike<any>;
 
         /**
          * Show all defined schemas
@@ -5586,7 +5585,7 @@ declare namespace sequelize {
          * @param options Options supplied
          * @param options.logging A function that logs sql queries, or false for no logging
          */
-        showAllSchemas(options: { logging?: boolean | Function }): Promise<any>;
+        showAllSchemas(options: { logging?: boolean | Function }): PromiseLike<any>;
 
         /**
          * Drop a single schema
@@ -5599,7 +5598,7 @@ declare namespace sequelize {
          * @param options Options supplied
          * @param options.logging A function that logs sql queries, or false for no logging
          */
-        dropSchema(schema: string, options: { logging?: boolean | Function }): Promise<any>;
+        dropSchema(schema: string, options: { logging?: boolean | Function }): PromiseLike<any>;
 
         /**
          * Drop all schemas
@@ -5611,14 +5610,14 @@ declare namespace sequelize {
          * @param options Options supplied
          * @param options.logging A function that logs sql queries, or false for no logging
          */
-        dropAllSchemas(options: { logging?: boolean | Function }): Promise<any>;
+        dropAllSchemas(options: { logging?: boolean | Function }): PromiseLike<any>;
 
         /**
          * Sync all defined models to the DB.
          *
          * @param options Sync Options
          */
-        sync(options?: SyncOptions): Promise<any>;
+        sync(options?: SyncOptions): PromiseLike<any>;
 
         /**
          * Truncate all tables defined through the sequelize models. This is done
@@ -5628,7 +5627,7 @@ declare namespace sequelize {
          * @param {Boolean|function} [options.transaction]
          * @param {Boolean|function} [options.logging] A function that logs sql queries, or false for no logging
          */
-        truncate(options?: DestroyOptions): Promise<any>;
+        truncate(options?: DestroyOptions): PromiseLike<any>;
 
         /**
          * Drop all tables defined through this sequelize instance. This is done by calling Model.drop on each model
@@ -5636,15 +5635,15 @@ declare namespace sequelize {
          *
          * @param options The options passed to each call to Model.drop
          */
-        drop(options?: DropOptions): Promise<any>;
+        drop(options?: DropOptions): PromiseLike<any>;
 
         /**
          * Test the connection by trying to authenticate
          *
          * @param options Query Options for authentication
          */
-        authenticate(options?: QueryOptions): Promise<void>;
-        validate(options?: QueryOptions): Promise<ValidationError>;
+        authenticate(options?: QueryOptions): PromiseLike<void>;
+        validate(options?: QueryOptions): PromiseLike<ValidationError>;
 
         /**
          * Start a transaction. When using transactions, you should pass the transaction in the options argument
@@ -5692,9 +5691,9 @@ declare namespace sequelize {
          * @param autoCallback Callback for the transaction
          */
         transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(): Promise<Transaction>;
+            autoCallback: (t: Transaction) => PromiseLike<any>): PromiseLike<any>;
+        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): PromiseLike<any>;
+        transaction(): PromiseLike<Transaction>;
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be
@@ -5708,7 +5707,7 @@ declare namespace sequelize {
         /**
          * Returns the database version
          */
-        databaseVersion(): Promise<string>;
+        databaseVersion(): PromiseLike<string>;
 
     }
 
@@ -5764,12 +5763,12 @@ declare namespace sequelize {
         /**
          * Commit the transaction
          */
-        commit(): Promise<void>;
+        commit(): PromiseLike<void>;
 
         /**
          * Rollback (abort) the transaction
          */
-        rollback(): Promise<void>;
+        rollback(): PromiseLike<void>;
 
     }
 
