@@ -45,7 +45,7 @@ declare global { namespace L {
             /**
             * Color of the marker
             */
-            markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpuple' | 'cadetblue';
+            markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpurple' | 'cadetblue';
 
             /**
             * Color of the icon. 'white', 'black' or css code (hex, rgba etc).
