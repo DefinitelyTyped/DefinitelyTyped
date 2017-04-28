@@ -1,0 +1,24 @@
+{
+    "files": [
+        "index.d.ts",
+        "linq4js-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "target": "es6",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+		"lib":[
+			"es6"
+		],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
