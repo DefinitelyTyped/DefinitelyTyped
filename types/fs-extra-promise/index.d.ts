@@ -1,4 +1,4 @@
-// Type definitions for fs-extra-promise
+// Type definitions for fs-extra-promise 1.0
 // Project: https://github.com/overlookmotel/fs-extra-promise
 // Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
 import * as stream from 'stream';
 import { Stats } from 'fs';
 import * as Promise from 'bluebird';
-import { CopyFilter, CopyOptions, OpenOptions, MkdirOptions, MoveOptions } from 'fs-extra';
+import { CopyFilter, CopyOptions, ReadOptions, WriteOptions, MkdirOptions, MoveOptions } from 'fs-extra';
 
 export * from 'fs-extra';
 
@@ -32,16 +32,16 @@ export declare function outputJsonAsync(file: string, data: any): Promise<void>;
 export declare function outputJSONAsync(file: string, data: any): Promise<void>;
 
 export declare function readJsonAsync(file: string): Promise<any>;
-export declare function readJsonAsync(file: string, options?: OpenOptions): Promise<any>;
+export declare function readJsonAsync(file: string, options?: ReadOptions): Promise<any>;
 export declare function readJSONAsync(file: string): Promise<any>;
-export declare function readJSONAsync(file: string, options?: OpenOptions): Promise<any>;
+export declare function readJSONAsync(file: string, options?: ReadOptions): Promise<any>;
 
 export declare function removeAsync(dir: string): Promise<void>;
 
 export declare function writeJsonAsync(file: string, object: any): Promise<void>;
-export declare function writeJsonAsync(file: string, object: any, options?: OpenOptions): Promise<void>;
+export declare function writeJsonAsync(file: string, object: any, options?: WriteOptions): Promise<void>;
 export declare function writeJSONAsync(file: string, object: any): Promise<void>;
-export declare function writeJSONAsync(file: string, object: any, options?: OpenOptions): Promise<void>;
+export declare function writeJSONAsync(file: string, object: any, options?: WriteOptions): Promise<void>;
 
 export declare function renameAsync(oldPath: string, newPath: string): Promise<void>;
 export declare function truncateAsync(fd: number, len: number): Promise<void>;
@@ -75,12 +75,12 @@ export declare function fsyncAsync(fd: number): Promise<void>;
 export declare function writeAsync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): Promise<[number, NodeBuffer]>;
 export declare function readAsync(fd: number, buffer: NodeBuffer, offset: number, length: number, position: number): Promise<[number, NodeBuffer]>;
 export declare function readFileAsync(filename: string, encoding: string): Promise<string>;
-export declare function readFileAsync(filename: string, options: OpenOptions): Promise<string>;
+export declare function readFileAsync(filename: string, options: ReadOptions): Promise<string>;
 export declare function readFileAsync(filename: string): Promise<NodeBuffer>;
 export declare function writeFileAsync(filename: string, data: any, encoding?: string): Promise<void>;
-export declare function writeFileAsync(filename: string, data: any, options?: OpenOptions): Promise<void>;
+export declare function writeFileAsync(filename: string, data: any, options?: WriteOptions): Promise<void>;
 export declare function appendFileAsync(filename: string, data: any, encoding?: string): Promise<void>;
-export declare function appendFileAsync(filename: string, data: any, option?: OpenOptions): Promise<void>;
+export declare function appendFileAsync(filename: string, data: any, option?: WriteOptions): Promise<void>;
 
 export declare function existsAsync(path: string): Promise<boolean>;
 export declare function ensureDirAsync(path: string): Promise<void>;

@@ -76,7 +76,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
     () => mapDispatchToProps
 )(Counter);
 // with extra arguments
-connect<ICounterStateProps, ICounterDispatchProps, {}>(
+connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICounterDispatchProps>(
     () => mapStateToProps,
     () => mapDispatchToProps,
     (s: ICounterStateProps, d: ICounterDispatchProps) =>
@@ -129,10 +129,10 @@ declare var todoActionCreators: { [type: string]: (...args: any[]) => any; };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
 
 ReactDOM.render(
-  <Provider store={store}>
-    {() => <MyRootComponent />}
-  </Provider>,
-  document.body
+    <Provider store={store}>
+        {() => <MyRootComponent />}
+    </Provider>,
+    document.body
 );
 
 //TODO: for React Router 0.13
@@ -343,7 +343,7 @@ namespace TestTOwnPropsInference {
         state: string;
     }
 
-    class OwnPropsComponent extends React.Component<OwnProps & StateProps, {}> {
+    class OwnPropsComponent extends React.Component<OwnProps & StateProps, void> {
         render() {
             return <div/>;
         }
@@ -359,20 +359,77 @@ namespace TestTOwnPropsInference {
 
     const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
-    const ConnectedWithTypeHint = connect<StateProps, {}, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+    const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
 
-    // This compiles, which is bad.
-    React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
+    // This should not compile, which is good.
+    // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
     React.createElement(ConnectedWithOwnProps, { own: 'string' });
 
     // This should not compile, which is good.
-    // React.createElement(ConnectedWithOwnProps, { missingOwn: true });
+    // React.createElement(ConnectedWithOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
     React.createElement(ConnectedWithTypeHint, { own: 'string' });
 
     // This should not compile, which is good.
-    // React.createElement(ConnectedWithTypeHint, { missingOwn: true });
+    // React.createElement(ConnectedWithTypeHint, { anything: 'goes!' });
+}
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16021
+namespace TestMergedPropsInference {
+    interface StateProps {
+        state: string;
+    }
+
+    interface DispatchProps {
+        dispatch: string;
+    }
+
+    interface OwnProps {
+        own: string;
+    }
+
+    interface MergedProps {
+        merged: string;
+    }
+
+    class MergedPropsComponent extends React.Component<MergedProps, void> {
+        render() {
+            return <div/>;
+        }
+    }
+
+    function mapStateToProps(state: any): StateProps {
+        return { state: 'string' };
+    }
+
+    function mapDispatchToProps(dispatch: Dispatch<any>): DispatchProps {
+        return { dispatch: 'string' };
+    }
+
+    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
+        mapStateToProps,
+        undefined,
+        (stateProps: StateProps) => ({
+            merged: "merged",
+        }),
+    )(MergedPropsComponent);
+
+    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
+        undefined,
+        mapDispatchToProps,
+        (stateProps: undefined, dispatchProps: DispatchProps) => ({
+            merged: "merged",
+        }),
+    )(MergedPropsComponent);
+
+    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
+        undefined,
+        undefined,
+        () => ({
+            merged: "merged",
+        }),
+    )(MergedPropsComponent);
 }

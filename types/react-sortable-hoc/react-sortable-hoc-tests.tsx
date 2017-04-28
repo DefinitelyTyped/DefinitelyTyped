@@ -32,7 +32,7 @@ const SortableList = ReactSortableHOC.SortableContainer((props: SortableListProp
     return <ul>{items}</ul>;
 });
 
-class SortableComponent extends React.Component<void, SortableComponentState> {
+class SortableComponent extends React.Component<{}, SortableComponentState> {
     private _onSortEnd: ReactSortableHOC.SortEndHandler;
 
     private _handleSotEnd(sort: ReactSortableHOC.SortEnd, event: ReactSortableHOC.SortEvent): void {

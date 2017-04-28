@@ -123,7 +123,7 @@ expression = expressionStatement.expression;
 var ifStatement: ESTree.IfStatement;
 expression = ifStatement.test;
 statement = ifStatement.consequent;
-var statementOrNull: ESTree.Statement | undefined = ifStatement.alternate;
+var statementOrNull: ESTree.Statement | null | undefined = ifStatement.alternate;
 
 // LabeledStatement
 var labeledStatement: ESTree.LabeledStatement;
@@ -141,18 +141,18 @@ switchCase = switchStatement.cases[0];
 
 // ReturnStatement
 var returnStatement: ESTree.ReturnStatement;
-var expressionMaybe: ESTree.Expression | undefined = returnStatement.argument;
+var expressionMaybe: ESTree.Expression | null | undefined = returnStatement.argument;
 
 // TryStatement
 var tryStatement: ESTree.TryStatement;
 blockStatement = tryStatement.block;
-var catchClauseMaybe: ESTree.CatchClause | undefined = tryStatement.handler;
-var blockStatementMaybe: ESTree.BlockStatement | undefined = tryStatement.finalizer;
+var catchClauseMaybe: ESTree.CatchClause | null | undefined = tryStatement.handler;
+var blockStatementMaybe: ESTree.BlockStatement | null | undefined = tryStatement.finalizer;
 
 // ForStatement
 var forStatement: ESTree.ForStatement;
-var variableDeclaratorOrExpressionMaybe: typeof variableDeclaratorOrExpression | undefined = forStatement.init;
-var expressionMaybe: ESTree.Expression | undefined = forStatement.update;
+var variableDeclaratorOrExpressionMaybe: typeof variableDeclaratorOrExpression | null | undefined = forStatement.init;
+var expressionMaybe: ESTree.Expression | null | undefined = forStatement.update;
 
 // ForInStatement
 var forInStatement: ESTree.ForInStatement;
@@ -176,7 +176,7 @@ string = property.kind;
 
 // FunctionExpression
 var functionExpression: ESTree.FunctionExpression;
-var identifierMaybe: ESTree.Identifier | undefined = functionExpression.id;
+var identifierMaybe: ESTree.Identifier | null | undefined = functionExpression.id;
 pattern = functionExpression.params[0];
 pattern = assignmentPattern.left;
 expression = assignmentPattern.right;

@@ -550,3 +550,4 @@ phonon.options({
 });
 setupHTML();
 phonon.navigator().start();
+window.phonon;

@@ -1,29 +1,38 @@
-// Type definitions for react-onclickoutside v5.7.0
+// Type definitions for react-onclickoutside 5.7
 // Project: https://github.com/Pomax/react-onclickoutside
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from "react";
+import * as React from 'react';
 
-declare namespace ReactOnClickOutside {
-    interface OnClickOutsideComponent {
-        handleClickOutside(e: React.MouseEvent<any>): void
+declare namespace OnClickOut {
+    interface HandleClickOutside<T> {
+        handleClickOutside: React.MouseEventHandler<T>;
     }
 
-    interface OnClickOutsideProps {
-        disableOnClickOutside?: boolean | Function
-        enableOnClickOutside?: Function
-        eventTypes?: string | Array<string>
-        outsideClickIgnoreClass?: string
-        preventDefault?: boolean
-        stopPropagation?: boolean
+    interface InjectedOnClickOutProps {
+        disableOnClickOutside(): void;
+        enableOnClickOutside(): void;
     }
 
-    interface onClickOutside {
-        <A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A & OnClickOutsideProps>
+    interface OnClickOutProps {
+        disableOnClickOutside?: boolean;
+        eventTypes?: string | string[];
+        outsideClickIgnoreClass?: string;
+        preventDefault?: boolean;
+        stopPropagation?: boolean;
     }
 }
 
-declare const onClickOutside: ReactOnClickOutside.onClickOutside
-export = onClickOutside;
+type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
+interface ClickOutComponentClass<P extends OnClickOut.InjectedOnClickOutProps> extends React.ComponentClass<P> {
+    new (props?: P, context?: any): React.Component<P, React.ComponentState> & OnClickOut.HandleClickOutside<any>;
+}
+
+declare function OnClickOut<P>(
+    component: ComponentConstructor<P & OnClickOut.InjectedOnClickOutProps & OnClickOut.HandleClickOutside<any>>
+        | ClickOutComponentClass<P & OnClickOut.InjectedOnClickOutProps>
+): React.ComponentClass<P & OnClickOut.OnClickOutProps>;
+
+export = OnClickOut;

@@ -87,6 +87,13 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 values={{ name: "bob" }}
                 tagName="div" />
 
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi nested component {name}!"
+                values={{ name: <p>p</p> }}
+                tagName="div" />
+
             <FormattedHTMLMessage
                 id="test"
                 description="Test"

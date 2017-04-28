@@ -1,7 +1,6 @@
 // Type definitions for react-native 0.43
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Fedor Nezhivoi <https://github.com/gyzerok>
+// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -3409,6 +3408,282 @@ export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<Im
     queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
 }
 
+export interface ViewToken {
+    item: any;
+    key: string;
+    index: number | null;
+    isViewable: boolean;
+    section?: any;
+}
+
+export interface ViewabilityConfig {
+    /**
+     * Minimum amount of time (in milliseconds) that an item must be physically viewable before the
+     * viewability callback will be fired. A high number means that scrolling through content without
+     * stopping will not mark the content as viewable.
+     */
+    minimumViewTime?: number;
+
+    /**
+     * Percent of viewport that must be covered for a partially occluded item to count as
+     * "viewable", 0-100. Fully visible items are always considered viewable. A value of 0 means
+     * that a single pixel in the viewport makes the item viewable, and a value of 100 means that
+     * an item must be either entirely visible or cover the entire viewport to count as viewable.
+     */
+    viewAreaCoveragePercentThreshold?: number;
+
+    /**
+     * Similar to `viewAreaPercentThreshold`, but considers the percent of the item that is visible,
+     * rather than the fraction of the viewable area it covers.
+     */
+    itemVisiblePercentThreshold?: number;
+
+    /**
+     * Nothing is considered viewable until the user scrolls or `recordInteraction` is called after
+     * render.
+     */
+    waitForInteraction?: boolean;
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/flatlist.html#props
+ */
+export interface FlatListProperties<ItemT> extends React.Props<FlatListStatic<ItemT>> {
+
+    /**
+     * Rendered in between each item, but not at the top or bottom
+     */
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered at the bottom of all the items.
+     */
+    ListFooterComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered at the top of all the items.
+     */
+    ListHeaderComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Optional custom style for multi-item rows generated when numColumns > 1
+     */
+    columnWrapperStyle?: ViewStyle
+
+    /**
+     * For simplicity, data is just a plain array. If you want to use something else,
+     * like an immutable list, use the underlying VirtualizedList directly.
+     */
+    data: ItemT[] | null;
+
+    /**
+     * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
+     * content if you know the height of items a priori. getItemLayout is the most efficient,
+     * and is easy to use if you have fixed height items, for example:
+     * ```
+     * getItemLayout={(data, index) => (
+     *   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+     * )}
+     * ```
+     * Remember to include separator length (height or width) in your offset calculation if you specify
+     * `ItemSeparatorComponent`.
+     */
+    getItemLayout?: (data: Array<ItemT> | null, index: number) => {length: number, offset: number, index: number}
+
+    /**
+     * If true, renders items next to each other horizontally instead of stacked vertically.
+     */
+    horizontal?: boolean
+
+    /**
+     * Used to extract a unique key for a given item at the specified index. Key is used for caching
+     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
+     * falls back to using the index, like React does.
+     */
+    keyExtractor?: (item: ItemT, index: number) => string
+
+    legacyImplementation?: boolean
+
+    /**
+     * Multiple columns can only be rendered with `horizontal={false}` and will zig-zag like a `flexWrap` layout.
+     * Items should all be the same height - masonry layouts are not supported.
+     */
+    numColumns?: number
+
+    /**
+     * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
+     */
+    onEndReached?: ((info: {distanceFromEnd: number}) => void) | null
+
+    /**
+     * How far from the end (in units of visible length of the list) the bottom edge of the
+     * list must be from the end of the content to trigger the `onEndReached` callback.
+     * Thus a value of 0.5 will trigger `onEndReached` when the end of the content is
+     * within half the visible length of the list.
+     */
+    onEndReachedThreshold?: number | null
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
+     * Make sure to also set the refreshing prop correctly.
+     */
+    onRefresh?: (() => void) | null
+
+    /**
+     * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
+     */
+    onViewableItemsChanged?: ((info: {viewableItems: Array<ViewToken>, changed: Array<ViewToken>}) => void) | null
+
+    /**
+     * Set this true while waiting for new data from a refresh.
+     */
+    refreshing?: boolean | null
+
+    /**
+     * Takes an item from data and renders it into the list. Typical usage:
+     * ```
+     * _renderItem = ({item}) => (
+     *   <TouchableOpacity onPress={() => this._onPress(item)}>
+     *     <Text>{item.title}}</Text>
+     *   <TouchableOpacity/>
+     * );
+     * ...
+     * <FlatList data={[{title: 'Title Text', key: 'item1'}]} renderItem={this._renderItem} />
+     * ```
+     * Provides additional metadata like `index` if you need it.
+     */
+    renderItem: (info: ItemT) => React.ReactElement<any> | null
+
+    /**
+     * See `ViewabilityHelper` for flow type and further documentation.
+     */
+    viewabilityConfig?: any
+
+    ref?: React.Ref<FlatListStatic<ItemT> & ViewStatic>
+}
+
+export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProperties<ItemT>> {
+
+    /**
+     * Exports some data, e.g. for perf investigations or analytics.
+     */
+    getMetrics: () => {
+        contentLength: number,
+        totalRows: number,
+        renderedRows: number,
+        visibleRows: number,
+    }
+
+    /**
+     * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
+     */
+    scrollToEnd: (params?: {animated?: boolean}) => void
+
+    /**
+     * Scrolls to the item at a the specified index such that it is positioned in the viewable area
+     * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
+     * May be janky without `getItemLayout` prop.
+     */
+    scrollToIndex: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
+
+    /**
+     * Requires linear scan through data - use `scrollToIndex` instead if possible.
+     * May be janky without `getItemLayout` prop.
+     */
+    scrollToItem: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
+
+    /**
+     * Scroll to a specific content pixel offset, like a normal `ScrollView`.
+     */
+    scrollToOffset: (params: {animated?: boolean, offset: number}) => void
+
+    /**
+     * Tells the list an interaction has occured, which should trigger viewability calculations,
+     * e.g. if waitForInteractions is true and the user has not scrolled. This is typically called
+     * by taps on items or by navigation actions.
+     */
+    recordInteraction: () => void
+}
+
+export interface SectionListData<ItemT> {
+
+    data: ItemT[]
+
+    key: string
+
+    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+
+    keyExtractor?: (item: ItemT, index: number) => string
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html
+ */
+export interface SectionListProperties<ItemT> extends ScrollViewProperties {
+
+    /**
+     * Rendered in between adjacent Items within each section.
+     */
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered at the very end of the list.
+     */
+    ListFooterComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered at the very beginning of the list.
+     */
+    ListHeaderComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered in between each section.
+     */
+    SectionSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Used to extract a unique key for a given item at the specified index. Key is used for caching
+     * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
+     * falls back to using the index, like React does.
+     */
+    keyExtractor?: (item: ItemT, index: number) => string
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality.
+     * Make sure to also set the refreshing prop correctly.
+     */
+    onRefresh?: (() => void) | null
+
+    /**
+     * Set this true while waiting for new data from a refresh.
+     */
+    refreshing?: boolean | null
+
+    /**
+     * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
+     */
+    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+
+    /**
+     * Rendered at the top of each section. Sticky headers are not yet supported.
+     */
+    renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+
+    /**
+     * An array of objects with data for each section.
+     */
+    sections: SectionListData<ItemT>[]
+
+    /**
+     * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
+     */
+    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+}
+
+export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
+
+}
+
 /**
  * @see https://facebook.github.io/react-native/docs/listview.html#props
  */
@@ -4558,10 +4833,14 @@ export namespace StyleSheet {
 
     type Style = ViewStyle | TextStyle | ImageStyle
 
+    type NamedStyles<T> = {
+        [P in keyof T]: Style;
+    }
+
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T>( styles: T ): T;
+    export function create<T extends NamedStyles<T>>( styles: T ): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -4705,7 +4984,6 @@ export interface SystraceStatic {
      */
     measureMethods(object: any, objectName: string, methodNames: Array<string>): void
 
-    // tslint:disable:forbidden-types
     /**
      * Returns an profiled version of the input function. For example, you can:
      * JSON.parse = Systrace.measure('JSON', 'parse', JSON.parse);
@@ -4716,7 +4994,6 @@ export interface SystraceStatic {
      * @return {function} replacement function
      */
     measure<T extends Function>(objName: string, fnName: string, func: T): T
-    // tslint:enable:forbidden-types
 }
 
 /**
@@ -5735,6 +6012,16 @@ interface ScrollViewStatic extends ScrollResponderMixin, React.ComponentClass<Sc
     ): void;
 
     /**
+     * A helper function that scrolls to the end of the scrollview;
+     * If this is a vertical ScrollView, it scrolls to the bottom.
+     * If this is a horizontal ScrollView scrolls to the right.
+     *
+     * The options object has an animated prop, that enables the scrolling animation or not.
+     * The animated prop defaults to true
+     */
+    scrollToEnd(options?: {animated: boolean}): void;
+
+    /**
      * Returns a reference to the underlying scroll responder, which supports
      * operations like `scrollTo`. All ScrollView-like components should
      * implement this method so that they can be composed while providing access
@@ -6373,6 +6660,7 @@ export interface DatePickerAndroidOpenOption {
     date?: Date | number
     minDate?: Date | number
     maxDate?: Date | number
+    mode?: 'calendar' | 'spinner' | 'default'
 }
 
 // Deduced from DatePickerAndroid.android.js
@@ -6729,28 +7017,42 @@ export type Permission =
     "android.permission.READ_EXTERNAL_STORAGE" |
     "android.permission.WRITE_EXTERNAL_STORAGE"
 
+export type PermissionStatus = "granted" | "denied" | "never_ask_again"
+
 export interface PermissionsAndroidStatic {
+    /**
+     * A list of permission results that are returned
+     */
+    RESULTS: {[key: string]: PermissionStatus}
     /**
      * A list of specified "dangerous" permissions that require prompting the user
      */
     PERMISSIONS: {[key: string]: Permission}
     new(): PermissionsAndroidStatic
     /**
-     * Returns a promise resolving to a boolean value as to whether the specified
-     * permissions has been granted
+     * Deprecated
      */
     checkPermission(permission: Permission): Promise<boolean>
     /**
+     * Returns a promise resolving to a boolean value as to whether the specified
+     * permissions has been granted
+     */
+    check(permission: Permission): Promise<boolean>
+    /**
+     * Deprecated
+     */
+    requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>
+    /**
      * Prompts the user to enable a permission and returns a promise resolving to a
-     * boolean value indicating whether the user allowed or denied the request
+     * string value indicating whether the user allowed or denied the request
      *
      * If the optional rationale argument is included (which is an object with a
-     * `title` and `message`), this function checks with the OS whether it is
-     * necessary to show a dialog explaining why the permission is needed
+     * title and message), this function checks with the OS whether it is necessary
+     * to show a dialog explaining why the permission is needed
      * (https://developer.android.com/training/permissions/requesting.html#explain)
      * and then shows the system permission dialog
      */
-    requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>
+    request(permission: Permission, rationale?: Rationale): Promise<string>
 }
 
 export interface PushNotificationPermissions {
@@ -6924,7 +7226,7 @@ export interface PushNotificationIOSStatic {
      * This method returns a promise that resolves to either the notification
      * object if the app was launched by a push notification, or `null` otherwise.
      */
-    getInitialNotification(): PushNotification
+    getInitialNotification(): Promise<PushNotification>
 }
 
 export interface SettingsStatic {
@@ -8205,6 +8507,9 @@ export type Image = ImageStatic
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
 
+export var FlatList: FlatListStatic<any>
+export type FlatList<ItemT> = FlatListStatic<ItemT>
+
 export var LayoutAnimation: LayoutAnimationStatic
 export type LayoutAnimation = LayoutAnimationStatic
 
@@ -8255,6 +8560,9 @@ export type StatusBar = StatusBarStatic
 
 export var ScrollView: ScrollViewStatic
 export type ScrollView = ScrollViewStatic
+
+export var SectionList: SectionListStatic<any>
+export type SectionList<ItemT> = SectionListStatic<ItemT>
 
 export var SnapshotViewIOS: SnapshotViewIOSStatic
 export type SnapshotViewIOS = SnapshotViewIOSStatic

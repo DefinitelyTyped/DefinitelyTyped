@@ -959,30 +959,3 @@ async function TestAsyncAwaitable() {
     let thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
     let str: string = await thenable;
 }
-
-function TestTestingModule() {
-    testing.before(() => {
-    });
-
-    testing.beforeEach(() => {
-    });
-
-    testing.describe('My test suite', () => {
-        testing.it('My test', () => {
-        });
-
-        testing.iit('My exclusive test.', () => {
-        });
-    });
-
-    testing.xdescribe('My disabled suite', () => {
-        testing.xit('My disabled test.', () => {
-        });
-    });
-
-    testing.after(() => {
-    });
-
-    testing.afterEach(() => {
-    });
-}

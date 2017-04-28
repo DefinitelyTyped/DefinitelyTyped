@@ -1,6 +1,6 @@
 // Type definitions for Google Recaptcha 2.0
 // Project: https://www.google.com/recaptcha
-// Definitions by: Kristof Mattei <http://kristofmattei.be>
+// Definitions by: Kristof Mattei <http://kristofmattei.be>, Martin Costello <https://martincostello.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
@@ -27,6 +27,11 @@ declare namespace ReCaptchaV2
       * @return the response of the reCAPTCHA widget.
       **/
     getResponse(opt_widget_id?: number): string;
+    /**
+      * Programatically invoke the reCAPTCHA check. Used if the invisible reCAPTCHA is on a div instead of a button.
+      * @param opt_widget_id Optional widget ID, defaults to the first widget created if unspecified.
+      **/
+    execute(opt_widget_id?: number): void;
   }
 
   type Theme = "light" | "dark";
