@@ -434,7 +434,19 @@ knex.transaction(function(trx) {
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
 
-  trx.raw('')
+  trx.raw('');
+
+  trx.on('query-error', function(error: Error) {
+    console.error(error);
+  });
+
+  trx.savepoint(function(nestedTrx) {
+    nestedTrx.rollback(new Error('something went terribly wrong'));
+  });
+
+  trx.transaction(function(nestedTrx) {
+    nestedTrx.commit();
+  });
 
   var info: any;
   var books: any[] = [
