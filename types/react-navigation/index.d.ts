@@ -117,8 +117,6 @@ export type NavigationScreenOption<T> =
   | T
   | NavigationFunc<T>
 
-type Style = { [key: string]: any } | number | false | null | void | any[]
-
 export type HeaderConfig = {
   /**
    * Title string used by the navigation bar, or a custom component
@@ -143,12 +141,12 @@ export type HeaderConfig = {
   /**
    * Style passed into navigation bar container
    */
-  style?: Style,
+  style?: ViewStyle,
 
   /**
    * Style passed into navigation bar title
    */
-  titleStyle?: Style,
+  titleStyle?: TextStyle,
 
   // // Style of title text
   // titleTextStyle?: $NavigationThunk<Object>,
@@ -294,7 +292,7 @@ export type NavigationStackViewConfig = {
   mode?: 'card' | 'modal',
   headerMode?: HeaderMode,
   headerComponent?: React.ComponentClass<HeaderProps>,
-  cardStyle?: Style,
+  cardStyle?: ViewStyle,
   onTransitionStart?: () => void,
   onTransitionEnd?: () => void,
 }
@@ -467,7 +465,7 @@ export type NavigationSceneRenderer = (
 
 export type NavigationStyleInterpolator = (
   props: NavigationSceneRendererProps,
-) => Style
+) => ViewStyle
 
 export interface LayoutEvent {
   nativeEvent: {
