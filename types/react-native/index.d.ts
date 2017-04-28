@@ -7053,6 +7053,12 @@ export interface PermissionsAndroidStatic {
      * and then shows the system permission dialog
      */
     request(permission: Permission, rationale?: Rationale): Promise<string>
+    /**
+     * Prompts the user to enable multiple permissions in the same dialog and
+     * returns an object with the permissions as keys and strings as values
+     * indicating whether the user allowed or denied the request
+     */
+    requestMultiple(permissions: Array<string>): Promise<{[permission: string]: PermissionStatus}>
 }
 
 export interface PushNotificationPermissions {
