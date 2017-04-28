@@ -64,6 +64,7 @@ let styleArray: Array<ol.style.Style>;
 let styleFunction: ol.StyleFunction;
 let tilegrid: ol.tilegrid.TileGrid;
 let transformFn: ol.TransformFunction;
+let clusterSource: ol.source.Cluster;
 let vectorSource: ol.source.Vector;
 let units: ol.proj.Units;
 let styleRegularShape: ol.style.RegularShape;
@@ -350,6 +351,13 @@ featureCollection = vectorSource.getFeaturesCollection();
 featureArray = vectorSource.getFeaturesInExtent(extent);
 voidValue = vectorSource.removeFeature(feature);
 
+
+clusterSource = new ol.source.Cluster({
+    source: vectorSource
+});
+
+numberValue = clusterSource.getDistance();
+
 //
 // ol.Feature
 //
@@ -386,6 +394,9 @@ let view: ol.View = new ol.View({
     zoom: numberValue,
 });
 
+voidValue = view.setMaxZoom(numberValue);
+voidValue = view.setMinZoom(numberValue);
+
 //
 // ol.layer.Tile
 //
@@ -418,10 +429,10 @@ voidValue = olObject.unset(stringValue, booleanValue);
 ol.Observable.unByKey(eventKey);
 let observable: ol.Observable = new ol.Observable();
 voidValue = observable.changed();
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue});
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: domEventTarget});
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: eventTarget});
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue, a: numberValue, b: stringValue, c: booleanValue, d: null, e: {}});
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue });
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue, target: domEventTarget });
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue, target: eventTarget });
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue, a: numberValue, b: stringValue, c: booleanValue, d: null, e: {} });
 voidOrBooleanValue = observable.dispatchEvent(olEvent);
 voidOrBooleanValue = observable.dispatchEvent(stringValue);
 numberValue = observable.getRevision();
@@ -437,7 +448,7 @@ voidValue = observable.un([stringValue, stringValue], fn, {});
 //
 let getPointResolutionFn: (n: number, c: ol.Coordinate) => number;
 projection = new ol.proj.Projection({
-    code:stringValue,
+    code: stringValue,
 });
 stringValue = projection.getCode();
 extent = projection.getExtent();
@@ -468,7 +479,7 @@ let imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
     params: {},
     projection: projection,
     serverType: stringValue,
-    url:stringValue
+    url: stringValue
 });
 
 //
@@ -484,7 +495,7 @@ let tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     params: {},
     projection: projection,
     serverType: stringValue,
-    url:stringValue
+    url: stringValue
 });
 
 voidValue = tileWMS.updateParams(tileWMS.getParams());
@@ -657,7 +668,7 @@ draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunction
 });
-let styleFunctionAsStyle = function(feature: ol.Feature, resolution: number): ol.style.Style { return style; }
+let styleFunctionAsStyle = function (feature: ol.Feature, resolution: number): ol.style.Style { return style; }
 draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsStyle
@@ -665,10 +676,14 @@ draw = new ol.interaction.Draw({
 ol.interaction.Draw.createBox();
 ol.interaction.Draw.createRegularPolygon();
 ol.interaction.Draw.createRegularPolygon(4);
-ol.interaction.Draw.createRegularPolygon(4,0);
+ol.interaction.Draw.createRegularPolygon(4, 0);
+
+ol.interaction.defaults({
+    constrainResolution: booleanValue
+});
 
 
-let styleFunctionAsArray = function(feature: ol.Feature, resolution: number): ol.style.Style[] { return styleArray; }
+let styleFunctionAsArray = function (feature: ol.Feature, resolution: number): ol.style.Style[] { return styleArray; }
 draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsArray
@@ -705,7 +720,7 @@ const select: ol.interaction.Select = new ol.interaction.Select({
 //
 
 styleRegularShape = new ol.style.RegularShape({
-    fill: new ol.style.Fill({color: 'red'}),
+    fill: new ol.style.Fill({ color: 'red' }),
     points: 4,
 });
 
