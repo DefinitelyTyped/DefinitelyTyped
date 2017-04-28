@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>, Cheng Sieu Ly <https://github.com/chengsieuly>
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>, Cheng Sieu Ly <https://github.com/chengsieuly>, Kat Busch <https://github.com/katbusch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -82,6 +82,7 @@ declare namespace ReactBootstrap {
         bsStyle?: string;
         bsSize?: Sizes;
         componentClass?: React.ReactType;
+        disabled?: boolean;
     }
     type Button = React.ClassicComponent<ButtonProps, {}>;
     var Button: React.ClassicComponentClass<ButtonProps>;
