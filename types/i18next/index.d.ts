@@ -49,6 +49,8 @@ declare namespace i18n {
         joinArrays?: string;
         postProcess?: string | any[];
         interpolation?: InterpolationOptions;
+        //add an indexer to assure that interpolation arguments can be passed
+        [x: string]: any;
     }
 
     interface Options {
@@ -85,12 +87,17 @@ declare namespace i18n {
         cache?: any;
     }
 
+    // init options for react-i18next
+    interface ReactOptions {
+      wait?: boolean;
+    }
+
     type TranslationFunction = (key: string, options?: TranslationOptions) => string;
 
     interface I18n {
         //constructor(options?: Options, callback?: (err: any, t: TranslationFunction) => void);
 
-        init(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
+        init(options?: Options&ReactOptions, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
         loadResources(callback?: (err: any) => void): void;
 
@@ -106,7 +113,7 @@ declare namespace i18n {
 
         t(key: string, options?: TranslationOptions): string | any | Array<any>;
 
-        exists(): boolean;
+        exists(key: string, options?: TranslationOptions): boolean;
 
         setDefaultNamespace(ns: string): void;
 

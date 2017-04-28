@@ -25,7 +25,7 @@ export interface Config {
     message?: string;
 }
 
-interface Multiple {
+export interface Multiple {
     multiple?: boolean;
 }
 

@@ -24,6 +24,7 @@ declare class WebSocket extends events.EventEmitter {
     supports: any;
     upgradeReq: http.IncomingMessage;
     protocol: string;
+    bufferedAmount: number;
 
     CONNECTING: number;
     OPEN: number;
@@ -111,6 +112,7 @@ declare namespace WebSocket {
         host?: string;
         port?: number;
         server?: http.Server | https.Server;
+        backlog?: number;
         verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync;
         handleProtocols?: any;
         path?: string;

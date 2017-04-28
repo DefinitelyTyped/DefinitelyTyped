@@ -11,15 +11,24 @@
  *
  * 2. How to use it?
  *
- * Add `bluebird-global` to the `types` array in your `tsconfig.json` like this:
+ * It should just work, but there are a couple of points to be wary about:
  *
- * {
- *   "compilerOptions": {
- *     "types": [
- *       "bluebird-global"
- *     ],
- *   }
- * }
+ * a) If you already use `compilerOptions.types` in your `tsconfig.json`, then add `bluebird-global`
+ *    to the list:
+ *
+ *    {
+ *      "compilerOptions": {
+ *        "types": [
+ *          (other types ...)
+ *
+ *          "bluebird-global"
+ *        ],
+ *      }
+ *    }
+ *
+ * b) Be aware, that you still need to get the global Promise symbol to be replaced with bluebird.js
+ *    in the runtime. Do this by either importing bluebird.js via a `<script />` tag in your html or
+ *    via importing it in your js entry file AND assigning it to the global Promise symbol.
  *
  * 3. Why so much effort?
  *

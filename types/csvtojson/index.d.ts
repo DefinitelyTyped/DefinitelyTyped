@@ -235,7 +235,7 @@ declare namespace csvtojson {
          * @param  {Function} listener listener function
          * @return {this} returns this object for chaining
          */
-        // tslint:disable-next-line:forbidden-types
+        // tslint:disable-next-line ban-types
         on(event: string, listener: Function | JsonEventHandler | CsvEventHandler | DataEventHandler | ErrorEventHandler
             | RecordParsedEventHandler | EndEventHandler | EndParsedEventHandler | DoneEventHandler): this;
 

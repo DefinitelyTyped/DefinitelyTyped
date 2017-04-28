@@ -10,12 +10,14 @@ i18n.init({
     resources: {
         en: {
             translation: {
-                helloWorld: 'Hello, world!'
+                helloWorld: 'Hello, world!',
+                helloWorldInterpolated: 'Hello, {{name}}!'
             }
         },
         ru: {
             translation: {
-                helloWorld: 'Привет, мир!'
+                helloWorld: 'Привет, мир!',
+                helloWorldInterpolated: 'Привет, {{name}}!'
             }
         }
     },
@@ -53,13 +55,22 @@ i18n.init({
     interpolation: <i18n.InterpolationOptions>{},
     detection: null,
     backend: null,
-    cache: null
+    cache: null,
+    wait: false
 });
 
 i18n.t('helloWorld', <i18n.TranslationOptions> {
     defaultValue: 'default',
     count: 10
 });
+
+i18n.t('helloWorldInterpolated', <i18n.TranslationOptions> {
+    defaultValue: 'default',
+    count: 10,
+    name: "world"
+});
+
+i18n.exists("helloWorld");
 
 const options:i18n.Options = i18n.options;
 const currentLanguage:string = i18n.language;

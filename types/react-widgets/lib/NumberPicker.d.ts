@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {ReactWidgetsCommonProps} from './CommonProps';
 
-interface NumberPickerProps extends React.Props<NumberPickerClass>{
+interface NumberPickerProps extends ReactWidgetsCommonProps<NumberPickerClass>{
     /**
      * The current value of the NumberPicker.
      */
@@ -45,13 +46,6 @@ interface NumberPickerProps extends React.Props<NumberPickerClass>{
      * value. When empty, precision is parsed from the current format and culture.
      */
     precision?: number;
-    /**
-     * Mark whether the widget should render right-to-left. This property can also be implicitly
-     * passed to the widget through a childContext prop (isRtl) this allows higher level
-     * application components to specify the direction.
-     * @default false
-     */
-    isRtl?: boolean;
     /**
      * Object hash containing display text and/or text for screen readers. Use the messages
      * object to localize widget text and increase accessibility.

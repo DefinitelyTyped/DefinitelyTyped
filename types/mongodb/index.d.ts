@@ -1,9 +1,9 @@
-// Type definitions for MongoDB v2.1
-// Project: https://github.com/mongodb/node-mongodb-native/tree/2.1
+// Type definitions for MongoDB v2.2
+// Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/
+// Documentation : http://mongodb.github.io/node-mongodb-native/2.2/api/
 
 /// <reference types="node" />
 /// <reference types="bson" />
@@ -12,7 +12,7 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export { Binary, Double, Long, MaxKey, MinKey, ObjectID, Timestamp } from 'bson';
+export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {
@@ -303,7 +303,7 @@ export interface DbCollectionOptions {
     readConcern?: { level: Object };
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createIndex
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#createIndex
 export interface IndexOptions {
     // The write concern.
     w?: number | string;
@@ -331,6 +331,8 @@ export interface IndexOptions {
     expireAfterSeconds?: number;
     // Override the auto generated index name (useful if the resulting name is larger than 128 bytes)
     name?: string;
+    // Creates a partial index based on the given filter object (MongoDB 3.2 or higher)
+    partialFilterExpression?: any;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html

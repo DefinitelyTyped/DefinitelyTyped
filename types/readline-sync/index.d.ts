@@ -3,9 +3,9 @@
 // Definitions by: Tristan Jones <https://github.com/jonestristand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type OptionType = string | number | RegExp | ((input: string) => boolean);
+export type OptionType = string | number | RegExp | ((input: string) => boolean);
 
-interface BasicOptions {
+export interface BasicOptions {
     prompt?: any;
     hideEchoBack?: boolean;
     mask?: string;

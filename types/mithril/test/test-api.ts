@@ -1,109 +1,109 @@
 // Typescript adaptation of mithril's test suite.
 // Not intended to be run; only to compile & check types.
 
-import * as m from 'mithril'
-import * as stream from 'mithril/stream'
+import * as m from 'mithril';
+import * as stream from 'mithril/stream';
 
-const FRAME_BUDGET = 100
+const FRAME_BUDGET = 100;
 
 {
-	const vnode = m("div")
-	console.assert(vnode.tag === "div")
-	console.assert(typeof m.version === "string")
-	console.assert(m.version.indexOf(".") > -1)
+	const vnode = m("div");
+	console.assert(vnode.tag === "div");
+	console.assert(typeof m.version === "string");
+	console.assert(m.version.indexOf(".") > -1);
 }
 
 {
-	const vnode = m.trust("<br>")
+	const vnode = m.trust("<br>");
 }
 
 {
-	const vnode = m.fragment({key: 123}, [m("div")])
-	console.assert((vnode.children as m.Vnode<any,any>[]).length === 1)
-	console.assert(vnode.children![0].tag === 'div')
+	const vnode = m.fragment({key: 123}, [m("div")]);
+	console.assert((vnode.children as Array<m.Vnode<any, any>>).length === 1);
+	console.assert(vnode.children![0].tag === 'div');
 }
 
 {
-	const handler = m.withAttr("value", (value) => {})
-	handler({currentTarget: {value: 10}})
+	const handler = m.withAttr("value", (value) => {});
+	handler({currentTarget: {value: 10}});
 }
 
 {
-	const params = m.parseQueryString("?a=1&b=2")
-	const query = m.buildQueryString({a: 1, b: 2})
+	const params = m.parseQueryString("?a=1&b=2");
+	const query = m.buildQueryString({a: 1, b: 2});
 }
 
 {
-	const root = window.document.createElement("div")
-	m.render(root, m("div"))
-	console.assert(root.childNodes.length === 1)
+	const root = window.document.createElement("div");
+	m.render(root, m("div"));
+	console.assert(root.childNodes.length === 1);
 }
 
 {
-	const root = window.document.createElement("div")
-	m.mount(root, {view() {return m("div")}})
-	console.assert(root.childNodes.length === 1)
-	console.assert(root.firstChild!.nodeName === "DIV")
+	const root = window.document.createElement("div");
+	m.mount(root, { view: () => m("div") });
+	console.assert(root.childNodes.length === 1);
+	console.assert(root.firstChild!.nodeName === "DIV");
 }
 
 {
-	const root = window.document.createElement("div")
+	const root = window.document.createElement("div");
 	m.route(root, "/a", {
-		"/a": {view() {return m("div")}}
-	})
+		"/a": { view: () => m("div") }
+	});
 
 	setTimeout(() => {
-		console.assert(root.childNodes.length === 1)
-		console.assert(root.firstChild!.nodeName === "DIV")
-	}, FRAME_BUDGET)
+		console.assert(root.childNodes.length === 1);
+		console.assert(root.firstChild!.nodeName === "DIV");
+	}, FRAME_BUDGET);
 }
 
 {
-	const root = window.document.createElement("div")
-	m.route.prefix("#")
+	const root = window.document.createElement("div");
+	m.route.prefix("#");
 	m.route(root, "/a", {
-		"/a": {view() {return m("div")}}
-	})
+		"/a": { view: () => m("div") }
+	});
 
 	setTimeout(() => {
-		console.assert(root.childNodes.length === 1)
-		console.assert(root.firstChild!.nodeName === "DIV")
-	}, FRAME_BUDGET)
+		console.assert(root.childNodes.length === 1);
+		console.assert(root.firstChild!.nodeName === "DIV");
+	}, FRAME_BUDGET);
 }
 
 {
-	const root = window.document.createElement("div")
+	const root = window.document.createElement("div");
 	m.route(root, "/a", {
-		"/a": {view() {return m("div")}}
-	})
+		"/a": { view: () => m("div") }
+	});
 
 	setTimeout(() => {
-		console.assert(m.route.get() === "/a")
-	}, FRAME_BUDGET)
+		console.assert(m.route.get() === "/a");
+	}, FRAME_BUDGET);
 }
 
 {
-	const root = window.document.createElement("div")
+	const root = window.document.createElement("div");
 	m.route(root, "/a", {
-		"/:id": {view() {return m("div")}}
-	})
+		"/:id": { view: () => m("div") }
+	});
 
 	setTimeout(() => {
-		m.route.set("/b")
+		m.route.set("/b");
 		setTimeout(() => {
-			console.assert(m.route.get() === "/b")
-		}, FRAME_BUDGET)
-	}, FRAME_BUDGET)
+			console.assert(m.route.get() === "/b");
+		}, FRAME_BUDGET);
+	}, FRAME_BUDGET);
 }
 
 {
-	let count = 0
-	const root = window.document.createElement("div")
-	m.mount(root, {view() {count++}})
+	let count = 0;
+	const root = window.document.createElement("div");
+	m.mount(root, {view() { count++; }});
 	setTimeout(() => {
-		m.redraw()
-		console.assert(count === 2)
-	}, FRAME_BUDGET)
+		m.redraw();
+		console.assert(count === 2);
+	}, FRAME_BUDGET);
 }
 
 //
@@ -116,14 +116,14 @@ const FRAME_BUDGET = 100
 
 {
 	// define a component
-	const Greeter: m.Comp<{}, {}> = {
+	const Greeter: m.Comp<{ style: string }, {}> = {
 		view(vnode) {
-			return m("div", vnode.attrs, ["Hello ", vnode.children])
+			return m("div", vnode.attrs, ["Hello ", vnode.children]);
 		}
-	}
+	};
 
 	// consume it
-	m(Greeter, { style: "color:red;" }, "world")
+	m(Greeter, { style: "color:red;" }, "world");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -134,15 +134,15 @@ const FRAME_BUDGET = 100
 	const users = [
 		{ id: 1, name: "John" },
 		{ id: 2, name: "Mary" },
-	]
+	];
 
-	const userInputs = function(users: { id: number, name: string }[]) {
+	const userInputs = (users: Array<{ id: number, name: string }>) => {
 		return users.map(u => {
-			return m("input", { key: u.id }, u.name)
-		})
-	}
+			return m("input", { key: u.id }, u.name);
+		});
+	};
 
-	m.render(document.body, userInputs(users))
+	m.render(document.body, userInputs(users));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -153,37 +153,37 @@ const FRAME_BUDGET = 100
 	const ComponentWithInitialState: m.Comp<{}, {data: string}> = {
 		data: "Initial content",
 		view(vnode) {
-			return m("div", vnode.state.data)
+			return m("div", vnode.state.data);
 		}
-	}
+	};
 
-	m(ComponentWithInitialState)
+	m(ComponentWithInitialState);
 }
 
 {
 	const ComponentWithDynamicState: m.Comp<{text: string}, {data?: string}> = {
 		oninit(vnode) {
-			vnode.state.data = vnode.attrs.text
+			vnode.state.data = vnode.attrs.text;
 		},
 		view(vnode) {
-			return m("div", vnode.state.data)
+			return m("div", vnode.state.data);
 		}
-	}
+	};
 
-	m(ComponentWithDynamicState, { text: "Hello" })
+	m(ComponentWithDynamicState, { text: "Hello" });
 }
 
 {
 	const ComponentUsingThis: m.Comp<{text: string}, {data?: string}> = {
 		oninit(vnode) {
-			this.data = vnode.attrs.text
+			this.data = vnode.attrs.text;
 		},
 		view(vnode) {
-			return m("div", this.data)
+			return m("div", this.data);
 		}
-	}
+	};
 
-	m(ComponentUsingThis, { text: "Hello" })
+	m(ComponentUsingThis, { text: "Hello" });
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -193,15 +193,15 @@ const FRAME_BUDGET = 100
 {
 	const Fader: m.Comp<{}, {}> = {
 		onbeforeremove(vnode) {
-			vnode.dom.classList.add("fade-out")
+			vnode.dom.classList.add("fade-out");
 			return new Promise(resolve => {
-				setTimeout(resolve, 1000)
-			})
+				setTimeout(resolve, 1000);
+			});
 		},
 		view() {
-			return m("div", "Bye")
+			return m("div", "Bye");
 		},
-	}
+	};
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -211,92 +211,92 @@ const FRAME_BUDGET = 100
 {
 	const Home = {
 		view() {
-			return "Welcome"
+			return "Welcome";
 		}
-	}
+	};
 
 	const state = {
 		term: "",
 		search() {
 			// save the state for this route
 			// this is equivalent to `history.replaceState({term: state.term}, null, location.href)`
-			m.route.set(m.route.get(), null, { replace: true, state: { term: state.term } })
+			m.route.set(m.route.get(), null, { replace: true, state: { term: state.term } });
 
 			// navigate away
-			location.href = "https://google.com/?q=" + state.term
+			location.href = "https://google.com/?q=" + state.term;
 		}
-	}
+	};
 
 	const Form: m.Comp<{term: string}, {}> = {
 		oninit(vnode) {
-			state.term = vnode.attrs.term || "" // populated from the `history.state` property if the user presses the back button
+			state.term = vnode.attrs.term || ""; // populated from the `history.state` property if the user presses the back button
 		},
 		view() {
 			return m("form", [
-				m("input[placeholder='Search']", { oninput: m.withAttr("value", v => { state.term = v }), value: state.term }),
+				m("input[placeholder='Search']", { oninput: m.withAttr("value", v => { state.term = v; }), value: state.term }),
 				m("button", { onclick: state.search }, "Search")
-			])
+			]);
 		}
-	}
+	};
 
 	const Layout: m.Comp<{}, {}> = {
 		view(vnode) {
-			return m(".layout", vnode.children)
+			return m(".layout", vnode.children);
 		}
-	}
+	};
 
 	// example 1
 	m.route(document.body, "/", {
 		"/": {
 			view() {
-				return m(Layout, m(Home))
+				return m(Layout, m(Home));
 			},
 		},
 		"/form": {
 			view() {
-				return m(Layout, m(Form))
+				return m(Layout, m(Form));
 			},
 		}
-	})
+	});
 
 	// example 2
 	m.route(document.body, "/", {
 		"/": {
 			render() {
-				return m(Layout, m(Home))
+				return m(Layout, m(Home));
 			},
 		},
 		"/form": {
 			render() {
-				return m(Layout, m(Form))
+				return m(Layout, m(Form));
 			},
 		}
-	})
+	});
 
 	// functionally equivalent to example 1
 	const Anon1 = {
 		view() {
-			return m(Layout, m(Home))
+			return m(Layout, m(Home));
 		},
-	}
+	};
 	const Anon2 = {
 		view() {
-			return m(Layout, m(Form))
+			return m(Layout, m(Form));
 		},
-	}
+	};
 
 	m.route(document.body, "/", {
 		"/": {
 			render() {
-				return m(Anon1)
+				return m(Anon1);
 			}
 		},
 		"/form": {
 			render() {
-				return m(Anon2)
+				return m(Anon2);
 			}
 		},
-	})
+	});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -308,19 +308,19 @@ const FRAME_BUDGET = 100
 		users: [] as any[],
 		loadUsers() {
 			return m.request<any>("/api/v1/users").then(users => {
-				state.users = users
-			})
+				state.users = users;
+			});
 		}
-	}
+	};
 
 	m.route(document.body, "/user/list", {
 		"/user/list": {
 			onmatch: state.loadUsers,
 			render() {
-				return state.users.map(user => m("div", user.id))
+				return state.users.map(user => m("div", user.id));
 			}
 		},
-	})
+	});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -328,33 +328,33 @@ const FRAME_BUDGET = 100
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	let progress = 0
+	let progress = 0;
 
 	m.mount(document.body, {
 		view() {
 			return [
 				m("input[type=file]", { onchange: upload }),
 				progress + "% completed"
-			]
+			];
 		}
-	})
+	});
 
-	const upload = function(e: Event) {
-		const file = ((e.target as HTMLInputElement).files as FileList)[0]
-		const data = new FormData()
-		data.append("myfile", file)
+	const upload = (e: Event) => {
+		const file = ((e.target as HTMLInputElement).files as FileList)[0];
+		const data = new FormData();
+		data.append("myfile", file);
 		m.request({
 			method: "POST",
 			url: "/api/v1/upload",
 			data,
 			config: xhr => {
 				xhr.addEventListener("progress", e => {
-					progress = e.loaded / e.total
-					m.redraw() // tell Mithril that data changed and a re-render is needed
-				})
+					progress = e.loaded / e.total;
+					m.redraw(); // tell Mithril that data changed and a re-render is needed
+				});
 			}
-		})
-	}
+		});
+	};
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -366,7 +366,7 @@ const FRAME_BUDGET = 100
 	class User {
 		name: string;
 		constructor(data: any) {
-			this.name = data.firstName + " " + data.lastName
+			this.name = data.firstName + " " + data.lastName;
 		}
 	}
 	// End rewrite to TypeScript
@@ -381,8 +381,8 @@ const FRAME_BUDGET = 100
 		type: User
 	})
 	.then(users => {
-		console.log(users[0].name) // logs a name
-	})
+		console.log(users[0].name); // logs a name
+	});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -396,8 +396,8 @@ const FRAME_BUDGET = 100
 		deserialize: value => value
 	})
 	.then(svg => {
-		m.render(document.body, m.trust(svg))
-	})
+		m.render(document.body, m.trust(svg));
+	});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -411,8 +411,8 @@ const FRAME_BUDGET = 100
 		callbackKey: "callback",
 	})
 	.then(result => {
-		console.log(result)
-	})
+		console.log(result);
+	});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -420,10 +420,10 @@ const FRAME_BUDGET = 100
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const groupVisible = true
-	const log = function() {
-		console.log("group is now visible")
-	}
+	const groupVisible = true;
+	const log = () => {
+		console.log("group is now visible");
+	};
 
 	m("ul", [
 		m("li", "child 1"),
@@ -433,7 +433,7 @@ const FRAME_BUDGET = 100
 			m("li", "child 3"),
 			m("li", "child 4"),
 		]) : null
-	])
+	]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -441,17 +441,17 @@ const FRAME_BUDGET = 100
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const firstName = stream("John")
-	const lastName = stream("Doe")
+	const firstName = stream("John");
+	const lastName = stream("Doe");
 	const fullName = stream.merge([firstName, lastName]).map(values => {
-		return values.join(" ")
-	})
+		return values.join(" ");
+	});
 
-	console.log(fullName()) // logs "John Doe"
+	console.log(fullName()); // logs "John Doe"
 
-	firstName("Mary")
+	firstName("Mary");
 
-	console.log(fullName()) // logs "Mary Doe"
+	console.log(fullName()); // logs "Mary Doe"
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -460,12 +460,12 @@ const FRAME_BUDGET = 100
 
 {
 	const halted = stream(1).map(value => {
-		return stream.HALT
-	})
+		return stream.HALT;
+	});
 
 	halted.map(() => {
 		// never runs
-	})
+	});
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -473,14 +473,14 @@ const FRAME_BUDGET = 100
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const a = stream(5)
-	const b = stream(7)
+	const a = stream(5);
+	const b = stream(7);
 
 	const added = stream.combine((a: stream.Stream<number>, b: stream.Stream<number>) => {
-		return a() + b()
-	}, [a, b])
+		return a() + b();
+	}, [a, b]);
 
-	console.log(added()) // logs 12
+	console.log(added()); // logs 12
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -488,14 +488,14 @@ const FRAME_BUDGET = 100
 ////////////////////////////////////////////////////////////////////////////////
 
 {
-	const value = stream<number>()
-	const doubled = value.map(value => value * 2)
+	const value = stream<number>();
+	const doubled = value.map(value => value * 2);
 
-	value.end(true) // set to ended state
+	value.end(true); // set to ended state
 
-	value(5)
+	value(5);
 
-	console.log(doubled())
+	console.log(doubled());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -505,37 +505,34 @@ const FRAME_BUDGET = 100
 // Excerpt
 
 {
-	const root = document.getElementById("root")!
-	const empty: any[] = []
-	const full: any[] = []
-	for (let i = 0; i < 100; i++) full.push(i)
-	let cells: any[]
+	const root = document.getElementById("root")!;
+	const empty: any[] = [];
+	const full: any[] = [];
+	for (let i = 0; i < 100; i++) full.push(i);
+	let cells: any[];
 
-	const view = function() {
-		return m(".container", cells.map(i => {
-			return m(".slice", {
-				style: {backgroundPosition: (i % 10 * 11) + "% " + (Math.floor(i / 10) * 11) + "%"},
-				onbeforeremove: exit
-			})
-		}))
-	}
+	const view = () => m(".container", cells.map(i =>
+		m(".slice", {
+			style: {backgroundPosition: (i % 10 * 11) + "% " + (Math.floor(i / 10) * 11) + "%"},
+			onbeforeremove: exit
+		})));
 
-	const exit = function(vnode: m.VnodeDOM<any, any>) {
-		vnode.dom.classList.add("exit")
+	const exit = (vnode: m.VnodeDOM<any, any>) => {
+		vnode.dom.classList.add("exit");
 		return new Promise(resolve => {
-			setTimeout(resolve, 1000)
-		})
-	}
+			setTimeout(resolve, 1000);
+		});
+	};
 
-	const run = function() {
-		cells = cells === full ? empty : full
+	const run = () => {
+		cells = cells === full ? empty : full;
 
-		m.render(root, [view()])
+		m.render(root, [view()]);
 
-		setTimeout(run, 2000)
-	}
+		setTimeout(run, 2000);
+	};
 
-	run()
+	run();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -546,16 +543,16 @@ const FRAME_BUDGET = 100
 
 {
 	// Start extra declarations
-	const marked = (v: string) => v
+	const marked = (v: string) => v;
 	// End extra declarations
 
 	// model
 	const state = {
 		text: "# Markdown Editor\n\nType on the left panel and see the result on the right panel",
 		update(value: string) {
-			state.text = value
+			state.text = value;
 		}
-	}
+	};
 
 	// view
 	const Editor = {
@@ -566,11 +563,11 @@ const FRAME_BUDGET = 100
 					value: state.text
 				}),
 				m(".preview", m.trust(marked(state.text))),
-			]
+			];
 		}
-	}
+	};
 
-	m.mount(document.getElementById("editor")!, Editor)
+	m.mount(document.getElementById("editor")!, Editor);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -581,10 +578,10 @@ const FRAME_BUDGET = 100
 	// model
 	const state = {
 		dispatch(action: string, args?: any) {
-			(state as any)[action].apply(state, args || [])
+			(state as any)[action].apply(state, args || []);
 			requestAnimationFrame(() => {
-				localStorage["todos-mithril"] = JSON.stringify(state.todos)
-			})
+				localStorage["todos-mithril"] = JSON.stringify(state.todos);
+			});
 		},
 
 		todos: JSON.parse(localStorage["todos-mithril"] || "[]"),
@@ -595,50 +592,51 @@ const FRAME_BUDGET = 100
 		showing: undefined as any,
 
 		createTodo(title: string) {
-			state.todos.push({title: title.trim(), completed: false})
+			state.todos.push({title: title.trim(), completed: false});
 		},
 		setStatuses(completed: boolean) {
-			for (let i = 0; i < state.todos.length; i++) state.todos[i].completed = completed
+			for (const todo of state.todos)
+				todo.completed = completed;
 		},
 		setStatus(todo: any, completed: boolean) {
-			todo.completed = completed
+			todo.completed = completed;
 		},
 		destroy(todo: any) {
-			const index = state.todos.indexOf(todo)
-			if (index > -1) state.todos.splice(index, 1)
+			const index = state.todos.indexOf(todo);
+			if (index > -1) state.todos.splice(index, 1);
 		},
 		clear() {
 			for (let i = 0; i < state.todos.length; i++) {
-				if (state.todos[i].completed) state.destroy(state.todos[i--])
+				if (state.todos[i].completed) state.destroy(state.todos[i--]);
 			}
 		},
 
 		edit(todo: any) {
-			state.editing = todo
+			state.editing = todo;
 		},
 		update(title: string) {
 			if (state.editing != null) {
-				state.editing.title = title.trim()
-				if (state.editing.title === "") state.destroy(state.editing)
-				state.editing = null
+				state.editing.title = title.trim();
+				if (state.editing.title === "") state.destroy(state.editing);
+				state.editing = null;
 			}
 		},
 		reset() {
-			state.editing = null
+			state.editing = null;
 		},
 
 		computed(vnode: m.Vnode<any, any>) {
-			state.showing = vnode.attrs.status || ""
-			state.remaining = state.todos.filter((todo: any) => !todo.completed).length
+			state.showing = vnode.attrs.status || "";
+			state.remaining = state.todos.filter((todo: any) => !todo.completed).length;
 			state.todosByStatus = state.todos.filter((todo: any) => {
 				switch (state.showing) {
-					case "": return true
-					case "active": return !todo.completed
-					case "completed": return todo.completed
+					case "": return true;
+					case "active": return !todo.completed;
+					case "completed": return todo.completed;
 				}
-			})
+			});
 		}
-	}
+	};
 
 	// view
 	const Todos: m.Comp<{}, {
@@ -651,31 +649,31 @@ const FRAME_BUDGET = 100
 		add(e: KeyboardEvent) {
 			if (e.keyCode === 13) {
 				state.dispatch("createTodo", [(e.target as HTMLInputElement).value]);
-				(e.target as HTMLInputElement).value = ""
+				(e.target as HTMLInputElement).value = "";
 			}
 		},
 		toggleAll() {
-			state.dispatch("setStatuses", [(document.getElementById("toggle-all") as HTMLInputElement).checked])
+			state.dispatch("setStatuses", [(document.getElementById("toggle-all") as HTMLInputElement).checked]);
 		},
 		toggle(todo: any) {
-			state.dispatch("setStatus", [todo, !todo.completed])
+			state.dispatch("setStatus", [todo, !todo.completed]);
 		},
 		focus(vnode: m.VnodeDOM<any, any>, todo: any) {
 			if (todo === state.editing && vnode.dom !== document.activeElement) {
-				const el = vnode.dom as HTMLInputElement
-				el.value = todo.title
-				el.focus()
-				el.selectionStart = el.selectionEnd = todo.title.length
+				const el = vnode.dom as HTMLInputElement;
+				el.value = todo.title;
+				el.focus();
+				el.selectionStart = el.selectionEnd = todo.title.length;
 			}
 		},
 		save(e: KeyboardEvent) {
-			if (e.keyCode === 13 || e.type === "blur") state.dispatch("update", [(e.target as HTMLInputElement).value])
-			else if (e.keyCode === 27) state.dispatch("reset")
+			if (e.keyCode === 13 || e.type === "blur") state.dispatch("update", [(e.target as HTMLInputElement).value]);
+			else if (e.keyCode === 27) state.dispatch("reset");
 		},
 		oninit: state.computed,
 		onbeforeupdate: state.computed,
 		view(vnode) {
-			const ui = vnode.state
+			const ui = vnode.state;
 			return [
 				m("header.header", [
 					m("h1", "todos"),
@@ -688,12 +686,12 @@ const FRAME_BUDGET = 100
 						state.todosByStatus.map((todo: any) => {
 							return m("li", {class: (todo.completed ? "completed" : "") + " " + (todo === state.editing ? "editing" : "")}, [
 								m(".view", [
-									m("input.toggle[type='checkbox']", {checked: todo.completed, onclick: () => {ui.toggle(todo)}}),
-									m("label", {ondblclick: () => {state.dispatch("edit", [todo])}}, todo.title),
-									m("button.destroy", {onclick: () => {state.dispatch("destroy", [todo])}}),
+									m("input.toggle[type='checkbox']", { checked: todo.completed, onclick: () => { ui.toggle(todo); } }),
+									m("label", { ondblclick: () => { state.dispatch("edit", [todo]); } }, todo.title),
+									m("button.destroy", { onclick: () => { state.dispatch("destroy", [todo]); } }),
 								]),
-								m("input.edit", {onupdate(vnode: m.VnodeDOM<any, any>) {ui.focus(vnode, todo)}, onkeypress: ui.save, onblur: ui.save})
-							])
+								m("input.edit", { onupdate(vnode: m.VnodeDOM<any, any>) { ui.focus(vnode, todo); }, onkeypress: ui.save, onblur: ui.save })
+							]);
 						}),
 					]),
 				]),
@@ -707,14 +705,14 @@ const FRAME_BUDGET = 100
 						m("li", m("a[href='/active']", {oncreate: m.route.link, class: state.showing === "active" ? "selected" : ""}, "Active")),
 						m("li", m("a[href='/completed']", {oncreate: m.route.link, class: state.showing === "completed" ? "selected" : ""}, "Completed")),
 					]),
-					m("button#clear-completed", {onclick: () => {state.dispatch("clear")}}, "Clear completed"),
+					m("button#clear-completed", { onclick: () => { state.dispatch("clear"); } }, "Clear completed"),
 				]) : null,
-			]
+			];
 		}
-	}
+	};
 
 	m.route(document.getElementById("todoapp")!, "/", {
 		"/": Todos,
 		"/:status": Todos,
-	})
+	});
 }

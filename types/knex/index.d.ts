@@ -64,6 +64,11 @@ declare namespace Knex {
         fullOuterJoin: Join;
         crossJoin: Join;
 
+        // Withs
+        with: With;
+        withRaw: WithRaw;
+        withWrapped: WithWrapped;
+
         // Wheres
         where: Where;
         andWhere: Where;
@@ -120,10 +125,13 @@ declare namespace Knex {
 
         // Aggregation
         count(columnName?: string): QueryBuilder;
+        countDistinct(columnName?: string): QueryBuilder;
         min(columnName: string): QueryBuilder;
         max(columnName: string): QueryBuilder;
         sum(columnName: string): QueryBuilder;
+        sumDistinct(columnName: string): QueryBuilder;
         avg(columnName: string): QueryBuilder;
+        avgDistinct(columnName: string): QueryBuilder;
         increment(columnName: string, amount?: number): QueryBuilder;
         decrement(columnName: string, amount?: number): QueryBuilder;
 
@@ -198,6 +206,18 @@ declare namespace Knex {
 
     interface JoinRaw {
         (tableName: string, binding?: Value): QueryBuilder;
+    }
+
+    interface With extends WithRaw, WithWrapped {
+    }
+
+    interface WithRaw {
+        (alias: string, raw: Raw): QueryBuilder;
+        (alias: string, sql: string, bindings?: Value[] | Object): QueryBuilder;
+    }
+
+    interface WithWrapped {
+        (alias: string, callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
     }
 
     interface Where extends WhereRaw, WhereWrapped, WhereNull {
@@ -345,7 +365,7 @@ declare namespace Knex {
         hasTable(tableName: string): Promise<boolean>;
         hasColumn(tableName: string, columnName: string): Promise<boolean>;
         table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
-        dropTableIfExists(tableName: string): Promise<void>;
+        dropTableIfExists(tableName: string): SchemaBuilder;
         raw(statement: string): SchemaBuilder;
         withSchema(schemaName: string): SchemaBuilder;
     }
@@ -428,7 +448,7 @@ declare namespace Knex {
         index(indexName?: string, indexType?: string): ColumnBuilder;
     }
 
-    interface ReferencingColumnBuilder {
+    interface ReferencingColumnBuilder extends ColumnBuilder {
         inTable(tableName: string): ColumnBuilder;
     }
 
@@ -456,7 +476,7 @@ declare namespace Knex {
         client?: string;
         dialect?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
-            MySqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
+            MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
         acquireConnectionTimeout?: number;
@@ -473,6 +493,14 @@ declare namespace Knex {
         instanceName?: string;
         debug?: boolean;
         requestTimeout?: number;
+    }
+
+    interface MsSqlConnectionConfig {
+        user: string;
+        password: string;
+        server: string;
+        database: string;
+        options: MsSqlOptionsConfig;
     }
 
     // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods
@@ -537,6 +565,17 @@ declare namespace Knex {
     interface Sqlite3ConnectionConfig {
         filename: string;
         debug?: boolean;
+    }
+
+    interface MsSqlOptionsConfig {
+        encrypt?: boolean;
+        port?: number;
+        domain?: string;
+        connectionTimeout?: number;
+        requestTimeout?: number;
+        stream?: boolean;
+        parseJSON?: boolean;
+        pool?: PoolConfig;
     }
 
     interface SocketConnectionConfig {
