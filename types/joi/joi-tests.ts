@@ -261,6 +261,8 @@ arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
 arrSchema = arrSchema.unique();
+arrSchema = arrSchema.unique((a, b) => a.test === b.test);
+arrSchema = arrSchema.unique('customer.id');
 
 
 arrSchema = arrSchema.items(numSchema);

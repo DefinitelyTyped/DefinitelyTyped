@@ -567,7 +567,8 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(): ArraySchema;
+    unique(comparator?: (a: any, b: any) => boolean): ArraySchema;
+    unique(comparator?: string): ArraySchema;
 }
 
 export interface ObjectSchema extends AnySchema<ObjectSchema> {
