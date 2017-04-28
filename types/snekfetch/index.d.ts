@@ -1,7 +1,8 @@
-// Type definitions for snekfetch v3.1.5
+// Type definitions for snekfetch 3.1
 // Project: https://github.com/GusCaplan/snekfetch
 // Definitions by: Iker Pérez Brunelli <https://github.com/DarkerTV>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -24,10 +25,10 @@ declare namespace snekfetch {
         statusText: string;
     }
 
-    type methods = 'ACL' 
-        | 'BIND' 
-        | 'CHECKOUT' 
-        | 'CONNECT' 
+    type methods = 'ACL'
+        | 'BIND'
+        | 'CHECKOUT'
+        | 'CONNECT'
         | 'COPY'
         | 'DELETE'
         | 'GET'
@@ -63,9 +64,9 @@ declare namespace snekfetch {
         static METHODS: methods[];
         static version: string;
 
-        public data: any;
-        public request: ClientRequest;
-        public readonly response: Result | null;
+        data: any;
+        request: ClientRequest;
+        readonly response: Result | null;
 
         constructor(method: methods, url: string, opts?: SnekfetchOptions);
 
@@ -104,21 +105,21 @@ declare namespace snekfetch {
         static unsubscribe(url: string): Snekfetch;
         static brew(url: string): Snekfetch;
 
-        public query(name: string, value: string): Snekfetch;
+        query(name: string, value: string): Snekfetch;
 
-        public set(name: string | { [key: string]: string | string[] }, value?: string | string[]): Snekfetch;
+        set(name: string | { [key: string]: string | string[] }, value?: string | string[]): Snekfetch;
 
-        public attach(name: string, data: string | Object | Buffer, filename?: string): Snekfetch;
+        attach(name: string, data: string | object | Buffer, filename?: string): Snekfetch;
 
-        public send(data?: any): Snekfetch;
+        send(data?: any): Snekfetch;
 
-        public then(): Promise<Result>;
-        public then<T>(resolver: (res: Result) => T, rejector?: (err: Error) => any): Promise<T>;
+        then(): Promise<Result>;
+        then<T>(resolver: (res: Result) => T, rejector?: (err: Error) => any): Promise<T>;
 
-        public catch(rejector: (err: Error) => any): Promise<Result>;
+        catch(rejector: (err: Error) => any): Promise<Result>;
 
-        public end(): Promise<Result>;
-        public end<T>(cb: (err: Error | null, res: Result | Error | null) => T): Promise<T>;
+        end(): Promise<Result>;
+        end<T>(cb: (err: Error | null, res: Result | Error | null) => T): Promise<T>;
     }
 }
 
