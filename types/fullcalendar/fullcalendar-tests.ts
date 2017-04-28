@@ -417,7 +417,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    dayClick(date, jsEvent, view) {      
+    dayClick(date, jsEvent, view) {
         alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 
         alert('Current view: ' + view.name);
