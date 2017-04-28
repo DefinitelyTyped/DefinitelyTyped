@@ -1861,11 +1861,11 @@ declare module "tty" {
     import * as net from "net";
 
     export function isatty(fd: number): boolean;
-    export interface ReadStream extends net.Socket {
+    export class ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
     }
-    export interface WriteStream extends net.Socket {
+    export class WriteStream extends net.Socket {
         columns: number;
         rows: number;
     }
