@@ -135,7 +135,7 @@ export interface SankeyLinkPathGenerator<N extends SankeyExtraProperties, L exte
     /**
      * Return svg path string for a given link.
      *
-     * IMPORTANT: Only invoke for link data with Sankey Layout information previosuly calculated.
+     * IMPORTANT: Only invoke for link data with Sankey Layout information previously calculated.
      *
      * @param link A Sankey diagram link, for which the layout has already been calculated.
      */
