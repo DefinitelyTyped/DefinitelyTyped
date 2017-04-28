@@ -50,6 +50,7 @@ export declare class Consumer {
 
 export declare class HighLevelConsumer {
     constructor(client: Client, payloads: Array<Topic>, options: ConsumerOptions);
+    client: Client;
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;
