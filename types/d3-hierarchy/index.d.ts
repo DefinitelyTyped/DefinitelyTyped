@@ -43,6 +43,8 @@ export interface HierarchyNode<Datum> {
     eachAfter(func: (node: HierarchyNode<Datum>) => void): this;
     eachBefore(func: (node: HierarchyNode<Datum>) => void): this;
     copy(): HierarchyNode<Datum>;
+    x?: number;
+    y?: number;
 }
 
 
