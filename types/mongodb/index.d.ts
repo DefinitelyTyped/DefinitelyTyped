@@ -634,7 +634,7 @@ export interface CollectionAggregationOptions {
     allowDiskUse?: boolean;
     // specifies a cumulative time limit in milliseconds for processing operations
     // on the cursor. MongoDB interrupts the operation at the earliest following interrupt point.
-    maxTimeMS?: boolean;
+    maxTimeMS?: number;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
     bypassDocumentValidation?: boolean;
 }
