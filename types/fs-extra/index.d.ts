@@ -265,7 +265,7 @@ export interface CopyOptions {
     overwrite?: boolean;
     preserveTimestamps?: boolean;
     errorOnExist?: boolean;
-    filter?: CopyFilterFunction | RegExp;
+    filter?: CopyFilter;
     recursive?: boolean;
 }
 
