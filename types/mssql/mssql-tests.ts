@@ -1,7 +1,7 @@
 import sql = require('mssql');
 
 interface Entity{
-  value: number;
+    value: number;
 }
 
 var config: sql.config = {
@@ -14,6 +14,12 @@ var config: sql.config = {
         encrypt: true
     }
 }
+
+var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectionstring", (err) => {
+    if (err) {
+        return err;
+    }
+});
 
 var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (err: any) {
     if (err != null) {
