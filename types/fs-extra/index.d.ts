@@ -245,7 +245,6 @@ export function writeFile(filename: string, data: any, options?: { encoding?: st
 export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
 export function mkdtemp(prefix: string): Promise<string>;
 
-
 export interface WalkEventEmitter extends NodeJS.ReadableStream {
     on(event: 'data', callback: (file: WalkEventFile) => void): this;
     on(event: 'readable', callback: (this: PathEntryStream) => void): this;
