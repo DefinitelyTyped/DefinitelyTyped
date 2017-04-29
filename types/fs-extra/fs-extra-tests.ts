@@ -111,10 +111,14 @@ fs.outputFile(file, data).then(() => {
 fs.outputFile(file, data, errorCallback);
 fs.outputFileSync(file, data);
 
-fs.outputJson(file, data).then(() => {
+fs.outputJson(file, data, {
+	spaces: 2
+}).then(() => {
 	// stub
 });
-fs.outputJson(file, data, errorCallback);
+fs.outputJson(file, data, {
+	spaces: 2
+}, errorCallback);
 fs.outputJSON(file, data, errorCallback);
 fs.outputJSON(file, data).then(() => {
 	// stub
