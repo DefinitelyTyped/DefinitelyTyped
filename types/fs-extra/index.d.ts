@@ -256,16 +256,12 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
-export type CopyFilterFunction = (src: string) => boolean;
-
-export type CopyFilter = CopyFilterFunction | RegExp;
-
 export interface CopyOptions {
     dereference?: boolean;
     overwrite?: boolean;
     preserveTimestamps?: boolean;
     errorOnExist?: boolean;
-    filter?: CopyFilter;
+    filter?: (src: string) => boolean | RegExp;
     recursive?: boolean;
 }
 
