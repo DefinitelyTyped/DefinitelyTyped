@@ -139,9 +139,7 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
-export interface CopyFilterFunction {
-    (src: string): boolean;
-}
+export type CopyFilterFunction = (src: string) => boolean;
 
 export type CopyFilter = CopyFilterFunction | RegExp;
 
