@@ -174,6 +174,7 @@ export function readFile(filename: string, callback: (err: NodeJS.ErrnoException
 export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
 export function readFile(filename: string, options: { flag?: string; } | { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(filename: string, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
+// tslint:disable-next-line:unified-signatures
 export function readFile(filename: string, encoding: string): Promise<string>;
 export function readFile(filename: string): Promise<Buffer>;
 
@@ -234,6 +235,16 @@ export function write(fd: number, data: any, offset: number, encoding?: string):
 export function writeFile(filename: string, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
+
+/**
+ * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+ *
+ * @param prefix
+ * @param callback The created folder path is passed as a string to the callback's second parameter.
+ */
+export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
+export function mkdtemp(prefix: string): Promise<string>;
+
 
 export interface WalkEventEmitter extends NodeJS.ReadableStream {
     on(event: 'data', callback: (file: WalkEventFile) => void): this;
