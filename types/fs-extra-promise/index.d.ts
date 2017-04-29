@@ -2,6 +2,7 @@
 // Project: https://github.com/overlookmotel/fs-extra-promise
 // Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 /// <reference types="bluebird" />
