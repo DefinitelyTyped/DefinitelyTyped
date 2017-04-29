@@ -9,89 +9,89 @@ import { Stats } from "fs";
 
 export * from "fs";
 
-export declare function copy(src: string, dest: string, options?: CopyOptions): Promise<void>;
-export declare function copy(src: string, dest: string, callback: (err: Error) => void): void;
-export declare function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
+export function copy(src: string, dest: string, options?: CopyOptions): Promise<void>;
+export function copy(src: string, dest: string, callback: (err: Error) => void): void;
+export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
 
-export declare function copySync(src: string, dest: string): void;
-export declare function copySync(src: string, dest: string, options: CopyOptions): void;
+export function copySync(src: string, dest: string): void;
+export function copySync(src: string, dest: string, options: CopyOptions): void;
 
-export declare function move(src: string, dest: string): Promise<void>;
-export declare function move(src: string, dest: string, options: MoveOptions): Promise<void>;
-export declare function move(src: string, dest: string, callback: (err: Error) => void): void;
-export declare function move(src: string, dest: string, options: MoveOptions, callback: (err: Error) => void): void;
+export function move(src: string, dest: string): Promise<void>;
+export function move(src: string, dest: string, options: MoveOptions): Promise<void>;
+export function move(src: string, dest: string, callback: (err: Error) => void): void;
+export function move(src: string, dest: string, options: MoveOptions, callback: (err: Error) => void): void;
 
-export declare function createFile(file: string): Promise<void>;
-export declare function createFile(file: string, callback: (err: Error) => void): void;
-export declare function createFileSync(file: string): void;
+export function createFile(file: string): Promise<void>;
+export function createFile(file: string, callback: (err: Error) => void): void;
+export function createFileSync(file: string): void;
 
-export declare function mkdirs(dir: string, options?: MkdirOptions): Promise<void>;
-export declare function mkdirp(dir: string, options?: MkdirOptions): Promise<void>;
-export declare function mkdirs(dir: string, callback: (err: Error) => void): void;
-export declare function mkdirp(dir: string, callback: (err: Error) => void): void;
-export declare function mkdirs(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
-export declare function mkdirp(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
-export declare function mkdirsSync(dir: string, options?: MkdirOptions): void;
-export declare function mkdirpSync(dir: string, options?: MkdirOptions): void;
+export function mkdirs(dir: string, options?: MkdirOptions): Promise<void>;
+export function mkdirp(dir: string, options?: MkdirOptions): Promise<void>;
+export function mkdirs(dir: string, callback: (err: Error) => void): void;
+export function mkdirp(dir: string, callback: (err: Error) => void): void;
+export function mkdirs(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
+export function mkdirp(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
+export function mkdirsSync(dir: string, options?: MkdirOptions): void;
+export function mkdirpSync(dir: string, options?: MkdirOptions): void;
 
-export declare function outputFile(file: string, data: any): Promise<void>;
-export declare function outputFile(file: string, data: any, callback: (err: Error) => void): void;
-export declare function outputFileSync(file: string, data: any): void;
+export function outputFile(file: string, data: any): Promise<void>;
+export function outputFile(file: string, data: any, callback: (err: Error) => void): void;
+export function outputFileSync(file: string, data: any): void;
 
-export declare function outputJson(file: string, data: any): Promise<void>;
-export declare function outputJSON(file: string, data: any): Promise<void>;
-export declare function outputJson(file: string, data: any, callback: (err: Error) => void): void;
-export declare function outputJSON(file: string, data: any, callback: (err: Error) => void): void;
-export declare function outputJsonSync(file: string, data: any): void;
-export declare function outputJSONSync(file: string, data: any): void;
+export function outputJson(file: string, data: any): Promise<void>;
+export function outputJSON(file: string, data: any): Promise<void>;
+export function outputJson(file: string, data: any, callback: (err: Error) => void): void;
+export function outputJSON(file: string, data: any, callback: (err: Error) => void): void;
+export function outputJsonSync(file: string, data: any): void;
+export function outputJSONSync(file: string, data: any): void;
 
-export declare function readJson(file: string, options?: ReadOptions): Promise<any>;
-export declare function readJSON(file: string, options?: ReadOptions): Promise<any>;
-export declare function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export declare function readJson(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
-export declare function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export declare function readJSON(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
+export function readJson(file: string, options?: ReadOptions): Promise<any>;
+export function readJSON(file: string, options?: ReadOptions): Promise<any>;
+export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
+export function readJson(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
+export function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
+export function readJSON(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
 
-export declare function readJsonSync(file: string, options?: ReadOptions): any;
-export declare function readJSONSync(file: string, options?: ReadOptions): any;
+export function readJsonSync(file: string, options?: ReadOptions): any;
+export function readJSONSync(file: string, options?: ReadOptions): any;
 
-export declare function remove(dir: string): Promise<void>;
-export declare function remove(dir: string, callback: (err: Error) => void): void;
-export declare function removeSync(dir: string): void;
+export function remove(dir: string): Promise<void>;
+export function remove(dir: string, callback: (err: Error) => void): void;
+export function removeSync(dir: string): void;
 
-export declare function writeJson(file: string, object: any, options?: WriteOptions): Promise<void>;
-export declare function writeJSON(file: string, object: any, options?: WriteOptions): Promise<void>;
-export declare function writeJson(file: string, object: any, callback: (err: Error) => void): void;
-export declare function writeJson(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
-export declare function writeJSON(file: string, object: any, callback: (err: Error) => void): void;
-export declare function writeJSON(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function writeJson(file: string, object: any, options?: WriteOptions): Promise<void>;
+export function writeJSON(file: string, object: any, options?: WriteOptions): Promise<void>;
+export function writeJson(file: string, object: any, callback: (err: Error) => void): void;
+export function writeJson(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function writeJSON(file: string, object: any, callback: (err: Error) => void): void;
+export function writeJSON(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
 
-export declare function writeJsonSync(file: string, object: any, options?: WriteOptions): void;
-export declare function writeJSONSync(file: string, object: any, options?: WriteOptions): void;
+export function writeJsonSync(file: string, object: any, options?: WriteOptions): void;
+export function writeJSONSync(file: string, object: any, options?: WriteOptions): void;
 
-export declare function ensureDir(path: string): Promise<void>;
-export declare function ensureDir(path: string, callback: (err: Error) => void): void;
-export declare function ensureDirSync(path: string): void;
+export function ensureDir(path: string): Promise<void>;
+export function ensureDir(path: string, callback: (err: Error) => void): void;
+export function ensureDirSync(path: string): void;
 
-export declare function ensureFile(path: string): Promise<void>;
-export declare function ensureFile(path: string, callback: (err: Error) => void): void;
-export declare function ensureFileSync(path: string): void;
+export function ensureFile(path: string): Promise<void>;
+export function ensureFile(path: string, callback: (err: Error) => void): void;
+export function ensureFileSync(path: string): void;
 
-export declare function ensureLink(path: string): Promise<void>;
-export declare function ensureLink(path: string, callback: (err: Error) => void): void;
-export declare function ensureLinkSync(path: string): void;
+export function ensureLink(path: string): Promise<void>;
+export function ensureLink(path: string, callback: (err: Error) => void): void;
+export function ensureLinkSync(path: string): void;
 
-export declare function ensureSymlink(path: string): Promise<void>;
-export declare function ensureSymlink(path: string, callback: (err: Error) => void): void;
-export declare function ensureSymlinkSync(path: string): void;
+export function ensureSymlink(path: string): Promise<void>;
+export function ensureSymlink(path: string, callback: (err: Error) => void): void;
+export function ensureSymlinkSync(path: string): void;
 
-export declare function emptyDir(path: string): Promise<void>;
-export declare function emptyDir(path: string, callback: (err: Error) => void): void;
-export declare function emptyDirSync(path: string): void;
+export function emptyDir(path: string): Promise<void>;
+export function emptyDir(path: string, callback: (err: Error) => void): void;
+export function emptyDirSync(path: string): void;
 
-export declare function pathExists(path: string): Promise<boolean>;
-export declare function pathExists(path: string, callback: (err: Error, exists: Boolean) => void): void;
-export declare function pathExistsSync(path: string): boolean;
+export function pathExists(path: string): Promise<boolean>;
+export function pathExists(path: string, callback: (err: Error, exists: boolean) => void): void;
+export function pathExistsSync(path: string): boolean;
 
 export interface WalkEventEmitter extends NodeJS.ReadableStream {
     on(event: 'data', callback: (file: WalkEventFile) => void): this;
@@ -118,7 +118,7 @@ export interface WalkOptions {
     /**
      * Provide a function to sort the paths before they are enumerated
      */
-    pathSorter?: (left: string, right: string) => number;
+    pathSorter?(left: string, right: string): number;
     /**
      * An optional object to override the default `fs` APIs for testing purposes
      */
@@ -127,7 +127,7 @@ export interface WalkOptions {
      * Provide a function to exclude certain file paths. The function should
      * return true when the element should be kept, and false otherwise.
      */
-    filter?: (path: string, index: number, array: Array<PathEntry>) => boolean;
+    filter?(path: string, index: number, array: Array<PathEntry>): boolean;
 }
 
 export type PathEntry = {

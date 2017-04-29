@@ -172,8 +172,8 @@ fs.emptyDir(path).then(() => {
 });
 fs.emptyDir(path, errorCallback);
 fs.emptyDirSync(path);
-fs.pathExists(path).then((_exist: Boolean) => {
+fs.pathExists(path).then((_exist: boolean) => {
 	// stub
 });
-fs.pathExists(path, (_err: Error, _exists: Boolean) => { });
+fs.pathExists(path, (_err: Error, _exists: boolean) => { });
 const x: Boolean = fs.pathExistsSync(path);
