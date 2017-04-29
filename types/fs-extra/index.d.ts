@@ -100,12 +100,11 @@ export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoExcept
 export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function access(path: string | Buffer, mode?: number): Promise<void>;
 
-export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
-export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
+export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number | string; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(filename: string, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
 
-export function chmod(path: string | Buffer, mode: string | number, callback: (err?: NodeJS.ErrnoException) => void): void
+export function chmod(path: string | Buffer, mode: string | number, callback: (err?: NodeJS.ErrnoException) => void): void;
 export function chmod(path: string | Buffer, mode: string | number): Promise<void>;
 
 export function chown(path: string | Buffer, uid: number, gid: number): Promise<void>;
@@ -148,11 +147,11 @@ export function lstat(path: string | Buffer, callback: (err: NodeJS.ErrnoExcepti
 export function lstat(path: string | Buffer): Promise<Stats>;
 
 /**
-     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
-     *
-     * @param path
-     * @param callback No arguments other than a possible exception are given to the completion callback.
-     */
+ * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
+ *
+ * @param path
+ * @param callback No arguments other than a possible exception are given to the completion callback.
+ */
 export function mkdir(path: string | Buffer, callback: (err?: NodeJS.ErrnoException) => void): void;
 /**
  * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
@@ -171,37 +170,10 @@ export function open(path: string | Buffer, flags: string | number, mode?: numbe
 export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
 export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<[number, Buffer]>;
 
-/**
-    * Asynchronous readFile - Asynchronously reads the entire contents of a file.
-    *
-    * @param fileName
-    * @param encoding
-    * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
-    */
-export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-/**
- * Asynchronous readFile - Asynchronously reads the entire contents of a file.
- *
- * @param fileName
- * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
- * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
- */
-export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-/**
- * Asynchronous readFile - Asynchronously reads the entire contents of a file.
- *
- * @param fileName
- * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
- * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
- */
-export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-/**
- * Asynchronous readFile - Asynchronously reads the entire contents of a file.
- *
- * @param fileName
- * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
- */
 export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(filename: string, options: { flag?: string; }): Promise<Buffer>;
 export function readFile(filename: string, options: { encoding: string; flag?: string; }): Promise<string>;
 export function readFile(filename: string, encoding: string): Promise<string>;
@@ -240,11 +212,11 @@ export function truncate(path: string | Buffer, len: number, callback: (err?: No
 export function truncate(path: string | Buffer, len?: number): Promise<void>;
 
 /**
-  * Asynchronous unlink - deletes the file specified in {path}
-  *
-  * @param path
-  * @param callback No arguments other than a possible exception are given to the completion callback.
-  */
+ * Asynchronous unlink - deletes the file specified in {path}
+ *
+ * @param path
+ * @param callback No arguments other than a possible exception are given to the completion callback.
+ */
 export function unlink(path: string | Buffer, callback: (err?: NodeJS.ErrnoException) => void): void;
 export function unlink(path: string | Buffer): Promise<void>;
 
