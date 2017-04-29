@@ -92,6 +92,41 @@ export function pathExists(path: string): Promise<boolean>;
 export function pathExists(path: string, callback: (err: Error, exists: boolean) => void): void;
 export function pathExistsSync(path: string): boolean;
 
+// Universalify fs async methods
+export function access(path: string | Buffer, mode?: number): Promise<void>;
+export function appendFile(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
+export function chmod(path: string | Buffer, mode: string | number): Promise<void>;
+export function chown(path: string | Buffer, uid: number, gid: number): Promise<void>;
+export function close(fd: number): Promise<void>;
+export function fchmod(fd: number, mode: string | number): Promise<void>;
+export function fchown(fd: number, uid: number, gid: number): Promise<void>;
+export function fdatasync(fd: number): Promise<void>;
+export function fstat(fd: number): Promise<Stats>;
+export function fsync(fd: number): Promise<void>;
+export function ftruncate(fd: number, len?: number): Promise<void>;
+export function futimes(fd: number, atime: number, mtime: number): Promise<void>;
+export function lchown(path: string | Buffer, uid: number, gid: number): Promise<void>;
+export function link(srcpath: string | Buffer, dstpath: string | Buffer): Promise<void>;
+export function lstat(path: string | Buffer): Promise<void>;
+export function mkdir(path: string | Buffer): Promise<void>;
+export function open(path: string | Buffer, flags: string | number, mode?: number): Promise<number>;
+export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<[number, Buffer]>;
+export function readFile(filename: string, encoding: string): Promise<string>;
+export function readdir(path: string | Buffer): Promise<string[]>;
+export function readlink(path: string | Buffer): Promise<string>;
+export function realpath(path: string | Buffer, cache?: { [path: string]: string }): Promise<string>;
+export function rename(oldPath: string, newPath: string): Promise<void>;
+export function rmdir(path: string | Buffer): Promise<void>;
+export function stat(path: string | Buffer): Promise<Stats>;
+export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: string): Promise<void>;
+export function truncate(path: string | Buffer, len?: number): Promise<void>;
+export function unlink(path: string | Buffer): Promise<void>;
+export function utimes(path: string | Buffer, atime: number, mtime: number): Promise<void>;
+export function utimes(path: string | Buffer, atime: Date, mtime: Date): Promise<void>;
+export function write(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): Promise<[number, Buffer]>;
+export function write(fd: number, data: any, offset: number, encoding?: string): Promise<[number, string]>;
+export function writeFile(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
+
 export interface WalkEventEmitter extends NodeJS.ReadableStream {
     on(event: 'data', callback: (file: WalkEventFile) => void): this;
     on(event: 'readable', callback: (this: PathEntryStream) => void): this;
