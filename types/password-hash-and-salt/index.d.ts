@@ -9,6 +9,6 @@ interface Password {
 }
 
 declare function password(password: string): Password;
+declare namespace password {}
 
-declare const _: typeof password;
-export = _;
+export = password;
