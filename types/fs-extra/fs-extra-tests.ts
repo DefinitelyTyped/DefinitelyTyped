@@ -22,14 +22,12 @@ fs.copy(src, dest, { clobber: true }).then(() => {
 	// stub
 });
 fs.copy(src, dest, errorCallback);
-fs.copy(src, dest, (src: string) => {
-	return false;
-}, errorCallback);
+fs.copy(src, dest, (src: string) => false, errorCallback);
 fs.copy(src, dest,
 	{
 		clobber: true,
 		preserveTimestamps: true,
-		filter: (src: string) => { return false; }
+		filter: (src: string) => false
 	},
 	errorCallback
 );
@@ -42,15 +40,13 @@ fs.copy(src, dest,
 	errorCallback
 );
 fs.copySync(src, dest);
-fs.copySync(src, dest, (src: string) => {
-	return false;
-});
+fs.copySync(src, dest, (src: string) => false);
 fs.copySync(src, dest, /.*/);
 fs.copySync(src, dest,
 	{
 		clobber: true,
 		preserveTimestamps: true,
-		filter: (src: string) => { return false; }
+		filter: (src: string) => false
 	}
 );
 fs.copySync(src, dest,

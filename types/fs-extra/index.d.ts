@@ -13,8 +13,7 @@ export function copy(src: string, dest: string, options?: CopyOptions): Promise<
 export function copy(src: string, dest: string, callback: (err: Error) => void): void;
 export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
 
-export function copySync(src: string, dest: string): void;
-export function copySync(src: string, dest: string, options: CopyOptions): void;
+export function copySync(src: string, dest: string, options?: CopyOptions): void;
 
 export function move(src: string, dest: string): Promise<void>;
 export function move(src: string, dest: string, options: MoveOptions): Promise<void>;
@@ -26,10 +25,10 @@ export function createFile(file: string, callback: (err: Error) => void): void;
 export function createFileSync(file: string): void;
 
 export function mkdirs(dir: string, options?: MkdirOptions): Promise<void>;
-export function mkdirp(dir: string, options?: MkdirOptions): Promise<void>;
 export function mkdirs(dir: string, callback: (err: Error) => void): void;
-export function mkdirp(dir: string, callback: (err: Error) => void): void;
 export function mkdirs(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
+export function mkdirp(dir: string, options?: MkdirOptions): Promise<void>;
+export function mkdirp(dir: string, callback: (err: Error) => void): void;
 export function mkdirp(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
 export function mkdirsSync(dir: string, options?: MkdirOptions): void;
 export function mkdirpSync(dir: string, options?: MkdirOptions): void;
@@ -38,10 +37,10 @@ export function outputFile(file: string, data: any): Promise<void>;
 export function outputFile(file: string, data: any, callback: (err: Error) => void): void;
 export function outputFileSync(file: string, data: any): void;
 
-export function outputJson(file: string, data: any): Promise<void>;
 export function outputJSON(file: string, data: any): Promise<void>;
-export function outputJson(file: string, data: any, callback: (err: Error) => void): void;
 export function outputJSON(file: string, data: any, callback: (err: Error) => void): void;
+export function outputJson(file: string, data: any): Promise<void>;
+export function outputJson(file: string, data: any, callback: (err: Error) => void): void;
 export function outputJsonSync(file: string, data: any): void;
 export function outputJSONSync(file: string, data: any): void;
 
@@ -61,10 +60,10 @@ export function removeSync(dir: string): void;
 
 export function writeJson(file: string, object: any, options?: WriteOptions): Promise<void>;
 export function writeJSON(file: string, object: any, options?: WriteOptions): Promise<void>;
-export function writeJson(file: string, object: any, callback: (err: Error) => void): void;
-export function writeJson(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
 export function writeJSON(file: string, object: any, callback: (err: Error) => void): void;
 export function writeJSON(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function writeJson(file: string, object: any, callback: (err: Error) => void): void;
+export function writeJson(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
 
 export function writeJsonSync(file: string, object: any, options?: WriteOptions): void;
 export function writeJSONSync(file: string, object: any, options?: WriteOptions): void;
@@ -122,25 +121,25 @@ export interface WalkOptions {
     /**
      * An optional object to override the default `fs` APIs for testing purposes
      */
-    fs?: Object;
+    fs?: object;
     /**
      * Provide a function to exclude certain file paths. The function should
      * return true when the element should be kept, and false otherwise.
      */
-    filter?(path: string, index: number, array: Array<PathEntry>): boolean;
+    filter?(path: string, index: number, array: PathEntry[]): boolean;
 }
 
-export type PathEntry = {
+export interface PathEntry {
     path: string;
     stats: Stats;
 }
 
-export type PathEntryStream = {
-    read(): PathEntry | null
+export interface PathEntryStream {
+    read(): PathEntry | null;
 }
 
 export interface CopyFilterFunction {
-    (src: string): boolean
+    (src: string): boolean;
 }
 
 export type CopyFilter = CopyFilterFunction | RegExp;
@@ -162,14 +161,14 @@ export interface MoveOptions {
 
 export interface ReadOptions {
     throws?: boolean;
-    fs?: Object;
+    fs?: object;
     reviver?: any;
     encoding?: string;
     flag?: string;
 }
 
 export interface WriteOptions {
-    fs?: Object;
+    fs?: object;
     replacer?: any;
     spaces?: number;
     encoding?: string;
