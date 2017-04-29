@@ -1,12 +1,18 @@
 import * as fs from 'fs-extra';
 import * as Path from 'path';
 
+const len = 2;
 const src = "";
 const dest = "";
 const file = "";
 const dir = "";
 const path = "";
 const data = "";
+const uid = 0;
+const gid = 0;
+const fd = 0;
+const modeNum = 0;
+const modeStr = "";
 const object = {};
 const errorCallback = (err: Error) => { };
 const readOptions: fs.ReadOptions = {
@@ -188,3 +194,28 @@ fs.pathExists(path).then((_exist: boolean) => {
 });
 fs.pathExists(path, (_err: Error, _exists: boolean) => { });
 const x: boolean = fs.pathExistsSync(path);
+
+fs.rename(src, dest, errorCallback);
+fs.renameSync(src, dest);
+fs.truncate(path, len, errorCallback);
+fs.truncateSync(path, len);
+fs.chown(path, uid, gid, errorCallback);
+fs.chownSync(path, uid, gid);
+fs.fchown(fd, uid, gid, errorCallback);
+fs.fchownSync(fd, uid, gid);
+fs.lchown(path, uid, gid, errorCallback);
+fs.lchownSync(path, uid, gid);
+fs.chmod(path, modeNum, errorCallback);
+fs.chmod(path, modeStr, errorCallback);
+fs.chmodSync(path, modeNum);
+fs.chmodSync(path, modeStr);
+fs.fchmod(fd, modeNum, errorCallback);
+fs.fchmod(fd, modeStr, errorCallback);
+fs.fchmodSync(fd, modeNum);
+fs.fchmodSync(fd, modeStr);
+fs.lchmod(path, modeStr, errorCallback);
+fs.lchmod(path, modeNum, errorCallback);
+fs.lchmodSync(path, modeNum);
+fs.lchmodSync(path, modeStr);
+fs.statSync(path);
+fs.lstatSync(path);
