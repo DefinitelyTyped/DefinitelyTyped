@@ -1,5 +1,5 @@
 // Type definitions for Leaflet.awesome-markers plugin v2.0
-// Project: https://github.com/lvoogdt/Leaflet.awesome-markers
+// Project: https://github.com/sigma-geosistemas/Leaflet.awesome-markers#properties
 // Definitions by: Egor Komarov <https://github.com/Odrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
