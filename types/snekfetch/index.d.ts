@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { ClientRequest, METHODS } from 'http';
+import { ClientRequest } from 'http';
 import { Readable } from 'stream';
 
 declare namespace snekfetch {
