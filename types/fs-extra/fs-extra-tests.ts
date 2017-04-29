@@ -25,10 +25,10 @@ fs.move(src, dest).then(() => {
 });
 fs.move(src, dest, {}, () => {
 	// stub
-})
+});
 fs.move(src, dest, () => {
 	// stub
-})
+});
 
 fs.copy(src, dest).then(() => {
 	// stub
