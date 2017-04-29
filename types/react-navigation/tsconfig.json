@@ -18,6 +18,6 @@
   },
   "files": [
     "index.d.ts",
-    "test/react-navigation-tests.tsx"
+    "react-navigation-tests.tsx"
   ]
 }
