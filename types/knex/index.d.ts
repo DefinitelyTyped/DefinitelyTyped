@@ -22,7 +22,7 @@ interface Knex extends Knex.QueryInterface {
     __knex__: string;
 
     raw: Knex.RawBuilder;
-    transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
+    transaction(transactionScope: (trx: Knex.Transaction) => any): Promise<any>;
     destroy(callback: Function): void;
     destroy(): Promise<void>;
     batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
@@ -347,10 +347,10 @@ declare namespace Knex {
         exec(callback: Function): QueryBuilder;
     }
 
-    interface Transaction extends QueryBuilder {
-        commit: any;
-        rollback: any;
-        raw: Knex.RawBuilder;
+    interface Transaction extends Knex {
+        savepoint(transactionScope: (trx: Transaction) => any): Promise<any>;
+        commit(value?: any): QueryBuilder;
+        rollback(error?: any): QueryBuilder;
     }
 
     //
