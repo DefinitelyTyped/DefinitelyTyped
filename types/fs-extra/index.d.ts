@@ -87,7 +87,11 @@ export declare function ensureSymlinkSync(path: string): void;
 
 export declare function emptyDir(path: string): Promise<void>;
 export declare function emptyDir(path: string, callback: (err: Error) => void): void;
-export declare function emptyDirSync(path: string): boolean;
+export declare function emptyDirSync(path: string): void;
+
+export declare function pathExists(path: string): Promise<boolean>;
+export declare function pathExists(path: string, callback: (err: Error, exists: Boolean) => void): void;
+export declare function pathExistsSync(path: string): boolean;
 
 export interface WalkEventEmitter extends NodeJS.ReadableStream {
     on(event: 'data', callback: (file: WalkEventFile) => void): this;
