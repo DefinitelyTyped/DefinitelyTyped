@@ -24,6 +24,10 @@ export function createFile(file: string): Promise<void>;
 export function createFile(file: string, callback: (err: Error) => void): void;
 export function createFileSync(file: string): void;
 
+export function ensureDir(path: string): Promise<void>;
+export function ensureDir(path: string, callback: (err: Error) => void): void;
+export function ensureDirSync(path: string): void;
+
 export function mkdirs(dir: string, options?: MkdirOptions): Promise<void>;
 export function mkdirs(dir: string, callback: (err: Error) => void): void;
 export function mkdirs(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
@@ -36,13 +40,6 @@ export function mkdirpSync(dir: string, options?: MkdirOptions): void;
 export function outputFile(file: string, data: any): Promise<void>;
 export function outputFile(file: string, data: any, callback: (err: Error) => void): void;
 export function outputFileSync(file: string, data: any): void;
-
-export function outputJSON(file: string, data: any): Promise<void>;
-export function outputJSON(file: string, data: any, callback: (err: Error) => void): void;
-export function outputJson(file: string, data: any): Promise<void>;
-export function outputJson(file: string, data: any, callback: (err: Error) => void): void;
-export function outputJsonSync(file: string, data: any): void;
-export function outputJSONSync(file: string, data: any): void;
 
 export function readJson(file: string, options?: ReadOptions): Promise<any>;
 export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
@@ -58,6 +55,15 @@ export function remove(dir: string): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
 export function removeSync(dir: string): void;
 
+export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
+export function outputJSON(file: string, data: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function outputJSON(file: string, data: any, callback: (err: Error) => void): void;
+export function outputJson(file: string, data: any, options?: WriteOptions): Promise<void>;
+export function outputJson(file: string, data: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function outputJson(file: string, data: any, callback: (err: Error) => void): void;
+export function outputJsonSync(file: string, data: any, options?: WriteOptions): void;
+export function outputJSONSync(file: string, data: any, options?: WriteOptions): void;
+
 export function writeJSON(file: string, object: any, options?: WriteOptions): Promise<void>;
 export function writeJSON(file: string, object: any, callback: (err: Error) => void): void;
 export function writeJSON(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
@@ -67,10 +73,6 @@ export function writeJson(file: string, object: any, options: WriteOptions, call
 
 export function writeJsonSync(file: string, object: any, options?: WriteOptions): void;
 export function writeJSONSync(file: string, object: any, options?: WriteOptions): void;
-
-export function ensureDir(path: string): Promise<void>;
-export function ensureDir(path: string, callback: (err: Error) => void): void;
-export function ensureDirSync(path: string): void;
 
 export function ensureFile(path: string): Promise<void>;
 export function ensureFile(path: string, callback: (err: Error) => void): void;
@@ -245,43 +247,6 @@ export function writeFile(filename: string, data: any, options?: { encoding?: st
 export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
 export function mkdtemp(prefix: string): Promise<string>;
 
-export interface WalkEventEmitter extends NodeJS.ReadableStream {
-    on(event: 'data', callback: (file: WalkEventFile) => void): this;
-    on(event: 'readable', callback: (this: PathEntryStream) => void): this;
-    on(event: 'error', callback: (error: Error, item: PathEntry) => void): this;
-    on(event: 'end', callback: () => void): this;
-    on(event: string | symbol, callback: (...args: any[]) => void): this;
-}
-
-export interface WalkEventFile {
-    path: string;
-    stats: Stats;
-}
-
-export interface WalkOptions {
-    /**
-     * Control how results are enumerated from `readdir`:
-     * - 'shift' will return the first element from the array.
-     * - 'pop' will return the last element from the array.
-     *
-     * If not specified, the default behaviour is 'shift'
-     */
-    queueMethod?: 'pop' | 'shift';
-    /**
-     * Provide a function to sort the paths before they are enumerated
-     */
-    pathSorter?(left: string, right: string): number;
-    /**
-     * An optional object to override the default `fs` APIs for testing purposes
-     */
-    fs?: object;
-    /**
-     * Provide a function to exclude certain file paths. The function should
-     * return true when the element should be kept, and false otherwise.
-     */
-    filter?(path: string, index: number, array: PathEntry[]): boolean;
-}
-
 export interface PathEntry {
     path: string;
     stats: Stats;
@@ -296,7 +261,6 @@ export type CopyFilterFunction = (src: string) => boolean;
 export type CopyFilter = CopyFilterFunction | RegExp;
 
 export interface CopyOptions {
-    clobber?: boolean;
     dereference?: boolean;
     overwrite?: boolean;
     preserveTimestamps?: boolean;
@@ -306,7 +270,7 @@ export interface CopyOptions {
 }
 
 export interface MoveOptions {
-    clobber?: boolean;
+    overwrite?: boolean;
     limit?: number;
 }
 

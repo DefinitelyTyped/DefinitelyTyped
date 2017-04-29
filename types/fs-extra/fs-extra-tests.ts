@@ -39,14 +39,14 @@ fs.move(src, dest, () => {
 fs.copy(src, dest).then(() => {
 	// stub
 });
-fs.copy(src, dest, { clobber: true }).then(() => {
+fs.copy(src, dest, { overwrite: true }).then(() => {
 	// stub
 });
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, (src: string) => false, errorCallback);
 fs.copy(src, dest,
 	{
-		clobber: true,
+		overwrite: true,
 		preserveTimestamps: true,
 		filter: (src: string) => false
 	},
