@@ -175,6 +175,7 @@ export declare class ConnectionPool extends events.EventEmitter {
     public connecting: boolean;
     public driver: string;
     public constructor(config: config, callback?: (err?: any) => void);
+    public constructor(connectionString: string, callback?: (err?: any) => void);
     public connect(): Promise<ConnectionPool>;
     public connect(callback: (err: any) => void): void;
     public close(): Promise<void>;
