@@ -54,7 +54,7 @@ fs.copy(src, dest,
 );
 fs.copy(src, dest,
 	{
-		clobber: true,
+		overwrite: true,
 		preserveTimestamps: true,
 		filter: /.*/
 	},
@@ -65,14 +65,14 @@ fs.copySync(src, dest, (src: string) => false);
 fs.copySync(src, dest, /.*/);
 fs.copySync(src, dest,
 	{
-		clobber: true,
+		overwrite: true,
 		preserveTimestamps: true,
 		filter: (src: string) => false
 	}
 );
 fs.copySync(src, dest,
 	{
-		clobber: true,
+		overwrite: true,
 		preserveTimestamps: true,
 		filter: /.*/
 	}
