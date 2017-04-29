@@ -15,6 +15,21 @@ const readOptions: fs.ReadOptions = {
 const writeOptions: fs.WriteOptions = {
 	replacer: {}
 };
+
+fs.moveSync(src, dest, {});
+fs.move(src, dest, {}).then(() => {
+	// stub
+});
+fs.move(src, dest).then(() => {
+	// stub
+});
+fs.move(src, dest, {}, () => {
+	// stub
+})
+fs.move(src, dest, () => {
+	// stub
+})
+
 fs.copy(src, dest).then(() => {
 	// stub
 });
