@@ -165,3 +165,7 @@ declare namespace L {
     */
     function markerClusterGroup(options?: MarkerClusterGroupOptions): MarkerClusterGroup;
 }
+
+declare module 'leaflet.markercluster' {
+    export = L;
+}
