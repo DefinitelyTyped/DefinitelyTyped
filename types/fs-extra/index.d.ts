@@ -258,6 +258,8 @@ export interface PathEntryStream {
 
 export type CopyFilterFunction = (src: string) => boolean;
 
+export type CopyFilter = CopyFilterFunction | RegExp;
+
 export interface CopyOptions {
     dereference?: boolean;
     overwrite?: boolean;
