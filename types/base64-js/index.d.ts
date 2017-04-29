@@ -6,3 +6,4 @@
 export function byteLength(encoded: string): number;
 export function toByteArray(encoded: string): Uint8Array;
 export function fromByteArray(bytes: Uint8Array): string;
+export as namespace base64js; // Global variable declared when importing directly base64js.min.js
