@@ -13,11 +13,11 @@ import {
 
 export type HeaderMode = 'float' | 'screen' | 'none'
 
+export declare function addNavigationHelpers(params: any): any
+
 type SubViewProps = NavigationSceneRendererProps & {
   onNavigateBack?: () => void,
 }
-
-var addNavigationHelpers: any
 
 type SubViewRenderer = (subViewProps: SubViewProps) => React.ReactElement<any> | undefined
 
@@ -49,7 +49,7 @@ export type NavigationState = {
    * Index refers to the active child route in the routes array.
    */
   index: number,
-  routes: Array<NavigationRoute | (NavigationRoute & NavigationState)>,
+  routes: Array<any>,
 }
 
 export type NavigationRoute<P> = {
@@ -106,12 +106,12 @@ export type NavigationRouter = {
    *  {routeName: 'Foo', key: '123'}
    */
   getScreenConfig: (
-    navigation: NavigationScreenProp<NavigationRoute, NavigationAction>,
+    navigation: NavigationScreenProp<any, NavigationAction>,
     optionName: string,
   ) => any, // todo, fix this any type to become a key of NavigationScreenConfig
 }
 
-type NavigationFunc<E> = (navigation: NavigationScreenProp<NavigationRoute, NavigationAction>, config: E) => E
+type NavigationFunc<E> = (navigation: NavigationScreenProp<any, NavigationAction>, config: E) => E
 
 export type NavigationScreenOption<T> =
   | T
@@ -389,7 +389,7 @@ export type NavigationScene = {
   isActive: boolean,
   isStale: boolean,
   key: string,
-  route: NavigationRoute,
+  route: any,
 }
 
 export type NavigationTransitionProps = {
@@ -480,7 +480,7 @@ export interface LayoutEvent {
 
 
 interface NavigationContainerProps {
-  navigation: NavigationProp<T, NavigationAction>
+  navigation: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
     nextNavigationState: NavigationState,
@@ -492,9 +492,9 @@ interface NavigationContainerState {
 }
 
 export interface NavigationContainer extends React.ComponentClass<
-  NavigationContainerProps,
+  NavigationContainerProps
 > {
-  public router: any
+  router: any
 }
 
 export type StackNavigatorConfig =
@@ -505,7 +505,7 @@ export type StackNavigatorConfig =
 // Return createNavigationContainer
 export declare function StackNavigator(
   routeConfigMap: NavigationRouteConfigMap,
-  stackConfig: StackNavigatorConfig = {}
+  stackConfig?: StackNavigatorConfig,
 ): NavigationContainer
 
 /**
@@ -527,7 +527,7 @@ export type DrawNavigatorConfig = {
 
 export declare function DrawerNavigator(
   routeConfigMap: NavigationRouteConfigMap,
-  drawConfig: DrawNavigatorConfig = {}
+  drawConfig?: DrawNavigatorConfig,
 ): NavigationContainer;
 
 /**
@@ -565,7 +565,7 @@ export type TabNavigatorConfig = {
 
 export declare function TabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
-  drawConfig: TabNavigatorConfig = {}
+  drawConfig?: TabNavigatorConfig,
 ): NavigationContainer;
 /**
  * Screen Options
