@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { View } from 'react-native'
+import * as React from 'react';
+import { View } from 'react-native';
 import {
     addNavigationHelpers,
     StackNavigator,
-} from 'react-navigation'
+} from 'react-navigation';
 
 const Start = (
     <View />
-)
+);
 
 export const AppNavigator = StackNavigator({
     StartImage: {
@@ -16,7 +16,7 @@ export const AppNavigator = StackNavigator({
     },
 }, {
     initialRouteName: 'StartImage',
-})
+});
 
 const Router = (props: any) => (
   <AppNavigator
@@ -27,4 +27,4 @@ const Router = (props: any) => (
         })
       }
     />
-)
+);

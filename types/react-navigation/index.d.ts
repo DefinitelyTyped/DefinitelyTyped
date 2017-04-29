@@ -1,8 +1,7 @@
-// Type definitions for react-navigation 1.0.0-beta.7
+// Type definitions for react-navigation 1.0
 // Project: https://github.com/react-community/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 import * as React from 'react'
 import {
@@ -13,7 +12,7 @@ import {
 
 export type HeaderMode = 'float' | 'screen' | 'none'
 
-export declare function addNavigationHelpers(params: any): any
+export function addNavigationHelpers(params: any): any
 
 type SubViewProps = NavigationSceneRendererProps & {
   onNavigateBack?: () => void,
@@ -44,15 +43,15 @@ export type HeaderProps = NavigationSceneRendererProps & {
  * The state for the root navigator of our app represents the whole navigation
  * state for the whole app.
  */
-export type NavigationState = {
+export interface NavigationState {
   /**
    * Index refers to the active child route in the routes array.
    */
   index: number,
-  routes: Array<any>,
+  routes: any[],
 }
 
-export type NavigationRoute<P> = {
+export interface NavigationRoute<P> {
   /**
    * React's key used by some navigators. No need to specify these manually,
    * they will be defined by the router.
@@ -74,7 +73,7 @@ export type NavigationRoute<P> = {
   params: P,
 }
 
-export type NavigationRouter = {
+export interface NavigationRouter {
   /**
    * The reducer that outputs the new navigation state for a given action, with
    * an optional previous state. When the action is considered handled but the
@@ -113,11 +112,9 @@ export type NavigationRouter = {
 
 type NavigationFunc<E> = (navigation: NavigationScreenProp<any, NavigationAction>, config: E) => E
 
-export type NavigationScreenOption<T> =
-  | T
-  | NavigationFunc<T>
+export type NavigationScreenOption<T> = T | NavigationFunc<T>
 
-export type HeaderConfig = {
+export interface HeaderConfig {
   /**
    * Title string used by the navigation bar, or a custom component
    */
@@ -163,7 +160,7 @@ export type HeaderConfig = {
   // renderBackground?: $NavigationThunk<React.Element<*>>,
 }
 
-export type TabBarConfig = {
+export interface TabBarConfig {
   /**
    * Icon used by the tab bar.
    */
@@ -174,7 +171,7 @@ export type TabBarConfig = {
   label?: string | React.ReactElement<any>;
 }
 
-export type DrawerConfig = {
+export interface DrawerConfig {
   /**
    * Icon used by the drawer.
    */
@@ -185,7 +182,7 @@ export type DrawerConfig = {
   label?: string;
 }
 
-export type CardStackConfig = {
+export interface CardStackConfig {
   /**
    * Whether you can use gestures to dismiss this screen.
    * Defaults to true on iOS, false on Android.
@@ -193,7 +190,7 @@ export type CardStackConfig = {
   gesturesEnabled?: boolean;
 }
 
-export type NavigationScreenOptions = {
+export interface NavigationScreenOptions {
   /**
    * Title is rendered by certain navigators, e.g. the tab navigator,
    * or on web as the title of the browser tab.
@@ -217,7 +214,7 @@ export type NavigationScreenOptions = {
   cardStack?: NavigationScreenOption<CardStackConfig>;
 }
 
-export type NavigationScreenConfig = {
+export interface NavigationScreenConfig {
   title?: string,
   header?: HeaderConfig,
   tabBar?: TabBarConfig,
@@ -235,11 +232,11 @@ export type NavigationNavigator<T> = React.ComponentClass<T> & {
   navigationOptions?: NavigationScreenOptions,
 }
 
-export type NavigationParams = {
+export interface NavigationParams {
   [key: string]: any,
 }
 
-export type NavigationNavigateAction = {
+export interface NavigationNavigateAction {
   type?: 'Navigation/NAVIGATE',
   routeName: string,
   params?: NavigationParams,
@@ -248,12 +245,12 @@ export type NavigationNavigateAction = {
   action?: NavigationNavigateAction,
 }
 
-export type NavigationBackAction = {
+export interface NavigationBackAction {
   type?: 'Navigation/BACK',
   key?: string,
 }
 
-export type NavigationSetParamsAction = {
+export interface NavigationSetParamsAction {
   type?: 'Navigation/SET_PARAMS',
 
   // The key of the route where the params should be set
@@ -263,32 +260,32 @@ export type NavigationSetParamsAction = {
   params?: NavigationParams,
 }
 
-export type NavigationInitAction = {
+export interface NavigationInitAction {
   type?: 'Navigation/INIT',
   params?: NavigationParams,
 }
 
-export type NavigationResetAction = {
+export interface NavigationResetAction {
   type?: 'Navigation/RESET',
   index: number,
   actions: NavigationNavigateAction[],
 }
 
-export type NavigationUriAction = {
+export interface NavigationUriAction {
   type?: 'Navigation/URI',
   uri: string,
 }
 
-export type NavigationContainerOptions = {
+export interface NavigationContainerOptions {
   // This is used to extract the path from the URI passed to the app for a deep link
   URIPrefix?: string,
 }
 
-export type NavigationContainerConfig = {
+export interface NavigationContainerConfig {
   containerOptions?: NavigationContainerOptions,
 }
 
-export type NavigationStackViewConfig = {
+export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal',
   headerMode?: HeaderMode,
   headerComponent?: React.ComponentClass<HeaderProps>,
@@ -297,7 +294,7 @@ export type NavigationStackViewConfig = {
   onTransitionEnd?: () => void,
 }
 
-export type NavigationStackRouterConfig = {
+export interface NavigationStackRouterConfig {
   initialRouteName?: string,
   initialRouteParams?: NavigationParams,
   paths?: NavigationPathsConfig,
@@ -305,27 +302,27 @@ export type NavigationStackRouterConfig = {
 }
 
 export type NavigationStackAction =
-  | NavigationInitAction
+  NavigationInitAction
   | NavigationNavigateAction
   | NavigationBackAction
   | NavigationSetParamsAction
   | NavigationResetAction
 
 export type NavigationTabAction =
-  | NavigationInitAction
+  NavigationInitAction
   | NavigationNavigateAction
   | NavigationBackAction
 
 export type NavigationAction =
-  | NavigationInitAction
+  NavigationInitAction
   | NavigationStackAction
   | NavigationTabAction
 
 export namespace NavigationActions {
-  export function navigate(options: NavigationNavigateAction): any;
-  export function reset(options: NavigationResetAction): any;
-  export function back(options: NavigationBackAction): any;
-  export function setParams(options: NavigationSetParamsAction): any;
+  function navigate(options: NavigationNavigateAction): any;
+  function reset(options: NavigationResetAction): any;
+  function back(options: NavigationBackAction): any;
+  function setParams(options: NavigationSetParamsAction): any;
 }
 
 export type NavigationRouteConfig<T> = T & {
@@ -333,11 +330,11 @@ export type NavigationRouteConfig<T> = T & {
   path?: string,
 }
 
-export type NavigationPathsConfig = {
+export interface NavigationPathsConfig {
   [routeName: string]: string,
 }
 
-export type NavigationTabRouterConfig = {
+export interface NavigationTabRouterConfig {
   initialRouteName?: string,
   paths?: NavigationPathsConfig,
   navigationOptions?: NavigationScreenOptions,
@@ -347,13 +344,13 @@ export type NavigationTabRouterConfig = {
   backBehavior?: 'none' | 'initialRoute', // defaults `initialRoute`
 }
 
-export type NavigationRouteConfigMap = {
+export interface NavigationRouteConfigMap {
   [routeName: string]: NavigationRouteConfig<any>,
 }
 
 export type NavigationDispatch<A> = (action: A) => boolean
 
-export type NavigationProp<S, A> = {
+export interface NavigationProp<S, A> {
   state: S,
   dispatch: NavigationDispatch<A>,
 }
@@ -364,7 +361,7 @@ export type NavigationScreenProp<S, A> = NavigationProp<S, A> & {
   setParams: (newParams: NavigationParams) => boolean,
 }
 
-export type NavigationNavigatorProps<P> = {
+export interface NavigationNavigatorProps<P> {
   navigation: NavigationProp<NavigationRoute<P>, NavigationAction>,
 }
 
@@ -376,7 +373,7 @@ export type NavigationAnimatedValue = Animated.Value
 
 export type NavigationGestureDirection = 'horizontal' | 'vertical'
 
-export type NavigationLayout = {
+export interface NavigationLayout {
   height: NavigationAnimatedValue,
   initHeight: number,
   initWidth: number,
@@ -384,7 +381,7 @@ export type NavigationLayout = {
   width: NavigationAnimatedValue,
 }
 
-export type NavigationScene = {
+export interface NavigationScene {
   index: number,
   isActive: boolean,
   isStale: boolean,
@@ -392,7 +389,7 @@ export type NavigationScene = {
   route: any,
 }
 
-export type NavigationTransitionProps = {
+export interface NavigationTransitionProps {
   // The layout of the transitioner of the scenes.
   layout: NavigationLayout,
 
@@ -430,7 +427,7 @@ export type NavigationTransitionProps = {
 // but is instead the scene that the renderer should render content for.
 export type NavigationSceneRendererProps = NavigationTransitionProps
 
-export type NavigationPanHandlers = {
+export interface NavigationPanHandlers {
   onMoveShouldSetResponder: () => void,
   onMoveShouldSetResponderCapture: () => void,
   onResponderEnd: () => void,
@@ -445,7 +442,7 @@ export type NavigationPanHandlers = {
   onStartShouldSetResponderCapture: () => void,
 }
 
-export type NavigationTransitionSpec = {
+export interface NavigationTransitionSpec {
   duration?: number,
   // An easing function from `Easing`.
   easing?: () => any,
@@ -478,7 +475,6 @@ export interface LayoutEvent {
   }
 }
 
-
 interface NavigationContainerProps {
   navigation: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
@@ -498,12 +494,12 @@ export interface NavigationContainer extends React.ComponentClass<
 }
 
 export type StackNavigatorConfig =
-  & NavigationContainerConfig
+  NavigationContainerConfig
   & NavigationStackViewConfig
   & NavigationStackRouterConfig;
 
 // Return createNavigationContainer
-export declare function StackNavigator(
+export function StackNavigator(
   routeConfigMap: NavigationRouteConfigMap,
   stackConfig?: StackNavigatorConfig,
 ): NavigationContainer
@@ -511,7 +507,7 @@ export declare function StackNavigator(
 /**
  * Drawer Navigator
  */
-export type DrawNavigatorConfig = {
+export interface DrawNavigatorConfig {
   drawerWidth?: number,
   drawerPosition?: 'left'|'right',
   contentComponent?: React.ReactElement<any>,
@@ -525,7 +521,7 @@ export type DrawNavigatorConfig = {
   }
 }
 
-export declare function DrawerNavigator(
+export function DrawerNavigator(
   routeConfigMap: NavigationRouteConfigMap,
   drawConfig?: DrawNavigatorConfig,
 ): NavigationContainer;
@@ -533,7 +529,7 @@ export declare function DrawerNavigator(
 /**
  * Tab Navigator
  */
-export type TabNavigatorConfig = {
+export interface TabNavigatorConfig {
   tabBarComponent?: React.ReactElement<any>,
   tabBarPosition?: 'top'|'bottom',
   swipeEnabled?: boolean,
@@ -558,12 +554,12 @@ export type TabNavigatorConfig = {
     indicatorStyle?: ViewStyle
   }
   initialRouteName?: string,
-  order?: Array<string>,
+  order?: string[],
   paths?: any     // TODO: better def
   backBehavior?: 'initialRoute'|'none'
 }
 
-export declare function TabNavigator(
+export function TabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
   drawConfig?: TabNavigatorConfig,
 ): NavigationContainer;
