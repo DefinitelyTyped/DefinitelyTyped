@@ -102,7 +102,7 @@ export function access(path: string | Buffer, mode?: number): Promise<void>;
 
 export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number | string; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(filename: string, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function appendFile(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
+export function appendFile(filename: string, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
 
 export function chmod(path: string | Buffer, mode: string | number, callback: (err?: NodeJS.ErrnoException) => void): void;
 export function chmod(path: string | Buffer, mode: string | number): Promise<void>;
@@ -172,10 +172,8 @@ export function read(fd: number, buffer: Buffer, offset: number, length: number,
 
 export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-export function readFile(filename: string, options: { flag?: string; }): Promise<Buffer>;
-export function readFile(filename: string, options: { encoding: string; flag?: string; }): Promise<string>;
+export function readFile(filename: string, options: { flag?: string; } | { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+export function readFile(filename: string, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
 export function readFile(filename: string, encoding: string): Promise<string>;
 export function readFile(filename: string): Promise<Buffer>;
 
