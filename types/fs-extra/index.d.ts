@@ -2,6 +2,7 @@
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>, midknight41 <https://github.com/midknight41>, Brendan Forster <https://github.com/shiftkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -12,13 +13,12 @@ export * from "fs";
 export function copy(src: string, dest: string, options?: CopyOptions): Promise<void>;
 export function copy(src: string, dest: string, callback: (err: Error) => void): void;
 export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
-
 export function copySync(src: string, dest: string, options?: CopyOptions): void;
 
-export function move(src: string, dest: string): Promise<void>;
-export function move(src: string, dest: string, options: MoveOptions): Promise<void>;
+export function move(src: string, dest: string, options?: MoveOptions): Promise<void>;
 export function move(src: string, dest: string, callback: (err: Error) => void): void;
 export function move(src: string, dest: string, options: MoveOptions, callback: (err: Error) => void): void;
+export function moveSync(src: string, dest: string, options?: MoveOptions): void;
 
 export function createFile(file: string): Promise<void>;
 export function createFile(file: string, callback: (err: Error) => void): void;
@@ -45,9 +45,9 @@ export function outputJsonSync(file: string, data: any): void;
 export function outputJSONSync(file: string, data: any): void;
 
 export function readJson(file: string, options?: ReadOptions): Promise<any>;
-export function readJSON(file: string, options?: ReadOptions): Promise<any>;
 export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
 export function readJson(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
+export function readJSON(file: string, options?: ReadOptions): Promise<any>;
 export function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
 export function readJSON(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
 
@@ -58,10 +58,10 @@ export function remove(dir: string): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
 export function removeSync(dir: string): void;
 
-export function writeJson(file: string, object: any, options?: WriteOptions): Promise<void>;
 export function writeJSON(file: string, object: any, options?: WriteOptions): Promise<void>;
 export function writeJSON(file: string, object: any, callback: (err: Error) => void): void;
 export function writeJSON(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function writeJson(file: string, object: any, options?: WriteOptions): Promise<void>;
 export function writeJson(file: string, object: any, callback: (err: Error) => void): void;
 export function writeJson(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
 
@@ -97,7 +97,7 @@ export interface WalkEventEmitter extends NodeJS.ReadableStream {
     on(event: 'readable', callback: (this: PathEntryStream) => void): this;
     on(event: 'error', callback: (error: Error, item: PathEntry) => void): this;
     on(event: 'end', callback: () => void): this;
-    on(event: string | symbol, callback: Function): this;
+    on(event: string | symbol, callback: (...args: any[]) => void): this;
 }
 
 export interface WalkEventFile {

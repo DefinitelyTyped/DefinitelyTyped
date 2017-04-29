@@ -172,4 +172,4 @@ fs.pathExists(path).then((_exist: boolean) => {
 	// stub
 });
 fs.pathExists(path, (_err: Error, _exists: boolean) => { });
-const x: Boolean = fs.pathExistsSync(path);
+const x: boolean = fs.pathExistsSync(path);
