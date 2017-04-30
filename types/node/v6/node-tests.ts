@@ -427,9 +427,15 @@ namespace url_tests {
 
 namespace util_tests {
     {
-        // Old and new util.inspect APIs
-        util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], {
+            colors: true,
+            depth: 5,
+            customInspect: false,
+            showHidden: true,
+            showProxy: true,
+            maxArrayLength: 5,
+            breakLength: 4
+        });
     }
 }
 

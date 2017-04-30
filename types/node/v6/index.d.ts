@@ -3560,6 +3560,9 @@ declare module "util" {
         depth?: number;
         colors?: boolean;
         customInspect?: boolean;
+        showProxy?: boolean;
+        maxArrayLength?: number;
+        breakLength?: number;
     }
 
     export function format(format: any, ...param: any[]): string;
@@ -3568,8 +3571,7 @@ declare module "util" {
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export function inspect(object: any, options?: InspectOptions): string;
     export function isArray(object: any): boolean;
     export function isRegExp(object: any): boolean;
     export function isDate(object: any): boolean;
