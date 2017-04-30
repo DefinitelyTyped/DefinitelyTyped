@@ -30,9 +30,7 @@ export function ensureDirSync(path: string): void;
 
 export function mkdirs(dir: string): Promise<void>;
 export function mkdirs(dir: string, callback: (err: Error) => void): void;
-export function mkdirs(dir: string, callback: (err: Error) => void): void;
 export function mkdirp(dir: string): Promise<void>;
-export function mkdirp(dir: string, callback: (err: Error) => void): void;
 export function mkdirp(dir: string, callback: (err: Error) => void): void;
 export function mkdirsSync(dir: string): void;
 export function mkdirpSync(dir: string): void;
