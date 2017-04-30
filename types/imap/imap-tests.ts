@@ -40,7 +40,7 @@ imap.once('ready', function() {
                 });
             });
             msg.once('attributes', function(attrs : Object) {
-                console.log(prefix + 'Attributes: %s', inspect(attrs, false, 8));
+                console.log(prefix + 'Attributes: %s', inspect(attrs, { showHidden: false, depth: 8}));
             });
             msg.once('end', function() {
                 console.log(prefix + 'Finished');
@@ -94,7 +94,7 @@ openInbox(function(err : Error, box : IMAP.Box) {
             });
         });
         msg.once('attributes', function(attrs : Object) {
-            console.log(prefix + 'Attributes: %s', inspect(attrs, false, 8));
+            console.log(prefix + 'Attributes: %s', inspect(attrs, { showHidden: false, depth: 8}));
         });
         msg.once('end', function() {
             console.log(prefix + 'Finished');
@@ -129,7 +129,7 @@ openInbox(function(err : Error, box : IMAP.Box) {
                 stream.pipe(fs.createWriteStream('msg-' + seqno + '-body.txt'));
             });
             msg.once('attributes', function(attrs : Object) {
-                console.log(prefix + 'Attributes: %s', inspect(attrs, false, 8));
+                console.log(prefix + 'Attributes: %s', inspect(attrs, { showHidden: false, depth: 8}));
             });
             msg.once('end', function() {
                 console.log(prefix + 'Finished');
