@@ -83,27 +83,16 @@ fs.createFile(file).then(() => {
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
-fs.mkdirs(dir, {}).then(() => {
-	// stub
-});
 fs.mkdirs(dir).then(() => {
-	// stub
-});
-
-fs.mkdirp(dir, {}).then(() => {
 	// stub
 });
 fs.mkdirp(dir).then(() => {
 	// stub
 });
 fs.mkdirs(dir, errorCallback);
-fs.mkdirs(dir, {}, errorCallback);
 fs.mkdirsSync(dir);
-fs.mkdirsSync(dir, {});
 fs.mkdirp(dir, errorCallback);
-fs.mkdirp(dir, {}, errorCallback);
 fs.mkdirpSync(dir);
-fs.mkdirpSync(dir, {});
 
 fs.outputFile(file, data).then(() => {
 	// stub

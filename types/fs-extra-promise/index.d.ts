@@ -11,9 +11,14 @@
 import * as stream from 'stream';
 import { Stats } from 'fs';
 import * as Promise from 'bluebird';
-import { CopyFilter, CopyOptions, ReadOptions, WriteOptions, MkdirOptions, MoveOptions } from 'fs-extra';
+import { CopyFilter, CopyOptions, ReadOptions, WriteOptions, MoveOptions } from 'fs-extra';
 
 export * from 'fs-extra';
+
+export interface MkdirOptions {
+    fs?: any;
+    mode?: number;
+}
 
 //promisified versions
 export declare function copyAsync(src: string, dest: string): Promise<void>;

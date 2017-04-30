@@ -28,14 +28,14 @@ export function ensureDir(path: string): Promise<void>;
 export function ensureDir(path: string, callback: (err: Error) => void): void;
 export function ensureDirSync(path: string): void;
 
-export function mkdirs(dir: string, options?: MkdirOptions): Promise<void>;
+export function mkdirs(dir: string): Promise<void>;
 export function mkdirs(dir: string, callback: (err: Error) => void): void;
-export function mkdirs(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
-export function mkdirp(dir: string, options?: MkdirOptions): Promise<void>;
+export function mkdirs(dir: string, callback: (err: Error) => void): void;
+export function mkdirp(dir: string): Promise<void>;
 export function mkdirp(dir: string, callback: (err: Error) => void): void;
-export function mkdirp(dir: string, options: MkdirOptions, callback: (err: Error) => void): void;
-export function mkdirsSync(dir: string, options?: MkdirOptions): void;
-export function mkdirpSync(dir: string, options?: MkdirOptions): void;
+export function mkdirp(dir: string, callback: (err: Error) => void): void;
+export function mkdirsSync(dir: string): void;
+export function mkdirpSync(dir: string): void;
 
 export function outputFile(file: string, data: any): Promise<void>;
 export function outputFile(file: string, data: any, callback: (err: Error) => void): void;
@@ -288,10 +288,5 @@ export interface WriteOptions {
     spaces?: number;
     encoding?: string;
     flag?: string;
-    mode?: number;
-}
-
-export interface MkdirOptions {
-    fs?: any;
     mode?: number;
 }
