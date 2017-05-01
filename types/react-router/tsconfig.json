@@ -19,6 +19,7 @@
     "test/Auth.tsx",
     "test/Basic.tsx",
     "test/CustomLink.tsx",
+    "test/RouterComponentProps.tsx",
     "test/ModalGallery.tsx",
     "test/NavigateWithContext.tsx",
     "test/MemoryRouter.tsx",
