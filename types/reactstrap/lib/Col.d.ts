@@ -9,9 +9,7 @@ export type ColumnProps
     offset?: string | number
   };
 
-interface Props {
-  className?: string;
-
+interface Props extends React.HTMLProps<HTMLDivElement> {
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;
