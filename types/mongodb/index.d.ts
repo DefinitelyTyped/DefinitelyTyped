@@ -35,6 +35,7 @@ export interface MongoCallback<T> {
 export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
+    code?: number;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html#.connect
