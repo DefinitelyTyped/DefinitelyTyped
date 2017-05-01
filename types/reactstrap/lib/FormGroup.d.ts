@@ -4,7 +4,7 @@ interface Props {
   disabled?: boolean;
   tag?: React.ReactType;
   color?: string;
-  className?: boolean;
+  className?: string;
 }
 
 declare var FormGroup: React.StatelessComponent<Props>;
