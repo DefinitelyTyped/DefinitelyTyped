@@ -30,3 +30,4 @@ declare global {
 }
 
 export = L;
+export as namespace L;
