@@ -74,7 +74,8 @@ declare namespace Strophe {
         DISCONNECTED,
         DISCONNECTING,
         ATTACHED,
-        REDIRECT
+        REDIRECT,
+        CONNTIMEOUT
     }
 
     /** Constants: Log Level Constants
