@@ -1,4 +1,4 @@
-interface Props {
+interface Props extends React.HTMLProps<HTMLUListElement> {
   inline?: boolean;
   disabled?: boolean;
   tabs?: boolean;
