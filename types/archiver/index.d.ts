@@ -1,6 +1,6 @@
 // Type definitions for archiver 1.3
 // Project: https://github.com/archiverjs/node-archiver
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
+// Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
