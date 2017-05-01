@@ -15,112 +15,82 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module 'react-router' {
-  import * as React from 'react';
-  import * as H from 'history';
+import * as React from 'react';
+import * as H from 'history';
 
-	// This is the type of the context object that will be passed down to all children of
-	// a `Router` component:
-	interface RouterChildContext<P> {
-		router: {
-			history: H.History
-			route: {
-				location: H.Location,
-				match: match<P>
-			}
-		}
-	}
-  interface MemoryRouterProps {
-    initialEntries?: H.LocationDescriptor[];
-    initialIndex?: number;
-    getUserConfirmation?: () => void;
-    keyLength?: number;
-  }
-  class MemoryRouter extends React.Component<MemoryRouterProps, void> {}
-
-
-  interface PromptProps {
-    message: string | ((location: H.Location) => void);
-    when?: boolean;
-  }
-  class Prompt extends React.Component<PromptProps, void> {}
-
-
-  interface RedirectProps {
-    to: H.LocationDescriptor;
-    push?: boolean;
-    from?: string;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
-  }
-  class Redirect extends React.Component<RedirectProps, void> {}
-
-
-  interface RouteComponentProps<P> {
-    match: match<P>;
-    location: H.Location;
-    history: H.History;
-  }
-
-  interface RouteProps {
-    location?: H.Location;
-    component?: React.SFC<RouteComponentProps<any> | void> | React.ComponentClass<RouteComponentProps<any> | void>;
-    render?: (props: RouteComponentProps<any>) => React.ReactNode;
-    children?: (props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
-  }
-  class Route extends React.Component<RouteProps, void> {}
-
-
-  interface RouterProps {
-    history: any;
-  }
-  class Router extends React.Component<RouterProps, void> {}
-
-
-  interface StaticRouterProps {
-    basename?: string;
-    location?: string | object;
-    context?: object;
-  }
-  class StaticRouter extends React.Component<StaticRouterProps, void> {}
-
-
-  interface SwitchProps extends RouteProps {
-  }
-  class Switch extends React.Component<SwitchProps, void> {}
-
-
-  interface match<P> {
-    params: P;
-    isExact: boolean;
-    path: string;
-    url: string;
-  }
-
-
-  function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
-
-
-  function withRouter(component: React.SFC<RouteComponentProps<any>> | React.ComponentClass<RouteComponentProps<any>>): React.ComponentClass<any>;
-
-
-  export {
-    MemoryRouter,
-    Prompt,
-    Redirect,
-    RouteComponentProps, // TypeScript specific, not from React Router itself
-    RouteProps, // TypeScript specific, not from React Router itself
-    Route,
-    Router,
-    StaticRouter,
-    Switch,
-    match, // TypeScript specific, not from React Router itself
-    matchPath,
-		withRouter,
-		RouterChildContext
-  }
+// This is the type of the context object that will be passed down to all children of
+// a `Router` component:
+export interface RouterChildContext<P> {
+  router: {
+    history: H.History
+    route: {
+      location: H.Location
+      match: match<P>
+    }
+  };
 }
+export interface MemoryRouterProps {
+  initialEntries?: H.LocationDescriptor[];
+  initialIndex?: number;
+  getUserConfirmation?: (() => void);
+  keyLength?: number;
+}
+
+export class MemoryRouter extends React.Component<MemoryRouterProps, void> {}
+
+export interface PromptProps {
+  message: string | ((location: H.Location) => void);
+  when?: boolean;
+}
+export class Prompt extends React.Component<PromptProps, void> {}
+
+export interface RedirectProps {
+  to: H.LocationDescriptor;
+  push?: boolean;
+  from?: string;
+  path?: string;
+  exact?: boolean;
+  strict?: boolean;
+}
+export class Redirect extends React.Component<RedirectProps, void> {}
+
+export interface RouteComponentProps<P> {
+  match: match<P>;
+  location: H.Location;
+  history: H.History;
+}
+
+export interface RouteProps {
+  location?: H.Location;
+  component?: React.SFC<RouteComponentProps<any> | undefined> | React.ComponentClass<RouteComponentProps<any> | undefined>;
+  render?: ((props: RouteComponentProps<any>) => React.ReactNode);
+  children?: ((props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode);
+  path?: string;
+  exact?: boolean;
+  strict?: boolean;
+}
+export class Route extends React.Component<RouteProps, undefined> {}
+
+export interface RouterProps {
+  history: any;
+}
+export class Router extends React.Component<RouterProps, undefined> {}
+
+export interface StaticRouterProps {
+  basename?: string;
+  location?: string | object;
+  context?: object;
+}
+
+export class StaticRouter extends React.Component<StaticRouterProps, undefined> {}
+export class Switch extends React.Component<RouteProps, undefined> {}
+
+export interface match<P> {
+  params: P;
+  isExact: boolean;
+  path: string;
+  url: string;
+}
+
+export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
+export function withRouter(component: React.SFC<RouteComponentProps<any>> | React.ComponentClass<RouteComponentProps<any>>): React.ComponentClass<any>;
