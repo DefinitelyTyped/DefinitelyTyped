@@ -4,33 +4,33 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function ndarray(
-	data: ndarray.Data, shape?: number[], stride?: number[], offset?: number
-): ndarray.NDarray;
+	data: Data, shape?: number[], stride?: number[], offset?: number
+): ndarray;
 
-declare namespace ndarray {
-	type Data = number[] | Int8Array | Int16Array | Int32Array |
-		Uint8Array | Uint16Array | Uint32Array |
-		Float32Array | Float64Array | Uint8ClampedArray;
+type Data = number[] | Int8Array | Int16Array | Int32Array |
+	Uint8Array | Uint16Array | Uint32Array |
+	Float32Array | Float64Array | Uint8ClampedArray;
 
-	interface NDarray {
-		data: Data;
-		shape: number[];
-		stride: number[];
-		offset: number;
-		dtype: 'int8' | 'int16' | 'int32' | 'uint8' | 'uint16' | 'uint32' |
-		'float32' | 'float64' | 'array' | 'uint8_clamped' | 'buffer' | 'generic';
-		size: number;
-		order: number[];
-		dimension: number;
-		get(...args: number[]): number;
-		set(...args: number[]): number;
-		index(...args: number[]): number;
-		lo(...args: number[]): NDarray;
-		hi(...args: number[]): NDarray;
-		step(...args: number[]): NDarray;
-		transpose(...args: number[]): NDarray;
-		pick(...args: number[]): NDarray;
-	}
+interface ndarray {
+	data: Data;
+	shape: number[];
+	stride: number[];
+	offset: number;
+	dtype: 'int8' | 'int16' | 'int32' | 'uint8' | 'uint16' | 'uint32' |
+	'float32' | 'float64' | 'array' | 'uint8_clamped' | 'buffer' | 'generic';
+	size: number;
+	order: number[];
+	dimension: number;
+	get(...args: number[]): number;
+	set(...args: number[]): number;
+	index(...args: number[]): number;
+	lo(...args: number[]): ndarray;
+	hi(...args: number[]): ndarray;
+	step(...args: number[]): ndarray;
+	transpose(...args: number[]): ndarray;
+	pick(...args: number[]): ndarray;
 }
+
+declare namespace ndarray { }
 
 export = ndarray;
