@@ -3,10 +3,12 @@
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as Leaflet from "leaflet";
 
-declare namespace L {
-    interface MarkerCluster extends L.Marker {
+export = Leaflet;
+
+declare global { namespace L {
+    interface MarkerCluster extends Marker {
         /*
         * Recursively retrieve all child markers of this cluster.
         */
@@ -103,7 +105,7 @@ declare namespace L {
         /*
         * Function used to create the cluster icon
         */
-        iconCreateFunction?: ((cluster: L.MarkerCluster) => L.Icon | L.DivIcon);
+        iconCreateFunction?: ((cluster: MarkerCluster) => Icon | DivIcon);
 
         /*
         * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.
@@ -164,4 +166,4 @@ declare namespace L {
     * Create a marker cluster group, optionally given marker cluster group options.
     */
     function markerClusterGroup(options?: MarkerClusterGroupOptions): MarkerClusterGroup;
-}
+} }

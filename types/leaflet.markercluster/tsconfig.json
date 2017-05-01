@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "leaflet-markercluster-tests.ts"
+        "leaflet.markercluster-tests.ts"
     ]
 }
