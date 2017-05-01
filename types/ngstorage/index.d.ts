@@ -1,20 +1,18 @@
-// Type definitions for ngstorage 0.3.11
+// Type definitions for ngstorage 0.3
 // Project: https://github.com/gsklee/ngStorage
 // Definitions by: Jakub Pistek <https://github.com/kubiq>
 // Definitions: https://github.com/kubiq/DefinitelyTyped
 
-declare module 'ngstorage' {
-
-    interface IStorageService {
-        $default(items: {}): IStorageService;
-        $reset(items?: {}): IStorageService;
+export namespace ngstorage {
+    interface StorageService {
+        $default(items: {}): StorageService;
+        $reset(items?: {}): StorageService;
         $apply(): void;
         $sync(): void;
         get<T>(key: string): T;
     }
 
-    interface IStorageProvider extends angular.IServiceProvider {
-
+    interface StorageProvider extends angular.IServiceProvider {
         get<T>(key: string): T;
         set<T>(key: string, value: T): T;
 

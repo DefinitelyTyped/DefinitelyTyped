@@ -1,10 +1,9 @@
-/// <reference types="angular"/>
+import * as angular from "angular";
+import { ngstorage } from "ngstorage";
 
-import {IStorageService, IStorageProvider} from "ngstorage";
+let app: angular.IModule = angular.module('at', ['ngStorage']);
 
-var app: any;
-app.controller('LocalCtrl', function ($localStorage: IStorageService) {
-
+app.controller('LocalCtrl', ($localStorage: ngstorage.StorageService) => {
     $localStorage.$default({
         counter: 1
     });
@@ -14,14 +13,11 @@ app.controller('LocalCtrl', function ($localStorage: IStorageService) {
     });
 
     $localStorage.$reset();
-
     $localStorage.$apply();
-
     $localStorage.$sync();
 });
 
-app.controller('SessionCtrl', function ($sessionStorage: IStorageService) {
-
+app.controller('SessionCtrl', ($sessionStorage: ngstorage.StorageService) => {
     $sessionStorage.$default({
         counter: 1
     });
@@ -31,48 +27,40 @@ app.controller('SessionCtrl', function ($sessionStorage: IStorageService) {
     });
 
     $sessionStorage.$reset();
-
     $sessionStorage.$apply();
-
     $sessionStorage.$sync();
 });
 
-app.config(['$localStorageProvider', function ($localStorageProvider: IStorageProvider) {
-
+app.config(($localStorageProvider: ngstorage.StorageProvider) => {
     $localStorageProvider.setKeyPrefix('NewPrefix');
-
     $localStorageProvider.get('MyKey');
+    $localStorageProvider.set('MyKey', { counter: 'value' });
 
-    $localStorageProvider.set('MyKey', {counter: 'value'});
-
-    var mySerializer = function (value: any): string {
+    const mySerializer = (value: any): string => {
         return value.toString();
     };
 
-    var myDeserializer = function (value: string): any {
+    const myDeserializer = (value: string): any => {
         return value;
     };
 
     $localStorageProvider.setSerializer(mySerializer);
     $localStorageProvider.setDeserializer(myDeserializer);
-}
-]).config(['$sessionStorageProvider', function ($sessionStorageProvider: IStorageProvider) {
+});
 
+app.config(($sessionStorageProvider: ngstorage.StorageProvider) => {
     $sessionStorageProvider.setKeyPrefix('NewPrefix');
-
     $sessionStorageProvider.get('MyKey');
+    $sessionStorageProvider.set('MyKey', { counter: 'value' });
 
-    $sessionStorageProvider.set('MyKey', {counter: 'value'});
-
-    var mySerializer = function (value: any): string {
+    const mySerializer = (value: any): string => {
         return value.toString();
     };
 
-    var myDeserializer = function (value: string): any {
+    const myDeserializer = (value: string): any => {
         return value;
     };
 
     $sessionStorageProvider.setSerializer(mySerializer);
     $sessionStorageProvider.setDeserializer(myDeserializer);
-}
-]);
+});
