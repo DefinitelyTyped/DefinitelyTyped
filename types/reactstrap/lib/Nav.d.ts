@@ -7,6 +7,7 @@ interface Props {
   navbar?: boolean;
   tag?: React.ReactType;
   className?: string;
+  vertical?: boolean;
 }
 
 declare var Nav: React.StatelessComponent<Props>;
