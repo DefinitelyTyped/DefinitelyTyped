@@ -539,6 +539,7 @@ declare namespace Strophe {
     }
 
     interface ConnectionOptions {
+        keepalive?: boolean;
         protocol?: string;
         sync?: boolean;
     }
