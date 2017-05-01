@@ -706,6 +706,33 @@ declare namespace Strophe {
          */
         connect(jid?: string, pass?: string, callback?: (status: Status, condition: string) => any, wait?: number, hold?: number, route?: string): void;
 
+        /**
+         * Function: restore
+         * Attempt to restore a cached BOSH session.
+         *
+         * This function is only useful in conjunction with providing the
+         * “keepalive”:true option when instantiating a new Strophe.Connection.
+         * When “keepalive” is set to true, Strophe will cache the BOSH tokens
+         * RID (Request ID) and SID (Session ID) and then when this function is called,
+         * it will attempt to restore the session from those cached tokens.
+         * This function must therefore be called instead of connect or attach.
+         * For an example on how to use it, please see examples/restore.js
+         *
+         * Parameters:
+         *    (String) jid - The user’s JID.  This may be a bare JID or a full JID.
+         *    (Function) callback - The connect callback function.
+         *    (Integer) wait - The optional HTTPBIND wait value.
+         *      This is the time the server will wait before returning an empty result for a request.
+         *      The default setting of 60 seconds is recommended.
+         *    (Integer) hold - The optional HTTPBIND hold value.
+         *      This is the number of connections the server will hold at one time.
+         *      This should almost always be set to 1 (the default).
+         *    (Integer) wind - The optional HTTBIND window value.
+         *      This is the allowed range of request ids that are valid.
+         *      The default is 5.
+         */
+        restore(jid?: string, callback?: (status: Status, condition: string) => any, wait?: number, hold?: number, route?: string): void;
+
         /** Function: attach
          *  Attach to an already created and authenticated BOSH session.
          *
