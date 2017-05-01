@@ -456,7 +456,7 @@ export interface FormProps<FormData extends DataShape, P, S> {
      * result from the synchronous validation function, the asynchronous
      * validation, or the rejected promise from onSubmit.
      */
-    error?: string;
+    error?: any;
 
     /**
      * The form name that you gave to the reduxForm() decorator or the prop you
