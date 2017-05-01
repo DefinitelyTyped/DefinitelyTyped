@@ -13,6 +13,8 @@
 
  =============================================== */
 
+/// <reference types="node" />
+
 import * as fs from 'fs';
 import * as stream from 'stream';
 import * as express from 'express';
