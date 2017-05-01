@@ -10,6 +10,8 @@ export type ColumnProps
   };
 
 interface Props {
+  className?: string;
+
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;
