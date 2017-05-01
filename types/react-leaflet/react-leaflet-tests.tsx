@@ -686,7 +686,7 @@ class CenterControl extends MapControl<MapControlProps, Leaflet.Control> {  // n
         const centerControl = new L.Control({ position: 'bottomright' });  // see http://leafletjs.com/reference.html#control-positions for other positions
         const jsx = (
             // PUT YOUR JSX FOR THE COMPONENT HERE:
-            <div {...this.props}>
+            <div>
                 {/* add your JSX */}
             </div>
         );
@@ -713,7 +713,7 @@ class LegendControl extends MapControl<MapControlProps & { className?: string },
     componentWillMount() {
         const legend = new L.Control({ position: 'bottomright' });
         const jsx = (
-            <div {...this.props}>
+            <div>
                 {this.props.children}
             </div>
         );
