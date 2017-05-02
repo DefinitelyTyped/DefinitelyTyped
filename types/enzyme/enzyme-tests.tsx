@@ -227,6 +227,10 @@ function ShallowWrapperTest() {
         shallowWrapper = shallowWrapper.slice(1, 3);
     }
 
+    function test_tap() {
+        shallowWrapper.tap((intercepter) => { });
+    }
+
     function test_state() {
         const state: MyComponentState = shallowWrapper.state();
         const prop: string = shallowWrapper.state('stateProperty');
@@ -549,6 +553,10 @@ function ReactWrapperTest() {
     function test_slice() {
         reactWrapper = reactWrapper.slice(1);
         reactWrapper = reactWrapper.slice(1, 3);
+    }
+
+    function test_tap() {
+        reactWrapper.tap((intercepter) => { });
     }
 
     function test_state() {
