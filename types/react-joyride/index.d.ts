@@ -1,4 +1,4 @@
-// Type definitions for react-joyride 1.10.1
+// Type definitions for react-joyride 1.10
 // Project: https://github.com/gilbarbara/react-joyride
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Ben Dixon <https://github.com/bendxn>
