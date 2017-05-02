@@ -166,6 +166,11 @@ export interface CommonWrapper<P, S> {
     last(): this;
 
     /**
+     * Returns a new wrapper with a subset of the nodes of the original wrapper, according to the rules of `Array#slice`.
+     */
+    slice(begin?: number, end?: number): this;
+
+    /**
      * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
      * @param [key]
      */
