@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 2.7
+// Type definitions for Enzyme 2.8
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
@@ -6,6 +6,7 @@
 //                 Tom Crockett <https://github.com/pelotom>
 //                 jwbay <https://github.com/jwbay>
 //                 huhuanming <https://github.com/huhuanming>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
