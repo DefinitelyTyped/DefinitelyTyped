@@ -75,8 +75,8 @@ function saveImage() {
   if (DWObject) {
     DWObject.ConvertToGrayScale(DWObject.CurrentImageIndexInBuffer);
     DWObject.SaveAsJPEG("DynamicWebTWAIN.jpg", DWObject.CurrentImageIndexInBuffer);
-    DWObject.SaveAllAsMultiPageTIFF("DynamicWebTWAIN.tiff", () => {}, (errorCode, errorString) => {});
-    DWObject.SaveAllAsPDF("DynamicWebTWAIN.pdf", () => {}, (errorCode, errorString) => {});
+    DWObject.SaveAllAsMultiPageTIFF("DynamicWebTWAIN.tiff", () => {}, (errorCode: number, errorString: string) => {});
+    DWObject.SaveAllAsPDF("DynamicWebTWAIN.pdf", () => {}, (errorCode: number, errorString: string) => {});
   }
 }
 
@@ -94,7 +94,7 @@ function uploadImage() {
   if (DWObject) {
     DWObject.HTTPPort = 80;  
     DWObject.IfSSL = false;
-    DWObject.HTTPUploadThroughPost("www.dynamsoft.com", DWObject.CurrentImageIndexInBuffer, "upload", "tmp.jpg", () => {}, (errorCode, errorString) => {});
+    DWObject.HTTPUploadThroughPost("www.dynamsoft.com", DWObject.CurrentImageIndexInBuffer, "upload", "tmp.jpg", () => {}, (errorCode: number, errorString: string) => {});
   }
 }
 
@@ -102,6 +102,6 @@ function downloadImage() {
   let DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
   if (DWObject) {
     DWObject.HTTPPort = 80;                
-    DWObject.HTTPDownload("www.dynamsoft.com", "img.png", () => {}, (errorCode, errorString) => {});
+    DWObject.HTTPDownload("www.dynamsoft.com", "img.png", () => {}, (errorCode: number, errorString: string) => {});
   }
 }
