@@ -48,23 +48,23 @@ export interface ErrorValue {
 }
 
 export interface WorksheetView {
-	state: "normal" | "split" | "frozen";
-	showRuler: boolean;
-	showRowColHeaders: boolean;
-	showGridLines: boolean;
-	zoomScale: number;
-	zoomScaleNormal: number;
-	style: "pageBreakPreview" | "pageLayout";
+	state?: "normal" | "split" | "frozen";
+	showRuler?: boolean;
+	showRowColHeaders?: boolean;
+	showGridLines?: boolean;
+	zoomScale?: number;
+	zoomScaleNormal?: number;
+	style?: "pageBreakPreview" | "pageLayout";
 }
 
 export interface WorkbookView {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
-	firstSheet: number;
-	activeTab: number;
-	visibility: string;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+	firstSheet?: number;
+	activeTab?: number;
+	visibility?: string;
 }
 
 export interface Fill {
@@ -100,32 +100,32 @@ export interface Color {
 }
 
 export interface Border {
-	style: BorderStyle;
-	color: Color;
+	style?: BorderStyle;
+	color?: Color;
 }
 
 export interface Borders {
-	top: Border;
-	left: Border;
-	bottom: Border;
-	right: Border;
+	top?: Border;
+	left?: Border;
+	bottom?: Border;
+	right?: Border;
 }
 
 export interface Alignment {
-	horizontal: "left" | "center" | "right" | "fill" | "justify" | "centerContinuous" | "distributed";
-	vertical: "top" | "middle" | "bottom" | "distributed" | "justify";
-	wrapText: boolean;
-	indent: number;
-	readingOrder: "rtl" | "ltr";
-	textrotation: number | "vertical";
+	horizontal?: "left" | "center" | "right" | "fill" | "justify" | "centerContinuous" | "distributed";
+	vertical?: "top" | "middle" | "bottom" | "distributed" | "justify";
+	wrapText?: boolean;
+	indent?: number;
+	readingOrder?: "rtl" | "ltr";
+	textrotation?: number | "vertical";
 }
 
 export interface Cell {
-	border: Partial<Borders>;
-	font: Font;
-	alignment: Partial<Alignment>;
-	numFmt: string;
-	value: any;
+	border?: Borders;
+	font?: Font;
+	alignment?: Alignment;
+	numFmt?: string;
+	value?: any;
 	fill?: Fill;
 }
 
@@ -185,13 +185,20 @@ export interface Worksheet {
 	 * Get or create row by 0-based index
 	 */
 	getRow(index: number): Row;
+	eachRow(callback: (row: Row, rowNumber: number) => void): void;
 
-	eachRow(callback: (row: Row) => void): void;
+	/**
+	 * Get or create cell
+	 */
+	getCell(ref: string): Cell;
 
-	mergeCells(tlbr: string): void;
-	mergeCells(tl: string, br: string): void;
-	mergeCells(t: number, l: number, b: number, r: number): void;
-
+	/**
+	 * Merge cells, either:
+	 * tlbr string
+	 * tl string, br string
+	 * t, l, b, r numbers
+	 */
+	mergeCells(a: number | string, b?: number | string, c?: number, d?: number): void;
 }
 
 export interface Xlsx {
@@ -206,21 +213,19 @@ export interface WorksheetProps {
 export class Workbook {
 	constructor();
 
-	public creator: string;
-	public lastModifiedBy: string;
-	public created: Date;
-	public modified: Date;
-	public lastPrinted: Date;
-	public properties: {
+	creator: string;
+	lastModifiedBy: string;
+	created: Date;
+	modified: Date;
+	lastPrinted: Date;
+	properties: {
 		date1904: boolean;
 	};
-	public views: WorkbookView[];
+	views: WorkbookView[];
 
-	public addWorksheet(name: string, opts?: { properties?: Partial<WorksheetProps>, views?: Partial<WorksheetView>[] }): Worksheet;
+	addWorksheet(name: string, opts?: { properties?: WorksheetProps, views?: WorksheetView[] }): Worksheet;
 
-	public getWorksheet(index: number): Worksheet;
-	public getWorksheet(name: string): Worksheet;
+	getWorksheet(indexOrName: number | string): Worksheet;
 
-	public xlsx: Xlsx;
+	xlsx: Xlsx;
 }
-
