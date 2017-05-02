@@ -99,6 +99,7 @@ export interface CommonWrapper<P, S> {
 
     /**
      * Returns whether or not the current node is empty.
+     * @deprecated Use .exists() instead.
      */
     isEmpty(): boolean;
 
