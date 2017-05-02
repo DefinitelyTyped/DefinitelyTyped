@@ -1,4 +1,3 @@
-'use strict';
 import * as toMarkdown from 'to-markdown';
 
 // toMarkdown()
@@ -35,7 +34,7 @@ toMarkdown(`
     {
       filter(node) {
         return node.nodeName === 'SPAN'
-               && /italic/i.test(node.style.fontStyle);
+               && /italic/i.test(node.style.fontStyle!);
       },
       replacement(innerHTML) {
         return '*' + innerHTML + '*';
@@ -44,7 +43,7 @@ toMarkdown(`
     {
       filter(node) {
         return node.nodeName === 'SPAN'
-               && /italic/i.test(node.style.fontStyle);
+               && /italic/i.test(node.style.fontStyle!);
       },
       replacement(innerHTML, node) {
         return innerHTML + ' (node: `' + node.nodeName + '`)';
@@ -53,14 +52,13 @@ toMarkdown(`
   ]
 });
 
-
 // toMarkdown.isBlock()
-toMarkdown.isBlock(document.querySelector('h1'));  // true
-toMarkdown.isBlock(document.querySelector('img')); // false
+toMarkdown.isBlock(document.querySelector('h1')!);  // true
+toMarkdown.isBlock(document.querySelector('img')!); // false
 
 // toMarkdown.isVoid()
-toMarkdown.isVoid(document.querySelector('br'));   // true
-toMarkdown.isVoid(document.querySelector('body')); // false
+toMarkdown.isVoid(document.querySelector('br')!);   // true
+toMarkdown.isVoid(document.querySelector('body')!); // false
 
 // toMarkdown.outer()
-toMarkdown.outer(document.querySelector('a'), '|');
+toMarkdown.outer(document.querySelector('a')!, '|');
