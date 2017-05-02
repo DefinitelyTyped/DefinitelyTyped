@@ -89,6 +89,13 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+  - Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
 * `npm install -g typescript@2.0` and run `tsc`.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
