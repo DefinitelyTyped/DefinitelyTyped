@@ -81,7 +81,7 @@ contGen = contGen.thresholds(10);
 
 // set with array
 const thresholds1 = range(1, 21)
-    .map(p => { return Math.pow(2, p); });
+    .map(p => Math.pow(2, p));
 contGen = contGen.thresholds(thresholds1);
 
 // set with threshold array generator
