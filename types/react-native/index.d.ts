@@ -234,7 +234,7 @@ interface EventEmitter extends EventEmitterListener {
      *
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      */
-    emit(eventType: string): void
+    emit(eventType: string,...param:any[]): void
 
     /**
      * Removes the given listener for event of specific type.
