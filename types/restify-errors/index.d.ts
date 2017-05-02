@@ -59,7 +59,7 @@ export function makeErrFromCode(statusCode: number, ...args: any[]): HttpError;
 
 export function bunyanSerializer(err: any): any;
 
-export interface HttpErrors {
+export const HttpErrors: {
     BadRequestError: HttpError;
     UnauthorizedError: HttpError;
     PaymentRequiredError: HttpError;
@@ -100,7 +100,7 @@ export interface HttpErrors {
     NetworkAuthenticationRequiredError: HttpError;
 }
 
-export interface RestErrors {
+export const RestErrors: {
     BadDigestError: RestError;
     BadMethodError: RestError;
     InternalError: RestError;
