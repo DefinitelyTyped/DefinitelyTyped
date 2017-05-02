@@ -699,7 +699,7 @@ declare enum EnumDWT_PDFCompressionType {
     /** CCITT modified Huffman RLE. */
     PDF_RLE = 4,
     PDF_JPEG = 5
-};
+}
 
 declare enum EnumDWT_ShowMode {
     /** Activates the window and displays it in its current size and position. */
@@ -1060,7 +1060,7 @@ declare enum EnumDWT_CapFeederOrder {
     TWFO_FIRSTPAGEFIRST = 0,
     /** The feeder starts with the top of the last page. */
     TWFO_LASTPAGEFIRST = 1
-};
+}
 
 /** CAP_PRINTER values. */
 declare enum EnumDWT_CapPrinter {
@@ -1072,7 +1072,8 @@ declare enum EnumDWT_CapPrinter {
     TWPR_ENDORSERTOPAFTER = 5,
     TWPR_ENDORSERBOTTOMBEFORE = 6,
     TWPR_ENDORSERBOTTOMAFTER = 7
-};
+}
+
 /** CAP_PRINTERMODE values. */
 declare enum EnumDWT_CapPrinterMode {
     /** Specifies that the printed text will consist of a single string. */
@@ -1081,20 +1082,23 @@ declare enum EnumDWT_CapPrinterMode {
     TWPM_MULTISTRING = 1,
     /** Specifies that the printed string will consist of a compound of a String followed by a value followed by a suffix string. */
     TWPM_COMPOUNDSTRING = 2
-};
+}
+
 /** ICAP_BITDEPTHREDUCTION values. */
 declare enum EnumDWT_CapBitdepthReduction {
     TWBR_THRESHOLD = 0,
     TWBR_HALFTONE = 1,
     TWBR_CUSTHALFTONE = 2,
     TWBR_DIFFUSION = 3
-};
+}
+
 /** ICAP_BITORDER values. */
 declare enum EnumDWT_CapBitOrder {
     TWBO_LSBFIRST = 0,
     /** Indicates that the leftmost bit in the byte (usually bit 7) is the byte's Most Significant Bit. */
     TWBO_MSBFIRST = 1
-};
+}
+
 /** ICAP_FILTER values. */
 declare enum EnumDWT_CapFilterType {
     TWFT_RED = 0,
@@ -1106,7 +1110,8 @@ declare enum EnumDWT_CapFilterType {
     TWFT_MAGENTA = 6,
     TWFT_YELLOW = 7,
     TWFT_BLACK = 8
-};
+}
+
 /** ICAP_FLASHUSED2 values. */
 declare enum EnumDWT_CapFlash {
     TWFL_NONE = 0,
@@ -1114,14 +1119,16 @@ declare enum EnumDWT_CapFlash {
     TWFL_ON = 2,
     TWFL_AUTO = 3,
     TWFL_REDEYE = 4
-};
+}
+
 /** ICAP_FLIPROTATION values. */
 declare enum EnumDWT_CapFlipRotation {
     /** The images to be scanned are viewed in book form, flipping each page from left to right or right to left. */
     TWFR_BOOK = 0,
     /** The images to be scanned are viewed in fanfold paper style, flipping each page up or down. */
     TWFR_FANFOLD = 1
-};
+}
+
 /** ICAP_IMAGEFILTER values. */
 declare enum EnumDWT_CapImageFilter {
     TWIF_NONE = 0,
@@ -1134,12 +1141,14 @@ declare enum EnumDWT_CapImageFilter {
     TWIF_HIGHPASS = 4,
     TWIF_TEXT = 3,
     TWIF_FINELINE = 4
-};
+}
+
 /** ICAP_LIGHTPATH values. */
 declare enum EnumDWT_CapLightPath {
     TWLP_REFLECTIVE = 0,
     TWLP_TRANSMISSIVE = 1
-};
+}
+
 /** ICAP_LIGHTSOURCE values. */
 declare enum EnumDWT_CapLightSource {
     TWLS_RED = 0,
@@ -1149,7 +1158,8 @@ declare enum EnumDWT_CapLightSource {
     TWLS_WHITE = 4,
     TWLS_UV = 5,
     TWLS_IR = 6
-};
+}
+
 /** TWEI_MAGTYPE values. (MD_ means Mag Type) Added 2.0  */
 declare enum EnumDWT_MagType {
     /** Added 2.0  */
@@ -1158,14 +1168,15 @@ declare enum EnumDWT_MagType {
     TWMD_RAW = 1,  
     /** added 2.1  */
     TWMD_INVALID = 2  
-};
+}
+
 /** ICAP_NOISEFILTER values. */
 declare enum EnumDWT_CapNoiseFilter {
     TWNF_NONE = 0,
     TWNF_AUTO = 1,
     TWNF_LONEPIXEL = 2,
     TWNF_MAJORITYRULE = 3
-};
+}
 
 /** ICAP_ORIENTATION values. */
 declare enum EnumDWT_CapORientation {
@@ -1181,7 +1192,8 @@ declare enum EnumDWT_CapORientation {
     TWOR_AUTOTEXT = 5,           
     /** 2.0  */
     TWOR_AUTOPICTURE = 6           
-};
+}
+
 /** ICAP_OVERSCAN values. */
 declare enum EnumDWT_CapOverscan {
     TWOV_NONE = 0,
@@ -1189,20 +1201,21 @@ declare enum EnumDWT_CapOverscan {
     TWOV_TOPBOTTOM = 2,
     TWOV_LEFTRIGHT = 3,
     TWOV_ALL = 4
-};
+}
+
 /** ICAP_PIXELFLAVOR values. */
 declare enum EnumDWT_CapPixelFlavor {
     /** Zero pixel represents darkest shade. zero pixel represents darkest shade   */
     TWPF_CHOCOLATE = 0, 
     /** Zero pixel represents lightest shade. zero pixel represents lightest shade  */
     TWPF_VANILLA = 1  
-};
+}
 
 /** ICAP_PLANARCHUNKY values. */
 declare enum EnumDWT_CapPlanarChunky {
     TWPC_CHUNKY = 0,
     TWPC_PLANAR = 1
-};
+}
 
 /** Data source status. */
 declare enum EnumDWT_DataSourceStatus {
@@ -1214,7 +1227,7 @@ declare enum EnumDWT_DataSourceStatus {
     TWDSS_ENABLED = 2,
     /** Indicate the data source is acquiring image. */
     TWDSS_ACQUIRING = 3
-};
+}
 
 /** Fit window type */
 declare enum EnumDWT_FitWindowType {
@@ -1224,20 +1237,19 @@ declare enum EnumDWT_FitWindowType {
     enumFitWindowHeight = 1,
     /** Fit the image to the width of the window */
     enumFitWindowWidth = 2
-};
+}
 
 declare enum EnumDWT_UploadDataFormat {
 	Binary = 0,
 	Base64 = 1
-};
-
+}
 
 declare enum EnumDWT_MouseShape {
 	Default = 0,
 	Hand = 1,
 	Crosshair = 2,
 	Zoom = 3
-};
+}
 
 /**
  * @class
