@@ -1,6 +1,7 @@
-// Type definitions for react-joyride 1.6
+// Type definitions for react-joyride 1.10.1
 // Project: https://github.com/gilbarbara/react-joyride
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
+//                 Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -9,15 +10,11 @@ import React = require("react");
 export default class Joyride extends React.Component<Props, State> {
     constructor(props: Props);
 
-    addTooltip(data: Step): void;
-    start(autorun?: boolean): void;
+    reset(restart: boolean): void;
     next(): void;
     back(): void;
-    stop(): void;
-    reset(restart: boolean): void;
-
+    addTooltip(data: Step): void;
     getProgress(): Progress;
-    parseSteps(steps: Step | Step[]): Step[];
 
     static defaultProps: Props;
 }
@@ -40,12 +37,22 @@ export interface Props {
     /**
      * The tour's steps. Defaults to []
      */
-    steps?: any[];
+    steps?: Step[];
 
     /**
-     * Run/stop the tour.
+     * The initial step index. Defaults to 0
+     */
+    stepIndex?: number;
+
+    /**
+     * Run/stop the tour. Defaults to false
      */
     run?: boolean;
+
+    /**
+     * Open the tooltip automatically for the first step, without showing a beacon. Defaults to false
+     */
+    autoStart?: boolean;
 
     /**
      * Toggle keyboard navigation (esc, space bar, return). Defaults to true
@@ -98,6 +105,11 @@ export interface Props {
     showOverlay?: boolean;
 
     /**
+     * Allow mouse and touch events within overlay hole, and prevent hole:click callback from being sent. Defaults to false
+     */
+    allowClicksThruHole?: boolean;
+
+    /**
      * Display a link to skip the tour. Defaults to false
      */
     showSkipButton?: boolean;
@@ -135,10 +147,12 @@ export interface Props {
 
 export interface Step {
     title?: string;
-    text: string;
+    text?: string;
     selector: string;
     position?: "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right" | "right" | "left";
     type?: "click" | "hover";
+    isFixed?: boolean;
+    allowClicksThruHole?: boolean;
     style?: StepStyles;
     [prop: string]: any;
 }
