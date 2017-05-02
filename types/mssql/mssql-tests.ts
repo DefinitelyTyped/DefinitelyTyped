@@ -26,6 +26,7 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         console.warn("Issue with connecting to SQL Server!");
     }
     else {
+        connection.query`SELECT ${1} as value`.then(res => {    });
         var requestQuery = new sql.Request(connection);
 
         var getArticlesQuery = "SELECT * FROM TABLE";
@@ -150,7 +151,6 @@ function test_promise_returns() {
     request.bulk(new sql.Table("table_name")).then(() => { });
     request.query('SELECT 1').then((recordset) => { });
     request.query<Entity>('SELECT 1 as value').then(res => {    });
-    request.query`SELECT ${1} as value`.then(res => {    });
     request.execute('procedure_name').then((recordset) => { });
 }
 
