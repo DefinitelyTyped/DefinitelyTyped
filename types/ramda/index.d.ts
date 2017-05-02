@@ -2,6 +2,7 @@
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>, Matt DeKrey <https://github.com/mdekrey>, Liam Goodacre <https://github.com/LiamGoodacre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare var R: R.Static;
 
