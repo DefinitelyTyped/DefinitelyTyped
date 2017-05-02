@@ -62,4 +62,4 @@ export function createFunctional<TProps, TState>(
     getStores: (maybeProps?: TProps, maybeContext?: any) => Array<FluxStore<any>>,
     calculateState: (prevState?: TState, maybeProps?: TProps, maybeContext?: any) => TState,
     options?: RealOptions
-): React.ComponentClass<TProps>;
+): Component<TProps, TState, any>;
