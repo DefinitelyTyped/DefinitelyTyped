@@ -208,6 +208,11 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface Env {
+        PATH: string;
+        [key: string]: string;
+    }
+
     export interface Process extends EventEmitter {
         stdout: Socket;
         stderr: Socket;
@@ -217,7 +222,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
-        env: any;
+        env: Env;
         exit(code?: number): void;
         getgid(): number;
         setgid(id: number): void;
@@ -603,7 +608,7 @@ declare module "cluster" {
     export var isMaster: boolean;
     export var isWorker: boolean;
     export function setupMaster(settings?: ClusterSettings): void;
-    export function fork(env?: any): Worker;
+    export function fork(env?: NodeJS.Env): Worker;
     export function disconnect(callback?: Function): void;
     export var worker: Worker;
     export var workers: Worker[];
@@ -843,14 +848,14 @@ declare module "child_process" {
         cwd?: string;
         stdio?: any;
         custom?: any;
-        env?: any;
+        env?: NodeJS.Env;
         detached?: boolean;
     }): ChildProcess;
     export function exec(command: string, options: {
         cwd?: string;
         stdio?: any;
         customFds?: any;
-        env?: any;
+        env?: NodeJS.Env;
         encoding?: string;
         timeout?: number;
         maxBuffer?: number;
@@ -865,7 +870,7 @@ declare module "child_process" {
         cwd?: string;
         stdio?: any;
         customFds?: any;
-        env?: any;
+        env?: NodeJS.Env;
         encoding?: string;
         timeout?: number;
         maxBuffer?: number;
@@ -873,14 +878,14 @@ declare module "child_process" {
     }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.Env;
         encoding?: string;
     }): ChildProcess;
     export function spawnSync(command: string, args?: string[], options?: {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
-        env?: any;
+        env?: NodeJS.Env;
         uid?: number;
         gid?: number;
         timeout?: number;
@@ -900,7 +905,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string|Buffer;
         stdio?: any;
-        env?: any;
+        env?: NodeJS.Env;
         uid?: number;
         gid?: number;
         timeout?: number;
@@ -912,7 +917,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string|Buffer;
         stdio?: any;
-        env?: any;
+        env?: NodeJS.Env;
         uid?: number;
         gid?: number;
         timeout?: number;
