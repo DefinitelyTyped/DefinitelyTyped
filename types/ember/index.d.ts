@@ -1137,7 +1137,7 @@ declare namespace Ember {
        service(name?: string): Service;
     };
     class Helper extends Object {
-      static helper( h: (a: any) => any): Helper;
+      static helper( h: (params: any, hash?: any) => any): Helper;
       compute(params: any[], hash: any): any;
       recompute(params: any[], hash: any): any;
     }

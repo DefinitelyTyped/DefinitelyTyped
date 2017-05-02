@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   RouteComponentProps,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 // This example shows how to render two different screens
 // (or the same screen in a different context) at the same url,
@@ -29,26 +29,26 @@ class ModalSwitch extends React.Component<RouteComponentProps<void>, void> {
   // So, to get both screens to render, we can save the old
   // location and pass it to Switch, so it will think the location
   // is still `/` even though its `/images/2`.
-  previousLocation = this.props.location
+  previousLocation = this.props.location;
 
   componentWillUpdate(nextProps: RouteComponentProps<void>) {
-    const { location } = this.props
+    const { location } = this.props;
     // set previousLocation if props.location is not modal
     if (
       nextProps.history.action !== 'POP' &&
       (!location.state || !location.state.modal)
     ) {
-      this.previousLocation = this.props.location
+      this.previousLocation = this.props.location;
     }
   }
 
   render() {
-    const { location } = this.props
+    const { location } = this.props;
     const isModal = !!(
       location.state &&
       location.state.modal &&
       this.previousLocation !== location // not initial render
-    )
+    );
     return (
       <div>
         <Switch location={isModal ? this.previousLocation : location}>
@@ -58,7 +58,7 @@ class ModalSwitch extends React.Component<RouteComponentProps<void>, void> {
         </Switch>
         {isModal ? <Route path='/img/:id' component={Modal} /> : null}
       </div>
-    )
+    );
   }
 }
 
@@ -68,21 +68,21 @@ const IMAGES = [
   { id: 2, title: 'Tomato', color: 'Tomato' },
   { id: 3, title: 'Seven Ate Nine', color: '#789' },
   { id: 4, title: 'Crimson', color: 'Crimson' }
-]
+];
 
 const Thumbnail: React.SFC<{color: string}> = ({ color }) =>
   <div style={{
     width: 50,
     height: 50,
     background: color
-  }}/>
+  }}/>;
 
 const Image: React.SFC<{color: string}> = ({ color }) =>
   <div style={{
     width: '100%',
     height: 400,
     background: color
-  }}></div>
+  }}></div>;
 
 const Home = () => (
   <div>
@@ -93,7 +93,7 @@ const Home = () => (
       <li><Link to='/img/4'>Crimson</Link></li>
     </ul>
   </div>
-)
+);
 
 const Gallery = () => (
   <div>
@@ -111,12 +111,12 @@ const Gallery = () => (
       </Link>
     ))}
   </div>
-)
+);
 
 const ImageView: React.SFC<RouteComponentProps<{id: string}>> = ({ match }) => {
-  const image = IMAGES[parseInt(match.params.id, 10)]
+  const image = IMAGES[parseInt(match.params.id, 10)];
   if (!image) {
-    return <div>Image not found</div>
+    return <div>Image not found</div>;
   }
 
   return (
@@ -124,18 +124,18 @@ const ImageView: React.SFC<RouteComponentProps<{id: string}>> = ({ match }) => {
       <h1>{image.title}</h1>
       <Image color={image.color} />
     </div>
-  )
-}
+  );
+};
 
 const Modal: React.SFC<RouteComponentProps<{id: string}>> = ({ match, history }) => {
-  const image = IMAGES[parseInt(match.params.id, 10)]
+  const image = IMAGES[parseInt(match.params.id, 10)];
   if (!image) {
-    return null!
+    return null!;
   }
   const back = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    history.goBack()
-  }
+    e.stopPropagation();
+    history.goBack();
+  };
   return (
     <div
       onClick={back}
@@ -164,13 +164,13 @@ const Modal: React.SFC<RouteComponentProps<{id: string}>> = ({ match, history })
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const ModalGallery = () => (
   <Router>
     <Route component={ModalSwitch} />
   </Router>
-)
+);
 
-export default ModalGallery
+export default ModalGallery;

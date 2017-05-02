@@ -2,11 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es5"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "promise-tests.ts"
+        "dottie-tests.ts"
     ]
 }
