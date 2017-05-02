@@ -145,6 +145,11 @@ export interface CommonWrapper<P, S> {
     getNodes(): Array<ReactElement<any>>;
 
     /**
+     * Returns the outer most DOMComponent of the current wrapper.
+     */
+    getDOMNode(): Element;
+
+    /**
      * Returns a wrapper around the node at a given index of the current wrapper.
      * @param index
      */
