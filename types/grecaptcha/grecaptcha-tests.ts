@@ -2,6 +2,7 @@
 
 var params: ReCaptchaV2.Parameters = {
   "sitekey": "mySuperSecretKey",
+  "badge": "bottomright",
   "theme": "light",
   "type": "image",
   "size": "normal",
