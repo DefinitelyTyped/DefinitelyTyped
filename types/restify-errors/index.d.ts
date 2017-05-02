@@ -98,7 +98,7 @@ export const HttpErrors: {
     BandwidthLimitExceededError: HttpError;
     NotExtendedError: HttpError;
     NetworkAuthenticationRequiredError: HttpError;
-}
+};
 
 export const RestErrors: {
     BadDigestError: RestError;
@@ -116,4 +116,4 @@ export const RestErrors: {
     RequestThrottledError: RestError;
     ResourceNotFoundError: RestError;
     WrongAcceptError: RestError;
-}
+};
