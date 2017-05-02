@@ -196,7 +196,7 @@ export interface TileLayerProps extends TileLayerEvents, Leaflet.TileLayerOption
     children?: Children;
     url: string;
 }
-export class TileLayer<P = TileLayerProps> extends GridLayer<P, Leaflet.TileLayer> { }
+export class TileLayer<P = TileLayerProps, E extends Leaflet.GridLayer = Leaflet.TileLayer> extends GridLayer<P, E> { }
 
 export interface WMSTileLayerProps extends TileLayerEvents, Leaflet.WMSOptions {
     children?: Children;
