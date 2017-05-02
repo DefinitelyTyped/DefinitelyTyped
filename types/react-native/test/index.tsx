@@ -18,16 +18,22 @@ import {
     BackAndroid,
     Dimensions,
     InteractionManager,
+    ListView,
+    ListViewDataSource,
     StyleSheet,
     Systrace,
     Text,
     TextStyle,
+    TextProperties,
     View,
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
     SectionList,
-    findNodeHandle
+    findNodeHandle,
+    ScrollView,
+    ScrollViewProps,
+    RefreshControl,
 } from 'react-native';
 
 function testDimensions() {
@@ -217,5 +223,35 @@ export class SectionListTest {
             sections={sections}
             renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
         />
+    }
+}
+
+export class CapsLockComponent extends React.Component<TextProperties, {}> {
+    render() {
+        const content = (this.props.children || "") as string
+        return (
+            <Text {...this.props} >
+                {content.toUpperCase()}
+            </Text>
+        )
+    }
+}
+
+class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource}> {
+    render() {
+        return (
+            <ListView dataSource={this.state.dataSource}
+                renderScrollComponent={(props) => {
+                    if (props.scrollEnabled) {
+                        throw new Error("Expected scroll to be enabled.")
+                    }
+
+                    return <ScrollView {...props} />
+                }}
+                renderRow={({ type, data }, _, row: number) => {
+                    return <Text>Filler</Text>
+                }
+            } />
+        )
     }
 }
