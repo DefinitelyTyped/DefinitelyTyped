@@ -5,7 +5,61 @@
 
 import { VError, Options as vErrorOptions } from "verror";
 
-interface HttpErrors {
+export interface RestifyHttpErrorOptions extends vErrorOptions {
+    statusCode?: number;
+
+    message?: string;
+
+    code?: string;
+
+    context?: any;
+}
+
+export class HttpError extends VError {
+    constructor(printf: string, ...args: any[]);
+
+    constructor(options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
+
+    // tslint:disable-next-line unified-signatures
+    constructor(priorErr: any, printf?: string, ...args: any[]);
+
+    constructor(priorErr: any, options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
+
+    message: string;
+
+    statusCode: number;
+
+    code: string;
+
+    body: any;
+
+    displayName: string;
+}
+
+export interface RestifyRestErrorOptions extends RestifyHttpErrorOptions {
+    restCode?: string;
+}
+
+export class RestError extends HttpError {
+    constructor(printf: string, ...args: any[]);
+
+    constructor(options: RestifyRestErrorOptions, printf?: string, ...args: any[]);
+
+    // tslint:disable-next-line unified-signatures
+    constructor(priorErr: any, printf?: string, ...args: any[]);
+
+    constructor(priorErr: any, options: RestifyRestErrorOptions, printf?: string, ...args: any[]);
+
+    restCode: string;
+}
+
+export function makeConstructor(name: string, defaults?: any): void;
+
+export function makeErrFromCode(statusCode: number, ...args: any[]): HttpError;
+
+export function bunyanSerializer(err: any): any;
+
+export interface HttpErrors {
     BadRequestError: HttpError;
     UnauthorizedError: HttpError;
     PaymentRequiredError: HttpError;
@@ -46,7 +100,7 @@ interface HttpErrors {
     NetworkAuthenticationRequiredError: HttpError;
 }
 
-interface RestErrors {
+export interface RestErrors {
     BadDigestError: RestError;
     BadMethodError: RestError;
     InternalError: RestError;
@@ -63,68 +117,3 @@ interface RestErrors {
     ResourceNotFoundError: RestError;
     WrongAcceptError: RestError;
 }
-
-export interface RestifyHttpErrorOptions extends vErrorOptions {
-    statusCode?: number;
-
-    message?: string;
-
-    code?: string;
-
-    context?: object;
-}
-
-export class HttpError extends VError {
-    constructor(message: string);
-
-    constructor(printf: string, ...args: any[]);
-
-    constructor(options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
-
-    constructor(priorErr: object, message: string);
-
-    constructor(priorErr: object, printf?: string, ...args: any[]);
-
-    constructor(priorErr: object, options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
-
-    message: string;
-
-    statusCode: number;
-
-    code: string;
-
-    body: object;
-
-    displayName: string;
-}
-
-export interface RestifyRestErrorOptions extends RestifyHttpErrorOptions {
-    restCode?: string
-}
-
-export class RestError extends HttpError {
-    constructor(message: string);
-
-    constructor(printf: string, ...args: any[]);
-
-    constructor(options: RestifyRestErrorOptions, printf?: string, ...args: any[]);
-
-    constructor(priorErr: object, message: string);
-
-    constructor(priorErr: object, printf?: string, ...args: any[]);
-
-    constructor(priorErr: object, options: RestifyRestErrorOptions, printf?: string, ...args: any[]);
-
-
-    restCode: string;
-}
-
-export function makeConstructor(name: string, defaults?: object): void;
-
-export function makeErrFromCode(statusCode: number, ...args: any[]): HttpError;
-
-export const bunyanSerializer: (err: object) => object;
-
-export const httpErrors: HttpErrors;
-
-export const restErrors: RestErrors;
