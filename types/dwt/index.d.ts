@@ -2,6 +2,7 @@
 // Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /*!
 * Dynamsoft WebTwain JavaScript Intellisense

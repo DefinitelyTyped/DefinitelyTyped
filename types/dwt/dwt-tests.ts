@@ -15,15 +15,10 @@ function dwtOnReady() {
 function acquireImage() {
   let DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
   if (DWObject) {
-    var OnAcquireImageSuccess, OnAcquireImageFailure;
-    OnAcquireImageSuccess = OnAcquireImageFailure = function (){
-      DWObject.CloseSource();
-    };
-
     DWObject.SelectSourceByIndex(0); //Use method SelectSourceByIndex to avoid the 'Select Source' dialog
     DWObject.OpenSource();
     DWObject.IfDisableSourceAfterAcquire = true;	// Scanner source will be disabled/closed automatically after the scan.
-    DWObject.AcquireImage(OnAcquireImageSuccess, OnAcquireImageFailure);
+    DWObject.AcquireImage({}, () => {}, (errorCode: number, errorString: string) => {DWObject.CloseSource();});
   }
 }
 
