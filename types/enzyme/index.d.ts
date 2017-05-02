@@ -22,7 +22,7 @@ export class ElementClass extends Component<any, any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new(props?: Props, context?: any): Component<Props, any>;
+    new (props?: Props, context?: any): Component<Props, any>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
@@ -133,6 +133,16 @@ export interface CommonWrapper<P, S> {
      * @param index
      */
     get(index: number): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying node.
+     */
+    getNode(): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying nodes.
+     */
+    getNodes(): Array<ReactElement<any>>;
 
     /**
      * Returns a wrapper around the node at a given index of the current wrapper.
@@ -335,7 +345,7 @@ export interface CommonWrapper<P, S> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    type(): string | ComponentClass<P> | StatelessComponent<P> ;
+    type(): string | ComponentClass<P> | StatelessComponent<P>;
 
     length: number;
 }
