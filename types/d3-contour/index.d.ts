@@ -55,7 +55,7 @@ export interface Contours {
     /**
      * Returns the current smoothing flag, which defaults to true.
      */
-    smooth():boolean;
+    smooth(): boolean;
     /**
      * Sets whether or not the generated contour polygons are smoothed using linear interpolation and returns the contour generator.
      *

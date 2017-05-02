@@ -16,7 +16,6 @@ import {
 import { geoPath } from 'd3-geo';
 import { randomNormal } from 'd3-random';
 
-
 // -----------------------------------------------------------------------------
 // Preparatory Steps
 // -----------------------------------------------------------------------------
@@ -26,8 +25,8 @@ import { randomNormal } from 'd3-random';
 const n = 256;
 const m = 256;
 const values: number[] = new Array(n * m);
-for (var j = 0.5, k = 0; j < m; ++j) {
-    for (var i = 0.5; i < n; ++i, ++k) {
+for (let j = 0.5, k = 0; j < m; ++j) {
+    for (let i = 0.5; i < n; ++i, ++k) {
         values[k] = goldsteinPrice(i / n * 4 - 2, 1 - j / m * 3);
     }
 }
@@ -54,7 +53,6 @@ const pathSolo = geoPath<any, d3Contour.ContourMultiPolygon>();
 // -----------------------------------------------------------------------------
 // Test Contour Generator
 // -----------------------------------------------------------------------------
-
 
 // Get contour generator -------------------------------------------------------
 
@@ -83,7 +81,7 @@ contGen = contGen.thresholds(10);
 
 // set with array
 const thresholds1 = range(1, 21)
-    .map(function (p) { return Math.pow(2, p); });
+    .map(p => { return Math.pow(2, p); });
 contGen = contGen.thresholds(thresholds1);
 
 // set with threshold array generator
@@ -98,7 +96,6 @@ contGen = contGen.thresholds(thresholdSturges);
 thresholdGenerator = contGen.thresholds();
 
 // Use contour generator =======================================================
-
 
 pathStringMaybe = pathSolo(contGen(values)[0]);
 
@@ -174,9 +171,8 @@ thresholdGenerator = contDensCustom.thresholds();
 // bandwidth(...) --------------------------------------------------------------
 // set with chainability
 contDensCustom = contDensCustom.bandwidth(40);
-//get
+// get
 num = contDensCustom.bandwidth();
-
 
 // Use contour generator =======================================================
 
