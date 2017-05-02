@@ -594,7 +594,7 @@ interface SetConstructor {
 
 declare var Set: SetConstructor;
 
-interface WeakMap<K extends object, V> {
+interface WeakMap<K extends Object, V> {
     delete(key: K): boolean;
     get(key: K): V;
     has(key: K): boolean;
@@ -602,8 +602,8 @@ interface WeakMap<K extends object, V> {
 }
 
 interface WeakMapConstructor {
-    new <K extends object, V>(): WeakMap<K, V>;
-    new <K extends object, V>(iterable: IterableShim<[K, V]>): WeakMap<K, V>;
+    new <K extends Object, V>(): WeakMap<K, V>;
+    new <K extends Object, V>(iterable: IterableShim<[K, V]>): WeakMap<K, V>;
     prototype: WeakMap<any, any>;
 }
 
