@@ -39,33 +39,35 @@ declare namespace restangular {
   }
 
   interface IProvider {
-    setBaseUrl(baseUrl: string): void;
-    setExtraFields(fields: string[]): void;
-    setParentless(parentless: boolean, routes: string[]): void;
-    setDefaultHttpFields(httpFields: any): void;
-    addElementTransformer(route: string, transformer: Function): void;
-    addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
-    setTransformOnlyServerElements(active: boolean): void;
-    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): void;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
-    addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
-    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): void;
-    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): void;
-    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): void;
-    setRestangularFields(fields: {[fieldName: string]: string}): void;
-    setMethodOverriders(overriders: string[]): void;
-    setJsonp(jsonp: boolean): void;
-    setDefaultRequestParams(params: any): void;
-    setDefaultRequestParams(method: string, params: any): void;
-    setDefaultRequestParams(methods: string[], params: any): void;
-    setFullResponse(fullResponse: boolean): void;
-    setDefaultHeaders(headers: any): void;
-    setRequestSuffix(suffix: string): void;
-    setUseCannonicalId(useCannonicalId: boolean): void;
-    setEncodeIds(encode: boolean): void;
+    setBaseUrl(baseUrl: string): this;
+    setExtraFields(fields: string[]): this;
+    setParentless(parentless: boolean, routes: string[]): this;
+    setDefaultHttpFields(httpFields: any): this;
+    addElementTransformer(route: string, transformer: Function): this;
+    addElementTransformer(route: string, isCollection: boolean, transformer: Function): this;
+    setTransformOnlyServerElements(active: boolean): this;
+    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): this;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): this;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): this;
+    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): this;
+    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): this;
+    addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): this;
+    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): this;
+    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): this;
+    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): this;
+    setRestangularFields(fields: {[fieldName: string]: string}): this;
+    setMethodOverriders(overriders: string[]): this;
+    setJsonp(jsonp: boolean): this;
+    setDefaultRequestParams(params: any): this;
+    setDefaultRequestParams(method: string, params: any): this;
+    setDefaultRequestParams(methods: string[], params: any): this;
+    setFullResponse(fullResponse: boolean): this;
+    setDefaultHeaders(headers: any): this;
+    setRequestSuffix(suffix: string): this;
+    setUseCannonicalId(useCannonicalId: boolean): this;
+    setEncodeIds(encode: boolean): this;
+    setSelfLinkAbsoluteUrl(value: boolean): this;
+    setParentless(value) : this;
   }
 
   interface ICustom {
@@ -93,7 +95,7 @@ declare namespace restangular {
     extendModel(route: string, extender: (model: IElement) => any): void;
     extendCollection(route: string, extender: (collection: ICollection) => any): void;
   }
-  
+
   interface IScopedService extends IService {
     one(id: number): IElement;
     one(id: string): IElement;
