@@ -9,11 +9,20 @@ import React = require("react");
 export default class Joyride extends React.Component<Props, State> {
     constructor(props: Props);
 
-    reset(restart: boolean): void;
+    reset(restart?: boolean): void;
     next(): void;
     back(): void;
     addTooltip(data: Step): void;
     getProgress(): Progress;
+
+    /**
+     * Please don't use the `start` and `stop` methods anymore. Instead use a combination of the props `run` and `autoStart`.
+     */
+    private start(autorun?: boolean): void;
+    /**
+     * Please don't use the `start` and `stop` methods anymore. Instead use a combination of the props `run` and `autoStart`.
+     */
+    private stop(): void;
 
     static defaultProps: Props;
 }
@@ -146,7 +155,7 @@ export interface Props {
 
 export interface Step {
     title?: string;
-    text?: string;
+    text?: React.ReactNode;
     selector: string;
     position?: "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right" | "right" | "left";
     type?: "click" | "hover";

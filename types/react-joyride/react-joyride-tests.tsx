@@ -1,5 +1,5 @@
 import React = require("react");
-import { Step, default as Joyride } from "react-joyride";
+import Joyride, { Step } from "react-joyride";
 
 class NewComponent extends React.Component<undefined, undefined> {
     j: Joyride;
@@ -35,6 +35,10 @@ class NewComponent extends React.Component<undefined, undefined> {
             },
             name: "my-name",
             parent: "MyParent"
+        },
+        {
+            selector: ".other-selectable",
+            text: (<div>Also works</div>)
         }];
 
     render() {
