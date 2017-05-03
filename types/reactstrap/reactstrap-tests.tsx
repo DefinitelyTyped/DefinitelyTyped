@@ -547,7 +547,7 @@ const Example26 = (props: any) => {
 
 const Example27 = (props: any) => {
   return (
-    <Row>
+    <Row noGutters>
       <Col sm="6">
         <Card block>
           <CardTitle>Special Title Treatment</CardTitle>
