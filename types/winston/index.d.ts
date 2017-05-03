@@ -399,8 +399,8 @@ declare namespace winston {
         showLevel?: boolean;
         label?: string;
         depth?: number;
+        timestamp?: boolean | (() => string | boolean);
 
-        timestamp?(): any | boolean;
         stringify?(obj: any): string;
     }
 
