@@ -73,7 +73,7 @@ export declare class Pool extends events.EventEmitter {
     end(): Promise<void>;
 
     query(queryText: string, values?: any[]): Promise<QueryResult>;
-
+    query(queryText: QueryConfig, callback: (err: Error, result: QueryResult) => void): void;
     query(queryText: string, callback: (err: Error, result: QueryResult) => void): void;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
 
