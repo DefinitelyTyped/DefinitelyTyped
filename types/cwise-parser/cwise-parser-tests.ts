@@ -3,7 +3,7 @@ import * as parser from "cwise-parser";
 import * as tape from "tape";
 
 tape("basic tests", (t) => {
-	const parsed = parser((a, b, c) => {
+	const parsed = parser((a, b: number, c: number) => {
 		a += b;
 		c = Math.cos(b);
 	});
