@@ -6452,6 +6452,18 @@ export interface BackAndroidStatic {
     removeEventListener(eventName: BackPressEventName, handler: () => void): void;
 }
 
+/**
+ * Detect hardware back button presses, and programmatically invoke the
+ * default back button functionality to exit the app if there are no
+ * listeners or if none of the listeners return true.
+ * Methods don't have more detailed documentation as of 0.25.
+ */
+export interface BackHandlerStatic {
+    exitApp(): void;
+    addEventListener(eventName: BackPressEventName, handler: () => void): void;
+    removeEventListener(eventName: BackPressEventName, handler: () => void): void;
+}
+
 export interface ButtonProperties {
     title: string;
     onPress: () => any;
@@ -8591,6 +8603,9 @@ export type AsyncStorage = AsyncStorageStatic
 
 export var BackAndroid: BackAndroidStatic
 export type BackAndroid = BackAndroidStatic
+
+export var BackHandler: BackHandlerStatic
+export type BackHandler = BackHandlerStatic
 
 export var Button: ButtonStatic
 export type Button = ButtonStatic
