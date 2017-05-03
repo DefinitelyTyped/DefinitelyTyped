@@ -1,4 +1,4 @@
-// Type definitions for Sinon 2.2.0
+// Type definitions for Sinon 2.2
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.con/lumaxis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,8 +6,10 @@
 // sinon uses DOM dependencies which are absent in browserless envoronment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
+// tslint:disable no-empty-interface
 interface Event { }
 interface Document { }
+// tslint:enable no-empty-interface
 
 declare namespace Sinon {
     interface SinonSpyCallApi {
@@ -241,7 +243,7 @@ declare namespace Sinon {
 
     interface SinonFakeXMLHttpRequest {
         // Properties
-        onCreate: (xhr: SinonFakeXMLHttpRequest) => void;
+        onCreate(xhr: SinonFakeXMLHttpRequest): void;
         url: string;
         method: string;
         requestHeaders: any;
@@ -269,9 +271,7 @@ declare namespace Sinon {
         onerror(): void;
     }
 
-    interface SinonFakeXMLHttpRequestStatic {
-        (): SinonFakeXMLHttpRequest;
-    }
+    type SinonFakeXMLHttpRequestStatic = () => SinonFakeXMLHttpRequest;
 
     interface SinonStatic {
         useFakeXMLHttpRequest: SinonFakeXMLHttpRequestStatic;
@@ -283,7 +283,7 @@ declare namespace Sinon {
         autoRespond: boolean;
         autoRespondAfter: number;
         fakeHTTPMethods: boolean;
-        getHTTPMethod: (request: SinonFakeXMLHttpRequest) => string;
+        getHTTPMethod(request: SinonFakeXMLHttpRequest): string;
         requests: SinonFakeXMLHttpRequest[];
         respondImmediately: boolean;
 
@@ -324,8 +324,8 @@ declare namespace Sinon {
     interface SinonAssert {
         // Properties
         failException: string;
-        fail: (message?: string) => void; // Overridable
-        pass: (assertion: any) => void; // Overridable
+        fail(message?: string): void; // Overridable
+        pass(assertion: any): void; // Overridable
 
         // Methods
         notCalled(spy: SinonSpy): void;
@@ -449,7 +449,7 @@ declare namespace Sinon {
     }
 }
 
-declare var Sinon: Sinon.SinonStatic;
+declare const Sinon: Sinon.SinonStatic;
 
 export = Sinon;
 export as namespace sinon;
