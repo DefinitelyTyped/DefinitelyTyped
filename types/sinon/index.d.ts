@@ -102,7 +102,7 @@ declare namespace Sinon {
     interface SinonStub extends SinonSpy {
         resetBehavior(): void;
         resetHistory(): void;
-        usingPromise(promiseLibrary: any): void;
+        usingPromise(promiseLibrary: any): SinonStub;
 
         returns(obj: any): SinonStub;
         returnsArg(index: number): SinonStub;
@@ -415,7 +415,7 @@ declare namespace Sinon {
         reset(): void;
         resetHistory(): void;
         resetBehavior(): void;
-        usingPromise(promiseLibrary: any): void;
+        usingPromise(promiseLibrary: any): SinonSandbox;
         verify(): void;
         verifyAndRestore(): void;
     }
