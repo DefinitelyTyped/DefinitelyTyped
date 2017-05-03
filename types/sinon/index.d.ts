@@ -65,6 +65,8 @@ declare namespace Sinon {
         (...args: any[]): any;
         calledBefore(anotherSpy: SinonSpy): boolean;
         calledAfter(anotherSpy: SinonSpy): boolean;
+        calledImmediatelyBefore(anotherSpy: SinonSpy): boolean;
+        calledImmediatelyAfter(anotherSpy: SinonSpy): boolean;
         calledWithNew(): boolean;
         withArgs(...args: any[]): SinonSpy;
         alwaysCalledOn(obj: any): boolean;

@@ -130,6 +130,14 @@ function testUsingPromises() {
     sinon.stub().usingPromise(Promise);
 }
 
+function testSpy() {
+    const otherSpy = sinon.spy();
+    sinon.spy().calledAfter(otherSpy);
+    sinon.spy().calledBefore(otherSpy);
+    sinon.spy().calledImmediatelyAfter(otherSpy);
+    sinon.spy().calledImmediatelyBefore(otherSpy);
+}
+
 testOne();
 testTwo();
 testThree();
@@ -141,6 +149,7 @@ testEight();
 testNine();
 testPromises();
 testSandbox();
+testSpy();
 testSymbolMatch();
 testResetHistory();
 testUsingPromises();
