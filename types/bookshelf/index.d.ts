@@ -282,8 +282,7 @@ declare namespace Bookshelf {
 		[index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder;
 	}
 
-	interface FetchAllOptions extends SyncOptions {
-		require?: boolean;
+	interface FetchAllOptions extends FetchOptions {
 	}
 
 	interface SaveOptions extends SyncOptions {
