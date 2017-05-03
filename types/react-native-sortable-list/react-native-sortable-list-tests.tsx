@@ -8,8 +8,9 @@ import {
     Image,
     View,
     Dimensions,
-    FlexJustifyType,
-    FlexAlignType
+    ViewStyle,
+    TextStyle,
+    ImageStyle,
 } from 'react-native';
 import SortableList, {RowProps} from 'react-native-sortable-list';
 
@@ -61,20 +62,20 @@ const data = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center" as FlexJustifyType,
-        alignItems: "center" as FlexAlignType,
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#eee',
         paddingTop: 60,
-    },
+    } as ViewStyle,
 
     list: {
         flex: 1,
-    },
+    } as ViewStyle,
 
     contentContainer: {
         width: window.width,
         paddingHorizontal: 30,
-    },
+    } as ViewStyle,
 
     row: {
         flexDirection: 'row',
@@ -89,18 +90,18 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowOffset: {height: 2, width: 2},
         shadowRadius: 2,
-    },
+    } as ViewStyle,
 
     image: {
         width: 60,
         height: 60,
         marginRight: 30,
         borderRadius: 30,
-    },
+    } as ImageStyle,
 
     text: {
         fontSize: 24,
-    },
+    } as TextStyle,
 
 });
 

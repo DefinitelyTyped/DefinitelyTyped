@@ -18,9 +18,9 @@ interface DatePickerProps {
     cancelBtnText?: string;
     showIcon?: boolean;
     disabled?: boolean;
-    onDateChange?: (dateStr: string, date: Date) => void;
+    onDateChange?(dateStr: string, date: Date): void;
     placeholder?: string;
-    modalOnResponderTerminationRequest?: (e: any) => boolean;
+    modalOnResponderTerminationRequest?(e: any): boolean;
     is24Hour?: boolean;
     style?: any;
     customStyles?: any;

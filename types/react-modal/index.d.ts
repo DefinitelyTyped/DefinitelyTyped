@@ -28,9 +28,9 @@ declare namespace ReactModal {
         /* Set this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
         appElement?: HTMLElement | {};
         /* Function that will be run after the modal has opened. */
-        onAfterOpen?: () => void;
+        onAfterOpen?(): void;
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        onRequestClose?: (event: (MouseEvent | KeyboardEvent)) => void;
+        onRequestClose?(event: (MouseEvent | KeyboardEvent)): void;
         /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
         closeTimeoutMS?: number;
         /* Boolean indicating if the appElement should be hidden. Defaults to true. */
@@ -48,7 +48,7 @@ declare namespace ReactModal {
         /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
         role?: string;
         /* Function that will be called to get the parent element that the modal will be attached to. */
-        parentSelector?: () => HTMLElement;
+        parentSelector?(): HTMLElement;
     }
 }
 

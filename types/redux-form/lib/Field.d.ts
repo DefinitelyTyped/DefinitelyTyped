@@ -1,9 +1,9 @@
 import {
     Component,
     ReactElement,
-    DragEventHandler,
-    FocusEventHandler,
-    FormEventHandler,
+    ChangeEvent,
+    DragEvent,
+    FocusEvent
 } from "react";
 import { Dispatch } from "redux";
 import { ComponentConstructor, DataShape, FieldValue } from "../index";
@@ -28,15 +28,7 @@ interface BaseFieldProps {
      *
      * Required but made optional so interface can be used on decorated components.
      */
-    component?: ComponentConstructor | "input" | "select" | "textarea",
-    // component?: ComponentClass<P> | SFC<P> | "input" | "select" | "textarea",
-
-    /**
-     * If true, the rendered component will be available with the
-     * getRenderedComponent() method. Defaults to false. Cannot be used if your
-     * component is a stateless function component.
-     */
-    withRef?: boolean;
+    component?: ComponentConstructor<any> | "input" | "select" | "textarea",
 
     /**
      * Formats the value from the Redux store to be displayed in the field input.
@@ -57,7 +49,7 @@ interface BaseFieldProps {
     /**
      * Don't use.
      */
-    props?: Object;
+    props?: any;
 
     /**
      * Parses the value given from the field input component to the type that you want
@@ -72,7 +64,7 @@ interface BaseFieldProps {
      * should return `undefined`, if the field is invalid, it should return an error
      * (usually, but not necessarily, a `String`).
      */
-    validate?: Validator|Validator[];
+    validate?: Validator | Validator[];
 
     /**
      * Allows you to to provide a field-level warning rule. The function will be given the
@@ -80,7 +72,14 @@ interface BaseFieldProps {
      * it should return the warning (usually, but not necessarily, a `String`). If the field
      * does not need a warning, it should return `undefined`.
      */
-    warn?: Validator|Validator[];
+    warn?: Validator | Validator[];
+
+    /**
+     * If true, the rendered component will be available with the
+     * getRenderedComponent() method. Defaults to false. Cannot be used if your
+     * component is a stateless function component.
+     */
+    withRef?: boolean;
 }
 
 /**
@@ -91,13 +90,13 @@ interface BaseFieldProps {
  * @param previousAllValues All the values in the entire form before the current change.
  *                          This will be an Immutable Map if you are using Immutable JS.
  */
-export type Normalizer = (value: FieldValue, previousValue?: FieldValue, allValues?: Object, previousAllValues?: Object) => FieldValue;
+export type Normalizer = (value: FieldValue, previousValue?: FieldValue, allValues?: any, previousAllValues?: any) => FieldValue;
 
 export type Formatter = (value: FieldValue, name: string) => FieldValue;
 
 export type Parser = (value: FieldValue, name: string) => FieldValue;
 
-export type Validator = (value: FieldValue, allValues?: Object) => undefined | string;
+export type Validator = (value: FieldValue, allValues?: any, props?: any) => any;
 
 /**
  * Declare Field as this interface to specify the generic.
@@ -175,7 +174,7 @@ interface WrappedFieldProps<S> {
      * An object containing all the props that you will normally want to pass to
      * your input component.
      */
-    input: WrappedFieldInputProps;
+    input?: WrappedFieldInputProps;
 
     /**
      * An object containing all the metadata props.
@@ -186,6 +185,11 @@ interface WrappedFieldProps<S> {
 /**
  * These props are meant to be destructured into your <input/> component.
  */
+interface EventOrValueHandler<Event> {
+    (event: Event): void;
+    (value: FieldValue, newValue: FieldValue, previousValue: FieldValue): void;
+}
+
 interface WrappedFieldInputProps {
     /**
      * An alias for value only when value is a boolean. Provided for
@@ -202,29 +206,29 @@ interface WrappedFieldInputProps {
     /**
      * A function to call when the form field loses focus.
      */
-    onBlur: FocusEventHandler<any>;
+    onBlur: EventOrValueHandler<FocusEvent<any>>;
 
     /**
      * A function to call when the form field is changed.
      */
-    onChange: FormEventHandler<any>;
+    onChange: EventOrValueHandler<ChangeEvent<any>>;
 
     /**
      * A function to call when the form field receives a 'dragStart' event.
      * Saves the field value in the event for giving the field it is dropped
      * into.
      */
-    onDragStart: DragEventHandler<any>;
+    onDragStart: EventOrValueHandler<DragEvent<any>>;
 
     /**
      * A function to call when the form field receives a drop event.
      */
-    onDrop: DragEventHandler<any>;
+    onDrop: EventOrValueHandler<DragEvent<any>>;
 
     /**
      * A function to call when the form field receives focus.
      */
-    onFocus: FocusEventHandler<any>;
+    onFocus: EventOrValueHandler<FocusEvent<any>>;
 
     /**
      * The value of this form field. It will be a boolean for checkboxes, and
@@ -277,6 +281,11 @@ interface WrappedFieldMetaProps<S> {
     error?: string;
 
     /**
+     * The name of the form. Could be useful if you want to manually dispatch actions.
+     */
+    form?: string;
+
+    /**
      * true if the field value fails validation (has a validation error).
      * Opposite of valid.
      */
@@ -287,6 +296,17 @@ interface WrappedFieldMetaProps<S> {
      * of dirty.
      */
     pristine: boolean;
+
+    /**
+     * true if the field is currently being submitted
+     */
+    submitting?: boolean;
+
+    /**
+     * true if the form had onSubmit called and failed to submit for any reason.
+     * A subsequent successful submit will set it back to false.
+     */
+    submitFailed?: boolean;
 
     /**
      * true if the field has been touched. By default this will be set when

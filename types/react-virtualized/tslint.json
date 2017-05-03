@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "interface-over-type-literal": false,
+        "semicolon": [
+            false
+        ],
+        "prefer-method-signature": false,
+        "prefer-declare-function": false,
+        "no-padding": false
+    }
+}

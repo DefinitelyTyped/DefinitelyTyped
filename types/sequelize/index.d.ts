@@ -1,6 +1,6 @@
 // Type definitions for Sequelize 4.0.0
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
+// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>, Brendan Abolivier <https://github.com/babolivier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3247,6 +3247,12 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
+                     
+                     
+        /**
+         * Apply DISTINCT(col) for FindAndCount(all)
+         */
+        distinct?: boolean;
     }
 
     /**
@@ -4323,7 +4329,7 @@ declare namespace sequelize {
         /**
          * If this column references another table, provide it here as a Model, or a string
          */
-        model?: string | Model<any, any>;
+        model: string | Model<any, any>;
 
         /**
          * The column of the foreign table that this column references

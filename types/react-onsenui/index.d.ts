@@ -5,32 +5,32 @@
 // TypeScript Version: 2.1
 import { Component } from 'react';
 
-declare interface Modifiers_string {
-    default?: string,
-    material?: string
+export interface Modifiers_string {
+    default?: string;
+    material?: string;
 }
 
-declare interface Modifiers_number {
-    default?: number,
-    material?: number
+export interface Modifiers_number {
+    default?: number;
+    material?: number;
 }
 
-declare interface AnimationOptions {
-    duration?: number,
-    delay?: number,
-    timing?: string
+export interface AnimationOptions {
+    duration?: number;
+    delay?: number;
+    timing?: string;
 }
 
 /*** splitter ***/
-declare class SplitterSide extends Component<{
+export class SplitterSide extends Component<{
     side?: "left" | "right",
     collapse?: "portrait" | "landscape" | boolean,
     isOpen?: boolean,
-    onOpen?: (e?: Event) => void,
-    onPreOpen?: (e?: Event) => void,
-    onPreClose?: (e?: Event) => void,
-    onModeChange?: (e?: Event) => void,
-    onClose?: (e?: Event) => void,
+    onOpen?(e?: Event): void,
+    onPreOpen?(e?: Event): void,
+    onPreClose?(e?: Event): void,
+    onModeChange?(e?: Event): void,
+    onClose?(e?: Event): void,
     isSwipeable?: boolean,
     swipeTargetWidth?: number,
     width?: number,
@@ -38,80 +38,77 @@ declare class SplitterSide extends Component<{
     animationOptions?: AnimationOptions,
     openThreshold?: number,
     mode?: "collapse" | "split"
-}, any>{ }
+}, any> { }
 
+export class SplitterContent extends Component<{}, any> { }
 
-declare class SplitterContent extends Component<{}, any> { }
-
-declare class Splitter extends Component<{}, any> { }
+export class Splitter extends Component<{}, any> { }
 
 /*** toolbar ***/
 
-declare class Toolbar extends Component<{}, any>{}
+export class Toolbar extends Component<{}, any> {}
 
-
-declare class BottomToolbar extends Component<{
+export class BottomToolbar extends Component<{
     modifier?: string
-}, any>{}
+}, any> {}
 
-
-declare class ToolbarButton extends Component<{
+export class ToolbarButton extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onClick?: (e?: Event) => void
-}, any>{}
+    onClick?(e?: Event): void
+}, any> {}
 
 /*** icon ***/
-declare class Icon extends Component<{
+export class Icon extends Component<{
     modifier?: string,
     icon?: string | Modifiers_string,
     size?: number | Modifiers_number,
     rotate?: 90 | 180 | 270,
     fixedWidth?: boolean,
     spin?: boolean
-}, any>{}
+}, any> {}
 
 /*** page ***/
 
-declare class Page extends Component<{
+export class Page extends Component<{
     contentStyle?: any,
     modifier?: string,
-    renderModal?: () => void,
-    renderToolbar?: () => void,
-    renderBottomToolbar?: () => void,
-    renderFixed?: () => void,
-    onInit?: () => void,
-    onShow?: () => void,
-    onHide?: () => void
-}, any>{}
+    renderModal?(): void,
+    renderToolbar?(): void,
+    renderBottomToolbar?(): void,
+    renderFixed?(): void,
+    onInit?(): void,
+    onShow?(): void,
+    onHide?(): void
+}, any> {}
 
 /*** Grid ***/
-declare class Col extends Component<{
+export class Col extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
     width?: string
-}, any>{}
+}, any> {}
 
-declare class Row extends Component<{
+export class Row extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
-}, any>{}
+}, any> {}
 
 /*** Navigation ***/
-declare class BackButton extends Component<{
+export class BackButton extends Component<{
     modifier?: string,
-    onClick?: (navigator: Navigator) => void
-}, any>{}
+    onClick?(navigator: Navigator): void
+}, any> {}
 
-declare class Navigator extends Component<{
-    renderPage: () => any,
+export class Navigator extends Component<{
+    renderPage(): any,
     initialRouteStack?: string[],
     initialRoute?: any,
-    onPrePush?: () => void,
-    onPostPush?: () => void,
-    onPrePop?: () => void,
-    onPostPop?: () => void,
+    onPrePush?(): void,
+    onPostPush?(): void,
+    onPrePop?(): void,
+    onPostPop?(): void,
     animation?: "slide" | "lift" | "fade" | "none" | string,
     animationOptions?: AnimationOptions
-}, any>{
+}, any> {
     resetPage(route: any, options: any): void;
     resetPageStack(route: any, options: any): void;
     pushPage(route: any, options: any): void;
@@ -119,7 +116,7 @@ declare class Navigator extends Component<{
 }
 
 /*** Carousel ***/
-declare class Carousel extends Component<{
+export class Carousel extends Component<{
     direction?: "horizontal" | "vertical",
     fullscreen?: boolean,
     overscrollable?: boolean,
@@ -132,19 +129,19 @@ declare class Carousel extends Component<{
     disabled?: boolean,
     index?: number,
     autoRefresh?: boolean,
-    onPostChange?: () => void,
-    onRefresh?: () => void,
-    onOverscroll?: () => void
+    onPostChange?(): void,
+    onRefresh?(): void,
+    onOverscroll?(): void
     animationOptions?: AnimationOptions
-}, any>{}
+}, any> {}
 
-declare class CarouselItem extends Component<{
+export class CarouselItem extends Component<{
     modifier: string
-}, any>{}
+}, any> {}
 
 /*** AlertDialog ***/
-declare class AlertDialog extends Component<{
-    onCancel?: () => void,
+export class AlertDialog extends Component<{
+    onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
     isDisabled?: boolean,
@@ -152,14 +149,14 @@ declare class AlertDialog extends Component<{
     modifier?: string,
     maskColor?: string,
     animationOptions?: AnimationOptions,
-    onPreShow?: () => void,
-    onPostShow?: () => void,
-    onPreHide?: () => void,
-    onPostHide?: () => void,
-}, any>{}
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+}, any> {}
 
-declare class Dialog extends Component<{
-    onCancel?: () => void,
+export class Dialog extends Component<{
+    onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
     isDisabled?: boolean,
@@ -167,23 +164,23 @@ declare class Dialog extends Component<{
     modifier?: string,
     maskColor?: string,
     animationOptions?: AnimationOptions,
-    onPreShow?: () => void,
-    onPostShow?: () => void,
-    onPreHide?: () => void,
-    onPostHide?: () => void,
-}, any>{}
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+}, any> {}
 
-declare class Modal extends Component<{
+export class Modal extends Component<{
     animation?: "fade" | "none",
     animationOptions?: AnimationOptions
-    onShow?: () => void,
-    onHide?: () => void,
+    onShow?(): void,
+    onHide?(): void,
     isOpen?: boolean
-}, any>{}
+}, any> {}
 
-declare class Popover extends Component<{
-    getTarget?: () => Component<any, any> | HTMLElement,
-    onCancel?: () => void,
+export class Popover extends Component<{
+    getTarget?(): Component<any, any> | HTMLElement,
+    onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
     isDisabled?: boolean,
@@ -191,52 +188,52 @@ declare class Popover extends Component<{
     modifier?: string,
     maskColor?: string,
     animationOptions?: AnimationOptions,
-    onPreShow?: () => void,
-    onPostShow?: () => void,
-    onPreHide?: () => void,
-    onPostHide?: () => void,
-}, any>{}
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+}, any> {}
 
-declare class ProgressBar extends Component<{
+export class ProgressBar extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
     intermediate?: boolean,
 }, any> {}
 
-declare class ProgressCircular extends Component<{
+export class ProgressCircular extends Component<{
     modifier?: string,
     value?: number,
     secondaryValue?: boolean,
     intermediate?: boolean,
-}, any>{}
+}, any> {}
 
-declare class Ripple extends Component<{
+export class Ripple extends Component<{
     color?: string,
     background?: string,
     disabled?: boolean,
-}, any>{}
+}, any> {}
 
 /*** Forms ***/
-declare class Fab extends Component<{
+export class Fab extends Component<{
     modifier?: string,
     ripple?: boolean,
     position?: string,
     disabled?: boolean,
-    onClick?: () => void,
-}, any>{}
+    onClick?(): void,
+}, any> {}
 
-declare class Button extends Component<{
+export class Button extends Component<{
     modifier?: string,
     disabled?: boolean,
     ripple?: boolean,
-    onClick?: (e?: Event) => void
-}, any>{}
+    onClick?(e?: Event): void
+}, any> {}
 
-declare class Input extends Component<{
+export class Input extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onChange?: (e: Event) => void,
+    onChange?(e: Event): void,
     value?: string,
     checked?: boolean,
     placeholder?: string,
@@ -245,70 +242,67 @@ declare class Input extends Component<{
     float?: boolean,
 }, any> {}
 
-declare class Range extends Component<{
+export class Range extends Component<{
     modifier?: string,
-    onChange?: (e: Event) => void,
+    onChange?(e: Event): void,
     value?: number,
     disabled?: boolean,
-}, any>{}
+}, any> {}
 
-declare class Switch extends Component<{
-    onChange?: (e: Event) => void,
+export class Switch extends Component<{
+    onChange?(e: Event): void,
     checked?: boolean,
     disabled?: boolean,
     inputId?: string
-}, any>{}
+}, any> {}
 
 /**
-* Tabs
-*/
+ * Tabs
+ */
 
-declare class Tab extends Component<{}, any>{ }
+export class Tab extends Component<{}, any> { }
 
-declare class TabActive extends Component<{}, any>{ }
+export class TabActive extends Component<{}, any> { }
 
-declare class TabInactive extends Component<{}, any>{ }
+export class TabInactive extends Component<{}, any> { }
 
-declare class Tabbar extends Component<{
+export class Tabbar extends Component<{
     index?: number,
-    renderTabs?: () => any,
+    renderTabs?(): any,
     position?: "bottom" | "top" | "auto",
     animation: "none" | "slide" | "fade",
     animationOptions?: AnimationOptions,
-    onPreChange?: () => void,
-    onPostChange?: () => void,
-    onReactive?: () => void,
+    onPreChange?(): void,
+    onPostChange?(): void,
+    onReactive?(): void,
 }, any> { }
 
-
 /**
-* Lists
-*/
+ * Lists
+ */
 
-declare class LazyList extends Component<{
+export class LazyList extends Component<{
     modifier?: string,
     length?: number,
-    renderRow: (rowIndex: number) => any,
-    calculateItemHeight: (rowIndex: number) => any,
-}, any>{ }
+    renderRow(rowIndex: number): any,
+    calculateItemHeight(rowIndex: number): any,
+}, any> { }
 
-declare class List extends Component<{
+export class List extends Component<{
     modifier?: string,
     dataSource?: string[],
-    renderRow?: () => void,
-    renderHeader?: () => void,
-    renderFooter?: () => void,
-}, any>{}
+    renderRow?(): void,
+    renderHeader?(): void,
+    renderFooter?(): void,
+}, any> {}
 
-declare class ListHeader extends Component<{
+export class ListHeader extends Component<{
     modifier?: string,
-}, any>{}
+}, any> {}
 
-declare class ListItem extends Component<{
+export class ListItem extends Component<{
     modifier?: string,
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
-}, any>{}
-
-
+}, any> {}

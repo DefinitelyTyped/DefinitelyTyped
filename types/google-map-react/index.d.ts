@@ -15,7 +15,7 @@ export interface Options {
   styles?: any[];
   scrollwheel?: boolean;
   panControl?: boolean;
-  mapTypeControl?: boolean,
+  mapTypeControl?: boolean;
   minZoomOverride?: boolean;
   minZoom?: number;
   gestureHandling?: string;
@@ -48,10 +48,38 @@ export interface Maps {
   UnitSystem: any;
 }
 
+export interface Bounds {
+  nw: number;
+  ne: number;
+  sw: number;
+  se: number;
+}
+
+export interface Point {
+  x: number;
+  y: number;
+}
+
+export interface Coords {
+  lat: number;
+  lng: number;
+}
+
+export interface ClickEventValue extends Point, Coords {
+  event: any;
+}
+
+export interface ChangeEventValue {
+  center: Coords;
+  zoom: number;
+  bounds: Bounds;
+  marginBounds: Bounds;
+}
+
 export interface Props {
   bootstrapURLKeys?: BootstrapURLKeys;
-  defaultCenter?: [number, number] | { lat: number, lng: number };
-  center?: [number, number] | { lat: number, lng: number };
+  defaultCenter?: Coords;
+  center?: Coords;
   defaultZoom?: number;
   zoom?: number;
   hoverDistance?: number;
@@ -59,25 +87,23 @@ export interface Props {
   margin?: any[];
   debounced?: boolean;
   layerTypes?: string[];
-  onClick?: ({x, y, lat, lng, event}: { x: number, y: number, lat: number, lng: number, event: any }) => any;
-  onChange?: ({ center, zoom, bounds, marginBounds }: { center: [number, number], zoom: number, bounds: [number, number, number, number], marginBounds: [number, number, number, number] }) => any;
+  onClick?(value: ClickEventValue): any;
+  onChange?(value: ChangeEventValue): any;
   resetBoundsOnResize?: boolean;
-  onChildClick?: (hoverKey: any, childProps: any) => void;
-  onChildMouseEnter?: (hoverKey: any, childProps: any) => void;
-  onChildMouseLeave?: (hoverKey: any, childProps: any) => void;
-  onZoomAnimationStart?: (args: any) => void;
-  onZoomAnimationEnd?: (args: any) => void;
-  onMapTypeIdChange?: (args: any) => void;
-  distanceToMouse?: (pt: {x: number, y: number}, mousePos: {x: number, y: number}) => void;
-  googleMapLoader?: (bootstrapURLKeys: any) => void;
-  onGoogleApiLoaded?: ({map, maps}: { map: any, maps: any }) => void;
+  onChildClick?(hoverKey: any, childProps: any): void;
+  onChildMouseEnter?(hoverKey: any, childProps: any): void;
+  onChildMouseLeave?(hoverKey: any, childProps: any): void;
+  onZoomAnimationStart?(args: any): void;
+  onZoomAnimationEnd?(args: any): void;
+  onMapTypeIdChange?(args: any): void;
+  distanceToMouse?(pt: Point, mousePos: Point): void;
+  googleMapLoader?(bootstrapURLKeys: any): void;
+  onGoogleApiLoaded?({map, maps}: { map: any, maps: any }): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 
 export default class GoogleMapReact extends React.Component<Props, void> {}
 
-export interface ChildComponentProps {
-  lat: number;
-  lng: number;
+export interface ChildComponentProps extends Coords {
   $hover?: boolean;
 }

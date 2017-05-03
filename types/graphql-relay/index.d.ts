@@ -3,7 +3,6 @@
 // Definitions by: Arvitaly <https://github.com/arvitaly>, nitintutlani <https://github.com/nitintutlani>, Grelinfo <https://github.com/Grelinfo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import {
     GraphQLBoolean,
     GraphQLInt,
@@ -30,7 +29,7 @@ import {
  * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
  * whose return type is a connection type with forward pagination.
  */
-interface ForwardConnectionArgs {
+export interface ForwardConnectionArgs {
     after: ConnectionCursor;
     first: number;
 }
@@ -43,7 +42,7 @@ export const forwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
  * Returns a GraphQLFieldConfigArgumentMap appropriate to include on a field
  * whose return type is a connection type with backward pagination.
  */
-interface BackwardConnectionArgs {
+export interface BackwardConnectionArgs {
     before: ConnectionCursor;
     last: number;
 }
@@ -58,7 +57,7 @@ export const backwardConnectionArgs: GraphQLFieldConfigArgumentMap & {
  */
 export const connectionArgs: GraphQLFieldConfigArgumentMap & ForwardConnectionArgs & BackwardConnectionArgs;
 
-interface ConnectionConfig {
+export interface ConnectionConfig {
     name?: string | null;
     nodeType: GraphQLObjectType;
     resolveNode?: GraphQLFieldResolver<any, any> | null;
@@ -67,7 +66,7 @@ interface ConnectionConfig {
     connectionFields?: Thunk<GraphQLFieldConfigMap<any, any>> | null;
 }
 
-interface GraphQLConnectionDefinitions {
+export interface GraphQLConnectionDefinitions {
     edgeType: GraphQLObjectType;
     connectionType: GraphQLObjectType;
 }
@@ -108,7 +107,7 @@ export interface Connection<T> {
 /**
  * A flow type designed to be exposed as a `Edge` over GraphQL.
  */
-interface Edge<T> {
+export interface Edge<T> {
     node: T;
     cursor: ConnectionCursor;
 }
@@ -116,17 +115,16 @@ interface Edge<T> {
 /**
  * A flow type describing the arguments a connection field receives in GraphQL.
  */
-interface ConnectionArguments {
+export interface ConnectionArguments {
     before?: ConnectionCursor;
     after?: ConnectionCursor;
     first?: number;
     last?: number;
 }
 
-
 // connection/arrayconnection.js
 
-interface ArraySliceMetaInfo {
+export interface ArraySliceMetaInfo {
     sliceStart: number;
     arrayLength: number;
 }
@@ -154,11 +152,11 @@ export function connectionFromPromisedArray<T>(
  * Given a slice (subset) of an array, returns a connection object for use in
  * GraphQL.
  *
-* This function is similar to `connectionFromArray`, but is intended for use
-* cases where you know the cardinality of the connection, consider it too large
-* to materialize the entire array, and instead wish pass in a slice of the
-* total result large enough to cover the range specified in `args`.
-*/
+ * This function is similar to `connectionFromArray`, but is intended for use
+ * cases where you know the cardinality of the connection, consider it too large
+ * to materialize the entire array, and instead wish pass in a slice of the
+ * total result large enough to cover the range specified in `args`.
+ */
 export function connectionFromArraySlice<T>(
     arraySlice: T[],
     args: ConnectionArguments,
@@ -205,7 +203,7 @@ export function getOffsetWithDefault(
 
 // mutation/mutation.js
 
-type mutationFn = (
+export type mutationFn = (
     object: any,
     ctx: any,
     info: GraphQLResolveInfo
@@ -225,7 +223,7 @@ type mutationFn = (
  * input field, and it should return an Object with a key for each
  * output field. It may return synchronously, or return a Promise.
  */
-interface MutationConfig {
+export interface MutationConfig {
     name: string;
     description?: string;
     inputFields: Thunk<GraphQLInputFieldConfigMap>;
@@ -243,12 +241,12 @@ export function mutationWithClientMutationId(
 
 // node/node.js
 
-interface GraphQLNodeDefinitions {
+export interface GraphQLNodeDefinitions {
     nodeInterface: GraphQLInterfaceType;
     nodeField: GraphQLFieldConfig<any, any>;
 }
 
-type typeResolverFn = ((any: any) => GraphQLObjectType) |
+export type typeResolverFn = ((any: any) => GraphQLObjectType) |
     ((any: any) => Promise<GraphQLObjectType>);
 
 /**
@@ -266,7 +264,7 @@ export function nodeDefinitions<TContext>(
     typeResolver?: GraphQLTypeResolver<any, TContext>
 ): GraphQLNodeDefinitions;
 
-interface ResolvedGlobalId {
+export interface ResolvedGlobalId {
     type: string;
     id: string;
 }
@@ -294,14 +292,13 @@ export function globalIdField(
     idFetcher?: (object: any, context: any, info: GraphQLResolveInfo) => string
 ): GraphQLFieldConfig<any, any>;
 
-
 // node/plural.js
 
-interface PluralIdentifyingRootFieldConfig {
+export interface PluralIdentifyingRootFieldConfig {
     argName: string;
     inputType: GraphQLInputType;
     outputType: GraphQLOutputType;
-    resolveSingleInput: (input: any, context: any, info: GraphQLResolveInfo) => any;
+    resolveSingleInput(input: any, context: any, info: GraphQLResolveInfo): any;
     description?: string;
 }
 

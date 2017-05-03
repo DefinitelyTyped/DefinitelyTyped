@@ -1,4 +1,3 @@
-
 /// <reference types="jquery" />
 
 //
@@ -7,7 +6,7 @@
 
 // 01-default.html
 function defaultDemo() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         loop: true,
         grabCursor: true,
@@ -27,7 +26,7 @@ function defaultDemo() {
 
 // 02-vertical-mode.html
 function verticalMode() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         mode: 'vertical'
@@ -36,17 +35,17 @@ function verticalMode() {
 
 // 03-dynamic-slides.html
 function dynamicSlides() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true
     });
 
     function randomColor() {
-        var colors = ('blue red green orange pink').split(' ');
+        const colors = ('blue red green orange pink').split(' ');
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    var count = 4;
+    let count = 4;
 
     $('.sdl-append').click(e => {
         e.preventDefault();
@@ -90,7 +89,7 @@ function dynamicSlides() {
 
 // 04-scroll-container.html
 function scrollContainer() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         scrollContainer: true,
         scrollbar: {
             container: '.swiper-scrollbar'
@@ -100,7 +99,7 @@ function scrollContainer() {
 
 // 05-free-mode.html
 function freeMode() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         freeMode: true,
@@ -110,7 +109,7 @@ function freeMode() {
 
 // 06-carousel-mode.html
 function carouselMode() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         slidesPerView: 3
@@ -119,7 +118,7 @@ function carouselMode() {
 
 // 07-carousel-loop.html
 function carouselLoop() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         slidesPerView: 3,
@@ -129,20 +128,20 @@ function carouselLoop() {
 
 // 08-nested.html
 function nested() {
-    var swiperParent = new Swiper('.swiper-parent', {
+    const swiperParent = new Swiper('.swiper-parent', {
         pagination: '.pagination-parent',
         paginationClickable: true,
         slidesPerView: 3
     });
 
-    var swiperNested1 = new Swiper('.swiper-nested-1', {
+    const swiperNested1 = new Swiper('.swiper-nested-1', {
         mode: 'vertical',
         pagination: '.pagination-nested-1',
         paginationClickable: true,
         slidesPerView: 2
     });
 
-    var swiperNested2 = new Swiper('.swiper-nested-2', {
+    const swiperNested2 = new Swiper('.swiper-nested-2', {
         mode: 'vertical',
         pagination: '.pagination-nested-2',
         paginationClickable: true,
@@ -152,14 +151,14 @@ function nested() {
 
 // 09-nested-loop.html
 function nestedLoop() {
-    var swiperParent = new Swiper('.swiper-parent', {
+    const swiperParent = new Swiper('.swiper-parent', {
         pagination: '.pagination-parent',
         paginationClickable: true,
         loop: true,
         slidesPerView: 3
     });
 
-    var swiperNested1 = new Swiper('.swiper-nested', {
+    const swiperNested1 = new Swiper('.swiper-nested', {
         mode: 'vertical',
         pagination: '.pagination-nested',
         paginationClickable: true,
@@ -169,7 +168,7 @@ function nestedLoop() {
 
 // 10-tabs.html
 function tabs() {
-    var tabsSwiper = new Swiper('.swiper-container', {
+    const tabsSwiper = new Swiper('.swiper-container', {
         onlyExternal: true,
         speed: 500
     });
@@ -188,7 +187,7 @@ function tabs() {
 
 // 11-tabs-feedback.html
 function tabsFeedback() {
-    var tabsSwiper = new Swiper('.swiper-container', {
+    const tabsSwiper = new Swiper('.swiper-container', {
         speed: 500,
         onSlideChangeStart: () => {
             $(".tabs .active").removeClass('active');
@@ -210,7 +209,7 @@ function tabsFeedback() {
 
 // 12-partial-display.html
 function partialDisplay() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         slidesPerView: 'auto'
@@ -219,7 +218,7 @@ function partialDisplay() {
 
 // 13-threshold.html
 function threshold() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         moveStartThreshold: 100
@@ -228,7 +227,7 @@ function threshold() {
 
 // 14-different-widths.html
 function differentWidths() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         slidesPerView: 'auto'
@@ -237,7 +236,7 @@ function differentWidths() {
 
 // 15-centered-slides.html
 function centeredSlides() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         centeredSlides: true,
@@ -247,7 +246,7 @@ function centeredSlides() {
 
 // 16-visibility-api.html
 function visibilityApi() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
         centeredSlides: true,
@@ -258,12 +257,11 @@ function visibilityApi() {
 
 // 17 - responsive.html
 function responsive() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true
     });
 }
-
 
 //
 // Scrollbar
@@ -271,7 +269,7 @@ function responsive() {
 
 // demo-1.html
 function demo1() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         scrollbar: {
             container: '.swiper-scrollbar',
             hide: false,
@@ -282,7 +280,7 @@ function demo1() {
 
 // demo-2.html
 function demo2() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         scrollbar: {
             container: '.swiper-scrollbar',
             hide: false,
@@ -293,7 +291,7 @@ function demo2() {
 
 // demo-3.html
 function demo3() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         scrollbar: {
             container: '.swiper-scrollbar',
             hide: true,
@@ -304,7 +302,7 @@ function demo3() {
 
 // demo-4.html
 function demo4() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         scrollbar: {
             container: '.swiper-scrollbar',
@@ -317,7 +315,7 @@ function demo4() {
 
 // demo-5.html
 function demo5() {
-    var mySwiper = new Swiper('.swiper-container', {
+    const mySwiper = new Swiper('.swiper-container', {
         scrollContainer: true,
         mousewheelControl: true,
         mode: 'vertical',

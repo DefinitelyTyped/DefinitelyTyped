@@ -4,7 +4,7 @@ import * as express from 'express';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-var app = express();
+const app = express();
 
 // chain your requests like you were promised:
 request(app)
@@ -20,7 +20,6 @@ request(app)
     // ...
   });
 
-
 // Usage
 request(app)
   .get("/kittens")
@@ -29,18 +28,16 @@ request(app)
     // ...
   });
 
-
 request(app).get("/kittens").expect(200);
 
 // Agents
-var agent = request.agent(app);
+const agent = request.agent(app);
 agent
   .get("/ugly-kitteh")
   .expect(404)
   .then(() => {
     // ...
   });
-
 
 // Promisey goodness
 request(app)

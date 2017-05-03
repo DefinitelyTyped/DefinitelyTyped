@@ -1,4 +1,4 @@
-declare var $: any, jQuery: any;
+declare const $: any, jQuery: any;
 
 interface IFoodOrganic {
     name: string;
@@ -41,38 +41,38 @@ interface IDictionary<T> {
     [index: string]: T;
 }
 
-var foodsOrganic: IFoodOrganic[] = [
+const foodsOrganic: IFoodOrganic[] = [
     { name: 'banana', organic: true },
     { name: 'beet', organic: false },
 ];
-var foodsType: IFoodType[] = [
+const foodsType: IFoodType[] = [
     { name: 'apple', type: 'fruit' },
     { name: 'banana', type: 'fruit' },
     { name: 'beet', type: 'vegetable' }
 ];
-var foodsCombined: IFoodCombined[] = [
+const foodsCombined: IFoodCombined[] = [
     { 'name': 'apple', 'organic': false, 'type': 'fruit' },
     { 'name': 'carrot', 'organic': true, 'type': 'vegetable' }
 ];
 
-var stoogesQuotes: IStoogesQuote[] = [
+const stoogesQuotes: IStoogesQuote[] = [
     { 'name': 'curly', 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
     { 'name': 'moe', 'quotes': ['Spread out!', 'You knucklehead!'] }
 ];
-var stoogesAges: IStoogesAge[] = [
+const stoogesAges: IStoogesAge[] = [
     { 'name': 'moe', 'age': 40 },
     { 'name': 'larry', 'age': 50 }
 ];
-var stoogesAgesDict: IDictionary<IStoogesAge> = {
+const stoogesAgesDict: IDictionary<IStoogesAge> = {
     first: { 'name': 'moe', 'age': 40 },
     second: { 'name': 'larry', 'age': 50 }
 };
-var stoogesCombined: IStoogesCombined[] = [
+const stoogesCombined: IStoogesCombined[] = [
     { 'name': 'curly', 'age': 30, 'quotes': ['Oh, a wise guy, eh?', 'Poifect!'] },
     { 'name': 'moe', 'age': 40, 'quotes': ['Spread out!', 'You knucklehead!'] }
 ];
 
-var keys: IKey[] = [
+const keys: IKey[] = [
     { 'dir': 'left', 'code': 97 },
     { 'dir': 'right', 'code': 100 }
 ];
@@ -85,9 +85,9 @@ class Dog {
     }
 }
 
-var result: any;
+let result: any;
 
-var any: any;
+let any: any;
 
 interface TResult {
     a: number;
@@ -96,7 +96,7 @@ interface TResult {
 }
 
 // _.MapCache
-var testMapCache: _.MapCache;
+let testMapCache: _.MapCache;
 result = <(key: string) => boolean>testMapCache.delete;
 result = <(key: string) => any>testMapCache.get;
 result = <(key: string) => boolean>testMapCache.has;
@@ -498,7 +498,6 @@ namespace TestDropRight {
 
         result = _.dropRight<TResult>(list);
         result = _.dropRight<TResult>(list, 42);
-
     }
 
     {
@@ -1488,7 +1487,6 @@ namespace TestTail {
 
         result = _.tail<TResult>(array);
         result = _.tail<TResult>(list);
-
     }
 
     {
@@ -1562,7 +1560,6 @@ namespace TestSortedIndex {
         result = _(array).sortedIndex(value);
 
         result = _(list).sortedIndex<SampleType>(value);
-
     }
 
     {
@@ -1573,7 +1570,6 @@ namespace TestSortedIndex {
         result = _(array).chain().sortedIndex(value);
 
         result = _(list).chain().sortedIndex<SampleType>(value);
-
     }
 }
 
@@ -1749,7 +1745,6 @@ namespace TestTail {
 
         result = _.tail<TResult>(array);
         result = _.tail<TResult>(list);
-
     }
 
     {
@@ -2197,10 +2192,8 @@ namespace TestUniq {
 
         result = _(array).chain().uniq();
         result = _(list).chain().uniq<SampleObject>();
-
     }
 }
-
 
 // _.uniqBy
 namespace TestUniqBy {
@@ -2608,12 +2601,18 @@ namespace TestZipObject {
         let result: _.Dictionary<any>;
 
         result = _.zipObject(arrayOfKeys);
+        result = _.zipObjectDeep(arrayOfKeys);
         result = _.zipObject(arrayOfKeys, arrayOfValues);
+        result = _.zipObjectDeep(arrayOfKeys, arrayOfValues);
         result = _.zipObject(arrayOfKeys, listOfValues);
+        result = _.zipObjectDeep(arrayOfKeys, listOfValues);
 
         result = _.zipObject(listOfKeys);
+        result = _.zipObjectDeep(listOfKeys);
         result = _.zipObject(listOfKeys, listOfValues);
+        result = _.zipObjectDeep(listOfKeys, listOfValues);
         result = _.zipObject(listOfKeys, arrayOfValues);
+        result = _.zipObjectDeep(listOfKeys, arrayOfValues);
 
         result = _.zipObject<_.Dictionary<number>>(arrayOfKeyValuePairs);
         result = _.zipObject<_.Dictionary<number>>(listOfKeyValuePairs);
@@ -2647,15 +2646,23 @@ namespace TestZipObject {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
 
         result = _(arrayOfKeys).zipObject();
+        result = _(arrayOfKeys).zipObjectDeep();
         result = _(arrayOfKeys).zipObject(arrayOfValues);
+        result = _(arrayOfKeys).zipObjectDeep(arrayOfValues);
         result = _(arrayOfKeys).zipObject(listOfValues);
+        result = _(arrayOfKeys).zipObjectDeep(listOfValues);
 
         result = _(listOfKeys).zipObject();
+        result = _(listOfKeys).zipObjectDeep();
         result = _(listOfKeys).zipObject(listOfValues);
+        result = _(listOfKeys).zipObjectDeep(listOfValues);
         result = _(listOfKeys).zipObject(arrayOfValues);
+        result = _(listOfKeys).zipObjectDeep(arrayOfValues);
 
         result = _(listOfKeys).zipObject(arrayOfKeyValuePairs);
+        result = _(listOfKeys).zipObjectDeep(arrayOfKeyValuePairs);
         result = _(listOfKeys).zipObject(listOfKeyValuePairs);
+        result = _(listOfKeys).zipObjectDeep(listOfKeyValuePairs);
     }
 
     {
@@ -2686,15 +2693,23 @@ namespace TestZipObject {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
 
         result = _(arrayOfKeys).chain().zipObject();
+        result = _(arrayOfKeys).chain().zipObjectDeep();
         result = _(arrayOfKeys).chain().zipObject(arrayOfValues);
+        result = _(arrayOfKeys).chain().zipObjectDeep(arrayOfValues);
         result = _(arrayOfKeys).chain().zipObject(listOfValues);
+        result = _(arrayOfKeys).chain().zipObjectDeep(listOfValues);
 
         result = _(listOfKeys).chain().zipObject();
+        result = _(listOfKeys).chain().zipObjectDeep();
         result = _(listOfKeys).chain().zipObject(listOfValues);
+        result = _(listOfKeys).chain().zipObjectDeep(listOfValues);
         result = _(listOfKeys).chain().zipObject(arrayOfValues);
+        result = _(listOfKeys).chain().zipObjectDeep(arrayOfValues);
 
         result = _(listOfKeys).chain().zipObject(arrayOfKeyValuePairs);
+        result = _(listOfKeys).chain().zipObjectDeep(arrayOfKeyValuePairs);
         result = _(listOfKeys).chain().zipObject(listOfKeyValuePairs);
+        result = _(listOfKeys).chain().zipObjectDeep(listOfKeyValuePairs);
     }
 }
 
@@ -2702,7 +2717,7 @@ namespace TestZipObject {
 interface TestZipWithFn {
     (a1: number, a2: number): number;
 }
-var testZipWithFn: TestZipWithFn;
+let testZipWithFn: TestZipWithFn;
 result = <number[]>_.zipWith<number>([1, 2]);
 result = <number[]>_.zipWith<number>([1, 2], testZipWithFn);
 result = <number[]>_.zipWith<number>([1, 2], [1, 2], testZipWithFn);
@@ -4576,75 +4591,75 @@ namespace TestMap {
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => TResult;
 
     {
-        let result: TResult[];
+        _.map(array);  // $ExpectType number[]
+        _.map(array, listIterator);  // $ExpectType TResult[]
 
-        result = _.map<number, TResult>(array);
-        result = _.map<number, TResult>(array, listIterator);
-        result = _.map<number, TResult>(array, '');
+        _.map(list);  // $ExpectType number[]
+        _.map(list, listIterator);  // $ExpectType TResult[]
 
-        result = _.map<number, TResult>(list);
-        result = _.map<number, TResult>(list, listIterator);
-        result = _.map<number, TResult>(list, '');
-
-        result = _.map<number, TResult>(dictionary);
-        result = _.map<number, TResult>(dictionary, dictionaryIterator);
-        result = _.map<number, TResult>(dictionary, '');
+        _.map(dictionary);  // $ExpectType number[]
+        _.map(dictionary, dictionaryIterator);  // $ExpectType TResult[]
     }
 
     {
-        let result: boolean[];
-
-        result = _.map<number, {}>(array, {});
-        result = _.map<number, {}>(list, {});
-        result = _.map<number, {}>(dictionary, {});
+        // _.matches iteratee shorthand.
+        _.map(array, {});  // $ExpectType boolean[]
+        _.map(list, {});  // $ExpectType boolean[]
+        _.map(dictionary, {});  // $ExpectType boolean[]
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<TResult>;
+        _(array).map().value();  // $ExpectType number[]
+        _(array).map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _<number>(array).map<TResult>();
-        result = _<number>(array).map<TResult>(listIterator);
-        result = _<number>(array).map<TResult>('');
+        _(list).map().value();  // $ExpectType number[]
+        _(list).map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _(list).map<number, TResult>();
-        result = _(list).map<number, TResult>(listIterator);
-        result = _(list).map<number, TResult>('');
-
-        result = _(dictionary).map<number, TResult>();
-        result = _(dictionary).map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).map<number, TResult>('');
+        _(dictionary).map().value();  // $ExpectType number[]
+        _(dictionary).map(dictionaryIterator).value();  // $ExpectType TResult[]
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<boolean>;
-
-        result = _<number>(array).map<{}>({});
-        result = _(list).map<{}>({});
-        result = _(dictionary).map<{}>({});
+        _(array).map({}).value();  // $ExpectType boolean[]
+        _(list).map({}).value();  // $ExpectType boolean[]
+        _(dictionary).map({}).value();  // $ExpectType boolean[]
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
+        _(array).chain().map().value();  // $ExpectType number[]
+        _(array).chain().map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _<number>(array).chain().map<TResult>();
-        result = _<number>(array).chain().map<TResult>(listIterator);
-        result = _<number>(array).chain().map<TResult>('');
+        _(list).chain().map().value();  // $ExpectType number[]
+        _(list).chain().map(listIterator).value();  // $ExpectType TResult[]
 
-        result = _(list).chain().map<number, TResult>();
-        result = _(list).chain().map<number, TResult>(listIterator);
-        result = _(list).chain().map<number, TResult>('');
-
-        result = _(dictionary).chain().map<number, TResult>();
-        result = _(dictionary).chain().map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).chain().map<number, TResult>('');
+        _(dictionary).chain().map().value();  // $ExpectType number[]
+        _(dictionary).chain().map(dictionaryIterator).value();  // $ExpectType TResult[]
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<boolean>;
 
-        result = _<number>(array).chain().map<{}>({});
-        result = _(list).chain().map<{}>({});
-        result = _(dictionary).chain().map<{}>({});
+        result = _<number>(array).chain().map({});
+        result = _(list).chain().map({});
+        result = _(dictionary).chain().map({});
+    }
+
+    {
+        // "pluck"-style map.
+        _.map([{a: 1}, {a: 2}], 'a');  // $ExpectType number[]
+        _.map({a: {b: 'str'}, c: {b: 1}}, 'b');  // ExpectType (string | number)[]
+
+        _([{a: 1}, {a: 2}]).map('a').value();  // $ExpectType number[]
+        _.chain([{a: 1}, {a: 2}]).map('a').value();  // $ExpectType number[]
+        _([{a: 1}, {a: 2}]).chain().map('a').value();  // $ExpectType number[]
+    }
+
+    {
+        // $ExpectType number[]
+        _.map(['a', 'b', 'c'], (
+            v,  // $ExpectType string
+            k  // $ExpectType number
+          ) => k);
     }
 }
 
@@ -5209,7 +5224,6 @@ result = <IStoogesAge[]>_.sortBy(stoogesAges, 'name', stooge => Math.sin(stooge.
 
 result = <IFoodOrganic[]>_(foodsOrganic).sortBy('organic', (food) => food.name, { organic: true }).value();
 
-
 // _.orderBy
 namespace TestorderBy {
     type SampleObject = {a: number; b: string; c: boolean};
@@ -5533,7 +5547,7 @@ namespace TestBindAll {
 // _.bindKey
 namespace TestBindKey {
     let object: {
-        foo: (a: number, b: string) => boolean;
+        foo(a: number, b: string): boolean;
     }
 
     {
@@ -5612,14 +5626,14 @@ namespace TestBindKey {
     }
 }
 
-var createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
+const createCallbackObj: { [index: string]: string; } = { name: 'Joe' };
 result = <() => any>_.createCallback('name');
 result = <() => boolean>_.createCallback(createCallbackObj);
 result = <_.LoDashImplicitObjectWrapper<() => any>>_('name').createCallback();
 result = <_.LoDashImplicitObjectWrapper<() => boolean>>_(createCallbackObj).createCallback();
 
 // _.curry
-var testCurryFn = (a: number, b: number, c: number) => [a, b, c];
+const testCurryFn = (a: number, b: number, c: number) => [a, b, c];
 let curryResult0: number[]
 let curryResult1: _.CurriedFunction1<number, number[]>
 let curryResult2: _.CurriedFunction2<number, number, number[]>
@@ -5650,7 +5664,7 @@ curryResult5 = _.curry(testCurry2)("1");
 curryResult6 = _.curry(testCurry2);
 
 // _.curryRight
-var testCurryRightFn = (a: number, b: number, c: number) => [a, b, c];
+const testCurryRightFn = (a: number, b: number, c: number) => [a, b, c];
 curryResult0 = _.curryRight(testCurryRightFn)(1, 2, 3);
 curryResult2 = _.curryRight(testCurryRightFn)(1);
 curryResult0 = _(testCurryRightFn).curryRight().value()(1, 2, 3);
@@ -5996,7 +6010,7 @@ namespace TestNegate {
         (a1: number, a2: number): boolean;
     }
 
-    var predicate = (a1: number, a2: number) => a1 > a2;
+    const predicate = (a1: number, a2: number) => a1 > a2;
 
     {
         let result: ResultFn;
@@ -6047,14 +6061,13 @@ namespace TestOnce {
     }
 }
 
-var greetPartial = (greeting: string, name: string) => greeting + ' ' + name;
-var hi = _.partial(greetPartial, 'hi');
+const greetPartial = (greeting: string, name: string) => greeting + ' ' + name;
+const hi = _.partial(greetPartial, 'hi');
 hi('moe');
 
+const defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
 
-var defaultsDeep = <Function>_.partialRight(_.merge, _.defaults);
-
-var optionsPartialRight = {
+const optionsPartialRight = {
     'variable': 'data',
     'imports': { 'jq': $ }
 };
@@ -6062,7 +6075,7 @@ var optionsPartialRight = {
 defaultsDeep(optionsPartialRight, _.templateSettings);
 
 //_.rearg
-var testReargFn = (a: string, b: string, c: string) => [a, b, c];
+const testReargFn = (a: string, b: string, c: string) => [a, b, c];
 interface TestReargResultFn {
     (b: string, c: string, a: string): string[];
 }
@@ -7102,7 +7115,6 @@ namespace TestIsMatch {
     result = <boolean>_({}).isMatch({});
 }
 
-
 // _.isMatchWith
 namespace TestIsMatchWith {
     let testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
@@ -7111,7 +7123,6 @@ namespace TestIsMatchWith {
 
     result = <boolean>_.isMatchWith({}, {}, testIsMatchCustiomizerFn);
     result = <boolean>_({}).isMatchWith({}, testIsMatchCustiomizerFn);
-
 }
 
 // _.isNaN
@@ -7634,7 +7645,6 @@ namespace TestToArray {
 
 // _.toPlainObject
 namespace TestToPlainObject {
-
     {
         let result: TResult;
         result = _.toPlainObject<TResult>();
@@ -7877,7 +7887,6 @@ namespace TestMean {
     result = _.mean<number>(array);
 
     result = _(array).mean();
-
 }
 
 // _.min
@@ -7892,7 +7901,6 @@ namespace TestMin {
 
     result = _(array).min();
     result = _(list).min<number>();
-
 }
 
 // _.minBy
@@ -8634,7 +8642,6 @@ namespace TestCreate {
     }
 }
 
-
 // _.defaults
 namespace TestDefaults {
   interface Obj { a: string };
@@ -8767,11 +8774,10 @@ interface DefaultsDeepResult {
         age: number;
     }
 }
-var TestDefaultsDeepObject = { 'user': { 'name': 'barney' } };
-var TestDefaultsDeepSource = { 'user': { 'name': 'fred', 'age': 36 } };
+const TestDefaultsDeepObject = { 'user': { 'name': 'barney' } };
+const TestDefaultsDeepSource = { 'user': { 'name': 'fred', 'age': 36 } };
 result = <DefaultsDeepResult>_.defaultsDeep(TestDefaultsDeepObject, TestDefaultsDeepSource);
 result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep<DefaultsDeepResult>(TestDefaultsDeepSource).value();
-
 
 // _.extend
 namespace TestExtend {
@@ -8899,7 +8905,6 @@ namespace TestExtend {
         result = _(obj).chain().extend<{ a: number, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5);
     }
 }
-
 
 // _.extendWith
 namespace TestExtendWith {
@@ -9038,7 +9043,6 @@ namespace TestFindKey {
 
         result = _.findKey<{a: string;}>({a: ''}, predicateFn);
 
-
         result = _.findKey<{a: string;}>({a: ''}, '');
 
         result = _.findKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
@@ -9046,7 +9050,6 @@ namespace TestFindKey {
         result = _<{a: string;}>({a: ''}).findKey();
 
         result = _<{a: string;}>({a: ''}).findKey(predicateFn);
-
 
         result = _<{a: string;}>({a: ''}).findKey('');
 
@@ -9069,7 +9072,6 @@ namespace TestFindKey {
         result = _<{a: string;}>({a: ''}).chain().findKey();
 
         result = _<{a: string;}>({a: ''}).chain().findKey(predicateFn);
-
 
         result = _<{a: string;}>({a: ''}).chain().findKey('');
 
@@ -9094,7 +9096,6 @@ namespace TestFindLastKey {
 
         result = _.findLastKey<{a: string;}>({a: ''}, predicateFn);
 
-
         result = _.findLastKey<{a: string;}>({a: ''}, '');
 
         result = _.findLastKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
@@ -9102,7 +9103,6 @@ namespace TestFindLastKey {
         result = _<{a: string;}>({a: ''}).findLastKey();
 
         result = _<{a: string;}>({a: ''}).findLastKey(predicateFn);
-
 
         result = _<{a: string;}>({a: ''}).findLastKey('');
 
@@ -9125,7 +9125,6 @@ namespace TestFindLastKey {
         result = _<{a: string;}>({a: ''}).chain().findLastKey();
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey(predicateFn);
-
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey('');
 
@@ -9733,8 +9732,8 @@ namespace TestMerge {
     type InitialValue = { a : number };
     type MergingValue = { b : string };
 
-    var initialValue  = { a : 1 };
-    var mergingValue  = { b : "hi" };
+    const initialValue  = { a : 1 };
+    const mergingValue  = { b : "hi" };
 
     type ExpectedResult = { a: number, b: string };
     let result: ExpectedResult;
@@ -9752,10 +9751,9 @@ namespace TestMerge {
     // Once we get to the varargs version, you have to specify the result explicitly
     result = _.merge<ExpectedResult>(initialValue, {}, {}, {}, {}, mergingValue);
 
-
     type ComplicatedExpectedType = { a: number, b: string, c: {}, d: number[], e: boolean };
 
-    var complicatedResult: ComplicatedExpectedType = _.merge({ a: 1 },
+    let complicatedResult: ComplicatedExpectedType = _.merge({ a: 1 },
                                                              { b: "string" },
                                                              { c: {} },
                                                              { d: [1] },
@@ -9764,7 +9762,7 @@ namespace TestMerge {
 
     type ExpectedTypeAfterOverriding = { a: boolean };
 
-    var overriddenResult: ExpectedTypeAfterOverriding = _.merge({ a: 1 },
+    let overriddenResult: ExpectedTypeAfterOverriding = _.merge({ a: 1 },
                                                                 { a: "string" },
                                                                 { a: {} },
                                                                 { a: [1] },
@@ -9785,14 +9783,14 @@ namespace TestMerge {
 
     // Test complex multiple combinations with chaining
 
-    var complicatedResult: ComplicatedExpectedType = _({ a: 1 }).merge({ b: "string" },
+    complicatedResult = _({ a: 1 }).merge({ b: "string" },
                                                                        { c: {} },
                                                                        { d: [1] },
                                                                        { e: true }).value();
 
     // Test for type overriding with chaining
 
-    var overriddenResult: ExpectedTypeAfterOverriding = _({ a: 1 }).merge({ a: "string" },
+    overriddenResult = _({ a: 1 }).merge({ a: "string" },
                                                                           { a: {} },
                                                                           { a: [1] },
                                                                           { a: true }).value();
@@ -9824,8 +9822,8 @@ namespace TestMergeWith {
     type InitialValue = { a : number };
     type MergingValue = { b : string };
 
-    var initialValue  = { a : 1 };
-    var mergingValue  = { b : "hi" };
+    const initialValue  = { a : 1 };
+    const mergingValue  = { b : "hi" };
 
     type ExpectedResult = { a: number, b: string };
     let result: ExpectedResult;
@@ -10176,37 +10174,37 @@ namespace TestToPairs {
     let object: _.Dictionary<string>;
 
     {
-        let result: any[][];
+        let result: [string, any][];
 
         result = _.toPairs<_.Dictionary<string>>(object);
     }
 
     {
-        let result: string[][];
+        let result: [string, string][];
 
         result = _.toPairs<_.Dictionary<string>, string>(object);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, string]>;
 
         result = _(object).toPairs<string>();
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<any[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, any]>;
 
         result = _(object).toPairs();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, string]>;
 
         result = _(object).chain().toPairs<string>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, any]>;
 
         result = _(object).chain().toPairs();
     }
@@ -10217,37 +10215,37 @@ namespace TestToPairsIn {
     let object: _.Dictionary<string>;
 
     {
-        let result: any[][];
+        let result: [string, any][];
 
         result = _.toPairsIn<_.Dictionary<string>>(object);
     }
 
     {
-        let result: string[][];
+        let result: [string, string][];
 
         result = _.toPairsIn<_.Dictionary<string>, string>(object);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, string]>;
 
         result = _(object).toPairsIn<string>();
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<any[]>;
+        let result: _.LoDashImplicitArrayWrapper<[string, any]>;
 
         result = _(object).toPairsIn();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, string]>;
 
         result = _(object).chain().toPairsIn<string>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<[string, any]>;
 
         result = _(object).chain().toPairs();
     }
@@ -11115,7 +11113,6 @@ namespace TestUnescape {
     }
 }
 
-
 // _.upperCase
 namespace TestUpperCase {
     {
@@ -11387,7 +11384,6 @@ namespace TestDefaultTo {
         result = _(null).chain().defaultTo({a : 'a'});
         result = _(NaN).chain().defaultTo({a : 'a'});
     }
-
 }
 
 // _.identity
@@ -11643,7 +11639,7 @@ namespace TestMethod {
 
 // _.methodOf
 namespace TestMethodOf {
-    type SampleObject = {a: {b: () => TResult}[]};
+    type SampleObject = { a: { b(): TResult }[] };
     type ResultFn = (path: _.StringRepresentable|_.StringRepresentable[]) => TResult;
 
     let object: SampleObject;

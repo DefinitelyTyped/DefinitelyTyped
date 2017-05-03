@@ -11,7 +11,7 @@ export const version: string;
 /** Default template settings */
 export const templateSettings: TemplateSettings;
 
-type RenderFunction = (...args: any[]) => string;
+export type RenderFunction = (...args: any[]) => string;
 
 /** Compile template */
 export function template(tmpl: string, c?: TemplateSettings, def?: {}): RenderFunction;
@@ -19,7 +19,7 @@ export function template(tmpl: string, c?: TemplateSettings, def?: {}): RenderFu
 /** For express */
 export function compile(tmpl: string, def?: {}): RenderFunction;
 
-interface TemplateSettings {
+export interface TemplateSettings {
 	evaluate: RegExp;
 	interpolate: RegExp;
 	encode: RegExp;

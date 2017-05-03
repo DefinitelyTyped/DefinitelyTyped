@@ -157,7 +157,7 @@ function inputParser(inputDate: string | Date | moment.Moment) {
             return moment();
         }
     }
-};
+}
 
 function test_parseInputDate() {
     let undef: undefined;

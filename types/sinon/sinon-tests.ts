@@ -90,6 +90,9 @@ function testNine() {
 
 function testSandbox() {
     var sandbox = sinon.sandbox.create();
+
+    sandbox.assert.notCalled(sinon.spy());
+
     if (sandbox.spy().called) {
         sandbox.stub(objectUnderTest, "process").yieldsTo("success");
         sandbox.mock(objectUnderTest).expects("process").once();
@@ -98,6 +101,11 @@ function testSandbox() {
     sandbox.useFakeXMLHttpRequest();
     sandbox.useFakeServer();
     sandbox.restore();
+    sandbox.reset();
+    sandbox.resetHistory();
+    sandbox.resetBehavior();
+    sandbox.verify();
+    sandbox.verifyAndRestore();
 }
 
 function testPromises() {
@@ -139,3 +147,11 @@ class TestCreateStubInstance {
 }
 
 sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+
+function testGetCalls() {
+    var double = sinon.spy((a: number) => a * 2);
+    double(2);
+    double(4);
+    double.getCall(0).args.length === 1;
+    double.getCalls().find(call => call.args[0] === 4).returnValue === 8;
+}

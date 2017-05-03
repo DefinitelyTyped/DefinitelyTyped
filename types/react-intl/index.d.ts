@@ -10,10 +10,6 @@
 
 declare namespace ReactIntl {
 
-    interface Values {
-        [key: string]: string;
-    }
-
     interface Locale {
         locale: string;
         fields?: { [key: string]: string },
@@ -70,8 +66,8 @@ declare namespace ReactIntl {
         formatRelative: (value: number, options?: FormattedRelative.PropsBase & { now?: any }) => string;
         formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
         formatPlural: (value: number, options?: FormattedPlural.Base) => keyof FormattedPlural.PropsBase;
-        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Values) => string;
-        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Values) => string;
+        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string}) => string;
+        formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string}) => string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
@@ -139,7 +135,7 @@ declare namespace ReactIntl {
         }
 
         export interface Props extends MessageDescriptor {
-            values?: Values;
+            values?: {[key: string]: string | JSX.Element};
             tagName?: string;
         }
     }

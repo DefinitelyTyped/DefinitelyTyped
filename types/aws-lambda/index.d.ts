@@ -39,6 +39,13 @@ interface APIGatewayEvent {
     resource: string;
 }
 
+// API Gateway CustomAuthorizer "event"
+interface CustomAuthorizerEvent {
+    type: string;
+    authorizationToken: string;
+    methodArn: string;
+}
+
 // SNS "event"
 interface SNSMessageAttribute {
     Type: string;
@@ -181,6 +188,43 @@ interface ProxyResult {
 }
 
 /**
+ * API Gateway CustomAuthorizer AuthResponse.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface AuthResponse {
+    principalId: string;
+    policyDocument: PolicyDocument;
+    context?: AuthResponseContext;
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface PolicyDocument {
+    Version: string;
+    Statement: [Statement];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface Statement {
+    Action: string | [string];
+    Effect: string;
+    Resource: string | [string];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface AuthResponseContext {
+    [name: string]: string | number | boolean;
+}
+
+/**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
@@ -190,6 +234,7 @@ interface ProxyResult {
  */
 export type Handler = (event: any, context: Context, callback?: Callback) => void;
 export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => void;
+export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => void;
 
 /**
  * Optional callback parameter.
@@ -200,5 +245,6 @@ export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?:
  */
 export type Callback = (error?: Error, result?: any) => void;
 export type ProxyCallback = (error?: Error, result?: ProxyResult) => void;
+export type CustomAuthorizerCallback = (error?: Error, result?: AuthResponse) => void;
 
 export as namespace AWSLambda;
