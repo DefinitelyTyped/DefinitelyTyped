@@ -234,7 +234,8 @@ export interface Request extends http.IncomingMessage {
     /**
      * @see getQuery
      */
-    query(): string;
+    query: any;
+
     secure: boolean;
 
     /**
