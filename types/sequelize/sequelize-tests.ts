@@ -1,5 +1,4 @@
 import Sequelize = require("sequelize");
-import Promise = require('bluebird');
 
 //
 //  Fixtures
