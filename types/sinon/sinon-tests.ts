@@ -110,6 +110,7 @@ function testSandbox() {
 }
 
 function testPromises() {
+    var resolveStub = sinon.stub().resolves();
     var resolveStub = sinon.stub().resolves(10);
     var rejectStub1 = sinon.stub().rejects();
     var rejectsStub2 = sinon.stub().rejects(new Error('Specified error'));

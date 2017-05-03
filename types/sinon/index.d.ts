@@ -105,7 +105,7 @@ declare namespace Sinon {
         returns(obj: any): SinonStub;
         returnsArg(index: number): SinonStub;
         returnsThis(): SinonStub;
-        resolves(value: any): SinonStub;
+        resolves(value?: any): SinonStub;
         throws(type?: string): SinonStub;
         throws(obj: any): SinonStub;
         rejects(): SinonStub;
