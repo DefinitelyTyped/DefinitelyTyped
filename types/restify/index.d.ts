@@ -1,6 +1,6 @@
-// Type definitions for node.js REST framework 2.0
+// Type definitions for restify 4.3
 // Project: https://github.com/mcavage/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>
+// Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,14 +9,13 @@ import http = require('http');
 import Logger = require('bunyan');
 import url = require('url');
 
-
-interface addressInterface {
+export interface addressInterface {
     port: number;
     family: string;
     address: string;
 }
 
-interface requestFileInterface {
+export interface requestFileInterface {
     path: string;
     type: string;
 }
@@ -24,16 +23,16 @@ interface requestFileInterface {
 /**
  * Comes from authorizationParser plugin
  */
-interface requestAuthorization {
+export interface requestAuthorization {
     scheme: string;
     credentials: string;
     basic?: {
         username: string;
         password: string;
-    }
+    };
 }
 
-interface Request extends http.IncomingMessage {
+export interface Request extends http.IncomingMessage {
     /**
      * builds an absolute URI for the request.
      * @private
@@ -41,7 +40,7 @@ interface Request extends http.IncomingMessage {
      * @param    {String} path a url path
      * @returns  {String}
      */
-    absoluteUri: (path: string) => string;
+    absoluteUri(path: string): string;
 
     /**
      * returns any header off the request. also, 'correct' any
@@ -52,7 +51,7 @@ interface Request extends http.IncomingMessage {
      * @param    {String} value default value if header isn't found on the req
      * @returns  {String}
      */
-    header: (name: string, value?: string) => string;
+    header(name: string, value?: string): string;
 
     /**
      * returns any trailer header off the request. also, 'correct' any
@@ -63,7 +62,7 @@ interface Request extends http.IncomingMessage {
      * @param    {String} value default value if header isn't found on the req
      * @returns  {String}
      */
-    trailer: (name: string, value?: string) => string;
+    trailer(name: string, value?: string): string;
 
     /**
      * checks if the accept header is present and has the value requested.
@@ -73,7 +72,7 @@ interface Request extends http.IncomingMessage {
      * @param    {String | Array} types an array of accept type headers
      * @returns  {Boolean}
      */
-    accepts: (types: string | string[]) => boolean;
+    accepts(types: string | string[]): boolean;
 
     /**
      * checks if the request accepts the encoding types.
@@ -82,7 +81,7 @@ interface Request extends http.IncomingMessage {
      * @param    {String | Array} types an array of accept type headers
      * @returns  {Boolean}
      */
-    acceptsEncoding: (types: string | string[]) => boolean;
+    acceptsEncoding(types: string | string[]): boolean;
 
     /**
      * Check if the incoming request contains the Content-Type header field, and
@@ -92,7 +91,7 @@ interface Request extends http.IncomingMessage {
      * @param    {String} type  a content-type header value
      * @returns  {Boolean}
      */
-    is: (type: string) => boolean;
+    is(type: string): boolean;
 
     /**
      * Check if the incoming request is chunked.
@@ -100,7 +99,7 @@ interface Request extends http.IncomingMessage {
      * @function isChunked
      * @returns  {Boolean}
      */
-    isChunked: () => boolean;
+    isChunked(): boolean;
 
     /**
      * Check if the incoming request is kept alive.
@@ -108,7 +107,7 @@ interface Request extends http.IncomingMessage {
      * @function isKeepAlive
      * @returns  {Boolean}
      */
-    isKeepAlive: () => boolean;
+    isKeepAlive(): boolean;
 
     /**
      * Check if the incoming request has been upgraded.
@@ -116,7 +115,7 @@ interface Request extends http.IncomingMessage {
      * @function isUpgradeRequest
      * @returns  {Boolean}
      */
-    isUpgradeRequest: () => boolean;
+    isUpgradeRequest(): boolean;
 
     /**
      * Check if the incoming request is an upload verb.
@@ -124,7 +123,7 @@ interface Request extends http.IncomingMessage {
      * @function isUpload
      * @returns  {Boolean}
      */
-    isUpload: () => boolean;
+    isUpload(): boolean;
 
     /**
      * retrieves the user-agent header.
@@ -132,7 +131,7 @@ interface Request extends http.IncomingMessage {
      * @function userAgent
      * @returns  {String}
      */
-    userAgent: () => string;
+    userAgent(): string;
 
     /**
      * Start the timer for a request handler function. You must explicitly invoke
@@ -143,7 +142,7 @@ interface Request extends http.IncomingMessage {
      * @param    {String}    handlerName The name of the handler.
      * @returns  {undefined}
      */
-    startHandlerTimer: (handlerName: string) => void;
+    startHandlerTimer(handlerName: string): void;
 
     /**
      * Stop the timer for a request handler function.
@@ -152,9 +151,9 @@ interface Request extends http.IncomingMessage {
      * @param    {String}    handlerName The name of the handler.
      * @returns  {undefined}
      */
-    endHandlerTimer: (handlerName: string) => void;
+    endHandlerTimer(handlerName: string): void;
 
-    getLogger: (component: string) => any;
+    getLogger(component: string): any;
 
     /**
      * gets the content-length header off the request.
@@ -162,13 +161,13 @@ interface Request extends http.IncomingMessage {
      * @function getContentLength
      * @returns {Number}
      */
-    getContentLength: () => number;
+    getContentLength(): number;
 
     /**
      * @see getContentLength
      * @function contentLength
      */
-    contentLength: () => number;
+    contentLength(): number;
 
     /**
      * gets the content-type header.
@@ -176,12 +175,12 @@ interface Request extends http.IncomingMessage {
      * @function getContentType
      * @returns {String}
      */
-    getContentType: () => string;
+    getContentType(): string;
 
     /**
      * @see getContentType
      */
-    contentType: () => string;
+    contentType(): string;
 
     /**
      * retrieves the complete URI requested by the client.
@@ -189,12 +188,12 @@ interface Request extends http.IncomingMessage {
      * @function getHref
      * @returns {String}
      */
-    getHref: () => string;
+    getHref(): string;
 
     /**
      * @see getHref
      */
-    href: () => string;
+    href(): string;
 
     log: Logger;
     /**
@@ -203,12 +202,12 @@ interface Request extends http.IncomingMessage {
      * @function getId
      * @returns  {String}
      */
-    getId: () => string;
+    getId(): string;
 
     /**
      * @see getId
      */
-    id: () => string;
+    id(): string;
 
     /**
      * retrieves the cleaned up url path.
@@ -217,12 +216,12 @@ interface Request extends http.IncomingMessage {
      * @function getPath
      * @returns  {String}
      */
-    getPath: () => string;
+    getPath(): string;
 
     /**
      * @see getPath
      */
-    path: () => string;
+    path(): string;
 
     /**
      * returns the raw query string
@@ -230,21 +229,22 @@ interface Request extends http.IncomingMessage {
      * @function getQuery
      * @returns  {String}
      */
-    getQuery: () => string;
+    getQuery(): string;
 
     /**
      * @see getQuery
      */
-    query: () => string;
+    query: any;
+
     secure: boolean;
 
     /**
-      * returns ms since epoch when request was setup.
-      * @public
-      * @function time
-      * @returns  {Number}
-      */
-    time: () => number;
+     * returns ms since epoch when request was setup.
+     * @public
+     * @function time
+     * @returns  {Number}
+     */
+    time(): number;
 
     /**
      * returns a parsed URL object.
@@ -252,7 +252,7 @@ interface Request extends http.IncomingMessage {
      * @function getUrl
      * @returns  {Object}
      */
-    getUrl: () => url.Url;
+    getUrl(): url.Url;
 
     /**
      * returns the accept-version header.
@@ -260,12 +260,12 @@ interface Request extends http.IncomingMessage {
      * @function getVersion
      * @returns  {String}
      */
-    getVersion: () => string;
+    getVersion(): string;
 
     /**
      * @see getVersion
      */
-    version: () => string;
+    version(): string;
     params: any;
     files?: { [name: string]: requestFileInterface };
 
@@ -275,7 +275,7 @@ interface Request extends http.IncomingMessage {
      * @function isSecure
      * @returns  {Boolean}
      */
-    isSecure: () => boolean;
+    isSecure(): boolean;
     /** available when bodyParser plugin is used */
     body?: any;
     /** available when authorizationParser plugin is used */
@@ -292,34 +292,34 @@ interface Request extends http.IncomingMessage {
  * @property {String} name The name of the handler.
  * @property {Array} time A tuple of [seconds, nanoseconds], how long the handler took.
  */
-interface HandlerTiming {
+export interface HandlerTiming {
     name: string;
     time: [number, number];
 }
 
-interface Response extends http.ServerResponse {
-    header: (key: string, value?: any) => any;
-    cache: (type?: any, options?: Object) => any;
-    noCache: () => any;
-    status: (code: number) => any;
-    send: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
-    json: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
+export interface Response extends http.ServerResponse {
+    header(key: string, value?: any): any;
+    cache(type?: any, options?: any): any;
+    noCache(): any;
+    status(code: number): any;
+    send(status?: any, body?: any, headers?: { [header: string]: string }): any;
+    json(status?: any, body?: any, headers?: { [header: string]: string }): any;
     code: number;
     contentLength: number;
     charSet(value: string): void;
     contentType: string;
-    headers: Object;
+    headers: any;
     id: string;
 }
 
-interface RouteSpec {
+export interface RouteSpec {
     method: string;
     name: string;
     path: string | RegExp;
     versions: string[];
 }
 
-interface Route {
+export interface Route {
     name: string;
     method: string;
     path: RoutePathRegex;
@@ -328,7 +328,7 @@ interface Route {
     versions: string[];
 }
 
-interface RouteOptions {
+export interface RouteOptions {
     name: string;
     method: string;
     path?: string | RegExp;
@@ -338,11 +338,11 @@ interface RouteOptions {
     versions?: string | string[];
 }
 
-interface RoutePathRegex extends RegExp {
+export interface RoutePathRegex extends RegExp {
     restifyParams: string[];
 }
 
-interface Router {
+export interface Router {
     name: string;
     mounts: { [routeName: string]: Route };
     versions: string[];
@@ -357,7 +357,7 @@ interface Router {
         PUT: Route[];
     };
     log?: any;
-    toString: () => string;
+    toString(): string;
 
     /**
      * Takes an object of route params and query params, and 'renders' a URL
@@ -366,21 +366,21 @@ interface Router {
      * @param    {Object} query     an object of query params
      * @returns  {String}
      */
-    render: (routeName: string, params: Object, query?: Object) => string;
+    render(routeName: string, params: any, query?: any): string;
 
     /**
      * adds a route.
      * @param    {Object} options an options object
      * @returns  {String}         returns the route name if creation is successful.
      */
-    mount: (options: Object) => string | boolean;
+    mount(options: any): string | boolean;
 
     /**
      * unmounts a route.
      * @param    {String} name the route name
      * @returns  {String}      the name of the deleted route (or false if it was not matched)
      */
-    unmount: (name: string) => string | boolean;
+    unmount(name: string): string | boolean;
 
     /**
      * finds the route for a given request and response.
@@ -389,146 +389,125 @@ interface Router {
      * @param    {Function} callback operation callback
      * @returns  {undefined}
      */
-    find: (req: Request, res: Response, callback: (err: Error, route: Route) => void) => void;
+    find(req: Request, res: Response, callback: (err: Error, route: Route) => void): void;
 }
 
-interface Server extends http.Server {
-    use(handler: RequestHandler, ...handlers: RequestHandler[]): Server;
-    use(handler: RequestHandler[], ...handlers: RequestHandler[]): Server;
-    use(handler: RequestHandler, ...handlers: RequestHandler[][]): Server;
-    use(handler: RequestHandler[], ...handlers: RequestHandler[][]): Server;
+export interface Server extends http.Server {
+    use(handler: RequestHandler | RequestHandler[], ...handlers: RequestHandler[]): Server;
+    // tslint:disable-next-line unified-signatures
+    use(handler: RequestHandler | RequestHandler[], ...handlers: RequestHandler[][]): Server;
 
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
+    post(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    // tslint:disable-next-line unified-signatures
+    post(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
+    patch(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    // tslint:disable-next-line unified-signatures
+    patch(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
+    put(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    // tslint:disable-next-line unified-signatures
+    put(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
+    del(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    // tslint:disable-next-line unified-signatures
+    del(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
+    get(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    // tslint:disable-next-line unified-signatures
+    get(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
+    head(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    // tslint:disable-next-line unified-signatures
+    head(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
-    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
-    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
-    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
+    opts(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    // tslint:disable-next-line unified-signatures
+    opts(route: any, routeCallBack: RequestHandler | RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     name: string;
     version: string;
-    log: Object;
+    log: any;
     acceptable: string[];
     url: string;
-    address: () => addressInterface;
+    address(): addressInterface;
     listen(...args: any[]): any;
     close(...args: any[]): any;
     pre(routeCallBack: RequestHandler): Server;
     server: http.Server;
     router: Router;
     routes: Route[];
-    toString: () => string;
+    toString(): string;
 }
 
-interface ServerOptions {
+export interface ServerOptions {
     ca?: string;
     certificate?: string | string[] | Buffer | Buffer[];
     key?: string | string[] | Buffer | Buffer[];
-    formatters?: Object;
-    log?: Object;
+    formatters?: any;
+    log?: any;
     name?: string;
-    spdy?: Object;
+    spdy?: any;
     version?: string;
     responseTimeHeader?: string;
-    responseTimeFormatter?: (durationInMilliseconds: number) => any;
+    responseTimeFormatter?(durationInMilliseconds: number): any;
     handleUpgrades?: boolean;
     router?: Router;
     httpsServerOptions?: any;
 	socketio?: boolean;
 }
 
-interface ClientOptions {
+export interface ClientOptions {
     accept?: string;
     connectTimeout?: number;
     requestTimeout?: number;
-    dtrace?: Object;
-    gzip?: Object;
-    headers?: Object;
-    log?: Object;
-    retry?: Object;
-    signRequest?: Function;
+    dtrace?: any;
+    gzip?: any;
+    headers?: any;
+    log?: any;
+    retry?: any;
+    signRequest?(): void;
     url?: string;
     userAgent?: string;
     version?: string;
 }
 
-interface Client {
-    get: (opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    head: (opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
-    post: (opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    put: (opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    patch: (opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    del: (opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any) => any;
-    basicAuth: (username: string, password: string) => any;
+export interface Client {
+    get(opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    head(opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any): any;
+    post(opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    put(opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    patch(opts: string | { path?: string; [name: string]: any }, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any): any;
+    del(opts: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request, res: Response) => any): any;
+    basicAuth(username: string, password: string): any;
 }
 
-interface HttpClient extends Client {
-    get: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
-    head: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
-    post: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
-    put: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
-    patch: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
-    del: (opts?: string | { path?: string; [name: string]: any }, callback?: Function) => any;
+export interface HttpClient extends Client {
+    get(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    head(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    post(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    put(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    patch(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    del(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
 }
 
-interface ThrottleOptions {
+export interface ThrottleOptions {
     burst?: number;
     rate?: number;
     ip?: boolean;
     xff?: boolean;
     username?: boolean;
-    tokensTable?: Object;
+    tokensTable?: any;
     maxKeys?: number;
-    overrides?: Object;
+    overrides?: any;
 }
 
-interface Next {
+export interface Next {
     (err?: any): any;
-    ifError?: (err?: any) => any;
+    ifError(err?: any): any;
 }
 
-interface RequestHandler {
-    (req: Request, res: Response, next: Next): any;
-}
-
-interface CORS {
-    (cors?: {
-        origins?: string[];
-        credentials?: boolean;
-        headers?: string[];
-    }): RequestHandler;
-    origins: string[];
-    ALLOW_HEADERS: string[];
-    credentials: boolean;
-}
+export type RequestHandler = (req: Request, res: Response, next: Next) => any;
 
 export function createServer(options?: ServerOptions): Server;
 
@@ -538,8 +517,10 @@ export function createClient(options?: ClientOptions): HttpClient;
 
 export class HttpError { constructor(cause: any, message?: any); }
 
-declare class DefiniteHttpError {
+export class DefiniteHttpError {
     constructor(message?: any);
+
+    // tslint:disable-next-line unified-signatures
     constructor(cause: any, message?: any);
 }
 
@@ -598,26 +579,35 @@ export class RequestThrottledError extends RestError { }
 export class ResourceNotFoundError extends RestError { }
 export class WrongAcceptError extends RestError { }
 
-
 export function acceptParser(parser: any): RequestHandler;
 export function authorizationParser(): RequestHandler;
 export function dateParser(skew?: number): RequestHandler;
-export function queryParser(options?: Object): RequestHandler;
-export function urlEncodedBodyParser(options?: Object): RequestHandler[];
+export function queryParser(options?: any): RequestHandler;
+export function urlEncodedBodyParser(options?: any): RequestHandler[];
 export function jsonp(): RequestHandler;
-export function gzipResponse(options?: Object): RequestHandler;
-export function bodyParser(options?: Object): RequestHandler[];
-export function requestLogger(options?: Object): RequestHandler;
-export function serveStatic(options?: Object): RequestHandler;
+export function gzipResponse(options?: any): RequestHandler;
+export function bodyParser(options?: any): RequestHandler[];
+export function requestLogger(options?: any): RequestHandler;
+export function serveStatic(options?: any): RequestHandler;
 export function throttle(options?: ThrottleOptions): RequestHandler;
 export function conditionalRequest(): RequestHandler[];
-export function auditLogger(options?: Object): Function;
+export function auditLogger(options: { log: any }): (req: Request, res: Response, route: Route, err: any) => void;
 export function fullResponse(): RequestHandler;
+// tslint:disable-next-line no-var
 export var defaultResponseHeaders: any;
-export var CORS: CORS;
-
-export module pre {
-    export function pause(): RequestHandler;
-    export function sanitizePath(options?: any): RequestHandler;
-    export function userAgentConnection(options?: any): RequestHandler;
+export interface CORS {
+    (cors?: {
+        origins?: string[];
+        credentials?: boolean;
+        headers?: string[];
+    }): RequestHandler;
+    origins: string[];
+    ALLOW_HEADERS: string[];
+    credentials: boolean;
 }
+
+export const pre: {
+    pause(): RequestHandler;
+    sanitizePath(options?: any): RequestHandler;
+    userAgentConnection(options?: any): RequestHandler;
+};
