@@ -27,15 +27,15 @@ interface GridFile {
 	length: number;
 	chunkSize: number;
 	uploadDate: Date;
-	aliases: object;
-	metadata: object;
+	aliases: any;
+	metadata: any;
 	md5: string;
 }
 
 interface MulterGfsOptions {
 	filename?: ConfigFn<NodeCb<string>>;
 	identifier?: ConfigFn<NodeCb<any>>;
-	metadata?: ConfigFn<NodeCb<object>>;
+	metadata?: ConfigFn<NodeCb<any>>;
 	chunkSize?: number | ConfigFn<NodeCb<number>>;
 	root?: string | ConfigFn<NodeCb<string>>;
 	log?: boolean | NodeCb<StorageLog>;
