@@ -807,33 +807,33 @@ schema = Joi.lazy(() => schema)
 
 namespace validate_tests {
     {
-        Joi.validate(value, obj);
-        Joi.validate(value, schema);
-        Joi.validate(value, schema, validOpts);
-        Joi.validate(value, schema, validOpts, (err, value) => {
-	x = value;
-	str = err.message;
-	str = err.details[0].path;
-	str = err.details[0].message;
-	str = err.details[0].type;
-        });
-        Joi.validate(value, schema, (err, value) => {
-	x = value;
-	str = err.message;
-	str = err.details[0].path;
-	str = err.details[0].message;
-	str = err.details[0].type;
-        });
-        // variant
-        Joi.validate(num, schema, validOpts, (err, value) => {
-	num = value;
-        });
+		Joi.validate(value, obj);
+		Joi.validate(value, schema);
+		Joi.validate(value, schema, validOpts);
+		Joi.validate(value, schema, validOpts, (err, value) => {
+			x = value;
+			str = err.message;
+			str = err.details[0].path;
+			str = err.details[0].message;
+			str = err.details[0].type;
+		});
+		Joi.validate(value, schema, (err, value) => {
+			x = value;
+			str = err.message;
+			str = err.details[0].path;
+			str = err.details[0].message;
+			str = err.details[0].type;
+		});
+		// variant
+		Joi.validate(num, schema, validOpts, (err, value) => {
+			num = value;
+		});
 
-        // plain opts
-        Joi.validate(value, {});
-    }
+		// plain opts
+		Joi.validate(value, {});
+	}
 
-    {
+	{
         let value = { username: 'example', password: 'example' };
         let schema = Joi.object().keys({
             username: Joi.string().max(255).required(),
@@ -853,7 +853,12 @@ namespace validate_tests {
         returnValue = Joi.validate(value, obj, validOpts);
         value = Joi.validate(value, obj, validOpts, (err, value) => value);
         value = Joi.validate(value, schema, validOpts, (err, value) => value);
-    }
+
+		returnValue = schema.validate(value);
+		returnValue = schema.validate(value, validOpts);
+		value = schema.validate(value, (err, value) => value);
+		value = schema.validate(value, validOpts, (err, value) => value);
+	}
 }
 
 
