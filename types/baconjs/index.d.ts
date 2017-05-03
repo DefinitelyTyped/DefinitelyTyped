@@ -1,6 +1,7 @@
 // Type definitions for Bacon.js 0.7.0
 // Project: https://baconjs.github.io/
 // Definitions by: Alexander Matsievsky <https://github.com/alexander-matsievsky>
+//                 Joonas Javanainen <https://github.com/gekkio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
@@ -1026,9 +1027,10 @@ declare namespace Bacon {
         /**
          * @method EventStream#doLog
          * @description Logs each value of the [EventStream]{@link Bacon.EventStream} to the console. [doLog]{@link Bacon.EventStream#doLog} behaves like [log]{@link Bacon.EventStream#log} but does not subscribe to the EventStream. You can think of `doLog` as a logger function that – unlike `log` – is safe to use in production. `doLog` is safe, because it does not cause the same surprising side-effects as `log` does.
+         * @param {string} [label]
          * @returns {EventStream<E, A>}
          */
-        doLog():EventStream<E, A>;
+        doLog(label?:string):EventStream<E, A>;
 
         /**
          * @method
@@ -1613,9 +1615,10 @@ declare namespace Bacon {
         /**
          * @method Property#doLog
          * @description Logs each value of the [Property]{@link Bacon.Property} to the console. [doLog]{@link Bacon.Property#doLog} behaves like [log]{@link Bacon.Property#log} but does not subscribe to the Property. You can think of `doLog` as a logger function that – unlike `log` – is safe to use in production. `doLog` is safe, because it does not cause the same surprising side-effects as `log` does.
+         * @param {string} [label]
          * @returns {Property<E, A>}
          */
-        doLog():Property<E, A>;
+        doLog(label?:string):Property<E, A>;
 
         /**
          * @method
