@@ -637,6 +637,16 @@ customer.on('fetching', (model, columns) => {
 
 /* model.once(), see http://bookshelfjs.org/#Model-instance-once */
 
+/* model.orderBy(), see http://bookshelfjs.org/#Model-instance-orderBy */
+{
+	(new User)
+		.orderBy('name', 'ASC')
+		.fetchAll()
+		.then((users: Bookshelf.Collection<User>) => {
+			console.log(users)
+		});
+}
+
 /* model.parse(), see http://bookshelfjs.org/#Model-instance-parse */
 
 // Example of a "parse" to convert snake_case to camelCase, using `underscore.string`
@@ -1095,6 +1105,16 @@ ships.on('fetched', (collection, response) => {
 })
 
 /* collection.once(), see http://bookshelfjs.org/#Collection-instance-once */
+
+/* collection.orderBy(), see http://bookshelfjs.org/#Collection-instance-orderBy */
+{
+	User.collection()
+		.orderBy('-name')
+		.fetch()
+		.then((users: Bookshelf.Collection<User>) => {
+			console.log(users);
+		})
+}
 
 /* collection.parse(), see http://bookshelfjs.org/#Collection-instance-parse */
 
