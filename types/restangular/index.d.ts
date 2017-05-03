@@ -39,35 +39,35 @@ declare namespace restangular {
   }
 
   interface IProvider {
-    setBaseUrl(baseUrl: string): this;
-    setExtraFields(fields: string[]): this;
-    setParentless(parentless: boolean, routes: string[]): this;
-    setDefaultHttpFields(httpFields: any): this;
-    addElementTransformer(route: string, transformer: Function): this;
-    addElementTransformer(route: string, isCollection: boolean, transformer: Function): this;
-    setTransformOnlyServerElements(active: boolean): this;
-    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): this;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): this;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): this;
-    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): this;
-    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): this;
-    addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): this;
-    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): this;
-    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): this;
-    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): this;
-    setRestangularFields(fields: {[fieldName: string]: string}): this;
-    setMethodOverriders(overriders: string[]): this;
-    setJsonp(jsonp: boolean): this;
-    setDefaultRequestParams(params: any): this;
-    setDefaultRequestParams(method: string, params: any): this;
-    setDefaultRequestParams(methods: string[], params: any): this;
-    setFullResponse(fullResponse: boolean): this;
-    setDefaultHeaders(headers: any): this;
-    setRequestSuffix(suffix: string): this;
-    setUseCannonicalId(useCannonicalId: boolean): this;
-    setEncodeIds(encode: boolean): this;
-    setSelfLinkAbsoluteUrl(value: boolean): this;
-    setParentless(value) : this;
+    setBaseUrl(baseUrl: string): IProvider;
+    setExtraFields(fields: string[]): IProvider;
+    setParentless(parentless: boolean, routes: string[]): IProvider;
+    setDefaultHttpFields(httpFields: any): IProvider;
+    addElementTransformer(route: string, transformer: Function): IProvider;
+    addElementTransformer(route: string, isCollection: boolean, transformer: Function): IProvider;
+    setTransformOnlyServerElements(active: boolean): IProvider;
+    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): IProvider;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): IProvider;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): IProvider;
+    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): IProvider;
+    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): IProvider;
+    addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): IProvider;
+    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): IProvider;
+    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): IProvider;
+    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): IProvider;
+    setRestangularFields(fields: {[fieldName: string]: string}): IProvider;
+    setMethodOverriders(overriders: string[]): IProvider;
+    setJsonp(jsonp: boolean): IProvider;
+    setDefaultRequestParams(params: any): IProvider;
+    setDefaultRequestParams(method: string, params: any): IProvider;
+    setDefaultRequestParams(methods: string[], params: any): IProvider;
+    setFullResponse(fullResponse: boolean): IProvider;
+    setDefaultHeaders(headers: any): IProvider;
+    setRequestSuffix(suffix: string): IProvider;
+    setUseCannonicalId(useCannonicalId: boolean): IProvider;
+    setEncodeIds(encode: boolean): IProvider;
+    setSelfLinkAbsoluteUrl(value: boolean): IProvider;
+    setParentless(value: any) : IProvider;
   }
 
   interface ICustom {
