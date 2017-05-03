@@ -1,4 +1,4 @@
-// Type definitions for dwt 12.3.0
+// Type definitions for dwt 12.3
 // Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,12 +14,12 @@
 * Version: 12.3
 */
 
-/**
+/** 
  * @namespace Dynamsoft
  */
 declare namespace Dynamsoft {
     namespace WebTwainEnv {
-        function GetWebTwain (cid: string) : WebTwain;
+        function GetWebTwain (cid: string): WebTwain;
         function RegisterEvent(event: string, fn: () => void): void;
     }
 }
@@ -600,7 +600,7 @@ declare enum EnumDWT_TransferMode {
     /** Buffered Memory Mode Transfers. */
     TWSX_MEMORY = 2,
     /** added 1.91 */
-    //TWSX_MEMFILE  = 4    
+    TWSX_MEMFILE  = 4    
 }
 
 /** ICAP_IMAGEFILEFORMAT values. */
@@ -640,7 +640,6 @@ declare enum EnumDWT_FileFormat {
     /** 2.1 Adobe PDF/A, Version 2 */
     TWFF_PDFA2 = 16  
 }
-
 
 /** TIFF file compression type. */
 declare enum EnumDWT_TIFFCompressionType {
@@ -1041,7 +1040,6 @@ declare enum EnumDWT_CapSupportedSizes {
     TWSS_MAXSIZE = 54  
 }
 
-
 /** CAP_FEEDERALIGNMENT values. */
 declare enum EnumDWT_CapFeederAlignment {
     /** The alignment is free-floating. Applications should assume that the origin for frames is on the left. */
@@ -1257,7 +1255,6 @@ declare enum EnumDWT_MouseShape {
  */
 // properties (get/set) / sync functions  
 interface WebTwain {
-
     /** 
      * Returns or sets whether multi-page selection is supported.
      * @type {bool}
@@ -2481,7 +2478,6 @@ interface WebTwain {
      */
     HTTPUploadThroughPostAsMultiPagePDF(HTTPServer: string, ActionPage: string, fileName: string, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
-
     /**
      * [Deprecated.] Directly uploads a specific local file to the HTTP server through the HTTP PUT method without loading it into Dynamic Web TWAIN.
      * @method WebTwain#HTTPUploadThroughPutDirectly 
@@ -2899,12 +2895,6 @@ interface WebTwain {
     SetCapItemsString(index: number, newVal: string): void;
     // --- SCAN end --
 
-
-
-
-
-
-
     // --- View & Edit start --
 
     /**
@@ -3029,7 +3019,6 @@ interface WebTwain {
      * @return {short}
      */
     GetSelectedImageIndex(sSelectedIndex: number): number;
-
 
     /**
      * You can use the method to select images programatically which is ususally done by mouse clicking.
@@ -3273,8 +3262,6 @@ interface WebTwain {
     Print(): boolean;
     // --- View & Edit end --
 
-
-
     // --- Upload & Save  end --
 
     // --- Others ---
@@ -3301,8 +3288,6 @@ interface WebTwain {
      * @return {bool}
      */
     EnableSource(): boolean;
-
-
 
     /**
      * Displays the source's built-in interface to acquire image.
@@ -3441,7 +3426,6 @@ interface WebTwain {
      * @return {bool}
      */
     SetSelectedImageArea(sImageIndex: number, left: number, top: number, right: number, bottom: number): boolean;
-
 
     /**
      * Converts the images specified by the indices to base64.
