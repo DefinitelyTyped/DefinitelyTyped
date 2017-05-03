@@ -104,6 +104,7 @@ function testSandbox() {
     sandbox.reset();
     sandbox.resetHistory();
     sandbox.resetBehavior();
+    sandbox.usingPromise(Promise);
     sandbox.verify();
     sandbox.verifyAndRestore();
 }
@@ -125,6 +126,10 @@ function testResetHistory() {
     sinon.stub().resetHistory();
 }
 
+function testUsingPromises() {
+    sinon.stub().usingPromise(Promise);
+}
+
 testOne();
 testTwo();
 testThree();
@@ -135,8 +140,10 @@ testSeven();
 testEight();
 testNine();
 testPromises();
+testSandbox();
 testSymbolMatch();
 testResetHistory();
+testUsingPromises();
 
 var clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);

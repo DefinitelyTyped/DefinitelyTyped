@@ -1,6 +1,6 @@
-// Type definitions for Sinon 2.1.0
+// Type definitions for Sinon 2.2.0
 // Project: http://sinonjs.org/
-// Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>
+// Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.con/lumaxis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // sinon uses DOM dependencies which are absent in browserless envoronment like node.js
@@ -98,6 +98,8 @@ declare namespace Sinon {
     interface SinonStub extends SinonSpy {
         resetBehavior(): void;
         resetHistory(): void;
+        usingPromise(promiseLibrary: any): void;
+
         returns(obj: any): SinonStub;
         returnsArg(index: number): SinonStub;
         returnsThis(): SinonStub;
@@ -411,6 +413,7 @@ declare namespace Sinon {
         reset(): void;
         resetHistory(): void;
         resetBehavior(): void;
+        usingPromise(promiseLibrary: any): void;
         verify(): void;
         verifyAndRestore(): void;
     }
