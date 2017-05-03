@@ -70,7 +70,7 @@ declare namespace Bacon {
     /**
      * @function
      * @description Creates an [EventStream]{@link Bacon.EventStream} from a `promise` Promise object such as JQuery Ajax. This stream will contain a single value or an error, followed immediately by stream end. You can use the optional `abort` flag (i.e. ´Bacon.fromPromise(p, true)´ to have the `abort` method of the given promise be called when all subscribers have been removed from the created stream.
-     * @param {Promise<A>|JQueryXHR} promise
+     * @param {PromiseLike<A>} promise
      * @param {boolean} [abort]
      * @returns {EventStream<E, A>}
      * @example
@@ -79,7 +79,7 @@ declare namespace Bacon {
      * Bacon.fromPromise($.ajax("https://baconjs.github.io/"), true);
      * Bacon.fromPromise(Promise.resolve(1), false);
      */
-    function fromPromise<E, A>(promise:Promise<A>|JQueryXHR, abort?:boolean):EventStream<E, A>;
+    function fromPromise<E, A>(promise:PromiseLike<A>, abort?:boolean):EventStream<E, A>;
 
     /**
      * @callback Bacon.fromPromise~eventTransformer
@@ -89,7 +89,7 @@ declare namespace Bacon {
     /**
      * @function Bacon.fromPromise
      * @description Creates an [EventStream]{@link Bacon.EventStream} from a `promise` Promise object such as JQuery Ajax. This stream will contain a single value or an error, followed immediately by stream end. You can use the `abort` flag (i.e. ´Bacon.fromPromise(p, true)´ to have the `abort` method of the given promise be called when all subscribers have been removed from the created stream, and also pass a function `eventTransformer` that transforms the promise value into Events. The default is to transform the value into `[new Bacon.Next(value), new Bacon.End()]`.
-     * @param {Promise<A>|JQueryXHR} promise
+     * @param {PromiseLike<A>} promise
      * @param {boolean} abort
      * @param {Bacon.fromPromise~eventTransformer} eventTransformer
      * @returns {EventStream<E, B>}
@@ -101,7 +101,7 @@ declare namespace Bacon {
      *     return [new Bacon.Next(n), new Bacon.Next(() => n), new Bacon.End()];
      * });
      */
-    function fromPromise<E, A, B>(promise:Promise<A>|JQueryXHR, abort:boolean, eventTransformer:(value:A) => (Initial<B>|Next<B>|End<B>|Error<E>)[]):EventStream<E, B>;
+    function fromPromise<E, A, B>(promise:PromiseLike<A>, abort:boolean, eventTransformer:(value:A) => (Initial<B>|Next<B>|End<B>|Error<E>)[]):EventStream<E, B>;
 
     /**
      * @function
