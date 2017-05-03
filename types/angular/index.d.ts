@@ -1901,7 +1901,7 @@ declare namespace angular {
          */
         $onDestroy(): void;
     }
-    
+
     /**
      * Interface for the $postLink lifecycle hook
      * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
