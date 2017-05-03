@@ -1,68 +1,70 @@
-// Type definitions for bonjour v3.5.0
+// Type definitions for bonjour 3.5
 // Project: https://github.com/watson/bonjour
-// Definitions by: Quentin Lampin <https://github.com/quentin-ol/>
+// Definitions by: Meirion Hughes <https://github.com/MeirionHughes/>, Quentin Lampin <https://github.com/quentin-ol/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface BonjourOptions {
-    multicast?: boolean;
-    interface?: string;
-    port?: number;
-    ip?: string;
-    ttl?: number;
-    loopback?: boolean;
-    reuseAddr?: boolean;
+declare global {
+  namespace Bonjour {
+    interface BonjourOptions {
+      multicast?: boolean;
+      interface?: string;
+      port?: number;
+      ip?: string;
+      ttl?: number;
+      loopback?: boolean;
+      reuseAddr?: boolean;
+    }
+
+    interface BrowserOptions {
+      type?: string;
+      subtypes?: string[];
+      protocol?: string;
+      txt?: { [key: string]: string };
+    }
+    interface ServiceOptions {
+      name: string;
+      host?: string;
+      port: number;
+      type: string;
+      subtypes?: string[];
+      protocol?: 'udp' | 'tcp';
+      txt?: { [key: string]: string };
+    }
+    interface Service {
+      name: string;
+      type: string;
+      subtypes: string[];
+      protocol: string;
+      host: string;
+      port: number;
+      fqdn: string;
+      rawTxt: any;
+      txt: { [key: string]: string };
+      published: boolean;
+
+      stop(cb?: () => void): void;
+      start(): void;
+    }
+
+    interface Browser {
+      services: Bonjour.Service[];
+
+      start(): void;
+      update(): void;
+      stop(): void;
+    }
+  }
+  class Bonjour {
+    publish(options: Bonjour.ServiceOptions): Bonjour.Service;
+    unpublishAll(cb?: () => any): void;
+    find(options: Bonjour.BrowserOptions, onUp?: (service: Bonjour.Service) => any): Bonjour.Browser;
+    findOne(options: any, cb?: (service: Bonjour.Service) => any): Bonjour.Browser;
+    destroy(): void;
+  }
 }
 
-export interface BrowserOptions {
-    type?: string;
-    subtypes?: string[];
-    protocol?: string;
-    txt?: Object;
-}
+declare function BonjourConstructor(options: Bonjour.BonjourOptions): Bonjour;
 
-export interface ServiceOptions {
-    name: string;
-    host?: string;
-    port: number;
-    type: string;
-    subtypes?: string[];
-    protocol?: 'udp'|'tcp';
-    txt?: Object;
-}
+declare namespace BonjourConstructor { }
 
-export interface Service {
-    name: string;
-    type: string;
-    subtypes: string[];
-    protocol: string;
-    host: string;
-    port: number;
-    fqdn: string;
-    rawTxt: Object;
-    txt: Object;
-    published: boolean;
-
-    stop: (cb: ()=>any) => void;
-    start: () => void;
-}
-
-export class Bonjour {
-
-    constructor(opts: BonjourOptions);
-    publish(options: ServiceOptions):Service;
-    unpublishAll(cb: ()=>any): void;
-    find(options:BrowserOptions, onUp: ()=>any): Browser;
-    findOne(options:any, cb: (service: Service)=>any): Browser;
-    destroy():void;
-}
-
-export class Browser {
-    services: Service[];
-
-    start():void;
-    update():void;
-    stop():void;
-}
-
-export function find(options: BrowserOptions, onUp?: ()=>any): Browser;
-export function findOne(options: BrowserOptions): Browser;
+export = BonjourConstructor;
