@@ -3,14 +3,14 @@
 import * as parse from 'cwise-parser';
 import * as ndarray from 'ndarray';
 import * as compile from 'cwise-compiler';
-const ops = require('ndarray-ops');
 import * as tape from 'tape';
 
 tape("block tests", (t) => {
-	const body2 = parse((a, b: number[]) => {
+	const ops = require('ndarray-ops');
+	const body2 = parse((a: number, b: number[]) => {
 		a = b[0] + b[1] + 1;
 	});
-	const body23 = parse((a, b: number[][]) => {
+	const body23 = parse((a: number, b: number[][]) => {
 		a = b[0][0] * b[1][0] + b[0][1] * b[1][1] + b[0][2] * b[1][2];
 	});
 
