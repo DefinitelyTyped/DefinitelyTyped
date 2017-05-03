@@ -102,7 +102,7 @@ declare namespace Sinon {
     interface SinonStub extends SinonSpy {
         resetBehavior(): void;
         resetHistory(): void;
-        usingPromise(promiseLibrary: any): void;
+        usingPromise(promiseLibrary: any): SinonStub;
 
         returns(obj: any): SinonStub;
         returnsArg(index: number): SinonStub;
@@ -203,19 +203,19 @@ declare namespace Sinon {
         Date(year: number, month: number, day: number, hour: number, minute: number, second: number, ms: number): Date;
         restore(): void;
 
-		/**
-		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
-		 * without affecting timers, intervals or immediates.
-		 * @param now The new 'now' in unix milliseconds
-		 */
-		setSystemTime(now: number): void;
-		/**
-		 * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
-		 * without affecting timers, intervals or immediates.
-		 * @param now The new 'now' as a JavaScript Date
-		 */
-		setSystemTime(date: Date): void;
-	}
+        /**
+         * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+         * without affecting timers, intervals or immediates.
+         * @param now The new 'now' in unix milliseconds
+         */
+        setSystemTime(now: number): void;
+        /**
+         * Simulate the user changing the system clock while your program is running. It changes the 'now' timestamp
+         * without affecting timers, intervals or immediates.
+         * @param now The new 'now' as a JavaScript Date
+         */
+        setSystemTime(date: Date): void;
+    }
 
     interface SinonFakeTimersStatic {
         (): SinonFakeTimers;
@@ -415,7 +415,7 @@ declare namespace Sinon {
         reset(): void;
         resetHistory(): void;
         resetBehavior(): void;
-        usingPromise(promiseLibrary: any): void;
+        usingPromise(promiseLibrary: any): SinonSandbox;
         verify(): void;
         verifyAndRestore(): void;
     }

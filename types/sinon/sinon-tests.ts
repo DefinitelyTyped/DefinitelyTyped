@@ -92,6 +92,7 @@ function testNine() {
 
 function testSandbox() {
     let sandbox = sinon.sandbox.create();
+    sandbox = sandbox.usingPromise(Promise);
 
     sandbox.assert.notCalled(sinon.spy());
 
@@ -106,7 +107,6 @@ function testSandbox() {
     sandbox.reset();
     sandbox.resetHistory();
     sandbox.resetBehavior();
-    sandbox.usingPromise(Promise);
     sandbox.verify();
     sandbox.verifyAndRestore();
 }
@@ -130,7 +130,7 @@ function testResetHistory() {
 }
 
 function testUsingPromises() {
-    sinon.stub().usingPromise(Promise);
+    const stub: sinon.SinonStub = sinon.stub().usingPromise(Promise);
 }
 
 function testSpy() {
