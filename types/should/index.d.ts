@@ -1,4 +1,4 @@
-// Type definitions for should.js v8.1.1
+// Type definitions for should.js v8.3.0
 // Project: https://github.com/shouldjs/should.js
 // Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,6 +42,7 @@ interface ShouldAssertion {
   Class(): ShouldAssertion;
   Undefined(): ShouldAssertion;
   Null(): ShouldAssertion;
+  Promise(): ShouldAssertion;
   generator(): ShouldAssertion;
   iterable(): ShouldAssertion;
   iterator(): ShouldAssertion;
@@ -91,6 +92,15 @@ interface ShouldAssertion {
   startWith(expected: string, message?: any): ShouldAssertion;
   endWith(expected: string, message?: any): ShouldAssertion;
   throw(message?: any): ShouldAssertion;
+
+  //promises
+  eventually: ShouldAssertion;
+  finally: ShouldAssertion;
+  fulfilled(): Promise<any>;
+  fulfilledWith(value: any): Promise<any>
+  rejected(): Promise<any>;
+  rejectedWith(message: (string | Function | RegExp), properties?: Object): Promise<any>;
+  rejectedWith(errType: Object): Promise<any>;
 
   //http
   header(field: string, val?: string): ShouldAssertion;

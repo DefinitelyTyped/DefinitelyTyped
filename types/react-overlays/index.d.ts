@@ -9,7 +9,7 @@ import * as React from "react";
 export { Modal, Overlay, Portal, Position } from "react-bootstrap";
 
 // <Affix />
-interface AffixProps {
+export interface AffixProps {
 	/**
 	 * Pixels to offset from top of screen when calculating position
 	 */
@@ -87,7 +87,7 @@ interface AffixProps {
 export class Affix extends React.Component<AffixProps, {}> { }
 
 // <AutoAffix />
-interface AutoAffixProps extends AffixProps {
+export interface AutoAffixProps extends AffixProps {
 	/**
 	 * The logical container node or component for determining offset from bottom
 	 * of viewport, or a function that returns it
@@ -102,7 +102,7 @@ interface AutoAffixProps extends AffixProps {
 export class AutoAffix extends React.Component<AutoAffixProps, {}> { }
 
 // <Transition />
-interface TransitionProps {
+export interface TransitionProps {
 	className?: string;
 
 	/**

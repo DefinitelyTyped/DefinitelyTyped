@@ -1,6 +1,6 @@
-// Type definitions for joi v10.0.0
+// Type definitions for joi v10.3.0
 // Project: https://github.com/hapijs/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <hhttps://github.com/GaelMagnan>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <https://github.com/GaelMagnan>, Rytis Alekna <https://github.com/ralekna>, Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
@@ -25,9 +25,13 @@ export interface ValidationOptions {
      */
     skipFunctions?: boolean;
     /**
-     * when true, unknown keys are deleted (only when value is an object). Defaults to false.
+     * remove unknown elements from objects and arrays. Defaults to false
+     * - when true, all unknown elements will be removed
+     * - when an object:
+     *      - arrays - set to true to remove unknown items from arrays.
+     *      - objects - set to true to remove unknown keys from objects
      */
-    stripUnknown?: boolean;
+    stripUnknown?: boolean | {arrays: boolean} | {objects: boolean} | {arrays: boolean; objects: boolean};
     /**
      * overrides individual error messages. Defaults to no override ({}).
      */
@@ -151,7 +155,7 @@ export interface ValidationResult<T> {
 }
 
 export interface SchemaMap {
-    [key: string]: Schema;
+    [key: string]: Schema | SchemaMap | (Schema | SchemaMap)[];
 }
 
 export interface Schema extends AnySchema<Schema> {
@@ -163,6 +167,14 @@ export interface Reference extends Schema {
 }
 
 export interface AnySchema<T extends AnySchema<Schema>> {
+    /**
+     * Validates a value using the schema and options.
+     */
+    validate<T>(value: T): ValidationResult<T>;
+    validate<T>(value: T, options: ValidationOptions): ValidationResult<T>;
+    validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
+    validate<T, R>(value: T, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
+
     /**
      * Whitelists a value
      */
@@ -313,6 +325,28 @@ export interface AnySchema<T extends AnySchema<Schema>> {
 
 export interface BooleanSchema extends AnySchema<BooleanSchema> {
 
+    /**
+     * Allows for additional values to be considered valid booleans by converting them to true during validation.
+     * Accepts a value or an array of values. String comparisons are by default case insensitive,
+     * see boolean.insensitive() to change this behavior.
+     * @param values - strings, numbers or arrays of them
+     */
+    truthy(... values: Array<string | number | string[] | number[]>): BooleanSchema;
+
+    /**
+     * Allows for additional values to be considered valid booleans by converting them to false during validation.
+     * Accepts a value or an array of values. String comparisons are by default case insensitive,
+     * see boolean.insensitive() to change this behavior.
+     * @param values - strings, numbers or arrays of them
+     */
+    falsy(... values: Array<string | number | string[] | number[]>): BooleanSchema;
+
+    /**
+     * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
+     * (when not in strict() mode) to be matched in a case insensitive manner.
+     * @param enabled
+     */
+    insensitive(enabled: boolean): BooleanSchema;
 }
 
 export interface NumberSchema extends AnySchema<NumberSchema> {
@@ -506,15 +540,20 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
      *
      * @param type - a joi schema object to validate each array item against.
      */
-    items(type: Schema, ...types: Schema[]): ArraySchema;
+    items(...types: Schema[]): ArraySchema;
+    items(...types: SchemaMap[]): ArraySchema;
     items(types: Schema[]): ArraySchema;
+    items(types: SchemaMap[]): ArraySchema;
 
     /**
      * Lists the types in sequence order for the array values where:
      * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
      * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
      */
-    ordered(type: Schema, ...types: Schema[]): ArraySchema;
+    ordered(...types: Schema[]): ArraySchema;
+    ordered(...types: SchemaMap[]): ArraySchema;
+    ordered(types: Schema[]): ArraySchema;
+    ordered(types: SchemaMap[]): ArraySchema;
 
     /**
      * Specifies the minimum number of items in the array.
@@ -536,7 +575,8 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(): ArraySchema;
+    unique(comparator?: (a: any, b: any) => boolean): ArraySchema;
+    unique(comparator?: string): ArraySchema;
 }
 
 export interface ObjectSchema extends AnySchema<ObjectSchema> {

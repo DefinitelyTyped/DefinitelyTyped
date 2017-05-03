@@ -34,7 +34,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * the name of your form and the key to where your form's state will be
      * mounted under the redux-form reducer
      */
-    form: string;
+    form?: string;
 
     /**
      * field names for which onBlur should trigger a call to the asyncValidate
@@ -119,13 +119,18 @@ export interface Config<FormData extends DataShape, P, S> {
      * @param dispatch    The Redux `dispatch` function.
      * @param submitError The error object that caused the submission to fail. If `errors` is set this will be most
      *                    likely a `SubmissionError`, otherwise it can be any error or null.
+     * @param props       The props passed into your decorated component.
      */
-    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<S>, submitError: any): void;
+    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<S>, submitError: any, props: P): void;
 
     /**
      * A callback function that will be called when a submission succeeds.
+     *
+     * @param result      Any result that onSubmit has returned
+     * @param dispatch    The Redux dispatch function
+     * @param props       The props passed into your decorated component
      */
-    onSubmitSuccess?(result: any, dispatch: Dispatch<S>): void;
+    onSubmitSuccess?(result: any, dispatch: Dispatch<S>, props: P): void;
 
     /**
      * If specified, all the props normally passed into your decorated

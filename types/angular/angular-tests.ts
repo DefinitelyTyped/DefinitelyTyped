@@ -470,6 +470,29 @@ namespace TestInjector {
 
     $injector.annotate(() => {});
     $injector.annotate(() => {}, true);
+
+    // $injector.instantiate
+    {
+        class Foobar {
+            constructor($q) {}
+        }
+        let result: Foobar = $injector.instantiate(Foobar);
+    }
+
+    // $injector.invoke
+    {
+        function foobar(v: boolean): number {
+            return 7;
+        }
+        let result = $injector.invoke(foobar);
+        if (!(typeof result === 'number')) {
+            // This fails to compile if 'result' is not exactly a number.
+            let expectNever: never = result;
+        }
+
+        let anyFunction: Function = foobar;
+        let anyResult: string = $injector.invoke(anyFunction);
+    }
 }
 
 // Promise signature tests

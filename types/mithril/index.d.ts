@@ -13,7 +13,7 @@ declare function render(el: Element, vnodes: Mithril.Children): void;
 /** Mounts a component to a DOM element, enabling it to autoredraw on user events. */
 declare function mount(element: Element, component: Mithril.ComponentTypes<any, any>): void;
 /** Unmounts a component from a DOM element. */
-declare function mount(element: Element, component: null): void;
+declare function mount(element: Element, component: null): void; // tslint:disable-line unified-signatures
 
 /** Makes an XHR request and returns a promise. */
 declare function request <T>(options: Mithril.RequestOptions<T> & { url: string }): Promise<T>;
@@ -31,7 +31,7 @@ declare function withAttr(name: string, callback: (value: any) => any): (e: { cu
 declare function withAttr<T>(name: string, callback: (this: T, value: any) => any, thisArg: T): (e: { currentTarget: any, [p: string]: any }) => void;
 
 declare namespace Mithril {
-	export interface Lifecycle<Attrs, State> {
+	interface Lifecycle<Attrs, State> {
 		/** The oninit hook is called before a vnode is touched by the virtual DOM engine. */
 		oninit?(this: State, vnode: Vnode<Attrs, State>): any;
 		/** The oncreate hook is called after a DOM element is created and attached to the document. */
@@ -46,7 +46,7 @@ declare namespace Mithril {
 		onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 	}
 
-	export interface Hyperscript {
+	interface Hyperscript {
 		/** Creates a virtual element (Vnode). */
 		(selector: string, ...children: Children[]): Vnode<any, any>;
 		/** Creates a virtual element (Vnode). */
@@ -61,20 +61,20 @@ declare namespace Mithril {
 		trust(html: string): Vnode<any, any>;
 	}
 
-	export interface RouteResolver<State, Params> {
+	interface RouteResolver<Attrs, State> {
 		/** The onmatch hook is called when the router needs to find a component to render. */
-		render?(this: State, vnode: Vnode<State, Params>): Children;
+		onmatch?(this: this, args: Attrs, requestedPath: string): Component<any, any> | Promise<any> | void;
 		/** The render method is called on every redraw for a matching route. */
-		onmatch?(args: Params, requestedPath: string): Component<any, any> | Promise<any> | void;
+		render?(this: this, vnode: Vnode<Attrs, State>): Children;
 	}
 
 	/** This represents a key-value mapping linking routes to components. */
-	export interface RouteDefs {
+	interface RouteDefs {
 		/** The key represents the route. The value represents the corresponding component. */
 		[url: string]: ComponentTypes<any, any> | RouteResolver<any, any>;
 	}
 
-	export interface RouteOptions {
+	interface RouteOptions {
 		/** Routing parameters. If path has routing parameter slots, the properties of this object are interpolated into the path string. */
 		replace?: boolean;
 		/** The state object to pass to the underlying history.pushState / history.replaceState call. */
@@ -83,7 +83,7 @@ declare namespace Mithril {
 		title?: string;
 	}
 
-	export interface Route {
+	interface Route {
 		/** Creates application routes and mounts Components and/or RouteResolvers to a DOM element. */
 		(element: Element, defaultRoute: string, routes: RouteDefs): void;
 		/** Returns the last fully resolved routing path, without the prefix. */
@@ -100,7 +100,7 @@ declare namespace Mithril {
 		param(): any;
 	}
 
-	export interface RequestOptions<T> {
+	interface RequestOptions<T> {
 		/** The HTTP method to use. */
 		method?: string;
 		/** The data to be interpolated into the URL and serialized into the querystring (for GET requests) or body (for other types of requests). */
@@ -125,13 +125,17 @@ declare namespace Mithril {
 		deserialize?(data: string): T;
 		/** A hook to specify how the XMLHttpRequest response should be read. Useful for reading response headers and cookies. Defaults to a function that returns xhr.responseText */
 		extract?(xhr: XMLHttpRequest, options: this): T;
-		/** Force the use of the HTTP body section for data in GET requests when set to true, or the use of querystring for other HTTP methods when set to false. Defaults to false for GET requests and true for other methods. */
+		/**
+		 * Force the use of the HTTP body section for data in GET requests when set to true,
+		 * or the use of querystring for other HTTP methods when set to false.
+		 * Defaults to false for GET requests and true for other methods.
+		 */
 		useBody?: boolean;
 		/** If false, redraws mounted components upon completion of the request. If true, it does not. */
 		background?: boolean;
 	}
 
-	export interface JsonpOptions {
+	interface JsonpOptions {
 		/** The data to be interpolated into the URL and serialized into the querystring. */
 		data?: any;
 		/** A constructor to be applied to each object in the response. */
@@ -144,7 +148,7 @@ declare namespace Mithril {
 		background?: boolean;
 	}
 
-	export interface Static extends Hyperscript {
+	interface Static extends Hyperscript {
 		route: Route;
 		mount: typeof mount;
 		withAttr: typeof withAttr;
@@ -161,13 +165,13 @@ declare namespace Mithril {
 	}
 
 	// Vnode children types
-	export type Child = Vnode<any, any> | string | number | boolean | null | undefined;
-	export interface ChildArray extends Array<Children> { }
-	export type Children = Child | ChildArray;
-	export type ChildArrayOrPrimitive = ChildArray | string | number | boolean;
+	type Child = Vnode<any, any> | string | number | boolean | null | undefined;
+	interface ChildArray extends Array<Children> { }
+	type Children = Child | ChildArray;
+	type ChildArrayOrPrimitive = ChildArray | string | number | boolean;
 
 	/** Virtual DOM nodes, or vnodes, are Javascript objects that represent an element (or parts of the DOM). */
-	export interface Vnode<Attrs, State extends Lifecycle<Attrs, State>> {
+	interface Vnode<Attrs, State extends Lifecycle<Attrs, State>> {
 		/** The nodeName of a DOM element. It may also be the string [ if a vnode is a fragment, # if it's a text vnode, or < if it's a trusted HTML vnode. Additionally, it may be a component. */
 		tag: string | Component<Attrs, State>;
 		/** A hashmap of DOM attributes, events, properties and lifecycle methods. */
@@ -178,31 +182,43 @@ declare namespace Mithril {
 		key?: string | number;
 		/** In most vnode types, the children property is an array of vnodes. For text and trusted HTML vnodes, The children property is either a string, a number or a boolean. */
 		children?: ChildArrayOrPrimitive;
-		/** This is used instead of children if a vnode contains a text node as its only child. This is done for performance reasons. Component vnodes never use the text property even if they have a text node as their only child. */
+		/**
+		 * This is used instead of children if a vnode contains a text node as its only child.
+		 * This is done for performance reasons.
+		 * Component vnodes never use the text property even if they have a text node as their only child.
+		 */
 		text?: string | number | boolean;
 	}
 
 	// In some lifecycle methods, Vnode will have a dom property
 	// and possibly a domSize property.
-	export interface VnodeDOM<Attrs, State extends Lifecycle<Attrs, State>> extends Vnode<Attrs, State> {
+	interface VnodeDOM<Attrs, State extends Lifecycle<Attrs, State>> extends Vnode<Attrs, State> {
 		/** Points to the element that corresponds to the vnode. */
 		dom: Element;
 		/** This defines the number of DOM elements that the vnode represents (starting from the element referenced by the dom property). */
 		domSize?: number;
 	}
 
-	export interface CVnode<A> extends Vnode<A, ClassComponent<A>> { }
+	interface CVnode<A> extends Vnode<A, ClassComponent<A>> { }
 
-	export interface CVnodeDOM<A> extends VnodeDOM<A, ClassComponent<A>> { }
+	interface CVnodeDOM<A> extends VnodeDOM<A, ClassComponent<A>> { }
 
-	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Any Javascript object that has a view method can be used as a Mithril component. Components can be consumed via the m() utility. */
-	export interface Component<Attrs, State extends Lifecycle<Attrs, State>> extends Lifecycle<Attrs, State> {
+	/**
+	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
+	 * Any Javascript object that has a view method can be used as a Mithril component.
+	 * Components can be consumed via the m() utility.
+	 */
+	interface Component<Attrs, State extends Lifecycle<Attrs, State>> extends Lifecycle<Attrs, State> {
 		/** Creates a view out of virtual elements. */
 		view(this: State, vnode: Vnode<Attrs, State>): Children | null | void;
 	}
 
-	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Any class that implements a view method can be used as a Mithril component. Components can be consumed via the m() utility. */
-	export interface ClassComponent<A> extends Lifecycle<A, ClassComponent<A>> {
+	/**
+	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
+	 * Any class that implements a view method can be used as a Mithril component.
+	 * Components can be consumed via the m() utility.
+	 */
+	interface ClassComponent<A> extends Lifecycle<A, ClassComponent<A>> {
 		/** The oninit hook is called before a vnode is touched by the virtual DOM engine. */
 		oninit?(vnode: Vnode<A, this>): any;
 		/** The oncreate hook is called after a DOM element is created and attached to the document. */
@@ -216,20 +232,27 @@ declare namespace Mithril {
 		/** The onremove hook is called before a DOM element is removed from the document. */
 		onupdate?(vnode: VnodeDOM<A, this>): any;
 		/** Creates a view out of virtual elements. */
-		view(vnode: CVnode<A>): Children | null | void;
+		view(vnode: Vnode<A, this>): Children | null | void;
 	}
 
-	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Any function that returns an object with a view method can be used as a Mithril component. Components can be consumed via the m() utility. */
-	export type FactoryComponent<A> = (vnode: Vnode<A, {}>) => Component<A, {}>
+	/**
+	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
+	 * Any function that returns an object with a view method can be used as a Mithril component.
+	 * Components can be consumed via the m() utility.
+	 */
+	type FactoryComponent<A> = (vnode: Vnode<A, {}>) => Component<A, {}>;
 
-	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Any Javascript object that has a view method is a Mithril component. Components can be consumed via the m() utility. */
-	export type Comp<Attrs, State extends Lifecycle<Attrs, State>> = Component<Attrs, State> & State;
+	/**
+	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
+	 * Any Javascript object that has a view method is a Mithril component. Components can be consumed via the m() utility.
+	 */
+	type Comp<Attrs, State extends Lifecycle<Attrs, State>> = Component<Attrs, State> & State;
 
 	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Components can be consumed via the m() utility. */
-	export type ComponentTypes<A, S> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>
+	type ComponentTypes<A, S> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>;
 
 	/** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */
-	export interface Attributes extends Lifecycle<any, any> {
+	interface Attributes extends Lifecycle<any, any> {
 		/** The class name(s) for this virtual element, as a space-separated list. */
 		className?: string;
 		/** The class name(s) for this virtual element, as a space-separated list. */

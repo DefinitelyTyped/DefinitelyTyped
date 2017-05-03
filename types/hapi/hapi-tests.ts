@@ -1,17 +1,15 @@
-
-
 import Hapi = require("hapi");
 
 // Create a server with a host and port
-var server = new Hapi.Server();
-server.connection(<Hapi.IServerConnectionOptions>{
+const server = new Hapi.Server();
+server.connection({
 	host: "localhost",
 	port: 8000
 });
 
 // Add plugins
-var plugin: any = {
-	register: function (plugin: Object, options: Object, next: Function) {
+const plugin: any = {
+	register(plugin: Object, options: Object, next: Function) {
 		next();
 	}
 };
@@ -22,8 +20,7 @@ plugin.register.attributes = {
 };
 
 // optional options parameter
-server.register({}, function (err) {
-});
+server.register({}, err => {});
 // optional callback function with and without options
 server.register({}).then((res: any) => {
 	console.log(res);
@@ -33,39 +30,38 @@ server.register({}, {select: "api", routes: {prefix: "/prefix"}}).then((res: any
 });
 
 // optional options.routes.vhost parameter
-server.register({}, {select: "api", routes: {prefix: "/prefix"}}, function (err) {
-});
+server.register({}, {select: "api", routes: {prefix: "/prefix"}}, err => {});
 
-//server.pack.register(plugin, (err: Object) => {
-//	if (err) { throw err; }
-//});
+// server.pack.register(plugin, (err: Object) => {
+//   if (err) { throw err; }
+// });
 
-//server.pack.register([plugin], (err: Object) => {
-//	if (err) { throw err; }
-//});
+// server.pack.register([plugin], (err: Object) => {
+//   if (err) { throw err; }
+// });
 
 // Add server method
-var add = function (a: number, b: number, next: (err: any, result?: any, ttl?: number) => void) {
+function add(a: number, b: number, next: (err: any, result?: any, ttl?: number) => void) {
 	next(null, a + b);
-};
+}
 
-server.method("sum", add);//, { cache: { expiresIn: 2000 } });
+server.method("sum", add); // , { cache: { expiresIn: 2000 } });
 
 server.methods["sum"](4, 5, (err: any, result: any) => {
 	console.log(result);
 });
 
-var addArray = function (array: Array<number>, next: (err: any, result?: any, ttl?: number) => void) {
-	var sum: number = 0;
+function addArray(array: number[], next: (err: any, result?: any, ttl?: number) => void) {
+	let sum: number = 0;
 	array.forEach((item: number) => {
 		sum += item;
 	});
 	next(null, sum);
-};
+}
 
 server.method("sumObj", addArray, {
-	//cache: { expiresIn: 2000 },
-	generateKey: (array: Array<number>) => {
+	cache: { expiresIn: 2000 },
+	generateKey(array: number[]) {
 		return array.join(',');
 	}
 });
@@ -78,7 +74,7 @@ server.methods["sumObj"]([5, 6], (err: any, result: any) => {
 server.route({
 	method: 'GET',
 	path: '/hello',
-	handler: function (request: Hapi.Request, reply: Function) {
+	handler(request: Hapi.Request, reply: Function) {
 		request.log('info', { route: '/hello' }, Date.now());
 		reply('hello world');
 	}
@@ -87,7 +83,7 @@ server.route({
 server.route([{
 	method: 'GET',
 	path: '/hello2',
-	handler: function (request: Hapi.Request, reply: Function) {
+	handler(request: Hapi.Request, reply: Function) {
 		reply('hello world2');
 	}
 }]);
@@ -95,20 +91,20 @@ server.route([{
 server.route([{
 	method: 'GET',
 	path: '/hello3',
-	handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+	handler(request: Hapi.Request, reply: Hapi.IReply) {
 		reply('hello world2');
 	}
 }]);
 
 interface IHello {
-	msg: string
+	msg: string;
 }
 
 server.route([{
 	method: 'GET',
 	path: '/hello4',
-	handler: function (request: Hapi.Request, reply: Hapi.IStrictReply<IHello>) {
-		reply({ msg: 'hello world' })
+	handler(request: Hapi.Request, reply: Hapi.IStrictReply<IHello>) {
+		reply({ msg: 'hello world' });
 	}
 }]);
 
@@ -116,8 +112,8 @@ server.route([{
 server.route({
 	method: 'GET',
 	path: '/hello6',
-        handler: function (request: Hapi.Request, reply: Hapi.IReply) {
-                request.log('info', { route: '/hello' }, Date.now());
+	handler(request: Hapi.Request, reply: Hapi.IReply) {
+		request.log('info', { route: '/hello' }, Date.now());
 		reply('hello world');
 	}
 });
@@ -126,7 +122,7 @@ server.route({
 server.route([{
 	method: 'GET',
 	path: '/hello2',
-	handler: function (request: Hapi.Request, reply: Function) {
+	handler(request: Hapi.Request, reply: Function) {
 		reply('hello world2');
 	},
 	config: {
@@ -138,7 +134,7 @@ server.route([{
 server.route([{
 	method: 'GET',
 	path: '/chained-notation',
-	handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+	handler(request: Hapi.Request, reply: Hapi.IReply) {
 		reply.state('cookie_key', 'cookie_value');
 		reply('chained-notation')
 			.bytes(16)
@@ -158,7 +154,7 @@ server.start()
 		console.log('Started!');
 	});
 
-//inject a request into connection
+// inject a request into connection
 server.inject({
 	method: 'GET',
 	url: '/hello'
@@ -166,7 +162,7 @@ server.inject({
 	console.log(response.statusCode);
 });
 
-//the same but this time using callback
+// the same but this time using callback
 server.inject({
 	method: 'GET',
 	url: '/hello'
@@ -174,26 +170,26 @@ server.inject({
 	console.log(response.statusCode);
 });
 
-//tests for server initialization
+// tests for server initialization
 server.initialize()
 	.then(() => {
-		console.log('Initialized!')
+		console.log('Initialized!');
 	});
 
-//and the same but with callback
+// and the same but with callback
 server.initialize(err => {
 	if (err) {
 		console.log(err);
 	}
 });
 
-//server stopping may now return a promise
+// server stopping may now return a promise
 server.stop()
 	.then(() => {
 		console.log('Stopped!');
 	});
 
-//decorate can take an optional options argument
+// decorate can take an optional options argument
 server.decorate('hello', 'world', () => {
 }, {
 	apply: true
