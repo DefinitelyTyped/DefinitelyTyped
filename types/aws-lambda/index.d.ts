@@ -18,8 +18,7 @@ interface APIGatewayEvent {
         apiId: string;
         authorizer?: {
             principalId: string;
-            policyDocument?: any;
-            context?: any;
+            [name: string]: string | number | boolean;
         };
         httpMethod: string;
         identity: {
