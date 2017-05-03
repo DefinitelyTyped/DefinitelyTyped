@@ -23,6 +23,8 @@ interface Bookshelf extends Bookshelf.Events<any> {
 declare function Bookshelf(knex: knex): Bookshelf;
 
 declare namespace Bookshelf {
+	type SortOrder = 'ASC'|'asc'|'DESC'|'desc';
+
 	abstract class Events<T> {
 		on(event?: string, callback?: EventFunction<T>, context?: any): void;
 		off(event?: string): void;
@@ -105,7 +107,7 @@ declare namespace Bookshelf {
 		morphOne<R extends Model<any>>(target: { new (...args: any[]): R }, name?: string, columnNames?: string[], morphValue?: string): R;
 		morphTo(name: string, columnNames?: string[], ...target: typeof Model[]): T;
 		morphTo(name: string, ...target: typeof Model[]): T;
-		orderBy(column: string, order?: string): T;
+		orderBy(column: string, order?: SortOrder): T;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
 		query(): Knex.QueryBuilder;
@@ -243,7 +245,7 @@ declare namespace Bookshelf {
 		detach(options?: SyncOptions): BlueBird<any>;
 		fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
 		load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
-		orderBy(column: string, order?: string): T;
+		orderBy(column: string, order?: SortOrder): T;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
 		query(): Knex.QueryBuilder;
