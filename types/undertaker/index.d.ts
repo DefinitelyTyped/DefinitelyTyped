@@ -1,7 +1,7 @@
 // Type definitions for undertaker 1.1
 // Project: https://github.com/phated/undertaker
 // Definitions by: Qubo <https://github.com/tkqubo>
-//                 Giedrius Grabauskas <https://github.com/Giedriu9sGrabauskas>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Registry from "undertaker-registry";
