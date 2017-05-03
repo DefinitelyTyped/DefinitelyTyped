@@ -1,6 +1,6 @@
 // Type definitions for Google Maps JavaScript API 3.26
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -95,6 +95,10 @@ declare namespace google.maps {
         fullscreenControl?: boolean;
         /** The display options for the Fullscreen control. */
         fullscreenControlOptions?: FullscreenControlOptions;
+        /**
+         * This setting controls how gestures on the map are handled.
+         */
+        gestureHandling?: GestureHandlingOptions;
         /**
          * The heading for aerial imagery in degrees measured clockwise from cardinal
          * direction North. Headings are snapped to the nearest available angle for
@@ -249,6 +253,12 @@ declare namespace google.maps {
     export interface OverviewMapControlOptions {
         opened?: boolean;
     }
+
+    export type GestureHandlingOptions =
+        "cooperative" |
+        "greedy" |
+        "none" |
+        "auto";
 
     /** Options for the rendering of the pan control. */
     export interface PanControlOptions {
