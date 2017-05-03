@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "path-to-regexp-tests.ts"
+        "koa-route-tests.ts"
     ]
 }
