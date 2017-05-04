@@ -44,7 +44,7 @@ declare class Undertaker {
 
     /**
      * Returns the registered function.
-     * @param taskName
+     * @param {string} taskName - Task name.
      */
     task(taskName: string): Undertaker.TaskFunction;
 
@@ -68,7 +68,7 @@ declare class Undertaker {
      *
      * When the returned function is executed, the tasks or functions will be executed in series,
      * each waiting for the prior to finish. If an error occurs, execution will stop.
-     * @param {...string|TaskFunction} tasks - Task function.
+     * @param {...Undertaker.Task[]} tasks - List of tasks.
      */
     series(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -79,7 +79,7 @@ declare class Undertaker {
      *
      * When the returned function is executed, the tasks or functions will be executed in series,
      * each waiting for the prior to finish. If an error occurs, execution will stop.
-     * @param {string|TaskFunction} tasks - Task function.
+     * @param {Undertaker.Task[]} tasks - List of tasks.
      */
     series(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -90,7 +90,7 @@ declare class Undertaker {
      *
      * When the returned function is executed, the tasks or functions will be executed in parallel,
      * all being executed at the same time. If an error occurs, all execution will complete.
-     * @param tasks
+     * @param {...Undertaker.Task[]} tasks - list of tasks.
      */
     parallel(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -101,7 +101,7 @@ declare class Undertaker {
      *
      * When the returned function is executed, the tasks or functions will be executed in parallel,
      * all being executed at the same time. If an error occurs, all execution will complete.
-     * @param tasks
+     * @param {Undertaker.Task[]} tasks - list of tasks.
      */
     parallel(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
@@ -113,7 +113,7 @@ declare class Undertaker {
     /**
      * The tasks from the current registry will be transferred to it
      * and the current registry will be replaced with the new registry.
-     * @param registry
+     * @param {Registry} registry - Instance of registry.
      */
     registry(registry: Registry): void;
 
