@@ -59,3 +59,4 @@ var chain: Color.Color = color
     .opaquer(0)
     .rotate(0)
     .mix(colorOther, 0)
+    .hsl();
