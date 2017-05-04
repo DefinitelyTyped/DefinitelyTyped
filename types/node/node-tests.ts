@@ -534,19 +534,25 @@ const compressMe = new Buffer("some data");
 const compressMeString = "compress me!";
 
 zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
 const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
 zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
 zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
+zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
 
 zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
+zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result);
 const unzipped: Buffer = zlib.unzipSync(compressMe);
 
 // Simplified constructors

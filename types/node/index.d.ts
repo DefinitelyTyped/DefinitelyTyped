@@ -1,6 +1,6 @@
 // Type definitions for Node.js v7.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>, Parambir Singh <https://github.com/parambirs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
