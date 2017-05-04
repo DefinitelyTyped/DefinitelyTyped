@@ -454,7 +454,7 @@ export interface ServerOptions {
     handleUpgrades?: boolean;
     router?: Router;
     httpsServerOptions?: any;
-	socketio?: boolean;
+    socketio?: boolean;
 }
 
 export interface ClientOptions {
