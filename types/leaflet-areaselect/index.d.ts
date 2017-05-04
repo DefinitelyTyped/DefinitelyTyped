@@ -5,29 +5,24 @@
 
 /// <reference types="leaflet" />
 
-declare global {
-  namespace L {
-    function areaSelect(box: AreaSelectOptions): AreaSelect;
+declare namespace L {
+  function areaSelect(box: AreaSelectOptions): AreaSelect;
 
-    interface AreaSelectOptions {
-      width?: number;
-      height?: number;
-      keepAspectRatio?: boolean;
-    }
+  interface AreaSelectOptions {
+    width?: number;
+    height?: number;
+    keepAspectRatio?: boolean;
+  }
 
-    interface Dimension {
-      width: number;
-      height: number;
-    }
+  interface Dimension {
+    width: number;
+    height: number;
+  }
 
-    interface AreaSelect {
-      addTo(map: Map): Map;
-      getBounds(): LatLngBounds;
-      remove(): void;
-      setDimensions(dim: Dimension): void;
-    }
+  interface AreaSelect {
+    addTo(map: Map): L.Map;
+    getBounds(): LatLngBounds;
+    remove(): void;
+    setDimensions(dim: Dimension): void;
   }
 }
-
-export = L;
-export as namespace L;
