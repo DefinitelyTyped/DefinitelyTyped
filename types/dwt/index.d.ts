@@ -9,12 +9,12 @@
 * Product: Dynamsoft Web Twain
 * Web Site: http://www.dynamsoft.com
 *
-* Copyright 2017, Dynamsoft Corporation 
+* Copyright 2017, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
 * Version: 12.3
 */
 
-/** 
+/**
  * @namespace Dynamsoft
  */
 declare namespace Dynamsoft {
@@ -86,16 +86,16 @@ declare enum EnumDWT_Cap {
     CAP_AUTHOR = 4096,
     /** A general note about the acquired image. */
     CAP_CAPTION = 4097,
-    /** If TRUE, Source must acquire data from the document feeder acquire area and other feeder 
-     *  capabilities can be used. If FALSE, Source must acquire data from the non-feeder acquire area 
+    /** If TRUE, Source must acquire data from the document feeder acquire area and other feeder
+     *  capabilities can be used. If FALSE, Source must acquire data from the non-feeder acquire area
      *  and no other feeder capabilities can be used.
      */
     CAP_FEEDERENABLED = 4098,
     /** Reflect whether there are documents loaded in the Source's feeder. */
     CAP_FEEDERLOADED = 4099,
     /** The date and time the image was acquired.
-     *  Stored in the form "YYYY/MM/DD HH:mm:SS.sss" where YYYY is the year, MM is the 
-     *  numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second, 
+     *  Stored in the form "YYYY/MM/DD HH:mm:SS.sss" where YYYY is the year, MM is the
+     *  numerical month, DD is the numerical day, HH is the hour, mm is the minute, SS is the second,
      *  and sss is the millisecond.
      */
     CAP_TIMEDATE = 4100,
@@ -225,9 +225,9 @@ declare enum EnumDWT_Cap {
      *  devices may all report the same serial number.
      */
     CAP_SERIALNUMBER = 4132,
-    /** CapGet() returns the current list of available printer devices, along with the one currently being used for negotiation. 
+    /** CapGet() returns the current list of available printer devices, along with the one currently being used for negotiation.
      *  CapSet() selects the current device for negotiation, and optionally constrains the list.
-     *  Top/Bottom refers to duplex devices, and indicates if the printer is writing on the top or the bottom of the sheet of paper. 
+     *  Top/Bottom refers to duplex devices, and indicates if the printer is writing on the top or the bottom of the sheet of paper.
      *  Simplex devices use the top settings. Before/After indicates whether printing occurs before or after the sheet of paper has been scanned.
      */
     CAP_PRINTER = 4134,
@@ -250,8 +250,8 @@ declare enum EnumDWT_Cap {
     CAP_PRINTERSTRING = 4138,
     /** Specifies the string that shall be used as the current CAP_PRINTER device's suffix. */
     CAP_PRINTERSUFFIX = 4139,
-    /** Allows Application and Source to identify which languages they have in common for the exchange of string data, 
-     *  and to select the language of the internal UI. Since the TWLG_xxxx codes include language and country data, there is no separate 
+    /** Allows Application and Source to identify which languages they have in common for the exchange of string data,
+     *  and to select the language of the internal UI. Since the TWLG_xxxx codes include language and country data, there is no separate
      *  capability for selecting the country.
      */
     CAP_LANGUAGE = 4140,
@@ -282,21 +282,21 @@ declare enum EnumDWT_Cap {
     /** Added 1.91  */
     CAP_CAMERASIDE =  4148,
     /** Added 1.91   */
-    CAP_SEGMENTED =  4149,  
+    CAP_SEGMENTED =  4149,
     /** Added 2.0  */
     CAP_CAMERAENABLED =  4150,
     /** Added 2.0    */
-    CAP_CAMERAORDER =  4151, 
+    CAP_CAMERAORDER =  4151,
     /** Added 2.0  */
-    CAP_MICRENABLED =  4152, 
+    CAP_MICRENABLED =  4152,
     /** Added 2.0   */
-    CAP_FEEDERPREP =  4153,  
+    CAP_FEEDERPREP =  4153,
     /** Added 2.0  */
-    CAP_FEEDERPOCKET =  4154,  
+    CAP_FEEDERPOCKET =  4154,
     /** Added 2.1  */
     CAP_AUTOMATICSENSEMEDIUM =  4155,
     /** Added 2.1  */
-    CAP_CUSTOMINTERFACEGUID =  4156, 
+    CAP_CUSTOMINTERFACEGUID =  4156,
     /** TRUE enables and FALSE disables the Source's Auto-brightness function (if any). */
     ICAP_AUTOBRIGHT =  4352,
     /** The brightness values available within the Source. */
@@ -323,37 +323,37 @@ declare enum EnumDWT_Cap {
      */
     ICAP_HIGHLIGHT = 4362,
     /** Informs the application which file formats the Source can generate (CapGet()). Tells the Source which file formats the application can handle (CapSet()).
-     *  TWFF_TIFF Used for document 
-     *  TWFF_PICT Native Macintosh 
-     *  TWFF_BMP Native Microsoft 
-     *  TWFF_XBM Used for document 
-     *  TWFF_JFIF Wrapper for JPEG 
-     *  TWFF_FPX FlashPix, used with digital 
+     *  TWFF_TIFF Used for document
+     *  TWFF_PICT Native Macintosh
+     *  TWFF_BMP Native Microsoft
+     *  TWFF_XBM Used for document
+     *  TWFF_JFIF Wrapper for JPEG
+     *  TWFF_FPX FlashPix, used with digital
      *  TWFF_TIFFMULTI Multi-page TIFF files
      *  TWFF_PNG An image format standard intended for use on the web, replaces GIF
      *  TWFF_SPIFF A standard from JPEG, intended to replace JFIF, also supports JBIG
-     *  TWFF_EXIF File format for use with digital cameras. 
+     *  TWFF_EXIF File format for use with digital cameras.
      */
     ICAP_IMAGEFILEFORMAT = 4364,
     /** TRUE means the lamp is currently, or should be set to ON. Sources may not support CapSet() operations.  */
     ICAP_LAMPSTATE = 4365,
     /** Describes the general color characteristic of the light source used to acquire the image. */
     ICAP_LIGHTSOURCE = 4366,
-    /** Defines which edge of the "paper" the image's "top" is aligned with. This information is used to adjust the frames to match the 
-     *  scanning orientation of the paper. For instance, if an ICAP_SUPPORTEDSIZE of TWSS_ISOA4 has been negotiated, 
-     *  and ICAP_ORIENTATION is set to TWOR_LANDSCAPE, then the Source must rotate the frame it downloads to the scanner to reflect the 
-     *  orientation of the paper. Please note that setting ICAP_ORIENTATION does not affect the values reported by ICAP_FRAMES; 
-     *  it just causes the Source to use them in a different way. The upper-left of the image is defined as the location where both the primary and 
+    /** Defines which edge of the "paper" the image's "top" is aligned with. This information is used to adjust the frames to match the
+     *  scanning orientation of the paper. For instance, if an ICAP_SUPPORTEDSIZE of TWSS_ISOA4 has been negotiated,
+     *  and ICAP_ORIENTATION is set to TWOR_LANDSCAPE, then the Source must rotate the frame it downloads to the scanner to reflect the
+     *  orientation of the paper. Please note that setting ICAP_ORIENTATION does not affect the values reported by ICAP_FRAMES;
+     *  it just causes the Source to use them in a different way. The upper-left of the image is defined as the location where both the primary and
      *  secondary scans originate. (The X axis is the primary scan direction and the Y axis is the secondary scan direction.)
-     *  For a flatbed scanner, the light bar moves in the secondary scan direction. For a handheld scanner, the scanner is drug in the 
-     *  secondary scan direction. For a digital camera, the secondary direction is the vertical axis when the viewed image is considered upright. 
+     *  For a flatbed scanner, the light bar moves in the secondary scan direction. For a handheld scanner, the scanner is drug in the
+     *  secondary scan direction. For a digital camera, the secondary direction is the vertical axis when the viewed image is considered upright.
      */
     ICAP_ORIENTATION = 4368,
     /** The maximum physical width (X-axis) the Source can acquire (measured in units of ICAP_UNITS). */
     ICAP_PHYSICALWIDTH = 4369,
     /** The maximum physical height (Y-axis) the Source can acquire (measured in units of ICAP_UNITS). */
     ICAP_PHYSICALHEIGHT = 4370,
-    /** Specifies which value in an image should be interpreted as the darkest "shadow." All values 
+    /** Specifies which value in an image should be interpreted as the darkest "shadow." All values
      *  "darker" than this value will be clipped to this value.
      */
     ICAP_SHADOW = 4371,
@@ -387,13 +387,13 @@ declare enum EnumDWT_Cap {
      *  appropriate in ICAP_PHYSICALHEIGHT and ICAP_PHYSICALWIDTH.
      */
     ICAP_YRESOLUTION = 4377,
-    /** The maximum number of frames the Source can provide or the application can accept per page. 
+    /** The maximum number of frames the Source can provide or the application can accept per page.
      *  This is a bounding capability only. It does not establish current or future behavior.
      */
     ICAP_MAXFRAMES = 4378,
     /** This is used with buffered memory transfers. If TRUE, Source can provide application with tiled image data. */
     ICAP_TILES = 4379,
-    /** Specifies how the bytes in an image are filled by the Source. TWBO_MSBFIRST indicates that the leftmost bit in the byte (usually bit 7) is 
+    /** Specifies how the bytes in an image are filled by the Source. TWBO_MSBFIRST indicates that the leftmost bit in the byte (usually bit 7) is
      *  the byte's Most Significant Bit.
      */
     ICAP_BITORDER = 4380,
@@ -416,8 +416,8 @@ declare enum EnumDWT_Cap {
      *  rotation specified in ICAP_ORIENTATION.
      */
     ICAP_ROTATION = 4385,
-    /** For devices that support fixed frame sizes. 
-     *  Defined sizes match typical page sizes. This specifies the size(s) the Source can/should use to acquire image data. 
+    /** For devices that support fixed frame sizes.
+     *  Defined sizes match typical page sizes. This specifies the size(s) the Source can/should use to acquire image data.
      */
     ICAP_SUPPORTEDSIZES = 4386,
     /** Specifies the dividing line between black and white. This is the value the Source will use to
@@ -427,17 +427,17 @@ declare enum EnumDWT_Cap {
     ICAP_THRESHOLD = 4387,
     /** All the X-axis scaling values available. A value of '1.0' is equivalent to 100% scaling. Do not use values less than or equal to zero. */
     ICAP_XSCALING = 4388,
-    /** All the Y-axis scaling values available. A value of '1.0' is equivalent to 100% scaling. Do not use values less than or equal to zero. 
+    /** All the Y-axis scaling values available. A value of '1.0' is equivalent to 100% scaling. Do not use values less than or equal to zero.
      *  There are no units inherent with this data as it is normalized to 1.0 being "unscaled."
      */
     ICAP_YSCALING = 4389,
     /** Used for CCITT data compression only. Indicates the bit order representation of the stored compressed codes. */
     ICAP_BITORDERCODES = 4390,
-    /** Used only for CCITT data compression. Specifies whether the compressed codes' pixel "sense" 
+    /** Used only for CCITT data compression. Specifies whether the compressed codes' pixel "sense"
      *  will be inverted from the Current value of ICAP_PIXELFLAVOR prior to transfer.
      */
     ICAP_PIXELFLAVORCODES = 4391,
-    /** Allows the application and Source to agree upon a common set of color descriptors that are 
+    /** Allows the application and Source to agree upon a common set of color descriptors that are
      *  made available by the Source. This ICAP is only useful for JPEG-compressed buffered memory image transfers.
      */
     ICAP_JPEGPIXELTYPE = 4392,
@@ -458,7 +458,7 @@ declare enum EnumDWT_Cap {
      *  the scanned image is rotated or merged with another scanned image.
      */
     ICAP_UNDEFINEDIMAGESIZE = 4397,
-    /** Allows the application to query the data source to see if it supports extended image attribute capabilities, 
+    /** Allows the application to query the data source to see if it supports extended image attribute capabilities,
      *  such as Barcode Recognition, Shaded Area Detection and Removal, Skew detection and Removal, and so on.
      */
     ICAP_EXTIMAGEINFO = 4399,
@@ -480,7 +480,7 @@ declare enum EnumDWT_Cap {
     ICAP_AUTODISCARDBLANKPAGES = 4404,
     /** Flip rotation is used to properly orient images that flip orientation every other image.
      *  TWFR_BOOK The images to be scanned are viewed in book form, flipping each page from left to right or right to left.
-     *  TWFR_FANFOLD The images to be scanned are viewed in fanfold paper style, flipping each page up or down. 
+     *  TWFR_FANFOLD The images to be scanned are viewed in fanfold paper style, flipping each page up or down.
      */
     ICAP_FLIPROTATION = 4406,
     /** Turns bar code detection on and off. */
@@ -514,77 +514,77 @@ declare enum EnumDWT_Cap {
     /** Restricts the total time spent on searching for a patch code on each page. */
     ICAP_PATCHCODETIMEOUT = 4421,
     /** For devices that support flash. CapSet() selects the flash to be used (if any). CapGet() reports the current setting.
-     *  This capability replaces ICAP_FLASHUSED, which is only able to negotiate the flash being on or off. 
+     *  This capability replaces ICAP_FLASHUSED, which is only able to negotiate the flash being on or off.
      */
     ICAP_FLASHUSED2 = 4422,
     /** For devices that support image enhancement filtering. This capability selects the algorithm used to improve the quality of the image. */
     ICAP_IMAGEFILTER = 4423,
     /** For devices that support noise filtering. This capability selects the algorithm used to remove noise. */
     ICAP_NOISEFILTER = 4424,
-    /** Overscan is used to scan outside of the boundaries described by ICAP_FRAMES, and is used to help acquire image data that 
+    /** Overscan is used to scan outside of the boundaries described by ICAP_FRAMES, and is used to help acquire image data that
      *  may be lost because of skewing.
-     *  This is primarily of use for transport scanners which rely on edge detection to begin scanning. 
-     *  If overscan is supported, then the device is capable of scanning in the inter-document gap to get the skewed image information. 
+     *  This is primarily of use for transport scanners which rely on edge detection to begin scanning.
+     *  If overscan is supported, then the device is capable of scanning in the inter-document gap to get the skewed image information.
      */
     ICAP_OVERSCAN = 4425,
     /** Turns automatic border detection on and off. */
     ICAP_AUTOMATICBORDERDETECTION = 4432,
     /** Turns automatic deskew correction on and off. */
     ICAP_AUTOMATICDESKEW = 4433,
-    /** When TRUE this capability depends on intelligent features within the Source to automatically 
+    /** When TRUE this capability depends on intelligent features within the Source to automatically
      *  rotate the image to the correct position.
      */
     ICAP_AUTOMATICROTATE = 4434,
     /** Added 1.9  */
     ICAP_JPEGQUALITY = 4435,
     /** Added 1.91   */
-    ICAP_FEEDERTYPE = 4436, 
+    ICAP_FEEDERTYPE = 4436,
     /** Added 1.91  */
     ICAP_ICCPROFILE = 4437,
     /** Added 2.0   */
-    ICAP_AUTOSIZE = 4438,  
+    ICAP_AUTOSIZE = 4438,
     /** Added 2.1  */
-    ICAP_AUTOMATICCROPUSESFRAME = 4439, 
+    ICAP_AUTOMATICCROPUSESFRAME = 4439,
     /** Added 2.1  */
     ICAP_AUTOMATICLENGTHDETECTION = 4440,
     /** Added 2.1  */
-    ICAP_AUTOMATICCOLORENABLED = 4441, 
+    ICAP_AUTOMATICCOLORENABLED = 4441,
     /** Added 2.1  */
-    ICAP_AUTOMATICCOLORNONCOLORPIXELTYPE = 4442, 
+    ICAP_AUTOMATICCOLORNONCOLORPIXELTYPE = 4442,
     /** Added 2.1  */
     ICAP_COLORMANAGEMENTENABLED = 4443,
     /** Added 2.1  */
-    ICAP_IMAGEMERGE = 4444,  
+    ICAP_IMAGEMERGE = 4444,
     /** Added 2.1  */
     ICAP_IMAGEMERGEHEIGHTTHRESHOLD = 4445,
     /** Added 2.1   */
-    ICAP_SUPPORTEDEXTIMAGEINFO = 4446   
+    ICAP_SUPPORTEDEXTIMAGEINFO = 4446
 }
 
-/** Capabilities exist in many varieties but all have a Default Value, Current Value, and may have other values available that can be supported if selected. 
- *  To help categorize the supported values into clear structures, TWAIN defines four types of containers for capabilities = 
+/** Capabilities exist in many varieties but all have a Default Value, Current Value, and may have other values available that can be supported if selected.
+ *  To help categorize the supported values into clear structures, TWAIN defines four types of containers for capabilities =
  *  TW_ONEVALUE, TW_ARRAY, TW_RANGE and TW_ENUMERATION.
  */
 declare enum EnumDWT_CapType {
     /** Nothing. */
     TWON_NONE = 0,
-    /** A rectangular array of values that describe a logical item. It is similar to the TW_ONEVALUE because the current and default values are the same and 
-     *  there are no other values to select from. For example, a list of the names, such as the supported capabilities list returned by the CAP_SUPPORTEDCAPS 
-     *  capability, would use this type of container. 
+    /** A rectangular array of values that describe a logical item. It is similar to the TW_ONEVALUE because the current and default values are the same and
+     *  there are no other values to select from. For example, a list of the names, such as the supported capabilities list returned by the CAP_SUPPORTEDCAPS
+     *  capability, would use this type of container.
      */
     TWON_ARRAY = 3,
-    /** This is the most general type because it defines a list of values from which the Current Value can be chosen. 
-     *  The values do not progress uniformly through a range and there is not a consistent step size between the values. 
-     *  For example, if a Source's resolution options do not occur in even step sizes then an enumeration would be used (for example, 150, 400, and 600). 
+    /** This is the most general type because it defines a list of values from which the Current Value can be chosen.
+     *  The values do not progress uniformly through a range and there is not a consistent step size between the values.
+     *  For example, if a Source's resolution options do not occur in even step sizes then an enumeration would be used (for example, 150, 400, and 600).
      */
     TWON_ENUMERATION = 4,
     /** A single value whose current and default values are coincident. The range of available values for this type of capability is simply this single value.
      *  For example, a capability that indicates the presence of a document feeder could be of this type.
      */
     TWON_ONEVALUE = 5,
-    /** Many capabilities allow users to select their current value from a range of regularly spaced values. 
+    /** Many capabilities allow users to select their current value from a range of regularly spaced values.
      *  The capability can specify the minimum and maximum acceptable values and the incremental step size between the values.
-     *  For example, resolution might be supported from 100 to 600 in steps of 50 (100, 150, 200, ..., 550, 600). 
+     *  For example, resolution might be supported from 100 to 600 in steps of 50 (100, 150, 200, ..., 550, 600).
      */
     TWON_RANGE = 6
 }
@@ -600,23 +600,23 @@ declare enum EnumDWT_TransferMode {
     /** Buffered Memory Mode Transfers. */
     TWSX_MEMORY = 2,
     /** added 1.91 */
-    TWSX_MEMFILE  = 4    
+    TWSX_MEMFILE  = 4
 }
 
 /** ICAP_IMAGEFILEFORMAT values. */
 declare enum EnumDWT_FileFormat {
     /** Used for document imaging. Tagged Image File Format */
-    TWFF_TIFF = 0, 
+    TWFF_TIFF = 0,
     /** Native Macintosh format. Macintosh PICT    */
-    TWFF_PICT = 1, 
+    TWFF_PICT = 1,
     /** Native Microsoft format. Windows Bitmap */
-    TWFF_BMP = 2,  
+    TWFF_BMP = 2,
     /** Used for document imaging. X-Windows Bitmap */
-    TWFF_XBM = 3,  
+    TWFF_XBM = 3,
     /** Wrapper for JPEG images. JPEG File Interchange Format */
-    TWFF_JFIF = 4, 
+    TWFF_JFIF = 4,
     /** FlashPix, used with digital cameras. Flash Pix */
-    TWFF_FPX = 5,  
+    TWFF_FPX = 5,
     /** Multi-page TIFF files. Multi-page tiff file */
     TWFF_TIFFMULTI = 6,
     /** An image format standard intended for use on the web, replaces GIF. */
@@ -626,19 +626,19 @@ declare enum EnumDWT_FileFormat {
     /** File format for use with digital cameras. */
     TWFF_EXIF = 9,
     /** A file format from Adobe. 1.91 NB: this is not PDF/A  */
-    TWFF_PDF = 10,   
+    TWFF_PDF = 10,
     /** A file format from the Joint Photographic Experts Group. 1.91 */
-    TWFF_JP2 = 11,    
+    TWFF_JP2 = 11,
     /** 1.91 */
-    TWFF_JPN = 12,    
+    TWFF_JPN = 12,
     /** 1.91 */
-    TWFF_JPX = 13,    
+    TWFF_JPX = 13,
     /** A file format from LizardTech. 1.91 */
-    TWFF_DEJAVU = 14,    
+    TWFF_DEJAVU = 14,
     /** A file format from Adobe. 2.0 */
-    TWFF_PDFA = 15,   
+    TWFF_PDFA = 15,
     /** 2.1 Adobe PDF/A, Version 2 */
-    TWFF_PDFA2 = 16  
+    TWFF_PDFA2 = 16
 }
 
 /** TIFF file compression type. */
@@ -718,29 +718,29 @@ declare enum EnumDWT_ShowMode {
 declare enum EnumDWT_CapValueType {
     TWTY_INT8 = 0,
     /** Means Item is a TW_INT16   */
-    TWTY_INT16 = 1,    
+    TWTY_INT16 = 1,
     /** Means Item is a TW_INT32   */
-    TWTY_INT32 = 2,    
+    TWTY_INT32 = 2,
     /** Means Item is a TW_UINT8   */
-    TWTY_UINT8 = 3,    
+    TWTY_UINT8 = 3,
     /** Means Item is a TW_UINT16  */
-    TWTY_UINT16 = 4,    
+    TWTY_UINT16 = 4,
     /** Means Item is a TW_int  */
-    TWTY_int = 5,    
+    TWTY_int = 5,
     /** Means Item is a TW_BOOL    */
-    TWTY_BOOL = 6,    
+    TWTY_BOOL = 6,
     /** Means Item is a TW_FIX32   */
-    TWTY_FIX32 = 7,    
+    TWTY_FIX32 = 7,
     /** Means Item is a TW_FRAME   */
-    TWTY_FRAME = 8,    
+    TWTY_FRAME = 8,
     /** Means Item is a TW_STR32   */
-    TWTY_STR32 = 9,    
+    TWTY_STR32 = 9,
     /** Means Item is a TW_STR64   */
-    TWTY_STR64 = 10,    
+    TWTY_STR64 = 10,
     /** Means Item is a TW_STR128  */
-    TWTY_STR128 = 11,    
+    TWTY_STR128 = 11,
     /** Means Item is a TW_STR255  */
-    TWTY_STR255 = 12        
+    TWTY_STR255 = 12
 }
 
 /** ICAP_UNITS values. */
@@ -764,33 +764,33 @@ declare enum EnumDWT_DUPLEX {
 /** CAP_LANGUAGE values. */
 declare enum EnumDWT_CapLanguage {
     /** Danish      */
-    TWLG_DAN = 0, 
+    TWLG_DAN = 0,
     /** Dutch       */
-    TWLG_DUT = 1, 
+    TWLG_DUT = 1,
     /** International English   */
-    TWLG_ENG = 2, 
+    TWLG_ENG = 2,
     /** French Canadian         */
-    TWLG_FCF = 3, 
+    TWLG_FCF = 3,
     /** Finnish     */
-    TWLG_FIN = 4, 
+    TWLG_FIN = 4,
     /** French      */
-    TWLG_FRN = 5, 
+    TWLG_FRN = 5,
     /** German      */
-    TWLG_GER = 6, 
+    TWLG_GER = 6,
     /** Icelandic   */
-    TWLG_ICE = 7, 
+    TWLG_ICE = 7,
     /** Italian      */
-    TWLG_ITN = 8, 
+    TWLG_ITN = 8,
     /** Norwegian   */
-    TWLG_NOR = 9, 
+    TWLG_NOR = 9,
     /** Portuguese  */
-    TWLG_POR = 10, 
+    TWLG_POR = 10,
     /** Spanish     */
-    TWLG_SPA = 11, 
+    TWLG_SPA = 11,
     /** Swedish     */
-    TWLG_SWE = 12, 
+    TWLG_SWE = 12,
     /** U.S. English            */
-    TWLG_USA = 13, 
+    TWLG_USA = 13,
     /** Added for 1.8  */
     TWLG_USERLOCALE = -1,
     TWLG_AFRIKAANS = 14,
@@ -811,7 +811,7 @@ declare enum EnumDWT_CapLanguage {
     TWLG_ARABIC_SYRIA = 29,
     TWLG_ARABIC_TUNISIA = 30,
     /** United Arabic Emirates  */
-    TWLG_ARABIC_UAE = 31, 
+    TWLG_ARABIC_UAE = 31,
     TWLG_ARABIC_YEMEN = 32,
     TWLG_BASQUE = 33,
     TWLG_BYELORUSSIAN = 34,
@@ -820,7 +820,7 @@ declare enum EnumDWT_CapLanguage {
     TWLG_CHINESE = 37,
     TWLG_CHINESE_HONGKONG = 38,
     /** People's Republic of China  */
-    TWLG_CHINESE_PRC = 39, 
+    TWLG_CHINESE_PRC = 39,
     TWLG_CHINESE_SINGAPORE = 40,
     TWLG_CHINESE_SIMPLIFIED = 41,
     TWLG_CHINESE_TAIWAN = 42,
@@ -924,7 +924,7 @@ declare enum EnumDWT_CapSupportedSizes {
     TWSS_USLETTER = 3,
     /** 4 */
     TWSS_USLEGAL = 4,
-    /** Added 1.5 
+    /** Added 1.5
      *  5
      */
     TWSS_A5 = 5,
@@ -932,7 +932,7 @@ declare enum EnumDWT_CapSupportedSizes {
     TWSS_B4 = 6,
     /** 7 */
     TWSS_B6 = 7,
-    /** Added 1.7 
+    /** Added 1.7
      *  9
      */
     TWSS_USLEDGER = 9,
@@ -950,7 +950,7 @@ declare enum EnumDWT_CapSupportedSizes {
     TWSS_C5 = 15,
     /** 16 */
     TWSS_C6 = 16,
-    /** Added 1.8 
+    /** Added 1.8
      *  17
      */
     TWSS_4A0 = 17,
@@ -1037,7 +1037,7 @@ declare enum EnumDWT_CapSupportedSizes {
     /** 53 */
     TWSS_BUSINESSCARD = 53,
     /** 54. Added 2.1 */
-    TWSS_MAXSIZE = 54  
+    TWSS_MAXSIZE = 54
 }
 
 /** CAP_FEEDERALIGNMENT values. */
@@ -1046,7 +1046,7 @@ declare enum EnumDWT_CapFeederAlignment {
     TWFA_NONE = 0,
     /** The alignment is to the left. */
     TWFA_LEFT = 1,
-    /** The alignment is centered. This means that the paper will be fed in the middle of the ICAP_PHYSICALWIDTH of the 
+    /** The alignment is centered. This means that the paper will be fed in the middle of the ICAP_PHYSICALWIDTH of the
      *  device. If this is set, then the Application should calculate any frames with a left offset of zero.
      */
     TWFA_CENTER = 2,
@@ -1162,11 +1162,11 @@ declare enum EnumDWT_CapLightSource {
 /** TWEI_MAGTYPE values. (MD_ means Mag Type) Added 2.0  */
 declare enum EnumDWT_MagType {
     /** Added 2.0  */
-    TWMD_MICR = 0, 
+    TWMD_MICR = 0,
     /** added 2.1   */
-    TWMD_RAW = 1,  
+    TWMD_RAW = 1,
     /** added 2.1  */
-    TWMD_INVALID = 2  
+    TWMD_INVALID = 2
 }
 
 /** ICAP_NOISEFILTER values. */
@@ -1186,11 +1186,11 @@ declare enum EnumDWT_CapORientation {
     TWOR_PORTRAIT = 0,
     TWOR_LANDSCAPE = 3,
     /** 2.0  */
-    TWOR_AUTO = 4,          
+    TWOR_AUTO = 4,
     /** 2.0  */
-    TWOR_AUTOTEXT = 5,           
+    TWOR_AUTOTEXT = 5,
     /** 2.0  */
-    TWOR_AUTOPICTURE = 6           
+    TWOR_AUTOPICTURE = 6
 }
 
 /** ICAP_OVERSCAN values. */
@@ -1205,9 +1205,9 @@ declare enum EnumDWT_CapOverscan {
 /** ICAP_PIXELFLAVOR values. */
 declare enum EnumDWT_CapPixelFlavor {
     /** Zero pixel represents darkest shade. zero pixel represents darkest shade   */
-    TWPF_CHOCOLATE = 0, 
+    TWPF_CHOCOLATE = 0,
     /** Zero pixel represents lightest shade. zero pixel represents lightest shade  */
-    TWPF_VANILLA = 1  
+    TWPF_VANILLA = 1
 }
 
 /** ICAP_PLANARCHUNKY values. */
@@ -1253,825 +1253,825 @@ declare enum EnumDWT_MouseShape {
 /**
  * @class
  */
-// properties (get/set) / sync functions  
+// properties (get/set) / sync functions
 interface WebTwain {
-    /** 
+    /**
      * Returns or sets whether multi-page selection is supported.
      * @type {bool}
      */
     AllowMultiSelect: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether allowing the plugin to send authentication request. The default value of this property is TRUE.
      * @type {bool}
      */
     AllowPluginAuthentication: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether the async mode is activated. With this mode, Dynamic Web TWAIN is able to upload/download files via HTTP/FTP asynchronously. The default value is false.
      * @type {bool}
      */
     AsyncMode: boolean;
 
-    /** 
+    /**
      * Returns or sets the background color of the main control. It is a value specifying the 24-bit RGB value.
      * @type {int}
      */
     BackgroundColor: number;
 
-    /** 
+    /**
      * Returns or sets the fill color of the selected area of an image when it is cut, erased or rotated. It is a value specifying the 24-bit RGB value.
      * @type {int}
      */
     BackgroundFillColor: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns the number of barcode detected in an image.
      * @type {int}
      */
     BarcodeCount: number;
 
-    /** 
+    /**
      * Returns or sets the pixel bit depths for the current value of PixelType property. This is a runtime property.
      * @type {short}
      */
     BitDepth: number;
 
-    /** 
+    /**
      * Returns the current deviation of the pixels in the image.
      * @type {float}
      */
     BlankImageCurrentStdDev: number;
 
-    /** 
+    /**
      * Returns or sets the standard deviation of the pixels in the image.
      * @type {float}
      */
     BlankImageMaxStdDev: number;
 
-    /** 
+    /**
      * Returns or sets the dividing line between black and white. The default value is 128.
      * @type {int}
      */
     BlankImageThreshold: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets the border style.
      * @type {EnumDWT_BorderStyle}
      */
     BorderStyle: EnumDWT_BorderStyle;
 
-    /** 
+    /**
      * Returns or sets the brightness values available within the Source. This is a runtime property.
      * @type {float}
      */
     Brightness: number;
 
-    /** 
+    /**
      * [Deprecated.] Sets or returns whether brokerprocess is enabled for scanning.
      * @type {int}
      */
     BrokerProcessType: number;
-    
-    /** 
+
+    /**
      * Sets or returns how much physical memory is allowed for storing images currently loaded in Dynamic Web TWAIN. Once the limit is reached, images will be cached on the hard disk.
      * @type {int}
      */
     BufferMemoryLimit: number;
 
-    /** 
+    /**
      * Specifies the capabiltiy to be negotiated. This is a runtime property.
      * @type {EnumDWT_Cap}
      */
     Capability: EnumDWT_Cap;
 
-    /** 
+    /**
      * Sets or returns the index (0-based) of a list to indicate the Current Value when the value of the CapType property is TWON_ENUMERATION. If the data type of the capability is String, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime property.
      * @type {int}
      */
     CapCurrentIndex: number;
 
-    /** 
+    /**
      * Sets or returns the current value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
      * @type {double}
      */
     CapCurrentValue: number;
 
-    /** 
+    /**
      * Returns the index (0-based) of a list to indicate the Default Value when the value of the CapType property is TWON_ENUMERATION. If the data type of the capability is String, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime, read-only property.
      * @type {int}
      */
     CapDefaultIndex: number;
 
-    /** 
-     * Returns the default value in a range when the value of the CapType property is TWON_RANGE. This is a runtime, read-only property. 
+    /**
+     * Returns the default value in a range when the value of the CapType property is TWON_RANGE. This is a runtime, read-only property.
      * @type {double}
      */
     CapDefaultValue: number;
 
-    /** 
+    /**
      * Sets or returns the maximum value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
      * @type {double}
      */
     CapMaxValue: number;
 
-    /** 
+    /**
      * Sets or returns the minimum value in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
      * @type {double}
      */
     CapMinValue: number;
 
-    /** 
+    /**
      * [Deprecated.] Sets or returns how many items are in the list when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION. For String data type, the list is in CapItemsString property. For other data types, the list is in CapItems property. This is a runtime property.
      * @type {int}
      */
     CapNumItems: number;
-    
-    /** 
-     * [Deprecated.] Replaced by GetCapItemsString method and SetCapItemsString method. 
+
+    /**
+     * [Deprecated.] Replaced by GetCapItemsString method and SetCapItemsString method.
      * @type {string}
      */
-    CapItemsString: string; 
+    CapItemsString: string;
 
-    /** 
+    /**
      * Sets or returns the step size in a range when the value of the CapType property is TWON_RANGE. This is a runtime property.
      * @type {double}
      */
     CapStepSize: number;
 
-    /** 
+    /**
      * Sets or returns the type of capability container used to exchange capability information between application and source. This is a runtime property.
      * @type {EnumDWT_CapType}
      */
     CapType: EnumDWT_CapType;
 
-    /** 
+    /**
      * Returns or sets the value of the capability specified by Capability property when the value of the CapType property is TWON_ONEVALUE. This is a runtime property.
      * @type {double}
      */
     CapValue: number;
 
-    /** 
+    /**
      * Sets or returns the string value for a capability when the value of the CapType property is TWON_ONEVALUE. This is a runtime property.
      * @type {string}
      */
     CapValueString: string;
-    
-    /** 
+
+    /**
      * Sets or returns the value type for reading the value of a capability. This is a runtime property.
      * @type {short}
      */
     CapValueType: number;
 
-    /** 
+    /**
      * Returns or sets the contrast values available within the Source. This is a runtime property.
      * @type {float}
      */
     Contrast: number;
 
-    /** 
+    /**
      * Sets or returns the product name string for the application identity.
      * @type {string}
      */
     ProductName: string;
 
-    /** 
+    /**
      * Returns or sets current index of image in buffer. This is a runtime property.
      * @type {short}
      */
     CurrentImageIndexInBuffer: number;
 
-    /** 
+    /**
      * Returns the device name of current source. This is a runtime, read-only property.
      * @type {string}
      */
     CurrentSourceName: string;
 
-    /** 
+    /**
      * Returns the value indicating the data source status. This is a runtime, read-only property.
      * @type {int}
      */
     DataSourceStatus: number;
 
-    /** 
+    /**
      * Returns the device name of default source. This is a runtime, read-only property.
      * @type {string}
      */
     DefaultSourceName: string;
 
-    /** 
+    /**
      * Returns whether the source supports duplex. If so, it further returns the level of duplex the Source supports (one pass or two pass duplex). This is a runtime, read-only property.
      * @type {int}
      */
     Duplex: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether the user can zoom image using hot key.
      * @type {bool}
      */
     EnableInteractiveZoom: boolean;
 
-    /** 
+    /**
      * Returns the error code. This is a runtime, read-only property.
      * @type {int}
      */
     ErrorCode: number;
 
-    /** 
+    /**
      * Returns the error string. This is a runtime, read-only property.
      * @type {string}
      */
     ErrorString: string;
 
-    /** 
+    /**
      * Returns or sets whether to resize the image to fit the image to the width or height of the window. To use the property, the view mode should be set to -1 by -1. You can use SetViewMode method to set the view mode.
      * @type {EnumDWT_FitWindowType}
      */
     FitWindowType: EnumDWT_FitWindowType;
 
-    /** 
+    /**
      * Returns or sets the password used to log into the FTP server.
      * @type {string}
      */
     FTPPassword: string;
 
-    /** 
+    /**
      * Returns or sets the port number of the FTP server.
      * @type {int}
      */
     FTPPort: number;
 
-    /** 
+    /**
      * Returns or sets the user name used to log into the FTP server.
      * @type {string}
      */
     FTPUserName: string;
 
-    /** 
+    /**
      * Returns how many images are in buffer. This is a runtime, read-only property.
      * @type {short}
      */
     HowManyImagesInBuffer: number;
 
-    /** 
+    /**
      * Specifies the field name of uploaded image through POST.
      * @type {string}
      */
     HttpFieldNameOfUploadedImage: string;
 
-    /** 
+    /**
      * [Deprecated.] Sets or returns the password used to log into the HTTP server.
      * @type {string}
      */
     HTTPPassword: string;
 
-    /** 
+    /**
      * Returns or sets the port number of the HTTP server.
      * @type {int}
      */
     HTTPPort: number;
 
-    /** 
+    /**
      * Returns the response string from the HTTP server if an error occurs for HTTPUploadThroughPost() method. This is a runtime, read-only property.
      * @type {string}
      */
     HTTPPostResponseString: string;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets the user name used to log into the HTTP server.
      * @type {string}
      */
     HTTPUserName: string;
 
-    /** 
+    /**
      * Returns or sets whether the feature of disk caching is enabled.
      * @type {bool}
      */
     IfAllowLocalCache: boolean;
 
-    /** 
+    /**
      * Returns or sets whether insert or append new scanned images.
      * @type {bool}
      */
     IfAppendImage: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the Source's Auto-brightness function is enabled. This is a runtime property.
      * @type {bool}
      */
     IfAutoBright: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the data source (scanner) will discard blank images during scanning. The property works only if the device and its driver support discarding blank pages. You can find whether your device supports this capbility from its user manual. Or, you can use the built-in methods of Dynamic Web TWAIN to detect blank images: IsBlankImage, IsBlankImageEx.
      * @type {bool}
      */
     IfAutoDiscardBlankpages: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the Source enable automatic document feeding process. This is a runtime property.
      * @type {bool}
      */
     IfAutoFeed: boolean;
 
-    /** 
-     * Turns automatic border detection on and off. The property works only if the device and its driver support detecting the border automatically. You can find whether your device supports this capbility from its user manual. 
+    /**
+     * Turns automatic border detection on and off. The property works only if the device and its driver support detecting the border automatically. You can find whether your device supports this capbility from its user manual.
      * @type {bool}
      */
     IfAutomaticBorderDetection: boolean;
 
-    /** 
+    /**
      * Turns automatic skew correction on and off.
      * @type {bool}
      */
     IfAutomaticDeskew: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the Source enables the automatic document scanning process. This is a runtime property.
      * @type {bool}
      */
     IfAutoScan: boolean;
 
-    /** 
+    /**
      * Returns or sets whether close the Data Source User Interface after acquire all images. Default value of this property is FALSE.
      * @type {bool}
      */
     IfDisableSourceAfterAcquire: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the Source supports duplex. If TRUE, the scanner scans both sides of a paper; otherwise, the scanner will scan only one side of the image. This is a runtime property.
      * @type {bool}
      */
     IfDuplexEnabled: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the Automatic Document Feeder (ADF) is enabled. This is a runtime property.
      * @type {bool}
      */
     IfFeederEnabled: boolean;
 
-    /** 
+    /**
      * Returns whether or not there are documents loaded in the Source's feeder when IfFeederEnabled and IfPaperDetectable are TRUE. This is a runtime, read-only property.
      * @type {bool}
      */
     IfFeederLoaded: boolean;
 
-    /** 
+    /**
      * Returns or sets whether to resize the image to fit the size of window when the view mode is set to -1 by -1. You can use SetViewMode method to set the view mode.
      * @type {bool}
      */
     IfFitWindow: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether the UI (User Interface) of Source runs in modal state. Default value of this property is TRUE.
      * @type {bool}
      */
     IfModalUI: boolean;
 
-    /** 
+    /**
      * Sets or returns whether Dynamic Web TWAIN uses  Graphics Device Interface (GDI) when decoding images.
      * @type {bool}
      */
     IfOpenImageWithGDIPlus: boolean;
 
-    /** 
+    /**
      * Returns the value whether the Source has a paper sensor that can detect documents on the ADF or Flatbed. This is a runtime, read-only property.
      * @type {bool}
      */
     IfPaperDetectable: boolean;
 
-    /** 
+    /**
      * Returns or sets whether FTP passive mode is enabled.
      * @type {bool}
      */
     IfPASVMode: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether communicate with device in a separate thread. Default value of this property is FALSE.
      * @type {bool}
      */
     IfScanInNewThread: boolean;
 
-    /** 
+    /**
      * Sets or returns whether to show the cancel dialog when uploading images to server.
      * @type {bool}
      */
     IfShowCancelDialogWhenImageTransfer: boolean;
 
-    /** 
+    /**
      * Returns or sets whether to show the file dialog box when saving scanned images or loading images from local folder.
      * @type {bool}
      */
     IfShowFileDialog: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the Source displays a progress indicator during acquisition and transfer, regardless of whether the Source's user interface is active. This is a runtime property.
      * @type {bool}
      */
     IfShowIndicator: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether the driver of the printer displays the User Interface.
      * @type {bool}
      */
     IfShowPrintUI: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the progress bar will be displayed during the transaction. This is a runtime property.
      * @type {bool}
      */
     IfShowProgressBar: boolean;
 
-    /** 
+    /**
      * Returns or sets whether the Source displays the User Interface.
      * @type {bool}
      */
     IfShowUI: boolean;
 
-    /** 
+    /**
      * Returns or sets whether SSL is used when uploading or downloading images.
      * @type {bool}
      */
     IfSSL: boolean;
 
-    /** 
+    /**
      * Return or sets whether the Source allows to save many images in one TIFF file. The default value is FALSE.
      * @type {bool}
      */
     IfTiffMultiPage: boolean;
 
-    /** 
+    /**
      * Returns whether the Source supports acquisition with the UI (User Interface) disabled. If FALSE, indicates that this Source can only support acquisition with the UI enabled. This is a runtime, read-only property.
      * @type {bool}
      */
     IfUIControllable: boolean;
 
-    /** 
+    /**
      * Sets or returns whether Dynamic Web TWAIN uses the new TWAIN Data Source Manager (TWAINDSM.dll) when acquiring images from TWAIN devices.
      * @type {bool}
      */
     IfUseTwainDSM: boolean;
-	
-    /** 
+
+    /**
      * Specifies whether or not to automatically scroll to the last image or stay on the current image when loading or acquiring images
      * @type {bool}
      */
-	IfAutoScroll: boolean;
-	
-    /** 
+    IfAutoScroll: boolean;
+
+    /**
      * [Deprecated.] The number of bits in each image pixel (or bit depth). This is a runtime, read-only property.
      * @type {short}
      */
     ImageBitsPerPixel: number;
 
-    /** 
+    /**
      * Returns or sets whether a TWAIN driver or Native Scan of Mac OS X is used for document scanning. This property works for Mac edition only.
      * @type {int}
      */
     ImageCaptureDriverType: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether the image enumerator is enabled in Image Editor.
      * @type {bool}
      */
     ImageEditorIfEnableEnumerator: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether the Image Editor is a modal window.
      * @type {bool}
      */
     ImageEditorIfModal: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets whether the Image Editor is read-only.
      * @type {bool}
      */
     ImageEditorIfReadonly: boolean;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets the title of Image Editor window.
      * @type {string}
      */
     ImageEditorWindowTitle: string;
 
-    /** 
+    /**
      * Returns the document number of the current image. This is a runtime, read-only property.
      * @type {int}
      */
     ImageLayoutDocumentNumber: number;
 
-    /** 
+    /**
      * Returns the value of the bottom-most edge of the current image frame (in Unit). This is a read-only runtime property.
      * @type {float}
      */
     ImageLayoutFrameBottom: number;
 
-    /** 
+    /**
      * Returns the value of the left-most edge of the current image frame (in Unit). This is a runtime, read-only property.
      * @type {float}
      */
     ImageLayoutFrameLeft: number;
 
-    /** 
+    /**
      * Returns the frame number of the current image. This is a runtime, read-only property.
      * @type {int}
      */
     ImageLayoutFrameNumber: number;
 
-    /** 
+    /**
      * Returns the value of the right-most edge of the current image frame (in Unit). This is a runtime, read-only property.
      * @type {float}
      */
     ImageLayoutFrameRight: number;
 
-    /** 
+    /**
      * Returns the value of the top-most edge of the current image frame (in Unit). This is a runtime, read-only property.
      * @type {float}
      */
     ImageLayoutFrameTop: number;
 
-    /** 
+    /**
      * Returns the page number of the current image. This is a runtime, read-only property.
      * @type {Long}
      */
     ImageLayoutPageNumber: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns how tall/long, in pixels, the image is. This is a runtime, read-only property.
      * @type {int}
      */
     ImageLength: number;
 
-    /** 
+    /**
      * Returns or sets the margin between images when multiple images are displayed in Dynamic Web TWAIN.
      * @type {short}
      */
     ImageMargin: number;
 
-    /** 
+    /**
      * Returns the pixel type of the current image. This is a runtime, read-only property. Please note the property is only valid in OnPreTransfer and OnPostTransfer event.
      * @type {EnumDWT_PixelType}
      */
     ImagePixelType: EnumDWT_PixelType;
 
-    /** 
+    /**
      * [Deprecated.] Returns how width, in pixels, the image is. This is a runtime, read-only property.
      * @type {int}
      */
     ImageWidth: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns the X resolution of the current image. X resolution is the number of pixels per Unit in the horizontal direction. This is a runtime, read-only property.
      * @type {float}
      */
     ImageXResolution: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns the Y resolution of the current image. Y resolution is the number of pixels per Unit in the vertical direction. This is a runtime, read-only property.
      * @type {float}
      */
     ImageYResolution: number;
 
-    /** 
+    /**
      * Returns or sets the quality of JPEG files and PDF files using JPEG compression.
      * @type {short}
      */
     JPEGQuality: number;
 
-    /** 
+    /**
      * Returns or sets the log level for debugging.
      * @type {short}
      */
     LogLevel: number;
 
-    /** 
+    /**
      * Return the magnetic data if the scanner support magnetic data recognition.
      * @type {string}
      */
     MagData: string;
 
-    /** 
+    /**
      * Return the magnetic type if the scanner support magnetic data recognition.
      * @type {short}
      */
     MagType: number;
 
-    /** 
+    /**
      * Sets or returns the manufacture string for the application identity.
      * @type {string}
      */
     Manufacturer: string;
 
-    /** 
-     * Returns or sets the maximum number of images can be held in buffer. 
+    /**
+     * Returns or sets the maximum number of images can be held in buffer.
      * @type {short}
      */
     MaxImagesInBuffer: number;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets how many threads can be used when you upload files through POST.
      * @type {int}
      */
     MaxInternetTransferThreads: number;
 
-    /** 
+    /**
      * Sets or returns the maximum allowed size when Dynamic Web TWAIN uploads a document.
      * @type {int}
      */
     MaxUploadImageSize: number;
 
-    /** 
+    /**
      * Returns or sets the shape of the mouse.
      * @type {bool}
      */
     MouseShape: boolean;
 
-    /** 
+    /**
      * Returns the X co-ordinate of the mouse. This is a runtime property.
      * @type {int}
      */
     MouseX: number;
 
-    /** 
+    /**
      * Returns the Y co-ordinate of the mouse. This is a runtime property.
      * @type {int}
      */
     MouseY: number;
 
-    /** 
+    /**
      * Returns or sets the page size(s) the Source can/should use to acquire image data. This is a runtime property.
      * @type {short}
      */
     PageSize: number;
 
-    /** 
+    /**
      * Returns or sets the name of the person who creates the PDF document.
      * @type {string}
      */
     PDFAuthor: string;
 
-    /** 
+    /**
      * Returns or sets the compression type of PDF files. This is a runtime property.
      * @type {EnumDWT_PDFCompressionType}
      */
     PDFCompressionType: EnumDWT_PDFCompressionType;
 
-    /** 
+    /**
      * Returns or sets the date when the PDF document is created.
      * @type {string}
      */
     PDFCreationDate: string;
 
-    /** 
+    /**
      * Returns or sets the name of the application that created the original document, if the PDF document is converted from another form.
      * @type {string}
      */
     PDFCreator: string;
 
-    /** 
+    /**
      * Returns or sets the keywords associated with the PDF document.
      * @type {string}
      */
     PDFKeywords: string;
 
-    /** 
+    /**
      * Returns or sets the date when the PDF document is last modified.
      * @type {string}
      */
     PDFModifiedDate: string;
 
-    /** 
+    /**
      * Returns or sets the name of the application that converted the PDF document from its native.
      * @type {string}
      */
     PDFProducer: string;
 
-    /** 
+    /**
      * Returns or sets the subject of the PDF document.
      * @type {string}
      */
     PDFSubject: string;
 
-    /** 
+    /**
      * Returns or sets the title of the PDF document.
      * @type {string}
      */
     PDFTitle: string;
 
-    /** 
+    /**
      * Returns or sets the value of the PDF version.
      * @type {string}
      */
     PDFVersion: string;
 
-    /** 
+    /**
      * Returns the number of transfers the Source is ready to supply, upon demand. This is a runtime, read-only property.
      * @type {short}
      */
     PendingXfers: number;
 
-    /** 
+    /**
      * Returns or sets the pixel flavor for acquired images. This is a runtime property.
      * @type {short}
      */
     PixelFlavor: number;
 
-    /** 
+    /**
      * Returns or sets the pixel type of current data source. This is a runtime property. Using this property after calling OpenSource() method and before calling AcquireImage().
      * @type {EnumDWT_PixelType}
      */
     PixelType: EnumDWT_PixelType;
 
-    /** 
+    /**
      * Sets or returns the product family string for the application identity.
      * @type {string}
      */
     ProductFamily: string;
 
-    /** 
+    /**
      * Sets the product key. A product key is generated in Licensing Tool which is intalled with Dynamic Web TWAIN. Each product key corresponds with a license.
      * @type {string}
      */
     ProductKey: string;
 
-    /** 
+    /**
      * [Deprecated.] Returns or sets the name of the proxy server.
      * @type {string}
      */
     ProxyServer: string;
 
-    /** 
+    /**
      * Returns or sets the current resolution for acquired images. This is a runtime property.
      * @type {float}
      */
     Resolution: number;
 
-    /** 
+    /**
      * Returns or sets how many scanned images are selected.
      * @type {short}
      */
     SelectedImagesCount: number;
 
-    /** 
+    /**
      * Returns or sets the border color of the selected image. It is a value specifying the 24-bit RGB value.
      * @type {int}
      */
     SelectionImageBorderColor: number;
 
-    /** 
+    /**
      * Specifies a fixed aspect ratio to be used for selecting an area.
      * @type {float}
      */
     SelectionRectAspectRatio: number;
 
-    /** 
+    /**
      * Returns how many sources are installed in the system. This is a runtime, read-only property.
      * @type {int}
      */
     SourceCount: number;
-    
-    /** 
+
+    /**
      * [Deprecated.] Replaced by GetSourceNameItems method.
      * @type {string}
      */
     SourceNameItems: string;
-   
-    /** 
+
+    /**
      * [Deprecated.]
      * @type {string}
      */
     GetSourceNames: string;
 
-    /** 
+    /**
      * Returns or sets the compression type of TIFF files. This is a runtime property.
      * @type {EnumDWT_TIFFCompressionType}
      */
     TIFFCompressionType: EnumDWT_TIFFCompressionType;
 
-    /** 
+    /**
      * Sets or returns the transfer mode.
      * @type {EnumDWT_TransferMode}
      */
     TransferMode: EnumDWT_TransferMode;
 
-    /** 
+    /**
      * Returns or sets the unit of measure. This is a runtime property.
      * @type {short}
      */
     Unit: number;
 
-    /** 
+    /**
      * Sets or returns the version info string for the application identity.
      * @type {string}
      */
     VersionInfo: string;
 
-    /** 
+    /**
      * Returns and sets the number of images you are willing to transfer per session. This is a runtime property.
      * @type {short}
      */
     XferCount: number;
 
-    /** 
+    /**
      * Returns or sets zoom factor for the image, only valid When the view mode is set to -1 by -1.
      * @type {float}
      */
@@ -2079,7 +2079,7 @@ interface WebTwain {
 
     /**
      * Binds a specified function to an event, so that the function gets called whenever the event fires.
-     * @method WebTwain#RegisterEvent 
+     * @method WebTwain#RegisterEvent
      * @param {string} name the name of the event that the function is bound to.
      * @param {object} evt specifies the function to call when event fires.
      * @return {bool}
@@ -2090,81 +2090,81 @@ interface WebTwain {
 
     /**
      * Cancels all pending transfers.
-     * @method WebTwain#CancelAllPendingTransfers 
+     * @method WebTwain#CancelAllPendingTransfers
      * @return {bool}
      */
     CancelAllPendingTransfers(): boolean;
 
     /**
      * Closes Data Source.
-     * @method WebTwain#CloseSource 
+     * @method WebTwain#CloseSource
      * @return {bool}
      */
     CloseSource(): boolean;
 
     /**
      * Closes and unloads Data Source Manager.
-     * @method WebTwain#CloseSourceManager 
+     * @method WebTwain#CloseSourceManager
      * @return {bool}
      */
     CloseSourceManager(): boolean;
 
     /**
-     * Disable the source. If the source's user interface is displayed when the source is enabled, it will be closed. 
-     * @method WebTwain#DisableSource 
+     * Disable the source. If the source's user interface is displayed when the source is enabled, it will be closed.
+     * @method WebTwain#DisableSource
      * @return {bool}
      */
     DisableSource(): boolean;
 
     /**
      * Sets the Source to eject the current page and advance the next page in the document feeder into the feeder acquire area when IfFeederEnabled is TRUE.
-     * @method WebTwain#FeedPage 
+     * @method WebTwain#FeedPage
      * @return {bool}
      */
     FeedPage(): boolean;
 
     /**
      * Retrieve the device type of the currently selected data source, it might be a scanner, a web camera, etc.
-     * @method WebTwain#GetDeviceType 
+     * @method WebTwain#GetDeviceType
      * @return {int}
      */
     GetDeviceType(): number;
 
     /**
      * Get the source name according to the source index.
-     * @method WebTwain#GetSourceNameItems 
+     * @method WebTwain#GetSourceNameItems
      * @param {short} index int index. Index is 0-based and can not be greater than SourceCount property.
      * @return {string}
      */
     GetSourceNameItems(index: number): string;
 
     /**
-     * Loads the specified Source into main memory and causes its initialization, 
-     * placing Dynamic Web TWAIN into Capability Negotiation state. If no source is 
+     * Loads the specified Source into main memory and causes its initialization,
+     * placing Dynamic Web TWAIN into Capability Negotiation state. If no source is
      * specified (no SelectSource() or SelectSourceByIndex() is called), opens the default source.
-     * @method WebTwain#OpenSource 
+     * @method WebTwain#OpenSource
      * @return {bool}
      */
     OpenSource(): boolean;
 
     /**
      * Loads and opens Data Source Manager.
-     * @method WebTwain#OpenSourceManager 
+     * @method WebTwain#OpenSourceManager
      * @return {bool}
      */
     OpenSourceManager(): boolean;
 
     /**
      * Reverts the current image layout to the Data Source's default.
-     * @method WebTwain#ResetImageLayout 
+     * @method WebTwain#ResetImageLayout
      * @return {bool}
      */
     ResetImageLayout(): boolean;
 
     /**
-     * Sets the Source to return the current page to the input side of the document feeder and 
+     * Sets the Source to return the current page to the input side of the document feeder and
      * feed the last page from the outside of the feeder back into the acquisition area if IfFeederEnabled is TRUE.
-     * @method WebTwain#RewindPage 
+     * @method WebTwain#RewindPage
      * @return {bool}
      */
     RewindPage(): boolean;
@@ -2172,14 +2172,14 @@ interface WebTwain {
     /**
      * Brings up the TWAIN Data Source Manager's Source Selection User Interface (UI)
      * so that user can choose which Data Source to be the current Source.
-     * @method WebTwain#SelectSource 
+     * @method WebTwain#SelectSource
      * @return {bool}
      */
     SelectSource(): boolean;
 
     /**
      * Selects the index-the source in SourceNameItems property as the current source.
-     * @method WebTwain#SelectSourceByIndex 
+     * @method WebTwain#SelectSourceByIndex
      * @param {short} index It is the index of SourceNameItems property.
      * @return {bool}
      */
@@ -2187,7 +2187,7 @@ interface WebTwain {
 
     /**
      * Sets file name and file format information used in File Transfer Mode.
-     * @method WebTwain#SetFileXferInfo 
+     * @method WebTwain#SetFileXferInfo
      * @param {string} fileName the name of the file to be used in transfer.
      * @param {EnumDWT_FileFormat} fileFormat an enumerated value indicates the format of the image.
      * @return {bool}
@@ -2196,7 +2196,7 @@ interface WebTwain {
 
     /**
      * Sets the left, top, right, and bottom sides of the image layout rectangle for the current Data Source.
-     * @method WebTwain#SetImageLayout 
+     * @method WebTwain#SetImageLayout
      * @param {float} left specifies the floating point number for the left side of the image layout rectangle.
      * @param {float} top specifies the floating point number for the top side of the image layout rectangle.
      * @param {float} right specifies the floating point number for the right side of the image layout rectangle.
@@ -2207,21 +2207,21 @@ interface WebTwain {
 
     /**
      * Clears all the web forms which are used for image uploading.
-     * @method WebTwain#ClearAllHTTPFormField 
+     * @method WebTwain#ClearAllHTTPFormField
      * @return {bool}
      */
     ClearAllHTTPFormField(): boolean;
 
     /**
      * Clears the content of all custom tiff tags.
-     * @method WebTwain#ClearTiffCustomTag 
+     * @method WebTwain#ClearTiffCustomTag
      * @return {void}
      */
     ClearTiffCustomTag(): void;
 
     /**
      * Check whether a certain file exists on the local disk.
-     * @method WebTwain#FileExists 
+     * @method WebTwain#FileExists
      * @param {string} localFile specifies the absolute path of the local file.
      * @return {bool}
      */
@@ -2229,7 +2229,7 @@ interface WebTwain {
 
     /**
      * Downloads an image from the FTP server.
-     * @method WebTwain#FTPDownload 
+     * @method WebTwain#FTPDownload
      * @param {string} FTPServer the name of the FTP server.
      * @param {string} FTPRemoteFile the name of the file to be downloaded. It should be the relative path of the file on the FTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
@@ -2240,7 +2240,7 @@ interface WebTwain {
 
     /**
      * Directly download a file from the FTP server to local disk without loading it into Dynamic Web TWAIN.
-     * @method WebTwain#FTPDownloadDirectly 
+     * @method WebTwain#FTPDownloadDirectly
      * @param {string} FTPServer the name of the FTP server.
      * @param {string} FTPRemoteFile the name of the file to be downloaded. It should be the relative path of the file on the FTP server.
      * @param {string} localFile specify a full path to store the file.
@@ -2252,7 +2252,7 @@ interface WebTwain {
 
     /**
      * Downloads an image from the FTP server.
-     * @method WebTwain#FTPDownloadEx 
+     * @method WebTwain#FTPDownloadEx
      * @param {string} FTPServer the name of the FTP server.
      * @param {string} FTPRemoteFile the name of the file to be downloaded. It should be the relative path of the file on the FTP server.
      * @param {EnumDWT_ImageType} lImageType simage format of the file to be downloaded.
@@ -2264,7 +2264,7 @@ interface WebTwain {
 
     /**
      * Uploads the image of a specified index in the buffer to the FTP server.
-     * @method WebTwain#FTPUpload 
+     * @method WebTwain#FTPUpload
      * @param {string} FTPServer the name of the FTP server.
      * @param {short} sImageIndex specifies the index of the image in the buffer. The index is 0-based.
      * @param {string} FTPRemoteFile the name of the file to be created on the FTP server. It should be a relative path on the FTP server.
@@ -2276,7 +2276,7 @@ interface WebTwain {
 
     /**
      * Directly upload a specific file to the FTP server without loading it into Dynamic Web TWAIN.
-     * @method WebTwain#FTPUploadDirectly 
+     * @method WebTwain#FTPUploadDirectly
      * @param {string} FTPServer the name of the FTP server.
      * @param {string} localFile specify the the full path of a local file.
      * @param {string} FTPRemoteFile the name of the file to be created on the FTP server. It should be a relative path on the FTP server.
@@ -2288,9 +2288,9 @@ interface WebTwain {
 
     /**
      * Uploads the image of a specified index in the buffer to the FTP server as a specified image format.
-     * @method WebTwain#FTPUploadEx 
+     * @method WebTwain#FTPUploadEx
      * @param {string} FTPServer the name of the FTP server.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {string} FTPRemoteFile the name of the file to be created on the FTP server. It should be a relative path on the FTP server.
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be created on the FTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2301,7 +2301,7 @@ interface WebTwain {
 
     /**
      * Uploads all images in buffer to the FTP server as Multi-Page TIFF.
-     * @method WebTwain#FTPUploadAllAsMultiPageTIFF 
+     * @method WebTwain#FTPUploadAllAsMultiPageTIFF
      * @param {string} FTPServer  the name of the FTP server.
      * @param {string} FTPRemoteFile the name of the image to be uploaded. It should be a relative path on the FTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2312,7 +2312,7 @@ interface WebTwain {
 
     /**
      * Uploads all images in buffer to the FTP server as Multi-Page PDF.
-     * @method WebTwain#FTPUploadAllAsPDF 
+     * @method WebTwain#FTPUploadAllAsPDF
      * @param {string} FTPServer the name of the FTP server.
      * @param {string} FTPRemoteFile the name of the image to be uploaded. It should be a relative path on the FTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2323,7 +2323,7 @@ interface WebTwain {
 
     /**
      * Uploads the selected images in buffer to the FTP server as Multi-Page PDF.
-     * @method WebTwain#FTPUploadAsMultiPagePDF 
+     * @method WebTwain#FTPUploadAsMultiPagePDF
      * @param {string} FTPServer the name of the FTP server.
      * @param {string} FTPRemoteFile the name of the image to be uploaded. It should be a relative path on the FTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2334,7 +2334,7 @@ interface WebTwain {
 
     /**
      * Uploads the selected images in buffer to the FTP server as Multi-Page TIFF.
-     * @method WebTwain#FTPUploadAsMultiPageTIFF 
+     * @method WebTwain#FTPUploadAsMultiPageTIFF
      * @param {string} FTPServer the name of the FTP server.
      * @param {string} FTPRemoteFile the name of the image to be uploaded. It should be a relative path on the FTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2345,7 +2345,7 @@ interface WebTwain {
 
     /**
      * Downloads an image from the HTTP server.
-     * @method WebTwain#HTTPDownload 
+     * @method WebTwain#HTTPDownload
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} HTTPRemoteFile the name of the image to be downloaded. It should be the relative path of the file on the HTTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
@@ -2356,7 +2356,7 @@ interface WebTwain {
 
     /**
      * Directly downloads a file from the HTTP server to a local disk without loading it into Dynamic Web TWAIN.
-     * @method WebTwain#HTTPDownloadDirectly 
+     * @method WebTwain#HTTPDownloadDirectly
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} HTTPRemoteFile The relative path of the file on the HTTP server.
      * @param {string} localFile specify the location to store the downloaded file.
@@ -2368,7 +2368,7 @@ interface WebTwain {
 
     /**
      * Downloads an image from the HTTP server.
-     * @method WebTwain#HTTPDownloadEx 
+     * @method WebTwain#HTTPDownloadEx
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} HTTPRemoteFile the relative path of the file on the HTTP server, or path to an action page (with necessary parameters) which gets and sends back the image stream to the client (please check the sample for more info)
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be downloaded.
@@ -2380,7 +2380,7 @@ interface WebTwain {
 
     /**
      *  Download an image from the server using a HTTP Post call.
-     * @method WebTwain#HTTPDownloadThroughPost 
+     * @method WebTwain#HTTPDownloadThroughPost
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} HTTPRemoteFile the relative path of the file on the HTTP server, or path to an action page (with necessary parameters) which gets and sends back the image stream to the client (please check the sample for more info)
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be downloaded.
@@ -2392,10 +2392,10 @@ interface WebTwain {
 
     /**
      * Uploads the image of a specified index in the buffer to the HTTP server through the HTTP POST method.
-     * @method WebTwain#HTTPUploadThroughPost 
+     * @method WebTwain#HTTPUploadThroughPost
      * @param {string} HTTPServer the name of the HTTP server.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
-     * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp". 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
+     * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp".
      * @param {string} fileName the name of the image to be uploaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnHttpUploadSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
@@ -2405,10 +2405,10 @@ interface WebTwain {
 
     /**
      * Directly upload a specific local file to the HTTP server through the HTTP POST method without loading it into Dynamic Web TWAIN.
-     * @method WebTwain#HTTPUploadThroughPostDirectly 
+     * @method WebTwain#HTTPUploadThroughPostDirectly
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} localFile specifies the path of a local file .
-     * @param {string} ActionPage the specified page for posting files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp". 
+     * @param {string} ActionPage the specified page for posting files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp".
      * @param {string} fileName the name of the file to be uploaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnHttpUploadSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnHttpUploadFailure.
@@ -2418,10 +2418,10 @@ interface WebTwain {
 
     /**
      * Uploads the image of a specified index in the buffer to the HTTP server as a specified image format through the HTTP POST method.
-     * @method WebTwain#HTTPUploadThroughPostEx 
+     * @method WebTwain#HTTPUploadThroughPostEx
      * @param {string} HTTPServer  the name of the HTTP server.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
-     * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp". 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
+     * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp".
      * @param {string} fileName the name of the image to be uploaded.
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be created on the HTTP server.s
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnHttpUploadSuccess.
@@ -2432,7 +2432,7 @@ interface WebTwain {
 
     /**
      * Uploads all images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
-     * @method WebTwain#HTTPUploadAllThroughPostAsMultiPageTIFF 
+     * @method WebTwain#HTTPUploadAllThroughPostAsMultiPageTIFF
      * @param {string} HTTPServer  the name of the HTTP server.
      * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp".
      * @param {string} fileName the name of the image to be uploaded.
@@ -2444,7 +2444,7 @@ interface WebTwain {
 
     /**
      * Uploads the selected images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page TIFF.
-     * @method WebTwain#HTTPUploadThroughPostAsMultiPageTIFF 
+     * @method WebTwain#HTTPUploadThroughPostAsMultiPageTIFF
      * @param {string} HTTPServer  the name of the HTTP server.
      * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp".
      * @param {string} fileName the name of the image to be uploaded.
@@ -2456,7 +2456,7 @@ interface WebTwain {
 
     /**
      * Uploads all images in the buffer to the HTTP server through HTTP Post method as a Multi-Page PDF.
-     * @method WebTwain#HTTPUploadAllThroughPostAsPDF 
+     * @method WebTwain#HTTPUploadAllThroughPostAsPDF
      * @param {string} HTTPServer  the name of the HTTP server.
      * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp".
      * @param {string} fileName the name of the image to be uploaded.
@@ -2468,7 +2468,7 @@ interface WebTwain {
 
     /**
      * Uploads the selected images in the buffer to the HTTP server through the HTTP Post method as a Multi-Page PDF.
-     * @method WebTwain#HTTPUploadThroughPostAsMultiPagePDF 
+     * @method WebTwain#HTTPUploadThroughPostAsMultiPagePDF
      * @param {string} HTTPServer  the name of the HTTP server.
      * @param {string} ActionPage the specified page for posting image files. This is the relative path of the page, not the absolute path. For example: "upload.asp", not "http://www.webserver.com/upload.asp".
      * @param {string} fileName the name of the image to be uploaded.
@@ -2480,9 +2480,9 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Directly uploads a specific local file to the HTTP server through the HTTP PUT method without loading it into Dynamic Web TWAIN.
-     * @method WebTwain#HTTPUploadThroughPutDirectly 
+     * @method WebTwain#HTTPUploadThroughPutDirectly
      * @param {string} HTTPServer the name of the HTTP server.
-     * @param {string} localFile specifies the path of a local file. 
+     * @param {string} localFile specifies the path of a local file.
      * @param {string} RemoteFileName the name of the file to be created on the HTTP server. It should a relative path on the web server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnFailure.
@@ -2492,9 +2492,9 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Uploads the image of a specified index in the buffer to the HTTP server through the HTTP PUT method.
-     * @method WebTwain#HTTPUploadThroughPut 
+     * @method WebTwain#HTTPUploadThroughPut
      * @param {string} HTTPServer the name of the HTTP server.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {string} RemoteFileName the name of the image to be created on the HTTP server. It should a relative path on the web server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the upload fails. Please refer to the function prototype OnFailure.
@@ -2504,9 +2504,9 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Uploads the image of a specified index in the buffer to the HTTP server as a specified image format through the HTTP PUT method.
-     * @method WebTwain#HTTPUploadThroughPutEx 
+     * @method WebTwain#HTTPUploadThroughPutEx
      * @param {string} HTTPServer the name of the HTTP server.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {string} RemoteFileName the name of the file to be created on the HTTP server. It should a relative path on the web server.
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be created on the HTTP server.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2517,7 +2517,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Uploads all images in the buffer to the HTTP server through the HTTP Put method as a Multi-Page TIFF.
-     * @method WebTwain#HTTPUploadAllThroughPutAsMultiPageTIFF 
+     * @method WebTwain#HTTPUploadAllThroughPutAsMultiPageTIFF
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} RemoteFileName the name of the image to be uploaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2528,7 +2528,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Uploads the selected images in the buffer to the HTTP server through the HTTP Put method as a Multi-Page TIFF.
-     * @method WebTwain#HTTPUploadThroughPutAsMultiPageTIFF 
+     * @method WebTwain#HTTPUploadThroughPutAsMultiPageTIFF
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} RemoteFileName the name of the image to be uploaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2539,7 +2539,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Uploads all images in the buffer to the HTTP server through the HTTP Put method as a Multi-Page PDF.
-     * @method WebTwain#HTTPUploadAllThroughPutAsPDF 
+     * @method WebTwain#HTTPUploadAllThroughPutAsPDF
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} RemoteFileName the name of the image to be uploaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2550,7 +2550,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Uploads the selected images in the buffer to the HTTP server through the HTTP Put method as a Multi-Page PDF.
-     * @method WebTwain#HTTPUploadThroughPutAsMultiPagePDF 
+     * @method WebTwain#HTTPUploadThroughPutAsMultiPagePDF
      * @param {string} HTTPServer the name of the HTTP server.
      * @param {string} RemoteFileName the name of the image to be uploaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -2561,7 +2561,7 @@ interface WebTwain {
 
     /**
      * Configures how segmented upload is done.
-     * @method WebTwain#SetUploadSegment 
+     * @method WebTwain#SetUploadSegment
      * @param {int} segmentUploadThreshold specifies the threshold (in MB) over which segmented upload will be invoked.
      * @param {int} moduleSize specifies the size of each segment (in KB).
      * @return {bool}
@@ -2570,7 +2570,7 @@ interface WebTwain {
 
     /**
      * Uploads the images specified by the indices to the HTTP server.
-     * @method WebTwain#HTTPUpload 
+     * @method WebTwain#HTTPUpload
      * @param {string} url the url where the images are sent in a POST request.
      * @param {Array} indices indices specifies which images are to be uploaded.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be uploaded.
@@ -2583,7 +2583,7 @@ interface WebTwain {
 
     /**
      * Loads a DIB format image from Clipboard into the Dynamic Web TWAIN.
-     * @method WebTwain#LoadDibFromClipboard 
+     * @method WebTwain#LoadDibFromClipboard
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the loading succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the loading fails. Please refer to the function prototype OnFailure.
      * @return {bool}
@@ -2592,7 +2592,7 @@ interface WebTwain {
 
     /**
      * Loads an image into the Dynamic Web TWAIN.
-     * @method WebTwain#LoadImage 
+     * @method WebTwain#LoadImage
      * @param {string} localFile the name of the image to be loaded. It should be the absolute path of the image file on the local disk.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the loading succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the loading fails. Please refer to the function prototype OnFailure.
@@ -2602,7 +2602,7 @@ interface WebTwain {
 
     /**
      * Loads an image into the Dynamic Web TWAIN.
-     * @method WebTwain#LoadImageEx 
+     * @method WebTwain#LoadImageEx
      * @param {string} localFile the name of the image to be loaded. It should be the absolute path of the image file on the local disk.
      * @param {EnumDWT_ImageType} lImageType the image format of the file to be loaded.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the loading succeeds. Please refer to the function prototype OnSuccess.
@@ -2613,7 +2613,7 @@ interface WebTwain {
 
     /**
      * Loads image from a base64 byte array with the specified file format.
-     * @method WebTwain#LoadImageFromBase64Binary 
+     * @method WebTwain#LoadImageFromBase64Binary
      * @param {string} bry specifies the base64 string data.
      * @param {EnumDWT_ImageType} lImageType specifies the file format.
      * @return {bool}
@@ -2622,7 +2622,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Loads image from a byte array with the specified file format.
-     * @method WebTwain#LoadImageFromBytes 
+     * @method WebTwain#LoadImageFromBytes
      * @param {int} lBufferSize Specifies the buffer size.
      * @param {Array} buffer A byte array of the image data.
      * @param {EnumDWT_ImageType} lImageType Specifies the file format.
@@ -2632,7 +2632,7 @@ interface WebTwain {
 
     /**
      * Saves all images in buffer as a MultiPage TIFF file.
-     * @method WebTwain#SaveAllAsMultiPageTIFF 
+     * @method WebTwain#SaveAllAsMultiPageTIFF
      * @param {string} localFile the name of the MultiPage TIFF file to be saved. It should be an absolute path on the local disk.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the saving succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the saving fails. Please refer to the function prototype OnFailure.
@@ -2642,7 +2642,7 @@ interface WebTwain {
 
     /**
      * Saves all images in buffer as a Multi-Page PDF file.
-     * @method WebTwain#SaveAllAsPDF 
+     * @method WebTwain#SaveAllAsPDF
      * @param {string} localFile the name of the Multi-Page PDF file to be saved. It should be an absolute path on the local disk.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the saving succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the saving fails. Please refer to the function prototype OnFailure.
@@ -2652,7 +2652,7 @@ interface WebTwain {
 
     /**
      * Saves the image of a specified index in buffer as a BMP file.
-     * @method WebTwain#SaveAsBMP 
+     * @method WebTwain#SaveAsBMP
      * @param {string} localFile the name of the BMP file to be saved. It should be an absolute path on the local disk.
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
@@ -2661,43 +2661,43 @@ interface WebTwain {
 
     /**
      * Saves the image of a specified index in buffer as a JPEG file.
-     * @method WebTwain#SaveAsJPEG 
+     * @method WebTwain#SaveAsJPEG
      * @param {string} localFile the name of the JPEG file to be saved. It should be an absolute path on the local disk.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
     SaveAsJPEG(localFile: string, sImageIndex: number): boolean;
 
     /**
      * Saves the image of a specified index in buffer as a PDF file.
-     * @method WebTwain#SaveAsPDF 
+     * @method WebTwain#SaveAsPDF
      * @param {string} localFile the name of the JPEG file to be saved. It should be an absolute path on the local disk.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
     SaveAsPDF(localFile: string, sImageIndex: number): boolean;
 
     /**
      * Saves the image of a specified index in buffer as a PNG file.
-     * @method WebTwain#SaveAsPNG 
+     * @method WebTwain#SaveAsPNG
      * @param {string} localFile the name of the JPEG file to be saved. It should be an absolute path on the local disk.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
     SaveAsPNG(localFile: string, sImageIndex: number): boolean;
 
     /**
      * Saves the image of a specified index in buffer as a TIFF file.
-     * @method WebTwain#SaveAsTIFF 
+     * @method WebTwain#SaveAsTIFF
      * @param {string} localFile the name of the JPEG file to be saved. It should be an absolute path on the local disk.
-     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based. 
+     * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
     SaveAsTIFF(localFile: string, sImageIndex: number): boolean;
 
     /**
      * Saves the selected images in buffer as a Multipage PDF file.
-     * @method WebTwain#SaveSelectedImagesAsMultiPagePDF 
+     * @method WebTwain#SaveSelectedImagesAsMultiPagePDF
      * @param {string} localFile  the name of the MultiPage PDF file to be saved. It should be an absolute path on the local disk.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the saving succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the saving fails. Please refer to the function prototype OnFailure.
@@ -2707,7 +2707,7 @@ interface WebTwain {
 
     /**
      * Saves the selected images in buffer as a Multipage TIFF file.
-     * @method WebTwain#SaveSelectedImagesAsMultiPageTIFF 
+     * @method WebTwain#SaveSelectedImagesAsMultiPageTIFF
      * @param {string} localFile  the name of the MultiPage TIFF file to be saved. It should be an absolute path on the local disk.
      * @param {function} optionalAsyncSuccessFunc optional. The function to call when the saving succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} optionalAsyncFailureFunc optional. The function to call when the saving fails. Please refer to the function prototype OnFailure.
@@ -2717,14 +2717,14 @@ interface WebTwain {
 
     /**
      * Saves the selected images in buffer to base64 string.
-     * @method WebTwain#SaveSelectedImagesToBase64Binary 
+     * @method WebTwain#SaveSelectedImagesToBase64Binary
      * @return {string}
      */
     SaveSelectedImagesToBase64Binary(): string;
 
     /**
      * [Deprecated.] Saves the selected images in buffer to a byte array in the specified file format.
-     * @method WebTwain#SaveSelectedImagesToBytes 
+     * @method WebTwain#SaveSelectedImagesToBytes
      * @param {int} bufferSize specified the buffer size.
      * @param {Array} buffer A byte array of the image data.
      * @return {int}
@@ -2733,7 +2733,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Sets current cookie into the Http Header to be used when uploading scanned images through POST.
-     * @method WebTwain#SetCookie 
+     * @method WebTwain#SetCookie
      * @param {string} cookie  the cookie on current page.
      * @return {void}
      */
@@ -2741,8 +2741,8 @@ interface WebTwain {
 
     /**
      * Sets a text parameter as a filed in a web form. This form is maintained by the component itself (meaning it's not on the page). All fields in this form will be passed to the server when uploading images.
-     * @method WebTwain#SetHTTPFormField 
-     * @param {string} FieldName specifies the name of a text field in web form. 
+     * @method WebTwain#SetHTTPFormField
+     * @param {string} FieldName specifies the name of a text field in web form.
      * @param {string} FieldValue specifies the value of a text field in web form.
      * @return {bool}
      */
@@ -2750,7 +2750,7 @@ interface WebTwain {
 
     /**
      * Sets a custom tiff tag. Currently you can set up to 32 tags. The string to be set in a tag can be encoded with base64.
-     * @method WebTwain#SetTiffCustomTag 
+     * @method WebTwain#SetTiffCustomTag
      * @param {int} tag specifies the tag identifier. The value should be between 600 and 700.
      * @param {string} content the string to be set for this tag. The string will be written to the .tiff file when you save/upload it. If the string is base64 encoded, we'll decode it before writing it.
      * @param {bool} base64Str if you'd like to encode the string with base64, set this to true. Otherwise, the string will be plin text.
@@ -2760,7 +2760,7 @@ interface WebTwain {
 
     /**
      * Show save file dialog or show open file dialog.
-     * @method WebTwain#ShowFileDialog 
+     * @method WebTwain#ShowFileDialog
      * @param {bool} SaveDialog True -- show save file dialog, False -- show open file dialog.
      * @param {string} Filter The filter name specifies the filter pattern (for example, "*.TXT"). To specify multiple filter patterns for a single display string, use a semicolon to separate the patterns (for example, "*.TXT;*.DOC;*.BAK"). A pattern string can be a combination of valid file name characters and the asterisk (*) wildcard character. Do not include spaces in the pattern string. To retrieve a shortcut's target without filtering, use the string "All Files\0*.*\0\0", but the program will replace  "\0" with "|" automatically.
      * @param {int} FilterIndex The index of the currently selected filter in the File Types control. The buffer pointed to by Filter contains pairs of strings that define the filters. The index is 0-based.
@@ -2775,28 +2775,28 @@ interface WebTwain {
 
     /**
      * Gets information of the capability specified by the Capability property.
-     * @method WebTwain#CapGet 
+     * @method WebTwain#CapGet
      * @return {bool}
      */
     CapGet(): boolean;
 
     /**
-     * Returns the Source's current Value for the specified capability. 
-     * @method WebTwain#CapGetCurrent 
+     * Returns the Source's current Value for the specified capability.
+     * @method WebTwain#CapGetCurrent
      * @return {bool}
      */
     CapGetCurrent(): boolean;
 
     /**
      * Returns the Source's Default Value for the specified capability. This is the Source's preferred default value.
-     * @method WebTwain#CapGetDefault 
+     * @method WebTwain#CapGetDefault
      * @return {bool}
      */
     CapGetDefault(): boolean;
 
     /**
      * Returns the value of the bottom-most edge of the specified frame.
-     * @method WebTwain#CapGetFrameBottom 
+     * @method WebTwain#CapGetFrameBottom
      * @param {short} index specifies the value of which frame to get. The index is 0-based.
      * @return {float}
      */
@@ -2804,7 +2804,7 @@ interface WebTwain {
 
     /**
      * Returns the value (in Unit) of the left-most edge of the specified frame.
-     * @method WebTwain#CapGetFrameLeft 
+     * @method WebTwain#CapGetFrameLeft
      * @param {short} index specifies the value of which frame to get. The index is 0-based.
      * @return {float}
      */
@@ -2812,7 +2812,7 @@ interface WebTwain {
 
     /**
      * Returns the value (in Unit) of the left-most edge of the specified frame.
-     * @method WebTwain#CapGetFrameRight 
+     * @method WebTwain#CapGetFrameRight
      * @param {short} index specifies the value of which frame to get. The index is 0-based.
      * @return {float}
      */
@@ -2820,7 +2820,7 @@ interface WebTwain {
 
     /**
      * Returns the value (in Unit) of the top-most edge of the specified frame.
-     * @method WebTwain#CapGetFrameTop 
+     * @method WebTwain#CapGetFrameTop
      * @param {short} index specifies the value of which frame to get. The index is 0-based.
      * @return {float}
      */
@@ -2828,7 +2828,7 @@ interface WebTwain {
 
     /**
      * Queries whether the Source supports a particular operation on the capability.
-     * @method WebTwain#CapIfSupported 
+     * @method WebTwain#CapIfSupported
      * @param {EnumDWT_MessageType} messageType specifies the type of capability operation.
      * @return {bool}
      */
@@ -2836,21 +2836,21 @@ interface WebTwain {
 
     /**
      * Changes the Current Value of the capability specified by Capability property back to its power-on value.
-     * @method WebTwain#CapReset 
+     * @method WebTwain#CapReset
      * @return {bool}
      */
     CapReset(): boolean;
 
     /**
      * Sets the current capability using the container type specified by CapType property. The current capability is specified by Capability property.
-     * @method WebTwain#CapSet 
+     * @method WebTwain#CapSet
      * @return {bool}
      */
     CapSet(): boolean;
 
     /**
      * Sets the values of the specified frame.
-     * @method WebTwain#CapSetFrame 
+     * @method WebTwain#CapSetFrame
      * @param {short} index  specifies the values of which frame to set. The index is 0-based.
      * @param {float} left the value (in Unit) of the left-most edge of the specified frame.
      * @param {float} top the value (in Unit) of the top-most edge of the specified frame.
@@ -2862,7 +2862,7 @@ interface WebTwain {
 
     /**
      * Get the cap item value of the capability specified by Capability property, when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
-     * @method WebTwain#GetCapItems 
+     * @method WebTwain#GetCapItems
      * @param {int} index Index is 0-based. It is the index of the cap item.
      * @return {double}
      */
@@ -2870,7 +2870,7 @@ interface WebTwain {
 
     /**
      * Returns the cap item value of the capability specified by Capability property, when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
-     * @method WebTwain#GetCapItemsString 
+     * @method WebTwain#GetCapItemsString
      * @param {int} index Index is 0-based. It is the index of the cap item.
      * @return {string}
      */
@@ -2878,7 +2878,7 @@ interface WebTwain {
 
     /**
      * Set the value of the specified cap item.
-     * @method WebTwain#SetCapItems 
+     * @method WebTwain#SetCapItems
      * @param {int} index Index is 0-based. It is the index of the cap item.
      * @param {double} newVal The Double type of CapItems property is used to present Double, Single(float), Long, int and even boolean types. For string type, please use CapItemsstring property.
      * @return {void}
@@ -2887,7 +2887,7 @@ interface WebTwain {
 
     /**
      * Set the cap item value of the capability specified by Capability property, when the value of the CapType property is TWON_ARRAY or TWON_ENUMERATION.
-     * @method WebTwain#SetCapItemsString 
+     * @method WebTwain#SetCapItemsString
      * @param {int} index Index is 0-based. It is the index of the cap item.
      * @param {string} newVal The new value to be set.
      * @return {void}
@@ -2899,7 +2899,7 @@ interface WebTwain {
 
     /**
      * Add text on an image.
-     * @method WebTwain#AddText 
+     * @method WebTwain#AddText
      * @param {short} sImageIndex  the index of the image that you want to add text to.
      * @param {int} x the x coordinate for the text.
      * @param {int} y the y coordinate for the text.
@@ -2914,7 +2914,7 @@ interface WebTwain {
 
     /**
      * Create the font for adding text using the method AddText.
-     * @method WebTwain#CreateTextFont 
+     * @method WebTwain#CreateTextFont
      * @param {int} height Specifies the desired height (in logical units) of the font.The absolute value of nHeight must not exceed 16,384 device units after it is converted.For all height comparisons, the font mapper looks for the largest font that does not exceed the requested size or the smallest font if all the fonts exceed the requested size.
      * @param {int} width Specifies the average width (in logical units) of characters in the font. If Width is 0, the aspect ratio of the device will be matched against the digitization aspect ratio of the available fonts to find the closest match, which is determined by the absolute value of the difference.
      * @param {int} escapement Specifies the angle (in 0.1-degree units) between the escapement vector and the x-axis of the display surface. The escapement vector is the line through the origins of the first and last characters on a line. The angle is measured counterclockwise from the x-axis.
@@ -2923,9 +2923,9 @@ interface WebTwain {
      * @param {short} italic  Specifies an italic font if set to TRUE.
      * @param {short} underline Specifies an underlined font if set to TRUE.
      * @param {short} strikeOut A strikeout font if set to TRUE.
-     * @param {short} charSet Specifies the font's character set. The OEM character set is system-dependent. Fonts with other character sets may exist in the system. An application that uses a font with an unknown character set must not attempt to translate or interpret strings that are to be rendered with that font. 
+     * @param {short} charSet Specifies the font's character set. The OEM character set is system-dependent. Fonts with other character sets may exist in the system. An application that uses a font with an unknown character set must not attempt to translate or interpret strings that are to be rendered with that font.
      * @param {short} outputPrecision Specifies the desired output precision. The output precision defines how closely the output must match the requested font's height, width, character orientation, escapement, and pitch.
-     * @param {short} clipPrecision Specifies the desired clipping precision. The clipping precision defines how to clip characters that are partially outside the clipping region. 
+     * @param {short} clipPrecision Specifies the desired clipping precision. The clipping precision defines how to clip characters that are partially outside the clipping region.
      * @param {short} quality Specifies the font's output quality, which defines how carefully the GDI must attempt to match the logical-font attributes to those of an actual physical font.
      * @param {short} pitchAndFamily  The pitch and family of the font.
      * @param {string} faceName   the typeface name, the length of this string must not exceed 32 characters, including the terminating null character.
@@ -2935,7 +2935,7 @@ interface WebTwain {
 
     /**
      * Copies the image of a specified index in buffer to clipboard in DIB format.
-     * @method WebTwain#CopyToClipboard 
+     * @method WebTwain#CopyToClipboard
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -2943,7 +2943,7 @@ interface WebTwain {
 
     /**
      * Clears the specified area of a specified image, and fill the area with the fill color.
-     * @method WebTwain#Erase 
+     * @method WebTwain#Erase
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} left specifies the x-coordinate of the upper-left corner of the rectangle.
      * @param {int} top specifies the y-coordinate of the upper-left corner of the rectangle.
@@ -2955,7 +2955,7 @@ interface WebTwain {
 
     /**
      * Returns the pixel bit depth of the selected image.
-     * @method WebTwain#GetImageBitDepth 
+     * @method WebTwain#GetImageBitDepth
      * @param {short} sImageIndex specifies the index of image. The index is 0-based.
      * @return {short}
      */
@@ -2963,7 +2963,7 @@ interface WebTwain {
 
     /**
      * Returns the width (pixels) of the selected image. This is a read-only property.
-     * @method WebTwain#GetImageWidth 
+     * @method WebTwain#GetImageWidth
      * @param {short} sImageIndex specifies the index of image. The index is 0-based.
      * @return {int}
      */
@@ -2971,7 +2971,7 @@ interface WebTwain {
 
     /**
      * Returns the height (pixels) of the selected image. This is a read-only property.
-     * @method WebTwain#GetImageHeight 
+     * @method WebTwain#GetImageHeight
      * @param {short} sImageIndex specifies the index of image. The index is 0-based.
      * @return {int}
      */
@@ -2979,7 +2979,7 @@ interface WebTwain {
 
     /**
      * Returns the file size of the new image resized from the image of a specified index in buffer.
-     * @method WebTwain#GetImageSize 
+     * @method WebTwain#GetImageSize
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} iWidth specifies the pixel width of the new image.
      * @param {int} iHeight specifies the pixel height of the new image.
@@ -2989,7 +2989,7 @@ interface WebTwain {
 
     /**
      * Pre-calculate the file size of the local image file that is saved from an image of a specified index in buffer.
-     * @method WebTwain#GetImageSizeWithSpecifiedType 
+     * @method WebTwain#GetImageSizeWithSpecifiedType
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {short} sImageType specifies the type of an image file..
      * @return {int}
@@ -2998,7 +2998,7 @@ interface WebTwain {
 
     /**
      * Return the horizontal resolution of the specified image.
-     * @method WebTwain#GetImageXResolution 
+     * @method WebTwain#GetImageXResolution
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {int}
      */
@@ -3006,7 +3006,7 @@ interface WebTwain {
 
     /**
      * Return the vertical resolution of the specified image.
-     * @method WebTwain#GetImageYResolution 
+     * @method WebTwain#GetImageYResolution
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {int}
      */
@@ -3014,7 +3014,7 @@ interface WebTwain {
 
     /**
      * Returns the index of the selected image.
-     * @method WebTwain#GetSelectedImageIndex 
+     * @method WebTwain#GetSelectedImageIndex
      * @param {short} sSelectedIndex specifies the index of the selected image.
      * @return {short}
      */
@@ -3022,7 +3022,7 @@ interface WebTwain {
 
     /**
      * You can use the method to select images programatically which is ususally done by mouse clicking.
-     * @method WebTwain#SetSelectedImageIndex 
+     * @method WebTwain#SetSelectedImageIndex
      * @param {short} sSelectedIndex this is the index of an array that holds the indices of selected images.
      * @param {short} newVal specifies the index of an image that you want to select.
      * @return {void}
@@ -3031,7 +3031,7 @@ interface WebTwain {
 
     /**
      * Pre-calculate the file size of the local image file that is saved from the selected images in buffer.
-     * @method WebTwain#GetSelectedImagesSize 
+     * @method WebTwain#GetSelectedImagesSize
      * @param {int} iImageType specifies the type of an image file.
      * @return {int}
      */
@@ -3039,7 +3039,7 @@ interface WebTwain {
 
     /**
      * Check the skew angle of an image by its index in buffer.
-     * @method WebTwain#GetSkewAngle 
+     * @method WebTwain#GetSkewAngle
      * @param {short} sImageIndex the index of the image in the buffer.
      * @return {double}
      */
@@ -3047,7 +3047,7 @@ interface WebTwain {
 
     /**
      * Check the skew angle of a rectangular part of an image by its index in buffer.
-     * @method WebTwain#GetSkewAngleEx 
+     * @method WebTwain#GetSkewAngleEx
      * @param {short} sImageIndex the index of the image in the buffer.
      * @param {int} left specifies the x-coordinate of the upper-left corner of the rectangle.
      * @param {int} top specifies the y-coordinate of the upper-left corner of the rectangle.
@@ -3059,7 +3059,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Detects whether a certain area on an image is blank.
-     * @method WebTwain#IsBlankImageEx 
+     * @method WebTwain#IsBlankImageEx
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} left specifies the x-coordinate of the upper-left corner of the rectangle.
      * @param {int} top specifies the y-coordinate of the upper-left corner of the rectangle.
@@ -3072,7 +3072,7 @@ interface WebTwain {
 
     /**
      * Mirrors the image of a specified index in buffer.
-     * @method WebTwain#Mirror 
+     * @method WebTwain#Mirror
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3080,7 +3080,7 @@ interface WebTwain {
 
     /**
      * Decorates image of a specified index in buffer with rectangles of transparent color.
-     * @method WebTwain#OverlayRectangle 
+     * @method WebTwain#OverlayRectangle
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} left specifies the x-coordinate of the upper-left corner of the rectangle.
      * @param {int} top specifies the y-coordinate of the upper-left corner of the rectangle.
@@ -3094,22 +3094,22 @@ interface WebTwain {
 
     /**
      * Removes all images in buffer.
-     * @method WebTwain#RemoveAllImages 
+     * @method WebTwain#RemoveAllImages
      * @return {void}
      */
     RemoveAllImages(): void;
 
     /**
      * Removes selected images in buffer.
-     * @method WebTwain#RemoveAllSelectedImages 
+     * @method WebTwain#RemoveAllSelectedImages
      * @return {bool}
      */
     RemoveAllSelectedImages(): boolean;
 
     /**
      * Removes the image of a specified index in buffer.
-     * @method WebTwain#RemoveImage 
-     * @param {short} sImageIndexToBeDeleted  specifies the index of the image to be deleted  in buffer. The index is 0-based. 
+     * @method WebTwain#RemoveImage
+     * @param {short} sImageIndexToBeDeleted  specifies the index of the image to be deleted  in buffer. The index is 0-based.
      * @return {bool}
      */
     RemoveImage(sImageIndexToBeDeleted: number): boolean;
@@ -3117,7 +3117,7 @@ interface WebTwain {
     // Image Operate
     /**
      * Rotates the image of a specified index in buffer by specified angle.
-     * @method WebTwain#Rotate 
+     * @method WebTwain#Rotate
      * @param {short} sImageIndex  specifies the index of image in buffer. The index is 0-based.
      * @param {float} fAngle  Specifies the rotation angle.
      * @param {bool} bKeepSize Keep size or not.
@@ -3127,7 +3127,7 @@ interface WebTwain {
 
     /**
      * Rotates the image of a specified index in buffer by specified angle.
-     * @method WebTwain#RotateEx 
+     * @method WebTwain#RotateEx
      * @param {short} sImageIndex  specifies the index of image in buffer. The index is 0-based.
      * @param {float} fAngle  Specifies the rotation angle.
      * @param {bool} bKeepSize Keep size or not.
@@ -3138,7 +3138,7 @@ interface WebTwain {
 
     /**
      * Rotates the image of a specified index in buffer by 90 degrees counter-clockwise.
-     * @method WebTwain#RotateLeft 
+     * @method WebTwain#RotateLeft
      * @param {short} sImageIndex  specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3146,7 +3146,7 @@ interface WebTwain {
 
     /**
      * Rotates the image of a specified index in buffer by 90 degrees clockwise.
-     * @method WebTwain#RotateRight 
+     * @method WebTwain#RotateRight
      * @param {short} sImageIndex  specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3154,7 +3154,7 @@ interface WebTwain {
 
     /**
      * Changes width and height of the image of a specified index in the buffer. Please note the file size of the image will be changed proportionately.
-     * @method WebTwain#ChangeImageSize 
+     * @method WebTwain#ChangeImageSize
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} iNewWidth  specifies the pixel width of the new image.
      * @param {int} iNewHeight specifies the pixel height of the new image.
@@ -3165,7 +3165,7 @@ interface WebTwain {
 
     /**
      * Flips the image of a specified index in buffer.
-     * @method WebTwain#Flip 
+     * @method WebTwain#Flip
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3173,7 +3173,7 @@ interface WebTwain {
 
     /**
      * Crops the image of a specified index in buffer.
-     * @method WebTwain#Crop 
+     * @method WebTwain#Crop
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} left specifies the x-coordinate of the upper-left corner of the rectangle.
      * @param {int} top specifies the y-coordinate of the upper-left corner of the rectangle.
@@ -3185,7 +3185,7 @@ interface WebTwain {
 
     /**
      * Crops the image of a specified index in buffer to clipboard in DIB format.
-     * @method WebTwain#CropToClipboard 
+     * @method WebTwain#CropToClipboard
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} left specifies the x-coordinate of the upper-left corner of the rectangle.
      * @param {int} top specifies the y-coordinate of the upper-left corner of the rectangle.
@@ -3197,7 +3197,7 @@ interface WebTwain {
 
     /**
      * Cuts the image data in the specified area to the system clipboard in DIB format.
-     * @method WebTwain#CutFrameToClipboard 
+     * @method WebTwain#CutFrameToClipboard
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} left specifies the x-coordinate of the upper-left corner of the rectangle.
      * @param {int} top specifies the y-coordinate of the upper-left corner of the rectangle.
@@ -3209,7 +3209,7 @@ interface WebTwain {
 
     /**
      * Cuts the image of a specified index in buffer to clipboard in DIB format.
-     * @method WebTwain#CutToClipboard 
+     * @method WebTwain#CutToClipboard
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3217,7 +3217,7 @@ interface WebTwain {
 
     /**
      * Change the DPI (dots per inch) for the specified image.
-     * @method WebTwain#SetDPI 
+     * @method WebTwain#SetDPI
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} xResolution The horizontal resolution.
      * @param {int} yResolution The vertical resolution.
@@ -3229,8 +3229,8 @@ interface WebTwain {
 
     /**
      * Sets the view mode that images are displayed in Dynamic Web TWAIN. You can use this method to display multiple images in Dynamic Web TWAIN.
-     * @method WebTwain#SetViewMode 
-     * @param {short} sHorizontalImageCount  specifies how many columns can be displayed in Dynamic Web TWAIN. 
+     * @method WebTwain#SetViewMode
+     * @param {short} sHorizontalImageCount  specifies how many columns can be displayed in Dynamic Web TWAIN.
      * @param {short} sVerticalImageCount specifies how many rows can be displayed in Dynamic Web TWAIN..
      * @return {void}
      */
@@ -3238,7 +3238,7 @@ interface WebTwain {
 
     /**
      * Moves a specified image.
-     * @method WebTwain#MoveImage 
+     * @method WebTwain#MoveImage
      * @param {short} sSourceImageIndex Specifies the source index of image in buffer. The index is 0-based.
      * @param {short} sTargetImageIndex Specifies the target index of image in buffer. The index is 0-based.
      * @return {bool}
@@ -3247,7 +3247,7 @@ interface WebTwain {
 
     /**
      * Switchs two images of specified indices in buffer.
-     * @method WebTwain#SwitchImage 
+     * @method WebTwain#SwitchImage
      * @param {short} sImageIndex1 specifies the index of image in buffer. The index is 0-based.
      * @param {short} sImageIndex2 specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
@@ -3256,7 +3256,7 @@ interface WebTwain {
 
     /**
      * Shows the GUI of Image Printer.
-     * @method WebTwain#Print 
+     * @method WebTwain#Print
      * @return {bool}
      */
     Print(): boolean;
@@ -3267,14 +3267,14 @@ interface WebTwain {
     // --- Others ---
     /**
      * Shows the GUI of Image Editor.
-     * @method WebTwain#ShowImageEditor 
+     * @method WebTwain#ShowImageEditor
      * @return {bool}
      */
     ShowImageEditor(): boolean;
 
     /**
      * Unbinds an event from the specified function, so that the function stops receiving notifications when the event fires.
-     * @method WebTwain#UnregisterEvent 
+     * @method WebTwain#UnregisterEvent
      * @param {string} name the name of the event.
      * @param {object} evt specified the function to be unbound.
      * @return {bool}
@@ -3284,14 +3284,14 @@ interface WebTwain {
 
     /**
      * Enables the source to accept image.
-     * @method WebTwain#EnableSource 
+     * @method WebTwain#EnableSource
      * @return {bool}
      */
     EnableSource(): boolean;
 
     /**
      * Displays the source's built-in interface to acquire image.
-     * @method WebTwain#AcquireImage 
+     * @method WebTwain#AcquireImage
      * @param {object} optionalDeviceConfig  a JS object used to set up the device for image acquisition.
      * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
@@ -3299,10 +3299,10 @@ interface WebTwain {
      */
     AcquireImage(optionalDeviceConfig?: object, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
-    // start from 10.0 
+    // start from 10.0
     /**
      * Change the width of an image in buffer.
-     * @method WebTwain#SetImageWidth 
+     * @method WebTwain#SetImageWidth
      * @param {short} sImageIndex  specifies which image you'd like to change.
      * @param {int} iNewWidth specifies how wide you'd like to change the image.
      * @return {bool}
@@ -3312,7 +3312,7 @@ interface WebTwain {
     //  Set custom DS data (DAT_CUSTOMDSDATA), the input string is encoded with base64
     /**
      * Sets custom DS data to be used for scanning, the input string is encoded with base64. Custom DS data means a specific scanning profile.
-     * @method WebTwain#SetCustomDSDataEx 
+     * @method WebTwain#SetCustomDSDataEx
      * @param {string} value the input string which is encoded with base64.
      * @return {bool}
      */
@@ -3321,7 +3321,7 @@ interface WebTwain {
     //  Set custom DS data, load data from the specified file
     /**
      * Sets custom DS data to be used for scanning, the data is stored in a file. Custom DS data means a specific scanning profile.
-     * @method WebTwain#SetCustomDSData 
+     * @method WebTwain#SetCustomDSData
      * @param {string} fileName the absolute path of the file where the custom data source data is stored.
      * @return {bool}
      */
@@ -3330,7 +3330,7 @@ interface WebTwain {
     // Get custom DS data, and returned string  is encoded with base64
     /**
      * Gets custom DS data, the returned string is base64 encoded.
-     * @method WebTwain#GetCustomDSDataEx 
+     * @method WebTwain#GetCustomDSDataEx
      * @return {string}
      */
     GetCustomDSDataEx(): string;
@@ -3338,7 +3338,7 @@ interface WebTwain {
     // Get custom DS data, and save the data to the specified file
     /**
      * Gets custom DS data and save the data in a specified file.
-     * @method WebTwain#GetCustomDSData 
+     * @method WebTwain#GetCustomDSData
      * @param {string} fileName  the path of the file used for storing custom DS data.
      * @return {bool}
      */
@@ -3346,7 +3346,7 @@ interface WebTwain {
 
     /**
      * Changes the bitdepth of a specified image.
-     * @method WebTwain#ChangeBitDepth 
+     * @method WebTwain#ChangeBitDepth
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {short} sBitDepth specifies the target bit depth.
      * @param {bool} bHighQuality specifies whether or not to keep high quality while changing the bit depth. When it's true, it takes more time.
@@ -3356,7 +3356,7 @@ interface WebTwain {
 
     /**
      * Changes a specified image to gray scale.
-     * @method WebTwain#ConvertToGrayScale 
+     * @method WebTwain#ConvertToGrayScale
      * @param {short} sIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3364,7 +3364,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Shows the GUI of Image Editor with custom settings.
-     * @method WebTwain#ShowImageEditorEx 
+     * @method WebTwain#ShowImageEditorEx
      * @param {int} x specifies the new position of the left top corner of the window.
      * @param {int} y specifies the new position of the left top corner of the window.
      * @param {int} cx specifies the width of the window.
@@ -3376,7 +3376,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Detects whether an image is blank.
-     * @method WebTwain#IsBlankImage 
+     * @method WebTwain#IsBlankImage
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3384,7 +3384,7 @@ interface WebTwain {
 
     /**
      * Detects whether a specific image is blank.
-     * @method WebTwain#IsBlankImageExpress 
+     * @method WebTwain#IsBlankImageExpress
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @return {bool}
      */
@@ -3392,7 +3392,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Detects whether a specific image is blank.
-     * @method WebTwain#GetBarcodeInfo 
+     * @method WebTwain#GetBarcodeInfo
      * @param {int} barcodeInfoType Defined in TWAIN Specification.
      * @param {int} barcodeIndex Specifies which barcode to check. The index is 0-based.
      * @return {object}
@@ -3401,7 +3401,7 @@ interface WebTwain {
 
     /**
      * [Deprecated.] Gets the content from a specified barcode.
-     * @method WebTwain#GetBarcodeText 
+     * @method WebTwain#GetBarcodeText
      * @param {int} barcodeIndex Specifies which barcode to check. The index is 0-based.
      * @return {bool}
      */
@@ -3409,7 +3409,7 @@ interface WebTwain {
 
     /**
      * Sets the default source to use. It's only valid when IfUseTWAINDSM is set to true.
-     * @method WebTwain#SetDefaultSource 
+     * @method WebTwain#SetDefaultSource
      * @param {short} sImageIndex specifies the index of the default source. The index is 0-based.
      * @return {bool}
      */
@@ -3417,7 +3417,7 @@ interface WebTwain {
 
     /**
      * Draws a rectangle on the viewer which represents the selected area.
-     * @method WebTwain#SetSelectedImageArea 
+     * @method WebTwain#SetSelectedImageArea
      * @param {short} sImageIndex specifies the index of image in buffer. The index is 0-based.
      * @param {int} left The X axis of the left border.
      * @param {int} top The Y axis of the top border.
@@ -3429,7 +3429,7 @@ interface WebTwain {
 
     /**
      * Converts the images specified by the indices to base64.
-     * @method WebTwain#ConvertToBase64 
+     * @method WebTwain#ConvertToBase64
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
      * @param {function} asyncSuccessFunc the function to call when the upload succeeds. Please refer to the function prototype OnSuccess.
@@ -3440,7 +3440,7 @@ interface WebTwain {
 
     /**
      * Returns the direct URL of an image specified by index, if iWidth or iHeight is set to -1, you get the original image, otherwise you get the image with specified iWidth or iHeight while keeping the same aspect ratio.
-     * @method WebTwain#GetImageURL 
+     * @method WebTwain#GetImageURL
      * @param {short} index the index of the image.
      * @param {int} iWidth the width of the image.
      * @param {int} iHeight the height of the image.
@@ -3450,7 +3450,7 @@ interface WebTwain {
 
     /**
      * Sets a header for the current HTTP Post request.
-     * @method WebTwain#SetHTTPHeader 
+     * @method WebTwain#SetHTTPHeader
      * @param {string} key the key of the header.
      * @param {string} value the value of the header.
      * @return {bool}
