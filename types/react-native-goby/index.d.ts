@@ -1,7 +1,8 @@
-// Type definitions for react-native-goby v0.0.4
+// Type definitions for react-native-goby 0.04
 // Project: https://gitlab.com/MessageDream/react-native-goby
 // Definitions by: jaydenzhao <https://github.com/MessageDream/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 interface Promise<T> {
     /**
      * Append a rejection handler callback to the promise.
@@ -255,12 +256,12 @@ declare namespace Goby {
      *
      * @param updateState The state of the update you want to retrieve the metadata for. Defaults to UpdateState.RUNNING.
      */
-    function getUpdateMetadata(updateState?: UpdateState) : Promise<LocalPackage>;
+    function getUpdateMetadata(updateState?: UpdateState): Promise<LocalPackage>;
 
     /**
      * Notifies the Goby runtime that an installed update is considered successful.
      */
-    function notifyAppReady(): Promise<StatusReport|void>;
+    function notifyAppReady(): Promise<StatusReport>;
 
     /**
      * Allow Goby to restart the app.

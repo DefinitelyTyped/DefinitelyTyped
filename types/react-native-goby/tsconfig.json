@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "react-native-goby.d.ts",
+        "index.d.ts",
         "react-native-goby-tests.tsx"
     ]
 }
