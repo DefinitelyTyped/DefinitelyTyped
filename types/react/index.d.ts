@@ -2725,6 +2725,7 @@ declare global {
             render(): JSX.Element | null;
         }
         interface ElementAttributesProperty { props: {}; }
+        interface ElementChildrenAttribute { children: {}; }
 
         interface IntrinsicAttributes extends React.Attributes { }
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
