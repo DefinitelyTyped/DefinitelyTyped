@@ -7471,6 +7471,18 @@ export interface UIManagerStatic {
         onFail: () => void, /* currently unused */
         onSuccess: MeasureLayoutOnSuccessCallback
     ): void;
+
+    /**
+     * Automatically animates views to their new positions when the
+     * next layout happens.
+     *
+     * A common way to use this API is to call it before calling `setState`.
+     *
+     * Note that in order to get this to work on **Android** you need to set the following flags via `UIManager`:
+     *
+     *     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+     */
+    setLayoutAnimationEnabledExperimental(value: boolean): void;
 }
 
 export interface SwitchPropertiesIOS extends ViewProperties {
