@@ -1,7 +1,6 @@
-// Type definitions for react-custom-scrollbars 4.0
+// Type definitions for react-custom-scrollbars 3.0
 // Project: https://github.com/malte-wessel/react-custom-scrollbars
-// Definitions by:  David-LeBlanc-git <https://github.com/David-LeBlanc-git>
-//                  kittimiyo <https://github.com/kittimiyo>
+// Definitions by: David-LeBlanc-git <https://github.com/David-LeBlanc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,8 +31,6 @@ declare module "react-custom-scrollbars" {
         renderThumbHorizontal?: React.StatelessComponent<any>;
         renderThumbVertical?: React.StatelessComponent<any>;
 
-        hideTracksWhenNotNeeded?: boolean;
-
         autoHide?: boolean;
         autoHideTimeout?: number;
         autoHideDuration?: number;
@@ -41,10 +38,6 @@ declare module "react-custom-scrollbars" {
         thumbSize?: number;
         thumbMinSize?: number;
         universal?: boolean;
-
-        autoHeight?: boolean;
-        autoHeightMin?: number;
-        autoHeightMax?: number;
     }
 
     export default class Scrollbars extends React.Component<ScrollbarProps, {}> {
@@ -58,8 +51,8 @@ declare module "react-custom-scrollbars" {
         getScrollTop(): number;
         getScrollWidth(): number;
         getScrollHeight(): number;
-        getClientWidth(): number;
-        getClientHeight(): number;
+        getWidth(): number;
+        getHeight(): number;
         getValues(): positionValues;
     }
 }
