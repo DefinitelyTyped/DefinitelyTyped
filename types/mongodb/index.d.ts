@@ -421,8 +421,6 @@ export interface Collection<TSchema> {
     // Get current index hint for collection.
     hint: any;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
-    // aggregate(pipeline: Object[], callback: MongoCallback<any>): AggregationCursor<any>;
-    // aggregate(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<any>): AggregationCursor<any>;
     aggregate<T = TSchema>(pipeline: Object[], callback: MongoCallback<any>): AggregationCursor<T>;
     aggregate<T = TSchema>(pipeline: Object[], options?: CollectionAggregationOptions, callback?: MongoCallback<any>): AggregationCursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
@@ -463,7 +461,6 @@ export interface Collection<TSchema> {
     dropIndexes(): Promise<any>;
     dropIndexes(callback?: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find
-    // find(query?: Object): Cursor<any>;
     find<T = TSchema>(query?: Object): Cursor<T>;
     /** @deprecated */
     find<T = TSchema>(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<T>;
