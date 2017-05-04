@@ -78,24 +78,24 @@ const styles = StyleSheet.create<LocalStyles>(
 //alternative declaration of styles (inline typings)
 const stylesAlt = StyleSheet.create(
     {
-        container:    {
-            flex:            1,
-            justifyContent:  'center',
-            alignItems:      'center',
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
             backgroundColor: '#F5FCFF',
-        } as ViewStyle,
-        welcome:   {
-            fontSize:  20,
+        },
+        welcome: {
+            fontSize: 20,
             textAlign: 'center',
-            margin:    10,
-        } as TextStyle,
+            margin: 10,
+        },
         instructions: {
-            textAlign:    'center',
-            color:        '#333333',
+            textAlign: 'center',
+            color: '#333333',
             marginBottom: 5,
-        } as TextStyle
+        }
     }
-)
+);
 
 class CustomView extends React.Component<{}, {}> {
 
