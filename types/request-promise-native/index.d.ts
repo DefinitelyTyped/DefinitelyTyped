@@ -42,7 +42,7 @@ declare module 'request-promise-native/errors' {
         response: http.IncomingMessage;
     }
     interface RequestErrorConstructor {
-        new (cause: any, options: rp.Options, response: http.IncomingMessage): RequestError;
+        new(cause: any, options: rp.Options, response: http.IncomingMessage): RequestError;
         (cause: any, options: rp.Options, response: http.IncomingMessage): RequestError;
         prototype: RequestError;
     }
@@ -55,7 +55,7 @@ declare module 'request-promise-native/errors' {
         response: http.IncomingMessage;
     }
     interface StatusCodeErrorConstructor extends Error {
-        new (statusCode: number, body: any, options: rp.Options, response: http.IncomingMessage): StatusCodeError;
+        new(statusCode: number, body: any, options: rp.Options, response: http.IncomingMessage): StatusCodeError;
         (statusCode: number, body: any, options: rp.Options, response: http.IncomingMessage): StatusCodeError;
         prototype: StatusCodeError;
     }
@@ -68,7 +68,7 @@ declare module 'request-promise-native/errors' {
         response: http.IncomingMessage;
     }
     interface TransformErrorConstructor extends Error {
-        new (cause: any, options: rp.Options, response: http.IncomingMessage): TransformError;
+        new(cause: any, options: rp.Options, response: http.IncomingMessage): TransformError;
         (cause: any, options: rp.Options, response: http.IncomingMessage): TransformError;
         prototype: TransformError;
     }
