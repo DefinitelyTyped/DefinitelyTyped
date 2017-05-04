@@ -69,9 +69,20 @@ declare class Undertaker {
      *
      * When the returned function is executed, the tasks or functions will be executed in series,
      * each waiting for the prior to finish. If an error occurs, execution will stop.
-     * @param {...string|TaskFunction} fn - Task function.
+     * @param {...string|TaskFunction} tasks - Task function.
      */
-    series(...tasks: Array<string | Undertaker.TaskFunction>): Undertaker.TaskFunction;
+    series(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
+
+    /**
+     * Takes a variable amount of strings (taskName) and/or functions (fn)
+     * and returns a function of the composed tasks or functions.
+     * Any taskNames are retrieved from the registry using the get method.
+     *
+     * When the returned function is executed, the tasks or functions will be executed in series,
+     * each waiting for the prior to finish. If an error occurs, execution will stop.
+     * @param {string|TaskFunction} tasks - Task function.
+     */
+    series(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
     /**
      * Takes a variable amount of strings (taskName) and/or functions (fn)
@@ -82,7 +93,18 @@ declare class Undertaker {
      * all being executed at the same time. If an error occurs, all execution will complete.
      * @param tasks
      */
-    parallel(...tasks: Array<string | Undertaker.TaskFunction>): Undertaker.TaskFunction;
+    parallel(...tasks: Undertaker.Task[]): Undertaker.TaskFunction;
+
+    /**
+     * Takes a variable amount of strings (taskName) and/or functions (fn)
+     * and returns a function of the composed tasks or functions.
+     * Any taskNames are retrieved from the registry using the get method.
+     *
+     * When the returned function is executed, the tasks or functions will be executed in parallel,
+     * all being executed at the same time. If an error occurs, all execution will complete.
+     * @param tasks
+     */
+    parallel(tasks: Undertaker.Task[]): Undertaker.TaskFunction;
 
     /**
      * Returns the current registry object.

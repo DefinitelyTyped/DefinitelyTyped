@@ -26,6 +26,10 @@ taker.task("combined", taker.series("task1", "task2"));
 
 taker.task("all", taker.parallel("combined", "task3"));
 
+taker.task("all-parallel-array", taker.parallel(["combined", "task3"]));
+
+taker.task("all-series-array", taker.series(["combined", "task3"]));
+
 const registry = new Registry();
 const CommonRegistry = (options: { buildDir: string }): Registry => {
     return registry;
