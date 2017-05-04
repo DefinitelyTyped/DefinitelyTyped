@@ -35,7 +35,7 @@ type CombinedHistory = History & CustomHistory;
 function createCustomHistory(history: History): CombinedHistory {
 	return {
 		...history,
-		test() {}
+		test() { }
 	} as CombinedHistory;
 }
 const customHistory = createCustomHistory(browserHistory);
@@ -79,7 +79,7 @@ interface DashboardProps {
 }
 
 class Dashboard extends React.Component<DashboardProps, {}> {
-    static staticMethodToBeHoisted(): void {}
+	static staticMethodToBeHoisted(): void { }
 
 	navigate() {
 		const router = this.props.router;
@@ -125,20 +125,20 @@ ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={DashboardWithRouter} />
-			<Route path="users" component={Users}/>
-			<Route path="*" component={NotFound}/>
+			<Route path="users" component={Users} />
+			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>
 ), document.body);
 
 ReactDOM.render((
-	<Router history={ routerHistory }>
+	<Router history={routerHistory}>
 		<Route path="/" component={Master} />
 	</Router>
 ), document.body);
 
 ReactDOM.render((
-	<Router history={ customHistory }>
+	<Router history={customHistory}>
 		<Route path="/" component={Master} />
 	</Router>
 ), document.body);
@@ -147,7 +147,7 @@ const history = createMemoryHistory("baseurl");
 const routes = (
 	<Route path="/" component={Master}>
 		<IndexRoute component={DashboardWithRouter} />
-		<Route path="users" component={Users}/>
+		<Route path="users" component={Users} />
 	</Route>
 );
 
