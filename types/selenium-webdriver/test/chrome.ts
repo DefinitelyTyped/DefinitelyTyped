@@ -3,17 +3,17 @@ import * as remote from 'selenium-webdriver/remote';
 import * as webdriver from 'selenium-webdriver';
 
 function TestChromeDriver() {
-    var driver: chrome.Driver = chrome.Driver.createSession();
+    let driver: chrome.Driver = chrome.Driver.createSession();
     driver = chrome.Driver.createSession(webdriver.Capabilities.chrome());
     driver = chrome.Driver.createSession(webdriver.Capabilities.chrome(),
         new remote.DriverService('executable', new chrome.Options()),
         new webdriver.promise.ControlFlow());
 
-    var baseDriver: webdriver.WebDriver = driver;
+    let baseDriver: webdriver.WebDriver = driver;
 }
 
 function TestChromeOptions() {
-    var options: chrome.Options = new chrome.Options();
+    let options: chrome.Options = new chrome.Options();
     options = chrome.Options.fromCapabilities(webdriver.Capabilities.chrome());
 
     options = options.addArguments('a', 'b', 'c');
@@ -35,15 +35,15 @@ function TestChromeOptions() {
         tracingCategories: 'category', bufferUsageReportingInterval: 1000 });
     options = options.setProxy({ proxyType: 'proxyType' });
     options = options.setUserPreferences('preferences');
-    var capabilities: webdriver.Capabilities = options.toCapabilities();
+    let capabilities: webdriver.Capabilities = options.toCapabilities();
     capabilities = options.toCapabilities(webdriver.Capabilities.chrome());
 }
 
 function TestServiceBuilder() {
-    var builder: chrome.ServiceBuilder = new chrome.ServiceBuilder();
+    let builder: chrome.ServiceBuilder = new chrome.ServiceBuilder();
     builder = new chrome.ServiceBuilder('exe');
 
-    var anything: any = builder.build();
+    let anything: any = builder.build();
     builder = builder.setPort(8080);
     builder = builder.setAdbPort(5037);
     builder = builder.loggingTo('path');
@@ -52,10 +52,10 @@ function TestServiceBuilder() {
     builder = builder.setPath('path');
     builder = builder.setStdio('config');
     builder = builder.setStdio(['A', 'B']);
-    builder = builder.setEnvironment({ 'A': 'a', 'B': 'b' });
+    builder = builder.setEnvironment({ A: 'a', B: 'b' });
 }
 
 function TestChromeModule() {
-    var service: any = chrome.getDefaultService();
+    let service: any = chrome.getDefaultService();
     chrome.setDefaultService(new remote.DriverService('executable', new chrome.Options()));
 }

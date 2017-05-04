@@ -1,4 +1,4 @@
-// Type definitions for swagger-node-runner 0.7
+// Type definitions for swagger-node-runner 0.5
 // Project: https://www.npmjs.com/package/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,24 +42,28 @@ import * as Restify from "restify";
 export interface Config {
     /** Path to app */
     appRoot: string;
-    /** If `true` API is in mock mode
+    /**
+     * If `true` API is in mock mode
      *
      * default is `false`
-    */
+     */
     mockMode?: boolean;
-    /** If `true` resonse is validated
+    /**
+     * If `true` resonse is validated
      *
      * default is `true`
-    */
+     */
     validateResponse?: boolean;
     /** Sets `NODE_CONFIG_DIR` env if not set yet */
     configDir?: string;
-    /** Swagger controller directories
+    /**
+     * Swagger controller directories
      *
      * default is array with `/api/controllers` relative to `appRoot`
-    */
+     */
     controllersDirs?: string[];
-    /** Swagger mock controller directories
+    /**
+     * Swagger mock controller directories
      *
      * default is array with `/api/mocks` relative to `appRoot`
      */
@@ -70,7 +74,8 @@ export interface Config {
      * default is `[api/fittings]`
      */
     fittingsDirs?: string[];
-    /** Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
+    /**
+     * Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
      *
      * default is `undefined`
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
@@ -92,13 +97,13 @@ export interface Config {
 }
 
 /** Internally stored version of config */
-interface ConfigInternal {
+export interface ConfigInternal {
     /** Config of SwaggerNodeRunner  */
     swagger?: Config;
 }
 
 /** Middleware used by `swagger-tools` */
-type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
+export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
 
 /**
  * @param  {any} request
@@ -116,7 +121,7 @@ export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:
  * `(request, securityDefinition, scopes, callback)`
  */
-interface SwaggerSecurityHandlers {
+export interface SwaggerSecurityHandlers {
     [name: string]: SwaggerToolsSecurityHandler;
 }
 
@@ -126,9 +131,9 @@ interface SwaggerSecurityHandlers {
 export interface Runner extends EventEmitter {
     /** Resolves path (relative to `config.appRoot`) */
     resolveAppPath(...to: any[]): string;
-    defaultErrorHandler: () => any;
+    defaultErrorHandler(): any;
     /** Fetch a _bagpipe_ pipe */
-    getPipe: (req: { swagger: { path: any } }) => any;
+    getPipe(req: { swagger: { path: any } }): any;
     config: ConfigInternal;
     /**
      * Current OpenAPI Specification (formaly known as Swagger RESTful API Documentation Specification)
@@ -148,7 +153,7 @@ export interface Runner extends EventEmitter {
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-metadata.js|Git Source}
          */
-        swaggerMetadata: (rlOrSO: any, apiDeclarations: any[]) => SwaggerToolsMiddleware
+        swaggerMetadata(rlOrSO: any, apiDeclarations: any[]): SwaggerToolsMiddleware
         /**
          *  Middleware for using Swagger information to route requests to handlers.
          * @param [{any}] options - The configuration options
@@ -156,14 +161,14 @@ export interface Runner extends EventEmitter {
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/docs/Middleware.md#swaggerrouteroptions|Docs}
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-router.js|Github Source}
          */
-        swaggerRouter: (options?: any) => SwaggerToolsMiddleware
+        swaggerRouter(options?: any): SwaggerToolsMiddleware
         /**
          * Middleware for using Swagger security information to authenticate requests.
          * @param [{any}] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
          */
-        swaggerSecurity: (options?: SwaggerSecurityHandlers) => SwaggerToolsMiddleware
+        swaggerSecurity(options?: SwaggerSecurityHandlers): SwaggerToolsMiddleware
         /**
          * Middleware for serving the Swagger documents and Swagger UI.
          *
@@ -173,14 +178,14 @@ export interface Runner extends EventEmitter {
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-ui.js|Github Source}
          */
-        swaggerUi: (rlOrSO: any, apiDeclarations: any[], options?: any) => SwaggerToolsMiddleware
+        swaggerUi(rlOrSO: any, apiDeclarations: any[], options?: any): SwaggerToolsMiddleware
         /**
          * Middleware for using Swagger information to validate API requests/responses.type
          * @param [{any}] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-validator.js|Github Source}
          */
-        swaggerValidator: (options?: any) => SwaggerToolsMiddleware
+        swaggerValidator(options?: any): SwaggerToolsMiddleware
     };
     swaggerSecurityHandlers: SwaggerSecurityHandlers | undefined;
     /**
@@ -189,28 +194,28 @@ export interface Runner extends EventEmitter {
      */
     bagpipes: { [name: string]: any };
     /** Create new Connect middleware */
-    connectMiddleware: () => ConnectMiddleware;
+    connectMiddleware(): ConnectMiddleware;
     /** Create new Express middleware */
-    expressMiddleware: () => ExpressMiddleware;
+    expressMiddleware(): ExpressMiddleware;
     /** Create new Restify middleware */
-    restifyMiddleware: () => RestifyMiddleware;
+    restifyMiddleware(): RestifyMiddleware;
     /** Create new Sails middleware */
-    sailsMiddleware: () => SailsMiddleware;
+    sailsMiddleware(): SailsMiddleware;
     /** Create new Hapi middleware */
-    hapiMiddleware: () => HapiMiddleware;
+    hapiMiddleware(): HapiMiddleware;
 }
 
 /** base used by all middleware versions */
-interface Middleware {
-    /** Back-reference to `Runner` that has created this middleware */
+export interface Middleware {
+    /** Back-reference to `swagger-node-runner`s `Runner` that has created this middleware */
     runner: Runner;
 }
 
 /** Connect/Express specific Middleware */
 export interface ConnectMiddleware extends Middleware {
-    middleware: () => (req: Express.Request, res: Express.Response, next: NextFunction) => void;
+    middleware(): (req: Express.Request, res: Express.Response, next: NextFunction) => void;
     /** Register this Middleware with `app`  */
-    register: (app: Express.Application) => void;
+    register(app: Express.Application): void;
 }
 /** Express specific Middleware
  *
@@ -222,7 +227,7 @@ export interface ExpressMiddleware extends ConnectMiddleware { }
 /** Sails specific Middleware */
 export interface SailsMiddleware extends Middleware {
     /** Express style middleware */
-    chain: () => (req: Express.Request, res: Express.Response, next: NextFunction) => void;
+    chain(): (req: Express.Request, res: Express.Response, next: NextFunction) => void;
 }
 
 /** Hapi specific Middleware */
@@ -249,7 +254,7 @@ export interface HapiMiddleware extends Middleware {
             attributes: {
                 /**  Name of Plugin (e.g. `swagger-node-runner`) */
                 name: string
-                /** Version of Plugin*/
+                /** Version of Plugin */
                 version: string
             }
         }
@@ -259,9 +264,8 @@ export interface HapiMiddleware extends Middleware {
 /** Restify specific Middleware */
 export interface RestifyMiddleware extends Middleware {
     /** Register this Middleware with `app`  */
-    register: (app: Restify.Server) => void;
+    register(app: Restify.Server): void;
 }
-
 
 /**
  * Create new SwaggerNodeRunner Instance

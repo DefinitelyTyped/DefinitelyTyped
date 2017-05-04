@@ -1,4 +1,4 @@
-function test_Accordion() {
+function test_accordion() {
     const selector = '.ui.accordion';
     $(selector).accordion('refresh');
     $(selector).accordion('open', 0);
@@ -12,129 +12,220 @@ function test_Accordion() {
     });
     $(selector).accordion();
 }
-test_Accordion();
 
-function test_Checkbox() {
+function test_checkbox() {
     const selector = '.ui.checkbox';
     $(selector).checkbox({});
     $(selector).checkbox();
 }
-test_Checkbox();
 
-function test_Dimmer() {
+function test_dimmer() {
     const selector = '.ui.dimmer';
     $(selector).dimmer({});
     $(selector).dimmer();
 }
-test_Dimmer();
 
-function test_Dropdown() {
+function test_dropdown() {
     const selector = '.ui.dropdown';
     $(selector).dropdown({});
     $(selector).dropdown();
 }
-test_Dropdown();
 
-function test_Embed() {
+function test_embed() {
     const selector = '.ui.embed';
     $(selector).embed({});
     $(selector).embed();
 }
-test_Embed();
 
-function test_Modal() {
+function test_modal() {
     const selector = '.ui.modal';
     $(selector).modal({});
     $(selector).modal();
 }
-test_Modal();
 
-function test_Nag() {
+function test_nag() {
     const selector = '.ui.nag';
     $(selector).nag({});
 }
-test_Nag();
 
-function test_Popup() {
+function test_popup() {
     const selector = '.ui.popup';
-    $(selector).popup({});
+    $(selector).popup({
+        html: '<div>Content</div>'
+    });
+    $(selector).popup({
+        html: $('<div>Content</div>')
+    });
     $(selector).popup();
 }
-test_Popup();
 
-function test_Progress() {
+function test_progress() {
     const selector = '.ui.progress';
     $(selector).progress({});
     $(selector).progress();
 }
-test_Progress();
 
-function test_Rating() {
+function test_rating() {
     const selector = '.ui.rating';
     $(selector).rating({});
     $(selector).rating();
 }
-test_Rating();
 
-function test_Search() {
+function test_search() {
     const selector = '.ui.search';
     $(selector).search({});
     $(selector).search();
 }
-test_Search();
 
-function test_Shape() {
+function test_shape() {
     const selector = '.ui.shape';
     $(selector).shape({});
     $(selector).shape();
 }
-test_Shape();
 
-function test_Sidebar() {
+function test_sidebar() {
     const selector = '.ui.sidebar';
     $(selector).sidebar({});
     $(selector).sidebar();
 }
-test_Sidebar();
 
-function test_Sticky() {
+function test_sticky() {
     const selector = '.ui.sticky';
     $(selector).sticky({});
     $(selector).sticky();
 }
-test_Sticky();
 
-function test_Tab() {
+function test_tab() {
     const selector = '.ui.tab';
     $(selector).tab({});
     $(selector).tab();
 }
-test_Tab();
 
-function test_Transition() {
+function test_transition() {
     const selector = '.ui.transition';
     $(selector).transition({});
     $(selector).transition();
 }
-test_Transition();
 
-function test_Api() {
+function test_api() {
     const selector = '.ui.api';
     $(selector).api({});
     $(selector).api();
 }
-test_Api();
 
-function test_Form() {
+function test_form() {
     const selector = '.ui.form';
     $(selector).form({});
     $(selector).form();
 }
-test_Form();
 
-function test_Visibility() {
+function test_form_specifyingValidationRules() {
+    $('.ui.form').form({
+        fields: {
+            name: 'empty',
+            gender: 'empty',
+            username: 'empty',
+            password: ['minLength[6]', 'empty'],
+            skills: ['minCount[2]', 'empty'],
+            terms: 'checked'
+        }
+    });
+
+    $('.ui.form').form({
+        fields: {
+            name: {
+                identifier: 'name',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Please enter your name'
+                }]
+            },
+            skills: {
+                identifier: 'skills',
+                rules: [{
+                    type: 'minCount[2]',
+                    prompt: 'Please select at least two skills'
+                }]
+            },
+            gender: {
+                identifier: 'gender',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Please select a gender'
+                }]
+            },
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Please enter a username'
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Please enter a password'
+                }, {
+                    type: 'minLength[6]',
+                    prompt: 'Your password must be at least {ruleValue} characters'
+                }]
+            },
+            terms: {
+                identifier: 'terms',
+                rules: [{
+                    type: 'checked',
+                    prompt: 'You must agree to the terms and conditions'
+                }]
+            }
+        }
+    });
+}
+
+function test_form_addCustomRule() {
+    const user = { adminLevel: 1 };
+    $.fn.form.settings.rules.adminLevel = (value: any, adminLevel: number) => {
+        return (user.adminLevel >= adminLevel);
+    };
+    $('.ui.form').form({
+        fields: {
+            dog: {
+                identifier: 'dog',
+                rules: [{
+                    type: 'adminLevel[2]',
+                    prompt: 'You must be at least a level-2 admin to add a dog'
+                }]
+            }
+        }
+    });
+}
+
+function test_visibility() {
     const selector = '.ui.visibility';
     $(selector).visibility({});
     $(selector).visibility();
 }
-test_Visibility();
+
+function test_settings() {
+    $.fn.accordion.settings.verbose = true;
+    $.fn.checkbox.settings.verbose = true;
+    $.fn.dimmer.settings.verbose = true;
+    $.fn.dropdown.settings.verbose = true;
+    $.fn.embed.settings.verbose = true;
+    $.fn.modal.settings.verbose = true;
+    $.fn.nag.settings.verbose = true;
+    $.fn.popup.settings.verbose = true;
+    $.fn.progress.settings.verbose = true;
+    $.fn.rating.settings.verbose = true;
+    $.fn.search.settings.verbose = true;
+    $.fn.shape.settings.verbose = true;
+    $.fn.sidebar.settings.verbose = true;
+    $.fn.sticky.settings.verbose = true;
+    $.fn.tab.settings.verbose = true;
+    $.fn.transition.settings.verbose = true;
+
+    $.fn.api.settings.verbose = true;
+    $.fn.form.settings.verbose = true;
+    $.fn.visibility.settings.verbose = true;
+}
+test_settings();

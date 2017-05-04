@@ -7,5 +7,5 @@ opener('./my-file.txt');
 opener('firefox');
 opener('npm run lint');
 
-var editor = opener('documentation.odt');
+const editor = opener('documentation.odt');
 editor.unref();

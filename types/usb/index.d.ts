@@ -81,7 +81,7 @@ export class InterfaceDescriptor {
   extra: Buffer;
 }
 
-interface Endpoint {
+export interface Endpoint {
   direction: string;
   transferType: number;
   timeout: number;

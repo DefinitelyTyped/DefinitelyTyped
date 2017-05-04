@@ -417,13 +417,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    dayClick(date, allDay, jsEvent, view) {
-        if (allDay) {
-            alert('Clicked on the entire day: ' + date);
-        } else {
-            alert('Clicked on the slot: ' + date);
-        }
-
+    dayClick(date, jsEvent, view) {
         alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 
         alert('Current view: ' + view.name);

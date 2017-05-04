@@ -13,11 +13,11 @@ export interface WriteOptions {
     flag?: string;
 }
 
-type JsonReplacerArray = Array<number | string>;
+export type JsonReplacerArray = Array<number | string>;
 
-type JsonReplacerFunction = (key: string, value: any) => any;
+export type JsonReplacerFunction = (key: string, value: any) => any;
 
-type JsonReplacer = JsonReplacerArray | JsonReplacerFunction;
+export type JsonReplacer = JsonReplacerArray | JsonReplacerFunction;
 
 export interface WriteJsonOptions extends WriteOptions {
     spaces?: number;
@@ -27,7 +27,7 @@ export interface WriteJsonOptions extends WriteOptions {
 export interface ReadJsonOptions {
     encoding: string;
     flag?: string;
-    reviver: (key: any, value: any) => any;
+    reviver(key: any, value: any): any;
 }
 
 export function copy(src: string, dst: string): Promise<void>;

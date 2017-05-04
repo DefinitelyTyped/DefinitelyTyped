@@ -23,8 +23,7 @@ export interface onChangeTabProperties {
 }
 
 export interface renderTabBarProperties {
-
-  goToPage: (pageNumber: number) => void;
+  goToPage(pageNumber: number): void;
 
   tabs: JSX.Element;
 
@@ -35,8 +34,7 @@ export interface renderTabBarProperties {
   containerWidth: number;
 }
 
-interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
-
+export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
   /**
    * tabBarPosition (String) Defaults to "top".
    * "bottom" to position the tab bar below content.
@@ -61,13 +59,13 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
    * an Object containing two keys: i: the index of the tab that is selected, ref: the ref of the
    * tab that is selected
    */
-  onChangeTab?: (value: onChangeTabProperties) => void;
+  onChangeTab?(value: onChangeTabProperties): void;
 
   /**
    * onScroll (Function) - function to call when the pages are sliding,
    * should accept 1 argument which is an Float number representing the page position in the slide frame.
    */
-  onScroll?: (value: number) => void;
+  onScroll?(value: number): void;
 
   /**
    * renderTabBar (Function:ReactComponent) - accept 1 argument props and should return a component
@@ -75,7 +73,7 @@ interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
    * and should implement setAnimationValue to be able to animate itself along with the tab content.
    * You can manually pass the props to the TabBar component.
    */
-  renderTabBar?: (value: JSX.Element) => JSX.Element;
+  renderTabBar?(value: JSX.Element): JSX.Element;
 
   /**
    * style (View.propTypes.style)

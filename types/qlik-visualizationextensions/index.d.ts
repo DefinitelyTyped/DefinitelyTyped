@@ -654,12 +654,12 @@ declare namespace BackendAPI {
 
     interface INxPatch {
         /**
-       * Operation to perform.
-       * One of:
-       *       # Add
-       *       # Remove
-       *       # Replace
-       */
+         * Operation to perform.
+         * One of:
+         *       # Add
+         *       # Remove
+         *       # Replace
+         */
         qOp: PatchType;
 
         /**
@@ -1182,7 +1182,7 @@ declare namespace AppAPI {
         field(field?: string, state?: string): FieldAPI.IQField;
 
         /**
-          * Step forward in list of selections.
+         * Step forward in list of selections.
          * @return {Promise} - A promise of a Qlik engine reply.
          */
         forward(): ng.IPromise<any>;
@@ -2178,7 +2178,7 @@ declare namespace VisualizationAPI {
          *       # treemap
          *       # extension
          * @param {array} [cols] - Optional. Column definitions, dimensions and measures.
-                  Each entry can be of the following structures:
+         *       Each entry can be of the following structures:
          *       # String
          *       # NxDimension
          *       # NxMeasure
@@ -2265,7 +2265,7 @@ declare namespace ExtensionAPI {
 
     interface IExtension {
         definition?: IDefinition;
-        paint?: ($element: HTMLElement, layout?: any) => void;
+        paint?($element: HTMLElement, layout?: any): void;
         initialProperties?: IInitialProperties;
         template?: string;
         controller?: any;
@@ -2481,14 +2481,14 @@ interface IQVAngular {
     filter(object: { [name: string]: ng.Injectable<Function> }): void;
 
     /**
-      * Register a service constructor, which will be invoked with new to create
-      * the service instance. This is short for registering a service where its
-      * provider's $get property is a factory function that returns an instance
-      * instantiated by the injector from the service constructor function.
-      * @param name The name of the instance.
-      * @param serviceConstructor An injectable class (constructor function) that will be instantiated.
-      * @return Returns the constructed singleton of the service class/function.
-      */
+     * Register a service constructor, which will be invoked with new to create
+     * the service instance. This is short for registering a service where its
+     * provider's $get property is a factory function that returns an instance
+     * instantiated by the injector from the service constructor function.
+     * @param name The name of the instance.
+     * @param serviceConstructor An injectable class (constructor function) that will be instantiated.
+     * @return Returns the constructed singleton of the service class/function.
+     */
     service<T>(name: string, serviceConstructor: ng.Injectable<Function>): T;
     service<T>(object: { [name: string]: ng.Injectable<Function> }): T;
 

@@ -1044,6 +1044,7 @@ interface SchedulerLocaleLabels {
 	confirm_deleting: string;
 	section_description: string;
 	section_time: string;
+	unit_tab: string;
 }
 
 interface SchedulerLocale {
@@ -1769,10 +1770,11 @@ interface SchedulerStatic {
 
 	/**
 	 * displays the specified view and date (doesn't invoke any events)
+	 * the function will just refresh the current view if invoked without parameters.
 	 * @param date the date to set
 	 * @param view the view name
 	*/
-	updateView(date: Date, view: string): void;
+	updateView(date?: Date, view?: string): void;
 
 }
 

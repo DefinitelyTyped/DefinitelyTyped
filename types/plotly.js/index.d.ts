@@ -6,277 +6,276 @@
 
 declare namespace Plots {
     interface StaticPlots {
-        resize: (root: Plotly.Root) => void
+        resize(root: Plotly.Root): void;
     }
 }
 
 declare namespace Plotly {
-    type Root = string | HTMLElement
+    type Root = string | HTMLElement;
 
     interface PlotlyStatic {
-        Plots: Plots.StaticPlots
-        newPlot: (root: Root, data: Partial<Data>[], layout?: Partial<Layout>, config?: Partial<Config>) => void
-        relayout: (root: Root, layout: Partial<Layout>) => void
-        redraw: (root: Root) => void
-        purge: (root: Root) => void
-        d3: any
+        Plots: Plots.StaticPlots;
+        newPlot(root: Root, data: Array<Partial<Data>>, layout?: Partial<Layout>, config?: Partial<Config>): void;
+        relayout(root: Root, layout: Partial<Layout>): void;
+        redraw(root: Root): void;
+        purge(root: Root): void;
+        d3: any;
     }
 
     // Layout
 
     interface Layout {
-        autosize: boolean
-        showlegend: boolean
-        xaxis: Partial<Axis>
-        yaxis: Partial<Axis>
-        margin: Partial<Margin>
-        height: number
-        width: number
-        hovermode: "closest" | "x" | "y" | false
-        'xaxis.range': [Datum, Datum]
-        'yaxis.range': [Datum, Datum]
-        'yaxis.type': AxisType
-        'xaxis.type': AxisType
-        'xaxis.autorange': boolean
-        'yaxis.autorange': boolean
-        shapes: Partial<Shape>[]
+        autosize: boolean;
+        showlegend: boolean;
+        xaxis: Partial<Axis>;
+        yaxis: Partial<Axis>;
+        margin: Partial<Margin>;
+        height: number;
+        width: number;
+        hovermode: "closest" | "x" | "y" | false;
+        'xaxis.range': [Datum, Datum];
+        'yaxis.range': [Datum, Datum];
+        'yaxis.type': AxisType;
+        'xaxis.type': AxisType;
+        'xaxis.autorange': boolean;
+        'yaxis.autorange': boolean;
+        shapes: Array<Partial<Shape>>;
     }
 
-    type AxisType = "date" | "log" | "linear"
+    type AxisType = "date" | "log" | "linear";
 
     interface Axis {
-        showgrid: boolean
-        fixedrange: boolean
-        rangemode: "tozero" | 'normal' | 'nonnegative'
-        type: AxisType
-        tickformat: string
-        hoverformat: string
-        rangeslider: Partial<RangeSlider>
-        rangeselector: Partial<RangeSelector>,
-        range: [Datum, Datum]
-        showticklabels: boolean
-        autotick: boolean
-        zeroline: boolean
-        autorange: boolean | 'reversed'
+        showgrid: boolean;
+        fixedrange: boolean;
+        rangemode: "tozero" | 'normal' | 'nonnegative';
+        type: AxisType;
+        tickformat: string;
+        hoverformat: string;
+        rangeslider: Partial<RangeSlider>;
+        rangeselector: Partial<RangeSelector>;
+        range: [Datum, Datum];
+        showticklabels: boolean;
+        autotick: boolean;
+        zeroline: boolean;
+        autorange: boolean | 'reversed';
     }
 
     interface ShapeLine {
-        color: string
-        width: number
-        dash: Dash
+        color: string;
+        width: number;
+        dash: Dash;
     }
 
     interface Shape {
-        visible: boolean
-        layer: 'below' | 'above'
-        type: 'rect' | 'circle' | 'line' | 'path'
-        path: string
+        visible: boolean;
+        layer: 'below' | 'above';
+        type: 'rect' | 'circle' | 'line' | 'path';
+        path: string;
         // x-reference is assigned to the x-values
-        xref: 'x' | 'paper'
+        xref: 'x' | 'paper';
         // y-reference is assigned to the plot paper [0,1]
-        yref: 'paper' | 'y'
-        x0: Datum
-        y0: Datum
-        x1: Datum
-        y1: Datum
-        fillcolor: string
-        opacity: number
-        line: Partial<ShapeLine>
+        yref: 'paper' | 'y';
+        x0: Datum;
+        y0: Datum;
+        x1: Datum;
+        y1: Datum;
+        fillcolor: string;
+        opacity: number;
+        line: Partial<ShapeLine>;
     }
 
     interface Margin {
-        t: number
-        b: number
-        l: number
-        r: number
+        t: number;
+        b: number;
+        l: number;
+        r: number;
     }
 
     type ModeBarButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
         'zoom2d' | 'pan2d' | 'zoomIn2d' | 'zoomOut2d' | 'autoScale2d' | 'resetScale2d' |
-        'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' | 
-        'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' | 
-        'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' | 
-        'hoverClosestPie' | 'toggleHover' | 'resetViews'
+        'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
+        'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
+        'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
+        'hoverClosestPie' | 'toggleHover' | 'resetViews';
 
     // Data
 
-    type Datum = string | number | Date
+    type Datum = string | number | Date;
 
-    type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot'
+    type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
-    type Data = ScatterData | BarData
+    type Data = ScatterData | BarData;
 
     // Bar
     interface BarData {
-        type: 'bar'
-        x: Datum[]
-        y: Datum[]
+        type: 'bar';
+        x: Datum[];
+        y: Datum[];
     }
 
     // Scatter
     interface ScatterData {
-        type: 'scatter' | 'scattergl'
-        x: Datum[]
-        y: Datum[]
-        text: string | string[]
-        line: Partial<ScatterLine>
-        marker: Partial<ScatterMarker>
-        mode: "lines" | "markers" | "text" | "lines+markers" | "text+markers" | "text+lines" | "text+lines+markers" | "none"
-        hoveron: "points" | "fills"
-        hoverinfo: "text"
-        fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext'
-        fillcolor: string
-        legendgroup: string
-        name: string
-        connectgaps: boolean
+        type: 'scatter' | 'scattergl';
+        x: Datum[];
+        y: Datum[];
+        text: string | string[];
+        line: Partial<ScatterLine>;
+        marker: Partial<ScatterMarker>;
+        mode: "lines" | "markers" | "text" | "lines+markers" | "text+markers" | "text+lines" | "text+lines+markers" | "none";
+        hoveron: "points" | "fills";
+        hoverinfo: "text";
+        fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
+        fillcolor: string;
+        legendgroup: string;
+        name: string;
+        connectgaps: boolean;
     }
 
     interface ScatterMarker {
-        symbol: "" //Drawing.symbolList
-        opacity: number
-        size: number
-        maxdisplayed: number
-        sizeref: number
-        sizemin: number
-        sizemode: "diameter" | "area"
-        showscale: boolean
-        line: {} //TODO
-        colorbar: {} //TODO
+        symbol: ""; // Drawing.symbolList
+        opacity: number;
+        size: number;
+        maxdisplayed: number;
+        sizeref: number;
+        sizemin: number;
+        sizemode: "diameter" | "area";
+        showscale: boolean;
+        line: {}; // TODO
+        colorbar: {}; // TODO
     }
 
     interface ScatterLine {
-        color: string
-        width: number
-        dash: Dash
-        shape: 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv'
-        smoothing: number
-        simplify: boolean
+        color: string;
+        width: number;
+        dash: Dash;
+        shape: 'linear' | 'spline' | 'hv' | 'vh' | 'hvh' | 'vhv';
+        smoothing: number;
+        simplify: boolean;
     }
 
     interface Font {
-        family: string
-        size: number
-        color: string
+        family: string;
+        size: number;
+        color: string;
     }
 
     interface Config {
         // no interactivity, for export or image generation
-        staticPlot: boolean
+        staticPlot: boolean;
 
         // we can edit titles, move annotations, etc
-        editable: boolean
+        editable: boolean;
 
         // DO autosize once regardless of layout.autosize
         // (use default width or height values otherwise)
-        autosizable: boolean
+        autosizable: boolean;
 
         // set the length of the undo/redo queue
-        queueLength: number
+        queueLength: number;
 
         // if we DO autosize, do we fill the container or the screen?
-        fillFrame: boolean
+        fillFrame: boolean;
 
         // if we DO autosize, set the frame margins in percents of plot size
-        frameMargins: number
+        frameMargins: number;
 
         // mousewheel or two-finger scroll zooms the plot
-        scrollZoom: boolean
+        scrollZoom: boolean;
 
         // double click interaction (false, 'reset', 'autosize' or 'reset+autosize')
-        doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false
+        doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
 
         // new users see some hints about interactivity
-        showTips: boolean
+        showTips: boolean;
 
         // link to open this plot in plotly
-        showLink: boolean
+        showLink: boolean;
 
         // if we show a link, does it contain data or just link to a plotly file?
-        sendData: boolean
+        sendData: boolean;
 
         // text appearing in the sendData link
-        linkText: string
+        linkText: string;
 
         // false or function adding source(s) to linkText <text>
-        showSources: boolean
+        showSources: boolean;
 
         // display the mode bar (true, false, or 'hover')
-        displayModeBar: 'hover' | boolean
+        displayModeBar: 'hover' | boolean;
 
         // remove mode bar button by name
         // (see ./components/modebar/buttons.js for the list of names)
-        modeBarButtonsToRemove: ModeBarButtons[],
+        modeBarButtonsToRemove: ModeBarButtons[];
 
         // add mode bar button using config objects
         // (see ./components/modebar/buttons.js for list of arguments)
-        modeBarButtonsToAdd: ModeBarButtons[],
+        modeBarButtonsToAdd: ModeBarButtons[];
 
         // fully custom mode bar buttons as nested array,
         // where the outer arrays represents button groups, and
         // the inner arrays have buttons config objects or names of default buttons
         // (see ./components/modebar/buttons.js for more info)
-        modeBarButtons: boolean
+        modeBarButtons: boolean;
 
         // add the plotly logo on the end of the mode bar
-        displaylogo: boolean
+        displaylogo: boolean;
 
         // increase the pixel ratio for Gl plot images
-        plotGlPixelRatio: number
+        plotGlPixelRatio: number;
 
         // function to add the background color to a different container
         // or 'opaque' to ensure there's white behind it
-        setBackground: string | 'opaque'
+        setBackground: string | 'opaque';
 
         // URL to topojson files used in geo charts
-        topojsonURL: string
+        topojsonURL: string;
 
         // Mapbox access token (required to plot mapbox trace types)
         // If using an Mapbox Atlas server, set this option to '',
         // so that plotly.js won't attempt to authenticate to the public Mapbox server.
-        mapboxAccessToken: string
+        mapboxAccessToken: string;
 
         // Turn all console logging on or off (errors will be thrown)
         // This should ONLY be set via Plotly.setPlotConfig
-        logging: boolean
+        logging: boolean;
 
         // Set global transform to be applied to all traces with no
         // specification needed
-        globalTransforms: any[]
-
+        globalTransforms: any[];
     }
 
     // Components
 
     interface RangeSlider {
-        visible: boolean
-        thickness: number
-        range: [Datum, Datum]
-        borderwidth: number
-        bordercolor: string
-        bgcolor: string
+        visible: boolean;
+        thickness: number;
+        range: [Datum, Datum];
+        borderwidth: number;
+        bordercolor: string;
+        bgcolor: string;
     }
 
     interface RangeSelectorButton {
-        step: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'all'
-        stepmode: 'backward' | 'todate'
-        count: number
-        label: string
+        step: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | 'all';
+        stepmode: 'backward' | 'todate';
+        count: number;
+        label: string;
     }
 
     interface RangeSelector {
-        buttons: Partial<RangeSelectorButton>[]
-        visible: boolean
-        x: number
-        xanchor: 'auto' | 'left' | 'center' | 'right'
-        y: number
-        yanchor: 'auto' | 'top' | 'middle' | 'bottom'
-        bgcolor: string
-        activecolor: string
-        bordercolor: string
-        borderwidth: number
-        font: Partial<Font>
+        buttons: Array<Partial<RangeSelectorButton>>;
+        visible: boolean;
+        x: number;
+        xanchor: 'auto' | 'left' | 'center' | 'right';
+        y: number;
+        yanchor: 'auto' | 'top' | 'middle' | 'bottom';
+        bgcolor: string;
+        activecolor: string;
+        bordercolor: string;
+        borderwidth: number;
+        font: Partial<Font>;
     }
 }
 
-declare var Plotly: Plotly.PlotlyStatic
-export = Plotly
+declare var Plotly: Plotly.PlotlyStatic;
+export = Plotly;

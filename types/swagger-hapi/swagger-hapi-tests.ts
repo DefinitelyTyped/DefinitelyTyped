@@ -1,18 +1,18 @@
 import * as SwaggerHapi from "swagger-hapi";
 import * as Hapi from "hapi";
 
-var app = new Hapi.Server();
+const app = new Hapi.Server();
 
 module.exports = app; // for testing
 
-var config = {
+const config: SwaggerHapi.Config = {
   appRoot: __dirname // required config
-} as SwaggerHapi.Config;
+};
 
 SwaggerHapi.create(config, (err, swaggerHapi) => {
   if (err) { throw err; }
 
-  var port = process.env.PORT || 10010;
+  const port = process.env.PORT || 10010;
   app.connection({ port });
   // app.address = function() {
   //   return { port };
@@ -28,24 +28,22 @@ SwaggerHapi.create(config, (err, swaggerHapi) => {
   });
 });
 
-
 const swaggerSecurityHandlerCb = (err: Error) => {
-    // do nothing
+  // do nothing
 };
 
-
 const configComplex: SwaggerHapi.Config = {
-    appRoot: __dirname,
-    configDir: "some/directory",
-    controllersDirs: ["some/directory"],
-    fittingsDirs: ["some/directory"],
-    mockMode: true,
-    swaggerControllerPipe: 'swagger_controllers',
-    swaggerSecurityHandlers: {
-        // did not manage to research the typings of first 3 arguments
-        someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
-            // do nothing
-        }
-    },
-    validateResponse: true
+  appRoot: __dirname,
+  configDir: "some/directory",
+  controllersDirs: ["some/directory"],
+  fittingsDirs: ["some/directory"],
+  mockMode: true,
+  swaggerControllerPipe: 'swagger_controllers',
+  swaggerSecurityHandlers: {
+    // did not manage to research the typings of first 3 arguments
+    someHandlerName: ({ }, { }, { }, swaggerSecurityHandlerCb) => {
+      // do nothing
+    }
+  },
+  validateResponse: true
 };

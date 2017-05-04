@@ -5,7 +5,7 @@
 
 import { StorageAdapter } from "redux-localstorage";
 
-interface DebounceOptions {
+export interface DebounceOptions {
     maxWait?: number;
     [key: string]: any;
 }

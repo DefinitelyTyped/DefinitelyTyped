@@ -60,7 +60,7 @@ declare class Nedb {
      * If one update violates a constraint, all changes are rolled back
      */
     updateIndexes<T>(oldDoc: T, newDoc: T): void;
-    updateIndexes<T>(updates: Array<{oldDoc: T; newDoc: T}>): void;
+    updateIndexes<T>(updates: Array<{ oldDoc: T; newDoc: T }>): void;
 
     /**
      * Return the list of candidates for a given query
@@ -181,11 +181,11 @@ declare namespace Nedb {
         nodeWebkitAppName?: boolean; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
         autoload?: boolean; // Optional, defaults to false
         // Optional, if autoload is used this will be called after the load database with the error object as parameter. If you don't pass it the error will be thrown
-        onload?: (error: Error) => any;
+        onload?(error: Error): any;
         // (optional): hook you can use to transform data after it was serialized and before it is written to disk.
         // Can be used for example to encrypt data before writing database to disk.
         // This function takes a string as parameter (one line of an NeDB data file) and outputs the transformed string, which must absolutely not contain a \n character (or data will be lost)
-        afterSerialization?: (line: string) => string;
+        afterSerialization?(line: string): string;
         // (optional): reverse of afterSerialization.
         // Make sure to include both and not just one or you risk data loss.
         // For the same reason, make sure both functions are inverses of one another.
@@ -193,7 +193,7 @@ declare namespace Nedb {
         // NeDB checks that never one is declared without the other, and checks that they are reverse of one another by testing on random strings of various lengths.
         // In addition, if too much data is detected as corrupt,
         // NeDB will refuse to start as it could mean you're not using the deserialization hook corresponding to the serialization hook used before (see below)
-        beforeDeserialization?: (line: string) => string;
+        beforeDeserialization?(line: string): string;
         // (optional): between 0 and 1, defaults to 10%. NeDB will refuse to start if more than this percentage of the datafile is corrupt.
         // 0 means you don't tolerate any corruption, 1 means you don't care
         corruptAlertThreshold?: number;

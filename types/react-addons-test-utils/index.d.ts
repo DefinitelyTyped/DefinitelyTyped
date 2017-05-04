@@ -91,11 +91,13 @@ declare namespace TestUtils {
         export var dragOver: EventSimulator;
         export var dragStart: EventSimulator;
         export var drop: EventSimulator;
+        export var error: EventSimulator;
         export var focus: EventSimulator;
         export var input: EventSimulator;
         export var keyDown: EventSimulator;
         export var keyPress: EventSimulator;
         export var keyUp: EventSimulator;
+        export var load: EventSimulator;
         export var mouseDown: EventSimulator;
         export var mouseEnter: EventSimulator;
         export var mouseLeave: EventSimulator;

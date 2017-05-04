@@ -1,6 +1,5 @@
 import * as RNFS from 'react-native-fs';
 
-
 // get a list of files and directories in the main bundle
 RNFS.readDir(RNFS.MainBundlePath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
   .then((result) => {
@@ -26,7 +25,7 @@ RNFS.readDir(RNFS.MainBundlePath) // On Android, use "RNFS.DocumentDirectoryPath
   });
 
 // create a path you want to write to
-var path = RNFS.DocumentDirectoryPath + '/test.txt';
+const path = RNFS.DocumentDirectoryPath + '/test.txt';
 
 // write the file
 RNFS.writeFile(path, 'Lorem ipsum dolor sit amet', 'utf8')
@@ -46,9 +45,9 @@ RNFS.unlink('path')
     console.log(err.message);
   });
 
-var uploadUrl = 'http://requestb.in/XXXXXXX';  // For testing purposes, go to http://requestb.in/ and create your own link
+const uploadUrl = 'http://requestb.in/XXXXXXX';  // For testing purposes, go to http://requestb.in/ and create your own link
 // create an array of objects of the files you want to upload
-var files = [
+const files = [
   {
     name: 'test1',
     filename: 'test1.w4a',
@@ -62,13 +61,13 @@ var files = [
   }
 ];
 
-var uploadBegin: RNFS.UploadCallbackBegin = (response) => {
-  var jobId = response.jobId;
+const uploadBegin: RNFS.UploadCallbackBegin = (response) => {
+  const jobId = response.jobId;
   console.log('UPLOAD HAS BEGUN! JobId: ' + jobId);
 };
 
-var uploadProgress: RNFS.UploadCallbackProgress = (response) => {
-  var percentage = Math.floor((response.totalBytesSent / response.totalBytesExpectedToSend) * 100);
+const uploadProgress: RNFS.UploadCallbackProgress = (response) => {
+  const percentage = Math.floor((response.totalBytesSent / response.totalBytesExpectedToSend) * 100);
   console.log('UPLOAD IS ' + percentage + '% DONE!');
 };
 
@@ -99,13 +98,13 @@ RNFS.uploadFiles({
     console.log(err);
   });
 
-var downloadProgress: RNFS.DownloadCallbackProgress = (result) => {
+const downloadProgress: RNFS.DownloadCallbackProgress = (result) => {
   result.bytesWritten === 0;
   result.contentLength > 10;
   result.jobId;
 };
 
-var downloadBegin: RNFS.DownloadCallbackBegin = (result) => {
+const downloadBegin: RNFS.DownloadCallbackBegin = (result) => {
   result.headers === {};
 };
 

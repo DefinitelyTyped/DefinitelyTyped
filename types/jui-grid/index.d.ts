@@ -3,16 +3,16 @@
 // Definitions by: Jin-Ho Park <https://github.com/easylogic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {UIEvent} from 'jui-core';
+import { UIEvent } from 'jui-core';
 
 export interface GridColumn {
-    (index: number|string): this;
+    (index: number | string): this;
 
     /** @property {HTMLElement} [element=null] TH element of a specified column */
     element: any;
 
     /** @property {String} [order="asc"] Column sort state */
-    order: "asc"|"desc";
+    order: "asc" | "desc";
 
     /** @property {String} [name=null] Column name */
     name?: string;
@@ -27,7 +27,7 @@ export interface GridColumn {
     index: number;
 
     /** @property {"show"/"hide"/"resize"} [type="show"] The current column state */
-    type: "show"|"hide"|"resize";
+    type: "show" | "hide" | "resize";
 
     /** @property {Integer} [width=null] Column width */
     width?: number;
@@ -47,7 +47,7 @@ export interface GridRow {
     rownum?: number;
 
     /** @property {String/Integer} [index=null] Index of a specified row. In the case of a tree structure, a depth is given. */
-    index: number|string;
+    index: number | string;
 
     /** @property {HTMLElement} [element=null] TR element of a specified row. */
     element: any;
@@ -68,12 +68,12 @@ export interface GridRow {
     depth: number;
 
     /** @property {"open"/"fold"} [type="fold"] State value that indicates whether a child row is shown or hidden. */
-    type: "open"|"fold";
+    type: "open" | "fold";
 
     /** @property {Function} [type="null"] State value that indicates whether a child row is shown or hidden. */
-    tpl?: () => void;
+    tpl?(): void;
 
-    setIndex(rownum: number|string): void;
+    setIndex(rownum: number | string): void;
     reload(columns: GridColumn[], seq: any, xssFilter: any): void;
     destroy(): void;
     isLeaf(): boolean;
@@ -81,37 +81,37 @@ export interface GridRow {
     open(): void;
     appendChild(row: GridRow): void;
     insertChild(rownum: number, row: GridRow, isReload?: any): void;
-    removeChild(index: number|string): void;
+    removeChild(index: number | string): void;
     lastChild(): GridRow;
-    lastChildLeaf(lastRow: GridRow): GridRow|any;
+    lastChildLeaf(lastRow: GridRow): GridRow | any;
     showCell(index: number): void;
     hideCell(index: number): void;
 }
 
 export interface GridBase {
-    appendRow(index: number|string, data?: {}): GridRow;
-    insertRow(index: number|string, data: {}): GridRow;
-    updateRow(index: number|string, data: {}): GridRow;
-    moveRow(index: number|string, targetIndex: number|string): void;
-    removeRow(index: number|string): void;
-    openRow(index: number|string): void;
+    appendRow(index: number | string, data?: {}): GridRow;
+    insertRow(index: number | string, data: {}): GridRow;
+    updateRow(index: number | string, data: {}): GridRow;
+    moveRow(index: number | string, targetIndex: number | string): void;
+    removeRow(index: number | string): void;
+    openRow(index: number | string): void;
     openRowAll(): void;
-    foldRow(index: number|string): void;
+    foldRow(index: number | string): void;
     foldRowAll(): void;
     removeRows(): void;
     sortRows(name: string, isDesc: boolean): void;
     appendColumn(tplType: string, dataList: any[]): void;
-    removeColumn(index: number|string): void;
-    hideColumn(index: number|string): void;
-    showColumn(index: number|string): void;
+    removeColumn(index: number | string): void;
+    hideColumn(index: number | string): void;
+    showColumn(index: number | string): void;
     getColumnCount(): number;
     getRowCount(): number;
-    getColumn(index?: number|string): GridColumn|GridColumn[];
-    getRow(index?: number|string): GridRow|GridRow[];
-    getRowAll(index: number|string): GridRow[];
-    getRowParent(index: number|string): GridRow;
-    setColumn(index: number|string, column: GridColumn): void;
-    setRow(index: number|string, row: GridRow): void;
+    getColumn(index?: number | string): GridColumn | GridColumn[];
+    getRow(index?: number | string): GridRow | GridRow[];
+    getRowAll(index: number | string): GridRow[];
+    getRowParent(index: number | string): GridRow;
+    setColumn(index: number | string, column: GridColumn): void;
+    setRow(index: number | string, row: GridRow): void;
 }
 
 export interface GridTable extends UIEvent {
@@ -153,7 +153,7 @@ export interface GridTable extends UIEvent {
          * @cfg {Boolean/Array} [colshow=false]
          * Sets a column index shown when the Show/Hide Column menu is enabled.
          */
-        colshow?: boolean|any[],
+        colshow?: boolean | any[],
 
         /**
          * @cfg {Boolean} [scroll=false]
@@ -189,7 +189,7 @@ export interface GridTable extends UIEvent {
          * @cfg {Boolean|Array} [editRow=false]
          * Determines whether to use a modified row area.
          */
-        editRow?: boolean|any[],
+        editRow?: boolean | any[],
 
         /**
          * @cfg {Boolean} [editEvent=true]
@@ -207,7 +207,7 @@ export interface GridTable extends UIEvent {
          * @cfg {Boolean/Array} [sort=false]
          * Determines whether to use the table sort function.
          */
-        sort?: boolean|any[],
+        sort?: boolean | any[],
 
         /**
          * @cfg {Integer} [sortIndex=null]
@@ -219,7 +219,7 @@ export interface GridTable extends UIEvent {
          * @cfg {String} [sortOrder="asc"]
          * Determines whether to use the table sort function.
          */
-        sortOrder?: "asc"|"desc",
+        sortOrder?: "asc" | "desc",
 
         /**
          * @cfg {Boolean} [sortEvent=true]
@@ -242,7 +242,7 @@ export interface GridTable extends UIEvent {
      *
      * @param {Array} rows
      */
-     update(indexOrRows?: any, rows?: any): void;
+    update(indexOrRows?: any, rows?: any): void;
     /**
      * @method updateTree
      * It is possible to configure a tree table using an object array with the index and data properties.
@@ -257,7 +257,7 @@ export interface GridTable extends UIEvent {
      *
      * @param {RowObject} row
      */
-    append(rowOrIndex?: number|any, row?: any): void;
+    append(rowOrIndex?: number | any, row?: any): void;
 
     /**
      * @method insert
@@ -468,7 +468,7 @@ export interface GridTable extends UIEvent {
      * @param {"Integer"/"String"} key index or column key
      * @return {ColumnObject} column
      */
-    getColumn(index: number|string): GridColumn;
+    getColumn(index: number | string): GridColumn;
 
     /**
      * @method showColumn
@@ -476,7 +476,7 @@ export interface GridTable extends UIEvent {
      *
      * @param {"Integer"/"String"} key index or column name
      */
-    showColumn(index: number|string, e?: any): void;
+    showColumn(index: number | string, e?: any): void;
 
     /**
      * @method hideColumn
@@ -484,7 +484,7 @@ export interface GridTable extends UIEvent {
      *
      * @param {"Integer"/"String"} key index or column name
      */
-    hideColumn(index: number|string, e?: any): void;
+    hideColumn(index: number | string, e?: any): void;
 
     /**
      * @method initColumns
@@ -662,7 +662,7 @@ export interface GridXTable extends UIEvent {
      *
      * @param {Integer} index
      */
-    open(index: number|string): void;
+    open(index: number | string): void;
 
     /**
      * @method fold
@@ -670,19 +670,19 @@ export interface GridXTable extends UIEvent {
      *
      * @param {Integer} index
      */
-    fold(index: number|string): void;
+    fold(index: number | string): void;
 
     /**
      * @method openAll
      * Shows all child rows of a specified index.
      */
-    openAll(index: number|string): void;
+    openAll(index: number | string): void;
 
     /**
      * @method foldAll
      * Hides all child rows of a specified index.
      */
-    foldAll(index: number|string): void;
+    foldAll(index: number | string): void;
 
     /**
      * @method next
@@ -705,7 +705,7 @@ export interface GridXTable extends UIEvent {
      * @param {Integer} index
      * @param {String} order  "asc" or "desc"
      */
-    sort(index: number, order: "asc"|"desc", e?: any, isNotLoading?: any): void;
+    sort(index: number, order: "asc" | "desc", e?: any, isNotLoading?: any): void;
 
     /**
      * @method filter
@@ -762,7 +762,7 @@ export interface GridXTable extends UIEvent {
      * @param {Integer|String} index
      * @param {Integer} dist
      */
-    scrollTop(index: number|string, dist: number): void;
+    scrollTop(index: number | string, dist: number): void;
 
     /**
      * @deprecated
@@ -831,7 +831,7 @@ export interface GridXTable extends UIEvent {
      * @param {"Integer"/"String"} key index or column key
      * @return {ColumnObject} column
      */
-    getColumn(index: number|string): GridColumn;
+    getColumn(index: number | string): GridColumn;
 
     /**
      * @method getData
@@ -840,7 +840,7 @@ export interface GridXTable extends UIEvent {
      * @param {"Integer"/"String"} key index
      * @return {ColumnObject} data
      */
-    getData(index: number|string): any;
+    getData(index: number | string): any;
 
     /**
      * @method showColumn
@@ -848,7 +848,7 @@ export interface GridXTable extends UIEvent {
      *
      * @param {"Integer"/"String"} key index or column name
      */
-    showColumn(index: number|string): void;
+    showColumn(index: number | string): void;
 
     /**
      * @method hideColumn
@@ -856,7 +856,7 @@ export interface GridXTable extends UIEvent {
      *
      * @param {"Integer"/"String"} key index or column name
      */
-    hideColumn(index: number|string): void;
+    hideColumn(index: number | string): void;
 
     /**
      * @method initColumns
@@ -864,7 +864,7 @@ export interface GridXTable extends UIEvent {
      *
      * @param {"Integer"/"String"} key index or column name
      */
-    initColumns(keys: number|string): void;
+    initColumns(keys: number | string): void;
 
     /**
      * @method showColumnMenu
@@ -973,7 +973,7 @@ export interface GridXTable extends UIEvent {
      * @param {Integer} columnIndex
      * @param {Function} callback
      */
-    rowFunc(type: "sum"|"avg", index: number, callback: (data: any) => void): any;
+    rowFunc(type: "sum" | "avg", index: number, callback: (data: any) => void): any;
 
     /**
      * @method getPage

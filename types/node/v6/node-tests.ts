@@ -24,6 +24,7 @@ import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
 import * as repl from "repl";
+import * as dns from "dns";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -446,7 +447,7 @@ function stream_readable_pipe_test() {
 
     assert(typeof r.bytesRead === 'number');
     assert(typeof r.path === 'string');
-    assert(typeof rs.path === 'Buffer');
+    assert(rs.path instanceof Buffer);
 
     r.pipe(z).pipe(w);
 
@@ -2037,6 +2038,59 @@ namespace repl_tests {
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
     }
+}
+
+///////////////////////////////////////////////////
+/// DNS Tests : https://nodejs.org/api/dns.html ///
+///////////////////////////////////////////////////
+
+namespace dns_tests {
+    dns.lookup("nodejs.org", (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 4, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 6, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", {}, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup(
+        "nodejs.org",
+        {
+            family: 4,
+            hints: dns.ADDRCONFIG | dns.V4MAPPED,
+            all: false
+        },
+        (err, address, family) => {
+            const _err: NodeJS.ErrnoException = err;
+            const _address: string = address;
+            const _family: number = family;
+        }
+    );
+    dns.lookup("nodejs.org", {all: true}, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
+
+    function trueOrFalse(): boolean {
+        return Math.random() > 0.5 ? true : false;
+    }
+    dns.lookup("nodejs.org", {all: trueOrFalse()}, (err, addresses, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _addresses: string | dns.LookupAddress[] = addresses;
+        const _family: number | undefined = family;
+    });
 }
 
 /*****************************************************************************

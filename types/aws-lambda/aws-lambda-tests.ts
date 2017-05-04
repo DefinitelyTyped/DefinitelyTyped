@@ -5,12 +5,17 @@ var num: number = 5;
 var error: Error = new Error();
 var b: boolean = true;
 var apiGwEvt: AWSLambda.APIGatewayEvent;
+var customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 var clientCtx: AWSLambda.ClientContext;
 var clientContextEnv: AWSLambda.ClientContextEnv;
 var clientContextClient: AWSLambda.ClientContextClient;
 var context: AWSLambda.Context;
 var identity: AWSLambda.CognitoIdentity;
 var proxyResult: AWSLambda.ProxyResult;
+var authResponse: AWSLambda.AuthResponse;
+var policyDocument: AWSLambda.PolicyDocument;
+var statement: AWSLambda.Statement;
+var authResponseContext: AWSLambda.AuthResponseContext;
 var snsEvt: AWSLambda.SNSEvent;
 var snsEvtRecs: AWSLambda.SNSEventRecord[];
 var snsEvtRec: AWSLambda.SNSEventRecord;
@@ -87,6 +92,11 @@ str = apiGwEvt.requestContext.resourceId;
 str = apiGwEvt.requestContext.resourcePath;
 str = apiGwEvt.resource;
 
+/* API Gateway CustomAuthorizer Event */
+str = customAuthorizerEvt.type;
+str = customAuthorizerEvt.authorizationToken;
+str = customAuthorizerEvt.methodArn;
+
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;
 
@@ -118,6 +128,41 @@ proxyResult.headers["example"] = str;
 proxyResult.headers["example"] = b;
 proxyResult.headers["example"] = num;
 str = proxyResult.body;
+
+/* API Gateway CustomAuthorizer AuthResponse */
+authResponseContext = {
+    stringKey: str,
+    numberKey: num,
+    booleanKey: b
+};
+
+statement = {
+    Action: str,
+    Effect: str,
+    Resource: str
+};
+
+statement = {
+    Action: [str, str],
+    Effect: str,
+    Resource: [str, str]
+};
+
+policyDocument = {
+    Version: str,
+    Statement: [statement]
+};
+
+authResponse = {
+    principalId: str,
+    policyDocument: policyDocument,
+    context: authResponseContext
+};
+
+authResponse = {
+    principalId: str,
+    policyDocument: policyDocument
+};
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
@@ -170,6 +215,14 @@ function proxyCallback(cb: AWSLambda.ProxyCallback) {
     cb(null, proxyResult);
 }
 
+/* CustomAuthorizerCallback */
+function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
+    cb();
+    cb(null);
+    cb(error);
+    cb(null, authResponse);
+}
+
 /* Compatibility functions */
 context.done();
 context.done(error);
@@ -183,3 +236,4 @@ context.fail(str);
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+let CustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
