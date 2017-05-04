@@ -965,9 +965,9 @@ type Pair = KeyValuePair<string, number>
 }
 
 () => {
-    const a: any[][] = R.transpose([[1, 'a'], [2, 'b'], [3, 'c']]) //=> [[1, 2, 3], ['a', 'b', 'c']]
-    const b: any[][] = R.transpose([[1, 2, 3], ['a', 'b', 'c']]) //=> [[1, 'a'], [2, 'b'], [3, 'c']]
-    const c: any[][] = R.transpose([[10, 11], [20], [], [30, 31, 32]]) //=> [[10, 20, 30], [11, 31], [32]]
+    const a: (number | string)[][] = R.transpose<number | string>([[1, 'a'], [2, 'b'], [3, 'c']]) //=> [[1, 2, 3], ['a', 'b', 'c']]
+    const b: (number | string)[][] = R.transpose<number | string>([[1, 2, 3], ['a', 'b', 'c']]) //=> [[1, 'a'], [2, 'b'], [3, 'c']]
+    const c: number[][] = R.transpose([[10, 11], [20], [], [30, 31, 32]]) //=> [[10, 20, 30], [11, 31], [32]]
 }
 
 () => {
@@ -1024,9 +1024,10 @@ type Pair = KeyValuePair<string, number>
  * Object category
  */
 () => {
-    const a = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    const b = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    const c = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    type ABC = {a: number, b: number, c: number}
+    const a: ABC = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const b: ABC = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const c: ABC = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 }
 
 () => {
@@ -1296,12 +1297,15 @@ class Rectangle {
 }
 
 () => {
-    var matchPhrases = R.compose(
-    R.objOf('must'),
-    R.map(R.objOf('match_phrase'))
-)
+    const matchPhrases = (xs: string[]) => R.objOf('must',
+        R.map(
+            (x: string) => R.objOf('match_phrase', x),
+            xs
+        )
+    )
 
-matchPhrases(['foo', 'bar', 'baz']);
+    const out: {must: Array<{match_phrase: string}>} =
+        matchPhrases(['foo', 'bar', 'baz']);
 }
 () => {
     R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}

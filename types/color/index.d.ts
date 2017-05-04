@@ -85,6 +85,7 @@ declare namespace Color {
         opaquer(value: number): Color;
         rotate(value: number): Color;
         mix(color: Color, value?: number): Color;
+        hsl(): Color;
     }
 }
 

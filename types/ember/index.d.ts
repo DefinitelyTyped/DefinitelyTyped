@@ -548,9 +548,9 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '@each': EachProxy;
+        '@each': EachProxy;
         Boolean: boolean;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -630,8 +630,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-    '[]': any[];
-    '@each': EachProxy;
+        '[]': any[];
+        '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1030,7 +1030,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1137,7 +1137,7 @@ declare namespace Ember {
        service(name?: string): Service;
     };
     class Helper extends Object {
-      static helper( h: (a: any) => any): Helper;
+      static helper( h: (params: any, hash?: any) => any): Helper;
       compute(params: any[], hash: any): any;
       recompute(params: any[], hash: any): any;
     }
@@ -1291,7 +1291,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
