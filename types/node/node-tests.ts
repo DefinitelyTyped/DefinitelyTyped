@@ -2186,7 +2186,7 @@ namespace dns_tests {
     dns.resolve("nodejs.org", "A", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
-    dns.resolve("nodejs.org", "AAA", (err, addresses) => {
+    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
     dns.resolve("nodejs.org", "MX", (err, addresses) => {
