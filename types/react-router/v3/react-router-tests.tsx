@@ -33,10 +33,7 @@ interface CustomHistory {
 type CombinedHistory = History & CustomHistory;
 
 function createCustomHistory(history: History): CombinedHistory {
-	return {
-		...history,
-		test() { }
-	} as CombinedHistory;
+	return Object.assign(history, { test() { } });
 }
 const customHistory = createCustomHistory(browserHistory);
 
