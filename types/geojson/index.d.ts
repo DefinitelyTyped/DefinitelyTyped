@@ -92,7 +92,7 @@ export interface GeometryCollection extends GeoJsonObject {
 export interface Feature<T extends GeometryObject> extends GeoJsonObject {
     type: 'Feature';
     geometry: T;
-    properties: {} | null;
+    properties: {[name: string]: any} | null;
     id?: string;
 }
 
