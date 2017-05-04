@@ -45,7 +45,7 @@ const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: number[], mi
 };
 
 let thresholdGenerator: ThresholdArrayGenerator<number> | ThresholdCountGenerator;
-let pathStringMaybe: string | undefined;
+let pathStringMaybe: string | null;
 let num: number;
 
 const pathSolo = geoPath<any, d3Contour.ContourMultiPolygon>();
