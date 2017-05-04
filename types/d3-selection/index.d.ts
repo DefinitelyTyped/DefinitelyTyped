@@ -159,7 +159,7 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<
  * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
  * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
  */
-interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
     // Sub-selection -------------------------
 
     /**
@@ -552,17 +552,17 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      */
     filter(selector: string): Selection<GElement, Datum, PElement, PDatum>;
     /**
-    * Filters the selection, returning a new selection that contains only the elements for
-    * which the specified filter is true.
-    *
-    * The returned filtered selection preserves the parents of this selection, but like array.filter,
-    * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
-    *
-    * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
-    * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
-    *
-    * @param selector A CSS selector string to match when filtering.
-    */
+     * Filters the selection, returning a new selection that contains only the elements for
+     * which the specified filter is true.
+     *
+     * The returned filtered selection preserves the parents of this selection, but like array.filter,
+     * it does not preserve indexes as some elements may be removed; use selection.select to preserve the index, if needed.
+     *
+     * The generic refers to the type of element which will be selected after applying the filter, i.e. if the element types
+     * contained in a pre-filter selection are narrowed to a subset as part of the filtering.
+     *
+     * @param selector A CSS selector string to match when filtering.
+     */
     filter<FilteredElement extends BaseType>(selector: string): Selection<FilteredElement, Datum, PElement, PDatum>;
     /**
      * Filter the selection, returning a new selection that contains only the elements for
@@ -852,7 +852,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
  * Selects the root element, document.documentElement. This function can also be used to test for selections
  * (instanceof d3.selection) or to extend the selection prototype.
  */
-type SelectionFn = () => Selection<HTMLElement, any, null, undefined>;
+export type SelectionFn = () => Selection<HTMLElement, any, null, undefined>;
 
 /**
  * Selects the root element, document.documentElement. This function can also be used to test for selections
@@ -867,7 +867,7 @@ export const selection: SelectionFn;
 /**
  * A D3 Base Event
  */
-interface BaseEvent {
+export interface BaseEvent {
     /**
      * Event type
      */

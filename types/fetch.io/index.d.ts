@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-type TUrl = string;
+export type TUrl = string;
 
-type TMethod = 'delete' | 'get' | 'head' | 'options' | 'post' | 'put';
+export type TMethod = 'delete' | 'get' | 'head' | 'options' | 'post' | 'put';
 
-interface Query {
+export interface Query {
   [key: string]: number | boolean | string;
 }
 
-interface Header {
+export interface Header {
   [key: string]: string;
 }
 
-interface Options extends RequestInit {
+export interface Options extends RequestInit {
   prefix?: string;
 
   query?: Query;
@@ -30,7 +30,7 @@ interface Options extends RequestInit {
   afterJSON?(body: any): void;
 }
 
-declare class Request {
+export class Request {
   constructor(method: TMethod, url: TUrl, options: Options)
 
   /**
@@ -66,51 +66,51 @@ declare class Request {
   /**
    * Set Options
    */
-  config(key: string, value: any): this
+  config(key: string, value: any): this;
 
-  config(opts: {[key: string]: any}): this
+  config(opts: {[key: string]: any}): this;
 
   /**
    * Set Header
    */
-  set(key: string, value: any): this
+  set(key: string, value: any): this;
 
-  set(opts: {[key: string]: any}): this
+  set(opts: {[key: string]: any}): this;
 
   /**
    * Set Content-Type
    */
-  type(type: 'json' | 'form' | 'urlencoded'): this
+  type(type: 'json' | 'form' | 'urlencoded'): this;
 
   /**
    * Add query string
    */
-  query(object: {[key: string]: any}): this
+  query(object: {[key: string]: any}): this;
 
   /**
    * Send data
    */
-  send(data: {[key: string]: any}): this
+  send(data: {[key: string]: any}): this;
 
   /**
    * ppend formData
    */
-  append(key: string, value: string): this
+  append(key: string, value: string): this;
 
   /**
    * Get Response directly
    */
-  then(resolve: (value?: Response) => void, reject?: (reason?: any) => void): Promise<any>
+  then(resolve: (value?: Response) => void, reject?: (reason?: any) => void): Promise<any>;
 
   /**
    * Make Response to JSON
    */
-  json(strict?: boolean): Promise<any>
+  json(strict?: boolean): Promise<any>;
 
   /**
    * Make Response to string
    */
-  text(): Promise<string>
+  text(): Promise<string>;
 }
 
 export default class Fetch extends Request {

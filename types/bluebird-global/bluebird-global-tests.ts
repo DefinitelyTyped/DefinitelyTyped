@@ -7,7 +7,6 @@ function testSomeStaticMethods() {
 function testFunctionReturningPromise() {
     function functionReturningPromise(): Promise<string> {
         return new Promise<string>((resolve, reject, onCancel) => {
-
             if (onCancel) {
                 onCancel(() => {
                     console.log("onCancel cleanup");
@@ -40,5 +39,4 @@ function testPromiseRejection() {
         .then((value) => {
             return value.toUpperCase();
         });
-
 }

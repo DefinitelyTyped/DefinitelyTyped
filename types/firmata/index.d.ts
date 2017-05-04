@@ -16,7 +16,7 @@ export = Board;
  * guarantee that it cannot be improved.
  */
 declare class Board extends NodeJS.EventEmitter {
-	constructor(serialPort: string, callback?: (error: any) => void)
+	constructor(serialPort: string, optionsOrCallback?: Board.Options|((error: any) => void), callback?: (error: any) => void)
 	MODES: Board.PinModes;
 	STEPPER: Board.StepperConstants;
 	I2C_MODES: Board.I2cModes;
@@ -32,69 +32,69 @@ declare class Board extends NodeJS.EventEmitter {
 	firmware: Board.Firmware;
 	settings: Board.Settings;
 	protected transport: SerialPort;
-	reportVersion(callback: () => void): void
-	queryFirmware(callback: () => void): void
-	analogRead(pin: number, callback: (value: number) => void): void
-	analogWrite(pin: number, value: number): void
-	pwmWrite(pin: number, value: number): void
-	servoConfig(pin: number, min: number, max: number): void
-	servoWrite(pin: number, value: number): void
-	pinMode(pin: number, mode: Board.PIN_MODE): void
-	digitalWrite(pin: number, val: Board.PIN_STATE): void
-	digitalRead(pin: number, callback: (val: Board.PIN_STATE) => void): void
-	queryCapabilities(callback: () => void): void
-	queryAnalogMapping(callback: () => void): void
-	queryPinState(pin: number, callback: () => void): void
+	reportVersion(callback: () => void): void;
+	queryFirmware(callback: () => void): void;
+	analogRead(pin: number, callback: (value: number) => void): void;
+	analogWrite(pin: number, value: number): void;
+	pwmWrite(pin: number, value: number): void;
+	servoConfig(pin: number, min: number, max: number): void;
+	servoWrite(pin: number, value: number): void;
+	pinMode(pin: number, mode: Board.PIN_MODE): void;
+	digitalWrite(pin: number, val: Board.PIN_STATE): void;
+	digitalRead(pin: number, callback: (val: Board.PIN_STATE) => void): void;
+	queryCapabilities(callback: () => void): void;
+	queryAnalogMapping(callback: () => void): void;
+	queryPinState(pin: number, callback: () => void): void;
 	// TODO untested --- TWW
-	sendString(str: string): void
+	sendString(str: string): void;
 	// TODO untested --- TWW
-	sendI2CConfig(delay: number): void
+	sendI2CConfig(delay: number): void;
 	// TODO untested --- TWW
-	i2cConfig(options: number|{ delay: number }): void
+	i2cConfig(options: number|{ delay: number }): void;
 	// TODO untested --- TWW
-	sendI2CWriteRequest(slaveAddress: number, bytes: number[]): void
+	sendI2CWriteRequest(slaveAddress: number, bytes: number[]): void;
 	// TODO untested --- TWW
-	i2cWrite(address: number, register: number, inBytes: number[]): void
-	i2cWrite(address: number, data: number[]): void
+	i2cWrite(address: number, register: number, inBytes: number[]): void;
+	i2cWrite(address: number, data: number[]): void;
 	// TODO untested --- TWW
-	i2cWriteReg(address: number, register: number, byte: number): void
+	i2cWriteReg(address: number, register: number, byte: number): void;
 	// TODO untested --- TWW
-	sendI2CReadRequest(address: number, numBytes: number, callback: () => void): void
+	sendI2CReadRequest(address: number, numBytes: number, callback: () => void): void;
 	// TODO untested --- TWW
-	i2cRead(address: number, register: number, bytesToRead: number, callback: (data: number[]) => void): void
-	i2cRead(address: number, bytesToRead: number, callback: (data: number[]) => void): void
+	i2cRead(address: number, register: number, bytesToRead: number, callback: (data: number[]) => void): void;
+	i2cRead(address: number, bytesToRead: number, callback: (data: number[]) => void): void;
 	// TODO untested --- TWW
-	i2cStop(options: number|{ bus: number, address: number }): void
+	i2cStop(options: number|{ bus: number, address: number }): void;
 	// TODO untested --- TWW
-	i2cReadOnce(address: number, register: number, bytesToRead: number, callback: (data: number[]) => void): void
-	i2cReadOnce(address: number, bytesToRead: number, callback: (data: number[]) => void): void
+	i2cReadOnce(address: number, register: number, bytesToRead: number, callback: (data: number[]) => void): void;
+	i2cReadOnce(address: number, bytesToRead: number, callback: (data: number[]) => void): void;
 	// TODO untested --- TWW
-	sendOneWireConfig(pin: number, enableParasiticPower: boolean): void
+	sendOneWireConfig(pin: number, enableParasiticPower: boolean): void;
 	// TODO untested --- TWW
-	sendOneWireSearch(pin: number, callback: () => void): void
+	sendOneWireSearch(pin: number, callback: () => void): void;
 	// TODO untested --- TWW
-	sendOneWireAlarmsSearch(pin: number, callback: () => void): void
+	sendOneWireAlarmsSearch(pin: number, callback: () => void): void;
 	// TODO untested --- TWW
-	sendOneWireRead(pin: number, device: number, numBytesToRead: number, callback: () => void): void
+	sendOneWireRead(pin: number, device: number, numBytesToRead: number, callback: () => void): void;
 	// TODO untested --- TWW
-	sendOneWireReset(pin: number): void
+	sendOneWireReset(pin: number): void;
 	// TODO untested --- TWW
-	sendOneWireWrite(pin: number, device: number, data: number|number[]): void
+	sendOneWireWrite(pin: number, device: number, data: number|number[]): void;
 	// TODO untested --- TWW
-	sendOneWireDelay(pin: number, delay: number): void
+	sendOneWireDelay(pin: number, delay: number): void;
 	// TODO untested --- TWW
 	sendOneWireWriteAndRead(
 		pin: number,
 		device: number,
 		data: number|number[],
 		numBytesToRead: number,
-		callback: (error?: Error, data?: number) => void): void
-	setSamplingInterval(interval: number): void
-	getSamplingInterval(): number
-	reportAnalogPin(pin: number, value: Board.REPORTING): void
-	reportDigitalPin(pin: number, value: Board.REPORTING): void
+		callback: (error?: Error, data?: number) => void): void;
+	setSamplingInterval(interval: number): void;
+	getSamplingInterval(): number;
+	reportAnalogPin(pin: number, value: Board.REPORTING): void;
+	reportDigitalPin(pin: number, value: Board.REPORTING): void;
 	// TODO untested/incomplete --- TWW
-	pingRead(opts: any, callback: () => void): void
+	pingRead(opts: any, callback: () => void): void;
 	stepperConfig(
 		deviceNum: number,
 		type: number,
@@ -102,7 +102,7 @@ declare class Board extends NodeJS.EventEmitter {
 		dirOrMotor1Pin: number,
 		stepOrMotor2Pin: number,
 		motor3Pin?: number,
-		motor4Pin?: number): void
+		motor4Pin?: number): void;
 	stepperStep(
 		deviceNum: number,
 		direction: Board.STEPPER_DIRECTION,
@@ -151,6 +151,13 @@ declare class Board extends NodeJS.EventEmitter {
 }
 
 declare namespace Board {
+	// https://github.com/firmata/firmata.js/blob/master/lib/firmata.js#L429-L451
+	interface Options {
+		reportVersionTimeout?: number;
+		samplingInterval?: number;
+		serialport?: SerialPort.options;
+	}
+
 	interface PinModes {
 		INPUT: PIN_MODE;
 		OUTPUT: PIN_MODE;
@@ -251,7 +258,6 @@ declare namespace Board {
 		minor: number;
 	}
 
-	// TODO these enums could actually be non-const in the future (provides some benefits) --- TWW
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L449-L464
 	const enum PIN_MODE {
 		INPUT = 0x00,

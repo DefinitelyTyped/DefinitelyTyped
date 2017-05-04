@@ -1,4 +1,4 @@
-var someInput = { a: 1, b: 2, c: 3 };
+const someInput = { a: 1, b: 2, c: 3 };
 
 import blacklist = require('blacklist');
 

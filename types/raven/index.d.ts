@@ -8,26 +8,25 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { EventEmitter } from 'events';
 
+export const version: string;
+export function config(dsn: string | false, options?: ConstructorOptions): Client;
+export function wrap(func: () => void, onErr?: () => void): () => void;
+export function wrap(options: any, func: () => void, onErr?: () => void): () => void;
+export function interceptErr(ctx: any): Client;
+export function setContext(ctx: any): Client;
+export function captureException(e: Error, cb?: CaptureCallback): Client;
+export function captureException(e: Error, options?: CaptureOptions, cb?: CaptureCallback): Client;
+export function mergeContext(ctx: any): Client;
+export function getContext(): any;
+export function errorHandler(): (e: Error, req: IncomingMessage, res: ServerResponse, next: () => void) => void;
+export function context(ctx: any, func: () => void, onErr?: () => void): Client;
+export function context(func: () => void, onErr?: () => void): Client;
+export function captureBreadcrumb(breadcrumb: any): void;
+export function disableConsoleAlerts(): void;
+export function consoleAlert(msg: string): void;
+export function parseDSN(dsn: string | false): parsedDSN;
 
-declare const version: string;
-declare function config(dsn: string | false, options?: ConstructorOptions): Client;
-declare function wrap(func: () => void, onErr?: () => void): () => void;
-declare function wrap(options: any, func: () => void, onErr?: () => void): () => void;
-declare function interceptErr(ctx: any): Client;
-declare function setContext(ctx: any): Client;
-declare function captureException(e: Error, cb?: CaptureCallback): Client;
-declare function captureException(e: Error, options?: CaptureOptions, cb?: CaptureCallback): Client;
-declare function mergeContext(ctx: any): Client;
-declare function getContext(): any;
-declare function errorHandler(): (e: Error, req: IncomingMessage, res: ServerResponse, next: () => void) => void;
-declare function context(ctx: any, func: () => void, onErr?: () => void): Client;
-declare function context(func: () => void, onErr?: () => void): Client;
-declare function captureBreadcrumb(breadcrumb: any): void;
-declare function disableConsoleAlerts(): void;
-declare function consoleAlert(msg: string): void;
-declare function parseDSN(dsn: string | false): parsedDSN;
-
-declare class Client extends EventEmitter {
+export class Client extends EventEmitter {
     constructor(options: ConstructorOptions);
     constructor(dsn: string, options?: ConstructorOptions);
     config(dsn: string, options?: ConstructorOptions): Client;
@@ -48,7 +47,7 @@ declare class Client extends EventEmitter {
     process(eventId: string, kwargs: any, cb?: () => void): void;
 }
 
-declare interface ConstructorOptions {
+export interface ConstructorOptions {
     name?: string;
     logger?: string;
     release?: string;
@@ -56,17 +55,17 @@ declare interface ConstructorOptions {
     tags?: { string: string };
     extra?: { string: any };
     dataCallback?: DataCallback;
-    transport?: () => void;
+    transport?(): void;
     captureUnhandledRejections?: boolean;
     autoBreadcrumbs?: boolean | any;
 }
 
-declare interface UserData {
+export interface UserData {
     id: string;
     handle?: string;
 }
 
-declare interface parsedDSN {
+export interface parsedDSN {
     protocol: string;
     public_key: string;
     private_key: string;
@@ -76,19 +75,13 @@ declare interface parsedDSN {
     port: number;
 }
 
-declare interface CaptureCallback {
-    (err: { string: any }, eventId: any): void;
-}
+export type CaptureCallback = (err: { string: any }, eventId: any) => void;
 
-declare interface DataCallback {
-    (data: { string: any }): void;
-}
+export type DataCallback = (data: { string: any }) => void;
 
-declare interface TransportCallback {
-    (options: { string: any }): void;
-}
+export type TransportCallback = (options: { string: any }) => void;
 
-declare interface CaptureOptions {
+export interface CaptureOptions {
     tags?: { string: string };
     extra?: { string: any };
     fingerprint?: string;

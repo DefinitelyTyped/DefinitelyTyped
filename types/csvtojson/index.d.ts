@@ -183,7 +183,7 @@ declare namespace csvtojson {
          * @param {string} str the string to convert
          * @return {Converter} returns this object for chaining
          */
-        fromString(str: string): this
+        fromString(str: string): this;
 
         /**
          * Reads in a CSV from a string.
@@ -197,7 +197,7 @@ declare namespace csvtojson {
          * @param {string} filePath the path to the CSV file
          * @return {Converter} returns this object for chaining
          */
-        fromFile(filePath: string): this
+        fromFile(filePath: string): this;
 
         /**
          * Reads in a CSV from a file.
@@ -211,7 +211,7 @@ declare namespace csvtojson {
          * @param {Stream} stream the stream
          * @return {Converter} returns this object for chaining
          */
-        fromStream(stream: NodeJS.ReadableStream): this
+        fromStream(stream: NodeJS.ReadableStream): this;
 
         /**
          * Reads in a CSV from a stream.
@@ -235,7 +235,7 @@ declare namespace csvtojson {
          * @param  {Function} listener listener function
          * @return {this} returns this object for chaining
          */
-        // tslint:disable-next-line:forbidden-types
+        // tslint:disable-next-line ban-types
         on(event: string, listener: Function | JsonEventHandler | CsvEventHandler | DataEventHandler | ErrorEventHandler
             | RecordParsedEventHandler | EndEventHandler | EndParsedEventHandler | DoneEventHandler): this;
 

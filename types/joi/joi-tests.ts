@@ -50,84 +50,87 @@ var ref: Joi.Reference = null;
 
 var validOpts: Joi.ValidationOptions = null;
 
-validOpts = {abortEarly: bool};
-validOpts = {convert: bool};
-validOpts = {allowUnknown: bool};
-validOpts = {skipFunctions: bool};
-validOpts = {stripUnknown: bool};
-validOpts = {language: bool};
-validOpts = {presence: str};
-validOpts = {context: obj};
-validOpts = {noDefaults: bool};
+validOpts = { abortEarly: bool };
+validOpts = { convert: bool };
+validOpts = { allowUnknown: bool };
+validOpts = { skipFunctions: bool };
+validOpts = { stripUnknown: bool };
+validOpts = { stripUnknown: { arrays: bool } };
+validOpts = { stripUnknown: { objects: bool } };
+validOpts = { stripUnknown: { arrays: bool, objects: bool } };
+validOpts = { language: bool };
+validOpts = { presence: str };
+validOpts = { context: obj };
+validOpts = { noDefaults: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var renOpts: Joi.RenameOptions = null;
 
-renOpts = {alias: bool};
-renOpts = {multiple: bool};
-renOpts = {override: bool};
-renOpts = {ignoreUndefined: bool};
+renOpts = { alias: bool };
+renOpts = { multiple: bool };
+renOpts = { override: bool };
+renOpts = { ignoreUndefined: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var emailOpts: Joi.EmailOptions = null;
 
-emailOpts = {errorLevel: num};
-emailOpts = {errorLevel: bool};
-emailOpts = {tldWhitelist: strArr};
-emailOpts = {tldWhitelist: obj};
-emailOpts = {minDomainAtoms: num};
+emailOpts = { errorLevel: num };
+emailOpts = { errorLevel: bool };
+emailOpts = { tldWhitelist: strArr };
+emailOpts = { tldWhitelist: obj };
+emailOpts = { minDomainAtoms: num };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var ipOpts: Joi.IpOptions = null;
 
-ipOpts = {version: str};
-ipOpts = {version: strArr};
-ipOpts = {cidr: str};
+ipOpts = { version: str };
+ipOpts = { version: strArr };
+ipOpts = { cidr: str };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var uriOpts: Joi.UriOptions = null;
 
-uriOpts = {scheme: str};
-uriOpts = {scheme: exp};
-uriOpts = {scheme: strArr};
-uriOpts = {scheme: expArr};
+uriOpts = { scheme: str };
+uriOpts = { scheme: exp };
+uriOpts = { scheme: strArr };
+uriOpts = { scheme: expArr };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var whenOpts: Joi.WhenOptions<any> = null;
 
-whenOpts = {is: x};
-whenOpts = {is: schema, then: schema};
-whenOpts = {is: schema, otherwise: schema};
+whenOpts = { is: x };
+whenOpts = { is: schema, then: schema };
+whenOpts = { is: schema, otherwise: schema };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var refOpts: Joi.ReferenceOptions = null;
 
-refOpts = {separator: str};
-refOpts = {contextPrefix: str};
+refOpts = { separator: str };
+refOpts = { contextPrefix: str };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var validErr: Joi.ValidationError = null;
 var validErrItem: Joi.ValidationErrorItem;
 
-validErrItem= {
-	message: str,
-	type: str,
-	path: str
+validErrItem = {
+    message: str,
+    type: str,
+    path: str
 };
 
 validErrItem = {
-	message: str,
-	type: str,
-	path: str,
-	options: validOpts,
-	context: obj
+    message: str,
+    type: str,
+    path: str,
+    options: validOpts,
+    context: obj
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -159,8 +162,23 @@ anySchema = objSchema;
 var schemaMap: Joi.SchemaMap = null;
 
 schemaMap = {
-	a: numSchema,
-	b: strSchema
+    a: numSchema,
+    b: strSchema
+};
+schemaMap = {
+    a: numSchema,
+    b: {
+        b1: strSchema,
+        b2: anySchema
+    }
+};
+schemaMap = {
+    a: numSchema,
+    b: [
+        { b1: strSchema },
+        { b2: anySchema }
+    ],
+    c: arrSchema
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -168,63 +186,63 @@ schemaMap = {
 anySchema = Joi.any();
 
 namespace common {
-	anySchema = anySchema.allow(x);
-	anySchema = anySchema.allow(x, x);
-	anySchema = anySchema.allow([x, x, x]);
-	anySchema = anySchema.valid(x);
-	anySchema = anySchema.valid(x, x);
-	anySchema = anySchema.valid([x, x, x]);
-	anySchema = anySchema.only(x);
-	anySchema = anySchema.only(x, x);
-	anySchema = anySchema.only([x, x, x]);
-	anySchema = anySchema.equal(x);
-	anySchema = anySchema.equal(x, x);
-	anySchema = anySchema.equal([x, x, x]);
-	anySchema = anySchema.invalid(x);
-	anySchema = anySchema.invalid(x, x);
-	anySchema = anySchema.invalid([x, x, x]);
-	anySchema = anySchema.disallow(x);
-	anySchema = anySchema.disallow(x, x);
-	anySchema = anySchema.disallow([x, x, x]);
-	anySchema = anySchema.not(x);
-	anySchema = anySchema.not(x, x);
-	anySchema = anySchema.not([x, x, x]);
+    anySchema = anySchema.allow(x);
+    anySchema = anySchema.allow(x, x);
+    anySchema = anySchema.allow([x, x, x]);
+    anySchema = anySchema.valid(x);
+    anySchema = anySchema.valid(x, x);
+    anySchema = anySchema.valid([x, x, x]);
+    anySchema = anySchema.only(x);
+    anySchema = anySchema.only(x, x);
+    anySchema = anySchema.only([x, x, x]);
+    anySchema = anySchema.equal(x);
+    anySchema = anySchema.equal(x, x);
+    anySchema = anySchema.equal([x, x, x]);
+    anySchema = anySchema.invalid(x);
+    anySchema = anySchema.invalid(x, x);
+    anySchema = anySchema.invalid([x, x, x]);
+    anySchema = anySchema.disallow(x);
+    anySchema = anySchema.disallow(x, x);
+    anySchema = anySchema.disallow([x, x, x]);
+    anySchema = anySchema.not(x);
+    anySchema = anySchema.not(x, x);
+    anySchema = anySchema.not([x, x, x]);
 
-	anySchema = anySchema.default();
-	anySchema = anySchema.default(x);
-	anySchema = anySchema.default(x, str);
+    anySchema = anySchema.default();
+    anySchema = anySchema.default(x);
+    anySchema = anySchema.default(x, str);
 
-	anySchema = anySchema.required();
-	anySchema = anySchema.optional();
-	anySchema = anySchema.forbidden();
-	anySchema = anySchema.strip();
+    anySchema = anySchema.required();
+    anySchema = anySchema.optional();
+    anySchema = anySchema.forbidden();
+    anySchema = anySchema.strip();
 
-	anySchema = anySchema.description(str);
-	anySchema = anySchema.notes(str);
-	anySchema = anySchema.notes(strArr);
-	anySchema = anySchema.tags(str);
-	anySchema = anySchema.tags(strArr);
+    anySchema = anySchema.description(str);
+    anySchema = anySchema.notes(str);
+    anySchema = anySchema.notes(strArr);
+    anySchema = anySchema.tags(str);
+    anySchema = anySchema.tags(strArr);
 
-	anySchema = anySchema.meta(obj);
-	anySchema = anySchema.example(obj);
-	anySchema = anySchema.unit(str);
+    anySchema = anySchema.meta(obj);
+    anySchema = anySchema.example(obj);
+    anySchema = anySchema.unit(str);
 
-	anySchema = anySchema.options(validOpts);
-	anySchema = anySchema.strict();
-	anySchema = anySchema.strict(bool);
-	anySchema = anySchema.concat(x);
+    anySchema = anySchema.options(validOpts);
+    anySchema = anySchema.strict();
+    anySchema = anySchema.strict(bool);
+    anySchema = anySchema.concat(x);
 
-	altSchema = anySchema.when(str, whenOpts);
-	altSchema = anySchema.when(ref, whenOpts);
+    altSchema = anySchema.when(str, whenOpts);
+    altSchema = anySchema.when(ref, whenOpts);
 
-	anySchema = anySchema.label(str);
-	anySchema = anySchema.raw();
-	anySchema = anySchema.raw(bool);
-	anySchema = anySchema.empty();
-	anySchema = anySchema.empty(str);
-	anySchema = anySchema.empty(anySchema);
+    anySchema = anySchema.label(str);
+    anySchema = anySchema.raw();
+    anySchema = anySchema.raw(bool);
+    anySchema = anySchema.empty();
+    anySchema = anySchema.empty(str);
+    anySchema = anySchema.empty(anySchema);
 
-	anySchema = anySchema.error(err);
+    anySchema = anySchema.error(err);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -237,64 +255,71 @@ arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.ordered(anySchema);
 arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema);
+arrSchema = arrSchema.ordered(schemaMap);
+arrSchema = arrSchema.ordered([schemaMap, schemaMap]);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
 arrSchema = arrSchema.unique();
+arrSchema = arrSchema.unique((a, b) => a.test === b.test);
+arrSchema = arrSchema.unique('customer.id');
 
 
 arrSchema = arrSchema.items(numSchema);
 arrSchema = arrSchema.items(numSchema, strSchema);
 arrSchema = arrSchema.items([numSchema, strSchema]);
+arrSchema = arrSchema.items(schemaMap);
+arrSchema = arrSchema.items(schemaMap, schemaMap);
+arrSchema = arrSchema.items([schemaMap, schemaMap]);
 
 // - - - - - - - -
 
 namespace common_copy_paste {
-	// use search & replace from any
-	arrSchema = arrSchema.allow(x);
-	arrSchema = arrSchema.allow(x, x);
-	arrSchema = arrSchema.allow([x, x, x]);
-	arrSchema = arrSchema.valid(x);
-	arrSchema = arrSchema.valid(x, x);
-	arrSchema = arrSchema.valid([x, x, x]);
-	arrSchema = arrSchema.only(x);
-	arrSchema = arrSchema.only(x, x);
-	arrSchema = arrSchema.only([x, x, x]);
-	arrSchema = arrSchema.equal(x);
-	arrSchema = arrSchema.equal(x, x);
-	arrSchema = arrSchema.equal([x, x, x]);
-	arrSchema = arrSchema.invalid(x);
-	arrSchema = arrSchema.invalid(x, x);
-	arrSchema = arrSchema.invalid([x, x, x]);
-	arrSchema = arrSchema.disallow(x);
-	arrSchema = arrSchema.disallow(x, x);
-	arrSchema = arrSchema.disallow([x, x, x]);
-	arrSchema = arrSchema.not(x);
-	arrSchema = arrSchema.not(x, x);
-	arrSchema = arrSchema.not([x, x, x]);
+    // use search & replace from any
+    arrSchema = arrSchema.allow(x);
+    arrSchema = arrSchema.allow(x, x);
+    arrSchema = arrSchema.allow([x, x, x]);
+    arrSchema = arrSchema.valid(x);
+    arrSchema = arrSchema.valid(x, x);
+    arrSchema = arrSchema.valid([x, x, x]);
+    arrSchema = arrSchema.only(x);
+    arrSchema = arrSchema.only(x, x);
+    arrSchema = arrSchema.only([x, x, x]);
+    arrSchema = arrSchema.equal(x);
+    arrSchema = arrSchema.equal(x, x);
+    arrSchema = arrSchema.equal([x, x, x]);
+    arrSchema = arrSchema.invalid(x);
+    arrSchema = arrSchema.invalid(x, x);
+    arrSchema = arrSchema.invalid([x, x, x]);
+    arrSchema = arrSchema.disallow(x);
+    arrSchema = arrSchema.disallow(x, x);
+    arrSchema = arrSchema.disallow([x, x, x]);
+    arrSchema = arrSchema.not(x);
+    arrSchema = arrSchema.not(x, x);
+    arrSchema = arrSchema.not([x, x, x]);
 
-	arrSchema = arrSchema.default(x);
+    arrSchema = arrSchema.default(x);
 
-	arrSchema = arrSchema.required();
-	arrSchema = arrSchema.optional();
-	arrSchema = arrSchema.forbidden();
+    arrSchema = arrSchema.required();
+    arrSchema = arrSchema.optional();
+    arrSchema = arrSchema.forbidden();
 
-	arrSchema = arrSchema.description(str);
-	arrSchema = arrSchema.notes(str);
-	arrSchema = arrSchema.notes(strArr);
-	arrSchema = arrSchema.tags(str);
-	arrSchema = arrSchema.tags(strArr);
+    arrSchema = arrSchema.description(str);
+    arrSchema = arrSchema.notes(str);
+    arrSchema = arrSchema.notes(strArr);
+    arrSchema = arrSchema.tags(str);
+    arrSchema = arrSchema.tags(strArr);
 
-	arrSchema = arrSchema.meta(obj);
-	arrSchema = arrSchema.example(obj);
-	arrSchema = arrSchema.unit(str);
+    arrSchema = arrSchema.meta(obj);
+    arrSchema = arrSchema.example(obj);
+    arrSchema = arrSchema.unit(str);
 
-	arrSchema = arrSchema.options(validOpts);
-	arrSchema = arrSchema.strict();
-	arrSchema = arrSchema.concat(x);
+    arrSchema = arrSchema.options(validOpts);
+    arrSchema = arrSchema.strict();
+    arrSchema = arrSchema.concat(x);
 
-	altSchema = arrSchema.when(str, whenOpts);
-	altSchema = arrSchema.when(ref, whenOpts);
+    altSchema = arrSchema.when(str, whenOpts);
+    altSchema = arrSchema.when(ref, whenOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -303,50 +328,68 @@ boolSchema = Joi.bool();
 boolSchema = Joi.boolean();
 
 namespace common_copy_paste {
-	boolSchema = boolSchema.allow(x);
-	boolSchema = boolSchema.allow(x, x);
-	boolSchema = boolSchema.allow([x, x, x]);
-	boolSchema = boolSchema.valid(x);
-	boolSchema = boolSchema.valid(x, x);
-	boolSchema = boolSchema.valid([x, x, x]);
-	boolSchema = boolSchema.only(x);
-	boolSchema = boolSchema.only(x, x);
-	boolSchema = boolSchema.only([x, x, x]);
-	boolSchema = boolSchema.equal(x);
-	boolSchema = boolSchema.equal(x, x);
-	boolSchema = boolSchema.equal([x, x, x]);
-	boolSchema = boolSchema.invalid(x);
-	boolSchema = boolSchema.invalid(x, x);
-	boolSchema = boolSchema.invalid([x, x, x]);
-	boolSchema = boolSchema.disallow(x);
-	boolSchema = boolSchema.disallow(x, x);
-	boolSchema = boolSchema.disallow([x, x, x]);
-	boolSchema = boolSchema.not(x);
-	boolSchema = boolSchema.not(x, x);
-	boolSchema = boolSchema.not([x, x, x]);
+    boolSchema = boolSchema.allow(x);
+    boolSchema = boolSchema.allow(x, x);
+    boolSchema = boolSchema.allow([x, x, x]);
+    boolSchema = boolSchema.valid(x);
+    boolSchema = boolSchema.valid(x, x);
+    boolSchema = boolSchema.valid([x, x, x]);
+    boolSchema = boolSchema.only(x);
+    boolSchema = boolSchema.only(x, x);
+    boolSchema = boolSchema.only([x, x, x]);
+    boolSchema = boolSchema.equal(x);
+    boolSchema = boolSchema.equal(x, x);
+    boolSchema = boolSchema.equal([x, x, x]);
+    boolSchema = boolSchema.invalid(x);
+    boolSchema = boolSchema.invalid(x, x);
+    boolSchema = boolSchema.invalid([x, x, x]);
+    boolSchema = boolSchema.disallow(x);
+    boolSchema = boolSchema.disallow(x, x);
+    boolSchema = boolSchema.disallow([x, x, x]);
+    boolSchema = boolSchema.not(x);
+    boolSchema = boolSchema.not(x, x);
+    boolSchema = boolSchema.not([x, x, x]);
 
-	boolSchema = boolSchema.default(x);
+    boolSchema = boolSchema.default(x);
 
-	boolSchema = boolSchema.required();
-	boolSchema = boolSchema.optional();
-	boolSchema = boolSchema.forbidden();
+    boolSchema = boolSchema.required();
+    boolSchema = boolSchema.optional();
+    boolSchema = boolSchema.forbidden();
 
-	boolSchema = boolSchema.description(str);
-	boolSchema = boolSchema.notes(str);
-	boolSchema = boolSchema.notes(strArr);
-	boolSchema = boolSchema.tags(str);
-	boolSchema = boolSchema.tags(strArr);
+    boolSchema = boolSchema.description(str);
+    boolSchema = boolSchema.notes(str);
+    boolSchema = boolSchema.notes(strArr);
+    boolSchema = boolSchema.tags(str);
+    boolSchema = boolSchema.tags(strArr);
 
-	boolSchema = boolSchema.meta(obj);
-	boolSchema = boolSchema.example(obj);
-	boolSchema = boolSchema.unit(str);
+    boolSchema = boolSchema.meta(obj);
+    boolSchema = boolSchema.example(obj);
+    boolSchema = boolSchema.unit(str);
 
-	boolSchema = boolSchema.options(validOpts);
-	boolSchema = boolSchema.strict();
-	boolSchema = boolSchema.concat(x);
+    boolSchema = boolSchema.options(validOpts);
+    boolSchema = boolSchema.strict();
+    boolSchema = boolSchema.concat(x);
 
-	altSchema = boolSchema.when(str, whenOpts);
-	altSchema = boolSchema.when(ref, whenOpts);
+    boolSchema = boolSchema.truthy(str);
+    boolSchema = boolSchema.truthy(num);
+    boolSchema = boolSchema.truthy(strArr);
+    boolSchema = boolSchema.truthy(numArr);
+    boolSchema = boolSchema.truthy(str, str);
+    boolSchema = boolSchema.truthy(strArr, str);
+    boolSchema = boolSchema.truthy(str, strArr);
+    boolSchema = boolSchema.truthy(strArr, strArr);
+    boolSchema = boolSchema.falsy(str);
+    boolSchema = boolSchema.falsy(num);
+    boolSchema = boolSchema.falsy(strArr);
+    boolSchema = boolSchema.falsy(numArr);
+    boolSchema = boolSchema.falsy(str, str);
+    boolSchema = boolSchema.falsy(strArr, str);
+    boolSchema = boolSchema.falsy(str, strArr);
+    boolSchema = boolSchema.falsy(strArr, strArr);
+    boolSchema = boolSchema.insensitive(bool);
+
+    altSchema = boolSchema.when(str, whenOpts);
+    altSchema = boolSchema.when(ref, whenOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -359,50 +402,50 @@ binSchema = binSchema.max(num);
 binSchema = binSchema.length(num);
 
 namespace common {
-	binSchema = binSchema.allow(x);
-	binSchema = binSchema.allow(x, x);
-	binSchema = binSchema.allow([x, x, x]);
-	binSchema = binSchema.valid(x);
-	binSchema = binSchema.valid(x, x);
-	binSchema = binSchema.valid([x, x, x]);
-	binSchema = binSchema.only(x);
-	binSchema = binSchema.only(x, x);
-	binSchema = binSchema.only([x, x, x]);
-	binSchema = binSchema.equal(x);
-	binSchema = binSchema.equal(x, x);
-	binSchema = binSchema.equal([x, x, x]);
-	binSchema = binSchema.invalid(x);
-	binSchema = binSchema.invalid(x, x);
-	binSchema = binSchema.invalid([x, x, x]);
-	binSchema = binSchema.disallow(x);
-	binSchema = binSchema.disallow(x, x);
-	binSchema = binSchema.disallow([x, x, x]);
-	binSchema = binSchema.not(x);
-	binSchema = binSchema.not(x, x);
-	binSchema = binSchema.not([x, x, x]);
+    binSchema = binSchema.allow(x);
+    binSchema = binSchema.allow(x, x);
+    binSchema = binSchema.allow([x, x, x]);
+    binSchema = binSchema.valid(x);
+    binSchema = binSchema.valid(x, x);
+    binSchema = binSchema.valid([x, x, x]);
+    binSchema = binSchema.only(x);
+    binSchema = binSchema.only(x, x);
+    binSchema = binSchema.only([x, x, x]);
+    binSchema = binSchema.equal(x);
+    binSchema = binSchema.equal(x, x);
+    binSchema = binSchema.equal([x, x, x]);
+    binSchema = binSchema.invalid(x);
+    binSchema = binSchema.invalid(x, x);
+    binSchema = binSchema.invalid([x, x, x]);
+    binSchema = binSchema.disallow(x);
+    binSchema = binSchema.disallow(x, x);
+    binSchema = binSchema.disallow([x, x, x]);
+    binSchema = binSchema.not(x);
+    binSchema = binSchema.not(x, x);
+    binSchema = binSchema.not([x, x, x]);
 
-	binSchema = binSchema.default(x);
+    binSchema = binSchema.default(x);
 
-	binSchema = binSchema.required();
-	binSchema = binSchema.optional();
-	binSchema = binSchema.forbidden();
+    binSchema = binSchema.required();
+    binSchema = binSchema.optional();
+    binSchema = binSchema.forbidden();
 
-	binSchema = binSchema.description(str);
-	binSchema = binSchema.notes(str);
-	binSchema = binSchema.notes(strArr);
-	binSchema = binSchema.tags(str);
-	binSchema = binSchema.tags(strArr);
+    binSchema = binSchema.description(str);
+    binSchema = binSchema.notes(str);
+    binSchema = binSchema.notes(strArr);
+    binSchema = binSchema.tags(str);
+    binSchema = binSchema.tags(strArr);
 
-	binSchema = binSchema.meta(obj);
-	binSchema = binSchema.example(obj);
-	binSchema = binSchema.unit(str);
+    binSchema = binSchema.meta(obj);
+    binSchema = binSchema.example(obj);
+    binSchema = binSchema.unit(str);
 
-	binSchema = binSchema.options(validOpts);
-	binSchema = binSchema.strict();
-	binSchema = binSchema.concat(x);
+    binSchema = binSchema.options(validOpts);
+    binSchema = binSchema.strict();
+    binSchema = binSchema.concat(x);
 
-	altSchema = binSchema.when(str, whenOpts);
-	altSchema = binSchema.when(ref, whenOpts);
+    altSchema = binSchema.when(str, whenOpts);
+    altSchema = binSchema.when(ref, whenOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -431,50 +474,50 @@ dateSchema = dateSchema.timestamp('javascript');
 dateSchema = dateSchema.timestamp('unix');
 
 namespace common {
-	dateSchema = dateSchema.allow(x);
-	dateSchema = dateSchema.allow(x, x);
-	dateSchema = dateSchema.allow([x, x, x]);
-	dateSchema = dateSchema.valid(x);
-	dateSchema = dateSchema.valid(x, x);
-	dateSchema = dateSchema.valid([x, x, x]);
-	dateSchema = dateSchema.only(x);
-	dateSchema = dateSchema.only(x, x);
-	dateSchema = dateSchema.only([x, x, x]);
-	dateSchema = dateSchema.equal(x);
-	dateSchema = dateSchema.equal(x, x);
-	dateSchema = dateSchema.equal([x, x, x]);
-	dateSchema = dateSchema.invalid(x);
-	dateSchema = dateSchema.invalid(x, x);
-	dateSchema = dateSchema.invalid([x, x, x]);
-	dateSchema = dateSchema.disallow(x);
-	dateSchema = dateSchema.disallow(x, x);
-	dateSchema = dateSchema.disallow([x, x, x]);
-	dateSchema = dateSchema.not(x);
-	dateSchema = dateSchema.not(x, x);
-	dateSchema = dateSchema.not([x, x, x]);
+    dateSchema = dateSchema.allow(x);
+    dateSchema = dateSchema.allow(x, x);
+    dateSchema = dateSchema.allow([x, x, x]);
+    dateSchema = dateSchema.valid(x);
+    dateSchema = dateSchema.valid(x, x);
+    dateSchema = dateSchema.valid([x, x, x]);
+    dateSchema = dateSchema.only(x);
+    dateSchema = dateSchema.only(x, x);
+    dateSchema = dateSchema.only([x, x, x]);
+    dateSchema = dateSchema.equal(x);
+    dateSchema = dateSchema.equal(x, x);
+    dateSchema = dateSchema.equal([x, x, x]);
+    dateSchema = dateSchema.invalid(x);
+    dateSchema = dateSchema.invalid(x, x);
+    dateSchema = dateSchema.invalid([x, x, x]);
+    dateSchema = dateSchema.disallow(x);
+    dateSchema = dateSchema.disallow(x, x);
+    dateSchema = dateSchema.disallow([x, x, x]);
+    dateSchema = dateSchema.not(x);
+    dateSchema = dateSchema.not(x, x);
+    dateSchema = dateSchema.not([x, x, x]);
 
-	dateSchema = dateSchema.default(x);
+    dateSchema = dateSchema.default(x);
 
-	dateSchema = dateSchema.required();
-	dateSchema = dateSchema.optional();
-	dateSchema = dateSchema.forbidden();
+    dateSchema = dateSchema.required();
+    dateSchema = dateSchema.optional();
+    dateSchema = dateSchema.forbidden();
 
-	dateSchema = dateSchema.description(str);
-	dateSchema = dateSchema.notes(str);
-	dateSchema = dateSchema.notes(strArr);
-	dateSchema = dateSchema.tags(str);
-	dateSchema = dateSchema.tags(strArr);
+    dateSchema = dateSchema.description(str);
+    dateSchema = dateSchema.notes(str);
+    dateSchema = dateSchema.notes(strArr);
+    dateSchema = dateSchema.tags(str);
+    dateSchema = dateSchema.tags(strArr);
 
-	dateSchema = dateSchema.meta(obj);
-	dateSchema = dateSchema.example(obj);
-	dateSchema = dateSchema.unit(str);
+    dateSchema = dateSchema.meta(obj);
+    dateSchema = dateSchema.example(obj);
+    dateSchema = dateSchema.unit(str);
 
-	dateSchema = dateSchema.options(validOpts);
-	dateSchema = dateSchema.strict();
-	dateSchema = dateSchema.concat(x);
+    dateSchema = dateSchema.options(validOpts);
+    dateSchema = dateSchema.strict();
+    dateSchema = dateSchema.concat(x);
 
-	altSchema = dateSchema.when(str, whenOpts);
-	altSchema = dateSchema.when(ref, whenOpts);
+    altSchema = dateSchema.when(str, whenOpts);
+    altSchema = dateSchema.when(ref, whenOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -505,50 +548,50 @@ numSchema = numSchema.positive();
 numSchema = numSchema.negative();
 
 namespace common {
-	numSchema = numSchema.allow(x);
-	numSchema = numSchema.allow(x, x);
-	numSchema = numSchema.allow([x, x, x]);
-	numSchema = numSchema.valid(x);
-	numSchema = numSchema.valid(x, x);
-	numSchema = numSchema.valid([x, x, x]);
-	numSchema = numSchema.only(x);
-	numSchema = numSchema.only(x, x);
-	numSchema = numSchema.only([x, x, x]);
-	numSchema = numSchema.equal(x);
-	numSchema = numSchema.equal(x, x);
-	numSchema = numSchema.equal([x, x, x]);
-	numSchema = numSchema.invalid(x);
-	numSchema = numSchema.invalid(x, x);
-	numSchema = numSchema.invalid([x, x, x]);
-	numSchema = numSchema.disallow(x);
-	numSchema = numSchema.disallow(x, x);
-	numSchema = numSchema.disallow([x, x, x]);
-	numSchema = numSchema.not(x);
-	numSchema = numSchema.not(x, x);
-	numSchema = numSchema.not([x, x, x]);
+    numSchema = numSchema.allow(x);
+    numSchema = numSchema.allow(x, x);
+    numSchema = numSchema.allow([x, x, x]);
+    numSchema = numSchema.valid(x);
+    numSchema = numSchema.valid(x, x);
+    numSchema = numSchema.valid([x, x, x]);
+    numSchema = numSchema.only(x);
+    numSchema = numSchema.only(x, x);
+    numSchema = numSchema.only([x, x, x]);
+    numSchema = numSchema.equal(x);
+    numSchema = numSchema.equal(x, x);
+    numSchema = numSchema.equal([x, x, x]);
+    numSchema = numSchema.invalid(x);
+    numSchema = numSchema.invalid(x, x);
+    numSchema = numSchema.invalid([x, x, x]);
+    numSchema = numSchema.disallow(x);
+    numSchema = numSchema.disallow(x, x);
+    numSchema = numSchema.disallow([x, x, x]);
+    numSchema = numSchema.not(x);
+    numSchema = numSchema.not(x, x);
+    numSchema = numSchema.not([x, x, x]);
 
-	numSchema = numSchema.default(x);
+    numSchema = numSchema.default(x);
 
-	numSchema = numSchema.required();
-	numSchema = numSchema.optional();
-	numSchema = numSchema.forbidden();
+    numSchema = numSchema.required();
+    numSchema = numSchema.optional();
+    numSchema = numSchema.forbidden();
 
-	numSchema = numSchema.description(str);
-	numSchema = numSchema.notes(str);
-	numSchema = numSchema.notes(strArr);
-	numSchema = numSchema.tags(str);
-	numSchema = numSchema.tags(strArr);
+    numSchema = numSchema.description(str);
+    numSchema = numSchema.notes(str);
+    numSchema = numSchema.notes(strArr);
+    numSchema = numSchema.tags(str);
+    numSchema = numSchema.tags(strArr);
 
-	numSchema = numSchema.meta(obj);
-	numSchema = numSchema.example(obj);
-	numSchema = numSchema.unit(str);
+    numSchema = numSchema.meta(obj);
+    numSchema = numSchema.example(obj);
+    numSchema = numSchema.unit(str);
 
-	numSchema = numSchema.options(validOpts);
-	numSchema = numSchema.strict();
-	numSchema = numSchema.concat(x);
+    numSchema = numSchema.options(validOpts);
+    numSchema = numSchema.strict();
+    numSchema = numSchema.concat(x);
 
-	altSchema = numSchema.when(str, whenOpts);
-	altSchema = numSchema.when(ref, whenOpts);
+    altSchema = numSchema.when(str, whenOpts);
+    altSchema = numSchema.when(ref, whenOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -614,50 +657,50 @@ objSchema = objSchema.optionalKeys(str, str);
 objSchema = objSchema.optionalKeys(strArr);
 
 namespace common {
-	objSchema = objSchema.allow(x);
-	objSchema = objSchema.allow(x, x);
-	objSchema = objSchema.allow([x, x, x]);
-	objSchema = objSchema.valid(x);
-	objSchema = objSchema.valid(x, x);
-	objSchema = objSchema.valid([x, x, x]);
-	objSchema = objSchema.only(x);
-	objSchema = objSchema.only(x, x);
-	objSchema = objSchema.only([x, x, x]);
-	objSchema = objSchema.equal(x);
-	objSchema = objSchema.equal(x, x);
-	objSchema = objSchema.equal([x, x, x]);
-	objSchema = objSchema.invalid(x);
-	objSchema = objSchema.invalid(x, x);
-	objSchema = objSchema.invalid([x, x, x]);
-	objSchema = objSchema.disallow(x);
-	objSchema = objSchema.disallow(x, x);
-	objSchema = objSchema.disallow([x, x, x]);
-	objSchema = objSchema.not(x);
-	objSchema = objSchema.not(x, x);
-	objSchema = objSchema.not([x, x, x]);
+    objSchema = objSchema.allow(x);
+    objSchema = objSchema.allow(x, x);
+    objSchema = objSchema.allow([x, x, x]);
+    objSchema = objSchema.valid(x);
+    objSchema = objSchema.valid(x, x);
+    objSchema = objSchema.valid([x, x, x]);
+    objSchema = objSchema.only(x);
+    objSchema = objSchema.only(x, x);
+    objSchema = objSchema.only([x, x, x]);
+    objSchema = objSchema.equal(x);
+    objSchema = objSchema.equal(x, x);
+    objSchema = objSchema.equal([x, x, x]);
+    objSchema = objSchema.invalid(x);
+    objSchema = objSchema.invalid(x, x);
+    objSchema = objSchema.invalid([x, x, x]);
+    objSchema = objSchema.disallow(x);
+    objSchema = objSchema.disallow(x, x);
+    objSchema = objSchema.disallow([x, x, x]);
+    objSchema = objSchema.not(x);
+    objSchema = objSchema.not(x, x);
+    objSchema = objSchema.not([x, x, x]);
 
-	objSchema = objSchema.default(x);
+    objSchema = objSchema.default(x);
 
-	objSchema = objSchema.required();
-	objSchema = objSchema.optional();
-	objSchema = objSchema.forbidden();
+    objSchema = objSchema.required();
+    objSchema = objSchema.optional();
+    objSchema = objSchema.forbidden();
 
-	objSchema = objSchema.description(str);
-	objSchema = objSchema.notes(str);
-	objSchema = objSchema.notes(strArr);
-	objSchema = objSchema.tags(str);
-	objSchema = objSchema.tags(strArr);
+    objSchema = objSchema.description(str);
+    objSchema = objSchema.notes(str);
+    objSchema = objSchema.notes(strArr);
+    objSchema = objSchema.tags(str);
+    objSchema = objSchema.tags(strArr);
 
-	objSchema = objSchema.meta(obj);
-	objSchema = objSchema.example(obj);
-	objSchema = objSchema.unit(str);
+    objSchema = objSchema.meta(obj);
+    objSchema = objSchema.example(obj);
+    objSchema = objSchema.unit(str);
 
-	objSchema = objSchema.options(validOpts);
-	objSchema = objSchema.strict();
-	objSchema = objSchema.concat(x);
+    objSchema = objSchema.options(validOpts);
+    objSchema = objSchema.strict();
+    objSchema = objSchema.concat(x);
 
-	altSchema = objSchema.when(str, whenOpts);
-	altSchema = objSchema.when(ref, whenOpts);
+    altSchema = objSchema.when(str, whenOpts);
+    altSchema = objSchema.when(ref, whenOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -691,8 +734,8 @@ strSchema = strSchema.ip(ipOpts);
 strSchema = strSchema.uri();
 strSchema = strSchema.uri(uriOpts);
 strSchema = strSchema.guid();
-strSchema = strSchema.guid({version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5']});
-strSchema = strSchema.guid({version: 'uuidv4'});
+strSchema = strSchema.guid({ version: ['uuidv1', 'uuidv2', 'uuidv3', 'uuidv4', 'uuidv5'] });
+strSchema = strSchema.guid({ version: 'uuidv4' });
 strSchema = strSchema.hex();
 strSchema = strSchema.hostname();
 strSchema = strSchema.isoDate();
@@ -701,50 +744,50 @@ strSchema = strSchema.uppercase();
 strSchema = strSchema.trim();
 
 namespace common {
-	strSchema = strSchema.allow(x);
-	strSchema = strSchema.allow(x, x);
-	strSchema = strSchema.allow([x, x, x]);
-	strSchema = strSchema.valid(x);
-	strSchema = strSchema.valid(x, x);
-	strSchema = strSchema.valid([x, x, x]);
-	strSchema = strSchema.only(x);
-	strSchema = strSchema.only(x, x);
-	strSchema = strSchema.only([x, x, x]);
-	strSchema = strSchema.equal(x);
-	strSchema = strSchema.equal(x, x);
-	strSchema = strSchema.equal([x, x, x]);
-	strSchema = strSchema.invalid(x);
-	strSchema = strSchema.invalid(x, x);
-	strSchema = strSchema.invalid([x, x, x]);
-	strSchema = strSchema.disallow(x);
-	strSchema = strSchema.disallow(x, x);
-	strSchema = strSchema.disallow([x, x, x]);
-	strSchema = strSchema.not(x);
-	strSchema = strSchema.not(x, x);
-	strSchema = strSchema.not([x, x, x]);
+    strSchema = strSchema.allow(x);
+    strSchema = strSchema.allow(x, x);
+    strSchema = strSchema.allow([x, x, x]);
+    strSchema = strSchema.valid(x);
+    strSchema = strSchema.valid(x, x);
+    strSchema = strSchema.valid([x, x, x]);
+    strSchema = strSchema.only(x);
+    strSchema = strSchema.only(x, x);
+    strSchema = strSchema.only([x, x, x]);
+    strSchema = strSchema.equal(x);
+    strSchema = strSchema.equal(x, x);
+    strSchema = strSchema.equal([x, x, x]);
+    strSchema = strSchema.invalid(x);
+    strSchema = strSchema.invalid(x, x);
+    strSchema = strSchema.invalid([x, x, x]);
+    strSchema = strSchema.disallow(x);
+    strSchema = strSchema.disallow(x, x);
+    strSchema = strSchema.disallow([x, x, x]);
+    strSchema = strSchema.not(x);
+    strSchema = strSchema.not(x, x);
+    strSchema = strSchema.not([x, x, x]);
 
-	strSchema = strSchema.default(x);
+    strSchema = strSchema.default(x);
 
-	strSchema = strSchema.required();
-	strSchema = strSchema.optional();
-	strSchema = strSchema.forbidden();
+    strSchema = strSchema.required();
+    strSchema = strSchema.optional();
+    strSchema = strSchema.forbidden();
 
-	strSchema = strSchema.description(str);
-	strSchema = strSchema.notes(str);
-	strSchema = strSchema.notes(strArr);
-	strSchema = strSchema.tags(str);
-	strSchema = strSchema.tags(strArr);
+    strSchema = strSchema.description(str);
+    strSchema = strSchema.notes(str);
+    strSchema = strSchema.notes(strArr);
+    strSchema = strSchema.tags(str);
+    strSchema = strSchema.tags(strArr);
 
-	strSchema = strSchema.meta(obj);
-	strSchema = strSchema.example(obj);
-	strSchema = strSchema.unit(str);
+    strSchema = strSchema.meta(obj);
+    strSchema = strSchema.example(obj);
+    strSchema = strSchema.unit(str);
 
-	strSchema = strSchema.options(validOpts);
-	strSchema = strSchema.strict();
-	strSchema = strSchema.concat(x);
+    strSchema = strSchema.options(validOpts);
+    strSchema = strSchema.strict();
+    strSchema = strSchema.concat(x);
 
-	altSchema = strSchema.when(str, whenOpts);
-	altSchema = strSchema.when(ref, whenOpts);
+    altSchema = strSchema.when(str, whenOpts);
+    altSchema = strSchema.when(ref, whenOpts);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -768,22 +811,22 @@ namespace validate_tests {
         Joi.validate(value, schema);
         Joi.validate(value, schema, validOpts);
         Joi.validate(value, schema, validOpts, (err, value) => {
-	x = value;
-	str = err.message;
-	str = err.details[0].path;
-	str = err.details[0].message;
-	str = err.details[0].type;
+            x = value;
+            str = err.message;
+            str = err.details[0].path;
+            str = err.details[0].message;
+            str = err.details[0].type;
         });
         Joi.validate(value, schema, (err, value) => {
-	x = value;
-	str = err.message;
-	str = err.details[0].path;
-	str = err.details[0].message;
-	str = err.details[0].type;
+            x = value;
+            str = err.message;
+            str = err.details[0].path;
+            str = err.details[0].message;
+            str = err.details[0].type;
         });
         // variant
         Joi.validate(num, schema, validOpts, (err, value) => {
-	num = value;
+            num = value;
         });
 
         // plain opts
@@ -810,6 +853,11 @@ namespace validate_tests {
         returnValue = Joi.validate(value, obj, validOpts);
         value = Joi.validate(value, obj, validOpts, (err, value) => value);
         value = Joi.validate(value, schema, validOpts, (err, value) => value);
+
+        returnValue = schema.validate(value);
+        returnValue = schema.validate(value, validOpts);
+        value = schema.validate(value, (err, value) => value);
+        value = schema.validate(value, validOpts, (err, value) => value);
     }
 }
 
@@ -817,6 +865,7 @@ namespace validate_tests {
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = Joi.compile(obj);
+schema = Joi.compile(schemaMap);
 
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);

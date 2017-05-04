@@ -1,10 +1,11 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
-        "forbidden-types": false,
+        "ban-types": false,
         "interface-name": false,
         "no-empty-interface": false,
+        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

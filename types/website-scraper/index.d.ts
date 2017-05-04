@@ -43,8 +43,12 @@ declare namespace websiteScraper {
     interface Callback {
         (error: any | null, result: Resource[] | null): void;
     }
-    function scrape(options: Options, callback: Callback): void;
-    function scrape(options: Options): Promise<Resource[]>;
+    interface scrape {
+        (options: Options, callback: Callback): void;
+        (options: Options): Promise<Resource[]>;
+    }
 }
+
+declare var websiteScraper: websiteScraper.scrape;
 
 export = websiteScraper;

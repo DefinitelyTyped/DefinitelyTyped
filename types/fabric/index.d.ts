@@ -933,7 +933,7 @@ interface IStaticCanvasOptions {
 	 * Function that determines clipping of entire canvas area
 	 * Being passed context as first argument. See clipping canvas area
 	 */
-	clipTo?: (context: CanvasRenderingContext2D) => void;
+	clipTo?(context: CanvasRenderingContext2D): void;
 
 	/**
 	 * Indicates whether object controls (borders/controls) are rendered above overlay image
@@ -1028,7 +1028,7 @@ export class StaticCanvas {
 	 * @param {Number|String} value                         Value to set width to
 	 * @param {Object}        [options]                     Options object
 	 */
-	setWidth(value: number|string, options?: ICanvasDimensionsOptions): StaticCanvas
+	setWidth(value: number|string, options?: ICanvasDimensionsOptions): StaticCanvas;
 
 	/**
 	 * Sets height of this canvas instance
@@ -1281,13 +1281,13 @@ export class StaticCanvas {
 	 * Straightens object, then rerenders canvas
 	 * @param {fabric.Object} object Object to straighten
 	 */
-	straightenObject(object: Object): StaticCanvas
+	straightenObject(object: Object): StaticCanvas;
 
 	/**
 	 * Same as straightenObject, but animated
 	 * @param {fabric.Object} object Object to straighten
 	 */
-	fxStraightenObject(object: Object): StaticCanvas
+	fxStraightenObject(object: Object): StaticCanvas;
 
 	static EMPTY_JSON: string;
 	/**
@@ -1512,7 +1512,7 @@ export class Canvas {
 	/**
 	 * Removes all event listeners
 	 */
-	removeListeners(): void
+	removeListeners(): void;
 
 	static EMPTY_JSON: string;
 	/**
@@ -2344,7 +2344,7 @@ export class Object {
 	 * @param {Object|Function} value Property value (if function, the value is passed into it and its return value is used as a new one)
 	 */
 	set(key: string, value: any|Function): Object;
-		/**
+	/**
 	 * Sets property to a given value.
 	 * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
 	 * If you need to update those, call `setCoords()`.
@@ -3966,7 +3966,7 @@ export class CircleBrush extends BaseBrush {
 	 * @param {Object} pointer
 	 * @return {fabric.Point} Just added pointer point
 	 */
-	addPoint(pointer: any): Point
+	addPoint(pointer: any): Point;
 }
 
 export class SprayBrush extends BaseBrush {
@@ -3999,7 +3999,7 @@ export class SprayBrush extends BaseBrush {
 	/**
 	 * @param {Object} pointer
 	 */
-	addSprayChunk(pointer: any): void
+	addSprayChunk(pointer: any): void;
 }
 export class PatternBrush extends PencilBrush {
 	getPatternSrc(): HTMLCanvasElement;

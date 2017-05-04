@@ -1,6 +1,6 @@
 // Type definitions for swagger-schema-official 2.0
 // Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
@@ -39,7 +39,7 @@ export interface Header extends BaseSchema {
 }
 
 // ----------------------------- Parameter -----------------------------------
-interface BaseParameter {
+export interface BaseParameter {
   name: string;
   in: string;
   required?: boolean;
@@ -69,7 +69,7 @@ export interface FormDataParameter extends BaseParameter, BaseSchema {
   collectionFormat?: string;
 }
 
-type Parameter =
+export type Parameter =
   BodyParameter |
   FormDataParameter |
   QueryParameter |
@@ -114,7 +114,7 @@ export interface Response {
 }
 
 // ------------------------------ Schema -------------------------------------
-interface BaseSchema {
+export interface BaseSchema {
   format?: string;
   title?: string;
   description?: string;
@@ -140,7 +140,7 @@ interface BaseSchema {
 export interface Schema extends BaseSchema {
   $ref?: string;
   allOf?: Schema[];
-  additionalProperties?: boolean;
+  additionalProperties?: Schema;
   properties?: {[propertyName: string]: Schema};
   discriminator?: string;
   readOnly?: boolean;
@@ -159,7 +159,7 @@ export interface XML {
 }
 
 // ----------------------------- Security ------------------------------------
-interface BaseSecurity {
+export interface BaseSecurity {
   type: string;
   description?: string;
 }
@@ -174,7 +174,7 @@ export interface ApiKeySecurity extends BaseSecurity {
   in: string;
 }
 
-interface BaseOAuthSecuirty extends BaseSecurity {
+export interface BaseOAuthSecuirty extends BaseSecurity {
   flow: string;
 }
 
@@ -202,7 +202,7 @@ export interface OAuthScope {
   [scopeName: string]: string;
 }
 
-type Security =
+export type Security =
   BasicAuthenticationSecurity |
   OAuth2AccessCodeSecurity |
   OAuth2ApplicationSecurity |

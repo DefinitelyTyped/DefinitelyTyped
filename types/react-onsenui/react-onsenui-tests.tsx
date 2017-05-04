@@ -6,11 +6,9 @@ class AppState {
     isOpen: boolean = false;
 }
 
-interface AppProps {
-}
+interface AppProps {} // tslint:disable-line no-empty-interface
 
-export class App extends React.Component<AppProps, AppState>{
-
+export class App extends React.Component<AppProps, AppState> {
     constructor(props?: AppProps) {
         super(props);
         this.state = new AppState();
@@ -21,7 +19,6 @@ export class App extends React.Component<AppProps, AppState>{
     }
 
     render() {
-
         return (
             <Splitter>
                 <SplitterSide
@@ -42,8 +39,6 @@ export class App extends React.Component<AppProps, AppState>{
             </Splitter>
         );
     }
-
 }
-
 
 ReactDOM.render(<App />, document.getElementById('react-body'));

@@ -4,83 +4,83 @@ import nodeSchedule = require("node-schedule");
  * Test for {@link Job} class.
  */
 function testJob() {
-    var name:string = '';
-    var jc:nodeSchedule.JobCallback = null;
-    var callback: Function = null;
+    let name: string = '';
+    let jc: nodeSchedule.JobCallback = null;
+    let callback: () => void = null;
 
-    var jobSpec:nodeSchedule.Job = new nodeSchedule.Job(jc);
-    var job:nodeSchedule.Job = new nodeSchedule.Job(jc, callback);
-    var job:nodeSchedule.Job = new nodeSchedule.Job(name, jc, callback);
+    let jobSpec: nodeSchedule.Job = new nodeSchedule.Job(jc);
+    let job: nodeSchedule.Job = new nodeSchedule.Job(jc, callback);
+    let job2: nodeSchedule.Job = new nodeSchedule.Job(name, jc, callback);
 
-    var jobName:string = job.name;
+    let jobName: string = job.name;
 }
 
 function testTrackInvocation() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var success:boolean = job.trackInvocation(
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let success: boolean = job.trackInvocation(
         new nodeSchedule.Invocation(job, new Date(), new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0))
     );
 }
 
 function testStopTrackingInvocation() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var success = job.stopTrackingInvocation(
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let success = job.stopTrackingInvocation(
         new nodeSchedule.Invocation(job, new Date(), new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0))
     );
 }
 
 function testTriggeredJobs() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var triggeredJobs:number = job.triggeredJobs();
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let triggeredJobs: number = job.triggeredJobs();
 }
 
 function testSetTriggeredJobs() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
     job.setTriggeredJobs(19);
 }
 
 function testCancel() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var success:boolean = job.cancel();
-    var success:boolean = job.cancel(true);
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let success: boolean = job.cancel();
+    let success2: boolean = job.cancel(true);
 }
 
 function testCancelNext() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var success:boolean = job.cancelNext();
-    var success:boolean = job.cancelNext(true);
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let success: boolean = job.cancelNext();
+    let success2: boolean = job.cancelNext(true);
 }
 
 function testReschedule() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var success:boolean = job.reschedule('');
-    var success:boolean = job.reschedule(1234);
-    var success:boolean = job.reschedule(new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0));
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let success: boolean = job.reschedule('');
+    let success2: boolean = job.reschedule(1234);
+    let success3: boolean = job.reschedule(new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0));
 }
 
 function testNextInvocation() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var nextInvocation:Date = job.nextInvocation();
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let nextInvocation: Date = job.nextInvocation();
 }
 
 function testPendingInvocations() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var pendingInvocations:nodeSchedule.Invocation[] = job.pendingInvocations();
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let pendingInvocations: nodeSchedule.Invocation[] = job.pendingInvocations();
 }
 
 function testInvoke() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
     job.invoke();
 }
 
 function testRunOnDate() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
     job.runOnDate(new Date());
 }
 
 function testSchedule() {
-    var job:nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    var success:boolean = job.schedule(new Date());
+    let job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
+    let success: boolean = job.schedule(new Date());
     success = job.schedule('');
     success = job.schedule(1234);
 }
@@ -89,24 +89,24 @@ function testSchedule() {
  * Test for {@link Range} class.
  */
 function testRange() {
-    var range = new nodeSchedule.Range(0);
-    var twoParametersRange:nodeSchedule.Range   = new nodeSchedule.Range(0, 0);
-    var threeParametersRange:nodeSchedule.Range = new nodeSchedule.Range(0, 0, 0);
+    let range = new nodeSchedule.Range(0);
+    let twoParametersRange: nodeSchedule.Range   = new nodeSchedule.Range(0, 0);
+    let threeParametersRange: nodeSchedule.Range = new nodeSchedule.Range(0, 0, 0);
 
-    var contained:boolean = range.contains(0);
+    let contained: boolean = range.contains(0);
 }
 
 /**
  * Test for {@link RecurrenceRule} class.
  */
 function testRecurrenceRule() {
-    var range = new nodeSchedule.Range(0, 0, 0);
-    var rule:nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, [0, range], 0, 0, 0);
-    var rule:nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
+    let range = new nodeSchedule.Range(0, 0, 0);
+    let rule: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, [0, range], 0, 0, 0);
+    let rule2: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
 
-    var nextInvocation:Date = rule.nextInvocationDate(new Date());
+    let nextInvocation: Date = rule.nextInvocationDate(new Date());
 
-    var rule2 = new nodeSchedule.RecurrenceRule();
+    let rule3: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule();
     rule2.month = "7";
     rule2.date = [1, new nodeSchedule.Range(5, 15, 5), "23"];
     rule2.hour = 5;
@@ -118,11 +118,11 @@ function testRecurrenceRule() {
  * Test for {@link Invocation} class.
  */
 function testInvocation() {
-    var job = new nodeSchedule.Job(() => {});
-    var fireDate = new Date();
-    var rule: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
+    let job = new nodeSchedule.Job(() => {});
+    let fireDate = new Date();
+    let rule: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
 
-    var invocation = new nodeSchedule.Invocation(job, fireDate, rule);
+    let invocation = new nodeSchedule.Invocation(job, fireDate, rule);
     invocation.timerID = 0;
 }
 
@@ -130,18 +130,24 @@ function testInvocation() {
  * Test for {@link scheduleJob} class.
  */
 function testScheduleJob() {
-    var callback: nodeSchedule.JobCallback = null;
-    var job:nodeSchedule.Job = nodeSchedule.scheduleJob('', callback);
+    let callback: nodeSchedule.JobCallback = null;
+    let job: nodeSchedule.Job = nodeSchedule.scheduleJob('', callback);
 
-    var rule: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
-    var job:nodeSchedule.Job = nodeSchedule.scheduleJob(rule, callback);
+    let rule: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
+    let job2: nodeSchedule.Job = nodeSchedule.scheduleJob(rule, callback);
 
-    var date: Date = new Date();
-    var job:nodeSchedule.Job = nodeSchedule.scheduleJob(date, callback);
+    let date: Date = new Date();
+    let job3: nodeSchedule.Job = nodeSchedule.scheduleJob(date, callback);
+
+    let jobObjLit: nodeSchedule.Job = nodeSchedule.scheduleJob({hour: 14, minute: 30, dayOfWeek: 0}, callback);
+
+    let startDate: Date = new Date();
+    let endDate: Date = new Date(startDate.getDate() + 10000);
+    let jobDateRange: nodeSchedule.Job = nodeSchedule.scheduleJob({start: startDate, end: endDate, rule: "* * * * * *"}, callback);
 }
 
 function testRescheduleJob() {
-    var job:nodeSchedule.Job = nodeSchedule.rescheduleJob(new nodeSchedule.Job(() => {}), new Date());
+    let job: nodeSchedule.Job = nodeSchedule.rescheduleJob(new nodeSchedule.Job(() => {}), new Date());
     job = nodeSchedule.rescheduleJob(new nodeSchedule.Job(() => {}), new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0));
     job = nodeSchedule.rescheduleJob(new nodeSchedule.Job(() => {}), '');
     job = nodeSchedule.rescheduleJob('', '');
@@ -151,8 +157,8 @@ function testRescheduleJob() {
  * Test for {@link cancelJob} function.
  */
 function testCancelJob() {
-    var job = new nodeSchedule.Job(() => {});
-    var success:boolean = nodeSchedule.cancelJob(job);
+    let job = new nodeSchedule.Job(() => {});
+    let success: boolean = nodeSchedule.cancelJob(job);
 
     success = nodeSchedule.cancelJob('jobName');
 }

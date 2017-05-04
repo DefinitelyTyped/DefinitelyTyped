@@ -3,7 +3,7 @@ interface Props {
   divider?: boolean;
   tag?: React.ReactType;
   header?: boolean;
-  onClick?: React.MouseEvent<any>;
+  onClick?: (event: React.MouseEvent<any>) => void;
   className?: string;
 }
 

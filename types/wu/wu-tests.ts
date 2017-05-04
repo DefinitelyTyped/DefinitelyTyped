@@ -1,6 +1,9 @@
 // adapted from `cat wu.js/test/* |sed '/= require/d'> wu-tests.ts`
 
-declare var describe: any, it: any, mocha: any, assert: {
+declare const describe: any;
+declare const it: any;
+declare const mocha: any;
+declare const assert: {
   iterable: any;
   eqSet<T>(expected: Set<T>, actual: Iterable<T>): any;
   ok: any;

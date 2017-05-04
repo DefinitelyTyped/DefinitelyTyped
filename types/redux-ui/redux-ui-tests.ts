@@ -30,4 +30,3 @@ class Root extends React.Component<ReduxUIProps<UIShape>, {}> {
 Redux.combineReducers({
   ui: reducer,
 });
-
