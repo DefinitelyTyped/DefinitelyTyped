@@ -30,6 +30,9 @@ const boxShadowStyleTest = <div style={boxShadowStyle} />;
 const overflowStyle: React.CSSProperties = { overflow: 'auto', overflowX: 'visible', overflowY: 'scroll' };
 const overflowStyleTest = <div style={overflowStyle} />;
 
+const positionStyle: React.CSSProperties = { position: 'relative' };
+const positionStyleTest = <div style={positionStyle} />;
+
 // SVG specific style attribute declarations
 
 const fillOpacityStyle: React.CSSProperties = { fillOpacity: 0.3 };

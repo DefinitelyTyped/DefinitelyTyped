@@ -667,6 +667,8 @@ declare namespace __esri {
 
   export type EasingFunction = (t: number, duration: number) => number;
 
+  export type EventHandler = (event: any) => void;
+
   export interface PromisedWatchHandle extends IPromise<any> {
     remove(): void;
   }
@@ -1337,7 +1339,7 @@ declare namespace __esri {
     maxZoom?: number;
     snapToZoom?: boolean;
     rotationEnabled?: boolean;
-    effectiveLODs?: number;
+    effectiveLODs?: LOD[];
     effectiveMinZoom?: number;
     effectiveMaxZoom?: number;
     effectiveMinScale?: number;
@@ -1868,21 +1870,6 @@ declare namespace __esri {
     worldScale?: boolean;
   }
 
-  interface Evented {
-    emit(type: string, event: any): IHandle;
-    on(name: string, callback: Function): IHandle;
-  }
-
-  interface EventedConstructor {
-    new(): Evented;
-
-
-    hasEventListener(type: string): boolean;
-    on(type: string, listener: Function): any;
-  }
-
-  export const Evented: EventedConstructor;
-
   interface Basemap extends Accessor, Loadable, JSONSupport {
     baseLayers: Collection;
     id: string;
@@ -1907,11 +1894,11 @@ declare namespace __esri {
   export const Basemap: BasemapConstructor;
 
   interface BasemapProperties extends LoadableProperties {
-    baseLayers?: Collection;
+    baseLayers?: Collection | any[];
     id?: string;
     loaded?: boolean;
     portalItem?: PortalItemProperties;
-    referenceLayers?: Collection;
+    referenceLayers?: Collection | any[];
     thumbnailUrl?: string;
     title?: string;
   }
@@ -2013,7 +2000,7 @@ declare namespace __esri {
   export const Ground: GroundConstructor;
 
   interface GroundProperties {
-    layers?: Collection;
+    layers?: Collection | any[];
   }
 
   interface Map extends Accessor, LayersMixin {
@@ -2029,7 +2016,7 @@ declare namespace __esri {
   export const Map: MapConstructor;
 
   interface MapProperties extends LayersMixinProperties {
-    allLayers?: Collection;
+    allLayers?: Collection | any[];
     basemap?: BasemapProperties;
     ground?: GroundProperties;
   }
@@ -2053,7 +2040,7 @@ declare namespace __esri {
   export const PopupTemplate: PopupTemplateConstructor;
 
   interface PopupTemplateProperties {
-    actions?: Collection;
+    actions?: Collection | any[];
     content?: string | any[] | Function;
     fieldInfos?: PopupTemplateFieldInfos[];
     overwriteActions?: boolean;
@@ -2718,6 +2705,7 @@ declare namespace __esri {
     definitionExpression: string;
     elevationInfo: FeatureLayerElevationInfo;
     fields: Field[];
+    gdbVersion: string;
     geometryType: string;
     hasAttachments: boolean;
     hasM: boolean;
@@ -2762,6 +2750,7 @@ declare namespace __esri {
     definitionExpression?: string;
     elevationInfo?: FeatureLayerElevationInfo;
     fields?: FieldProperties[];
+    gdbVersion?: string;
     geometryType?: string;
     hasAttachments?: boolean;
     hasM?: boolean;
@@ -2777,7 +2766,7 @@ declare namespace __esri {
     renderer?: RendererProperties;
     returnM?: boolean;
     returnZ?: boolean;
-    source?: Collection;
+    source?: Collection | any[];
     spatialReference?: SpatialReferenceProperties;
     token?: string;
     url?: string;
@@ -2823,7 +2812,7 @@ declare namespace __esri {
 
   interface GraphicsLayerProperties extends LayerProperties, ScaleRangeLayerProperties {
     elevationInfo?: GraphicsLayerElevationInfo;
-    graphics?: Collection;
+    graphics?: Collection | any[];
   }
 
   interface GroupLayer extends Layer, LayersMixin, JSONSupport, PortalLayer {
@@ -3419,7 +3408,7 @@ declare namespace __esri {
     popupTemplate?: PopupTemplateProperties;
     renderer?: RendererProperties;
     source?: any | any;
-    sublayers?: Collection;
+    sublayers?: Collection | any[];
     title?: string;
     url?: string;
     visible?: boolean;
@@ -4506,7 +4495,7 @@ declare namespace __esri {
 
   interface Symbol3DProperties extends SymbolProperties {
     styleOrigin?: Symbol3DStyleOrigin;
-    symbolLayers?: Collection;
+    symbolLayers?: Collection | any[];
   }
 
   interface Symbol3DLayer extends Accessor, JSONSupport {
@@ -6170,7 +6159,7 @@ declare namespace __esri {
     goTo(target: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint | any, options?: MapViewGoToOptions): IPromise<any>;
     hasEventListener(type: string): boolean;
     hitTest(screenPoint: MapViewHitTestScreenPoint): IPromise<any>;
-    on(type: string | string[], modifiersOrHandler: string[] | Function, handler?: Function): any;
+    on(type: string | string[], modifiersOrHandler: string[] | EventHandler, handler?: EventHandler): IHandle;
     toMap(screenPoint: ScreenPoint, mapPoint?: Point): Point;
     toScreen(point: Point, screenPoint?: ScreenPoint): ScreenPoint;
   }
@@ -6208,7 +6197,7 @@ declare namespace __esri {
     goTo(target: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint | Camera | any, options?: SceneViewGoToOptions): IPromise<any>;
     hasEventListener(type: string): boolean;
     hitTest(screenPoint: SceneViewHitTestScreenPoint): IPromise<any>;
-    on(type: string | string[], modifiersOrHandler: string[] | Function, handler?: Function): any;
+    on(type: string | string[], modifiersOrHandler: string[] | EventHandler, handler?: EventHandler): IHandle;
     toMap(screenPoint: ScreenPoint, mapPoint?: Point): Point;
     toScreen(point: Point, screenPoint?: ScreenPoint): ScreenPoint;
   }
@@ -6257,11 +6246,11 @@ declare namespace __esri {
   export const View: ViewConstructor;
 
   interface ViewProperties extends BreakpointsOwnerProperties, DOMContainerProperties {
-    allLayerViews?: Collection;
+    allLayerViews?: Collection | any[];
     animation?: ViewAnimationProperties;
-    graphics?: Collection;
+    graphics?: Collection | any[];
     interacting?: boolean;
-    layerViews?: Collection;
+    layerViews?: Collection | any[];
     map?: MapProperties;
     padding?: ViewPadding;
     ready?: boolean;
@@ -6502,7 +6491,7 @@ declare namespace __esri {
   export const Presentation: PresentationConstructor;
 
   interface PresentationProperties {
-    slides?: Collection;
+    slides?: Collection | any[];
   }
 
   interface Slide extends Accessor {
@@ -6736,7 +6725,7 @@ declare namespace __esri {
 
   interface LayerListProperties extends WidgetProperties {
     createActionsFunction?: Function;
-    operationalItems?: Collection;
+    operationalItems?: Collection | any[];
     view?: MapView | SceneView;
     viewModel?: LayerListViewModelProperties;
   }
@@ -6813,7 +6802,6 @@ declare namespace __esri {
     features: Graphic[];
     location: Point;
     promises: IPromise<any>[];
-    rendered: boolean;
     selectedFeature: Graphic;
     selectedFeatureIndex: number;
     title: string;
@@ -6836,7 +6824,7 @@ declare namespace __esri {
   export const Popup: PopupConstructor;
 
   interface PopupProperties extends WidgetteProperties {
-    actions?: Collection;
+    actions?: Collection | any[];
     content?: string | any;
     currentDockPosition?: string;
     dockEnabled?: boolean;
@@ -6845,7 +6833,6 @@ declare namespace __esri {
     features?: GraphicProperties[];
     location?: PointProperties;
     promises?: IPromise<any>[];
-    rendered?: boolean;
     selectedFeature?: GraphicProperties;
     selectedFeatureIndex?: number;
     title?: string;
@@ -7142,7 +7129,7 @@ declare namespace __esri {
 
   interface BasemapGalleryViewModelProperties {
     activeBasemap?: BasemapProperties;
-    items?: Collection;
+    items?: Collection | any[];
     source?: LocalBasemapsSource | PortalBasemapsSource;
     state?: string;
     view?: MapView | SceneView;
@@ -7245,7 +7232,7 @@ declare namespace __esri {
 
   interface LayerListViewModelProperties {
     createActionsFunction?: Function;
-    operationalItems?: Collection;
+    operationalItems?: Collection | any[];
     state?: string;
     view?: MapView | SceneView;
   }
@@ -7356,7 +7343,7 @@ declare namespace __esri {
   export const PopupViewModel: PopupViewModelConstructor;
 
   interface PopupViewModelProperties {
-    actions?: Collection;
+    actions?: Collection | any[];
     content?: string | any;
     featureCount?: number;
     features?: GraphicProperties[];
@@ -7490,6 +7477,17 @@ declare namespace __esri {
     state?: string;
     view?: MapView | SceneView;
   }
+
+  interface Evented {
+    hasEventListener(type: string): boolean;
+    on(type: string, listener: EventHandler): IHandle;
+  }
+
+  interface EventedConstructor {
+    new(): Evented;
+  }
+
+  export const Evented: EventedConstructor;
 
   interface JSONSupport {
     toJSON(): any;
@@ -7627,14 +7625,14 @@ declare namespace __esri {
   export const ArcGISDynamicMapService: ArcGISDynamicMapServiceConstructor;
 
   interface ArcGISDynamicMapServiceProperties {
-    allSublayers?: Collection;
+    allSublayers?: Collection | any[];
     dpi?: number;
     gdbVersion?: string;
     imageFormat?: string;
     imageMaxHeight?: number;
     imageMaxWidth?: number;
     imageTransparency?: boolean;
-    sublayers?: Collection;
+    sublayers?: Collection | any[];
   }
 
   interface ArcGISImageService {
@@ -7809,7 +7807,7 @@ declare namespace __esri {
   export const LayersMixin: LayersMixinConstructor;
 
   interface LayersMixinProperties {
-    layers?: Collection;
+    layers?: Collection | any[];
   }
 
   interface BreakpointsOwner {
@@ -7833,7 +7831,7 @@ declare namespace __esri {
   }
 
   interface DOMContainer {
-    container: string;
+    container: HTMLDivElement | string;
     height: number;
     popup: Popup;
     resizing: boolean;
@@ -7850,7 +7848,7 @@ declare namespace __esri {
   export const DOMContainer: DOMContainerConstructor;
 
   interface DOMContainerProperties {
-    container?: string;
+    container?: HTMLDivElement | string;
     height?: number;
     popup?: Popup;
     resizing?: boolean;
@@ -8381,6 +8379,8 @@ declare module "esri" {
 
   export import EasingFunction = __esri.EasingFunction;
 
+  export import EventHandler = __esri.EventHandler;
+
   export import PromisedWatchHandle = __esri.PromisedWatchHandle;
 
   export import GroundQueryElevationOptions = __esri.GroundQueryElevationOptions;
@@ -8746,11 +8746,6 @@ declare module "esri" {
   export import locationGetSchemesParams = __esri.locationGetSchemesParams;
 
   export import sizeGetSchemesParams = __esri.sizeGetSchemesParams;
-}
-
-declare module "esri/core/Evented" {
-  import Evented = __esri.Evented;
-  export = Evented;
 }
 
 declare module "esri/Basemap" {
@@ -9831,6 +9826,11 @@ declare module "esri/widgets/Track/TrackViewModel" {
 declare module "esri/widgets/Zoom/ZoomViewModel" {
   import ZoomViewModel = __esri.ZoomViewModel;
   export = ZoomViewModel;
+}
+
+declare module "esri/core/Evented" {
+  import Evented = __esri.Evented;
+  export = Evented;
 }
 
 declare module "esri/core/JSONSupport" {

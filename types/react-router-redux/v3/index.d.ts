@@ -7,7 +7,6 @@
 import * as Redux from "redux";
 import * as History from "history";
 
-
 export const TRANSITION: string;
 export const UPDATE_LOCATION: string;
 

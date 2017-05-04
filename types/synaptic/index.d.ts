@@ -328,7 +328,7 @@ export class Network {
     /**
      * Networks can be stored as JSON's.
      */
-    toJSON(): string;
+    toJSON(): any;
 
     /**
      * Creates a static String to store the source code of the functions that are identical for all the workers (train, _trainSet, test).
@@ -339,7 +339,7 @@ export class Network {
     /**
      * Rebuild a network that has been stored in a json using the method toJSON().
      */
-    static fromJSON(exported: string): Network;
+    static fromJSON(exported: any): Network;
 
     /**
      * The network can be converted into a WebWorker. This feature doesn't work in node.js, and it's not supported on every browser (it must support Blob).

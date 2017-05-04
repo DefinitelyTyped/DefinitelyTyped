@@ -1,6 +1,6 @@
-// Type definitions for material-ui v0.16.0
+// Type definitions for material-ui v0.17.5
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>, Aurelién Allienne <https://github.com/allienna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -531,6 +531,17 @@ declare namespace __MaterialUI {
             vertical: vertical;
         }
 
+        interface utils {
+            getWeekArray: (date: Date, firstDayOfWeek: number) => (Date | null)[][];
+            getYear: (date: Date) => number;
+            setYear: (date: Date, year: number) => Date;
+            addDays: (date: Date, days: number) => Date;
+            addMonths: (date: Date, months: number) => Date;
+            addYears: (date: Date, years: number) => Date;
+            getFirstDayOfMonth: (date: Date) => Date;
+            monthDiff: (date1: Date, date2: Date) => number;
+        }
+
         type corners = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
         type cornersAndCenter = 'bottom-center' | 'bottom-left' | 'bottom-right' | 'top-center' | 'top-left' | 'top-right';
     }
@@ -650,7 +661,9 @@ declare namespace __MaterialUI {
     interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
+        className?: string;
         disabled?: boolean;
+        fullWidth?: boolean;
         hoverColor?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;
@@ -783,6 +796,7 @@ declare namespace __MaterialUI {
             expandable?: boolean;
             showExpandableButton?: boolean;
             style?: React.CSSProperties;
+            className?: string;
         }
         export class CardActions extends React.Component<CardActionsProps, {}> {
         }
@@ -808,6 +822,9 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleColor?: string;
             titleStyle?: React.CSSProperties;
+            className?: string;
+            openIcon?: React.ReactNode;
+            closeIcon?: React.ReactNode;
         }
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
@@ -830,6 +847,7 @@ declare namespace __MaterialUI {
             color?: string;
             expandable?: boolean;
             style?: React.CSSProperties;
+            className?: string;
         }
         export class CardText extends React.Component<CardTextProps, {}> {
         }
@@ -865,7 +883,7 @@ declare namespace __MaterialUI {
     namespace DatePicker {
         interface DatePickerProps {
             // <TextField/> is the element that get the 'other' properties
-            DateTimeFormat?: Intl.DateTimeFormat;
+            DateTimeFormat?: typeof Intl.DateTimeFormat;
             autoOk?: boolean;
             cancelLabel?: React.ReactNode;
             container?: "dialog" | "inline";
@@ -912,13 +930,14 @@ declare namespace __MaterialUI {
             underlineFocusStyle?: React.CSSProperties;
             underlineShow?: boolean;
             underlineStyle?: React.CSSProperties;
+            utils?: propTypes.utils;
         }
         export class DatePicker extends React.Component<DatePickerProps, {}> {
         }
 
         interface DatePickerDialogProps {
             // <Container/> is the element that get the 'other' properties
-            DateTimeFormat?: Intl.DateTimeFormat;
+            DateTimeFormat?: typeof Intl.DateTimeFormat;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             autoOk?: boolean;
             cancelLabel?: React.ReactNode;
@@ -936,8 +955,11 @@ declare namespace __MaterialUI {
             onShow?: () => void;
             shouldDisableDate?: (day: Date) => boolean;
             style?: React.CSSProperties;
+            utils?: propTypes.utils;
         }
         export class DatePickerDialog extends React.Component<DatePickerDialogProps, {}> {
+            public show(): void;
+            public dismiss(): void;
         }
     }
 
@@ -1213,6 +1235,8 @@ declare namespace __MaterialUI {
         autoLockScrolling?: boolean;
         show?: boolean;
         transitionEnabled?: boolean;
+        onClick?: React.MouseEventHandler<{}>;
+        onTouchTap?: TouchTapEventHandler;
     }
     export class Overlay extends React.Component<OverlayProps, {}> {
     }
@@ -1321,10 +1345,12 @@ declare namespace __MaterialUI {
         iconStyle?: React.CSSProperties;
         id?: string;
         labelStyle?: React.CSSProperties;
+        multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler<{}>;
         selectFieldRoot?: React.CSSProperties;
+        selectionRenderer?: (value: any) => React.ReactNode;
         style?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;
@@ -1796,6 +1822,9 @@ declare namespace __MaterialUI {
         underlineStyle?: React.CSSProperties;
         value?: string | number;
         autoFocus?: boolean;
+        min?: number;
+        max?: number;
+        step?: number;
     }
     export class TextField extends React.Component<TextFieldProps, {}> {
         blur(): void;
@@ -2040,6 +2069,11 @@ declare module 'material-ui/CircularProgress' {
 declare module 'material-ui/DatePicker' {
     export import DatePicker = __MaterialUI.DatePicker.DatePicker;
     export default DatePicker;
+}
+
+declare module 'material-ui/DatePicker/DatePickerDialog' {
+    export import DatePickerDialog = __MaterialUI.DatePicker.DatePickerDialog;
+    export default DatePickerDialog;
 }
 
 declare module 'material-ui/Dialog' {
@@ -8634,6 +8668,8 @@ declare module 'material-ui/internal/Overlay' {
         show: boolean;
         style?: React.CSSProperties;
         transitionEnabled?: boolean;
+        onClick?: React.MouseEventHandler<{}>;
+        onTouchTap?: __MaterialUI.TouchTapEventHandler;
     }
     class Overlay extends React.Component<OverlayProps, {}> { }
     export default Overlay;

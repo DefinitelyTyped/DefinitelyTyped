@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-array module 1.1
+// Type definitions for D3JS d3-array module 1.2
 // Project: https://github.com/d3/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 1.2.0
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -17,7 +17,7 @@ export type Primitive = number | string | boolean | Date;
 /**
  * Administrivia: anything with a valueOf(): number method is comparable, so we allow it in numeric operations
  */
-interface Numeric {
+export interface Numeric {
     valueOf(): number;
 }
 
@@ -246,14 +246,45 @@ export function shuffle<T>(array: T[], lo?: number, hi?: number): T[];
 
 /**
  * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).
+ * Each value is a power of ten multiplied by 1, 2 or 5. See also d3.tickIncrement, d3.tickStep and linear.ticks.
+ *
+ * Ticks are inclusive in the sense that they may include the specified start and stop values if (and only if) they are exact,
+ * nicely-rounded values consistent with the inferred step. More formally, each returned tick t satisfies start ≤ t and t ≤ stop.
+ *
+ * @param start Start value for ticks
+ * @param stop Stop value for ticks
+ * @param count count + 1 is the approximate number of ticks to be returned by d3.ticks.
  */
 export function ticks(start: number, stop: number, count: number): number[];
 
 /**
- * Generate an array of with the differences between adjecent ticks, had the same arguments
- * been passed to ticks(start, stop, count)
+ * Returns the difference between adjacent tick values if the same arguments were passed to d3.ticks:
+ * a nicely-rounded value that is a power of ten multiplied by 1, 2 or 5.
+ *
+ * Like d3.tickStep, except requires that start is always less than or equal to step, and if the tick step for the given start,
+ * stop and count would be less than one, returns the negative inverse tick step instead.
+ *
+ * This method is always guaranteed to return an integer, and is used by d3.ticks to avoid guarantee that the returned tick values
+ * are represented as precisely as possible in IEEE 754 floating point.
+ *
+ * @param start Start value for ticks
+ * @param stop Stop value for ticks
+ * @param count count + 1 is the approximate number of ticks to be returned by d3.ticks.
  */
-export function tickStep(start: number, stop: number, count: number): number[];
+export function tickIncrement(start: number, stop: number, count: number): number;
+
+/**
+ * Returns the difference between adjacent tick values if the same arguments were passed to d3.ticks:
+ * a nicely-rounded value that is a power of ten multiplied by 1, 2 or 5.
+ *
+ * Note that due to the limited precision of IEEE 754 floating point, the returned value may not be exact decimals;
+ * use d3-format to format numbers for human consumption.
+ *
+ * @param start Start value for ticks
+ * @param stop Stop value for ticks
+ * @param count count + 1 is the approximate number of ticks to be returned by d3.ticks.
+ */
+export function tickStep(start: number, stop: number, count: number): number;
 
 /**
  * Transpose a matrix provided in Array of Arrays format.
@@ -298,6 +329,9 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
      * Divide the domain uniformly into approximately count bins. IMPORTANT: This threshold
      * setting approach only works, when the materialized values are numbers!
      *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
      * @param count The desired number of uniform bins.
      */
     thresholds(count: number): this;
@@ -306,6 +340,9 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
      * Divides the domain uniformly into approximately count bins. IMPORTANT: This threshold
      * setting approach only works, when the materialized values are numbers!
      *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
      * @param count A function which accepts as arguments the array of materialized values, and
      * optionally the domain minimum and maximum. The function calcutates and returns the suggested
      * number of bins.
@@ -313,6 +350,10 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
     thresholds(count: ThresholdCountGenerator): this;
     /**
      * Set the array of values to be used as thresholds in determining the bins.
+     *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
+     *
      * @param thresholds Array of threshold values used for binning. The elements must
      * be of the same type as the materialized values of the histogram.
      */
@@ -320,6 +361,9 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
     /**
      * Set a threshold accessor function, which returns the array of values to be used as
      * thresholds in determining the bins.
+     *
+     * Any threshold values outside the domain are ignored. The first bin.x0 is always equal to the minimum domain value,
+     * and the last bin.x1 is always equal to the maximum domain value.
      *
      * @param thresholds A function which accepts as arguments the array of materialized values, and
      * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as

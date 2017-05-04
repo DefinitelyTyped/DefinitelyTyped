@@ -1,17 +1,19 @@
-// Type definitions for Enzyme 2.7
+// Type definitions for Enzyme 2.8
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
 //                 Ivo Stratev <https://github.com/NoHomey>
 //                 Tom Crockett <https://github.com/pelotom>
-//                 jwbay <https://githb.com/jwbay>
+//                 jwbay <https://github.com/jwbay>
+//                 huhuanming <https://github.com/huhuanming>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="cheerio" />
 import { ReactElement, Component, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
-type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
+export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
 export class ElementClass extends Component<any, any> {
 }
@@ -20,11 +22,11 @@ export class ElementClass extends Component<any, any> {
  * The optional static properties on them break overload ordering for wrapper methods if they're not
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
-interface ComponentClass<Props> {
-    new(props?: Props, context?: any): Component<Props, any>;
+export interface ComponentClass<Props> {
+    new (props?: Props, context?: any): Component<Props, any>;
 }
 
-type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
+export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
 
 /**
  * Many methods in Enzyme's API accept a selector as an argument. Selectors in Enzyme can fall into one of the
@@ -41,7 +43,9 @@ export interface EnzymePropSelector {
 }
 export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<any> | EnzymePropSelector;
 
-interface CommonWrapper<P, S> {
+export type Intercepter<T> = (intercepter: T) => void;
+
+export interface CommonWrapper<P, S> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
      * @param predicate
@@ -96,6 +100,7 @@ interface CommonWrapper<P, S> {
 
     /**
      * Returns whether or not the current node is empty.
+     * @deprecated Use .exists() instead.
      */
     isEmpty(): boolean;
 
@@ -134,6 +139,21 @@ interface CommonWrapper<P, S> {
     get(index: number): ReactElement<any>;
 
     /**
+     * Returns the wrapper's underlying node.
+     */
+    getNode(): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying nodes.
+     */
+    getNodes(): Array<ReactElement<any>>;
+
+    /**
+     * Returns the outer most DOMComponent of the current wrapper.
+     */
+    getDOMNode(): Element;
+
+    /**
      * Returns a wrapper around the node at a given index of the current wrapper.
      * @param index
      */
@@ -148,6 +168,16 @@ interface CommonWrapper<P, S> {
      * Reduce the set of matched nodes to the last in the set.
      */
     last(): this;
+
+    /**
+     * Returns a new wrapper with a subset of the nodes of the original wrapper, according to the rules of `Array#slice`.
+     */
+    slice(begin?: number, end?: number): this;
+
+    /**
+     * Taps into the wrapper method chain. Helpful for debugging.
+     */
+    tap(intercepter: Intercepter<this>): this;
 
     /**
      * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
@@ -334,13 +364,13 @@ interface CommonWrapper<P, S> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    type(): string | ComponentClass<P> | StatelessComponent<P> ;
+    type(): string | ComponentClass<P> | StatelessComponent<P>;
 
     length: number;
 }
 
 export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
-    shallow(): ShallowWrapper<P, S>;
+    shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
     unmount(): ShallowWrapper<any, any>;
 
     /**

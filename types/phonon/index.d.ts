@@ -190,6 +190,7 @@ interface Document {
 interface Window {
     on(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
     off(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
+    phonon: Phonon.Phonon;
 }
 interface Element {
     on(event: string, callback: (event: any) => void, useCapture?: boolean): void;

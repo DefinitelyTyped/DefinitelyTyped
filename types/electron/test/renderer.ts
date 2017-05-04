@@ -268,3 +268,44 @@ webview.capturePage((image) => { console.log(image); });
 ipcRenderer.on('ping', function() {
 	ipcRenderer.sendToHost('pong');
 });
+
+
+// showOpenDialog
+// https://electron.atom.io/docs/api/dialog/#dialogshowopendialogbrowserwindow-options-callback
+
+remote.dialog.showOpenDialog(win);
+remote.dialog.showOpenDialog(win, {}, fileNames => fileNames);
+remote.dialog.showOpenDialog(win, {
+	title: 'foo',
+	defaultPath: '/bar',
+	buttonLabel: 'foo bar',
+	filters: [
+		{name: 'Images', extensions: ['jpg', 'png', 'gif']},
+		{name: 'Movies', extensions: ['mkv', 'avi', 'mp4']},
+		{name: 'Custom File Type', extensions: ['as']},
+		{name: 'All Files', extensions: ['*']}
+	],
+	properties: ['openFile', 'openDirectory', 'multiSelections', 'showHiddenFiles', 'createDirectory', 'promptToCreate', 'noResolveAliases'],
+	normalizeAccessKeys: true,
+	message: 'foo message',
+});
+
+// showSaveDialog
+// https://electron.atom.io/docs/api/dialog/#dialogshowsavedialogbrowserwindow-options-callback
+
+remote.dialog.showSaveDialog(win);
+remote.dialog.showSaveDialog(win, {}, fileNames => fileNames);
+remote.dialog.showSaveDialog(win, {
+	title: 'foo',
+	defaultPath: '/bar',
+	buttonLabel: 'foo bar',
+	filters: [
+		{name: 'Images', extensions: ['jpg', 'png', 'gif']},
+		{name: 'Movies', extensions: ['mkv', 'avi', 'mp4']},
+		{name: 'Custom File Type', extensions: ['as']},
+		{name: 'All Files', extensions: ['*']}
+	],
+	message: 'foo message',
+	nameFieldLabel: 'foo name',
+	showsTagField: true
+});

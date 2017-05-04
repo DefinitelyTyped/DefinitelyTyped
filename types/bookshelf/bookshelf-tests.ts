@@ -257,11 +257,6 @@ class Library extends bookshelf.Model<Library> {
 /* new Model(), see http://bookshelfjs.org/#Model */
 
 {
-	new Book({
-		title: "One Thousand and One Nights",
-		author: "Scheherazade"
-	});
-
 	class Book extends bookshelf.Model<Book> {
 		get tableName() { return 'documents'; }
 
@@ -273,6 +268,11 @@ class Library extends bookshelf.Model<Library> {
 			});
 		}
 	}
+
+	new Book({
+		title: "One Thousand and One Nights",
+		author: "Scheherazade"
+	});
 }
 
 /* model.initialize(), see http://bookshelfjs.org/#Model-instance-initialize */
@@ -481,6 +481,15 @@ new Book({'ISBN-13': '9780440180296'})
 
 /* model.fetchAll(), see http://bookshelfjs.org/#Model-instance-fetchAll */
 
+{
+	(new User).fetchAll({
+		columns: ['id', 'name'],
+		withRelated: ['posts.tags']
+	}).then((user: any) => {
+		console.log(user);
+	})
+}
+
 /* model.format(), see http://bookshelfjs.org/#Model-instance-format */
 
 /* model.get(), see http://bookshelfjs.org/#Model-instance-get */
@@ -636,6 +645,16 @@ customer.on('fetching', (model, columns) => {
 });
 
 /* model.once(), see http://bookshelfjs.org/#Model-instance-once */
+
+/* model.orderBy(), see http://bookshelfjs.org/#Model-instance-orderBy */
+{
+	(new User)
+		.orderBy('name', 'ASC')
+		.fetchAll()
+		.then((users: Bookshelf.Collection<User>) => {
+			console.log(users)
+		});
+}
 
 /* model.parse(), see http://bookshelfjs.org/#Model-instance-parse */
 
@@ -1095,6 +1114,16 @@ ships.on('fetched', (collection, response) => {
 })
 
 /* collection.once(), see http://bookshelfjs.org/#Collection-instance-once */
+
+/* collection.orderBy(), see http://bookshelfjs.org/#Collection-instance-orderBy */
+{
+	User.collection()
+		.orderBy('-name')
+		.fetch()
+		.then((users: Bookshelf.Collection<User>) => {
+			console.log(users);
+		})
+}
 
 /* collection.parse(), see http://bookshelfjs.org/#Collection-instance-parse */
 

@@ -1,8 +1,20 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>, Eric Anderson <https://github.com/ericanderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+type NativeAnimationEvent = AnimationEvent;
+type NativeClipboardEvent = ClipboardEvent;
+type NativeCompositionEvent = CompositionEvent;
+type NativeDragEvent = DragEvent;
+type NativeFocusEvent = FocusEvent;
+type NativeKeyboardEvent = KeyboardEvent;
+type NativeMouseEvent = MouseEvent;
+type NativeTouchEvent = TouchEvent;
+type NativeTransitionEvent = TransitionEvent;
+type NativeUIEvent = UIEvent;
+type NativeWheelEvent = WheelEvent;
 
 export = React;
 export as namespace React;
@@ -295,17 +307,21 @@ declare namespace React {
 
     interface ClipboardEvent<T> extends SyntheticEvent<T> {
         clipboardData: DataTransfer;
+        nativeEvent: NativeClipboardEvent;
     }
 
     interface CompositionEvent<T> extends SyntheticEvent<T> {
         data: string;
+        nativeEvent: NativeCompositionEvent;
     }
 
     interface DragEvent<T> extends MouseEvent<T> {
         dataTransfer: DataTransfer;
+        nativeEvent: NativeDragEvent;
     }
 
     interface FocusEvent<T> extends SyntheticEvent<T> {
+        nativeEvent: NativeFocusEvent;
         relatedTarget: EventTarget;
     }
 
@@ -326,6 +342,7 @@ declare namespace React {
         locale: string;
         location: number;
         metaKey: boolean;
+        nativeEvent: NativeKeyboardEvent;
         repeat: boolean;
         shiftKey: boolean;
         which: number;
@@ -340,6 +357,7 @@ declare namespace React {
         ctrlKey: boolean;
         getModifierState(key: string): boolean;
         metaKey: boolean;
+        nativeEvent: NativeMouseEvent;
         pageX: number;
         pageY: number;
         relatedTarget: EventTarget;
@@ -354,6 +372,7 @@ declare namespace React {
         ctrlKey: boolean;
         getModifierState(key: string): boolean;
         metaKey: boolean;
+        nativeEvent: NativeTouchEvent;
         shiftKey: boolean;
         targetTouches: TouchList;
         touches: TouchList;
@@ -361,6 +380,7 @@ declare namespace React {
 
     interface UIEvent<T> extends SyntheticEvent<T> {
         detail: number;
+        nativeEvent: NativeUIEvent;
         view: AbstractView;
     }
 
@@ -369,18 +389,21 @@ declare namespace React {
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+        nativeEvent: NativeWheelEvent;
     }
 
     interface AnimationEvent<T> extends SyntheticEvent<T> {
         animationName: string;
-        pseudoElement: string;
         elapsedTime: number;
+        nativeEvent: NativeAnimationEvent;
+        pseudoElement: string;
     }
 
     interface TransitionEvent<T> extends SyntheticEvent<T> {
+        elapsedTime: number;
+        nativeEvent: NativeTransitionEvent;
         propertyName: string;
         pseudoElement: string;
-        elapsedTime: number;
     }
 
     //
@@ -1599,7 +1622,7 @@ declare namespace React {
         /**
          * The position property controls the type of positioning used by an element within its parent elements. The effect of the position property depends on a lot of factors, for example the position property of parent elements.
          */
-        position?: CSSWideKeyword | any;
+        position?: CSSWideKeyword | "static" | "relative" | "absolute" | "fixed" | "sticky";
 
         /**
          * Obsolete: unsupported.
@@ -2074,6 +2097,7 @@ declare namespace React {
         charSet?: string;
         challenge?: string;
         checked?: boolean;
+        cite?: string;
         classID?: string;
         className?: string;
         cols?: number;

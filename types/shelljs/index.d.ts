@@ -1,11 +1,9 @@
-// Type definitions for ShellJS v0.7.6
+// Type definitions for ShellJS 0.7
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 ///<reference types="node"/>
-
 
 import child = require("child_process");
 
@@ -13,20 +11,20 @@ import child = require("child_process");
  * Changes to directory dir for the duration of the script
  * @param {string} dir Directory to change in.
  */
-export declare function cd(dir: string): void;
+export function cd(dir: string): void;
 
 /**
  * Returns the current directory.
  * @return {string} The current directory.
  */
-export declare function pwd(): string;
+export function pwd(): string;
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
  * @param  {string[]} ...paths Paths to search.
  * @return {string[]}          An array of files in the given path(s).
  */
-export declare function ls(...paths: string[]): string[];
+export function ls(...paths: string[]): string[];
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
@@ -34,14 +32,14 @@ export declare function ls(...paths: string[]): string[];
  * @param  {string[]} ...paths Paths to search.
  * @return {string[]}          An array of files in the given path(s).
  */
-export declare function ls(options: string, ...paths: string[]): string[];
+export function ls(options: string, ...paths: string[]): string[];
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
  * @param  {string[]} paths Paths to search.
  * @return {string[]}       An array of files in the given path(s).
  */
-export declare function ls(paths: string[]): string[];
+export function ls(paths: string[]): string[];
 
 /**
  * Returns array of files in the given path, or in current directory if no path provided.
@@ -49,35 +47,35 @@ export declare function ls(paths: string[]): string[];
  * @param  {string[]} paths    Paths to search.
  * @return {string[]}          An array of files in the given path(s).
  */
-export declare function ls(options: string, paths: string[]): string[];
+export function ls(options: string, paths: string[]): string[];
 
 /**
  * Returns array of all files (however deep) in the given paths.
  * @param {string[]} ...path   The path(s) to search.
  * @return {string[]}          An array of all files (however deep) in the given path(s).
  */
-export declare function find(...path: string[]): string[];
+export function find(...path: string[]): string[];
 
 /**
  * Returns array of all files (however deep) in the given paths.
  * @param {string[]} path   The path(s) to search.
  * @return {string[]}       An array of all files (however deep) in the given path(s).
  */
-export declare function find(path: string[]): string[];
+export function find(path: string[]): string[];
 
 /**
  * Copies files. The wildcard * is accepted.
  * @param {string} source  The source.
  * @param {string}   dest  The destination.
  */
-export declare function cp(source: string, dest: string): void;
+export function cp(source: string, dest: string): void;
 
 /**
  * Copies files. The wildcard * is accepted.
  * @param {string[]} source  The source.
  * @param {string}   dest    The destination.
  */
-export declare function cp(source: string[], dest: string): void;
+export function cp(source: string[], dest: string): void;
 
 /**
  * Copies files. The wildcard * is accepted.
@@ -85,7 +83,7 @@ export declare function cp(source: string[], dest: string): void;
  * @param {strin]}   source  The source.
  * @param {string}   dest    The destination.
  */
-export declare function cp(options: string, source: string, dest: string): void;
+export function cp(options: string, source: string, dest: string): void;
 
 /**
  * Copies files. The wildcard * is accepted.
@@ -93,73 +91,73 @@ export declare function cp(options: string, source: string, dest: string): void;
  * @param {string[]} source  The source.
  * @param {string}   dest    The destination.
  */
-export declare function cp(options: string, source: string[], dest: string): void;
+export function cp(options: string, source: string[], dest: string): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param {string[]} ...files Files to remove.
  */
-export declare function rm(...files: string[]): void;
+export function rm(...files: string[]): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param {string[]} files Files to remove.
  */
-export declare function rm(files: string[]): void;
+export function rm(files: string[]): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param {string}   options  Available options: -f (force), -r, -R (recursive)
  * @param {string[]} ...files Files to remove.
  */
-export declare function rm(options: string, ...files: string[]): void;
+export function rm(options: string, ...files: string[]): void;
 
 /**
  * Removes files. The wildcard * is accepted.
  * @param {string}   options  Available options: -f (force), -r, -R (recursive)
  * @param {string[]} ...files Files to remove.
  */
-export declare function rm(options: string, files: string[]): void;
+export function rm(options: string, files: string[]): void;
 
 /**
  * Moves files. The wildcard * is accepted.
  * @param {string} source The source.
  * @param {string} dest   The destination.
  */
-export declare function mv(source: string, dest: string): void;
+export function mv(source: string, dest: string): void;
 
 /**
  * Moves files. The wildcard * is accepted.
  * @param {string[]} source The source.
  * @param {string}   dest   The destination.
  */
-export declare function mv(source: string[], dest: string): void;
+export function mv(source: string[], dest: string): void;
 
 /**
  * Creates directories.
  * @param {string[]} ...dir Directories to create.
  */
-export declare function mkdir(...dir: string[]): void;
+export function mkdir(...dir: string[]): void;
 
 /**
  * Creates directories.
  * @param {string[]} dir Directories to create.
  */
-export declare function mkdir(dir: string[]): void;
+export function mkdir(dir: string[]): void;
 
 /**
  * Creates directories.
  * @param {string}   options Available options: p (full paths, will create intermediate dirs if necessary)
  * @param {string[]} ...dir  The directories to create.
  */
-export declare function mkdir(options: string, ...dir: string[]): void;
+export function mkdir(options: string, ...dir: string[]): void;
 
 /**
  * Creates directories.
  * @param {string}   options Available options: p (full paths, will create intermediate dirs if necessary)
  * @param {string[]} dir     The directories to create.
  */
-export declare function mkdir(options: string, dir: string[]): void;
+export function mkdir(options: string, dir: string[]): void;
 
 /**
  * Evaluates expression using the available primaries and returns corresponding value.
@@ -167,22 +165,21 @@ export declare function mkdir(options: string, dir: string[]): void;
  * @param  {string}  path   The path.
  * @return {boolean}        See option parameter.
  */
-export declare function test(option: string, path: string): boolean;
+export function test(option: string, path: string): boolean;
 
 /**
  * Returns a string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file). Wildcard * accepted.
  * @param  {string[]} ...files Files to use.
  * @return {string}            A string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file).
  */
-export declare function cat(...files: string[]): string;
+export function cat(...files: string[]): string;
 
 /**
  * Returns a string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file). Wildcard * accepted.
  * @param  {string[]} files Files to use.
  * @return {string}         A string containing the given file, or a concatenated string containing the files if more than one file is given (a new line character is introduced between each file).
  */
-export declare function cat(files: string[]): string;
-
+export function cat(files: string[]): string;
 
 // Does not work yet.
 export interface String {
@@ -206,7 +203,7 @@ export interface String {
  * @param  {string} file        The file to process.
  * @return {string}             The new string after replacement.
  */
-export declare function sed(searchRegex: RegExp, replacement: string, file: string): string;
+export function sed(searchRegex: RegExp, replacement: string, file: string): string;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -215,7 +212,7 @@ export declare function sed(searchRegex: RegExp, replacement: string, file: stri
  * @param  {string} file        The file to process.
  * @return {string}             The new string after replacement.
  */
-export declare function sed(searchRegex: string, replacement: string, file: string): string;
+export function sed(searchRegex: string, replacement: string, file: string): string;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -225,7 +222,7 @@ export declare function sed(searchRegex: string, replacement: string, file: stri
  * @param  {string} file        The file to process.
  * @return {string}             The new string after replacement.
  */
-export declare function sed(options: string, searchRegex: RegExp, replacement: string, file: string): string;
+export function sed(options: string, searchRegex: RegExp, replacement: string, file: string): string;
 
 /**
  * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
@@ -235,7 +232,7 @@ export declare function sed(options: string, searchRegex: RegExp, replacement: s
  * @param  {string} file        The file to process.
  * @return {string}             The new string after replacement.
  */
-export declare function sed(options: string, searchRegex: string, replacement: string, file: string): string;
+export function sed(options: string, searchRegex: string, replacement: string, file: string): string;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -243,7 +240,7 @@ export declare function sed(options: string, searchRegex: string, replacement: s
  * @param  {string[]} ...files     The files to process.
  * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export declare function grep(regex_filter: RegExp, ...files: string[]): string;
+export function grep(regex_filter: RegExp, ...files: string[]): string;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -251,7 +248,7 @@ export declare function grep(regex_filter: RegExp, ...files: string[]): string;
  * @param  {string[]} ...files     The files to process.
  * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export declare function grep(regex_filter: RegExp, files: string[]): string;
+export function grep(regex_filter: RegExp, files: string[]): string;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -260,7 +257,7 @@ export declare function grep(regex_filter: RegExp, files: string[]): string;
  * @param  {string[]} ...files     The files to process.
  * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export declare function grep(options: string, regex_filter: string, ...files: string[]): string;
+export function grep(options: string, regex_filter: string, ...files: string[]): string;
 
 /**
  * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
@@ -269,42 +266,42 @@ export declare function grep(options: string, regex_filter: string, ...files: st
  * @param  {string[]} files        The files to process.
  * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
  */
-export declare function grep(options: string, regex_filter: string, files: string[]): string;
+export function grep(options: string, regex_filter: string, files: string[]): string;
 
 /**
  * Searches for command in the system's PATH. On Windows looks for .exe, .cmd, and .bat extensions.
  * @param  {string} command The command to search for.
  * @return {string}         Returns string containing the absolute path to the command.
  */
-export declare function which(command: string): string;
+export function which(command: string): string;
 
 /**
  * Prints string to stdout, and returns string with additional utility methods like .to().
  * @param  {string[]} ...text The text to print.
  * @return {string}           Returns the string that was passed as argument.
  */
-export declare function echo(...text: string[]): string;
+export function echo(...text: string[]): string;
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
  * @param  {"+N"}     dir Brings the Nth directory (counting from the left of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return {string[]}     Returns an array of paths in the stack.
  */
-export declare function pushd(dir: "+N"): string[];
+export function pushd(dir: "+N"): string[];
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
  * @param  {"-N"}     dir Brings the Nth directory (counting from the right of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return {string[]}     Returns an array of paths in the stack.
  */
-export declare function pushd(dir: "-N"): string[];
+export function pushd(dir: "-N"): string[];
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
  * @param  {string}     dir Makes the current working directory be the top of the stack, and then executes the equivalent of cd dir.
  * @return {string[]}       Returns an array of paths in the stack.
  */
-export declare function pushd(dir: string): string[];
+export function pushd(dir: string): string[];
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
@@ -312,7 +309,7 @@ export declare function pushd(dir: string): string[];
  * @param  {"+N"}     dir Brings the Nth directory (counting from the left of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return {string[]}     Returns an array of paths in the stack.
  */
-export declare function pushd(options: string, dir: "+N"): string[];
+export function pushd(options: string, dir: "+N"): string[];
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
@@ -320,7 +317,7 @@ export declare function pushd(options: string, dir: "+N"): string[];
  * @param  {"-N"}     dir Brings the Nth directory (counting from the right of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
  * @return {string[]}     Returns an array of paths in the stack.
  */
-export declare function pushd(options: string, dir: "-N"): string[];
+export function pushd(options: string, dir: "-N"): string[];
 
 /**
  * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
@@ -328,34 +325,34 @@ export declare function pushd(options: string, dir: "-N"): string[];
  * @param  {string}   dir     Makes the current working directory be the top of the stack, and then executes the equivalent of cd dir.
  * @return {string[]}         Returns an array of paths in the stack.
  */
-export declare function pushd(options: string, dir: string): string[];
+export function pushd(options: string, dir: string): string[];
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @param  {"+N"}     dir Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
  * @return {string[]}     Returns an array of paths in the stack.
  */
-export declare function popd(dir: "+N"): string[];
+export function popd(dir: "+N"): string[];
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @return {string[]}     Returns an array of paths in the stack.
  */
-export declare function popd(): string[];
+export function popd(): string[];
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @param  {"-N"}     dir Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
  * @return {string[]}     Returns an array of paths in the stack.
  */
-export declare function popd(dir: "-N"): string[];
+export function popd(dir: "-N"): string[];
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
  * @param  {string}     dir You can only use -N and +N.
  * @return {string[]}       Returns an array of paths in the stack.
  */
-export declare function popd(dir: string): string[];
+export function popd(dir: string): string[];
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
@@ -363,7 +360,7 @@ export declare function popd(dir: string): string[];
  * @param  {"+N"}     dir     Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
  * @return {string[]}         Returns an array of paths in the stack.
  */
-export declare function popd(options: string, dir: "+N"): string[];
+export function popd(options: string, dir: "+N"): string[];
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
@@ -371,7 +368,7 @@ export declare function popd(options: string, dir: "+N"): string[];
  * @param  {"-N"}     dir     Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
  * @return {string[]}         Returns an array of paths in the stack.
  */
-export declare function popd(options: string, dir: "-N"): string[];
+export function popd(options: string, dir: "-N"): string[];
 
 /**
  * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
@@ -379,42 +376,42 @@ export declare function popd(options: string, dir: "-N"): string[];
  * @param  {string}   dir     You can only use -N and +N.
  * @return {string[]}         Returns an array of paths in the stack.
  */
-export declare function popd(options: string, dir: string): string[];
+export function popd(options: string, dir: string): string[];
 
 /**
  * Clears the directory stack by deleting all of the elements.
  * @param  {"-c"}     options Clears the directory stack by deleting all of the elements.
  * @return {string[]}         Returns an array of paths in the stack, or a single path if +N or -N was specified.
  */
-export declare function dirs(options: "-c"): string[];
+export function dirs(options: "-c"): string[];
 
 /**
  * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
  * @param  {"+N"}   options Displays the Nth directory (counting from the left of the list printed by dirs when invoked without options), starting with zero.
  * @return {string[]}       Returns an array of paths in the stack, or a single path if +N or -N was specified.
  */
-export declare function dirs(options: "+N"): string;
+export function dirs(options: "+N"): string;
 
 /**
  * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
  * @param  {"-N"}   options Displays the Nth directory (counting from the right of the list printed by dirs when invoked without options), starting with zero.
  * @return {string[]}       Returns an array of paths in the stack, or a single path if +N or -N was specified.
  */
-export declare function dirs(options: "-N"): string;
+export function dirs(options: "-N"): string;
 
 /**
  * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
  * @param  {string} options Available options: -c, -N, +N. You can only use those.
  * @return {any}            Returns an array of paths in the stack, or a single path if +N or -N was specified.
  */
-export declare function dirs(options: string): any;
+export function dirs(options: string): any;
 
 /**
  * Links source to dest. Use -f to force the link, should dest already exist.
  * @param {string} source The source.
  * @param {string} dest   The destination.
  */
-export declare function ln(source: string, dest: string): void;
+export function ln(source: string, dest: string): void;
 
 /**
  * Links source to dest. Use -f to force the link, should dest already exist.
@@ -422,49 +419,47 @@ export declare function ln(source: string, dest: string): void;
  * @param {string} source The source.
  * @param {string} dest   The destination.
  */
-export declare function ln(options: string, source: string, dest: string): void;
+export function ln(options: string, source: string, dest: string): void;
 
 /**
  * Exits the current process with the given exit code.
  * @param {number} code The exit code.
  */
-export declare function exit(code: number): void;
+export function exit(code: number): void;
 
 /**
  * Object containing environment variables (both getter and setter). Shortcut to process.env.
  */
-export declare var env: { [key: string]: string };
+export const env: { [key: string]: string };
 
 /**
  * Executes the given command synchronously.
  * @param  {string}                 command The command to execute.
  * @return {ExecOutputReturnValue}          Returns an object containing the return code and output as string.
  */
-export declare function exec(command: string): ExecOutputReturnValue;
+export function exec(command: string): ExecOutputReturnValue;
 /**
  * Executes the given command synchronously.
  * @param  {string}                                     command The command to execute.
  * @param  {ExecOptions}                                options Silence and synchronous options.
  * @return {ExecOutputReturnValue | child.ChildProcess}         Returns an object containing the return code and output as string, or if {async:true} was passed, a ChildProcess.
  */
-export declare function exec(command: string, options: ExecOptions): ExecOutputReturnValue | child.ChildProcess;
+export function exec(command: string, options: ExecOptions): ExecOutputReturnValue | child.ChildProcess;
 /**
  * Executes the given command synchronously.
  * @param  {string}          command  The command to execute.
  * @param  {ExecOptions}     options  Silence and synchronous options.
  * @param  {ExecCallback}    callback Receives code and output asynchronously.
  */
-export declare function exec(command: string, options: ExecOptions, callback: ExecCallback): child.ChildProcess;
+export function exec(command: string, options: ExecOptions, callback: ExecCallback): child.ChildProcess;
 /**
  * Executes the given command synchronously.
  * @param  {string}          command  The command to execute.
  * @param  {ExecCallback}    callback Receives code and output asynchronously.
  */
-export declare function exec(command: string, callback: ExecCallback): child.ChildProcess;
+export function exec(command: string, callback: ExecCallback): child.ChildProcess;
 
-export interface ExecCallback {
-    (code: number, stdout: string, stderr: string): any;
-}
+export type ExecCallback = (code: number, stdout: string, stderr: string) => any;
 
 export interface ExecOptions extends child.ExecOptions {
     silent?: boolean;
@@ -484,7 +479,7 @@ export interface ExecOutputReturnValue {
  * @param {number} octalMode The access mode. Octal.
  * @param {string} file      The file to use.
  */
-export declare function chmod(octalMode: number, file: string): void;
+export function chmod(octalMode: number, file: string): void;
 
 /**
  * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
@@ -493,7 +488,7 @@ export declare function chmod(octalMode: number, file: string): void;
  * @param {string} mode      The access mode. Can be an octal string or a symbolic mode string.
  * @param {string} file      The file to use.
  */
-export declare function chmod(mode: string, file: string): void;
+export function chmod(mode: string, file: string): void;
 
 // Non-Unix commands
 
@@ -501,36 +496,34 @@ export declare function chmod(mode: string, file: string): void;
  * Searches and returns string containing a writeable, platform-dependent temporary directory. Follows Python's tempfile algorithm.
  * @return {string} The temp file path.
  */
-export declare function tempdir(): string;
+export function tempdir(): string;
 
 /**
  * Tests if error occurred in the last command.
  * @return {string} Returns null if no error occurred, otherwise returns string explaining the error
  */
-export declare function error(): string;
+export function error(): string;
 
-export declare function touch(...files: string[]): void;
-export declare function touch(files: string[]): void;
-
-type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
-
-export declare function touch(options: TouchOptionsLiteral, ...files: string[]): void;
-export declare function touch(options: TouchOptionsLiteral, files: string[]): void;
+export type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
 
 /**
  * Update the access and modification times of each FILE to the current time. A FILE argument that does not exist is created empty, unless -c is supplied
  */
-type touchOptionsArray = {
+export interface touchOptionsArray {
     '-d'?: string;
     '-r'?: string;
-};
+}
 
-export declare function touch(options: touchOptionsArray, ...files: string[]): void;
-export declare function touch(options: touchOptionsArray, files: string[]): void;
+export function touch(...files: string[]): void;
+export function touch(files: string[]): void;
+export function touch(options: TouchOptionsLiteral, ...files: string[]): void;
+export function touch(options: TouchOptionsLiteral, files: string[]): void;
+export function touch(options: touchOptionsArray, ...files: string[]): void;
+export function touch(options: touchOptionsArray, files: string[]): void;
 
 // Configuration
 
-interface ShellConfig {
+export interface ShellConfig {
     /**
      * Suppresses all command output if true, except for echo() calls. Default is false.
      * @type {boolean}
@@ -542,10 +535,16 @@ interface ShellConfig {
      * @type {boolean}
      */
     fatal: boolean;
+
+    /**
+     * Absolute path of the Node binary. Default is null (inferred).
+     * @type {string|null}
+     */
+    execPath: string | null;
 }
 
 /**
  * The shelljs configuration.
  * @type {ShellConfig}
  */
-export declare var config: ShellConfig;
+export const config: ShellConfig;
