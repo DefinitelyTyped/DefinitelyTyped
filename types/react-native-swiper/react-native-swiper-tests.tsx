@@ -35,28 +35,28 @@ class SwiperTest extends React.Component<{}, {}> {
 
 const styles = StyleSheet.create({
   wrapper: {
-  } as ViewStyle,
+  },
   slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB'
-  } as ViewStyle,
+  },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#97CAE5'
-  } as ViewStyle,
+  },
   slide3: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#92BBD9'
-  } as ViewStyle,
+  },
   text: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold'
-  } as ViewStyle
+  }
 });
