@@ -99,6 +99,12 @@ export class ReactBootstrapTest extends Component<any, any> {
                     </ButtonGroup>
                 </div>
 
+                <div style={style}>
+                    <ButtonToolbar>
+                        <Button disabled>Disabled button</Button>
+                        <Button bsStyle='large' disabled>Disabled large button</Button>
+                    </ButtonToolbar>
+                </div>
 
                 <div style={style as CSSProperties}>
                     <ButtonToolbar>

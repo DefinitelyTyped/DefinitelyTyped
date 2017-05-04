@@ -3,7 +3,7 @@
 // Definitions by: Eric Byers <https://github.com/EricByers/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ClientOptions {
+export interface ClientOptions {
 	/**
 	 * graphite server host or ip
 	 * Defaults to 127.0.0.1
@@ -60,7 +60,7 @@ interface ClientOptions {
 	 * @param {metrics}
 	 * @return void
 	 */
-	callback?: (error: Error, metrics: any) => void;
+	callback?(error: Error, metrics: any): void;
 }
 
 export class Client {

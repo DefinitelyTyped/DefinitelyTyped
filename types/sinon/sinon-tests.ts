@@ -1,8 +1,10 @@
 import sinon = require("sinon");
 
 function once(fn: Function) {
-    var returnValue: any, called = false;
-    return function () {
+    let called = false;
+    let returnValue: any;
+
+    return function() {
         if (!called) {
             called = true;
             returnValue = fn.apply(this, arguments);
@@ -12,44 +14,44 @@ function once(fn: Function) {
 }
 
 function testOne() {
-    var callback = sinon.spy();
-    var proxy = once(callback);
+    let callback = sinon.spy();
+    let proxy = once(callback);
     proxy();
     if (callback.calledOnce) { console.log("test1 calledOnce success"); } else { console.log("test1 calledOnce failure"); }
 }
 
 function testTwo() {
-    var callback = sinon.spy(() => {});
-    var proxy = once(callback);
+    let callback = sinon.spy(() => {});
+    let proxy = once(callback);
     proxy();
     proxy();
     if (callback.calledOnce) { console.log("test2 calledOnce success"); } else { console.log("test2 calledOnce failure"); }
 }
 
 function testThree() {
-    var obj = { thisObj: true };
-    var callback = sinon.spy({}, "method");
-    var proxy = once(callback);
+    let obj = { thisObj: true };
+    let callback = sinon.spy({}, "method");
+    let proxy = once(callback);
     proxy.call(obj, callback, 1, 2, 3);
     if (callback.calledOn(obj)) { console.log("test3 calledOn success"); } else { console.log("test3 calledOn failure"); }
     if (callback.calledWith(callback, 1, 2, 3)) { console.log("test3 calledWith success"); } else { console.log("test3 calledWith failure"); }
 }
 
 function testFour() {
-    var callback = sinon.stub().returns(42);
-    var proxy = once(callback);
-    var val = proxy.apply(callback, [1, 2, 3]);
+    let callback = sinon.stub().returns(42);
+    let proxy = once(callback);
+    let val = proxy.apply(callback, [1, 2, 3]);
     if (val === 42) { console.log("test4 returns success"); } else { console.log("test4 returns failure"); }
 }
 
 function testFive() {
-    var callback = sinon.stub().returnsArg(1);
-    var proxy = once(callback);
-    var val = proxy.apply(callback, [1, 2, 3]);
+    let callback = sinon.stub().returnsArg(1);
+    let proxy = once(callback);
+    let val = proxy.apply(callback, [1, 2, 3]);
     if (val === 2) { console.log("test5 returnsArg success"); } else { console.log("test5 returnsArg failure"); }
 }
 
-var objectUnderTest: any = {
+let objectUnderTest: any = {
     process: (obj: any) => {
         // It doesn't really matter what's here because the stub is going to replace this function
         return obj.success(99);
@@ -57,7 +59,7 @@ var objectUnderTest: any = {
 };
 
 function testSix() {
-    var stub = sinon.stub(objectUnderTest, "process").yieldsTo("success");
+    let stub = sinon.stub(objectUnderTest, "process").yieldsTo("success");
     objectUnderTest.process({
         success: () => { console.log("test6 yieldsTo success"); },
         failure: () => { console.log("test6 yieldsTo failure"); }
@@ -66,8 +68,8 @@ function testSix() {
 }
 
 function testSeven() {
-    var obj = { functionToTest : () => { } };
-    var mockObj = sinon.mock(obj);
+    let obj = { functionToTest : () => { } };
+    let mockObj = sinon.mock(obj);
     obj.functionToTest();
     mockObj.expects('functionToTest').once();
 }
@@ -77,7 +79,7 @@ function testEight() {
 }
 
 function testNine() {
-	var callback = sinon.stub().returns(42);
+	let callback = sinon.stub().returns(42);
 	callback({ x: 5, y: 5 });
 	callback.calledWithMatch({ x: 5 });
 	callback.alwaysCalledWithMatch({ y: 5 });
@@ -89,7 +91,11 @@ function testNine() {
 }
 
 function testSandbox() {
-    var sandbox = sinon.sandbox.create();
+    let sandbox = sinon.sandbox.create();
+    sandbox = sandbox.usingPromise(Promise);
+
+    sandbox.assert.notCalled(sinon.spy());
+
     if (sandbox.spy().called) {
         sandbox.stub(objectUnderTest, "process").yieldsTo("success");
         sandbox.mock(objectUnderTest).expects("process").once();
@@ -98,23 +104,41 @@ function testSandbox() {
     sandbox.useFakeXMLHttpRequest();
     sandbox.useFakeServer();
     sandbox.restore();
+    sandbox.reset();
+    sandbox.resetHistory();
+    sandbox.resetBehavior();
+    sandbox.verify();
+    sandbox.verifyAndRestore();
 }
 
 function testPromises() {
-    var resolveStub = sinon.stub().resolves(10);
-    var rejectStub1 = sinon.stub().rejects();
-    var rejectsStub2 = sinon.stub().rejects(new Error('Specified error'));
-    var rejectsStub2 = sinon.stub().rejects("TypeError");
+    let resolveStub = sinon.stub().resolves();
+    resolveStub = sinon.stub().resolves(10);
+    let rejectStub1 = sinon.stub().rejects();
+    let rejectsStub2 = sinon.stub().rejects(new Error('Specified error'));
+    rejectsStub2 = sinon.stub().rejects("TypeError");
 }
 
 function testSymbolMatch() {
-    var stub = sinon.stub();
+    let stub = sinon.stub();
     stub(Symbol('TestSymbol'));
     stub.calledWithMatch(sinon.match.symbol);
 }
 
 function testResetHistory() {
     sinon.stub().resetHistory();
+}
+
+function testUsingPromises() {
+    const stub: sinon.SinonStub = sinon.stub().usingPromise(Promise);
+}
+
+function testSpy() {
+    const otherSpy = sinon.spy();
+    sinon.spy().calledAfter(otherSpy);
+    sinon.spy().calledBefore(otherSpy);
+    sinon.spy().calledImmediatelyAfter(otherSpy);
+    sinon.spy().calledImmediatelyBefore(otherSpy);
 }
 
 testOne();
@@ -127,15 +151,26 @@ testSeven();
 testEight();
 testNine();
 testPromises();
+testSandbox();
+testSpy();
 testSymbolMatch();
 testResetHistory();
+testUsingPromises();
 
-var clock = sinon.useFakeTimers();
+let clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
 clock.setSystemTime(new Date());
 
 class TestCreateStubInstance {
-    someTestMethod(testArg : string) {};
+    someTestMethod(testArg: string) {}
 }
 
 sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+
+function testGetCalls() {
+    let double = sinon.spy((a: number) => a * 2);
+    double(2);
+    double(4);
+    double.getCall(0).args.length === 1;
+    double.getCalls().find(call => call.args[0] === 4).returnValue === 8;
+}

@@ -72,6 +72,8 @@ export interface AutoLinkOptions {
     htmlAttrs?: string;
     invisibleTagAttrs?: string;
     htmlEscapeNonEntities?: boolean;
+    targetBlank?: boolean;
+    suppressNoFollow?: boolean;
     urlEntities?: UrlEntity[];
 }
 

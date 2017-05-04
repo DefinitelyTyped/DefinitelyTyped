@@ -10,30 +10,30 @@ import * as stream from 'stream';
 declare const BittorrentProtocol: BittorrentProtocol.BittorrentProtocol;
 
 declare namespace BittorrentProtocol {
-    export interface BittorrentProtocol {
+    interface BittorrentProtocol {
         new (): Wire;
         (): Wire;
     }
 
-    export interface ExtensionConstructor {
+    interface ExtensionConstructor {
         new (wire: Wire): Extension;
     }
 
-    export interface Extension {
-        onHandshake?: (infoHash: string, peerId: string, extensions: { [name: string]: boolean }) => void;
-        onExtendedHandshake?: (handshake: { [key: string]: any }) => void;
-        onMessage?: (buf: Buffer) => void;
+    interface Extension {
+        onHandshake?(infoHash: string, peerId: string, extensions: { [name: string]: boolean }): void;
+        onExtendedHandshake?(handshake: { [key: string]: any }): void;
+        onMessage?(buf: Buffer): void;
         name: string;
     }
 
-    export interface Request {
+    interface Request {
         piece: number;
         offset: number;
         length: number;
-        callback: () => void;
+        callback(): void;
     }
 
-    export interface Wire extends stream.Duplex {
+    interface Wire extends stream.Duplex {
         readonly peerId: string; // remote peer id (hex string)
         readonly peerIdBuffer: Buffer; // remote peer id (Buffer)
         readonly type: 'webrtc' | 'tcpIncoming' | 'tcpOutgoing' | 'webSeed'; // connection type

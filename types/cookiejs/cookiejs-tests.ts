@@ -27,6 +27,9 @@ cookie.remove('a');
 cookie.remove('a', 'b');
 cookie.remove(['a', 'b']);
 
+cookie.removeSpecific('a', {path: '/search'});
+cookie.removeSpecific(['a', 'b'], {path: '/search'});
+
 cookie.empty();
 
 cookie.all();

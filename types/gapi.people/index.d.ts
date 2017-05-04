@@ -117,11 +117,15 @@ declare namespace gapi.client.people {
     value: string;
     type: NicknameType;
   }
-
+  
   interface CoverPhoto {
+    metadata: FieldMetadata;
+    url: string;
   }
 
   interface Photo {
+    metadata: FieldMetadata;
+    url: string;
   }
 
   interface Gender {

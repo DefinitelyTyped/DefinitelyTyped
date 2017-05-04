@@ -1,6 +1,6 @@
-// Type definitions for mssql 3.3
+// Type definitions for mssql 4.0.1
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>, Jørgen Elgaard Larsen <https://github.com/elhaard/>
+// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>, Jørgen Elgaard Larsen <https://github.com/elhaard/>, Peter Keuter <https://github.com/pkeuter/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -8,7 +8,7 @@
 
 import events = require('events');
 export interface ISqlType {
-  type: ISqlTypeFactory;
+    type: ISqlTypeFactory;
 }
 export interface ISqlTypeWithNoParams extends ISqlType { type: ISqlTypeFactoryWithNoParams }
 export interface ISqlTypeWithLength extends ISqlType { type: ISqlTypeFactoryWithLength; length: number }
@@ -97,7 +97,6 @@ export declare var MAX: number;
 export declare var fix: boolean;
 export declare var Promise: any;
 
-
 interface IMap extends Array<{ js: any, sql: any }> {
     register(jstype: any, sql: any): void;
 }
@@ -110,9 +109,18 @@ export interface IColumnMetadata {
         index: number;
         name: string;
         length: number;
-        type:  ISqlType;
+        type: ISqlType;
         udt?: any;
     }
+}
+export interface IResult<T> {
+    recordsets: IRecordSet<T>[];
+    recordset: IRecordSet<T>;
+    rowsAffected: number[],
+    output: { [key: string]: any };
+}
+export interface IProcedureResult<T> extends IResult<T> {
+    returnValue: any;
 }
 export interface IRecordSet<T> extends Array<T> {
     columns: IColumnMetadata;
@@ -162,15 +170,18 @@ export interface config {
     pool?: IPool;
 }
 
-export declare class Connection extends events.EventEmitter {
+export declare class ConnectionPool extends events.EventEmitter {
     public connected: boolean;
     public connecting: boolean;
     public driver: string;
     public constructor(config: config, callback?: (err?: any) => void);
-    public connect(): Promise<Connection>;
+    public constructor(connectionString: string, callback?: (err?: any) => void);
+    public query(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public connect(): Promise<ConnectionPool>;
     public connect(callback: (err: any) => void): void;
     public close(): Promise<void>;
     public close(callback: (err: any) => void): void;
+    public request(): Request;
 }
 
 export declare class ConnectionError implements Error {
@@ -209,32 +220,29 @@ interface IRequestParameters {
 }
 
 export declare class Request extends events.EventEmitter {
-    public connection: Connection;
     public transaction: Transaction;
     public pstatement: PreparedStatement;
     public parameters: IRequestParameters;
     public verbose: boolean;
-    public multiple: boolean;
     public canceled: boolean;
     public stream: any;
-    public constructor(connection?: Connection);
+    public constructor(connection?: ConnectionPool);
     public constructor(transaction: Transaction);
     public constructor(preparedStatement: PreparedStatement);
-    public execute(procedure: string): Promise<IRecordSet<any>>;
-    public execute<Entity>(procedure: string): Promise<IRecordSet<Entity>>;
-    public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: IRecordSet<Entity>, returnValue?: any, rowsAffected?: number) => void): void;
+    public execute(procedure: string): Promise<IProcedureResult<any>>;
+    public execute<Entity>(procedure: string): Promise<IProcedureResult<Entity>>;
+    public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void): void;
     public input(name: string, value: any): Request;
     public input(name: string, type: any, value: any): Request;
     public output(name: string, type: any, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
-    public query(command: string): Promise<IRecordSet<any>>;
-    public query<Entity>(command: string): Promise<IRecordSet<Entity>>;
-    public query<Entity>(command: string, callback: (err?: Error, recordset?: IRecordSet<Entity>, rowsAffected?: number) => void): void;
-    public query<Entity>(command: string, callback: (err?: Error, recordset?: IRecordSet<Entity>) => void): void;
-    public batch(batch: string): Promise<IRecordSet<any>>;
-    public batch<Entity>(batch: string): Promise<IRecordSet<Entity>>;
-    public batch(batch: string, callback: (err?: Error, recordset?: IRecordSet<any>) => void): void;
-    public batch<Entity>(batch: string, callback: (err?: any, recordset?: IRecordSet<Entity>) => void): void;
+    public query(command: string): Promise<IResult<any>>;
+    public query<Entity>(command: string): Promise<IResult<Entity>>;
+    public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
+    public batch(batch: string): Promise<IResult<any>>;
+    public batch<Entity>(batch: string): Promise<IResult<Entity>>;
+    public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
+    public batch<Entity>(batch: string, callback: (err?: any, recordset?: IResult<Entity>) => void): void;
     public bulk(table: Table): Promise<number>;
     public bulk(table: Table, callback: (err: Error, rowCount: any) => void): void;
     public cancel(): void;
@@ -248,9 +256,8 @@ export declare class RequestError implements Error {
 }
 
 export declare class Transaction extends events.EventEmitter {
-    public connection: Connection;
     public isolationLevel: IIsolationLevel;
-    public constructor(connection?: Connection);
+    public constructor(connection?: ConnectionPool);
     public begin(isolationLevel?: IIsolationLevel): Promise<void>;
     public begin(isolationLevel?: IIsolationLevel, callback?: (err?: any) => void): void;
     public commit(): Promise<void>;
@@ -267,14 +274,12 @@ export declare class TransactionError implements Error {
 }
 
 export declare class PreparedStatement extends events.EventEmitter {
-    public connection: Connection;
     public transaction: Transaction;
     public prepared: boolean;
     public statement: string;
     public parameters: IRequestParameters;
-    public multiple: boolean;
     public stream: any;
-    public constructor(connection?: Connection);
+    public constructor(connection?: ConnectionPool);
     public input(name: string, type: ISqlType): PreparedStatement;
     public output(name: string, type: ISqlType): PreparedStatement;
     public prepare(statement?: string): Promise<void>;

@@ -1,5 +1,5 @@
 import { FusionChartStatic } from "fusioncharts";
 
-declare var gantt: (H: FusionChartStatic) => FusionChartStatic;
+declare function gantt(H: FusionChartStatic): FusionChartStatic;
 export = gantt;
 export as namespace gantt;

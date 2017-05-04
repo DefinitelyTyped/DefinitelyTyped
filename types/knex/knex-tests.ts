@@ -22,6 +22,19 @@ var knex = Knex({
   }
 });
 
+var knex = Knex({
+  debug: true,
+  client: 'mssql',
+  connection: {
+    user    : 'your_database_user',
+    password: 'your_database_password',
+    server  : 'your_database_server',
+    options : {
+      database: 'myapp_test'
+    }
+  }
+});
+
 // Mariasql configuration
 var knex = Knex({
   debug: true,
@@ -302,6 +315,29 @@ knex('accounts').where('activated', false).delete();
 knex('accounts').where('activated', false).delete('id');
 knex('accounts').where('activated', false).delete(['id', 'title']);
 
+knex.with('old_books', function(qb) {
+  qb.select('*').from('books').where('published_date', '<', 1970);
+}).select('*').from('old_books');
+
+knex.with('new_books', knex.raw('select * from books where published_date >= 2016'))
+  .select('*').from('new_books');
+
+knex.with('new_books', 'select * from books where published_date >= :year', { year: 2016 })
+  .select('*').from('new_books');
+
+knex.with('new_books', 'select * from books where published_date >= ?', [2016])
+  .select('*').from('new_books');
+
+knex.withRaw('recent_books', 'select * from books where published_date >= :year', { year: 2013 })
+  .select('*').from('recent_books');
+
+knex.withRaw('recent_books', knex.raw('select * from books where published_date >= ?', [2013]))
+  .select('*').from('recent_books');
+
+knex.withWrapped("antique_books", function (qb) {
+  qb.select('*').from('books').where('published_date', '<', 1899);
+}).select('*').from('antique_books');
+
 var someExternalMethod: Function;
 
 knex.transaction(function(trx) {
@@ -398,7 +434,19 @@ knex.transaction(function(trx) {
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
 
-  trx.raw('')
+  trx.raw('');
+
+  trx.on('query-error', function(error: Error) {
+    console.error(error);
+  });
+
+  trx.savepoint(function(nestedTrx) {
+    nestedTrx.rollback(new Error('something went terribly wrong'));
+  });
+
+  trx.transaction(function(nestedTrx) {
+    nestedTrx.commit();
+  });
 
   var info: any;
   var books: any[] = [
@@ -667,3 +715,10 @@ knex.seed.make(name);
 
 knex.seed.run(config);
 knex.seed.run();
+
+
+knex.schema
+  .dropTableIfExists('A')
+  .createTable('A', table => {
+    table.integer('C').unsigned().references('B.id').notNullable();
+  });

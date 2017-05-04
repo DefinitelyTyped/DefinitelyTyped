@@ -9,30 +9,30 @@ import * as fs from "fs";
 import * as child_process from "child_process";
 import * as shipit from "./index"; // Used for `typeof shipit`
 
-type LocalOrRemoteCommand = (command: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void) => PromiseLike<ShipitLocal>;
-type EmptyCallback = () => void;
-type TaskExecution = (name: string, depsOrFn: string[] | EmptyCallback, fn: () => void) => any;
+export type LocalOrRemoteCommand = (command: string, options?: child_process.ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void) => PromiseLike<ShipitLocal>;
+export type EmptyCallback = () => void;
+export type TaskExecution = (name: string, depsOrFn: string[] | EmptyCallback, fn: () => void) => any;
 
-interface Options {
+export interface Options {
     environment: string;
     stderr: fs.WriteStream;
     stdout: fs.WriteStream;
 }
 
-interface ShipitLocal {
+export interface ShipitLocal {
     child: child_process.ChildProcess;
     stderr: fs.WriteStream;
     stdout: fs.WriteStream;
 }
 
-interface Tasks {
+export interface Tasks {
     [name: string]: Task;
 }
 
-interface Task {
+export interface Task {
     blocking: boolean;
     dep: string[];
-    fn: () => void;
+    fn(): void;
     name: string;
 }
 
@@ -49,12 +49,12 @@ export function start(tasks: string | string[]): typeof shipit;
 export function start(...tasks: string[]): typeof shipit;
 export function task(name: string, depsOrFn: string[] | EmptyCallback, fn?: () => void): typeof shipit;
 
-export var config: {};
-export var domain: any;
-export var doneCallback: any;
-export var environment: string;
-export var seq: any[];
-export var tasks: Tasks;
-export var isRunning: boolean;
+export const config: {};
+export const domain: any;
+export const doneCallback: any;
+export const environment: string;
+export const seq: any[];
+export const tasks: Tasks;
+export const isRunning: boolean;
 
 export as namespace shipit;

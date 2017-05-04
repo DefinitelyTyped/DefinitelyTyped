@@ -6,7 +6,7 @@ const tweezer = new Tweezer({
 });
 
 tweezer
-    .on('tick', (foo) => {foo.toFixed()})
+    .on('tick', (foo) => { foo.toFixed(); })
     .on('done', () => {})
     .begin()
     .stop();

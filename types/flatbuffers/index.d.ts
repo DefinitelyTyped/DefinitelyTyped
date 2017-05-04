@@ -4,11 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace flatbuffers {
-
   /**
    * @typedef {number}
    */
-  export type Offset = number;
+  type Offset = number;
 
   /**
    * @typedef {{
@@ -16,7 +15,7 @@ declare namespace flatbuffers {
    *   bb_pos: number
    * }}
    */
-  export interface Table {
+  interface Table {
     bb: ByteBuffer;
     bb_pos: number;
   }
@@ -25,53 +24,52 @@ declare namespace flatbuffers {
    * @type {number}
    * @const
    */
-  export const SIZEOF_SHORT: number;
+  const SIZEOF_SHORT: number;
 
   /**
    * @type {number}
    * @const
    */
-  export const SIZEOF_INT: number;
+  const SIZEOF_INT: number;
 
   /**
    * @type {number}
    * @const
    */
-  export const FILE_IDENTIFIER_LENGTH: number;
+  const FILE_IDENTIFIER_LENGTH: number;
 
   /**
    * @enum {number}
    */
-  export enum Encoding { UTF8_BYTES, UTF16_STRING }
+  enum Encoding { UTF8_BYTES, UTF16_STRING }
 
   /**
    * @type {Int32Array}
    * @const
    */
-  export var int32: Int32Array;
+  const int32: Int32Array;
 
   /**
    * @type {Float32Array}
    * @const
    */
-  export var float32: Float32Array;
+  const float32: Float32Array;
 
   /**
    * @type {Float64Array}
    * @const
    */
-  export var float64: Float64Array;
+  const float64: Float64Array;
 
   /**
    * @type {boolean}
    * @const
    */
-  export var isLittleEndian: boolean;
+  const isLittleEndian: boolean;
 
   ////////////////////////////////////////////////////////////////////////////////
 
-  export class Long {
-
+  class Long {
     /**
      * @type {number}
      * @const
@@ -110,16 +108,14 @@ declare namespace flatbuffers {
 
     /**
      * @param {number} low
-     * @param {number} high 
+     * @param {number} high
      */
     static create(low: number, high: number): Long;
   }
 
-
   ////////////////////////////////////////////////////////////////////////////////
 
-  export class Builder {
-
+  class Builder {
     /**
      * @constructor
      * @param {number=} initial_size
@@ -393,19 +389,17 @@ declare namespace flatbuffers {
 
     /**
      * Conveniance function for creating Long objects.
-     * 
-     * @param {number} low 
-     * @param {number} high 
+     *
+     * @param {number} low
+     * @param {number} high
      * @returns {Long}
      */
     createLong(low: number, high: number): Long;
   }
 
   ////////////////////////////////////////////////////////////////////////////////
-  
 
   class ByteBuffer {
-
     /**
      * @constructor
      * @param {Uint8Array} bytes
@@ -508,7 +502,19 @@ declare namespace flatbuffers {
      * @param {number} offset
      * @param {number} value
      */
+    writeUint8(offset: number, value: number): void;
+
+    /**
+     * @param {number} offset
+     * @param {number} value
+     */
     writeInt16(offset: number, value: number): void;
+
+    /**
+     * @param {number} offset
+     * @param {number} value
+     */
+    writeUint16(offset: number, value: number): void;
 
     /**
      * @param {number} offset
@@ -518,9 +524,21 @@ declare namespace flatbuffers {
 
     /**
      * @param {number} offset
+     * @param {number} value
+     */
+    writeUint32(offset: number, value: number): void;
+
+    /**
+     * @param {number} offset
      * @param {flatbuffers.Long} value
      */
     writeInt64(offset: number, value: Long): void;
+
+    /**
+     * @param {number} offset
+     * @param {flatbuffers.Long} value
+     */
+    writeUint64(offset: number, value: Long): void;
 
     /**
      * @param {number} offset
@@ -599,12 +617,11 @@ declare namespace flatbuffers {
 
     /**
      * Conveniance function for creating Long objects.
-     * 
-     * @param {number} low 
-     * @param {number} high 
+     *
+     * @param {number} low
+     * @param {number} high
      * @returns {Long}
      */
     createLong(low: number, high: number): Long;
   }
-
 }

@@ -548,9 +548,9 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '@each': EachProxy;
+        '@each': EachProxy;
         Boolean: boolean;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -630,8 +630,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-    '[]': any[];
-    '@each': EachProxy;
+        '[]': any[];
+        '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1030,7 +1030,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1137,7 +1137,7 @@ declare namespace Ember {
        service(name?: string): Service;
     };
     class Helper extends Object {
-      static helper( h: (a: any) => any): Helper;
+      static helper( h: (params: any, hash?: any) => any): Helper;
       compute(params: any[], hash: any): any;
       recompute(params: any[], hash: any): any;
     }
@@ -1291,7 +1291,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -2392,11 +2392,13 @@ declare namespace Ember {
     function inspect(obj: any): string;
     function instrument(name: string, payload: any, callback: Function, binding: any): void;
     function isArray(obj: any): boolean;
+    function isBlank(obj: any): boolean;
     function isEmpty(obj: any): boolean;
     function isEqual(a: any, b: any): boolean;
     function isGlobalPath(path: string): boolean;
     const isNamespace: boolean;
     function isNone(obj: any): boolean;
+    function isPresent(obj: any): boolean;
     function isPrototypeOf(obj: {}): boolean;
     function isWatching(obj: any, key: string): boolean;
     function keys(obj: any): any[];

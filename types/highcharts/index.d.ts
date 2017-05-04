@@ -96,7 +96,7 @@ declare namespace Highcharts {
          * this are axis, chart, isFirst and isLast.
          * @default function() {return this.value;}
          */
-        formatter?: () => string;
+        formatter?(): string;
         /**
          * Horizontal axis only. When staggerLines is not set, maxStaggerLines defines how many lines the axis is allowed to
          * add to automatically avoid overlapping X labels. Set to 1 to disable overlap detection.
@@ -173,10 +173,10 @@ declare namespace Highcharts {
     }
 
     interface MousePlotEvents {
-        click?: (event: Event) => void;
-        mouseover?: (event: Event) => void;
-        mouseout?: (event: Event) => void;
-        mousemove?: (event: Event) => void;
+        click?(event: Event): void;
+        mouseover?(event: Event): void;
+        mouseout?(event: Event): void;
+        mousemove?(event: Event): void;
     }
 
     /**
@@ -491,19 +491,19 @@ declare namespace Highcharts {
              * An event fired after the breaks have rendered.
              * @since 4.1.0
              */
-            afterBreaks?: (event: Event) => void;
+            afterBreaks?(event: Event): void;
             /**
              * As opposed to the setExtremes event, this event fires after the final min and max values are computed and
              * corrected for minRange.
              * The this keyword refers to the {@link AxisObject|Axis} object.
              * @since 2.3
              */
-            afterSetExtremes?: (event: AxisEvent) => void;
+            afterSetExtremes?(event: AxisEvent): void;
             /**
              * An event fired when a break from this axis occurs on a point.
              * The this keyword refers to the {@link AxisObject|Axis} object.
              */
-            pointBreak?: (event: Event) => void;
+            pointBreak?(event: Event): void;
             /**
              * Fires when the minimum and maximum is set for the axis, either by calling the .setExtremes() method or by
              * selecting an area in the chart. One parameter, event, is passed to the function. This contains common event
@@ -516,7 +516,7 @@ declare namespace Highcharts {
              * The this keyword refers to the {@link AxisObject|Axis} object.
              * @since 1.2.0
              */
-            setExtremes?: (event: AxisEvent) => void;
+            setExtremes?(event: AxisEvent): void;
         };
         /**
          * The lowest allowed value for automatically computed axis extremes.
@@ -728,11 +728,11 @@ declare namespace Highcharts {
          */
         showLastLabel?: boolean;
         /**
-        * Show the total value for each bar in a stacked column or bar chart.
-        * The label will be placed on top of positive columns and below negative columns.
-        * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
-        * Only used for yAxis
-        */
+         * Show the total value for each bar in a stacked column or bar chart.
+         * The label will be placed on top of positive columns and below negative columns.
+         * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
+         * Only used for yAxis
+         */
         stackLabels?: {
             /**
              * Defines the horizontal alignment of the stack total label. Can be one of "left", "center" or "right".
@@ -820,7 +820,7 @@ declare namespace Highcharts {
          * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient.
          * The stops is an array of tuples, where the first item is a float between 0 and 1 assigning the relative position in the gradient, and the second item is the color.
          */
-        stops?: [number, string][];
+        stops?: Array<[number, string]>;
         /**
          * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
          * a chart. This option overrides the tickPixelInterval option.
@@ -868,7 +868,7 @@ declare namespace Highcharts {
          * behaviour of tickPixelInterval and tickInterval. The automatic tick positions are accessible through
          * this.tickPositions and can be modified by the callback.
          */
-        tickPositioner?: (min: number, max: number) => void;
+        tickPositioner?(min: number, max: number): void;
         /**
          * An array defining where the ticks are laid out on the axis. This overrides the default behaviour of
          * tickPixelInterval and tickInterval.
@@ -958,7 +958,7 @@ declare namespace Highcharts {
              * corrected for minRange.
              * The this keyword refers to the {@link AxisObject|Axis} object.
              */
-            afterSetExtremes?: (event: AxisEvent) => void;
+            afterSetExtremes?(event: AxisEvent): void;
             /**
              * Fires when the minimum and maximum is set for the axis, either by calling the .setExtremes() method or by
              * selecting an area in the chart. One parameter, event, is passed to the function. This contains common event
@@ -970,7 +970,7 @@ declare namespace Highcharts {
              *
              * The this keyword refers to the {@link AxisObject|Axis} object.
              */
-            setExtremes?: (event: AxisEvent) => void;
+            setExtremes?(event: AxisEvent): void;
         };
         /**
          * Color of the grid lines extending from the axis across the gradient.
@@ -1133,7 +1133,7 @@ declare namespace Highcharts {
          * and maxColor is not sufficient. The stops is an array of tuples, where the first item is a float between 0 and 1
          * assigning the relative position in the gradient, and the second item is the color.
          */
-        stops?: [number, string][];
+        stops?: Array<[number, string]>;
         /**
          * Color for the main tick marks.
          * @default '#C0D0E0'
@@ -1163,7 +1163,7 @@ declare namespace Highcharts {
          * A callback function returning array defining where the ticks are laid out on the axis. This overrides the default
          * behaviour of tickPixelInterval and tickInterval.
          */
-        tickPositioner?: (min: number, max: number) => void;
+        tickPositioner?(min: number, max: number): void;
         /**
          * An array defining where the ticks are laid out on the axis. This overrides the default behaviour of
          * tickPixelInterval and tickInterval.
@@ -1281,19 +1281,19 @@ declare namespace Highcharts {
          * The this keyword refers to the Chart object.
          * @since 1.2.0
          */
-        addSeries?: (event: AddSeriesEvent) => boolean | void;
+        addSeries?(event: AddSeriesEvent): boolean | void;
         /**
          * Fires after a chart is printed through the context menu item or the Chart.print method. Requires the exporting
          * module.
          * @since 4.1.0
          */
-        afterPrint?: (event: Event) => void;
+        afterPrint?(event: Event): void;
         /**
          * Fires before a chart is printed through the context menu item or the Chart.print method. Requires the exporting
          * module.
          * @since 4.1.0
          */
-        beforePrint?: (event: Event) => void;
+        beforePrint?(event: Event): void;
         /**
          * Fires when clicking on the plot background. One parameter, event, is passed to the function. This contains common
          * event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
@@ -1309,17 +1309,17 @@ declare namespace Highcharts {
          * The this keyword refers to the Chart object.
          * @since 1.2.0
          */
-        click?: (event: ChartClickEvent) => void;
+        click?(event: ChartClickEvent): void;
         /**
          * Fires when a drilldown point is clicked, before the new series is added.
          * @since 3.0.8
          */
-        drilldown?: (event: ChartDrilldownEvent) => void;
+        drilldown?(event: ChartDrilldownEvent): void;
         /**
          * Fires when drilling up from a drilldown series.
          * @since 3.0.8
          */
-        drillup?: (event: Event) => void;
+        drillup?(event: Event): void;
         /**
          * Fires when the chart is finished loading. One parameter, event, is passed to the function. This contains common
          * event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
@@ -1329,7 +1329,7 @@ declare namespace Highcharts {
          *
          * The this keyword refers to the Chart object.
          */
-        load?: (event: Event) => void;
+        load?(event: Event): void;
         /**
          * Fires when the chart is redrawn, either after a call to chart.redraw() or after an axis, series or point is
          * modified with the redraw option set to true. One parameter, event, is passed to the function. This contains
@@ -1339,7 +1339,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Chart object.
          * @since 1.2.0
          */
-        redraw?: (event: Event) => void;
+        redraw?(event: Event): void;
         /**
          * Fires when an area of the chart has been selected. Selection is enabled by setting the chart's zoomType. One
          * parameter, event, is passed to the function. This contains common event information based on jQuery or MooTools
@@ -1360,7 +1360,7 @@ declare namespace Highcharts {
          *      console.log(event.yAxis[0].min, event.yAxis[0].max);
          * }
          */
-        selection?: (event: ChartSelectionEvent) => void;
+        selection?(event: ChartSelectionEvent): void;
     }
 
     interface LinearGradient {
@@ -1879,14 +1879,14 @@ declare namespace Highcharts {
          * switchRowsAndColumns is set, the columns are interpreted as series.
          * @since 4.0
          */
-        columns?: [string | number][];
+        columns?: Array<[string | number]>;
         /**
          * The callback that is evaluated when the data is finished loading, optionally from an external source, and parsed.
          * The first argument passed is a finished chart options object, containing the series. These options can be
          * extended with additional options and passed directly to the chart constructor.
          * @since 4.0
          */
-        complete?: (options: Options) => void;
+        complete?(options: Options): void;
         /**
          * A comma delimited string to be parsed. Related options are startRow, endRow, startColumn and endColumn to delimit
          * what part of the table is used. The lineDelimiter and itemDelimiter options define the CSV delimiter formats.
@@ -1955,19 +1955,19 @@ declare namespace Highcharts {
          * timestamp on success.
          * @since 4.0
          */
-        parseDate?: (val: any) => number;
+        parseDate?(val: any): number;
         /**
          * A callback function to access the parsed columns, the two-dimentional input data array directly, before they are
          * interpreted into series data and categories. Return false to stop completion, or call this.complete() to continue
          * async.
          * @since 4.0
          */
-        parsed?: (columns: [string | number][]) => boolean | void;
+        parsed?(columns: Array<[string | number]>): boolean | void;
         /**
          * The same as the columns input option, but defining rows intead of columns.
          * @since 4.0
          */
-        rows?: [string | number][];
+        rows?: Array<[string | number]>;
         /**
          * An array containing object with Point property names along with what column id the property should be taken from.
          * @since 4.0.4
@@ -2080,7 +2080,7 @@ declare namespace Highcharts {
         /**
          * Callback function to run on click.
          */
-        onclick: () => void;
+        onclick(): void;
     }
 
     interface Button {
@@ -2184,7 +2184,7 @@ declare namespace Highcharts {
          * A click handler callback to use on the button directly instead of the popup menu.
          * @since 2.0
          */
-        onclick?: () => void;
+        onclick?(): void;
         /**
          * The symbol for the button. Points to a definition function in the Highcharts.Renderer.symbols collection. The
          * default exportIcon function is part of the exporting module.
@@ -2345,7 +2345,7 @@ declare namespace Highcharts {
          * charts in specific time zones using their local DST crossover dates, with the help of external libraries.
          * @since 4.1.0
          */
-        getTimezoneOffset?: (timestamp: number) => number;
+        getTimezoneOffset?(timestamp: number): number;
         /**
          * The timezone offset in minutes. Positive values are west, negative values are east of UTC, as in the ECMAScript
          * getTimezoneOffset method. Use this to display UTC based data in a predefined time zone.
@@ -2624,7 +2624,7 @@ declare namespace Highcharts {
          * Callback function to format each of the series' labels. The this keyword refers to the series object, or the
          * point object in case of pie charts. By default the series or point name is printed.
          */
-        labelFormatter?: () => string;
+        labelFormatter?(): string;
         /**
          * The layout of the legend items. Can be one of 'horizontal' or 'vertical'.
          * @default 'horizontal'
@@ -2983,7 +2983,7 @@ declare namespace Highcharts {
          * - this.x:         The x value.
          * - this.y:         The y value.
          */
-        formatter?: () => string;
+        formatter?(): string;
         /**
          * For points with an extent, like columns, whether to align the data label inside the box or to the actual value
          * point. Defaults to false in most cases, true in stacked columns.
@@ -3126,7 +3126,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Series object.
          * @since 4.0
          */
-        afterAnimate?: (event: Event) => void;
+        afterAnimate?(event: Event): void;
         /**
          * Fires when the checkbox next to the series' name in the legend is clicked. One parameter, event, is passed to the
          * function. The state of the checkbox is found by event.checked. The checked item is found by event.item. Return
@@ -3135,7 +3135,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Series object.
          * @since 1.2.0
          */
-        checkboxClick?: (event: AreaCheckboxEvent) => boolean | void;
+        checkboxClick?(event: AreaCheckboxEvent): boolean | void;
         /**
          * Fires when the series is clicked. One parameter, event, is passed to the function. This contains common event
          * information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
@@ -3143,14 +3143,14 @@ declare namespace Highcharts {
          *
          * The this keyword refers to the Series object.
          */
-        click?: (event: AreaClickEvent) => void;
+        click?(event: AreaClickEvent): void;
         /**
          * Fires when the series is hidden after chart generation time, either by clicking the legend item or by calling
          * .hide().
          *
          * The this keyword refers to the Series object.
          */
-        hide?: () => void;
+        hide?(): void;
         /**
          * Fires when the legend item belonging to the series is clicked. One parameter, event, is passed to the function.
          * This contains common event information based on jQuery or MooTools depending on which library is used as the base
@@ -3159,7 +3159,7 @@ declare namespace Highcharts {
          *
          * The this keyword refers to the Series object.
          */
-        legendItemClick?: (event: Event) => boolean | void;
+        legendItemClick?(event: Event): boolean | void;
         /**
          * Fires when the mouse leaves the graph. One parameter, event, is passed to the function. This contains common
          * event information based on jQuery or MooTools depending on which library is used as the base for Highcharts. If
@@ -3168,14 +3168,14 @@ declare namespace Highcharts {
          *
          * The this keyword refers to the Series object.
          */
-        mouseOut?: (event: Event) => void;
+        mouseOut?(event: Event): void;
         /**
          * Fires when the mouse enters the graph. One parameter, event, is passed to the function. This contains common
          * event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
          *
          * The this keyword refers to the Series object.
          */
-        mouseOver?: (event: Event) => void;
+        mouseOver?(event: Event): void;
         /**
          * Fires when the series is shown after chart generation time, either by clicking the legend item or by calling
          * .show().
@@ -3183,7 +3183,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Series object.
          * @since 1.2.0
          */
-        show?: () => void;
+        show?(): void;
     }
 
     interface MarkerState {
@@ -3273,7 +3273,7 @@ declare namespace Highcharts {
          *
          * The this keyword refers to the Point object.
          */
-        click?: (event: Event) => boolean;
+        click?(event: Event): boolean;
         /**
          * Fires when the mouse leaves the area close to the point. One parameter, event, is passed to the function. This
          * contains common event information based on jQuery or MooTools depending on which library is used as the base for
@@ -3281,7 +3281,7 @@ declare namespace Highcharts {
          *
          * The this keyword refers to the Point object.
          */
-        mouseOut?: (event: Event) => void;
+        mouseOut?(event: Event): void;
         /**
          * Fires when the mouse enters the area close to the point. One parameter, event, is passed to the function. This
          * contains common event information based on jQuery or MooTools depending on which library is used as the base for
@@ -3289,7 +3289,7 @@ declare namespace Highcharts {
          *
          * The this keyword refers to the Point object.
          */
-        mouseOver?: (event: Event) => void;
+        mouseOver?(event: Event): void;
         /**
          * Fires when the point is removed using the .remove() method. One parameter, event, is passed to the function.
          * Returning false cancels the operation.
@@ -3297,7 +3297,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        remove?: (event: Event) => boolean | void;
+        remove?(event: Event): boolean | void;
         /**
          * Fires when the point is selected either programmatically or following a click on the point. One parameter, event,
          * is passed to the function. Returning false cancels the operation.
@@ -3305,7 +3305,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        select?: (event: Event) => boolean | void;
+        select?(event: Event): boolean | void;
         /**
          * Fires when the point is unselected either programmatically or following a click on the point. One parameter,
          * event, is passed to the function. Returning false cancels the operation.
@@ -3313,7 +3313,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        unselect?: (event: Event) => boolean | void;
+        unselect?(event: Event): boolean | void;
         /**
          * Fires when the point is updated programmatically through the .update() method. One parameter, event, is passed to
          * the function. The new point options can be accessed through event.options. Returning false cancels the operation.
@@ -3321,14 +3321,14 @@ declare namespace Highcharts {
          * The this keyword refers to the Point object.
          * @since 1.2.0
          */
-        update?: (event: Event) => boolean | void;
+        update?(event: Event): boolean | void;
         /**
          * Fires when the legend item belonging to the pie point (slice) is clicked.
          * The this keyword refers to the point itself. One parameter, event, is passed to the function.
          * This contains common event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
          * The default action is to toggle the visibility of the point. This can be prevented by calling event.preventDefault().
          */
-        legendItemClick?: (event: Event) => boolean | void;
+        legendItemClick?(event: Event): boolean | void;
     }
 
     interface Halo {
@@ -3516,7 +3516,7 @@ declare namespace Highcharts {
          * - this.x:         The x value.
          * - this.y:         The y value.
          */
-        formatter?: () => string;
+        formatter?(): string;
         /**
          * For points with an extent, like columns, whether to align the data label inside the box or to the actual value
          * point. Defaults to false in most cases, true in stacked columns.
@@ -5012,7 +5012,7 @@ declare namespace Highcharts {
          *            color: '#FF00FF'
          *        }]
          */
-        data?: number[] | [number, number][] | [string, number][] | DataPoint[];
+        data?: number[] | Array<[number, number]> | Array<[string, number]> | DataPoint[];
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().
@@ -5404,7 +5404,7 @@ declare namespace Highcharts {
          * this.y (not shared) / this.points[i].y (shared)
          *   The y value.
          */
-        formatter?: () => boolean | string;
+        formatter?(): boolean | string;
         /**
          * A callback function to place the tooltip in a default position. The callback receives three parameters:
          * labelWidth, labelHeight and point, where point contains values for plotX and plotY telling where the reference
@@ -5413,7 +5413,7 @@ declare namespace Highcharts {
          * The return should be an object containing x and y values, for example { x: 100, y: 100 }.
          * @since 2.2.4
          */
-        positioner?: (labelWidth: number, labelHeight: number, point: PlotPoint) => { x: number; y: number; };
+        positioner?(labelWidth: number, labelHeight: number, point: PlotPoint): { x: number; y: number; };
         /**
          * Whether to apply a drop shadow to the tooltip.
          * @default true
@@ -5516,7 +5516,7 @@ declare namespace Highcharts {
          * The this keyword refers to the Point object.
          * @since 4.1.0
          */
-        pointFormatter?: () => string;
+        pointFormatter?(): string;
         /**
          * How many decimals to show in each series' y value. This is overridable in each series' tooltip options object.
          * The default is to preserve all decimals.
@@ -6529,23 +6529,23 @@ declare global {
     interface JQuery {
         highcharts(): Highcharts.ChartObject;
         /**
-        * Creates a new Highcharts.Chart for the current JQuery selector; usually
-        * a div selected by $('#container')
-        * @param {Options} options Options for this chart
-        * @return current {JQuery} selector the current JQuery selector
-        **/
+         * Creates a new Highcharts.Chart for the current JQuery selector; usually
+         * a div selected by $('#container')
+         * @param {Options} options Options for this chart
+         * @return current {JQuery} selector the current JQuery selector
+         */
         highcharts(options: Highcharts.Options): JQuery;
         /**
-        * Creates a new Highcharts.Chart for the current JQuery selector; usually
-        * a div selected by $('#container')
-        * @param {Options} options Options for this chart
-        * @param callback Callback function used to manipulate the constructed chart instance
-        * @return current {JQuery} selector the current JQuery selector
-        **/
+         * Creates a new Highcharts.Chart for the current JQuery selector; usually
+         * a div selected by $('#container')
+         * @param {Options} options Options for this chart
+         * @param callback Callback function used to manipulate the constructed chart instance
+         * @return current {JQuery} selector the current JQuery selector
+         */
         highcharts(options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
     }
 }
 
-declare var Highcharts: Highcharts.Static;
+declare const Highcharts: Highcharts.Static;
 export = Highcharts;
 export as namespace Highcharts;

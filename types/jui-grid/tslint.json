@@ -1,6 +1,6 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
-        "forbidden-types": false
+        "ban-types": false
     }
 }
