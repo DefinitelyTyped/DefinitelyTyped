@@ -3,11 +3,10 @@ import * as angular from "angular";
 
 import gridster from "angular-gridster";
 
-var myApp = angular.module("testModule", ["gridster"]);
+const myApp = angular.module("testModule", ["gridster"]);
 
 // configure gridster's global options
 myApp.run(["gridsterConfig", (gridsterConfig: angular.gridster.GridsterConfig) => {
-
         gridsterConfig.mobileBreakPoint = 697;
         gridsterConfig.colWidth = "100";
         gridsterConfig.rowHeight = "100";

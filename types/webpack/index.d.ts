@@ -262,7 +262,19 @@ declare namespace webpack {
          *
          * Defaults to `() => true`.
          */
-        cachePredicate?: (data: { path: string, request: string }) => boolean;
+        cachePredicate?(data: { path: string, request: string }): boolean;
+
+        /**
+         * A list of additional resolve plugins which should be applied.
+         */
+        plugins?: ResolvePlugin[];
+
+        /**
+         * Whether to resolve symlinks to their symlinked location.
+         *
+         * Defaults to `true`
+         */
+        symlinks?: boolean;
     }
 
     interface OldResolve {
@@ -587,6 +599,10 @@ declare namespace webpack {
         apply(compiler: Compiler): void;
     }
 
+    abstract class ResolvePlugin implements Tapable.Plugin {
+        apply(resolver: any /* EnhancedResolve.Resolver */): void;
+    }
+
     abstract class Stats {
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
@@ -826,6 +842,10 @@ declare namespace webpack {
         constructor(options?: (percentage: number, msg: string) => void);
     }
 
+    class EnvironmentPlugin extends Plugin {
+        constructor(envs: string[] | {[key: string]: any});
+    }
+
     class ProvidePlugin extends Plugin {
         constructor(definitions: {[key: string]: any});
     }
@@ -929,7 +949,6 @@ declare namespace webpack {
     }
 
     namespace loader {
-
         interface Loader extends Function {
             (this: LoaderContext, source: string | Buffer, sourceMap: string | Buffer): string | Buffer | void | undefined;
 
@@ -964,13 +983,11 @@ declare namespace webpack {
              */
             version: string;
 
-
             /**
              *  The directory of the module. Can be used as context for resolving other stuff.
              *  In the example: /abc because resource.js is in this directory
              */
             context: string;
-
 
             /**
              * The resolved request string.
@@ -978,21 +995,17 @@ declare namespace webpack {
              */
             request: string;
 
-
             /**
              *  A string or any object. The query of the request for the current loader.
              */
             query: any;
-
 
             /**
              * A data object shared between the pitch and the normal phase.
              */
             data?: any;
 
-
             callback: loaderCallback;
-
 
             /**
              * Make this loader async.
@@ -1072,7 +1085,6 @@ declare namespace webpack {
              */
             exec(code: string, filename: string): any;
 
-
             /**
              * Resolve a request like a require expression.
              * @param context
@@ -1087,7 +1099,6 @@ declare namespace webpack {
              * @param request
              */
             resolveSync(context: string, request: string): string;
-
 
             /**
              * Adds a file as dependency of the loader result in order to make them watchable.
@@ -1115,7 +1126,6 @@ declare namespace webpack {
              * Remove all dependencies of the loader result. Even initial dependencies and these of other loaders. Consider using pitch.
              */
             clearDependencies(): void;
-
 
             /**
              * Pass values to the next loader.
@@ -1149,7 +1159,6 @@ declare namespace webpack {
              */
             sourceMap: boolean;
 
-
             /**
              * Target of compilation. Passed from configuration options.
              * Example values: "web", "node"
@@ -1165,7 +1174,6 @@ declare namespace webpack {
              */
             webpack: boolean;
 
-
             /**
              * Emit a file. This is webpack-specific.
              * @param name
@@ -1173,7 +1181,6 @@ declare namespace webpack {
              * @param sourceMap
              */
             emitFile(name: string, content: Buffer|string, sourceMap: any): void;
-
 
             /**
              * Access to the compilation's inputFileSystem property.
@@ -1189,7 +1196,6 @@ declare namespace webpack {
              * Hacky access to the Compiler object of webpack.
              */
             _compiler: Compiler;
-
 
             /**
              * Hacky access to the Module object being loaded.

@@ -24,6 +24,8 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err: mongodb.Mong
         collection.stats(function(err: mongodb.MongoError, stats: any) {
             console.log(stats.count + " documents");
         });
+
+        collection.createIndex({}, {partialFilterExpression: {rating: {$exists: 1}}})
     });
 
     {

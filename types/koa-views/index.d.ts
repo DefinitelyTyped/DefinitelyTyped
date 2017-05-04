@@ -23,11 +23,9 @@
 
  =============================================== */
 
-
 import * as Koa from "koa";
 
 declare function views(dir: string, opts?: {
-
     /*
     * default extension for your views
     */
@@ -44,12 +42,10 @@ declare function views(dir: string, opts?: {
     * replace consolidate as default engine source
     */
     engineSource?: any,
-    
 }): Koa.Middleware;
 declare namespace views { }
 
 export = views;
-
 
 import * as koa from "koa";
 

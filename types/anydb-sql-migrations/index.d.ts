@@ -3,8 +3,6 @@
 // Definitions by: Gorgi Kosev <https://github.com/spion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="bluebird" />
-
 import Promise = require('bluebird');
 import { Column, Table, Transaction, AnydbSql } from 'anydb-sql';
 export interface Migration {

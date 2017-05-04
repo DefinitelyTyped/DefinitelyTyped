@@ -62,9 +62,16 @@ interface IOAuth2StrategyOption {
     openIDRealm?: string;
 }
 
+interface IOAuth2StrategyOptionWithRequest extends IOAuth2StrategyOption {
+    passReqToCallback: true;
+}
+
 declare class OAuth2Strategy implements passport.Strategy {
     constructor(options: IOAuth2StrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    constructor(options: IOAuth2StrategyOptionWithRequest,
+        verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+
     name: string;
     authenticate: (req: express.Request, options?: Object) => void;
 }

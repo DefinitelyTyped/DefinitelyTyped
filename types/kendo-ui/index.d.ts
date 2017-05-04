@@ -1039,7 +1039,7 @@ declare namespace kendo.data {
     class DataSource extends Observable{
         options: DataSourceOptions;
 
-        transports: any;
+        transport: any;
 
         static create(options?: DataSourceOptions): DataSource;
 
@@ -5409,6 +5409,7 @@ declare namespace kendo.ui {
         slotByElement(element: Element): any;
         slotByElement(element: JQuery): any;
         view(type?: string): void;
+	view(): kendo.ui.SchedulerView;
         viewName(): string;
 
     }
@@ -5627,7 +5628,8 @@ declare namespace kendo.ui {
         dateHeaderTemplate?: string|Function;
         dayTemplate?: string|Function;
         editable?: boolean|SchedulerViewEditable;
-        endTime?: Date;
+        endDate?(): Date;
+	endTime?: Date;
         eventHeight?: number;
         eventTemplate?: string|Function;
         eventTimeTemplate?: string|Function;
@@ -5641,6 +5643,7 @@ declare namespace kendo.ui {
         selectedShortDateFormat?: string;
         showWorkHours?: boolean;
         slotTemplate?: string|Function;
+	startDate?(): Date;
         startTime?: Date;
         title?: string;
         type?: string;

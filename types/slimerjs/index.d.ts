@@ -3,23 +3,21 @@
 // Definitions by: Alex Wall <https://github.com/alexwall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare var phantom: Phantom;
 declare var slimer: Slimer;
 
 interface Slimer {
-  version: number;
-  geckoVersion: number;
+    version: number;
+    geckoVersion: number;
 
-  clearHttpAuth(): void;
-  isExiting(): boolean;
-  hasFeature(featureName: string): boolean;
-  exit(returnValue?: number): void;
-  wait(milliseconds: number): void;
+    clearHttpAuth(): void;
+    isExiting(): boolean;
+    hasFeature(featureName: string): boolean;
+    exit(returnValue?: number): void;
+    wait(milliseconds: number): void;
 }
 
 interface Phantom {
-
     // Properties
     args: string[];  // DEPRECATED
     cookies: Cookie[];
@@ -40,7 +38,7 @@ interface Phantom {
     injectJs(filename: string): boolean;
 
     // Callbacks
-    onError: (msg: string, trace: string[]) => any;
+    onError(msg: string, trace: string[]): any;
 }
 
 interface Std {
@@ -69,11 +67,10 @@ interface SystemModule {
 interface HttpConf {
     operation: string;
     data: any;
-    headers: any
+    headers: any;
 }
 
 interface WebPage {
-
     // Properties
     canGoBack: boolean;
     canGoForward: boolean;
@@ -106,7 +103,7 @@ interface WebPage {
     viewportSize: Size;
     windowName: string;
     zoomFactor: number;
-    captureContent: Array<RegExp>; // slimerjs only
+    captureContent: RegExp[]; // slimerjs only
 
     // Functions
     addCookie(cookie: Cookie): boolean;
@@ -122,8 +119,8 @@ interface WebPage {
     // evaluate<T1, T2, R>(callback: (arg1: T1, arg2: T2) => R, arg1: T1, arg2: T2): Promise<R>;
     // evaluate<T1, T2, T3, R>(callback: (arg1: T1, arg2: T2, arg3: T3) => R, arg1: T1, arg2: T2, arg3: T3): Promise<R>;
     // evaluate<R>(callback: (...args: any[]) => R, ...args: any[]): Promise<R>;
-    evaluate<R>(callback: () => R, ...args: any[]): R;
-    evaluateAsync(fn: () => void): void;
+    evaluate<R>(callback: (...args: any[]) => R, ...args: any[]): R;
+    evaluateAsync(fn: (...args: any[]) => void, delayMilli: number, ...args: any[]): void;
     evaluateJavaScript(str: string): any; // :TODO: elaborate this when documentation improves
     getPage(windowName: string): WebPage;
     go(index: number): void;
@@ -142,9 +139,9 @@ interface WebPage {
     release(): void;  // DEPRECATED
     reload(): void;
     // render(filename: string): Promise<void>;
+    render(filename: string): void;
     render(filename: string, options?: { format?: string; quality?: string; ratio?: number; onlyViewport?: boolean }): Promise<void>;
     renderBase64(type: string): Promise<string>;
-    render(filename: string): void;
     renderBase64(format: string): string;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): Promise<void>;
     sendEvent(keyboardEventType: string, key: string, null1?: null, null2?: null, modifier?: number): Promise<void>;
@@ -163,23 +160,23 @@ interface WebPage {
     uploadFile(selector: string, filename: string): void;
 
     // Callbacks
-    onAlert: (msg: string) => any;
-    onCallback: () => void;  // EXPERIMENTAL
-    onClosing: (closingPage: WebPage) => any;
-    onConfirm: (msg: string) => boolean;
-    onConsoleMessage: (msg: string, lineNum?: number, sourceId?: string) => any;
-    onError: (msg: string, trace: string[]) => any;
-    onFilePicker: (oldFile: string) => string;
-    onInitialized: () => any;
-    onLoadFinished: (status: string) => any;
-    onLoadStarted: () => any;
-    onNavigationRequested: (url: string, type: string, willNavigate: boolean, main: boolean) => any;
-    onPageCreated: (newPage: WebPage) => any;
-    onPrompt: (msg: string, defaultVal: string) => string;
-    onResourceError: (resourceError: ResourceError) => any;
-    onResourceReceived: (response: ResourceResponse) => any;
-    onResourceRequested: (requestData: ResourceRequest, networkRequest: NetworkRequest) => any;
-    onUrlChanged: (targetUrl: string) => any;
+    onAlert(msg: string): any;
+    onCallback(): void;  // EXPERIMENTAL
+    onClosing(closingPage: WebPage): any;
+    onConfirm(msg: string): boolean;
+    onConsoleMessage(msg: string, lineNum?: number, sourceId?: string): any;
+    onError(msg: string, trace: string[]): any;
+    onFilePicker(oldFile: string): string;
+    onInitialized(): any;
+    onLoadFinished(status: string): any;
+    onLoadStarted(): any;
+    onNavigationRequested(url: string, type: string, willNavigate: boolean, main: boolean): any;
+    onPageCreated(newPage: WebPage): any;
+    onPrompt(msg: string, defaultVal: string): string;
+    onResourceError(resourceError: ResourceError): any;
+    onResourceReceived(response: ResourceResponse): any;
+    onResourceRequested(requestData: ResourceRequest, networkRequest: NetworkRequest): any;
+    onUrlChanged(targetUrl: string): any;
 
     // Callback triggers
     closing(closingPage: WebPage): void;
@@ -203,8 +200,8 @@ interface ResourceError {
 }
 
 interface HttpVersion {
-  major: number,
-  minor: number
+    major: number;
+    minor: number;
 }
 
 interface ResourceResponse {
@@ -261,7 +258,6 @@ interface WebPageSettings {
 }
 
 interface FileSystem {
-
     // Properties
     separator: string;
     workingDirectory: string;
@@ -313,15 +309,18 @@ interface Stream {
     writeLine(data: string): void;
 }
 
-interface WebServerModule {
+interface WebServer {
     registerDirectory(urlpath: string, directoryPath: string): void;
     registerFile(urlpath: string, filePath: string): void;
-    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void
+    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void;
     port: number;
     listen(port: number | string, cb?: (request: WebServerRequest, response: WebServerResponse) => void): boolean;
     // listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
     close(): void;
+}
 
+interface WebServerModule {
+    create(): WebServer;
 }
 
 interface WebServerRequest {
@@ -359,21 +358,79 @@ interface ClipRect extends TopLeft, Size {
 }
 
 interface Cookie {
-    name: string,
-    value: string,
-    domain?: string,
-    path: string,
-    httponly?: boolean,
-    secure?: boolean,
-    expires?: string,
-    expiry: number
+    name: string;
+    value: string;
+    domain?: string;
+    path: string;
+    httponly?: boolean;
+    secure?: boolean;
+    expires?: string;
+    expiry: number;
 }
 
 interface WebPageModule {
-  create(): WebPage;
-  exit(returnValue?: number): void;
+    create(): WebPage;
+    exit(returnValue?: number): void;
+}
+
+interface Opts {
+    mode: string;
+    charset: string;
+    nobuffer: boolean;
+}
+
+interface FsModule {
+    changeWorkingDirectory(path: string): void;
+    workingDirectory: string;
+    exists(path: string): boolean;
+    isFile(path: string): boolean;
+    isDirectory(path: string): boolean;
+    isReadable(path: string): boolean;
+    isWritable(path: string): boolean;
+    isLink(path: string): boolean;
+    size(path: string): number;
+    lastModified(path: string): Date;
+    read(path: string, mode: string): string;
+    /*
+      Mode is a string that can contain character which describes a characteristic of the returned stream.
+      If the string contains "r", the file is opened in read-only mode.
+      "w" opens the file in write-only mode.
+      "b" opens the file in binary mode. If "b" is not present, the file is
+          opened in text mode, and its contents are assumed to be UTF-8.
+      "a" means to open as "append" mode: the file is open in write-only mode and all written character are append to the file
+    */
+    write(path: string, content: any, mode: string): void;
+    separator: string;
+    // last argument should be the filename
+    join(basepath: string, dirname: string, ...args: string[]): string;
+    split(path: string): string[];
+    directory(path: string): string;
+    dirname(path: string): string;
+    base(path: string): string;
+    basename(path: string): string;
+    absolute(path: string): string;
+    extension(path: string, withoutdot: boolean): string;
+    list(path: string): string[];
+    open(filename: string, opts: Opts): void;
+    remove(path: string): void;
+    makeDirectory(path: string): void;
+    makeTree(path: string): void;
+    mkpath(path: string): void;
+    removeDirectory(path: string): void;
+    removeTree(path: string): void;
+    rmdir(path: string): void;
+    copy(source: string, target: string): void;
+    copyTree(source: string, target: string): void;
+    rename(path: string, newname: string): void;
+    move(source: string, target: string): void;
+    touch(path: string, date: Date): void;
+    readLink(path: string): string;
+    isAbsolute(path: string): boolean;
+    isExecutable(path: string): boolean;
 }
 
 declare function require(module: "webpage"): WebPageModule;
 declare function require(module: "webserver"): WebServerModule;
 declare function require(module: "system"): SystemModule;
+declare function require(module: "fs"): FsModule;
+declare function require(module: any): any;

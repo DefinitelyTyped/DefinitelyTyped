@@ -122,7 +122,8 @@ declare namespace geolib {
 
     /** Calculates the length of a collection of coordinates.
      *
-     * Returns the length of the path in meters */
+     * Returns the length of the path in meters
+     */
     function getPathLength(coords: PositionAsDecimal[]): number;
 
     /** Calculates the speed between two points within a given time span.

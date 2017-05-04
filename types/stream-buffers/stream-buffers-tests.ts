@@ -20,16 +20,16 @@ myWritableStreamBuffer.size();
 myWritableStreamBuffer.maxSize();
 
 // Gets all held data as a Buffer.
-myWritableStreamBuffer.getContents();
+const contents: Buffer = myWritableStreamBuffer.getContents();
 
 // Gets all held data as a utf8 string.
-myWritableStreamBuffer.getContentsAsString('utf8');
+const stringContents: string = myWritableStreamBuffer.getContentsAsString('utf8');
 
 // Gets first 5 bytes as a Buffer.
-myWritableStreamBuffer.getContents(5);
+const contents2: Buffer = myWritableStreamBuffer.getContents(5);
 
 // Gets first 5 bytes as a utf8 string.
-myWritableStreamBuffer.getContentsAsString('utf8', 5);
+const stringContents2: string = myWritableStreamBuffer.getContentsAsString('utf8', 5);
 
 const myReadableStreamBuffer = new streamBuffers.ReadableStreamBuffer({
     frequency: 10,   // in milliseconds.

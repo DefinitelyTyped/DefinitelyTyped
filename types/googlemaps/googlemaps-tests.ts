@@ -1,7 +1,21 @@
 // Test file for Google Maps JavaScript API Definition file
 
+/***** Create map *****/
+let map = new google.maps.Map(
+    document.getElementById('map'), {
+    backgroundColor: "#fff",
+    center: { lat: -25.363, lng: 131.044 },
+    clickableIcons: true,
+    draggable: true,
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_TOP
+    },
+    gestureHandling: "cooperative",
+    scrollwheel: true,
+    zoom: 4
+});
 
-var map = new google.maps.Map(document.querySelector("☺"));
 
 /***** Data *****/
 
@@ -28,7 +42,7 @@ data.forEach((feature: google.maps.Data.Feature) => {
     console.log(feature.getId());
 });
 
-var map: google.maps.Map = data.getMap();
+map = data.getMap();
 data.setMap(map);
 
 var style = data.getStyle();
@@ -39,7 +53,7 @@ data.setStyle({
     cursor: "pointer",
     fillColor: "#79B55B",
     fillOpacity: 1,
-    icon: {},
+    icon: <google.maps.Icon>{ url: "//maps.google.com/mapfiles/ms/icons/blue.png" },
     shape: { coords: [1, 2, 3], type: "circle" },
     strokeColor: "#79B55B",
     strokeOpacity: 1,
@@ -50,11 +64,20 @@ data.setStyle({
 });
 
 data.overrideStyle(feature, { visible: true });
-
 data.revertStyle(feature);
 
-data.addGeoJson({});
-data.addGeoJson({}, { idPropertyName: "Test feature" });
+data.addGeoJson({ "type": "Feature", "geometry": { "type": "Point", "coordinates": [59.327090, 18.103701] } });
+data.addGeoJson({
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": { "dymmy": "7", },
+        "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[123.61, -22.14], [122.38, -21.73], [121.06, -21.69], [119.66, -22.22], [119.00, -23.40], [123.61, -22.14]]]
+            }
+        }],
+}, { idPropertyName: "Test feature" });
 
 data.loadGeoJson("http://magicGeoJsonSource.com");
 
@@ -141,115 +164,67 @@ var mapTypeStyle: google.maps.MapTypeStyle ={
     stylers: [],
 };
 
+
+
+/***** MARKERS *****/
 // https://developers.google.com/maps/documentation/javascript/markers
-function initMap1() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: myLatLng
-    });
-
-    var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: 'Hello World!'
-    });
-}
-
-var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-var mapOptions = {
-    zoom: 4,
-    center: myLatlng
-}
-var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-var marker = new google.maps.Marker({
-    position: myLatlng,
-    title:"Hello World!"
+map.setCenter({ lat: 59.332457, lng: 18.064790 });
+// Marker with map and LatLngLiteral position
+let markerSimple = new google.maps.Marker({
+    label: "A",
+    position: { lat: 59.33555, lng: 18.029851 },
+    map: map,
+    title: 'Hello World!'
 });
 
-// To add the marker to the map, call setMap();
-marker.setMap(map);
+// Marker without map and LatLng position
+let markerRemovable = new google.maps.Marker({
+    position: new google.maps.LatLng(59.337647,18.089950),
+    title:"Hello World!"
+});
+markerRemovable.setMap(map);   // Add marker
+markerRemovable.setMap(null);  // Remove marker, should accept null
 
-marker.setMap(null);
-
+// Marker with animation
 // The following example creates a marker in Stockholm, Sweden using a DROP
 // animation. Clicking on the marker will toggle the animation between a BOUNCE
 // animation and no animation.
-
-var marker: google.maps.Marker;
-
-function initMap2() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: {lat: 59.325, lng: 18.070}
-    });
-
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: {lat: 59.327, lng: 18.067}
-    });
-    marker.addListener('click', toggleBounce);
-}
+let markerBounce = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: { lat: 59.327, lng: 18.067 }
+});
+markerBounce.addListener("click", toggleBounce);
 
 function toggleBounce() {
-    if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
+    if (markerBounce.getAnimation() !== null) {
+        markerBounce.setAnimation(null);
     } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
+        markerBounce.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
 
-// In the following example, markers appear when the user clicks on the map.
-// Each marker is labeled with a single alphabetical character.
-var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-var labelIndex = 0;
 
-function initialize() {
-    var bangalore = { lat: 12.97, lng: 77.59 };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
-        center: bangalore
-    });
-
-    // This event listener calls addMarker() when the map is clicked.
-    google.maps.event.addListener(map, 'click', function(event: any) {
-        addMarker(event.latLng, map);
-    });
-
-    // Add a marker at the center of the map.
-    addMarker(bangalore, map);
-}
-
-// Adds a marker to the map.
-function addMarker(location: google.maps.LatLngLiteral, map: google.maps.Map) {
-    // Add the marker at the clicked location, and add the next-available label
-    // from the array of alphabetical characters.
-    var marker = new google.maps.Marker({
-        position: location,
-        label: labels[labelIndex++ % labels.length],
-        map: map
-    });
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
 
 /***** OverlayView *****/
 // https://developers.google.com/maps/documentation/javascript/customoverlays
 var div =  document.createElement('div');
-var overlay = new google.maps.OverlayView();
-var panes = overlay.getPanes();
-panes.floatPane.appendChild(div);
-panes.floatShadow.appendChild(div);
-panes.mapPane.appendChild(div);
-panes.markerLayer.appendChild(div);
-panes.overlayImage.appendChild(div);
-panes.overlayLayer.appendChild(div);
-panes.overlayMouseTarget.appendChild(div);
-panes.overlayShadow.appendChild(div);
+class Overlay extends google.maps.OverlayView {
+    public draw(): void {
+        var panes = this.getPanes();
+        panes.floatPane.appendChild(div);
+        panes.floatShadow.appendChild(div);
+        panes.mapPane.appendChild(div);
+        panes.markerLayer.appendChild(div);
+        panes.overlayImage.appendChild(div);
+        panes.overlayLayer.appendChild(div);
+        panes.overlayMouseTarget.appendChild(div);
+        panes.overlayShadow.appendChild(div);
+    };
+}
+var overlay = new Overlay();
+overlay.setMap(map);
 
 /***** Rectangles *****/
 // https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
@@ -290,3 +265,68 @@ var circle2 = new google.maps.Circle({
     strokeOpacity: 0.5,
     strokeWeight: 1
 });
+
+
+/***** StreetViewPanorama *****/
+var panoramaOptions: google.maps.StreetViewPanoramaOptions = {
+    zoom: 0,
+    pano: 'reception',
+    scrollwheel: false,
+    mode: 'webgl',
+    disableDefaultUI: true,
+    linksControl: true,
+    visible: true,
+    motionTracking: true,
+    motionTrackingControl: true
+};
+var panorama = new google.maps.StreetViewPanorama(document.createElement("div"), panoramaOptions);
+
+
+/***** MVCArray *****/
+
+// MVCArray should be generic
+let mvcArrayStr = new google.maps.MVCArray<string>(["a", "b", "c"]);
+mvcArrayStr.forEach((elem: string, i: number): void => { elem.toUpperCase(); });
+mvcArrayStr.getArray()[0].toUpperCase();
+mvcArrayStr.getAt(0).toUpperCase();
+mvcArrayStr.insertAt(2, "x");
+mvcArrayStr.pop().toUpperCase();
+mvcArrayStr.push("y");
+mvcArrayStr.removeAt(0).toUpperCase();
+mvcArrayStr.setAt(0, "z");
+
+/***** HeatMaps *****/
+
+let heatmap = new google.maps.visualization.HeatmapLayer({
+    data: [new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng(37.782842, -122.443688)],
+    map: map
+});
+
+// setData Should Accept MVCArray<LatLng>
+heatmap.setData(new google.maps.MVCArray<google.maps.LatLng>(
+    [new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng(37.782842, -122.443688)]
+));
+
+// getData Should return MVCArray<LatLng>
+let heatmapDataMvcLL = heatmap.getData<google.maps.LatLng>();
+console.log(heatmapDataMvcLL.getAt(0).lat()); // should not throw
+
+// setData Should Accept MVCArray<WeightedLocation>
+heatmap.setData(new google.maps.MVCArray<google.maps.visualization.WeightedLocation>([
+    { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
+    { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) },
+    { weight: 3, location: new google.maps.LatLng(37.782842, -122.443688) }
+]));
+
+// getData Should return MVCArray<LatLng>
+let heatmapDataWL = heatmap.getData<google.maps.visualization.WeightedLocation>();
+console.log(heatmapDataWL.getAt(0).weight); // should not throw
+
+// setData Should Accept LatLng[]
+heatmap.setData([new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng(37.782842, -122.443688)]);
+
+// setData Should Accept WeightedLocation[]
+heatmap.setData([
+    { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
+    { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) }
+]);

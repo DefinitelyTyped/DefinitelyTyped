@@ -5,6 +5,8 @@
 
 declare function context(options?: Options): Context;
 
+export = context;
+
 interface Context {
     Promise: Promise<any>;
     callbackWaitsForEmptyEventLoop: boolean;
@@ -30,5 +32,3 @@ interface Options {
     memoryLimitInMB: string;
     alias?: string;
 }
-
-export { context };

@@ -18,7 +18,7 @@ export class Client {
     send(stanza: any): void;
 }
 
-interface Stanza extends Element {
+export interface Stanza extends Element {
     // This has to be used for the static class initializer new Client.Stanza(..). If there is a better way feel free to
     // contribute.
     // tslint:disable-next-line
@@ -29,7 +29,7 @@ interface Stanza extends Element {
     type: string;
 }
 
-interface Element {
+export interface Element {
     is(name: string, xmlns: string): boolean;
     getName(): string;
     getNS(): string;
@@ -49,7 +49,7 @@ interface Element {
     toJSON(): any;
 }
 
-interface XmppOptions {
+export interface XmppOptions {
     jid: string;
     password: string;
     host?: string;
@@ -65,7 +65,7 @@ interface XmppOptions {
     bosh?: Bosh;
 }
 
-interface Bosh {
+export interface Bosh {
     url?: string;
-    prebind?: (error: any, data: any) => void;
+    prebind?(error: any, data: any): void;
 }

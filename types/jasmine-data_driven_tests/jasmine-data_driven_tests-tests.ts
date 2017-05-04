@@ -38,7 +38,7 @@ xall("A data driven test can be pending",
 );
 
 describe("A suite", () => {
-    var a: number;
+    let a: number;
 
     beforeEach(() => {
         a = 5;

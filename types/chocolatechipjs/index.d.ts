@@ -1,9 +1,10 @@
-// Type definitions for chocolatechip v4.0.4
+// Type definitions for chocolatechip 4.0
 // Project: https://github.com/chocolatechipui/ChocolateChipJS
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-interface ChocolateChipStatic {
+// TypeScript Version: 2.2
 
+interface ChocolateChipStatic {
   /**
    * Accepts a string containing a CSS selector which is then used to match a set of elements.
    *
@@ -20,7 +21,6 @@ interface ChocolateChipStatic {
    * @return void
    */
   (callback: () => any): void;
-
 
   /**
    * Accepts a string containing a CSS selector which is then used to match a set of elements.
@@ -45,7 +45,7 @@ interface ChocolateChipStatic {
    * @return document[]
    */
   (document: Document): Document[];
-  
+
   /**
    * If no argument is provided, return the document as a ChocolateChipElementArray.
    * @return Document[]
@@ -117,7 +117,6 @@ interface ChocolateChipStatic {
    * @return A string.
    */
   makeUuid(): string;
-
 
   /**
    * Create a ChocolateChip collection object by creating elements from an HTML string.
@@ -196,7 +195,9 @@ interface ChocolateChipStatic {
   defer(callback: Function): Function;
 
   /**
-   * This method makes sure a method always returns an array. If no values are available to return, it returns and empty array. This is to make sure that methods that expect a chainable array will not throw and exception.
+   * This method makes sure a method always returns an array.
+   * If no values are available to return, it returns and empty array.
+   * This is to make sure that methods that expect a chainable array will not throw and exception.
    *
    * @param result The result of a method to test if it can be returned in an array.
    * @return An array holding the results of a method, otherwise an empty array.
@@ -489,7 +490,6 @@ interface ChocolateChipStatic {
    *
    */
   template: {
-
     /**
      * This method parses a string and an optoinal variable name and returns a parsed template in the form of a function. You can then pass this function data to get rendered nodes.
      *
@@ -503,20 +503,19 @@ interface ChocolateChipStatic {
      * The repeater method used to rendering iterable template data.
      */
     repeater: {
-      
       /**
        * Use this method to render declarative temlate repeaters. This expects a "data-repeater" attribute whose value points to data stored on $.template.data.
        */
       (): void;
-      
+
       /**
-      * A method to repeated output a template.
-      *
-      * @param element The target container into which the content will be inserted.
-      * @param template A string of markup.
-      * @param data The iterable data the template will consume.
-      * @return void.
-      */
+       * A method to repeated output a template.
+       *
+       * @param element The target container into which the content will be inserted.
+       * @param template A string of markup.
+       * @param data The iterable data the template will consume.
+       * @return void.
+       */
       (element: ChocolateChipElementArray, template: string, data: any): void;
     }
 
@@ -535,8 +534,11 @@ interface ChocolateChipStatic {
   };
 
   /**
-   * ATENTION: DO NOT TOUCH! This is the ChocolateChipJS cache. This is used to store details about registered events and data. You should not touch any of these values, even though they are exposed, as this can seriously impair the behavior of your app.
-   * 
+   * ATENTION: DO NOT TOUCH!
+   * This is the ChocolateChipJS cache.
+   * This is used to store details about registered events and data.
+   * You should not touch any of these values, even though they are exposed, as this can seriously impair the behavior of your app.
+   *
    * data: this is used by $(element).data() to store data.
    * events: this is used by the event system.
    */
@@ -545,7 +547,7 @@ interface ChocolateChipStatic {
      * DO NOT TOUCH! This hold data stored by $(element).data().
      */
     data: {};
-    
+
     /**
      * DO NOT TOUCH! This stores information about registered events.
      */
@@ -556,17 +558,13 @@ interface ChocolateChipStatic {
       hasKey: Function;
       _delete: Function;
     }
-  }
-
+  };
 }
-
 
 /**
  * Interface for ChocolateChipJS Element Collections.
  */
-
 interface ChocolateChipElementArray extends Array<HTMLElement> {
-
   /**
    * Iterate over an Array object, executing a function for each matched element.
    *
@@ -652,7 +650,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @ return HTMLElement[]
    */
   has(selector: string): ChocolateChipElementArray;
-  
+
   /**
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
@@ -668,7 +666,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @ return HTMLElement[]
    */
   hasnt(selector: string): ChocolateChipElementArray;
-  
+
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
@@ -857,10 +855,10 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @return HTMLElement[]
    */
   prop(propertyName: string, value: any | boolean): ChocolateChipElementArray;
-  
+
   /**
    * Remove an element property.
-   * 
+   *
    * @param property The property to remove.
    * @return HTMLElement[]
    */
@@ -934,11 +932,11 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   dataset(key: string, value: any): ChocolateChipElementArray;
 
   /**
- * Retrieve a dataset key's value for the first element in the element collection.
-  *
-  * @param key A string naming the piece of data to set.
-  * @return HTMLElement[]
-  */
+   * Retrieve a dataset key's value for the first element in the element collection.
+   *
+   * @param key A string naming the piece of data to set.
+   * @return HTMLElement[]
+   */
   dataset(key: string): ChocolateChipElementArray;
 
   /**
@@ -1137,7 +1135,10 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   /**
    * Set the content of each element in the set of matched elements to the specified text.
    *
-   * @param text The text to set as the content of each matched element. When Number is supplied, it will be converted to a String representation. To delete text, use ChocolateChipElementArray.empty() or ChocolateChipElementArray.remove().
+   * @param text
+   *        The text to set as the content of each matched element.
+   *        When Number is supplied, it will be converted to a String representation.
+   *        To delete text, use ChocolateChipElementArray.empty() or ChocolateChipElementArray.remove().
    * @return HTMLElement
    */
   text(text: string | number): HTMLElement;
@@ -1219,145 +1220,16 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   off(eventType?: string, selector?: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): ChocolateChipStatic;
 
   /**
-  * Trigger an event on an element.
-  * 
-  * @param eventType The event to trigger.
-  * @return void
-  */
+   * Trigger an event on an element.
+   *
+   * @param eventType The event to trigger.
+   * @return void
+   */
   trigger(eventType: string): void;
 }
 
-/**
- * Represents the completion of an asynchronous operation
- */
-interface Promise<T> {
-  /**
-   * Attaches callbacks for the resolution and/or rejection of the Promise.
-   *
-   * @param onfulfilled The callback to execute when the Promise is resolved.
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @return Promise A Promise for the completion of which ever callback is executed.
-   * @return Promise A new Promise
-   */
-  then<TResult>(onfulfilled?: (value: T) => TResult | Promise<TResult>, onrejected?: (reason: any) => TResult | Promise<TResult>): Promise<TResult>;
-
-  /**
-   * Attaches a callback for only the rejection of the Promise.
-   *
-   * @param onrejected The callback to execute when the Promise is rejected.
-   * @return Promise A Promise for the completion of the callback.
-   * @return Promise A new Promise
-   */
-  catch(onrejected?: (reason: any) => T | Promise<T>): Promise<T>;
-}
-
-interface PromiseConstructor {
-  /**
-   * Creates a new Promise.
-   *
-   * @param init A callback used to initialize the promise. This callback is passed two arguments: a resolve callback used resolve the promise with a value or the result of another promise, and a reject callback used to reject the promise with a provided reason or error.
-   * @return Promise A new Proimise
-   */
-  new <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
-
-  <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
-
-  /**
-   * Creates a Promise that is resolved with an array of results when all of the provided Promises resolve, or rejected when any Promise is rejected.
-   *
-   * @param values An array of Promises.
-   * @return Promise A new Promise.
-   */
-  all<T>(values: (T | Promise<T>)[]): Promise<T[]>;
-
-  /**
-   * Creates a Promise that is resolved with an array of results when all of the provided Promises resolve, or rejected when any Promise is rejected.
-   *
-   * @param values An array of values.
-   * @returns A new Promise.
-   */
-  all(values: Promise<void>[]): Promise<void>;
-
-  /**
-   * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved or rejected.
-   *
-   * @param values An array of Promises.
-   * @return Promise A new Promise.
-   */
-  race<T>(values: (T | Promise<T>)[]): Promise<T>;
-
-  /**
-   * Creates a new rejected promise for the provided reason.
-   *
-   * @param reason The reason the promise was rejected.
-   * @return Promise A new rejected Promise.
-   */
-  reject(reason: any): Promise<void>;
-
-  /**
-   * Creates a new rejected promise for the provided reason.
-   *
-   * @param reason The reason the promise was rejected.
-   * @return void A Promise is rejected.
-   */
-  reject<T>(reason: any): Promise<T>;
-
-  /**
-   * Creates a new resolved promise for the provided value.
-   *
-   * @param value A promise.
-   * @return Promise A promise whose internal state matches the provided promise.
-   */
-  resolve<T>(value: T | Promise<T>): Promise<T>;
-
-  /**
-   * Creates a new resolved promise.
-   *
-   * @return Promise A resolved promise.
-   */
-  resolve(): Promise<void>;
-}
-
-declare var Promise: PromiseConstructor;
-declare type ByteString = string;
-declare type USVString = string;
-declare type DOMString = string;
-declare type OpenEndedDictionary = Object;
-
-/**
- * Interface for fetch API.
- *
- * @param input A string representing a valid url.
- * @param init An object literal of key value pairs to set method, headers, body, credentials or cache.
- * @return Promise.
- */
-interface fetch {
-  (input: string,
-    init?: {
-    method?: string;
-    headers?: {};
-    body?: any;
-    mode?:  {
-      cors: string;
-      "no-cors": string;
-      "same-origin": string;
-    };
-    credentials?: {
-      omit: string;
-      "same-origin": string;
-      include: string;
-    };
-    cache?: {
-      default: string;
-      "no-store": string;
-      reload: string;
-      "no-cache": string;
-      "force-cache": string;
-      "only-if-cached": string;
-    };
-    timeout?: number;
-  }): Promise<any>;
-}
+type DOMString = string;
+type OpenEndedDictionary = Object;
 
 /**
  * Headers Interface. This defines the methods exposed by the Headers object.
@@ -1373,81 +1245,20 @@ interface Headers {
    forEach(callback: Function, thisArg: any): any;
 }
 
-interface decode {
-  (body: any): FormData;
-}
-
-/**
- * Request Interface. This defines the properties and methods exposed by the Request object.
- */
-interface Request {
-  (input: {
-    url: string;
-    request: Request;
-  }, init: Object): Request;
-  clone(): Request;
-  arrayBuffer(): ArrayBuffer;
-  blob(): Blob;
-  formData(): FormData;
-  json(): JSON;
-  text(): string;
-
-  method: string;
-  url: string;
-  heaers: Headers;
-  context: any;
-  referrer: any;
-  mode: string;
-  credentials: any;
-  cache: string;
-  bodyUsed: boolean;
-}
-
-interface URLSearchParams {
-  ():URLSearchParams;
-}
-
-/**
- * Resonse Interface. This defines the properties and methods exposed by the Response object.
- */
-interface Response {
-  (body?: {
-    blob: Blob;
-    bormData: FormData;
-    urlParams: URLSearchParams;
-    url: string;
-   },
-   init?: {
-    status?: string | number;
-    statusText?: string;
-    headers: Headers;
-  }): Response;
-  clone(): Response;
-  redirect(): Response;
-  arrayBuffer(): ArrayBuffer;
-  blob(): Blob;
-  formData(): FormData;
-  json(): JSON;
-  text(): string;
-
-  type: string;
-  url: string;
-  useFinalURL: boolean;
-  ok: boolean;
-  statusText: string;
-  headers: Headers;
-  bodyUsed: boolean;
+interface RequestInit {
+  timeout?: number;
 }
 
 interface ChocolateChipStatic {
-  
   /**
-   * A cache to hold callbacks execute by the response from a JSONP request. This is an array of strings. By default these values get purged when the callback execute and exposes the data returned by the request.
+   * A cache to hold callbacks execute by the response from a JSONP request.
+   * This is an array of strings.
+   * By default these values get purged when the callback execute and exposes the data returned by the request.
    */
   JSONPCallbacks: string[];
   /**
-   * Method to perform JSONP request. 
-   * 
+   * Method to perform JSONP request.
+   *
    * @param url A string defining the url to target.
    * @param options And object literal of properties: {timeout? number, callbackName?: string, clear?: boolean}
    */
@@ -1456,17 +1267,20 @@ interface ChocolateChipStatic {
      * A number representing milliseconds to express when to refect a JSONP request.
      */
     timeout?: number;
-    
+
     /**
-     * The optional name for the callback when the server response will execute. The default value is "callback". However some sites may use a different name for their JSONP function. Consult the documentation on the site to ascertain the correct value for this callback. 
+     * The optional name for the callback when the server response will execute.
+     * The default value is "callback".
+     * However some sites may use a different name for their JSONP function.
+     * Consult the documentation on the site to ascertain the correct value for this callback.
      */
     callbackName?: string;
-    
+
     /**
      * This value determines whether the callbacks and script associate with JSONP persist or are purged after the request returns. By default this is set to true, meaning that they will be purged.
      */
     clear?: boolean;
-  }): any
+  }): any;
 }
 
 interface Window {
@@ -1475,6 +1289,5 @@ interface Window {
   jsonp: any;
 }
 declare var $: ChocolateChipStatic;
-declare var fetch: fetch;
 
 declare var chocolatechipjs: ChocolateChipStatic;

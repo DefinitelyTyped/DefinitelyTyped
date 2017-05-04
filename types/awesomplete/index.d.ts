@@ -6,14 +6,14 @@
 declare class Awesomplete {
     constructor(input: Element | HTMLElement | string, o?: Awesomplete.Options);
     static all: any[];
-    static $$: (expr: string | NodeSelector, con?: any) => NodeList;
+    static $$(expr: string | NodeSelector, con?: any): NodeList;
     static ITEM: (text: string, input: string) => HTMLElement;
     static $: {
         (expr: string|Element, con?: NodeSelector): string | Element;
-        regExpEscape: (s: { replace: (arg0: RegExp, arg1: string) => void }) => any;
-        create: (tag: string, o: any) => HTMLElement;
-        fire: (target: EventTarget, type: string, properties: any) => any;
-        siblingIndex: (el: Element) => number;
+        regExpEscape(s: { replace(arg0: RegExp, arg1: string): void }): any;
+        create(tag: string, o: any): HTMLElement;
+        fire(target: EventTarget, type: string, properties: any): any;
+        siblingIndex(el: Element): number;
     };
     static FILTER_STARTSWITH: (text: string, input: string) => boolean;
     static FILTER_CONTAINS: (text: string, input: string) => boolean;
@@ -45,11 +45,11 @@ declare namespace Awesomplete {
         minChars?: number;
         maxItems?: number;
         autoFirst?: boolean;
-        data?: (item: Suggestion, input: string) => string;
-        filter?: (text: string, input: string) => boolean;
-        sort?: (left: number | any[], right: number | any[]) => number;
-        item?: (text: string, input: string) => HTMLElement;
-        replace?: (text: string) => void;
+        data?(item: Suggestion, input: string): string;
+        filter?(text: string, input: string): boolean;
+        sort?(left: number | any[], right: number | any[]): number;
+        item?(text: string, input: string): HTMLElement;
+        replace?(text: string): void;
     }
 }
 

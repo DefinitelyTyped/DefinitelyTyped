@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   RouteComponentProps,
   Route,
   Link,
   Prompt
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 const PreventingTransitionsExample = () => (
   <Router>
@@ -20,15 +20,15 @@ const PreventingTransitionsExample = () => (
       <Route path="/two" render={() => <h3>Two</h3>}/>
     </div>
   </Router>
-)
+);
 
-class Form extends React.Component<void, {isBlocking: boolean}> {
+class Form extends React.Component<undefined, {isBlocking: boolean}> {
   state = {
     isBlocking: false
-  }
+  };
 
   render() {
-    const { isBlocking } = this.state
+    const { isBlocking } = this.state;
 
     return (
       <form
@@ -37,7 +37,7 @@ class Form extends React.Component<void, {isBlocking: boolean}> {
           (event.target as HTMLFormElement).reset();
           this.setState({
             isBlocking: false
-          })
+          });
         }}
       >
         <Prompt
@@ -58,7 +58,7 @@ class Form extends React.Component<void, {isBlocking: boolean}> {
             onChange={event => {
               this.setState({
                 isBlocking: event.target.value.length > 0
-              })
+              });
             }}
           />
         </p>
@@ -67,8 +67,8 @@ class Form extends React.Component<void, {isBlocking: boolean}> {
           <button>Submit to stop blocking</button>
         </p>
       </form>
-    )
+    );
   }
 }
 
-export default PreventingTransitionsExample
+export default PreventingTransitionsExample;

@@ -9,8 +9,8 @@ declare namespace amplify {
     interface RequestSettings {
         resourceId: string;
         data?: any;
-        success?: (...args: any[]) => void;
-        error?: (...args: any[]) => void;
+        success?(...args: any[]): void;
+        error?(...args: any[]): void;
     }
 
     type Decoder =
