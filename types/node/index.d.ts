@@ -1,6 +1,6 @@
 // Type definitions for Node.js v7.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>, Parambir Singh <https://github.com/parambirs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -1091,18 +1091,25 @@ declare module "zlib" {
     export function createUnzip(options?: ZlibOptions): Unzip;
 
     export function deflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function deflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function gzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function gzip(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function gzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
     export function gunzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzip(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function gunzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
     export function inflate(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function inflate(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function inflateSync(buf: Buffer, options?: ZlibOptions): Buffer;
     export function inflateRaw(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRaw(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function inflateRawSync(buf: Buffer, options?: ZlibOptions): Buffer;
     export function unzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
+    export function unzip(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function unzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
 
     export namespace constants {
