@@ -61,7 +61,10 @@ declare namespace JsDiff {
 
     function diffJson(oldObj: Object, newObj: Object): IDiffResult[];
 
-    function diffLines(oldStr:string, newStr:string):IDiffResult[];
+    function diffLines(oldStr:string, newStr:string, options?: {
+        ignoreWhitespace?: boolean,
+        newlineIsToken?: boolean,
+    }): IDiffResult[];
 
     function diffCss(oldStr:string, newStr:string):IDiffResult[];
 
