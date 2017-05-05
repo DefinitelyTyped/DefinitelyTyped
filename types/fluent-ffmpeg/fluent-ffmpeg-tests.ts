@@ -1,5 +1,7 @@
-import ffmpeg = require("fluent-ffmpeg")
+import * as ffmpeg from "fluent-ffmpeg";
 
-let source: string, format: string, output: string
+let source: string;
+let format: string;
+let output: string;
 
-ffmpeg({ source: source }).format(format).save(output)
+ffmpeg({ source }).format(format).save(output);
