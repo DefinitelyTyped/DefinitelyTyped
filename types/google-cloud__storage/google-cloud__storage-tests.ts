@@ -1,7 +1,7 @@
-//import file system i/o api
+// import file system i/o api
 import * as fs from "fs";
 
-//import Google Cloud Storage
+// import Google Cloud Storage
 import {
   Acl,
   Bucket,
@@ -25,30 +25,29 @@ import {
   WriteStreamOptions,
   UploadOptions,
   Storage
-} from "./index";
+} from "@google-cloud/storage";
 
 /**
  * Test the storage service.
  * @class TestStorage
  */
 export class TestStorage {
-
-  //constants
+  // constants
   static BUCKET_CONFIG: BucketConfig = {
     multiRegional: true
   };
 
-  //import Storage class
+  // import Storage class
   static gcs: Storage;
 
-  //the bucket
+  // the bucket
   private buckets: Bucket[] = [];
 
   /**
    * @constructor
    */
   constructor() {
-    //nothing to do
+    // nothing to do
   }
 
   /**
@@ -68,7 +67,7 @@ export class TestStorage {
    * @return {Promise<[Bucket, ApiResponse]>}
    */
   createBucket(name: string, config?: BucketConfig): Promise<[Bucket, ApiResponse]> {
-    //overwrite default values with custom config
+    // overwrite default values with custom config
     config = Object.assign(TestStorage.BUCKET_CONFIG, config);
 
     return TestStorage.gcs.createBucket(name, config);
@@ -88,8 +87,7 @@ export class TestStorage {
  * @class TestBucket
  */
 export class TestBucket {
-
-  //the bucket in the cloud
+  // the bucket in the cloud
   bucket: Bucket;
 
   /**
@@ -233,14 +231,13 @@ export class TestBucket {
  * @class TestFile
  */
 export class TestFile {
-
-  //the file in the cloud
+  // the file in the cloud
   file: File;
 
   /**
    * Copy this file to another file.
    * By default, this will copy the file to the same bucket, but you can choose to copy it to another
-   * Bucket by providing a Bucket or File object or a URL starting with "gs://".
+   * Bucket by providing a Bucket or File object or a URL starting with "gs:// ".
    * @method copy
    * @param {string} destination
    * @return Promise<[File, ApiResponse]>
@@ -359,7 +356,7 @@ export class TestFile {
   /**
    * Move this file to another location.
    * By default, this will move the file to the same bucket, but you can choose to move it to
-   * another Bucket by providing a Bucket or File object or a URL beginning with "gs://".
+   * another Bucket by providing a Bucket or File object or a URL beginning with "gs:// ".
    * @method move
    * @param {string|Bucket|File} destination
    * @return {Promise<[File, ApiResponse]>}
