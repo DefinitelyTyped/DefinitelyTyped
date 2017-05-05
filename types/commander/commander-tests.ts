@@ -3,6 +3,7 @@ import * as program from "commander";
 interface ExtendedOptions extends program.CommandOptions {
     isNew: any;
 }
+
 const commandInstance = new program.Command("-f");
 const optionsInstance = new program.Option("-f");
 
