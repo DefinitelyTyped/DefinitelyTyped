@@ -3,8 +3,8 @@ import * as program from "commander";
 interface ExtendedOptions extends program.CommandOptions {
     isNew: any;
 }
-
-const programInstance = new program("hello");
+const commandInstance = new program.Command("-f");
+const optionsInstance = new program.Option("-f");
 
 program
     .version('0.0.1')
