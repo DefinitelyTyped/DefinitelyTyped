@@ -70,12 +70,12 @@ export interface RouteProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Route extends React.Component<RouteProps, undefined> { }
+export class Route extends React.Component<RouteProps, {}> { }
 
 export interface RouterProps {
   history: any;
 }
-export class Router extends React.Component<RouterProps, undefined> { }
+export class Router extends React.Component<RouterProps, {}> { }
 
 export interface StaticRouterProps {
   basename?: string;
@@ -83,12 +83,12 @@ export interface StaticRouterProps {
   context?: object;
 }
 
-export class StaticRouter extends React.Component<StaticRouterProps, undefined> { }
+export class StaticRouter extends React.Component<StaticRouterProps, {}> { }
 export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
-export class Switch extends React.Component<SwitchProps, undefined> { }
+export class Switch extends React.Component<SwitchProps, {}> { }
 
 export interface match<P> {
   params: P;
