@@ -14,6 +14,9 @@ traverse(ast, {
         if (t.isIdentifier(node, { name: "n" })) {
             node.name = "x";
         }
+        if (t.isFunctionExpression(node)) {
+            node.params = [t.identifier('param')];
+        }
     }
 });
 
