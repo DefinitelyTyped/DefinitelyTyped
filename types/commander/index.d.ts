@@ -24,7 +24,7 @@ declare class Option {
 }
 
 declare class Command extends NodeJS.EventEmitter {
-    [key: string]: object;
+    [key: string]: any;
 
     args: string[];
 
