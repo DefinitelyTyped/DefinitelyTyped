@@ -12,6 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 //                 Jérémy Fauvel <https://github.com/grmiade>
+//                 Daniel Roth <https://github.com/DaIgeb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -84,7 +85,7 @@ export interface StaticRouterProps {
 
 export class StaticRouter extends React.Component<StaticRouterProps, undefined> {}
 export interface SwitchProps {
-  children?: JSX.Element | JSX.Element[];
+  children?: React.ReactNode;
   location?: H.Location;
 }
 export class Switch extends React.Component<SwitchProps, undefined> {}
