@@ -9,7 +9,7 @@ const docker4 = new Docker({ host: '127.0.0.1', port: 3000 });
 
 const docker5 = new Docker({
   host: '192.168.1.10',
-  port: parseInt(process.env["DOCKER_PORT"]) || 2375,
+  port: +process.env["DOCKER_PORT"] || 2375,
   ca: 'ca',
   cert: 'cert',
   key: 'key'
@@ -18,7 +18,7 @@ const docker5 = new Docker({
 const docker6 = new Docker({
   protocol: 'https', // you can enforce a protocol
   host: '192.168.1.10',
-  port: parseInt(process.env["DOCKER_PORT"]) || 2375,
+  port: +process.env["DOCKER_PORT"] || 2375,
   ca: 'ca',
   cert: 'cert',
   key: 'key'
