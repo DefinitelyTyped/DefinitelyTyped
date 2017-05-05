@@ -1,4 +1,3 @@
-
 // Type definitions for commander 2.9
 // Project: https://github.com/visionmedia/commander.js
 // Definitions by: Alan Agius <https://github.com/alan-agius4>, Marcelo Dezem <http://github.com/mdezem>, vvakame <http://github.com/vvakame>
