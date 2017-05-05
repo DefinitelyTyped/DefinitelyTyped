@@ -335,6 +335,30 @@ describe('toThrowErrorMatchingSnapshot', function () {
     });
 });
 
+const testSerializerPluginString = "set by testSerializerPlugin";
+let testSerializerPluginCallCount = 0;
+expect.addSnapshotSerializer({
+  print(val, serialize, indent, opts, colors) {
+    val.willOverwrite = testSerializerPluginString;
+    testSerializerPluginCallCount += 1;
+    return 'plugin called: ' + serialize(val.willOverwrite);
+  },
+  test(val) {
+    return val && val.willOverwrite && val.willOverwrite !== testSerializerPluginString;
+  },
+});
+describe('addSnapshotSerializer', function () {
+    it('the plugin does its work', function () {
+        testSerializerPluginCallCount = 0;
+        expect({ willOverwrite: { x: 1, y: 2, } }).toMatchSnapshot();
+        expect({ willOverwrite: "this will get overwritten by testSerializerPlugin" }).toMatchSnapshot();
+        expect({ willOverwrite: "so will this" }).toMatchSnapshot();
+        expect({ foo: "this will not" }).toMatchSnapshot();
+        expect(testSerializerPluginCallCount).toBe(3);
+    });
+});
+
+
 function testInstances() {
     var mockFn = jest.fn<Function>();
     var a = new mockFn();
