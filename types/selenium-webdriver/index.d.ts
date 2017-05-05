@@ -556,6 +556,13 @@ export namespace logging {
 
 export namespace promise {
   // region Functions
+  
+  /**
+   * Set `USE_PROMISE_MANAGER` to `false` to disable the promise manager.
+   * This is useful, if you use async/await (see https://github.com/SeleniumHQ/selenium/issues/2969
+   * and https://github.com/SeleniumHQ/selenium/issues/3037).
+   */
+  let USE_PROMISE_MANAGER: boolean;
 
   /**
    * Given an array of promises, will return a promise that will be fulfilled
