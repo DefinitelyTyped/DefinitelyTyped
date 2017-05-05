@@ -2179,6 +2179,45 @@ namespace dns_tests {
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
+
+    dns.resolve("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "A", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+        const _addresses: dns.MxRecord[] = addresses;
+    });
+
+    dns.resolve4("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve4("nodejs.org", {ttl: true}, (err, addresses) => {
+        const _addresses: dns.RecordWithTtl[] = addresses;
+    });
+    {
+        const ttl = false;
+        dns.resolve4("nodejs.org", {ttl: ttl}, (err, addresses) => {
+            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
+        });
+    }
+
+    dns.resolve6("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve6("nodejs.org", {ttl: true}, (err, addresses) => {
+        const _addresses: dns.RecordWithTtl[] = addresses;
+    });
+    {
+        const ttl = false;
+        dns.resolve6("nodejs.org", {ttl: ttl}, (err, addresses) => {
+            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
+        });
+    }
 }
 
 /*****************************************************************************
