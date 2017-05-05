@@ -83,7 +83,11 @@ export interface StaticRouterProps {
 }
 
 export class StaticRouter extends React.Component<StaticRouterProps, undefined> {}
-export class Switch extends React.Component<RouteProps, undefined> {}
+export interface SwitchProps {
+  children?: JSX.Element | JSX.Element[];
+  location?: H.Location;
+}
+export class Switch extends React.Component<SwitchProps, undefined> {}
 
 export interface match<P> {
   params: P;
