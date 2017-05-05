@@ -515,7 +515,7 @@ declare namespace jasmine {
     }
 
     type SpyObj<T> = T & {
-      [k in keyof T]: T[k] & Spy;
+      [k in keyof T]: Spy;
     }
 
     interface SpyAnd {
