@@ -4,6 +4,8 @@
     "ban-types": false,
     "unified-signatures": false,
     "no-empty-interface": false,
-    "dt-header": false
+    "dt-header": false,
+    "no-trailing-whitespace": false,
+    "jsdoc-format": false
   }
 }
