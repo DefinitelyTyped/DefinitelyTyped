@@ -1,6 +1,7 @@
 // Type definitions for RethinkDB 2.3
 // Project: http://rethinkdb.com/
 // Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>
+// Definitions by: Adrian Farmadin <https://github.com/AdrianFarmadin>	
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Reference: https://rethinkdb.com/api/javascript/
