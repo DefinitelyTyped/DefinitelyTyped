@@ -1019,7 +1019,7 @@ declare namespace __MaterialUI {
         overlayStyle?: React.CSSProperties;
         style?: React.CSSProperties;
         swipeAreaWidth?: number;
-        width?: number;
+        width?: number | string;
         zDepth?: number;
     }
     export class Drawer extends React.Component<DrawerProps, {}> {
