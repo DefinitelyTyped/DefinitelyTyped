@@ -4752,6 +4752,11 @@ declare namespace sequelize {
          */
         fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
 
+        /**
+         * Condition of partial index
+         */
+        where?: WhereOptions;
+
     }
 
     /**
