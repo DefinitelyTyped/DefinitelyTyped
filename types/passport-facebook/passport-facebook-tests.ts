@@ -14,9 +14,9 @@ var User = {
 }
 
 passport.use(new facebook.Strategy({
-            clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET,
-            callbackURL: process.env.PASSPORT_FACEBOOK_CALLBACK_URL
+            clientID: process.env["PASSPORT_FACEBOOK_CLIENT_ID"],
+            clientSecret: process.env["PASSPORT_FACEBOOK_CLIENT_SECRET"],
+            callbackURL: process.env["PASSPORT_FACEBOOK_CALLBACK_URL"]
     },
     function(accessToken:string, refreshToken:string, profile:facebook.Profile, done:(error:any, user?:any) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {
@@ -27,9 +27,9 @@ passport.use(new facebook.Strategy({
 );
 
 passport.use(new facebook.Strategy({
-            clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET,
-            callbackURL: process.env.PASSPORT_FACEBOOK_CALLBACK_URL,
+            clientID: process.env["PASSPORT_FACEBOOK_CLIENT_ID"],
+            clientSecret: process.env["PASSPORT_FACEBOOK_CLIENT_SECRET"],
+            callbackURL: process.env["PASSPORT_FACEBOOK_CALLBACK_URL"],
             passReqToCallback: true
     },
     function(req: express.Request, accessToken:string, refreshToken:string, profile:facebook.Profile, done:(error:any, user?:any) => void) {
@@ -41,9 +41,9 @@ passport.use(new facebook.Strategy({
 );
 
 passport.use(new facebook.Strategy({
-            clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET,
-            callbackURL: process.env.PASSPORT_FACEBOOK_CALLBACK_URL
+            clientID: process.env["PASSPORT_FACEBOOK_CLIENT_ID"],
+            clientSecret: process.env["PASSPORT_FACEBOOK_CLIENT_SECRET"],
+            callbackURL: process.env["PASSPORT_FACEBOOK_CALLBACK_URL"]
     },
     function(accessToken:string, refreshToken:string, profile:facebook.Profile, done:(error:any, user?:any, info?:any) => void) {
          done(null, false, { message: 'Some error.' });

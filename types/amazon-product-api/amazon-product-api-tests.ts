@@ -4,9 +4,9 @@
 import amazon = require('amazon-product-api');
 
 var client = amazon.createClient({
-    awsId: process.env.AWS_ACCESS_KEY_ID,
-    awsSecret: process.env.AWS_SECRET,
-    awsTag: process.env.AWS_ASSOCIATE_TAG
+    awsId: process.env["AWS_ACCESS_KEY_ID"],
+    awsSecret: process.env["AWS_SECRET"],
+    awsTag: process.env["AWS_ASSOCIATE_TAG"]
 });
 
 

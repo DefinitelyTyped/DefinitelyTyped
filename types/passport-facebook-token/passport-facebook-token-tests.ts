@@ -9,8 +9,8 @@ var User = {
 }
 
 var options: facebook.StrategyOptions = {
-    clientID: process.env.PASSPORT_FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.PASSPORT_FACEBOOK_CLIENT_SECRET
+    clientID: process.env["PASSPORT_FACEBOOK_CLIENT_ID"],
+    clientSecret: process.env["PASSPORT_FACEBOOK_CLIENT_SECRET"]
 };
 
 function verify(accessToken: string,

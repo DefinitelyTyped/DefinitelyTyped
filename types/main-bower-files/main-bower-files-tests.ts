@@ -12,7 +12,7 @@ gulp.task("main-bower-files:simple", () => {
 gulp.task("main-bower-files:options", () => {
     var files = mainBowerFiles({
         debugging: false,
-        env: process.env.NODE_ENV,
+        env: process.env["NODE_ENV"],
         paths: {
             bowerDirectory: "path/for/bower_components",
             bowerrc: "path/for/.bowerrc",

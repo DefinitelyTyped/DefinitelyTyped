@@ -68,7 +68,7 @@ var Asana = asana;
 
 // Using the API key for basic authentication. This is reasonable to get
 // started with, but Oauth is more secure and provides more features.
-var client = Asana.Client.create().useBasicAuth(process.env.ASANA_API_KEY);
+var client = Asana.Client.create().useBasicAuth(process.env["ASANA_API_KEY"]);
 
 client.users.me()
   .then((user: any) => {

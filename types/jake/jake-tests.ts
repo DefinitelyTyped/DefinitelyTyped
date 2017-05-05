@@ -53,7 +53,7 @@ task('awesome', function (a, b, c) {
 desc('This is an awesome task.');
 task('awesome', function (a, b, c) {
   console.log(a, b, c);
-  console.log(process.env.qux, process.env.frang);
+  console.log(process.env["qux"], process.env["frang"]);
 });
 
 

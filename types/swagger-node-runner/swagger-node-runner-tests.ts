@@ -18,7 +18,7 @@ SwaggerNodeRunner.create(config, (err, runner) => {
     const expressMiddleware = runner.expressMiddleware();
     expressMiddleware.register(expressApp);
 
-    const port = process.env.PORT || 10010;
+    const port = process.env["PORT"] || 10010;
     expressApp.listen(port);
 });
 
@@ -30,7 +30,7 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   const connectMiddleware = runner.connectMiddleware();
 
   connectMiddleware.register(connectApp);
-  const port = process.env.PORT || 10010;
+  const port = process.env["PORT"] || 10010;
   connectApp.listen(port);
 });
 
@@ -49,7 +49,7 @@ const hapiapp = new Hapi.Server();
 SwaggerNodeRunner.create(config, (err, runner) => {
   if (err) { throw err; }
 
-  const port = process.env.PORT || 10010;
+  const port = process.env["PORT"] || 10010;
   hapiapp.connection({ port });
 //   hapiapp.address = function() {
 //     return { port };
@@ -77,7 +77,7 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 
   restifyMiddelware.register(app);
 
-  const port = process.env.PORT || 10010;
+  const port = process.env["PORT"] || 10010;
   app.listen(port);
 });
 

@@ -12,7 +12,7 @@ const config = {
 SwaggerHapi.create(config, (err, swaggerHapi) => {
   if (err) { throw err; }
 
-  const port = process.env.PORT || 10010;
+  const port = process.env["PORT"] || 10010;
   app.connection({ port });
   // app.address = function() {
   //   return { port };
