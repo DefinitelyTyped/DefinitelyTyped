@@ -3,22 +3,6 @@
 // Definitions by: jaydenzhao <https://github.com/MessageDream/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-interface Promise<T> {
-    /**
-     * Append a rejection handler callback to the promise.
-     *
-     * @param onRejected Callback to be triggered when the promise is rejected.
-     */
-    catch(onRejected?: (reason: any) => Promise<T>): Promise<T>;
-
-    /**
-     * Append a fulfillment and/or rejection handler to the promise.
-     *
-     * @param onFulfilled Callback to be triggered when the promise is fulfilled.
-     * @param onRejected Callback to be triggered when the promise is rejected.
-     */
-    then(onFulfilled?: (value: T) => void, onRejected?: (reason: any) => Promise<T>): Promise<T>;
-}
 
 export type DownloadProgressCallback = (progress: DownloadProgress) => void;
 export type SyncStatusChangedCallback = (status: Goby.SyncStatus) => void;
