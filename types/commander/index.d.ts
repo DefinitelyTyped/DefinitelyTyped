@@ -279,7 +279,7 @@ declare namespace commander {
         unknown: string[];
     }
 
-    interface StaticCommander extends Command {
+    interface CommanderStatic extends Command {
         Command: new (name?: string) => Command;
         Option: new (flags: string, description?: string) => Option;
         CommandOptions: CommandOptions;
@@ -288,5 +288,5 @@ declare namespace commander {
 
 }
 
-declare const commander: commander.StaticCommander;
+declare const commander: commander.CommanderStatic;
 export = commander;
