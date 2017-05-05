@@ -1573,8 +1573,8 @@ declare namespace Ember {
             */
             finally<V>(callback: (a: T) => V, label?: string): Promise<V, U>;
 
-            static all<Q, R>(promises: (Q | Thenable<Q, R>)[]): Promise<Q[], R>
-            static race<Q, R>(promises: Promise<Q, R>[]): Promise<Q, R>;
+            static all<Q, R>(promises: GlobalArray<(Q | Thenable<Q, R>)>): Promise<Q[], R>;
+            static race<Q, R>(promises: GlobalArray<Promise<Q, R>>): Promise<Q, R>;
 
             /**
              @method resolve
