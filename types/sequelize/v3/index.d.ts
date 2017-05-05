@@ -3211,7 +3211,7 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-                     
+
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -3371,6 +3371,13 @@ declare namespace sequelize {
          * Defaults to false;
          */
         cascade?: boolean;
+
+        /**
+         * Delete instead of setting deletedAt to current timestamp (only applicable if paranoid is enabled)
+         *
+         * Defaults to false;
+         */
+        force?: boolean;
     }
 
     /**
