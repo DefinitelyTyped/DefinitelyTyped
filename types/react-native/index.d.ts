@@ -3436,6 +3436,13 @@ export interface FlatListProperties<ItemT> {
     data: ItemT[] | null;
 
     /**
+     * A marker property for telling the list to re-render (since it implements PureComponent).
+     * If any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the `data` prop,
+     * stick it here and treat it immutably.
+     */
+    extraData?: any
+
+    /**
      * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
      * content if you know the height of items a priori. getItemLayout is the most efficient,
      * and is easy to use if you have fixed height items, for example:
@@ -3597,6 +3604,13 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Rendered in between each section.
      */
     SectionSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * A marker property for telling the list to re-render (since it implements PureComponent).
+     * If any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the `data` prop,
+     * stick it here and treat it immutably.
+     */
+    extraData?: any
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
