@@ -1,10 +1,6 @@
 // Type definitions for Microsoft Dynamics xRM API 8.2
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>
-//                 Matt Ngan <https://github.com/mattngan/>
-//                 Markus Mauch <https://github.com/markusmauch/>
-//                 Daryl LaBar <https://github.com/daryllabar>
-//                 Tully H <https://github.com/clownwilleatme>
+// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>, Tully H <https://github.com/clownwilleatme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -360,7 +356,6 @@ declare namespace Xrm {
          * @return  An array of control.
          */
         getControl(delegateFunction: Collection.MatchingDelegate<Page.Control>): Page.Control[];
-
     }
 
     /**
@@ -472,7 +467,7 @@ declare namespace Xrm {
         quickForms: Collection.ItemCollection<Page.ui.QuickForm>;
     }
 
-    export interface Utility {
+    interface Utility {
         /**
          * Displays an alert dialog, with an "OK" button.
          *
@@ -661,7 +656,7 @@ declare namespace Xrm {
         deleteRecord(entityType: string, id: string): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
     }
 
-    export interface Panel {
+     interface Panel {
         /**
          * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
          *
