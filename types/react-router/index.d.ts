@@ -37,13 +37,13 @@ export interface MemoryRouterProps {
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps, void> {}
+export class MemoryRouter extends React.Component<MemoryRouterProps, void> { }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => void);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps, void> {}
+export class Prompt extends React.Component<PromptProps, void> { }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
@@ -53,7 +53,7 @@ export interface RedirectProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps, void> {}
+export class Redirect extends React.Component<RedirectProps, void> { }
 
 export interface RouteComponentProps<P> {
   match: match<P>;
@@ -70,12 +70,12 @@ export interface RouteProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Route extends React.Component<RouteProps, undefined> {}
+export class Route extends React.Component<RouteProps, undefined> { }
 
 export interface RouterProps {
   history: any;
 }
-export class Router extends React.Component<RouterProps, undefined> {}
+export class Router extends React.Component<RouterProps, undefined> { }
 
 export interface StaticRouterProps {
   basename?: string;
@@ -83,12 +83,12 @@ export interface StaticRouterProps {
   context?: object;
 }
 
-export class StaticRouter extends React.Component<StaticRouterProps, undefined> {}
+export class StaticRouter extends React.Component<StaticRouterProps, undefined> { }
 export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
-export class Switch extends React.Component<SwitchProps, undefined> {}
+export class Switch extends React.Component<SwitchProps, undefined> { }
 
 export interface match<P> {
   params: P;
@@ -98,4 +98,4 @@ export interface match<P> {
 }
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
-export function withRouter(component: React.SFC<RouteComponentProps<any>> | React.ComponentClass<RouteComponentProps<any>>): React.ComponentClass<any>;
+export function withRouter<P>(component: React.SFC<RouteComponentProps<any> & P> | React.ComponentClass<RouteComponentProps<any> & P>): React.ComponentClass<P>;
