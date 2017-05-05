@@ -1807,4 +1807,6 @@ declare namespace R {
     }
 }
 
-export = R;
+declare module "ramda" {
+    export = R;
+}
