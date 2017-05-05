@@ -3407,6 +3407,11 @@ declare namespace sequelize {
         limit?: number;
 
         /**
+         * Delete instead of setting deletedAt to current timestamp (only applicable if `paranoid` is enabled)
+         */
+        force?: boolean;
+
+        /**
          * If set to true, dialects that support it will use TRUNCATE instead of DELETE FROM. If a table is
          * truncated the where and limit options are ignored
          */
