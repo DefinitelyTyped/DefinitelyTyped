@@ -344,7 +344,7 @@ declare namespace NodeJS {
 
     export interface Env {
         PATH: string;
-        [key: string]: string;
+        [key: string]: string | undefined;
     }
 
     export interface ProcessVersions {
