@@ -4,7 +4,7 @@ function once(fn: Function) {
     let called = false;
     let returnValue: any;
 
-    return function() {
+    return function(this: any) {
         if (!called) {
             called = true;
             returnValue = fn.apply(this, arguments);
@@ -21,7 +21,7 @@ function testOne() {
 }
 
 function testTwo() {
-    let callback = sinon.spy(() => {});
+    let callback = sinon.spy(() => { });
     let proxy = once(callback);
     proxy();
     proxy();
@@ -68,7 +68,7 @@ function testSix() {
 }
 
 function testSeven() {
-    let obj = { functionToTest : () => { } };
+    let obj = { functionToTest: () => { } };
     let mockObj = sinon.mock(obj);
     obj.functionToTest();
     mockObj.expects('functionToTest').once();
@@ -79,15 +79,15 @@ function testEight() {
 }
 
 function testNine() {
-	let callback = sinon.stub().returns(42);
-	callback({ x: 5, y: 5 });
-	callback.calledWithMatch({ x: 5 });
-	callback.alwaysCalledWithMatch({ y: 5 });
-	callback.neverCalledWithMatch({ x: 6 });
-	callback.notCalledWithMatch({ x: 6 });
-	sinon.assert.calledWithMatch(callback, { x: 5 });
-	sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
-	sinon.assert.neverCalledWithMatch(callback, { x: 6 });
+    let callback = sinon.stub().returns(42);
+    callback({ x: 5, y: 5 });
+    callback.calledWithMatch({ x: 5 });
+    callback.alwaysCalledWithMatch({ y: 5 });
+    callback.neverCalledWithMatch({ x: 6 });
+    callback.notCalledWithMatch({ x: 6 });
+    sinon.assert.calledWithMatch(callback, { x: 5 });
+    sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
+    sinon.assert.neverCalledWithMatch(callback, { x: 6 });
 }
 
 function testSandbox() {
@@ -133,6 +133,32 @@ function testUsingPromises() {
     const stub: sinon.SinonStub = sinon.stub().usingPromise(Promise);
 }
 
+function testArrayMatchers() {
+    const stub = sinon.stub();
+    stub([{ a: 'b' }]);
+    stub.calledWithMatch(sinon.match.array);
+    stub.calledWithMatch(sinon.match.array.deepEquals([{ a: 'b' }]));
+    stub.calledWithMatch(sinon.match.array.startsWith([{ a: 'b' }]));
+    stub.calledWithMatch(sinon.match.array.deepEquals([{ a: 'b' }]));
+    stub.calledWithMatch(sinon.match.array.contains([{ a: 'b' }]));
+}
+
+function testMapMatcher() {
+    const stub = sinon.stub();
+    stub(new Map([['a', true], ['b', false]]));
+    stub.calledWithMatch(sinon.match.map);
+    stub.calledWithMatch(sinon.match.map.deepEquals(new Map([['a', true], ['b', false]])));
+    stub.calledWithMatch(sinon.match.map.contains(new Map([['a', true]])));
+}
+
+function testSetMatcher() {
+    const stub = sinon.stub();
+    stub(new Set(['a', true]));
+    stub.calledWithMatch(sinon.match.set);
+    stub.calledWithMatch(sinon.match.set.deepEquals(new Set(['a', true])));
+    stub.calledWithMatch(sinon.match.set.contains(new Set([true])));
+}
+
 function testSpy() {
     const otherSpy = sinon.spy();
     sinon.spy().calledAfter(otherSpy);
@@ -162,7 +188,7 @@ clock.setSystemTime(1000);
 clock.setSystemTime(new Date());
 
 class TestCreateStubInstance {
-    someTestMethod(testArg: string) {}
+    someTestMethod(testArg: string) { }
 }
 
 sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
@@ -172,5 +198,8 @@ function testGetCalls() {
     double(2);
     double(4);
     double.getCall(0).args.length === 1;
-    double.getCalls().find(call => call.args[0] === 4).returnValue === 8;
+    const secondCall = double.getCalls().find(call => call.args[0] === 4);
+    if (secondCall) {
+        secondCall.returnValue === 8;
+    }
 }
