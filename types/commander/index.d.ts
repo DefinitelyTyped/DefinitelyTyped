@@ -279,21 +279,8 @@ declare namespace commander {
     }
 
     interface CommanderStatic extends Command {
-        /**
-         * Initialize a new `Option` with the given `flags` and `description`.
-         *
-         * @param {string} flags
-         * @param {string} [description]
-         */
-        Command: new (name?: string) => Command;
-
-        /**
-         * Initialize a new `Command`.
-         *
-         * @param {string} [name]
-         */
-        Option: new (flags: string, description?: string) => Option;
-
+        Command: typeof Command;
+        Option: typeof Option;
         CommandOptions: CommandOptions;
         ParseOptionsResult: ParseOptionsResult;
     }
