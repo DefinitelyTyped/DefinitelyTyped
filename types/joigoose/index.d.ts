@@ -6,10 +6,8 @@
 import * as Mongoose from "mongoose";
 import * as Joi from "joi";
 
-declare namespace Joigoose
-{
-    interface Joigoose
-    {
+declare namespace Joigoose {
+    interface Joigoose {
         convert(schema: Joi.Schema): Mongoose.Schema;
     }
 }
