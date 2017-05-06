@@ -2,10 +2,13 @@
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
+//                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
 /// <reference types="handlebars" />
+
+import RSVP = require('rsvp');
 
 declare namespace EmberStates {
     interface Transition {
@@ -32,7 +35,7 @@ declare namespace EmberStates {
           Transition object can be externally `abort`ed, while the promise
           cannot.
          */
-        promise: Ember.RSVP.Promise<any, any>;
+        promise: RSVP.Promise<any>;
 
         /**
           Custom state can be stored on a Transition's `data` object.
@@ -56,7 +59,7 @@ declare namespace EmberStates {
           @arg {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
-        then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise<any, any>;
+        then(onFulfilled: Function, onRejected?: Function, label?: string): RSVP.Promise<any>;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -69,7 +72,7 @@ declare namespace EmberStates {
           Useful for tooling.
           @return {Promise}
          */
-        catch(onRejection: Function, label?: string): Ember.RSVP.Promise<any, any>;
+        catch(onRejection: Function, label?: string): RSVP.Promise<any>;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -82,7 +85,7 @@ declare namespace EmberStates {
           Useful for tooling.
           @return {Promise}
          */
-        finally(callback: Function, label?: string): Ember.RSVP.Promise<any, any>;
+        finally(callback: Function, label?: string): RSVP.Promise<any>;
 
         /**
          Aborts the Transition. Note you can also implicitly abort a transition
@@ -149,7 +152,7 @@ declare namespace EmberStates {
           @return {Promise} a promise that fulfills with the same
             value that the final redirecting transition fulfills with
          */
-        followRedirects(): Ember.RSVP.Promise<any, any>;
+        followRedirects(): RSVP.Promise<any>;
     }
 }
 
@@ -1510,101 +1513,6 @@ declare namespace Ember {
         static set: typeof Ember.set;
     }
 
-    // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
-    namespace RSVP {
-        type PromiseResolve<T> = (value?: T) => void;
-        type PromiseReject<U> = (reason?: U) => void;
-        type PromiseResolverFunction<T, U> = (resolve: PromiseResolve<T>, reject: PromiseReject<U>) => void;
-
-        interface Thenable<T, U> {
-          then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => X | Thenable<V, X>): Thenable<V, X>;
-          then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => void): Thenable<V, void>;
-        }
-
-        class Promise<T, U> implements Thenable<T, U> {
-            /**
-              Promise objects represent the eventual result of an asynchronous operation. The
-              primary way of interacting with a promise is through its `then` method, which
-              registers callbacks to receive either a promise's eventual value or the reason
-              why the promise cannot be fulfilled.
-              @class RSVP.Promise
-              @param {function} resolver
-              @param {String} label optional string for labeling the promise.
-              Useful for tooling.
-              @constructor
-            */
-            constructor(resolver: PromiseResolverFunction<T, U>, label?: string);
-
-            /**
-              The primary way of interacting with a promise is through its `then` method,
-              which registers callbacks to receive either a promise's eventual value or the
-              reason why the promise cannot be fulfilled.
-              @method then
-              @param {Function} onFulfilled
-              @param {Function} onRejected
-              @param {String} label optional string for labeling the promise.
-              Useful for tooling.
-              @return {Promise}
-            */
-            then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => X | Thenable<V, X>): Promise<V, X>;
-            // tslint:disable-next-line
-            then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => void): Promise<V, X>;
-            /**
-            `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
-            as the catch block of a try/catch statement.
-
-            @method catch
-            @param {Function} onRejection
-            @param {String} label optional string for labeling the promise.
-            Useful for tooling.
-            @return {Promise}
-            */
-            catch<V>(onRejection: (a: any) => U, label?: string): Promise<T, V>;
-
-            /**
-            `finally` will be invoked regardless of the promise's fate just as native
-            try/catch/finally behaves
-
-            @method finally
-            @param {Function} callback
-            @param {String} label optional string for labeling the promise.
-            Useful for tooling.
-            @return {Promise}
-            */
-            finally<V>(callback: (a: T) => V, label?: string): Promise<V, U>;
-
-            static all<Q, R>(promises: GlobalArray<(Q | Thenable<Q, R>)>): Promise<Q[], R>;
-            static race<Q, R>(promises: GlobalArray<Promise<Q, R>>): Promise<Q, R>;
-
-            /**
-             @method resolve
-             @param {Any} value value that the returned promise will be resolved with
-             @param {String} label optional string for identifying the returned promise.
-             Useful for tooling.
-             @return {Promise} a promise that will become fulfilled with the given
-             `value`
-             */
-            static resolve<Q, R>(object?: Q | Thenable<Q, R>): Promise<Q, R>;
-
-            /**
-             @method cast (Deprecated in favor of resolve
-             @param {Any} value value that the returned promise will be resolved with
-             @param {String} label optional string for identifying the returned promise.
-             Useful for tooling.
-             @return {Promise} a promise that will become fulfilled with the given
-             `value`
-             */
-            static cast<Q, R>(object: Q | Thenable<Q, R>, label?: string): Promise<Q, R>;
-
-            /**
-             `RSVP.Promise.reject` returns a promise rejected with the passed `reason`.
-             */
-            static reject(reason?: any): Promise<any, any>;
-        }
-
-        function all(promises: GlobalArray<Promise<any, any>>): Promise<any, any>;
-    }
-
     /**
       The `Ember.Route` class is used to define individual routes. Refer to
       the [routing guide](http://emberjs.com/guides/routing/) for documentation.
@@ -1640,7 +1548,7 @@ declare namespace Ember {
             resolves. Otherwise, non-promise return values are not
             utilized in any way.
         */
-        afterModel(resolvedModel: any, transition: EmberStates.Transition): RSVP.Promise<any, any>;
+        afterModel(resolvedModel: any, transition: EmberStates.Transition): RSVP.Promise<any>;
 
         /**
         This hook is the first of the route entry validation hooks
@@ -1669,7 +1577,7 @@ declare namespace Ember {
             resolves. Otherwise, non-promise return values are not
             utilized in any way.
         */
-        beforeModel(transition: EmberStates.Transition): RSVP.Promise<any, any>;
+        beforeModel(transition: EmberStates.Transition): RSVP.Promise<any>;
 
         /**
         The controller associated with this route.
@@ -1782,7 +1690,7 @@ declare namespace Ember {
             the promise resolves, and the resolved value of the promise
             will be used as the model for this route.
         */
-        model(params: {}, transition: EmberStates.Transition): any|RSVP.Promise<any, any>;
+        model(params: {}, transition: EmberStates.Transition): any|RSVP.Promise<any>;
 
         /**
         Returns the model of a parent (or any ancestor) route
@@ -2261,11 +2169,11 @@ declare namespace Ember {
         class Adapter extends Ember.Object {
             constructor();
         }
-        class Promise<T, U> extends Ember.RSVP.Promise<T, U> {
+        class Promise<T> extends RSVP.Promise<T> {
             constructor();
         }
         function oninjectHelpers(callback: Function): void;
-        function promise<T, U>(resolver: (a: T) => any, label: string): Ember.Test.Promise<T, U>;
+        function promise<T>(resolver: (a: T) => any, label: string): Ember.Test.Promise<T>;
         function unregisterHelper(name: string): void;
         function registerHelper(name: string, helperMethod: Function): void;
         function registerAsyncHelper(name: string, helperMethod: Function): void;
@@ -2278,7 +2186,7 @@ declare namespace Ember {
         function unregisterWaiter(callback: Function): void;
         function unregisterWaiter(context: any, callback: Function): void;
 
-        function resolve<T>(result: T): Ember.Test.Promise<T, void>;
+        function resolve<T>(result: T): Ember.Test.Promise<T>;
     }
     class TextArea extends Component implements TextSupport {
         static detect(obj: any): boolean;
@@ -2392,7 +2300,7 @@ declare namespace Ember {
     Creates an instance of the CoreObject class.
     @param arguments A hash containing values with which to initialize the newly instantiated object.
     **/
-    function create(arguments?: {}): CoreObject;
+    function create(args?: {}): CoreObject;
     function debug(message: string): void;
     function defineProperty(obj: any, keyName: string, desc: {}): void;
     function deprecate(message: string, test?: boolean): void;
