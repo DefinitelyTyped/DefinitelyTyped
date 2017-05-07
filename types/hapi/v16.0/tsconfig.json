@@ -12,6 +12,11 @@
             "../../"
         ],
         "types": [],
+        "paths": {
+            "hapi": [
+                "hapi/v16.0"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
