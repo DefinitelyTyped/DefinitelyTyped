@@ -1,11 +1,12 @@
+// From https://hapijs.com/tutorials/getting-started#creating-a-server
+
 'use strict';
 
-import * as Hapi from 'hapi';
+import Hapi = require('hapi');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: 'localhost' });
 
-// TODO check error can be of type string
 server.start((err) => {
 
     if (err) {

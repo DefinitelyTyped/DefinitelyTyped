@@ -1,6 +1,8 @@
+// from https://hapijs.com/tutorials/getting-started#using-plugins
+
 'use strict';
 
-import * as Hapi from 'hapi';
+import Hapi = require('hapi');
 const Good = require('good');
 
 const server = new Hapi.Server();
