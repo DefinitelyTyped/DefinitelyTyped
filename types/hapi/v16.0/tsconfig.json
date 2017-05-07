@@ -14,7 +14,7 @@
         "types": [],
         "paths": {
             "hapi": [
-                "hapi/v16"
+                "hapi/v16.0"
             ]
         },
         "noEmit": true,
