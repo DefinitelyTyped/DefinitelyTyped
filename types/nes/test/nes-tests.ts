@@ -1,7 +1,7 @@
 import Hapi = require('hapi');
 import Nes = require('nes');
 
-let server: Hapi.Server = new Hapi.Server();
+var server: Hapi.Server = new Hapi.Server();
 server.connection({port: 8080});
 
 server.register(Nes, (regErr: any) => {
@@ -15,7 +15,7 @@ server.register(Nes, (regErr: any) => {
             method: 'GET',
             path: '/test',
             config: {
-                handler: (request: Hapi.Request, reply: Hapi.IReply) => {
+                handler: (request: Hapi.Request, reply: Hapi.ReplyNoContinue) => {
                     reply({test: 'passes'});
                 }
             }
