@@ -11,7 +11,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": ["node"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
@@ -87,17 +87,6 @@
         "tests/server/state.ts",
         "tests/server/stop.ts",
         "tests/server/table.ts",
-        "tests/server/version.ts",
-        "catbox/index.d.ts",
-        "h2o2/index.d.ts",
-        "h2o2/h2o2-tests.ts",
-        "json/index.d.ts",
-        "json/json-tests.ts",
-        "mime-db/index.d.ts",
-        "mimos/index.d.ts",
-        "podium/index.d.ts",
-        "shot/index.d.ts",
-        "vision/index.d.ts",
-        "vision/vision-tests.ts"
+        "tests/server/version.ts"
     ]
 }

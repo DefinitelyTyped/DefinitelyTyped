@@ -1,10 +1,9 @@
-// TODO needs tests
-// TODO move to own definition
 // Type definitions for podium 1.0
 // Project: https://github.com/hapijs/podium
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
 
 /**
  * Podium
@@ -12,6 +11,7 @@
  * podium is an event emitter with support for tags, filters, channels, event update cloning, arguments spreading, and other features useful when building large scale applications. While node's native EventEmitter is strictly focused on maximum performance, it lacks many features that do not belong in the core implementation. podium is not restricted by node's performance requirement as it is designed for application layer needs where it's overhead is largely insignificant as implementing these features will have similar cost on top of the native emitter.
  * @see {@link https://github.com/hapijs/podium}
  */
+// declare class Podium {
 export class Podium {
     /**
      * Creates a new podium emitter
@@ -160,7 +160,7 @@ export interface CriteriaObject {
 /**
  * @see {@link https://github.com/hapijs/podium/blob/master/API.md#podiumoncriteria-listener}
  */
-interface CriteriaFilterOptionsObject {
+export interface CriteriaFilterOptionsObject {
     /** a tag string or array of tag strings. */
     tags?: string | string[];
     /** if true, all tags must be present for the event update to match the subscription. Defaults to false (at least one matching tag). */
@@ -176,7 +176,13 @@ export type Criteria = string | CriteriaObject;
  * @see {@link https://github.com/hapijs/podium/blob/master/API.md#podiumoncriteria-listener}
  */
 export interface Listener {
-  (data: any, tags?: Tags, callback?: () => void): void;
+(data: any, tags?: Tags, callback?: () => void): void;
 }
 
 export type Tags = {[tag: string]: boolean};
+
+// export = Podium;
+
+// declare namespace Podium {
+//     type Tags = {[tag: string]: boolean};
+// }

@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "boom-tests.ts"
+        "vision-tests.ts"
     ]
 }

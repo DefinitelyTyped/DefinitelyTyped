@@ -1,5 +1,3 @@
-// TODO needs tests
-// TODO move to own definition
 // Type definitions for catbox 7.1
 // Project: https://github.com/hapijs/catbox
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
