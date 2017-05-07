@@ -1629,7 +1629,8 @@ export interface ServerAuth {
      * @param mode  if set to true (which is the same as 'required') or to a valid authentication mode ('required', 'optional', 'try'), the scheme is automatically assigned as the default strategy for any route without an auth config. Can only be assigned to a single server strategy. Defaults to false (no default settings).
      * @param options  scheme options based on the scheme requirements.
      */
-    strategy(name: string, scheme: string, mode?: boolean | 'required' | 'optional' | 'try', options?: any): void;
+    strategy(name: string, scheme: string, options?: any): void;
+    strategy(name: string, scheme: string, mode: boolean | 'required' | 'optional' | 'try', options?: any): void;
     /**
      * Tests a request against an authentication strategy
      * Note that the test() method does not take into account the route authentication configuration. It also does not perform payload authentication. It is limited to the basic strategy authentication execution. It does not include verifying scope, entity, or other route properties.
