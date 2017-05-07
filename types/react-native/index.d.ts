@@ -3123,9 +3123,9 @@ export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
 }
 
 /*
-    * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
-    */
-interface ImageURISource {
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
+ */
+export interface ImageURISource {
     /**
      * `uri` is a string representing the resource identifier for the image, which
      * could be an http address, a local file path, or the name of a static image
