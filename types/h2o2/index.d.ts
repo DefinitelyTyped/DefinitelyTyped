@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+/// <reference types="node" />
+
 import http = require("http");
 import * as hapi from 'hapi';
 import * as Boom from 'boom';

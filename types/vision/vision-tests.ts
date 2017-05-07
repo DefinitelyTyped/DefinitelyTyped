@@ -1,6 +1,8 @@
 
+/// <reference types="node" />
+
 import * as Hapi from 'hapi';
-import Vision from './index';
+import Vision from 'vision';
 const server = new Hapi.Server();
 server.connection({ port: 80 });
 
