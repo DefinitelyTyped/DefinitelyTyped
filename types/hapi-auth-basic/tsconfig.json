@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "hapi-auth-basic-tests"
+        "hapi-auth-basic-tests.ts"
     ]
 }
