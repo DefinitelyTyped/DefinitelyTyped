@@ -87,7 +87,7 @@ export class Server extends Podium.Podium {
         heapUsed: number;
         /** RSS memory usage. */
         rss: number;
-    }
+    };
     /**
      * When the server contains exactly one connection, listener is the node HTTP server object of the sole connection.
      * When the server contains more than one connection, each server.connections array member provides its own connection.listener.
@@ -103,7 +103,7 @@ export class Server extends Podium.Podium {
      * Provides access to the server MIME database used for setting content-type information. The object must not be modified directly but only through the mime server setting.
      * [See docs](https://hapijs.com/api/16.1.1#servermime)
      */
-    readonly mime: {path: (path: string) => {type: string}};
+    readonly mime: {path(path: string): {type: string}};
     /**
      * An object containing the values exposed by each plugin registered where each key is a plugin name and the values are the exposed properties by each plugin using server.expose(). Plugins may set the value of the server.plugins[name] object directly or via the server.expose() method.
      * [See docs](https://hapijs.com/api/16.1.1#serverplugins)
@@ -235,7 +235,7 @@ export class Server extends Podium.Podium {
      * @param encoding  the encoder name string.
      * @param encoder  a function using the signature function(options) where options are the encoding specific options configured in the route compression configuration option, and the return value is an object compatible with the output of node's zlib.createGzip().
      */
-    encoder(encoding: string, encoder:((options: CompressionEncoderSettings) => zlib.Gzip)): void;
+    encoder(encoding: string, encoder: ((options: CompressionEncoderSettings) => zlib.Gzip)): void;
     /**
      * Register custom application events
      * [See docs](https://hapijs.com/api/16.1.1#servereventevents)
@@ -405,17 +405,19 @@ export class Server extends Podium.Podium {
      * @param plugins
      * @param options
      * @param callback  with signature function(err) where err an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
-     * A note on typings:  Common use case is register(Plugin, (err) => {// do more stuff}), so these typings
-     * save passing empty `options` object or having to explicity type the Error in the Callback e.g.:
-     * register(Plugin, {}, (err) => {// do more stuff})  or
-     * register(Plugin, (err: Error) => {// do more stuff})
+     * A note on typings.  Common use case is:
+     *     register(Plugin, (err) => {// do more stuff})
+     * so these typings save passing empty `options` object or having to
+     * explicity type the Error in the Callback e.g.:
+     *     register(Plugin, {}, (err) => {// do more stuff})  or
+     *     register(Plugin, (err: Error) => {// do more stuff})
      */
-    register<OptionsPassedToPlugin>(plugins: (PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)[], callback: (err: Error) => void): void;
-    register<OptionsPassedToPlugin>(plugins: (PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)[]): Promise<Error>;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, callback: (err: Error) => void): void;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>): Promise<Error>;
     register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, callback: (err: Error) => void): void;
     register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>): Promise<Error>;
-    register<OptionsPassedToPlugin>(plugins: (PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)[], options: PluginRegistrationOptions, callback: (err: Error) => void): void;
-    register<OptionsPassedToPlugin>(plugins: (PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)[], options: PluginRegistrationOptions): Promise<Error>;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions, callback: (err: Error) => void): void;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions): Promise<Error>;
     register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions, callback: (err: Error) => void): void;
     register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions): Promise<Error>;
     /**
@@ -641,7 +643,7 @@ export interface ServerMethodConfigurationObject {
  *        shared?: boolean;
  *    }
  */
-type CatboxServerOptionsCacheConfiguration = CatboxServerCacheConfiguration;
+export type CatboxServerOptionsCacheConfiguration = CatboxServerCacheConfiguration;
 
 /**
  * Server cache method configuration for Catbox cache
@@ -758,13 +760,13 @@ export interface ServerConnectionOptions extends ConnectionConfigurationServerDe
  * For context see RouteAdditionalConfigurationOptions > compression
  * For context [See docs](https://hapijs.com/api/16.1.1#serverencoderencoding-encoder)
  */
-type CompressionEncoderSettings = any;
+export type CompressionEncoderSettings = any;
 
 /**
  * For context see RouteAdditionalConfigurationOptions > payload > compression
  * For context [See docs](https://hapijs.com/api/16.1.1#serverdecoderencoding-decoder)
  */
-type CompressionDecoderSettings = any;
+export type CompressionDecoderSettings = any;
 
 /**
  * an optional function called after all the specified dependencies have been registered and before the server starts. The function is only called if the server is initialized or started. If a circular dependency is detected, an exception is thrown (e.g. two plugins each has an after function to be called after the other). The function signature is function(server, next) where:
@@ -876,12 +878,12 @@ export interface ServerExtConfigurationObject {
 /**
  * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > method
  */
-type ServerExtMethod = ServerExtFunction | ServerExtRequestHandler;
+export type ServerExtMethod = ServerExtFunction | ServerExtRequestHandler;
 
 /**
  * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > options
  */
-interface ServerExtOptions {
+export interface ServerExtOptions {
     /** before - a string or array of strings of plugin names this method must execute before (on the same event). Otherwise, extension methods are executed in the order added. */
     before: string | string[];
     /** after - a string or array of strings of plugin names this method must execute after (on the same event). Otherwise, extension methods are executed in the order added. */
@@ -947,7 +949,7 @@ export interface RoutePayloadConfigurationObject {
      */
     multipart?: false | {
         output: PayLoadOutputOption | 'annotated';
-    }
+    };
     /** a string or an array of strings with the allowed mime types for the endpoint. Defaults to any of the supported mime types listed above. Note that allowing other mime types not listed will not enable them to be parsed, and that if parsing mode is 'parse', the request will result in an error response. */
     allow?: string | string[];
     /** a mime type string overriding the 'Content-Type' header value received. Defaults to no override. */
@@ -987,7 +989,7 @@ export type ApplicationEvent = string | ApplicationEventOptionsObject | Podium.P
  * For context see ApplicationEvent
  * For context [See docs](https://hapijs.com/api/16.1.1#servereventevents) > events parameter
  */
-interface ApplicationEventOptionsObject {
+export interface ApplicationEventOptionsObject {
     /** the event name string (required). */
     name: string;
     /** a string or array of strings specifying the event channels available. Defaults to no channel restrictions (event updates can specify a channel or not). */
@@ -1159,11 +1161,11 @@ export interface RoutePublicInterface {
     /** route authentication utilities: */
     auth: {
         /** authenticates the passed request argument against the route's authentication access configuration. Returns true if the request would have passed the route's access requirements. Note that the route's authentication mode and strategies are ignored. The only match is made between the request.auth.credentials scope and entity information and the route access configuration. Also, if the route uses dynamic scopes, the scopes are constructed against the request.query and request.params which may or may not match between the route and the request's route. If this method is called using a request that has not been authenticated (yet or at all), it will return false if the route requires any authentication. */
-        access: (request: Request) => boolean;
-    }
+        access(request: Request): boolean;
+    };
 }
 
-type RouteHandlerConfig = any;
+export type RouteHandlerConfig = any;
 
 /**
  * For context [See docs](https://hapijs.com/api/16.1.1#serverhandlername-method)
@@ -1171,7 +1173,7 @@ type RouteHandlerConfig = any;
  * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/route.js#L56-L60)
  * TODO check the type of `RouteHandlerConfig` is correct for `defaults`.
  */
-interface MakeRouteHandler {
+export interface MakeRouteHandler {
     (route: RoutePublicInterface, options: RouteHandlerConfig): RouteHandler;
     defaults?: RouteHandlerConfig | ((method: HTTP_METHODS_PARTIAL_lowercase) => RouteHandlerConfig);
 }
@@ -1413,7 +1415,7 @@ export interface ServerStateCookieConfiguationObject {
     /** sets the 'Secure' flag. Defaults to true. */
     isSecure?: boolean;
     /** sets the 'HttpOnly' flag. Defaults to true. */
-    isHttpOnly?: boolean
+    isHttpOnly?: boolean;
     /**
      * sets the 'SameSite' flag where the value must be one of:
      *  * false - no flag.
@@ -1567,7 +1569,7 @@ export interface ServerRealm {
             relativeTo: string;
         };
         bind: any;
-    }
+    };
 }
 
 /**
@@ -1594,7 +1596,7 @@ export interface ServerRegisteredPlugin {
     attributes: PluginAttributes;
 }
 
-interface ServerAuth {
+export interface ServerAuth {
     /**
      * server.auth.api
      * An object where each key is a strategy name and the value is the exposed strategy API. Available on when the authentication scheme exposes an API by returning an api key in the object returned from its implementation function.
@@ -1641,8 +1643,8 @@ interface ServerAuth {
     test(strategy: string, request: Request, next: (err: Error | null, credentials: AuthenticatedCredentials) => void): void;
 }
 
-type Strategy = any;
-type SchemeSettings = any;
+export type Strategy = any;
+export type SchemeSettings = any;
 
 /**
  * the method implementing the scheme with signature function(server, options) where:
@@ -1650,7 +1652,7 @@ type SchemeSettings = any;
  * @param server  a reference to the server object the scheme is added to.
  * @param options  optional scheme settings used to instantiate a strategy.
  */
-interface ServerAuthScheme {
+export interface ServerAuthScheme {
     (server: Server, options: SchemeSettings): SchemeMethodResult;
 }
 
@@ -1688,7 +1690,7 @@ export interface SchemeMethodResult {
     };
 }
 
-interface ServerCacheMethod {
+export interface ServerCacheMethod {
     /**
      * Provisions a cache segment within the server cache facility
      * [See docs](https://hapijs.com/api/16.1.1#servercacheoptions)
@@ -1953,7 +1955,7 @@ export interface RouteHandler {
  * "the function to call, the function signature is identical to a route handler as described in Route handler."
  * [See docs](https://hapijs.com/api/16.1.1#route-prerequisites) Route prerequisites
  */
-type RoutePrerequisiteRequestHandler = RouteHandler;
+export type RoutePrerequisiteRequestHandler = RouteHandler;
 
 /**
  * request extension points: function(request, reply) where
@@ -2013,7 +2015,7 @@ export interface ContinuationValueFunction {
  * Typings also described in part here [See docs](https://hapijs.com/api/16.1.1#response-object)
  */
 export type ReplyValue = _ReplyValue | Promise<_ReplyValue>;
-type _ReplyValue = null | undefined | string | number | boolean | Buffer | Error | stream.Stream | Object; //| array;
+export type _ReplyValue = null | undefined | string | number | boolean | Buffer | Error | stream.Stream | Object; // | array;
 
 /**
  * Reply interface
@@ -2026,7 +2028,7 @@ type _ReplyValue = null | undefined | string | number | boolean | Buffer | Error
  *
  * NOTE: modules should extend this interface to expose reply.Nnn methods
  */
-interface Base_Reply {
+export interface Base_Reply {
     (err?: ReplyValue): Response;
     (err: null, result?: ReplyValue): Response;
     /** the active realm associated with the route. */
@@ -2097,7 +2099,7 @@ interface Base_Reply {
  * [See docs](https://hapijs.com/api/16.1.1#replyerr-result) "With the exception of the handler function, all other methods provide the reply.continue() method which instructs the framework to continue processing the request without setting a response."
  * @param result  if called in the handler, prerequisites, or extension points other than the 'onPreHandler' and 'onPreResponse', the result argument is not allowed and will throw an exception if present. If called within an authentication strategy, it sets the authenticated credentials. If called by the 'onPreHandler' or 'onPreResponse' extensions, the result argument overrides the current response including all headers, and returns control back to the framework to continue processing any remaining extensions.
  */
-interface Continue_Reply {
+export interface Continue_Reply {
     continue(result?: ReplyValue): Response | undefined;
 }
 
@@ -2440,7 +2442,7 @@ export interface ResponseRedirect extends Response {
 /**
  * [See docs](https://hapijs.com/api/16.1.1#response-object) under "response object provides the following methods" > header > options
  */
-interface ResponseHeaderOptionsObject {
+export interface ResponseHeaderOptionsObject {
     /** if true, the value is appended to any existing header value using separator. Defaults to false. */
     append?: boolean;
     /** string used as separator when appending to an existing value. Defaults to ','. */
@@ -2482,7 +2484,7 @@ export interface PluginFunction<OptionsPassedToPlugin> {
  * see Plugin
  * [See docs](https://hapijs.com/api/16.1.1#plugins)
  */
-interface PluginAttributes {
+export interface PluginAttributes {
     /**
      * required plugin name string. The name is used as a unique key. Published plugins should use the same name as the name field in the 'package.json' file. Names must be unique within each application.
      * NOTE: marked as optional as `pkg` can be used instead.
@@ -2515,7 +2517,7 @@ export interface PluginsStates {
  * once, select, routes - optional plugin-specific registration options as defined see PluginRegistrationOptions
  * [See docs](https://hapijs.com/api/16.1.1#serverregisterplugins-options-callback)
  */
-interface PluginRegistrationObject<OptionsPassedToPlugin> extends PluginRegistrationOptions {
+export interface PluginRegistrationObject<OptionsPassedToPlugin> extends PluginRegistrationOptions {
     /** the plugin registration function. */
     register: PluginFunction<OptionsPassedToPlugin>;
     /** optional options passed to the registration function when called. */
@@ -2561,7 +2563,7 @@ export interface PluginRegistrationOptions {
 // };
 //
 
-export module Json {
+export namespace Json {
     /**
      * @see {@link https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter}
      */

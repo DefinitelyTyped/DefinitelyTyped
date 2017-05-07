@@ -1,10 +1,11 @@
 'use strict';
 
-import * as Hapi from 'hapi';
-import Inert from 'inert';
+import Hapi = require('hapi');
+import Inert = require('inert');
 
 const server = new Hapi.Server();
-server.connection({ port: 3000, host: 'localhost' });
+
+// from https://hapijs.com/tutorials/getting-started#creating-static-pages-and-content
 
 server.register(Inert, (err) => {
 

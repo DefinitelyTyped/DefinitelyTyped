@@ -1,6 +1,8 @@
+// from https://hapijs.com/tutorials/getting-started#adding-routes
+
 'use strict';
 
-import * as Hapi from 'hapi';
+import Hapi = require('hapi');
 
 const server = new Hapi.Server();
 server.connection({ port: 3000, host: 'localhost' });
