@@ -22,7 +22,6 @@
  * Renaming of all interfaces to remove preceding I in preparation of dtslint
  */
 
-
 import Events = require("events");
 import stream = require("stream");
 import http = require("http");
@@ -37,11 +36,10 @@ import {
     Schema as JoiValidationObject,
 } from 'joi';
 
-import * as Catbox from './catbox';
-import {MimosOptions} from './mimos';
-import * as Podium from './podium';
-import * as Json from './json';
-import * as Shot from './shot';
+import * as Catbox from 'catbox';
+import {MimosOptions} from 'mimos';
+import * as Podium from 'podium';
+import * as Shot from 'shot';
 
 export interface Dictionary<T> {
     [key: string]: T;
@@ -1018,8 +1016,9 @@ interface ApplicationEventOptionsObject {
  * The route configuration object
  *
  * [See docs](https://hapijs.com/api/16.1.1#route-configuration)
+ *
+ * TODO typings check that the following refers to RouteAdditionalConfigurationOptions "Note that the options object is deeply cloned (with the exception of bind which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on."
  */
-// TODO check that the following refers to RouteAdditionalConfigurationOptions "Note that the options object is deeply cloned (with the exception of bind which is shallowly copied) and cannot contain any values that are unsafe to perform deep copy on."
 export interface RouteConfiguration {
     /** the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the connection router configuration option. The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters. */
     path: string;
@@ -2534,4 +2533,47 @@ export interface PluginRegistrationOptions {
     once?: boolean;
     routes?: {prefix?: string, vhost?: string | string[]};
     select?: string | string[];
+}
+
+/* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ +                                                                           +
+ +                                                                           +
+ +                                                                           +
+ +                                    JSON                                   +
+ +                                                                           +
+ +                                                                           +
+ +                                                                           +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+// This was in a seperate file and perhaps should move to some of the lib typings?
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/16065#issuecomment-299443673
+//
+// json/json-tests.ts
+//
+// import * as JSON from './index';
+//
+// var a: JSON.StringifyReplacer = function(key, value) {
+//     if (key === "do not include") {
+//         return undefined;
+//     }
+//     return value;
+// };
+//
+
+export module Json {
+    /**
+     * @see {@link https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter}
+     */
+    export type StringifyReplacer = ((key: string, value: any) => any) | (string | number)[] | undefined;
+
+    /**
+     * Any value greater than 10 is truncated.
+     */
+    export type StringifySpace = number | string;
+
+    export interface StringifyArguments {
+        /** the replacer function or array. Defaults to no action. */
+        replacer?: StringifyReplacer;
+        /** number of spaces to indent nested object keys. Defaults to no indentation. */
+        space?: StringifySpace;
+    }
 }

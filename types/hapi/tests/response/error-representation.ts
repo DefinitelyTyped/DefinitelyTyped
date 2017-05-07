@@ -2,7 +2,7 @@
 // From https://hapijs.com/api/16.1.1#error-transformation
 
 import * as Hapi from 'hapi';
-import Vision from '../../vision';
+import Vision from 'vision';
 const server = new Hapi.Server();
 server.register(Vision, {}, (err) => {
     server.views({
@@ -15,7 +15,7 @@ server.connection({ port: 80 });
 
 const preResponse: Hapi.ServerExtRequestHandler = function (request, reply) {
 
-    const response = request.response;
+    const response = request.response!;
     if (!response.isBoom) {
         return reply.continue();
     }

@@ -1,3 +1,8 @@
+// Type definitions for vision 4.1
+// Project: https://github.com/hapijs/vision
+// Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as Hapi from 'hapi';
 

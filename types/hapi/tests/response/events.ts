@@ -8,7 +8,7 @@ server.connection({ port: 80 });
 
 const preResponse: Hapi.ServerExtRequestHandler = function (request, reply) {
 
-    const response = request.response;
+    const response = request.response!;
     if (response.isBoom) {
         return reply();
     }

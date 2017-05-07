@@ -11,12 +11,12 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["node"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "boom-tests.ts"
+        "h2o2-tests.ts"
     ]
 }

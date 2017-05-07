@@ -1,5 +1,3 @@
-// TODO needs tests
-// TODO move to own definition
 // Type definitions for mime-db 1.27
 // Project: https://github.com/jshttp/mime-db
 // Definitions by: AJP <https://github.com/AJamesPhillips>
