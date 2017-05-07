@@ -1,4 +1,5 @@
-/*
+/// <reference types="node" />
+
 import Podium = require('podium');
 const podiumObject = new Podium(); // new emitter
 
@@ -30,4 +31,3 @@ podiumObject.addListener('event1',listener1);
 // podium.once(criteria, listener) Same as calling podium.on() with the count option set to 1. Whenever we call emit(), listener1 will get fired but also get removed, so that it won't get fired on call to emit().
 
 podiumObject.once('event1',listener1);
-*/

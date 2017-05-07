@@ -40,7 +40,7 @@ import {
 
 import * as Catbox from 'catbox';
 import {MimosOptions} from 'mimos';
-import * as Podium from 'podium';
+import Podium = require('podium');
 import * as Shot from 'shot';
 
 export interface Dictionary<T> {
@@ -54,7 +54,7 @@ export interface Dictionary<T> {
  * [See docs](https://hapijs.com/api/16.1.1#server-properties)
  * [See docs](https://hapijs.com/api/16.1.1#server-events)
  */
-export class Server extends Podium.Podium {
+export class Server extends Podium {
     /**
      * Creates a new Server object
      */
@@ -982,7 +982,7 @@ export type PayLoadOutputOption = 'data' | 'stream' | 'file';
  * * a podium [See docs](https://github.com/hapijs/podium) emitter object.
  * For context [See docs](https://hapijs.com/api/16.1.1#servereventevents) > events parameter
  */
-export type ApplicationEvent = string | ApplicationEventOptionsObject | Podium.Podium;
+export type ApplicationEvent = string | ApplicationEventOptionsObject | Podium;
 
 /**
  * an event options object
@@ -1727,7 +1727,7 @@ export interface ServerCacheMethod {
  * [See docs](https://hapijs.com/api/16.1.1#request-object)
  * [See docs](https://hapijs.com/api/16.1.1#request-properties)
  */
-export class Request extends Podium.Podium {
+export class Request extends Podium {
     /** application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name]. */
     app: any;
     /** authentication information */
@@ -2228,11 +2228,11 @@ export interface ReplyNoContinue extends Base_Reply {}
  * Response object
  * [See docs](https://hapijs.com/api/16.1.1#response-object)
  *
- * TODO, check extending from Podium.Podium is correct.  Extending because of "The response object supports the following events" [See docs](https://hapijs.com/api/16.1.1#response-events)
+ * TODO, check extending from Podium is correct.  Extending because of "The response object supports the following events" [See docs](https://hapijs.com/api/16.1.1#response-events)
  *  * 'peek' - emitted for each chunk of data written back to the client connection. The event method signature is function(chunk, encoding).
  *  * 'finish' - emitted when the response finished writing but before the client response connection is ended. The event method signature is function ().
  */
-export interface Response extends Podium.Podium {
+export interface Response extends Podium {
     /** the HTTP response status code. Defaults to 200 (except for errors). */
     statusCode: number;
     /** an object containing the response headers where each key is a header field name. Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepared for transmission. */
