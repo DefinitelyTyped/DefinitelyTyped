@@ -22,6 +22,8 @@
  * Renaming of all interfaces to remove preceding I in preparation of dtslint
  */
 
+/// <reference types="node" />
+
 import Events = require("events");
 import stream = require("stream");
 import http = require("http");
