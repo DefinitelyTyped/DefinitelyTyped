@@ -1,6 +1,6 @@
-// Type definitions for howler.js v2.0.0
+// Type definitions for howler.js v2.0.3
 // Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments/>, Todd Dukart <https://github.com/tdukart/>
+// Definitions by: Pedro Casaubon <https://github.com/xperiments/>, Todd Dukart <https://github.com/tdukart/>, Alexander Leon <https://github.com/alien35/> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HowlerGlobal {
@@ -15,6 +15,9 @@ interface HowlerGlobal {
     autoSuspend: boolean;
     ctx: AudioContext;
     masterGain: GainNode;
+    stereo(pan: number): this;
+    pos(x: number, y: number, z: number): this | void;
+    orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
 }
 
 declare let Howler: HowlerGlobal;
@@ -103,6 +106,13 @@ interface Howl {
     state(): 'unloaded' | 'loading' | 'loaded';
     load(): void;
     unload(): void;
+    stereo(pan: number, id?: number): this | void;
+    pos(x: number, y: number, z: number, id?: number): this | void;
+    orientation(x: number, y: number, z: number, xUp: number, yUp: number, zUp: number): this | void;
+    pannerAttr(o: {coneInnerAngle?: number,
+        coneOuterAngle?: number, coneOuterGain?: number,
+        distanceModel: 'inverse' | 'linear', maxDistance: number,
+        panningModel: 'HRTF' | 'equalpower', refDistance: number, rolloffFactor: number}, id?: number): this;
 }
 
 interface HowlStatic {
