@@ -4,18 +4,20 @@ import Nes = require('nes');
 var server: Hapi.Server = new Hapi.Server();
 server.connection({port: 8080});
 
-server.register(Nes, (regErr: any) => {
+server.register(Nes, (regErr) => {
     if(regErr) {
         console.log('register err');
         console.log(regErr);
     } else {
-        let wsServer: Nes.Server = server as Nes.Server;
+        // No longer need to cast to Nes.Server as Hapi.Server has been modified directly.
+        // let wsServer: Nes.Server = server as Nes.Server;
+        let wsServer: Hapi.Server = server;
         wsServer.subscription('/item/{id}');
         wsServer.route( {
             method: 'GET',
             path: '/test',
             config: {
-                handler: (request: Hapi.Request, reply: Hapi.ReplyNoContinue) => {
+                handler: (request, reply) => {
                     reply({test: 'passes ' + request.socket.id});
                 }
             }
@@ -43,7 +45,7 @@ wsClient.connect((err: any) => {
         console.log(err);
     } else {
         wsClient.subscribe('/item/5', (update) => {
-            wsClient.request('/test', (reqErr: any, payload: any, statusCode: number) => {
+            wsClient.request('/test', (reqErr, payload, statusCode) => {
                 if(reqErr) {
                     console.log('request err');
                     console.log(reqErr);
