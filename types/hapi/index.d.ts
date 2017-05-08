@@ -801,6 +801,10 @@ export interface AuthOptions {
     payload?: false | 'required' | 'optional';
     /** specifying the route access rules. */
     access?: RouteAuthAccessConfiguationObject | RouteAuthAccessConfiguationObject[];
+    /** (undocumented) Convenience way of setting access.scope, will over write all values in `access` */
+    scope?: false | string | string[];
+    /** (undocumented) Convenience way of setting access.entity, will over write all values in `access` */
+    entity?: 'any' | 'user' | 'app';
 }
 
 /**
