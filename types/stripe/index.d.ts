@@ -61,6 +61,8 @@ interface StripeError {
 
 type StripeCardDataBrand = 'Visa' | 'American Express' | 'MasterCard' | 'Discover' | 'JCB' | 'Diners Club' | 'Unknown';
 
+type StripeCardDataFunding = 'credit' | 'debit' | 'prepaid' | 'unknown';
+
 interface StripeCard {
     object: string;
     last4: string;
@@ -75,6 +77,7 @@ interface StripeCard {
     address_zip?: string;
     address_country?: string;
     brand?: StripeCardDataBrand;
+    funding?: StripeCardDataFunding;
     createToken(data: StripeCardTokenData, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
     validateCardNumber(cardNumber: string): boolean;
     validateExpiry(month: string, year: string): boolean;
