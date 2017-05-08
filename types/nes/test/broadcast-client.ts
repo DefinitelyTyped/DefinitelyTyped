@@ -10,3 +10,16 @@ client.connect(function (err) {
         // update -> 'welcome!'
     };
 });
+
+// Added in addition to nes doc example code
+
+import NesClient = require('nes/client');
+
+var client = new NesClient('ws://localhost');
+client.connect(function (err) {
+
+    client.onUpdate = function (update) {
+
+        // update -> 'welcome!'
+    };
+});

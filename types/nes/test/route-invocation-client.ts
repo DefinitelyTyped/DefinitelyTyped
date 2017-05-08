@@ -10,3 +10,16 @@ client.connect(function (err) {
         // payload -> 'world!'
     });
 });
+
+// Added in addition to nes doc example code
+
+import NesClient = require('nes/client');
+
+var client = new NesClient('ws://localhost');
+client.connect(function (err) {
+
+    client.request('hello', function (err, payload) {   // Can also request '/h'
+
+        // payload -> 'world!'
+    });
+});
