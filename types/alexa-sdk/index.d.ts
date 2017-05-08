@@ -7,7 +7,7 @@ export function handler(event: RequestBody, context: Context, callback?: Functio
 export function CreateStateHandler(state: string, obj: any): any;
 export var StateString: string;
 
-interface AlexaObject {
+interface AlexaObject extends Handler {
     _event: any;
     _context: any;
     _callback: any;
