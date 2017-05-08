@@ -14,7 +14,7 @@ declare module 'nes/client' {
         connect(options: Client.ClientConnectOptions, callback: (err?: any) => void): void;
         connect(callback: (err?: any) => void): void;
         disconnect(): void;
-        id: any;
+        id: any;  // can be `null | number` but also the "socket" value from websocket message data.
         request(options: string | Client.ClientRequestOptions, callback: (err: any, payload: any, statusCode?: number, headers?: Object) => void): void;
         message(message: any, callback: (err: any, message: any) => void): void;
         subscribe(path: string, handler: Client.Handler, callback: (err?: any) => void): void;

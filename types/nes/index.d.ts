@@ -20,7 +20,7 @@ declare module 'hapi' {
 }
 
 declare class SocketClass {
-    id: any;
+    id: string;
     app: Object;
     auth: nes.SocketAuthObject;
     disconect(callback?: () => void): void;

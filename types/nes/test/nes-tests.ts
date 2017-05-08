@@ -16,7 +16,7 @@ server.register(Nes, (regErr: any) => {
             path: '/test',
             config: {
                 handler: (request: Hapi.Request, reply: Hapi.ReplyNoContinue) => {
-                    reply({test: 'passes'});
+                    reply({test: 'passes ' + request.socket.id});
                 }
             }
         });
