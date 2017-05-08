@@ -1,3 +1,5 @@
+import { flatbuffers } from "flatbuffers";
+
 enum Color {
   Red= 1,
   Green= 2,
@@ -303,9 +305,9 @@ class Stat {
 }
 
 class Monster {
-    bb: flatbuffers.ByteBuffer= null;
+  bb: flatbuffers.ByteBuffer= null;
 
-    bb_pos: number = 0;
+  bb_pos: number = 0;
 
   __init(i: number, bb: flatbuffers.ByteBuffer): Monster {
     this.bb_pos = i;
