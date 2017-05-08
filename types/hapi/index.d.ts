@@ -412,14 +412,14 @@ export class Server extends Podium {
      *     register(Plugin, {}, (err) => {// do more stuff})  or
      *     register(Plugin, (err: Error) => {// do more stuff})
      */
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, callback: (err: Error) => void): void;
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>): Promise<Error>;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, callback: (err: Error) => void): void;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>): Promise<Error>;
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions, callback: (err: Error) => void): void;
-    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions): Promise<Error>;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions, callback: (err: Error) => void): void;
-    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions): Promise<Error>;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, callback: (err: Error | null) => void): void;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>): Promise<Error | null>;
+    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, callback: (err: Error | null) => void): void;
+    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>): Promise<Error | null>;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions, callback: (err: Error | null) => void): void;
+    register<OptionsPassedToPlugin>(plugins: Array<(PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>)>, options: PluginRegistrationOptions): Promise<Error | null>;
+    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions, callback: (err: Error | null) => void): void;
+    register<OptionsPassedToPlugin>(plugins: PluginFunction<OptionsPassedToPlugin> | PluginRegistrationObject<OptionsPassedToPlugin>, options: PluginRegistrationOptions): Promise<Error | null>;
     /**
      * Adds a connection route
      * [See docs](https://hapijs.com/api/16.1.1#serverrouteoptions)
