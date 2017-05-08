@@ -63,8 +63,10 @@ export namespace HttpErrors {
     class DefinedHttpError extends HttpError {
         constructor();
 
+        // tslint:disable-next-line unified-signatures
         constructor(printf: string, ...args: any[]);
 
+        // tslint:disable-next-line unified-signatures
         constructor(options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
 
         // tslint:disable-next-line unified-signatures
@@ -117,8 +119,10 @@ export namespace RestErrors {
     class DefinedRestError extends RestError {
         constructor();
 
+        // tslint:disable-next-line unified-signatures
         constructor(printf: string, ...args: any[]);
 
+        // tslint:disable-next-line unified-signatures
         constructor(options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
 
         // tslint:disable-next-line unified-signatures
