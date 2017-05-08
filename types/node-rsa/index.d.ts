@@ -8,14 +8,9 @@
 
 declare class NodeRSA {
     /**
-     * Create empty key.
-     */
-    constructor();
-
-    /**
      * Generate new key with length specified.
      */
-    constructor(key: NodeRSA.KeyBits);
+    constructor(key?: NodeRSA.KeyBits);
 
     /**
      * Load key from string/buffer/components.
@@ -60,30 +55,25 @@ declare class NodeRSA {
      */
     getMaxMessageSize(): number;
 
-    encrypt(data: NodeRSA.Data): Buffer;
-    encrypt(data: NodeRSA.Data, encoding: 'buffer'): Buffer;
+    encrypt(data: NodeRSA.Data, encoding?: 'buffer'): Buffer;
     encrypt(data: NodeRSA.Data, encoding: NodeRSA.Encoding): string;
     encrypt(data: Buffer, encoding: 'buffer', sourceEncoding?: NodeRSA.Encoding): Buffer;
     encrypt(data: Buffer, encoding: NodeRSA.Encoding, sourceEncoding?: NodeRSA.Encoding): string;
 
-    encryptPrivate(data: NodeRSA.Data): Buffer;
-    encryptPrivate(data: NodeRSA.Data, encoding: 'buffer'): Buffer;
+    encryptPrivate(data: NodeRSA.Data, encoding?: 'buffer'): Buffer;
     encryptPrivate(data: NodeRSA.Data, encoding: NodeRSA.Encoding): string;
     encryptPrivate(data: Buffer, encoding: 'buffer', sourceEncoding?: NodeRSA.Encoding): Buffer;
     encryptPrivate(data: Buffer, encoding: NodeRSA.Encoding, sourceEncoding?: NodeRSA.Encoding): string;
 
-    decrypt(data: Buffer | string): Buffer;
+    decrypt(data: Buffer | string, encoding?: 'buffer'): Buffer;
     decrypt(data: Buffer | string, encoding: NodeRSA.Encoding): string;
-    decrypt(data: Buffer | string, encoding: 'buffer'): Buffer;
     decrypt<T extends object>(data: Buffer | string, encoding: 'json'): T;
 
-    decryptPublic(data: Buffer | string): Buffer;
+    decryptPublic(data: Buffer | string, encoding?: 'buffer'): Buffer;
     decryptPublic(data: Buffer | string, encoding: NodeRSA.Encoding): string;
-    decryptPublic(data: Buffer | string, encoding: 'buffer'): Buffer;
     decryptPublic<T extends object>(data: Buffer | string, encoding: 'json'): T;
 
-    sign(data: NodeRSA.Data): Buffer;
-    sign(data: NodeRSA.Data, encoding: 'buffer'): Buffer;
+    sign(data: NodeRSA.Data, encoding?: 'buffer'): Buffer;
     sign(data: NodeRSA.Data, encoding: NodeRSA.Encoding): string;
     sign(data: Buffer, encoding: 'buffer', sourceEncoding?: NodeRSA.Encoding): Buffer;
     sign(data: Buffer, encoding: NodeRSA.Encoding, sourceEncoding?: NodeRSA.Encoding): string;
@@ -164,7 +154,7 @@ declare namespace NodeRSA {
         /**
          * Mask generation function.
          */
-        mgf?: (data: Buffer, length: number, hash: HashingAlgorithm) => Buffer;
+        mgf?(data: Buffer, length: number, hash: HashingAlgorithm): Buffer;
     }
 
     type AdvancedEncryptionScheme =
@@ -202,7 +192,6 @@ declare namespace NodeRSA {
          */
         signingScheme?: SigningScheme | SigningSchemeHash | AdvancedSigningScheme;
     }
-
 }
 
 export = NodeRSA;
