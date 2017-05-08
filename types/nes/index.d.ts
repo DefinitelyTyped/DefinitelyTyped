@@ -3,6 +3,24 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ +                                                                           +
+ +                                                                           +
+ +                                                                           +
+ +                      WARNING: BACKWARDS INCOMPATIBLE                      +
+ +                                                                           +
+ +                                                                           +
+ +                                                                           +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + *
+ *
+ * Removal of Nes.Server.  No longer need to cast to Nes.Server as Hapi.Server
+ *      has been modified directly.
+ * Removal of Nes.Request.  Same reason as Nes.Server
+ * Move Nes.Socket from class to just an interface as it is not mentioned
+ *      publically in docs.  Perhaps this should be included though?  Add
+ *      failing test demonstrating use if so.
+ */
+
 import * as Hapi from 'hapi';
 import NesClient = require('nes/client');
 
@@ -11,22 +29,12 @@ declare module 'hapi' {
         broadcast(message: any, options?: nes.ServerBroadcastOptions): void;
         subscription(path: string, options?: nes.ServerSubscriptionOptions): void;
         publish(path: string, message: any, options?: nes.ServerPublishOptions): void;
-        eachSocket(each: (socket: SocketClass) => void, options?: nes.ServerEachSocketOptions): void;
+        eachSocket(each: (socket: nes.Socket) => void, options?: nes.ServerEachSocketOptions): void;
     }
 
     interface Request {
-        socket: SocketClass;
+        socket: nes.Socket;
     }
-}
-
-declare class SocketClass {
-    id: string;
-    app: Object;
-    auth: nes.SocketAuthObject;
-    disconect(callback?: () => void): void;
-    send(message: any, callback?: (err?: any) => void): void;
-    publish(path: string, message: any, callback?: (err?: any) => void): void;
-    revoke(path: string, message: any, callback?: (err?: any) => void): void;
 }
 
 declare module nes {
@@ -78,11 +86,27 @@ declare module nes {
         user?: any;
     }
 
-    interface Socket extends SocketClass {}
+    interface Socket {
+        id: string;
+        app: Object;
+        auth: nes.SocketAuthObject;
+        disconect(callback?: () => void): void;
+        send(message: any, callback?: (err?: any) => void): void;
+        publish(path: string, message: any, callback?: (err?: any) => void): void;
+        revoke(path: string, message: any, callback?: (err?: any) => void): void;
+    }
 
-    interface Server extends Hapi.Server {}
-
-    interface Request extends Hapi.Request {}
+    /**
+     * TODO (if possible) use a drier, more robust way of doing this that
+     * allows for:
+     *      * the export to have be of type Hapi.PluginFunction whilst
+     *      * also exposing the Client type
+     *      * exporting the NesClient as the Client class without having to
+     *          duplicate the constructor definition
+     *      * and all the type exports from the NesClient namespace (Handler,
+     *          ClientOptions, ClientConnectOptions, ClientRequestOptions,
+     *          ClientSubscribeFlags)
+     */
 
     interface Client extends NesClient {}
 
@@ -97,22 +121,7 @@ declare module nes {
     interface ClientSubscribeFlags extends NesClient.ClientSubscribeFlags {}
 }
 
-// TODO there must be a drier cleaner way of doing this that allows for the
-// export to have be of type Hapi.PluginFunction whilst also exposing the
-// type and class of Client, Request, etc.
 interface NesClassExports {
-    Socket: {
-        new(): SocketClass;
-    };
-
-    Server: {
-        new(): Hapi.Server;
-    };
-
-    Request: {
-        new(): Hapi.Request;
-    };
-
     Client: {
         new(url: string, options?: NesClient.ClientOptions): NesClient;
     };
