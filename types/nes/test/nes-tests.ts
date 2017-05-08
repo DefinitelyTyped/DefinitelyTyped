@@ -34,7 +34,9 @@ server.register(Nes, (regErr: any) => {
     }
 });
 
-let wsClient: Nes.Client = new Nes.Client('ws://localhost:8080');
+let options: Nes.ClientConnectOptions = {delay: 3};
+
+let wsClient: Nes.Client = new Nes.Client('ws://localhost:8080', options);
 wsClient.connect((err: any) => {
     if(err) {
         console.log('start err');

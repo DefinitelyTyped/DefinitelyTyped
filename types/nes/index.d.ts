@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Hapi from 'hapi';
+import NesClient = require('nes/client');
 
 declare module 'hapi' {
     interface Server {
@@ -11,6 +12,10 @@ declare module 'hapi' {
         subscription(path: string, options?: nes.ServerSubscriptionOptions): void;
         publish(path: string, message: any, options?: nes.ServerPublishOptions): void;
         eachSocket(each: (socket: SocketClass) => void, options?: nes.ServerEachSocketOptions): void;
+    }
+
+    interface Request {
+        socket: SocketClass;
     }
 }
 
@@ -24,32 +29,7 @@ declare class SocketClass {
     revoke(path: string, message: any, callback?: (err?: any) => void): void;
 }
 
-declare class RequestClass extends Hapi.Request {
-    socket: SocketClass;
-}
-
-declare class ClientClass {
-    onError: (err: any) => void;
-    onConnect: () => void;
-    onDisconnect: () => void;
-    onUpdate: (message: any) => void;
-    connect(options: nes.ClientConnectOptions, callback: (err?: any) => void): void;
-    connect(callback: (err?: any) => void): void;
-    disconnect(): void;
-    id: any;
-    request(options: string | nes.ClientRequestOptions, callback: (err: any, payload: any, statusCode?: number, headers?: Object) => void): void;
-    message(message: any, callback: (err: any, message: any) => void): void;
-    subscribe(path: string, handler: nes.Handler, callback: (err?: any) => void): void;
-    unsubscribe(path: string, handler: nes.Handler, callback: (err?: any) => void): void;
-    subscriptions(): string[];
-    overrideReconnectionAuth(auth: any): void;
-}
-
 declare module nes {
-    interface Handler {
-        (message: any, flags: nes.ClientSubscribeFlags): void;
-    }
-
     interface SocketAuthObject {
         isAuthenticated: boolean;
         credentials: any;
@@ -98,44 +78,29 @@ declare module nes {
         user?: any;
     }
 
-    interface ClientOptions {
-        ws?: any;
-        timeout?: number | boolean;
-    }
+    interface Socket extends SocketClass {}
 
-    interface ClientConnectOptions {
-        auth?: any;
-        delay?: number;
-        maxDelay?: number;
-        retries?: number;
-        timeout?: number;
-    }
+    interface Server extends Hapi.Server {}
 
-    interface ClientRequestOptions {
-        path: string;
-        method?: string;
-        headers?: Object;
-        payload?: any;
-    }
+    interface Request extends Hapi.Request {}
 
-    interface ClientSubscribeFlags {
-        revoked?: boolean;
-    }
+    interface Client extends NesClient {}
 
-    interface Socket extends SocketClass {
-    }
+    interface Handler extends NesClient.Handler {}
 
-    interface Server extends Hapi.Server {
-    }
+    interface ClientOptions extends NesClient.ClientOptions {}
 
-    interface Request extends RequestClass {
-    }
+    interface ClientConnectOptions extends NesClient.ClientConnectOptions {}
 
-    interface Client extends ClientClass {
-    }
+    interface ClientRequestOptions extends NesClient.ClientRequestOptions {}
+
+    interface ClientSubscribeFlags extends NesClient.ClientSubscribeFlags {}
 }
 
-interface NesResources {
+// TODO there must be a drier cleaner way of doing this that allows for the
+// export to have be of type Hapi.PluginFunction whilst also exposing the
+// type and class of Client, Request, etc.
+interface NesClassExports {
     Socket: {
         new(): SocketClass;
     };
@@ -145,30 +110,16 @@ interface NesResources {
     };
 
     Request: {
-        new(): RequestClass;
+        new(): Hapi.Request;
     };
 
     Client: {
-        new(url: string, options?: nes.ClientOptions): ClientClass;
+        new(url: string, options?: NesClient.ClientOptions): NesClient;
     };
 }
 
-// TODO fix this.  See test/client-require.ts test case.
-declare module 'nes/client' {
-    var nesClient: NesResources;
+interface NesAllExports extends NesClassExports, Hapi.PluginFunction<{}> {}
 
-    export = nesClient;
-
-    // export {
-    //     ClientClass,
-    //     // ClientConnectOptions,
-    //     // ClientRequestOptions,
-    //     // ClientSubscribeFlags
-    // };
-}
-
-interface NesExports extends NesResources, Hapi.PluginFunction<{}> {}
-
-declare var nes: NesExports;
+declare var nes: NesAllExports;
 
 export = nes;

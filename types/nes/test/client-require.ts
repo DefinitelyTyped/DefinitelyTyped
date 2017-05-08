@@ -3,5 +3,10 @@
 // that is not needed for the browser. The browser will only need the nes client.
 // If you are using CommonJS you can load the client with require('nes/client').
 
-// TODO fix this
-// import nes = require('nes/client');
+import Client = require('nes/client');
+
+var options: Client.ClientConnectOptions = {
+    delay: 3
+}
+
+var client: Client = new Client('ws://localhost', options);
