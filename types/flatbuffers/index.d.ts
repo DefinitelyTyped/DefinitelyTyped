@@ -625,3 +625,5 @@ declare namespace flatbuffers {
     createLong(low: number, high: number): Long;
   }
 }
+
+export {flatbuffers}
