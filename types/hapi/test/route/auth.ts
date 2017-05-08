@@ -17,6 +17,9 @@ routeMoreConfig = {
         access: {
             scope: false,
             entity: 'any',
-        }
+        },
+        // Will over write values in access
+        scope: false,
+        entity: 'any',
     }
 }
