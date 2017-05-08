@@ -600,6 +600,7 @@ test = (
               ({y: datum.y, label: "NEW"})
            }
         }}
+        labelRadius={20}
     />
 );
 
