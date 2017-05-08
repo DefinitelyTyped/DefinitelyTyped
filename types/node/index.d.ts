@@ -370,6 +370,7 @@ declare namespace NodeJS {
         stdout: Socket;
         stderr: Socket;
         stdin: Socket;
+        openStdin(): Socket;
         argv: string[];
         argv0: string;
         execArgv: string[];
