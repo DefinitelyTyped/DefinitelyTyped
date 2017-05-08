@@ -59,7 +59,7 @@ export function makeErrFromCode(statusCode: number, ...args: any[]): HttpError;
 
 export function bunyanSerializer(err: any): any;
 
-declare namespace HttpErrors {
+export namespace HttpErrors {
     class DefinedHttpError extends HttpError {
         constructor();
 
@@ -73,47 +73,47 @@ declare namespace HttpErrors {
         constructor(priorErr: any, options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
     }
 
-    export class BadRequestError extends DefinedHttpError { }
-    export class UnauthorizedError extends DefinedHttpError { }
-    export class PaymentRequiredError extends DefinedHttpError { }
-    export class ForbiddenError extends DefinedHttpError { }
-    export class NotFoundError extends DefinedHttpError { }
-    export class MethodNotAllowedError extends DefinedHttpError { }
-    export class NotAcceptableError extends DefinedHttpError { }
-    export class ProxyAuthenticationRequiredError extends DefinedHttpError { }
-    export class RequestTimeoutError extends DefinedHttpError { }
-    export class ConflictError extends DefinedHttpError { }
-    export class GoneError extends DefinedHttpError { }
-    export class LengthRequiredError extends DefinedHttpError { }
-    export class PreconditionFailedError extends DefinedHttpError { }
-    export class RequestEntityTooLargeError extends DefinedHttpError { }
-    export class RequesturiTooLargeError extends DefinedHttpError { }
-    export class UnsupportedMediaTypeError extends DefinedHttpError { }
-    export class RangeNotSatisfiableError extends DefinedHttpError { }
-    export class ExpectationFailedError extends DefinedHttpError { }
-    export class ImATeapotError extends DefinedHttpError { }
-    export class UnprocessableEntityError extends DefinedHttpError { }
-    export class LockedError extends DefinedHttpError { }
-    export class FailedDependencyError extends DefinedHttpError { }
-    export class UnorderedCollectionError extends DefinedHttpError { }
-    export class UpgradeRequiredError extends DefinedHttpError { }
-    export class PreconditionRequiredError extends DefinedHttpError { }
-    export class TooManyRequestsError extends DefinedHttpError { }
-    export class RequestHeaderFieldsTooLargeError extends DefinedHttpError { }
-    export class InternalServerError extends DefinedHttpError { }
-    export class NotImplementedError extends DefinedHttpError { }
-    export class BadGatewayError extends DefinedHttpError { }
-    export class ServiceUnavailableError extends DefinedHttpError { }
-    export class GatewayTimeoutError extends DefinedHttpError { }
-    export class HttpVersionNotSupportedError extends DefinedHttpError { }
-    export class VariantAlsoNegotiatesError extends DefinedHttpError { }
-    export class InsufficientStorageError extends DefinedHttpError { }
-    export class BandwidthLimitExceededError extends DefinedHttpError { }
-    export class NotExtendedError extends DefinedHttpError { }
-    export class NetworkAuthenticationRequiredError extends DefinedHttpError { }
+    class BadRequestError extends DefinedHttpError { }
+    class UnauthorizedError extends DefinedHttpError { }
+    class PaymentRequiredError extends DefinedHttpError { }
+    class ForbiddenError extends DefinedHttpError { }
+    class NotFoundError extends DefinedHttpError { }
+    class MethodNotAllowedError extends DefinedHttpError { }
+    class NotAcceptableError extends DefinedHttpError { }
+    class ProxyAuthenticationRequiredError extends DefinedHttpError { }
+    class RequestTimeoutError extends DefinedHttpError { }
+    class ConflictError extends DefinedHttpError { }
+    class GoneError extends DefinedHttpError { }
+    class LengthRequiredError extends DefinedHttpError { }
+    class PreconditionFailedError extends DefinedHttpError { }
+    class RequestEntityTooLargeError extends DefinedHttpError { }
+    class RequesturiTooLargeError extends DefinedHttpError { }
+    class UnsupportedMediaTypeError extends DefinedHttpError { }
+    class RangeNotSatisfiableError extends DefinedHttpError { }
+    class ExpectationFailedError extends DefinedHttpError { }
+    class ImATeapotError extends DefinedHttpError { }
+    class UnprocessableEntityError extends DefinedHttpError { }
+    class LockedError extends DefinedHttpError { }
+    class FailedDependencyError extends DefinedHttpError { }
+    class UnorderedCollectionError extends DefinedHttpError { }
+    class UpgradeRequiredError extends DefinedHttpError { }
+    class PreconditionRequiredError extends DefinedHttpError { }
+    class TooManyRequestsError extends DefinedHttpError { }
+    class RequestHeaderFieldsTooLargeError extends DefinedHttpError { }
+    class InternalServerError extends DefinedHttpError { }
+    class NotImplementedError extends DefinedHttpError { }
+    class BadGatewayError extends DefinedHttpError { }
+    class ServiceUnavailableError extends DefinedHttpError { }
+    class GatewayTimeoutError extends DefinedHttpError { }
+    class HttpVersionNotSupportedError extends DefinedHttpError { }
+    class VariantAlsoNegotiatesError extends DefinedHttpError { }
+    class InsufficientStorageError extends DefinedHttpError { }
+    class BandwidthLimitExceededError extends DefinedHttpError { }
+    class NotExtendedError extends DefinedHttpError { }
+    class NetworkAuthenticationRequiredError extends DefinedHttpError { }
 }
 
-declare namespace RestErrors {
+export namespace RestErrors {
     class DefinedRestError extends RestError {
         constructor();
 
@@ -127,19 +127,19 @@ declare namespace RestErrors {
         constructor(priorErr: any, options: RestifyHttpErrorOptions, printf?: string, ...args: any[]);
     }
 
-    export class BadDigestError extends DefinedRestError { }
-    export class BadMethodError extends DefinedRestError { }
-    export class InternalError extends DefinedRestError { }
-    export class InvalidArgumentError extends DefinedRestError { }
-    export class InvalidContentError extends DefinedRestError { }
-    export class InvalidCredentialsError extends DefinedRestError { }
-    export class InvalidHeaderError extends DefinedRestError { }
-    export class InvalidVersionError extends DefinedRestError { }
-    export class MissingParameterError extends DefinedRestError { }
-    export class NotAuthorizedError extends DefinedRestError { }
-    export class PreconditionFailedError extends DefinedRestError { }
-    export class RequestExpiredError extends DefinedRestError { }
-    export class RequestThrottledError extends DefinedRestError { }
-    export class ResourceNotFoundError extends DefinedRestError { }
-    export class WrongAcceptError extends DefinedRestError { }
+    class BadDigestError extends DefinedRestError { }
+    class BadMethodError extends DefinedRestError { }
+    class InternalError extends DefinedRestError { }
+    class InvalidArgumentError extends DefinedRestError { }
+    class InvalidContentError extends DefinedRestError { }
+    class InvalidCredentialsError extends DefinedRestError { }
+    class InvalidHeaderError extends DefinedRestError { }
+    class InvalidVersionError extends DefinedRestError { }
+    class MissingParameterError extends DefinedRestError { }
+    class NotAuthorizedError extends DefinedRestError { }
+    class PreconditionFailedError extends DefinedRestError { }
+    class RequestExpiredError extends DefinedRestError { }
+    class RequestThrottledError extends DefinedRestError { }
+    class ResourceNotFoundError extends DefinedRestError { }
+    class WrongAcceptError extends DefinedRestError { }
 }
