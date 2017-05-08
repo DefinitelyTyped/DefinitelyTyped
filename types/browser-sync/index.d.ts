@@ -1,6 +1,7 @@
 // Type definitions for browser-sync
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>, Joe Skeen <http://github.com/joeskeen>
+//                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="chokidar"/>
