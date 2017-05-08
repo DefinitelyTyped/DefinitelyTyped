@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "adjacent-overload-signatures": false,
+        "ban-types": false,
+        "only-arrow-functions": false,
+        "unified-signatures": false
+    }
+}
