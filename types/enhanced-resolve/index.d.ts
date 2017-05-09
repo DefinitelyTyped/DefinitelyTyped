@@ -1,6 +1,6 @@
 // Type definitions for enhanced-resolve v3.0.0
 // Project: http://github.com/webpack/enhanced-resolve.git
-// Definitions by: e-cloud <https://github.com/e-cloud>
+// Definitions by: e-cloud <https://github.com/e-cloud>, Onigoetz <https://github.com/onigoetz> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
