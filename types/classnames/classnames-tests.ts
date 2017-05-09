@@ -1,4 +1,4 @@
-import classNames = require('classnames')
+import classNames = require('classnames');
 
 classNames('foo', 'bar'); // => 'foo bar'
 
@@ -21,4 +21,4 @@ classNames(["foo", ["bar", {baz: true}]]); // => 'foo bar baz'
 classNames(null, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
 
 // Supporting booleans is tricky since we should only support passing in false, which is ignored
-//classNames(false, 'bar', 0, 1, { baz: null }, ''); // => 'bar 1'
+// classNames(false, 'bar', 0, 1, { baz: null }, ''); // => 'bar 1'
