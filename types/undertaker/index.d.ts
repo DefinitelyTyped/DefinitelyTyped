@@ -5,6 +5,7 @@
 
 import * as Registry from "undertaker-registry";
 import { Duplex } from "stream";
+import { EventEmitter } from "events";
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
@@ -39,7 +40,7 @@ declare namespace Undertaker {
     }
 }
 
-declare class Undertaker {
+declare class Undertaker extends EventEmitter {
     constructor(registry?: Registry);
 
     /**
