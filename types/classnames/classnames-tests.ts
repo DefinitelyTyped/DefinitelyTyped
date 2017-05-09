@@ -1,6 +1,7 @@
 import classNames = require('classnames');
+import * as classNames2 from 'classnames';
 
-classNames('foo', 'bar'); // => 'foo bar'
+classNames2('foo', 'bar'); // => 'foo bar'
 
 classNames('foo', 'bar'); // => 'foo bar'
 classNames('foo', { bar: true }); // => 'foo bar'
