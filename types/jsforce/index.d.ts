@@ -18,17 +18,12 @@ declare namespace jsforce {
     }
 
     class SObject {
-        create(options: any, callback?: (err: Error, ret: RecordResult) => void): void;
         record(options: any, callback?: (err: Error, ret: any) => void): void;
         update(options: SObjectCreateOptions, callback?: (err: Error, ret: any) => void): void;
         retrieve(objectId: string | string[], callback?: (err: Error, ret: any) => void): void;
-        del(objectId: string | string[], callback?: (err: Error, ret: any) => void): void;
-        destroy(objectId: string | string[], callback?: (err: Error, ret: any) => void): void;
-        delete(objectId: string | string[], callback?: (err: Error, ret: any) => void): void;
         // upsert(options: SObjectOptions): void;
-        describe(callback: (err: Error, ret: Meta) => void): void;
         describeGlobal(callback: (err: Error, res: any) => void): void;
-        describe$(callback: (err: Error, ret: Meta) => void): void;
+        describe$(callback: (err: Error, ret: DescribeSObjectResult) => void): void;
         describeGlobal$(callback: (err: Error, res: any) => void): void;
 
         find<T>(query?: any, callback?: (err: Error, ret: T[]) => void): Query<T>;
@@ -38,6 +33,20 @@ declare namespace jsforce {
         findOne<T>(query?: any, callback?: (err: Error, ret: T) => void): void;
         findOne<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T) => void): void;
         findOne<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T) => void): void;
+
+        approvalLayouts(callback?: (layoutInfo: ApprovalLayoutInfo) => void): Promise<ApprovalLayoutInfo>;
+        bulkload(operation: string, options?: { extIdField?: string }, input?: Record[] | stream.Stream[] | string[], callback?: (err: Error, ret: RecordResult) => void): Batch;
+        compactLayouts(callback?: CompactLayoutInfo): Promise<CompactLayoutInfo>;
+        count(conditions?: Object | string, callback?: (err: Error, num: number) => void): Promise<number>;
+        create(options: any | any[], callback?: (err: Error, ret: RecordResult | RecordResult[]) => void): Promise<RecordResult | RecordResult[]>;
+        createBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
+        del(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
+        destroy(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
+        delete(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
+        deleteBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
+        deleted(start: Date | string, end: Date | string, callback?: (info: DeletedRecordsInfo) => void): Promise<DeletedRecordsInfo>;
+        deleteHardBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
+        describe(callback?: (err: Error, ret: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
     }
 
     interface ConnectionOptions {
@@ -103,7 +112,7 @@ declare namespace jsforce {
         SicDesc?: string;
     }
 
-    interface Meta {
+    interface DescribeSObjectResult {
         label: string;
         fields: string[];
     }
@@ -143,56 +152,13 @@ declare namespace jsforce {
     }
 
     interface RecordResult { id: SalesforceId, success: boolean, anys: Object[] }
-    interface ExplainInfo { }
 
-    interface SalesforceContentVersionDocument {
-        attributes:
-        {
-            type: string,
-            url: string,
-        };
-        Id: SalesforceId,
-        ContentDocumentId: SalesforceId,
-        IsLatest: boolean,
-        ContentUrl: string,
-        VersionNumber: string,
-        Title: string,
-        Description: string,
-        ReasonForChange: string,
-        SharingOption: string,
-        PathOnClient: string,
-        RatingCount: number,
-        IsDeleted: boolean,
-        ContentModifiedDate: Date,
-        ContentModifiedById: SalesforceId,
-        PositiveRatingCount: number,
-        NegativeRatingCount: number,
-        FeaturedContentBoost: Date,
-        FeaturedContentDate: Date,
-        OwnerId: SalesforceId,
-        CreatedById: SalesforceId,
-        CreatedDate: Date,
-        LastModifiedById: SalesforceId,
-        LastModifiedDate: Date,
-        SystemModstamp: Date,
-        TagCsv: string,
-        FileType: string,
-        PublishStatus: string,
-        VersionData: string,
-        ContentSize: number,
-        FileExtension: string,
-        FirstPublishLocationId: SalesforceId,
-        Origin: string,
-        ContentLocation: string,
-        TextPreview: string,
-        ExternalDocumentInfo1: string,
-        ExternalDocumentInfo2: string,
-        ExternalDataSourceId: string,
-        Checksum: string,
-        IsMajorVersion: boolean,
-        IsAssetEnabled: boolean,
-        User__c: string
-    }
+    interface ExplainInfo { }
+    interface ApprovalLayoutInfo { }
+    interface Record { }
+    interface Batch { }
+    interface CompactLayoutInfo { }
+    interface DeletedRecordsInfo { }
 }
 
 export = jsforce;
