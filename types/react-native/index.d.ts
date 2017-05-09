@@ -5098,6 +5098,11 @@ export interface TabBarItemProperties extends ViewProperties {
     badge?: string | number
 
     /**
+     * Background color for the badge. Available since iOS 10.
+     */
+    badgeColor?: string
+
+    /**
      * A custom icon for the tab. It is ignored when a system icon is defined.
      */
     icon?: ImageURISource
@@ -5182,6 +5187,11 @@ export interface TabBarIOSProperties extends ViewProperties {
      * Color of text on unselected tabs
      */
     unselectedTintColor?: string
+
+    /**
+     * Color of unselected tab icons. Available since iOS 10.
+     */
+    unselectedItemTintColor?: string
 }
 
 export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
