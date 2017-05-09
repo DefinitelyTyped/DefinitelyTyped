@@ -1,7 +1,7 @@
 import sql = require('mssql');
 
 interface Entity{
-  value: number;
+    value: number;
 }
 
 var config: sql.config = {
@@ -15,34 +15,41 @@ var config: sql.config = {
     }
 }
 
-var connection: sql.Connection = new sql.Connection(config, function (err: any) {
+var connectionStringTest: sql.ConnectionPool = new sql.ConnectionPool("connectionstring", (err) => {
+    if (err) {
+        return err;
+    }
+});
+
+var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (err: any) {
     if (err != null) {
         console.warn("Issue with connecting to SQL Server!");
     }
     else {
+        connection.query`SELECT ${1} as value`.then(res => {    });
         var requestQuery = new sql.Request(connection);
 
         var getArticlesQuery = "SELECT * FROM TABLE";
 
-        requestQuery.query(getArticlesQuery, function (err, recordSet) {
+        requestQuery.query(getArticlesQuery, function (err, result) {
             if (err) {
                 console.error('Error happened calling Query: ' + err.name + " " + err.message);
 
             }
             // checking to see if the articles returned as at least one.
-            else if (recordSet.length > 0) {
+            else if (result.recordset.length > 0) {
             }
         });
 
         getArticlesQuery = "SELECT 1 as value FROM TABLE";
 
-        requestQuery.query<Entity>(getArticlesQuery, function (err, recordSet) {
+        requestQuery.query<Entity>(getArticlesQuery, function (err, result) {
             if (err) {
                 console.error('Error happened calling Query: ' + err.name + " " + err.message);
 
             }
             // checking to see if the articles returned as at least one.
-            else if (recordSet.length > 0 && recordSet[0].value) {
+            else if (result.recordset.length > 0 && result.recordset[0].value) {
             }
         });
 
@@ -124,7 +131,7 @@ function test_table() {
 
 function test_promise_returns() {
     // Methods return a promises if the callback is omitted.
-    var connection: sql.Connection = new sql.Connection(config);
+    var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     connection.connect().then(() => { });
     connection.close().then(() => { });
 
@@ -150,7 +157,7 @@ function test_promise_returns() {
 
 function test_request_constructor() {
     // Request can be constructed with a connection, preparedStatment, transaction or no arguments
-    var connection: sql.Connection = new sql.Connection(config);
+    var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     var preparedStatment = new sql.PreparedStatement(connection);
     var transaction = new sql.Transaction(connection);
 
@@ -161,7 +168,7 @@ function test_request_constructor() {
 }
 
 function test_classes_extend_eventemitter() {
-    var connection: sql.Connection = new sql.Connection(config);
+    var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     var transaction = new sql.Transaction();
     var request = new sql.Request();
     var preparedStatment = new sql.PreparedStatement();

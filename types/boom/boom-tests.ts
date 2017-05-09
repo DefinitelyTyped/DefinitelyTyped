@@ -39,3 +39,17 @@ Boom.serverUnavailable('message', {some: 'data'});
 Boom.gatewayTimeout('message', {some: 'data'});
 
 Boom.unauthorized() as Error;
+
+const error = Boom.badRequest('Cannot feed after midnight');
+error.output.statusCode = 499;    // Assign a custom error code
+error.reformat();
+
+/**
+ * Add a custom key to the payload
+ */
+
+interface CustomPayload extends Boom.Payload {
+    custom: string;
+}
+
+(error.output.payload as CustomPayload).custom = 'abc_123';

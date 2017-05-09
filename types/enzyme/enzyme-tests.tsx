@@ -1,6 +1,6 @@
 import * as React from "react";
-import {shallow, mount, render, ShallowWrapper, ReactWrapper} from "enzyme";
-import {Component, ReactElement, HTMLAttributes, ComponentClass, StatelessComponent} from "react";
+import { shallow, mount, render, ShallowWrapper, ReactWrapper } from "enzyme";
+import { Component, ReactElement, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
 
 // Help classes/interfaces
 interface MyComponentProps {
@@ -25,11 +25,13 @@ class MyComponent extends Component<MyComponentProps, MyComponentState> {
 const MyStatelessComponent = (props: StatelessProps) => <span />;
 
 // ShallowWrapper
-namespace ShallowWrapperTest {
+function ShallowWrapperTest() {
     let shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
-        shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value"/>);
+        shallow<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" />);
 
     let reactElement: ReactElement<any>;
+    let reactElements: Array<ReactElement<any>>;
+    let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
     let numOrStringVal: number | string;
@@ -44,7 +46,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_shallow_options() {
-        shallow(<MyComponent stringProp="1"/>, {
+        shallow(<MyComponent stringProp="1" />, {
             context: {
                 test: "a",
             },
@@ -80,19 +82,19 @@ namespace ShallowWrapperTest {
     }
 
     function test_contains() {
-        boolVal = shallowWrapper.contains(<div className="foo bar"/>);
+        boolVal = shallowWrapper.contains(<div className="foo bar" />);
     }
 
     function test_containsMatchingElement() {
-        boolVal = shallowWrapper.contains(<div className="foo bar"/>);
+        boolVal = shallowWrapper.contains(<div className="foo bar" />);
     }
 
     function test_containsAllMatchingElements() {
-        boolVal = shallowWrapper.containsAllMatchingElements([<div className="foo bar"/>]);
+        boolVal = shallowWrapper.containsAllMatchingElements([<div className="foo bar" />]);
     }
 
     function test_containsAnyMatchingElement() {
-        boolVal = shallowWrapper.containsAnyMatchingElements([<div className="foo bar"/>]);
+        boolVal = shallowWrapper.containsAnyMatchingElements([<div className="foo bar" />]);
     }
 
     function test_dive() {
@@ -104,15 +106,15 @@ namespace ShallowWrapperTest {
             bar: any;
         }
 
-        const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' }});
+        const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' } });
     }
 
     function test_equals() {
-        boolVal = shallowWrapper.equals(<div className="foo bar"/>);
+        boolVal = shallowWrapper.equals(<div className="foo bar" />);
     }
 
     function test_matchesElement() {
-        boolVal = shallowWrapper.matchesElement(<div className="foo bar"/>);
+        boolVal = shallowWrapper.matchesElement(<div className="foo bar" />);
     }
 
     function test_hasClass() {
@@ -196,6 +198,18 @@ namespace ShallowWrapperTest {
         reactElement = shallowWrapper.get(1);
     }
 
+    function test_getNode() {
+        reactElement = shallowWrapper.getNode();
+    }
+
+    function test_getNodes() {
+        reactElements = shallowWrapper.getNodes();
+    }
+
+    function test_getDOMNode() {
+        domElement = shallowWrapper.getDOMNode();
+    }
+
     function test_at() {
         shallowWrapper = shallowWrapper.at(1);
     }
@@ -206,6 +220,15 @@ namespace ShallowWrapperTest {
 
     function test_last() {
         shallowWrapper = shallowWrapper.last();
+    }
+
+    function test_slice() {
+        shallowWrapper = shallowWrapper.slice(1);
+        shallowWrapper = shallowWrapper.slice(1, 3);
+    }
+
+    function test_tap() {
+        shallowWrapper.tap((intercepter) => { });
     }
 
     function test_state() {
@@ -331,11 +354,13 @@ namespace ShallowWrapperTest {
 }
 
 // ReactWrapper
-namespace ReactWrapperTest {
+function ReactWrapperTest() {
     let reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
-        mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value"/>);
+        mount<MyComponentProps, MyComponentState>(<MyComponent stringProp="value" />);
 
     let reactElement: ReactElement<any>;
+    let reactElements: Array<ReactElement<any>>;
+    let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
     let elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>;
@@ -355,7 +380,7 @@ namespace ReactWrapperTest {
     function test_mount() {
         reactWrapper = reactWrapper.mount();
 
-        mount(<MyComponent stringProp='1'/>, {
+        mount(<MyComponent stringProp='1' />, {
             attachTo: document.getElementById('test'),
             context: {
                 a: "b"
@@ -409,27 +434,27 @@ namespace ReactWrapperTest {
     }
 
     function test_contains() {
-        boolVal = reactWrapper.contains(<div className="foo bar"/>);
+        boolVal = reactWrapper.contains(<div className="foo bar" />);
     }
 
     function test_containsMatchingElement() {
-        boolVal = reactWrapper.contains(<div className="foo bar"/>);
+        boolVal = reactWrapper.contains(<div className="foo bar" />);
     }
 
     function test_containsAllMatchingElements() {
-        boolVal = reactWrapper.containsAllMatchingElements([<div className="foo bar"/>]);
+        boolVal = reactWrapper.containsAllMatchingElements([<div className="foo bar" />]);
     }
 
     function test_containsAnyMatchingElement() {
-        boolVal = reactWrapper.containsAnyMatchingElements([<div className="foo bar"/>]);
+        boolVal = reactWrapper.containsAnyMatchingElements([<div className="foo bar" />]);
     }
 
     function test_equals() {
-        boolVal = reactWrapper.equals(<div className="foo bar"/>);
+        boolVal = reactWrapper.equals(<div className="foo bar" />);
     }
 
     function test_matchesElement() {
-        boolVal = reactWrapper.matchesElement(<div className="foo bar"/>);
+        boolVal = reactWrapper.matchesElement(<div className="foo bar" />);
     }
 
     function test_hasClass() {
@@ -501,6 +526,18 @@ namespace ReactWrapperTest {
         reactElement = reactWrapper.get(1);
     }
 
+    function test_getNode() {
+        reactElement = reactWrapper.getNode();
+    }
+
+    function test_getNodes() {
+        reactElements = reactWrapper.getNodes();
+    }
+
+    function test_getDOMNode() {
+        domElement = reactWrapper.getDOMNode();
+    }
+
     function test_at() {
         reactWrapper = reactWrapper.at(1);
     }
@@ -511,6 +548,15 @@ namespace ReactWrapperTest {
 
     function test_last() {
         reactWrapper = reactWrapper.last();
+    }
+
+    function test_slice() {
+        reactWrapper = reactWrapper.slice(1);
+        reactWrapper = reactWrapper.slice(1, 3);
+    }
+
+    function test_tap() {
+        reactWrapper.tap((intercepter) => { });
     }
 
     function test_state() {
@@ -631,7 +677,7 @@ namespace ReactWrapperTest {
 }
 
 // CheerioWrapper
-namespace CheerioWrapperTest {
+function CheerioWrapperTest() {
     const wrapper: Cheerio =
         shallow(<div />).render() ||
         mount(<div />).render();

@@ -1,6 +1,6 @@
-// Type definitions for Parse v1.2.19
+// Type definitions for parse v1.9.2
 // Project: https://parse.com/
-// Definitions by: Ullisen Media Group <http://ullisenmedia.com>
+// Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -10,8 +10,8 @@
 declare namespace Parse {
 
     var applicationId: string;
-    var javaScriptKey: string;
-    var masterKey: string;
+    var javaScriptKey: string | undefined;
+    var masterKey: string | undefined;
     var serverURL: string;
     var VERSION: string;
 
@@ -82,7 +82,7 @@ declare namespace Parse {
     class Promise<T> implements IPromise<T> {
 
         static as<U>(resolvedValue: U): Promise<U>;
-        static error<U, V>(error: U): Promise<V>;
+        static error(error: any): Promise<any>;
         static is(possiblePromise: any): Boolean;
         static when(promises: IPromise<any>[]): Promise<any>;
         static when(...promises: IPromise<any>[]): Promise<any>;
@@ -191,7 +191,7 @@ declare namespace Parse {
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save<T>(options?: SuccessFailureOptions): Promise<T>;
+        save(options?: SuccessFailureOptions): Promise<File>;
 
     }
 
@@ -326,28 +326,28 @@ declare namespace Parse {
         constructor(attributes?: string[], options?: any);
 
         static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fetchAll<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
-        static fetchAllIfNeeded<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
-        static destroyAll<T>(list: Object[], options?: Object.DestroyAllOptions): Promise<T>;
+        static fetchAll<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
+        static fetchAllIfNeeded<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
+        static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
 
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
 
         initialize(): void;
-        add(attr: string, item: any): Object;
+        add(attr: string, item: any): this;
         addUnique(attr: string, item: any): any;
-        change(options: any): Object;
+        change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
-        clone(): Object;
-        destroy<T>(options?: Object.DestroyOptions): Promise<T>;
+        clone(): this;
+        destroy(options?: Object.DestroyOptions): Promise<this>;
         dirty(attr: String): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
-        fetch<T extends Object>(options?: Object.FetchOptions): Promise<T>;
-        get(attr: string): any;
-        getACL(): ACL;
+        fetch(options?: Object.FetchOptions): Promise<this>;
+        get(attr: string): any | undefined;
+        getACL(): ACL | undefined;
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
@@ -357,8 +357,8 @@ declare namespace Parse {
         previousAttributes(): any;
         relation(attr: string): Relation;
         remove(attr: string, item: any): any;
-        save<T extends Object>(attrs?: { [key: string]: any }, options?: Object.SaveOptions): Promise<T>;
-        save<T extends Object>(key: string, value: any, options?: Object.SaveOptions): Promise<T>;
+        save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
+        save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         unset(attr: string, options?: any): any;
@@ -508,7 +508,7 @@ declare namespace Parse {
         static unbind(): Events;
 
         on(eventName: string, callback?: Function, context?: any): Events;
-        off(eventName?: string, callback?: Function, context?: any): Events;
+        off(eventName?: string | null, callback?: Function | null, context?: any): Events;
         trigger(eventName: string, ...args: any[]): Events;
         bind(eventName: string, callback: Function, context?: any): Events;
         unbind(eventName?: string, callback?: Function, context?: any): Events;
@@ -576,9 +576,10 @@ declare namespace Parse {
         objectClass: any;
         className: string;
 
-        constructor(objectClass: any);
+        constructor(objectClass: string);
+        constructor(objectClass: new(...args: any[]) => Object);
 
-        static or(...var_args: Query[]): Query;
+        static or<U extends Object>(...var_args: Query[]): Query;
 
         addAscending(key: string): Query;
         addAscending(key: string[]): Query;
@@ -590,19 +591,19 @@ declare namespace Parse {
         containedIn(key: string, values: any[]): Query;
         contains(key: string, substring: string): Query;
         containsAll(key: string, values: any[]): Query;
-        count<T>(options?: Query.CountOptions): Promise<T>;
+        count(options?: Query.CountOptions): Promise<number>;
         descending(key: string): Query;
         descending(key: string[]): Query;
         doesNotExist(key: string): Query;
-        doesNotMatchKeyInQuery(key: string, queryKey: string, query: Query): Query;
-        doesNotMatchQuery(key: string, query: Query): Query;
-        each<T>(callback: Function, options?: Query.EachOptions): Promise<T>;
+        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
+        doesNotMatchQuery<U extends Object>(key: string, query: Query): Query;
+        each(callback: Function, options?: Query.EachOptions): Promise<void>;
         endsWith(key: string, suffix: string): Query;
         equalTo(key: string, value: any): Query;
         exists(key: string): Query;
-        find<T extends Object>(options?: Query.FindOptions): Promise<T[]>;
-        first<T>(options?: Query.FirstOptions): Promise<T>;
-        get(objectId: string, options?: Query.GetOptions): Promise<any>;
+        find(options?: Query.FindOptions): Promise<Object[]>;
+        first(options?: Query.FirstOptions): Promise<Object | undefined>;
+        get(objectId: string, options?: Query.GetOptions): Promise<Object>;
         greaterThan(key: string, value: any): Query;
         greaterThanOrEqualTo(key: string, value: any): Query;
         include(key: string): Query;
@@ -611,8 +612,8 @@ declare namespace Parse {
         lessThanOrEqualTo(key: string, value: any): Query;
         limit(n: number): Query;
         matches(key: string, regex: RegExp, modifiers: any): Query;
-        matchesKeyInQuery(key: string, queryKey: string, query: Query): Query;
-        matchesQuery(key: string, query: Query): Query;
+        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
+        matchesQuery<U extends Object>(key: string, query: Query): Query;
         near(key: string, point: GeoPoint): Query;
         notContainedIn(key: string, values: any[]): Query;
         notEqualTo(key: string, value: any): Query;
@@ -720,24 +721,24 @@ declare namespace Parse {
      */
     class User extends Object {
 
-        static current(): User;
-        static signUp<T>(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<T>;
-        static logIn<T>(username: string, password: string, options?: SuccessFailureOptions): Promise<T>;
-        static logOut<T>(): Promise<T>;
+        static current(): User | undefined;
+        static signUp(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<User>;
+        static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
+        static logOut(): Promise<User>;
         static allowCustomUserClass(isAllowed: boolean): void;
-        static become<T>(sessionToken: string, options?: SuccessFailureOptions): Promise<T>;
-        static requestPasswordReset<T>(email: string, options?: SuccessFailureOptions): Promise<T>;
+        static become(sessionToken: string, options?: SuccessFailureOptions): Promise<User>;
+        static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
 
-        signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
-        logIn<T>(options?: SuccessFailureOptions): Promise<T>;
+        signUp(attrs: any, options?: SuccessFailureOptions): Promise<this>;
+        logIn(options?: SuccessFailureOptions): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
-        getEmail(): string;
-        setEmail(email: string, options: SuccessFailureOptions): boolean;
+        getEmail(): string | undefined;
+        setEmail(email: string, options?: SuccessFailureOptions): boolean;
 
-        getUsername(): string;
+        getUsername(): string | undefined;
         setUsername(username: string, options?: SuccessFailureOptions): boolean;
 
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
@@ -801,7 +802,7 @@ declare namespace Parse {
 
     namespace Analytics {
 
-        function track<T>(name: string, dimensions: any):Promise<T>;
+        function track(name: string, dimensions: any): Promise<any>;
     }
 
     /**
@@ -863,8 +864,8 @@ declare namespace Parse {
         }
 
         interface FunctionResponse {
-            success?: (response: any) => void;
-            error?: (response: any) => void;
+            success: (response: any) => void;
+            error: (response: any) => void;
         }
 
         interface Cookie {
@@ -883,7 +884,7 @@ declare namespace Parse {
         interface BeforeDeleteResponse extends FunctionResponse {}
         interface BeforeSaveRequest extends SaveRequest {}
         interface BeforeSaveResponse extends FunctionResponse {
-            success?: () => void;
+            success: () => void;
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
@@ -893,7 +894,7 @@ declare namespace Parse {
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
-        function run<T>(name: string, data?: any, options?: RunOptions): Promise<T>;
+        function run(name: string, data?: any, options?: RunOptions): Promise<any>;
         function useMasterKey(): void;
 
         interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
@@ -904,7 +905,7 @@ declare namespace Parse {
          *     import Buffer = require("buffer").Buffer;
          */
         var HTTPOptions: new () => HTTPOptions;
-        interface HTTPOptions extends FunctionResponse {
+        interface HTTPOptions {
             /**
              * The body of the request.
              * If it is a JSON object, then the Content-Type set in the headers must be application/x-www-form-urlencoded or application/json.
@@ -934,6 +935,9 @@ declare namespace Parse {
              * The url to send the request to.
              */
             url: string;
+
+            success?: (response: any) => void;
+            error?: (response: any) => void;
         }
     }
 

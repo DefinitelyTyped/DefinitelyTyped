@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.30.0
+// Type definitions for Mapbox GL JS v0.35.1
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,6 +9,7 @@ declare namespace mapboxgl {
 	let accessToken: string;
 	let version: string;
 	export function supported(options?: {failIfMajorPerformanceCaveat?: boolean}): boolean;
+	export function setRTLTextPlugin(pluginURL: string, callback: Function): void;
 
 	/**
 	 * Map
@@ -50,7 +51,7 @@ declare namespace mapboxgl {
 
 		queryRenderedFeatures(pointOrBox?: mapboxgl.Point|number[]|mapboxgl.Point[]|number[][], parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
-		querySourceFeatures(sourceID: string, parameters: {sourceLayer?: string, filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+		querySourceFeatures(sourceID: string, parameters?: {sourceLayer?: string, filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
 		setStyle(style: mapboxgl.Style | string): this;
 
@@ -58,9 +59,17 @@ declare namespace mapboxgl {
 
 		addSource(id: string, source: VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
 
+		isSourceLoaded(id: string): boolean;
+
 		removeSource(id: string): this;
 
 		getSource(id: string): VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource;
+
+		addImage(name: string, image: HTMLImageElement | ArrayBufferView, options?: {width?: number, height?: number, pixelRatio?: number}): this;
+
+		removeImage(name: string): this;
+
+		loadImage(url: string, callback: Function): this;
 
 		addLayer(layer: mapboxgl.Layer, before?: string): this;
 
@@ -83,6 +92,10 @@ declare namespace mapboxgl {
 		setLayoutProperty(layer: string, name: string, value: any): this;
 
 		getLayoutProperty(layer: string, name: string, klass?: string): any;
+
+		setLight(options: mapboxgl.Light, lightOptions: any): this;
+
+		getLight(): mapboxgl.Light;
 
 		getContainer(): HTMLElement;
 
@@ -134,13 +147,15 @@ declare namespace mapboxgl {
 
 		setPitch(pitch: number, eventData?: EventData): this;
 
-		fitBounds(bounds: mapboxgl.LngLatBounds | number[][], options?: { linear?: boolean, easing?: Function, padding?: number, offset?: Point|number[],maxZoom?: number }): this;
+		fitBounds(bounds: mapboxgl.LngLatBounds | number[][], options?: { linear?: boolean, easing?: Function, padding?: number | mapboxgl.PaddingOptions, offset?: Point|number[],maxZoom?: number }, eventData?: mapboxgl.EventData): this;
 
 		jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
 		easeTo(options: mapboxgl.CameraOptions | mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
 		flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
+
+		isMoving(): boolean;
 
 		stop(): this;
 
@@ -201,6 +216,8 @@ declare namespace mapboxgl {
 		/** If true, enable keyboard shortcuts (see KeyboardHandler). */
 		keyboard?: boolean;
 
+		logoPosition?: boolean;
+
 		/** If set, the map is constrained to the given bounds. */
 		maxBounds?: mapboxgl.LngLatBounds | number[][];
 
@@ -214,6 +231,10 @@ declare namespace mapboxgl {
 		preserveDrawingBuffer?: boolean;
 
 		pitch?: number;
+
+		refreshExpiredTiles?: boolean;
+
+		renderWorldCopies?: boolean;
 
 		/** If true, enable the "scroll to zoom" interaction */
 		scrollZoom?: boolean;
@@ -229,6 +250,13 @@ declare namespace mapboxgl {
 
 		/** Initial zoom level */
 		zoom?: number;
+	}
+
+	export class PaddingOptions extends Evented {
+		top: number;
+		bottom: number;
+		left: number;
+		right: number;
 	}
 
 	/**
@@ -368,7 +396,7 @@ declare namespace mapboxgl {
 	 * Attribution
 	 */
 	export class AttributionControl extends Control {
-		constructor();
+		constructor(options?: {compact?: boolean});
 	}
 
 	/**
@@ -376,6 +404,13 @@ declare namespace mapboxgl {
 	 */
 	export class ScaleControl extends Control {
 		constructor(options?: {maxWidth?: number, unit?: string})
+	}
+
+	/**
+	 * Fullscreen
+	 */
+	export class FullscreenControl extends Control {
+		constructor();
 	}
 
 	/**
@@ -440,7 +475,7 @@ declare namespace mapboxgl {
 	}
 
 	export interface Source {
-		type: "vector" | "raster" | "geojson" | "image" | "video";
+		type: "vector" | "raster" | "geojson" | "image" | "video" | "canvas";
 	}
 
 	/**
@@ -511,6 +546,29 @@ declare namespace mapboxgl {
 		coordinates?: number[][];
 	}
 
+	/**
+	 * CanvasSource
+	 */
+	export class CanvasSource implements Source, CanvasSourceOptions {
+		type: "canvas";
+
+		coordinates: number[][];
+
+		canvas: string;
+
+		getCanvas(): HTMLCanvasElement;
+
+		setCoordinates(coordinates: number[][]): this;
+	}
+
+	export interface CanvasSourceOptions {
+		coordinates: number[][];
+
+		animate?: boolean;
+
+		canvas: string;
+	}
+
 	interface VectorSource extends Source {
 		type: "vector";
 		url?: string;
@@ -539,6 +597,8 @@ declare namespace mapboxgl {
 
 		/** Return a new LngLat object whose longitude is wrapped to the range (-180, 180). */
 		wrap(): mapboxgl.LngLat;
+
+		wrapToBestWorld(center: mapboxgl.LngLat): mapboxgl.LngLat;
 
 		/** Return a LngLat as an array */
 		toArray(): number[];
@@ -665,7 +725,11 @@ declare namespace mapboxgl {
 	export class Evented {
 		on(type: string, listener: Function): this;
 
+		on(type: string, layer: string, listener: Function): this;
+
 		off(type?: string | any, listener?: Function): this;
+
+		off(type?: string | any, layer?: string, listener?: Function): this;
 
 		once(type: string, listener: Function): this;
 
@@ -810,7 +874,7 @@ declare namespace mapboxgl {
 
 	export interface Layer {
 		id: string;
-		type?: "fill" | "line" | "symbol" | "circle" | "raster" | "background" | string; //TODO: Ideally we wouldn't accept string here, just these specific strings
+		type?: "fill" | "line" | "symbol" | "circle" | "fill-extrusion" | "raster" | "background";
 
 		metadata?: any;
 		ref?: string;
@@ -834,6 +898,7 @@ declare namespace mapboxgl {
 		property?: string;
 		base?: number;
 		type?: "identity" | "exponential" | "interval" | "categorical";
+		default?: any;
 		"colorSpace"?: "rgb" | "lab" | "interval";
 	}
 
@@ -881,14 +946,14 @@ declare namespace mapboxgl {
 		"line-round-limit"?: number;
 	}
 	export interface LinePaint {
-		"line-opacity"?: number;
+		"line-opacity"?: number | StyleFunction;
 		"line-color"?: string| StyleFunction;
 		"line-translate"?: number[];
 		"line-translate-anchor"?: "map" | "viewport";
 		"line-width"?: number;
-		"line-gap-width"?: number;
-		"line-offset"?: number;
-		"line-blur"?: number;
+		"line-gap-width"?: number | StyleFunction;
+		"line-offset"?: number | StyleFunction;
+		"line-blur"?: number | StyleFunction;
 		"line-dasharray"?: number[];
 		"line-dasharray-transition"?: Transition;
 		"line-pattern"?: string;
@@ -904,29 +969,29 @@ declare namespace mapboxgl {
 		"icon-ignore-placement"?: boolean;
 		"icon-optional"?: boolean;
 		"icon-rotation-alignment"?: "map" | "viewport" | "auto";
-		"icon-size"?: number;
+		"icon-size"?: number | StyleFunction;
 		"icon-text-fit"?: "none" | "both" | "width" | "height";
 		"icon-text-fit-padding"?: number[];
-		"icon-image"?: string;
+		"icon-image"?: string | StyleFunction;
 		"icon-rotate"?: number | StyleFunction;
 		"icon-padding"?: number;
 		"icon-keep-upright"?: boolean;
 		"icon-offset"?: number[] | StyleFunction;
 		"text-pitch-alignment"?: "map" | "viewport" | "auto";
 		"text-rotation-alignment"?: "map" | "viewport" | "auto";
-		"text-field"?: string;
+		"text-field"?: string | StyleFunction;
 		"text-font"?: string | string[];
-		"text-size"?: number;
+		"text-size"?: number | StyleFunction;
 		"text-max-width"?: number;
 		"text-line-height"?: number;
 		"text-letter-spacing"?: number;
 		"text-justify"?: "left" | "center" | "right";
 		"text-anchor"?: "center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
 		"text-max-angle"?: number;
-		"text-rotate"?: number;
+		"text-rotate"?: number | StyleFunction;
 		"text-padding"?: number;
 		"text-keep-upright"?: boolean;
-		"text-transform"?: "none" | "uppercase" | "lowercase";
+		"text-transform"?: "none" | "uppercase" | "lowercase" | StyleFunction;
 		"text-offset"?: number[];
 		"text-allow-overlap"?: boolean;
 		"text-ignore-placement"?: boolean;
@@ -934,18 +999,18 @@ declare namespace mapboxgl {
 
 	}
 	export interface SymbolPaint {
-		"icon-opacity"?: number;
-		"icon-color"?: string;
-		"icon-halo-color"?: string;
-		"icon-halo-width"?: number;
-		"icon-halo-blur"?: number;
+		"icon-opacity"?: number | StyleFunction;
+		"icon-color"?: string | StyleFunction;
+		"icon-halo-color"?: string | StyleFunction;
+		"icon-halo-width"?: number | StyleFunction;
+		"icon-halo-blur"?: number | StyleFunction;
 		"icon-translate"?: number[];
 		"icon-translate-anchor"?: "map" | "viewport";
-		"text-opacity"?: number;
-		"text-color"?: "string";
-		"text-halo-color"?: "string";
-		"text-halo-width"?: number;
-		"text-halo-blur"?: number;
+		"text-opacity"?: number | StyleFunction;
+		"text-color"?: string | StyleFunction;
+		"text-halo-color"?: string | StyleFunction;
+		"text-halo-width"?: number | StyleFunction;
+		"text-halo-blur"?: number | StyleFunction;
 		"text-translate"?: number[];
 		"text-translate-anchor"?: "map" | "viewport";
 	}

@@ -16,19 +16,19 @@
 
 // TODO verify support to have no return statement in handlers to get a Promise<void> (more overloads?)
 
-declare class Promise<R> implements Promise.Thenable<R> {
+declare class Promise<T> implements Promise.Thenable<T> {
 	/**
 	 * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
 	 */
-	constructor(callback: (resolve: (thenableOrResult: R | Promise.Thenable<R>) => void, reject: (error: any) => void) => void);
+	constructor(callback: (resolve: (thenableOrResult: T | Promise.Thenable<T>) => void, reject: (error: any) => void) => void);
 
 	/**
 	 * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
 	 */
-	then<U>(onFulfill: (value: R) => Promise.Thenable<U>, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	then<U>(onFulfill: (value: R) => Promise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-	then<U>(onFulfill: (value: R) => U, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	then<U>(onFulfill?: (value: R) => U, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: T) => Promise.Thenable<U>, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: T) => Promise.Thenable<U>, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill: (value: T) => U, onReject: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	then<U>(onFulfill?: (value: T) => U, onReject?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
 
 	/**
 	 * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
@@ -71,55 +71,55 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias `.lastly();` for compatibility with earlier ECMAScript version.
 	 */
-	finally(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
-	finally(handler: (value: R) => R): Promise<R>;
-	finally(handler: (value: R) => void): Promise<R>;
+	finally(handler: (value: T) => Promise.Thenable<T>): Promise<T>;
+	finally(handler: (value: T) => T): Promise<T>;
+	finally(handler: (value: T) => void): Promise<T>;
 
-	lastly(handler: (value: R) => Promise.Thenable<R>): Promise<R>;
-	lastly(handler: (value: R) => R): Promise<R>;
-	lastly(handler: (value: R) => void): Promise<R>;
+	lastly(handler: (value: T) => Promise.Thenable<T>): Promise<T>;
+	lastly(handler: (value: T) => T): Promise<T>;
+	lastly(handler: (value: T) => void): Promise<T>;
 
 	/**
 	 * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
 	 */
-	bind(thisArg: any): Promise<R>;
+	bind(thisArg: any): Promise<T>;
 
 	/**
 	 * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
 	 */
-	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	done<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-	done<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	done<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	done<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	done<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	done<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	done<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
 
 	/**
 	 * Shorthand for `.then(null, null, handler);`. Attach a progress handler that will be called if this promise is progressed. Returns a new promise chained from this promise.
 	 */
-	progressed(handler: (note: any) => any): Promise<R>;
+	progressed(handler: (note: any) => any): Promise<T>;
 
 	/**
 	 * Same as calling `Promise.delay(this, ms)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
 	 */
-	delay(ms: number): Promise<R>;
+	delay(ms: number): Promise<T>;
 
 	/**
 	 * Returns a promise that will be fulfilled with this promise's fulfillment value or rejection reason. However, if this promise is not fulfilled or rejected within `ms` milliseconds, the returned promise is rejected with a `Promise.TimeoutError` instance.
 	 *
 	 * You may specify a custom error message with the `message` parameter.
 	 */
-	timeout(ms: number, message?: string): Promise<R>;
+	timeout(ms: number, message?: string): Promise<T>;
 
 	/**
 	 * Register a node-style callback on this promise. When this promise is is either fulfilled or rejected, the node callback will be called back with the node.js convention where error reason is the first argument and success value is the second argument. The error argument will be `null` in case of success.
 	 * Returns back this promise instead of creating a new one. If the `callback` argument is not a function, this method does not do anything.
 	 */
-	nodeify(callback: (err: any, value?: R) => void): Promise<R>;
+	nodeify(callback: (err: any, value?: T) => void): Promise<T>;
 	nodeify(...sink: any[]): void;
 
 	/**
 	 * Marks this promise as cancellable. Promises by default are not cancellable after v0.11 and must be marked as such for `.cancel()` to have any effect. Marking a promise as cancellable is infectious and you don't need to remark any descendant promise.
 	 */
-	cancellable(): Promise<R>;
+	cancellable(): Promise<T>;
 
 	/**
 	 * Cancel this promise. The cancellation will propagate to farthest cancellable ancestor promise which is still pending.
@@ -136,15 +136,15 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	/**
 	 * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
 	 */
-	fork<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	fork<U>(onFulfilled: (value: R) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-	fork<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
-	fork<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	fork<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	fork<U>(onFulfilled: (value: T) => Promise.Thenable<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+	fork<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => Promise.Thenable<U>, onProgress?: (note: any) => any): Promise<U>;
+	fork<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
 
 	/**
 	 * Create an uncancellable promise based on this promise.
 	 */
-	uncancellable(): Promise<R>;
+	uncancellable(): Promise<T>;
 
 	/**
 	 * See if this promise can be cancelled.
@@ -174,7 +174,7 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	/**
 	 * Synchronously inspect the state of this `promise`. The `PromiseInspection` will represent the state of the promise as snapshotted at the time of calling `.inspect()`.
 	 */
-	inspect(): Promise.Inspection<R>;
+	inspect(): Promise.Inspection<T>;
 
 	/**
 	 * This is a convenience method for doing:
@@ -229,8 +229,8 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias `.thenThrow();` for compatibility with earlier ECMAScript version.
 	 */
-	throw(reason: Error): Promise<R>;
-	thenThrow(reason: Error): Promise<R>;
+	throw(reason: Error): Promise<T>;
+	thenThrow(reason: Error): Promise<T>;
 
 	/**
 	 * Convert to String.

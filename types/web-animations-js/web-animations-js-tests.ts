@@ -113,5 +113,8 @@ function test_onsample_And_addEventListener() {
         myAnimation.addEventListener("finish", (e) => {
             console.log("finished", e);
         });
+        myAnimation.addEventListener("cancel", (e) => {
+            console.log("canceled", e);
+        });
     }
 }

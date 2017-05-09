@@ -822,8 +822,8 @@ function TestPromiseModule() {
     stringPromise = webdriver.promise.createFlow<string>((newFlow: webdriver.promise.ControlFlow) => 'ABC');
 
     let deferred: webdriver.promise.Deferred<string>;
-    deferred = webdriver.promise.defer();
-    deferred = webdriver.promise.defer();
+    deferred = webdriver.promise.defer<string>();
+    deferred = webdriver.promise.defer<string>();
 
     stringPromise = deferred.promise;
 
@@ -835,12 +835,12 @@ function TestPromiseModule() {
     voidPromise = webdriver.promise.fulfilled<void>();
     stringPromise = webdriver.promise.fulfilled('abc');
 
-    stringPromise = webdriver.promise.fullyResolved('abc');
+    stringPromise = webdriver.promise.fullyResolved<string>('abc');
 
     let bool: boolean = webdriver.promise.isGenerator(() => {});
     let isPromise: boolean = webdriver.promise.isPromise('ABC');
 
-    stringPromise = webdriver.promise.rejected('{a: 123}');
+    stringPromise = webdriver.promise.rejected<string>('{a: 123}');
 
     webdriver.promise.setDefaultFlow(new webdriver.promise.ControlFlow());
 
@@ -935,11 +935,13 @@ function TestDeferred() {
 function TestPromiseClass() {
     let controlFlow: webdriver.promise.ControlFlow;
     let promise: webdriver.promise.Promise<string>;
-    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {});
-    promise = new webdriver.promise.Promise<string>((resolve: (value: webdriver.promise.Promise<string>) => void, reject: () => void) => {});
-    promise = new webdriver.promise.Promise<string>((resolve: (value: string) => void, reject: () => void) => {}, controlFlow);
+    promise = new webdriver.promise.Promise<string>((resolve, reject) => {
+        resolve("");
+        resolve(Promise.resolve(""));
+        reject(new Error());
+    }, controlFlow);
 
-    promise = promise.then();
+    promise = promise.then<string>();
     promise = promise.then((a: string) => 'cde');
     promise = promise.then((a: string) => 'cde', (e: any) => {});
     promise = promise.then((a: string) => 'cde', (e: any) => 123);
@@ -958,31 +960,4 @@ function TestThenableClass() {
 async function TestAsyncAwaitable() {
     let thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
     let str: string = await thenable;
-}
-
-function TestTestingModule() {
-    testing.before(() => {
-    });
-
-    testing.beforeEach(() => {
-    });
-
-    testing.describe('My test suite', () => {
-        testing.it('My test', () => {
-        });
-
-        testing.iit('My exclusive test.', () => {
-        });
-    });
-
-    testing.xdescribe('My disabled suite', () => {
-        testing.xit('My disabled test.', () => {
-        });
-    });
-
-    testing.after(() => {
-    });
-
-    testing.afterEach(() => {
-    });
 }

@@ -18,7 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "test/three-tests-setup.ts",
+        "detector.d.ts",
+        "test/references.ts",
         "test/math/test_unit_math.ts",
         "test/webgl/webgl_animation_cloth.ts",
         "test/webgl/webgl_animation_skinning_morph.ts",

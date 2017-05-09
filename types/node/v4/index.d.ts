@@ -251,7 +251,6 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        isTTY?: boolean;
         read(size?: number): string|Buffer;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -266,7 +265,6 @@ declare namespace NodeJS {
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        isTTY?: boolean;
         write(buffer: Buffer|string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -300,10 +298,14 @@ declare namespace NodeJS {
         heapUsed: number;
     }
 
+    export interface Socket extends ReadWriteStream {
+        isTTY?: true;
+    }
+
     export interface Process extends EventEmitter {
-        stdout: WritableStream;
-        stderr: WritableStream;
-        stdin: ReadableStream;
+        stdout: Socket;
+        stderr: Socket;
+        stdin: Socket;
         argv: string[];
         execArgv: string[];
         execPath: string;
@@ -1240,18 +1242,117 @@ declare module "url" {
 }
 
 declare module "dns" {
-    export function lookup(domain: string, family: number, callback: (err: Error, address: string, family: number) =>void ): string;
-    export function lookup(domain: string, callback: (err: Error, address: string, family: number) =>void ): string;
-    export function resolve(domain: string, rrtype: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolve(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolve4(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolve6(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveMx(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveTxt(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveSrv(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveCname(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function reverse(ip: string, callback: (err: Error, domains: string[]) =>void ): string[];
+    // Supported getaddrinfo flags.
+    export const ADDRCONFIG: number;
+    export const V4MAPPED: number;
+
+    export interface LookupOptions {
+        family?: number;
+        hints?: number;
+        all?: boolean;
+    }
+
+    export interface LookupOneOptions extends LookupOptions {
+        all?: false;
+    }
+
+    export interface LookupAllOptions extends LookupOptions {
+        all: true;
+    }
+
+    export interface LookupAddress {
+        address: string;
+        family: number;
+    }
+
+    export function lookup(hostname: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
+    export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
+    export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+
+    export interface MxRecord {
+        priority: number;
+        exchange: string;
+    }
+
+    export interface NaptrRecord {
+        flags: string;
+        service: string;
+        regexp: string;
+        replacement: string;
+        order: number;
+        preference: number;
+    }
+
+    export interface SoaRecord {
+        nsname: string;
+        hostmaster: string;
+        serial: number;
+        refresh: number;
+        retry: number;
+        expire: number;
+        minttl: number;
+    }
+
+    export interface SrvRecord {
+        priority: number;
+        weight: number;
+        port: number;
+        name: string;
+    }
+
+    export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NS", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "PTR", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
+    export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
+
+    export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
+    export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+
+    export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
+    export function setServers(servers: string[]): void;
+
+    //Error codes
+    export var NODATA: string;
+    export var FORMERR: string;
+    export var SERVFAIL: string;
+    export var NOTFOUND: string;
+    export var NOTIMP: string;
+    export var REFUSED: string;
+    export var BADQUERY: string;
+    export var BADNAME: string;
+    export var BADFAMILY: string;
+    export var BADRESP: string;
+    export var CONNREFUSED: string;
+    export var TIMEOUT: string;
+    export var EOF: string;
+    export var FILE: string;
+    export var NOMEM: string;
+    export var DESTRUCTION: string;
+    export var BADSTR: string;
+    export var BADFLAGS: string;
+    export var NONAME: string;
+    export var BADHINTS: string;
+    export var NOTINITIALIZED: string;
+    export var LOADIPHLPAPI: string;
+    export var ADDRGETNETWORKPARAMS: string;
+    export var CANCELLED: string;
 }
 
 declare module "net" {
@@ -1603,15 +1704,15 @@ declare module "fs" {
     export function futimesSync(fd: number, atime: Date, mtime: Date): void;
     export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fsyncSync(fd: number): void;
-    export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+    export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
     export function write(fd: number, buffer: Buffer, offset: number, length: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
     export function write(fd: number, data: any, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function write(fd: number, data: any, offset: number, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
-    export function writeSync(fd: number, data: any, position?: number, enconding?: string): number;
-    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
+    export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): number;
+    export function writeSync(fd: number, data: any, position?: number | null, enconding?: string): number;
+    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
+    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): number;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -2067,12 +2168,13 @@ declare module "stream" {
         highWaterMark?: number;
         encoding?: string;
         objectMode?: boolean;
+        read?: (this: Readable, size?: number) => any;
     }
 
-    export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
+    export class Readable extends Stream implements NodeJS.ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
-        protected _read(size: number): void;
+        _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -2081,7 +2183,7 @@ declare module "stream" {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
         unshift(chunk: any): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
+        wrap(oldStream: NodeJS.ReadableStream): Readable;
         push(chunk: any, encoding?: string): boolean;
     }
 
@@ -2089,14 +2191,17 @@ declare module "stream" {
         highWaterMark?: number;
         decodeStrings?: boolean;
         objectMode?: boolean;
+        write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
+        writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
     }
 
-    export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
+    export class Writable extends Stream implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
-        protected _write(chunk: any, encoding: string, callback: Function): void;
+        _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
+        setDefaultEncoding(encoding: string): this;
         end(): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
@@ -2104,15 +2209,18 @@ declare module "stream" {
 
     export interface DuplexOptions extends ReadableOptions, WritableOptions {
         allowHalfOpen?: boolean;
+        readableObjectMode?: boolean;
+        writableObjectMode?: boolean;
     }
 
     // Note: Duplex extends both Readable and Writable.
-    export class Duplex extends Readable implements NodeJS.ReadWriteStream {
+    export class Duplex extends Readable implements Writable {
         writable: boolean;
         constructor(opts?: DuplexOptions);
-        protected _write(chunk: any, encoding: string, callback: Function): void;
+        _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
+        setDefaultEncoding(encoding: string): this;
         end(): void;
         end(chunk: any, cb?: Function): void;
         end(chunk: any, encoding?: string, cb?: Function): void;
@@ -2120,28 +2228,9 @@ declare module "stream" {
 
     export interface TransformOptions extends ReadableOptions, WritableOptions {}
 
-    // Note: Transform lacks the _read and _write methods of Readable/Writable.
-    export class Transform extends events.EventEmitter implements NodeJS.ReadWriteStream {
-        readable: boolean;
-        writable: boolean;
+    export class Transform extends Duplex {
         constructor(opts?: TransformOptions);
-        protected _transform(chunk: any, encoding: string, callback: Function): void;
-        protected _flush(callback: Function): void;
-        read(size?: number): any;
-        setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
-        isPaused(): boolean;
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: any): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
-        push(chunk: any, encoding?: string): boolean;
-        write(chunk: any, cb?: Function): boolean;
-        write(chunk: any, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(chunk: any, cb?: Function): void;
-        end(chunk: any, encoding?: string, cb?: Function): void;
+        _transform(chunk: any, encoding: string, callback: Function): void;
     }
 
     export class PassThrough extends Transform {}

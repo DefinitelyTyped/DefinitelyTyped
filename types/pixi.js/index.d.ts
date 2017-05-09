@@ -836,18 +836,12 @@ declare namespace PIXI {
         destroy(): void;
     }
 
-    interface IWebGLRendererOptions {
-        view?: HTMLCanvasElement;
-        transparent?: boolean;
-        autoResize?: boolean;
-        antialias?: boolean;
+    interface IWebGLRendererOptions extends IRendererOptions {
         forceFXAA?: boolean;
-        resolution?: number;
-        clearBeforeRender?: boolean;
         preserveDrawingBuffer?: boolean;
-        roundPixels?: boolean;
         legacy?: boolean;
     }
+
     class WebGLRenderer extends SystemRenderer {
         // plugintarget mixin start
         static __plugins: Object;
@@ -1059,7 +1053,7 @@ declare namespace PIXI {
         getRenderTarget(clear?: boolean, resolution?: number): RenderTarget;
         returnRenderTarget(renderTarget: RenderTarget): RenderTarget;
         calculateScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
-        calculateNormalisedScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
+        calculateNormalizedScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
         calculateSpriteMatrix(outputMatrix: Matrix, sprite: Sprite): Matrix;
         destroy(): void;
         emptyPool(): void;
