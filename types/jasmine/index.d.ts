@@ -1,6 +1,6 @@
 // Type definitions for Jasmine 2.5.2
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>, Lukas Zech <https://github.com/lukas-zech-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -350,7 +350,7 @@ declare namespace jasmine {
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
         toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
         toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
-        toContain(expected: T, expectationFailOutput?: any): boolean;
+        toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
         not: ArrayLikeMatchers<T>;
     }
 

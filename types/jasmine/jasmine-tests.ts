@@ -112,6 +112,13 @@ describe("Included matchers:", () => {
         expect(a).not.toContain("quux");
     });
 
+    it("The 'toContain' matcher is also for finding an object containing distinct properties in an Array", () => {
+        var a = [{a:"foo"}, {a:"bar"}, {b:"baz"}];
+
+        expect(a).toContain(jasmine.objectContaining({a:"foo"}));
+        expect(a).not.toContain({a:"quux"});
+    });
+
     it("The 'toBeLessThan' matcher is for mathematical comparisons", () => {
         var pi = 3.1415926,
             e = 2.78;
