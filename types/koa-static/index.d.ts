@@ -42,6 +42,11 @@ declare function serve(root: string, opts?: {
      * Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with .gz extension exists. defaults to true.
      */
     gzip?: boolean;
+
+    /**
+     * Try to match extensions from passed array to search for file when no extension is sufficed in URL. First found is served. (defaults to `false`)
+     */
+    extensions?: string[];
 }): Koa.Middleware;
 declare namespace serve{}
 export = serve;
