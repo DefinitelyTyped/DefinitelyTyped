@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {ReactWidgetsCommonProps} from './CommonProps';
 
-interface CalendarProps extends React.Props<CalendarClass>{
+interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>{
     /**
      * The current selected date, should be a Date object or null.
      */
@@ -97,12 +98,6 @@ interface CalendarProps extends React.Props<CalendarClass>{
      * 1900 - 1999.
      */
     centuryFormat?: string | ((day: Date) => string);
-    /**
-     * Mark whether the widget should render right-to-left. This property can also be implicitly
-     * passed to the widget through a childContext prop (isRtl) this allows higher level
-     * application components to specify the direction.
-     */
-    isRtl?: boolean;
     messages?: CalendarMessages;
 }
 

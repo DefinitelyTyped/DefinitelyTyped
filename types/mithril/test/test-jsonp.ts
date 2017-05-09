@@ -1,17 +1,17 @@
-import {jsonp} from 'mithril/request'
+import {jsonp} from 'mithril/request';
 
 interface Result {
-	id: number
+	id: number;
 }
 
 jsonp<Result>('/item').then(data => {
-	console.log(data.id)
-})
+	console.log(data.id);
+});
 
 class User {
-	id: number
-	constructor (result: Result) {
-		this.id = result.id
+	id: number;
+	constructor(result: Result) {
+		this.id = result.id;
 	}
 }
 
@@ -23,5 +23,5 @@ jsonp<User>({
 	callbackKey: 'key',
 	background: true
 }).then(user => {
-	console.log(user.id)
-})
+	console.log(user.id);
+});

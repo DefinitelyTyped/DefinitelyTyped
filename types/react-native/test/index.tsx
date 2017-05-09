@@ -18,14 +18,22 @@ import {
     BackAndroid,
     Dimensions,
     InteractionManager,
+    ListView,
+    ListViewDataSource,
     StyleSheet,
     Systrace,
     Text,
     TextStyle,
+    TextProperties,
     View,
     ViewStyle,
     ViewPagerAndroid,
-    findNodeHandle
+    FlatList,
+    SectionList,
+    findNodeHandle,
+    ScrollView,
+    ScrollViewProps,
+    RefreshControl,
 } from 'react-native';
 
 function testDimensions() {
@@ -70,24 +78,24 @@ const styles = StyleSheet.create<LocalStyles>(
 //alternative declaration of styles (inline typings)
 const stylesAlt = StyleSheet.create(
     {
-        container:    {
-            flex:            1,
-            justifyContent:  'center',
-            alignItems:      'center',
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
             backgroundColor: '#F5FCFF',
-        } as ViewStyle,
-        welcome:   {
-            fontSize:  20,
+        },
+        welcome: {
+            fontSize: 20,
             textAlign: 'center',
-            margin:    10,
-        } as TextStyle,
+            margin: 10,
+        },
         instructions: {
-            textAlign:    'center',
-            color:        '#333333',
+            textAlign: 'center',
+            color: '#333333',
             marginBottom: 5,
-        } as TextStyle
+        }
     }
-)
+);
 
 class CustomView extends React.Component<{}, {}> {
 
@@ -191,3 +199,59 @@ profiledJSONParse('[]')
 InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => 'done')
+
+export class FlatListTest {
+    render() {
+        <FlatList
+            data={[1, 2, 3, 4, 5]}
+            renderItem={(itemInfo: number) => <View><Text>{itemInfo}</Text></View>}
+        />
+    }
+}
+
+export class SectionListTest {
+    render() {
+        var sections = [{
+            key: 's1',
+            data: ['A', 'B', 'C', 'D', 'E']
+        }, {
+            key: 's2',
+            data: ['A2', 'B2', 'C2', 'D2', 'E2']
+        }];
+
+        <SectionList
+            sections={sections}
+            renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
+        />
+    }
+}
+
+export class CapsLockComponent extends React.Component<TextProperties, {}> {
+    render() {
+        const content = (this.props.children || "") as string
+        return (
+            <Text {...this.props} >
+                {content.toUpperCase()}
+            </Text>
+        )
+    }
+}
+
+class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource}> {
+    render() {
+        return (
+            <ListView dataSource={this.state.dataSource}
+                renderScrollComponent={(props) => {
+                    if (props.scrollEnabled) {
+                        throw new Error("Expected scroll to be enabled.")
+                    }
+
+                    return <ScrollView {...props} />
+                }}
+                renderRow={({ type, data }, _, row: number) => {
+                    return <Text>Filler</Text>
+                }
+            } />
+        )
+    }
+}

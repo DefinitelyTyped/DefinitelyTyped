@@ -71,7 +71,9 @@ Add to your `tsconfig.json`:
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
-Once you've tested your definitions with real code, make a PR contributing the definition by copying `types/foo` to `DefinitelyTyped/foo` and adding a `tsconfig.json` and `foo-tests.ts`.
+Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
+then follow the instructions to [edit an existing package](#edit-an-existing-package) or
+[create a new package](#create-a-new-package).
 
 
 ### Make a pull request
@@ -83,10 +85,17 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 #### Edit an existing package
 
-* `cd my-package-to-edit`
+* `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+  - Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
 * `npm install -g typescript@2.0` and run `tsc`.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
@@ -184,11 +193,6 @@ This usually happens within an hour of changes being merged.
 If the module you're referencing is an external module (uses `export`), use an import.
 If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
-#### What do I do about older versions of typings?
-
-Currently we don't support this, though it is [planned](https://github.com/Microsoft/types-publisher/issues/3).
-If you're adding a new major version of a library, you can copy `index.d.ts` to `foo-v2.3.d.ts` and edit `index.d.ts` to be the new version.
-
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
@@ -214,7 +218,7 @@ If default imports work in your environment, consider turning on the [`--allowSy
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
 
-#### I want to use features from TypeScript 2.1.
+#### I want to use features from TypeScript 2.1 or above.
 
 Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
 
@@ -255,6 +259,11 @@ For example, `react-router` depends on `history@2`, so [react-router `tsconfig.j
 transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+#### What about scoped packages?
+
+Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+
 
 #### The file history in GitHub looks incomplete.
 

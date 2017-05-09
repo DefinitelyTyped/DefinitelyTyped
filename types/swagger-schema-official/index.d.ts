@@ -1,6 +1,6 @@
 // Type definitions for swagger-schema-official 2.0
 // Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
@@ -140,7 +140,7 @@ export interface BaseSchema {
 export interface Schema extends BaseSchema {
   $ref?: string;
   allOf?: Schema[];
-  additionalProperties?: boolean;
+  additionalProperties?: Schema;
   properties?: {[propertyName: string]: Schema};
   discriminator?: string;
   readOnly?: boolean;

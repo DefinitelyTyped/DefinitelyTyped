@@ -38,7 +38,8 @@ var mtime: number;
 var watchListener: (curr: fs.Stats, prev: fs.Stats) => void;
 var statsCallback: (err: Error, stats: fs.Stats) => void;
 var errorCallback: (err: Error) => void;
-var openOpts: fs.OpenOptions;
+var openOpts: fs.ReadOptions;
+var writeOpts: fs.WriteOptions;
 var watcher: fs.FSWatcher;
 var readStream: stream.Readable;
 var writeStream: stream.Writable;
@@ -180,17 +181,17 @@ buf = fs.readFileSync(filename, openOpts);
 
 fs.writeFile(filename, data, errorCallback);
 fs.writeFile(filename, data, encoding, errorCallback);
-fs.writeFile(filename, data, openOpts, errorCallback);
+fs.writeFile(filename, data, writeOpts, errorCallback);
 fs.writeFileSync(filename, data);
 fs.writeFileSync(filename, data, encoding);
-fs.writeFileSync(filename, data, openOpts);
+fs.writeFileSync(filename, data, writeOpts);
 
 fs.appendFile(filename, data, errorCallback);
 fs.appendFile(filename, data, encoding, errorCallback);
-fs.appendFile(filename, data, openOpts, errorCallback);
+fs.appendFile(filename, data, writeOpts, errorCallback);
 fs.appendFileSync(filename, data);
 fs.appendFileSync(filename, data, encoding);
-fs.appendFileSync(filename, data, openOpts);
+fs.appendFileSync(filename, data, writeOpts);
 
 fs.watchFile(filename, watchListener);
 fs.watchFile(filename, {

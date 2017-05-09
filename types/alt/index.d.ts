@@ -109,7 +109,7 @@ declare namespace AltJS {
     flush():Object;
     recycle( ...stores:Array<AltJS.AltStore<any>>):void;
     rollback():void;
-    dispatch(action?:AltJS.Action<any>, data?:Object, details?:any):void;
+    dispatch(action?:AltJS.Action<any>|string, data?:Object, details?:any):void;
 
     //Actions methods
     addActions(actionsName:string, ActionsClass: ActionsClassConstructor):void;

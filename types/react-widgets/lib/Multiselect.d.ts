@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {ReactWidgetsCommonDropdownProps} from './CommonProps';
 
-interface MultiselectProps extends React.Props<MultiselectClass> {
+interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectClass> {
     /**
      * The current values of the Multiselect. The value should can null, or an array of
      * valueField values, or an array of objects (such as a few items in the data array)
@@ -127,23 +128,6 @@ interface MultiselectProps extends React.Props<MultiselectClass> {
      * @default 250
      */
     duration?: number;
-    /**
-     * Disable the widget, If an Array of values is passed in only the tags specified will be
-     * disabled.
-     */
-    disabled?: boolean | any[];
-    /**
-     * Place the widget in a readonly mode, If an Array of values is passed in only the tags
-     * specified will be readonly.
-     */
-    readOnly?: boolean | any[];
-    /**
-     * Mark whether the widget should render right-to-left. This property can also be implicitly
-     * passed to the widget through a childContext prop (isRtl) this allows higher level
-     * application components to specify the direction.
-     * @default false
-     */
-    isRtl?: boolean;
     /**
      * Object hash containing display text and/or text for screen readers. Use the messages
      * object to localize widget text and increase accessibility.

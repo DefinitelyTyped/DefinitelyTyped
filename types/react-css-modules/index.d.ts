@@ -1,4 +1,4 @@
-// Type definitions for react-css-modules 3.7.9
+// Type definitions for react-css-modules 4.2.0
 // Project: https://github.com/gajus/react-css-modules
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>, Tadas Dailyda <https://github.com/skirsdeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,6 +31,9 @@ export = CSSModules;
 
 declare module 'react' {
     interface HTMLAttributes<T> {
+        styleName?: string;
+    }
+    interface SVGAttributes<T> {
         styleName?: string;
     }
 }

@@ -41,6 +41,14 @@ function test_getAuthResponse() {
   var authResponseWithAuth = user.getAuthResponse(true);
 }
 
+function test_reloadAuthResponse() {
+  gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse()
+    .then(response => {
+      let token = response.access_token;
+      let expires_in = response.expires_in
+    })
+}
+
 function test_render() {
   var success = (googleUser: gapi.auth2.GoogleUser): void => {
     console.log(googleUser);
@@ -103,10 +111,10 @@ function handleClientLoad() {
 }
 function initClient() {
   gapi.client.init({
-      apiKey: apiKey,
-      discoveryDocs: discoveryDocs,
-      clientId: clientId,
-      scope: scopes
+    apiKey: apiKey,
+    discoveryDocs: discoveryDocs,
+    clientId: clientId,
+    scope: scopes
   }).then(function () {
     // Listen for sign-in state changes.
     gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
@@ -136,10 +144,10 @@ function handleSignoutClick(event: MouseEvent) {
 function makeApiCall() {
   gapi.client.people.people.get({
     resourceName: 'people/me'
-  }).then(function(resp) {
+  }).then(function (resp) {
     var p = document.createElement('p');
     var name = resp.result.names[0].givenName;
-    p.appendChild(document.createTextNode('Hello, '+name+'!'));
+    p.appendChild(document.createTextNode('Hello, ' + name + '!'));
     document.getElementById('content').appendChild(p);
   });
 }

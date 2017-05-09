@@ -2,16 +2,16 @@ import * as AWS from 'aws-sdk';
 import * as nodemailer from "nodemailer";
 import * as sesTransport from 'nodemailer-ses-transport';
 
-var opts: sesTransport.SesOptions = {
+const opts: sesTransport.SesOptions = {
   ses: new AWS.SES(),
   rateLimit: 5,
   maxConnections: 3,
 };
 
-var transport: nodemailer.Transport = sesTransport(opts);
+const transport: nodemailer.Transport = sesTransport(opts);
 
 // setup e-mail data with unicode symbols
-var mailOptions: nodemailer.SendMailOptions = {
+const mailOptions: nodemailer.SendMailOptions = {
   from: 'Fred Foo ✔ <foo@blurdybloop.com>', // sender address
   to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
   subject: 'Hello ✔', // Subject line
