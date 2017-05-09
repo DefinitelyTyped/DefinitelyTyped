@@ -48,7 +48,7 @@ interface Auth0LockThemeButton {
     icon?: string;
 }
 interface Auth0LockThemeButtonOptions {
-    [authButtons: string]: Auth0LockThemeButton;
+    [provider: string]: Auth0LockThemeButton;
 }
 
 interface Auth0LockThemeOptions {
@@ -134,6 +134,20 @@ interface Auth0LockShowOptions {
     rememberLastLogin?: boolean;
 }
 
+interface AuthResult {
+    accessToken: string;
+    idToken: string;
+    idTokenPayload: {
+        aud: string;
+        exp: number;
+        iat: number;
+        iss: string;
+        sub: string;
+    };
+    refreshToken?: string;
+    state: string;
+}
+
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
 
@@ -141,14 +155,14 @@ interface Auth0LockStatic {
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
-    resumeAuth( hash: string, callback: (error: auth0.Auth0Error, authResult: any) =>  void): void;
+    resumeAuth( hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) =>  void): void;
     show(options?: Auth0LockShowOptions): void;
     hide(): void;
     logout(query: any): void;
 
     on(event: "show" | "hide", callback: () => void): void;
     on(event: "unrecoverable_error" | "authorization_error", callback: (error: auth0.Auth0Error) => void): void;
-    on(event: "authenticated", callback: (authResult: any) => void): void;
+    on(event: "authenticated", callback: (authResult: AuthResult) => void): void;
     on(event: string, callback: (...args: any[]) => void): void;
 }
 

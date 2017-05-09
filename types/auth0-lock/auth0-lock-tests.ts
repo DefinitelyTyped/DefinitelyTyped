@@ -217,3 +217,17 @@ var avatarOptions : Auth0LockConstructorOptions = {
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
+
+var authResult : AuthResult = {
+    accessToken: 'fake_access_token',
+    idToken: 'fake_id_token',
+    idTokenPayload: {
+      aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
+      exp: 1494393724,
+      iat: 1494357724,
+      iss: "https://www.foo.com",
+      sub: "auth0|aksjfkladsf"
+    },
+    refreshToken: undefined,
+    state: "923jf092j3.FFSDJFDSKLDF"
+};
