@@ -570,7 +570,7 @@ export interface StackNavigatorScreenOptions {
   title?: string;
   headerVisible?: boolean;
   headerTitle?: string|React.ReactElement<any>;
-  headerBackTitle?: string|null;
+  headerBackTitle?: string;
   headerTruncatedBackTitle?: string;
   headerRight?: React.ReactElement<any>;
   headerLeft?: React.ReactElement<any>;
