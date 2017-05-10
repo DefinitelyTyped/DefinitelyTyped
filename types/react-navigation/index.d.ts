@@ -476,7 +476,7 @@ export interface LayoutEvent {
 }
 
 interface NavigationContainerProps {
-  navigation: NavigationProp<any, NavigationAction>
+  navigation?: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
     nextNavigationState: NavigationState,
@@ -489,7 +489,7 @@ interface NavigationContainerState {
 
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps
-> {
+  > {
   router: any
 }
 
@@ -509,7 +509,7 @@ export function StackNavigator(
  */
 export interface DrawNavigatorConfig {
   drawerWidth?: number,
-  drawerPosition?: 'left'|'right',
+  drawerPosition?: 'left' | 'right',
   contentComponent?: React.ReactElement<any>,
   contentOptions?: {
     activeTintColor?: string,
@@ -531,7 +531,7 @@ export function DrawerNavigator(
  */
 export interface TabNavigatorConfig {
   tabBarComponent?: React.ReactElement<any>,
-  tabBarPosition?: 'top'|'bottom',
+  tabBarPosition?: 'top' | 'bottom',
   swipeEnabled?: boolean,
   animationEnabled?: boolean,
   lazy?: boolean,
@@ -556,7 +556,7 @@ export interface TabNavigatorConfig {
   initialRouteName?: string,
   order?: string[],
   paths?: any     // TODO: better def
-  backBehavior?: 'initialRoute'|'none'
+  backBehavior?: 'initialRoute' | 'none'
 }
 
 export function TabNavigator(
@@ -569,8 +569,8 @@ export function TabNavigator(
 export interface StackNavigatorScreenOptions {
   title?: string;
   headerVisible?: boolean;
-  headerTitle?: string|React.ReactElement<any>;
-  headerBackTitle?: string|null;
+  headerTitle?: string | React.ReactElement<any>;
+  headerBackTitle?: string | null;
   headerTruncatedBackTitle?: string;
   headerRight?: React.ReactElement<any>;
   headerLeft?: React.ReactElement<any>;
@@ -586,18 +586,18 @@ export interface TabNavigatorScreenOptions {
   tabBarVisible?: boolean;
   tabBarIcon?: React.ReactElement<any>;
   tabBarLaben?: string
-      |React.ReactElement<any>
-      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
+  | React.ReactElement<any>
+  | ((options: { focused: boolean, tintColor: string }) => React.ReactElement<any>)
   ;
 }
 
 export interface DrawerNavigatorScreenOptions {
   title?: string;
   drawerLabel?: string
-      |React.ReactElement<any>
-      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
+  | React.ReactElement<any>
+  | ((options: { focused: boolean, tintColor: string }) => React.ReactElement<any>)
   ;
   drawerIcon?: React.ReactElement<any>
-      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
+  | ((options: { focused: boolean, tintColor: string }) => React.ReactElement<any>)
   ;
 }
