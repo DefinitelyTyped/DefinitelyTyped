@@ -301,6 +301,21 @@ declare module "@google-cloud/storage/storage" {
     updated?: string;
   }
 
+  interface Credentials {
+    client_email?: string;
+    private_key?: string;
+  }
+
+  interface ConfigurationObject {
+    autoRetry?: boolean;
+    credentials?: Credentials;
+    email?: string;
+    keyFilename?: string;
+    maxRetries?: number;
+    projectId?: string;
+    promise?: Function;
+  }
+
   /**
    * The options when downloading a file.
    */
@@ -343,6 +358,7 @@ declare module "@google-cloud/storage/storage" {
    * The Storage class allows you interact with Google Cloud Storage.
    */
   class Storage {
+    constructor(options?: ConfigurationObject);
     acl: Acl;
     bucket(name: string|Bucket): Bucket;
     channel(id: string, resourceId: string): Channel;
