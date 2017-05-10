@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   RouteComponentProps,
   Route,
   Link,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 const AmbiguousExample = () => (
   <Router>
@@ -37,14 +37,14 @@ const AmbiguousExample = () => (
       </Switch>
     </div>
   </Router>
-)
+);
 
-const About = () => <h2>About</h2>
-const Company = () => <h2>Company</h2>
+const About = () => <h2>About</h2>;
+const Company = () => <h2>Company</h2>;
 const User: React.SFC<RouteComponentProps<{user: string}>> = ({ match }) => (
   <div>
     <h2>User: {match.params.user}</h2>
   </div>
-)
+);
 
-export default AmbiguousExample
+export default AmbiguousExample;

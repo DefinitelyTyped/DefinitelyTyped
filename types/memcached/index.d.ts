@@ -13,25 +13,11 @@ declare class Memcached extends events.EventEmitter {
     static config: Memcached.options;
 
     /**
-     * Connect to a single server.
-     * @param location Server location e.g. "127.0.0.1:11211"
+     * Connect to a single Memcached server or cluster
+     * @param location Server locations
      * @param options options
      */
-    constructor(location: string, options?: Memcached.options);
-
-    /**
-     * Connect to a cluster of Memcached servers.
-     * @param location Server locations e.g. ["127.0.0.1:11211","127.0.0.1:11212"]
-     * @param options options
-     */
-    constructor(location: string[], options?: Memcached.options);
-
-    /**
-     * Connect to servers with weight.
-     * @param location Server locations e.g. {"127.0.0.1:11211": 1,"127.0.0.1:11212": 2}
-     * @param options options
-     */
-    constructor(location: {[server: string]: number}, options ?: Memcached.options);
+    constructor(location: Memcached.Location, options?: Memcached.options);
 
     /**
      * Touches the given key.
@@ -185,29 +171,9 @@ declare class Memcached extends events.EventEmitter {
     flush(cb: (this: undefined, err: any, results: boolean[]) => void): void;
 
     /**
-     * a issue occurred on one a server, we are going to attempt a retry next.
+     * Register event listener
      */
-    on(event: "issue", cb: (err: Memcached.IssueData) => void): this;
-
-    /**
-     * a server has been marked as failure or dead.
-     */
-    on(event: "failure", cb: (err: Memcached.IssueData) => void): this;
-
-    /**
-     * we are going to attempt to reconnect the to the failed server.
-     */
-    on(event: "reconnecting", cb: (err: Memcached.IssueData) => void): this;
-
-    /**
-     * successfully reconnected to the memcached server.
-     */
-    on(event: "reconnect", cb: (err: Memcached.IssueData) => void): this;
-
-    /**
-     * removing the server from our consistent hashing.
-     */
-    on( event: "remove", cb: (err: Memcached.IssueData) => void): this;
+    on(event: Memcached.EventNames, cb: (err: Memcached.IssueData) => void): this;
 
     /**
      * Closes all active memcached connections.
@@ -259,6 +225,31 @@ declare namespace Memcached {
         b: number;
         s: number;
     }
+
+    /**
+     * <ul>
+     *     <li><b>issue</b> a issue occurred on a server, we are going to attempt a retry next.</li>
+     *     <li><b>failure</b> a server has been marked as failure or dead.</li>
+     *     <li><b>reconnecting</b> we are going to attempt to reconnect the to the failed server.</li>
+     *     <li><b>reconnect</b> successfully reconnected to the memcached server.</li>
+     *     <li><b>remove</b> removing the server from our consistent hashing.</li>
+     * </ul>
+     */
+    type EventNames = "issue" | "failure" | "reconnecting" | "reconnect" | "remove";
+
+    /**
+     * Declaration for single server or Memcached cluster location
+     *
+     * to connect to a single server use
+     * "127.0.0.1:11211"
+     *
+     * to connect to a cluster of Memcached servers use
+     * ["127.0.0.1:11211","127.0.0.1:11212"]
+     *
+     * to connect to servers with weight use
+     * {"127.0.0.1:11211": 1,"127.0.0.1:11212": 2}
+     */
+    type Location = string | string[] | {[server: string]: number};
 
     interface options {
         /**

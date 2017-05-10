@@ -355,6 +355,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "path-to-regexp",
+            "typingsPackageName": "path-to-regexp",
+            "sourceRepoURL": "https://github.com/pillarjs/path-to-regexp",
+            "asOfVersion": "1.7.0"
+        },
+        {
             "libraryName": "pg-promise",
             "typingsPackageName": "pg-promise",
             "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",

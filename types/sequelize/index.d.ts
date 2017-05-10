@@ -5726,8 +5726,8 @@ declare namespace sequelize {
          * @param autoCallback Callback for the transaction
          */
         transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
+            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(): Promise<Transaction>;
 
         /**

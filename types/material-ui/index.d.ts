@@ -1,6 +1,6 @@
-// Type definitions for material-ui v0.17.4
+// Type definitions for material-ui v0.17.51
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>, Aurelién Allienne <https://github.com/allienna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -661,6 +661,7 @@ declare namespace __MaterialUI {
     interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
+        className?: string;
         disabled?: boolean;
         fullWidth?: boolean;
         hoverColor?: string;
@@ -822,6 +823,8 @@ declare namespace __MaterialUI {
             titleColor?: string;
             titleStyle?: React.CSSProperties;
             className?: string;
+            openIcon?: React.ReactNode;
+            closeIcon?: React.ReactNode;
         }
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
@@ -1016,7 +1019,7 @@ declare namespace __MaterialUI {
         overlayStyle?: React.CSSProperties;
         style?: React.CSSProperties;
         swipeAreaWidth?: number;
-        width?: number;
+        width?: number | string;
         zDepth?: number;
     }
     export class Drawer extends React.Component<DrawerProps, {}> {
@@ -1342,10 +1345,12 @@ declare namespace __MaterialUI {
         iconStyle?: React.CSSProperties;
         id?: string;
         labelStyle?: React.CSSProperties;
+        multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler<{}>;
         selectFieldRoot?: React.CSSProperties;
+        selectionRenderer?: (value: any) => React.ReactNode;
         style?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;

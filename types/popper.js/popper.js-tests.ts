@@ -1,5 +1,5 @@
 
-import * as Popper from 'popper.js';
+import Popper from 'popper.js';
 
 var reference = document.querySelector('.my-button');
 var thePopper = new Popper(
@@ -30,9 +30,10 @@ var anotherPopper = new Popper(
 
 var reference = document.querySelector('.my-button');
 var popper = document.querySelector('.my-popper');
-var anotherPopper = new Popper(reference, popper).onCreate(function(instance) {
-    console.log(instance.offsets);
-}).onUpdate(function(data) {
-    var p = data.offsets.popper;
-    console.log(`top: ${p.top}, left: ${p.left}`);
+var anotherPopper = new Popper(reference, popper, {
+    onCreate: (data => console.log(data)),
+    onUpdate: ((data) => {
+        var p = data.offsets.popper;
+        console.log(`top: ${p.top}, left: ${p.left}`);
+    })
 });
