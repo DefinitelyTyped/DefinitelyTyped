@@ -12,7 +12,7 @@ export interface EditableInputProps extends ClassAttributes<EditableInput> {
     label?: string;
     onChange?: ColorChangeHandler;
     style?: EditableInputStyles;
-    value?: any;    
+    value?: any;
     dragLabel?: string;
     dragMax?: string;
 }
