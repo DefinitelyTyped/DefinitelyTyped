@@ -1009,6 +1009,9 @@ User.bulkCreate( [{ name : 'foo', code : '123' }, { code : '1234' }], { fields :
 User.bulkCreate( [{ name : 'a', c : 'b' }, { name : 'e', c : 'f' }], { fields : ['e', 'f'], ignoreDuplicates : true } );
 
 User.truncate();
+User.truncate( { cascade : true } );
+User.truncate( { force : true } );
+User.truncate( { cascade: true, force : true } );
 
 User.destroy( { where : { client_id : 13 } } ).then( ( a ) => a.toFixed() );
 User.destroy( { force : true } );
