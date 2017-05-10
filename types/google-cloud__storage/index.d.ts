@@ -313,7 +313,7 @@ declare module "@google-cloud/storage/storage" {
     keyFilename?: string;
     maxRetries?: number;
     projectId?: string;
-    promise?: Function;
+    promise?: PromiseLibrary<any>;
   }
 
   /**
@@ -366,4 +366,6 @@ declare module "@google-cloud/storage/storage" {
     getBuckets(query?: BucketQuery): Promise<[Bucket[]]>;
     getBucketsStream(query?: BucketQuery): Promise<[ReadStream]>;
   }
+
+  type PromiseLibrary<T> = () => PromiseLike<T>;
 }
