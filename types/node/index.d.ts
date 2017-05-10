@@ -1857,7 +1857,7 @@ declare module "url" {
     export function resolve(from: string, to: string): string;
 
     export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string);
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): Iterator<string[]>;
