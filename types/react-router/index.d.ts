@@ -69,6 +69,8 @@ export interface RouteProps {
   path?: string;
   exact?: boolean;
   strict?: boolean;
+  onEnter?: Function;
+  onLeave?: Function;
 }
 export class Route extends React.Component<RouteProps, {}> { }
 
