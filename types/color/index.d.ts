@@ -67,6 +67,13 @@ declare namespace Color {
         hex(color: string): Color;
         hex(): string;
         rgb(): Color;
+        hsl(): Color;
+        hsv(): Color;
+        hwb(): Color;
+        hcg(): Color;
+        cmyk(): Color;
+        xyz(): Color;
+        lab(): Color;
         rgbNumber(): number;
         luminosity(): number;
         contrast(color: Color): number;

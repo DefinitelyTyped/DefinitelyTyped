@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.17.5
+// Type definitions for material-ui v0.17.51
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>, Aurelién Allienne <https://github.com/allienna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1019,7 +1019,7 @@ declare namespace __MaterialUI {
         overlayStyle?: React.CSSProperties;
         style?: React.CSSProperties;
         swipeAreaWidth?: number;
-        width?: number;
+        width?: number | string;
         zDepth?: number;
     }
     export class Drawer extends React.Component<DrawerProps, {}> {

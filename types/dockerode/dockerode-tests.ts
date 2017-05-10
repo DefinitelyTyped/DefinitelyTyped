@@ -24,6 +24,25 @@ const docker6 = new Docker({
   key: 'key'
 });
 
+const docker7 = new Docker({
+  Promise
+});
+
+async function foo() {
+  const containers = await docker7.listContainers();
+  for (const container of containers) {
+    const foo = await docker7.getContainer(container.Id);
+    const inspect = await foo.inspect();
+  }
+
+  const images = await docker5.listImages();
+  for (const image of images) {
+    const foo = await docker5.getImage(image.Id);
+    const inspect = await foo.inspect();
+    await foo.remove();
+  }
+}
+
 const container = docker.getContainer('container-id');
 container.inspect((err, data) => {
   // NOOP
@@ -45,6 +64,10 @@ docker.listContainers((err, containers) => {
         // NOOP
       });
   });
+});
+
+docker.listContainers().then(containers => {
+  return containers.map(container => docker.getContainer(container.Id));
 });
 
 docker.buildImage('archive.tar', { t: 'imageName' }, (err, response) => {

@@ -76,6 +76,7 @@ declare namespace restangular {
     customDELETE(path: string, params?: any, headers?: any): IPromise<any>;
     customPOST(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
     customPUT(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
+    customPATCH(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
     customOperation(operation: string, path: string, params?: any, headers?: any, elem?: any): IPromise<any>;
     addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): IPromise<any>;
   }
