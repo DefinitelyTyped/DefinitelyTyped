@@ -187,9 +187,9 @@ declare namespace rosie {
      * @param {object=} options
      * @return {*}
      */
-    build(attributes: Object, options: Object): Object;
+    build(attributes: Object, options?: Object): Object;
 
-    buildList(size: number, attributes: Object, options: Object): Object[];
+    buildList(size: number, attributes: Object, options?: Object): Object[];
 
     /**
      * Extends a given factory by copying over its attributes, options,
