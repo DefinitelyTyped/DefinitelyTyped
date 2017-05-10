@@ -3247,8 +3247,8 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-                     
-                     
+
+
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -4783,6 +4783,11 @@ declare namespace sequelize {
          * Operator that should be used by gin index, see Built-in GIN Operator Classes
          */
         operator?: string;
+
+        /**
+         * Condition for partioal index
+         */
+        where?: WhereOptions;
 
     }
 
