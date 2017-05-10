@@ -243,6 +243,18 @@ namespace common {
     anySchema = anySchema.empty(anySchema);
 
     anySchema = anySchema.error(err);
+    anySchema = anySchema.error(() => '"foo" requires a positive number');
+    anySchema = anySchema.error((errors) => 'found errors with ' + errors.map(
+        (err) => `${err.type}(${err.context.limit}) with value ${err.context.value}`).join(' and ')
+    );
+    anySchema = anySchema.error((errors) => ({
+        template: 'contains {{errors}} errors, here is the list : {{codes}}',
+        context: {
+            errors: errors.length,
+            codes: errors.map((err) => err.type)
+        }
+    }));
+    anySchema = anySchema.error((errors) => errors);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
