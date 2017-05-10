@@ -3407,7 +3407,7 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
-export interface FlatListProperties<ItemT> {
+export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
     /**
      * Rendered in between each item, but not at the top or bottom
