@@ -118,6 +118,7 @@ refOpts = { contextPrefix: str };
 
 var validErr: Joi.ValidationError = null;
 var validErrItem: Joi.ValidationErrorItem;
+var validErrFunc: Joi.ValidationErrorFunction;
 
 validErrItem = {
     message: str,
@@ -132,6 +133,11 @@ validErrItem = {
     options: validOpts,
     context: obj
 };
+
+validErrFunc = errs => errs;
+validErrFunc = errs => errs[0];
+validErrFunc = errs => 'Some error';
+validErrFunc = errs => err;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -243,6 +249,7 @@ namespace common {
     anySchema = anySchema.empty(anySchema);
 
     anySchema = anySchema.error(err);
+    anySchema = anySchema.error(validErrFunc);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
