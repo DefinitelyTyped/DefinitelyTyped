@@ -4697,43 +4697,6 @@ function handleActive(tab) {
 }
 
 const TabsExampleSimple = () => (
-  <Tabs>
-        <Tab label="Item One">
-      <div>
-        <h2 style={styles.headline}>Tab One</h2>
-        <p>
-          This is an example tab.
-        </p>
-        <p>
-          You can put any sort of HTML or react component in here. It even keeps the component state!
-        </p>
-                <Slider name="slider0" defaultValue={0.5}/>
-      </div>
-    </Tab>
-        <Tab label="Item Two">
-      <div>
-        <h2 style={styles.headline}>Tab Two</h2>
-        <p>
-          This is another example tab.
-        </p>
-      </div>
-    </Tab>
-    <Tab
-      label="onActive"
-      value="/home"
-      onActive={handleActive}
-    >
-      <div>
-        <h2 style={styles.headline}>Tab Three</h2>
-        <p>
-          This is a third example tab.
-        </p>
-      </div>
-    </Tab>
-  </Tabs>
-);
-
-const TabsExampleTeamplateStyle = () => (
   <Tabs tabTemplateStyle={{backgroundColor: 'red'}}>
         <Tab label="Item One">
       <div>
