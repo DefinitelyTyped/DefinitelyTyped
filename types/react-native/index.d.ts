@@ -5783,7 +5783,7 @@ export interface ScrollViewPropertiesIOS {
      * This can be used for paginating through children that have lengths smaller than the scroll view.
      * Used in combination with snapToAlignment.
      */
-    snapToInterval?: number[]
+    snapToInterval?: number
 
     /**
      * An array of child indices determining which children get docked to the
