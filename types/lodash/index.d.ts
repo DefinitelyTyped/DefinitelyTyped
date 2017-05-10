@@ -18522,7 +18522,7 @@ declare namespace _ {
          * @param defaultValue The default value.
          * @returns Returns the resolved value.
          */
-        defaultTo<T>(value: T, defaultValue: T): T;
+        defaultTo<T>(value: T | null | undefined, defaultValue: T): T;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -19591,20 +19591,20 @@ declare namespace _ {
 
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
 
-    type DictionaryIterator<T, TResult> = (value: T, key?: string, collection?: Dictionary<T>) => TResult;
+    type DictionaryIterator<T, TResult> = (value: T, key: string, collection: Dictionary<T>) => TResult;
 
-    type NumericDictionaryIterator<T, TResult> = (value: T, key?: number, collection?: Dictionary<T>) => TResult;
+    type NumericDictionaryIterator<T, TResult> = (value: T, key: number, collection: Dictionary<T>) => TResult;
 
-    type ObjectIterator<T, TResult> = (element: T, key?: string, collection?: any) => TResult;
+    type ObjectIterator<T, TResult> = (element: T, key: string, collection: any) => TResult;
 
-    type StringIterator<TResult> = (char: string, index?: number, string?: string) => TResult;
+    type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
-    type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey?: any, list?: T[]) => void;
+    type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => void;
 
-    type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey?: any, list?: T[]) => TResult;
+    type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => TResult;
 
-    type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index?: number, arr?: T[]) => void;
-    type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key?: string, dict?: Dictionary<T>) => void;
+    type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
+    type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
     // Common interface between Arrays and jQuery objects
     interface List<T> {

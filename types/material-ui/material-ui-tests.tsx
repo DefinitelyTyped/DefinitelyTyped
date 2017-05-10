@@ -1662,7 +1662,7 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-                <Drawer width={200} openSecondary={true} open={this.state.open}>
+                <Drawer width="20%" openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
         </Drawer>
       </div>

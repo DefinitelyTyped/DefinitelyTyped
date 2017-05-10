@@ -4,7 +4,8 @@
 //                 Christian Droulers <https://github.com/cdroulers>,
 //                 Fedor Nezhivoi <https://github.com/gyzerok>,
 //                 Till Wolff <https://github.com/tillwolff>,
-//                 Karol Janyst <https://github.com/LKay>
+//                 Karol Janyst <https://github.com/LKay>,
+//                 Brian Houser <https://github.com/bhouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -186,6 +187,7 @@ declare namespace ReactIntl {
             messages?: any;
             defaultLocale?: string;
             defaultFormats?: any;
+            textComponent?: any;
         }
     }
 
