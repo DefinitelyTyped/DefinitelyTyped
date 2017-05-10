@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.43
+// Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -5098,6 +5098,11 @@ export interface TabBarItemProperties extends ViewProperties {
     badge?: string | number
 
     /**
+     * Background color for the badge. Available since iOS 10.
+     */
+    badgeColor?: string
+
+    /**
      * A custom icon for the tab. It is ignored when a system icon is defined.
      */
     icon?: ImageURISource
@@ -5182,6 +5187,11 @@ export interface TabBarIOSProperties extends ViewProperties {
      * Color of text on unselected tabs
      */
     unselectedTintColor?: string
+
+    /**
+     * Color of unselected tab icons. Available since iOS 10.
+     */
+    unselectedItemTintColor?: string
 }
 
 export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
@@ -5783,7 +5793,7 @@ export interface ScrollViewPropertiesIOS {
      * This can be used for paginating through children that have lengths smaller than the scroll view.
      * Used in combination with snapToAlignment.
      */
-    snapToInterval?: number[]
+    snapToInterval?: number
 
     /**
      * An array of child indices determining which children get docked to the
