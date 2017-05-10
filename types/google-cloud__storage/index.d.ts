@@ -1,6 +1,6 @@
-// Type definitions for @google-cloud/storage 0.6
+// Type definitions for @google-cloud/storage v1.1.0
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
-// Definitions by: Brian Love <http://brianflove.com>
+// Definitions by: Brian Love <https://github.com/blove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
