@@ -2627,6 +2627,37 @@ declare module "fs" {
      */
     export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     /**
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param file descriptor
+     * @param encoding
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
+    export function readFile(fd: number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    /**
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param file descriptor
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
+    export function readFile(fd: number, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    /**
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param file descriptor
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
+    export function readFile(fd: number, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    /**
+     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
+     *
+     * @param file descriptor
+     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     */
+    export function readFile(fd: number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
      * @param fileName
@@ -2647,16 +2678,47 @@ declare module "fs" {
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
+    /**
+     * Synchronous readFile - Synchronously reads the entire contents of a file.
+     *
+     * @param file descriptor
+     * @param encoding
+     */
+    export function readFileSync(fd: number, encoding: string): string;
+    /**
+     * Synchronous readFile - Synchronously reads the entire contents of a file.
+     *
+     * @param file descriptor
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
+     */
+    export function readFileSync(fd: number, options: { encoding: string; flag?: string; }): string;
+    /**
+     * Synchronous readFile - Synchronously reads the entire contents of a file.
+     *
+     * @param file descriptor
+     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
+     */
+    export function readFileSync(fd: number, options?: { flag?: string; }): Buffer;
     export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(fd: number, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(fd: number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(fd: number, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
+    export function writeFileSync(fd: number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
+    export function writeFileSync(fd: number, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(fd: number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(fd: number, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(fd: number, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
+    export function appendFileSync(fd: number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
+    export function appendFileSync(fd: number, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function watchFile(filename: string, listener: (curr: Stats, prev: Stats) => void): void;
     export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: (curr: Stats, prev: Stats) => void): void;
     export function unwatchFile(filename: string, listener?: (curr: Stats, prev: Stats) => void): void;
