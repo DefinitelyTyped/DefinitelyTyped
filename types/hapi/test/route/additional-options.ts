@@ -30,17 +30,9 @@ cache = {
     expiresAt: '22:44',
 };
 
-cache = {
-    privacy: 'default',
-    statuses: [200, 201],
-    /* typings should cause this to error, but currently does not
-    expiresAt: 5000,
-    */
-};
-
-/* typings should cause this to error, but currently does not
+// /* typings should cause this to error, but currently does not
 var cache: Hapi.RouteCacheOptions = {
     expiresIn: 5000,
     expiresAt: '22:44',
 };
-*/
+// */
