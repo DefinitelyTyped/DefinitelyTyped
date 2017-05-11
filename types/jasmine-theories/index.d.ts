@@ -4,29 +4,29 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace jasmineTheories{
-    interface jasmineTheoriesStatic{
-        /**
-         * runs the test function with each of the given argunments in the list
-         * 
-         * @param {string} description the description of the test as in jasmine
-         * @param {any[]} args argunments passed to the test
-         * @param {Function} testFunction the test
-         * 
-         * @memberof jasmineTheoriesStatic
-         */
-        it(description:string, args:any[], testFunction:Function):void;
+	interface jasmineTheoriesStatic{
+		/**
+		 * runs the test function with each of the given argunments in the list
+		 * 
+		 * @param {string} description the description of the test as in jasmine
+		 * @param {any[]} args argunments passed to the test
+		 * @param {Function} testFunction the test
+		 * 
+		 * @memberof jasmineTheoriesStatic
+		 */
+		it(description:string, args:any[], testFunction:(testedValue:any) => void):void;
 
-        /**
-         * ignored version of the test
-         * 
-         * @param {string} description the description of the test as in jasmine
-         * @param {any[]} args argunments passed to the test
-         * @param {Function} testFunction the test
-         * 
-         * @memberof jasmineTheoriesStatic
-         */
-        xit(description:string, args:any[], testFunction:Function):void;
-    }
+		/**
+		 * ignored version of the test
+		 * 
+		 * @param {string} description the description of the test as in jasmine
+		 * @param {any[]} args argunments passed to the test
+		 * @param {Function} testFunction the test
+		 * 
+		 * @memberof jasmineTheoriesStatic
+		 */
+		xit(description:string, args:any[], testFunction:(testedValue:any) => void):void;
+	}
 }
-declare const jsminTheories: jasmineTheories.jasmineTheoriesStatic;
+declare var jsminTheories: jasmineTheories.jasmineTheoriesStatic;
 export default jsminTheories;
