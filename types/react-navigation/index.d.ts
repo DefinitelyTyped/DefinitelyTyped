@@ -321,7 +321,7 @@ export type NavigationAction =
 export namespace NavigationActions {
   function navigate(options: NavigationNavigateAction): any;
   function reset(options: NavigationResetAction): any;
-  function back(options: NavigationBackAction): any;
+  function back(options?: NavigationBackAction): any;
   function setParams(options: NavigationSetParamsAction): any;
 }
 
