@@ -826,7 +826,7 @@ export interface RouteAuthAccessConfiguationObject {
 /**
  * For context see RouteAdditionalConfigurationOptions > cache
  */
-export interface RouteCacheOptions {
+export type RouteCacheOptions = {
     /**
      * determines the privacy flag included in client-side caching using the 'Cache-Control' header. Values are:
      *  * 'default' - no privacy flag. This is the default setting.
@@ -834,15 +834,17 @@ export interface RouteCacheOptions {
      *  * 'private' - mark the response as suitable only for private caching.
      */
     privacy?: 'default' | 'public' | 'private';
-    /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
-    expiresIn?: number;
-    /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
-    expiresAt?: string;
-    /** an array of HTTP response status codes (e.g. 200) which are allowed to include a valid caching directive. Defaults to [200]. */
-    statuses?: [number];
+    statuses?: number[];
     /** a string with the value of the 'Cache-Control' header when caching is disabled. Defaults to 'no-cache'. */
     otherwise?: string;
-}
+} & ({
+        /** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+        expiresIn: number;
+    } | {
+        /** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
+        expiresAt: string;
+    } | {}
+);
 
 /**
  * For context see RouteAdditionalConfigurationOptions > cors

@@ -470,17 +470,7 @@ export interface IRouteAdditionalConfigurationOptions {
 	/** an object passed back to the provided handler (via this) when called. */
 	bind?: any;
 	/** if the route method is 'GET', the route can be configured to include caching directives in the response using the following options */
-	cache?: {
-		/**  mines the privacy flag included in clientside caching using the 'Cache-Control' header.Values are:
-		 fault'no privacy flag.This is the default setting.
-		 'public'mark the response as suitable for public caching.
-		 'private'mark the response as suitable only for private caching.  */
-		privacy: string;
-		/**  relative expiration expressed in the number of milliseconds since the item was saved in the cache.Cannot be used together with expiresAt. */
-		expiresIn: number;
-		/**  time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire.Cannot be used together with expiresIn.  */
-		expiresAt: string;
-	};
+	cache?: IRouteAdditionalConfigurationCache;
 	/** the Cross- Origin Resource Sharing protocol allows browsers to make cross- origin API calls.CORS is required by web applications running inside a browser which are loaded from a different domain than the API server.CORS headers are disabled by default. To enable, set cors to true, or to an object with the following options: */
 	cors?: {
 		/** a strings array of allowed origin servers ('Access-Control-Allow-Origin').The array can contain any combination of fully qualified origins along with origin strings containing a wildcard '' character, or a single `''origin string. Defaults to any origin['*']`. */
@@ -727,6 +717,24 @@ export interface IRouteAdditionalConfigurationAuthAccess {
 	 */
 	entity?: string;
 }
+
+export type IRouteAdditionalConfigurationCache = {
+	/** determines the privacy flag included in clientside caching using the 'Cache-Control' header. Values are:
+	 'Default': no privacy flag.This is the default setting.
+	 'public': mark the response as suitable for public caching.
+	 'private': mark the response as suitable only for private caching.  */
+	privacy?: 'default' | 'public' | 'private';
+	/** an array of HTTP response status codes (e.g. 200) which are allowed to include a valid caching directive. Defaults to [200]. */
+	statuses?: number[];
+	/** a string with the value of the 'Cache-Control' header when caching is disabled. Defaults to 'no-cache'. */
+	otherwise?: string;
+} & ({
+	/** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+	expiresIn: number;
+} | {
+	/** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire. Cannot be used together with expiresIn. */
+	expiresAt: string;
+} | {});
 
 /** server.realm http://hapijs.com/api#serverrealm
  The realm object contains server-wide or plugin-specific state that can be shared across various methods. For example, when calling server.bind(),
