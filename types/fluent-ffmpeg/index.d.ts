@@ -301,4 +301,5 @@ declare namespace Ffmpeg {
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 
+export as namespace Ffmpeg;
 export = Ffmpeg;
