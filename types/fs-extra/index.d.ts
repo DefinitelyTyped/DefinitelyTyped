@@ -1,6 +1,9 @@
 // Type definitions for fs-extra 3.0
 // Project: https://github.com/jprichardson/node-fs-extra
-// Definitions by: Alan Agius <https://github.com/alan-agius4>, midknight41 <https://github.com/midknight41>, Brendan Forster <https://github.com/shiftkey>
+// Definitions by: Alan Agius <https://github.com/alan-agius4>
+//                 midknight41 <https://github.com/midknight41>
+//                 Brendan Forster <https://github.com/shiftkey>
+//                 Mees van Dijk <https://github.com/mees->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -103,6 +106,10 @@ export function access(path: string | Buffer, mode?: number): Promise<void>;
 export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number | string; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(filename: string, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(filename: string, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
+export function appendFile(fd: number, data: any, options: { encoding?: string; mode?: number | string; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
+export function appendFile(fd: number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
+export function appendFile(fd: number, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
+
 
 export function chmod(path: string | Buffer, mode: string | number, callback: (err?: NodeJS.ErrnoException) => void): void;
 export function chmod(path: string | Buffer, mode: string | number): Promise<void>;
@@ -178,6 +185,14 @@ export function readFile(filename: string, options: { flag?: string; } | { encod
 export function readFile(filename: string, encoding: string): Promise<string>;
 export function readFile(filename: string): Promise<Buffer>;
 
+export function readFile(fd: number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+export function readFile(fd: number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+export function readFile(fd: number, options: { flag?: string; } | { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+export function readFile(fd: number, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
+// tslint:disable-next-line:unified-signatures
+export function readFile(fd: number, encoding: string): Promise<string>;
+export function readFile(fd: number): Promise<Buffer>;
+
 export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 export function readdir(path: string | Buffer): Promise<string[]>;
 
@@ -235,6 +250,10 @@ export function write(fd: number, data: any, offset: number, encoding?: string):
 export function writeFile(filename: string, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
+
+export function writeFile(fd: number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
+export function writeFile(fd: number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+export function writeFile(fd: number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
 
 /**
  * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
