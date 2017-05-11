@@ -3,12 +3,10 @@
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace microtime {
-  function now (): number
+export as namespace microtime;
 
-  function nowDouble (): number
+export function now(): number;
 
-  function nowStruct (): number[]
-}
+export function nowDouble(): number;
 
-export = microtime;
+export function nowStruct(): number[];
