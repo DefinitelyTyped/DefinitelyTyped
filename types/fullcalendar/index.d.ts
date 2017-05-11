@@ -90,7 +90,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
 
     // Clicking & Hovering - http://fullcalendar.io/docs/mouse/
 
-    dayClick?(date: Date, allDay: boolean, jsEvent: MouseEvent, view: ViewObject): void;
+    dayClick?(date: Date, jsEvent: MouseEvent, view: ViewObject): void;
     eventClick?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): any; // return type boolean or void
     eventMouseover?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;
     eventMouseout?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;

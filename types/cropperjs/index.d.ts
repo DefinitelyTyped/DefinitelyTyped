@@ -10,30 +10,41 @@ declare namespace cropperjs {
         CanvasShouldNotBeWithInTheContainer = 2,
         ContainerSshouldBeWithInTheCanvas = 3
     }
-    export interface CropperCustomEvent extends CustomEvent {
+    export interface CropperReadyEvent extends CustomEvent { }
+    export interface CropperCropEvent extends CustomEvent {
         detail: Data;
+    }
+    export interface CropperCropStepEvent extends CustomEvent {
+        detail: CropStepData;
+    }
+    export interface CropperZoomEvent extends CustomEvent {
+        detail: ZoomData;
     }
     export interface CropperOptions {
         /**
         * Function called when crop box is ready
         */
-        ready?: (event: CropperCustomEvent) => void;
+        ready?: (event: CropperReadyEvent) => void;
         /**
         * Function called when crop box is moved or resized
         */
-        crop?: (event: CropperCustomEvent) => void;
+        crop?: (event: CropperCropEvent) => void;
         /**
         * Function called at start of crop box being moved or resized
         */
-        cropstart?: (event: CropperCustomEvent) => void;
+        cropstart?: (event: CropperCropStepEvent) => void;
         /**
         * Function called when crop box is moved
         */
-        cropmove?: (event: CropperCustomEvent) => void;
+        cropmove?: (event: CropperCropStepEvent) => void;
         /**
         * Function called when crop box is finished being moved or resized
         */
-        cropend?: (event: CropperCustomEvent) => void;
+        cropend?: (event: CropperCropStepEvent) => void;
+        /**
+         * Function called when a cropper instance starts to zoom in or zoom out its canvas (image wrapper).
+         */
+        zoom?: (event: CropperZoomEvent) => void;
         /**
         * Define the view mode of the cropper.
         * @default 0
@@ -119,6 +130,11 @@ declare namespace cropperjs {
         * @default true
         */
         rotatable?: boolean;
+        /**
+        * Enable to restore the cropped area after resizing the window.
+        * @default true
+        */
+        restore?: boolean;
         /**
         * Enable to scale the image.
         * @default true
@@ -231,6 +247,47 @@ declare namespace cropperjs {
         */
         scaleY: number;
     }
+    interface CropStepData {
+        /**
+         * The original event that was triggered
+         * Options:
+         *   `cropstart`: mousedown, touchstart and pointerdown
+         *   `cropmove`: mousemove, touchmove and pointermove
+         *   `cropend`: mouseup, touchend, touchcancel, pointerup and pointercancel
+         */
+        originalEvent: Event;
+        /**
+         * Options:
+         *   'crop': create a new crop box
+         *   'move': move the canvas (image wrapper)
+         *   'zoom': zoom in / out the canvas (image wrapper) by touch
+         *   'e': resize the east side of the crop box
+         *   'w': resize the west side of the crop box
+         *   's': resize the south side of the crop box
+         *   'n': resize the north side of the crop box
+         *   'se': resize the southeast side of the crop box
+         *   'sw': resize the southwest side of the crop box
+         *   'ne': resize the northeast side of the crop box
+         *   'nw': resize the northwest side of the crop box
+         *   'all': move the crop box (all directions)
+         */
+        action: string;
+    }
+    interface ZoomData {
+        /**
+         * The original event that was triggered 
+         * Options: wheel, touchmove
+         */
+        originalEvent: Event;
+        /**
+         * The old (current) ratio of the canvas
+         */
+        oldRatio: number;
+        /**
+         * The new (next) ratio of the canvas (canvasData.width / canvasData.naturalWidth)
+         */
+        ratio: number;
+    }
     interface ContainerData {
         /**
         * The current width of the container
@@ -338,8 +395,8 @@ declare namespace cropperjs {
 declare class cropperjs {
     constructor(element: HTMLImageElement, options: cropperjs.CropperOptions);
     /**
-             * Show the crop box manually.
-             */
+     * Show the crop box manually.
+     */
     crop(): void;
 
     /**
@@ -392,11 +449,25 @@ declare class cropperjs {
     zoom(ratio: number): void;
 
     /**
+    * Zoom the canvas (image wrapper) to an absolute ratio.
+    * Zoom in: requires a positive number (ratio > 0)
+    * Zoom out: requires a negative number (ratio < 0)
+    */
+    zoomTo(ratio: number): void;
+
+    /**
     * Rotate the canvas (image wrapper) with a relative degree.
     * Rotate right: requires a positive number (degree > 0)
     * Rotate left: requires a negative number (degree < 0)
     */
     rotate(degree: number): void;
+
+    /**
+    * Rotate the canvas (image wrapper) to an absolute degree.
+    * Rotate right: requires a positive number (degree > 0)
+    * Rotate left: requires a negative number (degree < 0)
+    */
+    rotateTo(degree: number): void;
 
     /**
     * Clear the crop box.

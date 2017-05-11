@@ -5654,7 +5654,7 @@ declare namespace _ {
     //_.zipObject
     interface LoDashStatic {
         /**
-         * This method is like _.fromPairs except that it accepts two arrays, one of property 
+         * This method is like _.fromPairs except that it accepts two arrays, one of property
          * identifiers and one of corresponding values.
          *
          * @param props The property names.
@@ -5909,6 +5909,7 @@ declare namespace _ {
         chain(value: string): LoDashExplicitWrapper<string>;
         chain(value: boolean): LoDashExplicitWrapper<boolean>;
         chain<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+        chain<T>(value: ReadonlyArray<T>): LoDashExplicitArrayWrapper<T>;
         chain<T extends {}>(value: T): LoDashExplicitObjectWrapper<T>;
         chain(value: any): LoDashExplicitWrapper<any>;
     }
@@ -6135,6 +6136,11 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashImplicitArrayWrapper<T>;
+            
+        /**
+         * @see _.plant
+         */
+        plant<T>(value: ReadonlyArray<T>): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.plant
@@ -6172,6 +6178,11 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+            
+        /**
+         * @see _.plant
+         */
+        plant<T>(value: ReadonlyArray<T>): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.plant
@@ -8415,21 +8426,38 @@ declare namespace _ {
          */
         map<T, TResult>(
             collection: List<T>,
-            iteratee?: ListIterator<T, TResult>
+            iteratee: ListIterator<T, TResult>
         ): TResult[];
+
+        /**
+         * @see _.map
+         */
+        map<T>(collection: List<T>): T[];
 
         /**
          * @see _.map
          */
         map<T extends {}, TResult>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, TResult>
+            iteratee: DictionaryIterator<T, TResult>
         ): TResult[];
+
+        /** @see _.map */
+        map<T, K extends keyof T>(
+            collection: Dictionary<T>,
+            iteratee: K
+        ): T[K][];
+
+        /** @see _.map */
+        map<T>(collection: Dictionary<T>): T[];
 
         map<T extends {}, TResult>(
             collection: NumericDictionary<T>,
             iteratee?: NumericDictionaryIterator<T, TResult>
         ): TResult[];
+
+        /** @see _.map */
+        map<T, K extends keyof T>(collection: List<T>, iteratee: K): T[K][];
 
         /**
          * @see _.map
@@ -8453,21 +8481,29 @@ declare namespace _ {
          * @see _.map
          */
         map<TResult>(
-            iteratee?: ListIterator<T, TResult>
+            iteratee: ListIterator<T, TResult>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.map
          */
+        map(): LoDashImplicitArrayWrapper<T>;
+
+        /** @see _.map */
+        map<K extends keyof T>(iteratee: K): LoDashImplicitArrayWrapper<T[K]>;
+
+        /**
+         * @see _.map
+         */
         map<TResult>(
-            iteratee?: string
+            iteratee: string
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.map
          */
         map<TObject extends {}>(
-            iteratee?: TObject
+            iteratee: TObject
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
@@ -8476,21 +8512,27 @@ declare namespace _ {
          * @see _.map
          */
         map<TValue, TResult>(
-            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>
+            iteratee: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>
         ): LoDashImplicitArrayWrapper<TResult>;
+
+        /** @see _.map */
+        map(): LoDashImplicitArrayWrapper<T[keyof T]>;
+
+        /** @see _.map */
+        map<K extends keyof T>(iteratee: K): LoDashImplicitArrayWrapper<T[K]>;
 
         /**
          * @see _.map
          */
         map<TValue, TResult>(
-            iteratee?: string
+            iteratee: string
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.map
          */
         map<TObject extends {}>(
-            iteratee?: TObject
+            iteratee: TObject
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
@@ -8499,21 +8541,27 @@ declare namespace _ {
          * @see _.map
          */
         map<TResult>(
-            iteratee?: ListIterator<T, TResult>
+            iteratee: ListIterator<T, TResult>
         ): LoDashExplicitArrayWrapper<TResult>;
+
+        /** @see _.map */
+        map(): LoDashExplicitArrayWrapper<T>;
+
+        /** @see _.map */
+        map<K extends keyof T>(iteratee: K): LoDashExplicitArrayWrapper<T[K]>;
 
         /**
          * @see _.map
          */
         map<TResult>(
-            iteratee?: string
+            iteratee: string
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.map
          */
         map<TObject extends {}>(
-            iteratee?: TObject
+            iteratee: TObject
         ): LoDashExplicitArrayWrapper<boolean>;
     }
 
@@ -8522,21 +8570,24 @@ declare namespace _ {
          * @see _.map
          */
         map<TValue, TResult>(
-            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>
+            iteratee: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>
         ): LoDashExplicitArrayWrapper<TResult>;
+
+        /** @see _.map */
+        map(): LoDashExplicitArrayWrapper<T[keyof T]>;
 
         /**
          * @see _.map
          */
         map<TValue, TResult>(
-            iteratee?: string
+            iteratee: string
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.map
          */
         map<TObject extends {}>(
-            iteratee?: TObject
+            iteratee: TObject
         ): LoDashExplicitArrayWrapper<boolean>;
     }
 
@@ -18471,7 +18522,7 @@ declare namespace _ {
          * @param defaultValue The default value.
          * @returns Returns the resolved value.
          */
-        defaultTo<T>(value: T, defaultValue: T): T;
+        defaultTo<T>(value: T | null | undefined, defaultValue: T): T;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -19540,20 +19591,20 @@ declare namespace _ {
 
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
 
-    type DictionaryIterator<T, TResult> = (value: T, key?: string, collection?: Dictionary<T>) => TResult;
+    type DictionaryIterator<T, TResult> = (value: T, key: string, collection: Dictionary<T>) => TResult;
 
-    type NumericDictionaryIterator<T, TResult> = (value: T, key?: number, collection?: Dictionary<T>) => TResult;
+    type NumericDictionaryIterator<T, TResult> = (value: T, key: number, collection: Dictionary<T>) => TResult;
 
-    type ObjectIterator<T, TResult> = (element: T, key?: string, collection?: any) => TResult;
+    type ObjectIterator<T, TResult> = (element: T, key: string, collection: any) => TResult;
 
-    type StringIterator<TResult> = (char: string, index?: number, string?: string) => TResult;
+    type StringIterator<TResult> = (char: string, index: number, string: string) => TResult;
 
-    type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey?: any, list?: T[]) => void;
+    type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => void;
 
-    type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey?: any, list?: T[]) => TResult;
+    type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => TResult;
 
-    type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index?: number, arr?: T[]) => void;
-    type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key?: string, dict?: Dictionary<T>) => void;
+    type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
+    type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
     // Common interface between Arrays and jQuery objects
     interface List<T> {

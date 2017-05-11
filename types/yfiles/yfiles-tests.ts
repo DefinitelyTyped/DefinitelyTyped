@@ -118,6 +118,7 @@ class BasicTest {
         let a21 = new yfiles.styles.ArcEdgeStyle();
         let a22 = new yfiles.tree.AspectRatioTreeLayout();
         let a23 = new yfiles.view.GraphComponent();
+        let yfilesNamespace : yfiles_namespace;
     }
 
     testsForVersion2001() {

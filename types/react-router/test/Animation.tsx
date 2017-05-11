@@ -1,5 +1,5 @@
-import * as React from 'react'
-import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import * as React from 'react';
+import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
   BrowserRouter as Router,
   RouteComponentProps,
@@ -7,7 +7,7 @@ import {
   LinkProps,
   Link,
   Redirect
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 /* you'll need this CSS somewhere
 .fade-enter {
@@ -58,13 +58,13 @@ const AnimationExample = () => (
       </div>
     )}/>
   </Router>
-)
+);
 
 const NavLink: React.SFC<LinkProps> = (props) => (
   <li style={styles.navItem}>
     <Link {...props} style={{ color: 'inherit' }}/>
   </li>
-)
+);
 
 interface HSLParams {
   h: number;
@@ -78,9 +78,9 @@ const HSL: React.SFC<RouteComponentProps<HSLParams>> = ({ match: { params } }) =
     ...styles.hsl,
     background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`
   }}>hsl({params.h}, {params.s}%, {params.l}%)</div>
-)
+);
 
-const styles: any = {}
+const styles: any = {};
 
 styles.fill = {
   position: 'absolute',
@@ -88,13 +88,13 @@ styles.fill = {
   right: 0,
   top: 0,
   bottom: 0
-}
+};
 
 styles.content = {
   ...styles.fill,
   top: '40px',
   textAlign: 'center'
-}
+};
 
 styles.nav = {
   padding: 0,
@@ -104,20 +104,20 @@ styles.nav = {
   height: '40px',
   width: '100%',
   display: 'flex'
-}
+};
 
 styles.navItem = {
   textAlign: 'center',
   flex: 1,
   listStyleType: 'none',
   padding: '10px'
-}
+};
 
 styles.hsl  = {
   ...styles.fill,
   color: 'white',
   paddingTop: '20px',
   fontSize: '30px'
-}
+};
 
-export default AnimationExample
+export default AnimationExample;

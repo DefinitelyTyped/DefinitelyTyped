@@ -1658,6 +1658,14 @@ interface JQuery {
      */
     css(propertyName: string): string;
     /**
+     * Get the value of style properties for the first element in the set of matched elements.
+     * Results in an object of property-value pairs.
+     *
+     * @param propertyNames An array of one or more CSS properties.
+     * @see {@link https://api.jquery.com/css/#css-propertyNames}
+     */
+    css(propertyNames: string[]): any;
+    /**
      * Set one or more CSS properties for the set of matched elements.
      *
      * @param propertyName A CSS property name.
@@ -2767,7 +2775,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data}
      */
-    on(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+    on(events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any; }, selector?: string, data?: any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2775,7 +2783,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data}
      */
-    on(events: { [key: string]: any; }, data?: any): JQuery;
+    on(events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any; }, data?: any): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
