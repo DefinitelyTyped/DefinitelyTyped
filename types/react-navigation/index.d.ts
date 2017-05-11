@@ -1,6 +1,7 @@
 // Type definitions for react-navigation 1.0
 // Project: https://github.com/react-community/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
+//                 mhcgrq <https://github.com/mhcgrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react'
