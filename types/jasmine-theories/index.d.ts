@@ -6,9 +6,9 @@
 declare namespace jasmineTheories{
 	interface jasmineTheoriesStatic{
 		/**
-		 * runs the test function with each of the given argunments in the list
+		 * Runs the jasmine test function with each of the given arguments in the list
 		 * 
-		 * @param {string} description the description of the test as in jasmine
+		 * @param {string} description the description of the test
 		 * @param {any[]} args argunments passed to the test
 		 * @param {Function} testFunction the test
 		 * 
@@ -17,9 +17,9 @@ declare namespace jasmineTheories{
 		it(description:string, args:any[], testFunction:(testedValue:any) => void):void;
 
 		/**
-		 * ignored version of the test
+		 * Ignored version of the same test (the x means excluded)
 		 * 
-		 * @param {string} description the description of the test as in jasmine
+		 * @param {string} description the description of the test
 		 * @param {any[]} args argunments passed to the test
 		 * @param {Function} testFunction the test
 		 * 
