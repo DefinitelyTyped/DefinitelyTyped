@@ -5,7 +5,7 @@
 
 export function bbox(topology: any): any;
 
-export function feature(topology: any, o: any): { features: any[]; };
+export function feature(topology: any, o: any): { features: any[]; type: string };
 
 export function filter(topology: any, filter: any): any;
 
