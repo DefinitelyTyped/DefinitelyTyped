@@ -6,6 +6,8 @@
 // These are very definitely preliminary. Please feel free to improve.
 
 // Changelog:
+// 05/12/2017
+//   Updated sortDirectionCycle type from Array<IUiGridConstants> to Array<string>
 // 8/11/2015 ui-grid  v3.0.3
 //   Extensive plugin support added (Plugin specific API, ColumnDef, GridOptions, GridRow, Constants).
 //   Added docs for all existing interfaces.
