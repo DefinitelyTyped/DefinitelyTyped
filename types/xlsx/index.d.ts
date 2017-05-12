@@ -220,63 +220,78 @@ export interface IProtectInfo {
      */
     password?: string;
     /**
-     * Select locked cells (default: enabled)
+     * Select locked cells
+     * @default: true
      */
     selectLockedCells?: boolean;
     /**
-     * Select unlocked cells (default: enabled)
+     * Select unlocked cells
+     * @default: true
      */
     selectUnlockedCells?: boolean;
     /**
-     * Format cells (default: disabled)
+     * Format cells
+     * @default: false
      */
     formatCells?: boolean;
     /**
-     * Format columns (default: disabled)
+     * Format columns
+     * @default: false
      */
     formatColumns?: boolean;
     /**
-     * Format rows (default: disabled)
+     * Format rows
+     * @default: false
      */
     formatRows?: boolean;
     /**
-     * Insert columns (default: disabled)
+     * Insert columns
+     * @default: false
      */
     insertColumns?: boolean;
     /**
-     * Insert rows (default: disabled)
+     * Insert rows
+     * @default: false
      */
     insertRows?: boolean;
     /**
-     * Insert hyperlinks (default: disabled)
+     * Insert hyperlinks
+     * @default: false
      */
     insertHyperlinks?: boolean;
     /**
-     * Delete columns (default: disabled)
+     * Delete columns
+     * @default: false
      */
     deleteColumns?: boolean;
     /**
-     * Delete rows (default: disabled)
+     * Delete rows
+     * @default: false
      */
     deleteRows?: boolean;
     /**
-     * Sort (default: disabled)
+     * Sort
+     * @default: false
      */
     sort?: boolean;
     /**
-     * Filter (default: disabled)
+     * Filter
+     * @default: false
      */
     autoFilter?: boolean;
     /**
-     * Use PivotTable reports (default: disabled)
+     * Use PivotTable reports
+     * @default: false
      */
     pivotTables?: boolean;
     /**
-     * Edit objects (default: enabled)
+     * Edit objects
+     * @default: true
      */
     objects?: boolean;
     /**
-     * Edit scenarios (default: enabled)
+     * Edit scenarios
+     * @default: true
      */
     scenarios?: boolean;
 }
