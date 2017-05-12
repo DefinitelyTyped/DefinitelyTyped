@@ -1,6 +1,6 @@
 // Type definitions for xlsx
 // Project: https://github.com/SheetJS/js-xlsx
-// Definitions by: themauveavenger <https://github.com/themauveavenger/>
+// Definitions by: themauveavenger <https://github.com/themauveavenger/>, Wolfgang Faust <https://github.com/wolfgang42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Attempts to read filename and parse */
@@ -173,11 +173,139 @@ export interface IWorkBook {
     Props: IProperties;
 }
 
+export interface IColInfo {
+    /**
+     * Excel's "Max Digit Width" unit, always integral
+     */
+    MDW?: number;
+    /**
+     * width in Excel's "Max Digit Width", width*256 is integral
+     */
+    width: number;
+    /**
+     * width in screen pixels
+     */
+    wpx?: number;
+    /**
+     * intermediate character calculation
+     */
+    wch?: number;
+    /**
+     * if true, the column is hidden
+     */
+    hidden?: boolean;
+}
+export interface IRowInfo {
+    /**
+     * height in screen pixels
+     */
+    hpx?: number;
+    /**
+     * height in points
+     */
+    hpt?: number;
+    /**
+     * if true, the column is hidden
+     */
+    hidden?: boolean;
+}
+
+/**
+ * Write sheet protection properties.
+ */
+export interface IProtectInfo {
+    /**
+     * The password for formats that support password-protected sheets
+     * (XLSX/XLSB/XLS). The writer uses the XOR obfuscation method.
+     */
+    password?: string;
+    /**
+     * Select locked cells (default: enabled)
+     */
+    selectLockedCells?: boolean;
+    /**
+     * Select unlocked cells (default: enabled)
+     */
+    selectUnlockedCells?: boolean;
+    /**
+     * Format cells (default: disabled)
+     */
+    formatCells?: boolean;
+    /**
+     * Format columns (default: disabled)
+     */
+    formatColumns?: boolean;
+    /**
+     * Format rows (default: disabled)
+     */
+    formatRows?: boolean;
+    /**
+     * Insert columns (default: disabled)
+     */
+    insertColumns?: boolean;
+    /**
+     * Insert rows (default: disabled)
+     */
+    insertRows?: boolean;
+    /**
+     * Insert hyperlinks (default: disabled)
+     */
+    insertHyperlinks?: boolean;
+    /**
+     * Delete columns (default: disabled)
+     */
+    deleteColumns?: boolean;
+    /**
+     * Delete rows (default: disabled)
+     */
+    deleteRows?: boolean;
+    /**
+     * Sort (default: disabled)
+     */
+    sort?: boolean;
+    /**
+     * Filter (default: disabled)
+     */
+    autoFilter?: boolean;
+    /**
+     * Use PivotTable reports (default: disabled)
+     */
+    pivotTables?: boolean;
+    /**
+     * Edit objects (default: enabled)
+     */
+    objects?: boolean;
+    /**
+     * Edit scenarios (default: enabled)
+     */
+    scenarios?: boolean;
+}
+
+/**
+ * object representing any sheet (worksheet or chartsheet)
+ */
+export interface ISheet {
+    ['!ref']?: string;
+    ['!margins']?: {
+        left: number,
+        right: number,
+        top: number,
+        bottom: number,
+        header: number,
+        footer: number,
+    };
+}
+
 /**
  * object representing the worksheet
  */
-export interface IWorkSheet {
+export interface IWorkSheet extends ISheet {
     [cell: string]: IWorkSheetCell | any;
+    ['!cols']?: IColInfo[];
+    ['!rows']?: IRowInfo[];
+    ['!merges']?: IRange[];
+    ['!protect']?: IProtectInfo;
+    ['!autofilter']?: {ref: string};
 }
 
 export interface IWorkSheetCell {
