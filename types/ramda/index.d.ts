@@ -1808,3 +1808,4 @@ declare namespace R {
 }
 
 export = R;
+export as namespace R;
