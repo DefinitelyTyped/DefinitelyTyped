@@ -308,6 +308,12 @@ export interface IWorkSheet extends ISheet {
     ['!autofilter']?: {ref: string};
 }
 
+/**
+* The Excel data type for a cell.
+* b Boolean, n Number, e error, s String, d Date
+*/
+export type ExcelDataType = 'b' | 'n' | 'e' | 's' | 'd';
+
 export interface IWorkSheetCell {
     /**
      * The raw value of the cell.
@@ -323,7 +329,7 @@ export interface IWorkSheetCell {
     * The Excel Data Type of the cell.
     * b Boolean, n Number, e error, s String, d Date
     */
-    t: 'b' | 'n' | 'e' | 's' | 'd';
+    t: ExcelDataType;
 
     /**
      * Cell formula (if applicable)
