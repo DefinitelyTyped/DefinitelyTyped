@@ -15,11 +15,11 @@ const firstworksheet = workbook.Sheets[firstsheet];
 
 console.log(firstworksheet["A1"]);
 
-interface tester {
+interface ITester {
     name: string;
     age: number;
 }
 
-const jsonvalues: tester[] = xlsx.utils.sheet_to_json<tester>(firstworksheet);
+const jsonvalues: ITester[] = xlsx.utils.sheet_to_json<ITester>(firstworksheet);
 const csv = xlsx.utils.sheet_to_csv(firstworksheet);
 const formulae = xlsx.utils.sheet_to_formulae(firstworksheet);
