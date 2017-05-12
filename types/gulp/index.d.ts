@@ -14,6 +14,7 @@ declare type Strings = string|string[];
 
 declare namespace gulp {
     interface Gulp extends Orchestrator {
+        task(name: string): never;
         /**
          * Define a task
          * @param name The name of the task.
@@ -24,7 +25,19 @@ declare namespace gulp {
          *     <li>Return a stream or a promise</li>
          * </ul>
          */
-        task: Orchestrator.AddMethod;
+        task(name: string, fn?: Orchestrator.TaskFunc): Gulp;
+        /**
+         * Define a task
+         * @param name The name of the task.
+         * @param deps An array of task names to be executed and completed before your task will run.
+         * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
+         * <ul>
+         *     <li>Take in a callback</li>
+         *     <li>Return a stream or a promise</li>
+         * </ul>
+         */
+        task(name: string, deps?: string[], fn?: Orchestrator.TaskFunc): Gulp;
+
         /**
          * Takes a number of task names or functions and returns a function of the composed tasks or functions
          * When the returned function is executed, the tasks or functions will be executed in series,

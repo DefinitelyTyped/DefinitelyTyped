@@ -44,6 +44,20 @@ orchestrator.add('thing4', function(){
 });
 
 //
+// orchestrator.task(name[, deps][, function]);
+//
+
+orchestrator.task('task1');
+
+orchestrator.task('task2', function(cb) {
+    cb(null);
+});
+
+orchestrator.task('task3', ['task1', 'task2'], function() {
+    // do stuff
+});
+
+//
 // orchestrator.hasTask(name);
 //
 

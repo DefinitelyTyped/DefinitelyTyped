@@ -27,6 +27,9 @@ gulp.task('test', ['compile', 'compile2'], function()
 
 gulp.task('default', ['compile', 'test']);
 
+gulp.task('another', ['with1', 'with2'])
+    .task('some', ['other1', 'other2'], function(cb) { cb(null); })
+    .task('last', function() { });
 
 
 var opts = {};

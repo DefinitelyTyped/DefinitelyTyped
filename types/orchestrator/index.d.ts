@@ -11,7 +11,7 @@ import * as Q from "q";
 
 type _Sequencify = (tasks: Array<{ dep: string[]; }>, names: string[]) => { sequence: string[]; missingTasks: string[]; recursiveDependencies: string[]; };
 
-type _runTask = (task: Orchestrator.TaskMethod, done: (err: any, meta: Orchestrator.Meta) => void) => void;
+type _runTask = (task: Orchestrator.TaskFunc, done: (err: any, meta: Orchestrator.Meta) => void) => void;
 
 type Strings = string|string[];
 
@@ -27,17 +27,23 @@ declare class Orchestrator extends events.EventEmitter {
 
     /** Define a task
      * @param name The name of the task.
+     * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
+     *  - Take in a callback
+     *  - Return a stream or a promise
+     */
+    add(name: string, fn?: Orchestrator.TaskFunc): Orchestrator;
+    /** Define a task
+     * @param name The name of the task.
      * @param deps An array of task names to be executed and completed before your task will run.
      * @param fn The function that performs the task's operations. For asynchronous tasks, you need to provide a hint when the task is complete:
      *  - Take in a callback
      *  - Return a stream or a promise
      */
-    add: Orchestrator.AddMethod;
+    add(name: string, deps?: string[], fn?: Orchestrator.TaskFunc): Orchestrator;
 
     task(name: string): Orchestrator.Task;
-    task(name: string, fn: Orchestrator.TaskMethod): void;
-    task(name: string, dep: string[], fn: Orchestrator.TaskMethod): void;
-    task(name: string, dep?: string[] | Orchestrator.TaskMethod, fn?: Orchestrator.TaskMethod): void;
+    task(name: string, fn: Orchestrator.TaskFunc): void;
+    task(name: string, dep: string[], fn: Orchestrator.TaskFunc): void;
 
     /** Have you defined a task with this name?
      * @param name The task name to query
@@ -96,7 +102,7 @@ declare namespace Orchestrator {
 
     /** A task, can either call a callback to indicate task completion or return a promise or a stream: (task is marked complete when promise.then() resolves/fails or stream ends)
      */
-    type TaskMethod = (callback: (err?: any) => void) => Q.Promise<any> | stream.Stream | any;
+    type TaskFunc = (callback: (err?: any) => void) => Q.Promise<any> | stream.Stream | any;
 
     interface AddMethod {
         /** Define a task
@@ -105,7 +111,7 @@ declare namespace Orchestrator {
          *  - Take in a callback
          *  - Return a stream or a promise
          */
-        (name: string, fn?: TaskMethod): Orchestrator;
+        (name: string, fn?: TaskFunc): Orchestrator;
         /** Define a task
          * @param name The name of the task.
          * @param deps An array of task names to be executed and completed before your task will run.
@@ -113,7 +119,7 @@ declare namespace Orchestrator {
          *  - Take in a callback
          *  - Return a stream or a promise
          */
-        (name: string, deps?: string[], fn?: TaskMethod): Orchestrator;
+        (name: string, deps?: string[], fn?: TaskFunc): Orchestrator;
     }
 
     /** Start running the tasks
@@ -149,7 +155,7 @@ declare namespace Orchestrator {
     }
 
     interface Task {
-        fn: TaskMethod;
+        fn: TaskFunc;
         dep: string[];
         name: string;
         done?: boolean;
