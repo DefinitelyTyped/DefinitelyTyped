@@ -520,6 +520,11 @@ function chain_tests() {
         .groupBy('property')
         .mapObject((objects: any) => _.pluck(objects, 'value'))
         .value(); // { odd: [1], even: [0, 2] }
+
+  var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
+  			.keys() // return ['foo', 'bar'] : string[]
+  			.pairs() // return [['foo', '0'], ['bar', '1']] : string[][]
+  			.value();
 }
 
 var obj: { [k: string] : number } = {
