@@ -4,21 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Attempts to read filename and parse */
-export declare function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
+export function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
 /** Attempts to parse data */
-export declare function read(data: any, opts?: IParsingOptions): IWorkBook;
+export function read(data: any, opts?: IParsingOptions): IWorkBook;
 /** Attempts to write workbook data to filename */
-export declare function writeFile(data: IWorkBook, filename: string, opts?: IWritingOptions): any;
+export function writeFile(data: IWorkBook, filename: string, opts?: IWritingOptions): any;
 /** Attempts to write the workbook data */
-export declare function write(data: IWorkBook, opts?: IWritingOptions): any;
+export function write(data: IWorkBook, opts?: IWritingOptions): any;
 
-export declare var utils: IUtils;
+export const utils: IUtils;
 
 export interface IProperties {
-    LastAuthor?: string
+    LastAuthor?: string;
     Author?: string;
     CreatedDate?: Date;
-    ModifiedDate?: Date
+    ModifiedDate?: Date;
     Application?: string;
     AppVersion?: string;
     Company?: string;
