@@ -182,6 +182,7 @@ cognitoUserPoolEvent.triggerSource === "CreateAuthChallenge_Authentication";
 cognitoUserPoolEvent.triggerSource === "VerifyAuthChallengeResponse_Authentication";
 str = cognitoUserPoolEvent.region;
 str = cognitoUserPoolEvent.userPoolId;
+str = cognitoUserPoolEvent.userName;
 str = cognitoUserPoolEvent.callerContext.awsSdkVersion;
 str = cognitoUserPoolEvent.callerContext.clientId;
 str = cognitoUserPoolEvent.request.userAttributes["email"];
