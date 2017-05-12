@@ -522,7 +522,7 @@ function chain_tests() {
         .value(); // { odd: [1], even: [0, 2] }
 
   var matrixOfString : string[][] = _.chain({'foo' : '1', 'bar': '1'})
-    .keys()    // return ['foo', 'bar'] : string[]
+  	.keys()    // return ['foo', 'bar'] : string[]
   	.pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
   	.value();
 }
