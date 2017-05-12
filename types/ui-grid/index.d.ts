@@ -1,6 +1,6 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>, Mert Safter <https://github.com/MSafter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
