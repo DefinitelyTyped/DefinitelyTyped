@@ -309,9 +309,9 @@ export interface IWorkSheet extends ISheet {
 }
 
 /**
-* The Excel data type for a cell.
-* b Boolean, n Number, e error, s String, d Date
-*/
+ * The Excel data type for a cell.
+ * b Boolean, n Number, e error, s String, d Date
+ */
 export type ExcelDataType = 'b' | 'n' | 'e' | 's' | 'd';
 
 export interface IWorkSheetCell {
@@ -326,9 +326,9 @@ export interface IWorkSheetCell {
     w?: string;
 
     /**
-    * The Excel Data Type of the cell.
-    * b Boolean, n Number, e error, s String, d Date
-    */
+     * The Excel Data Type of the cell.
+     * b Boolean, n Number, e error, s String, d Date
+     */
     t: ExcelDataType;
 
     /**
@@ -388,18 +388,18 @@ export interface IRange {
 
 export interface IUtils {
     /** converts an array of arrays of JS data to a worksheet. */
-    aoa_to_sheet<T>(data: T[], opts?:any): IWorkSheet;
+    aoa_to_sheet<T>(data: T[], opts?: any): IWorkSheet;
 
     /** Converts a worksheet object to an array of JSON objects */
-    sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
+    sheet_to_json<T>(worksheet: IWorkSheet, opts?: {
         raw?: boolean;
         range?: any;
         header?: "A"|number|string[];
-    }):T[];
+    }): T[];
     /** Generates delimiter-separated-values output */
     sheet_to_csv(worksheet: IWorkSheet, options?: { FS: string, RS: string }): string;
     /** Generates a list of the formulae (with value fallbacks) */
-    sheet_to_formulae(worksheet: IWorkSheet):any;
+    sheet_to_formulae(worksheet: IWorkSheet): any;
 
     /** Converts 0-indexed cell address to A1 form */
     encode_cell(cell: ICell): string;
