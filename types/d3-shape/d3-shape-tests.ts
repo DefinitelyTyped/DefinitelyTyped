@@ -7,8 +7,9 @@
  */
 
 import * as d3Shape from 'd3-shape';
-import { select,  Selection } from 'd3-selection';
+import { select, Selection } from 'd3-selection';
 import { path } from 'd3-path';
+import { HierarchyPointLink, HierarchyPointNode } from 'd3-hierarchy';
 
 // -----------------------------------------------------------------------------------
 // Preparatory Steps (General)
@@ -901,6 +902,250 @@ curveFactory = d3Shape.curveStepAfter;
 curveFactory = d3Shape.curveStepBefore;
 
 // -----------------------------------------------------------------------------------
+// Test Link/RadialLink Generators
+// -----------------------------------------------------------------------------------
+
+// Preparatory steps =================================================================
+
+interface TreeNodeDatum {
+    whatever: any;
+}
+
+declare const linkDatum: HierarchyPointLink<TreeNodeDatum>;
+
+declare const defaultLinkDatum: d3Shape.DefaultLinkObject;
+
+const pLink: Selection<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
+    select<SVGPathElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
+const wrongLink1: Selection<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
+    select<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
+const wrongLink2: Selection<SVGPathElement, d3Shape.DefaultLinkObject, any, any> =
+    select<SVGPathElement, d3Shape.DefaultLinkObject>('.link-paths'); // mock
+
+// Test DefaultLinkObject Interface ==================================================
+
+let coordinates: [number, number];
+
+coordinates = defaultLinkDatum.source;
+coordinates = defaultLinkDatum.target;
+
+// Test generator factories ==========================================================
+
+let defaultLink: d3Shape.Link<any, d3Shape.DefaultLinkObject, [number, number]>;
+
+defaultLink = d3Shape.linkHorizontal();
+defaultLink = d3Shape.linkVertical();
+
+let link: d3Shape.Link<any, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+
+link = d3Shape.linkHorizontal<HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+link = d3Shape.linkVertical<HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+
+let svgLink: d3Shape.Link<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+
+svgLink = d3Shape.linkHorizontal<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+svgLink = d3Shape.linkVertical<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+
+let defaultRadialLink: d3Shape.RadialLink<any, d3Shape.DefaultLinkObject, [number, number]>;
+
+defaultRadialLink = d3Shape.linkRadial();
+
+let radialLink: d3Shape.RadialLink<any, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+
+radialLink = d3Shape.linkRadial<HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+
+let svgRadialLink: d3Shape.RadialLink<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+
+svgRadialLink = d3Shape.linkRadial<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+
+// Configure link generators ========================================================
+
+let defaultNodeAccessor: (d: d3Shape.DefaultLinkObject, ...args: any[]) => [number, number];
+let svgTreeNodeAccessor: (this: SVGPathElement, d: HierarchyPointLink<TreeNodeDatum>, ...args: any[]) => HierarchyPointNode<TreeNodeDatum>;
+
+let defaultCoordinateAccessor: (d: [number, number], ...args: any[]) => number;
+let svgCoordinateAccessor: (this: SVGPathElement, d: HierarchyPointNode<TreeNodeDatum>, ...args: any[]) => number;
+
+// source(...) -----------------------------------------------------------------------
+
+// vertical/horizontal
+
+defaultLink = defaultLink.source(d => {
+    const datum: d3Shape.DefaultLinkObject = d;
+    return d.source;
+});
+
+defaultNodeAccessor = defaultLink.source();
+
+svgLink = svgLink.source(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointLink<TreeNodeDatum> = d;
+    return d.source;
+});
+
+svgTreeNodeAccessor = svgLink.source();
+
+// radial
+
+defaultRadialLink = defaultRadialLink.source(d => {
+    const datum: d3Shape.DefaultLinkObject = d;
+    return d.source;
+});
+
+defaultNodeAccessor = defaultRadialLink.source();
+
+svgRadialLink = svgRadialLink.source(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointLink<TreeNodeDatum> = d;
+    return d.source;
+});
+
+svgTreeNodeAccessor = svgRadialLink.source();
+
+// target(...) -----------------------------------------------------------------------
+
+// vertical/horizontal
+
+defaultLink = defaultLink.target(d => {
+    const datum: d3Shape.DefaultLinkObject = d;
+    return d.target;
+});
+
+defaultNodeAccessor = defaultLink.target();
+
+svgLink = svgLink.target(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointLink<TreeNodeDatum> = d;
+    return d.target;
+});
+
+svgTreeNodeAccessor = svgLink.target();
+
+// radial
+
+defaultRadialLink = defaultRadialLink.target(d => {
+    const datum: d3Shape.DefaultLinkObject = d;
+    return d.target;
+});
+
+defaultNodeAccessor = defaultRadialLink.target();
+
+svgRadialLink = svgRadialLink.target(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointLink<TreeNodeDatum> = d;
+    return d.target;
+});
+
+svgTreeNodeAccessor = svgRadialLink.target();
+
+// x(...) ----------------------------------------------------------------------------
+
+defaultLink = defaultLink.x(d => {
+    const datum: [number, number] = d;
+    return datum[0];
+});
+
+defaultCoordinateAccessor = defaultLink.x();
+
+svgLink = svgLink.x(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointNode<TreeNodeDatum> = d;
+    return datum.x;
+});
+
+svgCoordinateAccessor = svgLink.x();
+
+// y(...) ----------------------------------------------------------------------------
+
+defaultLink = defaultLink.y(d => {
+    const datum: [number, number] = d;
+    return datum[1];
+});
+
+defaultCoordinateAccessor = defaultLink.y();
+
+svgLink = svgLink.y(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointNode<TreeNodeDatum> = d;
+    return datum.y;
+});
+
+svgCoordinateAccessor = svgLink.y();
+
+// angle(...) ------------------------------------------------------------------------
+
+defaultRadialLink = defaultRadialLink.angle(d => {
+    const datum: [number, number] = d;
+    return datum[0];
+});
+
+defaultCoordinateAccessor = defaultRadialLink.angle();
+
+svgRadialLink = svgRadialLink.angle(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointNode<TreeNodeDatum> = d;
+    return datum.x;
+});
+
+svgCoordinateAccessor = svgRadialLink.angle();
+
+// radius(...) ------------------------------------------------------------------------
+
+defaultRadialLink = defaultRadialLink.radius(d => {
+    const datum: [number, number] = d;
+    return datum[1];
+});
+
+defaultCoordinateAccessor = defaultRadialLink.radius();
+
+svgRadialLink = svgRadialLink.radius(function (d) {
+    const that: SVGPathElement = this;
+    const datum: HierarchyPointNode<TreeNodeDatum> = d;
+    return datum.y;
+});
+
+svgCoordinateAccessor = svgRadialLink.radius();
+
+// context(...) ----------------------------------------------------------------------
+
+if (context !== null) {
+    defaultArea = defaultArea.context(context); // draw to canvas
+}
+context = defaultArea.context();
+
+area = area.context(null); // use as path string generator for SVG
+
+// Use link generators ===============================================================
+
+// Render to canvas ------------------------------------------------------------------
+
+defaultLink(defaultLinkDatum);
+
+defaultRadialLink(defaultLinkDatum);
+
+// Render to svg ---------------------------------------------------------------------
+
+// vertical/horizontal
+
+pLink.attr('d', svgLink);
+// wrongLink1.attr('d', svgLink); // fails, incompatible this contexts
+// wrongLink2.attr('d', svgLink); // fails, incompatible datum types
+
+pathStringMaybe = link(linkDatum);
+
+// pathStringMaybe = svgLink(linkDatum); // fails, wrong this type for invocation
+
+// radial
+
+pLink.attr('d', svgRadialLink);
+// wrongLink1.attr('d', svgRadialLink); // fails, incompatible this contexts
+// wrongLink2.attr('d', svgRadialLink); // fails, incompatible datum types
+
+pathStringMaybe = radialLink(linkDatum);
+
+// pathStringMaybe = svgRadialLink(linkDatum); // fails, wrong this type for invocation
+
+// -----------------------------------------------------------------------------------
 // Test Symbols
 // -----------------------------------------------------------------------------------
 
@@ -1011,10 +1256,10 @@ class Symbolizer {
                 break;
         }
         this.symbol = d3Shape.symbol<Symbolizer, SymbolDatum>()
-            .size(function(this: Symbolizer, d?: SymbolDatum) {
+            .size(function (this: Symbolizer, d?: SymbolDatum) {
                 return d ? d.size : this.size;
             })
-            .type(function(this: Symbolizer, d?: SymbolDatum) {
+            .type(function (this: Symbolizer, d?: SymbolDatum) {
                 let type = this.type;
                 if (d && d.type) {
                     switch (d.type) {
