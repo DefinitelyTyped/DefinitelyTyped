@@ -28,3 +28,10 @@ const Router = (props: any) => (
       }
     />
 );
+
+const tabNavigatorScreenOptions: TabNavigatorScreenOptions = {
+    title: 'title',
+    tabBarVisible: true,
+    tabBarIcon: <View />,
+    tabBarLabel: 'label'
+}
