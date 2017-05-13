@@ -24,7 +24,7 @@ declare namespace algoliasearch {
          * Number of pages
          * https://github.com/algolia/algoliasearch-client-js#response-format
          */
-        nbPage: number;
+        nbPages: number;
         /**
          * Number of hits per pages
          * https://github.com/algolia/algoliasearch-client-js#response-format
@@ -407,7 +407,7 @@ declare namespace algoliasearch {
          * @param cb(err, res)
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
          */
-        saveSynonym(synonym: AlgoliaSynonym, option: SynonymOption, cb: (err: Error, res: any) => void): void;
+        saveSynonym(synonym: AlgoliaSynonym, options: SynonymOption, cb: (err: Error, res: any) => void): void;
         /**
          * Save a synonym object
          * @param synonyms
@@ -659,7 +659,7 @@ declare namespace algoliasearch {
          * return {Promise}
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
          */
-        saveSynonym(synonym: AlgoliaSynonym, option: SynonymOption): Promise<any> ;
+        saveSynonym(synonym: AlgoliaSynonym, options: SynonymOption): Promise<any> ;
         /**
          * Save a synonym object
          * @param synonyms
