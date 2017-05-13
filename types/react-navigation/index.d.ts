@@ -585,7 +585,7 @@ export interface TabNavigatorScreenOptions {
   title?: string;
   tabBarVisible?: boolean;
   tabBarIcon?: React.ReactElement<any>;
-  tabBarLaben?: string
+  tabBarLabel?: string
       |React.ReactElement<any>
       | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
   ;
