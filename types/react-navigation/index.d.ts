@@ -584,11 +584,11 @@ export interface StackNavigatorScreenOptions {
 export interface TabNavigatorScreenOptions {
   title?: string;
   tabBarVisible?: boolean;
-  tabBarIcon?: React.ReactElement<any>;
+  tabBarIcon?: React.ReactElement<any>
+      | ((options: { focused: boolean, tintColor: string }) => React.ReactElement<any>);
   tabBarLabel?: string
-      |React.ReactElement<any>
-      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
-  ;
+      | React.ReactElement<any>
+      | ((options: { focused: boolean, tintColor: string }) => React.ReactElement<any>);
 }
 
 export interface DrawerNavigatorScreenOptions {
