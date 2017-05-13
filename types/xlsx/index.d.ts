@@ -300,8 +300,8 @@ export interface IProtectInfo {
  * object representing any sheet (worksheet or chartsheet)
  */
 export interface ISheet {
-    ['!ref']?: string;
-    ['!margins']?: {
+    '!ref'?: string;
+    '!margins'?: {
         left: number,
         right: number,
         top: number,
@@ -316,11 +316,11 @@ export interface ISheet {
  */
 export interface IWorkSheet extends ISheet {
     [cell: string]: IWorkSheetCell | any;
-    ['!cols']?: IColInfo[];
-    ['!rows']?: IRowInfo[];
-    ['!merges']?: IRange[];
-    ['!protect']?: IProtectInfo;
-    ['!autofilter']?: {ref: string};
+    '!cols'?: IColInfo[];
+    '!rows'?: IRowInfo[];
+    '!merges'?: IRange[];
+    '!protect'?: IProtectInfo;
+    '!autofilter'?: {ref: string};
 }
 
 /**
