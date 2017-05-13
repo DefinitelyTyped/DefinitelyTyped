@@ -1181,6 +1181,7 @@ order = d3Shape.stackOrderReverse(seriesAnyAny);
 // Test stack offsets ===============================================================
 
 d3Shape.stackOffsetExpand(seriesAnyAny, order);
+d3Shape.stackOffsetDiverging(seriesAnyAny, order);
 d3Shape.stackOffsetNone(seriesAnyAny, order);
 d3Shape.stackOffsetSilhouette(seriesAnyAny, order);
 d3Shape.stackOffsetWiggle(seriesAnyAny, order);
