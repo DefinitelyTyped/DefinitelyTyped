@@ -977,7 +977,7 @@ defaultLink = defaultLink.source(d => {
 
 defaultNodeAccessor = defaultLink.source();
 
-svgLink = svgLink.source(function (d) {
+svgLink = svgLink.source(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointLink<TreeNodeDatum> = d;
     return d.source;
@@ -994,7 +994,7 @@ defaultRadialLink = defaultRadialLink.source(d => {
 
 defaultNodeAccessor = defaultRadialLink.source();
 
-svgRadialLink = svgRadialLink.source(function (d) {
+svgRadialLink = svgRadialLink.source(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointLink<TreeNodeDatum> = d;
     return d.source;
@@ -1013,7 +1013,7 @@ defaultLink = defaultLink.target(d => {
 
 defaultNodeAccessor = defaultLink.target();
 
-svgLink = svgLink.target(function (d) {
+svgLink = svgLink.target(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointLink<TreeNodeDatum> = d;
     return d.target;
@@ -1030,7 +1030,7 @@ defaultRadialLink = defaultRadialLink.target(d => {
 
 defaultNodeAccessor = defaultRadialLink.target();
 
-svgRadialLink = svgRadialLink.target(function (d) {
+svgRadialLink = svgRadialLink.target(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointLink<TreeNodeDatum> = d;
     return d.target;
@@ -1047,7 +1047,7 @@ defaultLink = defaultLink.x(d => {
 
 defaultCoordinateAccessor = defaultLink.x();
 
-svgLink = svgLink.x(function (d) {
+svgLink = svgLink.x(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointNode<TreeNodeDatum> = d;
     return datum.x;
@@ -1064,7 +1064,7 @@ defaultLink = defaultLink.y(d => {
 
 defaultCoordinateAccessor = defaultLink.y();
 
-svgLink = svgLink.y(function (d) {
+svgLink = svgLink.y(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointNode<TreeNodeDatum> = d;
     return datum.y;
@@ -1081,7 +1081,7 @@ defaultRadialLink = defaultRadialLink.angle(d => {
 
 defaultCoordinateAccessor = defaultRadialLink.angle();
 
-svgRadialLink = svgRadialLink.angle(function (d) {
+svgRadialLink = svgRadialLink.angle(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointNode<TreeNodeDatum> = d;
     return datum.x;
@@ -1098,7 +1098,7 @@ defaultRadialLink = defaultRadialLink.radius(d => {
 
 defaultCoordinateAccessor = defaultRadialLink.radius();
 
-svgRadialLink = svgRadialLink.radius(function (d) {
+svgRadialLink = svgRadialLink.radius(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointNode<TreeNodeDatum> = d;
     return datum.y;
@@ -1256,10 +1256,10 @@ class Symbolizer {
                 break;
         }
         this.symbol = d3Shape.symbol<Symbolizer, SymbolDatum>()
-            .size(function (this: Symbolizer, d?: SymbolDatum) {
+            .size(function(this: Symbolizer, d?: SymbolDatum) {
                 return d ? d.size : this.size;
             })
-            .type(function (this: Symbolizer, d?: SymbolDatum) {
+            .type(function(this: Symbolizer, d?: SymbolDatum) {
                 let type = this.type;
                 if (d && d.type) {
                     switch (d.type) {
