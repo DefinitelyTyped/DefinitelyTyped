@@ -1865,6 +1865,363 @@ export const curveStepAfter: CurveFactory;
 export const curveStepBefore: CurveFactory;
 
 // -----------------------------------------------------------------------------------
+// LINKS
+// -----------------------------------------------------------------------------------
+
+/**
+ * An interface describing the default Link Data structure expected
+ * by the Link and RadialLink generators
+ */
+export interface DefaultLinkObject {
+    /**
+     * Source node of the link.
+     *
+     * For a link in a Cartesian coordinate system, the two element array contains
+     * the coordinates [x, y].
+     *
+     * For a radial link, the two element array contains
+     * the coordinates [angle, radius]. The angle is stated in radians, with 0 at -y (12 o’clock).
+     * The radius measures the distance from the origin ⟨0,0⟩.
+     */
+    source: [number, number];
+    /**
+     * Target node of the link.
+     *
+     * For a link in a Cartesian coordinate system, the two element array contains
+     * the coordinates [x, y].
+     *
+     * For a radial link, the two element array contains
+     * the coordinates [angle, radius]. The angle is stated in radians, with 0 at -y (12 o’clock).
+     * The radius measures the distance from the origin ⟨0,0⟩.
+     */
+    target: [number, number];
+}
+
+/**
+ * A link generator for a Cartesian coordinate system. The link shape generates a smooth cubic Bézier curve from a
+ * source point to a target point. The tangents of the curve at the start and end are either vertical, horizontal.
+ *
+ * The first generic corresponds to the type of the "this" context within which the link generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The third generic corresponds to the datum type of the source/target node contained in the link object.
+ */
+export interface Link<This, LinkDatum, NodeDatum> {
+    /**
+     * Generates a link for the given arguments.
+     *
+     * IMPORTANT: If the rendering context of the link generator is null,
+     * then the link is returned as a path data string.
+     *
+     * The "this" context within which this function is invoked, will be the context within which the accessor methods of the generator are invoked.
+     * All arguments passed into this function, will be passed to the accessor functions of the generator.
+     *
+     * @param d The datum for which the link is to be generated.
+     */
+    (this: This, d: LinkDatum, ...args: any[]): string | null;
+    /**
+     * Generates an link for the given arguments.
+     *
+     * IMPORTANT: If the link generator has been configured with a rendering context,
+     * then the link is rendered to this context as a sequence of path method calls and this function returns void.
+     *
+     * The "this" context within which this function is invoked, will be the context within which the accessor methods of the generator are invoked.
+     * All arguments passed into this function, will be passed to the accessor functions of the generator.
+     *
+     * @param d The datum for which the link is to be generated.
+     */
+    (this: This, d: LinkDatum, ...args: any[]): void;
+
+    /**
+     * Returns the current source node accessor function.
+     * The default source accessor function returns a two element array [x, y].
+     */
+    source(): (this: This, d: LinkDatum, ...args: any[]) => NodeDatum;
+    /**
+     * Sets the source accessor to the specified function and returns this link generator.
+     *
+     * @param source Source node accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives the same arguments that were passed into the link generator. The default target accessor function returns a two element array [x, y].
+     */
+    source(source: (this: This, d: LinkDatum, ...args: any[]) => NodeDatum): this;
+
+    /**
+     * Returns the current target node accessor function.
+     * The default target accessor function returns a two element array [x, y].
+     */
+    target(): (this: This, d: LinkDatum, ...args: any[]) => NodeDatum;
+    /**
+     * Sets the target accessor to the specified function and returns this link generator.
+     *
+     * @param target Target node accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives the same arguments that were passed into the link generator. The default target accessor function returns a two element array [x, y].
+     */
+    target(target: (this: This, d: LinkDatum, ...args: any[]) => NodeDatum): this;
+
+    /**
+     * Returns the current x-accessor, which defaults to a function accepting an number array
+     * as its argument an returning the first element of the array.
+     */
+    x(): (this: This, node: NodeDatum, ...args: any[]) => number;
+    /**
+     * Sets the x-accessor to the specified function and returns this link generator.
+     *
+     * @param x x-coordinate accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives as its first argument a node object followed by all additional arguments that were passed into the link generator.
+     */
+    x(x: (this: This, node: NodeDatum, ...args: any[]) => number): this;
+
+    /**
+     * Returns the current y-accessor, which defaults to a function accepting an number array
+     * as its argument an returning the second element of the array.
+     */
+    y(): (this: This, node: NodeDatum, ...args: any[]) => number;
+    /**
+     * Sets the y-accessor to the specified function and returns this link generator.
+     *
+     * @param y y-coordinate accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives as its first argument a node object followed by all additional arguments that were passed into the link generator.
+     */
+    y(y: (this: This, node: NodeDatum, ...args: any[]) => number): this;
+
+    /**
+     * Returns the current rendering context, which defaults to null.
+     */
+    context(): CanvasRenderingContext2D | null;
+    /**
+     * Sets the rendering context and returns this link generator.
+     *
+     * If the context is not null, then the generated link is rendered to this context as a sequence of path method calls.
+     *
+     * @param context The rendering context.
+     */
+    context(context: CanvasRenderingContext2D): this;
+    /**
+     * Sets the rendering context to null and returns this link generator.
+     *
+     * A path data string representing the generated link will be returned when the generator is invoked with data.
+     *
+     * @param context null, to remove rendering context.
+     */
+    context(context: null): this;
+}
+
+/**
+ * Constructs a new default link generator with horizontal tangents, for example, to visualize links in a tree diagram
+ * rooted on the left edge of the display.
+ *
+ * With the default settings the link generator accepts a link object conforming to the DefaultLinkObject interface.
+ */
+export function linkHorizontal(): Link<any, DefaultLinkObject, [number, number]>;
+/**
+ * Constructs a new link generator with horizontal tangents, for example, to visualize links in a tree diagram
+ * rooted on the left edge of the display.
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The second generic corresponds to the datum type of the source/target node contained in the link object
+ */
+export function linkHorizontal<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
+/**
+ * Constructs a new link generator with horizontal tangents, for example, to visualize links in a tree diagram
+ * rooted on the left edge of the display.
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the type of the "this" context within which the link generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The third generic corresponds to the datum type of the source/target node contained in the link object
+ */
+export function linkHorizontal<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
+
+/**
+ * Constructs a new default link generator with vertical tangents, for example, to visualize links in a tree diagram
+ * rooted on the top edge of the display.
+ *
+ * With the default settings the link generator accepts a link object conforming to the DefaultLinkObject interface.
+ */
+export function linkVertical(): Link<any, DefaultLinkObject, [number, number]>;
+/**
+ * Constructs a new link generator with vertical tangents, for example, to visualize links in a tree diagram
+ * rooted on the top edge of the display.
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The second generic corresponds to the datum type of the source/target node contained in the link object
+ */
+export function linkVertical<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
+/**
+ * Constructs a new link generator with vertical tangents, for example, to visualize links in a tree diagram
+ * rooted on the top edge of the display.
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the type of the "this" context within which the link generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The third generic corresponds to the datum type of the source/target node contained in the link object
+ */
+export function linkVertical<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
+
+/**
+ * A link generator for a radial coordinate system. The link shape generates a smooth cubic Bézier curve from a
+ * source point to a target point. The tangents of the curve at the start and end are radial.
+ *
+ * The first generic corresponds to the type of the "this" context within which the radial link generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The third generic corresponds to the datum type of the source/target node contained in the link object.
+ */
+export interface RadialLink<This, LinkDatum, NodeDatum> {
+    /**
+     * Generates a radial link for the given arguments.
+     *
+     * IMPORTANT: If the rendering context of the radial link generator is null,
+     * then the link is returned as a path data string.
+     *
+     * The "this" context within which this function is invoked, will be the context within which the accessor methods of the generator are invoked.
+     * All arguments passed into this function, will be passed to the accessor functions of the generator.
+     *
+     * @param d The datum for which the link is to be generated.
+     */
+    (this: This, d: LinkDatum, ...args: any[]): string | null;
+    /**
+     * Generates an link for the given arguments.
+     *
+     * IMPORTANT: If the radial link generator has been configured with a rendering context,
+     * then the link is rendered to this context as a sequence of path method calls and this function returns void.
+     *
+     * The "this" context within which this function is invoked, will be the context within which the accessor methods of the generator are invoked.
+     * All arguments passed into this function, will be passed to the accessor functions of the generator.
+     *
+     * @param d The datum for which the link is to be generated.
+     */
+    (this: This, d: LinkDatum, ...args: any[]): void;
+
+    /**
+     * Returns the current source node accessor function.
+     * The default source accessor function returns a two element array [x, y].
+     */
+    source(): (this: This, d: LinkDatum, ...args: any[]) => NodeDatum;
+    /**
+     * Sets the source accessor to the specified function and returns this radial link generator.
+     *
+     * @param source Source node accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives the same arguments that were passed into the radial link generator. The default target accessor function returns a two element array [x, y].
+     */
+    source(source: (this: This, d: LinkDatum, ...args: any[]) => NodeDatum): this;
+
+    /**
+     * Returns the current target node accessor function.
+     * The default target accessor function returns a two element array [x, y].
+     */
+    target(): (this: This, d: LinkDatum, ...args: any[]) => NodeDatum;
+    /**
+     * Sets the target accessor to the specified function and returns this radial link generator.
+     *
+     * @param target Target node accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives the same arguments that were passed into the radial link generator. The default target accessor function returns a two element array [x, y].
+     */
+    target(target: (this: This, d: LinkDatum, ...args: any[]) => NodeDatum): this;
+
+    /**
+     * Returns the current angle accessor, which defaults to a function accepting an number array
+     * as its argument an returning the first element of the array.
+     */
+    angle(): (this: This, node: NodeDatum, ...args: any[]) => number;
+    /**
+     * Sets the angle accessor to the specified function and returns this radial link generator.
+     * The angle is stated in radians, with 0 at -y (12 o’clock).
+     *
+     * @param angle Angle accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives as its first argument a node object followed by all additional arguments that were passed into the radial link generator.
+     */
+    angle(angle: (this: This, node: NodeDatum, ...args: any[]) => number): this;
+
+    /**
+     * Returns the current radius accessor, which defaults to a function accepting an number array
+     * as its argument an returning the second element of the array.
+     */
+    radius(): (this: This, node: NodeDatum, ...args: any[]) => number;
+    /**
+     * Sets the radius accessor to the specified function and returns this radial link generator.
+     * The radius is measured as the distance from the origin ⟨0,0⟩.
+     *
+     * @param radius Radius accessor function. The accessor function is invoked in the same "this" context as the generator was invoked in and
+     * receives as its first argument a node object followed by all additional arguments that were passed into the radial link generator.
+     */
+    radius(radius: (this: This, node: NodeDatum, ...args: any[]) => number): this;
+
+    /**
+     * Returns the current rendering context, which defaults to null.
+     */
+    context(): CanvasRenderingContext2D | null;
+    /**
+     * Sets the rendering context and returns this radial link generator.
+     *
+     * If the context is not null, then the generated radial area is rendered to this context as a sequence of path method calls.
+     *
+     * @param context The rendering context.
+     */
+    context(context: CanvasRenderingContext2D): this;
+    /**
+     * Sets the rendering context to null and returns this radial link generator.
+     *
+     * A path data string representing the generated radial link will be returned when the generator is invoked with data.
+     *
+     * @param context null, to remove rendering context.
+     */
+    context(context: null): this;
+}
+
+/**
+ * Constructs a new default link generator with radial tangents, for example, to visualize links in a tree diagram
+ * rooted in the center of the display.
+ *
+ * With the default settings the link generator accepts a link object conforming to the DefaultLinkObject interface.
+ */
+export function linkRadial(): RadialLink<any, DefaultLinkObject, [number, number]>;
+/**
+ * Constructs a new link generator with radial tangents, for example, to visualize links in a tree diagram
+ * rooted in the center of the display.
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The second generic corresponds to the datum type of the source/target node contained in the link object
+ */
+export function linkRadial<LinkDatum, NodeDatum>(): RadialLink<any, LinkDatum, NodeDatum>;
+/**
+ * Constructs a new link generator with radial tangents, for example, to visualize links in a tree diagram
+ * rooted in the center of the display.
+ *
+ * Important: Ensure that the accessor functions are configured to work with the link and node datum types
+ * specified in the generics.
+ *
+ * The first generic corresponds to the type of the "this" context within which the link generator and its accessor functions will be invoked.
+ *
+ * The second generic corresponds to the datum type of the link object for which the link is to be generated.
+ *
+ * The third generic corresponds to the datum type of the source/target node contained in the link object
+ */
+export function linkRadial<This, LinkDatum, NodeDatum>(): RadialLink<This, LinkDatum, NodeDatum>;
+
+// -----------------------------------------------------------------------------------
 // SYMBOLS
 // -----------------------------------------------------------------------------------
 
