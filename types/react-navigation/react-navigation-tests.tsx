@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import {
     addNavigationHelpers,
     StackNavigator,
+    TabNavigatorScreenOptions
 } from 'react-navigation';
 
 const Start = (
