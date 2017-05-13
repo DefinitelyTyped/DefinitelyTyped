@@ -162,6 +162,116 @@ interface StripeApplePayPaymentContact {
     countryCode: string;
 }
 
+// Stripe.js v3 APIs
+// These will eventually replace the ones above once they're all added to the library
+// https://stripe.com/docs/elements/reference#including-the-library
+interface StripeStatic {
+    (stripePublicKey: string): stripe.StripeStatic;
+}
+declare namespace stripe {
+
+    export interface StripeStatic {
+        elements(options?: elements.ElementOptions): elements.Elements;
+        createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+    }
+
+    export interface TokenOptions {
+        name?: string;
+        address_line1?: string;
+        address_line2?: string;
+        address_city?: string;
+        address_state?: string;
+        address_zip?: string;
+        address_country?: string;
+        currency?: string;
+    }
+
+    export interface TokenResponse {
+        token?: string;
+        error?: StripeError;
+    }
+
+    // Container for all elements related types
+    namespace elements {
+
+        type handler = (response?: ElementChangeResponse) => void;
+        type eventTypes = 'blur' | 'change' | 'focus' | 'ready';
+        export interface Element {
+            mount(domElement: string | HTMLElement): void;
+            on(event: eventTypes, handler: handler): void;
+            blur(): void;
+            clear(): void;
+            unmount(): void;
+            update(options: ElementsOptions): void;
+        }
+
+        export interface ElementChangeResponse {
+            brand: string;
+            complete: boolean;
+            empty: boolean;
+            value?: { postalCode: string | number };
+            error?: StripeError;
+        }
+
+        export interface ElementOptions {
+            fonts?: elements.Font[];
+            locale?: string;
+        }
+
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode';
+        export interface Elements {
+            create(type: elementsType, options: ElementsOptions): Element;
+        }
+
+        export interface ElementsOptions {
+            classes?: {
+                base?: string;
+                complete?: string;
+                empty?: string;
+                focus?: string;
+                invalid?: string;
+                webkitAutofill?: string;
+            };
+            hidePostalCode?: boolean;
+            hideIcon?: boolean;
+            iconStyle?: 'solid' | 'default';
+            style?: elements.Font;
+            value?: string | {[objectKey: string]: string;};
+        }
+
+        export interface Style extends StyleOptions {
+            ':hover'?: StyleOptions;
+            ':focus'?: StyleOptions;
+            '::placeholder'?: StyleOptions;
+            '::selection'?: StyleOptions;
+            ':-webkit-autofill'?: StyleOptions;
+        }
+
+        interface Font {
+            family?: string;
+            src?: string;
+            style?: string;
+            unicodeRange?: string;
+            weight?: string;
+        }
+
+        interface StyleOptions {
+            color?: string;
+            fontFamily?: string;
+            fontSize?: string;
+            fontSmoothing?: string;
+            fontStyle?: string;
+            fontVariant?: string;
+            iconColor?: string;
+            lineHeight?: string;
+            letterSpacing?: string;
+            textDecoration?: string;
+            textShadow?: string;
+            textTransform?: string;
+        }
+    }
+}
+
 // The Stripe client side APIs are not made available to package managers for direct installation.
 // As explained compliance reasons. Source: https://github.com/stripe/stripe-node/blob/master/README.md#these-are-serverside-bindings-only
 // A release date versioning schema is used to version these APIs.
