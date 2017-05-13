@@ -31,7 +31,7 @@ declare module 'angular' {
 			*/
 			latencyThreshold?: number;
 			/**
-			 * HTML eliment selector of parent
+			 * HTML element selector of parent
 			 */
 			parentSelector?: string;
 		}
