@@ -505,5 +505,5 @@ declare namespace winston {
     type LogCallback = (error?: any, level?: string, msg?: string, meta?: any) => void;
 }
 
-declare const winston: winston.Winston;
+declare let winston: winston.Winston;
 export = winston;
