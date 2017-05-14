@@ -23,10 +23,32 @@ export type CollectionCellRendererParams = {
 export type CollectionCellRenderer = (params: CollectionCellRendererParams) => React.ReactNode;
 export type CollectionProps = {
     'aria-label'?: string;
+    /**
+     * Number of cells in Collection.
+     */
     cellCount: number;
+    /**
+     * Responsible for rendering a group of cells given their indices.
+     * Should implement the following interface: ({
+     *   cellSizeAndPositionGetter:Function,
+     *   indices: Array<number>,
+     *   cellRenderer: Function
+     * }): Array<PropTypes.node>
+     */
     cellGroupRenderer?: CollectionCellGroupRenderer,
+    /**
+     * Responsible for rendering a cell given an row and column index.
+     * Should implement the following interface: ({ index: number, key: string, style: object }): PropTypes.element
+     */
     cellRenderer: CollectionCellRenderer,
+    /**
+     * Callback responsible for returning size and offset/position information for a given cell (index).
+     * ({ index: number }): { height: number, width: number, x: number, y: number }
+     */
     cellSizeAndPositionGetter: CollectionCellSizeAndPositionGetter,
+    /**
+     * Optionally override the size of the sections a Collection's cells are split into.
+     */
     sectionSize?: number;
     className?: string;
     height: number;
@@ -44,37 +66,10 @@ export type CollectionProps = {
 export class Collection extends PureComponent<CollectionProps, {}> {
     static propTypes: {
         'aria-label': Requireable<string>,
-
-        /**
-         * Number of cells in Collection.
-         */
         cellCount: Validator<number>,
-
-        /**
-         * Responsible for rendering a group of cells given their indices.
-         * Should implement the following interface: ({
-         *   cellSizeAndPositionGetter:Function,
-         *   indices: Array<number>,
-         *   cellRenderer: Function
-         * }): Array<PropTypes.node>
-         */
         cellGroupRenderer: Validator<CollectionCellGroupRenderer>,
-
-        /**
-         * Responsible for rendering a cell given an row and column index.
-         * Should implement the following interface: ({ index: number, key: string, style: object }): PropTypes.element
-         */
         cellRenderer: Validator<CollectionCellRenderer>,
-
-        /**
-         * Callback responsible for returning size and offset/position information for a given cell (index).
-         * ({ index: number }): { height: number, width: number, x: number, y: number }
-         */
         cellSizeAndPositionGetter: Validator<CollectionCellSizeAndPositionGetter>,
-
-        /**
-         * Optionally override the size of the sections a Collection's cells are split into.
-         */
         sectionSize: Requireable<number>
     };
 

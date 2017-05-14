@@ -37,6 +37,8 @@ export {
     SizedColumnProps
 } from './dist/es/ColumnSizer'
 export {
+    accessibilityOverscanIndicesGetter,
+    defaultOverscanIndicesGetter,
     defaultCellRangeRenderer,
     Grid,
     CellSizeAndPositionManager,
