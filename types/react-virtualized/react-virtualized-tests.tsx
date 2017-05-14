@@ -1068,9 +1068,9 @@ export class GridExample2 extends PureComponent<any, any> {
     _initCellPositioner() {
         if (typeof this._cellPositioner === 'undefined') {
             const {
-        columnWidth,
+                columnWidth,
                 gutterSize
-      } = this.state
+            } = this.state
 
             this._cellPositioner = createCellPositioner({
                 cellMeasurerCache: this._cache,
