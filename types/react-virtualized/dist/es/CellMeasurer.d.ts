@@ -45,17 +45,9 @@ export class CellMeasurerCache {
     ): void;
 }
 
-export type CellMeasurerChildProps = {
-    getColumnWidth: () => number,
-    getRowHeight: () => number,
-    resetMeasurements: () => any,
-    resetMeasurementsForColumn: (index: number) => any,
-    resetMeasurementsForRow: (index: number) => any,
-}
-
 export type CellMeasurerProps = {
     cache?: CellMeasurerCache;
-    children?: (props: CellMeasurerChildProps) => React.ReactNode;
+    children?: ((props: {measure: () => void}) => React.ReactNode) | JSX.Element;
     columnIndex?: number;
     index?: number;
     parent?: React.ReactType;
