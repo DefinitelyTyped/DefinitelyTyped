@@ -13,7 +13,7 @@ export const run: (req: IncomingMessage, res: ServerResponse, fn: RequestHandler
 declare const serve: (fn: RequestHandler) => Server
 export default serve;
 
-export const send: (res: ServerResponse, code: number, obj?: object) => Promise<void>
+export const send: (res: ServerResponse, code: number, data?: any) => Promise<void>
 
 export const sendError: (req: IncomingMessage, res: ServerResponse, info: { statusCode?: number, status?: number, message?: string, stack?: string }) => Promise<void>
 
