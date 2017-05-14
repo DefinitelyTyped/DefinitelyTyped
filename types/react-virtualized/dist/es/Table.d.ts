@@ -289,7 +289,7 @@ export type TableProps = GridCoreProps & {
 
 export const defaultTableCellDataGetter: TableCellDataGetter;
 export const defaultTableCellRenderer: TableCellRenderer;
-export const defaultTableHeaderRenderer: () => Array<React.ReactElement<TableHeaderProps>>;
+export const defaultTableHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
 export const defaultTableHeaderRowRenderer: TableHeaderRowRenderer;
 export const defaultTableRowRenderer: TableRowRenderer;
 

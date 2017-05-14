@@ -249,8 +249,8 @@ export type GridCoreProps = {
      */
     rowHeight: number | ((params: Index) => number);
     /**
-    * Number of rows in grid.
-    */
+     * Number of rows in grid.
+     */
     rowCount: number;
     /** Wait this amount of time after the last scroll event before resetting Grid `pointer-events`. */
     scrollingResetTimeInterval?: number;

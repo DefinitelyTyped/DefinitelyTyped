@@ -358,7 +358,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
 
     render() {
         const {
-      columnMaxWidth,
+            columnMaxWidth,
             columnMinWidth,
             columnCount
     } = this.state
@@ -486,7 +486,7 @@ export class GridExample extends PureComponent<any, any> {
 
     render() {
         const {
-      columnCount,
+            columnCount,
             height,
             overscanColumnCount,
             overscanRowCount,
@@ -816,7 +816,7 @@ export class ListExample extends PureComponent<any, any> {
 
     render() {
         const {
-      listHeight,
+            listHeight,
             listRowHeight,
             overscanRowCount,
             rowCount,
@@ -882,9 +882,9 @@ export class ListExample extends PureComponent<any, any> {
 
     _rowRenderer({ index, isScrolling, key, style }) {
         const {
-      showScrollingPlaceholder,
+            showScrollingPlaceholder,
             useDynamicRowHeight
-    } = this.state
+        } = this.state
 
         if (
             showScrollingPlaceholder &&
@@ -996,11 +996,11 @@ export class GridExample2 extends PureComponent<any, any> {
 
     render() {
         const {
-      columnWidth,
+            columnWidth,
             height,
             gutterSize,
             windowScrollerEnabled
-    } = this.state
+        } = this.state
 
         let child
 
@@ -1023,9 +1023,9 @@ export class GridExample2 extends PureComponent<any, any> {
 
     _calculateColumnCount() {
         const {
-      columnWidth,
+            columnWidth,
             gutterSize
-    } = this.state
+        } = this.state
 
         this._columnCount = Math.floor(this._width / (columnWidth + gutterSize))
     }
@@ -1129,9 +1129,9 @@ export class GridExample2 extends PureComponent<any, any> {
 
     _resetCellPositioner() {
         const {
-      columnWidth,
+            columnWidth,
             gutterSize
-    } = this.state
+        } = this.state
 
         this._cellPositioner.reset({
             columnCount: this._columnCount,
@@ -1278,14 +1278,14 @@ export class GridExample3 extends PureComponent<any, any> {
 
     render() {
         const {
-      columnCount,
+            columnCount,
             columnWidth,
             height,
             overscanColumnCount,
             overscanRowCount,
             rowHeight,
             rowCount
-    } = this.state
+        } = this.state
 
         return (
 
@@ -1502,7 +1502,7 @@ export class TableExample extends PureComponent<any, any> {
 
     render() {
         const {
-      disableHeader,
+            disableHeader,
             headerHeight,
             height,
             hideIndexRow,
@@ -1513,7 +1513,7 @@ export class TableExample extends PureComponent<any, any> {
             sortBy,
             sortDirection,
             useDynamicRowHeight
-    } = this.state
+        } = this.state
 
         const { list } = this.context
         const sortedList = this._isSortEnabled()
@@ -1596,13 +1596,13 @@ export class TableExample extends PureComponent<any, any> {
     }
 
     _headerRenderer({
-    columnData,
+        columnData,
         dataKey,
         disableSort,
         label,
         sortBy,
         sortDirection
-  }) {
+    }) {
         return (
             <div>
                 Full Name
