@@ -168,7 +168,7 @@ interface StripeApplePayPaymentContact {
 declare namespace stripe {
     interface StripeStatic {
         elements(options?: elements.ElementOptions): elements.Elements;
-        createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+        createToken(element: elements.Element, options?: TokenOptions): Promise<StripeCardTokenResponse>;
     }
 
     interface TokenOptions {
@@ -180,11 +180,6 @@ declare namespace stripe {
         address_zip?: string;
         address_country?: string;
         currency?: string;
-    }
-
-    interface TokenResponse {
-        token?: string;
-        error?: StripeError;
     }
 
     // Container for all elements related types
