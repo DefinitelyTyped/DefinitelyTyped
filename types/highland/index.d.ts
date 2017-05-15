@@ -1,6 +1,7 @@
-// Type definitions for Highland 1.14.0
+// Type definitions for Highland 2.10.5
 // Project: http://highlandjs.org/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
+//                 Hugo Wood <https://github.com/hgwood/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -48,6 +49,17 @@ interface HighlandStatic {
 	 * event emitter as the two arguments to the constructor and the first
 	 * argument emitted to the event handler will be written to the new Stream.
 	 *
+	 * You can pass a mapping hint as the third argument, which specifies how
+	 * event arguments are pushed into the stream. If no mapping hint is
+	 * provided, only the first value emitted with the event to the will be
+	 * pushed onto the Stream.
+	 *
+	 * If mappingHint is a number, an array of that length will be pushed onto
+	 * the stream, containing exactly that many parameters from the event. If
+	 * it's an array, it's used as keys to map the arguments into an object which
+	 * is pushed to the tream. If it is a function, it's called with the event
+	 * arguments, and the returned value is pushed.
+	 *
 	 * **Promise -** Accepts an ES6 / jQuery style promise and returns a
 	 * Highland Stream which will emit a single value (or an error).
 	 *
@@ -63,7 +75,7 @@ interface HighlandStatic {
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
 	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
-	<R>(xs: NodeJS.EventEmitter): Highland.Stream<R>;
+	<R>(eventName: string, xs: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
 
 	// moar (promise for everything?)
 	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
@@ -298,16 +310,28 @@ interface HighlandStatic {
 	/**
 	 * Wraps a node-style async function which accepts a callback, transforming
 	 * it to a function which accepts the same arguments minus the callback and
-	 * returns a Highland Stream instead. Only the first argument to the
-	 * callback (or an error) will be pushed onto the Stream.
+	 * returns a Highland Stream instead. The wrapped function keeps its context,
+	 * so you can safely use it as a method without binding (see the second
+	 * example below).
+	 *
+	 * wrapCallback also accepts an optional mappingHint, which specifies how
+	 * callback arguments are pushed to the stream. This can be used to handle
+	 * non-standard callback protocols that pass back more than one value.
+	 *
+	 * mappingHint can be a function, number, or array. See the documentation on
+	 * EventEmitter Stream Objects for details on the mapping hint. If
+	 * mappingHint is a function, it will be called with all but the first
+	 * argument that is passed to the callback. The first is still assumed to be
+	 * the error argument.
 	 *
 	 * @id wrapCallback
 	 * @section Utils
 	 * @name _.wrapCallback(f)
 	 * @param {Function} f - the node-style function to wrap
+	 * @param {Array | Function | Number} [mappingHint] - how to pass the arguments to the callback
 	 * @api public
 	 */
-	wrapCallback(f: Function): Function;
+	wrapCallback(f: Function, mappingHint?: Highland.MappingHint): (...args: any[]) => Highland.Stream<any>;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1009,6 +1033,8 @@ declare namespace Highland {
 		 */
 		latest(): Stream<R>;
 	}
+
+	type MappingHint = number | string[] | Function;
 }
 
 declare var highland:HighlandStatic;
