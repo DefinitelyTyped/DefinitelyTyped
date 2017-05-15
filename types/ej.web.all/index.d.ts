@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.1
+// Type definitions for ej.web.all 15.2
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.1.0.41
+*  version : 15.2.0.40
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -245,6 +245,26 @@ declare namespace ej {
 		remove(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data?: any };
 		update(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data: any };
 		getFiltersFrom(data: any, query: ej.Query): ej.Predicate;
+	}
+
+	class WebMethodAdaptor extends ej.UrlAdaptor {
+		constructor();
+		processQuery(dm: ej.DataManager, query: ej.Query, hierarchyFilters?: any): {
+			type: string; url: string; ejPvtData: any; contentType?: string; data?: any;
+		};
+	}
+
+	class CacheAdaptor extends ej.UrlAdaptor {
+		constructor();
+		init(adaptor: any, timeStamp: number, pageSize: number): void;
+		generateKey(url: string, query: ej.Query): string;
+		processQuery(dm: ej.DataManager, query: ej.Query, hierarchyFilters?: any): any;
+		processResponse(data: any, ds: any, query: ej.Query, xhr: JQueryXHR, request?: any, changes?: Changes): any;
+		insert(dm: ej.DataManager, data: any, tableName: string): { url: string; data: any };
+		remove(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data?: any };
+		update(dm: ej.DataManager, keyField: string, value: any, tableName: string): { type: string; url: string; data: any };
+		batchRequest(dm: ej.DataManager, changes: Changes, e: any): { url: string; type: string; data: any; contentType: string };
+
 	}
 
 	class ODataAdaptor extends ej.UrlAdaptor {
@@ -9238,6 +9258,44 @@ declare namespace ej {
 			stem?: PositionStem;
 		}
 
+		export interface TipSize {
+
+			/** Sets the Tooltip width.
+			 * @Default {20}
+			 */
+			width?: number;
+
+			/** Sets the Tooltip height.
+			 * @Default {10}
+			 */
+			height?: number;
+		}
+
+		export interface TipAdjust {
+
+			/** Sets horizontal gap between Tooltip and target element.
+			 * @Default {0}
+			 */
+			xValue?: number;
+
+			/** Sets vertical gap between Tooltip and target element.
+			 * @Default {0}
+			 */
+			yValue?: number;
+		}
+
+		export interface Tip {
+
+			/** Sets the Tooltip size.
+			 */
+			size?: TipSize;
+
+			/** Sets gap between tooltip against the target element.
+			 */
+			adjust?: TipAdjust;
+		}
+
+
 		enum effect {
 
 			///No animation takes place when showing/hiding the Tooltip
@@ -11179,6 +11237,102 @@ declare namespace ej {
 			/** Returns current action event type and its target.
 			 */
 			event?: any;
+		}
+	}
+
+	class Print extends ej.Widget {
+		static fn: Print;
+		constructor(element: JQuery | Element, options?: Print.Model);
+		static Locale: any;
+		model: Print.Model;
+		defaults: Print.Model;
+
+		/** Print the specific page or an element.
+		 * @returns {void}
+		 */
+		print(): void;
+	}
+
+	export namespace Print {
+
+		export interface Model {
+
+			/** Append the custom HTML after the selected content.
+			 * @Default {null}
+			 */
+			append?: string;
+
+			/** A selector that specifies a particular element to be excluded from printing.
+			 * @Default {null}
+			 */
+			excludeSelector?: string;
+
+			/** Specifies whether the URL of an external stylesheet can be included to customize and print that page.
+			 * @Default {null}
+			 */
+			externalStyles?: string;
+
+			/** Prepend a doctype to the document frame.
+			 * @Default {&lt;!doctype html&gt;}
+			 */
+			docType?: string;
+
+			/** Specifies whether the global styles can be applied to the element to be printed.
+			 * @Default {true}
+			 */
+			globalStyles?: boolean;
+
+			/** Sets the height of the print window.
+			 * @Default {454}
+			 */
+			height?: number;
+
+			/** Prepends the custom HTML before the selected content.
+			 * @Default {null}
+			 */
+			prepend?: string;
+
+			/** Allows printing the content in a new window.
+			 * @Default {false}
+			 */
+			printInNewWindow?: boolean;
+
+			/** Sets the period of time to wait before printing the content.
+			 * @Default {1000}
+			 */
+			timeOutPeriod?: number;
+
+			/** Sets the title of the print document.
+			 * @Default {null}
+			 */
+			title?: string;
+
+			/** Defines the width of the print window.
+			 * @Default {1024}
+			 */
+			width?: number;
+
+			/** Event triggers before the document page or an element in it gets printed. */
+			beforeStart?(e: BeforeStartEventArgs): void;
+		}
+
+		export interface BeforeStartEventArgs {
+
+			/**  Set this option as true to cancel the event.
+			 */
+			cancel?: boolean;
+
+			/**  Returns the Print model
+			 */
+			model?: ej.Print.Model;
+
+			/**  Returns the name of an event
+			 */
+			type?: string;
+
+			/**  Returns the printed element
+			 */
+			content?: any;
 		}
 	}
 
