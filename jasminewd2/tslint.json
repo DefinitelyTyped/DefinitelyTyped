@@ -1,8 +1,0 @@
-{
-    "extends": "../tslint.json",
-    "rules": {
-        "callable-types": false,
-        "prefer-const": false,
-        "void-return": false
-    }
-}
