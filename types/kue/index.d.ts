@@ -133,7 +133,7 @@ interface Redis {
 
 interface TestMode {
     jobs: Job[];
-    enter(): void;
+    enter(process?: Boolean): void;
     exit(): void;
     clear(): void;
 }

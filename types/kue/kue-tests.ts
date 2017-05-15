@@ -4,6 +4,18 @@ import kue = require('kue');
 
 var jobs = kue.createQueue();
 
+// do quick test with testmode enabled
+
+// testMode enabled where the jobs are not processed
+jobs.testMode.enter();
+jobs.testMode.clear();
+jobs.testMode.exit();
+
+// testMode enabled where the jobs are processed
+jobs.testMode.enter(true);
+jobs.testMode.clear();
+jobs.testMode.exit();
+
 // start redis with $ redis-server
 
 // create some jobs at random,
