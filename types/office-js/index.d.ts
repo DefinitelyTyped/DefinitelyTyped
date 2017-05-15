@@ -2412,7 +2412,6 @@ declare module OfficeExtension {
         constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
         add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
         remove(handler: (args: T) => IPromise<any>): void;
-        removeAll(): void;
     }
 
     export class EventHandlerResult<T> {

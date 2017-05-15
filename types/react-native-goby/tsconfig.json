@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es6",
         "module": "commonjs",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "dockerode-tests.ts"
+        "react-native-goby-tests.tsx"
     ]
 }

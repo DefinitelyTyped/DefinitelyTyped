@@ -856,7 +856,10 @@ declare namespace Marionette {
         /**
          * Internal properties extended in Marionette.View.
          */
-        isDestroyed: boolean;
+        isDestroyed(): boolean;
+        isRendered(): boolean;
+        isAttached(): boolean;
+        delegateEntityEvents(): View<TModel>;
         supportsRenderLifecycle: boolean;
         supportsDestroyLifecycle: boolean;
 
