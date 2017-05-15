@@ -8,6 +8,8 @@
 
 import events = require("events");
 
+export as namespace Noble;
+
 export declare function startScanning(): void;
 export declare function startScanning(serviceUUIDs: string[]): void;
 export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean): void;
