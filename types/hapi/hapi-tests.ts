@@ -118,6 +118,21 @@ server.route({
 	}
 });
 
+// Cache config
+server.route({
+	method: 'GET',
+	path: '/hello7',
+	handler(request: Hapi.Request, reply: Hapi.IReply) {
+		reply('hello world');
+	},
+	config: {
+		cache: {
+			privacy: 'private',
+			expiresIn: 2000
+		}
+	}
+});
+
 // config.validate parameters should be optional
 server.route([{
 	method: 'GET',
