@@ -6297,7 +6297,7 @@ export interface AdSupportIOSStatic {
 
 interface AlertIOSButton {
     text: string
-    onPress?: () => void
+    onPress?: (message?: string) => void
     style?: "default" | "cancel" | "destructive"
 }
 
