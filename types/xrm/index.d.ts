@@ -181,6 +181,13 @@ declare namespace Xrm {
         getUserRoles(): string[];
 
         /**
+         * Returns the version number of the Dynamics 365 server.
+         *
+         * @return The version number
+         */
+        getVersion(): string;
+
+        /**
          * Prefixes the current organization's unique name to a string; typically a URL path.
          *
          * @param   {string}    sPath   Local pathname of the resource.
