@@ -2097,7 +2097,7 @@ declare namespace sequelize {
 
     }
 
-    interface UniqueConstraintError extends DatabaseError {
+    interface UniqueConstraintError extends ValidationError {
 
         /**
          * Thrown when a unique constraint is violated in the database
@@ -3247,8 +3247,8 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-                     
-                     
+
+
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
