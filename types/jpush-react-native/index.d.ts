@@ -35,9 +35,11 @@ export default class JPush {
      */
     static getInfo(cb: (map: any) => void): void;
 
-    static setTags(tags: string[], successCallback: (resultCode: number[]) => void, failedCallback: () => void): void;
+    static setTags(tags: string[], successCallback: () => void, failedCallback: () => void): void;
 
-    static setAlias(alias: string, successCallback: (resultCode: number[]) => void, failedCallback: () => void): void;
+    static setAlias(alias: string, successCallback: () => void, failedCallback: () => void): void;
+
+    static setAliasAndTags(alias: string, tag: string[], successCallback: () => void, failedCallback: () => void): void;
 
     /**
      * Android

@@ -24,6 +24,13 @@ JPush.setAlias(
     () => {},
 );
 
+JPush.setAliasAndTags(
+    'alias',
+    ['tag1', 'tag2'],
+    () => { },
+    () => { },
+);
+
 JPush.setStyleBasic();
 
 JPush.setStyleCustom();
