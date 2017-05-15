@@ -403,6 +403,12 @@
             "asOfVersion": "3.10.0"
         },
         {
+            "libraryName": "react-day-picker",
+            "typingsPackageName": "react-day-picker",
+            "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
+            "asOfVersion": "5.3.0"
+        },
+        {
             "libraryName": "Redux",
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
