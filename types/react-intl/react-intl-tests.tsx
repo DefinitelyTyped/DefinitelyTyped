@@ -51,6 +51,7 @@ const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> 
     const formattedNumber = formatNumber(123, { format: "short" });
     const formattedPlural = formatPlural(1, { style: "ordinal" });
     const formattedMessage = formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+    const formattedMessagePlurals = formatMessage({ id: "hello", defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" }, { name: "Roger", unreadCount: 123 });
     const formattedHTMLMessage = formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
     return (
         <div className={className}>
@@ -70,6 +71,7 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
         const formattedNumber = intl.formatNumber(123, { format: "short" });
         const formattedPlural = intl.formatPlural(1, { style: "ordinal" });
         const formattedMessage = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+        const formattedMessagePlurals = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" }, { name: "Roger", unreadCount: 123 });
         const formattedHTMLMessage = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
         return <div className={this.props.className}>
             <FormattedRelative
@@ -92,6 +94,20 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 description="Test"
                 defaultMessage="Hi nested component {name}!"
                 values={{ name: <p>p</p> }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi numbers {count}!"
+                values={{ count: 123 }}
+                tagName="div" />
+
+            <FormattedMessage
+                id="test"
+                description="Test"
+                defaultMessage="Hi plurals: {valueOne, number} {valueOne, plural, one {plural} other {plurals}} {valueTen, number} {valueTen, plural, one {plural} other {plurals}} !"
+                values={{ valueOne: 1, valueTen: 10 }}
                 tagName="div" />
 
             <FormattedHTMLMessage
