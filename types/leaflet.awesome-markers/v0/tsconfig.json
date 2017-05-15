@@ -8,11 +8,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "leaflet": [
+                "leaflet/v0"
+            ],
+            "leaflet.awesome-markers": [
+                "leaflet.awesome-markers/v0"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
