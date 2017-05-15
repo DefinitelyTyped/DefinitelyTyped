@@ -3355,7 +3355,6 @@ interface JQuery {
      * @see {@link https://api.jquery.com/selector/}
      */
     selector: string;
-    [index: string]: any;
     [index: number]: HTMLElement;
 
     /**
