@@ -6,7 +6,6 @@
 //                 Adam Cmiel <https://github.com/adamcmiel>
 //                 Justin Leider <https://github.com/jleider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const Stripe: StripeStatic;
 
 interface StripeStatic {
@@ -20,6 +19,7 @@ interface StripeStatic {
     card: StripeCard;
     createToken(data: StripeCardTokenData, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
     bankAccount: StripeBankAccount;
+    (stripePublicKey: string): stripe.StripeStatic;
 }
 
 interface StripeCardTokenData {
@@ -165,17 +165,13 @@ interface StripeApplePayPaymentContact {
 // Stripe.js v3 APIs
 // These will eventually replace the ones above once they're all added to the library
 // https://stripe.com/docs/elements/reference#including-the-library
-interface StripeStatic {
-    (stripePublicKey: string): stripe.StripeStatic;
-}
 declare namespace stripe {
-
-    export interface StripeStatic {
+    interface StripeStatic {
         elements(options?: elements.ElementOptions): elements.Elements;
         createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
     }
 
-    export interface TokenOptions {
+    interface TokenOptions {
         name?: string;
         address_line1?: string;
         address_line2?: string;
@@ -186,18 +182,19 @@ declare namespace stripe {
         currency?: string;
     }
 
-    export interface TokenResponse {
+    interface TokenResponse {
         token?: string;
         error?: StripeError;
     }
 
     // Container for all elements related types
     namespace elements {
-
         type handler = (response?: ElementChangeResponse) => void;
         type eventTypes = 'blur' | 'change' | 'focus' | 'ready';
-        export interface Element {
-            mount(domElement: string | HTMLElement): void;
+        interface Element {
+            // HTMLElement keeps giving this error for some reason:
+            // Cannot find name 'HTMLElement'
+            mount(domElement: string | any): void;
             on(event: eventTypes, handler: handler): void;
             blur(): void;
             clear(): void;
@@ -205,7 +202,7 @@ declare namespace stripe {
             update(options: ElementsOptions): void;
         }
 
-        export interface ElementChangeResponse {
+        interface ElementChangeResponse {
             brand: string;
             complete: boolean;
             empty: boolean;
@@ -213,17 +210,17 @@ declare namespace stripe {
             error?: StripeError;
         }
 
-        export interface ElementOptions {
+        interface ElementOptions {
             fonts?: elements.Font[];
             locale?: string;
         }
 
         type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode';
-        export interface Elements {
+        interface Elements {
             create(type: elementsType, options: ElementsOptions): Element;
         }
 
-        export interface ElementsOptions {
+        interface ElementsOptions {
             classes?: {
                 base?: string;
                 complete?: string;
@@ -236,10 +233,10 @@ declare namespace stripe {
             hideIcon?: boolean;
             iconStyle?: 'solid' | 'default';
             style?: elements.Font;
-            value?: string | {[objectKey: string]: string;};
+            value?: string | {[objectKey: string]: string; };
         }
 
-        export interface Style extends StyleOptions {
+        interface Style extends StyleOptions {
             ':hover'?: StyleOptions;
             ':focus'?: StyleOptions;
             '::placeholder'?: StyleOptions;
