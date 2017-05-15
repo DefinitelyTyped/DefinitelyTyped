@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.43
+// Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3123,9 +3123,9 @@ export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
 }
 
 /*
-    * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
-    */
-interface ImageURISource {
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
+ */
+export interface ImageURISource {
     /**
      * `uri` is a string representing the resource identifier for the image, which
      * could be an http address, a local file path, or the name of a static image
@@ -3436,6 +3436,13 @@ export interface FlatListProperties<ItemT> {
     data: ItemT[] | null;
 
     /**
+     * A marker property for telling the list to re-render (since it implements PureComponent).
+     * If any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the `data` prop,
+     * stick it here and treat it immutably.
+     */
+    extraData?: any
+
+    /**
      * `getItemLayout` is an optional optimization that lets us skip measurement of dynamic
      * content if you know the height of items a priori. getItemLayout is the most efficient,
      * and is easy to use if you have fixed height items, for example:
@@ -3597,6 +3604,13 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Rendered in between each section.
      */
     SectionSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * A marker property for telling the list to re-render (since it implements PureComponent).
+     * If any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the `data` prop,
+     * stick it here and treat it immutably.
+     */
+    extraData?: any
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
@@ -5084,6 +5098,11 @@ export interface TabBarItemProperties extends ViewProperties {
     badge?: string | number
 
     /**
+     * Background color for the badge. Available since iOS 10.
+     */
+    badgeColor?: string
+
+    /**
      * A custom icon for the tab. It is ignored when a system icon is defined.
      */
     icon?: ImageURISource
@@ -5168,6 +5187,11 @@ export interface TabBarIOSProperties extends ViewProperties {
      * Color of text on unselected tabs
      */
     unselectedTintColor?: string
+
+    /**
+     * Color of unselected tab icons. Available since iOS 10.
+     */
+    unselectedItemTintColor?: string
 }
 
 export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
@@ -5769,7 +5793,7 @@ export interface ScrollViewPropertiesIOS {
      * This can be used for paginating through children that have lengths smaller than the scroll view.
      * Used in combination with snapToAlignment.
      */
-    snapToInterval?: number[]
+    snapToInterval?: number
 
     /**
      * An array of child indices determining which children get docked to the
@@ -6273,7 +6297,7 @@ export interface AdSupportIOSStatic {
 
 interface AlertIOSButton {
     text: string
-    onPress?: () => void
+    onPress?: (message?: string) => void
     style?: "default" | "cancel" | "destructive"
 }
 
