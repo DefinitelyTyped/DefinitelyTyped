@@ -9,7 +9,6 @@
 *.cs
 *.sln
 *.csproj
-*.txt
 *.map
 *.swp
 .DS_Store
@@ -30,8 +29,15 @@ _infrastructure/tests/build
 *.iml
 *.js.map
 !*.js/
+!scripts/new-package.js
+!scripts/not-needed.js
+!scripts/lint.js
 
 node_modules
 
 .sublimets
 .settings/launch.json
+
+.vs
+.vscode
+yarn.lock
