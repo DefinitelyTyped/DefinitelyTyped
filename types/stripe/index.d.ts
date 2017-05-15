@@ -1,4 +1,4 @@
-// Type definitions for stripe 2.x
+// Type definitions for stripe 2.x/3.x
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
 //                 Eric J. Smith <https://github.com/ejsmith/>
