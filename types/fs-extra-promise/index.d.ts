@@ -1,7 +1,8 @@
-// Type definitions for fs-extra-promise
+// Type definitions for fs-extra-promise 1.0
 // Project: https://github.com/overlookmotel/fs-extra-promise
 // Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 /// <reference types="bluebird" />
@@ -10,9 +11,14 @@
 import * as stream from 'stream';
 import { Stats } from 'fs';
 import * as Promise from 'bluebird';
-import { CopyFilter, CopyOptions, ReadOptions, WriteOptions, MkdirOptions, MoveOptions } from 'fs-extra';
+import { CopyFilter, CopyOptions, ReadOptions, WriteOptions, MoveOptions } from 'fs-extra';
 
 export * from 'fs-extra';
+
+export interface MkdirOptions {
+    fs?: any;
+    mode?: number;
+}
 
 //promisified versions
 export declare function copyAsync(src: string, dest: string): Promise<void>;

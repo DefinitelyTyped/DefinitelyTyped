@@ -14,6 +14,9 @@ traverse(ast, {
         if (t.isIdentifier(node, { name: "n" })) {
             node.name = "x";
         }
+        if (t.isFunctionExpression(node)) {
+            node.params = [t.identifier('param')];
+        }
     }
 });
 
@@ -24,3 +27,5 @@ if (t.isBinaryExpression(ast)) {
 }
 t.assertBinaryExpression(ast);
 t.assertBinaryExpression(ast, { operator: "*" });
+
+var exp: t.Expression = t.nullLiteral();

@@ -1,20 +1,20 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   RouteProps,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
 // render both of them in different places when the
 // path matches the current URL.
 interface MyRoute extends RouteProps {
-  sidebar: () => JSX.Element;
-  main: () => JSX.Element;
+  sidebar: (() => JSX.Element);
+  main: (() => JSX.Element);
 }
-const routes: Array<MyRoute> = [
+const routes: MyRoute[] = [
   { path: '/',
     exact: true,
     sidebar: () => <div>home!</div>,
@@ -28,7 +28,7 @@ const routes: Array<MyRoute> = [
     sidebar: () => <div>shoelaces!</div>,
     main: () => <h2>Shoelaces</h2>
   }
-]
+];
 
 const SidebarExample = () => (
   <Router>
@@ -75,6 +75,6 @@ const SidebarExample = () => (
       </div>
     </div>
   </Router>
-)
+);
 
-export default SidebarExample
+export default SidebarExample;

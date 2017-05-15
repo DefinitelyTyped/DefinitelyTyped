@@ -16,7 +16,7 @@ declare namespace Stamplay {
     unset(property: string): void;
     fetch(id: any): Promise<any>;
     destroy(): Promise<any>;
-    save({}?): Promise<any>;
+    save(arg?: any): Promise<any>; // TODO: Don't know what this is supposed to be.
     upVote(): Promise<any>;
   }
 
