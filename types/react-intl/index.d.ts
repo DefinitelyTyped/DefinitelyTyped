@@ -67,7 +67,7 @@ declare namespace ReactIntl {
         formatRelative: (value: number, options?: FormattedRelative.PropsBase & { now?: any }) => string;
         formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
         formatPlural: (value: number, options?: FormattedPlural.Base) => keyof FormattedPlural.PropsBase;
-        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string}) => string;
+        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number}) => string;
         formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string}) => string;
         locale: string;
         formats: any;
@@ -136,7 +136,7 @@ declare namespace ReactIntl {
         }
 
         export interface Props extends MessageDescriptor {
-            values?: {[key: string]: string | JSX.Element};
+            values?: {[key: string]: string | number | JSX.Element};
             tagName?: string;
         }
     }
