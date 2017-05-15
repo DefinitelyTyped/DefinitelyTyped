@@ -254,6 +254,11 @@ server.use(restify.queryParser());
 server.use(restify.jsonp());
 server.use(restify.gzipResponse());
 server.use(restify.bodyParser());
+server.use(restify.CORS({
+    origins: ['https://foo.com', 'http://bar.com', 'http://baz.com:8081'],
+    credentials: true,
+    headers: ['x-foo']
+}));
 server.use(restify.throttle({
     burst: 100,
     rate: 50,
