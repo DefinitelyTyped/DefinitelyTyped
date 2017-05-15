@@ -630,6 +630,8 @@ new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
 
+const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
+
 //
 //  Hooks
 // ~~~~~~~
