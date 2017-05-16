@@ -1,10 +1,10 @@
-// Type definitions for popper.js v1.8.5
+// Type definitions for popper.js 1.8
 // Project: https://github.com/FezVrasta/popper.js/
-// Definitions by: rhysd <https://rhysd.github.io>, joscha <https://github.com/joscha>
+// Definitions by: rhysd <https://rhysd.github.io>, joscha <https://github.com/joscha>, seckardt <https://github.com/seckardt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Popper {
-  export interface PopperOptions {
+  interface PopperOptions {
     placement?: string;
     boundariesPadding?: number;
     modifiers?: {
@@ -14,18 +14,18 @@ declare namespace Popper {
       'function'?: Function,
       onLoad?: Function,
       applyStyle?: {
-        gpuAcceleration?: boolean,
+        gpuAcceleration?: boolean
       },
       preventOverflow?: {
         boundariesElement?: string | Element,
-        priority?: ('left' | 'right' | 'top' | 'bottom')[],
+        priority?: Array<'left' | 'right' | 'top' | 'bottom'>
       },
       offset?: {
-        offset?: number,
+        offset?: number | string
       },
       flip?: {
         behavior?: string | string[],
-        boundariesElement?: string | Element,
+        boundariesElement?: string | Element
       },
     };
     modifiersIgnored?: string[];
@@ -34,7 +34,7 @@ declare namespace Popper {
     onCreate?(data: Popper.Data): void;
     onUpdate?(data: Popper.Data): void;
   }
-  export class Modifiers {
+  class Modifiers {
     applyStyle(data: Object): Object;
     shift(data: Object): Object;
     preventOverflow(data: Object): Object;
@@ -43,7 +43,7 @@ declare namespace Popper {
     offset(data: Object): Object;
     arrow(data: Object): Object;
   }
-  export interface Data {
+  interface Data {
     placement: string;
     offsets: {
       popper: {
@@ -56,8 +56,8 @@ declare namespace Popper {
 }
 
 declare class Popper {
-  public modifiers: Popper.Modifiers;
-  public placement: string;
+  modifiers: Popper.Modifiers;
+  placement: string;
 
   constructor(reference: Element, popper: Element | Object, options?: Popper.PopperOptions);
 
