@@ -214,6 +214,7 @@ declare module 'angular' {
             contrastDefaultColor?: string;
             contrastDarkColors?: string | string[];
             contrastLightColors?: string | string[];
+            contrastStrongLightColors?: string|string[];
         }
 
         interface IThemeHues {
