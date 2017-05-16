@@ -280,6 +280,7 @@ declare namespace _ {
         (value: number): LoDashImplicitWrapper<number>;
         (value: string): LoDashImplicitStringWrapper;
         (value: boolean): LoDashImplicitWrapper<boolean>;
+        (value: null | undefined): LoDashImplicitWrapper<null | undefined>;
         (value: number[] | null | undefined): LoDashImplicitNumberArrayWrapper;
         <T>(value: T[] | null | undefined): LoDashImplicitArrayWrapper<T>;
         <T extends {}>(value: T | null | undefined): LoDashImplicitObjectWrapper<T>;
@@ -1881,28 +1882,28 @@ declare namespace _ {
         /**
          * @see _.head
          */
-        first<T>(array: List<T> | null | undefined): T;
+        first<T>(array: List<T> | null | undefined): T | undefined;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.head
          */
-        first(): string;
+        first(): string | undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.head
          */
-        first(): T;
+        first(): T | undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.head
          */
-        first<T>(): T;
+        first<T>(): T | undefined;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -2113,28 +2114,28 @@ declare namespace _ {
          * @param array The array to query.
          * @return Returns the first element of array.
          */
-        head<T>(array: List<T> | null | undefined): T;
+        head<T>(array: List<T> | null | undefined): T | undefined;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.head
          */
-        head(): string;
+        head(): string | undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.head
          */
-        head(): T;
+        head(): T | undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.head
          */
-        head<T>(): T;
+        head<T>(): T | undefined;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -2573,28 +2574,28 @@ declare namespace _ {
          * @param array The array to query.
          * @return Returns the last element of array.
          */
-        last<T>(array: List<T> | null | undefined): T;
+        last<T>(array: List<T> | null | undefined): T | undefined;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.last
          */
-        last(): string;
+        last(): string | undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.last
          */
-        last(): T;
+        last(): T | undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.last
          */
-        last<T>(): T;
+        last<T>(): T | undefined;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -2687,7 +2688,7 @@ declare namespace _ {
         nth<T>(
             array: List<T> | null | undefined,
             n?: number
-        ): T;
+        ): T | undefined;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -2696,7 +2697,7 @@ declare namespace _ {
          */
         nth(
             n?: number
-        ): T;
+        ): T | undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -2705,7 +2706,7 @@ declare namespace _ {
          */
         nth<TResult>(
             n?:number
-        ): TResult;
+        ): TResult | undefined;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
@@ -5908,6 +5909,7 @@ declare namespace _ {
         chain(value: number): LoDashExplicitWrapper<number>;
         chain(value: string): LoDashExplicitWrapper<string>;
         chain(value: boolean): LoDashExplicitWrapper<boolean>;
+        chain(value: null | undefined): LoDashExplicitWrapper<null | undefined>;
         chain<T>(value: T[] | null | undefined): LoDashExplicitArrayWrapper<T>;
         chain<T>(value: ReadonlyArray<T> | null | undefined): LoDashExplicitArrayWrapper<T>;
         chain<T extends {}>(value: T | null | undefined): LoDashExplicitObjectWrapper<T>;
@@ -12392,7 +12394,7 @@ declare namespace _ {
     }
 
     // _.isEqualWith
-    type IsEqualCustomizer = (value: any, other: any, indexOrKey?: number|string) => boolean;
+    type IsEqualCustomizer = (value: any, other: any, indexOrKey: number|string|undefined, parent: any, otherParent: any, stack: any) => boolean|undefined;
 
     interface LoDashStatic {
         /**
@@ -12429,7 +12431,7 @@ declare namespace _ {
         isEqualWith(
             value: any,
             other: any,
-            customizer: IsEqualCustomizer
+            customizer?: IsEqualCustomizer
         ): boolean;
     }
 
@@ -12439,7 +12441,7 @@ declare namespace _ {
          */
         isEqualWith(
             other: any,
-            customizer: IsEqualCustomizer
+            customizer?: IsEqualCustomizer
         ): boolean;
     }
 
@@ -12449,7 +12451,7 @@ declare namespace _ {
          */
         isEqualWith(
             other: any,
-            customizer: IsEqualCustomizer
+            customizer?: IsEqualCustomizer
         ): LoDashExplicitWrapper<boolean>;
     }
 

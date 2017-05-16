@@ -794,14 +794,14 @@ namespace TestFirst {
     let list: _.List<TResult> | null | undefined = [] as any;
 
     {
-        let result: string;
+        let result: string | undefined;
 
         result = _.first('abc');
         result = _('abc').first();
     }
 
     {
-        let result: TResult;
+        let result: TResult | undefined;
 
         result = _.first<TResult>(array);
         result = _.first<TResult>(list);
@@ -1043,14 +1043,14 @@ namespace TestHead {
     let list: _.List<TResult> | null | undefined = [] as any;
 
     {
-        let result: string;
+        let result: string | undefined;
 
         result = _.head('abc');
         result = _('abc').head();
     }
 
     {
-        let result: TResult;
+        let result: TResult | undefined;
 
         result = _.head<TResult>(array);
         result = _.head<TResult>(list);
@@ -1244,14 +1244,14 @@ namespace TestLast {
     let list: _.List<TResult> | null | undefined = [] as any;
 
     {
-        let result: string;
+        let result: string | undefined;
 
         result = _.last('abc');
         result = _('abc').last();
     }
 
     {
-        let result: TResult;
+        let result: TResult | undefined;
 
         result = _.last<TResult>(array);
         result = _.last<TResult>(list);
@@ -1325,7 +1325,7 @@ namespace TestNth {
     let value: number = 0;
 
     {
-        let result: TResult;
+        let result: TResult | undefined;
 
         result = _.nth<TResult>(array);
 
@@ -7093,7 +7093,9 @@ namespace TestIsEqual {
 
 // _.isEqualWith
 namespace TestIsEqualWith {
-    let customizer = (value: any, other: any, indexOrKey?: number|string) => true;
+    let customizer = (value: any, other: any, indexOrKey: number|string|undefined, parent: any, otherParent: any, stack: any) => {
+        return value ? undefined : true;
+    };
 
     {
         let result: boolean;
