@@ -1,22 +1,24 @@
 import Hapi = require('hapi');
 import Nes = require('nes');
 
-let server: Hapi.Server = new Hapi.Server();
+var server: Hapi.Server = new Hapi.Server();
 server.connection({port: 8080});
 
-server.register(Nes, (regErr: any) => {
+server.register(Nes, (regErr) => {
     if(regErr) {
         console.log('register err');
         console.log(regErr);
     } else {
-        let wsServer: Nes.Server = server as Nes.Server;
+        // No longer need to cast to Nes.Server as Hapi.Server has been modified directly.
+        // let wsServer: Nes.Server = server as Nes.Server;
+        let wsServer: Hapi.Server = server;
         wsServer.subscription('/item/{id}');
         wsServer.route( {
             method: 'GET',
             path: '/test',
             config: {
-                handler: (request: Hapi.Request, reply: Hapi.IReply) => {
-                    reply({test: 'passes'});
+                handler: (request, reply) => {
+                    reply({test: 'passes ' + request.socket.id});
                 }
             }
         });
@@ -34,14 +36,16 @@ server.register(Nes, (regErr: any) => {
     }
 });
 
-let wsClient: Nes.Client = new Nes.Client('ws://localhost:8080');
+let options: Nes.ClientConnectOptions = {delay: 3};
+
+let wsClient: Nes.Client = new Nes.Client('ws://localhost:8080', options);
 wsClient.connect((err: any) => {
     if(err) {
         console.log('start err');
         console.log(err);
     } else {
         wsClient.subscribe('/item/5', (update) => {
-            wsClient.request('/test', (reqErr: any, payload: any, statusCode: number) => {
+            wsClient.request('/test', (reqErr, payload, statusCode) => {
                 if(reqErr) {
                     console.log('request err');
                     console.log(reqErr);
