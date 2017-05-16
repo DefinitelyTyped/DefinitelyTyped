@@ -1,6 +1,6 @@
-// Type definitions for OpenLayers v4.0.1
+// Type definitions for OpenLayers v4.1.0
 // Project: http://openlayers.org/
-// Definitions by: Olivier Sechet <https://github.com/osechet>
+// Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -4919,28 +4919,28 @@ declare module ol {
                  * @param {ol.proj.Projection=} opt_projection Projection.
                  */
                 constructor(type: ol.interaction.DragAndDropEventType, file: File, opt_features?: ol.Feature[], opt_projection?: ol.proj.Projection);
-    
+
                 /**
                  * The features parsed from dropped data.
                  * @type {Array.<ol.Feature>|undefined}
                  * @api stable
                  */
                 features: ol.Feature[];
-    
+
                 /**
                  * The dropped file.
                  * @type {File}
                  * @api stable
                  */
                 file: File;
-    
+
                 /**
                  * The feature projection.
                  * @type {ol.proj.Projection|undefined}
                  * @api
                  */
                 projection: ol.proj.Projection;
-    
+
             }
 
         }
@@ -5023,7 +5023,7 @@ declare module ol {
                  * @implements {oli.DragBoxEvent}
                  */
                 constructor(type: string, coordinate: ol.Coordinate, mapBrowserEvent: ol.MapBrowserEvent);
-        
+
                 /**
                  * The coordinate of the drag event.
                  * @const
@@ -5031,14 +5031,14 @@ declare module ol {
                  * @api stable
                  */
                 coordinate: ol.Coordinate;
-        
+
                 /**
                  * @const
                  * @type {ol.MapBrowserEvent}
                  * @api
                  */
                 mapBrowserEvent: ol.MapBrowserEvent;
-        
+
             }
 
         }
@@ -5195,14 +5195,14 @@ declare module ol {
                  * @param {ol.Feature} feature The feature drawn.
                  */
                 constructor(type: ol.interaction.DrawEventType, feature: ol.Feature);
-    
+
                 /**
                  * The feature being drawn.
                  * @type {ol.Feature}
                  * @api stable
                  */
                 feature: ol.Feature;
-    
+
             }
 
         }
@@ -5254,6 +5254,15 @@ declare module ol {
              * @api
              */
             extend(feature: ol.Feature): void;
+
+            /**
+             * Create a `geometryFunction` that will create a box-shaped polygon (aligned
+             * with the coordinate system axes).  Use this with the draw interaction and
+             * `type: 'Circle'` to return a box instead of a circle geometry.
+             * @return {ol.DrawGeometryFunctionType} Function that draws a box-shaped polygon.
+             * @api
+             */
+            static createBox(): ol.DrawGeometryFunctionType;
 
             /**
              * Create a `geometryFunction` for `mode: 'Circle'` that will create a regular
@@ -5491,21 +5500,21 @@ declare module ol {
                  *     {@link ol.MapBrowserPointerEvent}.
                  */
                 constructor(type: ol.ModifyEventType, features: ol.Collection<ol.Feature>, mapBrowserPointerEvent: ol.MapBrowserPointerEvent);
-    
+
                 /**
                  * The features being modified.
                  * @type {ol.Collection.<ol.Feature>}
                  * @api
                  */
                 features: ol.Collection<ol.Feature>;
-    
+
                 /**
                  * Associated {@link ol.MapBrowserEvent}.
                  * @type {ol.MapBrowserEvent}
                  * @api
                  */
                 mapBrowserEvent: ol.MapBrowserEvent;
-    
+
             }
 
         }
@@ -5713,28 +5722,28 @@ declare module ol {
                  * @constructor
                  */
                 constructor(type: string, selected: ol.Feature[], deselected: ol.Feature[], mapBrowserEvent: ol.MapBrowserEvent);
-    
+
                 /**
                  * Selected features array.
                  * @type {Array.<ol.Feature>}
                  * @api
                  */
                 selected: ol.Feature[];
-    
+
                 /**
                  * Deselected features array.
                  * @type {Array.<ol.Feature>}
                  * @api
                  */
                 deselected: ol.Feature[];
-    
+
                 /**
                  * Associated {@link ol.MapBrowserEvent}.
                  * @type {ol.MapBrowserEvent}
                  * @api
                  */
                 mapBrowserEvent: ol.MapBrowserEvent;
-    
+
             }
 
         }
@@ -5913,14 +5922,14 @@ declare module ol {
                  * @param {ol.Coordinate} coordinate The event coordinate.
                  */
                 constructor(type: ol.interaction.TranslateEventType, features: ol.Collection<ol.Feature>, coordinate: ol.Coordinate);
-    
+
                 /**
                  * The features being translated.
                  * @type {ol.Collection.<ol.Feature>}
                  * @api
                  */
                 features: ol.Collection<ol.Feature>;
-    
+
                 /**
                  * The coordinate of the drag event.
                  * @const
@@ -5928,7 +5937,7 @@ declare module ol {
                  * @api
                  */
                 coordinate: ol.Coordinate;
-    
+
             }
 
         }
@@ -7845,18 +7854,18 @@ declare module ol {
 
         }
 
-         /**
-          * Register proj4. If not explicitly registered, it will be assumed that
-          * proj4js will be loaded in the global namespace. For example in a
-          * browserify ES6 environment you could use:
-          *
-          *     import ol from 'openlayers';
-          *     import proj4 from 'proj4';
-          *     ol.proj.setProj4(proj4);
-          *
-          * @param {any} proj4 Proj4.
-          * @api
-          */
+        /**
+         * Register proj4. If not explicitly registered, it will be assumed that
+         * proj4js will be loaded in the global namespace. For example in a
+         * browserify ES6 environment you could use:
+         *
+         *     import ol from 'openlayers';
+         *     import proj4 from 'proj4';
+         *     ol.proj.setProj4(proj4);
+         *
+         * @param {any} proj4 Proj4.
+         * @api
+         */
         function setProj4(proj4: any): void;
 
         /**
@@ -8381,6 +8390,13 @@ declare module ol {
              * @api
              */
             getSource(): ol.source.Vector;
+
+            /**
+             * Get the distance in pixels between clusters.
+             * @return {number} The distance in pixels.
+             * @api
+             */
+            getDistance(): number;
 
             /**
              * Set the distance in pixels between clusters.
@@ -10623,7 +10639,7 @@ declare module ol {
              * @param {ol.style.Fill} fill Fill style.
              * @api
              */
-            setFill(fill: ol.style.Fill):void;
+            setFill(fill: ol.style.Fill): void;
 
             /**
              * Set a geometry that is rendered instead of the feature's geometry.
@@ -11790,6 +11806,20 @@ declare module ol {
         setRotation(rotation: number): void;
 
         /**
+         * Set a new maximum zoom level for the view.
+         * @param {number} zoom The maximum zoom level.
+         * @api stable
+         */
+        setMaxZoom(zoom: number): void;
+
+        /**
+         * Set a new minimum zoom level for the view.
+         * @param {number} zoom The minimum zoom level.
+         * @api stable
+         */
+        setMinZoom(zoom: number): void;
+
+        /**
          * Zoom to a specific zoom level.
          * @param {number} zoom Zoom level.
          * @api stable
@@ -11803,7 +11833,7 @@ declare module ol {
          * @param {olx.AnimateOptions | (completed: boolean) => void } restArgs
          * @api experimental
          */
-        animate(...var_args: Array<olx.animation.AnimateOptions|olx.animation.AnimateCallback>): void;
+        animate(...var_args: Array<olx.animation.AnimateOptions | olx.animation.AnimateCallback>): void;
 
     }
 
@@ -12358,6 +12388,7 @@ declare module olx {
         interface DefaultsOptions {
             altShiftDragRotate?: boolean;
             doubleClickZoom?: boolean;
+            constrainResolution?: boolean;
             keyboard?: boolean;
             mouseWheelZoom?: boolean;
             shiftDragZoom?: boolean;
@@ -12461,6 +12492,7 @@ declare module olx {
          *     geometryName: (string|undefined),
          *     condition: (ol.EventsConditionType|undefined),
          *     freehandCondition: (ol.EventsConditionType|undefined),
+         *     freehand: (boolean|undefined)
          *     wrapX: (boolean|undefined)}}
          */
         interface DrawOptions {
@@ -12477,6 +12509,7 @@ declare module olx {
             geometryName?: string;
             condition?: ol.EventsConditionType;
             freehandCondition?: ol.EventsConditionType;
+            freehand?: boolean;
             wrapX?: boolean;
         }
 

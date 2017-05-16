@@ -59,4 +59,20 @@ export interface RouterAction extends Action {
     payload: LocationActionPayload;
 }
 
+export interface LocationChangeAction extends Action {
+    type: typeof LOCATION_CHANGE;
+    payload: Location & {
+        props?: {
+            match: {
+                path: string;
+                url: string;
+                params: any;
+                isExact: boolean;
+            },
+            location: Location;
+            history: History;
+        }
+    };
+}
+
 export function routerMiddleware(history: History): Middleware;

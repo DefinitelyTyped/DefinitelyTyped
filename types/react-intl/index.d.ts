@@ -4,7 +4,8 @@
 //                 Christian Droulers <https://github.com/cdroulers>,
 //                 Fedor Nezhivoi <https://github.com/gyzerok>,
 //                 Till Wolff <https://github.com/tillwolff>,
-//                 Karol Janyst <https://github.com/LKay>
+//                 Karol Janyst <https://github.com/LKay>,
+//                 Brian Houser <https://github.com/bhouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -66,7 +67,7 @@ declare namespace ReactIntl {
         formatRelative: (value: number, options?: FormattedRelative.PropsBase & { now?: any }) => string;
         formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
         formatPlural: (value: number, options?: FormattedPlural.Base) => keyof FormattedPlural.PropsBase;
-        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string}) => string;
+        formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number}) => string;
         formatHTMLMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string}) => string;
         locale: string;
         formats: any;
@@ -135,7 +136,7 @@ declare namespace ReactIntl {
         }
 
         export interface Props extends MessageDescriptor {
-            values?: {[key: string]: string | JSX.Element};
+            values?: {[key: string]: string | number | JSX.Element};
             tagName?: string;
         }
     }
@@ -186,6 +187,7 @@ declare namespace ReactIntl {
             messages?: any;
             defaultLocale?: string;
             defaultFormats?: any;
+            textComponent?: any;
         }
     }
 

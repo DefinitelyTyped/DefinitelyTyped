@@ -1662,7 +1662,7 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-                <Drawer width={200} openSecondary={true} open={this.state.open}>
+                <Drawer width="20%" openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
         </Drawer>
       </div>
@@ -3449,6 +3449,115 @@ class SelectFieldExampleError extends React.Component<{}, {value?: number}> {
           {itemsPeriod}
         </SelectField>
       </div>
+    );
+  }
+}
+
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
+class SelectFieldExampleMultiSelect extends React.Component<{}, {values?: string[]}> {
+
+  constructor(props) {
+    super(props);
+    this.state = {values: []};
+  }
+
+  handleChange = (event, index, values) => this.setState({values});
+
+  menuItems(values) {
+    return names.map((name) => (
+      <MenuItem
+        key={name}
+        insetChildren={true}
+        checked={values && values.includes(name)}
+        value={name}
+        primaryText={name}
+      />
+    ));
+  }
+
+  render() {
+    const {values} = this.state;
+    return (
+      <SelectField
+        multiple={true}
+        hintText="Select a name"
+        value={values}
+        onChange={this.handleChange}
+      >
+        {this.menuItems(values)}
+      </SelectField>
+    );
+  }
+}
+
+const persons = [
+  {value: 0, name: 'Oliver Hansen'},
+  {value: 1, name: 'Van Henry'},
+  {value: 2, name: 'April Tucker'},
+  {value: 3, name: 'Ralph Hubbard'},
+  {value: 4, name: 'Omar Alexander'},
+  {value: 5, name: 'Carlos Abbott'},
+  {value: 6, name: 'Miriam Wagner'},
+  {value: 7, name: 'Bradley Wilkerson'},
+  {value: 8, name: 'Virginia Andrews'},
+  {value: 9, name: 'Kelly Snyder'},
+];
+
+class SelectFieldExampleSelectionRenderer extends React.Component<{}, {values?: string[]}> {
+
+  constructor(props) {
+    super(props);
+    this.state = {values: []};
+  }
+
+  handleChange = (event, index, values) => this.setState({values});
+
+  selectionRenderer = (values) => {
+    switch (values.length) {
+      case 0:
+        return '';
+      case 1:
+        return persons[values[0]].name;
+      default:
+        return `${values.length} names selected`;
+    }
+  }
+
+  menuItems(persons) {
+    return persons.map((person) => (
+      <MenuItem
+        key={person.value}
+        insetChildren={true}
+        checked={this.state.values.indexOf(person.value) >= 0}
+        value={person.value}
+        primaryText={person.name}
+      />
+    ));
+  }
+
+  render() {
+    return (
+      <SelectField
+        multiple={true}
+        hintText="Select a name"
+        value={this.state.values}
+        onChange={this.handleChange}
+        selectionRenderer={this.selectionRenderer}
+      >
+        {this.menuItems(persons)}
+      </SelectField>
     );
   }
 }

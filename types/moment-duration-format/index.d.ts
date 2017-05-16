@@ -15,7 +15,7 @@ declare module "moment" {
     interface DurationFormatSettings {
         template?: string;
         precision?: number;
-        trim?: boolean;
+        trim?: boolean | "right";
         forceLength?: boolean;
     }
 }
