@@ -115,7 +115,7 @@ declare namespace gsap {
         static staggerTo(targets: any, duration: number, vars: {}, stagger: number, onCompleteAll?: () => void, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
 
         /** Static method for creating a TweenMax instance that animates to the specified destination values (from the current values). */
-        static to(target: {}, duration: number, vars: TweenConfig): TweenMax;
+        static to(target: {}, duration: number, vars: {}): TweenMax;
 
         /** Updates tweening values on the fly so that they appear to seamlessly change course even if the tween is in-progress. */
         updateTo(vars: {}, resetDuration?: boolean): TweenMax;
