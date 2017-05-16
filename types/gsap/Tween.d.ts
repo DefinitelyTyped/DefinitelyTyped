@@ -114,6 +114,7 @@ declare namespace gsap {
         /** Tweens an array of targets to a common set of destination values, but staggers their start times by a specified amount of time, creating an evenly-spaced sequence with a surprisingly small amount of code. */
         static staggerTo(targets: any, duration: number, vars: {}, stagger: number, onCompleteAll?: () => void, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
 
+        
         /** Static method for creating a TweenMax instance that animates to the specified destination values (from the current values). */
         static to(target: {}, duration: number, vars: {}): TweenMax;
 
