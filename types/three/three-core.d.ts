@@ -2243,7 +2243,7 @@ export class CubeTextureLoader {
     corssOrigin: string;
     path: string;
 
-    load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
+    load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
     setCrossOrigin(crossOrigin: string): CubeTextureLoader;
     setPath(path: string): CubeTextureLoader;
 }
