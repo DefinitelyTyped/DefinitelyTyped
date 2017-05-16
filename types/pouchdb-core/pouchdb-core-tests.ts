@@ -162,7 +162,8 @@ function testChanges() {
     })
     .on('change', (change) => {
         let _id: string = change.id;
-        let _seq: number = change.seq;
+        let _seq: number = change.seq as number;
+        let _seq_couch20: string = change.seq as string;
         let _changes: { rev: string }[] = change.changes;
         let _foo: string = change.doc!.foo;
         let _deleted: boolean | undefined = change.doc!._deleted;
@@ -170,11 +171,13 @@ function testChanges() {
     })
     .on('complete', (info) => {
         let _status: string = info.status;
-        let _last_req: number = info.last_seq;
+        let _last_req: number = info.last_seq as number;
+        let _last_seq_couch20: string = info.last_seq as string;
         let change = info.results[0];
 
         let _id: string = change.id;
-        let _seq: number = change.seq;
+        let _seq: number = change.seq as number;
+        let _seq_couch20: string = change.seq as string;
         let _changes: { rev: string }[] = change.changes;
         let _deleted: boolean | undefined = change.doc!._deleted;
         let _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;

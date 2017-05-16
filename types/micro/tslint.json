@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "semicolon": [
+            false
+        ],
+        "prefer-declare-function": false
+    }
+}
