@@ -93,41 +93,41 @@ export interface SwiperProperties extends React.Props<Swiper> {
 
   prevButton?: JSX.Element;
 
-  onScrollBeginDrag?: (
+  onScrollBeginDrag?(
     event: NativeSyntheticEvent<NativeScrollEvent>,
     state: SwiperState,
     context: Swiper
-  ) => void;
+  ): void;
 
-  onMomentumScrollEnd?: (
+  onMomentumScrollEnd?(
     event: NativeSyntheticEvent<NativeScrollEvent>,
     state: SwiperState,
     context: Swiper
-  ) => void;
+  ): void;
 
-  onTouchStartCapture?: (
+  onTouchStartCapture?(
     event: NativeSyntheticEvent<NativeScrollEvent>,
     state: SwiperState,
     context: Swiper
-  ) => void;
+  ): void;
 
-  onTouchStart?: (
+  onTouchStart?(
     event: NativeSyntheticEvent<NativeScrollEvent>,
     state: SwiperState,
     context: Swiper
-  ) => void;
+  ): void;
 
-  onTouchEnd?: (
+  onTouchEnd?(
     event: NativeSyntheticEvent<NativeScrollEvent>,
     state: SwiperState,
     context: Swiper
-  ) => void;
+  ): void;
 
-  onResponderRelease?: (
+  onResponderRelease?(
     event: NativeSyntheticEvent<NativeScrollEvent>,
     state: SwiperState,
     context: Swiper
-  ) => void;
+  ): void;
 }
 
 export default class Swiper extends React.Component<SwiperProperties, SwiperState> {
