@@ -23,7 +23,7 @@ interface RNFetchBlobStatic {
     JSONStream: any;
 }
 
-interface Polyfill {
+export interface Polyfill {
     Blob: PolyfillBlob;
     File: PolyfillFile;
     XMLHttpRequest: PolyfillXMLHttpRequest;
@@ -33,17 +33,17 @@ interface Polyfill {
     Fetch: PolyfillFetch;
 }
 
-declare class PolyfillFetch extends RNFetchBlobFetchPolyfill {
+export declare class PolyfillFetch extends RNFetchBlobFetchPolyfill {
     constructor(config: RNFetchBlobConfig);
 }
 
-declare class RNFetchBlobFetchPolyfill {
+export declare class RNFetchBlobFetchPolyfill {
     constructor(config: RNFetchBlobConfig);
 
     build(): (url: string, options: RNFetchBlobConfig) => StatefulPromise<RNFetchBlobFetchRepsonse>;
 }
 
-interface RNFetchBlobFetchRepsonse {
+export interface RNFetchBlobFetchRepsonse {
     arrayBuffer(): Promise<any[]>;
     blob(): Promise<PolyfillBlob>;
     json(): Promise<any>;
@@ -62,7 +62,7 @@ interface RNFetchBlobFetchRepsonse {
 /**
  * RNFetchBlob response object class.
  */
-interface FetchBlobResponse {
+export interface FetchBlobResponse {
     taskId: string;
     /**
      * get path of response temp file
@@ -111,7 +111,7 @@ interface FetchBlobResponse {
     readStream(encode: Encoding): RNFetchBlobStream | null;
 }
 
-interface PolyfillFileReader extends EventTarget {
+export interface PolyfillFileReader extends EventTarget {
     isRNFBPolyFill: boolean;
     onloadstart(e: Event): void;
     onprogress(e: Event): void;
@@ -130,22 +130,22 @@ interface PolyfillFileReader extends EventTarget {
     result: number;
 }
 
-declare namespace PolyfillFileReader {
+export declare namespace PolyfillFileReader {
     const EMPTY: number;
     const LOADING: number;
     const DONE: number;
 }
 
-declare class PolyfillEvent {
+export declare class PolyfillEvent {
 }
 
-interface PolyfillProgressEvent extends EventTarget {
+export interface PolyfillProgressEvent extends EventTarget {
     lengthComputable: boolean;
     loaded: number;
     total: number;
 }
 
-declare class PolyfillBlob extends EventTarget {
+export declare class PolyfillBlob extends EventTarget {
     /**
      * RNFetchBlob Blob polyfill, create a Blob directly from file path, BASE64
      * encoded data, and string. The conversion is done implicitly according to
@@ -198,7 +198,7 @@ declare class PolyfillBlob extends EventTarget {
     close(): Promise<void>;
 }
 
-declare namespace PolyfillBlob {
+export declare namespace PolyfillBlob {
     function clearCache(): void;
 
     function build(data: any, cType: any): Promise<PolyfillBlob>;
@@ -206,10 +206,10 @@ declare namespace PolyfillBlob {
     function setLog(level: number): void;
 }
 
-declare class PolyfillFile extends PolyfillBlob {
+export declare class PolyfillFile extends PolyfillBlob {
 }
 
-interface PolyfillXMLHttpRequest extends PolyfillXMLHttpRequestEventTarget {
+export interface PolyfillXMLHttpRequest extends PolyfillXMLHttpRequestEventTarget {
     upload: PolyfillXMLHttpRequestEventTarget;
     readonly UNSENT: number;
     readonly OPENED: number;
@@ -256,7 +256,7 @@ interface PolyfillXMLHttpRequest extends PolyfillXMLHttpRequestEventTarget {
     responseType: string;
 }
 
-declare namespace PolyfillXMLHttpRequest {
+export declare namespace PolyfillXMLHttpRequest {
     const binaryContentTypes: string[];
     const UNSENT: number;
     const OPENED: number;
@@ -271,7 +271,7 @@ declare namespace PolyfillXMLHttpRequest {
     function removeBinaryContentType(): void;
 }
 
-interface PolyfillXMLHttpRequestEventTarget extends EventTarget {
+export interface PolyfillXMLHttpRequestEventTarget extends EventTarget {
     onabort(e: Event): void;
     onerror(e: Event): void;
     onload(e: Event): void;
@@ -281,7 +281,7 @@ interface PolyfillXMLHttpRequestEventTarget extends EventTarget {
     onloadend(e: Event): void;
 }
 
-interface Net {
+export interface Net {
     /**
      * Get cookie according to the given url.
      * @param  {string} domain Domain of the cookies to be removed, remove all
@@ -298,7 +298,7 @@ interface Net {
     removeCookies(domain?: string): Promise<null>;
 }
 
-interface FS {
+export interface FS {
     RNFetchBlobSession: RNFetchBlobSession;
 
     /**
@@ -398,7 +398,7 @@ interface FS {
     df(): Promise<{ free: number, total: number }>;
 }
 
-interface Dirs {
+export interface Dirs {
     DocumentDir: string;
     CacheDir: string;
     PictureDir: string;
@@ -410,7 +410,7 @@ interface Dirs {
     MainBundleDir: string;
 }
 
-interface RNFetchBlobWriteStream {
+export interface RNFetchBlobWriteStream {
     id: string;
     encoding: string;
     append: boolean;
@@ -419,7 +419,7 @@ interface RNFetchBlobWriteStream {
     close(): void;
 }
 
-interface RNFetchBlobReadStream {
+export interface RNFetchBlobReadStream {
     path: string;
     encoding: Encoding;
     bufferSize?: number;
@@ -438,7 +438,7 @@ interface RNFetchBlobReadStream {
 type Encoding = "utf8" | "ascii" | "base64";
 
 /* tslint:disable-next-line interface-name*/
-interface IOSApi {
+export interface IOSApi {
     /**
      * Open a file in {@link https://developer.apple.com/reference/uikit/uidocumentinteractioncontroller UIDocumentInteractionController},
      * this is the default document viewer of iOS, supports several kinds of files. On Android, there's an similar method {@link android.actionViewIntent}.
@@ -453,7 +453,7 @@ interface IOSApi {
     openDocument(path: string): void;
 }
 
-interface AndroidApi {
+export interface AndroidApi {
     /**
      * When sending an ACTION_VIEW intent with given file path and MIME type, system will try to open an
      * App to handle the file. For example, open Gallery app to view an image, or install APK.
@@ -469,7 +469,7 @@ type Methods = "POST" | "GET" | "DELETE" | "PUT" | "post" | "get" | "delete" | "
  * A declare class inherits Promise, it has extra method like progress, uploadProgress,
  * and cancel which can help managing an asynchronous task's state.
  */
-interface StatefulPromise<T> extends Promise<T> {
+export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Cancel the request when invoke this method.
      */
@@ -503,7 +503,7 @@ interface StatefulPromise<T> extends Promise<T> {
     expire(callback: () => void): StatefulPromise<void>;
 }
 
-declare class RNFetchBlobSession {
+export declare class RNFetchBlobSession {
     constructor(name: string, list: string[]);
 
     add(path: string): RNFetchBlobSession;
@@ -526,7 +526,7 @@ declare class RNFetchBlobSession {
 /**
  * A set of configurations that will be injected into a fetch method, with the following properties.
  */
-interface RNFetchBlobConfig {
+export interface RNFetchBlobConfig {
     /**
      * When this property is true, the downloaded data will overwrite the existing file. (true by default)
      */
@@ -570,7 +570,7 @@ interface RNFetchBlobConfig {
     addAndroidDownloads?: AddAndroidDownloads;
 }
 
-interface AddAndroidDownloads {
+export interface AddAndroidDownloads {
     /**
      * download file using Android download manager or not.
      */
@@ -602,7 +602,7 @@ interface AddAndroidDownloads {
     notification?: boolean;
 }
 
-interface RNFetchBlobResponseInfo {
+export interface RNFetchBlobResponseInfo {
     taskId: string;
     state: number;
     headers: any;
@@ -611,11 +611,11 @@ interface RNFetchBlobResponseInfo {
     rnfbEncode: "path" | "base64" | "ascii" | "utf8";
 }
 
-interface RNFetchBlobStream {
+export interface RNFetchBlobStream {
     onData(): void;
     onError(): void;
     onEnd(): void;
 }
 
-declare class RNFetchBlobFile {
+export declare class RNFetchBlobFile {
 }

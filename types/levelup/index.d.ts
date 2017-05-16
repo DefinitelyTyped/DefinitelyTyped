@@ -5,6 +5,14 @@
 
 /// <reference types="node" />
 
+import * as leveldown from "leveldown";
+
+export = levelup;
+
+declare var levelup: levelup.LevelUpConstructor;
+
+declare namespace levelup {
+
 interface CustomEncoding {
     encode(val: any): Buffer| string;
     decode(val: Buffer | string): any;
@@ -21,7 +29,8 @@ interface Batch {
     keyEncoding?: Encoding;
     valueEncoding?: Encoding;
 }
-interface LevelUp {
+
+interface LevelUpBase<BatchType extends Batch> {
     open(callback ?: (error : any) => any): void;
     close(callback ?: (error : any) => any): void;
     put(key: any, value: any, callback ?: (error: any) => any): void;
@@ -33,8 +42,8 @@ interface LevelUp {
     del(key: any, options ?: { keyEncoding?: Encoding; sync?: boolean }, callback ?: (error: any) => any): void;
 
 
-    batch(array: Batch[], options?: { keyEncoding?: Encoding; valueEncoding?: Encoding; sync?: boolean }, callback?: (error?: any)=>any): void;
-    batch(array: Batch[], callback?: (error?: any)=>any): void;
+    batch(array: BatchType[], options?: { keyEncoding?: Encoding; valueEncoding?: Encoding; sync?: boolean }, callback?: (error?: any)=>any): void;
+    batch(array: BatchType[], callback?: (error?: any)=>any): void;
     batch():LevelUpChain;
     isOpen():boolean;
     isClosed():boolean;
@@ -45,6 +54,8 @@ interface LevelUp {
     destroy(location: string, callback?: Function): void;
     repair(location: string, callback?: Function): void;
 }
+
+type LevelUp = LevelUpBase<Batch>
 
 interface LevelUpChain {
     put(key: any, value: any): LevelUpChain;
@@ -62,18 +73,10 @@ interface levelupOptions {
     cacheSize?: number; 
     keyEncoding?: Encoding; 
     valueEncoding?: Encoding; 
-    db?: string
+    db?: leveldown.Constructor;
 }
 
-declare module "levelup" {
-
-    function levelup(hostname: string, options?: levelupOptions): LevelUp;
-    
-    export = levelup;
+interface LevelUpConstructor {
+    (hostname: string, options?: levelupOptions): LevelUp;
 }
-
-declare module "leveldown" {
-
-    export function destroy(location: string, callback?: Function): void;
-    export function repair(location: string, callback?: Function): void;
 }

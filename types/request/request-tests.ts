@@ -77,6 +77,7 @@ str = oauth.consumer_key;
 str = oauth.consumer_secret;
 str = oauth.token;
 str = oauth.token_secret;
+str = oauth.transport_method;
 str = oauth.verifier;
 
 var options: request.Options = {
@@ -434,6 +435,7 @@ oauth =
     { callback: 'http://mysite.com/callback/'
     , consumer_key: CONSUMER_KEY
     , consumer_secret: CONSUMER_SECRET
+    , transport_method: 'header'
     }
   , url = 'https://api.twitter.com/oauth/request_token'
   ;

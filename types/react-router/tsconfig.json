@@ -28,6 +28,7 @@
     "test/Recursive.tsx",
     "test/RouteConfig.tsx",
     "test/Sidebar.tsx",
-    "test/Switch.tsx"
+    "test/Switch.tsx",
+    "test/WithRouter.tsx"
   ]
 }

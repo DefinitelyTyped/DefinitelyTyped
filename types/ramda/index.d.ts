@@ -1,7 +1,8 @@
 // Type definitions for ramda
 // Project: https://github.com/donnut/typescript-ramda
-// Definitions by: Erwin Poeze <https://github.com/donnut>, Matt DeKrey <https://github.com/mdekrey>
+// Definitions by: Erwin Poeze <https://github.com/donnut>, Matt DeKrey <https://github.com/mdekrey>, Liam Goodacre <https://github.com/LiamGoodacre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare var R: R.Static;
 
@@ -214,9 +215,9 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
-        assoc<T,U>(prop: string, val: T, obj: U): {prop: T} & U;
-        assoc(prop: string): <T,U>(val: T, obj: U) => {prop: T} & U;
-        assoc<T>(prop: string, val: T): <U>(obj: U) => {prop: T} & U;
+        assoc<T,U,K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
+        assoc<K extends string>(prop: K): <T,U>(val: T, obj: U) => Record<K, T> & U;
+        assoc<T,K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
 
 
         /**
@@ -1055,8 +1056,8 @@ declare namespace R {
         /**
          * Creates an object containing a single key:value pair.
          */
-        objOf<T>(key: string, value: T): {string: T};
-        objOf(key: string): <T>(value: T) => {string: T};
+        objOf<T, K extends string>(key: K, value: T): Record<K, T>;
+        objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
 
         /**
          * Returns a singleton array containing the value provided.
@@ -1584,7 +1585,7 @@ declare namespace R {
         /**
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
          */
-        transpose<T>(list: any[][]): any[][];
+        transpose<T>(list: T[][]): T[][];
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -1807,3 +1808,4 @@ declare namespace R {
 }
 
 export = R;
+export as namespace R;
