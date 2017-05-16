@@ -7,7 +7,7 @@ server.connection({ port: 80 });
 
 server.ext({
     type: 'onRequest',
-    method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+    method: function (request, reply) {
 
         // Change all requests to '/test'
         request.setUrl('/test');
@@ -28,7 +28,7 @@ server.start((err) => { });
 
 // Example 2
 
-server.ext('onRequest', <Hapi.ServerExtRequestHandler> function (request, reply) {
+server.ext('onRequest', function (request, reply) {
 
     // Change all requests to '/test'
     request.setUrl('/test');
