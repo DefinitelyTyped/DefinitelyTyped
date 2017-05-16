@@ -3395,6 +3395,14 @@ declare namespace sequelize {
          * Defaults to false;
          */
         cascade?: boolean;
+
+        /**
+         * Delete instead of setting deletedAt to current timestamp (only applicable if paranoid is enabled)
+         *
+         * Defaults to false;
+         */
+        force?: boolean;
+
     }
 
     /**
