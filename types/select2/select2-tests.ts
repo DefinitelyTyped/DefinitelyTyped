@@ -58,9 +58,9 @@ $("#e6").select2({
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
         cache: false,
-        data: function (term, page) {
+        data: function (params, page) {
             return {
-                q: term,
+                q: params.term,
                 page_limit: 10,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
             };
@@ -79,9 +79,9 @@ $("#e6").select2({
     ajax: {
         url: () => { return "http://api.rottentomatoes.com/api/public/v1.0/movies.json"; },
         dataType: 'jsonp',
-        data: function (term, page) {
+        data: function (params, page) {
             return {
-                q: term,
+                q: params.term,
                 page_limit: 10,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
             };
@@ -101,9 +101,9 @@ $("#e7").select2({
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
         delay: 100,
-        data: function (term, page) {
+        data: function (params, page) {
             return {
-                q: term,
+                q: params.term,
                 page_limit: 10,
                 page: page,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
