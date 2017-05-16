@@ -26,12 +26,6 @@ export interface SwiperState {
   total: number;
 }
 
-type ScrollResponder = (
-  event: NativeSyntheticEvent<NativeScrollEvent>,
-  state: SwiperState,
-  context: Swiper
-) => void;
-
 export interface SwiperProperties extends React.Props<Swiper> {
   horizontal?: boolean;
 
@@ -99,17 +93,41 @@ export interface SwiperProperties extends React.Props<Swiper> {
 
   prevButton?: JSX.Element;
 
-  onScrollBeginDrag?: ScrollResponder;
+  onScrollBeginDrag?: (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+    state: SwiperState,
+    context: Swiper
+  ) => void;
 
-  onMomentumScrollEnd?: ScrollResponder;
+  onMomentumScrollEnd?: (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+    state: SwiperState,
+    context: Swiper
+  ) => void;
 
-  onTouchStartCapture?: ScrollResponder;
+  onTouchStartCapture?: (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+    state: SwiperState,
+    context: Swiper
+  ) => void;
 
-  onTouchStart?: ScrollResponder;
+  onTouchStart?: (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+    state: SwiperState,
+    context: Swiper
+  ) => void;
 
-  onTouchEnd?: ScrollResponder;
+  onTouchEnd?: (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+    state: SwiperState,
+    context: Swiper
+  ) => void;
 
-  onResponderRelease?: ScrollResponder;
+  onResponderRelease?: (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+    state: SwiperState,
+    context: Swiper
+  ) => void;
 }
 
 export default class Swiper extends React.Component<SwiperProperties, SwiperState> {
