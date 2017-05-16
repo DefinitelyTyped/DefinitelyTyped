@@ -4792,6 +4792,11 @@ declare namespace sequelize {
          */
         operator?: string;
 
+        /**
+         * Condition for partioal index
+         */
+        where?: WhereOptions;
+
     }
 
     /**

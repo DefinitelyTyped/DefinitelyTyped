@@ -1290,7 +1290,10 @@ s.define( 'UserWithUniqueUsername', {
             name : 'user_and_email_index',
             unique : true,
             method : 'BTREE',
-            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }]
+            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }],
+            where : {
+                user_id : { $not: null }
+            }
         },
         {
             fields: ['data'],
