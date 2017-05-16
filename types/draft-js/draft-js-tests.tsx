@@ -2,14 +2,32 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {Map} from "immutable";
 
-import {Editor, EditorState, RichUtils, DefaultDraftBlockRenderMap, ContentBlock} from 'draft-js';
+import {
+  Editor, 
+  EditorState, 
+  RichUtils, 
+  DefaultDraftBlockRenderMap, 
+  ContentBlock, 
+  ContentState, 
+  convertFromHTML
+} from 'draft-js';
 
 class RichEditorExample extends React.Component<{}, { editorState: EditorState }> {
   constructor() {
     super();
 
-    this.state = { editorState: EditorState.createEmpty() };
-    }
+    const sampleMarkup =
+      '<b>Bold text</b>, <i>Italic text</i><br/ ><br />' +
+      '<a href="http://www.facebook.com">Example link</a><br /><br/ >' +
+      '<img src="image.png" height="112" width="200" />';
+    const blocksFromHTML = convertFromHTML(sampleMarkup);
+    const state = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap,
+    );
+
+    this.state = { editorState: EditorState.createWithContent(state) };
+  }
 
   onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 

@@ -1,6 +1,8 @@
 // Type definitions for Draft.js v0.10.0
 // Project: https://facebook.github.io/draft-js/
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Eelco Lempsink <https://github.com/eelco>
+// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
+//                 Eelco Lempsink <https://github.com/eelco>
+//                 Yale Cason <https://github.com/ghotiphud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -458,7 +460,7 @@ declare namespace Draft {
                 entityMap: { [key: string]: RawDraftEntity };
             }
 
-            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): Array<ContentBlock>;
+            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): { contentBlocks: Array<ContentBlock>, entityMap: any };
             function convertFromRawToDraftState(rawState: RawDraftContentState): ContentState;
             function convertFromDraftStateToRaw(contentState: ContentState): RawDraftContentState;
         }
@@ -701,7 +703,7 @@ declare namespace Draft {
             }
 
             class ContentState extends Record {
-                static createFromBlockArray(blocks: Array<ContentBlock>): ContentState;
+                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap: any): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
