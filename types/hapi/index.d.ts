@@ -886,8 +886,6 @@ export interface CorsConfigurationObject {
  * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
  * For context see RouteAdditionalConfigurationOptions > ext
  */
-
-// STUFF
 export interface ServerStartExtConfigurationObject {
     /** the extension point event name. */
     type: ServerStartExtPoints;
@@ -898,26 +896,39 @@ export interface ServerStartExtConfigurationObject {
     options?: ServerExtOptions;
 }
 
+/**
+ * An object describing the extension function used whilst registering the extension function in one of the available extension points
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
+ * For context see RouteAdditionalConfigurationOptions > ext
+ */
 export interface ServerRequestExtConfigurationObject {
     /** the extension point event name. */
     type: ServerRequestExtPointsBase;
     /**
      * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
      */
-    method: ServerExtRequestHandler
+    method: ServerExtRequestHandler | ServerExtRequestHandler[]
     options?: ServerExtOptions;
 }
 
+/**
+ * An object describing the extension function used whilst registering the extension function in one of the available extension points
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
+ * For context see RouteAdditionalConfigurationOptions > ext
+ */
 export interface ServerRequestExtConfigurationObjectWithRequest {
     /** the extension point event name. */
     type: ServerRequestExtPoints;
     /**
      * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
      */
-    method: ServerExtRequestHandler
+    method: ServerExtRequestHandler | ServerExtRequestHandler[];
     options?: ServerExtOptions;
 }
 
+/**
+ * [See docs](https://hapijs.com/api/16.1.1#route-configuration) > ext
+ */
 export type RouteExtConfigurationObject = ServerStartExtConfigurationObject | ServerRequestExtConfigurationObject;
 
 /**
@@ -940,16 +951,19 @@ export interface ServerExtOptions {
 }
 
 /**
- * [See docs](https://hapijs.com/api/16.1.1#request-lifecycle)
- * The available extension points include the request extension points as well as the following server extension points:
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > type
  *  * 'onPreStart' - called before the connection listeners are started.
  *  * 'onPostStart' - called after the connection listeners are started.
  *  * 'onPreStop' - called before the connection listeners are stopped.
  *  * 'onPostStop' - called after the connection listeners are stopped.
- * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > type
  */
 export type ServerStartExtPoints = 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
+/**
+ * [See docs](https://hapijs.com/api/16.1.1#request-lifecycle)
+ *  * The available extension points include the request extension points as well as the following server extension points:
+ */
 export type ServerRequestExtPointsBase = 'onPreResponse' | 'onPreAuth' | 'onPostAuth' | 'onPreHandler' | 'onPostHandler' | 'onPreResponse';
+
 export type ServerRequestExtPoints = ServerRequestExtPointsBase | 'onRequest';
 
 /**
@@ -2033,11 +2047,11 @@ export interface RequestHandler<T> {
 /**
  * Used by server extension points
  * err can be BoomError or Error that will be wrapped as a BoomError
- * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/reply.js#L109-L118)
- * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
+ * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/reply.js#L109-L118)
+ * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
  */
 export interface ContinuationFunction {
-    (err: Boom.BoomError): void;
+    (err?: Boom.BoomError): void;
 }
 /**
  * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
