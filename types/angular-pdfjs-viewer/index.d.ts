@@ -5,16 +5,14 @@
 
 import * as angular from 'angular';
 
-type Verbosity = "errors" | "warnings" | "infos";
-
 declare module 'angular' {
     export namespace pdfjsViewer {
-        interface IConfigProvider {
-            setWorkerSrc?: (src: string) => void;
-            setCmapDir?: (dir: string) => void;
-            setImageDir?: (dir: string) => void;
-            disableWorker?: () => void;
-            setVerbosity?: (verbosity: Verbosity) => void;
+        interface ConfigProvider {
+            setWorkerSrc(src: string): void;
+            setCmapDir(dir: string): void;
+            setImageDir(dir: string): void;
+            disableWorker(): void;
+            setVerbosity(verbosity: "errors" | "warnings" | "infos"): void;
         }
     }
 }
