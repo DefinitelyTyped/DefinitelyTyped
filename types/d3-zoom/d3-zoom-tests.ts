@@ -165,6 +165,12 @@ svgZoom = svgZoom.translateExtent([[-500, -500], [500, 500]]);
 let translateExtent: [[number, number], [number, number]];
 translateExtent = svgZoom.translateExtent();
 
+// clickDistance() ---------------------------------------------------------
+
+svgZoom = svgZoom.clickDistance(5);
+
+const distance: number = svgZoom.clickDistance();
+
 // duration() --------------------------------------------------------------
 
 // chainable
