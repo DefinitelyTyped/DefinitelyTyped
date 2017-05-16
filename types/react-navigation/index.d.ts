@@ -477,7 +477,7 @@ export interface LayoutEvent {
 }
 
 interface NavigationContainerProps {
-  navigation: NavigationProp<any, NavigationAction>
+  navigation?: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
     nextNavigationState: NavigationState,
@@ -491,7 +491,7 @@ interface NavigationContainerState {
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps
 > {
-  router: any
+  router: NavigationRouter
 }
 
 export type StackNavigatorConfig =
