@@ -17,6 +17,14 @@
     },
     "files": [
         "index.d.ts",
+        "connection.ts",
+        "create-options.ts",
+        "date-enum.ts",
+        "salesforce-object-options.ts",
+        "salesforce-object.ts",
+        "salesforce-id.ts",
+        "query.ts",
+        "describe-result.ts",
         "jsforce-tests.ts"
     ]
 }
