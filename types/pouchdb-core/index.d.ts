@@ -298,7 +298,7 @@ declare namespace PouchDB {
 
         interface ChangesResponseChange<Content extends Core.Encodable> {
             id: string;
-            seq: number;
+            seq: number | string;
             changes: { rev: string }[];
             deleted?: boolean;
             doc?: ExistingDocument<Content & ChangesMeta>;
@@ -306,7 +306,7 @@ declare namespace PouchDB {
 
         interface ChangesResponse<Content extends Core.Encodable> {
             status: string;
-            last_seq: number;
+            last_seq: number | string;
             results: ChangesResponseChange<Content>[];
         }
 
