@@ -20,7 +20,8 @@ declare namespace jsforce {
     class SObject {
         record(options: any, callback?: (err: Error, ret: any) => void): void;
         update(options: SObjectCreateOptions, callback?: (err: Error, ret: any) => void): void;
-        retrieve(objectId: string | string[], callback?: (err: Error, ret: any) => void): void;
+        retrieve(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
+        retrieve(ids: string | string[], options?: Object, callback?: (err: Error, ret: any) => void): void;
         // upsert(options: SObjectOptions): void;
         describeGlobal(callback: (err: Error, res: any) => void): void;
         describe$(callback: (err: Error, ret: DescribeSObjectResult) => void): void;
@@ -44,9 +45,20 @@ declare namespace jsforce {
         destroy(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
         delete(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
         deleteBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
+        destroyBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
+        destroyHardBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
         deleted(start: Date | string, end: Date | string, callback?: (info: DeletedRecordsInfo) => void): Promise<DeletedRecordsInfo>;
         deleteHardBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
         describe(callback?: (err: Error, ret: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+        insert(options: any | any[], callback?: (err: Error, ret: RecordResult | RecordResult[]) => void): Promise<RecordResult | RecordResult[]>;
+        insertBulk(input?: Record[] | stream.Stream | String, callback?: (err: Error, ret: RecordResult) => void): Batch;
+        layouts(layoutName?: string, callback?: (err: Error, info: LayoutInfo) => void): Promise<LayoutInfo>;
+        listview(id: string): ListView;
+        listviews(callback?: (err: Error, info: ListViewsInfo) => void): Promise<ListViewsInfo>;
+        quickAction(actionName: string): QuickAction;
+        quickActions(callback?: (err: Error, info: any) => void): Promise<any>;
+        recent(callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult>;
+        select<T>(field?: Object | string[] | string, callback?: (err: Error, ret: T[]) => void): Query<T[]>;
     }
 
     interface ConnectionOptions {
@@ -159,6 +171,10 @@ declare namespace jsforce {
     interface Batch { }
     interface CompactLayoutInfo { }
     interface DeletedRecordsInfo { }
+    interface LayoutInfo { }
+    interface ListView { }
+    interface ListViewsInfo { }
+    interface QuickAction { }
 }
 
 export = jsforce;

@@ -30,6 +30,14 @@ salesforceConnection.sobject("ContentVersion").create({
     }
 });
 
+salesforceConnection.sobject("ContentVersion").retrieve("world", {
+    test: "test"
+}, (err, ret: sf.RecordResult) => {
+    if (err || !ret.success) {
+        return;
+    }
+});
+
 salesforceConnection.sobject("ContentVersion").findOne<any>({ Id: '' }, (err, contentVersion) => {
 
 });
