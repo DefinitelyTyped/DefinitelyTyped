@@ -3,29 +3,35 @@
 import * as Hapi from 'hapi';
 
 var authConfig: Hapi.RouteAdditionalConfigurationOptions = {
-  app: {}
+    app: {},
+    payload: {},
 };
 
 var extConfigSingle: Hapi.RouteAdditionalConfigurationOptions = {
-  ext: {
-    type: 'onPreAuth',
-    method: <Hapi.ServerExtRequestHandler> function (request, reply) {
-      reply('ok');
+    ext: {
+        type: 'onPreAuth',
+        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+            reply('ok');
+        }
     }
-  }
 }
 
 var extConfigMulti: Hapi.RouteAdditionalConfigurationOptions = {
-  ext: [{
-    type: 'onPreAuth',
-    method: <Hapi.ServerExtRequestHandler> function (request, reply) {
-      reply('ok');
-    }
-  }, {
-    type: 'onPostAuth',
-    method: <Hapi.ServerExtRequestHandler> function (request, reply) {
-      reply('ok');
-    }
+    ext: [{
+        type: 'onPreAuth',
+        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+          reply('ok');
+        }
+      }, {
+        type: 'onPostAuth',
+        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+          reply('ok');
+        }
+    }, {
+    type: 'onPostStart',
+      method: <Hapi.ServerExtFunction> function (server, next) {
+          next();
+      }
   }]
 }
 
@@ -62,7 +68,7 @@ var cache: Hapi.RouteCacheOptions = {
 */
 
 var payloadOptions: Hapi.RoutePayloadConfigurationObject = {
-  allow: 'multipart/form-data',
-  maxBytes: 123,
-  output: 'file',
+    allow: 'multipart/form-data',
+    maxBytes: 123,
+    output: 'file',
 };
