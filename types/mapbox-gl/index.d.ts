@@ -686,19 +686,21 @@ declare namespace mapboxgl {
 
 		mag(): number;
 
-		equals(): boolean;
+		equals(p: Point): boolean;
 
-		dist(): number;
+		dist(p: Point): number;
 
-		distSqr(): number;
+		distSqr(p: Point): number;
 
 		angle(): number;
 
-		angleTo(): number;
+		angleTo(p: Point): number;
 
-		angleWidth(): number;
+		angleWidth(p: Point): number;
 
-		angleWidthSep(): number;
+		angleWithSep(x: number, y: number): number;
+		
+		convert(a: Array<number> | Point): Point;
 	}
 
 	export class Marker {
