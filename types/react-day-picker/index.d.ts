@@ -99,6 +99,12 @@ declare namespace DayPicker {
         [other: string]: Modifier | Modifier[] | undefined;
     }
 
+    interface DayModifiers {
+        today: boolean | undefined;
+        outside: boolean | undefined;
+        [other: string]: boolean | undefined;
+    }
+
     interface Props {
         canChangeMonth?: boolean;
         captionElement?: React.ReactElement<Partial<CaptionElementProps>> |
@@ -125,12 +131,12 @@ declare namespace DayPicker {
         numberOfMonths?: number;
         onBlur?(e: React.FocusEvent<HTMLDivElement>): void;
         onCaptionClick?(month: Date, e: React.MouseEvent<HTMLDivElement>): void;
-        onDayClick?(day: Date, modifiers: Modifiers, e: React.MouseEvent<HTMLDivElement>): void;
-        onDayKeyDown?(day: Date, modifiers: Modifiers, e: React.KeyboardEvent<HTMLDivElement>): void;
-        onDayMouseEnter?(day: Date, modifiers: Modifiers, e: React.MouseEvent<HTMLDivElement>): void;
-        onDayMouseLeave?(day: Date, modifiers: Modifiers, e: React.MouseEvent<HTMLDivElement>): void;
-        onDayTouchEnd?(day: Date, modifiers: Modifiers, e: React.TouchEvent<HTMLDivElement>): void;
-        onDayTouchStart?(day: Date, modifiers: Modifiers, e: React.TouchEvent<HTMLDivElement>): void;
+        onDayClick?(day: Date, modifiers: DayModifiers, e: React.MouseEvent<HTMLDivElement>): void;
+        onDayKeyDown?(day: Date, modifiers: DayModifiers, e: React.KeyboardEvent<HTMLDivElement>): void;
+        onDayMouseEnter?(day: Date, modifiers: DayModifiers, e: React.MouseEvent<HTMLDivElement>): void;
+        onDayMouseLeave?(day: Date, modifiers: DayModifiers, e: React.MouseEvent<HTMLDivElement>): void;
+        onDayTouchEnd?(day: Date, modifiers: DayModifiers, e: React.TouchEvent<HTMLDivElement>): void;
+        onDayTouchStart?(day: Date, modifiers: DayModifiers, e: React.TouchEvent<HTMLDivElement>): void;
         onFocus?(e: React.FocusEvent<HTMLDivElement>): void;
         onKeyDown?(e: React.KeyboardEvent<HTMLDivElement>): void;
         onMonthChange?(month: Date): void;
