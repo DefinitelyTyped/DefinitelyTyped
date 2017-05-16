@@ -143,7 +143,7 @@ const resultSet: Xrm.Page.AutoCompleteResultSet = {
             // accounts in CRM.
             window.open("http://www.microsoft.com/en-us/dynamics/crm-customer-center/create-or-edit-an-account.aspx");
         }
-    } as Xrm.Page.AutoCompleteCommand
+    }
 };
 resultSet.results.push({
     id: 0,

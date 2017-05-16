@@ -347,7 +347,9 @@ class Example15 extends React.Component<any, any> {
           <DropdownItem disabled>Action</DropdownItem>
           <DropdownItem>Another Action</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem>Another Action</DropdownItem>
+          <DropdownItem onClick={event => {
+            // something happens here
+          }}>Another Action</DropdownItem>
         </DropdownMenu>
       </ButtonDropdown>
     );

@@ -131,6 +131,11 @@ declare namespace cropperjs {
         */
         rotatable?: boolean;
         /**
+        * Enable to restore the cropped area after resizing the window.
+        * @default true
+        */
+        restore?: boolean;
+        /**
         * Enable to scale the image.
         * @default true
         */
