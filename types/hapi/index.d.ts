@@ -477,6 +477,8 @@ export class Server extends Podium {
     table(host?: string): RoutingTableEntry[];
 }
 
+export interface RoutePlugins {}
+
 /**
  * Server Options
  * Note that the options object is deeply cloned and cannot contain any values that are unsafe to perform deep copy on.
@@ -509,7 +511,7 @@ export interface ServerOptions {
     /** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime. */
     mime?: MimosOptions;
     /** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}. */
-    plugins?: Object;
+    plugins?: RoutePlugins;
     /** if false, will not use node domains to protect against exceptions thrown in handlers and other external code. Defaults to true. */
     useDomains?: boolean;
 }
