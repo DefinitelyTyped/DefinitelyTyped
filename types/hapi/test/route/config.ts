@@ -43,4 +43,6 @@ const user: Hapi.RouteAdditionalConfigurationOptions = {
     }
 };
 
+
+
 server.route({method: 'GET', path: '/user', config: user });
