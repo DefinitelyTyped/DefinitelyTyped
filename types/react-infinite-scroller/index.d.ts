@@ -23,7 +23,7 @@ declare module 'react-infinite-scroller' {
         hasMore?: boolean;
         /**
          * Whether the component should load the first set of items.
-         * Defaults to false.
+         * Defaults to true.
          */
         initialLoad?: boolean;
         /**
