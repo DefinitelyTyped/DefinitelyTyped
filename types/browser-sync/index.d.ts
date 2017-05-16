@@ -1,6 +1,7 @@
 // Type definitions for browser-sync
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>, Joe Skeen <http://github.com/joeskeen>
+//                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="chokidar"/>
@@ -134,6 +135,12 @@ declare namespace browserSync {
          * Default: default
          */
         browser?: string | string[];
+        /**
+         * Add HTTP access control (CORS) headers to assets served by Browsersync.
+         * Default: false
+         * Note: requires at least version 2.16.0
+         */
+        cors?: boolean;
         /**
          * Requires an internet connection - useful for services such as Typekit as it allows you to configure
          * domains such as *.xip.io in your kit settings
