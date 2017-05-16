@@ -892,7 +892,7 @@ export interface ServerStartExtConfigurationObject {
     /**
      * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
      */
-    method: ServerExtFunction
+    method: ServerExtFunction | ServerExtFunction[];
     options?: ServerExtOptions;
 }
 

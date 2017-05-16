@@ -20,18 +20,18 @@ var extConfigMulti: Hapi.RouteAdditionalConfigurationOptions = {
     ext: [{
         type: 'onPreAuth',
         method: <Hapi.ServerExtRequestHandler> function (request, reply) {
-          reply('ok');
-        }
-      }, {
-        type: 'onPostAuth',
-        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
-          reply('ok');
+            reply('ok');
         }
     }, {
-    type: 'onPostStart',
-      method: <Hapi.ServerExtFunction> function (server, next) {
-          next();
-      }
+        type: 'onPostAuth',
+        method: <Hapi.ServerExtRequestHandler> function (request, reply) {
+            reply('ok');
+        }
+    }, {
+        type: 'onPostStart',
+        method: <Hapi.ServerExtFunction> function (server, next) {
+            next();
+        }
   }]
 }
 
@@ -39,7 +39,6 @@ var extConfigMulti: Hapi.RouteAdditionalConfigurationOptions = {
 const user: Hapi.RouteAdditionalConfigurationOptions = {
     cache: { expiresIn: 5000, statuses: [200, 201] },
     handler: function (request, reply) {
-
         return reply({ name: 'John' });
     }
 };
