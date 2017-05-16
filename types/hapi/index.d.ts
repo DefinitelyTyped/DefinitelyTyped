@@ -477,7 +477,7 @@ export class Server extends Podium {
     table(host?: string): RoutingTableEntry[];
 }
 
-export interface RoutePlugins {}
+export interface PluginSpecificConfiguration {}
 
 /**
  * Server Options
@@ -511,7 +511,7 @@ export interface ServerOptions {
     /** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime. */
     mime?: MimosOptions;
     /** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}. */
-    plugins?: RoutePlugins;
+    plugins?: PluginSpecificConfiguration;
     /** if false, will not use node domains to protect against exceptions thrown in handlers and other external code. Defaults to true. */
     useDomains?: boolean;
 }
@@ -724,7 +724,7 @@ export interface ConnectionConfigurationServerDefaults {
         maxEventLoopDelay: number;
     };
     /** plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
-    plugins?: any;
+    plugins?: PluginSpecificConfiguration;
     /** controls how incoming request URIs are matched against the routing table: */
     router?: {
         /** determines whether the paths '/example' and '/EXAMPLE' are considered different resources. Defaults to true.  */
@@ -1152,7 +1152,7 @@ export interface RouteAdditionalConfigurationOptions {
      */
     payload?: RoutePayloadConfigurationObject;
     /** plugin-specific configuration. plugins is an object where each key is a plugin name and the value is the plugin configuration. */
-    plugins?: Object;
+    plugins?: PluginSpecificConfiguration;
     /** an array with [route prerequisites](https://hapijs.com/api/16.1.1#route-prerequisites) methods which are executed in serial or in parallel before the handler is called. */
     pre?: RoutePrerequisitesArray;
     /** processing rules for the outgoing response */

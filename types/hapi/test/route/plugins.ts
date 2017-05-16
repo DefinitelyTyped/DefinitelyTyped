@@ -1,9 +1,10 @@
-// from https://hapijs.com/api#route-configuration > plugins
+// Added in addition to code from https://hapijs.com/api/16.1.1#route-options > plugins
 
 import * as Hapi from 'hapi';
 
+// In the plugin code
 declare module 'hapi' {
-    interface RoutePlugins {
+    interface PluginSpecificConfiguration {
         coolPlugin: {
             optionA: string;
             optionB?: boolean;
@@ -11,8 +12,27 @@ declare module 'hapi' {
     }
 }
 
-var pluginsConfig: Hapi.RouteAdditionalConfigurationOptions = {
+// In the consumer code
+const pluginsServerConfig: Hapi.ServerOptions = {
     plugins: {
-        coolPlugin: 'test',
+        coolPlugin: {
+            optionA: "test",
+        }
+    }
+};
+
+const pluginsConnectionConfig: Hapi.ConnectionConfigurationServerDefaults = {
+    plugins: {
+        coolPlugin: {
+            optionA: "test",
+        }
+    }
+};
+
+const pluginsRouteConfig: Hapi.RouteAdditionalConfigurationOptions = {
+    plugins: {
+        coolPlugin: {
+            optionA: "test",
+        }
     }
 };
