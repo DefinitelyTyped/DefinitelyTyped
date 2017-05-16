@@ -168,6 +168,14 @@ export interface Reference extends Schema {
 
 export interface AnySchema<T extends AnySchema<Schema>> {
     /**
+     * Validates a value using the schema and options.
+     */
+    validate<T>(value: T): ValidationResult<T>;
+    validate<T>(value: T, options: ValidationOptions): ValidationResult<T>;
+    validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
+    validate<T, R>(value: T, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
+
+    /**
      * Whitelists a value
      */
     allow(value: any, ...values: any[]): T;
@@ -567,7 +575,8 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(): ArraySchema;
+    unique(comparator?: (a: any, b: any) => boolean): ArraySchema;
+    unique(comparator?: string): ArraySchema;
 }
 
 export interface ObjectSchema extends AnySchema<ObjectSchema> {

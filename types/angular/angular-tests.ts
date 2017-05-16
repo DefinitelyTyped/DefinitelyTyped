@@ -484,7 +484,14 @@ namespace TestInjector {
         function foobar(v: boolean): number {
             return 7;
         }
-        let result: number = $injector.invoke(foobar);
+        let result = $injector.invoke(foobar);
+        if (!(typeof result === 'number')) {
+            // This fails to compile if 'result' is not exactly a number.
+            let expectNever: never = result;
+        }
+
+        let anyFunction: Function = foobar;
+        let anyResult: string = $injector.invoke(anyFunction);
     }
 }
 

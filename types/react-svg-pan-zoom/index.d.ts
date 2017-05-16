@@ -51,7 +51,7 @@ export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeo
 
 export interface OptionalProps {
 	// background of the viewer
-	background: React.CSSProperties;
+	background: string;
 
 	// background of the svg
 	SVGBackground: string;

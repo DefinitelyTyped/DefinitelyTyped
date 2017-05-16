@@ -25,6 +25,7 @@ import * as stream from "stream";
 import * as timers from "timers";
 import * as repl from "repl";
 import * as v8 from "v8";
+import * as dns from "dns";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -533,19 +534,25 @@ const compressMe = new Buffer("some data");
 const compressMeString = "compress me!";
 
 zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
 const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
 zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
 zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
+zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
 
 zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
+zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result);
 const unzipped: Buffer = zlib.unzipSync(compressMe);
 
 // Simplified constructors
@@ -2124,6 +2131,98 @@ namespace repl_tests {
 
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
+    }
+}
+
+///////////////////////////////////////////////////
+/// DNS Tests : https://nodejs.org/api/dns.html ///
+///////////////////////////////////////////////////
+
+namespace dns_tests {
+    dns.lookup("nodejs.org", (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 4, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", 6, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup("nodejs.org", {}, (err, address, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: string = address;
+        const _family: number = family;
+    });
+    dns.lookup(
+        "nodejs.org",
+        {
+            family: 4,
+            hints: dns.ADDRCONFIG | dns.V4MAPPED,
+            all: false
+        },
+        (err, address, family) => {
+            const _err: NodeJS.ErrnoException = err;
+            const _address: string = address;
+            const _family: number = family;
+        }
+    );
+    dns.lookup("nodejs.org", {all: true}, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
+
+    function trueOrFalse(): boolean {
+        return Math.random() > 0.5 ? true : false;
+    }
+    dns.lookup("nodejs.org", {all: trueOrFalse()}, (err, addresses, family) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _addresses: string | dns.LookupAddress[] = addresses;
+        const _family: number | undefined = family;
+    });
+
+    dns.resolve("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "A", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+        const _addresses: dns.MxRecord[] = addresses;
+    });
+
+    dns.resolve4("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve4("nodejs.org", {ttl: true}, (err, addresses) => {
+        const _addresses: dns.RecordWithTtl[] = addresses;
+    });
+    {
+        const ttl = false;
+        dns.resolve4("nodejs.org", {ttl: ttl}, (err, addresses) => {
+            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
+        });
+    }
+
+    dns.resolve6("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve6("nodejs.org", {ttl: true}, (err, addresses) => {
+        const _addresses: dns.RecordWithTtl[] = addresses;
+    });
+    {
+        const ttl = false;
+        dns.resolve6("nodejs.org", {ttl: ttl}, (err, addresses) => {
+            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
+        });
     }
 }
 

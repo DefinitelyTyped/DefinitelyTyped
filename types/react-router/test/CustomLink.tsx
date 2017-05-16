@@ -1,10 +1,10 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   Route,
   LinkProps,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 const CustomLinkExample = () => (
   <Router>
@@ -16,7 +16,7 @@ const CustomLinkExample = () => (
       <Route path="/about" component={About}/>
     </div>
   </Router>
-)
+);
 
 interface OldSchoolMenuLinkProps extends LinkProps {
   activeOnlyWhenExact?: boolean;
@@ -28,18 +28,18 @@ const OldSchoolMenuLink: React.SFC<OldSchoolMenuLinkProps> = ({ label, to, activ
       {match ? '> ' : ''}<Link to={to}>{label}</Link>
     </div>
   )}/>
-)
+);
 
 const Home = () => (
   <div>
     <h2>Home</h2>
   </div>
-)
+);
 
 const About = () => (
   <div>
     <h2>About</h2>
   </div>
-)
+);
 
-export default CustomLinkExample
+export default CustomLinkExample;
