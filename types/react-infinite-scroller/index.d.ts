@@ -59,5 +59,3 @@ declare module 'react-infinite-scroller' {
 
     export default class InfiniteScroll extends React.Component<InfiniteScrollProps, any> { }
 }
-
-
