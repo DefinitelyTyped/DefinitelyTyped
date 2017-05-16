@@ -3,6 +3,8 @@
 // Definitions by: Humberto Rocha <https://github.com/humrochagf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="jquery" />
+
 declare namespace CountrySelectJs {
   interface Options {
     /**
