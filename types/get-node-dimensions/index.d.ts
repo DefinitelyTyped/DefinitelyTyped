@@ -14,4 +14,12 @@ export interface NodeDimensions {
   left: number;
 }
 
-export function getNodeDimension(): NodeDimensions;
+export interface NodeDimensionsOptions {
+  margin: boolean;
+  clone: boolean;
+  display: string;
+  width: string;
+  height: string;
+}
+
+export function getNodeDimension (element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;
