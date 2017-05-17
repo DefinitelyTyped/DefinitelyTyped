@@ -47,6 +47,7 @@
         "test/route/handler.ts",
         "test/route/prerequisites.ts",
         "test/route/public-interface.ts",
+        "test/route/validate.ts",
         "test/server/app.ts",
         "test/server/auth.ts",
         "test/server/bind.ts",
