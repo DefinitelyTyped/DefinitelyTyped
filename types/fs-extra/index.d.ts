@@ -83,8 +83,8 @@ export function ensureLink(src: string, dest: string): Promise<void>;
 export function ensureLink(src: string, dest: string, callback: (err: Error) => void): void;
 export function ensureLinkSync(src: string, dest: string): void;
 
-export function ensureSymlink(src: string, dest: string, type?: string): Promise<void>;
-export function ensureSymlink(src: string, dest: string, type: string, callback: (err: Error) => void): void;
+export function ensureSymlink(src: string, dest: string, type?: SymlinkType): Promise<void>;
+export function ensureSymlink(src: string, dest: string, type: SymlinkType, callback: (err: Error) => void): void;
 export function ensureSymlink(src: string, dest: string, callback: (err: Error) => void): void;
 export function ensureSymlinkSync(src: string, dest: string, type?: string): void;
 
@@ -261,6 +261,8 @@ export interface PathEntryStream {
 export type CopyFilterFunction = (src: string) => boolean;
 
 export type CopyFilter = CopyFilterFunction | RegExp;
+
+export type SymlinkType = "dir" | "file";
 
 export interface CopyOptions {
     dereference?: boolean;

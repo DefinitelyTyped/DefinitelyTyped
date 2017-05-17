@@ -172,7 +172,7 @@ fs.ensureLink(path, path).then(() => {
 });
 fs.ensureLink(path, path, errorCallback);
 fs.ensureLinkSync(path, path);
-fs.ensureSymlink(path, path).then(() => {
+fs.ensureSymlink(path, path, "file").then(() => {
 	// stub
 });
 fs.ensureSymlink(path, path, errorCallback);
