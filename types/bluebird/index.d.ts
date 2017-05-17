@@ -620,8 +620,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  // TODO how to model instance.props()?
-  props(): Bluebird<Object>;
+  props<K, V>(this: PromiseLike<Map<K, Bluebird.Thenable<V> | V>>): Bluebird<Map<K, V>>;
+  props<T>(this: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
 
   /**
    * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -806,11 +806,13 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * *The original object is not modified.*
    */
-  // TODO verify this is correct
   // trusted promise for object
-  static props(object: Bluebird<Object>): Bluebird<Object>;
+  static props<K, V>(map: PromiseLike<Map<K, PromiseLike<V> | V>>): Bluebird<Map<K, V>>;
+  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
+  // map
+  static props<K, V>(map: Map<K, PromiseLike<V> | V>): Bluebird<Map<K, V>>;
   // object
-  static props(object: Object): Bluebird<Object>;
+  static props<T>(object: Bluebird.ResolvableProps<T>): Bluebird<T>;
 
   /**
    * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
@@ -1073,6 +1075,8 @@ declare namespace Bluebird {
 
   /** @deprecated Use PromiseLike<T> directly. */
   export type Thenable<T> = PromiseLike<T>;
+
+  export type ResolvableProps<T> = object & { [K in keyof T]: PromiseLike<T[K]> | T[K] };
 
   export interface Resolver<R> {
     /**
