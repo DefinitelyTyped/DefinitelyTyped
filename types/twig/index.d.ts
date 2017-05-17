@@ -1,4 +1,4 @@
-// Type definitions for twig
+// Type definitions for twig 1.10.4
 // Project: https://github.com/twigjs/twig.js
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Tim Schumacher <https://github.com/enko>
