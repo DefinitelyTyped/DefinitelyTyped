@@ -6,12 +6,12 @@
 export as namespace getNodeDimensions;
 
 export interface NodeDimensions {
-  width: number,
-  height: number,
-  top: number,
-  right: number,
-  bottom: number,
-  left: number
+  width: number;
+  height: number;
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
 }
 
-export function getNodeDimension (): NodeDimensions;
+export function getNodeDimension(): NodeDimensions;
