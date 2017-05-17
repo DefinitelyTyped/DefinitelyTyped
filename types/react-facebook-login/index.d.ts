@@ -1,8 +1,8 @@
-// Type definitions for react-facebook-login 3.4
+// Type definitions for react-facebook-login 3.6
 // Project: https://github.com/keppelen/react-facebook-login
-// Definitions by: Alexandre Paré <https://github.com/apare>
+// Definitions by: Alexandre Paré <https://github.com/apare>, Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -30,6 +30,8 @@ declare namespace ReactFacebookLogin {
         typeButton?: string;
         version?: string;
         xfbml?: boolean;
+        isMobile?: boolean;
+        tag?: Node | Function;
     }
 
     interface ReactFacebookLoginInfo {
@@ -43,6 +45,6 @@ declare namespace ReactFacebookLogin {
     }
 }
 
-declare class ReactFacebookLogin extends React.Component<ReactFacebookLogin.ReactFacebookLoginProps, ReactFacebookLogin.ReactFacebookLoginState> {}
+declare class ReactFacebookLogin extends React.Component<ReactFacebookLogin.ReactFacebookLoginProps, ReactFacebookLogin.ReactFacebookLoginState> { }
 
-export = ReactFacebookLogin;
+export default ReactFacebookLogin;
