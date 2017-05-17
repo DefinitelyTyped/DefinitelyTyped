@@ -1,7 +1,7 @@
-import getNodeDimensions, {NodeDimensions} from 'get-node-dimensions';
+import getNodeDimensions = require('get-node-dimensions');
 
 const div = document.getElementById('div-to-measure');
 
 if (div !== null) {
-  const dimensions: NodeDimensions = getNodeDimensions(div);
+  const dimensions = getNodeDimensions(div);
 }
