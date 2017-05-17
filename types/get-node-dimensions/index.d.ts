@@ -22,4 +22,4 @@ export interface NodeDimensionsOptions {
   height: string;
 }
 
-export function getNodeDimension (element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;
+export function getNodeDimensions(element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;
