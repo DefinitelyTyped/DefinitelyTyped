@@ -1,26 +1,22 @@
 import gulp = require("gulp");
-import browserSync = require("browser-sync");
 
 var typescript: gulp.GulpPlugin = null; // this would be the TypeScript compiler
 var jasmine: gulp.GulpPlugin = null; // this would be the jasmine test runner
 
-gulp.task('compile', function()
-{
+gulp.task('compile', function() {
     gulp.src("**/*.ts")
         .pipe(typescript())
         .pipe(gulp.dest('out'))
 });
 
-gulp.task('compile2', function(callback: (err?: any) => void)
-{
+gulp.task('compile2', function(callback: (err?: any) => void) {
     gulp.src("**/*.ts")
         .pipe(typescript())
         .pipe(gulp.dest('out'))
         .on('end', callback);
 });
 
-gulp.task('test', ['compile', 'compile2'], function()
-{
+gulp.task('test', ['compile', 'compile2'], function() {
     gulp.src("out/test/**/*.js")
         .pipe(jasmine());
 });
@@ -64,8 +60,7 @@ var watcher = gulp.watch('*.html', event => {
 });
 
 gulp.task('serve', ['compile'], () => {
-    var browser = browserSync.create();
-    gulp.watch(['*.html', '*.ts'], ['compile', browser.reload]);
+    gulp.watch(['*.html', '*.ts'], ['compile', () => { return "data"; }]);
 });
 
 gulp.start('test', 'compile');
