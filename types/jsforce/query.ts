@@ -31,4 +31,4 @@ export declare class Query<T> {
     where(conditions: Object | string): Query<T>;
 }
 
-export interface ExplainInfo { }
+export class ExplainInfo { }
