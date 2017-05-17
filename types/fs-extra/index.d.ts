@@ -86,7 +86,7 @@ export function ensureLinkSync(src: string, dest: string): void;
 export function ensureSymlink(src: string, dest: string, type?: SymlinkType): Promise<void>;
 export function ensureSymlink(src: string, dest: string, type: SymlinkType, callback: (err: Error) => void): void;
 export function ensureSymlink(src: string, dest: string, callback: (err: Error) => void): void;
-export function ensureSymlinkSync(src: string, dest: string, type?: string): void;
+export function ensureSymlinkSync(src: string, dest: string, type?: SymlinkType): void;
 
 export function emptyDir(path: string): Promise<void>;
 export function emptyDir(path: string, callback: (err: Error) => void): void;
