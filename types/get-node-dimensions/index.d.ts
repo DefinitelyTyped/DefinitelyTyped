@@ -3,8 +3,6 @@
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace getNodeDimensions;
-
 export interface NodeDimensions {
   width: number;
   height: number;
@@ -22,4 +20,6 @@ export interface NodeDimensionsOptions {
   height: string;
 }
 
-export function getNodeDimensions(element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;
+declare function getNodeDimensions(element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;
+
+export default getNodeDimensions
