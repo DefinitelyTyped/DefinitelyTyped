@@ -258,6 +258,10 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
+export type CopyFilterFunction = (src: string) => boolean;
+
+export type CopyFilter = CopyFilterFunction | RegExp;
+
 export type SymlinkType = "dir" | "file";
 
 export interface CopyOptions {
@@ -265,7 +269,7 @@ export interface CopyOptions {
     overwrite?: boolean;
     preserveTimestamps?: boolean;
     errorOnExist?: boolean;
-    filter?: ((src: string) => boolean) | RegExp;
+    filter?: CopyFilter;
     recursive?: boolean;
 }
 
