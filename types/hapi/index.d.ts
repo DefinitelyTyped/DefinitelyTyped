@@ -35,7 +35,8 @@ import domain = require("domain");
 import * as Boom from 'boom';
 import {
     ValidationOptions as JoiValidationOptions,
-    Schema as JoiValidationObject,
+    // TODO check JoiValidationObject is correct for "a Joi validation object"
+    SchemaMap as JoiValidationObject,
 } from 'joi';
 
 import * as Catbox from 'catbox';
@@ -1304,7 +1305,7 @@ export interface RouteResponseConfigurationObject {
  * and
  * For context see RouteAdditionalConfigurationOptions > response > status
  */
-export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | ValidationFunctionForRouteReponse;
+export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | ValidationFunctionForRouteResponse;
 
 /**
  * see RouteResponseConfigurationScheme
@@ -1313,7 +1314,7 @@ export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | V
  * TODO check `options: JoiValidationOptions` is correct
  * Also see ValidationFunctionForRouteValidate
  */
-export interface ValidationFunctionForRouteReponse {
+export interface ValidationFunctionForRouteResponse {
     (value: Response, options: JoiValidationOptions, next: ContinuationFunction): void;
 }
 
@@ -1399,7 +1400,7 @@ export interface RouteValidationConfigurationObject {
  * TODO check `value: Response` is correct as it says "**the object containing** the response object." not just "the response object".
  * TODO check `options: JoiValidationOptions` is correct
  * TODO type of the returned value?
- * Also see ValidationFunctionForRouteReponse
+ * Also see ValidationFunctionForRouteResponse
  * @param value - the object containing the request headers.
  * @param options - the server validation options.
  * @param next(err, value) - the callback function called when validation is completed.
