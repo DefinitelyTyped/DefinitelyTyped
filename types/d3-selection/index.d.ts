@@ -310,10 +310,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
     classed(names: string, value: ValueFn<GElement, Datum, boolean>): this;
 
     /**
-     * Returns the current computed value of the specified style for the first (non-null) element in the selection.
-     * This is generally useful only if you know that the selection contains exactly one element.
-     * The computed value may be different than the previously-set value, particularly if it was set using a
-     * shorthand property (such as the font style, which is shorthand for font-size, font-face, etc.).
+     * Returns the current value of the specified style property for the first (non-null) element in the selection.
+     * The current value is defined as the element’s inline value, if present, and otherwise its computed value.
+     * Accessing the current style value is generally useful only if you know the selection contains exactly one element.
      *
      * @param name Name of the style
      */
@@ -972,6 +971,20 @@ export function touch(container: ContainerElement, touches: TouchList, identifie
  * @param touches TouchList to be used.
  */
 export function touches(container: ContainerElement, touches?: TouchList): Array<[number, number]>;
+
+// ---------------------------------------------------------------------------
+// style
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns the value of the style property with the specified name for the specified node.
+ * If the node has an inline style with the specified name, its value is returned; otherwise, the computed property value is returned.
+ * See also selection.style.
+ *
+ * @param node A DOM node (e.g. HTMLElement, SVGElement) for which to retrieve the style property.
+ * @param name Style property name.
+ */
+export function style(node: Element, name: string): string;
 
 // ---------------------------------------------------------------------------
 // local.js related
