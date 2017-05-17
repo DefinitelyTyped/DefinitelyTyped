@@ -5105,6 +5105,27 @@ declare namespace sequelize {
     interface Options {
 
         /**
+         * The username which is used to authenticate against the database.
+         *
+         * Defaults to null
+         */
+        username?: string;
+
+        /**
+         * The password which is used to authenticate against the database.
+         *
+         * Defaults to null
+         */
+        password?: string;
+
+        /**
+         * The name of the database
+         *
+         *  Defaults to null
+         */
+        database?: string;
+
+        /**
          * The dialect of the database you are connecting to. One of mysql, postgres, sqlite, mariadb and mssql.
          *
          * Defaults to 'mysql'
@@ -5434,6 +5455,15 @@ declare namespace sequelize {
          * @param options See above for possible options
          */
         new (uri: string, options?: Options): Sequelize;
+
+        /**
+         * Instantiate sequelize with Options
+         * @name Sequelize
+         * @constructor
+         *
+         * @param options See above for possible options
+         */
+        new (options: Options): Sequelize;
 
         /**
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)

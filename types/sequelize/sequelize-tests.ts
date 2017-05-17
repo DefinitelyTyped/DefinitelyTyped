@@ -1188,7 +1188,12 @@ new Sequelize( 'sequelize', null, null, {
             password : 'lol'
         }
     }
-} );
+});
+new Sequelize({
+    host: 'localhost',
+    username: 'omg',
+    password: 'lol'
+});
 
 s.model( 'Project' );
 s.models['Project'];
