@@ -4697,7 +4697,7 @@ function handleActive(tab) {
 }
 
 const TabsExampleSimple = () => (
-  <Tabs>
+  <Tabs tabTemplateStyle={{backgroundColor: 'red'}}>
         <Tab label="Item One">
       <div>
         <h2 style={styles.headline}>Tab One</h2>

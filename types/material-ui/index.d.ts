@@ -1767,6 +1767,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             tabItemContainerStyle?: React.CSSProperties;
             tabTemplate?: React.ComponentClass<any>;
+            tabTemplateStyle?: React.CSSProperties;
             value?: any;
         }
         export class Tabs extends React.Component<TabsProps, {}> {

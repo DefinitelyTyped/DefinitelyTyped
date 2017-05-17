@@ -1,9 +1,9 @@
 // Type definitions for Sinon 2.2
 // Project: http://sinonjs.org/
-// Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.con/lumaxis>
+// Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.com/lumaxis>, Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// sinon uses DOM dependencies which are absent in browserless envoronment like node.js
+// sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
 // tslint:disable no-empty-interface
@@ -363,6 +363,47 @@ declare namespace Sinon {
         or(expr: SinonMatcher): SinonMatcher;
     }
 
+    interface SinonArrayMatcher extends SinonMatcher {
+        /**
+         * Requires an Array to be deep equal another one.
+         */
+        deepEquals(expected: any[]): SinonMatcher;
+        /**
+         * Requires an Array to start with the same values as another one.
+         */
+        startsWith(expected: any[]): SinonMatcher;
+        /**
+         * Requires an Array to end with the same values as another one.
+         */
+        endsWith(expected: any[]): SinonMatcher;
+        /**
+         * Requires an Array to contain each one of the values the given array has.
+         */
+        contains(expected: any[]): SinonMatcher;
+    }
+
+    interface SinonMapMatcher extends SinonMatcher {
+        /**
+         * Requires a Map to be deep equal another one.
+         */
+        deepEquals(expected: Map<any, any>): SinonMatcher;
+        /**
+         * Requires a Map to contain each one of the items the given map has.
+         */
+        contains(expected: Map<any, any>): SinonMatcher;
+    }
+
+    interface SinonSetMatcher extends SinonMatcher {
+        /**
+         *  Requires a Set to be deep equal another one.
+         */
+        deepEquals(expected: Set<any>): SinonMatcher;
+        /**
+         * Requires a Set to contain each one of the items the given set has.
+         */
+        contains(expected: Set<any>): SinonMatcher;
+    }
+
     interface SinonMatch {
         (value: number): SinonMatcher;
         (value: string): SinonMatcher;
@@ -378,7 +419,18 @@ declare namespace Sinon {
         string: SinonMatcher;
         object: SinonMatcher;
         func: SinonMatcher;
-        array: SinonMatcher;
+        /**
+         * Requires the value to be a Map.
+         */
+        map: SinonMapMatcher;
+        /**
+         * Requires the value to be a Set.
+         */
+        set: SinonSetMatcher;
+        /**
+         * Requires the value to be an Array.
+         */
+        array: SinonArrayMatcher;
         regexp: SinonMatcher;
         date: SinonMatcher;
         symbol: SinonMatcher;
