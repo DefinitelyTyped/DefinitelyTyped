@@ -77,7 +77,7 @@ declare namespace CKEDITOR {
     function addCss(css: string): void;
     function addTemplate(name: string, source: string): template;
     function appendTo(element: string, config?: config, data?: string): editor;
-    function appendTo(element: HTMLTextAreaElement, config?: config, data?: string): editor;
+    function appendTo(element: HTMLElement, config?: config, data?: string): editor;
     function domReady(): void;
     function dialogCommand(dialogName: string): void;
     function editorConfig(config: config): void;
