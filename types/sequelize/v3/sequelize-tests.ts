@@ -628,6 +628,7 @@ new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
 
+const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
 //
 //  Hooks
 // ~~~~~~~
@@ -992,6 +993,9 @@ User.bulkCreate( [{ name : 'foo', code : '123' }, { code : '1234' }], { fields :
 User.bulkCreate( [{ name : 'a', c : 'b' }, { name : 'e', c : 'f' }], { fields : ['e', 'f'], ignoreDuplicates : true } );
 
 User.truncate();
+User.truncate( { cascade : true } );
+User.truncate( { force : true } );
+User.truncate( { cascade: true, force : true } );
 
 User.destroy( { where : { client_id : 13 } } ).then( ( a ) => a.toFixed() );
 User.destroy( { force : true } );
@@ -1258,7 +1262,7 @@ s.define( 'UserWithUniqueUsername', {
     username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
     email : { type : Sequelize.STRING, unique : 'user_and_email' }
 } );
-/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
+
 s.define( 'UserWithUniqueUsername', {
     user_id : { type : Sequelize.INTEGER },
     email : { type : Sequelize.STRING }
@@ -1266,13 +1270,15 @@ s.define( 'UserWithUniqueUsername', {
     indexes : [
         {
             name : 'user_and_email_index',
-            msg : 'User and email must be unique',
             unique : true,
             method : 'BTREE',
-            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }]
+            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }],
+            where : {
+                user_id : { $not: null }
+            }
         }]
 } );
- */
+
 s.define( 'TaskBuild', {
     title : { type : Sequelize.STRING, defaultValue : 'a task!' },
     foo : { type : Sequelize.INTEGER, defaultValue : 2 },

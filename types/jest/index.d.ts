@@ -291,6 +291,7 @@ declare function pending(reason?: string): void;
 /** Fails a test when called within one. */
 declare function fail(error?: any): void;
 declare namespace jasmine {
+    var DEFAULT_TIMEOUT_INTERVAL: number;
     var clock: () => Clock;
     function any(aclass: any): Any;
     function anything(): Any;

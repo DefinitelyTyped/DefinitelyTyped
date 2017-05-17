@@ -63,17 +63,11 @@ export type OverscanIndices = {
 
 export type CellSizeAndPositionManager = {
     areOffsetsAdjusted(): boolean;
-    configure({
-            cellCount,
-        estimatedCellSize
-        }: ConfigureParams): void;
+    configure({ cellCount, estimatedCellSize }: ConfigureParams): void;
     getCellCount(): number;
     getEstimatedCellSize(): number;
     getLastMeasuredIndex(): number;
-    getOffsetAdjustment({
-            containerSize,
-        offset // safe
-    }: ContainerSizeAndOffset): number;
+    getOffsetAdjustment({ containerSize, offset/*safe*/ }: ContainerSizeAndOffset): number;
     /**
      * This method returns the size and position for the cell at the specified index.
      * It just-in-time calculates (or used cached values) for cells leading up to the index.

@@ -1,6 +1,7 @@
 // Type definitions for react-navigation 1.0
 // Project: https://github.com/react-community/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
+//                 mhcgrq <https://github.com/mhcgrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react'
@@ -321,7 +322,7 @@ export type NavigationAction =
 export namespace NavigationActions {
   function navigate(options: NavigationNavigateAction): any;
   function reset(options: NavigationResetAction): any;
-  function back(options: NavigationBackAction): any;
+  function back(options?: NavigationBackAction): any;
   function setParams(options: NavigationSetParamsAction): any;
 }
 
@@ -476,7 +477,7 @@ export interface LayoutEvent {
 }
 
 interface NavigationContainerProps {
-  navigation: NavigationProp<any, NavigationAction>
+  navigation?: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
     nextNavigationState: NavigationState,
@@ -570,7 +571,7 @@ export interface StackNavigatorScreenOptions {
   title?: string;
   headerVisible?: boolean;
   headerTitle?: string|React.ReactElement<any>;
-  headerBackTitle?: string|null;
+  headerBackTitle?: string;
   headerTruncatedBackTitle?: string;
   headerRight?: React.ReactElement<any>;
   headerLeft?: React.ReactElement<any>;
@@ -584,11 +585,11 @@ export interface StackNavigatorScreenOptions {
 export interface TabNavigatorScreenOptions {
   title?: string;
   tabBarVisible?: boolean;
-  tabBarIcon?: React.ReactElement<any>;
-  tabBarLaben?: string
-      |React.ReactElement<any>
-      | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
-  ;
+  tabBarIcon?: React.ReactElement<any>
+      | ((options: { focused: boolean, tintColor: string }) => React.ReactElement<any>);
+  tabBarLabel?: string
+      | React.ReactElement<any>
+      | ((options: { focused: boolean, tintColor: string }) => React.ReactElement<any>);
 }
 
 export interface DrawerNavigatorScreenOptions {

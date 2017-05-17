@@ -190,6 +190,11 @@ function CommonMethodsInEventStreamsAndProperties() {
                 console.log(sum); // returns [-1, 2, 8] in an order
             });
     }
+
+    {
+        var src = Bacon.fromArray([1, 2, 3]);
+        src.doLog('element value');
+    }
 }
 
 function EventStream() {
