@@ -1,6 +1,7 @@
 // Type definitions for twig
-// Project: https://github.com/justjohn/twig.js
+// Project: https://github.com/twigjs/twig.js
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+//                 Tim Schumacher <https://github.com/enko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/twig.d.ts
@@ -8,16 +9,25 @@
 
 export interface Parameters {
     id?: any;
-    ref?: any;
-    href?: any;
+    blocks?: any;
+    macros?: any;
+    base?: any;
     path?: any;
-    debug?: boolean;
-    trace?: boolean;
-    strict_variables?: boolean;
-    data: any;
+    url?: any;
+    name?: any;
+    method?: any;
+    options?: any;
 }
 
 export interface Template {
+    reset(blocks: any): void;
+    render(context?: any, params?: any, allow_async?: boolean): string | Promise<string>;
+    renderAsync(context?: any, params?: any): Promise<string>;
+    importFile(file: string): Template;
+    importBlocks(file: string, override?: boolean): void;
+    importMacros(file: string): Template;
+    getLoaderMethod(): string;
+    compile(options: any) : string;
 }
 
 export interface CompileOptions {
