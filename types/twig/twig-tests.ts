@@ -8,13 +8,14 @@ var bool: boolean;
 
 var params: twig.Parameters = {
 	id: value,
-	ref: value,
-	href: value,
 	path: value,
-	debug: bool,
-	trace: bool,
-	strict_variables: bool,
-	data: value
+	base: value,
+	blocks: value,
+	macros: value,
+	method: value,
+	name: value,
+	options: value,
+	url: value
 };
 
 var temp: twig.Template;
