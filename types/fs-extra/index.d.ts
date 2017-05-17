@@ -1,8 +1,8 @@
 // Type definitions for fs-extra 3.0
 // Project: https://github.com/jprichardson/node-fs-extra
-// Definitions by: Alan Agius <https://github.com/alan-agius4>
-//                 midknight41 <https://github.com/midknight41>
-//                 Brendan Forster <https://github.com/shiftkey>
+// Definitions by: Alan Agius <https://github.com/alan-agius4>,
+//                 midknight41 <https://github.com/midknight41>,
+//                 Brendan Forster <https://github.com/shiftkey>,
 //                 Mees van Dijk <https://github.com/mees->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
