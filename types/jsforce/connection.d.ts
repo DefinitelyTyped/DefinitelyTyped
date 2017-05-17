@@ -20,7 +20,7 @@ export interface ConnectionOptions {
 
 export type ConnectionEvent = "refresh";
 
-export declare class Connection {
+export class Connection {
     constructor(params: ConnectionOptions)
 
     sobject(resource: string): SObject;
