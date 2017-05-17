@@ -4,6 +4,8 @@ import { SObjectCreateOptions } from './create-options';
 import { DescribeSObjectResult } from './describe-result';
 import { Query } from './query';
 import { RecordResult } from './record-result';
+import { Connection } from './connection';
+import { SalesforceId } from './salesforce-id';
 
 export declare class SObject {
     record(options: any, callback?: (err: Error, ret: any) => void): void;
@@ -49,12 +51,40 @@ export declare class SObject {
     select<T>(field?: Object | string[] | string, callback?: (err: Error, ret: T[]) => void): Query<T[]>;
 }
 
-export interface ApprovalLayoutInfo { }
-export interface Record { }
-export interface Batch { }
-export interface CompactLayoutInfo { }
-export interface DeletedRecordsInfo { }
-export interface LayoutInfo { }
-export interface ListView { }
-export interface ListViewsInfo { }
-export interface QuickAction { }
+export interface ApprovalLayoutInfo {
+    approvalLayouts: Object[];
+}
+
+export declare class Record extends Object {
+    constructor(connection: Connection, type: SObject, id: SalesforceId)
+}
+
+export class Batch extends stream.Writable {
+}
+
+export interface CompactLayoutInfo {
+    compactLayouts: Object[];
+    defaultCompactLayoutId: string;
+    recordTypeCompactLayoutMappings: Object[];
+}
+
+export interface DeletedRecordsInfo {
+    earliestDateAvailable: string;
+    latestDateCovered: string;
+    deletedRecords: {
+        id: string,
+        deletedDate: string,
+    };
+}
+
+export interface LayoutInfo {
+    layouts: Object[];
+    recordTypeMappings: Object[];
+}
+
+export declare class ListView {
+    constructor(connection: Connection, type: SObject, id: SalesforceId)
+}
+
+export class ListViewsInfo { }
+export class QuickAction { }
