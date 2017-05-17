@@ -7,7 +7,7 @@ import { RecordResult } from './record-result';
 import { Connection } from './connection';
 import { SalesforceId } from './salesforce-id';
 
-export declare class SObject {
+export class SObject {
     record(options: any, callback?: (err: Error, ret: any) => void): void;
     update(options: SObjectCreateOptions, callback?: (err: Error, ret: any) => void): void;
     retrieve(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
@@ -55,7 +55,7 @@ export interface ApprovalLayoutInfo {
     approvalLayouts: Object[];
 }
 
-export declare class Record extends Object {
+export class Record extends Object {
     constructor(connection: Connection, type: SObject, id: SalesforceId)
 }
 
@@ -82,7 +82,7 @@ export interface LayoutInfo {
     recordTypeMappings: Object[];
 }
 
-export declare class ListView {
+export class ListView {
     constructor(connection: Connection, type: SObject, id: SalesforceId)
 }
 

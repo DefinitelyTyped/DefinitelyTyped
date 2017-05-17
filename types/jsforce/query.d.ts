@@ -7,7 +7,7 @@ export interface ExecuteOptions {
     scanAll?: number;
 }
 
-export declare class Query<T> {
+export class Query<T> {
     filter(filter: Object): Query<T>;
     hint(hint: Object): Query<T>;
     limit(value: number): Query<T>;
