@@ -22,4 +22,4 @@ export interface NodeDimensionsOptions {
 
 declare function getNodeDimensions(element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;
 
-export default getNodeDimensions
+export default getNodeDimensions;
