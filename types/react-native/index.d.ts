@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>
+// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -4226,6 +4226,11 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
      * to reduce memory allocations.
      */
     pressRetentionOffset?: Insets
+
+    /**
+     * Used to locate this view in end-to-end tests.
+     */
+    testID?: string
 }
 
 
