@@ -14,11 +14,11 @@ declare module 'get-node-dimensions' {
   }
 
   interface NodeDimensionsOptions {
-    margin: boolean;
-    clone: boolean;
-    display: string;
-    width: string;
-    height: string;
+    margin?: boolean;
+    clone?: boolean;
+    display?: string;
+    width?: string;
+    height?: string;
   }
 
   function getNodeDimensions(element: HTMLElement, options?: NodeDimensionsOptions): NodeDimensions;
