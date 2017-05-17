@@ -281,9 +281,11 @@ declare namespace _ {
         (value: string): LoDashImplicitStringWrapper;
         (value: boolean): LoDashImplicitWrapper<boolean>;
         (value: null | undefined): LoDashImplicitWrapper<null | undefined>;
-        (value: number[] | null | undefined): LoDashImplicitNumberArrayWrapper;
-        <T>(value: T[] | null | undefined): LoDashImplicitArrayWrapper<T>;
-        <T extends {}>(value: T | null | undefined): LoDashImplicitObjectWrapper<T>;
+        (value: number[]): LoDashImplicitNumberArrayWrapper;
+        <T>(value: T[]): LoDashImplicitArrayWrapper<T>;
+        <T>(value: T[] | null | undefined): LoDashImplicitNillableArrayWrapper<T>;
+        <T extends {}>(value: T): LoDashImplicitObjectWrapper<T>;
+        <T extends {}>(value: T | null | undefined): LoDashImplicitNillableObjectWrapper<T>;
         (value: any): LoDashImplicitWrapper<any>;
 
         /**
@@ -380,31 +382,49 @@ declare namespace _ {
 
     interface LoDashExplicitStringWrapper extends LoDashExplicitWrapper<string> { }
 
-    interface LoDashImplicitObjectWrapper<T> extends LoDashImplicitWrapperBase<T, LoDashImplicitObjectWrapper<T>> { }
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> extends LoDashImplicitWrapperBase<TObject, TWrapper> { }
 
-    interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
+    interface LoDashImplicitObjectWrapper<T> extends LoDashImplicitObjectWrapperBase<T, T, LoDashImplicitObjectWrapper<T>> { }
+ 
+    interface LoDashImplicitNillableObjectWrapper<T> extends LoDashImplicitObjectWrapperBase<T, T | null | undefined, LoDashImplicitNillableObjectWrapper<T>> { }
 
-    interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
-        pop(): T;
-        push(...items: T[]): LoDashImplicitArrayWrapper<T>;
-        shift(): T;
-        sort(compareFn?: (a: T, b: T) => number): LoDashImplicitArrayWrapper<T>;
-        splice(start: number): LoDashImplicitArrayWrapper<T>;
-        splice(start: number, deleteCount: number, ...items: any[]): LoDashImplicitArrayWrapper<T>;
-        unshift(...items: T[]): LoDashImplicitArrayWrapper<T>;
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> extends LoDashExplicitWrapperBase<TObject, TWrapper> { }
+
+    interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitObjectWrapperBase<T, T, LoDashExplicitObjectWrapper<T>> { }
+ 
+    interface LoDashExplicitNillableObjectWrapper<T> extends LoDashExplicitObjectWrapperBase<T, T | null | undefined, LoDashExplicitNillableObjectWrapper<T>> { }
+
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> extends LoDashImplicitWrapperBase<TArray, TWrapper> {
+        pop(): T | undefined;
+        push(...items: T[]): TWrapper;
+        shift(): T | undefined;
+        sort(compareFn?: (a: T, b: T) => number): TWrapper;
+        splice(start: number): TWrapper;
+        splice(start: number, deleteCount: number, ...items: T[]): TWrapper;
+        unshift(...items: T[]): TWrapper;
     }
 
-    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[], LoDashExplicitArrayWrapper<T>> {
-        pop(): LoDashExplicitObjectWrapper<T>;
-        push(...items: T[]): LoDashExplicitArrayWrapper<T>;
-        shift(): LoDashExplicitObjectWrapper<T>;
-        sort(compareFn?: (a: T, b: T) => number): LoDashExplicitArrayWrapper<T>;
-        splice(start: number): LoDashExplicitArrayWrapper<T>;
-        splice(start: number, deleteCount: number, ...items: any[]): LoDashExplicitArrayWrapper<T>;
-        unshift(...items: T[]): LoDashExplicitArrayWrapper<T>;
-    }
+    interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitArrayWrapperBase<T, T[], LoDashImplicitArrayWrapper<T>> { }
+
+    interface LoDashImplicitNillableArrayWrapper<T> extends LoDashImplicitArrayWrapperBase<T, T[] | null | undefined, LoDashImplicitNillableArrayWrapper<T>> { }
+
+    interface LoDashImplicitNumberArrayWrapperBase<TArray extends number[] | null | undefined, TWrapper> extends LoDashImplicitArrayWrapperBase<number, TArray, TWrapper> { }
 
     interface LoDashImplicitNumberArrayWrapper extends LoDashImplicitArrayWrapper<number> { }
+
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> extends LoDashExplicitWrapperBase<TArray, TWrapper> {
+        pop(): LoDashExplicitObjectWrapper<T | undefined>;
+        push(...items: T[]): TWrapper;
+        shift(): LoDashExplicitObjectWrapper<T | undefined>;
+        sort(compareFn?: (a: T, b: T) => number): TWrapper;
+        splice(start: number): TWrapper;
+        splice(start: number, deleteCount: number, ...items: T[]): TWrapper;
+        unshift(...items: T[]): TWrapper;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitArrayWrapperBase<T, T[], LoDashExplicitArrayWrapper<T>> { }
+
+    interface LoDashExplicitNillableArrayWrapper<T> extends LoDashExplicitArrayWrapperBase<T, T[] | null | undefined, LoDashExplicitNillableArrayWrapper<T>> { }
 
     interface LoDashExplicitNumberArrayWrapper extends LoDashExplicitArrayWrapper<number> { }
 
@@ -428,28 +448,28 @@ declare namespace _ {
         ): T[][];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.chunk
          */
         chunk(size?: number): LoDashImplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.chunk
          */
         chunk<TResult>(size?: number): LoDashImplicitArrayWrapper<TResult[]>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.chunk
          */
         chunk(size?: number): LoDashExplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.chunk
          */
@@ -468,28 +488,28 @@ declare namespace _ {
         compact<T>(array?: List<T | null | undefined> | null | undefined): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.compact
          */
         compact(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.compact
          */
         compact<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.compact
          */
         compact(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.compact
          */
@@ -538,28 +558,28 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.difference
          */
         difference(...values: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.difference
          */
         difference<TValue>(...values: Array<List<TValue>>): LoDashImplicitArrayWrapper<TValue>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.difference
          */
         difference(...values: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.difference
          */
@@ -694,7 +714,7 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.differenceBy
          */
@@ -803,7 +823,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.differenceBy
          */
@@ -912,7 +932,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.differenceBy
          */
@@ -1021,7 +1041,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.differenceBy
          */
@@ -1166,28 +1186,28 @@ declare namespace _ {
         drop<T>(array: List<T> | null | undefined, n?: number): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.drop
          */
         drop(n?: number): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.drop
          */
         drop<T>(n?: number): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.drop
          */
         drop(n?: number): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.drop
          */
@@ -1209,28 +1229,28 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.dropRight
          */
         dropRight(n?: number): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.dropRight
          */
         dropRight<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.dropRight
          */
         dropRight(n?: number): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.dropRight
          */
@@ -1279,7 +1299,7 @@ declare namespace _ {
         ): TValue[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.dropRightWhile
          */
@@ -1302,7 +1322,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.dropRightWhile
          */
@@ -1325,7 +1345,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.dropRightWhile
          */
@@ -1348,7 +1368,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.dropRightWhile
          */
@@ -1413,7 +1433,7 @@ declare namespace _ {
         ): TValue[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.dropWhile
          */
@@ -1436,7 +1456,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.dropWhile
          */
@@ -1459,7 +1479,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.dropWhile
          */
@@ -1482,7 +1502,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.dropWhile
          */
@@ -1536,7 +1556,7 @@ declare namespace _ {
         ): List<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.fill
          */
@@ -1547,7 +1567,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.fill
          */
@@ -1558,7 +1578,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<List<T>>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.fill
          */
@@ -1569,7 +1589,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.fill
          */
@@ -1625,7 +1645,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.findIndex
          */
@@ -1651,7 +1671,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findIndex
          */
@@ -1677,7 +1697,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.findIndex
          */
@@ -1703,7 +1723,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findIndex
          */
@@ -1773,7 +1793,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.findLastIndex
          */
@@ -1799,7 +1819,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findLastIndex
          */
@@ -1825,7 +1845,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.findLastIndex
          */
@@ -1851,7 +1871,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findLastIndex
          */
@@ -1892,14 +1912,14 @@ declare namespace _ {
         first(): string | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
         first(): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
@@ -1913,14 +1933,14 @@ declare namespace _ {
         first(): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
         first<T>(): T;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
@@ -1960,14 +1980,14 @@ declare namespace _ {
         flatten(): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.flatten
          */
         flatten<TResult>(isDeep?: boolean): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.flatten
          */
@@ -1981,14 +2001,14 @@ declare namespace _ {
         flatten(): LoDashExplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.flatten
          */
         flatten<TResult>(isDeep?: boolean): LoDashExplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.flatten
          */
@@ -2013,14 +2033,14 @@ declare namespace _ {
         flattenDeep(): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.flattenDeep
          */
         flattenDeep<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.flattenDeep
          */
@@ -2034,14 +2054,14 @@ declare namespace _ {
         flattenDeep(): LoDashExplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.flattenDeep
          */
         flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.flattenDeep
          */
@@ -2089,7 +2109,7 @@ declare namespace _ {
     }
 
     //_.fromPairs DUMMY
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.fromPairs
          */
@@ -2097,7 +2117,7 @@ declare namespace _ {
     }
 
     //_.fromPairs DUMMY
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.fromPairs
          */
@@ -2124,14 +2144,14 @@ declare namespace _ {
         head(): string | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
         head(): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
@@ -2145,14 +2165,14 @@ declare namespace _ {
         head(): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
         head<T>(): T;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
@@ -2191,7 +2211,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.indexOf
          */
@@ -2201,7 +2221,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.indexOf
          */
@@ -2211,7 +2231,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.indexOf
          */
@@ -2221,7 +2241,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.indexOf
          */
@@ -2308,14 +2328,14 @@ declare namespace _ {
         join(separator?: string): string;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.join
          */
         join(separator?: string): string;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.join
          */
@@ -2329,14 +2349,14 @@ declare namespace _ {
         join(separator?: string): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.join
          */
         join(separator?: string): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.join
          */
@@ -2451,7 +2471,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexOf
          */
@@ -2460,7 +2480,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexOf
          */
@@ -2469,7 +2489,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexOf
          */
@@ -2478,7 +2498,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexOf
          */
@@ -2498,28 +2518,28 @@ declare namespace _ {
         initial<T>(array: List<T> | null | undefined): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.initial
          */
         initial(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.initial
          */
         initial<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.initial
          */
         initial(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.initial
          */
@@ -2538,28 +2558,28 @@ declare namespace _ {
         intersection<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.intersection
          */
         intersection<TResult>(...arrays: Array<List<TResult>>): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.intersection
          */
         intersection<TResult>(...arrays: Array<List<TResult>>): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.intersection
          */
         intersection<TResult>(...arrays: Array<List<TResult>>): LoDashExplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.intersection
          */
@@ -2584,14 +2604,14 @@ declare namespace _ {
         last(): string | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.last
          */
         last(): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.last
          */
@@ -2605,14 +2625,14 @@ declare namespace _ {
         last(): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.last
          */
         last<T>(): T;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.last
          */
@@ -2636,7 +2656,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.lastIndexOf
          */
@@ -2646,7 +2666,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.lastIndexOf
          */
@@ -2656,7 +2676,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.lastIndexOf
          */
@@ -2666,7 +2686,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.lastIndexOf
          */
@@ -2691,7 +2711,7 @@ declare namespace _ {
         ): T | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.nth
          */
@@ -2700,7 +2720,7 @@ declare namespace _ {
         ): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.nth
          */
@@ -2709,7 +2729,7 @@ declare namespace _ {
         ): TResult | undefined;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.nth
          */
@@ -2718,7 +2738,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.nth
          */
@@ -2975,28 +2995,28 @@ declare namespace _ {
         tail<T>(array: List<T> | null | undefined): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.tail
          */
         tail(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.tail
          */
         tail<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.tail
          */
         tail(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.tail
          */
@@ -3020,7 +3040,7 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.slice
          */
@@ -3030,7 +3050,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.slice
          */
@@ -3060,40 +3080,8 @@ declare namespace _ {
          * _.sortedIndex([4, 5], 4);
          * // => 0
          */
-        sortedIndex<T, TSort>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
         sortedIndex<T>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<W, T>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T
         ): number;
     }
@@ -3107,14 +3095,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<TSort>(
-            value: T
-        ): number;
-
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndex
          */
@@ -3123,25 +3104,11 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T, TSort>(
-            value: T
-        ): number;
-
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<W, T>(
             value: T
         ): number;
     }
@@ -3155,48 +3122,20 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<TSort>(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex(
             value: T
         ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<W>(
-            value: T
-        ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T, TSort>(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<W, T>(
             value: T
         ): LoDashExplicitWrapper<number>;
     }
@@ -3227,7 +3166,7 @@ declare namespace _ {
          * // => 0
          */
         sortedIndexBy<T, TSort>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: (x: T) => TSort
         ): number;
@@ -3236,7 +3175,7 @@ declare namespace _ {
          * @see _.sortedIndexBy
          */
         sortedIndexBy<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: (x: T) => any
         ): number;
@@ -3245,7 +3184,7 @@ declare namespace _ {
          * @see _.sortedIndexBy
          */
         sortedIndexBy<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: string
         ): number;
@@ -3254,7 +3193,7 @@ declare namespace _ {
          * @see _.sortedIndexBy
          */
         sortedIndexBy<W, T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: W
         ): number;
@@ -3263,7 +3202,7 @@ declare namespace _ {
          * @see _.sortedIndexBy
          */
         sortedIndexBy<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: Object
         ): number;
@@ -3279,7 +3218,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexBy
          */
@@ -3305,7 +3244,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexBy
          */
@@ -3357,7 +3296,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexBy
          */
@@ -3383,7 +3322,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedIndexBy
          */
@@ -3443,40 +3382,8 @@ declare namespace _ {
          * _.sortedLastIndex([4, 5], 4);
          * // => 1
          */
-        sortedLastIndex<T, TSort>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
         sortedLastIndex<T>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<W, T>(
-            array: List<T>,
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T
         ): number;
     }
@@ -3485,53 +3392,25 @@ declare namespace _ {
         /**
          * @see _.sortedLastIndex
          */
-        sortedLastIndex<TSort>(
+        sortedLastIndex(
             value: string
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<TSort>(
-            value: T
-        ): number;
-
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex(
             value: T
         ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<W>(
-            value: T
-        ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T, TSort>(
-            value: T
-        ): number;
-
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T>(
-            value: T
-        ): number;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<W, T>(
             value: T
         ): number;
     }
@@ -3540,19 +3419,12 @@ declare namespace _ {
         /**
          * @see _.sortedLastIndex
          */
-        sortedLastIndex<TSort>(
+        sortedLastIndex(
             value: string
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<TSort>(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndex
          */
@@ -3561,25 +3433,11 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T, TSort>(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T>(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<W, T>(
             value: T
         ): LoDashExplicitWrapper<number>;
     }
@@ -3605,7 +3463,7 @@ declare namespace _ {
          * // => 1
          */
         sortedLastIndexBy<T, TSort>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: (x: T) => TSort
         ): number;
@@ -3614,7 +3472,7 @@ declare namespace _ {
          * @see _.sortedLastIndexBy
          */
         sortedLastIndexBy<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: (x: T) => any
         ): number;
@@ -3623,7 +3481,7 @@ declare namespace _ {
          * @see _.sortedLastIndexBy
          */
         sortedLastIndexBy<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: string
         ): number;
@@ -3632,7 +3490,7 @@ declare namespace _ {
          * @see _.sortedLastIndexBy
          */
         sortedLastIndexBy<W, T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: W
         ): number;
@@ -3641,7 +3499,7 @@ declare namespace _ {
          * @see _.sortedLastIndexBy
          */
         sortedLastIndexBy<T>(
-            array: List<T>,
+            array: List<T> | null | undefined,
             value: T,
             iteratee: Object
         ): number;
@@ -3657,7 +3515,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndexBy
          */
@@ -3683,7 +3541,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndexBy
          */
@@ -3735,7 +3593,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndexBy
          */
@@ -3761,7 +3619,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedLastIndexBy
          */
@@ -3834,28 +3692,28 @@ declare namespace _ {
         tail<T>(array: List<T> | null | undefined): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.rest
          */
         tail(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.rest
          */
         tail<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.rest
          */
         tail(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.rest
          */
@@ -3877,28 +3735,28 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.take
          */
         take(n?: number): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.take
          */
         take<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.take
          */
         take(n?: number): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.take
          */
@@ -3920,28 +3778,28 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.takeRight
          */
         takeRight(n?: number): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.takeRight
          */
         takeRight<TResult>(n?: number): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.takeRight
          */
         takeRight(n?: number): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.takeRight
          */
@@ -3990,7 +3848,7 @@ declare namespace _ {
         ): TValue[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.takeRightWhile
          */
@@ -4013,7 +3871,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.takeRightWhile
          */
@@ -4036,7 +3894,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.takeRightWhile
          */
@@ -4059,7 +3917,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.takeRightWhile
          */
@@ -4124,7 +3982,7 @@ declare namespace _ {
         ): TValue[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.takeWhile
          */
@@ -4147,7 +4005,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.takeWhile
          */
@@ -4170,7 +4028,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<TValue>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.takeWhile
          */
@@ -4193,7 +4051,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.takeWhile
          */
@@ -4228,7 +4086,7 @@ declare namespace _ {
         union<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.union
          */
@@ -4240,14 +4098,14 @@ declare namespace _ {
         union<T>(...arrays: Array<List<T> | null | undefined>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.union
          */
         union<T>(...arrays: Array<List<T> | null | undefined>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.union
          */
@@ -4259,7 +4117,7 @@ declare namespace _ {
         union<T>(...arrays: Array<List<T> | null | undefined>): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.union
          */
@@ -4383,7 +4241,7 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.unionBy
          */
@@ -4482,7 +4340,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.unionBy
          */
@@ -4581,7 +4439,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.unionBy
          */
@@ -4680,7 +4538,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.unionBy
          */
@@ -4816,7 +4674,7 @@ declare namespace _ {
         uniq<TSort>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.uniq
          */
@@ -4828,7 +4686,7 @@ declare namespace _ {
         uniq(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         uniq<T>(): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -4844,7 +4702,7 @@ declare namespace _ {
         uniq<TSort>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.uniq
          */
@@ -4856,7 +4714,7 @@ declare namespace _ {
         uniq(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.uniq
          */
@@ -4937,7 +4795,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.uniqBy
          */
@@ -4960,7 +4818,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.uniqBy
          */
@@ -5006,7 +4864,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.uniqBy
          */
@@ -5029,7 +4887,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.uniqBy
          */
@@ -5101,7 +4959,7 @@ declare namespace _ {
         sortedUniq<TSort>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedUniq
          */
@@ -5113,7 +4971,7 @@ declare namespace _ {
         sortedUniq(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         sortedUniq<T>(): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -5129,7 +4987,7 @@ declare namespace _ {
         sortedUniq<TSort>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedUniq
          */
@@ -5141,7 +4999,7 @@ declare namespace _ {
         sortedUniq(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedUniq
          */
@@ -5217,7 +5075,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedUniqBy
          */
@@ -5240,7 +5098,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedUniqBy
          */
@@ -5286,7 +5144,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortedUniqBy
          */
@@ -5309,7 +5167,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortedUniqBy
          */
@@ -5411,28 +5269,28 @@ declare namespace _ {
         unzip<T>(array: List<List<T>> | null | undefined): T[][];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.unzip
          */
         unzip<T>(): LoDashImplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.unzip
          */
         unzip<T>(): LoDashImplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.unzip
          */
         unzip<T>(): LoDashExplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.unzip
          */
@@ -5457,7 +5315,7 @@ declare namespace _ {
         ): TResult[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.unzipWith
          */
@@ -5466,7 +5324,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.unzipWith
          */
@@ -5490,28 +5348,28 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.without
          */
         without(...values: T[]): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.without
          */
         without<T>(...values: T[]): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.without
          */
         without(...values: T[]): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.without
          */
@@ -5529,28 +5387,28 @@ declare namespace _ {
         xor<T>(...arrays: Array<List<T> | null | undefined>): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.xor
          */
         xor(...arrays: Array<List<T> | null | undefined>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.xor
          */
         xor<T>(...arrays: Array<List<T> | null | undefined>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.xor
          */
         xor(...arrays: Array<List<T> | null | undefined>): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.xor
          */
@@ -5624,28 +5482,28 @@ declare namespace _ {
         zip<T>(...arrays: Array<List<T> | null | undefined>): T[][];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.zip
          */
         zip<T>(...arrays: Array<List<T> | null | undefined>): _.LoDashImplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.zip
          */
         zip<T>(...arrays: Array<List<T> | null | undefined>): _.LoDashImplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.zip
          */
         zip<T>(...arrays: Array<List<T> | null | undefined>): _.LoDashExplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.zip
          */
@@ -5910,9 +5768,12 @@ declare namespace _ {
         chain(value: string): LoDashExplicitWrapper<string>;
         chain(value: boolean): LoDashExplicitWrapper<boolean>;
         chain(value: null | undefined): LoDashExplicitWrapper<null | undefined>;
-        chain<T>(value: T[] | null | undefined): LoDashExplicitArrayWrapper<T>;
-        chain<T>(value: ReadonlyArray<T> | null | undefined): LoDashExplicitArrayWrapper<T>;
-        chain<T extends {}>(value: T | null | undefined): LoDashExplicitObjectWrapper<T>;
+        chain<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
+        chain<T>(value: ReadonlyArray<T>): LoDashExplicitArrayWrapper<T>;
+        chain<T>(value: T[] | null | undefined): LoDashExplicitNillableArrayWrapper<T>;
+        chain<T>(value: ReadonlyArray<T> | null | undefined): LoDashExplicitNillableArrayWrapper<T>;
+        chain<T extends {}>(value: T): LoDashExplicitObjectWrapper<T>;
+        chain<T extends {}>(value: T | null | undefined): LoDashExplicitObjectWrapper<T | null | undefined>;
         chain(value: any): LoDashExplicitWrapper<any>;
     }
 
@@ -5930,11 +5791,25 @@ declare namespace _ {
         chain(): LoDashExplicitArrayWrapper<T>;
     }
 
+    interface LoDashImplicitNillableArrayWrapper<T> {
+        /**
+         * @see _.chain
+         */
+        chain(): LoDashExplicitNillableArrayWrapper<T>;
+    }
+
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.chain
          */
         chain(): LoDashExplicitObjectWrapper<T>;
+    }
+
+    interface LoDashImplicitNillableObjectWrapper<T> {
+        /**
+         * @see _.chain
+         */
+        chain(): LoDashExplicitNillableObjectWrapper<T>;
     }
 
     interface LoDashExplicitWrapperBase<T, TWrapper> {
@@ -6275,28 +6150,28 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.at
          */
         at(...props: Array<Many<number|string>>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.at
          */
         at<T>(...props: Array<Many<number|string>>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.at
          */
         at(...props: Array<Many<number|string>>): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.at
          */
@@ -6380,7 +6255,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<number>>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.countBy
          */
@@ -6403,7 +6278,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<number>>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.countBy
          */
@@ -6435,7 +6310,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.countBy
          */
@@ -6458,7 +6333,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.countBy
          */
@@ -6589,22 +6464,22 @@ declare namespace _ {
         ): LoDashImplicitWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         each(
             iteratee: ListIterator<T, any>
-        ): LoDashImplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         each<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -6616,22 +6491,22 @@ declare namespace _ {
         ): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         each(
             iteratee: ListIterator<T, any>
-        ): LoDashExplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         each<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.eachRight
@@ -6742,22 +6617,22 @@ declare namespace _ {
         ): LoDashImplicitWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         eachRight(
             iteratee: ListIterator<T, any>
-        ): LoDashImplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         eachRight<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -6769,22 +6644,22 @@ declare namespace _ {
         ): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         eachRight(
             iteratee: ListIterator<T, any>
-        ): LoDashExplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         eachRight<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.every
@@ -6835,7 +6710,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.every
          */
@@ -6858,7 +6733,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.every
          */
@@ -6881,7 +6756,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.every
          */
@@ -6904,7 +6779,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<boolean>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.every
          */
@@ -6994,7 +6869,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.filter
          */
@@ -7015,7 +6890,7 @@ declare namespace _ {
         filter(predicate: PartialObject<T>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.filter
          */
@@ -7045,7 +6920,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.filter
          */
@@ -7066,7 +6941,7 @@ declare namespace _ {
         filter(predicate: PartialObject<T>): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.filter
          */
@@ -7141,7 +7016,7 @@ declare namespace _ {
         ): T|undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.find
          */
@@ -7167,7 +7042,7 @@ declare namespace _ {
         ): T|undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.find
          */
@@ -7314,7 +7189,7 @@ declare namespace _ {
         ): T|undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
         * @see _.findLast
         */
@@ -7493,7 +7368,7 @@ declare namespace _ {
         flatMap(): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.flatMap
          */
@@ -7521,7 +7396,7 @@ declare namespace _ {
         flatMap<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.flatMap
          */
@@ -7570,7 +7445,7 @@ declare namespace _ {
         flatMap(): LoDashExplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.flatMap
          */
@@ -7598,7 +7473,7 @@ declare namespace _ {
         flatMap<TResult>(): LoDashExplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.flatMap
          */
@@ -7752,22 +7627,22 @@ declare namespace _ {
         ): LoDashImplicitWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         forEach(
             iteratee: ListIterator<T, any>
-        ): LoDashImplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         forEach<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -7779,22 +7654,22 @@ declare namespace _ {
         ): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         forEach(
             iteratee: ListIterator<T, any>
-        ): LoDashExplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEach
          */
         forEach<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.forEachRight
@@ -7911,22 +7786,22 @@ declare namespace _ {
         ): LoDashImplicitWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         forEachRight(
             iteratee: ListIterator<T, any>
-        ): LoDashImplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         forEachRight<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -7938,22 +7813,22 @@ declare namespace _ {
         ): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         forEachRight(
             iteratee: ListIterator<T, any>
-        ): LoDashExplicitArrayWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forEachRight
          */
         forEachRight<TValue>(
             iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
-        ): LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.groupBy
@@ -8049,7 +7924,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.groupBy
          */
@@ -8072,7 +7947,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.groupBy
          */
@@ -8125,7 +8000,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.groupBy
          */
@@ -8148,7 +8023,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.groupBy
          */
@@ -8219,7 +8094,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.includes
          */
@@ -8229,7 +8104,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.includes
          */
@@ -8249,7 +8124,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.includes
          */
@@ -8259,7 +8134,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<boolean>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.includes
          */
@@ -8356,7 +8231,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.keyBy
          */
@@ -8379,7 +8254,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.keyBy
          */
@@ -8418,7 +8293,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.keyBy
          */
@@ -8441,7 +8316,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.keyBy
          */
@@ -8610,7 +8485,7 @@ declare namespace _ {
             ...args: any[]): TResult[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
         * @see _.invokeMap
         **/
@@ -8626,7 +8501,7 @@ declare namespace _ {
             ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
         * @see _.invokeMap
         **/
@@ -8642,7 +8517,7 @@ declare namespace _ {
             ...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
         * @see _.invokeMap
         **/
@@ -8658,7 +8533,7 @@ declare namespace _ {
             ...args: any[]): LoDashExplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
         * @see _.invokeMap
         **/
@@ -8754,7 +8629,7 @@ declare namespace _ {
         ): boolean[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.map
          */
@@ -8785,7 +8660,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.map
          */
@@ -8814,7 +8689,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<boolean>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.map
          */
@@ -8843,7 +8718,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<boolean>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.map
          */
@@ -8954,7 +8829,7 @@ declare namespace _ {
             callback: ListIterator<string, boolean>): LoDashImplicitArrayWrapper<string[]>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.partition
          */
@@ -8978,7 +8853,7 @@ declare namespace _ {
             pluckValue: string): LoDashImplicitArrayWrapper<T[]>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.partition
          */
@@ -9083,7 +8958,7 @@ declare namespace _ {
             callback: MemoIterator<T, TResult>): TResult | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
          /**
         * @see _.reduce
         **/
@@ -9098,7 +8973,7 @@ declare namespace _ {
             callback: MemoIterator<T, TResult>): TResult | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
          /**
         * @see _.reduce
         **/
@@ -9113,7 +8988,7 @@ declare namespace _ {
             callback: MemoIterator<TValue, TResult>): TResult | undefined;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
         * @see _.reduce
         **/
@@ -9128,7 +9003,7 @@ declare namespace _ {
             callback: MemoIterator<TValue, TResult>): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**LoDashExplicitWrapper
          * @see _.reduce
          */
@@ -9255,7 +9130,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.reject
          */
@@ -9276,7 +9151,7 @@ declare namespace _ {
         reject<W>(predicate: W): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.reject
          */
@@ -9306,7 +9181,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.reject
          */
@@ -9327,7 +9202,7 @@ declare namespace _ {
         reject<W>(predicate: W): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.reject
          */
@@ -9382,14 +9257,14 @@ declare namespace _ {
         sample(): string | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sample
          */
         sample(): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sample
          */
@@ -9403,14 +9278,14 @@ declare namespace _ {
         sample(): LoDashExplicitWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sample
          */
         sample<TWrapper>(): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sample
          */
@@ -9457,7 +9332,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sampleSize
          */
@@ -9466,7 +9341,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sampleSize
          */
@@ -9484,7 +9359,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sampleSize
          */
@@ -9493,7 +9368,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sampleSize
          */
@@ -9525,14 +9400,14 @@ declare namespace _ {
         shuffle(): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.shuffle
          */
         shuffle(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.shuffle
          */
@@ -9546,14 +9421,14 @@ declare namespace _ {
         shuffle(): LoDashExplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.shuffle
          */
         shuffle(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.shuffle
          */
@@ -9584,14 +9459,14 @@ declare namespace _ {
         size(): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.size
          */
         size(): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.size
          */
@@ -9605,14 +9480,14 @@ declare namespace _ {
         size(): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.size
          */
         size(): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.size
          */
@@ -9699,7 +9574,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.some
          */
@@ -9722,7 +9597,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.some
          */
@@ -9745,7 +9620,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.some
          */
@@ -9768,7 +9643,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<boolean>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.some
          */
@@ -9879,7 +9754,7 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortBy
          */
@@ -9913,7 +9788,7 @@ declare namespace _ {
         sortBy(iteratees: Array<ListIterator<T, any>|string|Object>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortBy
          */
@@ -9937,7 +9812,7 @@ declare namespace _ {
         sortBy<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sortBy
          */
@@ -9961,7 +9836,7 @@ declare namespace _ {
         sortBy(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sortBy
          */
@@ -10076,7 +9951,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.orderBy
          */
@@ -10086,7 +9961,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.orderBy
          */
@@ -10146,7 +10021,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.orderBy
          */
@@ -10156,7 +10031,7 @@ declare namespace _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.orderBy
          */
@@ -11440,7 +11315,7 @@ declare namespace _ {
         wrap<R extends Function>(wrapper: Function): LoDashImplicitObjectWrapper<R>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.wrap
          */
@@ -11452,7 +11327,7 @@ declare namespace _ {
         wrap<R extends Function>(wrapper: Function): LoDashImplicitObjectWrapper<R>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.wrap
          */
@@ -11476,7 +11351,7 @@ declare namespace _ {
         wrap<R extends Function>(wrapper: Function): LoDashExplicitObjectWrapper<R>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.wrap
          */
@@ -11488,7 +11363,7 @@ declare namespace _ {
         wrap<R extends Function>(wrapper: Function): LoDashExplicitObjectWrapper<R>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.wrap
          */
@@ -11522,18 +11397,18 @@ declare namespace _ {
         castArray(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.castArray
          */
-        castArray(): LoDashImplicitArrayWrapper<T>;
+        castArray(): TWrapper;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.castArray
          */
-        castArray(): LoDashImplicitArrayWrapper<T>;
+        castArray(): LoDashImplicitArrayWrapper<TObject>;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -11543,18 +11418,18 @@ declare namespace _ {
         castArray(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.castArray
          */
-        castArray(): LoDashExplicitArrayWrapper<T>;
+        castArray(): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.castArray
          */
-        castArray(): LoDashExplicitArrayWrapper<T>;
+        castArray(): LoDashExplicitArrayWrapper<TObject>;
     }
 
     //_.clone
@@ -11580,18 +11455,18 @@ declare namespace _ {
         clone(): T;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.clone
          */
-        clone(): T[];
+        clone(): TArray;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.clone
          */
-        clone(): T;
+        clone(): TObject;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -11601,18 +11476,18 @@ declare namespace _ {
         clone(): LoDashExplicitWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.clone
          */
-        clone(): LoDashExplicitArrayWrapper<T>;
+        clone(): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.clone
          */
-        clone(): LoDashExplicitObjectWrapper<T>;
+        clone(): TWrapper;
     }
 
     //_.cloneDeep
@@ -11633,18 +11508,18 @@ declare namespace _ {
         cloneDeep(): T;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(): T[];
+        cloneDeep(): TArray;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(): T;
+        cloneDeep(): TObject;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -11654,18 +11529,18 @@ declare namespace _ {
         cloneDeep(): LoDashExplicitWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(): LoDashExplicitArrayWrapper<T>;
+        cloneDeep(): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(): LoDashExplicitObjectWrapper<T>;
+        cloneDeep(): TWrapper;
     }
 
     //_.cloneDeepWith
@@ -11702,21 +11577,21 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeepWith
          */
         cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<T[], TResult>
+            customizer?: CloneDeepWithCustomizer<TArray, TResult>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeepWith
          */
         cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<T, TResult>
+            customizer?: CloneDeepWithCustomizer<TObject, TResult>
         ): TResult;
     }
 
@@ -11743,12 +11618,12 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeepWith
          */
         cloneDeepWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneDeepWithCustomizer<T[], TResult>
+            customizer?: CloneDeepWithCustomizer<TArray, TResult>
         ): LoDashExplicitWrapper<TResult>;
 
         /**
@@ -11766,7 +11641,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.cloneDeepWith
          */
@@ -11824,21 +11699,21 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.cloneWith
          */
         cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<T[], TResult>
+            customizer?: CloneWithCustomizer<TArray, TResult>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.cloneWith
          */
         cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<T, TResult>
+            customizer?: CloneWithCustomizer<TObject, TResult>
         ): TResult;
     }
 
@@ -11865,12 +11740,12 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.cloneWith
          */
         cloneWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneWithCustomizer<T[], TResult>
+            customizer?: CloneWithCustomizer<TArray, TResult>
         ): LoDashExplicitWrapper<TResult>;
 
         /**
@@ -11888,7 +11763,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.cloneWith
          */
@@ -13303,14 +13178,14 @@ declare namespace _ {
         toArray<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.toArray
          */
         toArray(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.toArray
          */
@@ -13324,14 +13199,14 @@ declare namespace _ {
         toArray<TResult>(): LoDashExplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.toArray
          */
         toArray(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.toArray
          */
@@ -13656,22 +13531,22 @@ declare namespace _ {
           * @returns {*} Returns the maximum value.
           */
         max<T>(
-            collection: List<T>
-        ): T;
+            collection: List<T> | null | undefined
+        ): T | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.max
          */
-        max(): T;
+        max(): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.max
          */
-        max<T>(): T;
+        max<T>(): T | undefined;
     }
 
     //_.maxBy
@@ -13699,79 +13574,79 @@ declare namespace _ {
          * // => { 'n': 2 }
          */
         maxBy<T>(
-            collection: List<T>,
+            collection: List<T> | null | undefined,
             iteratee?: ListIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.maxBy
          */
         maxBy<T>(
-            collection: Dictionary<T>,
+            collection: Dictionary<T> | null | undefined,
             iteratee?: DictionaryIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.maxBy
          */
         maxBy<T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T> | null | undefined,
             iteratee?: string
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.maxBy
          */
         maxBy<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T> | null | undefined,
             whereValue?: TObject
-        ): T;
+        ): T | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.maxBy
          */
         maxBy(
             iteratee?: ListIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.maxBy
          */
         maxBy(
             iteratee?: string
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.maxBy
          */
         maxBy<TObject extends {}>(
             whereValue?: TObject
-        ): T;
+        ): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.maxBy
          */
         maxBy<T>(
             iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.maxBy
          */
         maxBy<T>(
             iteratee?: string
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.maxBy
          */
         maxBy<TObject extends {}, T>(
             whereValue?: TObject
-        ): T;
+        ): T | undefined;
     }
 
     //_.mean
@@ -13790,7 +13665,7 @@ declare namespace _ {
          * // => 5
          */
         mean<T>(
-            collection: List<T>
+            collection: List<T> | null | undefined
         ): number;
     }
 
@@ -13811,12 +13686,12 @@ declare namespace _ {
        * // => 5
        */
       meanBy<T>(
-        collection: List<T>,
+        collection: List<T> | null | undefined,
         iteratee?: DictionaryIterator<T, any>
       ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.mean
          */
@@ -13841,22 +13716,22 @@ declare namespace _ {
          * @returns {*} Returns the minimum value.
          */
         min<T>(
-            collection: List<T>
-        ): T;
+            collection: List<T> | null | undefined
+        ): T | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.min
          */
-        min(): T;
+        min(): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.min
          */
-        min<T>(): T;
+        min<T>(): T | undefined;
     }
 
     //_.minBy
@@ -13884,79 +13759,79 @@ declare namespace _ {
          * // => { 'n': 1 }
          */
         minBy<T>(
-            collection: List<T>,
+            collection: List<T> | null | undefined,
             iteratee?: ListIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.minBy
          */
         minBy<T>(
-            collection: Dictionary<T>,
+            collection: Dictionary<T> | null | undefined,
             iteratee?: DictionaryIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.minBy
          */
         minBy<T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T> | null | undefined,
             iteratee?: string
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.minBy
          */
         minBy<TObject extends {}, T>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T> | null | undefined,
             whereValue?: TObject
-        ): T;
+        ): T | undefined;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.minBy
          */
         minBy(
             iteratee?: ListIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.minBy
          */
         minBy(
             iteratee?: string
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.minBy
          */
         minBy<TObject extends {}>(
             whereValue?: TObject
-        ): T;
+        ): T | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.minBy
          */
         minBy<T>(
             iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.minBy
          */
         minBy<T>(
             iteratee?: string
-        ): T;
+        ): T | undefined;
 
         /**
          * @see _.minBy
          */
         minBy<TObject extends {}, T>(
             whereValue?: TObject
-        ): T;
+        ): T | undefined;
     }
 
     //_.round
@@ -14011,14 +13886,14 @@ declare namespace _ {
         sum(collection: List<number>|Dictionary<number> | null | undefined): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sum
          */
         sum(): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sum
          **/
@@ -14030,14 +13905,14 @@ declare namespace _ {
         sum(): number;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sum
          */
         sum(): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sum
          */
@@ -14102,7 +13977,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sumBy
          */
@@ -14121,7 +13996,7 @@ declare namespace _ {
         sumBy(iteratee: Dictionary<{}>): number;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sumBy
          */
@@ -14140,7 +14015,7 @@ declare namespace _ {
         sumBy(iteratee: Dictionary<{}>): number;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.sumBy
          */
@@ -14164,7 +14039,7 @@ declare namespace _ {
         sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.sumBy
          */
@@ -16120,7 +15995,7 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.get
          */
@@ -16130,7 +16005,7 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.get
          */
@@ -16150,7 +16025,7 @@ declare namespace _ {
         ): TResultWrapper;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.get
          */
@@ -16160,7 +16035,7 @@ declare namespace _ {
         ): TResultWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.get
          */
@@ -16204,14 +16079,14 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.has
          */
         has(path: Many<StringRepresentable>): boolean;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.has
          */
@@ -16251,14 +16126,14 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.hasIn
          */
         hasIn(path: Many<StringRepresentable>): boolean;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.hasIn
          */
@@ -16494,7 +16369,7 @@ declare namespace _ {
          * @return Returns the new mapped object.
          */
         mapKeys<T, TKey>(
-            object: List<T>,
+            object: List<T> | null | undefined,
             iteratee?: ListIterator<T, TKey>
         ): Dictionary<T>;
 
@@ -16502,7 +16377,7 @@ declare namespace _ {
          * @see _.mapKeys
          */
         mapKeys<T, TKey>(
-            object: Dictionary<T>,
+            object: Dictionary<T> | null | undefined,
             iteratee?: DictionaryIterator<T, TKey>
         ): Dictionary<T>;
 
@@ -16510,7 +16385,7 @@ declare namespace _ {
          * @see _.mapKeys
          */
         mapKeys<T, TObject extends {}>(
-            object: List<T>|Dictionary<T>,
+            object: List<T>|Dictionary<T> | null | undefined,
             iteratee?: TObject
         ): Dictionary<T>;
 
@@ -16518,12 +16393,12 @@ declare namespace _ {
          * @see _.mapKeys
          */
         mapKeys<T>(
-            object: List<T>|Dictionary<T>,
+            object: List<T>|Dictionary<T> | null | undefined,
             iteratee?: string
         ): Dictionary<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.mapKeys
          */
@@ -16546,7 +16421,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.mapKeys
          */
@@ -16569,7 +16444,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.mapKeys
          */
@@ -16592,7 +16467,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.mapKeys
          */
@@ -16636,10 +16511,10 @@ declare namespace _ {
         * @param {Object} [thisArg] The `this` binding of `iteratee`.
         * @return {Object} Returns the new mapped object.
         */
-        mapValues<T, TResult>(obj: Dictionary<T>, callback: ObjectIterator<T, TResult>): Dictionary<TResult>;
-        mapValues<T>(obj: Dictionary<T>, where: Dictionary<T>): Dictionary<boolean>;
-        mapValues<T, TMapped>(obj: T, pluck: string): TMapped;
-        mapValues<T>(obj: T, callback: ObjectIterator<any, any>): T;
+        mapValues<T, TResult>(obj: Dictionary<T> | null | undefined, callback: ObjectIterator<T, TResult>): Dictionary<TResult>;
+        mapValues<T>(obj: Dictionary<T> | null | undefined, where: Dictionary<T>): Dictionary<boolean>;
+        mapValues<T, TMapped>(obj: T | null | undefined, pluck: string): TMapped;
+        mapValues<T>(obj: T | null | undefined, callback: ObjectIterator<any, any>): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -17191,7 +17066,7 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.result
          */
@@ -17201,7 +17076,7 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.result
          */
@@ -17221,7 +17096,7 @@ declare namespace _ {
         ): TResultWrapper;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.result
          */
@@ -17655,7 +17530,7 @@ declare namespace _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
-        values<T>(object?: Dictionary<T>|NumericDictionary<T>|List<T>): T[];
+        values<T>(object?: Dictionary<T>|NumericDictionary<T>|List<T> | null | undefined): T[];
 
         /**
          * @see _.values
@@ -17677,14 +17552,14 @@ declare namespace _ {
         values(): LoDashImplicitArrayWrapper<any>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.values
          */
         values(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.values
          */
@@ -17698,14 +17573,14 @@ declare namespace _ {
         values<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.values
          */
         values(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.values
          */
@@ -17728,14 +17603,14 @@ declare namespace _ {
         valuesIn<T>(object?: any): T[];
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.valuesIn
          */
         valuesIn<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.valuesIn
          */
@@ -18837,18 +18712,18 @@ declare namespace _ {
         identity(): T;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.identity
          */
-        identity(): T[];
+        identity(): TArray;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.identity
          */
-        identity(): T;
+        identity(): TObject;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -18858,18 +18733,18 @@ declare namespace _ {
         identity(): LoDashExplicitWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> {
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
          * @see _.identity
          */
-        identity(): LoDashExplicitArrayWrapper<T>;
+        identity(): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.identity
          */
-        identity(): LoDashExplicitObjectWrapper<T>;
+        identity(): TWrapper;
     }
 
     //_.iteratee

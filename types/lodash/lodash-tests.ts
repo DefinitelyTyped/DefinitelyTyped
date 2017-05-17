@@ -133,6 +133,16 @@ namespace TestWrapper {
         let result: _.LoDashImplicitObjectWrapper<{a: string}>;
         result = _<{a: string}>({a: ''});
     }
+
+    {
+        let a: TResult[] = [];
+        _(a) // $ExpectType LoDashImplicitArrayWrapper<TResult>
+    }
+
+    {
+        let a: TResult[] | null | undefined = any;
+        _(a) // $ExpectType LoDashImplicitNillableArrayWrapper<TResult>
+    }
 }
 
 //Wrapped array shortcut methods
@@ -3290,8 +3300,7 @@ namespace TestValueOf {
 namespace TestAt {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
-    let obj: any = {};
-    let dictionary: _.Dictionary<TResult> | null | undefined = {};
+    let dictionary: _.Dictionary<TResult> | null | undefined = any;
 
     {
         let result: TResult[];
@@ -4923,6 +4932,7 @@ namespace TestReduce {
     result = <number>_.reduce<number, number>(null, (sum: number, num: number) => sum + num);
 
     // chained
+    result = _([1, 2 ,3]).reduce((sum: number, num: number) => sum + num);
     result = _.chain([1, 2 ,3]).reduce((sum: number, num: number) => sum + num).value();
 
     result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, (r: ABC, num: number, key: string) => {
@@ -8005,7 +8015,7 @@ namespace TestMax {
     let array: number[] = [];
     let list: _.List<number> = [];
 
-    let result: number;
+    let result: number | undefined;
 
     result = _.max<number>(array);
     result = _.max<number>(list);
@@ -8023,7 +8033,7 @@ namespace TestMaxBy {
     let listIterator = (value: number, index: number, collection: _.List<number>) => 0;
     let dictionaryIterator = (value: number, key: string, collection: _.Dictionary<number>) => 0;
 
-    let result: number;
+    let result: number | undefined;
 
     result = _.maxBy<number>(array);
     result = _.maxBy<number>(array, listIterator);
@@ -8072,7 +8082,7 @@ namespace TestMin {
     let array: number[] = [];
     let list: _.List<number> = [];
 
-    let result: number;
+    let result: number | undefined;
 
     result = _.min<number>(array);
     result = _.min<number>(list);
@@ -8090,7 +8100,7 @@ namespace TestMinBy {
     let listIterator = (value: number, index: number, collection: _.List<number>) => 0;
     let dictionaryIterator = (value: number, key: string, collection: _.Dictionary<number>) => 0;
 
-    let result: number;
+    let result: number | undefined;
 
     result = _.minBy<number>(array);
     result = _.minBy<number>(array, listIterator);
@@ -9839,9 +9849,9 @@ namespace TestKeysIn {
 
 // _.mapKeys
 namespace TestMapKeys {
-    let array: TResult[] = [];
-    let list: _.List<TResult> = [];
-    let dictionary: _.Dictionary<TResult> = {};
+    let array: TResult[] | null | undefined = [] as any;
+    let list: _.List<TResult>| null | undefined = [] as any;
+    let dictionary: _.Dictionary<TResult> | null | undefined = any;
 
     let listIterator = (value: TResult, index: number, collection: _.List<TResult>) => "";
     let dictionaryIterator = (value: TResult, key: string, collection: _.Dictionary<TResult>) => "";
