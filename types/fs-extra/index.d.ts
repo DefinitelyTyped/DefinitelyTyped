@@ -79,13 +79,14 @@ export function ensureFile(path: string): Promise<void>;
 export function ensureFile(path: string, callback: (err: Error) => void): void;
 export function ensureFileSync(path: string): void;
 
-export function ensureLink(path: string): Promise<void>;
-export function ensureLink(path: string, callback: (err: Error) => void): void;
-export function ensureLinkSync(path: string): void;
+export function ensureLink(src: string, dest: string): Promise<void>;
+export function ensureLink(src: string, dest: string, callback: (err: Error) => void): void;
+export function ensureLinkSync(src: string, dest: string): void;
 
-export function ensureSymlink(path: string): Promise<void>;
-export function ensureSymlink(path: string, callback: (err: Error) => void): void;
-export function ensureSymlinkSync(path: string): void;
+export function ensureSymlink(src: string, dest: string, type?: string): Promise<void>;
+export function ensureSymlink(src: string, dest: string, type: string, callback: (err: Error) => void): void;
+export function ensureSymlink(src: string, dest: string, callback: (err: Error) => void): void;
+export function ensureSymlinkSync(src: string, dest: string, type?: string): void;
 
 export function emptyDir(path: string): Promise<void>;
 export function emptyDir(path: string, callback: (err: Error) => void): void;
