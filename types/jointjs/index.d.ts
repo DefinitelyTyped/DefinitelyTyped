@@ -10,8 +10,300 @@ import * as Backbone from "backbone";
 
 export as namespace joint;
 
-export var g: any;
-export var V: any;
+export namespace g {
+    export function normalizeAngle(angle: number): number;
+    export function snapToGraph(): void;
+    export function toDeg(rad: number): number;
+    export function toRad(deg: number, over360: boolean): number;
+    export namespace bezier {
+	export function curveThroughPoints(points: dia.Point[] | Point[]): string[];
+	export function getCurveControlPoints(points: dia.Point[] | Point[]): [Point[], Point[]];
+	interface CurveDivider {
+	    p0: Point;
+	    p1: Point;
+	    p2: Point;
+	    p3: Point;
+	}
+	export function getCurveDivider(p0: string | dia.Point | Point, p1: string | dia.Point | Point, p2: string | dia.Point | Point, p3: string| dia.Point | Point): (t: number) => [CurveDivider, CurveDivider];
+	export function getFirectControlPoints(rhs: number[]): number[];
+	export function getInversionSolver(p0: dia.Point | Point, p1: dia.Point | Point, p2: dia.Point | Point, p3: dia.Point | Point): (p: dia.Point | Point) => number;
+    }
+    class Ellipse {
+	constructor(c: string | Point | dia.Point, a: number, b: number);
+	static fromRect(rect: Rect): Ellipse;
+	bbox(): Rect;
+	clone(): Ellipse;
+	normalizedDistance(point: dia.Point | Point): number;
+	inflate(dx: number, dy: number): this;
+	containsPoint(p: dia.Point | Point): boolean;
+	center(): Point;
+	tangentTheta(p: dia.Point | Point): number;
+	equals(ellipse: Ellipse): boolean;
+	intersectionWithLineFromCenterToPoint(p: dia.Point | Point, angle: number): number;
+	toString(): string;
+	x: number;
+	y: number;
+	a: number;
+	b: number;
+    }
+    type Bearing = 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW' | 'N';
+    class Line {
+	constructor(p1: string | dia.Point | Point, p2: string | dia.Point | Point);
+	bearing(): Bearing;
+	clone(): Line;
+	equals(): boolean;
+	intersect(l: Line): Point | undefined;
+	intersect(l: Rect): Point[] | undefined;
+	intersection(l: Line): Point | undefined;
+	intersection(l: Rect): Point[] | undefined;
+	length(): number;
+	pointAt(t: number): Point;
+	pointOffset(p: dia.Point | Point): number;
+	squaredLength(): number;
+	toString(): string;
+	start: Point;
+	end: Point;
+    }
+    class Point {
+	constructor(x?: string | number | dia.Point, y?: number);
+	static fromPolar(distance: number, angle: number, origin?: string | dia.Point | Point): Point;
+	static random(x1: number, x2: number, y1: number, y2: number): Point;
+	adhereToRect(r: Rect): this;
+	bearing(p: string | dia.Point | Point): Bearing;
+	changeInAngle(dx: number, dy: number, ref: string | dia.Point | Point): number;
+	clone(): Point;
+	difference(dx?: Point | dia.Point | number, dy?: number): Point;
+	distance(p: string | dia.Point | Point): number;
+	equals(p: Point): boolean;
+	mangitude(): number;
+	manhattanDistance(p: dia.Point | Point): number;
+	move(ref: string | dia.Point | Point, distance: number): this;
+	normalize(length: number): this;
+	offset(dx?: number | dia.Point | Point, dy?: number): this;
+	reflection(ref: string | dia.Point | Point): Point;
+	rotate(origin: string | dia.Point | Point, angle: number): this;
+	round(precision: number): this;
+	scale(sx: number, sy: number, origin?: string | dia.Point | Point): this;
+	snapToGrid(gx: number, gy?: number): this;
+	theta(p: string | dia.Point | Point): number;
+	toJSON(): dia.Point;
+	toPolar(o?: string | dia.Point | Point): this;
+	toString(): string;
+	update(x?: number, y?: number): this;
+	x: number;
+	y: number;
+    }
+    type Side = 'left' | 'top' | 'right' | 'bottom';
+    class Rect {
+	constructor(x?: number | dia.BBox, y?: number, w?: number, h?: number);
+	static fromEllipse(e: Ellipse): Rect;
+	bbox(angle: number): Rect;
+	bottomLeft(): Point;
+	bottomLine(): Line;
+	bottomMiddle(): Point;
+	center(): Point;
+	clone(): Rect;
+	containsPoint(p: string | dia.Point | Point): boolean;
+	containsRect(r: dia.BBox | Rect): boolean;
+	corner(): Point;
+	equals(): boolean;
+	intersect(r: Rect): Rect | undefined;
+	intersectionWithLineFromCenterToPoint(p: string | dia.Point | Point, angle: number): Point;
+	leftLine(): Line;
+	leftMiddle(): Point;
+	moveAndExpand(r: dia.BBox | Rect): this;
+	inflate(dx?: number, dy?: number): this;
+	normalize(): this;
+	origin(): Point;
+	pointNearestToPoint(point: string | dia.Point | Point): Point;
+	rightLine(): Line;
+	rightMiddle(): Point;
+	round(precision: number): this;
+	scale(sx: number, sy: number, origin?: string | dia.Point | Point): this;
+	maxRectScaleToFit(rect: dia.BBox | Rect, origin: Point): Vectorizer.Scale;
+	sideNearestToPoint(point: string | dia.Point | Point): Side;
+	snapToGrid(gx: number, gy?: number): this;
+	topLine(): Line;
+	topMiddle(): Point;
+	topRight(): Point;
+	toJson(): dia.BBox;
+	toString(): string
+	union(rect: Rect): Rect;
+    }
+    namespace scale {
+	export function linear(domain: number[], range: number[], value: number): number;
+    }
+}
+
+export var V: (v: string | SVGElement, attrs?: dia.SVGAttributes, children?: Vectorizer | Vectorizer[] | SVGElement | SVGElement[]) => Vectorizer;
+
+export namespace Vectorizer {
+    interface RotateOptions {
+	absolute: boolean;
+    }
+    interface Sample {
+	x: number;
+	y: number;
+	distance: number;
+    }
+    interface TextAnnotation {
+	start: number;
+	end: number;
+	attrs: Object;
+    }
+    interface TextOptions {
+	lineHeight: number | string;
+	textPath: string | Object;
+	annotations: TextAnnotation[];
+	includeAnnotationIndices: boolean;
+    }
+    interface TransformOptions {
+	absolute: boolean;
+    }
+    // modifiable Matrix. SVGMatrix doesn't allow set on properties or a constructor.
+    interface Matrix {
+	a: number;
+	b: number;
+	c: number;
+	d: number;
+	e: number;
+	f: number;
+    }
+    interface DecomposedTransformation {
+	translateX: number;
+	translateY: number;
+	scaleX: number;
+	scaleY: number;
+	skewX: number;
+	skewY: number;
+	rotation: number;
+    }
+    interface Rect extends dia.BBox {
+	'top-rx'?: number;
+	'top-ry'?: number;
+	'bottom-rx'?: number;
+	'bottom-ry'?: number;
+    }
+    interface Rotation {
+	angle: number;
+	cx?: number;
+	cy?: number;
+    }
+    interface Translation {
+	tx: number;
+	ty: number;
+    }
+    interface Scale {
+	sx: number;
+	sy: number;
+    }
+    interface Transform {
+	value: string;
+	translate: Translation;
+	rotate: Rotation;
+	scale: Scale;
+    }
+    interface ParseXMLOptions {
+	async: boolean;
+    }
+    interface QualifiedAttribute {
+	ns?: string;
+	local: string;
+    }
+}
+
+export class Vectorizer {
+    constructor(v: string | SVGElement, attrs?: Object, children?: Vectorizer | Vectorizer[] | SVGElement | SVGElement[]);
+    addClass(className: string): this;
+    animateAlongPath(attrs: Object, path: Vectorizer | SVGElement): void;
+    append(els: Vectorizer | Vectorizer[] | SVGElement | SVGElement[]): this;
+    attr(): Object;
+    attr(name: string): string | number | Object;
+    attr(name: Object): this;
+    attr(name: string, value: string | number | Object): this;
+    bbox(withoutTransformations?: boolean, target?: SVGElement): dia.BBox;
+    before(els: Vectorizer | Vectorizer[] | SVGElement | SVGElement[]): this;
+    clone(): Vectorizer;
+    contains(el: SVGElement): boolean;
+    convertToPath(): Vectorizer;
+    convertToPathData(): string;
+    defs(): Vectorizer | undefined;
+    empty(): this;
+    find(selector: string): Vectorizer[];
+    findIntersection(ref: dia.Point, target: SVGElement | Vectorizer): dia.Point | undefined;
+    findOne(selector: string): Vectorizer | undefined;
+    findParentByClass(className: string, ternimator: SVGElement): Vectorizer | undefined;
+    getTransformToElement(elem: SVGGElement): SVGMatrix;
+    hasClass(className: string): boolean;
+    index(): number;
+    prepend(els: Vectorizer | Vectorizer[] | SVGElement | SVGElement[]): Vectorizer;
+    remove(): this;
+    removeAttr(name: string): this;
+    removeClass(className: string): this;
+    rotate(): Vectorizer.Rotation;
+    rotate(angle: number, cx?: number, cy?: number, opt?: Vectorizer.RotateOptions): this;
+    sample(interval: number): Vectorizer.Sample[];
+    scale(): Vectorizer.Scale;
+    scale(sx: number, sy: number): this;
+    setAttribute(name: string, value: string): this;
+    setAttributes(attrs: Map<string, string>): this;
+    svg(): Vectorizer;
+    text(content: string, opt: Vectorizer.TextOptions): this;
+    toggleClass(className: string, switchArg?: boolean): this;
+    toLocalPoint(x: number, y: number): dia.Point;
+    transform(): SVGMatrix;
+    transform(matrix: SVGMatrix, opt?: Vectorizer.TransformOptions): Vectorizer;
+    translate(): Vectorizer.Translation;
+    translate(tx: number, ty?: number, opt?: Vectorizer.TransformOptions): this;
+    translateAndAutoOrient(position: dia.Point, reference: dia.Point, target?: SVGElement): Vectorizer;
+    translateCenterToPoint(p: dia.Point): void;
+
+    node: SVGElement;
+
+    // static methods
+    static convertCircleToPathData(circle: string | SVGElement): string;
+    static convertEllipseToPathData(ellipse: string | SVGElement): string;
+    static convertLineToPathData(line: string | SVGElement): string;
+    static convertPolylineToPathData(line: string | SVGElement): string;
+    static convertPolygonToPathData(line: string | SVGElement): string;
+    static convertRectToPathData(rect: string | SVGElement): string;
+    static createSlicePathData(innerRadius: number, outRadius: number, startAngle: number, endAngle: number): string;
+    static createSVGDocument(content: string): Document;
+    static createSVGMatrix(extension: Vectorizer.Matrix): SVGMatrix;
+    static createSVGPoint(x: number, y: number): SVGPoint;
+    static createSVGTransform(matrix?: Vectorizer.Matrix | SVGMatrix): SVGTransform;
+    static decomposeMatrix(matrix: SVGMatrix): Vectorizer.DecomposedTransformation;
+    static deltaTransformPoint(matrix: SVGMatrix | Vectorizer.Matrix, point: SVGPoint | dia.Point): dia.Point;
+    static ensureId(node: SVGElement): string;
+    static findAnnotationsAtIndex(annotations: Vectorizer.TextAnnotation[], start: number, end: number): Vectorizer.TextAnnotation;
+    static findAnnotationsBetweenIndexes(annotations: Vectorizer.TextAnnotation[], start: number, end: number): Vectorizer.TextAnnotation;
+    static getPointsFromSvgNode(node: SVGElement): SVGPoint[];
+    static isArray(value: any): boolean;
+    static isObject(value: any): boolean;
+    static isString(value: any): boolean;
+    static isUndefined(value: any): boolean;
+    static isV(value: any): boolean;
+    static isVElement(object: any): boolean;
+    static matrixToRotate(matrix: SVGMatrix | Vectorizer.Matrix): Vectorizer.Rotation;
+    static matrixToScale(matrix: SVGMatrix | Vectorizer.Matrix): Vectorizer.Scale;
+    static matrixToTransformString(matrix: SVGMatrix | Vectorizer.Matrix): string;
+    static matrixToTranslate(matrix: SVGMatrix | Vectorizer.Matrix): Vectorizer.Translation;
+    static mergeAttrs(a: Object, b: Object): Object;
+    static parseTransformString(transform: string): Vectorizer.Transform;
+    static parseXML(data: string, opt?: Vectorizer.ParseXMLOptions): XMLDocument;
+    static qualifyAttr(name: string): Vectorizer.QualifiedAttribute;
+    static rectToPath(r: Vectorizer.Rect): string;
+    static sanitizeText(text: string): string;
+    static shiftAnnotations(annotations: Vectorizer.TextAnnotation[], index: number, offset: number): Vectorizer.TextAnnotation[];
+    static styleToObject(styleString: string): Map<string, string>;
+    static svgPointsToPath(points: dia.Point[] | SVGPoint[]): string;
+    static toNode(el: Vectorizer | SVGElement | SVGElement[]): SVGElement;
+    // todo, this is a g.Point
+    static transformPoint(p: dia.Point, matrix: SVGMatrix): dia.Point;
+    static transformRect(r: Vectorizer.Rect, matrix: SVGMatrix): dia.BBox;
+    static transformStringToMatrix(transform: string): SVGMatrix;
+    static uniqueId(): string;
+}
 
 export namespace dia {
     interface Size {
@@ -891,7 +1183,7 @@ export namespace layout {
         setLinkVertices?: (link: dia.Link, vertices: Position[]) => void;
     }
 
-    class DirectedGraph {
-        static layout(graph: dia.Graph | dia.Cell[], options?: LayoutOptions): dia.BBox;
+    namespace DirectedGraph {
+        export function layout(graph: dia.Graph | dia.Cell[], options?: LayoutOptions): dia.BBox;
     }
 }
