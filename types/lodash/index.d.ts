@@ -15510,7 +15510,7 @@ declare namespace _ {
         findKey<TValues, TObject>(
             object: TObject,
             predicate?: DictionaryIterator<TValues, boolean>
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findKey
@@ -15518,7 +15518,7 @@ declare namespace _ {
         findKey<TObject>(
             object: TObject,
             predicate?: ObjectIterator<any, boolean>
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findKey
@@ -15526,7 +15526,7 @@ declare namespace _ {
         findKey<TObject>(
             object: TObject,
             predicate?: string
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findKey
@@ -15534,67 +15534,67 @@ declare namespace _ {
         findKey<TWhere extends Dictionary<any>, TObject>(
             object: TObject,
             predicate?: TWhere
-        ): string;
+        ): string | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findKey
          */
         findKey<TValues>(
             predicate?: DictionaryIterator<TValues, boolean>
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findKey
          */
         findKey(
             predicate?: ObjectIterator<any, boolean>
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findKey
          */
         findKey(
             predicate?: string
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findKey
          */
         findKey<TWhere extends Dictionary<any>>(
             predicate?: TWhere
-        ): string;
+        ): string | undefined;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findKey
          */
         findKey<TValues>(
             predicate?: DictionaryIterator<TValues, boolean>
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
 
         /**
          * @see _.findKey
          */
         findKey(
             predicate?: ObjectIterator<any, boolean>
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
 
         /**
          * @see _.findKey
          */
         findKey(
             predicate?: string
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
 
         /**
          * @see _.findKey
          */
         findKey<TWhere extends Dictionary<any>>(
             predicate?: TWhere
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
     }
 
     //_.findLastKey
@@ -15619,7 +15619,7 @@ declare namespace _ {
         findLastKey<TValues, TObject>(
             object: TObject,
             predicate?: DictionaryIterator<TValues, boolean>
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findLastKey
@@ -15627,7 +15627,7 @@ declare namespace _ {
         findLastKey<TObject>(
             object: TObject,
             predicate?: ObjectIterator<any, boolean>
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findLastKey
@@ -15643,10 +15643,10 @@ declare namespace _ {
         findLastKey<TWhere extends Dictionary<any>, TObject>(
             object: TObject,
             predicate?: TWhere
-        ): string;
+        ): string | undefined;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findLastKey
          */
@@ -15659,51 +15659,51 @@ declare namespace _ {
          */
         findLastKey(
             predicate?: ObjectIterator<any, boolean>
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findLastKey
          */
         findLastKey(
             predicate?: string
-        ): string;
+        ): string | undefined;
 
         /**
          * @see _.findLastKey
          */
         findLastKey<TWhere extends Dictionary<any>>(
             predicate?: TWhere
-        ): string;
+        ): string | undefined;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.findLastKey
          */
         findLastKey<TValues>(
             predicate?: DictionaryIterator<TValues, boolean>
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
 
         /**
          * @see _.findLastKey
          */
         findLastKey(
             predicate?: ObjectIterator<any, boolean>
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
 
         /**
          * @see _.findLastKey
          */
         findLastKey(
             predicate?: string
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
 
         /**
          * @see _.findLastKey
          */
         findLastKey<TWhere extends Dictionary<any>>(
             predicate?: TWhere
-        ): LoDashExplicitWrapper<string>;
+        ): LoDashExplicitWrapper<string | undefined>;
     }
 
     //_.forIn
@@ -15726,28 +15726,36 @@ declare namespace _ {
         /**
          * @see _.forIn
          */
-        forIn<T extends {}>(
+        forIn<T>(
+            object: Dictionary<T> | null | undefined,
+            iteratee?: DictionaryIterator<T, any>
+        ): Dictionary<T> | null | undefined;
+
+        /**
+         * @see _.forIn
+         */
+        forIn<T extends {} | null | undefined>(
             object: T,
             iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forIn
          */
         forIn<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forIn
          */
         forIn<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.forInRight
@@ -15768,28 +15776,36 @@ declare namespace _ {
         /**
          * @see _.forInRight
          */
-        forInRight<T extends {}>(
+        forInRight<T>(
+            object: Dictionary<T> | null | undefined,
+            iteratee?: DictionaryIterator<T, any>
+        ): Dictionary<T> | null | undefined;
+
+        /**
+         * @see _.forInRight
+         */
+        forInRight<T extends {} | null | undefined>(
             object: T,
             iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forInRight
          */
         forInRight<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forInRight
          */
         forInRight<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.forOwn
@@ -15812,28 +15828,36 @@ declare namespace _ {
         /**
          * @see _.forOwn
          */
-        forOwn<T extends {}>(
+        forOwn<T>(
+            object: Dictionary<T> | null | undefined,
+            iteratee?: DictionaryIterator<T, any>
+        ): Dictionary<T> | null | undefined;
+
+        /**
+         * @see _.forOwn
+         */
+        forOwn<T extends {} | null | undefined>(
             object: T,
             iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forOwn
          */
         forOwn<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forOwn
          */
         forOwn<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.forOwnRight
@@ -15854,28 +15878,36 @@ declare namespace _ {
         /**
          * @see _.forOwnRight
          */
-        forOwnRight<T extends {}>(
+        forOwnRight<T>(
+            object: Dictionary<T> | null | undefined,
+            iteratee?: DictionaryIterator<T, any>
+        ): Dictionary<T> | null | undefined;
+
+        /**
+         * @see _.forOwnRight
+         */
+        forOwnRight<T extends {} | null | undefined>(
             object: T,
             iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forOwnRight
          */
         forOwnRight<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashImplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.forOwnRight
          */
         forOwnRight<TValue>(
             iteratee?: DictionaryIterator<TValue, any>
-        ): _.LoDashExplicitObjectWrapper<T>;
+        ): TWrapper;
     }
 
     //_.functions
@@ -16316,14 +16348,14 @@ declare namespace _ {
         keys(object?: any): string[];
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.keys
          */
         keys(): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.keys
          */
@@ -16343,14 +16375,14 @@ declare namespace _ {
         keysIn(object?: any): string[];
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.keysIn
          */
         keysIn(): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.keysIn
          */
@@ -16517,7 +16549,7 @@ declare namespace _ {
         mapValues<T>(obj: T | null | undefined, callback: ObjectIterator<any, any>): T;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.mapValues
          * TValue is the type of the property values of T.
@@ -16540,7 +16572,7 @@ declare namespace _ {
         mapValues<TResult>(where: Dictionary<TResult>): LoDashImplicitArrayWrapper<boolean>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.mapValues
          * TValue is the type of the property values of T.

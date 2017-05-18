@@ -4178,15 +4178,33 @@ namespace TestForEach {
     }
 
     {
+        let result: _.LoDashImplicitNillableArrayWrapper<TResult>;
+
+        result = _(nilArray).forEach(listIterator);
+    }
+
+    {
         let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).forEach<TResult>(listIterator);
     }
 
     {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.List<TResult>>;
+
+        result = _(nilList).forEach<TResult>(listIterator);
+    }
+
+    {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).forEach<TResult>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<TResult>>;
+
+        result = _(nilDictionary).forEach<TResult>(dictionaryIterator);
     }
 
     {
@@ -4202,15 +4220,33 @@ namespace TestForEach {
     }
 
     {
+        let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
+
+        result = _(nilArray).chain().forEach(listIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).chain().forEach<TResult>(listIterator);
     }
 
     {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.List<TResult>>;
+
+        result = _(nilList).chain().forEach<TResult>(listIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).chain().forEach<TResult>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<TResult>>;
+
+        result = _(nilDictionary).chain().forEach<TResult>(dictionaryIterator);
     }
 }
 
@@ -4289,15 +4325,33 @@ namespace TestForEachRight {
     }
 
     {
+        let result: _.LoDashImplicitNillableArrayWrapper<TResult>;
+
+        result = _(nilArray).forEachRight(listIterator);
+    }
+
+    {
         let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).forEachRight<TResult>(listIterator);
     }
 
     {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.List<TResult>>;
+
+        result = _(nilList).forEachRight<TResult>(listIterator);
+    }
+
+    {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).forEachRight<TResult>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<TResult>>;
+
+        result = _(nilDictionary).forEachRight<TResult>(dictionaryIterator);
     }
 
     {
@@ -4313,15 +4367,33 @@ namespace TestForEachRight {
     }
 
     {
+        let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
+
+        result = _(nilArray).chain().forEachRight(listIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).chain().forEachRight<TResult>(listIterator);
     }
 
     {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.List<TResult>>;
+
+        result = _(nilList).chain().forEachRight<TResult>(listIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).chain().forEachRight<TResult>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<TResult>>;
+
+        result = _(nilDictionary).chain().forEachRight<TResult>(dictionaryIterator);
     }
 }
 
@@ -9223,8 +9295,9 @@ namespace TestExtendWith {
 // _.findKey
 namespace TestFindKey {
     {
+        let a: keyof undefined;
         let predicateFn = (value: any, key: string, object: {}) => true;
-        let result: string;
+        let result: string | undefined;
 
         result = _.findKey<{a: string;}>({a: ''});
 
@@ -9245,7 +9318,7 @@ namespace TestFindKey {
 
     {
         let predicateFn = (value: string, key: string, collection: _.Dictionary<string>) => true;
-        let result: string;
+        let result: string | undefined;
 
         result = _.findKey<string, {a: string;}>({a: ''}, predicateFn);
 
@@ -9254,7 +9327,7 @@ namespace TestFindKey {
 
     {
         let predicateFn = (value: any, key: string, object: {}) => true;
-        let result: _.LoDashExplicitWrapper<string>;
+        let result: _.LoDashExplicitWrapper<string | undefined>;
 
         result = _<{a: string;}>({a: ''}).chain().findKey();
 
@@ -9267,7 +9340,7 @@ namespace TestFindKey {
 
     {
         let predicateFn = (value: string, key: string, collection: _.Dictionary<string>) => true;
-        let result: _.LoDashExplicitWrapper<string>;
+        let result: _.LoDashExplicitWrapper<string | undefined>;
 
         result = _<{a: string;}>({a: ''}).chain().findKey<string>(predicateFn);
     }
@@ -9277,7 +9350,7 @@ namespace TestFindKey {
 namespace TestFindLastKey {
     {
         let predicateFn = (value: any, key: string, object: {}) => true;
-        let result: string;
+        let result: string | undefined;
 
         result = _.findLastKey<{a: string;}>({a: ''});
 
@@ -9298,7 +9371,7 @@ namespace TestFindLastKey {
 
     {
         let predicateFn = (value: string, key: string, collection: _.Dictionary<string>) => true;
-        let result: string;
+        let result: string | undefined;
 
         result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn);
 
@@ -9307,7 +9380,7 @@ namespace TestFindLastKey {
 
     {
         let predicateFn = (value: any, key: string, object: {}) => true;
-        let result: _.LoDashExplicitWrapper<string>;
+        let result: _.LoDashExplicitWrapper<string | undefined>;
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey();
 
@@ -9320,7 +9393,7 @@ namespace TestFindLastKey {
 
     {
         let predicateFn = (value: string, key: string, collection: _.Dictionary<string>) => true;
-        let result: _.LoDashExplicitWrapper<string>;
+        let result: _.LoDashExplicitWrapper<string | undefined>;
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey<string>(predicateFn);
     }
@@ -9331,9 +9404,11 @@ namespace TestForIn {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number> = {};
+    let nilDictionary: _.Dictionary<number> | null | undefined = any;
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any = (value: number, key: string, collection: _.Dictionary<number>) => 1;
 
     let object: SampleObject = { a: 1, b: "", c: true };
+    let nilObject: SampleObject | null | undefined = any;
     let objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
     {
@@ -9344,10 +9419,24 @@ namespace TestForIn {
     }
 
     {
+        let result: _.Dictionary<number> | null | undefined;
+
+        result = _.forIn<number>(nilDictionary);
+        result = _.forIn<number>(nilDictionary, dictionaryIterator);
+    }
+
+    {
         let result: SampleObject;
 
         result = _.forIn<SampleObject>(object);
         result = _.forIn<SampleObject>(object, objectIterator);
+    }
+
+    {
+        let result: SampleObject | null | undefined;
+
+        result = _.forIn<SampleObject | null | undefined>(nilObject);
+        result = _.forIn<SampleObject | null | undefined>(nilObject, objectIterator);
     }
 
     {
@@ -9358,10 +9447,24 @@ namespace TestForIn {
     }
 
     {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).forIn<number>();
+        result = _(nilDictionary).forIn<number>(dictionaryIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forIn<number>();
         result = _(dictionary).chain().forIn<number>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).chain().forIn<number>();
+        result = _(nilDictionary).chain().forIn<number>(dictionaryIterator);
     }
 }
 
@@ -9370,9 +9473,11 @@ namespace TestForInRight {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number> = {};
+    let nilDictionary: _.Dictionary<number> | null | undefined = any;
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any = (value: number, key: string, collection: _.Dictionary<number>) => 1;
 
     let object: SampleObject = { a: 1, b: "", c: true };
+    let nilObject: SampleObject | null | undefined = any;
     let objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
     {
@@ -9383,10 +9488,24 @@ namespace TestForInRight {
     }
 
     {
+        let result: _.Dictionary<number> | null | undefined;
+
+        result = _.forInRight<number>(nilDictionary);
+        result = _.forInRight<number>(nilDictionary, dictionaryIterator);
+    }
+
+    {
         let result: SampleObject;
 
         result = _.forInRight<SampleObject>(object);
         result = _.forInRight<SampleObject>(object, objectIterator);
+    }
+
+    {
+        let result: SampleObject | null | undefined;
+
+        result = _.forInRight<SampleObject | null | undefined>(nilObject);
+        result = _.forInRight<SampleObject | null | undefined>(nilObject, objectIterator);
     }
 
     {
@@ -9397,10 +9516,24 @@ namespace TestForInRight {
     }
 
     {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).forInRight<number>();
+        result = _(nilDictionary).forInRight<number>(dictionaryIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forInRight<number>();
         result = _(dictionary).chain().forInRight<number>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).chain().forInRight<number>();
+        result = _(nilDictionary).chain().forInRight<number>(dictionaryIterator);
     }
 }
 
@@ -9409,9 +9542,11 @@ namespace TestForOwn {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number> = {};
+    let nilDictionary: _.Dictionary<number> | null | undefined = any;
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any = (value: number, key: string, collection: _.Dictionary<number>) => 1;
 
     let object: SampleObject = { a: 1, b: "", c: true };
+    let nilObject: SampleObject | null | undefined = any;
     let objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
     {
@@ -9422,10 +9557,24 @@ namespace TestForOwn {
     }
 
     {
+        let result: _.Dictionary<number> | null | undefined;
+
+        result = _.forOwn<number>(nilDictionary);
+        result = _.forOwn<number>(nilDictionary, dictionaryIterator);
+    }
+
+    {
         let result: SampleObject;
 
         result = _.forOwn<SampleObject>(object);
         result = _.forOwn<SampleObject>(object, objectIterator);
+    }
+
+    {
+        let result: SampleObject | null | undefined;
+
+        result = _.forOwn<SampleObject | null | undefined>(nilObject);
+        result = _.forOwn<SampleObject | null | undefined>(nilObject, objectIterator);
     }
 
     {
@@ -9436,10 +9585,24 @@ namespace TestForOwn {
     }
 
     {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).forOwn<number>();
+        result = _(nilDictionary).forOwn<number>(dictionaryIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forOwn<number>();
         result = _(dictionary).chain().forOwn<number>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).chain().forOwn<number>();
+        result = _(nilDictionary).chain().forOwn<number>(dictionaryIterator);
     }
 }
 
@@ -9448,9 +9611,11 @@ namespace TestForOwnRight {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number> = {};
+    let nilDictionary: _.Dictionary<number> | null | undefined = any;
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => any = (value: number, key: string, collection: _.Dictionary<number>) => 1;
 
     let object: SampleObject = { a: 1, b: "", c: true };
+    let nilObject: SampleObject | null | undefined = any;
     let objectIterator: (element: any, key?: string, collection?: any) => any = (element: any, key?: string, collection?: any) => 1;
 
     {
@@ -9461,10 +9626,24 @@ namespace TestForOwnRight {
     }
 
     {
+        let result: _.Dictionary<number> | null | undefined;
+
+        result = _.forOwnRight<number>(nilDictionary);
+        result = _.forOwnRight<number>(nilDictionary, dictionaryIterator);
+    }
+
+    {
         let result: SampleObject;
 
         result = _.forOwnRight<SampleObject>(object);
         result = _.forOwnRight<SampleObject>(object, objectIterator);
+    }
+
+    {
+        let result: SampleObject | null | undefined;
+
+        result = _.forOwnRight<SampleObject | null | undefined>(nilObject);
+        result = _.forOwnRight<SampleObject | null | undefined>(nilObject, objectIterator);
     }
 
     {
@@ -9475,10 +9654,24 @@ namespace TestForOwnRight {
     }
 
     {
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).forOwnRight<number>();
+        result = _(nilDictionary).forOwnRight<number>(dictionaryIterator);
+    }
+
+    {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forOwnRight<number>();
         result = _(dictionary).chain().forOwnRight<number>(dictionaryIterator);
+    }
+
+    {
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
+
+        result = _(nilDictionary).chain().forOwnRight<number>();
+        result = _(nilDictionary).chain().forOwnRight<number>(dictionaryIterator);
     }
 }
 
@@ -9803,7 +9996,7 @@ namespace TestInvertBy {
 
 // _.keys
 namespace TestKeys {
-    let object: _.Dictionary<any> = {};
+    let object: _.Dictionary<any> | null | undefined = any;
 
     {
         let result: string[];
@@ -9826,7 +10019,7 @@ namespace TestKeys {
 
 // _.keysIn
 namespace TestKeysIn {
-    let object: _.Dictionary<any> = {};
+    let object: _.Dictionary<any> | null | undefined = any;
 
     {
         let result: string[];
