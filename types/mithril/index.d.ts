@@ -52,9 +52,9 @@ declare namespace Mithril {
 		/** Creates a virtual element (Vnode). */
 		(selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
 		/** Creates a virtual element (Vnode). */
-		<Attrs, State>(component: ComponentTypes<Attrs, State>, attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number }, ...args: Children[]): Vnode<Attrs, State>;
-		/** Creates a virtual element (Vnode). */
 		<Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
+		/** Creates a virtual element (Vnode). */
+		<Attrs, State>(component: ComponentTypes<Attrs, State>, attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number }, ...args: Children[]): Vnode<Attrs, State>;
 		/** Creates a fragment virtual element (Vnode). */
 		fragment(attrs: Lifecycle<any, any> & { [key: string]: any }, children: ChildArrayOrPrimitive): Vnode<any, any>;
 		/** Turns an HTML string into a virtual element (Vnode). Do not use trust on unsanitized user input. */
