@@ -1,6 +1,7 @@
-// Type definitions for Recompose v0.22.0
+// Type definitions for Recompose v0.23.4
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
+//                 Samuel DeSota <https://github.com/mrapogee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -256,7 +257,7 @@ declare module 'recompose' {
     ): Component<TProps>; // ???
 
     // componentFromStreamWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstreamwithconfig
-    export function componentFromStreamWithConfig<TProps>(config: ObservableConfig): (
+    export function componentFromStreamWithConfig(config: ObservableConfig): <TProps> (
         propsToReactNode: mapper<Subscribable<TProps>, Subscribable<React.ReactNode>>
     ) => Component<TProps>
 
@@ -266,7 +267,7 @@ declare module 'recompose' {
     ): ComponentEnhancer<TInner, TOutter>;
 
     // mapPropsStreamWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstreamwithconfig
-    export function mapPropsStreamWithConfig<TInner, TOutter>(config: ObservableConfig): (
+    export function mapPropsStreamWithConfig(config: ObservableConfig): <TInner, TOutter> (
         transform: mapper<Subscribable<TOutter>, Subscribable<TInner>>
     ) => ComponentEnhancer<TInner, TOutter>;
 
