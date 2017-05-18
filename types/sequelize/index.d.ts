@@ -5443,8 +5443,7 @@ declare namespace sequelize {
          *     database.
          * @param options An object with options.
          */
-        new (database: string, username: string, password: string, options?: Options): Sequelize;
-        new (database: string, username: string, options?: Options): Sequelize;
+        new (database: string, username: string, password?: string, options?: Options): Sequelize;
 
         /**
          * Instantiate sequelize with an URI
