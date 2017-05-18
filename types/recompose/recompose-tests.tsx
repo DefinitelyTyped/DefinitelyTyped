@@ -178,4 +178,3 @@ function testRenderComponent() {
     const enhancer = renderComponent(() => <span>Nop!</span>);
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
 }
-
