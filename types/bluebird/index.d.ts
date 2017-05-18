@@ -493,7 +493,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    */
   // TODO verify this is correct
   // trusted promise for object
-  static props<T>(object: Bluebird<{ [K in keyof T]: Bluebird.Thenable<T[K]> | T[K] }>): Bluebird<{ [K in keyof T]: T[K] }>;
+  static props<T>(object: Bluebird.Thenable<{ [K in keyof T]: Bluebird.Thenable<T[K]> | T[K] }>): Bluebird<{ [K in keyof T]: T[K] }>;
   // object
   static props<T>(object: { [K in keyof T]: Bluebird.Thenable<T[K]> | T[K] }): Bluebird<{ [K in keyof T]: T[K] }>;
 
