@@ -16,7 +16,7 @@ declare namespace auth {
     }
 
     // See https://github.com/jshttp/basic-auth/blob/v1.1.0/index.js#L87-L95
-    function parse(authorizationHeader: string): auth.BasicAuthResult;
+    function parse(authorizationHeader: string): auth.BasicAuthResult | undefined;
 }
 
 export = auth;
