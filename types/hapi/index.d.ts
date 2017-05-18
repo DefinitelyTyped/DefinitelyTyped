@@ -262,8 +262,10 @@ export class Server extends Podium {
      * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
      * @param events  see @ServerExtConfigurationObject
      */
-    ext(events: ServerExtConfigurationObject[]): void;
-    ext(events: ServerExtConfigurationObject): void;
+    ext(events: ServerStartExtConfigurationObject): void;
+    ext(events: ServerStartExtConfigurationObject[]): void;
+    ext(events: ServerRequestExtConfigurationObjectWithRequest): void;
+    ext(events: ServerRequestExtConfigurationObjectWithRequest[]): void;
     /**
      * Registers a single extension event using the same properties as used in server.ext(events), but passed as arguments.
      * [See docs](https://hapijs.com/api/16.1.1#serverextevent-method-options)
@@ -271,8 +273,10 @@ export class Server extends Podium {
      * @param method  a function or an array of functions to be executed at a specified point during request processing.
      * @param options
      */
-    ext(event: ServerExtPoints, method: ServerExtMethod[], options?: ServerExtOptions): void;
-    ext(event: ServerExtPoints, method: ServerExtMethod, options?: ServerExtOptions): void;
+    ext(event: ServerStartExtPoints, method: ServerExtFunction[], options?: ServerExtOptions): void;
+    ext(event: ServerStartExtPoints, method: ServerExtFunction, options?: ServerExtOptions): void;
+    ext(event: ServerRequestExtPoints, method: ServerExtRequestHandler[], options?: ServerExtOptions): void;
+    ext(event: ServerRequestExtPoints, method: ServerExtRequestHandler, options?: ServerExtOptions): void;
     /**
      * Registers a new handler type to be used in routes
      * The method function can have a defaults object or function property. If the property is set to an object, that object is used as the default route config for routes using this handler. If the property is set to a function, the function uses the signature function(method) and returns the route default configuration.
@@ -473,6 +477,8 @@ export class Server extends Podium {
     table(host?: string): RoutingTableEntry[];
 }
 
+export interface PluginSpecificConfiguration {}
+
 /**
  * Server Options
  * Note that the options object is deeply cloned and cannot contain any values that are unsafe to perform deep copy on.
@@ -505,7 +511,7 @@ export interface ServerOptions {
     /** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime. */
     mime?: MimosOptions;
     /** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}. */
-    plugins?: Object;
+    plugins?: PluginSpecificConfiguration;
     /** if false, will not use node domains to protect against exceptions thrown in handlers and other external code. Defaults to true. */
     useDomains?: boolean;
 }
@@ -718,7 +724,7 @@ export interface ConnectionConfigurationServerDefaults {
         maxEventLoopDelay: number;
     };
     /** plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
-    plugins?: any;
+    plugins?: PluginSpecificConfiguration;
     /** controls how incoming request URIs are matched against the routing table: */
     router?: {
         /** determines whether the paths '/example' and '/EXAMPLE' are considered different resources. Defaults to true.  */
@@ -880,15 +886,50 @@ export interface CorsConfigurationObject {
  * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
  * For context see RouteAdditionalConfigurationOptions > ext
  */
-export interface ServerExtConfigurationObject {
+export interface ServerStartExtConfigurationObject {
     /** the extension point event name. */
-    type: ServerExtPoints;
+    type: ServerStartExtPoints;
     /**
      * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
      */
-    method: ServerExtMethod | ServerExtMethod[];
+    method: ServerExtFunction | ServerExtFunction[];
     options?: ServerExtOptions;
 }
+
+/**
+ * An object describing the extension function used whilst registering the extension function in one of the available extension points
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
+ * For context see RouteAdditionalConfigurationOptions > ext
+ */
+export interface ServerRequestExtConfigurationObject {
+    /** the extension point event name. */
+    type: ServerRequestExtPointsBase;
+    /**
+     * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
+     */
+    method: ServerExtRequestHandler | ServerExtRequestHandler[]
+    options?: ServerExtOptions;
+}
+
+/**
+ * An object describing the extension function used whilst registering the extension function in one of the available extension points
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
+ * For context see RouteAdditionalConfigurationOptions > ext
+ */
+export interface ServerRequestExtConfigurationObjectWithRequest {
+    /** the extension point event name. */
+    type: ServerRequestExtPoints;
+    /**
+     * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
+     */
+    method: ServerExtRequestHandler | ServerExtRequestHandler[];
+    options?: ServerExtOptions;
+}
+
+/**
+ * [See docs](https://hapijs.com/api/16.1.1#route-configuration) > ext
+ */
+export type RouteExtConfigurationObject = ServerStartExtConfigurationObject | ServerRequestExtConfigurationObject;
 
 /**
  * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > method
@@ -910,15 +951,20 @@ export interface ServerExtOptions {
 }
 
 /**
- * [See docs](https://hapijs.com/api/16.1.1#request-lifecycle)
- * The available extension points include the request extension points as well as the following server extension points:
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > type
  *  * 'onPreStart' - called before the connection listeners are started.
  *  * 'onPostStart' - called after the connection listeners are started.
  *  * 'onPreStop' - called before the connection listeners are stopped.
  *  * 'onPostStop' - called after the connection listeners are stopped.
- * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > type
  */
-export type ServerExtPoints = 'onRequest' | 'onPreResponse' | 'onPreAuth' | 'onPostAuth' | 'onPreHandler' | 'onPostHandler' | 'onPreResponse' | 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
+export type ServerStartExtPoints = 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
+/**
+ * [See docs](https://hapijs.com/api/16.1.1#request-lifecycle)
+ *  * The available extension points include the request extension points as well as the following server extension points:
+ */
+export type ServerRequestExtPointsBase = 'onPreResponse' | 'onPreAuth' | 'onPostAuth' | 'onPreHandler' | 'onPostHandler' | 'onPreResponse';
+
+export type ServerRequestExtPoints = ServerRequestExtPointsBase | 'onRequest';
 
 /**
  * Server extension function registered an one of the server extension points
@@ -985,7 +1031,7 @@ export interface RoutePayloadConfigurationObject {
     /** the default 'Content-Type' HTTP header value is not present. Defaults to 'application/json'. */
     defaultContentType?: string;
     /** an object where each key is a content-encoding name and each value is an object with the desired decoder settings. Note that encoder settings are set in the root option compression. */
-    compression: Dictionary<CompressionDecoderSettings>;
+    compression?: Dictionary<CompressionDecoderSettings>;
 }
 
 export type PayLoadOutputOption = 'data' | 'stream' | 'file';
@@ -1079,7 +1125,7 @@ export interface RouteAdditionalConfigurationOptions {
     /** the Cross-Origin Resource Sharing protocol allows browsers to make cross-origin API calls. CORS is required by web applications running inside a browser which are loaded from a different domain than the API server. CORS headers are disabled by default (false). To enable, set cors to true, or to an object */
     cors?: boolean | CorsConfigurationObject;
     /** defined a route-level request extension points by setting the option to an object with a key for each of the desired extension points ('onRequest' is not allowed), and the value is the same as the [server.ext(events)](https://hapijs.com/api/16.1.1#serverextevents) event argument. */
-    ext?: Dictionary<ServerExtConfigurationObject>;
+    ext?: RouteExtConfigurationObject | RouteExtConfigurationObject[];
     /** defines the behavior for accessing files: */
     files?: {
         /** determines the folder relative paths are resolved against. */
@@ -1106,7 +1152,7 @@ export interface RouteAdditionalConfigurationOptions {
      */
     payload?: RoutePayloadConfigurationObject;
     /** plugin-specific configuration. plugins is an object where each key is a plugin name and the value is the plugin configuration. */
-    plugins?: Object;
+    plugins?: PluginSpecificConfiguration;
     /** an array with [route prerequisites](https://hapijs.com/api/16.1.1#route-prerequisites) methods which are executed in serial or in parallel before the handler is called. */
     pre?: RoutePrerequisitesArray;
     /** processing rules for the outgoing response */
@@ -2001,11 +2047,11 @@ export interface RequestHandler<T> {
 /**
  * Used by server extension points
  * err can be BoomError or Error that will be wrapped as a BoomError
- * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/reply.js#L109-L118)
- * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
+ * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/reply.js#L109-L118)
+ * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
  */
 export interface ContinuationFunction {
-    (err: Boom.BoomError): void;
+    (err?: Boom.BoomError): void;
 }
 /**
  * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
@@ -2152,7 +2198,7 @@ export type AnyAuthenticationResponseAction = any;
 /** [See docs](https://hapijs.com/api/16.1.1#serverauthschemename-scheme) */
 export interface AuthenticationResult {
     credentials?: AuthenticatedCredentials;
-    artefacts?: any;
+    artifacts?: any;
 }
 export interface AuthenticatedCredentials {
     // Disabled to allow typing within a project

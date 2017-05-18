@@ -45,6 +45,7 @@
         "test/route/auth.ts",
         "test/route/config.ts",
         "test/route/handler.ts",
+        "test/route/plugins.ts",
         "test/route/prerequisites.ts",
         "test/route/public-interface.ts",
         "test/server/app.ts",
