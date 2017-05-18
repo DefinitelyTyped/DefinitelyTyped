@@ -27,6 +27,7 @@ interface Knex extends Knex.QueryInterface {
     destroy(): Promise<void>;
     batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
+    queryBuilder(): Knex.QueryBuilder;
 
     client: any;
     migrate: Knex.Migrator;
