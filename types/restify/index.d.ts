@@ -595,16 +595,13 @@ export function auditLogger(options: { log: any }): (req: Request, res: Response
 export function fullResponse(): RequestHandler;
 // tslint:disable-next-line no-var
 export var defaultResponseHeaders: any;
-export const CORS: {
-    (cors?: {
-        origins?: string[];
-        credentials?: boolean;
-        headers?: string[];
-    }): RequestHandler;
-    origins: string[];
-    ALLOW_HEADERS: string[];
-    credentials: boolean;
-};
+
+export function CORS(options?: CORSOptions): RequestHandler;
+export interface CORSOptions {
+    origins?: string[];
+    credentials?: boolean;
+    headers?: string[];
+}
 
 export const pre: {
     pause(): RequestHandler;
