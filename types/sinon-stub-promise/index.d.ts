@@ -16,4 +16,5 @@ declare module 'sinon' {
   }
 }
 
-export {};
+declare function sinonStubPromise(sinon: sinon.SinonStatic): void;
+export = sinonStubPromise;
