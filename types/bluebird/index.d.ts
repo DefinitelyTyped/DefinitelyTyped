@@ -305,8 +305,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  // TODO how to model instance.props()?
-  props(): Bluebird<Object>;
+  props<T>(this: Bluebird.Thenable<{ [K in keyof T]: Bluebird.Thenable<T[K]> | T[K] }>): Bluebird<{ [K in keyof T]: T[K] }>;
 
   /**
    * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -491,7 +490,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    *
    * *The original object is not modified.*
    */
-  // TODO verify this is correct
+  // TODO disallow non-objects
   // trusted promise for object
   static props<T>(object: Bluebird.Thenable<{ [K in keyof T]: Bluebird.Thenable<T[K]> | T[K] }>): Bluebird<{ [K in keyof T]: T[K] }>;
   // object
