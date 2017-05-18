@@ -1,4 +1,7 @@
-
+import {IncomingMessage} from 'http';
 import auth = require('basic-auth');
 
-auth(null);
+const loginData = auth(undefined! as IncomingMessage);
+if (loginData) {
+    const {name, pass} = loginData;
+}
