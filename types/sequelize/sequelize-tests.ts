@@ -874,6 +874,7 @@ User.findAll( {
         s.or( { deletedAt : null }, { deletedAt : { gt : new Date( 0 ) } } ) )]
 } );
 User.findAll( { paranoid : false, where : [' IS NOT NULL '], include : [{ model : User }] } );
+User.findAll( { include : [{ model : Task, paranoid: false }] } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
