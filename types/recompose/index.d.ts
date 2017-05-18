@@ -255,10 +255,20 @@ declare module 'recompose' {
         propsToReactNode: mapper<Subscribable<TProps>, Subscribable<React.ReactNode>>
     ): Component<TProps>; // ???
 
+    // componentFromStreamWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstreamwithconfig
+    export function componentFromStreamWithConfig<TProps>(config: ObservableConfig): (
+        propsToReactNode: mapper<Subscribable<TProps>, Subscribable<React.ReactNode>>
+    ) => Component<TProps>
+
     // mapPropsStream: https://github.com/acdlite/recompose/blob/master/docs/API.md#mapPropsStream
     export function mapPropsStream<TInner, TOutter>(
         transform: mapper<Subscribable<TOutter>, Subscribable<TInner>>
     ): ComponentEnhancer<TInner, TOutter>;
+
+    // mapPropsStreamWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstreamwithconfig
+    export function mapPropsStreamWithConfig<TInner, TOutter>(config: ObservableConfig): (
+        transform: mapper<Subscribable<TOutter>, Subscribable<TInner>>
+    ) => ComponentEnhancer<TInner, TOutter>;
 
     // createEventHandler: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandler
     type EventHandlerOf<T, TSubs extends Subscribable<T>> = {
