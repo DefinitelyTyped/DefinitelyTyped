@@ -9,10 +9,11 @@ const validate: Hapi.RouteValidationConfigurationObject = {
     params: {
         id: Joi.string(),
     },
+    payload: Joi.object().required(),
     query: {
         providerId: Joi.string(),
     },
-}
+};
 
 const config: Hapi.RouteAdditionalConfigurationOptions = {
     validate,
