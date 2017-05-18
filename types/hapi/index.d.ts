@@ -35,9 +35,11 @@ import domain = require("domain");
 import * as Boom from 'boom';
 import {
     ValidationOptions as JoiValidationOptions,
-    // TODO check JoiValidationObject is correct for "a Joi validation object"
-    SchemaMap as JoiValidationObject,
+    SchemaMap as JoiSchemaMap,
+    Schema as JoiSchema,
 } from 'joi';
+// TODO check JoiValidationObject is correct for "a Joi validation object"
+type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
 import * as Catbox from 'catbox';
 import {MimosOptions} from 'mimos';
