@@ -15,6 +15,7 @@ declare namespace Handlebars {
 
     export function K(): void;
     export function createFrame(object: any): any;
+    export function blockParams(obj: any[], ids: any[]): any[];
     export function Exception(message: string): void;
     export function log(level: number, obj: any): void;
     export function parse(input: string): hbs.AST.Program;
@@ -142,7 +143,8 @@ declare namespace hbs {
 
     namespace Utils {
         function escapeExpression(str: string): string;
-        function createFrame(obj: Object): Object;
+        function createFrame(object: any): any;
+        function blockParams(obj: any[], ids: any[]): any[];
         function isEmpty(obj: any) : boolean;
         function extend(obj: any, ...source: any[]): any;
         function toString(obj: any): string;
