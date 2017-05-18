@@ -35,8 +35,11 @@ import domain = require("domain");
 import * as Boom from 'boom';
 import {
     ValidationOptions as JoiValidationOptions,
-    Schema as JoiValidationObject,
+    SchemaMap as JoiSchemaMap,
+    Schema as JoiSchema,
 } from 'joi';
+// TODO check JoiValidationObject is correct for "a Joi validation object"
+type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
 import * as Catbox from 'catbox';
 import {MimosOptions} from 'mimos';
@@ -701,7 +704,7 @@ export interface InjectedRequestOptions extends Shot.RequestOptions {
  */
 export interface InjectedResponseObject extends Shot.ResponseObject {
     /** the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string). */
-    result: Shot.ResponseObject | string;
+    result: Object | string;
     /** the request object. */
     request: InjectedRequestOptions;
 }
@@ -1350,7 +1353,7 @@ export interface RouteResponseConfigurationObject {
  * and
  * For context see RouteAdditionalConfigurationOptions > response > status
  */
-export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | ValidationFunctionForRouteReponse;
+export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | ValidationFunctionForRouteResponse;
 
 /**
  * see RouteResponseConfigurationScheme
@@ -1359,7 +1362,7 @@ export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | V
  * TODO check `options: JoiValidationOptions` is correct
  * Also see ValidationFunctionForRouteValidate
  */
-export interface ValidationFunctionForRouteReponse {
+export interface ValidationFunctionForRouteResponse {
     (value: Response, options: JoiValidationOptions, next: ContinuationFunction): void;
 }
 
@@ -1445,7 +1448,7 @@ export interface RouteValidationConfigurationObject {
  * TODO check `value: Response` is correct as it says "**the object containing** the response object." not just "the response object".
  * TODO check `options: JoiValidationOptions` is correct
  * TODO type of the returned value?
- * Also see ValidationFunctionForRouteReponse
+ * Also see ValidationFunctionForRouteResponse
  * @param value - the object containing the request headers.
  * @param options - the server validation options.
  * @param next(err, value) - the callback function called when validation is completed.
