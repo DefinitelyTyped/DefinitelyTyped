@@ -34,6 +34,10 @@ declare namespace StackTrace {
     isNative:     boolean;
     toString():   string;
   }
+  
+  export interface RequestOptions {
+    headers: { [id: string]: string };
+  }
 
   /**
    * Get a backtrace from invocation point.
@@ -81,11 +85,13 @@ declare namespace StackTrace {
   /**
    * Given an Array of StackFrames, serialize and POST to given URL.
    *
-   * @param stackframes - Array[StackFrame]
-   * @param url - URL as String
-   * @return Promise<string>
+   * @param {Array} stackframes - Previously wrapped Function
+   * @param {string} url - URL to POST stack JSON to
+   * @param {string} message - Optional Error message
+   * @param {Object} requestOptions - Request Headers {headers: {key: "value"}}
+   * @return {Promise<string>} - Promise is resolved with response text from POST request.
    */
-  export function report(stackframes: StackFrame[], url: string): Promise<string>;
+  export function report(stackframes: StackFrame[], url: string, message?: string, requestOptions?: RequestOptions): Promise<string>;
 }
 
 declare module "stacktrace-js" {
