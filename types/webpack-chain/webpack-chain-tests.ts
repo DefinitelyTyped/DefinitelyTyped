@@ -83,6 +83,7 @@ config
 		.end()
 
 	.module
+                .noParse.add(/.min.js$/).end()
 		.rule('compile')
 			.test(/.js$/)
 			.include
