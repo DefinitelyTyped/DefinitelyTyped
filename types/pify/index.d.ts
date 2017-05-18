@@ -2,6 +2,7 @@
 // Project: https://github.com/sindresorhus/pify
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 
 interface PifyOptions {

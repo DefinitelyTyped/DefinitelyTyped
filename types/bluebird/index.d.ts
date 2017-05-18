@@ -2,6 +2,7 @@
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /*!
  * The code following this comment originates from:
