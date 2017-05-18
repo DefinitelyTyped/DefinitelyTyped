@@ -698,7 +698,7 @@ export interface InjectedRequestOptions extends Shot.RequestOptions {
  */
 export interface InjectedResponseObject extends Shot.ResponseObject {
     /** the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string). */
-    result: Shot.ResponseObject | string;
+    result: Object | string;
     /** the request object. */
     request: InjectedRequestOptions;
 }
