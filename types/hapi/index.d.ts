@@ -2198,7 +2198,7 @@ export type AnyAuthenticationResponseAction = any;
 /** [See docs](https://hapijs.com/api/16.1.1#serverauthschemename-scheme) */
 export interface AuthenticationResult {
     credentials?: AuthenticatedCredentials;
-    artefacts?: any;
+    artifacts?: any;
 }
 export interface AuthenticatedCredentials {
     // Disabled to allow typing within a project
