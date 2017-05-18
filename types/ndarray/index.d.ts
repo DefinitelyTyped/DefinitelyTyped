@@ -12,8 +12,7 @@ interface ndarray {
 	shape: number[];
 	stride: number[];
 	offset: number;
-	dtype: 'int8' | 'int16' | 'int32' | 'uint8' | 'uint16' | 'uint32' |
-	'float32' | 'float64' | 'array' | 'uint8_clamped' | 'buffer' | 'generic';
+	dtype: ndarray.dtType;
 	size: number;
 	order: number[];
 	dimension: number;
@@ -25,12 +24,18 @@ interface ndarray {
 	step(...args: number[]): ndarray;
 	transpose(...args: number[]): ndarray;
 	pick(...args: number[]): ndarray;
+	reshape(...args: number[]): ndarray;
+	T: ndarray;
 }
 
 declare namespace ndarray {
+	type dtType = 'int8' | 'int16' | 'int32' | 'uint8' | 'uint16' | 'uint32' |
+		'float32' | 'float64' | 'array' | 'uint8_clamped' | 'buffer' | 'generic';
 	type Data = number[] | Int8Array | Int16Array | Int32Array |
 		Uint8Array | Uint16Array | Uint32Array |
 		Float32Array | Float64Array | Uint8ClampedArray;
+
+	type ndType = dtType | Data;
 }
 
 export = ndarray;
