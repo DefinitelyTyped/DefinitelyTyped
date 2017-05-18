@@ -1161,6 +1161,7 @@ class Rectangle {
 () => {
     var xLens = R.lens(R.prop('x'), R.assoc('x'));
     R.view(xLens, {x: 1, y: 2});            //=> 1
+    R.view(xLens)({x: 1, y: 2});            //=> 1
     R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens, 4)({x: 1, y: 2});          //=> {x: 4, y: 2}

@@ -1728,6 +1728,7 @@ declare namespace R {
          * portion of the data structure is visible.
          */
         view<T,U>(lens: Lens, obj: T): U;
+        view<T,U>(lens: Lens): (obj: T) => U;
 
         /**
          * Tests the final argument by passing it to the given predicate function. If the predicate is satisfied, the function
