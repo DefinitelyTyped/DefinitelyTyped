@@ -15,25 +15,24 @@ interface Datum {
     b: string;
 }
 
-let dispatch: d3Dispatch.Dispatch<HTMLElement>,
-    copy: d3Dispatch.Dispatch<HTMLElement>,
-    copy2: d3Dispatch.Dispatch<SVGElement>;
+let dispatch: d3Dispatch.Dispatch<HTMLElement>;
+let copy: d3Dispatch.Dispatch<HTMLElement>;
+let copy2: d3Dispatch.Dispatch<SVGElement>;
 
 // Signature Tests ----------------------------------------
 
 // create new dispatch object
 dispatch = d3Dispatch.dispatch('foo', 'bar');
 
-
 function cbFn(this: HTMLElement, d: Datum, i: number) {
     console.log(this.baseURI ? this.baseURI : 'nada');
     console.log(d ? d.a : 'nada');
-};
+}
 
 function cbFn2(this: SVGElement, d: Datum, i: number) {
     console.log(this.baseURI ? this.baseURI : 'nada');
     console.log(d ? d.a : 'nada');
-};
+}
 
 dispatch.on('foo', cbFn);
 // dispatch.on('foo', cbFn2); // test fails as 'this' context type is mismatched between dispatch and callback function

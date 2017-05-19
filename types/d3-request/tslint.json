@@ -2,6 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "unified-signatures": false,
-        "callable-types": false
+        "max-line-length": [false, 145]
     }
 }
