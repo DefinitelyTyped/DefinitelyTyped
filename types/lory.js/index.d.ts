@@ -1,6 +1,7 @@
-// Type definitions for lory 0.4.3
+// Type definitions for lory 2.2.1
 // Project: https://github.com/meandmax/lory/
 // Definitions by: kubosho <https://github.com/kubosho/>
+//                 philip bulley <https://github.com/milkisevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var lory: LoryStatic;
@@ -24,6 +25,11 @@ interface LoryStatic {
     slideTo(index: number): void;
 
     /**
+     * returns the index of the current slide element
+     */
+    returnIndex(): number;
+
+    /**
      * binds eventlisteners, merging default and user options, setup the slides based on DOM (called once during initialisation). Call setup if DOM or user options have changed or eventlisteners needs to be rebinded.
      */
     setup(): void;
@@ -32,6 +38,11 @@ interface LoryStatic {
      * sets the slider back to the starting position and resets the current index (called on resize event).
      */
     reset(): void;
+
+    /**
+     * unmount/destroy the instance of lory
+     */
+    destroy(): void;
 }
 
 interface LoryOptions {
@@ -43,6 +54,12 @@ interface LoryOptions {
      * slides scrolled at once (default: 1).
      */
     slidesToScroll?: number;
+
+    /**
+     * enabled mouse events
+     * default: false
+     */
+    enableMouseEvents?: boolean;
 
     /**
      * time in milliseconds for the animation of a valid slide attempt (default: 300).
@@ -73,6 +90,31 @@ interface LoryOptions {
      * like carousel, works with multiple slides (default: false). (do not combine with rewind)
      */
     infinite?: boolean | number;
+
+    /**
+     * class name for slider frame
+     * default: 'js_frame'
+     */
+    classNameFrame?: string;
+
+    /**
+     * class name for slides container
+     * default: 'js_slides'
+     */
+    classNameSlideContainer?: string;
+
+    /**
+     * class name for slider previous control
+     * default: 'js_prev'
+     */
+    classNamePrevCtrl?: string;
+
+    /**
+     * class name for slider next control
+     * default: 'js_next'
+     */
+    classNameNextCtrl?: string;
+
 
     //////////////////////////////////////////////////
     //  Callbacks
