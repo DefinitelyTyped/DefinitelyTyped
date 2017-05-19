@@ -1,6 +1,7 @@
-// Type definitions for raven 1.2
+// Type definitions for raven 1.3
 // Project: https://github.com/getsentry/raven-node
 // Definitions by: Scott Cooper <https://github.com/scttcper>
+//                 Benjamin Babic <https://github.com/benbabic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -52,6 +53,7 @@ export interface ConstructorOptions {
     logger?: string;
     release?: string;
     environment?: string;
+    serverName?: string;
     tags?: { [key: string]: string };
     extra?: { [key: string]: any };
     dataCallback?: DataCallback;
