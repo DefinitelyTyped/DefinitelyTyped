@@ -101,7 +101,7 @@ declare namespace EngineAPI {
     interface IGenericProperties {
         qInfo: INxInfo;
 
-        //?Dynamic properties?
+        // ?Dynamic properties?
         [qMetaDef: string]: any;
     }
 
@@ -1021,10 +1021,10 @@ declare namespace EngineAPI {
     }
 
     interface IImplementOn {
-        //? nicht in der docu
-        on(event: "changed" | "closed", func: () => void);
+        // ? not in Docu
+        on(event: "changed" | "closed", func: () => void): void;
 
-        //? not in Docu
+        // ? not in Docu
         id: string;
     }
 
@@ -1053,7 +1053,13 @@ declare namespace EngineAPI {
         getChild(qId: string): Promise<IGenericObject>;
         getEffectiveProperties(): Promise<IGenericObjectProperties>;
         getFullPropertyTree(): Promise<IGenericObjectEntry>;
-        getHyperCubeBinnedData(qPath: string, qPages: INxPage[], qViewport: INxViewPort, qDataRanges: INxDataAreaPage, qMaxNbrCells: number, qQueryLevel: number, qBinningMethod: number): Promise<INxDataPage[]>;
+        getHyperCubeBinnedData(qPath: string,
+                               qPages: INxPage[],
+                               qViewport: INxViewPort,
+                               qDataRanges: INxDataAreaPage,
+                               qMaxNbrCells: number,
+                               qQueryLevel: number,
+                               qBinningMethod: number): Promise<INxDataPage[]>;
         getHyperCubeContinuousData(qPath: string, qOptions: IContinuousDataOptions[]): Promise<boolean> | Promise<INxDataPage[]> | Promise<INxAxisData[]>;
         getHyperCubeData(qPath: string, qPages: INxPage[]): Promise<INxDataPage[]>;
         getHyperCubePivotData(qPath: string, qPages: INxPage[]): Promise<INxPivotPage[]>;
@@ -1287,13 +1293,13 @@ declare namespace EngineAPI {
         cancelRequest(qRequestId: number): Promise<void>;
         configureReload(qCancelOnScriptError: boolean, qUseErrorData: boolean, qInteractOnError: boolean): Promise<void>;
         copyApp(qTargetAppId: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
-        createApp(qAppName: string, qLocalizedScriptMainSection: string): Promise<any>; //?Result
+        createApp(qAppName: string, qLocalizedScriptMainSection: string): Promise<any>; // ?Result
         createDocEx(qDocName: string, qUserName?: string, qPassword?: string, qSerial?: string, qLocalizedScriptMainSection?: string): Promise<IApp>;
         createSessionApp(): Promise<IApp>;
         createSessionAppFromApp(qSrcAppId: string): Promise<IApp>;
         deleteApp(qAppId: string): Promise<boolean>;
         exportApp(qTargetPath: string, qSrcAppId: string, qIds: string[]): Promise<boolean>;
-        getActiveDoc(): Promise<IApp | string>; //?Result
+        getActiveDoc(): Promise<IApp | string>; // ?Result
         getAppEntry(qAppID: string): Promise<IAppEntry>;
         getAuthenticatedUser(): Promise<string>;
         getBNF(qBnfType: BnfType): Promise<IBNFDef>;
@@ -1595,7 +1601,7 @@ declare namespace EngineAPI {
          * Validation error.
          * REF(NxValidationError)
          */
-        //?Type = REF(NxValidationError)?
+        // ?Type = REF(NxValidationError)?
         qError: INxValidationError;
     }
 
@@ -1743,8 +1749,8 @@ declare namespace EngineAPI {
         qAttributeExpressions?: INxAttrExprDef[];
         qAttributeDimensions?: INxAttrDimDef[];
 
-        qIncludeElemValue?: boolean; //?Nicht in Doku
-        qShowTotal?: boolean; //?Nicht in Doku
+        qIncludeElemValue?: boolean; // ?Nicht in Doku
+        qShowTotal?: boolean; // ?Nicht in Doku
     }
 
     interface INxCellPosition {
@@ -1765,7 +1771,7 @@ declare namespace EngineAPI {
         qSortByExpression?: TypeSortDirection;
         qExpression?: IValueExpr;
 
-        qSortByGreyness?: TypeSortDirection; //?Nicht in Doku
+        qSortByGreyness?: TypeSortDirection; // ?Nicht in Doku
     }
 
     interface IStringExpressionContainer {
@@ -1825,20 +1831,20 @@ declare namespace EngineAPI {
         qData: T;
     }
 
-    //public enum NxHypercubeMode {
+    // public enum NxHypercubeMode {
     //    [QixName("P:
     //        DATA_MODE_PIVOT = 1,
     //    [QixName("K:
     //        DATA_MODE_PIVOT_STACK = 2,
     //    [QixName("S:
     //        DATA_MODE_STRAIGHT = 0
-    //}
+    // }
 
-    //public enum SortDirection {
+    // public enum SortDirection {
     //    Ascending = 1,
     //    Descending = -1,
     //    None = 0
-    //}
+    // }
 }
 
 //#region Prototype Interfaces for Class definitions
@@ -1957,8 +1963,8 @@ declare namespace EngineAPI {
         qCalcCond: IValueExpr;
         qSortbyYValue: string;
 
-        qPseudoDimPos: number; //?Dokufehler
-        qReductionMode: ReductionModeType; //?Dokufehler
+        qPseudoDimPos: number; // ?Dokufehler
+        qReductionMode: ReductionModeType; // ?Dokufehler
     }
 
     interface IVisualizationHyperCubeDef extends IHyperCubeDef {
@@ -2059,7 +2065,7 @@ declare namespace EngineAPI {
 
     interface IBookmarkListDef {
         qType: "bookmark";
-        // qData: //?nicht dokumentiert
+        // qData: nicht dokumentiert
         // example from websocket
         // qData: { title: "/qMetaDef/title", description: "/qMetaDef/description", sheetId: "/sheetId", title: "/qMetaDef/title" }
     }
@@ -2101,7 +2107,7 @@ declare namespace EngineAPI {
 
     interface IMeasureListDef {
         qType: "measure";
-        // qData: INxMeasure[]; //?nicht dokumentiert
+        // qData: INxMeasure[]; nicht dokumentiert
         // example from websocket
         // qData : { title: "/qMetaDef/title", tags: "/qMetaDef/tags" }
     }
@@ -2143,7 +2149,7 @@ declare namespace EngineAPI {
 
     interface IDimensionListDef {
         qType: "dimension";
-        //qData: INxDimension[]; //?nicht dokumentiert
+        // qData: INxDimension[]; nicht dokumentiert
     }
 
     interface IDimensionListObject extends IGenericObject {
@@ -2167,7 +2173,7 @@ declare namespace EngineAPI {
         qIsReserved?: boolean;
         qMeta?: INxMeta;
         qInfo: INxInfo;
-        qData: any; //?nicht dokumentiert
+        qData: any; // ? nicht dokumentiert
         qIsScriptCreated: boolean;
     }
 
@@ -2187,7 +2193,7 @@ declare namespace EngineAPI {
         qType: string;
         qShowReserved: boolean;
         qShowConfig: boolean;
-        qData: any; //?nicht dokumentiert
+        qData: any; // ?nicht dokumentiert
     }
 
     interface IVariableListObject extends IGenericObject {
@@ -2271,23 +2277,3 @@ declare namespace EngineAPI {
     }
 }
 //#endregion
-
-// extens the AppAPI Namespace with the access of the EnigmaModel
-
-declare namespace AppAPI {
-    interface IApp {
-        model: IModel;
-    }
-
-    interface IModel {
-        enigmaModel: Enigma.IApp;
-    }
-}
-
-declare namespace ExtensionAPI {
-
-    interface IExtensionModel {
-        enigmaModel: Enigma.IGenericObject;
-    }
-
-}
