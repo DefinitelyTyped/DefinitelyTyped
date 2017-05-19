@@ -3524,6 +3524,13 @@ export interface FlatListProperties<ItemT> {
      * See `ViewabilityHelper` for flow type and further documentation.
      */
     viewabilityConfig?: any
+
+    /**
+     * Note: may have bugs (missing content) in some circumstances - use at your own risk.
+     *
+     * This may improve scroll performance for large lists.
+     */
+    removeClippedSubviews?: boolean
 }
 
 export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProperties<ItemT>> {
@@ -3649,6 +3656,13 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
      */
     renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+
+    /**
+     * Note: may have bugs (missing content) in some circumstances - use at your own risk.
+     *
+     * This may improve scroll performance for large lists.
+    */
+    removeClippedSubviews?: boolean
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
