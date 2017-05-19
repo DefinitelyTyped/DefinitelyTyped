@@ -25,7 +25,7 @@ interface MySession extends Express.Session {
 }
 
 app.use((req, res, next) => {
-  let sess = <MySession>req.session;
+  let sess = req.session as MySession;
   if (sess.views) {
     sess.views++;
     res.setHeader('Content-Type', 'text/html');
