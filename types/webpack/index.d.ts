@@ -517,7 +517,10 @@ declare namespace webpack {
              */
             maxEntrypointSize?: number;
         }
-        type Stats = webpack.Stats.ToStringOptions;
+        interface Stats extends webpack.Stats.ToStringOptions {
+            /** Emitted assets */
+            assets: { name: string; size: number; }[];
+        };
         type WatchOptions = ICompiler.WatchOptions;
     }
 
