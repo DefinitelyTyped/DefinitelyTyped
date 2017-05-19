@@ -42,7 +42,7 @@ interface ExtractTextPlugin extends Plugin {
      * Creates an extracting loader from an existing loader.
      * Use the resulting loader in `module.rules`/`module.loaders`.
      */
-    extract: (loader: Loader | Loader[] | ExtractOptions) => Loader
+    extract: (loader: Loader | Loader[] | ExtractOptions) => Loader[]
 }
 
 declare const extractTextPlugin: ExtractTextPlugin
