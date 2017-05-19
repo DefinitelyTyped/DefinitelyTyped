@@ -742,7 +742,7 @@ declare namespace Slick {
 			 * Metadata indexed by column index
 			 */
 			[index: number]: ColumnMetadata<T>;
-		}
+		};
 	}
 
 	export interface ColumnMetadata<T extends SlickData> {
@@ -885,6 +885,11 @@ declare namespace Slick {
 		* @param rowsArray An array of row numbers.
 		**/
 		public setSelectedRows(rowsArray: number[]): void;
+
+		/**
+		 * Returns container's HTML node (the element passed into Grid constructor).
+		 */
+		public getContainerNode(): HTMLElement;
 
 		/**
 		* Unregisters a current selection model and registers a new one. See the definition of SelectionModel for more information.
@@ -1425,6 +1430,11 @@ declare namespace Slick {
 		cell: number;
 	}
 
+	export interface Position {
+		top: number;
+		left: number;
+	}
+
 	export interface CellPosition extends Position {
 		bottom: number;
 		height: number;
@@ -1433,15 +1443,10 @@ declare namespace Slick {
 		width: number;
 	}
 
-	export interface Position {
-		top: number;
-		left: number;
-	}
-
 	export interface CellCssStylesHash {
 		[index: number]: {
 			[id: string]: string;
-		}
+		};
 	}
 
 	export interface Viewport {
@@ -1456,12 +1461,19 @@ declare namespace Slick {
 		msg: string;
 	}
 
-	export module Editors {
+	export namespace Editors {
 
 		export interface EditorOptions<T extends Slick.SlickData> {
 			column: Column<T>;
 			container: HTMLElement;
 			grid: Grid<T>;
+
+			item?: T;
+			commitChanges?: () => void;
+			cancelChanges?: () => void;
+			gridPosition?: CellPosition;
+			position?: CellPosition;
+
 		}
 
 		export class Editor<T extends Slick.SlickData> {
@@ -1469,8 +1481,8 @@ declare namespace Slick {
 			public init(): void;
 			public destroy(): void;
 			public focus(): void;
-			public loadValue(item:any): void; // todo: typeof(item)
-			public applyValue(item:any, state: string): void; // todo: typeof(item)
+			public loadValue(item: T): void;
+			public applyValue(item: T, state: string): void;
 			public isValueChanged(): boolean;
 			public serializeValue(): any;
 			public validate(): ValidateResults;
