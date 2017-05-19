@@ -1,4 +1,4 @@
-// Type definitions for express-session
+// Type definitions for express-session 1.15
 // Project: https://www.npmjs.org/package/express-session
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,93 +6,94 @@
 
 /// <reference types="node" />
 
-declare namespace Express {
-  interface Request {
-    session?: Session;
-    sessionID?: string;
-  }
-  interface SessionData {
-    [key: string]: any;
-    cookie: Express.SessionCookieData;
-  }
+import express = require('express');
+import node = require('events');
 
-  interface SessionCookieData {
-    originalMaxAge: number;
-    path: string;
-    maxAge: number;
-    secure?: boolean;
-    httpOnly: boolean;
-    domain?: string;
-    expires: Date | boolean;
-  }
+declare global {
+  namespace Express {
+    interface Request {
+      session?: Session;
+      sessionID?: string;
+    }
 
-  interface SessionCookie extends SessionCookieData {
-    serialize(name: string, value: string): string;
-  }
+    interface SessionData {
+      [key: string]: any;
+      cookie: Express.SessionCookieData;
+    }
 
-  interface Session extends SessionData {
-    id: string;
-    regenerate(callback: (err: any) => void): void;
-    destroy(callback: (err: any) => void): void;
-    reload(callback: (err: any) => void): void;
-    save(callback: (err: any) => void): void;
-    touch(callback: (err: any) => void): void;
-    cookie: SessionCookie;
+    interface SessionCookieData {
+      originalMaxAge: number;
+      path: string;
+      maxAge: number;
+      secure?: boolean;
+      httpOnly: boolean;
+      domain?: string;
+      expires: Date | boolean;
+    }
+
+    interface SessionCookie extends SessionCookieData {
+      serialize(name: string, value: string): string;
+    }
+
+    interface Session extends SessionData {
+      id: string;
+      regenerate(callback: (err: any) => void): void;
+      destroy(callback: (err: any) => void): void;
+      reload(callback: (err: any) => void): void;
+      save(callback: (err: any) => void): void;
+      touch(callback: (err: any) => void): void;
+      cookie: SessionCookie;
+    }
   }
 }
 
-declare module "express-session" {
-  import express = require('express');
-  import node = require('events');
+declare function session(options?: session.SessionOptions): express.RequestHandler;
 
-  function session(options?: session.SessionOptions): express.RequestHandler;
-
-  namespace session {
-    interface SessionOptions {
-      secret: string;
-      name?: string;
-      store?: Store | MemoryStore;
-      cookie?: express.CookieOptions;
-      genid?(req: express.Request): string;
-      rolling?: boolean;
-      resave?: boolean;
-      proxy?: boolean;
-      saveUninitialized?: boolean;
-      unset?: string;
-    }
-
-    interface BaseMemoryStore {
-      get(sid: string, callback: (err: any, session: Express.Session) => void): void;
-      set(sid: string, session: Express.Session, callback: (err: any) => void): void;
-      destroy(sid: string, callback: (err: any) => void): void;
-      length?(callback: (err: any, length: number) => void): void;
-      clear?(callback: (err: any) => void): void;
-    }
-
-    abstract class Store extends node.EventEmitter {
-      constructor(config?: any);
-
-      regenerate(req: express.Request, fn: (err: any) => any): void;
-      load(sid: string, fn: (err: any, session: Express.Session) => any): void;
-      createSession(req: express.Request, sess: Express.SessionData): void;
-
-      get(sid: string, callback: (err: any, session: Express.Session) => void): void;
-      set(sid: string, session: Express.Session, callback: (err: any) => void): void;
-      destroy(sid: string, callback: (err: any) => void): void;
-      all(callback: (err: any, obj: { [sid: string]: Express.SessionData; }) => void): void;
-      length(callback: (err: any, length: number) => void): void;
-      clear(callback: (err: any) => void): void;
-    }
-
-    class MemoryStore implements BaseMemoryStore {
-      get(sid: string, callback: (err: any, session: Express.Session) => void): void;
-      set(sid: string, session: Express.Session, callback: (err: any) => void): void;
-      destroy(sid: string, callback: (err: any) => void): void;
-      all(callback: (err: any, obj: { [sid: string]: Express.Session; }) => void): void;
-      length(callback: (err: any, length: number) => void): void;
-      clear(callback: (err: any) => void): void;
-    }
+declare namespace session {
+  interface SessionOptions {
+    secret: string;
+    name?: string;
+    store?: Store | MemoryStore;
+    cookie?: express.CookieOptions;
+    genid?(req: express.Request): string;
+    rolling?: boolean;
+    resave?: boolean;
+    proxy?: boolean;
+    saveUninitialized?: boolean;
+    unset?: string;
   }
 
-  export = session;
+  interface BaseMemoryStore {
+    get(sid: string, callback: (err: any, session: Express.Session) => void): void;
+    set(sid: string, session: Express.Session, callback: (err: any) => void): void;
+    destroy(sid: string, callback: (err: any) => void): void;
+    length?(callback: (err: any, length: number) => void): void;
+    clear?(callback: (err: any) => void): void;
+  }
+
+  abstract class Store extends node.EventEmitter {
+    constructor(config?: any);
+
+    regenerate(req: express.Request, fn: (err: any) => any): void;
+    load(sid: string, fn: (err: any, session: Express.Session) => any): void;
+    createSession(req: express.Request, sess: Express.SessionData): void;
+
+    get(sid: string, callback: (err: any, session: Express.Session) => void): void;
+    set(sid: string, session: Express.Session, callback: (err: any) => void): void;
+    destroy(sid: string, callback: (err: any) => void): void;
+    all(callback: (err: any, obj: { [sid: string]: Express.SessionData; }) => void): void;
+    length(callback: (err: any, length: number) => void): void;
+    clear(callback: (err: any) => void): void;
+  }
+
+  class MemoryStore implements BaseMemoryStore {
+    get(sid: string, callback: (err: any, session: Express.Session) => void): void;
+    set(sid: string, session: Express.Session, callback: (err: any) => void): void;
+    destroy(sid: string, callback: (err: any) => void): void;
+    all(callback: (err: any, obj: { [sid: string]: Express.Session; }) => void): void;
+    length(callback: (err: any, length: number) => void): void;
+    clear(callback: (err: any) => void): void;
+  }
 }
+
+export = session;
