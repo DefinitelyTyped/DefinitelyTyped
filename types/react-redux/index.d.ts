@@ -25,7 +25,7 @@ interface ComponentDecorator<TOwnProps, TMergedProps> {
  * Can't use the above decorator because it would default the type to {}
  */
 export interface InferableComponentDecorator<TOwnProps> {
-    <T extends Component<TOwnProps>>(component: T): T;
+    <T>(component: Component<T & TOwnProps>): Component<TOwnProps>;
 }
 
 /**
