@@ -141,6 +141,7 @@ export type GridCoreProps = {
     overscanColumnCount?: number;
     overscanIndicesGetter?: (params: OverscanIndicesGetterParams) => OverscanIndices;
     overscanRowCount?: number;
+    role?: string;
     rowHeight: number | ((params: Index) => number);
     rowCount: number;
     scrollingResetTimeInterval?: number;
