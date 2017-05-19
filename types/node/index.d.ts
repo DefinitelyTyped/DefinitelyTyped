@@ -1744,6 +1744,7 @@ declare module "child_process" {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
+        stdio?: any[];
         uid?: number;
         gid?: number;
     }
