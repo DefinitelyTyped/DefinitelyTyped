@@ -358,14 +358,14 @@ interface LineDatum {
 let lineXYAccessorFn: (d: LineDatum, index?: number, data?: LineDatum[]) => number;
 let lineDefAccessorFn: (d: LineDatum, index?: number, data?: LineDatum[]) => boolean;
 
-interface RadialLineDatum {
+interface LineRadialDatum {
     angle: number;
     radius: number;
     missing: boolean;
 }
 
-let radialLineAngRAccessorFn: (d: RadialLineDatum, index?: number, data?: RadialLineDatum[]) => number;
-let radialLineDefAccessorFn: (d: RadialLineDatum, index?: number, data?: RadialLineDatum[]) => boolean;
+let lineRadialAngRAccessorFn: (d: LineRadialDatum, index?: number, data?: LineRadialDatum[]) => number;
+let lineRadialDefAccessorFn: (d: LineRadialDatum, index?: number, data?: LineRadialDatum[]) => boolean;
 
 // line(...) create Line generator =====================================================
 
@@ -440,77 +440,85 @@ const lineData: LineDatum[] = [
 
 const linePathStringMaybe: string | null = line(lineData);
 
-// radialLine(...) create Line generator =====================================================
+// lineRadial(...) create Line generator =====================================================
 
-let defaultRadialLine: d3Shape.RadialLine<[number, number]> = d3Shape.radialLine();
-let radialLine: d3Shape.RadialLine<RadialLineDatum> = d3Shape.radialLine<RadialLineDatum>();
+let defaultLineRadial: d3Shape.LineRadial<[number, number]> = d3Shape.lineRadial();
+let lineRadial: d3Shape.LineRadial<LineRadialDatum> = d3Shape.lineRadial<LineRadialDatum>();
 
-// configure RadialLine(...) generator ======================================================
+// DEPRECATED Naming conventions test (cross-testing with new naming conventions)
+
+let defaultRadialLine: d3Shape.RadialLine<[number, number]> = defaultLineRadial;
+let radialLine: d3Shape.RadialLine<LineRadialDatum> = lineRadial;
+
+defaultLineRadial = d3Shape.radialLine();
+lineRadial = d3Shape.radialLine<LineRadialDatum>();
+
+// configure LineRadial(...) generator ======================================================
 
 // context(...) ----------------------------------------------------------------------
 
 if (context !== null) {
-    defaultRadialLine = defaultRadialLine.context(context); // draw to canvas
+    defaultLineRadial = defaultLineRadial.context(context); // draw to canvas
 }
-context = defaultRadialLine.context();
+context = defaultLineRadial.context();
 
-radialLine = radialLine.context(null); // use as path string generator for SVG
+lineRadial = lineRadial.context(null); // use as path string generator for SVG
 
 // angle(...) ----------------------------------------------------------------------------
 
-defaultRadialLine = defaultRadialLine.angle(Math.PI);
+defaultLineRadial = defaultLineRadial.angle(Math.PI);
 
-radialLine = radialLine.angle((d, t, data) => {
+lineRadial = lineRadial.angle((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Angle of first point: ', data[0].angle); // data type is Array<RadialLineDatum>
-    return d.angle; // d type is RadialLineDatum
+    console.log('Angle of first point: ', data[0].angle); // data type is Array<LineRadialDatum>
+    return d.angle; // d type is LineRadialDatum
 });
 
-radialLineAngRAccessorFn = radialLine.angle();
+lineRadialAngRAccessorFn = lineRadial.angle();
 
 // radius(...) ----------------------------------------------------------------------------
 
-defaultRadialLine = defaultRadialLine.radius(30);
+defaultLineRadial = defaultLineRadial.radius(30);
 
-radialLine = radialLine.radius((d, t, data) => {
+lineRadial = lineRadial.radius((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Angle of first point: ', data[0].angle); // data type is Array<RadialLineDatum>
-    return d.radius; // d type is RadialLineDatum
+    console.log('Angle of first point: ', data[0].angle); // data type is Array<LineRadialDatum>
+    return d.radius; // d type is LineRadialDatum
 });
 
-radialLineAngRAccessorFn = radialLine.radius();
+lineRadialAngRAccessorFn = lineRadial.radius();
 
 // defined(...) ----------------------------------------------------------------------
 
-defaultRadialLine = defaultRadialLine.defined(true);
+defaultLineRadial = defaultLineRadial.defined(true);
 
-radialLine = radialLine.defined((d, t, data) => {
+lineRadial = lineRadial.defined((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Angle of first point: ', data[0].angle); // data type is Array<RadialLineDatum>
-    return !d.missing; // d type is RadialLineDatum
+    console.log('Angle of first point: ', data[0].angle); // data type is Array<LineRadialDatum>
+    return !d.missing; // d type is LineRadialDatum
 });
 
-radialLineDefAccessorFn = radialLine.defined();
+lineRadialDefAccessorFn = lineRadial.defined();
 
 // curve(...) ------------------------------------------------------------------------
 
-defaultRadialLine = defaultRadialLine.curve(d3Shape.curveLinear);
+defaultLineRadial = defaultLineRadial.curve(d3Shape.curveLinear);
 
-radialLine = radialLine.curve(d3Shape.curveBundle.beta(0.5));
+lineRadial = lineRadial.curve(d3Shape.curveBundle.beta(0.5));
 
-currentCurveFactory = radialLine.curve();
+currentCurveFactory = lineRadial.curve();
 
-// use RadialLine generator ===============================================================
+// use LineRadial generator ===============================================================
 
-defaultRadialLine([[10, 10], [20, 10], [20, 20]]);
+defaultLineRadial([[10, 10], [20, 10], [20, 20]]);
 
-const radialLineData: RadialLineDatum[] = [
+const lineRadialData: LineRadialDatum[] = [
     { angle: 0, radius: 10, missing: false },
     { angle: Math.PI / 2, radius: 20, missing: false },
     { angle: 2 * Math.PI, radius: 10, missing: false }
 ];
 
-const radialLinePathStringMaybe: string | null = radialLine(radialLineData);
+const lineRadialPathStringMaybe: string | null = lineRadial(lineRadialData);
 
 // -----------------------------------------------------------------------------------
 // Test Area Generators
@@ -528,7 +536,7 @@ let areaXYAccessorFn: (d: AreaDatum, index?: number, data?: AreaDatum[]) => numb
 let areaXYAccessorFnMaybe: null | ((d: AreaDatum, index?: number, data?: AreaDatum[]) => number);
 let areaDefAccessorFn: (d: AreaDatum, index?: number, data?: AreaDatum[]) => boolean;
 
-interface RadialAreaDatum {
+interface AreaRadialDatum {
     startAngle: number;
     endAngle: number;
     innerRadius: number;
@@ -536,9 +544,9 @@ interface RadialAreaDatum {
     missing: boolean;
 }
 
-let radialAreaAngRAccessorFn: (d: RadialAreaDatum, index?: number, data?: RadialAreaDatum[]) => number;
-let radialAreaAngRAccessorFnMaybe: null | ((d: RadialAreaDatum, index?: number, data?: RadialAreaDatum[]) => number);
-let radialAreaDefAccessorFn: (d: RadialAreaDatum, index?: number, data?: RadialAreaDatum[]) => boolean;
+let areaRadialAngRAccessorFn: (d: AreaRadialDatum, index?: number, data?: AreaRadialDatum[]) => number;
+let areaRadialAngRAccessorFnMaybe: null | ((d: AreaRadialDatum, index?: number, data?: AreaRadialDatum[]) => number);
+let areaRadialDefAccessorFn: (d: AreaRadialDatum, index?: number, data?: AreaRadialDatum[]) => boolean;
 
 // area(...) create Area generator =====================================================
 
@@ -670,135 +678,143 @@ areaLineGenerator = area.lineY0();
 areaLineGenerator = area.lineX1();
 areaLineGenerator = area.lineY1();
 
-// radialArea(...) create RadialArea generator =====================================================
+// areaRadial(...) create AreaRadial generator =====================================================
 
-let defaultRadialArea: d3Shape.RadialArea<[number, number]> = d3Shape.radialArea();
-let radialArea: d3Shape.RadialArea<RadialAreaDatum> = d3Shape.radialArea<RadialAreaDatum>();
+let defaultAreaRadial: d3Shape.AreaRadial<[number, number]> = d3Shape.areaRadial();
+let areaRadial: d3Shape.AreaRadial<AreaRadialDatum> = d3Shape.areaRadial<AreaRadialDatum>();
 
-// configure RadialArea(...) generator ======================================================
+// DEPRECATED Naming conventions test (cross-testing with new naming conventions)
+
+let defaultRadialArea: d3Shape.RadialArea<[number, number]> = defaultAreaRadial;
+let radialArea: d3Shape.RadialArea<AreaRadialDatum> = areaRadial;
+
+defaultAreaRadial = d3Shape.radialArea();
+areaRadial = d3Shape.radialArea<AreaRadialDatum>();
+
+// configure AreaRadial(...) generator ======================================================
 
 // context(...) ----------------------------------------------------------------------
 
 if (context !== null) {
-    defaultRadialArea = defaultRadialArea.context(context); // draw to canvas
+    defaultAreaRadial = defaultAreaRadial.context(context); // draw to canvas
 }
-context = defaultRadialArea.context();
+context = defaultAreaRadial.context();
 
-radialArea = radialArea.context(null); // use as path string generator for SVG
+areaRadial = areaRadial.context(null); // use as path string generator for SVG
 
 // angle(...) ----------------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.angle(Math.PI);
+defaultAreaRadial = defaultAreaRadial.angle(Math.PI);
 
-radialArea = radialArea.angle((d, t, data) => {
+areaRadial = areaRadial.angle((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Start angle of first point: ', data[0].startAngle); // data type is Array<RadialAreaDatum>
-    return d.startAngle; // d type is RadialAreaDatum
+    console.log('Start angle of first point: ', data[0].startAngle); // data type is Array<AreaRadialDatum>
+    return d.startAngle; // d type is AreaRadialDatum
 });
 
-radialAreaAngRAccessorFn = radialArea.angle();
+areaRadialAngRAccessorFn = areaRadial.angle();
 
 // startAngle(...) ----------------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.startAngle(Math.PI);
+defaultAreaRadial = defaultAreaRadial.startAngle(Math.PI);
 
-radialArea = radialArea.startAngle((d, t, data) => {
+areaRadial = areaRadial.startAngle((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Start angle of first point: ', data[0].startAngle); // data type is Array<RadialAreaDatum>
-    return d.startAngle; // d type is RadialAreaDatum
+    console.log('Start angle of first point: ', data[0].startAngle); // data type is Array<AreaRadialDatum>
+    return d.startAngle; // d type is AreaRadialDatum
 });
 
-radialAreaAngRAccessorFn = radialArea.startAngle();
+areaRadialAngRAccessorFn = areaRadial.startAngle();
 
 // endAngle(...) ----------------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.endAngle(Math.PI);
+defaultAreaRadial = defaultAreaRadial.endAngle(Math.PI);
 
-radialArea = radialArea.endAngle((d, t, data) => {
+areaRadial = areaRadial.endAngle((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('End angle of first point: ', data[0].endAngle); // data type is Array<RadialAreaDatum>
-    return d.endAngle; // d type is RadialAreaDatum
+    console.log('End angle of first point: ', data[0].endAngle); // data type is Array<AreaRadialDatum>
+    return d.endAngle; // d type is AreaRadialDatum
 });
 
-radialAreaAngRAccessorFnMaybe = radialArea.endAngle();
+areaRadialAngRAccessorFnMaybe = areaRadial.endAngle();
 
 // radius(...) ----------------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.radius(10);
+defaultAreaRadial = defaultAreaRadial.radius(10);
 
-radialArea = radialArea.radius((d, t, data) => {
+areaRadial = areaRadial.radius((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Inner radius of first point: ', data[0].innerRadius); // data type is Array<RadialAreaDatum>
-    return d.innerRadius; // d type is RadialAreaDatum
+    console.log('Inner radius of first point: ', data[0].innerRadius); // data type is Array<AreaRadialDatum>
+    return d.innerRadius; // d type is AreaRadialDatum
 });
 
-radialAreaAngRAccessorFn = radialArea.radius();
+areaRadialAngRAccessorFn = areaRadial.radius();
 
 // innerRadius(...) ----------------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.innerRadius(10);
+defaultAreaRadial = defaultAreaRadial.innerRadius(10);
 
-radialArea = radialArea.innerRadius((d, t, data) => {
+areaRadial = areaRadial.innerRadius((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Inner radius of first point: ', data[0].innerRadius); // data type is Array<RadialAreaDatum>
-    return d.innerRadius; // d type is RadialAreaDatum
+    console.log('Inner radius of first point: ', data[0].innerRadius); // data type is Array<AreaRadialDatum>
+    return d.innerRadius; // d type is AreaRadialDatum
 });
 
-radialAreaAngRAccessorFn = radialArea.innerRadius();
+areaRadialAngRAccessorFn = areaRadial.innerRadius();
 
 // outerRadius(...) ----------------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.outerRadius(20);
+defaultAreaRadial = defaultAreaRadial.outerRadius(20);
 
-radialArea = radialArea.outerRadius((d, t, data) => {
+areaRadial = areaRadial.outerRadius((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Outer radius of first point: ', data[0].outerRadius); // data type is Array<RadialAreaDatum>
-    return d.outerRadius; // d type is RadialAreaDatum
+    console.log('Outer radius of first point: ', data[0].outerRadius); // data type is Array<AreaRadialDatum>
+    return d.outerRadius; // d type is AreaRadialDatum
 });
 
-radialAreaAngRAccessorFnMaybe = radialArea.outerRadius();
+areaRadialAngRAccessorFnMaybe = areaRadial.outerRadius();
 
 // defined(...) ----------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.defined(true);
+defaultAreaRadial = defaultAreaRadial.defined(true);
 
-radialArea = radialArea.defined((d, t, data) => {
+areaRadial = areaRadial.defined((d, t, data) => {
     console.log('Number of Points: ', data.length);
-    console.log('Inner radius of first point: ', data[0].innerRadius); // data type is Array<RadialAreaDatum>
-    return !d.missing; // d type is RadialAreaDatum
+    console.log('Inner radius of first point: ', data[0].innerRadius); // data type is Array<AreaRadialDatum>
+    return !d.missing; // d type is AreaRadialDatum
 });
 
-radialAreaDefAccessorFn = radialArea.defined();
+areaRadialDefAccessorFn = areaRadial.defined();
 
 // curve(...) ------------------------------------------------------------------------
 
-defaultRadialArea = defaultRadialArea.curve(d3Shape.curveLinear);
+defaultAreaRadial = defaultAreaRadial.curve(d3Shape.curveLinear);
 
-radialArea = radialArea.curve(d3Shape.curveCardinal.tension(0.5));
-// radialArea = radialArea.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
+areaRadial = areaRadial.curve(d3Shape.curveCardinal.tension(0.5));
+// areaRadial = areaRadial.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
 
-currentCurveFactory = radialArea.curve();
+currentCurveFactory = areaRadial.curve();
 
-// use RadialArea generator ===============================================================
+// use AreaRadial generator ===============================================================
 
-defaultRadialArea([[10, 10], [20, 10], [20, 20]]);
+defaultAreaRadial([[10, 10], [20, 10], [20, 20]]);
 
-const radialAreaData: RadialAreaDatum[] = [
+const areaRadialData: AreaRadialDatum[] = [
     { startAngle: 0, innerRadius: 10, endAngle: 0, outerRadius: 30, missing: false },
     { startAngle: Math.PI / 2, innerRadius: 20, endAngle: Math.PI / 2, outerRadius: 40, missing: false },
     { startAngle: Math.PI, innerRadius: 30, endAngle: Math.PI, outerRadius: 30, missing: false }
 ];
 
-const radialAreaPathStringMaybe: string | null = radialArea(radialAreaData);
+const areaRadialPathStringMaybe: string | null = areaRadial(areaRadialData);
 
-// Get RadialLine Generators from RadialArea generator ========================================================
+// Get LineRadial Generators from AreaRadial generator ========================================================
 
-let areaRadialLineGenerator: d3Shape.RadialLine<RadialAreaDatum>;
+let areaLineRadialGenerator: d3Shape.LineRadial<AreaRadialDatum>;
 
-areaRadialLineGenerator = radialArea.lineStartAngle();
-areaRadialLineGenerator = radialArea.lineInnerRadius();
-areaRadialLineGenerator = radialArea.lineEndAngle();
-areaRadialLineGenerator = radialArea.lineOuterRadius();
+areaLineRadialGenerator = areaRadial.lineStartAngle();
+areaLineRadialGenerator = areaRadial.lineInnerRadius();
+areaLineRadialGenerator = areaRadial.lineEndAngle();
+areaLineRadialGenerator = areaRadial.lineOuterRadius();
 
 // -----------------------------------------------------------------------------------
 // Test Curve Factories
@@ -902,7 +918,7 @@ curveFactory = d3Shape.curveStepAfter;
 curveFactory = d3Shape.curveStepBefore;
 
 // -----------------------------------------------------------------------------------
-// Test Link/RadialLink Generators
+// Test Link/LinkRadial Generators
 // -----------------------------------------------------------------------------------
 
 // Preparatory steps =================================================================
@@ -946,17 +962,17 @@ let svgLink: d3Shape.Link<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, Hie
 svgLink = d3Shape.linkHorizontal<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
 svgLink = d3Shape.linkVertical<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
 
-let defaultRadialLink: d3Shape.RadialLink<any, d3Shape.DefaultLinkObject, [number, number]>;
+let defaultLinkRadial: d3Shape.LinkRadial<any, d3Shape.DefaultLinkObject, [number, number]>;
 
-defaultRadialLink = d3Shape.linkRadial();
+defaultLinkRadial = d3Shape.linkRadial();
 
-let radialLink: d3Shape.RadialLink<any, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+let radialLink: d3Shape.LinkRadial<any, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
 
 radialLink = d3Shape.linkRadial<HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
 
-let svgRadialLink: d3Shape.RadialLink<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+let svgLinkRadial: d3Shape.LinkRadial<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
 
-svgRadialLink = d3Shape.linkRadial<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+svgLinkRadial = d3Shape.linkRadial<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
 
 // Configure link generators ========================================================
 
@@ -987,20 +1003,20 @@ svgTreeNodeAccessor = svgLink.source();
 
 // radial
 
-defaultRadialLink = defaultRadialLink.source(d => {
+defaultLinkRadial = defaultLinkRadial.source(d => {
     const datum: d3Shape.DefaultLinkObject = d;
     return d.source;
 });
 
-defaultNodeAccessor = defaultRadialLink.source();
+defaultNodeAccessor = defaultLinkRadial.source();
 
-svgRadialLink = svgRadialLink.source(function(d) {
+svgLinkRadial = svgLinkRadial.source(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointLink<TreeNodeDatum> = d;
     return d.source;
 });
 
-svgTreeNodeAccessor = svgRadialLink.source();
+svgTreeNodeAccessor = svgLinkRadial.source();
 
 // target(...) -----------------------------------------------------------------------
 
@@ -1023,20 +1039,20 @@ svgTreeNodeAccessor = svgLink.target();
 
 // radial
 
-defaultRadialLink = defaultRadialLink.target(d => {
+defaultLinkRadial = defaultLinkRadial.target(d => {
     const datum: d3Shape.DefaultLinkObject = d;
     return d.target;
 });
 
-defaultNodeAccessor = defaultRadialLink.target();
+defaultNodeAccessor = defaultLinkRadial.target();
 
-svgRadialLink = svgRadialLink.target(function(d) {
+svgLinkRadial = svgLinkRadial.target(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointLink<TreeNodeDatum> = d;
     return d.target;
 });
 
-svgTreeNodeAccessor = svgRadialLink.target();
+svgTreeNodeAccessor = svgLinkRadial.target();
 
 // x(...) ----------------------------------------------------------------------------
 
@@ -1074,37 +1090,37 @@ svgCoordinateAccessor = svgLink.y();
 
 // angle(...) ------------------------------------------------------------------------
 
-defaultRadialLink = defaultRadialLink.angle(d => {
+defaultLinkRadial = defaultLinkRadial.angle(d => {
     const datum: [number, number] = d;
     return datum[0];
 });
 
-defaultCoordinateAccessor = defaultRadialLink.angle();
+defaultCoordinateAccessor = defaultLinkRadial.angle();
 
-svgRadialLink = svgRadialLink.angle(function(d) {
+svgLinkRadial = svgLinkRadial.angle(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointNode<TreeNodeDatum> = d;
     return datum.x;
 });
 
-svgCoordinateAccessor = svgRadialLink.angle();
+svgCoordinateAccessor = svgLinkRadial.angle();
 
 // radius(...) ------------------------------------------------------------------------
 
-defaultRadialLink = defaultRadialLink.radius(d => {
+defaultLinkRadial = defaultLinkRadial.radius(d => {
     const datum: [number, number] = d;
     return datum[1];
 });
 
-defaultCoordinateAccessor = defaultRadialLink.radius();
+defaultCoordinateAccessor = defaultLinkRadial.radius();
 
-svgRadialLink = svgRadialLink.radius(function(d) {
+svgLinkRadial = svgLinkRadial.radius(function(d) {
     const that: SVGPathElement = this;
     const datum: HierarchyPointNode<TreeNodeDatum> = d;
     return datum.y;
 });
 
-svgCoordinateAccessor = svgRadialLink.radius();
+svgCoordinateAccessor = svgLinkRadial.radius();
 
 // context(...) ----------------------------------------------------------------------
 
@@ -1121,7 +1137,7 @@ area = area.context(null); // use as path string generator for SVG
 
 defaultLink(defaultLinkDatum);
 
-defaultRadialLink(defaultLinkDatum);
+defaultLinkRadial(defaultLinkDatum);
 
 // Render to svg ---------------------------------------------------------------------
 
@@ -1137,13 +1153,13 @@ pathStringMaybe = link(linkDatum);
 
 // radial
 
-pLink.attr('d', svgRadialLink);
-// wrongLink1.attr('d', svgRadialLink); // fails, incompatible this contexts
-// wrongLink2.attr('d', svgRadialLink); // fails, incompatible datum types
+pLink.attr('d', svgLinkRadial);
+// wrongLink1.attr('d', svgLinkRadial); // fails, incompatible this contexts
+// wrongLink2.attr('d', svgLinkRadial); // fails, incompatible datum types
 
 pathStringMaybe = radialLink(linkDatum);
 
-// pathStringMaybe = svgRadialLink(linkDatum); // fails, wrong this type for invocation
+// pathStringMaybe = svgLinkRadial(linkDatum); // fails, wrong this type for invocation
 
 // -----------------------------------------------------------------------------------
 // Test Symbols
@@ -1301,6 +1317,12 @@ customSymbol = d3Shape.symbolSquare;
 customSymbol = d3Shape.symbolStar;
 customSymbol = d3Shape.symbolTriangle;
 customSymbol = d3Shape.symbolWye;
+
+// -----------------------------------------------------------------------------------
+// Test pointRadius
+// -----------------------------------------------------------------------------------
+
+let coordinatates: [number, number] = d3Shape.pointRadius(0, 12);
 
 // -----------------------------------------------------------------------------------
 // Test Stacks
