@@ -8,7 +8,7 @@
 
 import events = require("events");
 
-export as namespace Noble;
+export as namespace noble;
 
 export declare function startScanning(serviceUUIDs?: string[], allowDuplicates?: boolean, callback?: (error: Error) => void): void;
 export declare function stopScanning(callback?: () => void): void;
