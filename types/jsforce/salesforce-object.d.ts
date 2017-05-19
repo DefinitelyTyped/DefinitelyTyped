@@ -12,7 +12,7 @@ export class SObject {
     update(options: SObjectCreateOptions, callback?: (err: Error, ret: any) => void): void;
     retrieve(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
     retrieve(ids: string | string[], options?: Object, callback?: (err: Error, ret: any) => void): void;
-    upsert(records: Record | Record[], extIdField: SalesforceId, options: object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult | RecordResult[]>;
+    upsert(records: Record | Record[], extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult | RecordResult[]>;
     describeGlobal(callback: (err: Error, res: any) => void): void;
     describe$(callback: (err: Error, ret: DescribeSObjectResult) => void): void;
     describeGlobal$(callback: (err: Error, res: any) => void): void;
