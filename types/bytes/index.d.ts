@@ -7,7 +7,8 @@ interface BytesOptions {
     decimalPlaces?: number,
     thousandsSeparator?: string,
     unitSeparator?: string,
-    fixedDecimals?: boolean
+    fixedDecimals?: boolean,
+    unit?: string
 }
 /**
  *Convert the given value in bytes into a string.
