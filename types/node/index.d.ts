@@ -3479,6 +3479,13 @@ declare module "crypto" {
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFillSync(buffer: Buffer | Uint8Array, offset?: number, size?: number): Buffer;
+    export function randomFill(buffer: Buffer, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, callback: (err: Error, buf: Uint8Array) => void): void;
+    export function randomFill(buffer: Buffer, offset: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, offset: number, callback: (err: Error, buf: Uint8Array) => void): void;
+    export function randomFill(buffer: Buffer, offset: number, size: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, offset: number, size: number, callback: (err: Error, buf: Uint8Array) => void): void;
     export interface RsaPublicKey {
         key: string;
         padding?: number;
