@@ -501,3 +501,18 @@ describe('Mocks', function () {
         anotherIns.testMethod.mockImplementation(() => 1);
     });
 });
+
+// https://facebook.github.io/jest/docs/en/expect.html#resolves
+describe('resolves', function () {
+    it('unwraps the expected Promise', function () {
+        return expect(Promise.resolve('test')).resolves.toEqual('test');
+    });
+});
+
+// https://facebook.github.io/jest/docs/en/expect.html#rejects
+describe('rejects', function () {
+    it('unwraps the expected Promise', function () {
+        const error = new Error('error');
+        return expect(Promise.reject(error)).rejects.toBeDefined();
+    });
+});
