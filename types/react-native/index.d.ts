@@ -3518,7 +3518,7 @@ export interface FlatListProperties<ItemT> {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: ItemT) => React.ReactElement<any> | null
+    renderItem: (info: ItemT, index?: number) => React.ReactElement<any> | null
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
