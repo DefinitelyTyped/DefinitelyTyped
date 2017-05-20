@@ -32,4 +32,16 @@ app.use(session({
     beforeSave: (ctx: Koa.Context, session: Session) => {}
 }));
 
+app.use((context: Koa.Context) => {
+    if (! context.session) {
+        return;
+    }
+
+    context.regenerateSession();
+    context.sessionSave = true;
+    context.session.cookie;
+    context.session.key = 'value';
+    context.session = null;
+});
+
 app.listen(80);
