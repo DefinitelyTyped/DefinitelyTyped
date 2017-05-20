@@ -10,4 +10,4 @@ declare function deepFreeze<T>(a: T[]): ReadonlyArray<DeepReadonly<T>>;
 declare function deepFreeze<T extends Function>(f: T): T;
 declare function deepFreeze<T>(o: T): DeepReadonly<T>;
 
-type DeepReadonly<T> = Readonly<{ [P in keyof T]: Readonly<T[P]> }>;
+type DeepReadonly<T> = Readonly<{ [P in keyof T]: DeepReadonly<T[P]> }>;
