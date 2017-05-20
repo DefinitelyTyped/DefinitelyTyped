@@ -421,6 +421,12 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "redux-devtools-extension",
+            "typingsPackageName": "redux-devtools-extension",
+            "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
+            "asOfVersion": "2.13.2"
+        },
+        {
             "libraryName": "redux-persist",
             "typingsPackageName": "redux-persist",
             "sourceRepoURL": "https://github.com/rt2zz/redux-persist",
