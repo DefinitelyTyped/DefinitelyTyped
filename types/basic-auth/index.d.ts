@@ -15,7 +15,13 @@ declare namespace auth {
         pass: string;
     }
 
-    // See https://github.com/jshttp/basic-auth/blob/v1.1.0/index.js#L87-L95
+    /**
+     * Parse basic auth to object.
+     *
+     * @param {string} string
+     * @return {object}
+     * @public
+     */
     function parse(authorizationHeader: string): auth.BasicAuthResult | undefined;
 }
 
