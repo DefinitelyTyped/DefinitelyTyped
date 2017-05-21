@@ -133,4 +133,5 @@ export interface SwiperProperties extends React.Props<Swiper> {
 }
 
 export default class Swiper extends React.Component<SwiperProperties, SwiperState> {
+  scrollBy(index: number, animated: boolean): void;
 }
