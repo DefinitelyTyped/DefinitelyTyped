@@ -320,10 +320,10 @@ export type NavigationAction =
   | NavigationTabAction
 
 export namespace NavigationActions {
-  function navigate(options: NavigationNavigateAction): any;
-  function reset(options: NavigationResetAction): any;
-  function back(options?: NavigationBackAction): any;
-  function setParams(options: NavigationSetParamsAction): any;
+  function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
+  function reset(options: NavigationResetAction): NavigationResetAction;
+  function back(options?: NavigationBackAction): NavigationBackAction;
+  function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
 }
 
 export type NavigationRouteConfig<T> = T & {
@@ -602,3 +602,17 @@ export interface DrawerNavigatorScreenOptions {
       | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
   ;
 }
+
+export interface NavgationComponentProps<T> {
+  navigation: {
+    state: {
+      key: string
+      params: T,
+    },
+  }
+}
+
+export type NavigationNavigateActionCreator = (options: NavigationNavigateAction) => NavigationNavigateAction;
+export type NavigationResetActionCreator = (options: NavigationResetAction) => NavigationResetAction;
+export type NavigationBackActionCreator = (options: NavigationBackAction) => NavigationBackAction;
+export type NavigationSetParamsActionCreator = (options: NavigationSetParamsAction) => NavigationSetParamsAction;
