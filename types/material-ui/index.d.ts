@@ -1046,7 +1046,7 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
-			onTouchTap?: TouchTapEventHandler;
+            onTouchTap?: TouchTapEventHandler;
         }
         export class GridTile extends React.Component<GridTileProps, {}> {
         }
