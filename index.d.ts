@@ -1881,6 +1881,12 @@ declare namespace Cy {
          * @param name The name of the visual style property to get.
          */
         style(name: string): any;
+         /**
+         * Set a particular style property value.
+         * @param name The name of the visual style property to get.
+         * @param value The value to which the property is set.
+         */
+        style(name: string, value: any): any;
     }
 
     /**
