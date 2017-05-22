@@ -236,8 +236,8 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, data: any, offset: number, encoding?: string): Promise<[number, string]>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function writeFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
+export function writeFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
 
 /**
  * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
@@ -245,8 +245,8 @@ export function writeFile(file: string | Buffer | number, data: any, options?: {
  * @param prefix
  * @param callback The created folder path is passed as a string to the callback's second parameter.
  */
-export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
 export function mkdtemp(prefix: string): Promise<string>;
+export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
 
 export interface PathEntry {
     path: string;
