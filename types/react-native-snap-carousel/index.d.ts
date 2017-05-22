@@ -7,6 +7,8 @@
 import * as React from 'react';
 import {
     Animated,
+    NativeSyntheticEvent,
+    NativeScrollEvent,
     ScrollViewProperties,
     ScrollViewStyle,
     ViewStyle
@@ -109,6 +111,13 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
     slideStyle?: ViewStyle;
 
     // Callbacks
+
+    /**
+     * Callback fired while scrolling; direct equivalent of ScrollView's onScroll
+     * Since onScroll is overriden by plugin's implementation, you should use prop onScrollViewScroll
+     * if you need a callback while scrolling.
+     */
+    onScrollViewScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
 
     /**
      * Callback fired when navigating to an item
