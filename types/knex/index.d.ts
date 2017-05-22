@@ -136,7 +136,7 @@ declare namespace Knex {
         decrement(columnName: string, amount?: number): QueryBuilder;
 
         // Others
-        first(...columns: string[]): QueryBuilder;
+        first: Select;
 
         debug(enabled?: boolean): QueryBuilder;
         pluck(column: string): QueryBuilder;
