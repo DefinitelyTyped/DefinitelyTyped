@@ -48,6 +48,7 @@ declare namespace gapi.auth2 {
      */
     grantOfflineAccess(options: {
       scope?: string;
+      prompt?: string;
       redirect_uri?: string;
     }): any;
 
