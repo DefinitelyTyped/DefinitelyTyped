@@ -3,6 +3,7 @@ import * as Color from "color"
 var color: Color.Color = Color("white")
 var colorOther: Color.Color = Color("black")
 var colorRGB: Color.Color = Color({ r : 0, g : 0, b : 0 }, "rgb")
+var colorInt: Color.Color = Color(0x000000)
 
 var hex: string = color.hex()
 var percent: string = color.percentString()
