@@ -86,6 +86,15 @@ declare namespace cropperjs {
         */
         checkCrossOrigin?: boolean;
         /**
+        * Check the current image's Exif Orientation information.
+        * More exactly, read the Orientation value for rotating or flipping the image, and then override the Orientation
+        * value with 1 (the default value) to avoid some issues (1, 2) on iOS devices.
+        * Requires to set both the rotatable and scalable options to true at the same time.
+        * Note: Don't trust this all the time as some JPG images have incorrect (not standard) Orientation values.
+        * @default true
+        */
+        checkOrientation?: boolean;
+        /**
         * Show the black modal above the image and under the crop box.
         * @default true
         */
