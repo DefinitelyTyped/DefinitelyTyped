@@ -839,7 +839,8 @@ declare namespace R {
 
         /**
          * Returns a lens whose focus is the specified path.
-         * See also view, set, over.
+         * See also         view<T,U>(lens: Lens, obj: T): U;
+ +        view<T,U>(lens: Lens): (obj: T) => U;, set, over.
          */
         lensPath(path: Path): Lens;
 
@@ -1727,8 +1728,8 @@ declare namespace R {
          * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
          * portion of the data structure is visible.
          */
-        view<T,U>(lens: Lens, obj: T): U;
         view<T,U>(lens: Lens): (obj: T) => U;
+        view<T,U>(lens: Lens, obj: T): U;
 
         /**
          * Tests the final argument by passing it to the given predicate function. If the predicate is satisfied, the function
