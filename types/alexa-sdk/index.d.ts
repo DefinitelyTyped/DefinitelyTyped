@@ -7,8 +7,8 @@ export function handler(event: RequestBody, context: Context, callback?: Functio
 export function CreateStateHandler(state: string, obj: any): any;
 export var StateString: string;
 
-type DialogStates = 'STARTED' | 'IN_PROGRESS' | 'COMPLETED';
 type ConfirmationStatuses = 'NONE' | 'DENIED' | 'CONFIRMED';
+type DialogStates = 'STARTED' | 'IN_PROGRESS' | 'COMPLETED';
 
 interface AlexaObject {
     _event: any;
@@ -83,9 +83,9 @@ interface IntentRequest extends IRequest {
 
 interface ISlots {
     [slot: string]: {
+        confirmationStatus: ConfirmationStatuses;
         name: string,
         value?: any,
-        confirmationStatus: ConfirmationStatuses;
     }
 }
 
