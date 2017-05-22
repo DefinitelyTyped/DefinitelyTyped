@@ -3,36 +3,45 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export enum EventTypes {
-    RECORD_STOP, RECORD_START, ERROR, TOKEN_INVALID, LOG, LOGIN, LOGOUT, TOKEN_SET, REFRESH_TOKEN_SET
+export as namespace AVS;
+export = AVS;
+
+declare namespace AVS {
+    export enum EventTypes {
+        RECORD_STOP, RECORD_START, ERROR, TOKEN_INVALID, LOG, LOGIN, LOGOUT, TOKEN_SET, REFRESH_TOKEN_SET
+    }
+
+    export interface AVSParams {
+        debug: boolean;
+        clientId: string;
+        clientSecret: string;
+        deviceId: string;
+        refreshToken: string;
+    }
+
+    export interface TokenResponse {
+        token: string;
+        refreshToken: string;
+    }
+
+    export class Player {
+        on(eventType: Player.EventTypes, callback?: () => void): void;
+    }
+
+    namespace Player {
+        enum EventTypes {
+            LOG, ERROR, PLAY, REPLAY, PAUSE, STOP, ENQUEUE, DEQUE
+        }
+    }
 }
 
-export interface AVSParams {
-    debug: boolean;
-    clientId: string;
-    clientSecret: string;
-    deviceId: string;
-    refreshToken: string;
-}
 
-export interface TokenResponse {
-    token: string;
-    refreshToken: string;
-}
+declare class AVS {
+    player: AVS.Player;
+    constructor(params: AVS.AVSParams);
 
-export class Player {
-    /*enum EventTypes {
-        LOG, ERROR, PLAY, REPLAY, PAUSE, STOP, ENQUEUE, DEQUE
-    }*/
-    on(eventType: EventTypes, callback?: () => void): void;
-}
-
-export class AVS {
-    player: Player;
-    constructor(params: AVSParams);
-
-    on(eventType: EventTypes, callback?: () => void): void;
-    refreshToken(): Promise<TokenResponse>;
+    on(eventType: AVS.EventTypes, callback?: () => void): void;
+    refreshToken(): Promise<AVS.TokenResponse>;
     requestMic(): Promise<any>;
     startRecording(): Promise<void>;
     stopRecording(): Promise<DataView | undefined>;
