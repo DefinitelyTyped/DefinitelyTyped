@@ -401,6 +401,10 @@ knex.table('users').first('id', 'name').then(function(row) {
   console.log(row);
 });
 
+knex.table('users').first(knex.raw('round(sum(products)) as p')).then(function(row) {
+  console.log(row);
+});
+
 // Using trx as a query builder:
 knex.transaction(function(trx) {
 
