@@ -39,7 +39,7 @@ stylus(str)
  */
 stylus(str)
     .include(require('nib').path)
-    .include(process.env.HOME + '/mixins')
+    .include(process.env["HOME"] + '/mixins')
     .render(function (err, css) {
         // logic
     });

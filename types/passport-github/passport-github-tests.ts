@@ -13,9 +13,9 @@ const User = {
 
 passport.use(new github.Strategy(
     {
-        clientID: process.env.PASSPORT_GITHUB_CONSUMER_KEY,
-        clientSecret: process.env.PASSPORT_GITHUB_CONSUMER_SECRET,
-        callbackURL: process.env.PASSPORT_GITHUB_CALLBACK_URL
+        clientID: process.env["PASSPORT_GITHUB_CONSUMER_KEY"],
+        clientSecret: process.env["PASSPORT_GITHUB_CONSUMER_SECRET"],
+        callbackURL: process.env["PASSPORT_GITHUB_CALLBACK_URL"]
     },
     (accessToken: string, refreshToken: string, profile: github.Profile, done: (error: any, user?: any) => void) => {
         User.findOrCreate(profile.id, profile.provider, (err, user) => {

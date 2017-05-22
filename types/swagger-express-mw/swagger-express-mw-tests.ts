@@ -12,7 +12,7 @@ SwaggerExpress.create(config, (err, middleware) => {
     }
     middleware.register(app);
 
-    const port = process.env.PORT || 10010;
+    const port = process.env["PORT"] || 10010;
     app.listen(port);
 });
 

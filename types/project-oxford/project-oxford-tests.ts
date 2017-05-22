@@ -6,7 +6,7 @@ import assert = require('assert');
 import _Promise = require('bluebird');
 import fs = require('fs');
 
-var client = new oxford.Client(process.env.OXFORD_KEY);
+var client = new oxford.Client(process.env["OXFORD_KEY"]);
 
 // Store variables, no point in calling the api too often
 var billFaces = <string[]>[];

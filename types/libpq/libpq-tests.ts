@@ -84,7 +84,7 @@ describe('async connection', () => {
 
     it('works with hard-coded connection parameters', (done) => {
         const pq = new PQ();
-        const conString = `host=${process.env.PGHOST || 'localhost'}`;
+        const conString = `host=${process.env["PGHOST"] || 'localhost'}`;
         pq.connect(conString, done);
     });
 

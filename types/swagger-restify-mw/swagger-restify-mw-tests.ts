@@ -12,7 +12,7 @@ SwaggerRestify.create(config, (err, swaggerRestify) => {
 
   swaggerRestify.register(app);
 
-  const port = process.env.PORT || 10010;
+  const port = process.env["PORT"] || 10010;
   app.listen(port);
 });
 

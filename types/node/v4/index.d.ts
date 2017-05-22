@@ -292,6 +292,11 @@ declare namespace NodeJS {
         removeAllListeners(event?: string): this;
     }
 
+    export interface Env {
+        PATH: string;
+        [key: string]: string;
+    }
+
     export interface MemoryUsage {
         rss: number;
         heapTotal: number;
@@ -312,7 +317,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
-        env: any;
+        env: Env;
         exit(code?: number): void;
         exitCode: number;
         getgid(): number;
@@ -750,7 +755,7 @@ declare module "cluster" {
     export var isMaster: boolean;
     export var isWorker: boolean;
     export function setupMaster(settings?: ClusterSettings): void;
-    export function fork(env?: any): Worker;
+    export function fork(env?: NodeJS.Env): Worker;
     export function disconnect(callback?: Function): void;
     export var worker: Worker;
     export var workers: {
@@ -1065,7 +1070,7 @@ declare module "child_process" {
 
     export interface SpawnOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.Env;
         stdio?: any;
         detached?: boolean;
         uid?: number;
@@ -1076,7 +1081,7 @@ declare module "child_process" {
 
     export interface ExecOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.Env;
         shell?: string;
         timeout?: number;
         maxBuffer?: number;
@@ -1098,7 +1103,7 @@ declare module "child_process" {
 
     export interface ExecFileOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.Env;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
@@ -1124,7 +1129,7 @@ declare module "child_process" {
 
     export interface ForkOptions {
         cwd?: string;
-        env?: any;
+        env?: NodeJS.Env;
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
@@ -1137,7 +1142,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
-        env?: any;
+        env?: NodeJS.Env;
         uid?: number;
         gid?: number;
         timeout?: number;
@@ -1173,7 +1178,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
-        env?: any;
+        env?: NodeJS.Env;
         shell?: string;
         uid?: number;
         gid?: number;
@@ -1197,7 +1202,7 @@ declare module "child_process" {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
-        env?: any;
+        env?: NodeJS.Env;
         uid?: number;
         gid?: number;
         timeout?: number;

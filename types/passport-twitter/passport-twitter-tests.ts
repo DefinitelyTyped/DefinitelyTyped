@@ -14,9 +14,9 @@ var User = {
 }
 
 passport.use(new twitter.Strategy({
-            consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
-            consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
-            callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL
+            consumerKey: process.env["PASSPORT_TWITTER_CONSUMER_KEY"],
+            consumerSecret: process.env["PASSPORT_TWITTER_CONSUMER_SECRET"],
+            callbackURL: process.env["PASSPORT_TWITTER_CALLBACK_URL"]
     },
     function(accessToken:string, refreshToken:string, profile:twitter.Profile, done:(error:any, user?:any) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {
@@ -27,9 +27,9 @@ passport.use(new twitter.Strategy({
 );
 
 passport.use(new twitter.Strategy({
-            consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
-            consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
-            callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL,
+            consumerKey: process.env["PASSPORT_TWITTER_CONSUMER_KEY"],
+            consumerSecret: process.env["PASSPORT_TWITTER_CONSUMER_SECRET"],
+            callbackURL: process.env["PASSPORT_TWITTER_CALLBACK_URL"],
             passReqToCallback : false
     },
     function(accessToken:string, refreshToken:string, profile:twitter.Profile, done:(error:any, user?:any) => void) {
@@ -41,9 +41,9 @@ passport.use(new twitter.Strategy({
 );
 
 passport.use(new twitter.Strategy({
-            consumerKey: process.env.PASSPORT_TWITTER_CONSUMER_KEY,
-            consumerSecret: process.env.PASSPORT_TWITTER_CONSUMER_SECRET,
-            callbackURL: process.env.PASSPORT_TWITTER_CALLBACK_URL,
+            consumerKey: process.env["PASSPORT_TWITTER_CONSUMER_KEY"],
+            consumerSecret: process.env["PASSPORT_TWITTER_CONSUMER_SECRET"],
+            callbackURL: process.env["PASSPORT_TWITTER_CALLBACK_URL"],
             passReqToCallback : true,
             includeEmail: true
     },

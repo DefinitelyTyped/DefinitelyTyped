@@ -14,9 +14,9 @@ var User = {
 }
 
 passport.use(new google.OAuthStrategy({
-            consumerKey: process.env.GOOGLE_CONSUMER_KEY,
-            consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
-            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL
+            consumerKey: process.env["GOOGLE_CONSUMER_KEY"],
+            consumerSecret: process.env["GOOGLE_CONSUMER_SECRET"],
+            callbackURL: process.env["PASSPORT_GOOGLE_CALLBACK_URL"]
     },
     function(accessToken:string, refreshToken:string, profile:google.Profile, done:(error:any, user?:any, msg?: google.VerifyOptions) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {
@@ -28,9 +28,9 @@ passport.use(new google.OAuthStrategy({
 );
 
 passport.use(new google.OAuth2Strategy({
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL
+            clientID: process.env["GOOGLE_CLIENT_ID"],
+            clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
+            callbackURL: process.env["PASSPORT_GOOGLE_CALLBACK_URL"]
     },
     function(accessToken:string, refreshToken:string, profile:google.Profile, done:(error:any, user?:any) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {
@@ -41,9 +41,9 @@ passport.use(new google.OAuth2Strategy({
 );
 
 passport.use(new google.OAuth2Strategy({
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL,
+            clientID: process.env["GOOGLE_CLIENT_ID"],
+            clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
+            callbackURL: process.env["PASSPORT_GOOGLE_CALLBACK_URL"],
             passReqToCallback: true
     },
     function(req: express.Request, accessToken:string, refreshToken:string, profile:google.Profile, done:(error:any, user?:any) => void) {
