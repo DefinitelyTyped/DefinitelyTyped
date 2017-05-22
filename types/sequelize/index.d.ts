@@ -5267,6 +5267,13 @@ declare namespace sequelize {
          * Defaults to false
          */
         benchmark?: boolean;
+
+        /**
+         * Run built in type validators on insert and update, e.g. validate that arguments passed to integer fields are integer-like.
+         *
+         * Defaults to false
+         */
+        typeValidation?: boolean;
     }
 
     /**
