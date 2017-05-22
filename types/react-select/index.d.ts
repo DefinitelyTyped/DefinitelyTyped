@@ -434,7 +434,7 @@ declare namespace ReactSelectClass {
         /**
          *  function to call to load options asynchronously
          */
-        loadOptions: (input: string, callback: (err: any, result: AutocompleteResult) => any) => any;
+        loadOptions: (input: string, callback?: (err: any, result: AutocompleteResult) => any) => any | Promise<AutocompleteResult>;
 
         /**
          *  replaces the placeholder while options are loading
