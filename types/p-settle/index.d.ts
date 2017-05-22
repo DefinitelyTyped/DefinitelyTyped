@@ -23,6 +23,6 @@ interface SettledResult<T> {
  *
  * @param input
  */
-declare function pSettle<T>(input: Iterable<PromiseLike<T>>): Array<Promise<SettledResult<T>>>;
+declare function pSettle<T>(input: Iterable<PromiseLike<T>>): Promise<Array<SettledResult<T>>>;
 
 export = pSettle;
