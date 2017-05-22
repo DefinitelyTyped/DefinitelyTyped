@@ -35,10 +35,9 @@ const drawControl = new L.Control.Draw({
 });
 map.addControl(drawControl);
 
-map.on('draw:created', (e: any) => {
-    const drawEvent = e as L.DrawEvents.Created;
-    const type = drawEvent.layerType;
-    const layer = drawEvent.layer;
+map.on(L.Draw.Event.CREATED, (e: L.DrawEvents.Created) => {
+    const type = e.layerType;
+    const layer = e.layer;
 
     drawnItems.addLayer(layer);
 });
