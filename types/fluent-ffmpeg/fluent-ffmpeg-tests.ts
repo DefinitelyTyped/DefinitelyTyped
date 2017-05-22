@@ -1,7 +1,7 @@
 import ffmpeg = require('fluent-ffmpeg');
 import { createWriteStream } from 'fs';
 
-var stream = createWriteStream('outputfile.divx');
+const stream = createWriteStream('outputfile.divx');
 
 ffmpeg('/path/to/file.avi')
     .output('outputfile.mp4')
@@ -27,13 +27,13 @@ ffmpeg('/path/to/file.avi')
 ffmpeg('/path/to/file.avi')
     .output('outputfile.mp4')
     .output(stream)
-    .on('end', function () {
+    .on('end', () => {
         console.log('Finished processing');
     })
     .run();
 
 // Create a command to convert source.avi to MP4
-var command = ffmpeg('/path/to/source.avi')
+const command = ffmpeg('/path/to/source.avi')
     .audioCodec('libfaac')
     .videoCodec('libx264')
     .format('mp4');
