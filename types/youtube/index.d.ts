@@ -2,7 +2,8 @@
 // Project: https://developers.google.com/youtube/
 // Definitions by: Daz Wilkin <https://github.com/DazWilkin/>,
 //                 Ian Obermiller <http://ianobermiller.com>,
-//                 Josh Goldberg <https://gitub.com/JoshuaKGoldberg>
+//                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
+//                 Eliot Fallon <https://github.com/eliotfallon213>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -518,6 +519,11 @@ declare namespace YT
 		 * Comma separated list of video IDs to play after the URL path's video.
 		 */
 		playlist?: string;
+		
+		/**
+		 * Whether videos play inline or fullscreen in an HTML5 player on iOS. Valid values are: 1 or 0.
+		 */
+		playsinline?: number;
 
 		/**
 		 * Whether to show related videos after the video finishes (by default, Show).
