@@ -7,11 +7,11 @@ export as namespace AVS;
 export = AVS;
 
 declare namespace AVS {
-    export enum EventTypes {
+    enum EventTypes {
         RECORD_STOP, RECORD_START, ERROR, TOKEN_INVALID, LOG, LOGIN, LOGOUT, TOKEN_SET, REFRESH_TOKEN_SET
     }
 
-    export interface AVSParams {
+    interface AVSParams {
         debug: boolean;
         clientId: string;
         clientSecret: string;
@@ -19,12 +19,12 @@ declare namespace AVS {
         refreshToken: string;
     }
 
-    export interface TokenResponse {
+    interface TokenResponse {
         token: string;
         refreshToken: string;
     }
 
-    export class Player {
+    class Player {
         on(eventType: Player.EventTypes, callback?: () => void): void;
     }
 
@@ -34,7 +34,6 @@ declare namespace AVS {
         }
     }
 }
-
 
 declare class AVS {
     player: AVS.Player;

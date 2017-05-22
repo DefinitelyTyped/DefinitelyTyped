@@ -19,7 +19,7 @@ avsInstance.on(AVS.EventTypes.RECORD_STOP, () => {
 avsInstance.player.on(AVS.Player.EventTypes.PLAY, () => {
 });
 
-avsInstance.refreshToken().then((tokens: object) => {
+avsInstance.refreshToken().then((tokens) => {
 }).catch((error: Error) => {
 });
 
