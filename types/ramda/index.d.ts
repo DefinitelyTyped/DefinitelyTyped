@@ -839,8 +839,7 @@ declare namespace R {
 
         /**
          * Returns a lens whose focus is the specified path.
-         * See also         view<T,U>(lens: Lens, obj: T): U;
- +        view<T,U>(lens: Lens): (obj: T) => U;, set, over.
+         * See also view, set, over.
          */
         lensPath(path: Path): Lens;
 
