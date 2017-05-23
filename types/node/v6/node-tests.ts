@@ -542,6 +542,32 @@ function simplified_stream_ctor_test() {
     })
 }
 
+// Subclassing stream classes
+{
+    class SubclassedReadable extends stream.Readable {};
+
+    let subclassedReadable: SubclassedReadable = new SubclassedReadable();
+    subclassedReadable = subclassedReadable.pause();
+    subclassedReadable = subclassedReadable.resume();
+
+    class SubclassedTransform extends stream.Transform {};
+
+    let subclassedTransform: SubclassedTransform = new SubclassedTransform();
+    subclassedTransform = subclassedTransform.pause();
+    subclassedTransform = subclassedTransform.resume();
+
+    class SubclassedDuplex extends stream.Duplex {};
+
+    let subclassedDuplex: SubclassedDuplex = new SubclassedDuplex();
+    subclassedDuplex = subclassedDuplex.pause();
+    subclassedDuplex = subclassedDuplex.resume();
+
+    // assignability
+    let readable: stream.Readable = subclassedDuplex;
+    readable = subclassedTransform;
+    let duplex: stream.Duplex = subclassedTransform;
+}
+
 ////////////////////////////////////////////////////////
 /// Crypto tests : http://nodejs.org/api/crypto.html ///
 ////////////////////////////////////////////////////////
