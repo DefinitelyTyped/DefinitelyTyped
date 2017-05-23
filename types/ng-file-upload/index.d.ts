@@ -253,6 +253,12 @@ declare module 'angular' {
              */
             url: string;
             /**
+             * HTTP method (e.g. 'GET', 'POST', etc)
+             * defaults to POST if ommited.
+             * @type {string}
+             */
+            method?: string;
+            /**
              * This is to accommodate server implementations expecting nested data object keys in .key or [key] format.
              * Example: data: {rec: {name: 'N', pic: file}} sent as: rec[name] -> N, rec[pic] -> file
              * data: {rec: {name: 'N', pic: file}, objectKey: '.k'} sent as: rec.name -> N, rec.pic -> file
