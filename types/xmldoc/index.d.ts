@@ -1,7 +1,7 @@
-// Type definitions for xmldoc 1.1.0
+// Type definitions for xmldoc 1.1
 // Project: https://www.npmjs.com/package/xmldoc
 // Definitions by:  Xavier Stouder <https://github.com/Xstoudi>, Andrew Sheehan <https://github.com/ajsheehan>
-// Definitions: https://github.com/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped): // TypeScript Version: 2.1
 
 export class XmlDocument {
     constructor(xmlString: string);
