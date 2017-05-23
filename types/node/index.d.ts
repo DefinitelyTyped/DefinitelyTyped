@@ -734,10 +734,10 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: any;
+        headers: { [key: string]: string };
         rawHeaders: string[];
-        trailers: any;
-        rawTrailers: any;
+        trailers: { [key: string]: string };
+        rawTrailers: string[];
         setTimeout(msecs: number, callback: Function): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
