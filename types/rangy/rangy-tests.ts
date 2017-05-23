@@ -94,4 +94,8 @@ function testSelection() {
     selection.setRanges(ranges);
     selection.setSingleRange(getRangyRange());
     assertString(selection.toHtml());
+    var node:Node = new Node();
+    object = selection.saveCharacterRanges(node);
+    selection.restoreCharacterRanges(node, object);
+    assertString(selection.toHtml());
 }
