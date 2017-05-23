@@ -22,7 +22,6 @@ declare class WebSocket extends events.EventEmitter {
     protocolVersion: string;
     url: string;
     supports: any;
-    upgradeReq: http.IncomingMessage;
     protocol: string;
     bufferedAmount: number;
     binaryType: string;
