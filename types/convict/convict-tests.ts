@@ -115,7 +115,7 @@ conf
   .loadFile('./config/' + env + '.json')
   .load({ jsonKey: 'jsonValue' })
   .set('key', 'value')
-  .validate( {allowed: 'warn'} )
+  .validate({ allowed: 'warn' })
   .toString();
 
 var port: number = conf.default('port');
