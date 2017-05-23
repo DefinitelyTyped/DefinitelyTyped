@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 8.3
+// Type definitions for Auth0.js 8.6
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -83,7 +83,7 @@ export class Authentication {
      * @param {String} accessToken
      * @param {Function} callback
      */
-    userInfo(token: string, callback: Auth0Callback<Auth0UserProfile>): void;
+    userInfo(accessToken: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Makes a call to the `/delegation` endpoint
@@ -195,6 +195,7 @@ export class WebAuth {
     client: Authentication;
     popup: Popup;
     redirect: Redirect;
+    crossOriginAuthentication: CrossOriginAuthentication;
 
     /**
      * Redirects to the hosted login page (`/authorize`) in order to initialize a new authN/authZ transaction
@@ -217,6 +218,7 @@ export class WebAuth {
      * @param {String} options.state [OPTIONAL] to verify the response
      * @param {String} options.nonce [OPTIONAL] to verify the id_token
      * @param {String} options.hash [OPTIONAL] the url hash. If not provided it will extract from window.location.hash
+     * @param {String} [options._idTokenVerification] makes parseHash perform or skip `id_token` verification. We **strongly** recommend validating the `id_token` yourself if you disable the verification.
      * @param {Function} callback: any(err, token_payload)
      */
     parseHash(options: any, callback: Auth0Callback<Auth0DecodedHash>): void;
@@ -226,11 +228,10 @@ export class WebAuth {
      *
      * @method validateToken
      * @param {String} token
-     * @param {String} state
      * @param {String} nonce
      * @param {Function} callback: function(err, {payload, transaction})
      */
-    validateToken(token: string, state: string, nonce: string, callback: Auth0Callback<any>): void;
+    validateToken(token: string, nonce: string, callback: Auth0Callback<any>): void;
 
     /**
      * Executes a silent authentication transaction under the hood in order to fetch a new token.
@@ -270,10 +271,40 @@ export class WebAuth {
     signupAndAuthorize(options: any, callback: Auth0Callback<any>): void;
 
     /**
-     * Redirects to the auth0 logout page
+     * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow. You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
+     * This only works when 3rd party cookies are enabled in the browser. After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
+     *
+     * @method login
+     * @param {Object} options options used in the {@link authorize} call after the login_ticket is acquired
+     * @param {String} [options.username] Username (mutually exclusive with email)
+     * @param {String} [options.email] Email  (mutually exclusive with username)
+     * @param {String} options.password Password
+     * @param {String} [options.realm] Realm used to authenticate the user, it can be a realm name or a database connection name
+     * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs. For other types of errors, there will be a redirect to the `redirectUri`.
+     */
+    login(options: any, callback: Auth0Callback<any>): void;
+
+    /**
+     * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
+     *
+     * @method crossOriginAuthenticationCallback
+     */
+    crossOriginAuthenticationCallback(): void;
+
+    /**
+     * Redirects to the auth0 logout endpoint
+     *
+     * If you want to navigate the user to a specific URL after the logout, set that URL at the returnTo parameter. The URL should be included in any the appropriate Allowed Logout URLs list:
+     *
+     * - If the client_id parameter is included, the returnTo URL must be listed in the Allowed Logout URLs set at the client level (see Setting Allowed Logout URLs at the App Level).
+     * - If the client_id parameter is NOT included, the returnTo URL must be listed in the Allowed Logout URLs set at the account level (see Setting Allowed Logout URLs at the Account Level).
      *
      * @method logout
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#get--v2-logout
+     * @param {Object} options
+     * @param {String} [options.clientID] identifier of your client
+     * @param {String} [options.returnTo] URL to be redirected after the logout
+     * @param {Boolean} [options.federated] tells Auth0 if it should logout the user also from the IdP.
+     * @see   {@link https://auth0.com/docs/api/authentication#logout}
      */
     logout(options: any): void;
 
@@ -310,12 +341,18 @@ export class Redirect {
     constructor(client: any, options: any);
 
     /**
-     * Initializes the legacy Lock login flow in a popup
+     * Performs authentication with username/email and password with a database connection
+     *
+     * This method is not compatible with API Auth so if you need to fetch API tokens with audience
+     * you should use {@link authorize} or {@link login}.
      *
      * @method loginWithCredentials
      * @param {Object} options
-     * @param {Function} callback
-     * @deprecated `webauth.popup.loginWithCredentials` will be soon deprecated, use `webauth.client.login` instead.
+     * @param {String} [options.redirectUri] url that the Auth0 will redirect after Auth with the Authorization Response
+     * @param {String} [options.responseType] type of the response used. It can be any of the values `code` and `token`
+     * @param {String} [options.responseMode] how the AuthN response is encoded and redirected back to the client. Supported values are `query` and `fragment`
+     * @param {String} [options.scope] scopes to be requested during AuthN. e.g. `openid email`
+     * @param {credentialsCallback} cb
      */
     loginWithCredentials(options: any, callback: Auth0Callback<any>): void;
 
@@ -323,8 +360,11 @@ export class Redirect {
      * Signs up a new user and automatically logs the user in after the signup.
      *
      * @method signupAndLogin
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
-     * @param {Function} callback
+     * @param {Object} options
+     * @param {String} options.email user email address
+     * @param {String} options.password user password
+     * @param {String} options.connection name of the connection where the user will be created
+     * @param {credentialsCallback} cb
      */
     signupAndLogin(options: any, callback: Auth0Callback<any>): void;
 }
@@ -348,21 +388,51 @@ export class Popup {
     preload(options: any): any;
 
     /**
-     * Opens in a popup the hosted login page (`/authorize`) in order to initialize a new authN/authZ transaction
+     * Handles the popup logic for the callback page.
+     *
+     * @method callback
+     * @param {Object} options
+     * @param {String} options.hash the url hash. If not provided it will extract from window.location.hash
+     * @param {String} [options.state] value originally sent in `state` parameter to {@link authorize} to mitigate XSRF
+     * @param {String} [options.nonce] value originally sent in `nonce` parameter to {@link authorize} to prevent replay attacks
+     * @param {String} [options._idTokenVerification] makes parseHash perform or skip `id_token` verification. We **strongly** recommend validating the `id_token` yourself if you disable the verification.
+     * @see   {@link parseHash}
+     */
+    callback(options: any): void;
+
+    /**
+     * Shows inside a new window the hosted login page (`/authorize`) in order to start a new authN/authZ transaction and post its result using `postMessage`.
      *
      * @method authorize
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#get--authorize_db
-     * @param {Function} callback
+     * @param {Object} options
+     * @param {String} [options.domain] your Auth0 domain
+     * @param {String} [options.clientID] your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
+     * @param {String} options.redirectUri url that the Auth0 will redirect after Auth with the Authorization Response
+     * @param {String} options.responseType type of the response used by OAuth 2.0 flow. It can be any space separated list of the values `code`, `token`, `id_token`. {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     * @param {String} [options.responseMode] how the Auth response is encoded and redirected back to the client. Supported values are `query`, `fragment` and `form_post`. {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
+     * @param {String} [options.state] value used to mitigate XSRF attacks. {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
+     * @param {String} [options.nonce] value used to mitigate replay attacks when using Implicit Grant. {@link https://auth0.com/docs/api-auth/tutorials/nonce}
+     * @param {String} [options.scope] scopes to be requested during Auth. e.g. `openid email`
+     * @param {String} [options.audience] identifier of the resource server who will consume the access token issued after Auth
+     * @param {Boolean} [options.owp] determines if Auth0 should render the relay page or not and the caller is responsible of handling the response.
+     * @param {authorizeCallback} cb
+     * @see {@link https://auth0.com/docs/api/authentication#authorize-client}
      */
     authorize(options: any, callback: Auth0Callback<any>): void;
 
     /**
-     * Initializes the legacy Lock login flow in a popup
+     * Performs authentication with username/email and password with a database connection inside a new window
+     *
+     * This method is not compatible with API Auth so if you need to fetch API tokens with audience
+     * you should use {@link authorize} or {@link login}.
      *
      * @method loginWithCredentials
      * @param {Object} options
-     * @param {Function} callback
-     * @deprecated `webauth.popup.loginWithCredentials` will be soon deprecated, use `webauth.client.login` instead.
+     * @param {String} [options.redirectUri] url that the Auth0 will redirect after Auth with the Authorization Response
+     * @param {String} [options.responseType] type of the response used. It can be any of the values `code` and `token`
+     * @param {String} [options.responseMode] how the AuthN response is encoded and redirected back to the client. Supported values are `query` and `fragment`
+     * @param {String} [options.scope] scopes to be requested during AuthN. e.g. `openid email`
+     * @param {credentialsCallback} cb
      */
     loginWithCredentials(options: any, callback: Auth0Callback<any>): void;
 
@@ -383,11 +453,42 @@ export class Popup {
     /**
      * Signs up a new user and automatically logs the user in after the signup.
      *
+     * This method is not compatible with API Auth so if you need to fetch API tokens with audience
+     * you should use {@link authorize} or {@link signupAndAuthorize}.
+     *
      * @method signupAndLogin
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
-     * @param {Function} callback
+     * @param {Object} options
+     * @param {String} options.email user email address
+     * @param {String} options.password user password
+     * @param {String} options.connection name of the connection where the user will be created
+     * @param {credentialsCallback} cb
      */
     signupAndLogin(options: any, callback: Auth0Callback<any>): void;
+}
+
+export class CrossOriginAuthentication {
+    constructor(webAuth: any, options: any);
+
+    /**
+     * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow. You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
+     * This only works when 3rd party cookies are enabled in the browser. After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
+     *
+     * @method login
+     * @param {Object} options options used in the {@link authorize} call after the login_ticket is acquired
+     * @param {String} [options.username] Username (mutually exclusive with email)
+     * @param {String} [options.email] Email  (mutually exclusive with username)
+     * @param {String} options.password Password
+     * @param {String} [options.realm] Realm used to authenticate the user, it can be a realm name or a database connection name
+     * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs. For other types of errors, there will be a redirect to the `redirectUri`.
+     */
+    login(options: any, callback: Auth0Callback<any>): void;
+
+    /**
+     * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
+     *
+     * @method callback
+     */
+    callback(): void;
 }
 
 type Auth0Callback<T> = (error: null | Auth0Error, result: T) => void;

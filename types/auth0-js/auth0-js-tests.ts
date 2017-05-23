@@ -90,6 +90,9 @@ webAuth.popup.signupAndLogin({}, (err, data) => {
     // do something with data
 });
 
+webAuth.login({foo: 'bar'}, (err, data) => {});
+
+webAuth.crossOriginAuthenticationCallback();
 
 let authentication = new auth0.Authentication({
     domain: 'me.auth0.com',
