@@ -47,7 +47,7 @@ interface RangySelection extends Selection {
     moveToBookmark(bookmark:Object):any;
     saveRanges():Object;
     restoreRanges(saved:Object):any;
-    saveCharacterRanges(containerNode:Node): Object;
+    saveCharacterRanges(containerNode:Node):Object;
     restoreCharacterRanges(containerNode:Node, characterRanges:Object):any;
     detach():any;
     inspect():string;
