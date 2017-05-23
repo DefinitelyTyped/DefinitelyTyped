@@ -5408,7 +5408,8 @@ declare namespace kendo.ui {
         slotByPosition(xPosition: number, yPosition: number): any;
         slotByElement(element: Element): any;
         slotByElement(element: JQuery): any;
-        view(type?: string): kendo.ui.SchedulerView;
+        view(): kendo.ui.SchedulerView;
+        view(name: string): void;
         viewName(): string;
 
     }
