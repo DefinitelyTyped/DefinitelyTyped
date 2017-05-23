@@ -37,6 +37,7 @@ declare namespace vex {
     close(id?: number): boolean;
     closeAll(): boolean;
     closeByID(id: number): boolean;
+    defaultOptions?: IVexOptions;
   }
 
 }

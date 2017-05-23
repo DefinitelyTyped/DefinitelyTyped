@@ -630,6 +630,8 @@ new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
 
+const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
+
 //
 //  Hooks
 // ~~~~~~~
@@ -872,6 +874,7 @@ User.findAll( {
         s.or( { deletedAt : null }, { deletedAt : { gt : new Date( 0 ) } } ) )]
 } );
 User.findAll( { paranoid : false, where : [' IS NOT NULL '], include : [{ model : User }] } );
+User.findAll( { include : [{ model : Task, paranoid: false }] } );
 User.findAll( { transaction : t } );
 User.findAll( { where : { data : { name : { last : 's' }, employment : { $ne : 'a' } } }, order : [['id', 'ASC']] } );
 User.findAll( { where : { username : ['boo', 'boo2'] } } );
@@ -1009,6 +1012,9 @@ User.bulkCreate( [{ name : 'foo', code : '123' }, { code : '1234' }], { fields :
 User.bulkCreate( [{ name : 'a', c : 'b' }, { name : 'e', c : 'f' }], { fields : ['e', 'f'], ignoreDuplicates : true } );
 
 User.truncate();
+User.truncate( { cascade : true } );
+User.truncate( { force : true } );
+User.truncate( { cascade: true, force : true } );
 
 User.destroy( { where : { client_id : 13 } } ).then( ( a ) => a.toFixed() );
 User.destroy( { force : true } );
@@ -1285,7 +1291,10 @@ s.define( 'UserWithUniqueUsername', {
             name : 'user_and_email_index',
             unique : true,
             method : 'BTREE',
-            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }]
+            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }],
+            where : {
+                user_id : { $not: null }
+            }
         },
         {
             fields: ['data'],

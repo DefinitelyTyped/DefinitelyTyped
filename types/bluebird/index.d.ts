@@ -228,8 +228,8 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    *
    * Alias `.thenReturn();` for compatibility with earlier ECMAScript version.
    */
-  return(): Bluebird<any>;
-  thenReturn(): Bluebird<any>;
+  return(): Bluebird<void>;
+  thenReturn(): Bluebird<void>;
   return<U>(value: U): Bluebird<U>;
   thenReturn<U>(value: U): Bluebird<U>;
 
