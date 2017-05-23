@@ -4854,6 +4854,11 @@ const TextFieldExampleSimple = () => (
       min={5}
       max={50}
       step={5}
+    /><br />
+    <TextField
+        hintText="Hint Text"
+        errorText="This field is required"
+        required
     />
   </div>
 );

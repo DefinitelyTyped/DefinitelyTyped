@@ -1,6 +1,6 @@
 // Type definitions for material-ui v0.17.51
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>, Aurelién Allienne <https://github.com/allienna>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>, Aurelién Allienne <https://github.com/allienna>, Jonathon Kelly <https://github.com/InsidersByte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1812,6 +1812,7 @@ declare namespace __MaterialUI {
         onKeyDown?: React.KeyboardEventHandler<{}>;
         onKeyUp?: React.KeyboardEventHandler<{}>;
         onKeyPress?: React.KeyboardEventHandler<{}>;
+        required?: boolean;
         rows?: number,
         rowsMax?: number,
         style?: React.CSSProperties;
