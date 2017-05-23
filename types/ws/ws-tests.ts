@@ -71,11 +71,11 @@ var WebSocketServer = WebSocket.Server;
     ): void {
         callback(true)
     }
-
+    
     var wsv = new WebSocketServer({
         verifyClient
     })
-
+    
     wsv.on('connection', function connection(ws) {
         console.log(ws.protocol)
     })
