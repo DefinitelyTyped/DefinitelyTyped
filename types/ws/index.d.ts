@@ -137,13 +137,13 @@ declare namespace WebSocket {
         // Events
         on(event: 'error', cb: (err: Error) => void): this;
         on(event: 'headers', cb: (headers: string[]) => void): this;
-        on(event: 'connection', cb: (client: WebSocket) => void): this;
         on(event: string, listener: () => void): this;
+        on(event: 'connection', cb: (client: WebSocket, req: http.IncomingMessage) => void): this;
 
         addListener(event: 'error', cb: (err: Error) => void): this;
         addListener(event: 'headers', cb: (headers: string[]) => void): this;
-        addListener(event: 'connection', cb: (client: WebSocket) => void): this;
         addListener(event: string, listener: () => void): this;
+        addListener(event: 'connection', cb: (client: WebSocket, req: http.IncomingMessage) => void): this;
     }
 
     export function createServer(options?: IServerOptions,

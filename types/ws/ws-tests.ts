@@ -22,7 +22,8 @@ var WebSocketServer = WebSocket.Server;
 
 {
     var wss = new WebSocketServer({port: 8080});
-    wss.on('connection', (ws) => {
+    wss.on('connection', (ws, req) => {
+        console.log(req.url);
         ws.on('message', (message) => console.log('received: %s', message));
         ws.send('something');
     });
@@ -76,8 +77,9 @@ var WebSocketServer = WebSocket.Server;
         verifyClient
     })
     
-    wsv.on('connection', function connection(ws) {
+    wsv.on('connection', function connection(ws, req) {
         console.log(ws.protocol)
+        console.log(req.url)
     })
 }
 
