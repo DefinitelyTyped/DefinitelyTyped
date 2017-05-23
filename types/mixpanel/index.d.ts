@@ -1,4 +1,4 @@
-// Type definitions for Mixpanel
+// Type definitions for Mixpanel for 2.11.1
 // Project: https://mixpanel.com/
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek/>
@@ -23,6 +23,8 @@ interface Mixpanel
     register(params:{[index:string]:any}, days?:number):void;
 
     register_once(params:{[index:string]:any}, defaultValue?:string, days?:number):void;
+
+    reset():void;
 
     unregister(propertyName:string):void;
 
