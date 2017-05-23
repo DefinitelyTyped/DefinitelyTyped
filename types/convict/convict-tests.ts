@@ -108,6 +108,16 @@ conf.validate({ strict: true });
 conf.validate({ allowed: 'strict' });
 conf.validate({ allowed: 'warn' });
 
+// Chaining
+
+conf
+  .loadFile(['./configs/always.json', './configs/sometimes.json'])
+  .loadFile('./config/' + env + '.json')
+  .load({ jsonKey: 'jsonValue' })
+  .set('key', 'value')
+  .validate( {allowed: 'warn'} )
+  .toString();
+
 var port: number = conf.default('port');
 
 if (conf.has('key')) {

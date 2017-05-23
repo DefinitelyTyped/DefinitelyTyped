@@ -49,19 +49,52 @@ declare namespace convict {
     }
 
     interface Config {
+        /**
+         * @returns the current value of the name property. name can use dot
+         * notation to reference nested values
+         */
         get(name: string): any;
+        /**
+         * @returns the default value of the name property. name can use dot
+         * notation to reference nested values
+         */
         default(name: string): any;
+        /**
+         * @returns true if the property name is defined, or false otherwise
+         */
         has(name: string): boolean;
-        set(name: string, value: any): void;
-        load(conf: Object): void;
-        loadFile(file: string): void;
-        loadFile(files: string[]): void;
+        /**
+         * Sets the value of name to value. name can use dot notation to reference
+         * nested values, e.g. "database.port". If objects in the chain don't yet
+         * exist, they will be initialized to empty objects
+         *
+         * @return {Config} instance
+         */
+        set(name: string, value: any): Config;
+        /**
+         * Loads and merges a JavaScript object into config
+         *
+         * @return {Config} instance
+         */
+        load(conf: Object): Config;
+        /**
+         * Loads and merges one JSON configuration file into config
+         *
+         * @return {Config} instance
+         */
+        loadFile(file: string): Config;
+        /**
+         * Loads and merges multiple JSON configuration files into config
+         *
+         * @return {Config} instance
+         */
+        loadFile(files: string[]): Config;
         /**
          * Validates config against the schema used to initialize it
          *
          * @param options
          */
-        validate(options?: ValidateOptions): void;
+        validate(options?: ValidateOptions): Config;
         /**
          * Exports all the properties (that is the keys and their current values) as a {JSON} {Object}
          * @returns {Object} A {JSON} compliant {Object}
