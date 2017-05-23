@@ -307,8 +307,8 @@ export class ManagementClient {
   getUsers(params?: GetUsersData): Promise<User[]>;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
 
-  getUser(params?: ObjectWithId): Promise<User[]>;
-  getUser(params?: ObjectWithId, cb?: (err: Error, users: User[]) => void): void;
+  getUser(params: ObjectWithId): Promise<User>;
+  getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
   createUser(data: UserData): Promise<User>;
   createUser(data: UserData, cb: (err: Error, data: User) => void): void;
@@ -322,8 +322,8 @@ export class ManagementClient {
   deleteAllUsers(): Promise<User>;
   deleteAllUsers(cb: (err: Error, data: any) => void): void;
 
-  deleteUser(params?: ObjectWithId): Promise<any>;
-  deleteUser(params?: ObjectWithId, cb?: (err: Error, users: User[]) => void): void;
+  deleteUser(params: ObjectWithId): Promise<void>;
+  deleteUser(params: ObjectWithId, cb?: (err: Error) => void): void;
 
   updateAppMetadata(params: UpdateUserParameters, data: AppMetadata): Promise<User>;
   updateAppMetadata(params: UpdateUserParameters, data: AppMetadata, cb: (err: Error, data: User) => void): void;
