@@ -83,6 +83,11 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
      */
     animationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig;
     /**
+     * Override container's inner padding (needed for slides's centering).
+     * Warning: be aware that overriding the default value can mess with carousel's behavior.
+     */
+    carouselHorizontalPadding?: number;
+    /**
      * Optional styles for Scrollview's global wrapper
      */
     containerCustomStyle?: ScrollViewStyle;

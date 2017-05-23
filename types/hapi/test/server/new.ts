@@ -44,6 +44,15 @@ new Hapi.Server({
     }]
 });
 
+//+ Code added in addition to docs
+declare module 'hapi' {
+    interface PluginSpecificConfiguration {
+        // Set this to non optional if plugin config is non optional
+        'some-plugin-name'?: {options: string;};
+    }
+}
+//- Code added in addition to docs
+
 new Hapi.Server({
     connections: {
         app: {},
@@ -54,7 +63,8 @@ new Hapi.Server({
             maxEventLoopDelay: 10,
         },
         plugins: {
-            'some-plugin-name': {options: 'here'}
+            'some-plugin-name': {options: 'here'},
+            coolPlugin: {optionA: ""},
         },
         router: {
             isCaseSensitive: false,

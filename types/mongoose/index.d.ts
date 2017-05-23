@@ -696,6 +696,8 @@ declare module "mongoose" {
     capped?: boolean;
     /** no default */
     collection?: string;
+    /** defaults to "__t" */
+    discriminatorKey?: string;
     /** defaults to false. */
     emitIndexErrors?: boolean;
     /** defaults to true */

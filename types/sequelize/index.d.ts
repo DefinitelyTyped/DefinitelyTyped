@@ -3165,6 +3165,12 @@ declare namespace sequelize {
          * Load further nested related models
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+        
+        /**
+         * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
+         * be returned. Only applies if `options.paranoid` is true for the model.
+         */
+        paranoid?: boolean;
 
     }
 
@@ -3395,6 +3401,14 @@ declare namespace sequelize {
          * Defaults to false;
          */
         cascade?: boolean;
+
+        /**
+         * Delete instead of setting deletedAt to current timestamp (only applicable if paranoid is enabled)
+         *
+         * Defaults to false;
+         */
+        force?: boolean;
+
     }
 
     /**
@@ -4783,6 +4797,11 @@ declare namespace sequelize {
          * Operator that should be used by gin index, see Built-in GIN Operator Classes
          */
         operator?: string;
+
+        /**
+         * Condition for partioal index
+         */
+        where?: WhereOptions;
 
     }
 

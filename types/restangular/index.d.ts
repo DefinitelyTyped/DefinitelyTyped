@@ -134,6 +134,7 @@ declare namespace restangular {
     withHttpConfig(httpConfig: angular.IRequestShortcutConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
+    getRequestedUrl(): string;
     route?: string;
     id?: string;
     reqParams?: any;
@@ -154,5 +155,6 @@ declare namespace restangular {
     plain(): any;
     plain<T>(): T[];
     getRestangularUrl(): string;
+    getRequestedUrl(): string;
   }
 }

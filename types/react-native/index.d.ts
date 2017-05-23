@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>
+// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -3524,6 +3524,13 @@ export interface FlatListProperties<ItemT> {
      * See `ViewabilityHelper` for flow type and further documentation.
      */
     viewabilityConfig?: any
+
+    /**
+     * Note: may have bugs (missing content) in some circumstances - use at your own risk.
+     *
+     * This may improve scroll performance for large lists.
+     */
+    removeClippedSubviews?: boolean
 }
 
 export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProperties<ItemT>> {
@@ -3649,6 +3656,13 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
      */
     renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+
+    /**
+     * Note: may have bugs (missing content) in some circumstances - use at your own risk.
+     *
+     * This may improve scroll performance for large lists.
+    */
+    removeClippedSubviews?: boolean
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
@@ -4226,6 +4240,11 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
      * to reduce memory allocations.
      */
     pressRetentionOffset?: Insets
+
+    /**
+     * Used to locate this view in end-to-end tests.
+     */
+    testID?: string
 }
 
 
