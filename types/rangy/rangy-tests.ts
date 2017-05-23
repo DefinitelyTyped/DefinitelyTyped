@@ -81,6 +81,7 @@ function testSelection() {
 
     selection.detach();
     let ranges:RangyRange[] = selection.getAllRanges();
+    let range:RangyRange = selection.getRangeAt(0);
     selection.getBookmark(new Node);
     let nativeTextRange:TextRange = selection.getNativeTextRange();
     assertString(selection.inspect());
