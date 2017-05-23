@@ -181,3 +181,9 @@ const component1 = Ember.Component.extend( mix1, mix2, {
   lyft: Ember.inject.service(),
   cars: Ember.computed.readOnly('lyft.cars')
 });
+
+Ember.run.schedule('afterRender', () => {
+  Ember.$('.email').parent().find('input').focus();
+});
+
+Ember.run.debounce(this, this.checkForDuplicateContacts, 100);
