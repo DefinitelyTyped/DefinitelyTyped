@@ -81,18 +81,16 @@ interface IntentRequest extends IRequest {
     intent: Intent;
 }
 
-interface ISlots {
-    [slot: string]: {
-        confirmationStatus: ConfirmationStatuses;
-        name: string;
-        value?: any;
-    };
+interface SlotValue {
+    confirmationStatus: ConfirmationStatuses;
+    name: string;
+    value?: any;
 }
 
 interface Intent {
     confirmationStatus: ConfirmationStatuses;
     name: string;
-    slots: ISlots;
+    slots: Record<string, SlotValue>;
 }
 
 interface SessionEndedRequest extends IRequest {
