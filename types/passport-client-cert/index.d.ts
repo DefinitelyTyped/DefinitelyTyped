@@ -6,25 +6,20 @@
 import {Strategy as PassportStrategy} from 'passport-strategy';
 import {Request} from 'express';
 
-export declare class Strategy extends PassportStrategy {
-    constructor(verify: IPkiCallback);
-    constructor(opt: StrategyOptions, verify: IPkiCallback);
-    constructor(opt: StrategyOptions, verify: IPkiCallbackWithRequest);
+export class Strategy extends PassportStrategy {
+    constructor(verify: PkiCallback);
+    constructor(opt: StrategyOptions, verify: PkiCallback | PkiCallbackWithRequest);
 }
 
 export interface StrategyOptions {
     passReqToCallback?: boolean;
 }
 
-export interface IPkiCallback {
-    (payload: IClientCert, done: IPkiVerifiedCallback): void;
-}
+export type PkiCallback = (payload: ClientCert, done: PkiVerifiedCallback) => void;
 
-export interface IPkiCallbackWithRequest {
-    (req: Request, payload: IClientCert, done: IPkiVerifiedCallback): void;
-}
+export type PkiCallbackWithRequest = (req: Request, payload: ClientCert, done: PkiVerifiedCallback) => void;
 
-export interface IClientCert {
+export interface ClientCert {
     exponent: string;
     fingerprint: string;
     issuer: {[key: string]: string};
@@ -36,6 +31,4 @@ export interface IClientCert {
     valid_to: string;
 }
 
-export interface IPkiVerifiedCallback {
-    (error: any, user?: any, info?: any): void;
-}
+export type PkiVerifiedCallback = (error: any, user?: any, info?: any) => void;
