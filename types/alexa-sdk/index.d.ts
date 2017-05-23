@@ -2,6 +2,7 @@
 // Project: https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs
 // Definitions by: Pete Beegle <https://github.com/petebeegle>, Huw <https://github.com/hoo29>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export function handler(event: RequestBody, context: Context, callback?: Function): AlexaObject;
 export function CreateStateHandler(state: string, obj: any): any;
