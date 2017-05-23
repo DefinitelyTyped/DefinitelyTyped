@@ -1,10 +1,25 @@
-// Type definitions for node-convict v0.6.0
+// Type definitions for node-convict v3.0.0
 // Project: https://github.com/mozilla/node-convict
-// Definitions by: Wim Looman <https://github.com/Nemo157>
+// Definitions by: Wim Looman <https://github.com/Nemo157>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare namespace convict {
+
+    type ValidationMethod = 'strict' | 'warn';
+
+    interface ValidateOptions {
+        /**
+         * If set to warn, any properties specified in config files that are not declared in
+         * the schema will print a warning. This is the default behavior. If set to strict,
+         * any properties specified in config files that are not declared in the schema will
+         * throw errors. This is to ensure that the schema and the config files are in sync.
+         */
+        allowed?: ValidationMethod;
+
+        /** @deprecated use allowed instead */
+        strict?: boolean;
+    }
 
     interface Format {
         name?: string;
@@ -41,7 +56,12 @@ declare namespace convict {
         load(conf: Object): void;
         loadFile(file: string): void;
         loadFile(files: string[]): void;
-        validate(options?: { strict?: boolean }): void;
+        /**
+         * Validates config against the schema used to initialize it
+         *
+         * @param options
+         */
+        validate(options?: ValidateOptions): void;
         /**
          * Exports all the properties (that is the keys and their current values) as a {JSON} {Object}
          * @returns {Object} A {JSON} compliant {Object}
