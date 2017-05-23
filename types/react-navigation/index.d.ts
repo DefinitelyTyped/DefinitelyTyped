@@ -1,7 +1,6 @@
 // Type definitions for react-navigation 1.0
 // Project: https://github.com/react-community/react-navigation
-// Definitions by: Huhuanming <https://github.com/huhuanming>
-//                 mhcgrq <https://github.com/mhcgrq>
+// Definitions by: Huhuanming <https://github.com/huhuanming>, mhcgrq <https://github.com/mhcgrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react'
@@ -603,16 +602,22 @@ export interface DrawerNavigatorScreenOptions {
   ;
 }
 
+export type NavigationNavigateActionCreator = (options: NavigationNavigateAction) => boolean;
+export type NavigationResetActionCreator = (options: NavigationResetAction) => boolean;
+export type NavigationBackActionCreator = (options?: NavigationBackAction) => boolean;
+export type NavigationSetParamsActionCreator = (options: NavigationSetParamsAction) => boolean;
+
 export interface NavgationComponentProps<T> {
+  screenProps: any
   navigation: {
+    dispatch: any
+    goBack: NavigationBackActionCreator
+    navigate: NavigationNavigateActionCreator
+    setParams: NavigationSetParamsActionCreator
     state: {
       key: string
+      routeName: string,
       params: T,
     },
   }
 }
-
-export type NavigationNavigateActionCreator = (options: NavigationNavigateAction) => NavigationNavigateAction;
-export type NavigationResetActionCreator = (options: NavigationResetAction) => NavigationResetAction;
-export type NavigationBackActionCreator = (options: NavigationBackAction) => NavigationBackAction;
-export type NavigationSetParamsActionCreator = (options: NavigationSetParamsAction) => NavigationSetParamsAction;
