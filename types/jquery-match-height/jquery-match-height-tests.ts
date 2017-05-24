@@ -5,7 +5,6 @@ $(document).ready(() => {
     $(".containers").matchHeight({
         byRow: true,
         property: "height",
-        target: null,
         remove: true}
     );
 });
