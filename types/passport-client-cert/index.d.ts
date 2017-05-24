@@ -2,6 +2,7 @@
 // Project: https://github.com/ripjar/passport-client-cert
 // Definitions by: Sean Warner <https://github.com/warnersean/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import {Strategy as PassportStrategy} from 'passport-strategy';
 import {Request} from 'express';
@@ -22,11 +23,11 @@ export type PkiCallbackWithRequest = (req: Request, payload: ClientCert, done: P
 export interface ClientCert {
     exponent: string;
     fingerprint: string;
-    issuer: {[key: string]: string};
+    issuer: any;
     modulus: string;
     raw: Uint8Array;
     serialNumber: string;
-    subject: {[key: string]: string};
+    subject: any;
     valid_from: string;
     valid_to: string;
 }
