@@ -1391,6 +1391,12 @@ declare module "https" {
         secureProtocol?: string;
     }
 
+    export interface ClientRequest extends http.ClientRequest {}
+
+    export interface IncomingMessage extends http.IncomingMessage {}
+
+    export interface ServerResponse extends http.ServerResponse { }
+
     export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
@@ -1409,9 +1415,9 @@ declare module "https" {
         new (options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: (request: http.IncomingMessage, response: http.ServerResponse) => void): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
+    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
