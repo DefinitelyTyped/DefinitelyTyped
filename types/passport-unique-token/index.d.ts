@@ -1,8 +1,8 @@
 // Type definitions for passport-unique-token 1.0.0
 // Project: https://github.com/Lughino/passport-unique-token
-// Definitions by: briman0094 <https://github.com/briman0094>
-// (based on passport-local definitions by Maxime LUCE <https://github.com/SomaticIT>)
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: briman0094 <https://github.com/briman0094>
+//                 Maxime LUCE <https://github.com/SomaticIT>
 
 import passport = require('passport');
 import express = require('express');
