@@ -1,8 +1,8 @@
-// Type definitions for realm-js 1.0
+// Type definitions for realm-js 1.3.1
 // Project: https://github.com/realm/realm-js
 // Definitions by: Akim <https://github.com/Akim95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3.2
 
 declare namespace Realm {
     /**
@@ -54,11 +54,6 @@ declare namespace Realm {
         type: ObjectClass;
     }
 
-    interface SyncConfiguration {
-        user: User;
-        url: string;
-    }
-
     /**
      * realm configuration
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~Configuration }
@@ -70,7 +65,7 @@ declare namespace Realm {
         readOnly?: boolean;
         schema?: ObjectClass[] | ObjectSchema[];
         schemaVersion?: number;
-        sync?: SyncConfiguration;
+        sync?: Realm.Sync.SyncConfiguration;
     }
 
     // object props type
@@ -83,20 +78,6 @@ declare namespace Realm {
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html#~SortDescriptor }
      */
     type SortDescriptor = string | [string, boolean] | any[];
-
-    /**
-     * Iterator
-     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html#~Iterator }
-     */
-    interface IteratorResult<T> {
-        done: boolean;
-        value?: T;
-    }
-
-    interface Iterator<T> {
-        next(done: boolean, value?: any): IteratorResult<T>;
-        [Symbol.iterator](): any;
-    }
 
     /**
      * Collection
@@ -127,7 +108,7 @@ declare namespace Realm {
         /**
          * @returns Iterator
          */
-        [Symbol.iterator](): Iterator<T>;
+        [Symbol.iterator](): IterableIterator<T>;
 
         /**
          * @returns Results
@@ -137,7 +118,7 @@ declare namespace Realm {
         /**
          * @returns Iterator<any>
          */
-        entries(): Iterator<any>;
+        entries(): Iterator<[number, T]>;
 
         /**
          * @returns Iterator<any>
@@ -147,7 +128,7 @@ declare namespace Realm {
         /**
          * @returns Iterator<any>
          */
-        values(): Iterator<any>;
+        values(): IterableIterator<T>;
 
         /**
          * @param  {string[]} separator?
@@ -167,7 +148,7 @@ declare namespace Realm {
          * @param  {any} thisArg?
          * @returns T
          */
-        find(callback: (object: any, index?: any, collection?: any) => void, thisArg?: any): T | null | undefined;
+        find(callback: (object: T, index?: any, collection?: any) => void, thisArg?: any): T | null | undefined;
 
         /**
          * @param  {(object:any,index?:number,collection?:any)=>void} callback
@@ -289,30 +270,50 @@ declare namespace Realm {
      */
     type Results<T> = Collection<T>;
 
+
+
+    /**
+     * LogLevel
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html#~LogLevel }
+     */
+    type LogLevelType = 'error' | 'info' | 'debug';
+}
+
+/**
+ * Sync
+ * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html }
+ */
+declare namespace Realm.Sync {
+
     /**
      * User
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.User.html }
      */
-    interface User {
-        all: any;
-        current: User;
+    class User {
+        static readonly all: {[identity: string]: User};
+        static readonly current: User;
         readonly identity: string;
         readonly isAdmin: boolean;
         readonly server: string;
         readonly token: string;
-        adminUser(adminToken: string): User;
-        login(server: string, username: string, password: string, callback: (error: any, user: any) => void): void;
-        loginWithProvider(server: string, provider: string, providerToken: string, callback: (error: any, user: any) => void): void;
-        register(server: string, username: string, password: string, callback: (error: any, user: any) => void): void;
-        registerWithProvider(server: string, provider: string, providerToken: string, callback: (error: any, user: any) => void): void;
+        static adminUser(adminToken: string): User;
+        static login(server: string, username: string, password: string, callback: (error: any, user: User) => void): void;
+        static loginWithProvider(server: string, provider: string, providerToken: string, callback: (error: any, user: User) => void): void;
+        static register(server: string, username: string, password: string, callback: (error: any, user: User) => void): void;
+        static registerWithProvider(server: string, options: { provider: string, providerToken: string, userInfo: any}, callback: (error: Error | null, user: User | null) => void): void;
         logout(): void;
         openManagementRealm(): Realm;
     }
 
+    interface SyncConfiguration {
+        user: User;
+        url: string;
+    }
+
     /**
-     * Session
-     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.Session.html }
-     */
+    * Session
+    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.Session.html }
+    */
     interface Session {
         readonly config: any;
         readonly state: string;
@@ -321,9 +322,9 @@ declare namespace Realm {
     }
 
     /**
-     * AuthError
-     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.AuthError.html }
-     */
+    * AuthError
+    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.AuthError.html }
+    */
     interface AuthError {
         readonly code: number;
         readonly type: string;
@@ -334,31 +335,93 @@ declare namespace Realm {
      * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.ChangeEvent.html }
      */
     interface ChangeEvent {
-        readonly changes: any;
+        readonly changes: { [object_type: string]: { insertions: number[], deletions: number[], modifications: number[] } };
         readonly oldRealm: Realm;
         readonly path: string;
         readonly realm: Realm;
     }
 
-    /**
-     * LogLevel
-     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html#~LogLevel }
-     */
-    type LogLevelType = string | 'error' | 'info' | 'defug';
+    function addListener(serverURL: string, adminUser: Realm.Sync.User, regex: string, name: string, changeCallback: () => void): void;
+    function removeAllListeners(name?: string[]): void;
+    function removeListener(regex: string, name: string, changeCallback: () => void): void;
+    function setLogLevel(logLevel: LogLevelType): void;
 
-    /**
-     * Sync
-     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html }
-     */
-    interface Sync {
-        User: User;
-        Session: Session;
-        AuthError: AuthError;
-        ChangeEvent: ChangeEvent;
-        addListener(serverURL: string, adminUser: User, regex: string, name: string, changeCallback: () => void): void;
-        removeAllListeners(name?: string[]): void;
-        removeListener(regex: string, name: string, changeCallback: () => void): void;
-        setLogLevel(logLevel: LogLevelType): void;
+    type Instruction = {
+        INSERT?: {
+            object_type: string,
+            identity: string,
+            values: any
+        }
+        SET?: {
+            object_type: string,
+            identity: any,
+            values: any
+        },
+        DELETE?: {
+            object_type: string,
+            identity: any
+        }
+        CLEAR?: {
+            object_type: string
+        }
+        LIST_SET?: {
+            object_type: string,
+            identity: any,
+            property: string,
+            list_index: any,
+            object_identity: any
+        },
+        LIST_INSERT?: {
+            object_type: string,
+            identity: any,
+            property: string,
+            list_index: any,
+            object_identity: any
+        },
+        LIST_ERASE?: {
+            object_type: string,
+            identity: any,
+            property: string,
+            list_index: any,
+        },
+        LIST_CLEAR?: {
+            object_type: string,
+            identity: any,
+            property: string,
+        },
+        ADD_TYPE?: {
+            object_type: string,
+            identity: any,
+            properties: string,
+        },
+        ADD_PROPERTIES?: {
+            object_type: string,
+            properties: any
+        },
+        CHANGE_IDENTITY?: {
+            object_type: string,
+            identity: any,
+            new_identity: any
+        }
+    }
+
+    class Adapter {
+        constructor(
+            local_path: string,
+            server_url: string,
+            admin_user: User,
+            regex: string,
+            change_callback: Function
+        )
+
+        /**
+         * Advance the to the next transaction indicating that you are done processing the current instructions for the given Realm.
+         * @param path the path for the Realm to advance
+         */
+        advance(path: string): void;
+        close(): void;
+        current(path: string): Array<Instruction>;
+        realmAtPath(path: string): Realm
     }
 }
 
@@ -373,9 +436,7 @@ declare class Realm {
 
     readonly schemaVersion: number;
 
-    static Sync: Realm.Sync;
-
-    syncSession: Realm.Session;
+    syncSession: Realm.Sync.Session;
 
     /**
      * @param  {string} path

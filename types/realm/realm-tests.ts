@@ -1,22 +1,24 @@
 import * as Realm from 'realm';
 
-// schema test
-const personSchema = {
-    name: 'Person',
-    primaryKey: 'id',
-    properties: {
-        id: 'int',
-        name: { type: 'string', default: 'anonymous', indexed: true },
-        profilePic: { type: 'string', optional: true }
+class Person {
+    // schema test
+    static personSchema = {
+        name: 'Person',
+        primaryKey: 'id',
+        properties: {
+            id: 'int',
+            name: { type: 'string', default: 'anonymous', indexed: true },
+            profilePic: { type: 'string', optional: true }
+        }
     }
-};
+}
 
 // encryptionKey
 const key = new Int8Array(64);
 
 // constructor test
 const realm = new Realm({
-    schema: [personSchema],
+    schema: [Person.personSchema],
     encryptionKey: key
 });
 
@@ -35,15 +37,20 @@ realm.write(() => {
 });
 
 // delete all person test
-const allPerson = realm.objects('Person');
-realm.delete(allPerson);
-
+const allPerson = realm.objects<Person>('Person');
+realm.write(() => {
+    realm.delete(allPerson);
+})
 // filtered test
 const allJack = allPerson.filtered('name = "Jack"');
 
 // sorted test
 allJack.sorted('id');
 allJack.sorted('id', true);
+
+for (let a of allJack.values()) {
+    console.log(a)
+}
 
 // limiting results test
 allJack.slice(0, 2);
@@ -56,8 +63,8 @@ realm.addListener('change', () => {
 // remove all events
 realm.removeAllListeners();
 
-allPerson.find((person: any) => {
-    return person.name === 'Jack';
+allPerson.find((person) => {
+    return person
 });
 
 const currentVersion = Realm.schemaVersion(Realm.defaultPath);
@@ -88,11 +95,20 @@ Realm.Sync.User.login('http://localhost.com:9080', 'username@example.com', 'p@s$
 
 // facebook authentication
 const fbAccessToken = 'acc3ssT0ken...';
-Realm.Sync.User.registerWithProvider('http://localhost:9080', 'facebook', fbAccessToken, (error, user) => { /* ... */ });
+Realm.Sync.User.registerWithProvider('http://localhost:9080', {
+    provider: 'facebook',
+    providerToken: fbAccessToken,
+    userInfo: {
+
+    }
+}, (error: Error | null, user: Realm.Sync.User | null) => { /* ... */ });
 
 // user test
 const user = Realm.Sync.User.current;
 const users = Realm.Sync.User.all;
+
+
+const adapter = new Realm.Sync.Adapter('', '', {} as Realm.Sync.User, '', () => { })
 
 // access control test
 const managementRealm = user.openManagementRealm();
