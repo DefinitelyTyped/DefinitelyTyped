@@ -6,6 +6,9 @@
 /// <reference types="jquery" />
 
 declare namespace MCustomScrollbar {
+
+    type Factory = (jQuery: JQueryStatic) => void;
+
     interface CustomScrollbarOptions {
         /**
         * Set the width of your content (overwrites CSS width), value in pixels (integer) or percentage (string)
@@ -374,4 +377,11 @@ interface JQuery {
     * @param options Override default options
     */
     mCustomScrollbar(options?: MCustomScrollbar.CustomScrollbarOptions): JQuery;
+}
+
+declare module "malihu-custom-scrollbar-plugin" {
+
+    var factory: MCustomScrollbar.Factory;
+
+    export = factory;
 }

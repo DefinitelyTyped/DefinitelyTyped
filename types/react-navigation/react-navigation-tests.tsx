@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import {
     addNavigationHelpers,
     StackNavigator,
+    TabNavigatorScreenOptions
 } from 'react-navigation';
 
 const Start = (
@@ -28,3 +29,10 @@ const Router = (props: any) => (
       }
     />
 );
+
+const tabNavigatorScreenOptions: TabNavigatorScreenOptions = {
+    title: 'title',
+    tabBarVisible: true,
+    tabBarIcon: <View />,
+    tabBarLabel: 'label'
+}

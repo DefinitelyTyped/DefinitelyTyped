@@ -1727,6 +1727,7 @@ declare namespace R {
          * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
          * portion of the data structure is visible.
          */
+        view<T,U>(lens: Lens): (obj: T) => U;
         view<T,U>(lens: Lens, obj: T): U;
 
         /**

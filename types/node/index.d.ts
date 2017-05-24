@@ -378,7 +378,7 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         env: any;
-        exit(code?: number): void;
+        exit(code?: number): never;
         exitCode: number;
         getgid(): number;
         setgid(id: number): void;
@@ -1744,6 +1744,7 @@ declare module "child_process" {
         execPath?: string;
         execArgv?: string[];
         silent?: boolean;
+        stdio?: any[];
         uid?: number;
         gid?: number;
     }
@@ -1857,7 +1858,7 @@ declare module "url" {
     export function resolve(from: string, to: string): string;
 
     export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string);
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): Iterator<string[]>;
@@ -3478,6 +3479,13 @@ declare module "crypto" {
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFillSync(buffer: Buffer | Uint8Array, offset?: number, size?: number): Buffer;
+    export function randomFill(buffer: Buffer, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, callback: (err: Error, buf: Uint8Array) => void): void;
+    export function randomFill(buffer: Buffer, offset: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, offset: number, callback: (err: Error, buf: Uint8Array) => void): void;
+    export function randomFill(buffer: Buffer, offset: number, size: number, callback: (err: Error, buf: Buffer) => void): void;
+    export function randomFill(buffer: Uint8Array, offset: number, size: number, callback: (err: Error, buf: Uint8Array) => void): void;
     export interface RsaPublicKey {
         key: string;
         padding?: number;
