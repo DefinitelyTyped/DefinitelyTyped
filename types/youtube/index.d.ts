@@ -251,6 +251,22 @@ declare namespace YT
 		 */
 		Modest = 1
 	}
+	
+	/**
+	 * Whether to playback video inline or full-screen in an HTML5 player on iOS
+	 */
+	export const enum PlaysInline
+	{
+		/**
+		 * Playback in fullscreen.
+		 */
+		Fullscreen = 0,
+
+		/**
+		 * Playback inline
+		 */
+		Inline = 1
+	}
 
 	/**
 	 * Whether to show related videos after the video finishes.
@@ -267,7 +283,7 @@ declare namespace YT
 		 */
 		Show = 1
 	}
-
+	
 	/**
 	 * Whether to show video information before playing.
 	 */
@@ -521,9 +537,9 @@ declare namespace YT
 		playlist?: string;
 		
 		/**
-		 * Whether videos play inline or fullscreen in an HTML5 player on iOS. Valid values are: 1 or 0.
+		 * Whether videos play inline or fullscreen in an HTML5 player on iOS. (currently by default, Fullscreen).
 		 */
-		playsinline?: number;
+		playsinline?: PlaysInline;
 
 		/**
 		 * Whether to show related videos after the video finishes (by default, Show).
