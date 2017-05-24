@@ -13,7 +13,7 @@ export interface ManagementClientOptions {
 export interface UserMetadata { }
 export interface AppMetadata { }
 
-export interface UserData {
+export interface CreateUserData {
   connection: string;
   email?: string;
   username?: string;
@@ -21,7 +21,26 @@ export interface UserData {
   phone_number?: string;
   user_metadata?: UserMetadata;
   email_verified?: boolean;
+  verify_email?: boolean;
+  phone_verified?: boolean,
   app_metadata?: AppMetadata;
+}
+
+export interface UpdateUserData {
+  blocked?: boolean;
+  email_verified?: boolean;
+  email?: string;
+  verify_email?: boolean,
+  phone_number?: string,
+  phone_verified?: boolean,
+  verify_phone_number?: boolean,
+  password?: string,
+  verify_password?: boolean,
+  user_metadata?: UserMetadata,
+  app_metadata?: AppMetadata,
+  connection?: string,
+  username?: string,
+  client_id?: string
 }
 
 export interface GetUsersData {
@@ -67,8 +86,7 @@ export interface Identity {
   isSocial: boolean;
 }
 
-export interface UpdateUserParameters {
-  id: string;
+export interface UpdateUserParameters extends ObjectWithId {
 }
 
 export interface AuthenticationClientOptions {
@@ -134,15 +152,45 @@ export interface ClientParams {
   client_id: string;
 }
 
+export type DeleteDeleteMultifactorParamsProvider = 'duo' | 'google-authenticator';
+
 export interface DeleteMultifactorParams {
   id: string;
-  provider: string;
+  provider: DeleteDeleteMultifactorParamsProvider;
 }
 
-export interface LinkAccountsParams {
+export type UnlinkAccountsParamsProvider = 'ad' | 'adfs' | 'amazon' | 'dropbox' | 'bitbucket' | 'aol' | 'auth0-adldap' |
+  'auth0-oidc' | 'auth0' | 'baidu' | 'bitly' | 'box' | 'custom' | 'dwolla' | 'email' | 'evernote-sandbox' | 'evernote' |
+  'exact' | 'facebook' | 'fitbit' | 'flickr' | 'github' | 'google-apps' | 'google-oauth2' | 'guardian' | 'instagram' |
+  'ip' | 'linkedin' | 'miicard' | 'oauth1' | 'oauth2' | 'office365' | 'paypal' | 'paypal-sandbox' | 'pingfederate' |
+  'planningcenter' | 'renren' | 'salesforce-community' | 'salesforce-sandbox' | 'salesforce' | 'samlp' | 'sharepoint' |
+  'shopify' | 'sms' | 'soundcloud' | 'thecity-sandbox' | 'thecity' | 'thirtysevensignals' | 'twitter' | 'untappd' |
+  'vkontakte' | 'waad' | 'weibo' | 'windowslive' | 'wordpress' | 'yahoo' | 'yammer' | 'yandex';
+
+export interface UnlinkAccountsParams {
   id: string;
-  provider: string;
+  provider: UnlinkAccountsParamsProvider;
   user_id: string;
+}
+
+export interface UnlinkAccountsResponseProfile {
+  email?: string;
+  email_verified?: boolean;
+  name?: string;
+  username?: string;
+  given_name?: string;
+  phone_number?: string;
+  phone_verified?: boolean;
+  family_name?: string;
+}
+
+export interface UnlinkAccountsResponse {
+  connection: string;
+  user_id: string;
+  provider: string;
+  isSocial?: boolean;
+  access_token?: string;
+  profileData?: UnlinkAccountsResponseProfile
 }
 
 export interface LinkAccountsData {
@@ -310,29 +358,30 @@ export class ManagementClient {
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
-  createUser(data: UserData): Promise<User>;
-  createUser(data: UserData, cb: (err: Error, data: User) => void): void;
+  createUser(data: CreateUserData): Promise<User>;
+  createUser(data: CreateUserData, cb: (err: Error, data: User) => void): void;
 
-  updateUser(params: UpdateUserParameters, data: User): Promise<User>;
-  updateUser(params: UpdateUserParameters, data: User, cb: (err: Error, data: User) => void): void;
+  updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
+  updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
 
-  updateUserMetadata(params: UpdateUserParameters, data: UserMetadata): Promise<User>;
-  updateUserMetadata(params: UpdateUserParameters, data: UserMetadata, cb: (err: Error, data: User) => void): void;
+  updateUserMetadata(params: ObjectWithId, data: UserMetadata): Promise<User>;
+  updateUserMetadata(params: ObjectWithId, data: UserMetadata, cb: (err: Error, data: User) => void): void;
 
+  // Should be removed from auth0 also. Doesn't exist in api.
   deleteAllUsers(): Promise<User>;
   deleteAllUsers(cb: (err: Error, data: any) => void): void;
 
   deleteUser(params: ObjectWithId): Promise<void>;
   deleteUser(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateAppMetadata(params: UpdateUserParameters, data: AppMetadata): Promise<User>;
-  updateAppMetadata(params: UpdateUserParameters, data: AppMetadata, cb: (err: Error, data: User) => void): void;
+  updateAppMetadata(params: ObjectWithId, data: AppMetadata): Promise<User>;
+  updateAppMetadata(params: ObjectWithId, data: AppMetadata, cb: (err: Error, data: User) => void): void;
 
-  deleteUserMultifactor(params: DeleteMultifactorParams): Promise<any>;
-  deleteUserMultifactor(params: DeleteMultifactorParams, cb: (err: Error, data: any) => void): void;
+  deleteUserMultifactor(params: DeleteMultifactorParams): Promise<void>;
+  deleteUserMultifactor(params: DeleteMultifactorParams, cb: (err: Error) => void): void;
 
-  unlinkUsers(params: LinkAccountsParams): Promise<any>;
-  unlinkUsers(params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
+  unlinkUsers(params: UnlinkAccountsParams): Promise<UnlinkAccountsResponse>;
+  unlinkUsers(params: UnlinkAccountsParams, cb: (err: Error, data: UnlinkAccountsResponse) => void): void;
 
   linkUsers(params: ObjectWithId, data: LinkAccountsData): Promise<any>;
   linkUsers(params: ObjectWithId, data: LinkAccountsData, cb: (err: Error, data: any) => void): void;
