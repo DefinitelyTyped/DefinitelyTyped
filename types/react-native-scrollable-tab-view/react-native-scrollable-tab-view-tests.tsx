@@ -36,9 +36,9 @@ class ScrollableTabViewDemo extends React.Component<{}, {}> {
     );
   }
 
-  protected componentWillMount?(): void {
+  componentWillMount?(): void {
   }
 
-  protected componentWillUnmount?(): void {
+  componentWillUnmount?(): void {
   }
 }
