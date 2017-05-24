@@ -113,10 +113,10 @@ describe("Included matchers:", () => {
     });
 
     it("The 'toContain' matcher is also for finding an object containing distinct properties in an Array", () => {
-        var a = [{a:"foo"}, {a:"bar"}, {b:"baz"}];
+        var a = [{ a: "foo" }, { a: "bar" }, { b: "baz" }];
 
-        expect(a).toContain(jasmine.objectContaining({a:"foo"}));
-        expect(a).not.toContain({a:"quux"});
+        expect(a).toContain(jasmine.objectContaining({ a: "foo" }));
+        expect(a).not.toContain({ a: "quux" });
     });
 
     it("The 'toBeLessThan' matcher is for mathematical comparisons", () => {
@@ -657,6 +657,25 @@ describe("jasmine.any", () => {
         expect(12).toEqual(jasmine.any(Number));
     });
 
+    it("matches any function", () => {
+        interface Test {
+            fn1(): void;
+            fn2(param1: number): number;
+        }
+
+        const a: Test = {
+            fn1: () => { },
+            fn2: (param1: number) => { return param1; },
+        };
+
+        const expected: Test = {
+            fn1: jasmine.any(Function),
+            fn2: jasmine.any(Function),
+        };
+
+        expect(a).toEqual(expected);
+    });
+
     describe("when used with a spy", () => {
         it("is useful for comparing arguments", () => {
             var foo = jasmine.createSpy('foo');
@@ -848,7 +867,7 @@ describe("Fail", () => {
 
 // test based on http://jasmine.github.io/2.2/custom_equality.html
 describe("custom equality", () => {
-    var myCustomEquality: jasmine.CustomEqualityTester = function(first: any, second: any): boolean {
+    var myCustomEquality: jasmine.CustomEqualityTester = function (first: any, second: any): boolean {
         if (typeof first === "string" && typeof second === "string") {
             return first[0] === second[1];
         }

@@ -75,7 +75,7 @@ declare namespace jasmine {
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any {
-
+        (...params: any[]):any; // jasmine.Any can also be a function
         new (expectedClass: any): any;
 
         jasmineMatches(other: any): boolean;
