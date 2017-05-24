@@ -9,7 +9,7 @@ import * as React from "react";
 export = IconBaseClass;
 
 declare namespace IconBaseClass {
-    export interface IconBaseProps {
+    interface IconBaseProps {
         color?: string;
         size?: string | number;
         style?: React.CSSProperties;
