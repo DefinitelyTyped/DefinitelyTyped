@@ -165,8 +165,42 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 second="2-digit"
                 timeZoneName="short" />
 
+            <FormattedDate
+                value={Date.now()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
             <FormattedTime
                 value={new Date()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
+            <FormattedTime
+                value={Date.now()}
                 format="short"
                 localeMatcher="best fit"
                 formatMatcher="basic"
