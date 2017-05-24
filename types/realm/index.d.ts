@@ -2,7 +2,7 @@
 // Project: https://github.com/realm/realm-js
 // Definitions by: Akim <https://github.com/Akim95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3.2
+// TypeScript Version: 2.1
 
 declare namespace Realm {
     /**
