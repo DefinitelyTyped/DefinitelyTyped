@@ -9,41 +9,44 @@
 import passport = require('passport');
 import express = require('express');
 
-interface IStrategyOptions {
-    tokenField?: string;
-    tokenQuery?: string;
-    tokenParams?: string;
-    tokenHeader?: string;
-    failedOnMissing?: boolean;
-    passReqToCallback?: false;
-}
+declare namespace passport_unique_token {
 
-interface IStrategyOptionsWithRequest {
-    tokenField?: string;
-    tokenQuery?: string;
-    tokenParams?: string;
-    tokenHeader?: string;
-    failedOnMissing?: boolean;
-    passReqToCallback: true;
-}
+    interface IStrategyOptions {
+        tokenField ? : string;
+        tokenQuery ? : string;
+        tokenParams ? : string;
+        tokenHeader ? : string;
+        failedOnMissing ? : boolean;
+        passReqToCallback ? : false;
+    }
 
-interface IVerifyOptions {
-    message: string;
-}
+    interface IStrategyOptionsWithRequest {
+        tokenField ? : string;
+        tokenQuery ? : string;
+        tokenParams ? : string;
+        tokenHeader ? : string;
+        failedOnMissing ? : boolean;
+        passReqToCallback: true;
+    }
 
-interface VerifyFunctionWithRequest {
-    (req: express.Request, token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
-}
+    interface IVerifyOptions {
+        message: string;
+    }
 
-interface VerifyFunction {
-    (token: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
-}
+    interface VerifyFunctionWithRequest {
+        (req: express.Request, token: string, done: (error: any, user ? : any, options ? : IVerifyOptions) => void): void;
+    }
 
-declare class Strategy implements passport.Strategy {
-    constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
-    constructor(options: IStrategyOptions, verify: VerifyFunction);
-    constructor(verify: VerifyFunction);
+    interface VerifyFunction {
+        (token: string, done: (error: any, user ? : any, options ? : IVerifyOptions) => void): void;
+    }
 
-    name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    export class Strategy implements passport.Strategy {
+        constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
+        constructor(options: IStrategyOptions, verify: VerifyFunction);
+        constructor(verify: VerifyFunction);
+
+        name: string;
+        authenticate: (req: express.Request, options ? : Object) => void;
+    }
 }
