@@ -16,11 +16,13 @@ $.fn.matchHeight._rows($('.containers'));
 
 $('.containers').matchHeight({ remove: true });
 
-$.fn.matchHeight._beforeUpdate = function(event: any, groups: any) {
+// tslint:disable-next-line no-used-variable
+$.fn.matchHeight._beforeUpdate = (event: any, groups: any) => {
     // do something before any updates are applied
 };
 
-$.fn.matchHeight._afterUpdate = function(event: any, groups: any) {
+// tslint:disable-next-line no-used-variable
+$.fn.matchHeight._afterUpdate = (event: any, groups: any) => {
     // do something after all updates are applied
 };
 
@@ -33,4 +35,4 @@ $.fn.matchHeight._throttle = 80;
 
 $.fn.matchHeight._maintainScroll = true;
 
-$.fn.matchHeight._groups
+$.fn.matchHeight._groups;
