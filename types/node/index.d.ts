@@ -1409,7 +1409,7 @@ declare module "https" {
         new (options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: Function): Server;
+    export function createServer(options: ServerOptions, requestListener?: (request: http.IncomingMessage, response: http.ServerResponse) => void): Server;
     export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
