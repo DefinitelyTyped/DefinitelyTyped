@@ -62,8 +62,8 @@ app.post('/login', authenticate, (req, res) => {
     res.redirect('/');
 });
 
-function authenticate(req, res, next) {
-    passport.authenticate('token', function (err, user, info) {
+function authenticate(req: express.Request, res: express.Response, next: express.NextFunction) {
+    passport.authenticate('token', function (err: any, user: any, info: any) {
         if (err) {
             return next(err);
         }
