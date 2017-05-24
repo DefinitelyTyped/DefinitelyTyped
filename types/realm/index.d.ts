@@ -347,62 +347,16 @@ declare namespace Realm.Sync {
     function setLogLevel(logLevel: LogLevelType): void;
 
     type Instruction = {
-        INSERT?: {
-            object_type: string,
+        type: 'INSERT' | 'SET' | 'DELETE' | 'CLEAR' | 'LIST_SET' | 'LIST_INSERT' | 'LIST_ERASE' | 'LIST_CLEAR' | 'ADD_TYPE' | 'ADD_PROPERTIES' | 'CHANGE_IDENTITY'
+        object_type: string,
             identity: string,
-            values: any
-        }
-        SET?: {
-            object_type: string,
-            identity: any,
-            values: any
-        },
-        DELETE?: {
-            object_type: string,
-            identity: any
-        }
-        CLEAR?: {
-            object_type: string
-        }
-        LIST_SET?: {
-            object_type: string,
-            identity: any,
-            property: string,
-            list_index: any,
-            object_identity: any
-        },
-        LIST_INSERT?: {
-            object_type: string,
-            identity: any,
-            property: string,
-            list_index: any,
-            object_identity: any
-        },
-        LIST_ERASE?: {
-            object_type: string,
-            identity: any,
-            property: string,
-            list_index: any,
-        },
-        LIST_CLEAR?: {
-            object_type: string,
-            identity: any,
-            property: string,
-        },
-        ADD_TYPE?: {
-            object_type: string,
-            identity: any,
-            properties: string,
-        },
-        ADD_PROPERTIES?: {
-            object_type: string,
-            properties: any
-        },
-        CHANGE_IDENTITY?: {
-            object_type: string,
-            identity: any,
-            new_identity: any
-        }
+            values: any | undefined
+            list_index: any | undefined
+            object_identity: any | undefined
+            new_identity: any | undefined,
+            property: any | undefined,
+            properties: any | undefined,
+            primary_key: string | undefined
     }
 
     class Adapter {
