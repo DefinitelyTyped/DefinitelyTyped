@@ -1,12 +1,11 @@
-
 /**
  * Created by briman0094 <https://github.com/briman0094>.
  * Based on passport-local tests by Maxime LUCE <https://github.com/SomaticIT>.
  */
 
 import express = require("express");
-import passport = require('passport');
-import uniqueToken = require('passport-unique-token');
+import passport = require("passport");
+import uniqueToken = require("passport-unique-token");
 
 //#region Test Models
 interface IUser {
@@ -16,7 +15,7 @@ interface IUser {
 class User implements IUser {
     public uniqueToken: string;
 
-    static findOne(user: IUser & any, callback: (err: Error, user: User) => void): void {
+    static findOne(user: IUser & any, callback: (err: Error | null, user: User) => void): void {
         callback(null, new User());
     }
 
@@ -28,7 +27,12 @@ class User implements IUser {
 
 // Sample from https://github.com/Lughino/passport-unique-token
 passport.use(new uniqueToken.Strategy((token: string, done: any) => {
-    User.findOne({ uniqueToken: token, expireToken: { $gt: Date.now() } }, function (err, user) {
+    User.findOne({
+        uniqueToken: token,
+        expireToken: {
+            $gt: Date.now()
+        }
+    }, function (err, user) {
         if (err) {
             return done(err);
         }
@@ -41,8 +45,13 @@ passport.use(new uniqueToken.Strategy((token: string, done: any) => {
     });
 }));
 
-passport.use(new uniqueToken.Strategy({ tokenField: "q", passReqToCallback: true }, (req: express.Request, token: string, done: any) => {
-    User.findOne({ uniqueToken: token }, function (err, user) {
+passport.use(new uniqueToken.Strategy({
+    tokenField: "q",
+    passReqToCallback: true
+}, (req: express.Request, token: string, done: any) => {
+    User.findOne({
+        uniqueToken: token
+    }, function (err, user) {
         if (err) {
             return done(err);
         }
@@ -69,7 +78,9 @@ function authenticate(req: express.Request, res: express.Response, next: express
         }
 
         if (!user) {
-            res.status(401).json({message: "Incorrect token credentials"});
+            res.status(401).json({
+                message: "Incorrect token credentials"
+            });
         }
 
         req.user = user;

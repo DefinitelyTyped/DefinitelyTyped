@@ -4,8 +4,6 @@
 // (based on passport-local definitions by Maxime LUCE <https://github.com/SomaticIT>)
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="passport"/>
-
 import passport = require('passport');
 import express = require('express');
 
@@ -50,3 +48,5 @@ declare namespace passport_unique_token {
         authenticate: (req: express.Request, options ? : Object) => void;
     }
 }
+
+export = passport_unique_token;
