@@ -178,7 +178,7 @@ declare namespace React {
     type ReactInstance = Component<any, any> | Element;
 
     // Base component for plain JS classes
-    class Component<P, S> implements ComponentLifecycle<P, S> {
+    class Component<P, S> extends ComponentLifecycle<P, S> {
         constructor(props?: P, context?: any);
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
@@ -251,7 +251,7 @@ declare namespace React {
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------
 
-    interface ComponentLifecycle<P, S> {
+    class ComponentLifecycle<P, S> {
         componentWillMount?(): void;
         componentDidMount?(): void;
         componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
