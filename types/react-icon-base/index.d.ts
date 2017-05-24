@@ -1,15 +1,20 @@
 // Type definitions for react-icon-base 2.0
 // Project: https://github.com/gorangajic/react-icon-base#readme
-// Definitions by: Alexandre Paré <https://github.com/apare>
+// Definitions by: Alexandre Paré <https://github.com/apare>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as React from 'react';
+import * as React from "react";
 
-export interface IconBaseProps {
-    color?: string;
-    size?: string | number;
-    style?: React.CSSProperties;
+export = IconBaseClass;
+
+declare namespace IconBaseClass {
+    export interface IconBaseProps {
+        color?: string;
+        size?: string | number;
+        style?: React.CSSProperties;
+        viewBox?: string;
+    }
 }
 
-export default class IconBase extends React.Component<IconBaseProps, any> {}
+declare class IconBaseClass extends React.Component<IconBaseClass.IconBaseProps, any> {}
