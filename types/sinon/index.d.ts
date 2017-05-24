@@ -498,12 +498,22 @@ declare namespace Sinon {
         /**
          * Creates a new object with the given functions as the prototype and stubs all implemented functions.
          * 
-         * @type TType   Object type to stub.
-         * @param type   Object or class to stub.
+         * @param constructor   Object or class to stub.
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
          */
-        createStubInstance<TType>(type: StubbableType<TType>): SinonStubbedInstance<TType>;
+        createStubInstance(constructor: any): any;
+
+        /**
+         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
+         * 
+         * @type TType   Object type to stub.
+         * @param constructor   Object or class to stub.
+         * @returns A stubbed version of the constructor.
+         * @remarks The given constructor function is not invoked. See also the stub API.
+         */
+        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
+
         format(obj: any): string;
         restore(object: any): void;
     }
@@ -513,7 +523,7 @@ declare namespace Sinon {
      * 
      * @type TType   Object type to stub.
      */
-    type StubbableType<TType> = object & {
+    type StubbableType<TType> = {
         new?(): TType;
         new?(...args: any[]): TType;
     };
@@ -523,7 +533,7 @@ declare namespace Sinon {
      * 
      * @type TType   Object type being stubbed.
      */
-    type SinonStubbedInstance<TType> = {
+    type SinonStubbedInstance<TType> = /* { [i: string]: SinonStub } & */ {
         [P in keyof TType]: SinonStub;
     };
 }
