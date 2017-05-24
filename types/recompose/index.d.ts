@@ -183,7 +183,7 @@ declare module 'recompose' {
 
     // compose: https://github.com/acdlite/recompose/blob/master/docs/API.md#compose
     export function compose<TInner, TOutter>(
-        ...functions: Function[]
+        ...functions: (Function | ComponentEnhancer)[]
     ): ComponentEnhancer<TInner, TOutter>;
     // export function compose<TOutter>(
     //     ...functions: Array<Function>
