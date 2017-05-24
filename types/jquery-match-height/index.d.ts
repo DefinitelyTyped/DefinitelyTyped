@@ -1,4 +1,4 @@
-// Type definitions for jquery-match-height v0.7.2
+// Type definitions for jquery-match-height 0.7
 // Project: https://github.com/liabru/jquery-match-height
 // Definitions by: Andrea Briganti <https://github.com/kbytesys/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,10 +11,10 @@
 
 declare namespace JQueryMatchHeight {
     interface Options {
-        byRow?: boolean,
-        property?: string,
-        target?: string,
-        remove?: boolean
+        byRow?: boolean;
+        property?: string;
+        target?: string;
+        remove?: boolean;
     }
 }
 
