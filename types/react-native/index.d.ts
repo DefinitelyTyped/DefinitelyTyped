@@ -2908,6 +2908,13 @@ export interface RecyclerViewBackedScrollViewStatic extends ScrollResponderMixin
     getScrollResponder(): JSX.Element;
 }
 
+export interface SliderPropertiesAndroid extends ViewProperties {
+    /**
+     * Color of the foreground switch grip.
+     */
+    thumbTintColor?: string,
+}
+
 export interface SliderPropertiesIOS extends ViewProperties {
 
     /**
@@ -2917,22 +2924,10 @@ export interface SliderPropertiesIOS extends ViewProperties {
     maximumTrackImage?: ImageURISource
 
     /**
-     * The color used for the track to the right of the button.
-     * Overrides the default blue gradient image.
-     */
-    maximumTrackTintColor?: string
-
-    /**
      * Assigns a minimum track image. Only static images are supported.
      * The rightmost pixel of the image will be stretched to fill the track.
      */
     minimumTrackImage?: ImageURISource
-
-    /**
-     * The color used for the track to the left of the button.
-     * Overrides the default blue gradient image.
-     */
-    minimumTrackTintColor?: string
 
     /**
      * Sets an image for the thumb. Only static images are supported.
@@ -2947,7 +2942,7 @@ export interface SliderPropertiesIOS extends ViewProperties {
     trackImage?: ImageURISource
 }
 
-export interface SliderProperties extends SliderPropertiesIOS {
+export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesAndroid {
 
     /**
      * If true the user won't be able to move the slider.
@@ -2956,9 +2951,21 @@ export interface SliderProperties extends SliderPropertiesIOS {
     disabled?: boolean
 
     /**
+     * The color used for the track to the right of the button.
+     * Overrides the default blue gradient image.
+     */
+    maximumTrackTintColor?: string
+
+    /**
      * Initial maximum value of the slider. Default value is 1.
      */
     maximumValue?: number
+
+    /**
+     * The color used for the track to the left of the button.
+     * Overrides the default blue gradient image.
+     */
+    minimumTrackTintColor?: string
 
     /**
      * Initial minimum value of the slider. Default value is 0.
