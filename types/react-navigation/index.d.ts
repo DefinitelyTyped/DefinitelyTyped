@@ -1,7 +1,6 @@
 // Type definitions for react-navigation 1.0
 // Project: https://github.com/react-community/react-navigation
-// Definitions by: Huhuanming <https://github.com/huhuanming>
-//                 mhcgrq <https://github.com/mhcgrq>
+// Definitions by: Huhuanming <https://github.com/huhuanming>, mhcgrq <https://github.com/mhcgrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react'
@@ -320,10 +319,10 @@ export type NavigationAction =
   | NavigationTabAction
 
 export namespace NavigationActions {
-  function navigate(options: NavigationNavigateAction): any;
-  function reset(options: NavigationResetAction): any;
-  function back(options?: NavigationBackAction): any;
-  function setParams(options: NavigationSetParamsAction): any;
+  function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
+  function reset(options: NavigationResetAction): NavigationResetAction;
+  function back(options?: NavigationBackAction): NavigationBackAction;
+  function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
 }
 
 export type NavigationRouteConfig<T> = T & {
@@ -601,4 +600,24 @@ export interface DrawerNavigatorScreenOptions {
   drawerIcon?: React.ReactElement<any>
       | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
   ;
+}
+
+export type NavigationNavigateActionCreator = (options: NavigationNavigateAction) => boolean;
+export type NavigationResetActionCreator = (options: NavigationResetAction) => boolean;
+export type NavigationBackActionCreator = (options?: NavigationBackAction) => boolean;
+export type NavigationSetParamsActionCreator = (options: NavigationSetParamsAction) => boolean;
+
+export interface NavgationComponentProps<T> {
+  screenProps: any
+  navigation: {
+    dispatch: any
+    goBack: NavigationBackActionCreator
+    navigate: NavigationNavigateActionCreator
+    setParams: NavigationSetParamsActionCreator
+    state: {
+      key: string
+      routeName: string,
+      params: T,
+    },
+  }
 }
