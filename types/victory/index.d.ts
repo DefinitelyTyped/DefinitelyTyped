@@ -36,6 +36,7 @@ declare module "victory" {
         parent?: React.CSSProperties;
         data?: React.CSSProperties;
         labels?: React.CSSProperties;
+        tickLabels?: React.CSSProperties;
     }
 
     export interface VictoryAnimationProps {
