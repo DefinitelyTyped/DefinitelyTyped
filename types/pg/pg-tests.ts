@@ -1,6 +1,6 @@
 
 import * as pg from "pg";
-import * as bluebird "bluebird";
+import * as bluebird from "bluebird";
 
 var conString = "postgres://username:password@localhost/database";
 
