@@ -1,4 +1,4 @@
-// Type definitions for Chroma.js v1.1.1
+// Type definitions for Chroma.js v2.0.0
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,19 @@
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
 declare namespace Chroma {
+
+    type ColorSpaces = {
+        rgb: [number, number, number];
+        rgba: [number, number, number, number];
+        hsl: [number, number, number];
+        hsv: [number, number, number];
+        hsi: [number, number, number];
+        lab: [number, number, number];
+        lch: [number, number, number];
+        hcl: [number, number, number];
+        cmyk: [number, number, number, number];
+        gl: [number, number, number, number];
+    }
     export interface ChromaStatic {
 
         /**
@@ -19,7 +32,7 @@ declare namespace Chroma {
 
         /**
          * Creates a color from a number representation [0; 16777215]
-         * 
+         *
          * @param color The number to convert to a color.
          * @return the color object.
          */
@@ -33,19 +46,19 @@ declare namespace Chroma {
          * @param c
          * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
          * @return the color object.
-        */
-        (a: number, b: number, c: number, colorSpace?: string): Color;
+         */
+        (a: number, b: number, c: number, colorSpace?: keyof ColorSpaces): Color;
 
-        (a: number, b: number, c: number, d: number, colorSpace?: string): Color;
+        (a: number, b: number, c: number, d: number, colorSpace?: keyof ColorSpaces): Color;
 
         /**
-          * Create a color in the specified color space using values.
-          *
-          * @param values An array of values (e.g. [r, g, b, a?]).
-          * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
-          * @return the color object.
-          */
-        (values: number[], colorSpace?: string): Color;
+         * Create a color in the specified color space using values.
+         *
+         * @param values An array of values (e.g. [r, g, b, a?]).
+         * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
+         * @return the color object.
+         */
+        (values: number[], colorSpace?: keyof ColorSpaces): Color;
 
         /**
          * Create a color from a hex or string representation (as supported in CSS).
@@ -67,25 +80,26 @@ declare namespace Chroma {
 
         rgb(r: number, g: number, b: number): Color;
 
-        /** 
+        /**
          * GL is a variant of RGB(A), with the only difference that the components are normalized to the range of 0..1.
-        */
+         */
         gl(red: number, green: number, blue: number, alpha?: number): Color;
 
-        /** 
-         * light 2000K, bright sunlight 6000K. Based on Neil Bartlett's implementation. 
+        /**
+         * light 2000K, bright sunlight 6000K. Based on Neil Bartlett's implementation.
          * https://github.com/neilbartlett/color-temperature
-        */
+         */
         temperature(t: number): Color;
 
-        mix(col1: string | Color, col2: string | Color, f?: number, colorSpace?: string): Color;
+        mix(col1: string | Color, col2: string | Color, f?: number, colorSpace?: keyof ColorSpaces): Color;
 
-        interpolate(col1: string | Color, col2: string | Color, f?: number, colorSpace?: string): Color;
+        interpolate(col1: string | Color, col2: string | Color, f?: number, colorSpace?: keyof ColorSpaces): Color;
 
         /**
-         * Blends two colors using RGB channel-wise blend functions. Valid blend modes are multiply, darken, lighten, screen, overlay, burn, and dogde.
+         * Blends two colors using RGB channel-wise blend functions.
          */
-        blend(col1: string, col2: string, blendMode: string): Color;
+        blend(col1: string | Color, col2: string | Color,
+              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dogde'): Color;
 
         /**
          * Returns a random color.
@@ -93,7 +107,7 @@ declare namespace Chroma {
         random(): Color;
 
         /**
-         * Computes the WCAG contrast ratio between two colors. 
+         * Computes the WCAG contrast ratio between two colors.
          * A minimum contrast of 4.5:1 is recommended to ensure that text is still readable against a background color.
          *
          * @param color1 The first color.
@@ -102,10 +116,10 @@ declare namespace Chroma {
          */
         contrast(col1: string | Color, col2: string | Color): number;
 
-        bezier(colors: string[]): Scale;
+        bezier(colors: string[]): { (t: number): Color, scale(): Scale};
 
         /**
-         * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience. 
+         * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience.
          * chroma.scale uses the colors to construct.
          */
         brewer: {
@@ -147,31 +161,23 @@ declare namespace Chroma {
         };
 
         /**
-         * Helper function that computes class breaks for you, based on actual data. 
+         * Helper function that computes class breaks for you, based on actual data.
          * Supports three different modes: equidistant breaks, quantiles breaks and breaks based on k-means clusting.
          */
-        limits(data: number[], mode: string, c: number): number[];
+        limits(data: number[], mode: 'e' | 'q' | 'l' | 'k', c: number): number[];
 
-        scale(name: string): Scale;
+        scale(name: string | Color): Scale;
 
-        scale(colors?: string[]): Scale;
+        scale(colors?: (string | Color)[]): Scale;
 
         cubehelix(): Cubehelix;
 
         cmyk(c: number, m: number, y: number, k: number): Color;
-        
-        /**
-         * Create a color from a hex or string representation (as supported in CSS).
-         *
-         * This is an alias of chroma.hex().
-         *
-         * @param color The string to convert to a color.
-         * @return the color object.
-         */
-        css(col: string, mode?: string): string;
+
+        css(col: string): Color;
     }
 
-    export interface Color {
+    export type Color = {
         alpha(a?: number): Color;
 
         darken(f?: number): Color;
@@ -194,64 +200,42 @@ declare namespace Chroma {
 
         name(): string;
 
-        /**
-         * Create a color from a hex or string representation (as supported in CSS).
-         *
-         * This is an alias of chroma.hex().
-         *
-         * @param color The string to convert to a color.
-         * @return the color object.
-         */
-        css(mode?: string): string;
-
-        rgb(): number[];
-
-        rgba(): number[];
-
-        hsl(): number[];
-
-        hsv(): number[];
-
-        hsi(): number[];
-
-        lab(): number[];
-
-        lch(): number[];
-
-        hcl(): number[];
+        css(mode?: 'hsl'): string;
 
         temperature(): number;
-
-        gl(): number[];
+    } & {
+        [K in keyof ColorSpaces]: () => ColorSpaces[K];
     }
 
-    export interface Scale {
+    export interface Scale<OutType = Color> {
         (c: string[]): Scale;
 
-        (value: number): any;
+        (value: number): OutType;
 
-        domain(d?: number[], n?: number, mode?: string): Scale;
+        domain(d?: number[], n?: number, mode?: string): this;
 
-        mode(mode: string): Scale;
+        mode(mode: keyof ColorSpaces): this;
 
-        correctLightness(enable?: boolean): Scale;
+        cache(use: boolean): boolean
 
-        bezier(colors: string[]): Scale;
+        correctLightness(enable?: boolean): this;
 
-        padding(p: number | number[]): Scale;
+        padding(p: number | number[]): this;
 
-        colors(c?: number): string[];
+        colors(c?: number, format?: 'hex' | 'name'): string[];
+        colors(c?: number, format?: 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(c?: number, format?: 'luminance' | 'temperature'): number[];
+        colors<K extends keyof ColorSpaces>(c?: number, format?: K): ColorSpaces[K][];
 
-        classes(c: number | number[]): (t: number) => Color;
+        classes(c: number | number[]): this;
 
-        range(arg: string[]): Scale;
+        range(arg: string[]): this;
 
-        scale(): Scale;
-
-        out(mode: string): Scale;
+        out(mode: false): Scale;
+        out<K extends keyof ColorSpaces>(mode: K): Scale<ColorSpaces[K]>;
     }
 
-    export interface Cubehelix extends Scale {
+    export interface Cubehelix {
         start(s: number): Cubehelix;
 
         rotations(r: number): Cubehelix;
@@ -259,6 +243,8 @@ declare namespace Chroma {
         gamma(g: number): Cubehelix;
 
         lightness(l: number[]): Cubehelix;
+
+        scale(): Scale
     }
 }
 
