@@ -27,6 +27,7 @@ interface Knex extends Knex.QueryInterface {
     destroy(): Promise<void>;
     batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
+    queryBuilder(): Knex.QueryBuilder;
 
     client: any;
     migrate: Knex.Migrator;
@@ -136,7 +137,7 @@ declare namespace Knex {
         decrement(columnName: string, amount?: number): QueryBuilder;
 
         // Others
-        first(...columns: string[]): QueryBuilder;
+        first: Select;
 
         debug(enabled?: boolean): QueryBuilder;
         pluck(column: string): QueryBuilder;

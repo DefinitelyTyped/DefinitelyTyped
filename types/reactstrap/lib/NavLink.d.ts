@@ -1,4 +1,4 @@
-interface Props {
+interface Props extends React.HTMLProps<HTMLAnchorElement> {
   tag?: React.ReactType;
   disabled?: boolean;
   active?: boolean;

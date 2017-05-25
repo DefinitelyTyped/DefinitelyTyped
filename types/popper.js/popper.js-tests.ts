@@ -1,4 +1,3 @@
-
 import Popper from 'popper.js';
 
 var reference = document.querySelector('.my-button');

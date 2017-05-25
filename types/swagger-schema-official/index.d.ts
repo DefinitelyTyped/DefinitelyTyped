@@ -1,6 +1,6 @@
 // Type definitions for swagger-schema-official 2.0
 // Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
@@ -224,7 +224,7 @@ export interface Spec {
   definitions?: {[definitionsName: string]: Schema };
   parameters?: {[parameterName: string]: BodyParameter|QueryParameter};
   responses?: {[responseName: string]: Response };
-  security?: Security[];
+  security?: Array<{[securityDefinitionName: string]: string[]}>;
   securityDefinitions?: { [securityDefinitionName: string]: Security};
   tags?: Tag[];
 }

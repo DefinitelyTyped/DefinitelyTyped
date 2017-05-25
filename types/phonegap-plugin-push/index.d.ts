@@ -1,10 +1,10 @@
 // Type definitions for phonegap-plugin-push
 // Project: https://github.com/phonegap/phonegap-plugin-push
-// Definitions by: Frederico Galvão <https://github.com/fredgalvao>
+// Definitions by: Frederico Galvão <https://github.com/fredgalvao>, Larry Bahr <https://github.com/larrybahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PhonegapPluginPush {
-	type EventResponse = RegistrationEventResponse | NotificationEventResponse | Error
+	type EventResponse = RegistrationEventResponse | NotificationEventResponse | Error;
 
 	interface PushNotification {
 		/**
@@ -12,19 +12,19 @@ declare namespace PhonegapPluginPush {
 		 * @param event
 		 * @param callback
 		 */
-		on(event: "registration", callback: (response: RegistrationEventResponse) => any): void
+		on(event: "registration", callback: (response: RegistrationEventResponse) => any): void;
 		/**
 		 * The event notification will be triggered each time a push notification is received by a 3rd party push service on the device.
 		 * @param event
 		 * @param callback
 		 */
-		on(event: "notification", callback: (response: NotificationEventResponse) => any): void
+		on(event: "notification", callback: (response: NotificationEventResponse) => any): void;
 		/**
 		 * The event error will trigger when an internal error occurs and the cache is aborted.
 		 * @param event
 		 * @param callback
 		 */
-		on(event: "error", callback: (response: Error) => any): void
+		on(event: "error", callback: (response: Error) => any): void;
 		/**
 		 *
 		 * @param event Name of the event to listen to. See below(above) for all the event names.
@@ -32,11 +32,11 @@ declare namespace PhonegapPluginPush {
 		 * @param event
 		 * @param callback
 		 */
-		on(event: string, callback: (response: EventResponse) => any): void
+		on(event: string, callback: (response: EventResponse) => any): void;
 
-		off(event: "registration", callback: (response: RegistrationEventResponse) => any): void
-		off(event: "notification", callback: (response: NotificationEventResponse) => any): void
-		off(event: "error", callback: (response: Error) => any): void
+		off(event: "registration", callback: (response: RegistrationEventResponse) => any): void;
+		off(event: "notification", callback: (response: NotificationEventResponse) => any): void;
+		off(event: "error", callback: (response: Error) => any): void;
 		/**
 		 * As stated in the example, you will have to store your event handler if you are planning to remove it.
 		 * @param event Name of the event type. The possible event names are the same as for the push.on function.
@@ -44,7 +44,7 @@ declare namespace PhonegapPluginPush {
 		 * @param event
 		 * @param callback
 		 */
-		off(event: string, callback: (response: EventResponse) => any): void
+		off(event: string, callback: (response: EventResponse) => any): void;
 
 		/**
 		 * The unregister method is used when the application no longer wants to receive push notifications.
@@ -54,7 +54,7 @@ declare namespace PhonegapPluginPush {
 		 * @param errorHandler
 		 * @param topics
 		 */
-		unregister(successHandler: () => any, errorHandler?: () => any, topics?: string[]): void
+		unregister(successHandler: () => any, errorHandler?: () => any, topics?: string[]): void;
         
 		/**
 		 * The subscribe method is used when the application wants to subscribe a new topic to receive push notifications.
@@ -84,7 +84,7 @@ declare namespace PhonegapPluginPush {
 		 * @param errorHandler
 		 * @param count
 		 */
-		setApplicationIconBadgeNumber(successHandler: () => any, errorHandler: () => any, count: number): void
+		setApplicationIconBadgeNumber(successHandler: () => any, errorHandler: () => any, count: number): void;
         
 		/**
 		 * Get the current badge count visible when the app is not running
@@ -92,7 +92,7 @@ declare namespace PhonegapPluginPush {
 		 * @param successHandler
 		 * @param errorHandler
 		 */
-		getApplicationIconBadgeNumber(successHandler: (count: number) => any, errorHandler: () => any): void
+		getApplicationIconBadgeNumber(successHandler: (count: number) => any, errorHandler: () => any): void;
 
 		/**
 		 * iOS only
@@ -102,7 +102,7 @@ declare namespace PhonegapPluginPush {
 		 * @param errorHandler
 		 * @param id
 		 */
-		finish(successHandler?: () => any, errorHandler?: () => any, id?: string): void
+		finish(successHandler?: () => any, errorHandler?: () => any, id?: string): void;
 	}
 
 	/**
@@ -116,36 +116,36 @@ declare namespace PhonegapPluginPush {
 			/**
 			 * Maps to the project number in the Google Developer Console.
 			 */
-			senderID: string
+			senderID: string;
 			/**
 			 * The name of a drawable resource to use as the small-icon. The name should not include the extension.
 			 */
-			icon?: string
+			icon?: string;
 			/**
 			 * Sets the background color of the small icon on Android 5.0 and greater.
 			 * Supported Formats - http://developer.android.com/reference/android/graphics/Color.html#parseColor(java.lang.String)
 			 */
-			iconColor?: string
+			iconColor?: string;
 			/**
 			 * If true it plays the sound specified in the push data or the default system sound. Default is true.
 			 */
-			sound?: boolean
+			sound?: boolean;
 			/**
 			 * If true the device vibrates on receipt of notification. Default is true.
 			 */
-			vibrate?: boolean
+			vibrate?: boolean;
 			/**
 			 * If true the app clears all pending notifications when it is closed. Default is true.
 			 */
-			clearNotifications?: boolean
+			clearNotifications?: boolean;
 			/**
 			 * If true will always show a notification, even when the app is on the foreground. Default is false.
 			 */
-			forceShow?: boolean
+			forceShow?: boolean;
 			/**
 			 * If the array contains one or more strings each string will be used to subscribe to a GcmPubSub topic.
 			 */
-			topics?: string[]
+			topics?: string[];
 		}
 
 		/**
@@ -159,7 +159,7 @@ declare namespace PhonegapPluginPush {
 			 * Once this is set programmatically in the init method it can only be changed manually by the user in Settings>Notifications>App Name.
 			 * This is normal iOS behaviour.
 			 */
-			badge?: boolean | string
+			badge?: boolean | string;
 			/**
 			 * If true|"true" the device plays a sound on receipt of notification.
 			 * Default is false|"false".
@@ -167,7 +167,7 @@ declare namespace PhonegapPluginPush {
 			 * Once this is set programmatically in the init method it can only be changed manually by the user in Settings>Notifications>App Name.
 			 * This is normal iOS behaviour.
 			 */
-			sound?: boolean | string
+			sound?: boolean | string;
 			/**
 			 * If true|"true" the device shows an alert on receipt of notification.
 			 * Default is false|"false".
@@ -175,28 +175,28 @@ declare namespace PhonegapPluginPush {
 			 * Once this is set programmatically in the init method it can only be changed manually by the user in Settings>Notifications>App Name.
 			 * This is normal iOS behaviour.
 			 */
-			alert?: boolean | string
+			alert?: boolean | string;
 			/**
 			 * If true|"true" the badge will be cleared on app startup. Default is false|"false".
 			 */
-			clearBadge?: boolean | string
+			clearBadge?: boolean | string;
 			/**
 			 * The data required in order to enable Action Buttons for iOS.
 			 * Action Buttons on iOS - https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md#action-buttons-1
 			 */
-			categories?: CategoryArray
+			categories?: CategoryArray;
 			/**
 			 * Maps to the project number in the Google Developer Console. Setting this uses GCM for notifications instead of native
 			 */
-			senderID?: string
+			senderID?: string;
 			/**
 			 * Whether to use prod or sandbox GCM setting. Defaults to false.
 			 */
-			gcmSandbox?: boolean
+			gcmSandbox?: boolean;
 			/**
 			 * If the array contains one or more strings each string will be used to subscribe to a GcmPubSub topic. Note: only usable in conjunction with senderID
 			 */
-			topics?: string[]
+			topics?: string[];
 		}
 
 		/**
@@ -208,55 +208,59 @@ declare namespace PhonegapPluginPush {
 	}
 
 	interface CategoryArray {
-		[name: string]: CategoryAction
+		[name: string]: CategoryAction;
 	}
 
 	interface CategoryAction {
-		yes?: CategoryActionData
-		no?: CategoryActionData
-		maybe?: CategoryActionData
+		yes?: CategoryActionData;
+		no?: CategoryActionData;
+		maybe?: CategoryActionData;
 	}
 
 	interface CategoryActionData {
-		callback: string
-		title: string
-		foreground: boolean
-		destructive: boolean
+		callback: string;
+		title: string;
+		foreground: boolean;
+		destructive: boolean;
+	}
+
+	interface HasPermissionCallbackParameters {
+		isEnabled: boolean; /** Whether the permission for push notifications has been granted. */
 	}
 
 	interface RegistrationEventResponse {
 		/**
 		 * The registration ID provided by the 3rd party remote push service.
 		 */
-		registrationId: string
+		registrationId: string;
 	}
 
 	interface NotificationEventResponse {
 		/**
 		 * The text of the push message sent from the 3rd party service.
 		 */
-		message: string
+		message: string;
 		/**
 		 * The optional title of the push message sent from the 3rd party service.
 		 */
-		title?: string
+		title?: string;
 		/**
 		 * The number of messages to be displayed in the badge iOS or message count in the notification shade in Android.
 		 * For windows, it represents the value in the badge notification which could be a number or a status glyph.
 		 */
-		count: string
+		count: string;
 		/**
 		 * The name of the sound file to be played upon receipt of the notification.
 		 */
-		sound: string
+		sound: string;
 		/**
 		 * The path of the image file to be displayed in the notification.
 		 */
-		image: string
+		image: string;
 		/**
 		 * An optional collection of data sent by the 3rd party push service that does not fit in the above properties.
 		 */
-		additionalData: NotificationEventAdditionalData
+		additionalData: NotificationEventAdditionalData;
 	}
 
 	/**
@@ -268,28 +272,37 @@ declare namespace PhonegapPluginPush {
 	 * so that he could specify any custom code without having to use array notation (map['prop']) for all of them.
 	 */
 	interface NotificationEventAdditionalData {
-		[name: string]: any
+		[name: string]: any;
 
 		/**
 		 * Whether the notification was received while the app was in the foreground
 		 */
-		foreground?: boolean
+		foreground?: boolean;
 		/**
 		 * Will be true if the application is started by clicking on the push notification, false if the app is already started. (Android/iOS only)
 		 */
-		coldstart?: boolean
-		collapse_key?: string
-		from?: string
-		notId?: string
+		coldstart?: boolean;
+		collapse_key?: string;
+		from?: string;
+		notId?: string;
 	}
 
 	interface PushNotificationStatic {
-		init(options: InitOptions): PushNotification
-		new (options: InitOptions): PushNotification
+		init(options: InitOptions): PushNotification;
+		
+		/**
+		 * Android & iOS only
+		 * Checks whether the push notification permission has been granted.
+		 * @param successHandler - Is called when the api successfully retrieves the details on the permission.
+		 * @param errorHandler
+		 * @param id
+		 */
+		hasPermission(successhandler: (data: HasPermissionCallbackParameters) => any): void;
 	}
 }
 
 interface Window {
-	PushNotification: PhonegapPluginPush.PushNotificationStatic
+	PushNotification: PhonegapPluginPush.PushNotificationStatic;
 }
+
 declare var PushNotification: PhonegapPluginPush.PushNotificationStatic;

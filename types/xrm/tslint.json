@@ -8,6 +8,7 @@
             true,
             "spaces"
         ],
+        "max-line-length": [true, 250],
         "quotemark": [
             true,
             "double"

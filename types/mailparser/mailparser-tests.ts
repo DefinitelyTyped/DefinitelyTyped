@@ -2,6 +2,7 @@ import mailparser_mod = require("mailparser");
 import MailParser = mailparser_mod.MailParser;
 import ParsedMail = mailparser_mod.ParsedMail;
 import Attachment = mailparser_mod.Attachment;
+import simpleParser = mailparser_mod.simpleParser;
 
 var mailparser = new MailParser();
 
@@ -62,3 +63,16 @@ mp.on("attachment", function(attachment : Attachment, mail : ParsedMail){
     var output = fs.createWriteStream(attachment.generatedFileName);
     attachment.stream.pipe(output);
 });
+
+// check different sources and promise/callback api for simpleParser
+var sourceString = "";
+var sourceBuffer = new Buffer("");
+var sourceStream = fs.createReadStream("foo.eml");
+
+simpleParser(sourceString, (err, mail) => err ? err : mail.html);
+simpleParser(sourceBuffer, (err, mail) => err ? err : mail.html);
+simpleParser(sourceStream, (err, mail) => err ? err : mail.html);
+
+simpleParser(sourceString).then(mail => mail.html).catch(err => err);
+simpleParser(sourceBuffer).then(mail => mail.html).catch(err => err);
+simpleParser(sourceStream).then(mail => mail.html).catch(err => err);
