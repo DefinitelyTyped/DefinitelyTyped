@@ -993,8 +993,8 @@ declare module "cluster" {
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
         setupMaster(settings?: ClusterSetupMasterSettings): void;
-        worker: Worker;
-        workers: {
+        worker?: Worker;
+        workers?: {
             [index: string]: Worker
         };
 
