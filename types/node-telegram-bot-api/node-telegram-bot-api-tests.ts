@@ -39,7 +39,7 @@ MyTelegramBot.getFile("My/File/ID");
 MyTelegramBot.getFileLink("My/File/ID");
 MyTelegramBot.downloadFile("My/File/ID", "mydownloaddir/");
 MyTelegramBot.onText(/regex/, (msg, match) => { });
-MyTelegramBot.onReplyToMessage(1234, "mymessageID", (msg) => { }));
+MyTelegramBot.onReplyToMessage(1234, "mymessageID", (msg) => { });
 MyTelegramBot.removeReplyListener(5466);
 MyTelegramBot.getChat(1234);
 MyTelegramBot.getChatAdministrators(1234);
