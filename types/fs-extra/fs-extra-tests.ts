@@ -62,7 +62,7 @@ fs.copy(src, dest,
 );
 fs.copySync(src, dest);
 fs.copySync(src, dest, (src: string) => false);
-fs.copySync(src, dest, /.*/);
+fs.copySync(src, dest, { filter: /.*/ });
 fs.copySync(src, dest,
 	{
 		overwrite: true,
