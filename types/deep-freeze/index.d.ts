@@ -11,5 +11,5 @@ declare function deepFreeze<T extends Function>(f: T): T;
 declare function deepFreeze<T>(o: T): deepFreeze.DeepReadonly<T>;
 
 declare namespace deepFreeze {
-    export type DeepReadonly<T> = Readonly<{ [P in keyof T]: DeepReadonly<T[P]> }>;
+    type DeepReadonly<T> = Readonly<{ [P in keyof T]: DeepReadonly<T[P]> }>;
 }
