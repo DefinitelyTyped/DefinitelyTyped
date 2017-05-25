@@ -6,8 +6,10 @@
 
 export = deepFreeze;
 
-declare function deepFreeze<T>(a: T[]): ReadonlyArray<DeepReadonly<T>>;
+declare function deepFreeze<T>(a: T[]): ReadonlyArray<deepFreeze.DeepReadonly<T>>;
 declare function deepFreeze<T extends Function>(f: T): T;
-declare function deepFreeze<T>(o: T): DeepReadonly<T>;
+declare function deepFreeze<T>(o: T): deepFreeze.DeepReadonly<T>;
 
-type DeepReadonly<T> = Readonly<{ [P in keyof T]: DeepReadonly<T[P]> }>;
+declare namespace deepFreeze {
+    export type DeepReadonly<T> = Readonly<{ [P in keyof T]: DeepReadonly<T[P]> }>;
+}
