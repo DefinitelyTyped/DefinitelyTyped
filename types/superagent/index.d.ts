@@ -6,6 +6,7 @@
 /// <reference types="node" />
 
 import stream = require('stream');
+import http = require('http');
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -82,6 +83,8 @@ declare namespace request {
 
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
       abort(): void;
+      agent(): SuperAgent<SuperAgentRequest>;
+      agent(agent: http.Agent): this;
       accept(type: string): this;
       attach(field: string, file: string, filename?: string): this;
       auth(user: string, name: string): this;
