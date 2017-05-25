@@ -81,3 +81,63 @@ reduxForm({
     form: 'forceUnregisterOnMountForm',
     forceUnregisterOnUnmount: true
 });
+
+// adapted from: http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState/
+
+import { connect } from 'react-redux'
+const { DOM: { input } } = React
+
+interface DataShape {
+    firstName: string;
+}
+
+interface Props extends FormProps<DataShape, {}, {}> {}
+
+let InitializeFromStateFormFunction = (props: Props) => {
+    const { handleSubmit, pristine, reset, submitting } = props;
+    return (
+        <form onSubmit={handleSubmit}>
+        <div>
+            <label>First Name</label>
+            <div>
+            <Field name="firstName" component={input} type="text" placeholder="First Name"/>
+            </div>
+        </div>
+        <div>
+            <button type="submit" disabled={pristine || submitting}>Submit</button>
+            <button type="button" disabled={pristine || submitting} onClick={reset}>Undo Changes</button>
+        </div>
+        </form>
+    );
+}
+
+// Decorate with reduxForm(). It will read the initialValues prop provided by connect()
+const DecoratedInitializeFromStateFormFunction = reduxForm({
+  form: 'initializeFromState'  // a unique identifier for this form
+})(InitializeFromStateFormFunction)
+
+// You have to connect() to any reducers that you wish to connect to yourself
+const ConnectedDecoratedInitializeFromStateFormFunction = connect(
+    state => ({
+        initialValues: state.account.data // pull initial values from account reducer
+    }),
+)(DecoratedInitializeFromStateFormFunction);
+
+// React ComponentClass instead of StatelessComponent
+
+class InitializeFromStateFormClass extends React.Component<Props, {}> {
+    render() {
+        return InitializeFromStateFormFunction(this.props);
+    }
+}
+
+// Decorate with reduxForm(). It will read the initialValues prop provided by connect()
+const DecoratedInitializeFromStateFormClass = reduxForm<DataShape, {}, {}>({
+    form: 'initializeFromState'  // a unique identifier for this form
+})(InitializeFromStateFormClass);
+
+// You have to connect() to any reducers that you wish to connect to yourself
+const mapStateToProps = (state: any) => ({
+    initialValues: { firstName: "some value" }  // pull initial values from account reducer
+} as {initialValues?: Partial<DataShape>});
+const ConnectedDecoratedInitializeFromStateFormClass = connect(mapStateToProps)(DecoratedInitializeFromStateFormClass);
