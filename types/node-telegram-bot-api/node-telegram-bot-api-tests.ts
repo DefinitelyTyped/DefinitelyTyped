@@ -1,6 +1,6 @@
 import TelegramBot = require("node-telegram-bot-api");
 
-var MyTelegramBot = new TelegramBot('token');
+var MyTelegramBot = new TelegramBot("token");
 
 MyTelegramBot.startPolling({ foo: "bar" });
 MyTelegramBot.initPolling({ foo: "bar" });
@@ -16,7 +16,7 @@ MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ foo: "bar" });
 MyTelegramBot.processUpdate("Update Method/Stream/Etc");
 MyTelegramBot.sendMessage(1234, "test-text", { foo: "bar" });
-MyTelegramBot.answerInlineQuery("queryId", ['test', 'test', 'test'], { foo: "bar" });
+MyTelegramBot.answerInlineQuery("queryId", ["test", "test", "test"], { foo: "bar" });
 MyTelegramBot.forwardMessage(1234, 5678, "memberID", { foo: "bar" });
 MyTelegramBot.sendPhoto(1234, "photo/path", { foo: "bar" });
 MyTelegramBot.sendAudio(1234, "audio/path", { foo: "bar" });
