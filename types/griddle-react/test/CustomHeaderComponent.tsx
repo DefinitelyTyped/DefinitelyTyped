@@ -12,7 +12,6 @@ interface MoreCustomHeaderComponentProps extends CustomHeaderComponentProps {
 }
 
 class HeaderComponent extends React.Component<MoreCustomHeaderComponentProps, any> {
-  static displayName = 'header';
   textOnClick(e: React.FormEvent<HTMLInputElement>) {
     e.stopPropagation();
   }

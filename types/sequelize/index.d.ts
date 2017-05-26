@@ -3172,6 +3172,7 @@ declare namespace sequelize {
          */
         paranoid?: boolean;
 
+        all?: boolean | string;
     }
 
     /**

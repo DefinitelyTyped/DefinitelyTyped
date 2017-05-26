@@ -914,7 +914,8 @@ declare module "mongoose" {
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  class MongooseDocument implements MongooseDocumentOptionals {
+  interface MongooseDocument extends MongooseDocumentOptionals { }
+  class MongooseDocument {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 

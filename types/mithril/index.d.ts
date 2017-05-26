@@ -171,7 +171,7 @@ declare namespace Mithril {
 	type ChildArrayOrPrimitive = ChildArray | string | number | boolean;
 
 	/** Virtual DOM nodes, or vnodes, are Javascript objects that represent an element (or parts of the DOM). */
-	interface Vnode<Attrs, State extends Lifecycle<Attrs, State>> {
+	interface Vnode<Attrs, State> {
 		/** The nodeName of a DOM element. It may also be the string [ if a vnode is a fragment, # if it's a text vnode, or < if it's a trusted HTML vnode. Additionally, it may be a component. */
 		tag: string | Component<Attrs, State>;
 		/** A hashmap of DOM attributes, events, properties and lifecycle methods. */
@@ -208,7 +208,7 @@ declare namespace Mithril {
 	 * Any Javascript object that has a view method can be used as a Mithril component.
 	 * Components can be consumed via the m() utility.
 	 */
-	interface Component<Attrs, State extends Lifecycle<Attrs, State>> extends Lifecycle<Attrs, State> {
+	interface Component<Attrs, State> extends Lifecycle<Attrs, State> {
 		/** Creates a view out of virtual elements. */
 		view(this: State, vnode: Vnode<Attrs, State>): Children | null | void;
 	}
@@ -246,7 +246,7 @@ declare namespace Mithril {
 	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
 	 * Any Javascript object that has a view method is a Mithril component. Components can be consumed via the m() utility.
 	 */
-	type Comp<Attrs, State extends Lifecycle<Attrs, State>> = Component<Attrs, State> & State;
+	type Comp<Attrs, State> = Component<Attrs, State> & State;
 
 	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Components can be consumed via the m() utility. */
 	type ComponentTypes<A, S> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>;

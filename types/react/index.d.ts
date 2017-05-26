@@ -263,7 +263,7 @@ declare namespace React {
     }
 
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-        mixins?: Mixin<P, S>;
+        mixins?: Mixin<P, S>[];
         statics?: {
             [key: string]: any;
         };

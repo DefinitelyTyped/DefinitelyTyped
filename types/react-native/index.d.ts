@@ -4472,6 +4472,7 @@ export interface SceneConfig {
 
 export interface JumpSceneConfig extends SceneConfig {
     gestures: {
+        pop?: LeftToRightGesture
         jumpBack: JumpGesture
         jumpForward: JumpGesture
     }
