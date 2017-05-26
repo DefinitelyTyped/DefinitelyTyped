@@ -1,4 +1,4 @@
-// Type definitions for dat.GUI v0.6.5
+// Type definitions for dat.GUI 0.6
 // Project: https://github.com/dataarts/dat.gui
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
