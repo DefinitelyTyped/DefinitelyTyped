@@ -1,6 +1,7 @@
 // Type definitions for Strophe.js v1.2.0
 // Project: http://strophe.im/strophejs/
 // Definitions by: David Deutsch <https://github.com/DavidKDeutsch/>
+//                 Ole Michelsen <https://github.com/omichelsen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace wrapper {
@@ -76,25 +77,25 @@ declare namespace wrapper {
          *  NS.XHTML_IM - XHTML-IM namespace from XEP 71.
          *  NS.XHTML - XHTML body namespace from XEP 71.
          */
-        var NS: {
-            HTTPBIND: string;
-            BOSH: string;
-            CLIENT: string;
-            AUTH: string;
-            ROSTER: string;
-            PROFILE: string;
-            DISCO_INFO: string;
-            DISCO_ITEMS: string;
-            MUC: string;
-            SASL: string;
-            STREAM: string;
-            FRAMING: string;
-            BIND: string;
-            SESSION: string;
-            VERSION: string;
-            STANZAS: string;
-            XHTML_IM: string;
-            XHTML: string;
+        namespace NS {
+            var HTTPBIND: string;
+            var BOSH: string;
+            var CLIENT: string;
+            var AUTH: string;
+            var ROSTER: string;
+            var PROFILE: string;
+            var DISCO_INFO: string;
+            var DISCO_ITEMS: string;
+            var MUC: string;
+            var SASL: string;
+            var STREAM: string;
+            var FRAMING: string;
+            var BIND: string;
+            var SESSION: string;
+            var VERSION: string;
+            var STANZAS: string;
+            var XHTML_IM: string;
+            var XHTML: string;
         }
 
         /** Constants: Connection Status Constants
