@@ -16,6 +16,7 @@ export class Casper {
 
 	test: Tester;
 	options: CasperOptions;
+	mouse: Mouse;
 
 	// Properties
 	__utils__: ClientUtils;
@@ -307,4 +308,26 @@ interface Utils {
 	node(name: string, attributes: any): any;
 	serialize(value: any): any;
 	unique(array: any[]): any;
+}
+
+
+interface Mouse{
+    click(top: number,left: number);
+    click(selector: string);
+    click(selector: string,top: number,left: number);
+    doubleclick(top: number,left: number);
+    doubleclick(selector: string);
+    doubleclick(selector: string,top: number,left: number);
+	rightclick(top: number,left: number);
+    rightclick(selector: string);
+    rightclick(selector: string,top: number,left: number);
+	down(top: number,left: number);
+    down(selector: string);
+    down(selector: string,top: number,left: number);
+	move(top: number,left: number);
+    move(selector: string);
+    move(selector: string,top: number,left: number);
+	up(top: number,left: number);
+    up(selector: string);
+    up(selector: string,top: number,left: number);
 }
