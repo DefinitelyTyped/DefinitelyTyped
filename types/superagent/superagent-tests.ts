@@ -216,6 +216,10 @@ req.abort();
 // Request timeouts
 req.timeout(100);
 
+req.timeout({ response: 5000, deadline: 60000 });
+
+req.timeout({ response: 5000, read: 60000, deadline: 120000 });
+
 // Basic authentication
 request.get('http://tobi:learnboost@local').end(callback);
 request
