@@ -1,6 +1,7 @@
 // Type definitions for SuperAgent v2.0.0
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
+//                 Ricardo Mello <https://github.com/ricardo-mello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
