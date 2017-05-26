@@ -4,4 +4,4 @@ class Foo {
     foo: string;
 }
 const foo = df(new Foo());
-const items = [{id: 0, name: 'first'}];
+const items = df([{id: 0, name: 'first'}]);
