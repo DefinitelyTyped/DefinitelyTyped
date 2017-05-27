@@ -42,7 +42,9 @@ jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(err: Error, toke
  */
 // verify a token symmetric
 jwt.verify(token, 'shhhhh', function(err, decoded) {
-  console.log(decoded.foo) // bar
+  const result = decoded as {"foo": string}
+
+  console.log(result.foo) // bar
 });
 
 // invalid token
@@ -53,8 +55,10 @@ jwt.verify(token, 'wrong-secret', function(err, decoded) {
 
 // verify a token asymmetric
 cert = fs.readFileSync('public.pem');  // get public key
-jwt.verify(token, cert, function(err, decoded) {
-  console.log(decoded.foo) // bar
+jwt.verify(token, cert, function (err, decoded) {
+  const result = decoded as {"foo": string}
+
+  console.log(result.foo) // bar
 });
 
 // verify audience
