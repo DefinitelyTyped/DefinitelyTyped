@@ -2,6 +2,7 @@
 // Project: https://github.com/OfficeDev/microsoft-teams-library-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/microsoftteams
+// TypeScript Version: 2.1
 
 interface MessageEvent {
     originalEvent: MessageEvent;
