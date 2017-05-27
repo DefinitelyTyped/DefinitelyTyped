@@ -74,7 +74,7 @@ export interface DecodeOptions {
 }
 
 export interface VerifyCallback {
-    (err: JsonWebTokenError | TokenExpiredError | NotBeforeError, decoded: any): void;
+    (err: JsonWebTokenError | NotBeforeError | TokenExpiredError, decoded: object | string): void;
 }
 
 export interface SignCallback {
@@ -107,8 +107,8 @@ export declare function sign(payload: string | Buffer | Object, secretOrPrivateK
  * @param {VerifyOptions} [options] - Options for the verification
  * @returns The decoded token.
  */
-declare function verify(token: string, secretOrPublicKey: string | Buffer): any;
-declare function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions): any;
+declare function verify(token: string, secretOrPublicKey: string | Buffer): object | string | JsonWebTokenError | NotBeforeError | TokenExpiredError;
+declare function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions): object | string | JsonWebTokenError | NotBeforeError | TokenExpiredError;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -126,4 +126,4 @@ declare function verify(token: string, secretOrPublicKey: string | Buffer, optio
  * @param {DecodeOptions} [options] - Options for decoding
  * @returns {Object} The decoded Token
  */
-declare function decode(token: string, options?: DecodeOptions): any;
+declare function decode(token: string, options?: DecodeOptions): null | object | string;
