@@ -1,5 +1,4 @@
-// Definitions by: Stefan Profanter <https://github.com/Pro>
-//                 Edmund Fokschaner <https://github.com/efokschaner>
+// Definitions by: Stefan Profanter <https://github.com/Pro>, Edmund Fokschaner <https://github.com/efokschaner>
 
 import { Camera, Object3D } from "./three-core";
 

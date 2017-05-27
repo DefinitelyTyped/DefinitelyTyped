@@ -1,5 +1,4 @@
-// Definitions by: HouChunlei <https://github.com/omni360>
-//                 Edmund Fokschaner <https://github.com/efokschaner>
+// Definitions by: HouChunlei <https://github.com/omni360>, Edmund Fokschaner <https://github.com/efokschaner>
 
 import { Loader } from "./three-core";
 

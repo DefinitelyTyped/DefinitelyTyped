@@ -1,5 +1,4 @@
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-//                 Edmund Fokschaner <https://github.com/efokschaner>
+// Definitions by: Toshiya Nakakura <https://github.com/nakakura>, Edmund Fokschaner <https://github.com/efokschaner>
 
 /// <reference types="webvr-api" />
 

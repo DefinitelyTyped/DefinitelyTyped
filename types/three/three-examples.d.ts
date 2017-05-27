@@ -1,4 +1,5 @@
 // Definitions by: Edmund Fokschaner <https://github.com/efokschaner>
+
 // Things from three.js/examples/ that do not (yet) have their own file
 
 import { Shader } from "./three-core";

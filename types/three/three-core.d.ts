@@ -1,11 +1,4 @@
-// Definitions by: Kon <http://phyzkit.net/>
-//                 Satoru Kimura <https://github.com/gyohk>
-//                 Florent Poujol <https://github.com/florentpoujol>
-//                 SereznoKot <https://github.com/SereznoKot>
-//                 HouChunlei <https://github.com/omni360>
-//                 Ivo <https://github.com/ivoisbelongtous>
-//                 David Asmuth <https://github.com/piranha771>
-//                 Edmund Fokschaner <https://github.com/efokschaner>
+// Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>, HouChunlei <https://github.com/omni360>, Ivo <https://github.com/ivoisbelongtous>, David Asmuth <https://github.com/piranha771>, Edmund Fokschaner <https://github.com/efokschaner>
 
 export const REVISION: string;
 

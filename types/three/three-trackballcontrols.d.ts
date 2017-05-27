@@ -1,5 +1,4 @@
-// Definitions by: Satoru Kimura <https://github.com/gyohk>
-//                 Edmund Fokschaner <https://github.com/efokschaner>
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, Edmund Fokschaner <https://github.com/efokschaner>
 
 import { Camera, EventDispatcher, Vector3 } from "./three-core";
 
