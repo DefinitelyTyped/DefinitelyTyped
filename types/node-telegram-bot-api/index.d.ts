@@ -53,7 +53,7 @@ declare class TelegramBot {
     leaveChat(chatId: number | string): Promise<any>;
     sendGame(chatId: number | string, gameShortName: string, options?: any): Promise<any>;
     setGameScore(userId: string, score: number, options?: any): Promise<any>;
-    getGameHighScores(userId: string, options?: any): Promise<any>
+    getGameHighScores(userId: string, options?: any): Promise<any>;
 }
 
 export = TelegramBot;

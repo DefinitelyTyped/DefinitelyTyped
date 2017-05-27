@@ -1,6 +1,6 @@
 import TelegramBot = require("node-telegram-bot-api");
 
-var MyTelegramBot = new TelegramBot("token");
+const MyTelegramBot = new TelegramBot("token");
 
 MyTelegramBot.startPolling({ foo: "bar" });
 MyTelegramBot.initPolling({ foo: "bar" });
@@ -48,4 +48,4 @@ MyTelegramBot.getChatMember(1234, "myUserID");
 MyTelegramBot.leaveChat(1234);
 MyTelegramBot.sendGame(1234, "MygameName", { foo: "bar" });
 MyTelegramBot.setGameScore("myUserID", 99, { foo: "bar" });
-MyTelegramBot.getGameHighScores("myUserID", { foo: "bar" })
+MyTelegramBot.getGameHighScores("myUserID", { foo: "bar" });
