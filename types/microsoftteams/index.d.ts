@@ -3,6 +3,7 @@
 // Definitions by: OfficeDev <https://github.com/OfficeDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/microsoftteams
 // TypeScript Version: 2.1
+// tslint:disable:prefer-method-signature
 
 interface MessageEvent {
     originalEvent: MessageEvent;
