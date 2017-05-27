@@ -15,7 +15,7 @@ gulp.task('delete2', function (cb: Function) {
         .pipe(vp)
         .pipe(gulp.dest('dist'))
         .on('end', function () {
-            del(vp.paths, cb);
+            del(vp.paths);
         });
 });
 
