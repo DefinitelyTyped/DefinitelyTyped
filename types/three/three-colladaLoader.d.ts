@@ -1,3 +1,6 @@
+// Definitions by: Brandon Roberge <>
+//                 Edmund Fokschaner <https://github.com/efokschaner>
+
 import {
     Scene
 } from "./three-core";

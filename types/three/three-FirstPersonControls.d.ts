@@ -1,3 +1,6 @@
+// Definitions by: Poul Kjeldager Sørensen <https://github.com/s093294>
+//                 Edmund Fokschaner <https://github.com/efokschaner>
+
 import { Camera, Object3D, Vector3 } from "./three-core";
 
 export class FirstPersonControls {
