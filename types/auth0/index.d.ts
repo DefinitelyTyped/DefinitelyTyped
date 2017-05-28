@@ -13,33 +13,23 @@ export interface ManagementClientOptions {
 export interface UserMetadata { }
 export interface AppMetadata { }
 
-export interface CreateUserData {
+export interface UserData {
   connection: string;
   email?: string;
   username?: string;
-  password?: string;
-  phone_number?: string;
-  user_metadata?: UserMetadata;
   email_verified?: boolean;
   verify_email?: boolean;
+  password?: string;
+  phone_number?: string;
   phone_verified?: boolean,
+  user_metadata?: UserMetadata;
   app_metadata?: AppMetadata;
 }
 
-export interface UpdateUserData {
+export interface UpdateUserData extends UserData {
   blocked?: boolean;
-  email_verified?: boolean;
-  email?: string;
-  verify_email?: boolean,
-  phone_number?: string,
-  phone_verified?: boolean,
   verify_phone_number?: boolean,
-  password?: string,
   verify_password?: boolean,
-  user_metadata?: UserMetadata,
-  app_metadata?: AppMetadata,
-  connection?: string,
-  username?: string,
   client_id?: string
 }
 
@@ -358,8 +348,8 @@ export class ManagementClient {
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
-  createUser(data: CreateUserData): Promise<User>;
-  createUser(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+  createUser(data: UserData): Promise<User>;
+  createUser(data: UserData, cb: (err: Error, data: User) => void): void;
 
   updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
   updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
