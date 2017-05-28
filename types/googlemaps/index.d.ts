@@ -1375,7 +1375,17 @@ declare namespace google.maps {
     }
 
     export interface DirectionsResult {
+        geocoded_waypoints: DirectionsGeocodedWaypoint[];
         routes: DirectionsRoute[];
+    }
+
+    /**
+     * A single geocoded waypoint.
+     */
+    export interface DirectionsGeocodedWaypoint {
+        partial_match: boolean;
+        place_id: string;
+        types: string[];
     }
 
     /**
