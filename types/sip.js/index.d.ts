@@ -3,26 +3,15 @@
 // Definitions by: Kir Dergachev <https://github.com/decyrus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface SIP {
-    UA: {
-        new (configuration?: sipjs.ConfigurationParameters): sipjs.UA;
-    };
-    URI: {
-        new (scheme?: string, user?: string, host?: string, port?: number, parameters?: string[], headers?: string[]): sipjs.URI;
-        parse(uri: string): sipjs.URI;
-    };
-    NameAddrHeader: {
-        new (uri: string | sipjs.URI, displayName: string, parameters: Array<{ key: string, value: string }>): sipjs.NameAddrHeader;
-        parse(name_addr_header: string): sipjs.NameAddrHeader;
-    };
-}
-
 declare namespace sipjs {
-    interface URI {
+    class URI {
         scheme?: string;
         user?: string;
         host?: string;
         port?: number;
+
+        constructor(scheme?: string, user?: string, host?: string, port?: number, parameters?: string[], headers?: string[]);
+        static parse(uri: string): sipjs.URI;
 
         setParam(key: string, value?: string): void;
         getParam(key: string): string;
@@ -44,7 +33,9 @@ declare namespace sipjs {
         interface RegistrationFailedArgs extends UnregisteredArgs { }
     }
 
-    interface UA {
+    class UA {
+        constructor(configuration?: sipjs.ConfigurationParameters);
+
         start(): void;
         stop(): void;
         register(options?: ExtraHeadersOptions): UA;
@@ -321,13 +312,22 @@ declare namespace sipjs {
     }
 
     /* Header */
-    interface NameAddrHeader {
+    class NameAddrHeader {
         uri: string | URI;
         displayName: string;
+
+        constructor(uri: string | sipjs.URI, displayName: string, parameters: Array<{ key: string, value: string }>);
+        static parse(name_addr_header: string): sipjs.NameAddrHeader;
 
         setParam(key: string, value?: string): void;
         getParam(key: string): string;
         deleteParam(key: string): string;
         clearParams(): void;
     }
+}
+
+import SIP = sipjs;
+
+declare module 'sip.js' {
+    export = sipjs;
 }
