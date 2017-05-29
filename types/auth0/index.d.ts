@@ -14,7 +14,6 @@ export interface UserMetadata { }
 export interface AppMetadata { }
 
 export interface UserData {
-  connection: string;
   email?: string;
   username?: string;
   email_verified?: boolean;
@@ -26,7 +25,12 @@ export interface UserData {
   app_metadata?: AppMetadata;
 }
 
+export interface CreateUserData extends UserData {
+  connection: string;
+}
+
 export interface UpdateUserData extends UserData {
+  connection?: string;
   blocked?: boolean;
   verify_phone_number?: boolean,
   verify_password?: boolean,
@@ -348,8 +352,8 @@ export class ManagementClient {
   getUser(params: ObjectWithId): Promise<User>;
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
-  createUser(data: UserData): Promise<User>;
-  createUser(data: UserData, cb: (err: Error, data: User) => void): void;
+  createUser(data: CreateUserData): Promise<User>;
+  createUser(data: CreateUserData, cb: (err: Error, data: User) => void): void;
 
   updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
   updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
