@@ -8822,6 +8822,13 @@ export function processColor(color: any): number;
 
 export function __spread(target: any, ...sources: any[]): any;
 
+type ErrorHandlerCallback = (error: any, isFatal?: boolean) => void;
+
+export interface ErrorUtils {
+    setGlobalHandler: (callback: ErrorHandlerCallback) => void;
+    getGlobalHandler: () => ErrorHandlerCallback;
+}
+
 export interface GlobalStatic {
 
     /**
@@ -8842,6 +8849,9 @@ export interface GlobalStatic {
      */
     originalXMLHttpRequest: Object;
     XMLHttpRequest: Object;
+
+    __BUNDLE_START_TIME__: number;
+    ErrorUtils: ErrorUtils;
 }
 
 //
