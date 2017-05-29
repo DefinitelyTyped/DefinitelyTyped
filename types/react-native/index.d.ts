@@ -804,6 +804,17 @@ export interface TextPropertiesAndroid {
      * Lets the user select text, to use the native copy and paste functionality.
      */
     selectable?: boolean
+
+    /**
+     * The highlight color of the text.
+     */
+    selectionColor?: string
+
+    /**
+     * Set text break strategy on Android API Level 23+
+     * default is `highQuality`.
+     */
+    textBreakStrategy?: "simple" | "highQuality" | "balanced"
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -993,7 +1004,10 @@ export interface TextInputIOSProperties {
      */
     selectionState?: DocumentSelectionState
 
-
+    /**
+     * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
+     */
+    spellCheck?: boolean
 }
 
 /**
