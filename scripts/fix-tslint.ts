@@ -2,16 +2,11 @@
 
 /// <reference types="node" />
 
-import assert = require("assert");
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 import JSON = require("comment-json");
 
-function repeat(s: string, count: number) {
-	return Array(count + 1).join(s);
-}
-
-const home = path.join(__dirname, '..');
+const home = path.join(__dirname, "..", "types");
 
 for (const dirName of fs.readdirSync(home)) {
 	if (dirName.startsWith(".") || dirName === "node_modules" || dirName === "scripts") {
@@ -36,7 +31,7 @@ function fixTslint(dir: string): void {
     if (!fs.existsSync(target)) return;
 	let json = JSON.parse(fs.readFileSync(target, 'utf-8'));
 	json = fix(json);
-	const text = Object.keys(json).length === 1 ? '{ "extends": "../tslint.json" }' : JSON.stringify(json, undefined, 4);
+	const text = Object.keys(json).length === 1 ? '{ "extends": "dtslint/dt.json" }' : JSON.stringify(json, undefined, 4);
 	fs.writeFileSync(target, text + "\n", "utf-8");
 }
 
