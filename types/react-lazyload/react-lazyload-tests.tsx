@@ -2,7 +2,7 @@ import * as React from "react";
 import LazyLoad from "react-lazyload";
 
 interface State {
-    arr: Array<string>;
+    arr: string[];
 }
 
 class Normal extends React.Component<{}, State> {

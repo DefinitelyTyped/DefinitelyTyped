@@ -1,8 +1,8 @@
-// Type definitions for react-lazyload ver 2.2.7
+// Type definitions for react-lazyload ver 2.2
 // Project: https://github.com/jasonslyvia/react-lazyload
 // Definitions by: m0a <https://github.com/m0a>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3.2
+// TypeScript Version: 2.3
 
 import {Component} from 'react';
 
@@ -16,11 +16,11 @@ export interface LazyLoadProps {
     throttle?: number | boolean;
     debounce?: number | boolean;
     placeholder?: Node;
-    unmountIfInvisible?: boolean
+    unmountIfInvisible?: boolean;
 }
 
 export default class LazyLoad extends Component<LazyLoadProps, {}> {
-    constructor(props: LazyLoad)
+    constructor(props: LazyLoad);
 }
 
-export declare function lazyload(option: {}): LazyLoad;
+export  function lazyload(option: {}): LazyLoad;
