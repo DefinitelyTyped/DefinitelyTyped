@@ -23,9 +23,9 @@ export interface OnClickOutProps {
     stopPropagation?: boolean;
 }
 
-type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
+export type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
 
-interface ClickOutComponentClass<P extends InjectedOnClickOutProps> extends React.ComponentClass<P> {
+export interface ClickOutComponentClass<P extends InjectedOnClickOutProps> extends React.ComponentClass<P> {
     new (props?: P, context?: any): React.Component<P, React.ComponentState> & HandleClickOutside<any>;
 }
 
