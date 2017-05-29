@@ -3739,7 +3739,7 @@ declare module "stream" {
 declare module "util" {
     export interface InspectOptions {
         showHidden?: boolean;
-        depth?: number;
+        depth?: number | null;
         colors?: boolean;
         customInspect?: boolean;
     }
@@ -3750,7 +3750,7 @@ declare module "util" {
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
+    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options: InspectOptions): string;
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
