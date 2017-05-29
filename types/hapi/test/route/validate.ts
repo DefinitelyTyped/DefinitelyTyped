@@ -13,8 +13,36 @@ const validate: Hapi.RouteValidationConfigurationObject = {
     query: {
         providerId: Joi.string(),
     },
+    options: {
+        abortEarly: true,
+    },
 };
 
-const config: Hapi.RouteAdditionalConfigurationOptions = {
+let config: Hapi.RouteAdditionalConfigurationOptions = {
     validate,
+    response: {
+        schema: Joi.object(),
+    },
+};
+
+const inputValidationFunction: Hapi.ValidationFunctionForRouteInput = (value: any, options: Hapi.RouteInputValidationContext, next: Hapi.ContinuationOptionalValueFunction) => {
+    next(undefined, value);
+};
+
+const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse = (value: any, options: Hapi.RouteResponseValidationContext, next: Hapi.ContinuationOptionalValueFunction) => {
+    next();
+}
+
+const validateWithFunctions: Hapi.RouteValidationConfigurationObject = {
+    params: inputValidationFunction,
+    headers: inputValidationFunction,
+    payload: inputValidationFunction,
+    query: inputValidationFunction,
+};
+
+config = {
+    validate,
+    response: {
+        schema: responseValidationFunction,
+    },
 };

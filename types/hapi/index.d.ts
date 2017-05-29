@@ -1326,8 +1326,11 @@ export interface RouteResponseConfigurationObject {
     failAction?: 'error' | 'log' | ((request: Request, reply: ReplyWithContinue, source: string, error: Boom.BoomError) => void);
     /** if true, applies the validation rule changes to the response payload. Defaults to false. */
     modify?: boolean;
-    /** options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is available [here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) ). Defaults to no options. */
-    options?: JoiValidationOptions;
+    /**
+     * options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is available [here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) ). Defaults to no options.
+     * This can also be an arbitrary object that is passed into a custom validation function as second parameter.
+     */
+    options?: JoiValidationOptions | any;
     /** if false, payload range support is disabled. Defaults to true. */
     ranges?: boolean;
     /** the percent of response payloads validated (0 - 100). Set to 0 to disable all validation. Defaults to 100 (all response payloads). */
@@ -1358,12 +1361,41 @@ export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | V
 /**
  * see RouteResponseConfigurationScheme
  *
- * TODO check `value: Response` is correct as it says "**the object containing** the response object." not just "the response object".
- * TODO check `options: JoiValidationOptions` is correct
+ * a validation function using the signature function(value, options, next) where:
+ * * value - can be response.source for successful responses or response.output.payload when validating specific error responses
+ * * options - a validation context merged with the response configuration options
+ * * next(err, value) - the callback function called when validation is completed, with the optional possibility to modify the response output value
+ *
  * Also see ValidationFunctionForRouteValidate
  */
 export interface ValidationFunctionForRouteResponse {
-    (value: Response, options: JoiValidationOptions, next: ContinuationFunction): void;
+    (value: any, options: RouteResponseValidationContext & (JoiValidationOptions | any), next: ContinuationOptionalValueFunction): void;
+}
+
+/**
+ * A context for route input validation via a Joi schema or validation function.
+ *
+ * This object is merged with the route response options and passed into the validation function.
+ */
+export interface RouteResponseValidationContext {
+    context: {
+        /** The request headers */
+        headers: Dictionary<string>;
+        /** The request path parameters */
+        params: any;
+        /** The request query parameters */
+        query: any;
+        /** The request payload parameters */
+        payload: any;
+
+        auth: RequestAuthenticationInformation;
+        app: {
+            /** The route config app option */
+            route: any;
+            /** The request object app property */
+            request: any;
+        }
+    }
 }
 
 /**
@@ -1410,23 +1442,23 @@ export interface RouteValidationConfigurationObject {
      *      * options - the server validation options.
      *      * next(err, value) - the callback function called when validation is completed.
      */
-    headers?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    headers?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
     /**
      * validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params. Values allowed:
      * Same as `headers`, see above.
      */
-    params?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    params?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
     /**
      * validation rules for an incoming request URI query component (the key-value part of the URI between '?' and '#'). The query is parsed into its individual key-value pairs and stored in request.query prior to validation. Values allowed:
      * Same as `headers`, see above.
      */
-    query?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    query?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
     /**
      * validation rules for an incoming request payload (request body). Values allowed:
      * Same as `headers`, see above, with the addition that:
      *  * a Joi validation object. Note that empty payloads are represented by a null value. If a validation schema is provided and empty payload are supported, it must be explicitly defined by setting the payload value to a joi schema with null allowed (e.g. Joi.object({ /* keys here  * / }).allow(null)).
      */
-    payload?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    payload?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
     /** an optional object with error fields copied into every validation error response. */
     errorFields?: any;
     /**
@@ -1437,24 +1469,48 @@ export interface RouteValidationConfigurationObject {
      *  * a custom error handler function with the signature function(request, reply, source, error) see RouteFailFunction
      */
     failAction?: 'error' | 'log' | 'ignore' | RouteFailFunction;
-    /** options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is [available here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback)). Defaults to no options. */
-    options?: JoiValidationOptions;
+    /**
+     *  options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is [available here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback)). Defaults to no options.
+     * This can also be an arbitrary object that is passed into a custom validation function as second parameter.
+     */
+    options?: JoiValidationOptions | any;
 }
 
 /**
  * a validation function using the signature function(value, options, next) where:
  * For context see RouteAdditionalConfigurationOptions > validate (IRouteValidationConfigurationObject)
  *
- * TODO check `value: Response` is correct as it says "**the object containing** the response object." not just "the response object".
- * TODO check `options: JoiValidationOptions` is correct
- * TODO type of the returned value?
  * Also see ValidationFunctionForRouteResponse
- * @param value - the object containing the request headers.
+ * @param value - the object containing the request headers, query, path params or payload.
  * @param options - the server validation options.
  * @param next(err, value) - the callback function called when validation is completed.
  */
-export interface ValidationFunctionForRouteValidate {
-    (value: Response, options: JoiValidationOptions, next: ContinuationValueFunction): void;
+export interface ValidationFunctionForRouteInput {
+    (value: any, options: RouteInputValidationContext & (JoiValidationOptions | any), next: ContinuationOptionalValueFunction): void;
+}
+
+/**
+ * A context for route input validation via a Joi schema or validation function.
+ *
+ * This object is merged with the route validation options and passed into the validation function.
+ */
+export interface RouteInputValidationContext {
+    context: {
+        // These are only set when *not* validating the respective source (e.g. params, query and payload are set when validating headers):
+        // https://github.com/hapijs/hapi/blob/master/lib/validation.js#L136
+        headers?: Dictionary<string>;
+        params?: any;
+        query?: any;
+        payload?: any;
+
+        auth: RequestAuthenticationInformation;
+        app: {
+            /** The route config app option */
+            route: any;
+            /** The request object app property */
+            request: any;
+        }
+    }
 }
 
 /**
@@ -1795,18 +1851,7 @@ export class Request extends Podium {
     /** application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name]. */
     app: any;
     /** authentication information */
-    auth: {
-        /** true if the request has been successfully authenticated, otherwise false. */
-        isAuthenticated: boolean;
-        /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
-        credentials: any;
-        /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-        artifacts: any;
-        /** the route authentication mode. */
-        mode: string;
-        /** the authentication error is failed and mode set to 'try'. */
-        error: Error;
-    };
+    auth: RequestAuthenticationInformation;
     /** the connection the request was received by. */
     connection: ServerConnection;
     /**  the node domain object used to protect against exceptions thrown in extensions, handlers and route prerequisites. Can be used to manually bind callback functions otherwise bound to other domains. Set to null when the server useDomains options is false. */
@@ -1964,6 +2009,19 @@ export class Request extends Podium {
     // [index: string]: any;
 }
 
+export interface RequestAuthenticationInformation {
+    /** true if the request has been successfully authenticated, otherwise false. */
+    isAuthenticated: boolean;
+    /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
+    credentials: any;
+    /** an artifact object received from the authentication strategy and used in authentication-related actions. */
+    artifacts: any;
+    /** the route authentication mode. */
+    mode: string;
+    /** the authentication error is failed and mode set to 'try'. */
+    error: Error;
+}
+
 export type HTTP_METHODS_PARTIAL_lowercase = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'options';
 export type HTTP_METHODS_PARTIAL = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | HTTP_METHODS_PARTIAL_lowercase;
 export type HTTP_METHODS = 'HEAD' | 'head' | HTTP_METHODS_PARTIAL;
@@ -2062,6 +2120,10 @@ export interface ContinuationFunction {
  */
 export interface ContinuationValueFunction {
     (err: Boom.BoomError, value: any): void;
+}
+
+export interface ContinuationOptionalValueFunction {
+    (err?: Boom.BoomError, value?: any): void;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
