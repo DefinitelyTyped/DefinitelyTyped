@@ -74,5 +74,3 @@ developmentExtendedFormatLine.memoizer = {};
 
 morgan.format('dev-extended', developmentExtendedFormatLine);
 app.use(morgan('dev-extended'));
-
-app.listen(8000);
