@@ -27,22 +27,22 @@ function test_options_classNames() {
 }
 
 function test_recalculate() {
-    var el = new SimpleBar(document.getElementById('myElement'));
+    const el = new SimpleBar(document.getElementById('myElement'));
     el.recalculate();
 }
 
 function test_getScrollElement() {
-    var el = new SimpleBar(document.getElementById('myElement'));
+    const el = new SimpleBar(document.getElementById('myElement'));
     el.getScrollElement();
 }
 
 function test_scrollEvent() {
-    var el = new SimpleBar(document.getElementById('myElement'));
-    el.getScrollElement().addEventListener('scroll', function() {});
+    const el = new SimpleBar(document.getElementById('myElement'));
+    el.getScrollElement().addEventListener('scroll', () => { });
 }
 
 function test_getContentElement() {
-    var el = new SimpleBar(document.getElementById('myElement'));
+    const el = new SimpleBar(document.getElementById('myElement'));
     el.getContentElement();
 }
 
