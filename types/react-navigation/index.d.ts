@@ -621,3 +621,6 @@ export interface NavgationComponentProps<T> {
     },
   }
 }
+
+export const TabBarTop: React.ReactElement<any>;
+export const TabBarBottom: React.ReactElement<any>;
