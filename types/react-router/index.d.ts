@@ -59,6 +59,7 @@ export interface RouteComponentProps<P> {
   match: match<P>;
   location: H.Location;
   history: H.History;
+  staticContext?: any;
 }
 
 export interface RouteProps {
