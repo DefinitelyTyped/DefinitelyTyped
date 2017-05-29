@@ -3742,6 +3742,9 @@ declare module "util" {
         depth?: number | null;
         colors?: boolean;
         customInspect?: boolean;
+        showProxy?: boolean;
+        maxArrayLength?: number | null;
+        breakLength?: number;
     }
 
     export function format(format: any, ...param: any[]): string;
