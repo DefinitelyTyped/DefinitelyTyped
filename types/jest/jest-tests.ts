@@ -502,8 +502,6 @@ describe('Mocks', function () {
     });
 });
 
-
-
 test('Resolves test', () => {
     expect.hasAssertions()
     return expect(Promise.resolve(42)).resolves.toBe(42);
