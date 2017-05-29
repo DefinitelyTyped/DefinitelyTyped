@@ -49,19 +49,22 @@ const developmentExtendedFormatLine : ExtendedFormatFn = (tokens, req: Koa.Reque
         : undefined;
 
     // get status color
-    const color = status >= 500 ? 31 // red
-        : status >= 400 ? 33 // yellow
-        : status >= 300 ? 36 // cyan
-        : status >= 200 ? 32 // green
+    const color = status && status >= 500 ? 31 // red
+        : status && status >= 400 ? 33 // yellow
+        : status && status >= 300 ? 36 // cyan
+        : status && status >= 200 ? 32 // green
         : 0; // no color
 
     // get colored format function, if previously memoized, otherwise undefined
-    let fn: morgan.FormatFn = developmentExtendedFormatLine.memoizer[color];
+    let fn: morgan.FormatFn|undefined = developmentExtendedFormatLine.memoizer ? developmentExtendedFormatLine.memoizer[color] : undefined;
 
     if (!fn) {
-    // compile
-    fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile('\x1b[0m:method :url \x1b['
-        + color + 'm:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent');
+        if (!developmentExtendedFormatLine.memoizer) {
+            developmentExtendedFormatLine.memoizer = {};
+        }
+
+        fn = developmentExtendedFormatLine.memoizer[color] = morgan.compile('\x1b[0m:method :url \x1b['
+            + color + 'm:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent');
     }
 
     return fn(tokens, req, res);
