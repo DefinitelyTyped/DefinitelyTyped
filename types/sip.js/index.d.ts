@@ -55,18 +55,18 @@ declare namespace sipjs {
         on(name: 'message', callback: (message: Message) => void): void;
     }
 
-    namespace UA.C {
-        class supported {
-            REQUIRED: string;
-            SUPPORTED: string;
-            UNSUPPORTED: string;
+    namespace C {
+        namespace supported {
+            const REQUIRED: string;
+            const SUPPORTED: string;
+            const UNSUPPORTED: string;
         }
 
-        class causes {
-            INVALID_TARGET: string;
-            CONNECTION_ERROR: string;
-            REQUEST_TIMEOUT: string;
-            SIP_FAILURE_CODE: string;
+        namespace causes {
+            const INVALID_TARGET: string;
+            const CONNECTION_ERROR: string;
+            const REQUEST_TIMEOUT: string;
+            const SIP_FAILURE_CODE: string;
         }
     }
 
