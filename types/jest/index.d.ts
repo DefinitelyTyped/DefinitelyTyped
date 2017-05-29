@@ -1,4 +1,4 @@
-// Type definitions for Jest 19.2.0
+// Type definitions for Jest 20.0.4
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -167,6 +167,8 @@ declare namespace jest {
         arrayContaining(arr: any[]): any;
         /** Verifies that a certain number of assertions are called during a test. This is often useful when testing asynchronous code, in order to make sure that assertions in a callback actually got called. */
         assertions(num: number): void;
+        /** Verifies that at least one assertion is called during a test. This is often useful when testing asynchronous code, in order to make sure that assertions in a callback actually got called. */
+        hasAssertions(): void;
         /** You can use `expect.extend` to add your own matchers to Jest. */
         extend(obj: ExpectExtendMap): void;
         /** Matches any object that recursively matches the provided keys. This is often handy in conjunction with other asymmetric matchers. */
