@@ -3,6 +3,7 @@
     "rules": {
         "unified-signatures": false,
         "no-empty-interface": false,
-        "prefer-method-signature": false
+        "prefer-method-signature": false,
+        "callable-types": false
     }
 }

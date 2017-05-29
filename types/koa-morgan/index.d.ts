@@ -2,14 +2,19 @@
 // Project: https://github.com/koa-modules/morgan
 // Definitions by: Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as Koa from 'koa';
 import * as originalMorgan from 'morgan';
 
 declare namespace morgan {
-    type FormatFn = (tokens: TokenIndexer, req: Koa.Request, res: Koa.Response) => string;
+    interface FormatFn {
+        (tokens: TokenIndexer, req: Koa.Request, res: Koa.Response): string;
+    }
 
-    type TokenCallbackFn = (req: Koa.Request, res: Koa.Response, arg?: string | number | boolean) => string;
+    interface TokenCallbackFn {
+        (req: Koa.Request, res: Koa.Response, arg?: string | number | boolean): string;
+    }
 
     interface TokenIndexer extends originalMorgan.TokenIndexer {}
 

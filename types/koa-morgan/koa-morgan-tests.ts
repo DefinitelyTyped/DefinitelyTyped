@@ -20,7 +20,7 @@ app.use(morgan('combined', {
     buffer: true,
     immediate: true,
     skip: (req: Koa.Request, res: Koa.Response) => res.status < 400,
-    stream: stream
+    stream
 }));
 
 // test interface definition for morgan
@@ -41,8 +41,7 @@ interface ExtendedFormatFn extends morgan.FormatFn {
     memoizer?: FormatFnIndexer;
 }
 
-const developmentExtendedFormatLine : ExtendedFormatFn = (tokens, req: Koa.Request, res: Koa.Response): string => {
-
+const developmentExtendedFormatLine: ExtendedFormatFn = (tokens, req: Koa.Request, res: Koa.Response): string => {
     // get the status code if response written
     const status = res.status
         ? res.status

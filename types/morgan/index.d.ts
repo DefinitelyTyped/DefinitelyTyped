@@ -24,7 +24,7 @@ declare namespace morgan {
      */
     export interface Morgan {
         /***
-         * Create a new morgan logger middleware function using the given format and options. The format argument may be a string of a predefined name (see below for the names), 
+         * Create a new morgan logger middleware function using the given format and options. The format argument may be a string of a predefined name (see below for the names),
          * or a string of a format string containing defined tokens.
          * @param format
          * @param options
@@ -69,7 +69,7 @@ declare namespace morgan {
         (format: 'tiny', options?: Options): express.RequestHandler;
 
         /***
-         * Create a new morgan logger middleware function using the given format and options. The format argument may be a  
+         * Create a new morgan logger middleware function using the given format and options. The format argument may be a
          * custom format function which adheres to the signature.
          * @param format
          * @param options
@@ -152,7 +152,7 @@ declare namespace morgan {
 }
 
 /***
-     * Create a new morgan logger middleware function using the given format and options. The format argument may be a string of a predefined name (see below for the names), 
+     * Create a new morgan logger middleware function using the given format and options. The format argument may be a string of a predefined name (see below for the names),
      * or a string of a format string containing defined tokens.
  * @param format
  * @param options
@@ -200,7 +200,7 @@ declare function morgan(format: 'short', options?: morgan.Options): express.Requ
 declare function morgan(format: 'tiny', options?: morgan.Options): express.RequestHandler;
 
 /***
- * Create a new morgan logger middleware function using the given format and options. The format argument may be a  
+ * Create a new morgan logger middleware function using the given format and options. The format argument may be a
  * custom format function which adheres to the signature.
  * @param format
  * @param options
