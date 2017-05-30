@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>
+// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>, Jeremi Stadler <https://github.com/jeremistadler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -804,6 +804,17 @@ export interface TextPropertiesAndroid {
      * Lets the user select text, to use the native copy and paste functionality.
      */
     selectable?: boolean
+
+    /**
+     * The highlight color of the text.
+     */
+    selectionColor?: string
+
+    /**
+     * Set text break strategy on Android API Level 23+
+     * default is `highQuality`.
+     */
+    textBreakStrategy?: "simple" | "highQuality" | "balanced"
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -993,7 +1004,10 @@ export interface TextInputIOSProperties {
      */
     selectionState?: DocumentSelectionState
 
-
+    /**
+     * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
+     */
+    spellCheck?: boolean
 }
 
 /**
@@ -8822,6 +8836,13 @@ export function processColor(color: any): number;
 
 export function __spread(target: any, ...sources: any[]): any;
 
+type ErrorHandlerCallback = (error: any, isFatal?: boolean) => void;
+
+export interface ErrorUtils {
+    setGlobalHandler: (callback: ErrorHandlerCallback) => void;
+    getGlobalHandler: () => ErrorHandlerCallback;
+}
+
 export interface GlobalStatic {
 
     /**
@@ -8842,6 +8863,9 @@ export interface GlobalStatic {
      */
     originalXMLHttpRequest: Object;
     XMLHttpRequest: Object;
+
+    __BUNDLE_START_TIME__: number;
+    ErrorUtils: ErrorUtils;
 }
 
 //
