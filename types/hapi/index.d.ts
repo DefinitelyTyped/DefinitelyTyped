@@ -1376,6 +1376,8 @@ export interface ValidationFunctionForRouteResponse<ValidationOptions = {}> {
  * A context for route input validation via a Joi schema or validation function.
  *
  * This object is merged with the route response options and passed into the validation function.
+ *
+ * See https://github.com/hapijs/hapi/blob/v16.1.1/lib/validation.js#L217
  */
 export interface RouteResponseValidationContext {
     context: {
@@ -1388,13 +1390,13 @@ export interface RouteResponseValidationContext {
         /** The request payload parameters */
         payload: any;
 
-        auth: RequestAuthenticationInformation;
-        app: {
-            /** The route config app option */
-            route: any;
-            /** The request object app property */
-            request: any;
-        }
+        /** Partial request authentication information */
+        auth: {
+            /** true if the request has been successfully authenticated, otherwise false. */
+            isAuthenticated: boolean;
+            /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
+            credentials: any;
+        };
     }
 }
 
@@ -1493,23 +1495,20 @@ export interface ValidationFunctionForRouteInput<ValidationOptions = {}> {
  * A context for route input validation via a Joi schema or validation function.
  *
  * This object is merged with the route validation options and passed into the validation function.
+ *
+ * See https://github.com/hapijs/hapi/blob/v16.1.1/lib/validation.js#L122
  */
 export interface RouteInputValidationContext {
     context: {
         // These are only set when *not* validating the respective source (e.g. params, query and payload are set when validating headers):
-        // https://github.com/hapijs/hapi/blob/master/lib/validation.js#L136
+        // See https://github.com/hapijs/hapi/blob/v16.1.1/lib/validation.js#L132
         headers?: Dictionary<string>;
         params?: any;
         query?: any;
         payload?: any;
 
+        /** The request authentication information */
         auth: RequestAuthenticationInformation;
-        app: {
-            /** The route config app option */
-            route: any;
-            /** The request object app property */
-            request: any;
-        }
     }
 }
 
