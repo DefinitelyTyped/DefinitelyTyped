@@ -34,7 +34,7 @@ interface DoneFn extends Function {
     (): void;
 
     /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
-    fail: (message?: Error|string) => void;
+    fail: (message?: Error | string) => void;
 }
 
 declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
@@ -60,6 +60,10 @@ declare namespace jasmine {
 
     function createSpyObj(baseName: string, methodNames: any[]): any;
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
+
+    function createSpyObj(baseName: string, methodNames: any): any;
+    function createSpyObj(methodNames: any[]): any;
+    function createSpyObj(methodNames: any): any;
 
     function pp(value: any): string;
 
@@ -248,7 +252,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: {random: boolean, seed: string}): any;
+        new (options: { random: boolean, seed: string }): any;
         random: boolean;
         seed: string;
         sort<T>(items: T[]): T[];
@@ -510,7 +514,7 @@ declare namespace jasmine {
         identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: {args: any[]; };
+        mostRecentCall: { args: any[]; };
         argsForCall: any[];
     }
 

@@ -841,7 +841,7 @@ describe("Fail", () => {
 
 // test based on http://jasmine.github.io/2.2/custom_equality.html
 describe("custom equality", () => {
-    var myCustomEquality: jasmine.CustomEqualityTester = function(first: any, second: any): boolean {
+    var myCustomEquality: jasmine.CustomEqualityTester = function (first: any, second: any): boolean {
         if (typeof first === "string" && typeof second === "string") {
             return first[0] === second[1];
         }
@@ -980,6 +980,54 @@ describe("Randomize Tests", () => {
             env.randomizeTests(true);
             return env.seed(1234);
         }).not.toThrow();
+    });
+});
+
+//dest spces copied from jasmine project (https://github.com/jasmine/jasmine/blob/master/spec/core/SpecSpec.js)
+describe("createSpyObj", function () {
+    it("should create an object with spy methods and corresponding return values when you call jasmine.createSpyObj() with an object", function () {
+        var spyObj = jasmine.createSpyObj('BaseName', { 'method1': 42, 'method2': 'special sauce' });
+
+        expect(spyObj.method1()).toEqual(42);
+        expect(spyObj.method1.and.identity()).toEqual('BaseName.method1');
+
+        expect(spyObj.method2()).toEqual('special sauce');
+        expect(spyObj.method2.and.identity()).toEqual('BaseName.method2');
+    });
+
+
+    it("should create an object with a bunch of spy methods when you call jasmine.createSpyObj()", function () {
+        var spyObj = jasmine.createSpyObj('BaseName', ['method1', 'method2']);
+
+        expect(spyObj).toEqual({ method1: jasmine.any(Function), method2: jasmine.any(Function) });
+        expect(spyObj.method1.and.identity()).toEqual('BaseName.method1');
+        expect(spyObj.method2.and.identity()).toEqual('BaseName.method2');
+    });
+
+    it("should allow you to omit the baseName", function () {
+        var spyObj = jasmine.createSpyObj(['method1', 'method2']);
+
+        expect(spyObj).toEqual({ method1: jasmine.any(Function), method2: jasmine.any(Function) });
+        expect(spyObj.method1.and.identity()).toEqual('unknown.method1');
+        expect(spyObj.method2.and.identity()).toEqual('unknown.method2');
+    });
+
+    it("should throw if you do not pass an array or object argument", function () {
+        expect(function () {
+            jasmine.createSpyObj('BaseName');
+        }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
+    });
+
+    it("should throw if you pass an empty array argument", function () {
+        expect(function () {
+            jasmine.createSpyObj('BaseName', []);
+        }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
+    });
+
+    it("should throw if you pass an empty object argument", function () {
+        expect(function () {
+            jasmine.createSpyObj('BaseName', {});
+        }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
     });
 });
 
