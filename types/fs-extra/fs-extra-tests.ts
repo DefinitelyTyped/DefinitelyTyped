@@ -212,3 +212,9 @@ fs.lchmodSync(path, modeNum);
 fs.lchmodSync(path, modeStr);
 fs.statSync(path);
 fs.lstatSync(path);
+
+// $ExpectType Promise<void>
+fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });
+
+// $ExpectType Promise<string>
+fs.mkdtemp("foo");

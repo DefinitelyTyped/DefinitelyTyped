@@ -2096,7 +2096,7 @@ declare namespace sequelize {
 
     }
 
-    interface UniqueConstraintError extends DatabaseError {
+    interface UniqueConstraintError extends ValidationError {
 
         /**
          * Thrown when a unique constraint is violated in the database
