@@ -17,10 +17,6 @@ declare namespace auth {
 
     /**
      * Parse basic auth to object.
-     *
-     * @param {string} string
-     * @return {object}
-     * @public
      */
     function parse(authorizationHeader: string): auth.BasicAuthResult | undefined;
 }
