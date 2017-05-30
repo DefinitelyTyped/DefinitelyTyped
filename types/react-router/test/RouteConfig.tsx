@@ -64,15 +64,10 @@ const routes: MyRouteProps[] = [
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work
 const RouteWithSubRoutes = (route: MyRouteProps) => (
-  <Route path={route.path} render={props => {
-    if (props.staticContext) {
-      props.staticContext.foo = 'bar';
-    }
+  <Route path={route.path} render={props => (
     // pass the sub-routes down to keep nesting
-    return (
-      <route.component {...props} routes={route.routes!}/>
-    );
-  }}/>
+    <route.component {...props} routes={route.routes!}/>
+  )}/>
 );
 
 const RouteConfigExample = () => (
