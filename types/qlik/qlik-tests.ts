@@ -1,4 +1,4 @@
-import * as Qlik from './index';
+import * as Qlik from 'qlik';
 
 // Extension API Test
 () => {
