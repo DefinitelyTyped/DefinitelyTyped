@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>
+// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>, Jeremi Stadler <https://github.com/jeremistadler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -804,6 +804,17 @@ export interface TextPropertiesAndroid {
      * Lets the user select text, to use the native copy and paste functionality.
      */
     selectable?: boolean
+
+    /**
+     * The highlight color of the text.
+     */
+    selectionColor?: string
+
+    /**
+     * Set text break strategy on Android API Level 23+
+     * default is `highQuality`.
+     */
+    textBreakStrategy?: "simple" | "highQuality" | "balanced"
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -993,7 +1004,10 @@ export interface TextInputIOSProperties {
      */
     selectionState?: DocumentSelectionState
 
-
+    /**
+     * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
+     */
+    spellCheck?: boolean
 }
 
 /**
@@ -2908,6 +2922,13 @@ export interface RecyclerViewBackedScrollViewStatic extends ScrollResponderMixin
     getScrollResponder(): JSX.Element;
 }
 
+export interface SliderPropertiesAndroid extends ViewProperties {
+    /**
+     * Color of the foreground switch grip.
+     */
+    thumbTintColor?: string,
+}
+
 export interface SliderPropertiesIOS extends ViewProperties {
 
     /**
@@ -2917,22 +2938,10 @@ export interface SliderPropertiesIOS extends ViewProperties {
     maximumTrackImage?: ImageURISource
 
     /**
-     * The color used for the track to the right of the button.
-     * Overrides the default blue gradient image.
-     */
-    maximumTrackTintColor?: string
-
-    /**
      * Assigns a minimum track image. Only static images are supported.
      * The rightmost pixel of the image will be stretched to fill the track.
      */
     minimumTrackImage?: ImageURISource
-
-    /**
-     * The color used for the track to the left of the button.
-     * Overrides the default blue gradient image.
-     */
-    minimumTrackTintColor?: string
 
     /**
      * Sets an image for the thumb. Only static images are supported.
@@ -2947,7 +2956,7 @@ export interface SliderPropertiesIOS extends ViewProperties {
     trackImage?: ImageURISource
 }
 
-export interface SliderProperties extends SliderPropertiesIOS {
+export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesAndroid {
 
     /**
      * If true the user won't be able to move the slider.
@@ -2956,9 +2965,21 @@ export interface SliderProperties extends SliderPropertiesIOS {
     disabled?: boolean
 
     /**
+     * The color used for the track to the right of the button.
+     * Overrides the default blue gradient image.
+     */
+    maximumTrackTintColor?: string
+
+    /**
      * Initial maximum value of the slider. Default value is 1.
      */
     maximumValue?: number
+
+    /**
+     * The color used for the track to the left of the button.
+     * Overrides the default blue gradient image.
+     */
+    minimumTrackTintColor?: string
 
     /**
      * Initial minimum value of the slider. Default value is 0.
@@ -8815,6 +8836,13 @@ export function processColor(color: any): number;
 
 export function __spread(target: any, ...sources: any[]): any;
 
+type ErrorHandlerCallback = (error: any, isFatal?: boolean) => void;
+
+export interface ErrorUtils {
+    setGlobalHandler: (callback: ErrorHandlerCallback) => void;
+    getGlobalHandler: () => ErrorHandlerCallback;
+}
+
 export interface GlobalStatic {
 
     /**
@@ -8835,6 +8863,9 @@ export interface GlobalStatic {
      */
     originalXMLHttpRequest: Object;
     XMLHttpRequest: Object;
+
+    __BUNDLE_START_TIME__: number;
+    ErrorUtils: ErrorUtils;
 }
 
 //

@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "redux-devtools-extension-tests.ts"
+        "mongoose-unique-validator-tests.ts"
     ]
 }

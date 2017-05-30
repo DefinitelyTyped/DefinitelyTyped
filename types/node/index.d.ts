@@ -378,7 +378,7 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         env: any;
-        exit(code?: number): void;
+        exit(code?: number): never;
         exitCode: number;
         getgid(): number;
         setgid(id: number): void;
