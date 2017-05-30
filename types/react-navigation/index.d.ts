@@ -476,6 +476,7 @@ export interface LayoutEvent {
 }
 
 interface NavigationContainerProps {
+  screenProps?: any
   navigation?: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
