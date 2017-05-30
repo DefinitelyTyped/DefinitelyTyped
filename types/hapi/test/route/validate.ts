@@ -25,23 +25,36 @@ let config: Hapi.RouteAdditionalConfigurationOptions = {
     },
 };
 
-const inputValidationFunction: Hapi.ValidationFunctionForRouteInput = (value: any, options: Hapi.RouteInputValidationContext, next: Hapi.ContinuationOptionalValueFunction) => {
-    next(undefined, value);
-};
-
-const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse = (value: any, options: Hapi.RouteResponseValidationContext, next: Hapi.ContinuationOptionalValueFunction) => {
-    next();
+interface CustomValidationOptions {
+    myOption: number;
 }
 
-const validateWithFunctions: Hapi.RouteValidationConfigurationObject = {
+const inputValidationFunction: Hapi.ValidationFunctionForRouteInput<CustomValidationOptions> = (value, options, next) => {
+    options.myOption; // check custom options
+    options.context.auth.artifacts; // check context
+    next(undefined, value); // check with value
+    next(); // check without value
+};
+
+const validateWithFunctions: Hapi.RouteValidationConfigurationObject<CustomValidationOptions> = {
     params: inputValidationFunction,
     headers: inputValidationFunction,
     payload: inputValidationFunction,
     query: inputValidationFunction,
+    options: {
+        myOption: 18
+    }
 };
 
+const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse<CustomValidationOptions> = (value, options, next) => {
+    options.myOption; // check custom options
+    options.context.auth.isAuthenticated; // check context
+    next(undefined, value); // check with value
+    next(); // check without value
+}
+
 config = {
-    validate,
+    validate: validateWithFunctions,
     response: {
         schema: responseValidationFunction,
     },
