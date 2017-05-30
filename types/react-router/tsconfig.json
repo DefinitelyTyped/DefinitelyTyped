@@ -18,6 +18,7 @@
     "test/Animation.tsx",
     "test/Auth.tsx",
     "test/Basic.tsx",
+    "test/Children.tsx",
     "test/CustomLink.tsx",
     "test/ModalGallery.tsx",
     "test/NavigateWithContext.tsx",
