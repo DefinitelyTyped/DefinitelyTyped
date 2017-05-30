@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -1310,7 +1310,7 @@ export interface RoutePrerequisiteObjects {
 /**
  * For context see RouteAdditionalConfigurationOptions > response
  */
-export interface RouteResponseConfigurationObject {
+export interface RouteResponseConfigurationObject<ValidationOptions = JoiValidationOptions> {
     /** the default HTTP status code when the payload is empty. Value can be 200 or 204. Note that a 200 status code is converted to a 204 only at the time or response transmission (the response status code will remain 200 throughout the request lifecycle unless manually set). Defaults to 200. */
     emptyStatusCode?: number;
     /**
@@ -1330,15 +1330,15 @@ export interface RouteResponseConfigurationObject {
      * options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is available [here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) ). Defaults to no options.
      * This can also be an arbitrary object that is passed into a custom validation function as second parameter.
      */
-    options?: JoiValidationOptions | any;
+    options?: ValidationOptions;
     /** if false, payload range support is disabled. Defaults to true. */
     ranges?: boolean;
     /** the percent of response payloads validated (0 - 100). Set to 0 to disable all validation. Defaults to 100 (all response payloads). */
     sample?: number;
     /** the default response payload validation rules (for all non-error responses) */
-    schema?: RouteResponseConfigurationScheme;
+    schema?: RouteResponseConfigurationScheme<ValidationOptions>;
     /** HTTP status-code-specific payload validation rules. The status key is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema. If a response status code is not present in the status object, the schema definition is used, except for errors which are not validated by default. */
-    status?: Dictionary<RouteResponseConfigurationScheme>;
+    status?: Dictionary<RouteResponseConfigurationScheme<ValidationOptions>>;
 }
 
 /**
@@ -1356,7 +1356,7 @@ export interface RouteResponseConfigurationObject {
  * and
  * For context see RouteAdditionalConfigurationOptions > response > status
  */
-export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | ValidationFunctionForRouteResponse;
+export type RouteResponseConfigurationScheme<ValidationOptions> = boolean | JoiValidationObject | ValidationFunctionForRouteResponse<ValidationOptions>;
 
 /**
  * see RouteResponseConfigurationScheme
@@ -1368,8 +1368,8 @@ export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | V
  *
  * Also see ValidationFunctionForRouteValidate
  */
-export interface ValidationFunctionForRouteResponse {
-    (value: any, options: RouteResponseValidationContext & (JoiValidationOptions | any), next: ContinuationOptionalValueFunction): void;
+export interface ValidationFunctionForRouteResponse<ValidationOptions = {}> {
+    (value: any, options: RouteResponseValidationContext & ValidationOptions, next: ContinuationOptionalValueFunction): void;
 }
 
 /**
@@ -1431,7 +1431,7 @@ export interface RouteSecurityConfigurationObject {
  * For context see RouteAdditionalConfigurationOptions > validate
  * TODO check JoiValidationObject is correct for "a Joi validation object"
  */
-export interface RouteValidationConfigurationObject {
+export interface RouteValidationConfigurationObject<ValidationOptions = JoiValidationOptions> {
     /**
      * validation rules for incoming request headers (note that all header field names must be in lowercase to match the headers normalized by node). Values allowed:
      *  * true - any headers allowed (no validation performed). This is the default.
@@ -1442,23 +1442,23 @@ export interface RouteValidationConfigurationObject {
      *      * options - the server validation options.
      *      * next(err, value) - the callback function called when validation is completed.
      */
-    headers?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
+    headers?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /**
      * validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params. Values allowed:
      * Same as `headers`, see above.
      */
-    params?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
+    params?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /**
      * validation rules for an incoming request URI query component (the key-value part of the URI between '?' and '#'). The query is parsed into its individual key-value pairs and stored in request.query prior to validation. Values allowed:
      * Same as `headers`, see above.
      */
-    query?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
+    query?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /**
      * validation rules for an incoming request payload (request body). Values allowed:
      * Same as `headers`, see above, with the addition that:
      *  * a Joi validation object. Note that empty payloads are represented by a null value. If a validation schema is provided and empty payload are supported, it must be explicitly defined by setting the payload value to a joi schema with null allowed (e.g. Joi.object({ /* keys here  * / }).allow(null)).
      */
-    payload?: boolean | JoiValidationObject | ValidationFunctionForRouteInput;
+    payload?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /** an optional object with error fields copied into every validation error response. */
     errorFields?: any;
     /**
@@ -1473,7 +1473,7 @@ export interface RouteValidationConfigurationObject {
      *  options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is [available here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback)). Defaults to no options.
      * This can also be an arbitrary object that is passed into a custom validation function as second parameter.
      */
-    options?: JoiValidationOptions | any;
+    options?: ValidationOptions;
 }
 
 /**
@@ -1485,8 +1485,8 @@ export interface RouteValidationConfigurationObject {
  * @param options - the server validation options.
  * @param next(err, value) - the callback function called when validation is completed.
  */
-export interface ValidationFunctionForRouteInput {
-    (value: any, options: RouteInputValidationContext & (JoiValidationOptions | any), next: ContinuationOptionalValueFunction): void;
+export interface ValidationFunctionForRouteInput<ValidationOptions = {}> {
+    (value: any, options: RouteInputValidationContext & ValidationOptions, next: ContinuationOptionalValueFunction): void;
 }
 
 /**
