@@ -136,6 +136,9 @@ declare namespace Sinon {
         yieldsToAsync(property: string, ...args: any[]): SinonStub;
         yieldsToOnAsync(property: string, context: any, ...args: any[]): SinonStub;
         withArgs(...args: any[]): SinonStub;
+        value(newVal: any): SinonStub;
+        set(setterFn: (val: any) => void): SinonStub;
+        get(getterFn: () => any): SinonStub;
     }
 
     interface SinonStubStatic {
