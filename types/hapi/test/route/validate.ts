@@ -55,7 +55,10 @@ const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse<Custom
 
 config = {
     validate: validateWithFunctions,
-    response: {
+    response: <Hapi.RouteResponseConfigurationObject<CustomValidationOptions>>{
         schema: responseValidationFunction,
-    },
+        options: {
+            myOption: 18
+        }
+    }
 };
