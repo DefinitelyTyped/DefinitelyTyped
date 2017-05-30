@@ -1852,9 +1852,22 @@ declare module "url" {
         hash?: string;
         path?: string;
     }
+    
+    export interface FormatOptions {
+        protocol?: string;
+        slashes?: boolean;
+        auth?: string;
+        host?: string;
+        hostname?: string;
+        port?: string | number;
+        pathname?: string;
+        search?: string;
+        query?: { [key: string]: any; };
+        hash?: string;
+    }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(url: Url): string;
+    export function format(urlObject: FormatOptions): string;
     export function resolve(from: string, to: string): string;
 
     export class URLSearchParams implements Iterable<string[]> {
