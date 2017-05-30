@@ -55,7 +55,7 @@ export interface NxAttributeExpressionValues {
     qValues: NxSimpleValue[];
 }
 
-type NxCellRows = NxCell[];
+export type NxCellRows = NxCell[];
 
 export interface NxGroupTail {
     qUp: number;
@@ -202,7 +202,7 @@ export interface NxDimensionInfo extends ColumnInfo {
     qDerivedField: boolean;
 }
 
-export interface NxMeasureInfo extends ColumnInfo { }
+export type NxMeasureInfo = ColumnInfo;
 
 export interface HyperCube {
     qStateName: string;
@@ -255,7 +255,7 @@ export interface NxFieldSelectionInfo {
     qFieldSelectionmode: 'NORMAL' | 'AND' | 'NOT';
 }
 
-export interface SelectionObject {
+export interface Selectionobject {
     qBackCount: number;
     qForwardCount: number;
     qSelections: NxCurrentSelectionItem[];
@@ -264,7 +264,7 @@ export interface SelectionObject {
 export interface Layout {
     qHyperCube: HyperCube;
     qInfo: NxInfo;
-    qSelectionInfo: SelectionObject;
+    qSelectionInfo: Selectionobject;
 }
 
 export interface ValueExpr {
@@ -340,7 +340,6 @@ export interface NxMeasure {
     qAttributeDimensions: NxAttrDimDef[];
 }
 
-
 export interface NxInlineMeasureDef {
     qcx: number;
     qcy: number;
@@ -376,12 +375,12 @@ export interface NxAutoSortByStateDef {
     qDisplayNumberOfRows: number;
 }
 
-export interface NxListObjectExpressionDef {
+export interface NxListobjectExpressionDef {
     qExpr: string;
     qLibraryId: string;
 }
 
-export interface ListObjectDef {
+export interface ListobjectDef {
     qStateName: string;
     qLibraryId: string;
     qDef: NxInlineDimensionDef;
@@ -389,7 +388,7 @@ export interface ListObjectDef {
     qFrequencyMode: 'NX_FREQUENCY_NONE' | 'NX_FREQUENCY_VALUE' | 'NX_FREQUENCY_PERCENT' | 'NX_FREQUENCY_RELATIVE';
     qShowAlternatives: boolean;
     qInitialDataFetch: NxPage[];
-    qExpressions: NxListObjectExpressionDef[];
+    qExpressions: NxListobjectExpressionDef[];
 }
 
 export interface InitialPropertiesHyperCube {
@@ -398,20 +397,20 @@ export interface InitialPropertiesHyperCube {
     [key: string]: any;
 }
 
-export interface InitialPropertiesListObject {
-    qListObjectDef: ListObjectDef;
+export interface InitialPropertiesListobject {
+    qListobjectDef: ListobjectDef;
 
     [key: string]: any;
 }
 
-type InitialProperties = InitialPropertiesHyperCube | InitialPropertiesListObject;
+export type InitialProperties = InitialPropertiesHyperCube | InitialPropertiesListobject;
 
 export interface SnapshotLegacy {
     canTakeSnapshot: boolean;
 }
 
-type SupportFunction = (layout: Layout) => boolean;
-type SupportItem = boolean | SupportFunction;
+export type SupportFunction = (layout: Layout) => boolean;
+export type SupportItem = boolean | SupportFunction;
 
 export interface Support {
     snapshot: SupportItem | SnapshotLegacy;
@@ -419,7 +418,7 @@ export interface Support {
     exportData: SupportItem;
 }
 
-type Paint = (
+export type Paint = (
     this: ExtensionContext,
     $element?: JQuery,
     layout?: Layout,
@@ -430,7 +429,7 @@ type Paint = (
     measures?: NxCell[],
     qSize?: Size,
     qId?: string,
-    qSelectionInfo?: SelectionObject
+    qSelectionInfo?: Selectionobject
 ) => void;
 
 export interface VisualizationCommon {
@@ -442,10 +441,10 @@ export interface VisualizationCommon {
 }
 
 // TODO: Other types of visualizations
-type VisualizationOptions = VisualizationCommon;
+export type VisualizationOptions = VisualizationCommon;
 
 // TODO: Figure out other types
-type ShowFunction = (layout: Layout, cls: any, obj: any) => boolean
+export type ShowFunction = (layout: Layout, cls: any, obj: any) => boolean
     | ((measure: NxMeasure) => boolean);
 
 export interface CustomPropertyCommon {
@@ -522,7 +521,7 @@ export interface CustomPropertyOption {
     label: string;
 }
 
-type CustomPropertyOptions = CustomPropertyOption[] | (() => CustomPropertyOption[]);
+export type CustomPropertyOptions = CustomPropertyOption[] | (() => CustomPropertyOption[]);
 
 export interface CustomPropertyDropdown extends CustomPropertyCommon {
     type: 'string';
@@ -598,10 +597,10 @@ export interface CustomPropertyItems extends CustomPropertyCommon {
     type: 'items';
     items: {
         [key: string]: CustomProperty;
-    }
+    };
 }
 
-type CustomProperty = CustomPropertyString | CustomPropertyInteger | CustomPropertyNumber
+export type CustomProperty = CustomPropertyString | CustomPropertyInteger | CustomPropertyNumber
     | CustomPropertyArray | CustomPropertyButton | CustomPropertyButtonGroup
     | CustomPropertyCheckbox | CustomPropertyColorPicker | CustomPropertyDropdown
     | CustomPropertyLink | CustomProperyMedia | CustomPropertyRadio
@@ -646,7 +645,7 @@ export interface Definition {
                 [key: string]: CustomProperty;
             }
         };
-    }
+    };
 }
 
 export interface Extension {
@@ -750,7 +749,7 @@ export interface QHeader {
     selectRange(min: number, max: number, inclMin: boolean, inclMax: boolean): Promise<any>;
 }
 
-interface ExportDataOptions {
+export interface ExportDataOptions {
     format: 'OOXML' | 'CSV_C' | 'CSV_T';
     filename?: string;
     state: 'A' | 'P';
@@ -773,10 +772,10 @@ export interface Variable {
     qContent: {
         qIsNum: boolean;
         qString: string;
-    }
+    };
 }
 
-interface QFieldValue {
+export interface QFieldValue {
     qText: string;
     qElemNumber: number;
     qState: any; // TODO
@@ -786,12 +785,12 @@ interface QFieldValue {
     select(toggle?: boolean, softlock?: boolean): Promise<any>;
 }
 
-interface GetDataOptions {
+export interface GetDataOptions {
     rows: number;
     frequencyMode: 'V' | 'P' | 'R' | 'N';
 }
 
-interface QField {
+export interface QField {
     rows?: QFieldValue[];
     rowCount?: number;
     qStateCounts?: { [state: string]: number; };
@@ -812,30 +811,30 @@ interface QField {
     unlock(): Promise<any>;
 }
 
-type ListTypes = 'FieldList' | 'MeasureList' | 'DimensionList' | 'BookmarkList'
-    | 'SelectionObject' | 'SnapshotList' | 'MediaList' | 'sheet'
-    | 'MaterObject' | 'VariableList' | 'story';
+export type ListTypes = 'FieldList' | 'MeasureList' | 'DimensionList' | 'BookmarkList'
+    | 'Selectionobject' | 'SnapshotList' | 'MediaList' | 'sheet'
+    | 'Materobject' | 'VariableList' | 'story';
 
 export interface App {
     addAlternateState(qStateName: string): Promise<any>;
     back(): Promise<any>;
     clearrAll(lockedAlso?: boolean, state?: string): Promise<any>;
     close(): void;
-    createCube(qHyperCubeDef: HyperCubeDef, callback?: (hypercube: HyperCube) => void): Promise<any>; // TODO: Returns Promise<Object Model>
-    // TODO: createGenericObject
-    // TODO: createList(qListObjectDef: ListObjectDef, callback?: (hypercube: TODO) => void): Promise<any>;
-    // TODO: createTable(dimensions: Array<string | NxDimension>, measures: Array<string | NxMeasure>, options?: Object): QTable;
+    createCube(qHyperCubeDef: HyperCubeDef, callback?: (hypercube: HyperCube) => void): Promise<any>; // TODO: Returns Promise<object Model>
+    // TODO: createGenericobject
+    // TODO: createList(qListobjectDef: ListobjectDef, callback?: (hypercube: TODO) => void): Promise<any>;
+    // TODO: createTable(dimensions: Array<string | NxDimension>, measures: Array<string | NxMeasure>, options?: object): QTable;
     destroySession(id: string): Promise<any>;
     doReload(qMode?: '0' | '1' | '2', qPartial?: boolean, qDebug?: boolean): Promise<any>;
     doSave(qFileName?: string): Promise<any>;
     field(field: string, state?: string): QField;
     forward(): Promise<any>;
     getAppLayout(callback: (layout: Layout) => void): Promise<any>;
-    // getAppObjectList(type: 'sheet' | 'masterobject', callback: (list: ))
+    // getAppobjectList(type: 'sheet' | 'masterobject', callback: (list: ))
     getFullPropertyTree(id: string): Promise<any>;
     // getList(type: ListTypes, callback): Promise<any>;
-    getObject(elem?: HTMLElement | string, id?: string | 'CurrentSelections', options?: { noInteraction?: boolean, noSelections?: boolean }): Promise<any>;
-    getObjectProperties(id: string): Promise<any>;
+    getobject(elem?: HTMLElement | string, id?: string | 'CurrentSelections', options?: { noInteraction?: boolean, noSelections?: boolean }): Promise<any>;
+    getobjectProperties(id: string): Promise<any>;
     getSnapshot(elem?: HTMLElement | string, id?: string): Promise<any>;
     lockAll(state?: string): Promise<any>;
     removeAlternateState(qStateName: string): Promise<any>;
@@ -848,13 +847,13 @@ export interface App {
     variable: {
         getContent(variable: string, callback: (value: Variable, app: App) => void): Promise<any>;
         setContent(variable: string, value: string): void;
-    }
+    };
 }
 
 export function callRepository(path: string, method: string, body: string): Promise<any>;
-export function currApp(reference: Object): App;
+export function currApp(reference: object): App;
 
-interface GetAppConfig {
+export interface GetAppConfig {
     host?: string;
     port: string | number;
     prefix?: string;
@@ -868,11 +867,9 @@ export function getAppList(callback: App[], config: GetAppConfig): void;
 // TODO: fix any
 export function getExtensionList(callback: any[]): Promise<any>;
 
-export interface Global {
+export type Global = any;
 
-}
-
-interface GetGlobalConfig {
+export interface GetGlobalConfig {
     host: string;
     port: string;
     prefix: string;
@@ -882,10 +879,10 @@ interface GetGlobalConfig {
 
 export function getGlobal(config: GetGlobalConfig): Global;
 export function openApp(appId: string, config: GetAppConfig): App;
-export function registerExtension(id: string, impl: Extension, metadata: Object): void;
+export function registerExtension(id: string, impl: Extension, metadata: object): void;
 export function resize(ID?: string): void;
 
-declare namespace LanguageCodes {
+export namespace LanguageCodes {
     type German = 'de' | 'de-DE';
     type English = 'en' | 'en-US';
     type Spanish = 'es' | 'es-ES';
@@ -913,4 +910,4 @@ export interface Error {
     message: string;
 }
 export function setOnError(onError: (error: Error) => void, onWarning: (warning: string) => void): void;
-export function table(ext: Object, path?: string): void;
+export function table(ext: object, path?: string): void;
