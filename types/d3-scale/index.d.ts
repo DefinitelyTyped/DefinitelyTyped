@@ -569,7 +569,7 @@ export function scaleLog<Range, Output>(): ScaleLogarithmic<Range, Output>;
  * Identity scales are a special case of linear scales where the domain and range are identical; the scale and its invert method are thus the identity function.
  * These scales are occasionally useful when working with pixel coordinates, say in conjunction with an axis or brush.
  */
-export interface ScaleIdentity<Range> {
+export interface ScaleIdentity {
     /**
      * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
      *
@@ -626,7 +626,7 @@ export interface ScaleIdentity<Range> {
      *
      * @param range Array of range values.
      */
-    range(range: Array<Range | { valueOf(): number }>): this;
+    range(range: Array<number | { valueOf(): number }>): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -671,13 +671,13 @@ export interface ScaleIdentity<Range> {
     /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
-    copy(): ScaleIdentity<Range>;
+    copy(): ScaleIdentity;
 }
 
 /**
  * Constructs a new identity scale with the unit domain [0, 1] and the unit range [0, 1].
  */
-export function scaleIdentity<Range>(): ScaleIdentity<Range>;
+export function scaleIdentity(): ScaleIdentity;
 
 // -------------------------------------------------------------------------------
 // Time Scale Factories

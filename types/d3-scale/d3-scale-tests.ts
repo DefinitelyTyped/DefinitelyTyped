@@ -382,7 +382,7 @@ const copiedLogScale: d3Scale.ScaleLogarithmic<number, string> = logScaleNumStri
 
 // scaleIdentity -----------------------------------------------------------------
 
-let identityScale: d3Scale.ScaleIdentity<number>;
+let identityScale: d3Scale.ScaleIdentity;
 
 identityScale = d3Scale.scaleIdentity();
 
@@ -427,7 +427,7 @@ outputNumber = identityScale(10);
 
 // copy(...) -----------------------------------------------------------------
 
-const copiedIdentityScale: d3Scale.ScaleIdentity<number> = identityScale.copy();
+const copiedIdentityScale: d3Scale.ScaleIdentity = identityScale.copy();
 
 // -------------------------------------------------------------------------------
 // Time Scale Factories
