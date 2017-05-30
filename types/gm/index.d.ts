@@ -615,9 +615,9 @@ declare namespace m {
 
     export interface SubClass {
         (image: string): State;
-        (stream: NodeJS.ReadableStream, image?: string): State
-        (buffer: Buffer, image?: string): State
-        (width: number, height: number, color?: string): State
+        (stream: NodeJS.ReadableStream, image?: string): State;
+        (buffer: Buffer, image?: string): State;
+        (width: number, height: number, color?: string): State;
     }
 
     export function compare(filename1: string, filename2: string, callback: CompareCallback): void;
