@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@types/jquery": "^2.0.34"
+  }
+}
