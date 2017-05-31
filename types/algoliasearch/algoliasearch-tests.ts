@@ -1,16 +1,27 @@
 import * as algoliasearch from "algoliasearch";
-import { ClientOptions, SynonymOption, AlgoliaUserKeyOptions, SearchSynonymOptions,
+import { ClientOptions, SynonymOption, AlgoliaUserKeyOptions, SearchSynonymOptions, AlgoliaResponse,
     AlgoliaSecuredApiOptions, AlgoliaIndexSettings, AlgoliaQueryParameters, AlgoliaIndex } from "algoliasearch";
+
+let _algoliaResponse: AlgoliaResponse = {
+    hits: [{}, {}],
+    page: 0,
+    nbHits: 12,
+    nbPages: 6,
+    hitsPerPage: 2,
+    processingTimeMS: 32,
+    query: "",
+    params: "",
+};
 
 let _clientOptions: ClientOptions = {
     timeout: 12,
     protocol: "",
-    httpAgent: ""
+    httpAgent: "",
 };
 
 let _synonymOption: SynonymOption = {
     forwardToSlaves: false,
-    replaceExistingSynonyms: false
+    replaceExistingSynonyms: false,
 };
 
 let _algoliaUserKeyOptions: AlgoliaUserKeyOptions = {
@@ -18,21 +29,21 @@ let _algoliaUserKeyOptions: AlgoliaUserKeyOptions = {
     maxQueriesPerIPPerHour: 0,
     indexes: [""],
     queryParameters: { attributesToRetrieve: ["algolia"] },
-    description: ""
+    description: "",
 };
 
 let _searchSynonymOptions: SearchSynonymOptions = {
     query: "",
     page: 0,
     type: "",
-    hitsPerPage: 0
+    hitsPerPage: 0,
 };
 
 let _algoliaSecuredApiOptions: AlgoliaSecuredApiOptions = {
     filters: "",
     validUntil: 0,
     restrictIndices: "",
-    userToken: ""
+    userToken: "",
 };
 
 let _algoliaIndexSettings: AlgoliaIndexSettings = {
@@ -73,7 +84,7 @@ let _algoliaIndexSettings: AlgoliaIndexSettings = {
     allowCompressionOfIntegerArray: false,
     altCorrections: [{}],
     minProximity: 0,
-    placeholders: ""
+    placeholders: "",
 };
 
 let _algoliaQueryParameters: AlgoliaQueryParameters = {
@@ -124,7 +135,7 @@ let _algoliaQueryParameters: AlgoliaQueryParameters = {
     analyticsTags: [""],
     synonyms: true,
     replaceSynonymsInHighlight: false,
-    minProximity: 0
+    minProximity: 0,
 };
 
 let index: AlgoliaIndex = algoliasearch("", "").initIndex("");
