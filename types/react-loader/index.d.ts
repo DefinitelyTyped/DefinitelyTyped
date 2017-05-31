@@ -1,4 +1,4 @@
-// Type definitions for react-loader v2.4
+// Type definitions for react-loader 2.4
 // Project: https://github.com/CognizantStudio/react-loader
 // Definitions by: Sudarsan Balaji <https://github.com/artfuldev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
