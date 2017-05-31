@@ -138,7 +138,7 @@ export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends Sa
 export type SankeyLink<N extends SankeyExtraProperties, L extends SankeyExtraProperties> = L & SankeyLinkMinimal<N, L>;
 
 /**
- * A Sankey Graph Object which contains the computed
+ * A Sankey Graph Object which contains the computed layout information for nodes and links.
  *
  * The first generic N refers to user-defined properties contained in the node data passed into
  * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
@@ -227,7 +227,7 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
     /**
      * Set the Sankey generator's links accessor to the specified function and returns this Sankey layout generator.
      *
-     * @param nodes A links accessor function. The function is invoked when the Sankey layout is generated, being passed any arguments passed to the Sankey generator.
+     * @param links A links accessor function. The function is invoked when the Sankey layout is generated, being passed any arguments passed to the Sankey generator.
      * This function must return an array of links.
      */
     links(links: (data: Data, ...args: any[]) => Array<SankeyLink<N, L>>): this;
