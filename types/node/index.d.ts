@@ -1852,8 +1852,8 @@ declare module "url" {
         hash?: string;
         path?: string;
     }
-    
-    export interface FormatOptions {
+
+    export interface UrlObject {
         protocol?: string;
         slashes?: boolean;
         auth?: string;
@@ -1867,8 +1867,16 @@ declare module "url" {
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(urlObject: FormatOptions): string;
+    export function format(URL: URL, options?: URLFormatOptions): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
+
+    export interface URLFormatOptions {
+        auth?: boolean;
+        fragment?: boolean;
+        search?: boolean;
+        unicode?: boolean;
+    }
 
     export class URLSearchParams implements Iterable<string[]> {
         constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );

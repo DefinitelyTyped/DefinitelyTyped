@@ -1801,7 +1801,7 @@ declare module "url" {
         path?: string;
     }
 
-    export interface FormatOptions {
+    export interface UrlObject {
         protocol?: string;
         slashes?: boolean;
         auth?: string;
@@ -1815,7 +1815,7 @@ declare module "url" {
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(urlObject: FormatOptions): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
 }
 

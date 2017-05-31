@@ -415,6 +415,9 @@ namespace url_tests {
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
         });
+
+        const myURL = new url.URL('https://a:b@你好你好?abc#foo');
+        url.format(myURL, { fragment: false, unicode: true, auth: false });
     }
 
     {
