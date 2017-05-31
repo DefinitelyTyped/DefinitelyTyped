@@ -127,6 +127,7 @@ declare namespace Sinon {
         onFirstCall(): SinonStub;
         onSecondCall(): SinonStub;
         onThirdCall(): SinonStub;
+        value(newVal: any): SinonStub;
         yields(...args: any[]): SinonStub;
         yieldsOn(context: any, ...args: any[]): SinonStub;
         yieldsTo(property: string, ...args: any[]): SinonStub;

@@ -167,6 +167,11 @@ function testSpy() {
     sinon.spy().calledImmediatelyBefore(otherSpy);
 }
 
+function testValue() {
+    const stub = sinon.stub().value(['a']);
+    stub.restore();
+}
+
 testOne();
 testTwo();
 testThree();
@@ -182,6 +187,7 @@ testSpy();
 testSymbolMatch();
 testResetHistory();
 testUsingPromises();
+testValue();
 
 let clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
