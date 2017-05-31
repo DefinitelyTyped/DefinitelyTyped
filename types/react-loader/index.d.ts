@@ -2,7 +2,6 @@
 // Project: https://github.com/CognizantStudio/react-loader
 // Definitions by: Sudarsan Balaji <https://github.com/artfuldev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3.2
 
 declare module 'react-loader' {
 	import { Component } from 'react';
