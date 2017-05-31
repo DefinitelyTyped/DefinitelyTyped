@@ -26,7 +26,7 @@ const options = {
 class MyComponent extends React.Component<any, any> {
 	getInitialState() {
 		return { loaded: false };
-	};
+	}
 
 	render() {
 		return (
