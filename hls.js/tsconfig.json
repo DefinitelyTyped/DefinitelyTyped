@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "paths": {
+            "hls.js": [ "hls.js" ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "hls.js-tests.ts"
+    ]
+}
