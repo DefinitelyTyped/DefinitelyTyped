@@ -13,25 +13,25 @@ declare class Chart {
     );
     config: Chart.ChartConfiguration;
     data: Chart.ChartData;
-    public destroy: () => {};
-    public update: (duration?: any, lazy?: any) => {};
-    public render: (duration?: any, lazy?: any) => {};
-    public stop: () => {};
-    public resize: () => {};
-    public clear: () => {};
-    public toBase64: () => string;
-    public generateLegend: () => {};
-    public getElementAtEvent: (e: any) => {};
-    public getElementsAtEvent: (e: any) => {}[];
-    public getDatasetAtEvent: (e: any) => {}[];
-    public static pluginService: PluginServiceStatic;
+    destroy: () => {};
+    update: (duration?: any, lazy?: any) => {};
+    render: (duration?: any, lazy?: any) => {};
+    stop: () => {};
+    resize: () => {};
+    clear: () => {};
+    toBase64: () => string;
+    generateLegend: () => {};
+    getElementAtEvent: (e: any) => {};
+    getElementsAtEvent: (e: any) => {}[];
+    getDatasetAtEvent: (e: any) => {}[];
+    static pluginService: PluginServiceStatic;
 
     static defaults: {
         global: Chart.ChartOptions;
     }
 }
 declare class PluginServiceStatic {
-    public register(plugin?: PluginServiceRegistrationOptions): void;
+    register(plugin?: PluginServiceRegistrationOptions): void;
 }
 
 declare interface PluginServiceRegistrationOptions {
