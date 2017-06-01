@@ -490,7 +490,7 @@ interface NavigationContainerState {
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps
 > {
-  router: any
+  router: NavigationRouter
 }
 
 export type StackNavigatorConfig =
