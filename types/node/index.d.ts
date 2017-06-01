@@ -370,6 +370,7 @@ declare namespace NodeJS {
         stdout: Socket;
         stderr: Socket;
         stdin: Socket;
+        openStdin(): Socket;
         argv: string[];
         argv0: string;
         execArgv: string[];
@@ -1853,9 +1854,30 @@ declare module "url" {
         path?: string;
     }
 
+    export interface UrlObject {
+        protocol?: string;
+        slashes?: boolean;
+        auth?: string;
+        host?: string;
+        hostname?: string;
+        port?: string | number;
+        pathname?: string;
+        search?: string;
+        query?: { [key: string]: any; };
+        hash?: string;
+    }
+
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(url: Url): string;
+    export function format(URL: URL, options?: URLFormatOptions): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
+
+    export interface URLFormatOptions {
+        auth?: boolean;
+        fragment?: boolean;
+        search?: boolean;
+        unicode?: boolean;
+    }
 
     export class URLSearchParams implements Iterable<string[]> {
         constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
@@ -2061,6 +2083,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        connecting: boolean;
         destroyed: boolean;
 
         // Extended base methods

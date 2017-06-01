@@ -223,6 +223,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",

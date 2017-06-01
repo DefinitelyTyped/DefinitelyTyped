@@ -83,7 +83,7 @@ declare namespace WebSocket {
 
     type VerifyClientCallbackSync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }) => boolean;
     type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
-        , callback: (res: boolean) => void) => void;
+        , callback: (res: boolean, code?: number, message?: string) => void) => void;
 
     export interface IClientOptions {
         protocol?: string;

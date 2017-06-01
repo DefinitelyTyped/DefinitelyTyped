@@ -660,6 +660,7 @@ query.catch(cb).catch(cb);
 query.center({}).center({});
 query.centerSphere({ center: [50, 50], radius: 10 }).centerSphere('path', {});
 query.circle({ center: [50, 50], radius: 10 }).circle('path');
+query.collation({ locale: 'en_US', strength: 1 });
 query.comment('comment').comment('comment');
 query.where({color: 'black'}).count(function (err, count) {
   count.toFixed();
@@ -995,6 +996,7 @@ aggregate.addCursorFlag('flag', true).addCursorFlag('', false);
 aggregate.allowDiskUse(true).allowDiskUse(false, []);
 aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
+aggregate.collation({ locale: 'en_US', strength: 1 });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.explain(cb).then(cb).catch(cb);
