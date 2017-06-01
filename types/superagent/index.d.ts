@@ -103,7 +103,7 @@ declare namespace request {
       send(): this;
       set(field: string, val: string): this;
       set(field: Object): this;
-      timeout(ms: number | Object | { response: number, read: number, deadline: number }): this;
+      timeout(ms: number | { response?: number, read?: number, deadline?: number }): this;
       type(val: string): this;
       unset(field: string): this;
       use(fn: Function): this;
