@@ -92,6 +92,7 @@ columnDef.sort = {
     ignoreSort: false,
     priority: 1
 };
+columnDef.sortDirectionCycle = ['ASC', 'DESC'];
 columnDef.sortCellFiltered = false;
 columnDef.sortingAlgorithm = (a: any, b: any, rowA: uiGrid.IGridRowOf<IMyEntity>, rowB: uiGrid.IGridRowOf<IMyEntity>, direction: string) => {
     return -1;

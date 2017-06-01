@@ -1,11 +1,13 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>
+// Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>, Mert Safter <https://github.com/MSafter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
 
 // Changelog:
+// 5/12/2017 ui-grid  v3.0.4
+//   Updated sortDirectionCycle type from Array<IUiGridConstants> to Array<string>
 // 8/11/2015 ui-grid  v3.0.3
 //   Extensive plugin support added (Plugin specific API, ColumnDef, GridOptions, GridRow, Constants).
 //   Added docs for all existing interfaces.
@@ -3799,7 +3801,7 @@ declare namespace uiGrid {
          * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
-        sortDirectionCycle?: Array<IUiGridConstants>;
+        sortDirectionCycle?: Array<string>;
         /**
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
