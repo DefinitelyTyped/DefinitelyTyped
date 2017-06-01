@@ -1,6 +1,9 @@
 // Type definitions for noble
 // Project: https://github.com/sandeepmistry/noble
-// Definitions by: Seon-Wook Park <https://github.com/swook>, Hans Bakker <https://github.com/wind-rider>, Shantanu Bhadoria <https://github.com/shantanubhadoria>
+// Definitions by: Seon-Wook Park <https://github.com/swook>
+//                 Hans Bakker <https://github.com/wind-rider>
+//                 Shantanu Bhadoria <https://github.com/shantanubhadoria>
+//                 Luke Libraro <https://github.com/lukel99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,9 +12,13 @@
 import events = require("events");
 
 export declare function startScanning(): void;
+export declare function startScanning(callback: Function): void;
 export declare function startScanning(serviceUUIDs: string[]): void;
+export declare function startScanning(serviceUUIDs: string[], callback: Function): void;
 export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean): void;
+export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean, callback: Function): void;
 export declare function stopScanning(): void;
+export declare function stopScanning(callback: Function): void;
 
 export declare function on(event: string, listener: Function): events.EventEmitter;
 export declare function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
