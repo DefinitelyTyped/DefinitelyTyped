@@ -17,7 +17,7 @@ If adding a new definition:
 If changing an existing definition:
 - [ ] Provide a URL to documentation or source code which provides context for the suggested changes: <<url here>>
 - [ ] Increase the version number in the header if appropriate.
-- [ ] If you are making substantial changes, consider adding a `tslint.json` containing `{ "extends": "dslint/dt.json" }`.
+- [ ] If you are making substantial changes, consider adding a `tslint.json` containing `{ "extends": "dtslint/dt.json" }`.
 
 If removing a declaration:
 - [ ] If a package was never on DefinitelyTyped, you don't need to do anything. (If you wrote a package and provided types, you don't need to register it with us.)
