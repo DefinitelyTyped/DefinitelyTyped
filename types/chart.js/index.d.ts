@@ -13,21 +13,60 @@ declare class Chart {
     );
     config: Chart.ChartConfiguration;
     data: Chart.ChartData;
-    destroy: () => {};
-    update: (duration?: any, lazy?: any) => {};
-    render: (duration?: any, lazy?: any) => {};
-    stop: () => {};
-    resize: () => {};
-    clear: () => {};
-    toBase64: () => string;
-    generateLegend: () => {};
-    getElementAtEvent: (e: any) => {};
-    getElementsAtEvent: (e: any) => {}[];
-    getDatasetAtEvent: (e: any) => {}[];
+    public destroy: () => {};
+    public update: (duration?: any, lazy?: any) => {};
+    public render: (duration?: any, lazy?: any) => {};
+    public stop: () => {};
+    public resize: () => {};
+    public clear: () => {};
+    public toBase64: () => string;
+    public generateLegend: () => {};
+    public getElementAtEvent: (e: any) => {};
+    public getElementsAtEvent: (e: any) => {}[];
+    public getDatasetAtEvent: (e: any) => {}[];
+    public static pluginService: PluginServiceStatic;
 
     static defaults: {
         global: Chart.ChartOptions;
     }
+}
+declare class PluginServiceStatic {
+    public register(plugin?: PluginServiceRegistrationOptions): void;
+}
+
+declare interface PluginServiceRegistrationOptions {
+    beforeInit?: (chartInstance: Chart) => void,
+    afterInit?: (chartInstance: Chart) => void,
+
+    resize?: (chartInstance: Chart, newChartSize: Size) => void,
+
+    beforeUpdate?: (chartInstance: Chart) => void,
+    afterScaleUpdate?: (chartInstance: Chart) => void,
+    beforeDatasetsUpdate?: (chartInstance: Chart) => void,
+    afterDatasetsUpdate?: (chartInstance: Chart) => void,
+    afterUpdate?: (chartInstance: Chart) => void,
+
+    // This is called at the start of a render. It is only called once, even if the animation will run for a number of frames. Use beforeDraw or afterDraw
+    // to do something on each animation frame
+    beforeRender?: (chartInstance: Chart) => void,
+
+    // Easing is for animation
+    beforeDraw?: (chartInstance: Chart, easing: string) => void,
+    afterDraw?: (chartInstance: Chart, easing: string) => void,
+    // Before the datasets are drawn but after scales are drawn
+    beforeDatasetsDraw?: (chartInstance: Chart, easing: string) => void,
+    afterDatasetsDraw?: (chartInstance: Chart, easing: string) => void,
+
+    destroy?: (chartInstance: Chart) => void,
+
+    // Called when an event occurs on the chart
+    beforeEvent?: (chartInstance: Chart, event: Event) => void,
+    afterEvent?: (chartInstance: Chart, event: Event) => void
+}
+
+declare interface Size {
+    height: number;
+    width: number;
 }
 
 declare namespace Chart {
