@@ -6,22 +6,20 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
-        "alwaysStrict": true,
-        "strict": true,
-        "baseUrl": "../",
+        "strictNullChecks": false,
+        "baseUrl": "../..",
         "typeRoots": [
-            "../"
+            "../.."
         ],
+        "paths": {
+            "uuid": ["uuid/v2"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "v1.d.ts",
-        "v4.d.ts",
-        "interfaces.d.ts",
         "uuid-tests.ts"
     ]
 }
