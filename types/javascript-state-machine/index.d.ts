@@ -1,6 +1,10 @@
 // Type definitions for Finite State Machine 2.4
 // Project: https://github.com/jakesgordon/javascript-state-machine
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maarten Docter <https://github.com/mdocter>, William Sears <https://github.com/MrBigDog2U>, samael <https://github.com/samael65535>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>,
+// 					Maarten Docter <https://github.com/mdocter>,
+// 					William Sears <https://github.com/MrBigDog2U>,
+// 					samael <https://github.com/samael65535>,
+// 					taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type StateMachineErrorCallback = (
@@ -76,6 +80,26 @@ export interface StateMachine {
 	*/
 	transition: StateMachineTransition;
 	transitions: StateMachineTransitions;
+}
+
+export namespace StateMachine {
+	const VERSION: string; 		        // = "2.4.0"
+	const WILDCARD: string;		        // = '*'
+	const ASYNC: string;			        // = 'async'
+
+	const Result: {
+		SUCCEEDED: number;	        // = 1, the event transitioned successfully from one state to another
+		NOTRANSITION: number;	    // = 2, the event was successfull but no state transition was necessary
+		CANCELLED: number;	        // = 3, the event was cancelled by the caller in a beforeEvent callback
+		PENDING: number;		        // = 4, the event is asynchronous and the caller is in control of when the transition occurs
+	};
+
+	const Error: {
+		INVALID_TRANSITION: number;	// = 100, caller tried to fire an event that was innapropriate in the current state
+		PENDING_TRANSITION: number;	// = 200, caller tried to fire an event while an async transition was still pending
+		INVALID_CALLBACK: number;	// = 300, caller provided callback function threw an exception
+	};
+	function create(config: StateMachineConfig, target?: StateMachine): StateMachine;
 }
 
 export as namespace StateMachine;

@@ -1,10 +1,10 @@
-// import { StateMachine, StateMachineEvent, create } from 'javascript-state-machine';
+import { StateMachine, StateMachineEvent, create } from 'javascript-state-machine';
 
-interface StateMachineTest extends StateMachine.StateMachine {
-	warn?: StateMachine.StateMachineEvent;
-	panic?: StateMachine.StateMachineEvent;
-	calm?: StateMachine.StateMachineEvent;
-	clear?: StateMachine.StateMachineEvent;
+interface StateMachineTest extends StateMachine {
+	warn?: StateMachineEvent;
+	panic?: StateMachineEvent;
+	calm?: StateMachineEvent;
+	clear?: StateMachineEvent;
 }
 
 const fsm: StateMachineTest = StateMachine.create({
