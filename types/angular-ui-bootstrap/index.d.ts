@@ -311,7 +311,7 @@ declare module 'angular' {
             openClass?: string;
         }
 
-        interface IModalProvider {
+        interface IModalProvider extends IServiceProvider {
             /**
              * Default options all modals will use.
              */
@@ -875,7 +875,7 @@ declare module 'angular' {
             useContentExp?: boolean;
         }
 
-        interface ITooltipProvider {
+        interface ITooltipProvider extends IServiceProvider {
             /**
              * Provide a set of defaults for certain tooltip and popover attributes.
              */

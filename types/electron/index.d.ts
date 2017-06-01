@@ -2509,7 +2509,7 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout' | 'reload' | 'toggledevtools';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout' | 'editMenu' | 'windowMenu' | 'reload' | 'forcereload' | 'toggledevtools';
 	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'startspeaking' | 'stopspeaking' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
@@ -2834,7 +2834,7 @@ declare namespace Electron {
 	 */
 	class ClientRequest extends NodeJS.EventEmitter {
 		/**
-		 * Emitted when an HTTP response is received for the request. 
+		 * Emitted when an HTTP response is received for the request.
 		 */
 		on(event: 'response', listener: (response: IncomingMessage) => void): this;
 		/**

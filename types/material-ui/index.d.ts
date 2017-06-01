@@ -1046,6 +1046,7 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
+            onTouchTap?: TouchTapEventHandler;
         }
         export class GridTile extends React.Component<GridTileProps, {}> {
         }
@@ -1767,6 +1768,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             tabItemContainerStyle?: React.CSSProperties;
             tabTemplate?: React.ComponentClass<any>;
+            tabTemplateStyle?: React.CSSProperties;
             value?: any;
         }
         export class Tabs extends React.Component<TabsProps, {}> {

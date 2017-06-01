@@ -113,8 +113,8 @@ declare namespace PouchDB {
         }
 
         interface SyncOptions extends ReplicateOptions {
-            push?: boolean;
-            pull?: boolean;
+            push?: ReplicateOptions;
+            pull?: ReplicateOptions;
         }
 
         interface Sync<Content extends Core.Encodable>
