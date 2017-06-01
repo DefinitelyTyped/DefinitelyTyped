@@ -607,7 +607,7 @@ export type NavigationResetActionCreator = (options: NavigationResetAction) => b
 export type NavigationBackActionCreator = (options?: NavigationBackAction) => boolean;
 export type NavigationSetParamsActionCreator = (options: NavigationSetParamsAction) => boolean;
 
-export interface NavgationComponentProps<T> {
+export interface NavigationComponentProps<T> {
   screenProps: any
   navigation: {
     dispatch: any
