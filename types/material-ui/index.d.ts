@@ -1088,7 +1088,7 @@ declare namespace __MaterialUI {
             autoGenerateNestedIndicator?: boolean;
             disableKeyboardFocus?: boolean;
             disabled?: boolean;
-            hoverColor? string;
+            hoverColor?: string;
             initiallyOpen?: boolean;
             innerDivStyle?: React.CSSProperties;
             insetChildren?: boolean;
