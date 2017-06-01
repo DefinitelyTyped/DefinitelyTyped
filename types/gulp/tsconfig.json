@@ -13,7 +13,7 @@
         "types": [],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true
     },
