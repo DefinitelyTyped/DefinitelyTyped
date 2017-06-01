@@ -2,6 +2,7 @@
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.com/lumaxis>, Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
