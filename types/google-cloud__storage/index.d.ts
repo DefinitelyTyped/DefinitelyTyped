@@ -1,4 +1,4 @@
-// Type definitions for @google-cloud/storage v1.1.0
+// Type definitions for @google-cloud/storage 1.1
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
 // Definitions by: Brian Love <https://github.com/blove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
