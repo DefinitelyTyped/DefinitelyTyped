@@ -123,7 +123,7 @@ interface TransitionProps {
      */
     willLeave?: (styleThatLeft: TransitionStyle) => Style | void;
 }
-export class TransitionMotion extends Component<any, any> { }
+export class TransitionMotion extends Component<TransitionProps, any> { }
 
 
 interface StaggeredMotionProps {
