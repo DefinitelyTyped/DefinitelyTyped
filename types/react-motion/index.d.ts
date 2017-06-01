@@ -111,7 +111,7 @@ interface TransitionProps {
      * <StaggeredMotion/>
      */
     styles: Array<TransitionStyle> | InterpolateFunction;
-    children: (interpolatedStyles: Array<TransitionPlainStyle>) => ReactElement<any>;
+    children?: (interpolatedStyles: Array<TransitionPlainStyle>) => ReactElement<any>;
     /**
      * Triggers when new elements appears
      * @param styleThatEntered
