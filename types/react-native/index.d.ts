@@ -3451,6 +3451,14 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     columnWrapperStyle?: ViewStyle
 
     /**
+     * When false tapping outside of the focused text input when the keyboard
+     * is up dismisses the keyboard. When true the scroll view will not catch
+     * taps and the keyboard will not dismiss automatically. The default value
+     * is false.
+     */
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled'
+
+    /**
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
