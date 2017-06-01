@@ -1,4 +1,4 @@
-// Type definitions for Finite State Machine 2.3
+// Type definitions for Finite State Machine 2.4
 // Project: https://github.com/jakesgordon/javascript-state-machine
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maarten Docter <https://github.com/mdocter>, William Sears <https://github.com/MrBigDog2U>, samael <https://github.com/samael65535>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,7 +33,7 @@ export interface StateMachineConfig {
 
 export type StateMachineIsFinished = (state: string) => boolean;
 
-export const VERSION: string; 		        // = "2.3.5"
+export const VERSION: string; 		        // = "2.4.0"
 export const WILDCARD: string;		        // = '*'
 export const ASYNC: string;			        // = 'async'
 
