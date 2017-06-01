@@ -520,7 +520,7 @@ declare namespace webpack {
         interface Stats extends webpack.Stats.ToStringOptions {
             /** Emitted assets */
             assets: Array<{ name: string; size: number; }>;
-        };
+        }
         type WatchOptions = ICompiler.WatchOptions;
     }
 
