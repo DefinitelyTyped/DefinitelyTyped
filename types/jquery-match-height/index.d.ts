@@ -5,9 +5,24 @@
 
 /// <reference types="jquery"/>
 
-// We cannot add the jQuery.fn definitions of the plugin until this
-// issue is resolved
-// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/12685
+interface JQueryMatchHeight {
+    _throttle: number;
+    _maintainScroll: boolean;
+    _groups: any[];
+
+    /**
+     * Set all selected elements to the height of the tallest.
+     * If the items are on multiple rows, the items of each row will be set to the tallest of that row.
+     *
+     * @param options
+     */
+    (options?: JQueryMatchHeight.Options): JQuery;
+    _update(): void;
+    _rows($item: JQuery): any[];
+    _beforeUpdate(event: JQueryEventObject, groups: any[]): any;
+    _afterUpdate(event: JQueryEventObject, groups: any[]): any;
+    _apply(elements: any, options: any): void;
+}
 
 declare namespace JQueryMatchHeight {
     interface Options {
@@ -19,11 +34,5 @@ declare namespace JQueryMatchHeight {
 }
 
 interface JQuery {
-    /**
-     * Set all selected elements to the height of the tallest.
-     * If the items are on multiple rows, the items of each row will be set to the tallest of that row.
-     *
-     * @param options
-     */
-    matchHeight(options?: JQueryMatchHeight.Options): JQuery;
+    matchHeight: JQueryMatchHeight;
 }
