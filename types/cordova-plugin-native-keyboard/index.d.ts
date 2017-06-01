@@ -94,7 +94,7 @@ interface NativeKeyboardShowOptions {
      * Callback function, which is being called as soon as the user submits
      * @param text
      */
-    onSubmit(text: string): void;
+    onSubmit?(text: string): void;
 
     /**
      * Callback function which is being executed as soon as the keyboard will show
