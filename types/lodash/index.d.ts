@@ -1895,7 +1895,7 @@ declare namespace _ {
         /**
          * @see _.head
          */
-        first(): T;
+        first(): T | undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -1916,14 +1916,14 @@ declare namespace _ {
         /**
          * @see _.head
          */
-        first<T>(): T;
+        first<T>(): T | undefined;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.head
          */
-        first<T>(): T;
+        first<T>(): T | undefined;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
@@ -2127,14 +2127,14 @@ declare namespace _ {
         /**
          * @see _.head
          */
-        head(): T;
+        head(): T | undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.head
          */
-        head<T>(): T;
+        head<T>(): T | undefined;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -2148,14 +2148,14 @@ declare namespace _ {
         /**
          * @see _.head
          */
-        head<T>(): T;
+        head<T>(): T | undefined;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.head
          */
-        head<T>(): T;
+        head<T>(): T | undefined;
     }
 
     //_.indexOf
@@ -2587,14 +2587,14 @@ declare namespace _ {
         /**
          * @see _.last
          */
-        last(): T;
+        last(): T | undefined;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.last
          */
-        last<T>(): T;
+        last<T>(): T | undefined;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -2608,14 +2608,14 @@ declare namespace _ {
         /**
          * @see _.last
          */
-        last<T>(): T;
+        last<T>(): T | undefined;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.last
          */
-        last<T>(): T;
+        last<T>(): T | undefined;
     }
 
     //_.lastIndexOf
