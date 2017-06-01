@@ -1,4 +1,4 @@
-// Type definitions for Sinon 2.2
+// Type definitions for Sinon 2.3
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.com/lumaxis>, Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -136,6 +136,9 @@ declare namespace Sinon {
         yieldsToAsync(property: string, ...args: any[]): SinonStub;
         yieldsToOnAsync(property: string, context: any, ...args: any[]): SinonStub;
         withArgs(...args: any[]): SinonStub;
+        value(newVal: any): SinonStub;
+        set(setterFn: (val: any) => void): SinonStub;
+        get(getterFn: () => any): SinonStub;
     }
 
     interface SinonStubStatic {

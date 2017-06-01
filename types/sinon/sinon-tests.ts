@@ -90,6 +90,24 @@ function testNine() {
     sinon.assert.neverCalledWithMatch(callback, { x: 6 });
 }
 
+function testGetSetValue() {
+    let myObj = {
+        example: "oldValue",
+        prop: "foo"
+    };
+
+    let stub = sinon.stub(myObj, "prop");
+    stub.set(function setterFn(val) {
+        myObj.example = val;
+    });
+    myObj.prop = "baz";
+    stub.get(function getterFn() {
+        return myObj.example;
+    });
+
+    sinon.stub(myObj, "example").value("newValue");
+}
+
 function testSandbox() {
     let sandbox = sinon.sandbox.create();
     sandbox = sandbox.usingPromise(Promise);
@@ -182,6 +200,7 @@ testSpy();
 testSymbolMatch();
 testResetHistory();
 testUsingPromises();
+testGetSetValue();
 
 let clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
