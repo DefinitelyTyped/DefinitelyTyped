@@ -35,6 +35,7 @@ export interface MongoCallback<T> {
 export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
+    code?: number;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html#.connect
@@ -634,7 +635,7 @@ export interface CollectionAggregationOptions {
     allowDiskUse?: boolean;
     // specifies a cumulative time limit in milliseconds for processing operations
     // on the cursor. MongoDB interrupts the operation at the earliest following interrupt point.
-    maxTimeMS?: boolean;
+    maxTimeMS?: number;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
     bypassDocumentValidation?: boolean;
 }

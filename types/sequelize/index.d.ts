@@ -2097,7 +2097,7 @@ declare namespace sequelize {
 
     }
 
-    interface UniqueConstraintError extends DatabaseError {
+    interface UniqueConstraintError extends ValidationError {
 
         /**
          * Thrown when a unique constraint is violated in the database
@@ -3165,6 +3165,12 @@ declare namespace sequelize {
          * Load further nested related models
          */
         include?: Array<Model<any, any> | IncludeOptions>;
+        
+        /**
+         * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
+         * be returned. Only applies if `options.paranoid` is true for the model.
+         */
+        paranoid?: boolean;
 
     }
 
@@ -3247,8 +3253,8 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-                     
-                     
+
+
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -3395,6 +3401,14 @@ declare namespace sequelize {
          * Defaults to false;
          */
         cascade?: boolean;
+
+        /**
+         * Delete instead of setting deletedAt to current timestamp (only applicable if paranoid is enabled)
+         *
+         * Defaults to false;
+         */
+        force?: boolean;
+
     }
 
     /**
@@ -4784,6 +4798,11 @@ declare namespace sequelize {
          */
         operator?: string;
 
+        /**
+         * Condition for partioal index
+         */
+        where?: WhereOptions;
+
     }
 
     /**
@@ -5726,8 +5745,8 @@ declare namespace sequelize {
          * @param autoCallback Callback for the transaction
          */
         transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
+            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(): Promise<Transaction>;
 
         /**

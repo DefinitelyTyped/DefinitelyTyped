@@ -148,7 +148,9 @@ declare namespace gapi.client {
         /**
          * The scopes to request, as a space-delimited string.
          */
-        scope?: string
+        scope?: string,
+                          
+        hosted_domain?: string;
     }): Promise<void>;
 
     interface RequestOptions {

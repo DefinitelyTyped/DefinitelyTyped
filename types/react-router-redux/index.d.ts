@@ -41,7 +41,7 @@ export function go(n: number): RouterAction;
 export function goBack(): RouterAction;
 export function goForward(): RouterAction;
 
-export const routerAction: {
+export const routerActions: {
     push: typeof push
     replace: typeof replace
     go: typeof go
@@ -57,6 +57,22 @@ export interface LocationActionPayload {
 export interface RouterAction extends Action {
     type: typeof CALL_HISTORY_METHOD;
     payload: LocationActionPayload;
+}
+
+export interface LocationChangeAction extends Action {
+    type: typeof LOCATION_CHANGE;
+    payload: Location & {
+        props?: {
+            match: {
+                path: string;
+                url: string;
+                params: any;
+                isExact: boolean;
+            },
+            location: Location;
+            history: History;
+        }
+    };
 }
 
 export function routerMiddleware(history: History): Middleware;

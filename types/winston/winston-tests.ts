@@ -5,6 +5,7 @@ let bool: boolean;
 let num: number;
 let metadata: any;
 let obj: any = {};
+let stamp: boolean | (() => string | boolean);
 
 winston.level = 'debug';
 
@@ -180,7 +181,7 @@ logger = new (winston.Logger)({
       silent: bool,
       json: bool,
       colorize: bool,
-      timestamp: bool,
+      timestamp: stamp,
       showLevel: bool,
       label: str,
       logstash: bool,
@@ -196,7 +197,7 @@ logger = new (winston.Logger)({
       maxFiles: num,
       maxRetries: num,
       prettyPrint: bool,
-      timestamp: bool,
+      timestamp: stamp,
       filename: str,
       dirname: str,
       datePattern: str,
@@ -209,7 +210,7 @@ logger = new (winston.Logger)({
       json: bool,
       colorize: bool,
       prettyPrint: bool,
-      timestamp: bool,
+      timestamp: stamp,
       showLevel: bool,
       logstash: bool,
       rotationFormat: bool,
@@ -244,7 +245,7 @@ logger = new (winston.Logger)({
       colorize: bool,
       showLevel: bool,
       depth: num,
-      timestamp: bool,
+      timestamp: stamp,
       label: str,
     }),
     new (winston.transports.Webhook)({

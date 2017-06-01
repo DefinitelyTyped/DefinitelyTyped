@@ -178,7 +178,7 @@ declare namespace CodeMirror {
         /** Remove a CSS class from a line.line can be a line handle or number.
         where should be one of "text", "background", or "wrap"(see addLineClass).
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
-        removeLineClass(line: any, where: string, class_: string): CodeMirror.LineHandle;
+        removeLineClass(line: any, where: string, class_?: string): CodeMirror.LineHandle;
 
         /**
          * Compute the line at the given pixel height.
@@ -439,7 +439,7 @@ declare namespace CodeMirror {
 
         /** Replace the part of the document between from and to with the given string.
         from and to must be {line, ch} objects. to can be left off to simply insert the string at position from. */
-        replaceRange(replacement: string, from: CodeMirror.Position, to?: CodeMirror.Position): void;
+        replaceRange(replacement: string, from: CodeMirror.Position, to?: CodeMirror.Position, origin?: string): void;
 
         /** Get the content of line n. */
         getLine(n: number): string;

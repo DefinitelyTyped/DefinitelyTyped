@@ -337,16 +337,16 @@ export interface DatetimepickerOptions {
 	/** Shows the week of the year to the left of first day of the week.
 	 * @default: false
 	 */
-    calendarWeeks?: boolean;
+	calendarWeeks?: boolean;
 	/** Using a Bootstraps collapse to switch between date/time pickers.
 	 * @default: true
 	 */
-    collapse?: boolean;
+	collapse?: boolean;
 	/** Disables the section of days of the week, e.g. weekends.
 	 * Accepts: array of numbers from 0-6
 	 * @default: false
 	 */
-    daysOfWeekDisabled?: number[] | boolean;
+	daysOfWeekDisabled?: number[] | boolean;
 	/** Changes the heading of the datepicker when in "days" view.
 	 * @default: "MMMM YYYY"
 	 */
@@ -358,14 +358,14 @@ export interface DatetimepickerOptions {
 	/** Sets the picker default date/time. Overrides useCurrent
 	 * @default: false
 	 */
-    defaultDate?: boolean | moment.Moment | Date | string;
+	defaultDate?: boolean | moment.Moment | Date | string;
 	/** Disables selection of dates in the array, e.g. holidays
 	 * @default: false
 	 * IMPORTANT! The getter returns an Object NOT an Array, with keys being the dates, values being true.
 	 * eg disabledDates = ["2010-10-10"]; -> disabledDated will be { "2010-01-01": true }
 	 * https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1499
 	 */
-    disabledDates?: boolean | Array<moment.Moment | Date | string> | any;
+	disabledDates?: boolean | Array<moment.Moment | Date | string> | any;
 	/** Will allow or disallow hour selections (much like disabledTimeIntervals) but will affect all days
 	 * @default: false
 	 * IMPORTANT! The getter returns an Object NOT an Array, with keys being the hours, values being true.
@@ -384,7 +384,7 @@ export interface DatetimepickerOptions {
 	 * eg enabledDates = ["2010-10-10"]; -> enabledDated will be { "2010-01-01": true }
 	 * https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1499
 	 */
-    enabledDates?: boolean | Array<moment.Moment | Date | string> | any;
+	enabledDates?: boolean | Array<moment.Moment | Date | string> | any;
 	/** Will allow or disallow hour selections (much like disabledTimeIntervals) but will affect all days
 	 * @default: false
 	 * IMPORTANT! The getter returns an Object NOT an Array, with keys being the hours, values being true.
@@ -403,17 +403,17 @@ export interface DatetimepickerOptions {
 	/** See momentjs' docs for valid formats. Format also dictates what components are shown, e.g. MM/dd/YYYY will not display the time picker.
 	 * @default: false
 	 */
-    format?: boolean | string | moment.MomentBuiltinFormat;
+	format?: boolean | string | moment.MomentBuiltinFormat;
 	/** Change the default icons for the pickers functions. */
-    icons?: Icons;
+	icons?: Icons;
 	/** Allow date picker show event to fire even when the associated input element has the readonly="readonly"property.
 	 * @default: false
 	 */
-    ignoreReadonly?: boolean;
+	ignoreReadonly?: boolean;
 	/** Will display the picker inline without the need of a input field. This will also hide borders and shadows.
 	 * @default: false
 	 */
-    inline?: boolean;
+	inline?: boolean;
 	/** Allows for custom events to fire on keyboard press.
 	 * eg: keybinds: {
 	 * 		up: (widget) => console.log(widget),
@@ -433,17 +433,17 @@ export interface DatetimepickerOptions {
 	/** See momentjs for valid locales. You must include moment-with-locales.js or a local js file.
 	 * @default: moment.locale()
 	 */
-    locale?: string;
+	locale?: string;
 	/** Prevents date/time selections after this date.
 	 * maxDate will override defaultDate and useCurrent if either of these settings are the same day since both options are invalid according to the rules you've selected.
 	 * @default: false
 	 */
-    maxDate?: boolean | moment.Moment | Date | string;
+	maxDate?: boolean | moment.Moment | Date | string;
 	/** Prevents date/time selections before this date.
 	 * minDate will override defaultDate and useCurrent if either of these settings are the same day since both options are invalid according to the rules you've selected.
 	 * @default: false
 	 */
-    minDate?: boolean | moment.Moment | Date | string;
+	minDate?: boolean | moment.Moment | Date | string;
 	/** Allows custom input formatting For example: the user can enter "yesterday"" or "30 days ago".
 	 * {@link http://eonasdan.github.io/bootstrap-datetimepicker/Functions/#parseinputdate}
 	 */
@@ -452,7 +452,7 @@ export interface DatetimepickerOptions {
 	 * Clicking the "Clear" button will set the calendar to null.
 	 * @default: false
 	 */
-    showClear?: boolean;
+	showClear?: boolean;
 	/** Show the "Close" button in the icon toolbar.
 	 * Clicking the "Close" button will call hide()
 	 * @default: false
@@ -462,11 +462,11 @@ export interface DatetimepickerOptions {
 	 * Clicking the "Today" button will set the calendar view and set the date to now.
 	 * @default: false
 	 */
-    showTodayButton?: boolean;
+	showTodayButton?: boolean;
 	/** Shows the picker side by side when using the time and date together.
 	 * @default: false
 	 */
-    sideBySide?: boolean;
+	sideBySide?: boolean;
 	/** Number of minutes the up/down arrow's will move the minutes value in the time picker
 	 * @default: 1
 	 */
@@ -479,17 +479,17 @@ export interface DatetimepickerOptions {
 	/** Changes the placement of the icon toolbar.
 	 * @default: "default"
 	 */
-    toolbarPlacement?: "default" | "top" | "bottom";
+	toolbarPlacement?: "default" | "top" | "bottom";
 	/** This will change the tooltips over each icon to a custom string */
 	tooltips?: Tooltips;
 	/** On show, will set the picker to the current date/time
 	 * @default: true
 	 */
-    useCurrent?: boolean;
+	useCurrent?: boolean;
 	/** Defines if moment should use strict date parsing when considering a date to be valid
 	 * @default: false
 	 */
-    useStrict?: boolean;
+	useStrict?: boolean;
 	/** This will change the viewDate without changing or setting the selected date.
 	 * @default: false
 	 */
@@ -498,7 +498,7 @@ export interface DatetimepickerOptions {
 	 * Note: To limit the picker to selecting, for instance the year and month, use format: MM/YYYY
 	 * @default: "days"
 	 */
-    viewMode?: "decades" | "years" | "months" | "days";
+	viewMode?: "decades" | "years" | "months" | "days";
 	/** On picker show, places the widget at the identifier (string) or jQuery object if the element has css position: "relative"
 	 * @default: null
 	 */
@@ -520,7 +520,7 @@ export interface Icons {
 	/** default: "glyphicon glyphicon-screenshot" */
 	previous?: string;
 	/** default: "glyphicon glyphicon-chevron-right" */
-    time?: string;
+	time?: string;
 	/** default: "glyphicon glyphicon-chevron-down" */
 	today?: string;
 	/** default: "glyphicon glyphicon-chevron-up" */

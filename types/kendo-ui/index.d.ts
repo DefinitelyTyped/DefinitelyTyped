@@ -5408,7 +5408,8 @@ declare namespace kendo.ui {
         slotByPosition(xPosition: number, yPosition: number): any;
         slotByElement(element: Element): any;
         slotByElement(element: JQuery): any;
-        view(type?: string): void;
+        view(): kendo.ui.SchedulerView;
+        view(name: string): void;
         viewName(): string;
 
     }
@@ -5627,7 +5628,8 @@ declare namespace kendo.ui {
         dateHeaderTemplate?: string|Function;
         dayTemplate?: string|Function;
         editable?: boolean|SchedulerViewEditable;
-        endTime?: Date;
+        endDate?(): Date;
+	endTime?: Date;
         eventHeight?: number;
         eventTemplate?: string|Function;
         eventTimeTemplate?: string|Function;
@@ -5641,6 +5643,7 @@ declare namespace kendo.ui {
         selectedShortDateFormat?: string;
         showWorkHours?: boolean;
         slotTemplate?: string|Function;
+	startDate?(): Date;
         startTime?: Date;
         title?: string;
         type?: string;

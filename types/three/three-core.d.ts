@@ -2243,7 +2243,7 @@ export class CubeTextureLoader {
     corssOrigin: string;
     path: string;
 
-    load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
+    load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
     setCrossOrigin(crossOrigin: string): CubeTextureLoader;
     setPath(path: string): CubeTextureLoader;
 }
@@ -5886,13 +5886,13 @@ export class DataTexture extends Texture {
         data: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array,
         width: number,
         height: number,
-        format: PixelFormat,
-        type: TextureDataType,
-        mapping: Mapping,
-        wrapS: Wrapping,
-        wrapT: Wrapping,
-        magFilter: TextureFilter,
-        minFilter: TextureFilter,
+        format?: PixelFormat,
+        type?: TextureDataType,
+        mapping?: Mapping,
+        wrapS?: Wrapping,
+        wrapT?: Wrapping,
+        magFilter?: TextureFilter,
+        minFilter?: TextureFilter,
         anisotropy?: number,
         encoding?: TextureEncoding
     );

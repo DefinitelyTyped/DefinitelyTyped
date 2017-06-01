@@ -17,6 +17,8 @@ var gsFromElement: GridStack = element.data("gridstack");
 if (gridstack !== gsFromElement) throw Error('These should match!');
 
 gridstack.addWidget("test", 1, 2, 3, 4, true);
+gridstack.addWidget(document.createElement('div'), 1, 2, 3, 4, true);
+gridstack.addWidget($(document.createElement('div')), 1, 2, 3, 4, true);
 gridstack.batchUpdate();
 gridstack.cellHeight();;
 gridstack.cellHeight(2);

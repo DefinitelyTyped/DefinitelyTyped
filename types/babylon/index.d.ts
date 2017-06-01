@@ -5,10 +5,11 @@
 
 /// <reference types="babel-types" />
 
-import * as t from 'babel-types';
-type Node = t.Node;
+import { File, Expression } from 'babel-types';
 
-export function parse(code: string, opts?: BabylonOptions): Node;
+export function parse(code: string, opts?: BabylonOptions): File;
+
+export function parseExpression(input: string, options?: BabylonOptions): Expression;
 
 export interface BabylonOptions {
     /**

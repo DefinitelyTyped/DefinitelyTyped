@@ -223,6 +223,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
@@ -355,6 +361,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "path-to-regexp",
+            "typingsPackageName": "path-to-regexp",
+            "sourceRepoURL": "https://github.com/pillarjs/path-to-regexp",
+            "asOfVersion": "1.7.0"
+        },
+        {
             "libraryName": "pg-promise",
             "typingsPackageName": "pg-promise",
             "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",
@@ -397,6 +409,12 @@
             "asOfVersion": "3.10.0"
         },
         {
+            "libraryName": "react-day-picker",
+            "typingsPackageName": "react-day-picker",
+            "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
+            "asOfVersion": "5.3.0"
+        },
+        {
             "libraryName": "Redux",
             "typingsPackageName": "redux",
             "sourceRepoURL": "https://github.com/reactjs/redux",
@@ -407,6 +425,12 @@
             "typingsPackageName": "redux-batched-actions",
             "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "redux-devtools-extension",
+            "typingsPackageName": "redux-devtools-extension",
+            "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
+            "asOfVersion": "2.13.2"
         },
         {
             "libraryName": "redux-persist",

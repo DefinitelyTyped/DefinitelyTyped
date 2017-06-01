@@ -47,7 +47,7 @@ class Test extends React.Component<React.Props<{}>, {}> {
             </div>
             <div>
                 <Calendar disabled readOnly />
-                <Combobox disabled readOnly dropUp />
+                <Combobox disabled readOnly dropUp placeholder={'Some text'}/>
                 <DateTimePicker disabled readOnly dropUp />
                 <DropdownList disabled readOnly dropUp />
                 <Multiselect disabled readOnly dropUp />

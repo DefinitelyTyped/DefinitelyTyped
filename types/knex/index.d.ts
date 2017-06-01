@@ -22,11 +22,12 @@ interface Knex extends Knex.QueryInterface {
     __knex__: string;
 
     raw: Knex.RawBuilder;
-    transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
+    transaction(transactionScope: (trx: Knex.Transaction) => any): Promise<any>;
     destroy(callback: Function): void;
     destroy(): Promise<void>;
     batchInsert(tableName : TableName, data: any[], chunkSize : number) : Knex.QueryBuilder;
     schema: Knex.SchemaBuilder;
+    queryBuilder(): Knex.QueryBuilder;
 
     client: any;
     migrate: Knex.Migrator;
@@ -119,6 +120,10 @@ declare namespace Knex {
         orHaving: Having;
         orHavingRaw: RawQueryBuilder;
 
+        // Clear
+        clearSelect(): QueryBuilder;
+        clearWhere(): QueryBuilder;
+
         // Paging
         offset(offset: number): QueryBuilder;
         limit(limit: number): QueryBuilder;
@@ -136,7 +141,7 @@ declare namespace Knex {
         decrement(columnName: string, amount?: number): QueryBuilder;
 
         // Others
-        first(...columns: string[]): QueryBuilder;
+        first: Select;
 
         debug(enabled?: boolean): QueryBuilder;
         pluck(column: string): QueryBuilder;
@@ -173,6 +178,7 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
+        (builder: QueryBuilder, clause: (this: JoinClause) => void): QueryBuilder;
         (tableName: string, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: string, callback: Function): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
@@ -347,10 +353,10 @@ declare namespace Knex {
         exec(callback: Function): QueryBuilder;
     }
 
-    interface Transaction extends QueryBuilder {
-        commit: any;
-        rollback: any;
-        raw: Knex.RawBuilder;
+    interface Transaction extends Knex {
+        savepoint(transactionScope: (trx: Transaction) => any): Promise<any>;
+        commit(value?: any): QueryBuilder;
+        rollback(error?: any): QueryBuilder;
     }
 
     //

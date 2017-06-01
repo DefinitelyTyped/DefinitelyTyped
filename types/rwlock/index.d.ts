@@ -19,7 +19,7 @@ declare namespace ReadWriteLock {
   interface Options {
     scope?: any;
     timeout?: number;
-    timeoutCallback(): void;
+    timeoutCallback?(): void;
   }
 }
 

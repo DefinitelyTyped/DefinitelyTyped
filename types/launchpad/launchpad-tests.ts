@@ -43,19 +43,3 @@ launch.browserstack({
       }, 5000);
   });
 });
-
-launch.remote({
-  host : "ie7machine",
-  username : "launcher",
-  password : "testing"
-}, function(err, api) {
-  api.browsers(function(error, browsers) {
-    // -> List of all browsers found on ie7machine
-  });
-
-  api("http://github.com", {
-    browser : "safari",
-    version : "latest"
-  }, function(err, instance) {
-  });
-});

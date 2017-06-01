@@ -42,8 +42,8 @@ class SnapCarouselTest extends React.Component<{}, {}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    } as ViewStyle,
+    },
     item: {
         width: 75
-    } as ViewStyle
+    }
 });
