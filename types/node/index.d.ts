@@ -370,6 +370,7 @@ declare namespace NodeJS {
         stdout: Socket;
         stderr: Socket;
         stdin: Socket;
+        openStdin(): Socket;
         argv: string[];
         argv0: string;
         execArgv: string[];
@@ -2061,6 +2062,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        connecting: boolean;
         destroyed: boolean;
 
         // Extended base methods

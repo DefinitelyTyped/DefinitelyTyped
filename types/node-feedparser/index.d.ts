@@ -14,12 +14,16 @@ declare class FeedParser extends stream.Duplex {
     constructor(options: FeedParser.Options);
     options: FeedParser.Options;
     stream: SAXStream;
-    meta: object;
+    meta: {
+        [key: string]: any
+    };
     _emitted_meta: boolean;
     stack: any[];
     xmlbase: any[];
     in_xhtml: boolean;
-    xhtml: object;
+    xhtml: {
+        [key: string]: any
+    };
     errors: Error[];
 
     addListener(ev: any, fn: any): any;
@@ -79,7 +83,7 @@ declare class FeedParser extends stream.Duplex {
     setEncoding(enc: any): any;
 
     setMaxListeners(n: any): any;
-    
+
     uncork(): void;
 
     unpipe(dest: any): any;
@@ -88,9 +92,8 @@ declare class FeedParser extends stream.Duplex {
 
     wrap(stream: SAXStream, ...args: any[]): any;
 
-    private _transform(data: any, encoding: string, done: Function): void;
-    private _flush(done: Function): void;
-
+    private _transform(data: any, encoding: string, done: () => any): void;
+    private _flush(done: () => any): void;
 }
 
 declare namespace FeedParser {
@@ -103,7 +106,6 @@ declare namespace FeedParser {
         resume_saxerror?: boolean;
         MAX_BUFFER_LENGTH?: number;
     }
-
 
     interface Node {
         [key: string]: any;
@@ -161,6 +163,4 @@ declare namespace FeedParser {
         enclosures: string[];
         meta: Meta;
     }
-
 }
-
