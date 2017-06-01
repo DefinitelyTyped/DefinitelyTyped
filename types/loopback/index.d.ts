@@ -11,6 +11,7 @@
 ************************************************/
 
 import * as core from "express-serve-static-core";
+import {NextFunction} from "../express/index";
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {
@@ -886,6 +887,20 @@ declare namespace l {
              * See  [Setting up a custom model](docs.strongloop.com/display/LB/Extending+built-in+models#Extendingbuilt-inmodels-Settingupacustommodel)
              */
             static setup(): void;
+
+            /**
+             * loopback 3.x Remote hooks
+             * http://loopback.io/doc/en/lb3/Remote-hooks.html
+             * @param method
+             * @param backback
+             */
+            beforeRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model
+                | NextFunction, next?: NextFunction)=>void): void;
+
+            afterRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model
+                | NextFunction, next?: NextFunction) => void): void;
+
+            afterRemoteError(method: string, callback: NextFunction): void;
       }
 
       /**
