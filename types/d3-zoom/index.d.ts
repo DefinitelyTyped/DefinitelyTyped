@@ -371,12 +371,13 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     filter(): ValueFn<ZoomRefElement, Datum, boolean>;
     /**
      * Sets the filter to the specified filter function and returns the zoom behavior.
+     * The filter function is invoked in the zoom initiating event handlers of each element to which the zoom behavior was applied.
      *
      * If the filter returns falsey, the initiating event is ignored and no zoom gesture is started.
      * Thus, the filter determines which input events are ignored. The default filter ignores mousedown events on secondary buttons,
      * since those buttons are typically intended for other purposes, such as the context menu.
      *
-     * @param filterFn A filter function which is evaluated for each selected element,
+     * @param filterFn A filter function which is invoked in the zoom initiating event handlers of each element to which the zoom behavior was applied,
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element. The function returns a boolean value.
      */
@@ -387,11 +388,12 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      */
     wheelDelta(): ValueFn<ZoomRefElement, Datum, number>;
     /**
-     * Sets the wheel delta function to the specified function and returns the zoom behavior.
+     * Sets the wheel delta function to the specified function and returns the zoom behavior. The wheel delta function which is invoked in the wheel event handler
+     * of each element to which the zoom behavior was applied.
      * The value Δ returned by the wheel delta function determines the amount of scaling applied in response to a WheelEvent.
      * The scale factor transform.k is multiplied by 2Δ; for example, a Δ of +1 doubles the scale factor, Δ of -1 halves the scale factor.
      *
-     * @param delta Wheel delta function which is evaluated for each selected element,
+     * @param delta Wheel delta function which is invoked in the wheel event handler of each element to which the zoom behavior was applied,
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element. The function returns a numeric value.
      */
