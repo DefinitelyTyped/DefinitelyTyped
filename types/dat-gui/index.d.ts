@@ -1,9 +1,7 @@
 // Type definitions for dat.GUI 0.6
 // Project: https://github.com/dataarts/dat.gui
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: Satoru Kimura <https://github.com/gyohk>
-//                 ZongJing Lu <https://github.com/sonic3d>
-//                 Richard Roylance <https://github.com/rroylance>
 
 export as namespace dat;
 
