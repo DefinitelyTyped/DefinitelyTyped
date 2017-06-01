@@ -23,6 +23,8 @@ const data = {
 	name: "My name"
 };
 
+doT.templateSettings.varname = 'test';
+
 let pagefn = doT.template(pagetmpl, undefined, def);
 const content = pagefn(data);
 

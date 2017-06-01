@@ -1,6 +1,6 @@
 // Type definitions for material-ui v0.17.51
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>, Aurelién Allienne <https://github.com/allienna>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Beagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>, Aurelién Allienne <https://github.com/allienna>, Matthias Schlesinger <https://github.com/schlesingermatthias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1046,6 +1046,7 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
+            onTouchTap?: TouchTapEventHandler;
         }
         export class GridTile extends React.Component<GridTileProps, {}> {
         }
@@ -1087,6 +1088,7 @@ declare namespace __MaterialUI {
             autoGenerateNestedIndicator?: boolean;
             disableKeyboardFocus?: boolean;
             disabled?: boolean;
+            hoverColor?: string;
             initiallyOpen?: boolean;
             innerDivStyle?: React.CSSProperties;
             insetChildren?: boolean;
@@ -1222,6 +1224,7 @@ declare namespace __MaterialUI {
             maxHeight?: number;
             menuStyle?: React.CSSProperties;
             onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
+            onClose?: (e: TouchTapEvent) => void;
             openImmediately?: boolean;
             style?: React.CSSProperties;
             underlineStyle?: React.CSSProperties;

@@ -2464,6 +2464,7 @@ declare namespace google.maps {
             placeIdOnly?: boolean;
             strictBounds?: boolean;
             types?: string[];
+            type?: string;
         }
 
         export interface AutocompletePrediction {

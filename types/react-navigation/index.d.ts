@@ -476,6 +476,7 @@ export interface LayoutEvent {
 }
 
 interface NavigationContainerProps {
+  screenProps?: any
   navigation?: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
@@ -490,7 +491,7 @@ interface NavigationContainerState {
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps
 > {
-  router: any
+  router: NavigationRouter
 }
 
 export type StackNavigatorConfig =
@@ -607,7 +608,7 @@ export type NavigationResetActionCreator = (options: NavigationResetAction) => b
 export type NavigationBackActionCreator = (options?: NavigationBackAction) => boolean;
 export type NavigationSetParamsActionCreator = (options: NavigationSetParamsAction) => boolean;
 
-export interface NavgationComponentProps<T> {
+export interface NavigationComponentProps<T> {
   screenProps: any
   navigation: {
     dispatch: any
@@ -621,3 +622,6 @@ export interface NavgationComponentProps<T> {
     },
   }
 }
+
+export const TabBarTop: React.ReactElement<any>;
+export const TabBarBottom: React.ReactElement<any>;
