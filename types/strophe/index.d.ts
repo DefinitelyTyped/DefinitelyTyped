@@ -1090,3 +1090,27 @@ declare function $iq(attrs?: any): Strophe.Builder;
  */
 declare function $pres(attrs?: any): Strophe.Builder;
 
+// Support AMD require
+declare module "strophe" {
+  export = { Strophe, $build, $msg, $iq, $pres };
+}
+
+declare module "Strophe" {
+  export = Strophe;
+}
+
+declare module "$build" {
+  export = $build;
+}
+
+declare module "$msg" {
+  export = $msg;
+}
+
+declare module "$iq" {
+  export = $iq;
+}
+
+declare module "$pres" {
+  export = $pres;
+}
