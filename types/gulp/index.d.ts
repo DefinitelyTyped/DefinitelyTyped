@@ -10,7 +10,6 @@ import * as chokidar from "chokidar";
 import * as Undertaker from "undertaker";
 import * as fs from "fs";
 import { Duplex } from "stream";
-import * as Orchestrator from "orchestrator";
 
 declare namespace GulpClient {
     type Globs = string | string[];
