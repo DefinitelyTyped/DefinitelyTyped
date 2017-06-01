@@ -102,13 +102,13 @@ declare namespace SemanticUI {
         (settings?: TransitionSettings | object): JQuery;
     }
 
-    interface TransitionSettings extends Pick<Transition._Settings, keyof Transition._Settings> { }
+    /**
+     * @see {@link http://semantic-ui.com/modules/transition.html#/settings}
+     */
+    interface TransitionSettings extends Pick<TransitionSettings._Impl, keyof TransitionSettings._Impl> { }
 
-    namespace Transition {
-        /**
-         * @see {@link http://semantic-ui.com/modules/transition.html#/settings}
-         */
-        interface _Settings {
+    namespace TransitionSettings {
+        interface _Impl {
             // region Transition Settings
 
             /**
@@ -182,13 +182,13 @@ declare namespace SemanticUI {
             /**
              * Class names used to attach style to state
              */
-            className: ClassNameSettings;
+            className: Transition.ClassNameSettings;
 
             // endregion
 
             // region Debug Settings
 
-            error: ErrorSettings;
+            error: Transition.ErrorSettings;
 
             // endregion
 
@@ -230,59 +230,65 @@ declare namespace SemanticUI {
 
             // endregion
         }
+    }
 
-        interface ClassNameSettings extends Pick<_ClassNameSettings, keyof _ClassNameSettings> { }
+    namespace Transition {
+        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
 
-        interface _ClassNameSettings {
-            /**
-             * @default 'animating'
-             */
-            animating: string;
-            /**
-             * @default 'disabled'
-             */
-            disabled: string;
-            /**
-             * @default 'hidden'
-             */
-            hidden: string;
-            /**
-             * @default 'in'
-             */
-            inward: string;
-            /**
-             * @default 'loading'
-             */
-            loading: string;
-            /**
-             * @default 'looping'
-             */
-            looping: string;
-            /**
-             * @default 'out'
-             */
-            outward: string;
-            /**
-             * @default 'transition'
-             */
-            transition: string;
-            /**
-             * @default 'visible'
-             */
-            visible: string;
+        namespace ClassNameSettings {
+            interface _Impl {
+                /**
+                 * @default 'animating'
+                 */
+                animating: string;
+                /**
+                 * @default 'disabled'
+                 */
+                disabled: string;
+                /**
+                 * @default 'hidden'
+                 */
+                hidden: string;
+                /**
+                 * @default 'in'
+                 */
+                inward: string;
+                /**
+                 * @default 'loading'
+                 */
+                loading: string;
+                /**
+                 * @default 'looping'
+                 */
+                looping: string;
+                /**
+                 * @default 'out'
+                 */
+                outward: string;
+                /**
+                 * @default 'transition'
+                 */
+                transition: string;
+                /**
+                 * @default 'visible'
+                 */
+                visible: string;
+            }
         }
 
-        interface ErrorSettings extends Pick<_ErrorSettings, keyof _ErrorSettings> { }
+        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
 
-        interface _ErrorSettings {
-            /**
-             * @default 'There is no CSS animation matching the one you specified.'
-             */
-            noAnimation: string;
-            /**
-             * @default 'The method you called is not defined'
-             */
-            method: string;
+        namespace ErrorSettings {
+            interface _Impl {
+                /**
+                 * @default 'There is no CSS animation matching the one you specified.'
+                 */
+                noAnimation: string;
+                /**
+                 * @default 'The method you called is not defined'
+                 */
+                method: string;
+            }
         }
     }
 }
