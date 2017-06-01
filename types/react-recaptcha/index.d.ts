@@ -19,7 +19,7 @@ interface RecaptchaProps {
     tabindex?: string;
     theme?: "dark" | "light";
     type?: string;
-    verifyCallback?(response:string): any;
+    verifyCallback?(response: string): any;
     verifyCallbackName?: string;
     sitekey?: string;
 }
