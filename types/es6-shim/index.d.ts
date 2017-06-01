@@ -557,7 +557,7 @@ interface Map<K, V> {
     forEach(callbackfn: (value: V, index: K, map: Map<K, V>) => void, thisArg?: any): void;
     get(key: K): V | undefined;
     has(key: K): boolean;
-    set(key: K, value?: V): Map<K, V>;
+    set(key: K, value: V): Map<K, V>;
     size: number;
     entries(): IterableIteratorShim<[K, V]>;
     keys(): IterableIteratorShim<K>;
@@ -597,7 +597,7 @@ interface WeakMap<K extends object, V> {
     delete(key: K): boolean;
     get(key: K): V | undefined;
     has(key: K): boolean;
-    set(key: K, value?: V): WeakMap<K, V>;
+    set(key: K, value: V): WeakMap<K, V>;
 }
 
 interface WeakMapConstructor {
