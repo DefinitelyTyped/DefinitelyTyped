@@ -41,3 +41,4 @@ node_modules
 .vs
 .vscode
 yarn.lock
+.idea

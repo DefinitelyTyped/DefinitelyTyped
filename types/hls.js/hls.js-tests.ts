@@ -1,6 +1,6 @@
 import * as Hls from 'hls.js';
 
-if (Hls.isSupported) {
+if (Hls.isSupported()) {
   const video = <HTMLVideoElement> document.getElementById('video');
   const hls = new Hls();
   hls.loadSource('http://www.streambox.fr/playlists/test_001/stream.m3u8');

@@ -11,6 +11,8 @@
 
 declare namespace ReactIntl {
 
+    type DateSource = Date | string | number;
+
     interface Locale {
         locale: string;
         fields?: { [key: string]: string },
@@ -62,9 +64,9 @@ declare namespace ReactIntl {
     const intlShape: IntlShape;
 
     interface InjectedIntl {
-        formatDate: (date: Date, options?: FormattedDate.PropsBase) => string;
-        formatTime: (date: Date, options?: FormattedTime.PropsBase) => string;
-        formatRelative: (value: number, options?: FormattedRelative.PropsBase & { now?: any }) => string;
+        formatDate: (value: DateSource, options?: FormattedDate.PropsBase) => string;
+        formatTime: (value: DateSource, options?: FormattedTime.PropsBase) => string;
+        formatRelative: (value: DateSource, options?: FormattedRelative.PropsBase & { now?: any }) => string;
         formatNumber: (value: number, options?: FormattedNumber.PropsBase) => string;
         formatPlural: (value: number, options?: FormattedPlural.Base) => keyof FormattedPlural.PropsBase;
         formatMessage: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number}) => string;
@@ -91,7 +93,7 @@ declare namespace ReactIntl {
         export interface PropsBase extends IntlComponent.DateTimeFormatProps {}
 
         export interface Props extends PropsBase {
-            value: Date;
+            value: DateSource;
         }
     }
 
@@ -101,7 +103,7 @@ declare namespace ReactIntl {
         export interface PropsBase extends IntlComponent.DateTimeFormatProps {}
 
         export interface Props extends PropsBase {
-            value: Date;
+            value: DateSource;
         }
     }
     class FormattedTime extends React.Component<FormattedTime.Props, any> { }
@@ -122,7 +124,7 @@ declare namespace ReactIntl {
         }
 
         export interface Props extends PropsBase {
-            value: number;
+            value: DateSource;
         }
     }
 
