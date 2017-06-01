@@ -442,7 +442,7 @@ let compiler = webpack({
 });
 
 compiler.run((err, stats) => {
-    // ...
+    const {name, size} = stats.toJson().assets[0];
 });
 // or
 compiler.watch({ // watch options:

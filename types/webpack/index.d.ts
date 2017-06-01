@@ -517,7 +517,16 @@ declare namespace webpack {
              */
             maxEntrypointSize?: number;
         }
-        type Stats = webpack.Stats.ToStringOptions;
+        type Stats = webpack.Stats.ToStringOptions & {
+            assets: Array<{
+                name: string;
+                size: number;
+                chunks: string[];
+                chunkNames: string[];
+                emitted: boolean;
+                isOverSizeLimit: boolean;
+            }>;
+        }
         type WatchOptions = ICompiler.WatchOptions;
     }
 
