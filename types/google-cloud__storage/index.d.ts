@@ -1,6 +1,6 @@
-// Type definitions for @google-cloud/storage 0.6
+// Type definitions for @google-cloud/storage v1.1.0
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
-// Definitions by: Brian Love <http://brianflove.com>
+// Definitions by: Brian Love <https://github.com/blove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -301,6 +301,21 @@ declare module "@google-cloud/storage/storage" {
     updated?: string;
   }
 
+  interface Credentials {
+    client_email?: string;
+    private_key?: string;
+  }
+
+  interface ConfigurationObject {
+    autoRetry?: boolean;
+    credentials?: Credentials;
+    email?: string;
+    keyFilename?: string;
+    maxRetries?: number;
+    projectId?: string;
+    promise?: PromiseLibrary<any>;
+  }
+
   /**
    * The options when downloading a file.
    */
@@ -343,6 +358,7 @@ declare module "@google-cloud/storage/storage" {
    * The Storage class allows you interact with Google Cloud Storage.
    */
   class Storage {
+    constructor(options?: ConfigurationObject);
     acl: Acl;
     bucket(name: string|Bucket): Bucket;
     channel(id: string, resourceId: string): Channel;
@@ -350,4 +366,6 @@ declare module "@google-cloud/storage/storage" {
     getBuckets(query?: BucketQuery): Promise<[Bucket[]]>;
     getBucketsStream(query?: BucketQuery): Promise<[ReadStream]>;
   }
+
+  type PromiseLibrary<T> = () => PromiseLike<T>;
 }
