@@ -1,6 +1,6 @@
 // Type definitions for Jasmine 2.5.2
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>, Gabe Moothart <https://github.com/gmoothart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -59,7 +59,7 @@ declare namespace jasmine {
     function createSpy(name: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: any[]): any;
-    function createSpyObj<T>(baseName: string, methodNames: any[]): T;
+    function createSpyObj<T>(baseName: string, methodNames: any[]): SpyObj<T>;
 
     function createSpyObj(baseName: string, methodNames: any): any;
     function createSpyObj(methodNames: any[]): any;
@@ -516,6 +516,10 @@ declare namespace jasmine {
         calls: Calls;
         mostRecentCall: { args: any[]; };
         argsForCall: any[];
+    }
+
+    type SpyObj<T> = T & {
+      [k in keyof T]: Spy;
     }
 
     interface SpyAnd {

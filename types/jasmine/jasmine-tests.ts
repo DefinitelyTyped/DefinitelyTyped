@@ -616,9 +616,14 @@ describe("A spy, when created manually", () => {
 
 describe("Multiple spies, when created manually", () => {
     var tape: any;
+    var el: jasmine.SpyObj<Element>;
 
     beforeEach(() => {
         tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+        el = jasmine.createSpyObj<Element>('Element', ['hasAttribute']);
+
+        el.hasAttribute.and.returnValue(false);
+        el.hasAttribute("href");
 
         tape.play();
         tape.pause();
