@@ -2260,6 +2260,10 @@ declare namespace React {
         target?: string;
         type?: string;
         width?: number | string;
+                  
+        // Other HTML properties supported by SVG elements in browsers
+        role?: string;
+        tabIndex?: number;
 
         // SVG Specific attributes
         accentHeight?: number | string;
