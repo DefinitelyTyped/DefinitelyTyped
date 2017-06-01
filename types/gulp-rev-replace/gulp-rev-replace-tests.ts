@@ -17,7 +17,7 @@ var opt = {
     distFolder: 'dist'
 }
 
-gulp.task("revision", ["dist:css", "dist:js"], () =>
+gulp.task("revision", () =>
     gulp.src(["dist/**/*.css", "dist/**/*.js"])
         .pipe(rev())
         .pipe(gulp.dest(opt.distFolder))
@@ -25,7 +25,7 @@ gulp.task("revision", ["dist:css", "dist:js"], () =>
         .pipe(gulp.dest(opt.distFolder))
 );
 
-gulp.task("revreplace", ["revision"], () => {
+gulp.task("revreplace", () => {
     var manifest = gulp.src("./" + opt.distFolder + "/rev-manifest.json");
 
     return gulp.src(opt.srcFolder + "/index.html")
@@ -41,7 +41,7 @@ function replaceJsIfMap(filename: string): string {
     return filename;
 }
 
-gulp.task("revreplace", ["revision"], () => {
+gulp.task("revreplace", () => {
     var manifest = gulp.src("./" + opt.distFolder + "/rev-manifest.json");
 
     return gulp.src(opt.distFolder + '**/*.js')
