@@ -1,11 +1,12 @@
 import * as gulp from 'gulp';
 import * as undertaker from 'undertaker';
+import * as registry from 'undertaker-registry';
 import * as del from "del";
 
-var minify: () => any;
-var jade: () => any;
-var someplugin: () => any;
-var promisedDel: (list: string[]) => any;
+const minify: () => any = () => { };
+const jade: () => any = () => { };
+const someplugin: () => any = () => { };
+const promisedDel: (list: string[]) => any = (list) => { };
 
 gulp.src('client/templates/*.jade')
     .pipe(jade())
@@ -30,7 +31,6 @@ gulp.src('app/scripts.js');
 // Won't emit an error
 gulp.src('app/scripts.js', { allowEmpty: true });
 
-
 gulp.src('./client/templates/*.jade')
     .pipe(jade())
     .pipe(gulp.dest('./build/templates'))
@@ -42,19 +42,18 @@ gulp.task(() => {
 });
 
 // someTask will be the registered task function
-var someTask = gulp.task('someTask');
+const someTask = gulp.task('someTask');
 
-var someNextTask = () => {
+const someNextTask = () => {
     return gulp.src(['some/glob/**/*.ext']).pipe(someplugin());
-}
-someTask.description = 'Does something';
+};
 
 gulp.task(someTask);
 
 let foo: gulp.TaskFunction = () => { };
 foo.name === 'foo'; // true
 
-var bar: gulp.TaskFunction = () => { };
+const bar: gulp.TaskFunction = () => { };
 bar.name === ''; // true
 
 bar.name = 'bar';
@@ -63,8 +62,6 @@ bar.name === ''; // true
 let test: gulp.TaskFunction = (done) => {
     done();
 };
-
-test.description = 'I do nothing';
 
 gulp.task(test);
 
@@ -126,7 +123,7 @@ gulp.task('default', gulp.series('one', 'two', (done) => {
 
 gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
 
-var watcher = gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
+const watcher = gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
 // watcher.close
 watcher.on('change', (path, stats) => {
     console.log('File ' + path + ' was changed');
@@ -166,9 +163,9 @@ gulp.tree();
 
 gulp.tree({ deep: true });
 
-//gulpfile.js
+// gulpfile.js
 
-var companyTasks: undertaker.Registry;
+const companyTasks = {} as registry;
 
 gulp.registry(companyTasks);
 
