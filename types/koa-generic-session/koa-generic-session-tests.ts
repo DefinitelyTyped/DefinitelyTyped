@@ -40,7 +40,7 @@ app.use((context: Koa.Context) => {
     context.regenerateSession();
     context.sessionSave = true;
     context.session.cookie;
-    context.session.key = 'value';
+    context.session['key'] = 'value';
     context.session = null;
 });
 
