@@ -8,6 +8,7 @@
 
 import * as d3Sankey from 'd3-sankey';
 import {select, Selection} from 'd3-selection';
+import { Link } from 'd3-shape';
 
 // ---------------------------------------------------------------------------
 // Preparatory Steps
@@ -30,12 +31,12 @@ type SNode = d3Sankey.SankeyNode<SNodeExtra, SLinkExtra>;
 type SLink = d3Sankey.SankeyLink<SNodeExtra, SLinkExtra>;
 
 interface DAG {
-    nodes: SNode[];
-    links: SLink[];
+    customNodes: SNode[];
+    customLinks: SLink[];
 }
 
 const graph: DAG = {
-  nodes: [{
+  customNodes: [{
     nodeId: 0,
     name: "node0"
   }, {
@@ -51,7 +52,7 @@ const graph: DAG = {
     nodeId: 4,
     name: "node4"
   }],
-  links: [{
+  customLinks: [{
     source: 0,
     target: 2,
     value: 2,
@@ -96,15 +97,18 @@ let num: number;
 let numMaybe: number | undefined;
 let str: string;
 let size: [number, number];
+let extent: [[number, number], [number, number]];
 
 const svgLinkPaths = select<SVGSVGElement, undefined>('svg').selectAll<SVGPathElement, SLink>('.linkPath'); // assume mock DOM
+
+let sGraph: d3Sankey.SankeyGraph<SNodeExtra, SLinkExtra>;
 
 // ---------------------------------------------------------------------------
 // Obtain SankeyLayout Generator
 // ---------------------------------------------------------------------------
 
-let slgDefault: d3Sankey.SankeyLayout<{}, {}> = d3Sankey.sankey();
-let slgDAG: d3Sankey.SankeyLayout<SNodeExtra, SLinkExtra> = d3Sankey.sankey<SNodeExtra, SLinkExtra>();
+let slgDefault: d3Sankey.SankeyLayout<d3Sankey.SankeyGraph<{}, {}>, {}, {}> = d3Sankey.sankey();
+let slgDAG: d3Sankey.SankeyLayout<DAG, SNodeExtra, SLinkExtra> = d3Sankey.sankey<DAG, SNodeExtra, SLinkExtra>();
 
 // ---------------------------------------------------------------------------
 // NodeWidth
@@ -133,6 +137,19 @@ slgDAG = slgDAG.nodePadding(8);
 num = slgDAG.nodePadding();
 
 // ---------------------------------------------------------------------------
+// Extent
+// ---------------------------------------------------------------------------
+
+// Set -----------------------------------------------------------------------
+
+// test return type for chainability
+slgDAG = slgDAG.extent([[0, 0], [1200, 800]]);
+
+// Get -----------------------------------------------------------------------
+
+extent = slgDAG.extent();
+
+// ---------------------------------------------------------------------------
 // Size
 // ---------------------------------------------------------------------------
 
@@ -151,12 +168,15 @@ size = slgDAG.size();
 
 // Set -----------------------------------------------------------------------
 
-// test return type for chainability
-slgDAG = slgDAG.nodes(graph.nodes);
+// Use array and test return type for chainability
+slgDAG = slgDAG.nodes(graph.customNodes);
+
+// Use accessor function and test return type for chainability
+slgDAG = slgDAG.nodes(d => d.customNodes);
 
 // Get -----------------------------------------------------------------------
 
-sNodes = slgDAG.nodes();
+let nodesAccessor: (d: DAG) => SNode[] = slgDAG.nodes();
 
 // ---------------------------------------------------------------------------
 // Links
@@ -165,44 +185,51 @@ sNodes = slgDAG.nodes();
 // Set -----------------------------------------------------------------------
 
 // test return type for chainability
-slgDAG = slgDAG.links(graph.links);
+slgDAG = slgDAG.links(graph.customLinks);
+
+// Use accessor function and test return type for chainability
+slgDAG = slgDAG.links(d => d.customLinks);
 
 // Get -----------------------------------------------------------------------
 
-sLinks = slgDAG.links();
+let linksAccessor: (d: DAG) => SLink[] = slgDAG.links();
 
 // ---------------------------------------------------------------------------
-// Compute Layout
+// Compute Initial Layout
 // ---------------------------------------------------------------------------
 
-// test return type for chainability
-slgDAG = slgDAG.layout(22);
+sGraph = slgDAG(graph);
+// With additional arguments, although here unused.
+sGraph = slgDAG(graph, "foo", 50);
 
 // ---------------------------------------------------------------------------
-// Relayout
+// Update Layout
 // ---------------------------------------------------------------------------
 
-// test return type for chainability
-slgDAG = slgDAG.relayout();
+sGraph = slgDAG.update(sGraph);
 
 // ---------------------------------------------------------------------------
-// Obtain and Use Link SVG Path Generator
+// Obtain and Use Horizontal Link Path Generator
 // ---------------------------------------------------------------------------
 
-let pathGen: d3Sankey.SankeyLinkPathGenerator<SNodeExtra, SLinkExtra>;
+let defaultPathGen: Link<any, d3Sankey.SankeyLink<{}, {}>, [number, number]>;
+let pathGen: Link<any, SLink, [number, number]>;
 
-pathGen = slgDAG.link();
+defaultPathGen = d3Sankey.sankeyLinkHorizontal();
 
-// Adjust Link SVG Path Generator curvature ----------------------------------
+pathGen = d3Sankey.sankeyLinkHorizontal<SNodeExtra, SLinkExtra>();
 
-// test return type
-pathGen = pathGen.curvature(0.6);
-num = pathGen.curvature();
+// Render to svg path
 
-// uses
-
-let svgPathString: string = pathGen(slgDAG.links()[0]);
+let svgPathString: string | null = pathGen(sGraph.links[0]);
 svgLinkPaths.attr('d', pathGen);
+
+// Render to canvas
+
+declare const ctx: CanvasRenderingContext2D;
+
+pathGen.context(ctx);
+pathGen(sGraph.links[0]);
 
 // ---------------------------------------------------------------------------
 // Shape test Node/Link related interfaces and types
@@ -210,6 +237,7 @@ svgLinkPaths.attr('d', pathGen);
 
 // Sankey Node --------------------------------------------------------------
 
+sNodes = sGraph.nodes;
 let sNode = sNodes[0];
 
 // User-specified extra properties:
@@ -232,6 +260,7 @@ linksArrMaybe = sNode.targetLinks;
 
 // Sankey Link --------------------------------------------------------------
 
+sLinks = sGraph.links;
 let sLink = sLinks[0];
 
 // User-specified extra properties:
