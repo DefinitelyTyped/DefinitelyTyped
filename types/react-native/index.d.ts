@@ -3428,7 +3428,7 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
-export interface FlatListProperties<ItemT> {
+export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
     /**
      * Rendered in between each item, but not at the top or bottom
@@ -3436,19 +3436,27 @@ export interface FlatListProperties<ItemT> {
     ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     /**
-     * Rendered at the bottom of all the items.
+     * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | null
+    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
-     * Rendered at the top of all the items.
+     * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | null
+    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
      */
     columnWrapperStyle?: ViewStyle
+
+    /**
+     * When false tapping outside of the focused text input when the keyboard
+     * is up dismisses the keyboard. When true the scroll view will not catch
+     * taps and the keyboard will not dismiss automatically. The default value
+     * is false.
+     */
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled'
 
     /**
      * For simplicity, data is just a plain array. If you want to use something else,
@@ -3621,12 +3629,12 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | null
+    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | null
+    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered in between each section.
@@ -5299,7 +5307,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android'
+export type PlatformOSType = 'ios' | 'android' | 'windows'
 
 interface PlatformStatic {
     OS: PlatformOSType
