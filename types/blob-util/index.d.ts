@@ -2,6 +2,7 @@
 // Project: https://github.com/nolanlawson/blob-util#readme
 // Definitions by: Max Battcher <https://github.com/WorldMaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export function createBlob(parts: any[], options?: { type: string }): Blob;
 export function createObjectURL(blob: Blob): string;
@@ -16,5 +17,3 @@ export function canvasToBlob(canvas: HTMLCanvasElement, type?: string): Promise<
 export function imgSrcToBlob(src: string, type?: string, crossOrigin?: string): Promise<Blob>;
 export function arrayBufferToBlob(arrayBuff: ArrayBuffer, type?: string): Promise<Blob>;
 export function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer>;
-
-// TypeScript Version: 2.1
