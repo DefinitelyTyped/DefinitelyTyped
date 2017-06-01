@@ -1,4 +1,4 @@
-// Type definitions for Jest 19.2.0
+// Type definitions for Jest 20.0.4
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -169,6 +169,8 @@ declare namespace jest {
         assertions(num: number): void;
         /** You can use `expect.extend` to add your own matchers to Jest. */
         extend(obj: ExpectExtendMap): void;
+        /** Verifies that at least one assertion is called during a test. This is often useful when testing asynchronous code, in order to make sure that assertions in a callback actually got called. */
+        hasAssertions(): void;
         /** Matches any object that recursively matches the provided keys. This is often handy in conjunction with other asymmetric matchers. */
         objectContaining(obj: {}): any;
         /** Matches any string that contains the exact provided string */
@@ -178,6 +180,10 @@ declare namespace jest {
     interface Matchers {
         /** If you know how to test something, `.not` lets you test its opposite. */
         not: Matchers;
+        /** Use `.resolves` to unwrap the value of a fulfilled promise so any other matcher can be chained. If the promise is rejected the assertion fails. */
+        resolves: Matchers;
+        /** Use `.rejects` to unwrap the reason of a rejected promise so any other matcher can be chained. If the promise is fulfilled the assertion fails. */
+        rejects: Matchers;
         lastCalledWith(...args: any[]): void;
         /** Checks that a value is what you expect. It uses `===` to check strict equality. Don't use `toBe` with floating-point numbers. */
         toBe(expected: any): void;

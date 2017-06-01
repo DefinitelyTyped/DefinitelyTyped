@@ -501,3 +501,13 @@ describe('Mocks', function () {
         anotherIns.testMethod.mockImplementation(() => 1);
     });
 });
+
+test('Resolves test', () => {
+    expect.hasAssertions()
+    return expect(Promise.resolve(42)).resolves.toBe(42);
+});
+
+test('Rejects test', () => {
+    expect.hasAssertions()
+    return expect(Promise.reject('error')).rejects.toMatch('error');
+});
