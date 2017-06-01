@@ -10331,6 +10331,36 @@ declare namespace _ {
         (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction1<T5, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
+    interface RightCurriedFunction1<T1, R>{
+        ():RightCurriedFunction1<T1, R>
+        (t1:T1):R
+        }
+    interface RightCurriedFunction2<T1,T2, R>{
+        ():RightCurriedFunction2<T1,T2, R>
+        (t2:T2):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2):R
+    }
+    interface RightCurriedFunction3<T1,T2,T3, R>{
+        ():RightCurriedFunction3<T1,T2,T3, R>
+        (t3:T3):RightCurriedFunction2<T1,T2, R>
+        (t2:T2,t3:T3):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2,t3:T3):R
+    }
+    interface RightCurriedFunction4<T1,T2,T3,T4, R>{
+        ():RightCurriedFunction4<T1,T2,T3,T4, R>
+        (t4:T4):RightCurriedFunction3<T1,T2,T3, R>
+        (t3:T3,t4:T4):RightCurriedFunction2<T1,T2, R>
+        (t2:T2,t3:T3,t4:T4):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2,t3:T3,t4:T4):R
+    }
+    interface RightCurriedFunction5<T1,T2,T3,T4,T5, R>{
+        ():RightCurriedFunction5<T1,T2,T3,T4,T5, R>
+        (t5:T5):RightCurriedFunction4<T1,T2,T3,T4, R>
+        (t4:T4,t5:T5):RightCurriedFunction3<T1,T2,T3, R>
+        (t3:T3,t4:T4,t5:T5):RightCurriedFunction2<T1,T2, R>
+        (t2:T2,t3:T3,t4:T4,t5:T5):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2,t3:T3,t4:T4,t5:T5):R
+    }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
@@ -10348,7 +10378,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, R>(func: (t1: T1) => R):
-            CurriedFunction1<T1, R>;
+            RightCurriedFunction1<T1, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10356,7 +10386,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, R>(func: (t1: T1, t2: T2) => R):
-            CurriedFunction2<T2, T1, R>;
+            RightCurriedFunction2<T1, T2, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10364,7 +10394,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R):
-            CurriedFunction3<T3, T2, T1, R>;
+            RightCurriedFunction3<T1, T2, T3, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10372,7 +10402,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R):
-            CurriedFunction4<T4, T3, T2, T1, R>;
+            RightCurriedFunction4<T1, T2, T3, T4, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10380,7 +10410,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R):
-            CurriedFunction5<T5, T4, T3, T2, T1, R>;
+            RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
