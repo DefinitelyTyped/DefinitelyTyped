@@ -16,6 +16,11 @@ declare namespace GulpClient {
 
     type TaskFunction = Undertaker.TaskFunction;
 
+    /**
+     * @deprecated - Now use `TaskFunction`.
+     */
+    type TaskCallback = TaskFunction;
+
     interface Gulp extends Undertaker {
         /**
          * Emits files matching provided glob or array of globs. Returns a stream of Vinyl files that can be piped to plugins.
