@@ -1,19 +1,28 @@
-// Type definitions for SuperAgent v2.0.0
+// Type definitions for SuperAgent v2.0.1
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
 //                 Ricardo Mello <https://github.com/ricardo-mello>
+//                 Nico Zelaya <https://github.com/NicoZelaya/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import stream = require('stream');
+import https = require('https');
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
 declare var request: request.SuperAgentStatic;
 
 declare namespace request {
-    interface SuperAgentRequest extends Request { }
+    interface SuperAgentRequest extends Request {
+        agent(agent: https.Agent): this;
+        agent(): this;
+
+        method: string;
+        url: string;
+        cookies: string;
+     }
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
         (url: string): SuperAgentRequest;
         (method: string, url: string): SuperAgentRequest;
@@ -77,7 +86,7 @@ declare namespace request {
         notAcceptable: boolean;
         notFound: boolean;
         forbidden: boolean;
-      xhr: XMLHttpRequest;
+        xhr: XMLHttpRequest;
         get(header: string): string;
     }
 

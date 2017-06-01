@@ -281,8 +281,8 @@ declare namespace NodeJS {
         readable: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string | null): void;
-        pause(): ReadableStream;
-        resume(): ReadableStream;
+        pause(): this;
+        resume(): this;
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
@@ -301,10 +301,7 @@ declare namespace NodeJS {
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream extends ReadableStream, WritableStream {
-        pause(): ReadWriteStream;
-        resume(): ReadWriteStream;
-    }
+    export interface ReadWriteStream extends ReadableStream, WritableStream {}
 
     export interface Events extends EventEmitter { }
 
@@ -1431,8 +1428,8 @@ declare module "readline" {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;
-        pause(): ReadLine;
-        resume(): ReadLine;
+        pause(): this;
+        resume(): this;
         close(): void;
         write(data: string | Buffer, key?: Key): void;
 
@@ -1801,8 +1798,21 @@ declare module "url" {
         path?: string;
     }
 
+    export interface UrlObject {
+        protocol?: string;
+        slashes?: boolean;
+        auth?: string;
+        host?: string;
+        hostname?: string;
+        port?: string | number;
+        pathname?: string;
+        search?: string;
+        query?: { [key: string]: any; };
+        hash?: string;
+    }
+
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(url: Url): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
 }
 
@@ -1939,8 +1949,6 @@ declare module "net" {
         setEncoding(encoding?: string): void;
         write(data: any, encoding?: string, callback?: Function): void;
         destroy(): void;
-        pause(): Socket;
-        resume(): Socket;
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
@@ -1955,6 +1963,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        connecting: boolean;
         destroyed: boolean;
 
         // Extended base methods
@@ -3432,8 +3441,8 @@ declare module "stream" {
             _read(size: number): void;
             read(size?: number): any;
             setEncoding(encoding: string): void;
-            pause(): Readable;
-            resume(): Readable;
+            pause(): this;
+            resume(): this;
             isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;

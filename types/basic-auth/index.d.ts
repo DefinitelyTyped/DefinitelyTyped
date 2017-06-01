@@ -1,6 +1,6 @@
-// Type definitions for basic-auth
+// Type definitions for basic-auth v1.1.0
 // Project: https://github.com/jshttp/basic-auth
-// Definitions by: Clément Bourgeois <https://github.com/moonpyk>
+// Definitions by: Clément Bourgeois <https://github.com/moonpyk>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -14,6 +14,11 @@ declare namespace auth {
         name: string;
         pass: string;
     }
+
+    /**
+     * Parse basic auth to object.
+     */
+    function parse(authorizationHeader: string): auth.BasicAuthResult | undefined;
 }
 
 export = auth;
