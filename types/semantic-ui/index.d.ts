@@ -2,1314 +2,39 @@
 // Project: http://semantic-ui.com/
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="jquery" />
 
 interface JQueryStatic {
-    accordion: { settings: SemanticUI.AccordionSettings };
-    checkbox: { settings: SemanticUI.CheckboxSettings };
-    dimmer: { settings: SemanticUI.DimmerSettings };
-    dropdown: { settings: SemanticUI.DropdownSettings };
-    embed: { settings: SemanticUI.EmbedSettings };
-    modal: { settings: SemanticUI.ModalSettings };
-    nag: { settings: SemanticUI.NagSettings };
-    popup: { settings: SemanticUI.PopupSettings };
-    progress: { settings: SemanticUI.ProgressSettings };
-    rating: { settings: SemanticUI.RatingSettings };
-    search: { settings: SemanticUI.SearchSettings };
-    shape: { settings: SemanticUI.ShapeSettings };
-    sidebar: { settings: SemanticUI.SidebarSettings };
-    sticky: { settings: SemanticUI.StickySettings };
-    tab: { settings: SemanticUI.TabSettings };
-    transition: { settings: SemanticUI.TransitionSettings };
+    site: SemanticUI.Site;
 
-    api: { settings: SemanticUI.ApiSettings };
-    form: { settings: SemanticUI.FormSettings };
-    visibility: { settings: SemanticUI.VisibilitySettings };
+    api: SemanticUI.Api;
 }
 
 interface JQuery {
-    // TODO: Do all modules have a 'setting' behavior?
+    site: SemanticUI.Site;
 
-    // region Modules
+    accordion: SemanticUI.Accordion;
+    checkbox: SemanticUI.Checkbox;
+    dimmer: SemanticUI.Dimmer;
+    dropdown: SemanticUI.Dropdown;
+    embed: SemanticUI.Embed;
+    modal: SemanticUI.Modal;
+    nag: SemanticUI.Nag;
+    popup: SemanticUI.Popup;
+    progress: SemanticUI.Progress;
+    rating: SemanticUI.Rating;
+    search: SemanticUI.Search;
+    shape: SemanticUI.Shape;
+    sidebar: SemanticUI.Sidebar;
+    sticky: SemanticUI.Sticky;
+    tab: SemanticUI.Tab;
+    transition: SemanticUI.Transition;
 
-    // region Accordion
-
-    /**
-     * Refreshes all cached selectors and data
-     */
-    accordion(behavior: 'refresh'): JQuery;
-    /**
-     * Opens accordion content at index
-     */
-    accordion(behavior: 'open', index: number): JQuery;
-    /**
-     * Closes accordion content that are not active
-     */
-    accordion(behavior: 'close others'): JQuery;
-    /**
-     * Closes accordion content at index
-     */
-    accordion(behavior: 'close', index: number): JQuery;
-    /**
-     * Toggles accordion content at index
-     */
-    accordion(behavior: 'toggle', index: number): JQuery;
-    accordion(settings: SemanticUI.AccordionSettings): JQuery;
-    accordion(): JQuery;
-
-    // endregion
-
-    // region Checkbox
-
-    /**
-     * Switches a checkbox from current state
-     */
-    checkbox(behavior: 'toggle'): JQuery;
-    /**
-     * Set a checkbox state to checked
-     */
-    checkbox(behavior: 'check'): JQuery;
-    /**
-     * Set a checkbox state to unchecked
-     */
-    checkbox(behavior: 'uncheck'): JQuery;
-    /**
-     * Set as indeterminate checkbox
-     */
-    checkbox(behavior: 'indeterminate'): JQuery;
-    /**
-     * Set as determinate checkbox
-     */
-    checkbox(behavior: 'determinate'): JQuery;
-    /**
-     * Enable interaction with a checkbox
-     */
-    checkbox(behavior: 'enable'): JQuery;
-    /**
-     * Set a checkbox state to checked without callbacks
-     */
-    checkbox(behavior: 'set checked'): JQuery;
-    /**
-     * Set a checkbox state to unchecked without callbacks
-     */
-    checkbox(behavior: 'set unchecked'): JQuery;
-    /**
-     * Set as indeterminate checkbox without callbacks
-     */
-    checkbox(behavior: 'set indeterminate'): JQuery;
-    /**
-     * Set as determinate checkbox without callbacks
-     */
-    checkbox(behavior: 'set determinate'): JQuery;
-    /**
-     * Enable interaction with a checkbox without callbacks
-     */
-    checkbox(behavior: 'set enabled'): JQuery;
-    /**
-     * Disable interaction with a checkbox without callbacks
-     */
-    checkbox(behavior: 'set disabled'): JQuery;
-    /**
-     * Attach checkbox events to another element
-     */
-    checkbox(behavior: 'attach events', selector: string, event: string): JQuery;
-    /**
-     * Returns whether element is radio selection
-     */
-    checkbox(behavior: 'is radio'): boolean;
-    /**
-     * Returns whether element is currently checked
-     */
-    checkbox(behavior: 'is checked'): boolean;
-    /**
-     * Returns whether element is not checked
-     */
-    checkbox(behavior: 'is unchecked'): boolean;
-    /**
-     * Returns whether element is able to be changed
-     */
-    checkbox(behavior: 'can change'): boolean;
-    /**
-     * Returns whether element can be checked (checking if already checked or `beforeChecked` would cancel)
-     */
-    checkbox(behavior: 'should allow check'): boolean;
-    /**
-     * Returns whether element can be unchecked (checking if already unchecked or `beforeUnchecked` would cancel)
-     */
-    checkbox(behavior: 'should allow uncheck'): boolean;
-    /**
-     * Returns whether element can be determinate (checking if already determinate or `beforeDeterminate` would cancel)
-     */
-    checkbox(behavior: 'should allow determinate'): boolean;
-    /**
-     * Returns whether element can be indeterminate (checking if already indeterminate or `beforeIndeterminate` would cancel)
-     */
-    checkbox(behavior: 'should allow indeterminate'): boolean;
-    /**
-     * Returns whether element is able to be unchecked
-     */
-    checkbox(behavior: 'can uncheck'): boolean;
-    checkbox(settings: SemanticUI.CheckboxSettings): JQuery;
-    checkbox(): JQuery;
-
-    // endregion
-
-    // region Dimmer
-
-    /**
-     * Detaches a given element from DOM and reattaches element inside dimmer
-     */
-    dimmer(behavior: 'add content', element: SemanticUI.Selector): JQuery;
-    /**
-     * Shows dimmer
-     */
-    dimmer(behavior: 'show'): JQuery;
-    /**
-     * Hides dimmer
-     */
-    dimmer(behavior: 'hide'): JQuery;
-    /**
-     * Toggles current dimmer visibility
-     */
-    dimmer(behavior: 'toggle'): JQuery;
-    /**
-     * Changes dimmer opacity
-     */
-    dimmer(behavior: 'set opacity', opacity: number): JQuery;
-    /**
-     * Creates a new dimmer in dimmable context
-     */
-    dimmer(behavior: 'create'): JQuery;
-    /**
-     * Returns current duration for show or hide event depending on current visibility
-     */
-    dimmer(behavior: 'get duration'): number;
-    /**
-     * Returns DOM element for dimmer
-     */
-    dimmer(behavior: 'get dimmer'): JQuery;
-    /**
-     * Returns whether current dimmable has a dimmer
-     */
-    dimmer(behavior: 'has dimmer'): boolean;
-    /**
-     * Whether section's dimmer is active
-     */
-    dimmer(behavior: 'is active'): boolean;
-    /**
-     * Whether dimmer is animating
-     */
-    dimmer(behavior: 'is animating'): boolean;
-    /**
-     * Whether current element is a dimmer
-     */
-    dimmer(behavior: 'is dimmer'): boolean;
-    /**
-     * Whether current element is a dimmable section
-     */
-    dimmer(behavior: 'is dimmable'): boolean;
-    /**
-     * Whether dimmer is disabled
-     */
-    dimmer(behavior: 'is disabled'): boolean;
-    /**
-     * Whether dimmer is not disabled
-     */
-    dimmer(behavior: 'is enabled'): boolean;
-    /**
-     * Whether dimmable section is body
-     */
-    dimmer(behavior: 'is page'): boolean;
-    /**
-     * Whether dimmer is a page dimmer
-     */
-    dimmer(behavior: 'is page dimmer'): boolean;
-    /**
-     * Sets page dimmer to active
-     */
-    dimmer(behavior: 'set active'): JQuery;
-    /**
-     * Sets an element as a dimmable section
-     */
-    dimmer(behavior: 'set dimmable'): JQuery;
-    /**
-     * Sets a dimmable section as dimmed
-     */
-    dimmer(behavior: 'set dimmed'): JQuery;
-    /**
-     * Sets current dimmer as a page dimmer
-     */
-    dimmer(behavior: 'set page dimmer'): JQuery;
-    /**
-     * Sets a dimmer as disabled
-     */
-    dimmer(behavior: 'set disabled'): JQuery;
-    dimmer(settings: SemanticUI.DimmerSettings): JQuery;
-    dimmer(): JQuery;
-
-    // endregion
-
-    // region Dropdown
-
-    // TODO: Should 'value'/'values' parameters be of type 'string' instead of 'any'?
-
-    /**
-     * Recreates dropdown menu from select option values.
-     */
-    dropdown(behavior: 'setup menu'): JQuery;
-    /**
-     * Refreshes all cached selectors and data
-     */
-    dropdown(behavior: 'refresh'): JQuery;
-    /**
-     * Toggles current visibility of dropdown
-     */
-    dropdown(behavior: 'toggle'): JQuery;
-    /**
-     * Shows dropdown
-     */
-    dropdown(behavior: 'show'): JQuery;
-    /**
-     * Hides dropdown
-     */
-    dropdown(behavior: 'hide'): JQuery;
-    /**
-     * Clears dropdown of selection
-     */
-    dropdown(behavior: 'clear'): JQuery;
-    /**
-     * Hides all other dropdowns that is not current dropdown
-     */
-    dropdown(behavior: 'hide others'): JQuery;
-    /**
-     * Restores dropdown text and value to its value on page load
-     */
-    dropdown(behavior: 'restore defaults'): JQuery;
-    /**
-     * Restores dropdown text to its value on page load
-     */
-    dropdown(behavior: 'restore default text'): JQuery;
-    /**
-     * Restores dropdown text to its prompt, placeholder text
-     */
-    dropdown(behavior: 'restore placeholder text'): JQuery;
-    /**
-     * Restores dropdown value to its value on page load
-     */
-    dropdown(behavior: 'restore default value'): JQuery;
-    /**
-     * Saves current text and value as new defaults (for use with restore)
-     */
-    dropdown(behavior: 'save defaults'): JQuery;
-    /**
-     * Sets value as selected
-     */
-    dropdown(behavior: 'set selected', value: any): JQuery;
-    /**
-     * Remove value from selected
-     */
-    dropdown(behavior: 'remove selected', value: any): JQuery;
-    /**
-     * Adds a group of values as selected
-     */
-    dropdown(behavior: 'set selected', values: any[]): JQuery;
-    /**
-     * Sets selected values to exactly specified values, removing current selection
-     */
-    dropdown(behavior: 'set exactly', values: any[]): JQuery;
-    /**
-     * Sets dropdown text to a value
-     */
-    dropdown(behavior: 'set text', text: string): JQuery;
-    /**
-     * Sets dropdown input to value (does not update display state)
-     */
-    dropdown(behavior: 'set value', value: any): JQuery;
-    /**
-     * Returns current dropdown text
-     */
-    dropdown(behavior: 'get text'): string;
-    /**
-     * Returns current dropdown input value
-     */
-    dropdown(behavior: 'get value'): any;
-    /**
-     * Returns DOM element that matches a given input value
-     */
-    dropdown(behavior: 'get item', value: any): JQuery;
-    /**
-     * Adds touch events to element
-     */
-    dropdown(behavior: 'bind touch events'): JQuery;
-    /**
-     * Adds mouse events to element
-     */
-    dropdown(behavior: 'bind mouse events'): JQuery;
-    /**
-     * Binds a click to document to determine if you click away from a dropdown
-     */
-    dropdown(behavior: 'bind intent'): JQuery;
-    /**
-     * Unbinds document intent click
-     */
-    dropdown(behavior: 'unbind intent'): JQuery;
-    /**
-     * Returns whether event occurred inside dropdown
-     */
-    dropdown(behavior: 'determine intent'): boolean;
-    /**
-     * Triggers preset item selection action based on settings passing text/value
-     */
-    dropdown(behavior: 'determine select action', text: string, value: any): JQuery;
-    /**
-     * Sets dropdown to active state
-     */
-    dropdown(behavior: 'set active'): JQuery;
-    /**
-     * Sets dropdown to visible state
-     */
-    dropdown(behavior: 'set visible'): JQuery;
-    /**
-     * Removes dropdown active state
-     */
-    dropdown(behavior: 'remove active'): JQuery;
-    /**
-     * Removes dropdown visible state
-     */
-    dropdown(behavior: 'remove visible'): JQuery;
-    /**
-     * Returns whether dropdown is a selection dropdown
-     */
-    dropdown(behavior: 'is selection'): boolean;
-    /**
-     * Returns whether dropdown is animated
-     */
-    dropdown(behavior: 'is animated'): boolean;
-    /**
-     * Returns whether dropdown is visible
-     */
-    dropdown(behavior: 'is visible'): boolean;
-    /**
-     * Returns whether dropdown is hidden
-     */
-    dropdown(behavior: 'is hidden'): boolean;
-    /**
-     * Returns dropdown value as set on page load
-     */
-    dropdown(behavior: 'get default text'): string;
-    /**
-     * Returns placeholder text
-     */
-    dropdown(behavior: 'get placeholder text'): string;
-    dropdown(settings: SemanticUI.DropdownSettings): JQuery;
-    dropdown(): JQuery;
-
-    // endregion
-
-    // region Embed
-
-    /**
-     * Changes iframe to a new content source
-     */
-    embed(behavior: 'change', source: string, id: string, url: string): JQuery;
-    /**
-     * Removes embed and shows placeholder content if available
-     */
-    embed(behavior: 'reset'): JQuery;
-    /**
-     * Shows embed content
-     */
-    embed(behavior: 'show'): JQuery;
-    /**
-     * Hides embed content and shows placeholder content
-     */
-    embed(behavior: 'hide'): JQuery;
-    /**
-     * Returns current content id
-     */
-    embed(behavior: 'get id'): string;
-    /**
-     * Returns placeholder image url
-     */
-    embed(behavior: 'get placeholder'): string;
-    /**
-     * Returns source name
-     */
-    embed(behavior: 'get sources'): string;
-    /**
-     * Returns source type
-     */
-    embed(behavior: 'get type'): string;
-    /**
-     * Returns URL with all parameters added
-     */
-    embed(behavior: 'get url'): string;
-    /**
-     * Returns whether embed content has placeholder
-     */
-    embed(behavior: 'has placeholder'): boolean;
-    /**
-     * Destroys instance and removes all events
-     */
-    embed(behavior: 'destroy'): JQuery;
-    embed(settings: SemanticUI.EmbedSettings): JQuery;
-    embed(): JQuery;
-
-    // endregion
-
-    // region Modal
-
-    /**
-     * Shows the modal
-     */
-    modal(behavior: 'show'): JQuery;
-    /**
-     * Hides the modal
-     */
-    modal(behavior: 'hide'): JQuery;
-    /**
-     * Toggles the modal
-     */
-    modal(behavior: 'toggle'): JQuery;
-    /**
-     * Refreshes centering of modal on page
-     */
-    modal(behavior: 'refresh'): JQuery;
-    /**
-     * Shows associated page dimmer
-     */
-    modal(behavior: 'show dimmer'): JQuery;
-    /**
-     * Hides associated page dimmer
-     */
-    modal(behavior: 'hide dimmer'): JQuery;
-    /**
-     * Hides all modals not selected modal in a dimmer
-     */
-    modal(behavior: 'hide others'): JQuery;
-    /**
-     * Hides all visible modals in the same dimmer
-     */
-    modal(behavior: 'hide all'): JQuery;
-    /**
-     * Caches current modal size
-     */
-    modal(behavior: 'cache sizes'): JQuery;
-    /**
-     * Returns whether the modal can fit on the page
-     */
-    modal(behavior: 'can fit'): boolean;
-    /**
-     * Returns whether the modal is active
-     */
-    modal(behavior: 'is active'): boolean;
-    /**
-     * Sets modal to active
-     */
-    modal(behavior: 'set active'): JQuery;
-    modal(behavior: 'attach events', selector: SemanticUI.Selector, event?: string): JQuery;
-    modal(behavior: 'setting', name: string, value: any): JQuery;
-    modal(settings: SemanticUI.ModalSettings): JQuery;
-    modal(): JQuery;
-
-    // endregion
-
-    // region Nag
-
-    // TODO: Documentation is lacking. Is it possible to infer intended behaviors?
-
-    nag(behavior: 'show'): JQuery;
-    /**
-     * Clears cookie so nag shows again
-     */
-    nag(behavior: 'clear'): JQuery;
-    nag(settings: SemanticUI.NagSettings): JQuery;
-
-    // endregion
-
-    // region Popup
-
-    /**
-     * Shows popup
-     */
-    popup(behavior: 'show'): JQuery;
-    /**
-     * Hides popup
-     */
-    popup(behavior: 'hide'): JQuery;
-    /**
-     * Hides all visible pop ups on the page
-     */
-    popup(behavior: 'hide all'): JQuery;
-    /**
-     * Returns current popup dom element
-     */
-    popup(behavior: 'get popup'): JQuery;
-    /**
-     * Changes current popup content
-     */
-    popup(behavior: 'change content', html: string): JQuery;
-    /**
-     * Toggles visibility of popup
-     */
-    popup(behavior: 'toggle'): JQuery;
-    /**
-     * Returns whether popup is visible
-     */
-    popup(behavior: 'is visible'): boolean;
-    /**
-     * Returns whether popup is hidden
-     */
-    popup(behavior: 'is hidden'): boolean;
-    /**
-     * Returns whether popup is created and inserted into the page
-     */
-    popup(behavior: 'exists'): boolean;
-    /**
-     * Adjusts popup when content size changes (only necessary for centered popups)
-     */
-    popup(behavior: 'reposition'): JQuery;
-    /**
-     * Repositions a popup
-     */
-    popup(behavior: 'set position', position: string): JQuery;
-    /**
-     * Removes popup from the page and removes all events
-     */
-    popup(behavior: 'destroy'): JQuery;
-    /**
-     * Removes popup from the page
-     */
-    popup(behavior: 'remove popup'): JQuery;
-    popup(settings: SemanticUI.PopupSettings): JQuery;
-    popup(): JQuery;
-
-    // endregion
-
-    // region Progress
-
-    /**
-     * Sets current percent of progress to value. If using a total will convert from percent to estimated value.
-     */
-    progress(behavior: 'set percent', percent: number): JQuery;
-    /**
-     * Sets progress to specified value. Will automatically calculate percent from total.
-     */
-    progress(behavior: 'set progress', value: number): JQuery;
-    /**
-     * Increments progress by increment value, if not passed a value will use random amount specified in settings
-     */
-    progress(behavior: 'increment', incrementValue: number): JQuery;
-    /**
-     * Decrements progress by decrement value, if not passed a value will use random amount specified in settings
-     */
-    progress(behavior: 'decrement', decrementValue: number): JQuery;
-    /**
-     * Immediately updates progress to value, ignoring progress animation interval delays
-     */
-    progress(behavior: 'update progress', value: number): JQuery;
-    /**
-     * Finishes progress and sets loaded to 100%
-     */
-    progress(behavior: 'complete'): JQuery;
-    /**
-     * Resets progress to zero
-     */
-    progress(behavior: 'reset'): JQuery;
-    /**
-     * Set total to a new value
-     */
-    progress(behavior: 'set total', total: number): JQuery;
-    /**
-     * Replaces templated string with value, total, percent left and percent.
-     */
-    progress(behavior: 'get text', text: string): string;
-    /**
-     * Returns normalized value inside acceptable range specified by total.
-     */
-    progress(behavior: 'get normalized value', value: number): number;
-    /**
-     * Returns percent as last specified
-     */
-    progress(behavior: 'get percent'): number;
-    /**
-     * Returns current progress value
-     */
-    progress(behavior: 'get value'): number;
-    /**
-     * Returns total
-     */
-    progress(behavior: 'get total'): number;
-    /**
-     * Returns whether progress is completed
-     */
-    progress(behavior: 'is complete'): boolean;
-    /**
-     * Returns whether progress was a success
-     */
-    progress(behavior: 'is success'): boolean;
-    /**
-     * Returns whether progress is in warning state
-     */
-    progress(behavior: 'is warning'): boolean;
-    /**
-     * Returns whether progress is in error state
-     */
-    progress(behavior: 'is error'): boolean;
-    /**
-     * Returns whether progress is in active state
-     */
-    progress(behavior: 'is active'): boolean;
-    /**
-     * Sets progress to active state
-     */
-    progress(behavior: 'set active'): JQuery;
-    /**
-     * Sets progress to warning state
-     */
-    progress(behavior: 'set warning'): JQuery;
-    /**
-     * Sets progress to success state
-     */
-    progress(behavior: 'set success'): JQuery;
-    /**
-     * Sets progress to error state
-     */
-    progress(behavior: 'set error'): JQuery;
-    /**
-     * Changes progress animation speed
-     */
-    progress(behavior: 'set duration', value: number): JQuery;
-    /**
-     * Sets progress exterior label to text
-     */
-    progress(behavior: 'set label', text: string): JQuery;
-    /**
-     * Sets progress bar label to text
-     */
-    progress(behavior: 'set bar label', text: string): JQuery;
-    /**
-     * Removes progress to active state
-     */
-    progress(behavior: 'remove active'): JQuery;
-    /**
-     * Removes progress to warning state
-     */
-    progress(behavior: 'remove warning'): JQuery;
-    /**
-     * Removes progress to success state
-     */
-    progress(behavior: 'remove success'): JQuery;
-    /**
-     * Removes progress to error state
-     */
-    progress(behavior: 'remove error'): JQuery;
-    progress(settings: SemanticUI.ProgressSettings): JQuery;
-    progress(): JQuery;
-
-    // endregion
-
-    // region Rating
-
-    /**
-     * Sets rating programmatically
-     */
-    rating(behavior: 'set rating', rating: number): JQuery;
-    /**
-     * Gets current rating
-     */
-    rating(behavior: 'get rating'): number;
-    /**
-     * Disables interactive rating mode
-     */
-    rating(behavior: 'disable'): JQuery;
-    /**
-     * Enables interactive rating mode
-     */
-    rating(behavior: 'enable'): JQuery;
-    /**
-     * Clears current rating
-     */
-    rating(behavior: 'clear rating'): JQuery;
-    rating(settings: SemanticUI.RatingSettings): JQuery;
-    rating(): JQuery;
-
-    // endregion
-
-    // region Search
-
-    /**
-     * Search for value currently set in search input
-     */
-    search(behavior: 'query', callback?: () => void): JQuery;
-    /**
-     * Displays message in search results with text, using template matching type
-     */
-    search(behavior: 'display message', text: string, type: string): JQuery;
-    /**
-     * Cancels current remote search query
-     */
-    search(behavior: 'cancel query'): JQuery;
-    /**
-     * Search local object for specified query and display results
-     */
-    search(behavior: 'search local', query: string): JQuery;
-    /**
-     * Whether has minimum characters
-     */
-    search(behavior: 'has minimum characters'): boolean;
-    /**
-     * Search remote endpoint for specified query and display results
-     */
-    search(behavior: 'search remote', query: string, callback?: () => void): JQuery;
-    /**
-     * Search object for specified query and return results
-     */
-    search(behavior: 'search object', query: string, object: any, searchFields: string[]): any;
-    /**
-     * Cancels current remote search request
-     */
-    search(behavior: 'cancel query'): JQuery;
-    /**
-     * Whether search is currently focused
-     */
-    search(behavior: 'is focused'): boolean;
-    /**
-     * Whether search results are visible
-     */
-    search(behavior: 'is visible'): boolean;
-    /**
-     * Whether search results are empty
-     */
-    search(behavior: 'is empty'): boolean;
-    /**
-     * Returns current search value
-     */
-    search(behavior: 'get value'): any;
-    /**
-     * Returns JSON object matching searched title or id (see above)
-     */
-    search(behavior: 'get result', value: any): any;
-    /**
-     * Sets search input to value
-     */
-    search(behavior: 'set value', value: any): JQuery;
-    /**
-     * Reads cached results for query
-     */
-    search(behavior: 'read cache', query: string): JQuery;
-    /**
-     * Clears value from cache, if no parameter passed clears all cache
-     */
-    search(behavior: 'clear cache', query?: string): JQuery;
-    /**
-     * Writes cached results for query
-     */
-    search(behavior: 'write cache', query: string): JQuery;
-    /**
-     * Adds HTML to results and displays
-     */
-    search(behavior: 'add results', html: string): JQuery;
-    /**
-     * Shows results container
-     */
-    search(behavior: 'show results', callback?: () => void): JQuery;
-    /**
-     * Hides results container
-     */
-    search(behavior: 'hide results', callback?: () => void): JQuery;
-    /**
-     * Generates results using parser specified by settings.template
-     */
-    search(behavior: 'generate results', response: any): JQuery;
-    /**
-     * Removes all events
-     */
-    search(behavior: 'destroy'): JQuery;
-    search(settings: SemanticUI.SearchSettings): JQuery;
-    search(): JQuery;
-
-    // endregion
-
-    // region Shape
-
-    /**
-     * Flips the shape upward
-     */
-    shape(behavior: 'flip up'): JQuery;
-    /**
-     * Flips the shape downward
-     */
-    shape(behavior: 'flip down'): JQuery;
-    /**
-     * Flips the shape right
-     */
-    shape(behavior: 'flip right'): JQuery;
-    /**
-     * Flips the shape left
-     */
-    shape(behavior: 'flip left'): JQuery;
-    /**
-     * Flips the shape over clock-wise
-     */
-    shape(behavior: 'flip over'): JQuery;
-    /**
-     * Flips the shape over counter-clockwise
-     */
-    shape(behavior: 'flip back'): JQuery;
-    /**
-     * Set the next side to a specific selector
-     */
-    shape(behavior: 'set next side', selector: SemanticUI.Selector): JQuery;
-    /**
-     * Returns whether shape is currently animating
-     */
-    shape(behavior: 'is animating'): boolean;
-    /**
-     * Removes all inline styles
-     */
-    shape(behavior: 'reset'): JQuery;
-    /**
-     * Queues an animation until after current animation
-     */
-    shape(behavior: 'queue', animation: string): JQuery;
-    /**
-     * Forces a reflow on element
-     */
-    shape(behavior: 'repaint'): JQuery;
-    /**
-     * Set the next side to next sibling to active element
-     */
-    shape(behavior: 'set default side'): JQuery;
-    /**
-     * Sets shape to the content size of the next side
-     */
-    shape(behavior: 'set stage size'): JQuery;
-    /**
-     * Refreshes the selector cache for element sides
-     */
-    shape(behavior: 'refresh'): JQuery;
-    /**
-     * Returns translation for next side staged below
-     */
-    shape(behavior: 'get transform down'): SemanticUI.Translation;
-    /**
-     * Returns translation for next side staged left
-     */
-    shape(behavior: 'get transform left'): SemanticUI.Translation;
-    /**
-     * Returns translation for next side staged right
-     */
-    shape(behavior: 'get transform right'): SemanticUI.Translation;
-    /**
-     * Returns translation for next side staged up
-     */
-    shape(behavior: 'get transform up'): SemanticUI.Translation;
-    /**
-     * Returns translation for next side staged down
-     */
-    shape(behavior: 'get transform down'): SemanticUI.Translation;
-    shape(settings: SemanticUI.ShapeSettings): JQuery;
-    shape(): JQuery;
-
-    // endregion
-
-    // region Sidebar
-
-    /**
-     * Attaches sidebar action to given selector. Default event if none specified is toggle
-     */
-    sidebar(behavior: 'attach events', selector: string, event?: string): JQuery;
-    /**
-     * Shows sidebar
-     */
-    sidebar(behavior: 'show'): JQuery;
-    /**
-     * Hides sidebar
-     */
-    sidebar(behavior: 'hide'): JQuery;
-    /**
-     * Toggles visibility of sidebar
-     */
-    sidebar(behavior: 'toggle'): JQuery;
-    /**
-     * Returns whether sidebar is visible
-     */
-    sidebar(behavior: 'is visible'): boolean;
-    /**
-     * Returns whether sidebar is hidden
-     */
-    sidebar(behavior: 'is hidden'): boolean;
-    /**
-     * Pushes page content to be visible alongside sidebar
-     */
-    sidebar(behavior: 'push page'): JQuery;
-    /**
-     * Returns direction of current sidebar
-     */
-    sidebar(behavior: 'get direction'): string;
-    /**
-     * Returns page content to original position
-     */
-    sidebar(behavior: 'pull page'): JQuery;
-    /**
-     * Adds stylesheet to page head to trigger sidebar animations
-     */
-    sidebar(behavior: 'add body CSS'): JQuery;
-    /**
-     * Removes any inline stylesheets for sidebar animation
-     */
-    sidebar(behavior: 'remove body CSS'): JQuery;
-    /**
-     * Returns vendor prefixed transition end event
-     */
-    sidebar(behavior: 'get transition event'): string;
-    sidebar(settings: SemanticUI.SidebarSettings): JQuery;
-    sidebar(): JQuery;
-
-    // endregion
-
-    // region Sticky
-
-    /**
-     * recalculates offsets
-     */
-    sticky(behavior: 'refresh'): JQuery;
-    sticky(settings: SemanticUI.StickySettings): JQuery;
-    sticky(): JQuery;
-
-    // endregion
-
-    // region Tab
-
-    /**
-     * Attaches tab action to given selector. Default event if none specified is toggle
-     */
-    tab(behavior: 'attach events', selector: string, event?: string): JQuery;
-    /**
-     * Changes tab to path
-     */
-    tab(behavior: 'change tab', path: string): JQuery;
-    /**
-     * Sets current path to state
-     */
-    tab(behavior: 'set state', path: string): JQuery;
-    /**
-     * Returns current path
-     */
-    tab(behavior: 'get path'): string;
-    /**
-     * Returns whether tab exists
-     */
-    tab(behavior: 'is tab'): boolean;
-    /**
-     * Returns cached HTML for path
-     */
-    tab(behavior: 'cache read', path: string): string | false;
-    /**
-     * Sets cached HTML for path
-     */
-    tab(behavior: 'cache add', path: string, html: string): JQuery;
-    /**
-     * Removes cached HTML for path
-     */
-    tab(behavior: 'cache remove', path: string): JQuery;
-    tab(settings: SemanticUI.TabSettings): JQuery;
-    tab(): JQuery;
-
-    // endregion
-
-    // region Transition
-
-    /**
-     * Stop current animation and preserve queue
-     */
-    transition(behavior: 'stop'): JQuery;
-    /**
-     * Stop current animation and queued animations
-     */
-    transition(behavior: 'stop all'): JQuery;
-    /**
-     * Clears all queued animations
-     */
-    transition(behavior: 'clear queue'): JQuery;
-    /**
-     * Stop current animation and show element
-     */
-    transition(behavior: 'show'): JQuery;
-    /**
-     * Stop current animation and hide element
-     */
-    transition(behavior: 'hide'): JQuery;
-    /**
-     * Toggles between hide and show
-     */
-    transition(behavior: 'toggle'): JQuery;
-    /**
-     * Forces reflow using a more expensive but stable method
-     */
-    transition(behavior: 'force repaint'): JQuery;
-    /**
-     * Triggers reflow on element
-     */
-    transition(behavior: 'repaint'): JQuery;
-    /**
-     * Resets all conditions changes during transition
-     */
-    transition(behavior: 'reset'): JQuery;
-    /**
-     * Enables animation looping
-     */
-    transition(behavior: 'looping'): JQuery;
-    /**
-     * Removes looping state from element
-     */
-    transition(behavior: 'remove looping'): JQuery;
-    /**
-     * Adds disabled state (stops ability to animate)
-     */
-    transition(behavior: 'disable'): JQuery;
-    /**
-     * Removes disabled state
-     */
-    transition(behavior: 'enable'): JQuery;
-    /**
-     * Modifies element animation duration
-     */
-    transition(behavior: 'set duration', duration: number): JQuery;
-    /**
-     * Saves all class names and styles to cache to be retrieved after animation
-     */
-    transition(behavior: 'save conditions'): JQuery;
-    /**
-     * Adds back cached names and styles to element
-     */
-    transition(behavior: 'restore conditions'): JQuery;
-    /**
-     * Returns vendor prefixed animation property for animationname
-     */
-    transition(behavior: 'get animation name'): string;
-    /**
-     * Returns vendor prefixed animation property for animationend
-     */
-    transition(behavior: 'get animation event'): string;
-    /**
-     * Returns whether element is currently visible
-     */
-    transition(behavior: 'is visible'): boolean;
-    /**
-     * Returns whether transition is currently occurring
-     */
-    transition(behavior: 'is animating'): boolean;
-    /**
-     * Returns whether animation looping is set
-     */
-    transition(behavior: 'is looping'): boolean;
-    /**
-     * Returns whether animations are supported
-     */
-    transition(behavior: 'is supported'): boolean;
-    transition(transition: string): JQuery;
-    transition(settings: SemanticUI.TransitionSettings): JQuery;
-    transition(): JQuery;
-
-    // endregion
-
-    // endregion
-
-    // region Behaviors
-
-    // region API
-
-    /**
-     * Execute query using existing API settings
-     */
-    api(behavior: 'query'): JQuery;
-    /**
-     * Adds data to existing templated url and returns full url string
-     */
-    api(behavior: 'add url data', url: string, data: any): string;
-    /**
-     * Gets promise for current API request
-     */
-    api(behavior: 'get request'): JQueryDeferred<any> | false;
-    /**
-     * Aborts current API request
-     */
-    api(behavior: 'abort'): JQuery;
-    /**
-     * Removes loading and error state from element
-     */
-    api(behavior: 'reset'): JQuery;
-    /**
-     * Returns whether last request was cancelled
-     */
-    api(behavior: 'was cancelled'): boolean;
-    /**
-     * Returns whether last request was failure
-     */
-    api(behavior: 'was failure'): boolean;
-    /**
-     * Returns whether last request was successful
-     */
-    api(behavior: 'was successful'): boolean;
-    /**
-     * Returns whether last request was completed
-     */
-    api(behavior: 'was complete'): boolean;
-    /**
-     * Returns whether element is disabled
-     */
-    api(behavior: 'is disabled'): boolean;
-    /**
-     * Returns whether element response is mocked
-     */
-    api(behavior: 'is mocked'): boolean;
-    /**
-     * Returns whether element is loading
-     */
-    api(behavior: 'is loading'): boolean;
-    /**
-     * Sets loading state to element
-     */
-    api(behavior: 'set loading'): JQuery;
-    /**
-     * Sets error state to element
-     */
-    api(behavior: 'set error'): JQuery;
-    /**
-     * Removes loading state to element
-     */
-    api(behavior: 'remove loading'): JQuery;
-    /**
-     * Removes error state to element
-     */
-    api(behavior: 'remove error'): JQuery;
-    /**
-     * Gets event that API request will occur on
-     */
-    api(behavior: 'get event'): string;
-    /**
-     * Returns encodeURIComponent value only if value passed is not already encoded
-     */
-    api(behavior: 'get url encoded value', value: any): string;
-    /**
-     * Reads a locally cached response for a URL
-     */
-    api(behavior: 'read cached response', url: string): any;
-    /**
-     * Writes a cached response for a URL
-     */
-    api(behavior: 'write cached response', url: string, response: any): JQuery;
-    /**
-     * Creates new cache, removing all locally cached URLs
-     */
-    api(behavior: 'create cache'): JQuery;
-    /**
-     * Removes API settings from the page and all events
-     */
-    api(behavior: 'destroy'): JQuery;
-    api(settings: SemanticUI.ApiSettings): JQuery;
-    api(): JQuery;
-
-    // endregion
-
-    // region Form Validation
-
-    /**
-     * Submits selected form
-     */
-    form(behavior: 'submit'): JQuery;
-    /**
-     * Returns true/false whether a form passes its validation rules
-     */
-    form(behavior: 'is valid'): boolean;
-    /**
-     * Validates form and calls onSuccess or onFailure
-     */
-    form(behavior: 'validate form'): JQuery;
-    /**
-     * gets browser property change event
-     */
-    form(behavior: 'get change event'): string;
-    /**
-     * Returns element with matching name, id, or data-validate metadata to ID
-     */
-    form(behavior: 'get field', id: string): JQuery;
-    /**
-     * Returns value of element with id
-     */
-    form(behavior: 'get value', id: string): any;
-    /**
-     * Returns object of element values that match array of ids. If no IDS are passed will return all fields
-     */
-    form(behavior: 'get values', ids?: string[]): any;
-    /**
-     * Sets value of element with id
-     */
-    form(behavior: 'set value', id: string): JQuery;
-    /**
-     * Sets key/value pairs from passed values object to matching ids
-     */
-    form(behavior: 'set values', values: any): JQuery;
-    /**
-     * Returns validation rules for a given jQuery-referenced input field
-     */
-    form(behavior: 'get validation', element: JQuery): any;
-    /**
-     * Returns whether a field exists
-     */
-    form(behavior: 'has field', identifier: string): boolean;
-    /**
-     * Adds errors to form, given an array errors
-     */
-    form(behavior: 'add errors', errors: string[]): JQuery;
-    form(settings: SemanticUI.FormSettings): JQuery;
-    form(): JQuery;
-
-    // endregion
-
-    // region Visibility
-
-    /**
-     * Disable callbacks temporarily. This is useful if you need to adjust scroll position and do not want to trigger callbacks during the position change.
-     */
-    visibility(behavior: 'disable callbacks'): JQuery;
-    /**
-     * Re-enable callbacks
-     */
-    visibility(behavior: 'enable callbacks'): JQuery;
-    /**
-     * Returns whether element is on screen
-     */
-    visibility(behavior: 'is on screen'): boolean;
-    /**
-     * Returns whether element is off screen
-     */
-    visibility(behavior: 'is off screen'): boolean;
-    /**
-     * Returns number of pixels passed in current element from top of element
-     */
-    visibility(behavior: 'get pixels passed'): number;
-    /**
-     * Returns element calculations as object
-     */
-    visibility(behavior: 'get element calculations'): SemanticUI.ElementCalculations;
-    /**
-     * Returns screen calculations as object
-     */
-    visibility(behavior: 'get screen calculations'): SemanticUI.ScreenCalculations;
-    /**
-     * Returns screen size as object
-     */
-    visibility(behavior: 'get screen size'): SemanticUI.ScreenSize;
-    visibility(settings: SemanticUI.VisibilitySettings): JQuery;
-    visibility(): JQuery;
-
-    // endregion
-
-    // endregion
+    api: SemanticUI.Api;
+    form: SemanticUI.Form;
+    visibility: SemanticUI.Visibility;
 }
 
 declare namespace SemanticUI {
@@ -1354,9 +79,69 @@ declare namespace SemanticUI {
         // endregion
     }
 
+    // region Globals
+
+    // region Site
+
+    interface Site {
+        settings: SiteSettings;
+
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof SiteSettings>(behavior: 'setting', name: K, value?: undefined): SiteSettings[K];
+        <K extends keyof SiteSettings>(behavior: 'setting', name: K, value: SiteSettings[K]): JQuery;
+        (behavior: 'setting', value: SiteSettings): JQuery;
+        (settings?: SiteSettings): JQuery;
+    }
+
+    interface SiteSettings extends ComponentSettings {
+        modules?: string[];
+        siteNamespace?: string;
+        namespaceStub?: {
+            cache?: any;
+            config?: any;
+            sections?: any;
+            section?: any;
+            utilities?: any;
+        };
+    }
+
+    // endregion
+
+    // endregion
+
     // region Modules
 
     // region Accordion
+
+    interface Accordion {
+        settings: AccordionSettings;
+
+        /**
+         * Refreshes all cached selectors and data
+         */
+        (behavior: 'refresh'): JQuery;
+        /**
+         * Opens accordion content at index
+         */
+        (behavior: 'open', index: number): JQuery;
+        /**
+         * Closes accordion content that are not active
+         */
+        (behavior: 'close others'): JQuery;
+        /**
+         * Closes accordion content at index
+         */
+        (behavior: 'close', index: number): JQuery;
+        /**
+         * Toggles accordion content at index
+         */
+        (behavior: 'toggle', index: number): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value?: undefined): AccordionSettings[K];
+        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value: AccordionSettings[K]): JQuery;
+        (behavior: 'setting', value: AccordionSettings): JQuery;
+        (settings?: AccordionSettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/modules/accordion.html#/settings}
@@ -1407,8 +192,12 @@ declare namespace SemanticUI {
          * @see {@link http://gsgd.co.uk/sandbox/jquery/easing/}
          */
         easing?: string;
-        // TODO: Undocumented but probably intended to be public?
-        // observeChanges?: boolean;
+        /**
+         * whether accordion should automatically refresh on DOM insertion
+         *
+         * @default true
+         */
+        observeChanges?: boolean;
 
         // endregion
 
@@ -1491,6 +280,104 @@ declare namespace SemanticUI {
     // endregion
 
     // region Checkbox
+
+    interface Checkbox {
+        settings: CheckboxSettings;
+
+        /**
+         * Switches a checkbox from current state
+         */
+        (behavior: 'toggle'): JQuery;
+        /**
+         * Set a checkbox state to checked
+         */
+        (behavior: 'check'): JQuery;
+        /**
+         * Set a checkbox state to unchecked
+         */
+        (behavior: 'uncheck'): JQuery;
+        /**
+         * Set as indeterminate checkbox
+         */
+        (behavior: 'indeterminate'): JQuery;
+        /**
+         * Set as determinate checkbox
+         */
+        (behavior: 'determinate'): JQuery;
+        /**
+         * Enable interaction with a checkbox
+         */
+        (behavior: 'enable'): JQuery;
+        /**
+         * Set a checkbox state to checked without callbacks
+         */
+        (behavior: 'set checked'): JQuery;
+        /**
+         * Set a checkbox state to unchecked without callbacks
+         */
+        (behavior: 'set unchecked'): JQuery;
+        /**
+         * Set as indeterminate checkbox without callbacks
+         */
+        (behavior: 'set indeterminate'): JQuery;
+        /**
+         * Set as determinate checkbox without callbacks
+         */
+        (behavior: 'set determinate'): JQuery;
+        /**
+         * Enable interaction with a checkbox without callbacks
+         */
+        (behavior: 'set enabled'): JQuery;
+        /**
+         * Disable interaction with a checkbox without callbacks
+         */
+        (behavior: 'set disabled'): JQuery;
+        /**
+         * Attach checkbox events to another element
+         */
+        (behavior: 'attach events', selector: Selector, event?: string): JQuery;
+        /**
+         * Returns whether element is radio selection
+         */
+        (behavior: 'is radio'): boolean;
+        /**
+         * Returns whether element is currently checked
+         */
+        (behavior: 'is checked'): boolean;
+        /**
+         * Returns whether element is not checked
+         */
+        (behavior: 'is unchecked'): boolean;
+        /**
+         * Returns whether element is able to be changed
+         */
+        (behavior: 'can change'): boolean;
+        /**
+         * Returns whether element can be checked (checking if already checked or `beforeChecked` would cancel)
+         */
+        (behavior: 'should allow check'): boolean;
+        /**
+         * Returns whether element can be unchecked (checking if already unchecked or `beforeUnchecked` would cancel)
+         */
+        (behavior: 'should allow uncheck'): boolean;
+        /**
+         * Returns whether element can be determinate (checking if already determinate or `beforeDeterminate` would cancel)
+         */
+        (behavior: 'should allow determinate'): boolean;
+        /**
+         * Returns whether element can be indeterminate (checking if already indeterminate or `beforeIndeterminate` would cancel)
+         */
+        (behavior: 'should allow indeterminate'): boolean;
+        /**
+         * Returns whether element is able to be unchecked
+         */
+        (behavior: 'can uncheck'): boolean;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value?: undefined): CheckboxSettings[K];
+        <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value: CheckboxSettings[K]): JQuery;
+        (behavior: 'setting', value: CheckboxSettings): JQuery;
+        (settings?: CheckboxSettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/modules/checkbox.html#/settings}
@@ -1629,6 +516,104 @@ declare namespace SemanticUI {
 
     // region Dimmer
 
+    interface Dimmer {
+        settings: DimmerSettings;
+
+        /**
+         * Detaches a given element from DOM and reattaches element inside dimmer
+         */
+        (behavior: 'add content', element: Selector): JQuery;
+        /**
+         * Shows dimmer
+         */
+        (behavior: 'show'): JQuery;
+        /**
+         * Hides dimmer
+         */
+        (behavior: 'hide'): JQuery;
+        /**
+         * Toggles current dimmer visibility
+         */
+        (behavior: 'toggle'): JQuery;
+        /**
+         * Changes dimmer opacity
+         */
+        (behavior: 'set opacity', opacity: number): JQuery;
+        /**
+         * Creates a new dimmer in dimmable context
+         */
+        (behavior: 'create'): JQuery;
+        /**
+         * Returns current duration for show or hide event depending on current visibility
+         */
+        (behavior: 'get duration'): number;
+        /**
+         * Returns DOM element for dimmer
+         */
+        (behavior: 'get dimmer'): JQuery;
+        /**
+         * Returns whether current dimmable has a dimmer
+         */
+        (behavior: 'has dimmer'): boolean;
+        /**
+         * Whether section's dimmer is active
+         */
+        (behavior: 'is active'): boolean;
+        /**
+         * Whether dimmer is animating
+         */
+        (behavior: 'is animating'): boolean;
+        /**
+         * Whether current element is a dimmer
+         */
+        (behavior: 'is dimmer'): boolean;
+        /**
+         * Whether current element is a dimmable section
+         */
+        (behavior: 'is dimmable'): boolean;
+        /**
+         * Whether dimmer is disabled
+         */
+        (behavior: 'is disabled'): boolean;
+        /**
+         * Whether dimmer is not disabled
+         */
+        (behavior: 'is enabled'): boolean;
+        /**
+         * Whether dimmable section is body
+         */
+        (behavior: 'is page'): boolean;
+        /**
+         * Whether dimmer is a page dimmer
+         */
+        (behavior: 'is page dimmer'): boolean;
+        /**
+         * Sets page dimmer to active
+         */
+        (behavior: 'set active'): JQuery;
+        /**
+         * Sets an element as a dimmable section
+         */
+        (behavior: 'set dimmable'): JQuery;
+        /**
+         * Sets a dimmable section as dimmed
+         */
+        (behavior: 'set dimmed'): JQuery;
+        /**
+         * Sets current dimmer as a page dimmer
+         */
+        (behavior: 'set page dimmer'): JQuery;
+        /**
+         * Sets a dimmer as disabled
+         */
+        (behavior: 'set disabled'): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof DimmerSettings>(behavior: 'setting', name: K, value?: undefined): DimmerSettings[K];
+        <K extends keyof DimmerSettings>(behavior: 'setting', name: K, value: DimmerSettings[K]): JQuery;
+        (behavior: 'setting', value: DimmerSettings): JQuery;
+        (settings?: DimmerSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/dimmer.html#/settings}
      */
@@ -1707,7 +692,7 @@ declare namespace SemanticUI {
         /**
          * Callback on element show or hide
          */
-        onchange?(this: JQuery): void;
+        onChange?(this: JQuery): void;
 
         // endregion
 
@@ -1795,12 +780,170 @@ declare namespace SemanticUI {
 
     // region Dropdown
 
+    // TODO: Should 'value'/'values' parameters be of type 'string' instead of 'any'?
+
+    interface Dropdown {
+        settings: DropdownSettings;
+
+        /**
+         * Recreates dropdown menu from select option values.
+         */
+        (behavior: 'setup menu'): JQuery;
+        /**
+         * Refreshes all cached selectors and data
+         */
+        (behavior: 'refresh'): JQuery;
+        /**
+         * Toggles current visibility of dropdown
+         */
+        (behavior: 'toggle'): JQuery;
+        /**
+         * Shows dropdown
+         */
+        (behavior: 'show'): JQuery;
+        /**
+         * Hides dropdown
+         */
+        (behavior: 'hide'): JQuery;
+        /**
+         * Clears dropdown of selection
+         */
+        (behavior: 'clear'): JQuery;
+        /**
+         * Hides all other dropdowns that is not current dropdown
+         */
+        (behavior: 'hide others'): JQuery;
+        /**
+         * Restores dropdown text and value to its value on page load
+         */
+        (behavior: 'restore defaults'): JQuery;
+        /**
+         * Restores dropdown text to its value on page load
+         */
+        (behavior: 'restore default text'): JQuery;
+        /**
+         * Restores dropdown text to its prompt, placeholder text
+         */
+        (behavior: 'restore placeholder text'): JQuery;
+        /**
+         * Restores dropdown value to its value on page load
+         */
+        (behavior: 'restore default value'): JQuery;
+        /**
+         * Saves current text and value as new defaults (for use with restore)
+         */
+        (behavior: 'save defaults'): JQuery;
+        /**
+         * Sets value as selected
+         */
+        (behavior: 'set selected', value: any): JQuery;
+        /**
+         * Remove value from selected
+         */
+        (behavior: 'remove selected', value: any): JQuery;
+        /**
+         * Adds a group of values as selected
+         */
+        (behavior: 'set selected', values: any[]): JQuery;
+        /**
+         * Sets selected values to exactly specified values, removing current selection
+         */
+        (behavior: 'set exactly', values: any[]): JQuery;
+        /**
+         * Sets dropdown text to a value
+         */
+        (behavior: 'set text', text: string): JQuery;
+        /**
+         * Sets dropdown input to value (does not update display state)
+         */
+        (behavior: 'set value', value: any): JQuery;
+        /**
+         * Returns current dropdown text
+         */
+        (behavior: 'get text'): string;
+        /**
+         * Returns current dropdown input value
+         */
+        (behavior: 'get value'): any;
+        /**
+         * Returns DOM element that matches a given input value
+         */
+        (behavior: 'get item', value: any): JQuery;
+        /**
+         * Adds touch events to element
+         */
+        (behavior: 'bind touch events'): JQuery;
+        /**
+         * Adds mouse events to element
+         */
+        (behavior: 'bind mouse events'): JQuery;
+        /**
+         * Binds a click to document to determine if you click away from a dropdown
+         */
+        (behavior: 'bind intent'): JQuery;
+        /**
+         * Unbinds document intent click
+         */
+        (behavior: 'unbind intent'): JQuery;
+        /**
+         * Returns whether event occurred inside dropdown
+         */
+        (behavior: 'determine intent'): boolean;
+        /**
+         * Triggers preset item selection action based on settings passing text/value
+         */
+        (behavior: 'determine select action', text: string, value: any): JQuery;
+        /**
+         * Sets dropdown to active state
+         */
+        (behavior: 'set active'): JQuery;
+        /**
+         * Sets dropdown to visible state
+         */
+        (behavior: 'set visible'): JQuery;
+        /**
+         * Removes dropdown active state
+         */
+        (behavior: 'remove active'): JQuery;
+        /**
+         * Removes dropdown visible state
+         */
+        (behavior: 'remove visible'): JQuery;
+        /**
+         * Returns whether dropdown is a selection dropdown
+         */
+        (behavior: 'is selection'): boolean;
+        /**
+         * Returns whether dropdown is animated
+         */
+        (behavior: 'is animated'): boolean;
+        /**
+         * Returns whether dropdown is visible
+         */
+        (behavior: 'is visible'): boolean;
+        /**
+         * Returns whether dropdown is hidden
+         */
+        (behavior: 'is hidden'): boolean;
+        /**
+         * Returns dropdown value as set on page load
+         */
+        (behavior: 'get default text'): string;
+        /**
+         * Returns placeholder text
+         */
+        (behavior: 'get placeholder text'): string;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof DropdownSettings>(behavior: 'setting', name: K, value?: undefined): DropdownSettings[K];
+        <K extends keyof DropdownSettings>(behavior: 'setting', name: K, value: DropdownSettings[K]): JQuery;
+        (behavior: 'setting', value: DropdownSettings): JQuery;
+        (settings?: DropdownSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/dropdown.html#/settings}
      */
     interface DropdownSettings extends ComponentSettings {
-        // TODO: Should 'value'/'values' parameters be of type 'string' instead of 'any'?
-
         // region Frequently Used Settings
 
         /**
@@ -2362,6 +1505,59 @@ declare namespace SemanticUI {
 
     // region Embed
 
+    interface Embed {
+        settings: EmbedSettings;
+
+        /**
+         * Changes iframe to a new content source
+         */
+        (behavior: 'change', source: string, id: string, url: string): JQuery;
+        /**
+         * Removes embed and shows placeholder content if available
+         */
+        (behavior: 'reset'): JQuery;
+        /**
+         * Shows embed content
+         */
+        (behavior: 'show'): JQuery;
+        /**
+         * Hides embed content and shows placeholder content
+         */
+        (behavior: 'hide'): JQuery;
+        /**
+         * Returns current content id
+         */
+        (behavior: 'get id'): string;
+        /**
+         * Returns placeholder image url
+         */
+        (behavior: 'get placeholder'): string;
+        /**
+         * Returns source name
+         */
+        (behavior: 'get sources'): string;
+        /**
+         * Returns source type
+         */
+        (behavior: 'get type'): string;
+        /**
+         * Returns URL with all parameters added
+         */
+        (behavior: 'get url'): string;
+        /**
+         * Returns whether embed content has placeholder
+         */
+        (behavior: 'has placeholder'): boolean;
+        /**
+         * Destroys instance and removes all events
+         */
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof EmbedSettings>(behavior: 'setting', name: K, value?: undefined): EmbedSettings[K];
+        <K extends keyof EmbedSettings>(behavior: 'setting', name: K, value: EmbedSettings[K]): JQuery;
+        (behavior: 'setting', value: EmbedSettings): JQuery;
+        (settings?: EmbedSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/embed.html#/settings}
      */
@@ -2542,6 +1738,65 @@ declare namespace SemanticUI {
 
     // region Modal
 
+    interface Modal {
+        settings: ModalSettings;
+
+        /**
+         * Shows the modal
+         */
+        (behavior: 'show'): JQuery;
+        /**
+         * Hides the modal
+         */
+        (behavior: 'hide'): JQuery;
+        /**
+         * Toggles the modal
+         */
+        (behavior: 'toggle'): JQuery;
+        /**
+         * Refreshes centering of modal on page
+         */
+        (behavior: 'refresh'): JQuery;
+        /**
+         * Shows associated page dimmer
+         */
+        (behavior: 'show dimmer'): JQuery;
+        /**
+         * Hides associated page dimmer
+         */
+        (behavior: 'hide dimmer'): JQuery;
+        /**
+         * Hides all modals not selected modal in a dimmer
+         */
+        (behavior: 'hide others'): JQuery;
+        /**
+         * Hides all visible modals in the same dimmer
+         */
+        (behavior: 'hide all'): JQuery;
+        /**
+         * Caches current modal size
+         */
+        (behavior: 'cache sizes'): JQuery;
+        /**
+         * Returns whether the modal can fit on the page
+         */
+        (behavior: 'can fit'): boolean;
+        /**
+         * Returns whether the modal is active
+         */
+        (behavior: 'is active'): boolean;
+        /**
+         * Sets modal to active
+         */
+        (behavior: 'set active'): JQuery;
+        (behavior: 'attach events', selector: Selector, event?: string): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value?: undefined): ModalSettings[K];
+        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value: ModalSettings[K]): JQuery;
+        (behavior: 'setting', value: ModalSettings): JQuery;
+        (settings?: ModalSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/modal.html#/settings}
      */
@@ -2698,6 +1953,22 @@ declare namespace SemanticUI {
 
     // region Nag
 
+    interface Nag {
+        settings: NagSettings;
+
+        (behavior: 'show'): JQuery;
+        (behavior: 'hide'): JQuery;
+        /**
+         * Clears cookie so nag shows again
+         */
+        (behavior: 'clear'): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof NagSettings>(behavior: 'setting', name: K, value?: undefined): NagSettings[K];
+        <K extends keyof NagSettings>(behavior: 'setting', name: K, value: NagSettings[K]): JQuery;
+        (behavior: 'setting', value: NagSettings): JQuery;
+        (settings?: NagSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/nag.html}
      */
@@ -2825,6 +2096,67 @@ declare namespace SemanticUI {
     // endregion
 
     // region Popup
+
+    interface Popup {
+        settings: PopupSettings;
+
+        /**
+         * Shows popup
+         */
+        (behavior: 'show'): JQuery;
+        /**
+         * Hides popup
+         */
+        (behavior: 'hide'): JQuery;
+        /**
+         * Hides all visible pop ups on the page
+         */
+        (behavior: 'hide all'): JQuery;
+        /**
+         * Returns current popup dom element
+         */
+        (behavior: 'get popup'): JQuery;
+        /**
+         * Changes current popup content
+         */
+        (behavior: 'change content', html: string): JQuery;
+        /**
+         * Toggles visibility of popup
+         */
+        (behavior: 'toggle'): JQuery;
+        /**
+         * Returns whether popup is visible
+         */
+        (behavior: 'is visible'): boolean;
+        /**
+         * Returns whether popup is hidden
+         */
+        (behavior: 'is hidden'): boolean;
+        /**
+         * Returns whether popup is created and inserted into the page
+         */
+        (behavior: 'exists'): boolean;
+        /**
+         * Adjusts popup when content size changes (only necessary for centered popups)
+         */
+        (behavior: 'reposition'): JQuery;
+        /**
+         * Repositions a popup
+         */
+        (behavior: 'set position', position: string): JQuery;
+        /**
+         * Removes popup from the page and removes all events
+         */
+        (behavior: 'destroy'): JQuery;
+        /**
+         * Removes popup from the page
+         */
+        (behavior: 'remove popup'): JQuery;
+        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value?: undefined): PopupSettings[K];
+        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value: PopupSettings[K]): JQuery;
+        (behavior: 'setting', value: PopupSettings): JQuery;
+        (settings?: PopupSettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/modules/popup.html#/settings}
@@ -3144,6 +2476,132 @@ declare namespace SemanticUI {
 
     // region Progress
 
+    interface Progress {
+        settings: ProgressSettings;
+
+        /**
+         * Sets current percent of progress to value. If using a total will convert from percent to estimated value.
+         */
+        (behavior: 'set percent', percent: number): JQuery;
+        /**
+         * Sets progress to specified value. Will automatically calculate percent from total.
+         */
+        (behavior: 'set progress', value: number): JQuery;
+        /**
+         * Increments progress by increment value, if not passed a value will use random amount specified in settings
+         */
+        (behavior: 'increment', incrementValue: number): JQuery;
+        /**
+         * Decrements progress by decrement value, if not passed a value will use random amount specified in settings
+         */
+        (behavior: 'decrement', decrementValue: number): JQuery;
+        /**
+         * Immediately updates progress to value, ignoring progress animation interval delays
+         */
+        (behavior: 'update progress', value: number): JQuery;
+        /**
+         * Finishes progress and sets loaded to 100%
+         */
+        (behavior: 'complete'): JQuery;
+        /**
+         * Resets progress to zero
+         */
+        (behavior: 'reset'): JQuery;
+        /**
+         * Set total to a new value
+         */
+        (behavior: 'set total', total: number): JQuery;
+        /**
+         * Replaces templated string with value, total, percent left and percent.
+         */
+        (behavior: 'get text', text: string): string;
+        /**
+         * Returns normalized value inside acceptable range specified by total.
+         */
+        (behavior: 'get normalized value', value: number): number;
+        /**
+         * Returns percent as last specified
+         */
+        (behavior: 'get percent'): number;
+        /**
+         * Returns current progress value
+         */
+        (behavior: 'get value'): number;
+        /**
+         * Returns total
+         */
+        (behavior: 'get total'): number;
+        /**
+         * Returns whether progress is completed
+         */
+        (behavior: 'is complete'): boolean;
+        /**
+         * Returns whether progress was a success
+         */
+        (behavior: 'is success'): boolean;
+        /**
+         * Returns whether progress is in warning state
+         */
+        (behavior: 'is warning'): boolean;
+        /**
+         * Returns whether progress is in error state
+         */
+        (behavior: 'is error'): boolean;
+        /**
+         * Returns whether progress is in active state
+         */
+        (behavior: 'is active'): boolean;
+        /**
+         * Sets progress to active state
+         */
+        (behavior: 'set active'): JQuery;
+        /**
+         * Sets progress to warning state
+         */
+        (behavior: 'set warning'): JQuery;
+        /**
+         * Sets progress to success state
+         */
+        (behavior: 'set success'): JQuery;
+        /**
+         * Sets progress to error state
+         */
+        (behavior: 'set error'): JQuery;
+        /**
+         * Changes progress animation speed
+         */
+        (behavior: 'set duration', value: number): JQuery;
+        /**
+         * Sets progress exterior label to text
+         */
+        (behavior: 'set label', text: string): JQuery;
+        /**
+         * Sets progress bar label to text
+         */
+        (behavior: 'set bar label', text: string): JQuery;
+        /**
+         * Removes progress to active state
+         */
+        (behavior: 'remove active'): JQuery;
+        /**
+         * Removes progress to warning state
+         */
+        (behavior: 'remove warning'): JQuery;
+        /**
+         * Removes progress to success state
+         */
+        (behavior: 'remove success'): JQuery;
+        /**
+         * Removes progress to error state
+         */
+        (behavior: 'remove error'): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof ProgressSettings>(behavior: 'setting', name: K, value?: undefined): ProgressSettings[K];
+        <K extends keyof ProgressSettings>(behavior: 'setting', name: K, value: ProgressSettings[K]): JQuery;
+        (behavior: 'setting', value: ProgressSettings): JQuery;
+        (settings?: ProgressSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/progress.html#/settings}
      */
@@ -3352,6 +2810,36 @@ declare namespace SemanticUI {
 
     // region Rating
 
+    interface Rating {
+        settings: RatingSettings;
+
+        /**
+         * Sets rating programmatically
+         */
+        (behavior: 'set rating', rating: number): JQuery;
+        /**
+         * Gets current rating
+         */
+        (behavior: 'get rating'): number;
+        /**
+         * Disables interactive rating mode
+         */
+        (behavior: 'disable'): JQuery;
+        /**
+         * Enables interactive rating mode
+         */
+        (behavior: 'enable'): JQuery;
+        /**
+         * Clears current rating
+         */
+        (behavior: 'clear rating'): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof RatingSettings>(behavior: 'setting', name: K, value?: undefined): RatingSettings[K];
+        <K extends keyof RatingSettings>(behavior: 'setting', name: K, value: RatingSettings[K]): JQuery;
+        (behavior: 'setting', value: RatingSettings): JQuery;
+        (settings?: RatingSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/rating.html#/settings}
      */
@@ -3434,6 +2922,103 @@ declare namespace SemanticUI {
     // endregion
 
     // region Search
+
+    interface Search {
+        settings: SearchSettings;
+
+        /**
+         * Search for value currently set in search input
+         */
+        (behavior: 'query', callback?: () => void): JQuery;
+        /**
+         * Displays message in search results with text, using template matching type
+         */
+        (behavior: 'display message', text: string, type: string): JQuery;
+        /**
+         * Cancels current remote search query
+         */
+        (behavior: 'cancel query'): JQuery;
+        /**
+         * Search local object for specified query and display results
+         */
+        (behavior: 'search local', query: string): JQuery;
+        /**
+         * Whether has minimum characters
+         */
+        (behavior: 'has minimum characters'): boolean;
+        /**
+         * Search remote endpoint for specified query and display results
+         */
+        (behavior: 'search remote', query: string, callback?: () => void): JQuery;
+        /**
+         * Search object for specified query and return results
+         */
+        (behavior: 'search object', query: string, object: any, searchFields: string[]): any;
+        /**
+         * Cancels current remote search request
+         */
+        (behavior: 'cancel query'): JQuery;
+        /**
+         * Whether search is currently focused
+         */
+        (behavior: 'is focused'): boolean;
+        /**
+         * Whether search results are visible
+         */
+        (behavior: 'is visible'): boolean;
+        /**
+         * Whether search results are empty
+         */
+        (behavior: 'is empty'): boolean;
+        /**
+         * Returns current search value
+         */
+        (behavior: 'get value'): any;
+        /**
+         * Returns JSON object matching searched title or id (see above)
+         */
+        (behavior: 'get result', value: any): any;
+        /**
+         * Sets search input to value
+         */
+        (behavior: 'set value', value: any): JQuery;
+        /**
+         * Reads cached results for query
+         */
+        (behavior: 'read cache', query: string): JQuery;
+        /**
+         * Clears value from cache, if no parameter passed clears all cache
+         */
+        (behavior: 'clear cache', query?: string): JQuery;
+        /**
+         * Writes cached results for query
+         */
+        (behavior: 'write cache', query: string): JQuery;
+        /**
+         * Adds HTML to results and displays
+         */
+        (behavior: 'add results', html: string): JQuery;
+        /**
+         * Shows results container
+         */
+        (behavior: 'show results', callback?: () => void): JQuery;
+        /**
+         * Hides results container
+         */
+        (behavior: 'hide results', callback?: () => void): JQuery;
+        /**
+         * Generates results using parser specified by settings.template
+         */
+        (behavior: 'generate results', response: any): JQuery;
+        /**
+         * Removes all events
+         */
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof SearchSettings>(behavior: 'setting', name: K, value?: undefined): SearchSettings[K];
+        <K extends keyof SearchSettings>(behavior: 'setting', name: K, value: SearchSettings[K]): JQuery;
+        (behavior: 'setting', value: SearchSettings): JQuery;
+        (settings?: SearchSettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/modules/search.html#/settings}
@@ -3761,6 +3346,92 @@ declare namespace SemanticUI {
 
     // region Shape
 
+    interface Shape {
+        settings: ShapeSettings;
+
+        /**
+         * Flips the shape upward
+         */
+        (behavior: 'flip up'): JQuery;
+        /**
+         * Flips the shape downward
+         */
+        (behavior: 'flip down'): JQuery;
+        /**
+         * Flips the shape right
+         */
+        (behavior: 'flip right'): JQuery;
+        /**
+         * Flips the shape left
+         */
+        (behavior: 'flip left'): JQuery;
+        /**
+         * Flips the shape over clock-wise
+         */
+        (behavior: 'flip over'): JQuery;
+        /**
+         * Flips the shape over counter-clockwise
+         */
+        (behavior: 'flip back'): JQuery;
+        /**
+         * Set the next side to a specific selector
+         */
+        (behavior: 'set next side', selector: Selector): JQuery;
+        /**
+         * Returns whether shape is currently animating
+         */
+        (behavior: 'is animating'): boolean;
+        /**
+         * Removes all inline styles
+         */
+        (behavior: 'reset'): JQuery;
+        /**
+         * Queues an animation until after current animation
+         */
+        (behavior: 'queue', animation: string): JQuery;
+        /**
+         * Forces a reflow on element
+         */
+        (behavior: 'repaint'): JQuery;
+        /**
+         * Set the next side to next sibling to active element
+         */
+        (behavior: 'set default side'): JQuery;
+        /**
+         * Sets shape to the content size of the next side
+         */
+        (behavior: 'set stage size'): JQuery;
+        /**
+         * Refreshes the selector cache for element sides
+         */
+        (behavior: 'refresh'): JQuery;
+        /**
+         * Returns translation for next side staged below
+         */
+        (behavior: 'get transform down'): Translation;
+        /**
+         * Returns translation for next side staged left
+         */
+        (behavior: 'get transform left'): Translation;
+        /**
+         * Returns translation for next side staged right
+         */
+        (behavior: 'get transform right'): Translation;
+        /**
+         * Returns translation for next side staged up
+         */
+        (behavior: 'get transform up'): Translation;
+        /**
+         * Returns translation for next side staged down
+         */
+        (behavior: 'get transform down'): Translation;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof ShapeSettings>(behavior: 'setting', name: K, value?: undefined): ShapeSettings[K];
+        <K extends keyof ShapeSettings>(behavior: 'setting', name: K, value: ShapeSettings[K]): JQuery;
+        (behavior: 'setting', value: ShapeSettings): JQuery;
+        (settings?: ShapeSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/shape.html#/settings}
      */
@@ -3863,6 +3534,64 @@ declare namespace SemanticUI {
     // endregion
 
     // region Sidebar
+
+    interface Sidebar {
+        settings: SidebarSettings;
+
+        /**
+         * Attaches sidebar action to given selector. Default event if none specified is toggle
+         */
+        (behavior: 'attach events', selector: string, event?: string): JQuery;
+        /**
+         * Shows sidebar
+         */
+        (behavior: 'show'): JQuery;
+        /**
+         * Hides sidebar
+         */
+        (behavior: 'hide'): JQuery;
+        /**
+         * Toggles visibility of sidebar
+         */
+        (behavior: 'toggle'): JQuery;
+        /**
+         * Returns whether sidebar is visible
+         */
+        (behavior: 'is visible'): boolean;
+        /**
+         * Returns whether sidebar is hidden
+         */
+        (behavior: 'is hidden'): boolean;
+        /**
+         * Pushes page content to be visible alongside sidebar
+         */
+        (behavior: 'push page'): JQuery;
+        /**
+         * Returns direction of current sidebar
+         */
+        (behavior: 'get direction'): string;
+        /**
+         * Returns page content to original position
+         */
+        (behavior: 'pull page'): JQuery;
+        /**
+         * Adds stylesheet to page head to trigger sidebar animations
+         */
+        (behavior: 'add body CSS'): JQuery;
+        /**
+         * Removes any inline stylesheets for sidebar animation
+         */
+        (behavior: 'remove body CSS'): JQuery;
+        /**
+         * Returns vendor prefixed transition end event
+         */
+        (behavior: 'get transition event'): string;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof SidebarSettings>(behavior: 'setting', name: K, value?: undefined): SidebarSettings[K];
+        <K extends keyof SidebarSettings>(behavior: 'setting', name: K, value: SidebarSettings[K]): JQuery;
+        (behavior: 'setting', value: SidebarSettings): JQuery;
+        (settings?: SidebarSettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/modules/sidebar.html#/settings}
@@ -4127,6 +3856,20 @@ declare namespace SemanticUI {
 
     // region Sticky
 
+    interface Sticky {
+        settings: StickySettings;
+
+        /**
+         * recalculates offsets
+         */
+        (behavior: 'refresh'): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof StickySettings>(behavior: 'setting', name: K, value?: undefined): StickySettings[K];
+        <K extends keyof StickySettings>(behavior: 'setting', name: K, value: StickySettings[K]): JQuery;
+        (behavior: 'setting', value: StickySettings): JQuery;
+        (settings?: StickySettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/sticky.html#/settings}
      */
@@ -4268,6 +4011,49 @@ declare namespace SemanticUI {
     // endregion
 
     // region Tab
+
+    interface Tab {
+        settings: TabSettings;
+
+        // Documentation says this exists but it does not.
+        // /**
+        //  * Attaches tab action to given selector. Default event if none specified is toggle
+        //  */
+        // (behavior: 'attach events', selector: Selector, event?: string): JQuery;
+        /**
+         * Changes tab to path
+         */
+        (behavior: 'change tab', path: string): JQuery;
+        /**
+         * Sets current path to state
+         */
+        (behavior: 'set state', path: string): JQuery;
+        /**
+         * Returns current path
+         */
+        (behavior: 'get path'): string;
+        /**
+         * Returns whether tab exists
+         */
+        (behavior: 'is tab'): boolean;
+        /**
+         * Returns cached HTML for path
+         */
+        (behavior: 'cache read', path: string): string | false;
+        /**
+         * Sets cached HTML for path
+         */
+        (behavior: 'cache add', path: string, html: string): JQuery;
+        /**
+         * Removes cached HTML for path
+         */
+        (behavior: 'cache remove', path: string): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof TabSettings>(behavior: 'setting', name: K, value?: undefined): TabSettings[K];
+        <K extends keyof TabSettings>(behavior: 'setting', name: K, value: TabSettings[K]): JQuery;
+        (behavior: 'setting', value: TabSettings): JQuery;
+        (settings?: TabSettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/modules/tab.html#/settings}
@@ -4496,6 +4282,105 @@ declare namespace SemanticUI {
 
     // region Transition
 
+    interface Transition {
+        settings: TransitionSettings;
+
+        /**
+         * Stop current animation and preserve queue
+         */
+        (behavior: 'stop'): JQuery;
+        /**
+         * Stop current animation and queued animations
+         */
+        (behavior: 'stop all'): JQuery;
+        /**
+         * Clears all queued animations
+         */
+        (behavior: 'clear queue'): JQuery;
+        /**
+         * Stop current animation and show element
+         */
+        (behavior: 'show'): JQuery;
+        /**
+         * Stop current animation and hide element
+         */
+        (behavior: 'hide'): JQuery;
+        /**
+         * Toggles between hide and show
+         */
+        (behavior: 'toggle'): JQuery;
+        /**
+         * Forces reflow using a more expensive but stable method
+         */
+        (behavior: 'force repaint'): JQuery;
+        /**
+         * Triggers reflow on element
+         */
+        (behavior: 'repaint'): JQuery;
+        /**
+         * Resets all conditions changes during transition
+         */
+        (behavior: 'reset'): JQuery;
+        /**
+         * Enables animation looping
+         */
+        (behavior: 'looping'): JQuery;
+        /**
+         * Removes looping state from element
+         */
+        (behavior: 'remove looping'): JQuery;
+        /**
+         * Adds disabled state (stops ability to animate)
+         */
+        (behavior: 'disable'): JQuery;
+        /**
+         * Removes disabled state
+         */
+        (behavior: 'enable'): JQuery;
+        /**
+         * Modifies element animation duration
+         */
+        (behavior: 'set duration', duration: number): JQuery;
+        /**
+         * Saves all class names and styles to cache to be retrieved after animation
+         */
+        (behavior: 'save conditions'): JQuery;
+        /**
+         * Adds back cached names and styles to element
+         */
+        (behavior: 'restore conditions'): JQuery;
+        /**
+         * Returns vendor prefixed animation property for animationname
+         */
+        (behavior: 'get animation name'): string;
+        /**
+         * Returns vendor prefixed animation property for animationend
+         */
+        (behavior: 'get animation event'): string;
+        /**
+         * Returns whether element is currently visible
+         */
+        (behavior: 'is visible'): boolean;
+        /**
+         * Returns whether transition is currently occurring
+         */
+        (behavior: 'is animating'): boolean;
+        /**
+         * Returns whether animation looping is set
+         */
+        (behavior: 'is looping'): boolean;
+        /**
+         * Returns whether animations are supported
+         */
+        (behavior: 'is supported'): boolean;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value?: undefined): TransitionSettings[K];
+        <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value: TransitionSettings[K]): JQuery;
+        (behavior: 'setting', value: TransitionSettings): JQuery;
+        (transition: string): JQuery;
+        (settings?: TransitionSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/modules/transition.html#/settings}
      */
@@ -4637,6 +4522,103 @@ declare namespace SemanticUI {
     // region Behaviors
 
     // region API
+
+    interface Api {
+        settings: ApiSettings;
+
+        /**
+         * Execute query using existing API settings
+         */
+        (behavior: 'query'): JQuery;
+        /**
+         * Adds data to existing templated url and returns full url string
+         */
+        (behavior: 'add url data', url: string, data: any): string;
+        /**
+         * Gets promise for current API request
+         */
+        (behavior: 'get request'): JQueryDeferred<any> | false;
+        /**
+         * Aborts current API request
+         */
+        (behavior: 'abort'): JQuery;
+        /**
+         * Removes loading and error state from element
+         */
+        (behavior: 'reset'): JQuery;
+        /**
+         * Returns whether last request was cancelled
+         */
+        (behavior: 'was cancelled'): boolean;
+        /**
+         * Returns whether last request was failure
+         */
+        (behavior: 'was failure'): boolean;
+        /**
+         * Returns whether last request was successful
+         */
+        (behavior: 'was successful'): boolean;
+        /**
+         * Returns whether last request was completed
+         */
+        (behavior: 'was complete'): boolean;
+        /**
+         * Returns whether element is disabled
+         */
+        (behavior: 'is disabled'): boolean;
+        /**
+         * Returns whether element response is mocked
+         */
+        (behavior: 'is mocked'): boolean;
+        /**
+         * Returns whether element is loading
+         */
+        (behavior: 'is loading'): boolean;
+        /**
+         * Sets loading state to element
+         */
+        (behavior: 'set loading'): JQuery;
+        /**
+         * Sets error state to element
+         */
+        (behavior: 'set error'): JQuery;
+        /**
+         * Removes loading state to element
+         */
+        (behavior: 'remove loading'): JQuery;
+        /**
+         * Removes error state to element
+         */
+        (behavior: 'remove error'): JQuery;
+        /**
+         * Gets event that API request will occur on
+         */
+        (behavior: 'get event'): string;
+        /**
+         * Returns encodeURIComponent value only if value passed is not already encoded
+         */
+        (behavior: 'get url encoded value', value: any): string;
+        /**
+         * Reads a locally cached response for a URL
+         */
+        (behavior: 'read cached response', url: string): any;
+        /**
+         * Writes a cached response for a URL
+         */
+        (behavior: 'write cached response', url: string, response: any): JQuery;
+        /**
+         * Creates new cache, removing all locally cached URLs
+         */
+        (behavior: 'create cache'): JQuery;
+        /**
+         * Removes API settings from the page and all events
+         */
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value?: undefined): ApiSettings[K];
+        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value: ApiSettings[K]): JQuery;
+        (behavior: 'setting', value: ApiSettings): JQuery;
+        (settings?: ApiSettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/behaviors/api.html#/settings}
@@ -4936,6 +4918,64 @@ declare namespace SemanticUI {
 
     // region Form Validation
 
+    interface Form {
+        settings: FormSettings;
+
+        /**
+         * Submits selected form
+         */
+        (behavior: 'submit'): JQuery;
+        /**
+         * Returns true/false whether a form passes its validation rules
+         */
+        (behavior: 'is valid'): boolean;
+        /**
+         * Validates form and calls onSuccess or onFailure
+         */
+        (behavior: 'validate form'): JQuery;
+        /**
+         * gets browser property change event
+         */
+        (behavior: 'get change event'): string;
+        /**
+         * Returns element with matching name, id, or data-validate metadata to ID
+         */
+        (behavior: 'get field', id: string): JQuery;
+        /**
+         * Returns value of element with id
+         */
+        (behavior: 'get value', id: string): any;
+        /**
+         * Returns object of element values that match array of ids. If no IDS are passed will return all fields
+         */
+        (behavior: 'get values', ids?: string[]): any;
+        /**
+         * Sets value of element with id
+         */
+        (behavior: 'set value', id: string): JQuery;
+        /**
+         * Sets key/value pairs from passed values object to matching ids
+         */
+        (behavior: 'set values', values: any): JQuery;
+        /**
+         * Returns validation rules for a given jQuery-referenced input field
+         */
+        (behavior: 'get validation', element: JQuery): any;
+        /**
+         * Returns whether a field exists
+         */
+        (behavior: 'has field', identifier: string): boolean;
+        /**
+         * Adds errors to form, given an array errors
+         */
+        (behavior: 'add errors', errors: string[]): JQuery;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof FormSettings>(behavior: 'setting', name: K, value?: undefined): FormSettings[K];
+        <K extends keyof FormSettings>(behavior: 'setting', name: K, value: FormSettings[K]): JQuery;
+        (behavior: 'setting', value: FormSettings): JQuery;
+        (settings?: FormSettings): JQuery;
+    }
+
     /**
      * @see {@link http://semantic-ui.com/behaviors/form.html#/settings}
      */
@@ -5136,8 +5176,8 @@ declare namespace SemanticUI {
         // region Templates
 
         templates?: {
-            error?: (errors: string[]) => JQuery;
-            prompt?: (errors: string[]) => JQuery;
+            error?(errors: string[]): JQuery;
+            prompt?(errors: string[]): JQuery;
         };
 
         // endregion
@@ -5239,6 +5279,48 @@ declare namespace SemanticUI {
     // endregion
 
     // region Visibility
+
+    interface Visibility {
+        settings: VisibilitySettings;
+
+        /**
+         * Disable callbacks temporarily. This is useful if you need to adjust scroll position and do not want to trigger callbacks during the position change.
+         */
+        (behavior: 'disable callbacks'): JQuery;
+        /**
+         * Re-enable callbacks
+         */
+        (behavior: 'enable callbacks'): JQuery;
+        /**
+         * Returns whether element is on screen
+         */
+        (behavior: 'is on screen'): boolean;
+        /**
+         * Returns whether element is off screen
+         */
+        (behavior: 'is off screen'): boolean;
+        /**
+         * Returns number of pixels passed in current element from top of element
+         */
+        (behavior: 'get pixels passed'): number;
+        /**
+         * Returns element calculations as object
+         */
+        (behavior: 'get element calculations'): ElementCalculations;
+        /**
+         * Returns screen calculations as object
+         */
+        (behavior: 'get screen calculations'): ScreenCalculations;
+        /**
+         * Returns screen size as object
+         */
+        (behavior: 'get screen size'): ScreenSize;
+        (behavior: 'destroy'): JQuery;
+        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value?: undefined): VisibilitySettings[K];
+        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value: VisibilitySettings[K]): JQuery;
+        (behavior: 'setting', value: VisibilitySettings): JQuery;
+        (settings?: VisibilitySettings): JQuery;
+    }
 
     /**
      * @see {@link http://semantic-ui.com/behaviors/visibility.html#/settings}
@@ -5382,9 +5464,9 @@ declare namespace SemanticUI {
         /**
          * Element's bottom edge has not passed top of screen
          */
-        onBottomPassedReverse?: (this: JQuery) => void;
-        onOnScreen?: (this: JQuery) => void;
-        onOffScreen?: (this: JQuery) => void;
+        onBottomPassedReverse?(this: JQuery): void;
+        onOnScreen?(this: JQuery): void;
+        onOffScreen?(this: JQuery): void;
 
         // endregion
 
