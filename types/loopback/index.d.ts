@@ -11,7 +11,7 @@
 ************************************************/
 
 import * as core from "express-serve-static-core";
-import {NextFunction} from "../express/index";
+import { NextFunction } from "express";
 
 declare function l(): l.LoopBackApplication;
 declare namespace l {
@@ -894,11 +894,9 @@ declare namespace l {
              * @param method
              * @param backback
              */
-            beforeRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model
-                | NextFunction, next?: NextFunction)=>void): void;
+            beforeRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model | NextFunction, next?: NextFunction) => void): void;
 
-            afterRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model
-                | NextFunction, next?: NextFunction) => void): void;
+            afterRemote(method: string, callback: (ctx: Context, modelInstanceOrNext: Model | NextFunction, next?: NextFunction) => void): void;
 
             afterRemoteError(method: string, callback: NextFunction): void;
       }
