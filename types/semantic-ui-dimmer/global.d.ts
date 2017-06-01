@@ -101,13 +101,13 @@ declare namespace SemanticUI {
         (settings?: DimmerSettings | object): JQuery;
     }
 
-    interface DimmerSettings extends Pick<Dimmer._Settings, keyof Dimmer._Settings> { }
+    /**
+     * @see {@link http://semantic-ui.com/modules/dimmer.html#/settings}
+     */
+    interface DimmerSettings extends Pick<DimmerSettings._Impl, keyof DimmerSettings._Impl> { }
 
-    namespace Dimmer {
-        /**
-         * @see {@link http://semantic-ui.com/modules/dimmer.html#/settings}
-         */
-        interface _Settings {
+    namespace DimmerSettings {
+        interface _Impl {
             // region Behavior
 
             /**
@@ -149,7 +149,7 @@ declare namespace SemanticUI {
             /**
              * Animation duration of dimming. If an integer is used, that value will apply to both show and hide animations.
              */
-            duration: number | DurationSettings;
+            duration: number | Dimmer.DurationSettings;
             /**
              * Named transition to use when animating menu in and out. Fade and slide down are available without including ui transitions
              *
@@ -182,15 +182,15 @@ declare namespace SemanticUI {
             /**
              * Object containing selectors used by module.
              */
-            selector: SelectorSettings;
+            selector: Dimmer.SelectorSettings;
             /**
              * Templates used to generate dimmer content
              */
-            template: TemplateSettings;
+            template: Dimmer.TemplateSettings;
             /**
              * Class names used to attach style to state
              */
-            className: ClassNameSettings;
+            className: Dimmer.ClassNameSettings;
 
             // endregion
 
@@ -199,7 +199,7 @@ declare namespace SemanticUI {
             /**
              * Error messages displayed to console
              */
-            error: ErrorSettings;
+            error: Dimmer.ErrorSettings;
 
             // endregion
 
@@ -241,87 +241,99 @@ declare namespace SemanticUI {
 
             // endregion
         }
+    }
 
-        interface DurationSettings extends Pick<_DurationSettings, keyof _DurationSettings> { }
+    namespace Dimmer {
+        interface DurationSettings extends Pick<DurationSettings._Impl, keyof DurationSettings._Impl> { }
 
-        interface _DurationSettings {
-            /**
-             * @default 500
-             */
-            show: number;
-            /**
-             * @default 500
-             */
-            hide: number;
+        namespace DurationSettings {
+            interface _Impl {
+                /**
+                 * @default 500
+                 */
+                show: number;
+                /**
+                 * @default 500
+                 */
+                hide: number;
+            }
         }
 
-        interface SelectorSettings extends Pick<_SelectorSettings, keyof _SelectorSettings> { }
+        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
 
-        interface _SelectorSettings {
-            /**
-             * @default '.dimmable'
-             */
-            dimmable: string;
-            /**
-             * @default '.ui.dimmer'
-             */
-            dimmer: string;
-            /**
-             * @default '.ui.dimmer > .content, .ui.dimmer > .content > .center'
-             */
-            content: string;
+        namespace SelectorSettings {
+            interface _Impl {
+                /**
+                 * @default '.dimmable'
+                 */
+                dimmable: string;
+                /**
+                 * @default '.ui.dimmer'
+                 */
+                dimmer: string;
+                /**
+                 * @default '.ui.dimmer > .content, .ui.dimmer > .content > .center'
+                 */
+                content: string;
+            }
         }
 
-        interface TemplateSettings extends Pick<_TemplateSettings, keyof _TemplateSettings> { }
+        interface TemplateSettings extends Pick<TemplateSettings._Impl, keyof TemplateSettings._Impl> { }
 
-        interface _TemplateSettings {
-            dimmer(): JQuery;
+        namespace TemplateSettings {
+            interface _Impl {
+                dimmer(): JQuery;
+            }
         }
 
-        interface ClassNameSettings extends Pick<_ClassNameSettings, keyof _ClassNameSettings> { }
+        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
 
-        interface _ClassNameSettings {
-            /**
-             * @default 'active'
-             */
-            active: string;
-            /**
-             * @default 'dimmable'
-             */
-            dimmable: string;
-            /**
-             * @default 'dimmed'
-             */
-            dimmed: string;
-            /**
-             * @default 'disabled'
-             */
-            disabled: string;
-            /**
-             * @default 'page'
-             */
-            pageDimmer: string;
-            /**
-             * @default 'hide'
-             */
-            hide: string;
-            /**
-             * @default 'show'
-             */
-            show: string;
-            /**
-             * @default 'transition'
-             */
-            transition: string;
+        namespace ClassNameSettings {
+            interface _Impl {
+                /**
+                 * @default 'active'
+                 */
+                active: string;
+                /**
+                 * @default 'dimmable'
+                 */
+                dimmable: string;
+                /**
+                 * @default 'dimmed'
+                 */
+                dimmed: string;
+                /**
+                 * @default 'disabled'
+                 */
+                disabled: string;
+                /**
+                 * @default 'page'
+                 */
+                pageDimmer: string;
+                /**
+                 * @default 'hide'
+                 */
+                hide: string;
+                /**
+                 * @default 'show'
+                 */
+                show: string;
+                /**
+                 * @default 'transition'
+                 */
+                transition: string;
+            }
         }
 
-        interface ErrorSettings extends Pick<_ErrorSettings, keyof _ErrorSettings> { }
+        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
 
-        interface _ErrorSettings {
-            /**
-             * @default 'The method you called is not defined.'
-             */
-            method: string;
+        namespace ErrorSettings {
+            interface _Impl {
+                /**
+                 * @default 'The method you called is not defined.'
+                 */
+                method: string;
+            }
         }
     }
 }
