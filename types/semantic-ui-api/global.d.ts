@@ -104,13 +104,13 @@ declare namespace SemanticUI {
         (settings?: ApiSettings | object): JQuery;
     }
 
-    interface ApiSettings extends Pick<Api._Settings, keyof Api._Settings> { }
+    /**
+     * @see {@link http://semantic-ui.com/behaviors/api.html#/settings}
+     */
+    interface ApiSettings extends Pick<ApiSettings._Impl, keyof ApiSettings._Impl> { }
 
-    namespace Api {
-        /**
-         * @see {@link http://semantic-ui.com/behaviors/api.html#/settings}
-         */
-        interface _Settings {
+    namespace ApiSettings {
+        interface _Impl {
             // region Behavior
 
             /**
@@ -289,25 +289,25 @@ declare namespace SemanticUI {
             /**
              * Regular expressions used for template matching
              */
-            regExp: RegExpSettings;
+            regExp: Api.RegExpSettings;
             /**
              * Selectors used to find parts of a module
              */
-            selector: SelectorSettings;
+            selector: Api.SelectorSettings;
             /**
              * Class names used to determine element state
              */
-            className: ClassNameSettings;
+            className: Api.ClassNameSettings;
             /**
              * Metadata used to store XHR and response promise
              */
-            metadata: MetadataSettings;
+            metadata: Api.MetadataSettings;
 
             // endregion
 
             // region Debug Settings
 
-            error: ErrorSettings;
+            error: Api.ErrorSettings;
 
             // endregion
 
@@ -349,114 +349,126 @@ declare namespace SemanticUI {
 
             // endregion
         }
+    }
 
-        interface RegExpSettings extends Pick<_RegExpSettings, keyof _RegExpSettings> { }
+    namespace Api {
+        interface RegExpSettings extends Pick<RegExpSettings._Impl, keyof RegExpSettings._Impl> { }
 
-        interface _RegExpSettings {
-            /**
-             * @default /\{\$*[A-z0-9]+\}/g
-             */
-            required: RegExp;
-            /**
-             * @default /\{\/\$*[A-z0-9]+\}/g
-             */
-            optional: RegExp;
+        namespace RegExpSettings {
+            interface _Impl {
+                /**
+                 * @default /\{\$*[A-z0-9]+\}/g
+                 */
+                required: RegExp;
+                /**
+                 * @default /\{\/\$*[A-z0-9]+\}/g
+                 */
+                optional: RegExp;
+            }
         }
 
-        interface SelectorSettings extends Pick<_SelectorSettings, keyof _SelectorSettings> { }
+        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
 
-        interface _SelectorSettings {
-            /**
-             * @default '.disabled'
-             */
-            disabled: string;
-            /**
-             * @default 'form'
-             */
-            form: string;
+        namespace SelectorSettings {
+            interface _Impl {
+                /**
+                 * @default '.disabled'
+                 */
+                disabled: string;
+                /**
+                 * @default 'form'
+                 */
+                form: string;
+            }
         }
 
-        interface ClassNameSettings extends Pick<_ClassNameSettings, keyof _ClassNameSettings> { }
+        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
 
-        interface _ClassNameSettings {
-            /**
-             * @default 'loading'
-             */
-            loading: string;
-            /**
-             * @default 'error'
-             */
-            error: string;
+        namespace ClassNameSettings {
+            interface _Impl {
+                /**
+                 * @default 'loading'
+                 */
+                loading: string;
+                /**
+                 * @default 'error'
+                 */
+                error: string;
+            }
         }
 
-        interface MetadataSettings extends Pick<_MetadataSettings, keyof _MetadataSettings> { }
+        interface MetadataSettings extends Pick<MetadataSettings._Impl, keyof MetadataSettings._Impl> { }
 
-        interface _MetadataSettings {
-            /**
-             * @default 'action'
-             */
-            action: string;
-            /**
-             * @default 'url'
-             */
-            url: string;
+        namespace MetadataSettings {
+            interface _Impl {
+                /**
+                 * @default 'action'
+                 */
+                action: string;
+                /**
+                 * @default 'url'
+                 */
+                url: string;
+            }
         }
 
-        interface ErrorSettings extends Pick<_ErrorSettings, keyof _ErrorSettings> { }
+        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
 
-        interface _ErrorSettings {
-            /**
-             * @default 'The before send function has aborted the request'
-             */
-            beforeSend: string;
-            /**
-             * @default 'There was an error with your request'
-             */
-            error: string;
-            /**
-             * @default 'API Request Aborted. Exit conditions met'
-             */
-            exitConditions: string;
-            /**
-             * @default 'JSON could not be parsed during error handling'
-             */
-            JSONParse: string;
-            /**
-             * @default 'You are using legacy API success callback names'
-             */
-            legacyParameters: string;
-            /**
-             * @default 'API action used but no url was defined'
-             */
-            missingAction: string;
-            /**
-             * @default 'Required dependency jquery-serialize-object missing, using basic serialize'
-             */
-            missingSerialize: string;
-            /**
-             * @default 'No URL specified for API event'
-             */
-            missingURL: string;
-            /**
-             * @default 'The beforeSend callback must return a settings object, beforeSend ignored.'
-             */
-            noReturnedValue: string;
-            /**
-             * @default 'There was an error parsing your request'
-             */
-            parseError: string;
-            /**
-             * @default 'Missing a required URL parameter: '
-             */
-            requiredParameter: string;
-            /**
-             * @default 'Server gave an error: '
-             */
-            statusMessage: string;
-            /**
-             * @default 'Your request timed out'
-             */
-            timeout: string;
+        namespace ErrorSettings {
+            interface _Impl {
+                /**
+                 * @default 'The before send function has aborted the request'
+                 */
+                beforeSend: string;
+                /**
+                 * @default 'There was an error with your request'
+                 */
+                error: string;
+                /**
+                 * @default 'API Request Aborted. Exit conditions met'
+                 */
+                exitConditions: string;
+                /**
+                 * @default 'JSON could not be parsed during error handling'
+                 */
+                JSONParse: string;
+                /**
+                 * @default 'You are using legacy API success callback names'
+                 */
+                legacyParameters: string;
+                /**
+                 * @default 'API action used but no url was defined'
+                 */
+                missingAction: string;
+                /**
+                 * @default 'Required dependency jquery-serialize-object missing, using basic serialize'
+                 */
+                missingSerialize: string;
+                /**
+                 * @default 'No URL specified for API event'
+                 */
+                missingURL: string;
+                /**
+                 * @default 'The beforeSend callback must return a settings object, beforeSend ignored.'
+                 */
+                noReturnedValue: string;
+                /**
+                 * @default 'There was an error parsing your request'
+                 */
+                parseError: string;
+                /**
+                 * @default 'Missing a required URL parameter: '
+                 */
+                requiredParameter: string;
+                /**
+                 * @default 'Server gave an error: '
+                 */
+                statusMessage: string;
+                /**
+                 * @default 'Your request timed out'
+                 */
+                timeout: string;
+            }
         }
     }
 }
