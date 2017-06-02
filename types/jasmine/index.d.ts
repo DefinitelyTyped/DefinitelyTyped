@@ -1,6 +1,6 @@
 // Type definitions for Jasmine 2.5.2
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>, Gabe Moothart <https://github.com/gmoothart>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -79,7 +79,7 @@ declare namespace jasmine {
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any {
-
+        (...params: any[]):any; // jasmine.Any can also be a function
         new (expectedClass: any): any;
 
         jasmineMatches(other: any): boolean;
@@ -354,7 +354,7 @@ declare namespace jasmine {
     interface ArrayLikeMatchers<T> extends Matchers<ArrayLike<T>> {
         toBe(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
         toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): boolean;
-        toContain(expected: T, expectationFailOutput?: any): boolean;
+        toContain(expected: Expected<T>, expectationFailOutput?: any): boolean;
         not: ArrayLikeMatchers<T>;
     }
 
