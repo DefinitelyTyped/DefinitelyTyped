@@ -103,6 +103,7 @@ declare namespace request {
         get(field: string): string;
         on(name: string, handler: (event: any) => void): this;
         on(name: 'error', handler: (err: any) => void): this;
+        on(name: 'progress', handler: (event: ProgressEvent) => void): this;
         part(): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
@@ -121,6 +122,13 @@ declare namespace request {
     }
 
     type Plugin = (req: Request) => void;
+
+    interface ProgressEvent {
+        direction: 'download' | 'upload';
+        loaded: number;
+        percent?: number;
+        total?: number;
+    }
 }
 
 export = request;
