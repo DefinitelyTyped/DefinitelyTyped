@@ -1377,7 +1377,6 @@ declare namespace L {
         containerPointToLayerPoint(point: PointExpression): Point;
         containerPointToLatLng(point: PointExpression): LatLng;
         layerPointToContainerPoint(point: PointExpression): Point;
-        containerPointToLatLng(point: PointExpression): LatLng;
         latLngToContainerPoint(latlng: LatLngExpression): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;
         mouseEventToLayerPoint(ev: MouseEvent): Point;
