@@ -1601,6 +1601,18 @@ s.transaction().then( function( t ) {
 
 } );
 
+
+s.transaction({
+    isolationLevel: s.Transaction.ISOLATION_LEVELS.READ_COMMITTED
+    }).then(function(t2) {
+        return User.find({
+                where: {
+                    username: 'jan'
+                },
+                lock: t2.LOCK.UPDATE,
+                transaction: t2
+            });
+    });
 s.transaction( function() {
     return Promise.resolve();
 } );

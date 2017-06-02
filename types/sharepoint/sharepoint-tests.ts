@@ -1,5 +1,5 @@
-///<reference types="knockout" />
-///<reference types="jquery" />
+/// <reference types="knockout" />
+/// <reference types="jquery" />
 
 import * as angular from 'angular';
 import * as ng from 'angular';

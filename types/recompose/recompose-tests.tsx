@@ -16,6 +16,7 @@ import {
     createSink, componentFromProp, nest, hoistStatics,
     // Observable utilities
     componentFromStream, mapPropsStream, createEventHandler,
+    componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
 } from "recompose";
 import rxjsconfig from "recompose/rxjsObservableConfig";
@@ -179,3 +180,10 @@ function testRenderComponent() {
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
 }
 
+function testWithObservableConfig() {
+  let componentFromStreamMost = componentFromStreamWithConfig(mostConfig)
+  componentFromStreamMost = componentFromStream
+
+  let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig)
+  mapPropsStreamMost = mapPropsStream
+}

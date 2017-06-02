@@ -1418,6 +1418,9 @@ declare module "mongoose" {
     circle(area: Object): this;
     circle(path: string, area: Object): this;
 
+    /** Adds a collation to this op (MongoDB 3.4 and up) */
+    collation(value: CollationOptions): this;
+
     /** Specifies the comment option. Cannot be used with distinct() */
     comment(val: string): this;
 
@@ -1818,6 +1821,17 @@ declare module "mongoose" {
     context?: string;
   }
 
+  interface CollationOptions {
+    locale?: string;
+    caseLevel?: boolean;
+    caseFirst?: string;
+    strength?: number;
+    numericOrdering?: boolean;
+    alternate?: string;
+    maxVariable?: string;
+    backwards?: boolean;
+  }
+
   namespace Schema {
     namespace Types {
       /*
@@ -2089,6 +2103,9 @@ declare module "mongoose" {
      * @param ops operator(s) to append
      */
     append(...ops: Object[]): this;
+
+    /** Adds a collation. */
+    collation(options: CollationOptions): this;
 
     /**
      * Sets the cursor option option for the aggregation query (ignored for < 2.6.0).

@@ -2563,7 +2563,7 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     map?: Texture;
-    lighhtMap?: Texture;
+    lightMap?: Texture;
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
@@ -2590,7 +2590,7 @@ export class MeshLambertMaterial extends Material {
     emissiveIntensity: number;
     emissiveMap: Texture;
     map: Texture;
-    lighhtMap: Texture;
+    lightMap: Texture;
     lightMapIntensity: number;
     aoMap: Texture;
     aoMapIntensity: number;
@@ -2616,7 +2616,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     roughness?: number;
     metalness?: number;
     map?: Texture;
-    lighhtMap?: Texture;
+    lightMap?: Texture;
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
@@ -2651,7 +2651,7 @@ export class MeshStandardMaterial extends Material {
     roughness: number;
     metalness: number;
     map: Texture;
-    lighhtMap: Texture;
+    lightMap: Texture;
     lightMapIntensity: number;
     aoMap: Texture;
     aoMapIntensity: number;

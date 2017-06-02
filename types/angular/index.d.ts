@@ -487,8 +487,8 @@ declare namespace angular {
         $eval(expression: (scope: IScope) => any, locals?: Object): any;
 
         $evalAsync(): void;
-        $evalAsync(expression: string): void;
-        $evalAsync(expression: (scope: IScope) => any): void;
+        $evalAsync(expression: string, locals?: Object): void;
+        $evalAsync(expression: (scope: IScope) => void, locals?: Object): void;
 
         // Defaults to false by the implementation checking strategy
         $new(isolate?: boolean, parent?: IScope): IScope;
