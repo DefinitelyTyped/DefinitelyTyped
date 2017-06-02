@@ -262,11 +262,13 @@ stream.pipe(req);
 })();
 
 // Attaching files
+const blob: Blob = new File([], 'thor.png');
 request
     .post('/upload')
     .attach('avatar', 'path/to/tobi.png', 'user.png')
     .attach('image', 'path/to/loki.png')
     .attach('file', 'path/to/jane.png')
+    .attach('blob', blob)
     .end(callback);
 
 // Field values

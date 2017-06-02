@@ -94,7 +94,7 @@ declare namespace request {
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
         abort(): void;
         accept(type: string): this;
-        attach(field: string, file: string, filename?: string): this;
+        attach(field: string, file: string | Blob, filename?: string): this;
         auth(user: string, name: string): this;
         buffer(val?: boolean): this;
         clearTimeout(): this;
