@@ -1,10 +1,9 @@
 // via: http://visionmedia.github.io/superagent/
 
-import * as request from 'superagent'
-import * as fs from 'fs'
-import * as assert from 'assert'
-import {Agent} from 'https'
-
+import * as request from 'superagent';
+import * as fs from 'fs';
+import * as assert from 'assert';
+import { Agent } from 'https';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
@@ -25,7 +24,7 @@ request
         }
     });
 
-var agent = request.agent();
+const agent = request.agent();
 agent
     .post('/api/pet')
     .send({name: 'Manny', species: 'cat'})
@@ -39,8 +38,7 @@ agent
         }
     });
 
-var callback = (err: any, res: request.Response) => {
-};
+const callback = (err: any, res: request.Response) => {};
 
 // Request basics
 request
@@ -175,15 +173,15 @@ request
 
 // Parsing response bodies
 request('/search')
-    .end((res: request.Response) => {
-        var status: number = res.status;
-        var body = res.body;
-        var files: Object = res.files;
-        var text: string = res.text;
-        var contentLength = res.header['content-length'];
-        var contentType: string = res.type;
-        var charset: string = res.charset;
-    });
+  .end((res: request.Response) => {
+    const status: number = res.status;
+    const body = res.body;
+    const files: object = res.files;
+    const text: string = res.text;
+    const contentLength = res.header['content-length'];
+    const contentType: string = res.type;
+    const charset: string = res.charset;
+  });
 
 // Custom parsers
 request
@@ -203,7 +201,7 @@ request
         res.body.toString("hex");
     });
 
-var req = request.get('/hoge');
+const req = request.get('/hoge');
 // Aborting requests
 req.abort();
 
@@ -231,23 +229,23 @@ request
 
 // Piping data
 /*
- (function() {
- var stream = fs.createReadStream('path/to/my.json');
- var req = request.post('/somewhere');
- req.type('json');
- stream.pipe(req);
- })();
- */
+(() => {
+const stream = fs.createReadStream('path/to/my.json');
+const req = request.post('/somewhere');
+req.type('json');
+stream.pipe(req);
+})();
+*/
 
-(function () {
-    var stream = fs.createWriteStream('path/to/my.json');
-    var req = request.get('/some.json');
+(() => {
+    const stream = fs.createWriteStream('path/to/my.json');
+    const req = request.get('/some.json');
     req.pipe(stream);
 })();
 
 // Multipart requests
-(function () {
-    var req = request.post('/upload');
+(() => {
+    const req = request.post('/upload');
 
     req.part()
         .set('Content-Type', 'image/png')
@@ -298,7 +296,7 @@ request
     })
     .end(callback);
 
-//Promise
+// Promise
 request
     .get('/search')
     .then((response) => {
@@ -308,9 +306,9 @@ request
 // Requesting binary data.
 // adapted from: https://github.com/visionmedia/superagent/blob/v2.0.0/test/client/request.js#L110
 request
-    .get('/blob')
-    .responseType('blob')
-    .end(function (err, res) {
-        assert(res.xhr instanceof XMLHttpRequest)
-        assert(res.xhr.response instanceof Blob);
-    });
+  .get('/blob')
+  .responseType('blob')
+  .end((err, res) => {
+    assert(res.xhr instanceof XMLHttpRequest);
+    assert(res.xhr.response instanceof Blob);
+  });
