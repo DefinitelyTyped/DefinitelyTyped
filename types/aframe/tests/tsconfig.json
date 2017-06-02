@@ -1,0 +1,22 @@
+{
+  "version": "2.3.2",
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "umd",
+    "moduleResolution": "node",
+    "removeComments": false,
+    "sourceMap": true,
+    "types": [ "intern" ],
+    "noEmit": false,
+    "paths": {
+      "aframe": [ ".." ]
+    }
+  },
+  "files": [
+    "aframe.ts",
+    "component.ts",
+    "entity.ts",
+    "intern.ts",
+    "../index.d.ts"
+  ]
+}
