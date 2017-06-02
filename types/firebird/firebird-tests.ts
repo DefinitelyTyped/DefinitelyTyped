@@ -18,7 +18,7 @@ const res: fb.FBResult = con.querySync("select * from test");
 con.query("select * from test", (err: Error | null, res: fb.FBResult) => {});
 
 con.commitSync();
-con.commit((err: Error | null) => {})
+con.commit((err: Error | null) => {});
 
 con.rollbackSync();
 con.rollback((err: Error | null) => {});
@@ -50,7 +50,7 @@ if (typeof (column) === "number") {
 }
 
 /* FBResult */
-type MyRow = {
+interface MyRow {
     id: number;
     name: string;
 }
@@ -59,7 +59,7 @@ let rowsArray: fb.DataType[][] = res.fetchSync("all", false);
 rowsArray = res.fetchSync(1, false);
 res.fetch("all", false, (row: fb.DataType[]) => {}, (err: Error | null, eof: boolean) => {});
 res.fetch(1, false, (row: fb.DataType[]) => {}, (err: Error | null, eof: boolean) => {});
-let rowsObject: {[colmn: string]: fb.DataType}[] = res.fetchSync("all", true);
+let rowsObject: Array<{[colmn: string]: fb.DataType}> = res.fetchSync("all", true);
 rowsObject = res.fetchSync(1, true);
 res.fetch("all", true, (row: {[colmn: string]: fb.DataType}) => {}, (err: Error | null, eof: boolean) => {});
 res.fetch(1, true, (row: {[colmn: string]: fb.DataType}) => {}, (err: Error | null, eof: boolean) => {});
@@ -83,7 +83,7 @@ tx.start((error: Error | null) => {});
 stmt = tx.prepareSync("select * from test where name = ?");
 
 if (tx.inTransaction === true) {
-    console.log('in transaction')
+    console.log('in transaction');
 }
 
 /* FBStatement */
@@ -119,4 +119,4 @@ blob._write(buffer, 10);
 blob._write(buffer, 10, (err: Error | null) => {});
 
 /* Stream */
-var strm: NodeJS.ReadWriteStream = new fb.Stream(blob);
+let strm: NodeJS.ReadWriteStream = new fb.Stream(blob);

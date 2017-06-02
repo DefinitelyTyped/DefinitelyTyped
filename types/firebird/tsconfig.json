@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "scripthost"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -11,7 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["node"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
