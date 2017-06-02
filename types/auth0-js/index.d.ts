@@ -15,7 +15,6 @@ export class Authentication {
     /**
      * Builds and returns the `/authorize` url in order to initialize a new authN/authZ transaction
      *
-     * @method buildAuthorizeUrl
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#get--authorize_db
      */
     buildAuthorizeUrl(options: any): string;
@@ -23,34 +22,32 @@ export class Authentication {
     /**
      * Builds and returns the Logout url in order to initialize a new authN/authZ transaction
      *
-     * @method buildLogoutUrl
      * @param {Object} options: https://auth0.com/docs/api/authentication#!#get--v2-logout
      */
-    buildLogoutUrl(options?: any): string;
+    buildLogoutUrl(options?: LogoutOptions): string;
 
     /**
      * Makes a call to the `oauth/token` endpoint with `password` grant type
      *
-     * @method loginWithDefaultDirectory
-     * @param {Object} options: https://auth0.com/docs/api-auth/grant/password
+     * @param {DefaultDirectoryLoginOptions} options: https://auth0.com/docs/api-auth/grant/password
      * @param {Function} callback
      */
-    loginWithDefaultDirectory(options: any, callback: Auth0Callback<any>): void;
+    loginWithDefaultDirectory(options: DefaultDirectoryLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `/ro` endpoint
-     * @param {any}      options
+     * @param {ResourceOwnerLoginOptions}      options
      * @param {Function} callback
      * @deprecated `loginWithResourceOwner` will be soon deprecated, user `login` instead.
      */
-    loginWithResourceOwner(options: any, callback: Auth0Callback<any>): void;
+    loginWithResourceOwner(options: ResourceOwnerLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint with `password-realm` grant type
-     * @param {any}     options
+     * @param {DefaultLoginOptions}     options
      * @param {Function} callback
      */
-    login(options: any, callback: Auth0Callback<any>): void;
+    login(options: DefaultLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Makes a call to the `oauth/token` endpoint
@@ -62,7 +59,6 @@ export class Authentication {
     /**
      * Makes a call to the `/ssodata` endpoint
      *
-     * @method getSSOData
      * @param {Function} callback
      */
     getSSOData(callback?: Auth0Callback<any>): void;
@@ -70,7 +66,6 @@ export class Authentication {
     /**
      * Makes a call to the `/ssodata` endpoint
      *
-     * @method getSSOData
      * @param {Boolean} withActiveDirectories
      * @param {Function} callback
      */
@@ -79,7 +74,6 @@ export class Authentication {
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
      *
-     * @method userInfo
      * @param {String} accessToken
      * @param {Function} callback
      */
@@ -88,16 +82,14 @@ export class Authentication {
     /**
      * Makes a call to the `/delegation` endpoint
      *
-     * @method delegation
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--delegation
+     * @param {DelegationOptions} options: https://auth0.com/docs/api/authentication#!#post--delegation
      * @param {Function} callback
      */
-    delegation(options: any, callback: Auth0Callback<Auth0DelegationToken>): any;
+    delegation(options: DelegationOptions, callback: Auth0Callback<Auth0DelegationToken>): any;
 
     /**
      * Fetches the user country based on the ip.
      *
-     * @method getUserCountry
      * @param {Function} callback
      */
     getUserCountry(callback: Auth0Callback<{ countryCode: string }>): void;
@@ -109,16 +101,14 @@ export class PasswordlessAuthentication {
     /**
      * Builds and returns the passwordless TOTP verify url in order to initialize a new authN/authZ transaction
      *
-     * @method buildVerifyUrl
-     * @param {Object} options
+     * @param {PasswordlessVerifyOptions} options
      * @param {Function} callback
      */
-    buildVerifyUrl(options: any): string;
+    buildVerifyUrl(options: PasswordlessVerifyOptions): string;
 
     /**
      * Initializes a new passwordless authN/authZ transaction
      *
-     * @method start
      * @param {Object} options: https://auth0.com/docs/api/authentication#passwordless
      * @param {Function} callback
      */
@@ -127,11 +117,10 @@ export class PasswordlessAuthentication {
     /**
      * Verifies the passwordless TOTP and returns an error if any.
      *
-     * @method buildVerifyUrl
-     * @param {Object} options
+     * @param {PasswordlessVerifyOptions} options
      * @param {Function} callback
      */
-    verify(options: any, callback: Auth0Callback<any>): void;
+    verify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
 }
 
 export class DBConnection {
@@ -140,17 +129,15 @@ export class DBConnection {
     /**
      * Signup a new user
      *
-     * @method signup
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
+     * @param {DbSignUpOptions} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} calback
      */
-    signup(options: any, callback: Auth0Callback<any>): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Initializes the change password flow
      *
-     * @method signup
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
+     * @param {ChangePasswordOptions} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
      * @param {Function} callback
      */
     changePassword(options: ChangePasswordOptions, callback: Auth0Callback<any>): void;
@@ -162,7 +149,6 @@ export class Management {
     /**
      * Returns the user profile. https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
      *
-     * @method getUser
      * @param {String} userId
      * @param {Function} callback
      */
@@ -172,7 +158,6 @@ export class Management {
      * Updates the user metdata. It will patch the user metdata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
-     * @method patchUserMetadata
      * @param {String} userId
      * @param {Object} userMetadata
      * @param {Function} callback
@@ -182,7 +167,6 @@ export class Management {
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
-     * @method linkUser
      * @param {String} userId
      * @param {String} secondaryUserToken
      * @param {Function} callback
@@ -200,10 +184,9 @@ export class WebAuth {
     /**
      * Redirects to the hosted login page (`/authorize`) in order to initialize a new authN/authZ transaction
      *
-     * @method authorize
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#get--authorize_db
+     * @param {AuthorizeOptions} options: https://auth0.com/docs/api/authentication#!#get--authorize_db
      */
-    authorize(options: any): void;
+    authorize(options: AuthorizeOptions): void;
 
     /**
      * Parse the url hash and extract the returned tokens depending on the transaction.
@@ -212,21 +195,14 @@ export class WebAuth {
      * by the `/.well-known/jwks.json` endpoint. Id tokens signed with other algorithms will not be
      * accepted.
      *
-     * @method parseHash
-     * @param {Object} options:
-     * @param {String} options._idTokenVerification [OPTIONAL] Default: true
-     * @param {String} options.state [OPTIONAL] to verify the response
-     * @param {String} options.nonce [OPTIONAL] to verify the id_token
-     * @param {String} options.hash [OPTIONAL] the url hash. If not provided it will extract from window.location.hash
-     * @param {String} [options._idTokenVerification] makes parseHash perform or skip `id_token` verification. We **strongly** recommend validating the `id_token` yourself if you disable the verification.
+     * @param {ParseHashOptions} options
      * @param {Function} callback: any(err, token_payload)
      */
-    parseHash(options: any, callback: Auth0Callback<Auth0DecodedHash>): void;
+    parseHash(options: ParseHashOptions, callback: Auth0Callback<Auth0DecodedHash>): void;
 
     /**
      * Decodes the id_token and verifies  the nonce.
      *
-     * @method validateToken
      * @param {String} token
      * @param {String} nonce
      * @param {Function} callback: function(err, {payload, transaction})
@@ -234,60 +210,52 @@ export class WebAuth {
     validateToken(token: string, nonce: string, callback: Auth0Callback<any>): void;
 
     /**
-     * Executes a silent authentication transaction under the hood in order to fetch a new token.
+     * Executes a silent authentication transaction under the hood in order to fetch a new tokens for the current session.
+     * This method requires that all Auth is performed with {@link authorize}
+     * Watch out! If you're not using the hosted login page to do social logins, you have to use your own [social connection keys](https://manage.auth0.com/#/connections/social). If you use Auth0's dev keys, you'll always get `login_required` as an error when calling this method.
      *
-     * @method renewAuth
-     * @param {Object} options: any valid oauth2 parameter to be sent to the `/authorize` endpoint
+     * @param {RenewAuthOptions} options: any valid oauth2 parameter to be sent to the `/authorize` endpoint
      * @param {Function} callback
      */
-    renewAuth(options: any, callback: Auth0Callback<any>): void;
+    renewAuth(options: RenewAuthOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Initialices a change password transaction
      *
-     * @method changePassword
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
+     * @param {ChangePasswordOptions} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-change_password
      * @param {Function} callback
      */
-    changePassword(options: any, callback: Auth0Callback<any>): void;
+    changePassword(options: ChangePasswordOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user
      *
-     * @method signup
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
+     * @param {DbSignUpOptions} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-    signup(options: any, callback: Auth0Callback<any>): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Signs up a new user, automatically logs the user in after the signup and returns the user token.
      * The login will be done using /oauth/token with password-realm grant type.
      *
-     * @method signupAndAuthorize
-     * @param {Object} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
+     * @param {DbSignUpOptions} options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
      * @param {Function} callback
      */
-    signupAndAuthorize(options: any, callback: Auth0Callback<any>): void;
+    signupAndAuthorize(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow. You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
      * This only works when 3rd party cookies are enabled in the browser. After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
      *
-     * @method login
-     * @param {Object} options options used in the {@link authorize} call after the login_ticket is acquired
-     * @param {String} [options.username] Username (mutually exclusive with email)
-     * @param {String} [options.email] Email  (mutually exclusive with username)
-     * @param {String} options.password Password
-     * @param {String} [options.realm] Realm used to authenticate the user, it can be a realm name or a database connection name
+     * @param {CrossOriginLoginOptions} options options used in the {@link authorize} call after the login_ticket is acquired
      * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs. For other types of errors, there will be a redirect to the `redirectUri`.
      */
-    login(options: any, callback: Auth0Callback<any>): void;
+    login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
      *
-     * @method crossOriginAuthenticationCallback
      */
     crossOriginAuthenticationCallback(): void;
 
@@ -299,25 +267,15 @@ export class WebAuth {
      * - If the client_id parameter is included, the returnTo URL must be listed in the Allowed Logout URLs set at the client level (see Setting Allowed Logout URLs at the App Level).
      * - If the client_id parameter is NOT included, the returnTo URL must be listed in the Allowed Logout URLs set at the account level (see Setting Allowed Logout URLs at the Account Level).
      *
-     * @method logout
-     * @param {Object} options
-     * @param {String} [options.clientID] identifier of your client
-     * @param {String} [options.returnTo] URL to be redirected after the logout
-     * @param {Boolean} [options.federated] tells Auth0 if it should logout the user also from the IdP.
+     * @param {LogoutOptions} options
      * @see   {@link https://auth0.com/docs/api/authentication#logout}
      */
-    logout(options: any): void;
+    logout(options: LogoutOptions): void;
 
     /**
      * Initialices a passwordless authentication transaction
      *
-     * @method passwordlessStart
-     * @param {Object} options: https://auth0.com/docs/api/authentication#passwordless
-     * @param {Object} options.send: `link` or `code`
-     * @param {Object} options.phoneNumber: send should be code and email not set
-     * @param {Object} options.email: phoneNumber should be ignored
-     * @param {Object} options.connection
-     * @param {Object} options.authParams
+     * @param {PasswordlessStartOptions} options: https://auth0.com/docs/api/authentication#passwordless
      * @param {Function} callback
      */
     passwordlessStart(options: PasswordlessStartOptions, callback: Auth0Callback<any>): void;
@@ -326,15 +284,10 @@ export class WebAuth {
      * Verifies the passwordless TOTP and redirects to finish the passwordless transaction
      *
      * @method passwordlessVerify
-     * @param {Object} options:
-     * @param {Object} options.type: `sms` or `email`
-     * @param {Object} options.phoneNumber: only if type = sms
-     * @param {Object} options.email: only if type = email
-     * @param {Object} options.connection: the connection name
-     * @param {Object} options.verificationCode: the TOTP code
+     * @param {PasswordlessVerifyOptions} options:
      * @param {Function} callback
      */
-    passwordlessVerify(options: any, callback: Auth0Callback<any>): void;
+    passwordlessVerify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
 }
 
 export class Redirect {
@@ -473,20 +426,14 @@ export class CrossOriginAuthentication {
      * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow. You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
      * This only works when 3rd party cookies are enabled in the browser. After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
      *
-     * @method login
-     * @param {Object} options options used in the {@link authorize} call after the login_ticket is acquired
-     * @param {String} [options.username] Username (mutually exclusive with email)
-     * @param {String} [options.email] Email  (mutually exclusive with username)
-     * @param {String} options.password Password
-     * @param {String} [options.realm] Realm used to authenticate the user, it can be a realm name or a database connection name
+     * @param {CrossOriginLoginOptions} options options used in the {@link authorize} call after the login_ticket is acquired
      * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs. For other types of errors, there will be a redirect to the `redirectUri`.
      */
-    login(options: any, callback: Auth0Callback<any>): void;
+    login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
      * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
      *
-     * @method callback
      */
     callback(): void;
 }
@@ -614,4 +561,85 @@ interface Auth0Identity {
     isSocial: boolean;
     provider: string;
     user_id: string;
+}
+
+interface LoginOptions {
+    username: string;
+    password: string;
+    scope?: string;
+}
+
+interface DefaultLoginOptions extends LoginOptions {
+    audience?: string;
+    realm: string;
+}
+
+interface DefaultDirectoryLoginOptions extends LoginOptions {
+    audience?: string;
+}
+
+interface ResourceOwnerLoginOptions extends LoginOptions {
+    connection: string;
+    device?: string;
+}
+
+interface CrossOriginLoginOptions {
+    username?: string;
+    email?: string;
+    password: string;
+    realm: string;
+}
+
+interface LogoutOptions {
+    clientID?: string;
+    returnTo?: string;
+    federated?: boolean;
+}
+
+interface DelegationOptions {
+    clientID?: string;
+    grantType: string;
+    idToken?: string;
+    refreshToken?: string;
+    target?: string;
+    scope?: string;
+    apiType?: string;
+}
+
+interface DbSignUpOptions {
+    email: string;
+    password: string;
+    connection: string;
+}
+
+interface ParseHashOptions {
+    hash: string;
+    state?: string;
+    nonce?: string;
+    _idTokenVerification?: boolean;
+}
+
+interface RenewAuthOptions {
+    domain?: string;
+    clientID?: string;
+    redirectUri?: string;
+    responseType?: string;
+    responseMode?: string;
+    state?: string;
+    nonce?: string;
+    scope?: string;
+    audience?: string;
+    postMessageDataType?: string;
+}
+
+interface AuthorizeOptions {
+    domain?: string;
+    clientID?: string;
+    redirectUri: string;
+    responseType: string;
+    responseMode?: string;
+    state?: string;
+    nonce?: string;
+    scope?: string;
+    audience?: string;
 }
