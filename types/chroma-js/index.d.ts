@@ -1,7 +1,8 @@
-// Type definitions for Chroma.js v2.0.0
+// Type definitions for Chroma.js v1.3.4
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
@@ -304,28 +305,53 @@ declare namespace Chroma {
 
         padding(p: number | number[]): this;
 
+        /**
+         * You can call scale.colors(n) to quickly grab `c` equi-distant colors from a color scale. If called with no
+         * arguments, scale.colors returns the original array of colors used to create the scale.
+         */
         colors(c?: number, format?: 'hex' | 'name'): string[];
-        colors(c?: number, format?: 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(c?: number, format?: null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
         colors(c?: number, format?: 'luminance' | 'temperature'): number[];
         colors<K extends keyof ColorSpaces>(c?: number, format?: K): ColorSpaces[K][];
 
+        /**
+         * If you want the scale function to return a distinct set of colors instead of a continuous gradient, you can
+         * use scale.classes. If you pass a number the scale will broken into equi-distant classes.
+         * You can also define custom class breaks by passing them as array
+         */
         classes(c: number | number[]): this;
 
-        range(arg: string[]): this;
-
-        out(mode: false): Scale;
-        out<K extends keyof ColorSpaces>(mode: K): Scale<ColorSpaces[K]>;
+        /**
+         * Set out format for scale() call. Passing null will result in a scale which outputs colors.
+         */
+        out(format: null): Scale;
+        out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
     }
 
     export interface Cubehelix {
+        /**
+         * Set start color for hue rotation, default=300
+         */
         start(s: number): Cubehelix;
 
+        /**
+         * number (and direction) of hue rotations (e.g. 1=360°, 1.5=`540°``), default=-1.5
+         */
         rotations(r: number): Cubehelix;
 
+        /**
+         * gamma factor can be used to emphasise low or high intensity values, default=1
+         */
         gamma(g: number): Cubehelix;
 
+        /**
+         * lightness range: default: [0,1] (black -> white)
+         */
         lightness(l: number[]): Cubehelix;
 
+        /**
+         * You can call cubehelix.scale() to use the cube-helix through the chroma.scale interface.
+         */
         scale(): Scale
     }
 }
