@@ -1,0 +1,19 @@
+{
+    "name": "@types/redux-infinite-scroll",
+    "version": "1.0.0",
+    "description": "TypeScript definitions for redux-infinite-scroll 1.0.9",
+    "license": "MIT",
+    "author": "Tony Nikolov <https://github.com/silkyfray/>",
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/react": "*",
+        "redux-infinite-scroll": "*"
+    },
+    "peerDependencies": {},
+    "typings": "index.d.ts"
+}
