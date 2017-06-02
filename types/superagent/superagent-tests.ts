@@ -40,13 +40,11 @@ agent
     });
 
 // Plugins
-var nocache = require('superagent-no-cache');
 var prefix = require('superagent-prefix')('/static');
 
 request
     .get('/some-url')
     .use(prefix) // Prefixes *only* this request
-    .use(nocache) // Prevents caching of *only* this request
     .end(function (err, res) {
         // Do something
     });
