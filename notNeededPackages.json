@@ -133,6 +133,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "express-validator",
+            "typingsPackageName": "express-validator",
+            "sourceRepoURL": "https://github.com/ctavan/express-validator",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
@@ -221,6 +227,12 @@
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
         },
         {
             "libraryName": "JSNLog",
@@ -419,6 +431,12 @@
             "typingsPackageName": "redux-batched-actions",
             "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "redux-devtools-extension",
+            "typingsPackageName": "redux-devtools-extension",
+            "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
+            "asOfVersion": "2.13.2"
         },
         {
             "libraryName": "redux-persist",

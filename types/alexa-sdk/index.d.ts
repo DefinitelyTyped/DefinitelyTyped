@@ -1,13 +1,17 @@
-// Type definitions for Alexa SDK for Node.js v1.0.3
+// Type definitions for Alexa SDK for Node.js v1.1.0
 // Project: https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs
-// Definitions by: Pete Beegle <https://github.com/petebeegle>
+// Definitions by: Pete Beegle <https://github.com/petebeegle>, Huw <https://github.com/hoo29>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export function handler(event: RequestBody, context: Context, callback?: Function): AlexaObject;
 export function CreateStateHandler(state: string, obj: any): any;
 export var StateString: string;
 
-interface AlexaObject {
+type ConfirmationStatuses = "NONE" | "DENIED" | "CONFIRMED";
+type DialogStates = "STARTED" | "IN_PROGRESS" | "COMPLETED";
+
+interface AlexaObject extends Handler {
     _event: any;
     _context: any;
     _callback: any;
@@ -74,12 +78,20 @@ interface SessionUser {
 interface LaunchRequest extends IRequest { }
 
 interface IntentRequest extends IRequest {
+    dialogState: DialogStates;
     intent: Intent;
 }
 
-interface Intent {
+interface SlotValue {
+    confirmationStatus: ConfirmationStatuses;
     name: string;
-    slots: any;
+    value?: any;
+}
+
+interface Intent {
+    confirmationStatus: ConfirmationStatuses;
+    name: string;
+    slots: Record<string, SlotValue>;
 }
 
 interface SessionEndedRequest extends IRequest {
@@ -127,5 +139,3 @@ interface Image {
 interface Reprompt {
     outputSpeech: OutputSpeech;
 }
-
-

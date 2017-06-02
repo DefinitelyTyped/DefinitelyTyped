@@ -33,6 +33,7 @@ Boom.tooManyRequests('message', {some: 'data'});
 Boom.illegal('message', {some: 'data'});
 
 Boom.badImplementation('message', {some: 'data'});
+Boom.internal('message', {some: 'data'});
 Boom.notImplemented('message', {some: 'data'});
 Boom.badGateway('message', {some: 'data'});
 Boom.serverUnavailable('message', {some: 'data'});
