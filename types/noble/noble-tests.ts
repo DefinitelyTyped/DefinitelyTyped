@@ -6,12 +6,14 @@ function test_startScanning(): void {
     noble.startScanning();
     noble.startScanning(["0x180d"]);
     noble.startScanning(["0x180d"], true);
+    noble.startScanning(["0x180d"], true, (error: Error): void => {});
 }
 test_startScanning();
 
 function test_stopScanning(): void {
     "use strict";
     noble.stopScanning();
+    noble.stopScanning((): void => {});
 }
 test_stopScanning();
 

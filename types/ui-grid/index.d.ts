@@ -3799,7 +3799,7 @@ declare namespace uiGrid {
          * If suppressRemoveSort is also set, the unsorted state will be skipped even if it is listed here. Each direction may
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
-        sortDirectionCycle?: Array<IUiGridConstants>;
+        sortDirectionCycle?: Array<null | string>;
         /**
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'

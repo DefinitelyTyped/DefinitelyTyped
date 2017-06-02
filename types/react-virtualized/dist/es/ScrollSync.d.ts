@@ -20,6 +20,11 @@ export type ScrollSyncChildProps = {
 }
 
 export type ScrollSyncProps = {
+    /**
+     * Function responsible for rendering 2 or more virtualized components.
+     * This function should implement the following signature:
+     * ({ onScroll, scrollLeft, scrollTop }) => PropTypes.element
+     */
     children?: (props: ScrollSyncChildProps) => React.ReactNode
 };
 
@@ -37,11 +42,6 @@ export type ScrollSyncState = {
  */
 export class ScrollSync extends PureComponent<ScrollSyncProps, ScrollSyncState> {
     static propTypes: {
-        /**
-         * Function responsible for rendering 2 or more virtualized components.
-         * This function should implement the following signature:
-         * ({ onScroll, scrollLeft, scrollTop }) => PropTypes.element
-         */
         children: Validator<(props: ScrollSyncChildProps) => React.ReactNode>
     };
 

@@ -3,8 +3,6 @@
 // Definitions by: Igor Rogatty <http://github.com/rogatty>, AJP <http://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 export = Boom;
 
 declare namespace Boom {
@@ -272,6 +270,15 @@ declare namespace Boom {
      * @see {@link https://github.com/hapijs/boom#boombadimplementationmessage-data---alias-internal}
      */
     export function badImplementation(message?: string, data?: any): BoomError;
+
+    /**
+     * Returns a 500 Internal Server Error error
+     * Only 500 errors will hide your message from the end user. Your message is recorded in the server log.
+     * @param message optional message.
+     * @param data optional additional error data.
+     * @see {@link https://github.com/hapijs/boom#boombadimplementationmessage-data---alias-internal}
+     */
+    export function internal(message?: string, data?: any): BoomError;
 
     /**
      * Returns a 501 Not Implemented error with your error message to the user
