@@ -198,6 +198,18 @@ export class WebAuth {
      * @param {ParseHashOptions} options
      * @param {Function} callback: any(err, token_payload)
      */
+    parseHash(callback: Auth0Callback<Auth0DecodedHash>): void;
+
+    /**
+     * Parse the url hash and extract the returned tokens depending on the transaction.
+     *
+     * Only validates id_tokens signed by Auth0 using the RS256 algorithm using the public key exposed
+     * by the `/.well-known/jwks.json` endpoint. Id tokens signed with other algorithms will not be
+     * accepted.
+     *
+     * @param {ParseHashOptions} options
+     * @param {Function} callback: any(err, token_payload)
+     */
     parseHash(options: ParseHashOptions, callback: Auth0Callback<Auth0DecodedHash>): void;
 
     /**
@@ -520,6 +532,7 @@ interface PasswordlessVerifyOptions {
     verificationCode: string;
     phoneNumber?: string;
     email?: string;
+    send?: string;
 }
 
 interface Auth0UserProfile {
@@ -587,7 +600,7 @@ interface CrossOriginLoginOptions {
     username?: string;
     email?: string;
     password: string;
-    realm: string;
+    realm?: string;
 }
 
 interface LogoutOptions {
@@ -597,23 +610,24 @@ interface LogoutOptions {
 }
 
 interface DelegationOptions {
-    clientID?: string;
-    grantType: string;
-    idToken?: string;
-    refreshToken?: string;
+    client_id?: string;
+    grant_type: string;
+    id_token?: string;
+    refresh_token?: string;
     target?: string;
     scope?: string;
-    apiType?: string;
+    api_type?: string;
 }
 
 interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
+    scope?: string;
 }
 
 interface ParseHashOptions {
-    hash: string;
+    hash?: string;
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
