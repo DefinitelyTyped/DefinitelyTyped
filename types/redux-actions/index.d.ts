@@ -116,5 +116,5 @@ export function handleActions<State, Payload>(
 ): Reducer<State, Payload>;
 
 export function combineActions(
-    ...actionTypes: Array<ActionFunctions<any>>
+    ...actionTypes: Array<ActionFunctions<any> | string>
 ): Array<ActionFunctions<any>>;
