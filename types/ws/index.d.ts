@@ -1,4 +1,4 @@
-// Type definitions for ws@3.0.0
+// Type definitions for ws 3.0
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
