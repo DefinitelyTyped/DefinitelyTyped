@@ -1,6 +1,6 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import InfiniteScoller from "redux-infinite-scroll"
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import InfiniteScoller from "redux-infinite-scroll";
 
 class App extends React.Component<any, any> {
     state = {
@@ -10,10 +10,10 @@ class App extends React.Component<any, any> {
 
     _createData(numOfItems = this.state.numOfItems) {
         const data: JSX.Element[] = [];
-        for (var i = 0; i < numOfItems; i++) {
+        for (let i = 0; i < numOfItems; i++) {
             data.push(
                 <div key={i} className="test-item">Item #{i}</div>
-            )
+            );
         }
 
         return data;
@@ -26,8 +26,8 @@ class App extends React.Component<any, any> {
             this.setState({
                 numOfItems: this.state.numOfItems + 40,
                 loadingMore: false
-            })
-        })
+            });
+        });
     }
 
     render() {
@@ -42,7 +42,7 @@ class App extends React.Component<any, any> {
                 containerHeight={400}
                 items={this._createData()}
             />
-        )
+        );
     }
 }
 
