@@ -21,10 +21,7 @@
     "lint": "dtslint types"
   },
   "devDependencies": {
-    "dtslint": "github:Microsoft/dtslint#production",
+    "dtslint": "Microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
-  },
-  "dependencies": {
-    "typescript": "^2.3.4"
   }
 }
