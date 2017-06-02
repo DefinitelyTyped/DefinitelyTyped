@@ -8,7 +8,7 @@ var WebSocketServer = WebSocket.Server;
 {
     var ws = new WebSocket('ws://www.host.com/path');
     ws.on('open', () => ws.send('something'));
-    ws.on('message', (data, flags) => {});
+    ws.on('message', (data) => {});
 }
 
 {
@@ -22,7 +22,8 @@ var WebSocketServer = WebSocket.Server;
 
 {
     var wss = new WebSocketServer({port: 8080});
-    wss.on('connection', (ws) => {
+    wss.on('connection', (ws, req) => {
+        console.log(req.url);
         ws.on('message', (message) => console.log('received: %s', message));
         ws.send('something');
     });
@@ -46,8 +47,8 @@ var WebSocketServer = WebSocket.Server;
     wsc.on('open',  () => wsc.send(Date.now().toString(), {mask: true}));
     wsc.on('close', () => console.log('disconnected'));
 
-    wsc.on('message', (data, flags) => {
-        console.log('Roundtrip time: ' + (Date.now() - parseInt(data)) + 'ms', flags);
+    wsc.on('message', (data) => {
+        console.log('Roundtrip time: ' + (Date.now() - parseInt(data)) + 'ms');
         setTimeout(() => {
             wsc.send(Date.now().toString(), {mask: true});
         }, 500);
@@ -76,8 +77,9 @@ var WebSocketServer = WebSocket.Server;
         verifyClient
     })
     
-    wsv.on('connection', function connection(ws) {
+    wsv.on('connection', function connection(ws, req) {
         console.log(ws.protocol)
+        console.log(req.url)
     })
 }
 
