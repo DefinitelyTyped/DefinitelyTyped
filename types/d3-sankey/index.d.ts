@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-sankey module 0.5
+// Type definitions for D3JS d3-sankey module 0.6
 // Project: https://github.com/d3/d3-sankey/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 0.5
+// Last module patch version validated against: 0.6
 
 import { Link } from 'd3-shape';
 
@@ -43,21 +43,29 @@ export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends Sa
      */
     value?: number;
     /**
-     * Node's horizontal position (derived from the graph topology) calculated by Sankey layout generator.
+     * Node’s zero-based index within the array of nodes calculated by Sankey layout generator.
      */
-    x?: number;
+    index?: number;
     /**
-     * Node's node width calculated by Sankey layout generator.
+     * Node’s zero-based graph depth, derived from the graph topology calculated by Sankey layout generator.
      */
-    dx?: number;
+    depth?: number;
     /**
-     * Node's vertical position calculated by Sankey layout generator.
+     * Node's minimum horizontal position (derived from the node.depth) calculated by Sankey layout generator.
      */
-    y?: number;
+    x0?: number;
     /**
-     * Node's height (proportional to its value) calculated by Sankey layout generator.
+     * Node’s maximum horizontal position (node.x0 + sankey.nodeWidth) calculated by Sankey layout generator.
      */
-    dy?: number;
+    x1?: number;
+    /**
+     * Node's minimum vertical position calculated by Sankey layout generator.
+     */
+    y0?: number;
+    /**
+     * Node's maximum vertical position (node.y1 - node.y0 is proportional to node.value) calculated by Sankey layout generator.
+     */
+    y1?: number;
 }
 
 /**
@@ -110,17 +118,21 @@ export interface SankeyLinkMinimal<N extends SankeyExtraProperties, L extends Sa
      */
     value: number;
     /**
-     * Link breadth (proportional to its value) calculated by Sankey layout generator.
-     */
-    dy?: number;
-    /**
      * Link's vertical starting position (at source node) calculated by Sankey layout generator.
      */
-    sy?: number;
+    y0?: number;
     /**
      * Link's vertical end position (at target node) calculated by Sankey layout generator.
      */
-    ty?: number;
+    y1?: number;
+    /**
+     * Link's width (proportional to its value) calculated by Sankey layout generator.
+     */
+    width?: number;
+    /**
+     * Link's zero-based index within the array of links calculated by Sankey layout generator.
+     */
+    index?: number;
 }
 
 /**
