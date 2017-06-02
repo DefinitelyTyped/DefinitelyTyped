@@ -296,6 +296,20 @@ request
     })
     .end(callback);
 
+// Progress
+request
+    .post('/upload')
+    .attach('image', 'path/to/tobi.png')
+    .on('progress', (progress: request.ProgressEvent) => {
+        if (progress.direction === 'download') {
+        } else if (progress.direction === 'upload') {
+        }
+        const loaded: number = progress.loaded;
+        const percent: number | undefined = progress.percent;
+        const total: number | undefined = progress.total;
+    })
+    .end(callback);
+
 // Promise
 request
     .get('/search')
