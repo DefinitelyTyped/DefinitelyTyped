@@ -133,6 +133,12 @@
             "asOfVersion": "2.0.2"
         },
         {
+            "libraryName": "express-validator",
+            "typingsPackageName": "express-validator",
+            "sourceRepoURL": "https://github.com/ctavan/express-validator",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
@@ -221,6 +227,12 @@
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
         },
         {
             "libraryName": "JSNLog",

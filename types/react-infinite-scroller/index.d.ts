@@ -55,6 +55,10 @@ declare module 'react-infinite-scroller' {
          * Defaults to true.
          */
         useWindow?: boolean;
+        /**
+         * Loader component for indicating "loading more".
+         */
+        loader?: React.ReactElement<any>;
     }
 
     export default class InfiniteScroll extends React.Component<InfiniteScrollProps, any> { }

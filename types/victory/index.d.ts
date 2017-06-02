@@ -1,6 +1,8 @@
-// Type definitions for Victory 0.9.0
+// Type definitions for Victory 0.9.1
 // Project: https://github.com/FormidableLabs/victory
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, snerks <https://github.com/snerks>
+// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
+//                 snerks <https://github.com/snerks>
+//                 Krzysztof Cebula <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -34,6 +36,7 @@ declare module "victory" {
         parent?: React.CSSProperties;
         data?: React.CSSProperties;
         labels?: React.CSSProperties;
+        tickLabels?: React.CSSProperties;
     }
 
     export interface VictoryAnimationProps {
@@ -1390,6 +1393,11 @@ declare module "victory" {
          * If a dataComponent is not provided, VictoryPie's Slice component will be used.
          */
         dataComponent?: React.ReactElement<any>;
+        /**
+         * The labelRadius prop defines the radius of the arc that will be used for positioning each slice label.
+         * If this prop is not set, the label radius will default to the radius of the pie + label padding.
+         */
+        labelRadius?: number;
         /**
          * The overall end angle of the pie in degrees. This prop is used in conjunction with
          * startAngle to create a pie that spans only a segment of a circle.

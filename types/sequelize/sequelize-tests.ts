@@ -913,6 +913,8 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], grou
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
+User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
+
 
 User.findById( 'a string' );
 
@@ -1625,6 +1627,18 @@ s.transaction().then( function( t ) {
     } );
 
 } );
+
+s.transaction({
+    isolationLevel: s.Transaction.ISOLATION_LEVELS.READ_COMMITTED
+    }).then(function(t2) {
+        return User.find({
+                where: {
+                    username: 'jan'
+                },
+                lock: t2.LOCK.UPDATE,
+                transaction: t2
+            });
+    });
 
 s.transaction( function() {
     return Bluebird.resolve();
