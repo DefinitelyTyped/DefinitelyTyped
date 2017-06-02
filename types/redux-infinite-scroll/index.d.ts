@@ -2,9 +2,9 @@
 // Project: https://github.com/RealScout/redux-infinite-scroll
 // Definitions by: Tony Nikolov <https://github.com/silkyfray/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3.
+// TypeScript Version: 2.3
 
-import { Component } from "react"
+import { Component, HTMLProps } from "react"
 
 declare interface IInfiniteScrollerProps {
     elementIsScrollable?: boolean,
@@ -18,10 +18,9 @@ declare interface IInfiniteScrollerProps {
     items?: JSX.Element[];
     children?: JSX.Element[];
     holderType?: string;
-    className?: string;
 }
 
-declare class InfiniteScoller extends Component<IInfiniteScrollerProps, {}>{
+declare class InfiniteScoller extends Component<IInfiniteScrollerProps & HTMLProps<HTMLDivElement>, {}>{
 
 }
 
