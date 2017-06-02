@@ -1,15 +1,14 @@
-// Type definitions for Chroma.js v1.3.4
+// Type definitions for Chroma.js 1.3
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
 declare namespace Chroma {
-
-    type ColorSpaces = {
+    interface ColorSpaces {
         rgb: [number, number, number];
         rgba: [number, number, number, number];
         hsl: [number, number, number];
@@ -21,23 +20,16 @@ declare namespace Chroma {
         cmyk: [number, number, number, number];
         gl: [number, number, number, number];
     }
-    export interface ChromaStatic {
 
+    interface ChromaStatic {
         /**
          * Creates a color from a string representation (as supported in CSS).
+         * Creates a color from a number representation [0; 16777215]
          *
          * @param color The string to convert to a color.
          * @return the color object.
          */
-        (color: string): Color;
-
-        /**
-         * Creates a color from a number representation [0; 16777215]
-         *
-         * @param number The number to convert to a color.
-         * @return the color object.
-         */
-        (number: number): Color;
+        (color: string | number): Color;
 
         /**
          * Create a color in the specified color space using a, b and c as values.
@@ -111,7 +103,7 @@ declare namespace Chroma {
          * Similar to {@link mix}, but accepts more than two colors. Simple averaging of R,G,B components and the alpha
          * channel.
          */
-        average(colors: (string | Color)[], colorSpace?: keyof ColorSpaces): Color;
+        average(colors: Array<string | Color>, colorSpace?: keyof ColorSpaces): Color;
 
         /**
          * Blends two colors using RGB channel-wise blend functions.
@@ -191,10 +183,13 @@ declare namespace Chroma {
         /**
          * Helper function that computes class breaks based on data.
          * Mode:
-         *  <li>equidistant <code>'e'</code> breaks are computed by dividing the total range of the data into n groups of equal size.
+         *  <li>equidistant <code>'e'</code> breaks are computed by dividing the total range of the data into n groups
+         *  of equal size.
          *  <li>quantile <code>'q'</code> input domain is divided by quantile ranges.
          *  <li>logarithmic <code>'l'</code> breaks are equidistant breaks but on a logarithmic scale.
-         *  <li>k-means <code>'k'</code> breaks use the 1-dimensional [k-means clustering algorithm]{@link https://en.wikipedia.org/wiki/K-means_clustering} to find (roughly) n groups of "similar" values. Note that this k-means implementation does not guarantee to find exactly n groups.
+         *  <li>k-means <code>'k'</code> breaks use the 1-dimensional
+         *  [k-means clustering algorithm]{@link https://en.wikipedia.org/wiki/K-means_clustering} to find (roughly) n
+         *  groups of "similar" values. Note that this k-means implementation does not guarantee to find exactly n groups.
          */
         limits(data: number[], mode: 'e' | 'q' | 'l' | 'k', c: number): number[];
 
@@ -208,7 +203,7 @@ declare namespace Chroma {
 
         scale(name: string | Color): Scale;
 
-        scale(colors?: (string | Color)[]): Scale;
+        scale(colors?: Array<string | Color>): Scale;
 
         cubehelix(): Cubehelix;
 
@@ -217,7 +212,7 @@ declare namespace Chroma {
         css(col: string): Color;
     }
 
-    export type Color = {
+    type Color = {
         /**
          * Get and set the color opacity.
          */
@@ -255,7 +250,9 @@ declare namespace Chroma {
         get(modechan: string): number;
 
         /**
-         * Relative brightness, according to the [WCAG]{@link http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef} definition. Normalized to 0 for darkest black and 1 for lightest white.
+         * Relative brightness, according to the
+         * [WCAG]{@link http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef} definition. Normalized to
+         * 0 for darkest black and 1 for lightest white.
          */
         luminance(): number;
 
@@ -288,9 +285,9 @@ declare namespace Chroma {
         temperature(): number;
     } & {
         [K in keyof ColorSpaces]: () => ColorSpaces[K];
-    }
+    };
 
-    export interface Scale<OutType = Color> {
+    interface Scale<OutType = Color> {
         (c: string[]): Scale;
 
         (value: number): OutType;
@@ -299,7 +296,7 @@ declare namespace Chroma {
 
         mode(mode: keyof ColorSpaces): this;
 
-        cache(use: boolean): boolean
+        cache(use: boolean): boolean;
 
         correctLightness(enable?: boolean): this;
 
@@ -312,7 +309,7 @@ declare namespace Chroma {
         colors(c?: number, format?: 'hex' | 'name'): string[];
         colors(c?: number, format?: null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
         colors(c?: number, format?: 'luminance' | 'temperature'): number[];
-        colors<K extends keyof ColorSpaces>(c?: number, format?: K): ColorSpaces[K][];
+        colors<K extends keyof ColorSpaces>(c?: number, format?: K): Array<ColorSpaces[K]>;
 
         /**
          * If you want the scale function to return a distinct set of colors instead of a continuous gradient, you can
@@ -328,7 +325,7 @@ declare namespace Chroma {
         out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
     }
 
-    export interface Cubehelix {
+    interface Cubehelix {
         /**
          * Set start color for hue rotation, default=300
          */
@@ -352,12 +349,11 @@ declare namespace Chroma {
         /**
          * You can call cubehelix.scale() to use the cube-helix through the chroma.scale interface.
          */
-        scale(): Scale
+        scale(): Scale;
     }
 }
 
 declare var chroma: Chroma.ChromaStatic;
 
-declare module "chroma-js" {
-    export = chroma;
-}
+export = chroma;
+export as namespace chroma;
