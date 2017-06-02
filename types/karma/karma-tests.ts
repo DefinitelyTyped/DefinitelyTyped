@@ -10,7 +10,7 @@ function runKarma(singleRun: boolean): void {
     });
 }
 
-gulp.task('test:unit:karma', () => runKarma(true));
+gulp.task('test:unit:karma', gulp.parallel('build:test:unit', () => runKarma(true)));
 
 
 
