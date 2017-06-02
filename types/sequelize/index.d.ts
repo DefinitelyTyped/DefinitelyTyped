@@ -3171,7 +3171,6 @@ declare namespace sequelize {
          * be returned. Only applies if `options.paranoid` is true for the model.
          */
         paranoid?: boolean;
-
     }
 
     /**
@@ -3244,13 +3243,13 @@ declare namespace sequelize {
         raw?: boolean;
 
         /**
-             * having ?!?
+         * having ?!?
          */
         having?: WhereOptions;
 
         /**
-             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
-             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
+         * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
+         * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
 
@@ -3259,6 +3258,11 @@ declare namespace sequelize {
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
+                     
+        /**
+         * Prevents a subquery on the main table when using include
+         */
+        subQuery?: boolean;
     }
 
     /**
