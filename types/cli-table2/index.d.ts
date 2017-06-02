@@ -26,12 +26,17 @@ declare namespace CliTable2 {
     type VerticalAlignment = "top" | "center" | "bottom";
 
     interface TableOptions {
-        chars: Record<CharName, string>;
         truncate: string;
         colWidths: Array<number | null>;
         rowHeights: Array<number | null>;
         colAligns: HorizontalAlignment[];
         rowAligns: VerticalAlignment[];
+        head: string[];
+        wordWrap: boolean;
+    }
+
+    interface TableInstanceOptions extends TableOptions {
+        chars: Record<CharName, string>;
         style: {
             "padding-left": number;
             "padding-right": number;
@@ -39,13 +44,11 @@ declare namespace CliTable2 {
             border: string[];
             compact: boolean;
         };
-        head: string[];
-        wordWrap: boolean;
     }
 
-    interface TableConstructorOptions extends Partial<Pick<TableOptions, "truncate" | "colWidths" | "rowHeights" | "colAligns" | "head" | "wordWrap">> {
+    interface TableConstructorOptions extends Partial<TableOptions> {
         chars?: Partial<Record<CharName, string>>;
-        style?: Partial<TableOptions["style"]>;
+        style?: Partial<TableInstanceOptions["style"]>;
     }
 
     type CellValue = boolean | number | string | null | undefined;
@@ -67,12 +70,11 @@ declare namespace CliTable2 {
     }
 
     interface GenericTable<T> extends Array<T> {
-        options: CliTable2.TableOptions;
+        options: CliTable2.TableInstanceOptions;
         readonly width: number;
     }
 
     type Table = HorizontalTable | VerticalTable | CrossTable;
-    type Row = HorizontalTableRow | VerticalTableRow | CrossTableRow;
     type Cell = CellValue | CellOptions;
 
     type HorizontalTable = GenericTable<HorizontalTableRow>;
