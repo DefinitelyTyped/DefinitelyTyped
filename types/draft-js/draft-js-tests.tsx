@@ -3,14 +3,28 @@ import * as ReactDOM from "react-dom";
 import {Map} from "immutable";
 
 import {
-  Editor, 
-  EditorState, 
-  RichUtils, 
-  DefaultDraftBlockRenderMap, 
-  ContentBlock, 
-  ContentState, 
-  convertFromHTML
+  ContentBlock,
+  DefaultDraftBlockRenderMap,
+  Editor,
+  EditorState,
+  Modifier,
+  RichUtils,
+  SelectionState,
+  getDefaultKeyBinding,
 } from 'draft-js';
+
+const SPLIT_HEADER_BLOCK = 'split-header-block';
+
+export type KeyName =
+  'ENTER';
+
+export type KeyCode = number;
+
+export const KEYCODES: Record<KeyName, KeyCode> = {
+  ENTER: 13,
+};
+
+type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 
 class RichEditorExample extends React.Component<{}, { editorState: EditorState }> {
   constructor() {
@@ -31,13 +45,40 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
 
   onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 
+  keyBindingFn(e: SyntheticKeyboardEvent): string {
+    if (e.keyCode === KEYCODES.ENTER) {
+      const { editorState } = this.state;
+      const contentState = editorState.getCurrentContent();
+      const selectionState = editorState.getSelection();
+
+      // only split headers into header and unstyled if we press 'Enter'
+      // at the end of a header (without text selected)
+      if (selectionState.isCollapsed()) {
+        const endKey = selectionState.getEndKey();
+        const endOffset = selectionState.getEndOffset();
+        const endBlock = contentState.getBlockForKey(endKey);
+        if (isHeaderBlock(endBlock) && endOffset === endBlock.getText().length) {
+          return SPLIT_HEADER_BLOCK;
+        }
+      }
+    }
+
+    return getDefaultKeyBinding(e);
+  }
+
   handleKeyCommand = (command: string) => {
+    if (command === SPLIT_HEADER_BLOCK) {
+      this.onChange(this.splitHeaderToNewBlock());
+      return 'handled';
+    }
+
     const {editorState} = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
+
     if (newState) {
       this.onChange(newState);
       return "handled";
-        }
+    }
 
     return "not-handled";
     }
@@ -48,6 +89,40 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
 
   toggleInlineStyle: (inlineStyle: string) => void = (inlineStyle: string) => {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
+  }
+
+  splitHeaderToNewBlock(): EditorState {
+      const { editorState } = this.state;
+      const selection = editorState.getSelection();
+
+      // Add a new block after the cursor
+      const contentWithBlock = Modifier.splitBlock(
+        editorState.getCurrentContent(),
+        selection,
+      );
+
+      // Change the new block type to be normal 'unstyled' text,
+      const newBlock = contentWithBlock.getBlockAfter(selection.getEndKey());
+      const contentWithUnstyledBlock = Modifier.setBlockType(
+        contentWithBlock,
+        SelectionState.createEmpty(newBlock.getKey()),
+        'unstyled',
+      );
+
+      // push the new state with 'insert-characters' to preserve the undo/redo stack
+      const stateWithNewline = EditorState.push(
+        editorState,
+        contentWithUnstyledBlock,
+        'insert-characters'
+      );
+
+      // manually move the cursor to the next line (as expected)
+      const nextState = EditorState.forceSelection(
+        stateWithNewline,
+        SelectionState.createEmpty(newBlock.getKey()),
+      );
+
+      return nextState;
   }
 
   render(): React.ReactElement<{}> {
@@ -76,6 +151,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
             blockStyleFn={getBlockStyle}
             customStyleMap={styleMap}
             editorState={this.state.editorState}
+            keyBindingFn={this.keyBindingFn}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             placeholder="Tell a story..."
@@ -142,6 +218,20 @@ const BLOCK_TYPES = [
   { label: 'OL', style: 'ordered-list-item' },
   { label: 'Code Block', style: 'code-block' },
 ];
+
+const isHeaderBlock = (block: ContentBlock): boolean => {
+  switch (block.getType()) {
+    case 'header-one':
+    case 'header-two':
+    case 'header-three':
+    case 'header-four':
+    case 'header-five':
+    case 'header-six': {
+      return true;
+    }
+    default: return false;
+  }
+}
 
 const BlockStyleControls = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
   const {editorState} = props;

@@ -3,7 +3,10 @@ import { View } from 'react-native';
 import {
     addNavigationHelpers,
     StackNavigator,
-    TabNavigatorScreenOptions
+    TabNavigatorScreenOptions,
+    TabNavigatorConfig,
+    TabBarTop,
+    TabBarBottom,
 } from 'react-navigation';
 
 const Start = (
@@ -34,5 +37,10 @@ const tabNavigatorScreenOptions: TabNavigatorScreenOptions = {
     title: 'title',
     tabBarVisible: true,
     tabBarIcon: <View />,
-    tabBarLabel: 'label'
+    tabBarLabel: 'label',
+}
+
+const tabNavigatorConfig: TabNavigatorConfig = {
+    lazy: true,
+    tabBarComponent: TabBarTop,
 }
