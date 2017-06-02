@@ -923,6 +923,7 @@ declare namespace __MaterialUI {
             floatingLabelStyle?: React.CSSProperties;
             floatingLabelText?: React.ReactNode;
             fullWidth?: boolean;
+            hideCalendarDate?: boolean;
             hintStyle?: React.CSSProperties;
             hintText?: React.ReactNode;
             id?: string;
