@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/generic-session
 // Definitions by: Nick Simmons <https://github.com/nsimmons/>, Ragg <https://github.com/Ragg-/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version:2.3
+// TypeScript Version: 2.3
 
 import * as Koa from "koa";
 
