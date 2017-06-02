@@ -1,4 +1,4 @@
-// Type definitions for Mixpanel for 2.11.1
+// Type definitions for Mixpanel 2.11
 // Project: https://mixpanel.com/
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek/>
