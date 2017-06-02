@@ -2271,6 +2271,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         hideBulletsCount: number;
         /** Name of the high field (used by candlesticks and ohlc) in your dataProvider. */
         highField: string;
+        
+         /** Unique id of a graph. It is not required to set one, unless you want to use this graph for as your scrollbar's graph and need to indicate which graph should be used.*//
+        id: string;
+        
         /** Whether to include this graph when calculating min and max value of the axis.
             @default true
         */
