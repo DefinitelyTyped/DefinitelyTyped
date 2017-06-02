@@ -1,6 +1,10 @@
-// Type definitions for Sinon 2.2
+// Type definitions for Sinon 2.3
 // Project: http://sinonjs.org/
-// Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.com/lumaxis>, Nico Jansen <https://github.com/nicojs>
+// Definitions by: William Sears <https://github.com/mrbigdog2u>
+//                 Jonathan Little <https://github.com/rationull>
+//                 Lukas Spieß <https://github.com/lumaxis>
+//                 Nico Jansen <https://github.com/nicojs>
+//                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
@@ -110,6 +114,9 @@ declare namespace Sinon {
         resolves(value?: any): SinonStub;
         throws(type?: string): SinonStub;
         throws(obj: any): SinonStub;
+        throwsArg(index: number): SinonStub;
+        throwsException(type?: string): SinonStub;
+        throwsException(obj: any): SinonStub;
         rejects(): SinonStub;
         rejects(errorType: string): SinonStub;
         rejects(value: any): SinonStub;
@@ -123,12 +130,16 @@ declare namespace Sinon {
         callsArgWithAsync(index: number, ...args: any[]): SinonStub;
         callsArgOnWithAsync(index: number, context: any, ...args: any[]): SinonStub;
         callsFake(func: (...args: any[]) => void): SinonStub;
+        get(func: () => any): SinonStub;
+        set(func: (v: any) => void): SinonStub;
         onCall(n: number): SinonStub;
         onFirstCall(): SinonStub;
         onSecondCall(): SinonStub;
         onThirdCall(): SinonStub;
+        value(val: any): SinonStub;
         yields(...args: any[]): SinonStub;
         yieldsOn(context: any, ...args: any[]): SinonStub;
+        yieldsRight(...args: any[]): SinonStub;
         yieldsTo(property: string, ...args: any[]): SinonStub;
         yieldsToOn(property: string, context: any, ...args: any[]): SinonStub;
         yieldsAsync(...args: any[]): SinonStub;
