@@ -2277,12 +2277,14 @@ declare module "dgram" {
         exclusive?: boolean;
     }
 
+    type SocketType = "udp4" | "udp6";
+
     interface SocketOptions {
-        type: "udp4" | "udp6";
+        type: SocketType;
         reuseAddr?: boolean;
     }
 
-    export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export interface Socket extends events.EventEmitter {
