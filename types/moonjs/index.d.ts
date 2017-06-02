@@ -65,10 +65,10 @@ declare namespace Moon {
     }
 
     export interface LifecycleHooks {
-        init?: () => void;
-        mounted?: () => void;
-        updated?: () => void;
-        destroyed?: () => void;
+        init?(): void;
+        mounted?(): void;
+        updated?(): void;
+        destroyed?(): void;
     }
 
     export interface MoonConfig {
@@ -82,7 +82,6 @@ declare namespace Moon {
 
 // Declared as a module.
 declare var Moon: Moon.MoonStatic;
-type Moon<Data> = Moon.Moon<Data>;
 export = Moon;
 
 // Also available as a global.
