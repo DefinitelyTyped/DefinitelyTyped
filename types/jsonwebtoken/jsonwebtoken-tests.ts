@@ -11,32 +11,34 @@ var token: string;
 var cert: Buffer;
 
 interface ITestObject {
-  'foo': 'bar'
+  'foo': string
 }
+
+const testObject = { foo: 'bar' }
 
 /**
  * jwt.sign
  * https://github.com/auth0/node-jsonwebtoken#usage
  */
 // sign with default (HMAC SHA256)
-token = jwt.sign({ foo: 'bar' } as ITestObject, 'shhhhh');
+token = jwt.sign(testObject, 'shhhhh');
 
 // sign with default (HMAC SHA256) and single audience
-token = jwt.sign({ foo: 'bar' } as ITestObject, 'shhhhh', { audience: "theAudience"});
+token = jwt.sign(testObject, 'shhhhh', { audience: "theAudience"});
 
 // sign with default (HMAC SHA256) and multiple audiences
-token = jwt.sign({ foo: 'bar' } as ITestObject, 'shhhhh', { audience: ["audience1", "audience2"]});
+token = jwt.sign(testObject, 'shhhhh', { audience: ["audience1", "audience2"]});
 
 // sign with default (HMAC SHA256) and a keyid
-token = jwt.sign({ foo: 'bar' } as ITestObject, 'shhhhh', { keyid: "theKeyId"});
+token = jwt.sign(testObject, 'shhhhh', { keyid: "theKeyId"});
 
 // sign with RSA SHA256
 cert = fs.readFileSync('private.key');  // get private key
-token = jwt.sign({ foo: 'bar' } as ITestObject, cert, { algorithm: 'RS256'});
+token = jwt.sign(testObject, cert, { algorithm: 'RS256'});
 
 
 // sign asynchronously
-jwt.sign({ foo: 'bar' } as ITestObject, cert, { algorithm: 'RS256' }, function(err: Error, token: string) {
+jwt.sign(testObject, cert, { algorithm: 'RS256' }, function(err: Error, token: string) {
   console.log(token);
 });
 
