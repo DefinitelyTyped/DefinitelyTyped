@@ -279,6 +279,17 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
      * @param size A two element array of [width, height] in pixels which defaults to [1, 1].
      */
     size(size: [number, number]): this;
+
+    /**
+     * Return the current number of relaxation iterations, which defaults to 32.
+     */
+    iterations(): number;
+    /**
+     * Set the number of relaxation iterations when generating the layout and return this Sankey layout generator.
+     *
+     * @param iterations Number of relaxation iterations, which defaluts to 32.
+     */
+    iterations(iterations: number): this;
 }
 
 /**
