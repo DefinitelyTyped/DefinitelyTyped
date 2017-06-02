@@ -1,4 +1,4 @@
-// Type definitions for SuperAgent 3.5
+// Type definitions for SuperAgent 2.3
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
 //                 Nico Zelaya <https://github.com/NicoZelaya/>
