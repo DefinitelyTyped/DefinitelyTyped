@@ -114,13 +114,14 @@ declare namespace request {
         timeout(ms: number): this;
         type(val: string): this;
         unset(field: string): this;
-        use(fn: Function): this;
+        use(fn: Plugin): this;
         withCredentials(): this;
         write(data: string, encoding?: string): this;
         write(data: Buffer, encoding?: string): this;
         parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
     }
 
+    type Plugin = (req: Request) => void;
 }
 
 export = request;
