@@ -31,7 +31,7 @@ declare namespace L {
 			 *
 			 *  Default value: false
 			 */
-			edit: EditOptions;
+			edit?: EditOptions;
 		}
 
 		interface DrawOptions {
