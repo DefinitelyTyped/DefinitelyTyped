@@ -14,7 +14,7 @@
         ],
         "paths": {
             "react-onclickoutside": ["react-onclickoutside/v5"] 
-        }
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
