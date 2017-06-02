@@ -3,7 +3,7 @@
 // Definitions by: Amir.h Yeganemehr <https://github.com/yeganemehr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="jquery" />
+/// <reference types="jquery" />
 
 declare namespace growl {
 	interface Options {
