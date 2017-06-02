@@ -16,8 +16,15 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "buf.d.ts",
         "index.d.ts",
         "nodegit-tests.ts",
-        "repository.d.ts"
+        "object.d.ts",
+        "odb.d.ts",
+        "oid.d.ts",
+        "reference.d.ts",
+        "repository.d.ts",
+        "signature.d.ts",
+        "time.d.ts",
     ]
 }
