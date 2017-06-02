@@ -39,16 +39,6 @@ agent
         }
     });
 
-// Plugins
-var prefix = require('superagent-prefix')('/static');
-
-request
-    .get('/some-url')
-    .use(prefix) // Prefixes *only* this request
-    .end(function (err, res) {
-        // Do something
-    });
-
 var callback = (err: any, res: request.Response) => {
 };
 
