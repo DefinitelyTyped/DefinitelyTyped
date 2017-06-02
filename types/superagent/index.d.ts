@@ -21,7 +21,7 @@ declare namespace request {
         method: string;
         url: string;
         cookies: string;
-     }
+    }
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
         (url: string): SuperAgentRequest;
         (method: string, url: string): SuperAgentRequest;
@@ -58,9 +58,9 @@ declare namespace request {
         search(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
 
-      parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
-      saveCookies(res: Response): void;
-      attachCookies(req: Req): void;
+        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        saveCookies(res: Response): void;
+        attachCookies(req: Req): void;
     }
 
     interface Response extends NodeJS.ReadableStream {
@@ -90,35 +90,35 @@ declare namespace request {
     }
 
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
-      abort(): void;
-      accept(type: string): this;
-      attach(field: string, file: string, filename?: string): this;
-      auth(user: string, name: string): this;
-      buffer(val?: boolean): this;
-      clearTimeout(): this;
-      end(callback?: CallbackHandler): this;
-      field(name: string, val: string): this;
-      get(field: string): string;
-      on(name: string, handler: Function): this;
-      on(name: 'error', handler: (err: any) => void): this;
-      part(): this;
-      pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
-      query(val: Object): this;
-      redirects(n: number): this;
-      responseType(type: string): this;
-      send(data: string): this;
-      send(data: Object): this;
-      send(): this;
-      set(field: string, val: string): this;
-      set(field: Object): this;
-      timeout(ms: number): this;
-      type(val: string): this;
-      unset(field: string): this;
-      use(fn: Function): this;
-      withCredentials(): this;
-      write(data: string, encoding?: string): this;
-      write(data: Buffer, encoding?: string): this;
-      parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        abort(): void;
+        accept(type: string): this;
+        attach(field: string, file: string, filename?: string): this;
+        auth(user: string, name: string): this;
+        buffer(val?: boolean): this;
+        clearTimeout(): this;
+        end(callback?: CallbackHandler): this;
+        field(name: string, val: string): this;
+        get(field: string): string;
+        on(name: string, handler: Function): this;
+        on(name: 'error', handler: (err: any) => void): this;
+        part(): this;
+        pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
+        query(val: Object): this;
+        redirects(n: number): this;
+        responseType(type: string): this;
+        send(data: string): this;
+        send(data: Object): this;
+        send(): this;
+        set(field: string, val: string): this;
+        set(field: Object): this;
+        timeout(ms: number): this;
+        type(val: string): this;
+        unset(field: string): this;
+        use(fn: Function): this;
+        withCredentials(): this;
+        write(data: string, encoding?: string): this;
+        write(data: Buffer, encoding?: string): this;
+        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
     }
 
 }
