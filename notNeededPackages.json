@@ -124,7 +124,7 @@
             "libraryName": "electron",
             "typingsPackageName": "electron",
             "sourceRepoURL": "https://github.com/electron/electron",
-            "asOfVersion": "2.0.0"
+            "asOfVersion": "1.7.2"
         },
         {
             "libraryName": "electron-builder",
