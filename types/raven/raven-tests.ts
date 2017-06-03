@@ -2,7 +2,20 @@ import * as Raven from 'raven';
 
 const dsn = '___DSN___';
 
-const client = Raven.config(dsn, { autoBreadcrumbs: true }).install();
+const client = Raven.config(dsn, {
+    autoBreadcrumbs: true,
+    name: 'name',
+    logger: 'logger',
+    release: '1.0.0',
+    environment: 'dev',
+    serverName: 'localhost',
+    tags: { key: 'value'},
+    extra: { key: 'value'},
+    dataCallback: (data: { [key: string]: any }) => null,
+    transport: () => null,
+    captureUnhandledRejections: false
+}).install();
+
 console.log(Raven.version);
 Raven.config(dsn).install({ captureUnhandledRejections: true });
 client.setContext({});
