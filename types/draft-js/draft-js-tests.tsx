@@ -11,6 +11,9 @@ import {
   RichUtils,
   SelectionState,
   getDefaultKeyBinding,
+  ContentBlock, 
+  ContentState, 
+  convertFromHTML
 } from 'draft-js';
 
 const SPLIT_HEADER_BLOCK = 'split-header-block';
