@@ -38,7 +38,7 @@ let tx: fb.Transaction = con.startNewTransactionSync();
 con.startNewTransaction((err: Error | null, tx: fb.Transaction) => {});
 
 /* DataType */
-let column: fb.DataType = <any>{ };
+let column: fb.DataType = <any> {};
 if (typeof (column) === "number") {
     column * 10;
 } else if (typeof (column) === "string") {
@@ -102,7 +102,7 @@ blob._openSync();
 
 blob._closeSync();
 
-let buffer: Buffer = <any>{ };
+let buffer: Buffer = <any> {};
 let readBytes: number = blob._readSync(buffer);
 blob._read(buffer, (err: Error | null, buffer: Buffer, len: number) => {});
 
