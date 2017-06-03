@@ -43,7 +43,8 @@ export interface MongoClientOptions extends
     DbCreateOptions ,
     ServerOptions   ,
     MongosOptions   ,
-    ReplSetOptions {
+    ReplSetOptions  ,
+    SocketOptions {
         loggerLevel         ?: string       ;// The logging level (error/warn/info/debug)
         logger              ?: Object       ;// Custom logger object
         
@@ -62,7 +63,6 @@ export interface MongoClientOptions extends
         sslCert             ?: Buffer | string          ;// SSL Certificate binary buffer
         sslKey              ?: Buffer | string          ;// SSL Key file binary buffer
         sslPass             ?: Buffer | string          ;// SSL Certificate pass phrase
-        socketOptions       ?: SocketOptions            ;
     
         validateOptions     ?: Object                   ;// Default: false;
         promiseLibrary      ?: Object                   ;// ES6 compatible promise constructor
@@ -104,11 +104,11 @@ export class ReadPreference {
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
 export interface SocketOptions {
-    autoReconnect       ?: boolean; // Reconnect on error. default:false
-    noDelay             ?: boolean; // TCP Socket NoDelay option. default:true
-    keepAlive           ?: number;  // TCP KeepAlive on the socket with a X ms delay before start. default:0
-    connectTimeoutMS    ?: number;  // TCP Connection timeout setting. default 0
-    socketTimeoutMS     ?: number;  // TCP Socket timeout setting. default 0
+    autoReconnect       ?: boolean      ;// Reconnect on error. default:false
+    noDelay             ?: boolean      ;// TCP Socket NoDelay option. default:true
+    keepAlive           ?: number       ;// TCP KeepAlive on the socket with a X ms delay before start. default:0
+    connectTimeoutMS    ?: number       ;// TCP Connection timeout setting. default 0
+    socketTimeoutMS     ?: number       ;// TCP Socket timeout setting. default 0
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
