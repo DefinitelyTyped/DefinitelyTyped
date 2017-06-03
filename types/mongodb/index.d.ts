@@ -2,7 +2,6 @@
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.2/api/
 
@@ -46,7 +45,7 @@ export interface MongoClientOptions extends
     MongosOptions   ,
     ReplSetOptions {
         loggerLevel         ?: string       ;// The logging level (error/warn/info/debug)
-        logger              ?: object       ;// Custom logger object
+        logger              ?: Object       ;// Custom logger object
         
         servername          ?: string       ;// String containing the server name requested via TLS SNI.
         ha                  ?: boolean      ;// Default: true; Turn on high availability monitoring.
@@ -65,8 +64,8 @@ export interface MongoClientOptions extends
         sslPass             ?: Buffer | string          ;// SSL Certificate pass phrase
         socketOptions       ?: SocketOptions            ;
     
-        validateOptions     ?: object                   ;// Default: false;
-        promiseLibrary      ?: object                   ;// ES6 compatible promise constructor
+        validateOptions     ?: Object                   ;// Default: false;
+        promiseLibrary      ?: Object                   ;// ES6 compatible promise constructor
 
 }
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html
@@ -84,9 +83,9 @@ export interface DbCreateOptions {
     promoteLongs        ?: boolean                  // Default: true ; Promotes Long values to number if they fit inside the 53 bits resolution.
     bufferMaxEntries    ?: number                   // Default: -1 (unlimited) ; Amount of operations the driver buffers up until starting to discard any new ones
     readPreference      ?: ReadPreference | string  // the prefered read preference. use 'ReadPreference' class.
-    promoteValues       ?: object                   // Default: true ; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
-    pkFactory           ?: object                   // Custom primary key factory to generate _id values (see Custom primary keys).
-    readConcern         ?: { level ?: object }      // https://docs.mongodb.com/manual/reference/read-concern/#read-concern
+    promoteValues       ?: Object                   // Default: true ; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
+    pkFactory           ?: Object                   // Custom primary key factory to generate _id values (see Custom primary keys).
+    readConcern         ?: { level ?: Object }      // https://docs.mongodb.com/manual/reference/read-concern/#read-concern
 }
 
 // See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
