@@ -55,6 +55,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "BigInteger.js",
+            "typingsPackageName": "big-integer",
+            "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
+            "asOfVersion": "0.0.31"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
