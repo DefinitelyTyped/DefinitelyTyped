@@ -525,8 +525,7 @@ declare namespace Sinon {
      * @type TType   Type being stubbed.
      */
     interface StubbableType<TType> {
-        new?(): TType;
-        new?(...args: any[]): TType;
+        new(...args: any[]): TType;
     }
 
     /**
