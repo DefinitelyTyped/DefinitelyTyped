@@ -2,7 +2,7 @@
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>, Jonathan Little <https://github.com/rationull>, Lukas Spieß <https://github.com/lumaxis>, Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
@@ -498,7 +498,7 @@ declare namespace Sinon {
     interface SinonStatic {
         /**
          * Creates a new object with the given functions as the prototype and stubs all implemented functions.
-         * 
+         *
          * @param constructor   Object or class to stub.
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
@@ -507,7 +507,7 @@ declare namespace Sinon {
 
         /**
          * Creates a new object with the given functions as the prototype and stubs all implemented functions.
-         * 
+         *
          * @type TType   Type being stubbed.
          * @param constructor   Object or class to stub.
          * @returns A stubbed version of the constructor.
@@ -521,17 +521,17 @@ declare namespace Sinon {
 
     /**
      * Stubbed type of an object with members replaced by stubs.
-     * 
+     *
      * @type TType   Type being stubbed.
      */
-    type StubbableType<TType> = {
+    interface StubbableType<TType> {
         new?(): TType;
         new?(...args: any[]): TType;
-    };
+    }
 
     /**
      * An instance of a stubbed object type with members replaced by stubs.
-     * 
+     *
      * @type TType   Object type being stubbed.
      */
     type SinonStubbedInstance<TType> = {
