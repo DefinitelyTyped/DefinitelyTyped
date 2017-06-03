@@ -231,6 +231,7 @@ class TestCreateStubInstance {
 }
 
 sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+sinon.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
 
 function testGetCalls() {
     let double = sinon.spy((a: number) => a * 2);
