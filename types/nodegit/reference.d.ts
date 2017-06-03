@@ -1,5 +1,6 @@
 import { Repository } from './repository';
 import { Oid } from './oid';
+import { Object } from './object';
 
 export namespace Reference {
     enum TYPE {
@@ -40,7 +41,7 @@ export class Reference {
     isTag(): number;
     name(): string;
     owner(): Repository;
-    peel(type: number): Promise<NodeGit.Object>;
+    peel(type: number): Promise<Object>;
     rename(newName: string, force: number, logMessage: string): Promise<Reference>;
     resolve(): Promise<Reference>;
     setTarget(id: Oid, logMessage: string): Promise<Reference>;

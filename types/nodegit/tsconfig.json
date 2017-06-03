@@ -16,15 +16,33 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "annotated-commit.d.ts",
+        "blob.d.ts",
         "buf.d.ts",
+        "checkout-options.d.ts",
+        "commit.d.ts",
+        "diff-delta.d.ts",
+        "diff-file.d.ts",
+        "diff-perf-data.d.ts",
+        "diff.d.ts",
+        "enums.d.ts",
+        "fetch-options.d.ts",
+        "index-entry.d.ts",
         "index.d.ts",
         "nodegit-tests.ts",
         "object.d.ts",
+        "odb-object.d.ts",
         "odb.d.ts",
         "oid.d.ts",
         "reference.d.ts",
+        "remote-callbacks.d.ts",
+        "remote.d.ts",
         "repository.d.ts",
         "signature.d.ts",
+        "str-array.d.ts",
         "time.d.ts",
+        "tree-builder.d.ts",
+        "tree-entry.d.ts",
+        "tree.d.ts"
     ]
 }
