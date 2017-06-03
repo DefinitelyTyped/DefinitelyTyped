@@ -1,13 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "semicolon": [
-            false,
-            "always"
-        ],
-        "export-just-namespace": [
-            "false"
-        ],
         "unified-signatures": [
             "false"
         ]
