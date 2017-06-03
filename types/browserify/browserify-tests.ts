@@ -1,6 +1,7 @@
 import browserify = require("browserify");
 import fs = require("fs");
 import stream = require('stream');
+import insertGlobals = require("insert-module-globals");
 
 var bNoArg = browserify();
 
@@ -47,4 +48,15 @@ var record_pipeline = b.pipeline.get('record');
 
 b.bundle().pipe(process.stdout);
 
+var argv = { igv: "__filename,__dirname" };
+var insertGlobalVars: insertGlobals.VarsOption = {};
+var wantedGlobalVars = argv.igv.split(',');
+Object.keys(insertGlobals.vars).forEach((x) => {
+  if (wantedGlobalVars.indexOf(x) === -1) {
+    insertGlobalVars[x] = undefined;
+  }
+});
 
+var b = browserify('./browser/main.js', {
+  insertGlobalVars: insertGlobalVars
+});

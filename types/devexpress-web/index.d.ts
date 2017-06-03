@@ -15374,7 +15374,7 @@ interface ASPxClientTreeListContextMenuEventArgs extends ASPxClientEventArgs {
     htmlEvent: Object;
     /**
      * Gets or sets whether to invoke the browser's context menu.
-     * Value: true to hide the browser's context menu; otherwise, false.
+     * Value: true to show the browser's context menu; otherwise, false.
      */
     cancel: boolean;
 }

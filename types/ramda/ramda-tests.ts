@@ -972,8 +972,9 @@ type Pair = KeyValuePair<string, number>
 
 () => {
     const x = R.prop('x');
-    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, {x: true}); //=> true
-    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, null);      //=> false
+    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
+    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
+    const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      //=> true
 }
 
 () => {
@@ -1161,6 +1162,7 @@ class Rectangle {
 () => {
     var xLens = R.lens(R.prop('x'), R.assoc('x'));
     R.view(xLens, {x: 1, y: 2});            //=> 1
+    R.view(xLens)({x: 1, y: 2});            //=> 1
     R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens, 4)({x: 1, y: 2});          //=> {x: 4, y: 2}

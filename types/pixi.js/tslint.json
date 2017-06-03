@@ -9,6 +9,7 @@
 
         "class-name": true,
         "indent": [true, "spaces"],
-        "quotemark": [true, "double"]
+        "quotemark": [true, "double"],
+        "comment-format": false
     }
 }
