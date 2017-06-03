@@ -1,4 +1,5 @@
 import { Oid } from './oid';
+import { OdbObject } from './odb-object';
 
 export namespace Odb {
     enum STREAM {
@@ -13,6 +14,6 @@ export class Odb {
 
     addDiskAlternate(path: string): number;
     free(): void;
-    read(id: Oid): Promise<NodeGit.OdbObject>;
+    read(id: Oid): Promise<OdbObject>;
     write(data: Buffer, len: number, type: number): Promise<Oid>;
 }
