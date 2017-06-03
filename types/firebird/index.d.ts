@@ -454,7 +454,7 @@ declare module 'firebird' {
      * You may also look at [NodeJS Streams reference](https://nodejs.org/api/stream.html).
      */
     class Stream implements NodeJS.ReadWriteStream {
-        constructor (blob: FBBlob);
+        constructor(blob: FBBlob);
 
         /* Following lines is JUST AS NodeJS.ReadStream, NodeJS.WriteStream, and NodeJS.Emmiter */
         /* tslint:disable */
