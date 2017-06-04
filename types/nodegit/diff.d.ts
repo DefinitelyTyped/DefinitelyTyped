@@ -22,7 +22,7 @@ export interface DiffOptions {
     ignoreSubmodules: number;
     pathspec: Strarray;
     notifyCb: Function;
-    notifyPayload: void;
+    notifyPayload: undefined;
     contextLines: number;
     interhunkLines: number;
     idAbbrev: number;
@@ -139,7 +139,8 @@ export namespace Diff {
 }
 
 export class Diff {
-    static blobToBuffer(old_blob: Blob, old_as_path: string, buffer: string, buffer_as_path: string, opts: DiffOptions, file_cb: Function, binary_cb: Function, hunk_cb: Function, line_cb: Function): Promise<any>;
+    static blobToBuffer(old_blob: Blob, oldAsPath: string,
+                        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
     static indexToWorkdir(repo: Repository, index: Index, opts: DiffOptions): Promise<Diff>;
     static treeToIndex(repo: Repository, old_tree: Tree, index: Index, opts: DiffOptions): Promise<Diff>;
     static treeToTree(repo: Repository, old_tree: Tree, new_tree: Tree, opts: DiffOptions): Promise<Diff>;

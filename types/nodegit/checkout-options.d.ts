@@ -11,9 +11,9 @@ export interface CheckoutOptions {
     fileOpenFlags?: number;
     notifyFlags?: number;
     notifyCb?: any;
-    notifyPayload?: void;
+    notifyPayload?: undefined;
     progressCb?: any;
-    progressPayload?: void;
+    progressPayload?: undefined;
     paths?: Strarray;
     baseline?: Tree;
     baselineIndex?: Index;
@@ -22,5 +22,5 @@ export interface CheckoutOptions {
     ourLabel?: string;
     theirLabel?: string;
     perfdataCb?: any;
-    perfdataPayload?: void;
+    perfdataPayload?: undefined;
 }

@@ -1,3 +1,5 @@
+import { EventEmitter } from 'events';
+
 import { Repository } from './repository';
 import { Signature } from './signature';
 import { Oid } from './oid';

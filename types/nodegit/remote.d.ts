@@ -4,6 +4,9 @@ import { Strarray } from './str-array';
 import { FetchOptions } from './fetch-options';
 import { Buf } from './buf';
 import { Enums } from './enums';
+import { TransferProgress } from './transfer-progress';
+import { PushOptions } from './push-options';
+import { Refspec } from './ref-spec';
 
 export namespace Remote {
     enum AUTOTAG_OPTION {

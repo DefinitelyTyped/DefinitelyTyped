@@ -1,6 +1,6 @@
 import { Oid } from './oid';
 
-interface IndexTime {
+export interface IndexTime {
     seconds: number;
     nanoseconds: number;
 }

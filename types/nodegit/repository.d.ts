@@ -12,18 +12,22 @@ import { AnnotatedCommit } from './annotated-commit';
 import { FetchOptions } from './fetch-options';
 import { CheckoutOptions } from './checkout-options';
 import { Remote } from './remote';
+import { Tag } from './tag';
+import { Config } from './config';
+import { Merge } from './merge';
+import { MergeOptions } from './merge-options';
+import { Refdb } from './ref-db';
 
-interface RepositoryInitOptions {
-    description: string,
-    flags: number,
-    initialHead: string,
-    mode: number,
-    originUrl: string,
-    templatePath: string,
-    version: number,
-    workdirPath: string
+export interface RepositoryInitOptions {
+    description: string;
+    flags: number;
+    initialHead: string;
+    mode: number;
+    originUrl: string;
+    templatePath: string;
+    version: number;
+    workdirPath: string;
 }
-
 
 export class Repository {
     /**
@@ -84,8 +88,8 @@ export class Repository {
     static wrapOdb(odb: Odb): Promise<Repository>;
 
     cleanup(): void;
-    config(): Promise<NodeGit.Config>;
-    configSnapshot(): Promise<NodeGit.Config>;
+    config(): Promise<Config>;
+    configSnapshot(): Promise<Config>;
     detachHead(): number;
     fetchheadForeach(callback: Function): Promise<any>;
     free(): void;
@@ -101,7 +105,7 @@ export class Repository {
     messageRemove(): number;
     odb(): Promise<Odb>;
     path(): string;
-    refdb(): Promise<NodeGit.Refdb>;
+    refdb(): Promise<Refdb>;
     setHead(refname: string): Promise<number>;
     setHeadDetached(commitish: Oid): number;
     setHeadDetachedFromAnnotated(commitish: AnnotatedCommit): number;
@@ -122,10 +126,10 @@ export class Repository {
     getCommit(string: string | Oid): Promise<Commit>;
     getBlob(string: string | Oid): Promise<Blob>;
     getTree(string: string | Oid): Promise<Tree>;
-    createTag(string: string | Oid, name: string, message: string): Promise<NodeGit.Tag>;
+    createTag(string: string | Oid, name: string, message: string): Promise<Tag>;
     createLightweightTag(string: string | Oid, name: string): Promise<Reference>;
-    getTag(string: string | Oid): Promise<NodeGit.Tag>;
-    getTagByName(Short: string): Promise<NodeGit.Tag>;
+    getTag(string: string | Oid): Promise<Tag>;
+    getTagByName(Short: string): Promise<Tag>;
     deleteTagByName(Short: string): Promise<any>;
     createRevWalk(string: string | Oid): any;
     getMasterCommit(): Promise<Commit>;
@@ -139,7 +143,7 @@ export class Repository {
     getRemote(remote: string | Remote, callback: Function): Promise<Remote>;
     fetch(remote: string | Remote, fetchOptions: Object | FetchOptions): Promise<any>;
     fetchAll(fetchOptions: Object | FetchOptions, callback: Function): Promise<any>;
-    mergeBranches(to: string | Reference, from: string | Reference, signature: Signature, mergePreference: NodeGit.Merge.PREFERENCE, mergeOptions: NodeGit.MergeOptions): Promise<Oid>;
+    mergeBranches(to: string | Reference, from: string | Reference, signature: Signature, mergePreference: Merge.PREFERENCE, mergeOptions: MergeOptions): Promise<Oid>;
     rebaseBranches(branch: string, upstream: string, onto: string, signature: Signature, beforeNextFn: Function): Promise<Oid>;
     continueRebase(signature: Signature, beforeNextFn: Function): Promise<Oid>;
     getStatus(opts: any): Promise<any[]>;
