@@ -48,6 +48,7 @@
         "remote.d.ts",
         "repository.d.ts",
         "signature.d.ts",
+        "stash.d.ts",
         "status-entry.d.ts",
         "status-list.d.ts",
         "status-options.d.ts",

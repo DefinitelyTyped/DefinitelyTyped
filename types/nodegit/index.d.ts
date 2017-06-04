@@ -34,6 +34,7 @@ export { RemoteCallbacks } from './remote-callbacks';
 export { Remote } from './remote';
 export { Repository } from './repository';
 export { Signature } from './signature';
+export { Stash } from './stash';
 export { StatusEntry } from './status-entry';
 export { StatusList } from './status-list';
 export { StatusOptions } from './status-options';
