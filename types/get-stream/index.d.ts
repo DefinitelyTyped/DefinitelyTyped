@@ -29,7 +29,6 @@ interface Options {
  */
 declare function getStrem(stream: Stream, options?: Options): Promise<string>;
 declare namespace getStrem {
-
     /**
      * Get the `stream` as an array of values.
      *
