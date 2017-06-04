@@ -1,6 +1,6 @@
 export class Strarray {
     copy(src: Strarray): number;
     free(): void;
-    strings: string;
+    strings: string[];
     count: number;
 }
