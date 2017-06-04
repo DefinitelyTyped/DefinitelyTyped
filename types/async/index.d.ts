@@ -183,6 +183,7 @@ interface Async {
     queue<T, R, E>(worker: AsyncResultIterator<T, R, E>, concurrency?: number): AsyncQueue<T>;
     priorityQueue<T, E>(worker: AsyncWorker<T, E>, concurrency: number): AsyncPriorityQueue<T>;
     cargo<E>(worker : (tasks: any[], callback : ErrorCallback<E>) => void, payload? : number) : AsyncCargo;
+    auto<E>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
     auto<E>(tasks: any, concurrency?: number, callback?: AsyncResultCallback<any, E>): void;
     autoInject<E>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
     retry<T, E>(opts: number, task: (callback : AsyncResultCallback<T, E>, results: any) => void, callback:  AsyncResultCallback<any, E | Error>): void;
