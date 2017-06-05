@@ -234,7 +234,7 @@ interface EventEmitter extends EventEmitterListener {
      *
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      */
-    emit(eventType: string): void
+    emit(eventType: string, ...params: any[]): void
 
     /**
      * Removes the given listener for event of specific type.
@@ -4494,6 +4494,7 @@ export interface SceneConfig {
 
 export interface JumpSceneConfig extends SceneConfig {
     gestures: {
+        pop?: LeftToRightGesture
         jumpBack: JumpGesture
         jumpForward: JumpGesture
     }

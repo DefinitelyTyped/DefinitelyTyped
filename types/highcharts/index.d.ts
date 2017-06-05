@@ -5012,7 +5012,7 @@ declare namespace Highcharts {
          *            color: '#FF00FF'
          *        }]
          */
-        data?: number[] | Array<[number, number]> | Array<[string, number]> | DataPoint[];
+        data?: Array<number | [number, number] | [string, number] | DataPoint>;
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().
