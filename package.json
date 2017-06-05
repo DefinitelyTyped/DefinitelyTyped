@@ -21,7 +21,7 @@
     "lint": "dtslint types"
   },
   "devDependencies": {
-    "dtslint": "Microsoft/dtslint#production",
+    "dtslint": "^0.1.2",
     "types-publisher": "Microsoft/types-publisher#production"
   }
 }
