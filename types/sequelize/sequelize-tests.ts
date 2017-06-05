@@ -1678,6 +1678,6 @@ s.sync({
     hooks: false,
     searchPath: 'some/path/',
     schema: 'schema',
-    logging: () => void,
+    logging: () => {},
     match: new RegExp('\d{4,}')
 });
