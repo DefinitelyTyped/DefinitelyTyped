@@ -56,10 +56,10 @@ let options: Logger.LoggerOptions = {
 let log = Logger.createLogger(options);
 
 let customSerializer = (anything: any) => {
-    return { obj: anything};
+    return { obj: anything };
 };
 
-log.addSerializers({anything: customSerializer});
+log.addSerializers({ anything: customSerializer });
 log.addSerializers(Logger.stdSerializers);
 log.addSerializers(
     {
@@ -69,9 +69,9 @@ log.addSerializers(
     }
 );
 
-let child = log.child({name: 'child'});
+let child = log.child({ name: 'child' });
 child.reopenFileStreams();
-log.addStream({path: '/dev/null'});
+log.addStream({ path: '/dev/null' });
 child.level(Logger.DEBUG);
 child.level('debug');
 child.levels(0, Logger.ERROR);
