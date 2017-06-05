@@ -1,3 +1,5 @@
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, Edmund Fokschaner <https://github.com/efokschaner>
+
 import { Camera, MOUSE, Object3D, Vector3 } from "./three-core";
 
 export class OrbitControls {

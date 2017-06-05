@@ -1,3 +1,5 @@
+// Definitions by: HouChunlei <https://github.com/omni360>, Edmund Fokschaner <https://github.com/efokschaner>
+
 import { Vector3 } from "./three-core";
 
 export class Octree {

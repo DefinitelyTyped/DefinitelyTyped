@@ -1,3 +1,5 @@
+// Definitions by: Stefan Profanter <https://github.com/Pro>, Edmund Fokschaner <https://github.com/efokschaner>
+
 import { Camera, EventDispatcher, Vector3 } from "./three-core";
 
 export class OrthographicTrackballControls extends EventDispatcher {

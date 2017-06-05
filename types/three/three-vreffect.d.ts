@@ -1,3 +1,5 @@
+// Definitions by: Toshiya Nakakura <https://github.com/nakakura>, Edmund Fokschaner <https://github.com/efokschaner>
+
 /// <reference types="webvr-api" />
 
 import { Camera, Matrix4, Renderer, Scene } from "./three-core";

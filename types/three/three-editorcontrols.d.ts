@@ -1,3 +1,5 @@
+// Definitions by: Qinsi ZHU <https://github.com/qszhusightp>, Edmund Fokschaner <https://github.com/efokschaner>
+
 import { Camera, EventDispatcher, Object3D, Vector3 } from "./three-core";
 
 export class EditorControls extends EventDispatcher {

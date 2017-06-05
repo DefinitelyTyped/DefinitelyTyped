@@ -1,3 +1,5 @@
+// Definitions by: Stefan Profanter <https://github.com/Pro>, Edmund Fokschaner <https://github.com/efokschaner>
+
 import { Camera, Object3D } from "./three-core";
 
 export class TransformControls extends Object3D {

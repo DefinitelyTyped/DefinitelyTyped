@@ -1,3 +1,5 @@
+// Definitions by: Satoru Kimura <https://github.com/gyohk>, Edmund Fokschaner <https://github.com/efokschaner>
+
 import { Camera, Scene, WebGLRenderTarget, WebGLRenderer } from "./three-core";
 
 export class MaskPass {
