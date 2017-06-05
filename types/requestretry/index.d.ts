@@ -9,12 +9,10 @@ declare module 'requestretry' {
 	import request = require('request');
 	import http = require('http');
 
-	interface RetryStrategy {
-		(err: Error, response: http.IncomingMessage, body: any):boolean;
-	}
+	type RetryStrategy = (err: Error, response: http.IncomingMessage, body: any) => boolean;
 
 	namespace requestRetry {
-		export interface RequestAPI extends request.RequestAPI<request.Request, requestRetry.RequestRetryOptions, request.RequiredUriUrl> {
+		interface RequestAPI extends request.RequestAPI<request.Request, requestRetry.RequestRetryOptions, request.RequiredUriUrl> {
 			RetryStrategies: {
 				'HttpError': RetryStrategy;
 				'HTTPOrNetworkError': RetryStrategy;
@@ -28,9 +26,9 @@ declare module 'requestretry' {
 			retryStrategy?: RetryStrategy;
 		}
 
-		export type OptionsWithUri = request.UriOptions & RequestRetryOptions;
-		export type OptionsWithUrl = request.UrlOptions & RequestRetryOptions;
-		export type Options = OptionsWithUri | OptionsWithUrl;
+		type OptionsWithUri = request.UriOptions & RequestRetryOptions;
+		type OptionsWithUrl = request.UrlOptions & RequestRetryOptions;
+		type Options = OptionsWithUri | OptionsWithUrl;
 	}
 
 	let requestRetryExport: requestRetry.RequestAPI;
