@@ -16,8 +16,8 @@ declare class Logger extends EventEmitter {
     reopenFileStreams(): void;
 
     level(): string | number;
-    level(value: number | string): void;
-    levels(name: number | string, value: number | string): void;
+    level(value: Logger.LogLevel): void;
+    levels(name: number | string, value: Logger.LogLevel): void;
 
     fields: any;
     src: boolean;
@@ -217,17 +217,19 @@ declare namespace Logger {
   const ERROR: number;
   const FATAL: number;
 
+  type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal' | number;
+
   const stdSerializers: StdSerializers;
 
   function createLogger(options: LoggerOptions): Logger;
 
   function safeCycles(): (key: string, value: any) => any;
 
-  function resolveLevel(value: number | string): number;
+  function resolveLevel(value: LogLevel): number;
 
   interface Stream {
     type?: string;
-    level?: number | string;
+    level?: LogLevel;
     path?: string;
     stream?: NodeJS.WritableStream | Stream;
     closeOnExit?: boolean;
@@ -238,7 +240,7 @@ declare namespace Logger {
   interface LoggerOptions {
     name: string;
     streams?: Stream[];
-    level?: string | number;
+    level?: LogLevel;
     stream?: NodeJS.WritableStream;
     serializers?: Serializers | StdSerializers;
     src?: boolean;
