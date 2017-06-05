@@ -1,4 +1,4 @@
-// Type definitions for node-bunyan
+// Type definitions for node-bunyan 1.8
 // Project: https://github.com/trentm/node-bunyan
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,17 +10,20 @@ import { EventEmitter } from 'events';
 declare class Logger extends EventEmitter {
     constructor(options: Logger.LoggerOptions);
     addStream(stream: Logger.Stream): void;
-    addSerializers(serializers: Logger.Serializers | Logger.StdSerializers): void;
-    child(options: Logger.LoggerOptions, simple?: boolean): Logger;
-    child(obj: Object, simple?: boolean): Logger;
+    addSerializers(serializers: Logger.Serializers): void;
+    child(options: Object, simple?: boolean): Logger;
     reopenFileStreams(): void;
 
-    level(): string | number;
+    level(): number;
     level(value: Logger.LogLevel): void;
+    levels(): number[];
+    levels(name: number | string): number;
     levels(name: number | string, value: Logger.LogLevel): void;
 
     fields: any;
     src: boolean;
+
+    /* tslint:disable:unified-signatures */
 
     /**
      * Returns a boolean: is the `trace` level enabled?
@@ -35,14 +38,7 @@ declare class Logger extends EventEmitter {
      * (including the stack) and sets `msg` to the exception
      * message or you can specify the `msg`.
      */
-    trace(error: Error, format?: any, ...params: any[]): void;
-
-    trace(buffer: Buffer, format?: any, ...params: any[]): void;
-
-    /**
-     * Uses `util.format` for msg formatting.
-     */
-    trace(format: string | number, ...params: any[]): void;
+    trace(error: Error, ...params: any[]): void;
 
     /**
      * The first field can optionally be a "fields" object, which
@@ -51,7 +47,12 @@ declare class Logger extends EventEmitter {
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
-    trace(obj: Object, format?: any, ...params: any[]): void;
+    trace(obj: Object, ...params: any[]): void;
+
+    /**
+     * Uses `util.format` for msg formatting.
+     */
+    trace(format: any, ...params: any[]): void;
 
     /**
      * Returns a boolean: is the `debug` level enabled?
@@ -66,14 +67,7 @@ declare class Logger extends EventEmitter {
      * (including the stack) and sets `msg` to the exception
      * message or you can specify the `msg`.
      */
-    debug(error: Error, format?: any, ...params: any[]): void;
-
-    debug(buffer: Buffer, format?: any, ...params: any[]): void;
-
-    /**
-     * Uses `util.format` for msg formatting.
-     */
-    debug(format: string | number, ...params: any[]): void;
+    debug(error: Error, ...params: any[]): void;
 
     /**
      * The first field can optionally be a "fields" object, which
@@ -82,7 +76,12 @@ declare class Logger extends EventEmitter {
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
-    debug(obj: Object, format?: any, ...params: any[]): void;
+    debug(obj: Object, ...params: any[]): void;
+
+    /**
+     * Uses `util.format` for msg formatting.
+     */
+    debug(format: any, ...params: any[]): void;
 
     /**
      * Returns a boolean: is the `info` level enabled?
@@ -97,14 +96,7 @@ declare class Logger extends EventEmitter {
      * (including the stack) and sets `msg` to the exception
      * message or you can specify the `msg`.
      */
-    info(error: Error, format?: any, ...params: any[]): void;
-
-    info(buffer: Buffer, format?: any, ...params: any[]): void;
-
-    /**
-     * Uses `util.format` for msg formatting.
-     */
-    info(format: string | number, ...params: any[]): void;
+    info(error: Error, ...params: any[]): void;
 
     /**
      * The first field can optionally be a "fields" object, which
@@ -113,7 +105,12 @@ declare class Logger extends EventEmitter {
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
-    info(obj: Object, format?: any, ...params: any[]): void;
+    info(obj: Object, ...params: any[]): void;
+
+    /**
+     * Uses `util.format` for msg formatting.
+     */
+    info(format: any, ...params: any[]): void;
 
     /**
      * Returns a boolean: is the `warn` level enabled?
@@ -128,14 +125,7 @@ declare class Logger extends EventEmitter {
      * (including the stack) and sets `msg` to the exception
      * message or you can specify the `msg`.
      */
-    warn(error: Error, format?: any, ...params: any[]): void;
-
-    warn(buffer: Buffer, format?: any, ...params: any[]): void;
-
-    /**
-     * Uses `util.format` for msg formatting.
-     */
-    warn(format: string | number, ...params: any[]): void;
+    warn(error: Error, ...params: any[]): void;
 
     /**
      * The first field can optionally be a "fields" object, which
@@ -144,7 +134,12 @@ declare class Logger extends EventEmitter {
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
-    warn(obj: Object, format?: any, ...params: any[]): void;
+    warn(obj: Object, ...params: any[]): void;
+
+    /**
+     * Uses `util.format` for msg formatting.
+     */
+    warn(format: any, ...params: any[]): void;
 
     /**
      * Returns a boolean: is the `error` level enabled?
@@ -159,14 +154,7 @@ declare class Logger extends EventEmitter {
      * (including the stack) and sets `msg` to the exception
      * message or you can specify the `msg`.
      */
-    error(error: Error, format?: any, ...params: any[]): void;
-
-    error(buffer: Buffer, format?: any, ...params: any[]): void;
-
-    /**
-     * Uses `util.format` for msg formatting.
-     */
-    error(format: string | number, ...params: any[]): void;
+    error(error: Error, ...params: any[]): void;
 
     /**
      * The first field can optionally be a "fields" object, which
@@ -175,7 +163,12 @@ declare class Logger extends EventEmitter {
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
-    error(obj: Object, format?: any, ...params: any[]): void;
+    error(obj: Object, ...params: any[]): void;
+
+    /**
+     * Uses `util.format` for msg formatting.
+     */
+    error(format: any, ...params: any[]): void;
 
     /**
      * Returns a boolean: is the `fatal` level enabled?
@@ -190,14 +183,7 @@ declare class Logger extends EventEmitter {
      * (including the stack) and sets `msg` to the exception
      * message or you can specify the `msg`.
      */
-    fatal(error: Error, format?: any, ...params: any[]): void;
-
-    fatal(buffer: Buffer, format?: any, ...params: any[]): void;
-
-    /**
-     * Uses `util.format` for msg formatting.
-     */
-    fatal(format: string | number, ...params: any[]): void;
+    fatal(error: Error, ...params: any[]): void;
 
     /**
      * The first field can optionally be a "fields" object, which
@@ -206,7 +192,14 @@ declare class Logger extends EventEmitter {
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
-    fatal(obj: Object, format?: any, ...params: any[]): void;
+    fatal(obj: Object, ...params: any[]): void;
+
+    /**
+     * Uses `util.format` for msg formatting.
+     */
+    fatal(format: any, ...params: any[]): void;
+
+    /* tslint:enable:unified-signatures */
 }
 
 declare namespace Logger {
@@ -242,20 +235,18 @@ declare namespace Logger {
     streams?: Stream[];
     level?: LogLevel;
     stream?: NodeJS.WritableStream;
-    serializers?: Serializers | StdSerializers;
+    serializers?: Serializers;
     src?: boolean;
     [custom: string]: any;
   }
 
-  interface Serializer {
-    (input:any): any;
-  }
+  type Serializer = (input: any) => any;
 
   interface Serializers {
-    [key: string]: Serializer
+    [key: string]: Serializer;
   }
 
-  interface StdSerializers {
+  interface StdSerializers extends Serializers {
     err: Serializer;
     res: Serializer;
     req: Serializer;

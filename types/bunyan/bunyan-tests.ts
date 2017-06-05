@@ -1,16 +1,15 @@
-
 import Logger = require('bunyan');
 
-var ringBufferOptions: Logger.RingBufferOptions = {
+let ringBufferOptions: Logger.RingBufferOptions = {
     limit: 100
 };
-var ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
+let ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
 ringBuffer.write("hello");
 ringBuffer.end();
 ringBuffer.destroy();
 ringBuffer.destroySoon();
 
-var level: number;
+let level: number;
 level = Logger.resolveLevel("trace");
 level = Logger.resolveLevel("debug");
 level = Logger.resolveLevel("info");
@@ -24,7 +23,7 @@ level = Logger.resolveLevel(Logger.WARN);
 level = Logger.resolveLevel(Logger.ERROR);
 level = Logger.resolveLevel(Logger.FATAL);
 
-var options: Logger.LoggerOptions = {
+let options: Logger.LoggerOptions = {
     name: 'test-logger',
     serializers: Logger.stdSerializers,
     streams: [{
@@ -54,9 +53,9 @@ var options: Logger.LoggerOptions = {
     }]
 };
 
-var log = Logger.createLogger(options);
+let log = Logger.createLogger(options);
 
-var customSerializer = function(anything: any) {
+let customSerializer = (anything: any) => {
     return { obj: anything};
 };
 
@@ -70,7 +69,7 @@ log.addSerializers(
     }
 );
 
-var child = log.child({name: 'child'});
+let child = log.child({name: 'child'});
 child.reopenFileStreams();
 log.addStream({path: '/dev/null'});
 child.level(Logger.DEBUG);
@@ -80,9 +79,9 @@ child.levels(0, 'error');
 child.levels('stream1', Logger.FATAL);
 child.levels('stream1', 'fatal');
 
-var buffer = new Buffer(0);
-var error = new Error('');
-var object = {
+let buffer = new Buffer(0);
+let error = new Error('');
+let object = {
     test: 123
 };
 
@@ -117,12 +116,11 @@ log.fatal(error);
 log.fatal(object);
 log.fatal('Hello, %s', 'world!');
 
-var recursive: any = {
+let recursive: any = {
     hello: 'world',
-    whats: {
-        huh: recursive
-    }
-}
+    whats: {}
+};
+recursive.whats['huh'] = recursive;
 
 JSON.stringify(recursive, Logger.safeCycles());
 
