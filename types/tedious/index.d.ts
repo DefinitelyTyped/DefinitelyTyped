@@ -1,6 +1,7 @@
 // Type definitions for tedious 1.8.0
 // Project: https://pekim.github.io/tedious
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                  Chris Thompson <https://github.com/cjthompson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
