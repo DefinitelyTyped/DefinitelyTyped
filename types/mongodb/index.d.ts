@@ -113,9 +113,9 @@ export interface DbCreateOptions {
     wtimeout?: number;
     // Specify a journal write concern.
     j?: boolean;
-    // Force server to create _id fields instead of client.
+    // Default: false; Force server to create _id fields instead of client.
     forceServerObjectId?: boolean;
-    // Use c++ bson parser. .
+    // Default: false; Use c++ bson parser.
     native_parser?: boolean;
     // Serialize functions on any object.
     serializeFunctions?: boolean;
@@ -140,7 +140,7 @@ export interface DbCreateOptions {
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
-export interface SocketOptions extends SSLOptions, HighAvailabilityOptions{
+export interface SocketOptions {
     // Reconnect on error. default:false
     autoReconnect?: boolean;
     // TCP Socket NoDelay option. default:true
@@ -154,7 +154,7 @@ export interface SocketOptions extends SSLOptions, HighAvailabilityOptions{
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
-export interface ServerOptions extends SSLOptions, HighAvailabilityOptions{
+export interface ServerOptions extends SSLOptions {
     // Default: 30;
     reconnectTries?: number;
     // Default: 1000;
@@ -162,6 +162,10 @@ export interface ServerOptions extends SSLOptions, HighAvailabilityOptions{
     // Default: true;
     monitoring?: boolean
     socketOptions?: SocketOptions;
+    // Default: 10000; The High availability period for replicaset inquiry
+    haInterval?: number;
+    // Default: false;
+    domainsEnabled?: boolean;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/Mongos.html
@@ -172,7 +176,7 @@ export interface MongosOptions extends SSLOptions, HighAvailabilityOptions{
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.2/api/ReplSet.html
-export interface ReplSetOptions {
+export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions  {
     // The max staleness to secondary reads (values under 10 seconds cannot be guaranteed);
     maxStalenessSeconds?: number;
     // The name of the replicaset to connect to.
