@@ -47,8 +47,7 @@ request({
 });
 
 // Custom strategy.
-
-const CustomRetryStrategy = (err: Error, response: http.IncomingMessage, body: any):boolean => {
+const CustomRetryStrategy = (err: Error, response: http.IncomingMessage, body: any): boolean => {
 	// Return a boolean
 	return true;
 };
@@ -74,4 +73,3 @@ request({
 }, (err, response, body) => {
 	// Body.
 });
-
