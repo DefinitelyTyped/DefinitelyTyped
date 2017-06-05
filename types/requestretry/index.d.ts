@@ -24,10 +24,6 @@ declare namespace requestRetry {
 		retryDelay?: number;
 		retryStrategy?: RetryStrategy;
 	}
-
-	type OptionsWithUri = request.UriOptions & RequestRetryOptions;
-	type OptionsWithUrl = request.UrlOptions & RequestRetryOptions;
-	type Options = OptionsWithUri | OptionsWithUrl;
 }
 
 declare let requestretry: requestRetry.RequestAPI;
