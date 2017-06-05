@@ -513,7 +513,8 @@ declare namespace mapboxgl {
 	/**
 	 * VideoSource
 	 */
-	export class VideoSource implements Source, VideoSourceOptions {
+        export interface VideoSource extends VideoSourceOptions { }
+	export class VideoSource implements Source {
 		type: "video";
 
 		constructor(options?: mapboxgl.VideoSourceOptions);
@@ -532,7 +533,8 @@ declare namespace mapboxgl {
 	/**
 	 * ImageSource
 	 */
-	export class ImageSource implements Source, ImageSourceOptions {
+        export interface ImageSource extends ImageSourceOptions { }
+	export class ImageSource implements Source {
 		type: "image";
 
 		constructor(options?: mapboxgl.ImageSourceOptions);
@@ -1038,7 +1040,7 @@ declare namespace mapboxgl {
 	export interface CirclePaint {
 		"circle-radius"?: number | StyleFunction;
 		"circle-radius-transition"?: Transition;
-		"circle-color"?: number | StyleFunction;
+		"circle-color"?: string;
 		"circle-blur"?: number | StyleFunction;
 		"circle-opacity"?: number | StyleFunction;
 		"circle-translate"?: number[];
