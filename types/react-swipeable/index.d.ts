@@ -1,29 +1,19 @@
-// Type definitions for react-swipeable 3.3.1
+// Type definitions for react-swipeable 4.0
 // Project: https://www.npmjs.com/package/react-swipeable
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
-///<reference types='react' />
+declare module 'react-swipeable' {
+    import * as React from 'react';
 
-declare namespace ReactSwipeableModule {
-    interface onSwipingCallback {
-        (event: React.TouchEvent<any>, deltaX: number, deltaY: number, absX: number, absY: number, velocity: number): void;
-    }
+    type onSwipingCallback = (event: React.TouchEvent<HTMLElement>, deltaX: number, deltaY: number, absX: number, absY: number, velocity: number) => void;
+    type OnSwipedCallback = (event: React.TouchEvent<HTMLElement>, deltaX: number, deltaY: number, isFlick: boolean, velocity: number) => void;
+    type OnSwipedDirectionCallback = (event: React.TouchEvent<HTMLElement>, delta: number, isFlick: boolean) => void;
+    type OnSwipingDirectionCallback = (event: React.TouchEvent<HTMLElement>, delta: number) => void;
+    type OnTapCallback = (event: React.TouchEvent<HTMLElement>) => void;
 
-    interface OnSwipedCallback {
-        (event: React.TouchEvent<any>, deltaX: number, deltaY: number, isFlick: boolean, velocity: number): void;
-    }
-
-    interface OnSwipedDirectionCallback {
-        (event: React.TouchEvent<any>, delta: number, isFlick: boolean): void;
-    }
-
-    interface OnSwipingDirectionCallback {
-        (event: React.TouchEvent<any>, delta: number): void;
-    }
-
-    interface Props {
+    interface Props extends React.ClassAttributes<ReactSwipeable>, React.HTMLAttributes<HTMLElement> {
         onSwiped?: OnSwipedCallback;
         onSwiping?: onSwipingCallback;
         onSwipingUp?: OnSwipingDirectionCallback;
@@ -34,18 +24,18 @@ declare namespace ReactSwipeableModule {
         onSwipedRight?: OnSwipedDirectionCallback;
         onSwipedDown?: OnSwipedDirectionCallback;
         onSwipedLeft?: OnSwipedDirectionCallback;
+        onTap?: OnTapCallback;
         flickThreshold?: number;
         delta?: number;
         preventDefaultTouchmoveEvent?: boolean;
+        stopPropagation?: boolean;
         nodeName?: string;
+        trackMouse?: boolean;
+        children?: React.ReactNode;
     }
 
-    interface ReactSwipeable extends React.ComponentClass<Props> { }
+    class ReactSwipeable extends React.Component<Props, void> {}
+    namespace ReactSwipeable {}
 
-}
-
-
-declare module "react-swipeable" {
-    let module: ReactSwipeableModule.ReactSwipeable;
-    export = module;
+    export = ReactSwipeable;
 }
