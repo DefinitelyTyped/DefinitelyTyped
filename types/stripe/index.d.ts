@@ -10,7 +10,7 @@ export const Stripe: StripeStatic;
 
 export namespace stripe {
     interface StripeStatic {
-        elements(options?: elements.ElementOptions): elements.Elements;
+        elements(options?: elements.ElementsCreateOptions): elements.Elements;
         createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
     }
 
@@ -32,6 +32,11 @@ export namespace stripe {
 
     // Container for all elements related types
     namespace elements {
+        interface ElementsCreateOptions {
+            fonts?: elements.Font[];
+            locale?: string;
+        }
+
         type handler = (response?: ElementChangeResponse) => void;
         type eventTypes = 'blur' | 'change' | 'focus' | 'ready';
         interface Element {
@@ -75,7 +80,12 @@ export namespace stripe {
             hidePostalCode?: boolean;
             hideIcon?: boolean;
             iconStyle?: 'solid' | 'default';
-            style?: elements.Font;
+            style?: {
+                base?: Style;
+                complete?: Style;
+                empty?: Style;
+                invalid?: Style;
+            };
             value?: string | {[objectKey: string]: string; };
         }
 
