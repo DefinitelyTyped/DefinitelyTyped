@@ -2,7 +2,7 @@ import request = require('requestretry');
 
 request({
 	url: 'https://api.example.com/v1/a/b',
-	json:true,
+	json: true,
 	// The below parameters are specific to request-retry
 	// (default) try 5 times
 	maxAttempts: 5,
@@ -11,6 +11,5 @@ request({
 	// (default) retry on 5xx or network errors
 	retryStrategy: request.RetryStrategies.HTTPOrNetworkError
 }, (err, response, body) => {
-
 	// Body.
 });

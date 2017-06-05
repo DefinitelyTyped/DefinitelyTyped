@@ -5,33 +5,30 @@
 
 /// <reference types="node" />
 
-declare module 'requestretry' {
-	import request = require('request');
-	import http = require('http');
+import request = require('request');
+import http = require('http');
 
-	type RetryStrategy = (err: Error, response: http.IncomingMessage, body: any) => boolean;
+type RetryStrategy = (err: Error, response: http.IncomingMessage, body: any) => boolean;
 
-	namespace requestRetry {
-		interface RequestAPI extends request.RequestAPI<request.Request, requestRetry.RequestRetryOptions, request.RequiredUriUrl> {
-			RetryStrategies: {
-				'HttpError': RetryStrategy;
-				'HTTPOrNetworkError': RetryStrategy;
-				'NetworkError': RetryStrategy;
-			};
-		}
-
-		interface RequestRetryOptions extends request.CoreOptions {
-			maxAttempts?: number;
-			retryDelay?: number;
-			retryStrategy?: RetryStrategy;
-		}
-
-		type OptionsWithUri = request.UriOptions & RequestRetryOptions;
-		type OptionsWithUrl = request.UrlOptions & RequestRetryOptions;
-		type Options = OptionsWithUri | OptionsWithUrl;
+declare namespace requestRetry {
+	interface RequestAPI extends request.RequestAPI<request.Request, requestRetry.RequestRetryOptions, request.RequiredUriUrl> {
+		RetryStrategies: {
+			'HttpError': RetryStrategy;
+			'HTTPOrNetworkError': RetryStrategy;
+			'NetworkError': RetryStrategy;
+		};
 	}
 
-	let requestRetryExport: requestRetry.RequestAPI;
+	interface RequestRetryOptions extends request.CoreOptions {
+		maxAttempts?: number;
+		retryDelay?: number;
+		retryStrategy?: RetryStrategy;
+	}
 
-	export = requestRetryExport;
+	type OptionsWithUri = request.UriOptions & RequestRetryOptions;
+	type OptionsWithUrl = request.UrlOptions & RequestRetryOptions;
+	type Options = OptionsWithUri | OptionsWithUrl;
 }
+
+declare let requestretry: requestRetry.RequestAPI;
+export = requestretry;
