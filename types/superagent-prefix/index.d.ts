@@ -6,4 +6,9 @@
 
 import * as request from 'superagent';
 
-export default function(prefix: string): request.Plugin;
+declare function plugin(prefix: string): request.Plugin;
+
+declare namespace plugin {
+}
+
+export = plugin;
