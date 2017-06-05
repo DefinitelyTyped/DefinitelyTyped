@@ -3171,6 +3171,8 @@ declare namespace sequelize {
          * be returned. Only applies if `options.paranoid` is true for the model.
          */
         paranoid?: boolean;
+
+        all?: boolean | string;
     }
 
     /**
