@@ -87,7 +87,7 @@ function testDefaultProps() {
     const innerComponent = ({a, b}: Props) => <div>{a}, {b}</div>;
 
     const enhancer = defaultProps({ a: "answer", b: 42 });
-    const enhanced: React.StatelessComponent<Props> = enhancer(innerComponent);
+    const enhanced: React.StatelessComponent<Props> = enhancer<Props, ({a, b}: Props) => JSX.Element>(innerComponent);
 }
 
 function testRenameProp() {
