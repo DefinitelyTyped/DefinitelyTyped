@@ -1,5 +1,5 @@
 import * as request from 'superagent';
-import plugin from 'superagent-prefix';
+import * as plugin from 'superagent-prefix';
 
 request
     .get('/some-url')
