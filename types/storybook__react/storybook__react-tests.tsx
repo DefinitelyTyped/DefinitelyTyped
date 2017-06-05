@@ -12,7 +12,9 @@ storiesOf('Welcome', module)
 addDecorator(Decorator);
 
 // setAddon
-type AnyAddon = { xyz(): void };
+interface AnyAddon {
+    xyz(): void;
+}
 const AnyAddon: AnyAddon = {
     xyz() {}
 };
