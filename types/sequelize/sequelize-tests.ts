@@ -1670,3 +1670,14 @@ s.transaction((): Q.Promise<void> => {
         resolve(null);
     });
 });
+
+// sync options types
+s.sync({
+    alter: true,
+    force: true,
+    hooks: false,
+    searchPath: 'some/path/',
+    schema: 'schema',
+    logging: () => void,
+    match: new RegExp('\d{4,}')
+});
