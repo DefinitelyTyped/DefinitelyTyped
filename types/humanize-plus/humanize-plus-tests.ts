@@ -76,7 +76,6 @@ Humanize.pace(4, week);
 Humanize.pace(1, decade, "life crisis");
 // Less than 1 life crisis per week
 
-
 /**
  * fileSize
  */
@@ -141,7 +140,6 @@ Humanize.capitalize("wHoOaA!", true);
 Humanize.capitalizeAll("some boring string");
 // "Some Boring String"
 
-
 /**
  * titleCase
  */
@@ -155,11 +153,10 @@ Humanize.titleCase("cool the          iTunes cake, O'Malley!");
 // Arrays //
 ////////////
 
-
 /**
  * oxford
  */
-const items = ['apple', 'orange', 'banana', 'pear', 'pineapple']
+const items = ['apple', 'orange', 'banana', 'pear', 'pineapple'];
 
 Humanize.oxford(items);
 // "apple, orange, banana, pear, and pineapple"
