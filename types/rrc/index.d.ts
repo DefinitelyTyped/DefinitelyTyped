@@ -64,8 +64,12 @@ export interface StatusProps {
 export class Status extends React.Component<StatusProps, void> { }
 
 
+interface GetKeyFunction<Params = {}> {
+    (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location): string;
+}
+
 export interface WrapSwitchProps extends SwitchProps {
-    getKey?: <Params>(match: MatchObject<Params>, route: RouteConfiguration, location: H.Location) => void;
+    getKey?: GetKeyFunction;
 }
 
 export function wrapSwitch<WrapperProps>(Wrapper: ComponentConstructor<WrapperProps>):
