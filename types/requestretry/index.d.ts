@@ -1,3 +1,10 @@
+// Type definitions for requestretry 1.12.0
+// Project: https://github.com/FGRibreau/node-request-retry
+// Definitions by: Eric Byers <https://github.com/EricByers>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
 declare module 'requestretry' {
 
 	import request = require('request');
@@ -31,7 +38,7 @@ declare module 'requestretry' {
 
 	}
 
-	var requestRetryExport: requestRetry.RequestAPI;
+	let requestRetryExport: requestRetry.RequestAPI;
 
 	export = requestRetryExport;
 }
