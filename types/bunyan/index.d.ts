@@ -27,7 +27,7 @@ declare class Logger extends EventEmitter {
 
     /**
      * Returns a boolean: is the `trace` level enabled?
-     * 
+     *
      * This is equivalent to `log.isTraceEnabled()` or `log.isEnabledFor(TRACE)` in log4j.
      */
     trace(): boolean;
@@ -43,7 +43,7 @@ declare class Logger extends EventEmitter {
     /**
      * The first field can optionally be a "fields" object, which
      * is merged into the log record.
-     * 
+     *
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
@@ -56,7 +56,7 @@ declare class Logger extends EventEmitter {
 
     /**
      * Returns a boolean: is the `debug` level enabled?
-     * 
+     *
      * This is equivalent to `log.isDebugEnabled()` or `log.isEnabledFor(DEBUG)` in log4j.
      */
     debug(): boolean;
@@ -72,7 +72,7 @@ declare class Logger extends EventEmitter {
     /**
      * The first field can optionally be a "fields" object, which
      * is merged into the log record.
-     * 
+     *
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
@@ -85,7 +85,7 @@ declare class Logger extends EventEmitter {
 
     /**
      * Returns a boolean: is the `info` level enabled?
-     * 
+     *
      * This is equivalent to `log.isInfoEnabled()` or `log.isEnabledFor(INFO)` in log4j.
      */
     info(): boolean;
@@ -101,7 +101,7 @@ declare class Logger extends EventEmitter {
     /**
      * The first field can optionally be a "fields" object, which
      * is merged into the log record.
-     * 
+     *
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
@@ -114,7 +114,7 @@ declare class Logger extends EventEmitter {
 
     /**
      * Returns a boolean: is the `warn` level enabled?
-     * 
+     *
      * This is equivalent to `log.isWarnEnabled()` or `log.isEnabledFor(WARN)` in log4j.
      */
     warn(): boolean;
@@ -130,7 +130,7 @@ declare class Logger extends EventEmitter {
     /**
      * The first field can optionally be a "fields" object, which
      * is merged into the log record.
-     * 
+     *
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
@@ -143,7 +143,7 @@ declare class Logger extends EventEmitter {
 
     /**
      * Returns a boolean: is the `error` level enabled?
-     * 
+     *
      * This is equivalent to `log.isErrorEnabled()` or `log.isEnabledFor(ERROR)` in log4j.
      */
     error(): boolean;
@@ -159,7 +159,7 @@ declare class Logger extends EventEmitter {
     /**
      * The first field can optionally be a "fields" object, which
      * is merged into the log record.
-     * 
+     *
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
@@ -172,7 +172,7 @@ declare class Logger extends EventEmitter {
 
     /**
      * Returns a boolean: is the `fatal` level enabled?
-     * 
+     *
      * This is equivalent to `log.isFatalEnabled()` or `log.isEnabledFor(FATAL)` in log4j.
      */
     fatal(): boolean;
@@ -188,7 +188,7 @@ declare class Logger extends EventEmitter {
     /**
      * The first field can optionally be a "fields" object, which
      * is merged into the log record.
-     * 
+     *
      * To pass in an Error *and* other fields, use the `err`
      * field name for the Error instance.
      */
@@ -203,70 +203,70 @@ declare class Logger extends EventEmitter {
 }
 
 declare namespace Logger {
-  const TRACE: number;
-  const DEBUG: number;
-  const INFO: number;
-  const WARN: number;
-  const ERROR: number;
-  const FATAL: number;
+    const TRACE: number;
+    const DEBUG: number;
+    const INFO: number;
+    const WARN: number;
+    const ERROR: number;
+    const FATAL: number;
 
-  type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal' | number;
+    type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal' | number;
 
-  const stdSerializers: StdSerializers;
+    const stdSerializers: StdSerializers;
 
-  function createLogger(options: LoggerOptions): Logger;
+    function createLogger(options: LoggerOptions): Logger;
 
-  function safeCycles(): (key: string, value: any) => any;
+    function safeCycles(): (key: string, value: any) => any;
 
-  function resolveLevel(value: LogLevel): number;
+    function resolveLevel(value: LogLevel): number;
 
-  interface Stream {
-    type?: string;
-    level?: LogLevel;
-    path?: string;
-    stream?: NodeJS.WritableStream | Stream;
-    closeOnExit?: boolean;
-    period?: string;
-    count?: number;
-  }
+    interface Stream {
+        type?: string;
+        level?: LogLevel;
+        path?: string;
+        stream?: NodeJS.WritableStream | Stream;
+        closeOnExit?: boolean;
+        period?: string;
+        count?: number;
+    }
 
-  interface LoggerOptions {
-    name: string;
-    streams?: Stream[];
-    level?: LogLevel;
-    stream?: NodeJS.WritableStream;
-    serializers?: Serializers;
-    src?: boolean;
-    [custom: string]: any;
-  }
+    interface LoggerOptions {
+        name: string;
+        streams?: Stream[];
+        level?: LogLevel;
+        stream?: NodeJS.WritableStream;
+        serializers?: Serializers;
+        src?: boolean;
+        [custom: string]: any;
+    }
 
-  type Serializer = (input: any) => any;
+    type Serializer = (input: any) => any;
 
-  interface Serializers {
-    [key: string]: Serializer;
-  }
+    interface Serializers {
+        [key: string]: Serializer;
+    }
 
-  interface StdSerializers extends Serializers {
-    err: Serializer;
-    res: Serializer;
-    req: Serializer;
-  }
+    interface StdSerializers extends Serializers {
+        err: Serializer;
+        res: Serializer;
+        req: Serializer;
+    }
 
-  interface RingBufferOptions {
-    limit?: number;
-  }
+    interface RingBufferOptions {
+        limit?: number;
+    }
 
-  class RingBuffer extends EventEmitter implements NodeJS.WritableStream {
-    constructor(options: RingBufferOptions);
+    class RingBuffer extends EventEmitter implements NodeJS.WritableStream {
+        constructor(options: RingBufferOptions);
 
-    writable: boolean;
-    records: any[];
+        writable: boolean;
+        records: any[];
 
-    write(record: any): boolean;
-    end(record?: any): void;
-    destroy(): void;
-    destroySoon(): void;
-  }
+        write(record: any): boolean;
+        end(record?: any): void;
+        destroy(): void;
+        destroySoon(): void;
+    }
 }
 
 export = Logger;
