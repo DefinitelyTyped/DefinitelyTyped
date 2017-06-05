@@ -2,6 +2,7 @@
 // Project: https://github.com/einaros/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Type definitions for ws 3.0
 
 /// <reference types="node" />
 
