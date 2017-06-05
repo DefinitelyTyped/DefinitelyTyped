@@ -11,6 +11,8 @@ import {
   RichUtils,
   SelectionState,
   getDefaultKeyBinding,
+  ContentState, 
+  convertFromHTML
 } from 'draft-js';
 
 const SPLIT_HEADER_BLOCK = 'split-header-block';
@@ -30,8 +32,18 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
   constructor() {
     super();
 
-    this.state = { editorState: EditorState.createEmpty() };
-    }
+    const sampleMarkup =
+      '<b>Bold text</b>, <i>Italic text</i><br/ ><br />' +
+      '<a href="http://www.facebook.com">Example link</a><br /><br/ >' +
+      '<img src="image.png" height="112" width="200" />';
+    const blocksFromHTML = convertFromHTML(sampleMarkup);
+    const state = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap,
+    );
+
+    this.state = { editorState: EditorState.createWithContent(state) };
+  }
 
   onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 
