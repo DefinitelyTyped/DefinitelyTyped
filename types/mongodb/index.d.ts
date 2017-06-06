@@ -497,14 +497,13 @@ export interface Collection {
     dropIndexes(): Promise<any>;
     dropIndexes(callback?: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find
-    find(query?: Object): Cursor<any>;
-    find<T>(query?: Object): Cursor<T>;
+    find<T = Default>(query?: Object): Cursor<T>;
     /** @deprecated */
-    find(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<any>;
+    find<T = Default>(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
-    findOne(filter: Object, callback: MongoCallback<any>): void;
-    findOne(filter: Object, options?: FindOneOptions): Promise<any>;
-    findOne(filter: Object, options: FindOneOptions, callback: MongoCallback<any>): void;
+    findOne<T = Default>(filter: Object, callback: MongoCallback<T>): void;
+    findOne<T = Default>(filter: Object, options?: FindOneOptions): Promise<T>;
+    findOne<T = Default>(filter: Object, options: FindOneOptions, callback: MongoCallback<T>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject>): void;
     findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<FindAndModifyWriteOpResultObject>;

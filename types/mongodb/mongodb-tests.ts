@@ -85,6 +85,8 @@ let options = {
     let cursor: mongodb.Cursor<bag> = collection.find<bag>({color: 'black'})
         cursor.toArray(function (err,r) { r[0].cost} );
         cursor.forEach(function (bag  ) { bag.color }, () => {});
+        collection.findOne({ color: 'white' }).then(() => { })
+        collection.findOne<bag>({ color: 'white' }).then(b => { b.cost; })
     }
     {
     let payment: {total: number};
