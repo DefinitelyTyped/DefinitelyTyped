@@ -1,6 +1,6 @@
 // Type definitions for react-swipeable 4.0
 // Project: https://www.npmjs.com/package/react-swipeable
-// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>,
+// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Konstantin Vasilev <https://github.com/mctep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
