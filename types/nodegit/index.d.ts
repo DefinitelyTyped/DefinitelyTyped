@@ -21,6 +21,7 @@ export { IndexEntry } from './index-entry';
 export { MergeFileInput } from './merge-file-input';
 export { MergeOptions } from './merge-options';
 export { Merge } from './merge';
+export { Note } from './note';
 export { Object } from './object';
 export { OdbObject } from './odb-object';
 export { Odb } from './odb';
