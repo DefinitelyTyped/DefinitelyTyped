@@ -521,7 +521,7 @@ declare namespace NodeJS {
         prependOnceListener(event: "uncaughtException", listener: (error: Error) => void): this;
         prependOnceListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
         prependOnceListener(event: "warning", listener: (warning: Error) => void): this;
-        prependOnceListener(event: Signals, listener: () => void): this;    
+        prependOnceListener(event: Signals, listener: () => void): this;
     }
 
     export interface Global {
@@ -807,7 +807,7 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: { [key: string]: string };
+        headers: { [key: string]: string | string[] };
         rawHeaders: string[];
         trailers: { [key: string]: string };
         rawTrailers: string[];
