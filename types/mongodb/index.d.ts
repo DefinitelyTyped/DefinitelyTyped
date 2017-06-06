@@ -38,48 +38,61 @@ export class MongoError extends Error {
     code?: number;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html#.connect
-export interface MongoClientOptions {
-    uri_decode_auth?: boolean;
-    db?: DbCreateOptions;
-    server?: ServerOptions;
-    replSet?: ReplSetOptions;
-    mongos?: MongosOptions;
-    promiseLibrary?: Object;
+// http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#.connect
+export interface MongoClientOptions extends
+    DbCreateOptions,
+    ServerOptions,
+    MongosOptions,
+    ReplSetOptions,
+    SocketOptions,
+    SSLOptions,
+    HighAvailabilityOptions {
+        // The logging level (error/warn/info/debug)
+        loggerLevel?: string;
+        // Custom logger object
+        logger?: Object;
+        // Default: false;
+        validateOptions?: Object;
 }
 
-// See : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
-export interface DbCreateOptions {
-    authSource?: string;
-    //  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
-    w?: number | string;
-    // set the timeout for waiting for write concern to finish (combines with w option).
-    wtimeout?: number;
-    j?: boolean;
-    // use c++ bson parser. default:false.
-    native_parser?: boolean;
-    // force server to create _id fields instead of client. default:false.
-    forceServerObjectId?: boolean;
-    serializeFunctions?: boolean;
-    ignoreUndefined?: boolean;
-    // peform operations using raw bson buffers. default:false.
-    raw?: boolean;
-    // when deserializing a Long will fit it into a Number if it’s smaller than 53 bits. default:true.
-    promoteLongs?: boolean;
-    bufferMaxEntries?: number;
-    // the prefered read preference. use 'ReadPreference' class.
-    readPreference?: ReadPreference | string;
-    // custom primary key factory to generate _id values (see Custom primary keys).
-    pkFactory?: Object;
-    promiseLibrary?: Object;
-    readConcern?: { level?: Object };
+export interface SSLOptions {
+    // Default:5; Number of connections for each server instance
+    poolSize?: number;
+    // Use ssl connection (needs to have a mongod server with ssl support)
+    ssl?: boolean;
+    // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
+    sslValidate?: Object;
+    // Default: true; Server identity checking during SSL
+    checkServerIdentity?: boolean | Function;
+    // Array of valid certificates either as Buffers or Strings
+    sslCA?: Array<Buffer | string>;
+    // SSL Certificate revocation list binary buffer
+    sslCRL?: Buffer;
+    // SSL Certificate binary buffer
+    sslCert?: Buffer | string;
+    // SSL Key file binary buffer
+    sslKey?: Buffer | string;
+    // SSL Certificate pass phrase
+    sslPass?: Buffer | string;
+    // String containing the server name requested via TLS SNI.
+    servername?: string;
 }
 
-// See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
+export interface HighAvailabilityOptions {
+    // Default: true; Turn on high availability monitoring.
+    ha?: boolean;
+    // Default: 10000; The High availability period for replicaset inquiry
+    haInterval?: number;
+    // Default: false;
+    domainsEnabled?: boolean;
+}
+
+// See http://mongodb.github.io/node-mongodb-native/2.2/api/ReadPreference.html
 export class ReadPreference {
     constructor(mode: string, tags: Object);
     mode: string;
     tags: any;
+    options: { maxStalenessSeconds?: number}; // Max Secondary Read Stalleness in Seconds
     static PRIMARY: string;
     static PRIMARY_PREFERRED: string;
     static SECONDARY: string;
@@ -89,7 +102,44 @@ export class ReadPreference {
     static isValid(mode: string): boolean;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html
+export interface DbCreateOptions {
+    
+    // If the database authentication is dependent on another databaseName.
+    authSource?: string;
+    // Default: null;https://docs.mongodb.com/manual/reference/write-concern/#write-concern
+    w?: number | string;
+    // The write concern timeout to finish (combining with w option).
+    wtimeout?: number;
+    // Specify a journal write concern.
+    j?: boolean;
+    // Default: false; Force server to create _id fields instead of client.
+    forceServerObjectId?: boolean;
+    // Default: false; Use c++ bson parser.
+    native_parser?: boolean;
+    // Serialize functions on any object.
+    serializeFunctions?: boolean;
+    // Specify if the BSON serializer should ignore undefined fields.
+    ignoreUndefined?: boolean;
+    // Return document results as raw BSON buffers.
+    raw?: boolean;
+    // Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
+    promoteLongs?: boolean;
+    // Default: -1 (unlimited); Amount of operations the driver buffers up untill discard any new ones
+    promoteBuffers?: number;
+    // the prefered read preference. use 'ReadPreference' class.
+    readPreference?: ReadPreference | string;
+    // Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
+    promoteValues?: Object;
+    // Custom primary key factory to generate _id values (see Custom primary keys).
+    pkFactory?: Object;
+    // ES6 compatible promise constructor
+    promiseLibrary?: Object;
+    // https://docs.mongodb.com/manual/reference/read-concern/#read-concern
+    readConcern?: { level?: Object };
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
 export interface SocketOptions {
     // Reconnect on error. default:false
     autoReconnect?: boolean;
@@ -103,54 +153,37 @@ export interface SocketOptions {
     socketTimeoutMS?: number;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-export interface ServerOptions {
-    // - specify the number of connections in the pool default:5
-    poolSize?: number;
-    ssl?: boolean;
-    sslValidate?: Object;
-    checkServerIdentity?: boolean | Function;
-    sslCA?: Array<Buffer | string>;
-    sslCert?: Buffer | string;
-    sslKey?: Buffer | string;
-    sslPass?: Buffer | string;
-    socketOptions?: SocketOptions;
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
+export interface ServerOptions extends SSLOptions {
+    // Default: 30;
     reconnectTries?: number;
+    // Default: 1000;
     reconnectInterval?: number;
+    // Default: true;
+    monitoring?: boolean
+    socketOptions?: SocketOptions;
+    // Default: 10000; The High availability period for replicaset inquiry
+    haInterval?: number;
+    // Default: false;
+    domainsEnabled?: boolean;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-export interface ReplSetOptions {
-    ha?: boolean;
-    haInterval?: number;
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Mongos.html
+export interface MongosOptions extends SSLOptions, HighAvailabilityOptions{
+    // Default: 15; Cutoff latency point in MS for MongoS proxy selection
+    acceptableLatencyMS?: number;
+    socketOptions?: SocketOptions;
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.2/api/ReplSet.html
+export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions  {
+    // The max staleness to secondary reads (values under 10 seconds cannot be guaranteed);
+    maxStalenessSeconds?: number;
+    // The name of the replicaset to connect to.
     replicaSet?: string;
+    // Default: 15 ; Range of servers to pick when using NEAREST (lowest ping ms + the latency fence, ex: range of 1 to (1 + 15) ms)
     secondaryAcceptableLatencyMS?: number;
     connectWithNoPrimary?: boolean;
-    // - specify the number of connections in the pool default:5
-    poolSize?: number;
-    ssl?: boolean;
-    sslValidate?: Object;
-    checkServerIdentity?: boolean | Function;
-    sslCA?: Array<Buffer | string>;
-    sslCert?: Buffer | string;
-    sslKey?: Buffer | string;
-    sslPass?: Buffer | string;
-    socketOptions?: SocketOptions;
-}
-
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Mongos.html
-export interface MongosOptions {
-    ha?: boolean;
-    haInterval?: number;
-    // - specify the number of connections in the pool default:5
-    poolSize?: number;
-    ssl?: boolean;
-    sslValidate?: Object;
-    checkServerIdentity?: boolean | Function;
-    sslCA?: Array<Buffer | string>;
-    sslCert?: Buffer | string;
-    sslKey?: Buffer | string;
-    sslPass?: Buffer | string;
     socketOptions?: SocketOptions;
 }
 

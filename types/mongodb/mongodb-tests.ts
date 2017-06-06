@@ -2,8 +2,32 @@
 import mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
-var format = require('util').format;
-MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err: mongodb.MongoError, db: mongodb.Db) {
+var format  = require('util').format;
+let options = {
+    authSource           : ' ',
+    w                    : 1,
+    wtimeout             : 300,
+    j                    : true,
+    bufferMaxEntries     : 1000,
+    readPreference       : 'ReadPreference | string',
+    promoteValues        : {},
+    pkFactory            : {},
+    poolSize             : 1,
+    
+    socketOptions        : {},
+    
+    reconnectTries       : 123456,
+    reconnectInterval    : 123456,
+    
+    ssl                  : true,
+    sslValidate          : {},
+    checkServerIdentity  : function (){ },
+    sslCA                : ['str'],
+    sslCert              : new Buffer(999),
+    sslKey               : new Buffer(999),
+    sslPass              : new Buffer(999)
+}
+    MongoClient.connect('mongodb://127.0.0.1:27017/test', options, function(err: mongodb.MongoError, db: mongodb.Db) {
     if (err) throw err;
 
     var collection = db.collection('test_insert');
@@ -29,7 +53,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err: mongodb.Mong
     });
 
     {
-    let cursor: mongodb.Cursor<any>;
+    let cursor: mongodb.Cursor  <any>;
         cursor = collection.find();
         cursor = cursor.addCursorFlag('',true);
         cursor = cursor.addQueryModifier('',true);

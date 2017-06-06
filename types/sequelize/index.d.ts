@@ -3165,12 +3165,14 @@ declare namespace sequelize {
          * Load further nested related models
          */
         include?: Array<Model<any, any> | IncludeOptions>;
-        
+
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
          * be returned. Only applies if `options.paranoid` is true for the model.
          */
         paranoid?: boolean;
+
+        all?: boolean | string;
     }
 
     /**
@@ -3258,7 +3260,7 @@ declare namespace sequelize {
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
-                     
+
         /**
          * Prevents a subquery on the main table when using include
          */
@@ -5049,6 +5051,22 @@ declare namespace sequelize {
          * The schema that the tables should be created in. This can be overriden for each table in sequelize.define
          */
         schema?: string;
+
+        /**
+         * Alters tables to fit models. Not recommended for production use. Deletes data in columns
+         * that were removed or had their type changed in the model.
+         */
+        alter?: boolean;
+
+        /**
+         * If hooks is true then beforeSync, afterSync, beforBulkSync, afterBulkSync hooks will be called
+         */
+        hooks?: boolean;
+
+        /**
+         * An optional parameter to specify the schema search_path (Postgres only)
+         */
+        searchPath?: string;
 
     }
 
