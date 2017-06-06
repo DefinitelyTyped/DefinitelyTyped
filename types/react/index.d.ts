@@ -25,7 +25,8 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
+    type ReactType = string | ComponentType<any>;
+    type ComponentType<P> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
@@ -263,7 +264,7 @@ declare namespace React {
     }
 
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-        mixins?: Mixin<P, S>;
+        mixins?: Mixin<P, S>[];
         statics?: {
             [key: string]: any;
         };
@@ -2259,6 +2260,10 @@ declare namespace React {
         target?: string;
         type?: string;
         width?: number | string;
+                  
+        // Other HTML properties supported by SVG elements in browsers
+        role?: string;
+        tabIndex?: number;
 
         // SVG Specific attributes
         accentHeight?: number | string;

@@ -1,6 +1,6 @@
 // Type definitions for Leaflet.awesome-markers plugin v2.0
 // Project: https://github.com/sigma-geosistemas/Leaflet.awesome-markers#properties
-// Definitions by: Egor Komarov <https://github.com/Odrin>
+// Definitions by: Marcel Sebek <https://github.com/sebek64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Leaflet from "leaflet";
@@ -11,27 +11,12 @@ declare global { namespace L {
 
         function icon(options: AwesomeMarkers.IconOptions): AwesomeMarkers.Icon;
 
-        interface IconStatic extends Leaflet.IconStatic {
-            /**
-              * Creates an icon instance with the given options.
-              */
-            new (options: IconOptions): Icon;
-
-            Default: {
-                /**
-                  * Creates a default icon instance with the given options.
-                  */
-                new (options?: IconOptions): Icon.Default;
-
-                imagePath: string;
-            };
-        }
-
-        interface Icon extends Leaflet.Icon {
+        class Icon extends Leaflet.BaseIcon {
+            constructor(options?: AwesomeMarkers.IconOptions);
             options: AwesomeMarkers.IconOptions;
         }
 
-        interface IconOptions extends Leaflet.IconOptions {
+        interface IconOptions extends Leaflet.BaseIconOptions {
             /**
             * Name of the icon. See glyphicons or font-awesome.
             */
@@ -62,7 +47,5 @@ declare global { namespace L {
             */
             extraClasses?: string;
         }
-
-        var Icon: AwesomeMarkers.IconStatic;
     }
 } }

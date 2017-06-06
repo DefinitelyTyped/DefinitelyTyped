@@ -53,7 +53,7 @@ declare namespace convict {
          * @returns the current value of the name property. name can use dot
          * notation to reference nested values
          */
-        get(name: string): any;
+        get(name?: string): any;
         /**
          * @returns the default value of the name property. name can use dot
          * notation to reference nested values

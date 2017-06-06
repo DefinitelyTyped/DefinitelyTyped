@@ -1,41 +1,52 @@
-import algoliasearch = require('algoliasearch');
-import { ClientOptions, SynonymOption, AlgoliaUserKeyOptions, SearchSynonymOptions,
+import * as algoliasearch from "algoliasearch";
+import { ClientOptions, SynonymOption, AlgoliaUserKeyOptions, SearchSynonymOptions, AlgoliaResponse,
     AlgoliaSecuredApiOptions, AlgoliaIndexSettings, AlgoliaQueryParameters, AlgoliaIndex } from "algoliasearch";
 
-var _clientOptions: ClientOptions = {
-    timeout : 12,
+let _algoliaResponse: AlgoliaResponse = {
+    hits: [{}, {}],
+    page: 0,
+    nbHits: 12,
+    nbPages: 6,
+    hitsPerPage: 2,
+    processingTimeMS: 32,
+    query: "",
+    params: "",
+};
+
+let _clientOptions: ClientOptions = {
+    timeout: 12,
     protocol: "",
-    httpAgent: ""
+    httpAgent: "",
 };
 
-var _synonymOption: SynonymOption = {
+let _synonymOption: SynonymOption = {
     forwardToSlaves: false,
-    replaceExistingSynonyms: false
+    replaceExistingSynonyms: false,
 };
 
-var _algoliaUserKeyOptions : AlgoliaUserKeyOptions = {
+let _algoliaUserKeyOptions: AlgoliaUserKeyOptions = {
     validity: 0,
     maxQueriesPerIPPerHour: 0,
     indexes: [""],
     queryParameters: { attributesToRetrieve: ["algolia"] },
-    description: ""
+    description: "",
 };
 
-var _searchSynonymOptions : SearchSynonymOptions = {
+let _searchSynonymOptions: SearchSynonymOptions = {
     query: "",
     page: 0,
     type: "",
-    hitsPerPage: 0
+    hitsPerPage: 0,
 };
 
-var _algoliaSecuredApiOptions: AlgoliaSecuredApiOptions = {
+let _algoliaSecuredApiOptions: AlgoliaSecuredApiOptions = {
     filters: "",
     validUntil: 0,
     restrictIndices: "",
-    userToken: ""
+    userToken: "",
 };
 
-var _algoliaIndexSettings : AlgoliaIndexSettings = {
+let _algoliaIndexSettings: AlgoliaIndexSettings = {
     attributesToIndex: [""],
     attributesforFaceting: [""],
     unretrievableAttributes: [""],
@@ -43,12 +54,12 @@ var _algoliaIndexSettings : AlgoliaIndexSettings = {
     ranking: [""],
     customRanking: [""],
     slaves: [""],
-    maxValuesPerFacet: '',
+    maxValuesPerFacet: "",
     attributesToHighlight: [""],
     attributesToSnippet: [""],
-    highlightPreTag: '',
-    highlightPostTag: '',
-    snippetEllipsisText: '',
+    highlightPreTag: "",
+    highlightPostTag: "",
+    snippetEllipsisText: "",
     restrictHighlightAndSnippetArrays: false,
     hitsPerPage: 0,
     minWordSizefor1Typo: 0,
@@ -56,16 +67,16 @@ var _algoliaIndexSettings : AlgoliaIndexSettings = {
     typoTolerance: false,
     allowTyposOnNumericTokens: false,
     ignorePlurals: false,
-    disableTypoToleranceOnAttributes: '',
-    separatorsToIndex: '',
-    queryType: '',
-    removeWordsIfNoResults: '',
+    disableTypoToleranceOnAttributes: "",
+    separatorsToIndex: "",
+    queryType: "",
+    removeWordsIfNoResults: "",
     advancedSyntax: false,
     optionalWords: [""],
     removeStopWords: [""],
     disablePrefixOnAttributes: [""],
     disableExactOnAttributes: [""],
-    exactOnSingleWordQuery: '',
+    exactOnSingleWordQuery: "",
     alternativesAsExact: false,
     attributeForDistinct: "",
     distinct: false,
@@ -73,21 +84,21 @@ var _algoliaIndexSettings : AlgoliaIndexSettings = {
     allowCompressionOfIntegerArray: false,
     altCorrections: [{}],
     minProximity: 0,
-    placeholders: ''
+    placeholders: "",
 };
 
-var _algoliaQueryParameters : AlgoliaQueryParameters = {
-    query: '',
-    filters: '',
+let _algoliaQueryParameters: AlgoliaQueryParameters = {
+    query: "",
+    filters: "",
     attributesToRetrieve: [""],
     restrictSearchableAttributes: [""],
-    facets: '',
-    maxValuesPerFacet: '',
-    attributesToHighlight: [''],
-    attributesToSnippet: [''],
-    highlightPreTag: '',
-    highlightPostTag: '',
-    snippetEllipsisText: '',
+    facets: "",
+    maxValuesPerFacet: "",
+    attributesToHighlight: [""],
+    attributesToSnippet: [""],
+    highlightPreTag: "",
+    highlightPostTag: "",
+    snippetEllipsisText: "",
     restrictHighlightAndSnippetArrays: false,
     hitsPerPage: 0,
     page: 0,
@@ -98,38 +109,36 @@ var _algoliaQueryParameters : AlgoliaQueryParameters = {
     typoTolerance: false,
     allowTyposOnNumericTokens: false,
     ignorePlurals: false,
-    disableTypoToleranceOnAttributes: '',
-    aroundLatLng: '',
-    aroundLatLngViaIP: '',
-    aroundRadius: '',
+    disableTypoToleranceOnAttributes: "",
+    aroundLatLng: "",
+    aroundLatLngViaIP: "",
+    aroundRadius: "",
     aroundPrecision: 0,
     minimumAroundRadius: 0,
-    insideBoundingBox: '',
-    queryType: '',
-    insidePolygon: '',
-    removeWordsIfNoResults: '',
+    insideBoundingBox: "",
+    queryType: "",
+    insidePolygon: "",
+    removeWordsIfNoResults: "",
     advancedSyntax: false,
-    optionalWords: [''],
-    removeStopWords: [''],
-    disableExactOnAttributes: [''],
-    exactOnSingleWordQuery: '',
+    optionalWords: [""],
+    removeStopWords: [""],
+    disableExactOnAttributes: [""],
+    exactOnSingleWordQuery: "",
     alternativesAsExact: true,
     distinct: 0,
     getRankingInfo: false,
-    numericAttributesToIndex: [''],
-    numericFilters: [''],
-    tagFilters: '',
-    facetFilters: '',
+    numericAttributesToIndex: [""],
+    numericFilters: [""],
+    tagFilters: "",
+    facetFilters: "",
     analytics: false,
-    analyticsTags: [''],
+    analyticsTags: [""],
     synonyms: true,
     replaceSynonymsInHighlight: false,
-    minProximity: 0
+    minProximity: 0,
 };
 
-var index: AlgoliaIndex = algoliasearch('', '').initIndex('');
+let index: AlgoliaIndex = algoliasearch("", "").initIndex("");
 
-var search = index.search({query: ""});
-index.search({query: ""}, function(err, res){});
-
-
+let search = index.search({query: ""});
+             index.search({query: ""}, (err, res) => {});

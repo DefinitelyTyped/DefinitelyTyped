@@ -1,6 +1,6 @@
 // Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>
+// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>, Jeremi Stadler <https://github.com/jeremistadler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -234,7 +234,7 @@ interface EventEmitter extends EventEmitterListener {
      *
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      */
-    emit(eventType: string): void
+    emit(eventType: string, ...params: any[]): void
 
     /**
      * Removes the given listener for event of specific type.
@@ -804,6 +804,17 @@ export interface TextPropertiesAndroid {
      * Lets the user select text, to use the native copy and paste functionality.
      */
     selectable?: boolean
+
+    /**
+     * The highlight color of the text.
+     */
+    selectionColor?: string
+
+    /**
+     * Set text break strategy on Android API Level 23+
+     * default is `highQuality`.
+     */
+    textBreakStrategy?: "simple" | "highQuality" | "balanced"
 }
 
 // https://facebook.github.io/react-native/docs/text.html#props
@@ -993,7 +1004,10 @@ export interface TextInputIOSProperties {
      */
     selectionState?: DocumentSelectionState
 
-
+    /**
+     * If false, disables spell-check style (i.e. red underlines). The default value is inherited from autoCorrect
+     */
+    spellCheck?: boolean
 }
 
 /**
@@ -3414,7 +3428,7 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
-export interface FlatListProperties<ItemT> {
+export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
     /**
      * Rendered in between each item, but not at the top or bottom
@@ -3422,19 +3436,27 @@ export interface FlatListProperties<ItemT> {
     ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     /**
-     * Rendered at the bottom of all the items.
+     * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | null
+    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
-     * Rendered at the top of all the items.
+     * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | null
+    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
      */
     columnWrapperStyle?: ViewStyle
+
+    /**
+     * When false tapping outside of the focused text input when the keyboard
+     * is up dismisses the keyboard. When true the scroll view will not catch
+     * taps and the keyboard will not dismiss automatically. The default value
+     * is false.
+     */
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled'
 
     /**
      * For simplicity, data is just a plain array. If you want to use something else,
@@ -3607,12 +3629,12 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | null
+    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | null
+    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered in between each section.
@@ -4472,6 +4494,7 @@ export interface SceneConfig {
 
 export interface JumpSceneConfig extends SceneConfig {
     gestures: {
+        pop?: LeftToRightGesture
         jumpBack: JumpGesture
         jumpForward: JumpGesture
     }
@@ -5285,7 +5308,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android'
+export type PlatformOSType = 'ios' | 'android' | 'windows'
 
 interface PlatformStatic {
     OS: PlatformOSType
@@ -8822,6 +8845,13 @@ export function processColor(color: any): number;
 
 export function __spread(target: any, ...sources: any[]): any;
 
+type ErrorHandlerCallback = (error: any, isFatal?: boolean) => void;
+
+export interface ErrorUtils {
+    setGlobalHandler: (callback: ErrorHandlerCallback) => void;
+    getGlobalHandler: () => ErrorHandlerCallback;
+}
+
 export interface GlobalStatic {
 
     /**
@@ -8842,6 +8872,9 @@ export interface GlobalStatic {
      */
     originalXMLHttpRequest: Object;
     XMLHttpRequest: Object;
+
+    __BUNDLE_START_TIME__: number;
+    ErrorUtils: ErrorUtils;
 }
 
 //
