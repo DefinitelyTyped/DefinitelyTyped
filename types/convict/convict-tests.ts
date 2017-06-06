@@ -18,22 +18,22 @@ const format: convict.Format = {
 
 convict.addFormat(format);
 convict.addFormats({
-      prime: {
-        validate(val) {
-          function isPrime(n: number) {
-            if (n <= 1) return false; // zero and one are not prime
-            for (let i = 2; i * i <= n; i++) {
-              if (n % i === 0) return false;
-            }
-            return true;
-          }
-          if (!isPrime(val)) throw new Error('must be a prime number');
-        },
-        coerce(val) {
-          return parseInt(val, 10);
+  prime: {
+    validate(val) {
+      function isPrime(n: number) {
+        if (n <= 1) return false; // zero and one are not prime
+        for (let i = 2; i * i <= n; i++) {
+          if (n % i === 0) return false;
         }
+        return true;
       }
-    });
+      if (!isPrime(val)) throw new Error('must be a prime number');
+    },
+    coerce(val) {
+      return parseInt(val, 10);
+    }
+  }
+});
 
 let conf = convict({
   env: {
