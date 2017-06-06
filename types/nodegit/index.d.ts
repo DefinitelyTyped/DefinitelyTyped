@@ -26,6 +26,7 @@ export { OdbObject } from './odb-object';
 export { Odb } from './odb';
 export { Oidarray } from './oid-array';
 export { Oid } from './oid';
+export { Openssl } from './open-ssl';
 export { Packbuilder } from './pack-builder';
 export { Pathspec } from './path-spec';
 export { PushOptions } from './push-options';
