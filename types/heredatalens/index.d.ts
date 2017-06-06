@@ -1,4 +1,4 @@
-// Type definitions for HERE Data Lens API for JavaScript v2.3.0-31
+// Type definitions for HERE Data Lens API for JavaScript 2.3
 // Project: https://developer.here.com/
 // Definitions by: Bernd Hacker <https://github.com/denyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -521,7 +521,11 @@ declare namespace H {
              * Each row is transformed into TilePoint and then rendered on a heat map. By default each row is an Object where property names correspond to data column names.
              * This representation can be changed with the dataToRows callback.
              */
-            type Row = number;
+            interface Row {
+                tx?: number;
+                ty?: number;
+                count?: number;
+            }
 
             /**
              * Defines a constant for the bandwidth
@@ -678,7 +682,11 @@ declare namespace H {
              * Each row is translated to map objects with the rowToMapObject callback. By default each row is an Object where property names correspond to data column names.
              * This representation can be changed with the dataToRows callback.
              */
-            type Row = number;
+            interface Row {
+                getPosition(): H.geo.Point;
+                lat: number;
+                lng: number;
+            }
 
             /**
              * User defined modification of a data-driven style
