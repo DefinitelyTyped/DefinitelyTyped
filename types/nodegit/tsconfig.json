@@ -49,6 +49,7 @@
         "repository.d.ts",
         "rev-parse.d.ts",
         "rev-walk.d.ts",
+        "revert.d.ts",
         "signature.d.ts",
         "stash.d.ts",
         "status-entry.d.ts",
