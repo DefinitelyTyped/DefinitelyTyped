@@ -2,15 +2,14 @@
  * Created by Bruno Grieder
  */
 
-import * as Queue from "bull"
+import * as Queue from "bull";
 
-var videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
-var audioQueue = new Queue('audio transcoding', {redis: {port: 6379, host: '127.0.0.1'}}); // Specify Redis connection using object
-var imageQueue = new Queue('image transcoding');
-var pdfQueue = new Queue('pdf transcoding');
+const videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
+const audioQueue = new Queue('audio transcoding', {redis: {port: 6379, host: '127.0.0.1'}}); // Specify Redis connection using object
+const imageQueue = new Queue('image transcoding');
+const pdfQueue = new Queue('pdf transcoding');
 
-videoQueue.process(function(job, done){
-
+videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created
     // job.jobId contains id of this job.
 
@@ -30,7 +29,7 @@ videoQueue.process(function(job, done){
     throw new Error('some unexpected error');
 });
 
-audioQueue.process(function(job, done){
+audioQueue.process((job, done) => {
     // transcode audio asynchronously and report progress
     job.progress(42);
 
@@ -47,7 +46,7 @@ audioQueue.process(function(job, done){
     throw new Error('some unexpected error');
 });
 
-imageQueue.process(function(job, done){
+imageQueue.process((job, done) => {
     // transcode image asynchronously and report progress
     job.progress(42);
 
@@ -68,19 +67,16 @@ videoQueue.add({video: 'http://example.com/video1.mov'});
 audioQueue.add({audio: 'http://example.com/audio1.mp3'});
 imageQueue.add({image: 'http://example.com/image1.tiff'});
 
-
 //////////////////////////////////////////////////////////////////////////////////
 //
 // Using Promises
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-
-pdfQueue.process(function(job){
+pdfQueue.process((job) => {
     // Processors can also return promises instead of using the done callback
     return Promise.resolve();
 });
-
 
 videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
 .then((video1Job) => {
@@ -95,13 +91,11 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
     // error
 });
 
-
 //////////////////////////////////////////////////////////////////////////////////
 //
 // Typed Event Handlers
 //
 //////////////////////////////////////////////////////////////////////////////////
-
 
 pdfQueue
 .on('ready', () => undefined)
@@ -114,4 +108,4 @@ pdfQueue
 .on('failed', (job: Queue.Job) => undefined)
 .on('paused', () => undefined)
 .on('resumed', () => undefined)
-.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatus) => undefined)
+.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatus) => undefined);
