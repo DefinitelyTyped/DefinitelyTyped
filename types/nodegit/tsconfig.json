@@ -47,6 +47,7 @@
         "remote-callbacks.d.ts",
         "remote.d.ts",
         "repository.d.ts",
+        "rev-parse.d.ts",
         "rev-walk.d.ts",
         "signature.d.ts",
         "stash.d.ts",
