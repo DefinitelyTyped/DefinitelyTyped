@@ -400,7 +400,7 @@ declare namespace winston {
         label?: string;
         depth?: number;
 
-        timestamp: boolean | (() => string | boolean);
+        timestamp?: boolean | (() => string | boolean);
         stringify?(obj: any): string;
     }
 

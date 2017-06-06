@@ -317,7 +317,7 @@ declare namespace Materialize {
          * It will only be called once.
          * Example: 'console.log("hello, world!")';
          */
-        callback?: Function;
+        callback?: string;
     }
 
     interface TabOptions {
@@ -393,7 +393,7 @@ declare namespace Materialize {
          *
          * @name options optional parameter with scroll fire options
          */
-        scrollFire(options?: ScrollFireOptions): void;
+        scrollFire(options?: ScrollFireOptions[]): void;
 
         /**
          * A staggered reveal effect for any UL Tag with list items

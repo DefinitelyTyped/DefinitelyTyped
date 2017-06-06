@@ -913,6 +913,8 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], grou
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
+User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
+
 
 User.findById( 'a string' );
 
@@ -921,7 +923,6 @@ User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } 
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );
 User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
 User.findOne( { limit : 10 } );
-User.findOne( { include : [1] } );
 User.findOne( { where : { title : 'homework' }, include : [User] } );
 User.findOne( { where : { name : 'environment' }, include : [{ model : User, as : 'PrivateDomain' }] } );
 User.findOne( { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
@@ -1626,6 +1627,18 @@ s.transaction().then( function( t ) {
 
 } );
 
+s.transaction({
+    isolationLevel: s.Transaction.ISOLATION_LEVELS.READ_COMMITTED
+    }).then(function(t2) {
+        return User.find({
+                where: {
+                    username: 'jan'
+                },
+                lock: t2.LOCK.UPDATE,
+                transaction: t2
+            });
+    });
+
 s.transaction( function() {
     return Bluebird.resolve();
 } );
@@ -1656,4 +1669,15 @@ s.transaction((): Q.Promise<void> => {
     return Q.Promise<void>((resolve) => {
         resolve(null);
     });
+});
+
+// sync options types
+s.sync({
+    alter: true,
+    force: true,
+    hooks: false,
+    searchPath: 'some/path/',
+    schema: 'schema',
+    logging: () => {},
+    match: new RegExp('\d{4,}')
 });

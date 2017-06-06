@@ -620,7 +620,8 @@ function chart_bar() {
         },
         bar: {
             width: {
-                ratio: 0.5 // this makes bar width 50% of length between ticks
+                ratio: 0.5, // this makes bar width 50% of length between ticks
+                max: 50 // this limits maximum width of bar to 50px
             }
             // or
             //width: 100 // this makes bar width 100px

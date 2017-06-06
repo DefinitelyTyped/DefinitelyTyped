@@ -55,6 +55,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "BigInteger.js",
+            "typingsPackageName": "big-integer",
+            "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
+            "asOfVersion": "0.0.31"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
@@ -131,6 +137,12 @@
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "express-validator",
+            "typingsPackageName": "express-validator",
+            "sourceRepoURL": "https://github.com/ctavan/express-validator",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "JSON-Patch",
@@ -221,6 +233,12 @@
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
         },
         {
             "libraryName": "JSNLog",

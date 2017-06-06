@@ -43,4 +43,5 @@ export declare namespace ExtractJwt {
     export function fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;
     export function fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
     export function fromAuthHeader(): JwtFromRequestFunction;
+    export function fromExtractors(extractors: JwtFromRequestFunction[]): JwtFromRequestFunction;
 }

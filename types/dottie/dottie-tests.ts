@@ -12,6 +12,7 @@ const nestedObject = {
 
 dottie.exists(nestedObject, 'some.nested');
 dottie.default(nestedObject, 'some.nested.value', 'b');
+dottie.get<string>(nestedObject, 'some.nested.value');
 dottie.get<string>(nestedObject, 'some.nested.value', 'b');
 dottie.set(nestedObject, 'some.nested.value', 'b');
 dottie.transform({ 'foo.bar': 'baz' });
