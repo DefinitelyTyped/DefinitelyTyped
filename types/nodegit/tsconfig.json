@@ -40,7 +40,7 @@
         "odb.d.ts",
         "oid-array.d.ts",
         "oid.d.ts",
-        "path-builder.d.ts",
+        "pack-builder.d.ts",
         "path-spec.d.ts",
         "push-options.d.ts",
         "push-update.d.ts",
