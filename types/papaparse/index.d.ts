@@ -78,13 +78,13 @@ declare namespace PapaParse {
         complete?(results: ParseResult, file?: File): void; // default: undefined
         error?(error: ParseError, file?: File): void;       // default: undefined
         chunk?(results: ParseResult, parser: Parser): void; // default: undefined
-        beforeFirstChunk?(chunk: string): string|void;      // default: undefined
+        beforeFirstChunk?(chunk: string): string | void;      // default: undefined
     }
 
     interface UnparseConfig {
-        quotes: boolean;    // default: false
-        delimiter: string;  // default: ","
-        newline: string;    // default: "\r\n"
+        quotes?: boolean;    // default: false
+        delimiter?: string;  // default: ","
+        newline?: string;    // default: "\r\n"
     }
 
     interface UnparseObject {
@@ -123,7 +123,7 @@ declare namespace PapaParse {
     /**
      * Parser
      */
-    interface ParserConstructor { new(config: ParseConfig): Parser;    }
+    interface ParserConstructor { new (config: ParseConfig): Parser; }
     interface Parser {
         // Parses the input
         parse(input: string, baseIndex: number, ignoreLastRow: boolean): any;
