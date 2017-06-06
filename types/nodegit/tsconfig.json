@@ -47,6 +47,7 @@
         "remote-callbacks.d.ts",
         "remote.d.ts",
         "repository.d.ts",
+        "reset.d.ts",
         "rev-parse.d.ts",
         "rev-walk.d.ts",
         "revert.d.ts",
