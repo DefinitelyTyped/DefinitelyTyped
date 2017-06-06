@@ -1,8 +1,6 @@
-// Type definitions for bull v.3.0.0-rc.2
+// Type definitions for bull 2.1.2
 // Project: https://github.com/OptimalBits/bull
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>
-//                 Cameron Crothers <https://github.com/JProgrammer>
-//                 Marshall Cottrell <https://github.com/marshall007>
+// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Cameron Crothers <https://github.com/JProgrammer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="redis" />
@@ -16,72 +14,22 @@ declare module "bull" {
     * It creates a new Queue that is persisted in Redis.
     * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
     */
-    var Bull: {
-        (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-        (queueName: string, url?: string): Bull.Queue;
-        new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-        new (queueName: string, url?: string): Bull.Queue;
-    }
+    function Bull(queueName: string, redisPort: number, redisHost: string, redisOpt?: Redis.ClientOpts): Bull.Queue;
 
     namespace Bull {
 
-        export interface QueueOptions {
-
-            /**
-             * Options passed directly to the `ioredis` constructor
-             */
-            redis?: Redis.ClientOpts;
-
-            /**
-             * Prefix to use for all redis keys
-             */
-            prefix?: string;
-
-            settings?: AdvancedSettings;
-        }
-
-        export interface AdvancedSettings {
-
-            /**
-             * Key expiration time for job locks
-             */
-            lockDuration?: number;
-
-            /**
-             * How often check for stalled jobs (use 0 for never checking)
-             */
-            stalledInterval?: number;
-
-            /**
-             * Max amount of times a stalled job will be re-processed
-             */
-            maxStalledCount?: number;
-
-            /**
-             * Poll interval for delayed jobs and added jobs
-             */
-            guardInterval?: number;
-
-            /**
-             * Delay before processing next job in case of internal error
-             */
-            retryProcessDelay?: number;
-        }
-
         export interface DoneCallback {
-            (error?: Error | null, value?: any): void
+            (error?: Error, value?: any): void
         }
-
-        export type JobId = number | string;
 
         export interface Job {
 
-            id: JobId;
+            jobId: string
 
             /**
-             * The custom data passed when the job was created
-             */
-            data: any;
+            * The custom data passed when the job was created
+            */
+            data: Object;
 
             /**
              * Report progress on a job
@@ -89,13 +37,13 @@ declare module "bull" {
             progress(value: any): Promise<void>;
 
             /**
-             * Removes a job from the queue and from any lists it may be included in.
+             * Removes a Job from the queue from all the lists where it may be included.
              * @returns {Promise} A promise that resolves when the job is removed.
              */
             remove(): Promise<void>;
 
             /**
-             * Re-run a job that has failed.
+             * Rerun a Job that has failed.
              * @returns {Promise} A promise that resolves when the job is scheduled for retry.
              */
             retry(): Promise<void>;
@@ -108,14 +56,12 @@ declare module "bull" {
             finished(): Promise<void>;
         }
 
-        export type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
-
-        export interface BackoffOptions {
+        export interface Backoff {
 
             /**
              * Backoff type, which can be either `fixed` or `exponential`
              */
-            type: 'fixed' | 'exponential';
+            type: string
 
             /**
              * Backoff delay, in milliseconds
@@ -123,52 +69,22 @@ declare module "bull" {
             delay: number;
         }
 
-        export interface RepeatOptions {
-
-            /**
-             * Cron pattern specifying when the job should execute
-             */
-            cron: string;
-
-            /**
-             * Timezone
-             */
-            tz?: string;
-
-            /**
-             * End date when the repeat job should stop repeating
-             */
-            endDate?: Date | string | number;
-        }
-
-        export interface JobOptions {
-
-            /**
-             * Optional priority value. ranges from 1 (highest priority) to MAX_INT  (lowest priority).
-             * Note that using priorities has a slight impact on performance, so do not use it if not required
-             */
-            priority?: number;
-
+        export interface AddOptions {
             /**
              * An amount of miliseconds to wait until this job can be processed.
-             * Note that for accurate delays, both server and clients should have their clocks synchronized. [optional]
+             * Note that for accurate delays, both server and clients should have their clocks synchronized
              */
             delay?: number;
 
             /**
-             * The total number of attempts to try the job until it completes
+             * A number of attempts to retry if the job fails [optional]
              */
             attempts?: number;
 
             /**
-             * Repeat job according to a cron specification
-             */
-            repeat?: RepeatOptions;
-
-            /**
              * Backoff setting for automatic retries if the job fails
              */
-            backoff?: number | BackoffOptions;
+            backoff?: number | Backoff
 
             /**
              * A boolean which, if true, adds the job to the right
@@ -180,35 +96,6 @@ declare module "bull" {
              *  The number of milliseconds after which the job should be fail with a timeout error
              */
             timeout?: number;
-
-            /**
-             * Override the job ID - by default, the job ID is a unique
-             * integer, but you can use this setting to override it.
-             * If you use this option, it is up to you to ensure the
-             * jobId is unique. If you attempt to add a job with an id that
-             * already exists, it will not be added.
-             */
-            jobId?: JobId;
-
-            /**
-             * A boolean which, if true, removes the job when it successfully completes.
-             * Default behavior is to keep the job in the completed set.
-             */
-            removeOnComplete?: boolean;
-
-            /**
-             * A boolean which, if true, removes the job when it fails after all attempts
-             * Default behavior is to keep the job in the completed set.
-             */
-            removeOnFail?: boolean;
-        }
-
-        export interface JobCounts {
-            wait: number;
-            active: number;
-            completed: number;
-            failed: number;
-            delayed: number;
         }
 
         export interface Queue {
@@ -225,7 +112,7 @@ declare module "bull" {
              * results, as a second argument to the "completed" event.
              *
              * concurrency: Bull will then call you handler in parallel respecting this max number.
-             */
+            */
             process(concurrency: number, callback: (job: Job, done: DoneCallback) => void): void;
 
             /**
@@ -238,7 +125,7 @@ declare module "bull" {
              * or with a result as second argument as second argument (e.g.: done(null, result);) when the job is successful.
              * Errors will be passed as a second argument to the "failed" event;
              * results, as a second argument to the "completed" event.
-             */
+            */
             process(callback: (job: Job, done: DoneCallback) => void): void;
 
             /**
@@ -252,7 +139,7 @@ declare module "bull" {
              * If it is resolved, its value will be the "completed" event's second argument.
              *
              * concurrency: Bull will then call you handler in parallel respecting this max number.
-             */
+            */
             process(concurrency: number, callback: (job: Job) => void): Promise<any>;
 
             /**
@@ -264,15 +151,17 @@ declare module "bull" {
              * A promise must be returned to signal job completion.
              * If the promise is rejected, the error will be passed as a second argument to the "failed" event.
              * If it is resolved, its value will be the "completed" event's second argument.
-             */
+            */
             process(callback: (job: Job) => void): Promise<any>;
+
+            // process(callback: (job: Job, done?: DoneCallback) => void): Promise<any>;
 
             /**
              * Creates a new job and adds it to the queue.
              * If the queue is empty the job will be executed directly,
              * otherwise it will be placed in the queue and executed as soon as possible.
              */
-            add(data: Object, opts?: JobOptions): Promise<Job>;
+            add(data: Object, opts?: AddOptions): Promise<Job>;
 
             /**
              * Returns a promise that resolves when the queue is paused.
@@ -315,118 +204,113 @@ declare module "bull" {
              * Returns a promise that will return the job instance associated with the jobId parameter.
              * If the specified job cannot be located, the promise callback parameter will be set to null.
              */
-            getJob(jobId: JobId): Promise<Job>;
-
-            /**
-             * Returns a promise that resolves with the job counts for the given queue
-             */
-            getJobCounts(): Promise<JobCounts>;
+            getJob(jobId: string): Promise<Job>;
 
             /**
              * Tells the queue remove all jobs created outside of a grace period in milliseconds.
              * You can clean the jobs with the following states: completed, waiting, active, delayed, and failed.
              */
-            clean(grace: number, status?: JobStatus, limit?: number): Promise<Job[]>;
+            clean(gracePeriod: number, jobsState?: string): Promise<Job[]>;
 
             /**
              * Listens to queue events
+             * 'ready', 'error', 'activ', 'progress', 'completed', 'failed', 'paused', 'resumed', 'cleaned'
              */
-            on(event: string, callback: (...args: any[]) => void): this;
-
-            /**
-             * Redis is connected and the queue is ready to accept jobs
-             */
-            on(event: 'ready', callback: EventCallback): this;
-
-            /**
-             * An error occured
-             */
-            on(event: 'error', callback: ErrorEventCallback): this;
-
-            /**
-             * A job has started. You can use `jobPromise.cancel()` to abort it
-             */
-            on(event: 'active', callback: ActiveEventCallback): this;
-
-            /**
-             * A job has been marked as stalled.
-             * This is useful for debugging job workers that crash or pause the event loop.
-             */
-            on(event: 'stalled', callback: StalledEventCallback): this;
-
-            /**
-             * A job's progress was updated
-             */
-            on(event: 'progress', callback: ProgressEventCallback): this;
-
-            /**
-             * A job successfully completed with a `result`
-             */
-            on(event: 'completed', callback: CompletedEventCallback): this;
-
-            /**
-             * A job failed with `err` as the reason
-             */
-            on(event: 'failed', callback: FailedEventCallback): this;
-
-            /**
-             * The queue has been paused
-             */
-            on(event: 'paused', callback: EventCallback): this;
-
-            /**
-             * The queue has been resumed
-             */
-            on(event: 'resumed', callback: EventCallback): this;
-
-            /**
-             * Old jobs have been cleaned from the queue.
-             * `jobs` is an array of jobs that were removed, and `type` is the type of those jobs.
-             *
-             * @see Queue#clean() for details
-             */
-            on(event: 'cleaned', callback: CleanedEventCallback): this;
+            on(eventName: string, callback: EventCallback): void;
         }
 
-        export interface EventCallback {
+        interface EventCallback {
+            (...args: any[]): void
+        }
+
+        interface ReadyEventCallback extends EventCallback {
             (): void;
         }
 
-        export interface ErrorEventCallback {
+        interface ErrorEventCallback extends EventCallback {
             (error: Error): void;
         }
 
-        export interface JobPromise {
+        interface JobPromise {
             /**
              * Abort this job
              */
             cancel(): void
         }
 
-        export interface ActiveEventCallback {
-            (job: Job, jobPromise?: JobPromise): void;
+        interface ActiveEventCallback extends EventCallback {
+            (job: Job, jobPromise: JobPromise): void;
         }
 
-        export interface StalledEventCallback {
-            (job: Job): void;
-        }
-
-        export interface ProgressEventCallback {
+        interface ProgressEventCallback extends EventCallback {
             (job: Job, progress: any): void;
         }
 
-        export interface CompletedEventCallback {
-            (job: Job, result: any): void;
+        interface CompletedEventCallback extends EventCallback {
+            (job: Job, result: Object): void;
         }
 
-        export interface FailedEventCallback {
+        interface FailedEventCallback extends EventCallback {
             (job: Job, error: Error): void;
         }
 
-        export interface CleanedEventCallback {
-            (jobs: Job[], status: JobStatus): void;
+        interface PausedEventCallback extends EventCallback {
+            (): void;
+        }
+
+        interface ResumedEventCallback extends EventCallback {
+            (job?: Job): void;
+        }
+
+        /**
+         * @see clean() for details
+         */
+        interface CleanedEventCallback extends EventCallback {
+            (jobs: Job[], type: string): void;
         }
     }
 
     export = Bull;
+}
+
+declare module "bull/lib/priority-queue" {
+
+    import * as Bull from "bull";
+    import * as Redis from "redis";
+
+    /**
+     * This is the Queue constructor of priority queue.
+     *
+     * It works same a normal queue, with same function and parameters.
+     * The only difference is that the Queue#add() allow an options opts.priority
+     * that could take ["low", "normal", "medium", "hight", "critical"]. If no options provider, "normal" will be taken.
+     *
+     * The priority queue will process more often highter priority jobs than lower.
+     */
+    function PQueue(queueName: string, redisPort: number, redisHost: string, redisOpt?: Redis.ClientOpts): PQueue.PriorityQueue;
+
+    namespace PQueue {
+
+        export interface AddOptions extends Bull.AddOptions {
+
+            /**
+             * "low", "normal", "medium", "high", "critical"
+             */
+            priority?: string;
+        }
+
+
+        export interface PriorityQueue extends Bull.Queue {
+
+            /**
+             * Creates a new job and adds it to the queue.
+             * If the queue is empty the job will be executed directly,
+             * otherwise it will be placed in the queue and executed as soon as possible.
+             */
+            add(data: Object, opts?: PQueue.AddOptions): Promise<Bull.Job>;
+
+        }
+    }
+
+    export = PQueue;
 }
