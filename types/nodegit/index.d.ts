@@ -27,6 +27,7 @@ export { Odb } from './odb';
 export { Oidarray } from './oid-array';
 export { Oid } from './oid';
 export { PushOptions } from './push-options';
+export { Push } from './push';
 export { RebaseOperation } from './rebase-operation';
 export { Rebase, RebaseOptions } from './rebase';
 export { Refdb } from './ref-db';
