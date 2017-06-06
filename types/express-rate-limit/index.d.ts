@@ -17,14 +17,15 @@ declare namespace RateLimit {
     interface Options {
         delayAfter?: number;
         delayMs?: number;
-        handlers?(): any;
+        handlers?(req?: express.Request, res?: express.Response, next?: express.NextFunction): any;
         headers?: boolean;
-        keyGenerator?(): string;
+        keyGenerator?(req?: express.Request, res?: express.Response): string;
         max?: number;
         message?: string;
-        skip?(): boolean;
+        skip?(req?: express.Request, res?: express.Response): boolean;
         statusCode?: number;
         store?: Store;
+        onLimitReached?(req?: express.Request, res?: express.Response, optionsUsed?: Options): void
         windowMs?: number;
     }
 }
