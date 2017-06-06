@@ -9,7 +9,7 @@ declare namespace writeJsonFile {
         indent?: string | number;
         detectIndent?: boolean;
         sortKeys?: boolean;
-        replacer?: Function;
+        replacer?: (key: string, value: any) => any;
         mode?: number;
     }
     function sync(filepath: string, data: any, options?: Options): void;
