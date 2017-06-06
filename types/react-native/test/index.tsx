@@ -34,6 +34,7 @@ import {
     ScrollView,
     ScrollViewProps,
     RefreshControl,
+    TabBarIOS,
 } from 'react-native';
 
 function testDimensions() {
@@ -253,5 +254,32 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                 }
             } />
         )
+    }
+}
+
+
+class TabBarTest extends React.Component<{}, {}> {
+    render() {
+        return (
+            <TabBarIOS
+                barTintColor="darkslateblue"
+                itemPositioning="center"
+                tintColor="white"
+                translucent={ true }
+                unselectedTintColor="black"
+                unselectedItemTintColor="red">
+                <TabBarIOS.Item
+                    badge={ 0 }
+                    badgeColor="red"
+                    icon={{uri: undefined}}
+                    selected={ true }
+                    onPress={() => {}}
+                    renderAsOriginal={ true }
+                    selectedIcon={ undefined }
+                    systemIcon="history"
+                    title="Item 1">
+                </TabBarIOS.Item>
+            </TabBarIOS>
+        );
     }
 }

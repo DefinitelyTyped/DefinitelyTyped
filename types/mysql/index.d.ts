@@ -1,6 +1,7 @@
 // Type definitions for node-mysql
 // Project: https://github.com/felixge/node-mysql
 // Definitions by: William Johnston <https://github.com/wjohnsto>
+//		   Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
@@ -497,6 +498,11 @@ interface IError extends Error {
      * Boolean, indicating if this error is terminal to the connection object.
      */
     fatal: boolean;
+
+    /**
+     * SQL of failed query
+     */
+    sql?: string;
 }
 
 declare const enum FieldType {

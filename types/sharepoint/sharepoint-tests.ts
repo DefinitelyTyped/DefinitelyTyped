@@ -1,5 +1,5 @@
-///<reference types="knockout" />
-///<reference types="jquery" />
+/// <reference types="knockout" />
+/// <reference types="jquery" />
 
 import * as angular from 'angular';
 import * as ng from 'angular';
@@ -658,7 +658,11 @@ namespace CSR {
     }
 
     export function getFieldTemplate(field: SPClientTemplates.FieldSchema, mode: SPClientTemplates.ClientControlMode): SPClientTemplates.FieldCallback {
-        const ctx = { ListSchema: { Field: [field] }, FieldControlModes: {} };
+        const ctx = {
+            ListTemplateType: 1,
+            FieldControlModes: {},
+            ListSchema: { Field: [field] },
+        };
         ctx.FieldControlModes[field.Name] = mode;
         const templates = SPClientTemplates.TemplateManager.GetTemplates(ctx);
         return templates.Fields[field.Name];
@@ -2332,7 +2336,7 @@ namespace App {
         activate(): void;
     }
 
-    class appcontroller implements Iappcontroller {
+    class appcontroller implements Iappcontroller, ng.IController {
         title: string = "appcontroller";
         lists: SP.List[];
 
@@ -2350,9 +2354,12 @@ namespace App {
                 .catch((e: string) => this.$n.show(e, true))
                 .finally(() => this.$n.remove(loading));
         }
+
+        $onInit() {
+        }
     }
 
-    angular.module("app").controller("appcontroller", appcontroller);
+    angular.module("app").controller("appcontroller", [appcontroller]);
 }
 
 namespace App {

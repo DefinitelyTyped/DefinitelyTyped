@@ -8,10 +8,10 @@
 
 import events = require("events");
 
-export declare function startScanning(): void;
-export declare function startScanning(serviceUUIDs: string[]): void;
-export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean): void;
-export declare function stopScanning(): void;
+export as namespace noble;
+
+export declare function startScanning(serviceUUIDs?: string[], allowDuplicates?: boolean, callback?: (error: Error) => void): void;
+export declare function stopScanning(callback?: () => void): void;
 
 export declare function on(event: string, listener: Function): events.EventEmitter;
 export declare function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;

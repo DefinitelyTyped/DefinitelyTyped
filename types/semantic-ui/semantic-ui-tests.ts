@@ -1,3 +1,51 @@
+function test_site() {
+    const selector = '.ui.site';
+    $(selector).site('destroy') === $();
+    $(selector).site('setting', 'debug', undefined) === false;
+    $(selector).site('setting', 'debug') === false;
+    $(selector).site('setting', 'debug', true) === $();
+    $(selector).site('setting', {
+        namespace: 'namespace',
+        name: 'name',
+        silent: false,
+        debug: true,
+        performance: true,
+        verbose: true
+    }) === $();
+    $(selector).site({
+        modules: [
+            'accordion',
+            'api',
+            'checkbox',
+            'dimmer',
+            'dropdown',
+            'embed',
+            'form',
+            'modal',
+            'nag',
+            'popup',
+            'rating',
+            'shape',
+            'sidebar',
+            'state',
+            'sticky',
+            'tab',
+            'transition',
+            'visit',
+            'visibility'
+        ],
+        siteNamespace: 'site',
+        namespaceStub: {
+            cache: {},
+            config: {},
+            sections: {},
+            section: {},
+            utilities: {}
+        }
+    }) === $();
+    $(selector).site() === $();
+}
+
 function test_accordion() {
     const selector = '.ui.accordion';
     $(selector).accordion('refresh');
@@ -5,6 +53,10 @@ function test_accordion() {
     $(selector).accordion('close others');
     $(selector).accordion('close', 0);
     $(selector).accordion('toggle', 0);
+    $(selector).accordion('destroy');
+    $(selector).accordion('setting', 'exclusive', undefined) === true;
+    $(selector).accordion('setting', 'exclusive', true) === $();
+    $(selector).accordion('setting', 'exclusive') === true;
     $(selector).accordion({
         selector: {
             trigger: '.title .icon'
@@ -19,10 +71,97 @@ function test_checkbox() {
     $(selector).checkbox();
 }
 
+function test_dimmer_settings() {
+    $.fn.dimmer.settings.namespace = 'namespace';
+    $.fn.dimmer.settings.name = 'name';
+    $.fn.dimmer.settings.silent = false;
+    $.fn.dimmer.settings.debug = true;
+    $.fn.dimmer.settings.performance = true;
+    $.fn.dimmer.settings.verbose = true;
+}
+
 function test_dimmer() {
     const selector = '.ui.dimmer';
-    $(selector).dimmer({});
-    $(selector).dimmer();
+    $(selector).dimmer('add content', $()) === $();
+    $(selector).dimmer('show') === $();
+    $(selector).dimmer('hide') === $();
+    $(selector).dimmer('toggle') === $();
+    $(selector).dimmer('set opacity', 1) === $();
+    $(selector).dimmer('create') === $();
+    $(selector).dimmer('get duration') === 10;
+    $(selector).dimmer('get dimmer') === $();
+    $(selector).dimmer('has dimmer') === true;
+    $(selector).dimmer('is active') === true;
+    $(selector).dimmer('is animating') === true;
+    $(selector).dimmer('is dimmer') === true;
+    $(selector).dimmer('is dimmable') === true;
+    $(selector).dimmer('is disabled') === true;
+    $(selector).dimmer('is enabled') === true;
+    $(selector).dimmer('is page') === true;
+    $(selector).dimmer('is page dimmer') === true;
+    $(selector).dimmer('set active') === $();
+    $(selector).dimmer('set dimmable') === $();
+    $(selector).dimmer('set dimmed') === $();
+    $(selector).dimmer('set page dimmer') === $();
+    $(selector).dimmer('set disabled') === $();
+    $(selector).dimmer('destroy') === $();
+    $(selector).dimmer('setting', 'debug', undefined) === false;
+    $(selector).dimmer('setting', 'debug') === false;
+    $(selector).dimmer('setting', 'debug', true) === $();
+    $(selector).dimmer('setting', {
+        namespace: 'namespace',
+        name: 'name',
+        silent: false,
+        debug: true,
+        performance: true,
+        verbose: true
+    }) === $();
+    $(selector).dimmer({
+        opacity: 1,
+        variation: 'variation',
+        dimmerName: 'dimmerName',
+        closable: true,
+        on: 'click',
+        useCSS: true,
+        duration: {
+            show: 200,
+            hide: 300
+        },
+        transition: 'fade',
+        onShow() {
+            this === $();
+        },
+        onHide() {
+            this === $();
+        },
+        onChange() {
+            this === $();
+        },
+        selector: {
+            dimmable: '.dimmable',
+            dimmer: '.dimmer',
+            content: '.content'
+        },
+        template: {
+            dimmer() {
+                return $();
+            }
+        },
+        className: {
+            active: 'active',
+            dimmable: 'dimmable',
+            dimmed: 'dimmed',
+            disabled: 'disabled',
+            pageDimmer: 'pageDimmer',
+            hide: 'hide',
+            show: 'show',
+            transition: 'transition'
+        },
+        error: {
+            method: 'method'
+        }
+    }) === $();
+    $(selector).dimmer() === $();
 }
 
 function test_dropdown() {
@@ -101,10 +240,90 @@ function test_tab() {
     $(selector).tab();
 }
 
+function test_transition_settings() {
+    $.fn.transition.settings.namespace = 'namespace';
+    $.fn.transition.settings.name = 'name';
+    $.fn.transition.settings.silent = false;
+    $.fn.transition.settings.debug = true;
+    $.fn.transition.settings.performance = true;
+    $.fn.transition.settings.verbose = true;
+}
+
 function test_transition() {
     const selector = '.ui.transition';
-    $(selector).transition({});
-    $(selector).transition();
+    $(selector).transition('stop') === $();
+    $(selector).transition('stop all') === $();
+    $(selector).transition('clear queue') === $();
+    $(selector).transition('show') === $();
+    $(selector).transition('hide') === $();
+    $(selector).transition('toggle') === $();
+    $(selector).transition('force repaint') === $();
+    $(selector).transition('repaint') === $();
+    $(selector).transition('reset') === $();
+    $(selector).transition('looping') === $();
+    $(selector).transition('remove looping') === $();
+    $(selector).transition('disable') === $();
+    $(selector).transition('enable') === $();
+    $(selector).transition('set duration', 10) === $();
+    $(selector).transition('save conditions') === $();
+    $(selector).transition('restore conditions') === $();
+    $(selector).transition('get animation name') === 'animation name';
+    $(selector).transition('get animation event') === 'animation event';
+    $(selector).transition('is visible') === false;
+    $(selector).transition('is animating') === false;
+    $(selector).transition('is looping') === false;
+    $(selector).transition('is supported') === false;
+    $(selector).transition('destroy') === $();
+    $(selector).transition('setting', 'debug', undefined) === false;
+    $(selector).transition('setting', 'debug') === false;
+    $(selector).transition('setting', 'debug', true) === $();
+    $(selector).transition('setting', {
+        namespace: 'namespace',
+        name: 'name',
+        silent: false,
+        debug: true,
+        performance: true,
+        verbose: true
+    }) === $();
+    $(selector).transition('fade') === $();
+    $(selector).transition({
+        animation: 'fade',
+        interval: 200,
+        reverse: true,
+        displayType: 'inline-block',
+        duration: 300,
+        useFailSafe: false,
+        allowRepeats: true,
+        queue: false,
+        onShow() {
+            this === $();
+        },
+        onHide() {
+            this === $();
+        },
+        onStart() {
+            this === $();
+        },
+        onComplete() {
+            this === $();
+        },
+        className: {
+            animating: 'animating',
+            disabled: 'disabled',
+            hidden: 'hidden',
+            inward: 'inward',
+            loading: 'loading',
+            looping: 'looping',
+            outward: 'outward',
+            transition: 'transition',
+            visible: 'visible'
+        },
+        error: {
+            noAnimation: 'noAnimation',
+            method: 'method'
+        }
+    });
+    $(selector).transition() === $();
 }
 
 function test_api() {
@@ -184,7 +403,7 @@ function test_form_specifyingValidationRules() {
 
 function test_form_addCustomRule() {
     const user = { adminLevel: 1 };
-    $.fn.form.settings.rules.adminLevel = (value: any, adminLevel: number) => {
+    $.fn.form.settings.rules!['adminLevel'] = (value: any, adminLevel: number) => {
         return (user.adminLevel >= adminLevel);
     };
     $('.ui.form').form({
@@ -207,9 +426,14 @@ function test_visibility() {
 }
 
 function test_settings() {
+    $.site.settings.verbose = true;
+
+    $.api.settings.verbose = true;
+
+    $.fn.site.settings.verbose = true;
+
     $.fn.accordion.settings.verbose = true;
     $.fn.checkbox.settings.verbose = true;
-    $.fn.dimmer.settings.verbose = true;
     $.fn.dropdown.settings.verbose = true;
     $.fn.embed.settings.verbose = true;
     $.fn.modal.settings.verbose = true;
@@ -222,10 +446,8 @@ function test_settings() {
     $.fn.sidebar.settings.verbose = true;
     $.fn.sticky.settings.verbose = true;
     $.fn.tab.settings.verbose = true;
-    $.fn.transition.settings.verbose = true;
 
     $.fn.api.settings.verbose = true;
     $.fn.form.settings.verbose = true;
     $.fn.visibility.settings.verbose = true;
 }
-test_settings();
