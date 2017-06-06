@@ -9,7 +9,8 @@ import {
     Status,
     wrapSwitch,
     RouteConfiguration,
-    GetKeyFunction
+    GetKeyFunction,
+    OnUpdateCall
 } from "rrc";
 
 class RouteOne extends React.Component<RouteComponentProps<{}>, {}> {
@@ -29,11 +30,13 @@ class RouteOne extends React.Component<RouteComponentProps<{}>, {}> {
 }
 
 class RouteTwo extends React.Component<RouteComponentProps<{}>, {}> {
+    private onUpdate: OnUpdateCall = (location) => { console.log("update"); };
+
     render() {
         return <div>
             Route 2
             <Link to={{ pathname: "/one" }}>Go to Route 1</Link>
-            <OnUpdate call={(location) => { console.log("update"); }} />
+            <OnUpdate call={this.onUpdate} />
         </div >;
     }
 }
