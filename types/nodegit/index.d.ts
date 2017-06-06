@@ -35,6 +35,7 @@ export { Remote } from './remote';
 export { Repository } from './repository';
 export { Revparse } from './rev-parse';
 export { Revwalk } from './rev-walk';
+export { Revert } from './revert';
 export { Signature } from './signature';
 export { Stash } from './stash';
 export { StatusEntry } from './status-entry';
