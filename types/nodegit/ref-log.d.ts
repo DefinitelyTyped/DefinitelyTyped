@@ -20,4 +20,8 @@ export class Reflog {
 }
 
 export class ReflogEntry {
+    committer(): Signature;
+    idNew(): Oid;
+    idOld(): Oid;
+    message(): string;
 }
