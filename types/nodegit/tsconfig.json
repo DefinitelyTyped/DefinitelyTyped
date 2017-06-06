@@ -41,6 +41,7 @@
         "oid-array.d.ts",
         "oid.d.ts",
         "push-options.d.ts",
+        "rebase-operation.d.ts",
         "ref-db.d.ts",
         "ref-log.d.ts",
         "ref-spec.d.ts",

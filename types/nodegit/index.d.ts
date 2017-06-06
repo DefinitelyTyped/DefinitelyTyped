@@ -27,9 +27,10 @@ export { Odb } from './odb';
 export { Oidarray } from './oid-array';
 export { Oid } from './oid';
 export { PushOptions } from './push-options';
+export { RebaseOperation } from './rebase-operation';
 export { Refdb } from './ref-db';
 export { Reflog, ReflogEntry } from './ref-log'
-import { Refspec } from './ref-spec';
+export { Refspec } from './ref-spec';
 export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
 export { Remote } from './remote';
