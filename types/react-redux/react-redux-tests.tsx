@@ -370,13 +370,13 @@ namespace TestTOwnPropsInference {
     // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
-    React.createElement(ConnectedWithOwnProps, { own: 'string' });
+    React.createElement(ConnectedWithOwnProps, { state: 'string', own: 'string' });
 
     // This should not compile, which is good.
     // React.createElement(ConnectedWithOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
-    React.createElement(ConnectedWithTypeHint, { own: 'string' });
+    React.createElement(ConnectedWithTypeHint, { state: 'string', own: 'string' });
 
     // This should not compile, which is good.
     // React.createElement(ConnectedWithTypeHint, { anything: 'goes!' });

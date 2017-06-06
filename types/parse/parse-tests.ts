@@ -127,6 +127,14 @@ class TestCollection extends Parse.Collection<Object> {
     }
 }
 
+function return_a_generic_query(): Parse.Query<Game> {
+    return new Parse.Query(Game);
+}
+
+function return_a_query(): Parse.Query {
+    return new Parse.Query(Game);
+}
+
 function test_collections() {
 
     var collection = new TestCollection();

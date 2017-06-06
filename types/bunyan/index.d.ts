@@ -263,13 +263,13 @@ declare namespace Logger {
     limit?: number;
   }
 
-  class RingBuffer extends EventEmitter {
+  class RingBuffer extends EventEmitter implements NodeJS.WritableStream {
     constructor(options: RingBufferOptions);
 
     writable: boolean;
     records: any[];
 
-    write(record: any): void;
+    write(record: any): boolean;
     end(record?: any): void;
     destroy(): void;
     destroySoon(): void;
