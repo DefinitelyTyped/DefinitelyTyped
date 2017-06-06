@@ -1,6 +1,6 @@
 // Type definitions for PapaParse v4.1
 // Project: https://github.com/mholt/PapaParse
-// Definitions by: Pedro Flemming <https://github.com/torpedro>
+// Definitions by: Pedro Flemming <https://github.com/torpedro>, Rain Shen <https://github.com/rainshen49>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PapaParse {
