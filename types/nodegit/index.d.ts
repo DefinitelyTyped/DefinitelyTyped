@@ -28,6 +28,7 @@ export { Oidarray } from './oid-array';
 export { Oid } from './oid';
 export { PushOptions } from './push-options';
 export { Refdb } from './ref-db';
+export { Reflog, ReflogEntry } from './ref-log'
 import { Refspec } from './ref-spec';
 export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
