@@ -81,7 +81,13 @@ var conf = convict({
       default: 0,
       env: 'PORT',
       arg: 'port',
-    }
+    },
+    password: {
+      doc: 'The database password.',
+      default: 'secret',
+      format: String,
+      sensitive: true,
+    },
   },
   primeNumber: {
     format: 'prime',
