@@ -14,8 +14,10 @@ export interface ScrollIntoViewProps {
 
 export class ScrollIntoView extends React.Component<ScrollIntoViewProps, void> { }
 
+export type PropIdCallback = () => string;
+
 export interface WithScrollOptions {
-    propId?: () => string;
+    propId?: PropIdCallback;
     alignToTop?: boolean;
 }
 
@@ -24,23 +26,25 @@ export type ComponentConstructor<Props> = React.ComponentClass<Props> | React.SF
 export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | undefined>, options?: WithScrollOptions)
     : ComponentConstructor<RouteComponentProps<any> | undefined>;
 
-
-export type RouteConfiguration = RouteProps & { inject?: { [key: string]: any } }
+export type RouteConfiguration = RouteProps & { inject?: { [key: string]: any } };
 
 export interface SwitchProps {
-    routes: Array<RouteConfiguration>;
+    routes: RouteConfiguration[];
     location: H.LocationDescriptorObject & { pathname: H.Pathname };
 }
 
 export class ConfigSwitch extends React.Component<SwitchProps, void> { }
 
+export type OnUpdateCall = (location: H.Location) => void;
 
 export interface OnUpdateProps {
-    call: (location: H.Location) => void;
+    call: OnUpdateCall;
     immediate?: boolean;
 }
 
 export class OnUpdate extends React.Component<OnUpdateProps, {}> { }
+
+export type IsActiveCallback = () => boolean;
 
 export interface WhenActiveOptions {
     exact?: boolean;
@@ -48,12 +52,10 @@ export interface WhenActiveOptions {
     pathProp?: string;
     className?: string;
     style?: React.CSSProperties;
-    isActive?: () => boolean;
+    isActive?: IsActiveCallback;
 }
 
-export interface WhenActiveReturnType<Props> {
-    (component: ComponentConstructor<Props>): ComponentConstructor<Props>;
-}
+export type WhenActiveReturnType<Props> = (component: ComponentConstructor<Props>) => ComponentConstructor<Props>;
 
 export function whenActive<Props>(options?: WhenActiveOptions): WhenActiveReturnType<Props>;
 
@@ -63,14 +65,11 @@ export interface StatusProps {
 
 export class Status extends React.Component<StatusProps, void> { }
 
+export type GetKeyFunction<Params> = (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location) => string;
 
-interface GetKeyFunction<Params = {}> {
-    (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location): string;
+export interface WrapSwitchProps<Params> extends SwitchProps {
+    getKey?: GetKeyFunction<Params>;
 }
 
-export interface WrapSwitchProps extends SwitchProps {
-    getKey?: GetKeyFunction;
-}
-
-export function wrapSwitch<WrapperProps>(Wrapper: ComponentConstructor<WrapperProps>):
-    ComponentConstructor<WrapSwitchProps & WrapperProps>;
+export function wrapSwitch<WrapperProps, Params>(Wrapper: ComponentConstructor<WrapperProps>):
+    ComponentConstructor<WrapSwitchProps<Params> & WrapperProps>;
