@@ -312,7 +312,9 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
+        util.inspect(["This is nice"], false, null);
         util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], { colors: true, depth: null, customInspect: false });
     }
 }
 
@@ -1020,5 +1022,26 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
+    });
+
+    dns.resolve("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "A", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+        const _addresses: dns.MxRecord[] = addresses;
+    });
+
+    dns.resolve4("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+
+    dns.resolve6("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
     });
 }

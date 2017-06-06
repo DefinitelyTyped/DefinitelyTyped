@@ -180,17 +180,17 @@ str = fs.readFileSync(filename, encoding);
 buf = fs.readFileSync(filename, openOpts);
 
 fs.writeFile(filename, data, errorCallback);
-fs.writeFile(filename, data, encoding, errorCallback);
+fs.writeFile(filename, data, { encoding }, errorCallback);
 fs.writeFile(filename, data, writeOpts, errorCallback);
 fs.writeFileSync(filename, data);
-fs.writeFileSync(filename, data, encoding);
+fs.writeFileSync(filename, data, { encoding });
 fs.writeFileSync(filename, data, writeOpts);
 
 fs.appendFile(filename, data, errorCallback);
-fs.appendFile(filename, data, encoding, errorCallback);
+fs.appendFile(filename, data, { encoding }, errorCallback);
 fs.appendFile(filename, data, writeOpts, errorCallback);
 fs.appendFileSync(filename, data);
-fs.appendFileSync(filename, data, encoding);
+fs.appendFileSync(filename, data, { encoding });
 fs.appendFileSync(filename, data, writeOpts);
 
 fs.watchFile(filename, watchListener);

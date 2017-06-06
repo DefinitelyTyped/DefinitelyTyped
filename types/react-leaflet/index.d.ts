@@ -228,7 +228,7 @@ export class Marker<P = MarkerProps, E = Leaflet.Marker> extends MapLayer<P, E> 
     getChildContext(): { popupContainer: E };
 }
 
-export interface PathProps extends PathEvents, Leaflet.PathOptions { }
+export interface PathProps extends PathEvents, Leaflet.PathOptions, MapLayerProps { }
 export abstract class Path<P extends PathProps, E> extends MapLayer<P, E> {
     getChildContext(): { popupContainer: E };
     getPathOptions(props: P): Leaflet.PathOptions;

@@ -415,6 +415,9 @@ namespace url_tests {
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
         });
+
+        const myURL = new url.URL('https://a:b@你好你好?abc#foo');
+        url.format(myURL, { fragment: false, unicode: true, auth: false });
     }
 
     {
@@ -494,6 +497,26 @@ namespace url_tests {
 
         searchParams.sort();
     }
+
+    {
+        const searchParams = new url.URLSearchParams({
+            user: 'abc',
+            query: ['first', 'second']
+        });
+
+        assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
+        assert.deepEqual(searchParams.getAll('query'), ['first,second']);
+    }
+
+    {
+        // Using an array
+        let params = new url.URLSearchParams([
+            ['user', 'abc'],
+            ['query', 'first'],
+            ['query', 'second']
+        ]);
+        assert.equal(params.toString(), 'user=abc&query=first&query=second');
+    }
 }
 
 /////////////////////////////////////////////////////
@@ -504,7 +527,23 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], false, null);
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: 5,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: 10,
+          breakLength: 20
+        });
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: null,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: null,
+          breakLength: Infinity
+        })
     }
 }
 
@@ -534,19 +573,25 @@ const compressMe = new Buffer("some data");
 const compressMeString = "compress me!";
 
 zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
 const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
 zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
 zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
+zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
 
 zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
+zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result);
 const unzipped: Buffer = zlib.unzipSync(compressMe);
 
 // Simplified constructors
@@ -626,10 +671,10 @@ namespace crypto_tests {
     }
 
     {
-    let hmac: crypto.Hmac;
-    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+        let hmac: crypto.Hmac;
+        (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
             let hash: Buffer | string = hmac.read();
-    });
+        });
     }
 
     {
@@ -638,13 +683,13 @@ namespace crypto_tests {
         let clearText: string = "This is the clear text.";
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
-	cipherText += cipher.final("hex");
+        cipherText += cipher.final("hex");
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-	clearText2 += decipher.final("utf8");
+        clearText2 += decipher.final("utf8");
 
-	assert.equal(clearText2, clearText);
+        assert.equal(clearText2, clearText);
     }
 
     {
@@ -653,19 +698,19 @@ namespace crypto_tests {
         let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
-	cipherBuffers.push(cipher.update(clearText));
-	cipherBuffers.push(cipher.final());
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
-	decipherBuffers.push(decipher.update(cipherText));
-	decipherBuffers.push(decipher.final());
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
 
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
-	assert.deepEqual(clearText2, clearText);
+        assert.deepEqual(clearText2, clearText);
     }
 
     {
@@ -676,6 +721,26 @@ namespace crypto_tests {
       assert(crypto.timingSafeEqual(buffer1, buffer2))
       assert(!crypto.timingSafeEqual(buffer1, buffer3))
     }
+
+    {
+        let buffer: Buffer = new Buffer(10);
+        crypto.randomFillSync(buffer);
+        crypto.randomFillSync(buffer, 2);
+        crypto.randomFillSync(buffer, 2, 3);
+
+        crypto.randomFill(buffer, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
+
+        let arr: Uint8Array = new Uint8Array(10);
+        crypto.randomFillSync(arr);
+        crypto.randomFillSync(arr, 2);
+        crypto.randomFillSync(arr, 2, 3);
+
+        crypto.randomFill(arr, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(arr, 2, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
+    }
 }
 
 //////////////////////////////////////////////////
@@ -684,17 +749,17 @@ namespace crypto_tests {
 
 namespace tls_tests {
     {
-    var ctx: tls.SecureContext = tls.createSecureContext({
-    key: "NOT REALLY A KEY",
-    cert: "SOME CERTIFICATE",
-    });
-    var blah = ctx.context;
+        var ctx: tls.SecureContext = tls.createSecureContext({
+            key: "NOT REALLY A KEY",
+            cert: "SOME CERTIFICATE",
+        });
+        var blah = ctx.context;
 
-    var connOpts: tls.ConnectionOptions = {
-	host: "127.0.0.1",
-	port: 55
-    };
-    var tlsSocket = tls.connect(connOpts);
+        var connOpts: tls.ConnectionOptions = {
+            host: "127.0.0.1",
+            port: 55
+        };
+        var tlsSocket = tls.connect(connOpts);
     }
 
     {
@@ -2030,6 +2095,7 @@ namespace net_tests {
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
 
+        bool = _socket.connecting;
         bool = _socket.destroyed;
         _socket.destroy();
     }
@@ -2179,6 +2245,45 @@ namespace dns_tests {
         const _addresses: string | dns.LookupAddress[] = addresses;
         const _family: number | undefined = family;
     });
+
+    dns.resolve("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "A", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve("nodejs.org", "MX", (err, addresses) => {
+        const _addresses: dns.MxRecord[] = addresses;
+    });
+
+    dns.resolve4("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve4("nodejs.org", {ttl: true}, (err, addresses) => {
+        const _addresses: dns.RecordWithTtl[] = addresses;
+    });
+    {
+        const ttl = false;
+        dns.resolve4("nodejs.org", {ttl: ttl}, (err, addresses) => {
+            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
+        });
+    }
+
+    dns.resolve6("nodejs.org", (err, addresses) => {
+        const _addresses: string[] = addresses;
+    });
+    dns.resolve6("nodejs.org", {ttl: true}, (err, addresses) => {
+        const _addresses: dns.RecordWithTtl[] = addresses;
+    });
+    {
+        const ttl = false;
+        dns.resolve6("nodejs.org", {ttl: ttl}, (err, addresses) => {
+            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
+        });
+    }
 }
 
 /*****************************************************************************

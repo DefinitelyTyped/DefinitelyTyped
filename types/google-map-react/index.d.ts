@@ -98,7 +98,7 @@ export interface Props {
   onMapTypeIdChange?(args: any): void;
   distanceToMouse?(pt: Point, mousePos: Point): void;
   googleMapLoader?(bootstrapURLKeys: any): void;
-  onGoogleApiLoaded?({map, maps}: { map: any, maps: any }): void;
+  onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 

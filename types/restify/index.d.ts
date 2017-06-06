@@ -2,6 +2,7 @@
 // Project: https://github.com/mcavage/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -595,15 +596,12 @@ export function auditLogger(options: { log: any }): (req: Request, res: Response
 export function fullResponse(): RequestHandler;
 // tslint:disable-next-line no-var
 export var defaultResponseHeaders: any;
-export interface CORS {
-    (cors?: {
-        origins?: string[];
-        credentials?: boolean;
-        headers?: string[];
-    }): RequestHandler;
-    origins: string[];
-    ALLOW_HEADERS: string[];
-    credentials: boolean;
+
+export function CORS(options?: CORSOptions): RequestHandler;
+export interface CORSOptions {
+    origins?: string[];
+    credentials?: boolean;
+    headers?: string[];
 }
 
 export const pre: {

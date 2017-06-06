@@ -273,7 +273,7 @@ ipcRenderer.on('ping', function() {
 // showOpenDialog
 // https://electron.atom.io/docs/api/dialog/#dialogshowopendialogbrowserwindow-options-callback
 
-remote.dialog.showOpenDialog(win);
+remote.dialog.showOpenDialog({ title: 'foo' });
 remote.dialog.showOpenDialog(win, {}, fileNames => fileNames);
 remote.dialog.showOpenDialog(win, {
 	title: 'foo',
@@ -293,7 +293,7 @@ remote.dialog.showOpenDialog(win, {
 // showSaveDialog
 // https://electron.atom.io/docs/api/dialog/#dialogshowsavedialogbrowserwindow-options-callback
 
-remote.dialog.showSaveDialog(win);
+remote.dialog.showSaveDialog({ title: 'foo' });
 remote.dialog.showSaveDialog(win, {}, fileNames => fileNames);
 remote.dialog.showSaveDialog(win, {
 	title: 'foo',
