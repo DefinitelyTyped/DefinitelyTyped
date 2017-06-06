@@ -32,7 +32,7 @@ interface CustomValidationOptions {
 const inputValidationFunction: Hapi.ValidationFunctionForRouteInput<CustomValidationOptions> = (value, options, next) => {
     options.myOption; // check custom options
     options.context.auth.artifacts; // check context
-    next(undefined, value); // check with value
+    next(null, value); // check with value
     next(); // check without value
 };
 
@@ -49,9 +49,9 @@ const validateWithFunctions: Hapi.RouteValidationConfigurationObject<CustomValid
 const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse<CustomValidationOptions> = (value, options, next) => {
     options.myOption; // check custom options
     options.context.auth.isAuthenticated; // check context
-    next(undefined, value); // check with value
+    next(null, value); // check with value
     next(); // check without value
-}
+};
 
 config = {
     validate: validateWithFunctions,

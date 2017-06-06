@@ -1327,8 +1327,9 @@ export interface RouteResponseConfigurationObject<ValidationOptions = JoiValidat
     /** if true, applies the validation rule changes to the response payload. Defaults to false. */
     modify?: boolean;
     /**
-     * options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is available [here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) ). Defaults to no options.
-     * This can also be an arbitrary object that is passed into a custom validation function as second parameter.
+     * options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is available [here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) ).
+     * If a custom validation function (see `schema` or `status` below) is defined then `options` can an arbitrary object that will be passed to this function as the second parameter.
+     * Defaults to no options.
      */
     options?: ValidationOptions;
     /** if false, payload range support is disabled. Defaults to true. */
@@ -1346,10 +1347,8 @@ export interface RouteResponseConfigurationObject<ValidationOptions = JoiValidat
  *  * true - any payload allowed (no validation performed). This is the default.
  *  * false - no payload allowed.
  *  * a Joi validation object. This will receive the request's headers, params, query, payload, and auth credentials and isAuthenticated flags as context.
- *  * a validation function using the signature function(value, options, next) where:
- *      * value - the object containing the response object.
- *      * options - the server validation options, merged with an object containing the request's headers, params, payload, and auth credentials object and isAuthenticated flag.
- *      * next(err) - the callback function called when validation is completed.
+ *  * a validation function
+ *
  * TODO check JoiValidationObject is correct for "a Joi validation object"
  *
  * For context see RouteAdditionalConfigurationOptions > response > schema
@@ -1362,14 +1361,12 @@ export type RouteResponseConfigurationScheme<ValidationOptions> = boolean | JoiV
  * see RouteResponseConfigurationScheme
  *
  * a validation function using the signature function(value, options, next) where:
- * * value - can be response.source for successful responses or response.output.payload when validating specific error responses
- * * options - a validation context merged with the response configuration options
- * * next(err, value) - the callback function called when validation is completed, with the optional possibility to modify the response output value
- *
- * Also see ValidationFunctionForRouteValidate
+ *  * value - the value of the response passed to `reply(value)` in the handler.
+ *  * options - the server validation options, merged with an object containing the request's headers, params, payload, and auth credentials object and `isAuthenticated` flag.
+ *  * next([err, [value]]) - the callback function called when validation is completed.  `value` will be used as the response value when `err` is falsy, when `value` is not `undefined`, and when `route.settings.response.modify` is `true`.   If the response is already a `Boom` error it will be set as its `message` value.
  */
 export interface ValidationFunctionForRouteResponse<ValidationOptions = {}> {
-    (value: any, options: RouteResponseValidationContext & ValidationOptions, next: ContinuationOptionalValueFunction): void;
+    (value: any, options: RouteResponseValidationContext & ValidationOptions, next: ContinuationValueFunction): void;
 }
 
 /**
@@ -1395,7 +1392,7 @@ export interface RouteResponseValidationContext {
             /** true if the request has been successfully authenticated, otherwise false. */
             isAuthenticated: boolean;
             /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
-            credentials: any;
+            credentials: AuthenticatedCredentials;
         };
     }
 }
@@ -1442,7 +1439,7 @@ export interface RouteValidationConfigurationObject<ValidationOptions = JoiValid
      *  * a validation function using the signature function(value, options, next) where:
      *      * value - the object containing the request headers.
      *      * options - the server validation options.
-     *      * next(err, value) - the callback function called when validation is completed.
+     *      * next(err, value) - the callback function called when validation is completed.  `value` will be used as the `headers` value when `err` is falsy.  If `next` is called with `undefined` or no arguments then the original value of `value` will be used.
      */
     headers?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /**
@@ -1472,23 +1469,24 @@ export interface RouteValidationConfigurationObject<ValidationOptions = JoiValid
      */
     failAction?: 'error' | 'log' | 'ignore' | RouteFailFunction;
     /**
-     *  options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is [available here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback)). Defaults to no options.
-     * This can also be an arbitrary object that is passed into a custom validation function as second parameter.
+     * options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is [available here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback)).
+     * If a custom validation function (see `headers`, `params`, `query`, or `payload` above) is defined then `options` can an arbitrary object that will be passed to this function as the second parameter.
+     * Defaults to no options.
      */
     options?: ValidationOptions;
 }
 
 /**
  * a validation function using the signature function(value, options, next) where:
- * For context see RouteAdditionalConfigurationOptions > validate (IRouteValidationConfigurationObject)
+ * For context see RouteAdditionalConfigurationOptions > validate (RouteValidationConfigurationObject)
  *
  * Also see ValidationFunctionForRouteResponse
  * @param value - the object containing the request headers, query, path params or payload.
  * @param options - the server validation options.
- * @param next(err, value) - the callback function called when validation is completed.
+ * @param next([err, [value]]) - the callback function called when validation is completed.
  */
 export interface ValidationFunctionForRouteInput<ValidationOptions = {}> {
-    (value: any, options: RouteInputValidationContext & ValidationOptions, next: ContinuationOptionalValueFunction): void;
+    (value: any, options: RouteInputValidationContext & ValidationOptions, next: ContinuationValueFunction): void;
 }
 
 /**
@@ -2106,7 +2104,7 @@ export interface RequestHandler<T> {
 
 /**
  * Used by server extension points
- * err can be BoomError or Error that will be wrapped as a BoomError
+ * err can be `Boom` error or Error that will be wrapped as a `Boom` error
  * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/reply.js#L109-L118)
  * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
  */
@@ -2118,11 +2116,9 @@ export interface ContinuationFunction {
  * TODO Can value be typed with a useful generic?
  */
 export interface ContinuationValueFunction {
-    (err: Boom.BoomError, value: any): void;
-}
-
-export interface ContinuationOptionalValueFunction {
-    (err?: Boom.BoomError, value?: any): void;
+    (err: Boom.BoomError): void;
+    (err: null | undefined, value: any): void;
+    (): void;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
