@@ -1,18 +1,18 @@
 import * as React from 'react';
 import * as Swipeable from 'react-swipeable';
 
-class SampleComponent extends React.PureComponent<void, void> {
-  private handleSwiped = () => {};
-  private handleSwiping = () => {};
-  private handleSwipingUp = () => {};
-  private handleSwipingRight = () => {};
-  private handleSwipingDown = () => {};
-  private handleSwipingLeft = () => {};
-  private handleSwipedUp = () => {};
-  private handleSwipedRight = () => {};
-  private handleSwipedDown = () => {};
-  private handleSwipedLeft = () => {};
-  private handleTap = () => {};
+class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps, void> {
+  private handleSwiped: Swipeable.OnSwipedCallback = () => {};
+  private handleSwiping: Swipeable.OnSwipingCallback = () => {};
+  private handleSwipingUp: Swipeable.OnSwipingDirectionCallback = () => {};
+  private handleSwipingRight: Swipeable.OnSwipingDirectionCallback = () => {};
+  private handleSwipingDown: Swipeable.OnSwipingDirectionCallback = () => {};
+  private handleSwipingLeft: Swipeable.OnSwipingDirectionCallback = () => {};
+  private handleSwipedUp: Swipeable.OnSwipedDirectionCallback = () => {};
+  private handleSwipedRight: Swipeable.OnSwipedDirectionCallback = () => {};
+  private handleSwipedDown: Swipeable.OnSwipedDirectionCallback = () => {};
+  private handleSwipedLeft: Swipeable.OnSwipedDirectionCallback = () => {};
+  private handleTap: Swipeable.OnTapCallback = () => {};
   private handleClick = () => {};
 
   render() {
