@@ -291,7 +291,7 @@ export namespace Network {
  * Networks are basically an array of layers. They have an input layer, a number of hidden layers, and an output layer.
  */
 export class Network {
-    layer: Network.Options;
+    layers: Network.Options;
 
     optimized: Network.Optimized;
 
