@@ -1,6 +1,26 @@
-// Type definitions for jQuery 1.10.x / 2.0.x
+// Type definitions for jQuery 2.0
 // Project: http://jquery.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton <https://github.com/Steve-Fenton>, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen <https://github.com/jasons-novaleaf>, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>, Dick van den Brink <https://github.com/DickvdBrink>, Thomas Schulz <https://github.com/King2500>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+//                 Christian Hoffmeister <https://github.com/choffmeister>
+//                 Steve Fenton <https://github.com/Steve-Fenton>
+//                 Diullei Gomes <https://github.com/Diullei>
+//                 Tass Iliopoulos <https://github.com/tasoili>
+//                 Jason Swearingen <https://github.com/jasons-novaleaf>
+//                 Sean Hill <https://github.com/seanski>
+//                 Guus Goossens <https://github.com/Guuz>
+//                 Kelly Summerlin <https://github.com/ksummerlin>
+//                 Basarat Ali Syed <https://github.com/basarat>
+//                 Nicholas Wolverson <https://github.com/nwolverson>
+//                 Derek Cicerone <https://github.com/derekcicerone>
+//                 Andrew Gaspar <https://github.com/AndrewGaspar>
+//                 Seikichi Kondo <https://github.com/seikichi>
+//                 Benjamin Jackman <https://github.com/benjaminjackman>
+//                 Poul Sorensen <https://github.com/s093294>
+//                 Josh Strobl <https://github.com/JoshStrobl>
+//                 John Reilly <https://github.com/johnnyreilly/>
+//                 Dick van den Brink <https://github.com/DickvdBrink>
+//                 Thomas Schulz <https://github.com/King2500>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
@@ -1146,7 +1166,7 @@ interface JQueryStatic {
     error(message: any): JQuery;
 
     expr: any;
-    fn: any;  //TODO: Decide how we want to type this
+    readonly fn: JQuery;
 
     isReady: boolean;
 
@@ -3781,6 +3801,14 @@ interface JQuery {
      * @see {@link https://api.jquery.com/queue/#queue-queueName-callback}
      */
     queue(queueName: string, callback: Function): JQuery;
+
+    /**
+     * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
+     *
+     * @param object An object to merge onto the jQuery prototype.
+     * @see {@link https://api.jquery.com/jQuery.fn.extend/#jQuery-fn-extend-object}
+     */
+    extend(object: { [method: string]: (...args: any[]) => any; }): JQuery;
 }
 declare module "jquery" {
     export = $;

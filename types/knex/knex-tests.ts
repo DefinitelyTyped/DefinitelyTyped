@@ -406,6 +406,14 @@ knex.table('users').first(knex.raw('round(sum(products)) as p')).then(function(r
   console.log(row);
 });
 
+knex.table('users').select('*').clearSelect().select('id').then(function(rows) {
+  console.log(rows);
+});
+
+knex('accounts').where('userid', '=', 1).clearWhere().select().then(function (rows) {
+  console.log(rows);
+});
+
 // Using trx as a query builder:
 knex.transaction(function(trx) {
 

@@ -2,7 +2,7 @@ import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, bindActionCreators } from 'redux';
-import { connect, Provider } from 'react-redux';
+import { connect, Provider, DispatchProp } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -108,8 +108,11 @@ declare var store: Store<TodoState>;
 class MyRootComponent extends Component<any, any> {
 
 }
-class TodoApp extends Component<any, any> {
-
+class TodoApp extends Component<DispatchProp<any>, any> {
+    render (): null {
+        this.props.dispatch({ type: 'test' })
+        return null
+    }
 }
 interface TodoState {
     todos: string[]|string;
@@ -153,7 +156,9 @@ ReactDOM.render(
 
 // Inject just dispatch and don't listen to store
 
-connect()(TodoApp);
+const WrappedTodoApp = connect()<{}>(TodoApp);
+
+<WrappedTodoApp />
 
 // Inject dispatch and every field in the global state
 
@@ -261,7 +266,7 @@ function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProp
     });
 }
 
-connect(mapStateToProps2, actionCreators, mergeProps)(TodoApp);
+connect(mapStateToProps2, actionCreators, mergeProps)(MyRootComponent);
 
 
 //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14622#issuecomment-279820358
@@ -280,7 +285,7 @@ class TestComponent extends Component<TestProp, TestState> { }
 const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is of the type TestComponent
-let ATestComponent: typeof TestComponent = null;
+let ATestComponent: React.ComponentClass<TestProp> = null;
 ATestComponent = TestComponent;
 ATestComponent = WrappedTestComponent;
 
@@ -365,13 +370,13 @@ namespace TestTOwnPropsInference {
     // React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
-    React.createElement(ConnectedWithOwnProps, { own: 'string' });
+    React.createElement(ConnectedWithOwnProps, { state: 'string', own: 'string' });
 
     // This should not compile, which is good.
     // React.createElement(ConnectedWithOwnProps, { anything: 'goes!' });
 
     // This compiles, as expected.
-    React.createElement(ConnectedWithTypeHint, { own: 'string' });
+    React.createElement(ConnectedWithTypeHint, { state: 'string', own: 'string' });
 
     // This should not compile, which is good.
     // React.createElement(ConnectedWithTypeHint, { anything: 'goes!' });
