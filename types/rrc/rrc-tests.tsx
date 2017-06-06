@@ -19,7 +19,7 @@ class RouteOne extends React.Component<RouteComponentProps<{}>, {}> {
                 {
                     path: "/one/one",
                     render: () => <ScrollIntoView alignToTop id="id">
-                        <div>Kazys</div>
+                        <div>Main view</div>
                     </ScrollIntoView>
                 },
                 { path: "/one/two", render: () => <div>One two route</div> }
@@ -80,7 +80,7 @@ class RouteFour extends React.Component<RouteComponentProps<{}>, {}> {
                     getKey={this.getKey}
                     routes={this.routes}
                     location={this.props.location}
-                    title="and some title from WrappedLayout props"
+                    title="wrapped layout title"
                 />
             </div>
         </div>;
@@ -112,7 +112,7 @@ export const Routes =
                 <Route path="/one" component={RouteOne} />
                 <Route path="/two" component={RouteTwoWithScroll} />
                 <Route path="/four" component={RouteFour} />
-                <Route strict path="/" render={() => <ExtendedContainer className="john" color={3}>Route 3</ExtendedContainer>} />
+                <Route strict path="/" render={() => <ExtendedContainer className="extended-container" color={3}>Route 3</ExtendedContainer>} />
             </Switch>
             <Status code="200" />
         </div>
