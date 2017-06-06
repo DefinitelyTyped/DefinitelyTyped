@@ -5,7 +5,7 @@
 //                 Marshall Cottrell <https://github.com/marshall007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Redis from "redis";
+import * as Redis from "ioredis";
 
 /**
  * This is the Queue constructor.
@@ -26,7 +26,7 @@ declare namespace Bull {
         /**
          * Options passed directly to the `ioredis` constructor
          */
-        redis?: Redis.ClientOpts;
+        redis?: Redis.RedisOptions;
 
         /**
          * Prefix to use for all redis keys
