@@ -35,6 +35,7 @@
         "merge-options.d.ts",
         "merge.d.ts",
         "nodegit-tests.ts",
+        "note.d.ts",
         "object.d.ts",
         "odb-object.d.ts",
         "odb.d.ts",
