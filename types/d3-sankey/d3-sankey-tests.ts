@@ -260,11 +260,13 @@ str = sNode.name;
 
 // Sankey Layout calculated (if layout has been run, otherwise undefined):
 
-numMaybe = sNode.dx;
-numMaybe = sNode.x;
-numMaybe = sNode.dy;
-numMaybe = sNode.y;
+numMaybe = sNode.x0;
+numMaybe = sNode.x1;
+numMaybe = sNode.y0;
+numMaybe = sNode.y1;
 numMaybe = sNode.value;
+numMaybe = sNode.index;
+numMaybe = sNode.depth;
 
 let linksArrMaybe: SLink[] | undefined;
 
@@ -295,6 +297,7 @@ numOrSankeyNode = sLink.target;
 
 // Sankey Layout calculated (if layout has been run, otherwise undefined):
 
-numMaybe = sLink.sy;
-numMaybe = sLink.ty;
-numMaybe = sLink.dy;
+numMaybe = sLink.y0;
+numMaybe = sLink.y1;
+numMaybe = sLink.width;
+numMaybe = sLink.index;

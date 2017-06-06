@@ -1592,11 +1592,11 @@ declare namespace kendo.ui {
 
     }
 
-    interface AlertMessages {
+    interface AlertMessages extends DialogMessages {
         okText?: string;
     }
 
-    interface AlertOptions {
+    interface AlertOptions extends DialogOptions {
         name?: string;
         messages?: AlertMessages;
     }
@@ -2104,12 +2104,12 @@ declare namespace kendo.ui {
 
     }
 
-    interface ConfirmMessages {
+    interface ConfirmMessages extends DialogMessages {
         okText?: string;
         cancel?: string;
     }
 
-    interface ConfirmOptions {
+    interface ConfirmOptions extends DialogOptions {
         name?: string;
         messages?: ConfirmMessages;
     }
@@ -5267,12 +5267,12 @@ declare namespace kendo.ui {
 
     }
 
-    interface PromptMessages {
+    interface PromptMessages extends DialogMessages {
         okText?: string;
         cancel?: string;
     }
 
-    interface PromptOptions {
+    interface PromptOptions extends DialogOptions {
         name?: string;
         messages?: PromptMessages;
     }

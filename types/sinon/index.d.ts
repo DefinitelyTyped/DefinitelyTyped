@@ -6,6 +6,7 @@
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
@@ -506,10 +507,46 @@ declare namespace Sinon {
 
     // Utility overridables
     interface SinonStatic {
+        /**
+         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
+         *
+         * @param constructor   Object or class to stub.
+         * @returns A stubbed version of the constructor.
+         * @remarks The given constructor function is not invoked. See also the stub API.
+         */
         createStubInstance(constructor: any): any;
+
+        /**
+         * Creates a new object with the given functions as the prototype and stubs all implemented functions.
+         *
+         * @type TType   Type being stubbed.
+         * @param constructor   Object or class to stub.
+         * @returns A stubbed version of the constructor.
+         * @remarks The given constructor function is not invoked. See also the stub API.
+         */
+        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
+
         format(obj: any): string;
         restore(object: any): void;
     }
+
+    /**
+     * Stubbed type of an object with members replaced by stubs.
+     *
+     * @type TType   Type being stubbed.
+     */
+    interface StubbableType<TType> {
+        new(...args: any[]): TType;
+    }
+
+    /**
+     * An instance of a stubbed object type with members replaced by stubs.
+     *
+     * @type TType   Object type being stubbed.
+     */
+    type SinonStubbedInstance<TType> = {
+        [P in keyof TType]: SinonStub;
+    };
 }
 
 declare const Sinon: Sinon.SinonStatic;

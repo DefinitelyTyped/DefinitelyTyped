@@ -32,7 +32,7 @@ function subscribe_to_topics(session: autobahn.Session, options: autobahn.ISubsc
 }
 
 function new_in_version3(onResult: Rx.Observer<autobahn.ISubscription>) {
-    Rx.Observable.subscribeAsObservable(Rx.Observable.fromConnection("ws://myconnectionurl:9090"), "wamp.my.foo", onResult);
+    Rx.Observable.subscribeAsObservable(Rx.Observable.fromConnection("ws://myconnectionurl:9090"), "wamp.my.foo", undefined, onResult);
 }
 
 function new_in_version5(fooObserver: Rx.Observer<IWampEvent>) {

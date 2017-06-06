@@ -923,7 +923,6 @@ User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } 
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );
 User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
 User.findOne( { limit : 10 } );
-User.findOne( { include : [1] } );
 User.findOne( { where : { title : 'homework' }, include : [User] } );
 User.findOne( { where : { name : 'environment' }, include : [{ model : User, as : 'PrivateDomain' }] } );
 User.findOne( { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
@@ -1670,4 +1669,15 @@ s.transaction((): Q.Promise<void> => {
     return Q.Promise<void>((resolve) => {
         resolve(null);
     });
+});
+
+// sync options types
+s.sync({
+    alter: true,
+    force: true,
+    hooks: false,
+    searchPath: 'some/path/',
+    schema: 'schema',
+    logging: () => {},
+    match: new RegExp('\d{4,}')
 });

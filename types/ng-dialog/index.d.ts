@@ -110,6 +110,11 @@ declare module 'angular' {
 			 * It will be appended with the "ngdialog" class e.g. className is "default-theme flat-ui" it will be class="ngdialog default-theme flat-ui".
 			 */
 			className?: string;
+			
+			/**
+			 * Unlike the className property, which overrides any default classes specified through the setDefaults() method (see docs), appendClassName allows for the addition of a class on top of any defaults.
+			 */
+			appendClassName?: string;
 
 			/**
 			 * If true then animation for the dialog will be disabled, default false.
