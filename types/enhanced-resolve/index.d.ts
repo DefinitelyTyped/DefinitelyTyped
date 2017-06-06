@@ -37,12 +37,16 @@ declare namespace Resolve {
         function sync(context: ResolveContext, path: string, request: string): string;
     }
 
-    //function create(options: ResolverFactory.ResolverOption): (path: string, request: string, callback: LoggingCallbackWrapper) => void;
-    function create(options: ResolverFactory.ResolverOption): (context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper) => void;
+    function create(options: ResolverFactory.ResolverOption): {
+        (path: string, request: string, callback: LoggingCallbackWrapper): void;
+        (context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): void;
+    }
 
     export namespace create {
-        //function sync(options: ResolverFactory.ResolverOption): (path: string, request: string) => string;
-        function sync(options: ResolverFactory.ResolverOption): (context: ResolveContext, path: string, request: string) => string;
+        function sync(options: ResolverFactory.ResolverOption): {
+            (path: string, request: string): string;
+            (context: ResolveContext, path: string, request: string): string;
+        }
     }
 
     export namespace ResolverFactory {
