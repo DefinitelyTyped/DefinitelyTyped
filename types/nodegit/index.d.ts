@@ -33,6 +33,7 @@ export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
 export { Remote } from './remote';
 export { Repository } from './repository';
+export { Revparse } from './rev-parse';
 export { Revwalk } from './rev-walk';
 export { Signature } from './signature';
 export { Stash } from './stash';
