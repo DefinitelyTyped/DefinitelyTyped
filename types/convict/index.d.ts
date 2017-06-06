@@ -1,4 +1,4 @@
-// Type definitions for convict 3.0
+// Type definitions for convict 4.0
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -45,6 +45,7 @@ declare namespace convict {
             format?: string | Array<any> | Function;
             env?: string;
             arg?: string;
+            sensitive?: boolean;
         };
     }
 
