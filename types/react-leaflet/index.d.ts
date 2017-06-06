@@ -196,13 +196,13 @@ export interface TileLayerProps extends TileLayerEvents, Leaflet.TileLayerOption
     children?: Children;
     url: string;
 }
-export class TileLayer<P = TileLayerProps, E extends Leaflet.GridLayer = Leaflet.TileLayer> extends GridLayer<P, E> { }
+export class TileLayer<P extends TileLayerProps = TileLayerProps, E extends Leaflet.GridLayer = Leaflet.TileLayer> extends GridLayer<P, E> { }
 
 export interface WMSTileLayerProps extends TileLayerEvents, Leaflet.WMSOptions {
     children?: Children;
     url: string;
 }
-export class WMSTileLayer<P = WMSTileLayerProps,  E extends Leaflet.GridLayer = Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
+export class WMSTileLayer<P extends WMSTileLayerProps = WMSTileLayerProps,  E extends Leaflet.GridLayer = Leaflet.TileLayer.WMS> extends GridLayer<P, E> { }
 
 export interface ImageOverlayProps extends Leaflet.ImageOverlayOptions {
     bounds: Leaflet.LatLngBoundsExpression;
@@ -320,7 +320,7 @@ export interface LayersControlProps extends LayersControlEvents, Leaflet.Control
     children?: Children;
     overlays?: Leaflet.Control.LayersObject;
 }
-export class LayersControl<P = AttributionControlProps, E extends Leaflet.Control = Leaflet.Control.Layers> extends MapControl<P, E> { }
+export class LayersControl<P extends AttributionControlProps = LayersControlProps, E extends Leaflet.Control = Leaflet.Control.Layers> extends MapControl<P, E> { }
 
 export namespace LayersControl {
     interface BaseControlledLayerProps {
@@ -348,4 +348,4 @@ export type ScaleControlProps = Leaflet.Control.ScaleOptions;
 export class ScaleControl<P extends ScaleControlProps, E extends Leaflet.Control.Scale> extends MapControl<P, E> { }
 
 export type ZoomControlProps = Leaflet.Control.ZoomOptions;
-export class ZoomControl<P = ZoomControlProps, E extends Leaflet.Control = Leaflet.Control.Zoom> extends MapControl<P, E> { }
+export class ZoomControl<P extends ZoomControlProps = ZoomControlProps, E extends Leaflet.Control = Leaflet.Control.Zoom> extends MapControl<P, E> { }
