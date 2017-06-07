@@ -15,6 +15,7 @@ export { DiffFile } from './diff-file';
 export { DiffPerfdata } from './diff-perf-data';
 export { Diff } from './diff';
 export { Enums } from './enums';
+export { Error } from './error';
 export { FetchOptions } from './fetch-options';
 export { Filter } from './filter';
 export { Giterr } from './git-err';
