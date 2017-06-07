@@ -29,6 +29,7 @@
         "cert.d.ts",
         "checkout-options.d.ts",
         "checkout.d.ts",
+        "cherry-pick-options.d.ts",
         "cherry-pick.d.ts",
         "clone-options.d.ts",
         "clone.d.ts",
