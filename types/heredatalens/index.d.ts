@@ -684,6 +684,7 @@ declare namespace H {
              */
             interface Row {
                 getPosition(): H.geo.Point;
+                isCluster(): boolean;
                 lat: number;
                 lng: number;
             }
