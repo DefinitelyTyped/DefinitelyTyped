@@ -17,6 +17,7 @@
     },
     "files": [
         "annotated-commit.d.ts",
+        "attr.d.ts",
         "blob.d.ts",
         "branch.d.ts",
         "buf.d.ts",
