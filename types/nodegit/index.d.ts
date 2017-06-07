@@ -19,6 +19,7 @@ export { FetchOptions } from './fetch-options';
 export { Index } from './index_';
 export { IndexEntry } from './index-entry';
 export { MergeFileInput } from './merge-file-input';
+export { MergeFileOptions } from './merge-file-options';
 export { MergeFileResult } from './merge-file-result';
 export { MergeOptions } from './merge-options';
 export { Merge } from './merge';
