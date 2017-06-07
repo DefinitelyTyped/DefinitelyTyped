@@ -23,6 +23,7 @@
         "commit.d.ts",
         "config.d.ts",
         "convenient-patch.d.ts",
+        "diff-binary-file.d.ts",
         "diff-delta.d.ts",
         "diff-file.d.ts",
         "diff-hunk.d.ts",
