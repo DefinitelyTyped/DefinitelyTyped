@@ -28,6 +28,7 @@
         "diff-perf-data.d.ts",
         "diff.d.ts",
         "enums.d.ts",
+        "error.d.ts",
         "fetch-options.d.ts",
         "filter.d.ts",
         "git-err.d.ts",
