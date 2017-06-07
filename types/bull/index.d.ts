@@ -208,6 +208,12 @@ declare namespace Bull {
 
     interface Queue {
         /**
+         * Returns a promise that resolves when Redis is connected and the queue is ready to accept jobs.
+         * This replaces the `ready` event emitted on Queue in previous verisons.
+         */
+        isReady(): Promise<this>;
+
+        /**
          * Defines a processing function for the jobs placed into a given Queue.
          *
          * The callback is called everytime a job is placed in the queue.
@@ -328,11 +334,6 @@ declare namespace Bull {
          * Listens to queue events
          */
         on(event: string, callback: (...args: any[]) => void): this;
-
-        /**
-         * Redis is connected and the queue is ready to accept jobs
-         */
-        on(event: 'ready', callback: EventCallback): this;
 
         /**
          * An error occured

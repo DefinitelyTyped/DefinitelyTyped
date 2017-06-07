@@ -120,7 +120,6 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
 //////////////////////////////////////////////////////////////////////////////////
 
 pdfQueue
-.on('ready', () => undefined)
 .on('error', (err: Error) => undefined)
 .on('active', (job: Queue.Job, jobPromise: Queue.JobPromise) => jobPromise.cancel())
 .on('active', (job: Queue.Job) => undefined)
