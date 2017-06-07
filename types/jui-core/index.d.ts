@@ -5,14 +5,15 @@
 
 /// <reference types="jquery"/>
 
-declare var jui: JuiStatic;
+export const jui: JuiStatic;
 
-interface UtilBase {
+export interface UtilBase {
     /**
      * @property browser check browser agent
      * @property {Boolean} browser.webkit  Webkit 브라우저 체크
      * @property {Boolean} browser.mozilla  Mozilla 브라우저 체크
-     * @property {Boolean} browser.msie  IE 브라우저 체크 */
+     * @property {Boolean} browser.msie  IE 브라우저 체크
+     */
     browser: {
         webkit: boolean,
         mozilla: boolean,
@@ -33,7 +34,7 @@ interface UtilBase {
      * @param {Function} ctor base Class
      * @param {Function} superCtor super Class
      */
-    inherit( ctor: ((...args: any[]) => any), superCtor: ((...args: any[]) => any) ): void;
+    inherit(ctor: ((...args: any[]) => any), superCtor: ((...args: any[]) => any)): void;
 
     /**
      * @method extend
@@ -52,7 +53,7 @@ interface UtilBase {
      * @param {String or Number} px
      * @return {Number}
      */
-    pxToInt(px: string| number): number;
+    pxToInt(px: string | number): number;
 
     /**
      * @method clone
@@ -144,7 +145,7 @@ interface UtilBase {
      * @param {Number} dataSize
      * @return {String}  변환된 csv 문자열
      */
-    dataToCsv(keys: string[] , dataList: any[], dataSize: number): string;
+    dataToCsv(keys: string[], dataList: any[], dataSize: number): string;
 
     /**
      * @method dataToCsv2
@@ -267,7 +268,7 @@ interface UtilBase {
      * @param {Object} [context=null]
      * @return {Function} 최적화된 루프 콜백 (index, groupIndex 2가지 파라미터를 받는다.)
      */
-    loop(total: number, context?: any): ((index: number, groupIndex: number) => void );
+    loop(total: number, context?: any): ((index: number, groupIndex: number) => void);
 
     /**
      * @method loopArray
@@ -279,7 +280,7 @@ interface UtilBase {
      * @param {Object} [context=null]
      * @return {Function} 최적화된 루프 콜백 (data, index, groupIndex 3가지 파라미터를 받는다.)
      */
-    loopArray(data: any[], context?: any): ((data: any, index: number, groupIndex: number) => void );
+    loopArray(data: any[], context?: any): ((data: any, index: number, groupIndex: number) => void);
 
     /**
      * @method makeIndex
@@ -328,7 +329,7 @@ interface UtilBase {
     scrollWidth(): number;
 }
 
-interface JuiStatic {
+export interface JuiStatic {
     /**
      * @method ready
      *
@@ -389,11 +390,11 @@ interface JuiStatic {
     includeAll(): any[];
 
     /**
-    * @method add
-    * Adds a component object created
-    *
-    * @param {Object} ui UI instance
-    */
+     * @method add
+     * Adds a component object created
+     *
+     * @param {Object} ui UI instance
+     */
     add(uiIns: any): void;
 
     /**
@@ -404,7 +405,7 @@ interface JuiStatic {
      * @param {String} type Event type
      * @param {Array} args Event arguments
      */
-     emit(key: string, type: string, args: any[]): void;
+    emit(key: string, type: string, args: any[]): void;
 
     /**
      * @method get
@@ -413,7 +414,7 @@ interface JuiStatic {
      * @param {Integer/String} key
      * @returns {Object/Array} UI instance
      */
-     get(key: number|string): any;
+    get(key: number | string): any;
 
     /**
      * @method getAll
@@ -421,7 +422,7 @@ interface JuiStatic {
      *
      * @return {Array} UI instances
      */
-     getAll(): any[];
+    getAll(): any[];
 
     /**
      * @method create
@@ -432,14 +433,14 @@ interface JuiStatic {
      * @param {Object} options
      * @return {Object}
      */
-     create(type: string, selector: any, options?: {}): any;
+    create(type: string, selector: any, options?: {}): any;
 }
 
-interface UICollection {
+export interface UICollection {
     destroy(): void;
 }
 
-interface UICore {
+export interface UICore {
     tpl?: any;
 
     event?: any;
@@ -454,7 +455,7 @@ interface UICore {
      * @param {Function} args Event Arguments
      * @return {Mixed}
      */
-      emit(type: string, args: () => void): any;
+    emit(type: string, args: () => void): any;
 
     /**
      * @method on
@@ -463,7 +464,7 @@ interface UICore {
      * @param {String} type Event type
      * @param {Function} callback
      */
-     on(type: string, callback: () => void): void;
+    on(type: string, callback: () => void): void;
 
     /**
      * @method off
@@ -471,7 +472,7 @@ interface UICore {
      *
      * @param {String} type Event type
      */
-      off(type: string): void;
+    off(type: string): void;
 
     /**
      * @method addValid
@@ -480,7 +481,7 @@ interface UICore {
      * @param {String} name Method name
      * @param {Array} params Parameters
      */
-     addValid(name: string, params: any[]): void;
+    addValid(name: string, params: any[]): void;
 
     /**
      * @method callBefore
@@ -490,7 +491,7 @@ interface UICore {
      * @param {Function} callback
      * @return {Mixed}
      */
-     callBefore(name: string, callback: () => void): void;
+    callBefore(name: string, callback: () => void): void;
 
     /**
      * @method callAfter
@@ -500,7 +501,7 @@ interface UICore {
      * @param {Function} callback
      * @return {Mixed}
      */
-     callAfter(name: string, callback: () => void): void;
+    callAfter(name: string, callback: () => void): void;
 
     /**
      * @method callDelay
@@ -509,7 +510,7 @@ interface UICore {
      * @param {String} name Method name
      * @param {Function} callback
      */
-     callDelay(name: string, callObj: () => void): void;
+    callDelay(name: string, callObj: () => void): void;
 
     /**
      * @method setTpl
@@ -518,7 +519,7 @@ interface UICore {
      * @param {String} name Template name
      * @param {String} html Template markup
      */
-     setTpl(name: string, html: string): void;
+    setTpl(name: string, html: string): void;
 
     /**
      * @method setOption
@@ -527,14 +528,14 @@ interface UICore {
      * @param {String} key
      * @param {Mixed} value
      */
-     setOption(key: string, value: any): void;
+    setOption(key: string, value: any): void;
 
     /**
      * @method destroy
      * Removes all events set in a UI obejct and the DOM element
      *
      */
-     destroy(): void;
+    destroy(): void;
 }
 
 //noinspection TypeScriptUnresolvedVariable
@@ -548,7 +549,7 @@ export interface UIEvent extends UICore {
      * @param {String/HTMLElement} Selector
      * @returns {*|jQuery}
      */
-     find(selector: any): JQuery;
+    find(selector: any): JQuery;
 }
 
 export class ColorScale {
@@ -672,12 +673,12 @@ export interface UtilColor {
     darken(color: string, rate: number): string;
 }
 
-interface UtilBase64 {
+export interface UtilBase64 {
     encode(input: string): string;
     decode(input: string): string;
 }
 
-interface UtilKeyParser {
+export interface UtilKeyParser {
     /**
      * @method isIndexDepth
      *
@@ -723,7 +724,7 @@ interface UtilKeyParser {
     getParentIndex(index: string): string;
 }
 
-interface UtilMath {
+export interface UtilMath {
     /**
      * @method rotate
      *
@@ -806,7 +807,7 @@ interface UtilMath {
     inverseMatrix3d(a: any[]): any[];
 }
 
-export interface UtilScaleOrdinal extends Function  {
+export interface UtilScaleOrdinal extends Function {
     (x: number): number;
     domain(values: any[]): UtilScaleOrdinal;
     range(values: any[]): UtilScaleOrdinal;

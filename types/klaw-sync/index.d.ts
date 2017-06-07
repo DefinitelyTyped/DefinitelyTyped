@@ -7,12 +7,12 @@
 
 import * as fs from "fs"
 
-interface Item {
+export interface Item {
   path: string
   stats: fs.Stats
 }
 
-interface Options {
+export interface Options {
   /**
    *  any paths or `micromatch` patterns to ignore.
    *

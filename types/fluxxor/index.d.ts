@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference types="react" />
-/// <reference types="eventemitter3" />
-
 import * as EventEmitter3 from 'eventemitter3';
 import * as React from "react";
 

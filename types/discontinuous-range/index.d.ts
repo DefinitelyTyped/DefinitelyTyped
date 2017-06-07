@@ -7,7 +7,6 @@
  * Represents a discontinuous range of numbers.
  */
 declare class DiscontinuousRange {
-
     /**
      * Creates a discontinuous range at rangeStart, and ending at
      * rangeEnd. If rangeEnd is not specified, a range containing

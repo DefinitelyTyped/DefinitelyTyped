@@ -22,9 +22,9 @@ declare module "klaw" {
 
         interface Options extends ReadableOptions {
             queueMethod?: QueueMethod
-            pathSorter?: (a: Array<Item>) => Array<Item>
+            pathSorter?: (pathA: string, pathB: string) => number
             fs?: any // fs or mock-fs
-            filter?: (a: Item) => boolean
+            filter?: (path: string) => boolean
         }
 
         type Event = "close" | "data" | "end" | "readable" | "error"

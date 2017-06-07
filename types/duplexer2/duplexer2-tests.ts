@@ -1,8 +1,8 @@
 import stream = require("stream");
 import duplexer2 = require("duplexer2");
 
-const writable = new stream.Writable({ objectMode: true }),
-    readable = new stream.Readable({ objectMode: true });
+const writable = new stream.Writable({ objectMode: true });
+const readable = new stream.Readable({ objectMode: true });
 
 writable.once("finish", () => {
   setTimeout(() => {

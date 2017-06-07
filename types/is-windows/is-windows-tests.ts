@@ -1,3 +1,3 @@
 import * as isWindows from 'is-windows';
 
-var bool: boolean = isWindows();
+const bool: boolean = isWindows();

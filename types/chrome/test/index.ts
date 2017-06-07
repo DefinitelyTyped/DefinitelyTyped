@@ -171,7 +171,7 @@ function catBlock () {
         ["blocking"]);
 }
 
-// webNavigation.onBeforeNavigate.addListener example similar api to onBeforeRequest but without extra spec
+// webNavigation.onBeforeNavigate.addListener example
 function beforeRedditNavigation() {
     chrome.webNavigation.onBeforeNavigate.addListener(function (requestDetails) {
         console.log("URL we want to redirect to: " + requestDetails.url);
@@ -180,18 +180,10 @@ function beforeRedditNavigation() {
             return;
         }
 
-        let url = new URL(requestDetails.url);
-        let splitUrl = url.hostname.split('.');
-        //` Note: Does not cover the XX.co.uk type edge case
-        let host = (splitUrl[(splitUrl.length -1) - 1]);
-
-        if (host === null) {
-            return;
-        } else if (host === "reddit") {
-            alert("Were you trying to go on reddit, during working hours? :(")
-            return;
-        }
-    },{urls: ["http://*/*"], types: ["image"]});
+        alert("Were you trying to go on reddit, during working hours? :(")
+    },{url: [
+        {hostSuffix: ".reddit.com"}
+    ]});
 }
 
 // for chrome.tabs.InjectDetails.frameId

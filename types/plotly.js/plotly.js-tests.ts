@@ -1,6 +1,6 @@
 import * as Plotly from 'plotly.js';
 
-var data: Plotly.BarData[] = [
+const data: Plotly.BarData[] = [
   {
     x: ['giraffes', 'orangutans', 'monkeys'],
     y: [20, 14, 23],

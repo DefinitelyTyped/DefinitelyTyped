@@ -7,7 +7,8 @@ declare namespace jsyaml {
 	export function safeLoad(str: string, opts?: LoadOptions): any;
 	export function load(str: string, opts?: LoadOptions): any;
 
-	export class Type implements TypeConstructorOptions {
+        export interface Type extends TypeConstructorOptions { }
+	export class Type {
 			constructor(tag: string, opts?: TypeConstructorOptions);
 			tag: string;
 	}
@@ -43,7 +44,7 @@ declare namespace jsyaml {
 		// specifies a schema to use.
 		schema?: any;
 		// if true, sort keys when dumping YAML. If a function, use the function to sort the keys. (default: false)
-		sortKeys?: boolean;
+		sortKeys?: boolean | ((a: any, b: any) => number);
 		// set max line width. (default: 80)
 		lineWidth?: number;
 		// if true, don't convert duplicate objects into references (default: false)

@@ -24,6 +24,25 @@ const docker6 = new Docker({
   key: 'key'
 });
 
+const docker7 = new Docker({
+  Promise
+});
+
+async function foo() {
+  const containers = await docker7.listContainers();
+  for (const container of containers) {
+    const foo = await docker7.getContainer(container.Id);
+    const inspect = await foo.inspect();
+  }
+
+  const images = await docker5.listImages();
+  for (const image of images) {
+    const foo = await docker5.getImage(image.Id);
+    const inspect = await foo.inspect();
+    await foo.remove();
+  }
+}
+
 const container = docker.getContainer('container-id');
 container.inspect((err, data) => {
   // NOOP
@@ -47,6 +66,10 @@ docker.listContainers((err, containers) => {
   });
 });
 
+docker.listContainers().then(containers => {
+  return containers.map(container => docker.getContainer(container.Id));
+});
+
 docker.buildImage('archive.tar', { t: 'imageName' }, (err, response) => {
   // NOOP
 });
@@ -55,4 +78,70 @@ docker.createContainer({ Tty: true }, (err, container) => {
   container.start((err, data) => {
     // NOOP
   });
+});
+
+docker.pruneContainers((err, response) => {
+  	// NOOP
+});
+
+docker.pruneImages((err, response) => {
+  // NOOP
+});
+
+docker.pruneNetworks((err, response) => {
+  // NOOP
+});
+
+docker.pruneVolumes((err, response) => {
+  // NOOP
+});
+
+const plugin = docker.getPlugin('pluginName', 'remoteName');
+plugin.configure((err, response) => {
+  // NOOP;
+});
+
+plugin.disable((err, response) => {
+ // NOOP
+});
+
+plugin.enable((err, response) => {
+  // NOOP
+});
+
+plugin.inspect((err, response) => {
+  // NOOP
+});
+
+plugin.privileges((err, response) => {
+  // NOOP
+});
+
+plugin.pull({}, (err, response) => {
+  // NOOP
+});
+
+plugin.push((err, response) => {
+  // NOOP
+});
+
+plugin.remove((err, response) => {
+  // NOOP
+});
+
+plugin.upgrade({}, (err, response) => {
+  // NOOP
+});
+
+const secret = docker.getSecret('secretName');
+secret.inspect((err, response) => {
+  // NOOP
+});
+
+secret.remove((err, response) => {
+  // NOOP
+});
+
+secret.update((err, response) => {
+  // NOOP
 });

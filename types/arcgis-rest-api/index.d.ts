@@ -1,4 +1,4 @@
-// Type definitions for arcgis-to-geojson-utils 10.4
+// Type definitions for ArcGIS REST API 10.4
 // Project: http://resources.arcgis.com/en/help/arcgis-rest-api/
 // Definitions by: Jeff Jacobson <https://github.com/JeffJacobson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -65,7 +65,6 @@ export interface BezierCurve {
 
 export type JsonCurve = CircularArc | Arc | OldCircularArc | BezierCurve;
 
-
 export interface SpatialReferenceWkid {
     wkid?: number;
     latestWkid?: number;
@@ -131,7 +130,6 @@ export interface Envelope extends Geometry {
 
 export type esriGeometryType = "esriGeometryPoint" | "esriGeometryMultipoint" | "esriGeometryPolyline" | "esriGeometryPolygon" | "esriGeometryEnvelope";
 
-
 export type Color = [number, number, number, number];
 export type SimpleMarkerSymbolStyle = "esriSMSCircle" | "esriSMSCross" | "esriSMSDiamond" | "esriSMSSquare" | "esriSMSX" | "esriSMSTriangle";
 export type SimpleLineSymbolStyle = "esriSLSDash" | "esriSLSDashDot" | "esriSLSDashDotDot" | "esriSLSDot" | "esriSLSNull" | "esriSLSSolid";
@@ -181,7 +179,6 @@ export interface PictureSourced {
     "angle"?: number;
     "xoffset"?: number;
     "yoffset"?: number;
-
 }
 
 export interface PictureMarkerSymbol extends MarkerSymbol, PictureSourced {

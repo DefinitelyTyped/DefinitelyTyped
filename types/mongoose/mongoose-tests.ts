@@ -61,7 +61,10 @@ mongoose.STATES.hasOwnProperty('');
 mongoose.connection.on('error', cb);
 new mongoose.mongo.MongoError('error').stack;
 mongoose.SchemaTypes.String;
+mongoose.SchemaTypes.ObjectId;
+mongoose.SchemaTypes.Decimal128;
 mongoose.Types.ObjectId;
+mongoose.Types.Decimal128;
 mongoose.version.toLowerCase();
 
 /*
@@ -228,6 +231,7 @@ var schema: mongoose.Schema = new mongoose.Schema({
   age:     { type: Number, min: 18, max: 65 },
   mixed:   mongoose.Schema.Types.Mixed,
   _someId: mongoose.Schema.Types.ObjectId,
+  someDecimal:mongoose.Schema.Types.Decimal128,
   array:      [],
   ofString:   [String],
   ofNumber:   [Number],
@@ -586,6 +590,23 @@ mongooseBuffer.compare(mongooseBuffer);
 mongoose.Types.Buffer.from([1, 2, 3]);
 
 /*
+ * section types/decimal128.js
+ * http://mongoosejs.com/docs/api.html#types-decimal128-js
+ */
+var decimal128: mongoose.Types.Decimal128 = mongoose.Types.Decimal128.fromString('123.45678901234567');
+decimal128 = new mongoose.Types.Decimal128(new Buffer('12345'));
+/* practical examples */
+export interface ILargeValuesSchema extends mongoose.MongooseDocument {
+  sum: mongoose.Schema.Types.Decimal128;
+}
+export var LargeValuesSchema = new mongoose.Schema({
+  sum: {
+    type: mongoose.Schema.Types.Decimal128,
+    required: true
+  }
+});
+
+/*
  * section types/objectid.js
  * http://mongoosejs.com/docs/api.html#types-objectid-js
  */
@@ -639,6 +660,7 @@ query.catch(cb).catch(cb);
 query.center({}).center({});
 query.centerSphere({ center: [50, 50], radius: 10 }).centerSphere('path', {});
 query.circle({ center: [50, 50], radius: 10 }).circle('path');
+query.collation({ locale: 'en_US', strength: 1 });
 query.comment('comment').comment('comment');
 query.where({color: 'black'}).count(function (err, count) {
   count.toFixed();
@@ -974,6 +996,7 @@ aggregate.addCursorFlag('flag', true).addCursorFlag('', false);
 aggregate.allowDiskUse(true).allowDiskUse(false, []);
 aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
+aggregate.collation({ locale: 'en_US', strength: 1 });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.explain(cb).then(cb).catch(cb);
@@ -1050,7 +1073,7 @@ aggregate.unwind(
     includeArrayIndex: "idx",
     preserveNullAndEmptyArrays: true
   });
-  
+
 /*
  * section schematype.js
  * http://mongoosejs.com/docs/api.html#schematype-js
@@ -1213,8 +1236,20 @@ MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].__v;
 });
 MongoModel.findById(999, function (err, doc) {
+  var handleSave = function(err: Error, product: mongoose.Document, numAffected: number) {};
   doc.increment();
-  doc.save(cb).then(cb).catch(cb);
+  doc.save(handleSave).then(cb).catch(cb);
+  doc.save({ validateBeforeSave: false }, handleSave).then(cb).catch(cb);
+  doc.save({ safe: true }, handleSave).then(cb).catch(cb);
+  doc.save({ safe: { w: 2, j: true } }, handleSave).then(cb).catch(cb);
+  doc.save({ safe: { w: 'majority', wtimeout: 10000 } }, handleSave).then(cb).catch(cb);
+
+  // test if Typescript can infer the types of (err, product, numAffected)
+  doc.save(function(err, product, numAffected) { product.save(); })
+    .then(function(p) { p.save() }).catch(cb);
+  doc.save({ validateBeforeSave: false }, function(err, product, numAffected) {
+    product.save();
+  }).then(function(p) { p.save() }).catch(cb);
 });
 MongoModel = (new MongoModel()).model('MongoModel');
 var mongoModel = new MongoModel();

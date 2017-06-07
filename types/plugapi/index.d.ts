@@ -3,20 +3,19 @@
 // Definitions by: Brice Theurillat <https://github.com/BNedry/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace PlugAPI {
-
-    export interface PlugLogin {
+    interface PlugLogin {
         email: string;
         password: string;
     }
 
-    export interface Notification {
+    interface Notification {
         action: string;
         id: number;
         timestamp: string;
         value: string;
     }
 
-    export interface RawChatMessage {
+    interface RawChatMessage {
         cid: string;
         message: string;
         sub: number;
@@ -24,7 +23,7 @@ declare namespace PlugAPI {
         un: string;
     }
 
-    export interface Media {
+    interface Media {
         author: string;
         format: number;
         image: string;
@@ -34,7 +33,7 @@ declare namespace PlugAPI {
         id: number;
     }
 
-    export interface Score {
+    interface Score {
         positive: number;
         listeners: number;
         grabs: number;
@@ -42,23 +41,23 @@ declare namespace PlugAPI {
         skipped: number;
     }
 
-    export interface LastPlay {
+    interface LastPlay {
         dj: User.DJ;
         media: Media;
         score: Score;
     }
 
-    export interface FollowJoinData {
+    interface FollowJoinData {
         r: number;
         un: string;
         id: string;
     }
 
-    export interface LogObject {
-        log: () => void;
+    interface LogObject {
+        log(): void;
     }
 
-    export namespace User {
+    namespace User {
         interface Default {
             username: string;
             language: string;
@@ -110,7 +109,7 @@ declare namespace PlugAPI {
         }
     }
 
-    export namespace Enum {
+    namespace Enum {
         interface RoomRole {
             NONE: number;
             RESIDENTDJ: number;
@@ -217,7 +216,7 @@ declare namespace PlugAPI {
         }
     }
 
-    export namespace Event {
+    namespace Event {
         interface BoothCycle {
             moderator: string;
             cycle: boolean;
@@ -339,21 +338,21 @@ declare namespace PlugAPI {
         interface Command extends Event.Chat {
             command: string;
             args: string[];
-            respond: (...args: any[]) => any;
-            respondTimeout: (...args: any[]) => any;
-            havePermission: (...args: any[]) => boolean;
-            isFrom: (...args: any[]) => boolean;
+            respond(...args: any[]): any;
+            respondTimeout(...args: any[]): any;
+            havePermission(...args: any[]): boolean;
+            isFrom(...args: any[]): boolean;
         }
     }
 
-    export var ROOM_ROLE: Enum.RoomRole;
-    export var GLOBAL_ROLES: Enum.GlobalRole;
-    export var STATUS: Enum.Status;
-    export var BAN: Enum.Ban;
-    export var BAN_REASON: Enum.BanReason;
-    export var MUTE: Enum.Mute;
-    export var MUTE_REASON: Enum.MuteReason;
-    export var events: Enum.Events;
+    const ROOM_ROLE: Enum.RoomRole;
+    const GLOBAL_ROLES: Enum.GlobalRole;
+    const STATUS: Enum.Status;
+    const BAN: Enum.Ban;
+    const BAN_REASON: Enum.BanReason;
+    const MUTE: Enum.Mute;
+    const MUTE_REASON: Enum.MuteReason;
+    const events: Enum.Events;
 }
 
 declare class PlugAPI {
@@ -412,4 +411,5 @@ declare class PlugAPI {
     on(event: "command", callback: (data: PlugAPI.Event.Command) => void): void;
     on(event: string, callback: (data: any) => void): void;
 }
+
 export = PlugAPI;

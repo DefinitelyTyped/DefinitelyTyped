@@ -1,4 +1,4 @@
-// Type definitions for kue 0.9.x
+// Type definitions for kue 0.11.x
 // Project: https://github.com/Automattic/kue
 // Definitions by: Nicholas Penree <http://github.com/drudge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -81,8 +81,8 @@ export declare class Job extends events.EventEmitter {
     get(key: string, fn?: Function): Job;
     progress(complete: number, total: number, data?: any): Job;
     delay(ms: number | Date): Job;
-    removeOnComplete(param: any): void;
-    backoff(param: any): void;
+    removeOnComplete(param: any): Job;
+    backoff(param: any): Job;
     ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string | number): Job;
@@ -133,7 +133,7 @@ interface Redis {
 
 interface TestMode {
     jobs: Job[];
-    enter(): void;
+    enter(process?: Boolean): void;
     exit(): void;
     clear(): void;
 }

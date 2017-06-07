@@ -107,6 +107,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             escapeClearsValue: true,
             filterOptions: filterOptions,
             ignoreAccents: true,
+            instanceId: 'custom-instance-id',
             joinValues: false,
             matchPos: "any",
             matchProp: "any",

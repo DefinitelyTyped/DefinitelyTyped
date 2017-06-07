@@ -11,14 +11,14 @@ class Server implements App {
 			.forEach((user) => {
 				this.onUserJoined(user);
 			});
-	};
+	}
 
 	onUserJoined(user: User) {
 		const botNick = KnuddelsServer.getDefaultBotUser()
 			.getNick()
 			.escapeKCode();
 		user.sendPrivateMessage('Lust auf ne Runde Ziegenphobie? Mit nur _°BB>_h1 Knuddel|/appknuddel ' + botNick + '<°°°_ bist du dabei!');
-	};
+	}
 
 	onUserLeft(user: User) {
 		if (this.usersPlaying[user.getNick()] === 1) {
@@ -27,7 +27,7 @@ class Server implements App {
 
 			delete this.usersPlaying[user.getNick()];
 		}
-	};
+	}
 
 	onPrepareShutdown() {
 		if (!this.isShuttingDown) {
@@ -71,7 +71,7 @@ class Server implements App {
 		} else {
 			knuddelTransfer.accept();
 		}
-	};
+	}
 
 	onKnuddelReceived(user: User, receiver: User, knuddelAmount: KnuddelAmount) {
 		if (knuddelAmount.asNumber() === 1) {
@@ -80,7 +80,7 @@ class Server implements App {
 		} else {
 			user.sendPrivateMessage('Vielen Dank für die Einzahlung.');
 		}
-	};
+	}
 
 	onEventReceived(user: User, key: string, data: string) {
 		if (key === 'selectedEntry' && this.usersPlaying[user.getNick()] === 1) {
@@ -120,7 +120,7 @@ class Server implements App {
 				}, 4000);
 			}, 1500);
 		}
-	};
+	}
 }
 
 declare let App: Server; // tell the compiler that "App" will be available

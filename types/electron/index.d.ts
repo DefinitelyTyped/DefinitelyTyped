@@ -2191,7 +2191,15 @@ declare namespace Electron {
 		/**
 		 * Contains which features the dialog should use.
 		 */
-		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles')[];
+		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles' | 'promptToCreate' | 'noResolveAliases')[];
+		/**
+		 * Normalize the keyboard access keys across platforms.
+		 */
+		normalizeAccessKeys?: boolean;
+		/**
+		 * Message to display above input boxes.
+		 */
+		message?: string;
 	}
 
 	interface SaveDialogOptions {
@@ -2208,6 +2216,18 @@ declare namespace Electron {
 			name: string;
 			extensions: string[];
 		}[];
+		/**
+		 * macOS - Message to display above text fields.
+		 */
+		message?: string;
+		/**
+		 * macOS - Custom label for the text displayed in front of the filename text field.
+		 */
+		nameFieldLabel?: string;
+		/**
+		 * macOS - Show the tags input box, defaults to true.
+		 */
+		showsTagField?: boolean;
 	}
 
 	interface ShowMessageBoxOptions {
@@ -2489,7 +2509,7 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout' | 'reload' | 'toggledevtools';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout' | 'editMenu' | 'windowMenu' | 'reload' | 'forcereload' | 'toggledevtools';
 	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'startspeaking' | 'stopspeaking' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
@@ -2605,14 +2625,17 @@ declare namespace Electron {
 		 */
 		constructor();
 		/**
-		 * Sets menu as the application menu on macOS. On Windows and Linux, the menu
-		 * will be set as each window's top menu.
+		 * Sets menu as the application menu on macOS. On Windows and Linux, the
+		 * menu will be set as each window's top menu.
+		 *
+		 * Passing null will remove the menu bar on Windows and Linux but has no
+		 * effect on macOS.
 		 */
-		static setApplicationMenu(menu: Menu): void;
+		static setApplicationMenu(menu: Menu | null): void;
 		/**
 		 * @returns The application menu if set, or null if not set.
 		 */
-		static getApplicationMenu(): Menu;
+		static getApplicationMenu(): Menu | null;
 		/**
 		 * Sends the action to the first responder of application.
 		 * This is used for emulating default Cocoa menu behaviors,
@@ -2811,7 +2834,7 @@ declare namespace Electron {
 	 */
 	class ClientRequest extends NodeJS.EventEmitter {
 		/**
-		 * Emitted when an HTTP response is received for the request. 
+		 * Emitted when an HTTP response is received for the request.
 		 */
 		on(event: 'response', listener: (response: IncomingMessage) => void): this;
 		/**

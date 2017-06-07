@@ -1,6 +1,6 @@
 import * as Ably from 'ably';
 
-declare var console: { log(message: any): void };
+declare const console: { log(message: any): void };
 
 const ApiKey = 'appId.keyId:secret';
 const client = new Ably.Realtime(ApiKey);
@@ -19,10 +19,9 @@ client.connection.on('failed', () => {
   //  failed connection
 });
 
-
 // Subscribing to a channel
 
-var channel = client.channels.get('test');
+const channel = client.channels.get('test');
 channel.subscribe(message => {
   message.name; // 'greeting'
   message.data; // 'Hello World!'
@@ -67,7 +66,6 @@ channel.history((err, messagesPage) => {
 channel.history({ start: Date.now() - 10000, end: Date.now(), limit: 100, direction: 'forwards'}, (err, messagesPage) => {
   console.log(messagesPage.items.length);
 });
-
 
 // Presence on a channel
 // Getting presence:
@@ -118,7 +116,7 @@ channel.history({ start: Date.now() - 10000, end: Date.now(), limit: 100, direct
 // Generate a random 256-bit key for demonstration purposes (in
 // practice you need to create one and distribute it to clients yourselves)
 Ably.Realtime.Crypto.generateRandomKey((err, key) => {
-    var channel = client.channels.get('channelName', { cipher: { key } });
+    const channel = client.channels.get('channelName', { cipher: { key } });
 
     channel.subscribe(message => {
         message.name; // 'name is not encrypted'
@@ -136,7 +134,7 @@ channel.setOptions({cipher: {key: '<KEY>'}}, () => {
 
 // Using the REST API
 
-var restChannel = restClient.channels.get('test');
+const restChannel = restClient.channels.get('test');
 
 // Publishing to a channel
 
@@ -195,7 +193,6 @@ restChannel.presence.history((err, messagesPage) => { // PaginatedResult
 // Can optionally take an options param, see https://www.ably.io/documentation/rest-api/#message-history
 restChannel.history({ start: Date.now() - 10000, end: Date.now(), limit: 100, direction: 'forwards' }, (err, messagesPage) => {});
 
-
 // Generate Token and Token Request
 // See https://www.ably.io/documentation/general/authentication for an explanation of Ably's authentication mechanism.
 
@@ -206,7 +203,7 @@ client.auth.requestToken((err, tokenDetails) => {
   // see https://www.ably.io/documentation/rest/authentication/#token-details for its properties
 
   // Now we have the token, we can send it to someone who can instantiate a client with it:
-  var clientUsingToken = new Ably.Realtime(tokenDetails.token);
+  const clientUsingToken = new Ably.Realtime(tokenDetails.token);
 });
 
 // requestToken can take two optional params
@@ -242,15 +239,15 @@ client.stats({ limit: 50 }, (err, statsPage) => {        // statsPage as Paginat
 client.time({}, (err, time) => {}); // time is in ms since epoch
 
 // Getting decoded Message objects from JSON
-var messages = Ably.Realtime.Message.fromEncodedArray([{ id: 'foo' }]);
+const messages = Ably.Realtime.Message.fromEncodedArray([{ id: 'foo' }]);
 console.log(messages[0].id);
 
-var message = Ably.Rest.Message.fromEncoded({ id: 'foo' });
+const message = Ably.Rest.Message.fromEncoded({ id: 'foo' });
 console.log(message.id);
 
 // Getting decoded PresenceMessage objects from JSON
-var presenceMessages = Ably.Realtime.PresenceMessage.fromEncodedArray([{ id: 'foo' }]);
+const presenceMessages = Ably.Realtime.PresenceMessage.fromEncodedArray([{ id: 'foo' }]);
 console.log(presenceMessages[0].action);
 
-var presenceMessage = Ably.Rest.PresenceMessage.fromEncoded({ id: 'foo' });
+const presenceMessage = Ably.Rest.PresenceMessage.fromEncoded({ id: 'foo' });
 console.log(presenceMessage.action);

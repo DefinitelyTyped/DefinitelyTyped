@@ -1,4 +1,3 @@
-
 const tracks: string[] = ['chapter1.mp3', 'chapter2.mp3', 'chapter3.mp3'];
 let trackId = 0;
 

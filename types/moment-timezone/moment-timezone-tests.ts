@@ -10,16 +10,16 @@ const d = moment.tz("May 12th 2014 8PM", "MMM Do YYYY hA", true, "America/Toront
 
 a.tz();
 
-const num = 1367337600000,
-    arr = [2013, 5, 1],
-    str = "2013-12-01",
-    date = new Date(2013, 4, 1),
-    mo = moment([2013, 4, 1]),
-    obj = { year : 2013, month : 5, day : 1 },
-    format = "YYYY-MM-DD",
-    formats = ["YYYY-MM-DD", "YYYY/MM/DD"],
-    formatsIncludingSpecial = ["YYYY-MM-DD", moment.ISO_8601],
-    language = "en";
+const num = 1367337600000;
+const arr = [2013, 5, 1];
+const str = "2013-12-01";
+const date = new Date(2013, 4, 1);
+const mo = moment([2013, 4, 1]);
+const obj = { year : 2013, month : 5, day : 1 };
+const format = "YYYY-MM-DD";
+const formats = ["YYYY-MM-DD", "YYYY/MM/DD"];
+const formatsIncludingSpecial = ["YYYY-MM-DD", moment.ISO_8601];
+const language = "en";
 
 moment.tz();
 moment.tz("America/Los_Angeles");

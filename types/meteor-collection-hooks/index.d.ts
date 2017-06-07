@@ -72,7 +72,8 @@ declare namespace Mongo {
           doc: T
         ) => void
       ): void;
-      update(hook: (
+      update(
+        hook: (
           userId: string,
           doc: T,
           fieldNames: string[],
@@ -81,7 +82,8 @@ declare namespace Mongo {
         ) => void,
         options?: CollectionHooks.HookOptionValue
       ): void;
-      upsert(hook: (
+      upsert(
+        hook: (
           userId: string,
           doc: T,
           selector: Mongo.Selector,
@@ -97,14 +99,14 @@ declare namespace Mongo {
         limit?: number;
         fields?: Mongo.FieldSpecifier;
         reactive?: boolean;
-        transform?: (doc: any) => void;
+        transform?(doc: any): void;
       }): Mongo.Cursor<T>;
       findOne(selector?: Mongo.Selector | Mongo.ObjectID | string, options?: {
         sort?: Mongo.SortSpecifier;
         skip?: number;
         fields?: Mongo.FieldSpecifier;
         reactive?: boolean;
-        transform?: (doc: any) => void;
+        transform?(doc: any): void;
       }): T;
       insert(
         doc: T,

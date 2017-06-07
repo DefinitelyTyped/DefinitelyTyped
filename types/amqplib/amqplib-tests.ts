@@ -1,7 +1,7 @@
 // promise api tests
 import amqp = require('amqplib');
 
-var msg = 'Hello World';
+const msg = 'Hello World';
 
 // test promise api
 amqp.connect('amqp://localhost')
@@ -21,11 +21,10 @@ amqp.connect('amqp://localhost')
     });
 
 // test promise api properties
-var amqpMessage: amqp.Message;
+let amqpMessage: amqp.Message;
 amqpMessage.properties.contentType = 'application/json';
-var amqpAssertExchangeOptions: amqp.Options.AssertExchange;
-var anqpAssertExchangeReplies: amqp.Replies.AssertExchange;
-
+let amqpAssertExchangeOptions: amqp.Options.AssertExchange;
+let anqpAssertExchangeReplies: amqp.Replies.AssertExchange;
 
 // callback api tests
 import amqpcb = require('amqplib/callback_api');
@@ -59,7 +58,7 @@ amqpcb.connect('amqp://localhost', (err, connection) => {
 });
 
 // test callback api properties
-var amqpcbMessage: amqpcb.Message;
+let amqpcbMessage: amqpcb.Message;
 amqpcbMessage.properties.contentType = 'application/json';
-var amqpcbAssertExchangeOptions: amqpcb.Options.AssertExchange;
-var anqpcbAssertExchangeReplies: amqpcb.Replies.AssertExchange;
+let amqpcbAssertExchangeOptions: amqpcb.Options.AssertExchange;
+let anqpcbAssertExchangeReplies: amqpcb.Replies.AssertExchange;

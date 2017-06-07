@@ -93,8 +93,8 @@ declare module 'angular' {
         }
 
         /**
-        * Sticky state
-        */
+         * Sticky state
+         */
         interface IStickyState extends angular.ui.IState {
             /*
             * When marking a state sticky, the state must target its own unique named ui-view.

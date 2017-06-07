@@ -61,7 +61,7 @@ interface CarouselOptions {
     interval?: number;
     pause?: string;
     wrap?: boolean;
-    keybord?: boolean;
+    keyboard?: boolean;
 }
 
 interface TypeaheadOptions {

@@ -3,7 +3,7 @@
 // Definitions by: Pascal Birchler <https://github.com/swissspidy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace massive {
+export namespace massive {
 	interface ConnectionOptions {
 		connectionString?: string;
 		db?: string;
@@ -11,10 +11,9 @@ declare namespace massive {
 
 	interface Doc {
 		findDoc(context: any, callback: ResultCallback): void;
-		searchDoc(options: {
-			keys: string[];
-			term: string;
-		}, callback: ResultCallback): void;
+		searchDoc(
+			options: { keys: string[], term: string },
+			callback: ResultCallback): void;
 		saveDoc(context: string, callback: ResultCallback): void;
 		destroy(context: any, callback: ResultCallback): void;
 	}
@@ -32,7 +31,7 @@ declare namespace massive {
 	}
 
 	interface QueryFunction {
-		find: (params: any|any[], callback: ResultCallback) => void;
+		find(params: any|any[], callback: ResultCallback): void;
 	}
 
 	interface QueryArguments {
@@ -52,16 +51,16 @@ export interface Massive {
 	practice: Table;
 	practicesession: Table;
 	sport: Table;
-	testdata: (callback: ResultCallback) => void;
+	testdata(callback: ResultCallback): void;
 	team: Table;
 	teammember: Table;
 	teamsport: Table;
 	scriptsDir: string;
 	connectionString: string;
-	query: () => void;
-	stream: () => void;
-	executeSqlFile: (args: any, next: ResultCallback) => void;
-	end: () => void;
+	query(): void;
+	stream(): void;
+	executeSqlFile(args: any, next: ResultCallback): void;
+	end(): void;
 	tables: Array<massive.Doc|Table>;
 	views: any[];
 	queryFiles: massive.QueryFile[];

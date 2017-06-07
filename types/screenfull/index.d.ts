@@ -1,6 +1,6 @@
-// Type definitions for screenfull.js 3.0.0
+// Type definitions for screenfull.js 3.2.0
 // Project: https://github.com/sindresorhus/screenfull.js
-// Definitions by: Ilia Choly <http://github.com/icholy>
+// Definitions by: Ilia Choly <http://github.com/icholy>, lionelb <https://github.com/lionelb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -23,6 +23,8 @@ interface IScreenfull {
   request(elem?: Element): void;
   toggle(elem?: Element): void;
   exit(): void;
+  onchange(handler: () => void): void;
+  onerror(handler: (event: Event) => void): void;
 }
 
 export = screenfull;

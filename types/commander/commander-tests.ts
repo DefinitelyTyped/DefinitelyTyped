@@ -1,5 +1,11 @@
-// NOTE: import statement can not use in TypeScript 1.0.1
-import program = require('commander');
+import * as program from "commander";
+
+interface ExtendedOptions extends program.CommandOptions {
+    isNew: any;
+}
+
+const commandInstance = new program.Command("-f");
+const optionsInstance = new program.Option("-f");
 
 program
     .version('0.0.1')
@@ -15,20 +21,20 @@ if (program['pineapple']) console.log('  - pineapple');
 if (program['bbq']) console.log('  - bbq');
 console.log('  - %s cheese', program['cheese']);
 
-function range(val:string) {
+function range(val: string) {
     return val.split('..').map(Number);
 }
 
-function list(val:string) {
+function list(val: string) {
     return val.split(',');
 }
 
-function collect(val:string, memo:string[]) {
+function collect(val: string, memo: string[]) {
     memo.push(val);
     return memo;
 }
 
-function increaseVerbosity(v:any, total:number) {
+function increaseVerbosity(v: any, total: number) {
     return total + 1;
 }
 
@@ -53,7 +59,6 @@ console.log(' list: %j', program['list']);
 console.log(' collect: %j', program['collect']);
 console.log(' verbosity: %j', program['verbose']);
 console.log(' args: %j', program['args']);
-
 
 program
     .version('0.0.1')
@@ -80,11 +85,11 @@ program
     });
 
 program
-  .version('0.0.1')
-  .arguments('<cmd> [env]')
-  .action(function (cmd, env) {
-     console.log(cmd, env);
-  });
+    .version('0.0.1')
+    .arguments('<cmd> [env]')
+    .action((cmd, env) => {
+        console.log(cmd, env);
+    });
 
 program.parse(process.argv);
 

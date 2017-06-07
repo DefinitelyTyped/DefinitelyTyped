@@ -12,6 +12,4 @@ export interface IconBaseProps {
     style?: React.CSSProperties;
 }
 
-export default class IconBase extends React.Component<IconBaseProps, any> {
-
-}
+export default class IconBase extends React.Component<IconBaseProps, any> {}

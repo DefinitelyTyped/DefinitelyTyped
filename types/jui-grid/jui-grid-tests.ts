@@ -40,9 +40,9 @@ jui.ready([ "grid.table" ], (table: GridTable) => {
     ]);
 
     const table_3_submit: Function = (index: number) => {
-        const name = $(table_3.root).find(".name").val(),
-            age = $(table_3.root).find(".age").val(),
-            location = $(table_3.root).find(".location").val();
+        const name = $(table_3.root).find(".name").val();
+        const age = $(table_3.root).find(".age").val();
+        const location = $(table_3.root).find(".location").val();
 
         //noinspection TypeScriptValidateTypes
         table_3.update(index, { name, age, location });

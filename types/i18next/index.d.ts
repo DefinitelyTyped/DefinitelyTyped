@@ -1,6 +1,6 @@
-// Type definitions for i18next v2.3.4
+// Type definitions for i18next v2.3.5
 // Project: http://i18next.com
-// Definitions by: Michael Ledin <https://github.com/mxl>
+// Definitions by: Michael Ledin <https://github.com/mxl>, Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Sources: https://github.com/i18next/i18next/
@@ -18,6 +18,12 @@ declare namespace i18n {
     interface ResourceStoreKey {
         [key: string]: any;
     }
+
+    interface FallbackLngObjList {
+        [language: string]: string[]
+    }
+
+    type FallbackLng = string | string[] | FallbackLngObjList;
 
     interface InterpolationOptions {
         escapeValue?: boolean;
@@ -41,7 +47,7 @@ declare namespace i18n {
         replace?: any;
         lng?: string;
         lngs?: string[];
-        fallbackLng?: string;
+        fallbackLng?: FallbackLng;
         ns?: string | string[];
         keySeparator?: string;
         nsSeparator?: string;
@@ -49,13 +55,15 @@ declare namespace i18n {
         joinArrays?: string;
         postProcess?: string | any[];
         interpolation?: InterpolationOptions;
+        //add an indexer to assure that interpolation arguments can be passed
+        [x: string]: any;
     }
 
     interface Options {
         debug?: boolean;
         resources?: ResourceStore;
         lng?: string;
-        fallbackLng?: string;
+        fallbackLng?: FallbackLng;
         ns?: string | string[];
         defaultNS?: string;
         fallbackNS?: string | string[];
@@ -85,12 +93,17 @@ declare namespace i18n {
         cache?: any;
     }
 
+    // init options for react-i18next
+    interface ReactOptions {
+      wait?: boolean;
+    }
+
     type TranslationFunction = (key: string, options?: TranslationOptions) => string;
 
     interface I18n {
         //constructor(options?: Options, callback?: (err: any, t: TranslationFunction) => void);
 
-        init(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
+        init(options?: Options&ReactOptions, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
         loadResources(callback?: (err: any) => void): void;
 
@@ -106,7 +119,7 @@ declare namespace i18n {
 
         t(key: string, options?: TranslationOptions): string | any | Array<any>;
 
-        exists(): boolean;
+        exists(key: string, options?: TranslationOptions): boolean;
 
         setDefaultNamespace(ns: string): void;
 

@@ -16,11 +16,9 @@ SwaggerExpress.create(config, (err, middleware) => {
     app.listen(port);
 });
 
-
 const swaggerSecurityHandlerCb = (err: Error) => {
     // do nothing
 };
-
 
 const configComplex: SwaggerExpress.Config = {
     appRoot: __dirname,

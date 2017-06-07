@@ -1,15 +1,12 @@
-
-
-var myApp = angular.module('testModule', ['ngMaterial']);
+const myApp = angular.module('testModule', ['ngMaterial']);
 
 myApp.config((
     $mdThemingProvider: ng.material.IThemingProvider,
     $mdIconProvider: ng.material.IIconProvider,
     $mdProgressCircularProvider: ng.material.IProgressCircularProvider) => {
-
     $mdThemingProvider.alwaysWatchTheme(true);
-    var neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
-        '500': 'ff0000'
+    const neonRedMap: ng.material.IPalette = $mdThemingProvider.extendPalette('red', {
+        500: 'ff0000'
     });
     // Register the new color palette map with the name <code>neonRed</code>
     $mdThemingProvider.definePalette('neonRed', neonRedMap);
@@ -21,12 +18,13 @@ myApp.config((
         .warnPalette('red')
         .dark(true);
 
-    var browserColors: ng.material.IBrowserColors = {
-      theme: 'default', 
-      palette: 'neonRed', 
-      hue: '500'  
+    const browserColors: ng.material.IBrowserColors = {
+        theme: 'default',
+        palette: 'neonRed',
+        hue: '500'
     };
-    $mdThemingProvider.enableBrowserColor(browserColors);
+    const removeColors = $mdThemingProvider.enableBrowserColor(browserColors);
+    removeColors();
 
     // Disable theming generation at runtime
     $mdThemingProvider.disableTheming();
@@ -41,44 +39,67 @@ myApp.config((
     $mdProgressCircularProvider.configure({
         progressSize: 100,
         strokeWidth: 20,
-        duration: 800
+        duration: 800,
+        easeFn(t, b, c, d) {
+            t /= d;
+            return c * t * t + b;
+        },
+        easeFnIndeterminate(t, b, c, d) {
+            return c * Math.pow(2, 10 * (t / d - 1)) + b;
+        }
     });
 });
 
-myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {
+myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService, $q: ng.IQService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
             template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
             clickOutsideToClose: true,
             disableBackdrop: true,
             disableParentScroll: false,
-            parent: () => {}
         });
+
+        const options: ng.material.IBottomSheetOptions = {};
+
+        options.resolve = {
+            nativePromise: () => Promise.resolve(),
+            angularPromise: () => $q.resolve(),
+            annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
+            annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+        };
+
+        options.controller = 'TestController';
+        options.controller = (function TestController(param: any) { });
+        options.controller = (class { });
+        options.controller = ['fakeService', function TestController(fake: any) { }];
+        options.controller = ['fakeService', class { }];
+
+        options.parent = (scope, element) => new Element();
+        options.parent = (scope, element) => angular.element(new Element());
+        options.parent = '#container';
+        options.parent = new Element();
+        options.parent = angular.element(new Element());
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
     $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
 });
 
 myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
-    var colorExpression : ng.material.IColorExpression;
-    var element : Element;
-
-    colorExpression = { color: '#FFFFFF' }
-
-    element = new Element();
+    const colorExpression: ng.material.IColorExpression = { color: '#FFFFFF' };
+    const element: Element = new Element();
 
     $scope['applyThemeColors'] = () => {
         $mdColor.applyThemeColors(element, colorExpression);
     };
     $scope['getThemeColor'] = () => {
-        $mdColor.getThemeColor('default-neonRed')
+        $mdColor.getThemeColor('default-neonRed');
     };
     $scope['hasTheme'] = () => {
         $mdColor.hasTheme();
     };
 });
 
-myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService) => {
+myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService, $q: ng.IQService) => {
     $scope['openDialog'] = () => {
         $mdDialog.show({
             template: '<md-dialog>Hello!</md-dialog>'
@@ -120,16 +141,56 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
     };
     $scope['hideDialog'] = $mdDialog.hide.bind($mdDialog, 'hide');
     $scope['cancelDialog'] = $mdDialog.cancel.bind($mdDialog, 'cancel');
+
+    const alertPreset: ng.material.IAlertDialog = $mdDialog.alert()
+        .resolve({
+            nativePromise: () => Promise.resolve(),
+            angularPromise: () => $q.resolve(),
+            annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
+            annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+        })
+        .controller('TestController')
+        .controller(function TestController(param) { })
+        .controller(class { })
+        .controller(['fakeService', function TestController(fake) { }])
+        .controller(['fakeService', class { }])
+        ;
+
+    const dialogOptions: ng.material.IDialogOptions = {};
+
+    dialogOptions.resolve = {
+        nativePromise: () => Promise.resolve(),
+        angularPromise: () => $q.resolve(),
+        annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
+        annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+    };
+
+    dialogOptions.controller = 'TestController';
+    dialogOptions.controller = (function TestController(param) { });
+    dialogOptions.controller = (class { });
+    dialogOptions.controller = ['fakeService', function TestController(fake) { }];
+    dialogOptions.controller = ['fakeService', class { }];
+
+    $mdDialog.show({
+        onShowing(scope, element) { },
+        onComplete(scope, element) { },
+        onRemoving(element, removePromise) { },
+    });
+
+    $mdDialog.show({
+        onShowing: (scope, element) => { },
+        onComplete: (scope, element) => { },
+        onRemoving: (element, removePromise) => { },
+    });
 });
 
 class IconDirective implements ng.IDirective {
-
     private $mdIcon: ng.material.IIcon;
     constructor($mdIcon: ng.material.IIcon) {
         this.$mdIcon = $mdIcon;
     }
 
-    public link($scope: ng.IScope, $elm: ng.IAugmentedJQuery) {
+    link($scope: ng.IScope, $elm: ng.IAugmentedJQuery) {
         this.$mdIcon('android').then((iconEl: Element) => $elm.append(iconEl));
         this.$mdIcon('work:chair').then((iconEl: Element) => $elm.append(iconEl));
         // Load and cache the external SVG using a URL
@@ -150,7 +211,7 @@ myApp.controller('MediaController', ($scope: ng.IScope, $mdMedia: ng.material.IM
 });
 
 myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.material.ISidenavService) => {
-    var componentId = 'left';
+    const componentId = 'left';
     $scope['toggle'] = () => $mdSidenav(componentId).toggle();
     $scope['open'] = () => $mdSidenav(componentId).open();
     $scope['close'] = () => $mdSidenav(componentId).close();
@@ -165,41 +226,81 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
         instance.isLockedOpen();
     });
 
-    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => { });
 });
 
-myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
+myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService, $q: ng.IQService) => {
     $scope['openToast'] = () => {
         $mdToast.show($mdToast.simple().textContent('Hello!'));
         $mdToast.updateTextContent('New Content');
-    }
+    };
 
     $scope['customToast'] = () => {
-        var options = {
+        const options: ng.material.IToastOptions = {
             hideDelay: 3000,
             position: 'top right',
-            controller  : 'ToastCtrl',
-            templateUrl : 'toast-template.html',
-            toastClass: 'my-class'
+            controller: 'ToastCtrl',
+            templateUrl: 'toast-template.html',
+            toastClass: 'my-class',
+            resolve: {
+                nativePromise: () => Promise.resolve(),
+                angularPromise: () => $q.resolve(),
+                annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
+                annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+            }
         };
 
+        options.controller = 'TestController';
+        options.controller = (function TestController(param) { });
+        options.controller = (class { });
+        options.controller = ['fakeService', function TestController(fake) { }];
+        options.controller = ['fakeService', class { }];
+
         $mdToast.show(options);
-    }
+    };
 });
 
-myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
+myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService, $q: ng.IQService) => {
     $scope['createPanel'] = () => {
-        var config = {
+        const config: ng.material.IPanelConfig = {
             id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
             disableParentScroll: true,
-            zIndex: 150
+            zIndex: 150,
+            resolve: {
+                nativePromise: () => Promise.resolve(),
+                angularPromise: () => $q.resolve(),
+                annotatedNativePromise: ['fakeService', (fake) => Promise.resolve()],
+                annotatedAngularPromise: ['fakeService', (fake) => $q.resolve()]
+            }
         };
-        
+
+        config.controller = 'TestController';
+        config.controller = (function TestController(param) { });
+        config.controller = (class { });
+        config.controller = ['fakeService', function TestController(fake) { }];
+        config.controller = ['fakeService', class { }];
+
+        config.onDomAdded = (paneRef) => Promise.resolve();
+        config.onDomAdded = () => $q.reject();
+        config.onDomAdded = () => { };
+
+        config.onOpenComplete = (paneRef) => Promise.resolve();
+        config.onOpenComplete = () => $q.reject();
+        config.onOpenComplete = () => { };
+
+        config.onRemoving = (paneRef) => Promise.resolve();
+        config.onRemoving = () => $q.reject();
+        config.onRemoving = () => { };
+
+        config.onDomRemoved = (paneRef) => Promise.resolve();
+        config.onDomRemoved = () => $q.reject();
+        config.onDomRemoved = () => { };
+
         $mdPanel.create(config);
 
-        var panelRef = $mdPanel.create(config);
+        let panelRef = $mdPanel.create(config);
         panelRef.open()
             .then((ref: ng.material.IPanelRef) => {
                 ref.addClass('foo');
@@ -232,6 +333,6 @@ myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IP
 
     $scope['newPanelAnimation'] = () => {
         $mdPanel.newPanelAnimation().openFrom('.some-target');
-        $mdPanel.newPanelAnimation().openFrom({top: 0, left: 0});
+        $mdPanel.newPanelAnimation().openFrom({ top: 0, left: 0 });
     };
 });

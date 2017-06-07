@@ -14,7 +14,7 @@ const geojsonPoint: GeoJSON.Point = {
 };
 
 // parse ArcGIS JSON, convert it to GeoJSON
-var geojson = utils.arcgisToGeoJSON(arcgisPoint);
+const geojson = utils.arcgisToGeoJSON(arcgisPoint);
 
 // take GeoJSON and convert it to ArcGIS JSON
-var arcgis = utils.geojsonToArcGIS(geojsonPoint);
+const arcgis = utils.geojsonToArcGIS(geojsonPoint);

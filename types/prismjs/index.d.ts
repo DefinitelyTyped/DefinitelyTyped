@@ -38,7 +38,6 @@ export function highlightAll(async: boolean, callback?: (element: Element) => vo
  */
 export function highlightElement(element: Element, async: boolean, callback?: (element: Element) => void): void;
 
-
 /**
  * Low-level function, only use if you know what you’re doing. It accepts a string of text as input and the language
  * definitions to use, and returns a string with the HTML produced.
@@ -66,7 +65,7 @@ export function tokenize(text: string, grammar: LanguageDefinition): Array<Token
 
 export function fileHighlight(): void;
 
-interface Environment {
+export interface Environment {
     element?: Element;
     language?: LanguageDefinition;
     grammar?: any;
@@ -80,11 +79,11 @@ interface Environment {
     parent?: Element;
 }
 
-interface Identifier {
+export interface Identifier {
     value: number;
 }
 
-interface Util {
+export interface Util {
     /** Encode raw strings in tokens in preparation to display as HTML */
     encode(tokens: TokenNode): TokenNode;
 
@@ -98,7 +97,7 @@ interface Util {
     clone(o: LanguageDefinition): LanguageDefinition;
 }
 
-interface LanguageDefinition {
+export interface LanguageDefinition {
     keyword?: RegExp | LanguageDefinition;
     number?: RegExp | LanguageDefinition;
     function?: RegExp | LanguageDefinition;
@@ -143,8 +142,7 @@ interface LanguageDefinition {
     rest?: Token[];
 }
 
-interface Languages {
-
+export interface Languages {
     /** Get a defined language's definition */
     [key: string]: LanguageDefinition;
 
@@ -167,8 +165,8 @@ interface Languages {
     insertBefore(inside: string, before: string, insert: LanguageDefinition, root: LanguageDefinition): any;
 }
 
-type HookCallback = (env: Environment) => void;
-type AvailableHooks = "before-highlightall"
+export type HookCallback = (env: Environment) => void;
+export type AvailableHooks = "before-highlightall"
                     | "before-sanity-check"
                     | "before-highlight"
                     | "before-insert"
@@ -176,7 +174,7 @@ type AvailableHooks = "before-highlightall"
                     | "complete"
                     | "wrap";
 
-interface Hooks {
+export interface Hooks {
     all: Array<Array<(env: Environment) => void>>;
 
     add(name: AvailableHooks | string, callback: HookCallback): void;
@@ -184,7 +182,7 @@ interface Hooks {
     run(name: AvailableHooks | string, env: Environment): void;
 }
 
-type TokenNode = Token | string | Array<Token | string>;
+export type TokenNode = Token | string | Array<Token | string>;
 
 export class Token {
     /**

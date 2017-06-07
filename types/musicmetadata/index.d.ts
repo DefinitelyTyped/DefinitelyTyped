@@ -31,7 +31,7 @@ declare namespace MM {
         year: string;
         track: NoOf;
         disk: NoOf;
-        genre: string;
+        genre: string[];
         picture: Picture[];
         duration: number;
     }

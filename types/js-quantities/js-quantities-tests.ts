@@ -11,7 +11,7 @@ interface Expect<T> {
   toBeCloseTo(this: Expect<number>, x: number, sigFigs: number): void;
   toThrow(this: Expect<() => void>, msg?: string): void;
   toContain<U>(this: Expect<U[]>, x: U): void;
-};
+}
 declare function expect<T>(x: T): Expect<T>;
 declare function beforeEach(f: () => void): void;
 declare function afterEach(f: () => void): void;
@@ -621,8 +621,8 @@ describe("js-quantities", () => {
     });
 
     it("should be cached", () => {
-      const qty = Qty("100 m"),
-        converted = qty.to("ft");
+      const qty = Qty("100 m");
+      const converted = qty.to("ft");
 
       expect(qty.to("ft") === converted).toBe(true);
     });
@@ -1389,9 +1389,9 @@ describe("js-quantities", () => {
 
       describe("array of values", () => {
         it("should be converted", () => {
-          const converter = Qty.swiftConverter("MPa", "bar"),
-            values = [250, 10, 15],
-            expected = [2500, 100, 150];
+          const converter = Qty.swiftConverter("MPa", "bar");
+          const values = [250, 10, 15];
+          const expected = [2500, 100, 150];
 
           expect(converter(values)).toEqual(expected);
         });

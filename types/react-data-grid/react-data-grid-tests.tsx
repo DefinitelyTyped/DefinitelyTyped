@@ -1,12 +1,35 @@
 import * as React from 'react';
 import * as ReactDataGrid from 'react-data-grid';
-import * as ReactDataGridPlugins from 'react-data-grid/addons';
+import * as ReactDataGridPlugins from 'react-data-grid-addons';
 import faker = require('faker');
 
 var Editors = ReactDataGridPlugins.Editors;
 var Toolbar = ReactDataGridPlugins.Toolbar;
 var AutoCompleteEditor = Editors.AutoComplete;
 var DropDownEditor = Editors.DropDownEditor;
+var { Selectors } = ReactDataGridPlugins.Data;
+
+class CustomFilterHeaderCell extends React.Component<any, any> {
+   constructor(props: any, context: any) {
+       super(props, context);
+
+       this.state = {
+           filterTerm: ""
+       };
+   }
+   handleChange(e: any) {
+       let val = e.target.value;
+       this.setState({filterTerm: val});
+       this.props.onChange({filterTerm: val, column: this.props.column});
+   }
+   render() {
+       return (
+           <div>
+               <input type="text" value={this.state.filterTerm} onChange={(e) => this.handleChange(e)} />
+           </div>
+       );
+   }
+}
 
 faker.locale = 'en_GB';
 
@@ -103,7 +126,10 @@ var columns:ReactDataGrid.Column[] = [
         name: 'County',
         editor: <AutoCompleteEditor options={counties}/>,
         width: 200,
-        resizable: true
+        resizable: true,
+        getRowMetaData: (rowdata: any, column: ReactDataGrid.Column) => {
+            return {};
+        }
     },
     {
         key: 'title',
@@ -178,14 +204,17 @@ var columns:ReactDataGrid.Column[] = [
         name: 'Company Name',
         editable: true,
         width: 200,
-        resizable: true
+        resizable: true,
+        filterable: true,
+        filterRenderer: CustomFilterHeaderCell
     },
     {
         key: 'sentence',
         name: 'Sentence',
         editable: true,
         width: 200,
-        resizable: true
+        resizable: true,
+        cellClass: 'sentence-class'
     }
 ];
 
@@ -220,6 +249,16 @@ class Example extends React.Component<any, any> {
         this.setState({rows: rows});
     }
 
+    onRowClick(rowIdx:number, row: Object) {
+        // Do nothing, just test that it accepts an event
+    }
+
+    getRows() {
+        const rows = Selectors.getRows(this.state);
+        console.log(rows);
+        return rows;
+    }
+
     handleAddRow(e:any) {
         var newRow = {
             value: e.newRowIndex,
@@ -233,6 +272,7 @@ class Example extends React.Component<any, any> {
     }
 
     getRowAt(index:number) {
+        this.getRows();
         if (index < 0 || index > this.getSize()) {
             return undefined;
         }
@@ -278,6 +318,7 @@ class Example extends React.Component<any, any> {
                         keys: {rowKey: 'id', values: selectedRows}
                     }
                 }}
+                onRowClick={this.onRowClick}
             />
 
         );

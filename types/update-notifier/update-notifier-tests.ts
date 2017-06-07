@@ -1,6 +1,6 @@
 import UpdateNotifier = require("update-notifier");
 
-var notifier = UpdateNotifier();
+let notifier = UpdateNotifier();
 
 if (notifier.update) {
 	notifier.notify();
@@ -9,7 +9,7 @@ if (notifier.update) {
 console.log(notifier.update);
 
 // Also exposed as a class
-var notifier = new UpdateNotifier.UpdateNotifier({
+notifier = new UpdateNotifier.UpdateNotifier({
 	updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
 });
 

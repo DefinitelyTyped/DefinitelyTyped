@@ -5,28 +5,28 @@
 
 export as namespace Reflux;
 
-interface StoreDefinition {
+export interface StoreDefinition {
     listenables?: any[];
     init?: Function;
     getInitialState?: Function;
     [propertyName: string]: any;
 }
 
-interface ListenFn {
+export interface ListenFn {
     (...params: any[]): any;
     completed: Function;
     failed: Function;
 }
-interface Listenable {
+export interface Listenable {
     listen: ListenFn;
 }
 
-interface Subscription {
+export interface Subscription {
     stop: Function;
     listenable: Listenable;
 }
 
-interface Store {
+export interface Store {
     hasListener(listenable: Listenable): boolean;
     listenToMany(listenables: Listenable[]): void;
     validateListening(listenable: Listenable): string;
@@ -38,11 +38,11 @@ interface Store {
     listen(callback: Function, bindContext: any): Function;
 }
 
-interface ActionsDefinition {
+export interface ActionsDefinition {
     [index: string]: any;
 }
 
-interface Actions {
+export interface Actions {
     [index: string]: Listenable;
 }
 

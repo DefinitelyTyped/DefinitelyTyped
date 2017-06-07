@@ -1,8 +1,20 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>, Eric Anderson <https://github.com/ericanderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
+
+type NativeAnimationEvent = AnimationEvent;
+type NativeClipboardEvent = ClipboardEvent;
+type NativeCompositionEvent = CompositionEvent;
+type NativeDragEvent = DragEvent;
+type NativeFocusEvent = FocusEvent;
+type NativeKeyboardEvent = KeyboardEvent;
+type NativeMouseEvent = MouseEvent;
+type NativeTouchEvent = TouchEvent;
+type NativeTransitionEvent = TransitionEvent;
+type NativeUIEvent = UIEvent;
+type NativeWheelEvent = WheelEvent;
 
 export = React;
 export as namespace React;
@@ -13,7 +25,8 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
+    type ReactType = string | ComponentType<any>;
+    type ComponentType<P> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
@@ -166,7 +179,8 @@ declare namespace React {
     type ReactInstance = Component<any, any> | Element;
 
     // Base component for plain JS classes
-    class Component<P, S> implements ComponentLifecycle<P, S> {
+    interface Component<P, S> extends ComponentLifecycle<P, S> { }
+    class Component<P, S> {
         constructor(props?: P, context?: any);
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
@@ -250,7 +264,7 @@ declare namespace React {
     }
 
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-        mixins?: Mixin<P, S>;
+        mixins?: Mixin<P, S>[];
         statics?: {
             [key: string]: any;
         };
@@ -295,17 +309,21 @@ declare namespace React {
 
     interface ClipboardEvent<T> extends SyntheticEvent<T> {
         clipboardData: DataTransfer;
+        nativeEvent: NativeClipboardEvent;
     }
 
     interface CompositionEvent<T> extends SyntheticEvent<T> {
         data: string;
+        nativeEvent: NativeCompositionEvent;
     }
 
     interface DragEvent<T> extends MouseEvent<T> {
         dataTransfer: DataTransfer;
+        nativeEvent: NativeDragEvent;
     }
 
     interface FocusEvent<T> extends SyntheticEvent<T> {
+        nativeEvent: NativeFocusEvent;
         relatedTarget: EventTarget;
     }
 
@@ -326,6 +344,7 @@ declare namespace React {
         locale: string;
         location: number;
         metaKey: boolean;
+        nativeEvent: NativeKeyboardEvent;
         repeat: boolean;
         shiftKey: boolean;
         which: number;
@@ -340,6 +359,7 @@ declare namespace React {
         ctrlKey: boolean;
         getModifierState(key: string): boolean;
         metaKey: boolean;
+        nativeEvent: NativeMouseEvent;
         pageX: number;
         pageY: number;
         relatedTarget: EventTarget;
@@ -354,6 +374,7 @@ declare namespace React {
         ctrlKey: boolean;
         getModifierState(key: string): boolean;
         metaKey: boolean;
+        nativeEvent: NativeTouchEvent;
         shiftKey: boolean;
         targetTouches: TouchList;
         touches: TouchList;
@@ -361,6 +382,7 @@ declare namespace React {
 
     interface UIEvent<T> extends SyntheticEvent<T> {
         detail: number;
+        nativeEvent: NativeUIEvent;
         view: AbstractView;
     }
 
@@ -369,18 +391,21 @@ declare namespace React {
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+        nativeEvent: NativeWheelEvent;
     }
 
     interface AnimationEvent<T> extends SyntheticEvent<T> {
         animationName: string;
-        pseudoElement: string;
         elapsedTime: number;
+        nativeEvent: NativeAnimationEvent;
+        pseudoElement: string;
     }
 
     interface TransitionEvent<T> extends SyntheticEvent<T> {
+        elapsedTime: number;
+        nativeEvent: NativeTransitionEvent;
         propertyName: string;
         pseudoElement: string;
-        elapsedTime: number;
     }
 
     //
@@ -1504,7 +1529,7 @@ declare namespace React {
         /**
          * The overflow property controls how extra content exceeding the bounding box of an element is rendered. It can be used in conjunction with an element that has a fixed width and height, to eliminate text-induced page distortion.
          */
-        overflow?: CSSWideKeyword | any;
+        overflow?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
         /**
          * Specifies the preferred scrolling methods for elements that overflow.
@@ -1514,12 +1539,12 @@ declare namespace React {
         /**
          * Controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
          */
-        overflowX?: CSSWideKeyword | any;
+        overflowX?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
         /**
          * Controls how extra content exceeding the y-axis of the bounding box of an element is rendered.
          */
-        overflowY?: CSSWideKeyword | any;
+        overflowY?: CSSWideKeyword | "auto" | "hidden" | "scroll" | "visible";
 
         /**
          * The padding optional CSS property sets the required padding space on one to four sides of an element. The padding area is the space between an element and its border. Negative values are not allowed but decimal values are permitted. The element size is treated as fixed, and the content of the element shifts toward the center as padding is increased.
@@ -1599,7 +1624,7 @@ declare namespace React {
         /**
          * The position property controls the type of positioning used by an element within its parent elements. The effect of the position property depends on a lot of factors, for example the position property of parent elements.
          */
-        position?: CSSWideKeyword | any;
+        position?: CSSWideKeyword | "static" | "relative" | "absolute" | "fixed" | "sticky";
 
         /**
          * Obsolete: unsupported.
@@ -2074,6 +2099,7 @@ declare namespace React {
         charSet?: string;
         challenge?: string;
         checked?: boolean;
+        cite?: string;
         classID?: string;
         className?: string;
         cols?: number;
@@ -2234,6 +2260,10 @@ declare namespace React {
         target?: string;
         type?: string;
         width?: number | string;
+                  
+        // Other HTML properties supported by SVG elements in browsers
+        role?: string;
+        tabIndex?: number;
 
         // SVG Specific attributes
         accentHeight?: number | string;
@@ -2701,6 +2731,7 @@ declare global {
             render(): JSX.Element | null;
         }
         interface ElementAttributesProperty { props: {}; }
+        interface ElementChildrenAttribute { children: {}; }
 
         interface IntrinsicAttributes extends React.Attributes { }
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }

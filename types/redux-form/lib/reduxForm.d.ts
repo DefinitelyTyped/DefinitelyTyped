@@ -1,12 +1,13 @@
 import {
     Component,
-    StatelessComponent,
+    ComponentClass,
     ReactElement,
     SyntheticEvent,
     ReactEventHandler,
+    StatelessComponent
 } from "react";
 import { Dispatch } from "redux";
-import { DataShape, FieldValue, FormErrors, FormWarnings, RegisteredFieldState } from "../index";
+import { DataShape, FieldValue, FormErrors, FormWarnings, RegisteredFieldState, ComponentConstructor } from "../index";
 
 export function reduxForm<FormData extends DataShape, P, S>(
     config: Config<FormData, P, S>
@@ -20,9 +21,12 @@ export function reduxForm(
     config: Config<any, any, any>
 ): FormDecorator<any, any, any>;
 
+/**
+ * This is not entirely correct but Typescript expect input and output for decorators to be the same type.
+ * Because of that, React HoCs can't be fully defined. https://www.typescriptlang.org/docs/handbook/decorators.html
+ */
 export interface FormDecorator<FormData extends DataShape, P, S> {
-    <T extends (typeof Component | StatelessComponent<any>)>(component: T): 
-        T & Form<FormData, P, S>;
+    <T extends ComponentConstructor<P & FormProps<FormData, P, S>>>(component: T): T;
 }
 
 export interface Config<FormData extends DataShape, P, S> {
@@ -33,15 +37,6 @@ export interface Config<FormData extends DataShape, P, S> {
     form?: string;
 
     /**
-     * An adapter function that will render a component based on a string component
-     * type and the props given to a Field. Remember that all you really need to hook
-     * up to your custom component's value and onChange. Defaults to [].
-     *
-     * See Asynchronous Blur Validation Example for more details.
-     */
-    adapter?: (component: string, props: Object) => ReactElement<any>;
-
-    /**
      * field names for which onBlur should trigger a call to the asyncValidate
      * function. Defaults to [].
      *
@@ -50,10 +45,10 @@ export interface Config<FormData extends DataShape, P, S> {
     asyncBlurFields?: string[];
 
     /**
-     * a function that takes all the form values, the dispatch function,
-     * the props given to your component and the current blurred field,
-     * and returns a Promise that will resolve if the validation is passed,
-     * or will reject with an object of validation errors in the form { field1: <String>, field2: <String> }.
+     * a function that takes all the form values, the dispatch function, and
+     * the props given to your component, and returns a Promise that will
+     * resolve if the validation is passed, or will reject with an object of
+     * validation errors in the form { field1: <String>, field2: <String> }.
      *
      * See Asynchronous Blur Validation Example for more details.
      */
@@ -66,8 +61,16 @@ export interface Config<FormData extends DataShape, P, S> {
     destroyOnUnmount?: boolean;
 
     /**
+     * Reinitialize the form every time the initialValues prop changes.
+     * Defaults to false.
+     */
+    enableReinitialize?: boolean;
+
+    /**
      * Whether or not to force unregistration of fields -- use in conjunction
-     * with destroyOnUnmount.
+     * with destroyOnUnmount. Useful for wizard-type forms where you want to destroy
+     * fields as they unmount, but not the form's state. Defaults to false, as forms
+     * are normally unregistered on unmount.
      */
     forceUnregisterOnUnmount?: boolean;
 
@@ -88,27 +91,18 @@ export interface Config<FormData extends DataShape, P, S> {
     keepDirtyOnReinitialize?: boolean;
 
     /**
-     * If true, implements `shouldComponentUpdate` and shallowly compares _only_
-     * the Redux-connected props that are needed to manage the form state. This
-     * prevents unnecessary updates, but assumes the component is a "pure"
-     * component and does not rely on any input or state other than its props and
-     * the selected Redux store's state. Defaults to true.
-     */
-    pure?: boolean;
-
-    /**
      * The values with which to initialize your form in componentWillMount().
      * Particularly useful when Editing Multiple Records, but can also be used
      * with single-record forms. The values should be in the form
      * { field1: 'value1', field2: 'value2' }.
      */
-    initialValues?: FormData;
+    initialValues?: Partial<FormData>;
 
     /**
-     * Reinitialize the form every time the initialValues prop changes.
-     * Defaults to false.
+     * A callback function that will be called with all the form values any time
+     * any of the form values change.
      */
-    enableReinitialize?: boolean;
+    onChange?: (values: any) => void;
 
     /**
      * The function to call with the form data when the handleSubmit() is fired
@@ -125,18 +119,18 @@ export interface Config<FormData extends DataShape, P, S> {
      * @param dispatch    The Redux `dispatch` function.
      * @param submitError The error object that caused the submission to fail. If `errors` is set this will be most
      *                    likely a `SubmissionError`, otherwise it can be any error or null.
+     * @param props       The props passed into your decorated component.
      */
-    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<S>, submitError: any): void;
+    onSubmitFail?(errors: FormErrors<FormData>, dispatch: Dispatch<S>, submitError: any, props: P): void;
 
     /**
      * A callback function that will be called when a submission succeeds.
+     *
+     * @param result      Any result that onSubmit has returned
+     * @param dispatch    The Redux dispatch function
+     * @param props       The props passed into your decorated component
      */
-    onSubmitSuccess?(result: any, dispatch: Dispatch<S>): void;
-
-    /**
-     * Do not remove submit errors when the change action is fired. Defaults to false.
-     */
-    persistentSubmitErrors?: boolean;
+    onSubmitSuccess?(result: any, dispatch: Dispatch<S>, props: P): void;
 
     /**
      * If specified, all the props normally passed into your decorated
@@ -147,14 +141,13 @@ export interface Config<FormData extends DataShape, P, S> {
     propNamespace?: string;
 
     /**
-     * The use of this property is highly discouraged, but if you absolutely
-     * need to mount your redux-form reducer at somewhere other than form in
-     * your Redux state, you will need to specify the key you mounted it under
-     * with this property. Defaults to 'form'.
-     *
-     * See Alternate Mount Point Example for more details.
+     * If true, implements `shouldComponentUpdate` and shallowly compares _only_
+     * the Redux-connected props that are needed to manage the form state. This
+     * prevents unnecessary updates, but assumes the component is a "pure"
+     * component and does not rely on any input or state other than its props and
+     * the selected Redux store's state. Defaults to true.
      */
-    reduxMountPoint?: string;
+    pure?: boolean;
 
     /**
      * An optional function you may provide to have full control over when sync validation happens.
@@ -177,6 +170,11 @@ export interface Config<FormData extends DataShape, P, S> {
      * false.
      */
     touchOnChange?: boolean;
+
+    /**
+     * Do not remove submit errors when the change action is fired. Defaults to false.
+     */
+    persistentSubmitErrors?: boolean;
 
     /**
      * a synchronous validation function that takes the form values and props
@@ -218,12 +216,12 @@ interface ValidateCallback<FormData extends DataShape> {
     /**
      * The next props.
      */
-    nextProps: Object;
+    nextProps: any;
 
     /**
      * The current props.
      */
-    props: Object;
+    props: any;
 
     /**
      * true if the form is being initially rendered.
@@ -233,7 +231,7 @@ interface ValidateCallback<FormData extends DataShape> {
     /**
      * The structure object being used internally for values. You may wish to use 'deepEqual' from the structure.
      */
-    structure: Object;
+    structure: any;
 }
 
 interface AsyncValidateCallback<FormData extends DataShape> {
@@ -252,7 +250,7 @@ interface AsyncValidateCallback<FormData extends DataShape> {
      * 'submit', depending on whether an async blur field had triggered the async
      * validation or if submitting the form has triggered it, respectively.
      */
-    trigger: 'blur' | 'submit';
+    trigger: "blur" | "submit";
 
     /**
      * The name of the field that has triggered the async validation. May be undefined.
@@ -285,7 +283,7 @@ export class SubmissionError<FormData extends DataShape> extends Error {
  * The following are methods or properties that you can access on an instance
  * of your decorated form component (outermost component named "ReduxForm").
  */
-export interface Form<FormData extends DataShape, P, S> extends Component<P, any> {
+export interface FormComponent<FormData extends DataShape, P, S> extends ComponentClass<P> {
     /**
      * true if the form data has changed from its initialized values. Opposite
      * of pristine.
@@ -496,6 +494,11 @@ export interface FormProps<FormData extends DataShape, P, S> {
      * initialized values.
      */
     initialize?(data: FormData): void;
+
+    /**
+     * The same initialValues object passed to reduxForm to initialize the form data.
+     */
+    initialValues?: Partial<FormData>;
 
     /**
      * true if the form has validation errors. Opposite of valid.

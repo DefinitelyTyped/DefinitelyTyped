@@ -1,5 +1,5 @@
-namespace basics {
-    export class Basics {
+function basics() {
+    class Basics {
         private app: PIXI.Application;
 
         private bunny: PIXI.Sprite;
@@ -20,7 +20,15 @@ namespace basics {
         }
     }
 
-    export class Click {
+    class Renderer {
+        private renderer: PIXI.WebGLRenderer;
+        constructor() {
+            // Renderer should allow options from both WebGLRenderer and underlying SystemRenderer
+            this.renderer = new PIXI.WebGLRenderer(0, 0, { backgroundColor : 0x272d37, forceFXAA: true });
+        }
+    }
+
+    class Click {
         private app: PIXI.Application;
 
         private sprite: PIXI.Sprite;
@@ -44,7 +52,7 @@ namespace basics {
         }
     }
 
-    export class ContainerPivot {
+    class ContainerPivot {
         private app: PIXI.Application;
         private container: PIXI.Container;
 
@@ -77,7 +85,7 @@ namespace basics {
         }
     }
 
-    export class Container {
+    class Container {
         private app: PIXI.Application;
         private container: PIXI.Container;
 
@@ -103,7 +111,7 @@ namespace basics {
         }
     }
 
-    export class CustomizedFilter extends PIXI.Filter {
+    class CustomizedFilter extends PIXI.Filter {
         constructor(fragmentSource: string) {
             super(null, fragmentSource, {
                 customUniform: {
@@ -113,7 +121,7 @@ namespace basics {
             });
         }
     }
-    export class CustomFilter {
+    class CustomFilter {
         private app: PIXI.Application;
         private background: PIXI.Sprite;
         private filter: CustomizedFilter;
@@ -142,7 +150,7 @@ namespace basics {
         }
     }
 
-    export class Graphics {
+    class Graphics {
         private app: PIXI.Application;
         private graphics: PIXI.Graphics;
 
@@ -186,7 +194,7 @@ namespace basics {
         }
     }
 
-    export class RenderTexture {
+    class RenderTexture {
         private app: PIXI.Application;
         private container: PIXI.Container;
         private renderTexture: PIXI.RenderTexture;
@@ -226,7 +234,7 @@ namespace basics {
         }
     }
 
-    export class SpriteSheet {
+    class SpriteSheet {
         private app: PIXI.Application;
         private anim: PIXI.extras.AnimatedSprite;
 
@@ -259,7 +267,7 @@ namespace basics {
         }
     }
 
-    export class Text {
+    class Text {
         private app: PIXI.Application;
         private basicText: PIXI.Text;
         private richText: PIXI.Text;
@@ -297,7 +305,7 @@ namespace basics {
         }
     }
 
-    export class TexturedMesh {
+    class TexturedMesh {
         private app: PIXI.Application;
         private count: number;
         private points: PIXI.Point[];
@@ -351,7 +359,7 @@ namespace basics {
         }
     }
 
-    export class TilingSprite {
+    class TilingSprite {
         private app: PIXI.Application;
         private tilingSprite: PIXI.extras.TilingSprite;
         private count: number;
@@ -382,7 +390,7 @@ namespace basics {
         }
     }
 
-    export class Video {
+    class Video {
         private app: PIXI.Application;
         private button: PIXI.Graphics;
         private videoSprite: PIXI.Sprite;
@@ -425,8 +433,8 @@ namespace basics {
     }
 }
 
-namespace demos {
-    export class AlphaMask {
+function demos() {
+    class AlphaMask {
         private app: PIXI.Application;
         private bg: PIXI.Container;
         private cells: PIXI.Sprite;
@@ -473,7 +481,7 @@ namespace demos {
         }
     }
 
-    export class AnimatedSpriteDemo {
+    class AnimatedSpriteDemo {
         private app: PIXI.Application;
 
         constructor() {
@@ -508,7 +516,7 @@ namespace demos {
         }
     }
 
-    export class Batch {
+    class Batch {
         private app: PIXI.Application;
         private sprites: PIXI.particles.ParticleContainer;
         private maggots: Dude[];
@@ -586,7 +594,7 @@ namespace demos {
             });
         }
     }
-    export class Dude extends PIXI.Sprite {
+    class Dude extends PIXI.Sprite {
         direction: number = 0;
         speed: number = 0;
         turningSpeed: number = 0;
@@ -597,7 +605,7 @@ namespace demos {
         }
     }
 
-    export class BlendModes {
+    class BlendModes {
         private app: PIXI.Application;
         private background: PIXI.Sprite;
         private dudeArray: Dude[];
@@ -662,7 +670,7 @@ namespace demos {
         }
     }
 
-    export class CacheAsBitmap {
+    class CacheAsBitmap {
         private app: PIXI.Application;
         private aliens: PIXI.Sprite[];
         private count: number;
@@ -727,7 +735,7 @@ namespace demos {
         }
     }
 
-    export class Dragging {
+    class Dragging {
         private app: PIXI.Application;
         private data: PIXI.interaction.InteractionData;
         private dragging: boolean;
@@ -785,7 +793,7 @@ namespace demos {
         }
     }
 
-    export class GraphicsDemo {
+    class GraphicsDemo {
         private app: PIXI.Application;
         private graphics: PIXI.Graphics;
         private thing: PIXI.Graphics;
@@ -872,7 +880,7 @@ namespace demos {
         }
     }
 
-    export class Interactivity {
+    class Interactivity {
         private app: PIXI.Application;
         private background: PIXI.Sprite;
         private buttons: PIXI.Sprite[];
@@ -938,7 +946,7 @@ namespace demos {
         }
     }
 
-    export class Masking {
+    class Masking {
         private app: PIXI.Application;
         private bg: PIXI.Sprite;
         private container: PIXI.Container;
@@ -1026,7 +1034,7 @@ namespace demos {
         }
     }
 
-    export class RenderTextureDemo {
+    class RenderTextureDemo {
         private app: PIXI.Application;
 
         private renderTexture: PIXI.RenderTexture;
@@ -1110,7 +1118,7 @@ namespace demos {
         }
     }
 
-    export class StripDemo {
+    class StripDemo {
         private app: PIXI.Application;
         private count: number;
         private points: PIXI.Point[];
@@ -1151,7 +1159,7 @@ namespace demos {
         }
     }
 
-    export class TextDemo {
+    class TextDemo {
         private app: PIXI.Application;
         private bitmapFontText: PIXI.extras.BitmapText;
         private background: PIXI.Sprite;
@@ -1227,7 +1235,7 @@ namespace demos {
         }
     }
 
-    export class TextureRotate {
+    class TextureRotate {
         private app: PIXI.Application;
         private bol: boolean;
         private texture: PIXI.Texture;
@@ -1288,7 +1296,7 @@ namespace demos {
         }
     }
 
-    export class TextureSwap {
+    class TextureSwap {
         private app: PIXI.Application;
         private bol: boolean;
         private texture: PIXI.Texture;
@@ -1328,7 +1336,7 @@ namespace demos {
         }
     }
 
-    export class Tinting {
+    class Tinting {
         private app: PIXI.Application;
         private aliens: Dude[];
 
@@ -1386,7 +1394,7 @@ namespace demos {
         }
     }
 
-    export class TransparentBackground {
+    class TransparentBackground {
         private app: PIXI.Application;
         private bunny: PIXI.Sprite;
 
@@ -1410,8 +1418,8 @@ namespace demos {
     }
 }
 
-namespace filters {
-    export class BlurFilter {
+function filters() {
+    class BlurFilter {
         private app: PIXI.Application;
         private bg: PIXI.Sprite;
         private littleDudes: PIXI.Sprite;
@@ -1459,7 +1467,7 @@ namespace filters {
         }
     }
 
-    export class DisplacementMap {
+    class DisplacementMap {
         private app: PIXI.Application;
         private container: PIXI.Container;
         private maggots: DisplacementMapDude[];
@@ -1563,7 +1571,7 @@ namespace filters {
             this.ring.y = eventData.data.global.y;
         }
     }
-    export class DisplacementMapDude extends PIXI.Sprite {
+    class DisplacementMapDude extends PIXI.Sprite {
         direction: number = 0;
         speed: number = 0;
         turnSpeed: number = 0;
@@ -1574,7 +1582,7 @@ namespace filters {
         }
     }
 
-    export class Filter {
+    class Filter {
         private app: PIXI.Application;
         private bg: PIXI.Sprite;
         private filter: PIXI.filters.ColorMatrixFilter;

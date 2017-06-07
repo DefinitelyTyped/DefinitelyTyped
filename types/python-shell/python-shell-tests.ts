@@ -7,7 +7,7 @@ ps.run('my_script.py', err => {
   console.log('finished');
 });
 
-var options = {
+const options = {
   mode: 'text',
   pythonPath: 'path/to/python',
   pythonOptions: ['-u'],
@@ -21,7 +21,7 @@ ps.run('my_script.py', options, (err, results) => {
   console.log('results: %j', results);
 });
 
-var pyshell = new PythonShell('my_script.py');
+const pyshell = new PythonShell('my_script.py');
 
 // sends a message to the Python script via stdin
 pyshell.send('hello');

@@ -1,4 +1,4 @@
-// Type definitions for Natural 0.2.1
+// Type definitions for Natural 0.2.2
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -201,4 +201,41 @@ declare class Spellcheck {
     constructor(wordlist: string[]);
     isCorrect(word: string): boolean;
     getCorrections(word: string, maxDistance?: number): string[];
+}
+
+declare class Predicate {
+    constructor(name: string, parameter1: string, parameter2?: string);
+    name: string;
+    parameter1: string;
+    parameter2?: string;
+    function?: (tagged_sentence: string[][], i: number, parameter: string) => boolean;
+    evaluate(tagged_sentence: string[][], position: number): boolean;
+}
+
+declare class TransformationRule {
+    constructor(c1: string, c2: string, predicate: string, parameter1: string, parameter2?: string);
+    literal: string[];
+    predicate: Predicate;
+    old_category: string;
+    new_category: string;
+    apply(tagged_sentence: string[][], position: number): void;
+}
+
+declare class RuleSet {
+    constructor(filename: string);
+    rules: TransformationRule[];
+}
+
+declare class Lexicon {
+    constructor(filename: string, defaultCategory: string);
+    defaultCategory: string;
+    parseLexicon(data: string): void;
+    tagWord(word: string): string[];
+}
+
+declare class BrillPOSTagger {
+    constructor(lexicon: Lexicon, ruleSet: RuleSet);
+    lexicon: Lexicon;
+    ruleSet: RuleSet;
+    tag(sentence: string[]): string[][];
 }

@@ -1,14 +1,18 @@
-// Type definitions for MongoDB v2.1
-// Project: https://github.com/mongodb/node-mongodb-native/tree/2.1
+// Type definitions for MongoDB v2.2
+// Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/
+// Documentation : http://mongodb.github.io/node-mongodb-native/2.2/api/
 
 /// <reference types="node" />
+/// <reference types="bson" />
 
-import {EventEmitter} from 'events';
+import { ObjectID } from 'bson';
+import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
+
+export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {
@@ -31,50 +35,64 @@ export interface MongoCallback<T> {
 export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
+    code?: number;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html#.connect
-export interface MongoClientOptions {
-    uri_decode_auth?: boolean;
-    db?: DbCreateOptions;
-    server?: ServerOptions;
-    replSet?: ReplSetOptions;
-    mongos?: MongosOptions;
-    promiseLibrary?: Object;
+// http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#.connect
+export interface MongoClientOptions extends
+    DbCreateOptions,
+    ServerOptions,
+    MongosOptions,
+    ReplSetOptions,
+    SocketOptions,
+    SSLOptions,
+    HighAvailabilityOptions {
+        // The logging level (error/warn/info/debug)
+        loggerLevel?: string;
+        // Custom logger object
+        logger?: Object;
+        // Default: false;
+        validateOptions?: Object;
 }
 
-// See : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
-export interface DbCreateOptions {
-    authSource?: string;
-    //  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
-    w?: number | string;
-    // set the timeout for waiting for write concern to finish (combines with w option).
-    wtimeout?: number;
-    j?: boolean;
-    // use c++ bson parser. default:false.
-    native_parser?: boolean;
-    // force server to create _id fields instead of client. default:false.
-    forceServerObjectId?: boolean;
-    serializeFunctions?: boolean;
-    ignoreUndefined?: boolean;
-    // peform operations using raw bson buffers. default:false.
-    raw?: boolean;
-    // when deserializing a Long will fit it into a Number if it’s smaller than 53 bits. default:true.
-    promoteLongs?: boolean;
-    bufferMaxEntries?: number;
-    // the prefered read preference. use 'ReadPreference' class.
-    readPreference?: ReadPreference | string;
-    // custom primary key factory to generate _id values (see Custom primary keys).
-    pkFactory?: Object;
-    promiseLibrary?: Object;
-    readConcern?: { level?: Object };
+export interface SSLOptions {
+    // Default:5; Number of connections for each server instance
+    poolSize?: number;
+    // Use ssl connection (needs to have a mongod server with ssl support)
+    ssl?: boolean;
+    // Default: true; Validate mongod server certificate against ca (mongod server >=2.4 with ssl support required)
+    sslValidate?: Object;
+    // Default: true; Server identity checking during SSL
+    checkServerIdentity?: boolean | Function;
+    // Array of valid certificates either as Buffers or Strings
+    sslCA?: Array<Buffer | string>;
+    // SSL Certificate revocation list binary buffer
+    sslCRL?: Buffer;
+    // SSL Certificate binary buffer
+    sslCert?: Buffer | string;
+    // SSL Key file binary buffer
+    sslKey?: Buffer | string;
+    // SSL Certificate pass phrase
+    sslPass?: Buffer | string;
+    // String containing the server name requested via TLS SNI.
+    servername?: string;
 }
 
-// See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
+export interface HighAvailabilityOptions {
+    // Default: true; Turn on high availability monitoring.
+    ha?: boolean;
+    // Default: 10000; The High availability period for replicaset inquiry
+    haInterval?: number;
+    // Default: false;
+    domainsEnabled?: boolean;
+}
+
+// See http://mongodb.github.io/node-mongodb-native/2.2/api/ReadPreference.html
 export class ReadPreference {
     constructor(mode: string, tags: Object);
     mode: string;
     tags: any;
+    options: { maxStalenessSeconds?: number}; // Max Secondary Read Stalleness in Seconds
     static PRIMARY: string;
     static PRIMARY_PREFERRED: string;
     static SECONDARY: string;
@@ -84,7 +102,44 @@ export class ReadPreference {
     static isValid(mode: string): boolean;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html
+export interface DbCreateOptions {
+    
+    // If the database authentication is dependent on another databaseName.
+    authSource?: string;
+    // Default: null;https://docs.mongodb.com/manual/reference/write-concern/#write-concern
+    w?: number | string;
+    // The write concern timeout to finish (combining with w option).
+    wtimeout?: number;
+    // Specify a journal write concern.
+    j?: boolean;
+    // Default: false; Force server to create _id fields instead of client.
+    forceServerObjectId?: boolean;
+    // Default: false; Use c++ bson parser.
+    native_parser?: boolean;
+    // Serialize functions on any object.
+    serializeFunctions?: boolean;
+    // Specify if the BSON serializer should ignore undefined fields.
+    ignoreUndefined?: boolean;
+    // Return document results as raw BSON buffers.
+    raw?: boolean;
+    // Default: true; Promotes Long values to number if they fit inside the 53 bits resolution.
+    promoteLongs?: boolean;
+    // Default: -1 (unlimited); Amount of operations the driver buffers up untill discard any new ones
+    promoteBuffers?: number;
+    // the prefered read preference. use 'ReadPreference' class.
+    readPreference?: ReadPreference | string;
+    // Default: true; Promotes BSON values to native types where possible, set to false to only receive wrapper types.
+    promoteValues?: Object;
+    // Custom primary key factory to generate _id values (see Custom primary keys).
+    pkFactory?: Object;
+    // ES6 compatible promise constructor
+    promiseLibrary?: Object;
+    // https://docs.mongodb.com/manual/reference/read-concern/#read-concern
+    readConcern?: { level?: Object };
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
 export interface SocketOptions {
     // Reconnect on error. default:false
     autoReconnect?: boolean;
@@ -98,54 +153,37 @@ export interface SocketOptions {
     socketTimeoutMS?: number;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-export interface ServerOptions {
-    // - specify the number of connections in the pool default:5
-    poolSize?: number;
-    ssl?: boolean;
-    sslValidate?: Object;
-    checkServerIdentity?: boolean | Function;
-    sslCA?: Array<Buffer | string>;
-    sslCert?: Buffer | string;
-    sslKey?: Buffer | string;
-    sslPass?: Buffer | string;
-    socketOptions?: SocketOptions;
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Server.html
+export interface ServerOptions extends SSLOptions {
+    // Default: 30;
     reconnectTries?: number;
+    // Default: 1000;
     reconnectInterval?: number;
+    // Default: true;
+    monitoring?: boolean
+    socketOptions?: SocketOptions;
+    // Default: 10000; The High availability period for replicaset inquiry
+    haInterval?: number;
+    // Default: false;
+    domainsEnabled?: boolean;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-export interface ReplSetOptions {
-    ha?: boolean;
-    haInterval?: number;
+// http://mongodb.github.io/node-mongodb-native/2.2/api/Mongos.html
+export interface MongosOptions extends SSLOptions, HighAvailabilityOptions{
+    // Default: 15; Cutoff latency point in MS for MongoS proxy selection
+    acceptableLatencyMS?: number;
+    socketOptions?: SocketOptions;
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.2/api/ReplSet.html
+export interface ReplSetOptions extends SSLOptions, HighAvailabilityOptions  {
+    // The max staleness to secondary reads (values under 10 seconds cannot be guaranteed);
+    maxStalenessSeconds?: number;
+    // The name of the replicaset to connect to.
     replicaSet?: string;
+    // Default: 15 ; Range of servers to pick when using NEAREST (lowest ping ms + the latency fence, ex: range of 1 to (1 + 15) ms)
     secondaryAcceptableLatencyMS?: number;
     connectWithNoPrimary?: boolean;
-    // - specify the number of connections in the pool default:5
-    poolSize?: number;
-    ssl?: boolean;
-    sslValidate?: Object;
-    checkServerIdentity?: boolean | Function;
-    sslCA?: Array<Buffer | string>;
-    sslCert?: Buffer | string;
-    sslKey?: Buffer | string;
-    sslPass?: Buffer | string;
-    socketOptions?: SocketOptions;
-}
-
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Mongos.html
-export interface MongosOptions {
-    ha?: boolean;
-    haInterval?: number;
-    // - specify the number of connections in the pool default:5
-    poolSize?: number;
-    ssl?: boolean;
-    sslValidate?: Object;
-    checkServerIdentity?: boolean | Function;
-    sslCA?: Array<Buffer | string>;
-    sslCert?: Buffer | string;
-    sslKey?: Buffer | string;
-    sslPass?: Buffer | string;
     socketOptions?: SocketOptions;
 }
 
@@ -240,8 +278,6 @@ export class Db extends EventEmitter {
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
 }
 
-
-
 // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
 export class Server extends EventEmitter {
     constructor(host: string, port: number, options?: ServerOptions);
@@ -301,7 +337,7 @@ export interface DbCollectionOptions {
     readConcern?: { level: Object };
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createIndex
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#createIndex
 export interface IndexOptions {
     // The write concern.
     w?: number | string;
@@ -329,6 +365,8 @@ export interface IndexOptions {
     expireAfterSeconds?: number;
     // Override the auto generated index name (useful if the resulting name is larger than 128 bytes)
     name?: string;
+    // Creates a partial index based on the given filter object (MongoDB 3.2 or higher)
+    partialFilterExpression?: any;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html
@@ -401,166 +439,6 @@ export interface FSyncOptions {
     wtimeout?: number;
     j?: boolean;
     fsync?: boolean
-}
-
-// Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/ObjectID.html
-export class ObjectID {
-    constructor(s?: string | number);
-
-    generationTime: number;
-
-    // Creates an ObjectID from a hex string representation of an ObjectID.
-    // hexString – create a ObjectID from a passed in 24 byte hexstring.
-    static createFromHexString(hexString: string): ObjectID;
-    // Creates an ObjectID from a second based number, with the rest of the ObjectID zeroed out. Used for comparisons or sorting the ObjectID.
-    // time – an integer number representing a number of seconds.
-    static createFromTime(time: number): ObjectID;
-    // Checks if a value is a valid bson ObjectId
-    // id - Value to be checked
-    static isValid(id: any): boolean;
-    //Compares the equality of this ObjectID with otherID.
-    equals(otherID: ObjectID): boolean;
-    // Generate a 12 byte id string used in ObjectID's
-    // time - optional parameter allowing to pass in a second based timestamp
-    generate(time?: number): string;
-    // Returns the generation date (accurate up to the second) that this ID was generated.
-    getTimestamp(): Date;
-    // Returns the ObjectID id as a 24 byte hex string representation
-    toHexString(): string;
-    // Returns the ObjectID id as a 24 byte hex string representation
-    toString(): string;
-}
-
-// Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html
-export class Binary {
-    constructor(buffer: Buffer, subType?: number);
-
-    static SUBTYPE_BYTE_ARRAY: number;
-    static SUBTYPE_DEFAULT: number;
-    static SUBTYPE_FUNCTION: number;
-    static SUBTYPE_MD5: number;
-    static SUBTYPE_USER_DEFINED: number;
-    static SUBTYPE_UUID: number;
-    static SUBTYPE_UUID_OLD: number;
-
-    // The length of the binary.
-    length(): number;
-    // Updates this binary with byte_value
-    put(byte_value: number | string): void;
-    // Reads length bytes starting at position.
-    read(position: number, length: number): Buffer;
-    // Returns the value of this binary as a string.
-    value(): string;
-    // Writes a buffer or string to the binary
-    write(buffer: Buffer | string, offset: number): void;
-}
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Double.html
-export class Double {
-    constructor(value: number);
-
-    valueOf(): number;
-}
-
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Long.html
-export class Long {
-    constructor(low: number, high: number);
-
-    static MAX_VALUE: Long;
-    static MIN_VALUE: Long;
-    static NEG_ONE: Long;
-    static ONE: Long;
-    static ZERO: Long;
-
-    static fromBits(lowBits: number, highBits: number): Long;
-    static fromInt(value: number): Long;
-    static fromNumber(value: number): Long;
-    static fromString(str: string, radix?: number): Long;
-
-    add(other: Long): Long;
-    and(other: Long): Long;
-    compare(other: Long): number;
-    div(other: Long): Long;
-    equals(other: Long): boolean;
-    getHighBits(): number;
-    getLowBits(): number;
-    getLowBitsUnsigned(): number;
-    getNumBitsAbs(): number;
-    greaterThan(other: Long): number;
-    greaterThanOrEqual(other: Long): number;
-    isNegative(): boolean;
-    isOdd(): boolean;
-    isZero(): boolean;
-    lessThan(other: Long): boolean;
-    lessThanOrEqual(other: Long): boolean;
-    modulo(other: Long): Long;
-    multiply(other: Long): Long;
-    negate(): Long;
-    not(): Long;
-    notEquals(other: Long): boolean;
-    or(other: Long): Long;
-    shiftLeft(other: number): Long;
-    shiftRight(other: number): Long;
-    shiftRightUnsigned(other: number): Long;
-    subtract(other: Long): Long;
-    toInt(): number;
-    toJSON(): string;
-    toNumber(): number;
-    toString(radix?: number): string;
-    xor(other: Long): Long;
-}
-
-//http://mongodb.github.io/node-mongodb-native/2.1/api/MaxKey.html
-export class MaxKey { }
-
-//http://mongodb.github.io/node-mongodb-native/2.1/api/MinKey.html
-export class MinKey { }
-
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Timestamp.html
-export class Timestamp {
-    constructor(low: number, high: number);
-
-    static MAX_VALUE: Timestamp;
-    static MIN_VALUE: Timestamp;
-    static NEG_ONE: Timestamp;
-    static ONE: Timestamp;
-    static ZERO: Timestamp;
-
-    static fromBits(lowBits: number, highBits: number): Timestamp;
-    static fromInt(value: number): Timestamp;
-    static fromNumber(value: number): Timestamp;
-    static fromString(str: string, radix?: number): Timestamp;
-
-    add(other: Timestamp): Timestamp;
-    and(other: Timestamp): Timestamp;
-    compare(other: Timestamp): number;
-    div(other: Timestamp): Timestamp;
-    equals(other: Timestamp): boolean;
-    getHighBits(): number;
-    getLowBits(): number;
-    getLowBitsUnsigned(): number;
-    getNumBitsAbs(): number;
-    greaterThan(other: Timestamp): number;
-    greaterThanOrEqual(other: Timestamp): number;
-    isNegative(): boolean;
-    isOdd(): boolean;
-    isZero(): boolean;
-    lessThan(other: Timestamp): boolean;
-    lessThanOrEqual(other: Timestamp): boolean;
-    modulo(other: Timestamp): Timestamp;
-    multiply(other: Timestamp): Timestamp;
-    negate(): Timestamp;
-    not(): Timestamp;
-    notEquals(other: Timestamp): boolean;
-    or(other: Timestamp): Timestamp;
-    shiftLeft(other: number): Timestamp;
-    shiftRight(other: number): Timestamp;
-    shiftRightUnsigned(other: number): Timestamp;
-    subtract(other: Timestamp): Timestamp;
-    toInt(): number;
-    toJSON(): string;
-    toNumber(): number;
-    toString(radix?: number): string;
-    xor(other: Timestamp): Timestamp;
 }
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html
@@ -790,7 +668,7 @@ export interface CollectionAggregationOptions {
     allowDiskUse?: boolean;
     // specifies a cumulative time limit in milliseconds for processing operations
     // on the cursor. MongoDB interrupts the operation at the earliest following interrupt point.
-    maxTimeMS?: boolean;
+    maxTimeMS?: number;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
     bypassDocumentValidation?: boolean;
 }
@@ -983,7 +861,7 @@ export interface FindOperatorsOrdered {
     upsert(): FindOperatorsOrdered;
 }
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
+//http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
 export interface UnorderedBulkOperation {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/lib_bulk_unordered.js.html line 339
     length: number;
@@ -1371,8 +1249,8 @@ export interface GridFSBucketReadStreamOptions {
 }
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html
-export class GridFSBucketWriteStream extends Writable{
-    constructor(bucket: GridFSBucket, filename:string, options?: GridFSBucketWriteStreamOptions);
+export class GridFSBucketWriteStream extends Writable {
+    constructor(bucket: GridFSBucket, filename: string, options?: GridFSBucketWriteStreamOptions);
 }
 
 // https://mongodb.github.io/node-mongodb-native/2.1/api/GridFSBucketWriteStream.html

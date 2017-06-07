@@ -1,4 +1,4 @@
-// Type definitions for pouchdb-replication v6.0.7
+// Type definitions for pouchdb-replication v6.1.2
 // Project: https://pouchdb.com/
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -113,8 +113,8 @@ declare namespace PouchDB {
         }
 
         interface SyncOptions extends ReplicateOptions {
-            push?: boolean;
-            pull?: boolean;
+            push?: ReplicateOptions;
+            pull?: ReplicateOptions;
         }
 
         interface Sync<Content extends Core.Encodable>

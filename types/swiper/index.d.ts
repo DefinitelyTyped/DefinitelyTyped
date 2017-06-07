@@ -28,6 +28,7 @@ interface SwiperOptions {
     freeMode?: boolean;
     freeModeMomentum?: boolean;
     freeModeMomentumRatio?: number;
+    freeModeMomentumVelocityRatio?: number;
     freeModeMomentumBounce?: boolean;
     freeModeMomentumBounceRatio?: number;
     freeModeMinimumVelocity?: number;
@@ -97,10 +98,10 @@ interface SwiperOptions {
     paginationHide?: boolean;
     paginationClickable?: boolean;
     paginationElement?: string;
-    paginationBulletRender?: (swiper: Swiper, index: number, className: string) => void;
-    paginationFractionRender?: (swiper: Swiper, currentClassName: string, totalClassName: string) => void;
-    paginationProgressRender?: (swiper: Swiper, progressbarClass: string) => void;
-    paginationCustomRender?: (swiper: Swiper, current: number, total: number) => void;
+    paginationBulletRender?(swiper: Swiper, index: number, className: string): void;
+    paginationFractionRender?(swiper: Swiper, currentClassName: string, totalClassName: string): void;
+    paginationProgressRender?(swiper: Swiper, progressbarClass: string): void;
+    paginationCustomRender?(swiper: Swiper, current: number, total: number): void;
 
     // Navigation Buttons
     nextButton?: string | Element;
@@ -112,7 +113,6 @@ interface SwiperOptions {
     scrollbarDraggable?: boolean;
     scrollbarSnapOnRelease?: boolean;
 
-
     // Accessibility
     a11y?: boolean;
     prevSlideMessage?: string;
@@ -120,7 +120,6 @@ interface SwiperOptions {
     firstSlideMessage?: string;
     lastSlideMessage?: string;
     paginationBulletMessage?: string;
-
 
     // Keyboard / Mousewheel
     keyboardControl?: boolean;
@@ -134,7 +133,6 @@ interface SwiperOptions {
     hashnav?: boolean;
     hashnavWatchState?: boolean;
     history?: string;
-
 
     // Images
     preloadImages?: boolean;
@@ -165,36 +163,36 @@ interface SwiperOptions {
 
     // Callbacks
     runCallbacksOnInit?: boolean;
-    onInit?: (swiper: Swiper) => void;
-    onSlideChangeStart?: (swiper: Swiper) => void;
-    onSlideChangeEnd?: (swiper: Swiper) => void;
-    onSlideNextStart?: (swiper: Swiper) => void;
-    onSlideNextEnd?: (swiper: Swiper) => void;
-    onSlidePrevStart?: (swiper: Swiper) => void;
-    onSlidePrevEnd?: (swiper: Swiper) => void;
-    onTransitionStart?: (swiper: Swiper) => void;
-    onTransitionEnd?: (swiper: Swiper) => void;
-    onTouchStart?: (swiper: Swiper, event: Event) => void;
-    onTouchMove?: (swiper: Swiper, event: Event) => void;
-    onTouchMoveOpposite?: (swiper: Swiper, event: Event) => void;
-    onSliderMove?: (swiper: Swiper, event: Event) => void;
-    onTouchEnd?: (swiper: Swiper, event: Event) => void;
-    onClick?: (swiper: Swiper, event: Event) => void;
-    onTap?: (swiper: Swiper, event: Event) => void;
-    onDoubleTap?: (swiper: Swiper, event: Event) => void;
-    onImagesReady?: (swiper: Swiper) => void;
-    onProgress?: (swiper: Swiper, progress: number) => void;
-    onReachBeginning?: (swiper: Swiper) => void;
-    onReachEnd?: (swiper: Swiper) => void;
-    onDestroy?: (swiper: Swiper) => void;
-    onSetTranslate?: (swiper: Swiper, translate: any) => void;
-    onSetTransition?: (swiper: Swiper, transition: any) => void;
-    onAutoplay?: (swiper: Swiper) => void;
-    onAutoplayStart?: (swiper: Swiper) => void;
-    onAutoplayStop?: (swiper: Swiper) => void;
-    onLazyImageLoad?: (swiper: Swiper, slide: any, image: any) => void;
-    onLazyImageReady?: (swiper: Swiper, slide: any, image: any) => void;
-    onPaginationRendered?: (swiper: Swiper, paginationContainer: any) => void;
+    onInit?(swiper: Swiper): void;
+    onSlideChangeStart?(swiper: Swiper): void;
+    onSlideChangeEnd?(swiper: Swiper): void;
+    onSlideNextStart?(swiper: Swiper): void;
+    onSlideNextEnd?(swiper: Swiper): void;
+    onSlidePrevStart?(swiper: Swiper): void;
+    onSlidePrevEnd?(swiper: Swiper): void;
+    onTransitionStart?(swiper: Swiper): void;
+    onTransitionEnd?(swiper: Swiper): void;
+    onTouchStart?(swiper: Swiper, event: Event): void;
+    onTouchMove?(swiper: Swiper, event: Event): void;
+    onTouchMoveOpposite?(swiper: Swiper, event: Event): void;
+    onSliderMove?(swiper: Swiper, event: Event): void;
+    onTouchEnd?(swiper: Swiper, event: Event): void;
+    onClick?(swiper: Swiper, event: Event): void;
+    onTap?(swiper: Swiper, event: Event): void;
+    onDoubleTap?(swiper: Swiper, event: Event): void;
+    onImagesReady?(swiper: Swiper): void;
+    onProgress?(swiper: Swiper, progress: number): void;
+    onReachBeginning?(swiper: Swiper): void;
+    onReachEnd?(swiper: Swiper): void;
+    onDestroy?(swiper: Swiper): void;
+    onSetTranslate?(swiper: Swiper, translate: any): void;
+    onSetTransition?(swiper: Swiper, transition: any): void;
+    onAutoplay?(swiper: Swiper): void;
+    onAutoplayStart?(swiper: Swiper): void;
+    onAutoplayStop?(swiper: Swiper): void;
+    onLazyImageLoad?(swiper: Swiper, slide: any, image: any): void;
+    onLazyImageReady?(swiper: Swiper, slide: any, image: any): void;
+    onPaginationRendered?(swiper: Swiper, paginationContainer: any): void;
 
     // Namespace
     slideClass?: string;
@@ -294,7 +292,7 @@ declare class Swiper {
 
     slidePrev(runCallbacks?: boolean, speed?: number): void;
     slideNext(runCallbacks?: boolean, speed?: number): void;
-    slideTo(index: number, runCallbacks?: boolean, speed?: number): void;
+    slideTo(index: number, speed?: number, runCallbacks?: boolean): void;
     update(updateTranslate?: boolean): void;
     onResize(): void;
     detachEvents(): void;
@@ -321,7 +319,7 @@ declare class Swiper {
     setGrabCursor(): void;
 
     plugins?: {
-        debugger?: (swiper: any, params: any) => void;
+        debugger?(swiper: any, params: any): void;
     };
 }
 

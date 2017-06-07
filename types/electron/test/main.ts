@@ -734,6 +734,7 @@ var template = <Electron.MenuItemOptions[]>[
 menu = Menu.buildFromTemplate(template);
 
 Menu.setApplicationMenu(menu); // Must be called within app.on('ready', function(){ ... });
+Menu.setApplicationMenu(null);
 
 Menu.buildFromTemplate([
 	{ label: '4', id: '4' },

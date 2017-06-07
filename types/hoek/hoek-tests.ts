@@ -172,7 +172,7 @@ const source1 = {
 let result = Hoek.transform(source1, {
     'person.address.lineOne': 'address.one',
     'person.address.lineTwo': 'address.two',
-    'title': 'title',
+    title: 'title',
     'person.address.region': 'state'
 });
 // Results in
@@ -231,7 +231,8 @@ a = Hoek.escapeRegex('4^f$s.4*5+-_?%=#!:@|~\\/`"(>)[<]d{}s,');  // returns 4\^f\
 
 // assert(condition, message)
 
-const x = 1, y = 2 as number;
+const x = 1;
+const y = 2 as number;
 
 Hoek.assert(x === y, 'x should equal y');  // Throws 'x should equal y'
 

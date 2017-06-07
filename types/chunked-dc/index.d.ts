@@ -5,14 +5,13 @@
 
 // Interfaces
 declare namespace chunkedDc {
-
-    /** common.ts **/
+    /** common.ts */
 
     interface CommonStatic {
         HEADER_LENGTH: number;
     }
 
-    /** chunker.ts **/
+    /** chunker.ts */
 
     interface Chunker extends IterableIterator<Uint8Array> {
         hasNext: boolean;
@@ -24,7 +23,7 @@ declare namespace chunkedDc {
         new(id: number, message: Uint8Array, chunkSize: number): Chunker;
     }
 
-    /** unchunker.ts **/
+    /** unchunker.ts */
 
     type MessageListener = (message: Uint8Array, context?: any) => void;
 
@@ -38,13 +37,12 @@ declare namespace chunkedDc {
         new(): Unchunker;
     }
 
-    /** main.ts **/
+    /** main.ts */
 
     interface Standalone {
         Chunker: ChunkerStatic;
         Unchunker: UnchunkerStatic;
     }
-
 }
 
 // Entry point for the packed ES5 version:

@@ -1,74 +1,76 @@
-// Type definitions for three.js (CanvasRenderer.js)
-// Project: https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/CanvasRenderer.js
-// Definitions by: Satoru Kimura < https://github.com/gyohk >
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import {
+    Camera,
+    Color,
+    Material,
+    MaterialParameters,
+    Renderer,
+    Scene
+} from "./three-core";
 
-declare namespace THREE {
-    export interface SpriteCanvasMaterialParameters extends MaterialParameters {
-        color?: number;
-        program?: (context: CanvasRenderingContext2D, color: Color) => void;
-    }
+export interface SpriteCanvasMaterialParameters extends MaterialParameters {
+    color?: number;
+    program?: (context: CanvasRenderingContext2D, color: Color) => void;
+}
 
-    export class SpriteCanvasMaterial extends Material {
-        constructor(parameters?: SpriteCanvasMaterialParameters);
+export class SpriteCanvasMaterial extends Material {
+    constructor(parameters?: SpriteCanvasMaterialParameters);
 
-        color: Color;
+    color: Color;
 
-        program(context: CanvasRenderingContext2D, color: Color): void;
-    }
+    program(context: CanvasRenderingContext2D, color: Color): void;
+}
 
-    export interface CanvasRendererParameters {
-        canvas?: HTMLCanvasElement;
-        devicePixelRatio?: number;
-        alpha?: boolean;
-    }
+export interface CanvasRendererParameters {
+    canvas?: HTMLCanvasElement;
+    devicePixelRatio?: number;
+    alpha?: boolean;
+}
 
-    export class CanvasRenderer implements Renderer {
-        constructor(parameters?: CanvasRendererParameters);
+export class CanvasRenderer implements Renderer {
+    constructor(parameters?: CanvasRendererParameters);
 
-        domElement: HTMLCanvasElement;
-        autoClear: boolean;
-        sortObjects: boolean;
-        sortElements: boolean;
-        info: {render: {vertices: number; faces: number;};};
+    domElement: HTMLCanvasElement;
+    autoClear: boolean;
+    sortObjects: boolean;
+    sortElements: boolean;
+    info: {render: {vertices: number; faces: number;};};
 
-        supportsVertexTextures(): void;
+    supportsVertexTextures(): void;
 
-        setFaceCulling(): void;
+    setFaceCulling(): void;
 
-        getPixelRatio(): number;
+    getPixelRatio(): number;
 
-        setPixelRatio(value: number): void;
+    setPixelRatio(value: number): void;
 
-        setSize(width: number, height: number, updateStyle?: boolean): void;
+    setSize(width: number, height: number, updateStyle?: boolean): void;
 
-        setViewport(x: number, y: number, width: number, height: number): void;
+    setViewport(x: number, y: number, width: number, height: number): void;
 
-        setScissor(): void;
+    setScissor(): void;
 
-        enableScissorTest(): void;
+    enableScissorTest(): void;
 
-        setClearColor(color: Color | string | number, opacity?: number): void;
+    setClearColor(color: Color | string | number, opacity?: number): void;
 
-        // setClearColor(color: string, opacity?: number): void;
-        // setClearColor(color: number, opacity?: number): void;
+    // setClearColor(color: string, opacity?: number): void;
+    // setClearColor(color: number, opacity?: number): void;
 
-        setClearColorHex(hex: number, alpha?: number): void;
+    setClearColorHex(hex: number, alpha?: number): void;
 
-        getClearColor(): Color;
+    getClearColor(): Color;
 
-        getClearAlpha(): number;
+    getClearAlpha(): number;
 
-        getMaxAnisotropy(): number;
+    getMaxAnisotropy(): number;
 
-        clear(): void;
+    clear(): void;
 
-        clearColor(): void;
+    clearColor(): void;
 
-        clearDepth(): void;
+    clearDepth(): void;
 
-        clearStencil(): void;
+    clearStencil(): void;
 
-        render(scene: Scene, camera: Camera): void;
-    }
+    render(scene: Scene, camera: Camera): void;
 }

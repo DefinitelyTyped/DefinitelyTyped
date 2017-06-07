@@ -306,8 +306,8 @@ declare namespace Snap {
         el(name:string, attr:Object):Snap.Element;
         filter(filstr:string):Snap.Element;
         gradient(gradient:string):any;
-        g(varargs?:any):any;
-        group(...els:any[]):any;
+        g(varargs?:any):Snap.Paper;
+        group(...els:any[]):Snap.Paper;
         mask(varargs:any):Object;
         ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
         svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;

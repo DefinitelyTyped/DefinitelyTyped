@@ -21,7 +21,6 @@ describe("ApplePaySession", () => {
         }
     });
     it("can create a new instance", () => {
-
         const version = 1;
         const paymentRequest = {
             countryCode: "US",
@@ -42,7 +41,6 @@ describe("ApplePaySession", () => {
         const session = new ApplePaySession(version, paymentRequest);
     });
     it("can call static methods", () => {
-
         const merchantIdentifier = "MyMerchantId";
 
         let canMakePayments: boolean = ApplePaySession.canMakePayments();
@@ -59,7 +57,6 @@ describe("ApplePaySession", () => {
             });
     });
     it("can call instance methods", () => {
-
         const version = 1;
         const paymentRequest = {
             countryCode: "US",
@@ -171,7 +168,6 @@ describe("ApplePaySession", () => {
 });
 describe("ApplePayPaymentRequest", () => {
     it("can create a new instance", () => {
-
         let paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
             applicationData: "ApplicationData",
             countryCode: "GB",

@@ -8,7 +8,7 @@ declare namespace stringifyObject { }
 declare function stringifyObject(o: any, options?: {
   indent?: string,
   singleQuotes?: boolean,
-  filter?: (o: any, prop: string) => boolean,
+  filter?(o: any, prop: string): boolean,
   inlineCharacterLimit?: number
 }): string;
 

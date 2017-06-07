@@ -49,7 +49,7 @@ declare namespace Flatpickr {
         onYearChange?: EventCallback | EventCallback[];
         onValueUpdate?: EventCallback | EventCallback[];
         onDayCreate?: EventCallback | EventCallback[];
-        parseDate?: (date: string) => Date;
+        parseDate?(date: string): Date;
         prevArrow?: string;
         shorthandCurrentMonth?: boolean;
         static?: boolean;

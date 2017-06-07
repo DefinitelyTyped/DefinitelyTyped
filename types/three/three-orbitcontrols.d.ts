@@ -1,75 +1,69 @@
-// Type definitions for three.js (OrbitControls.js)
-// Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/OrbitControls.js
-// Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Camera, MOUSE, Object3D, Vector3 } from "./three-core";
+
+export class OrbitControls {
+    constructor(object: Camera, domElement?: HTMLElement);
+
+    object: Camera;
+    domElement: HTMLElement | HTMLDocument;
+
+    // API
+    enabled: boolean;
+    target: Vector3;
+
+    // deprecated
+    center: Vector3;
+
+    enableZoom: boolean;
+    zoomSpeed: number;
+    minDistance: number;
+    maxDistance: number;
+    enableRotate: boolean;
+    rotateSpeed: number;
+    enablePan: boolean;
+    keyPanSpeed: number;
+    autoRotate: boolean;
+    autoRotateSpeed: number;
+    minPolarAngle: number;
+    maxPolarAngle: number;
+    minAzimuthAngle: number;
+    maxAzimuthAngle: number;
+    enableKeys: boolean;
+    keys: {LEFT: number; UP: number; RIGHT: number; BOTTOM: number;};
+    mouseButtons: {ORBIT: MOUSE; ZOOM: MOUSE; PAN: MOUSE;};
+    enableDamping: boolean;
+    dampingFactor: number;
 
 
-declare namespace THREE {
-    class OrbitControls {
-        constructor(object: Camera, domElement?: HTMLElement);
+    rotateLeft(angle?: number): void;
 
-        object: Camera;
-        domElement: HTMLElement | HTMLDocument;
+    rotateUp(angle?: number): void;
 
-        // API
-        enabled: boolean;
-        target: THREE.Vector3;
+    panLeft(distance?: number): void;
 
-        // deprecated
-        center: THREE.Vector3;
+    panUp(distance?: number): void;
 
-        enableZoom: boolean;
-        zoomSpeed: number;
-        minDistance: number;
-        maxDistance: number;
-        enableRotate: boolean;
-        rotateSpeed: number;
-        enablePan: boolean;
-        keyPanSpeed: number;
-        autoRotate: boolean;
-        autoRotateSpeed: number;
-        minPolarAngle: number;
-        maxPolarAngle: number;
-        minAzimuthAngle: number;
-        maxAzimuthAngle: number;
-        enableKeys: boolean;
-        keys: {LEFT: number; UP: number; RIGHT: number; BOTTOM: number;};
-        mouseButtons: {ORBIT: MOUSE; ZOOM: MOUSE; PAN: MOUSE;};
-        enableDamping: boolean;
-        dampingFactor: number;
+    pan(deltaX: number, deltaY: number): void;
 
+    dollyIn(dollyScale: number): void;
 
-        rotateLeft(angle?: number): void;
+    dollyOut(dollyScale: number): void;
 
-        rotateUp(angle?: number): void;
+    update(): void;
 
-        panLeft(distance?: number): void;
+    reset(): void;
 
-        panUp(distance?: number): void;
+    dispose(): void;
 
-        pan(deltaX: number, deltaY: number): void;
+    getPolarAngle(): number;
 
-        dollyIn(dollyScale: number): void;
+    getAzimuthalAngle(): number;
 
-        dollyOut(dollyScale: number): void;
+    // EventDispatcher mixins
+    addEventListener(type: string, listener: (event: any) => void): void;
 
-        update(): void;
+    hasEventListener(type: string, listener: (event: any) => void): void;
 
-        reset(): void;
+    removeEventListener(type: string, listener: (event: any) => void): void;
 
-        dispose(): void;
-
-        getPolarAngle(): number;
-
-        getAzimuthalAngle(): number;
-
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void): void;
-
-        hasEventListener(type: string, listener: (event: any) => void): void;
-
-        removeEventListener(type: string, listener: (event: any) => void): void;
-
-        dispatchEvent(event: {type: string; target: any;}): void;
-    }
+    dispatchEvent(event: {type: string; target: any;}): void;
 }

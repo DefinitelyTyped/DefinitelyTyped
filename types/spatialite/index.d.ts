@@ -18,4 +18,3 @@ import {
 export class Database extends OriginalDatabase {
     spatialite(cb: (err: Error) => void): void;
 }
-

@@ -3,7 +3,6 @@
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 // Last module patch version validated against: 1.0.4
 
 // -----------------------------------------------------------------------
@@ -356,7 +355,6 @@ export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends 
     initialize?(nodes: NodeDatum[]): void;
 }
 
-
 // Centering ------------------------------------------------------------
 
 /**
@@ -668,7 +666,6 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * @param iterations Number of iterations.
      */
     iterations(iterations: number): this;
-
 }
 
 /**

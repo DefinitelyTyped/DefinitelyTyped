@@ -1,6 +1,9 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
-        "max-line-length": false
+        // TODOs
+        "jsdoc-format": false,
+        "max-line-length": false,
+        "no-namespace": false
     }
 }

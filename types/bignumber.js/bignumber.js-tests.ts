@@ -1,5 +1,5 @@
-var x: BigNumber.BigNumber = new BigNumber(9);
-var y = new BigNumber(x);
+let x: BigNumber.BigNumber = new BigNumber(9);
+let y = new BigNumber(x);
 
 BigNumber(435.345);
 
@@ -27,7 +27,7 @@ new BigNumber(1.23456789);
 new BigNumber(1.23456789, 10);
 
 BigNumber.config({ DECIMAL_PLACES: 5 });
-var BN = BigNumber.another({ DECIMAL_PLACES: 9 });
+let BN = BigNumber.another({ DECIMAL_PLACES: 9 });
 
 x = new BigNumber(1);
 y = new BN(1);
@@ -112,14 +112,14 @@ BigNumber.config({
 
 BigNumber.config(40, 7, [-10, 20], 500, 1, 1, 3, 80);
 
-var obj = BigNumber.config();
+const obj = BigNumber.config();
 obj.ERRORS;
 obj.RANGE;
 
 x = new BigNumber('3257869345.0378653');
 BigNumber.max(4e9, x, '123456789.9');
 
-var arr = [12, '13', new BigNumber(14)];
+let arr = [12, '13', new BigNumber(14)];
 BigNumber.max(arr);
 
 x = new BigNumber('3257869345.0378653');
@@ -137,7 +137,7 @@ BigNumber.config({ ROUNDING_MODE: 2 });
 
 x = new BigNumber(-0.8);
 y = x.absoluteValue();
-var z = y.abs();
+let z = y.abs();
 
 x = new BigNumber(1.3);
 x.ceil();
@@ -300,7 +300,7 @@ y.toFixed(2);
 y.toFixed(2, 1);
 y.toFixed(5);
 
-var format = {
+const format = {
     decimalSeparator: '.',
     groupSeparator: ',',
     groupSize: 3,
@@ -332,7 +332,7 @@ x.toFormat(6);
 x = new BigNumber(1.75);
 x.toFraction();
 
-var pi = new BigNumber('3.14159265358');
+const pi = new BigNumber('3.14159265358');
 pi.toFraction();
 pi.toFraction(100000);
 pi.toFraction(10000);
@@ -344,7 +344,7 @@ x = new BigNumber('177.7e+457');
 y = new BigNumber(235.4325);
 z = new BigNumber('0.0098074');
 
-var str = JSON.stringify([x, y, z]);
+const str = JSON.stringify([x, y, z]);
 
 JSON.parse(str, (key, val) => key === '' ? val : new BigNumber(val));
 

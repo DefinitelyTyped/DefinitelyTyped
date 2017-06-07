@@ -46,7 +46,7 @@ declare namespace SignaturePad {
 	    /**
 	    *   (float or function) Radius of a single dot.
 	    */
-	    dotSize?: Function;
+	    dotSize?: number | Function;
 	    /**
 	    *   (string) Color used to draw the lines. Can be any color format accepted by context.fillStyle.
 	    *   Defaults to "black".
@@ -103,6 +103,14 @@ declare class SignaturePad {
     *   Returns signature image as data URL
     */
     toDataURL(): string;
+    /**
+    *   Unbinds all event handlers
+    */
+    off(): void;
+    /**
+    *   Rebinds all event handlers
+    */
+    on(): void;
 
     _strokeBegin(event: Event): void;
     _strokeUpdate(event: Event): void;

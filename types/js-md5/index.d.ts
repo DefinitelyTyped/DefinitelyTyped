@@ -7,24 +7,24 @@ declare namespace md5 {
     type message = string | any[] | Uint8Array | ArrayBuffer;
 
     interface Md5 {
-        array: () => number[];
-        arrayBuffer: () => ArrayBuffer;
-        buffer: () => ArrayBuffer;
-        digest: () => number[];
-        hex: () => string;
-        toString: () => string;
-        update: (message: message) => Md5;
+        array(): number[];
+        arrayBuffer(): ArrayBuffer;
+        buffer(): ArrayBuffer;
+        digest(): number[];
+        hex(): string;
+        toString(): string;
+        update(message: message): Md5;
     }
 
     interface md5 {
         (message: message): string;
-        hex: (message: message) => string;
-        array: (message: message) => number[];
-        digest: (message: message) => number[];
-        arrayBuffer: (message: message) => ArrayBuffer;
-        buffer: (message: message) => ArrayBuffer;
-        create: () => Md5;
-        update: (message: message) => Md5;
+        hex(message: message): string;
+        array(message: message): number[];
+        digest(message: message): number[];
+        arrayBuffer(message: message): ArrayBuffer;
+        buffer(message: message): ArrayBuffer;
+        create(): Md5;
+        update(message: message): Md5;
     }
 }
 

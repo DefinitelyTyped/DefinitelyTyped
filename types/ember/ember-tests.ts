@@ -105,6 +105,17 @@ App.userController = Em.Object.create({
     })
 });
 
+Ember.Helper.helper((params) => {
+  let cents = params[0];
+  return `${cents * 0.01}`;
+});
+
+Ember.Helper.helper((params, hash) => {
+  let cents = params[0];
+  let currency = hash.currency;
+  return `${currency}${cents * 0.01}`;
+});
+
 Handlebars.registerHelper('highlight', (property: string, options: any) =>
     new Handlebars.SafeString('<span class="highlight">' + "some value" + '</span>'));
 

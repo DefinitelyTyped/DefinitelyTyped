@@ -27,7 +27,6 @@ export default class Croppie {
     destroy(): void;
 }
 
-
 export type CropType = 'square' | 'circle';
 
 export type Format = 'jpeg' | 'png' | 'webp';

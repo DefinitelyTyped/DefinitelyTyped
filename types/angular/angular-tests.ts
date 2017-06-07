@@ -470,6 +470,29 @@ namespace TestInjector {
 
     $injector.annotate(() => {});
     $injector.annotate(() => {}, true);
+
+    // $injector.instantiate
+    {
+        class Foobar {
+            constructor($q) {}
+        }
+        let result: Foobar = $injector.instantiate(Foobar);
+    }
+
+    // $injector.invoke
+    {
+        function foobar(v: boolean): number {
+            return 7;
+        }
+        let result = $injector.invoke(foobar);
+        if (!(typeof result === 'number')) {
+            // This fails to compile if 'result' is not exactly a number.
+            let expectNever: never = result;
+        }
+
+        let anyFunction: Function = foobar;
+        let anyResult: string = $injector.invoke(anyFunction);
+    }
 }
 
 // Promise signature tests
@@ -568,7 +591,7 @@ namespace TestPromise {
     assertPromiseType<TResult>(promise.catch((err) => anyOf2(tresult, reject)));
     assertPromiseType<TResult>(promise.catch((err) => anyOf3(tresult, tresultPromise, reject)));
     assertPromiseType<TResult>(promise.catch((err) => tresultPromise));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult>>(promise.catch((err) => tresultHttpPromise));
+    assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TResult>>(promise.catch((err) => tresultHttpPromise));
     assertPromiseType<TResult | TOther>(promise.catch((err) => tother));
     assertPromiseType<TResult | TOther>(promise.catch((err) => totherPromise));
     assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TOther>>(promise.catch((err) => totherHttpPromise));
@@ -820,8 +843,8 @@ angular.module('docsTimeDirective', [])
     .directive('myCurrentTime', ['$interval', 'dateFilter', ($interval: any, dateFilter: any) => {
         return {
             link(scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) {
-                let format: any,
-                    timeoutId: any;
+                let format: any;
+                let timeoutId: any;
 
                 function updateTime() {
                     element.text(dateFilter(new Date(), format));
@@ -896,7 +919,10 @@ angular.module('docsIsoFnBindExample', [])
 angular.module('dragModule', [])
     .directive('myDraggable', ['$document', ($document: any) => {
         return (scope: any, element: any, attr: any) => {
-            let startX = 0, startY = 0, x = 0, y = 0;
+            let startX = 0;
+            let startY = 0;
+            let x = 0;
+            let y = 0;
 
             element.css({
                 position: 'relative',

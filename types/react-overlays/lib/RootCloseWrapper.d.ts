@@ -2,7 +2,7 @@ import * as React from "react";
 
 // <RootCloseWrapper />
 interface RootCloseWrapperProps {
-	onRootClose?: () => void;
+	onRootClose?(): void;
 	children?: React.ReactNode;
 
 	/**

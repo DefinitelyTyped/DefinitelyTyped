@@ -1,26 +1,24 @@
-namespace PouchDBAdapterWebSQLTests {
-    function isBoolean(someBoolean: boolean) {
-    }
-    function isNumber(someNumber: number) {
-    }
-    function isString(someString: string) {
-    }
+function isBoolean(someBoolean: boolean) {
+}
+function isNumber(someNumber: number) {
+}
+function isString(someString: string) {
+}
 
-    function testConstructor() {
-        type MyModel = { numericProperty: number };
+function testConstructor() {
+    type MyModel = { numericProperty: number };
 
-        let db = new PouchDB('basic');
-        db = new PouchDB(null, {
-            adapter: 'websql'
-        });
-        db = new PouchDB('sized', {
-            adapter: 'websql',
-            size: 10
-        });
+    let db = new PouchDB('basic');
+    db = new PouchDB(null, {
+        adapter: 'websql'
+    });
+    db = new PouchDB('sized', {
+        adapter: 'websql',
+        size: 10
+    });
 
-        db.info().then((info) => {
-            isBoolean(info.sqlite_plugin);
-            isString(info.websql_encoding);
-        });
-    }
+    db.info().then((info) => {
+        isBoolean(info.sqlite_plugin);
+        isString(info.websql_encoding);
+    });
 }

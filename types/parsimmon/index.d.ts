@@ -1,10 +1,12 @@
-// Type definitions for Parsimmon 1.0
+// Type definitions for Parsimmon 1.3
 // Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Benny van Reeven <https://github.com/bvanreeven>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
@@ -75,7 +77,7 @@ declare namespace Parsimmon {
 	interface Parser<T> {
 		/**
 		 * parse the string
-		*/
+		 */
 		parse(input: string): Result<T>;
 		/**
 		 * Like parser.parse(input) but either returns the parsed value or throws
@@ -91,7 +93,7 @@ declare namespace Parsimmon {
 		 * returns a new parser which tries parser, and on success calls the given function
 		 * with the result of the parse, which is expected to return another parser, which
 		 * will be tried next
-		*/
+		 */
 		chain<U>(next: (result: T) => Parser<U>): Parser<U>;
 		/**
 		 * returns a new parser which tries parser, and on success calls the given function
@@ -120,6 +122,18 @@ declare namespace Parsimmon {
 		 * expects otherParser after parser, but preserves the yield value of parser.
 		 */
 		skip<U>(otherParser: Parser<U>): Parser<T>;
+		/**
+		 * Returns a parser that looks for anything but whatever anotherParser wants to
+		 * parse, and does not consume it. Yields the same result as parser. Equivalent to
+		 * parser.skip(Parsimmon.notFollowedBy(anotherParser)).
+		 */
+		notFollowedBy(anotherParser: Parser<any>): Parser<T>;
+		/**
+		 * Returns a parser that looks for whatever arg wants to parse, but does not
+		 * consume it. Yields the same result as parser. Equivalent to
+		 * parser.skip(Parsimmon.lookahead(anotherParser)).
+		 */
+		lookahead(arg: Parser<any> | string | RegExp): Parser<T>;
 		/**
 		 * expects parser zero or more times, and yields an array of the results.
 		 */
@@ -174,7 +188,7 @@ declare namespace Parsimmon {
 	/**
 	 * Returns true if obj is a Parsimmon parser, otherwise false.
 	 */
-	function isParser(obj: any): boolean;
+	function isParser(obj: any): obj is Parser<any>;
 
 	/**
 	 * is a parser that expects to find "my-string", and will yield the same.
@@ -203,6 +217,17 @@ declare namespace Parsimmon {
 	 * This was the original name for Parsimmon.regexp, but now it is just an alias.
 	 */
 	function regex(myregex: RegExp, group?: number): Parser<string>;
+
+	/**
+	 * Parses using parser, but does not consume what it parses. Yields null if the parser
+	 * does not match the input. Otherwise it fails.
+	 */
+	function notFollowedBy(parser: Parser<any>): Parser<null>;
+
+	/**
+	 * Parses using arg, but does not consume what it parses. Yields an empty string.
+	 */
+	function lookahead(arg: Parser<any> | string | RegExp): Parser<''>;
 
 	/**
 	 * Returns a parser that doesn't consume any of the string, and yields result.
@@ -254,8 +279,8 @@ declare namespace Parsimmon {
 	type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
 	type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
 	type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
-		/**
-		 * allows to add custom primitive parsers.
+	/**
+	 * allows to add custom primitive parsers.
 	 */
 	function custom<U>(parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>): Parser<U>;
 

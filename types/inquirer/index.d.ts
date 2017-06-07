@@ -41,6 +41,7 @@ declare namespace inquirer {
     }
 
     interface PromptModule {
+        (questions: Questions): Promise<Answers>;
         (questions: Questions, cb: (answers: Answers) => any): ui.Prompt;
         /**
          * Register a prompt type
@@ -93,7 +94,7 @@ declare namespace inquirer {
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
          */
-        validate?(input: string): boolean | string;
+        validate?(input: string, answers?: Answers): boolean | string;
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the Answers hash.
@@ -105,6 +106,10 @@ declare namespace inquirer {
          */
         when?: boolean | ((answers: Answers) => boolean);
         paginated?: boolean;
+        /**
+         * Change the number of lines that will be rendered when using list, rawList, expand or checkbox.
+         */
+        pageSize?: number;
     }
 
     /**

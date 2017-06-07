@@ -1,14 +1,14 @@
-// Type definitions for webdriverio 4.6
+// Type definitions for WebdriverIO 4.7
 // Project: http://www.webdriver.io/
-// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
+// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>, Tim Brust <https://github.com/timbru31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
 declare namespace WebdriverIO {
-    export type Method = 'POST' | 'GET' | 'DELETE';
+    type Method = 'POST' | 'GET' | 'DELETE';
 
-    export interface RawResult<T> {
+    interface RawResult<T> {
         sessionId: string;
         value: T;
         state: 'failure' | 'success';
@@ -19,19 +19,19 @@ declare namespace WebdriverIO {
         error?: string;
     }
 
-    export type ElementId = string;
+    type ElementId = string;
 
-    export interface Element {
+    interface Element {
         ELEMENT: ElementId;
     }
 
-    export interface CssProperty {
+    interface CssProperty {
         property: string;
         value: string;
         parsed: ParsedCssProperty;
     }
 
-    export interface ParsedCssProperty {
+    interface ParsedCssProperty {
         type: string;
         string: string;
         quote: string;
@@ -39,24 +39,24 @@ declare namespace WebdriverIO {
         value: string | number | string[] | number[];
     }
 
-    export interface Size {
+    interface Size {
         width: number;
         height: number;
     }
 
-    export interface Position {
+    interface Position {
         x: number;
         y: number;
     }
 
-    export interface DOMRect {
+    interface DOMRect {
         width: number;
         height: number;
         x: number;
         y: number;
     }
 
-    export enum ApplicationCacheStatus {
+    enum ApplicationCacheStatus {
         UNCACHED = 0,
         IDLE = 1,
         CHECKING = 2,
@@ -65,13 +65,13 @@ declare namespace WebdriverIO {
         OBSOLETE = 5
     }
 
-    export enum Button {
+    enum Button {
         left = 0,
         middle = 1,
         right = 2
     }
 
-    export interface Status {
+    interface Status {
         build?: {
             version: string;
             revision?: string;
@@ -89,50 +89,50 @@ declare namespace WebdriverIO {
         };
     }
 
-    export interface StorageItem {
+    interface StorageItem {
         key: string;
         value: any;
     }
 
-    export interface StorageItems {
+    interface StorageItems {
         [key: string]: any;
     }
 
-    export interface GeoLocation {
+    interface GeoLocation {
         latitude: number;
         longitude: number;
         altitude: number;
     }
 
-    export interface CommandHistoryEntry {
+    interface CommandHistoryEntry {
         command: string;
         args: any[];
     }
 
-    export type Axis = 'x' | 'y';
+    type Axis = 'x' | 'y';
 
-    export type Timeouts = 'script' | 'pageLoad' | 'implicit';
+    type Timeouts = 'script' | 'pageLoad' | 'implicit';
 
-    export type PageLoadingStrategy = 'none' | 'eager' | 'normal';
+    type PageLoadingStrategy = 'none' | 'eager' | 'normal';
 
-    export type LocatorStrategy = 'css selector'
-                                | 'link text'
-                                | 'partial link text'
-                                | 'tag name'
-                                | 'xpath';
+    type LocatorStrategy = 'css selector'
+        | 'link text'
+        | 'partial link text'
+        | 'tag name'
+        | 'xpath';
 
-    export interface LogEntry {
+    interface LogEntry {
         timestamp: number;
         level: string;
         message: string;
     }
 
-    export type LoggingPreferenceType =
-        'OFF'   | 'SEVERE' | 'WARNING' |
-        'INFO'  | 'CONFIG' | 'FINE' |
+    type LoggingPreferenceType =
+        'OFF' | 'SEVERE' | 'WARNING' |
+        'INFO' | 'CONFIG' | 'FINE' |
         'FINER' | 'FINEST' | 'ALL';
 
-    export interface LoggingPreferences {
+    interface LoggingPreferences {
         browser?: LoggingPreferenceType;
         driver?: LoggingPreferenceType;
         server?: LoggingPreferenceType;
@@ -155,12 +155,12 @@ declare namespace WebdriverIO {
         socksPassword?: string;
     }
 
-    export interface Session {
+    interface Session {
         id: string;
         capabilities: DesiredCapabilities;
     }
 
-    export interface Capabilities {
+    interface Capabilities {
         browserName: string;
         acceptInsecureCerts?: boolean;
         browserVersion?: string;
@@ -172,7 +172,7 @@ declare namespace WebdriverIO {
         unhandledPromptBehavior?: string;
     }
 
-    export interface DesiredCapabilities extends Capabilities {
+    interface DesiredCapabilities extends Capabilities {
         // Read-only capabilities
         cssSelectorsEnabled?: boolean;
         handlesAlerts?: boolean;
@@ -302,7 +302,7 @@ declare namespace WebdriverIO {
         ensureCleanSession?: boolean;
     }
 
-    export interface Cookie extends RawResult<string> {
+    interface Cookie extends RawResult<string> {
         name: string;
         value: string;
         path?: string;
@@ -311,7 +311,7 @@ declare namespace WebdriverIO {
         secure: boolean;
     }
 
-    export interface Suite {
+    interface Suite {
         file: string;
         parent: string;
         pending: boolean;
@@ -319,13 +319,13 @@ declare namespace WebdriverIO {
         type: string;
     }
 
-    export interface Test extends Suite {
+    interface Test extends Suite {
         currentTest: string;
         passed: boolean;
         duration: any;
     }
 
-    export interface Hooks {
+    interface Hooks {
         onError<T>(error: Error): Promise<T> & undefined;
 
         onPrepare<T>(
@@ -387,7 +387,7 @@ declare namespace WebdriverIO {
         afterFeature<T>(feature: string): Promise<T> & undefined;
     }
 
-    export interface Options {
+    interface Options {
         baseUrl?: string;
         bail?: number;
         coloredLogs?: boolean;
@@ -426,43 +426,43 @@ declare namespace WebdriverIO {
         key?: string;
     }
 
-   export interface UnknownOptions {
-     [name: string]: any;
-   }
+    interface UnknownOptions {
+        [name: string]: any;
+    }
 
-    export interface MultiRemoteOptions {
+    interface MultiRemoteOptions {
         [name: string]: Options;
     }
 
-    export interface Config extends Options, Hooks {}
+    interface Config extends Options, Hooks { }
 
-    export interface Client<T> {
+    interface Client<T> {
         desiredCapabilities: DesiredCapabilities;
     }
 
-    export interface Client<T> {
+    interface Client<T> {
         sessionId: string;
     }
 
     // Options
-    export interface Client<T> {
+    interface Client<T> {
         options: Options;
     }
 
-    export class Launcher {
+    class Launcher {
         constructor(file: string, data: Options);
         run(): Promise<any>;
     }
 
-    export class ErrorHandler {
+    class ErrorHandler {
         constructor(type: string, msg: string | number);
     }
 
-    export function multiremote(options: MultiRemoteOptions): Client<void>;
-    export function remote(options?: Options, modifier?: (...args: any[]) => any): Client<void>;
+    function multiremote(options: MultiRemoteOptions): Client<void>;
+    function remote(options?: Options, modifier?: (...args: any[]) => any): Client<void>;
 
     // EventEmitter
-    export interface Client<T> {
+    interface Client<T> {
         addListener(
             event: string,
             listener: (...args: any[]) => void
@@ -470,7 +470,7 @@ declare namespace WebdriverIO {
 
         on(
             event: string,
-           listener: (...args: any[]) => void
+            listener: (...args: any[]) => void
         ): Client<T>;
 
         once(
@@ -488,12 +488,12 @@ declare namespace WebdriverIO {
         listeners(event: string): Client<T>;
         emit(
             event: string,
-             ...args: any[]
+            ...args: any[]
         ): Client<T>;
     }
 
     // Promise
-    export interface Client<T> {
+    interface Client<T> {
         finally(callback: (...args: any[]) => void): Client<T>;
 
         then<P>(
@@ -512,7 +512,7 @@ declare namespace WebdriverIO {
         };
     }
 
-    export interface Client<T> {
+    interface Client<T> {
         addValue(
             selector: string,
             value: string | number
@@ -758,7 +758,7 @@ declare namespace WebdriverIO {
     }
 
     // Cookie
-    export interface Client<T> {
+    interface Client<T> {
         deleteCookie(name?: string): Client<RawResult<null>> & RawResult<null>;
         deleteCookie<P>(name?: string): Client<P>;
 
@@ -771,7 +771,7 @@ declare namespace WebdriverIO {
     }
 
     // Grid
-    export interface Client<T> {
+    interface Client<T> {
         getGridNodeDetails(): Client<UnknownOptions> & UnknownOptions;
         getGridNodeDetails<P>(): Client<P>;
 
@@ -783,7 +783,7 @@ declare namespace WebdriverIO {
     }
 
     // Mobile
-    export interface Client<T> {
+    interface Client<T> {
         background(seconds: number): Client<T>;
         closeApp(): Client<T>;
         context(id?: string): Client<T>;
@@ -848,6 +848,7 @@ declare namespace WebdriverIO {
         toggleAirplaneMode(): Client<T>;
         toggleData(): Client<T>;
         toggleLocationServices(): Client<T>;
+        toggleTouchIdEnrollment(match: boolean): Client<T>;
         toggleWiFi(): Client<T>;
         touch(selector: string, longClick: boolean): Client<T>;
         touchAction(selector: string, action: 'tap' | 'press'): Client<T>;
@@ -858,7 +859,7 @@ declare namespace WebdriverIO {
     }
 
     // Property
-    export interface Client<T> {
+    interface Client<T> {
         getAttribute(
             selector: string,
             attributeName: string
@@ -987,7 +988,7 @@ declare namespace WebdriverIO {
     }
 
     // Protocol
-    export interface Client<T> {
+    interface Client<T> {
         alertAccept(): Client<RawResult<null>>;
         alertAccept<P>(): Client<P>;
 
@@ -1105,8 +1106,8 @@ declare namespace WebdriverIO {
         /** @deprecated in favour of elementIdRect */
         elementIdLocationInView(id: ElementId): Client<RawResult<Position>> & RawResult<Position> & never;
 
-         /** @deprecated in favour of elementIdRect */
-       elementIdLocationInView<P>(id: ElementId): Client<P>;
+        /** @deprecated in favour of elementIdRect */
+        elementIdLocationInView<P>(id: ElementId): Client<P>;
 
         elementIdName(id: ElementId): Client<RawResult<string>> & RawResult<string>;
         elementIdName<P>(id: ElementId): Client<P>;
@@ -1117,10 +1118,10 @@ declare namespace WebdriverIO {
         elementIdSelected(id: ElementId): Client<RawResult<boolean>> & RawResult<boolean>;
         elementIdSelected<P>(id: ElementId): Client<P>;
 
-         /** @deprecated in favour of elementIdRect */
+        /** @deprecated in favour of elementIdRect */
         elementIdSize(id: ElementId): Client<RawResult<Size>> & RawResult<Size> & never;
 
-         /** @deprecated in favour of elementIdRect */
+        /** @deprecated in favour of elementIdRect */
         elementIdSize<P>(id: ElementId): Client<P>;
 
         elementIdText(id: ElementId): Client<RawResult<string>> & RawResult<string>;
@@ -1149,10 +1150,10 @@ declare namespace WebdriverIO {
             ...args: any[]
         ): Client<RawResult<any>> & RawResult<any>;
 
-         /** @deprecated */
+        /** @deprecated */
         file(date: string): Client<RawResult<null>> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         file<P>(date: string): Client<P> & never;
 
         forward(): Client<RawResult<null>> & RawResult<null>;
@@ -1164,110 +1165,110 @@ declare namespace WebdriverIO {
         frameParent(): Client<RawResult<null>> & RawResult<null>;
         frameParent<P>(): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         imeActivate(engine: string): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         imeActivate<P>(engine: string): Client<P> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         imeActivated(): Client<RawResult<boolean>> & RawResult<boolean> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         imeActivated<P>(): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         imeActiveEngine(): Client<RawResult<string>> & string & never;
 
-         /** @deprecated */
+        /** @deprecated */
         imeActiveEngine<P>(): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         imeAvailableEngines(): Client<RawResult<string[]>> & RawResult<string[]> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         imeAvailableEngines<P>(): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         imeDeactivated(): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         imeDeactivated<P>(): Client<P>;
 
         init(capabilities?: DesiredCapabilities): Client<RawResult<null>> & RawResult<null>;
         init<P>(capabilities?: DesiredCapabilities): Client<P>;
 
-         /** @deprecated in favour of Actions.keyDown */
+        /** @deprecated in favour of Actions.keyDown */
         keys(value: string | string[]): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.keyDown */
+        /** @deprecated in favour of Actions.keyDown */
         keys<P>(value: string | string[]): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         localStorage(): Client<RawResult<StorageItems[]>> & RawResult<StorageItems[]>;
 
-         /** @deprecated */
+        /** @deprecated */
         localStorage<P>(): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         localStorage(
             method: Method,
             key?: string
         ): Client<RawResult<StorageItems[]>> & RawResult<StorageItems[]> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         localStorage(
             method: Method,
             key?: string
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         localStorage<P>(
             method: Method,
             key?: string | StorageItems
         ): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         localStorageSize(): Client<RawResult<number>> & RawResult<number> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         localStorageSize<P>(): Client<P>;
 
-         /** @deprecated in favour of elementIdRect */
+        /** @deprecated in favour of elementIdRect */
         location(type: GeoLocation): Client<RawResult<number>> & RawResult<number> & never;
 
-         /** @deprecated in favour of elementIdRect */
+        /** @deprecated in favour of elementIdRect */
         location<P>(type: GeoLocation): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         log(type: LoggingPreferences): Client<RawResult<LogEntry[]>> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         log<P>(type: LoggingPreferences): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         logTypes(): Client<RawResult<LoggingPreferences[]>> & RawResult<LoggingPreferences[]> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         logTypes<P>(): Client<P>;
 
-         /** @deprecated in favour of Actions.pointerMove */
+        /** @deprecated in favour of Actions.pointerMove */
         moveTo(
             id: ElementId,
             xoffset: number,
             yoffset: number
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.pointerMove */
+        /** @deprecated in favour of Actions.pointerMove */
         moveTo(
             xoffset: number,
             yoffset: number
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.pointerMove */
+        /** @deprecated in favour of Actions.pointerMove */
         moveTo<P>(id: ElementId): Client<P>;
 
-         /** @deprecated in favour of Actions.pointerMove */
+        /** @deprecated in favour of Actions.pointerMove */
         moveTo<P>(
             id: ElementId,
             xoffset: number,
@@ -1293,61 +1294,61 @@ declare namespace WebdriverIO {
             sessionId?: string
         ): Client<P> & null;
 
-         /** @deprecated */
+        /** @deprecated */
         sessions(): Client<RawResult<Session[]>> & RawResult<Session[]> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         sessions<P>(): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage(): Client<RawResult<StorageItems>> & RawResult<StorageItems> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage<P>(): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage(method: Method): Client<RawResult<string[]>> & RawResult<string[]> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage(method: Method): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage<P>(method: Method): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage(
             method: Method,
             key: string
         ): Client<RawResult<string[]>> & RawResult<string[]> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage(
             method: Method,
             key: string
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage<P>(
             method: Method,
             key: string
         ): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage(
             method: Method,
             key: StorageItems
         ): Client<RawResult<null>> & RawResult<null>;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorage<P>(
             method: Method,
             key: StorageItems
         ): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorageSize(): Client<RawResult<number>> & RawResult<number> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         sessionStorageSize<P>(): Client<P>;
 
         source(): Client<RawResult<string>> & RawResult<string>;
@@ -1356,24 +1357,24 @@ declare namespace WebdriverIO {
         status(): Client<RawResult<Status>> & RawResult<Status>;
         status(): Client<string>;
 
-         /** @deprecated */
+        /** @deprecated */
         submit(id: ElementId): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         submit<P>(id: ElementId): Client<P>;
 
         timeouts<P>(type: Timeouts, ms: number): Client<RawResult<null>> & RawResult<null>;
 
-         /** @deprecated in favour of timeouts */
+        /** @deprecated in favour of timeouts */
         timeoutsAsyncScript(ms: number): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of timeouts */
+        /** @deprecated in favour of timeouts */
         timeoutsAsyncScript<P>(ms: number): Client<P>;
 
-         /** @deprecated in favour of timeouts */
+        /** @deprecated in favour of timeouts */
         timeoutsImplicitWait(ms: number): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of timeouts */
+        /** @deprecated in favour of timeouts */
         timeoutsImplicitWait<P>(ms: number): Client<P>;
 
         url(): Client<RawResult<string>> & RawResult<string>;
@@ -1383,25 +1384,25 @@ declare namespace WebdriverIO {
         title(): Client<RawResult<string>> & RawResult<string>;
         title<P>(): Client<P>;
 
-         /** @deprecated in favour of Actions.pointerDown */
+        /** @deprecated in favour of Actions.pointerDown */
         touchClick(id: ElementId): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.pointerDown */
+        /** @deprecated in favour of Actions.pointerDown */
         touchClick<P>(id: ElementId): Client<P>;
 
-         /** @deprecated in favour of Actions.pointerDown */
+        /** @deprecated in favour of Actions.pointerDown */
         touchDown(
             xoffset: number,
             yoffset: number
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.pointerDown */
+        /** @deprecated in favour of Actions.pointerDown */
         touchDown<P>(
             xoffset: number,
             yoffset: number
         ): Client<P>;
 
-         /** @deprecated in favour of Actions.perform */
+        /** @deprecated in favour of Actions.perform */
         touchFlick(
             id: ElementId,
             xoffset: number,
@@ -1409,7 +1410,7 @@ declare namespace WebdriverIO {
             speed: number
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.perform */
+        /** @deprecated in favour of Actions.perform */
         touchFlick<P>(
             id: ElementId,
             xoffset: number,
@@ -1417,45 +1418,45 @@ declare namespace WebdriverIO {
             speed: number
         ): Client<P>;
 
-         /** @deprecated in favour of Actions.perform */
+        /** @deprecated in favour of Actions.perform */
         touchLongClick(id: ElementId): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.perform */
+        /** @deprecated in favour of Actions.perform */
         touchLongClick<P>(id: ElementId): Client<P>;
 
-         /** @deprecated in favour of Actions.pointerMove */
+        /** @deprecated in favour of Actions.pointerMove */
         touchMove(
             xoffset: number,
             yoffset: number
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.pointerMove */
+        /** @deprecated in favour of Actions.pointerMove */
         touchMove<P>(
             xoffset: number,
             yoffset: number
         ): Client<P>;
 
-         /** @deprecated in favour of Actions.perform */
+        /** @deprecated in favour of Actions.perform */
         touchScroll(
             id: ElementId,
             xoffset: number,
             yoffset: number,
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.perform */
+        /** @deprecated in favour of Actions.perform */
         touchScroll<P>(
             id: ElementId,
             xoffset: number,
             yoffset: number,
         ): Client<P>;
 
-         /** @deprecated in favour of Actions.pointerUp */
+        /** @deprecated in favour of Actions.pointerUp */
         touchUp(
             xoffset: number,
             yoffset: number,
         ): Client<RawResult<null>> & RawResult<null> & never;
 
-         /** @deprecated in favour of Actions.pointerUp */
+        /** @deprecated in favour of Actions.pointerUp */
         touchUp<P>(
             xoffset: number,
             yoffset: number,
@@ -1473,59 +1474,59 @@ declare namespace WebdriverIO {
         windowHandleMaximize(): Client<RawResult<string>> & RawResult<string>;
         windowHandleMaximize<P>(): Client<P>;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandlePosition(
             windowHandle?: string,
             position?: Position
         ): Client<RawResult<Position>> & RawResult<Position> & never;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandlePosition(
             position: Position
         ): Client<RawResult<Position>> & RawResult<Position> & never;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandlePosition<P>(
             windowHandle?: string,
             position?: Position
         ): Client<P>;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandlePosition<P>(
             position: Position
         ): Client<P>;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandleSize(
             windowHandle?: string,
             dimension?: Size
         ): Client<RawResult<Size>> & RawResult<Size> & never;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandleSize(
             dimension: Size
         ): Client<RawResult<Size>> & RawResult<Size> & never;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandleSize<P>(
             windowHandle?: string,
             dimension?: Size
         ): Client<P>;
 
-         /** @deprecated in favour of /session/{session id}/window/rect */
+        /** @deprecated in favour of /session/{session id}/window/rect */
         windowHandleSize<P>(
             dimension?: Size
         ): Client<P>;
 
-         /** @deprecated */
+        /** @deprecated */
         windowHandles(): Client<RawResult<string[]>> & RawResult<string[]> & never;
 
-         /** @deprecated */
+        /** @deprecated */
         windowHandles<P>(): Client<P> & never;
     }
 
     // State
-    export interface Client<T> {
+    interface Client<T> {
         hasFocus(selector?: string): Client<boolean> & boolean;
         hasFocus<P>(selector?: string): Client<P>;
 
@@ -1546,7 +1547,7 @@ declare namespace WebdriverIO {
     }
 
     // Utility
-    export interface Client<T> {
+    interface Client<T> {
         $(selector: string): Client<RawResult<Element>> & RawResult<Element>;
         $<P>(selector: string): Client<P>;
 
@@ -1833,7 +1834,7 @@ declare namespace WebdriverIO {
     }
 
     // Window
-    export interface Client<T> {
+    interface Client<T> {
         close(windowHandle?: string): Client<RawResult<null>> & RawResult<null>;
         close<P>(windowHandle?: string): Client<P>;
 
@@ -1873,7 +1874,7 @@ declare namespace WebdriverIO {
         switchTab<P>(windowHandle?: string): Client<P>;
     }
 
-    export var VERSION: string;
+    const VERSION: string;
 }
 
 declare var browser: WebdriverIO.Client<void>;

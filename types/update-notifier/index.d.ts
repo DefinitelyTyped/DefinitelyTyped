@@ -19,7 +19,7 @@ declare namespace UpdateNotifier {
 
     interface Settings {
         pkg?: Package;
-        callback?: (update?: UpdateInfo) => any;
+        callback?(update?: UpdateInfo): any;
         packageName?: string;
         packageVersion?: string;
         updateCheckInterval?: number; // in milliseconds, default 1000 * 60 * 60 * 24 (1 day)

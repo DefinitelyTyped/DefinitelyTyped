@@ -12,7 +12,7 @@ declare namespace Scrollbar {
         /**
          * Pipe to scrollbar.addListener()
          */
-        onScroll?: (status: ScrollStatusObject, scrollbarInstance: SmoothScrollbar) => void;
+        onScroll?(status: ScrollStatusObject, scrollbarInstance: SmoothScrollbar): void;
         /**
          * Keep scrollbar tracks visible whether it's scrolling or not
          * @default false
@@ -34,7 +34,6 @@ declare class Scrollbar extends React.Component<Scrollbar.ScrollbarProps, {}> {
      * Scrollbar instance
      */
     readonly scrollbar: SmoothScrollbar;
-
 }
 
 export as namespace Scrollbar;

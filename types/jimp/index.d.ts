@@ -50,7 +50,6 @@ declare namespace jimp {
 		}
 	} | PresetFont;
 
-
 	class JimpImage {
 		constructor(width: number, height: number, callback?: Callback<JimpImage>);
 		constructor(width: number, height: number, initialColor: number, callback?: Callback<JimpImage>);

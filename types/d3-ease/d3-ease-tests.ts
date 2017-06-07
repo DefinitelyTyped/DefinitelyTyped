@@ -23,7 +23,6 @@ t_out = d3Ease.easeCubicIn(t_in);
 t_out = d3Ease.easeCubicOut(t_in);
 t_out = d3Ease.easeCubicInOut(t_in);
 
-
 let easePolyFactory: d3Ease.PolynomialEasingFactory;
 
 easePolyFactory = d3Ease.easePoly;

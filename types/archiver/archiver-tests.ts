@@ -1,19 +1,41 @@
-import Archiver = require('archiver');
-import FS = require('fs');
+import * as Archiver from 'archiver';
+import * as fs from 'fs';
 
-var archiver = Archiver.create('zip');
+const archiver = Archiver.create('zip');
 
-var writeStream = FS.createWriteStream('./archiver.d.ts');
-var readStream = FS.createReadStream('./archiver.d.ts');
+const writeStream = fs.createWriteStream('./archiver.d.ts');
+const readStream = fs.createReadStream('./archiver.d.ts');
+
+archiver.abort();
 
 archiver.pipe(writeStream);
-archiver.append(readStream, {name: 'archiver.d.ts'});
-archiver.finalize();
+archiver.append(readStream, { name: 'archiver.d.ts' });
 
-archiver.directory('./path', './someOtherPath');
-archiver.directory('./path', { name: "testName"} );
-
-archiver.directory('./', "", {});
-archiver.directory('./', {name: 'test'}, {});
+archiver.append(readStream, {name: 'archiver.d.ts'})
+.append(readStream, {name: 'archiver.d.ts'});
 
 archiver.bulk({ mappaing: {} });
+
+archiver.directory('./path', './someOtherPath');
+archiver.directory('./path', { name: "testName" });
+archiver.directory('./', "", {});
+archiver.directory('./', { name: 'test' }, {});
+
+archiver.append(readStream, {
+    name: "sub/folder.xml"
+});
+
+archiver.glob("**", {
+    cwd: 'path/to/files',
+});
+archiver.glob('./path', {}, {});
+
+archiver.file('./path', { name: 'test' });
+
+archiver.setFormat('zip');
+archiver.setModule(() => {});
+
+archiver.pointer();
+archiver.use(() => {});
+
+archiver.finalize();

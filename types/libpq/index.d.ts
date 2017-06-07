@@ -102,7 +102,7 @@ declare class Libpq extends EventEmitter {
      * @returns {boolean} true if data was read; false if there was an error. You can access
      *                    error details with [[Libpq.errorMessage]].
      */
-    consumeInput(): boolean
+    consumeInput(): boolean;
 
     /**
      * Retrieves the last error message from the connection. This is intended to be used after most

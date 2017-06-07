@@ -3,7 +3,7 @@
 // Definitions by: Anthony Trinh <https://github.com/tony19>, Ruslan Arkhipau <https://github.com/DethAriel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ModuleConfiguration {
+export interface ModuleConfiguration {
     /**
      * Path to OpenSSL binaries
      */
@@ -12,24 +12,24 @@ interface ModuleConfiguration {
 
 export type PrivateKeyCipher = "aes128" | "aes192" | "aes256" | "camellia128" | "camellia192" | "camellia256" | "des" | "des3" | "idea" | string; // allow for additions in future
 
-interface PrivateKeyCreationOptions {
+export interface PrivateKeyCreationOptions {
     cipher: PrivateKeyCipher;
     password: string;
 }
 
-interface Pkcs12CreationOptions {
+export interface Pkcs12CreationOptions {
     cipher?: PrivateKeyCipher;
     clientKeyPassword?: string;
     certFiles?: string[];
 }
 
-interface Pkcs12ReadOptions {
+export interface Pkcs12ReadOptions {
     p12Password?: string;
     clientKeyPassword?: string;
 }
 
 export type HashFunction = 'md5' | 'sha1' | 'sha256' | string;
-interface CSRCreationOptions {
+export interface CSRCreationOptions {
     /**
      *  Optional client key to use
      */
@@ -81,7 +81,7 @@ interface CSRCreationOptions {
     altNames?: string[];
 }
 
-interface CertificateCreationOptions extends CSRCreationOptions {
+export interface CertificateCreationOptions extends CSRCreationOptions {
     /**
      * Private key for signing the certificate, if not defined a new one is generated
      */
@@ -118,14 +118,14 @@ interface CertificateCreationOptions extends CSRCreationOptions {
     config?: string;
 }
 
-interface CertificateCreationResult {
+export interface CertificateCreationResult {
     certificate: any;
     csr: string;
     clientKey: string;
     serviceKey: string;
 }
 
-interface CertificateSubjectReadResult {
+export interface CertificateSubjectReadResult {
     country: string;
     state: string;
     locality: string;
@@ -135,7 +135,7 @@ interface CertificateSubjectReadResult {
     emailAddress: string;
 }
 
-type Callback<T> = (error: any, result: T) => any;
+export type Callback<T> = (error: any, result: T) => any;
 
 /**
  * Creates a private key
@@ -144,9 +144,9 @@ type Callback<T> = (error: any, result: T) => any;
  * @param {PrivateKeyCreationOptions} [options] private key encryption settings, defaults to empty object (no enryption)
  * @param {Callback<{ key: string }>} callback Callback function with an error object and {key}
  */
-declare function createPrivateKey(keyBitsize: number, options: PrivateKeyCreationOptions, callback: Callback<{ key: string }>): void;
-declare function createPrivateKey(optionsOrKeyBitsize: number | PrivateKeyCreationOptions, callback: Callback<{ key: string }>): void;
-declare function createPrivateKey(callback: Callback<{ key: string }>): void;
+export function createPrivateKey(keyBitsize: number, options: PrivateKeyCreationOptions, callback: Callback<{ key: string }>): void;
+export function createPrivateKey(optionsOrKeyBitsize: number | PrivateKeyCreationOptions, callback: Callback<{ key: string }>): void;
+export function createPrivateKey(callback: Callback<{ key: string }>): void;
 
 /**
  * Creates a dhparam key
@@ -154,8 +154,8 @@ declare function createPrivateKey(callback: Callback<{ key: string }>): void;
  * @param {Number} [keyBitsize=512] Size of the key, defaults to 512bit
  * @param {Callback<{ dhparam: any }>} callback Callback function with an error object and {dhparam}
  */
-declare function createDhparam(keyBitsize: number, callback: Callback<{ dhparam: any }>): void;
-declare function createDhparam(callback: Callback<{ dhparam: any }>): void;
+export function createDhparam(keyBitsize: number, callback: Callback<{ dhparam: any }>): void;
+export function createDhparam(callback: Callback<{ dhparam: any }>): void;
 
 /**
  * Creates a Certificate Signing Request
@@ -166,8 +166,8 @@ declare function createDhparam(callback: Callback<{ dhparam: any }>): void;
  * @param {CSRCreationOptions}  [options] Optional options object
  * @param {Callback<{ csr: string, clientKey: string }>} callback Callback function with an error object and {csr, clientKey}
  */
-declare function createCSR(options: CSRCreationOptions, callback: Callback<{ csr: string, clientKey: string }>): void;
-declare function createCSR(callback: Callback<{ csr: string, clientKey: string }>): void;
+export function createCSR(options: CSRCreationOptions, callback: Callback<{ csr: string, clientKey: string }>): void;
+export function createCSR(callback: Callback<{ csr: string, clientKey: string }>): void;
 
 /**
  * Creates a certificate based on a CSR. If CSR is not defined, a new one
@@ -177,8 +177,8 @@ declare function createCSR(callback: Callback<{ csr: string, clientKey: string }
  * @param {Object} [CertificateCreationOptions] Optional options object
  * @param {Callback<CertificateCreationResult>} callback Callback function with an error object and {certificate, csr, clientKey, serviceKey}
  */
-declare function createCertificate(options: CertificateCreationOptions, callback: Callback<CertificateCreationResult>): void;
-declare function createCertificate(callback: Callback<CertificateCreationResult>): void;
+export function createCertificate(options: CertificateCreationOptions, callback: Callback<CertificateCreationResult>): void;
+export function createCertificate(callback: Callback<CertificateCreationResult>): void;
 
 /**
  * Reads subject data from a certificate or a CSR
@@ -186,8 +186,8 @@ declare function createCertificate(callback: Callback<CertificateCreationResult>
  * @param {String} certificate PEM encoded CSR or certificate
  * @param {Callback<CertificateSubjectReadResult>} callback Callback function with an error object and {country, state, locality, organization, organizationUnit, commonName, emailAddress}
  */
-declare function readCertificateInfo(certificate: string, callback: Callback<CertificateSubjectReadResult>): void;
-declare function readCertificateInfo(callback: Callback<CertificateSubjectReadResult>): void;
+export function readCertificateInfo(certificate: string, callback: Callback<CertificateSubjectReadResult>): void;
+export function readCertificateInfo(callback: Callback<CertificateSubjectReadResult>): void;
 
 /**
  * Exports a public key from a private key, CSR or certificate
@@ -195,8 +195,8 @@ declare function readCertificateInfo(callback: Callback<CertificateSubjectReadRe
  * @param {String} certificate PEM encoded private key, CSR or certificate
  * @param {Callback<{ publicKey: string }>} callback Callback function with an error object and {publicKey}
  */
-declare function getPublicKey(certificate: string, callback: Callback<{ publicKey: string }>): void;
-declare function getPublicKey(callback: Callback<{ publicKey: string }>): void;
+export function getPublicKey(certificate: string, callback: Callback<{ publicKey: string }>): void;
+export function getPublicKey(callback: Callback<{ publicKey: string }>): void;
 
 /**
  * Gets the fingerprint for a certificate
@@ -205,9 +205,9 @@ declare function getPublicKey(callback: Callback<{ publicKey: string }>): void;
  * @param {HashFunction} hash Hash function to use (either md5 sha1 or sha256, defaults to sha256)
  * @param {Callback<{ fingerprint: string }>} callback Callback function with an error object and {fingerprint}
  */
-declare function getFingerprint(certificate: string, hash: HashFunction, callback: Callback<{ fingerprint: string }>): void;
-declare function getFingerprint(certificate: string, callback: Callback<{ fingerprint: string }>): void;
-declare function getFingerprint(callback: Callback<{ fingerprint: string }>): void;
+export function getFingerprint(certificate: string, hash: HashFunction, callback: Callback<{ fingerprint: string }>): void;
+export function getFingerprint(certificate: string, callback: Callback<{ fingerprint: string }>): void;
+export function getFingerprint(callback: Callback<{ fingerprint: string }>): void;
 
 /**
  * Gets the modulus from a certificate, a CSR or a private key
@@ -216,8 +216,8 @@ declare function getFingerprint(callback: Callback<{ fingerprint: string }>): vo
  * @param {String} password password for the certificate
  * @param {Callback<{ modulus: any }>} callback Callback function with an error object and {modulus}
  */
-declare function getModulus(certificate: string, password: string, callback: Callback<{ modulus: any }>): void;
-declare function getModulus(certificate: string, callback: Callback<{ modulus: any }>): void;
+export function getModulus(certificate: string, password: string, callback: Callback<{ modulus: any }>): void;
+export function getModulus(certificate: string, callback: Callback<{ modulus: any }>): void;
 
 /**
  * Gets the size and prime of DH parameters
@@ -225,7 +225,7 @@ declare function getModulus(certificate: string, callback: Callback<{ modulus: a
  * @param {String} dh DH parameters PEM encoded
  * @param {Callback<{ size: any, prime: any }>} callback Callback function with an error object and {size, prime}
  */
-declare function getDhparamInfo(dh: string, callback: Callback<{ size: any, prime: any }>): void;
+export function getDhparamInfo(dh: string, callback: Callback<{ size: any, prime: any }>): void;
 
 /**
  * Exports private key and certificate to a PKCS12 keystore
@@ -236,8 +236,8 @@ declare function getDhparamInfo(dh: string, callback: Callback<{ size: any, prim
  * @param {Pkcs12CreationOptions} [options] object of cipher and optional client key password {cipher:'aes128', clientKeyPassword: 'xxx'}
  * @param {Callback<{ pkcs12: any }>} callback Callback function with an error object and {pkcs12}
  */
-declare function createPkcs12(key: string, certificate: string, password: string, options: Pkcs12CreationOptions, callback: Callback<{ pkcs12: any }>): void;
-declare function createPkcs12(key: string, certificate: string, password: string, callback: Callback<{ pkcs12: any }>): void;
+export function createPkcs12(key: string, certificate: string, password: string, options: Pkcs12CreationOptions, callback: Callback<{ pkcs12: any }>): void;
+export function createPkcs12(key: string, certificate: string, password: string, callback: Callback<{ pkcs12: any }>): void;
 
 /**
  * Reads private key and certificate from a PKCS12 keystore
@@ -246,8 +246,8 @@ declare function createPkcs12(key: string, certificate: string, password: string
  * @param {Function} callback Callback function with an error object and {pkcs12}
  * @returns the result of the callback
  */
-declare function readPkcs12(bufferOrPath: string, options: Pkcs12ReadOptions, callback: Callback<{ pkcs12: any }>): any;
-declare function readPkcs12(bufferOrPath: string, callback: Callback<{ pkcs12: any }>): any;
+export function readPkcs12(bufferOrPath: string, options: Pkcs12ReadOptions, callback: Callback<{ pkcs12: any }>): any;
+export function readPkcs12(bufferOrPath: string, callback: Callback<{ pkcs12: any }>): any;
 
 /**
  * Verifies the signing chain of the passed certificate
@@ -256,10 +256,10 @@ declare function readPkcs12(bufferOrPath: string, callback: Callback<{ pkcs12: a
  * @param {string[]} ca List of CA certificates
  * @param {Function} callback Callback function with an error object and a boolean valid
  */
-declare function verifySigningChain(certificate: string, ca: string[], callback: Callback<boolean>): void;
+export function verifySigningChain(certificate: string, ca: string[], callback: Callback<boolean>): void;
 
 /**
  * config the pem module
  * @param {ModuleConfiguration} options
  */
-declare function config(options: ModuleConfiguration): void;
+export function config(options: ModuleConfiguration): void;

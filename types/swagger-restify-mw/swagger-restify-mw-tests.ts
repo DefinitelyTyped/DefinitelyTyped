@@ -3,9 +3,9 @@ import * as restify from "restify";
 
 const app = restify.createServer();
 
-const config = {
-  appRoot: __dirname // required config
-} as SwaggerRestify.Config;
+const config: SwaggerRestify.Config = {
+    appRoot: __dirname // required config
+};
 
 SwaggerRestify.create(config, (err, swaggerRestify) => {
   if (err) { throw err; }
@@ -16,11 +16,9 @@ SwaggerRestify.create(config, (err, swaggerRestify) => {
   app.listen(port);
 });
 
-
 const swaggerSecurityHandlerCb = (err: Error) => {
     // do nothing
 };
-
 
 const configComplex: SwaggerRestify.Config = {
     appRoot: __dirname,

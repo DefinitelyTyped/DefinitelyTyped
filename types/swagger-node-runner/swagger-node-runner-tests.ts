@@ -22,7 +22,6 @@ SwaggerNodeRunner.create(config, (err, runner) => {
     expressApp.listen(port);
 });
 
-
 // Connect middleware
 const connectApp = connect();
 SwaggerNodeRunner.create(config, (err, runner) => {
@@ -31,10 +30,9 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   const connectMiddleware = runner.connectMiddleware();
 
   connectMiddleware.register(connectApp);
-  var port = process.env.PORT || 10010;
+  const port = process.env.PORT || 10010;
   connectApp.listen(port);
 });
-
 
 // Sails Middleware (chain) test
 SwaggerNodeRunner.create(config, (err, runner) => {
@@ -46,13 +44,12 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   }
 });
 
-
 // Hapi Middleware
-var hapiapp = new Hapi.Server();
+const hapiapp = new Hapi.Server();
 SwaggerNodeRunner.create(config, (err, runner) => {
   if (err) { throw err; }
 
-  var port = process.env.PORT || 10010;
+  const port = process.env.PORT || 10010;
   hapiapp.connection({ port });
 //   hapiapp.address = function() {
 //     return { port };
@@ -71,7 +68,6 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   });
 });
 
-
 // Restify Middelware
 const app = restify.createServer();
 SwaggerNodeRunner.create(config, (err, runner) => {
@@ -85,11 +81,9 @@ SwaggerNodeRunner.create(config, (err, runner) => {
   app.listen(port);
 });
 
-
 const swaggerSecurityHandlerCb = (err: Error) => {
     // do nothing
 };
-
 
 const configComplex: SwaggerNodeRunner.Config = {
     appRoot: __dirname,

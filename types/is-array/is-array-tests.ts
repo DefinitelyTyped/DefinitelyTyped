@@ -7,7 +7,7 @@ isArray(true);
 isArray([]);
 isArray({});
 
-var x = {};
+const x = {};
 if (isArray(x)) {
     x.push(0);
 }

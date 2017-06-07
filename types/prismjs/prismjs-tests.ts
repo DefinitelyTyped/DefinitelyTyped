@@ -1,5 +1,5 @@
-var element = document.createElement("code");
-var callback = (element: Element) => console.log(element);
+const element = document.createElement("code");
+const callback = (element: Element) => console.log(element);
 
 Prism.highlightElement(element, false, callback);
 Prism.highlightElement(element, false);
@@ -10,8 +10,8 @@ const hookCallback: Prism.HookCallback = env => null;
 Prism.hooks.add("before-highlightall", hookCallback);
 Prism.hooks.add("future-hook", hookCallback);
 
-var language = "js";
-var tokens = Prism.tokenize("var n = 1;", Prism.languages[language]);
+const language = "js";
+const tokens = Prism.tokenize("var n = 1;", Prism.languages[language]);
 (function visit(token: Prism.TokenNode): Prism.TokenNode {
     if (typeof token === "string") {
         return token;

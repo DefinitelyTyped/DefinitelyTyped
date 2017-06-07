@@ -28,8 +28,33 @@ declare namespace karma {
         stopper: Stopper;
         launcher: Launcher;
         VERSION: string;
+        constants: Constants;
     }
 
+    interface Constants {
+        VERSION: string;
+        DEFAULT_PORT: number;
+        DEFAULT_HOSTNAME: string;
+        DEFAULT_LISTEN_ADDR: string;
+        LOG_DISABLE: string;
+        LOG_ERROR: string;
+        LOG_WARN: string;
+        LOG_INFO: string;
+        LOG_DEBUG: string;
+        LOG_LOG: string;
+        LOG_PRIORITIES: string[];
+        COLOR_PATTERN: string;
+        NO_COLOR_PATTERN: string;
+        CONSOLE_APPENDER: {
+            type: string;
+            layout: {
+                type: string;
+                pattern: string;
+            };
+        };
+        EXIT_CODE: string;
+    }
+    
     interface LauncherStatic {
         generateId(): string;
         //TODO: injector should be of type `di.Injector`
@@ -205,6 +230,14 @@ declare namespace karma {
          * @description Enable or disable colors in the output (reporters and logs).
          */
         colors?: boolean;
+        /**
+         * @default 'Infinity'
+         * @description How many browsers Karma launches in parallel.
+         * Especially on services like SauceLabs and Browserstack, it makes sense only to launch a limited
+         * amount of browsers at once, and only start more when those have finished. Using this configuration,
+         * you can specify how many browsers should be running at once at any given point in time.
+         */
+        concurrency?: number;
         /**
          * @default []
          * @description List of files/patterns to exclude from loaded files.

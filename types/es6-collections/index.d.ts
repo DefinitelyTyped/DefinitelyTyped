@@ -2,6 +2,7 @@
 // Project: https://github.com/WebReflection/es6-collections/
 // Definitions by: Ron Buckton <http://github.com/rbuckton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -74,7 +75,7 @@ interface SetConstructor {
 
 declare var Set: SetConstructor;
 
-interface WeakMap<K, V> {
+interface WeakMap<K extends object, V> {
     delete(key: K): boolean;
 	clear(): void;
     get(key: K): V;
@@ -83,8 +84,8 @@ interface WeakMap<K, V> {
 }
 
 interface WeakMapConstructor {
-    new <K, V>(): WeakMap<K, V>;
-    new <K, V>(iterable: ForEachable<[K, V]>): WeakMap<K, V>;
+    new <K extends object, V>(): WeakMap<K, V>;
+    new <K extends object, V>(iterable: ForEachable<[K, V]>): WeakMap<K, V>;
     prototype: WeakMap<any, any>;
 }
 

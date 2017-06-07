@@ -10,8 +10,8 @@ import * as angular from 'angular';
 declare module 'angular' {
     export namespace promisetracker {
         interface PromiseTrackerOptions {
-            activationDelay: number;
-            minDuration: number;
+            activationDelay?: number;
+            minDuration?: number;
         }
 
         interface PromiseTracker {

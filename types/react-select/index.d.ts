@@ -174,6 +174,11 @@ declare namespace ReactSelectClass {
          */
         inputRenderer?: (props: Object) => React.ReactElement<any>;
         /**
+         * allows for synchronization of component id's on server and client.
+         * @see https://github.com/JedWatson/react-select/pull/1105
+         */
+        instanceId?: string;
+        /**
          * whether the Select is loading externally or not (such as options being loaded).
          * if true, a loading spinner will be shown at the right side.
          * @default false

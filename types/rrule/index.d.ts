@@ -19,9 +19,9 @@ declare module "rrule" {
 
 declare namespace RRule {
     /**
-    * see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
-    * The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
-    */
+     * see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
+     * The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
+     */
     interface Options {
         freq: RRule.Frequency;
         dtstart?: Date;
@@ -55,10 +55,10 @@ declare namespace RRule {
 
 declare class RRule {
     /**
-    * @param {Object?} options - see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
-    *        The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
-    * @constructor
-    */
+     * @param {Object?} options - see <http://labix.org/python-dateutil/#head-cf004ee9a75592797e076752b2a889c10f445418>
+     *        The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
+     * @constructor
+     */
     constructor(options: RRule.Options, noCache?: boolean);
 
     options: RRule.Options;
@@ -66,55 +66,55 @@ declare class RRule {
     origOptions: RRule.Options;
 
     /**
-    * Returns the first recurrence after the given datetime instance.
-    * The inc keyword defines what happens if dt is an occurrence.
-    * With inc == True, if dt itself is an occurrence, it will be returned.
-    * @return Date or null
-    */
+     * Returns the first recurrence after the given datetime instance.
+     * The inc keyword defines what happens if dt is an occurrence.
+     * With inc == True, if dt itself is an occurrence, it will be returned.
+     * @return Date or null
+     */
     after(dt: Date, inc?: boolean): Date;
 
     /**
-    * @param {Function} iterator - optional function that will be called
-    *                   on each date that is added. It can return false
-    *                   to stop the iteration.
-    * @return Array containing all recurrences.
-    */
+     * @param {Function} iterator - optional function that will be called
+     *                   on each date that is added. It can return false
+     *                   to stop the iteration.
+     * @return Array containing all recurrences.
+     */
     all(iterator?: (date: Date, index?: number) => void): Date[];
 
     /**
-    * Returns all the occurrences of the rrule between after and before.
-    * The inc keyword defines what happens if after and/or before are
-    * themselves occurrences. With inc == True, they will be included in the
-    * list, if they are found in the recurrence set.
-    * @return Array
-    */
+     * Returns all the occurrences of the rrule between after and before.
+     * The inc keyword defines what happens if after and/or before are
+     * themselves occurrences. With inc == True, they will be included in the
+     * list, if they are found in the recurrence set.
+     * @return Array
+     */
     between(a: Date, b: Date, inc?: boolean, iterator?: (date: Date, index: number) => void): Date[];
 
     /**
-    * Returns the last recurrence before the given datetime instance.
-    * The inc keyword defines what happens if dt is an occurrence.
-    * With inc == True, if dt itself is an occurrence, it will be returned.
-    * @return Date or null
-    */
+     * Returns the last recurrence before the given datetime instance.
+     * The inc keyword defines what happens if dt is an occurrence.
+     * With inc == True, if dt itself is an occurrence, it will be returned.
+     * @return Date or null
+     */
     before(dt: Date, inc?: boolean): Date;
 
     /**
-    * Returns the number of recurrences in this set. It will have go trough
-    * the whole recurrence, if this hasn't been done before.
-    */
+     * Returns the number of recurrences in this set. It will have go trough
+     * the whole recurrence, if this hasn't been done before.
+     */
     count(): number;
 
     /**
-    * Converts the rrule into its string representation
-    * @see <http://www.ietf.org/rfc/rfc2445.txt>
-    * @return String
-    */
+     * Converts the rrule into its string representation
+     * @see <http://www.ietf.org/rfc/rfc2445.txt>
+     * @return String
+     */
     toString(): string;
 
     /**
-    * Will convert all rules described in nlp:ToText
-    * to text.
-    */
+     * Will convert all rules described in nlp:ToText
+     * to text.
+     */
     toText(gettext?: (str: string) => string, language?: any): string;
 
     isFullyConvertibleToText(): boolean;
@@ -165,11 +165,10 @@ declare namespace RRule {
 
     class RRuleSet extends RRule {
       /**
-      *
-      * @param {Boolean?} noCache
-      *  The same stratagy as RRule on cache, default to false
-      * @constructor
-      */
+       * @param {Boolean?} noCache
+       *  The same stratagy as RRule on cache, default to false
+       * @constructor
+       */
       constructor(noCache?: boolean);
       rrule(rrule: RRule): void;
       rdate(date: Date): void;
@@ -177,13 +176,13 @@ declare namespace RRule {
       exdate(date: Date): void;
       valueOf(): string[];
       /**
-      * to generate recurrence field sush as:
-      *   ["RRULE:FREQ=YEARLY;COUNT=2;BYDAY=TU;DTSTART=19970902T010000Z","RRULE:FREQ=YEARLY;COUNT=1;BYDAY=TH;DTSTART=19970902T010000Z"]
-      */
+       * to generate recurrence field sush as:
+       *   ["RRULE:FREQ=YEARLY;COUNT=2;BYDAY=TU;DTSTART=19970902T010000Z","RRULE:FREQ=YEARLY;COUNT=1;BYDAY=TH;DTSTART=19970902T010000Z"]
+       */
       toString(): string;
       /**
-      * Create a new RRuleSet Object completely base on current instance
-      */
+       * Create a new RRuleSet Object completely base on current instance
+       */
       clone(): RRuleSet;
     }
 }

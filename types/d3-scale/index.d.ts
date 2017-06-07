@@ -17,8 +17,6 @@ import { CountableTimeInterval, TimeInterval } from 'd3-time';
  * The first generic correponds to the data type of the interpolation boundaries.
  * The second generic corresponds to the data type of the return type of the interpolator.
  */
-// This is a base interface to be extended, hence the suppression of the warning
-// tslint:disable-next-line:callable-types
 export interface InterpolatorFactory<T, U> {
     /**
      * Construct a new interpolator function, based on the provided interpolation boundaries.
@@ -33,16 +31,15 @@ export interface InterpolatorFactory<T, U> {
  * A helper interface for a continuous scale defined over a numeric domain.
  */
 export interface ScaleContinuousNumeric<Range, Output> {
-
     /**
-    * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
-    *
-    * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
-    *
-    * Note: The interpolation function applied by the scale may change the output type from the range type as part of the interpolation.
-    *
-    * @param value A numeric value from the domain.
-    */
+     * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
+     *
+     * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
+     *
+     * Note: The interpolation function applied by the scale may change the output type from the range type as part of the interpolation.
+     *
+     * @param value A numeric value from the domain.
+     */
     (value: number | { valueOf(): number }): Output;
 
     /**
@@ -163,7 +160,6 @@ export interface ScaleContinuousNumeric<Range, Output> {
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
      */
     copy(): this;
-
 }
 
 // -------------------------------------------------------------------------------
@@ -188,7 +184,6 @@ export interface ScaleContinuousNumeric<Range, Output> {
  * convert the interpolated range element to a corresponding output element.
  */
 export interface ScaleLinear<Range, Output> extends ScaleContinuousNumeric<Range, Output> {
-
     /**
      * Returns the scale’s current interpolator factory, which defaults to interpolate.
      */
@@ -222,7 +217,6 @@ export interface ScaleLinear<Range, Output> extends ScaleContinuousNumeric<Range
      * @param interpolate An interpolation factory. The generics for Range and Output of the scale must correpond to the interpolation factory applied to the scale.
      */
     interpolate<NewOutput>(interpolate: InterpolatorFactory<Range, NewOutput>): ScaleLinear<Range, NewOutput>;
-
 }
 
 /**
@@ -281,7 +275,6 @@ export function scaleLinear<Range, Output>(): ScaleLinear<Range, Output>;
  * convert the interpolated range element to a corresponding output element.
  */
 export interface ScalePower<Range, Output> extends ScaleContinuousNumeric<Range, Output> {
-
     /**
      * Returns the scale’s current interpolator factory, which defaults to interpolate.
      */
@@ -428,7 +421,6 @@ export function scaleSqrt<Range, Output>(): ScalePower<Range, Output>;
  * convert the interpolated range element to a corresponding output element.
  */
 export interface ScaleLogarithmic<Range, Output> extends ScaleContinuousNumeric<Range, Output> {
-
     /**
      * Returns a copy of the scale’s current domain.
      */
@@ -578,16 +570,15 @@ export function scaleLog<Range, Output>(): ScaleLogarithmic<Range, Output>;
  * These scales are occasionally useful when working with pixel coordinates, say in conjunction with an axis or brush.
  */
 export interface ScaleIdentity {
-
     /**
-    * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
-    *
-    * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
-    *
-    * Note: The interpolation function applied by the scale may change the output type from the range type as part of the interpolation.
-    *
-    * @param value A numeric value from the domain.
-    */
+     * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
+     *
+     * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
+     *
+     * Note: The interpolation function applied by the scale may change the output type from the range type as part of the interpolation.
+     *
+     * @param value A numeric value from the domain.
+     */
     (value: number | { valueOf(): number }): number;
 
     /**
@@ -635,7 +626,7 @@ export interface ScaleIdentity {
      *
      * @param range Array of range values.
      */
-    range(range: Array<Range | { valueOf(): number }>): this;
+    range(range: Array<number | { valueOf(): number }>): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -688,7 +679,6 @@ export interface ScaleIdentity {
  */
 export function scaleIdentity(): ScaleIdentity;
 
-
 // -------------------------------------------------------------------------------
 // Time Scale Factories
 // -------------------------------------------------------------------------------
@@ -710,16 +700,15 @@ export function scaleIdentity(): ScaleIdentity;
  * convert the interpolated range element to a corresponding output element.
  */
 export interface ScaleTime<Range, Output> {
-
     /**
-    * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
-    *
-    * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
-    *
-    * Note: The interpolation function applied by the scale may change the output type from the range type as part of the interpolation.
-    *
-    * @param value A temporal value from the domain. If the value is not a Date, it will be coerced to Date.
-    */
+     * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
+     *
+     * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
+     *
+     * Note: The interpolation function applied by the scale may change the output type from the range type as part of the interpolation.
+     *
+     * @param value A temporal value from the domain. If the value is not a Date, it will be coerced to Date.
+     */
     (value: Date | number | { valueOf(): number }): Output;
 
     /**
@@ -1022,14 +1011,13 @@ export function scaleUtc<Range, Output>(): ScaleTime<Range, Output>;
  * The generic corresponds to the data type of the output of the interpolator underlying the scale.
  */
 export interface ScaleSequential<Output> {
-
     /**
-    * Given a value from the domain, returns the corresponding value from the output range, subject to interpolation.
-    *
-    * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
-    *
-    * @param value A numeric value from the domain.
-    */
+     * Given a value from the domain, returns the corresponding value from the output range, subject to interpolation.
+     *
+     * If the given value is outside the domain, and clamping is not enabled, the mapping may be extrapolated such that the returned value is outside the range.
+     *
+     * @param value A numeric value from the domain.
+     */
     (value: number | { valueOf(): number }): Output;
 
     /**
@@ -1209,7 +1197,7 @@ export interface ScaleQuantize<Range> {
      */
     range(range: Range[]): this;
 
-        /**
+    /**
      * Returns approximately count representative values from the scale’s domain.
      *
      * If count is not specified, it defaults to 10.
@@ -1282,7 +1270,6 @@ export function scaleQuantize<Range>(): ScaleQuantize<Range>;
  * The generic correponds to the data type of range elements.
  */
 export interface ScaleQuantile<Range> {
-
     /**
      * Given a value in the input domain, returns the corresponding value in the output range.
      *
@@ -1310,7 +1297,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Array<number | { valueOf(): number } | null | undefined>): this;
+    domain(domain: Array<number | { valueOf(): number } | null | undefined >): this;
 
     /**
      * Returns the current range.
@@ -1541,7 +1528,6 @@ export function scaleOrdinal<Domain extends { toString(): string }, Range>(range
  * A special value for ordinal.unknown that enables implicit domain construction: unknown values are implicitly added to the domain.
  */
 export const scaleImplicit: { name: 'implicit' };
-
 
 // -------------------------------------------------------------------------------
 // Band Scale Factory
@@ -1827,7 +1813,6 @@ export function scalePoint(): ScalePoint<string>;
  * The generic corresponds to the data type of domain elements.
  */
 export function scalePoint<Domain extends { toString(): string }>(): ScalePoint<Domain>;
-
 
 // -------------------------------------------------------------------------------
 // Categorical Color Schemas for Ordinal Scales

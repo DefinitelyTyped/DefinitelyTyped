@@ -1,16 +1,15 @@
 import later = require("later");
 
-namespace LaterTest_DefineSchedule {
-
+function LaterTest_DefineSchedule() {
     // define a new schedule
-    var textSched = later.parse.text('at 10:15am every weekday');
-    var cronSched = later.parse.cron('0 0/5 14,18 * * ?');
-    var recurSched = later.parse.recur().last().dayOfMonth();
-    var manualSched = <later.ScheduleData> { schedules: [ <later.Recurrence> { M: [ 3 ], D: [ 21 ] } ] };
+    const textSched = later.parse.text('at 10:15am every weekday');
+    const cronSched = later.parse.cron('0 0/5 14,18 * * ?');
+    const recurSched = later.parse.recur().last().dayOfMonth();
+    const manualSched = <later.ScheduleData> { schedules: [ <later.Recurrence> { M: [ 3 ], D: [ 21 ] } ] };
 
     // this schedule will fire on the closest weekday to the 15th
     // every month at 2:00 am except in March
-    var complexSched = later.parse.recur()
+    const complexSched = later.parse.recur()
         .on(15).dayOfMonth().onWeekday().on(2).hour()
         .and()
         .on(14).dayOfMonth().on(6).dayOfWeek().on(2).hour()
@@ -20,8 +19,7 @@ namespace LaterTest_DefineSchedule {
         .on(3).month();
 }
 
-namespace LaterTest_ConfigureTimezone {
-
+function LaterTest_ConfigureTimezone() {
     // set later to use UTC (the default)
     later.date.UTC();
 
@@ -29,9 +27,9 @@ namespace LaterTest_ConfigureTimezone {
     later.date.localTime();
 }
 
-namespace LaterTest_TimePeriods {
-    export function second() {
-        var d = new Date('2013-03-22T10:02:05Z');
+function LaterTest_TimePeriods() {
+    function second() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.second.name;
         // 'second'
@@ -61,8 +59,8 @@ namespace LaterTest_TimePeriods {
         // 'Fri, 22 Mar 2013 10:01:27 GMT'
     }
 
-    export function minute() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function minute() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.minute.name;
         // 'minute'
@@ -92,8 +90,8 @@ namespace LaterTest_TimePeriods {
         // 'Fri, 22 Mar 2013 09:27:59 GMT'
     }
 
-    export function hour() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function hour() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.hour.name;
         // 'hour'
@@ -123,8 +121,8 @@ namespace LaterTest_TimePeriods {
         // 'Thu, 21 Mar 2013 21:59:59 GMT'
     }
 
-    export function time() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function time() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.time.name;
         // 'time'
@@ -154,8 +152,8 @@ namespace LaterTest_TimePeriods {
         // 'Fri, 22 Mar 2013 00:01:00 GMT'
     }
 
-    export function day() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function day() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.day.name;
         // 'day'
@@ -185,8 +183,8 @@ namespace LaterTest_TimePeriods {
         // 'Sat, 02 Mar 2013 23:59:59 GMT'
     }
 
-    export function day_of_week() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function day_of_week() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.dayOfWeek.name;
         // 'day of week'
@@ -216,8 +214,8 @@ namespace LaterTest_TimePeriods {
         // 'Thu, 21 Mar 2013 23:59:59 GMT'
     }
 
-    export function day_of_week_count() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function day_of_week_count() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.dayOfWeekCount.name;
         // 'day of week count'
@@ -251,8 +249,8 @@ namespace LaterTest_TimePeriods {
         // 'Thu, 14 Mar 2013 23:59:59 GMT'
     }
 
-    export function day_of_year() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function day_of_year() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.dayOfYear.name;
         // 'day of year'
@@ -282,8 +280,8 @@ namespace LaterTest_TimePeriods {
         // 'Wed, 13 Feb 2013 23:59:59 GMT'
     }
 
-    export function week_of_month() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function week_of_month() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.weekOfMonth.name;
         // 'week of month'
@@ -313,8 +311,8 @@ namespace LaterTest_TimePeriods {
         // 'Sat, 09 Mar 2013 23:59:59 GMT'
     }
 
-    export function week_of_year() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function week_of_year() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.weekOfYear.name;
         // 'week of year'
@@ -344,8 +342,8 @@ namespace LaterTest_TimePeriods {
         // 'Sun, 30 Dec 2012 23:59:59 GMT'
     }
 
-    export function month() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function month() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.month.name;
         // 'month'
@@ -375,8 +373,8 @@ namespace LaterTest_TimePeriods {
         // 'Thu, 28 Feb 2013 23:59:59 GMT'
     }
 
-    export function year() {
-        var d = new Date('2013-03-22T10:02:05Z');
+    function year() {
+        const d = new Date('2013-03-22T10:02:05Z');
 
         later.year.name;
         // 'year'
@@ -406,16 +404,14 @@ namespace LaterTest_TimePeriods {
         // 'Mon, 31 Dec 2012 23:59:59 GMT'
     }
 
-    export interface PartOfDayLater extends later.Static {
+    interface PartOfDayLater extends later.Static {
         partOfDay: later.TimePeriod;
     }
 
-    export function custom() {
-
-        var customLater = <PartOfDayLater> later;
+    function custom() {
+        const customLater = <PartOfDayLater> later;
 
         customLater.partOfDay = {
-
             name: 'part of day',
 
             range: later.hour.range * 6,
@@ -437,7 +433,7 @@ namespace LaterTest_TimePeriods {
             },
 
             start(date: Date) {
-                var hour = customLater.partOfDay.val(date) === 0
+                const hour = customLater.partOfDay.val(date) === 0
                     ? 0
                     : customLater.partOfDay.val(date) === 1
                         ? 12
@@ -452,7 +448,7 @@ namespace LaterTest_TimePeriods {
             },
 
             end(date: Date) {
-                var hour = customLater.partOfDay.val(date) === 0
+                const hour = customLater.partOfDay.val(date) === 0
                     ? 11
                     : customLater.partOfDay.val(date) === 1
                         ? 5
@@ -467,7 +463,7 @@ namespace LaterTest_TimePeriods {
             },
 
             next(date: Date, val: any) {
-                var hour = val === 0
+                const hour = val === 0
                     ? 0
                     : val === 1
                         ? 12
@@ -483,7 +479,7 @@ namespace LaterTest_TimePeriods {
             },
 
             prev(date: Date, val: any) {
-                var hour = val === 0
+                const hour = val === 0
                     ? 11
                     : val === 1
                         ? 5
@@ -501,9 +497,8 @@ namespace LaterTest_TimePeriods {
     }
 }
 
-namespace LaterTest_GenerateRecurences {
-
-    export function on_method() {
+function LaterTest_GenerateRecurences() {
+    function on_method() {
         // fires on the 2nd minute every hour
         later.parse.recur().on(2).minute();
 
@@ -514,27 +509,27 @@ namespace LaterTest_GenerateRecurences {
         later.parse.recur().on('08:00:00').time();
     }
 
-    export function first_method() {
+    function first_method() {
         // fires on the 0th minute of every hour
         later.parse.recur().first().minute();
     }
 
-    export function last_method() {
+    function last_method() {
         // fires on the last day of every month at 5am
         later.parse.recur().on(5).hour().last().dayOfMonth();
     }
 
-    export function onWeekend_method() {
+    function onWeekend_method() {
         // fires on the 5th minute of every hour during Sat and Sun
         later.parse.recur().on(5).minute().onWeekend();
     }
 
-    export function onWeekday_method() {
+    function onWeekday_method() {
         // fires on the 5th minute of every hour during Mon,Tues,Wed,Thur,Fri
         later.parse.recur().on(5).minute().onWeekday();
     }
 
-    export function every_method() {
+    function every_method() {
         // fires on the 0th, 10th, 20th, 30th, 40th, and 50th min of every hour
         later.parse.recur().every(10).minute();
 
@@ -542,7 +537,7 @@ namespace LaterTest_GenerateRecurences {
         later.parse.recur().every(3).month();
     }
 
-    export function after_method() {
+    function after_method() {
         // fires on the 55th, 56th, 57th, 58th, and 59th minute
         later.parse.recur().after(55).minute();
 
@@ -550,7 +545,7 @@ namespace LaterTest_GenerateRecurences {
         later.parse.recur().every(6).hour().after('09:00').time();
     }
 
-    export function before_method() {
+    function before_method() {
         // fires on the first second of January and February
         later.parse.recur().before(3).month();
 
@@ -562,63 +557,60 @@ namespace LaterTest_GenerateRecurences {
         later.parse.recur().after(9).hour().before(18).hour();
     }
 
-    export function startingOn_method() {
+    function startingOn_method() {
         // fires on the 10th, 25th, 40th, and 55th minute of every hour
         later.parse.recur().every(15).minute().startingOn(10);
     }
 
-    export function between_method() {
+    function between_method() {
         // fires on the 10th, 25th, 40th minute of every hour
         later.parse.recur().every(15).minute().between(10, 40);
     }
 
-    export function and_method() {
+    function and_method() {
         // fires every 2 hours on the first day of every month
         // and 8:00am and 8:00pm on the last day of every month
-        var sched = later.parse.recur()
+        const sched = later.parse.recur()
             .every(2).hour().first().dayOfMonth()
             .and()
             .on(8, 20).hour().last().dayOfMonth();
     }
 
-    export function except_method() {
+    function except_method() {
         // fires every minute of every hour except on multiples of 2 and 3
-        var sched = later.parse.recur()
+        const sched = later.parse.recur()
             .every().minute()
             .except()
             .every(2).minute().between(2, 59)
             .and()
             .every(3).minute().between(3, 59);
     }
-
 }
 
-namespace LaterTest_CalculateOccurences {
-
+function LaterTest_CalculateOccurences() {
     // Initialise next variable.
-    var next: Date[] = [];
+    let next: Date[] = [];
 
     // calculate the next 10 occurrences of a recur schedule
-    var recurSched = later.parse.recur().last().dayOfMonth();
+    const recurSched = later.parse.recur().last().dayOfMonth();
 
     next = later.schedule(recurSched).next(10);
 
     // calculate the previous occurrence starting from March 21, 2013
-    var cronSched = later.parse.cron('0 0/5 14,18 * * ?');
+    const cronSched = later.parse.cron('0 0/5 14,18 * * ?');
 
     next = later.schedule(cronSched).prev(1, new Date(2013, 2, 21));
 }
 
-namespace LaterTest_ExecuteCodeUsingSchedule {
-
+function LaterTest_ExecuteCodeUsingSchedule() {
     // will fire every 5 minutes
-    var textSched = later.parse.text('every 5 min');
+    const textSched = later.parse.text('every 5 min');
 
     // execute logTime one time on the next occurrence of the text schedule
-    var timer = later.setTimeout(logTime, textSched);
+    const timer = later.setTimeout(logTime, textSched);
 
     // execute logTime for each successive occurrence of the text schedule
-    var timer2 = later.setInterval(logTime, textSched);
+    const timer2 = later.setInterval(logTime, textSched);
 
     // function to execute
     function logTime() {

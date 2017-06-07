@@ -61,10 +61,10 @@ export interface Axis<Domain> {
     (context: Selection<AxisContainerElement, any, any, any>): void;
 
     /**
-    * Render the axis to the given context.
-    *
-    * @param context A transition defined on SVG containers (either SVG or G elements).
-    */
+     * Render the axis to the given context.
+     *
+     * @param context A transition defined on SVG containers (either SVG or G elements).
+     */
     (context: TransitionLike<AxisContainerElement, any>): void;
 
     /**
@@ -142,10 +142,10 @@ export interface Axis<Domain> {
     tickArguments(args: [AxisTimeInterval, string]): this;
 
     /**
-    * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
-    *
-    * @param args An array with arguments suitable for the scale to be used for tick generation
-    */
+     * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
+     *
+     * @param args An array with arguments suitable for the scale to be used for tick generation
+     */
     tickArguments(args: any[]): this;
 
     /**

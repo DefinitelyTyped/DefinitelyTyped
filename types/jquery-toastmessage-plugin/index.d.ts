@@ -30,7 +30,8 @@ declare namespace JQueryToastmessage {
         /** in effect duration in miliseconds @default 600 */
         inEffectDuration?: number;
         /**
-         * time in miliseconds before the item has to disappear @default 3000 */
+         * time in miliseconds before the item has to disappear @default 3000
+         */
         stayTime?: number;
         /** content of the item @default '' */
         text?: string;
@@ -52,6 +53,6 @@ declare namespace JQueryToastmessage {
          */
         closeText?: string;
         /** callback function when the toastmessage is closed @default null */
-        close?: () => void;
+        close?(): void;
     }
 }

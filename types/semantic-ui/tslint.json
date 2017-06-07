@@ -1,6 +1,6 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
-        "unified-signatures": false
+        "no-useless-files": false
     }
 }
