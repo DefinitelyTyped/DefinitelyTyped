@@ -2,6 +2,7 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: Saeed Tabrizi <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.1
 // Developed with love in www.nowcando.com
 
 /// <reference types="node" />

@@ -2,6 +2,7 @@
 // Project: https://github.com/andris9/nodemailer-smtp-pool
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 

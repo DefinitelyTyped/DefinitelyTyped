@@ -2,6 +2,7 @@
 // Project: https://github.com/andris9/nodemailer-stub-transport
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as nodemailer from "nodemailer";
 

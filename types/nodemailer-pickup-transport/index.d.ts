@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/nodemailer-pickup-transport
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import nodemailer = require('nodemailer');
 
