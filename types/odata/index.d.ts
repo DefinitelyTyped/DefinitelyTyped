@@ -8,8 +8,8 @@ declare module 'odata' {
 
     interface Options {
         endpoint : string
-        format ?: boolean
-        autoFormat ?: string
+        format ?: string
+        autoFormat ?: boolean
         version ?: number
         strictMode ?: boolean
         start ?: () => any
