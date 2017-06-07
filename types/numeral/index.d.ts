@@ -35,6 +35,8 @@ interface NumeralJsFormat {
 
 type RegisterType = 'format' | 'locale';
 
+type RoundingFunction = (value: number) => number;
+
 // http://numeraljs.com/#use-it
 interface Numeral {
 	(value?: any): Numeral;
@@ -60,7 +62,7 @@ interface Numeral {
 	nullFormat(format: string): void;
 	defaultFormat(format: string): void;
 	clone(): Numeral;
-	format(inputString?: string): string;
+	format(inputString?: string, roundingFunction?: RoundingFunction): string;
 	formatCurrency(inputString?: string): string;
 	unformat(inputString: string): number;
 	value(): number;
