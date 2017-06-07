@@ -4,7 +4,8 @@ Please fill in this template.
 - [ ] Test the change in your own code. (Compile and run.)
 - [ ] Follow the advice from the [readme](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#make-a-pull-request).
 - [ ] Avoid [common mistakes](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md#common-mistakes).
-- [ ] Run `npm run lint package-name` (or `tsc` if no `tslint.json` is present).
+- [ ] Run `npm run lint package-name` (if `tslint.json` is present).
+- [ ] Run `tsc`
 
 Select one of these and delete the others:
 
