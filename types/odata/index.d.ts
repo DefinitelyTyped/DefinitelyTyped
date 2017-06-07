@@ -1,9 +1,9 @@
-// Type definitions for o.js v0.3.3
-// Project: https://github.com/janhommes/o.js
-// Definitions by: Matteo Antony Mistretta <https://github.com/IceOnFire>, Brad Zacher <https://github.com/bradzacher>, Jan Hommes <https://github.com/janhommes>
+// Type definitions for odata v0.3.3
+// Project: https://github.com/janhommes/odata
+// Definitions by: Jan Hommes <https://github.com/janhommes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'o.js' {
+declare module 'odata' {
     import Q = require("q");
 
     interface Options {
