@@ -25,6 +25,7 @@
         "branch.d.ts",
         "buf.d.ts",
         "cert-host-key.d.ts",
+        "cert-x509.d.ts",
         "cert.d.ts",
         "checkout-options.d.ts",
         "checkout.d.ts",
