@@ -5,6 +5,7 @@
 
 export { AnnotatedCommit } from './annotated-commit';
 export { Blob } from './blob';
+export { Branch } from './branch';
 export { Buf } from './buf';
 export { CheckoutOptions } from './checkout-options';
 export { Checkout } from './checkout';
