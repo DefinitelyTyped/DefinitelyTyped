@@ -1,4 +1,4 @@
-// Type definitions for Node.js v8.x
+// Type definitions for Node.js v7.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -10,7 +10,7 @@
 
 /************************************************
 *                                               *
-*               Node.js v8.x API                *
+*               Node.js v7.x API                *
 *                                               *
 ************************************************/
 
@@ -3818,7 +3818,6 @@ declare module "util" {
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
     export function deprecate(fn: Function, message: string): Function;
-    export function promisify(fn: Function): Function;
 }
 
 declare module "assert" {
