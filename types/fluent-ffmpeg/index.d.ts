@@ -105,6 +105,14 @@ declare namespace Ffmpeg {
         size?: string;
     }
 
+    // ffprobe
+    /* tslint:disable:unified-signatures */
+    function ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    function ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    function ffprobe(options: string, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    function ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    /* tslint:enable:unified-signatures */
+
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
         constructor(input?: string | stream.Readable, options?: FfmpegCommandOptions);
@@ -279,7 +287,7 @@ declare namespace Ffmpeg {
         /* tslint:disable:unified-signatures */
         ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+        ffprobe(options: string, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         /* tslint:enable:unified-signatures */
 
