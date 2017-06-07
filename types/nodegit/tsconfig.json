@@ -30,6 +30,7 @@
         "enums.d.ts",
         "error.d.ts",
         "fetch-options.d.ts",
+        "fetch.d.ts",
         "filter.d.ts",
         "git-err.d.ts",
         "hash-sig.d.ts",
