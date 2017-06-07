@@ -18,6 +18,9 @@
     "files": [
         "annotated-commit.d.ts",
         "attr.d.ts",
+        "blame-hunk.d.ts",
+        "blame-options.d.ts",
+        "blame.d.ts",
         "blob.d.ts",
         "branch.d.ts",
         "buf.d.ts",

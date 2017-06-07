@@ -5,6 +5,9 @@
 
 export { AnnotatedCommit } from './annotated-commit';
 export { Attr } from './attr';
+export { BlameHunk } from './blame-hunk';
+export { BlameOptions } from './blame-options';
+export { Blame } from './blame';
 export { Blob } from './blob';
 export { Branch } from './branch';
 export { Buf } from './buf';
