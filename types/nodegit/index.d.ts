@@ -12,6 +12,7 @@ export { Config } from './config';
 export { ConvenientPatch } from './convenient-patch';
 export { DiffDelta } from './diff-delta';
 export { DiffFile } from './diff-file';
+export { DiffOptions } from './diff-options';
 export { DiffPerfdata } from './diff-perf-data';
 export { Diff } from './diff';
 export { Enums } from './enums';
