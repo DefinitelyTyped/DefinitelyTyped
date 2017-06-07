@@ -2,9 +2,10 @@
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.2/api/
+
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="bson" />
