@@ -48,10 +48,6 @@ function StepSample() {
         Given(/^a variable set to (\d+)$/, (x: string) => {
             console.log("the number is: " + x);
         });
-        
-        Given(/^a variable set to (\d+)$/, (x: number) => {
-            console.log(typeof x);
-        });
 
         Given(/^a variable set to (\d+)$/, (x: number) => {
             console.log(typeof x);
