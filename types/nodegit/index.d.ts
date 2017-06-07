@@ -20,6 +20,7 @@ export { FetchOptions } from './fetch-options';
 export { Fetch } from './fetch';
 export { Filter } from './filter';
 export { Giterr } from './git-err';
+export { Graph } from './graph';
 export { Hashsig } from './hash-sig';
 export { Index } from './index_';
 export { IndexEntry } from './index-entry';
