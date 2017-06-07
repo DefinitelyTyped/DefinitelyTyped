@@ -52,7 +52,7 @@ declare namespace StackTrace {
    * @param options Options Object
    * @return Array[StackFrame]
    */
-  export function getSync(options?: { filter?: (stackFrame: StackFrame) => boolean }): StackFrame[]
+  export function getSync(options?: StackTraceOptions): StackFrame[];
 
   /**
    * Given an error object, parse it.
