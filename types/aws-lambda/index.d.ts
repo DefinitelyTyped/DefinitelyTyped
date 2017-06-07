@@ -16,6 +16,10 @@ interface APIGatewayEvent {
     requestContext: {
         accountId: string;
         apiId: string;
+        authorizer?: {
+            principalId: string;
+            [name: string]: string | number | boolean;
+        };
         httpMethod: string;
         identity: {
             accessKey: string | null;
