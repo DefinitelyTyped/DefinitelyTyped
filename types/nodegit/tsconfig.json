@@ -20,6 +20,7 @@
         "blob.d.ts",
         "buf.d.ts",
         "checkout-options.d.ts",
+        "checkout.d.ts",
         "commit.d.ts",
         "config.d.ts",
         "convenient-patch.d.ts",

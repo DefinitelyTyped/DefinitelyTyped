@@ -7,6 +7,7 @@ export { AnnotatedCommit } from './annotated-commit';
 export { Blob } from './blob';
 export { Buf } from './buf';
 export { CheckoutOptions } from './checkout-options';
+export { Checkout } from './checkout';
 export { Commit } from './commit';
 export { Config } from './config';
 export { ConvenientPatch } from './convenient-patch';
