@@ -11,6 +11,7 @@ export { Blame } from './blame';
 export { Blob } from './blob';
 export { Branch } from './branch';
 export { Buf } from './buf';
+export { CertHostKey } from './cert-host-key';
 export { Cert } from './cert';
 export { CheckoutOptions } from './checkout-options';
 export { Checkout } from './checkout';
