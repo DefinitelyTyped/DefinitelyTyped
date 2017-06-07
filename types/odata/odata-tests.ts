@@ -1,4 +1,4 @@
-import * as o from 'o.js';
+import * as o from 'odata';
 import * as Q from "q";
 
 interface Product {
@@ -137,8 +137,8 @@ o('Products').get<Product>(function(data) {
 //basic config
 o().config({
     endpoint:null,    // your odata endpoint for the service
-    format:'json',        // currently only json is supported
-    autoFormat: false,
+    format: 'json',
+    autoFormat:false,        // currently only json is supported
     version:4,        // oData version (currently supported version 4. However most also work with version 3.)
     strictMode:true,  // strict mode throws exception, non strict mode only logs them
     start:null,       // a function which is executed on loading
