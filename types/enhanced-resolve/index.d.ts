@@ -73,7 +73,7 @@ declare namespace Resolve {
         interface AliasItem {
             alias: string;
             name: string;
-            onlyModule: boolean;
+            onlyModule?: boolean;
         }
         function createResolver(options: ResolverOption): Resolver;
     }
