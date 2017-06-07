@@ -5,7 +5,7 @@ export interface IndexTime {
     nanoseconds: number;
 }
 
-export interface IndexEntry {
+export class IndexEntry {
     ctime: IndexTime;
     mtime: IndexTime;
     dev: number;
