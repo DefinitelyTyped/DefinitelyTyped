@@ -16,6 +16,7 @@ export { CertX509 } from './cert-x509';
 export { Cert } from './cert';
 export { CheckoutOptions } from './checkout-options';
 export { Checkout } from './checkout';
+export { CherrypickOptions } from './cherry-pick-options';
 export { Cherrypick } from './cherry-pick';
 export { CloneOptions } from './clone-options';
 export { Clone } from './clone';
