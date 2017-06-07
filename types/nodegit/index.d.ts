@@ -23,6 +23,7 @@ export { Clone } from './clone';
 export { Commit } from './commit';
 export { Config } from './config';
 export { ConvenientPatch } from './convenient-patch';
+export { Cred } from './cred';
 export { CvarMap } from './cvar-map';
 export { DescribeFormatOptions } from './describe-format-options';
 export { DescribeOptions } from './describe-options';
