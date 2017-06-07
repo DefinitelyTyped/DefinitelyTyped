@@ -22,6 +22,7 @@ interface NumeralJSLocale {
 	};
 }
 
+type RoundingFunction = (value: number) => number;
 
 // http://numeraljs.com/#custom-formats
 interface NumeralJsFormat {
@@ -29,13 +30,11 @@ interface NumeralJsFormat {
 		format: RegExp,
 		unformat: RegExp,
 	},
-	format: (value: any, format: string, roundingFunction: Function) => string,
+	format: (value: any, format: string, roundingFunction: RoundingFunction) => string,
 	unformat: (value: string) => number
 }
 
 type RegisterType = 'format' | 'locale';
-
-type RoundingFunction = (value: number) => number;
 
 // http://numeraljs.com/#use-it
 interface Numeral {
