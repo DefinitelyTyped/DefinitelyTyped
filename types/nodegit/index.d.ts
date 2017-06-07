@@ -16,6 +16,7 @@ export { DiffPerfdata } from './diff-perf-data';
 export { Diff } from './diff';
 export { Enums } from './enums';
 export { FetchOptions } from './fetch-options';
+export { Giterr } from './git-err';
 export { Hashsig } from './hash-sig';
 export { Index } from './index_';
 export { IndexEntry } from './index-entry';
