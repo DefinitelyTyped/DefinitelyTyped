@@ -2,6 +2,20 @@ import { Repository } from './repository';
 import { Blob } from './blob';
 import { Buf } from './buf';
 
+export namespace Filter {
+    enum FLAG {
+        DEFAULT = 0,
+        ALLOW_UNSAFE = 1
+    }
+
+    enum MODE {
+        TO_WORKTREE = 0,
+        SMUDGE = 0,
+        TO_ODB = 1,
+        CLEAN = 1
+    }
+}
+
 export class Filter {
     static listContains(filters: any, name: string): number;
     static listLength(fl: any): number;
