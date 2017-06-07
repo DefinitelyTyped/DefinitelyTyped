@@ -13,6 +13,8 @@ export { Branch } from './branch';
 export { Buf } from './buf';
 export { CheckoutOptions } from './checkout-options';
 export { Checkout } from './checkout';
+export { CloneOptions } from './clone-options';
+export { Clone } from './clone';
 export { Commit } from './commit';
 export { Config } from './config';
 export { ConvenientPatch } from './convenient-patch';
