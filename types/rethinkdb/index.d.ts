@@ -1,6 +1,6 @@
 // Type definitions for RethinkDB 2.3
 // Project: http://rethinkdb.com/
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>
+// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>, Adrian Farmadin <https://github.com/AdrianFarmadin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Reference: https://rethinkdb.com/api/javascript/
@@ -36,6 +36,9 @@ declare module "rethinkdb" {
 
     export function asc(property: string): Sort;
     export function desc(property: string): Sort;
+
+    export function point(lng: number, lat: number): Point;
+    export function polygon(...point: Point[]): Polygon;
 
     export var count: Aggregator;
     export function sum(prop: string): Aggregator;
@@ -221,6 +224,18 @@ declare module "rethinkdb" {
          * See: https://rethinkdb.com/api/javascript/has_fields/
          */
         hasFields(...fields: string[]): T;
+    } 
+
+    interface Geometry {
+
+    }
+
+    interface Point {
+
+    }
+
+    interface Polygon extends Geometry {
+
     }
 
     interface Table extends Sequence, HasFields<Sequence> {
@@ -234,6 +249,8 @@ declare module "rethinkdb" {
         get(key: string): Sequence; // primary key
         getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
         getAll(...keys: string[]): Sequence;
+
+	getIntersecting(geometry: Geometry, index: Index): Sequence;
     }
 
     interface Sequence extends Operation<Cursor>, Writeable {
