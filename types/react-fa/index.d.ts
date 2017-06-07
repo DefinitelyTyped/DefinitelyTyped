@@ -37,7 +37,6 @@ export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-    children?: IconProps[];
 }
 
 export type IconStack = Component<IconStackProps, any>;
