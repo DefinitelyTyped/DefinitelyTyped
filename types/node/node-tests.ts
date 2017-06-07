@@ -183,6 +183,10 @@ namespace fs_tests {
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
         fs.readFile('testfile', (err, data) => buffer = data);
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
+        fs.readFile(1, 'utf8', (err, data) => content = data);
+        fs.readFile(2, { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile(3, (err, data) => buffer = data);
+        fs.readFile(4, { flag: 'r' }, (err, data) => buffer = data);
     }
 
     {
