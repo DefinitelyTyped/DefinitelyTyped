@@ -11,6 +11,7 @@ export { Commit } from './commit';
 export { Config } from './config';
 export { ConvenientPatch } from './convenient-patch';
 export { DiffBinaryFile } from './diff-binary-file';
+export { DiffBinary } from './diff-binary';
 export { DiffDelta } from './diff-delta';
 export { DiffFile } from './diff-file';
 export { DiffHunk } from './diff-hunk';
