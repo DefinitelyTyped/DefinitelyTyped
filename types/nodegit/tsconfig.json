@@ -31,6 +31,7 @@
         "fetch-options.d.ts",
         "index-entry.d.ts",
         "index.d.ts",
+        "indexer.d.ts",
         "lib-git2.d.ts",
         "merge-file-input.d.ts",
         "merge-file-options.d.ts",
