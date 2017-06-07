@@ -12,7 +12,7 @@ import * as Redis from "ioredis";
  * It creates a new Queue that is persisted in Redis.
  * Everytime the same queue is instantiated it tries to process all the old jobs that may exist from a previous unfinished session.
  */
-declare var Bull: {
+declare const Bull: {
     // tslint:disable:unified-signatures
     (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
     (queueName: string, url?: string): Bull.Queue;
@@ -27,6 +27,12 @@ declare namespace Bull {
          * Options passed directly to the `ioredis` constructor
          */
         redis?: Redis.RedisOptions;
+
+        /**
+         * When specified, the `Queue` will use this function to create new `ioredis` client connections.
+         * This is useful if you want to re-use connections.
+         */
+        createClient?(type: 'client' | 'subscriber', redisOpts?: Redis.RedisOptions): Redis.Redis;
 
         /**
          * Prefix to use for all redis keys

@@ -2,12 +2,12 @@
  * Created by Bruno Grieder
  */
 
+import * as Redis from "ioredis";
 import * as Queue from "bull";
 
 const videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
 const audioQueue = new Queue('audio transcoding', {redis: {port: 6379, host: '127.0.0.1'}}); // Specify Redis connection using object
 const imageQueue = new Queue('image transcoding');
-const pdfQueue = new Queue('pdf transcoding');
 
 videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created
@@ -66,6 +66,28 @@ imageQueue.process((job, done) => {
 videoQueue.add({video: 'http://example.com/video1.mov'});
 audioQueue.add({audio: 'http://example.com/audio1.mp3'});
 imageQueue.add({image: 'http://example.com/image1.tiff'});
+
+//////////////////////////////////////////////////////////////////////////////////
+//
+// Re-using Redis Connections
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+const client = new Redis();
+const subscriber = new Redis();
+
+const pdfQueue = new Queue('pdf transcoding', {
+    createClient: (type: string, options: Redis.RedisOptions) => {
+        switch (type) {
+            case 'client':
+                return client;
+            case 'subscriber':
+                return subscriber;
+            default:
+                return new Redis(options);
+        }
+    }
+});
 
 //////////////////////////////////////////////////////////////////////////////////
 //
