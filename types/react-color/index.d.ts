@@ -1,6 +1,6 @@
 // Type definitions for react-color 2.11
 // Project: https://github.com/casesandberg/react-color/
-// Definitions by: Karol Janyst <https://github.com/LKay>
+// Definitions by: Karol Janyst <https://github.com/LKay>, Vitalie Lazu <https://github.com/vitaliel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -11,6 +11,13 @@ export interface HSLColor {
     h: number;
     l: number;
     s: number;
+}
+
+export interface HSVColor {
+    a?: number;
+    h: number;
+    s: number;
+    v: number;
 }
 
 export interface RGBColor {
@@ -26,6 +33,15 @@ export interface ColorResult {
     hex: string;
     hsl: HSLColor;
     rgb: RGBColor;
+}
+
+export interface ColorState {
+    hex: string;
+    hsl?: HSLColor;
+    hsv?: HSVColor;
+    rgb?: RGBColor;
+    oldHue?: number;
+    source?: string;
 }
 
 export type ColorChangeHandler = (color: ColorResult) => void;

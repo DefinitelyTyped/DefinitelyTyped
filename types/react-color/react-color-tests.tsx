@@ -24,8 +24,8 @@ const CustomComponent: StatelessComponent<CustomProps> = (props: CustomProps) =>
             <Alpha color={ props.color } onChange={ onChange } />
             <Checkboard size={ 10 } white="transparent" grey="#333" />
             <EditableInput value={ props.color } label="Test" onChange={ onChange } />
-            <Hue color={ props.color } direction="horizontal" onChange={ onChange } />
-            <Saturation color={ props.color } onChange={ onChange } />
+            <Hue color={ props.color } hsl={ {h: 100, s: 20, l: 20} } direction="horizontal" onChange={ onChange } />
+            <Saturation color={ props.color } hsl={ {h: 100, s: 20, l: 20} } hsv={ {h: 100, s: 20, v: 20} } onChange={ onChange } />
         </div>
     );
 };
