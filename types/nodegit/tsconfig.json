@@ -25,6 +25,7 @@
         "convenient-patch.d.ts",
         "diff-delta.d.ts",
         "diff-file.d.ts",
+        "diff-options.d.ts",
         "diff-perf-data.d.ts",
         "diff.d.ts",
         "enums.d.ts",
