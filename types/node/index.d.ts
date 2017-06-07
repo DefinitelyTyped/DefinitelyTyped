@@ -7,6 +7,7 @@
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /************************************************
 *                                               *
