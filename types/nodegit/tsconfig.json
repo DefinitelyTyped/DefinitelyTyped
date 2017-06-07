@@ -29,6 +29,7 @@
         "diff.d.ts",
         "enums.d.ts",
         "fetch-options.d.ts",
+        "hash-sig.d.ts",
         "ignore.d.ts",
         "index-entry.d.ts",
         "index.d.ts",
