@@ -32,6 +32,7 @@
         "index-entry.d.ts",
         "index.d.ts",
         "merge-file-input.d.ts",
+        "merge-file-options.d.ts",
         "merge-file-result.d.ts",
         "merge-options.d.ts",
         "merge.d.ts",
