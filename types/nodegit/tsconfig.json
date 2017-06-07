@@ -36,6 +36,7 @@
         "commit.d.ts",
         "config.d.ts",
         "convenient-patch.d.ts",
+        "cred.d.ts",
         "cvar-map.d.ts",
         "describe-format-options.d.ts",
         "describe-options.d.ts",
