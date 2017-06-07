@@ -28,19 +28,19 @@ function capture(resultContainer: HTMLElement, map: H.Map, ui: H.ui.UI) {
  * Boilerplate map initialization code starts below:
  */
 // Step 1: initialize communication with the platform
-var platform = new H.service.Platform({
+let platform = new H.service.Platform({
     app_id: 'DemoAppId01082013GAL',
     app_code: 'AJKnXv84fjrb0KIHawS0Tg',
     useHTTPS: true,
     useCIT: true
 });
 
-var defaultLayers = platform.createDefaultLayers();
+let defaultLayers = platform.createDefaultLayers();
 
-var mapContainer = document.getElementById('map');
+let mapContainer = document.getElementById('map');
 
 // Step 2: initialize a map
-var map = new H.Map(mapContainer, defaultLayers.normal.map, {
+let map = new H.Map(mapContainer, defaultLayers.normal.map, {
     // initial center and zoom level of the map
     zoom: 16,
     // Champs-Elysees
@@ -50,23 +50,22 @@ var map = new H.Map(mapContainer, defaultLayers.normal.map, {
 // Step 3: make the map interactive
 // MapEvents enables the event system
 // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
-var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Step 4: Create the default UI
-var ui = H.ui.UI.createDefault(map, defaultLayers, 'en-US');
-
+let ui = H.ui.UI.createDefault(map, defaultLayers, 'en-US');
 
 // Step 6: Create "Capture" button and place for showing the captured area
-var resultContainer = document.getElementById('panel');
+let resultContainer = document.getElementById('panel');
 
 // Create container for the "Capture" button
-var containerNode = document.createElement('div');
+let containerNode = document.createElement('div');
 containerNode.setAttribute('style',
     'position:absolute;top:0;left:0;background-color:#fff; padding:10px;');
 containerNode.className = 'btn-group';
 
 // Create the "Capture" button
-var captureBtn = document.createElement('input');
+let captureBtn = document.createElement('input');
 captureBtn.value = 'Capture';
 captureBtn.type = 'button';
 captureBtn.className = 'btn btn-sm btn-default';
@@ -76,6 +75,6 @@ containerNode.appendChild(captureBtn);
 mapContainer.appendChild(containerNode);
 
 // Step 7: Handle capture button click event
-captureBtn.onclick = function() {
+captureBtn.onclick = () => {
     capture(resultContainer, map, ui);
 };
