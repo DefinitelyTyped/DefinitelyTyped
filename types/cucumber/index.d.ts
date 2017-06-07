@@ -279,5 +279,5 @@ declare namespace cucumber {
     export function registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
     export function registerListener(listener: EventListener): void;
     export function defineParameterType(transform: Transform): void;
-}
+
 }
