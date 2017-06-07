@@ -5,6 +5,7 @@ import { Strarray } from './str-array';
 import { Index } from './index_';
 import { DiffDelta } from './diff-delta';
 import { DiffPerfdata } from './diff-perf-data';
+import { DiffOptions } from './diff-options';
 
 export interface DiffFindOptions {
     version: number;
@@ -14,21 +15,6 @@ export interface DiffFindOptions {
     copyThreshold: number;
     breakRewriteThreshold: number;
     renameLimit: number;
-}
-
-export interface DiffOptions {
-    version: number;
-    flags: number;
-    ignoreSubmodules: number;
-    pathspec: Strarray;
-    notifyCb: Function;
-    notifyPayload: undefined;
-    contextLines: number;
-    interhunkLines: number;
-    idAbbrev: number;
-    maxSize: number;
-    oldPrefix: string;
-    newPrefix: string;
 }
 
 export namespace Diff {
@@ -140,7 +126,7 @@ export namespace Diff {
 
 export class Diff {
     static blobToBuffer(old_blob: Blob, oldAsPath: string,
-                        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
+        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
     static indexToWorkdir(repo: Repository, index: Index, opts: DiffOptions): Promise<Diff>;
     static treeToIndex(repo: Repository, old_tree: Tree, index: Index, opts: DiffOptions): Promise<Diff>;
     static treeToTree(repo: Repository, old_tree: Tree, new_tree: Tree, opts: DiffOptions): Promise<Diff>;
