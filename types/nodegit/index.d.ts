@@ -15,7 +15,7 @@ export { DiffFile } from './diff-file';
 export { DiffLine } from './diff-line';
 export { DiffOptions } from './diff-options';
 export { DiffPerfdata } from './diff-perf-data';
-export { Diff } from './diff';
+export { Diff, DiffFindOptions } from './diff';
 export { Enums } from './enums';
 export { Error } from './error';
 export { FetchOptions } from './fetch-options';
