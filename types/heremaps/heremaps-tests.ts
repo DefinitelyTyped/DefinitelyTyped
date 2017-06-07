@@ -78,3 +78,5 @@ mapContainer.appendChild(containerNode);
 captureBtn.onclick = () => {
     capture(resultContainer, map, ui);
 };
+
+let icon = new H.map.Icon('svg', { size: 5, crossOrigin: false });
