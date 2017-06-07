@@ -44,7 +44,7 @@ export { Push } from './push';
 export { RebaseOperation } from './rebase-operation';
 export { Rebase, RebaseOptions } from './rebase';
 export { Refdb } from './ref-db';
-export { Reflog, ReflogEntry } from './ref-log'
+export { Reflog, ReflogEntry } from './ref-log';
 export { Refspec } from './ref-spec';
 export { Reference } from './reference';
 export { RemoteCallbacks } from './remote-callbacks';
