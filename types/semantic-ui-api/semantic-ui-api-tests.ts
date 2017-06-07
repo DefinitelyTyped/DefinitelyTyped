@@ -1,4 +1,4 @@
-function test_static() {
+function test_api_static() {
     $.api.settings.className.error = 'error';
     $.api.settings.namespace = 'namespace';
     $.api.settings.name = 'name';
@@ -42,7 +42,6 @@ function test_api() {
         loadingDuration: 3,
         hideError: true,
         errorDuration: 10,
-
         action: 'action',
         url: 'url',
         urlData: false,
