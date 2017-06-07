@@ -705,9 +705,9 @@ declare namespace H {
              */
             interface ObjectStyleOptions {
                 icon: H.map.Icon;
-                style: H.map.SpatialStyle.Options;
-                arrows: H.map.ArrowStyle.Options;
-                zIndex: number;
+                style?: H.map.SpatialStyle.Options;
+                arrows?: H.map.ArrowStyle.Options;
+                zIndex?: number;
             }
 
             /**
