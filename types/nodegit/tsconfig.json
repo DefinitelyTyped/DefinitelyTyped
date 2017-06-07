@@ -33,6 +33,7 @@
         "fetch.d.ts",
         "filter.d.ts",
         "git-err.d.ts",
+        "graph.d.ts",
         "hash-sig.d.ts",
         "ignore.d.ts",
         "index-entry.d.ts",
