@@ -10,6 +10,7 @@ export { CheckoutOptions } from './checkout-options';
 export { Commit } from './commit';
 export { Config } from './config';
 export { ConvenientPatch } from './convenient-patch';
+export { DescribeFormatOptions } from './describe-format-options';
 export { DescribeOptions } from './describe-options';
 export { DiffBinaryFile } from './diff-binary-file';
 export { DiffBinary } from './diff-binary';
