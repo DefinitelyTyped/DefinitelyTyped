@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 1.12.1
+// Type definitions for webpack-dev-server 2.4.5
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,6 +26,8 @@ declare module "webpack-dev-server" {
             publicPath: string;
             headers?: any;
             stats?: webpack.compiler.StatsOptions| webpack.compiler.StatsToStringOptions;
+            public?: string;
+            disableHostCheck?: boolean;
 
             setup?(app: core.Express): void;
         }

@@ -13,6 +13,7 @@ const handler: Hapi.RouteHandler = function (request, reply) {
 server.route({ method: 'GET', path: '/', handler: handler });
 
 server.inject('/', (res) => {
-
+    const num: number = res.statusCode;
+    const result = res.result as {aField: string};
     console.log(res.result);
 });

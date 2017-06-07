@@ -4,20 +4,20 @@ import * as React from 'react';
 // Examples taken from http://kyleamathews.github.io/react-spinkit/
 const spinners = [
     // Basic spinners
-    <Spinner spinnerName="three-bounce" />,
-    <Spinner spinnerName="double-bounce" />,
-    <Spinner spinnerName="rotating-plane" />,
-    <Spinner spinnerName="folding-cube" />,
-    <Spinner spinnerName="wave" />,
-    <Spinner spinnerName="wandering-cubes" />,
-    <Spinner spinnerName="pulse" />,
-    <Spinner spinnerName="chasing-dots" />,
-    <Spinner spinnerName="circle" />,
-    <Spinner spinnerName="cube-grid" />,
-    <Spinner spinnerName="wordpress" />,
+    <Spinner name="three-bounce" />,
+    <Spinner name="double-bounce" />,
+    <Spinner name="rotating-plane" />,
+    <Spinner name="folding-cube" />,
+    <Spinner name="wave" />,
+    <Spinner name="wandering-cubes" />,
+    <Spinner name="pulse" />,
+    <Spinner name="chasing-dots" />,
+    <Spinner name="circle" />,
+    <Spinner name="cube-grid" />,
+    <Spinner name="wordpress" />,
 
     // Spinner options
-    <Spinner spinnerName="wordpress" noFadeIn />,
-    <Spinner spinnerName="wordpress" overrideSpinnerClassName="my-class-to-override" />,
-    <Spinner spinnerName="wordpress" className="my-class" />,
+    <Spinner name="wordpress" noFadeIn />,
+    <Spinner name="wordpress" overrideSpinnerClassName="my-class-to-override" />,
+    <Spinner name="wordpress" className="my-class" />,
 ];

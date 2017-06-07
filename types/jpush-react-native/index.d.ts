@@ -118,5 +118,5 @@ export default class JPush {
     /**
      * iOS
      */
-    static setBadge(badge: number, callback: (badges: number[]) => void): void;
+    static setBadge(badge: number, callback: (isSuccess: boolean) => void): void;
 }
