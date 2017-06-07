@@ -2,7 +2,7 @@ import { Strarray } from './str-array';
 import { Tree } from './tree';
 import { Index } from './index';
 
-export interface CheckoutOptions {
+export class CheckoutOptions {
     version?: number;
     checkoutStrategy?: number;
     disableFilters?: number;
