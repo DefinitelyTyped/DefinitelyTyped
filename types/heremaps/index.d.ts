@@ -1743,7 +1743,7 @@ declare namespace H {
              * @property crossOrigin {boolean} - Specifies whether to use anonynous Cross-Origin Resource Sharing (CORS) when fetching an image to prevent resulting canvas from tainting, default is false. The option is ignored by IE9-10.
              */
             export interface Options {
-                size?: H.math.ISize;
+                size?: H.math.ISize | number;
                 anchor?: H.math.IPoint;
                 hitArea?: H.map.HitArea;
                 asCanvas?: H.map.HitArea;
