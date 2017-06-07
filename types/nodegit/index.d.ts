@@ -18,6 +18,7 @@ export { Enums } from './enums';
 export { FetchOptions } from './fetch-options';
 export { Index } from './index_';
 export { IndexEntry } from './index-entry';
+export { Ignore } from './ignore';
 export { Indexer } from './indexer';
 export { Libgit2 } from './lib-git2';
 export { MergeFileInput } from './merge-file-input';
