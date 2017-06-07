@@ -81,10 +81,15 @@ declare namespace cucumber {
 
     export class EventListener {
         hear(event: events.Event, callback: () => void): void;
+
         hasHandlerForEvent(event: events.Event): boolean;
+
         buildHandlerNameForEvent(event: events.Event): string;
+
         getHandlerForEvent(event: events.Event): EventHook;
+
         buildHandlerName(shortName: string): string;
+
         setHandlerForEvent(shortName: string, handler: EventListener): void;
     }
 
@@ -239,7 +244,9 @@ declare namespace cucumber {
     }
     export class PrettyFormatter extends SummaryFormatter {
         formatTags(tags: Tag[]): any;
+
         logIndented(text: string, level: number): void;
+
         logStepResult(stepResult: any): void;
     }
 
@@ -264,20 +271,29 @@ declare namespace cucumber {
     // Functions - Aliases since v2.3.0
     export function Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
     export function Given(pattern: RegExp | string, code: StepDefinitionCode): void;
+
     export function When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
     export function When(pattern: RegExp | string, code: StepDefinitionCode): void;
+
     export function Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
     export function Then(pattern: RegExp | string, code: StepDefinitionCode): void;
+
     export function setDefaultTimeout(time: number): void;
 
     export function Before(code: HookCode): void;
     export function Before(options: HookOptions, code: HookCode): void;
+
     export function After(code: HookCode): void;
     export function After(options: HookOptions, code: HookCode): void;
-    export function setDefinitionFunctionWrapper(fn:Function): PromiseLike<any>;
+
+    export function setDefinitionFunctionWrapper(fn: Function): PromiseLike<any>;
+
     export function setWorldConstructor(world: (() => void) | ({})): void;
+
     export function registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
+
     export function registerListener(listener: EventListener): void;
+
     export function defineParameterType(transform: Transform): void;
 
 }
