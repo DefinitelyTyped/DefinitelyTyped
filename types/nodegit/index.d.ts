@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';
+export { Attr } from './attr';
 export { Blob } from './blob';
 export { Branch } from './branch';
 export { Buf } from './buf';
