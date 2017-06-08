@@ -3,9 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference types="jquery"/>
-
 interface ModalOptions {
     backdrop?: boolean|string;
     keyboard?: boolean;
