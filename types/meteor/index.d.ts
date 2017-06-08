@@ -1511,6 +1511,8 @@ declare module Mongo {
         new (hexString?: string): ObjectID;
     }
     interface ObjectID { }
+
+    function setConnectionOptions(options: any): void;
 }
 
 declare module "meteor/mongo" {
@@ -1620,6 +1622,8 @@ declare module "meteor/mongo" {
             new (hexString?: string): ObjectID;
         }
         interface ObjectID { }
+
+        function setConnectionOptions(options: any): void;
     }
 }
 

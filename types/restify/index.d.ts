@@ -2,6 +2,7 @@
 // Project: https://github.com/mcavage/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
