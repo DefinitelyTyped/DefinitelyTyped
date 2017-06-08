@@ -61,7 +61,7 @@ declare namespace Boom {
      * @param message optional message string. If the error already has a message, it adds the message as a prefix. Defaults to no message.
      * @see {@link https://github.com/hapijs/boom#wraperror-statuscode-message}
      */
-    export function wrap(error: Error, statusCode?: number, message?: string): BoomError;
+    export function wrap(error: Error, statusCode?: number, message?: string): BoomError<null>;
 
     /**
      * Generates an Error object with the boom decorations
@@ -90,10 +90,10 @@ declare namespace Boom {
      * @param attributes an object of values to use while setting the 'WWW-Authenticate' header. This value is only used when scheme is a string, otherwise it is ignored. Every key/value pair will be included in the 'WWW-Authenticate' in the format of 'key="value"' as well as in the response payload under the attributes key. Alternatively value can be a string which is use to set the value of the scheme, for example setting the token value for negotiate header. If string is used message parameter must be null. null and undefined will be replaced with an empty string. If attributes is set, message will be used as the 'error' segment of the 'WWW-Authenticate' header. If message is unset, the 'error' segment of the header will not be present and isMissing will be true on the error object.
      * @see {@link https://github.com/hapijs/boom#boomunauthorizedmessage-scheme-attributes}
      */
-    export function unauthorized(message?: string, scheme?: string, attributes?: {[index: string]: string}): BoomError;
-    export function unauthorized(message?: string, scheme?: string[]): BoomError;
-    export function unauthorized(message?: null, scheme?: string, attributes?: {[index: string]: string} | string): BoomError;
-    export function unauthorized(message?: null, scheme?: string[]): BoomError;
+    export function unauthorized(message?: string, scheme?: string, attributes?: {[index: string]: string}): BoomError<null>;
+    export function unauthorized(message?: string, scheme?: string[]): BoomError<null>;
+    export function unauthorized(message?: null, scheme?: string, attributes?: {[index: string]: string} | string): BoomError<null>;
+    export function unauthorized(message?: null, scheme?: string[]): BoomError<null>;
 
     /**
      * Returns a 402 Payment Required error

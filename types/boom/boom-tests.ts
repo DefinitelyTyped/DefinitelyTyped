@@ -144,7 +144,7 @@ const error2: Boom.BoomError = Boom.badImplementation('message');
 
 // If the interface defaults its generic parameter to null, you cannot pass it as a parameter to existing continuation functions:
 const handleError: Hapi.ContinuationValueFunction = (err?: Boom.BoomError | null) => {
-    if (!err || !err.data.isCustom === true) {
+    if (!err || !err.data.isCustom) {
         return;
     }
 
@@ -163,9 +163,8 @@ const handleError: Hapi.ContinuationValueFunction = (err?: Boom.BoomError | null
 };
 handleError(Boom.badData());
 
-
 // Also errors with custom data can only be passed to existing continuation functions if the Data type defaults to any
-const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: <'Custom1'>'Custom1', isCustom: <true>true });
+const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: 'Custom1', isCustom: true } as CustomData1);
 handleError(errorWithData);
 
 const errorWithExplicitType: Boom.BoomError<CustomData> = errorWithData;
