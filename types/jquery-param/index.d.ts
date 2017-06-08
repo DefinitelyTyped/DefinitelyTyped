@@ -3,8 +3,12 @@
 // Definitions by: Pat Sissons <http://github.com/patsissons>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace param;
+interface ParamFn {
+    (obj: any): string;
+}
 
-export = param;
+declare var param: ParamFn;
 
-declare function param(obj: any): string;
+declare module "jquery-param" {
+    export = param
+}
