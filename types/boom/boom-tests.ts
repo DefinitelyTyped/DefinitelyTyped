@@ -1,4 +1,5 @@
 import Boom = require('boom');
+import * as Hapi from 'hapi';
 
 // 4xx and data type
 
@@ -133,3 +134,19 @@ interface CustomPayload extends Boom.Payload {
 }
 
 (error.output.payload as CustomPayload).custom = 'abc_123';
+
+/**
+ * Test additional data
+ */
+
+// If the concrete functions do not default their generic parameter to null, too, this fails:
+const error2: Boom.BoomError = Boom.badImplementation('really bad');
+
+// And this too:
+const next = <Hapi.ContinuationValueFunction>(() => { });
+next(Boom.badData());
+
+interface CustomData {
+    custom: string;
+}
+const errorWithData: Boom.BoomError<CustomData> = Boom.badImplementation('', { custom: 'test' });
