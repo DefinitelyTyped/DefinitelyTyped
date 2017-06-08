@@ -10,9 +10,9 @@
 /* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
-    interface Filter {
-        map(doc: any): void;
-        reduce?(key: string, value: any): any;
+    interface Filter<Content extends {}, Reduction> {
+        map(doc: Content): void;
+        reduce?(key: string, value: Content): Reduction;
     }
 
     namespace Query {
@@ -94,17 +94,32 @@ declare namespace PouchDB {
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Model>(fun: string | Filter | ((doc: any) => void), opts: Query.Options, callback: (err: Core.Error, res: Query.Response<Content & Model>) => void): void;
+        query<Model>(fun: string | ((doc: Content & Model) => void), opts: Query.Options, callback: (err: Core.Error, res: Query.Response<Content & Model>) => void): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Model>(fun: string | Filter | ((doc: any) => void), callback: (err: Core.Error, res: Query.Response<Content & Model>) => void): void;
+        query<Model, Reduction>(fun: Filter<Content & Model, Reduction>, opts: Query.Options, callback: (err: Core.Error, res: Query.Response<Reduction>) => void): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Model>(fun: string | Filter | ((doc: any) => void), opts?: Query.Options): Promise<Query.Response<Content & Model>>;
+        query<Model>(fun: string | ((doc: Content & Model) => void), callback: (err: Core.Error, res: Query.Response<Content & Model>) => void): void;
+        /**
+         * Invoke a map/reduce function, which allows you to perform more complex queries
+         * on PouchDB than what you get with allDocs().
+         */
+        query<Model, Reduction>(fun: Filter<Content & Model, Reduction>, callback: (err: Core.Error, res: Query.Response<Reduction>) => void): void;
+        /**
+         * Invoke a map/reduce function, which allows you to perform more complex queries
+         * on PouchDB than what you get with allDocs().
+         */
+        query<Model>(fun: string | ((doc: Content & Model) => void), opts?: Query.Options): Promise<Query.Response<Content & Model>>;
+        /**
+         * Invoke a map/reduce function, which allows you to perform more complex queries
+         * on PouchDB than what you get with allDocs().
+         */
+        query<Model, Reduction>(fun: Filter<Content & Model, Reduction>, opts?: Query.Options): Promise<Query.Response<Reduction>>;
     }
 }
 
