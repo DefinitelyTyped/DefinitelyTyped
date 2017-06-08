@@ -1966,8 +1966,9 @@ export class Alert {
    * alert were opened with alert('hello'), then this would return 'hello'.
    * @return {!promise.Promise} A promise that will be resolved to the
    *     text displayed with this alert.
+   *     In cases where getText() is called on an ElementArrayFinder, an array of text is returned.
    */
-  getText(): promise.Promise<string>;
+  getText(): promise.Promise<any>;
 
   /**
    * Sets the username and password in an alert prompting for credentials (such
