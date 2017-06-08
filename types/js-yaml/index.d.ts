@@ -7,7 +7,8 @@ declare namespace jsyaml {
 	export function safeLoad(str: string, opts?: LoadOptions): any;
 	export function load(str: string, opts?: LoadOptions): any;
 
-	export class Type implements TypeConstructorOptions {
+        export interface Type extends TypeConstructorOptions { }
+	export class Type {
 			constructor(tag: string, opts?: TypeConstructorOptions);
 			tag: string;
 	}
