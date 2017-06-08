@@ -126,7 +126,7 @@ export namespace Diff {
 
 export class Diff {
     static blobToBuffer(old_blob: Blob, oldAsPath: string,
-        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
+                        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
     static indexToWorkdir(repo: Repository, index: Index, opts: DiffOptions): Promise<Diff>;
     static treeToIndex(repo: Repository, old_tree: Tree, index: Index, opts: DiffOptions): Promise<Diff>;
     static treeToTree(repo: Repository, old_tree: Tree, new_tree: Tree, opts: DiffOptions): Promise<Diff>;
