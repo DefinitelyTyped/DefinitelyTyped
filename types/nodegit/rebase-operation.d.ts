@@ -1,7 +1,7 @@
 import { Oid } from './oid';
 
 export namespace RebaseOperation {
-    enum REBASE_OPERATION {
+    const enum REBASE_OPERATION {
         PICK = 0,
         REWORD = 1,
         EDIT = 2,

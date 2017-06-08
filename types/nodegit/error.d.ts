@@ -1,5 +1,5 @@
 export namespace Error {
-    enum ERROR {
+    const enum ERROR {
         GITERR_NONE = 0,
         GITERR_NOMEMORY = 1,
         GITERR_OS = 2,
@@ -33,7 +33,7 @@ export namespace Error {
         GITERR_FILESYSTEM = 30
     }
 
-    enum CODE {
+    const enum CODE {
         OK = 0,
         ERROR = -1,
         ENOTFOUND = -3,

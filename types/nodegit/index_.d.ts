@@ -5,14 +5,14 @@ import { Tree } from './tree';
 import { Strarray } from './str-array';
 
 export namespace Index {
-    enum ADD_OPTION {
+    const enum ADD_OPTION {
         ADD_DEFAULT = 0,
         ADD_FORCE = 1,
         ADD_DISABLE_PATHSPEC_MATCH = 2,
         ADD_CHECK_PATHSPEC = 4
     }
 
-    enum CAP {
+    const enum CAP {
         IGNORE_CASE = 1,
         NO_FILEMODE = 2,
         NO_SYMLINKS = 4,

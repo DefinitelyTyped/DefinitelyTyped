@@ -1,5 +1,5 @@
 export namespace Libgit2 {
-    enum OPT {
+    const enum OPT {
         GET_MWINDOW_SIZE = 0,
         SET_MWINDOW_SIZE = 1,
         GET_MWINDOW_MAPPED_LIMIT = 2,

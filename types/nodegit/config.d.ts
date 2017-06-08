@@ -1,7 +1,7 @@
 import { Buf } from './buf';
 
 export namespace Config {
-    enum LEVEL {
+    const enum LEVEL {
         SYSTEM = 1,
         XDG = 2,
         GLOBAL = 3,

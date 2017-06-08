@@ -2,7 +2,7 @@ import { Oid } from './oid';
 import { OdbObject } from './odb-object';
 
 export namespace Odb {
-    enum STREAM {
+    const enum STREAM {
         RDONLY = 2,
         WRONLY = 4,
         RW = 6

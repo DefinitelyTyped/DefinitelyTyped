@@ -4,7 +4,7 @@ import { Oid } from './oid';
 import { SubmoduleUpdateOptions } from './submodule-update-options';
 
 export namespace Submodule {
-    enum IGNORE {
+    const enum IGNORE {
         UNSPECIFIED = -1,
         NONE = 1,
         UNTRACKED = 2,
@@ -12,13 +12,13 @@ export namespace Submodule {
         ALL = 4
     }
 
-    enum RECURSE {
+    const enum RECURSE {
         NO = 0,
         YES = 1,
         ONDEMAND = 2
     }
 
-    enum STATUS {
+    const enum STATUS {
         IN_HEAD = 1,
         IN_INDEX = 2,
         IN_CONFIG = 4,
@@ -35,7 +35,7 @@ export namespace Submodule {
         WD_UNTRACKED = 8192
     }
 
-    enum UPDATE {
+    const enum UPDATE {
         CHECKOUT = 1,
         REBASE = 2,
         MERGE = 3,

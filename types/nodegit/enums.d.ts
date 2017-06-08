@@ -1,23 +1,23 @@
 export namespace Enums {
-    enum CVAR {
+    const enum CVAR {
         FALSE = 0,
         TRUE = 1,
         INT32 = 2,
         string = 3
     }
 
-    enum DIRECTION {
+    const enum DIRECTION {
         FETCH = 0,
         PUSH = 1
     }
 
-    enum FEATURE {
+    const enum FEATURE {
         THREADS = 1,
         HTTPS = 2,
         SSH = 4
     }
 
-    enum IDXENTRY_EXTENDED_FLAG {
+    const enum IDXENTRY_EXTENDED_FLAG {
         IDXENTRY_INTENT_TO_ADD = 8192,
         IDXENTRY_SKIP_WORKTREE = 16384,
         IDXENTRY_EXTENDED2 = 32768,
@@ -34,7 +34,7 @@ export namespace Enums {
         IDXENTRY_NEW_SKIP_WORKTREE = 512
     }
 
-    enum INDXENTRY_FLAG {
+    const enum INDXENTRY_FLAG {
         IDXENTRY_EXTENDED = 16384,
         IDXENTRY_VALID = 32768
     }

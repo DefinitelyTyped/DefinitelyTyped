@@ -7,7 +7,7 @@ import { Commit } from './commit';
 import { Index } from './index';
 
 export namespace Checkout {
-    enum NOTIFY {
+    const enum NOTIFY {
         NONE = 0,
         CONFLICT = 1,
         DIRTY = 2,
@@ -17,7 +17,7 @@ export namespace Checkout {
         ALL = 65535
     }
 
-    enum STRATEGY {
+    const enum STRATEGY {
         NONE = 0,
         SAFE = 1,
         FORCE = 2,

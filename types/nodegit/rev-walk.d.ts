@@ -3,7 +3,7 @@ import { Oid } from './oid';
 import { Commit } from './commit';
 
 export namespace Revwalk {
-    enum SORT {
+    const enum SORT {
         NONE = 0,
         TOPOLOGICAL = 1,
         TIME = 2,

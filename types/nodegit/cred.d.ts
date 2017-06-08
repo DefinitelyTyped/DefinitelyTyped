@@ -1,5 +1,5 @@
 export namespace Cred {
-    enum TYPE {
+    const enum TYPE {
         USERPASS_PLAINTEXT = 1,
         SSH_KEY = 2,
         SSH_CUSTOM = 4,

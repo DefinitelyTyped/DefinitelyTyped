@@ -5,7 +5,7 @@ import { Strarray } from './str-array';
 import { CheckoutOptions } from './checkout-options';
 
 export namespace Reset {
-    enum TYPE {
+    const enum TYPE {
         SOFT = 1,
         MIXED = 2,
         HARD = 3

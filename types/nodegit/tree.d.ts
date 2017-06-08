@@ -6,7 +6,7 @@ import { Treebuilder } from './tree-builder';
 import { DiffFile } from './diff-file';
 
 export namespace Tree {
-    enum WALK_MODE {
+    const enum WALK_MODE {
         WALK_PRE = 0,
         WALK_POST = 1
     }

@@ -3,7 +3,7 @@ import { Oid } from './oid';
 import { Revwalk } from './rev-walk';
 
 export namespace Packbuilder {
-    enum STAGE {
+    const enum STAGE {
         ADDING_OBJECTS = 0,
         DELTAFICATION = 1
     }
