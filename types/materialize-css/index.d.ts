@@ -318,7 +318,7 @@ declare namespace Materialize {
          * Example: 'console.log("hello, world!")';
          * or callback: () => { console.log('hello world'); }
          */
-        callback?: string | () => void;
+        callback?: string | (() => void);
     }
 
     interface TabOptions {
