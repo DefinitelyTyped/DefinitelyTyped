@@ -2,6 +2,7 @@
 // Project: https://pouchdb.com/
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Typescript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="debug" />
@@ -19,7 +20,7 @@ declare namespace PouchDB {
         type AttachmentId = string;
         type RevisionId = string;
         type Availability = 'available' | 'compacted' | 'not compacted' | 'missing';
-        type Encodable = { [propertyName: string]: any };
+        type Encodable = {};
         type Attachment = string | Blob | Buffer;
 
         interface Options {
@@ -48,7 +49,7 @@ declare namespace PouchDB {
             update_seq: number | string;
         }
 
-        interface Revision<Content> {
+        interface Revision<Content extends Encodable> {
             ok: Document<Content> & RevisionIdMeta;
         }
         interface RevisionInfo {
@@ -217,10 +218,16 @@ declare namespace PouchDB {
         }
 
         interface BulkGetOptions extends Options {
-            docs: any,
+            docs: Array<{ id: string; rev: RevisionId }>,
             revs?: boolean,
             attachments?: boolean,
             binary?: boolean
+        }
+
+        interface BulkGetResponse<Content extends Encodable> {
+            results: {
+                docs: Array<{ ok: Content & GetMeta } | { error: Error }>;
+            }
         }
 
         interface ChangesMeta {
@@ -458,7 +465,7 @@ declare namespace PouchDB {
 
         debug: debug.IDebug;
 
-        new<Content extends Core.Encodable>(name?: string,
+        new<Content extends Core.Encodable = {}>(name?: string,
             options?: Configuration.DatabaseConfiguration): Database<Content>;
 
         /**
@@ -466,28 +473,28 @@ declare namespace PouchDB {
          * except that whenever you invoke it (e.g. with new), the given options will be passed in by default.
          */
         defaults(options: Configuration.DatabaseConfiguration): {
-            new<Content extends Core.Encodable>(name?: string,
+            new<Content extends Core.Encodable = {}>(name?: string,
                 options?: Configuration.DatabaseConfiguration): Database<Content>;
         }
     }
 
-    interface Database<Content extends Core.Encodable>  {
+    interface Database<Content extends Core.Encodable = {}>  {
 
         /** Fetch all documents matching the given key. */
-        allDocs(options: Core.AllDocsWithKeyOptions):
-            Promise<Core.AllDocsResponse<Content>>;
+        allDocs<Model>(options: Core.AllDocsWithKeyOptions):
+            Promise<Core.AllDocsResponse<Content & Model>>;
 
         /** Fetch all documents matching any of the given keys. */
-        allDocs(options: Core.AllDocsWithKeysOptions):
-            Promise<Core.AllDocsResponse<Content>>;
+        allDocs<Model>(options: Core.AllDocsWithKeysOptions):
+            Promise<Core.AllDocsResponse<Content & Model>>;
 
         /** Fetch all documents matching the given key range. */
-        allDocs(options: Core.AllDocsWithinRangeOptions):
-            Promise<Core.AllDocsResponse<Content>>;
+        allDocs<Model>(options: Core.AllDocsWithinRangeOptions):
+            Promise<Core.AllDocsResponse<Content & Model>>;
 
         /** Fetch all documents. */
-        allDocs(options?: Core.AllDocsOptions):
-            Promise<Core.AllDocsResponse<Content>>;
+        allDocs<Model>(options?: Core.AllDocsOptions):
+            Promise<Core.AllDocsResponse<Content & Model>>;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -496,9 +503,9 @@ declare namespace PouchDB {
          * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
-        bulkDocs(docs: Core.PutDocument<Content>[],
-                 options: Core.BulkDocsOptions | null,
-                 callback: Core.Callback<Core.Error, Core.Response[]>): void;
+        bulkDocs<Model>(docs: Core.PutDocument<Content & Model>[],
+                        options: Core.BulkDocsOptions | null,
+                        callback: Core.Callback<Core.Error, Core.Response[]>): void;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
@@ -507,8 +514,8 @@ declare namespace PouchDB {
          * which should match the ID and revision of the document on which to base your updates.
          * Finally, to delete a document, include a _deleted parameter with the value true.
          */
-        bulkDocs(docs: Core.PutDocument<Content>[],
-                 options?: Core.BulkDocsOptions): Promise<Core.Response[]>;
+        bulkDocs<Model>(docs: Core.PutDocument<Content & Model>[],
+                        options?: Core.BulkDocsOptions): Promise<Core.Response[]>;
 
         /** Compact the database */
         compact(options?: Core.CompactOptions): Promise<Core.Response>;
@@ -525,27 +532,27 @@ declare namespace PouchDB {
         destroy(options?: Core.DestroyOptions | void): Promise<void>;
 
         /** Fetch a document */
-        get(docId: Core.DocumentId,
-            options: Core.GetOptions | null,
-            callback: Core.Callback<any, Core.Document<Content> & Core.GetMeta>
-            ): void;
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOptions | null,
+                   callback: Core.Callback<any, Core.Document<Content & Model> & Core.GetMeta>
+                  ): void;
 
         /** Fetch a document */
-        get(docId: Core.DocumentId,
-            options: Core.GetOptions
-            ): Promise<Core.Document<Content> & Core.GetMeta>;
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOptions
+                  ): Promise<Core.Document<Content & Model> & Core.GetMeta>;
 
         /** Fetch a document */
-        get(docId: Core.DocumentId): Promise<Core.Document<Content> & Core.GetMeta>;
+        get<Model>(docId: Core.DocumentId): Promise<Core.Document<Content & Model> & Core.GetMeta>;
 
         /** Fetch document open revs */
-        get(docId: Core.DocumentId,
-            options: Core.GetOpenRevisions,
-            callback: Core.Callback<any, Core.Revision<Content>[]>): void;
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOpenRevisions,
+                   callback: Core.Callback<any, Core.Revision<Content & Model>[]>): void;
 
         /** Fetch document open revs */
-        get(docId: Core.DocumentId,
-            options: Core.GetOpenRevisions): Promise<Core.Revision<Content>[]>;
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOpenRevisions): Promise<Core.Revision<Content & Model>[]>;
 
         /** Create a new document without providing an id.
          *
@@ -555,9 +562,9 @@ declare namespace PouchDB {
          *
          * @see {@link https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html|PouchDB Pro Tips}
          */
-        post(doc: Core.PostDocument<Content>,
-            options: Core.PostOptions | null,
-            callback: Core.Callback<Core.Error, Core.Response>): void;
+        post<Model>(doc: Core.PostDocument<Content & Model>,
+                    options: Core.PostOptions | null,
+                    callback: Core.Callback<Core.Error, Core.Response>): void;
 
         /** Create a new document without providing an id.
          *
@@ -567,8 +574,8 @@ declare namespace PouchDB {
          *
          * @see {@link https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html|PouchDB Pro Tips}
          */
-        post(doc: Core.PostDocument<Content>,
-            options?: Core.PostOptions): Promise<Core.Response>;
+        post<Model>(doc: Core.PostDocument<Content & Model>,
+                    options?: Core.PostOptions): Promise<Core.Response>;
 
         /** Create a new document or update an existing document.
          *
@@ -578,9 +585,9 @@ declare namespace PouchDB {
          * If you try to store non-JSON data (for instance Date objects) you may
          * see inconsistent results.
          */
-        put(doc: Core.PutDocument<Content>,
-            options: Core.PutOptions | null,
-            callback: Core.Callback<Core.Error, Core.Response>): void;
+        put<Model>(doc: Core.PutDocument<Content & Model>,
+                   options: Core.PutOptions | null,
+                   callback: Core.Callback<Core.Error, Core.Response>): void;
 
         /** Create a new document or update an existing document.
          *
@@ -590,8 +597,8 @@ declare namespace PouchDB {
          * If you try to store non-JSON data (for instance Date objects) you may
          * see inconsistent results.
          */
-        put(doc: Core.PutDocument<Content>,
-            options?: Core.PutOptions): Promise<Core.Response>;
+        put<Model>(doc: Core.PutDocument<Content & Model>,
+                   options?: Core.PutOptions): Promise<Core.Response>;
 
         /** Remove a doc from the database */
         remove(doc: Core.RemoveDocument,
@@ -627,8 +634,8 @@ declare namespace PouchDB {
          * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs.
          * Calling cancel() will unsubscribe all event listeners automatically.
          */
-        changes(options: Core.ChangesOptions | null,
-            callback: Core.Callback<any, Core.Changes<Content>>): void;
+        changes<Model>(options: Core.ChangesOptions | null,
+                       callback: Core.Callback<any, Core.Changes<Content & Model>>): void;
 
         /**
          * A list of changes made to documents in the database, in the order they were made.
@@ -638,7 +645,7 @@ declare namespace PouchDB {
          * a 'complete' event when all the changes have been processed, and an 'error' event when an error occurs.
          * Calling cancel() will unsubscribe all event listeners automatically.
          */
-        changes(options?: Core.ChangesOptions): Core.Changes<Content>;
+        changes<Model>(options?: Core.ChangesOptions): Core.Changes<Content & Model>;
 
         /** Close the database */
         close(callback: Core.AnyCallback): void;
@@ -722,11 +729,11 @@ declare namespace PouchDB {
             rev: Core.RevisionId): Promise<Core.RemoveAttachmentResponse>;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
-        bulkGet(options: Core.BulkGetOptions,
-            callback: Core.Callback<any, any>): void;
+        bulkGet<Model>(options: Core.BulkGetOptions,
+                       callback: Core.Callback<Core.Error, Core.BulkGetResponse<Content & Model>>): void;
 
         /** Given a set of document/revision IDs, returns the document bodies (and, optionally, attachment data) for each ID/revision pair specified. */
-        bulkGet(options: Core.BulkGetOptions): Promise<any>;
+        bulkGet<Model>(options: Core.BulkGetOptions): Promise<Core.BulkGetResponse<Content & Model>>;
 
         /** Given a set of document/revision IDs, returns the subset of those that do not correspond to revisions stored in the database */
         revsDiff(diff : Core.RevisionDiffOptions,
@@ -737,6 +744,7 @@ declare namespace PouchDB {
     }
 }
 
+//
 declare module 'pouchdb-core' {
   const PouchDb: PouchDB.Static;
   export = PouchDb;
