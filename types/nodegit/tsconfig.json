@@ -36,6 +36,8 @@
         "commit.d.ts",
         "config.d.ts",
         "convenient-patch.d.ts",
+        "cred-user-pass-payload.d.ts",
+        "cred-username.d.ts",
         "cred.d.ts",
         "cvar-map.d.ts",
         "describe-format-options.d.ts",
