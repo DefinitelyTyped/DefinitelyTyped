@@ -522,14 +522,25 @@ declare namespace PouchDB {
 
         /** Fetch a document */
         get<Model>(docId: Core.DocumentId,
-                   options: Core.GetOptions | Core.GetOpenRevisions | null,
+                   options: Core.GetOptions | null,
                    callback: Core.Callback<Core.Document<Content & Model> & Core.GetMeta>
+                  ): void;
+
+        /** Fetch a document */
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOpenRevisions,
+                   callback: Core.Callback<Array<Core.Revision<Content & Model>>>
                   ): void;
 
         /** Fetch a document */
         get<Model>(docId: Core.DocumentId,
                    options?: Core.GetOptions | Core.GetOpenRevisions
                   ): Promise<Core.Document<Content & Model> & Core.GetMeta>;
+
+        /** Fetch a document */
+        get<Model>(docId: Core.DocumentId,
+                   options: Core.GetOpenRevisions
+                  ): Promise<Array<Core.Revision<Content & Model>>>;
 
         /** Create a new document without providing an id.
          *
