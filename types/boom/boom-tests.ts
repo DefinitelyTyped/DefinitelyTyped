@@ -167,7 +167,7 @@ interface CustomPayload extends Boom.Payload {
 /**
  * Test assignment of custom error data:
  */
-const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: <'Custom1'>'Custom1', isCustom: <true>true });
+const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: 'Custom1', isCustom: true } as CustomData1);
 const errorWithNoExplicitDataType: Boom.BoomError = errorWithData; // can assign to error without explicit data type
 const errorWithExplicitType: Boom.BoomError<CustomData> = errorWithData; // can assign to union data type
 const errorWithConcreteCustomData: Boom.BoomError<CustomData1> = errorWithData; // can assign to concrete data type
