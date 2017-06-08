@@ -1,4 +1,4 @@
-// Type definitions for node-ssh 4.2.2
+// Type definitions for node-ssh 4.2
 // Project: https://github.com/steelbrain/node-ssh
 // Definitions by: Homa Wong (unional) <https://github.com/unional>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
