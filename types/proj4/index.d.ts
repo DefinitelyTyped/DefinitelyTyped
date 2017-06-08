@@ -1,6 +1,7 @@
-// Type definitions for proj4 2.3
+// Type definitions for proj4 2.4
 // Project: https://github.com/proj4js/proj4js
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+//                 Jes Wulfsberg Nielsen <https://github.com/wulfsberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace proj4 {
@@ -64,4 +65,4 @@ declare namespace proj4 {
 
 declare function proj4(fromProjection: string, toProjection?: string, coordinates?: proj4.TemplateCoordinates): proj4.Static;
 declare function proj4(fromProjection: string, coordinates: proj4.TemplateCoordinates): number[];
-export = proj4;
+export default proj4;
