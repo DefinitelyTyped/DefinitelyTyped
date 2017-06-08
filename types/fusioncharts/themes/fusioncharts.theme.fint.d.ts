@@ -1,5 +1,4 @@
 import { FusionChartStatic } from "fusioncharts";
 
-declare function fint(H: FusionChartStatic): FusionChartStatic;
-export = fint;
-export as namespace fint;
+declare function Fint(H: FusionChartStatic): FusionChartStatic;
+export default Fint;

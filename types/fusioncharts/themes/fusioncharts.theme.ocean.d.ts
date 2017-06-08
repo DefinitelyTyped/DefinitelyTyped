@@ -1,5 +1,4 @@
 import { FusionChartStatic } from "fusioncharts";
 
-declare function ocean(H: FusionChartStatic): FusionChartStatic;
-export = ocean;
-export as namespace ocean;
+declare function Ocean(H: FusionChartStatic): FusionChartStatic;
+export default Ocean;

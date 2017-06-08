@@ -1,5 +1,4 @@
 import { FusionChartStatic } from "fusioncharts";
 
-declare function world(H: FusionChartStatic): FusionChartStatic;
-export = world;
-export as namespace world;
+declare function World(H: FusionChartStatic): FusionChartStatic;
+export default World;
