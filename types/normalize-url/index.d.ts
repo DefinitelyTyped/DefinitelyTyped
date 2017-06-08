@@ -13,7 +13,7 @@ declare module NormalizeUrl {
 		removeTrailingSlash: boolean;
 		removeDirectoryIndex: RegExp[];
 	}
-								
+
 	function normalizeUrl(url: string, args?: INormalizeUrlArgs): string;
 }
 
