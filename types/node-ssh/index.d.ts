@@ -11,7 +11,7 @@ declare class SSH {
   requestShell(): Promise<Object>;
   requestSFTP(): Promise<Object>;
   mkdir(path: string, type: 'exec' | 'sftp', givenSftp?: Object | null): Promise<void>;
-  exec(command: string, parameters: string[], options: { cwd?: string, stdin?: string, stream?: string, options?: Object });
+  exec(command: string, parameters: string[], options: { cwd?: string, stdin?: string, stream?: string, options?: Object }): Promise<string | Object>;
   execCommand(givenCommand: string, options: { cwd?: string, stdin?: string, options?: Object }): Promise<{ stdout: string, stderr: string, code: number, signal?: string | null }>;
   getFile(localFile: string, remoteFile: string, givenSftp?: Object | null, givenOpts?: Object | null): Promise<void>;
   putFile(localFile: string, remoteFile: string, givenSftp?: Object | null, givenOpts?: Object | null): Promise<void>;
