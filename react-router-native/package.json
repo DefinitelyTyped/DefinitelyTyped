@@ -1,0 +1,24 @@
+{
+    "name": "@types/react-router-native",
+    "version": "4.0.4",
+    "description": "TypeScript definitions for React Router Native",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Pierre Pirnay",
+            "url": "https://github.com/pierre-H"
+        }
+    ],
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/react": "*",
+        "@types/history": "*"
+    },
+    "peerDependencies": {},
+    "typeScriptVersion": "2.2"
+}
