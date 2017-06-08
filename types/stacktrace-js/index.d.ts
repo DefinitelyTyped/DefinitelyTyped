@@ -1,6 +1,7 @@
 // Type definitions for stacktrace.js
 // Project: https://github.com/stacktracejs/stacktrace.js
 // Definitions by: Exceptionless <https://github.com/exceptionless>
+//                 Chun-Yan Ho <https://github.com/pilagod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace StackTrace {
@@ -34,7 +35,7 @@ declare namespace StackTrace {
     isNative:     boolean;
     toString():   string;
   }
-  
+
   export interface RequestOptions {
     headers: { [id: string]: string };
   }
@@ -45,6 +46,13 @@ declare namespace StackTrace {
    * @return Array[StackFrame]
    */
   export function get(options?: StackTraceOptions): Promise<StackFrame[]>;
+
+  /**
+   * Get a backtrace from invocation point synchronously.
+   * @param options Options Object
+   * @return Array[StackFrame]
+   */
+  export function getSync(options?: StackTraceOptions): StackFrame[];
 
   /**
    * Given an error object, parse it.
