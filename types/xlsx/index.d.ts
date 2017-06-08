@@ -1,24 +1,24 @@
 // Type definitions for xlsx
 // Project: https://github.com/SheetJS/js-xlsx
-// Definitions by: themauveavenger <https://github.com/themauveavenger/>
+// Definitions by: themauveavenger <https://github.com/themauveavenger/>, Wolfgang Faust <https://github.com/wolfgang42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Attempts to read filename and parse */
-export declare function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
+export function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
 /** Attempts to parse data */
-export declare function read(data: any, opts?: IParsingOptions): IWorkBook;
+export function read(data: any, opts?: IParsingOptions): IWorkBook;
 /** Attempts to write workbook data to filename */
-export declare function writeFile(data: IWorkBook, filename: string, opts?: IWritingOptions): any;
+export function writeFile(data: IWorkBook, filename: string, opts?: IWritingOptions): any;
 /** Attempts to write the workbook data */
-export declare function write(data: IWorkBook, opts?: IWritingOptions): any;
+export function write(data: IWorkBook, opts?: IWritingOptions): any;
 
-export declare var utils: IUtils;
+export const utils: IUtils;
 
 export interface IProperties {
-    LastAuthor?: string
+    LastAuthor?: string;
     Author?: string;
     CreatedDate?: Date;
-    ModifiedDate?: Date
+    ModifiedDate?: Date;
     Application?: string;
     AppVersion?: string;
     Company?: string;
@@ -173,12 +173,161 @@ export interface IWorkBook {
     Props: IProperties;
 }
 
+export interface IColInfo {
+    /**
+     * Excel's "Max Digit Width" unit, always integral
+     */
+    MDW?: number;
+    /**
+     * width in Excel's "Max Digit Width", width*256 is integral
+     */
+    width: number;
+    /**
+     * width in screen pixels
+     */
+    wpx?: number;
+    /**
+     * intermediate character calculation
+     */
+    wch?: number;
+    /**
+     * if true, the column is hidden
+     */
+    hidden?: boolean;
+}
+export interface IRowInfo {
+    /**
+     * height in screen pixels
+     */
+    hpx?: number;
+    /**
+     * height in points
+     */
+    hpt?: number;
+    /**
+     * if true, the column is hidden
+     */
+    hidden?: boolean;
+}
+
+/**
+ * Write sheet protection properties.
+ */
+export interface IProtectInfo {
+    /**
+     * The password for formats that support password-protected sheets
+     * (XLSX/XLSB/XLS). The writer uses the XOR obfuscation method.
+     */
+    password?: string;
+    /**
+     * Select locked cells
+     * @default: true
+     */
+    selectLockedCells?: boolean;
+    /**
+     * Select unlocked cells
+     * @default: true
+     */
+    selectUnlockedCells?: boolean;
+    /**
+     * Format cells
+     * @default: false
+     */
+    formatCells?: boolean;
+    /**
+     * Format columns
+     * @default: false
+     */
+    formatColumns?: boolean;
+    /**
+     * Format rows
+     * @default: false
+     */
+    formatRows?: boolean;
+    /**
+     * Insert columns
+     * @default: false
+     */
+    insertColumns?: boolean;
+    /**
+     * Insert rows
+     * @default: false
+     */
+    insertRows?: boolean;
+    /**
+     * Insert hyperlinks
+     * @default: false
+     */
+    insertHyperlinks?: boolean;
+    /**
+     * Delete columns
+     * @default: false
+     */
+    deleteColumns?: boolean;
+    /**
+     * Delete rows
+     * @default: false
+     */
+    deleteRows?: boolean;
+    /**
+     * Sort
+     * @default: false
+     */
+    sort?: boolean;
+    /**
+     * Filter
+     * @default: false
+     */
+    autoFilter?: boolean;
+    /**
+     * Use PivotTable reports
+     * @default: false
+     */
+    pivotTables?: boolean;
+    /**
+     * Edit objects
+     * @default: true
+     */
+    objects?: boolean;
+    /**
+     * Edit scenarios
+     * @default: true
+     */
+    scenarios?: boolean;
+}
+
+/**
+ * object representing any sheet (worksheet or chartsheet)
+ */
+export interface ISheet {
+    '!ref'?: string;
+    '!margins'?: {
+        left: number,
+        right: number,
+        top: number,
+        bottom: number,
+        header: number,
+        footer: number,
+    };
+}
+
 /**
  * object representing the worksheet
  */
-export interface IWorkSheet {
+export interface IWorkSheet extends ISheet {
     [cell: string]: IWorkSheetCell | any;
+    '!cols'?: IColInfo[];
+    '!rows'?: IRowInfo[];
+    '!merges'?: IRange[];
+    '!protect'?: IProtectInfo;
+    '!autofilter'?: {ref: string};
 }
+
+/**
+ * The Excel data type for a cell.
+ * b Boolean, n Number, e error, s String, d Date
+ */
+export type ExcelDataType = 'b' | 'n' | 'e' | 's' | 'd';
 
 export interface IWorkSheetCell {
     /**
@@ -192,10 +341,10 @@ export interface IWorkSheetCell {
     w?: string;
 
     /**
-    * The Excel Data Type of the cell.
-    * b Boolean, n Number, e error, s String, d Date
-    */
-    t: 'b' | 'n' | 'e' | 's' | 'd';
+     * The Excel Data Type of the cell.
+     * b Boolean, n Number, e error, s String, d Date
+     */
+    t: ExcelDataType;
 
     /**
      * Cell formula (if applicable)
@@ -254,18 +403,18 @@ export interface IRange {
 
 export interface IUtils {
     /** converts an array of arrays of JS data to a worksheet. */
-    aoa_to_sheet<T>(data: T[], opts?:any): IWorkSheet;
+    aoa_to_sheet<T>(data: T[], opts?: any): IWorkSheet;
 
     /** Converts a worksheet object to an array of JSON objects */
-    sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
+    sheet_to_json<T>(worksheet: IWorkSheet, opts?: {
         raw?: boolean;
         range?: any;
         header?: "A"|number|string[];
-    }):T[];
+    }): T[];
     /** Generates delimiter-separated-values output */
     sheet_to_csv(worksheet: IWorkSheet, options?: { FS: string, RS: string }): string;
     /** Generates a list of the formulae (with value fallbacks) */
-    sheet_to_formulae(worksheet: IWorkSheet):any;
+    sheet_to_formulae(worksheet: IWorkSheet): any;
 
     /** Converts 0-indexed cell address to A1 form */
     encode_cell(cell: ICell): string;
