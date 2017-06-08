@@ -1866,7 +1866,7 @@ export class Image {
 	 * @param {Function} [callback] Callback is invoked when image has been loaded (and all filters have been applied)
 	 * @param {Object} [options] Options object
 	 */
-	setSrc(src: string, callback: Function, options: IImageOptions): Image;
+	setSrc(src: string, callback?: Function, options?: IImageOptions): Image;
 
 	/**
 	 * Creates an instance of fabric.Image from an URL string

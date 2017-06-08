@@ -189,4 +189,4 @@ declare let moxios: {
     wait(fn: () => void, delay?: number): void;
 };
 
-export default moxios;
+export = moxios;

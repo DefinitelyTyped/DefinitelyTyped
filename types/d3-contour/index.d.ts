@@ -1,6 +1,6 @@
 // Type definitions for d3-contour 1.1
 // Project: https://d3js.org/d3-contour/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Hugues Stefanski <https://github.com/Ledragon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Last module patch version validated against: 1.1.0

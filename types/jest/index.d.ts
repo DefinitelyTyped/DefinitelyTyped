@@ -152,6 +152,44 @@ declare namespace jest {
         [key: string]: (this: MatcherUtils, received: any, actual: any) => { message: () => string, pass: boolean };
     }
 
+    interface SnapshotSerializerOptions {
+        callToJSON?: boolean;
+        edgeSpacing?: string;
+        spacing?: string;
+        escapeRegex?: boolean;
+        highlight?: boolean;
+        indent?: number;
+        maxDepth?: number;
+        min?: boolean;
+        plugins?: Array<SnapshotSerializerPlugin>
+        printFunctionName?: boolean;
+        theme?: SnapshotSerializerOptionsTheme;
+
+        // see https://github.com/facebook/jest/blob/e56103cf142d2e87542ddfb6bd892bcee262c0e6/types/PrettyFormat.js
+    }
+    interface SnapshotSerializerOptionsTheme {
+        comment?: string;
+        content?: string;
+        prop?: string;
+        tag?: string;
+        value?: string;
+    }
+    interface SnapshotSerializerColor {
+        close: string;
+        open: string;
+    }
+    interface SnapshotSerializerColors {
+        comment: SnapshotSerializerColor;
+        content: SnapshotSerializerColor;
+        prop: SnapshotSerializerColor;
+        tag: SnapshotSerializerColor;
+        value: SnapshotSerializerColor;
+    }
+    interface SnapshotSerializerPlugin {
+        print(val:any, serialize:((val:any) => string), indent:((str:string) => string), opts:SnapshotSerializerOptions, colors: SnapshotSerializerColors) : string;
+        test(val:any) : boolean;
+    }
+
     /** The `expect` function is used every time you want to test a value. You will rarely call `expect` by itself. */
     interface Expect {
         /**
@@ -169,6 +207,8 @@ declare namespace jest {
         assertions(num: number): void;
         /** You can use `expect.extend` to add your own matchers to Jest. */
         extend(obj: ExpectExtendMap): void;
+        /** Adds a module to format application-specific data structures for serialization. */
+        addSnapshotSerializer(serializer: SnapshotSerializerPlugin) : void;
         /** Matches any object that recursively matches the provided keys. This is often handy in conjunction with other asymmetric matchers. */
         objectContaining(obj: {}): any;
         /** Matches any string that contains the exact provided string */
@@ -291,6 +331,7 @@ declare function pending(reason?: string): void;
 /** Fails a test when called within one. */
 declare function fail(error?: any): void;
 declare namespace jasmine {
+    var DEFAULT_TIMEOUT_INTERVAL: number;
     var clock: () => Clock;
     function any(aclass: any): Any;
     function anything(): Any;

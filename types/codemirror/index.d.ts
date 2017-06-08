@@ -178,7 +178,7 @@ declare namespace CodeMirror {
         /** Remove a CSS class from a line.line can be a line handle or number.
         where should be one of "text", "background", or "wrap"(see addLineClass).
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
-        removeLineClass(line: any, where: string, class_: string): CodeMirror.LineHandle;
+        removeLineClass(line: any, where: string, class_?: string): CodeMirror.LineHandle;
 
         /**
          * Compute the line at the given pixel height.

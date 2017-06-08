@@ -1662,7 +1662,7 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-                <Drawer width={200} openSecondary={true} open={this.state.open}>
+                <Drawer width="20%" openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
         </Drawer>
       </div>
@@ -4697,7 +4697,7 @@ function handleActive(tab) {
 }
 
 const TabsExampleSimple = () => (
-  <Tabs>
+  <Tabs tabTemplateStyle={{backgroundColor: 'red'}}>
         <Tab label="Item One">
       <div>
         <h2 style={styles.headline}>Tab One</h2>
@@ -4854,6 +4854,11 @@ const TextFieldExampleSimple = () => (
       min={5}
       max={50}
       step={5}
+    /><br />
+    <TextField
+        hintText="Hint Text"
+        errorText="This field is required"
+        required
     />
   </div>
 );

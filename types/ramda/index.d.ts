@@ -1,6 +1,6 @@
 // Type definitions for ramda
 // Project: https://github.com/donnut/typescript-ramda
-// Definitions by: Erwin Poeze <https://github.com/donnut>, Matt DeKrey <https://github.com/mdekrey>, Liam Goodacre <https://github.com/LiamGoodacre>
+// Definitions by: Erwin Poeze <https://github.com/donnut>, Matt DeKrey <https://github.com/mdekrey>, Liam Goodacre <https://github.com/LiamGoodacre>, Matt Dziuban <https://github.com/mrdziuban>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1598,7 +1598,7 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
+        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -1727,6 +1727,7 @@ declare namespace R {
          * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
          * portion of the data structure is visible.
          */
+        view<T,U>(lens: Lens): (obj: T) => U;
         view<T,U>(lens: Lens, obj: T): U;
 
         /**
@@ -1808,3 +1809,4 @@ declare namespace R {
 }
 
 export = R;
+export as namespace R;
