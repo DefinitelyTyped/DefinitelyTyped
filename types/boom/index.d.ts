@@ -12,7 +12,7 @@ declare namespace Boom {
      * boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:
      * @see {@link https://github.com/hapijs/boom#boom}
      */
-    export interface BoomError<Data = null> extends Error {
+    export interface BoomError<Data = any> extends Error {
         /** isBoom - if true, indicates this is a Boom object instance. */
         isBoom: boolean;
         /** isServer - convenience bool indicating status code >= 500. */

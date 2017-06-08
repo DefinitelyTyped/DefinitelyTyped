@@ -115,7 +115,7 @@ const wrappedError = Boom.wrap(new Error('test'), 400, 'some message');
 const error1 = Boom.create(500, 'Internal server error', { timestamp: Date.now() });
 error1.data.timestamp;
 
-// type widden asserting
+// type widen asserting
 
 const unauthorizedError = Boom.unauthorized() as Error;
 
@@ -136,17 +136,53 @@ interface CustomPayload extends Boom.Payload {
 (error.output.payload as CustomPayload).custom = 'abc_123';
 
 /**
- * Test additional data
+ * Test custom data
  */
 
-// If the concrete functions do not default their generic parameter to null, too, this fails:
-const error2: Boom.BoomError = Boom.badImplementation('really bad');
+// If the concrete functions do not default their generic parameter to null, this assignment fails:
+const error2: Boom.BoomError = Boom.badImplementation('message');
 
-// And this too:
-const next = <Hapi.ContinuationValueFunction>(() => { });
-next(Boom.badData());
+// If the interface defaults its generic parameter to null, you cannot pass it as a parameter to existing continuation functions:
+const handleError: Hapi.ContinuationValueFunction = (err?: Boom.BoomError | null) => {
+    if (!err || !err.data.isCustom === true) {
+        return;
+    }
 
-interface CustomData {
-    custom: string;
+    // assignment is possible due to default generic Data = any
+    const customError: Boom.BoomError<CustomData> = err;
+
+    // Discriminated union type works:
+    switch (customError.data.customType) {
+        case 'Custom1':
+            customError.data.custom1;
+            break;
+        case 'Custom2':
+            customError.data.custom2;
+            break;
+    }
+};
+handleError(Boom.badData());
+
+
+// Also errors with custom data can only be passed to existing continuation functions if the Data type defaults to any
+const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: <'Custom1'>'Custom1', isCustom: <true>true });
+handleError(errorWithData);
+
+const errorWithExplicitType: Boom.BoomError<CustomData> = errorWithData;
+const errorWithConcreteCustomData: Boom.BoomError<CustomData1> = errorWithData; // assignment to CustomData2 would not be possible
+
+interface CustomDataBase {
+    isCustom: true;
 }
-const errorWithData: Boom.BoomError<CustomData> = Boom.badImplementation('', { custom: 'test' });
+
+interface CustomData1 extends CustomDataBase {
+    customType: 'Custom1';
+    custom1: string;
+}
+
+interface CustomData2 extends CustomDataBase {
+    customType: 'Custom2';
+    custom2: string;
+}
+
+type CustomData = CustomData1 | CustomData2;
