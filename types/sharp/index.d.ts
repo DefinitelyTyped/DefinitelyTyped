@@ -3,7 +3,7 @@
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node" />
+/// <reference types="node" />
 
 import { Duplex } from "stream";
 

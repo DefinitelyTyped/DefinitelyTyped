@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/analytics/devguides/reporting/core/v4/
 // Definitions by: César Costas <https://github.com/gatsbimantico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="gapi" />
 
@@ -47,13 +48,20 @@ declare namespace gapi.client.analytics.kB.parameters {
 		"enumDescriptions"  ?: string[];
 		"location"          ?: string;
 	}
-	export class alt implements AnalyticsParameter {}
-	export class fields implements AnalyticsParameter {}
-	export class key implements AnalyticsParameter {}
-	export class oauth_token implements AnalyticsParameter {}
-	export class prettyPrint implements AnalyticsParameter {}
-	export class quotaUser implements AnalyticsParameter {}
-	export class userIP implements AnalyticsParameter {}
+        export interface alt extends AnalyticsParameter {}
+	export class alt {}
+        export interface fields extends AnalyticsParameter {}
+	export class fields {}
+        export interface key extends AnalyticsParameter {}
+	export class key {}
+        export interface oauth_token extends AnalyticsParameter {}
+	export class oauth_token {}
+        export interface prettyPrint extends AnalyticsParameter {}
+	export class prettyPrint {}
+        export interface quotaUser extends AnalyticsParameter {}
+	export class quotaUser {}
+        export interface userIP extends AnalyticsParameter {}
+	export class userIP {}
 }
 
 interface View {
