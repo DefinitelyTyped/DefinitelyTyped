@@ -48,7 +48,7 @@ export interface SignOptions {
     issuer?: string;
     jwtid?: string;
     noTimestamp?: boolean;
-    header?: object;
+    header?: Object;
     encoding?: string;
 
 }
@@ -75,7 +75,7 @@ export interface DecodeOptions {
 }
 
 export interface VerifyCallback {
-    (err: JsonWebTokenError | NotBeforeError | TokenExpiredError, decoded: object | string): void;
+    (err: JsonWebTokenError | NotBeforeError | TokenExpiredError, decoded: Object | string): void;
 }
 
 export interface SignCallback {
@@ -89,7 +89,7 @@ export interface SignCallback {
  * @param {SignOptions} [options] - Options for the signature
  * @returns {String} The JSON Web Token string
  */
-export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: string | Buffer, options?: SignOptions): string;
+export declare function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options?: SignOptions): string;
 
 /**
  * Sign the given payload into a JSON Web Token string
@@ -98,8 +98,8 @@ export declare function sign(payload: string | Buffer | object, secretOrPrivateK
  * @param {SignOptions} [options] - Options for the signature
  * @param {Function} callback - Callback to get the encoded token on
  */
-export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: string | Buffer, callback: SignCallback): void;
-export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: string | Buffer, options: SignOptions, callback: SignCallback): void;
+export declare function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, callback: SignCallback): void;
+export declare function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options: SignOptions, callback: SignCallback): void;
 
 /**
  * Synchronously verify given token using a secret or a public key to get a decoded token
@@ -108,8 +108,8 @@ export declare function sign(payload: string | Buffer | object, secretOrPrivateK
  * @param {VerifyOptions} [options] - Options for the verification
  * @returns The decoded token.
  */
-declare function verify(token: string, secretOrPublicKey: string | Buffer): object | string;
-declare function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions): object | string;
+declare function verify(token: string, secretOrPublicKey: string | Buffer): Object | string;
+declare function verify(token: string, secretOrPublicKey: string | Buffer, options?: VerifyOptions): Object | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -127,4 +127,4 @@ declare function verify(token: string, secretOrPublicKey: string | Buffer, optio
  * @param {DecodeOptions} [options] - Options for decoding
  * @returns {Object} The decoded Token
  */
-declare function decode(token: string, options?: DecodeOptions): null | object | string;
+declare function decode(token: string, options?: DecodeOptions): null | Object | string;
