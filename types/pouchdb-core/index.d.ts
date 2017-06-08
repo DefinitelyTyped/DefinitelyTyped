@@ -534,7 +534,7 @@ declare namespace PouchDB {
 
         /** Fetch a document */
         get<Model>(docId: Core.DocumentId,
-                   options?: Core.GetOptions | Core.GetOpenRevisions
+                   options?: Core.GetOptions
                   ): Promise<Core.Document<Content & Model> & Core.GetMeta>;
 
         /** Fetch a document */
