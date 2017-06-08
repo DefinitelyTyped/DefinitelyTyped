@@ -165,41 +165,16 @@ interface CustomPayload extends Boom.Payload {
 (error.output.payload as CustomPayload).custom = 'abc_123';
 
 /**
- * Test custom data
+ * Test assignment of custom error data:
  */
-
-// If the concrete functions do not default their generic parameter to null, this assignment fails:
-const error2: Boom.BoomError = Boom.badImplementation('message');
-
-// If the interface defaults its generic parameter to null, you cannot pass it as a parameter to existing continuation functions:
-const handleError: Hapi.ContinuationValueFunction = (err?: Boom.BoomError | null) => {
-    if (!err || !err.data.isCustom === true) {
-        return;
-    }
-
-    // assignment is possible due to default generic Data = any
-    const customError: Boom.BoomError<CustomData> = err;
-
-    // Discriminated union type works:
-    switch (customError.data.customType) {
-        case 'Custom1':
-            customError.data.custom1;
-            break;
-        case 'Custom2':
-            customError.data.custom2;
-            break;
-    }
-};
-handleError(Boom.badData());
-
-
-// Also errors with custom data can only be passed to existing continuation functions if the Data type defaults to any
 const errorWithData = Boom.badImplementation('', { custom1: 'test', customType: <'Custom1'>'Custom1', isCustom: <true>true });
-handleError(errorWithData);
+const errorWithNoExplicitDataType: Boom.BoomError = errorWithData; // can assign to error without explicit data type
+const errorWithExplicitType: Boom.BoomError<CustomData> = errorWithData; // can assign to union data type
+const errorWithConcreteCustomData: Boom.BoomError<CustomData1> = errorWithData; // can assign to concrete data type
+// assignment to CustomData2 would not be possible
+// const errorWithConcreteCustomData2: Boom.BoomError<CustomData2> = errorWithData;
 
-const errorWithExplicitType: Boom.BoomError<CustomData> = errorWithData;
-const errorWithConcreteCustomData: Boom.BoomError<CustomData1> = errorWithData; // assignment to CustomData2 would not be possible
-
+// Some complex error data types for testing purposes:
 interface CustomDataBase {
     isCustom: true;
 }
