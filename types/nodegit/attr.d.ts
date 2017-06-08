@@ -13,6 +13,6 @@ export class Attr {
     static addMacro(repo: Repository, name: string, values: string): number;
     static cacheFlush(repo: Repository): void;
     static get(repo: Repository, flags: number, path: string, name: string): Promise<string>;
-    static getMany(repo: Repository, flags: number, path: string, num_attr: number, names: string): any[];
+    static getMany(repo: Repository, flags: number, path: string, numAttr: number, names: string): any[];
     static value(attr: string): number;
 }
