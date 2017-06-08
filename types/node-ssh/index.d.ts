@@ -6,7 +6,7 @@
 import SSH2 = require('ssh2');
 
 declare class SSH {
-  connection?: SSH2.Connection | null;
+  connection?: SSH2.Client | null;
   connect(givenConfig: SSH.ConfigGiven): Promise<this>;
   requestShell(): Promise<Object>;
   requestSFTP(): Promise<Object>;
