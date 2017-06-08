@@ -127,6 +127,12 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "electron",
+            "typingsPackageName": "electron",
+            "sourceRepoURL": "https://github.com/electron/electron",
+            "asOfVersion": "1.6.10"
+        },
+        {
             "libraryName": "electron-builder",
             "typingsPackageName": "electron-builder",
             "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
