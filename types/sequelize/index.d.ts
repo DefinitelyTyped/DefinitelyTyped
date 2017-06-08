@@ -5133,6 +5133,27 @@ declare namespace sequelize {
     interface Options {
 
         /**
+         * The username which is used to authenticate against the database.
+         *
+         * Defaults to null
+         */
+        username?: string;
+
+        /**
+         * The password which is used to authenticate against the database.
+         *
+         * Defaults to null
+         */
+        password?: string;
+
+        /**
+         * The name of the database
+         *
+         *  Defaults to null
+         */
+        database?: string;
+
+        /**
          * The dialect of the database you are connecting to. One of mysql, postgres, sqlite, mariadb and mssql.
          *
          * Defaults to 'mysql'
@@ -5274,6 +5295,13 @@ declare namespace sequelize {
          * Defaults to false
          */
         benchmark?: boolean;
+
+        /**
+         * Run built in type validators on insert and update, e.g. validate that arguments passed to integer fields are integer-like.
+         *
+         * Defaults to false
+         */
+        typeValidation?: boolean;
     }
 
     /**
@@ -5450,8 +5478,7 @@ declare namespace sequelize {
          *     database.
          * @param options An object with options.
          */
-        new (database: string, username: string, password: string, options?: Options): Sequelize;
-        new (database: string, username: string, options?: Options): Sequelize;
+        new (database: string, username: string, password?: string, options?: Options): Sequelize;
 
         /**
          * Instantiate sequelize with an URI
@@ -5462,6 +5489,15 @@ declare namespace sequelize {
          * @param options See above for possible options
          */
         new (uri: string, options?: Options): Sequelize;
+
+        /**
+         * Instantiate sequelize with Options
+         * @name Sequelize
+         * @constructor
+         *
+         * @param options See above for possible options
+         */
+        new (options: Options): Sequelize;
 
         /**
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
