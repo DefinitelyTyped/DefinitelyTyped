@@ -8,13 +8,7 @@ export class CertHostkey {
      * @memberof CertHostkey
      */
     parent: Cert;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof CertHostkey
-     */
-    type: number;
+    type: Cert.TYPE;
     /**
      *
      *

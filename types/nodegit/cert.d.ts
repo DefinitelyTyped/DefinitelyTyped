@@ -13,5 +13,5 @@ export namespace Cert {
 }
 
 export class Cert {
-    certType: number;
+    certType: Cert.TYPE;
 }
