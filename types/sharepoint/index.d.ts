@@ -179,6 +179,13 @@ declare class _spPageContextInfo {
     static webUIVersion: number; // 15
 }
 
+declare class _spFriendlyUrlPageContextInfo {
+    static termId: string;
+    static termSetId: string;
+    static termStoreId: string;
+    static title: string;
+}
+
 declare function STSHtmlEncode(value: string): string;
 declare function STSHtmlDecode(value: string): string;
 
