@@ -6,7 +6,7 @@ export interface DiffOptions {
     ignoreSubmodules: number;
     pathspec: Strarray;
     notifyCb: Function;
-    notifyPayload: void;
+    notifyPayload: any;
     contextLines: number;
     interhunkLines: number;
     idAbbrev: number;

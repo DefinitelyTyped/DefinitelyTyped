@@ -8,6 +8,6 @@ export class CloneOptions {
     bare?: number;
     local?: number;
     checkoutBranch?: string;
-    repositoryCbPayload?: void;
-    remoteCbPayload?: void;
+    repositoryCbPayload?: any;
+    remoteCbPayload?: any;
 }
