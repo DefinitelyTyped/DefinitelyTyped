@@ -1,17 +1,19 @@
-// Type definitions for Alexa SDK for Node.js v1.1.0
+// Type definitions for Alexa SDK for Node.js 1.0
 // Project: https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs
-// Definitions by: Pete Beegle <https://github.com/petebeegle>, Huw <https://github.com/hoo29>
+// Definitions by:  Pete Beegle <https://github.com/petebeegle>
+//                  Huw <https://github.com/hoo29>
+//                  pascalwhoop <https://github.com/pascalwhoop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function handler(event: RequestBody, context: Context, callback?: Function): AlexaObject;
+export function handler(event: RequestBody, context: Context, callback?: (err: any, response: any) => void ): AlexaObject;
 export function CreateStateHandler(state: string, obj: any): any;
-export var StateString: string;
+export let StateString: string;
 
-type ConfirmationStatuses = "NONE" | "DENIED" | "CONFIRMED";
-type DialogStates = "STARTED" | "IN_PROGRESS" | "COMPLETED";
+export type ConfirmationStatuses = "NONE" | "DENIED" | "CONFIRMED";
+export type DialogStates = "STARTED" | "IN_PROGRESS" | "COMPLETED";
 
-interface AlexaObject extends Handler {
+export interface AlexaObject extends Handler {
     _event: any;
     _context: any;
     _callback: any;
@@ -24,11 +26,11 @@ interface AlexaObject extends Handler {
     execute: () => void;
 }
 
-interface Handlers {
+export interface Handlers {
     [intent: string]: (this: Handler) => void;
 }
 
-interface Handler {
+export interface Handler {
     on: any;
     emit(event: string, ...args: any[]): boolean;
     emitWithState: any;
@@ -42,7 +44,7 @@ interface Handler {
     t: (token: string) => void;
 }
 
-interface Context {
+export interface Context {
     callbackWaitsForEmptyEventLoop: boolean;
     logGroupName: string;
     logStreamName: string;
@@ -53,13 +55,13 @@ interface Context {
     awsRequestId: string;
 }
 
-interface RequestBody {
+export interface RequestBody {
     version: string;
     session: Session;
     request: LaunchRequest | IntentRequest | SessionEndedRequest;
 }
 
-interface Session {
+export interface Session {
     new: boolean;
     sessionId: string;
     attributes: any;
@@ -67,64 +69,64 @@ interface Session {
     user: SessionUser;
 }
 
-interface SessionApplication {
+export interface SessionApplication {
     applicationId: string;
 }
 
-interface SessionUser {
+export interface SessionUser {
     userId: string;
     accessToken: string;
 }
 
-interface LaunchRequest extends IRequest { }
+export interface LaunchRequest extends Request { }
 
-interface IntentRequest extends IRequest {
+export interface IntentRequest extends Request {
     dialogState: DialogStates;
     intent: Intent;
 }
 
-interface SlotValue {
+export interface SlotValue {
     confirmationStatus: ConfirmationStatuses;
     name: string;
     value?: any;
 }
 
-interface Intent {
+export interface Intent {
     confirmationStatus: ConfirmationStatuses;
     name: string;
     slots: Record<string, SlotValue>;
 }
 
-interface SessionEndedRequest extends IRequest {
+export interface SessionEndedRequest extends Request {
     reason: string;
 }
 
-interface IRequest {
+export interface Request {
     type: "LaunchRequest" | "IntentRequest" | "SessionEndedRequest";
     requestId: string;
     timeStamp: string;
 }
 
-interface ResponseBody {
+export interface ResponseBody {
     version: string;
     sessionAttributes?: any;
     response: Response;
 }
 
-interface Response {
+export interface Response {
     outputSpeech?: OutputSpeech;
     card?: Card;
     reprompt?: Reprompt;
     shouldEndSession: boolean;
 }
 
-interface OutputSpeech {
+export interface OutputSpeech {
     type: "PlainText" | "SSML";
     text?: string;
     ssml?: string;
 }
 
-interface Card {
+export interface Card {
     type: "Simple" | "Standard" | "LinkAccount";
     title?: string;
     content?: string;
@@ -132,11 +134,11 @@ interface Card {
     image?: Image;
 }
 
-interface Image {
+export interface Image {
     smallImageUrl: string;
     largeImageUrl: string;
 }
 
-interface Reprompt {
+export interface Reprompt {
     outputSpeech: OutputSpeech;
 }
