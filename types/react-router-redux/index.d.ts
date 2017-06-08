@@ -76,3 +76,5 @@ export interface LocationChangeAction extends Action {
 }
 
 export function routerMiddleware(history: History): Middleware;
+
+export function syncHistoryWithStore(history: History, store: Store<any>): History;
