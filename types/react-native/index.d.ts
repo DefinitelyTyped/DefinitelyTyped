@@ -18,6 +18,8 @@
 
 /// <reference types="react" />
 
+export as namespace ReactNative;
+
 export type MeasureOnSuccessCallback = (
         x: number,
         y: number,
