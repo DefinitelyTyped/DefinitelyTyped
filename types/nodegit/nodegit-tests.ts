@@ -45,3 +45,5 @@ Git.Attr.get(repo, 1, "path", "name").then((string) => {
 let array = Git.Attr.getMany(repo, 1, "path", 1, "names");
 
 result = Git.Attr.value("attr");
+
+const blameOptions = new Git.BlameOptions();
