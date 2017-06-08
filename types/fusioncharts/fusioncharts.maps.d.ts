@@ -1,5 +1,6 @@
 import { FusionChartStatic } from "fusioncharts";
 
-declare function maps(H: FusionChartStatic): FusionChartStatic;
-export = maps;
-export as namespace maps;
+declare namespace Maps {}
+declare function Maps(H: FusionChartStatic): FusionChartStatic;
+export = Maps;
+export as namespace Maps;

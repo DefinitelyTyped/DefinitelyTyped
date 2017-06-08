@@ -1,5 +1,6 @@
 import { FusionChartStatic } from "fusioncharts";
 
-declare function carbon(H: FusionChartStatic): FusionChartStatic;
-export = carbon;
-export as namespace carbon;
+declare namespace Carbon {}
+declare function Carbon(H: FusionChartStatic): FusionChartStatic;
+export = Carbon;
+export as namespace Carbon;
