@@ -1,3 +1,5 @@
+import * as PouchDB from 'pouchdb-core';
+
 function isString(someString: string) {
 }
 function isNumber(someNumber: number) {
@@ -219,25 +221,29 @@ function testRemoteOptions() {
     });
 }
 
-interface Cat {
-    meow: string;
-}
-
-interface Boot {
-    thud: boolean;
-}
-
-async function heterogeneousGenericsDatabase(db: PouchDB.Database) {
-    const cats = await db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true });
-    for (let row of cats.rows) {
-        if (row.doc) {
-            row.doc.meow; // $ExpectType string
-        }
+function heterogeneousGenericsDatabase(db: PouchDB.Database) {
+    interface Cat {
+        meow: string;
     }
-    const boots = await db.allDocs<Boot>({ startkey: 'boot/', endkey: 'boot/\uffff', include_docs: true });
-    for (let row of boots.rows) {
-        if (row.doc) {
-            row.doc.thud; // $ExpectType boolean
-        }
+
+    interface Boot {
+        thud: boolean;
     }
+
+    db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true })
+        .then(cats => {
+            for (let row of cats.rows) {
+                if (row.doc) {
+                    row.doc.meow; // $ExpectType string
+                }
+            }
+        });
+    db.allDocs<Boot>({ startkey: 'boot/', endkey: 'boot/\uffff', include_docs: true })
+        .then(boots => {
+            for (let row of boots.rows) {
+                if (row.doc) {
+                    row.doc.thud; // $ExpectType boolean
+                }
+            }
+        });
 }
