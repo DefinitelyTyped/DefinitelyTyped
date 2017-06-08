@@ -52,6 +52,8 @@ let featureCollection: GeoJSON.FeatureCollection<any> =  {
     }
 };
 
+let selectFeatureProperty = featureCollection.features[0].properties.prop0;
+
 let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
     type: "Feature",
     bbox: [-180.0, -90.0, 180.0, 90.0],
