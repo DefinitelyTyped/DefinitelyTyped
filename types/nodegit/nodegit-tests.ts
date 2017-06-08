@@ -47,3 +47,7 @@ let array = Git.Attr.getMany(repo, 1, "path", 1, "names");
 result = Git.Attr.value("attr");
 
 const blameOptions = new Git.BlameOptions();
+
+Git.Branch.lookup(repo, "branch_name", Git.Branch.BRANCH.LOCAL).then(function (reference) {
+    // Use reference
+});

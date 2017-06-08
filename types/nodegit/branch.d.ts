@@ -75,12 +75,12 @@ export class Branch {
      * @static
      * @param {Repository} repo
      * @param {string} branchName
-     * @param {number} branchType
+     * @param {Branch.BRANCH} branchType
      * @returns {Promise<Reference>}
      *
      * @memberof Branch
      */
-    static lookup(repo: Repository, branchName: string, branchType: number): Promise<Reference>;
+    static lookup(repo: Repository, branchName: string, branchType: Branch.BRANCH): Promise<Reference>;
     /**
      *
      *
