@@ -443,7 +443,7 @@ export interface FSyncOptions {
 }
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html
-export interface Collection<TSchema> {
+export interface Collection<TSchema = Default> {
     // Get the collection name.
     collectionName: string;
     // Get the full collection namespace.
