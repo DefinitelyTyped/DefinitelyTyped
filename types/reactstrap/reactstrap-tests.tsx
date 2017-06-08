@@ -1051,7 +1051,7 @@ class Example43 extends React.Component<any, any> {
 
 function Example44() {
   return (
-    <UncontrolledDropdown>
+    <UncontrolledDropdown className="some-class">
       <DropdownToggle caret>
         Dropdown
       </DropdownToggle>
