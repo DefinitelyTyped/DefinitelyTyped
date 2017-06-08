@@ -210,3 +210,26 @@ function testRemoteOptions() {
         skip_setup: true
     });
 }
+
+interface Cat {
+    meow: string;
+}
+
+interface Boot {
+    thud: boolean;
+}
+
+async function heterogeneousGenericsDatabase(db: PouchDB.Database) {
+    const cats = await db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true });
+    for (let row of cats.rows) {
+        if (row.doc) {
+            row.doc.meow; // $ExpectType string
+        }
+    }
+    const boots = await db.allDocs<Boot>({ startkey: 'boot/', endkey: 'boot/\uffff', include_docs: true });
+    for (let row of boots.rows) {
+        if (row.doc) {
+            row.doc.thud; // $ExpectType boolean
+        }
+    }
+}
