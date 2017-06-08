@@ -39,6 +39,7 @@ interface Handler {
     context: any;
     name: any;
     isOverriden: any;
+    t: (token: String) => void;
 }
 
 interface Context {
