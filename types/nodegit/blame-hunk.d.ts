@@ -1,5 +1,5 @@
 import { Oid } from './oid';
-import { Signature } from './Signature';
+import { Signature } from './signature';
 
 export class BlameHunk {
     linesInHunk: number;

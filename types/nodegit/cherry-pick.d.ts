@@ -1,6 +1,7 @@
 import { Repository } from './repository';
 import { Commit } from './commit';
 import { MergeOptions } from './merge-options';
+import { CherrypickOptions } from './cherry-pick-options';
 
 export class Cherrypick {
     static cherrypick(repo: Repository, commit: Commit, options?: CherrypickOptions): Promise<number>;
