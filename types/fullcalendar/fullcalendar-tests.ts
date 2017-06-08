@@ -417,13 +417,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    dayClick(date, allDay, jsEvent, view) {
-        if (allDay) {
-            alert('Clicked on the entire day: ' + date);
-        } else {
-            alert('Clicked on the slot: ' + date);
-        }
-
+    dayClick(date, jsEvent, view) {
         alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 
         alert('Current view: ' + view.name);
@@ -631,8 +625,8 @@ $('#calendar').fullCalendar({
 interface EventWithDescription extends FullCalendar.EventObject {
     description: string;
 }
-interface JQuery {
-    qtip: any; // dummy plugin interface
+interface JQueryQTip extends JQuery {
+    qtip(options: Object): JQuery; // dummy plugin interface
 }
 
 $('#calendar').fullCalendar({
@@ -644,7 +638,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender(event: EventWithDescription, element: any, view: any) {
+    eventRender(event: EventWithDescription, element: JQueryQTip, view: FullCalendar.ViewObject) {
         element.qtip({
             content: event.description
         });

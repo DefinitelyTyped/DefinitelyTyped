@@ -249,9 +249,9 @@ import * as qs from 'querystring';
 const CONSUMER_KEY = 'key';
 const CONSUMER_SECRET = 'secret';
 let oauth = {
-  callback: 'http://mysite.com/callback/'
-  , consumer_key: CONSUMER_KEY
-  , consumer_secret: CONSUMER_SECRET
+  callback: 'http://mysite.com/callback/',
+  consumer_key: CONSUMER_KEY,
+  consumer_secret: CONSUMER_SECRET,
 };
 
 url = 'https://api.twitter.com/oauth/request_token';
@@ -272,11 +272,11 @@ rpn.post({ url, oauth }, (e, r, body) => {
   // after the user is redirected back to your server
   let auth_data: any = qs.parse(body);
   let oauth = {
-    consumer_key: CONSUMER_KEY
-    , consumer_secret: CONSUMER_SECRET
-    , token: auth_data.oauth_token
-    , token_secret: req_data.oauth_token_secret
-    , verifier: auth_data.oauth_verifier
+    consumer_key: CONSUMER_KEY,
+    consumer_secret: CONSUMER_SECRET,
+    token: auth_data.oauth_token,
+    token_secret: req_data.oauth_token_secret,
+    verifier: auth_data.oauth_verifier,
   };
   url = 'https://api.twitter.com/oauth/access_token';
 
@@ -284,10 +284,10 @@ rpn.post({ url, oauth }, (e, r, body) => {
     // ready to make signed requests on behalf of the user
     let perm_data: any = qs.parse(body);
     let oauth = {
-      consumer_key: CONSUMER_KEY
-      , consumer_secret: CONSUMER_SECRET
-      , token: perm_data.oauth_token
-      , token_secret: perm_data.oauth_token_secret
+      consumer_key: CONSUMER_KEY,
+      consumer_secret: CONSUMER_SECRET,
+      token: perm_data.oauth_token,
+      token_secret: perm_data.oauth_token_secret,
     };
 
     url = 'https://api.twitter.com/1.1/users/show.json';
@@ -406,17 +406,17 @@ rpn.get('http://10.255.255.1', { timeout: 1500 }, (err) => {
 let rand = Math.floor(Math.random() * 100000000).toString();
 rpn(
   {
-    method: 'PUT'
-    , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
-    , multipart:
+    method: 'PUT',
+    uri: 'http://mikeal.iriscouch.com/testjs/' + rand,
+    multipart:
     [{
-      'content-type': 'application/json'
-      , body: JSON.stringify({ foo: 'bar', _attachments: { 'message.txt': { follows: true, length: 18, content_type: 'text/plain' } } })
-    }
-      , { body: 'I am an attachment' }
+      'content-type': 'application/json',
+      body: JSON.stringify({ foo: 'bar', _attachments: { 'message.txt': { follows: true, length: 18, content_type: 'text/plain' } } })
+    },
+    { body: 'I am an attachment' }
     ]
-  }
-  , (error, response, body) => {
+  },
+  (error, response, body) => {
     if (response.statusCode === 201) {
       console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
     } else {
@@ -428,11 +428,11 @@ rpn(
 
 rpn(
   {
-    method: 'GET'
-    , uri: 'http://www.google.com'
-    , gzip: true
-  }
-  , (error, response, body) => {
+    method: 'GET',
+    uri: 'http://www.google.com',
+    gzip: true
+  },
+  (error, response, body) => {
     // body is the decompressed response body
     console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'));
     console.log('the decoded data is: ' + body);

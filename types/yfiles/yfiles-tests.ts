@@ -19,7 +19,7 @@ class BasicTest {
 
         this.graphComponent.inputMode = graphEditorInputMode;
 
-        this.graphComponent.graph.nodeDefaults.style = new yfiles.styles.ShinyPlateNodeStyle(yfiles.view.Fill.ORANGE);
+        this.graphComponent.graph.nodeDefaults.style = new yfiles.styles.ShinyPlateNodeStyle({ fill: yfiles.view.Fill.ORANGE });
 
         this.graphComponent.graph.createNode(new yfiles.geometry.Rect(0, 0, 10, 10), new MyNodeStyle());
 

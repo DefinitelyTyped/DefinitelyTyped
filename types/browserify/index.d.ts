@@ -1,9 +1,11 @@
-// Type definitions for Browserify v12.0.1
+// Type definitions for Browserify 12.0
 // Project: http://browserify.org/
-// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, John Vilk <https://github.com/jvilk>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, John Vilk <https://github.com/jvilk>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+import insertGlobals = require('insert-module-globals');
 
 declare var browserify: browserify.BrowserifyConstructor;
 export = browserify;
@@ -74,7 +76,7 @@ interface Options {
   // The global export will be sanitized and camel cased.
   standalone?: string;
   // will be passed to insert-module-globals as the opts.vars parameter.
-  insertGlobalVars?: {[globalName: string]: (file: string, basedir: string) => any};
+  insertGlobalVars?: insertGlobals.VarsOption;
   // defaults to 'require' in expose mode but you can use another name.
   externalRequireName?: string;
 }

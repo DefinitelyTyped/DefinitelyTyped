@@ -52,9 +52,9 @@ class ModalSwitch extends React.Component<RouteComponentProps<void>, void> {
     return (
       <div>
         <Switch location={isModal ? this.previousLocation : location}>
-          <Route exact path='/' component={Home}/>
-          <Route path='/gallery' component={Gallery}/>
-          <Route path='/img/:id' component={ImageView}/>
+          <Route exact path='/' component={Home} />
+          <Route path='/gallery' component={Gallery} />
+          <Route path='/img/:id' component={ImageView} />
         </Switch>
         {isModal ? <Route path='/img/:id' component={Modal} /> : null}
       </div>
@@ -70,14 +70,14 @@ const IMAGES = [
   { id: 4, title: 'Crimson', color: 'Crimson' }
 ];
 
-const Thumbnail: React.SFC<{color: string}> = ({ color }) =>
+const Thumbnail: React.SFC<{ color: string }> = ({ color }) =>
   <div style={{
     width: 50,
     height: 50,
     background: color
-  }}/>;
+  }} />;
 
-const Image: React.SFC<{color: string}> = ({ color }) =>
+const Image: React.SFC<{ color: string }> = ({ color }) =>
   <div style={{
     width: '100%',
     height: 400,
@@ -113,7 +113,7 @@ const Gallery = () => (
   </div>
 );
 
-const ImageView: React.SFC<RouteComponentProps<{id: string}>> = ({ match }) => {
+const ImageView: React.SFC<RouteComponentProps<{ id: string }>> = ({ match }) => {
   const image = IMAGES[parseInt(match.params.id, 10)];
   if (!image) {
     return <div>Image not found</div>;
@@ -127,7 +127,7 @@ const ImageView: React.SFC<RouteComponentProps<{id: string}>> = ({ match }) => {
   );
 };
 
-const Modal: React.SFC<RouteComponentProps<{id: string}>> = ({ match, history }) => {
+const Modal: React.SFC<RouteComponentProps<{ id: string }>> = ({ match, history }) => {
   const image = IMAGES[parseInt(match.params.id, 10)];
   if (!image) {
     return null!;
@@ -149,7 +149,7 @@ const Modal: React.SFC<RouteComponentProps<{id: string}>> = ({ match, history })
       }}
     >
       <div className='modal' style={{
-      position: 'absolute',
+        position: 'absolute',
         background: '#fff',
         top: 25,
         left: '10%',

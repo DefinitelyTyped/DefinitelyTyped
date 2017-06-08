@@ -1,6 +1,6 @@
 // Type definitions for Node.js v6.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>, Wilco Bakker <https://github.com/WilcoBakker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -13,7 +13,7 @@
 interface Console {
     Console: typeof NodeJS.Console;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -99,7 +99,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends NodeBuffer { }
 
 /**
@@ -247,6 +247,16 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export interface InspectOptions {
+        showHidden?: boolean;
+        depth?: number | null;
+        colors?: boolean;
+        customInspect?: boolean;
+        showProxy?: boolean;
+        maxArrayLength?: number | null;
+        breakLength?: number;
+    }
+
     export var Console: {
         prototype: Console;
         new(stdout: WritableStream, stderr?: WritableStream): Console;
@@ -281,8 +291,8 @@ declare namespace NodeJS {
         readable: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string | null): void;
-        pause(): ReadableStream;
-        resume(): ReadableStream;
+        pause(): this;
+        resume(): this;
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
@@ -301,10 +311,7 @@ declare namespace NodeJS {
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream extends ReadableStream, WritableStream {
-        pause(): ReadWriteStream;
-        resume(): ReadWriteStream;
-    }
+    export interface ReadWriteStream extends ReadableStream, WritableStream {}
 
     export interface Events extends EventEmitter { }
 
@@ -378,6 +385,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: any;
         exit(code?: number): void;
         exitCode: number;
@@ -1431,8 +1439,8 @@ declare module "readline" {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;
-        pause(): ReadLine;
-        resume(): ReadLine;
+        pause(): this;
+        resume(): this;
         close(): void;
         write(data: string | Buffer, key?: Key): void;
 
@@ -1801,17 +1809,25 @@ declare module "url" {
         path?: string;
     }
 
+    export interface UrlObject {
+        protocol?: string;
+        slashes?: boolean;
+        auth?: string;
+        host?: string;
+        hostname?: string;
+        port?: string | number;
+        pathname?: string;
+        search?: string;
+        query?: { [key: string]: any; };
+        hash?: string;
+    }
+
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(url: Url): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
 }
 
 declare module "dns" {
-    export interface MxRecord {
-        exchange: string,
-        priority: number
-    }
-
     // Supported getaddrinfo flags.
     export const ADDRCONFIG: number;
     export const V4MAPPED: number;
@@ -1835,22 +1851,68 @@ declare module "dns" {
         family: number;
     }
 
-    export function lookup(domain: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
-    export function lookup(domain: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
-    export function lookup(domain: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
-    export function lookup(domain: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
-    export function lookup(domain: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
+    export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
+    export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
 
-    export function resolve(domain: string, rrtype: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolve(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolve4(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolve6(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolveMx(domain: string, callback: (err: Error, addresses: MxRecord[]) => void): string[];
-    export function resolveTxt(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolveSrv(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolveCname(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function reverse(ip: string, callback: (err: Error, domains: string[]) => void): string[];
+    export interface MxRecord {
+        priority: number;
+        exchange: string;
+    }
+
+    export interface NaptrRecord {
+        flags: string;
+        service: string;
+        regexp: string;
+        replacement: string;
+        order: number;
+        preference: number;
+    }
+
+    export interface SoaRecord {
+        nsname: string;
+        hostmaster: string;
+        serial: number;
+        refresh: number;
+        retry: number;
+        expire: number;
+        minttl: number;
+    }
+
+    export interface SrvRecord {
+        priority: number;
+        weight: number;
+        port: number;
+        name: string;
+    }
+
+    export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NS", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "PTR", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
+    export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
+
+    export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolvePtr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
+    export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+
+    export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
     export function setServers(servers: string[]): void;
 
     //Error codes
@@ -1898,8 +1960,6 @@ declare module "net" {
         setEncoding(encoding?: string): void;
         write(data: any, encoding?: string, callback?: Function): void;
         destroy(): void;
-        pause(): Socket;
-        resume(): Socket;
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
@@ -1914,6 +1974,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        connecting: boolean;
         destroyed: boolean;
 
         // Extended base methods
@@ -3391,8 +3452,8 @@ declare module "stream" {
             _read(size: number): void;
             read(size?: number): any;
             setEncoding(encoding: string): void;
-            pause(): Readable;
-            resume(): Readable;
+            pause(): this;
+            resume(): this;
             isPaused(): boolean;
             pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
@@ -3582,20 +3643,14 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions {
-        showHidden?: boolean;
-        depth?: number;
-        colors?: boolean;
-        customInspect?: boolean;
-    }
-
+    export interface InspectOptions extends NodeJS.InspectOptions {}
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
+    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options: InspectOptions): string;
     export function isArray(object: any): boolean;
     export function isRegExp(object: any): boolean;
