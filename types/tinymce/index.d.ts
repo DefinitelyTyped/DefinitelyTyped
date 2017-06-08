@@ -74,7 +74,11 @@ export interface Settings {
 
   target?: Element;
 
+  branding?: boolean;
+
   color_picker_callback?(callback: (hexColor: string) => void, value: string): void;
+
+  custom_ui_selector?: string;
 
   elementpath?: boolean;
 
@@ -131,6 +135,8 @@ export interface Settings {
   content_css?: string;
 
   content_style?: string;
+
+  inline_boundaries?: boolean;
 
   visual_anchor_class?: string;
 

@@ -1,6 +1,7 @@
 // Type definitions for C3js v0.4
 // Project: http://c3js.org/
 // Definitions by: Marc Climent <https://github.com/mcliment>
+//                 Gerin Jacob <https://github.com/gerinjacob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as d3 from "d3";
@@ -161,7 +162,16 @@ declare namespace c3 {
             /**
              * Change the width of bar chart. If ratio is specified, change the width of bar chart by ratio.
              */
-            width?: number | { ratio: number };
+            width?: number | {
+                /**
+                 * Set the width of each bar by ratio
+                 */
+                ratio: number,
+                /**
+                 * Set max width of each bar
+                 */
+                max?: number
+            };
             /**
              * Set if min or max value will be 0 on bar chart.
              */

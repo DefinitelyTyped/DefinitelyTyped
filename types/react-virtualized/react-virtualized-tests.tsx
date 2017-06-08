@@ -405,11 +405,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
     _noColumnMaxWidthChange(event) {
         let columnMaxWidth = parseInt(event.target.value, 10)
 
-        if (isNaN(columnMaxWidth)) {
-            columnMaxWidth = undefined
-        } else {
-            columnMaxWidth = Math.min(1000, columnMaxWidth)
-        }
+        columnMaxWidth = isNaN(columnMaxWidth) ? undefined : Math.min(1000, columnMaxWidth)
 
         this.setState({ columnMaxWidth })
     }
@@ -417,11 +413,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
     _noColumnMinWidthChange(event) {
         let columnMinWidth = parseInt(event.target.value, 10)
 
-        if (isNaN(columnMinWidth)) {
-            columnMinWidth = undefined
-        } else {
-            columnMinWidth = Math.max(1, columnMinWidth)
-        }
+        columnMinWidth = isNaN(columnMinWidth) ? undefined : Math.max(1, columnMinWidth)
 
         this.setState({ columnMinWidth })
     }
