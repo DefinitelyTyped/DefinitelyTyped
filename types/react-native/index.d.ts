@@ -7273,9 +7273,9 @@ export interface SettingsStatic {
 
 
 /**
- * @enum('default', 'light-content')
+ * @enum('default', 'light-content', 'dark-content')
  */
-export type StatusBarStyle = "default" | "light-content"
+export type StatusBarStyle = "default" | "light-content" | "dark-content"
 
 /**
  * @enum('fade', 'slide')
