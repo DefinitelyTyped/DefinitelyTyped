@@ -3,7 +3,7 @@ import { Oid } from './oid';
 import { Blob } from './blob';
 
 export namespace TreeEntry {
-    enum FILEMODE {
+    const enum FILEMODE {
         UNREADABLE = 0,
         TREE = 16384,
         BLOB = 33188,

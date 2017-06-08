@@ -3,7 +3,7 @@ import { BlameOptions } from './blame-options';
 import {BlameHunk} from './blame-hunk';
 
 export namespace Blame {
-    enum FLAG {
+    const enum FLAG {
         NORMAL = 0,
         TRACK_COPIES_SAME_FILE = 1,
         TRACK_COPIES_SAME_COMMIT_MOVES = 2,

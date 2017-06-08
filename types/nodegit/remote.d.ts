@@ -9,14 +9,14 @@ import { PushOptions } from './push-options';
 import { Refspec } from './ref-spec';
 
 export namespace Remote {
-    enum AUTOTAG_OPTION {
+    const enum AUTOTAG_OPTION {
         DOWNLOAD_TAGS_UNSPECIFIED = 0,
         DOWNLOAD_TAGS_AUTO = 1,
         DOWNLOAD_TAGS_NONE = 2,
         DOWNLOAD_TAGS_ALL = 3
     }
 
-    enum COMPLETION_TYPE {
+    const enum COMPLETION_TYPE {
         COMPLETION_DOWNLOAD = 0,
         COMPLETION_INDEXING = 1,
         COMPLETION_ERROR = 2

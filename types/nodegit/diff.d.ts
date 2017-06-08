@@ -18,7 +18,7 @@ export interface DiffFindOptions {
 }
 
 export namespace Diff {
-    enum DELTA {
+    const enum DELTA {
         UNMODIFIED = 0,
         ADDED = 1,
         DELETED = 2,
@@ -32,7 +32,7 @@ export namespace Diff {
         CONFLICTED = 10
     }
 
-    enum FIND {
+    const enum FIND {
         BY_CONFIG = 0,
         RENAMES = 1,
         RENAMES_FROM_REWRITES = 2,
@@ -51,14 +51,14 @@ export namespace Diff {
         REMOVE_UNMODIFIED = 65536
     }
 
-    enum FLAG {
+    const enum FLAG {
         BINARY = 1,
         NOT_BINARY = 2,
         VALID_ID = 4,
         EXISTS = 8
     }
 
-    enum FORMAT {
+    const enum FORMAT {
         PATCH = 1,
         PATCH_HEADER = 2,
         RAW = 3,
@@ -66,12 +66,12 @@ export namespace Diff {
         NAME_STATUS = 5
     }
 
-    enum FORMAT_EMAIL_FLAGS {
+    const enum FORMAT_EMAIL_FLAGS {
         FORMAT_EMAIL_NONE = 0,
         FORMAT_EMAIL_EXCLUDE_SUBJECT_PATCH_MARKER = 1
     }
 
-    enum LINE {
+    const enum LINE {
         CONTEXT = 32,
         ADDITION = 43,
         DELETION = 45,
@@ -83,7 +83,7 @@ export namespace Diff {
         BINARY = 66
     }
 
-    enum OPTION {
+    const enum OPTION {
         NORMAL = 0,
         REVERSE = 1,
         INCLUDE_IGNORED = 2,
@@ -115,7 +115,7 @@ export namespace Diff {
         SHOW_BINARY = 1073741824
     }
 
-    enum STATS_FORMAT {
+    const enum STATS_FORMAT {
         STATS_NONE = 0,
         STATS_FULL = 1,
         STATS_SHORT = 2,

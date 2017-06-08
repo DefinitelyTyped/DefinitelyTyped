@@ -4,7 +4,7 @@ import { StatusEntry } from './status-entry';
 import { StatusOptions } from './status-options';
 
 export namespace Status {
-    enum STATUS {
+    const enum STATUS {
         CURRENT = 0,
         INDEX_NEW = 1,
         INDEX_MODIFIED = 2,
@@ -21,7 +21,7 @@ export namespace Status {
         CONFLICTED = 32768
     }
 
-    enum OPT {
+    const enum OPT {
         INCLUDE_UNTRACKED = 1,
         INCLUDE_IGNORED = 2,
         INCLUDE_UNMODIFIED = 4,
@@ -40,7 +40,7 @@ export namespace Status {
         INCLUDE_UNREADABLE_AS_UNTRACKED = 32768
     }
 
-    enum SHOW {
+    const enum SHOW {
         INDEX_AND_WORKDIR = 0,
         INDEX_ONLY = 1,
         WORKDIR_ONLY = 2

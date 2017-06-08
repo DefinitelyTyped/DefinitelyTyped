@@ -1,5 +1,5 @@
 export namespace Hashsig {
-    enum OPTION {
+    const enum OPTION {
         NORMAL = 0,
         IGNORE_WHITESPACE = 1,
         SMART_WHITESPACE = 2,

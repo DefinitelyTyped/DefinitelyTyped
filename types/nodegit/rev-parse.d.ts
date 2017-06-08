@@ -3,7 +3,7 @@ import { Repository } from './repository';
 import { Reference } from './reference';
 
 export namespace Revparse {
-    enum MODE {
+    const enum MODE {
         SINGLE = 1,
         RANGE = 2,
         MERGE_BASE = 4

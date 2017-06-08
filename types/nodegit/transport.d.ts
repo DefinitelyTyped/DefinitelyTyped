@@ -2,7 +2,7 @@ import { Remote } from './remote';
 import { Strarray } from './str-array';
 
 export namespace Transport {
-    enum FLAGS {
+    const enum FLAGS {
         NONE = 0
     }
 }

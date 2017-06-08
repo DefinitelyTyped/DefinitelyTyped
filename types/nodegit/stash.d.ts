@@ -4,12 +4,12 @@ import { Oid } from './oid';
 import { CheckoutOptions } from './checkout-options';
 
 export namespace Stash {
-    enum APPLY_FLAGS {
+    const enum APPLY_FLAGS {
         APPLY_DEFAULT = 0,
         APPLY_REINSTATE_INDEX = 1
     }
 
-    enum APPLY_PROGRESS {
+    const enum APPLY_PROGRESS {
         NONE = 0,
         LOADING_STASH = 1,
         ANALYZE_INDEX = 2,
@@ -20,7 +20,7 @@ export namespace Stash {
         DONE = 7
     }
 
-    enum FLAGS {
+    const enum FLAGS {
         DEFAULT = 0,
         KEEP_INDEX = 1,
         INCLUDE_UNTRACKED = 2,

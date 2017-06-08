@@ -2,7 +2,7 @@ import { Repository } from './repository';
 import { CloneOptions } from './clone-options';
 
 export namespace Clone {
-    enum LOCAL {
+    const enum LOCAL {
         AUTO = 0,
         LOCAL = 1,
         NO_LOCAL = 2,

@@ -6,7 +6,7 @@ import { Index } from './index';
 import { Strarray } from './str-array';
 
 export namespace Pathspec {
-    enum FLAG {
+    const enum FLAG {
         DEFAULT = 0,
         IGNORE_CASE = 1,
         USE_CASE = 2,

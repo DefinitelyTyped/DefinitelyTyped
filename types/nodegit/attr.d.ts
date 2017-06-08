@@ -1,7 +1,7 @@
 import { Repository } from './repository';
 
 export namespace Attr {
-    enum STATES {
+    const enum STATES {
         UNSPECIFIED_T = 0,
         TRUE_T = 1,
         FALSE_T = 2,

@@ -3,14 +3,14 @@ import { Oid } from './oid';
 import { Object } from './object';
 
 export namespace Reference {
-    enum TYPE {
+    const enum TYPE {
         INVALID = 0,
         OID = 1,
         SYMBOLIC = 2,
         LISTALL = 3
     }
 
-    enum NORMALIZE {
+    const enum NORMALIZE {
         REF_FORMAT_NORMAL = 0,
         REF_FORMAT_ALLOW_ONELEVEL = 1,
         REF_FORMAT_REFSPEC_PATTERN = 2,

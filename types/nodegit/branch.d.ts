@@ -4,7 +4,7 @@ import { Commit } from './commit';
 import { AnnotatedCommit } from './annotated-commit';
 
 export namespace Branch {
-    enum BRANCH {
+    const enum BRANCH {
         LOCAL = 1,
         REMOTE = 2,
         ALL = 3

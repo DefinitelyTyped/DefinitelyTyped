@@ -5,12 +5,12 @@ import { Blob } from './blob';
 import { Buf } from './buf';
 
 export namespace Filter {
-    enum FLAG {
+    const enum FLAG {
         DEFAULT = 0,
         ALLOW_UNSAFE = 1
     }
 
-    enum MODE {
+    const enum MODE {
         TO_WORKTREE = 0,
         SMUDGE = 0,
         TO_ODB = 1,

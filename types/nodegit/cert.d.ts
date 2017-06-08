@@ -1,12 +1,12 @@
 export namespace Cert {
-    enum TYPE {
+    const enum TYPE {
         NONE = 0,
         X509 = 1,
         HOSTKEY_LIBSSH2 = 2,
         STRARRAY = 3
     }
 
-    enum SSH {
+    const enum SSH {
         MD5 = 1,
         SHA1 = 2
     }

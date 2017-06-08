@@ -10,7 +10,7 @@ import { MergeOptions } from './merge-options';
 import { MergeFileInput } from './merge-file-input';
 
 export namespace Merge {
-    enum ANALYSIS {
+    const enum ANALYSIS {
         NONE = 0,
         NORMAL = 1,
         UP_TO_DATE = 2,
@@ -18,14 +18,14 @@ export namespace Merge {
         UNBORN = 8
     }
 
-    enum FILE_FAVOR {
+    const enum FILE_FAVOR {
         NORMAL = 0,
         OURS = 1,
         THEIRS = 2,
         UNION = 3
     }
 
-    enum FILE_FLAGS {
+    const enum FILE_FLAGS {
         FILE_DEFAULT = 0,
         FILE_STYLE_MERGE = 1,
         FILE_STYLE_DIFF3 = 2,
@@ -37,13 +37,13 @@ export namespace Merge {
         FILE_DIFF_MINIMAL = 128
     }
 
-    enum PREFERENCE {
+    const enum PREFERENCE {
         NONE = 0,
         NO_FASTFORWARD = 1,
         FASTFORWARD_ONLY = 2
     }
 
-    enum TREE_FLAG {
+    const enum TREE_FLAG {
         TREE_FIND_RENAMES = 1
     }
 }
