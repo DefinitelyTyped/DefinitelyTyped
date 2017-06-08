@@ -48,6 +48,6 @@ result = Git.Attr.value("attr");
 
 const blameOptions = new Git.BlameOptions();
 
-Git.Branch.lookup(repo, "branch_name", Git.Branch.BRANCH.LOCAL).then(function (reference) {
+Git.Branch.lookup(repo, "branch_name", Git.Branch.BRANCH.LOCAL).then((reference) => {
     // Use reference
 });
