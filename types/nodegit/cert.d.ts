@@ -13,5 +13,11 @@ export namespace Cert {
 }
 
 export class Cert {
+    /**
+     *
+     *
+     * @type {Cert.TYPE}
+     * @memberof Cert
+     */
     certType: Cert.TYPE;
 }
