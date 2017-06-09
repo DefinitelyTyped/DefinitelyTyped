@@ -1,0 +1,658 @@
+{
+    "packages": [
+        {
+            "libraryName": "ajv",
+            "typingsPackageName": "ajv",
+            "sourceRepoURL": "https://github.com/epoberezkin/ajv",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "antd",
+            "typingsPackageName": "antd",
+            "sourceRepoURL": "https://github.com/ant-design/ant-design",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "anydb-sql",
+            "typingsPackageName": "anydb-sql",
+            "sourceRepoURL": "https://github.com/doxout/anydb-sql",
+            "asOfVersion": "0.6.46"
+        },
+        {
+            "libraryName": "Argon2",
+            "typingsPackageName": "argon2",
+            "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
+            "asOfVersion": "0.15.0"
+        },
+        {
+            "libraryName": "aws-sdk",
+            "typingsPackageName": "aws-sdk",
+            "sourceRepoURL": "https://github.com/aws/aws-sdk-js",
+            "asOfVersion": "2.7.0"
+        },
+        {
+            "libraryName": "axe-core",
+            "typingsPackageName": "axe-core",
+            "sourceRepoURL": "https://github.com/dequelabs/axe-core",
+            "asOfVersion": "2.0.7"
+        },
+        {
+            "libraryName": "axios",
+            "typingsPackageName": "axios",
+            "sourceRepoURL": "https://github.com/mzabriskie/axios",
+            "asOfVersion": "0.14.0"
+        },
+        {
+            "libraryName": "azure-mobile-apps",
+            "typingsPackageName": "azure-mobile-apps",
+            "sourceRepoURL": "https://github.com/Azure/azure-mobile-apps-node/",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "BabylonJS",
+            "typingsPackageName": "babylonjs",
+            "sourceRepoURL": "http://www.babylonjs.com/",
+            "asOfVersion": "2.4.1"
+        },
+        {
+            "libraryName": "BigInteger.js",
+            "typingsPackageName": "big-integer",
+            "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
+            "asOfVersion": "0.0.31"
+        },
+        {
+            "libraryName": "Bugsnag Browser",
+            "typingsPackageName": "bugsnag-js",
+            "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "camel-case",
+            "typingsPackageName": "camel-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/camel-case",
+            "asOfVersion": "1.2.1"
+        },
+        {
+            "libraryName": "change-case",
+            "typingsPackageName": "change-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/change-case",
+            "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "cheap-ruler",
+            "typingsPackageName": "cheap-ruler",
+            "sourceRepoURL": "https://github.com/mapbox/cheap-ruler",
+            "asOfVersion": "2.5.0"
+        },
+        {
+            "libraryName": "constant-case",
+            "typingsPackageName": "constant-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/constant-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "date-fns",
+            "typingsPackageName": "date-fns",
+            "sourceRepoURL": "https://github.com/date-fns/date-fns",
+            "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "DevExtreme",
+            "typingsPackageName": "devextreme",
+            "sourceRepoURL": "http://js.devexpress.com/",
+            "asOfVersion": "16.2.1"
+        },
+        {
+            "libraryName": "Dexie.js",
+            "typingsPackageName": "dexie",
+            "sourceRepoURL": "https://github.com/dfahlander/Dexie.js",
+            "asOfVersion": "1.3.1"
+        },
+        {
+            "libraryName": "dot-case",
+            "typingsPackageName": "dot-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "dva",
+            "typingsPackageName": "dva",
+            "sourceRepoURL": "https://github.com/dvajs/dva",
+            "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "ecmarkup",
+            "typingsPackageName": "ecmarkup",
+            "sourceRepoURL": "https://github.com/bterlson/ecmarkup",
+            "asOfVersion": "3.4.0"
+        },
+        {
+            "libraryName": "electron",
+            "typingsPackageName": "electron",
+            "sourceRepoURL": "https://github.com/electron/electron",
+            "asOfVersion": "1.6.10"
+        },
+        {
+            "libraryName": "electron-builder",
+            "typingsPackageName": "electron-builder",
+            "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
+            "asOfVersion": "2.8.0"
+        },
+        {
+            "libraryName": "EventEmitter3",
+            "typingsPackageName": "eventemitter3",
+            "sourceRepoURL": "https://github.com/primus/eventemitter3",
+            "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "express-validator",
+            "typingsPackageName": "express-validator",
+            "sourceRepoURL": "https://github.com/ctavan/express-validator",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "JSON-Patch",
+            "typingsPackageName": "fast-json-patch",
+            "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
+            "asOfVersion": "1.1.5"
+        },
+        {
+            "libraryName": "FastSimplexNoise",
+            "typingsPackageName": "fast-simplex-noise",
+            "sourceRepoURL": "https://www.npmjs.com/package/fast-simplex-noise",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "FineUploader",
+            "typingsPackageName": "fine-uploader",
+            "sourceRepoURL": "http://fineuploader.com/",
+            "asOfVersion": "5.14.0"
+        },
+        {
+            "libraryName": "gaea-model",
+            "typingsPackageName": "gaea-model",
+            "sourceRepoURL": "https://github.com/ascoders/gaea-model",
+            "asOfVersion": "0.0.0"
+        },
+        {
+            "libraryName": "github",
+            "typingsPackageName": "github",
+            "sourceRepoURL": "https://github.com/mikedeboer/node-github",
+            "asOfVersion": "7.1.0"
+        },
+        {
+            "libraryName": "gulp-typescript",
+            "typingsPackageName": "gulp-typescript",
+            "sourceRepoURL": "https://github.com/ivogabe/gulp-typescript",
+            "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "Facebook's Immutable",
+            "typingsPackageName": "immutable",
+            "sourceRepoURL": "https://github.com/facebook/immutable-js",
+            "asOfVersion": "3.8.7"
+        },
+        {
+            "libraryName": "inversify",
+            "typingsPackageName": "inversify",
+            "sourceRepoURL": "http://inversify.io",
+            "asOfVersion": "2.0.33"
+        },
+        {
+            "libraryName": "inversify-binding-decorators",
+            "typingsPackageName": "inversify-binding-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-binding-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-express-utils",
+            "typingsPackageName": "inversify-express-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-express-utils",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-inject-decorators",
+            "typingsPackageName": "inversify-inject-decorators",
+            "sourceRepoURL": "https://github.com/inversify/inversify-inject-decorators",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-logger-middleware",
+            "typingsPackageName": "inversify-logger-middleware",
+            "sourceRepoURL": "https://github.com/inversify/inversify-logger-middleware",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "inversify-restify-utils",
+            "typingsPackageName": "inversify-restify-utils",
+            "sourceRepoURL": "https://github.com/inversify/inversify-restify-utils",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "is-lower-case",
+            "typingsPackageName": "is-lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/is-lower-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "is-upper-case",
+            "typingsPackageName": "is-upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
+        },
+        {
+            "libraryName": "JSNLog",
+            "typingsPackageName": "jsnlog",
+            "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
+            "asOfVersion": "2.17.2"
+        },
+        {
+            "libraryName": "jsonschema",
+            "typingsPackageName": "jsonschema",
+            "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
+            "asOfVersion": "1.1.1"
+        },
+        {
+            "libraryName": "knockout-paging",
+            "typingsPackageName": "knockout-paging",
+            "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-paging",
+            "asOfVersion": "0.3.1"
+        },
+        {
+            "libraryName": "knockout-pre-rendered",
+            "typingsPackageName": "knockout-pre-rendered",
+            "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-pre-rendered",
+            "asOfVersion": "0.7.1"
+        },
+        {
+            "libraryName": "Linq.JS",
+            "typingsPackageName": "linq",
+            "sourceRepoURL": "https://linqjs.codeplex.com/",
+            "asOfVersion": "2.2.33"
+        },
+        {
+            "libraryName": "LinqSharp",
+            "typingsPackageName": "linqsharp",
+            "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "localforage",
+            "typingsPackageName": "localforage",
+            "sourceRepoURL": "https://github.com/localForage/localForage",
+            "asOfVersion": "0.0.34"
+        },
+        {
+            "libraryName": "lower-case",
+            "typingsPackageName": "lower-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
+            "asOfVersion": "1.1.3"
+        },
+        {
+            "libraryName": "lower-case-first",
+            "typingsPackageName": "lower-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/lower-case-first",
+            "asOfVersion": "1.0.1"
+        },
+        {
+            "libraryName": "maquette",
+            "typingsPackageName": "maquette",
+            "sourceRepoURL": "http://maquettejs.org/",
+            "asOfVersion": "2.1.6"
+        },
+        {
+            "libraryName": "mendixmodelsdk",
+            "typingsPackageName": "mendixmodelsdk",
+            "sourceRepoURL": "http://www.mendix.com",
+            "asOfVersion": "0.8.1"
+        },
+        {
+            "libraryName": "mobservable",
+            "typingsPackageName": "mobservable",
+            "sourceRepoURL": "github.com/mweststrate/mobservable",
+            "asOfVersion": "1.2.5"
+        },
+        {
+            "libraryName": "mobservable-react",
+            "typingsPackageName": "mobservable-react",
+            "sourceRepoURL": "https://github.com/mweststrate/mobservable-react",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Moment",
+            "typingsPackageName": "moment",
+            "sourceRepoURL": "https://github.com/moment/moment",
+            "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "ng-table",
+            "typingsPackageName": "ng-table",
+            "sourceRepoURL": "https://github.com/esvit/ng-table",
+            "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "Normalizr",
+            "typingsPackageName": "normalizr",
+            "sourceRepoURL": "https://github.com/paularmstrong/normalizr",
+            "asOfVersion": "2.0.18"
+        },
+        {
+            "libraryName": "Numbro",
+            "typingsPackageName": "numbro",
+            "sourceRepoURL": "https://github.com/foretagsplatsen/numbro/",
+            "asOfVersion": "1.9.3"
+        },
+        {
+            "libraryName": "Onsen UI",
+            "typingsPackageName": "onsenui",
+            "sourceRepoURL": "http://onsen.io",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "param-case",
+            "typingsPackageName": "param-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/param-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "parse5",
+            "typingsPackageName": "parse5",
+            "sourceRepoURL": "https://github.com/inikulin/parse5",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "pascal-case",
+            "typingsPackageName": "pascal-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/pascal-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "path-case",
+            "typingsPackageName": "path-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/path-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "path-to-regexp",
+            "typingsPackageName": "path-to-regexp",
+            "sourceRepoURL": "https://github.com/pillarjs/path-to-regexp",
+            "asOfVersion": "1.7.0"
+        },
+        {
+            "libraryName": "pg-promise",
+            "typingsPackageName": "pg-promise",
+            "sourceRepoURL": "https://github.com/vitaly-t/pg-promise",
+            "asOfVersion": "5.4.3"
+        },
+        {
+            "libraryName": "pixi-spine",
+            "typingsPackageName": "pixi-spine",
+            "sourceRepoURL": "https://github.com/pixijs/pixi-spine",
+            "asOfVersion": "1.4.2"
+        },
+        {
+            "libraryName": "pkcs11js",
+            "typingsPackageName": "pkcs11js",
+            "sourceRepoURL": "https://github.com/PeculiarVentures/pkcs11js",
+            "asOfVersion": "1.0.4"
+        },
+        {
+            "libraryName": "poly2tri.js",
+            "typingsPackageName": "poly2tri",
+            "sourceRepoURL": "https://github.com/r3mi/poly2tri.js",
+            "asOfVersion": "1.4.0"
+        },
+        {
+            "libraryName": "Prando",
+            "typingsPackageName": "prando",
+            "sourceRepoURL": "https://github.com/zeh/prando",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Protractor",
+            "typingsPackageName": "protractor",
+            "sourceRepoURL": "https://github.com/angular/protractor",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "Raven JS",
+            "typingsPackageName": "raven-js",
+            "sourceRepoURL": "https://github.com/getsentry/raven-js",
+            "asOfVersion": "3.10.0"
+        },
+        {
+            "libraryName": "react-day-picker",
+            "typingsPackageName": "react-day-picker",
+            "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
+            "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "Redux",
+            "typingsPackageName": "redux",
+            "sourceRepoURL": "https://github.com/reactjs/redux",
+            "asOfVersion": "3.6.0"
+        },
+        {
+            "libraryName": "redux-batched-actions",
+            "typingsPackageName": "redux-batched-actions",
+            "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
+            "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "redux-devtools-extension",
+            "typingsPackageName": "redux-devtools-extension",
+            "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
+            "asOfVersion": "2.13.2"
+        },
+        {
+            "libraryName": "redux-persist",
+            "typingsPackageName": "redux-persist",
+            "sourceRepoURL": "https://github.com/rt2zz/redux-persist",
+            "asOfVersion": "4.3.1"
+        },
+        {
+            "libraryName": "redux-persist-transform-compress",
+            "typingsPackageName": "redux-persist-transform-compress",
+            "sourceRepoURL": "https://github.com/rt2zz/redux-persist-transform-compress",
+            "asOfVersion": "4.2.0"
+        },
+        {
+            "libraryName": "redux-saga",
+            "typingsPackageName": "redux-saga",
+            "sourceRepoURL": "https://github.com/redux-saga/redux-saga",
+            "asOfVersion": "0.10.5"
+        },
+        {
+            "libraryName": "Redux Thunk",
+            "typingsPackageName": "redux-thunk",
+            "sourceRepoURL": "https://github.com/gaearon/redux-thunk",
+            "asOfVersion": "2.1.0"
+        },
+        {
+            "libraryName": "reselect",
+            "typingsPackageName": "reselect",
+            "sourceRepoURL": "https://github.com/rackt/reselect",
+            "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "rest-io",
+            "typingsPackageName": "rest-io",
+            "sourceRepoURL": "https://github.com/EnoF/rest-io",
+            "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "route-recognizer",
+            "typingsPackageName": "route-recognizer",
+            "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
+            "asOfVersion": "0.3.0"
+        },
+        {
+            "libraryName": "node-scanf",
+            "typingsPackageName": "scanf",
+            "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
+            "asOfVersion": "0.7.3"
+        },
+        {
+            "libraryName": "sendgrid",
+            "typingsPackageName": "sendgrid",
+            "sourceRepoURL": "https://github.com/sendgrid/sendgrid-nodejs",
+            "asOfVersion": "4.3.0"
+        },
+        {
+            "libraryName": "sentence-case",
+            "typingsPackageName": "sentence-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/sentence-case",
+            "asOfVersion": "1.1.3"
+        },
+        {
+            "libraryName": "Shopify Prime",
+            "typingsPackageName": "shopify-prime",
+            "sourceRepoURL": "https://github.com/nozzlegear/shopify-prime",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "SimpleSignal",
+            "typingsPackageName": "simplesignal",
+            "sourceRepoURL": "https://github.com/zeh/simplesignal",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "snake-case",
+            "typingsPackageName": "snake-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/snake-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "spotify-web-api-js",
+            "typingsPackageName": "spotify-web-api-js",
+            "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
+            "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "Sugar",
+            "typingsPackageName": "sugar",
+            "sourceRepoURL": "https://github.com/andrewplummer/Sugar",
+            "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "svg.js",
+            "typingsPackageName": "svg.js",
+            "sourceRepoURL": "http://www.svgjs.com/",
+            "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "swap-case",
+            "typingsPackageName": "swap-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/swap-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "Tabris.js",
+            "typingsPackageName": "tabris",
+            "sourceRepoURL": "http://tabrisjs.com",
+            "asOfVersion": "1.8.0"
+        },
+        {
+            "libraryName": "tcomb",
+            "typingsPackageName": "tcomb",
+            "sourceRepoURL": "http://gcanti.github.io/tcomb/guide/index.html",
+            "asOfVersion": "2.6.0"
+        },
+        {
+            "libraryName": "title-case",
+            "typingsPackageName": "title-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/title-case",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "TsMonad",
+            "typingsPackageName": "tsmonad",
+            "sourceRepoURL": "https://github.com/cbowdon/TsMonad",
+            "asOfVersion": "0.5.0"
+        },
+        {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript-services",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "typingsPackageName": "uk.co.workingedge.phonegap.plugin.istablet",
+            "sourceRepoURL": "https://github.com/dpa99c/phonegap-istablet",
+            "asOfVersion": "1.1.3"
+        },
+        {
+            "libraryName": "upper-case",
+            "typingsPackageName": "upper-case",
+            "sourceRepoURL": "https://github.com/blakeembrey/upper-case",
+            "asOfVersion": "1.1.3"
+        },
+        {
+            "libraryName": "upper-case-first",
+            "typingsPackageName": "upper-case-first",
+            "sourceRepoURL": "https://github.com/blakeembrey/upper-case-first",
+            "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "vso-node-api",
+            "typingsPackageName": "vso-node-api",
+            "sourceRepoURL": "https://github.com/Microsoft/vso-node-api",
+            "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "vuejs",
+            "typingsPackageName": "vue",
+            "sourceRepoURL": "https://github.com/vuejs/vue",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "vue-router",
+            "typingsPackageName": "vue-router",
+            "sourceRepoURL": "https://github.com/vuejs/vue-router",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "webcola",
+            "typingsPackageName": "webcola",
+            "sourceRepoURL": "https://github.com/tgdwyer/WebCola",
+            "asOfVersion": "3.2.0"
+        },
+        {
+            "libraryName": "x2js",
+            "typingsPackageName": "x2js",
+            "sourceRepoURL": "https://code.google.com/p/x2js/",
+            "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "xml-js",
+            "typingsPackageName": "xml-js",
+            "sourceRepoURL": "https://github.com/nashwaan/xml-js",
+            "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "@xmpp/jid",
+            "typingsPackageName": "xmpp-jid",
+            "sourceRepoURL": "github.com/node-xmpp/node-xmpp/",
+            "asOfVersion": "1.2.0"
+        },
+        {
+            "libraryName": "Zone.js",
+            "typingsPackageName": "zone.js",
+            "sourceRepoURL": "https://github.com/angular/zone.js",
+            "asOfVersion": "0.5.12"
+        }
+    ]
+}

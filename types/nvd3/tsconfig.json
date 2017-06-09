@@ -1,0 +1,65 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "paths": {
+            "d3": ["d3/v3"]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/boxplot.ts",
+        "test/bullet.ts",
+        "test/bulletChart.ts",
+        "test/candlestick.ts",
+        "test/candlestickChart.ts",
+        "test/cumulativeLineChart.ts",
+        "test/discreteBarChart.ts",
+        "test/donutChart.ts",
+        "test/furiousLegend.ts",
+        "test/historicalBar.ts",
+        "test/historicalBarChart.ts",
+        "test/legend.ts",
+        "test/line.ts",
+        "test/lineChart.ts",
+        "test/lineChartLogScale.ts",
+        "test/lineChartSVGResize.ts",
+        "test/linePlusBarChart.ts",
+        "test/lineWithFocusChart.ts",
+        "test/lineWithFocusChartx2AxisLabel.ts",
+        "test/monitoringChart.ts",
+        "test/multiChart.ts",
+        "test/multibarChart.ts",
+        "test/multibarChart2.ts",
+        "test/multibarHorizontalChart.ts",
+        "test/ohlc.ts",
+        "test/ohlcChart.ts",
+        "test/parallelCoordinates.ts",
+        "test/parallelCoordinatesChart.ts",
+        "test/pie.ts",
+        "test/pieChart.ts",
+        "test/scatter.ts",
+        "test/scatterChart.ts",
+        "test/scatterPlusLineChart.ts",
+        "test/sparkLine.ts",
+        "test/sparkLinePlus.ts",
+        "test/stackArea.ts",
+        "test/stackAreaChart.ts",
+        "test/sunburst.ts",
+        "test/timeSeries.ts",
+        "test/tooltip.ts"
+    ]
+}
