@@ -72,6 +72,7 @@
         "nodegit-tests.ts",
         "note.d.ts",
         "object.d.ts",
+        "odb-expand-id.d.ts",
         "odb-object.d.ts",
         "odb.d.ts",
         "oid-array.d.ts",
