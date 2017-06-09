@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../",
+    "typeRoots": ["../"],
+    "types": [],
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
+  },
+  "files": [
+    "index.d.ts",
+    "test/Ambiguous.tsx",
+    "test/Animation.tsx",
+    "test/Auth.tsx",
+    "test/Basic.tsx",
+    "test/Children.tsx",
+    "test/CustomLink.tsx",
+    "test/ModalGallery.tsx",
+    "test/NavigateWithContext.tsx",
+    "test/MemoryRouter.tsx",
+    "test/NoMatch.tsx",
+    "test/Params.tsx",
+    "test/PreventingTransitions.tsx",
+    "test/Recursive.tsx",
+    "test/RouteConfig.tsx",
+    "test/Sidebar.tsx",
+    "test/StaticRouter.tsx",
+    "test/Switch.tsx",
+    "test/WithRouter.tsx"
+  ]
+}
