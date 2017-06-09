@@ -164,7 +164,7 @@ declare class _spPageContextInfo {
     static currentUICultureName: string; // "ru-RU"
     static disableAppViews: boolean; // true
     static disableFlows: boolean; // true
-    static env: string // "prod"
+    static env: string; // "prod"
     static farmLabel: string; // "US_4_Content"
     static formDigestValue: string; // "0x5F3FE84E7EE9089C7D11DCDAFFB9E69CF8241E68B9EF071FA92CD419E878AC4F7C16E34696EFA667EFD0712FC1DF4945DDC0D09B5D23153A698A727AF076B5DE,07 Jun 2017 18:55:22 -0000"
     static formDigestTimeoutSeconds: number; // 1800
@@ -177,7 +177,7 @@ declare class _spPageContextInfo {
     static isAppWeb: boolean; // true
     static isExternalGuestUser: boolean; // true
     static isNoScriptEnabled: boolean; // true
-    static isSiteAdmin: boolean; //true
+    static isSiteAdmin: boolean; // true
     static isSPO: boolean; // true
     static isTenantDevSite: boolean; // true
     static isWebWelcomePage: boolean; // true
