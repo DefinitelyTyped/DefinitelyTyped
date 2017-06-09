@@ -52,89 +52,89 @@ export class ConvenientPatch {
     /**
      * Is this an unmodified patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isUnmodified(): Boolean;
+    isUnmodified(): boolean;
     /**
      * Is this an added patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isAdded(): Boolean;
+    isAdded(): boolean;
     /**
      * Is this a deleted patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isDeleted(): Boolean;
+    isDeleted(): boolean;
     /**
      * Is this an modified patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isModified(): Boolean;
+    isModified(): boolean;
     /**
      * Is this a renamed patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isRenamed(): Boolean;
+    isRenamed(): boolean;
     /**
      * Is this a copied patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isCopied(): Boolean;
+    isCopied(): boolean;
     /**
      * Is this an ignored patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isIgnored(): Boolean;
+    isIgnored(): boolean;
     /**
      * Is this an untracked patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isUntracked(): Boolean;
+    isUntracked(): boolean;
     /**
      * Is this a type change?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isTypeChange(): Boolean;
+    isTypeChange(): boolean;
     /**
      * Is this an undreadable patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isUnreadable(): Boolean;
+    isUnreadable(): boolean;
     /**
      * Is this a conflicted patch?
      *
-     * @returns {Boolean}
+     * @returns {boolean}
      *
      * @memberof ConvenientPatch
      */
-    isConflicted(): Boolean;
+    isConflicted(): boolean;
 }

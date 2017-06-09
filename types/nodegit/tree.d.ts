@@ -38,7 +38,7 @@ export class Tree {
     entryByIndex(i: number): TreeEntry;
     getEntry(filePath: string): TreeEntry;
     entries(): TreeEntry[];
-    walk(blobsOnly?: Boolean): NodeJS.EventEmitter;
+    walk(blobsOnly?: boolean): NodeJS.EventEmitter;
     path(): string;
     builder(): Treebuilder;
 }

@@ -14,10 +14,10 @@ export namespace TreeEntry {
 }
 
 export class TreeEntry {
-    isFile(): Boolean;
-    isTree(): Boolean;
-    isDirectory(): Boolean;
-    isBlob(): Boolean;
+    isFile(): boolean;
+    isTree(): boolean;
+    isDirectory(): boolean;
+    isBlob(): boolean;
     sha(): string;
     getTree(): Promise<Tree>;
     getBlob(): Promise<Blob>;
