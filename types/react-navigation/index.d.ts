@@ -625,3 +625,32 @@ export interface NavigationComponentProps<T> {
 
 export const TabBarTop: React.ReactElement<any>;
 export const TabBarBottom: React.ReactElement<any>;
+
+interface TransitionerProps {
+  configureTransition: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => NavigationTransitionSpec
+  navigation: NavigationProp<any, NavigationAction>
+  onTransitionEnd?: () => void
+  onTransitionStart?: () => void
+  render: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => any
+  style?: ViewStyle
+}
+
+interface TransitionerState {
+  layout: NavigationLayout
+  position: Animated.Value
+  progress: Animated.Value
+  scenes: Array<NavigationScene>
+}
+
+export class Transitioner extends React.Component<
+  TransitionerProps,
+  TransitionerState
+> {
+
+}
