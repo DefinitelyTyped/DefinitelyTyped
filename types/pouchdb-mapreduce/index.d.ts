@@ -10,6 +10,7 @@
 /* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
+    type BuiltInReducers = '_sum' | '_count' | '_stats';
     type Map<Content extends {}> = (doc: Content) => void;
     /**
      * CouchDB-style Reduction function
@@ -22,13 +23,13 @@ declare namespace PouchDB {
     interface Filter<Content extends {}, Reduction> {
         map: Map<Content>;
         // Assume that Content[] | Reduction[] is enough leverage in most cases to handle intermediate map emits
-        reduce?: Reducer<Content, Reduction> | '_sum' | '_count' | '_stats' | string;
+        reduce?: Reducer<Content, Reduction> | BuiltInReducers | string;
     }
 
     namespace Query {
         interface Options<Content extends {}, Reduction> {
             /** Reduce function, or the string name of a built-in function: '_sum', '_count', or '_stats'. */
-            reduce?: Reducer<Content, Reduction> | '_sum' | '_count' | '_stats' | boolean;
+            reduce?: Reducer<Content, Reduction> | BuiltInReducers | boolean;
             /** Include the document in each row in the doc field. */
             include_docs?: boolean;
             /** Include conflicts in the _conflicts field of a doc. */
